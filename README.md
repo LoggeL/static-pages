@@ -5,6 +5,7 @@ A growing collection of ambitious static web experiments and interface studies.
 ## Published pages
 
 1. **ShareX — The Capture Engine** — a cinematic Three.js redesign of the ShareX website.
+2. **ShareX — Afterimage Lab** — a bio-digital editorial redesign featuring original imagegen artwork.
 
 ## Local development
 
@@ -25,3 +26,4 @@ The project is a Vite multi-page app. Every experiment gets its own directory un
 
 - Gallery: <https://loggel.github.io/static-pages/>
 - ShareX redesign: <https://loggel.github.io/static-pages/designs/sharex/>
+- ShareX Afterimage Lab: <https://loggel.github.io/static-pages/designs/sharex-afterimage/>
