@@ -14,6 +14,7 @@ export default defineConfig({
         gallery: resolve(root, "index.html"),
         sharex: resolve(root, "designs/sharex/index.html"),
         sharexAfterimage: resolve(root, "designs/sharex-afterimage/index.html"),
+        sharexWin98: resolve(root, "designs/sharex-win98/index.html"),
       },
     },
   },

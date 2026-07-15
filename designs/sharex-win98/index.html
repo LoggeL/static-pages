@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#008080" />
+    <meta
+      name="description"
+      content="ShareX 98 is an unofficial interactive Windows 98-inspired website concept for the open-source screen capture tool."
+    />
+    <title>ShareX 98 — Your desktop, captured.</title>
+    <link rel="icon" href="./assets/sharex-logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="boot-screen" id="boot-screen" role="dialog" aria-label="ShareX 98 is starting">
+      <div class="boot-card">
+        <img src="./assets/sharex-logo.svg" alt="ShareX" width="96" height="96" />
+        <div>
+          <p class="boot-kicker">Microsoft Windows 98 compatible*</p>
+          <h1>ShareX <span>98</span></h1>
+          <p>Starting Capture Center...</p>
+        </div>
+        <div class="boot-progress" aria-hidden="true"><i></i></div>
+        <button class="classic-button boot-skip" id="boot-skip" type="button">Skip boot</button>
+      </div>
+      <p class="boot-footnote">*A lovingly unofficial website concept. No floppy disks were harmed.</p>
+    </div>
+
+    <main class="desktop" id="desktop" aria-label="ShareX 98 desktop">
+      <div class="wallpaper-mark" aria-hidden="true">
+        <span>YOUR DESKTOP,</span>
+        <strong>CAPTURED.</strong>
+        <i>SHAREX 98</i>
+      </div>
+
+      <nav class="desktop-icons" aria-label="Desktop shortcuts">
+        <button class="desktop-icon" type="button" data-open="sharex" data-view-target="home">
+          <span class="pixel-icon pc-icon" aria-hidden="true"><i></i></span>
+          <span>My Computer</span>
+        </button>
+        <button class="desktop-icon" type="button" data-open="sharex" data-view-target="home">
+          <img src="./assets/sharex-logo.svg" alt="" width="44" height="44" />
+          <span>ShareX</span>
+        </button>
+        <button class="desktop-icon" type="button" data-open="capture-wizard">
+          <span class="pixel-icon camera-icon" aria-hidden="true"><i></i></span>
+          <span>Capture Wizard</span>
+        </button>
+        <button class="desktop-icon" type="button" data-open="upload-queue">
+          <span class="pixel-icon upload-icon" aria-hidden="true"><i></i></span>
+          <span>My Uploads</span>
+        </button>
+        <button class="desktop-icon" type="button" data-open="sharex" data-view-target="workflows">
+          <span class="pixel-icon workflow-icon" aria-hidden="true"><i></i></span>
+          <span>Workflows</span>
+        </button>
+        <button class="desktop-icon" type="button" data-open="download-dialog">
+          <span class="pixel-icon folder-icon" aria-hidden="true"><i></i></span>
+          <span>Downloads</span>
+        </button>
+        <button class="desktop-icon" type="button" data-open="recycle-dialog">
+          <span class="pixel-icon bin-icon" aria-hidden="true"><i></i></span>
+          <span>Recycle Bin</span>
+        </button>
+      </nav>
+
+      <section
+        class="window app-window is-open is-active"
+        id="window-sharex"
+        data-window="sharex"
+        data-task-label="ShareX — Capture Center"
+        aria-label="ShareX Capture Center"
+      >
+        <div class="window__titlebar" data-drag-handle>
+          <div class="window__title">
+            <img src="./assets/sharex-logo.svg" alt="" width="18" height="18" />
+            <span>ShareX — Capture Center</span>
+          </div>
+          <div class="window__controls">
+            <button type="button" data-window-action="minimize" aria-label="Minimize ShareX">_</button>
+            <button type="button" data-window-action="maximize" aria-label="Maximize ShareX">□</button>
+            <button type="button" data-window-action="close" aria-label="Close ShareX">×</button>
+          </div>
+        </div>
+
+        <div class="app-menu" role="menubar" aria-label="Application menu">
+          <div class="menu-group">
+            <button class="menu-button" type="button" role="menuitem" aria-expanded="false"><u>F</u>ile</button>
+            <div class="menu-popup" role="menu" hidden>
+              <button type="button" role="menuitem" data-open="capture-wizard"><span>📷</span> New capture <kbd>Ctrl+N</kbd></button>
+              <button type="button" role="menuitem" data-open="download-dialog"><span>💾</span> Download ShareX</button>
+              <hr />
+              <button type="button" role="menuitem" data-window-action-external="minimize"><span></span> Exit to desktop</button>
+            </div>
+          </div>
+          <div class="menu-group">
+            <button class="menu-button" type="button" role="menuitem" aria-expanded="false"><u>C</u>apture</button>
+            <div class="menu-popup" role="menu" hidden>
+              <button type="button" role="menuitem" data-capture-direct><span>⌗</span> Region <kbd>Shift+Print</kbd></button>
+              <button type="button" role="menuitem" data-open="capture-wizard"><span>▣</span> Capture wizard</button>
+              <button type="button" role="menuitem" data-view-target="capture"><span>▶</span> Capture modes</button>
+            </div>
+          </div>
+          <div class="menu-group">
+            <button class="menu-button" type="button" role="menuitem" aria-expanded="false"><u>T</u>ools</button>
+            <div class="menu-popup" role="menu" hidden>
+              <button type="button" role="menuitem" data-open="annotation"><span>✎</span> Image editor</button>
+              <button type="button" role="menuitem" data-open="upload-queue"><span>⇧</span> Upload queue</button>
+              <button type="button" role="menuitem" data-open="properties"><span>⚙</span> Desktop properties</button>
+            </div>
+          </div>
+          <div class="menu-group">
+            <button class="menu-button" type="button" role="menuitem" aria-expanded="false"><u>W</u>orkflow</button>
+            <div class="menu-popup" role="menu" hidden>
+              <button type="button" role="menuitem" data-view-target="workflows"><span>◆</span> Workflow builder</button>
+              <button type="button" role="menuitem" data-view-target="destinations"><span>☁</span> Destinations</button>
+            </div>
+          </div>
+          <div class="menu-group">
+            <button class="menu-button" type="button" role="menuitem" aria-expanded="false"><u>H</u>elp</button>
+            <div class="menu-popup" role="menu" hidden>
+              <button type="button" role="menuitem" data-open="tip"><span>💡</span> Tip of the Day</button>
+              <a href="https://getsharex.com/docs/" target="_blank" rel="noreferrer" role="menuitem"><span>?</span> ShareX documentation</a>
+              <hr />
+              <button type="button" role="menuitem" data-open="about"><span>ⓘ</span> About ShareX 98</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="toolbar" role="toolbar" aria-label="Capture shortcuts">
+          <button type="button" title="Capture region" data-capture-direct><span class="tool-glyph region-glyph" aria-hidden="true"></span><b>Capture</b></button>
+          <button type="button" title="Open image editor" data-open="annotation"><span aria-hidden="true">✎</span><b>Annotate</b></button>
+          <button type="button" title="View upload queue" data-open="upload-queue"><span aria-hidden="true">⇧</span><b>Upload</b></button>
+          <i aria-hidden="true"></i>
+          <button type="button" title="View capture history" data-view-target="history"><span aria-hidden="true">▤</span><b>History</b></button>
+          <button type="button" title="Build a workflow" data-view-target="workflows"><span aria-hidden="true">⌘</span><b>Workflow</b></button>
+          <i aria-hidden="true"></i>
+          <button type="button" title="Download ShareX" data-open="download-dialog"><span aria-hidden="true">💾</span><b>Download</b></button>
+        </div>
+
+        <div class="app-shell">
+          <aside class="app-tree" aria-label="ShareX sections">
+            <p>SHAREX 98</p>
+            <nav>
+              <button class="tree-item is-selected" type="button" data-view="home"><span aria-hidden="true">▣</span> Capture Center</button>
+              <button class="tree-item" type="button" data-view="capture"><span aria-hidden="true">├</span> Capture modes</button>
+              <button class="tree-item" type="button" data-view="workflows"><span aria-hidden="true">├</span> Workflows</button>
+              <button class="tree-item" type="button" data-view="destinations"><span aria-hidden="true">├</span> Destinations</button>
+              <button class="tree-item" type="button" data-view="history"><span aria-hidden="true">└</span> History</button>
+            </nav>
+            <div class="tree-rule"></div>
+            <p>INTERNET</p>
+            <a href="https://getsharex.com/" target="_blank" rel="noreferrer"><span aria-hidden="true">🌐</span> Official website</a>
+            <a href="https://github.com/ShareX/ShareX" target="_blank" rel="noreferrer"><span aria-hidden="true">⌘</span> GitHub repository</a>
+            <div class="open-source-stamp"><strong>OPEN</strong><span>SOURCE</span><small>GPL-3.0</small></div>
+          </aside>
+
+          <div class="app-content">
+            <section class="app-view is-visible" data-app-view="home" aria-labelledby="welcome-title">
+              <div class="welcome-hero">
+                <div class="welcome-copy">
+                  <p class="label">WELCOME TO</p>
+                  <h2 id="welcome-title"><span>ShareX</span> 98</h2>
+                  <p class="tagline">Capture. Annotate. Upload.</p>
+                  <p class="welcome-body">
+                    The power-user screen capture workflow, reimagined for the loudest desktop ever shipped.
+                    Free, open source, and relentlessly customizable.
+                  </p>
+                  <div class="hero-actions">
+                    <button class="classic-button primary-button" type="button" data-open="capture-wizard">
+                      <span aria-hidden="true">📷</span> Take a screenshot
+                    </button>
+                    <button class="classic-button" type="button" data-open="download-dialog">
+                      <span aria-hidden="true">💾</span> Download ShareX
+                    </button>
+                  </div>
+                </div>
+                <div class="welcome-logo">
+                  <div class="logo-plate">
+                    <img src="./assets/sharex-logo.svg" alt="Official ShareX logo" width="188" height="188" />
+                  </div>
+                  <p><strong>18+</strong> destinations</p>
+                  <p><strong>80+</strong> workflow actions</p>
+                </div>
+              </div>
+
+              <div class="quick-panel">
+                <div class="group-box">
+                  <span>Quick capture</span>
+                  <div class="quick-grid">
+                    <button type="button" data-capture-direct><i aria-hidden="true">⌗</i><b>Region</b><small>Pick any area</small></button>
+                    <button type="button" data-open="capture-wizard"><i aria-hidden="true">▣</i><b>Window</b><small>Choose an app</small></button>
+                    <button type="button" data-open="capture-wizard"><i aria-hidden="true">▤</i><b>Scrolling</b><small>Capture a page</small></button>
+                    <button type="button" data-view-target="capture"><i aria-hidden="true">●</i><b>Record</b><small>GIF or video</small></button>
+                  </div>
+                </div>
+                <div class="group-box stats-box">
+                  <span>This computer can capture</span>
+                  <dl>
+                    <div><dt>Last capture</dt><dd>12 seconds ago</dd></div>
+                    <div><dt>URL copied</dt><dd class="success">Yes</dd></div>
+                    <div><dt>Today</dt><dd>27 captures</dd></div>
+                    <div><dt>Data saved</dt><dd>74.8 MB</dd></div>
+                  </dl>
+                </div>
+              </div>
+              <div class="tip-strip"><span aria-hidden="true">💡</span><strong>Pro tip:</strong> Set a hotkey once. Never break your flow again.<button type="button" data-open="tip">Next tip →</button></div>
+            </section>
+
+            <section class="app-view" data-app-view="capture" aria-labelledby="capture-title">
+              <header class="view-header">
+                <span class="view-icon" aria-hidden="true">📷</span>
+                <div><p>CAPTURE TOOLBOX</p><h2 id="capture-title">What would you like to capture?</h2></div>
+              </header>
+              <div class="capture-layout">
+                <div class="capture-options">
+                  <button class="capture-card is-picked" type="button" data-capture-mode="Region"><i aria-hidden="true">⌗</i><span><b>Region</b><small>Draw a box anywhere on screen</small></span><kbd>Shift+Print</kbd></button>
+                  <button class="capture-card" type="button" data-capture-mode="Window"><i aria-hidden="true">▣</i><span><b>Active window</b><small>Capture the focused application</small></span><kbd>Alt+Print</kbd></button>
+                  <button class="capture-card" type="button" data-capture-mode="Scrolling"><i aria-hidden="true">▤</i><span><b>Scrolling capture</b><small>Stitch a long page automatically</small></span></button>
+                  <button class="capture-card" type="button" data-capture-mode="Recording"><i aria-hidden="true">●</i><span><b>Screen recording</b><small>Record MP4, WebM, or GIF</small></span><kbd>Ctrl+Print</kbd></button>
+                </div>
+                <div class="monitor-preview">
+                  <div class="monitor-screen">
+                    <span class="selection-box" aria-hidden="true"><i>1280 × 720</i></span>
+                    <div class="preview-taskbar" aria-hidden="true"></div>
+                  </div>
+                  <div class="monitor-neck" aria-hidden="true"></div>
+                  <div class="monitor-foot" aria-hidden="true"></div>
+                  <button class="classic-button primary-button" type="button" data-open="capture-wizard">Launch Capture Wizard</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="app-view" data-app-view="workflows" aria-labelledby="workflow-title">
+              <header class="view-header">
+                <span class="view-icon" aria-hidden="true">⌘</span>
+                <div><p>AUTOMATION BUILDER</p><h2 id="workflow-title">One hotkey. The whole job.</h2></div>
+              </header>
+              <div class="workflow-canvas">
+                <div class="workflow-node source"><span>01</span><i aria-hidden="true">⌗</i><div><b>Capture region</b><small>Shift + Print Screen</small></div></div>
+                <div class="workflow-arrow" aria-hidden="true">→</div>
+                <div class="workflow-node"><span>02</span><i aria-hidden="true">✎</i><div><b>Annotate</b><small>Open image editor</small></div></div>
+                <div class="workflow-arrow" aria-hidden="true">→</div>
+                <div class="workflow-node"><span>03</span><i aria-hidden="true">⇧</i><div><b>Upload</b><small>To selected destination</small></div></div>
+                <div class="workflow-arrow" aria-hidden="true">→</div>
+                <div class="workflow-node finish"><span>04</span><i aria-hidden="true">✓</i><div><b>Copy URL</b><small>Ready to paste</small></div></div>
+              </div>
+              <fieldset class="task-checklist">
+                <legend>After capture tasks</legend>
+                <label><input type="checkbox" checked /> Add image effects / watermark</label>
+                <label><input type="checkbox" checked /> Open in image editor</label>
+                <label><input type="checkbox" /> Save image to file</label>
+                <label><input type="checkbox" checked /> Upload image to host</label>
+                <label><input type="checkbox" checked /> Copy URL to clipboard</label>
+              </fieldset>
+              <div class="workflow-footer"><span>Estimated time saved per capture: <b>42 seconds</b></span><button class="classic-button" type="button" data-system-message="Workflow saved. Future You says thank you.">Save workflow</button></div>
+            </section>
+
+            <section class="app-view" data-app-view="destinations" aria-labelledby="destination-title">
+              <header class="view-header">
+                <span class="view-icon" aria-hidden="true">🌐</span>
+                <div><p>DESTINATION MANAGER</p><h2 id="destination-title">Send it basically anywhere.</h2></div>
+              </header>
+              <div class="destination-grid">
+                <div class="destination-list" role="listbox" aria-label="Upload destinations">
+                  <button class="is-selected" type="button" role="option" aria-selected="true"><span class="service-icon imgur">I</span><b>Imgur</b><small>Anonymous image host</small></button>
+                  <button type="button" role="option" aria-selected="false"><span class="service-icon s3">S3</span><b>Amazon S3</b><small>Your own storage</small></button>
+                  <button type="button" role="option" aria-selected="false"><span class="service-icon ftp">FTP</span><b>FTP / SFTP</b><small>Any remote server</small></button>
+                  <button type="button" role="option" aria-selected="false"><span class="service-icon local">C:</span><b>Local folder</b><small>Keep files on device</small></button>
+                  <button type="button" role="option" aria-selected="false"><span class="service-icon custom">+</span><b>Custom uploader</b><small>Bring your own API</small></button>
+                </div>
+                <div class="destination-details">
+                  <div class="server-rack" aria-hidden="true"><i></i><i></i><i></i><span>ONLINE</span></div>
+                  <h3 id="destination-name">Imgur</h3>
+                  <p id="destination-copy">Upload anonymously, then copy a direct image URL to your clipboard.</p>
+                  <dl><div><dt>Status</dt><dd class="success">Connected</dd></div><div><dt>Last upload</dt><dd>12 sec ago</dd></div><div><dt>Response</dt><dd>184 ms</dd></div></dl>
+                  <button class="classic-button" type="button" data-system-message="Connection successful. The Internet says hello.">Test connection</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="app-view" data-app-view="history" aria-labelledby="history-title">
+              <header class="view-header compact-header">
+                <span class="view-icon" aria-hidden="true">▤</span>
+                <div><p>CAPTURE ARCHIVE</p><h2 id="history-title">History</h2></div>
+                <button class="classic-button" type="button" data-capture-direct>New capture...</button>
+              </header>
+              <div class="history-table" role="table" aria-label="Recent captures">
+                <div class="history-row history-head" role="row"><span role="columnheader">Name</span><span role="columnheader">Size</span><span role="columnheader">Destination</span><span role="columnheader">Time</span></div>
+                <div class="history-row" role="row"><span role="cell"><i class="file-thumb pink" aria-hidden="true"></i> sharex-home.png</span><span role="cell">1.8 MB</span><span role="cell">Imgur</span><span role="cell">12:44 PM</span></div>
+                <div class="history-row" role="row"><span role="cell"><i class="file-thumb blue" aria-hidden="true"></i> workflow-map.png</span><span role="cell">744 KB</span><span role="cell">S3</span><span role="cell">12:39 PM</span></div>
+                <div class="history-row" role="row"><span role="cell"><i class="file-thumb yellow" aria-hidden="true"></i> bug-report.gif</span><span role="cell">3.2 MB</span><span role="cell">Local</span><span role="cell">11:08 AM</span></div>
+                <div class="history-row" role="row"><span role="cell"><i class="file-thumb green" aria-hidden="true"></i> perfect-pixel.png</span><span role="cell">984 KB</span><span role="cell">FTP</span><span role="cell">Yesterday</span></div>
+                <div id="history-new-row"></div>
+              </div>
+              <div class="history-summary"><span>4 objects</span><span>Selected: 0 bytes</span><span>All systems operational</span></div>
+            </section>
+          </div>
+        </div>
+
+        <div class="statusbar"><span>Ready</span><span>Capture profile: Daily Driver</span><span class="status-online"><i></i> Internet</span></div>
+        <span class="resize-grip" data-resize-handle aria-hidden="true"></span>
+      </section>
+
+      <section
+        class="window queue-window is-open"
+        id="window-upload-queue"
+        data-window="upload-queue"
+        data-task-label="Upload Queue"
+        aria-label="Upload Queue"
+      >
+        <div class="window__titlebar" data-drag-handle>
+          <div class="window__title"><span aria-hidden="true">⇧</span><span>Upload Queue</span></div>
+          <div class="window__controls">
+            <button type="button" data-window-action="minimize" aria-label="Minimize Upload Queue">_</button>
+            <button type="button" data-window-action="close" aria-label="Close Upload Queue">×</button>
+          </div>
+        </div>
+        <div class="queue-body">
+          <div class="queue-summary"><span><b id="queue-count">2</b> items</span><span class="connection"><i></i> Connected at 56 Kbps*</span></div>
+          <div class="upload-list" id="upload-list">
+            <div class="upload-item is-complete"><span class="upload-thumb coral" aria-hidden="true"></span><div><b>sharex-home.png</b><small>Imgur · 1.8 MB</small><div class="progress"><i style="width:100%"></i></div></div><strong>✓</strong></div>
+            <div class="upload-item is-complete"><span class="upload-thumb aqua" aria-hidden="true"></span><div><b>workflow-map.png</b><small>Amazon S3 · 744 KB</small><div class="progress"><i style="width:100%"></i></div></div><strong>✓</strong></div>
+          </div>
+          <div class="queue-actions"><button class="classic-button" type="button" data-capture-direct>Add...</button><button class="classic-button" type="button" data-system-message="Completed uploads cleared from the queue.">Clear completed</button></div>
+          <small class="queue-footnote">*The speed is a joke. The uploads are simulated.</small>
+        </div>
+      </section>
+
+      <section
+        class="window tip-window is-open"
+        id="window-tip"
+        data-window="tip"
+        data-task-label="Tip of the Day"
+        role="dialog"
+        aria-labelledby="tip-title"
+      >
+        <div class="window__titlebar" data-drag-handle>
+          <div class="window__title"><span aria-hidden="true">💡</span><span id="tip-title">Tip of the Day</span></div>
+          <div class="window__controls"><button type="button" data-window-action="close" aria-label="Close Tip of the Day">×</button></div>
+        </div>
+        <div class="tip-body">
+          <div class="bulb" aria-hidden="true"><i></i></div>
+          <div><p>Did you know...</p><strong id="tip-text">You can chain capture, annotation, upload, and URL copying into one hotkey?</strong><small id="tip-number">Tip 1 of 4</small></div>
+        </div>
+        <div class="dialog-actions"><label><input type="checkbox" checked /> Show tips at startup</label><button class="classic-button" type="button" id="next-tip">Next Tip</button><button class="classic-button" type="button" data-window-action="close">OK</button></div>
+      </section>
+
+      <section
+        class="window wizard-window"
+        id="window-capture-wizard"
+        data-window="capture-wizard"
+        data-task-label="Capture Wizard"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="wizard-title"
+        aria-hidden="true"
+      >
+        <div class="window__titlebar" data-drag-handle>
+          <div class="window__title"><span aria-hidden="true">📷</span><span id="wizard-title">ShareX Capture Wizard</span></div>
+          <div class="window__controls"><button type="button" data-window-action="close" aria-label="Close Capture Wizard">×</button></div>
+        </div>
+        <div class="wizard-banner">
+          <div><p>CAPTURE WIZARD</p><h2 id="wizard-heading">Choose what to capture</h2><small id="wizard-subtitle">Step 1 of 3</small></div>
+          <img src="./assets/sharex-logo.svg" alt="" width="82" height="82" />
+        </div>
+        <div class="wizard-pages">
+          <div class="wizard-page is-visible" data-wizard-page="0">
+            <p>Select a capture mode. You can change this later in Capture Center.</p>
+            <div class="wizard-options">
+              <label class="is-picked"><input type="radio" name="wizard-mode" value="Region" checked /><i aria-hidden="true">⌗</i><span><b>Region</b><small>Drag a box around anything</small></span></label>
+              <label><input type="radio" name="wizard-mode" value="Window" /><i aria-hidden="true">▣</i><span><b>Window</b><small>Choose an application window</small></span></label>
+              <label><input type="radio" name="wizard-mode" value="Fullscreen" /><i aria-hidden="true">▤</i><span><b>Fullscreen</b><small>Everything you can see</small></span></label>
+            </div>
+          </div>
+          <div class="wizard-page" data-wizard-page="1">
+            <p>Choose what ShareX should do immediately after the capture.</p>
+            <fieldset class="wizard-tasks">
+              <label><input type="checkbox" checked /> Open the annotation editor</label>
+              <label><input type="checkbox" checked /> Upload the finished image</label>
+              <label><input type="checkbox" checked /> Copy its URL to the clipboard</label>
+              <label><input type="checkbox" /> Also save a local backup</label>
+            </fieldset>
+          </div>
+          <div class="wizard-page" data-wizard-page="2">
+            <div class="wizard-ready"><span aria-hidden="true">✓</span><div><h3>Ready to capture!</h3><p>Mode: <b id="wizard-summary-mode">Region</b><br />Destination: <b>Imgur</b><br />Profile: <b>Daily Driver</b></p></div></div>
+            <div class="wizard-note"><strong>What happens next?</strong><p>The desktop becomes a safe simulated selection surface. No system permission is requested and nothing leaves your browser.</p></div>
+          </div>
+        </div>
+        <div class="wizard-actions"><button class="classic-button" type="button" id="wizard-cancel">Cancel</button><span></span><button class="classic-button" type="button" id="wizard-back" disabled>&lt; Back</button><button class="classic-button primary-button" type="button" id="wizard-next">Next &gt;</button></div>
+      </section>
+
+      <section
+        class="window annotation-window"
+        id="window-annotation"
+        data-window="annotation"
+        data-task-label="ShareX Image Editor"
+        role="dialog"
+        aria-labelledby="annotation-title"
+        aria-hidden="true"
+      >
+        <div class="window__titlebar" data-drag-handle>
+          <div class="window__title"><span aria-hidden="true">🎨</span><span id="annotation-title">untitled.png — ShareX Image Editor</span></div>
+          <div class="window__controls">
+            <button type="button" data-window-action="minimize" aria-label="Minimize Image Editor">_</button>
+            <button type="button" data-window-action="maximize" aria-label="Maximize Image Editor">□</button>
+            <button type="button" data-window-action="close" aria-label="Close Image Editor">×</button>
+          </div>
+        </div>
+        <div class="editor-menu"><button type="button"><u>F</u>ile</button><button type="button"><u>E</u>dit</button><button type="button"><u>V</u>iew</button><button type="button"><u>I</u>mage</button><button type="button"><u>H</u>elp</button></div>
+        <div class="editor-shell">
+          <div class="editor-tools" role="toolbar" aria-label="Annotation tools">
+            <button class="is-selected" type="button" data-tool="Arrow" aria-pressed="true" title="Arrow">↗</button>
+            <button type="button" data-tool="Rectangle" aria-pressed="false" title="Rectangle">□</button>
+            <button type="button" data-tool="Ellipse" aria-pressed="false" title="Ellipse">○</button>
+            <button type="button" data-tool="Text" aria-pressed="false" title="Text">A</button>
+            <button type="button" data-tool="Blur" aria-pressed="false" title="Blur">▒</button>
+            <button type="button" data-tool="Crop" aria-pressed="false" title="Crop">⌗</button>
+            <button type="button" data-tool="Sticker" aria-pressed="false" title="Sticker">★</button>
+            <button type="button" data-tool="Freehand" aria-pressed="false" title="Freehand">✎</button>
+          </div>
+          <div class="editor-workspace">
+            <div class="checkerboard">
+              <div class="mock-capture" id="mock-capture">
+                <div class="mock-titlebar"><span>ShareX 98</span><i></i><i></i><i></i></div>
+                <div class="mock-body"><span class="mock-logo"><img src="./assets/sharex-logo.svg" alt="" /></span><div><b>YOUR DESKTOP, CAPTURED.</b><small>One hotkey. Every workflow.</small></div></div>
+                <span class="annotation-arrow" aria-hidden="true"></span>
+                <span class="annotation-callout">Ship this!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="editor-bottom"><div class="palette" aria-label="Annotation color"><button class="red is-selected" type="button" aria-label="Red"></button><button class="yellow" type="button" aria-label="Yellow"></button><button class="blue" type="button" aria-label="Blue"></button><button class="green" type="button" aria-label="Green"></button><button class="black" type="button" aria-label="Black"></button></div><span id="editor-tool-status">Arrow tool · 1280 × 720</span><button class="classic-button primary-button" type="button" id="editor-done">Done &amp; Upload</button></div>
+      </section>
+
+      <section class="window about-window" id="window-about" data-window="about" data-task-label="About ShareX 98" role="dialog" aria-labelledby="about-title" aria-hidden="true">
+        <div class="window__titlebar" data-drag-handle><div class="window__title"><span aria-hidden="true">ⓘ</span><span id="about-title">About ShareX 98</span></div><div class="window__controls"><button type="button" data-window-action="close" aria-label="Close About dialog">×</button></div></div>
+        <div class="about-starfield">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <img src="./assets/sharex-logo.svg" alt="Official ShareX logo" width="126" height="126" />
+          <div><h2>ShareX <span>98</span></h2><p>YOUR DESKTOP, CAPTURED.</p></div>
+        </div>
+        <div class="about-copy"><p><strong>Unofficial interactive website concept</strong><br />Designed in Berlin for the strange part of the web.</p><p>ShareX itself is free and open source software for Windows.</p><small>The ShareX name and original logo belong to the ShareX project. Logo displayed unchanged.</small></div>
+        <div class="dialog-actions"><a class="classic-button" href="https://github.com/ShareX/ShareX" target="_blank" rel="noreferrer">View source ↗</a><button class="classic-button primary-button" type="button" data-window-action="close">OK</button></div>
+      </section>
+
+      <section class="window download-window" id="window-download-dialog" data-window="download-dialog" data-task-label="Download ShareX" role="dialog" aria-labelledby="download-title" aria-hidden="true">
+        <div class="window__titlebar" data-drag-handle><div class="window__title"><span aria-hidden="true">💾</span><span id="download-title">Download ShareX</span></div><div class="window__controls"><button type="button" data-window-action="close" aria-label="Close download dialog">×</button></div></div>
+        <div class="download-banner"><img src="./assets/sharex-logo.svg" alt="" width="92" height="92" /><div><p>READY TO UPGRADE?</p><h2>Get the real ShareX.</h2><span>Free · Open source · Windows</span></div></div>
+        <div class="download-options">
+          <a href="https://getsharex.com/downloads" target="_blank" rel="noreferrer"><span class="disk-art" aria-hidden="true"></span><div><b>Official installer</b><small>Recommended for most users</small></div><em>DOWNLOAD ↗</em></a>
+          <a href="https://github.com/ShareX/ShareX/releases/latest" target="_blank" rel="noreferrer"><span class="package-art" aria-hidden="true"></span><div><b>Latest GitHub release</b><small>Release notes and portable builds</small></div><em>OPEN ↗</em></a>
+        </div>
+        <p class="download-note"><span aria-hidden="true">🔒</span> These buttons open official ShareX destinations in a new tab.</p>
+        <div class="dialog-actions"><button class="classic-button" type="button" data-window-action="close">Cancel</button></div>
+      </section>
+
+      <section class="window properties-window" id="window-properties" data-window="properties" data-task-label="Display Properties" role="dialog" aria-labelledby="properties-title" aria-hidden="true">
+        <div class="window__titlebar" data-drag-handle><div class="window__title"><span aria-hidden="true">🖥</span><span id="properties-title">Display Properties</span></div><div class="window__controls"><button type="button" data-window-action="close" aria-label="Close Display Properties">×</button></div></div>
+        <div class="property-tabs" role="tablist"><button class="is-active" type="button" role="tab" aria-selected="true">Background</button><button type="button" role="tab" disabled>Screen Saver</button><button type="button" role="tab" disabled>Settings</button></div>
+        <div class="property-body"><div class="mini-monitor"><div id="wallpaper-preview"></div><i></i></div><fieldset><legend>Wallpaper</legend><label><input type="radio" name="wallpaper" value="teal" checked /> ShareX Teal</label><label><input type="radio" name="wallpaper" value="clouds" /> Internet Clouds</label><label><input type="radio" name="wallpaper" value="night" /> Midnight Capture</label></fieldset></div>
+        <div class="dialog-actions"><button class="classic-button primary-button" type="button" data-property-apply>Apply</button><button class="classic-button" type="button" data-window-action="close">Cancel</button></div>
+      </section>
+
+      <section class="window tiny-dialog" id="window-recycle-dialog" data-window="recycle-dialog" data-task-label="Recycle Bin" role="dialog" aria-labelledby="recycle-title" aria-hidden="true">
+        <div class="window__titlebar" data-drag-handle><div class="window__title"><span aria-hidden="true">🗑</span><span id="recycle-title">Recycle Bin</span></div><div class="window__controls"><button type="button" data-window-action="close" aria-label="Close Recycle Bin">×</button></div></div>
+        <div class="tiny-body"><span class="large-bin" aria-hidden="true">♻</span><div><h2>Nothing useful was deleted.</h2><p>We found one discarded bad screenshot. Restore it for comedic purposes?</p></div></div>
+        <div class="dialog-actions"><button class="classic-button" type="button" data-system-message="bad-screenshot-final-FINAL-2.png restored. Regret restored too.">Restore</button><button class="classic-button primary-button" type="button" data-window-action="close">Close</button></div>
+      </section>
+
+      <section class="window tiny-dialog" id="window-system-dialog" data-window="system-dialog" data-task-label="ShareX" role="alertdialog" aria-labelledby="system-title" aria-hidden="true">
+        <div class="window__titlebar" data-drag-handle><div class="window__title"><img src="./assets/sharex-logo.svg" alt="" width="16" height="16" /><span id="system-title">ShareX</span></div><div class="window__controls"><button type="button" data-window-action="close" aria-label="Close message">×</button></div></div>
+        <div class="tiny-body"><span class="message-icon" aria-hidden="true">i</span><p id="system-message">ShareX has performed an excellent operation and will continue running.</p></div>
+        <div class="dialog-actions"><button class="classic-button primary-button" type="button" data-window-action="close">Excellent</button></div>
+      </section>
+
+      <div class="region-overlay" id="region-overlay" role="dialog" aria-modal="true" aria-label="Select a capture region" tabindex="-1" hidden>
+        <div class="capture-hud"><span>SHAREX REGION CAPTURE</span><strong>Drag to select · Enter for demo region · Esc to cancel</strong><button type="button" id="region-cancel">Cancel</button></div>
+        <div class="region-selection" id="region-selection" hidden><span id="region-dimensions">0 × 0</span><i></i><i></i><i></i><i></i></div>
+        <div class="crosshair" id="crosshair" aria-hidden="true"></div>
+        <div class="magnifier" id="magnifier" aria-hidden="true"><span></span><b id="cursor-coordinates">0, 0</b></div>
+      </div>
+
+      <div class="desktop-context" id="desktop-context" role="menu" hidden>
+        <button type="button" role="menuitem" data-context-refresh><span></span>Refresh</button>
+        <hr />
+        <button type="button" role="menuitem" data-capture-direct><span>📷</span>New Capture</button>
+        <button type="button" role="menuitem" data-context-arrange><span>▦</span>Arrange Icons</button>
+        <hr />
+        <button type="button" role="menuitem" data-open="properties"><span>⚙</span>Properties</button>
+      </div>
+
+      <div class="tray-balloon" id="tray-balloon" role="status" aria-live="polite" hidden>
+        <button type="button" aria-label="Dismiss notification">×</button>
+        <div><img src="./assets/sharex-logo.svg" alt="" width="34" height="34" /><p><strong>Upload complete</strong><span>Your URL was copied to the clipboard.</span></p></div>
+      </div>
+
+      <nav class="start-menu" id="start-menu" aria-label="Start menu" aria-hidden="true" hidden>
+        <div class="start-rail"><span>ShareX</span><b>98</b></div>
+        <div class="start-content">
+          <div class="start-user"><img src="./assets/sharex-logo.svg" alt="" width="40" height="40" /><div><b>ShareX Power User</b><small>Ready to capture</small></div></div>
+          <button type="button" data-open="sharex" data-view-target="home"><span class="start-icon sharex-start"><img src="./assets/sharex-logo.svg" alt="" /></span><div><b>ShareX Capture Center</b><small>Capture, annotate, upload</small></div></button>
+          <button type="button" data-open="capture-wizard"><span class="start-icon">📷</span><div><b>New Capture...</b><small>Launch the Capture Wizard</small></div></button>
+          <button type="button" data-open="sharex" data-view-target="workflows"><span class="start-icon">⌘</span><div><b>Workflow Builder</b><small>Automate everything</small></div></button>
+          <button type="button" data-open="upload-queue"><span class="start-icon">⇧</span><div><b>Upload Queue</b><small>View transfer status</small></div></button>
+          <hr />
+          <button type="button" data-open="download-dialog"><span class="start-icon">💾</span><div><b>Download ShareX</b><small>Get the real application</small></div></button>
+          <button type="button" data-open="about"><span class="start-icon">ⓘ</span><div><b>About ShareX 98</b><small>Credits and legal stuff</small></div></button>
+          <hr />
+          <button type="button" data-system-message="ShareX has performed an excellent operation and will continue running."><span class="start-icon">⏻</span><div><b>Shut Down...</b><small>Nice try</small></div></button>
+        </div>
+      </nav>
+
+      <nav class="taskbar" aria-label="Windows taskbar">
+        <button class="start-button" id="start-button" type="button" aria-expanded="false" aria-controls="start-menu"><span class="windows-flag" aria-hidden="true"><i></i><i></i><i></i><i></i></span><b>Start</b></button>
+        <div class="quick-launch" aria-label="Quick launch"><button type="button" title="Capture region" data-capture-direct aria-label="Capture region">📷</button><button type="button" title="Open Capture Center" data-open="sharex" aria-label="Open Capture Center"><img src="./assets/sharex-logo.svg" alt="" width="21" height="21" /></button></div>
+        <div class="task-buttons" id="task-buttons" aria-label="Open windows"></div>
+        <div class="system-tray">
+          <button type="button" id="sound-toggle" aria-label="Mute interface sounds" aria-pressed="false" title="Sound is on"><span aria-hidden="true">🔊</span></button>
+          <span class="tray-network" title="Internet connection active" aria-label="Internet connection active"><i></i><i></i></span>
+          <button type="button" id="tray-sharex" title="ShareX is ready" aria-label="ShareX is ready"><img src="./assets/sharex-logo.svg" alt="" width="20" height="20" /></button>
+          <time id="taskbar-clock" datetime="">12:00 PM</time>
+        </div>
+      </nav>
+
+      <div class="sr-live" id="live-region" aria-live="polite" aria-atomic="true"></div>
+    </main>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
