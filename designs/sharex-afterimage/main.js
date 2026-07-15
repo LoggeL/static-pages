@@ -1,11 +1,21 @@
 import * as THREE from "three";
 import "./style.css";
+import conceptBoardUrl from "./assets/concept-board.webp?url";
+import desktopBlueprintUrl from "./assets/desktop-blueprint.webp?url";
+import mobileBlueprintUrl from "./assets/mobile-blueprint.webp?url";
 
 document.documentElement.classList.add("js");
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+const studyLinks = {
+  "footer-direction": conceptBoardUrl,
+  "footer-desktop": desktopBlueprintUrl,
+  "footer-mobile": mobileBlueprintUrl,
+};
+Object.entries(studyLinks).forEach(([id, url]) => document.getElementById(id)?.setAttribute("href", url));
 
 const safeStorage = {
   get(key) {
@@ -316,6 +326,10 @@ const toolCopy = {
   redact: "REDACT / PRIVATE PIXELS SEALED",
   number: "NUMBER / STEPS CATALOGUED",
   magnify: "MAGNIFY / DETAIL LENS ACTIVE",
+  crop: "CROP / FRAME LOCKED",
+  line: "LINE / VECTOR PATH ACTIVE",
+  text: "TEXT / LABEL LAYER ACTIVE",
+  shape: "SHAPE / SPECIMEN CONTAINED",
 };
 
 toolButtons.forEach((button) => button.addEventListener("click", () => {
@@ -327,6 +341,13 @@ toolButtons.forEach((button) => button.addEventListener("click", () => {
   });
   overlayGroups.forEach((group) => group.classList.toggle("is-active", group.dataset.overlay === tool));
   if (annotationStatus) annotationStatus.textContent = toolCopy[tool] || "TOOL ACTIVE";
+}));
+
+$$('[data-ink]').forEach((button) => button.addEventListener("click", () => {
+  const ink = button.dataset.ink || "#c8f000";
+  $$('[data-ink]').forEach((item) => item.classList.toggle("is-active", item === button));
+  annotationPlate?.style.setProperty("--annotation-ink", ink);
+  if (annotationStatus) annotationStatus.textContent = `INK / ${ink.toUpperCase()}`;
 }));
 
 const editReveal = $("#edit-reveal");
@@ -430,15 +451,6 @@ destinationButtons.forEach((button) => button.addEventListener("click", () => {
   routeMap?.classList.remove("is-routing");
   requestAnimationFrame(() => routeMap?.classList.add("is-routing"));
   window.setTimeout(() => routeMap?.classList.remove("is-routing"), motionPaused ? 40 : 760);
-}));
-
-// Keep specimen drawers readable: one open drawer at a time.
-const utilityDrawers = $$(".utility-drawer");
-utilityDrawers.forEach((drawer) => drawer.addEventListener("toggle", () => {
-  if (!drawer.open) return;
-  utilityDrawers.forEach((other) => {
-    if (other !== drawer) other.open = false;
-  });
 }));
 
 window.addEventListener("beforeunload", () => {
