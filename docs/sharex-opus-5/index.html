@@ -1,0 +1,1834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ShareX — Capture anything. Automate everything.</title>
+<meta name="description" content="ShareX concept redesign: free & open-source screen capture, file sharing and productivity tool for Windows.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   0. TOKENS & RESET
+   ============================================================ */
+:root{
+  --bg:#07080b; --bg2:#0b0d12; --panel:#101319; --panel2:#151922;
+  --ink:#e9ecf3; --dim:#8d95a7; --dimmer:#5c6376;
+  --red:#ff3d2e; --orange:#ff9d2e; --amber:#ffd166; --cyan:#3ce7ff; --green:#43e97b;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --grad:linear-gradient(120deg,#ff3d2e,#ff9d2e);
+  --grad-soft:linear-gradient(120deg,rgba(255,61,46,.18),rgba(255,157,46,.14));
+  --r:18px; --rs:12px;
+  --shadow:0 30px 80px -30px rgba(0,0,0,.9);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden; position:relative;
+}
+body::before{ /* ambient field */
+  content:""; position:fixed; inset:-20%; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(46% 38% at 18% 8%,rgba(255,61,46,.14),transparent 62%),
+    radial-gradient(40% 40% at 86% 22%,rgba(60,231,255,.09),transparent 60%),
+    radial-gradient(52% 44% at 62% 96%,rgba(255,157,46,.10),transparent 62%);
+  filter:blur(10px);
+}
+body::after{ /* grain + scanline */
+  content:""; position:fixed; inset:0; z-index:9998; pointer-events:none; opacity:.35;
+  background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,transparent 1px 3px);
+  mix-blend-mode:overlay;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+::selection{background:var(--red);color:#fff}
+.mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.wrap{width:min(1200px,92vw);margin-inline:auto;position:relative;z-index:2}
+
+/* scrollbar */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:#0a0c11}
+::-webkit-scrollbar-thumb{background:#232a36;border-radius:20px;border:2px solid #0a0c11}
+::-webkit-scrollbar-thumb:hover{background:#37404f}
+
+/* ============================================================
+   1. SHARED COMPONENTS
+   ============================================================ */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--dim);font-weight:600;
+}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red)}
+h2.h{font-size:clamp(30px,4.4vw,58px);line-height:1.02;letter-spacing:-.03em;font-weight:800;margin:16px 0 14px}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{color:var(--dim);font-size:clamp(15px,1.35vw,18px);line-height:1.65;max-width:62ch}
+section{padding:clamp(80px,10vw,150px) 0;position:relative;z-index:2}
+.sec-head{margin-bottom:52px}
+
+.btn{
+  --bgc:transparent;
+  display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:999px;
+  border:1px solid var(--line2);font-weight:600;font-size:14.5px;letter-spacing:-.01em;
+  transition:.35s var(--ease);position:relative;overflow:hidden;background:var(--bgc);white-space:nowrap;
+}
+.btn:hover{border-color:rgba(255,255,255,.35);transform:translateY(-2px)}
+.btn.primary{border-color:transparent;background:var(--grad);color:#150703;box-shadow:0 16px 40px -14px rgba(255,90,40,.85)}
+.btn.primary:hover{box-shadow:0 22px 50px -14px rgba(255,90,40,1)}
+.btn.ghost{background:rgba(255,255,255,.04)}
+.btn kbd{font-family:"JetBrains Mono",monospace;font-size:11px;padding:3px 6px;border-radius:6px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.16)}
+
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));
+  border:1px solid var(--line);border-radius:var(--r);position:relative;overflow:hidden;
+  transition:.45s var(--ease);
+}
+.card::after{ /* hover sheen */
+  content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:.45s var(--ease);
+  background:radial-gradient(340px 200px at var(--mx,50%) var(--my,0%),rgba(255,140,60,.16),transparent 70%);
+}
+.card:hover{border-color:rgba(255,255,255,.2);transform:translateY(-4px)}
+.card:hover::after{opacity:1}
+
+.chip{
+  display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);font-size:12.5px;color:var(--dim);
+}
+
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============================================================
+   2. TOP CHROME : progress + nav
+   ============================================================ */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--grad);z-index:9999;box-shadow:0 0 14px rgba(255,90,40,.8)}
+nav{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:900;
+  display:flex;align-items:center;gap:6px;padding:8px 8px 8px 16px;border-radius:999px;
+  background:rgba(11,13,18,.72);backdrop-filter:blur(20px) saturate(160%);
+  border:1px solid var(--line2);box-shadow:0 20px 50px -25px #000;
+  transition:.5s var(--ease);max-width:94vw;
+}
+nav .logo{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:-.03em;font-size:16px;padding-right:8px}
+.logomark{
+  width:24px;height:24px;border-radius:7px;background:var(--grad);display:grid;place-items:center;
+  font-size:13px;font-weight:900;color:#180703;box-shadow:0 0 18px rgba(255,90,40,.55);flex:none;
+}
+nav .links{display:flex;gap:2px}
+nav a.nl{padding:8px 13px;border-radius:999px;font-size:13.5px;color:var(--dim);transition:.3s var(--ease)}
+nav a.nl:hover{color:#fff;background:rgba(255,255,255,.07)}
+nav .nav-cta{padding:9px 16px;border-radius:999px;background:var(--grad);color:#170703;font-weight:700;font-size:13.5px}
+@media(max-width:900px){nav .links{display:none}}
+
+/* ============================================================
+   3. HERO
+   ============================================================ */
+#hero{min-height:100svh;display:grid;align-items:center;padding-top:120px;padding-bottom:60px;overflow:hidden}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+#hero .wrap{display:grid;gap:34px}
+.hero-badges{display:flex;flex-wrap:wrap;gap:8px}
+.h1-frame{position:relative;display:inline-block;padding:6px 0}
+h1{
+  font-size:clamp(42px,7.6vw,104px);line-height:.95;letter-spacing:-.045em;font-weight:900;
+  max-width:16ch;
+}
+h1 em{font-style:normal;display:inline-block;position:relative}
+h1 .l2{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brackets span{position:absolute;width:20px;height:20px;border:2px solid var(--red);opacity:.85;animation:bpulse 3s var(--ease) infinite}
+.brackets .tl{top:-14px;left:-16px;border-right:0;border-bottom:0}
+.brackets .tr{top:-14px;right:-16px;border-left:0;border-bottom:0}
+.brackets .bl{bottom:-14px;left:-16px;border-right:0;border-top:0}
+.brackets .br{bottom:-14px;right:-16px;border-left:0;border-top:0}
+@keyframes bpulse{0%,100%{opacity:.85;transform:translate(0,0)}50%{opacity:.35;transform:translate(-3px,-3px)}}
+.brackets .br,.brackets .tr{animation-name:bpulse2}
+@keyframes bpulse2{0%,100%{opacity:.85;transform:translate(0,0)}50%{opacity:.35;transform:translate(3px,3px)}}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.hero-note{display:flex;align-items:center;gap:10px;color:var(--dimmer);font-size:12.5px}
+.hero-stats{display:flex;flex-wrap:wrap;gap:34px;margin-top:8px;padding-top:26px;border-top:1px solid var(--line)}
+.hero-stats div b{display:block;font-size:26px;font-weight:800;letter-spacing:-.03em}
+.hero-stats div span{font-size:12px;color:var(--dimmer);letter-spacing:.08em;text-transform:uppercase}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.3em;color:var(--dimmer);text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:3}
+.scroll-hint i{width:1px;height:38px;background:linear-gradient(var(--red),transparent);animation:drop 2.2s infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ============================================================
+   4. CAPTURE ENGINE (overlay, magnifier, recorder, tray)
+   ============================================================ */
+body.capture-mode,body.capture-mode *{cursor:none!important}
+#capLayer{position:fixed;inset:0;z-index:9000;display:none}
+#capLayer.on{display:block}
+#capScrim{position:absolute;inset:0;background:rgba(5,6,9,.55);backdrop-filter:blur(1px) saturate(.6)}
+#capSel{position:absolute;display:none;border:1px solid rgba(255,255,255,.9);box-shadow:0 0 0 100vmax rgba(5,6,9,.62),0 0 24px rgba(255,61,46,.5);}
+#capSel::before{content:"";position:absolute;inset:0;border:1px dashed var(--orange);animation:ants .6s linear infinite}
+@keyframes ants{to{background-position:12px 0}}
+#capSel .grid3{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(255,255,255,.14) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.14) 1px,transparent 1px);background-size:33.33% 33.33%}
+.cross{position:absolute;background:rgba(255,61,46,.75);pointer-events:none}
+#crossH{left:0;width:100%;height:1px}
+#crossV{top:0;height:100%;width:1px}
+#capInfo{
+  position:absolute;padding:7px 11px;border-radius:9px;background:rgba(10,12,17,.94);border:1px solid var(--line2);
+  font-family:"JetBrains Mono",monospace;font-size:11.5px;color:#fff;white-space:nowrap;pointer-events:none;
+  box-shadow:0 12px 30px -12px #000;
+}
+#capInfo b{color:var(--orange)}
+#mag{
+  position:absolute;width:148px;height:148px;border-radius:50%;overflow:hidden;pointer-events:none;
+  border:2px solid rgba(255,255,255,.25);box-shadow:0 20px 44px -14px #000,0 0 0 4px rgba(5,6,9,.5);
+  contain:strict;background:#0a0c11;display:none;
+}
+#magInner{position:absolute;left:74px;top:74px;transform-origin:0 0;will-change:transform}
+#mag .mgrid{position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px);background-size:8px 8px}
+#mag .mx{position:absolute;left:50%;top:0;width:1px;height:100%;background:rgba(255,61,46,.9)}
+#mag .my{position:absolute;top:50%;left:0;height:1px;width:100%;background:rgba(255,61,46,.9)}
+#mag .mc{position:absolute;left:calc(50% - 4px);top:calc(50% - 4px);width:8px;height:8px;border:1px solid #fff;box-shadow:0 0 0 1px #000}
+#magHex{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-family:"JetBrains Mono",monospace;font-size:10px;background:rgba(0,0,0,.75);padding:2px 7px;border-radius:6px;display:flex;gap:6px;align-items:center}
+#magHex i{width:9px;height:9px;border-radius:3px;display:block;border:1px solid rgba(255,255,255,.4)}
+#capHelp{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);display:flex;gap:16px;align-items:center;
+  padding:10px 18px;border-radius:999px;background:rgba(10,12,17,.9);border:1px solid var(--line2);font-size:12.5px;color:var(--dim);
+}
+#capHelp kbd{font-family:"JetBrains Mono",monospace;font-size:10.5px;padding:3px 7px;border-radius:6px;background:rgba(255,255,255,.08);border:1px solid var(--line2);color:#fff;margin-right:5px}
+.shot-clone{pointer-events:none!important}
+.shot-clone *,.shot-clone *::before,.shot-clone *::after{animation:none!important;transition:none!important}
+.shot-frame{position:relative;overflow:hidden;background:var(--bg)}
+
+/* recorder */
+#recFrame{position:fixed;inset:0;z-index:8500;pointer-events:none;display:none;border:3px solid rgba(255,61,46,.85);animation:recpulse 1.6s ease-in-out infinite}
+#recFrame.on{display:block}
+@keyframes recpulse{50%{border-color:rgba(255,61,46,.32)}}
+#recBar{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:8600;display:none;
+  align-items:center;gap:14px;padding:10px 12px 10px 18px;border-radius:999px;
+  background:rgba(10,12,17,.94);border:1px solid var(--line2);box-shadow:var(--shadow);
+}
+#recBar.on{display:flex}
+#recBar .rdot{width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 12px var(--red);animation:recpulse 1.2s infinite}
+#recBar .rt{font-family:"JetBrains Mono",monospace;font-size:14px;letter-spacing:.05em}
+#recBar .wave{display:flex;gap:3px;align-items:flex-end;height:18px}
+#recBar .wave i{width:3px;background:var(--orange);border-radius:2px;animation:wv .9s ease-in-out infinite}
+@keyframes wv{0%,100%{height:4px}50%{height:18px}}
+
+/* tray */
+#tray{position:fixed;right:20px;bottom:20px;z-index:8800;display:flex;flex-direction:column-reverse;gap:12px;width:min(330px,90vw)}
+.shot{
+  background:rgba(13,16,22,.95);border:1px solid var(--line2);border-radius:16px;overflow:hidden;
+  box-shadow:var(--shadow);backdrop-filter:blur(16px);animation:slidein .55s var(--ease) both;
+}
+@keyframes slidein{from{opacity:0;transform:translateX(40px) scale(.94)}}
+.shot.out{animation:slideout .4s var(--ease) forwards}
+@keyframes slideout{to{opacity:0;transform:translateX(40px) scale(.9);height:0;margin:0}}
+.shot-head{display:flex;align-items:center;gap:9px;padding:11px 12px;font-size:12.5px;font-weight:600;border-bottom:1px solid var(--line)}
+.shot-head .pip{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+.shot-head .x{margin-left:auto;color:var(--dimmer);font-size:16px;line-height:1;padding:0 4px}
+.shot-head .x:hover{color:#fff}
+.shot-thumb{position:relative;background:#05060a;border-bottom:1px solid var(--line);cursor:zoom-in;display:grid;place-items:center;min-height:60px}
+.shot-thumb .zi{position:absolute;right:8px;bottom:8px;font-size:10px;background:rgba(0,0,0,.7);padding:3px 7px;border-radius:6px;font-family:"JetBrains Mono",monospace;color:var(--dim)}
+.tasks{list-style:none;padding:11px 13px;display:grid;gap:7px}
+.tasks li{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--dimmer);transition:.4s var(--ease)}
+.tasks li .tick{width:15px;height:15px;border-radius:5px;border:1px solid var(--line2);display:grid;place-items:center;font-size:9px;flex:none;transition:.4s var(--ease)}
+.tasks li.run{color:var(--ink)}
+.tasks li.run .tick{border-color:var(--orange);color:var(--orange);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.tasks li.done{color:var(--ink)}
+.tasks li.done .tick{background:var(--green);border-color:var(--green);color:#04220f;animation:none}
+.shot-url{display:flex;align-items:center;gap:8px;padding:10px 12px;border-top:1px solid var(--line);background:rgba(255,255,255,.02);opacity:0;transition:.5s var(--ease)}
+.shot-url.on{opacity:1}
+.shot-url code{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--orange);flex:1;overflow:hidden;text-overflow:ellipsis}
+.shot-url button{font-size:11px;padding:5px 10px;border-radius:7px;border:1px solid var(--line2);background:rgba(255,255,255,.05)}
+.shot-url button:hover{background:rgba(255,255,255,.12)}
+
+/* lightbox */
+#lightbox{position:fixed;inset:0;z-index:9500;display:none;place-items:center;background:rgba(4,5,8,.86);backdrop-filter:blur(10px);padding:5vh 4vw}
+#lightbox.on{display:grid}
+#lightbox .lbInner{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line2);box-shadow:0 50px 120px -40px #000;max-width:100%;max-height:90vh}
+#lightbox .lbBar{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(rgba(6,8,12,.9),transparent);font-size:12px;font-family:"JetBrains Mono",monospace;color:var(--dim);z-index:2}
+#lightbox .lbBar button{margin-left:auto;color:#fff;font-size:18px;line-height:1}
+
+/* ============================================================
+   5. TOOLS BENTO
+   ============================================================ */
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.bento .card{padding:22px;display:flex;flex-direction:column;gap:12px;min-height:200px}
+.b6{grid-column:span 6}.b4{grid-column:span 4}.b3{grid-column:span 3}.b8{grid-column:span 8}.b5{grid-column:span 5}.b7{grid-column:span 7}
+@media(max-width:1000px){.b6,.b4,.b3,.b8,.b5,.b7{grid-column:span 6}}
+@media(max-width:640px){.b6,.b4,.b3,.b8,.b5,.b7{grid-column:span 12}}
+.card h3{font-size:17px;font-weight:700;letter-spacing:-.02em;display:flex;align-items:center;gap:9px}
+.card p{font-size:13.5px;color:var(--dim);line-height:1.6}
+.ico{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--grad-soft);border:1px solid var(--line);font-size:15px;flex:none}
+.card .demo{margin-top:auto;position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#080a0e;min-height:96px}
+.tag{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--dimmer)}
+
+/* micro demos */
+.mini-scroll{height:120px;overflow:hidden;position:relative}
+.mini-scroll .strip{position:absolute;inset:0;animation:scrollup 7s linear infinite;display:grid;gap:6px;padding:8px}
+@keyframes scrollup{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+.mini-scroll .row{height:9px;border-radius:4px;background:linear-gradient(90deg,rgba(255,255,255,.16),rgba(255,255,255,.05))}
+.mini-scroll .row.a{width:70%}.mini-scroll .row.b{width:45%;background:linear-gradient(90deg,rgba(255,61,46,.5),transparent)}
+.mini-scroll::after{content:"";position:absolute;inset:0;background:linear-gradient(#080a0e,transparent 22%,transparent 78%,#080a0e)}
+.ocr{position:relative;height:120px;padding:12px;display:grid;gap:7px;align-content:center}
+.ocr .ln{height:8px;border-radius:3px;background:rgba(255,255,255,.12)}
+.ocr .scan{position:absolute;left:0;right:0;height:26px;background:linear-gradient(rgba(60,231,255,0),rgba(60,231,255,.25),rgba(60,231,255,0));border-top:1px solid var(--cyan);border-bottom:1px solid var(--cyan);animation:scan 2.6s var(--ease) infinite}
+@keyframes scan{0%{top:-26px}100%{top:120px}}
+.ocr .out{position:absolute;bottom:8px;left:12px;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--cyan)}
+#pickCanvas{width:100%;height:120px;display:block;cursor:crosshair}
+.pickInfo{position:absolute;left:10px;bottom:10px;display:flex;align-items:center;gap:8px;font-family:"JetBrains Mono",monospace;font-size:11px;background:rgba(0,0,0,.6);padding:4px 9px;border-radius:8px}
+.pickInfo i{width:11px;height:11px;border-radius:4px;border:1px solid rgba(255,255,255,.5)}
+.fx{position:relative;height:150px}
+.fx canvas{position:absolute;inset:0;width:100%;height:100%}
+.fx .after{filter:contrast(1.18) saturate(1.5) brightness(1.05);clip-path:inset(0 0 0 50%)}
+.fx .handle{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--orange);box-shadow:0 0 14px var(--orange);cursor:ew-resize;z-index:3}
+.fx .handle::after{content:"⇔";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--orange);color:#150703;display:grid;place-items:center;font-size:13px;font-weight:800}
+.fx .lbl{position:absolute;bottom:8px;font-size:10px;font-family:"JetBrains Mono",monospace;color:#fff;background:rgba(0,0,0,.55);padding:3px 7px;border-radius:6px;z-index:2}
+.term{padding:14px;font-family:"JetBrains Mono",monospace;font-size:11.5px;line-height:1.8;min-height:120px}
+.term .p{color:var(--green)}.term .c{color:var(--dim)}.term .o{color:var(--orange)}
+.term .cur{display:inline-block;width:7px;height:13px;background:var(--orange);vertical-align:-2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+#dropZone{min-height:120px;display:grid;place-items:center;text-align:center;padding:16px;transition:.3s var(--ease);border:1px dashed var(--line2)!important}
+#dropZone.over{background:rgba(255,157,46,.1);border-color:var(--orange)!important}
+#dropZone .dz{font-size:12.5px;color:var(--dim)}
+#qrCanvas{width:100%;height:120px;image-rendering:pixelated}
+.ruler{height:120px;position:relative;display:grid;place-items:center}
+.ruler .bar{width:80%;height:1px;background:var(--cyan);position:relative}
+.ruler .bar::before,.ruler .bar::after{content:"";position:absolute;top:-6px;width:1px;height:13px;background:var(--cyan)}
+.ruler .bar::before{left:0}.ruler .bar::after{right:0}
+.ruler .v{position:absolute;top:calc(50% - 26px);left:50%;transform:translateX(-50%);font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--cyan)}
+.ruler .ticks{position:absolute;left:10%;right:10%;top:calc(50% + 6px);height:8px;background-image:repeating-linear-gradient(90deg,rgba(60,231,255,.45) 0 1px,transparent 1px 12px)}
+
+/* ============================================================
+   6. WORKFLOW / PIPELINE
+   ============================================================ */
+.flow-shell{display:grid;grid-template-columns:340px 1fr;gap:22px;align-items:stretch}
+@media(max-width:1000px){.flow-shell{grid-template-columns:1fr}}
+.tasklist{padding:20px;display:flex;flex-direction:column;gap:8px}
+.tasklist h4{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--dimmer);margin-bottom:8px}
+.task{
+  display:flex;align-items:center;gap:11px;padding:11px 13px;border-radius:12px;cursor:pointer;
+  border:1px solid transparent;transition:.3s var(--ease);font-size:13.5px;
+}
+.task:hover{background:rgba(255,255,255,.04)}
+.task .sw{width:32px;height:18px;border-radius:999px;background:rgba(255,255,255,.1);position:relative;flex:none;transition:.35s var(--ease)}
+.task .sw::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#8d95a7;transition:.35s var(--ease)}
+.task.on{border-color:rgba(255,157,46,.28);background:rgba(255,157,46,.07)}
+.task.on .sw{background:var(--grad)}
+.task.on .sw::after{left:16px;background:#150703}
+.task .em{font-size:15px;width:20px;text-align:center}
+.flow-stage{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:radial-gradient(80% 90% at 50% 0%,rgba(255,157,46,.07),transparent 70%),#080a0e;min-height:430px}
+#flowCanvas{width:100%;height:430px;display:block}
+.flow-readout{
+  position:absolute;left:0;right:0;bottom:0;padding:14px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  background:linear-gradient(transparent,rgba(6,8,12,.92) 40%);font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--dim);
+}
+.flow-readout .st{color:var(--orange)}
+.flow-readout .arw{color:var(--dimmer)}
+.flow-run{position:absolute;top:14px;right:14px;display:flex;gap:8px;z-index:3}
+.pill-btn{padding:8px 15px;border-radius:999px;border:1px solid var(--line2);background:rgba(10,12,17,.8);font-size:12.5px;font-weight:600;transition:.3s var(--ease)}
+.pill-btn:hover{background:rgba(255,255,255,.1)}
+.pill-btn.go{background:var(--grad);color:#150703;border-color:transparent}
+
+/* ============================================================
+   7. ANNOTATION EDITOR
+   ============================================================ */
+.editor{border-radius:var(--r);border:1px solid var(--line);overflow:hidden;background:var(--panel);box-shadow:var(--shadow)}
+.ed-bar{display:flex;align-items:center;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--panel2);flex-wrap:wrap}
+.ed-bar .dots{display:flex;gap:6px;margin-right:8px}
+.ed-bar .dots i{width:11px;height:11px;border-radius:50%;display:block}
+.tool{width:38px;height:34px;border-radius:9px;display:grid;place-items:center;border:1px solid transparent;color:var(--dim);transition:.25s var(--ease);font-size:15px}
+.tool:hover{background:rgba(255,255,255,.07);color:#fff}
+.tool.on{background:var(--grad);color:#150703;border-color:transparent}
+.ed-sep{width:1px;height:22px;background:var(--line);margin:0 6px}
+.swatch{width:20px;height:20px;border-radius:6px;border:2px solid transparent;cursor:pointer;transition:.2s}
+.swatch.on{border-color:#fff;transform:scale(1.15)}
+.ed-canvas-wrap{position:relative;background:#05060a;display:grid;place-items:center;padding:18px}
+#edCanvas{max-width:100%;border-radius:10px;cursor:crosshair;box-shadow:0 20px 60px -25px #000;touch-action:none}
+.ed-foot{display:flex;align-items:center;gap:12px;padding:11px 14px;border-top:1px solid var(--line);font-size:12px;color:var(--dimmer);font-family:"JetBrains Mono",monospace;flex-wrap:wrap}
+.ed-foot .sp{margin-left:auto;display:flex;gap:8px}
+
+/* ============================================================
+   8. DESTINATIONS GLOBE
+   ============================================================ */
+.dest-shell{display:grid;grid-template-columns:1fr 380px;gap:26px;align-items:center}
+@media(max-width:1000px){.dest-shell{grid-template-columns:1fr}}
+.globe-box{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:radial-gradient(60% 60% at 50% 50%,rgba(60,231,255,.06),transparent 70%),#070910;cursor:grab}
+.globe-box:active{cursor:grabbing}
+#globeCanvas{width:100%;height:520px;display:block}
+#globeTip{
+  position:absolute;transform:translate(-50%,-140%);padding:6px 11px;border-radius:9px;background:rgba(10,12,17,.95);
+  border:1px solid var(--line2);font-size:12px;pointer-events:none;opacity:0;transition:opacity .2s;white-space:nowrap;z-index:3;
+}
+#globeTip.on{opacity:1}
+#globeTip::after{content:"";position:absolute;left:50%;bottom:-5px;width:8px;height:8px;background:inherit;border-right:1px solid var(--line2);border-bottom:1px solid var(--line2);transform:translateX(-50%) rotate(45deg)}
+.globe-hud{position:absolute;left:16px;top:16px;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--dimmer);line-height:1.7}
+.globe-hud b{color:var(--cyan)}
+.dsearch{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;border:1px solid var(--line2);background:rgba(255,255,255,.04);margin-bottom:14px}
+.dsearch input{flex:1;background:none;border:none;outline:none;color:#fff;font-size:14px;font-family:inherit}
+.dsearch input::placeholder{color:var(--dimmer)}
+.dtags{display:flex;flex-wrap:wrap;gap:7px;max-height:330px;overflow:auto;padding-right:6px}
+.dtag{padding:6px 12px;border-radius:999px;border:1px solid var(--line);font-size:12px;color:var(--dim);cursor:pointer;transition:.25s var(--ease)}
+.dtag:hover,.dtag.hit{color:#fff;border-color:var(--cyan);background:rgba(60,231,255,.1)}
+.dtag.dim{opacity:.22}
+.cat-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:11.5px;color:var(--dimmer)}
+.cat-legend span{display:flex;align-items:center;gap:6px}
+.cat-legend i{width:8px;height:8px;border-radius:50%;display:block}
+
+/* ============================================================
+   9. KEYBOARD
+   ============================================================ */
+.kb-stage{perspective:1400px;padding:20px 0 0}
+#keyboard{
+  transform:rotateX(26deg) scale(.98);transform-style:preserve-3d;transition:.6s var(--ease);
+  display:grid;gap:7px;padding:16px;border-radius:16px;
+  background:linear-gradient(180deg,#171b23,#0d1015);border:1px solid var(--line2);
+  box-shadow:0 60px 90px -50px #000,inset 0 1px 0 rgba(255,255,255,.06);
+}
+.kb-row{display:flex;gap:6px}
+.key{
+  flex-basis:0;height:44px;border-radius:8px;display:grid;place-items:center;font-size:11px;font-weight:600;color:var(--dim);
+  background:linear-gradient(180deg,#262c37,#1a1f28);border:1px solid rgba(255,255,255,.06);
+  box-shadow:0 3px 0 #0d1015,0 5px 8px -4px #000;transition:.12s ease;cursor:pointer;user-select:none;
+  transform:translateZ(0);
+}
+.key:hover{color:#fff;background:linear-gradient(180deg,#2e3543,#20262f)}
+.key.bind{color:var(--orange);background:linear-gradient(180deg,#3a2418,#241611);border-color:rgba(255,157,46,.35);box-shadow:0 3px 0 #150c07,0 0 24px -6px rgba(255,157,46,.7)}
+.key.mod.active{color:#150703;background:var(--grad);border-color:transparent;box-shadow:0 3px 0 #7a2a10}
+.key.down{transform:translateY(3px);box-shadow:0 0 0 #0d1015,0 0 22px -4px rgba(255,157,46,.9);color:#fff}
+.key.tiny{font-size:9px}
+.kb-callout{
+  display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:22px;flex-wrap:wrap;
+  padding:14px 20px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.03);
+}
+.kb-callout .combo{display:flex;gap:6px;align-items:center}
+.kb-callout .combo kbd{font-family:"JetBrains Mono",monospace;font-size:12px;padding:6px 10px;border-radius:8px;background:#1b212b;border:1px solid var(--line2);box-shadow:0 2px 0 #0d1015}
+.kb-callout .act{font-weight:700;font-size:16px;letter-spacing:-.02em}
+.kb-callout .act small{display:block;font-weight:400;font-size:12px;color:var(--dim);letter-spacing:0}
+.kb-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:26px}
+.kb-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.02);font-size:13px;cursor:pointer;transition:.3s var(--ease)}
+.kb-item:hover{border-color:var(--orange);background:rgba(255,157,46,.07)}
+.kb-item .kk{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--orange);white-space:nowrap}
+@media(max-width:780px){.kb-stage{display:none}}
+
+/* ============================================================
+   10. OPEN SOURCE / STATS / DOWNLOAD / FOOTER
+   ============================================================ */
+.os-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+@media(max-width:900px){.os-grid{grid-template-columns:1fr}}
+.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.stat{background:#0b0e13;padding:26px 22px}
+.stat b{font-size:clamp(26px,3.4vw,40px);font-weight:800;letter-spacing:-.03em;display:block;line-height:1}
+.stat span{font-size:12px;color:var(--dimmer);text-transform:uppercase;letter-spacing:.12em;margin-top:8px;display:block}
+#heat{width:100%;height:120px;display:block;border-radius:12px}
+.privacy{display:grid;gap:10px;margin-top:18px}
+.privacy div{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--dim)}
+.privacy .no{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;background:rgba(67,233,123,.12);color:var(--green);font-size:11px;flex:none}
+
+#download .dl-card{
+  border-radius:28px;padding:clamp(30px,5vw,64px);position:relative;overflow:hidden;
+  background:linear-gradient(140deg,rgba(255,61,46,.16),rgba(255,157,46,.07) 45%,rgba(255,255,255,.02));
+  border:1px solid rgba(255,157,46,.25);
+}
+#download .dl-card::before{content:"";position:absolute;inset:-60% -20% auto auto;width:70%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,90,40,.28),transparent 60%);filter:blur(30px)}
+.dl-opts{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.dl-meta{display:flex;flex-wrap:wrap;gap:22px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line);font-size:12.5px;color:var(--dimmer);font-family:"JetBrains Mono",monospace}
+footer{padding:70px 0 50px;border-top:1px solid var(--line);position:relative;z-index:2}
+.fgrid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:30px}
+@media(max-width:800px){.fgrid{grid-template-columns:1fr 1fr}}
+footer h5{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dimmer);margin-bottom:14px}
+footer a.fl{display:block;color:var(--dim);font-size:13.5px;padding:5px 0;transition:.25s}
+footer a.fl:hover{color:#fff;transform:translateX(3px)}
+.fnote{margin-top:44px;padding-top:24px;border-top:1px solid var(--line);color:var(--dimmer);font-size:12px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+
+.fallback3d{display:none;padding:30px;text-align:center;color:var(--dim);font-size:13px}
+body.no3d .fallback3d{display:block}
+body.no3d canvas.gl{display:none}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<div id="progress" class="no-shot"></div>
+
+<!-- ========================= NAV ========================= -->
+<nav class="no-shot">
+  <a href="#hero" class="logo"><span class="logomark">S</span> ShareX</a>
+  <div class="links">
+    <a class="nl" href="#tools">Features</a>
+    <a class="nl" href="#workflow">Workflow</a>
+    <a class="nl" href="#editor">Editor</a>
+    <a class="nl" href="#destinations">Destinations</a>
+    <a class="nl" href="#hotkeys">Hotkeys</a>
+  </div>
+  <button class="nav-cta" data-act="region">⌗ Capture</button>
+</nav>
+
+<!-- ========================= HERO ========================= -->
+<header id="hero">
+  <canvas id="heroCanvas" class="gl"></canvas>
+  <div class="wrap">
+    <div class="hero-badges reveal">
+      <span class="chip">● Free forever</span>
+      <span class="chip">Open source · MIT</span>
+      <span class="chip">Windows 10 / 11</span>
+      <span class="chip mono">v18.0.1</span>
+    </div>
+
+    <div class="h1-frame reveal" style="transition-delay:.08s">
+      <h1>Capture anything.<br><em class="l2">Automate everything.</em></h1>
+      <div class="brackets"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+    </div>
+
+    <p class="lede reveal" style="transition-delay:.16s">
+      ShareX turns a single keystroke into an entire pipeline — grab a region, apply effects,
+      annotate, upload to any of 80+ destinations, shorten the link and drop it on your clipboard
+      before you've let go of the key.
+    </p>
+
+    <div class="hero-cta reveal" style="transition-delay:.24s">
+      <a class="btn primary" href="#download">↓ Download for Windows</a>
+      <button class="btn ghost" data-act="region"><kbd>Ctrl</kbd><kbd>PrtSc</kbd> Capture this page</button>
+    </div>
+
+    <div class="hero-note reveal" style="transition-delay:.3s">
+      <span style="color:var(--orange)">◆</span>
+      This site is the demo: drag anywhere to region-capture the live page. Nothing leaves your browser.
+    </div>
+
+    <div class="hero-stats reveal" style="transition-delay:.36s">
+      <div><b data-count="31400" data-suffix="+">0</b><span>GitHub stars</span></div>
+      <div><b data-count="80" data-suffix="+">0</b><span>Destinations</span></div>
+      <div><b data-count="19" data-suffix=" yrs">0</b><span>In development</span></div>
+      <div><b data-count="0" data-suffix="">0</b><span>Ads · Trackers · Fees</span></div>
+    </div>
+  </div>
+  <div class="scroll-hint no-shot">scroll<i></i></div>
+</header>
+
+<!-- ========================= TOOLS BENTO ========================= -->
+<section id="tools">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The toolbox</span>
+      <h2 class="h">Thirty tools that never<br><span class="grad">ask for a subscription.</span></h2>
+      <p class="lede">Every card below is live. Poke at them.</p>
+    </div>
+
+    <div class="bento">
+      <article class="card b6 reveal">
+        <h3><span class="ico">⌗</span> Region capture</h3>
+        <p>Pixel-perfect selection with magnifier, crosshair, color sampling and snap-to-window. Try it right here — drag across the page.</p>
+        <div class="demo" style="display:grid;place-items:center;min-height:120px">
+          <button class="pill-btn go" data-act="region">Start region capture</button>
+        </div>
+      </article>
+
+      <article class="card b3 reveal">
+        <h3><span class="ico">↕</span> Scrolling capture</h3>
+        <p>Stitch a whole page into one image, automatically.</p>
+        <div class="demo mini-scroll">
+          <div class="strip">
+            <div class="row a"></div><div class="row"></div><div class="row b"></div><div class="row a"></div>
+            <div class="row"></div><div class="row b"></div><div class="row a"></div><div class="row"></div>
+            <div class="row a"></div><div class="row"></div><div class="row b"></div><div class="row a"></div>
+            <div class="row"></div><div class="row b"></div><div class="row a"></div><div class="row"></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="card b3 reveal">
+        <h3><span class="ico">◉</span> Screen recorder</h3>
+        <p>MP4 or optimised GIF, region or window, with audio.</p>
+        <div class="demo" style="display:grid;place-items:center;min-height:120px">
+          <button class="pill-btn" data-act="record">● Record this page</button>
+        </div>
+      </article>
+
+      <article class="card b4 reveal">
+        <h3><span class="ico">A</span> OCR</h3>
+        <p>Lift text out of any pixels — screenshots, videos, PDFs, error dialogs.</p>
+        <div class="demo ocr">
+          <div class="ln" style="width:82%"></div><div class="ln" style="width:64%"></div>
+          <div class="ln" style="width:74%"></div><div class="ln" style="width:40%"></div>
+          <div class="scan"></div>
+          <div class="out mono">▮ "Unhandled exception at 0x00007FF…"</div>
+        </div>
+      </article>
+
+      <article class="card b4 reveal">
+        <h3><span class="ico">◐</span> Color picker</h3>
+        <p>Sample any pixel on screen. Hover the swatch — the hex follows your cursor.</p>
+        <div class="demo" style="position:relative">
+          <canvas id="pickCanvas"></canvas>
+          <div class="pickInfo"><i id="pickSw"></i><span id="pickHex">#FF3D2E</span></div>
+        </div>
+      </article>
+
+      <article class="card b4 reveal">
+        <h3><span class="ico">✦</span> Image effects</h3>
+        <p>50+ chainable effects &amp; watermarks, applied before the upload even starts.</p>
+        <div class="demo fx" id="fxDemo">
+          <canvas class="before"></canvas>
+          <canvas class="after"></canvas>
+          <span class="lbl" style="left:8px">RAW</span>
+          <span class="lbl" style="right:8px">EFFECTS</span>
+          <div class="handle"></div>
+        </div>
+      </article>
+
+      <article class="card b5 reveal">
+        <h3><span class="ico">⌁</span> Custom uploaders</h3>
+        <p>If it speaks HTTP, ShareX can upload to it. Define request, headers and a JSON response parser.</p>
+        <div class="demo term" id="term"></div>
+      </article>
+
+      <article class="card b4 reveal">
+        <h3><span class="ico">▤</span> Drop anything</h3>
+        <p>Drag a real file onto this card — watch the workflow fire.</p>
+        <div class="demo" id="dropZone"><div class="dz">⇩<br>Drop a file to upload</div></div>
+      </article>
+
+      <article class="card b3 reveal">
+        <h3><span class="ico">▦</span> QR codes</h3>
+        <p>Encode &amp; decode, right from the tray.</p>
+        <div class="demo" style="display:grid;place-items:center"><canvas id="qrCanvas"></canvas></div>
+      </article>
+
+      <article class="card b4 reveal">
+        <h3><span class="ico">📏</span> Screen ruler</h3>
+        <p>Measure distances and element boxes in real pixels.</p>
+        <div class="demo ruler">
+          <div class="bar"><span class="ticks"></span></div>
+          <div class="v mono" id="rulerVal">— px</div>
+        </div>
+      </article>
+
+      <article class="card b4 reveal">
+        <h3><span class="ico">#</span> Hash checker</h3>
+        <p>CRC32, MD5, SHA-1/256/384/512 — verify downloads without a second app.</p>
+        <div class="demo term" style="min-height:120px">
+          <div><span class="c">SHA-256</span> <span class="o" id="hashOut">…</span></div>
+          <div><span class="c">file</span> ShareX-18.0.1-setup.exe</div>
+          <div><span class="p">✓ signature verified</span></div>
+        </div>
+      </article>
+
+      <article class="card b4 reveal">
+        <h3><span class="ico">⧉</span> And 20 more</h3>
+        <p style="color:var(--ink)">Video converter · Video thumbnailer · Image combiner · Image splitter · Image beautifier · Clipboard uploader · Folder watcher · Directory indexer · Tweet composer · Text uploader · Borderless window · Inspect window · DNS changer · Monitor test · Pin to screen</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= WORKFLOW ========================= -->
+<section id="workflow">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">After-capture tasks</span>
+      <h2 class="h">Build the pipeline.<br><span class="grad">Then forget it exists.</span></h2>
+      <p class="lede">Toggle steps on the left and watch the pipeline physically rewire itself. This is exactly how ShareX chains work — order matters, every stage is optional.</p>
+    </div>
+
+    <div class="flow-shell reveal">
+      <div class="card tasklist" id="taskList"><h4>After capture tasks</h4></div>
+      <div class="flow-stage">
+        <canvas id="flowCanvas" class="gl"></canvas>
+        <div class="fallback3d">3D unavailable — the pipeline still works, see the readout below.</div>
+        <div class="flow-run">
+          <button class="pill-btn go" id="runFlow">▶ Run pipeline</button>
+        </div>
+        <div class="flow-readout mono" id="flowReadout"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= EDITOR ========================= -->
+<section id="editor">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Image editor</span>
+      <h2 class="h">Annotate before<br><span class="grad">anyone asks "where?"</span></h2>
+      <p class="lede">A real, working slice of the ShareX annotation editor. Draw on the mock screenshot, then send it through the workflow.</p>
+    </div>
+
+    <div class="editor reveal">
+      <div class="ed-bar">
+        <div class="dots"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i></div>
+        <button class="tool on" data-tool="arrow" title="Arrow">↗</button>
+        <button class="tool" data-tool="rect" title="Rectangle">▭</button>
+        <button class="tool" data-tool="ellipse" title="Ellipse">◯</button>
+        <button class="tool" data-tool="pen" title="Freehand">✎</button>
+        <button class="tool" data-tool="mark" title="Highlighter">▤</button>
+        <button class="tool" data-tool="pixel" title="Pixelate">▩</button>
+        <button class="tool" data-tool="step" title="Step counter">①</button>
+        <span class="ed-sep"></span>
+        <span class="swatch on" data-color="#ff3d2e" style="background:#ff3d2e"></span>
+        <span class="swatch" data-color="#ff9d2e" style="background:#ff9d2e"></span>
+        <span class="swatch" data-color="#3ce7ff" style="background:#3ce7ff"></span>
+        <span class="swatch" data-color="#43e97b" style="background:#43e97b"></span>
+        <span class="swatch" data-color="#ffffff" style="background:#ffffff"></span>
+        <span class="ed-sep"></span>
+        <button class="tool" id="edUndo" title="Undo">↶</button>
+        <button class="tool" id="edClear" title="Clear">🗑</button>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <button class="pill-btn" id="edCopy">⧉ Copy</button>
+          <button class="pill-btn go" id="edUpload">↑ Upload</button>
+        </div>
+      </div>
+      <div class="ed-canvas-wrap"><canvas id="edCanvas" width="1000" height="580"></canvas></div>
+      <div class="ed-foot">
+        <span id="edStatus">tool: arrow · shapes: 0</span>
+        <span class="sp">
+          <span>1000 × 580</span><span>PNG</span><span>·</span><span>edited locally</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= DESTINATIONS ========================= -->
+<section id="destinations">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Destinations</span>
+      <h2 class="h">One capture.<br><span class="grad">Eighty-plus places to land.</span></h2>
+      <p class="lede">Drag the globe. Search to filter. Every node is a real upload destination ShareX can talk to — and if yours isn't here, write a custom uploader in five lines of JSON.</p>
+    </div>
+
+    <div class="dest-shell reveal">
+      <div class="globe-box" id="globeBox">
+        <canvas id="globeCanvas" class="gl"></canvas>
+        <div class="fallback3d">3D unavailable — browse the full destination list →</div>
+        <div id="globeTip"></div>
+        <div class="globe-hud mono">
+          DESTINATIONS <b id="destCount">0</b><br>
+          MODE <b>drag to orbit</b>
+        </div>
+      </div>
+      <div>
+        <div class="dsearch">
+          <span style="color:var(--dimmer)">⌕</span>
+          <input id="destSearch" placeholder="Search destinations… (try 'drive')" autocomplete="off">
+          <span class="mono" style="font-size:11px;color:var(--dimmer)" id="destHits"></span>
+        </div>
+        <div class="dtags" id="destTags"></div>
+        <div class="cat-legend">
+          <span><i style="background:#ff3d2e"></i>Image</span>
+          <span><i style="background:#ff9d2e"></i>File</span>
+          <span><i style="background:#3ce7ff"></i>Text</span>
+          <span><i style="background:#43e97b"></i>URL shortener</span>
+          <span><i style="background:#b98cff"></i>Other</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= HOTKEYS ========================= -->
+<section id="hotkeys">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Hotkeys</span>
+      <h2 class="h">Your muscle memory,<br><span class="grad">fully programmable.</span></h2>
+      <p class="lede">Hold <b style="color:#fff">Ctrl</b>, <b style="color:#fff">Alt</b> or <b style="color:#fff">Shift</b> on your real keyboard — the board below reacts and the action changes. Then hit the glowing key.</p>
+    </div>
+
+    <div class="kb-callout reveal" id="kbCallout">
+      <div class="combo" id="kbCombo"></div>
+      <div class="act" id="kbAct">Capture entire screen<small>Press or click PrtSc to run it on this page</small></div>
+    </div>
+
+    <div class="kb-stage reveal"><div id="keyboard"></div></div>
+
+    <div class="kb-list reveal">
+      <div class="kb-item" data-act="region"><span class="kk">Ctrl + PrtSc</span> Capture region</div>
+      <div class="kb-item" data-act="full"><span class="kk">PrtSc</span> Capture entire screen</div>
+      <div class="kb-item" data-act="window"><span class="kk">Alt + PrtSc</span> Capture active window</div>
+      <div class="kb-item" data-act="record"><span class="kk">Shift + PrtSc</span> Screen record (MP4)</div>
+      <div class="kb-item" data-act="gif"><span class="kk">Ctrl+Shift+PrtSc</span> Screen record (GIF)</div>
+      <div class="kb-item" data-act="ocr"><span class="kk">Ctrl + Shift + O</span> OCR a region</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= OPEN SOURCE ========================= -->
+<section id="open">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Open source</span>
+      <h2 class="h">No account. No cloud.<br><span class="grad">No catch.</span></h2>
+    </div>
+    <div class="os-grid reveal">
+      <div class="card" style="padding:26px">
+        <h3 style="margin-bottom:14px"><span class="ico">◇</span> 19 years of commits</h3>
+        <canvas id="heat"></canvas>
+        <div class="privacy">
+          <div><span class="no">✕</span> No ads, ever — not even a "pro" tier</div>
+          <div><span class="no">✕</span> No telemetry, no analytics, no phoning home</div>
+          <div><span class="no">✕</span> No account required to use anything</div>
+          <div><span class="no">✓</span> MIT licensed — fork it, ship it, sell it</div>
+        </div>
+      </div>
+      <div class="statgrid">
+        <div class="stat"><b data-count="31400" data-suffix="+">0</b><span>Stars</span></div>
+        <div class="stat"><b data-count="260" data-suffix="+">0</b><span>Contributors</span></div>
+        <div class="stat"><b data-count="8100" data-suffix="+">0</b><span>Commits</span></div>
+        <div class="stat"><b data-count="100" data-suffix="%">0</b><span>Free</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= DOWNLOAD ========================= -->
+<section id="download">
+  <div class="wrap">
+    <div class="dl-card reveal">
+      <span class="eyebrow">Get it</span>
+      <h2 class="h" style="max-width:14ch">Ready in about<br><span class="grad">twelve seconds.</span></h2>
+      <p class="lede">Install, press <b style="color:#fff">Ctrl + PrtSc</b>, drag a box. That's the whole onboarding.</p>
+      <div class="dl-opts">
+        <a class="btn primary" href="#">↓ Download setup · 8.6 MB</a>
+        <a class="btn ghost" href="#">Portable .zip</a>
+        <a class="btn ghost" href="#">Microsoft Store</a>
+        <a class="btn ghost" href="#">Steam</a>
+        <a class="btn ghost" href="#">⌥ winget install ShareX</a>
+      </div>
+      <div class="dl-meta">
+        <span>v18.0.1 · 2026-07-10</span><span>Windows 10 / 11 (x64, ARM64)</span><span>.NET 8 bundled</span><span>SHA-256 verified</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= FOOTER ========================= -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a href="#hero" class="logo" style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;letter-spacing:-.03em"><span class="logomark">S</span> ShareX</a>
+        <p class="lede" style="font-size:13.5px;margin-top:14px;max-width:34ch">Screen capture, file sharing and productivity — free and open source since 2007.</p>
+      </div>
+      <div><h5>Product</h5><a class="fl" href="#tools">Features</a><a class="fl" href="#workflow">Workflows</a><a class="fl" href="#destinations">Destinations</a><a class="fl" href="#download">Download</a></div>
+      <div><h5>Developers</h5><a class="fl" href="#">GitHub</a><a class="fl" href="#">Custom uploaders</a><a class="fl" href="#">Command line</a><a class="fl" href="#">Changelog</a></div>
+      <div><h5>Community</h5><a class="fl" href="#">Discord</a><a class="fl" href="#">Reddit</a><a class="fl" href="#">Donate</a><a class="fl" href="#">Report a bug</a></div>
+    </div>
+    <div class="fnote">
+      <span>Concept redesign · not affiliated with the ShareX project. Built as a single HTML file.</span>
+      <span class="mono">Press <b style="color:var(--orange)">C</b> anywhere to capture · <b style="color:var(--orange)">Esc</b> to cancel</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ========================= CAPTURE UI ========================= -->
+<div id="capLayer" class="no-shot">
+  <div id="capScrim"></div>
+  <div id="capSel"><div class="grid3"></div></div>
+  <div class="cross" id="crossH"></div>
+  <div class="cross" id="crossV"></div>
+  <div id="capInfo"></div>
+  <div id="mag">
+    <div id="magInner"></div>
+    <div class="mgrid"></div><div class="mx"></div><div class="my"></div><div class="mc"></div>
+    <div id="magHex"><i></i><span>#000000</span></div>
+  </div>
+  <div id="capHelp"><span><kbd>Drag</kbd>select region</span><span><kbd>Esc</kbd>cancel</span><span><kbd>Space</kbd>full screen</span></div>
+</div>
+<div id="recFrame" class="no-shot"></div>
+<div id="recBar" class="no-shot">
+  <span class="rdot"></span>
+  <span class="rt" id="recTime">00:00</span>
+  <span class="wave"><i style="animation-delay:0s"></i><i style="animation-delay:.1s"></i><i style="animation-delay:.2s"></i><i style="animation-delay:.3s"></i><i style="animation-delay:.15s"></i></span>
+  <button class="pill-btn go" id="recStop">■ Stop &amp; upload</button>
+</div>
+<div id="tray" class="no-shot"></div>
+<div id="lightbox" class="no-shot"><div class="lbInner"><div class="lbBar"><span id="lbName"></span><button id="lbClose">✕</button></div><div id="lbBody"></div></div></div>
+
+<script type="module">
+/* ================================================================
+   ShareX concept — everything below is dependency-light.
+   Three.js is loaded dynamically; the page degrades gracefully.
+   ================================================================ */
+const $  = (s,c=document)=>c.querySelector(s);
+const $$ = (s,c=document)=>[...c.querySelectorAll(s)];
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------------- reveal + progress + counters ---------------- */
+const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
+$$('.reveal').forEach(el=>io.observe(el));
+
+addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  $('#progress').style.width = (h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+},{passive:true});
+
+const cio = new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting) return; cio.unobserve(e.target);
+  const el=e.target, to=+el.dataset.count, sfx=el.dataset.suffix||'', t0=performance.now(), dur=1400;
+  (function tick(t){ const k=clamp((t-t0)/dur,0,1), e2=1-Math.pow(1-k,3);
+    el.textContent = Math.round(to*e2).toLocaleString()+sfx;
+    if(k<1) requestAnimationFrame(tick); })(t0);
+}),{threshold:.5});
+$$('[data-count]').forEach(el=>cio.observe(el));
+
+$$('.card').forEach(c=>c.addEventListener('pointermove',e=>{
+  const r=c.getBoundingClientRect();
+  c.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+  c.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+}));
+
+/* ================================================================
+   CAPTURE ENGINE — clones the live DOM into a "screenshot"
+   ================================================================ */
+function buildClone(){
+  const clone = document.body.cloneNode(true);
+  const origs = $$('canvas', document.body), cls = $$('canvas', clone);
+  origs.forEach((o,i)=>{
+    const c=cls[i]; if(!c) return;
+    let url=''; try{ url=o.toDataURL('image/png'); }catch(err){}
+    const img=document.createElement('img');
+    img.src=url; img.className=o.className;
+    img.setAttribute('style',(o.getAttribute('style')||''));
+    img.style.width=o.clientWidth+'px'; img.style.height=o.clientHeight+'px';
+    c.replaceWith(img);
+  });
+  $$('.no-shot',clone).forEach(n=>n.remove());
+  clone.removeAttribute('class'); clone.classList.add('shot-clone');
+  clone.style.width = document.documentElement.clientWidth+'px';
+  return clone;
+}
+/* rect is in viewport coords */
+function makeShot(rect,label){
+  const holder=document.createElement('div');
+  holder.className='shot-frame';
+  holder.style.width=rect.w+'px'; holder.style.height=rect.h+'px';
+  const inner=document.createElement('div');
+  inner.style.cssText=`position:absolute;top:0;left:0;width:${document.documentElement.clientWidth}px;transform:translate(${-rect.x}px,${-(rect.y+scrollY)}px)`;
+  inner.appendChild(buildClone());
+  holder.appendChild(inner);
+  return {holder,w:rect.w,h:rect.h,label:label||'region'};
+}
+function shotThumb(shot,maxW,maxH){
+  const s=Math.min(maxW/shot.w,maxH/shot.h,1);
+  const box=document.createElement('div');
+  box.style.cssText=`width:${Math.round(shot.w*s)}px;height:${Math.round(shot.h*s)}px;overflow:hidden;position:relative`;
+  const c=shot.holder.cloneNode(true);
+  c.style.transform=`scale(${s})`; c.style.transformOrigin='0 0';
+  box.appendChild(c); return box;
+}
+
+/* ---------------- overlay ---------------- */
+const capLayer=$('#capLayer'), capSel=$('#capSel'), capInfo=$('#capInfo'),
+      crossH=$('#crossH'), crossV=$('#crossV'), mag=$('#mag'), magInner=$('#magInner'),
+      magHex=$('#magHex');
+let capOn=false, dragging=false, sx=0, sy=0, useMag = matchMedia('(pointer:fine)').matches && !reduced;
+
+function startCapture(){
+  if(capOn) return; capOn=true;
+  document.body.classList.add('capture-mode');
+  capLayer.classList.add('on'); capSel.style.display='none';
+  if(useMag){
+    magInner.innerHTML=''; magInner.appendChild(buildClone());
+    mag.style.display='block';
+  }
+  capInfo.textContent='Drag to select a region';
+}
+function endCapture(){
+  capOn=false; dragging=false;
+  document.body.classList.remove('capture-mode');
+  capLayer.classList.remove('on'); mag.style.display='none'; magInner.innerHTML='';
+}
+function bgColorAt(x,y){
+  const els=document.elementsFromPoint(x,y);
+  for(const el of els){
+    if(el.closest('.no-shot')) continue;
+    const c=getComputedStyle(el).backgroundColor;
+    const m=c.match(/[\d.]+/g);
+    if(m && (m.length<4 || +m[3]>.5) && c!=='transparent') return `rgb(${m[0]}, ${m[1]}, ${m[2]})`;
+  }
+  return 'rgb(7, 8, 11)';
+}
+function toHex(rgb){
+  const m=rgb.match(/\d+/g)||[0,0,0];
+  return '#'+m.slice(0,3).map(v=>(+v).toString(16).padStart(2,'0')).join('').toUpperCase();
+}
+addEventListener('pointermove',e=>{
+  if(!capOn) return;
+  const x=e.clientX,y=e.clientY;
+  crossH.style.top=y+'px'; crossV.style.left=x+'px';
+  if(useMag){
+    mag.style.left=clamp(x+24,4,innerWidth-156)+'px';
+    mag.style.top =clamp(y+24,4,innerHeight-156)+'px';
+    magInner.style.transform=`scale(7) translate(${-x}px,${-(y+scrollY)}px)`;
+    const col=bgColorAt(x,y);
+    magHex.querySelector('i').style.background=col;
+    magHex.querySelector('span').textContent=toHex(col);
+  }
+  if(dragging){
+    const r={x:Math.min(sx,x),y:Math.min(sy,y),w:Math.abs(x-sx),h:Math.abs(y-sy)};
+    Object.assign(capSel.style,{display:'block',left:r.x+'px',top:r.y+'px',width:r.w+'px',height:r.h+'px'});
+    capInfo.innerHTML=`<b>${Math.round(r.w)} × ${Math.round(r.h)}</b> &nbsp;·&nbsp; ${Math.round(r.x)}, ${Math.round(r.y)}`;
+  }else{
+    capInfo.innerHTML=`<b>${x}, ${y}</b> &nbsp;·&nbsp; drag to select`;
+  }
+  capInfo.style.left=clamp(x+16,6,innerWidth-190)+'px';
+  capInfo.style.top =clamp(y-38,6,innerHeight-40)+'px';
+},{passive:true});
+
+capLayer.addEventListener('pointerdown',e=>{ dragging=true; sx=e.clientX; sy=e.clientY; capLayer.setPointerCapture(e.pointerId); });
+capLayer.addEventListener('pointerup',e=>{
+  if(!dragging) return; dragging=false;
+  const r={x:Math.min(sx,e.clientX),y:Math.min(sy,e.clientY),w:Math.abs(e.clientX-sx),h:Math.abs(e.clientY-sy)};
+  endCapture();
+  if(r.w>14&&r.h>14) pushShot(makeShot(r,'region'));
+});
+addEventListener('pointerdown',e=>{
+  if(capOn||e.button!==0) return;
+  if(e.target.closest('button,a,input,canvas,.dtag,.key,.swatch,.task,.tool,.handle,#dropZone')) return;
+  // free-drag capture anywhere on the page background
+  const px=e.clientX,py=e.clientY;
+  const move=m=>{ if(Math.hypot(m.clientX-px,m.clientY-py)>16){ cleanup(); startCapture(); dragging=true; sx=px; sy=py;
+      capLayer.dispatchEvent(new PointerEvent('pointermove',{clientX:m.clientX,clientY:m.clientY})); } };
+  const cleanup=()=>{ removeEventListener('pointermove',move); removeEventListener('pointerup',cleanup); };
+  addEventListener('pointermove',move); addEventListener('pointerup',cleanup);
+});
+
+/* ---------------- tray & after-capture workflow ---------------- */
+const tray=$('#tray');
+const codes='abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const shortCode=n=>Array.from({length:n},()=>codes[Math.random()*codes.length|0]).join('');
+
+function pushShot(shot,opts={}){
+  const el=document.createElement('div'); el.className='shot';
+  const name=opts.name||`ShareX_${new Date().toISOString().slice(0,10)}_${shortCode(4)}.png`;
+  el.innerHTML=`
+    <div class="shot-head"><span class="pip"></span>${opts.title||'Capture complete'}<button class="x">✕</button></div>
+    <div class="shot-thumb"><span class="zi">${shot?shot.w+'×'+shot.h:'—'}</span></div>
+    <ul class="tasks">
+      ${(opts.tasks||activeTaskNames()).map(t=>`<li><span class="tick">○</span>${t}</li>`).join('')}
+    </ul>
+    <div class="shot-url"><code>https://shx.gg/${shortCode(5)}</code><button>Copy</button></div>`;
+  const thumb=$('.shot-thumb',el);
+  if(shot) thumb.prepend(shotThumb(shot,306,170));
+  else if(opts.node) thumb.prepend(opts.node);
+  tray.appendChild(el);
+  while(tray.children.length>3) tray.firstElementChild.remove();
+
+  $('.x',el).onclick=()=>{ el.classList.add('out'); setTimeout(()=>el.remove(),400); };
+  thumb.onclick=()=>{ if(!shot&&!opts.node) return; openLightbox(shot,opts,name); };
+  $('.shot-url button',el).onclick=async ev=>{
+    try{ await navigator.clipboard.writeText($('code',el).textContent); }catch(e){}
+    ev.target.textContent='Copied ✓'; setTimeout(()=>ev.target.textContent='Copy',1400);
+  };
+
+  const lis=$$('.tasks li',el); let i=0;
+  (function step(){
+    if(i>=lis.length){ $('.shot-url',el).classList.add('on'); return; }
+    const li=lis[i]; li.classList.add('run'); li.querySelector('.tick').textContent='◜';
+    setTimeout(()=>{ li.classList.remove('run'); li.classList.add('done'); li.querySelector('.tick').textContent='✓'; i++; step(); }, rnd(260,620));
+  })();
+  return el;
+}
+function openLightbox(shot,opts,name){
+  const lb=$('#lightbox'), body=$('#lbBody');
+  body.innerHTML=''; $('#lbName').textContent=name;
+  if(shot){
+    const maxW=innerWidth*.9, maxH=innerHeight*.85;
+    body.appendChild(shotThumb(shot,maxW,maxH));
+  } else if(opts.node){ body.appendChild(opts.node.cloneNode(true)); }
+  lb.classList.add('on');
+}
+$('#lbClose').onclick=()=>$('#lightbox').classList.remove('on');
+$('#lightbox').onclick=e=>{ if(e.target.id==='lightbox') $('#lightbox').classList.remove('on'); };
+
+/* ---------------- actions ---------------- */
+function captureFull(){ pushShot(makeShot({x:0,y:0,w:innerWidth,h:innerHeight},'fullscreen'),{title:'Entire screen captured'}); }
+function captureWindow(){
+  const secs=$$('section,header'); let best=secs[0],bd=1e9;
+  secs.forEach(s=>{ const r=s.getBoundingClientRect(); const d=Math.abs(r.top+r.height/2-innerHeight/2); if(d<bd){bd=d;best=s;} });
+  const r=best.getBoundingClientRect();
+  const rect={x:Math.max(0,r.left+ (r.width>innerWidth?0:0)),y:Math.max(0,r.top),w:Math.min(innerWidth,r.width),h:Math.min(innerHeight-Math.max(0,r.top),r.height)};
+  pushShot(makeShot(rect,'window'),{title:'Active window captured'});
+}
+let recT=null,recStart=0,recGif=false;
+function startRec(gif){
+  recGif=gif; $('#recFrame').classList.add('on'); $('#recBar').classList.add('on'); recStart=Date.now();
+  recT=setInterval(()=>{
+    const s=(Date.now()-recStart)/1000|0;
+    $('#recTime').textContent=String(s/60|0).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+  },250);
+}
+function stopRec(){
+  clearInterval(recT); $('#recFrame').classList.remove('on'); $('#recBar').classList.remove('on');
+  const dur=Math.max(1,(Date.now()-recStart)/1000|0);
+  pushShot(makeShot({x:0,y:0,w:innerWidth,h:Math.min(innerHeight,420)},'recording'),{
+    title:(recGif?'GIF':'MP4')+` recorded · ${dur}s`,
+    tasks:['Encode '+(recGif?'GIF (optimised)':'MP4 (x264)'),'Save to Videos folder','Upload to file host','Copy URL to clipboard']
+  });
+}
+$('#recStop').onclick=stopRec;
+function ocrDemo(){
+  pushShot(makeShot({x:0,y:innerHeight*.25,w:innerWidth,h:innerHeight*.35},'ocr'),{
+    title:'OCR complete',
+    tasks:['Capture region','Run OCR engine','Copy text to clipboard']});
+}
+const ACTIONS={region:startCapture,full:captureFull,window:captureWindow,record:()=>startRec(false),gif:()=>startRec(true),ocr:ocrDemo};
+$$('[data-act]').forEach(b=>b.onclick=()=>ACTIONS[b.dataset.act]?.());
+
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'){ endCapture(); $('#lightbox').classList.remove('on'); }
+  if(e.target.matches('input,textarea')) return;
+  if(e.key==='c'||e.key==='C') startCapture();
+  if(e.key==='f'&&!e.ctrlKey) captureFull();
+  if(e.code==='Space'&&capOn){ e.preventDefault(); endCapture(); captureFull(); }
+});
+addEventListener('keyup',e=>{ if(e.code==='PrintScreen'){ runHotkey(); } });
+
+/* ================================================================
+   MICRO DEMOS
+   ================================================================ */
+/* --- color picker --- */
+(()=>{
+  const cv=$('#pickCanvas'); if(!cv) return;
+  const fit=()=>{ cv.width=cv.clientWidth*2; cv.height=cv.clientHeight*2; draw(); };
+  function draw(){
+    const g=cv.getContext('2d'), w=cv.width,h=cv.height;
+    const grd=g.createLinearGradient(0,0,w,0);
+    ['#ff3d2e','#ff9d2e','#ffd166','#43e97b','#3ce7ff','#6c8cff','#b98cff'].forEach((c,i,a)=>grd.addColorStop(i/(a.length-1),c));
+    g.fillStyle=grd; g.fillRect(0,0,w,h);
+    const v=g.createLinearGradient(0,0,0,h);
+    v.addColorStop(0,'rgba(255,255,255,.55)'); v.addColorStop(.5,'rgba(255,255,255,0)'); v.addColorStop(1,'rgba(0,0,0,.75)');
+    g.fillStyle=v; g.fillRect(0,0,w,h);
+  }
+  cv.addEventListener('pointermove',e=>{
+    const r=cv.getBoundingClientRect();
+    const d=cv.getContext('2d',{willReadFrequently:true}).getImageData((e.clientX-r.left)*2,(e.clientY-r.top)*2,1,1).data;
+    const hex='#'+[d[0],d[1],d[2]].map(v=>v.toString(16).padStart(2,'0')).join('').toUpperCase();
+    $('#pickHex').textContent=hex; $('#pickSw').style.background=hex;
+  });
+  cv.addEventListener('click',async()=>{ try{await navigator.clipboard.writeText($('#pickHex').textContent);}catch(e){}
+    const el=$('#pickHex'); const t=el.textContent; el.textContent='copied ✓'; setTimeout(()=>el.textContent=t,900); });
+  addEventListener('resize',fit); fit();
+})();
+
+/* --- fake screenshot painter (used by fx demo + editor) --- */
+function paintMockUI(g,w,h,seed=1){
+  let s=seed; const R=()=>(s=(s*16807)%2147483647)/2147483647;
+  g.fillStyle='#0b0f16'; g.fillRect(0,0,w,h);
+  const grd=g.createLinearGradient(0,0,w,h);
+  grd.addColorStop(0,'#12182300'); grd.addColorStop(1,'#1a2334');
+  g.fillStyle=grd; g.fillRect(0,0,w,h);
+  // chrome
+  g.fillStyle='#151b26'; g.fillRect(0,0,w,34);
+  ['#ff5f57','#febc2e','#28c840'].forEach((c,i)=>{ g.fillStyle=c; g.beginPath(); g.arc(20+i*18,17,5,0,7); g.fill(); });
+  g.fillStyle='#222b3a'; g.fillRect(90,10,w*.42,14);
+  // sidebar
+  g.fillStyle='#0e131c'; g.fillRect(0,34,w*.2,h-34);
+  for(let i=0;i<8;i++){ g.fillStyle=i===2?'#ff3d2e':'#232c3c'; g.fillRect(16,60+i*30,i===2?6:6,14);
+    g.fillStyle = i===2 ? '#e9ecf3' : '#2c3648'; g.fillRect(30,63+i*30,w*.2-58,8); }
+  // cards
+  for(let i=0;i<3;i++){ const x=w*.2+24+i*((w*.8-72)/3), y=60, cw=(w*.8-96)/3;
+    g.fillStyle='#141b27'; g.fillRect(x,y,cw,86);
+    g.fillStyle=['#ff3d2e','#3ce7ff','#43e97b'][i]; g.fillRect(x+14,y+16,26,4);
+    g.fillStyle='#e9ecf3'; g.font='700 26px Inter, sans-serif'; g.fillText(['1,284','92%','4.7s'][i],x+14,y+56);
+    g.fillStyle='#4b586e'; g.fillRect(x+14,y+66,cw*.5,6);
+  }
+  // chart
+  const cy=h-40, cx=w*.2+24, cw2=w*.8-48, ch=h-200;
+  g.strokeStyle='#1c2533'; g.lineWidth=1;
+  for(let i=0;i<5;i++){ const y=cy-(ch/4)*i; g.beginPath(); g.moveTo(cx,y); g.lineTo(cx+cw2,y); g.stroke(); }
+  g.beginPath(); g.moveTo(cx,cy);
+  let prev=cy-ch*.3;
+  for(let i=0;i<=28;i++){ const x=cx+cw2*(i/28); prev=clamp(prev+(R()-.5)*ch*.28,cy-ch,cy-8); g.lineTo(x,prev); }
+  g.lineTo(cx+cw2,cy); g.closePath();
+  const cg=g.createLinearGradient(0,cy-ch,0,cy);
+  cg.addColorStop(0,'rgba(255,61,46,.45)'); cg.addColorStop(1,'rgba(255,61,46,0)');
+  g.fillStyle=cg; g.fill();
+  g.strokeStyle='#ff7a3d'; g.lineWidth=2; g.stroke();
+  // fake text lines
+  g.fillStyle='#2c3648';
+  for(let i=0;i<3;i++) g.fillRect(w*.2+24,170+i*14,cw2*(.7-i*.15),7);
+}
+
+/* --- fx before/after --- */
+(()=>{
+  const box=$('#fxDemo'); if(!box) return;
+  const [b,a]=$$('canvas',box), handle=$('.handle',box);
+  const fit=()=>{ [b,a].forEach(c=>{ c.width=box.clientWidth*2; c.height=box.clientHeight*2; paintMockUI(c.getContext('2d'),c.width,c.height,7); }); };
+  let drag=false;
+  const set=x=>{ const r=box.getBoundingClientRect(); const p=clamp((x-r.left)/r.width,.05,.95);
+    handle.style.left=p*100+'%'; a.style.clipPath=`inset(0 0 0 ${p*100}%)`; };
+  box.addEventListener('pointerdown',e=>{drag=true;set(e.clientX)});
+  addEventListener('pointermove',e=>{if(drag)set(e.clientX)});
+  addEventListener('pointerup',()=>drag=false);
+  addEventListener('resize',fit); fit();
+})();
+
+/* --- terminal typing --- */
+(()=>{
+  const t=$('#term'); if(!t) return;
+  const lines=[
+    ['p','$ '],['c','sharex -w "Custom uploader" '],['o','capture.png\n'],
+    ['c','POST https://api.myhost.dev/v2/upload\n'],
+    ['c','Authorization: Bearer •••••••••••\n'],
+    ['p','200 OK  '],['c','→ parse $json:data.link$\n'],
+    ['o','https://cdn.myhost.dev/qX7f2.png  ✓ copied\n']
+  ];
+  let li=0,ci=0,html='';
+  (function type(){
+    if(li>=lines.length){ setTimeout(()=>{li=0;ci=0;html='';type();},3600); return; }
+    const [cls,txt]=lines[li];
+    html += `<span class="${cls}">${txt[ci].replace('\n','<br>')}</span>`;
+    t.innerHTML=html+'<span class="cur"></span>';
+    ci++; if(ci>=txt.length){ li++; ci=0; }
+    setTimeout(type, reduced?0:rnd(14,42));
+  })();
+})();
+
+/* --- drop zone --- */
+(()=>{
+  const dz=$('#dropZone'); if(!dz) return;
+  ['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('over')}));
+  ['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('over')}));
+  dz.addEventListener('drop',e=>{
+    const f=e.dataTransfer.files[0];
+    const node=document.createElement('div');
+    node.style.cssText='padding:20px 14px;font-family:JetBrains Mono,monospace;font-size:11.5px;color:#8d95a7;text-align:center';
+    node.innerHTML=`▤<br><b style="color:#e9ecf3">${f?f.name:'clipboard'}</b><br>${f?(f.size/1024).toFixed(1)+' KB · '+(f.type||'unknown'):''}`;
+    pushShot(null,{node,title:'File dropped',tasks:['Read file','Upload to file host','Shorten URL','Copy URL to clipboard']});
+  });
+  dz.addEventListener('click',()=>{
+    const node=document.createElement('div');
+    node.style.cssText='padding:20px 14px;font-family:JetBrains Mono,monospace;font-size:11.5px;color:#8d95a7;text-align:center';
+    node.innerHTML='▤<br><b style="color:#e9ecf3">clipboard.png</b><br>demo upload';
+    pushShot(null,{node,title:'Clipboard upload',tasks:['Read clipboard','Upload to image host','Copy URL to clipboard']});
+  });
+})();
+
+/* --- QR --- */
+(()=>{
+  const cv=$('#qrCanvas'); if(!cv) return;
+  const N=25; cv.width=N; cv.height=N;
+  const g=cv.getContext('2d');
+  function draw(){
+    g.fillStyle='#080a0e'; g.fillRect(0,0,N,N);
+    g.fillStyle='#e9ecf3';
+    const on=(x,y)=>g.fillRect(x,y,1,1);
+    for(let y=0;y<N;y++)for(let x=0;x<N;x++){ if(Math.random()>.55) on(x,y); }
+    const finder=(ox,oy)=>{ g.fillStyle='#080a0e'; g.fillRect(ox-1,oy-1,9,9);
+      g.fillStyle='#ff3d2e'; g.fillRect(ox,oy,7,7); g.fillStyle='#080a0e'; g.fillRect(ox+1,oy+1,5,5);
+      g.fillStyle='#ff3d2e'; g.fillRect(ox+2,oy+2,3,3); g.fillStyle='#e9ecf3'; };
+    finder(1,1); finder(N-8,1); finder(1,N-8);
+  }
+  draw(); if(!reduced) setInterval(draw,2600);
+})();
+
+/* --- ruler + hash --- */
+(()=>{
+  const v=$('#rulerVal'); let x=0;
+  if(v&&!reduced) setInterval(()=>{ x=(x+7)%320; v.textContent=(180+x)+' px'; },160);
+  const h=$('#hashOut'); const hx='0123456789abcdef';
+  if(h&&!reduced) setInterval(()=>{ h.textContent=Array.from({length:32},()=>hx[Math.random()*16|0]).join(''); },110);
+})();
+
+/* --- contribution heatmap --- */
+(()=>{
+  const cv=$('#heat'); if(!cv) return;
+  const fit=()=>{
+    cv.width=cv.clientWidth*2; cv.height=cv.clientHeight*2;
+    const g=cv.getContext('2d'), cols=54, rows=7, gap=cv.width*.004;
+    const s=(cv.width-gap*(cols-1))/cols, sh=(cv.height-gap*(rows-1))/rows;
+    for(let c=0;c<cols;c++)for(let r=0;r<rows;r++){
+      const v=Math.pow(Math.random(),1.7);
+      g.fillStyle = v<.12?'rgba(255,255,255,.05)':`rgba(${255-v*60|0},${100+v*80|0},${46+v*10|0},${.18+v*.8})`;
+      g.fillRect(c*(s+gap),r*(sh+gap),s,sh);
+    }
+  };
+  addEventListener('resize',fit); fit();
+})();
+
+/* ================================================================
+   ANNOTATION EDITOR
+   ================================================================ */
+const ed=(()=>{
+  const cv=$('#edCanvas'), g=cv.getContext('2d');
+  const base=document.createElement('canvas'); base.width=cv.width; base.height=cv.height;
+  paintMockUI(base.getContext('2d'),cv.width,cv.height,42);
+  let tool='arrow', color='#ff3d2e', shapes=[], cur=null, step=1;
+
+  function drawArrow(x1,y1,x2,y2,c){
+    const a=Math.atan2(y2-y1,x2-x1), L=Math.hypot(x2-x1,y2-y1), hs=clamp(L*.28,10,34);
+    g.strokeStyle=c; g.fillStyle=c; g.lineWidth=5; g.lineCap='round';
+    g.beginPath(); g.moveTo(x1,y1); g.lineTo(x2-Math.cos(a)*hs*.8,y2-Math.sin(a)*hs*.8); g.stroke();
+    g.beginPath(); g.moveTo(x2,y2);
+    g.lineTo(x2-Math.cos(a-.42)*hs,y2-Math.sin(a-.42)*hs);
+    g.lineTo(x2-Math.cos(a+.42)*hs,y2-Math.sin(a+.42)*hs);
+    g.closePath(); g.fill();
+  }
+  function drawShape(s){
+    const {x1,y1,x2,y2,c}=s, x=Math.min(x1,x2),y=Math.min(y1,y2),w=Math.abs(x2-x1),h=Math.abs(y2-y1);
+    g.save();
+    if(s.t==='arrow'){ g.shadowColor='rgba(0,0,0,.5)'; g.shadowBlur=8; drawArrow(x1,y1,x2,y2,c); }
+    else if(s.t==='rect'){ g.strokeStyle=c; g.lineWidth=4; g.shadowColor='rgba(0,0,0,.45)'; g.shadowBlur=8; g.strokeRect(x,y,w,h); }
+    else if(s.t==='ellipse'){ g.strokeStyle=c; g.lineWidth=4; g.beginPath(); g.ellipse(x+w/2,y+h/2,w/2,h/2,0,0,7); g.stroke(); }
+    else if(s.t==='mark'){ g.globalAlpha=.32; g.fillStyle=c; g.fillRect(x,y,w,h); }
+    else if(s.t==='pen'){ g.strokeStyle=c; g.lineWidth=4; g.lineJoin='round'; g.lineCap='round'; g.beginPath();
+      s.pts.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1])); g.stroke(); }
+    else if(s.t==='pixel'){
+      const px=12;
+      for(let yy=y;yy<y+h;yy+=px)for(let xx=x;xx<x+w;xx+=px){
+        const d=base.getContext('2d').getImageData(clamp(xx,0,base.width-1),clamp(yy,0,base.height-1),1,1).data;
+        g.fillStyle=`rgb(${d[0]},${d[1]},${d[2]})`; g.fillRect(xx,yy,px,px);
+      }
+      g.strokeStyle='rgba(255,255,255,.18)'; g.lineWidth=1; g.strokeRect(x,y,w,h);
+    }
+    else if(s.t==='step'){
+      g.fillStyle=c; g.beginPath(); g.arc(x1,y1,20,0,7); g.fill();
+      g.fillStyle='#150703'; g.font='800 22px Inter, sans-serif'; g.textAlign='center'; g.textBaseline='middle';
+      g.fillText(s.n,x1,y1+1);
+    }
+    g.restore();
+  }
+  function render(){
+    g.clearRect(0,0,cv.width,cv.height); g.drawImage(base,0,0);
+    shapes.forEach(drawShape); if(cur) drawShape(cur);
+    $('#edStatus').textContent=`tool: ${tool} · shapes: ${shapes.length}`;
+  }
+  const pos=e=>{ const r=cv.getBoundingClientRect(); return [ (e.clientX-r.left)*cv.width/r.width, (e.clientY-r.top)*cv.height/r.height ]; };
+  cv.addEventListener('pointerdown',e=>{
+    cv.setPointerCapture(e.pointerId);
+    const [x,y]=pos(e);
+    if(tool==='step'){ shapes.push({t:'step',x1:x,y1:y,c:color,n:step++}); render(); return; }
+    cur={t:tool,x1:x,y1:y,x2:x,y2:y,c:color,pts:[[x,y]]}; render();
+  });
+  cv.addEventListener('pointermove',e=>{ if(!cur) return; const [x,y]=pos(e); cur.x2=x; cur.y2=y; if(cur.t==='pen') cur.pts.push([x,y]); render(); });
+  cv.addEventListener('pointerup',()=>{ if(cur){ shapes.push(cur); cur=null; render(); } });
+  $$('.tool[data-tool]').forEach(b=>b.onclick=()=>{ $$('.tool[data-tool]').forEach(x=>x.classList.remove('on')); b.classList.add('on'); tool=b.dataset.tool; render(); });
+  $$('.swatch').forEach(s=>s.onclick=()=>{ $$('.swatch').forEach(x=>x.classList.remove('on')); s.classList.add('on'); color=s.dataset.color; });
+  $('#edUndo').onclick=()=>{ shapes.pop(); render(); };
+  $('#edClear').onclick=()=>{ shapes=[]; step=1; render(); };
+  $('#edCopy').onclick=e=>{ e.target.textContent='⧉ Copied ✓'; setTimeout(()=>e.target.textContent='⧉ Copy',1300); };
+  $('#edUpload').onclick=()=>{
+    const img=new Image(); img.src=cv.toDataURL('image/png');
+    img.style.cssText='width:306px;height:auto;display:block';
+    pushShot(null,{node:img,title:'Annotated image',tasks:['Flatten annotations','Add image effects','Upload to image host','Shorten URL','Copy URL to clipboard']});
+  };
+  render();
+  return {render};
+})();
+
+/* ================================================================
+   WORKFLOW TASK STATE
+   ================================================================ */
+const TASKS=[
+  {id:'effects', em:'✦', name:'Add image effects', on:true},
+  {id:'annotate',em:'✎', name:'Annotate image',    on:false},
+  {id:'copy',    em:'⧉', name:'Copy to clipboard', on:true},
+  {id:'save',    em:'▤', name:'Save to file',      on:true},
+  {id:'upload',  em:'☁', name:'Upload to host',    on:true},
+  {id:'shorten', em:'🔗',name:'Shorten URL',       on:true},
+  {id:'share',   em:'✈', name:'Share / notify',    on:false},
+];
+const activeTasks=()=>TASKS.filter(t=>t.on);
+const activeTaskNames=()=>['Capture region',...activeTasks().map(t=>t.name)];
+const taskList=$('#taskList');
+TASKS.forEach(t=>{
+  const el=document.createElement('div');
+  el.className='task'+(t.on?' on':''); el.dataset.id=t.id;
+  el.innerHTML=`<span class="sw"></span><span class="em">${t.em}</span>${t.name}`;
+  el.onclick=()=>{ t.on=!t.on; el.classList.toggle('on',t.on); onFlowChange(); };
+  taskList.appendChild(el);
+});
+function renderReadout(){
+  const parts=['capture',...activeTasks().map(t=>t.id)];
+  $('#flowReadout').innerHTML=parts.map(p=>`<span class="st">${p}</span>`).join('<span class="arw"> → </span>')+'<span class="arw"> → </span><span class="st">done</span>';
+}
+let onFlowChange=renderReadout; renderReadout();
+
+/* ================================================================
+   DESTINATIONS DATA
+   ================================================================ */
+const DEST=[
+ ['Imgur','img'],['Flickr','img'],['Google Photos','img'],['ImgBB','img'],['Chevereto','img'],['vgy.me','img'],
+ ['Lithiio','img'],['Imgland','img'],['Pixhost','img'],['SomeImage','img'],['Photobucket','img'],['Twitpic','img'],
+ ['Amazon S3','file'],['Azure Storage','file'],['Backblaze B2','file'],['Google Cloud Storage','file'],
+ ['Google Drive','file'],['Dropbox','file'],['OneDrive','file'],['Box','file'],['Mega','file'],['MediaFire','file'],
+ ['pCloud','file'],['Seafile','file'],['ownCloud','file'],['Nextcloud','file'],['FTP','file'],['FTPS','file'],
+ ['SFTP','file'],['WebDAV','file'],['Shared folder','file'],['Email (SMTP)','file'],['Gofile','file'],
+ ['Catbox','file'],['Litterbox','file'],['Uguu','file'],['file.io','file'],['Filebin','file'],['Plik','file'],
+ ['Send','file'],['AnonFiles','file'],['Teknik','file'],['Pomf','file'],['Lambda','file'],['Streamable','file'],
+ ['YouTube','file'],['Puush','file'],['Uplea','file'],['Jira','other'],['Confluence','other'],
+ ['Pastebin','text'],['GitHub Gist','text'],['Hastebin','text'],['Paste.ee','text'],['Pastie','text'],
+ ['GitLab Snippets','text'],['Gitea','text'],['OneTimeSecret','text'],['Slexy','text'],['Textbin','text'],
+ ['bit.ly','url'],['is.gd','url'],['v.gd','url'],['tinyurl','url'],['YOURLS','url'],['Polr','url'],
+ ['Kutt','url'],['Firebase','url'],['adf.ly','url'],['ouo.io','url'],['Shortest','url'],['BeautifulScreen','url'],
+ ['Twitter / X','other'],['Discord Webhook','other'],['Slack','other'],['Telegram','other'],['Mastodon','other'],
+ ['Custom uploader','other'],['Custom URL shortener','other'],['Custom file uploader','other'],
+ ['OCR.space','other'],['Clipboard','other'],['Printer','other'],['Local disk','other'],['Emby','other'],
+ ['Jellyfin','other'],['Home server','other'],['Zippyshare','file'],['SeaweedFS','file'],['MinIO','file'],
+];
+const CATC={img:'#ff3d2e',file:'#ff9d2e',text:'#3ce7ff',url:'#43e97b',other:'#b98cff'};
+$('#destCount').textContent=DEST.length;
+const tagBox=$('#destTags');
+DEST.forEach(([n,c],i)=>{
+  const t=document.createElement('span'); t.className='dtag'; t.textContent=n; t.dataset.i=i;
+  t.style.borderColor=CATC[c]+'33';
+  tagBox.appendChild(t);
+});
+
+/* ================================================================
+   HOTKEY KEYBOARD
+   ================================================================ */
+const K=(l,c,w)=>({l,c,w:w||1});
+const KBROWS=[
+ [K('Esc','Escape',1.3),K('F1','F1'),K('F2','F2'),K('F3','F3'),K('F4','F4'),K('F5','F5'),K('F6','F6'),K('F7','F7'),K('F8','F8'),K('F9','F9'),K('F10','F10'),K('F11','F11'),K('F12','F12'),K('PrtSc','PrintScreen',1.4)],
+ [K('~','Backquote'),K('1','Digit1'),K('2','Digit2'),K('3','Digit3'),K('4','Digit4'),K('5','Digit5'),K('6','Digit6'),K('7','Digit7'),K('8','Digit8'),K('9','Digit9'),K('0','Digit0'),K('-','Minus'),K('=','Equal'),K('⌫','Backspace',2)],
+ [K('Tab','Tab',1.5),K('Q','KeyQ'),K('W','KeyW'),K('E','KeyE'),K('R','KeyR'),K('T','KeyT'),K('Y','KeyY'),K('U','KeyU'),K('I','KeyI'),K('O','KeyO'),K('P','KeyP'),K('[','BracketLeft'),K(']','BracketRight'),K('\\','Backslash',1.5)],
+ [K('Caps','CapsLock',1.8),K('A','KeyA'),K('S','KeyS'),K('D','KeyD'),K('F','KeyF'),K('G','KeyG'),K('H','KeyH'),K('J','KeyJ'),K('K','KeyK'),K('L','KeyL'),K(';','Semicolon'),K("'",'Quote'),K('Enter','Enter',2.2)],
+ [K('Shift','ShiftLeft',2.3),K('Z','KeyZ'),K('X','KeyX'),K('C','KeyC'),K('V','KeyV'),K('B','KeyB'),K('N','KeyN'),K('M','KeyM'),K(',','Comma'),K('.','Period'),K('/','Slash'),K('Shift','ShiftRight',2.5)],
+ [K('Ctrl','ControlLeft',1.5),K('⊞','MetaLeft',1.2),K('Alt','AltLeft',1.3),K('','Space',7),K('Alt','AltRight',1.3),K('Fn','Fn',1.2),K('Ctrl','ControlRight',1.5)],
+];
+const HOTMAP={
+  '':        {act:'full',   name:'Capture entire screen', sub:'Grabs the whole viewport of this page'},
+  'ctrl':    {act:'region', name:'Capture region',        sub:'The classic — drag a box anywhere'},
+  'alt':     {act:'window', name:'Capture active window', sub:'Grabs the section nearest the centre'},
+  'shift':   {act:'record', name:'Screen recording (MP4)',sub:'Starts a live recording overlay'},
+  'ctrl+shift':{act:'gif',  name:'Screen recording (GIF)',sub:'Optimised palette, tiny file'},
+  'ctrl+alt':{act:'ocr',    name:'OCR a region',          sub:'Reads text out of pixels'},
+};
+const kbEl=$('#keyboard');
+KBROWS.forEach(row=>{
+  const r=document.createElement('div'); r.className='kb-row';
+  row.forEach(k=>{
+    const b=document.createElement('div');
+    b.className='key'+(/Shift|Control|Alt/.test(k.c)?' mod':'')+(k.c==='PrintScreen'?' bind':'')+(k.l.length>4?' tiny':'');
+    b.style.flexGrow=k.w; b.dataset.code=k.c; b.textContent=k.l;
+    r.appendChild(b);
+  });
+  kbEl.appendChild(r);
+});
+const mods={ctrl:false,alt:false,shift:false};
+function comboKey(){ return ['ctrl','alt','shift'].filter(m=>mods[m]).join('+'); }
+function syncKB(){
+  const c=comboKey(), h=HOTMAP[c]||{name:'No hotkey bound',sub:'Try Ctrl, Alt, Shift or a combination',act:null};
+  $('#kbAct').innerHTML=`${h.name}<small>${h.sub}</small>`;
+  $('#kbCombo').innerHTML=[...(c?c.split('+'):[]),'PrtSc'].map(k=>`<kbd>${k[0].toUpperCase()+k.slice(1)}</kbd>`).join('<span style="color:#5c6376">+</span>');
+  $$('.key.mod').forEach(k=>{
+    const m=k.dataset.code.replace(/Left|Right/,'').toLowerCase().replace('control','ctrl');
+    k.classList.toggle('active',!!mods[m]);
+  });
+  $$('.key').forEach(k=>{ if(k.dataset.code==='PrintScreen') k.classList.toggle('bind',!!h.act); });
+}
+function runHotkey(){ const h=HOTMAP[comboKey()]; if(h&&ACTIONS[h.act]) ACTIONS[h.act](); }
+kbEl.addEventListener('click',e=>{
+  const k=e.target.closest('.key'); if(!k) return;
+  const code=k.dataset.code;
+  if(/Shift|Control|Alt/.test(code)){
+    const m=code.replace(/Left|Right/,'').toLowerCase().replace('control','ctrl');
+    mods[m]=!mods[m]; syncKB(); return;
+  }
+  k.classList.add('down'); setTimeout(()=>k.classList.remove('down'),150);
+  if(code==='PrintScreen') runHotkey();
+  if(code==='KeyC') startCapture();
+});
+addEventListener('keydown',e=>{
+  mods.ctrl=e.ctrlKey; mods.alt=e.altKey; mods.shift=e.shiftKey; syncKB();
+  const k=kbEl.querySelector(`[data-code="${e.code}"]`); if(k) k.classList.add('down');
+});
+addEventListener('keyup',e=>{
+  mods.ctrl=e.ctrlKey; mods.alt=e.altKey; mods.shift=e.shiftKey; syncKB();
+  const k=kbEl.querySelector(`[data-code="${e.code}"]`); if(k) k.classList.remove('down');
+});
+syncKB();
+$$('.kb-item').forEach(i=>i.onclick=()=>ACTIONS[i.dataset.act]?.());
+
+/* ================================================================
+   3D — three.js scenes (hero / pipeline / globe)
+   ================================================================ */
+let THREE=null;
+try{ THREE = await import('https://unpkg.com/three@0.161.0/build/three.module.js'); }
+catch(err){ document.body.classList.add('no3d'); }
+
+if(THREE){
+  const scenes=[];
+  const mkRenderer=cv=>{
+    const r=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true,preserveDrawingBuffer:true});
+    r.setPixelRatio(Math.min(devicePixelRatio,1.8));
+    return r;
+  };
+  const register=o=>{
+    scenes.push(o);
+    const box=o.renderer.domElement.parentElement;
+    new IntersectionObserver(es=>es.forEach(e=>o.visible=e.isIntersecting),{threshold:0}).observe(box);
+    const ro=new ResizeObserver(()=>{
+      const cv=o.renderer.domElement, w=cv.clientWidth, h=cv.clientHeight;
+      if(!w||!h) return;
+      o.renderer.setSize(w,h,false); o.cam.aspect=w/h; o.cam.updateProjectionMatrix();
+    }); ro.observe(o.renderer.domElement);
+  };
+
+  /* ---------- shared textures ---------- */
+  function glowTex(){
+    const c=document.createElement('canvas'); c.width=c.height=128;
+    const g=c.getContext('2d'), gr=g.createRadialGradient(64,64,0,64,64,64);
+    gr.addColorStop(0,'rgba(255,255,255,1)'); gr.addColorStop(.35,'rgba(255,255,255,.35)'); gr.addColorStop(1,'rgba(255,255,255,0)');
+    g.fillStyle=gr; g.fillRect(0,0,128,128);
+    const t=new THREE.CanvasTexture(c); return t;
+  }
+  const GLOW=glowTex();
+
+  function panelTex(i){
+    const c=document.createElement('canvas'); c.width=384; c.height=240;
+    const g=c.getContext('2d');
+    g.fillStyle='#0d121b'; g.fillRect(0,0,384,240);
+    g.strokeStyle='rgba(255,255,255,.12)'; g.lineWidth=2; g.strokeRect(1,1,382,238);
+    g.fillStyle='#141b27'; g.fillRect(2,2,380,26);
+    ['#ff5f57','#febc2e','#28c840'].forEach((col,k)=>{ g.fillStyle=col; g.beginPath(); g.arc(18+k*15,15,4.5,0,7); g.fill(); });
+    const accent=['#ff3d2e','#ff9d2e','#3ce7ff','#43e97b'][i%4];
+    for(let k=0;k<7;k++){
+      g.fillStyle= k%3===0?accent+'55':'rgba(255,255,255,.10)';
+      g.fillRect(18,48+k*22,rnd(60,300),9);
+    }
+    g.fillStyle=accent+'22'; g.fillRect(230,44,130,80);
+    g.strokeStyle=accent; g.lineWidth=2; g.beginPath();
+    for(let k=0;k<=12;k++) g.lineTo(232+k*10.6, 120-rnd(6,70));
+    g.stroke();
+    if(i%3===0){ g.strokeStyle='#ff3d2e'; g.setLineDash([9,7]); g.lineWidth=3; g.strokeRect(40,60,180,120); g.setLineDash([]); }
+    const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t;
+  }
+
+  /* ---------- HERO ---------- */
+  (()=>{
+    const cv=$('#heroCanvas'); const renderer=mkRenderer(cv);
+    const scene=new THREE.Scene(); scene.fog=new THREE.FogExp2(0x07080b,.052);
+    const cam=new THREE.PerspectiveCamera(52,1,.1,90); cam.position.set(0,0,13);
+    const root=new THREE.Group(); scene.add(root);
+
+    [-7,7].forEach(y=>{
+      const gh=new THREE.GridHelper(80,50,0xff5a2e,0x1b2432);
+      gh.material.transparent=true; gh.material.opacity=.3; gh.position.y=y; root.add(gh);
+    });
+
+    const panels=[];
+    for(let i=0;i<15;i++){
+      const m=new THREE.Mesh(new THREE.PlaneGeometry(3.6,2.25),
+        new THREE.MeshBasicMaterial({map:panelTex(i),transparent:true,opacity:.92,side:THREE.DoubleSide}));
+      const a=rnd(0,Math.PI*2), rad=rnd(4.5,11);
+      m.position.set(Math.cos(a)*rad, rnd(-5,5), rnd(-40,6));
+      m.rotation.set(rnd(-.2,.2), rnd(-.5,.5), rnd(-.12,.12));
+      m.userData={sp:rnd(.7,1.9), spin:rnd(-.1,.1)};
+      root.add(m); panels.push(m);
+      const gl=new THREE.Mesh(new THREE.PlaneGeometry(6.2,4.4),
+        new THREE.MeshBasicMaterial({map:GLOW,transparent:true,opacity:.13,blending:THREE.AdditiveBlending,depthWrite:false,
+          color:new THREE.Color(['#ff3d2e','#ff9d2e','#3ce7ff','#43e97b'][i%4])}));
+      gl.position.z=-.05; m.add(gl);
+    }
+    // dust
+    const N=420, pos=new Float32Array(N*3);
+    for(let i=0;i<N;i++){ pos[i*3]=rnd(-24,24); pos[i*3+1]=rnd(-12,12); pos[i*3+2]=rnd(-42,8); }
+    const dg=new THREE.BufferGeometry(); dg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    const dust=new THREE.Points(dg,new THREE.PointsMaterial({size:.08,map:GLOW,transparent:true,opacity:.55,depthWrite:false,blending:THREE.AdditiveBlending,color:0xffc79a}));
+    root.add(dust);
+
+    let mx=0,my=0;
+    addEventListener('pointermove',e=>{ mx=(e.clientX/innerWidth-.5); my=(e.clientY/innerHeight-.5); },{passive:true});
+
+    register({renderer,scene,cam,visible:true,update(dt,t){
+      panels.forEach(p=>{
+        p.position.z += p.userData.sp*dt*(reduced?0:1);
+        p.rotation.z += p.userData.spin*dt*.2;
+        if(p.position.z>9){ p.position.z=-42; const a=rnd(0,6.28), rad=rnd(4.5,11);
+          p.position.x=Math.cos(a)*rad; p.position.y=rnd(-5,5); }
+        p.material.opacity = clamp((p.position.z+42)/16,0,1)*clamp((9-p.position.z)/6,0,1)*.95;
+      });
+      dust.rotation.y = t*.01;
+      root.rotation.y += ((-mx*.22)-root.rotation.y)*.04;
+      root.rotation.x += (( my*.14)-root.rotation.x)*.04;
+      cam.position.x += ((mx*1.6)-cam.position.x)*.03;
+      cam.position.y += ((-my*1.0)-cam.position.y)*.03;
+      cam.lookAt(0,0,0);
+    }});
+  })();
+
+  /* ---------- PIPELINE ---------- */
+  (()=>{
+    const cv=$('#flowCanvas'); const renderer=mkRenderer(cv);
+    const scene=new THREE.Scene();
+    const cam=new THREE.PerspectiveCamera(40,1,.1,120); cam.position.set(0,1.6,17); cam.lookAt(0,0,0);
+    const root=new THREE.Group(); root.rotation.x=-.14; scene.add(root);
+
+    function nodeTex(em,name,active){
+      const c=document.createElement('canvas'); c.width=320; c.height=200;
+      const g=c.getContext('2d');
+      const r=22,w=300,h=180,x=10,y=10;
+      g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath();
+      const grd=g.createLinearGradient(0,0,0,200);
+      grd.addColorStop(0, active?'rgba(38,26,18,.97)':'rgba(18,21,28,.92)');
+      grd.addColorStop(1, active?'rgba(22,16,12,.97)':'rgba(13,16,21,.92)');
+      g.fillStyle=grd; g.fill();
+      g.strokeStyle= active?'rgba(255,157,46,.75)':'rgba(255,255,255,.13)'; g.lineWidth=3; g.stroke();
+      g.textAlign='center'; g.fillStyle= active?'#ff9d2e':'#7d8698';
+      g.font='60px Inter, sans-serif'; g.fillText(em,160,105);
+      g.fillStyle= active?'#e9ecf3':'#5c6376'; g.font='600 22px Inter, sans-serif';
+      const words=name.split(' ');
+      if(words.length>2) { g.fillText(words.slice(0,2).join(' '),160,148); g.fillText(words.slice(2).join(' '),160,172); }
+      else g.fillText(name,160,152);
+      const t=new THREE.CanvasTexture(c); t.colorSpace=THREE.SRGBColorSpace; return t;
+    }
+    const ALL=[{id:'capture',em:'⌗',name:'Capture',fixed:true},...TASKS,{id:'done',em:'✓',name:'Done',fixed:true}];
+    const nodes=ALL.map(t=>{
+      const mat=new THREE.MeshBasicMaterial({map:nodeTex(t.em,t.name,true),transparent:true});
+      const m=new THREE.Mesh(new THREE.PlaneGeometry(2.6,1.63),mat);
+      const glow=new THREE.Mesh(new THREE.PlaneGeometry(5,3.4),
+        new THREE.MeshBasicMaterial({map:GLOW,transparent:true,opacity:.18,color:0xff8a3d,blending:THREE.AdditiveBlending,depthWrite:false}));
+      glow.position.z=-.02; m.add(glow);
+      m.userData={t,glow,target:new THREE.Vector3(),op:1};
+      root.add(m); return m;
+    });
+
+    const curve=new THREE.CatmullRomCurve3([new THREE.Vector3(-8,0,0),new THREE.Vector3(8,0,0)]);
+    const tubeMat=new THREE.MeshBasicMaterial({color:0xff9d2e,transparent:true,opacity:.22,blending:THREE.AdditiveBlending,depthWrite:false});
+    let tube=new THREE.Mesh(new THREE.TubeGeometry(curve,64,.045,8,false),tubeMat); root.add(tube);
+
+    const PN=90, ppos=new Float32Array(PN*3), pu=new Float32Array(PN);
+    for(let i=0;i<PN;i++) pu[i]=i/PN;
+    const pg=new THREE.BufferGeometry(); pg.setAttribute('position',new THREE.BufferAttribute(ppos,3));
+    const pk=new THREE.Points(pg,new THREE.PointsMaterial({size:.2,map:GLOW,color:0xffd166,transparent:true,opacity:.9,depthWrite:false,blending:THREE.AdditiveBlending}));
+    root.add(pk);
+
+    // travelling "packet"
+    const packet=new THREE.Mesh(new THREE.SphereGeometry(.16,16,16),new THREE.MeshBasicMaterial({color:0xffffff}));
+    const paura=new THREE.Mesh(new THREE.PlaneGeometry(1.6,1.6),new THREE.MeshBasicMaterial({map:GLOW,color:0xff6a2e,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));
+    packet.add(paura); packet.visible=false; root.add(packet);
+    let pkt=-1;
+
+    function layout(){
+      const act=nodes.filter(n=>n.userData.t.fixed||n.userData.t.on);
+      const span=Math.max(6,act.length*2.15), step=span/Math.max(1,act.length-1);
+      const pts=[];
+      act.forEach((n,i)=>{
+        const x=-span/2+i*step, y=Math.sin(i*1.1)*.55, z=Math.cos(i*.7)*.7;
+        n.userData.target.set(x,y,z); n.userData.op=1;
+        pts.push(new THREE.Vector3(x,y,z));
+      });
+      nodes.filter(n=>!(n.userData.t.fixed||n.userData.t.on)).forEach(n=>{
+        n.userData.target.set(n.position.x,-4.4,-3); n.userData.op=0;
+      });
+      curve.points = pts.length>1?pts:[new THREE.Vector3(-3,0,0),new THREE.Vector3(3,0,0)];
+      tube.geometry.dispose(); tube.geometry=new THREE.TubeGeometry(curve,120,.045,8,false);
+      const sc=clamp(9/span,.6,1.25);
+      root.scale.setScalar(sc);
+      nodes.forEach(n=>n.material.map=nodeTex(n.userData.t.em,n.userData.t.name,n.userData.t.fixed||n.userData.t.on));
+      nodes.forEach(n=>n.material.needsUpdate=true);
+    }
+    onFlowChange=()=>{ renderReadout(); layout(); };
+    layout();
+
+    $('#runFlow').onclick=()=>{ pkt=0; packet.visible=true;
+      setTimeout(()=>pushShot(makeShot({x:0,y:0,w:innerWidth,h:Math.min(innerHeight,460)},'pipeline'),
+        {title:'Pipeline finished',tasks:activeTaskNames()}), 2100); };
+
+    register({renderer,scene,cam,visible:false,update(dt,t){
+      nodes.forEach((n,i)=>{
+        n.position.lerp(n.userData.target,1-Math.pow(.001,dt));
+        n.material.opacity += (n.userData.op-n.material.opacity)*.08;
+        n.position.y += Math.sin(t*.9+i)*.0012;
+        n.rotation.y = Math.sin(t*.4+i)*.08;
+        const near = pkt>=0 && Math.abs(curve.getPointAt(clamp(pkt,0,1)).x-n.position.x)<1.1;
+        n.userData.glow.material.opacity += ((near?.7:.16)-n.userData.glow.material.opacity)*.12;
+      });
+      const p=new THREE.Vector3();
+      for(let i=0;i<PN;i++){
+        pu[i]=(pu[i]+dt*.09)%1;
+        curve.getPointAt(pu[i],p);
+        ppos[i*3]=p.x; ppos[i*3+1]=p.y; ppos[i*3+2]=p.z;
+      }
+      pg.attributes.position.needsUpdate=true;
+      if(pkt>=0){ pkt+=dt*.55; if(pkt>1){pkt=-1;packet.visible=false;} else { curve.getPointAt(pkt,p); packet.position.copy(p); } }
+      root.rotation.y=Math.sin(t*.18)*.13;
+    }});
+  })();
+
+  /* ---------- GLOBE ---------- */
+  (()=>{
+    const cv=$('#globeCanvas'); const renderer=mkRenderer(cv);
+    const scene=new THREE.Scene();
+    const cam=new THREE.PerspectiveCamera(45,1,.1,60); cam.position.set(0,0,10.5);
+    const root=new THREE.Group(); scene.add(root);
+
+    const R=3.6, n=DEST.length;
+    const pos=new Float32Array(n*3), col=new Float32Array(n*3), siz=new Float32Array(n);
+    const base=[];
+    for(let i=0;i<n;i++){
+      const y=1-(i/(n-1))*2, r=Math.sqrt(1-y*y), th=Math.PI*(3-Math.sqrt(5))*i;
+      const v=new THREE.Vector3(Math.cos(th)*r*R, y*R, Math.sin(th)*r*R);
+      base.push(v); pos[i*3]=v.x; pos[i*3+1]=v.y; pos[i*3+2]=v.z;
+      const c=new THREE.Color(CATC[DEST[i][1]]);
+      col[i*3]=c.r; col[i*3+1]=c.g; col[i*3+2]=c.b; siz[i]=.34;
+    }
+    const g=new THREE.BufferGeometry();
+    g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    g.setAttribute('color',new THREE.BufferAttribute(col,3));
+    g.setAttribute('size',new THREE.BufferAttribute(siz,1));
+    const pts=new THREE.Points(g,new THREE.PointsMaterial({size:.34,map:GLOW,vertexColors:true,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,sizeAttenuation:true}));
+    root.add(pts);
+
+    // wire sphere + arcs
+    const wire=new THREE.Mesh(new THREE.IcosahedronGeometry(R*.99,2),
+      new THREE.MeshBasicMaterial({color:0x2b3a52,wireframe:true,transparent:true,opacity:.22}));
+    root.add(wire);
+    const inner=new THREE.Mesh(new THREE.SphereGeometry(R*.96,32,32),
+      new THREE.MeshBasicMaterial({color:0x070a12,transparent:true,opacity:.86}));
+    root.add(inner);
+    // uploading arcs
+    const arcs=[];
+    for(let i=0;i<6;i++){
+      const a=base[(Math.random()*n)|0], b=base[(Math.random()*n)|0];
+      const mid=a.clone().add(b).multiplyScalar(.5).setLength(R*1.5);
+      const c=new THREE.CatmullRomCurve3([a,mid,b]);
+      const m=new THREE.Mesh(new THREE.TubeGeometry(c,40,.014,6,false),
+        new THREE.MeshBasicMaterial({color:0xff9d2e,transparent:true,opacity:.5,blending:THREE.AdditiveBlending,depthWrite:false}));
+      root.add(m); arcs.push({m,c,t:Math.random()});
+    }
+
+    const ray=new THREE.Raycaster(); ray.params.Points.threshold=.22;
+    const mouse=new THREE.Vector2(-5,-5); let hover=-1, drag=false, lx=0, ly=0, vy=.0016, vx=0;
+    const box=$('#globeBox'), tip=$('#globeTip');
+    box.addEventListener('pointerdown',e=>{drag=true;lx=e.clientX;ly=e.clientY;box.setPointerCapture(e.pointerId)});
+    box.addEventListener('pointerup',()=>drag=false);
+    box.addEventListener('pointermove',e=>{
+      const r=cv.getBoundingClientRect();
+      mouse.x=((e.clientX-r.left)/r.width)*2-1; mouse.y=-((e.clientY-r.top)/r.height)*2+1;
+      if(drag){ vy=(e.clientX-lx)*.0009; vx=(e.clientY-ly)*.0007; lx=e.clientX; ly=e.clientY; }
+    });
+    box.addEventListener('pointerleave',()=>{ drag=false; tip.classList.remove('on'); });
+
+    const tags=$$('.dtag');
+    function setFilter(q){
+      q=q.trim().toLowerCase(); let hits=0;
+      for(let i=0;i<n;i++){
+        const on=!q||DEST[i][0].toLowerCase().includes(q);
+        if(on) hits++;
+        const c=new THREE.Color(CATC[DEST[i][1]]);
+        if(!on) c.multiplyScalar(.16);
+        col[i*3]=c.r; col[i*3+1]=c.g; col[i*3+2]=c.b;
+        siz[i]= on?(q?.6:.34):.14;
+        tags[i].classList.toggle('dim',!on&&!!q);
+        tags[i].classList.toggle('hit',!!q&&on);
+      }
+      g.attributes.color.needsUpdate=true;
+      $('#destHits').textContent=q?`${hits}/${n}`:'';
+    }
+    $('#destSearch').addEventListener('input',e=>setFilter(e.target.value));
+    tags.forEach(t=>t.onclick=()=>{ $('#destSearch').value=t.textContent; setFilter(t.textContent); });
+    $('#destHits').textContent='';
+
+    /* --- hover marker sprite --- */
+    const marker=new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW,color:0xffffff,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false}));
+    marker.scale.setScalar(.9); root.add(marker);
+
+    box.addEventListener('click',()=>{
+      if(hover<0) return;
+      const [name,cat]=DEST[hover];
+      const node=document.createElement('div');
+      node.style.cssText='padding:22px 14px;text-align:center;font-family:JetBrains Mono,monospace;font-size:11.5px;color:#8d95a7';
+      node.innerHTML=`<span style="font-size:22px;color:${CATC[cat]}">◉</span><br>
+        <b style="color:#e9ecf3;font-size:13px">${name}</b><br>${cat} destination`;
+      pushShot(null,{node,title:'Destination set → '+name,
+        tasks:['Encode PNG','Open connection','Upload to '+name,'Parse response URL','Copy URL to clipboard']});
+    });
+
+    const AUTO = reduced ? 0 : .0019;
+
+    register({renderer,scene,cam,visible:false,update(dt,t){
+      /* ---- rotation + inertia ---- */
+      if(drag){
+        root.rotation.y += vy;
+        root.rotation.x = clamp(root.rotation.x + vx, -1.05, 1.05);
+      }else{
+        vy += (AUTO - vy)*.035; vx *= .90;
+        root.rotation.y += vy;
+        root.rotation.x = clamp(root.rotation.x + vx, -1.05, 1.05);
+      }
+      root.updateMatrixWorld();
+
+      /* ---- pick ---- */
+      ray.setFromCamera(mouse,cam);
+      const hit = ray.intersectObject(pts,false)[0];
+      const idx = hit ? hit.index : -1;
+      if(idx!==hover){
+        if(hover>=0) tags[hover].classList.remove('hit');
+        hover=idx;
+        if(hover>=0){
+          const [name,cat]=DEST[hover];
+          tip.innerHTML=`<b>${name}</b> <span style="color:${CATC[cat]}">●</span> <span style="color:#5c6376">${cat}</span>`;
+          tip.style.background='rgba(10,12,17,.95)';
+          tip.classList.add('on');
+          tags[hover].classList.add('hit');
+          tags[hover].scrollIntoView({block:'nearest',behavior:'smooth'});
+        }else tip.classList.remove('on');
+      }
+      if(hover>=0){
+        const wp=base[hover].clone().applyMatrix4(root.matrixWorld);
+        marker.position.copy(wp); marker.material.opacity=.85+Math.sin(t*7)*.15;
+        marker.scale.setScalar(.75+Math.sin(t*7)*.12);
+        const p=wp.clone().project(cam), r=cv.getBoundingClientRect();
+        tip.style.left=((p.x+1)/2*r.width)+'px';
+        tip.style.top =((-p.y+1)/2*r.height)+'px';
+      }else marker.material.opacity*=.85;
+
+      /* ---- upload arcs ---- */
+      arcs.forEach((a,i)=>{
+        a.t=(a.t+dt*.35)%1;
+        a.m.material.opacity=.12+Math.abs(Math.sin(a.t*Math.PI))*.55;
+      });
+      wire.rotation.y -= dt*.04;
+    }});
+  })();
+
+  /* ---------- MASTER RENDER LOOP ---------- */
+  const clock=new THREE.Clock();
+  (function loop(){
+    requestAnimationFrame(loop);
+    const dt=Math.min(clock.getDelta(),.05), t=clock.elapsedTime;
+    for(const s of scenes){
+      if(!s.visible) continue;
+      s.update(dt,t);
+      s.renderer.render(s.scene,s.cam);
+    }
+  })();
+}
+
+/* ================================================================
+   FINAL CHROME : nav state, first-run nudge, smooth anchors
+   ================================================================ */
+let lastY=scrollY;
+addEventListener('scroll',()=>{
+  const nav=$('nav'), y=scrollY;
+  nav.style.transform = `translateX(-50%) translateY(${y>lastY && y>420 ? -84 : 0}px)`;
+  nav.style.opacity   = (y>lastY && y>420) ? '0' : '1';
+  nav.style.padding   = y>60 ? '6px 6px 6px 14px' : '8px 8px 8px 16px';
+  lastY=y;
+},{passive:true});
+
+/* nudge the capture button once, so people discover the gimmick */
+setTimeout(()=>{
+  const b=$('nav .nav-cta');
+  if(!b || reduced) return;
+  b.animate(
+    [{transform:'scale(1)',boxShadow:'0 0 0 0 rgba(255,90,40,.7)'},
+     {transform:'scale(1.08)',boxShadow:'0 0 0 14px rgba(255,90,40,0)'},
+     {transform:'scale(1)',boxShadow:'0 0 0 0 rgba(255,90,40,0)'}],
+    {duration:1600,iterations:3,easing:'cubic-bezier(.2,.7,.2,1)'});
+},2200);
+
+/* keep the tray from covering the editor while you draw */
+$('#edCanvas').addEventListener('pointerenter',()=>$('#tray').style.opacity='.25');
+$('#edCanvas').addEventListener('pointerleave',()=>$('#tray').style.opacity='1');
+$('#tray').style.transition='opacity .3s var(--ease)';
+</script>
+</body>
+</html>
