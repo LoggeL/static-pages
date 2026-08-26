@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Web.Script.Serialization;
+using SolidEdge.Draft.Interop;
 
 internal static class SolidEdgeLargeAssemblyDemo
 {
@@ -32,13 +33,13 @@ internal static class SolidEdgeLargeAssemblyDemo
 
     private sealed class BomLine
     {
-        public int item;
-        public string part_number;
-        public string revision;
-        public string description;
-        public string file_name;
-        public int quantity;
-        public string unit = "EA";
+        public int Item;
+        public string PartNumber;
+        public string Revision;
+        public string Description;
+        public string FileName;
+        public int Quantity;
+        public string Unit = "EA";
     }
 
     private sealed class TraversalResult
@@ -117,13 +118,26 @@ internal static class SolidEdgeLargeAssemblyDemo
             }
 
             List<BomLine> bom = traversal.Bom.Values
-                .OrderBy(line => line.part_number, StringComparer.OrdinalIgnoreCase)
+                .OrderBy(line => line.PartNumber, StringComparer.OrdinalIgnoreCase)
                 .ToList();
-            for (int index = 0; index < bom.Count; index++) bom[index].item = index + 1;
+            for (int index = 0; index < bom.Count; index++) bom[index].Item = index + 1;
 
             string bomJsonPath = Path.Combine(runDirectory, RootName + ".bom.json");
             string bomCsvPath = Path.Combine(runDirectory, RootName + ".bom.csv");
             WriteBom(bomJsonPath, bomCsvPath, rootPath, traversal, bom);
+            string analysisPath = Path.Combine(runDirectory, RootName + ".analysis.json");
+            WriteAnalysis(analysisPath, rootPath, traversal);
+            Console.WriteLine("STAGE=analysis");
+            string stepPath = Path.Combine(runDirectory, RootName + ".stp");
+            root.SaveCopyAs(stepPath);
+            Console.WriteLine("STAGE=step");
+            string draftPath;
+            string pdfPath;
+            CreateDraftAndPdf(application, rootPath, runDirectory, out draftPath, out pdfPath);
+            Console.WriteLine("STAGE=draft-pdf");
+            string metadataPath = Path.Combine(runDirectory, RootName + ".metadata.json");
+            WriteMetadata(metadataPath, (string)application.Version, rootPath, traversal, bom);
+            Console.WriteLine("STAGE=metadata");
             WriteManifest(
                 Path.Combine(runDirectory, "fixture-manifest.json"),
                 runId,
@@ -133,8 +147,10 @@ internal static class SolidEdgeLargeAssemblyDemo
                 bom,
                 expectedLeafOccurrences,
                 collectionDelta);
+            Console.WriteLine("STAGE=manifest");
 
-            root.Save();
+            root = CreateRuntimeSnapshot(application, root, runDirectory, rootPath);
+            Console.WriteLine("STAGE=runtime-snapshot");
             root.Activate();
             try { application.ActiveWindow.View.Fit(); } catch { }
 
@@ -399,14 +415,14 @@ internal static class SolidEdgeLargeAssemblyDemo
                 {
                     line = new BomLine
                     {
-                        part_number = partNumber,
-                        revision = ReadCustomProperty(document, "IV_Revision", ""),
-                        description = ReadCustomProperty(document, "IV_Description", SafeSummaryTitle(document)),
-                        file_name = Path.GetFileName(occurrencePath)
+                        PartNumber = partNumber,
+                        Revision = ReadCustomProperty(document, "IV_Revision", ""),
+                        Description = ReadCustomProperty(document, "IV_Description", SafeSummaryTitle(document)),
+                        FileName = Path.GetFileName(occurrencePath)
                     };
                     result.Bom.Add(partNumber, line);
                 }
-                line.quantity++;
+                line.Quantity++;
             }
         }
         finally
@@ -494,12 +510,208 @@ internal static class SolidEdgeLargeAssemblyDemo
         {
             csv.AppendLine(String.Join(",", new[]
             {
-                line.item.ToString(CultureInfo.InvariantCulture),
-                Csv(line.part_number), Csv(line.revision), Csv(line.description),
-                line.quantity.ToString(CultureInfo.InvariantCulture), Csv(line.unit), Csv(line.file_name)
+                line.Item.ToString(CultureInfo.InvariantCulture),
+                Csv(line.PartNumber), Csv(line.Revision), Csv(line.Description),
+                line.Quantity.ToString(CultureInfo.InvariantCulture), Csv(line.Unit), Csv(line.FileName)
             }));
         }
         File.WriteAllText(csvPath, csv.ToString(), new UTF8Encoding(false));
+    }
+
+    private static void WriteAnalysis(string path, string rootPath, TraversalResult traversal)
+    {
+        var payload = new Dictionary<string, object>
+        {
+            { "schema_version", "1.0" },
+            { "source_system", "solid_edge" },
+            { "root_document", Path.GetFileName(rootPath) },
+            { "quality_status", "source_verified_with_known_issue" },
+            { "object_inventory", new Dictionary<string, object>
+                {
+                    { "hierarchy_depth", traversal.hierarchy_depth },
+                    { "expanded_occurrences", traversal.expanded_occurrences },
+                    { "leaf_occurrences", traversal.leaf_occurrences },
+                    { "included_leaf_occurrences", traversal.included_leaf_occurrences },
+                    { "reference_only_occurrences", traversal.reference_only_occurrences },
+                    { "suppressed_occurrences", traversal.suppressed_occurrences },
+                    { "cycle_count", traversal.cycle_count }
+                }
+            },
+            { "field_provenance", new Dictionary<string, object>
+                {
+                    { "structure", "AssemblyDocument.Occurrences recursive" },
+                    { "bom", "Occurrence.IncludeInBom + ReferenceOnly + SuppressVariable" },
+                    { "metadata", "Document.SummaryInfo + Properties.Custom" },
+                    { "suppression", "declared-versus-reloaded Occurrences delta" }
+                }
+            },
+            { "known_issues", new[]
+                {
+                    "IncludeInBom=false reset to true inside the reopened service subassembly; root exclusion and ReferenceOnly persisted."
+                }
+            }
+        };
+        File.WriteAllText(path, Json.Serialize(payload), new UTF8Encoding(false));
+    }
+
+    private static void WriteMetadata(
+        string path,
+        string sourceVersion,
+        string rootPath,
+        TraversalResult traversal,
+        List<BomLine> bom)
+    {
+        var payload = new Dictionary<string, object>
+        {
+            { "schema_version", "1.0" },
+            { "source_system", "solid_edge" },
+            { "source_version", sourceVersion },
+            { "native_document", Path.GetFileName(rootPath) },
+            { "project_name", "InnovaVento Oven Factory Benchmark" },
+            { "created_by", "iV-Connect Agent" },
+            { "saved_state", true },
+            { "object_inventory", new Dictionary<string, object>
+                {
+                    { "unique_components", bom.Count },
+                    { "expanded_occurrences", traversal.expanded_occurrences },
+                    { "leaf_occurrences", traversal.leaf_occurrences },
+                    { "hierarchy_depth", traversal.hierarchy_depth }
+                }
+            },
+            { "capabilities", new Dictionary<string, object>
+                {
+                    { "component_structure", true },
+                    { "engineering_bom", true },
+                    { "draft_parts_list", true },
+                    { "reference_only", true },
+                    { "suppression", true },
+                    { "nested_include_in_bom", "partial" },
+                    { "unsaved_editor_state", false }
+                }
+            },
+            { "exports", new[]
+                {
+                    RootName + ".stp", RootName + ".pdf", RootName + ".bom.json",
+                    RootName + ".bom.csv", RootName + ".analysis.json"
+                }
+            }
+        };
+        File.WriteAllText(path, Json.Serialize(payload), new UTF8Encoding(false));
+    }
+
+    private static void CreateDraftAndPdf(
+        dynamic application,
+        string assemblyPath,
+        string outputDirectory,
+        out string draftPath,
+        out string pdfPath)
+    {
+        draftPath = Path.Combine(outputDirectory, RootName + ".dft");
+        pdfPath = Path.Combine(outputDirectory, RootName + ".pdf");
+        string template = @"C:\Program Files\Siemens\Solid Edge 2026\Template\ISO Metric\iso metric draft.dft";
+        dynamic draft = application.Documents.Add("SolidEdge.DraftDocument", template);
+        dynamic modelLink = draft.ModelLinks.Add(assemblyPath);
+        dynamic sheet = draft.ActiveSheet;
+        dynamic view = sheet.DrawingViews.AddAssemblyView(
+            modelLink,
+            ViewOrientationConstants.igFrontView,
+            0.018,
+            0.16,
+            0.18,
+            AssemblyDrawingViewTypeConstants.seAssemblyDesignedView,
+            Missing.Value,
+            Missing.Value,
+            Missing.Value);
+        view.Caption = "InnovaVento Oven Factory Fixture";
+        view.DisplayCaption = true;
+        view.DisplayScale = true;
+        view.Update();
+        dynamic partsList = draft.PartsLists.Add(view, "", 0, 1);
+        partsList.ListType = PartsListType.igAtomic;
+        partsList.ShowTopAssembly = false;
+        partsList.UseLevelBasedItemNumbers = false;
+        partsList.SetOrigin(0.24, 0.145);
+        partsList.Update();
+        draft.SaveAs(draftPath, Missing.Value, Missing.Value, Missing.Value, Missing.Value,
+            Missing.Value, Missing.Value, Missing.Value, Missing.Value);
+        draft.Save();
+
+        dynamic printUtility = application.GetDraftPrintUtility();
+        printUtility.RemoveAllDocuments();
+        printUtility.Printer = "Microsoft Print to PDF";
+        printUtility.SheetsPerPage = DraftPrintSheetsPerPageConstants.igSingleSheet;
+        printUtility.PrintToFile = true;
+        printUtility.PrintToFilePath = outputDirectory;
+        printUtility.PrintAsBlack = true;
+        printUtility.AddDocument(draft);
+        printUtility.PrintOut();
+        NormalizePdf(outputDirectory, pdfPath);
+        draft.Close(false);
+    }
+
+    private static dynamic CreateRuntimeSnapshot(
+        dynamic application,
+        dynamic root,
+        string runDirectory,
+        string rootPath)
+    {
+        string snapshotDirectory = Path.Combine(runDirectory, "runtime-snapshot");
+        Directory.CreateDirectory(snapshotDirectory);
+        string snapshotRoot = Path.Combine(snapshotDirectory, Path.GetFileName(rootPath));
+        root.SaveCopyAs(snapshotRoot);
+        foreach (string source in Directory.GetFiles(runDirectory))
+        {
+            if (String.Equals(Path.GetFileName(source), Path.GetFileName(rootPath), StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+            File.Copy(source, Path.Combine(snapshotDirectory, Path.GetFileName(source)), true);
+        }
+        return root;
+    }
+
+    private static void NormalizePdf(string outputDirectory, string pdfPath)
+    {
+        for (int attempt = 0; attempt < 200 && !File.Exists(pdfPath); attempt++)
+        {
+            string[] candidates = Directory.GetFiles(outputDirectory, RootName + "_*.pri");
+            if (candidates.Length > 0)
+            {
+                string candidate = candidates.OrderByDescending(File.GetLastWriteTimeUtc).First();
+                WaitForExclusiveAccess(candidate, 15000);
+                using (FileStream stream = File.OpenRead(candidate))
+                {
+                    byte[] signature = new byte[5];
+                    if (stream.Read(signature, 0, signature.Length) != signature.Length
+                        || Encoding.ASCII.GetString(signature) != "%PDF-")
+                    {
+                        throw new InvalidDataException("The print output is not a PDF: " + candidate);
+                    }
+                }
+                File.Move(candidate, pdfPath);
+                break;
+            }
+            System.Threading.Thread.Sleep(100);
+        }
+        if (!File.Exists(pdfPath)) throw new FileNotFoundException("Solid Edge did not create the factory PDF.", pdfPath);
+    }
+
+    private static void WaitForExclusiveAccess(string path, int timeoutMilliseconds)
+    {
+        DateTime deadline = DateTime.UtcNow.AddMilliseconds(timeoutMilliseconds);
+        while (DateTime.UtcNow < deadline)
+        {
+            try
+            {
+                using (File.Open(path, FileMode.Open, FileAccess.Read, FileShare.None)) { }
+                return;
+            }
+            catch (IOException)
+            {
+                System.Threading.Thread.Sleep(100);
+            }
+        }
+        throw new IOException("Timed out waiting for export file: " + path);
     }
 
     private static void WriteManifest(
