@@ -5,6 +5,7 @@ Status: normative Architektur- und Onboarding-Grundlage; konkrete Adapter bleibe
 versions- und evidenzgebunden
 Schema: [`cad-connector-contract-v1.schema.json`](cad-connector-contract-v1.schema.json)
 Beispiel: [`cad-connector-solid-edge-2026.example.json`](cad-connector-solid-edge-2026.example.json)
+KiCad-Parität: [`cad-connector-kicad.example.json`](cad-connector-kicad.example.json)
 
 ## 1. Zweck und Geltungsbereich
 
@@ -141,9 +142,12 @@ Die rekursive Abnahme ist ausgeführt: Der positive Lauf liest 210 Knoten und
 160 BOM-relevante Endvorkommen nach Save/Close/Reopen, vergleicht elf von elf
 Mengen gegen die native Parts List und prüft Suppression, Reference-only sowie
 per-Instanz-Ausschlüsse. Separate Negativfixtures blockieren eine fehlende
-Referenz und einen Selbstzyklus fail-closed. Produktiv bleibt zusätzlich die
-kryptografische Bindung der vollständigen Dependency-Linkliste an das Bundle
-zu schließen.
+Referenz und einen Selbstzyklus fail-closed. Der vollständige gespeicherte
+Dependency-Linkgraph wird über Revision Manager ermittelt, pro Zielinhalt
+gehasht, kanonisch verdichtet und als eigenes Artefakt in den Bundle-Content-
+Hash aufgenommen. Die Live-Occurrence-Traversierung bleibt getrennt, weil ein
+persistiert unterdrückter Link nach Reload nicht mehr in der Collection
+erscheint.
 
 Eine Parts List im Draft oder PDF ist nicht gleichbedeutend mit einer
 kanonischen BOM. OCR, PDF-Tabellen oder STEP-Strukturen dürfen nur als

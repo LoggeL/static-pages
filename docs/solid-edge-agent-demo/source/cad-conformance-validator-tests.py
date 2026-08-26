@@ -14,6 +14,9 @@ SCHEMA = json.loads(
 EXAMPLE = json.loads(
     (REPO / "docs/architecture/cad-connector-solid-edge-2026.example.json").read_text()
 )
+KICAD_EXAMPLE = json.loads(
+    (REPO / "docs/architecture/cad-connector-kicad.example.json").read_text()
+)
 
 
 def receipt() -> dict:
@@ -138,6 +141,11 @@ class ConformanceValidatorTests(unittest.TestCase):
 
     def test_checked_in_solid_edge_manifest_is_conformant(self) -> None:
         result = self.validator.validate(EXAMPLE)
+        self.assertTrue(result.valid, result.errors)
+        self.assertEqual([], result.warnings)
+
+    def test_checked_in_kicad_manifest_uses_the_same_contract(self) -> None:
+        result = self.validator.validate(KICAD_EXAMPLE)
         self.assertTrue(result.valid, result.errors)
         self.assertEqual([], result.warnings)
 

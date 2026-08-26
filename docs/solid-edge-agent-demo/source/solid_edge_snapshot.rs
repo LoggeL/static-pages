@@ -6,13 +6,15 @@ use serde::Serialize;
 use serde_json::Value;
 use sha2::{Digest, Sha256};
 use std::{
+    collections::{HashMap, HashSet, VecDeque},
     fs::{self, File},
     io::{Read, Write},
     path::{Component, Path, PathBuf},
 };
 
 const SCHEMA_VERSION: &str = "1.0";
-const PROFILE_ID: &str = "solid-edge-native-step-pdf-bom-v2";
+const PART_PROFILE_ID: &str = "solid-edge-native-step-pdf-bom-v2";
+const ASSEMBLY_PROFILE_ID: &str = "solid-edge-native-step-pdf-bom-deps-v3";
 const NATIVE_EXTENSIONS: &[&str] = &["par", "asm", "dft"];
 
 #[derive(Serialize)]
@@ -133,10 +135,17 @@ pub(crate) fn create_solid_edge_snapshot_cancellable(
         validate_bom_json(&bom_json)?;
         validate_bom_csv(&bom_csv)?;
         validate_analysis_json(&analysis)?;
+        let dependencies = exact_companion(
+            source_root,
+            &format!("{stem}.dependencies.json"),
+            "dependency_graph_missing",
+        )?;
+        validate_dependency_json(&dependencies, source_root, stem, &native, cancellation)?;
         vec![
             (bom_json, "engineering_bom_json"),
             (bom_csv, "engineering_bom_csv"),
             (analysis, "object_analysis"),
+            (dependencies, "dependency_graph"),
         ]
     } else {
         Vec::new()
@@ -277,10 +286,10 @@ fn build_staging(
     artifacts.sort_by(|left, right| left.relative_path.cmp(&right.relative_path));
     let content_hash = content_hash(&artifacts);
     let mut gaps = vec![CapabilityGap {
-            capability: "unsaved_editor_state".to_owned(),
-            required: false,
-            reason: "disk_backed_source_only_unsaved_editor_changes_excluded".to_owned(),
-        }];
+        capability: "unsaved_editor_state".to_owned(),
+        required: false,
+        reason: "disk_backed_source_only_unsaved_editor_changes_excluded".to_owned(),
+    }];
     if !assembly_snapshot {
         gaps.push(CapabilityGap {
             capability: "assembly_bom".to_owned(),
@@ -303,7 +312,11 @@ fn build_staging(
             source_system: "solid_edge",
         },
         profile: ManifestProfile {
-            id: PROFILE_ID,
+            id: if assembly_snapshot {
+                ASSEMBLY_PROFILE_ID
+            } else {
+                PART_PROFILE_ID
+            },
             solid_edge_version,
             runtime_version,
         },
@@ -430,8 +443,8 @@ fn validate_bom_csv(path: &Path) -> Result<(), String> {
         .next()
         .ok_or_else(|| "assembly_bom_csv_invalid".to_owned())?;
     let normalized_header = header.to_ascii_lowercase();
-    let has_part_number = normalized_header.contains("partnumber")
-        || normalized_header.contains("part_number");
+    let has_part_number =
+        normalized_header.contains("partnumber") || normalized_header.contains("part_number");
     if !has_part_number || !normalized_header.contains("quantity") || lines.next().is_none() {
         return Err("assembly_bom_csv_invalid".to_owned());
     }
@@ -444,7 +457,10 @@ fn validate_analysis_json(path: &Path) -> Result<(), String> {
         return Err("object_analysis_invalid".to_owned());
     };
     if value.get("source_system").and_then(Value::as_str) != Some("solid_edge")
-        || value.get("field_provenance").and_then(Value::as_object).is_none()
+        || value
+            .get("field_provenance")
+            .and_then(Value::as_object)
+            .is_none()
     {
         return Err("object_analysis_invalid".to_owned());
     }
@@ -459,6 +475,195 @@ fn validate_analysis_json(path: &Path) -> Result<(), String> {
         None => return Err("object_analysis_invalid".to_owned()),
     }
     Ok(())
+}
+
+fn validate_dependency_json(
+    path: &Path,
+    source_root: &Path,
+    stem: &str,
+    native: &[PathBuf],
+    cancellation: &SnapshotCancellation,
+) -> Result<(), String> {
+    let value = read_json_value(path, "dependency_graph_invalid")?;
+    let links = value
+        .get("links")
+        .and_then(Value::as_array)
+        .ok_or_else(|| "dependency_graph_invalid".to_owned())?;
+    let link_count = value
+        .get("link_count")
+        .and_then(Value::as_u64)
+        .and_then(|count| usize::try_from(count).ok())
+        .ok_or_else(|| "dependency_graph_invalid".to_owned())?;
+    let declared_canonical_hash = value
+        .get("canonical_sha256")
+        .and_then(Value::as_str)
+        .filter(|hash| is_sha256(hash))
+        .ok_or_else(|| "dependency_graph_invalid".to_owned())?;
+    let root_document = format!("{stem}.asm");
+    if value.get("schema_version").and_then(Value::as_str) != Some("1.0")
+        || value.get("source_system").and_then(Value::as_str) != Some("solid_edge")
+        || value.get("graph_kind").and_then(Value::as_str) != Some("native_document_dependencies")
+        || value.get("root_document").and_then(Value::as_str) != Some(root_document.as_str())
+        || links.is_empty()
+        || links.len() != link_count
+    {
+        return Err("dependency_graph_invalid".to_owned());
+    }
+
+    let mut native_by_name = HashMap::new();
+    for native_path in native {
+        let name = file_name(native_path)?.to_owned();
+        if native_by_name
+            .insert(name.to_ascii_lowercase(), native_path.clone())
+            .is_some()
+        {
+            return Err("dependency_graph_duplicate_native".to_owned());
+        }
+    }
+    let expected_documents: HashSet<_> = native_by_name
+        .iter()
+        .filter(|(_, path)| {
+            !path
+                .extension()
+                .and_then(|extension| extension.to_str())
+                .is_some_and(|extension| extension.eq_ignore_ascii_case("dft"))
+        })
+        .map(|(name, _)| name.clone())
+        .collect();
+
+    let mut seen_edges = HashSet::new();
+    let mut canonical_rows = Vec::with_capacity(links.len());
+    let mut adjacency: HashMap<String, Vec<String>> = HashMap::new();
+    for link in links {
+        cancellation.check()?;
+        let source = dependency_field(link, "source_document")?;
+        let target = dependency_field(link, "target_document")?;
+        if !is_native_dependency_name(source, true) || !is_native_dependency_name(target, false) {
+            return Err("dependency_graph_path_invalid".to_owned());
+        }
+        let source_key = source.to_ascii_lowercase();
+        let target_key = target.to_ascii_lowercase();
+        let source_path = native_by_name
+            .get(&source_key)
+            .ok_or_else(|| "dependency_graph_source_missing".to_owned())?;
+        let target_path = native_by_name
+            .get(&target_key)
+            .ok_or_else(|| "dependency_graph_target_missing".to_owned())?;
+        if !source_path
+            .extension()
+            .and_then(|extension| extension.to_str())
+            .is_some_and(|extension| extension.eq_ignore_ascii_case("asm"))
+            || !target_path.starts_with(source_root)
+            || !source_path.starts_with(source_root)
+        {
+            return Err("dependency_graph_path_invalid".to_owned());
+        }
+        let edge_key = format!("{source_key}\0{target_key}");
+        if !seen_edges.insert(edge_key) {
+            return Err("dependency_graph_duplicate_edge".to_owned());
+        }
+        let occurrence_references = link
+            .get("occurrence_references")
+            .and_then(Value::as_u64)
+            .ok_or_else(|| "dependency_graph_invalid".to_owned())?;
+        let declared_size = link
+            .get("target_size_bytes")
+            .and_then(Value::as_u64)
+            .ok_or_else(|| "dependency_graph_invalid".to_owned())?;
+        let declared_hash = dependency_field(link, "target_sha256")?;
+        let expected_role = if target
+            .rsplit_once('.')
+            .is_some_and(|(_, extension)| extension.eq_ignore_ascii_case("asm"))
+        {
+            "assembly"
+        } else {
+            "part"
+        };
+        if link.get("target_role").and_then(Value::as_str) != Some(expected_role)
+            || link.get("exists").and_then(Value::as_bool) != Some(true)
+            || link.get("local").and_then(Value::as_bool) != Some(true)
+            || !is_sha256(declared_hash)
+            || fs::metadata(target_path).map_err(io_error)?.len() != declared_size
+            || sha256_file(target_path, cancellation)? != declared_hash.to_ascii_lowercase()
+        {
+            return Err("dependency_graph_target_mismatch".to_owned());
+        }
+        canonical_rows.push((
+            source.to_owned(),
+            target.to_owned(),
+            declared_hash.to_ascii_lowercase(),
+            occurrence_references,
+        ));
+        adjacency.entry(source_key).or_default().push(target_key);
+    }
+
+    canonical_rows.sort_by(|left, right| {
+        left.0
+            .to_ascii_lowercase()
+            .cmp(&right.0.to_ascii_lowercase())
+            .then_with(|| {
+                left.1
+                    .to_ascii_lowercase()
+                    .cmp(&right.1.to_ascii_lowercase())
+            })
+    });
+    let mut digest = Sha256::new();
+    for (source, target, target_hash, occurrence_references) in &canonical_rows {
+        digest.update(source.as_bytes());
+        digest.update([0]);
+        digest.update(target.as_bytes());
+        digest.update([0]);
+        digest.update(target_hash.as_bytes());
+        digest.update([0]);
+        digest.update(occurrence_references.to_string().as_bytes());
+        digest.update(b"\n");
+    }
+    if format!("{:x}", digest.finalize()) != declared_canonical_hash.to_ascii_lowercase() {
+        return Err("dependency_graph_hash_mismatch".to_owned());
+    }
+
+    let root_key = root_document.to_ascii_lowercase();
+    let mut reachable = HashSet::new();
+    let mut queue = VecDeque::from([root_key]);
+    while let Some(document) = queue.pop_front() {
+        if !reachable.insert(document.clone()) {
+            continue;
+        }
+        if let Some(targets) = adjacency.get(&document) {
+            queue.extend(targets.iter().cloned());
+        }
+    }
+    if reachable != expected_documents {
+        return Err("dependency_graph_incomplete".to_owned());
+    }
+    Ok(())
+}
+
+fn dependency_field<'a>(value: &'a Value, field: &str) -> Result<&'a str, String> {
+    value
+        .get(field)
+        .and_then(Value::as_str)
+        .filter(|value| !value.is_empty())
+        .ok_or_else(|| "dependency_graph_invalid".to_owned())
+}
+
+fn is_native_dependency_name(value: &str, assembly_only: bool) -> bool {
+    if value.contains(['/', '\\', ':'])
+        || value.starts_with('.')
+        || Path::new(value).file_name().and_then(|name| name.to_str()) != Some(value)
+    {
+        return false;
+    }
+    let extension = Path::new(value)
+        .extension()
+        .and_then(|extension| extension.to_str())
+        .unwrap_or_default();
+    extension.eq_ignore_ascii_case("asm")
+        || (!assembly_only && extension.eq_ignore_ascii_case("par"))
+}
+
+fn is_sha256(value: &str) -> bool {
+    value.len() == 64 && value.bytes().all(|byte| byte.is_ascii_hexdigit())
 }
 
 fn required_companion(
@@ -765,11 +970,7 @@ mod tests {
                 b"ISO-10303-21;\nMANIFOLD_SOLID_BREP",
             )
             .unwrap();
-            fs::write(
-                self.0.join("IV_InnovaVento_Oven.pdf"),
-                b"%PDF-1.7\nfixture",
-            )
-            .unwrap();
+            fs::write(self.0.join("IV_InnovaVento_Oven.pdf"), b"%PDF-1.7\nfixture").unwrap();
             fs::write(
                 self.0.join("IV_InnovaVento_Oven.metadata.json"),
                 br#"{"schema_version":"2.0","source_system":"solid_edge","source_version":"226.00.00.106","document_type":"assembly"}"#,
@@ -790,7 +991,52 @@ mod tests {
                 br#"{"schema_version":"1.0","source_system":"solid_edge","object_inventory":{"unique_components":2,"occurrences":3,"hierarchy_depth":1,"cycle_count":0},"field_provenance":{"structure":"AssemblyDocument.Occurrences"}}"#,
             )
             .unwrap();
+            self.write_assembly_dependencies();
             assembly
+        }
+
+        fn write_assembly_dependencies(&self) {
+            let root = "IV_InnovaVento_Oven.asm";
+            let targets = ["IV_OVN_NAMEPLATE.par", "IV_OVN_SIDE.par"];
+            let mut canonical = Vec::new();
+            let mut links = Vec::new();
+            for target in targets {
+                let target_path = self.0.join(target);
+                let target_hash =
+                    sha256_file(&target_path, &SnapshotCancellation::default()).unwrap();
+                canonical.extend_from_slice(root.as_bytes());
+                canonical.push(0);
+                canonical.extend_from_slice(target.as_bytes());
+                canonical.push(0);
+                canonical.extend_from_slice(target_hash.as_bytes());
+                canonical.push(0);
+                canonical.extend_from_slice(b"1\n");
+                links.push(serde_json::json!({
+                    "source_document": root,
+                    "target_document": target,
+                    "target_role": "part",
+                    "occurrence_references": 1,
+                    "exists": true,
+                    "local": true,
+                    "target_size_bytes": fs::metadata(&target_path).unwrap().len(),
+                    "target_sha256": target_hash,
+                }));
+            }
+            let canonical_sha256 = format!("{:x}", Sha256::digest(&canonical));
+            fs::write(
+                self.0.join("IV_InnovaVento_Oven.dependencies.json"),
+                serde_json::to_vec(&serde_json::json!({
+                    "schema_version": "1.0",
+                    "source_system": "solid_edge",
+                    "graph_kind": "native_document_dependencies",
+                    "root_document": root,
+                    "link_count": links.len(),
+                    "canonical_sha256": canonical_sha256,
+                    "links": links,
+                }))
+                .unwrap(),
+            )
+            .unwrap();
         }
     }
 
@@ -878,7 +1124,7 @@ mod tests {
         .unwrap();
 
         assert_eq!(result.status, SnapshotStatus::Verified);
-        assert_eq!(result.artifacts.len(), 10);
+        assert_eq!(result.artifacts.len(), 11);
         assert!(result
             .artifacts
             .iter()
@@ -891,18 +1137,21 @@ mod tests {
             .artifacts
             .iter()
             .any(|item| item.role == "object_analysis"));
+        assert!(result
+            .artifacts
+            .iter()
+            .any(|item| item.role == "dependency_graph"));
         assert!(!result
             .capability_gaps
             .iter()
             .any(|gap| gap.capability == "assembly_bom"));
 
-        let manifest: Value = serde_json::from_slice(
-            &fs::read(result.bundle_path().join("manifest.json")).unwrap(),
-        )
-        .unwrap();
+        let manifest: Value =
+            serde_json::from_slice(&fs::read(result.bundle_path().join("manifest.json")).unwrap())
+                .unwrap();
         assert_eq!(
             manifest["profile"]["id"],
-            "solid-edge-native-step-pdf-bom-v2"
+            "solid-edge-native-step-pdf-bom-deps-v3"
         );
         let _package = crate::project_snapshot_flow::package_bundle(result.bundle_path())
             .expect("assembly BOM snapshot must pass the shared packager");
@@ -928,6 +1177,25 @@ mod tests {
             )
             .unwrap_err(),
             "assembly_cycle_detected"
+        );
+    }
+
+    #[test]
+    fn rejects_assembly_dependency_target_tampering() {
+        let area = TestArea::new();
+        let source = area.assembly_fixture();
+        fs::write(area.0.join("IV_OVN_SIDE.par"), b"tampered-side").unwrap();
+
+        assert_eq!(
+            create_solid_edge_snapshot_cancellable(
+                &area.0,
+                request("3bfa8408-49f2-4444-9cb2-c9b253ef8c1b"),
+                &source,
+                "0.1.0",
+                &SnapshotCancellation::default(),
+            )
+            .unwrap_err(),
+            "dependency_graph_target_mismatch"
         );
     }
 
@@ -962,9 +1230,11 @@ mod tests {
                 .expect("IV_SOLID_EDGE_E2E_DOCUMENT must point to a .par/.asm/.dft file"),
         );
         let workspace = TestArea::new();
+        let correlation_id = std::env::var("IV_PROJECT_SNAPSHOT_E2E_CORRELATION_ID")
+            .unwrap_or_else(|_| "de6e093e-0a36-4321-8b51-b470d3f5676b".to_owned());
         let result = create_solid_edge_snapshot_cancellable(
             &workspace.0,
-            request("de6e093e-0a36-4321-8b51-b470d3f5676b"),
+            request(&correlation_id),
             &source,
             "0.1.0",
             &SnapshotCancellation::default(),
@@ -977,5 +1247,34 @@ mod tests {
             .iter()
             .any(|item| item.role == "drawing_pdf"));
         assert!(result.bundle_path().join("manifest.json").is_file());
+        println!(
+            "verified bundle_id={} content_hash={} artifacts={}",
+            result.bundle_id,
+            result.content_hash,
+            result.artifacts.len()
+        );
+        if let Ok(base_url) = std::env::var("IV_PROJECT_SNAPSHOT_E2E_BASE_URL") {
+            let api_token = std::env::var("IV_PROJECT_SNAPSHOT_E2E_API_TOKEN")
+                .expect("IV_PROJECT_SNAPSHOT_E2E_API_TOKEN is required with the base URL");
+            let user_id = std::env::var("IV_PROJECT_SNAPSHOT_E2E_USER")
+                .unwrap_or_else(|_| "windows-vm-e2e".to_owned());
+            let write_token = std::env::var("IV_PROJECT_SNAPSHOT_E2E_WRITE_TOKEN").ok();
+            let evidence = crate::project_snapshot_flow::verify_server_flow(
+                result.bundle_path(),
+                &base_url,
+                &api_token,
+                write_token.as_deref(),
+                &user_id,
+            )
+            .unwrap();
+            println!(
+                "server flow_id={} phase={:?} revision={} content_hash={} target_reference={}",
+                evidence.flow_id,
+                evidence.phase,
+                evidence.revision,
+                evidence.content_hash,
+                evidence.external_reference.as_deref().unwrap_or("none")
+            );
+        }
     }
 }

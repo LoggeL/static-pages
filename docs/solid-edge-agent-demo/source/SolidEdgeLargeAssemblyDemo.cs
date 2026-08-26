@@ -5,9 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Web.Script.Serialization;
 using SolidEdge.Draft.Interop;
+using RevisionApplication = SolidEdge.RevisionManager.Interop.ApplicationClass;
 
 internal static class SolidEdgeLargeAssemblyDemo
 {
@@ -42,6 +44,19 @@ internal static class SolidEdgeLargeAssemblyDemo
         public string Unit = "EA";
     }
 
+    private sealed class DependencyEdge
+    {
+        public string source_document;
+        public string target_document;
+        public string target_role;
+        public int occurrence_references;
+        public bool exists;
+        public bool local;
+        public long target_size_bytes;
+        public string target_sha256;
+        public string relationship_source;
+    }
+
     private sealed class TraversalResult
     {
         public int hierarchy_depth;
@@ -58,6 +73,8 @@ internal static class SolidEdgeLargeAssemblyDemo
             new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
         public readonly Dictionary<string, BomLine> Bom =
             new Dictionary<string, BomLine>(StringComparer.OrdinalIgnoreCase);
+        public readonly Dictionary<string, DependencyEdge> Dependencies =
+            new Dictionary<string, DependencyEdge>(StringComparer.OrdinalIgnoreCase);
     }
 
     [STAThread]
@@ -89,6 +106,7 @@ internal static class SolidEdgeLargeAssemblyDemo
             string rootPath = Path.Combine(runDirectory, RootName + ".asm");
             dynamic root = CreateRoot(application, runDirectory, rootPath, modules);
             TraversalResult traversal = AnalyzeAssembly(root);
+            ReconcileStoredDependencies(runDirectory, traversal);
             int declaredSuppressed = modules.Sum(module => module.Children.Count(child => child.Suppressed)) * 8;
             int declaredBomOnlyExclusions = modules.Sum(module => module.Children.Count(child => child.ExcludeFromReports)) * 8;
             int declaredReferenceReportExclusions = modules.Sum(module => module.Children.Count(child => child.ReferenceOnly)) * 8;
@@ -140,6 +158,14 @@ internal static class SolidEdgeLargeAssemblyDemo
             string analysisPath = Path.Combine(runDirectory, RootName + ".analysis.json");
             WriteAnalysis(analysisPath, rootPath, traversal);
             Console.WriteLine("STAGE=analysis");
+            string dependenciesPath = Path.Combine(runDirectory, RootName + ".dependencies.json");
+            string dependencyGraphSha256 = WriteDependencies(
+                dependenciesPath,
+                rootPath,
+                traversal);
+            Console.WriteLine("STAGE=dependencies|links="
+                + traversal.Dependencies.Count.ToString(CultureInfo.InvariantCulture)
+                + "|sha256=" + dependencyGraphSha256);
             string stepPath = Path.Combine(runDirectory, RootName + ".stp");
             root.SaveCopyAs(stepPath);
             Console.WriteLine("STAGE=step");
@@ -176,7 +202,8 @@ internal static class SolidEdgeLargeAssemblyDemo
                 expectedReportExclusions,
                 draftSheetCount,
                 draftViewCount,
-                nativePartsListQuantities);
+                nativePartsListQuantities,
+                dependencyGraphSha256);
             Console.WriteLine("STAGE=manifest");
 
             root = CreateRuntimeSnapshot(application, root, runDirectory, rootPath);
@@ -450,6 +477,10 @@ internal static class SolidEdgeLargeAssemblyDemo
             {
                 dynamic occurrence = assembly.Occurrences.Item(index);
                 result.expanded_occurrences++;
+                string occurrencePath = Convert.ToString(
+                    occurrence.OccurrenceFileName,
+                    CultureInfo.InvariantCulture);
+                RecordDependency(result, path, occurrencePath);
                 bool includeInBom = parentIncluded && (bool)occurrence.IncludeInBom;
                 bool referenceOnly = (bool)occurrence.ReferenceOnly;
                 bool suppressed = IsSuppressed(occurrence);
@@ -473,7 +504,6 @@ internal static class SolidEdgeLargeAssemblyDemo
                 result.leaf_occurrences++;
                 if (!includeInBom || referenceOnly || suppressed) continue;
                 result.included_leaf_occurrences++;
-                string occurrencePath = (string)occurrence.OccurrenceFileName;
                 dynamic document = occurrence.OccurrenceDocument;
                 string partNumber = ReadCustomProperty(document, "IV_PartNumber", Path.GetFileNameWithoutExtension(occurrencePath));
                 BomLine line;
@@ -520,6 +550,7 @@ internal static class SolidEdgeLargeAssemblyDemo
                 dynamic definitionOccurrence = subOccurrence.ThisAsOccurrence;
                 result.expanded_occurrences++;
                 string occurrencePath = Convert.ToString(subOccurrence.SubOccurrenceFileName, CultureInfo.InvariantCulture);
+                RecordDependency(result, assemblyPath, occurrencePath);
                 bool excludedFromReports = (bool)subOccurrence.ExcludeFromReports;
                 bool includeInBom = parentIncluded && !excludedFromReports;
                 bool referenceOnly = (bool)definitionOccurrence.ReferenceOnly;
@@ -584,6 +615,121 @@ internal static class SolidEdgeLargeAssemblyDemo
             return (bool)variable.Suppress;
         }
         catch { return false; }
+    }
+
+    private static void RecordDependency(
+        TraversalResult result,
+        string sourcePath,
+        string targetPath)
+    {
+        DependencyEdge edge = EnsureDependency(result, sourcePath, targetPath);
+        edge.occurrence_references++;
+    }
+
+    private static DependencyEdge EnsureDependency(
+        TraversalResult result,
+        string sourcePath,
+        string targetPath)
+    {
+        string sourceDocument = Path.GetFileName(sourcePath);
+        string targetDocument = Path.GetFileName(targetPath);
+        string key = sourceDocument + "\0" + targetDocument;
+        DependencyEdge edge;
+        if (!result.Dependencies.TryGetValue(key, out edge))
+        {
+            string sourceDirectory = Path.GetFullPath(Path.GetDirectoryName(sourcePath))
+                .TrimEnd(Path.DirectorySeparatorChar);
+            string targetDirectory = Path.GetFullPath(Path.GetDirectoryName(targetPath))
+                .TrimEnd(Path.DirectorySeparatorChar);
+            bool exists = File.Exists(targetPath);
+            edge = new DependencyEdge
+            {
+                source_document = sourceDocument,
+                target_document = targetDocument,
+                target_role = String.Equals(
+                    Path.GetExtension(targetDocument),
+                    ".asm",
+                    StringComparison.OrdinalIgnoreCase) ? "assembly" : "part",
+                occurrence_references = 0,
+                exists = exists,
+                local = exists && String.Equals(
+                    sourceDirectory,
+                    targetDirectory,
+                    StringComparison.OrdinalIgnoreCase),
+                target_size_bytes = exists ? new FileInfo(targetPath).Length : 0,
+                target_sha256 = exists ? Sha256File(targetPath) : null,
+                relationship_source = "RevisionManager.Document.LinkedDocuments + Assembly occurrence count"
+            };
+            result.Dependencies.Add(key, edge);
+        }
+        return edge;
+    }
+
+    private static void ReconcileStoredDependencies(
+        string directory,
+        TraversalResult result)
+    {
+        dynamic application = null;
+        try
+        {
+            application = new RevisionApplication();
+            application.Visible = 0;
+            application.DisplayAlerts = 0;
+            foreach (string assemblyPath in Directory.GetFiles(directory, "*.asm")
+                .OrderBy(path => path, StringComparer.OrdinalIgnoreCase))
+            {
+                dynamic document = null;
+                dynamic links = null;
+                try
+                {
+                    document = application.Open(assemblyPath, Missing.Value, Missing.Value);
+                    try { links = document.LinkedDocuments(Missing.Value); }
+                    catch { links = document.get_LinkedDocuments(Missing.Value); }
+                    for (int index = 1; index <= (int)links.Count; index++)
+                    {
+                        dynamic linked = null;
+                        try
+                        {
+                            linked = links.Item(index);
+                            string targetPath = Convert.ToString(
+                                linked.FullName,
+                                CultureInfo.InvariantCulture);
+                            EnsureDependency(result, assemblyPath, targetPath);
+                        }
+                        finally { ReleaseCom((object)linked); }
+                    }
+                }
+                finally
+                {
+                    if (!Object.ReferenceEquals((object)document, null))
+                    {
+                        try { document.Close(); } catch { }
+                    }
+                    ReleaseCom((object)links);
+                    ReleaseCom((object)document);
+                }
+            }
+        }
+        finally
+        {
+            if (!Object.ReferenceEquals((object)application, null))
+            {
+                try { application.Quit(); } catch { }
+            }
+            ReleaseCom((object)application);
+        }
+    }
+
+    private static void ReleaseCom(object value)
+    {
+        try
+        {
+            if (value != null && Marshal.IsComObject(value))
+            {
+                Marshal.FinalReleaseComObject(value);
+            }
+        }
+        catch { }
     }
 
     private static string SafeSummaryTitle(dynamic document)
@@ -663,6 +809,75 @@ internal static class SolidEdgeLargeAssemblyDemo
         File.WriteAllText(csvPath, csv.ToString(), new UTF8Encoding(false));
     }
 
+    private static string WriteDependencies(
+        string path,
+        string rootPath,
+        TraversalResult traversal)
+    {
+        List<DependencyEdge> links = traversal.Dependencies.Values
+            .OrderBy(edge => edge.source_document, StringComparer.OrdinalIgnoreCase)
+            .ThenBy(edge => edge.target_document, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+        if (links.Count == 0
+            || links.Any(edge => !edge.exists || !edge.local
+                || String.IsNullOrWhiteSpace(edge.target_sha256)))
+        {
+            throw new InvalidOperationException(
+                "Dependency graph must contain only present local Solid Edge links.");
+        }
+
+        string canonicalSha256 = DependencyCanonicalSha256(links);
+        var payload = new Dictionary<string, object>
+        {
+            { "schema_version", "1.0" },
+            { "source_system", "solid_edge" },
+            { "graph_kind", "native_document_dependencies" },
+            { "root_document", Path.GetFileName(rootPath) },
+            { "link_count", links.Count },
+            { "canonicalization", "UTF-8; links sorted by source_document then target_document (ordinal-ignore-case); source\\0target\\0target_sha256\\0occurrence_references\\n" },
+            { "canonical_sha256", canonicalSha256 },
+            { "links", links }
+        };
+        File.WriteAllText(path, Json.Serialize(payload), new UTF8Encoding(false));
+        return canonicalSha256;
+    }
+
+    private static string DependencyCanonicalSha256(IEnumerable<DependencyEdge> links)
+    {
+        StringBuilder canonical = new StringBuilder();
+        foreach (DependencyEdge edge in links)
+        {
+            canonical.Append(edge.source_document).Append('\0')
+                .Append(edge.target_document).Append('\0')
+                .Append(edge.target_sha256).Append('\0')
+                .Append(edge.occurrence_references.ToString(CultureInfo.InvariantCulture))
+                .Append('\n');
+        }
+        using (SHA256 digest = SHA256.Create())
+        {
+            return Hex(digest.ComputeHash(Encoding.UTF8.GetBytes(canonical.ToString())));
+        }
+    }
+
+    private static string Sha256File(string path)
+    {
+        using (SHA256 digest = SHA256.Create())
+        using (FileStream stream = File.OpenRead(path))
+        {
+            return Hex(digest.ComputeHash(stream));
+        }
+    }
+
+    private static string Hex(byte[] bytes)
+    {
+        StringBuilder value = new StringBuilder(bytes.Length * 2);
+        foreach (byte item in bytes)
+        {
+            value.Append(item.ToString("x2", CultureInfo.InvariantCulture));
+        }
+        return value.ToString();
+    }
+
     private static void WriteAnalysis(string path, string rootPath, TraversalResult traversal)
     {
         var payload = new Dictionary<string, object>
@@ -735,7 +950,8 @@ internal static class SolidEdgeLargeAssemblyDemo
             { "exports", new[]
                 {
                     RootName + ".stp", RootName + ".pdf", RootName + ".bom.json",
-                    RootName + ".bom.csv", RootName + ".analysis.json"
+                    RootName + ".bom.csv", RootName + ".analysis.json",
+                    RootName + ".dependencies.json"
                 }
             }
         };
@@ -1020,7 +1236,8 @@ internal static class SolidEdgeLargeAssemblyDemo
         int expectedReportExclusions,
         int draftSheetCount,
         int draftViewCount,
-        Dictionary<string, int> nativePartsListQuantities)
+        Dictionary<string, int> nativePartsListQuantities,
+        string dependencyGraphSha256)
     {
         var payload = new Dictionary<string, object>
         {
@@ -1047,6 +1264,8 @@ internal static class SolidEdgeLargeAssemblyDemo
             { "draft_sheet_count", draftSheetCount },
             { "draft_view_count", draftViewCount },
             { "native_parts_list_quantities", nativePartsListQuantities },
+            { "dependency_link_count", traversal.Dependencies.Count },
+            { "dependency_graph_sha256", dependencyGraphSha256 },
             { "expected_leaf_occurrences_before_suppression", expectedLeafOccurrences },
             { "suppressed_occurrence_collection_delta", collectionDelta },
             { "suppression_evidence", "Persisted suppressed occurrences are absent from AssemblyDocument.Occurrences after reload; count is the exact declared-versus-observed delta." },
@@ -1063,7 +1282,9 @@ internal static class SolidEdgeLargeAssemblyDemo
                     { "cycle_free", traversal.cycle_count == 0 },
                     { "multi_sheet_draft", draftSheetCount >= 2 },
                     { "multiple_drawing_views", draftViewCount >= 3 },
-                    { "native_parts_list_matches_engineering_bom", nativePartsListQuantities.Count == bom.Count }
+                    { "native_parts_list_matches_engineering_bom", nativePartsListQuantities.Count == bom.Count },
+                    { "dependency_graph_complete", traversal.Dependencies.Count > 0
+                        && traversal.Dependencies.Values.All(edge => edge.exists && edge.local) }
                 }
             }
         };

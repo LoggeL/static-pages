@@ -11,6 +11,17 @@ python3 tooling/cad-conformance/validator.py \
   docs/architecture/cad-connector-solid-edge-2026.example.json
 ```
 
+Run the KiCad native-file parity example against the same contract:
+
+```bash
+python3 tooling/cad-conformance/validator.py --strict \
+  docs/architecture/cad-connector-kicad.example.json
+```
+
+The KiCad parity manifest deliberately covers the verified native-file capture
+seam. Real KiCad CLI export evidence remains a separate E2E gate and is not
+inferred from the unit-test runner.
+
 Validate a manifest and one or more receipts together to enable route,
 profile, connector, environment, quality and provenance cross-checks:
 

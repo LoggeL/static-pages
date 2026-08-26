@@ -2,7 +2,7 @@
   "document_kind": "capability_manifest",
   "schema_version": "1.0",
   "contract_id": "cad-connector-v1",
-  "generated_at": "2026-08-26T12:00:00Z",
+  "generated_at": "2026-08-26T18:48:30Z",
   "connector": {
     "id": "com.innovavento.cad.solid-edge",
     "vendor": "Siemens Industry Software Inc.",
@@ -31,24 +31,24 @@
       "addin_load": "verified",
       "evidence": {
         "state": "verified",
-        "run_id": "solid-edge-demo-addin-load",
-        "observed_at": "2026-08-25T18:53:00Z",
+        "run_id": "solid-edge-start-modes-20260826",
+        "observed_at": "2026-08-26T18:48:30Z",
         "references": [
           {
-            "kind": "screenshot",
-            "ref": "docs/product/solid-edge-agent-demo/evidence/17-addins-buttons-working.webp"
+            "kind": "benchmark",
+            "ref": "docs/product/solid-edge-agent-demo/fixtures/api-benchmark/start-mode-comparison-summary.json"
           },
           {
             "kind": "source",
-            "ref": "tooling/solid-edge/test_addin_activation.ps1"
+            "ref": "tooling/solid-edge/SolidEdgeStartModeBenchmark.cs"
           }
         ],
         "caveats": [
-          "Development evidence on Windows 11 ARM64 with x64 emulation is not a Siemens support statement."
+          "Application-cold means zero Edge.exe processes before each sample; it is not an OS-cold measurement."
         ]
       },
       "notes": [
-        "The per-user AnyCPU add-in loaded in the visible user session."
+        "Edge.exe followed by an explicit document open passed 5/5 samples with 210 occurrences, two iV commands and graceful cleanup."
       ]
     },
     {
@@ -78,31 +78,57 @@
     },
     {
       "id": "interactive_file_open",
-      "status": "unknown",
+      "status": "verified",
       "interactive_session_required": true,
-      "addin_load": "unknown",
+      "addin_load": "verified",
       "evidence": {
-        "state": "unknown",
-        "references": [],
+        "state": "verified",
+        "run_id": "solid-edge-start-modes-20260826",
+        "observed_at": "2026-08-26T18:48:30Z",
+        "references": [
+          {
+            "kind": "benchmark",
+            "ref": "docs/product/solid-edge-agent-demo/fixtures/api-benchmark/start-mode-comparison-summary.json"
+          },
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeStartModeBenchmark.cs"
+          }
+        ],
         "caveats": [
-          "File-association startup has not been accepted as equivalent to normal interactive startup."
+          "Application-cold means zero Edge.exe processes before each sample; it is not an OS-cold measurement."
         ]
       },
-      "notes": []
+      "notes": [
+        "Edge.exe with the fixture path passed 5/5 samples with 210 occurrences, two iV commands and graceful cleanup."
+      ]
     },
     {
       "id": "automation_spawned",
-      "status": "unknown",
+      "status": "verified",
       "interactive_session_required": true,
-      "addin_load": "unknown",
+      "addin_load": "verified",
       "evidence": {
-        "state": "unknown",
-        "references": [],
+        "state": "verified",
+        "run_id": "solid-edge-start-modes-20260826",
+        "observed_at": "2026-08-26T18:48:30Z",
+        "references": [
+          {
+            "kind": "benchmark",
+            "ref": "docs/product/solid-edge-agent-demo/fixtures/api-benchmark/start-mode-comparison-summary.json"
+          },
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeStartModeBenchmark.cs"
+          }
+        ],
         "caveats": [
-          "Add-in loading under automation-spawned startup needs a separate activation test."
+          "Application-cold means zero Edge.exe processes before each sample; it is not an OS-cold measurement."
         ]
       },
-      "notes": []
+      "notes": [
+        "Activator.CreateInstance(SolidEdge.Application) passed 5/5 samples with 210 occurrences, two iV commands and graceful cleanup."
+      ]
     },
     {
       "id": "headless_batch",
@@ -145,7 +171,9 @@
       ],
       "allowed_start_modes": [
         "interactive_normal",
-        "interactive_existing_process"
+        "interactive_existing_process",
+        "interactive_file_open",
+        "automation_spawned"
       ],
       "requires_running_application": true,
       "requires_interactive_session": true,
@@ -195,7 +223,9 @@
       ],
       "allowed_start_modes": [
         "interactive_normal",
-        "interactive_existing_process"
+        "interactive_existing_process",
+        "interactive_file_open",
+        "automation_spawned"
       ],
       "requires_running_application": true,
       "requires_interactive_session": true,
@@ -368,6 +398,69 @@
       },
       "performance_baselines": [],
       "notes": []
+    },
+    {
+      "id": "se.revision-manager",
+      "api_family": "native_file",
+      "role": "primary",
+      "authority": "source_native",
+      "capabilities": [
+        "x-mcad.read.dependency_graph"
+      ],
+      "allowed_start_modes": [
+        "interactive_normal",
+        "interactive_existing_process",
+        "interactive_file_open",
+        "automation_spawned",
+        "headless_batch"
+      ],
+      "requires_running_application": false,
+      "requires_interactive_session": false,
+      "supports_unsaved_state": false,
+      "write_scope": "none",
+      "evidence": {
+        "state": "verified",
+        "run_id": "solid-edge-dependencies-20260826",
+        "observed_at": "2026-08-26T18:48:30Z",
+        "references": [
+          {
+            "kind": "fixture",
+            "ref": "docs/product/solid-edge-agent-demo/fixtures/IV_InnovaVento_Oven_Factory.dependencies.json"
+          },
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeLargeAssemblyDemo.cs"
+          },
+          {
+            "kind": "test_run",
+            "ref": "solid_edge_snapshot::tests::real_solid_edge_snapshot_preserves_native_sources_and_verifies_exports"
+          }
+        ],
+        "caveats": [
+          "The measured Revision Manager p95 includes a 161.8-second tail outlier and must not block an interactive UI response."
+        ]
+      },
+      "performance_baselines": [
+        {
+          "operation": "x-mcad.read.dependency_graph",
+          "fixture_id": "iv-oven-factory-large-v1",
+          "fixture_version": "a68cb35d1a3f07dd3e0fc64c4f732e67a74fe4ee6bdb772e4a786b788caeefc3",
+          "start_mode": "headless_batch",
+          "warm_state": "warm",
+          "sample_count": 10,
+          "p50_ms": 1868.448375,
+          "p95_ms": 161777.59945833334,
+          "max_ms": 161777.59945833334,
+          "error_rate": 0,
+          "coefficient_of_variation": 2.6871458744510086,
+          "environment_fingerprint": "8707189ea26f51f858f555236632e3fed80d6ea22bb3b739aae99113f1ae3f21",
+          "run_id": "run-20260826t173949136z",
+          "observed_at": "2026-08-26T17:44:23.4426469Z"
+        }
+      ],
+      "notes": [
+        "Revision Manager is authoritative for the persisted link graph because suppressed occurrences can disappear from the live Occurrences collection after reload."
+      ]
     }
   ],
   "capabilities": [
@@ -758,6 +851,38 @@
         ]
       },
       "notes": []
+    },
+    {
+      "id": "x-mcad.read.dependency_graph",
+      "status": "verified",
+      "primary_route": "se.revision-manager",
+      "fallback_routes": [],
+      "quality_ceiling": "source_verified",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "verified",
+        "run_id": "solid-edge-dependencies-20260826",
+        "observed_at": "2026-08-26T18:48:30Z",
+        "references": [
+          {
+            "kind": "fixture",
+            "ref": "docs/product/solid-edge-agent-demo/fixtures/IV_InnovaVento_Oven_Factory.dependencies.json"
+          },
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeLargeAssemblyDemo.cs"
+          },
+          {
+            "kind": "test_run",
+            "ref": "solid_edge_snapshot::tests::real_solid_edge_snapshot_preserves_native_sources_and_verifies_exports"
+          }
+        ],
+        "caveats": []
+      },
+      "notes": [
+        "The 20-link graph binds source/target names, target content hashes and observed occurrence-reference counts into a canonical SHA-256 artifact."
+      ]
     }
   ],
   "profiles": [
@@ -782,7 +907,8 @@
         "cad.read.engineering_bom",
         "cad.export.native_snapshot",
         "cad.export.neutral_geometry",
-        "cad.export.bom"
+        "cad.export.bom",
+        "x-mcad.read.dependency_graph"
       ],
       "optional_capabilities": [
         "cad.export.drawing_pdf",

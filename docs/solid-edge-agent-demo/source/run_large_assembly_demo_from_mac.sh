@@ -53,6 +53,7 @@ files=(
   IV_InnovaVento_Oven_Factory.bom.json
   IV_InnovaVento_Oven_Factory.bom.csv
   IV_InnovaVento_Oven_Factory.analysis.json
+  IV_InnovaVento_Oven_Factory.dependencies.json
 )
 for name in "${files[@]}"; do
   read_script="[Console]::Write([Convert]::ToBase64String([IO.File]::ReadAllBytes(\"$latest_run\\runtime-snapshot\\$name\")))"
@@ -83,7 +84,11 @@ jq -e . "$host_snapshot/fixture-manifest.json" >/dev/null
 jq -e . "$host_snapshot/IV_InnovaVento_Oven_Factory.bom.json" >/dev/null
 jq -e . "$host_snapshot/IV_InnovaVento_Oven_Factory.metadata.json" >/dev/null
 jq -e . "$host_snapshot/IV_InnovaVento_Oven_Factory.analysis.json" >/dev/null
+jq -e '.link_count > 0 and (.links | length) == .link_count' \
+  "$host_snapshot/IV_InnovaVento_Oven_Factory.dependencies.json" >/dev/null
 cp "$host_snapshot/fixture-manifest.json" "$host_output/fixture-manifest.json"
 cp "$host_snapshot/IV_InnovaVento_Oven_Factory.bom.json" "$host_output/IV_InnovaVento_Oven_Factory.bom.json"
 cp "$host_snapshot/IV_InnovaVento_Oven_Factory.bom.csv" "$host_output/IV_InnovaVento_Oven_Factory.bom.csv"
+cp "$host_snapshot/IV_InnovaVento_Oven_Factory.dependencies.json" \
+  "$host_output/IV_InnovaVento_Oven_Factory.dependencies.json"
 printf 'Large-assembly evidence synchronized from %s to %s.\n' "$latest_run" "$host_snapshot"

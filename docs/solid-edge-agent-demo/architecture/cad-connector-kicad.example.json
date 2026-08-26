@@ -1,0 +1,232 @@
+{
+  "document_kind": "capability_manifest",
+  "schema_version": "1.0",
+  "contract_id": "cad-connector-v1",
+  "generated_at": "2026-08-26T18:50:00Z",
+  "connector": {
+    "id": "com.innovavento.cad.kicad",
+    "vendor": "KiCad Developers Team",
+    "product": "KiCad",
+    "product_version": "10.x",
+    "connector_version": "0.1.0",
+    "adapter_build": "project-snapshot-native-files"
+  },
+  "environment": {
+    "fingerprint": "e768bb086d529f1ffa7a39654cb7d695c1110c272c064e8aab8d883d87f3e2e4",
+    "operating_system": "macOS",
+    "operating_system_build": "development-baseline-2026-08",
+    "architecture": "arm64",
+    "environment_class": "developer_workstation"
+  },
+  "evidence_level": "verified_development",
+  "start_modes": [
+    {
+      "id": "headless_batch",
+      "status": "verified",
+      "interactive_session_required": false,
+      "addin_load": "not_applicable",
+      "evidence": {
+        "state": "verified",
+        "run_id": "kicad-native-snapshot-tests",
+        "observed_at": "2026-08-26T18:50:00Z",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "apps/client-desktop/src-tauri/src/project_snapshot.rs"
+          },
+          {
+            "kind": "test_run",
+            "ref": "project_snapshot::tests::creates_verified_snapshot_with_deterministic_content_hash"
+          }
+        ],
+        "caveats": [
+          "This parity manifest covers the native-file capture seam; real KiCad CLI export evidence remains a separate E2E gate."
+        ]
+      },
+      "notes": [
+        "The native-file route needs neither a GUI process nor an in-process add-in."
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "id": "kicad.native-files",
+      "api_family": "native_file",
+      "role": "primary",
+      "authority": "source_native",
+      "capabilities": [
+        "cad.export.native_snapshot",
+        "x-ecad.read.project_files"
+      ],
+      "allowed_start_modes": [
+        "headless_batch"
+      ],
+      "requires_running_application": false,
+      "requires_interactive_session": false,
+      "supports_unsaved_state": false,
+      "write_scope": "none",
+      "evidence": {
+        "state": "verified",
+        "run_id": "kicad-native-snapshot-tests",
+        "observed_at": "2026-08-26T18:50:00Z",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "apps/client-desktop/src-tauri/src/project_snapshot.rs"
+          },
+          {
+            "kind": "test_run",
+            "ref": "project_snapshot::tests::preserves_hierarchical_native_schematics"
+          }
+        ],
+        "caveats": []
+      },
+      "performance_baselines": [],
+      "notes": [
+        "Project-root disambiguation, allowlisted native extensions, symlink rejection and deterministic hashing are enforced inside the adapter."
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "cad.export.native_snapshot",
+      "status": "verified",
+      "primary_route": "kicad.native-files",
+      "fallback_routes": [],
+      "quality_ceiling": "source_verified",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "verified",
+        "run_id": "kicad-native-snapshot-tests",
+        "observed_at": "2026-08-26T18:50:00Z",
+        "references": [
+          {
+            "kind": "test_run",
+            "ref": "project_snapshot::tests::creates_verified_snapshot_with_deterministic_content_hash"
+          }
+        ],
+        "caveats": [
+          "Unsaved editor changes are outside the disk-backed capture contract."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "x-ecad.read.project_files",
+      "status": "verified",
+      "primary_route": "kicad.native-files",
+      "fallback_routes": [],
+      "quality_ceiling": "source_verified",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "verified",
+        "run_id": "kicad-native-snapshot-tests",
+        "observed_at": "2026-08-26T18:50:00Z",
+        "references": [
+          {
+            "kind": "test_run",
+            "ref": "project_snapshot::tests::preserves_hierarchical_native_schematics"
+          },
+          {
+            "kind": "test_run",
+            "ref": "project_snapshot::tests::rejects_sibling_or_nested_second_projects"
+          }
+        ],
+        "caveats": []
+      },
+      "notes": [
+        "The extension is ECAD-specific and deliberately remains outside the MCAD entity vocabulary."
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "id": "ecad-native-snapshot-v1",
+      "required_capabilities": [
+        "cad.export.native_snapshot",
+        "x-ecad.read.project_files"
+      ],
+      "optional_capabilities": [],
+      "allow_partial_for_optional_gaps": false
+    }
+  ],
+  "fail_closed": [
+    {
+      "code": "CAD-FC-001",
+      "condition": "A required capability is not verified for the selected profile.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-002",
+      "condition": "The selected route is not verified for the current product build, platform or start mode.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-003",
+      "condition": "A fallback is undeclared or below the required quality floor.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-004",
+      "condition": "Unsaved state was requested but cannot be proven to be included.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-005",
+      "condition": "Source revision or save state changes during capture.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-006",
+      "condition": "Assembly traversal is incomplete, cyclic or contains unresolved required references.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-007",
+      "condition": "BOM identity, quantity, unit or configuration data conflicts.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-008",
+      "condition": "A required artifact is missing, invalid, unreadable or has a mismatching hash.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-009",
+      "condition": "A write targets an unknown native file or product version.",
+      "action": "block_write"
+    },
+    {
+      "code": "CAD-FC-010",
+      "condition": "UI automation is selected as an authoritative data or write route.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-011",
+      "condition": "Write plan, user authority, expected revision or capability grant is missing.",
+      "action": "block_write"
+    },
+    {
+      "code": "CAD-FC-012",
+      "condition": "Native read-back differs from the authorized write plan.",
+      "action": "block_write"
+    },
+    {
+      "code": "CAD-FC-013",
+      "condition": "Evidence contains a secret or unredacted sensitive path.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-014",
+      "condition": "A license, modal or busy state prevents a defined result.",
+      "action": "require_review"
+    },
+    {
+      "code": "CAD-FC-015",
+      "condition": "The selected project root is ambiguous, outside the bound root, or contains a symlink.",
+      "action": "reject"
+    }
+  ]
+}
