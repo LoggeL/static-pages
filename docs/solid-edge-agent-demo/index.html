@@ -505,6 +505,12 @@ footer { padding: 28px 0 42px; border-top: 1px solid var(--iv-border); color: va
       event.preventDefault();
       closeLightbox();
     });
+    lightbox.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeLightbox();
+      }
+    });
     lightbox.addEventListener("close", () => {
       if (lightboxImage.hasAttribute("src")) lightboxImage.removeAttribute("src");
     });
