@@ -501,6 +501,10 @@ footer { padding: 28px 0 42px; border-top: 1px solid var(--iv-border); color: va
     lightbox.addEventListener("click", (event) => {
       if (event.target === lightbox) closeLightbox();
     });
+    lightbox.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      closeLightbox();
+    });
     lightbox.addEventListener("close", () => {
       if (lightboxImage.hasAttribute("src")) lightboxImage.removeAttribute("src");
     });
