@@ -22,6 +22,17 @@ internal static class SolidEdgeApiBenchmark
         public string Detail;
     }
 
+    private sealed class StructureCount
+    {
+        public int ExpandedOccurrences;
+        public int IncludedInBom;
+        public int ResolvedDocuments;
+        public int SubassemblyOccurrences;
+        public int ReferenceOnlyOccurrences;
+        public int HierarchyDepth;
+        public int Cycles;
+    }
+
     private sealed class RunRow
     {
         public string run_id;
@@ -54,6 +65,9 @@ internal static class SolidEdgeApiBenchmark
                 : @"Z:\output\solid-edge-oven";
             int iterations = args.Length > 2 ? Int32.Parse(args[2], CultureInfo.InvariantCulture) : 7;
             int warmups = args.Length > 3 ? Int32.Parse(args[3], CultureInfo.InvariantCulture) : 2;
+            string activeSourcePath = args.Length > 4 && !String.IsNullOrWhiteSpace(args[4])
+                ? Path.GetFullPath(args[4])
+                : null;
 
             if (!File.Exists(fixturePath)) throw new FileNotFoundException("Oven fixture not found.", fixturePath);
             if (iterations < 1) throw new ArgumentOutOfRangeException("iterations");
@@ -64,13 +78,14 @@ internal static class SolidEdgeApiBenchmark
             string runId = DateTime.UtcNow.ToString("yyyyMMddTHHmmssfffZ", CultureInfo.InvariantCulture);
             var rows = new List<RunRow>();
             int conflictingDocumentsClosed = PrepareSolidEdgeFixture(fixturePath);
+            bool activeSourceOpenedByHarness = EnsureActiveSourceOpen(activeSourcePath);
 
             RunSeries(rows, runId, fixturePath, fixtureHash, "propauto", "closed_file_metadata_read", warmups, iterations,
                 delegate { return ProbePropAuto(fixturePath); });
             RunSeries(rows, runId, fixturePath, fixtureHash, "solid_edge_com", "open_snapshot_copy_and_occurrence_read", warmups, iterations,
                 delegate { return ProbeSolidEdgeOpenAndRead(fixturePath); });
             RunSeries(rows, runId, fixturePath, fixtureHash, "solid_edge_com", "active_source_occurrence_read", warmups, iterations,
-                delegate { return ProbeSolidEdgeActiveSourceRead(); });
+                delegate { return ProbeSolidEdgeActiveSourceRead(activeSourcePath); });
             RunSeries(rows, runId, fixturePath, fixtureHash, "revision_manager", "linked_document_read", warmups, iterations,
                 delegate { return ProbeRevisionManager(fixturePath); });
 
@@ -83,7 +98,7 @@ internal static class SolidEdgeApiBenchmark
             File.WriteAllText(csvPath, ToCsv(rows), new UTF8Encoding(false));
             File.WriteAllText(jsonPath, Json.Serialize(rows), new UTF8Encoding(false));
             File.WriteAllText(summaryPath, Json.Serialize(BuildSummary(runId, fixturePath, fixtureHash, rows)), new UTF8Encoding(false));
-            File.WriteAllText(environmentPath, Json.Serialize(BuildEnvironment(runId, fixturePath, fixtureHash, outputDirectory, conflictingDocumentsClosed)), new UTF8Encoding(false));
+            File.WriteAllText(environmentPath, Json.Serialize(BuildEnvironment(runId, fixturePath, fixtureHash, outputDirectory, conflictingDocumentsClosed, activeSourcePath, activeSourceOpenedByHarness)), new UTF8Encoding(false));
             File.WriteAllText(capabilitiesPath, Json.Serialize(BuildCapabilities()), new UTF8Encoding(false));
 
             Console.WriteLine("RUN_ID=" + runId);
@@ -161,6 +176,16 @@ internal static class SolidEdgeApiBenchmark
                 row.error_message = exception.Message;
             }
             rows.Add(row);
+            Console.WriteLine(String.Format(
+                CultureInfo.InvariantCulture,
+                "PROBE={0}/{1}|warmup={2}|iteration={3}|success={4}|count={5}|elapsed_ms={6:F3}",
+                api,
+                operation,
+                warmup.ToString().ToLowerInvariant(),
+                row.iteration,
+                row.success.ToString().ToLowerInvariant(),
+                row.result_count,
+                row.elapsed_ms));
         }
     }
 
@@ -251,6 +276,34 @@ internal static class SolidEdgeApiBenchmark
         finally { ReleaseCom((object)application); }
     }
 
+    private static bool EnsureActiveSourceOpen(string activeSourcePath)
+    {
+        if (String.IsNullOrWhiteSpace(activeSourcePath)) return false;
+        dynamic application = null;
+        dynamic documents = null;
+        dynamic document = null;
+        try
+        {
+            application = Marshal.GetActiveObject("SolidEdge.Application");
+            documents = application.Documents;
+            document = FindOpenDocument(documents, activeSourcePath);
+            if (document != null)
+            {
+                document.Activate();
+                return false;
+            }
+            document = documents.Open(activeSourcePath);
+            document.Activate();
+            return true;
+        }
+        finally
+        {
+            ReleaseCom((object)document);
+            ReleaseCom((object)documents);
+            ReleaseCom((object)application);
+        }
+    }
+
     private static ProbeResult ProbeRevisionManager(string fixturePath)
     {
         dynamic application = null;
@@ -321,9 +374,6 @@ internal static class SolidEdgeApiBenchmark
         dynamic application = null;
         dynamic document = null;
         bool openedByProbe = false;
-        int occurrences = 0;
-        int includedInBom = 0;
-        int resolvedDocuments = 0;
         string actualDocumentPath = null;
         string sourceMatch = "exact";
         string stage = "get_active_application";
@@ -341,25 +391,11 @@ internal static class SolidEdgeApiBenchmark
             }
             stage = "enumerate_occurrences";
             actualDocumentPath = Convert.ToString(document.FullName, CultureInfo.InvariantCulture);
-            occurrences = (int)document.Occurrences.Count;
-            for (int index = 1; index <= occurrences; index++)
-            {
-                dynamic occurrence = document.Occurrences.Item(index);
-                try
-                {
-                    if ((bool)occurrence.IncludeInBom) includedInBom++;
-                    string occurrencePath = Convert.ToString(occurrence.OccurrenceFileName, CultureInfo.InvariantCulture);
-                    if (!String.IsNullOrWhiteSpace(occurrencePath)) resolvedDocuments++;
-                }
-                finally
-                {
-                    ReleaseCom((object)occurrence);
-                }
-            }
+            StructureCount structure = ReadOccurrenceStructure(document);
             return new ProbeResult
             {
-                Count = occurrences,
-                Detail = String.Format(CultureInfo.InvariantCulture, "occurrences={0};include_in_bom={1};resolved_documents={2};opened_by_probe={3};source_match={4};actual_document={5}", occurrences, includedInBom, resolvedDocuments, openedByProbe.ToString().ToLowerInvariant(), sourceMatch, actualDocumentPath)
+                Count = structure.ExpandedOccurrences,
+                Detail = StructureDetail(structure) + String.Format(CultureInfo.InvariantCulture, ";opened_by_probe={0};source_match={1};actual_document={2}", openedByProbe.ToString().ToLowerInvariant(), sourceMatch, actualDocumentPath)
             };
         }
         catch (Exception exception)
@@ -377,7 +413,7 @@ internal static class SolidEdgeApiBenchmark
         }
     }
 
-    private static ProbeResult ProbeSolidEdgeActiveSourceRead()
+    private static ProbeResult ProbeSolidEdgeActiveSourceRead(string activeSourcePath)
     {
         dynamic application = null;
         dynamic document = null;
@@ -385,26 +421,18 @@ internal static class SolidEdgeApiBenchmark
         {
             application = Marshal.GetActiveObject("SolidEdge.Application");
             dynamic documents = application.Documents;
-            document = FindOpenDocumentByExactName(documents, "IV_InnovaVento_Oven.asm");
-            if (document == null) throw new InvalidOperationException("The generated oven source assembly is not open in Solid Edge.");
-            int occurrences = (int)document.Occurrences.Count;
-            int includedInBom = 0;
-            int resolvedDocuments = 0;
-            for (int index = 1; index <= occurrences; index++)
-            {
-                dynamic occurrence = document.Occurrences.Item(index);
-                try
-                {
-                    if ((bool)occurrence.IncludeInBom) includedInBom++;
-                    string occurrencePath = Convert.ToString(occurrence.OccurrenceFileName, CultureInfo.InvariantCulture);
-                    if (!String.IsNullOrWhiteSpace(occurrencePath)) resolvedDocuments++;
-                }
-                finally { ReleaseCom((object)occurrence); }
-            }
+            document = String.IsNullOrWhiteSpace(activeSourcePath)
+                ? FindOpenDocumentByExactName(documents, "IV_InnovaVento_Oven.asm")
+                : FindOpenDocument(documents, activeSourcePath);
+            if (document == null) throw new InvalidOperationException(
+                String.IsNullOrWhiteSpace(activeSourcePath)
+                    ? "The generated oven source assembly is not open in Solid Edge."
+                    : "The requested active source assembly is not open in Solid Edge: " + activeSourcePath);
+            StructureCount structure = ReadOccurrenceStructure(document);
             return new ProbeResult
             {
-                Count = occurrences,
-                Detail = String.Format(CultureInfo.InvariantCulture, "occurrences={0};include_in_bom={1};resolved_documents={2};actual_document={3};unsaved_editor_state_available=true", occurrences, includedInBom, resolvedDocuments, Convert.ToString(document.FullName, CultureInfo.InvariantCulture))
+                Count = structure.ExpandedOccurrences,
+                Detail = StructureDetail(structure) + String.Format(CultureInfo.InvariantCulture, ";actual_document={0};unsaved_editor_state_available=true", Convert.ToString(document.FullName, CultureInfo.InvariantCulture))
             };
         }
         finally
@@ -412,6 +440,74 @@ internal static class SolidEdgeApiBenchmark
             ReleaseCom((object)document);
             ReleaseCom((object)application);
         }
+    }
+
+    private static StructureCount ReadOccurrenceStructure(dynamic document)
+    {
+        var result = new StructureCount();
+        TraverseOccurrences(document, 1, new HashSet<string>(StringComparer.OrdinalIgnoreCase), result);
+        return result;
+    }
+
+    private static void TraverseOccurrences(
+        dynamic assembly,
+        int depth,
+        HashSet<string> pathStack,
+        StructureCount result)
+    {
+        string assemblyPath = Convert.ToString(assembly.FullName, CultureInfo.InvariantCulture);
+        if (!pathStack.Add(assemblyPath))
+        {
+            result.Cycles++;
+            return;
+        }
+        result.HierarchyDepth = Math.Max(result.HierarchyDepth, depth);
+        try
+        {
+            int occurrenceCount = (int)assembly.Occurrences.Count;
+            for (int index = 1; index <= occurrenceCount; index++)
+            {
+                dynamic occurrence = assembly.Occurrences.Item(index);
+                dynamic occurrenceDocument = null;
+                try
+                {
+                    result.ExpandedOccurrences++;
+                    if ((bool)occurrence.IncludeInBom) result.IncludedInBom++;
+                    try { if ((bool)occurrence.ReferenceOnly) result.ReferenceOnlyOccurrences++; } catch { }
+                    string occurrencePath = Convert.ToString(occurrence.OccurrenceFileName, CultureInfo.InvariantCulture);
+                    if (!String.IsNullOrWhiteSpace(occurrencePath)) result.ResolvedDocuments++;
+                    if ((bool)occurrence.Subassembly)
+                    {
+                        result.SubassemblyOccurrences++;
+                        occurrenceDocument = occurrence.OccurrenceDocument;
+                        TraverseOccurrences(occurrenceDocument, depth + 1, pathStack, result);
+                    }
+                }
+                finally
+                {
+                    ReleaseCom((object)occurrenceDocument);
+                    ReleaseCom((object)occurrence);
+                }
+            }
+        }
+        finally
+        {
+            pathStack.Remove(assemblyPath);
+        }
+    }
+
+    private static string StructureDetail(StructureCount structure)
+    {
+        return String.Format(
+            CultureInfo.InvariantCulture,
+            "expanded_occurrences={0};include_in_bom={1};resolved_documents={2};subassemblies={3};reference_only={4};hierarchy_depth={5};cycles={6}",
+            structure.ExpandedOccurrences,
+            structure.IncludedInBom,
+            structure.ResolvedDocuments,
+            structure.SubassemblyOccurrences,
+            structure.ReferenceOnlyOccurrences,
+            structure.HierarchyDepth,
+            structure.Cycles);
     }
 
     private static dynamic FindOpenDocument(dynamic documents, string fixturePath)
@@ -485,7 +581,14 @@ internal static class SolidEdgeApiBenchmark
         };
     }
 
-    private static object BuildEnvironment(string runId, string fixturePath, string fixtureHash, string outputDirectory, int conflictingDocumentsClosed)
+    private static object BuildEnvironment(
+        string runId,
+        string fixturePath,
+        string fixtureHash,
+        string outputDirectory,
+        int conflictingDocumentsClosed,
+        string activeSourcePath,
+        bool activeSourceOpenedByHarness)
     {
         string solidEdgeVersion = null;
         bool solidEdgeRunning = false;
@@ -541,6 +644,8 @@ internal static class SolidEdgeApiBenchmark
             fixture_path = fixturePath,
             fixture_sha256 = fixtureHash,
             fixture_bytes = new FileInfo(fixturePath).Length,
+            active_source_path = activeSourcePath,
+            active_source_opened_by_harness = activeSourceOpenedByHarness,
             conflicting_same_name_documents_closed_before_measurement = conflictingDocumentsClosed,
             benchmark_output_path = outputDirectory,
             storage_note = outputOnSharedRepository
