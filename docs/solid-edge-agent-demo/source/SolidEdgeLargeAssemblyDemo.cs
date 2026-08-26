@@ -18,7 +18,7 @@ internal static class SolidEdgeLargeAssemblyDemo
     {
         public string FileName;
         public string Name;
-        public bool IncludeInBom = true;
+        public bool ExcludeFromReports;
         public bool ReferenceOnly;
         public bool Suppressed;
     }
@@ -50,9 +50,12 @@ internal static class SolidEdgeLargeAssemblyDemo
         public int leaf_occurrences;
         public int included_leaf_occurrences;
         public int bom_excluded_occurrences;
+        public int report_excluded_suboccurrences;
         public int reference_only_occurrences;
         public int suppressed_occurrences;
         public int cycle_count;
+        public readonly Dictionary<string, int> ReportExclusionsByEdge =
+            new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
         public readonly Dictionary<string, BomLine> Bom =
             new Dictionary<string, BomLine>(StringComparer.OrdinalIgnoreCase);
     }
@@ -87,6 +90,9 @@ internal static class SolidEdgeLargeAssemblyDemo
             dynamic root = CreateRoot(application, runDirectory, rootPath, modules);
             TraversalResult traversal = AnalyzeAssembly(root);
             int declaredSuppressed = modules.Sum(module => module.Children.Count(child => child.Suppressed)) * 8;
+            int declaredBomOnlyExclusions = modules.Sum(module => module.Children.Count(child => child.ExcludeFromReports)) * 8;
+            int declaredReferenceReportExclusions = modules.Sum(module => module.Children.Count(child => child.ReferenceOnly)) * 8;
+            int expectedReportExclusions = declaredBomOnlyExclusions + declaredReferenceReportExclusions;
             int expectedLeafOccurrences = modules.Sum(module => module.Children.Length) * 8 + 2;
             int collectionDelta = expectedLeafOccurrences - traversal.leaf_occurrences;
             if (traversal.suppressed_occurrences == 0 && collectionDelta == declaredSuppressed)
@@ -97,20 +103,26 @@ internal static class SolidEdgeLargeAssemblyDemo
             }
             Console.WriteLine(String.Format(
                 CultureInfo.InvariantCulture,
-                "ANALYSIS=depth={0}|expanded={1}|leaf={2}|included={3}|excluded={4}|reference_only={5}|suppressed={6}|cycles={7}",
+                "ANALYSIS=depth={0}|expanded={1}|leaf={2}|included={3}|excluded={4}|report_excluded={5}|reference_only={6}|suppressed={7}|cycles={8}",
                 traversal.hierarchy_depth,
                 traversal.expanded_occurrences,
                 traversal.leaf_occurrences,
                 traversal.included_leaf_occurrences,
                 traversal.bom_excluded_occurrences,
+                traversal.report_excluded_suboccurrences,
                 traversal.reference_only_occurrences,
                 traversal.suppressed_occurrences,
                 traversal.cycle_count));
+            foreach (KeyValuePair<string, int> edge in traversal.ReportExclusionsByEdge.OrderBy(item => item.Key, StringComparer.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("REPORT_EXCLUSION_EDGE=" + edge.Key + "|count=" + edge.Value.ToString(CultureInfo.InvariantCulture));
+            }
             if (traversal.leaf_occurrences < 100 || traversal.hierarchy_depth < 2)
             {
                 throw new InvalidOperationException("The large-assembly fixture did not reach its minimum scale.");
             }
             if (traversal.bom_excluded_occurrences == 0
+                || traversal.report_excluded_suboccurrences != expectedReportExclusions
                 || traversal.reference_only_occurrences == 0
                 || traversal.suppressed_occurrences == 0)
             {
@@ -133,7 +145,19 @@ internal static class SolidEdgeLargeAssemblyDemo
             Console.WriteLine("STAGE=step");
             string draftPath;
             string pdfPath;
-            CreateDraftAndPdf(application, rootPath, runDirectory, out draftPath, out pdfPath);
+            int draftSheetCount;
+            int draftViewCount;
+            Dictionary<string, int> nativePartsListQuantities;
+            CreateDraftAndPdf(
+                application,
+                rootPath,
+                runDirectory,
+                bom,
+                out draftPath,
+                out pdfPath,
+                out draftSheetCount,
+                out draftViewCount,
+                out nativePartsListQuantities);
             Console.WriteLine("STAGE=draft-pdf");
             string metadataPath = Path.Combine(runDirectory, RootName + ".metadata.json");
             WriteMetadata(metadataPath, (string)application.Version, rootPath, traversal, bom);
@@ -146,7 +170,13 @@ internal static class SolidEdgeLargeAssemblyDemo
                 traversal,
                 bom,
                 expectedLeafOccurrences,
-                collectionDelta);
+                collectionDelta,
+                declaredBomOnlyExclusions,
+                declaredReferenceReportExclusions,
+                expectedReportExclusions,
+                draftSheetCount,
+                draftViewCount,
+                nativePartsListQuantities);
             Console.WriteLine("STAGE=manifest");
 
             root = CreateRuntimeSnapshot(application, root, runDirectory, rootPath);
@@ -156,7 +186,7 @@ internal static class SolidEdgeLargeAssemblyDemo
 
             Console.WriteLine(String.Format(
                 CultureInfo.InvariantCulture,
-                "RESULT=root={0}|run={1}|depth={2}|expanded={3}|leaf={4}|included={5}|excluded={6}|reference_only={7}|suppressed={8}|bom_lines={9}",
+                "RESULT=root={0}|run={1}|depth={2}|expanded={3}|leaf={4}|included={5}|excluded={6}|report_excluded={7}|reference_only={8}|suppressed={9}|bom_lines={10}",
                 rootPath,
                 runDirectory,
                 traversal.hierarchy_depth,
@@ -164,6 +194,7 @@ internal static class SolidEdgeLargeAssemblyDemo
                 traversal.leaf_occurrences,
                 traversal.included_leaf_occurrences,
                 traversal.bom_excluded_occurrences,
+                traversal.report_excluded_suboccurrences,
                 traversal.reference_only_occurrences,
                 traversal.suppressed_occurrences,
                 bom.Count));
@@ -208,7 +239,7 @@ internal static class SolidEdgeLargeAssemblyDemo
                 Child("IV_OVN_FOOT.par", "Foot 2"),
                 Child("IV_OVN_FOOT.par", "Foot 3"),
                 Child("IV_OVN_FOOT.par", "Foot 4"),
-                Child("IV_OVN_CONTROL.par", "Commissioning placeholder", includeInBom: false),
+                Child("IV_OVN_CONTROL.par", "Commissioning placeholder", excludeFromReports: true),
                 Child("IV_OVN_BACK.par", "Suppressed option", suppressed: true),
                 Child("IV_OVN_NAMEPLATE.par", "Service label"))
         };
@@ -228,7 +259,7 @@ internal static class SolidEdgeLargeAssemblyDemo
     private static ChildSpec Child(
         string fileName,
         string name,
-        bool includeInBom = true,
+        bool excludeFromReports = false,
         bool referenceOnly = false,
         bool suppressed = false)
     {
@@ -236,7 +267,7 @@ internal static class SolidEdgeLargeAssemblyDemo
         {
             FileName = fileName,
             Name = name,
-            IncludeInBom = includeInBom,
+            ExcludeFromReports = excludeFromReports,
             ReferenceOnly = referenceOnly,
             Suppressed = suppressed
         };
@@ -280,7 +311,7 @@ internal static class SolidEdgeLargeAssemblyDemo
                 dynamic occurrence = assembly.Occurrences.AddByFilename(
                     Path.Combine(runDirectory, child.FileName), Missing.Value);
                 occurrence.Name = child.Name;
-                occurrence.IncludeInBom = child.IncludeInBom;
+                occurrence.IncludeInBom = true;
                 occurrence.ReferenceOnly = child.ReferenceOnly;
                 occurrence.Move((index % 4) * 0.68, (index / 4) * 0.82, 0.0);
                 if (child.Suppressed)
@@ -313,6 +344,7 @@ internal static class SolidEdgeLargeAssemblyDemo
                     Path.Combine(runDirectory, modules[moduleIndex].FileName), Missing.Value);
                 occurrence.Name = modules[moduleIndex].PartNumber + "-" + (copyIndex + 1).ToString("00", CultureInfo.InvariantCulture);
                 occurrence.IncludeInBom = true;
+                ApplyPerInstanceReportExclusions(occurrence, modules[moduleIndex]);
                 occurrence.Move(
                     moduleIndex * 3.4 + (copyIndex % 4) * 0.78,
                     (copyIndex / 4) * 1.15,
@@ -334,7 +366,35 @@ internal static class SolidEdgeLargeAssemblyDemo
 
         WriteAssemblyMetadata(root, "IV-OVN-F000", "InnovaVento oven factory benchmark fixture");
         root.Save();
-        return root;
+        root.Close(false);
+        return application.Documents.Open(rootPath);
+    }
+
+    private static void ApplyPerInstanceReportExclusions(dynamic rootOccurrence, ModuleSpec module)
+    {
+        dynamic subOccurrences = rootOccurrence.SubOccurrences;
+        foreach (ChildSpec child in module.Children.Where(item => item.ExcludeFromReports))
+        {
+            dynamic target = null;
+            for (int index = 1; index <= (int)subOccurrences.Count; index++)
+            {
+                dynamic candidate = subOccurrences.Item(index);
+                string candidateName = Convert.ToString(candidate.Name, CultureInfo.InvariantCulture);
+                string candidateFile = Convert.ToString(candidate.SubOccurrenceFileName, CultureInfo.InvariantCulture);
+                if (String.Equals(candidateName, child.Name, StringComparison.OrdinalIgnoreCase)
+                    && String.Equals(Path.GetFileName(candidateFile), child.FileName, StringComparison.OrdinalIgnoreCase))
+                {
+                    target = candidate;
+                    break;
+                }
+            }
+            if (target == null)
+            {
+                throw new InvalidOperationException(
+                    "Nested occurrence selected for report exclusion was not found: " + module.FileName + " -> " + child.Name);
+            }
+            target.ExcludeFromReports = true;
+        }
     }
 
     private static dynamic NewAssembly(dynamic application, string path)
@@ -397,11 +457,16 @@ internal static class SolidEdgeLargeAssemblyDemo
                 if (referenceOnly) result.reference_only_occurrences++;
                 if (suppressed) result.suppressed_occurrences++;
 
-                dynamic document = occurrence.OccurrenceDocument;
                 if ((bool)occurrence.Subassembly)
                 {
                     result.subassembly_occurrences++;
-                    Traverse(document, depth + 1, includeInBom && !referenceOnly && !suppressed, stack, result);
+                    TraverseSubassemblyInstance(
+                        occurrence,
+                        Convert.ToString(occurrence.OccurrenceFileName, CultureInfo.InvariantCulture),
+                        depth + 1,
+                        includeInBom && !referenceOnly && !suppressed,
+                        stack,
+                        result);
                     continue;
                 }
 
@@ -409,6 +474,7 @@ internal static class SolidEdgeLargeAssemblyDemo
                 if (!includeInBom || referenceOnly || suppressed) continue;
                 result.included_leaf_occurrences++;
                 string occurrencePath = (string)occurrence.OccurrenceFileName;
+                dynamic document = occurrence.OccurrenceDocument;
                 string partNumber = ReadCustomProperty(document, "IV_PartNumber", Path.GetFileNameWithoutExtension(occurrencePath));
                 BomLine line;
                 if (!result.Bom.TryGetValue(partNumber, out line))
@@ -428,6 +494,84 @@ internal static class SolidEdgeLargeAssemblyDemo
         finally
         {
             stack.Remove(path);
+        }
+    }
+
+    private static void TraverseSubassemblyInstance(
+        dynamic subassemblyOccurrence,
+        string assemblyPath,
+        int depth,
+        bool parentIncluded,
+        HashSet<string> stack,
+        TraversalResult result)
+    {
+        if (!stack.Add(assemblyPath))
+        {
+            result.cycle_count++;
+            return;
+        }
+        result.hierarchy_depth = Math.Max(result.hierarchy_depth, depth + 1);
+        try
+        {
+            dynamic subOccurrences = subassemblyOccurrence.SubOccurrences;
+            for (int index = 1; index <= (int)subOccurrences.Count; index++)
+            {
+                dynamic subOccurrence = subOccurrences.Item(index);
+                dynamic definitionOccurrence = subOccurrence.ThisAsOccurrence;
+                result.expanded_occurrences++;
+                string occurrencePath = Convert.ToString(subOccurrence.SubOccurrenceFileName, CultureInfo.InvariantCulture);
+                bool excludedFromReports = (bool)subOccurrence.ExcludeFromReports;
+                bool includeInBom = parentIncluded && !excludedFromReports;
+                bool referenceOnly = (bool)definitionOccurrence.ReferenceOnly;
+                bool suppressed = IsSuppressed(definitionOccurrence);
+                if (!includeInBom) result.bom_excluded_occurrences++;
+                if (excludedFromReports)
+                {
+                    result.report_excluded_suboccurrences++;
+                    string edge = Path.GetFileName(assemblyPath) + " -> " + Path.GetFileName(occurrencePath);
+                    int current;
+                    result.ReportExclusionsByEdge.TryGetValue(edge, out current);
+                    result.ReportExclusionsByEdge[edge] = current + 1;
+                }
+                if (referenceOnly) result.reference_only_occurrences++;
+                if (suppressed) result.suppressed_occurrences++;
+
+                if ((bool)definitionOccurrence.Subassembly)
+                {
+                    result.subassembly_occurrences++;
+                    TraverseSubassemblyInstance(
+                        subOccurrence,
+                        occurrencePath,
+                        depth + 1,
+                        includeInBom && !referenceOnly && !suppressed,
+                        stack,
+                        result);
+                    continue;
+                }
+
+                result.leaf_occurrences++;
+                if (!includeInBom || referenceOnly || suppressed) continue;
+                result.included_leaf_occurrences++;
+                dynamic document = definitionOccurrence.OccurrenceDocument;
+                string partNumber = ReadCustomProperty(document, "IV_PartNumber", Path.GetFileNameWithoutExtension(occurrencePath));
+                BomLine line;
+                if (!result.Bom.TryGetValue(partNumber, out line))
+                {
+                    line = new BomLine
+                    {
+                        PartNumber = partNumber,
+                        Revision = ReadCustomProperty(document, "IV_Revision", ""),
+                        Description = ReadCustomProperty(document, "IV_Description", SafeSummaryTitle(document)),
+                        FileName = Path.GetFileName(occurrencePath)
+                    };
+                    result.Bom.Add(partNumber, line);
+                }
+                line.Quantity++;
+            }
+        }
+        finally
+        {
+            stack.Remove(assemblyPath);
         }
     }
 
@@ -493,11 +637,12 @@ internal static class SolidEdgeLargeAssemblyDemo
             { "schema_version", "1.1" },
             { "bom_kind", "engineering" },
             { "source_system", "solid_edge" },
-            { "source_api", "AssemblyDocument.Occurrences recursive" },
+            { "source_api", "AssemblyDocument.Occurrences + SubOccurrence instance traversal" },
             { "root_document", Path.GetFileName(rootPath) },
             { "line_count", bom.Count },
             { "occurrence_count", traversal.included_leaf_occurrences },
             { "excluded_occurrence_count", traversal.bom_excluded_occurrences },
+            { "report_excluded_suboccurrence_count", traversal.report_excluded_suboccurrences },
             { "reference_only_count", traversal.reference_only_occurrences },
             { "suppressed_count", traversal.suppressed_occurrences },
             { "lines", bom }
@@ -525,13 +670,14 @@ internal static class SolidEdgeLargeAssemblyDemo
             { "schema_version", "1.0" },
             { "source_system", "solid_edge" },
             { "root_document", Path.GetFileName(rootPath) },
-            { "quality_status", "source_verified_with_known_issue" },
+            { "quality_status", "source_verified" },
             { "object_inventory", new Dictionary<string, object>
                 {
                     { "hierarchy_depth", traversal.hierarchy_depth },
                     { "expanded_occurrences", traversal.expanded_occurrences },
                     { "leaf_occurrences", traversal.leaf_occurrences },
                     { "included_leaf_occurrences", traversal.included_leaf_occurrences },
+                    { "report_excluded_suboccurrences", traversal.report_excluded_suboccurrences },
                     { "reference_only_occurrences", traversal.reference_only_occurrences },
                     { "suppressed_occurrences", traversal.suppressed_occurrences },
                     { "cycle_count", traversal.cycle_count }
@@ -539,17 +685,14 @@ internal static class SolidEdgeLargeAssemblyDemo
             },
             { "field_provenance", new Dictionary<string, object>
                 {
-                    { "structure", "AssemblyDocument.Occurrences recursive" },
-                    { "bom", "Occurrence.IncludeInBom + ReferenceOnly + SuppressVariable" },
+                    { "structure", "AssemblyDocument.Occurrences + SubOccurrence instance traversal" },
+                    { "bom", "Occurrence.IncludeInBom + SubOccurrence.ExcludeFromReports + ReferenceOnly + SuppressVariable" },
+                    { "report_exclusion", "SubOccurrence.ExcludeFromReports read after root Save/Close/Reopen" },
                     { "metadata", "Document.SummaryInfo + Properties.Custom" },
                     { "suppression", "declared-versus-reloaded Occurrences delta" }
                 }
             },
-            { "known_issues", new[]
-                {
-                    "IncludeInBom=false reset to true inside the reopened service subassembly; root exclusion and ReferenceOnly persisted."
-                }
-            }
+            { "known_issues", new string[0] }
         };
         File.WriteAllText(path, Json.Serialize(payload), new UTF8Encoding(false));
     }
@@ -585,7 +728,7 @@ internal static class SolidEdgeLargeAssemblyDemo
                     { "draft_parts_list", true },
                     { "reference_only", true },
                     { "suppression", true },
-                    { "nested_include_in_bom", "partial" },
+                    { "per_instance_report_exclusion", true },
                     { "unsaved_editor_state", false }
                 }
             },
@@ -603,8 +746,12 @@ internal static class SolidEdgeLargeAssemblyDemo
         dynamic application,
         string assemblyPath,
         string outputDirectory,
+        List<BomLine> bom,
         out string draftPath,
-        out string pdfPath)
+        out string pdfPath,
+        out int draftSheetCount,
+        out int draftViewCount,
+        out Dictionary<string, int> nativePartsListQuantities)
     {
         draftPath = Path.Combine(outputDirectory, RootName + ".dft");
         pdfPath = Path.Combine(outputDirectory, RootName + ".pdf");
@@ -632,6 +779,52 @@ internal static class SolidEdgeLargeAssemblyDemo
         partsList.UseLevelBasedItemNumbers = false;
         partsList.SetOrigin(0.24, 0.145);
         partsList.Update();
+        nativePartsListQuantities = ReadPartsListQuantities(partsList);
+        VerifyPartsListMatchesBom(bom, nativePartsListQuantities);
+
+        dynamic detailSheet = draft.Sheets.AddSheet(
+            "Assembly views",
+            SheetSectionTypeConstants.igWorkingSection,
+            Missing.Value,
+            Missing.Value);
+        detailSheet.Background = sheet.Background;
+        detailSheet.BackgroundVisible = true;
+        detailSheet.SheetSetup.SheetSizeOption = sheet.SheetSetup.SheetSizeOption;
+        detailSheet.Activate();
+        dynamic isometricView = detailSheet.DrawingViews.AddAssemblyView(
+            modelLink,
+            ViewOrientationConstants.igTrimetricTopFrontRightView,
+            0.012,
+            0.085,
+            0.115,
+            AssemblyDrawingViewTypeConstants.seAssemblyDesignedView,
+            Missing.Value,
+            Missing.Value,
+            Missing.Value);
+        isometricView.Caption = "Isometric assembly overview";
+        isometricView.DisplayCaption = true;
+        isometricView.DisplayScale = true;
+        isometricView.Update();
+        dynamic topView = detailSheet.DrawingViews.AddAssemblyView(
+            modelLink,
+            ViewOrientationConstants.igTopView,
+            0.012,
+            0.285,
+            0.115,
+            AssemblyDrawingViewTypeConstants.seAssemblyDesignedView,
+            Missing.Value,
+            Missing.Value,
+            Missing.Value);
+        topView.Caption = "Top assembly overview";
+        topView.DisplayCaption = true;
+        topView.DisplayScale = true;
+        topView.Update();
+        draftSheetCount = (int)draft.Sections.WorkingSection.Sheets.Count;
+        draftViewCount = (int)sheet.DrawingViews.Count + (int)detailSheet.DrawingViews.Count;
+        if (draftSheetCount < 2 || draftViewCount < 3)
+        {
+            throw new InvalidOperationException("The multi-sheet draft fixture is incomplete.");
+        }
         draft.SaveAs(draftPath, Missing.Value, Missing.Value, Missing.Value, Missing.Value,
             Missing.Value, Missing.Value, Missing.Value, Missing.Value);
         draft.Save();
@@ -642,11 +835,97 @@ internal static class SolidEdgeLargeAssemblyDemo
         printUtility.SheetsPerPage = DraftPrintSheetsPerPageConstants.igSingleSheet;
         printUtility.PrintToFile = true;
         printUtility.PrintToFilePath = outputDirectory;
+        printUtility.PrintToFileName = Path.GetFileName(pdfPath);
         printUtility.PrintAsBlack = true;
         printUtility.AddDocument(draft);
         printUtility.PrintOut();
         NormalizePdf(outputDirectory, pdfPath);
         draft.Close(false);
+    }
+
+    private static Dictionary<string, int> ReadPartsListQuantities(dynamic partsList)
+    {
+        int columnCount = (int)partsList.Columns.Count;
+        int rowCount = (int)partsList.Rows.Count;
+        int quantityColumn = 0;
+        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++)
+        {
+            dynamic column = partsList.Columns.Item(columnIndex);
+            string text = (Convert.ToString(column.Header, CultureInfo.InvariantCulture) + " "
+                + Convert.ToString(column.PropertyText, CultureInfo.InvariantCulture)).ToLowerInvariant();
+            if (text.Contains("menge") || text.Contains("quantity"))
+            {
+                quantityColumn = columnIndex;
+                break;
+            }
+        }
+        if (quantityColumn == 0)
+        {
+            throw new InvalidOperationException("The native PartsList has no quantity column.");
+        }
+
+        int fileNameColumn = 0;
+        for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++)
+        {
+            bool allKnown = true;
+            for (int rowIndex = 1; rowIndex <= rowCount; rowIndex++)
+            {
+                string value = Convert.ToString(partsList.Cell[rowIndex, columnIndex].value, CultureInfo.InvariantCulture);
+                if (String.IsNullOrWhiteSpace(value)) continue;
+                if (!value.StartsWith("IV_OVN_", StringComparison.OrdinalIgnoreCase))
+                {
+                    allKnown = false;
+                    break;
+                }
+            }
+            if (allKnown)
+            {
+                fileNameColumn = columnIndex;
+                break;
+            }
+        }
+        if (fileNameColumn == 0)
+        {
+            throw new InvalidOperationException("The native PartsList has no recognizable file-name column.");
+        }
+
+        var quantities = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+        for (int rowIndex = 1; rowIndex <= rowCount; rowIndex++)
+        {
+            string fileName = Convert.ToString(partsList.Cell[rowIndex, fileNameColumn].value, CultureInfo.InvariantCulture);
+            string rawQuantity = Convert.ToString(partsList.Cell[rowIndex, quantityColumn].value, CultureInfo.InvariantCulture);
+            double quantity;
+            if (!Double.TryParse(rawQuantity, NumberStyles.Float, CultureInfo.InvariantCulture, out quantity)
+                && !Double.TryParse(rawQuantity, NumberStyles.Float, CultureInfo.CurrentCulture, out quantity))
+            {
+                throw new InvalidOperationException("The native PartsList quantity is not numeric: " + rawQuantity);
+            }
+            quantities[fileName] = Convert.ToInt32(quantity, CultureInfo.InvariantCulture);
+        }
+        return quantities;
+    }
+
+    private static void VerifyPartsListMatchesBom(List<BomLine> bom, Dictionary<string, int> nativeQuantities)
+    {
+        var expected = bom.ToDictionary(
+            line => Path.GetFileNameWithoutExtension(line.FileName),
+            line => line.Quantity,
+            StringComparer.OrdinalIgnoreCase);
+        if (expected.Count != nativeQuantities.Count)
+        {
+            throw new InvalidOperationException("The native PartsList row count does not match the Engineering BOM.");
+        }
+        foreach (KeyValuePair<string, int> line in expected)
+        {
+            int actual;
+            if (!nativeQuantities.TryGetValue(line.Key, out actual) || actual != line.Value)
+            {
+                throw new InvalidOperationException(
+                    "Native PartsList mismatch for " + line.Key + ": expected "
+                    + line.Value.ToString(CultureInfo.InvariantCulture) + ", observed "
+                    + (nativeQuantities.ContainsKey(line.Key) ? actual.ToString(CultureInfo.InvariantCulture) : "missing"));
+            }
+        }
     }
 
     private static dynamic CreateRuntimeSnapshot(
@@ -694,6 +973,16 @@ internal static class SolidEdgeLargeAssemblyDemo
             System.Threading.Thread.Sleep(100);
         }
         if (!File.Exists(pdfPath)) throw new FileNotFoundException("Solid Edge did not create the factory PDF.", pdfPath);
+        WaitForExclusiveAccess(pdfPath, 15000);
+        using (FileStream stream = File.OpenRead(pdfPath))
+        {
+            byte[] signature = new byte[5];
+            if (stream.Read(signature, 0, signature.Length) != signature.Length
+                || Encoding.ASCII.GetString(signature) != "%PDF-")
+            {
+                throw new InvalidDataException("The factory export is not a PDF: " + pdfPath);
+            }
+        }
     }
 
     private static void WaitForExclusiveAccess(string path, int timeoutMilliseconds)
@@ -722,7 +1011,13 @@ internal static class SolidEdgeLargeAssemblyDemo
         TraversalResult traversal,
         List<BomLine> bom,
         int expectedLeafOccurrences,
-        int collectionDelta)
+        int collectionDelta,
+        int declaredBomOnlyExclusions,
+        int declaredReferenceReportExclusions,
+        int expectedReportExclusions,
+        int draftSheetCount,
+        int draftViewCount,
+        Dictionary<string, int> nativePartsListQuantities)
     {
         var payload = new Dictionary<string, object>
         {
@@ -739,21 +1034,33 @@ internal static class SolidEdgeLargeAssemblyDemo
             { "leaf_occurrences", traversal.leaf_occurrences },
             { "included_leaf_occurrences", traversal.included_leaf_occurrences },
             { "bom_excluded_occurrences", traversal.bom_excluded_occurrences },
+            { "declared_bom_only_exclusions", declaredBomOnlyExclusions },
+            { "declared_reference_report_exclusions", declaredReferenceReportExclusions },
+            { "expected_report_excluded_suboccurrences", expectedReportExclusions },
+            { "report_excluded_suboccurrences", traversal.report_excluded_suboccurrences },
             { "reference_only_occurrences", traversal.reference_only_occurrences },
             { "suppressed_occurrences", traversal.suppressed_occurrences },
             { "cycle_count", traversal.cycle_count },
+            { "draft_sheet_count", draftSheetCount },
+            { "draft_view_count", draftViewCount },
+            { "native_parts_list_quantities", nativePartsListQuantities },
             { "expected_leaf_occurrences_before_suppression", expectedLeafOccurrences },
             { "suppressed_occurrence_collection_delta", collectionDelta },
             { "suppression_evidence", "Persisted suppressed occurrences are absent from AssemblyDocument.Occurrences after reload; count is the exact declared-versus-observed delta." },
-            { "known_issue", "IncludeInBom=false persisted on the live root occurrence but reset to true inside the reopened service subassembly; ReferenceOnly remained stable." },
+            { "report_exclusion_evidence", "SubOccurrence.ExcludeFromReports is written for BOM-only exclusions and also reads true for nested ReferenceOnly children after root Save/Close/Reopen." },
+            { "report_exclusion_edges", traversal.ReportExclusionsByEdge },
             { "acceptance", new Dictionary<string, object>
                 {
                     { "at_least_100_leaf_occurrences", traversal.leaf_occurrences >= 100 },
                     { "nested_subassemblies", traversal.hierarchy_depth >= 2 },
                     { "bom_exclusion_present", traversal.bom_excluded_occurrences > 0 },
+                    { "per_instance_report_exclusions_persisted", traversal.report_excluded_suboccurrences == expectedReportExclusions },
                     { "reference_only_present", traversal.reference_only_occurrences > 0 },
                     { "suppression_present", traversal.suppressed_occurrences > 0 },
-                    { "cycle_free", traversal.cycle_count == 0 }
+                    { "cycle_free", traversal.cycle_count == 0 },
+                    { "multi_sheet_draft", draftSheetCount >= 2 },
+                    { "multiple_drawing_views", draftViewCount >= 3 },
+                    { "native_parts_list_matches_engineering_bom", nativePartsListQuantities.Count == bom.Count }
                 }
             }
         };

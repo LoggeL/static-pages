@@ -48,6 +48,7 @@ files=(
   IV_InnovaVento_Oven_Factory.dft
   IV_InnovaVento_Oven_Factory.stp
   IV_InnovaVento_Oven_Factory.pdf
+  "IV_InnovaVento_Oven_Factory_Assembly views.pri"
   IV_InnovaVento_Oven_Factory.metadata.json
   IV_InnovaVento_Oven_Factory.bom.json
   IV_InnovaVento_Oven_Factory.bom.csv
@@ -59,6 +60,24 @@ for name in "${files[@]}"; do
   "$vmctl" exec -- powershell.exe -NoLogo -NoProfile -NonInteractive \
     -EncodedCommand "$encoded" | base64 --decode > "$host_snapshot/$name"
 done
+
+pdf_python="${IV_CONNECT_PDF_PYTHON:-python3}"
+if ! "$pdf_python" -c 'import pypdf' >/dev/null 2>&1; then
+  bundled_python='/Users/logge/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3'
+  if [[ -x "$bundled_python" ]] && "$bundled_python" -c 'import pypdf' >/dev/null 2>&1; then
+    pdf_python="$bundled_python"
+  else
+    printf 'pypdf is required to assemble the native per-sheet PDF outputs.\n' >&2
+    exit 1
+  fi
+fi
+primary_pdf="$host_snapshot/IV_InnovaVento_Oven_Factory.pdf"
+detail_pdf="$host_snapshot/IV_InnovaVento_Oven_Factory_Assembly views.pri"
+merged_pdf="$host_snapshot/IV_InnovaVento_Oven_Factory.merged.pdf"
+"$pdf_python" "$repo_root/tooling/docs/merge_pdf_pages.py" \
+  "$merged_pdf" "$primary_pdf" "$detail_pdf"
+mv "$merged_pdf" "$primary_pdf"
+cp "$primary_pdf" "$host_output/IV_InnovaVento_Oven_Factory.pdf"
 
 jq -e . "$host_snapshot/fixture-manifest.json" >/dev/null
 jq -e . "$host_snapshot/IV_InnovaVento_Oven_Factory.bom.json" >/dev/null

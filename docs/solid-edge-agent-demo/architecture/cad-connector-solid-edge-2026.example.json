@@ -2,7 +2,7 @@
   "document_kind": "capability_manifest",
   "schema_version": "1.0",
   "contract_id": "cad-connector-v1",
-  "generated_at": "2026-08-26T12:00:00Z",
+  "generated_at": "2026-08-26T17:15:00Z",
   "connector": {
     "id": "com.innovavento.cad.solid-edge",
     "vendor": "Siemens Industry Software Inc.",
@@ -36,11 +36,11 @@
         "references": [
           {
             "kind": "screenshot",
-            "ref": "docs/product/solid-edge-agent-demo/assets/17-addins-buttons-working.png"
+            "ref": "../index.html#code"
           },
           {
             "kind": "source",
-            "ref": "tooling/solid-edge/test_addin_activation.ps1"
+            "ref": "../source/test_addin_activation.ps1"
           }
         ],
         "caveats": [
@@ -63,11 +63,11 @@
         "references": [
           {
             "kind": "source",
-            "ref": "tooling/solid-edge/SolidEdgeDemo.cs"
+            "ref": "../source/SolidEdgeDemo.cs"
           },
           {
             "kind": "screenshot",
-            "ref": "docs/product/solid-edge-agent-demo/assets/20-saveall-success-and-folder.png"
+            "ref": "../index.html#saveall"
           }
         ],
         "caveats": []
@@ -158,11 +158,11 @@
         "references": [
           {
             "kind": "source",
-            "ref": "tooling/solid-edge/build_addin.ps1"
+            "ref": "../source/build_addin.ps1"
           },
           {
             "kind": "source",
-            "ref": "tooling/solid-edge/test_addin_activation.ps1"
+            "ref": "../source/test_addin_activation.ps1"
           }
         ],
         "caveats": [
@@ -202,38 +202,42 @@
       "supports_unsaved_state": false,
       "write_scope": "local_source",
       "evidence": {
-        "state": "observed",
-        "run_id": "solid-edge-oven-development",
-        "observed_at": "2026-08-26T09:30:00Z",
+        "state": "verified",
+        "run_id": "20260826T170856974-39178cb4",
+        "observed_at": "2026-08-26T17:09:00Z",
         "references": [
           {
-            "kind": "source",
-            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+            "kind": "fixture",
+            "ref": "../fixtures/fixture-manifest.json"
           },
           {
-            "kind": "screenshot",
-            "ref": "docs/product/solid-edge-agent-demo/assets/33-oven-assembly-library.png"
+            "kind": "source",
+            "ref": "../source/SolidEdgeLargeAssemblyDemo.cs"
+          },
+          {
+            "kind": "benchmark",
+            "ref": "../benchmarks/large-assembly/api-benchmark-summary.json"
           }
         ],
         "caveats": [
-          "Nested assemblies and alternate configurations still require dedicated fixtures."
+          "The verified route covers saved state in the interactive VM session; unsaved editor state remains unavailable to the disk-backed capture provider."
         ]
       },
       "performance_baselines": [
         {
           "operation": "cad.read.assembly_structure",
-          "fixture_id": "iv-oven-flat-v1",
-          "fixture_version": "b378b94cbd6d79bf37e209a2369f677e8a3ef2fa131643b77f95e413b14e2a78",
+          "fixture_id": "solid-edge-large-assembly-v1",
+          "fixture_version": "adcc5a5c48cbf2f7b826b356011558876e25da2c558111b3a9df9822c5f6afa0",
           "start_mode": "interactive_existing_process",
           "warm_state": "warm",
           "sample_count": 7,
-          "p50_ms": 86.987125,
-          "p95_ms": 105.80875,
-          "max_ms": 105.80875,
+          "p50_ms": 650.3283333333334,
+          "p95_ms": 674.94575,
+          "max_ms": 674.94575,
           "error_rate": 0,
           "environment_fingerprint": "8707189ea26f51f858f555236632e3fed80d6ea22bb3b739aae99113f1ae3f21",
-          "run_id": "run-20260826t091601297z",
-          "observed_at": "2026-08-26T09:19:27.905125Z"
+          "run_id": "20260826T160706614Z",
+          "observed_at": "2026-08-26T16:07:00Z"
         }
       ],
       "notes": [
@@ -263,16 +267,16 @@
       "write_scope": "none",
       "evidence": {
         "state": "verified",
-        "run_id": "run-20260826t091601297z",
-        "observed_at": "2026-08-26T09:19:27.905125Z",
+        "run_id": "20260826T150003845Z",
+        "observed_at": "2026-08-26T15:00:03Z",
         "references": [
           {
             "kind": "benchmark",
-            "ref": "output/solid-edge-oven/api-benchmark-summary.json"
+            "ref": "../benchmarks/api-benchmark-summary.json"
           },
           {
             "kind": "source",
-            "ref": "tooling/solid-edge/SolidEdgeApiBenchmark.cs"
+            "ref": "../source/SolidEdgeApiBenchmark.cs"
           }
         ],
         "caveats": [
@@ -287,13 +291,13 @@
           "start_mode": "headless_batch",
           "warm_state": "warm",
           "sample_count": 7,
-          "p50_ms": 75.13304166666667,
-          "p95_ms": 96.252,
-          "max_ms": 96.252,
+          "p50_ms": 1.7479583333333333,
+          "p95_ms": 3.111083333333333,
+          "max_ms": 3.111083333333333,
           "error_rate": 0,
           "environment_fingerprint": "8707189ea26f51f858f555236632e3fed80d6ea22bb3b739aae99113f1ae3f21",
-          "run_id": "run-20260826t091601297z",
-          "observed_at": "2026-08-26T09:19:27.905125Z"
+          "run_id": "20260826T150003845Z",
+          "observed_at": "2026-08-26T15:00:03Z"
         }
       ],
       "notes": [
@@ -323,11 +327,11 @@
         "references": [
           {
             "kind": "source",
-            "ref": "docs/product/solid-edge-agent-demo/00-Bericht.md"
+            "ref": "../index.html"
           },
           {
             "kind": "screenshot",
-            "ref": "docs/product/solid-edge-agent-demo/assets/26-solid-edge-snapshot-verified.png"
+            "ref": "../index.html#saveall"
           }
         ],
         "caveats": [
@@ -359,7 +363,7 @@
         "references": [
           {
             "kind": "screenshot",
-            "ref": "docs/product/solid-edge-agent-demo/assets/18-hello-world-dialog.png"
+            "ref": "../index.html#code"
           }
         ],
         "caveats": [
@@ -388,7 +392,7 @@
         "references": [
           {
             "kind": "source",
-            "ref": "tooling/solid-edge/inspect_application.ps1"
+            "ref": "../source/inspect_application.ps1"
           }
         ],
         "caveats": []
@@ -428,7 +432,7 @@
         "references": [
           {
             "kind": "source",
-            "ref": "tooling/solid-edge/SolidEdgeDemo.cs"
+            "ref": "../source/SolidEdgeDemo.cs"
           }
         ],
         "caveats": []
@@ -452,7 +456,7 @@
         "references": [
           {
             "kind": "source",
-            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+            "ref": "../source/SolidEdgeOvenDemo.cs"
           }
         ],
         "caveats": [
@@ -463,55 +467,59 @@
     },
     {
       "id": "cad.read.assembly_structure",
-      "status": "observed",
+      "status": "verified",
       "primary_route": "se.live-com",
       "fallback_routes": [],
       "quality_ceiling": "source_observed",
       "write_effect": "none",
       "requires_human_confirmation": false,
       "evidence": {
-        "state": "observed",
-        "run_id": "solid-edge-oven-development",
-        "observed_at": "2026-08-26T09:30:00Z",
+        "state": "verified",
+        "run_id": "20260826T170856974-39178cb4",
+        "observed_at": "2026-08-26T17:09:00Z",
         "references": [
           {
             "kind": "fixture",
-            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+            "ref": "../fixtures/fixture-manifest.json"
           },
           {
-            "kind": "screenshot",
-            "ref": "docs/product/solid-edge-agent-demo/assets/33-oven-assembly-library.png"
+            "kind": "source",
+            "ref": "../source/SolidEdgeLargeAssemblyDemo.cs"
           }
         ],
-        "caveats": [
-          "The current fixture is flat and does not verify recursive subassembly traversal."
-        ]
+        "caveats": []
       },
-      "notes": []
+      "notes": [
+        "The tested product route uses SubOccurrence.ExcludeFromReports after Save/Close/Reopen and verifies all 11 quantities against the native Atomic PartsList."
+      ]
     },
     {
       "id": "cad.read.engineering_bom",
-      "status": "observed",
+      "status": "verified",
       "primary_route": "se.live-com",
       "fallback_routes": [],
       "quality_ceiling": "derived_verified",
       "write_effect": "none",
       "requires_human_confirmation": false,
       "evidence": {
-        "state": "observed",
-        "run_id": "solid-edge-oven-development",
-        "observed_at": "2026-08-26T09:30:00Z",
+        "state": "verified",
+        "run_id": "20260826T170856974-39178cb4",
+        "observed_at": "2026-08-26T17:09:00Z",
         "references": [
           {
+            "kind": "fixture",
+            "ref": "../fixtures/fixture-manifest.json"
+          },
+          {
             "kind": "source",
-            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+            "ref": "../source/SolidEdgeLargeAssemblyDemo.cs"
           }
         ],
-        "caveats": [
-          "Quantity aggregation is deterministic for the flat fixture; configuration and recursion tests remain open."
-        ]
+        "caveats": []
       },
-      "notes": []
+      "notes": [
+        "The tested product route uses SubOccurrence.ExcludeFromReports after Save/Close/Reopen and verifies all 11 quantities against the native Atomic PartsList."
+      ]
     },
     {
       "id": "cad.read.geometry_summary",
@@ -528,7 +536,7 @@
         "references": [
           {
             "kind": "source",
-            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+            "ref": "../source/SolidEdgeOvenDemo.cs"
           }
         ],
         "caveats": [
@@ -550,7 +558,7 @@
         "references": [
           {
             "kind": "source",
-            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+            "ref": "../source/SolidEdgeOvenDemo.cs"
           }
         ],
         "caveats": [
@@ -571,12 +579,16 @@
       "requires_human_confirmation": false,
       "evidence": {
         "state": "verified",
-        "run_id": "solid-edge-demo-runtime-snapshot",
-        "observed_at": "2026-08-25T19:41:00Z",
+        "run_id": "20260826T170856974-39178cb4",
+        "observed_at": "2026-08-26T17:09:00Z",
         "references": [
           {
-            "kind": "screenshot",
-            "ref": "docs/product/solid-edge-agent-demo/assets/26-solid-edge-snapshot-verified.png"
+            "kind": "fixture",
+            "ref": "../fixtures/fixture-manifest.json"
+          },
+          {
+            "kind": "source",
+            "ref": "../source/solid_edge_snapshot.rs"
           }
         ],
         "caveats": []
@@ -598,7 +610,7 @@
         "references": [
           {
             "kind": "source",
-            "ref": "output/solid-edge-demo/IV_Demo_Block.stp"
+            "ref": "../index.html#artefakte"
           }
         ],
         "caveats": [
@@ -617,43 +629,52 @@
       "requires_human_confirmation": false,
       "evidence": {
         "state": "verified",
-        "run_id": "solid-edge-demo-pdf",
-        "observed_at": "2026-08-25T18:10:00Z",
+        "run_id": "20260826T170856974-39178cb4",
+        "observed_at": "2026-08-26T17:09:00Z",
         "references": [
           {
-            "kind": "screenshot",
-            "ref": "docs/product/solid-edge-agent-demo/assets/11-final-drawing.png"
+            "kind": "fixture",
+            "ref": "../fixtures/fixture-manifest.json"
+          },
+          {
+            "kind": "fixture",
+            "ref": "../fixtures/IV_InnovaVento_Oven_Factory.pdf"
           }
         ],
         "caveats": [
-          "PDF verification requires both a PDF signature and successful rendering."
+          "DraftPrintUtility emits one native PDF per working sheet on this VM; the final two-page container is merged deterministically with pypdf.",
+          "The second sheet is technically complete but its A2 background is not yet presentation-ready in the A4 print output."
         ]
       },
       "notes": []
     },
     {
       "id": "cad.export.bom",
-      "status": "observed",
+      "status": "verified",
       "primary_route": "se.live-com",
       "fallback_routes": [],
       "quality_ceiling": "derived_verified",
       "write_effect": "none",
       "requires_human_confirmation": false,
       "evidence": {
-        "state": "observed",
-        "run_id": "solid-edge-oven-development",
-        "observed_at": "2026-08-26T09:30:00Z",
+        "state": "verified",
+        "run_id": "20260826T170856974-39178cb4",
+        "observed_at": "2026-08-26T17:09:00Z",
         "references": [
           {
+            "kind": "fixture",
+            "ref": "../fixtures/fixture-manifest.json"
+          },
+          {
             "kind": "source",
-            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+            "ref": "../source/SolidEdgeLargeAssemblyDemo.cs"
           }
         ],
-        "caveats": [
-          "BOM JSON and CSV need persisted artifact hashes and a recursive fixture before production verification."
-        ]
+        "caveats": []
       },
-      "notes": []
+      "notes": [
+        "The tested product route uses SubOccurrence.ExcludeFromReports after Save/Close/Reopen and verifies all 11 quantities against the native Atomic PartsList."
+      ]
     },
     {
       "id": "cad.ui.addin_command",
@@ -670,7 +691,7 @@
         "references": [
           {
             "kind": "screenshot",
-            "ref": "docs/product/solid-edge-agent-demo/assets/17-addins-buttons-working.png"
+            "ref": "../index.html#code"
           }
         ],
         "caveats": [
@@ -710,7 +731,7 @@
         "references": [
           {
             "kind": "source",
-            "ref": "tooling/solid-edge/SolidEdgeDemo.cs"
+            "ref": "../source/SolidEdgeDemo.cs"
           }
         ],
         "caveats": [
@@ -734,7 +755,7 @@
         "references": [
           {
             "kind": "source",
-            "ref": "tooling/solid-edge/SolidEdgeDemo.cs"
+            "ref": "../source/SolidEdgeDemo.cs"
           }
         ],
         "caveats": [
@@ -756,7 +777,7 @@
         "references": [
           {
             "kind": "source",
-            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+            "ref": "../source/SolidEdgeOvenDemo.cs"
           }
         ],
         "caveats": [

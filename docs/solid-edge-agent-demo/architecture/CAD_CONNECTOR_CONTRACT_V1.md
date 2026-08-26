@@ -66,10 +66,12 @@ execute_write(authorized_plan) -> CadWriteReceipt
 - `execute_write` akzeptiert ausschließlich einen unveränderten, autorisierten
   Plan und liefert einen nativen Read-back.
 
-Tests benutzen dieselbe Interface wie die Runtime. Fake-Adapter werden nicht
-vor die echten Adapter geschichtet, sondern ersetzen sie am Test-Seam. Da mit
-KiCad und Solid Edge bereits zwei reale Implementierungen existieren, ist
-diese Seam nicht hypothetisch.
+KiCad und Solid Edge besitzen reale produktspezifische Provider. Die gemeinsame
+V1-Seam ist erst bewiesen, sobald beide dieselbe maschinenlesbare
+Inspect-/Capture-Conformance-Suite samt Fehlercodes bestehen. Bis dahin ist sie
+eine normative Zielarchitektur, keine bereits nachgewiesene Austauschbarkeit.
+Fake-Adapter ersetzen einen Realadapter nur am ausdrücklich definierten
+Test-Seam.
 
 ## 3. Verbindliche Begriffstrennung
 
@@ -324,7 +326,7 @@ ist allein noch kein Freigabebeleg.
 
 | Code | Bedingung | Reaktion |
 |---|---|---|
-| `CAD-FC-001` | Capability ist `unknown`, `declared` oder `unsupported`, aber im Profil erforderlich | Capture/Write ablehnen |
+| `CAD-FC-001` | erforderliche Capability hat einen Status ungleich `verified` | Capture/Write ablehnen; `observed` oder `conflicting` genügt für kein Pflichtprofil |
 | `CAD-FC-002` | gewählte Route ist für Produktbuild, Plattform oder Startmodus nicht verifiziert | Route nicht ausführen |
 | `CAD-FC-003` | Fallback ist nicht vorab deklariert oder liefert geringere Qualität als erlaubt | kein Fallback; Fehler mit ursprünglicher Correlation-ID |
 | `CAD-FC-004` | ungesicherter Editorstand wurde verlangt, ist aber nicht nachweisbar enthalten | Capture ablehnen; niemals disk-backed als vollständig melden |

@@ -311,6 +311,10 @@ internal static class SolidEdgeApiBenchmark
         dynamic linkedDocuments = null;
         int linkedCount = 0;
         int resolvedPaths = 0;
+        int localPaths = 0;
+        int externalPaths = 0;
+        int missingPaths = 0;
+        var linkedPathSamples = new List<string>();
         string stage = "create_application";
         try
         {
@@ -336,7 +340,22 @@ internal static class SolidEdgeApiBenchmark
                 try
                 {
                     string fullName = Convert.ToString(linkedDocument.FullName, CultureInfo.InvariantCulture);
-                    if (!String.IsNullOrWhiteSpace(fullName)) resolvedPaths++;
+                    if (!String.IsNullOrWhiteSpace(fullName))
+                    {
+                        resolvedPaths++;
+                        string normalized = Path.GetFullPath(fullName);
+                        string fixtureDirectory = Path.GetDirectoryName(Path.GetFullPath(fixturePath));
+                        if (String.Equals(Path.GetDirectoryName(normalized), fixtureDirectory, StringComparison.OrdinalIgnoreCase))
+                        {
+                            localPaths++;
+                        }
+                        else
+                        {
+                            externalPaths++;
+                        }
+                        if (!File.Exists(normalized)) missingPaths++;
+                        if (linkedPathSamples.Count < 12) linkedPathSamples.Add(normalized);
+                    }
                 }
                 finally
                 {
@@ -346,7 +365,15 @@ internal static class SolidEdgeApiBenchmark
             return new ProbeResult
             {
                 Count = linkedCount,
-                Detail = String.Format(CultureInfo.InvariantCulture, "linked_documents={0};resolved_paths={1};semantic_bom=not_supported", linkedCount, resolvedPaths)
+                Detail = String.Format(
+                    CultureInfo.InvariantCulture,
+                    "linked_documents={0};resolved_paths={1};local_paths={2};external_paths={3};missing_paths={4};paths={5};semantic_bom=not_supported",
+                    linkedCount,
+                    resolvedPaths,
+                    localPaths,
+                    externalPaths,
+                    missingPaths,
+                    String.Join("|", linkedPathSamples))
             };
         }
         catch (Exception exception)

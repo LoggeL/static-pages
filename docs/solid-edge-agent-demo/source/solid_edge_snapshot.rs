@@ -440,11 +440,23 @@ fn validate_bom_csv(path: &Path) -> Result<(), String> {
 
 fn validate_analysis_json(path: &Path) -> Result<(), String> {
     let value = read_json_value(path, "object_analysis_invalid")?;
+    let Some(inventory) = value.get("object_inventory").and_then(Value::as_object) else {
+        return Err("object_analysis_invalid".to_owned());
+    };
     if value.get("source_system").and_then(Value::as_str) != Some("solid_edge")
-        || value.get("object_inventory").and_then(Value::as_object).is_none()
         || value.get("field_provenance").and_then(Value::as_object).is_none()
     {
         return Err("object_analysis_invalid".to_owned());
+    }
+    match inventory.get("cycle_count").and_then(Value::as_u64) {
+        Some(0) => {}
+        Some(_) => return Err("assembly_cycle_detected".to_owned()),
+        None => return Err("object_analysis_invalid".to_owned()),
+    }
+    match inventory.get("hierarchy_depth").and_then(Value::as_u64) {
+        Some(depth) if depth <= 64 => {}
+        Some(_) => return Err("assembly_recursion_limit_exceeded".to_owned()),
+        None => return Err("object_analysis_invalid".to_owned()),
     }
     Ok(())
 }
@@ -775,7 +787,7 @@ mod tests {
             .unwrap();
             fs::write(
                 self.0.join("IV_InnovaVento_Oven.analysis.json"),
-                br#"{"schema_version":"1.0","source_system":"solid_edge","object_inventory":{"unique_components":2,"occurrences":3},"field_provenance":{"structure":"AssemblyDocument.Occurrences"}}"#,
+                br#"{"schema_version":"1.0","source_system":"solid_edge","object_inventory":{"unique_components":2,"occurrences":3,"hierarchy_depth":1,"cycle_count":0},"field_provenance":{"structure":"AssemblyDocument.Occurrences"}}"#,
             )
             .unwrap();
             assembly
@@ -894,6 +906,52 @@ mod tests {
         );
         let _package = crate::project_snapshot_flow::package_bundle(result.bundle_path())
             .expect("assembly BOM snapshot must pass the shared packager");
+    }
+
+    #[test]
+    fn rejects_assembly_analysis_with_cycle() {
+        let area = TestArea::new();
+        let source = area.assembly_fixture();
+        fs::write(
+            area.0.join("IV_InnovaVento_Oven.analysis.json"),
+            br#"{"schema_version":"1.0","source_system":"solid_edge","object_inventory":{"unique_components":2,"occurrences":3,"hierarchy_depth":1,"cycle_count":1},"field_provenance":{"structure":"AssemblyDocument.Occurrences"}}"#,
+        )
+        .unwrap();
+
+        assert_eq!(
+            create_solid_edge_snapshot_cancellable(
+                &area.0,
+                request("582d6554-3612-4e48-befc-8532a1c79b31"),
+                &source,
+                "0.1.0",
+                &SnapshotCancellation::default(),
+            )
+            .unwrap_err(),
+            "assembly_cycle_detected"
+        );
+    }
+
+    #[test]
+    fn rejects_assembly_analysis_over_recursion_limit() {
+        let area = TestArea::new();
+        let source = area.assembly_fixture();
+        fs::write(
+            area.0.join("IV_InnovaVento_Oven.analysis.json"),
+            br#"{"schema_version":"1.0","source_system":"solid_edge","object_inventory":{"unique_components":2,"occurrences":3,"hierarchy_depth":65,"cycle_count":0},"field_provenance":{"structure":"AssemblyDocument.Occurrences"}}"#,
+        )
+        .unwrap();
+
+        assert_eq!(
+            create_solid_edge_snapshot_cancellable(
+                &area.0,
+                request("2b67f4f8-740d-47dd-b51e-86bc5a64b50c"),
+                &source,
+                "0.1.0",
+                &SnapshotCancellation::default(),
+            )
+            .unwrap_err(),
+            "assembly_recursion_limit_exceeded"
+        );
     }
 
     #[test]
