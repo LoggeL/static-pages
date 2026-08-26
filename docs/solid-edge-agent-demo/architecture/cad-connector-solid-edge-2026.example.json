@@ -1,0 +1,873 @@
+{
+  "document_kind": "capability_manifest",
+  "schema_version": "1.0",
+  "contract_id": "cad-connector-v1",
+  "generated_at": "2026-08-26T12:00:00Z",
+  "connector": {
+    "id": "com.innovavento.cad.solid-edge",
+    "vendor": "Siemens Industry Software Inc.",
+    "product": "Solid Edge",
+    "product_version": "226.00.00.106",
+    "connector_version": "0.1.0",
+    "adapter_build": "development-demo"
+  },
+  "environment": {
+    "fingerprint": "8707189ea26f51f858f555236632e3fed80d6ea22bb3b739aae99113f1ae3f21",
+    "operating_system": "Windows 11",
+    "operating_system_build": "demo-baseline-2026-08",
+    "architecture": "x64_emulated_on_arm64",
+    "environment_class": "demo_vm",
+    "vm_provider": "Parallels Desktop",
+    "vm_snapshot_id": "example-redacted",
+    "locale": "de-DE",
+    "display_scale_percent": 200
+  },
+  "evidence_level": "verified_development",
+  "start_modes": [
+    {
+      "id": "interactive_normal",
+      "status": "verified",
+      "interactive_session_required": true,
+      "addin_load": "verified",
+      "evidence": {
+        "state": "verified",
+        "run_id": "solid-edge-demo-addin-load",
+        "observed_at": "2026-08-25T18:53:00Z",
+        "references": [
+          {
+            "kind": "screenshot",
+            "ref": "docs/product/solid-edge-agent-demo/assets/17-addins-buttons-working.png"
+          },
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/test_addin_activation.ps1"
+          }
+        ],
+        "caveats": [
+          "Development evidence on Windows 11 ARM64 with x64 emulation is not a Siemens support statement."
+        ]
+      },
+      "notes": [
+        "The per-user AnyCPU add-in loaded in the visible user session."
+      ]
+    },
+    {
+      "id": "interactive_existing_process",
+      "status": "verified",
+      "interactive_session_required": true,
+      "addin_load": "observed",
+      "evidence": {
+        "state": "verified",
+        "run_id": "solid-edge-demo-live-attach",
+        "observed_at": "2026-08-25T18:57:00Z",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeDemo.cs"
+          },
+          {
+            "kind": "screenshot",
+            "ref": "docs/product/solid-edge-agent-demo/assets/20-saveall-success-and-folder.png"
+          }
+        ],
+        "caveats": []
+      },
+      "notes": [
+        "Live automation attached to the active SolidEdge.Application object in the same user session."
+      ]
+    },
+    {
+      "id": "interactive_file_open",
+      "status": "unknown",
+      "interactive_session_required": true,
+      "addin_load": "unknown",
+      "evidence": {
+        "state": "unknown",
+        "references": [],
+        "caveats": [
+          "File-association startup has not been accepted as equivalent to normal interactive startup."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "automation_spawned",
+      "status": "unknown",
+      "interactive_session_required": true,
+      "addin_load": "unknown",
+      "evidence": {
+        "state": "unknown",
+        "references": [],
+        "caveats": [
+          "Add-in loading under automation-spawned startup needs a separate activation test."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "headless_batch",
+      "status": "unsupported",
+      "interactive_session_required": false,
+      "addin_load": "not_applicable",
+      "evidence": {
+        "state": "unavailable",
+        "references": [],
+        "caveats": [
+          "The demonstrated Solid Edge route requires a visible desktop application."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "windows_service_session",
+      "status": "unsupported",
+      "interactive_session_required": false,
+      "addin_load": "blocked",
+      "evidence": {
+        "state": "unavailable",
+        "references": [],
+        "caveats": [
+          "Desktop COM and the in-process add-in are not released for Session 0 execution."
+        ]
+      },
+      "notes": []
+    }
+  ],
+  "routes": [
+    {
+      "id": "se.in-process-addin",
+      "api_family": "in_process_addin",
+      "role": "primary",
+      "authority": "source_native",
+      "capabilities": [
+        "cad.observe.active_document",
+        "cad.ui.addin_command"
+      ],
+      "allowed_start_modes": [
+        "interactive_normal",
+        "interactive_existing_process"
+      ],
+      "requires_running_application": true,
+      "requires_interactive_session": true,
+      "supports_unsaved_state": false,
+      "write_scope": "none",
+      "evidence": {
+        "state": "verified",
+        "run_id": "solid-edge-demo-addin-load",
+        "observed_at": "2026-08-25T18:53:00Z",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/build_addin.ps1"
+          },
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/test_addin_activation.ps1"
+          }
+        ],
+        "caveats": [
+          "The add-in is a command and context route; the current capture remains disk-backed."
+        ]
+      },
+      "performance_baselines": [],
+      "notes": []
+    },
+    {
+      "id": "se.live-com",
+      "api_family": "live_automation",
+      "role": "primary_or_fallback",
+      "authority": "source_native",
+      "capabilities": [
+        "cad.observe.active_document",
+        "cad.read.project_metadata",
+        "cad.read.custom_properties",
+        "cad.read.assembly_structure",
+        "cad.read.engineering_bom",
+        "cad.read.geometry_summary",
+        "cad.read.physical_properties",
+        "cad.export.native_snapshot",
+        "cad.export.neutral_geometry",
+        "cad.export.drawing_pdf",
+        "cad.export.bom",
+        "cad.write.properties",
+        "cad.write.model",
+        "cad.write.structure"
+      ],
+      "allowed_start_modes": [
+        "interactive_normal",
+        "interactive_existing_process"
+      ],
+      "requires_running_application": true,
+      "requires_interactive_session": true,
+      "supports_unsaved_state": false,
+      "write_scope": "local_source",
+      "evidence": {
+        "state": "observed",
+        "run_id": "solid-edge-oven-development",
+        "observed_at": "2026-08-26T09:30:00Z",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+          },
+          {
+            "kind": "screenshot",
+            "ref": "docs/product/solid-edge-agent-demo/assets/33-oven-assembly-library.png"
+          }
+        ],
+        "caveats": [
+          "Nested assemblies and alternate configurations still require dedicated fixtures."
+        ]
+      },
+      "performance_baselines": [
+        {
+          "operation": "cad.read.assembly_structure",
+          "fixture_id": "iv-oven-flat-v1",
+          "fixture_version": "b378b94cbd6d79bf37e209a2369f677e8a3ef2fa131643b77f95e413b14e2a78",
+          "start_mode": "interactive_existing_process",
+          "warm_state": "warm",
+          "sample_count": 7,
+          "p50_ms": 86.987125,
+          "p95_ms": 105.80875,
+          "max_ms": 105.80875,
+          "error_rate": 0,
+          "environment_fingerprint": "8707189ea26f51f858f555236632e3fed80d6ea22bb3b739aae99113f1ae3f21",
+          "run_id": "run-20260826t091601297z",
+          "observed_at": "2026-08-26T09:19:27.905125Z"
+        }
+      ],
+      "notes": [
+        "OLE message filtering is part of the adapter implementation and not exposed to callers."
+      ]
+    },
+    {
+      "id": "se.file-properties",
+      "api_family": "native_file",
+      "role": "fallback",
+      "authority": "source_native",
+      "capabilities": [
+        "cad.read.project_metadata",
+        "cad.read.custom_properties"
+      ],
+      "allowed_start_modes": [
+        "interactive_normal",
+        "interactive_existing_process",
+        "interactive_file_open",
+        "automation_spawned",
+        "headless_batch",
+        "windows_service_session"
+      ],
+      "requires_running_application": false,
+      "requires_interactive_session": false,
+      "supports_unsaved_state": false,
+      "write_scope": "none",
+      "evidence": {
+        "state": "verified",
+        "run_id": "run-20260826t091601297z",
+        "observed_at": "2026-08-26T09:19:27.905125Z",
+        "references": [
+          {
+            "kind": "benchmark",
+            "ref": "output/solid-edge-oven/api-benchmark-summary.json"
+          },
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeApiBenchmark.cs"
+          }
+        ],
+        "caveats": [
+          "Only saved file state is observable; editor changes and geometry are unavailable."
+        ]
+      },
+      "performance_baselines": [
+        {
+          "operation": "cad.read.project_metadata",
+          "fixture_id": "iv-oven-flat-v1",
+          "fixture_version": "b378b94cbd6d79bf37e209a2369f677e8a3ef2fa131643b77f95e413b14e2a78",
+          "start_mode": "headless_batch",
+          "warm_state": "warm",
+          "sample_count": 7,
+          "p50_ms": 75.13304166666667,
+          "p95_ms": 96.252,
+          "max_ms": 96.252,
+          "error_rate": 0,
+          "environment_fingerprint": "8707189ea26f51f858f555236632e3fed80d6ea22bb3b739aae99113f1ae3f21",
+          "run_id": "run-20260826t091601297z",
+          "observed_at": "2026-08-26T09:19:27.905125Z"
+        }
+      ],
+      "notes": [
+        "The benchmark enumerated 47 properties across six property sets without requiring a running Solid Edge process."
+      ]
+    },
+    {
+      "id": "se.disk-snapshot",
+      "api_family": "native_file",
+      "role": "fallback",
+      "authority": "source_native",
+      "capabilities": [
+        "cad.export.native_snapshot"
+      ],
+      "allowed_start_modes": [
+        "interactive_normal",
+        "interactive_existing_process"
+      ],
+      "requires_running_application": false,
+      "requires_interactive_session": false,
+      "supports_unsaved_state": false,
+      "write_scope": "none",
+      "evidence": {
+        "state": "verified",
+        "run_id": "solid-edge-demo-runtime-snapshot",
+        "observed_at": "2026-08-25T19:41:00Z",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "docs/product/solid-edge-agent-demo/00-Bericht.md"
+          },
+          {
+            "kind": "screenshot",
+            "ref": "docs/product/solid-edge-agent-demo/assets/26-solid-edge-snapshot-verified.png"
+          }
+        ],
+        "caveats": [
+          "The live route must create an unlocked SaveCopyAs staging copy before the disk-backed capture."
+        ]
+      },
+      "performance_baselines": [],
+      "notes": []
+    },
+    {
+      "id": "se.ui-diagnostics",
+      "api_family": "ui_automation",
+      "role": "diagnostic",
+      "authority": "diagnostic_only",
+      "capabilities": [
+        "cad.ui.addin_command"
+      ],
+      "allowed_start_modes": [
+        "interactive_normal"
+      ],
+      "requires_running_application": true,
+      "requires_interactive_session": true,
+      "supports_unsaved_state": false,
+      "write_scope": "none",
+      "evidence": {
+        "state": "observed",
+        "run_id": "solid-edge-demo-ui-rehearsal",
+        "observed_at": "2026-08-25T18:57:00Z",
+        "references": [
+          {
+            "kind": "screenshot",
+            "ref": "docs/product/solid-edge-agent-demo/assets/18-hello-world-dialog.png"
+          }
+        ],
+        "caveats": [
+          "This route is diagnostic only and cannot become a data-authority or write fallback."
+        ]
+      },
+      "performance_baselines": [],
+      "notes": []
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "cad.observe.active_document",
+      "status": "verified",
+      "primary_route": "se.in-process-addin",
+      "fallback_routes": [
+        "se.live-com"
+      ],
+      "quality_ceiling": "source_verified",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "verified",
+        "run_id": "solid-edge-demo-live-attach",
+        "observed_at": "2026-08-25T18:57:00Z",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/inspect_application.ps1"
+          }
+        ],
+        "caveats": []
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.observe.unsaved_state",
+      "status": "unsupported",
+      "fallback_routes": [],
+      "quality_ceiling": "unavailable",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "unavailable",
+        "references": [],
+        "caveats": [
+          "The verified snapshot contains saved disk-backed state only."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.read.project_metadata",
+      "status": "verified",
+      "primary_route": "se.live-com",
+      "fallback_routes": [
+        "se.file-properties"
+      ],
+      "quality_ceiling": "source_verified",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "verified",
+        "run_id": "solid-edge-demo-metadata",
+        "observed_at": "2026-08-25T18:05:00Z",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeDemo.cs"
+          }
+        ],
+        "caveats": []
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.read.custom_properties",
+      "status": "observed",
+      "primary_route": "se.live-com",
+      "fallback_routes": [
+        "se.file-properties"
+      ],
+      "quality_ceiling": "source_observed",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "observed",
+        "run_id": "solid-edge-oven-development",
+        "observed_at": "2026-08-26T09:30:00Z",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+          }
+        ],
+        "caveats": [
+          "The required-property completeness check must be persisted as raw evidence before production verification."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.read.assembly_structure",
+      "status": "observed",
+      "primary_route": "se.live-com",
+      "fallback_routes": [],
+      "quality_ceiling": "source_observed",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "observed",
+        "run_id": "solid-edge-oven-development",
+        "observed_at": "2026-08-26T09:30:00Z",
+        "references": [
+          {
+            "kind": "fixture",
+            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+          },
+          {
+            "kind": "screenshot",
+            "ref": "docs/product/solid-edge-agent-demo/assets/33-oven-assembly-library.png"
+          }
+        ],
+        "caveats": [
+          "The current fixture is flat and does not verify recursive subassembly traversal."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.read.engineering_bom",
+      "status": "observed",
+      "primary_route": "se.live-com",
+      "fallback_routes": [],
+      "quality_ceiling": "derived_verified",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "observed",
+        "run_id": "solid-edge-oven-development",
+        "observed_at": "2026-08-26T09:30:00Z",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+          }
+        ],
+        "caveats": [
+          "Quantity aggregation is deterministic for the flat fixture; configuration and recursion tests remain open."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.read.geometry_summary",
+      "status": "observed",
+      "primary_route": "se.live-com",
+      "fallback_routes": [],
+      "quality_ceiling": "source_observed",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "observed",
+        "run_id": "solid-edge-oven-development",
+        "observed_at": "2026-08-26T09:30:00Z",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+          }
+        ],
+        "caveats": [
+          "The fixture design envelope is derived from its placement contract and must not be represented as a native CAD measurement."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.read.physical_properties",
+      "status": "declared",
+      "primary_route": "se.live-com",
+      "fallback_routes": [],
+      "quality_ceiling": "source_observed",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "declared",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+          }
+        ],
+        "caveats": [
+          "Persisted raw values and update-status evidence are required before this capability becomes verified."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.export.native_snapshot",
+      "status": "verified",
+      "primary_route": "se.live-com",
+      "fallback_routes": [
+        "se.disk-snapshot"
+      ],
+      "quality_ceiling": "source_verified",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "verified",
+        "run_id": "solid-edge-demo-runtime-snapshot",
+        "observed_at": "2026-08-25T19:41:00Z",
+        "references": [
+          {
+            "kind": "screenshot",
+            "ref": "docs/product/solid-edge-agent-demo/assets/26-solid-edge-snapshot-verified.png"
+          }
+        ],
+        "caveats": []
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.export.neutral_geometry",
+      "status": "verified",
+      "primary_route": "se.live-com",
+      "fallback_routes": [],
+      "quality_ceiling": "derived_verified",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "verified",
+        "run_id": "solid-edge-demo-step",
+        "observed_at": "2026-08-25T18:10:00Z",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "output/solid-edge-demo/IV_Demo_Block.stp"
+          }
+        ],
+        "caveats": [
+          "STEP is a derived geometry artifact and is not an identity or BOM authority."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.export.drawing_pdf",
+      "status": "verified",
+      "primary_route": "se.live-com",
+      "fallback_routes": [],
+      "quality_ceiling": "derived_verified",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "verified",
+        "run_id": "solid-edge-demo-pdf",
+        "observed_at": "2026-08-25T18:10:00Z",
+        "references": [
+          {
+            "kind": "screenshot",
+            "ref": "docs/product/solid-edge-agent-demo/assets/11-final-drawing.png"
+          }
+        ],
+        "caveats": [
+          "PDF verification requires both a PDF signature and successful rendering."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.export.bom",
+      "status": "observed",
+      "primary_route": "se.live-com",
+      "fallback_routes": [],
+      "quality_ceiling": "derived_verified",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "observed",
+        "run_id": "solid-edge-oven-development",
+        "observed_at": "2026-08-26T09:30:00Z",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+          }
+        ],
+        "caveats": [
+          "BOM JSON and CSV need persisted artifact hashes and a recursive fixture before production verification."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.ui.addin_command",
+      "status": "verified",
+      "primary_route": "se.in-process-addin",
+      "fallback_routes": [],
+      "quality_ceiling": "source_observed",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "verified",
+        "run_id": "solid-edge-demo-addin-command",
+        "observed_at": "2026-08-25T18:57:00Z",
+        "references": [
+          {
+            "kind": "screenshot",
+            "ref": "docs/product/solid-edge-agent-demo/assets/17-addins-buttons-working.png"
+          }
+        ],
+        "caveats": [
+          "The UI diagnostics route can verify visibility but cannot replace the native command contract."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.events.document_changed",
+      "status": "unknown",
+      "fallback_routes": [],
+      "quality_ceiling": "unavailable",
+      "write_effect": "none",
+      "requires_human_confirmation": false,
+      "evidence": {
+        "state": "unknown",
+        "references": [],
+        "caveats": [
+          "The demo add-in handles fixed commands but does not yet claim a released document-change event stream."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.write.properties",
+      "status": "observed",
+      "primary_route": "se.live-com",
+      "fallback_routes": [],
+      "quality_ceiling": "source_observed",
+      "write_effect": "local_source",
+      "requires_human_confirmation": true,
+      "evidence": {
+        "state": "observed",
+        "run_id": "solid-edge-demo-metadata",
+        "observed_at": "2026-08-25T18:05:00Z",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeDemo.cs"
+          }
+        ],
+        "caveats": [
+          "A production write still requires an immutable write plan and native read-back."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.write.model",
+      "status": "observed",
+      "primary_route": "se.live-com",
+      "fallback_routes": [],
+      "quality_ceiling": "source_observed",
+      "write_effect": "local_source",
+      "requires_human_confirmation": true,
+      "evidence": {
+        "state": "observed",
+        "run_id": "solid-edge-demo-part",
+        "observed_at": "2026-08-25T18:00:00Z",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeDemo.cs"
+          }
+        ],
+        "caveats": [
+          "The demo creation path is not yet the released CadWritePlan interface."
+        ]
+      },
+      "notes": []
+    },
+    {
+      "id": "cad.write.structure",
+      "status": "declared",
+      "primary_route": "se.live-com",
+      "fallback_routes": [],
+      "quality_ceiling": "source_observed",
+      "write_effect": "local_source",
+      "requires_human_confirmation": true,
+      "evidence": {
+        "state": "declared",
+        "references": [
+          {
+            "kind": "source",
+            "ref": "tooling/solid-edge/SolidEdgeOvenDemo.cs"
+          }
+        ],
+        "caveats": [
+          "Fixture assembly creation is implementation evidence, not a released write contract."
+        ]
+      },
+      "notes": []
+    }
+  ],
+  "profiles": [
+    {
+      "id": "cad-part-snapshot-v1",
+      "required_capabilities": [
+        "cad.read.project_metadata",
+        "cad.export.native_snapshot",
+        "cad.export.neutral_geometry"
+      ],
+      "optional_capabilities": [
+        "cad.export.drawing_pdf",
+        "cad.read.physical_properties"
+      ],
+      "allow_partial_for_optional_gaps": true
+    },
+    {
+      "id": "cad-assembly-bom-v1",
+      "required_capabilities": [
+        "cad.read.project_metadata",
+        "cad.read.assembly_structure",
+        "cad.read.engineering_bom",
+        "cad.export.native_snapshot",
+        "cad.export.neutral_geometry",
+        "cad.export.bom"
+      ],
+      "optional_capabilities": [
+        "cad.export.drawing_pdf",
+        "cad.read.physical_properties",
+        "cad.read.geometry_summary"
+      ],
+      "allow_partial_for_optional_gaps": true
+    }
+  ],
+  "fail_closed": [
+    {
+      "code": "CAD-FC-001",
+      "condition": "A required capability is not verified for the selected profile.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-002",
+      "condition": "The selected route is not verified for the current product build, platform or start mode.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-003",
+      "condition": "A fallback is undeclared or below the required quality floor.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-004",
+      "condition": "Unsaved state was requested but cannot be proven to be included.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-005",
+      "condition": "Source revision or save state changes during capture.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-006",
+      "condition": "Assembly traversal is incomplete, cyclic or contains unresolved required references.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-007",
+      "condition": "BOM identity, quantity, unit or configuration data conflicts.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-008",
+      "condition": "A required artifact is missing, invalid, unreadable or has a mismatching hash.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-009",
+      "condition": "A write targets an unknown native file or product version.",
+      "action": "block_write"
+    },
+    {
+      "code": "CAD-FC-010",
+      "condition": "UI automation is selected as an authoritative data or write route.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-011",
+      "condition": "Write plan, user authority, expected revision or capability grant is missing.",
+      "action": "block_write"
+    },
+    {
+      "code": "CAD-FC-012",
+      "condition": "Native read-back differs from the authorized write plan.",
+      "action": "block_write"
+    },
+    {
+      "code": "CAD-FC-013",
+      "condition": "Evidence contains a secret or unredacted sensitive path.",
+      "action": "reject"
+    },
+    {
+      "code": "CAD-FC-014",
+      "condition": "A license, modal or busy state prevents a defined result.",
+      "action": "require_review"
+    }
+  ]
+}

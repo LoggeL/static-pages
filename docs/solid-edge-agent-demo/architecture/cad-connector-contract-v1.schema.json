@@ -1,0 +1,1224 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.innovavento.com/cad/cad-connector-contract-v1.schema.json",
+  "title": "iV Connect CAD Connector Contract V1",
+  "description": "Validates a vendor-neutral CAD capability manifest or capture receipt.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/capabilityManifest"
+    },
+    {
+      "$ref": "#/$defs/captureReceipt"
+    }
+  ],
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512
+    },
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{2,127}$"
+    },
+    "capabilityId": {
+      "type": "string",
+      "pattern": "^(cad|x-[a-z0-9-]+)\\.[a-z0-9_]+(?:\\.[a-z0-9_]+)*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "qualityLevel": {
+      "type": "string",
+      "enum": [
+        "source_verified",
+        "derived_verified",
+        "source_observed",
+        "inferred",
+        "unavailable",
+        "conflicting"
+      ]
+    },
+    "startModeId": {
+      "type": "string",
+      "enum": [
+        "interactive_normal",
+        "interactive_file_open",
+        "interactive_existing_process",
+        "automation_spawned",
+        "headless_batch",
+        "server_managed",
+        "safe_or_recovery",
+        "windows_service_session"
+      ]
+    },
+    "evidenceReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "ref"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "contract",
+            "fixture",
+            "issue",
+            "log",
+            "benchmark",
+            "screenshot",
+            "source",
+            "test_run"
+          ]
+        },
+        "ref": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "note": {
+          "type": "string",
+          "maxLength": 1024
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "references"
+      ],
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": [
+            "verified",
+            "observed",
+            "declared",
+            "unknown",
+            "unavailable"
+          ]
+        },
+        "run_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceReference"
+          },
+          "uniqueItems": true
+        },
+        "caveats": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "enum": [
+                  "verified",
+                  "observed"
+                ]
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "then": {
+            "required": [
+              "run_id",
+              "observed_at"
+            ],
+            "properties": {
+              "run_id": true,
+              "observed_at": true,
+              "references": {
+                "type": "array",
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "connector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "vendor",
+        "product",
+        "product_version",
+        "connector_version"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "vendor": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "product": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "product_version": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "connector_version": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "adapter_build": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fingerprint",
+        "operating_system",
+        "operating_system_build",
+        "architecture",
+        "environment_class"
+      ],
+      "properties": {
+        "fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "operating_system": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "operating_system_build": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "architecture": {
+          "type": "string",
+          "enum": [
+            "x86_64",
+            "arm64",
+            "x64_emulated_on_arm64",
+            "other"
+          ]
+        },
+        "environment_class": {
+          "type": "string",
+          "enum": [
+            "developer_workstation",
+            "demo_vm",
+            "test_vm",
+            "self_hosted_runner",
+            "server"
+          ]
+        },
+        "vm_provider": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "vm_snapshot_id": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "locale": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "display_scale_percent": {
+          "type": "integer",
+          "minimum": 50,
+          "maximum": 500
+        }
+      }
+    },
+    "startMode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "status",
+        "interactive_session_required",
+        "addin_load",
+        "evidence"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/startModeId"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "verified",
+            "observed",
+            "declared",
+            "unsupported",
+            "unknown"
+          ]
+        },
+        "interactive_session_required": {
+          "type": "boolean"
+        },
+        "addin_load": {
+          "type": "string",
+          "enum": [
+            "verified",
+            "observed",
+            "expected",
+            "blocked",
+            "not_applicable",
+            "unknown"
+          ]
+        },
+        "evidence": {
+          "$ref": "#/$defs/evidence"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "performanceBaseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operation",
+        "fixture_id",
+        "fixture_version",
+        "start_mode",
+        "warm_state",
+        "sample_count",
+        "p50_ms",
+        "p95_ms",
+        "max_ms",
+        "error_rate",
+        "environment_fingerprint",
+        "run_id",
+        "observed_at"
+      ],
+      "properties": {
+        "operation": {
+          "$ref": "#/$defs/capabilityId"
+        },
+        "fixture_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "fixture_version": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "start_mode": {
+          "$ref": "#/$defs/startModeId"
+        },
+        "warm_state": {
+          "type": "string",
+          "enum": [
+            "cold",
+            "warm"
+          ]
+        },
+        "sample_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "p50_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "p95_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "max_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "error_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "coefficient_of_variation": {
+          "type": "number",
+          "minimum": 0
+        },
+        "environment_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "run_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "api_family",
+        "role",
+        "authority",
+        "capabilities",
+        "allowed_start_modes",
+        "requires_running_application",
+        "requires_interactive_session",
+        "supports_unsaved_state",
+        "write_scope",
+        "evidence",
+        "performance_baselines"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "api_family": {
+          "type": "string",
+          "enum": [
+            "in_process_addin",
+            "live_automation",
+            "vendor_cli",
+            "vendor_server_api",
+            "native_file",
+            "exchange_file",
+            "ui_automation"
+          ]
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "primary",
+            "fallback",
+            "primary_or_fallback",
+            "diagnostic",
+            "prohibited"
+          ]
+        },
+        "authority": {
+          "type": "string",
+          "enum": [
+            "source_native",
+            "source_derived",
+            "transport_only",
+            "diagnostic_only"
+          ]
+        },
+        "capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/capabilityId"
+          },
+          "uniqueItems": true
+        },
+        "allowed_start_modes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/startModeId"
+          },
+          "uniqueItems": true
+        },
+        "requires_running_application": {
+          "type": "boolean"
+        },
+        "requires_interactive_session": {
+          "type": "boolean"
+        },
+        "supports_unsaved_state": {
+          "type": "boolean"
+        },
+        "write_scope": {
+          "type": "string",
+          "enum": [
+            "none",
+            "local_source",
+            "external_target"
+          ]
+        },
+        "evidence": {
+          "$ref": "#/$defs/evidence"
+        },
+        "performance_baselines": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/performanceBaseline"
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "api_family": {
+                "const": "ui_automation"
+              }
+            },
+            "required": [
+              "api_family"
+            ]
+          },
+          "then": {
+            "properties": {
+              "authority": {
+                "const": "diagnostic_only"
+              },
+              "role": {
+                "enum": [
+                  "diagnostic",
+                  "prohibited"
+                ]
+              },
+              "write_scope": {
+                "const": "none"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "status",
+        "quality_ceiling",
+        "fallback_routes",
+        "write_effect",
+        "requires_human_confirmation",
+        "evidence"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/capabilityId"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "verified",
+            "observed",
+            "declared",
+            "unsupported",
+            "unknown"
+          ]
+        },
+        "primary_route": {
+          "$ref": "#/$defs/identifier"
+        },
+        "fallback_routes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "quality_ceiling": {
+          "$ref": "#/$defs/qualityLevel"
+        },
+        "write_effect": {
+          "type": "string",
+          "enum": [
+            "none",
+            "local_source",
+            "external_target"
+          ]
+        },
+        "requires_human_confirmation": {
+          "type": "boolean"
+        },
+        "evidence": {
+          "$ref": "#/$defs/evidence"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "verified",
+                  "observed",
+                  "declared"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "primary_route"
+            ],
+            "properties": {
+              "primary_route": true
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "write_effect": {
+                "enum": [
+                  "local_source",
+                  "external_target"
+                ]
+              }
+            },
+            "required": [
+              "write_effect"
+            ]
+          },
+          "then": {
+            "properties": {
+              "requires_human_confirmation": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    },
+    "captureProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "required_capabilities",
+        "optional_capabilities",
+        "allow_partial_for_optional_gaps"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "required_capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/capabilityId"
+          },
+          "uniqueItems": true
+        },
+        "optional_capabilities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/capabilityId"
+          },
+          "uniqueItems": true
+        },
+        "allow_partial_for_optional_gaps": {
+          "type": "boolean"
+        }
+      }
+    },
+    "failClosedRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "condition",
+        "action"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^CAD-FC-[0-9]{3}$"
+        },
+        "condition": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "reject",
+            "block_write",
+            "mark_partial",
+            "require_review"
+          ]
+        }
+      }
+    },
+    "capabilityManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document_kind",
+        "schema_version",
+        "contract_id",
+        "generated_at",
+        "connector",
+        "environment",
+        "evidence_level",
+        "start_modes",
+        "routes",
+        "capabilities",
+        "profiles",
+        "fail_closed"
+      ],
+      "properties": {
+        "document_kind": {
+          "const": "capability_manifest"
+        },
+        "schema_version": {
+          "const": "1.0"
+        },
+        "contract_id": {
+          "const": "cad-connector-v1"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "connector": {
+          "$ref": "#/$defs/connector"
+        },
+        "environment": {
+          "$ref": "#/$defs/environment"
+        },
+        "evidence_level": {
+          "type": "string",
+          "enum": [
+            "verified_development",
+            "verified_production",
+            "declared",
+            "unknown"
+          ]
+        },
+        "start_modes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/startMode"
+          }
+        },
+        "routes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/route"
+          }
+        },
+        "capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/capability"
+          }
+        },
+        "profiles": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/captureProfile"
+          }
+        },
+        "fail_closed": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/failClosedRule"
+          }
+        }
+      }
+    },
+    "qualityCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "status"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/identifier"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "failed",
+            "not_applicable"
+          ]
+        },
+        "detail": {
+          "type": "string",
+          "maxLength": 2048
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "source_object_urn",
+        "connector_id",
+        "connector_version",
+        "route_id",
+        "native_type",
+        "native_path",
+        "start_mode",
+        "observed_at",
+        "correlation_id",
+        "transformations",
+        "evidence_refs"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "source_object_urn": {
+          "type": "string",
+          "pattern": "^urn:[^\\s]+$",
+          "maxLength": 1024
+        },
+        "connector_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "connector_version": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "route_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "native_type": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "native_path": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "source_revision": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "start_mode": {
+          "$ref": "#/$defs/startModeId"
+        },
+        "saved_state": {
+          "type": "string",
+          "enum": [
+            "saved_disk_backed",
+            "live_unsaved_included",
+            "live_unsaved_excluded",
+            "unknown"
+          ]
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "transformations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidenceReference"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "capabilityResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability",
+        "status",
+        "quality",
+        "checks"
+      ],
+      "properties": {
+        "capability": {
+          "$ref": "#/$defs/capabilityId"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "fulfilled",
+            "gap",
+            "failed"
+          ]
+        },
+        "route_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "quality": {
+          "$ref": "#/$defs/qualityLevel"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/qualityCheck"
+          }
+        },
+        "reason": {
+          "type": "string",
+          "maxLength": 2048
+        }
+      }
+    },
+    "selectedRoute": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability",
+        "route_id",
+        "fallback_used",
+        "selection_reason"
+      ],
+      "properties": {
+        "capability": {
+          "$ref": "#/$defs/capabilityId"
+        },
+        "route_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "fallback_used": {
+          "type": "boolean"
+        },
+        "fallback_error_code": {
+          "$ref": "#/$defs/identifier"
+        },
+        "selection_reason": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relative_path",
+        "role",
+        "media_type",
+        "origin",
+        "size_bytes",
+        "sha256",
+        "quality",
+        "provenance_ref",
+        "checks"
+      ],
+      "properties": {
+        "relative_path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "not": {
+            "pattern": "(^/)|(^[A-Za-z]:)|(^|/)\\.\\.(/|$)"
+          }
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "native_part",
+            "native_assembly",
+            "native_drawing",
+            "neutral_geometry",
+            "drawing_pdf",
+            "bom_json",
+            "bom_csv",
+            "analysis_json",
+            "metadata_json",
+            "other"
+          ]
+        },
+        "media_type": {
+          "type": "string",
+          "pattern": "^[a-z0-9.+-]+/[a-zA-Z0-9.+-]+$"
+        },
+        "origin": {
+          "type": "string",
+          "enum": [
+            "native",
+            "generated"
+          ]
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "quality": {
+          "$ref": "#/$defs/qualityLevel"
+        },
+        "provenance_ref": {
+          "$ref": "#/$defs/identifier"
+        },
+        "checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/qualityCheck"
+          }
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "severity",
+        "retryable",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/identifier"
+        },
+        "severity": {
+          "type": "string",
+          "enum": [
+            "info",
+            "warning",
+            "blocking"
+          ]
+        },
+        "retryable": {
+          "type": "boolean"
+        },
+        "message": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "source_object_urn": {
+          "type": "string",
+          "pattern": "^urn:[^\\s]+$",
+          "maxLength": 1024
+        }
+      }
+    },
+    "entityCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "projects",
+        "documents",
+        "part_definitions",
+        "component_occurrences",
+        "bom_snapshots",
+        "bom_positions",
+        "artifacts"
+      ],
+      "properties": {
+        "projects": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "documents": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "part_definitions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "component_occurrences": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bom_snapshots": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bom_positions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "artifacts": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "captureReceipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "document_kind",
+        "schema_version",
+        "contract_id",
+        "correlation_id",
+        "captured_at",
+        "status",
+        "profile_id",
+        "connector",
+        "environment_fingerprint",
+        "start_mode",
+        "source_consistency",
+        "selected_routes",
+        "capability_results",
+        "entity_counts",
+        "artifacts",
+        "provenance",
+        "findings"
+      ],
+      "properties": {
+        "document_kind": {
+          "const": "capture_receipt"
+        },
+        "schema_version": {
+          "const": "1.0"
+        },
+        "contract_id": {
+          "const": "cad-connector-v1"
+        },
+        "correlation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "captured_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "verified",
+            "partial",
+            "failed"
+          ]
+        },
+        "profile_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "connector": {
+          "$ref": "#/$defs/connector"
+        },
+        "environment_fingerprint": {
+          "$ref": "#/$defs/sha256"
+        },
+        "start_mode": {
+          "$ref": "#/$defs/startModeId"
+        },
+        "source_consistency": {
+          "type": "string",
+          "enum": [
+            "saved_disk_backed",
+            "live_unsaved_included",
+            "live_unsaved_excluded",
+            "unknown"
+          ]
+        },
+        "source_revision_before": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "source_revision_after": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "selected_routes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/selectedRoute"
+          }
+        },
+        "capability_results": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/capabilityResult"
+          }
+        },
+        "entity_counts": {
+          "$ref": "#/$defs/entityCounts"
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/artifact"
+          }
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/provenance"
+          }
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/finding"
+          }
+        },
+        "content_hash": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "verified",
+                  "partial"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "content_hash",
+              "source_revision_before",
+              "source_revision_after"
+            ],
+            "properties": {
+              "content_hash": true,
+              "source_revision_before": true,
+              "source_revision_after": true
+            }
+          }
+        }
+      ]
+    }
+  }
+}
