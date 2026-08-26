@@ -1,0 +1,292 @@
+[
+  {
+    "schema_version": 1,
+    "run_id": "20260826T173949136Z",
+    "timestamp_utc": "2026-08-26T17:59:11.3487765Z",
+    "fixture_path": "C:\\Users\\iv-dev\\Documents\\IV-SolidEdge-Demo\\large-api-benchmark-fixture\\IV_InnovaVento_Oven_Factory_Benchmark.asm",
+    "fixture_sha256": "a68cb35d1a3f07dd3e0fc64c4f732e67a74fe4ee6bdb772e4a786b788caeefc3",
+    "start_mode": "automation_spawned",
+    "warm_state": "cold",
+    "api": "solid_edge_com",
+    "process_start_mechanism": "Activator.CreateInstance(SolidEdge.Application)",
+    "iteration": 1,
+    "success": true,
+    "expected_occurrences": 210,
+    "actual_occurrences": 210,
+    "included_in_bom": 192,
+    "hierarchy_depth": 2,
+    "cycles": 0,
+    "actual_document_path": "C:\\Users\\iv-dev\\Documents\\IV-SolidEdge-Demo\\large-api-benchmark-fixture\\IV_InnovaVento_Oven_Factory_Benchmark.asm",
+    "owned_edge_process_id": 2136,
+    "process_cpu_ms": 57515.625,
+    "peak_working_set_bytes": 743792640,
+    "stages": {
+      "application_ready": true,
+      "document_ready": true,
+      "structure_valid": true,
+      "addin_ready": true,
+      "cleanup_complete": true
+    },
+    "timings_ms": {
+      "application_ready_ms": 28067.244375,
+      "document_ready_ms": 33521.648166666666,
+      "occurrence_read_ms": 4318.45225,
+      "addin_ready_observed_ms": 31296.08,
+      "total_ms": 39006.822833333332
+    },
+    "addin": {
+      "status": "observed_ready",
+      "log_marker_observed": true,
+      "log_marker": "Registered command bar enabled",
+      "observer_poll_interval_ms": 20,
+      "connect": true,
+      "command_count": 2,
+      "command_captions": [
+        "IV Hello World",
+        "IV SaveALL"
+      ]
+    },
+    "cleanup": {
+      "quit_requested": true,
+      "edge_exit_observed": true,
+      "forced_termination": false,
+      "error": null
+    },
+    "error_stage": null,
+    "error_type": null,
+    "error_message": null,
+    "timing_note": "Monotonic Stopwatch timestamps; add-in readiness is the first file-observer detection of a new readiness marker and therefore includes at most one polling interval of observer delay."
+  },
+  {
+    "schema_version": 1,
+    "run_id": "20260826T173949136Z",
+    "timestamp_utc": "2026-08-26T18:00:23.7041489Z",
+    "fixture_path": "C:\\Users\\iv-dev\\Documents\\IV-SolidEdge-Demo\\large-api-benchmark-fixture\\IV_InnovaVento_Oven_Factory_Benchmark.asm",
+    "fixture_sha256": "a68cb35d1a3f07dd3e0fc64c4f732e67a74fe4ee6bdb772e4a786b788caeefc3",
+    "start_mode": "automation_spawned",
+    "warm_state": "cold",
+    "api": "solid_edge_com",
+    "process_start_mechanism": "Activator.CreateInstance(SolidEdge.Application)",
+    "iteration": 2,
+    "success": true,
+    "expected_occurrences": 210,
+    "actual_occurrences": 210,
+    "included_in_bom": 192,
+    "hierarchy_depth": 2,
+    "cycles": 0,
+    "actual_document_path": "C:\\Users\\iv-dev\\Documents\\IV-SolidEdge-Demo\\large-api-benchmark-fixture\\IV_InnovaVento_Oven_Factory_Benchmark.asm",
+    "owned_edge_process_id": 15208,
+    "process_cpu_ms": 52062.5,
+    "peak_working_set_bytes": 732651520,
+    "stages": {
+      "application_ready": true,
+      "document_ready": true,
+      "structure_valid": true,
+      "addin_ready": true,
+      "cleanup_complete": true
+    },
+    "timings_ms": {
+      "application_ready_ms": 25458.096416666667,
+      "document_ready_ms": 30469.27825,
+      "occurrence_read_ms": 2297.7855833333333,
+      "addin_ready_observed_ms": 28455.138625,
+      "total_ms": 32947.779125
+    },
+    "addin": {
+      "status": "observed_ready",
+      "log_marker_observed": true,
+      "log_marker": "Registered command bar enabled",
+      "observer_poll_interval_ms": 20,
+      "connect": true,
+      "command_count": 2,
+      "command_captions": [
+        "IV Hello World",
+        "IV SaveALL"
+      ]
+    },
+    "cleanup": {
+      "quit_requested": true,
+      "edge_exit_observed": true,
+      "forced_termination": false,
+      "error": null
+    },
+    "error_stage": null,
+    "error_type": null,
+    "error_message": null,
+    "timing_note": "Monotonic Stopwatch timestamps; add-in readiness is the first file-observer detection of a new readiness marker and therefore includes at most one polling interval of observer delay."
+  },
+  {
+    "schema_version": 1,
+    "run_id": "20260826T173949136Z",
+    "timestamp_utc": "2026-08-26T18:01:01.0249948Z",
+    "fixture_path": "C:\\Users\\iv-dev\\Documents\\IV-SolidEdge-Demo\\large-api-benchmark-fixture\\IV_InnovaVento_Oven_Factory_Benchmark.asm",
+    "fixture_sha256": "a68cb35d1a3f07dd3e0fc64c4f732e67a74fe4ee6bdb772e4a786b788caeefc3",
+    "start_mode": "automation_spawned",
+    "warm_state": "cold",
+    "api": "solid_edge_com",
+    "process_start_mechanism": "Activator.CreateInstance(SolidEdge.Application)",
+    "iteration": 3,
+    "success": true,
+    "expected_occurrences": 210,
+    "actual_occurrences": 210,
+    "included_in_bom": 192,
+    "hierarchy_depth": 2,
+    "cycles": 0,
+    "actual_document_path": "C:\\Users\\iv-dev\\Documents\\IV-SolidEdge-Demo\\large-api-benchmark-fixture\\IV_InnovaVento_Oven_Factory_Benchmark.asm",
+    "owned_edge_process_id": 11208,
+    "process_cpu_ms": 49234.375,
+    "peak_working_set_bytes": 734593024,
+    "stages": {
+      "application_ready": true,
+      "document_ready": true,
+      "structure_valid": true,
+      "addin_ready": true,
+      "cleanup_complete": true
+    },
+    "timings_ms": {
+      "application_ready_ms": 25318.434666666668,
+      "document_ready_ms": 29512.930833333332,
+      "occurrence_read_ms": 2048.0340416666668,
+      "addin_ready_observed_ms": 27798.568666666666,
+      "total_ms": 31754.560625
+    },
+    "addin": {
+      "status": "observed_ready",
+      "log_marker_observed": true,
+      "log_marker": "Registered command bar enabled",
+      "observer_poll_interval_ms": 20,
+      "connect": true,
+      "command_count": 2,
+      "command_captions": [
+        "IV Hello World",
+        "IV SaveALL"
+      ]
+    },
+    "cleanup": {
+      "quit_requested": true,
+      "edge_exit_observed": true,
+      "forced_termination": false,
+      "error": null
+    },
+    "error_stage": null,
+    "error_type": null,
+    "error_message": null,
+    "timing_note": "Monotonic Stopwatch timestamps; add-in readiness is the first file-observer detection of a new readiness marker and therefore includes at most one polling interval of observer delay."
+  },
+  {
+    "schema_version": 1,
+    "run_id": "20260826T173949136Z",
+    "timestamp_utc": "2026-08-26T18:01:37.0412554Z",
+    "fixture_path": "C:\\Users\\iv-dev\\Documents\\IV-SolidEdge-Demo\\large-api-benchmark-fixture\\IV_InnovaVento_Oven_Factory_Benchmark.asm",
+    "fixture_sha256": "a68cb35d1a3f07dd3e0fc64c4f732e67a74fe4ee6bdb772e4a786b788caeefc3",
+    "start_mode": "automation_spawned",
+    "warm_state": "cold",
+    "api": "solid_edge_com",
+    "process_start_mechanism": "Activator.CreateInstance(SolidEdge.Application)",
+    "iteration": 4,
+    "success": true,
+    "expected_occurrences": 210,
+    "actual_occurrences": 210,
+    "included_in_bom": 192,
+    "hierarchy_depth": 2,
+    "cycles": 0,
+    "actual_document_path": "C:\\Users\\iv-dev\\Documents\\IV-SolidEdge-Demo\\large-api-benchmark-fixture\\IV_InnovaVento_Oven_Factory_Benchmark.asm",
+    "owned_edge_process_id": 15160,
+    "process_cpu_ms": 50765.625,
+    "peak_working_set_bytes": 700276736,
+    "stages": {
+      "application_ready": true,
+      "document_ready": true,
+      "structure_valid": true,
+      "addin_ready": true,
+      "cleanup_complete": true
+    },
+    "timings_ms": {
+      "application_ready_ms": 25192.596166666666,
+      "document_ready_ms": 30174.102458333335,
+      "occurrence_read_ms": 2006.8832083333334,
+      "addin_ready_observed_ms": 28038.352583333333,
+      "total_ms": 32415.615583333332
+    },
+    "addin": {
+      "status": "observed_ready",
+      "log_marker_observed": true,
+      "log_marker": "Registered command bar enabled",
+      "observer_poll_interval_ms": 20,
+      "connect": true,
+      "command_count": 2,
+      "command_captions": [
+        "IV Hello World",
+        "IV SaveALL"
+      ]
+    },
+    "cleanup": {
+      "quit_requested": true,
+      "edge_exit_observed": true,
+      "forced_termination": false,
+      "error": null
+    },
+    "error_stage": null,
+    "error_type": null,
+    "error_message": null,
+    "timing_note": "Monotonic Stopwatch timestamps; add-in readiness is the first file-observer detection of a new readiness marker and therefore includes at most one polling interval of observer delay."
+  },
+  {
+    "schema_version": 1,
+    "run_id": "20260826T173949136Z",
+    "timestamp_utc": "2026-08-26T18:02:13.8416860Z",
+    "fixture_path": "C:\\Users\\iv-dev\\Documents\\IV-SolidEdge-Demo\\large-api-benchmark-fixture\\IV_InnovaVento_Oven_Factory_Benchmark.asm",
+    "fixture_sha256": "a68cb35d1a3f07dd3e0fc64c4f732e67a74fe4ee6bdb772e4a786b788caeefc3",
+    "start_mode": "automation_spawned",
+    "warm_state": "cold",
+    "api": "solid_edge_com",
+    "process_start_mechanism": "Activator.CreateInstance(SolidEdge.Application)",
+    "iteration": 5,
+    "success": true,
+    "expected_occurrences": 210,
+    "actual_occurrences": 210,
+    "included_in_bom": 192,
+    "hierarchy_depth": 2,
+    "cycles": 0,
+    "actual_document_path": "C:\\Users\\iv-dev\\Documents\\IV-SolidEdge-Demo\\large-api-benchmark-fixture\\IV_InnovaVento_Oven_Factory_Benchmark.asm",
+    "owned_edge_process_id": 6508,
+    "process_cpu_ms": 50468.75,
+    "peak_working_set_bytes": 695386112,
+    "stages": {
+      "application_ready": true,
+      "document_ready": true,
+      "structure_valid": true,
+      "addin_ready": true,
+      "cleanup_complete": true
+    },
+    "timings_ms": {
+      "application_ready_ms": 24810.480208333334,
+      "document_ready_ms": 29644.940583333333,
+      "occurrence_read_ms": 2100.2561666666666,
+      "addin_ready_observed_ms": 27507.86975,
+      "total_ms": 31938.006875
+    },
+    "addin": {
+      "status": "observed_ready",
+      "log_marker_observed": true,
+      "log_marker": "Registered command bar enabled",
+      "observer_poll_interval_ms": 20,
+      "connect": true,
+      "command_count": 2,
+      "command_captions": [
+        "IV Hello World",
+        "IV SaveALL"
+      ]
+    },
+    "cleanup": {
+      "quit_requested": true,
+      "edge_exit_observed": true,
+      "forced_termination": false,
+      "error": null
+    },
+    "error_stage": null,
+    "error_type": null,
+    "error_message": null,
+    "timing_note": "Monotonic Stopwatch timestamps; add-in readiness is the first file-observer detection of a new readiness marker and therefore includes at most one polling interval of observer delay."
+  }
+]

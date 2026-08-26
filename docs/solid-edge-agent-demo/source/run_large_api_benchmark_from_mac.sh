@@ -6,12 +6,13 @@ vmctl="$repo_root/tooling/windows/vm-control/vmctl"
 manifest="$repo_root/output/solid-edge-large-assembly/fixture-manifest.json"
 guest_output='C:\Users\iv-dev\Documents\IV-SolidEdge-Demo\large-api-benchmark-output'
 host_output="$repo_root/output/solid-edge-large-assembly/api-benchmark"
-iterations="${1:-7}"
+iterations="${1:-10}"
 warmups="${2:-2}"
+cold_iterations="${3:-0}"
 export IV_CONNECT_VM_NAME="${IV_CONNECT_VM_NAME:-IV-Connect-SolidEdge-Dev}"
 
-if ! [[ "$iterations" =~ ^[1-9][0-9]*$ && "$warmups" =~ ^[0-9]+$ ]]; then
-  printf 'Usage: %s [measured-iterations] [warmups]\n' "$0" >&2
+if ! [[ "$iterations" =~ ^[1-9][0-9]*$ && "$warmups" =~ ^[0-9]+$ && "$cold_iterations" =~ ^[0-9]+$ ]]; then
+  printf 'Usage: %s [measured-iterations] [warmups] [application-cold-iterations]\n' "$0" >&2
   exit 2
 fi
 if [[ ! -f "$manifest" ]]; then
@@ -29,9 +30,18 @@ encode_powershell() {
   -ExecutionPolicy Bypass -File 'Z:\tooling\solid-edge\build_api_benchmark.ps1'
 
 set +e
+windows_args=(
+  -RunId "$run_id"
+  -Iterations "$iterations"
+  -Warmups "$warmups"
+  -ColdIterations "$cold_iterations"
+)
+if [[ "$cold_iterations" -gt 0 ]]; then
+  windows_args+=(-AllowApplicationRestart)
+fi
 "$vmctl" exec -- powershell.exe -NoLogo -NoProfile -NonInteractive \
   -ExecutionPolicy Bypass -File 'Z:\tooling\solid-edge\run_large_api_benchmark_windows.ps1' \
-  -RunId "$run_id" -Iterations "$iterations" -Warmups "$warmups"
+  "${windows_args[@]}"
 benchmark_exit=$?
 set -e
 
@@ -50,6 +60,15 @@ files=(
   api-contracts.txt
 )
 
+if [[ "$cold_iterations" -gt 0 ]]; then
+  files+=(
+    api-start-mode-runs.json
+    api-start-mode-runs.csv
+    api-start-mode-summary.json
+    api-start-mode-environment.json
+  )
+fi
+
 for name in "${files[@]}"; do
   read_script="\$ProgressPreference=\"SilentlyContinue\"; [Console]::Write([Convert]::ToBase64String([IO.File]::ReadAllBytes(\"$guest_output\\$name\")))"
   encoded="$(encode_powershell "$read_script")"
@@ -61,5 +80,10 @@ jq -e . "$host_output/api-benchmark-environment.json" >/dev/null
 jq -e . "$host_output/api-benchmark-runs.json" >/dev/null
 jq -e . "$host_output/api-benchmark-summary.json" >/dev/null
 jq -e . "$host_output/api-capabilities.json" >/dev/null
+if [[ "$cold_iterations" -gt 0 ]]; then
+  jq -e . "$host_output/api-start-mode-runs.json" >/dev/null
+  jq -e . "$host_output/api-start-mode-summary.json" >/dev/null
+  jq -e . "$host_output/api-start-mode-environment.json" >/dev/null
+fi
 
 printf 'Large-fixture benchmark raw data synchronized to %s (benchmark exit %s).\n' "$host_output" "$benchmark_exit"

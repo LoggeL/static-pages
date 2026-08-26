@@ -769,8 +769,9 @@ internal static class SolidEdgeLargeAssemblyDemo
             Missing.Value,
             Missing.Value,
             Missing.Value);
-        view.Caption = "InnovaVento Oven Factory Fixture";
-        view.DisplayCaption = true;
+        view.CaptionDefinitionTextPrimary = "InnovaVento Oven Factory Fixture";
+        view.DisplayCaptionPrimary = true;
+        view.PrimaryCaptionTextSize = 0.004;
         view.DisplayScale = true;
         view.Update();
         dynamic partsList = draft.PartsLists.Add(view, "", 0, 1);
@@ -794,29 +795,31 @@ internal static class SolidEdgeLargeAssemblyDemo
         dynamic isometricView = detailSheet.DrawingViews.AddAssemblyView(
             modelLink,
             ViewOrientationConstants.igTrimetricTopFrontRightView,
-            0.012,
-            0.085,
-            0.115,
+            0.014,
+            0.155,
+            0.225,
             AssemblyDrawingViewTypeConstants.seAssemblyDesignedView,
             Missing.Value,
             Missing.Value,
             Missing.Value);
-        isometricView.Caption = "Isometric assembly overview";
-        isometricView.DisplayCaption = true;
+        isometricView.CaptionDefinitionTextPrimary = "Isometric assembly overview";
+        isometricView.DisplayCaptionPrimary = true;
+        isometricView.PrimaryCaptionTextSize = 0.004;
         isometricView.DisplayScale = true;
         isometricView.Update();
         dynamic topView = detailSheet.DrawingViews.AddAssemblyView(
             modelLink,
             ViewOrientationConstants.igTopView,
-            0.012,
-            0.285,
-            0.115,
+            0.014,
+            0.425,
+            0.225,
             AssemblyDrawingViewTypeConstants.seAssemblyDesignedView,
             Missing.Value,
             Missing.Value,
             Missing.Value);
-        topView.Caption = "Top assembly overview";
-        topView.DisplayCaption = true;
+        topView.CaptionDefinitionTextPrimary = "Top assembly overview";
+        topView.DisplayCaptionPrimary = true;
+        topView.PrimaryCaptionTextSize = 0.004;
         topView.DisplayScale = true;
         topView.Update();
         draftSheetCount = (int)draft.Sections.WorkingSection.Sheets.Count;

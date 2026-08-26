@@ -41,9 +41,15 @@ internal static class SolidEdgeApiBenchmark
         public string fixture_sha256;
         public string api;
         public string operation;
+        public string start_mode;
+        public string warm_state;
+        public string sample_kind;
         public bool warmup;
         public int iteration;
         public double elapsed_ms;
+        public double? native_ms;
+        public double? transport_ms;
+        public double? end_to_end_ms;
         public bool success;
         public int result_count;
         public string detail;
@@ -63,7 +69,7 @@ internal static class SolidEdgeApiBenchmark
             string outputDirectory = args.Length > 1
                 ? Path.GetFullPath(args[1])
                 : @"Z:\output\solid-edge-oven";
-            int iterations = args.Length > 2 ? Int32.Parse(args[2], CultureInfo.InvariantCulture) : 7;
+            int iterations = args.Length > 2 ? Int32.Parse(args[2], CultureInfo.InvariantCulture) : 10;
             int warmups = args.Length > 3 ? Int32.Parse(args[3], CultureInfo.InvariantCulture) : 2;
             string activeSourcePath = args.Length > 4 && !String.IsNullOrWhiteSpace(args[4])
                 ? Path.GetFullPath(args[4])
@@ -80,13 +86,13 @@ internal static class SolidEdgeApiBenchmark
             int conflictingDocumentsClosed = PrepareSolidEdgeFixture(fixturePath);
             bool activeSourceOpenedByHarness = EnsureActiveSourceOpen(activeSourcePath);
 
-            RunSeries(rows, runId, fixturePath, fixtureHash, "propauto", "closed_file_metadata_read", warmups, iterations,
+            RunSeries(rows, runId, fixturePath, fixtureHash, "propauto", "closed_file_metadata_read", "headless_batch", warmups, iterations,
                 delegate { return ProbePropAuto(fixturePath); });
-            RunSeries(rows, runId, fixturePath, fixtureHash, "solid_edge_com", "open_snapshot_copy_and_occurrence_read", warmups, iterations,
+            RunSeries(rows, runId, fixturePath, fixtureHash, "solid_edge_com", "open_snapshot_copy_and_occurrence_read", "interactive_existing_process", warmups, iterations,
                 delegate { return ProbeSolidEdgeOpenAndRead(fixturePath); });
-            RunSeries(rows, runId, fixturePath, fixtureHash, "solid_edge_com", "active_source_occurrence_read", warmups, iterations,
+            RunSeries(rows, runId, fixturePath, fixtureHash, "solid_edge_com", "active_source_occurrence_read", "interactive_existing_process", warmups, iterations,
                 delegate { return ProbeSolidEdgeActiveSourceRead(activeSourcePath); });
-            RunSeries(rows, runId, fixturePath, fixtureHash, "revision_manager", "linked_document_read", warmups, iterations,
+            RunSeries(rows, runId, fixturePath, fixtureHash, "revision_manager", "linked_document_read", "headless_batch", warmups, iterations,
                 delegate { return ProbeRevisionManager(fixturePath); });
 
             string csvPath = Path.Combine(outputDirectory, "api-benchmark-runs.csv");
@@ -98,7 +104,7 @@ internal static class SolidEdgeApiBenchmark
             File.WriteAllText(csvPath, ToCsv(rows), new UTF8Encoding(false));
             File.WriteAllText(jsonPath, Json.Serialize(rows), new UTF8Encoding(false));
             File.WriteAllText(summaryPath, Json.Serialize(BuildSummary(runId, fixturePath, fixtureHash, rows)), new UTF8Encoding(false));
-            File.WriteAllText(environmentPath, Json.Serialize(BuildEnvironment(runId, fixturePath, fixtureHash, outputDirectory, conflictingDocumentsClosed, activeSourcePath, activeSourceOpenedByHarness)), new UTF8Encoding(false));
+            File.WriteAllText(environmentPath, Json.Serialize(BuildEnvironment(runId, fixturePath, fixtureHash, outputDirectory, conflictingDocumentsClosed, activeSourcePath, activeSourceOpenedByHarness, warmups, iterations)), new UTF8Encoding(false));
             File.WriteAllText(capabilitiesPath, Json.Serialize(BuildCapabilities()), new UTF8Encoding(false));
 
             Console.WriteLine("RUN_ID=" + runId);
@@ -138,6 +144,7 @@ internal static class SolidEdgeApiBenchmark
         string fixtureHash,
         string api,
         string operation,
+        string startMode,
         int warmups,
         int iterations,
         Func<ProbeResult> probe)
@@ -153,6 +160,9 @@ internal static class SolidEdgeApiBenchmark
                 fixture_sha256 = fixtureHash,
                 api = api,
                 operation = operation,
+                start_mode = startMode,
+                warm_state = "warm",
+                sample_kind = warmup ? "warmup" : "measured_warm",
                 warmup = warmup,
                 iteration = warmup ? index : index - warmups
             };
@@ -163,6 +173,7 @@ internal static class SolidEdgeApiBenchmark
                 ProbeResult result = probe();
                 stopwatch.Stop();
                 row.elapsed_ms = ElapsedMilliseconds(stopwatch);
+                row.end_to_end_ms = row.elapsed_ms;
                 row.success = true;
                 row.result_count = result.Count;
                 row.detail = result.Detail;
@@ -171,6 +182,7 @@ internal static class SolidEdgeApiBenchmark
             {
                 stopwatch.Stop();
                 row.elapsed_ms = ElapsedMilliseconds(stopwatch);
+                row.end_to_end_ms = row.elapsed_ms;
                 row.success = false;
                 row.error_type = exception.GetType().FullName;
                 row.error_message = exception.Message;
@@ -578,7 +590,7 @@ internal static class SolidEdgeApiBenchmark
     private static object BuildSummary(string runId, string fixturePath, string fixtureHash, IEnumerable<RunRow> rows)
     {
         var summaries = new List<object>();
-        foreach (var group in rows.Where(row => !row.warmup).GroupBy(row => new { row.api, row.operation }))
+        foreach (var group in rows.Where(row => !row.warmup).GroupBy(row => new { row.api, row.operation, row.start_mode, row.warm_state }))
         {
             RunRow[] successful = group.Where(row => row.success).ToArray();
             double[] values = successful.Select(row => row.elapsed_ms).ToArray();
@@ -586,14 +598,19 @@ internal static class SolidEdgeApiBenchmark
             {
                 api = group.Key.api,
                 operation = group.Key.operation,
+                start_mode = group.Key.start_mode,
+                warm_state = group.Key.warm_state,
                 attempts = group.Count(),
                 successes = successful.Length,
                 failures = group.Count() - successful.Length,
                 result_count_values = successful.Select(row => row.result_count).Distinct().OrderBy(value => value).ToArray(),
                 median_ms = values.Length == 0 ? (double?)null : Median(values),
+                p90_ms = values.Length == 0 ? (double?)null : Percentile(values, 0.90),
                 p95_ms = values.Length == 0 ? (double?)null : Percentile(values, 0.95),
                 min_ms = values.Length == 0 ? (double?)null : values.Min(),
-                max_ms = values.Length == 0 ? (double?)null : values.Max()
+                max_ms = values.Length == 0 ? (double?)null : values.Max(),
+                mean_ms = values.Length == 0 ? (double?)null : values.Average(),
+                coefficient_of_variation = values.Length == 0 ? (double?)null : CoefficientOfVariation(values)
             });
         }
         return new
@@ -615,7 +632,9 @@ internal static class SolidEdgeApiBenchmark
         string outputDirectory,
         int conflictingDocumentsClosed,
         string activeSourcePath,
-        bool activeSourceOpenedByHarness)
+        bool activeSourceOpenedByHarness,
+        int warmups,
+        int iterations)
     {
         string solidEdgeVersion = null;
         bool solidEdgeRunning = false;
@@ -678,7 +697,8 @@ internal static class SolidEdgeApiBenchmark
             storage_note = outputOnSharedRepository
                 ? "fixture on local VM disk; benchmark raw output written through Parallels shared repository drive Z:"
                 : "fixture and benchmark raw output written on the local VM disk; artifacts are copied byte-for-byte to the repository after the run",
-            temperature_note = "two in-process warmups per API; application was already running; no OS-cold measurement",
+            temperature_note = String.Format(CultureInfo.InvariantCulture, "{0} in-process warmups and {1} measured warm iterations per API; application was already running; no application-cold or OS-cold measurement in this file", warmups, iterations),
+            timing_note = "elapsed_ms/end_to_end_ms is the external harness time for the named operation; native_ms and transport_ms are null because this harness has no in-process split instrumentation",
             unsupported_environment_fields = new[] { "host_mac_model", "parallels_version", "vm_cpu_allocation", "vm_ram_allocation", "energy_mode", "background_load" }
         };
     }
@@ -720,14 +740,19 @@ internal static class SolidEdgeApiBenchmark
     private static string ToCsv(IEnumerable<RunRow> rows)
     {
         var builder = new StringBuilder();
-        builder.AppendLine("run_id,timestamp_utc,fixture_path,fixture_sha256,api,operation,warmup,iteration,elapsed_ms,success,result_count,detail,error_type,error_message");
+        builder.AppendLine("run_id,timestamp_utc,fixture_path,fixture_sha256,api,operation,start_mode,warm_state,sample_kind,warmup,iteration,elapsed_ms,native_ms,transport_ms,end_to_end_ms,success,result_count,detail,error_type,error_message");
         foreach (RunRow row in rows)
         {
             string[] values =
             {
                 row.run_id, row.timestamp_utc, row.fixture_path, row.fixture_sha256, row.api, row.operation,
+                row.start_mode, row.warm_state, row.sample_kind,
                 row.warmup.ToString().ToLowerInvariant(), row.iteration.ToString(CultureInfo.InvariantCulture),
-                row.elapsed_ms.ToString("F6", CultureInfo.InvariantCulture), row.success.ToString().ToLowerInvariant(),
+                row.elapsed_ms.ToString("F6", CultureInfo.InvariantCulture),
+                row.native_ms.HasValue ? row.native_ms.Value.ToString("F6", CultureInfo.InvariantCulture) : null,
+                row.transport_ms.HasValue ? row.transport_ms.Value.ToString("F6", CultureInfo.InvariantCulture) : null,
+                row.end_to_end_ms.HasValue ? row.end_to_end_ms.Value.ToString("F6", CultureInfo.InvariantCulture) : null,
+                row.success.ToString().ToLowerInvariant(),
                 row.result_count.ToString(CultureInfo.InvariantCulture), row.detail, row.error_type, row.error_message
             };
             builder.AppendLine(String.Join(",", values.Select(CsvEscape)));
@@ -768,6 +793,14 @@ internal static class SolidEdgeApiBenchmark
         double[] sorted = values.OrderBy(value => value).ToArray();
         int rank = Math.Max(1, (int)Math.Ceiling(percentile * sorted.Length));
         return sorted[rank - 1];
+    }
+
+    private static double CoefficientOfVariation(double[] values)
+    {
+        double mean = values.Average();
+        if (mean == 0) return 0;
+        double variance = values.Select(value => (value - mean) * (value - mean)).Average();
+        return Math.Sqrt(variance) / mean;
     }
 
     private static void ReleaseCom(object value)

@@ -1,9 +1,9 @@
 # Herstellerneutraler CAD-Connector-Vertrag V1
 
-Stand: 2026-08-26  
+Stand: 2026-08-26
 Status: normative Architektur- und Onboarding-Grundlage; konkrete Adapter bleiben
-versions- und evidenzgebunden  
-Schema: [`cad-connector-contract-v1.schema.json`](cad-connector-contract-v1.schema.json)  
+versions- und evidenzgebunden
+Schema: [`cad-connector-contract-v1.schema.json`](cad-connector-contract-v1.schema.json)
 Beispiel: [`cad-connector-solid-edge-2026.example.json`](cad-connector-solid-edge-2026.example.json)
 
 ## 1. Zweck und Geltungsbereich
@@ -19,9 +19,8 @@ vermischt werden dürfen:
 
 Der Vertrag gilt für MCAD und kann auch von ECAD-Adaptern verwendet werden,
 wenn deren domänenspezifische Entitäten über explizite Erweiterungen ergänzt
-werden. Er ersetzt weder den
-[`ECAD_PLM_CANONICAL_MODEL_V1`](../product/ECAD_PLM_CANONICAL_MODEL_V1.md)
-noch den [`ProjectSnapshot`-Flow](../product/PROJECT_SNAPSHOT_FULL_FLOW.md).
+werden. Er ersetzt weder das separate `ECAD_PLM_CANONICAL_MODEL_V1` noch den
+separaten `ProjectSnapshot`-Flow.
 Er legt davor fest, **wie** ein CAD-Adapter Fähigkeiten entdeckt, eine
 konsistente Quelle liest und belegte kanonische Daten an den Snapshot-Flow
 übergibt.
@@ -66,12 +65,10 @@ execute_write(authorized_plan) -> CadWriteReceipt
 - `execute_write` akzeptiert ausschließlich einen unveränderten, autorisierten
   Plan und liefert einen nativen Read-back.
 
-KiCad und Solid Edge besitzen reale produktspezifische Provider. Die gemeinsame
-V1-Seam ist erst bewiesen, sobald beide dieselbe maschinenlesbare
-Inspect-/Capture-Conformance-Suite samt Fehlercodes bestehen. Bis dahin ist sie
-eine normative Zielarchitektur, keine bereits nachgewiesene Austauschbarkeit.
-Fake-Adapter ersetzen einen Realadapter nur am ausdrücklich definierten
-Test-Seam.
+Tests benutzen dieselbe Interface wie die Runtime. Fake-Adapter werden nicht
+vor die echten Adapter geschichtet, sondern ersetzen sie am Test-Seam. Da mit
+KiCad und Solid Edge bereits zwei reale Implementierungen existieren, ist
+diese Seam nicht hypothetisch.
 
 ## 3. Verbindliche Begriffstrennung
 
@@ -116,13 +113,15 @@ versionierte Ableitungsregel dokumentieren und die Qualität begrenzen.
 
 ## 5. BOM- und Analysevertrag aus der Ofen-Fixture
 
-Die vorhandene Ofen-Fixture in
-[`SolidEdgeOvenDemo.cs`](../../tooling/solid-edge/SolidEdgeOvenDemo.cs) ist die
-erste MCAD-Golden-Fixture für diesen Vertrag. Ihre Definition enthält elf
-Teiledefinitionen und neunzehn Occurrences in einer flachen Root-Baugruppe.
-Sie deckt Wiederholteile, Make/Buy, Materialien, Kategorien,
-fertigungsbezogene Eigenschaften, Analyse-Tags, physikalische Eigenschaften,
-Draft-Parts-List sowie native, STEP-, PDF-, BOM- und Analyseartefakte ab.
+Die Ofen-Fixture in
+[`SolidEdgeOvenDemo.cs`](../source/SolidEdgeOvenDemo.cs) ist die erste
+MCAD-Golden-Fixture für diesen Vertrag. Die produktive rekursive Abnahme nutzt
+zusätzlich `SolidEdgeLargeAssemblyDemo.cs`: elf Teiledefinitionen, vier
+Unterbaugruppen, 210 expandierte Knoten, Suppression, Reference-only- und
+per-Instanz ausgeschlossene Occurrences sowie eine native Atomic Parts List.
+Gemeinsam decken beide Fixtures Wiederholteile, Make/Buy, Materialien,
+Kategorien, Analyse-Tags sowie native, STEP-, PDF-, BOM- und
+Analyseartefakte ab.
 
 Die Fixture belegt folgende Semantik, ohne die Solid-Edge-Typnamen in das
 kanonische Modell zu übernehmen:
@@ -138,11 +137,13 @@ kanonische Modell zu übernehmen:
 | `SaveCopyAs` | natives Staging und neutraler Export | Dateisignatur, Größe und Hash nach dem Schließen prüfen |
 | Fixture-Placement-Vertrag | Design Envelope und bekannte Positionen | als `derived_verified`, niemals als nativ gemessene CAD-Geometrie markieren |
 
-Die derzeitige Fixture enthält keine Unterbaugruppe. Für die allgemeine
-Freigabe von `cad.read.assembly_structure` und `cad.read.engineering_bom` ist
-zusätzlich mindestens eine verschachtelte Baugruppe mit Suppression,
-Reference-only-Teil, ausgeschlossener BOM-Occurrence, fehlender Referenz und
-Zyklus-Negativfixture erforderlich.
+Die rekursive Abnahme ist ausgeführt: Der positive Lauf liest 210 Knoten und
+160 BOM-relevante Endvorkommen nach Save/Close/Reopen, vergleicht elf von elf
+Mengen gegen die native Parts List und prüft Suppression, Reference-only sowie
+per-Instanz-Ausschlüsse. Separate Negativfixtures blockieren eine fehlende
+Referenz und einen Selbstzyklus fail-closed. Produktiv bleibt zusätzlich die
+kryptografische Bindung der vollständigen Dependency-Linkliste an das Bundle
+zu schließen.
 
 Eine Parts List im Draft oder PDF ist nicht gleichbedeutend mit einer
 kanonischen BOM. OCR, PDF-Tabellen oder STEP-Strukturen dürfen nur als
@@ -326,7 +327,7 @@ ist allein noch kein Freigabebeleg.
 
 | Code | Bedingung | Reaktion |
 |---|---|---|
-| `CAD-FC-001` | erforderliche Capability hat einen Status ungleich `verified` | Capture/Write ablehnen; `observed` oder `conflicting` genügt für kein Pflichtprofil |
+| `CAD-FC-001` | Capability ist `unknown`, `declared` oder `unsupported`, aber im Profil erforderlich | Capture/Write ablehnen |
 | `CAD-FC-002` | gewählte Route ist für Produktbuild, Plattform oder Startmodus nicht verifiziert | Route nicht ausführen |
 | `CAD-FC-003` | Fallback ist nicht vorab deklariert oder liefert geringere Qualität als erlaubt | kein Fallback; Fehler mit ursprünglicher Correlation-ID |
 | `CAD-FC-004` | ungesicherter Editorstand wurde verlangt, ist aber nicht nachweisbar enthalten | Capture ablehnen; niemals disk-backed als vollständig melden |
