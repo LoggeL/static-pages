@@ -237,6 +237,7 @@ h3 { font-size: 16px; }
 .evidence { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .shot { margin: 0; overflow: hidden; border: 1px solid var(--iv-border); border-radius: var(--iv-radius-md); background: var(--iv-surface); box-shadow: var(--iv-shadow-floating); }
 .shot img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: center; background: var(--iv-surface-subtle); }
+.shot img[role="button"] { cursor: zoom-in; }
 .shot figcaption { padding: 16px; }
 .shot b { display: block; }
 .shot p { margin: 6px 0 0; color: var(--iv-text-muted); }
@@ -291,6 +292,39 @@ footer { padding: 28px 0 42px; border-top: 1px solid var(--iv-border); color: va
 .footer { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
 .governance-note { flex-basis: 100%; font-size: 12px; }
 
+.lightbox {
+  width: min(1120px, calc(100% - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--iv-border-strong);
+  border-radius: var(--iv-radius-lg);
+  background: var(--iv-surface);
+  color: var(--iv-text);
+  box-shadow: var(--iv-shadow-floating);
+}
+.lightbox::backdrop { background: rgb(8 15 25 / 78%); }
+.lightbox-toolbar { min-height: 60px; padding: 8px 12px; display: flex; align-items: center; justify-content: flex-end; border-bottom: 1px solid var(--iv-border); }
+.lightbox-close {
+  min-width: 44px;
+  min-height: 44px;
+  border: 1px solid var(--iv-border-strong);
+  border-radius: var(--iv-radius-md);
+  background: var(--iv-surface);
+  color: var(--iv-text);
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+.lightbox-close:hover { border-color: var(--iv-primary); color: var(--iv-primary); }
+.lightbox-figure { margin: 0; display: grid; max-height: calc(100dvh - 94px); }
+.lightbox-image { display: block; width: 100%; max-height: calc(100dvh - 180px); object-fit: contain; background: var(--iv-surface-subtle); }
+.lightbox-caption { padding: 16px 20px 20px; color: var(--iv-text-muted); }
+.lightbox-caption b { display: block; color: var(--iv-text); }
+.lightbox-caption p { margin: 6px 0 0; }
+
 @media (max-width: 1024px) {
   .facts,
   .state-grid { grid-template-columns: repeat(2, 1fr); }
@@ -339,7 +373,7 @@ footer { padding: 28px 0 42px; border-top: 1px solid var(--iv-border); color: va
   <header class="topbar"><div class="shell topbar-inner"><div class="brand"><span class="mark" aria-hidden="true">iV</span><span>Solid Edge Agent Demo</span></div><div class="header-actions"><div class="status"><span class="dot" aria-hidden="true"></span><span>Core verbunden · SaveALL und lokales Schließen verifiziert</span></div><button class="theme-toggle" type="button" aria-label="Dunkles Farbschema aktivieren" aria-pressed="false">Dunkel</button></div></div></header>
   <main>
     <section class="hero shell">
-      <div class="eyebrow">Lebendes Bilderbuch · Version 0.6 · 26. August 2026</div>
+      <div class="eyebrow">Lebendes Bilderbuch · Version 0.7 · 26. August 2026</div>
       <h1>Der Mac steuert. <span class="gradient">Solid Edge arbeitet nativ.</span></h1>
       <p class="lead">Dieses Handbuch basiert auf dem vollständigen Transcript „Call with Konrad Wiemann“. Es dokumentiert den realen Durchlauf auf der Parallels-VM: COM-Automation, natives Part, Bohrung, Metadaten, STEP, Draft, PDF, Ribbon-Commands und den Solid-Edge-Snapshot-Provider. Codex muss dafür nicht im Windows-Gast laufen; der Mac orchestriert die sichtbare Benutzersitzung.</p>
       <div class="facts"><div class="fact"><small>Steuerung</small><b>Mac → Parallels → Windows</b><code>vmctl / prlctl · current user</code></div><div class="fact"><small>VM</small><b>IV-Connect-SolidEdge-Dev</b><code>Windows 11 ARM64 · x64-Emulation</code></div><div class="fact"><small>CAD</small><b>Solid Edge 2026</b><code>226.00.00.106 · installiert &amp; lizenziert</code></div><div class="fact"><small>Initialer Beweis</small><b>Part + STEP + PDF</b><code>80 × 50 × 30 mm · Ø12 mm</code></div></div>
@@ -403,6 +437,10 @@ footer { padding: 28px 0 42px; border-top: 1px solid var(--iv-border); color: va
     </div></section>
     <section class="section shell" id="sources"><div class="section-head"><div><div class="eyebrow">Recherche</div><h2>Primärquellen</h2></div><p>Die API-Entscheidungen stützen sich auf Siemens- und Microsoft-Dokumentation; das praktische Verhalten wurde zusätzlich auf der konkreten VM verifiziert.</p></div><div class="sources"><div class="source"><a href="https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/SolidEdgePart~Models~AddFiniteExtrudedProtrusion.html">Siemens: AddFiniteExtrudedProtrusion</a><p>ByRef-Profilarray, Extrusionsrichtung und optionale Extents.</p></div><div class="source"><a href="https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/WorkingWithDrawingViews.html">Siemens: Working with DrawingViews</a><p>DraftDocument, ModelLink und AddPartView.</p></div><div class="source"><a href="https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/SolidEdgeDraft~DraftPrintUtility_members.html">Siemens: DraftPrintUtility</a><p>Drucker, Einzelblattmodus und Print-to-file-Eigenschaften.</p></div><div class="source"><a href="https://support.industrysoftware.automation.siemens.com/trainings/se/106/api/SolidEdgeFramework~SummaryInfo_members.html">Siemens: SummaryInfo</a><p>Autor, Titel, Kommentare, Projekt und weitere Dokumentmetadaten.</p></div><div class="source"><a href="https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/SolidEdgeFramework~ISolidEdgeAddIn~OnConnection.html">Siemens: ISolidEdgeAddIn.OnConnection</a><p>Add-in-Startmodus, Application-Objekt und Erstverbindung.</p></div><div class="source"><a href="https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/SolidEdgeFramework~ISEAddInEx~SetAddInInfoEx.html">Siemens: ISEAddInEx.SetAddInInfoEx</a><p>Command-Definitionen, Bitmap-Ressourcen und Environment-Kontext.</p></div><div class="source"><a href="https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/SolidEdgeFramework~ISEAddInEvents~OnCommand.html">Siemens: ISEAddInEvents.OnCommand</a><p>Auslösung und Zuordnung der beiden iV-Commands.</p></div><div class="source"><a href="https://learn.microsoft.com/en-us/windows/win32/winprog64/registry-redirector">Microsoft: Registry Redirector</a><p>Warum Bitness und Registry-Ansicht bei COM-Aktivierung auf ARM64/x64 getrennt geprüft werden müssen.</p></div></div></section>
   </main>
+  <dialog class="lightbox" id="image-lightbox" aria-label="Bildvorschau">
+    <div class="lightbox-toolbar"><button class="lightbox-close" type="button" aria-label="Bildvorschau schließen">×</button></div>
+    <figure class="lightbox-figure"><img class="lightbox-image" alt=""><figcaption class="lightbox-caption"></figcaption></figure>
+  </dialog>
   <footer><div class="shell footer"><span>InnovaVento · Solid Edge Agent Demo · lebendes Runbook</span><span>Keine Secrets, Lizenzcodes oder Auth-Screenshots enthalten.</span><span class="governance-note">Pattern-Referenz: IV-GDL-001 · Release 2026-08-03.1. Auf ausdrückliche Anweisung für diesen öffentlichen Bericht angewendet; gemäß IV-GOV-002 keine formale Public-Website-Konformitätsaussage. Sprachumfang Deutsch, da es sich um ein temporäres internes Demo-Runbook handelt.</span></div></footer>
   <script>
     const root = document.documentElement;
@@ -427,6 +465,44 @@ footer { padding: 28px 0 42px; border-top: 1px solid var(--iv-border); color: va
         button.textContent = "Kopiert";
         setTimeout(() => { button.textContent = old; }, 1200);
       });
+    });
+
+    const lightbox = document.querySelector("#image-lightbox");
+    const lightboxImage = lightbox.querySelector(".lightbox-image");
+    const lightboxCaption = lightbox.querySelector(".lightbox-caption");
+    const lightboxClose = lightbox.querySelector(".lightbox-close");
+    let lightboxTrigger = null;
+    const closeLightbox = () => {
+      lightbox.close();
+      lightboxImage.removeAttribute("src");
+      lightboxTrigger?.focus();
+    };
+    document.querySelectorAll(".shot img").forEach((image) => {
+      image.tabIndex = 0;
+      image.setAttribute("role", "button");
+      image.setAttribute("aria-label", `Bild vergrößern: ${image.alt}`);
+      const openLightbox = () => {
+        lightboxTrigger = image;
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
+        lightboxCaption.innerHTML = image.closest("figure").querySelector("figcaption").innerHTML;
+        lightbox.showModal();
+        lightboxClose.focus();
+      };
+      image.addEventListener("click", openLightbox);
+      image.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openLightbox();
+        }
+      });
+    });
+    lightboxClose.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) closeLightbox();
+    });
+    lightbox.addEventListener("close", () => {
+      if (lightboxImage.hasAttribute("src")) lightboxImage.removeAttribute("src");
     });
   </script>
 </body>
