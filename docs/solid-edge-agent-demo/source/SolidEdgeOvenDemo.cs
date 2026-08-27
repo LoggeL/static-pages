@@ -297,18 +297,17 @@ internal static class SolidEdgeOvenDemo
         dynamic part = application.Documents.Add("SolidEdge.PartDocument", template);
         try
         {
-            if (spec.Shape == "cylinder")
+            if (spec.Nameplate)
+            {
+                CreateNameplate(part, spec.X, spec.Y, spec.Z);
+            }
+            else if (spec.Shape == "cylinder")
             {
                 CreateCylinder(part, spec.X / 2.0, spec.Z);
             }
             else
             {
                 CreateBox(part, spec.X, spec.Y, spec.Z);
-            }
-            if (spec.Nameplate)
-            {
-                AddCircularCutout(part, -0.090, 0.000, 0.0025);
-                AddCircularCutout(part, 0.090, 0.000, 0.0025);
             }
             WritePartMetadata(part, spec);
             part.SaveAs(path, Missing.Value, Missing.Value, Missing.Value, Missing.Value,
@@ -349,6 +348,131 @@ internal static class SolidEdgeOvenDemo
         AddExtrusion(part, profile, height);
     }
 
+    private static void CreateNameplate(dynamic part, double width, double thickness, double height)
+    {
+        // RefPlane 3 is the native XZ/front plane. Its normal is -Y, so the
+        // symmetric protrusion's top cap is the installed +Y outward face.
+        const int frontPlaneIndex = 3;
+        CreateBoxOnPlane(part, frontPlaneIndex, width, height, thickness);
+        AddCircularCutout(part, frontPlaneIndex, -0.090, 0.000, 0.0025);
+        AddCircularCutout(part, frontPlaneIndex, 0.090, 0.000, 0.0025);
+        AddEngravedWordmark(part, "INNOVAVENTO");
+    }
+
+    private static void CreateBoxOnPlane(dynamic part, int planeIndex, double width, double height, double depth)
+    {
+        dynamic profileSet = part.ProfileSets.Add();
+        dynamic profile = profileSet.Profiles.Add(part.RefPlanes.Item(planeIndex));
+        dynamic lines = profile.Lines2d;
+        dynamic line1 = lines.AddBy2Points(-width / 2.0, -height / 2.0, width / 2.0, -height / 2.0);
+        dynamic line2 = lines.AddBy2Points(width / 2.0, -height / 2.0, width / 2.0, height / 2.0);
+        dynamic line3 = lines.AddBy2Points(width / 2.0, height / 2.0, -width / 2.0, height / 2.0);
+        dynamic line4 = lines.AddBy2Points(-width / 2.0, height / 2.0, -width / 2.0, -height / 2.0);
+        dynamic relations = profile.Relations2d;
+        relations.AddKeypoint(line1, LineEnd, line2, LineStart);
+        relations.AddKeypoint(line2, LineEnd, line3, LineStart);
+        relations.AddKeypoint(line3, LineEnd, line4, LineStart);
+        relations.AddKeypoint(line4, LineEnd, line1, LineStart);
+        EndProfile(profile);
+        AddExtrusion(part, profile, depth);
+    }
+
+    private static void AddEngravedWordmark(dynamic part, string text)
+    {
+        const int glyphColumns = 5;
+        const int glyphRows = 7;
+        const double dotPitch = 0.00225;
+        const double dotRadius = 0.00072;
+        const double engravingDepth = 0.0006;
+
+        int totalColumns = text.Length * glyphColumns + (text.Length - 1);
+        double startX = -(totalColumns - 1) * dotPitch / 2.0;
+        double startY = (glyphRows - 1) * dotPitch / 2.0;
+
+        dynamic model = part.Models.Item(1);
+        dynamic outwardFace = model.ExtrudedProtrusions.Item(1).TopCap;
+        dynamic frontPlane = part.RefPlanes.AddParallelByDistance(
+            outwardFace,
+            0.0,
+            1,
+            Missing.Value,
+            Missing.Value,
+            Missing.Value,
+            Missing.Value);
+
+        dynamic profileSet = part.ProfileSets.Add();
+        dynamic profile = profileSet.Profiles.Add(frontPlane);
+        for (int characterIndex = 0; characterIndex < text.Length; characterIndex++)
+        {
+            string[] glyph = GetDotGlyph(text[characterIndex]);
+            int characterColumn = characterIndex * (glyphColumns + 1);
+            for (int row = 0; row < glyphRows; row++)
+            {
+                for (int column = 0; column < glyphColumns; column++)
+                {
+                    if (glyph[row][column] == '#')
+                    {
+                        profile.Circles2d.AddByCenterRadius(
+                            startX + (characterColumn + column) * dotPitch,
+                            startY - row * dotPitch,
+                            dotRadius);
+                    }
+                }
+            }
+        }
+        EndProfile(profile);
+        model.ExtrudedCutouts.AddFinite(
+            profile,
+            FeaturePropertyConstants.igRight,
+            FeaturePropertyConstants.igLeft,
+            engravingDepth);
+        profile.Visible = false;
+    }
+
+    private static string[] GetDotGlyph(char character)
+    {
+        switch (Char.ToUpperInvariant(character))
+        {
+            case 'I':
+                return new[]
+                {
+                    "#####", "..#..", "..#..", "..#..", "..#..", "..#..", "#####"
+                };
+            case 'N':
+                return new[]
+                {
+                    "#...#", "##..#", "##..#", "#.#.#", "#..##", "#..##", "#...#"
+                };
+            case 'O':
+                return new[]
+                {
+                    ".###.", "#...#", "#...#", "#...#", "#...#", "#...#", ".###."
+                };
+            case 'V':
+                return new[]
+                {
+                    "#...#", "#...#", "#...#", "#...#", ".#.#.", ".#.#.", "..#.."
+                };
+            case 'A':
+                return new[]
+                {
+                    ".###.", "#...#", "#...#", "#####", "#...#", "#...#", "#...#"
+                };
+            case 'E':
+                return new[]
+                {
+                    "#####", "#....", "#....", "####.", "#....", "#....", "#####"
+                };
+            case 'T':
+                return new[]
+                {
+                    "#####", "..#..", "..#..", "..#..", "..#..", "..#..", "..#.."
+                };
+            default:
+                throw new InvalidOperationException("Unsupported wordmark character: " + character);
+        }
+    }
+
     private static void EndProfile(dynamic profile)
     {
         int status = (int)profile.End(ProfileClosed);
@@ -376,11 +500,11 @@ internal static class SolidEdgeOvenDemo
         profile.Visible = false;
     }
 
-    private static void AddCircularCutout(dynamic part, double x, double y, double radius)
+    private static void AddCircularCutout(dynamic part, int planeIndex, double x, double y, double radius)
     {
         dynamic model = part.Models.Item(1);
         dynamic profileSet = part.ProfileSets.Add();
-        dynamic profile = profileSet.Profiles.Add(part.RefPlanes.Item(1));
+        dynamic profile = profileSet.Profiles.Add(part.RefPlanes.Item(planeIndex));
         profile.Circles2d.AddByCenterRadius(x, y, radius);
         EndProfile(profile);
         model.ExtrudedCutouts.AddThroughAll(
@@ -410,6 +534,11 @@ internal static class SolidEdgeOvenDemo
         SetCustomProperty(part, "IV_ManufacturingProcess", spec.Process);
         SetCustomProperty(part, "IV_AnalysisTags", String.Join(",", spec.AnalysisTags));
         SetCustomProperty(part, "IV_ConnectorSchema", "cad-object-metadata-v1");
+        if (spec.Nameplate)
+        {
+            SetCustomProperty(part, "IV_BrandingGeometry", "engraved-dot-matrix-wordmark-v1");
+            SetCustomProperty(part, "IV_BrandingText", "INNOVAVENTO");
+        }
         try { part.Properties.Save(); } catch { }
     }
 
