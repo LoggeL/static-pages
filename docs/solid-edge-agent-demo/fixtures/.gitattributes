@@ -1,4 +1,0 @@
-# Preserve byte-exact Windows-generated evidence without whitespace rewriting.
-IV_Demo_Block.metadata.json -text -diff
-IV_Demo_Block.stp -text -diff
-api-benchmark/api-benchmark-runs.csv -text -diff
