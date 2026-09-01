@@ -13,6 +13,7 @@ import {
   BarChart3,
   Bell,
   BellRing,
+  BookOpenText,
   CalendarCheck,
   CalendarDays,
   Check,
@@ -29,6 +30,7 @@ import {
   Megaphone,
   Plus,
   RotateCcw,
+  Send,
   Settings2,
   ShieldCheck,
   Sparkles,
@@ -36,8 +38,10 @@ import {
   ThumbsUp,
   Trophy,
   UserCheck,
+  UserCog,
   Users,
   Vote,
+  WandSparkles,
   HardDrive,
   X,
 } from 'lucide-react';
@@ -62,7 +66,7 @@ import { Textarea } from '@/components/ui/textarea';
 
 type View = 'dashboard' | 'calendar' | 'polls' | 'stats' | 'admin' | 'checkin';
 type Attendance = 'open' | 'yes' | 'no';
-type AbsenceRecord = { from: string; to: string; reason: string } | null;
+type AbsenceRecord = { id: string; from: string; to: string; reason: string };
 
 type EventItem = {
   id: string;
@@ -269,7 +273,8 @@ export default function Home() {
   const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null);
   const [absenceOpen, setAbsenceOpen] = useState(false);
   const [eventOpen, setEventOpen] = useState(false);
-  const [absence, setAbsence] = usePersistentState<AbsenceRecord>('absence', null);
+  const [absences, setAbsences] = usePersistentState<AbsenceRecord[]>('absences', []);
+  const [absenceNotice, setAbsenceNotice] = useState('');
   const [customEvents, setCustomEvents] = usePersistentState<EventItem[]>('custom-events', []);
   const [pollChoice, setPollChoice] = usePersistentState('poll-choice', 'sat');
   const [pollConfirmed, setPollConfirmed] = usePersistentState('poll-confirmed', false);
@@ -278,6 +283,7 @@ export default function Home() {
   const [adminNotice, setAdminNotice] = useState('');
   const [reminders, setReminders] = usePersistentState('reminders', { dayBefore: true, twoHours: true, changes: true });
   const [adminAutomations, setAdminAutomations] = usePersistentState('admin-automations', { weekly: true, noResponse: true, parents: true });
+  const [groupVisibility, setGroupVisibility] = usePersistentState('group-visibility', { techOnly: true, costumeOnly: true });
 
   const events = useMemo(() => {
     const items = [...baseEvents];
@@ -402,7 +408,8 @@ export default function Home() {
     const from = String(formData.get('from') ?? '');
     const to = String(formData.get('to') ?? '');
     const reason = String(formData.get('reason') ?? '').trim();
-    setAbsence({ from, to, reason });
+    setAbsences((items) => [...items, { id: `absence-${Date.now()}`, from, to, reason }]);
+    setAbsenceNotice('Abwesenheit gespeichert. Du kannst direkt eine weitere eintragen.');
   };
 
   const resetDemo = () => {
@@ -416,6 +423,24 @@ export default function Home() {
   const confirmPoll = () => {
     setPollConfirmed(true);
     setAdminNotice('Der meistgewählte Termin wurde bestätigt und automatisch in den Kalender übernommen.');
+  };
+
+  const remindOpenResponses = () => {
+    setAdminNotice('Erinnerung an 6 offene Rückmeldungen wurde vorbereitet und versendet.');
+  };
+
+  const testReminder = async () => {
+    if (!('Notification' in window)) {
+      setNotice('Dieser Browser unterstützt keine Desktop-Erinnerungen.');
+      return;
+    }
+    const permission = Notification.permission === 'default' ? await Notification.requestPermission() : Notification.permission;
+    if (permission === 'granted') {
+      new Notification('Creepshow-Probe in 2 Stunden', { body: '19:00 Uhr · Kolpingheim, Großer Saal' });
+      setNotice('Test-Erinnerung wurde an deinen Browser gesendet.');
+    } else {
+      setNotice('Browser-Erinnerungen sind blockiert. Die Einstellungen bleiben trotzdem gespeichert.');
+    }
   };
 
   return (
@@ -493,6 +518,8 @@ export default function Home() {
               reminders={reminders}
               setReminders={setReminders}
               downloadIcs={downloadIcs}
+              absenceCount={absences.length}
+              testReminder={testReminder}
             />
           )}
           {view === 'calendar' && <CalendarView events={events} attendanceByEvent={attendanceByEvent} openEvent={openEvent} openCreate={() => setEventOpen(true)} />}
@@ -517,6 +544,10 @@ export default function Home() {
               resetDemo={resetDemo}
               automations={adminAutomations}
               setAutomations={setAdminAutomations}
+              groupVisibility={groupVisibility}
+              setGroupVisibility={setGroupVisibility}
+              remindOpenResponses={remindOpenResponses}
+              absenceCount={absences.length}
             />
           )}
           {view === 'checkin' && (
@@ -557,17 +588,14 @@ export default function Home() {
             <DialogTitle className="text-xl font-black uppercase tracking-tight">Längere Abwesenheit melden</DialogTitle>
             <DialogDescription>Termine in diesem Zeitraum werden automatisch als entschuldigt markiert. Die Probenleitung wird informiert.</DialogDescription>
           </DialogHeader>
-          {absence ? (
-              <div className="border border-emerald-600/25 bg-emerald-50 p-5 text-sm text-emerald-700">
-              <Check className="mb-3 size-6" /><p className="font-bold">Abwesenheit gespeichert</p><p className="mt-1 text-emerald-700/75">{formatAbsenceDate(absence.from)} bis {formatAbsenceDate(absence.to)}{absence.reason ? ` · ${absence.reason}` : ''}</p><Button type="button" variant="outline" onClick={() => setAbsence(null)} className="mt-4 h-9 rounded-sm border-emerald-700/25 bg-white text-emerald-800 hover:bg-emerald-100"><X /> Meldung entfernen</Button>
-            </div>
-          ) : (
-            <form action={saveAbsence} className="grid gap-4">
-              <div className="grid grid-cols-2 gap-3"><label htmlFor="absence-from" className="grid gap-2 text-xs font-medium">Von<Input id="absence-from" name="from" required type="date" defaultValue="2026-10-12" className="h-11 rounded-sm" /></label><label htmlFor="absence-to" className="grid gap-2 text-xs font-medium">Bis<Input id="absence-to" name="to" required type="date" defaultValue="2026-10-18" className="h-11 rounded-sm" /></label></div>
-              <label htmlFor="absence-reason" className="grid gap-2 text-xs font-medium">Grund (optional)<Textarea id="absence-reason" name="reason" defaultValue="Familienurlaub" className="min-h-24 rounded-sm" /></label>
-              <DialogFooter className="border-border bg-muted/30"><Button type="submit" className="h-11 rounded-sm bg-primary px-5 text-primary-foreground hover:bg-primary/85">Abwesenheit speichern</Button></DialogFooter>
-            </form>
-          )}
+          {absenceNotice && <div className="flex items-center gap-2 border border-emerald-600/25 bg-emerald-50 p-3 text-xs text-emerald-700" aria-live="polite"><Check className="size-4" />{absenceNotice}</div>}
+          {absences.length > 0 && <div><p className="mb-2 font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Bereits gemeldet · {absences.length}</p><div className="max-h-44 space-y-2 overflow-y-auto">{absences.map((absence) => <div key={absence.id} className="flex items-start gap-3 border border-border bg-background p-3"><CalendarCheck className="mt-0.5 size-4 shrink-0 text-primary" /><div className="min-w-0 flex-1"><p className="text-xs font-bold">{formatAbsenceDate(absence.from)} bis {formatAbsenceDate(absence.to)}</p><p className="mt-1 text-[10px] text-muted-foreground">{absence.reason || 'Ohne Grund'}</p></div><button type="button" aria-label="Abwesenheit entfernen" onClick={() => setAbsences((items) => items.filter((item) => item.id !== absence.id))} className="grid size-7 shrink-0 place-items-center border border-border bg-white text-muted-foreground hover:border-red-500 hover:text-red-700"><X className="size-3" /></button></div>)}</div></div>}
+          <form action={saveAbsence} className="grid gap-4 border-t border-border pt-4">
+            <p className="text-sm font-bold">Weitere Abwesenheit eintragen</p>
+            <div className="grid grid-cols-2 gap-3"><label htmlFor="absence-from" className="grid gap-2 text-xs font-medium">Von<Input id="absence-from" name="from" required type="date" defaultValue="2026-10-12" className="h-11 rounded-sm" /></label><label htmlFor="absence-to" className="grid gap-2 text-xs font-medium">Bis<Input id="absence-to" name="to" required type="date" defaultValue="2026-10-18" className="h-11 rounded-sm" /></label></div>
+            <label htmlFor="absence-reason" className="grid gap-2 text-xs font-medium">Grund (optional)<Textarea id="absence-reason" name="reason" defaultValue="Familienurlaub" className="min-h-20 rounded-sm" /></label>
+            <DialogFooter className="border-border bg-muted/30"><Button type="submit" className="h-11 rounded-sm bg-primary px-5 text-primary-foreground hover:bg-primary/85"><Plus /> Abwesenheit hinzufügen</Button></DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
 
@@ -591,7 +619,7 @@ export default function Home() {
   );
 }
 
-function DashboardView({ attendance, notice, setResponse, events, openEvent, openAbsence, navigate, reminders, setReminders, downloadIcs }: {
+function DashboardView({ attendance, notice, setResponse, events, openEvent, openAbsence, navigate, reminders, setReminders, downloadIcs, absenceCount, testReminder }: {
   attendance: Attendance;
   notice: string;
   setResponse: (value: Attendance) => void;
@@ -602,6 +630,8 @@ function DashboardView({ attendance, notice, setResponse, events, openEvent, ope
   reminders: { dayBefore: boolean; twoHours: boolean; changes: boolean };
   setReminders: React.Dispatch<React.SetStateAction<{ dayBefore: boolean; twoHours: boolean; changes: boolean }>>;
   downloadIcs: (event: EventItem) => void;
+  absenceCount: number;
+  testReminder: () => void;
 }) {
   const next = events[0];
   const responseLabel = attendance === 'yes' ? 'Du kommst' : attendance === 'no' ? 'Du bist abgemeldet' : 'Rückmeldung offen';
@@ -664,9 +694,10 @@ function DashboardView({ attendance, notice, setResponse, events, openEvent, ope
               <ReminderRow label="2 Stunden vorher" checked={reminders.twoHours} onChange={(checked) => setReminders((value) => ({ ...value, twoHours: checked }))} />
               <ReminderRow label="Bei Terminänderungen" checked={reminders.changes} onChange={(checked) => setReminders((value) => ({ ...value, changes: checked }))} />
             </div>
+            <Button type="button" onClick={testReminder} variant="outline" className="mt-5 h-9 w-full rounded-sm border-border bg-white text-xs hover:border-primary"><BellRing /> Test-Erinnerung senden</Button>
           </section>
           <div className="grid grid-cols-2 gap-3">
-            <button type="button" onClick={openAbsence} className="border border-border bg-card p-4 text-left transition hover:border-primary"><CalendarCheck className="size-5 text-primary" /><p className="mt-3 text-sm font-bold">Abwesenheit</p><p className="mt-1 text-[10px] text-muted-foreground">Zeitraum melden</p></button>
+            <button type="button" onClick={openAbsence} className="border border-border bg-card p-4 text-left transition hover:border-primary"><CalendarCheck className="size-5 text-primary" /><p className="mt-3 text-sm font-bold">Abwesenheit</p><p className="mt-1 text-[10px] text-muted-foreground">{absenceCount > 0 ? `${absenceCount} gemeldet · weitere eintragen` : 'Zeitraum melden'}</p></button>
             <button type="button" onClick={() => downloadIcs(next)} className="border border-border bg-card p-4 text-left transition hover:border-primary"><Download className="size-5 text-primary" /><p className="mt-3 text-sm font-bold">Kalender</p><p className="mt-1 text-[10px] text-muted-foreground">ICS exportieren</p></button>
           </div>
         </aside>
@@ -822,9 +853,15 @@ function StatsView() {
         <section className="border border-border bg-card p-5 sm:p-7"><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Nach Gruppen</p><h3 className="mt-2 text-lg font-black uppercase">Aktueller Monat</h3><div className="mt-7 space-y-6"><GroupBar label="Jugendensemble" value={94} people="18 Mitglieder" /><GroupBar label="Erwachsenen-Ensemble" value={87} people="21 Mitglieder" /><GroupBar label="Technik" value={82} people="9 Mitglieder" /><GroupBar label="Kostümteam" value={78} people="7 Mitglieder" /></div></section>
       </div>
 
-      <div className="mt-6 flex gap-3 border border-border bg-card p-4"><ShieldCheck className="mt-0.5 size-5 shrink-0 text-primary" /><div><p className="text-sm font-bold">Fair und kindgerecht</p><p className="mt-1 max-w-3xl text-xs leading-relaxed text-muted-foreground">Die persönliche Entwicklung ist nur für das Mitglied und die zuständige Leitung sichtbar. Es gibt keine öffentliche Rangliste – Motivation entsteht durch Ziele und Verlässlichkeit, nicht durch Bloßstellung.</p></div></div>
+      <section className="mt-6 border border-border bg-card p-5 sm:p-7"><div className="flex flex-wrap items-start justify-between gap-3"><div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Freiwillige Team-Challenge</p><h3 className="mt-2 text-lg font-black uppercase">Creepshow-Anwesenheitsserie</h3></div><StatusPill tone="success"><Trophy className="mr-1 size-3" /> Nur teilnehmende Erwachsene</StatusPill></div><div className="mt-6 grid gap-3 md:grid-cols-3"><ChallengeRank rank="1" name="Sarah Klein" value="12 Proben" /><ChallengeRank rank="2" name="Logge" value="11 Proben" accent /><ChallengeRank rank="3" name="Jonas Hoffmann" value="10 Proben" /></div><p className="mt-4 text-[10px] leading-relaxed text-muted-foreground">Die Challenge ist freiwillig. Kinder und nicht teilnehmende Mitglieder erscheinen nicht in der Rangliste.</p></section>
+
+      <div className="mt-6 flex gap-3 border border-border bg-card p-4"><ShieldCheck className="mt-0.5 size-5 shrink-0 text-primary" /><div><p className="text-sm font-bold">Fair und kindgerecht</p><p className="mt-1 max-w-3xl text-xs leading-relaxed text-muted-foreground">Persönliche Werte bleiben grundsätzlich nur für das Mitglied und die zuständige Leitung sichtbar. Die freiwillige Erwachsenen-Challenge ist davon getrennt und kann jederzeit verlassen werden.</p></div></div>
     </>
   );
+}
+
+function ChallengeRank({ rank, name, value, accent = false }: { rank: string; name: string; value: string; accent?: boolean }) {
+  return <div className={`flex items-center gap-4 border p-4 ${accent ? 'border-primary bg-primary/5' : 'border-border bg-background'}`}><span className={`grid size-10 shrink-0 place-items-center text-lg font-black ${accent ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>{rank}</span><div className="min-w-0 flex-1"><p className="truncate text-sm font-bold">{name}</p><p className="mt-1 text-[10px] text-muted-foreground">{value} in dieser Saison</p></div>{accent && <StatusPill>Du</StatusPill>}</div>;
 }
 
 function MetricCard({ label, value, hint, icon: Icon, accent = false }: { label: string; value: string; hint: string; icon: typeof Users; accent?: boolean }) {
@@ -835,26 +872,34 @@ function GroupBar({ label, value, people }: { label: string; value: number; peop
   return <div><div className="mb-2 flex items-end justify-between gap-3"><div><p className="text-sm font-bold">{label}</p><p className="mt-1 text-[10px] text-muted-foreground">{people}</p></div><span className="font-mono text-sm font-bold text-primary">{value}%</span></div><div className="h-1.5 bg-muted"><div className="h-full bg-primary" style={{ width: `${value}%` }} /></div></div>;
 }
 
-function AdminView({ notice, pollConfirmed, confirmPoll, openCreate, navigate, customEvents, removeCustomEvent, resetDemo, automations, setAutomations }: { notice: string; pollConfirmed: boolean; confirmPoll: () => void; openCreate: () => void; navigate: (view: View) => void; customEvents: EventItem[]; removeCustomEvent: (id: string) => void; resetDemo: () => void; automations: { weekly: boolean; noResponse: boolean; parents: boolean }; setAutomations: React.Dispatch<React.SetStateAction<{ weekly: boolean; noResponse: boolean; parents: boolean }>> }) {
+function AdminView({ notice, pollConfirmed, confirmPoll, openCreate, navigate, customEvents, removeCustomEvent, resetDemo, automations, setAutomations, groupVisibility, setGroupVisibility, remindOpenResponses, absenceCount }: { notice: string; pollConfirmed: boolean; confirmPoll: () => void; openCreate: () => void; navigate: (view: View) => void; customEvents: EventItem[]; removeCustomEvent: (id: string) => void; resetDemo: () => void; automations: { weekly: boolean; noResponse: boolean; parents: boolean }; setAutomations: React.Dispatch<React.SetStateAction<{ weekly: boolean; noResponse: boolean; parents: boolean }>>; groupVisibility: { techOnly: boolean; costumeOnly: boolean }; setGroupVisibility: React.Dispatch<React.SetStateAction<{ techOnly: boolean; costumeOnly: boolean }>>; remindOpenResponses: () => void; absenceCount: number }) {
   return (
     <>
       <SectionHeading kicker="Organisation" title="Adminbereich" action={<Button onClick={openCreate} className="h-10 rounded-sm bg-primary px-4 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-primary-foreground hover:bg-primary/85"><Plus /> Termin anlegen</Button>} />
       {notice && <div className="mb-6 flex items-start gap-3 border border-emerald-600/25 bg-emerald-50 p-4 text-sm text-emerald-700" aria-live="polite"><Check className="mt-0.5 size-5 shrink-0" /><span>{notice}</span></div>}
-      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4"><MetricCard label="Mitglieder" value="55" hint="37 Erwachsene · 18 Kinder" icon={Users} /><MetricCard label="Probe Donnerstag" value="24" hint="6 Rückmeldungen offen" icon={CalendarCheck} accent /><MetricCard label="Abwesenheiten" value="3" hint="Für September gemeldet" icon={Clock3} /><MetricCard label="Erinnerungen" value="96%" hint="Erfolgreich zugestellt" icon={BellRing} /></div>
+      <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4"><MetricCard label="Mitglieder" value="55" hint="37 Erwachsene · 18 Kinder" icon={Users} /><MetricCard label="Probe Donnerstag" value="24" hint="6 Rückmeldungen offen" icon={CalendarCheck} accent /><MetricCard label="Abwesenheiten" value={String(absenceCount + 3)} hint={`${absenceCount} von Logge gemeldet`} icon={Clock3} /><MetricCard label="Erinnerungen" value="96%" hint="Erfolgreich zugestellt" icon={BellRing} /></div>
 
       <div className="mt-6 grid gap-6 xl:grid-cols-2">
         <section className="border border-border bg-card p-5 sm:p-6"><div className="flex items-start justify-between gap-3"><div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Entscheidung nötig</p><h3 className="mt-2 text-lg font-black uppercase">Terminabstimmung</h3></div><Vote className="size-5 text-primary" /></div><div className="mt-6 border border-border bg-background p-4"><div className="flex items-center justify-between gap-3"><div><p className="font-bold">Zusatzprobe · Maskenball</p><p className="mt-1 text-xs text-muted-foreground">39 Stimmen · klare Mehrheit</p></div><StatusPill tone={pollConfirmed ? 'success' : 'warning'}>{pollConfirmed ? 'Bestätigt' : 'Offen'}</StatusPill></div><div className="mt-4 flex items-center gap-3 border-l-2 border-primary pl-4"><div className="flex-1"><p className="font-mono text-[9px] uppercase tracking-wider text-primary">Gewinner · 19 Stimmen</p><p className="mt-1 text-sm font-bold">Samstag, 19. September · 14:00</p></div></div></div>{pollConfirmed ? <div className="mt-4 flex items-center gap-2 text-sm text-emerald-700"><Check className="size-4" />Im Kalender veröffentlicht</div> : <Button onClick={confirmPoll} className="mt-4 h-10 w-full rounded-sm bg-primary text-primary-foreground hover:bg-primary/85"><Check /> Termin bestätigen & eintragen</Button>}</section>
 
-        <section className="border border-border bg-card p-5 sm:p-6"><div className="flex items-start justify-between gap-3"><div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Donnerstag · 03. September</p><h3 className="mt-2 text-lg font-black uppercase">Probenanwesenheit</h3></div><ClipboardCheck className="size-5 text-primary" /></div><div className="mt-6 grid grid-cols-3 gap-3 text-center"><div className="border border-border bg-background p-3"><p className="text-2xl font-black">24</p><p className="text-[9px] text-muted-foreground">Zugesagt</p></div><div className="border border-border bg-background p-3"><p className="text-2xl font-black">5</p><p className="text-[9px] text-muted-foreground">Abgesagt</p></div><div className="border border-amber-500/30 bg-amber-50 p-3"><p className="text-2xl font-black text-amber-700">6</p><p className="text-[9px] text-muted-foreground">Offen</p></div></div><Button onClick={() => navigate('checkin')} variant="outline" className="mt-4 h-10 w-full rounded-sm border-border bg-transparent hover:border-primary"><ClipboardCheck /> Anwesenheit abhaken</Button></section>
+        <section className="border border-border bg-card p-5 sm:p-6"><div className="flex items-start justify-between gap-3"><div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Donnerstag · 03. September</p><h3 className="mt-2 text-lg font-black uppercase">Probenanwesenheit</h3></div><ClipboardCheck className="size-5 text-primary" /></div><div className="mt-6 grid grid-cols-3 gap-3 text-center"><div className="border border-border bg-background p-3"><p className="text-2xl font-black">24</p><p className="text-[9px] text-muted-foreground">Zugesagt</p></div><div className="border border-border bg-background p-3"><p className="text-2xl font-black">5</p><p className="text-[9px] text-muted-foreground">Abgesagt</p></div><div className="border border-amber-500/30 bg-amber-50 p-3"><p className="text-2xl font-black text-amber-700">6</p><p className="text-[9px] text-muted-foreground">Offen</p></div></div><div className="mt-4 grid gap-2 sm:grid-cols-2"><Button onClick={() => navigate('checkin')} variant="outline" className="h-10 rounded-sm border-border bg-white hover:border-primary"><ClipboardCheck /> Check-in</Button><Button onClick={remindOpenResponses} variant="outline" className="h-10 rounded-sm border-amber-600/30 bg-amber-50 text-amber-800 hover:bg-amber-100"><Send /> 6 Offene erinnern</Button></div><div className="mt-4 border border-primary/20 bg-primary/5 p-3"><div className="flex items-start gap-3"><WandSparkles className="mt-0.5 size-4 shrink-0 text-primary" /><div><p className="text-xs font-bold">Szenenvorschlag aus den Zusagen</p><p className="mt-1 text-[10px] leading-relaxed text-muted-foreground">„Villa Falkenstein · Akt 2“ und „Finale im Salon“ sind mit den 24 zugesagten Rollen vollständig besetzt.</p></div></div></div></section>
       </div>
 
-      <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]"><section className="border border-border bg-card"><div className="flex items-center justify-between border-b border-border p-5"><div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Mitglieder & Gruppen</p><h3 className="mt-2 font-black uppercase">Offene Rückmeldungen</h3></div><Button variant="outline" size="sm" className="rounded-sm">Alle anzeigen</Button></div><div className="divide-y divide-border">{memberSeed.slice(2, 6).map((member) => <div key={member.id} className="flex items-center gap-3 p-4"><div className="grid size-9 place-items-center rounded-full bg-muted text-[10px] font-bold">{member.initials}</div><div className="min-w-0 flex-1"><p className="text-sm font-semibold">{member.name}</p><p className="mt-0.5 text-[10px] text-muted-foreground">{member.group}</p></div><StatusPill tone="warning">Rückmeldung offen</StatusPill></div>)}</div></section><section className="border border-border bg-card p-5"><Settings2 className="size-5 text-primary" /><h3 className="mt-4 font-black uppercase">Demo & Automationen</h3><div className="mt-5 space-y-4"><ReminderRow label="Wöchentliche Probe" checked={automations.weekly} onChange={(weekly) => setAutomations((values) => ({ ...values, weekly }))} /><ReminderRow label="Erinnerung bei Nichtreaktion" checked={automations.noResponse} onChange={(noResponse) => setAutomations((values) => ({ ...values, noResponse }))} /><ReminderRow label="Elternkontakt bei Kindern" checked={automations.parents} onChange={(parents) => setAutomations((values) => ({ ...values, parents }))} /></div><p className="mt-5 border-t border-border pt-4 text-[10px] leading-relaxed text-muted-foreground">Erinnerungen gehen nur an Mitglieder, Erziehungsberechtigte oder Gruppen, die für den Termin getaggt sind.</p>{customEvents.length > 0 && <div className="mt-4 space-y-2">{customEvents.map((event) => <div key={event.id} className="flex items-center gap-2 border border-primary/20 bg-primary/5 p-3 text-xs text-primary"><span className="min-w-0 flex-1 truncate">{event.day}. {event.month} · {event.title}</span><button type="button" aria-label={`${event.title} löschen`} onClick={() => removeCustomEvent(event.id)} className="grid size-7 shrink-0 place-items-center border border-primary/20 bg-white hover:bg-primary/10"><X className="size-3" /></button></div>)}</div>}<Button type="button" variant="outline" onClick={resetDemo} className="mt-5 h-10 w-full rounded-sm border-border bg-white text-muted-foreground hover:border-red-500 hover:text-red-700"><RotateCcw /> Ganze Demo zurücksetzen</Button><p className="mt-2 text-center text-[9px] text-muted-foreground">Entfernt nur die lokal gespeicherten Demoänderungen.</p></section></div>
+      <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]"><section className="border border-border bg-card"><div className="flex items-center justify-between border-b border-border p-5"><div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Mitglieder & Gruppen</p><h3 className="mt-2 font-black uppercase">Offene Rückmeldungen</h3></div><Button onClick={remindOpenResponses} variant="outline" size="sm" className="rounded-sm border-amber-600/30 bg-amber-50 text-amber-800"><Send /> Alle erinnern</Button></div><div className="divide-y divide-border">{memberSeed.slice(2, 6).map((member) => <div key={member.id} className="flex items-center gap-3 p-4"><div className="grid size-9 place-items-center rounded-full bg-muted text-[10px] font-bold">{member.initials}</div><div className="min-w-0 flex-1"><p className="text-sm font-semibold">{member.name}</p><p className="mt-0.5 text-[10px] text-muted-foreground">{member.group}</p></div><StatusPill tone="warning">Rückmeldung offen</StatusPill></div>)}</div></section><section className="border border-border bg-card p-5"><Settings2 className="size-5 text-primary" /><h3 className="mt-4 font-black uppercase">Demo & Automationen</h3><div className="mt-5 space-y-4"><ReminderRow label="Wöchentliche Probe" checked={automations.weekly} onChange={(weekly) => setAutomations((values) => ({ ...values, weekly }))} /><ReminderRow label="Erinnerung bei Nichtreaktion" checked={automations.noResponse} onChange={(noResponse) => setAutomations((values) => ({ ...values, noResponse }))} /><ReminderRow label="Elternkontakt bei Kindern" checked={automations.parents} onChange={(parents) => setAutomations((values) => ({ ...values, parents }))} /></div><p className="mt-5 border-t border-border pt-4 text-[10px] leading-relaxed text-muted-foreground">Erinnerungen gehen nur an Mitglieder, Erziehungsberechtigte oder Gruppen, die für den Termin getaggt sind.</p>{customEvents.length > 0 && <div className="mt-4 space-y-2">{customEvents.map((event) => <div key={event.id} className="flex items-center gap-2 border border-primary/20 bg-primary/5 p-3 text-xs text-primary"><span className="min-w-0 flex-1 truncate">{event.day}. {event.month} · {event.title}</span><button type="button" aria-label={`${event.title} löschen`} onClick={() => removeCustomEvent(event.id)} className="grid size-7 shrink-0 place-items-center border border-primary/20 bg-white hover:bg-primary/10"><X className="size-3" /></button></div>)}</div>}<Button type="button" variant="outline" onClick={resetDemo} className="mt-5 h-10 w-full rounded-sm border-border bg-white text-muted-foreground hover:border-red-500 hover:text-red-700"><RotateCcw /> Ganze Demo zurücksetzen</Button><p className="mt-2 text-center text-[9px] text-muted-foreground">Entfernt nur die lokal gespeicherten Demoänderungen.</p></section></div>
+      <section className="mt-6 border border-border bg-card p-5 sm:p-6"><div className="flex flex-wrap items-start justify-between gap-4"><div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Berechtigungen</p><h3 className="mt-2 text-lg font-black uppercase">Mehrere Adminrollen & Gruppensichtbarkeit</h3></div><UserCog className="size-5 text-primary" /></div><div className="mt-5 grid gap-3 md:grid-cols-3"><AdminRole name="Sebastian" role="Probenleitung" scope="Alle Termine & Mitglieder" /><AdminRole name="Yunus" role="Spielbetrieb" scope="Ensemble & Szenenplanung" /><AdminRole name="Technik-Admin" role="Technikleitung" scope="Nur Techniktermine" /></div><div className="mt-5 grid gap-4 border-t border-border pt-5 sm:grid-cols-2"><ReminderRow label="Techniktermine nur für Technik sichtbar" checked={groupVisibility.techOnly} onChange={(techOnly) => setGroupVisibility((values) => ({ ...values, techOnly }))} /><ReminderRow label="Kostümtermine nur für Kostümteam" checked={groupVisibility.costumeOnly} onChange={(costumeOnly) => setGroupVisibility((values) => ({ ...values, costumeOnly }))} /></div></section>
     </>
   );
 }
 
+function AdminRole({ name, role, scope }: { name: string; role: string; scope: string }) {
+  const initials = name.split(' ').map((part) => part[0]).join('').slice(0, 2);
+  return <div className="flex items-center gap-3 border border-border bg-background p-3"><div className="grid size-10 shrink-0 place-items-center rounded-full bg-primary/10 text-[10px] font-bold text-primary">{initials}</div><div className="min-w-0"><p className="truncate text-sm font-bold">{name}</p><p className="mt-0.5 text-[10px] text-primary">{role}</p><p className="mt-1 text-[9px] text-muted-foreground">{scope}</p></div></div>;
+}
+
 function CheckinView({ members, setMembers, saved, setSaved, presentCount, navigate }: { members: typeof memberSeed; setMembers: React.Dispatch<React.SetStateAction<typeof memberSeed>>; saved: boolean; setSaved: (value: boolean) => void; presentCount: number; navigate: (view: View) => void }) {
   const toggleMember = (id: number, checked: boolean) => { setSaved(false); setMembers((list) => list.map((member) => member.id === id ? { ...member, present: checked } : member)); };
+  const [selectedScene, setSelectedScene] = usePersistentState('selected-scene', 'Villa Falkenstein · Akt 2');
+  const [scriptOpen, setScriptOpen] = useState(false);
   return (
     <>
       <div className="mb-6 flex items-center gap-4"><button type="button" aria-label="Zurück zum Adminbereich" onClick={() => navigate('admin')} className="grid size-10 place-items-center border border-border bg-card text-muted-foreground hover:border-primary hover:text-primary"><ArrowLeft className="size-4" /></button><div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Probenleitung · Live</p><h2 className="mt-1 text-2xl font-black uppercase tracking-tight">Anwesenheit abhaken</h2></div></div>
@@ -862,13 +907,28 @@ function CheckinView({ members, setMembers, saved, setSaved, presentCount, navig
         <section className="border border-border bg-card"><div className="flex flex-wrap items-center justify-between gap-3 border-b border-border p-5"><div><p className="font-bold">Wochenprobe „Creepshow“</p><p className="mt-1 text-xs text-muted-foreground">Donnerstag, 03. September · 19:00</p></div><StatusPill tone="success"><span className="mr-2 size-1.5 animate-pulse rounded-full bg-emerald-500" /> Probe läuft</StatusPill></div><div className="divide-y divide-border">{members.map((member) => <label key={member.id} className="flex cursor-pointer items-center gap-4 p-4 transition hover:bg-muted/40"><input type="checkbox" checked={member.present} onChange={(event) => toggleMember(member.id, event.target.checked)} className="size-5 accent-[#c94f1d]" /><div className="grid size-10 place-items-center rounded-full bg-muted text-[10px] font-bold">{member.initials}</div><div className="min-w-0 flex-1"><p className="text-sm font-semibold">{member.name}</p><p className="mt-0.5 text-[10px] text-muted-foreground">{member.group}</p></div><span className={`text-xs font-medium ${member.present ? 'text-emerald-700' : 'text-muted-foreground'}`}>{member.present ? 'Anwesend' : 'Fehlt'}</span></label>)}</div></section>
         <aside className="space-y-4"><section className="border border-primary bg-primary p-6 text-primary-foreground"><p className="font-mono text-[9px] uppercase tracking-[0.25em] text-primary-foreground/70">Aktueller Stand</p><div className="mt-5 flex items-end gap-2"><span className="text-6xl font-black tracking-[-0.08em]">{presentCount}</span><span className="mb-2 text-lg font-bold">/ {members.length}</span></div><p className="mt-2 text-sm text-primary-foreground/70">tatsächlich anwesend</p><div className="mt-5 h-2 bg-white/20"><div className="h-full bg-white" style={{ width: `${(presentCount / members.length) * 100}%` }} /></div></section><div className="border border-border bg-card p-5"><p className="text-sm font-bold">Nach der Probe</p><p className="mt-2 text-xs leading-relaxed text-muted-foreground">Gespeicherte Anwesenheit fließt in die persönliche und vereinsweite Statistik ein.</p><Button onClick={() => setSaved(true)} className="mt-5 h-11 w-full rounded-sm bg-primary text-primary-foreground hover:bg-primary/85"><Check /> Anwesenheit speichern</Button>{saved && <p className="mt-3 text-center text-xs text-emerald-700" aria-live="polite">Gespeichert · 20:54 Uhr</p>}</div><button type="button" onClick={() => { setMembers(memberSeed); setSaved(false); }} className="flex w-full items-center justify-center gap-2 p-3 text-xs text-muted-foreground hover:text-primary"><RotateCcw className="size-3" /> Beispielzustand zurücksetzen</button></aside>
       </div>
+      <section className="mt-6 border border-border bg-card p-5 sm:p-6"><div className="flex flex-wrap items-start justify-between gap-4"><div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Automatisch aus Anwesenheit & Zusagen</p><h3 className="mt-2 text-lg font-black uppercase">Passende Szenen für heute</h3><p className="mt-2 max-w-2xl text-xs leading-relaxed text-muted-foreground">Mit den aktuell {presentCount} anwesenden Rollen sind diese Creepshow-Szenen vollständig spielbar.</p></div><WandSparkles className="size-6 text-primary" /></div><div className="mt-5 grid gap-3 md:grid-cols-3">{['Villa Falkenstein · Akt 2', 'Finale im Salon', 'Bote & Diener · Übergang'].map((scene, index) => <button key={scene} type="button" onClick={() => setSelectedScene(scene)} className={`border p-4 text-left transition ${selectedScene === scene ? 'border-primary bg-primary/5' : 'border-border bg-background hover:border-primary/50'}`}><div className="flex items-center justify-between gap-3"><p className="text-sm font-bold">{scene}</p>{selectedScene === scene && <Check className="size-4 text-primary" />}</div><p className="mt-2 text-[10px] text-muted-foreground">{index === 0 ? '8 Rollen · vollständig' : index === 1 ? '6 Rollen · vollständig' : '3 Rollen · vollständig'}</p></button>)}</div><div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4"><p className="text-xs text-muted-foreground">Ausgewählt: <span className="font-bold text-foreground">{selectedScene}</span></p><Button type="button" onClick={() => setScriptOpen(true)} className="h-10 rounded-sm bg-primary text-primary-foreground hover:bg-primary/85"><BookOpenText /> Drehbuch & Textlernen öffnen</Button></div></section>
+      <Dialog open={scriptOpen} onOpenChange={setScriptOpen}><DialogContent className="border border-border bg-popover sm:max-w-xl"><DialogHeader><DialogTitle className="text-xl font-black uppercase tracking-tight">{selectedScene}</DialogTitle><DialogDescription>Drehbuch und Textlernen an einem zentralen Ort.</DialogDescription></DialogHeader><div className="border border-border bg-background p-5"><p className="font-mono text-[9px] uppercase tracking-[0.22em] text-primary">Deine Rolle · Bote / Diener</p><p className="mt-4 text-sm leading-7">„Verzeiht die Störung, aber vor dem Tor wartet ein Besucher. Er sagt, seine Nachricht dulde keinen Aufschub.“</p><div className="mt-5 grid grid-cols-2 gap-2"><Button variant="outline" className="h-10 rounded-sm border-border bg-white"><BookOpenText /> Ganze Szene</Button><Button className="h-10 rounded-sm bg-primary text-primary-foreground hover:bg-primary/85"><Sparkles /> Text üben</Button></div></div></DialogContent></Dialog>
     </>
   );
+}
+
+function ParticipantList({ title, tone, members, remaining }: { title: string; tone: 'yes' | 'no' | 'open'; members: Array<(typeof memberSeed)[number]>; remaining: number }) {
+  const toneClass = tone === 'yes' ? 'border-emerald-600/20 bg-emerald-50 text-emerald-800' : tone === 'no' ? 'border-red-600/20 bg-red-50 text-red-800' : 'border-amber-600/20 bg-amber-50 text-amber-800';
+  return <div className={`border p-2.5 ${toneClass}`}><p className="font-mono text-[8px] font-bold uppercase tracking-[0.16em]">{title}</p><div className="mt-2 space-y-1.5">{members.map((member) => <div key={member.id} className="flex items-center gap-2"><span className="grid size-5 shrink-0 place-items-center rounded-full bg-white/75 text-[7px] font-bold">{member.initials}</span><span className="truncate text-[9px] font-medium">{member.name}</span></div>)}{remaining > 0 && <p className="pt-1 text-[8px] opacity-70">+ {remaining} weitere</p>}</div></div>;
 }
 
 function EventDialog({ event, onClose, attendance, savedDeclineReason, setResponse, saveDecline, downloadIcs, openGoogleCalendar }: { event: EventItem | null; onClose: () => void; attendance: Attendance; savedDeclineReason: string; setResponse: (value: Attendance) => void; saveDecline: (reason: string) => void; downloadIcs: (event: EventItem) => void; openGoogleCalendar: (event: EventItem) => void }) {
   const [declineOpen, setDeclineOpen] = useState(false);
   const [declineReason, setDeclineReason] = useState('');
+  const participantGroups = useMemo(() => {
+    const logge = memberSeed[0];
+    return {
+      yes: [...(attendance === 'yes' ? [logge] : []), memberSeed[1], memberSeed[3], memberSeed[4], memberSeed[6]],
+      no: [...(attendance === 'no' ? [logge] : []), memberSeed[5], memberSeed[7]],
+      open: [...(attendance === 'open' ? [logge] : []), memberSeed[2]],
+    };
+  }, [attendance]);
   useEffect(() => {
     setDeclineReason(savedDeclineReason);
   }, [event?.id, savedDeclineReason]);
@@ -879,7 +939,7 @@ function EventDialog({ event, onClose, attendance, savedDeclineReason, setRespon
         <div className={`h-1 ${toneClasses[event.tone]}`} />
         <div className="p-5 sm:p-6"><DialogHeader><div className="mb-2 flex flex-wrap gap-2"><StatusPill>{event.group}</StatusPill>{event.locked && <StatusPill tone="warning"><LockKeyhole className="mr-1 size-3" /> Frist abgelaufen</StatusPill>}</div><DialogTitle className="pr-8 text-2xl font-black uppercase leading-tight tracking-[-0.03em]">{event.title}</DialogTitle><DialogDescription>{event.weekday}, {String(event.day).padStart(2, '0')}. September 2026</DialogDescription></DialogHeader>
           <div className="mt-6 grid gap-3 sm:grid-cols-2"><div className="flex gap-3 border border-border bg-background p-3"><Clock3 className="mt-0.5 size-4 text-primary" /><div><p className="text-xs font-bold">{event.time}</p><p className="mt-1 text-[10px] text-muted-foreground">{event.type === 'weekly' ? 'Absage bis 2h vorher' : 'Absage bis 24h vorher'}</p></div></div><div className="flex gap-3 border border-border bg-background p-3"><MapPin className="mt-0.5 size-4 text-primary" /><div><p className="text-xs font-bold">{event.place}</p><p className="mt-1 text-[10px] text-muted-foreground">Ramsen</p></div></div></div>
-          <div className="mt-5 border border-border bg-background p-4"><div className="flex items-center justify-between gap-3"><p className="text-sm font-bold">Teilnahmestand</p><MemberAvatars /></div><div className="mt-4 grid grid-cols-3 gap-2 text-center"><div className="border border-emerald-600/20 bg-emerald-50 p-2"><p className="text-lg font-black text-emerald-700">{event.people}</p><p className="text-[9px] text-muted-foreground">Zugesagt</p></div><div className="border border-red-600/20 bg-red-50 p-2"><p className="text-lg font-black text-red-700">5</p><p className="text-[9px] text-muted-foreground">Abgesagt</p></div><div className="border border-amber-600/20 bg-amber-50 p-2"><p className="text-lg font-black text-amber-700">6</p><p className="text-[9px] text-muted-foreground">Offen</p></div></div><div className="mt-4 flex flex-wrap gap-2">{memberSeed.slice(0, 5).map((member) => <span key={member.id} className="rounded-full bg-muted px-2.5 py-1 text-[9px] text-muted-foreground">{member.name}</span>)}<span className="rounded-full bg-muted px-2.5 py-1 text-[9px] text-muted-foreground">+{Math.max(event.people - 5, 0)}</span></div></div>
+          <div className="mt-5 border border-border bg-background p-4"><div className="flex items-center justify-between gap-3"><p className="text-sm font-bold">Teilnahmestand</p><MemberAvatars /></div><div className="mt-4 grid grid-cols-3 gap-2 text-center"><div className="border border-emerald-600/20 bg-emerald-50 p-2"><p className="text-lg font-black text-emerald-700">{event.people}</p><p className="text-[9px] text-muted-foreground">Zugesagt</p></div><div className="border border-red-600/20 bg-red-50 p-2"><p className="text-lg font-black text-red-700">5</p><p className="text-[9px] text-muted-foreground">Abgesagt</p></div><div className="border border-amber-600/20 bg-amber-50 p-2"><p className="text-lg font-black text-amber-700">6</p><p className="text-[9px] text-muted-foreground">Offen</p></div></div><div className="mt-4 grid gap-2 sm:grid-cols-3"><ParticipantList title="Zugesagt" tone="yes" members={participantGroups.yes} remaining={Math.max(event.people - participantGroups.yes.length, 0)} /><ParticipantList title="Abgesagt" tone="no" members={participantGroups.no} remaining={Math.max(5 - participantGroups.no.length, 0)} /><ParticipantList title="Offen" tone="open" members={participantGroups.open} remaining={Math.max(6 - participantGroups.open.length, 0)} /></div></div>
           <div className="mt-5"><p className="mb-2 font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground">Deine Teilnahme</p><div className="grid grid-cols-2 gap-2"><Button disabled={event.locked} onClick={() => { setResponse('yes'); setDeclineOpen(false); }} variant="outline" className={`h-11 rounded-sm transition ${attendance === 'yes' ? 'border-emerald-600 bg-emerald-600 text-white hover:bg-emerald-700 hover:text-white' : 'border-border bg-white text-foreground hover:border-emerald-600 hover:bg-white hover:text-emerald-700'}`}><ThumbsUp /> Ich komme</Button><Button disabled={event.locked} onClick={() => setDeclineOpen(true)} variant="outline" className={`h-11 rounded-sm transition ${declineOpen || attendance === 'no' ? 'border-red-700 bg-red-700 text-white hover:bg-red-800 hover:text-white' : 'border-border bg-white text-foreground hover:border-red-500 hover:bg-white hover:text-red-700'}`}><ThumbsDown /> Absagen</Button></div>{declineOpen && !event.locked && <div className="mt-3 border border-red-600/20 bg-red-50 p-3"><label htmlFor="decline-reason" className="grid gap-2 text-xs font-medium text-red-800">Grund für die Absage <Textarea id="decline-reason" required value={declineReason} onChange={(changeEvent) => setDeclineReason(changeEvent.target.value)} placeholder="Kurzer Grund, z. B. krank oder beruflich verhindert" className="min-h-20 rounded-sm border-red-600/25 bg-background text-foreground" /></label><Button type="button" disabled={!declineReason.trim()} onClick={() => { saveDecline(declineReason); setDeclineOpen(false); }} className="mt-3 h-10 w-full rounded-sm bg-red-700 text-white hover:bg-red-800 disabled:opacity-50">Absage mit Grund bestätigen</Button></div>}{attendance === 'no' && !declineOpen && savedDeclineReason && <p className="mt-2 text-[10px] text-red-700">Gespeicherter Grund: {savedDeclineReason}</p>}{event.locked && <p className="mt-2 flex items-center gap-2 text-[10px] text-amber-700"><CircleAlert className="size-3" />Die Absagefrist ist vorbei. Bitte kontaktiere die Probenleitung.</p>}</div>
           <div className="mt-5 border-t border-border pt-5"><p className="mb-3 font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground">In Kalender‑App übernehmen</p><div className="grid gap-2 sm:grid-cols-2"><Button onClick={() => downloadIcs(event)} variant="outline" className="h-10 rounded-sm border-border bg-transparent"><Download /> Apple / Outlook (.ics)</Button><Button onClick={() => openGoogleCalendar(event)} variant="outline" className="h-10 rounded-sm border-border bg-transparent">Google Kalender <ExternalLink /></Button></div></div>
         </div>
