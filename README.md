@@ -26,6 +26,8 @@ npm run build
 ```
 
 The project is a small Vite gallery. Its production artifact is committed to `docs/` for GitHub Pages.
+The editable source for the Creepshow rehearsal planner lives in
+`sources/theater-probenplan-prototyp/`; its static export is published below the matching folder in `public/` and `docs/`.
 
 ## Live site
 
