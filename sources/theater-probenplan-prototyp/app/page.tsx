@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import {
   BarChart as RechartsBarChart,
@@ -38,6 +38,7 @@ import {
   UserCheck,
   Users,
   Vote,
+  HardDrive,
   X,
 } from 'lucide-react';
 
@@ -61,6 +62,7 @@ import { Textarea } from '@/components/ui/textarea';
 
 type View = 'dashboard' | 'calendar' | 'polls' | 'stats' | 'admin' | 'checkin';
 type Attendance = 'open' | 'yes' | 'no';
+type AbsenceRecord = { from: string; to: string; reason: string } | null;
 
 type EventItem = {
   id: string;
@@ -191,6 +193,41 @@ const pollOptions = [
   { id: 'sun', day: 'SO · 20 SEP', time: '10:00–13:00', votes: 8 },
 ];
 
+const storagePrefix = 'theater-demo:v1:';
+
+function usePersistentState<T>(key: string, initialValue: T) {
+  const storageKey = `${storagePrefix}${key}`;
+  const [value, setValue] = useState<T>(initialValue);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    try {
+      const savedValue = window.localStorage.getItem(storageKey);
+      if (savedValue !== null) setValue(JSON.parse(savedValue) as T);
+    } catch {
+      // Defekte oder blockierte Browserdaten sollen die Demo nicht unbenutzbar machen.
+    } finally {
+      setHydrated(true);
+    }
+  }, [storageKey]);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    try {
+      window.localStorage.setItem(storageKey, JSON.stringify(value));
+    } catch {
+      // Die Demo funktioniert auch dann weiter, wenn lokaler Speicher blockiert ist.
+    }
+  }, [hydrated, storageKey, value]);
+
+  return [value, setValue] as const;
+}
+
+function formatAbsenceDate(value: string) {
+  if (!value) return '';
+  return new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${value}T00:00:00Z`));
+}
+
 function SectionHeading({ kicker, title, action }: { kicker: string; title: string; action?: React.ReactNode }) {
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
@@ -225,20 +262,22 @@ function MemberAvatars({ count = 4 }: { count?: number }) {
 }
 
 export default function Home() {
-  const [view, setView] = useState<View>('dashboard');
-  const [attendance, setAttendance] = useState<Attendance>('open');
+  const [view, setView] = usePersistentState<View>('view', 'dashboard');
+  const [attendanceByEvent, setAttendanceByEvent] = usePersistentState<Record<string, Attendance>>('attendance', {});
+  const [declineReasons, setDeclineReasons] = usePersistentState<Record<string, string>>('decline-reasons', {});
   const [notice, setNotice] = useState('Bitte gib kurz Bescheid, ob du zur Probe kommst.');
   const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null);
   const [absenceOpen, setAbsenceOpen] = useState(false);
   const [eventOpen, setEventOpen] = useState(false);
-  const [absenceSaved, setAbsenceSaved] = useState(false);
-  const [customEvent, setCustomEvent] = useState<EventItem | null>(null);
-  const [pollChoice, setPollChoice] = useState('sat');
-  const [pollConfirmed, setPollConfirmed] = useState(false);
-  const [members, setMembers] = useState(memberSeed);
-  const [checkinSaved, setCheckinSaved] = useState(false);
+  const [absence, setAbsence] = usePersistentState<AbsenceRecord>('absence', null);
+  const [customEvents, setCustomEvents] = usePersistentState<EventItem[]>('custom-events', []);
+  const [pollChoice, setPollChoice] = usePersistentState('poll-choice', 'sat');
+  const [pollConfirmed, setPollConfirmed] = usePersistentState('poll-confirmed', false);
+  const [members, setMembers] = usePersistentState('checkin-members', memberSeed);
+  const [checkinSaved, setCheckinSaved] = usePersistentState('checkin-saved', false);
   const [adminNotice, setAdminNotice] = useState('');
-  const [reminders, setReminders] = useState({ dayBefore: true, twoHours: true, changes: true });
+  const [reminders, setReminders] = usePersistentState('reminders', { dayBefore: true, twoHours: true, changes: true });
+  const [adminAutomations, setAdminAutomations] = usePersistentState('admin-automations', { weekly: true, noResponse: true, parents: true });
 
   const events = useMemo(() => {
     const items = [...baseEvents];
@@ -257,9 +296,12 @@ export default function Home() {
         tone: 'blue',
       });
     }
-    if (customEvent) items.push(customEvent);
+    items.push(...customEvents);
     return items;
-  }, [customEvent, pollConfirmed]);
+  }, [customEvents, pollConfirmed]);
+
+  const nextEvent = events[0];
+  const attendance = attendanceByEvent[nextEvent.id] ?? 'open';
 
   const presentCount = members.filter((member) => member.present).length;
 
@@ -268,13 +310,18 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const setResponse = (response: Attendance) => {
-    setAttendance(response);
+  const setResponse = (eventId: string, response: Attendance) => {
+    setAttendanceByEvent((responses) => ({ ...responses, [eventId]: response }));
     setNotice(
       response === 'yes'
         ? 'Zusage gespeichert – schön, dass du dabei bist!'
         : 'Absage gespeichert. Diese Wochenprobe kann bis 17:00 Uhr abgesagt werden.',
     );
+  };
+
+  const saveDecline = (eventId: string, reason: string) => {
+    setDeclineReasons((reasons) => ({ ...reasons, [eventId]: reason.trim() }));
+    setResponse(eventId, 'no');
   };
 
   const openEvent = (event: EventItem) => setSelectedEvent(event);
@@ -325,21 +372,45 @@ export default function Home() {
     const rawGroup = formData.get('group');
     const title = typeof rawTitle === 'string' && rawTitle ? rawTitle : 'Neue Probe';
     const group = typeof rawGroup === 'string' && rawGroup ? rawGroup : 'Alle';
-    setCustomEvent({
-      id: 'custom-event',
-      day: 27,
-      month: 'SEP',
-      weekday: 'Sonntag',
+    const rawDate = formData.get('date');
+    const rawTime = formData.get('time');
+    const dateValue = typeof rawDate === 'string' && rawDate ? rawDate : '2026-09-27';
+    const startTime = typeof rawTime === 'string' && rawTime ? rawTime : '15:00';
+    const date = new Date(`${dateValue}T12:00:00`);
+    const endDate = new Date(`${dateValue}T${startTime}:00`);
+    endDate.setHours(endDate.getHours() + 2);
+    const endTime = `${String(endDate.getHours()).padStart(2, '0')}:${String(endDate.getMinutes()).padStart(2, '0')}`;
+    const eventItem: EventItem = {
+      id: `custom-${Date.now()}`,
+      day: date.getDate(),
+      month: date.toLocaleDateString('de-DE', { month: 'short' }).replace('.', '').toUpperCase(),
+      weekday: date.toLocaleDateString('de-DE', { weekday: 'long' }),
       title,
-      time: '15:00–17:00',
+      time: `${startTime}–${endTime}`,
       place: 'Kolpingheim · Großer Saal',
       group,
       people: 0,
       type: 'other',
       tone: 'violet',
-    });
+    };
+    setCustomEvents((items) => [...items, eventItem]);
     setEventOpen(false);
     setAdminNotice(`„${title}“ wurde angelegt und die getaggte Gruppe wird erinnert.`);
+  };
+
+  const saveAbsence = (formData: FormData) => {
+    const from = String(formData.get('from') ?? '');
+    const to = String(formData.get('to') ?? '');
+    const reason = String(formData.get('reason') ?? '').trim();
+    setAbsence({ from, to, reason });
+  };
+
+  const resetDemo = () => {
+    if (!window.confirm('Alle lokal gespeicherten Änderungen dieser Demo zurücksetzen?')) return;
+    Object.keys(window.localStorage)
+      .filter((key) => key.startsWith(storagePrefix))
+      .forEach((key) => window.localStorage.removeItem(key));
+    window.location.reload();
   };
 
   const confirmPoll = () => {
@@ -401,7 +472,7 @@ export default function Home() {
             <h1 className="mt-1 text-xl font-black tracking-tight">{view === 'dashboard' ? 'Hallo Logge' : navItems.find((item) => item.view === view)?.label ?? (view === 'admin' ? 'Adminbereich' : 'Proben-Check-in')}</h1>
           </div>
           <div className="flex items-center gap-2">
-            <span className="mr-2 hidden rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[8px] uppercase tracking-[0.18em] text-primary sm:inline-flex">Klickprototyp · Beispieldaten</span>
+            <span className="mr-2 hidden items-center gap-1.5 rounded-full border border-emerald-600/25 bg-emerald-50 px-3 py-1 font-mono text-[8px] uppercase tracking-[0.14em] text-emerald-700 sm:inline-flex"><HardDrive className="size-3" /> Lokal gespeichert</span>
             <button type="button" aria-label="Benachrichtigungen" className="relative grid size-10 place-items-center rounded-full border border-border bg-card text-muted-foreground transition hover:border-primary hover:text-primary">
               <Bell className="size-4" /><span className="absolute right-2 top-2 size-1.5 rounded-full bg-primary" />
             </button>
@@ -414,7 +485,7 @@ export default function Home() {
             <DashboardView
               attendance={attendance}
               notice={notice}
-              setResponse={setResponse}
+              setResponse={(response) => setResponse(nextEvent.id, response)}
               events={events}
               openEvent={openEvent}
               openAbsence={() => setAbsenceOpen(true)}
@@ -424,7 +495,7 @@ export default function Home() {
               downloadIcs={downloadIcs}
             />
           )}
-          {view === 'calendar' && <CalendarView events={events} openEvent={openEvent} openCreate={() => setEventOpen(true)} />}
+          {view === 'calendar' && <CalendarView events={events} attendanceByEvent={attendanceByEvent} openEvent={openEvent} openCreate={() => setEventOpen(true)} />}
           {view === 'polls' && (
             <PollsView
               choice={pollChoice}
@@ -441,7 +512,11 @@ export default function Home() {
               confirmPoll={confirmPoll}
               openCreate={() => setEventOpen(true)}
               navigate={navigate}
-              customEvent={customEvent}
+              customEvents={customEvents}
+              removeCustomEvent={(id) => setCustomEvents((items) => items.filter((event) => event.id !== id))}
+              resetDemo={resetDemo}
+              automations={adminAutomations}
+              setAutomations={setAdminAutomations}
             />
           )}
           {view === 'checkin' && (
@@ -465,7 +540,16 @@ export default function Home() {
         ))}
       </nav>
 
-      <EventDialog event={selectedEvent} onClose={() => setSelectedEvent(null)} attendance={attendance} setResponse={setResponse} downloadIcs={downloadIcs} openGoogleCalendar={openGoogleCalendar} />
+      <EventDialog
+        event={selectedEvent}
+        onClose={() => setSelectedEvent(null)}
+        attendance={selectedEvent ? attendanceByEvent[selectedEvent.id] ?? 'open' : 'open'}
+        savedDeclineReason={selectedEvent ? declineReasons[selectedEvent.id] ?? '' : ''}
+        setResponse={(response) => selectedEvent && setResponse(selectedEvent.id, response)}
+        saveDecline={(reason) => selectedEvent && saveDecline(selectedEvent.id, reason)}
+        downloadIcs={downloadIcs}
+        openGoogleCalendar={openGoogleCalendar}
+      />
 
       <Dialog open={absenceOpen} onOpenChange={setAbsenceOpen}>
         <DialogContent className="border border-border bg-popover sm:max-w-lg">
@@ -473,14 +557,14 @@ export default function Home() {
             <DialogTitle className="text-xl font-black uppercase tracking-tight">Längere Abwesenheit melden</DialogTitle>
             <DialogDescription>Termine in diesem Zeitraum werden automatisch als entschuldigt markiert. Die Probenleitung wird informiert.</DialogDescription>
           </DialogHeader>
-          {absenceSaved ? (
+          {absence ? (
               <div className="border border-emerald-600/25 bg-emerald-50 p-5 text-sm text-emerald-700">
-              <Check className="mb-3 size-6" /><p className="font-bold">Abwesenheit gespeichert</p><p className="mt-1 text-emerald-700/75">12.–18. Oktober · Familienurlaub</p>
+              <Check className="mb-3 size-6" /><p className="font-bold">Abwesenheit gespeichert</p><p className="mt-1 text-emerald-700/75">{formatAbsenceDate(absence.from)} bis {formatAbsenceDate(absence.to)}{absence.reason ? ` · ${absence.reason}` : ''}</p><Button type="button" variant="outline" onClick={() => setAbsence(null)} className="mt-4 h-9 rounded-sm border-emerald-700/25 bg-white text-emerald-800 hover:bg-emerald-100"><X /> Meldung entfernen</Button>
             </div>
           ) : (
-            <form className="grid gap-4" onSubmit={(event) => { event.preventDefault(); setAbsenceSaved(true); }}>
-              <div className="grid grid-cols-2 gap-3"><label htmlFor="absence-from" className="grid gap-2 text-xs font-medium">Von<Input id="absence-from" required type="date" defaultValue="2026-10-12" className="h-11 rounded-sm" /></label><label htmlFor="absence-to" className="grid gap-2 text-xs font-medium">Bis<Input id="absence-to" required type="date" defaultValue="2026-10-18" className="h-11 rounded-sm" /></label></div>
-              <label htmlFor="absence-reason" className="grid gap-2 text-xs font-medium">Grund (optional)<Textarea id="absence-reason" defaultValue="Familienurlaub" className="min-h-24 rounded-sm" /></label>
+            <form action={saveAbsence} className="grid gap-4">
+              <div className="grid grid-cols-2 gap-3"><label htmlFor="absence-from" className="grid gap-2 text-xs font-medium">Von<Input id="absence-from" name="from" required type="date" defaultValue="2026-10-12" className="h-11 rounded-sm" /></label><label htmlFor="absence-to" className="grid gap-2 text-xs font-medium">Bis<Input id="absence-to" name="to" required type="date" defaultValue="2026-10-18" className="h-11 rounded-sm" /></label></div>
+              <label htmlFor="absence-reason" className="grid gap-2 text-xs font-medium">Grund (optional)<Textarea id="absence-reason" name="reason" defaultValue="Familienurlaub" className="min-h-24 rounded-sm" /></label>
               <DialogFooter className="border-border bg-muted/30"><Button type="submit" className="h-11 rounded-sm bg-primary px-5 text-primary-foreground hover:bg-primary/85">Abwesenheit speichern</Button></DialogFooter>
             </form>
           )}
@@ -605,9 +689,9 @@ function ReminderRow({ label, checked, onChange }: { label: string; checked: boo
   return <div className="flex items-center justify-between gap-4 text-sm text-muted-foreground"><span>{label}</span><button type="button" role="switch" aria-checked={checked} aria-label={label} onClick={() => onChange(!checked)} className={`relative h-[18px] w-8 rounded-full transition ${checked ? 'bg-primary' : 'bg-input'}`}><span className={`absolute top-px size-4 rounded-full bg-background transition-transform ${checked ? 'translate-x-[15px]' : 'translate-x-px'}`} /></button></div>;
 }
 
-function CalendarView({ events, openEvent, openCreate }: { events: EventItem[]; openEvent: (event: EventItem) => void; openCreate: () => void }) {
-  const [filter, setFilter] = useState('Alle');
-  const [calendarMode, setCalendarMode] = useState<'agenda' | 'month'>('agenda');
+function CalendarView({ events, attendanceByEvent, openEvent, openCreate }: { events: EventItem[]; attendanceByEvent: Record<string, Attendance>; openEvent: (event: EventItem) => void; openCreate: () => void }) {
+  const [filter, setFilter] = usePersistentState('calendar-filter', 'Alle');
+  const [calendarMode, setCalendarMode] = usePersistentState<'agenda' | 'month'>('calendar-mode', 'agenda');
   const days = [31, ...Array.from({ length: 30 }, (_, index) => index + 1), 1, 2, 3, 4];
   const filteredEvents = (filter === 'Alle' ? events : events.filter((event) => event.group.includes(filter) || event.group === 'Alle')).slice().sort((a, b) => a.day - b.day);
   return (
@@ -640,8 +724,8 @@ function CalendarView({ events, openEvent, openCreate }: { events: EventItem[]; 
               <div className="mt-3 flex items-center justify-between gap-3 border-t border-border pt-3 sm:mt-0 sm:min-w-56 sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0">
                 <div className="flex gap-3 font-mono text-[8px] uppercase tracking-[0.12em] text-muted-foreground"><span><b className="block text-sm text-emerald-700">{event.people}</b>Zu</span><span><b className="block text-sm text-red-700">{index + 2}</b>Ab</span><span><b className="block text-sm text-amber-700">{Math.max(2, 6 - index)}</b>Offen</span></div>
                 <div className="flex gap-1.5">
-                  <button type="button" aria-label={`Zu ${event.title} zusagen`} title="Zusagen" onClick={() => openEvent(event)} className="grid size-9 place-items-center border border-border bg-background text-muted-foreground transition hover:border-emerald-600 hover:bg-emerald-50 hover:text-emerald-700"><ThumbsUp className="size-4" /></button>
-                  <button type="button" aria-label={`${event.title} mit Grund absagen`} title="Mit Grund absagen" onClick={() => openEvent(event)} className="grid size-9 place-items-center border border-border bg-background text-muted-foreground transition hover:border-red-600 hover:bg-red-50 hover:text-red-700"><ThumbsDown className="size-4" /></button>
+                  <button type="button" aria-label={`Zu ${event.title} zusagen`} title="Zusagen" onClick={() => openEvent(event)} className={`grid size-9 place-items-center border transition ${attendanceByEvent[event.id] === 'yes' ? 'border-emerald-600 bg-emerald-600 text-white' : 'border-border bg-background text-muted-foreground hover:border-emerald-600 hover:bg-emerald-50 hover:text-emerald-700'}`}><ThumbsUp className="size-4" /></button>
+                  <button type="button" aria-label={`${event.title} mit Grund absagen`} title="Mit Grund absagen" onClick={() => openEvent(event)} className={`grid size-9 place-items-center border transition ${attendanceByEvent[event.id] === 'no' ? 'border-red-700 bg-red-700 text-white' : 'border-border bg-background text-muted-foreground hover:border-red-600 hover:bg-red-50 hover:text-red-700'}`}><ThumbsDown className="size-4" /></button>
                 </div>
               </div>
             </div>
@@ -751,7 +835,7 @@ function GroupBar({ label, value, people }: { label: string; value: number; peop
   return <div><div className="mb-2 flex items-end justify-between gap-3"><div><p className="text-sm font-bold">{label}</p><p className="mt-1 text-[10px] text-muted-foreground">{people}</p></div><span className="font-mono text-sm font-bold text-primary">{value}%</span></div><div className="h-1.5 bg-muted"><div className="h-full bg-primary" style={{ width: `${value}%` }} /></div></div>;
 }
 
-function AdminView({ notice, pollConfirmed, confirmPoll, openCreate, navigate, customEvent }: { notice: string; pollConfirmed: boolean; confirmPoll: () => void; openCreate: () => void; navigate: (view: View) => void; customEvent: EventItem | null }) {
+function AdminView({ notice, pollConfirmed, confirmPoll, openCreate, navigate, customEvents, removeCustomEvent, resetDemo, automations, setAutomations }: { notice: string; pollConfirmed: boolean; confirmPoll: () => void; openCreate: () => void; navigate: (view: View) => void; customEvents: EventItem[]; removeCustomEvent: (id: string) => void; resetDemo: () => void; automations: { weekly: boolean; noResponse: boolean; parents: boolean }; setAutomations: React.Dispatch<React.SetStateAction<{ weekly: boolean; noResponse: boolean; parents: boolean }>> }) {
   return (
     <>
       <SectionHeading kicker="Organisation" title="Adminbereich" action={<Button onClick={openCreate} className="h-10 rounded-sm bg-primary px-4 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-primary-foreground hover:bg-primary/85"><Plus /> Termin anlegen</Button>} />
@@ -764,7 +848,7 @@ function AdminView({ notice, pollConfirmed, confirmPoll, openCreate, navigate, c
         <section className="border border-border bg-card p-5 sm:p-6"><div className="flex items-start justify-between gap-3"><div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Donnerstag · 03. September</p><h3 className="mt-2 text-lg font-black uppercase">Probenanwesenheit</h3></div><ClipboardCheck className="size-5 text-primary" /></div><div className="mt-6 grid grid-cols-3 gap-3 text-center"><div className="border border-border bg-background p-3"><p className="text-2xl font-black">24</p><p className="text-[9px] text-muted-foreground">Zugesagt</p></div><div className="border border-border bg-background p-3"><p className="text-2xl font-black">5</p><p className="text-[9px] text-muted-foreground">Abgesagt</p></div><div className="border border-amber-500/30 bg-amber-50 p-3"><p className="text-2xl font-black text-amber-700">6</p><p className="text-[9px] text-muted-foreground">Offen</p></div></div><Button onClick={() => navigate('checkin')} variant="outline" className="mt-4 h-10 w-full rounded-sm border-border bg-transparent hover:border-primary"><ClipboardCheck /> Anwesenheit abhaken</Button></section>
       </div>
 
-      <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]"><section className="border border-border bg-card"><div className="flex items-center justify-between border-b border-border p-5"><div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Mitglieder & Gruppen</p><h3 className="mt-2 font-black uppercase">Offene Rückmeldungen</h3></div><Button variant="outline" size="sm" className="rounded-sm">Alle anzeigen</Button></div><div className="divide-y divide-border">{memberSeed.slice(2, 6).map((member) => <div key={member.id} className="flex items-center gap-3 p-4"><div className="grid size-9 place-items-center rounded-full bg-muted text-[10px] font-bold">{member.initials}</div><div className="min-w-0 flex-1"><p className="text-sm font-semibold">{member.name}</p><p className="mt-0.5 text-[10px] text-muted-foreground">{member.group}</p></div><StatusPill tone="warning">Rückmeldung offen</StatusPill></div>)}</div></section><section className="border border-border bg-card p-5"><Settings2 className="size-5 text-primary" /><h3 className="mt-4 font-black uppercase">Automationen</h3><div className="mt-5 space-y-4"><ReminderRow label="Wöchentliche Probe" checked onChange={() => {}} /><ReminderRow label="Erinnerung bei Nichtreaktion" checked onChange={() => {}} /><ReminderRow label="Elternkontakt bei Kindern" checked onChange={() => {}} /></div><p className="mt-5 border-t border-border pt-4 text-[10px] leading-relaxed text-muted-foreground">Erinnerungen gehen nur an Mitglieder, Erziehungsberechtigte oder Gruppen, die für den Termin getaggt sind.</p>{customEvent && <div className="mt-4 border border-primary/20 bg-primary/5 p-3 text-xs text-primary">Neu: {customEvent.title}</div>}</section></div>
+      <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]"><section className="border border-border bg-card"><div className="flex items-center justify-between border-b border-border p-5"><div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Mitglieder & Gruppen</p><h3 className="mt-2 font-black uppercase">Offene Rückmeldungen</h3></div><Button variant="outline" size="sm" className="rounded-sm">Alle anzeigen</Button></div><div className="divide-y divide-border">{memberSeed.slice(2, 6).map((member) => <div key={member.id} className="flex items-center gap-3 p-4"><div className="grid size-9 place-items-center rounded-full bg-muted text-[10px] font-bold">{member.initials}</div><div className="min-w-0 flex-1"><p className="text-sm font-semibold">{member.name}</p><p className="mt-0.5 text-[10px] text-muted-foreground">{member.group}</p></div><StatusPill tone="warning">Rückmeldung offen</StatusPill></div>)}</div></section><section className="border border-border bg-card p-5"><Settings2 className="size-5 text-primary" /><h3 className="mt-4 font-black uppercase">Demo & Automationen</h3><div className="mt-5 space-y-4"><ReminderRow label="Wöchentliche Probe" checked={automations.weekly} onChange={(weekly) => setAutomations((values) => ({ ...values, weekly }))} /><ReminderRow label="Erinnerung bei Nichtreaktion" checked={automations.noResponse} onChange={(noResponse) => setAutomations((values) => ({ ...values, noResponse }))} /><ReminderRow label="Elternkontakt bei Kindern" checked={automations.parents} onChange={(parents) => setAutomations((values) => ({ ...values, parents }))} /></div><p className="mt-5 border-t border-border pt-4 text-[10px] leading-relaxed text-muted-foreground">Erinnerungen gehen nur an Mitglieder, Erziehungsberechtigte oder Gruppen, die für den Termin getaggt sind.</p>{customEvents.length > 0 && <div className="mt-4 space-y-2">{customEvents.map((event) => <div key={event.id} className="flex items-center gap-2 border border-primary/20 bg-primary/5 p-3 text-xs text-primary"><span className="min-w-0 flex-1 truncate">{event.day}. {event.month} · {event.title}</span><button type="button" aria-label={`${event.title} löschen`} onClick={() => removeCustomEvent(event.id)} className="grid size-7 shrink-0 place-items-center border border-primary/20 bg-white hover:bg-primary/10"><X className="size-3" /></button></div>)}</div>}<Button type="button" variant="outline" onClick={resetDemo} className="mt-5 h-10 w-full rounded-sm border-border bg-white text-muted-foreground hover:border-red-500 hover:text-red-700"><RotateCcw /> Ganze Demo zurücksetzen</Button><p className="mt-2 text-center text-[9px] text-muted-foreground">Entfernt nur die lokal gespeicherten Demoänderungen.</p></section></div>
     </>
   );
 }
@@ -782,9 +866,12 @@ function CheckinView({ members, setMembers, saved, setSaved, presentCount, navig
   );
 }
 
-function EventDialog({ event, onClose, attendance, setResponse, downloadIcs, openGoogleCalendar }: { event: EventItem | null; onClose: () => void; attendance: Attendance; setResponse: (value: Attendance) => void; downloadIcs: (event: EventItem) => void; openGoogleCalendar: (event: EventItem) => void }) {
+function EventDialog({ event, onClose, attendance, savedDeclineReason, setResponse, saveDecline, downloadIcs, openGoogleCalendar }: { event: EventItem | null; onClose: () => void; attendance: Attendance; savedDeclineReason: string; setResponse: (value: Attendance) => void; saveDecline: (reason: string) => void; downloadIcs: (event: EventItem) => void; openGoogleCalendar: (event: EventItem) => void }) {
   const [declineOpen, setDeclineOpen] = useState(false);
   const [declineReason, setDeclineReason] = useState('');
+  useEffect(() => {
+    setDeclineReason(savedDeclineReason);
+  }, [event?.id, savedDeclineReason]);
   if (!event) return null;
   return (
     <Dialog open={Boolean(event)} onOpenChange={(open) => { if (!open) { setDeclineOpen(false); setDeclineReason(''); onClose(); } }}>
@@ -793,7 +880,7 @@ function EventDialog({ event, onClose, attendance, setResponse, downloadIcs, ope
         <div className="p-5 sm:p-6"><DialogHeader><div className="mb-2 flex flex-wrap gap-2"><StatusPill>{event.group}</StatusPill>{event.locked && <StatusPill tone="warning"><LockKeyhole className="mr-1 size-3" /> Frist abgelaufen</StatusPill>}</div><DialogTitle className="pr-8 text-2xl font-black uppercase leading-tight tracking-[-0.03em]">{event.title}</DialogTitle><DialogDescription>{event.weekday}, {String(event.day).padStart(2, '0')}. September 2026</DialogDescription></DialogHeader>
           <div className="mt-6 grid gap-3 sm:grid-cols-2"><div className="flex gap-3 border border-border bg-background p-3"><Clock3 className="mt-0.5 size-4 text-primary" /><div><p className="text-xs font-bold">{event.time}</p><p className="mt-1 text-[10px] text-muted-foreground">{event.type === 'weekly' ? 'Absage bis 2h vorher' : 'Absage bis 24h vorher'}</p></div></div><div className="flex gap-3 border border-border bg-background p-3"><MapPin className="mt-0.5 size-4 text-primary" /><div><p className="text-xs font-bold">{event.place}</p><p className="mt-1 text-[10px] text-muted-foreground">Ramsen</p></div></div></div>
           <div className="mt-5 border border-border bg-background p-4"><div className="flex items-center justify-between gap-3"><p className="text-sm font-bold">Teilnahmestand</p><MemberAvatars /></div><div className="mt-4 grid grid-cols-3 gap-2 text-center"><div className="border border-emerald-600/20 bg-emerald-50 p-2"><p className="text-lg font-black text-emerald-700">{event.people}</p><p className="text-[9px] text-muted-foreground">Zugesagt</p></div><div className="border border-red-600/20 bg-red-50 p-2"><p className="text-lg font-black text-red-700">5</p><p className="text-[9px] text-muted-foreground">Abgesagt</p></div><div className="border border-amber-600/20 bg-amber-50 p-2"><p className="text-lg font-black text-amber-700">6</p><p className="text-[9px] text-muted-foreground">Offen</p></div></div><div className="mt-4 flex flex-wrap gap-2">{memberSeed.slice(0, 5).map((member) => <span key={member.id} className="rounded-full bg-muted px-2.5 py-1 text-[9px] text-muted-foreground">{member.name}</span>)}<span className="rounded-full bg-muted px-2.5 py-1 text-[9px] text-muted-foreground">+{Math.max(event.people - 5, 0)}</span></div></div>
-          <div className="mt-5"><p className="mb-2 font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground">Deine Teilnahme</p><div className="grid grid-cols-2 gap-2"><Button disabled={event.locked} onClick={() => { setResponse('yes'); setDeclineOpen(false); }} variant="outline" className={`h-11 rounded-sm transition ${attendance === 'yes' ? 'border-emerald-600 bg-emerald-600 text-white hover:bg-emerald-700 hover:text-white' : 'border-border bg-white text-foreground hover:border-emerald-600 hover:bg-white hover:text-emerald-700'}`}><ThumbsUp /> Ich komme</Button><Button disabled={event.locked} onClick={() => setDeclineOpen(true)} variant="outline" className={`h-11 rounded-sm transition ${declineOpen || attendance === 'no' ? 'border-red-700 bg-red-700 text-white hover:bg-red-800 hover:text-white' : 'border-border bg-white text-foreground hover:border-red-500 hover:bg-white hover:text-red-700'}`}><ThumbsDown /> Absagen</Button></div>{declineOpen && !event.locked && <div className="mt-3 border border-red-600/20 bg-red-50 p-3"><label htmlFor="decline-reason" className="grid gap-2 text-xs font-medium text-red-800">Grund für die Absage <Textarea id="decline-reason" required value={declineReason} onChange={(changeEvent) => setDeclineReason(changeEvent.target.value)} placeholder="Kurzer Grund, z. B. krank oder beruflich verhindert" className="min-h-20 rounded-sm border-red-600/25 bg-background text-foreground" /></label><Button type="button" disabled={!declineReason.trim()} onClick={() => { setResponse('no'); setDeclineOpen(false); }} className="mt-3 h-10 w-full rounded-sm bg-red-700 text-white hover:bg-red-800 disabled:opacity-50">Absage mit Grund bestätigen</Button></div>}{event.locked && <p className="mt-2 flex items-center gap-2 text-[10px] text-amber-700"><CircleAlert className="size-3" />Die Absagefrist ist vorbei. Bitte kontaktiere die Probenleitung.</p>}</div>
+          <div className="mt-5"><p className="mb-2 font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground">Deine Teilnahme</p><div className="grid grid-cols-2 gap-2"><Button disabled={event.locked} onClick={() => { setResponse('yes'); setDeclineOpen(false); }} variant="outline" className={`h-11 rounded-sm transition ${attendance === 'yes' ? 'border-emerald-600 bg-emerald-600 text-white hover:bg-emerald-700 hover:text-white' : 'border-border bg-white text-foreground hover:border-emerald-600 hover:bg-white hover:text-emerald-700'}`}><ThumbsUp /> Ich komme</Button><Button disabled={event.locked} onClick={() => setDeclineOpen(true)} variant="outline" className={`h-11 rounded-sm transition ${declineOpen || attendance === 'no' ? 'border-red-700 bg-red-700 text-white hover:bg-red-800 hover:text-white' : 'border-border bg-white text-foreground hover:border-red-500 hover:bg-white hover:text-red-700'}`}><ThumbsDown /> Absagen</Button></div>{declineOpen && !event.locked && <div className="mt-3 border border-red-600/20 bg-red-50 p-3"><label htmlFor="decline-reason" className="grid gap-2 text-xs font-medium text-red-800">Grund für die Absage <Textarea id="decline-reason" required value={declineReason} onChange={(changeEvent) => setDeclineReason(changeEvent.target.value)} placeholder="Kurzer Grund, z. B. krank oder beruflich verhindert" className="min-h-20 rounded-sm border-red-600/25 bg-background text-foreground" /></label><Button type="button" disabled={!declineReason.trim()} onClick={() => { saveDecline(declineReason); setDeclineOpen(false); }} className="mt-3 h-10 w-full rounded-sm bg-red-700 text-white hover:bg-red-800 disabled:opacity-50">Absage mit Grund bestätigen</Button></div>}{attendance === 'no' && !declineOpen && savedDeclineReason && <p className="mt-2 text-[10px] text-red-700">Gespeicherter Grund: {savedDeclineReason}</p>}{event.locked && <p className="mt-2 flex items-center gap-2 text-[10px] text-amber-700"><CircleAlert className="size-3" />Die Absagefrist ist vorbei. Bitte kontaktiere die Probenleitung.</p>}</div>
           <div className="mt-5 border-t border-border pt-5"><p className="mb-3 font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground">In Kalender‑App übernehmen</p><div className="grid gap-2 sm:grid-cols-2"><Button onClick={() => downloadIcs(event)} variant="outline" className="h-10 rounded-sm border-border bg-transparent"><Download /> Apple / Outlook (.ics)</Button><Button onClick={() => openGoogleCalendar(event)} variant="outline" className="h-10 rounded-sm border-border bg-transparent">Google Kalender <ExternalLink /></Button></div></div>
         </div>
       </DialogContent>
