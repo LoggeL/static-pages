@@ -32,6 +32,8 @@ import {
   Settings2,
   ShieldCheck,
   Sparkles,
+  ThumbsDown,
+  ThumbsUp,
   Trophy,
   UserCheck,
   Users,
@@ -58,7 +60,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
 type View = 'dashboard' | 'calendar' | 'polls' | 'stats' | 'admin' | 'checkin';
-type Attendance = 'yes' | 'no';
+type Attendance = 'open' | 'yes' | 'no';
 
 type EventItem = {
   id: string;
@@ -224,8 +226,8 @@ function MemberAvatars({ count = 4 }: { count?: number }) {
 
 export default function Home() {
   const [view, setView] = useState<View>('dashboard');
-  const [attendance, setAttendance] = useState<Attendance>('yes');
-  const [notice, setNotice] = useState('Du bist automatisch als dabei eingetragen.');
+  const [attendance, setAttendance] = useState<Attendance>('open');
+  const [notice, setNotice] = useState('Bitte gib kurz Bescheid, ob du zur Probe kommst.');
   const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null);
   const [absenceOpen, setAbsenceOpen] = useState(false);
   const [eventOpen, setEventOpen] = useState(false);
@@ -518,6 +520,8 @@ function DashboardView({ attendance, notice, setResponse, events, openEvent, ope
   downloadIcs: (event: EventItem) => void;
 }) {
   const next = events[0];
+  const responseLabel = attendance === 'yes' ? 'Du kommst' : attendance === 'no' ? 'Du bist abgemeldet' : 'Rückmeldung offen';
+  const responseTone = attendance === 'yes' ? 'bg-emerald-500/15 text-emerald-700' : attendance === 'no' ? 'bg-red-500/15 text-red-700' : 'bg-amber-500/15 text-amber-700';
   return (
     <>
       <section className="mb-7 lg:hidden"><p className="font-mono text-[9px] uppercase tracking-[0.32em] text-primary">Deine Übersicht</p><h1 className="mt-2 text-2xl font-black uppercase tracking-tight">Hallo Logge.</h1></section>
@@ -525,29 +529,29 @@ function DashboardView({ attendance, notice, setResponse, events, openEvent, ope
       <div className="grid gap-6 xl:grid-cols-[minmax(0,1.55fr)_minmax(320px,0.85fr)]">
         <section className="stage-card relative overflow-hidden border border-border bg-card p-5 shadow-2xl shadow-black/15 sm:p-7" aria-labelledby="next-rehearsal">
           <div className="absolute inset-x-0 top-0 h-1 bg-primary" />
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3 sm:mb-6">
             <div className="flex items-center gap-2"><span className="size-2 animate-pulse rounded-full bg-primary" /><p className="font-mono text-[10px] font-bold uppercase tracking-[0.28em] text-primary">Nächste Probe · in 2 Tagen</p></div>
             <StatusPill>Creepshow-Ensemble</StatusPill>
           </div>
-          <div className="grid gap-6 sm:grid-cols-[112px_1fr] sm:items-center">
-            <div className="date-ticket flex h-28 w-full flex-col items-center justify-center border border-border bg-background sm:w-28"><span className="font-mono text-[10px] font-bold tracking-[0.28em] text-primary">DO · SEP</span><span className="mt-1 text-5xl font-black leading-none tracking-[-0.08em]">03</span></div>
+          <div className="grid grid-cols-[76px_1fr] items-center gap-4 sm:grid-cols-[112px_1fr] sm:gap-6">
+            <div className="date-ticket flex size-[76px] flex-col items-center justify-center border border-border bg-background sm:size-28"><span className="font-mono text-[8px] font-bold tracking-[0.2em] text-primary sm:text-[10px] sm:tracking-[0.28em]">DO · SEP</span><span className="mt-1 text-3xl font-black leading-none tracking-[-0.08em] sm:text-5xl">03</span></div>
             <div>
-              <h2 id="next-rehearsal" className="text-3xl font-black leading-tight tracking-[-0.04em] sm:text-4xl">Wochenprobe<span className="mt-1 block text-primary">„Creepshow“</span></h2>
-              <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground"><span className="inline-flex items-center gap-2"><Clock3 className="size-4 text-primary" />19:00–21:00</span><span className="inline-flex items-center gap-2"><MapPin className="size-4 text-primary" />Großer Saal</span></div>
+              <h2 id="next-rehearsal" className="text-2xl font-black leading-tight tracking-[-0.04em] sm:text-4xl">Wochenprobe<span className="block text-primary sm:mt-1">„Creepshow“</span></h2>
+              <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1.5 text-xs text-muted-foreground sm:mt-5 sm:text-sm"><span className="inline-flex items-center gap-2"><Clock3 className="size-4 text-primary" />19:00–21:00</span><span className="inline-flex items-center gap-2"><MapPin className="size-4 text-primary" />Großer Saal</span></div>
             </div>
           </div>
-          <div className="mt-7 border-t border-border pt-6">
-            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-5 border-t border-border pt-4 sm:mt-7 sm:pt-6">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-5">
               <div>
-                <div className="flex items-center gap-2"><div className={`grid size-7 place-items-center rounded-full ${attendance === 'yes' ? 'bg-emerald-500/15 text-emerald-400' : 'bg-red-500/15 text-red-400'}`}>{attendance === 'yes' ? <Check className="size-4" /> : <X className="size-4" />}</div><p className="font-semibold">{attendance === 'yes' ? 'Du bist dabei' : 'Du bist abgemeldet'}</p></div>
-                <p className="mt-2 max-w-md text-xs leading-relaxed text-muted-foreground" aria-live="polite">{notice}</p>
+                <div className="flex items-center gap-2"><div className={`grid size-7 place-items-center rounded-full ${responseTone}`}>{attendance === 'yes' ? <Check className="size-4" /> : attendance === 'no' ? <X className="size-4" /> : <CircleAlert className="size-4" />}</div><p className="font-semibold">{responseLabel}</p></div>
+                <p className="mt-1 max-w-md text-xs leading-relaxed text-muted-foreground" aria-live="polite">{notice}</p>
               </div>
               <div className="grid grid-cols-2 gap-2 sm:flex">
                 <Button onClick={() => setResponse('yes')} className="h-11 rounded-sm bg-primary px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-primary-foreground hover:bg-primary/85"><Check /> Ich komme</Button>
                 <Button onClick={() => setResponse('no')} variant="outline" className="h-11 rounded-sm border-border bg-transparent px-5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] hover:border-red-400 hover:bg-red-50 hover:text-red-700"><X /> Absagen</Button>
               </div>
             </div>
-            <button type="button" onClick={() => openEvent(next)} className="mt-5 flex w-full items-center justify-between border-t border-border pt-4 text-left text-xs text-muted-foreground transition hover:text-primary"><span>24 Zusagen · Absage möglich bis Do., 17:00 Uhr</span><ChevronRight className="size-4" /></button>
+            <button type="button" onClick={() => openEvent(next)} className="mt-4 flex w-full items-center justify-between border-t border-border pt-3 text-left text-xs text-muted-foreground transition hover:text-primary sm:mt-5 sm:pt-4"><span>24 Zusagen · 6 Rückmeldungen offen</span><ChevronRight className="size-4" /></button>
           </div>
         </section>
 
@@ -603,35 +607,70 @@ function ReminderRow({ label, checked, onChange }: { label: string; checked: boo
 
 function CalendarView({ events, openEvent, openCreate }: { events: EventItem[]; openEvent: (event: EventItem) => void; openCreate: () => void }) {
   const [filter, setFilter] = useState('Alle');
+  const [calendarMode, setCalendarMode] = useState<'agenda' | 'month'>('agenda');
   const days = [31, ...Array.from({ length: 30 }, (_, index) => index + 1), 1, 2, 3, 4];
-  const filteredEvents = filter === 'Alle' ? events : events.filter((event) => event.group.includes(filter) || event.group === 'Alle');
+  const filteredEvents = (filter === 'Alle' ? events : events.filter((event) => event.group.includes(filter) || event.group === 'Alle')).slice().sort((a, b) => a.day - b.day);
   return (
     <>
       <SectionHeading kicker="Vereinskalender" title="September 2026" action={<Button onClick={openCreate} className="h-10 rounded-sm bg-primary px-4 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-primary-foreground hover:bg-primary/85"><Plus /> Termin anlegen</Button>} />
       <div className="mb-5 flex flex-wrap items-center gap-2">
         {['Alle', 'Jugend', 'Ensemble', 'Technik'].map((item) => <button key={item} type="button" onClick={() => setFilter(item)} className={`rounded-full border px-4 py-2 text-xs transition ${filter === item ? 'border-primary bg-primary text-primary-foreground' : 'border-border bg-card text-muted-foreground hover:border-primary/50'}`}>{item}</button>)}
-        <div className="ml-auto hidden items-center gap-2 sm:flex"><Button aria-label="Vorheriger Monat" variant="outline" size="icon" className="rounded-sm"><ChevronLeft /></Button><Button aria-label="Nächster Monat" variant="outline" size="icon" className="rounded-sm"><ChevronRight /></Button></div>
-      </div>
-
-      <div className="overflow-x-auto border border-border bg-card">
-        <div className="min-w-[840px]">
-          <div className="grid grid-cols-7 border-b border-border bg-muted/40">{['MO', 'DI', 'MI', 'DO', 'FR', 'SA', 'SO'].map((day) => <div key={day} className="px-3 py-3 text-center font-mono text-[9px] font-bold tracking-[0.25em] text-muted-foreground">{day}</div>)}</div>
-          <div className="grid grid-cols-7">
-            {days.map((day, index) => {
-              const outside = index === 0 || index > 30;
-              const dayEvents = outside ? [] : filteredEvents.filter((event) => event.day === day);
-              return (
-                <div key={`${day}-${index}`} className={`min-h-28 border-b border-r border-border p-2 ${outside ? 'bg-background/50 text-muted-foreground/40' : 'bg-card'} ${day === 3 && !outside ? 'ring-1 ring-inset ring-primary/40' : ''}`}>
-                  <div className="flex items-center justify-between"><span className={`grid size-7 place-items-center text-xs font-bold ${day === 1 && !outside ? 'rounded-full bg-primary text-primary-foreground' : ''}`}>{day}</span>{day === 3 && !outside && <span className="font-mono text-[7px] uppercase tracking-wider text-primary">Nächste Probe</span>}</div>
-                  <div className="mt-2 space-y-1.5">
-                    {dayEvents.map((event) => <button key={event.id} type="button" onClick={() => openEvent(event)} className="group w-full border border-border bg-background p-2 text-left transition hover:border-primary"><span className={`mb-1 block h-0.5 w-7 ${toneClasses[event.tone]}`} /><span className="line-clamp-2 text-[10px] font-bold leading-tight">{event.title}</span><span className="mt-1 block text-[8px] text-muted-foreground">{event.time.split('–')[0]} · {event.people} Zusagen</span></button>)}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        <div className="ml-auto inline-flex border border-border bg-card p-1" aria-label="Kalenderansicht wählen">
+          <button type="button" aria-pressed={calendarMode === 'agenda'} onClick={() => setCalendarMode('agenda')} className={`px-3 py-1.5 text-xs font-semibold transition ${calendarMode === 'agenda' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Agenda</button>
+          <button type="button" aria-pressed={calendarMode === 'month'} onClick={() => setCalendarMode('month')} className={`px-3 py-1.5 text-xs font-semibold transition ${calendarMode === 'month' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:text-foreground'}`}>Monat</button>
         </div>
       </div>
+
+      {calendarMode === 'agenda' ? (
+        <div className="divide-y divide-border border border-border bg-card">
+          {filteredEvents.map((event, index) => (
+            <div key={event.id} className="p-4 transition hover:bg-muted/35 sm:flex sm:items-center sm:gap-5 sm:p-5">
+              <button type="button" onClick={() => openEvent(event)} className="group grid min-w-0 flex-1 grid-cols-[64px_1fr_auto] items-center gap-4 text-left sm:grid-cols-[88px_1fr_auto]">
+                <div className={`border-l-2 pl-3 ${index === 0 ? 'border-primary' : 'border-border'}`}>
+                  <p className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-primary">{event.weekday.slice(0, 2)} · {event.month}</p>
+                  <p className="mt-1 text-3xl font-black leading-none tracking-[-0.06em]">{String(event.day).padStart(2, '0')}</p>
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2"><span className={`size-1.5 rounded-full ${toneClasses[event.tone]}`} /><p className="truncate font-bold sm:text-lg">{event.title}</p></div>
+                  <p className="mt-1 text-xs text-muted-foreground">{event.time} · {event.place}</p>
+                  <p className="mt-2 font-mono text-[8px] uppercase tracking-[0.18em] text-primary">{event.group}</p>
+                </div>
+                <ChevronRight className="size-4 text-muted-foreground transition group-hover:translate-x-1 group-hover:text-primary" />
+              </button>
+              <div className="mt-3 flex items-center justify-between gap-3 border-t border-border pt-3 sm:mt-0 sm:min-w-56 sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0">
+                <div className="flex gap-3 font-mono text-[8px] uppercase tracking-[0.12em] text-muted-foreground"><span><b className="block text-sm text-emerald-700">{event.people}</b>Zu</span><span><b className="block text-sm text-red-700">{index + 2}</b>Ab</span><span><b className="block text-sm text-amber-700">{Math.max(2, 6 - index)}</b>Offen</span></div>
+                <div className="flex gap-1.5">
+                  <button type="button" aria-label={`Zu ${event.title} zusagen`} title="Zusagen" onClick={() => openEvent(event)} className="grid size-9 place-items-center border border-border bg-background text-muted-foreground transition hover:border-emerald-600 hover:bg-emerald-50 hover:text-emerald-700"><ThumbsUp className="size-4" /></button>
+                  <button type="button" aria-label={`${event.title} mit Grund absagen`} title="Mit Grund absagen" onClick={() => openEvent(event)} className="grid size-9 place-items-center border border-border bg-background text-muted-foreground transition hover:border-red-600 hover:bg-red-50 hover:text-red-700"><ThumbsDown className="size-4" /></button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <>
+          <div className="mb-3 flex justify-end gap-2"><Button aria-label="Vorheriger Monat" variant="outline" size="icon" className="rounded-sm"><ChevronLeft /></Button><Button aria-label="Nächster Monat" variant="outline" size="icon" className="rounded-sm"><ChevronRight /></Button></div>
+          <div className="overflow-x-auto border border-border bg-card">
+            <div className="min-w-[840px]">
+              <div className="grid grid-cols-7 border-b border-border bg-muted/40">{['MO', 'DI', 'MI', 'DO', 'FR', 'SA', 'SO'].map((day) => <div key={day} className="px-3 py-3 text-center font-mono text-[9px] font-bold tracking-[0.25em] text-muted-foreground">{day}</div>)}</div>
+              <div className="grid grid-cols-7">
+                {days.map((day, index) => {
+                  const outside = index === 0 || index > 30;
+                  const dayEvents = outside ? [] : filteredEvents.filter((event) => event.day === day);
+                  return (
+                    <div key={`${day}-${index}`} className={`min-h-28 border-b border-r border-border p-2 ${outside ? 'bg-background/50 text-muted-foreground/40' : 'bg-card'} ${day === 3 && !outside ? 'ring-1 ring-inset ring-primary/40' : ''}`}>
+                      <div className="flex items-center justify-between"><span className={`grid size-7 place-items-center text-xs font-bold ${day === 1 && !outside ? 'rounded-full bg-primary text-primary-foreground' : ''}`}>{day}</span>{day === 3 && !outside && <span className="font-mono text-[7px] uppercase tracking-wider text-primary">Nächste Probe</span>}</div>
+                      <div className="mt-2 space-y-1.5">
+                        {dayEvents.map((event) => <button key={event.id} type="button" onClick={() => openEvent(event)} className="group w-full border border-border bg-background p-2 text-left transition hover:border-primary"><span className={`mb-1 block h-0.5 w-7 ${toneClasses[event.tone]}`} /><span className="line-clamp-2 text-[10px] font-bold leading-tight">{event.title}</span><span className="mt-1 block text-[8px] text-muted-foreground">{event.time.split('–')[0]} · {event.people} Zusagen</span></button>)}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
 
       <div className="mt-5 grid gap-3 md:grid-cols-2">
         <div className="flex gap-3 border border-primary/20 bg-primary/5 p-4"><Clock3 className="mt-0.5 size-5 shrink-0 text-primary" /><div><p className="text-sm font-bold">Absagefristen</p><p className="mt-1 text-xs leading-relaxed text-muted-foreground">Wochenproben bis 2 Stunden vorher, alle anderen Termine bis 24 Stunden vorher.</p></div></div>
@@ -725,7 +764,7 @@ function AdminView({ notice, pollConfirmed, confirmPoll, openCreate, navigate, c
         <section className="border border-border bg-card p-5 sm:p-6"><div className="flex items-start justify-between gap-3"><div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Donnerstag · 03. September</p><h3 className="mt-2 text-lg font-black uppercase">Probenanwesenheit</h3></div><ClipboardCheck className="size-5 text-primary" /></div><div className="mt-6 grid grid-cols-3 gap-3 text-center"><div className="border border-border bg-background p-3"><p className="text-2xl font-black">24</p><p className="text-[9px] text-muted-foreground">Zugesagt</p></div><div className="border border-border bg-background p-3"><p className="text-2xl font-black">5</p><p className="text-[9px] text-muted-foreground">Abgesagt</p></div><div className="border border-amber-500/30 bg-amber-50 p-3"><p className="text-2xl font-black text-amber-700">6</p><p className="text-[9px] text-muted-foreground">Offen</p></div></div><Button onClick={() => navigate('checkin')} variant="outline" className="mt-4 h-10 w-full rounded-sm border-border bg-transparent hover:border-primary"><ClipboardCheck /> Anwesenheit abhaken</Button></section>
       </div>
 
-      <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]"><section className="border border-border bg-card"><div className="flex items-center justify-between border-b border-border p-5"><div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Mitglieder & Gruppen</p><h3 className="mt-2 font-black uppercase">Offene Rückmeldungen</h3></div><Button variant="outline" size="sm" className="rounded-sm">Alle anzeigen</Button></div><div className="divide-y divide-border">{memberSeed.slice(2, 6).map((member, index) => <div key={member.id} className="flex items-center gap-3 p-4"><div className="grid size-9 place-items-center rounded-full bg-muted text-[10px] font-bold">{member.initials}</div><div className="min-w-0 flex-1"><p className="text-sm font-semibold">{member.name}</p><p className="mt-0.5 text-[10px] text-muted-foreground">{member.group}</p></div><StatusPill tone={index === 0 ? 'warning' : 'neutral'}>{index === 0 ? 'Nicht reagiert' : 'Automatisch dabei'}</StatusPill></div>)}</div></section><section className="border border-border bg-card p-5"><Settings2 className="size-5 text-primary" /><h3 className="mt-4 font-black uppercase">Automationen</h3><div className="mt-5 space-y-4"><ReminderRow label="Wöchentliche Probe" checked onChange={() => {}} /><ReminderRow label="Erinnerung bei Nichtreaktion" checked onChange={() => {}} /><ReminderRow label="Elternkontakt bei Kindern" checked onChange={() => {}} /></div><p className="mt-5 border-t border-border pt-4 text-[10px] leading-relaxed text-muted-foreground">Erinnerungen gehen nur an Mitglieder, Erziehungsberechtigte oder Gruppen, die für den Termin getaggt sind.</p>{customEvent && <div className="mt-4 border border-primary/20 bg-primary/5 p-3 text-xs text-primary">Neu: {customEvent.title}</div>}</section></div>
+      <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]"><section className="border border-border bg-card"><div className="flex items-center justify-between border-b border-border p-5"><div><p className="font-mono text-[9px] uppercase tracking-[0.28em] text-primary">Mitglieder & Gruppen</p><h3 className="mt-2 font-black uppercase">Offene Rückmeldungen</h3></div><Button variant="outline" size="sm" className="rounded-sm">Alle anzeigen</Button></div><div className="divide-y divide-border">{memberSeed.slice(2, 6).map((member) => <div key={member.id} className="flex items-center gap-3 p-4"><div className="grid size-9 place-items-center rounded-full bg-muted text-[10px] font-bold">{member.initials}</div><div className="min-w-0 flex-1"><p className="text-sm font-semibold">{member.name}</p><p className="mt-0.5 text-[10px] text-muted-foreground">{member.group}</p></div><StatusPill tone="warning">Rückmeldung offen</StatusPill></div>)}</div></section><section className="border border-border bg-card p-5"><Settings2 className="size-5 text-primary" /><h3 className="mt-4 font-black uppercase">Automationen</h3><div className="mt-5 space-y-4"><ReminderRow label="Wöchentliche Probe" checked onChange={() => {}} /><ReminderRow label="Erinnerung bei Nichtreaktion" checked onChange={() => {}} /><ReminderRow label="Elternkontakt bei Kindern" checked onChange={() => {}} /></div><p className="mt-5 border-t border-border pt-4 text-[10px] leading-relaxed text-muted-foreground">Erinnerungen gehen nur an Mitglieder, Erziehungsberechtigte oder Gruppen, die für den Termin getaggt sind.</p>{customEvent && <div className="mt-4 border border-primary/20 bg-primary/5 p-3 text-xs text-primary">Neu: {customEvent.title}</div>}</section></div>
     </>
   );
 }
@@ -744,15 +783,17 @@ function CheckinView({ members, setMembers, saved, setSaved, presentCount, navig
 }
 
 function EventDialog({ event, onClose, attendance, setResponse, downloadIcs, openGoogleCalendar }: { event: EventItem | null; onClose: () => void; attendance: Attendance; setResponse: (value: Attendance) => void; downloadIcs: (event: EventItem) => void; openGoogleCalendar: (event: EventItem) => void }) {
+  const [declineOpen, setDeclineOpen] = useState(false);
+  const [declineReason, setDeclineReason] = useState('');
   if (!event) return null;
   return (
-    <Dialog open={Boolean(event)} onOpenChange={(open) => { if (!open) onClose(); }}>
+    <Dialog open={Boolean(event)} onOpenChange={(open) => { if (!open) { setDeclineOpen(false); setDeclineReason(''); onClose(); } }}>
       <DialogContent className="border border-border bg-popover p-0 sm:max-w-xl">
         <div className={`h-1 ${toneClasses[event.tone]}`} />
         <div className="p-5 sm:p-6"><DialogHeader><div className="mb-2 flex flex-wrap gap-2"><StatusPill>{event.group}</StatusPill>{event.locked && <StatusPill tone="warning"><LockKeyhole className="mr-1 size-3" /> Frist abgelaufen</StatusPill>}</div><DialogTitle className="pr-8 text-2xl font-black uppercase leading-tight tracking-[-0.03em]">{event.title}</DialogTitle><DialogDescription>{event.weekday}, {String(event.day).padStart(2, '0')}. September 2026</DialogDescription></DialogHeader>
           <div className="mt-6 grid gap-3 sm:grid-cols-2"><div className="flex gap-3 border border-border bg-background p-3"><Clock3 className="mt-0.5 size-4 text-primary" /><div><p className="text-xs font-bold">{event.time}</p><p className="mt-1 text-[10px] text-muted-foreground">{event.type === 'weekly' ? 'Absage bis 2h vorher' : 'Absage bis 24h vorher'}</p></div></div><div className="flex gap-3 border border-border bg-background p-3"><MapPin className="mt-0.5 size-4 text-primary" /><div><p className="text-xs font-bold">{event.place}</p><p className="mt-1 text-[10px] text-muted-foreground">Ramsen</p></div></div></div>
-          <div className="mt-5 border border-border bg-background p-4"><div className="flex items-center justify-between gap-3"><div><p className="text-sm font-bold">{event.people} Personen sind dabei</p><p className="mt-1 text-[10px] text-muted-foreground">6 Rückmeldungen noch offen</p></div><MemberAvatars /></div><div className="mt-4 flex flex-wrap gap-2">{memberSeed.slice(0, 5).map((member) => <span key={member.id} className="rounded-full bg-muted px-2.5 py-1 text-[9px] text-muted-foreground">{member.name}</span>)}<span className="rounded-full bg-muted px-2.5 py-1 text-[9px] text-muted-foreground">+{Math.max(event.people - 5, 0)}</span></div></div>
-          <div className="mt-5"><p className="mb-2 font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground">Deine Teilnahme</p><div className="grid grid-cols-2 gap-2"><Button disabled={event.locked} onClick={() => setResponse('yes')} className={`h-11 rounded-sm ${attendance === 'yes' ? 'bg-primary text-primary-foreground' : 'bg-muted text-foreground'} hover:bg-primary/85`}><Check /> Ich komme</Button><Button disabled={event.locked} onClick={() => setResponse('no')} variant="outline" className="h-11 rounded-sm border-border bg-transparent hover:border-red-400 hover:bg-red-50"><X /> Absagen</Button></div>{event.locked && <p className="mt-2 flex items-center gap-2 text-[10px] text-amber-700"><CircleAlert className="size-3" />Die Absagefrist ist vorbei. Bitte kontaktiere die Probenleitung.</p>}</div>
+          <div className="mt-5 border border-border bg-background p-4"><div className="flex items-center justify-between gap-3"><p className="text-sm font-bold">Teilnahmestand</p><MemberAvatars /></div><div className="mt-4 grid grid-cols-3 gap-2 text-center"><div className="border border-emerald-600/20 bg-emerald-50 p-2"><p className="text-lg font-black text-emerald-700">{event.people}</p><p className="text-[9px] text-muted-foreground">Zugesagt</p></div><div className="border border-red-600/20 bg-red-50 p-2"><p className="text-lg font-black text-red-700">5</p><p className="text-[9px] text-muted-foreground">Abgesagt</p></div><div className="border border-amber-600/20 bg-amber-50 p-2"><p className="text-lg font-black text-amber-700">6</p><p className="text-[9px] text-muted-foreground">Offen</p></div></div><div className="mt-4 flex flex-wrap gap-2">{memberSeed.slice(0, 5).map((member) => <span key={member.id} className="rounded-full bg-muted px-2.5 py-1 text-[9px] text-muted-foreground">{member.name}</span>)}<span className="rounded-full bg-muted px-2.5 py-1 text-[9px] text-muted-foreground">+{Math.max(event.people - 5, 0)}</span></div></div>
+          <div className="mt-5"><p className="mb-2 font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground">Deine Teilnahme</p><div className="grid grid-cols-2 gap-2"><Button disabled={event.locked} onClick={() => { setResponse('yes'); setDeclineOpen(false); }} className={`h-11 rounded-sm ${attendance === 'yes' ? 'bg-primary text-primary-foreground' : 'bg-muted text-foreground'} hover:bg-primary/85`}><ThumbsUp /> Ich komme</Button><Button disabled={event.locked} onClick={() => setDeclineOpen(true)} variant="outline" className={`h-11 rounded-sm border-border bg-transparent hover:border-red-400 hover:bg-red-50 ${attendance === 'no' ? 'border-red-500 bg-red-50 text-red-700' : ''}`}><ThumbsDown /> Absagen</Button></div>{declineOpen && !event.locked && <div className="mt-3 border border-red-600/20 bg-red-50 p-3"><label htmlFor="decline-reason" className="grid gap-2 text-xs font-medium text-red-800">Grund für die Absage <Textarea id="decline-reason" required value={declineReason} onChange={(changeEvent) => setDeclineReason(changeEvent.target.value)} placeholder="Kurzer Grund, z. B. krank oder beruflich verhindert" className="min-h-20 rounded-sm border-red-600/25 bg-background text-foreground" /></label><Button type="button" disabled={!declineReason.trim()} onClick={() => { setResponse('no'); setDeclineOpen(false); }} className="mt-3 h-10 w-full rounded-sm bg-red-700 text-white hover:bg-red-800 disabled:opacity-50">Absage mit Grund bestätigen</Button></div>}{event.locked && <p className="mt-2 flex items-center gap-2 text-[10px] text-amber-700"><CircleAlert className="size-3" />Die Absagefrist ist vorbei. Bitte kontaktiere die Probenleitung.</p>}</div>
           <div className="mt-5 border-t border-border pt-5"><p className="mb-3 font-mono text-[9px] uppercase tracking-[0.24em] text-muted-foreground">In Kalender‑App übernehmen</p><div className="grid gap-2 sm:grid-cols-2"><Button onClick={() => downloadIcs(event)} variant="outline" className="h-10 rounded-sm border-border bg-transparent"><Download /> Apple / Outlook (.ics)</Button><Button onClick={() => openGoogleCalendar(event)} variant="outline" className="h-10 rounded-sm border-border bg-transparent">Google Kalender <ExternalLink /></Button></div></div>
         </div>
       </DialogContent>

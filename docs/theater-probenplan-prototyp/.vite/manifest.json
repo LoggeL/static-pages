@@ -1,28 +1,28 @@
 {
-  "_framework-Bb3yT5be.js": {
-    "file": "theater-probenplan-prototyp/_next/static/chunks/framework-Bb3yT5be.js",
+  "_framework-Cq9mLf1c.js": {
+    "file": "static-pages/theater-probenplan-prototyp/_next/static/chunks/framework-Cq9mLf1c.js",
     "name": "framework",
     "imports": [
-      "_rolldown-runtime-8e65XyN0.js"
+      "_rolldown-runtime-DTGCtE87.js"
     ]
   },
-  "_rolldown-runtime-8e65XyN0.js": {
-    "file": "theater-probenplan-prototyp/_next/static/chunks/rolldown-runtime-8e65XyN0.js",
+  "_rolldown-runtime-DTGCtE87.js": {
+    "file": "static-pages/theater-probenplan-prototyp/_next/static/chunks/rolldown-runtime-DTGCtE87.js",
     "name": "rolldown-runtime"
   },
   "app/page.tsx": {
-    "file": "theater-probenplan-prototyp/_next/static/chunks/page-DoICbvC0.js",
+    "file": "static-pages/theater-probenplan-prototyp/_next/static/chunks/page-BsZVwgBH.js",
     "name": "page",
     "src": "app/page.tsx",
     "isDynamicEntry": true,
     "imports": [
-      "_rolldown-runtime-8e65XyN0.js",
+      "_rolldown-runtime-DTGCtE87.js",
       "virtual:vinext-app-browser-entry",
-      "_framework-Bb3yT5be.js"
+      "_framework-Cq9mLf1c.js"
     ]
   },
   "node_modules/vinext/dist/shims/internal/app-route-prefetch-policy.js": {
-    "file": "theater-probenplan-prototyp/_next/static/chunks/app-route-prefetch-policy-B2qzm7s2.js",
+    "file": "static-pages/theater-probenplan-prototyp/_next/static/chunks/app-route-prefetch-policy-DPJqXq5_.js",
     "name": "app-route-prefetch-policy",
     "src": "node_modules/vinext/dist/shims/internal/app-route-prefetch-policy.js",
     "isDynamicEntry": true,
@@ -31,34 +31,34 @@
     ]
   },
   "node_modules/vinext/dist/shims/layout-segment-context.js": {
-    "file": "theater-probenplan-prototyp/_next/static/chunks/layout-segment-context-CGotKGIy.js",
+    "file": "static-pages/theater-probenplan-prototyp/_next/static/chunks/layout-segment-context-D8IgFlqh.js",
     "name": "layout-segment-context",
     "src": "node_modules/vinext/dist/shims/layout-segment-context.js",
     "isDynamicEntry": true,
     "imports": [
-      "_rolldown-runtime-8e65XyN0.js",
+      "_rolldown-runtime-DTGCtE87.js",
       "virtual:vinext-app-browser-entry",
-      "_framework-Bb3yT5be.js"
+      "_framework-Cq9mLf1c.js"
     ]
   },
   "node_modules/vinext/dist/shims/streamed-icons.js": {
-    "file": "theater-probenplan-prototyp/_next/static/chunks/streamed-icons-Br8eJHJ9.js",
+    "file": "static-pages/theater-probenplan-prototyp/_next/static/chunks/streamed-icons-7x-RVNWD.js",
     "name": "streamed-icons",
     "src": "node_modules/vinext/dist/shims/streamed-icons.js",
     "isDynamicEntry": true,
     "imports": [
-      "_rolldown-runtime-8e65XyN0.js",
-      "_framework-Bb3yT5be.js"
+      "_rolldown-runtime-DTGCtE87.js",
+      "_framework-Cq9mLf1c.js"
     ]
   },
   "virtual:vinext-app-browser-entry": {
-    "file": "theater-probenplan-prototyp/_next/static/chunks/index-BbyHcvEf.js",
+    "file": "static-pages/theater-probenplan-prototyp/_next/static/chunks/index-CO_5Wd1b.js",
     "name": "index",
     "src": "virtual:vinext-app-browser-entry",
     "isEntry": true,
     "imports": [
-      "_rolldown-runtime-8e65XyN0.js",
-      "_framework-Bb3yT5be.js"
+      "_rolldown-runtime-DTGCtE87.js",
+      "_framework-Cq9mLf1c.js"
     ],
     "dynamicImports": [
       "node_modules/vinext/dist/shims/internal/app-route-prefetch-policy.js",
