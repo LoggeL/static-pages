@@ -4,7 +4,7 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
-- **[ShareX: Capture without limits](https://loggel.github.io/static-pages/sharex-capture-reimagined/)**: an interactive capture playground with CSS 3D tilt, region selection, callouts, and PNG export. Source: `sources/sharex-capture-reimagined/`.
+- **[ShareX: Capture without limits](https://loggel.github.io/static-pages/sharex-capture-reimagined/)**: an interactive capture playground with real-time 3D, original ShareX branding, region selection, callouts, and PNG export. Source: `sources/sharex-capture-reimagined/`.
 
 1. **[Creepshow — Probenplan](https://loggel.github.io/static-pages/theater-probenplan-prototyp/)** — a clickable rehearsal, attendance, and calendar prototype for Kolpingtheater Ramsen.
 2. **[Spiel. Bewegung. Haltung.](https://loggel.github.io/static-pages/bewegungserziehung-uw1/)** — a deliberately maximalist, source-labeled lesson report about movement education.
