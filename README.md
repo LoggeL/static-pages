@@ -4,6 +4,8 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
+- **[Xenon: Your server. Your rules.](https://loggel.github.io/static-pages/xenon-reimagined/)**: an interactive redesign with a restore demo, copyable commands, feature tabs, community templates, FAQs, and dark/light themes. Source: `sources/xenon-reimagined/`.
+
 - **[ShareX: Capture without limits](https://loggel.github.io/static-pages/sharex-capture-reimagined/)**: an interactive capture playground with real-time 3D, original ShareX branding, region selection, callouts, and PNG export. Source: `sources/sharex-capture-reimagined/`.
 
 1. **[Creepshow — Probenplan](https://loggel.github.io/static-pages/theater-probenplan-prototyp/)** — a clickable rehearsal, attendance, and calendar prototype for Kolpingtheater Ramsen.
