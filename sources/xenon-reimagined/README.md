@@ -15,3 +15,5 @@ npm run build
 Copy `dist/` to `../../public/xenon-reimagined/`, then run the repository root `npm run build` to refresh `docs/`. GitHub Pages publishes `main:/docs`.
 
 Interactions: restore replay, command copying, automatic-backup and sync tabs, FAQ disclosures, mobile navigation, language links, and a light/dark theme toggle. The UI supports keyboard focus and reduced motion.
+
+Brand assets: the original Xenon SVG logomark is stored locally in `public/logomark.svg`. Navy, blue, cyan, and light-theme colors match the original website.
