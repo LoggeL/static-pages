@@ -18,4 +18,4 @@ Interactions: a step-by-step backup/create, server-change, and restore walkthrou
 
 Brand assets: the original Xenon SVG logomark is stored locally in `public/logomark.svg`. Navy, blue, cyan, and light-theme colors match the original website.
 
-Professional visual update: three custom images generated with the built-in imagegen tool appear in the hero, backup, and synchronization sections. Files and complete prompts are documented in IMAGEGEN.md.
+Product illustrations show backup creation, server changes, restoration, and cross-server synchronization. Decorative glass imagery has been removed. Files and complete built-in imagegen prompts are documented in IMAGEGEN.md.
