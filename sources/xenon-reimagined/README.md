@@ -17,3 +17,5 @@ Copy `dist/` to `../../public/xenon-reimagined/`, then run the repository root `
 Interactions: a step-by-step backup/create, server-change, and restore walkthrough with automatic playback and a persistent saved-snapshot comparison, command copying, automatic-backup and sync tabs, FAQ disclosures, mobile navigation, language links, and a light/dark theme toggle. The UI supports keyboard focus and reduced motion.
 
 Brand assets: the original Xenon SVG logomark is stored locally in `public/logomark.svg`. Navy, blue, cyan, and light-theme colors match the original website.
+
+Professional visual update: three custom images generated with the built-in imagegen tool appear in the hero, backup, and synchronization sections. Files and complete prompts are documented in IMAGEGEN.md.
