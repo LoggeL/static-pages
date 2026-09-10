@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">RECTIFY Trennkolonnen-Simulator</title>
+  <desc id="desc">Dark process-control interface with a blue and orange distillation column diagram.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0b1119"/><stop offset="1" stop-color="#111d2a"/></linearGradient>
+    <linearGradient id="steel" x1="0" x2="1"><stop stop-color="#26384a"/><stop offset=".48" stop-color="#607d9f"/><stop offset="1" stop-color="#1a2938"/></linearGradient>
+    <pattern id="grid" width="34" height="34" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#405268"/></pattern>
+    <filter id="glow"><feGaussianBlur stdDeviation="10" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <rect width="1200" height="675" fill="url(#grid)" opacity=".35"/>
+  <g font-family="Inter,Segoe UI,sans-serif">
+    <text x="64" y="76" fill="#80b7ff" font-size="18" letter-spacing="6" font-weight="700">RECTIFY</text>
+    <text x="64" y="132" fill="#e7edf5" font-size="48" font-weight="650">Trennkolonne</text>
+    <text x="64" y="164" fill="#95a4b9" font-size="17">Dynamische Simulation · Ideales Gemisch A / B</text>
+  </g>
+  <g transform="translate(500 62)">
+    <path d="M120 72V28H248V72M248 118v54H360" fill="none" stroke="#80b7ff" stroke-width="5" filter="url(#glow)"/>
+    <path d="M120 464v54H360" fill="none" stroke="#f3b574" stroke-width="5" filter="url(#glow)"/>
+    <path d="M0 294h54" fill="none" stroke="#b3c1d1" stroke-width="5"/>
+    <rect x="54" y="72" width="132" height="392" rx="50" fill="url(#steel)" stroke="#8aa8c9" stroke-width="3"/>
+    <g stroke="#80b7ff" stroke-width="3" opacity=".8">
+      <path d="M70 128h100"/><path d="M70 178h100"/><path d="M70 228h100"/><path d="M70 278h100"/><path d="M70 328h100"/><path d="M70 378h100"/>
+    </g>
+    <path d="M70 428h100" stroke="#f3b574" stroke-width="3"/>
+    <circle cx="248" cy="94" r="25" fill="#152e49" stroke="#80b7ff" stroke-width="3"/>
+    <circle cx="248" cy="420" r="33" fill="#36291f" stroke="#f3b574" stroke-width="3"/>
+    <g font-family="ui-monospace,monospace" font-size="16">
+      <text x="382" y="177" fill="#80b7ff">xD 96,4 mol-%</text>
+      <text x="382" y="523" fill="#f3b574">xB 94,8 mol-%</text>
+      <text x="-2" y="285" text-anchor="end" fill="#95a4b9">FEED</text>
+    </g>
+  </g>
+  <g transform="translate(64 226)" font-family="ui-monospace,monospace">
+    <rect width="330" height="76" rx="12" fill="#111a25" stroke="#263244"/>
+    <text x="20" y="27" fill="#95a4b9" font-size="13">KOPFREINHEIT · A</text><text x="20" y="59" fill="#80b7ff" font-size="28">96,4 mol-%</text>
+    <rect y="94" width="330" height="76" rx="12" fill="#111a25" stroke="#263244"/>
+    <text x="20" y="121" fill="#95a4b9" font-size="13">SUMPFREINHEIT · B</text><text x="20" y="153" fill="#f3b574" font-size="28">94,8 mol-%</text>
+    <rect y="188" width="330" height="128" rx="12" fill="#111a25" stroke="#263244"/>
+    <path d="M18 286C55 258 80 270 112 230S174 246 205 212s62 3 107-8" fill="none" stroke="#80b7ff" stroke-width="4"/>
+    <path d="M18 274c42 4 66-22 100-8s61-14 94-7 59-25 100-18" fill="none" stroke="#f3b574" stroke-width="3" stroke-dasharray="8 8"/>
+  </g>
+  <text x="1138" y="632" text-anchor="end" fill="#697c94" font-family="ui-monospace,monospace" font-size="13">RK4 · 18 ZUSTÄNDE · OFFLINE</text>
+</svg>
