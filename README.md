@@ -6,7 +6,7 @@ A growing collection of ambitious static web experiments and interface studies.
 
 - **[Veil: Face redaction that never uploads](https://loggel.github.io/static-pages/veil/)**: a browser-only face-censoring studio. Two BlazeFace models run on-device via WASM to find faces, which can then be blurred, mosaicked, inked out or glyph-covered and exported at full resolution — metered at one credit per redacted face, with a working (test-mode) checkout, ledger and export library. Source: `sources/veil/`.
 
-- **[RECTIFY: Trennkolonnen-Simulator](https://loggel.github.io/static-pages/rectify-trennkolonne/)**: an interactive, offline-capable process simulator for a binary distillation column with dynamic stage balances, scenarios, PI control, and local export. Source: `sources/rectify-trennkolonne/`.
+- **[RECTIFY 2: Trennkolonnen-Simulator](https://loggel.github.io/static-pages/rectify-trennkolonne/)**: a dynamic distillation lab with six real fluids, NRTL, coupled energy and material balances, variable liquid inventories, eight scenarios, PI control, and local export. Includes a German guide to assumptions, sources, and validation. Source and test instructions: `sources/rectify-trennkolonne/README.md`.
 
 - **[Xenon: Your server. Your rules.](https://loggel.github.io/static-pages/xenon-reimagined/)**: an interactive redesign with a restore demo, copyable commands, feature tabs, community templates, FAQs, and dark/light themes. Source: `sources/xenon-reimagined/`.
 

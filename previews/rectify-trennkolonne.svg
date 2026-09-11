@@ -12,7 +12,7 @@
   <g font-family="Inter,Segoe UI,sans-serif">
     <text x="64" y="76" fill="#80b7ff" font-size="18" letter-spacing="6" font-weight="700">RECTIFY</text>
     <text x="64" y="132" fill="#e7edf5" font-size="48" font-weight="650">Trennkolonne</text>
-    <text x="64" y="164" fill="#95a4b9" font-size="17">Dynamische Simulation · Ideales Gemisch A / B</text>
+    <text x="64" y="164" fill="#95a4b9" font-size="17">Reale Stoffdaten · Energie · Hydraulik</text>
   </g>
   <g transform="translate(500 62)">
     <path d="M120 72V28H248V72M248 118v54H360" fill="none" stroke="#80b7ff" stroke-width="5" filter="url(#glow)"/>
@@ -26,19 +26,20 @@
     <circle cx="248" cy="94" r="25" fill="#152e49" stroke="#80b7ff" stroke-width="3"/>
     <circle cx="248" cy="420" r="33" fill="#36291f" stroke="#f3b574" stroke-width="3"/>
     <g font-family="ui-monospace,monospace" font-size="16">
-      <text x="382" y="177" fill="#80b7ff">xD 96,4 mol-%</text>
-      <text x="382" y="523" fill="#f3b574">xB 94,8 mol-%</text>
+      <text x="382" y="177" fill="#80b7ff">A 98,46 mol-%</text>
+      <text x="382" y="523" fill="#f3b574">B 99,09 mol-%</text>
       <text x="-2" y="285" text-anchor="end" fill="#95a4b9">FEED</text>
     </g>
   </g>
   <g transform="translate(64 226)" font-family="ui-monospace,monospace">
     <rect width="330" height="76" rx="12" fill="#111a25" stroke="#263244"/>
-    <text x="20" y="27" fill="#95a4b9" font-size="13">KOPFREINHEIT · A</text><text x="20" y="59" fill="#80b7ff" font-size="28">96,4 mol-%</text>
+    <text x="20" y="27" fill="#95a4b9" font-size="13">KOPFREINHEIT · BENZOL</text><text x="20" y="59" fill="#80b7ff" font-size="28">98,46 mol-%</text>
     <rect y="94" width="330" height="76" rx="12" fill="#111a25" stroke="#263244"/>
-    <text x="20" y="121" fill="#95a4b9" font-size="13">SUMPFREINHEIT · B</text><text x="20" y="153" fill="#f3b574" font-size="28">94,8 mol-%</text>
+    <text x="20" y="121" fill="#95a4b9" font-size="13">SUMPFREINHEIT · TOLUOL</text><text x="20" y="153" fill="#f3b574" font-size="28">99,09 mol-%</text>
     <rect y="188" width="330" height="128" rx="12" fill="#111a25" stroke="#263244"/>
-    <path d="M18 286C55 258 80 270 112 230S174 246 205 212s62 3 107-8" fill="none" stroke="#80b7ff" stroke-width="4"/>
-    <path d="M18 274c42 4 66-22 100-8s61-14 94-7 59-25 100-18" fill="none" stroke="#f3b574" stroke-width="3" stroke-dasharray="8 8"/>
+    <text x="20" y="221" fill="#95a4b9" font-size="13">3 STOFFSYSTEME · 8 EXPERIMENTE</text>
+    <text x="20" y="256" fill="#80b7ff" font-size="24">NRTL + ENERGIEBILANZEN</text>
+    <text x="20" y="289" fill="#95a4b9" font-size="13">Annahmen &amp; Quellen offengelegt</text>
   </g>
-  <text x="1138" y="632" text-anchor="end" fill="#697c94" font-family="ui-monospace,monospace" font-size="13">RK4 · 18 ZUSTÄNDE · OFFLINE</text>
+  <text x="1138" y="632" text-anchor="end" fill="#697c94" font-family="ui-monospace,monospace" font-size="13">RECTIFY 2 · ADAPTIVE INTEGRATION · LOKALE BERECHNUNG</text>
 </svg>
