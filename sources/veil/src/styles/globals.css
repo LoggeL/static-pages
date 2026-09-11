@@ -1,0 +1,236 @@
+@import 'tailwindcss';
+@import './fonts.css';
+
+/* ---------------------------------------------------------------------------
+   VEIL design tokens
+   Monochrome near-black optics + a single acid "signal" accent (the HUD colour
+   that marks a detected face) and a violet atmospheric tint.
+--------------------------------------------------------------------------- */
+@theme {
+  --font-sans: 'Inter Tight', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
+
+  --color-void: #05060a;
+  --color-ink: #090b11;
+  --color-surface: #0e111a;
+  --color-raised: #141824;
+  --color-line: #232938;
+  --color-chalk: #f1f3f7;
+  --color-mist: #9ba3b5;
+  --color-dim: #7a8397;
+
+  --color-flare: #c9f95e;
+  --color-flare-deep: #a6d92e;
+  --color-iris: #7b6bff;
+  --color-iris-deep: #5b47e0;
+  --color-rose: #ff6b8a;
+
+  --radius-xs: 5px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 26px;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.5, 1);
+
+  --animate-scan: scan 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  --animate-drift: drift 14s ease-in-out infinite;
+  --animate-blip: blip 2.6s ease-out infinite;
+}
+
+@keyframes scan {
+  0% { transform: translateY(-8%); opacity: 0; }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { transform: translateY(108%); opacity: 0; }
+}
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(2%, -3%, 0) scale(1.06); }
+}
+@keyframes blip {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  70% { transform: scale(2.4); opacity: 0; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-void);
+    color: var(--color-chalk);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-flare) 82%, transparent);
+    color: #0a0d05;
+  }
+
+  h1, h2, h3, h4 {
+    letter-spacing: -0.028em;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  :focus-visible {
+    outline: 2px solid var(--color-flare);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  input, textarea, select, button { font: inherit; color: inherit; }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--color-void); }
+  ::-webkit-scrollbar-thumb {
+    background: #262c3c;
+    border: 3px solid var(--color-void);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: #39415a; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@utility mono-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@utility hairline-t {
+  border-top: 1px solid var(--color-line);
+}
+
+@utility glass {
+  background: color-mix(in oklab, var(--color-void) 88%, transparent);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+}
+
+@utility panel {
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--color-chalk) 4%, transparent), transparent 42%),
+    var(--color-surface);
+  border: 1px solid var(--color-line);
+}
+
+@utility grid-field {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--color-chalk) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--color-chalk) 4%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+@utility noise-layer {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+}
+
+/* Viewfinder corner brackets — the core brand motif. The host element supplies
+   its own `position` (the utility deliberately does not). */
+@utility brackets {
+  --bracket-size: 14px;
+}
+
+@layer components {
+  .brackets::before,
+  .brackets::after {
+    content: '';
+    position: absolute;
+    width: var(--bracket-size, 14px);
+    height: var(--bracket-size, 14px);
+    pointer-events: none;
+    border-color: var(--color-flare);
+  }
+  .brackets::before {
+    top: -1px; left: -1px;
+    border-top: 1.5px solid; border-left: 1.5px solid;
+  }
+  .brackets::after {
+    bottom: -1px; right: -1px;
+    border-bottom: 1.5px solid; border-right: 1.5px solid;
+  }
+
+  .text-balance { text-wrap: balance; }
+
+  .gradient-rule {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-line) 18%, var(--color-line) 82%, transparent);
+  }
+
+  .glow-flare {
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-flare) 30%, transparent),
+                0 12px 40px -12px color-mix(in oklab, var(--color-flare) 45%, transparent);
+  }
+
+  .veil-range {
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
+    width: 100%;
+    height: 16px;
+    background: transparent;
+    cursor: pointer;
+  }
+  .veil-range::-webkit-slider-runnable-track {
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-flare) var(--range-progress, 50%), #232a3d var(--range-progress, 50%));
+  }
+  .veil-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 13px;
+    height: 13px;
+    margin-top: -5px;
+    border-radius: 999px;
+    background: var(--color-chalk);
+    border: 3px solid #0a0d15;
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-chalk) 35%, transparent);
+    transition: transform 0.15s var(--ease-spring);
+  }
+  .veil-range:active::-webkit-slider-thumb { transform: scale(1.18); }
+  .veil-range::-moz-range-track {
+    height: 3px;
+    border-radius: 999px;
+    background: #232a3d;
+  }
+  .veil-range::-moz-range-progress {
+    height: 3px;
+    border-radius: 999px;
+    background: var(--color-flare);
+  }
+  .veil-range::-moz-range-thumb {
+    width: 13px;
+    height: 13px;
+    border-radius: 999px;
+    background: var(--color-chalk);
+    border: 3px solid #0a0d15;
+  }
+}
