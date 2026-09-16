@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lino Heardle 🎵</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <h1>🎵 Lino Heardle</h1>
+  <p class="sub">Errate 5 Lostboi-Lino-Songs – jeden Tag neu!</p>
+  <div class="date-row"><span id="dateLabel"></span><span id="roundLabel"></span></div>
+</header>
+<main>
+  <div id="progressBar"><div id="progressFill"></div></div>
+  <div id="stageLabel"></div>
+  <section id="gameCard" class="card">
+    <div class="player-row">
+      <button id="playBtn" aria-label="Abspielen">▶</button>
+      <div class="stage-info">
+        <div id="stageText">0.1s / 30s</div>
+        <div class="dots" id="dots"></div>
+      </div>
+    </div>
+    <div class="autocomplete">
+      <input id="guessInput" type="text" placeholder="Songtitel raten …" autocomplete="off">
+      <ul id="suggest" hidden></ul>
+    </div>
+    <div class="btn-row">
+      <button id="guessBtn" class="primary">Raten</button>
+      <button id="moreBtn">Mehr (+)</button>
+      <button id="skipBtn" class="ghost">Skip</button>
+    </div>
+    <div id="feedback"></div>
+  </section>
+  <section id="resultCard" class="card" hidden>
+    <h2 id="resultTitle"></h2>
+    <div id="resultLines"></div>
+    <pre id="shareText"></pre>
+    <div class="btn-row">
+      <button id="copyBtn">Ergebnis kopieren</button>
+      <button id="freeBtn" class="primary">Freies Spiel</button>
+      <button id="dailyBtn" class="ghost">Tagesrätsel</button>
+    </div>
+  </section>
+</main>
+<footer>Lino Heardle · lokal &amp; statisch · 🎧</footer>
+<script src="app.js"></script>
+</body>
+</html>

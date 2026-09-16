@@ -4,6 +4,8 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
+- **[Lino Heardle: Erkenne den Song](https://loggel.github.io/static-pages/lino-heardle/)**: a Heardle-style daily music quiz — 5 Lostboi Lino songs a day, starting from a 0.1-second snippet that grows with every skip or wrong guess. Source: `sources/lino-heardle/`; audio lives in `public/lino-heardle/audio/` (Deezer 30s previews).
+
 - **[Veil: Face redaction that never uploads](https://loggel.github.io/static-pages/veil/)**: a browser-only face-censoring studio. Two BlazeFace models run on-device via WASM to find faces, which can then be blurred, mosaicked, inked out or glyph-covered and exported at full resolution — metered at one credit per redacted face, with a working (test-mode) checkout, ledger and export library. Source: `sources/veil/`.
 
 - **[RECTIFY 2: Trennkolonnen-Simulator](https://loggel.github.io/static-pages/rectify-trennkolonne/)**: a dynamic distillation lab with six real fluids, NRTL, coupled energy and material balances, variable liquid inventories, eight scenarios, PI control, and local export. Includes a German guide to assumptions, sources, and validation. Source and test instructions: `sources/rectify-trennkolonne/README.md`.

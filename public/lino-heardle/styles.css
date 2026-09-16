@@ -1,0 +1,35 @@
+:root{--bg:#12141c;--card:#1c1f2b;--acc:#7c5cff;--txt:#eef0f7;--mut:#9aa0b4;--ok:#3ddc84;--bad:#ff5d5d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+header{text-align:center;padding:1.2rem 1rem .4rem}
+h1{margin:.2rem 0;font-size:1.7rem}
+.sub{color:var(--mut);margin:.2rem 0 .6rem}
+.date-row{display:flex;gap:.6rem;justify-content:center;color:var(--mut);font-size:.85rem}
+main{max-width:560px;width:100%;margin:0 auto;padding:0 1rem 2rem;flex:1}
+#progressBar{height:8px;background:#262a3a;border-radius:99px;overflow:hidden;margin:1rem 0 .4rem}
+#progressFill{height:100%;width:0;background:var(--acc);transition:width .3s}
+#stageLabel{text-align:center;color:var(--mut);font-size:.85rem;margin-bottom:.8rem}
+.card{background:var(--card);border-radius:14px;padding:1.2rem;box-shadow:0 6px 24px rgba(0,0,0,.35)}
+.player-row{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+#playBtn{width:64px;height:64px;border-radius:50%;border:none;background:var(--acc);color:#fff;font-size:1.5rem;cursor:pointer;flex-shrink:0}
+#playBtn:active{transform:scale(.95)}
+#stageText{font-size:1.1rem;font-weight:700}
+.dots{display:flex;gap:5px;margin-top:.4rem;flex-wrap:wrap}
+.dots span{width:10px;height:10px;border-radius:50%;background:#333a52}
+.dots span.done{background:var(--acc)}
+.dots span.cur{background:#fff}
+.autocomplete{position:relative}
+#guessInput{width:100%;padding:.7rem .9rem;border-radius:10px;border:1px solid #333a52;background:#12141c;color:var(--txt);font-size:1rem}
+#suggest{position:absolute;top:100%;left:0;right:0;background:#262a3e;border-radius:0 0 10px 10px;list-style:none;margin:0;padding:0;max-height:200px;overflow:auto;z-index:5}
+#suggest li{padding:.6rem .9rem;cursor:pointer}
+#suggest li:hover,#suggest li.active{background:#333a55}
+.btn-row{display:flex;gap:.6rem;margin-top:.9rem;flex-wrap:wrap}
+button{padding:.65rem 1.1rem;border-radius:10px;border:1px solid #333a52;background:#262a3e;color:var(--txt);font-size:1rem;cursor:pointer}
+button.primary{background:var(--acc);border-color:var(--acc);font-weight:700}
+button.ghost{background:transparent}
+#feedback{margin-top:.8rem;min-height:1.4rem;font-weight:600}
+#feedback.ok{color:var(--ok)}#feedback.bad{color:var(--bad)}
+#resultLines div{padding:.35rem 0;border-bottom:1px solid #2a2f45;font-size:.95rem}
+pre#shareText{background:#12141c;padding:.8rem;border-radius:10px;white-space:pre-wrap;font-size:.9rem}
+footer{text-align:center;color:var(--mut);font-size:.8rem;padding:1rem}
+@media(max-width:480px){h1{font-size:1.4rem}#playBtn{width:56px;height:56px}}
