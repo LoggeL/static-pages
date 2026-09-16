@@ -20,9 +20,26 @@ function pickSongs(seed, n){
   const rnd = mulberry32(hashStr(seed));
   const idx = tracks.map((_,i)=>i);
   for (let i=idx.length-1;i>0;i--){ const j = Math.floor(rnd()*(i+1)); [idx[i],idx[j]]=[idx[j],idx[i]]; }
-  return idx.slice(0,n).map(i=>tracks[i]);
+  // Pro Runde nur verschiedene Songs (keine zwei Varianten desselben Titels).
+  const picked = [], seenCanon = new Set();
+  for (const i of idx){
+    const k = canon(tracks[i].title);
+    if (seenCanon.has(k)) continue;
+    seenCanon.add(k); picked.push(tracks[i]);
+    if (picked.length >= n) break;
+  }
+  return picked;
 }
 function fmt(s){ return (s < 1 ? s.toFixed(1) : Math.round(s)) + 's'; }
+// Kanonischer Titel: Klammer- und Versionszusätze (Live, Remix, …) fallen weg,
+// damit Varianten desselben Songs immer als richtig zählen.
+function canon(s){
+  return s.trim().toLowerCase()
+    .replace(/\s*[\(\[].*?[\)\]]/g, ' ')
+    .replace(/\s*[-–—]\s*(live|remix|remaster|acoustic|unplugged|radio\s*edit|extended|sped\s*up|slowed|stripped|demo|version)\s*$/, '')
+    .replace(/[:;!?"'.,]/g, '')
+    .replace(/\s+/g, ' ').trim();
+}
 
 async function init(){
   tracks = await (await fetch('tracks.json')).json();
@@ -76,7 +93,7 @@ function norm(s){ return s.trim().toLowerCase(); }
 function submitGuess(){
   const v = els.input.value;
   if (!v.trim()){ setFb('Bitte einen Titel eingeben oder Skip drücken.','bad'); return; }
-  if (norm(v) === norm(cur().title)) advance(true, false);
+  if (canon(v) === canon(cur().title)) advance(true, false);
   else advance(false, false);
 }
 function advance(correct, skipped){
@@ -117,7 +134,14 @@ function showResults(){
 function onType(){
   const q = norm(els.input.value);
   if (!q){ els.suggest.hidden = true; return; }
-  const hits = tracks.filter(t=>norm(t.title).includes(q)).slice(0,8);
+  // Exakte Dubletten nur einmal zeigen; Varianten (Live, Remix, …) bleiben
+  // sichtbar, zählen per canon() aber alle als richtig.
+  const seen = new Set(), hits = [];
+  for (const t of tracks){
+    if (hits.length >= 8) break;
+    const k = norm(t.title);
+    if (k.includes(q) && !seen.has(k)){ seen.add(k); hits.push(t); }
+  }
   if (!hits.length){ els.suggest.hidden = true; return; }
   els.suggest.innerHTML = hits.map((t,i)=>`<li class="${i===0?'active':''}">${t.title}</li>`).join('');
   els.suggest.hidden = false;
