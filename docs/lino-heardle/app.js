@@ -120,14 +120,14 @@ function nextSong(){
   if (roundIdx >= N_ROUNDS) showResults();
   else startSong();
 }
-function boxes(st){ if (st<0) return '⬛'; return ['🟥','🟥','🟧','🟧','🟨','🟨','🟩','🟩'][st] || '🟩'; }
+function boxes(st){ if (st<0) return '❌'; return ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣'][st] || '8️⃣'; }
 function showResults(){
   els.game.hidden = true; els.result.hidden = false;
   const total = results.reduce((a,r)=>a+r.pts,0);
   els.rTitle.textContent = `🏁 Fertig! ${total} / ${N_ROUNDS*800} Punkte`;
   els.rLines.innerHTML = results.map((r,i)=>`<div>${r.solved?'✅':'❌'} ${i+1}. <b>${r.track.title}</b> <span style="color:var(--mut)">(${r.track.album})</span> – ${r.solved ? fmt(STAGES[r.stage])+' · '+r.pts+' P.' : 'nicht erraten'}</div>`).join('');
   const head = mode==='daily' ? `🎵 Lino Heardle ${seedStr}` : `🎵 Lino Heardle (frei)`;
-  els.share.textContent = head + ` – ${total}/${N_ROUNDS*800}\n` + results.map(r=>r.solved?boxes(r.stage):'⬛').join('');
+  els.share.textContent = head + ` – ${total}/${N_ROUNDS*800}\n` + results.map(r=>r.solved?boxes(r.stage):'❌').join('');
   els.fill.style.width = '100%';
 }
 // Autocomplete
