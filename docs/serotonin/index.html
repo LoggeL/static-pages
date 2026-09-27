@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#07060b" />
+<meta name="description" content="SEROTONIN: eine interaktive Nacht auf XTC, ohne XTC. Come-up, Peak, Comedown und der Dienstag danach als audiovisuelle Simulation." />
+<title>SEROTONIN · Eine Nacht auf XTC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500;800;900&family=JetBrains+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body class="phase-intro">
+
+<!-- ========= STAGE ========= -->
+<div id="stage" aria-hidden="true">
+  <canvas id="gl"></canvas>
+  <canvas id="fx"></canvas>
+  <canvas id="crowd"></canvas>
+  <div id="chill-tint"></div>
+  <div id="vignette"></div>
+  <div id="grain"></div>
+  <div id="flash"></div>
+</div>
+
+<!-- ========= INTRO ========= -->
+<section id="intro">
+  <div class="warn-strip">
+    <span>⚠ Flackerlicht, schnelle Farbwechsel &amp; Bass</span>
+    <span>Kunstprojekt · keine Konsumempfehlung</span>
+    <span>⚠ Flackerlicht, schnelle Farbwechsel &amp; Bass</span>
+    <span>Kunstprojekt · keine Konsumempfehlung</span>
+  </div>
+
+  <div class="intro-grid">
+    <div class="intro-copy">
+      <p class="kicker">SAMSTAG · 23:30 · IRGENDEIN KELLER IN BERLIN</p>
+      <h1 class="glitch" data-text="SEROTONIN">SEROTONIN</h1>
+      <p class="sub">Eine Nacht auf XTC. <em>Ohne XTC.</em></p>
+      <p class="lede">
+        Sechs Akte, sieben Stunden, ein Dienstag. Du stehst in der Schlange zur Tanzfläche,
+        jemand drückt dir eine rosa Pille in die Hand. Unbekannter Inhalt. Diese Seite zeigt,
+        was danach in deinem Kopf, deinem Körper und deiner Woche passiert.
+      </p>
+      <ul class="intro-facts">
+        <li><b>~5</b><span>Minuten<br>Laufzeit</span></li>
+        <li><b>7 h</b><span>simulierte<br>Nacht</span></li>
+        <li><b>3</b><span>Tage<br>Nachwehen</span></li>
+      </ul>
+      <div class="toggles">
+        <label class="tog"><input type="checkbox" id="optSound" checked /><i></i><span>Ton an <small>(Kopfhörer!)</small></span></label>
+        <label class="tog"><input type="checkbox" id="optGentle" /><i></i><span>Sanfter Modus <small>(kein Strobo, kein Wackeln)</small></span></label>
+      </div>
+    </div>
+
+    <div class="intro-pill">
+      <div class="pill-orbit">
+        <svg class="molecule" viewBox="0 0 360 240" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- benzene ring -->
+            <polygon points="150,70 185,90 185,130 150,150 115,130 115,90" />
+            <line x1="176" y1="95" x2="176" y2="125" />
+            <line x1="150" y1="81" x2="122" y2="97" />
+            <line x1="122" y1="123" x2="150" y2="139" />
+            <!-- methylenedioxy -->
+            <line x1="115" y1="90" x2="88" y2="76" />
+            <line x1="115" y1="130" x2="88" y2="144" />
+            <line x1="78" y1="84" x2="66" y2="108" />
+            <line x1="78" y1="136" x2="66" y2="112" />
+            <!-- side chain -->
+            <line x1="185" y1="90" x2="218" y2="70" />
+            <line x1="218" y1="70" x2="252" y2="90" />
+            <line x1="252" y1="90" x2="252" y2="128" />
+            <line x1="252" y1="90" x2="276" y2="76" />
+            <line x1="302" y1="76" x2="326" y2="90" />
+          </g>
+          <g font-family="JetBrains Mono, monospace" font-size="17" fill="currentColor" text-anchor="middle">
+            <text x="84" y="80">O</text><text x="84" y="148">O</text>
+            <text x="289" y="82">NH</text>
+          </g>
+          <text x="180" y="200" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" letter-spacing="2" fill="currentColor" opacity=".7">3,4-METHYLENDIOXY-N-METHYLAMPHETAMIN</text>
+        </svg>
+        <div class="orbit-ring r1"></div><div class="orbit-ring r2"></div>
+        <button id="pill" class="pill" aria-label="Pille einwerfen">
+          <svg viewBox="0 0 200 200">
+            <defs>
+              <radialGradient id="pillG" cx="38%" cy="32%" r="75%">
+                <stop offset="0" stop-color="#ffe3f2" />
+                <stop offset=".45" stop-color="#ff86c4" />
+                <stop offset="1" stop-color="#b52a73" />
+              </radialGradient>
+              <filter id="speck" x="0" y="0" width="100%" height="100%">
+                <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="4" />
+                <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 -2.2 1.35" />
+                <feComposite in2="SourceGraphic" operator="in" />
+              </filter>
+            </defs>
+            <ellipse cx="104" cy="178" rx="70" ry="10" fill="rgba(0,0,0,.45)" />
+            <circle cx="100" cy="96" r="80" fill="#8e1d58" />
+            <circle cx="100" cy="92" r="80" fill="url(#pillG)" />
+            <circle cx="100" cy="92" r="80" filter="url(#speck)" opacity=".28" />
+            <circle cx="100" cy="92" r="72" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="2" />
+            <g transform="translate(0,-8)">
+              <path d="M100 138 C60 110 52 88 64 74 C76 60 94 66 100 80 C106 66 124 60 136 74 C148 88 140 110 100 138 Z" fill="none" stroke="rgba(110,0,55,.55)" stroke-width="6" transform="translate(2,2.5)" />
+              <path d="M100 138 C60 110 52 88 64 74 C76 60 94 66 100 80 C106 66 124 60 136 74 C148 88 140 110 100 138 Z" fill="rgba(255,120,190,.25)" stroke="rgba(255,240,248,.75)" stroke-width="3" />
+            </g>
+            <ellipse cx="72" cy="52" rx="26" ry="12" fill="rgba(255,255,255,.35)" transform="rotate(-28 72 52)" />
+          </svg>
+        </button>
+      </div>
+      <div class="mouth-zone">
+        <svg id="mouth" viewBox="0 0 160 90" aria-hidden="true">
+          <path class="lip-up" d="M14 44 C34 22 58 20 80 34 C102 20 126 22 146 44 C112 50 48 50 14 44 Z" />
+          <path class="lip-gap" d="M14 44 C48 50 112 50 146 44 C112 54 48 54 14 44 Z" />
+          <path class="lip-low" d="M14 44 C48 52 112 52 146 44 C126 78 34 78 14 44 Z" />
+        </svg>
+        <p class="hint" id="pillHint">Zieh die Pille zum Mund – oder tipp einfach drauf.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= PHASE TITLE CARD ========= -->
+<div id="card" aria-live="polite">
+  <span class="card-act" id="cardAct">AKT I</span>
+  <span class="card-name" id="cardName">Das Warten</span>
+  <span class="card-sub" id="cardSub">T+0:00</span>
+</div>
+
+<!-- ========= THOUGHTS ========= -->
+<div id="thoughts" aria-live="polite"></div>
+
+<!-- ========= HUD ========= -->
+<aside id="hud" aria-label="Körperwerte">
+  <div class="clock">
+    <span id="clockDay">SA</span><b id="clockTime">23:30</b><span id="clockT">T+0:00</span>
+  </div>
+  <div class="phase-name" id="phaseName">Akt I · Das Warten</div>
+
+  <div class="vitals">
+    <div class="vital" id="vHr">
+      <svg class="vicon heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-10-9.3C.2 8 2.3 4 6.2 4 8.6 4 10.3 5.4 12 7.4 13.7 5.4 15.4 4 17.8 4 21.7 4 23.8 8 22 11.7 19.5 16.4 12 21 12 21z"/></svg>
+      <span class="vlabel">Puls</span><b class="vval"><span id="hrVal">72</span><small>bpm</small></b>
+      <canvas class="ecg" id="ecg" width="180" height="26"></canvas>
+    </div>
+    <div class="vital" id="vTemp">
+      <svg class="vicon" viewBox="0 0 24 24"><path d="M14 14.8V5a2 2 0 1 0-4 0v9.8a4 4 0 1 0 4 0z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="17.5" r="2" /></svg>
+      <span class="vlabel">Körpertemp.</span><b class="vval"><span id="tempVal">36.8</span><small>°C</small></b>
+      <div class="bar"><i id="tempBar"></i></div>
+    </div>
+    <div class="vital" id="vWater">
+      <svg class="vicon" viewBox="0 0 24 24"><path d="M12 2.5S5 10.2 5 15a7 7 0 0 0 14 0c0-4.8-7-12.5-7-12.5z"/></svg>
+      <span class="vlabel">Wasserhaushalt</span><b class="vval"><span id="waterVal">OK</span></b>
+      <div class="bar"><i id="waterBar"></i></div>
+    </div>
+    <div class="vital" id="vJaw">
+      <svg class="vicon" viewBox="0 0 24 24"><path d="M4 9c0 6 3.5 11 8 11s8-5 8-11" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 13h10" stroke="currentColor" stroke-width="2"/></svg>
+      <span class="vlabel">Kiefer</span><b class="vval"><span id="jawVal">locker</span></b>
+      <div class="bar"><i id="jawBar"></i></div>
+    </div>
+    <div class="vital" id="vLove">
+      <svg class="vicon" viewBox="0 0 24 24"><circle cx="8" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <span class="vlabel">Verbundenheit</span><b class="vval"><span id="loveVal">0</span><small>%</small></b>
+      <div class="bar love"><i id="loveBar"></i></div>
+    </div>
+  </div>
+
+  <div class="hud-figures">
+    <figure class="tank-fig">
+      <svg viewBox="0 0 60 130" class="tank">
+        <defs>
+          <linearGradient id="seroG" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0" stop-color="#ff2e88" /><stop offset="1" stop-color="#ffd86b" />
+          </linearGradient>
+          <clipPath id="tankClip"><rect x="10" y="12" width="40" height="108" rx="18" /></clipPath>
+        </defs>
+        <rect x="22" y="2" width="16" height="12" rx="3" class="tank-cap" />
+        <rect x="10" y="12" width="40" height="108" rx="18" class="tank-glass" />
+        <g clip-path="url(#tankClip)">
+          <rect id="tankFill" x="10" y="12" width="40" height="108" fill="url(#seroG)" />
+          <path id="tankWave" d="" fill="rgba(255,255,255,.35)" />
+        </g>
+        <g class="tank-ticks"><line x1="50" y1="39" x2="56" y2="39"/><line x1="50" y1="66" x2="56" y2="66"/><line x1="50" y1="93" x2="56" y2="93"/></g>
+      </svg>
+      <figcaption>5-HT<br>Speicher<br><b id="seroVal">100%</b></figcaption>
+    </figure>
+
+    <figure class="eye-fig">
+      <svg viewBox="0 0 120 70" class="eye">
+        <defs>
+          <radialGradient id="irisG" cx="50%" cy="50%" r="50%">
+            <stop offset=".3" stop-color="#5fd4ff" /><stop offset=".75" stop-color="#2a6f9e" /><stop offset="1" stop-color="#0d2a40" />
+          </radialGradient>
+          <clipPath id="eyeClip"><path d="M6 35 Q60 -8 114 35 Q60 78 6 35Z" /></clipPath>
+        </defs>
+        <path d="M6 35 Q60 -8 114 35 Q60 78 6 35Z" class="sclera" />
+        <g clip-path="url(#eyeClip)">
+          <g class="veins" id="veins" opacity="0">
+            <path d="M8 34 C18 30 24 36 32 31" /><path d="M112 36 C100 40 96 33 88 38" /><path d="M10 38 C20 42 26 38 30 44" /><path d="M110 32 C102 27 96 31 90 28" />
+          </g>
+          <g id="irisGroup">
+            <circle cx="60" cy="35" r="22" fill="url(#irisG)" />
+            <g class="iris-lines" id="irisLines"></g>
+            <circle id="pupil" cx="60" cy="35" r="6" fill="#050308" />
+            <circle cx="66" cy="28" r="3.2" fill="rgba(255,255,255,.85)" />
+          </g>
+        </g>
+        <path d="M6 35 Q60 -8 114 35" class="lid" />
+      </svg>
+      <figcaption>Pupille <b id="pupilVal">3.0 mm</b></figcaption>
+    </figure>
+
+    <figure class="body-fig">
+      <svg viewBox="0 0 100 190" class="bodymap">
+        <defs>
+          <filter id="glowF" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" /></filter>
+        </defs>
+        <g class="silhouette" id="silhouette">
+          <circle cx="50" cy="22" r="15" />
+          <path d="M44 36 h12 v6 h-12z" />
+          <path d="M30 44 Q50 38 70 44 L74 104 Q50 110 26 104Z" />
+          <path d="M30 46 Q18 52 16 76 L12 104" class="limb" />
+          <path d="M70 46 Q82 52 84 76 L88 104" class="limb" />
+          <path d="M38 104 L34 146 L32 184" class="limb" />
+          <path d="M62 104 L66 146 L68 184" class="limb" />
+        </g>
+        <g filter="url(#glowF)">
+          <circle id="zBrain" cx="50" cy="16" r="12" fill="#ff4fd8" opacity="0" />
+          <ellipse id="zJaw" cx="50" cy="33" rx="10" ry="5" fill="#ffb13b" opacity="0" />
+          <circle id="zHeart" cx="57" cy="58" r="9" fill="#ff2e55" opacity="0" />
+          <ellipse id="zGut" cx="50" cy="84" rx="12" ry="9" fill="#9dff5c" opacity="0" />
+          <circle id="zHandL" cx="12" cy="104" r="7" fill="#7af0ff" opacity="0" />
+          <circle id="zHandR" cx="88" cy="104" r="7" fill="#7af0ff" opacity="0" />
+        </g>
+        <g class="skin-glow" id="zSkin" opacity="0">
+          <circle cx="50" cy="22" r="15" />
+          <path d="M30 44 Q50 38 70 44 L74 104 Q50 110 26 104Z" />
+        </g>
+        <g class="eyes-dots"><circle cx="45" cy="21" r="1.6" /><circle cx="55" cy="21" r="1.6" /></g>
+      </svg>
+      <figcaption id="bodyLabel">Körper: nüchtern</figcaption>
+    </figure>
+  </div>
+</aside>
+
+<!-- ========= ZOOM PANEL ========= -->
+<aside id="zoom" aria-label="Was gerade passiert">
+  <header>
+    <span class="zoom-tag">ZOOM</span>
+    <h2 id="zoomTitle">Was gerade passiert</h2>
+    <button id="zoomToggle" aria-label="Panel ein- oder ausklappen">–</button>
+  </header>
+  <div class="zoom-body">
+    <div id="zoomArt"></div>
+    <p id="zoomText"></p>
+  </div>
+</aside>
+
+<!-- ========= ACTIONS ========= -->
+<nav id="actions" aria-label="Aktionen">
+  <button class="act" data-act="water">
+    <svg viewBox="0 0 24 24"><path d="M6 3h12l-1.6 17.2A2 2 0 0 1 14.4 22H9.6a2 2 0 0 1-2-1.8z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7.2 10h9.6l-.9 10H8.1z"/></svg>
+    <span>Wasser</span><i class="cd"></i>
+  </button>
+  <button class="act" data-act="chill">
+    <svg viewBox="0 0 24 24"><path d="M4 12h16v3H4zM6 15v5M18 15v5M6 12V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v6" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+    <span>Chill-out</span><i class="cd"></i>
+  </button>
+  <button class="act" data-act="gum">
+    <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="8" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 8v8M16 8v8" stroke="currentColor" stroke-width="1.8"/></svg>
+    <span>Kaugummi</span><i class="cd"></i>
+  </button>
+  <button class="act" data-act="hug">
+    <svg viewBox="0 0 24 24"><circle cx="8" cy="6" r="2.6"/><circle cx="16" cy="6" r="2.6"/><path d="M3 21v-6a5 5 0 0 1 9-3 5 5 0 0 1 9 3v6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 14q6 5 12 0" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+    <span>Umarmen</span><i class="cd"></i>
+  </button>
+</nav>
+
+<!-- ========= TIMELINE ========= -->
+<footer id="timeline">
+  <div class="tl-graph">
+    <svg id="tlSvg" viewBox="0 0 1000 60" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="tlG" x1="0" x2="1">
+          <stop offset="0" stop-color="#5a5a6e" />
+          <stop offset=".12" stop-color="#8a5cff" />
+          <stop offset=".3" stop-color="#ff3fb4" />
+          <stop offset=".5" stop-color="#ffd23f" />
+          <stop offset=".65" stop-color="#3ff0ff" />
+          <stop offset="1" stop-color="#4a4a5a" />
+        </linearGradient>
+      </defs>
+      <g id="tlPhases"></g>
+      <path id="tlArea" fill="url(#tlG)" opacity=".22" />
+      <path id="tlLine" fill="none" stroke="url(#tlG)" stroke-width="2" vector-effect="non-scaling-stroke" />
+      <path id="tlRedose" fill="none" stroke="#ff5a5a" stroke-width="2" stroke-dasharray="4 4" vector-effect="non-scaling-stroke" opacity="0" />
+      <line id="tlCursor" x1="0" x2="0" y1="0" y2="60" stroke="#fff" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+    </svg>
+    <div id="tlDot"><span>du bist hier</span></div>
+    <div class="tl-labels" id="tlLabels"></div>
+  </div>
+  <div class="tl-controls">
+    <button id="speedBtn" title="Zeitraffer">1×</button>
+    <button id="soundBtn" title="Ton">♪</button>
+    <button id="skipBtn" title="Nächster Akt">⏭</button>
+  </div>
+</footer>
+
+<!-- ========= CHOICE ========= -->
+<div id="choice" role="dialog" aria-modal="true" aria-labelledby="choiceTitle">
+  <div class="choice-box">
+    <p class="kicker">SO · 03:30 · T+4:00</p>
+    <h2 id="choiceTitle">„Willst du noch ’ne Halbe?“</h2>
+    <p>Die Wirkung lässt nach. Die Musik ist noch gut, aber irgendwas fehlt. Dein Kumpel hält dir eine halbe Pille hin.</p>
+    <div class="choice-art" aria-hidden="true">
+      <svg viewBox="0 0 300 110">
+        <circle cx="70" cy="55" r="40" fill="#3a2a36" stroke="#6b4a5e" stroke-width="2" />
+        <path d="M70 15 A40 40 0 0 0 70 95 Z" fill="#ff86c4" opacity=".9" />
+        <line x1="70" y1="12" x2="70" y2="98" stroke="#fff" stroke-width="2" stroke-dasharray="3 4" />
+        <text x="140" y="44" fill="#ff86c4" font-family="JetBrains Mono" font-size="12">+ Nebenwirkung</text>
+        <text x="140" y="64" fill="#8a8a9a" font-family="JetBrains Mono" font-size="12">+ Dienstag</text>
+        <text x="140" y="84" fill="#5a5a6a" font-family="JetBrains Mono" font-size="12">≈ Magie</text>
+      </svg>
+    </div>
+    <div class="choice-btns">
+      <button id="choiceNo" class="btn-primary">Nee, passt. Gut ist.</button>
+      <button id="choiceYes" class="btn-ghost">Her damit.</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========= WARNING TOAST ========= -->
+<div id="toast" role="status"></div>
+
+<!-- ========= EPILOGUE ========= -->
+<section id="epilogue">
+  <canvas id="rain"></canvas>
+  <div class="epi-inner">
+    <header class="epi-hero">
+      <p class="kicker">AKT VI</p>
+      <h2 class="epi-title">Dienstag.</h2>
+      <p class="epi-lede" id="epiLede">Die Nacht ist vorbei. Dein Serotonin-Speicher nicht wieder voll.</p>
+    </header>
+
+    <section class="week" aria-label="Die Woche danach">
+      <h3><span>01</span> Die Woche danach</h3>
+      <div class="week-grid" id="weekGrid"></div>
+      <p class="note">Der „Suicide Tuesday“ ist kein Mythos: Nach einer MDMA-Nacht braucht das Gehirn Tage, um Serotonin nachzubilden. Stimmungstief, Reizbarkeit und Konzentrationsprobleme sind typisch. Das ist Chemie, keine Charakterschwäche.</p>
+    </section>
+
+    <section class="recap" aria-label="Deine Nacht in Zahlen">
+      <h3><span>02</span> Deine Nacht in Zahlen</h3>
+      <p class="note">Aufgezeichnet aus deinem Durchlauf, inklusive deiner Entscheidungen. Fahr über die Diagramme, um einzelne Zeitpunkte zu sehen.</p>
+      <div class="recap-grid" id="recapGrid"></div>
+      <div class="verdict" id="verdict"></div>
+    </section>
+
+    <section class="brainchem" aria-label="Was chemisch passiert ist">
+      <h3><span>03</span> Was chemisch passiert ist</h3>
+      <div class="chem-grid">
+        <article>
+          <div class="chem-art" data-art="release"></div>
+          <h4>Schleusen auf</h4>
+          <p>MDMA dreht den Serotonin-Transporter (SERT) um. Statt Serotonin zurück in die Zelle zu holen, pumpt er es hinaus. Der synaptische Spalt läuft über.</p>
+        </article>
+        <article>
+          <div class="chem-art" data-art="oxy"></div>
+          <h4>Oxytocin &amp; Nähe</h4>
+          <p>Der Serotonin-Rausch triggert Oxytocin aus dem Hypothalamus. Deshalb fühlen sich Fremde wie alte Freunde an und Berührungen wie Samt.</p>
+        </article>
+        <article>
+          <div class="chem-art" data-art="amyg"></div>
+          <h4>Angst leiser</h4>
+          <p>Die Amygdala, das Alarmzentrum, wird gedämpft. Gespräche, die sonst schwerfallen, fließen plötzlich. Genau deshalb wird MDMA auch in der Traumatherapie erforscht.</p>
+        </article>
+        <article>
+          <div class="chem-art" data-art="empty"></div>
+          <h4>Speicher leer</h4>
+          <p>Nach der Flut ist der Vorrat erschöpft. Das Enzym, das neues Serotonin baut (Tryptophan-Hydroxylase), wird zusätzlich gehemmt. Nachlegen bringt deshalb kaum Glück, nur mehr Nebenwirkungen.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="safer" aria-label="Safer Use">
+      <h3><span>04</span> Falls es nicht bei der Simulation bleibt</h3>
+      <p class="note">Wir wollen niemandem etwas empfehlen. Aber wer konsumiert, sollte diese Punkte kennen:</p>
+      <div class="safer-grid">
+        <div class="safer-card"><b>Testen</b><p>Pillen schwanken extrem, heute oft 150–250&nbsp;mg und mehr. Drug-Checking nutzen und Warnungen lesen.</p></div>
+        <div class="safer-card"><b>Niedrig anfangen</b><p>Mit einem Viertel oder einer Halben antesten. Nach 90&nbsp;Minuten ist noch nicht „nichts“ passiert, das ist nur Geduld.</p></div>
+        <div class="safer-card"><b>Nicht nachlegen</b><p>Mehr Dosis bringt kaum mehr Euphorie, aber mehr Hitze, Kiefer und einen härteren Dienstag.</p></div>
+        <div class="safer-card"><b>Wasser mit Maß</b><p>Etwa 0,5&nbsp;L pro Stunde beim Tanzen, weniger beim Rumsitzen. Zu viel Wasser ist genauso gefährlich (Hyponatriämie).</p></div>
+        <div class="safer-card"><b>Pausen &amp; Hitze</b><p>Regelmäßig raus aus der Hitze. Kopfschmerz, Verwirrung, Aufhören zu schwitzen sind Alarmzeichen.</p></div>
+        <div class="safer-card"><b>Kein Mischkonsum</b><p>Alkohol, andere Drogen und vor allem Antidepressiva (SSRI, MAO-Hemmer), Johanniskraut oder Tramadol können lebensgefährlich sein.</p></div>
+        <div class="safer-card"><b>Abstand</b><p>Viele Präventionsprojekte empfehlen mindestens drei Monate zwischen zwei Nächten.</p></div>
+        <div class="safer-card danger"><b>Notfall: 112</b><p>Überhitzung, Krampfanfall, Bewusstlosigkeit: sofort Notruf. Sag ehrlich, was genommen wurde. Sanitäter sind nicht die Polizei.</p></div>
+      </div>
+      <p class="links">Mehr Infos: <a href="https://mindzone.info" target="_blank" rel="noreferrer">mindzone.info</a> · <a href="https://www.drugscouts.de" target="_blank" rel="noreferrer">drugscouts.de</a> · <a href="https://www.saferparty.ch" target="_blank" rel="noreferrer">saferparty.ch</a></p>
+    </section>
+
+    <footer class="epi-foot">
+      <button id="restartBtn" class="btn-primary">Nochmal von vorn</button>
+      <a class="btn-ghost" href="../">← Zurück zur Sammlung</a>
+      <p class="disclaimer">SEROTONIN ist ein Kunst- und Aufklärungsprojekt. MDMA ist in Deutschland nach dem BtMG illegal. Die Simulation vereinfacht stark: Echte Wirkung hängt von Dosis, Reinheit, Körper, Set und Setting ab.</p>
+    </footer>
+  </div>
+</section>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#5a1a6e"/>
+      <stop offset=".45" stop-color="#1c0b2c"/>
+      <stop offset="1" stop-color="#07060b"/>
+    </radialGradient>
+    <radialGradient id="pill" cx="38%" cy="32%" r="75%">
+      <stop offset="0" stop-color="#ffe3f2"/>
+      <stop offset=".45" stop-color="#ff86c4"/>
+      <stop offset="1" stop-color="#b52a73"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ff3fb4" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#ff3fb4" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="txt" x1="0" x2="1">
+      <stop offset="0" stop-color="#ff3fb4"/>
+      <stop offset=".35" stop-color="#ffd23f"/>
+      <stop offset=".7" stop-color="#3ff0ff"/>
+      <stop offset="1" stop-color="#8a5cff"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <g stroke-width="2" opacity=".75">
+    <line x1="400" y1="-10" x2="-40" y2="470" stroke="#ff3fb4"/>
+    <line x1="400" y1="-10" x2="120" y2="470" stroke="#ffd23f"/>
+    <line x1="400" y1="-10" x2="300" y2="470" stroke="#3ff0ff"/>
+    <line x1="400" y1="-10" x2="500" y2="470" stroke="#8a5cff"/>
+    <line x1="400" y1="-10" x2="680" y2="470" stroke="#9dff5c"/>
+    <line x1="400" y1="-10" x2="840" y2="470" stroke="#ff3fb4"/>
+    <line x1="140" y1="-10" x2="560" y2="470" stroke="#3ff0ff" opacity=".6"/>
+    <line x1="660" y1="-10" x2="240" y2="470" stroke="#ffd23f" opacity=".6"/>
+  </g>
+  <g fill="none" stroke-width="2" opacity=".5">
+    <circle cx="400" cy="180" r="120" stroke="#3ff0ff" stroke-dasharray="4 8"/>
+    <circle cx="400" cy="180" r="160" stroke="#ff3fb4" stroke-dasharray="2 10"/>
+    <circle cx="400" cy="180" r="205" stroke="#ffd23f" stroke-dasharray="1 12"/>
+  </g>
+  <circle cx="400" cy="180" r="150" fill="url(#halo)"/>
+  <circle cx="400" cy="184" r="80" fill="#8e1d58"/>
+  <circle cx="400" cy="180" r="80" fill="url(#pill)"/>
+  <circle cx="400" cy="180" r="72" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
+  <path d="M400 218 C360 190 352 168 364 154 C376 140 394 146 400 160 C406 146 424 140 436 154 C448 168 440 190 400 218 Z" fill="rgba(255,120,190,.25)" stroke="rgba(255,240,248,.8)" stroke-width="3"/>
+  <ellipse cx="372" cy="140" rx="24" ry="11" fill="rgba(255,255,255,.35)" transform="rotate(-28 372 140)"/>
+  <g fill="#050409">
+    <circle cx="60" cy="372" r="24"/><path d="M28 400 Q60 384 92 400 L92 450 L28 450Z"/>
+    <circle cx="150" cy="362" r="26"/><path d="M114 392 Q150 376 186 392 L186 450 L114 450Z"/>
+    <path d="M128 380 L106 320 L112 300" stroke="#050409" stroke-width="13" stroke-linecap="round" fill="none"/>
+    <circle cx="250" cy="378" r="22"/><path d="M220 404 Q250 390 280 404 L280 450 L220 450Z"/>
+    <circle cx="550" cy="376" r="23"/><path d="M518 402 Q550 388 582 402 L582 450 L518 450Z"/>
+    <circle cx="650" cy="364" r="26"/><path d="M614 394 Q650 378 686 394 L686 450 L614 450Z"/>
+    <path d="M672 382 L692 322 L686 300" stroke="#050409" stroke-width="13" stroke-linecap="round" fill="none"/>
+    <circle cx="745" cy="374" r="23"/><path d="M713 400 Q745 386 777 400 L777 450 L713 450Z"/>
+  </g>
+  <text x="400" y="330" text-anchor="middle" font-family="Arial Black, Helvetica, sans-serif" font-weight="900" font-size="64" letter-spacing="-2" fill="url(#txt)">SEROTONIN</text>
+  <text x="400" y="362" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="20" fill="#f4f0ff">Eine Nacht auf XTC. Ohne XTC.</text>
+</svg>
