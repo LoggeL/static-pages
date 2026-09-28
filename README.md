@@ -4,6 +4,8 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
+- **[DOPAMIN: Eine Nacht auf Koks](https://loggel.github.io/static-pages/dopamin/)**: the cocaine counterpart to SEROTONIN. Drag a rolled note along the line, then live through five acts (the line, the kick, king of the world, the spiral, the crash) driven by a small pharmacokinetic model: every line is a bolus, acute tolerance shrinks each high while pulse and blood pressure keep stacking. Recurring "one more line?" decisions (including calling the dealer), a crystal-shard WebGL shader, generative tech-house, paranoid crowds that turn to stare, alcohol and cocaethylene, nosebleeds, extrasystoles, regrettable voice messages, and a Sunday recap with per-line highs and safer-use info. Art/education project, no endorsement. Source: `sources/dopamin/`.
+
 - **[SEROTONIN: Eine Nacht auf XTC](https://loggel.github.io/static-pages/serotonin/)**: an interactive, audiovisual night on ecstasy — without ecstasy. Swallow the pill, then live through six acts (wait, come-up, peak, plateau, comedown, Tuesday) with a WebGL kaleidoscope shader, lasers and a dancing crowd, generative Web Audio techno that follows your body, a live body HUD (pulse, temperature, hydration, jaw, pupils, serotonin tank), synapse and brain illustrations, a redose decision, and a recap of your own night plus safer-use info. Art/education project, no endorsement. Source: `sources/serotonin/`.
 
 - **[Lino Heardle: Erkenne den Song](https://loggel.github.io/static-pages/lino-heardle/)**: a Heardle-style daily music quiz — 5 Lostboi Lino songs a day, starting from a 0.1-second snippet that grows with every skip or wrong guess. Source: `sources/lino-heardle/`; audio lives in `public/lino-heardle/audio/` (Deezer 30s previews).
@@ -44,6 +46,7 @@ The editable source for the Creepshow rehearsal planner lives in
 ## Live site
 
 - Gallery: <https://loggel.github.io/static-pages/>
+- DOPAMIN night simulation: <https://loggel.github.io/static-pages/dopamin/>
 - SEROTONIN night simulation: <https://loggel.github.io/static-pages/serotonin/>
 - Veil face redaction studio: <https://loggel.github.io/static-pages/veil/>
 - RECTIFY distillation column simulator: <https://loggel.github.io/static-pages/rectify-trennkolonne/>

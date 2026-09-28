@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="75%">
+      <stop offset="0" stop-color="#26324a"/>
+      <stop offset=".5" stop-color="#0d121b"/>
+      <stop offset="1" stop-color="#050608"/>
+    </radialGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1c2330"/>
+      <stop offset=".5" stop-color="#0a0d13"/>
+      <stop offset="1" stop-color="#151b26"/>
+    </linearGradient>
+    <linearGradient id="bill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bcd6ea"/>
+      <stop offset=".45" stop-color="#7fa8c9"/>
+      <stop offset="1" stop-color="#2e4f70"/>
+    </linearGradient>
+    <linearGradient id="txt" x1="0" x2="1">
+      <stop offset="0" stop-color="#8d97a8"/>
+      <stop offset=".3" stop-color="#ffffff"/>
+      <stop offset=".5" stop-color="#cfd8e4"/>
+      <stop offset=".6" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#7d8798"/>
+    </linearGradient>
+    <filter id="soft"><feGaussianBlur stdDeviation="1.2"/></filter>
+    <filter id="glow" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="9"/></filter>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <g fill="none" stroke="rgba(223,244,255,.16)" stroke-width="1.5">
+    <path d="M0 60 L140 20 L260 90 L180 190 L40 170Z"/>
+    <path d="M260 90 L400 30 L520 100 L420 170 L300 160Z"/>
+    <path d="M520 100 L660 30 L800 80 L760 190 L600 180Z"/>
+    <path d="M180 190 L300 160 L420 170 L400 250 L220 260Z"/>
+    <path d="M600 180 L760 190 L800 290 L640 280Z"/>
+    <path d="M40 170 L180 190 L220 260 L60 300 L0 250Z"/>
+  </g>
+  <g stroke-width="1.6" opacity=".8">
+    <line x1="120" y1="-10" x2="330" y2="460" stroke="#dff4ff"/>
+    <line x1="400" y1="-10" x2="250" y2="460" stroke="#dff4ff" opacity=".6"/>
+    <line x1="400" y1="-10" x2="560" y2="460" stroke="#ffc94a"/>
+    <line x1="680" y1="-10" x2="470" y2="460" stroke="#dff4ff"/>
+  </g>
+  <g transform="translate(200 70) rotate(-4 200 90)">
+    <rect width="400" height="180" rx="16" fill="url(#glass)" stroke="rgba(255,255,255,.28)" stroke-width="2"/>
+    <path d="M40 180 L120 0 L160 0 L80 180Z" fill="rgba(255,255,255,.07)"/>
+    <rect x="60" y="82" width="280" height="18" rx="9" fill="#bfe9ff" filter="url(#glow)" opacity=".55"/>
+    <path d="M62 88 C 120 82, 220 84, 336 86 C 344 90, 344 96, 334 97 C 240 100, 140 99, 64 98 C 56 95, 56 91, 62 88Z" fill="#f4f7fb" filter="url(#soft)"/>
+    <g fill="#fff"><circle cx="90" cy="80" r="1.6"/><circle cx="150" cy="104" r="1.2"/><circle cx="210" cy="79" r="1.4"/><circle cx="290" cy="103" r="1.5"/><circle cx="320" cy="81" r="1.1"/></g>
+    <g transform="translate(250 22) rotate(-12)">
+      <rect x="0" y="0" width="170" height="30" rx="5" fill="url(#bill)"/>
+      <ellipse cx="2" cy="15" rx="4" ry="15" fill="#1d3550" stroke="#9cc0dc" stroke-width="1.5"/>
+      <text x="96" y="21" font-family="Arial Black, Helvetica, sans-serif" font-weight="900" font-size="13" fill="rgba(255,255,255,.6)">20 EURO</text>
+    </g>
+  </g>
+  <g fill="#050608">
+    <circle cx="70" cy="380" r="24"/><path d="M38 406 Q70 392 102 406 L102 450 L38 450Z"/>
+    <circle cx="170" cy="370" r="26"/><path d="M134 398 Q170 384 206 398 L206 450 L134 450Z"/>
+    <circle cx="630" cy="372" r="26"/><path d="M594 400 Q630 386 666 400 L666 450 L594 450Z"/>
+    <circle cx="730" cy="382" r="23"/><path d="M698 408 Q730 394 762 408 L762 450 L698 450Z"/>
+  </g>
+  <g fill="#ffeaea"><ellipse cx="162" cy="372" rx="3" ry="2"/><ellipse cx="178" cy="372" rx="3" ry="2"/><ellipse cx="622" cy="374" rx="3" ry="2"/><ellipse cx="638" cy="374" rx="3" ry="2"/></g>
+  <text x="400" y="352" text-anchor="middle" font-family="Arial Black, Helvetica, sans-serif" font-weight="900" font-size="76" letter-spacing="-2" fill="url(#txt)">DOPAMIN</text>
+  <text x="400" y="390" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="21" fill="#f2f5fa">Eine Nacht auf Koks. <tspan fill="#ffc94a">Ohne Koks.</tspan></text>
+</svg>
