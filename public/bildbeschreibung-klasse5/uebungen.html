@@ -1,0 +1,1459 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interaktive Lernspiele · Bildbeschreibung Klasse 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="bilder/lupo.svg">
+</head>
+<body class="seite-uebungen">
+<header class="site-header no-print">
+  <div class="inner">
+    <a class="brand" href="index.html"><img src="bilder/lupo.svg" alt=""><span>Bildbeschreibung<small>Deutsch · Klasse 5</small></span></a>
+    <nav class="nav" aria-label="Hauptnavigation">
+      <a href="index.html">Start</a>
+      <a href="lehrplan.html">Lehrplan</a>
+      <a href="stunden.html">Stundenverläufe</a>
+      <a href="arbeitsblaetter.html">Arbeitsblätter</a>
+      <a href="loesungen.html">Lösungen</a>
+      <a href="hausaufgaben.html">Hausaufgaben</a>
+      <a href="methoden.html">Methoden</a>
+      <a href="uebungen.html" class="active" aria-current="page">Lernspiele</a>
+      <a href="beamer.html">Beamer-Bilder</a>
+      <a href="klassenarbeit.html">Klassenarbeit</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<style>
+/* ===== Lernspiele (.ue-…) ===== */
+.ue-spiel [hidden], .ue-oben [hidden] { display: none !important; }
+.ue-spiel { scroll-margin-top: 90px; position: relative; overflow: hidden; }
+.ue-spiel::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 7px; background: var(--ue-farbe, var(--orange)); }
+.ue-spielkopf { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; border-bottom: 2px dashed var(--line); padding-bottom: 12px; margin-bottom: 12px; }
+.ue-spielkopf h2 { margin: 0; }
+.ue-spielkopf .ue-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; align-items: center; }
+.ue-spielkopf .ue-neu { margin-left: auto; }
+.ue-nr { width: 54px; height: 54px; border-radius: 16px; flex: none; display: grid; place-items: center; font-family: var(--font-head); font-weight: 900; font-size: 1.5rem; color: #fff; background: var(--ue-farbe, var(--orange)); box-shadow: 0 3px 0 rgba(0,0,0,.15); transform: rotate(-4deg); }
+.ue-anleitung { font-size: 1.02rem; }
+.ue-anleitung strong { color: var(--ink); }
+.ue-f1 { --ue-farbe: #e8833a; } .ue-f2 { --ue-farbe: #2f6fb5; } .ue-f3 { --ue-farbe: #3d8b40; } .ue-f4 { --ue-farbe: #7a4fa8; }
+.ue-f5 { --ue-farbe: #cc4141; } .ue-f6 { --ue-farbe: #1f8f88; } .ue-f7 { --ue-farbe: #d9a400; } .ue-f8 { --ue-farbe: #5c6bc0; }
+.ue-f9 { --ue-farbe: #c2185b; } .ue-f10 { --ue-farbe: #22303c; }
+
+/* Übersicht */
+.ue-punktestand { display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: center; }
+.ue-punktestand .ue-pokal { font-size: 2.6rem; line-height: 1; }
+.ue-punktestand h2 { margin: 0 0 4px; font-size: 1.25rem; }
+.ue-gesamtbalken { height: 18px; border-radius: 999px; background: #efe9dc; overflow: hidden; border: 1px solid var(--line); }
+.ue-gesamtbalken i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--yellow), var(--orange)); border-radius: 999px; transition: width .6s; }
+.ue-gesamtzahl { font-family: var(--font-head); font-weight: 900; font-size: 1.5rem; white-space: nowrap; }
+.ue-kacheln { display: grid; grid-template-columns: repeat(auto-fill, minmax(205px, 1fr)); gap: 14px; margin: 18px 0 30px; }
+.ue-kachel { display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: var(--ink); background: var(--paper); border: 2px solid var(--line); border-radius: var(--radius); padding: 14px 14px 12px; box-shadow: var(--shadow); position: relative; transition: transform .15s, border-color .15s; border-top: 7px solid var(--ue-farbe, var(--orange)); }
+.ue-kachel:hover, .ue-kachel:focus-visible { transform: translateY(-3px) rotate(-.5deg); border-color: var(--ue-farbe); color: var(--ink); }
+.ue-kachel b { font-family: var(--font-head); font-weight: 900; font-size: 1.08rem; line-height: 1.2; padding-right: 30px; }
+.ue-kachel .badge { align-self: flex-start; }
+.ue-kachel .ue-kachel-nr { position: absolute; right: 10px; top: 6px; font-family: var(--font-head); font-weight: 900; font-size: 1.7rem; color: var(--ue-farbe); opacity: .35; }
+.ue-kachel small { color: var(--ink-soft); line-height: 1.35; }
+.ue-kachel .ue-status { margin-top: auto; font-family: var(--font-head); font-weight: 800; font-size: .88rem; color: var(--muted); }
+.ue-kachel .ue-status.fertig { color: var(--green); }
+
+/* Lupo-Feedback */
+.ue-lupo { margin: 14px 0; }
+.ue-lupo > img { width: 62px; }
+.ue-lupo .bubble { transition: background .2s, border-color .2s; }
+.ue-lupo.gut .bubble, .ue-lupo.gut .bubble::before { background: var(--green-soft); border-color: #7cbf78; }
+.ue-lupo.falsch .bubble, .ue-lupo.falsch .bubble::before { background: var(--red-soft); border-color: #e39b97; }
+.ue-lupo.info .bubble, .ue-lupo.info .bubble::before { background: var(--blue-soft); border-color: #9cc0e6; }
+.ue-lupo.ue-leise { display: none; }
+.ue-lupo.hops > img { animation: ue-hops .5s ease; }
+@keyframes ue-hops { 0%,100% { transform: translateY(0); } 40% { transform: translateY(-10px) rotate(-6deg); } 70% { transform: translateY(0) rotate(3deg); } }
+
+/* Allgemein */
+.ue-zeile { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 10px 0; }
+.ue-zaehler { font-family: var(--font-head); font-weight: 900; font-size: 1.35rem; background: var(--yellow-soft); border: 2px solid var(--yellow); border-radius: 999px; padding: 3px 16px; }
+.ue-balken { height: 10px; border-radius: 999px; background: #efe9dc; overflow: hidden; margin: 6px 0 12px; }
+.ue-balken i { display: block; height: 100%; background: var(--ue-farbe, var(--orange)); border-radius: 999px; transition: width .3s; }
+.ue-quiz-kopf { display: flex; justify-content: space-between; font-family: var(--font-head); font-weight: 800; color: var(--ink-soft); }
+.ue-quiz-punkte { color: #b38600; }
+.ue-frage { font-size: 1.18rem; background: #fff; border: 2px solid var(--line); border-radius: var(--radius); padding: 14px 18px; margin: 8px 0 12px; }
+.ue-frage p { margin: .3em 0; }
+.ue-frage-bild { margin: 6px 0 10px; }
+.ue-luecke { display: inline-block; min-width: 4.2em; text-align: center; border-bottom: 3px solid var(--ue-farbe, var(--orange)); color: var(--muted); font-weight: 700; padding: 0 .3em; }
+.ue-luecke.gefuellt { color: var(--green); border-color: var(--green); background: var(--green-soft); border-radius: 6px 6px 0 0; animation: ue-plopp .35s; }
+.ue-alt { color: var(--ink-soft); }
+.ue-alt s { text-decoration-color: var(--red); text-decoration-thickness: 2px; }
+.ue-zeitlabel { display: inline-block; font-family: var(--font-head); font-weight: 900; font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; padding: 1px 8px; border-radius: 999px; background: #eceae4; color: var(--ink-soft); margin-right: 6px; vertical-align: middle; }
+.ue-zeitlabel.jetzt { background: var(--green-soft); color: #2a6a2d; }
+.ue-optionen { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.ue-optionen.breit { grid-template-columns: 1fr; }
+.ue-opt { font-family: var(--font-body); font-size: 1.08rem; text-align: left; border: 2px solid var(--line-strong); background: #fff; color: var(--ink); border-radius: 14px; padding: 12px 16px; cursor: pointer; transition: transform .1s, background .15s, border-color .15s; box-shadow: 0 3px 0 var(--line); min-height: 52px; }
+.ue-opt:hover:not(:disabled) { border-color: var(--ue-farbe, var(--orange)); background: var(--orange-soft); transform: translateY(-2px); }
+.ue-opt:active:not(:disabled) { transform: translateY(1px); box-shadow: none; }
+.ue-opt:disabled { cursor: default; opacity: .7; }
+.ue-opt.richtig { background: var(--green-soft); border-color: var(--green); opacity: 1; box-shadow: 0 3px 0 #9fd09b; }
+.ue-opt.richtig::after { content: " ✔"; color: var(--green); font-weight: 900; }
+.ue-opt.falsch { background: var(--red-soft); border-color: var(--red); opacity: 1; animation: ue-wackel .4s; }
+.ue-opt.falsch::after { content: " ✘"; color: var(--red); font-weight: 900; }
+.ue-weiter { margin-top: 4px; }
+.ue-eingabe { display: flex; gap: 10px; flex-wrap: wrap; }
+.ue-eingabe input { font: inherit; font-size: 1.15rem; padding: 10px 14px; border: 2px solid var(--line-strong); border-radius: 12px; flex: 1; min-width: 180px; }
+.ue-eingabe input:focus { outline: none; border-color: var(--ue-farbe, var(--blue)); box-shadow: 0 0 0 4px var(--blue-soft); }
+.ue-eingabe input.richtig { border-color: var(--green); background: var(--green-soft); }
+.ue-eingabe input.falsch { border-color: var(--red); background: var(--red-soft); }
+.ue-ergebnis { text-align: center; background: linear-gradient(180deg, var(--yellow-soft), #fff); border: 2px solid var(--yellow); border-radius: 18px; padding: 18px; }
+.ue-sterne { font-size: 2.6rem; letter-spacing: 6px; line-height: 1.1; }
+.ue-sterne .an { color: #f5b301; text-shadow: 0 2px 0 #c98f00; display: inline-block; animation: ue-plopp .5s backwards; }
+.ue-sterne .an:nth-child(2) { animation-delay: .15s; } .ue-sterne .an:nth-child(3) { animation-delay: .3s; }
+.ue-sterne .aus { color: #ddd5c3; }
+.ue-ergebnis-zahl { font-family: var(--font-head); font-size: 1.25rem; margin: 4px 0 8px; }
+.ue-ergebnis .ue-lupo { text-align: left; }
+@keyframes ue-wackel { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-6px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(4px); } }
+@keyframes ue-plopp { 0% { transform: scale(.3); opacity: 0; } 70% { transform: scale(1.15); opacity: 1; } 100% { transform: scale(1); } }
+
+/* Bilder */
+.ue-bildpaar { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ue-bildrahmen { margin: 0; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 8px; }
+.ue-bildrahmen figcaption { font-family: var(--font-head); font-weight: 800; font-size: .9rem; color: var(--ink-soft); padding: 6px 4px 0; text-align: center; }
+.ue-bildflaeche { position: relative; line-height: 0; border-radius: 8px; overflow: hidden; }
+.ue-bildflaeche img { display: block; width: 100%; height: auto; }
+.ue-overlay { position: absolute; inset: 0; width: 100%; height: 100%; cursor: crosshair; touch-action: manipulation; }
+.ue-overlay .ue-treffer { fill: rgba(61, 139, 64, .14); stroke: #2e7d32; stroke-width: 5; animation: ue-plopp .35s; transform-box: fill-box; transform-origin: center; }
+.ue-overlay .ue-treffer.geloest { fill: rgba(232, 131, 58, .14); stroke: #e8833a; stroke-dasharray: 10 6; }
+.ue-overlay .ue-treffer-nr { font: 900 22px Nunito, Arial, sans-serif; fill: #fff; stroke: #2e7d32; stroke-width: 5; paint-order: stroke; }
+.ue-overlay .ue-daneben { font: 900 34px Nunito, Arial, sans-serif; fill: #cc4141; stroke: #fff; stroke-width: 4; paint-order: stroke; animation: ue-weg 1s forwards; }
+.ue-overlay .ue-tippkreis { fill: none; stroke: #f5c518; stroke-width: 6; stroke-dasharray: 14 8; animation: ue-blinken .5s 4 alternate; }
+@keyframes ue-weg { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes ue-blinken { from { opacity: 1; } to { opacity: .2; } }
+.ue-gefunden { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 6px; margin: 10px 0 0; }
+.ue-gefunden li { background: var(--green-soft); border-radius: 10px; padding: 6px 10px; font-size: .95rem; animation: ue-plopp .35s; }
+.ue-gefunden li.geloest { background: var(--orange-soft); }
+.ue-gefunden li b { font-family: var(--font-head); }
+
+.ue-ausschnitt-rahmen { max-width: 340px; border: 3px solid #fff; outline: 2px solid var(--line-strong); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); background: #fff; }
+.ue-ausschnitt { width: 100%; height: 0; background-repeat: no-repeat; }
+.ue-ausschnitt-zeile { display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap; }
+.ue-ausschnitt-zeile > .ue-ausschnitt-rahmen, .ue-ausschnitt-zeile > .ue-ausschnitt-links { flex: 0 1 300px; }
+.ue-ausschnitt-zeile > :not(.ue-ausschnitt-rahmen):not(.ue-ausschnitt-links) { flex: 1 1 260px; }
+.ue-kachel .ue-sterne { font-size: 1rem; letter-spacing: 1px; }
+.ue-lupen-label { font-family: var(--font-head); font-weight: 800; font-size: .8rem; color: var(--muted); margin: 0 0 4px; }
+
+/* Kim */
+.ue-kim-buehne { position: relative; width: 100%; max-width: 760px; margin: 10px auto; border-radius: 16px; overflow: hidden; background: #22303c; box-shadow: var(--shadow); }
+.ue-kim-buehne::before { content: ""; display: block; padding-top: 70%; }
+.ue-kim-buehne img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ue-kim-vorhang { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 20px; color: #fff; font-family: var(--font-head); font-weight: 900; font-size: clamp(1.2rem, 3vw, 1.9rem);
+  background: repeating-linear-gradient(90deg, #7a4fa8 0 40px, #6a4096 40px 80px); }
+.ue-kim-vorhang small { display: block; color: #fff; font-size: .6em; font-weight: 700; opacity: .9; margin-top: 6px; }
+.ue-kim-uhr { position: absolute; left: 12px; top: 12px; width: 74px; height: 74px; border-radius: 50%; background: rgba(255,255,255,.95); display: grid; place-items: center; font-family: var(--font-head); font-weight: 900; font-size: 2rem; color: var(--ink); border: 5px solid var(--orange); }
+.ue-kim-uhr.knapp { border-color: var(--red); color: var(--red); animation: ue-blinken .5s infinite alternate; }
+.ue-kim-zeitbalken { position: absolute; left: 0; bottom: 0; height: 10px; background: var(--yellow); width: 100%; }
+.ue-select { font: inherit; padding: 7px 10px; border-radius: 10px; border: 2px solid var(--line-strong); background: #fff; }
+
+/* Bereiche */
+.ue-baender { position: absolute; inset: 0; pointer-events: none; }
+.ue-baender div { position: absolute; left: 0; right: 0; display: flex; align-items: flex-start; justify-content: flex-start; border-bottom: 3px dashed rgba(255,255,255,.9); }
+.ue-baender span { margin: 6px; background: rgba(255,255,255,.92); border-radius: 999px; padding: 2px 10px; font: 900 .85rem/1.3 var(--font-head); color: var(--ink); }
+.ue-pool { display: flex; flex-wrap: wrap; gap: 8px; min-height: 54px; padding: 12px; border: 2px dashed var(--line-strong); border-radius: var(--radius); background: #fff; margin: 12px 0; }
+.ue-pool:empty::after { content: "Alle Kärtchen sind verteilt!"; color: var(--muted); font-style: italic; }
+.ue-chip { font: 700 1rem var(--font-body); border: 2px solid var(--line-strong); background: var(--yellow-soft); color: var(--ink); border-radius: 12px; padding: 8px 14px; cursor: pointer; box-shadow: 0 3px 0 var(--line); transition: transform .1s; touch-action: manipulation; }
+.ue-chip:hover { transform: translateY(-2px); }
+.ue-chip.aktiv { background: var(--ue-farbe, var(--green)); color: #fff; border-color: transparent; transform: translateY(-3px) scale(1.04); box-shadow: 0 6px 12px rgba(0,0,0,.2); }
+.ue-chip.wackelt { animation: ue-wackel .4s; background: var(--red-soft); }
+.ue-chip.platziert { cursor: default; box-shadow: none; animation: ue-plopp .3s; }
+.ue-chip.platziert.erster { background: #fff; border-color: #7cbf78; }
+.ue-chip.platziert.zweiter { background: #fff; border-color: #e0a51f; }
+.ue-zonen { display: grid; gap: 10px; }
+.ue-zone { border: 3px solid; border-radius: var(--radius); padding: 10px 14px; min-height: 76px; cursor: pointer; transition: transform .1s, box-shadow .15s; }
+.ue-zone:hover, .ue-zone:focus-visible, .ue-zone.drueber { transform: scale(1.01); box-shadow: 0 0 0 5px rgba(245,197,24,.45); outline: none; }
+.ue-zone h3 { margin: 0 0 6px; font-size: 1.05rem; display: flex; justify-content: space-between; gap: 8px; }
+.ue-zone h3 small { font-family: var(--font-body); font-weight: 400; }
+.ue-zone .ue-zone-inhalt { display: flex; flex-wrap: wrap; gap: 6px; }
+.ue-zone[data-zone="HG"] { background: var(--blue-soft); border-color: #7fb0e3; }
+.ue-zone[data-zone="MG"] { background: var(--teal-soft); border-color: #7cc8c0; }
+.ue-zone[data-zone="VG"] { background: var(--green-soft); border-color: #8fca8b; }
+
+/* Treppe */
+.ue-treppe { list-style: none; padding: 0; margin: 8px 0 14px; display: grid; gap: 6px; }
+.ue-treppe li { background: #fff; border: 2px solid var(--line); border-left: 8px solid var(--ue-farbe); border-radius: 10px; padding: 7px 12px; font-size: 1.08rem; animation: ue-plopp .35s; }
+.ue-treppe li:nth-child(2) { margin-left: 6%; } .ue-treppe li:nth-child(3) { margin-left: 12%; } .ue-treppe li:nth-child(4) { margin-left: 18%; }
+.ue-treppe li .ue-stufe { font-family: var(--font-head); font-weight: 900; font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-right: 8px; }
+.ue-treppe li:last-child { background: var(--yellow-soft); }
+.ue-treppe mark { background: #ffe58a; }
+
+/* Ampel */
+.ue-optionen.ue-ampel-opts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ue-ampel-opts .ue-opt { text-align: center; font-family: var(--font-head); font-weight: 800; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.ue-ampel-opts .ue-opt small { font-family: var(--font-body); font-weight: 400; color: var(--ink-soft); }
+.ue-ampelpunkt { width: 30px; height: 30px; border-radius: 50%; display: inline-block; border: 3px solid rgba(0,0,0,.15); }
+.ue-ampel-gruen .ue-ampelpunkt { background: #3d8b40; } .ue-ampel-gelb .ue-ampelpunkt { background: #f5c518; } .ue-ampel-rot .ue-ampelpunkt { background: #cc4141; }
+.ue-ampel-opts .ue-opt.richtig::after, .ue-ampel-opts .ue-opt.falsch::after { content: none; }
+.ue-ampel-opts .ue-opt.richtig .ue-ampelpunkt { box-shadow: 0 0 0 4px #fff, 0 0 0 7px var(--green); }
+@media (max-width: 520px) { .ue-optionen.ue-ampel-opts { grid-template-columns: 1fr; } .ue-ampel-opts .ue-opt { flex-direction: row; justify-content: flex-start; } }
+
+/* Ordnen */
+.ue-streifen { list-style: none; padding: 0; margin: 12px 0; display: grid; gap: 8px; }
+.ue-streifen li { display: grid; grid-template-columns: 40px 1fr auto; gap: 10px; align-items: center; background: #fff; border: 2px solid var(--line-strong); border-radius: 12px; padding: 8px 10px; box-shadow: 0 2px 0 var(--line); transition: background .2s, border-color .2s; }
+.ue-streifen li.bewegt { animation: ue-plopp .25s; }
+.ue-streifen li.ok { background: var(--green-soft); border-color: var(--green); }
+.ue-streifen li.nein { background: var(--orange-soft); border-color: var(--orange); }
+.ue-streifen .ue-snr { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-head); font-weight: 900; color: #fff; background: var(--ue-farbe); }
+.ue-streifen .ue-pfeile { display: flex; flex-direction: column; gap: 4px; }
+.ue-pfeil { width: 44px; height: 32px; border-radius: 9px; border: 2px solid var(--line-strong); background: #fff; cursor: pointer; font-size: 1rem; line-height: 1; color: var(--ink); }
+.ue-pfeil:hover:not(:disabled) { background: var(--orange-soft); border-color: var(--orange); }
+.ue-pfeil:disabled { opacity: .3; cursor: default; }
+.ue-streifen .ue-tag { display: inline-block; font-family: var(--font-head); font-weight: 900; font-size: .7rem; text-transform: uppercase; letter-spacing: .05em; background: var(--green); color: #fff; border-radius: 999px; padding: 1px 8px; margin-right: 6px; }
+
+/* Diplom */
+.ue-diplom-form { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: center; margin: 14px 0; }
+.ue-diplom-form input { font: inherit; font-size: 1.1rem; padding: 8px 12px; border-radius: 10px; border: 2px solid var(--line-strong); min-width: 220px; }
+.ue-diplom { max-width: 720px; margin: 16px auto; background: #fffdf3; border: 12px double #e8833a; border-radius: 10px; padding: 26px 34px; text-align: center; position: relative;
+  box-shadow: 0 10px 30px rgba(50,40,20,.15); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.ue-diplom::after { content: ""; position: absolute; inset: 8px; border: 2px dashed #f0c08f; border-radius: 4px; pointer-events: none; }
+.ue-diplom img { width: 120px; }
+.ue-diplom .ue-dip-kicker { font-family: var(--font-head); font-weight: 900; letter-spacing: .25em; text-transform: uppercase; color: #e8833a; font-size: .85rem; }
+.ue-diplom h3 { font-size: 2.3rem; margin: .1em 0 .2em; color: #22303c; }
+.ue-diplom .ue-dip-name { font-family: var(--font-head); font-weight: 900; font-size: 2rem; color: #2f6fb5; border-bottom: 3px solid #22303c; display: inline-block; min-width: 60%; padding: 0 12px 2px; margin: 6px 0 10px; }
+.ue-diplom .ue-dip-rang { display: inline-block; background: #22303c; color: #fff; font-family: var(--font-head); font-weight: 900; border-radius: 999px; padding: 4px 18px; font-size: 1.15rem; margin: 6px 0; }
+.ue-diplom .ue-sterne { font-size: 2.2rem; }
+.ue-diplom .ue-dip-stufen { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin: 10px 0; font-size: .85rem; }
+.ue-diplom .ue-dip-stufen span { background: #fde9d7; border-radius: 999px; padding: 2px 10px; font-weight: 700; }
+.ue-diplom .ue-dip-unterschrift { display: flex; justify-content: space-between; gap: 30px; margin-top: 26px; font-size: .85rem; color: #4a5866; }
+.ue-diplom .ue-dip-unterschrift div { flex: 1; border-top: 1.5px solid #4a5866; padding-top: 4px; }
+#ue-druckbereich { display: none; }
+@media print {
+  body.ue-diplom-druck .wrap > :not(#ue-druckbereich) { display: none !important; }
+  body.ue-diplom-druck #ue-druckbereich { display: block !important; }
+  body.ue-diplom-druck .ue-diplom { box-shadow: none; margin-top: 10mm; }
+}
+
+@media (max-width: 700px) {
+  .ue-bildpaar { grid-template-columns: 1fr; }
+  .ue-punktestand { grid-template-columns: auto 1fr; }
+  .ue-punktestand .ue-gesamtzahl { grid-column: 1 / -1; }
+  .ue-streifen li { grid-template-columns: 30px 1fr auto; padding: 6px; }
+  .ue-diplom { padding: 18px 14px; }
+  .ue-diplom h3 { font-size: 1.6rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ue-spiel *, .ue-kachel { animation: none !important; transition: none !important; }
+}
+</style>
+
+<header class="seitenkopf">
+  <div>
+    <div class="kicker">Lernspiele · Für Schülerinnen und Schüler</div>
+    <h1>Werde Bilddetektiv!</h1>
+    <p>Zehn Spiele zum Üben – von „Finde die Unterschiede“ bis zum Bilddetektiv-Diplom. Du bekommst sofort eine Rückmeldung von Lupo und sammelst Sterne.</p>
+  </div>
+  <img src="bilder/lupo.svg" alt="Lupo, der Bilddetektiv">
+</header>
+
+<div class="ue-oben">
+  <div class="lupo">
+    <img src="bilder/lupo.svg" alt="Lupo">
+    <div class="bubble">
+      <p><strong>Hallo, ich bin Lupo!</strong> Mein Motto: <em>„Erst schauen, dann ordnen, dann schreiben!“</em> Such dir unten ein Spiel aus. Du kannst jedes Spiel so oft spielen, wie du willst. Gezählt wird immer dein bester Versuch.</p>
+    </div>
+  </div>
+
+  <div class="card ue-punktestand" aria-live="polite">
+    <div class="ue-pokal" aria-hidden="true">🏆</div>
+    <div>
+      <h2>Deine Detektiv-Punkte</h2>
+      <div class="ue-gesamtbalken"><i id="ue-gesamtbalken"></i></div>
+    </div>
+    <div class="ue-gesamtzahl"><span id="ue-gesamt">0</span> / <span id="ue-gesamtmax">0</span> ★</div>
+  </div>
+  <div class="werkzeugleiste no-print">
+    <button type="button" class="btn hell klein" id="ue-reset">Punkte zurücksetzen</button>
+    <small id="ue-speicherhinweis">Deine Punkte werden nur auf diesem Gerät gespeichert.</small>
+  </div>
+
+  <nav class="ue-kacheln" aria-label="Spiele-Übersicht">
+    <a class="ue-kachel ue-f1" href="#spiel-unterschiede"><span class="ue-kachel-nr">1</span><b>Finde die Unterschiede</b><small>Kinderzimmer A und B – 8 Fehler verstecken sich.</small><span class="badge sp">Stunde 1</span><span class="ue-status" data-ue-status="unterschiede"></span></a>
+    <a class="ue-kachel ue-f2" href="#spiel-kim"><span class="ue-kachel-nr">2</span><b>Kim-Spiel</b><small>20 Sekunden schauen – und dann aus dem Kopf!</small><span class="badge sp">Stunde 1</span><span class="ue-status" data-ue-status="kim"></span></a>
+    <a class="ue-kachel ue-f3" href="#spiel-bereiche"><span class="ue-kachel-nr">3</span><b>Wo ist was?</b><small>Vordergrund, Mittelgrund oder Hintergrund?</small><span class="badge sp">Stunde 2</span><span class="ue-status" data-ue-status="bereiche"></span></a>
+    <a class="ue-kachel ue-f4" href="#spiel-praepositionen"><span class="ue-kachel-nr">4</span><b>Präpositionen-Detektiv</b><small>auf, unter, neben … und „dem“ oder „der“?</small><span class="badge sp">Stunde 3</span><span class="ue-status" data-ue-status="praepositionen"></span></a>
+    <a class="ue-kachel ue-f5" href="#spiel-verben"><span class="ue-kachel-nr">5</span><b>Verben-Tuning</b><small>Weg mit „ist“ und „gibt es“!</small><span class="badge sp">Stunde 4</span><span class="ue-status" data-ue-status="verben"></span></a>
+    <a class="ue-kachel ue-f6" href="#spiel-adjektive"><span class="ue-kachel-nr">6</span><b>Adjektiv-Treppe</b><small>Stufe für Stufe genauer beschreiben.</small><span class="badge sp">Stunde 5</span><span class="ue-status" data-ue-status="adjektive"></span></a>
+    <a class="ue-kachel ue-f7" href="#spiel-ampel"><span class="ue-kachel-nr">7</span><b>Sehen – vermuten – meinen</b><small>Die Ampel zu „Die Jäger im Schnee“.</small><span class="badge sp">Stunde 8</span><span class="ue-status" data-ue-status="ampel"></span></a>
+    <a class="ue-kachel ue-f8" href="#spiel-praesens"><span class="ue-kachel-nr">8</span><b>Zeitmaschine Präsens</b><small>Von früher ins Jetzt: rannte → rennt.</small><span class="badge sp">Stunde 8</span><span class="ue-status" data-ue-status="praesens"></span></a>
+    <a class="ue-kachel ue-f9" href="#spiel-ordnen"><span class="ue-kachel-nr">9</span><b>Ordne den Text</b><small>Bring die Satzstreifen in die richtige Reihenfolge.</small><span class="badge sp">Stunde 7</span><span class="ue-status" data-ue-status="ordnen"></span></a>
+    <a class="ue-kachel ue-f10" href="#spiel-diplom"><span class="ue-kachel-nr">10</span><b>Bilddetektiv-Diplom</b><small>12 Fragen – am Ende gibt es dein Diplom zum Ausdrucken.</small><span class="badge sp">Stunde 12</span><span class="ue-status" data-ue-status="diplom"></span></a>
+  </nav>
+</div>
+
+<!-- ============================ Spiel 1 ============================ -->
+<section class="card ue-spiel ue-f1" id="spiel-unterschiede">
+  <div class="ue-spielkopf">
+    <span class="ue-nr">1</span>
+    <div><h2>Finde die Unterschiede</h2>
+      <div class="ue-meta"><span class="badge sp">Stunde 1 · Genau hingeschaut!</span><span class="badge ab">passt zu AB 1</span><span class="badge zeit">ca. 8 Min.</span><span class="niveau n1">Basis</span></div></div>
+    <button type="button" class="btn hell klein ue-neu" data-neustart="unterschiede">Nochmal</button>
+  </div>
+  <p class="ue-anleitung">Links siehst du das Kinderzimmer, rechts das <strong>Fehlerbild</strong>. Im rechten Bild hat jemand <strong>8 Dinge verändert</strong>. Tippe oder klicke auf jeden Unterschied. Tipp: Vergleiche immer nur einen Bildteil – erst links, dann die Mitte, dann rechts.</p>
+  <div class="ue-zeile">
+    <span class="ue-zaehler" id="ud-zaehler">0 / 8</span>
+    <button type="button" class="btn hell klein" id="ud-tipp">Lupo, hilf mir!</button>
+    <button type="button" class="btn hell klein" id="ud-loesen">Alle Lösungen zeigen</button>
+    <small id="ud-daneben"></small>
+  </div>
+  <div class="ue-bildpaar">
+    <figure class="ue-bildrahmen">
+      <div class="ue-bildflaeche"><img src="bilder/kinderzimmer.svg" alt="Das Kinderzimmer, Originalbild"><svg class="ue-overlay" viewBox="0 0 800 560" preserveAspectRatio="none" data-seite="a" aria-hidden="true"></svg></div>
+      <figcaption>Bild A – das Original</figcaption>
+    </figure>
+    <figure class="ue-bildrahmen">
+      <div class="ue-bildflaeche"><img src="bilder/kinderzimmer-b.svg" alt="Das Kinderzimmer, Fehlerbild mit acht Unterschieden"><svg class="ue-overlay" viewBox="0 0 800 560" preserveAspectRatio="none" data-seite="b" aria-hidden="true"></svg></div>
+      <figcaption>Bild B – das Fehlerbild</figcaption>
+    </figure>
+  </div>
+  <div class="lupo ue-lupo info" id="ud-lupo"><img src="bilder/lupo.svg" alt="Lupo"><div class="bubble">Los geht’s! Schau genau hin wie ein Detektiv – ich bin gespannt, wie viele Unterschiede du findest.</div></div>
+  <ul class="ue-gefunden" id="ud-liste"></ul>
+</section>
+
+<!-- ============================ Spiel 2 ============================ -->
+<section class="card ue-spiel ue-f2" id="spiel-kim">
+  <div class="ue-spielkopf">
+    <span class="ue-nr">2</span>
+    <div><h2>Kim-Spiel: Was war im Bild?</h2>
+      <div class="ue-meta"><span class="badge sp">Stunde 1 · Genau hingeschaut!</span><span class="badge zeit">ca. 5 Min.</span><span class="niveau n2">Standard</span></div></div>
+    <button type="button" class="btn hell klein ue-neu" data-neustart="kim">Nochmal</button>
+  </div>
+  <p class="ue-anleitung">Du siehst gleich das Bild <strong>„Sommertag am See“</strong> – aber nur kurz! Präge dir so viele Einzelheiten wie möglich ein. Danach verschwindet das Bild und du beantwortest Fragen: <strong>War das im Bild – ja oder nein?</strong> Achtung, Lupo hat Fallen eingebaut!</p>
+  <div class="ue-zeile">
+    <label>Zeit: <select class="ue-select" id="kim-zeit">
+      <option value="30">30 Sekunden (leichter)</option>
+      <option value="20" selected>20 Sekunden</option>
+      <option value="10">10 Sekunden (Profi)</option>
+    </select></label>
+    <button type="button" class="btn" id="kim-start">Los geht’s!</button>
+  </div>
+  <div class="ue-kim-buehne" id="kim-buehne">
+    <img src="bilder/sommertag-am-see.svg" alt="Sommertag am See" id="kim-bild" hidden>
+    <div class="ue-kim-vorhang" id="kim-vorhang">Bist du bereit?<small>Drück auf „Los geht’s!“ – dann hast du 20 Sekunden Zeit.</small></div>
+    <div class="ue-kim-uhr" id="kim-uhr" hidden>20</div>
+    <div class="ue-kim-zeitbalken" id="kim-balken" hidden></div>
+  </div>
+  <div id="kim-quiz"></div>
+</section>
+
+<!-- ============================ Spiel 3 ============================ -->
+<section class="card ue-spiel ue-f3" id="spiel-bereiche">
+  <div class="ue-spielkopf">
+    <span class="ue-nr">3</span>
+    <div><h2>Wo ist was? Vordergrund – Mittelgrund – Hintergrund</h2>
+      <div class="ue-meta"><span class="badge sp">Stunde 2 · Ordnung im Bild</span><span class="badge ab">passt zu AB 2</span><span class="badge zeit">ca. 6 Min.</span><span class="niveau n1">Basis</span></div></div>
+    <button type="button" class="btn hell klein ue-neu" data-neustart="bereiche">Nochmal</button>
+  </div>
+  <p class="ue-anleitung"><strong>So geht’s:</strong> 1. Tippe auf ein Kärtchen. 2. Tippe dann auf den Bereich, in den es gehört. (Mit der Maus kannst du die Kärtchen auch hinüberziehen.) <br><strong>Vordergrund</strong> = ganz vorne, nah bei dir · <strong>Mittelgrund</strong> = in der Mitte · <strong>Hintergrund</strong> = ganz hinten, weit weg.</p>
+  <div class="grid-2">
+    <figure class="ue-bildrahmen">
+      <div class="ue-bildflaeche"><img src="bilder/sommertag-am-see.svg" alt="Sommertag am See">
+        <div class="ue-baender" id="ber-baender" hidden>
+          <div style="top:0;height:50.5%;background:rgba(47,111,181,.28)"><span>Hintergrund</span></div>
+          <div style="top:50.5%;height:21%;background:rgba(31,143,136,.30)"><span>Mittelgrund</span></div>
+          <div style="top:71.5%;height:28.5%;background:rgba(61,139,64,.30);border-bottom:0"><span>Vordergrund</span></div>
+        </div>
+      </div>
+      <figcaption><label><input type="checkbox" id="ber-hilfe"> Hilfe: Bereiche im Bild einzeichnen</label></figcaption>
+    </figure>
+    <div>
+      <div class="ue-zeile"><span class="ue-zaehler" id="ber-zaehler">0 / 12</span></div>
+      <div class="ue-pool" id="ber-pool" aria-label="Kärtchen"></div>
+      <div class="lupo ue-lupo info" id="ber-lupo"><img src="bilder/lupo.svg" alt="Lupo"><div class="bubble">Wähle zuerst ein Kärtchen aus!</div></div>
+    </div>
+  </div>
+  <div class="ue-zonen" id="ber-zonen">
+    <div class="ue-zone" data-zone="HG" role="button" tabindex="0"><h3>Hintergrund <small>ganz hinten</small></h3><div class="ue-zone-inhalt"></div></div>
+    <div class="ue-zone" data-zone="MG" role="button" tabindex="0"><h3>Mittelgrund <small>in der Mitte</small></h3><div class="ue-zone-inhalt"></div></div>
+    <div class="ue-zone" data-zone="VG" role="button" tabindex="0"><h3>Vordergrund <small>ganz vorne</small></h3><div class="ue-zone-inhalt"></div></div>
+  </div>
+</section>
+
+<!-- ============================ Spiel 4 ============================ -->
+<section class="card ue-spiel ue-f4" id="spiel-praepositionen">
+  <div class="ue-spielkopf">
+    <span class="ue-nr">4</span>
+    <div><h2>Präpositionen-Detektiv</h2>
+      <div class="ue-meta"><span class="badge sp">Stunde 3 · Wo genau?</span><span class="badge ab">passt zu AB 4</span><span class="badge zeit">ca. 7 Min.</span><span class="niveau n2">Standard</span></div></div>
+    <button type="button" class="btn hell klein ue-neu" data-neustart="praepositionen">Nochmal</button>
+  </div>
+  <p class="ue-anleitung">Schau ins Kinderzimmer und finde das passende Wort für die Lücke. Erst geht es um die <strong>Präposition</strong> (auf, unter, neben …), danach um den richtigen <strong>Artikel</strong>: Auf die Frage <strong>„Wo?“</strong> folgt der Dativ – also <em>dem</em>, <em>der</em> oder <em>den</em>.</p>
+  <div class="grid-2">
+    <figure class="ue-bildrahmen"><div class="ue-bildflaeche"><img src="bilder/kinderzimmer.svg" alt="Das Kinderzimmer"></div><figcaption>Das Kinderzimmer</figcaption></figure>
+    <div class="merke" data-label="Lupos Dativ-Trick">
+      <p><strong>Wo?</strong> → Dativ</p>
+      <p><em>der</em> Schreibtisch → auf <strong>dem</strong> Schreibtisch<br><em>das</em> Bett → unter <strong>dem</strong> Bett<br><em>die</em> Fensterbank → auf <strong>der</strong> Fensterbank<br><em>die</em> Bücher (Mehrzahl) → zwischen <strong>den</strong> Büchern</p>
+    </div>
+  </div>
+  <div id="prae-quiz"></div>
+</section>
+
+<!-- ============================ Spiel 5 ============================ -->
+<section class="card ue-spiel ue-f5" id="spiel-verben">
+  <div class="ue-spielkopf">
+    <span class="ue-nr">5</span>
+    <div><h2>Verben-Tuning auf dem Wochenmarkt</h2>
+      <div class="ue-meta"><span class="badge sp">Stunde 4 · Mehr als „ist“ und „gibt es“</span><span class="badge ab">passt zu AB 6</span><span class="badge zeit">ca. 6 Min.</span><span class="niveau n2">Standard</span></div></div>
+    <button type="button" class="btn hell klein ue-neu" data-neustart="verben">Nochmal</button>
+  </div>
+  <p class="ue-anleitung">Die Langweiler-Wörter <strong>„ist“, „sind“, „gibt es“, „sieht man“, „hat“</strong> sagen fast nichts. Tausche sie gegen ein <strong>treffendes Verb</strong> aus! Wähle das Verb, das genau zum Bildausschnitt passt.</p>
+  <div class="wortspeicher orange"><span class="titel">Lupos Verben-Kiste</span><span>stehen</span><span>liegen</span><span>hängen</span><span>ragen</span><span>halten</span><span>fahren</span><span>zeigen</span><span>picken</span><span>gehen</span><span>stemmen</span><span>verkaufen</span></div>
+  <div id="verb-quiz"></div>
+</section>
+
+<!-- ============================ Spiel 6 ============================ -->
+<section class="card ue-spiel ue-f6" id="spiel-adjektive">
+  <div class="ue-spielkopf">
+    <span class="ue-nr">6</span>
+    <div><h2>Die Adjektiv-Treppe</h2>
+      <div class="ue-meta"><span class="badge sp">Stunde 5 · Bunt und genau</span><span class="badge ab">passt zu AB 7</span><span class="badge zeit">ca. 8 Min.</span><span class="niveau n2">Standard</span></div></div>
+    <button type="button" class="btn hell klein ue-neu" data-neustart="adjektive">Nochmal</button>
+  </div>
+  <p class="ue-anleitung">Mit jeder Stufe wird deine Beschreibung <strong>genauer</strong>. Schau dir den Bildausschnitt an und wähle die passende nächste Stufe. Aber Vorsicht: Lupo hat <strong>falsche Farben</strong> und Muster versteckt!</p>
+  <div id="treppe-spiel"></div>
+</section>
+
+<!-- ============================ Spiel 7 ============================ -->
+<section class="card ue-spiel ue-f7" id="spiel-ampel">
+  <div class="ue-spielkopf">
+    <span class="ue-nr">7</span>
+    <div><h2>Sehen – vermuten – meinen</h2>
+      <div class="ue-meta"><span class="badge sp">Stunde 8 · Sehen oder meinen?</span><span class="badge ab">passt zu AB 11</span><span class="badge zeit">ca. 6 Min.</span><span class="niveau n2">Standard</span></div></div>
+    <button type="button" class="btn hell klein ue-neu" data-neustart="ampel">Nochmal</button>
+  </div>
+  <div class="grid-2">
+    <figure class="ue-bildrahmen"><div class="ue-bildflaeche"><img src="bilder/jaeger-im-schnee.jpg" alt="Pieter Bruegel der Ältere: Die Jäger im Schnee, 1565"></div><figcaption>Pieter Bruegel der Ältere: „Die Jäger im Schnee“ (1565)</figcaption></figure>
+    <div>
+      <p class="ue-anleitung">Lies jeden Satz und entscheide mit der <strong>Ampel</strong>:</p>
+      <ul>
+        <li><span class="ue-ampelpunkt" style="background:#3d8b40;width:16px;height:16px;vertical-align:middle"></span> <strong>Grün – Ich sehe:</strong> Das ist im Bild zu sehen. (Hauptteil)</li>
+        <li><span class="ue-ampelpunkt" style="background:#f5c518;width:16px;height:16px;vertical-align:middle"></span> <strong>Gelb – Ich vermute:</strong> Man kann es nicht sicher sehen. Signalwörter: <em>vermutlich, wahrscheinlich, vielleicht, es sieht so aus, als ob</em>.</li>
+        <li><span class="ue-ampelpunkt" style="background:#cc4141;width:16px;height:16px;vertical-align:middle"></span> <strong>Rot – Ich meine:</strong> Das ist eine Meinung oder ein Gefühl. (gehört in den Schluss)</li>
+      </ul>
+    </div>
+  </div>
+  <div id="ampel-quiz"></div>
+</section>
+
+<!-- ============================ Spiel 8 ============================ -->
+<section class="card ue-spiel ue-f8" id="spiel-praesens">
+  <div class="ue-spielkopf">
+    <span class="ue-nr">8</span>
+    <div><h2>Zeitmaschine Präsens</h2>
+      <div class="ue-meta"><span class="badge sp">Stunde 8 · Sehen oder meinen?</span><span class="badge ab">passt zu AB 11</span><span class="badge zeit">ca. 5 Min.</span><span class="niveau n2">Standard</span><span class="niveau n3">Profi: selbst tippen</span></div></div>
+    <button type="button" class="btn hell klein ue-neu" data-neustart="praesens">Nochmal</button>
+  </div>
+  <p class="ue-anleitung">Oh nein! Diese Sätze sind in die Vergangenheit (<strong>Präteritum</strong>) gerutscht. Eine Bildbeschreibung steht aber immer im <strong>Präsens</strong> – so, als ob du gerade auf das Bild schaust. Hol die Verben mit der Zeitmaschine zurück ins <strong>Jetzt</strong>!</p>
+  <div class="ue-zeile"><label><input type="checkbox" id="zeit-profi"> <strong>Profi-Modus:</strong> Ich tippe das Verb selbst ein.</label></div>
+  <div id="zeit-quiz"></div>
+</section>
+
+<!-- ============================ Spiel 9 ============================ -->
+<section class="card ue-spiel ue-f9" id="spiel-ordnen">
+  <div class="ue-spielkopf">
+    <span class="ue-nr">9</span>
+    <div><h2>Ordne den Text – der rote Faden</h2>
+      <div class="ue-meta"><span class="badge sp">Stunde 7 · Der rote Faden</span><span class="badge ab">passt zu AB 9</span><span class="badge zeit">ca. 8 Min.</span><span class="niveau n2">Standard</span></div></div>
+    <button type="button" class="btn hell klein ue-neu" data-neustart="ordnen">Nochmal</button>
+  </div>
+  <p class="ue-anleitung">Die Satzstreifen zum Bild <strong>„Sommertag am See“</strong> sind durcheinandergeraten. Schiebe sie mit den Pfeilen <strong>▲</strong> und <strong>▼</strong> an die richtige Stelle. Dann drücke auf <strong>„Prüfen“</strong>.</p>
+  <div id="ordnen-spiel"></div>
+</section>
+
+<!-- ============================ Spiel 10 ============================ -->
+<section class="card ue-spiel ue-f10" id="spiel-diplom">
+  <div class="ue-spielkopf">
+    <span class="ue-nr">10</span>
+    <div><h2>Abschluss-Quiz: Das Bilddetektiv-Diplom</h2>
+      <div class="ue-meta"><span class="badge sp">Stunde 12 · Fit für die Klassenarbeit</span><span class="badge zeit">ca. 10 Min.</span><span class="niveau n2">Standard</span></div></div>
+    <button type="button" class="btn hell klein ue-neu" data-neustart="diplom">Nochmal</button>
+  </div>
+  <p class="ue-anleitung">Zwölf Fragen zu allem, was du in der Reihe gelernt hast. Am Ende trägst du deinen Namen ein und bekommst dein <strong>Bilddetektiv-Diplom</strong> zum Ausdrucken.</p>
+  <div id="diplom-quiz"></div>
+</section>
+
+<div id="ue-druckbereich" aria-hidden="true"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------------- Helfer ---------------- */
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $$(sel, root) { return [].slice.call((root || document).querySelectorAll(sel)); }
+  function el(tag, cls, html) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html != null) e.innerHTML = html;
+    return e;
+  }
+  function knopf(cls, html) { var b = el('button', cls, html); b.type = 'button'; return b; }
+  function mischen(a) {
+    a = a.slice();
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+  function zufall(a) { return a[Math.floor(Math.random() * a.length)]; }
+  function norm(s) { return String(s).toLowerCase().replace(/[„“"'.!?,;:]/g, '').replace(/\s+/g, ' ').trim(); }
+  function sichtbarMachen(e) {
+    try {
+      var r = e.getBoundingClientRect();
+      if (r.top < 70 || r.top > window.innerHeight - 80) e.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (x) { /* egal */ }
+  }
+
+  var LOB = ['Super!', 'Klasse, Detektiv!', 'Genau richtig!', 'Stark beobachtet!', 'Volltreffer!', 'Prima!', 'Spitze!', 'Richtig – du hast Adleraugen!'];
+  var TROST = ['Knapp daneben!', 'Hoppla!', 'Nicht ganz.', 'Fast!', 'Das war eine Falle!', 'Schau noch einmal genau hin.'];
+
+  function lupo(box, html, typ) {
+    if (!box) return;
+    box.className = 'lupo ue-lupo' + (typ ? ' ' + typ : '');
+    box.innerHTML = '<img src="bilder/lupo.svg" alt="Lupo"><div class="bubble">' + html + '</div>';
+    void box.offsetWidth;
+    box.classList.add('hops');
+  }
+  function sterneZahl(p, n) { var q = n ? p / n : 0; return q >= 0.9 ? 3 : q >= 0.6 ? 2 : q >= 0.3 ? 1 : 0; }
+  function sterneHtml(k) {
+    var s = '';
+    for (var i = 0; i < 3; i++) s += '<span class="' + (i < k ? 'an' : 'aus') + '">★</span>';
+    return '<span class="ue-sterne" aria-label="' + k + ' von 3 Sternen">' + s + '</span>';
+  }
+  function ergebnisText(p, n) {
+    var q = n ? p / n : 0;
+    if (q >= 0.9) return '<strong>Wow, fast alles richtig!</strong> Du bist ein echter Bilddetektiv.';
+    if (q >= 0.6) return '<strong>Gut gemacht!</strong> Ein paar Fallen haben dich erwischt. Spiel ruhig noch einmal – dann klappt es noch besser.';
+    return '<strong>Ein guter Anfang!</strong> Lies dir meine Erklärungen in Ruhe durch und versuch es gleich noch einmal. Übung macht den Detektiv!';
+  }
+
+  /* ---------------- Punkte ---------------- */
+  var SPEICHER = 'bb5-lernspiele-v1';
+  var MAX = { unterschiede: 8, kim: 10, bereiche: 12, praepositionen: 12, verben: 10, adjektive: 12, ampel: 12, praesens: 10, ordnen: 12, diplom: 12 };
+  var best = {};
+  var speicherOk = true;
+  try { best = JSON.parse(window.localStorage.getItem(SPEICHER) || '{}') || {}; } catch (e) { best = {}; speicherOk = false; }
+
+  function melden(id, p) {
+    if (!(best[id] >= p)) {
+      best[id] = p;
+      try { window.localStorage.setItem(SPEICHER, JSON.stringify(best)); } catch (e) { speicherOk = false; }
+    }
+    punkteAnzeigen();
+  }
+  function punkteAnzeigen() {
+    var summe = 0, max = 0;
+    Object.keys(MAX).forEach(function (k) {
+      var p = Math.min(best[k] || 0, MAX[k]);
+      summe += p; max += MAX[k];
+      $$('[data-ue-status="' + k + '"]').forEach(function (s) {
+        var hat = typeof best[k] === 'number';
+        s.innerHTML = hat ? sterneHtml(sterneZahl(p, MAX[k])).replace('ue-sterne', 'ue-sterne ue-mini') + ' ' + p + ' / ' + MAX[k] : 'noch nicht gespielt';
+        s.classList.toggle('fertig', hat && p === MAX[k]);
+      });
+    });
+    var g = $('#ue-gesamt'), gm = $('#ue-gesamtmax'), gb = $('#ue-gesamtbalken');
+    if (g) g.textContent = summe;
+    if (gm) gm.textContent = max;
+    if (gb) gb.style.width = (max ? Math.round(summe / max * 100) : 0) + '%';
+    var hinweis = $('#ue-speicherhinweis');
+    if (hinweis && !speicherOk) hinweis.textContent = 'Hinweis: Dein Browser speichert keine Punkte. Sie gelten nur, solange die Seite offen ist.';
+  }
+  var resetBtn = $('#ue-reset');
+  if (resetBtn) resetBtn.addEventListener('click', function () {
+    var ok = true;
+    try { ok = window.confirm('Alle Punkte löschen?'); } catch (e) { ok = true; }
+    if (!ok) return;
+    best = {};
+    try { window.localStorage.removeItem(SPEICHER); } catch (e) { /* egal */ }
+    punkteAnzeigen();
+  });
+
+  /* ---------------- Neustart-Knöpfe ---------------- */
+  var NEUSTART = {};
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('[data-neustart]') : null;
+    if (!b) return;
+    var f = NEUSTART[b.getAttribute('data-neustart')];
+    if (f) { f(); sichtbarMachen(b.closest('.ue-spiel') || b); }
+  });
+
+  /* ---------------- Bildausschnitt (Lupen-Blick) ---------------- */
+  function ausschnitt(src, r, alt) {
+    var W = 800, H = 560, x = r[0], y = r[1], w = r[2], h = r[3];
+    var bx = w >= W ? 0 : x / (W - w) * 100, by = h >= H ? 0 : y / (H - h) * 100;
+    return '<div class="ue-ausschnitt-rahmen"><div class="ue-ausschnitt" role="img" aria-label="' + (alt || 'Bildausschnitt') + '" style="background-image:url(\'' + src + '\');background-size:' +
+      (W / w * 100).toFixed(2) + '% auto;background-position:' + bx.toFixed(2) + '% ' + by.toFixed(2) + '%;padding-top:' + (h / w * 100).toFixed(2) + '%"></div></div>';
+  }
+
+  /* ---------------- Quiz-Baukasten ---------------- */
+  function Quiz(root, cfg) {
+    var st = null;
+    function start() { st = { liste: cfg.fragen(), i: 0, p: 0 }; zeige(false); }
+    function zeige(fokus) {
+      var f = st.liste[st.i], n = st.liste.length;
+      root.innerHTML = '';
+      root.appendChild(el('div', 'ue-quiz-kopf', '<span>Aufgabe <b>' + (st.i + 1) + '</b> von ' + n + '</span><span class="ue-quiz-punkte">★ ' + st.p + ' Punkte</span>'));
+      root.appendChild(el('div', 'ue-balken', '<i style="width:' + Math.round(st.i / n * 100) + '%"></i>'));
+      var frage = el('div', 'ue-frage', (f.bild ? '<div class="ue-ausschnitt-zeile">' + f.bild + '<div>' + f.text + '</div></div>' : f.text));
+      root.appendChild(frage);
+      var fb = el('div', 'lupo ue-lupo ue-leise');
+      var weiter = knopf('btn ue-weiter', st.i + 1 < n ? 'Weiter →' : 'Zum Ergebnis →');
+      weiter.hidden = true;
+      var fertig = false;
+      var loes = [].concat(f.richtig);
+
+      function auswerten(wert, btn, box) {
+        if (fertig) return;
+        fertig = true;
+        var ok = loes.some(function (l) { return norm(l) === norm(wert); });
+        if (box) $$('button', box).forEach(function (b) {
+          b.disabled = true;
+          var w = b.getAttribute('data-wert');
+          if (w != null && loes.some(function (l) { return norm(l) === norm(w); })) b.classList.add('richtig');
+        });
+        if (btn && !ok) btn.classList.add('falsch');
+        var luecke = $('.ue-luecke', frage);
+        if (luecke) { luecke.textContent = f.fuellung || loes[0]; luecke.classList.add('gefuellt'); }
+        if (ok) st.p++;
+        var kopfP = $('.ue-quiz-punkte', root);
+        if (kopfP) kopfP.textContent = '★ ' + st.p + ' Punkte';
+        var extra = (!ok && !btn) ? ' Richtig ist: <strong>' + loes[0] + '</strong>.' : '';
+        lupo(fb, '<strong>' + (ok ? zufall(LOB) : zufall(TROST)) + '</strong>' + extra + ' ' + (f.erklaerung || ''), ok ? 'gut' : 'falsch');
+        weiter.hidden = false;
+        try { weiter.focus({ preventScroll: true }); } catch (e) { weiter.focus(); }
+      }
+
+      if (cfg.eingabe && cfg.eingabe()) {
+        var form = el('form', 'ue-eingabe');
+        form.innerHTML = '<input type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Deine Antwort" placeholder="Verb hier eintippen …"><button class="btn" type="submit">Prüfen</button>';
+        var inp = $('input', form);
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          if (fertig) return;
+          if (!inp.value.trim()) { inp.focus(); return; }
+          var ok = loes.some(function (l) { return norm(l) === norm(inp.value); });
+          inp.classList.add(ok ? 'richtig' : 'falsch');
+          inp.readOnly = true;
+          $('button', form).disabled = true;
+          auswerten(inp.value, null, null);
+        });
+        root.appendChild(form);
+        if (fokus) setTimeout(function () { try { inp.focus({ preventScroll: true }); } catch (e) { /* egal */ } }, 30);
+      } else {
+        var box = el('div', 'ue-optionen' + (cfg.optKlasse ? ' ' + cfg.optKlasse : ''));
+        var opts = (f.fest || cfg.fest) ? f.optionen.slice() : mischen(f.optionen);
+        opts.forEach(function (o) {
+          if (typeof o === 'string') o = { w: o, html: o };
+          var b = knopf('ue-opt' + (o.cls ? ' ' + o.cls : ''), o.html);
+          b.setAttribute('data-wert', o.w);
+          b.addEventListener('click', function () { auswerten(o.w, b, box); });
+          box.appendChild(b);
+        });
+        root.appendChild(box);
+      }
+      root.appendChild(fb);
+      root.appendChild(weiter);
+      weiter.addEventListener('click', function () {
+        st.i++;
+        if (st.i >= n) ende(); else zeige(true);
+        sichtbarMachen(root);
+      });
+    }
+    function ende() {
+      var n = st.liste.length, p = st.p;
+      root.innerHTML = '';
+      var box = el('div', 'ue-ergebnis', sterneHtml(sterneZahl(p, n)) + '<p class="ue-ergebnis-zahl"><b>' + p + '</b> von ' + n + ' Punkten</p>');
+      var fb = el('div', 'lupo ue-lupo');
+      box.appendChild(fb);
+      lupo(fb, ergebnisText(p, n), p / n >= 0.6 ? 'gut' : 'info');
+      var zeile = el('div', 'ue-zeile');
+      zeile.style.justifyContent = 'center';
+      var nochmal = knopf('btn', '↻ Nochmal spielen');
+      nochmal.addEventListener('click', function () { (cfg.neustart || start)(); sichtbarMachen(root); });
+      zeile.appendChild(nochmal);
+      box.appendChild(zeile);
+      root.appendChild(box);
+      melden(cfg.id, p);
+      if (cfg.amEnde) cfg.amEnde(p, n, box, zeile);
+    }
+    return { start: start };
+  }
+
+  function sicher(name, fn) {
+    try { fn(); } catch (e) { if (window.console) console.error('Lernspiel „' + name + '“:', e); }
+  }
+
+  /* ======================= Spiel 1: Unterschiede ======================= */
+  sicher('Unterschiede', function () {
+    var U = [
+      { name: 'Poster', text: 'Das Poster zeigt einen orangefarbenen Planeten mit Ring statt einer Rakete.', zonen: [[62, 102, 166, 126]], kreise: [[145, 165, 72]], tipp: 'Schau dir das Bild an der Wand über dem Bett genau an!' },
+      { name: 'Ball', text: 'Der Ball unter dem Bett ist gelb statt schwarz-weiß.', zonen: [[172, 362, 56, 52]], kreise: [[200, 388, 28]], tipp: 'Guck mal unter das Bett. Hat da etwas eine andere Farbe?' },
+      { name: 'Katze', text: 'Die Katze schläft oben auf dem Bücherregal statt auf dem Teppich.', zonen: [[525, 98, 90, 51], [330, 440, 180, 62]], kreise: [[568, 128, 42], [420, 468, 52]], tipp: 'Wo schläft die Katze? Such im ganzen Zimmer!' },
+      { name: 'Uhr', text: 'Die Uhr zeigt 9 Uhr statt 3 Uhr.', zonen: [[696, 136, 68, 68]], kreise: [[730, 170, 38]], tipp: 'Wie spät ist es? Vergleiche die beiden Uhren!' },
+      { name: 'Lampe', text: 'Die Schreibtischlampe ist grün statt gelb.', zonen: [[712, 228, 80, 68]], kreise: [[745, 258, 38]], tipp: 'Schau auf den Schreibtisch. Ist dort alles gleich?' },
+      { name: 'Rucksack', text: 'Am Stuhl fehlt der orangefarbene Rucksack.', zonen: [[740, 297, 58, 56]], kreise: [[768, 322, 32]], tipp: 'Schau dir den roten Stuhl genau an. Fehlt da etwas?' },
+      { name: 'Blume', text: 'Die Blume auf der Fensterbank ist gelb statt rot.', zonen: [[444, 160, 52, 104]], kreise: [[470, 200, 36]], tipp: 'Schau auf die Fensterbank!' },
+      { name: 'Bücher', text: 'Im obersten Regalfach stehen nur drei statt fünf Bücher.', zonen: [[546, 150, 92, 52]], kreise: [[592, 176, 36]], tipp: 'Zähle die Bücher im obersten Regalfach!' }
+    ];
+    var overlays = $$('#spiel-unterschiede .ue-overlay');
+    var zaehler = $('#ud-zaehler'), liste = $('#ud-liste'), box = $('#ud-lupo'), danebenInfo = $('#ud-daneben');
+    var NS = 'http://www.w3.org/2000/svg';
+    var gefunden, daneben, geloest;
+
+    function svgEl(tag, attrs) {
+      var e = document.createElementNS(NS, tag);
+      for (var k in attrs) if (attrs.hasOwnProperty(k)) e.setAttribute(k, attrs[k]);
+      return e;
+    }
+    function markieren(i, art) {
+      var u = U[i];
+      overlays.forEach(function (svg) {
+        u.kreise.forEach(function (k, idx) {
+          svg.appendChild(svgEl('circle', { cx: k[0], cy: k[1], r: k[2], 'class': 'ue-treffer' + (art === 'geloest' ? ' geloest' : '') }));
+          if (idx === 0) {
+            var t = svgEl('text', { x: k[0] - k[2] * 0.7 - 6, y: k[1] - k[2] * 0.7 + 6, 'class': 'ue-treffer-nr' });
+            t.textContent = String(Object.keys(gefunden).length + Object.keys(geloest).length);
+            svg.appendChild(t);
+          }
+        });
+      });
+      var li = el('li', art === 'geloest' ? 'geloest' : '', '<b>' + u.name + ':</b> ' + u.text);
+      liste.appendChild(li);
+    }
+    function zaehlen() { zaehler.textContent = Object.keys(gefunden).length + ' / 8'; }
+    function start() {
+      gefunden = {}; daneben = 0; geloest = {};
+      overlays.forEach(function (s) { while (s.firstChild) s.removeChild(s.firstChild); });
+      liste.innerHTML = '';
+      danebenInfo.textContent = '';
+      zaehlen();
+      lupo(box, 'Los geht’s! Schau genau hin wie ein Detektiv – ich bin gespannt, wie viele Unterschiede du findest.', 'info');
+    }
+    function fertigCheck() {
+      var n = Object.keys(gefunden).length;
+      if (n + Object.keys(geloest).length === 8) {
+        if (n === 8) lupo(box, '<strong>Alle 8 gefunden – du bist ein Meisterdetektiv!</strong> ' + (daneben ? 'Du hast nur ' + daneben + '-mal danebengetippt.' : 'Und kein einziges Mal danebengetippt!') + ' Genau so musst du ein Bild anschauen: Stück für Stück vergleichen.', 'gut');
+        else lupo(box, 'Du hast <strong>' + n + ' von 8</strong> Unterschieden selbst gefunden. Die orangefarbenen Kreise zeigen dir den Rest. Probier es mit „Nochmal“ gleich noch einmal!', 'info');
+      }
+    }
+    function klick(e, svg) {
+      var r = svg.getBoundingClientRect();
+      if (!r.width) return;
+      var x = (e.clientX - r.left) / r.width * 800, y = (e.clientY - r.top) / r.height * 560;
+      for (var i = 0; i < U.length; i++) {
+        var treffer = U[i].zonen.some(function (z) { return x >= z[0] && x <= z[0] + z[2] && y >= z[1] && y <= z[1] + z[3]; });
+        if (treffer) {
+          if (gefunden[i] || geloest[i]) { lupo(box, 'Den Unterschied „' + U[i].name + '“ hast du schon. Such weiter!', 'info'); return; }
+          gefunden[i] = true;
+          markieren(i, 'gefunden');
+          zaehlen();
+          melden('unterschiede', Object.keys(gefunden).length);
+          lupo(box, '<strong>' + zufall(LOB) + '</strong> ' + U[i].text, 'gut');
+          fertigCheck();
+          return;
+        }
+      }
+      daneben++;
+      danebenInfo.textContent = 'Danebengetippt: ' + daneben;
+      var t = svgEl('text', { x: x - 11, y: y + 12, 'class': 'ue-daneben' });
+      t.textContent = '✗';
+      svg.appendChild(t);
+      setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 1100);
+      lupo(box, zufall(['Hier ist alles gleich.', 'Da ist kein Unterschied.', 'Hmm, hier stimmt alles.']) + ' Vergleiche die Stelle in beiden Bildern ganz genau!', 'falsch');
+    }
+    overlays.forEach(function (svg) {
+      svg.addEventListener('click', function (e) { klick(e, svg); });
+    });
+    $('#ud-tipp').addEventListener('click', function () {
+      for (var i = 0; i < U.length; i++) {
+        if (!gefunden[i] && !geloest[i]) {
+          lupo(box, '<strong>Tipp:</strong> ' + U[i].tipp, 'info');
+          var k = U[i].kreise[0];
+          overlays.forEach(function (svg) {
+            var c = svgEl('circle', { cx: k[0], cy: k[1], r: k[2] * 2.2, 'class': 'ue-tippkreis' });
+            svg.appendChild(c);
+            setTimeout(function () { if (c.parentNode) c.parentNode.removeChild(c); }, 2200);
+          });
+          return;
+        }
+      }
+      lupo(box, 'Es gibt nichts mehr zu finden – alle Unterschiede sind markiert!', 'info');
+    });
+    $('#ud-loesen').addEventListener('click', function () {
+      for (var i = 0; i < U.length; i++) if (!gefunden[i] && !geloest[i]) { geloest[i] = true; markieren(i, 'geloest'); }
+      fertigCheck();
+    });
+    NEUSTART.unterschiede = start;
+    start();
+  });
+
+  /* ======================= Spiel 2: Kim ======================= */
+  sicher('Kim', function () {
+    var POOL_JA = [
+      ['ein Segelboot mit rotem Rumpf', 'Es segelt genau in der Mitte auf dem See.'],
+      ['ein Junge, der angelt', 'Er sitzt am Ende des Holzstegs und hat eine blaue Kappe auf.'],
+      ['ein Mädchen, das ein Buch liest', 'Es sitzt auf der Picknickdecke und trägt ein blaues Kleid.'],
+      ['ein Haus mit rotem Dach', 'Es steht links hinten auf einem Hügel.'],
+      ['ein roter Ball', 'Der Hund rennt auf den roten Ball zu.'],
+      ['zwei Enten', 'Sie schwimmen links auf dem See.'],
+      ['ein Picknickkorb mit Äpfeln', 'Im Korb liegen ein roter und ein grüner Apfel.'],
+      ['eine gelbe Sonne', 'Sie strahlt in der rechten oberen Ecke.'],
+      ['ein Tannenwald', 'Er wächst rechts hinten auf den Hügeln.']
+    ];
+    var POOL_NEIN = [
+      ['eine Katze', 'Im Bild gibt es keine Katze – aber einen braunen Hund mit rotem Halsband.'],
+      ['ein blaues Fahrrad', 'Ein Fahrrad gibt es, aber es ist <strong>grün</strong>!'],
+      ['drei Enten', 'Es sind nur <strong>zwei</strong> Enten.'],
+      ['eine blau-weiß karierte Picknickdecke', 'Die Decke ist <strong>rot-weiß</strong> kariert.'],
+      ['ein Regenbogen', 'Am Himmel sind nur zwei Wolken und die Sonne.'],
+      ['ein Mädchen in einem roten Kleid', 'Das Mädchen trägt ein <strong>blaues</strong> Kleid.'],
+      ['ein Junge mit einer roten Kappe', 'Der Junge auf dem Steg trägt eine <strong>blaue</strong> Kappe.'],
+      ['ein Flugzeug am Himmel', 'Am Himmel fliegt kein Flugzeug.']
+    ];
+    function frage(eintrag, ja) {
+      return {
+        text: '<p>War das im Bild?</p><p style="font-size:1.3em"><strong>„' + eintrag[0] + '“</strong></p>',
+        optionen: [{ w: 'ja', html: '👍 Ja, war im Bild' }, { w: 'nein', html: '👎 Nein, war nicht im Bild' }],
+        fest: true,
+        richtig: ja ? 'ja' : 'nein',
+        erklaerung: (ja ? 'Ja! ' : 'Nein! ') + eintrag[1]
+      };
+    }
+    var quizRoot = $('#kim-quiz');
+    var bild = $('#kim-bild'), vorhang = $('#kim-vorhang'), uhr = $('#kim-uhr'), balken = $('#kim-balken'), startBtn = $('#kim-start'), zeitSel = $('#kim-zeit');
+    var timer = null;
+    var quiz = Quiz(quizRoot, {
+      id: 'kim',
+      fragen: function () {
+        var l = mischen(POOL_JA).slice(0, 5).map(function (e) { return frage(e, true); })
+          .concat(mischen(POOL_NEIN).slice(0, 5).map(function (e) { return frage(e, false); }));
+        return mischen(l);
+      },
+      neustart: function () { reset(); },
+      amEnde: function (p, n, box, zeile) {
+        var zeig = knopf('btn hell', 'Bild noch einmal ansehen');
+        zeig.addEventListener('click', function () { bild.hidden = false; vorhang.hidden = true; sichtbarMachen($('#kim-buehne')); });
+        zeile.appendChild(zeig);
+      }
+    });
+    function stopp() { if (timer) { clearInterval(timer); timer = null; } }
+    function reset() {
+      stopp();
+      bild.hidden = true; uhr.hidden = true; balken.hidden = true;
+      vorhang.hidden = false;
+      vorhang.innerHTML = 'Bist du bereit?<small>Drück auf „Los geht’s!“ – dann hast du ' + zeitSel.value + ' Sekunden Zeit.</small>';
+      startBtn.disabled = false;
+      quizRoot.innerHTML = '';
+    }
+    zeitSel.addEventListener('change', function () { if (!timer && !quizRoot.firstChild && bild.hidden) reset(); });
+    startBtn.addEventListener('click', function () {
+      reset();
+      var dauer = parseInt(zeitSel.value, 10) || 20;
+      var ende = Date.now() + dauer * 1000;
+      startBtn.disabled = true;
+      vorhang.hidden = true; bild.hidden = false; uhr.hidden = false; balken.hidden = false;
+      uhr.textContent = dauer; uhr.classList.remove('knapp');
+      balken.style.width = '100%';
+      sichtbarMachen($('#kim-buehne'));
+      timer = setInterval(function () {
+        var rest = Math.max(0, ende - Date.now());
+        var sek = Math.ceil(rest / 1000);
+        uhr.textContent = sek;
+        uhr.classList.toggle('knapp', sek <= 5);
+        balken.style.width = (rest / (dauer * 1000) * 100) + '%';
+        if (rest <= 0) {
+          stopp();
+          bild.hidden = true; uhr.hidden = true; balken.hidden = true;
+          vorhang.hidden = false;
+          vorhang.innerHTML = 'Bild weg! 🙈<small>Was hast du dir gemerkt? Beantworte die Fragen unten.</small>';
+          startBtn.disabled = false;
+          quiz.start();
+        }
+      }, 200);
+    });
+    NEUSTART.kim = reset;
+    reset();
+  });
+
+  /* ======================= Spiel 3: Bereiche ======================= */
+  sicher('Bereiche', function () {
+    var ITEMS = [
+      ['Picknickdecke', 'VG', 'Die Picknickdecke liegt vorne auf der Wiese – ganz nah bei dir.'],
+      ['Mädchen mit Buch', 'VG', 'Das Mädchen sitzt vorne auf der Picknickdecke.'],
+      ['Picknickkorb', 'VG', 'Der Korb steht vorne auf der Decke, neben dem Mädchen.'],
+      ['brauner Hund', 'VG', 'Der Hund rennt vorne über die Wiese.'],
+      ['roter Ball', 'VG', 'Der Ball liegt vorne auf der Wiese, in der Bildmitte.'],
+      ['grünes Fahrrad', 'VG', 'Das Fahrrad liegt vorne rechts im Gras.'],
+      ['großer Laubbaum', 'VG', 'Der Baum steht vorne am linken Bildrand.'],
+      ['bunte Blumen', 'VG', 'Die Blumen wachsen vorne auf der Wiese.'],
+      ['Segelboot', 'MG', 'Das Segelboot segelt auf dem See – und der See liegt im Mittelgrund.'],
+      ['zwei Enten', 'MG', 'Die Enten schwimmen auf dem See, also im Mittelgrund.'],
+      ['Holzsteg', 'MG', 'Der Steg ragt vom rechten Bildrand in den See – Mittelgrund.'],
+      ['Junge mit Angel', 'MG', 'Der Junge sitzt am Ende des Stegs, mitten über dem See.'],
+      ['blauer See', 'MG', 'Der See liegt zwischen der Wiese und den Hügeln – genau in der Mitte.'],
+      ['Haus mit rotem Dach', 'HG', 'Das Haus steht weit hinten auf einem Hügel.'],
+      ['Tannenwald', 'HG', 'Der Wald wächst hinten rechts auf den Hügeln.'],
+      ['gelbe Sonne', 'HG', 'Die Sonne strahlt ganz hinten am Himmel, in der rechten oberen Ecke.'],
+      ['weiße Wolken', 'HG', 'Die Wolken schweben hinten am Himmel.'],
+      ['grüne Hügel', 'HG', 'Die Hügel erheben sich hinten, hinter dem See.']
+    ];
+    var NAMEN = { VG: 'Vordergrund', MG: 'Mittelgrund', HG: 'Hintergrund' };
+    var pool = $('#ber-pool'), box = $('#ber-lupo'), zaehler = $('#ber-zaehler');
+    var zonen = $$('#ber-zonen .ue-zone');
+    var aktiv = null, punkte = 0, verteilt = 0, fehler = {};
+    var hilfe = $('#ber-hilfe');
+    hilfe.addEventListener('change', function () { $('#ber-baender').hidden = !hilfe.checked; });
+
+    function waehlen(chip) {
+      if (aktiv) aktiv.classList.remove('aktiv');
+      aktiv = (aktiv === chip) ? null : chip;
+      if (aktiv) {
+        aktiv.classList.add('aktiv');
+        lupo(box, 'Wohin gehört <strong>„' + chip.textContent + '“</strong>? Tippe jetzt auf einen Bereich unten.', 'info');
+      }
+    }
+    function ablegen(zone, chip) {
+      chip = chip || aktiv;
+      if (!chip) { lupo(box, 'Wähle zuerst ein Kärtchen aus – dann tippst du auf den Bereich.', 'info'); return; }
+      var soll = chip.getAttribute('data-soll'), z = zone.getAttribute('data-zone');
+      var name = chip.textContent;
+      if (soll === z) {
+        chip.classList.remove('aktiv');
+        chip.classList.add('platziert', fehler[name] ? 'zweiter' : 'erster');
+        chip.disabled = true;
+        chip.draggable = false;
+        $('.ue-zone-inhalt', zone).appendChild(chip);
+        if (!fehler[name]) punkte++;
+        verteilt++;
+        aktiv = null;
+        zaehler.textContent = punkte + ' / 12';
+        var warum = chip.getAttribute('data-warum');
+        if (verteilt === 12) {
+          lupo(box, '<strong>Fertig!</strong> Du hast ' + punkte + ' von 12 Kärtchen beim ersten Versuch richtig zugeordnet. ' + sterneHtml(sterneZahl(punkte, 12)) + '<br>Merke: Im Hauptteil kannst du vom <strong>Vordergrund</strong> über den <strong>Mittelgrund</strong> zum <strong>Hintergrund</strong> beschreiben.', 'gut');
+          melden('bereiche', punkte);
+        } else {
+          lupo(box, '<strong>' + zufall(LOB) + '</strong> ' + warum, 'gut');
+        }
+      } else {
+        fehler[name] = true;
+        chip.classList.remove('wackelt'); void chip.offsetWidth; chip.classList.add('wackelt');
+        lupo(box, '<strong>' + zufall(TROST) + '</strong> „' + name + '“ gehört nicht in den ' + NAMEN[z] + '. Schau ins Bild: Ist es vorne, in der Mitte oder ganz hinten? Tipp: Mach die Hilfe im Bild an!', 'falsch');
+      }
+    }
+    zonen.forEach(function (zone) {
+      zone.addEventListener('click', function (e) { if (e.target.closest('.ue-chip.platziert')) return; ablegen(zone); });
+      zone.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); ablegen(zone); } });
+      zone.addEventListener('dragover', function (e) { e.preventDefault(); zone.classList.add('drueber'); });
+      zone.addEventListener('dragleave', function () { zone.classList.remove('drueber'); });
+      zone.addEventListener('drop', function (e) {
+        e.preventDefault(); zone.classList.remove('drueber');
+        var id = ''; try { id = e.dataTransfer.getData('text/plain'); } catch (x) { /* egal */ }
+        var chip = id ? $('#' + id) : aktiv;
+        if (chip && !chip.disabled) ablegen(zone, chip);
+      });
+    });
+    function start() {
+      punkte = 0; verteilt = 0; fehler = {}; aktiv = null;
+      zonen.forEach(function (z) { $('.ue-zone-inhalt', z).innerHTML = ''; });
+      pool.innerHTML = '';
+      zaehler.textContent = '0 / 12';
+      var auswahl = [];
+      ['VG', 'MG', 'HG'].forEach(function (b) {
+        auswahl = auswahl.concat(mischen(ITEMS.filter(function (i) { return i[1] === b; })).slice(0, 4));
+      });
+      mischen(auswahl).forEach(function (it, idx) {
+        var c = knopf('ue-chip', it[0]);
+        c.id = 'ber-chip-' + idx;
+        c.setAttribute('data-soll', it[1]);
+        c.setAttribute('data-warum', it[2]);
+        c.draggable = true;
+        c.addEventListener('click', function () { if (!c.disabled) waehlen(c); });
+        c.addEventListener('dragstart', function (e) {
+          try { e.dataTransfer.setData('text/plain', c.id); e.dataTransfer.effectAllowed = 'move'; } catch (x) { /* egal */ }
+          if (aktiv !== c) waehlen(c);
+        });
+        pool.appendChild(c);
+      });
+      lupo(box, 'Wähle zuerst ein Kärtchen aus!', 'info');
+    }
+    NEUSTART.bereiche = start;
+    start();
+  });
+
+  /* ======================= Spiel 4: Präpositionen ======================= */
+  sicher('Präpositionen', function () {
+    var L = '<span class="ue-luecke">?</span>';
+    var PRAE = [
+      ['Der Teddy sitzt ' + L + ' dem Kissen.', 'auf', ['auf', 'unter', 'hinter', 'neben'], 'Der Teddy sitzt oben drauf – also <b>auf</b> dem Kissen.'],
+      ['Der Fußball liegt ' + L + ' dem Bett.', 'unter', ['unter', 'auf', 'über', 'an'], 'Der Ball liegt auf dem Boden unter dem Bettgestell – <b>unter</b> dem Bett.'],
+      ['Das Poster hängt ' + L + ' dem Bett an der Wand.', 'über', ['über', 'unter', 'in', 'zwischen'], 'Das Poster hängt höher als das Bett – <b>über</b> dem Bett.'],
+      ['Die lila Socken liegen ' + L + ' dem Bett auf dem Boden.', 'vor', ['vor', 'auf', 'über', 'hinter'], 'Die Socken liegen vorne auf dem Boden – <b>vor</b> dem Bett.'],
+      ['Die Gitarre lehnt rechts ' + L + ' dem Bett an der Wand.', 'neben', ['neben', 'unter', 'auf', 'in'], 'Die Gitarre lehnt direkt daneben – <b>neben</b> dem Bett.'],
+      ['Die graue Katze schläft ' + L + ' dem Teppich.', 'auf', ['auf', 'unter', 'hinter', 'an'], 'Die Katze liegt oben auf dem grünen Teppich – <b>auf</b> dem Teppich.'],
+      ['Die runde Uhr hängt ' + L + ' dem Schreibtisch.', 'über', ['über', 'unter', 'vor', 'in'], 'Die Uhr hängt an der Wand, höher als der Tisch – <b>über</b> dem Schreibtisch.'],
+      ['Der rote Stuhl steht ' + L + ' dem Schreibtisch.', 'vor', ['vor', 'auf', 'über', 'in'], 'Der Stuhl steht davor – <b>vor</b> dem Schreibtisch.'],
+      ['Der Blumentopf steht ' + L + ' der Fensterbank.', 'auf', ['auf', 'unter', 'zwischen', 'hinter'], 'Der Topf steht oben drauf – <b>auf</b> der Fensterbank.'],
+      ['Das Fenster befindet sich ' + L + ' dem Bett und dem Bücherregal.', 'zwischen', ['zwischen', 'unter', 'auf', 'hinter'], 'Links ist das Bett, rechts das Regal – das Fenster ist in der Mitte, also <b>zwischen</b> den beiden.'],
+      ['Der Rucksack hängt ' + L + ' der Stuhllehne.', 'an', ['an', 'unter', 'zwischen', 'vor'], 'Der Rucksack hängt an der Lehne fest – <b>an</b> der Stuhllehne.'],
+      ['Das rote Spielzeugauto steht ' + L + ' dem Regal.', 'in', ['in', 'unter', 'über', 'an'], 'Das Auto steht in einem Fach – <b>in</b> dem Regal. Kurz sagt man auch: <b>im</b> Regal.']
+    ];
+    var ART = [
+      ['Der Teddy sitzt auf ' + L + ' Kissen.', 'dem', '<i>das</i> Kissen → Wo? → auf <b>dem</b> Kissen.'],
+      ['Die Lampe steht auf ' + L + ' Schreibtisch.', 'dem', '<i>der</i> Schreibtisch → Wo? → auf <b>dem</b> Schreibtisch.'],
+      ['Der Blumentopf steht auf ' + L + ' Fensterbank.', 'der', '<i>die</i> Fensterbank → Wo? → auf <b>der</b> Fensterbank.'],
+      ['Der Rucksack hängt an ' + L + ' Stuhllehne.', 'der', '<i>die</i> Stuhllehne → Wo? → an <b>der</b> Stuhllehne.'],
+      ['Die Katze schläft auf ' + L + ' Teppich.', 'dem', '<i>der</i> Teppich → Wo? → auf <b>dem</b> Teppich.'],
+      ['Das Auto steht zwischen ' + L + ' Büchern und der Spielekiste.', 'den', '<i>die</i> Bücher (Mehrzahl) → Wo? → zwischen <b>den</b> Büchern. In der Mehrzahl bekommt das Nomen oft ein <b>-n</b>.'],
+      ['Die Socken liegen vor ' + L + ' Bett.', 'dem', '<i>das</i> Bett → Wo? → vor <b>dem</b> Bett.'],
+      ['Die Uhr hängt über ' + L + ' Schreibtisch.', 'dem', '<i>der</i> Schreibtisch → Wo? → über <b>dem</b> Schreibtisch.'],
+      ['Die Gitarre lehnt an ' + L + ' Wand.', 'der', '<i>die</i> Wand → Wo? → an <b>der</b> Wand.'],
+      ['Der Bücherstapel liegt neben ' + L + ' Lampe.', 'der', '<i>die</i> Lampe → Wo? → neben <b>der</b> Lampe.']
+    ];
+    var q = Quiz($('#prae-quiz'), {
+      id: 'praepositionen',
+      fragen: function () {
+        var a = mischen(PRAE).slice(0, 7).map(function (p) {
+          return { text: '<p><span class="ue-zeitlabel">Präposition</span> Welches Wort passt?</p><p>„' + p[0] + '“</p>', richtig: p[1], optionen: p[2], erklaerung: p[3] };
+        });
+        var b = mischen(ART).slice(0, 5).map(function (p) {
+          return { text: '<p><span class="ue-zeitlabel jetzt">Artikel</span> Welcher Artikel passt? Frag: <strong>Wo?</strong></p><p>„' + p[0] + '“</p>', richtig: p[1], optionen: ['dem', 'der', 'den', 'das'], fest: true, erklaerung: p[2] };
+        });
+        return a.concat(b);
+      }
+    });
+    NEUSTART.praepositionen = q.start;
+    q.start();
+  });
+
+  /* ======================= Spiel 5: Verben ======================= */
+  sicher('Verben', function () {
+    var M = 'bilder/wochenmarkt.svg';
+    var L = '<span class="ue-luecke">?</span>';
+    var V = [
+      ['Auf dem Obststand <s>gibt es</s> Äpfel, Orangen und Bananen.', 'Auf dem Obststand ' + L + ' rote Äpfel, Orangen und gelbe Bananen.', 'liegen', ['liegen', 'fliegen', 'sitzen', 'gibt es'], 'Obst kann nicht sitzen oder fliegen – es <b>liegt</b> in der Auslage.', [20, 270, 250, 125]],
+      ['Hinter dem Obststand <s>ist</s> ein Verkäufer.', 'Hinter dem Obststand ' + L + ' ein Verkäufer mit Glatze und Schnurrbart.', 'steht', ['steht', 'liegt', 'schwimmt', 'ist'], 'Der Verkäufer <b>steht</b> aufrecht hinter seinem Stand.', [40, 200, 180, 190]],
+      ['Der Verkäufer <s>hat</s> eine Papiertüte.', 'Der Verkäufer ' + L + ' eine Papiertüte in der Hand.', 'hält', ['hält', 'isst', 'wirft', 'hat'], 'Er hat die Tüte fest in der Hand – er <b>hält</b> sie.', [60, 220, 140, 120]],
+      ['In der Mitte <s>ist</s> ein Kirchturm.', 'In der Mitte ' + L + ' ein Kirchturm mit grünem Spitzdach über die Häuser.', 'ragt', ['ragt', 'liegt', 'rennt', 'ist'], '„Ragen“ passt zu Dingen, die hoch über andere hinausgehen: Der Turm <b>ragt</b> über die Häuser.', [300, 0, 200, 250]],
+      ['Vorne <s>ist</s> eine Taube.', 'In der Mitte vorn ' + L + ' eine graue Taube Krümel vom Boden.', 'pickt', ['pickt', 'backt', 'verkauft', 'ist'], 'Vögel fressen mit dem Schnabel – die Taube <b>pickt</b> Krümel.', [260, 450, 160, 100]],
+      ['Links <s>ist</s> ein Junge auf einem Tretroller.', 'Links ' + L + ' ein Junge mit roter Kappe auf einem Tretroller.', 'fährt', ['fährt', 'schläft', 'schwimmt', 'ist'], 'Auf einem Roller <b>fährt</b> man.', [20, 390, 160, 160]],
+      ['Die Frau mit dem lila Hut <s>macht</s> etwas beim Obst.', 'Die Frau mit dem lila Hut ' + L + ' auf das Obst.', 'zeigt', ['zeigt', 'sitzt', 'hängt', 'macht'], 'Sie streckt den Arm aus – sie <b>zeigt</b> auf das Obst.', [150, 290, 180, 180]],
+      ['Das Mädchen <s>hat</s> einen Luftballon.', 'Das Mädchen ' + L + ' einen lila Luftballon an einer Schnur.', 'hält', ['hält', 'isst', 'verkauft', 'hat'], 'Sie <b>hält</b> die Schnur des Ballons in ihren hochgereckten Händen.', [470, 220, 170, 320]],
+      ['Im Blumenstand <s>sind</s> vier Eimer.', 'Im Blumenstand ' + L + ' vier graue Eimer mit Sonnenblumen und Tulpen.', 'stehen', ['stehen', 'rennen', 'fliegen', 'sind'], 'Eimer <b>stehen</b> auf dem Boden.', [290, 230, 230, 170]],
+      ['Auf dem Bäckerstand <s>sieht man</s> Brote und Brezeln.', 'Auf dem Bäckerstand ' + L + ' drei Brote und zwei Brezeln.', 'liegen', ['liegen', 'laufen', 'hängen', 'sieht man'], 'Brote und Brezeln <b>liegen</b> in der Auslage.', [550, 270, 235, 90]],
+      ['Die Bäckerin <s>hat</s> die Hände in den Hüften.', 'Die Bäckerin ' + L + ' die Hände in die Hüften.', 'stemmt', ['stemmt', 'backt', 'wirft', 'hat'], '„Die Hände in die Hüften <b>stemmen</b>“ – so sagt man, wenn jemand die Hände an die Seiten drückt.', [590, 230, 160, 160]],
+      ['Rechts <s>sind</s> ein Vater und seine Tochter.', 'Rechts ' + L + ' ein Vater und seine Tochter über den Markt.', 'gehen', ['gehen', 'schwimmen', 'liegen', 'sind'], 'Die beiden machen Schritte – sie <b>gehen</b> über den Markt.', [400, 220, 240, 330]]
+    ];
+    var q = Quiz($('#verb-quiz'), {
+      id: 'verben',
+      fragen: function () {
+        return mischen(V).slice(0, 10).map(function (v) {
+          var langweilig = /<s>(ist|sind|gibt es|hat|sieht man|macht)<\/s>/.exec(v[0]);
+          return {
+            bild: ausschnitt(M, v[5], 'Ausschnitt aus dem Wochenmarkt-Bild'),
+            text: '<p class="ue-alt"><span class="ue-zeitlabel">Langweilig</span> „' + v[0] + '“</p><p><span class="ue-zeitlabel jetzt">Getunt</span> „' + v[1] + '“</p>',
+            richtig: v[2], optionen: v[3],
+            erklaerung: v[4] + (langweilig ? ' „' + langweilig[1] + '“ ist ein Langweiler-Wort.' : '')
+          };
+        });
+      }
+    });
+    NEUSTART.verben = q.start;
+    q.start();
+  });
+
+  /* ======================= Spiel 6: Adjektiv-Treppe ======================= */
+  sicher('Adjektiv-Treppe', function () {
+    var S = 'bilder/sommertag-am-see.svg', M = 'bilder/wochenmarkt.svg';
+    var T = [
+      { bild: S, titel: 'Sommertag am See', r: [320, 395, 240, 105], start: 'ein Hund', schritte: [
+        { f: 'Welche Farbe hat das Fell?', o: [['ein <mark>brauner</mark> Hund', 1], ['ein <mark>schwarzer</mark> Hund', 'Schau genau hin: Das Fell ist braun, nicht schwarz.'], ['ein <mark>weißer</mark> Hund', 'Weiß? Nein – das Fell ist braun.']] },
+        { f: 'Was trägt der Hund um den Hals?', o: [['ein brauner Hund <mark>mit einem roten Halsband</mark>', 1], ['ein brauner Hund <mark>mit einem blauen Halsband</mark>', 'Das Halsband ist rot – so rot wie der Ball.'], ['ein brauner Hund <mark>mit einer roten Fliege</mark>', 'Eine rote Fliege trägt der Teddy im Kinderzimmer – der Hund hat ein Halsband.']] }
+      ] },
+      { bild: S, titel: 'Sommertag am See', r: [140, 440, 230, 80], start: 'eine Decke', schritte: [
+        { f: 'Welches Muster hat die Decke?', o: [['eine <mark>karierte</mark> Decke', 1], ['eine <mark>gestreifte</mark> Decke', 'Gestreift bedeutet: Streifen nur in eine Richtung. Hier kreuzen sich die Streifen – das ist kariert.'], ['eine <mark>gepunktete</mark> Decke', 'Punkte findest du auf der Bettdecke im Kinderzimmer, nicht hier.']] },
+        { f: 'Welche Farben hat das Karomuster?', o: [['eine <mark>rot-weiß</mark> karierte Picknickdecke', 1], ['eine <mark>blau-weiß</mark> karierte Picknickdecke', 'Blau ist das Kleid des Mädchens. Die Decke ist rot-weiß.'], ['eine <mark>grün-gelb</mark> karierte Picknickdecke', 'Grün ist die Wiese drumherum – die Decke ist rot-weiß.']] }
+      ] },
+      { bild: S, titel: 'Sommertag am See', r: [290, 235, 140, 125], start: 'ein Segelboot', schritte: [
+        { f: 'Wie groß ist das Boot?', o: [['ein <mark>kleines</mark> Segelboot', 1], ['ein <mark>riesiges</mark> Segelboot', 'Im Vergleich zum großen See ist das Boot eher klein.'], ['ein <mark>kleines Ruderboot</mark>', 'Das Boot hat Segel – also ist es ein Segelboot!']] },
+        { f: 'Wie sehen Rumpf und Segel aus?', o: [['ein kleines Segelboot <mark>mit einem roten Rumpf und zwei weißen Segeln</mark>', 1], ['ein kleines Segelboot <mark>mit einem blauen Rumpf und zwei roten Segeln</mark>', 'Genau andersherum gedacht? Der Rumpf ist rot, die Segel sind weiß.'], ['ein kleines Segelboot <mark>mit einem roten Rumpf und drei gelben Segeln</mark>', 'Zähl nach: Es sind zwei Segel, und sie sind weiß. Nur der kleine Wimpel ist gelb.']] }
+      ] },
+      { bild: M, titel: 'Auf dem Wochenmarkt', r: [10, 175, 270, 90], start: 'eine Markise', schritte: [
+        { f: 'Welches Muster hat die Markise über dem Obststand?', o: [['eine <mark>gestreifte</mark> Markise', 1], ['eine <mark>karierte</mark> Markise', 'Kariert wäre ein Kästchenmuster. Hier siehst du Streifen nebeneinander.'], ['eine <mark>gepunktete</mark> Markise', 'Punkte? Schau noch einmal – die Markise hat Streifen.']] },
+        { f: 'Welche Farben haben die Streifen?', o: [['eine <mark>rot-weiß</mark> gestreifte Markise', 1], ['eine <mark>blau-weiß</mark> gestreifte Markise', 'Blau-weiß ist die Markise der Bäckerei. Schau auf den Obststand!'], ['eine <mark>grün-hellgrün</mark> gestreifte Markise', 'Grün-hellgrün gehört zum Blumenstand in der Mitte.']] }
+      ] },
+      { bild: M, titel: 'Auf dem Wochenmarkt', r: [160, 290, 170, 185], start: 'eine Frau', schritte: [
+        { f: 'Was trägt die Frau auf dem Kopf?', o: [['eine Frau <mark>mit einem lila Hut</mark>', 1], ['eine Frau <mark>mit einer roten Kappe</mark>', 'Die rote Kappe trägt der Junge auf dem Tretroller.'], ['eine Frau <mark>mit einem gelben Hut</mark>', 'Gelb ist ihr Oberteil – der Hut ist lila.']] },
+        { f: 'Was trägt sie noch bei sich?', o: [['eine Frau mit einem lila Hut <mark>und einer lila Handtasche</mark>', 1], ['eine Frau mit einem lila Hut <mark>und einem roten Regenschirm</mark>', 'Einen Regenschirm hat sie nicht. Schau auf ihren Arm: eine Handtasche!'], ['eine Frau mit einem lila Hut <mark>und einer grünen Handtasche</mark>', 'Die Handtasche passt zum Hut – sie ist lila.']] }
+      ] },
+      { bild: M, titel: 'Auf dem Wochenmarkt', r: [310, 0, 180, 250], start: 'ein Kirchturm', schritte: [
+        { f: 'Wie ist der Kirchturm?', o: [['ein <mark>hoher</mark> Kirchturm', 1], ['ein <mark>niedriger</mark> Kirchturm', 'Der Turm ragt über alle Häuser – er ist hoch, nicht niedrig.'], ['ein <mark>runder</mark> Kirchturm', 'Der Turm ist eckig, nicht rund. Rund ist nur die Uhr.']] },
+        { f: 'Wie sieht sein Dach aus?', o: [['ein hoher Kirchturm <mark>mit einem grünen Spitzdach</mark>', 1], ['ein hoher Kirchturm <mark>mit einem roten Spitzdach</mark>', 'Rotbraune Dächer haben die Häuser. Das Dach des Turms ist grün.'], ['ein hoher Kirchturm <mark>mit einem flachen Dach</mark>', 'Das Dach läuft oben spitz zu – es ist ein Spitzdach.']] }
+      ] }
+    ];
+    var gesamt = 0;
+    T.forEach(function (t) { gesamt += t.schritte.length; });
+    MAX.adjektive = gesamt;
+    var root = $('#treppe-spiel');
+    var st;
+    function start() { st = { i: 0, s: 0, p: 0, stufen: [], fehler: false }; zeige(false); }
+    function zeige(scroll) {
+      var t = T[st.i];
+      if (st.s === 0) st.stufen = [t.start];
+      root.innerHTML = '';
+      root.appendChild(el('div', 'ue-quiz-kopf', '<span>Bild <b>' + (st.i + 1) + '</b> von ' + T.length + '</span><span class="ue-quiz-punkte">★ ' + st.p + ' Punkte</span>'));
+      root.appendChild(el('div', 'ue-balken', '<i style="width:' + Math.round(st.i / T.length * 100) + '%"></i>'));
+      var zeile = el('div', 'ue-ausschnitt-zeile');
+      var links = el('div', 'ue-ausschnitt-links', '<p class="ue-lupen-label">🔍 Lupen-Blick: „' + t.titel + '“</p>' + ausschnitt(t.bild, t.r, 'Ausschnitt aus „' + t.titel + '“'));
+      zeile.appendChild(links);
+      var rechts = el('div');
+      var ol = el('ol', 'ue-treppe');
+      st.stufen.forEach(function (s, k) { ol.appendChild(el('li', '', '<span class="ue-stufe">Stufe ' + (k + 1) + '</span>' + s)); });
+      rechts.appendChild(ol);
+      var fb = el('div', 'lupo ue-lupo ue-leise');
+      var weiter = knopf('btn ue-weiter', '');
+      weiter.hidden = true;
+      if (st.s < t.schritte.length) {
+        var sch = t.schritte[st.s];
+        rechts.appendChild(el('p', '', '<strong>Nächste Stufe:</strong> ' + sch.f));
+        var box = el('div', 'ue-optionen breit');
+        st.fehler = false;
+        mischen(sch.o).forEach(function (o) {
+          var b = knopf('ue-opt', o[0]);
+          b.addEventListener('click', function () {
+            if (o[1] === 1) {
+              if (!st.fehler) st.p++;
+              $$('button', box).forEach(function (x) { x.disabled = true; });
+              b.classList.add('richtig');
+              st.stufen.push(o[0].replace(/<\/?mark>/g, ''));
+              st.s++;
+              var nochMehr = st.s < t.schritte.length;
+              var letztesBild = st.i + 1 >= T.length;
+              lupo(fb, '<strong>' + zufall(LOB) + '</strong> ' + (nochMehr ? 'Die nächste Stufe macht es noch genauer.' : 'Fertig ist die Treppe: <em>„' + st.stufen[st.stufen.length - 1] + '“</em> – so kann man es sich genau vorstellen!'), 'gut');
+              weiter.textContent = nochMehr ? 'Nächste Stufe →' : (letztesBild ? 'Zum Ergebnis →' : 'Nächstes Bild →');
+              weiter.hidden = false;
+              try { weiter.focus({ preventScroll: true }); } catch (e) { /* egal */ }
+            } else {
+              st.fehler = true;
+              b.disabled = true;
+              b.classList.add('falsch');
+              lupo(fb, '<strong>' + zufall(TROST) + '</strong> ' + o[1] + ' Versuch es noch einmal!', 'falsch');
+            }
+          });
+          box.appendChild(b);
+        });
+        rechts.appendChild(box);
+      }
+      rechts.appendChild(fb);
+      rechts.appendChild(weiter);
+      zeile.appendChild(rechts);
+      root.appendChild(zeile);
+      weiter.addEventListener('click', function () {
+        if (st.s >= T[st.i].schritte.length) {
+          st.i++; st.s = 0;
+          if (st.i >= T.length) { ende(); sichtbarMachen(root); return; }
+          sichtbarMachen(root);
+        }
+        zeige(true);
+      });
+    }
+    function ende() {
+      root.innerHTML = '';
+      var box = el('div', 'ue-ergebnis', sterneHtml(sterneZahl(st.p, gesamt)) + '<p class="ue-ergebnis-zahl"><b>' + st.p + '</b> von ' + gesamt + ' Stufen beim ersten Versuch richtig</p>');
+      var fb = el('div', 'lupo ue-lupo');
+      box.appendChild(fb);
+      lupo(fb, ergebnisText(st.p, gesamt) + '<br>Denk dran: <strong>Farbe, Muster, Form, Größe</strong> – mit jeder Stufe wird deine Beschreibung genauer!', st.p / gesamt >= 0.6 ? 'gut' : 'info');
+      var nochmal = knopf('btn', '↻ Nochmal spielen');
+      nochmal.addEventListener('click', function () { start(); sichtbarMachen(root); });
+      box.appendChild(nochmal);
+      root.appendChild(box);
+      melden('adjektive', st.p);
+    }
+    NEUSTART.adjektive = start;
+    start();
+  });
+
+  /* ======================= Spiel 7: Ampel ======================= */
+  sicher('Ampel', function () {
+    var A = {
+      sehen: [
+        ['Im Vordergrund gehen drei Jäger durch den tiefen Schnee.', 'Das kann jeder im Bild sehen – eine sachliche Beschreibung.'],
+        ['Ein Jäger trägt einen Fuchs über der Schulter.', 'Den Fuchs kann man im Bild erkennen – das ist eine Beschreibung.'],
+        ['Auf den kahlen Bäumen sitzen schwarze Vögel.', 'Die Vögel sind im Bild zu sehen – grün!'],
+        ['Auf den zugefrorenen Teichen laufen viele Menschen Schlittschuh.', 'Das ist unten rechts im Tal zu sehen – eine Beschreibung.'],
+        ['Links vor dem Gasthaus machen Menschen ein Feuer.', 'Das Feuer kann man links im Bild sehen.'],
+        ['Im Hintergrund erheben sich schneebedeckte, schroffe Berge.', 'Die Berge sieht man im Hintergrund – grün!']
+      ],
+      vermuten: [
+        ['Die Jäger sind vermutlich müde und hungrig.', 'Das Signalwort <b>„vermutlich“</b> zeigt: Man kann es nicht sicher sehen.'],
+        ['Wahrscheinlich war die Jagd nicht sehr erfolgreich.', '<b>„Wahrscheinlich“</b> – man sieht nur einen Fuchs, aber sicher weiß man es nicht.'],
+        ['Es sieht so aus, als ob es sehr kalt ist.', '<b>„Es sieht so aus, als ob“</b> ist eine Vermutung. Kälte kann man nicht direkt sehen.'],
+        ['Vielleicht wollen sich die Jäger im Gasthaus aufwärmen.', '<b>„Vielleicht“</b> – das kann man nur vermuten.']
+      ],
+      meinen: [
+        ['Ich finde das Bild wunderschön.', '<b>„Ich finde“</b> zeigt deine Meinung. Sie gehört in den Schluss.'],
+        ['Die Farben sind langweilig.', 'Das ist eine Meinung – jemand anderes findet die Farben vielleicht toll. Sie gehört in den Schluss.'],
+        ['Mir gefällt das Bild, weil es so ruhig wirkt.', '<b>„Mir gefällt“</b> – eine Meinung mit Begründung. Perfekt für den Schluss!'],
+        ['Das ist das beste Winterbild der Welt!', 'Das ist eine Meinung (sogar eine übertriebene). Im Hauptteil hat sie nichts zu suchen.']
+      ]
+    };
+    var OPT = [
+      { w: 'sehen', html: '<span class="ue-ampelpunkt"></span><span>Ich <b>sehe</b></span><small>beschreiben</small>', cls: 'ue-ampel-gruen' },
+      { w: 'vermuten', html: '<span class="ue-ampelpunkt"></span><span>Ich <b>vermute</b></span><small>Vermutung</small>', cls: 'ue-ampel-gelb' },
+      { w: 'meinen', html: '<span class="ue-ampelpunkt"></span><span>Ich <b>meine</b></span><small>Meinung / Gefühl</small>', cls: 'ue-ampel-rot' }
+    ];
+    var q = Quiz($('#ampel-quiz'), {
+      id: 'ampel', fest: true, optKlasse: 'ue-ampel-opts',
+      fragen: function () {
+        var l = [];
+        [['sehen', 5], ['vermuten', 3], ['meinen', 4]].forEach(function (x) {
+          mischen(A[x[0]]).slice(0, x[1]).forEach(function (s) {
+            l.push({ text: '<p style="font-size:1.15em">„' + s[0] + '“</p>', optionen: OPT, richtig: x[0], erklaerung: s[1] });
+          });
+        });
+        return mischen(l);
+      }
+    });
+    NEUSTART.ampel = q.start;
+    q.start();
+  });
+
+  /* ======================= Spiel 8: Zeitmaschine ======================= */
+  sicher('Zeitmaschine', function () {
+    var Z = [
+      ['Der Hund', 'rannte', 'auf den Ball zu.', 'rennt', ['rennt', 'rannte', 'rennte', 'gerannt'], 'rennen → er <b>rennt</b>'],
+      ['Das Mädchen', 'las', 'ein Buch.', 'liest', ['liest', 'lest', 'las', 'lieste'], 'lesen → sie <b>liest</b>. Achtung: Aus „e“ wird „ie“!'],
+      ['Der Junge', 'saß', 'am Ende des Stegs.', 'sitzt', ['sitzt', 'saß', 'sitzte', 'setzt'], 'sitzen → er <b>sitzt</b>. („setzt“ bedeutet: sich hinsetzen.)'],
+      ['Zwei Enten', 'schwammen', 'auf dem See.', 'schwimmen', ['schwimmen', 'schwammen', 'schwimmt', 'geschwommen'], 'schwimmen → sie <b>schwimmen</b> (Mehrzahl!)'],
+      ['In der rechten oberen Ecke', 'strahlte', 'eine gelbe Sonne.', 'strahlt', ['strahlt', 'strahlte', 'strahlen', 'gestrahlt'], 'strahlen → sie <b>strahlt</b>'],
+      ['Der Verkäufer', 'hielt', 'eine Papiertüte in der Hand.', 'hält', ['hält', 'haltet', 'hielt', 'gehalten'], 'halten → er <b>hält</b>. Achtung: Aus „a“ wird „ä“!'],
+      ['Die Taube', 'pickte', 'Krümel vom Boden.', 'pickt', ['pickt', 'pickte', 'packt', 'gepickt'], 'picken → sie <b>pickt</b>'],
+      ['Die Frau', 'zeigte', 'auf das Obst.', 'zeigt', ['zeigt', 'zeigte', 'zeugt', 'gezeigt'], 'zeigen → sie <b>zeigt</b>'],
+      ['Der Vater', 'ging', 'über den Markt.', 'geht', ['geht', 'ging', 'gehte', 'gegangen'], 'gehen → er <b>geht</b>'],
+      ['Die graue Katze', 'schlief', 'auf dem Teppich.', 'schläft', ['schläft', 'schlaft', 'schlief', 'schlafte'], 'schlafen → sie <b>schläft</b>. Aus „a“ wird „ä“!'],
+      ['Ein grünes Fahrrad', 'lag', 'im Gras.', 'liegt', ['liegt', 'lag', 'legt', 'liegte'], 'liegen → es <b>liegt</b>. („legt“ heißt: etwas hinlegen.)'],
+      ['Im Hintergrund', 'erhoben', 'sich schneebedeckte Berge.', 'erheben', ['erheben', 'erhoben', 'erhebt', 'erhebten'], 'sich erheben → sie <b>erheben</b> sich (Mehrzahl!)'],
+      ['Drei Jäger', 'stapften', 'durch den Schnee.', 'stapfen', ['stapfen', 'stapften', 'stapft', 'gestapft'], 'stapfen → sie <b>stapfen</b> (Mehrzahl!)'],
+      ['Die Lehrerin', 'trug', 'eine gelbe Trillerpfeife.', 'trägt', ['trägt', 'tragt', 'trug', 'trägte'], 'tragen → sie <b>trägt</b>. Aus „a“ wird „ä“!']
+    ];
+    var profi = $('#zeit-profi');
+    var q = Quiz($('#zeit-quiz'), {
+      id: 'praesens',
+      eingabe: function () { return profi.checked; },
+      fragen: function () {
+        return mischen(Z).slice(0, 10).map(function (z) {
+          return {
+            text: '<p class="ue-alt"><span class="ue-zeitlabel">Präteritum</span> „' + z[0] + ' <b>' + z[1] + '</b> ' + z[2] + '“</p>' +
+                  '<p><span class="ue-zeitlabel jetzt">Präsens</span> „' + z[0] + ' <span class="ue-luecke">?</span> ' + z[2] + '“</p>',
+            richtig: z[3], optionen: z[4], erklaerung: z[5] + '.'
+          };
+        });
+      }
+    });
+    profi.addEventListener('change', function () { q.start(); });
+    NEUSTART.praesens = q.start;
+    q.start();
+  });
+
+  /* ======================= Spiel 9: Ordnen ======================= */
+  sicher('Ordnen', function () {
+    var AUFGABEN = [
+      { titel: 'Aufgabe 1: Der Aufbau', frage: 'Bring Einleitung, Hauptteil und Schluss in die richtige Reihenfolge.', streifen: [
+        ['Das Bild „Sommertag am See“ ist eine bunte Zeichnung.', 'Einleitung'],
+        ['Es zeigt einen fröhlichen Sommertag an einem See, an dem Kinder ihre Freizeit verbringen.', 'Einleitung'],
+        ['Im Vordergrund erstreckt sich eine grüne Wiese mit bunten Blumen. Am linken Bildrand steht ein großer Laubbaum …', 'Hauptteil'],
+        ['Das Bild wirkt auf mich fröhlich und friedlich. Mir gefällt es, weil ich auch gerne am See bin.', 'Schluss']
+      ], tipp: 'Zuerst kommen Bildart und Titel, dann das Thema („Das Bild zeigt …“). Danach folgt der Hauptteil – die Meinung steht ganz am Ende.' },
+      { titel: 'Aufgabe 2: Der rote Faden im Hauptteil', frage: 'Ordne die Sätze vom Vordergrund über den Mittelgrund zum Hintergrund.', streifen: [
+        ['Im Vordergrund erstreckt sich eine grüne Wiese mit bunten Blumen.', 'Vordergrund'],
+        ['Am linken Bildrand steht ein großer Laubbaum mit einem dicken braunen Stamm.', 'Vordergrund'],
+        ['Rechts neben dem Baum liegt eine rot-weiß karierte Picknickdecke.', 'Vordergrund'],
+        ['Darauf sitzt ein Mädchen mit langen braunen Haaren und einem blauen Kleid.', 'Vordergrund'],
+        ['Im Mittelgrund breitet sich ein blauer See über die ganze Bildbreite aus.', 'Mittelgrund'],
+        ['Genau in der Mitte segelt ein kleines Segelboot mit einem roten Rumpf und zwei weißen Segeln.', 'Mittelgrund'],
+        ['Im Hintergrund erheben sich sanfte grüne Hügel.', 'Hintergrund'],
+        ['In der rechten oberen Ecke strahlt eine gelbe Sonne.', 'Hintergrund']
+      ], tipp: 'Achte auf die Satzanfänge! „Im Vordergrund …“, „Im Mittelgrund …“, „Im Hintergrund …“ zeigen dir den Weg. Und: „Rechts neben <em>dem Baum</em>“ geht nur, wenn der Baum vorher schon genannt wurde. „Darauf“ meint die Decke.' }
+    ];
+    var root = $('#ordnen-spiel');
+    var st;
+    function start() { st = { a: 0, punkte: 0, geprueft: false, reihe: null }; aufgabe(); }
+    function aufgabe() {
+      var A = AUFGABEN[st.a];
+      var n = A.streifen.length, idx = [];
+      for (var i = 0; i < n; i++) idx.push(i);
+      do { st.reihe = mischen(idx); } while (st.reihe.join() === idx.join());
+      st.geprueft = false;
+      zeichnen();
+    }
+    function zeichnen(fokusIdx, fokusRichtung, bewertung) {
+      var A = AUFGABEN[st.a];
+      root.innerHTML = '';
+      root.appendChild(el('div', 'ue-quiz-kopf', '<span>' + A.titel + '</span><span class="ue-quiz-punkte">★ ' + st.punkte + ' Punkte</span>'));
+      root.appendChild(el('p', '', '<strong>' + A.frage + '</strong>'));
+      var ol = el('ol', 'ue-streifen');
+      st.reihe.forEach(function (sIdx, pos) {
+        var s = A.streifen[sIdx];
+        var li = el('li', bewertung ? (sIdx === pos ? 'ok' : 'nein') : '');
+        if (fokusIdx === pos) li.classList.add('bewegt');
+        var fertig = bewertung && bewertung.alle;
+        li.appendChild(el('span', 'ue-snr', String(pos + 1)));
+        li.appendChild(el('span', '', (fertig ? '<span class="ue-tag">' + s[1] + '</span>' : '') + s[0]));
+        var pf = el('span', 'ue-pfeile');
+        var hoch = knopf('ue-pfeil', '▲'), runter = knopf('ue-pfeil', '▼');
+        hoch.setAttribute('aria-label', 'Satz ' + (pos + 1) + ' nach oben');
+        runter.setAttribute('aria-label', 'Satz ' + (pos + 1) + ' nach unten');
+        hoch.disabled = pos === 0 || fertig; runter.disabled = pos === st.reihe.length - 1 || fertig;
+        hoch.addEventListener('click', function () { tauschen(pos, pos - 1, 'hoch'); });
+        runter.addEventListener('click', function () { tauschen(pos, pos + 1, 'runter'); });
+        pf.appendChild(hoch); pf.appendChild(runter);
+        li.appendChild(pf);
+        ol.appendChild(li);
+      });
+      root.appendChild(ol);
+      if (fokusIdx != null) {
+        var ziel = $$('li', ol)[fokusIdx];
+        var b = ziel ? $$('.ue-pfeil', ziel)[fokusRichtung === 'hoch' ? 0 : 1] : null;
+        if (b && b.disabled) b = $$('.ue-pfeil', ziel)[fokusRichtung === 'hoch' ? 1 : 0];
+        if (b) try { b.focus({ preventScroll: true }); } catch (e) { b.focus(); }
+      }
+      var fb = el('div', 'lupo ue-lupo ue-leise');
+      var zeile = el('div', 'ue-zeile');
+      if (bewertung && bewertung.alle) {
+        var letzte = st.a + 1 >= AUFGABEN.length;
+        lupo(fb, '<strong>' + zufall(LOB) + '</strong> Die Reihenfolge stimmt! ' + (st.a === 0 ? 'Einleitung – Hauptteil – Schluss: So ist jede Bildbeschreibung aufgebaut.' : 'Vom Vordergrund über den Mittelgrund zum Hintergrund – so findet dein Leser den roten Faden.'), 'gut');
+        var weiter = knopf('btn', letzte ? 'Zum Ergebnis →' : 'Weiter zu Aufgabe 2 →');
+        weiter.addEventListener('click', function () {
+          if (letzte) ende(); else { st.a++; aufgabe(); }
+          sichtbarMachen(root);
+        });
+        zeile.appendChild(weiter);
+      } else {
+        var pruefen = knopf('btn', 'Prüfen ✔');
+        pruefen.addEventListener('click', pruefe);
+        zeile.appendChild(pruefen);
+        if (bewertung) lupo(fb, '<strong>' + bewertung.richtig + ' von ' + st.reihe.length + '</strong> Streifen stehen schon richtig (grün). Die orangefarbenen musst du noch verschieben.<br><strong>Tipp:</strong> ' + A.tipp, 'falsch');
+      }
+      root.appendChild(fb);
+      root.appendChild(zeile);
+    }
+    function tauschen(a, b, richtung) {
+      if (b < 0 || b >= st.reihe.length) return;
+      var t = st.reihe[a]; st.reihe[a] = st.reihe[b]; st.reihe[b] = t;
+      zeichnen(b, richtung);
+    }
+    function pruefe() {
+      var richtig = 0;
+      st.reihe.forEach(function (sIdx, pos) { if (sIdx === pos) richtig++; });
+      if (!st.geprueft) { st.punkte += richtig; st.geprueft = true; }
+      zeichnen(null, null, { richtig: richtig, alle: richtig === st.reihe.length });
+    }
+    function ende() {
+      root.innerHTML = '';
+      var box = el('div', 'ue-ergebnis', sterneHtml(sterneZahl(st.punkte, 12)) + '<p class="ue-ergebnis-zahl"><b>' + st.punkte + '</b> von 12 Streifen saßen beim ersten Prüfen richtig</p>');
+      var fb = el('div', 'lupo ue-lupo');
+      box.appendChild(fb);
+      lupo(fb, ergebnisText(st.punkte, 12) + '<br>Merke: <strong>Eine Reihenfolge wählen – und beibehalten!</strong>', st.punkte >= 8 ? 'gut' : 'info');
+      var nochmal = knopf('btn', '↻ Nochmal spielen');
+      nochmal.addEventListener('click', function () { start(); sichtbarMachen(root); });
+      box.appendChild(nochmal);
+      root.appendChild(box);
+      melden('ordnen', st.punkte);
+    }
+    NEUSTART.ordnen = start;
+    start();
+  });
+
+  /* ======================= Spiel 10: Diplom ======================= */
+  sicher('Diplom', function () {
+    var D = [
+      { text: 'Was ist das <strong>Ziel</strong> einer Bildbeschreibung?', richtig: 'Jemand, der das Bild nicht sieht, soll es sich genau vorstellen können.', optionen: ['Jemand, der das Bild nicht sieht, soll es sich genau vorstellen können.', 'Ich soll erzählen, was ich am Wochenende erlebt habe.', 'Ich soll das Bild möglichst schnell abmalen.'], erklaerung: 'Deine Beschreibung ist wie ein Bild aus Wörtern.' },
+      { text: 'In welcher <strong>Zeitform</strong> schreibst du eine Bildbeschreibung?', richtig: 'im Präsens (Gegenwart)', optionen: ['im Präsens (Gegenwart)', 'im Präteritum (Vergangenheit)', 'im Futur (Zukunft)'], erklaerung: 'Du schreibst so, als ob du gerade auf das Bild schaust: „Der Hund rennt …“' },
+      { text: 'Was gehört <strong>nicht</strong> in die Einleitung?', richtig: 'deine Meinung zum Bild', optionen: ['deine Meinung zum Bild', 'der Titel des Bildes', 'die Bildart (z. B. Gemälde)', 'das Thema („Das Bild zeigt …“)'], erklaerung: 'Deine Meinung kommt erst in den Schluss.' },
+      { text: 'Wo steht deine <strong>eigene Meinung</strong>?', richtig: 'im Schluss', optionen: ['im Schluss', 'in der Einleitung', 'im Hauptteil'], erklaerung: 'Im Schluss nennst du die Wirkung und deine Meinung mit Begründung: „Mir gefällt das Bild, weil …“' },
+      { text: 'Im Bild „Sommertag am See“: Wo liegt das <strong>grüne Fahrrad</strong>?', richtig: 'im Vordergrund rechts', optionen: ['im Vordergrund rechts', 'im Hintergrund links', 'im Mittelgrund auf dem Steg'], erklaerung: 'Das Fahrrad liegt vorne rechts im Gras.' },
+      { text: 'Welches Verb ist am treffendsten? „Der Kirchturm <span class="ue-luecke">?</span> über die Häuser.“', richtig: 'ragt', optionen: ['ragt', 'ist', 'liegt'], erklaerung: '„ragen“ passt zu Dingen, die hoch hinausgehen. „ist“ ist ein Langweiler!' },
+      { text: 'Welcher Artikel passt? „Der Ball liegt unter <span class="ue-luecke">?</span> Bett.“', richtig: 'dem', optionen: ['dem', 'den', 'das'], erklaerung: 'Wo? → Dativ: <i>das</i> Bett → unter <b>dem</b> Bett.' },
+      { text: 'Welche <strong>Reihenfolge</strong> ist für den Hauptteil sinnvoll?', richtig: 'vom Vordergrund über den Mittelgrund zum Hintergrund', optionen: ['vom Vordergrund über den Mittelgrund zum Hintergrund', 'kreuz und quer, wie es mir gerade einfällt', 'zuerst die kleinsten Einzelheiten, das Große zum Schluss'], erklaerung: 'Wähle eine feste Reihenfolge und behalte sie bei – zum Beispiel VG → MG → HG oder von links nach rechts.' },
+      { text: 'Welcher Satz ist eine <strong>Vermutung</strong>?', richtig: 'Die Jäger sind vermutlich müde.', optionen: ['Die Jäger sind vermutlich müde.', 'Drei Jäger gehen durch den Schnee.', 'Ich finde das Bild wunderschön.'], erklaerung: 'Das Signalwort „vermutlich“ zeigt die Vermutung.' },
+      { text: 'Welcher Satz steht im <strong>Präsens</strong>?', richtig: 'Die Taube pickt Krümel vom Boden.', optionen: ['Die Taube pickt Krümel vom Boden.', 'Die Taube pickte Krümel vom Boden.', 'Die Taube hat Krümel gepickt.'], erklaerung: '„pickt“ ist Gegenwart.' },
+      { text: 'Welche Beschreibung ist am <strong>genauesten</strong>?', richtig: 'ein brauner Hund mit einem roten Halsband', optionen: ['ein brauner Hund mit einem roten Halsband', 'ein Hund', 'ein schöner Hund'], erklaerung: 'Farbe + Einzelheit = genau! („schön“ ist eine Meinung.)' },
+      { text: 'Wer hat das Gemälde „Die Jäger im Schnee“ (1565) gemalt?', richtig: 'Pieter Bruegel der Ältere', optionen: ['Pieter Bruegel der Ältere', 'Carl Spitzweg', 'Lupo, die Eule'], erklaerung: 'Bruegel hat auch „Die Kinderspiele“ gemalt. Von Carl Spitzweg ist „Der Bücherwurm“.' }
+    ];
+    var root = $('#diplom-quiz');
+    var druck = $('#ue-druckbereich');
+    function rang(p) { return p >= 11 ? 'Meisterdetektiv/in' : p >= 8 ? 'Bilddetektiv/in' : 'Detektiv-Lehrling'; }
+    function datum() {
+      try { return new Date().toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' }); } catch (e) { return ''; }
+    }
+    function diplom(name, p, n) {
+      var d = el('div', 'ue-diplom');
+      d.innerHTML = '<img src="bilder/lupo.svg" alt="Lupo">' +
+        '<div class="ue-dip-kicker">Lupos Detektivbüro</div>' +
+        '<h3>Bilddetektiv-Diplom</h3>' +
+        '<p>Hiermit wird feierlich bestätigt, dass</p>' +
+        '<div class="ue-dip-name"></div>' +
+        '<p>die Prüfung im genauen Hinschauen und Beschreiben bestanden hat.</p>' +
+        '<div class="ue-dip-rang">' + rang(p) + '</div>' +
+        '<div>' + sterneHtml(sterneZahl(p, n)) + '</div>' +
+        '<p><strong>' + p + ' von ' + n + '</strong> Fragen richtig</p>' +
+        '<div class="ue-dip-stufen"><span>1 Schauen</span><span>2 Ordnen</span><span>3 Einleiten</span><span>4 Beschreiben</span><span>5 Bewerten &amp; Prüfen</span></div>' +
+        '<p><em>„Erst schauen, dann ordnen, dann schreiben!“</em></p>' +
+        '<div class="ue-dip-unterschrift"><div>Datum: ' + datum() + '</div><div>Lupo, Chef-Detektiv</div><div>Lehrkraft</div></div>';
+      $('.ue-dip-name', d).textContent = name || ' ';
+      return d;
+    }
+    var q = Quiz(root, {
+      id: 'diplom',
+      fragen: function () {
+        return D.map(function (f) { return { text: '<p>' + f.text + '</p>', richtig: f.richtig, optionen: f.optionen, erklaerung: f.erklaerung }; });
+      },
+      amEnde: function (p, n, box) {
+        var form = el('div', 'ue-diplom-form');
+        form.innerHTML = '<label for="dip-name"><strong>Dein Name:</strong></label> <input type="text" id="dip-name" maxlength="40" autocomplete="off" placeholder="Vorname Nachname">';
+        var mach = knopf('btn', 'Diplom erstellen 🎓');
+        form.appendChild(mach);
+        box.appendChild(form);
+        var vorschau = el('div');
+        box.appendChild(vorschau);
+        var druckBtn = knopf('btn', '🖨 Diplom drucken');
+        druckBtn.hidden = true;
+        box.appendChild(druckBtn);
+        var inp = $('#dip-name', form);
+        function erstellen() {
+          vorschau.innerHTML = '';
+          vorschau.appendChild(diplom(inp.value.trim(), p, n));
+          druckBtn.hidden = false;
+        }
+        mach.addEventListener('click', erstellen);
+        inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') erstellen(); });
+        druckBtn.addEventListener('click', function () {
+          druck.innerHTML = '';
+          druck.appendChild(diplom(inp.value.trim(), p, n));
+          document.body.classList.add('ue-diplom-druck');
+          var weg = function () { document.body.classList.remove('ue-diplom-druck'); window.removeEventListener('afterprint', weg); };
+          window.addEventListener('afterprint', weg);
+          window.print();
+        });
+      }
+    });
+    NEUSTART.diplom = q.start;
+    q.start();
+  });
+
+  punkteAnzeigen();
+})();
+</script>
+
+</main>
+<footer class="site-footer no-print">
+  Unterrichtsreihe „Bildbeschreibung“ · Klasse 5 · Übungsbilder: eigene Illustrationen · Gemälde: Pieter Bruegel d. Ä. und Carl Spitzweg (gemeinfrei, Wikimedia Commons)
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

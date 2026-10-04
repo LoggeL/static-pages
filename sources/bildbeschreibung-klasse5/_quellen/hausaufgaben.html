@@ -1,0 +1,1894 @@
+<style>
+  /* Seitenspezifisch: Hausaufgaben (.ha-…) */
+  .ha-nr { background: var(--teal) !important; }
+  .ha-kopf { margin-bottom: 16px; }
+  .ha-schueler {
+    position: relative; background: #fff; border: 2px solid var(--teal); border-radius: var(--radius);
+    padding: 20px 22px 14px; margin: 22px 0 18px;
+  }
+  .ha-schueler::before {
+    content: "Für dich"; position: absolute; top: -12px; left: 16px; background: var(--teal); color: #fff;
+    font-family: var(--font-head); font-weight: 900; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em;
+    padding: 1px 10px; border-radius: 999px;
+  }
+  .ha-schueler > :first-child { margin-top: 0; }
+  .ha-schueler > :last-child { margin-bottom: 0; }
+  .ha-schueler h3 { margin-top: .2em; color: #13675f; }
+  .ha-lehrkraft { border-left: 6px solid var(--blue); padding: 2px 0 2px 18px; margin: 22px 0 8px; }
+  .ha-lehrkraft > h3:first-child { margin-top: 0; }
+  .ha-label { font-family: var(--font-head); font-weight: 900; font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--blue); margin: 0 0 2px; }
+  .ha-beispiel { background: var(--yellow-soft); border-left: 5px solid var(--yellow); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 8px 14px; margin: 10px 0 14px; }
+  .ha-beispiel::before { content: "Beispiel"; display: block; font-family: var(--font-head); font-weight: 900; font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; color: #8a6a00; }
+  .ha-beispiel p { margin: .2em 0; }
+  .ha-varianten { list-style: none; padding: 0; margin: 10px 0 14px; display: grid; gap: 8px; }
+  .ha-varianten li { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 8px 12px; margin: 0; }
+  .ha-varianten .niveau { margin-right: 6px; }
+  .ha-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 4px 0 0; }
+  .ha-material { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .ha-box { display: inline-block; width: 18px; height: 18px; border: 2px solid var(--ink-soft); border-radius: 4px; vertical-align: middle; background: #fff; }
+  .ha-smiley { width: 24px; height: 24px; vertical-align: middle; }
+  .ha-smileys { white-space: nowrap; display: inline-flex; gap: 6px; }
+  table.ha-uebersicht td:first-child { font-family: var(--font-head); font-weight: 900; white-space: nowrap; }
+  table.ha-uebersicht td:nth-child(2), table.ha-uebersicht td:nth-child(4), table.ha-uebersicht td:nth-child(7) { white-space: nowrap; }
+  table.ha-uebersicht { font-size: .9rem; }
+  table.ha-bingo { table-layout: fixed; }
+  table.ha-bingo td { height: 108px; width: 25%; text-align: center; vertical-align: top; padding: 8px 6px; position: relative; }
+  table.ha-bingo td b { display: block; font-family: var(--font-head); font-size: 1.3rem; font-weight: 900; color: var(--blue); line-height: 1.1; }
+  table.ha-bingo td small { display: block; line-height: 1.25; }
+  table.ha-bingo td .ha-unterschrift { position: absolute; left: 8px; right: 8px; bottom: 8px; border-bottom: 1px solid #b7c0c8; font-size: .7rem; color: var(--muted); text-align: left; }
+  table.ha-bingo td.ha-lupofeld { background: var(--orange-soft); }
+  table.ha-eng th, table.ha-eng td { padding: 5px 7px; }
+  table.ha-zettel { font-size: .86rem; }
+  table.ha-zettel td:first-child { font-family: var(--font-head); font-weight: 900; text-align: center; white-space: nowrap; }
+  table.ha-zettel td:nth-child(2) { text-align: center; white-space: nowrap; }
+  table.ha-zettel td:nth-child(4) { text-align: center; }
+  table.ha-zettel td:nth-child(5) { width: 22%; }
+  table.ha-logbuch td { height: 52px; vertical-align: middle; }
+  table.ha-logbuch td:nth-child(2) { font-family: var(--font-head); font-weight: 900; white-space: nowrap; }
+  table.ha-logbuch .ha-wahl { font-size: .78rem; line-height: 1.7; white-space: nowrap; }
+  table.ha-logbuch .ha-wahl .ha-box { width: 13px; height: 13px; border-width: 1.5px; border-radius: 3px; }
+  table.ha-logbuch .ha-wahl .luecke.kurz { min-width: 3.5em; }
+  table.ha-kontrolle { font-size: .78rem; table-layout: fixed; margin-top: 8px; }
+  table.ha-kontrolle th, table.ha-kontrolle td { padding: 2px 3px; text-align: center; height: 23px; }
+  table.ha-kontrolle th { font-size: .7rem; line-height: 1.15; }
+  table.ha-kontrolle th small { display: block; font-weight: 700; font-size: .62rem; color: var(--muted); }
+  table.ha-kontrolle td:nth-child(2) { text-align: left; }
+  table.ha-kontrolle tr:nth-child(even) td { background: #faf7f0; }
+  table.ha-kontrolle col.ha-c-nr { width: 26px; }
+  table.ha-kontrolle col.ha-c-name { width: 150px; }
+  table.ha-kontrolle col.ha-c-bem { width: 92px; }
+  .ha-linien { margin: 4px 0 10px; }
+  .ha-linie { height: 2.1em; border-bottom: 1px solid #b7c0c8; }
+  .ha-legende { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .85rem; margin: 6px 0; }
+  .ha-legende b { font-family: var(--font-head); font-size: 1rem; display: inline-block; min-width: 1.2em; text-align: center; }
+  .ha-hand { display: grid; grid-template-columns: 130px 1fr; gap: 12px; align-items: center; }
+  .ha-hand svg { width: 130px; height: auto; }
+  .ha-hand ol { margin: 0; padding-left: 1.3em; font-size: .92rem; }
+  .ha-hand ol li { margin: 3px 0; }
+  .karte .ha-karten-text { font-size: .9rem; }
+  .karte .ha-karten-text p { margin: .3em 0; }
+  .karte ul.checkliste li { margin: 5px 0; font-size: .9rem; }
+  .ha-stern { color: #d9a400; font-size: 1.2em; }
+  .ha-optionen { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 4px 0 6px; }
+  .ha-optionen span { white-space: nowrap; }
+  .ha-optionen .kreis { margin-right: 6px; }
+  .ha-punkte { float: right; font-size: .82rem; color: var(--muted); font-weight: 700; border: 1px solid var(--line-strong); border-radius: 999px; padding: 0 10px; background: #fff; }
+  .ha-auswertung { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 10px 0; font-size: .9rem; }
+  .ha-auswertung > div { border: 2px solid var(--line); border-radius: var(--radius-sm); padding: 8px 10px; }
+  .ha-auswertung > div:nth-child(1) { border-color: #9fd09b; background: var(--green-soft); }
+  .ha-auswertung > div:nth-child(2) { border-color: #f0cc6b; background: var(--yellow-soft); }
+  .ha-auswertung > div:nth-child(3) { border-color: #e9a3a0; background: var(--red-soft); }
+  .ha-roter-faden .stufen > li { padding-top: 10px; padding-bottom: 10px; min-height: 0; }
+  .ha-strafzettel { border: 2px solid var(--red); border-radius: 10px; padding: 8px 12px; background: #fff; }
+  .ha-strafzettel .karte-titel { color: var(--red); }
+  .ha-fuss-zeile { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: .85rem; color: var(--ink-soft); margin-top: 8px; }
+  @media (max-width: 620px) {
+    .ha-auswertung { grid-template-columns: 1fr; }
+    .ha-hand { grid-template-columns: 1fr; }
+  }
+  @media print {
+    .ha-schueler, .ha-beispiel { break-inside: avoid; }
+    table.ha-kontrolle th, table.ha-kontrolle td { height: 21px; }
+    table.ha-bingo td { height: 100px; }
+    .blatt.ha-kompakt { font-size: 10.5pt; }
+    section.blatt[id^="ha"], section.blatt[id^="kv-"] { padding-bottom: 7mm; }
+    .blatt.ha-kompakt .aufgabe { margin: 7px 0; }
+    .blatt.ha-kompakt .aufgabe > p { margin: 0 0 .2em; }
+    .blatt.ha-kompakt .aufgabe > .nr { width: 28px; height: 28px; font-size: .95rem; }
+    .blatt.ha-kompakt h3 { margin: .5em 0 .25em; font-size: 1.05rem; }
+    .blatt.ha-kompakt .ha-linien { margin: 2px 0 4px; }
+    .ha-linie { height: 1.9em; border-bottom-color: #8f9aa4; }
+    .blatt.ha-kompakt .ha-optionen { margin: 0 0 2px; }
+    .blatt.ha-kompakt .lupo { margin: 4px 0 8px; }
+    .blatt.ha-kompakt .lupo > img { width: 50px; }
+    .blatt.ha-kompakt .lupo .bubble { padding: 6px 12px; font-size: .92em; }
+    .blatt.ha-kompakt .blatt-kopf { margin-bottom: 10px; }
+    .blatt.ha-kompakt details.loesung { break-before: page; }
+    .blatt table.ha-zettel, .blatt table.ha-logbuch, .blatt table.raster { break-inside: auto; }
+    .blatt table.ha-zettel { font-size: 9.6pt; line-height: 1.3; }
+    .blatt table.ha-zettel th, .blatt table.ha-zettel td { padding: 6px 7px; }
+    .blatt table.ha-logbuch td { height: auto; padding: 3px 6px; }
+    .blatt table.ha-logbuch th { padding: 5px 6px; }
+    .blatt table.raster { font-size: 9.8pt; line-height: 1.3; }
+    .blatt table.raster th, .blatt table.raster td { padding: 4px 7px; }
+  }
+</style>
+
+<header class="seitenkopf">
+  <div>
+    <div class="kicker">Für Lehrkräfte und für Schülerinnen und Schüler</div>
+    <h1>Hausaufgaben &amp; Hausaufgabenüberprüfung</h1>
+    <p>Zwölf kurze Hausaufgaben, die wie eine Treppe aufeinander aufbauen – vom mitgebrachten Bild bis zum Spickzettel für die Lerntheke. Jede Hausaufgabe wird in der nächsten Stunde gewürdigt und mit einer anderen, lernwirksamen Methode überprüft. Dazu: Hausaufgabenzettel, Logbuch, Kontrollliste, Feedbackkarten und drei Kurztests.</p>
+  </div>
+  <img src="bilder/lupo.svg" alt="">
+</header>
+
+<div class="werkzeugleiste no-print">
+  <button class="btn" data-print>Ganze Seite drucken</button>
+  <button class="btn hell" data-toggle-loesungen>Alle Lösungen aufklappen</button>
+  <a class="btn hell" href="#uebersicht">Übersicht HA 1–12</a>
+  <a class="btn hell" href="#kv-zettel">Kopiervorlagen</a>
+  <a class="btn hell" href="stunden.html">Zu den Stundenverläufen</a>
+</div>
+
+<nav class="toc no-print" data-auto-toc="section[id]"><h2>Inhalt</h2></nav>
+
+<div class="tipp no-print" data-label="Drucktipp">Jede Kopiervorlage hat einen eigenen Knopf „Dieses Blatt drucken“. Im Druckdialog „Hintergrundgrafiken drucken“ einschalten, damit Kästen, Tabellenfarben und Schreiblinien mitgedruckt werden. Lösungen werden nur gedruckt, wenn sie aufgeklappt sind.</div>
+
+<!-- ================================================================== -->
+<section class="card" id="konzept">
+  <h2>Das Hausaufgaben-Konzept der Reihe</h2>
+
+  <p>Die Hausaufgaben dieser Reihe sind <strong>kein Anhängsel</strong>, sondern ein eigener Lernstrang: Sie sichern das Gelernte der Stunde, bereiten die nächste Stunde vor und werden dort <strong>immer</strong> aufgegriffen. Der rote Faden ist das <strong>mitgebrachte Bild</strong> aus HA 1: Die Kinder sammeln daran Stichwörter (HA 1), ordnen es in Bildbereiche (HA 2) und schreiben dazu eine Einleitung (HA 6, Wahlmöglichkeit). So arbeiten sie an „ihrem“ Bild – das motiviert und macht die Fortschritte sichtbar.</p>
+
+  <div class="ha-roter-faden">
+    <h3>Der rote Faden: So bauen die Hausaufgaben aufeinander auf</h3>
+    <ol class="stufen treppe">
+      <li><strong>Schauen &amp; sammeln (HA 1–2):</strong> eigenes Bild mitbringen, 8 Dinge notieren, in Vordergrund – Mittelgrund – Hintergrund einteilen.</li>
+      <li><strong>Sprache trainieren (HA 3–5):</strong> Präpositionen mit Dativ (eigenes Zimmer), treffende Verben (Wochenmarkt), genaue Adjektive (Lieblingsgegenstand als Rätsel).</li>
+      <li><strong>Textbausteine schreiben (HA 6–8):</strong> Einleitung (eigenes Bild oder Schulhof), Hauptteil-Ausschnitt (Vordergrund „Sommertag am See“), Schluss + Präsens.</li>
+      <li><strong>Ganzer Text (HA 9–10):</strong> Reinschrift „Auf dem Schulhof“, nach der Textlupe überarbeitete Endfassung mit drei markierten Verbesserungen.</li>
+      <li><strong>Wiederholen &amp; einschätzen (HA 11–12):</strong> Spickzettel für die Lerntheke, Selbsteinschätzung auf der Lernlandkarte (AB 0), gezielt üben.</li>
+    </ol>
+  </div>
+
+  <h3>Unsere Prinzipien</h3>
+  <div class="grid-3">
+    <div class="card">
+      <h4 class="mt-0">Kurz und machbar</h4>
+      <p>Jede Hausaufgabe dauert <strong>höchstens 20–30 Minuten</strong>, die meisten deutlich weniger. Sie ist so gestellt, dass alle Kinder sie <strong>ohne Hilfe der Eltern</strong> schaffen können. Die Zeitangaben auf dem Hausaufgabenzettel helfen auch den Familien.</p>
+    </div>
+    <div class="card">
+      <h4 class="mt-0">Differenziert</h4>
+      <p>Wo es sinnvoll ist, gibt es drei Wege: <span class="niveau n1">Basis</span> mit Satzmustern und Wortspeicher, <span class="niveau n2">Standard</span> und <span class="niveau n3">Profi</span> mit Zusatz. Die Kinder wählen selbst – die Lehrkraft darf eine Stufe empfehlen.</p>
+    </div>
+    <div class="card">
+      <h4 class="mt-0">Immer gewürdigt</h4>
+      <p>Keine Hausaufgabe „verschwindet“. Jede wird in der Folgestunde <strong>genutzt</strong>: als Spielmaterial, Einstieg, Text für Feedback oder Grundlage für die Weiterarbeit. Wer sich Mühe gegeben hat, erlebt: „Das war wichtig.“</p>
+    </div>
+    <div class="card">
+      <h4 class="mt-0">Lernwirksam statt Kontrolle</h4>
+      <p>Statt „Hast du sie?“ steht die Frage „Was hast du gelernt?“ im Mittelpunkt. Die Überprüfungen sind <strong>kurze Übungsphasen</strong> (8–12 Minuten): Die Kinder lesen, vergleichen, verbessern und geben sich Rückmeldung.</p>
+    </div>
+    <div class="card">
+      <h4 class="mt-0">Abwechslungsreich</h4>
+      <p>Zwölf Hausaufgaben – zwölf Formen: Speed-Dating, Partnercheck, Bingo, Detektivarbeit, Rätselrunde, Daumen-Check, „2 Sterne und 1 Wunsch“, Kurztest, Textlupe, Rückmeldebogen, Galerie, Selbsteinschätzung.</p>
+    </div>
+    <div class="card">
+      <h4 class="mt-0">Transparent</h4>
+      <p>Alle Aufgaben stehen von Anfang an auf dem <a href="#kv-zettel">Hausaufgabenzettel</a>. Die Kinder führen ein <a href="#kv-logbuch">Hausaufgaben-Logbuch</a>, die Lehrkraft eine <a href="#kv-kontrolle">Kontrollliste</a> mit klaren Kürzeln.</p>
+    </div>
+  </div>
+
+  <h3>Die Überprüfungsmethoden im Wechsel der Sozialformen</h3>
+  <div class="tabelle-scroll">
+    <table class="ha-eng">
+      <thead><tr><th>Form</th><th>Methoden</th><th>Was die Kinder dabei lernen</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge pa">PA</span> Partner</td><td>Bild-Speed-Dating (HA 1), Partnercheck (HA 2), Verben-Detektive (HA 4), W-Fragen-Daumen (HA 6)</td><td>genau zuhören, vergleichen, Kriterien anwenden, freundlich korrigieren</td></tr>
+        <tr><td><span class="badge sp">SP</span> Spiel</td><td>Präpositionen-Bingo (HA 3), Rätselrunde (HA 5)</td><td>Fachwissen in Bewegung und mit Spaß wiederholen</td></tr>
+        <tr><td><span class="badge ga">GA</span> Gruppe</td><td>Vorlesen mit „2 Sterne und 1 Wunsch“ (HA 7), Textlupe (HA 9), Galerie (HA 11)</td><td>Rückmeldung geben und annehmen, von Beispielen lernen</td></tr>
+        <tr><td><span class="badge ea">EA</span> Einzeln</td><td>5-Minuten-Check (HA 8), Kurztests A und B, Selbsteinschätzung (HA 12)</td><td>den eigenen Lernstand ehrlich einschätzen</td></tr>
+        <tr><td><span class="badge lv">LK</span> Lehrkraft</td><td>Rückmeldung mit Bewertungsraster (HA 10), Stichprobe am Beamer (HA 2)</td><td>gezielte, persönliche Rückmeldung ohne Note</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Fair bleiben: Umgang mit vergessenen Hausaufgaben</h3>
+  <div class="achtung" data-label="Vereinbarung">
+    <ol>
+      <li><strong>Kurz melden statt Ausreden:</strong> Wer die Hausaufgabe nicht hat, sagt es zu Stundenbeginn leise der Lehrkraft und trägt es ins <a href="#kv-logbuch">Logbuch</a> ein. Kein Bloßstellen vor der Klasse, keine langen Diskussionen.</li>
+      <li><strong>Trotzdem mitmachen:</strong> Für jede Überprüfung gibt es einen <strong>Ersatzauftrag</strong> (bei der jeweiligen HA beschrieben), damit kein Kind nur zuschaut und alle vom Übungseffekt profitieren.</li>
+      <li><strong>Nachreichen:</strong> Die Hausaufgabe wird bis zur nächsten Stunde nachgereicht. In der Kontrollliste steht dann <strong>N</strong> – sie gilt als erledigt.</li>
+      <li><strong>Gründe ernst nehmen:</strong> Fehlt eine Hausaufgabe öfter, wird nachgefragt: Fehlt ein Bild zu Hause? Gibt es keinen ruhigen Arbeitsplatz? Ist die Aufgabe sprachlich zu schwer? Dann helfen die <strong>Bilderkiste</strong> der Lehrkraft (Postkarten, Kalenderbilder, Prospekte), Satzmuster oder ein Platz in der Hausaufgabenbetreuung.</li>
+      <li><strong>Ab dreimal „fehlt“ ohne Nachreichen:</strong> kurzes Gespräch mit dem Kind, dann Elterninfo (Notiz im Hausaufgabenzettel oder Anruf). Hausaufgaben werden nie als Strafe verdoppelt.</li>
+    </ol>
+  </div>
+  <div class="lupo">
+    <img src="bilder/lupo.svg" alt="Lupo">
+    <div class="bubble"><p><strong>Lupo sagt:</strong> Vergessen kann jedem Detektiv passieren. Wichtig ist, dass du es ehrlich sagst, in dein Logbuch schreibst und die Aufgabe nachholst. Dann ist alles wieder gut!</p></div>
+  </div>
+
+  <h3>Bewertung</h3>
+  <p>Die Hausaufgaben werden <strong>nicht benotet</strong>. Sie dienen dem Üben; Fehler sind ausdrücklich erlaubt. Zuverlässigkeit und Sorgfalt können – nach dem Konzept der Schule – in die Beurteilung der sonstigen Mitarbeit einfließen. Die Rückmeldungen (Feedbackkarten, Bewertungsraster zu HA 10) sind <strong>formativ</strong>: Sie zeigen den nächsten Lernschritt. Achten Sie auf die Vorgaben Ihres Landes und Ihrer Schule zum täglichen Gesamtumfang der Hausaufgaben (Absprache mit den anderen Fächern).</p>
+
+  <h3>Elterninfo</h3>
+  <div class="info" data-label="Elterninfo">
+    <p>Zu Beginn der Reihe erhalten die Familien eine kurze Information (Vorlage unten) zusammen mit dem <a href="#kv-zettel">Hausaufgabenzettel</a>. Wichtig für die Eltern: (1) Für HA 1 braucht das Kind ein Bild (Postkarte, Kalenderbild, Zeitschrift) – <strong>keine Fotos von Familienmitgliedern</strong>; wer keins hat, bekommt eins aus der Bilderkiste. (2) Keine Hausaufgabe soll länger als 20–30 Minuten dauern – wird es länger, bitte abbrechen und eine Notiz schreiben. (3) Eltern sollen nicht korrigieren, sondern nachfragen: „Erklär mir mal, was du gemacht hast.“</p>
+  </div>
+  <details class="loesung">
+    <summary>Vorlage: Elternbrief zur Reihe „Bildbeschreibung“ (zum Kopieren)</summary>
+    <p>Liebe Eltern,</p>
+    <p>in den nächsten Wochen lernt Ihr Kind im Deutschunterricht, Bilder genau zu beschreiben. Am Ende der Reihe schreiben wir eine Klassenarbeit. Die Hausaufgaben bauen aufeinander auf und sind auf dem beiliegenden Hausaufgabenzettel aufgeführt. Jede Aufgabe dauert höchstens 20 bis 30 Minuten.</p>
+    <p>Für die erste Hausaufgabe braucht Ihr Kind ein <strong>Bild</strong>: eine Postkarte, ein Kalenderbild oder ein Bild aus einer Zeitschrift. Bitte geben Sie <strong>keine Fotos von Familienmitgliedern</strong> mit. Das Bild wird mehrmals gebraucht und sollte in einer Klarsichthülle im Deutschheft bleiben. Falls kein passendes Bild zu Hause ist, ist das kein Problem – Ihr Kind bekommt eines von mir.</p>
+    <p>So können Sie helfen: Fragen Sie nach, was Ihr Kind gelernt hat, und lassen Sie es Ihnen etwas beschreiben. Bitte korrigieren Sie die Texte nicht – Fehler zeigen mir, was wir noch üben müssen. Wenn eine Aufgabe zu lange dauert, darf Ihr Kind aufhören; schreiben Sie mir dann bitte eine kurze Notiz.</p>
+    <p>Mit freundlichen Grüßen<br>…………………………… (Deutschlehrkraft)</p>
+  </details>
+</section>
+
+<!-- ================================================================== -->
+<section class="card" id="uebersicht">
+  <h2>Übersicht: Hausaufgaben 1–12 auf einen Blick</h2>
+  <p>Jede Hausaufgabe wird in der Stunde gestellt, deren Thema sie übt, und in der <strong>nächsten Stunde</strong> überprüft. Die Dauer der Überprüfung ist in den <a href="stunden.html">Stundenverläufen</a> eingeplant. Klick auf die Nummer für die ausführliche Beschreibung.</p>
+  <div class="tabelle-scroll">
+    <table class="ha-uebersicht">
+      <thead>
+        <tr><th>HA</th><th>gestellt in</th><th>Aufgabe (Kurzfassung)</th><th>Zeit zu Hause</th><th>Niveau</th><th>Überprüfung (Stunde · Methode)</th><th>Dauer</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><a href="#ha1">HA 1</a></td><td><a href="stunden.html#s1">Std. 1</a></td><td>Ein Bild mitbringen (ohne Familienfotos) und 8 Dinge darauf als Stichwörter notieren.</td><td>ca. 15 Min.</td><td><span class="niveau n1">Basis</span><br><small>★★★: mit Adjektiven</small></td><td><a href="stunden.html#s2">Std. 2</a> · Bild-Speed-Dating <span class="badge pa">PA</span></td><td>10 Min.</td></tr>
+        <tr><td><a href="#ha2">HA 2</a></td><td><a href="stunden.html#s2">Std. 2</a></td><td>Das eigene Bild in Vordergrund, Mittelgrund, Hintergrund einteilen (Tabelle, je mind. 3 Dinge).</td><td>ca. 15–20 Min.</td><td><span class="niveau n1">Basis</span><br><small>★/★★/★★★</small></td><td><a href="stunden.html#s3">Std. 3</a> · Partnercheck mit Kontrollfragen + Stichprobe am Beamer <span class="badge pa">PA</span> <span class="badge ug">UG</span></td><td>12 Min.</td></tr>
+        <tr><td><a href="#ha3">HA 3</a></td><td><a href="stunden.html#s3">Std. 3</a></td><td>Das eigene Zimmer in 8 Sätzen beschreiben, 8 verschiedene Präpositionen unterstreichen.</td><td>ca. 20 Min.</td><td><span class="niveau n2">Standard</span><br><small>★/★★/★★★</small></td><td><a href="stunden.html#s4">Std. 4</a> · Präpositionen-Bingo + Selbstkontrolle Dativ <span class="badge sp">SP</span> <span class="badge ea">EA</span></td><td>12 Min.</td></tr>
+        <tr><td><a href="#ha4">HA 4</a></td><td><a href="stunden.html#s4">Std. 4</a></td><td>6 Sätze über den Wochenmarkt mit 6 verschiedenen treffenden Verben – kein „ist“, kein „gibt es“.</td><td>ca. 20 Min.</td><td><span class="niveau n2">Standard</span><br><small>★/★★/★★★</small></td><td><a href="stunden.html#s5">Std. 5</a> · Verben-Detektive mit „Ist-Polizei“ <span class="badge pa">PA</span></td><td>10 Min.</td></tr>
+        <tr><td><a href="#ha5">HA 5</a></td><td><a href="stunden.html#s5">Std. 5</a></td><td>Einen Lieblingsgegenstand in 5–6 Sätzen mit mind. 6 genauen Adjektiven beschreiben, ohne den Namen zu verraten.</td><td>ca. 20 Min.</td><td><span class="niveau n2">Standard</span><br><small>★/★★/★★★</small></td><td><a href="stunden.html#s6">Std. 6</a> · Rätselrunde (Einstieg) <span class="badge sp">SP</span> <span class="badge pa">PA</span></td><td>10 Min.</td></tr>
+        <tr><td><a href="#ha6">HA 6</a></td><td><a href="stunden.html#s6">Std. 6</a></td><td>Eine Einleitung zum eigenen Bild oder zum „Schulhof“-Bild schreiben.</td><td>ca. 15–20 Min.</td><td><span class="niveau n2">Standard</span><br><small>★/★★/★★★</small></td><td><a href="stunden.html#s7">Std. 7</a> · Einleitungs-Check mit W-Fragen-Daumen <span class="badge pa">PA</span></td><td>8 Min.</td></tr>
+        <tr><td><a href="#ha7">HA 7</a></td><td><a href="stunden.html#s7">Std. 7</a></td><td>Den Vordergrund von „Sommertag am See“ in 5–7 Sätzen mit abwechslungsreichen Satzanfängen beschreiben.</td><td>ca. 20–25 Min.</td><td><span class="niveau n2">Standard</span><br><small>★/★★/★★★</small></td><td><a href="stunden.html#s8">Std. 8</a> · Satzanfänge-Zählung + Vorlesen mit „2 Sterne und 1 Wunsch“ <span class="badge ea">EA</span> <span class="badge ga">GA</span></td><td>12 Min.</td></tr>
+        <tr><td><a href="#ha8">HA 8</a></td><td><a href="stunden.html#s8">Std. 8</a></td><td>Einen Schluss (3–4 Sätze) zu „Sommertag am See“ schreiben und 6 Sätze ins Präsens setzen (AB 11).</td><td>ca. 20–25 Min.</td><td><span class="niveau n2">Standard</span><br><small>★/★★/★★★</small></td><td><a href="stunden.html#s9">Std. 9</a> · 5-Minuten-Check (Mini-Quiz, Selbstkorrektur) <span class="badge ea">EA</span></td><td>10 Min.</td></tr>
+        <tr><td><a href="#ha9">HA 9</a></td><td><a href="stunden.html#s9">Std. 9</a></td><td>Die Bildbeschreibung „Auf dem Schulhof“ fertig schreiben (Reinschrift).</td><td>ca. 25–30 Min.</td><td><span class="niveau n2">Standard</span><br><small>★/★★/★★★</small></td><td><a href="stunden.html#s10">Std. 10</a> · Textlupe/Schreibkonferenz (zugleich Stundeninhalt) <span class="badge ga">GA</span></td><td>ca. 25 Min.</td></tr>
+        <tr><td><a href="#ha10">HA 10</a></td><td><a href="stunden.html#s10">Std. 10</a></td><td>Die überarbeitete Endfassung schreiben und drei verbesserte Stellen markieren.</td><td>ca. 25–30 Min.</td><td><span class="niveau n2">Standard</span><br><small>★/★★/★★★</small></td><td><a href="stunden.html#s11">Std. 11</a> · Einsammeln, Rückmeldung mit Bewertungsraster (formativ, ohne Note), Rückgabe in Std. 12 <span class="badge lv">LK</span></td><td>2 + 5 Min.</td></tr>
+        <tr><td><a href="#ha11">HA 11</a></td><td><a href="stunden.html#s11">Std. 11</a></td><td>Einen Spickzettel (DIN A6) „Bildbeschreibung – das Wichtigste“ gestalten.</td><td>ca. 25 Min.</td><td><span class="niveau n1">Basis</span><br><small>★/★★/★★★</small></td><td><a href="stunden.html#s12">Std. 12</a> · Galerie der Spickzettel + Kriterien-Check <span class="badge ga">GA</span> <span class="badge pa">PA</span></td><td>8 Min.</td></tr>
+        <tr><td><a href="#ha12">HA 12</a></td><td><a href="stunden.html#s12">Std. 12</a></td><td>Selbsteinschätzung auf der Lernlandkarte (AB 0, „vor der Arbeit“) und gelbe/rote Stationen wiederholen.</td><td>ca. 20–30 Min.</td><td><span class="niveau n1">Basis</span><br><small>individuell</small></td><td><a href="stunden.html#s13">Std. 13</a> · keine Überprüfung (Klassenarbeit); Lehrkraft sammelt die Selbsteinschätzung vorher ein <span class="badge lv">LK</span></td><td>2 Min.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="klein">Zusätzlich einsetzbar: <a href="#kv-quiz-a">Kurztest A</a> (Präpositionen &amp; Verben, nach HA 3/4, z. B. Std. 5 oder 6) und <a href="#kv-quiz-b">Kurztest B</a> (Einleitung &amp; Reihenfolge, nach HA 6/7, z. B. Std. 8 oder 9).</p>
+</section>
+
+
+<!-- ================================================================== HA 1 -->
+<section class="card" id="ha1">
+  <div class="stunde-kopf ha-kopf">
+    <div class="stunde-nr ha-nr">1</div>
+    <div>
+      <h2>HA 1 · Mein Bild: 8 Dinge entdecken</h2>
+      <div class="ha-meta"><span class="badge ha">gestellt in Std. 1</span> <span class="badge zeit">ca. 15 Min.</span> <span class="badge pa">Überprüfung Std. 2: Bild-Speed-Dating</span> <span class="badge zeit">10 Min.</span></div>
+    </div>
+  </div>
+
+  <div class="ha-schueler">
+    <h3>Deine Hausaufgabe bis Stunde 2</h3>
+    <ol class="stufen">
+      <li><strong>Bild suchen:</strong> Such dir ein Bild aus. Das kann eine Postkarte sein, ein Bild aus einem Kalender oder ein Foto aus einer Zeitschrift. <em>Wichtig:</em> Bitte keine Fotos von deiner Familie!</li>
+      <li><strong>Genau schauen:</strong> Schau dir das Bild eine Minute lang ganz in Ruhe an. Erst das ganze Bild, dann die Einzelheiten.</li>
+      <li><strong>8 Dinge notieren:</strong> Schreib 8 Dinge, die du siehst, als Stichwörter in dein Heft. Stichwörter sind kurz, zum Beispiel „roter Ball“.</li>
+      <li><strong>Bild sichern:</strong> Steck dein Bild in eine Klarsichthülle ins Heft. Du brauchst es noch öfter!</li>
+    </ol>
+    <ul class="ha-varianten">
+      <li><span class="niveau n1">Basis</span> Schreib 8 Nomen mit Artikel auf: <em>der Baum, die Katze, das Haus …</em></li>
+      <li><span class="niveau n2">Standard</span> Schreib zu jedem Ding ein Wort dazu, das es genauer macht: <em>ein großer Baum, eine schwarze Katze …</em></li>
+      <li><span class="niveau n3">Profi</span> Schreib zusätzlich dazu, <strong>wo</strong> im Bild das Ding ist: <em>großer Baum – links</em>.</li>
+    </ul>
+    <div class="ha-beispiel"><p>Mein Bild: Postkarte vom Strand – 1. blaues Meer, 2. weißes Segelboot, 3. gelber Sand, 4. rot-weißer Sonnenschirm, 5. zwei Möwen, 6. Sandburg, 7. grüne Strandmuschel, 8. Wolken</p></div>
+    <div class="lupo">
+      <img src="bilder/lupo.svg" alt="Lupo">
+      <div class="bubble"><p><strong>Lupos Tipp:</strong> Schau auch in die Ecken und an die Ränder deines Bildes. Dort verstecken sich oft kleine Dinge, die andere übersehen!</p></div>
+    </div>
+  </div>
+
+  <div class="ha-lehrkraft">
+    <p class="ha-label">Für die Lehrkraft</p>
+    <h3>Überprüfung in Stunde 2: Bild-Speed-Dating</h3>
+    <p><strong>Ziel:</strong> Die Kinder zeigen ihr Bild, hören, was andere in ihrem Bild entdecken, und merken: Vier Augen sehen mehr als zwei. Die Methode wiederholt das genaue Hinsehen aus Stunde 1 und erweitert den Wortschatz für HA 2.</p>
+    <p><strong>Material:</strong> mitgebrachte Bilder, HA-Listen, <a href="#ha1-karte">Speed-Dating-Karte</a> (½ Blatt pro Kind), Gong oder Klangschale, Bilderkiste (Postkarten, Kalenderbilder) als Ersatz, Kontrollliste.</p>
+    <div class="tabelle-scroll">
+      <table class="verlauf">
+        <thead><tr><th>Schritt</th><th>Zeit</th><th>Ablauf und Impulse</th><th>Form</th></tr></thead>
+        <tbody>
+          <tr class="einstieg"><td>Aufstellen</td><td>1 Min.</td><td>Zwei Stuhlreihen gegenüber (oder Innen- und Außenkreis). Jedes Kind hat Bild, HA-Liste und Speed-Dating-Karte. Impuls: „Ihr seid heute Bild-Detektive auf Partnersuche. Jede Runde trefft ihr ein neues Bild.“</td><td><span class="badge lv">LV</span></td></tr>
+          <tr class="erarbeitung"><td>Runde 1–3</td><td>je 2½ Min.</td><td>(1) A zeigt sein Bild. B hat <strong>30 Sekunden</strong> und nennt alles, was er sieht. (2) A liest seine 8 Stichwörter vor und zählt: Wie viele Dinge hat B auch genannt? (3) Wechsel. Beide notieren auf der Karte die Zahl der „Treffer“ und <strong>ein Ding, das der Partner entdeckt hat und das auf der eigenen Liste fehlt</strong>. Gong: Die Außenreihe rückt einen Platz weiter.</td><td><span class="badge pa">PA</span> <span class="badge sp">SP</span></td></tr>
+          <tr class="sicherung"><td>Sichern</td><td>2 Min.</td><td>Alle ergänzen ihre HA-Liste mit einer anderen Farbe um die neuen Dinge. Impuls: „Wer hat ein Ding auf seinem Bild, das niemand anders gefunden hat? Warum wurde es übersehen?“ – Erwartung: klein, am Rand, in der Ecke, im Hintergrund → Überleitung zum Stundenthema „Ordnung im Bild“.</td><td><span class="badge ug">UG</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Worauf achten?</h4>
+    <ul>
+      <li>Die 30-Sekunden-Grenze strikt einhalten – sie erzeugt Spannung und Konzentration. Ein Kind pro Reihe darf die Zeit nehmen.</li>
+      <li>Beim Durchgehen schauen Sie kurz auf jede Liste und notieren in der <a href="#kv-kontrolle">Kontrollliste</a> ✓ / ½ / –. So ist die Kontrolle erledigt, ohne Unterrichtszeit zu kosten.</li>
+      <li>Bilder prüfen: Fotos von Familienmitgliedern oder ungeeignete Motive freundlich gegen ein Bild aus der Bilderkiste tauschen. Motive mit wenig Tiefe (Nahaufnahmen, Porträts) eignen sich schlecht für HA 2 – gleich jetzt einen Tausch anbieten.</li>
+      <li>Stolperstein: Manche Kinder schreiben ganze Sätze. Kurz loben und auf die Kürze von Stichwörtern hinweisen (Vorbereitung auf den Schreibplan in Std. 9).</li>
+    </ul>
+    <h4>Ergebnissicherung</h4>
+    <p>Die ergänzte HA-Liste bleibt im Heft und ist Grundlage für HA 2. Die Speed-Dating-Karte wird eingeklebt.</p>
+    <h4>Wenn die Hausaufgabe fehlt</h4>
+    <p>Das Kind zieht ein Bild aus der Bilderkiste, notiert in 2 Minuten 5 Stichwörter und macht ab Runde 1 mit. Das Bild darf es behalten und als „eigenes Bild“ für HA 2 nutzen. Eintrag „–“ und bei Nachreichen der 8 Stichwörter „N“.</p>
+  </div>
+</section>
+
+<section class="blatt" id="ha1-karte" data-toc-titel="Kopiervorlage HA 1: Speed-Dating-Karte">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">HA<b>1</b></div><h2>Bild-Speed-Dating</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+  <p class="schere">Zwei Karten pro Blatt – in der Mitte durchschneiden.</p>
+
+  <div class="karten" style="grid-template-columns: 1fr;">
+    <div class="karte">
+      <div class="karte-titel">Bild-Speed-Dating · Meine Karte</div>
+      <p class="mt-0" style="font-size:.9rem;">So geht’s: <strong>1.</strong> Zeig dein Bild. <strong>2.</strong> Dein Partner hat 30 Sekunden und sagt alles, was er sieht. <strong>3.</strong> Lies deine 8 Stichwörter vor. Zählt die Treffer. <strong>4.</strong> Wechselt!</p>
+      <table class="ha-eng" style="margin:6px 0;">
+        <thead><tr><th style="width:12%;">Runde</th><th style="width:26%;">Mein Partner</th><th style="width:16%;">Treffer (von 8)</th><th>Das hat mein Partner auf meinem Bild entdeckt (fehlt auf meiner Liste):</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td></td><td></td><td></td></tr>
+          <tr><td>2</td><td></td><td></td><td></td></tr>
+          <tr><td>3</td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+      <p style="margin:.4em 0 0;font-size:.9rem;">Das Ding auf meinem Bild, das am schwersten zu finden war: <span class="luecke lang"></span></p>
+    </div>
+  </div>
+
+  <div class="karten" style="grid-template-columns: 1fr;">
+    <div class="karte">
+      <div class="karte-titel">Bild-Speed-Dating · Meine Karte</div>
+      <p class="mt-0" style="font-size:.9rem;">So geht’s: <strong>1.</strong> Zeig dein Bild. <strong>2.</strong> Dein Partner hat 30 Sekunden und sagt alles, was er sieht. <strong>3.</strong> Lies deine 8 Stichwörter vor. Zählt die Treffer. <strong>4.</strong> Wechselt!</p>
+      <table class="ha-eng" style="margin:6px 0;">
+        <thead><tr><th style="width:12%;">Runde</th><th style="width:26%;">Mein Partner</th><th style="width:16%;">Treffer (von 8)</th><th>Das hat mein Partner auf meinem Bild entdeckt (fehlt auf meiner Liste):</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td></td><td></td><td></td></tr>
+          <tr><td>2</td><td></td><td></td><td></td></tr>
+          <tr><td>3</td><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+      <p style="margin:.4em 0 0;font-size:.9rem;">Das Ding auf meinem Bild, das am schwersten zu finden war: <span class="luecke lang"></span></p>
+    </div>
+  </div>
+
+  <div class="fussnote">Hausaufgaben · HA 1 · Stunde 2</div>
+</section>
+
+<!-- ================================================================== HA 2 -->
+<section class="card" id="ha2">
+  <div class="stunde-kopf ha-kopf">
+    <div class="stunde-nr ha-nr">2</div>
+    <div>
+      <h2>HA 2 · Mein Bild in drei Bereichen</h2>
+      <div class="ha-meta"><span class="badge ha">gestellt in Std. 2</span> <span class="badge zeit">ca. 15–20 Min.</span> <span class="badge pa">Überprüfung Std. 3: Partnercheck + Stichprobe am Beamer</span> <span class="badge zeit">12 Min.</span></div>
+    </div>
+  </div>
+
+  <div class="ha-schueler">
+    <h3>Deine Hausaufgabe bis Stunde 3</h3>
+    <ol class="stufen">
+      <li><strong>Tabelle zeichnen:</strong> Zeichne in dein Heft eine Tabelle mit drei Spalten: <em>Vordergrund – Mittelgrund – Hintergrund</em>.</li>
+      <li><strong>Bild anschauen:</strong> Nimm dein Bild aus HA 1. Was ist ganz vorne? Was ist in der Mitte? Was ist ganz hinten?</li>
+      <li><strong>Eintragen:</strong> Schreib in jede Spalte <strong>mindestens 3 Dinge</strong>. Deine Liste aus HA 1 hilft dir.</li>
+      <li><strong>Prüfen:</strong> Halte dein Bild neben die Tabelle und zeig mit dem Finger auf jedes Ding. Stimmt alles?</li>
+    </ol>
+    <ul class="ha-varianten">
+      <li><span class="niveau n1">Basis</span> Leg ein Blatt quer über dein Bild und zeichne mit Bleistift zwei Linien auf das Blatt: So siehst du die drei Bereiche besser.</li>
+      <li><span class="niveau n2">Standard</span> Je mindestens 3 Dinge pro Bereich, mit Artikel.</li>
+      <li><span class="niveau n3">Profi</span> Schreib zu 3 Dingen noch genauer dazu, wo sie sind: <em>am linken Bildrand, in der Bildmitte, in der rechten oberen Ecke</em>.</li>
+    </ul>
+    <div class="ha-beispiel">
+      <table class="ha-eng" style="margin:4px 0;">
+        <thead><tr><th>Vordergrund</th><th>Mittelgrund</th><th>Hintergrund</th></tr></thead>
+        <tbody><tr><td>der gelbe Sand, die Sandburg, die grüne Strandmuschel</td><td>das blaue Meer, das weiße Segelboot, zwei Möwen</td><td>der Himmel, die Wolken, ein Leuchtturm</td></tr></tbody>
+      </table>
+    </div>
+    <div class="lupo">
+      <img src="bilder/lupo.svg" alt="Lupo">
+      <div class="bubble"><p><strong>Lupos Tipp:</strong> Was ganz vorne ist, sieht meistens <strong>groß</strong> aus. Was weit hinten ist, sieht <strong>klein</strong> aus. Und der Himmel gehört fast immer zum Hintergrund.</p></div>
+    </div>
+  </div>
+
+  <div class="ha-lehrkraft">
+    <p class="ha-label">Für die Lehrkraft</p>
+    <h3>Überprüfung in Stunde 3: Partnercheck mit Kontrollfragen + Stichprobe am Beamer</h3>
+    <p><strong>Ziel:</strong> Die Fachbegriffe Vordergrund, Mittelgrund, Hintergrund werden am eigenen Bild angewendet und begründet. Der Partner prüft mit festen Kontrollfragen – so lernen die Kinder, Kriterien anzuwenden.</p>
+    <p><strong>Material:</strong> <a href="#ha2-karte">Partnercheck-Karten</a> (eine pro Paar, laminierbar), Dokumentenkamera oder Tablet mit Beamer, Zeigestock, Kontrollliste.</p>
+    <div class="tabelle-scroll">
+      <table class="verlauf">
+        <thead><tr><th>Schritt</th><th>Zeit</th><th>Ablauf und Impulse</th><th>Form</th></tr></thead>
+        <tbody>
+          <tr class="einstieg"><td>Partnercheck</td><td>6 Min.</td><td>Sitznachbarn tauschen Heft und Bild. B prüft A mit den 6 Kontrollfragen der Karte (je 3 Min.), dann Wechsel. Grüner Haken für „stimmt“, Fragezeichen für „Lass uns reden“. Impuls: „Seid freundliche Prüfer: Zeigt erst, was gut ist, dann, was fehlt.“</td><td><span class="badge pa">PA</span></td></tr>
+          <tr class="erarbeitung"><td>Stichprobe</td><td>5 Min.</td><td>2–3 Bilder unter die Dokumentenkamera (vorher fragen, wer will). Die Klasse zeigt mit dem Zeigestock: „Wo endet der Vordergrund? Was gehört in den Mittelgrund?“ Ein „schwieriges“ Bild bewusst auswählen (z. B. Nahaufnahme, Blick von oben).</td><td><span class="badge ug">UG</span></td></tr>
+          <tr class="sicherung"><td>Merksatz</td><td>1 Min.</td><td>Impuls: „Was macht ihr, wenn ein Bild kaum Tiefe hat?“ – Erwartung: Dann ordne ich von links nach rechts oder von oben nach unten. → Kurzer Hefteintrag, Überleitung zu den genauen Ortsangaben in Std. 3.</td><td><span class="badge ug">UG</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Worauf achten?</h4>
+    <ul>
+      <li>Häufige Fehler: Himmel/Wolken im Mittelgrund, große Dinge immer im Vordergrund (auch wenn sie hinten stehen), Bereiche nach „wichtig/unwichtig“ statt nach Entfernung sortiert.</li>
+      <li>Zweifelsfälle sind <strong>Lernanlässe</strong>: Ein Baum kann von vorne bis hinten reichen. Wichtig ist die Begründung („Der Stamm steht vorn, deshalb …“).</li>
+      <li>Rechtschreibung der Fachbegriffe (Vordergrund, Mittelgrund, Hintergrund – großgeschrieben, zusammen) über die Kontrollfrage 6 mitprüfen lassen.</li>
+    </ul>
+    <h4>Ergebnissicherung</h4>
+    <p>Korrekturen in Grün im Heft. Die Lehrkraft notiert während des Partnerchecks die Kürzel in der Kontrollliste. Der Merksatz zu Bildern ohne Tiefe kommt ins Heft.</p>
+    <h4>Wenn die Hausaufgabe fehlt</h4>
+    <p>Das Kind arbeitet in der Partnerphase mit dem Bild des Partners: Es füllt mündlich die Tabelle für dessen Bild aus, der Partner prüft mit der Karte (Rollen getauscht). Die eigene Tabelle wird nachgereicht.</p>
+  </div>
+</section>
+
+<section class="blatt" id="ha2-karte" data-toc-titel="Kopiervorlage HA 2: Partnercheck-Karten">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">HA<b>2</b></div><h2>Partnercheck: Vordergrund – Mittelgrund – Hintergrund</h2>
+    <div class="felder"><span>Prüfer/in:</span><span>geprüft wird:</span></div></div>
+  <p class="schere">Vier gleiche Karten – ausschneiden, eine Karte pro Paar.</p>
+  <div class="karten">
+
+    <div class="karte">
+      <div class="karte-titel">Partnercheck · HA 2</div>
+      <ul class="checkliste">
+        <li>Hat die Tabelle drei Spalten: Vordergrund, Mittelgrund, Hintergrund?</li>
+        <li>Stehen in jeder Spalte mindestens 3 Dinge?</li>
+        <li>Zeig auf 3 Dinge im Bild: Stehen sie im richtigen Bereich?</li>
+        <li>Gehört der Himmel zum Hintergrund?</li>
+        <li>Findest du noch ein Ding, das fehlt? Sag es deinem Partner.</li>
+        <li>Sind die Fachwörter richtig geschrieben?</li>
+      </ul>
+      <p class="mt-0" style="font-size:.85rem;">Das ist besonders gut: <span class="luecke lang"></span></p>
+    </div>
+
+    <div class="karte">
+      <div class="karte-titel">Partnercheck · HA 2</div>
+      <ul class="checkliste">
+        <li>Hat die Tabelle drei Spalten: Vordergrund, Mittelgrund, Hintergrund?</li>
+        <li>Stehen in jeder Spalte mindestens 3 Dinge?</li>
+        <li>Zeig auf 3 Dinge im Bild: Stehen sie im richtigen Bereich?</li>
+        <li>Gehört der Himmel zum Hintergrund?</li>
+        <li>Findest du noch ein Ding, das fehlt? Sag es deinem Partner.</li>
+        <li>Sind die Fachwörter richtig geschrieben?</li>
+      </ul>
+      <p class="mt-0" style="font-size:.85rem;">Das ist besonders gut: <span class="luecke lang"></span></p>
+    </div>
+
+    <div class="karte">
+      <div class="karte-titel">Partnercheck · HA 2</div>
+      <ul class="checkliste">
+        <li>Hat die Tabelle drei Spalten: Vordergrund, Mittelgrund, Hintergrund?</li>
+        <li>Stehen in jeder Spalte mindestens 3 Dinge?</li>
+        <li>Zeig auf 3 Dinge im Bild: Stehen sie im richtigen Bereich?</li>
+        <li>Gehört der Himmel zum Hintergrund?</li>
+        <li>Findest du noch ein Ding, das fehlt? Sag es deinem Partner.</li>
+        <li>Sind die Fachwörter richtig geschrieben?</li>
+      </ul>
+      <p class="mt-0" style="font-size:.85rem;">Das ist besonders gut: <span class="luecke lang"></span></p>
+    </div>
+
+    <div class="karte">
+      <div class="karte-titel">Partnercheck · HA 2</div>
+      <ul class="checkliste">
+        <li>Hat die Tabelle drei Spalten: Vordergrund, Mittelgrund, Hintergrund?</li>
+        <li>Stehen in jeder Spalte mindestens 3 Dinge?</li>
+        <li>Zeig auf 3 Dinge im Bild: Stehen sie im richtigen Bereich?</li>
+        <li>Gehört der Himmel zum Hintergrund?</li>
+        <li>Findest du noch ein Ding, das fehlt? Sag es deinem Partner.</li>
+        <li>Sind die Fachwörter richtig geschrieben?</li>
+      </ul>
+      <p class="mt-0" style="font-size:.85rem;">Das ist besonders gut: <span class="luecke lang"></span></p>
+    </div>
+
+  </div>
+  <div class="fussnote">Hausaufgaben · HA 2 · Stunde 3</div>
+</section>
+
+<!-- ================================================================== HA 3 -->
+<section class="card" id="ha3">
+  <div class="stunde-kopf ha-kopf">
+    <div class="stunde-nr ha-nr">3</div>
+    <div>
+      <h2>HA 3 · Mein Zimmer – wo genau?</h2>
+      <div class="ha-meta"><span class="badge ha">gestellt in Std. 3</span> <span class="badge zeit">ca. 20 Min.</span> <span class="badge sp">Überprüfung Std. 4: Präpositionen-Bingo + Dativ-Selbstkontrolle</span> <span class="badge zeit">12 Min.</span></div>
+    </div>
+  </div>
+
+  <div class="ha-schueler">
+    <h3>Deine Hausaufgabe bis Stunde 4</h3>
+    <ol class="stufen">
+      <li><strong>Umschauen:</strong> Stell dich in dein Zimmer (oder in ein anderes Zimmer bei dir zu Hause). Was steht, liegt oder hängt dort?</li>
+      <li><strong>8 Sätze schreiben:</strong> Beschreibe das Zimmer in 8 Sätzen. In jedem Satz steht, <strong>wo</strong> etwas ist.</li>
+      <li><strong>8 verschiedene Präpositionen:</strong> Benutze 8 verschiedene Wörter aus dem Wortspeicher. Unterstreiche sie.</li>
+      <li><strong>Wo-Probe:</strong> Frag bei jedem Satz: <em>Wo?</em> Nach der Präposition kommt <strong>dem</strong>, <strong>der</strong> oder <strong>den</strong>.</li>
+    </ol>
+    <div class="wortspeicher"><span class="titel">Wortspeicher: Präpositionen (Wo?)</span><span>auf</span><span>unter</span><span>neben</span><span>zwischen</span><span>vor</span><span>hinter</span><span>über</span><span>in</span><span>an</span></div>
+    <ul class="ha-varianten">
+      <li><span class="niveau n1">Basis</span> Benutze die Satzmuster: <em>Auf dem … liegt …</em> · <em>Neben der … steht …</em> · <em>Über dem … hängt …</em></li>
+      <li><span class="niveau n2">Standard</span> 8 eigene Sätze mit 8 verschiedenen Präpositionen.</li>
+      <li><span class="niveau n3">Profi</span> Schreib zusätzlich zwei Sätze mit <em>zwischen den …</em> und beginne mindestens drei Sätze mit der Ortsangabe.</li>
+    </ul>
+    <div class="ha-beispiel">
+      <p><u>Auf</u> dem Bett sitzt mein Kuscheltier.</p>
+      <p><u>Über</u> dem Schreibtisch hängt ein Poster.</p>
+      <p><u>Zwischen</u> den Büchern steht ein kleines Foto.</p>
+    </div>
+    <div class="lupo">
+      <img src="bilder/lupo.svg" alt="Lupo">
+      <div class="bubble"><p><strong>Lupos Tipp:</strong> Aus „der“ und „das“ wird nach der Präposition <strong>dem</strong>: <em>der Tisch → auf dem Tisch</em>. Aus „die“ wird <strong>der</strong>: <em>die Lampe → neben der Lampe</em>. Bei vielen Dingen heißt es <strong>den</strong>: <em>zwischen den Büchern</em>.</p></div>
+    </div>
+  </div>
+
+  <div class="ha-lehrkraft">
+    <p class="ha-label">Für die Lehrkraft</p>
+    <h3>Überprüfung in Stunde 4: Präpositionen-Bingo + Selbstkontrolle Dativ</h3>
+    <p><strong>Ziel:</strong> Alle Kinder lesen mehrere eigene Sätze vor und hören viele Sätze anderer. Beim Unterschreiben prüft der Partner den Dativ mit der Wo-Probe. Danach kontrolliert jedes Kind seine 8 Sätze selbst.</p>
+    <p><strong>Material:</strong> <a href="#ha3-bingo">Bingo-Karte</a> (1 pro Kind), Bleistift, Grünstift, Gong, Kontrollliste.</p>
+    <div class="tabelle-scroll">
+      <table class="verlauf">
+        <thead><tr><th>Schritt</th><th>Zeit</th><th>Ablauf und Impulse</th><th>Form</th></tr></thead>
+        <tbody>
+          <tr class="einstieg"><td>Regeln</td><td>1 Min.</td><td>Regeln an der Tafel: „Flüsterstimme. Lies einen Satz vor, der zum Feld passt. Dein Gegenüber macht die Wo-Probe. Stimmt dem/der/den, unterschreibt er in deinem Feld. Jede Person unterschreibt bei dir nur einmal.“</td><td><span class="badge lv">LV</span></td></tr>
+          <tr class="erarbeitung"><td>Bingo</td><td>6 Min.</td><td>Freies Herumgehen. Wer vier Felder in einer Reihe (waagerecht, senkrecht, diagonal) hat, ruft leise „Lupo!“ und darf weitersammeln. Gong nach 6 Minuten. Die ersten zwei „Lupo“-Kinder lesen ihre Reihe vor; die Klasse prüft per Daumen.</td><td><span class="badge sp">SP</span></td></tr>
+          <tr class="sicherung"><td>Dativ-Check</td><td>4 Min.</td><td>Alle setzen sich. Jedes Kind kreist in seinen 8 Sätzen das Wort <strong>nach</strong> der Präposition grün ein und prüft mit dem Kasten unten auf der Bingo-Karte. Falsches wird verbessert. Impuls zum Abschluss: „Welches Wort ist am schwierigsten?“ – häufig: <em>zwischen den</em>, <em>an der</em>.</td><td><span class="badge ea">EA</span></td></tr>
+          <tr class="abschluss"><td>Klärung</td><td>1 Min.</td><td>Ein oder zwei Fehlerbeispiele anonym an der Tafel verbessern (aus dem Rundgang).</td><td><span class="badge ug">UG</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Worauf achten?</h4>
+    <ul>
+      <li><strong>Wo oder wohin?</strong> Manche Kinder schreiben Sätze mit Bewegung („Ich lege die Tasche auf <em>den</em> Stuhl.“). Das ist grammatisch richtig (Akkusativ, Frage „Wohin?“), passt aber nicht zur Beschreibung. Solche Sätze blau markieren lassen und ein Verb des Zustands vorschlagen: <em>Die Tasche liegt auf dem Stuhl.</em></li>
+      <li>Zusammengezogene Formen (<em>im</em> = in dem, <em>am</em> = an dem) zählen als richtig; sie sind auf der Karte eigene Felder.</li>
+      <li>DaZ-Kinder dürfen ihre Sätze vorab mit dem Partner üben oder eine Karte mit Artikel-Tabelle nutzen.</li>
+      <li>Variante ohne Herumgehen (enge Räume): Die Lehrkraft liest Feld für Feld vor, wer einen passenden Satz hat, liest ihn vor und kreuzt an.</li>
+    </ul>
+    <h4>Ergebnissicherung</h4>
+    <p>Die Bingo-Karte wird eingeklebt. Die grüne Dativ-Korrektur bleibt im Heft. Die Lehrkraft vermerkt beim Rundgang die Kürzel und notiert typische Fehler; sie werden in <a href="#kv-quiz-a">Kurztest A</a> wieder aufgegriffen.</p>
+    <h4>Wenn die Hausaufgabe fehlt</h4>
+    <p>Das Kind spielt trotzdem mit, beschreibt aber das <strong>Klassenzimmer</strong>: Für jedes Feld formuliert es vor Ort einen Satz („Über der Tafel hängt eine Uhr.“) und lässt ihn prüfen. Die 8 Sätze zum eigenen Zimmer werden nachgereicht.</p>
+  </div>
+</section>
+
+<section class="blatt" id="ha3-bingo" data-toc-titel="Kopiervorlage HA 3: Präpositionen-Bingo">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">HA<b>3</b></div><h2>Präpositionen-Bingo</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+  <div class="lupo" style="margin:8px 0 12px;">
+    <img src="bilder/lupo.svg" alt="Lupo">
+    <div class="bubble"><p><strong>So spielst du:</strong> Geh herum und lies einem anderen Kind einen Satz aus deiner Hausaufgabe vor, der zu einem Feld passt. Es macht die Wo-Probe. Stimmt alles, unterschreibt es im Feld. Jede Person darf bei dir nur <strong>einmal</strong> unterschreiben. Vier Felder in einer Reihe? Ruf leise: <strong>„Lupo!“</strong></p></div>
+  </div>
+  <table class="ha-bingo">
+    <tbody>
+      <tr>
+        <td><b>auf</b><small>auf dem / auf der</small><span class="ha-unterschrift">Name:</span></td>
+        <td><b>zwischen den</b><small>zwischen zwei oder mehr Dingen</small><span class="ha-unterschrift">Name:</span></td>
+        <td><b>unter</b><small>unter dem / unter der</small><span class="ha-unterschrift">Name:</span></td>
+        <td><b>im</b><small>im = in dem</small><span class="ha-unterschrift">Name:</span></td>
+      </tr>
+      <tr>
+        <td><b>neben</b><small>neben dem / neben der</small><span class="ha-unterschrift">Name:</span></td>
+        <td class="ha-lupofeld"><b>Lupo-Feld</b><small>Ein Satz, der mit der Ortsangabe beginnt</small><span class="ha-unterschrift">Name:</span></td>
+        <td><b>hinter</b><small>hinter dem / hinter der</small><span class="ha-unterschrift">Name:</span></td>
+        <td><b>an der</b><small>an der Wand, an der Tür …</small><span class="ha-unterschrift">Name:</span></td>
+      </tr>
+      <tr>
+        <td><b>über</b><small>über dem / über der</small><span class="ha-unterschrift">Name:</span></td>
+        <td><b>vor</b><small>vor dem / vor der</small><span class="ha-unterschrift">Name:</span></td>
+        <td class="ha-lupofeld"><b>Lupo-Feld</b><small>Ein Satz über etwas, das hängt</small><span class="ha-unterschrift">Name:</span></td>
+        <td><b>am</b><small>am = an dem</small><span class="ha-unterschrift">Name:</span></td>
+      </tr>
+      <tr>
+        <td><b>zwischen</b><small>zwischen dem … und der …</small><span class="ha-unterschrift">Name:</span></td>
+        <td><b>in der</b><small>in der Ecke, in der Kiste …</small><span class="ha-unterschrift">Name:</span></td>
+        <td><b>auf der</b><small>auf der Fensterbank …</small><span class="ha-unterschrift">Name:</span></td>
+        <td class="ha-lupofeld"><b>Joker</b><small>Ein Satz mit zwei Präpositionen</small><span class="ha-unterschrift">Name:</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="merke" data-label="Dativ-Check für deine 8 Sätze">
+    <p class="mt-0">Kreise in deinen 8 Sätzen das Wort <strong>nach</strong> der Präposition grün ein. Frag: <em>Wo?</em></p>
+    <table class="ha-eng" style="margin:6px 0;">
+      <thead><tr><th>Das Nomen heißt …</th><th>Nach der Präposition steht …</th><th>Beispiel</th></tr></thead>
+      <tbody>
+        <tr><td><strong>der</strong> Tisch</td><td><strong>dem</strong> / einem</td><td>auf <strong>dem</strong> Tisch</td></tr>
+        <tr><td><strong>das</strong> Bett</td><td><strong>dem</strong> / einem</td><td>unter <strong>dem</strong> Bett</td></tr>
+        <tr><td><strong>die</strong> Lampe</td><td><strong>der</strong> / einer</td><td>neben <strong>der</strong> Lampe</td></tr>
+        <tr><td><strong>die</strong> Bücher (viele)</td><td><strong>den</strong> + oft -n am Ende</td><td>zwischen <strong>den</strong> Büchern</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-bottom:0;">So viele meiner Sätze sind richtig: <span class="luecke kurz"></span> von 8 &nbsp;·&nbsp; Verbessert habe ich: <span class="luecke kurz"></span></p>
+  </div>
+  <div class="fussnote">Hausaufgaben · HA 3 · Stunde 4</div>
+</section>
+
+<!-- ================================================================== HA 4 -->
+<section class="card" id="ha4">
+  <div class="stunde-kopf ha-kopf">
+    <div class="stunde-nr ha-nr">4</div>
+    <div>
+      <h2>HA 4 · Treffende Verben auf dem Wochenmarkt</h2>
+      <div class="ha-meta"><span class="badge ha">gestellt in Std. 4</span> <span class="badge zeit">ca. 20 Min.</span> <span class="badge pa">Überprüfung Std. 5: Verben-Detektive mit „Ist-Polizei“</span> <span class="badge zeit">10 Min.</span></div>
+    </div>
+  </div>
+
+  <div class="ha-schueler">
+    <figure class="bild rechts">
+      <img src="bilder/wochenmarkt.svg" alt="Bild „Auf dem Wochenmarkt“: drei Marktstände für Obst, Blumen und Brot vor bunten Häusern und einem Kirchturm, davor Menschen und eine Taube">
+      <figcaption>„Auf dem Wochenmarkt“</figcaption>
+    </figure>
+    <h3>Deine Hausaufgabe bis Stunde 5</h3>
+    <ol class="stufen">
+      <li><strong>Bild anschauen:</strong> Schau dir das Bild „Auf dem Wochenmarkt“ an (AB 6 oder Ausdruck).</li>
+      <li><strong>6 Sätze schreiben:</strong> Schreib 6 Sätze über Menschen, Stände oder Dinge auf dem Markt.</li>
+      <li><strong>6 treffende Verben:</strong> Benutze in jedem Satz ein anderes treffendes Verb aus dem Wortspeicher. Unterstreiche es.</li>
+      <li><strong>Verbote beachten:</strong> Kein „ist“, kein „sind“, kein „gibt es“, kein „sieht man“, kein „hat“!</li>
+    </ol>
+    <div class="wortspeicher gruen" style="clear:both;"><span class="titel">Wortspeicher: treffende Verben</span><span>stehen</span><span>sitzen</span><span>liegen</span><span>hängen</span><span>sich befinden</span><span>ragen</span><span>halten</span><span>tragen</span><span>verkaufen</span><span>zeigen</span><span>picken</span><span>fahren</span><span>gehen</span><span>sich erheben</span><span>leuchten</span></div>
+    <ul class="ha-varianten">
+      <li><span class="niveau n1">Basis</span> Ergänze die Satzanfänge: <em>Am linken Bildrand fährt … · Hinter dem Obststand steht … · In der Mitte vorn pickt …</em></li>
+      <li><span class="niveau n2">Standard</span> 6 eigene Sätze mit 6 verschiedenen treffenden Verben.</li>
+      <li><span class="niveau n3">Profi</span> Benutze mindestens zwei Verben, die <strong>nicht</strong> im Wortspeicher stehen, und schreibe zu jedem Satz eine Ortsangabe.</li>
+    </ul>
+    <div class="ha-beispiel">
+      <p>Am linken Bildrand <u>fährt</u> ein Junge mit einer roten Kappe auf einem Tretroller.</p>
+      <p>Der Verkäufer am Obststand <u>hält</u> eine Papiertüte in der Hand.</p>
+      <p><em>Statt:</em> In der Mitte ist ein Kirchturm. → In der Mitte <u>ragt</u> ein Kirchturm über die Häuser.</p>
+    </div>
+    <div class="lupo">
+      <img src="bilder/lupo.svg" alt="Lupo">
+      <div class="bubble"><p><strong>Lupos Tipp:</strong> Frag dich bei jedem Satz: <em>Was macht die Person oder das Ding gerade?</em> Steht es? Liegt es? Hängt es? Dann findest du sofort ein besseres Verb als „ist“.</p></div>
+    </div>
+  </div>
+
+  <div class="ha-lehrkraft">
+    <p class="ha-label">Für die Lehrkraft</p>
+    <h3>Überprüfung in Stunde 5: Verben-Detektive mit „Ist-Polizei“</h3>
+    <p><strong>Ziel:</strong> Die Kinder erkennen Verben im eigenen und im fremden Text, finden „verbotene“ Allerweltsverben und schlagen Alternativen vor. Das Wortfeld aus Std. 4 wird erweitert.</p>
+    <p><strong>Material:</strong> <a href="#ha4-polizei">Ist-Polizei-Ausweis und Verwarnungszettel</a>, Grün- und Rotstift, Verben-Plakat aus Std. 4, Kontrollliste.</p>
+    <div class="tabelle-scroll">
+      <table class="verlauf">
+        <thead><tr><th>Schritt</th><th>Zeit</th><th>Ablauf und Impulse</th><th>Form</th></tr></thead>
+        <tbody>
+          <tr class="einstieg"><td>Dienstantritt</td><td>1 Min.</td><td>Jedes Paar bekommt zwei Ausweise. Impuls: „Ihr seid heute die Ist-Polizei. Ihr sucht langweilige Verben – aber ihr seid eine freundliche Polizei: Ihr schreibt keine Strafen, sondern Verbesserungsvorschläge.“</td><td><span class="badge lv">LV</span></td></tr>
+          <tr class="erarbeitung"><td>Ermitteln</td><td>5 Min.</td><td>Hefte tauschen. Der Detektiv kreist alle Verben grün ein, zählt die verschiedenen Verben (Ziel: 6) und sucht „ist/sind/gibt es/sieht man/hat“ – Fundstellen rot. Für jeden Fund füllt er einen Verwarnungszettel mit Verbesserungsvorschlag aus.</td><td><span class="badge pa">PA</span></td></tr>
+          <tr class="sicherung"><td>Besprechen</td><td>2 Min.</td><td>Hefte zurück. Der Autor liest die Zettel, entscheidet selbst, ob er den Vorschlag übernimmt, und verbessert im Heft.</td><td><span class="badge pa">PA</span></td></tr>
+          <tr class="abschluss"><td>Verb-Hitparade</td><td>2 Min.</td><td>Jedes Paar ruft sein schönstes Verb in die Klasse; neue Verben werden auf dem Plakat aus Std. 4 ergänzt (z. B. <em>stemmen, recken, stapeln, flattern</em>).</td><td><span class="badge ug">UG</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Worauf achten?</h4>
+    <ul>
+      <li>Kinder markieren oft Nomen oder Adjektive als Verben. Hilfe: „Kannst du ‚ich‘ oder ‚er‘ davorsetzen? Dann ist es ein Verb.“</li>
+      <li>Versteckte Verbote: „es gibt“ statt „gibt es“, „man sieht“, „befindet sich“ ist dagegen erlaubt. „Hat“ als Hilfsverb im Perfekt („hat gekauft“) zusätzlich als Präsens-Problem markieren (Vorgriff auf Std. 8).</li>
+      <li>Inhalt prüfen: Die Sätze sollen zum Bild passen (z. B. die Bäckerin <em>stemmt</em> die Hände in die Hüften, die Taube <em>pickt</em> Krümel, das Mädchen <em>hält</em> einen lila Luftballon).</li>
+    </ul>
+    <h4>Ergebnissicherung</h4>
+    <p>Verbesserte Sätze im Heft, Verwarnungszettel eingeklebt, erweitertes Verben-Plakat. Die Zahl der verschiedenen Verben schreibt der Detektiv unter den Text („6 von 6 – Dienst erfüllt!“).</p>
+    <h4>Wenn die Hausaufgabe fehlt</h4>
+    <p>Das Kind wird „Polizei-Azubi“: Es bekommt den <em>Langweiler-Text</em> aus Std. 4 (AB 6), sucht dort die verbotenen Verben und schreibt drei Verwarnungszettel. Die 6 Sätze werden nachgereicht.</p>
+  </div>
+</section>
+
+<section class="blatt" id="ha4-polizei" data-toc-titel="Kopiervorlage HA 4: Ist-Polizei-Karte">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">HA<b>4</b></div><h2>Die Ist-Polizei ermittelt</h2>
+    <div class="felder"><span>Detektiv/in:</span><span>Text von:</span><span>Datum:</span></div></div>
+  <p class="schere">Oben: zwei Ausweise (ausschneiden). Unten: Verwarnungszettel (ausschneiden, auf den Text kleben).</p>
+  <div class="karten">
+
+    <div class="karte">
+      <div class="karte-titel">Ausweis · Ist-Polizei</div>
+      <p class="mt-0" style="font-size:.85rem;margin-bottom:.3em;">Name: <span class="luecke"></span></p>
+      <ol style="font-size:.88rem;margin:0;padding-left:1.2em;">
+        <li>Kreise alle <strong>Verben grün</strong> ein.</li>
+        <li>Zähle: Wie viele <strong>verschiedene</strong> Verben? <span class="luecke kurz"></span> von 6</li>
+        <li>Suche die Verbotenen: <strong>ist · sind · gibt es · sieht man · hat</strong>. Unterstreiche sie <strong>rot</strong>.</li>
+        <li>Schreib für jeden Fund einen Verwarnungszettel mit einem besseren Verb.</li>
+        <li>Lob nicht vergessen: Das schönste Verb ist <span class="luecke"></span></li>
+      </ol>
+    </div>
+
+    <div class="karte">
+      <div class="karte-titel">Ausweis · Ist-Polizei</div>
+      <p class="mt-0" style="font-size:.85rem;margin-bottom:.3em;">Name: <span class="luecke"></span></p>
+      <ol style="font-size:.88rem;margin:0;padding-left:1.2em;">
+        <li>Kreise alle <strong>Verben grün</strong> ein.</li>
+        <li>Zähle: Wie viele <strong>verschiedene</strong> Verben? <span class="luecke kurz"></span> von 6</li>
+        <li>Suche die Verbotenen: <strong>ist · sind · gibt es · sieht man · hat</strong>. Unterstreiche sie <strong>rot</strong>.</li>
+        <li>Schreib für jeden Fund einen Verwarnungszettel mit einem besseren Verb.</li>
+        <li>Lob nicht vergessen: Das schönste Verb ist <span class="luecke"></span></li>
+      </ol>
+    </div>
+
+  </div>
+  <div class="karten drei">
+
+    <div class="karte ha-strafzettel" style="min-height:0;border-radius:0;">
+      <div class="karte-titel">Verwarnung!</div>
+      <p class="mt-0" style="font-size:.85rem;margin:.2em 0;">In Satz Nr. <span class="luecke kurz"></span> steht:<br><span class="ha-box"></span> ist <span class="ha-box"></span> sind <span class="ha-box"></span> gibt es<br><span class="ha-box"></span> sieht man <span class="ha-box"></span> hat</p>
+      <p style="font-size:.85rem;margin:.3em 0 0;">Besser: <span class="luecke"></span></p>
+    </div>
+
+    <div class="karte ha-strafzettel" style="min-height:0;border-radius:0;">
+      <div class="karte-titel">Verwarnung!</div>
+      <p class="mt-0" style="font-size:.85rem;margin:.2em 0;">In Satz Nr. <span class="luecke kurz"></span> steht:<br><span class="ha-box"></span> ist <span class="ha-box"></span> sind <span class="ha-box"></span> gibt es<br><span class="ha-box"></span> sieht man <span class="ha-box"></span> hat</p>
+      <p style="font-size:.85rem;margin:.3em 0 0;">Besser: <span class="luecke"></span></p>
+    </div>
+
+    <div class="karte ha-strafzettel" style="min-height:0;border-radius:0;">
+      <div class="karte-titel">Verwarnung!</div>
+      <p class="mt-0" style="font-size:.85rem;margin:.2em 0;">In Satz Nr. <span class="luecke kurz"></span> steht:<br><span class="ha-box"></span> ist <span class="ha-box"></span> sind <span class="ha-box"></span> gibt es<br><span class="ha-box"></span> sieht man <span class="ha-box"></span> hat</p>
+      <p style="font-size:.85rem;margin:.3em 0 0;">Besser: <span class="luecke"></span></p>
+    </div>
+
+    <div class="karte ha-strafzettel" style="min-height:0;border-radius:0;">
+      <div class="karte-titel">Verwarnung!</div>
+      <p class="mt-0" style="font-size:.85rem;margin:.2em 0;">In Satz Nr. <span class="luecke kurz"></span> steht:<br><span class="ha-box"></span> ist <span class="ha-box"></span> sind <span class="ha-box"></span> gibt es<br><span class="ha-box"></span> sieht man <span class="ha-box"></span> hat</p>
+      <p style="font-size:.85rem;margin:.3em 0 0;">Besser: <span class="luecke"></span></p>
+    </div>
+
+    <div class="karte ha-strafzettel" style="min-height:0;border-radius:0;">
+      <div class="karte-titel">Verwarnung!</div>
+      <p class="mt-0" style="font-size:.85rem;margin:.2em 0;">In Satz Nr. <span class="luecke kurz"></span> steht:<br><span class="ha-box"></span> ist <span class="ha-box"></span> sind <span class="ha-box"></span> gibt es<br><span class="ha-box"></span> sieht man <span class="ha-box"></span> hat</p>
+      <p style="font-size:.85rem;margin:.3em 0 0;">Besser: <span class="luecke"></span></p>
+    </div>
+
+    <div class="karte ha-strafzettel" style="min-height:0;border-radius:0;">
+      <div class="karte-titel">Verwarnung!</div>
+      <p class="mt-0" style="font-size:.85rem;margin:.2em 0;">In Satz Nr. <span class="luecke kurz"></span> steht:<br><span class="ha-box"></span> ist <span class="ha-box"></span> sind <span class="ha-box"></span> gibt es<br><span class="ha-box"></span> sieht man <span class="ha-box"></span> hat</p>
+      <p style="font-size:.85rem;margin:.3em 0 0;">Besser: <span class="luecke"></span></p>
+    </div>
+
+  </div>
+  <div class="fussnote">Hausaufgaben · HA 4 · Stunde 5</div>
+</section>
+
+
+<!-- ================================================================== HA 5 -->
+<section class="card" id="ha5">
+  <div class="stunde-kopf ha-kopf">
+    <div class="stunde-nr ha-nr">5</div>
+    <div>
+      <h2>HA 5 · Rätsel: Mein geheimer Lieblingsgegenstand</h2>
+      <div class="ha-meta"><span class="badge ha">gestellt in Std. 5</span> <span class="badge zeit">ca. 20 Min.</span> <span class="badge sp">Überprüfung Std. 6: Rätselrunde</span> <span class="badge zeit">10 Min.</span></div>
+    </div>
+  </div>
+
+  <div class="ha-schueler">
+    <h3>Deine Hausaufgabe bis Stunde 6</h3>
+    <ol class="stufen">
+      <li><strong>Gegenstand wählen:</strong> Such dir einen Lieblingsgegenstand aus, zum Beispiel ein Spielzeug, eine Tasse oder ein Kuscheltier. Verrate niemandem, was es ist!</li>
+      <li><strong>Genau ansehen:</strong> Welche Farbe hat er? Welche Form? Wie groß ist er? Woraus ist er? Hat er ein Muster?</li>
+      <li><strong>5–6 Sätze schreiben:</strong> Beschreibe den Gegenstand mit <strong>mindestens 6 genauen Adjektiven</strong>. Unterstreiche sie.</li>
+      <li><strong>Geheim halten:</strong> Der Name des Gegenstands darf nicht vorkommen. Schreib die Lösung ganz klein unten auf die Seite und knick die Ecke um.</li>
+    </ol>
+    <div class="wortspeicher orange"><span class="titel">Wortspeicher: genaue Adjektive</span><span>hellblau</span><span>dunkelgrün</span><span>knallrot</span><span>gestreift</span><span>kariert</span><span>gepunktet</span><span>rund</span><span>eckig</span><span>oval</span><span>winzig</span><span>riesig</span><span>schmal</span><span>hölzern</span><span>weich</span><span>glatt</span></div>
+    <ul class="ha-varianten">
+      <li><span class="niveau n1">Basis</span> Nutze die Satzmuster: <em>Mein Gegenstand ist … und … · Er ist aus … · Er hat ein … Muster.</em></li>
+      <li><span class="niveau n2">Standard</span> 5–6 Sätze mit mindestens 6 verschiedenen Adjektiven.</li>
+      <li><span class="niveau n3">Profi</span> Baue eine Adjektiv-Treppe ein: <em>ein Becher → ein blauer Becher → ein blauer Becher mit weißen Punkten</em>. Schreib vom Allgemeinen zum Genauen, damit das Raten spannend bleibt.</li>
+    </ul>
+    <div class="ha-beispiel">
+      <p>Mein Gegenstand ist <u>klein</u> und <u>weich</u>. Er ist <u>hellbraun</u> und hat zwei <u>runde</u>, <u>schwarze</u> Knopfaugen. Um den Hals trägt er eine <u>rote</u> Fliege. Er sitzt jede Nacht auf meinem Kissen.</p>
+      <p class="klein">(Lösung: ein Teddybär)</p>
+    </div>
+    <div class="lupo">
+      <img src="bilder/lupo.svg" alt="Lupo">
+      <div class="bubble"><p><strong>Lupos Tipp:</strong> Verrate das Wichtigste nicht im ersten Satz! Fang mit Farbe und Größe an und heb den besten Hinweis für den Schluss auf.</p></div>
+    </div>
+  </div>
+
+  <div class="ha-lehrkraft">
+    <p class="ha-label">Für die Lehrkraft</p>
+    <h3>Überprüfung in Stunde 6: Rätselrunde (Einstieg)</h3>
+    <p><strong>Ziel:</strong> Die Kinder erleben, dass genaue Adjektive Bilder im Kopf entstehen lassen – genau das ist das Ziel einer Bildbeschreibung. Gleichzeitig wiederholt die Rätselrunde die Adjektive aus Std. 5 und motiviert für das Thema Einleitung („Woran erkennt man etwas sofort?“).</p>
+    <p><strong>Material:</strong> Losstäbchen mit Namen, Plakat „Adjektiv-Schatzkiste“ mit vier Spalten (Farbe – Form – Größe – Material/Muster), Kontrollliste.</p>
+    <div class="tabelle-scroll">
+      <table class="verlauf">
+        <thead><tr><th>Schritt</th><th>Zeit</th><th>Ablauf und Impulse</th><th>Form</th></tr></thead>
+        <tbody>
+          <tr class="einstieg"><td>Partner-Rätsel</td><td>3 Min.</td><td>Alle lesen ihr Rätsel dem Sitznachbarn vor; der Partner rät und zählt die unterstrichenen Adjektive mit (Ziel: 6). So haben alle Kinder vorgelesen.</td><td><span class="badge pa">PA</span></td></tr>
+          <tr class="erarbeitung"><td>Rätselrunde</td><td>5 Min.</td><td>3–4 Rätsel im Plenum (Losstäbchen, freiwillige zuerst). Regel: Erst wird das ganze Rätsel vorgelesen, dann wird geraten. Wer richtig rät, nennt das Adjektiv, das am meisten geholfen hat. Impuls: „Welches Wort hat dir das Bild in den Kopf gezaubert?“</td><td><span class="badge sp">SP</span></td></tr>
+          <tr class="sicherung"><td>Schatzkiste</td><td>2 Min.</td><td>Die genannten Adjektive kommen auf das Plakat in die passende Spalte. Überleitung: „Bei einem Rätsel verraten wir den Namen nicht. Bei einer Bildbeschreibung sagen wir ihn gleich am Anfang – in der Einleitung.“</td><td><span class="badge ug">UG</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Worauf achten?</h4>
+    <ul>
+      <li>Rätsel, die zu schnell gelöst werden, sind kein Fehler – sie zeigen, wie genau die Beschreibung ist. Loben Sie dann die Treffsicherheit.</li>
+      <li>Häufige Schwäche: unbestimmte Adjektive wie <em>schön, toll, cool</em>. Nachfrage: „Was genau ist schön? Die Farbe? Die Form?“</li>
+      <li>Persönliche Gegenstände: Niemand muss sein Rätsel im Plenum vorlesen, wenn er nicht möchte.</li>
+    </ul>
+    <h4>Ergebnissicherung</h4>
+    <p>Plakat „Adjektiv-Schatzkiste“ bleibt im Klassenraum hängen (Hilfe für HA 7–9). Im Heft notiert der Partner unter dem Rätsel: „__ Adjektive, geraten nach __ Sätzen“.</p>
+    <h4>Wenn die Hausaufgabe fehlt</h4>
+    <p>Das Kind wählt einen Gegenstand aus der Federmappe oder dem Klassenraum und beschreibt ihn mündlich mit 4 Adjektiven als Partner-Rätsel. Es wird außerdem „Schatzmeister“ und schreibt die Adjektive auf das Plakat. Die schriftliche HA wird nachgereicht.</p>
+  </div>
+</section>
+
+<!-- ================================================================== HA 6 -->
+<section class="card" id="ha6">
+  <div class="stunde-kopf ha-kopf">
+    <div class="stunde-nr ha-nr">6</div>
+    <div>
+      <h2>HA 6 · Der Anfang zählt: meine Einleitung</h2>
+      <div class="ha-meta"><span class="badge ha">gestellt in Std. 6</span> <span class="badge zeit">ca. 15–20 Min.</span> <span class="badge pa">Überprüfung Std. 7: Einleitungs-Check mit W-Fragen-Daumen</span> <span class="badge zeit">8 Min.</span></div>
+    </div>
+  </div>
+
+  <div class="ha-schueler">
+    <figure class="bild rechts">
+      <img src="bilder/schulhof.svg" alt="Bild „Auf dem Schulhof“: Kinder spielen in der großen Pause vor einem roten Backsteingebäude mit dem Schild „Schule am Park“">
+      <figcaption>Wahlbild: „Auf dem Schulhof“</figcaption>
+    </figure>
+    <h3>Deine Hausaufgabe bis Stunde 7</h3>
+    <p>Du hast die Wahl: Schreib eine Einleitung zu <strong>deinem mitgebrachten Bild</strong> oder zum Bild <strong>„Auf dem Schulhof“</strong>.</p>
+    <ol class="stufen">
+      <li><strong>Steckbrief machen:</strong> Beantworte die 5 W-Fragen in Stichwörtern.</li>
+      <li><strong>Einleitung schreiben:</strong> Schreib aus deinem Steckbrief 2–3 ganze Sätze.</li>
+      <li><strong>Das-Bild-zeigt-Satz:</strong> Der wichtigste Satz! Sag in einem Satz, worum es auf dem Bild geht.</li>
+      <li><strong>Daumen-Probe:</strong> Zähl an deinen Fingern ab: Sind alle 5 W-Fragen beantwortet?</li>
+    </ol>
+    <div class="ha-hand" style="margin:12px 0;">
+      <svg viewBox="-10 0 145 168" width="130" role="img" aria-label="Hand: Daumen 1 Bildart, Zeigefinger 2 Titel, Mittelfinger 3 Künstler, Ringfinger 4 Jahr, kleiner Finger 5 Thema"><rect x="21" y="70" width="27" height="62" rx="13.5" transform="rotate(-35 35 128)" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="28" y="22" width="25" height="66" rx="12.5" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="54" y="8" width="25" height="80" rx="12.5" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="80" y="16" width="25" height="72" rx="12.5" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="106" y="38" width="22" height="52" rx="11.0" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="26" y="76" width="102" height="86" rx="28" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><circle cx="12" cy="95" r="10.5" fill="#e8833a"/><text x="12" y="100" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">1</text><circle cx="40.5" cy="37" r="10.5" fill="#e8833a"/><text x="40.5" y="42" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">2</text><circle cx="66.5" cy="23" r="10.5" fill="#e8833a"/><text x="66.5" y="28" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">3</text><circle cx="92.5" cy="31" r="10.5" fill="#e8833a"/><text x="92.5" y="36" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">4</text><circle cx="117" cy="53" r="10.5" fill="#e8833a"/><text x="117" y="58" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">5</text><text x="77" y="128" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="20" fill="#22303c">W?</text></svg>
+      <ol>
+        <li><strong>Was für ein Bild?</strong> Gemälde, Foto, Zeichnung, Illustration</li>
+        <li><strong>Wie heißt es?</strong> Titel in „…“</li>
+        <li><strong>Wer hat es gemacht?</strong> Künstler/in, Fotograf/in – oder: „unbekannt“</li>
+        <li><strong>Wann?</strong> Jahr – nur, wenn du es weißt</li>
+        <li><strong>Was zeigt es?</strong> Thema in einem Satz: „Das Bild zeigt …“</li>
+      </ol>
+    </div>
+    <ul class="ha-varianten">
+      <li><span class="niveau n1">Basis</span> Nutze das Satzmuster: <em>Das Bild „…“ ist ein/eine … . Es wurde von … gemacht. Das Bild zeigt …</em></li>
+      <li><span class="niveau n2">Standard</span> Eine Einleitung mit allen W-Fragen, die du beantworten kannst.</li>
+      <li><span class="niveau n3">Profi</span> Schreib zwei Einleitungen: eine zu deinem Bild <strong>und</strong> eine zum „Schulhof“. Was ist bei deinem Bild schwieriger?</li>
+    </ul>
+    <div class="ha-beispiel">
+      <p>Das Bild „Auf dem Schulhof“ ist eine bunte Zeichnung aus unserem Unterrichtsmaterial. Wer sie gezeichnet hat, ist unbekannt. Das Bild zeigt eine große Pause, in der viele Kinder auf dem Schulhof spielen.</p>
+    </div>
+    <div class="lupo">
+      <img src="bilder/lupo.svg" alt="Lupo">
+      <div class="bubble"><p><strong>Lupos Tipp:</strong> Du weißt nicht, wer das Bild gemacht hat oder wann? Kein Problem! Schreib „Der Fotograf ist unbekannt.“ oder lass das Jahr einfach weg. Aber den „Das-Bild-zeigt-Satz“ darfst du nie vergessen!</p></div>
+    </div>
+  </div>
+
+  <div class="ha-lehrkraft">
+    <p class="ha-label">Für die Lehrkraft</p>
+    <h3>Überprüfung in Stunde 7: Einleitungs-Check mit W-Fragen-Daumen</h3>
+    <p><strong>Ziel:</strong> Die Kinder prüfen Einleitungen hörend an den fünf W-Fragen. Die Hand ist ein körperlicher Merker, der auch in der Klassenarbeit „mitkommt“.</p>
+    <p><strong>Material:</strong> <a href="#ha6-daumen">W-Fragen-Daumen-Checkkarten</a> (1 pro Paar), Grünstift, ggf. Dokumentenkamera, Kontrollliste.</p>
+    <div class="tabelle-scroll">
+      <table class="verlauf">
+        <thead><tr><th>Schritt</th><th>Zeit</th><th>Ablauf und Impulse</th><th>Form</th></tr></thead>
+        <tbody>
+          <tr class="einstieg"><td>Hand zeigen</td><td>1 Min.</td><td>Lehrkraft zeigt die Hand: „Daumen – Was für ein Bild? Zeigefinger – Wie heißt es? …“ Die Klasse spricht im Chor mit und streckt die Finger.</td><td><span class="badge ug">UG</span></td></tr>
+          <tr class="erarbeitung"><td>Daumen-Check</td><td>4 Min.</td><td>A liest seine Einleitung vor, B hört <strong>ohne mitzulesen</strong> zu und streckt für jede beantwortete W-Frage einen Finger. Dann hakt B auf der Checkkarte ab und gibt einen Tipp. Wechsel.</td><td><span class="badge pa">PA</span></td></tr>
+          <tr class="sicherung"><td>Verbessern</td><td>2 Min.</td><td>Jedes Kind ergänzt fehlende Angaben in Grün. Wer alles hat: Satz mit „Das Bild zeigt …“ noch genauer machen.</td><td><span class="badge ea">EA</span></td></tr>
+          <tr class="abschluss"><td>Zwei Beispiele</td><td>1 Min.</td><td>Eine Einleitung zum eigenen Bild und eine zum Schulhof werden vorgelesen; die Klasse zeigt die Hand mit allen fünf Fingern oder weniger.</td><td><span class="badge ug">UG</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Worauf achten?</h4>
+    <ul>
+      <li>Erwartungshorizont Schulhof: Bildart (Zeichnung/Illustration), Titel „Auf dem Schulhof“, Zeichner/in unbekannt bzw. aus dem Unterrichtsmaterial, Jahr unbekannt (darf fehlen), Thema: große Pause, Kinder spielen auf dem Schulhof der „Schule am Park“.</li>
+      <li>Häufige Fehler: Titel ohne Anführungszeichen, das Thema fehlt oder ist eine Meinung („Das Bild ist schön.“), schon Einzelheiten aus dem Hauptteil in der Einleitung.</li>
+      <li>Fehlende Angaben (Künstler, Jahr) beim eigenen Bild sind kein Fehler. Lob für ehrliche Formulierungen wie „Der Fotograf ist unbekannt.“</li>
+    </ul>
+    <h4>Ergebnissicherung</h4>
+    <p>Checkkarte unter die Einleitung kleben. Die Lehrkraft notiert im Rundgang die Kürzel und merkt sich zwei gelungene Einleitungen für ein Plakat „So fängt ein Profi an“.</p>
+    <h4>Wenn die Hausaufgabe fehlt</h4>
+    <p>Das Kind schreibt in den 4 Minuten der Partnerphase mit dem Satzmuster (Basis) eine Einleitung zum „Schulhof“ und lässt sie in der Verbesserungsphase prüfen. Die Einleitung zum eigenen Bild darf freiwillig nachgereicht werden; die Schulhof-Einleitung zählt als „N“.</p>
+  </div>
+</section>
+
+<section class="blatt" id="ha6-daumen" data-toc-titel="Kopiervorlage HA 6: W-Fragen-Daumen-Checkkarte">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">HA<b>6</b></div><h2>W-Fragen-Daumen: Checkkarten</h2>
+    <div class="felder"><span>Klasse:</span><span>Datum:</span></div></div>
+  <p class="schere">Vier gleiche Karten – ausschneiden. Nach dem Check unter die Einleitung kleben.</p>
+  <div class="karten">
+
+    <div class="karte">
+      <div class="karte-titel">W-Fragen-Daumen</div>
+      <p class="mt-0" style="font-size:.85rem;margin-bottom:.4em;">Einleitung von <span class="luecke lang"></span></p>
+      <div class="ha-hand" style="grid-template-columns: 112px 1fr; gap:10px;">
+        <svg viewBox="-10 0 145 168" width="112" role="img" aria-label="Hand: Daumen 1 Bildart, Zeigefinger 2 Titel, Mittelfinger 3 Künstler, Ringfinger 4 Jahr, kleiner Finger 5 Thema"><rect x="21" y="70" width="27" height="62" rx="13.5" transform="rotate(-35 35 128)" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="28" y="22" width="25" height="66" rx="12.5" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="54" y="8" width="25" height="80" rx="12.5" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="80" y="16" width="25" height="72" rx="12.5" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="106" y="38" width="22" height="52" rx="11.0" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="26" y="76" width="102" height="86" rx="28" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><circle cx="12" cy="95" r="10.5" fill="#e8833a"/><text x="12" y="100" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">1</text><circle cx="40.5" cy="37" r="10.5" fill="#e8833a"/><text x="40.5" y="42" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">2</text><circle cx="66.5" cy="23" r="10.5" fill="#e8833a"/><text x="66.5" y="28" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">3</text><circle cx="92.5" cy="31" r="10.5" fill="#e8833a"/><text x="92.5" y="36" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">4</text><circle cx="117" cy="53" r="10.5" fill="#e8833a"/><text x="117" y="58" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">5</text><text x="77" y="128" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="20" fill="#22303c">W?</text></svg>
+        <ul class="checkliste" style="margin:0;">
+          <li><strong>1</strong> Bildart</li>
+          <li><strong>2</strong> Titel „…“</li>
+          <li><strong>3</strong> Wer hat es gemacht?</li>
+          <li><strong>4</strong> Wann? (falls bekannt)</li>
+          <li><strong>5</strong> Thema: Das Bild zeigt …</li>
+        </ul>
+      </div>
+      <p style="font-size:.85rem;margin:.5em 0 0;">Finger: <span class="luecke kurz"></span> von 5</p>
+      <p style="font-size:.85rem;margin:.3em 0 0;">Mein Tipp:</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+    </div>
+
+    <div class="karte">
+      <div class="karte-titel">W-Fragen-Daumen</div>
+      <p class="mt-0" style="font-size:.85rem;margin-bottom:.4em;">Einleitung von <span class="luecke lang"></span></p>
+      <div class="ha-hand" style="grid-template-columns: 112px 1fr; gap:10px;">
+        <svg viewBox="-10 0 145 168" width="112" role="img" aria-label="Hand: Daumen 1 Bildart, Zeigefinger 2 Titel, Mittelfinger 3 Künstler, Ringfinger 4 Jahr, kleiner Finger 5 Thema"><rect x="21" y="70" width="27" height="62" rx="13.5" transform="rotate(-35 35 128)" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="28" y="22" width="25" height="66" rx="12.5" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="54" y="8" width="25" height="80" rx="12.5" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="80" y="16" width="25" height="72" rx="12.5" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="106" y="38" width="22" height="52" rx="11.0" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="26" y="76" width="102" height="86" rx="28" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><circle cx="12" cy="95" r="10.5" fill="#e8833a"/><text x="12" y="100" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">1</text><circle cx="40.5" cy="37" r="10.5" fill="#e8833a"/><text x="40.5" y="42" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">2</text><circle cx="66.5" cy="23" r="10.5" fill="#e8833a"/><text x="66.5" y="28" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">3</text><circle cx="92.5" cy="31" r="10.5" fill="#e8833a"/><text x="92.5" y="36" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">4</text><circle cx="117" cy="53" r="10.5" fill="#e8833a"/><text x="117" y="58" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">5</text><text x="77" y="128" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="20" fill="#22303c">W?</text></svg>
+        <ul class="checkliste" style="margin:0;">
+          <li><strong>1</strong> Bildart</li>
+          <li><strong>2</strong> Titel „…“</li>
+          <li><strong>3</strong> Wer hat es gemacht?</li>
+          <li><strong>4</strong> Wann? (falls bekannt)</li>
+          <li><strong>5</strong> Thema: Das Bild zeigt …</li>
+        </ul>
+      </div>
+      <p style="font-size:.85rem;margin:.5em 0 0;">Finger: <span class="luecke kurz"></span> von 5</p>
+      <p style="font-size:.85rem;margin:.3em 0 0;">Mein Tipp:</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+    </div>
+
+    <div class="karte">
+      <div class="karte-titel">W-Fragen-Daumen</div>
+      <p class="mt-0" style="font-size:.85rem;margin-bottom:.4em;">Einleitung von <span class="luecke lang"></span></p>
+      <div class="ha-hand" style="grid-template-columns: 112px 1fr; gap:10px;">
+        <svg viewBox="-10 0 145 168" width="112" role="img" aria-label="Hand: Daumen 1 Bildart, Zeigefinger 2 Titel, Mittelfinger 3 Künstler, Ringfinger 4 Jahr, kleiner Finger 5 Thema"><rect x="21" y="70" width="27" height="62" rx="13.5" transform="rotate(-35 35 128)" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="28" y="22" width="25" height="66" rx="12.5" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="54" y="8" width="25" height="80" rx="12.5" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="80" y="16" width="25" height="72" rx="12.5" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="106" y="38" width="22" height="52" rx="11.0" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="26" y="76" width="102" height="86" rx="28" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><circle cx="12" cy="95" r="10.5" fill="#e8833a"/><text x="12" y="100" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">1</text><circle cx="40.5" cy="37" r="10.5" fill="#e8833a"/><text x="40.5" y="42" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">2</text><circle cx="66.5" cy="23" r="10.5" fill="#e8833a"/><text x="66.5" y="28" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">3</text><circle cx="92.5" cy="31" r="10.5" fill="#e8833a"/><text x="92.5" y="36" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">4</text><circle cx="117" cy="53" r="10.5" fill="#e8833a"/><text x="117" y="58" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">5</text><text x="77" y="128" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="20" fill="#22303c">W?</text></svg>
+        <ul class="checkliste" style="margin:0;">
+          <li><strong>1</strong> Bildart</li>
+          <li><strong>2</strong> Titel „…“</li>
+          <li><strong>3</strong> Wer hat es gemacht?</li>
+          <li><strong>4</strong> Wann? (falls bekannt)</li>
+          <li><strong>5</strong> Thema: Das Bild zeigt …</li>
+        </ul>
+      </div>
+      <p style="font-size:.85rem;margin:.5em 0 0;">Finger: <span class="luecke kurz"></span> von 5</p>
+      <p style="font-size:.85rem;margin:.3em 0 0;">Mein Tipp:</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+    </div>
+
+    <div class="karte">
+      <div class="karte-titel">W-Fragen-Daumen</div>
+      <p class="mt-0" style="font-size:.85rem;margin-bottom:.4em;">Einleitung von <span class="luecke lang"></span></p>
+      <div class="ha-hand" style="grid-template-columns: 112px 1fr; gap:10px;">
+        <svg viewBox="-10 0 145 168" width="112" role="img" aria-label="Hand: Daumen 1 Bildart, Zeigefinger 2 Titel, Mittelfinger 3 Künstler, Ringfinger 4 Jahr, kleiner Finger 5 Thema"><rect x="21" y="70" width="27" height="62" rx="13.5" transform="rotate(-35 35 128)" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="28" y="22" width="25" height="66" rx="12.5" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="54" y="8" width="25" height="80" rx="12.5" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="80" y="16" width="25" height="72" rx="12.5" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="106" y="38" width="22" height="52" rx="11.0" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><rect x="26" y="76" width="102" height="86" rx="28" fill="#fde9d7" stroke="#22303c" stroke-width="2.5"/><circle cx="12" cy="95" r="10.5" fill="#e8833a"/><text x="12" y="100" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">1</text><circle cx="40.5" cy="37" r="10.5" fill="#e8833a"/><text x="40.5" y="42" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">2</text><circle cx="66.5" cy="23" r="10.5" fill="#e8833a"/><text x="66.5" y="28" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">3</text><circle cx="92.5" cy="31" r="10.5" fill="#e8833a"/><text x="92.5" y="36" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">4</text><circle cx="117" cy="53" r="10.5" fill="#e8833a"/><text x="117" y="58" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="14" fill="#fff">5</text><text x="77" y="128" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="900" font-size="20" fill="#22303c">W?</text></svg>
+        <ul class="checkliste" style="margin:0;">
+          <li><strong>1</strong> Bildart</li>
+          <li><strong>2</strong> Titel „…“</li>
+          <li><strong>3</strong> Wer hat es gemacht?</li>
+          <li><strong>4</strong> Wann? (falls bekannt)</li>
+          <li><strong>5</strong> Thema: Das Bild zeigt …</li>
+        </ul>
+      </div>
+      <p style="font-size:.85rem;margin:.5em 0 0;">Finger: <span class="luecke kurz"></span> von 5</p>
+      <p style="font-size:.85rem;margin:.3em 0 0;">Mein Tipp:</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+    </div>
+
+  </div>
+  <div class="fussnote">Hausaufgaben · HA 6 · Stunde 7</div>
+</section>
+
+<!-- ================================================================== HA 7 -->
+<section class="card" id="ha7">
+  <div class="stunde-kopf ha-kopf">
+    <div class="stunde-nr ha-nr">7</div>
+    <div>
+      <h2>HA 7 · Der Vordergrund am See</h2>
+      <div class="ha-meta"><span class="badge ha">gestellt in Std. 7</span> <span class="badge zeit">ca. 20–25 Min.</span> <span class="badge ga">Überprüfung Std. 8: Satzanfänge-Zählung + „2 Sterne und 1 Wunsch“</span> <span class="badge zeit">12 Min.</span></div>
+    </div>
+  </div>
+
+  <div class="ha-schueler">
+    <figure class="bild rechts">
+      <img src="bilder/sommertag-am-see.svg" alt="Bild „Sommertag am See“: vorne eine Wiese mit Baum, Picknickdecke, lesendem Mädchen, Hund mit Ball und Fahrrad, dahinter ein See mit Segelboot und Steg, im Hintergrund Hügel, Haus und Tannenwald">
+      <figcaption>„Sommertag am See“</figcaption>
+    </figure>
+    <h3>Deine Hausaufgabe bis Stunde 8</h3>
+    <ol class="stufen">
+      <li><strong>Nur nach vorne schauen:</strong> Schau dir nur den <strong>Vordergrund</strong> an: die Wiese ganz vorne.</li>
+      <li><strong>Weg festlegen:</strong> Entscheide dich: von links nach rechts. Fang beim Baum an und hör beim Fahrrad auf.</li>
+      <li><strong>5–7 Sätze schreiben:</strong> Beschreibe alles, was du im Vordergrund siehst.</li>
+      <li><strong>Satzanfänge prüfen:</strong> Kein Satzanfang darf zweimal vorkommen! Unterstreiche das erste Wort jedes Satzes.</li>
+    </ol>
+    <div class="wortspeicher lila" style="clear:both;"><span class="titel">Wortspeicher: Satzanfänge</span><span>Im Vordergrund …</span><span>Am linken Bildrand …</span><span>Rechts daneben …</span><span>Darauf …</span><span>Neben dem Mädchen …</span><span>In der Bildmitte …</span><span>Am rechten Bildrand …</span><span>Außerdem …</span><span>Auffällig ist …</span></div>
+    <ul class="ha-varianten">
+      <li><span class="niveau n1">Basis</span> 5 Sätze. Benutze für jeden Satz einen anderen Satzanfang aus dem Wortspeicher.</li>
+      <li><span class="niveau n2">Standard</span> 6–7 Sätze mit Ortsangaben, treffenden Verben und genauen Adjektiven.</li>
+      <li><span class="niveau n3">Profi</span> 7 Sätze, davon mindestens zwei mit eigenen Satzanfängen, die nicht im Wortspeicher stehen.</li>
+    </ul>
+    <div class="ha-beispiel">
+      <p>Im Vordergrund erstreckt sich eine grüne Wiese mit bunten Blumen. Am linken Bildrand steht ein großer Laubbaum mit einem dicken braunen Stamm. Rechts neben dem Baum liegt eine rot-weiß karierte Picknickdecke …</p>
+    </div>
+    <div class="lupo">
+      <img src="bilder/lupo.svg" alt="Lupo">
+      <div class="bubble"><p><strong>Lupos Tipp:</strong> „Dann … dann … dann …“ ist langweilig. Stell dir vor, deine Augen sind eine Kamera, die langsam von links nach rechts fährt. Jeder Satzanfang sagt, wohin die Kamera gerade schaut!</p></div>
+    </div>
+  </div>
+
+  <div class="ha-lehrkraft">
+    <p class="ha-label">Für die Lehrkraft</p>
+    <h3>Überprüfung in Stunde 8: Satzanfänge-Zählung + Vorlesen mit „2 Sterne und 1 Wunsch“</h3>
+    <p><strong>Ziel:</strong> Die Kinder prüfen ihre Satzanfänge selbst (quantitativ) und bekommen in der Gruppe eine kriteriengeleitete, wertschätzende Rückmeldung (qualitativ). Das Feedbackformat wird für die Textlupe in Std. 10 eingeübt.</p>
+    <p><strong>Material:</strong> <a href="#kv-feedback">Feedbackkarten „2 Sterne und 1 Wunsch“</a> (3 pro Kind), Satzanfänge-Rad oder Plakat aus Std. 7, Kontrollliste.</p>
+    <div class="tabelle-scroll">
+      <table class="verlauf">
+        <thead><tr><th>Schritt</th><th>Zeit</th><th>Ablauf und Impulse</th><th>Form</th></tr></thead>
+        <tbody>
+          <tr class="einstieg"><td>Zählen</td><td>2 Min.</td><td>Jedes Kind schreibt die ersten zwei Wörter jedes Satzes untereinander an den Rand und zählt: Wie viele <strong>verschiedene</strong> Satzanfänge? Doppelte werden eingekreist und sofort umformuliert.</td><td><span class="badge ea">EA</span></td></tr>
+          <tr class="erarbeitung"><td>Vorlesen</td><td>6 Min.</td><td>Tischgruppen zu viert. Reihum liest jedes Kind vor. Die anderen füllen je eine Karte aus: zwei Sterne (Was ist gelungen?) und ein Wunsch (Was kann besser werden?). Satzmuster an der Tafel: „Mir gefällt, dass du …“ – „Ich wünsche mir, dass du …“</td><td><span class="badge ga">GA</span></td></tr>
+          <tr class="sicherung"><td>Plenum</td><td>3 Min.</td><td>Zwei Kinder lesen vor (Gruppen schlagen vor). Klasse nennt die gelungensten Satzanfänge; neue kommen ans Satzanfänge-Plakat.</td><td><span class="badge ug">UG</span></td></tr>
+          <tr class="abschluss"><td>Ausblick</td><td>1 Min.</td><td>Impuls: „Ihr habt nur den Vordergrund beschrieben. Was fehlt noch, damit es eine ganze Bildbeschreibung wird?“ – Erwartung: Mittelgrund, Hintergrund, Schluss → Überleitung zum Stundenthema „Schluss, Sachlichkeit, Präsens“.</td><td><span class="badge ug">UG</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Worauf achten?</h4>
+    <ul>
+      <li>Inhaltlich vollständiger Vordergrund (laut Musterbeschreibung): Wiese mit Blumen, Laubbaum am linken Bildrand, rot-weiß karierte Picknickdecke, Mädchen mit langen braunen Haaren und blauem Kleid liest, Picknickkorb mit rotem und grünem Apfel, brauner Hund mit rotem Halsband rennt zum roten Ball, grünes Fahrrad am rechten Bildrand. Nicht alles muss vorkommen – die Reihenfolge muss stimmen.</li>
+      <li>Stolperstein: Kinder springen in den Mittelgrund (Junge am Steg, Segelboot). Hinweis: „Das kommt später dran!“</li>
+      <li>Feedback-Regeln vorher klären: konkret, freundlich, zum Text (nicht zur Person). Unkonkrete Sterne („Alles gut“) nicht annehmen.</li>
+    </ul>
+    <h4>Ergebnissicherung</h4>
+    <p>Die drei Feedbackkarten werden neben den Text geklebt. Unter den Text schreibt jedes Kind: „Mein Wunsch für das nächste Mal: …“ (übernimmt einen Wunsch).</p>
+    <h4>Wenn die Hausaufgabe fehlt</h4>
+    <p>Das Kind schreibt während der Zählphase mit den Satzanfängen des Wortspeichers drei Sätze (Basis) und wird in der Gruppe zur „Feedback-Fachkraft“, die besonders sorgfältig Sterne und Wünsche für die anderen formuliert. Der vollständige Text wird nachgereicht.</p>
+  </div>
+</section>
+
+<!-- ================================================================== HA 8 -->
+<section class="card" id="ha8">
+  <div class="stunde-kopf ha-kopf">
+    <div class="stunde-nr ha-nr">8</div>
+    <div>
+      <h2>HA 8 · Ein guter Schluss und alles im Präsens</h2>
+      <div class="ha-meta"><span class="badge ha">gestellt in Std. 8</span> <span class="badge zeit">ca. 20–25 Min.</span> <span class="badge ea">Überprüfung Std. 9: 5-Minuten-Check</span> <span class="badge zeit">10 Min.</span></div>
+    </div>
+  </div>
+
+  <div class="ha-schueler">
+    <h3>Deine Hausaufgabe bis Stunde 9</h3>
+    <p>Deine Hausaufgabe hat zwei Teile.</p>
+    <h4>Teil A: Der Schluss zu „Sommertag am See“</h4>
+    <ol class="stufen">
+      <li><strong>Wirkung:</strong> Wie wirkt das Bild auf dich? Such ein oder zwei Wörter aus dem Wortspeicher aus.</li>
+      <li><strong>Begründung aus dem Bild:</strong> Woran siehst du das? (Farben, Sonne, was die Menschen machen …)</li>
+      <li><strong>Meinung mit „weil“:</strong> Schreib, ob dir das Bild gefällt – und warum.</li>
+    </ol>
+    <div class="wortspeicher gelb"><span class="titel">Wortspeicher: Wirkung</span><span>fröhlich</span><span>friedlich</span><span>sommerlich</span><span>entspannt</span><span>gemütlich</span><span>lebhaft</span><span>ruhig</span></div>
+    <h4>Teil B: Die Zeitmaschine</h4>
+    <p>Forme die <strong>6 Sätze auf AB 11</strong> vom Präteritum (Vergangenheit) ins <strong>Präsens</strong> (Gegenwart) um.</p>
+    <ul class="ha-varianten">
+      <li><span class="niveau n1">Basis</span> Schluss mit dem Satzmuster: <em>Das Bild wirkt auf mich … , weil … . Mir gefällt das Bild, weil …</em></li>
+      <li><span class="niveau n2">Standard</span> 3–4 eigene Sätze: Wirkung, Begründung, Meinung.</li>
+      <li><span class="niveau n3">Profi</span> Vergleiche in einem Satz mit dem Bild „Die Jäger im Schnee“: Wie unterschiedlich wirken die beiden Bilder?</li>
+    </ul>
+    <div class="ha-beispiel">
+      <p>Das Bild wirkt auf mich fröhlich und friedlich. Die hellen Farben und die Sonne zeigen, dass es ein warmer Sommertag ist. Mir gefällt das Bild, weil ich auch gerne am See bin.</p>
+      <p><em>Zeitmaschine:</em> Die Jäger stapften durch den Schnee. → Die Jäger <strong>stapfen</strong> durch den Schnee.</p>
+    </div>
+    <div class="lupo">
+      <img src="bilder/lupo.svg" alt="Lupo">
+      <div class="bubble"><p><strong>Lupos Tipp:</strong> Im Schluss darfst du endlich sagen, was <strong>du</strong> denkst! Aber vergiss das „weil“ nicht. Und bei der Zeitmaschine hilft dir der Satz: „Ich sehe das Bild <strong>jetzt</strong> an.“ Dann klingt das Verb automatisch nach Gegenwart.</p></div>
+    </div>
+  </div>
+
+  <div class="ha-lehrkraft">
+    <p class="ha-label">Für die Lehrkraft</p>
+    <h3>Überprüfung in Stunde 9: 5-Minuten-Check (Mini-Quiz mit Selbstkorrektur)</h3>
+    <p><strong>Ziel:</strong> Vor der ersten vollständigen Bildbeschreibung prüfen alle Kinder in kurzer Zeit, ob sie Präsens, Sachlichkeit und Schluss sicher beherrschen. Die Selbstkorrektur zeigt jedem Kind und der Lehrkraft sofort, wo noch Hilfe nötig ist.</p>
+    <p><strong>Material:</strong> <a href="#ha8-check">5-Minuten-Check</a> (½ bis 1 Seite pro Kind), Lösung am Beamer, Grünstift, Kontrollliste.</p>
+    <div class="tabelle-scroll">
+      <table class="verlauf">
+        <thead><tr><th>Schritt</th><th>Zeit</th><th>Ablauf und Impulse</th><th>Form</th></tr></thead>
+        <tbody>
+          <tr class="einstieg"><td>Quiz</td><td>5 Min.</td><td>Stillarbeit mit sichtbarer Uhr. Impuls: „Das ist kein Test mit Note. Es ist euer Fitness-Check für heute.“</td><td><span class="badge ea">EA</span></td></tr>
+          <tr class="erarbeitung"><td>Selbstkorrektur</td><td>3 Min.</td><td>Lösung am Beamer. Jedes Kind korrigiert mit Grünstift, zählt Punkte und kreuzt die Auswertung an.</td><td><span class="badge ea">EA</span></td></tr>
+          <tr class="sicherung"><td>Handzeichen</td><td>1 Min.</td><td>„Hand hoch, wer Aufgabe 1–4 alle richtig hat.“ – Strichliste an der Tafel für jeden Block. Die Aufgabe mit den meisten Fehlern wird sofort an einem Beispiel geklärt.</td><td><span class="badge ug">UG</span></td></tr>
+          <tr class="abschluss"><td>Schluss-Blick</td><td>1 Min.</td><td>Lehrkraft geht durch und sieht sich die Schlüsse aus HA 8 an (Wirkung + Begründung + Meinung mit „weil“?). Zwei gelungene Schlüsse werden später in der Schreibphase als Muster vorgelesen.</td><td><span class="badge lv">LK</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Worauf achten?</h4>
+    <ul>
+      <li>Präsens-Stolpersteine: starke Verben mit Vokalwechsel (<em>las → liest, lief → läuft, schwamm → schwimmt</em>), trennbare Verben (<em>sah aus → sieht aus</em>).</li>
+      <li>Kinder mit 0–5 Punkten bekommen in Std. 9 die Tippkarte „Präsens &amp; sachlich“ an den Platz und werden in Std. 12 auf Station S6 hingewiesen.</li>
+      <li>Ehrlichkeit fördern: Das Ergebnis wird nicht eingesammelt; nur die Strichliste zählt.</li>
+    </ul>
+    <h4>Ergebnissicherung</h4>
+    <p>Der Check wird eingeklebt; die Auswertung (grün/gelb/rot) kommt auch ins Logbuch. Die Lehrkraft notiert die Strichliste (Diagnose für die Schreibzeit in Std. 9).</p>
+    <h4>Wenn die Hausaufgabe fehlt</h4>
+    <p>Das Kind macht den 5-Minuten-Check trotzdem mit – er prüft das Wissen, nicht die HA. Schluss und Präsens-Übung werden bis Std. 10 nachgereicht (der Schluss fließt ohnehin in HA 9 ein).</p>
+  </div>
+</section>
+
+<section class="blatt ha-kompakt" id="ha8-check" data-toc-titel="Kopiervorlage HA 8: 5-Minuten-Check">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">HA<b>8</b></div><h2>Der 5-Minuten-Check</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+  <p class="mt-0">Du hast <strong>5 Minuten</strong>. Jede Aufgabe gibt <strong>1 Punkt</strong>. Danach korrigierst du selbst mit einem grünen Stift.</p>
+
+  <div class="aufgabe"><span class="nr">1</span>
+    <p>Setze ins Präsens: <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;">Der Hund rannte zum Ball. → Der Hund <span class="luecke"></span> zum Ball.</p>
+  </div>
+  <div class="aufgabe"><span class="nr">2</span>
+    <p>Setze ins Präsens: <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;">Das Mädchen las ein Buch. → Das Mädchen <span class="luecke"></span> ein Buch.</p>
+  </div>
+  <div class="aufgabe"><span class="nr">3</span>
+    <p>Setze ins Präsens: <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;">Zwei Enten schwammen auf dem See. → Zwei Enten <span class="luecke"></span> auf dem See.</p>
+  </div>
+  <div class="aufgabe"><span class="nr">4</span>
+    <p>Setze ins Präsens: <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;">In der rechten oberen Ecke strahlte eine gelbe Sonne. → In der rechten oberen Ecke <span class="luecke"></span> eine gelbe Sonne.</p>
+  </div>
+  <div class="aufgabe"><span class="nr">5</span>
+    <p>Sehen, vermuten oder meinen? Kreuze an. <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;margin-bottom:0;">„Am Ende des Stegs sitzt ein Junge mit einer blauen Kappe.“</p>
+    <div class="ha-optionen"><span><span class="kreis"></span>ich sehe</span><span><span class="kreis"></span>ich vermute</span><span><span class="kreis"></span>ich meine</span></div>
+  </div>
+  <div class="aufgabe"><span class="nr">6</span>
+    <p>Sehen, vermuten oder meinen? Kreuze an. <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;margin-bottom:0;">„Vermutlich wartet der Junge darauf, dass ein Fisch anbeißt.“</p>
+    <div class="ha-optionen"><span><span class="kreis"></span>ich sehe</span><span><span class="kreis"></span>ich vermute</span><span><span class="kreis"></span>ich meine</span></div>
+  </div>
+  <div class="aufgabe"><span class="nr">7</span>
+    <p>Sehen, vermuten oder meinen? Kreuze an. <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;margin-bottom:0;">„Ich finde den Hund mit dem roten Halsband am lustigsten.“</p>
+    <div class="ha-optionen"><span><span class="kreis"></span>ich sehe</span><span><span class="kreis"></span>ich vermute</span><span><span class="kreis"></span>ich meine</span></div>
+  </div>
+  <div class="aufgabe"><span class="nr">8</span>
+    <p>In welchen Teil der Bildbeschreibung gehört deine Meinung? <span class="ha-punkte">/ 1</span></p>
+    <div class="ha-optionen"><span><span class="kreis"></span>Einleitung</span><span><span class="kreis"></span>Hauptteil</span><span><span class="kreis"></span>Schluss</span></div>
+  </div>
+  <div class="aufgabe"><span class="nr">9</span>
+    <p>Kreuze die <strong>zwei</strong> Wörter an, die eine Wirkung beschreiben. <span class="ha-punkte">/ 1</span></p>
+    <div class="ha-optionen"><span><span class="kreis"></span>friedlich</span><span><span class="kreis"></span>Picknickdecke</span><span><span class="kreis"></span>fröhlich</span><span><span class="kreis"></span>rennt</span></div>
+  </div>
+  <div class="aufgabe"><span class="nr">10</span>
+    <p>Welches Wort fehlt in der Begründung? <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;">Mir gefällt das Bild, <span class="luecke kurz"></span> ich auch gerne am See bin.</p>
+  </div>
+
+  <div class="ha-fuss-zeile"><span><strong>Meine Punkte:</strong> <span class="luecke kurz"></span> von 10</span><span>Korrigiert mit Grünstift <span class="ha-box"></span></span></div>
+  <div class="ha-auswertung">
+    <div><strong>9–10 Punkte:</strong> Super, du bist ein Lupo-Profi! Hilf heute anderen.</div>
+    <div><strong>6–8 Punkte:</strong> Gut! Schau dir deine Fehler noch einmal genau an.</div>
+    <div><strong>0–5 Punkte:</strong> Hol dir heute die Tippkarte „Präsens &amp; sachlich“.</div>
+  </div>
+
+  <details class="loesung">
+    <summary>Lösung (für die Selbstkorrektur am Beamer)</summary>
+    <ol>
+      <li>rennt</li>
+      <li>liest</li>
+      <li>schwimmen</li>
+      <li>strahlt</li>
+      <li>ich sehe (Das kann man im Bild sehen.)</li>
+      <li>ich vermute (Signalwort: <em>vermutlich</em>)</li>
+      <li>ich meine (Signalwörter: <em>ich finde</em>, <em>am lustigsten</em>)</li>
+      <li>Schluss</li>
+      <li>friedlich, fröhlich (nur mit beiden Kreuzen 1 Punkt)</li>
+      <li>weil</li>
+    </ol>
+  </details>
+  <div class="fussnote">Hausaufgaben · HA 8 · Stunde 9</div>
+</section>
+
+
+<!-- ================================================================== HA 9 -->
+<section class="card" id="ha9">
+  <div class="stunde-kopf ha-kopf">
+    <div class="stunde-nr ha-nr">9</div>
+    <div>
+      <h2>HA 9 · Meine Bildbeschreibung „Auf dem Schulhof“ (Reinschrift)</h2>
+      <div class="ha-meta"><span class="badge ha">gestellt in Std. 9</span> <span class="badge zeit">ca. 25–30 Min.</span> <span class="badge ga">Überprüfung Std. 10: Textlupe / Schreibkonferenz</span> <span class="badge zeit">ca. 25 Min.</span></div>
+    </div>
+  </div>
+
+  <div class="ha-schueler">
+    <figure class="bild rechts">
+      <img src="bilder/schulhof.svg" alt="Bild „Auf dem Schulhof“: Kinder spielen in der großen Pause: Seilspringen, Fußball, Klettergerüst, ein Junge isst auf einer Bank, eine Lehrerin hat Pausenaufsicht">
+      <figcaption>„Auf dem Schulhof“</figcaption>
+    </figure>
+    <h3>Deine Hausaufgabe bis Stunde 10</h3>
+    <ol class="stufen">
+      <li><strong>Schreibplan holen:</strong> Leg deinen Schreibplan (AB 12) und deinen Entwurf aus der Stunde neben dich.</li>
+      <li><strong>Fertig schreiben:</strong> Schreib die Teile, die noch fehlen. Denk an Einleitung, Hauptteil und Schluss.</li>
+      <li><strong>Reinschrift:</strong> Schreib den ganzen Text sauber ab. Lass <strong>jede zweite Zeile frei</strong> – dort kann deine Gruppe in Stunde 10 Tipps hineinschreiben.</li>
+      <li><strong>Kurz prüfen:</strong> Lies deinen Text einmal laut. Steht alles im Präsens?</li>
+    </ol>
+    <ul class="ha-varianten">
+      <li><span class="niveau n1">Basis</span> Benutze die Tippkarten (Hilfe 1–3) aus der Stunde. Mindestens 8 Sätze im Hauptteil.</li>
+      <li><span class="niveau n2">Standard</span> Eine vollständige Bildbeschreibung mit Einleitung, Hauptteil (Vordergrund → Mittelgrund → Hintergrund) und Schluss.</li>
+      <li><span class="niveau n3">Profi</span> Beschreibe auch kleine Einzelheiten genau (z. B. was auf dem Schild über der Tür steht oder wie viel Uhr die Uhr zeigt) und begründe deine Meinung mit zwei Gründen.</li>
+    </ul>
+    <div class="ha-beispiel">
+      <p>Im Vordergrund spielen links drei Mädchen Seilspringen. In der Mitte springt ein Mädchen mit einem braunen Pferdeschwanz und einem roten Rock über ein lila Seil …</p>
+    </div>
+    <div class="lupo">
+      <img src="bilder/lupo.svg" alt="Lupo">
+      <div class="bubble"><p><strong>Lupos Tipp:</strong> Erst schauen, dann ordnen, dann schreiben! Hak auf deinem Schreibplan jedes Stichwort ab, sobald es in deinem Text steht. So vergisst du nichts.</p></div>
+    </div>
+  </div>
+
+  <div class="ha-lehrkraft">
+    <p class="ha-label">Für die Lehrkraft</p>
+    <h3>Überprüfung in Stunde 10: Textlupe / Schreibkonferenz</h3>
+    <p><strong>Ziel:</strong> Die Hausaufgabe ist das Arbeitsmaterial der Stunde. Die Überprüfung geschieht durch die kriteriengeleitete Textlupe in 3er-Gruppen (Verlauf siehe <a href="stunden.html#s10">Stunde 10</a>, Bogen <a href="arbeitsblaetter.html#ab13">AB 13</a>).</p>
+    <p><strong>Material:</strong> Reinschriften, AB 13 (Checkliste &amp; Textlupe-Bogen), Farbstifte (grün Aufbau, blau Ortsangaben, orange Verben/Adjektive, rot Präsens &amp; sachlich), Kontrollliste.</p>
+    <div class="tabelle-scroll">
+      <table class="verlauf">
+        <thead><tr><th>Schritt</th><th>Zeit</th><th>Ablauf und Impulse</th><th>Form</th></tr></thead>
+        <tbody>
+          <tr class="einstieg"><td>Texte auf den Tisch</td><td>2 Min.</td><td>Alle legen ihre Reinschrift aufgeschlagen auf den Tisch. Die Lehrkraft geht durch, notiert die Kürzel und bildet ggf. die 3er-Gruppen um, wenn in einer Gruppe Texte fehlen.</td><td><span class="badge lv">LK</span></td></tr>
+          <tr class="erarbeitung"><td>Textlupe</td><td>ca. 20 Min.</td><td>Nach dem Fehlertext-Einstieg (AB 14): Jeder Text wandert durch die Gruppe. Jedes Kind prüft einen Bereich mit seiner Farbe und schreibt Hinweise in die freien Zeilen und auf den Bogen.</td><td><span class="badge ga">GA</span></td></tr>
+          <tr class="sicherung"><td>Zurück zum Autor</td><td>3 Min.</td><td>Jedes Kind liest die Hinweise und markiert, welche drei Verbesserungen es in der Endfassung (HA 10) umsetzen will.</td><td><span class="badge ea">EA</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Worauf achten?</h4>
+    <ul>
+      <li>Die Gruppen sollten leistungsgemischt sein; mindestens ein „sicherer“ Schreiber pro Gruppe.</li>
+      <li>Rückmeldungen konkret halten: „Satz 4: ‚ist‘ → besser ‚steht‘“ statt „Verben schlecht“.</li>
+      <li>Inhaltlich achten: Verwechslungen im Bild (z. B. die Lehrerin hat eine <em>gelbe</em> Trillerpfeife, das Seil ist <em>lila</em>, die Uhr zeigt <em>10 Uhr</em>).</li>
+    </ul>
+    <h4>Ergebnissicherung</h4>
+    <p>Textlupe-Bogen bleibt beim Text; die drei geplanten Verbesserungen werden am Rand mit Sternchen markiert und sind der Auftrag für HA 10.</p>
+    <h4>Wenn die Hausaufgabe fehlt</h4>
+    <p>Das Kind arbeitet mit seinem Entwurf aus Std. 9 (auch wenn er unfertig ist) und lässt diesen prüfen. Fehlt auch der Entwurf, übernimmt es in der Gruppe die Rolle „Fehlertext-Detektiv“ mit AB 14 und prüft nur fremde Texte. Die Reinschrift wird bis Std. 11 nachgereicht – zusammen mit HA 10 ist das eine größere Aufgabe, daher individuell eine Frist vereinbaren.</p>
+  </div>
+</section>
+
+<!-- ================================================================== HA 10 -->
+<section class="card" id="ha10">
+  <div class="stunde-kopf ha-kopf">
+    <div class="stunde-nr ha-nr">10</div>
+    <div>
+      <h2>HA 10 · Meine Endfassung mit drei Verbesserungen</h2>
+      <div class="ha-meta"><span class="badge ha">gestellt in Std. 10</span> <span class="badge zeit">ca. 25–30 Min.</span> <span class="badge lv">Überprüfung Std. 11: Einsammeln + Bewertungsraster (ohne Note)</span> <span class="badge zeit">2 Min. + Rückgabe Std. 12</span></div>
+    </div>
+  </div>
+
+  <div class="ha-schueler">
+    <h3>Deine Hausaufgabe bis Stunde 11</h3>
+    <ol class="stufen">
+      <li><strong>Tipps lesen:</strong> Lies alle Hinweise deiner Textlupe-Gruppe noch einmal.</li>
+      <li><strong>Verbessern:</strong> Schreib deine Bildbeschreibung „Auf dem Schulhof“ noch einmal ganz sauber ab und verbessere dabei, was du dir vorgenommen hast.</li>
+      <li><strong>3 Stellen markieren:</strong> Markiere <strong>drei Stellen</strong>, die du verbessert hast, mit einem Textmarker.</li>
+      <li><strong>Erklären:</strong> Schreib unter den Text, was du verbessert hast: <em>„1. Ich habe ‚ist‘ durch ‚steht‘ ersetzt.“</em></li>
+    </ol>
+    <ul class="ha-varianten">
+      <li><span class="niveau n1">Basis</span> Verbessere drei Stellen, die deine Gruppe angestrichen hat.</li>
+      <li><span class="niveau n2">Standard</span> Verbessere alle Hinweise und markiere die drei wichtigsten.</li>
+      <li><span class="niveau n3">Profi</span> Finde zusätzlich eine Stelle, die niemand angestrichen hat, und mach sie noch besser.</li>
+    </ul>
+    <div class="ha-beispiel">
+      <p><em>Vorher:</em> Rechts ist eine Bank. Da sitzt ein Junge.</p>
+      <p><em>Nachher:</em> <mark>Am rechten Bildrand steht eine Holzbank. Darauf sitzt ein Junge mit roten Haaren und isst ein Pausenbrot.</mark></p>
+      <p class="klein">Verbesserung: genaue Ortsangabe, treffendes Verb, Adjektiv, Satzanfang „Darauf“.</p>
+    </div>
+    <div class="lupo">
+      <img src="bilder/lupo.svg" alt="Lupo">
+      <div class="bubble"><p><strong>Lupos Tipp:</strong> Auch echte Schriftsteller überarbeiten ihre Texte viele Male. Jede Verbesserung macht dich zum besseren Bilddetektiv. Darauf darfst du stolz sein!</p></div>
+    </div>
+  </div>
+
+  <div class="ha-lehrkraft">
+    <p class="ha-label">Für die Lehrkraft</p>
+    <h3>Überprüfung in Stunde 11: Einsammeln und Rückmeldung mit Bewertungsraster</h3>
+    <p><strong>Ziel:</strong> Jedes Kind erhält vor der Klassenarbeit eine persönliche, kriteriengeleitete Rückmeldung <strong>ohne Note</strong> mit genau einem nächsten Schritt. Die Rückmeldung steuert die Stationswahl an der Lerntheke in Std. 12.</p>
+    <p><strong>Material:</strong> <a href="#ha10-raster">Formatives Bewertungsraster</a> (1 pro Kind), Kontrollliste, ggf. Korrekturzeichen-Legende.</p>
+    <div class="tabelle-scroll">
+      <table class="verlauf">
+        <thead><tr><th>Schritt</th><th>Zeit</th><th>Ablauf und Impulse</th><th>Form</th></tr></thead>
+        <tbody>
+          <tr class="einstieg"><td>Einsammeln (Std. 11)</td><td>2 Min.</td><td>Endfassungen in eine Mappe, Haken in der Kontrollliste. Impuls: „Ich lese eure Texte bis zur nächsten Stunde und schreibe jedem einen Brief zurück: was schon super klappt und was euer nächster Schritt ist.“</td><td><span class="badge lv">LK</span></td></tr>
+          <tr class="erarbeitung"><td>Rückmelden (zu Hause)</td><td>ca. 4 Min. pro Text</td><td>Raster ankreuzen, <strong>ein</strong> Lob konkret ausformulieren, <strong>einen</strong> nächsten Schritt nennen und 1–2 Stationen der Lerntheke ankreuzen. Am Rand höchstens Kürzel (O = Ortsangabe, V = Verb, A = Adjektiv, P = Präsens, S = sachlich, R = Reihenfolge).</td><td><span class="badge lv">LK</span></td></tr>
+          <tr class="sicherung"><td>Rückgabe (Std. 12)</td><td>5 Min.</td><td>Zu Beginn von Std. 12. Die Kinder lesen still, unterstreichen ihren nächsten Schritt und tragen ihre empfohlenen Stationen auf dem Laufzettel (AB 17) ein. Wer möchte, schreibt eine Antwort ins Raster.</td><td><span class="badge ea">EA</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Worauf achten?</h4>
+    <ul>
+      <li>Zeitökonomie: Nicht jeden Fehler anstreichen. Fokus auf die drei markierten Verbesserungen und die Kriterien des Rasters.</li>
+      <li>Die markierten Verbesserungen ausdrücklich würdigen – sie zeigen die Überarbeitungskompetenz.</li>
+      <li>Die Rückmeldung ist eine wichtige Diagnose für die Klassenarbeit: Häufen sich Probleme (z. B. Präsens), in Std. 12 eine Mini-Lektion von 3 Minuten einschieben.</li>
+    </ul>
+    <h4>Ergebnissicherung</h4>
+    <p>Raster und Endfassung kommen in die Deutschmappe. Die Lehrkraft notiert in der Kontrollliste unter „Bemerkung“ den Förderschwerpunkt (z. B. „P“), um in Std. 12 gezielt zu beraten.</p>
+    <h4>Wenn die Hausaufgabe fehlt</h4>
+    <p>Nachreichen bis Std. 12 ist besonders wichtig, damit das Kind vor der Lerntheke eine Rückmeldung hat. Notfalls die Reinschrift aus HA 9 mit dem Raster zurückmelden. Gespräch, wenn HA 9 und HA 10 fehlen; ggf. Elterninfo.</p>
+  </div>
+</section>
+
+<section class="blatt ha-kompakt" id="ha10-raster" data-toc-titel="Kopiervorlage HA 10: Formatives Bewertungsraster">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">HA<b>10</b></div><h2>Rückmeldung zu deinem Text „Auf dem Schulhof“</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+  <p class="mt-0">Das ist <strong>keine Note</strong>. Diese Rückmeldung zeigt dir, was du schon richtig gut kannst und woran du vor der Klassenarbeit noch üben solltest.</p>
+  <table class="raster">
+    <thead>
+      <tr><th>Darauf habe ich geachtet</th><th>Klappt schon super</th><th>Auf gutem Weg</th><th>Daran üben wir noch</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Einleitung:</strong> Bildart, Titel, Zeichner/in (unbekannt), Thema-Satz „Das Bild zeigt …“</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td></tr>
+      <tr><td><strong>Reihenfolge:</strong> Der Hauptteil folgt einem roten Faden (z. B. Vordergrund → Mittelgrund → Hintergrund).</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td></tr>
+      <tr><td><strong>Ortsangaben:</strong> Man weiß genau, wo etwas im Bild ist.</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td></tr>
+      <tr><td><strong>Treffende Verben:</strong> kaum „ist / gibt es / sieht man / hat“</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td></tr>
+      <tr><td><strong>Genaue Adjektive:</strong> Farben, Formen, Größen, Muster</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td></tr>
+      <tr><td><strong>Satzanfänge:</strong> abwechslungsreich</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td></tr>
+      <tr><td><strong>Präsens:</strong> durchgehend in der Gegenwart</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td></tr>
+      <tr><td><strong>Sachlich:</strong> Im Hauptteil steht, was man sieht; Vermutungen sind gekennzeichnet.</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td></tr>
+      <tr><td><strong>Schluss:</strong> Wirkung und Meinung mit Begründung („weil …“)</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td></tr>
+      <tr><td><strong>Überarbeitung:</strong> 3 Stellen markiert und wirklich verbessert</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td></tr>
+    </tbody>
+  </table>
+  <p style="margin-bottom:2px;"><span class="ha-stern">★</span> <strong>Das ist dir besonders gut gelungen:</strong></p>
+  <div class="ha-linien"><div class="ha-linie"></div><div class="ha-linie"></div></div>
+  <p style="margin-bottom:2px;"><strong>➜ Dein nächster Schritt:</strong></p>
+  <div class="ha-linien"><div class="ha-linie"></div><div class="ha-linie"></div></div>
+  <p style="margin-bottom:4px;"><strong>Empfohlene Stationen an der Lerntheke (Std. 12):</strong></p>
+  <div class="ha-optionen">
+    <span><span class="ha-box"></span> S1 Ortsangaben</span><span><span class="ha-box"></span> S2 Verben</span><span><span class="ha-box"></span> S3 Adjektive</span>
+    <span><span class="ha-box"></span> S4 Einleitung</span><span><span class="ha-box"></span> S5 Reihenfolge</span><span><span class="ha-box"></span> S6 Sachlich &amp; Präsens</span>
+  </div>
+  <p style="margin:12px 0 2px;"><strong>Deine Antwort:</strong> Das nehme ich mir für die Klassenarbeit vor:</p>
+  <div class="ha-linien"><div class="ha-linie"></div><div class="ha-linie"></div></div>
+  <div class="fussnote">Hausaufgaben · HA 10 · Rückgabe Stunde 12</div>
+</section>
+
+<!-- ================================================================== HA 11 -->
+<section class="card" id="ha11">
+  <div class="stunde-kopf ha-kopf">
+    <div class="stunde-nr ha-nr">11</div>
+    <div>
+      <h2>HA 11 · Mein Spickzettel: Bildbeschreibung – das Wichtigste</h2>
+      <div class="ha-meta"><span class="badge ha">gestellt in Std. 11</span> <span class="badge zeit">ca. 25 Min.</span> <span class="badge ga">Überprüfung Std. 12: Galerie + Kriterien-Check</span> <span class="badge zeit">8 Min.</span></div>
+    </div>
+  </div>
+
+  <div class="ha-schueler">
+    <h3>Deine Hausaufgabe bis Stunde 12</h3>
+    <ol class="stufen">
+      <li><strong>Karteikarte nehmen:</strong> Nimm eine Karteikarte im Format DIN A6 (so groß wie eine Postkarte).</li>
+      <li><strong>Das Wichtigste sammeln:</strong> Blättere in deinem Heft. Was musst du dir unbedingt merken?</li>
+      <li><strong>Gestalten:</strong> Schreib nur Stichwörter, keine langen Sätze. Benutze Farben, Pfeile und kleine Zeichnungen.</li>
+      <li><strong>Prüfen:</strong> Hak die Kriterienkarte ab. Hast du alles drauf?</li>
+    </ol>
+    <p><strong>Auf deinen Spickzettel gehören:</strong></p>
+    <ul class="checkliste">
+      <li>Lupos 5 Stufen: Schauen – Ordnen – Einleiten – Beschreiben – Bewerten &amp; Prüfen</li>
+      <li>Aufbau: Einleitung (W-Fragen) – Hauptteil (Reihenfolge) – Schluss (Wirkung + Meinung)</li>
+      <li>mindestens 5 Ortsangaben und 5 treffende Verben</li>
+      <li>eine Adjektiv-Treppe als Beispiel</li>
+      <li>die Regeln: Präsens und sachlich</li>
+    </ul>
+    <ul class="ha-varianten">
+      <li><span class="niveau n1">Basis</span> Schreib die fünf Punkte oben ab und ergänze je ein Beispiel.</li>
+      <li><span class="niveau n2">Standard</span> Gestalte die Karte mit eigenen Beispielen, Farben und Symbolen.</li>
+      <li><span class="niveau n3">Profi</span> Nutze auch die Rückseite: deine fünf schönsten Satzanfänge und Wörter für die Wirkung.</li>
+    </ul>
+    <div class="ha-beispiel">
+      <p><strong>Präsens!</strong> rannte → rennt · lag → liegt &nbsp;|&nbsp; <strong>Wo?</strong> im Vordergrund · am linken Bildrand · dahinter</p>
+    </div>
+    <div class="lupo">
+      <img src="bilder/lupo.svg" alt="Lupo">
+      <div class="bubble"><p><strong>Lupos Tipp:</strong> Ein guter Spickzettel ist wie eine Schatzkarte: Ein Blick – und du weißt, wo es langgeht. Schreib groß und ordentlich, damit du ihn an der Lerntheke schnell lesen kannst!</p></div>
+    </div>
+  </div>
+
+  <div class="ha-lehrkraft">
+    <p class="ha-label">Für die Lehrkraft</p>
+    <h3>Überprüfung in Stunde 12: Galerie der Spickzettel + Kriterien-Check</h3>
+    <p><strong>Ziel:</strong> Die Kinder vergleichen ihre Zusammenfassungen, übernehmen gute Ideen und prüfen ihren Spickzettel an Kriterien. Damit wiederholen alle das Wichtigste der Reihe, bevor sie an der Lerntheke selbstständig üben.</p>
+    <p><strong>Material:</strong> <a href="#ha11-kriterien">Kriterienkarten Spickzettel</a> (1 pro Paar), Klebepunkte (3 pro Kind), Kontrollliste.</p>
+    <div class="tabelle-scroll">
+      <table class="verlauf">
+        <thead><tr><th>Schritt</th><th>Zeit</th><th>Ablauf und Impulse</th><th>Form</th></tr></thead>
+        <tbody>
+          <tr class="einstieg"><td>Galerie aufbauen</td><td>1 Min.</td><td>Alle Spickzettel liegen auf den Tischen aus (nach der Rückgabe von HA 10).</td><td><span class="badge lv">LV</span></td></tr>
+          <tr class="erarbeitung"><td>Galerie-Rundgang</td><td>4 Min.</td><td>Leise Rundgang. Jedes Kind vergibt 3 Klebepunkte an Spickzettel mit einer Idee, die es übernehmen möchte. Impuls: „Klebt den Punkt genau neben die gute Idee.“</td><td><span class="badge ga">GA</span> <span class="badge sp">SP</span></td></tr>
+          <tr class="sicherung"><td>Kriterien-Check</td><td>3 Min.</td><td>Zurück am Platz: Sitznachbarn prüfen gegenseitig mit der Kriterienkarte und ergänzen eine übernommene Idee in einer anderen Farbe.</td><td><span class="badge pa">PA</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Worauf achten?</h4>
+    <ul>
+      <li>Stolperstein „Romane auf A6“: Lob für Stichwörter, Symbole und Struktur – Spickzettel sollen „auf einen Blick“ funktionieren.</li>
+      <li>Fachliche Fehler (z. B. „Meinung im Hauptteil“) während des Rundgangs freundlich ansprechen und verbessern lassen.</li>
+      <li>Der Spickzettel ist <strong>an der Lerntheke erlaubt</strong>. Ob er in der Klassenarbeit benutzt werden darf, entscheidet die Lehrkraft und sagt es vorher klar an (Empfehlung: nicht in der Arbeit, aber am Vortag zum Lernen).</li>
+    </ul>
+    <h4>Ergebnissicherung</h4>
+    <p>Der Spickzettel kommt in eine Klarsichthülle im Heft. Die Spickzettel mit den meisten Punkten können fotografiert und als Beispiel für spätere Klassen gesammelt werden (Einverständnis einholen).</p>
+    <h4>Wenn die Hausaufgabe fehlt</h4>
+    <p>Das Kind erstellt während des Rundgangs aus den ausgestellten Ideen einen eigenen Spickzettel (Karteikarte von der Lehrkraft) – eine sinnvolle, aber eilige Version. Die ausführliche Fassung wird nachgereicht.</p>
+  </div>
+</section>
+
+<section class="blatt" id="ha11-kriterien" data-toc-titel="Kopiervorlage HA 11: Kriterienkarte Spickzettel">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">HA<b>11</b></div><h2>Kriterienkarte: Ist mein Spickzettel startklar?</h2>
+    <div class="felder"><span>Klasse:</span><span>Datum:</span></div></div>
+  <p class="schere">Vier gleiche Karten – ausschneiden, eine pro Paar.</p>
+  <div class="karten">
+
+    <div class="karte">
+      <div class="karte-titel">Kriterien-Check · Spickzettel</div>
+      <p class="mt-0" style="font-size:.85rem;margin-bottom:.3em;">Spickzettel von <span class="luecke lang"></span></p>
+      <p style="font-size:.82rem;margin:0 0 .2em;"><strong>Inhalt</strong></p>
+      <ul class="checkliste" style="margin:0;">
+        <li>Lupos 5 Stufen</li>
+        <li>Einleitung – Hauptteil – Schluss</li>
+        <li>5 Ortsangaben + 5 Verben</li>
+        <li>Adjektiv-Treppe als Beispiel</li>
+        <li>Präsens + sachlich</li>
+      </ul>
+      <p style="font-size:.82rem;margin:.4em 0 .2em;"><strong>Gestaltung</strong></p>
+      <ul class="checkliste" style="margin:0;">
+        <li>Stichwörter statt langer Sätze</li>
+        <li>gut lesbar, Farben/Symbole</li>
+      </ul>
+      <p style="font-size:.85rem;margin:.4em 0 0;">Haken: <span class="luecke kurz"></span> von 7 · Diese Idee übernehme ich:</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+    </div>
+
+    <div class="karte">
+      <div class="karte-titel">Kriterien-Check · Spickzettel</div>
+      <p class="mt-0" style="font-size:.85rem;margin-bottom:.3em;">Spickzettel von <span class="luecke lang"></span></p>
+      <p style="font-size:.82rem;margin:0 0 .2em;"><strong>Inhalt</strong></p>
+      <ul class="checkliste" style="margin:0;">
+        <li>Lupos 5 Stufen</li>
+        <li>Einleitung – Hauptteil – Schluss</li>
+        <li>5 Ortsangaben + 5 Verben</li>
+        <li>Adjektiv-Treppe als Beispiel</li>
+        <li>Präsens + sachlich</li>
+      </ul>
+      <p style="font-size:.82rem;margin:.4em 0 .2em;"><strong>Gestaltung</strong></p>
+      <ul class="checkliste" style="margin:0;">
+        <li>Stichwörter statt langer Sätze</li>
+        <li>gut lesbar, Farben/Symbole</li>
+      </ul>
+      <p style="font-size:.85rem;margin:.4em 0 0;">Haken: <span class="luecke kurz"></span> von 7 · Diese Idee übernehme ich:</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+    </div>
+
+    <div class="karte">
+      <div class="karte-titel">Kriterien-Check · Spickzettel</div>
+      <p class="mt-0" style="font-size:.85rem;margin-bottom:.3em;">Spickzettel von <span class="luecke lang"></span></p>
+      <p style="font-size:.82rem;margin:0 0 .2em;"><strong>Inhalt</strong></p>
+      <ul class="checkliste" style="margin:0;">
+        <li>Lupos 5 Stufen</li>
+        <li>Einleitung – Hauptteil – Schluss</li>
+        <li>5 Ortsangaben + 5 Verben</li>
+        <li>Adjektiv-Treppe als Beispiel</li>
+        <li>Präsens + sachlich</li>
+      </ul>
+      <p style="font-size:.82rem;margin:.4em 0 .2em;"><strong>Gestaltung</strong></p>
+      <ul class="checkliste" style="margin:0;">
+        <li>Stichwörter statt langer Sätze</li>
+        <li>gut lesbar, Farben/Symbole</li>
+      </ul>
+      <p style="font-size:.85rem;margin:.4em 0 0;">Haken: <span class="luecke kurz"></span> von 7 · Diese Idee übernehme ich:</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+    </div>
+
+    <div class="karte">
+      <div class="karte-titel">Kriterien-Check · Spickzettel</div>
+      <p class="mt-0" style="font-size:.85rem;margin-bottom:.3em;">Spickzettel von <span class="luecke lang"></span></p>
+      <p style="font-size:.82rem;margin:0 0 .2em;"><strong>Inhalt</strong></p>
+      <ul class="checkliste" style="margin:0;">
+        <li>Lupos 5 Stufen</li>
+        <li>Einleitung – Hauptteil – Schluss</li>
+        <li>5 Ortsangaben + 5 Verben</li>
+        <li>Adjektiv-Treppe als Beispiel</li>
+        <li>Präsens + sachlich</li>
+      </ul>
+      <p style="font-size:.82rem;margin:.4em 0 .2em;"><strong>Gestaltung</strong></p>
+      <ul class="checkliste" style="margin:0;">
+        <li>Stichwörter statt langer Sätze</li>
+        <li>gut lesbar, Farben/Symbole</li>
+      </ul>
+      <p style="font-size:.85rem;margin:.4em 0 0;">Haken: <span class="luecke kurz"></span> von 7 · Diese Idee übernehme ich:</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+    </div>
+
+  </div>
+  <div class="fussnote">Hausaufgaben · HA 11 · Stunde 12</div>
+</section>
+
+<!-- ================================================================== HA 12 -->
+<section class="card" id="ha12">
+  <div class="stunde-kopf ha-kopf">
+    <div class="stunde-nr ha-nr">12</div>
+    <div>
+      <h2>HA 12 · Fit für die Klassenarbeit: einschätzen und üben</h2>
+      <div class="ha-meta"><span class="badge ha">gestellt in Std. 12</span> <span class="badge zeit">ca. 20–30 Min.</span> <span class="badge lv">Std. 13: keine Überprüfung – Selbsteinschätzung wird eingesammelt</span> <span class="badge zeit">2 Min.</span></div>
+    </div>
+  </div>
+
+  <div class="ha-schueler">
+    <h3>Deine Hausaufgabe bis zur Klassenarbeit (Stunde 13)</h3>
+    <ol class="stufen">
+      <li><strong>Lernlandkarte holen:</strong> Nimm deine Lernlandkarte (<a href="arbeitsblaetter.html#ab0">AB 0</a>).</li>
+      <li><strong>Ehrlich einschätzen:</strong> Male in der Spalte <strong>„vor der Arbeit“</strong> bei jedem Ich-kann-Satz die Ampel an: grün, gelb oder rot.</li>
+      <li><strong>Vergleichen:</strong> Schau auf die Spalte „Start“. Was kannst du jetzt besser? Freu dich darüber!</li>
+      <li><strong>Gezielt üben:</strong> Wiederhole die Stationen der Lerntheke, bei denen du <strong>gelb oder rot</strong> hast. Nimm dir dafür höchstens 20 Minuten.</li>
+    </ol>
+    <ul class="ha-varianten">
+      <li><span class="niveau n1">Basis</span> Wiederhole eine Station mit Hilfe deines Spickzettels und deiner Rückmeldung zu HA 10.</li>
+      <li><span class="niveau n2">Standard</span> Wiederhole alle gelben und roten Stationen.</li>
+      <li><span class="niveau n3">Profi</span> Alles grün? Dann beschreibe in 10 Minuten dein mitgebrachtes Bild aus HA 1 – als Generalprobe!</li>
+    </ul>
+    <div class="ha-beispiel">
+      <p>„Ich kann die Einleitung schreiben.“ – Start: rot · vor der Arbeit: <strong>grün</strong>. Super, geschafft! „Ich schreibe im Präsens.“ – vor der Arbeit: gelb → Ich übe Station S6.</p>
+    </div>
+    <div class="lupo">
+      <img src="bilder/lupo.svg" alt="Lupo">
+      <div class="bubble"><p><strong>Lupos Tipp:</strong> Gelb und Rot sind keine Schande – sie zeigen dir nur, wo dein Training am meisten bringt. Ein guter Detektiv kennt seine Stärken <strong>und</strong> seine Baustellen!</p></div>
+    </div>
+  </div>
+
+  <div class="ha-lehrkraft">
+    <p class="ha-label">Für die Lehrkraft</p>
+    <h3>Vor der Klassenarbeit: Selbsteinschätzung einsammeln</h3>
+    <p><strong>Ziel:</strong> Die Kinder reflektieren ihren Lernstand und üben gezielt. Die Lehrkraft erhält eine Selbstauskunft, die in Stunde 14 (Rückgabe &amp; Reflexion) mit dem Ergebnis der Arbeit verglichen wird.</p>
+    <p><strong>Material:</strong> AB 0 (Lernlandkarte), Stationskarten und Lösungskarten der Lerntheke (<a href="arbeitsblaetter.html#ab17">AB 17</a>) als Kopie zum Mitnehmen oder die <a href="uebungen.html">Lernspiele</a> am Computer, Kontrollliste.</p>
+    <div class="tabelle-scroll">
+      <table class="verlauf">
+        <thead><tr><th>Schritt</th><th>Zeit</th><th>Ablauf und Impulse</th><th>Form</th></tr></thead>
+        <tbody>
+          <tr class="hausaufgabe"><td>HA stellen (Std. 12)</td><td>3 Min.</td><td>Am Ende der Lerntheke: Jedes Kind markiert auf dem Laufzettel die Stationen, die es zu Hause wiederholen will, und nimmt die passenden Kopien mit.</td><td><span class="badge lv">LV</span></td></tr>
+          <tr class="einstieg"><td>Einsammeln (Std. 13)</td><td>2 Min.</td><td>Vor dem Austeilen der Arbeit: AB 0 einsammeln (oder am Vortag im Fach abgeben lassen). Impuls: „Danke für eure ehrliche Einschätzung. Wir schauen sie nach der Arbeit zusammen an.“</td><td><span class="badge lv">LK</span></td></tr>
+          <tr class="abschluss"><td>Auswerten (Std. 14)</td><td>–</td><td>Rückgabe mit der Arbeit: Die Kinder füllen die Spalte „nach der Arbeit“ aus und vergleichen: Wo stimmt meine Einschätzung? Wo habe ich mich unter- oder überschätzt?</td><td><span class="badge ea">EA</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>Worauf achten?</h4>
+    <ul>
+      <li>Die Selbsteinschätzung wird <strong>nicht bewertet</strong>. Unrealistische Einschätzungen (alles grün oder alles rot) sind ein Gesprächsanlass, kein Fehler.</li>
+      <li>Ein kurzer Blick auf die Bögen (falls am Vortag eingesammelt) zeigt, ob ein Kind sehr unsicher ist – dann vor der Arbeit kurz ermutigen.</li>
+      <li>Keine zusätzliche Hausaufgabe am Tag vor der Arbeit über die 20–30 Minuten hinaus.</li>
+    </ul>
+    <h4>Wenn die Hausaufgabe fehlt</h4>
+    <p>Das Kind füllt die Spalte „vor der Arbeit“ in den ersten 2 Minuten von Std. 13 aus (vor dem Austeilen der Arbeit). Kein „–“-Eintrag, wenn dies gelingt; das Üben zu Hause lässt sich ohnehin nicht kontrollieren.</p>
+  </div>
+</section>
+
+
+<!-- ================================================================== KOPIERVORLAGEN -->
+<section class="card" id="kopiervorlagen">
+  <h2>Kopiervorlagen für die ganze Reihe</h2>
+  <p>Die folgenden Blätter begleiten alle zwölf Hausaufgaben. Jedes Blatt lässt sich einzeln drucken.</p>
+  <div class="grid-3">
+    <div class="card"><h4 class="mt-0"><a href="#kv-zettel">KV 1 · Hausaufgabenzettel</a></h4><p>Alle 12 Hausaufgaben in Kindersprache zum Einkleben ins Heft, mit Abhak-Kästchen und Unterschriftenspalte. In Std. 1 austeilen, zusammen mit der Elterninfo.</p></div>
+    <div class="card"><h4 class="mt-0"><a href="#kv-logbuch">KV 2 · Hausaufgaben-Logbuch</a></h4><p>Selbstkontrolle: erledigt?, Wie lief es?, Zeitbedarf und Fragen an die Lehrkraft. Liegt im Heft und wird nach jeder HA ausgefüllt (1 Minute).</p></div>
+    <div class="card"><h4 class="mt-0"><a href="#kv-kontrolle">KV 3 · Kontrollliste</a></h4><p>Für die Lehrkraft: 30 Namen × 12 Hausaufgaben mit den Kürzeln ✓ / ½ / – / N. Wird während der Überprüfungen ausgefüllt.</p></div>
+    <div class="card"><h4 class="mt-0"><a href="#kv-feedback">KV 4 · Feedbackkarten</a></h4><p>„2 Sterne und 1 Wunsch“ und Ampel-Rückmeldung zum Ausschneiden – für HA 7, die Textlupe und jede andere Partnerrückmeldung.</p></div>
+    <div class="card"><h4 class="mt-0"><a href="#kv-quiz-a">KV 5 · Kurztest A</a></h4><p>Präpositionen &amp; Verben (nach HA 3/4), 8 Punkte, mit Lösung. Einsatz z. B. als Einstieg in Std. 6 oder als Wiederholung.</p></div>
+    <div class="card"><h4 class="mt-0"><a href="#kv-quiz-b">KV 6 · Kurztest B</a></h4><p>Einleitung &amp; Reihenfolge (nach HA 6/7), 8 Punkte, mit Lösung. Einsatz z. B. in Std. 8 oder 9.</p></div>
+  </div>
+</section>
+
+<!-- KV 1 ------------------------------------------------------------- -->
+<section class="blatt ha-kompakt" id="kv-zettel" data-toc-titel="KV 1: Hausaufgabenzettel zum Einkleben">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KV<b>1</b></div><h2>Meine Hausaufgaben: Bildbeschreibung</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span></div></div>
+  <div class="lupo" style="margin:6px 0 10px;">
+    <img src="bilder/lupo.svg" alt="Lupo">
+    <div class="bubble"><p>Hier stehen alle Hausaufgaben der Reihe. Kleb den Zettel in dein Heft und hak jede Aufgabe ab, wenn du fertig bist. Keine Aufgabe dauert länger als 30 Minuten. Wenn es doch länger dauert: Hör auf und schreib es in dein Logbuch!</p></div>
+  </div>
+  <table class="ha-zettel">
+    <thead><tr><th>HA</th><th>bis Std.</th><th>Das ist zu tun</th><th>fertig</th><th>Unterschrift / Kürzel</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>2</td><td>Bring ein Bild mit (Postkarte, Kalenderbild, Bild aus einer Zeitschrift – keine Fotos von deiner Familie). Schreib 8 Dinge auf, die du darauf siehst (Stichwörter). <small>(ca. 15 Min.)</small></td><td><span class="ha-box"></span></td><td></td></tr>
+      <tr><td>2</td><td>3</td><td>Teile dein Bild in Vordergrund, Mittelgrund und Hintergrund ein. Mach eine Tabelle mit mindestens 3 Dingen in jeder Spalte. <small>(ca. 15–20 Min.)</small></td><td><span class="ha-box"></span></td><td></td></tr>
+      <tr><td>3</td><td>4</td><td>Beschreibe dein Zimmer in 8 Sätzen. Benutze 8 verschiedene Präpositionen (auf, unter, neben …) und unterstreiche sie. <small>(ca. 20 Min.)</small></td><td><span class="ha-box"></span></td><td></td></tr>
+      <tr><td>4</td><td>5</td><td>Schreib 6 Sätze über den Wochenmarkt mit 6 verschiedenen treffenden Verben. Kein „ist“, kein „gibt es“! <small>(ca. 20 Min.)</small></td><td><span class="ha-box"></span></td><td></td></tr>
+      <tr><td>5</td><td>6</td><td>Beschreibe deinen Lieblingsgegenstand in 5–6 Sätzen mit mindestens 6 genauen Adjektiven. Verrate den Namen nicht – es ist ein Rätsel! <small>(ca. 20 Min.)</small></td><td><span class="ha-box"></span></td><td></td></tr>
+      <tr><td>6</td><td>7</td><td>Schreib eine Einleitung zu deinem Bild oder zum Bild „Auf dem Schulhof“. Denk an die 5 W-Fragen! <small>(ca. 15–20 Min.)</small></td><td><span class="ha-box"></span></td><td></td></tr>
+      <tr><td>7</td><td>8</td><td>Beschreibe den Vordergrund von „Sommertag am See“ in 5–7 Sätzen. Jeder Satz fängt anders an! <small>(ca. 20–25 Min.)</small></td><td><span class="ha-box"></span></td><td></td></tr>
+      <tr><td>8</td><td>9</td><td>Schreib einen Schluss (3–4 Sätze) zu „Sommertag am See“. Setze die 6 Sätze auf AB 11 ins Präsens. <small>(ca. 20–25 Min.)</small></td><td><span class="ha-box"></span></td><td></td></tr>
+      <tr><td>9</td><td>10</td><td>Schreib deine Bildbeschreibung „Auf dem Schulhof“ fertig und sauber ab (jede zweite Zeile frei lassen). <small>(ca. 25–30 Min.)</small></td><td><span class="ha-box"></span></td><td></td></tr>
+      <tr><td>10</td><td>11</td><td>Schreib deine verbesserte Endfassung. Markiere 3 Stellen, die du verbessert hast. <small>(ca. 25–30 Min.)</small></td><td><span class="ha-box"></span></td><td></td></tr>
+      <tr><td>11</td><td>12</td><td>Gestalte einen Spickzettel (Karteikarte DIN A6): „Bildbeschreibung – das Wichtigste“. <small>(ca. 25 Min.)</small></td><td><span class="ha-box"></span></td><td></td></tr>
+      <tr><td>12</td><td>13</td><td>Füll deine Lernlandkarte (AB 0) in der Spalte „vor der Arbeit“ aus. Übe die Stationen, bei denen du gelb oder rot hast. <small>(ca. 20–30 Min.)</small></td><td><span class="ha-box"></span></td><td></td></tr>
+    </tbody>
+  </table>
+  <p class="klein" style="margin:4px 0 0;">Unterschrift / Kürzel: Eltern oder Lehrkraft – so, wie es in eurer Klasse vereinbart ist.</p>
+  <div class="fussnote">Hausaufgaben · Kopiervorlage 1</div>
+</section>
+
+<!-- KV 2 ------------------------------------------------------------- -->
+<section class="blatt ha-kompakt" id="kv-logbuch" data-toc-titel="KV 2: Hausaufgaben-Logbuch (Selbstkontrolle)">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KV<b>2</b></div><h2>Mein Hausaufgaben-Logbuch</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span></div></div>
+  <p class="mt-0">Füll nach jeder Hausaufgabe eine Zeile aus. Das dauert nur eine Minute. Kreise bei „Wie lief es?“ ein Gesicht ein. <strong>Vergessen?</strong> Kreuz „nein“ an und schreib auf, wann du die Aufgabe nachreichst. Nachgereicht ist fast so gut wie pünktlich!</p>
+  <div class="ha-legende">
+    <span><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="leicht"><circle cx="12" cy="12" r="10.5" fill="#e3f2e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 14 Q12 19 17 14" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg> Das ging leicht.</span>
+    <span><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="so lala"><circle cx="12" cy="12" r="10.5" fill="#fff6cf" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7.5 15.5 H16.5" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg> Das ging so.</span>
+    <span><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="schwer"><circle cx="12" cy="12" r="10.5" fill="#fbe3e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 17 Q12 12 17 17" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg> Das war schwer.</span>
+  </div>
+  <table class="ha-logbuch">
+    <thead><tr><th style="width:13%;">Datum</th><th style="width:7%;">HA</th><th style="width:20%;">Erledigt?</th><th style="width:17%;">Wie lief es?</th><th style="width:9%;">Minuten</th><th>Meine Frage an die Lehrkraft / Notiz</th></tr></thead>
+    <tbody>
+      <tr><td></td><td>HA 1</td><td><span class="ha-wahl"><span class="ha-box"></span> ja &nbsp;<span class="ha-box"></span> teilweise<br><span class="ha-box"></span> nein → am <span class="luecke kurz"></span></span></td><td><span class="ha-smileys"><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="leicht"><circle cx="12" cy="12" r="10.5" fill="#e3f2e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 14 Q12 19 17 14" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="so lala"><circle cx="12" cy="12" r="10.5" fill="#fff6cf" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7.5 15.5 H16.5" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="schwer"><circle cx="12" cy="12" r="10.5" fill="#fbe3e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 17 Q12 12 17 17" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg></span></td><td></td><td></td></tr>
+      <tr><td></td><td>HA 2</td><td><span class="ha-wahl"><span class="ha-box"></span> ja &nbsp;<span class="ha-box"></span> teilweise<br><span class="ha-box"></span> nein → am <span class="luecke kurz"></span></span></td><td><span class="ha-smileys"><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="leicht"><circle cx="12" cy="12" r="10.5" fill="#e3f2e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 14 Q12 19 17 14" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="so lala"><circle cx="12" cy="12" r="10.5" fill="#fff6cf" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7.5 15.5 H16.5" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="schwer"><circle cx="12" cy="12" r="10.5" fill="#fbe3e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 17 Q12 12 17 17" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg></span></td><td></td><td></td></tr>
+      <tr><td></td><td>HA 3</td><td><span class="ha-wahl"><span class="ha-box"></span> ja &nbsp;<span class="ha-box"></span> teilweise<br><span class="ha-box"></span> nein → am <span class="luecke kurz"></span></span></td><td><span class="ha-smileys"><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="leicht"><circle cx="12" cy="12" r="10.5" fill="#e3f2e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 14 Q12 19 17 14" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="so lala"><circle cx="12" cy="12" r="10.5" fill="#fff6cf" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7.5 15.5 H16.5" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="schwer"><circle cx="12" cy="12" r="10.5" fill="#fbe3e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 17 Q12 12 17 17" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg></span></td><td></td><td></td></tr>
+      <tr><td></td><td>HA 4</td><td><span class="ha-wahl"><span class="ha-box"></span> ja &nbsp;<span class="ha-box"></span> teilweise<br><span class="ha-box"></span> nein → am <span class="luecke kurz"></span></span></td><td><span class="ha-smileys"><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="leicht"><circle cx="12" cy="12" r="10.5" fill="#e3f2e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 14 Q12 19 17 14" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="so lala"><circle cx="12" cy="12" r="10.5" fill="#fff6cf" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7.5 15.5 H16.5" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="schwer"><circle cx="12" cy="12" r="10.5" fill="#fbe3e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 17 Q12 12 17 17" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg></span></td><td></td><td></td></tr>
+      <tr><td></td><td>HA 5</td><td><span class="ha-wahl"><span class="ha-box"></span> ja &nbsp;<span class="ha-box"></span> teilweise<br><span class="ha-box"></span> nein → am <span class="luecke kurz"></span></span></td><td><span class="ha-smileys"><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="leicht"><circle cx="12" cy="12" r="10.5" fill="#e3f2e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 14 Q12 19 17 14" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="so lala"><circle cx="12" cy="12" r="10.5" fill="#fff6cf" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7.5 15.5 H16.5" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="schwer"><circle cx="12" cy="12" r="10.5" fill="#fbe3e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 17 Q12 12 17 17" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg></span></td><td></td><td></td></tr>
+      <tr><td></td><td>HA 6</td><td><span class="ha-wahl"><span class="ha-box"></span> ja &nbsp;<span class="ha-box"></span> teilweise<br><span class="ha-box"></span> nein → am <span class="luecke kurz"></span></span></td><td><span class="ha-smileys"><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="leicht"><circle cx="12" cy="12" r="10.5" fill="#e3f2e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 14 Q12 19 17 14" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="so lala"><circle cx="12" cy="12" r="10.5" fill="#fff6cf" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7.5 15.5 H16.5" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="schwer"><circle cx="12" cy="12" r="10.5" fill="#fbe3e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 17 Q12 12 17 17" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg></span></td><td></td><td></td></tr>
+      <tr><td></td><td>HA 7</td><td><span class="ha-wahl"><span class="ha-box"></span> ja &nbsp;<span class="ha-box"></span> teilweise<br><span class="ha-box"></span> nein → am <span class="luecke kurz"></span></span></td><td><span class="ha-smileys"><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="leicht"><circle cx="12" cy="12" r="10.5" fill="#e3f2e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 14 Q12 19 17 14" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="so lala"><circle cx="12" cy="12" r="10.5" fill="#fff6cf" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7.5 15.5 H16.5" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="schwer"><circle cx="12" cy="12" r="10.5" fill="#fbe3e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 17 Q12 12 17 17" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg></span></td><td></td><td></td></tr>
+      <tr><td></td><td>HA 8</td><td><span class="ha-wahl"><span class="ha-box"></span> ja &nbsp;<span class="ha-box"></span> teilweise<br><span class="ha-box"></span> nein → am <span class="luecke kurz"></span></span></td><td><span class="ha-smileys"><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="leicht"><circle cx="12" cy="12" r="10.5" fill="#e3f2e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 14 Q12 19 17 14" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="so lala"><circle cx="12" cy="12" r="10.5" fill="#fff6cf" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7.5 15.5 H16.5" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="schwer"><circle cx="12" cy="12" r="10.5" fill="#fbe3e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 17 Q12 12 17 17" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg></span></td><td></td><td></td></tr>
+      <tr><td></td><td>HA 9</td><td><span class="ha-wahl"><span class="ha-box"></span> ja &nbsp;<span class="ha-box"></span> teilweise<br><span class="ha-box"></span> nein → am <span class="luecke kurz"></span></span></td><td><span class="ha-smileys"><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="leicht"><circle cx="12" cy="12" r="10.5" fill="#e3f2e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 14 Q12 19 17 14" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="so lala"><circle cx="12" cy="12" r="10.5" fill="#fff6cf" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7.5 15.5 H16.5" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="schwer"><circle cx="12" cy="12" r="10.5" fill="#fbe3e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 17 Q12 12 17 17" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg></span></td><td></td><td></td></tr>
+      <tr><td></td><td>HA 10</td><td><span class="ha-wahl"><span class="ha-box"></span> ja &nbsp;<span class="ha-box"></span> teilweise<br><span class="ha-box"></span> nein → am <span class="luecke kurz"></span></span></td><td><span class="ha-smileys"><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="leicht"><circle cx="12" cy="12" r="10.5" fill="#e3f2e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 14 Q12 19 17 14" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="so lala"><circle cx="12" cy="12" r="10.5" fill="#fff6cf" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7.5 15.5 H16.5" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="schwer"><circle cx="12" cy="12" r="10.5" fill="#fbe3e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 17 Q12 12 17 17" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg></span></td><td></td><td></td></tr>
+      <tr><td></td><td>HA 11</td><td><span class="ha-wahl"><span class="ha-box"></span> ja &nbsp;<span class="ha-box"></span> teilweise<br><span class="ha-box"></span> nein → am <span class="luecke kurz"></span></span></td><td><span class="ha-smileys"><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="leicht"><circle cx="12" cy="12" r="10.5" fill="#e3f2e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 14 Q12 19 17 14" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="so lala"><circle cx="12" cy="12" r="10.5" fill="#fff6cf" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7.5 15.5 H16.5" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="schwer"><circle cx="12" cy="12" r="10.5" fill="#fbe3e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 17 Q12 12 17 17" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg></span></td><td></td><td></td></tr>
+      <tr><td></td><td>HA 12</td><td><span class="ha-wahl"><span class="ha-box"></span> ja &nbsp;<span class="ha-box"></span> teilweise<br><span class="ha-box"></span> nein → am <span class="luecke kurz"></span></span></td><td><span class="ha-smileys"><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="leicht"><circle cx="12" cy="12" r="10.5" fill="#e3f2e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 14 Q12 19 17 14" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="so lala"><circle cx="12" cy="12" r="10.5" fill="#fff6cf" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7.5 15.5 H16.5" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg><svg class="ha-smiley" viewBox="0 0 24 24" role="img" aria-label="schwer"><circle cx="12" cy="12" r="10.5" fill="#fbe3e1" stroke="#22303c" stroke-width="1.6"/><circle cx="8.5" cy="9.5" r="1.4" fill="#22303c"/><circle cx="15.5" cy="9.5" r="1.4" fill="#22303c"/><path d="M7 17 Q12 12 17 17" fill="none" stroke="#22303c" stroke-width="1.8" stroke-linecap="round"/></svg></span></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+  <div class="fussnote">Hausaufgaben · Kopiervorlage 2</div>
+</section>
+
+<!-- KV 3 ------------------------------------------------------------- -->
+<section class="blatt ha-kompakt" id="kv-kontrolle" data-toc-titel="KV 3: Kontrollliste für die Lehrkraft">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KV<b>3</b></div><h2>Kontrollliste Hausaufgaben – Reihe „Bildbeschreibung“</h2>
+    <div class="felder"><span>Klasse:</span><span>Schuljahr:</span><span>Lehrkraft:</span></div></div>
+  <div class="ha-legende">
+    <span><b>✓</b> vollständig</span><span><b>½</b> teilweise</span><span><b>–</b> fehlt</span><span><b>N</b> nachgereicht</span><span class="klein">(optional: <b>E</b> entschuldigt)</span>
+  </div>
+  <table class="ha-kontrolle">
+    <colgroup><col class="ha-c-nr"><col class="ha-c-name"><col><col><col><col><col><col><col><col><col><col><col><col><col class="ha-c-bem"></colgroup>
+    <thead>
+      <tr><th>Nr.</th><th>Name</th><th>HA 1<small>Std. 2</small></th><th>HA 2<small>Std. 3</small></th><th>HA 3<small>Std. 4</small></th><th>HA 4<small>Std. 5</small></th><th>HA 5<small>Std. 6</small></th><th>HA 6<small>Std. 7</small></th><th>HA 7<small>Std. 8</small></th><th>HA 8<small>Std. 9</small></th><th>HA 9<small>Std. 10</small></th><th>HA 10<small>Std. 11</small></th><th>HA 11<small>Std. 12</small></th><th>HA 12<small>Std. 13</small></th><th>Bemerkung</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>3</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>5</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>11</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>12</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>13</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>14</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>15</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>16</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>17</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>18</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>19</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>20</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>21</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>22</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>23</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>24</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>25</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>26</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>27</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>28</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>29</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td>30</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+  <p class="klein" style="margin:4px 0 0;">Unter der HA-Nummer steht die Stunde der Überprüfung. Bemerkung: z. B. Förderschwerpunkt aus HA 10 (O, V, A, P, S, R) oder Elterninfo am …</p>
+  <div class="fussnote">Hausaufgaben · Kopiervorlage 3</div>
+</section>
+
+<!-- KV 4 ------------------------------------------------------------- -->
+<section class="blatt ha-kompakt" id="kv-feedback" data-toc-titel="KV 4: Feedbackkarten zum Ausschneiden">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KV<b>4</b></div><h2>Feedbackkarten</h2>
+    <div class="felder"><span>Klasse:</span><span>Datum:</span></div></div>
+  <p class="schere">Oben: vier Karten „2 Sterne und 1 Wunsch“. Unten: zwei Ampel-Rückmeldungen. Ausschneiden und neben den Text kleben.</p>
+  <div class="karten">
+
+    <div class="karte">
+      <div class="karte-titel">2 Sterne und 1 Wunsch</div>
+      <p class="mt-0" style="font-size:.82rem;margin-bottom:.2em;">für <span class="luecke"></span> · von <span class="luecke"></span></p>
+      <p style="margin:.1em 0 0;font-size:.9rem;"><span class="ha-stern">★</span> Mir gefällt, dass du …</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+      <p style="margin:.1em 0 0;font-size:.9rem;"><span class="ha-stern">★</span> Gut finde ich auch …</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+      <p style="margin:.1em 0 0;font-size:.9rem;"><strong>➜</strong> Ich wünsche mir, dass du …</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+    </div>
+
+    <div class="karte">
+      <div class="karte-titel">2 Sterne und 1 Wunsch</div>
+      <p class="mt-0" style="font-size:.82rem;margin-bottom:.2em;">für <span class="luecke"></span> · von <span class="luecke"></span></p>
+      <p style="margin:.1em 0 0;font-size:.9rem;"><span class="ha-stern">★</span> Mir gefällt, dass du …</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+      <p style="margin:.1em 0 0;font-size:.9rem;"><span class="ha-stern">★</span> Gut finde ich auch …</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+      <p style="margin:.1em 0 0;font-size:.9rem;"><strong>➜</strong> Ich wünsche mir, dass du …</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+    </div>
+
+    <div class="karte">
+      <div class="karte-titel">2 Sterne und 1 Wunsch</div>
+      <p class="mt-0" style="font-size:.82rem;margin-bottom:.2em;">für <span class="luecke"></span> · von <span class="luecke"></span></p>
+      <p style="margin:.1em 0 0;font-size:.9rem;"><span class="ha-stern">★</span> Mir gefällt, dass du …</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+      <p style="margin:.1em 0 0;font-size:.9rem;"><span class="ha-stern">★</span> Gut finde ich auch …</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+      <p style="margin:.1em 0 0;font-size:.9rem;"><strong>➜</strong> Ich wünsche mir, dass du …</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+    </div>
+
+    <div class="karte">
+      <div class="karte-titel">2 Sterne und 1 Wunsch</div>
+      <p class="mt-0" style="font-size:.82rem;margin-bottom:.2em;">für <span class="luecke"></span> · von <span class="luecke"></span></p>
+      <p style="margin:.1em 0 0;font-size:.9rem;"><span class="ha-stern">★</span> Mir gefällt, dass du …</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+      <p style="margin:.1em 0 0;font-size:.9rem;"><span class="ha-stern">★</span> Gut finde ich auch …</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+      <p style="margin:.1em 0 0;font-size:.9rem;"><strong>➜</strong> Ich wünsche mir, dass du …</p>
+      <div class="ha-linien"><div class="ha-linie"></div></div>
+    </div>
+
+  </div>
+  <div class="karten">
+
+    <div class="karte">
+      <div class="karte-titel">Ampel-Rückmeldung zu HA <span class="luecke kurz"></span></div>
+      <p class="mt-0" style="font-size:.82rem;margin-bottom:.3em;">grün = super · gelb = fast · rot = noch üben</p>
+      <table class="ha-eng" style="margin:4px 0;font-size:.85rem;">
+        <tbody>
+          <tr><td>Die Aufgabe ist vollständig.</td><td class="nowrap"><span class="ampel"><i></i><i></i><i></i></span></td></tr>
+          <tr><td>Fachwörter / Regeln stimmen.</td><td class="nowrap"><span class="ampel"><i></i><i></i><i></i></span></td></tr>
+          <tr><td>Man kann es gut lesen.</td><td class="nowrap"><span class="ampel"><i></i><i></i><i></i></span></td></tr>
+        </tbody>
+      </table>
+      <p style="margin:.2em 0 0;font-size:.85rem;">Tipp: <span class="luecke lang"></span></p>
+    </div>
+
+    <div class="karte">
+      <div class="karte-titel">Ampel-Rückmeldung zu HA <span class="luecke kurz"></span></div>
+      <p class="mt-0" style="font-size:.82rem;margin-bottom:.3em;">grün = super · gelb = fast · rot = noch üben</p>
+      <table class="ha-eng" style="margin:4px 0;font-size:.85rem;">
+        <tbody>
+          <tr><td>Die Aufgabe ist vollständig.</td><td class="nowrap"><span class="ampel"><i></i><i></i><i></i></span></td></tr>
+          <tr><td>Fachwörter / Regeln stimmen.</td><td class="nowrap"><span class="ampel"><i></i><i></i><i></i></span></td></tr>
+          <tr><td>Man kann es gut lesen.</td><td class="nowrap"><span class="ampel"><i></i><i></i><i></i></span></td></tr>
+        </tbody>
+      </table>
+      <p style="margin:.2em 0 0;font-size:.85rem;">Tipp: <span class="luecke lang"></span></p>
+    </div>
+
+  </div>
+  <div class="fussnote">Hausaufgaben · Kopiervorlage 4</div>
+</section>
+
+<!-- KV 5 ------------------------------------------------------------- -->
+<section class="blatt ha-kompakt" id="kv-quiz-a" data-toc-titel="KV 5: Kurztest A – Präpositionen & Verben">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KV<b>5</b></div><h2>Kurztest A: Wo genau? Und was passiert?</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+  <p class="mt-0">Nach HA 3 und HA 4 · Zeit: <strong>6 Minuten</strong> · Jede Aufgabe gibt 1 Punkt. Die Sätze gehören zu den Bildern „Das Kinderzimmer“ und „Auf dem Wochenmarkt“.</p>
+
+  <h3>Teil 1: Präpositionen mit Dativ – Frag: Wo?</h3>
+  <div class="aufgabe"><span class="nr">1</span>
+    <p>Ergänze den Artikel. <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;">Der Teddybär sitzt auf d<span class="luecke kurz"></span> Kissen.</p>
+  </div>
+  <div class="aufgabe"><span class="nr">2</span>
+    <p>Ergänze den Artikel. <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;">Der orangefarbene Blumentopf steht auf d<span class="luecke kurz"></span> Fensterbank.</p>
+  </div>
+  <div class="aufgabe"><span class="nr">3</span>
+    <p>Ergänze den Artikel. <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;">Der orangefarbene Rucksack hängt an d<span class="luecke kurz"></span> Stuhllehne.</p>
+  </div>
+  <div class="aufgabe"><span class="nr">4</span>
+    <p>Welche Präposition passt? Schau dir das Kinderzimmer an. <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;">Der schwarz-weiße Fußball liegt <span class="luecke"></span> dem Bett.</p>
+  </div>
+
+  <h3>Teil 2: Treffende Verben – die Ist-Polizei ist im Einsatz</h3>
+  <p class="mt-0">Ersetze das unterstrichene langweilige Verb. Schreib den ganzen Satz neu.</p>
+  <div class="aufgabe"><span class="nr">5</span>
+    <p>Hinter dem Obststand <u>ist</u> ein Verkäufer mit einem Schnurrbart. <span class="ha-punkte">/ 1</span></p>
+    <div class="ha-linien"><div class="ha-linie"></div><div class="ha-linie"></div></div>
+  </div>
+  <div class="aufgabe"><span class="nr">6</span>
+    <p>Am Bäckerstand <u>gibt es</u> drei Brote und zwei Brezeln. <span class="ha-punkte">/ 1</span></p>
+    <div class="ha-linien"><div class="ha-linie"></div><div class="ha-linie"></div></div>
+  </div>
+  <div class="aufgabe"><span class="nr">7</span>
+    <p>Die Frau vor dem Obststand <u>hat</u> einen lila Hut auf dem Kopf. <span class="ha-punkte">/ 1</span></p>
+    <div class="ha-linien"><div class="ha-linie"></div><div class="ha-linie"></div></div>
+  </div>
+  <div class="aufgabe"><span class="nr">8</span>
+    <p>In der Mitte vorn <u>sieht man</u> eine graue Taube. <span class="ha-punkte">/ 1</span></p>
+    <div class="ha-linien"><div class="ha-linie"></div><div class="ha-linie"></div></div>
+  </div>
+  <div class="ha-fuss-zeile"><span><strong>Meine Punkte:</strong> <span class="luecke kurz"></span> von 8</span><span>7–8: Profi! · 5–6: gut · 0–4: Übe mit AB 4 und AB 6.</span></div>
+
+  <details class="loesung">
+    <summary>Lösung Kurztest A</summary>
+    <ol>
+      <li>auf <strong>dem</strong> Kissen (das Kissen → dem)</li>
+      <li>auf <strong>der</strong> Fensterbank (die Fensterbank → der)</li>
+      <li>an <strong>der</strong> Stuhllehne (die Stuhllehne → der)</li>
+      <li><strong>unter</strong> dem Bett</li>
+      <li>z. B. Hinter dem Obststand <strong>steht</strong> ein Verkäufer mit einem Schnurrbart.</li>
+      <li>z. B. Am Bäckerstand <strong>liegen</strong> drei Brote und zwei Brezeln.</li>
+      <li>z. B. Die Frau vor dem Obststand <strong>trägt</strong> einen lila Hut auf dem Kopf.</li>
+      <li>z. B. In der Mitte vorn <strong>pickt</strong> eine graue Taube Krümel vom Boden. (Auch richtig: „In der Mitte vorn <strong>steht</strong> eine graue Taube.“)</li>
+    </ol>
+    <p class="klein">Bei 5–8 jedes treffende Verb gelten lassen, das zum Bild passt (z. B. auch „sich befinden“). Nicht gelten lassen: „ist, sind, gibt es, sieht man, hat“.</p>
+  </details>
+  <div class="fussnote">Hausaufgaben · Kurztest A · nach HA 3/4</div>
+</section>
+
+<!-- KV 6 ------------------------------------------------------------- -->
+<section class="blatt ha-kompakt" id="kv-quiz-b" data-toc-titel="KV 6: Kurztest B – Einleitung & Reihenfolge">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KV<b>6</b></div><h2>Kurztest B: Der Anfang und der rote Faden</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+  <p class="mt-0">Nach HA 6 und HA 7 · Zeit: <strong>7 Minuten</strong> · Jede Aufgabe gibt 1 Punkt.</p>
+
+  <h3>Teil 1: Die Einleitung</h3>
+  <div class="aufgabe"><span class="nr">1</span>
+    <p>Was gehört in eine Einleitung? Kreuze die <strong>drei</strong> richtigen an. <span class="ha-punkte">/ 1</span></p>
+    <div class="ha-optionen"><span><span class="kreis"></span>der Titel</span><span><span class="kreis"></span>meine Lieblingsfarbe</span><span><span class="kreis"></span>die Bildart</span><span><span class="kreis"></span>alle Einzelheiten</span><span><span class="kreis"></span>das Thema</span></div>
+  </div>
+  <div class="aufgabe"><span class="nr">2</span>
+    <p>Ergänze die Einleitung zum Bild „Der Bücherwurm“. <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;">Das <span class="luecke"></span> „Der Bücherwurm“ wurde um 1850 von <span class="luecke lang"></span> gemalt.</p>
+  </div>
+  <div class="aufgabe"><span class="nr">3</span>
+    <p>Welcher Satz ist der beste Thema-Satz? Kreuze an. <span class="ha-punkte">/ 1</span></p>
+    <div style="font-size:.95rem;">
+      <p style="margin:.2em 0;"><span class="kreis"></span>&nbsp; a) Das Bild ist sehr schön.</p>
+      <p style="margin:.2em 0;"><span class="kreis"></span>&nbsp; b) Das Bild zeigt einen alten Mann, der auf einer Leiter in einer Bibliothek liest.</p>
+      <p style="margin:.2em 0;"><span class="kreis"></span>&nbsp; c) Auf dem Bild ist ein Mann.</p>
+    </div>
+  </div>
+  <div class="aufgabe"><span class="nr">4</span>
+    <p>Was fehlt in dieser Einleitung? <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;margin-bottom:.3em;">„Das Bild ‚Sommertag am See‘ zeigt einen fröhlichen Sommertag an einem See.“</p>
+    <div class="ha-linien"><div class="ha-linie"></div><div class="ha-linie"></div></div>
+  </div>
+
+  <h3>Teil 2: Der rote Faden im Hauptteil</h3>
+  <div class="aufgabe"><span class="nr">5</span>
+    <p>Nenne zwei sinnvolle Reihenfolgen für den Hauptteil. <span class="ha-punkte">/ 1</span></p>
+    <div class="ha-linien"><div class="ha-linie"></div><div class="ha-linie"></div></div>
+  </div>
+  <div class="aufgabe"><span class="nr">6</span>
+    <p>Ordne: Vordergrund → Mittelgrund → Hintergrund. Schreib 1, 2, 3 davor. <span class="ha-punkte">/ 1</span></p>
+    <div style="font-size:.95rem;">
+      <p style="margin:.2em 0;"><span class="luecke kurz"></span> Im Hintergrund erheben sich sanfte grüne Hügel.</p>
+      <p style="margin:.2em 0;"><span class="luecke kurz"></span> Im Vordergrund erstreckt sich eine grüne Wiese mit bunten Blumen.</p>
+      <p style="margin:.2em 0;"><span class="luecke kurz"></span> Im Mittelgrund breitet sich ein blauer See aus.</p>
+    </div>
+  </div>
+  <div class="aufgabe"><span class="nr">7</span>
+    <p>Ersetze die beiden „Dann“ durch bessere Satzanfänge. <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;">Auf der Picknickdecke sitzt ein Mädchen. <u>Dann</u> steht ein Picknickkorb neben dem Mädchen. <u>Dann</u> rennt ein Hund auf einen roten Ball zu.</p>
+    <div class="ha-linien"><div class="ha-linie"></div><div class="ha-linie"></div></div>
+  </div>
+  <div class="aufgabe"><span class="nr">8</span>
+    <p>Richtig oder falsch? Kreuze an. <span class="ha-punkte">/ 1</span></p>
+    <p style="font-weight:400;margin-bottom:0;">„Im Hauptteil darf ich zwischen Vordergrund und Hintergrund hin- und herspringen, wie es mir gerade einfällt.“</p>
+    <div class="ha-optionen"><span><span class="kreis"></span>richtig</span><span><span class="kreis"></span>falsch</span></div>
+  </div>
+  <div class="ha-fuss-zeile"><span><strong>Meine Punkte:</strong> <span class="luecke kurz"></span> von 8</span><span>7–8: Profi! · 5–6: gut · 0–4: Übe mit AB 8, AB 9 und AB 10.</span></div>
+
+  <details class="loesung">
+    <summary>Lösung Kurztest B</summary>
+    <ol>
+      <li>der Titel, die Bildart, das Thema (nur alle drei richtig = 1 Punkt)</li>
+      <li>Das <strong>Gemälde</strong> „Der Bücherwurm“ wurde um 1850 von <strong>Carl Spitzweg</strong> gemalt.</li>
+      <li>b) – Er sagt in einem Satz, was das Bild zeigt. a) ist eine Meinung, c) ist zu ungenau und benutzt „ist“.</li>
+      <li>Die <strong>Bildart</strong> fehlt (eine bunte Zeichnung/Illustration). Auch richtig: Es fehlt, wer das Bild gemacht hat (unbekannt).</li>
+      <li>Zwei von: vom Vordergrund über den Mittelgrund zum Hintergrund · von links nach rechts · vom Wichtigsten (Blickfang) zu den Einzelheiten</li>
+      <li>3 – 1 – 2 (Vordergrund: Wiese, Mittelgrund: See, Hintergrund: Hügel)</li>
+      <li>z. B. Auf der Picknickdecke sitzt ein Mädchen. <strong>Neben ihr</strong> steht ein Picknickkorb. <strong>In der Bildmitte</strong> rennt ein Hund auf einen roten Ball zu. (Der Satz mit dem Korb muss dafür leicht umgestellt werden; auch „Rechts neben dem Mädchen …“ ist richtig.)</li>
+      <li>falsch – Man wählt eine Reihenfolge und behält sie bei.</li>
+    </ol>
+  </details>
+  <div class="fussnote">Hausaufgaben · Kurztest B · nach HA 6/7</div>
+</section>

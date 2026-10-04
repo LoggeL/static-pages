@@ -1,0 +1,1016 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Klassenarbeit · Bildbeschreibung Klasse 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="bilder/lupo.svg">
+</head>
+<body class="seite-klassenarbeit">
+<header class="site-header no-print">
+  <div class="inner">
+    <a class="brand" href="index.html"><img src="bilder/lupo.svg" alt=""><span>Bildbeschreibung<small>Deutsch · Klasse 5</small></span></a>
+    <nav class="nav" aria-label="Hauptnavigation">
+      <a href="index.html">Start</a>
+      <a href="lehrplan.html">Lehrplan</a>
+      <a href="stunden.html">Stundenverläufe</a>
+      <a href="arbeitsblaetter.html">Arbeitsblätter</a>
+      <a href="loesungen.html">Lösungen</a>
+      <a href="hausaufgaben.html">Hausaufgaben</a>
+      <a href="methoden.html">Methoden</a>
+      <a href="uebungen.html">Lernspiele</a>
+      <a href="beamer.html">Beamer-Bilder</a>
+      <a href="klassenarbeit.html" class="active" aria-current="page">Klassenarbeit</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<style>
+/* ---------- Klassenarbeit „Im Hafen“ (Präfix .ka-) ---------- */
+.ka-pkt {
+  float: right; margin: 0 0 6px 12px; white-space: nowrap; background: #fff;
+  font-family: var(--font-head); font-weight: 800; font-size: .85rem; color: var(--ink);
+  border: 2px solid var(--ink); border-radius: 8px; padding: 1px 9px;
+}
+.ka-pkt.gross { font-size: 1rem; padding: 3px 12px; }
+.ka-box { display: inline-block; width: 20px; height: 20px; border: 2px solid var(--ink-soft); border-radius: 4px; background: #fff; vertical-align: middle; }
+table.ka-kreuz td, table.ka-kreuz th { text-align: center; vertical-align: middle; }
+table.ka-kreuz td:first-child, table.ka-kreuz th:first-child { text-align: left; }
+table.ka-kreuz th.ka-gruen { background: var(--green-soft); color: #2a6a2d; }
+table.ka-kreuz th.ka-gelb { background: var(--yellow-soft); color: #7a5b00; }
+table.ka-kreuz th.ka-rot { background: var(--red-soft); color: #9c2b2b; }
+.ka-teil-titel {
+  display: flex; align-items: center; gap: 12px; margin: 6px 0 14px; padding: 10px 14px; border-radius: 10px;
+  background: var(--orange-soft); font-family: var(--font-head); font-weight: 900; font-size: 1.15rem;
+}
+.ka-teil-titel.blau { background: var(--blue-soft); }
+.ka-teil-titel .ka-pkt { margin-left: auto; float: none; margin-bottom: 0; }
+.ka-satzliste { list-style: none; padding: 0; margin: 8px 0; }
+.ka-satzliste li { margin: 0 0 12px; line-height: 2.1; }
+.ka-satzliste li > b { display: inline-block; min-width: 1.6em; }
+.ka-zeile1 { --zeilen: 1; margin: 0 0 6px; }
+.ka-optionen { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 22px; margin: 10px 0; }
+.ka-optionen label, .ka-optionen div { display: flex; gap: 10px; align-items: flex-start; }
+.ka-optionen .ka-box { flex: none; margin-top: 3px; }
+table.ka-plan td { height: 80px; }
+table.ka-plan td:first-child { width: 26%; font-family: var(--font-head); font-weight: 800; font-size: .92rem; }
+table.ka-plan td:first-child small { display: block; font-family: var(--font-body); font-weight: 400; }
+.ka-reinschrift { display: grid; grid-template-columns: minmax(0, 1fr) 64px; gap: 0; }
+.ka-reinschrift .linien { margin: 0; }
+.ka-rand { border-left: 2px dashed var(--line-strong); background: repeating-linear-gradient(to bottom, transparent 0, transparent calc(2.1em - 1px), #dfe4e8 calc(2.1em - 1px), #dfe4e8 2.1em); position: relative; }
+.ka-rand::before { content: "Rand"; position: absolute; top: -1.5em; left: 8px; font-size: .72rem; color: var(--muted); }
+.ka-zeile {
+  display: flex; align-items: flex-end; gap: 6px; min-height: 2.15em; border-bottom: 1px solid #b7c0c8; margin: 0;
+}
+.ka-zeile > span { color: var(--ink-soft); font-style: italic; white-space: nowrap; padding-bottom: 2px; }
+.ka-zeile.leer { min-height: 2.15em; }
+.ka-geruest-teil { font-family: var(--font-head); font-weight: 900; font-size: .95rem; margin: 12px 0 2px; padding: 4px 10px; border-radius: 8px; display: inline-block; }
+.ka-geruest-teil.e { background: var(--orange-soft); }
+.ka-geruest-teil.v { background: var(--green-soft); }
+.ka-geruest-teil.m { background: var(--blue-soft); }
+.ka-geruest-teil.h { background: var(--purple-soft); }
+.ka-geruest-teil.s { background: var(--red-soft); }
+.ka-hinweise-kind ul { margin: .3em 0; }
+.ka-deck-bild { margin: 8px 0 14px; }
+.ka-unterschrift { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; margin-top: 30px; font-size: .85rem; color: var(--ink-soft); }
+.ka-unterschrift span { border-top: 1px solid var(--ink-soft); padding-top: 4px; }
+.ka-rueck { min-height: 70px; }
+.ka-vorher-nachher td:first-child { background: var(--red-soft); }
+.ka-vorher-nachher td:last-child { background: var(--green-soft); }
+.ka-muster p { text-align: justify; hyphens: auto; }
+.ka-muster .ka-abs { font-family: var(--font-head); font-weight: 800; font-size: .75rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); display: block; margin-bottom: -4px; }
+.ka-woerter { font-size: .85rem; color: var(--muted); }
+.ka-blatt { padding-bottom: 54px; }
+.ka-b-kopf { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 18px; align-items: start; }
+.ka-b-kopf figure { margin: 0; }
+.wortspeicher.ka-kompakt { gap: 4px; padding: 8px 10px; margin: 8px 0; }
+.wortspeicher.ka-kompakt span:not(.titel) { font-size: .82rem; padding: 1px 7px; }
+.ka-geruest .ka-zeile { min-height: 2em; }
+.ka-elemente ol { padding-left: 2em; margin-top: .2em; }
+.ka-elemente li { font-size: .92rem; }
+table.ka-bb { font-size: .86rem; margin: 8px 0 12px; }
+table.ka-bb td, table.ka-bb th { padding: 3px 8px; vertical-align: middle; }
+table.ka-bb .kreis { width: 16px; height: 16px; }
+/* Rechner */
+.ka-rechner-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px 14px; margin: 12px 0; }
+.ka-rechner-grid label { display: flex; flex-direction: column; gap: 3px; font-family: var(--font-head); font-weight: 800; font-size: .85rem; }
+.ka-rechner-grid input, .ka-schluessel input {
+  font: inherit; font-family: var(--font-body); font-size: 1rem; padding: 6px 9px; border: 2px solid var(--line-strong); border-radius: 8px; background: #fff; width: 100%;
+}
+.ka-rechner-grid input:focus, .ka-schluessel input:focus { outline: 3px solid var(--orange-soft); border-color: var(--orange); }
+.ka-ergebnis { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin: 14px 0; }
+.ka-ergebnis .ka-gross { font-family: var(--font-head); font-weight: 900; font-size: 1.6rem; background: var(--ink); color: #fff; border-radius: 14px; padding: 8px 18px; }
+.ka-ergebnis .ka-gross.ka-note { background: var(--orange); }
+.ka-warnung { color: var(--red); font-weight: 700; }
+.ka-schluessel { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin: 8px 0; }
+.ka-schluessel label { font-family: var(--font-head); font-weight: 800; font-size: .82rem; display: flex; flex-direction: column; gap: 3px; }
+.ka-spiegel td, .ka-spiegel th { text-align: center; }
+@media (max-width: 620px) {
+  .ka-b-kopf { grid-template-columns: 1fr; }
+  .ka-optionen { grid-template-columns: 1fr; }
+  .ka-schluessel { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ka-reinschrift { grid-template-columns: minmax(0, 1fr) 34px; }
+}
+@media print {
+  .ka-blatt { padding-bottom: 9mm !important; }
+  #ka-hinweise { break-inside: auto; }
+  .ka-deck-bild { max-width: 130mm; margin-left: auto; margin-right: auto; }
+  .ka-teil-titel { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  table.ka-kreuz th, .ka-geruest-teil, .ka-vorher-nachher td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .ka-deck-bild img { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+
+<header class="seitenkopf">
+  <div>
+    <div class="kicker">Stunde 13 · Leistungsüberprüfung</div>
+    <h1>Klassenarbeit „Im Hafen“</h1>
+    <p>Bildbeschreibung zu einem unbekannten Bild: Teil A mit kurzen Übungsaufgaben (15 Punkte), Teil B mit einer vollständigen Bildbeschreibung (25 Punkte). Dazu Fördervariante, Erwartungshorizont, Musterlösung, Bewertungsbogen, Berichtigungsanleitung und Notenrechner.</p>
+  </div>
+  <img src="bilder/lupo.svg" alt="">
+</header>
+
+<div class="werkzeugleiste no-print">
+  <button class="btn" data-print>Ganze Seite drucken</button>
+  <a class="btn hell" href="#ka-deckblatt">Zur Arbeit</a>
+  <a class="btn hell" href="#ka-erwartung">Zum Erwartungshorizont</a>
+  <a class="btn hell" href="#ka-rechner">Zum Notenrechner</a>
+</div>
+
+<nav class="toc" data-auto-toc="[data-ka-toc]" aria-label="Inhalt dieser Seite"><h2>Inhalt dieser Seite</h2></nav>
+
+<!-- =====================================================================
+     1. Hinweise für die Lehrkraft
+     ===================================================================== -->
+<section class="card" id="ka-hinweise" data-ka-toc data-toc-titel="Hinweise für die Lehrkraft">
+  <h2>Hinweise für die Lehrkraft</h2>
+
+  <div class="achtung" data-label="Wichtig">
+    <p><strong>Bild E „Im Hafen“ vorher nicht im Unterricht zeigen!</strong> Die Arbeit prüft, ob die Kinder das Gelernte auf ein <em>unbekanntes</em> Bild übertragen können. Das Bild ist in Stil und Schwierigkeit mit den Übungsbildern „Sommertag am See“ und „Auf dem Schulhof“ vergleichbar (klare Gliederung in Vorder-, Mittel- und Hintergrund).</p>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <h3 class="mt-0">Eckdaten</h3>
+      <ul>
+        <li><strong>Dauer:</strong> 45 Minuten (Variante 90 Minuten siehe unten)</li>
+        <li><strong>Punkte:</strong> 40 – Teil A 15 P., Teil B 25 P.</li>
+        <li><strong>Bild:</strong> „Im Hafen“, Zeichnung/Illustration aus dem Unterrichtsmaterial (Zeichner/in unbekannt)</li>
+        <li><strong>Kompetenzen:</strong> Bildbereiche und Ortsangaben, Präpositionen mit Dativ, treffende Verben, genaue Adjektive, Präsens, Sachlichkeit, Aufbau Einleitung – Hauptteil – Schluss</li>
+        <li><strong>Vorbereitung:</strong> Lernthekenstunde (<a href="stunden.html#s12">Stunde 12</a>) und Selbsteinschätzung (HA 12, Lernlandkarte AB 0) vorher einsammeln und sichten</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="mt-0">Material pro Kind</h3>
+      <ul>
+        <li>Deckblatt mit <strong>farbig</strong> gedrucktem Bild (Farben sind Teil der Aufgabe: gelbe Regenkleidung, orange Katze, rot-weißer Leuchtturm)</li>
+        <li>Teil A (Aufgaben A1–A6)</li>
+        <li>Teil B: Schreibplan-Blatt + zwei Reinschrift-Blätter (bei Bedarf weiteres liniertes Papier bereithalten)</li>
+        <li>Für Kinder mit Nachteilsausgleich: Fördervariante ★ (Teil A ★ und Teil B ★ mit Gerüst)</li>
+        <li>Eigenes Mäppchen; Bleistift für den Schreibplan, Füller/Tintenroller für die Reinschrift</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Ablauf (45 Minuten)</h3>
+  <div class="tabelle-scroll">
+    <table class="verlauf">
+      <thead><tr><th>Phase</th><th>Zeit</th><th>Was passiert?</th><th>Hinweis</th></tr></thead>
+      <tbody>
+        <tr class="einstieg"><td>Start</td><td>0–3′</td><td>Blätter austeilen, Namen eintragen. Lehrkraft liest die Hinweise auf dem Deckblatt laut vor. Impuls: „Schaut euch das Bild zuerst eine Minute lang nur an – ohne zu schreiben. Denkt an Lupos erste Stufe: Schauen!“</td><td>Fragen zum Verständnis jetzt klären, nicht zum Inhalt.</td></tr>
+        <tr class="erarbeitung"><td>Teil A</td><td>3–15′</td><td>Kurzaufgaben A1–A6 in Einzelarbeit.</td><td>Empfehlung: höchstens 12 Minuten. Nach 15 Minuten kurzer Hinweis: „Wer noch bei Teil A ist, wechselt jetzt bitte zu Teil B.“</td></tr>
+        <tr class="erarbeitung"><td>Schreibplan</td><td>15–22′</td><td>Stichwortzettel zu Teil B ausfüllen (Lupos Stufe 2: Ordnen).</td><td>Der Schreibplan wird nicht bewertet, ist aber Pflicht – er verhindert Sprünge in der Reihenfolge.</td></tr>
+        <tr class="vertiefung"><td>Reinschrift</td><td>22–40′</td><td>Bildbeschreibung schreiben (Einleitung, Hauptteil, Schluss).</td><td>Zeitansagen bei 30′ und 40′ („Noch zehn Minuten“, „Jetzt mit dem Schluss anfangen“).</td></tr>
+        <tr class="abschluss"><td>Prüfen</td><td>40–45′</td><td>Mit der Checkliste am Ende von Teil B den eigenen Text prüfen und verbessern (Lupos Stufe 5).</td><td>Verbesserungen sauber durchstreichen und darüberschreiben – kein Tintenkiller-Zwang.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Bild zeigen: Ausdruck oder Beamer</h3>
+      <ul>
+        <li><strong>Empfohlen:</strong> Deckblatt farbig drucken (A4, Querformat-Bild in voller Breite). So kann jedes Kind nah heranschauen und das Bild beim Schreiben neben das Blatt legen.</li>
+        <li><strong>Alternative Beamer:</strong> Bild während der <em>gesamten</em> Arbeitszeit projizieren (<a href="beamer.html">Beamer-Seite</a> nicht verwenden, falls dort Hilfen eingeblendet sind – besser die Bilddatei <code>bilder/im-hafen.svg</code> direkt öffnen). Raum nicht abdunkeln, Sitzplätze vorher auf Sicht prüfen. Kinder mit Sehschwäche erhalten trotzdem einen Farbausdruck.</li>
+        <li>Schwarz-Weiß-Kopien sind <strong>nicht</strong> geeignet.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Erlaubte Hilfen</h3>
+      <ul>
+        <li>Erlaubt: Bild, Schreibplan-Feld, die Checkliste in Teil B.</li>
+        <li><strong>Nicht</strong> erlaubt: eigener Spickzettel (HA 11), Hefter, Wortspeicher-Plakate – Plakate im Raum vorher abhängen oder umdrehen.</li>
+        <li>Ein Wörterbuch kann nach Absprache in der Fachgruppe erlaubt werden.</li>
+        <li>Lupo-Hinweise auf den Blättern sind allgemeine Erinnerungen und keine inhaltlichen Hilfen.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="info" data-label="Nachteilsausgleich &amp; DaZ">
+    <p><strong>Fördervariante ★:</strong> Für Kinder mit festgestelltem Förderbedarf, Nachteilsausgleich (z. B. LRS) oder geringen Deutschkenntnissen (DaZ) gibt es weiter unten eine Fassung derselben Arbeit mit Wortspeicher (Nomen mit Artikel), Satzanfängen und einem Schreibgerüst. Aufgaben, Bild und Punkte bleiben gleich.</p>
+    <ul>
+      <li><strong>Zeitzugabe:</strong> in der Regel 10–15 Minuten (bzw. laut Förderplan).</li>
+      <li><strong>LRS:</strong> Rechtschreibung fließt in diese Arbeit ohnehin nicht als eigenes Kriterium ein. Vergrößerter Druck (A3) möglich.</li>
+      <li><strong>DaZ:</strong> Artikel- und Dativhilfe in A2 (★), Wortspeicher mit der/die/das. Ein zweisprachiges Wörterbuch kann erlaubt werden.</li>
+      <li>Ob Hilfen im Zeugnis vermerkt werden oder die Bewertung angepasst wird, richtet sich nach den Vorgaben deines Bundeslandes und den Beschlüssen der Klassenkonferenz. Bitte vorher klären.</li>
+    </ul>
+  </div>
+
+  <div class="tipp" data-label="Variante 90 Minuten">
+    <p>Bei einer Doppelstunde bleiben Aufgaben und Punkte gleich. Die zusätzliche Zeit wird so verteilt:</p>
+    <ol>
+      <li>Teil A: 15 Minuten.</li>
+      <li>Bild in Ruhe betrachten und Schreibplan anlegen: 15 Minuten (zusätzlich: Blickweg mit Pfeilen in das Bild auf dem Deckblatt einzeichnen).</li>
+      <li>Reinschrift: 40 Minuten.</li>
+      <li><strong>Überarbeitung (Pflicht):</strong> 15 Minuten. Die Kinder prüfen ihren Text allein mit der Checkliste wie bei der Textlupe (Stunde 10) und verbessern mit einem andersfarbigen Stift.</li>
+      <li>Puffer: 5 Minuten.</li>
+    </ol>
+    <p>Da mehr Zeit zur Verfügung steht, kann beim Kriterium „Inhalt/Vollständigkeit“ die Erwartung um etwa zwei Bildelemente pro Punktstufe angehoben werden.</p>
+  </div>
+
+  <h3>Rückgabe (Stunde 14)</h3>
+  <p>Zur Rückgabe erhält jedes Kind den ausgefüllten <a href="#ka-bewertung">Bewertungsbogen</a>. Danach schreiben die Kinder mit der <a href="#ka-berichtigung">Berichtigungsanleitung</a> eine Berichtigung und füllen die Lernlandkarte (AB 0) in der Spalte „nach der Arbeit“ aus (<a href="stunden.html#s14">Stunde 14</a>). Die Musterlösung kann danach gemeinsam gelesen und mit den Ampelfarben untersucht werden.</p>
+</section>
+
+<!-- =====================================================================
+     2. Die Arbeit: Deckblatt
+     ===================================================================== -->
+<section class="blatt ka-blatt" id="ka-deckblatt" data-ka-toc data-toc-titel="Klassenarbeit – Deckblatt mit Bild">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KA<b>1</b></div><h2>Klassenarbeit: Im Hafen</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+
+  <figure class="bild ka-deck-bild">
+    <img src="bilder/im-hafen.svg" alt="Zeichnung „Im Hafen“: Hafen am Abend mit Fischer, Fischerboot, Leuchtturm, Kind, Katze und Möwen">
+    <figcaption>„Im Hafen“ – Zeichnung aus dem Unterrichtsmaterial (Zeichner/in unbekannt)</figcaption>
+  </figure>
+
+  <div class="lupo">
+    <img src="bilder/lupo.svg" alt="Lupo">
+    <div class="bubble ka-hinweise-kind">
+      <p><strong>Hallo, Bilddetektiv!</strong> Heute zeigst du, was du alles gelernt hast. Du schaffst das!</p>
+      <ul>
+        <li>Schau dir das Bild zuerst <strong>eine Minute lang</strong> in Ruhe an. Lies jede Aufgabe genau.</li>
+        <li>Mach zuerst <strong>Teil A</strong> (ungefähr 12 Minuten), dann <strong>Teil B</strong>. Die Punkte stehen immer rechts.</li>
+        <li>Weißt du etwas nicht? Mach erst weiter und komm später zurück.</li>
+        <li><strong>Denk an Lupos 5 Stufen!</strong> Schauen – Ordnen – Einleiten – Beschreiben – Bewerten &amp; Prüfen.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Punkteübersicht</h3>
+  <table class="raster ka-bb">
+    <thead><tr><th>Teil</th><th>Inhalt</th><th>mögliche Punkte</th><th>deine Punkte</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Teil A</strong></td><td style="text-align:left">Kurze Aufgaben A1–A6</td><td>15</td><td></td></tr>
+      <tr><td><strong>Teil B</strong></td><td style="text-align:left">Deine Bildbeschreibung</td><td>25</td><td></td></tr>
+      <tr><td><strong>Gesamt</strong></td><td></td><td><strong>40</strong></td><td></td></tr>
+      <tr><td><strong>Note</strong></td><td></td><td colspan="2"></td></tr>
+    </tbody>
+  </table>
+  <div class="fussnote">Klassenarbeit · Im Hafen · Deckblatt</div>
+</section>
+
+<!-- =====================================================================
+     3. Teil A
+     ===================================================================== -->
+<section class="blatt ka-blatt" id="ka-teil-a" data-ka-toc data-toc-titel="Teil A – Kurze Aufgaben (15 P.)">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KA<b>A</b></div><h2>Teil A: Kurze Aufgaben</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+
+  <div class="ka-teil-titel">Teil A – Zeig, was du weißt! <span class="ka-pkt gross">___ / 15 P.</span></div>
+
+  <!-- A1 -->
+  <div class="aufgabe"><span class="nr">A1</span>
+    <p><span class="ka-pkt">___ / 3 P.</span>Ordnung im Bild</p>
+    <p><strong>a)</strong> Wo befinden sich diese Dinge im Bild? Kreuze an.</p>
+    <table class="ka-kreuz">
+      <thead><tr><th>Im Bild …</th><th>Vordergrund</th><th>Mittelgrund</th><th>Hintergrund</th></tr></thead>
+      <tbody>
+        <tr><td>der Leuchtturm</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+        <tr><td>das Fischerboot „MÖWE 3“</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+        <tr><td>die Kisten mit Fischen</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+        <tr><td>das kleine Segelboot</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+      </tbody>
+    </table>
+    <p><strong>b)</strong> Ergänze die passende Ortsangabe aus dem Kasten. Zwei Ortsangaben bleiben übrig.</p>
+    <div class="wortspeicher gelb"><span class="titel">Ortsangaben</span><span>links oben</span><span>in der Bildmitte</span><span>am rechten Bildrand</span><span>im Mittelgrund</span></div>
+    <ul class="ka-satzliste">
+      <li><b>1.</b> Die große orange Sonne steht <span class="luecke lang"></span> am Himmel.</li>
+      <li><b>2.</b> Der Leuchtturm steht im Hintergrund <span class="luecke lang"></span> auf einem grauen Felsen.</li>
+    </ul>
+  </div>
+
+  <!-- A2 -->
+  <div class="aufgabe"><span class="nr">A2</span>
+    <p><span class="ka-pkt">___ / 3 P.</span>Wo genau? Präpositionen mit Dativ</p>
+    <p>Ergänze die richtige Endung des Artikels. Tipp: Frag „Wo?“.</p>
+    <ul class="ka-satzliste">
+      <li><b>1.</b> Der Fischer steht neben d<span class="luecke kurz"></span> Kisten.</li>
+      <li><b>2.</b> Die Katze sitzt auf d<span class="luecke kurz"></span> Kaimauer.</li>
+      <li><b>3.</b> Das Tau ist an d<span class="luecke kurz"></span> Poller festgemacht.</li>
+      <li><b>4.</b> Drei Möwen fliegen über d<span class="luecke kurz"></span> Meer.</li>
+      <li><b>5.</b> Der Leuchtturm steht auf ein<span class="luecke kurz"></span> Felsen.</li>
+      <li><b>6.</b> Das kleine Segelboot segelt weit hinter d<span class="luecke kurz"></span> Fischerboot.</li>
+    </ul>
+  </div>
+
+  <!-- A3 -->
+  <div class="aufgabe"><span class="nr">A3</span>
+    <p><span class="ka-pkt">___ / 3 P.</span>Weg mit den Langweiler-Verben!</p>
+    <p>Schreibe die Sätze neu. Ersetze das unterstrichene Wort durch ein treffendes Verb.</p>
+    <ul class="ka-satzliste">
+      <li><b>1.</b> Im Vordergrund <u>ist</u> ein großer Anker.</li>
+    </ul>
+    <div class="linien ka-zeile1"></div>
+    <ul class="ka-satzliste">
+      <li><b>2.</b> Am Himmel <u>gibt es</u> drei Möwen.</li>
+    </ul>
+    <div class="linien ka-zeile1"></div>
+    <ul class="ka-satzliste">
+      <li><b>3.</b> Rechts <u>sieht man</u> ein Kind mit Brotkrumen.</li>
+    </ul>
+    <div class="linien l2"></div>
+  </div>
+
+  <!-- A4 -->
+  <div class="aufgabe"><span class="nr">A4</span>
+    <p><span class="ka-pkt">___ / 2 P.</span>Ab in die Gegenwart!</p>
+    <p>Diese Sätze stehen in der Vergangenheit. Schreibe das Verb im Präsens auf.</p>
+    <table class="ka-kreuz">
+      <thead><tr><th>Satz in der Vergangenheit</th><th>Verb im Präsens</th></tr></thead>
+      <tbody>
+        <tr><td>Der Fischer <strong>trug</strong> eine gelbe Regenjacke.</td><td><span class="luecke"></span></td></tr>
+        <tr><td>Die Katze <strong>saß</strong> auf der Kaimauer.</td><td><span class="luecke"></span></td></tr>
+        <tr><td>Das Kind <strong>warf</strong> Brotkrumen in die Luft.</td><td><span class="luecke"></span></td></tr>
+        <tr><td>Am Himmel <strong>flogen</strong> drei Möwen.</td><td><span class="luecke"></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- A5 -->
+  <div class="aufgabe"><span class="nr">A5</span>
+    <p><span class="ka-pkt">___ / 2 P.</span>Sehen – vermuten – meinen</p>
+    <p>Was ist das für eine Aussage? Kreuze an.</p>
+    <table class="ka-kreuz">
+      <thead><tr><th>Aussage</th><th class="ka-gruen">Ich sehe</th><th class="ka-gelb">Ich vermute</th><th class="ka-rot">Ich meine</th></tr></thead>
+      <tbody>
+        <tr><td>1. Der Fischer hat einen grauen Bart.</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+        <tr><td>2. Vermutlich hat der Fischer heute viele Fische gefangen.</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+        <tr><td>3. Ich finde die orange Katze total süß.</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+        <tr><td>4. Es sieht so aus, als ob die Sonne bald untergeht.</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- A6 -->
+  <div class="aufgabe"><span class="nr">A6</span>
+    <p><span class="ka-pkt">___ / 2 P.</span>Was gehört in die Einleitung?</p>
+    <p>Kreuze die <strong>vier</strong> Angaben an, die in die Einleitung einer Bildbeschreibung gehören.</p>
+    <div class="ka-optionen">
+      <div><span class="ka-box"></span><span>die Bildart (z. B. Zeichnung, Foto)</span></div>
+      <div><span class="ka-box"></span><span>wie viele Fische in den Kisten liegen</span></div>
+      <div><span class="ka-box"></span><span>der Titel des Bildes</span></div>
+      <div><span class="ka-box"></span><span>ob mir das Bild gefällt</span></div>
+      <div><span class="ka-box"></span><span>wer das Bild gemacht hat (falls bekannt)</span></div>
+      <div><span class="ka-box"></span><span>welche Farbe die Katze hat</span></div>
+      <div><span class="ka-box"></span><span>das Thema: Was zeigt das Bild?</span></div>
+    </div>
+  </div>
+  <p class="zentriert klein">Super, Teil A ist geschafft! Weiter geht es mit Teil B.</p>
+  <div class="fussnote">Klassenarbeit · Im Hafen · Teil A</div>
+</section>
+
+<!-- =====================================================================
+     4. Teil B – Schreibplan
+     ===================================================================== -->
+<section class="blatt ka-blatt" id="ka-teil-b" data-ka-toc data-toc-titel="Teil B – Auftrag und Schreibplan (25 P.)">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KA<b>B</b></div><h2>Teil B: Deine Bildbeschreibung</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+
+  <div class="ka-teil-titel blau">Teil B – Beschreibe das Bild „Im Hafen“! <span class="ka-pkt gross">___ / 25 P.</span></div>
+
+  <div class="aufgabe"><span class="nr">B</span>
+    <p>Schreibe eine vollständige Bildbeschreibung zum Bild „Im Hafen“.</p>
+    <p>Jemand, der das Bild nicht sieht, soll es sich nach dem Lesen genau vorstellen können. Deine Beschreibung hat eine <strong>Einleitung</strong>, einen <strong>Hauptteil</strong> und einen <strong>Schluss</strong>.</p>
+  </div>
+
+  <div class="ka-b-kopf">
+    <div class="info mt-0" data-label="Infos für die Einleitung">
+      <ul class="mt-0">
+        <li>Titel: „Im Hafen“</li>
+        <li>Bildart: Zeichnung (Illustration)</li>
+        <li>Zeichner/in: unbekannt, aus dem Unterrichtsmaterial</li>
+      </ul>
+    </div>
+    <figure class="bild">
+      <img src="bilder/im-hafen.svg" alt="Das Bild „Im Hafen“ noch einmal klein">
+    </figure>
+  </div>
+
+  <h3>Schritt 1: Dein Schreibplan (Stichwörter)</h3>
+  <p class="klein">Schreibe nur Stichwörter, keine ganzen Sätze. Der Schreibplan wird nicht bewertet – aber er hilft dir sehr!</p>
+  <table class="ka-plan">
+    <tbody>
+      <tr><td>Einleitung<small>Bildart, Titel, Zeichner/in, Thema</small></td><td></td></tr>
+      <tr><td>Vordergrund<small>ganz vorne, unten im Bild</small></td><td></td></tr>
+      <tr><td>Mittelgrund<small>in der Mitte des Bildes</small></td><td></td></tr>
+      <tr><td>Hintergrund<small>ganz hinten, oben im Bild</small></td><td></td></tr>
+      <tr><td>Schluss<small>Wirkung, Meinung + Begründung</small></td><td></td></tr>
+    </tbody>
+  </table>
+  <div class="fussnote">Klassenarbeit · Im Hafen · Teil B Schreibplan</div>
+</section>
+
+<!-- Teil B – Reinschrift -->
+<section class="blatt ka-blatt" id="ka-teil-b2" data-ka-toc data-toc-titel="Teil B – Reinschrift">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KA<b>B</b></div><h2>Teil B: Reinschrift</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+
+  <p><strong>Schritt 2:</strong> Schreibe jetzt deine Bildbeschreibung. Lass nach Einleitung, Vordergrund, Mittelgrund, Hintergrund und vor dem Schluss jeweils eine Zeile frei.</p>
+  <div class="ka-reinschrift">
+    <div class="linien" style="--zeilen:24"></div><div class="ka-rand"></div>
+  </div>
+  <div class="fussnote">Klassenarbeit · Im Hafen · Teil B Reinschrift (1)</div>
+</section>
+
+<section class="blatt ka-blatt" id="ka-teil-b3" data-ka-toc data-toc-titel="Teil B – Reinschrift (Fortsetzung) und Checkliste">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KA<b>B</b></div><h2>Teil B: Reinschrift (Fortsetzung)</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+  <div class="ka-reinschrift" style="margin-top:2em">
+    <div class="linien l16"></div><div class="ka-rand"></div>
+  </div>
+  <p class="klein">Der Platz reicht nicht? Bitte um ein Extrablatt und schreibe deinen Namen darauf.</p>
+
+  <h3>Schritt 3: Lupos Checkliste – prüfe deinen Text!</h3>
+  <ul class="checkliste spalten-2">
+    <li>Meine Einleitung nennt Bildart, Titel, Zeichner/in und Thema.</li>
+    <li>Ich beschreibe in einer festen Reihenfolge (z. B. vorne → Mitte → hinten).</li>
+    <li>Ich benutze Ortsangaben (im Vordergrund, links, daneben …).</li>
+    <li>Ich benutze treffende Verben statt „ist“ und „gibt es“.</li>
+    <li>Ich beschreibe Farben, Formen und Größen genau.</li>
+    <li>Ich schreibe im Präsens.</li>
+    <li>Im Hauptteil steht keine Meinung.</li>
+    <li>Mein Schluss nennt die Wirkung und meine Meinung mit „weil“.</li>
+  </ul>
+  <div class="fussnote">Klassenarbeit · Im Hafen · Teil B Reinschrift (2)</div>
+</section>
+
+<!-- =====================================================================
+     5. Fördervariante ★
+     ===================================================================== -->
+<div class="card no-print" id="ka-foerder-info" data-ka-toc data-toc-titel="Fördervariante ★ (Nachteilsausgleich/DaZ)">
+  <h2>Fördervariante ★ <span class="niveau n1">mit Hilfen</span></h2>
+  <p>Gleiche Arbeit, gleiche Punkte, gleiches Bild. Das <a href="#ka-deckblatt">Deckblatt</a> wird unverändert verwendet. Die ★-Blätter ersetzen Teil A und Teil B. Hilfen: Lösungshinweise zur Dativ-Bildung, Verben- und Wortauswahl, Signalwörter für Vermutungen, Wortspeicher mit Artikeln, Satzanfänge im Gerüst. Ein eigener Schreibplan entfällt – das Gerüst gibt die Reihenfolge vor; Stichwörter dürfen direkt hinter die Satzanfänge geschrieben werden.</p>
+  <p class="klein">Bewertung: gleicher Erwartungshorizont. Beim Kriterium „Reihenfolge/Aufbau“ ist die Reihenfolge durch das Gerüst vorgegeben; hier wird bewertet, ob die Kinder die passenden Inhalte in den richtigen Abschnitt schreiben.</p>
+</div>
+
+<section class="blatt ka-blatt" id="ka-foerder-a" data-ka-toc data-toc-titel="Teil A ★ (Fördervariante)">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KA<b>A★</b></div><h2>Teil A: Kurze Aufgaben <span class="niveau n1">mit Hilfen</span></h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+
+  <div class="ka-teil-titel">Teil A – Zeig, was du weißt! <span class="ka-pkt gross">___ / 15 P.</span></div>
+
+  <div class="aufgabe"><span class="nr">A1</span>
+    <p><span class="ka-pkt">___ / 3 P.</span>Ordnung im Bild</p>
+    <p class="klein">Vordergrund = ganz vorne (unten im Bild). Mittelgrund = in der Mitte. Hintergrund = ganz hinten (oben im Bild).</p>
+    <p><strong>a)</strong> Wo befinden sich diese Dinge? Kreuze an.</p>
+    <table class="ka-kreuz">
+      <thead><tr><th>Im Bild …</th><th>Vordergrund</th><th>Mittelgrund</th><th>Hintergrund</th></tr></thead>
+      <tbody>
+        <tr><td>der Leuchtturm</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+        <tr><td>das Fischerboot „MÖWE 3“</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+        <tr><td>die Kisten mit Fischen</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+        <tr><td>das kleine Segelboot</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+      </tbody>
+    </table>
+    <p><strong>b)</strong> Ergänze die passende Ortsangabe. Tipp: Zeig mit dem Finger auf die Sonne und den Leuchtturm.</p>
+    <div class="wortspeicher gelb"><span class="titel">Ortsangaben</span><span>links oben</span><span>am rechten Bildrand</span></div>
+    <ul class="ka-satzliste">
+      <li><b>1.</b> Die große orange Sonne steht <span class="luecke lang"></span> am Himmel.</li>
+      <li><b>2.</b> Der Leuchtturm steht im Hintergrund <span class="luecke lang"></span> auf einem grauen Felsen.</li>
+    </ul>
+  </div>
+
+  <div class="aufgabe"><span class="nr">A2</span>
+    <p><span class="ka-pkt">___ / 3 P.</span>Wo genau? Präpositionen mit Dativ</p>
+    <table class="ka-kreuz">
+      <thead><tr><th>Frage „Wo?“</th><th>der …</th><th>die …</th><th>das …</th><th>die (viele) …</th></tr></thead>
+      <tbody><tr><td>wird zu</td><td><strong>dem</strong> / einem</td><td><strong>der</strong> / einer</td><td><strong>dem</strong> / einem</td><td><strong>den</strong></td></tr></tbody>
+    </table>
+    <ul class="ka-satzliste">
+      <li><b>1.</b> Der Fischer steht neben d<span class="luecke kurz"></span> Kisten. <span class="klein">(die Kisten)</span></li>
+      <li><b>2.</b> Die Katze sitzt auf d<span class="luecke kurz"></span> Kaimauer. <span class="klein">(die Kaimauer)</span></li>
+      <li><b>3.</b> Das Tau ist an d<span class="luecke kurz"></span> Poller festgemacht. <span class="klein">(der Poller)</span></li>
+      <li><b>4.</b> Drei Möwen fliegen über d<span class="luecke kurz"></span> Meer. <span class="klein">(das Meer)</span></li>
+      <li><b>5.</b> Der Leuchtturm steht auf ein<span class="luecke kurz"></span> Felsen. <span class="klein">(der Felsen)</span></li>
+      <li><b>6.</b> Das kleine Segelboot segelt weit hinter d<span class="luecke kurz"></span> Fischerboot. <span class="klein">(das Fischerboot)</span></li>
+    </ul>
+  </div>
+
+  <div class="aufgabe"><span class="nr">A3</span>
+    <p><span class="ka-pkt">___ / 3 P.</span>Weg mit den Langweiler-Verben!</p>
+    <p>Setze ein treffendes Verb aus dem Kasten ein.</p>
+    <div class="wortspeicher gruen"><span class="titel">Verben</span><span>fliegen</span><span>liegt</span><span>steht</span><span>schwimmt</span></div>
+    <ul class="ka-satzliste">
+      <li><b>1.</b> Im Vordergrund <s>ist</s> <span class="luecke"></span> ein großer Anker.</li>
+      <li><b>2.</b> Am Himmel <s>gibt es</s> <span class="luecke"></span> drei Möwen.</li>
+      <li><b>3.</b> Rechts <s>sieht man</s> <span class="luecke"></span> ein Kind und wirft Brotkrumen in die Luft.</li>
+    </ul>
+  </div>
+
+  <div class="aufgabe"><span class="nr">A4</span>
+    <p><span class="ka-pkt">___ / 2 P.</span>Ab in die Gegenwart!</p>
+    <p>Schreibe das Verb im Präsens auf. In Klammern steht die Grundform.</p>
+    <table class="ka-kreuz">
+      <thead><tr><th>Satz in der Vergangenheit</th><th>Verb im Präsens</th></tr></thead>
+      <tbody>
+        <tr><td>Der Fischer <strong>trug</strong> eine gelbe Regenjacke. <span class="klein">(tragen)</span></td><td>Der Fischer <span class="luecke kurz"></span></td></tr>
+        <tr><td>Die Katze <strong>saß</strong> auf der Kaimauer. <span class="klein">(sitzen)</span></td><td>Die Katze <span class="luecke kurz"></span></td></tr>
+        <tr><td>Das Kind <strong>warf</strong> Brotkrumen in die Luft. <span class="klein">(werfen)</span></td><td>Das Kind <span class="luecke kurz"></span></td></tr>
+        <tr><td>Am Himmel <strong>flogen</strong> drei Möwen. <span class="klein">(fliegen)</span></td><td>Drei Möwen <span class="luecke kurz"></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="aufgabe"><span class="nr">A5</span>
+    <p><span class="ka-pkt">___ / 2 P.</span>Sehen – vermuten – meinen</p>
+    <p class="klein">Signalwörter: <strong>vermutlich, vielleicht, es sieht so aus, als ob</strong> → ich vermute. <strong>Ich finde, süß, schön, toll</strong> → ich meine.</p>
+    <table class="ka-kreuz">
+      <thead><tr><th>Aussage</th><th class="ka-gruen">Ich sehe</th><th class="ka-gelb">Ich vermute</th><th class="ka-rot">Ich meine</th></tr></thead>
+      <tbody>
+        <tr><td>1. Der Fischer hat einen grauen Bart.</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+        <tr><td>2. Vermutlich hat der Fischer heute viele Fische gefangen.</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+        <tr><td>3. Ich finde die orange Katze total süß.</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+        <tr><td>4. Es sieht so aus, als ob die Sonne bald untergeht.</td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td><td><span class="ka-box"></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="aufgabe"><span class="nr">A6</span>
+    <p><span class="ka-pkt">___ / 2 P.</span>Was gehört in die Einleitung?</p>
+    <p>Kreuze die <strong>vier</strong> richtigen Angaben an. Denk an die W-Fragen: <em>Was für ein Bild? Wie heißt es? Wer hat es gemacht? Was zeigt es?</em></p>
+    <div class="ka-optionen">
+      <div><span class="ka-box"></span><span>die Bildart (z. B. Zeichnung, Foto)</span></div>
+      <div><span class="ka-box"></span><span>wie viele Fische in den Kisten liegen</span></div>
+      <div><span class="ka-box"></span><span>der Titel des Bildes</span></div>
+      <div><span class="ka-box"></span><span>ob mir das Bild gefällt</span></div>
+      <div><span class="ka-box"></span><span>wer das Bild gemacht hat (falls bekannt)</span></div>
+      <div><span class="ka-box"></span><span>welche Farbe die Katze hat</span></div>
+      <div><span class="ka-box"></span><span>das Thema: Was zeigt das Bild?</span></div>
+    </div>
+  </div>
+  <div class="fussnote">Klassenarbeit · Im Hafen · Teil A ★</div>
+</section>
+
+<section class="blatt ka-blatt ka-geruest" id="ka-foerder-b" data-ka-toc data-toc-titel="Teil B ★ – Wortspeicher und Gerüst (1)">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KA<b>B★</b></div><h2>Teil B: Deine Bildbeschreibung <span class="niveau n1">mit Hilfen</span></h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+
+  <div class="ka-teil-titel blau">Teil B – Beschreibe das Bild „Im Hafen“! <span class="ka-pkt gross">___ / 25 P.</span></div>
+  <p>Ergänze die Satzanfänge zu ganzen Sätzen. Du darfst auch eigene Sätze schreiben. Die Wörter im Kasten helfen dir.</p>
+
+  <div class="wortspeicher ka-kompakt"><span class="titel">Nomen (mit Artikel)</span>
+    <span>der Hafen</span><span>die Kaimauer</span><span>der Fischer</span><span>die Regenkleidung</span><span>der Bart</span><span>die Mütze</span><span>die Kiste</span><span>der Fisch</span><span>der Anker</span><span>die Katze</span><span>das Kind</span><span>die Locken</span><span>die Brotkrumen</span><span>die Möwe</span><span>das Meer</span><span>das Fischerboot</span><span>das Steuerhaus</span><span>der Mast</span><span>der Rettungsring</span><span>das Tau</span><span>der Poller</span><span>der Felsen</span><span>der Leuchtturm</span><span>der Lichtstrahl</span><span>das Segelboot</span><span>der Himmel</span><span>die Sonne</span>
+  </div>
+  <div class="grid-2">
+    <div class="wortspeicher gruen ka-kompakt"><span class="titel">Verben</span>
+      <span>stehen</span><span>sitzen</span><span>liegen</span><span>tragen</span><span>werfen</span><span>fliegen</span><span>schwimmen</span><span>segeln</span><span>hängen</span><span>ragen</span><span>leuchten</span><span>sich erstrecken</span><span>sich ausbreiten</span><span>festmachen</span>
+    </div>
+    <div class="wortspeicher orange ka-kompakt"><span class="titel">Adjektive</span>
+      <span>groß</span><span>klein</span><span>gelb</span><span>orange</span><span>hellblau</span><span>dunkelgrau</span><span>grau</span><span>rot-weiß gestreift</span><span>schwarz</span><span>weiß</span><span>braun</span><span>ruhig</span><span>friedlich</span><span>abendlich</span>
+    </div>
+  </div>
+
+  <span class="ka-geruest-teil e">Einleitung</span>
+  <div class="ka-zeile"><span>Das Bild „</span><span class="luecke lang" style="border:0"></span><span>“ ist eine</span></div>
+  <div class="ka-zeile"><span>Wer das Bild gezeichnet hat,</span></div>
+  <div class="ka-zeile"><span>Das Bild zeigt</span></div>
+
+  <span class="ka-geruest-teil v">Hauptteil: Vordergrund</span>
+  <div class="ka-zeile"><span>Im Vordergrund erstreckt sich</span></div>
+  <div class="ka-zeile"><span>Am linken Bildrand steht</span></div>
+  <div class="ka-zeile"><span>Er trägt</span></div>
+  <div class="ka-zeile"><span>Neben ihm</span></div>
+  <div class="ka-zeile"><span>In der Bildmitte liegt</span></div>
+  <div class="ka-zeile"><span>Auf der rechten Seite sitzt</span></div>
+  <div class="ka-zeile"><span>Daneben steht</span></div>
+  <div class="fussnote">Klassenarbeit · Im Hafen · Teil B ★ (1)</div>
+</section>
+
+<section class="blatt ka-blatt ka-geruest" id="ka-foerder-b2" data-ka-toc data-toc-titel="Teil B ★ – Gerüst (2) und Checkliste">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KA<b>B★</b></div><h2>Teil B: Deine Bildbeschreibung (Fortsetzung)</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+
+  <span class="ka-geruest-teil v">Hauptteil: Vordergrund (Fortsetzung)</span>
+  <div class="ka-zeile"><span>Es</span></div>
+  <div class="ka-zeile"><span>Ganz rechts</span></div>
+
+  <span class="ka-geruest-teil m">Hauptteil: Mittelgrund</span>
+  <div class="ka-zeile"><span>Im Mittelgrund breitet sich</span></div>
+  <div class="ka-zeile"><span>Auf dem Meer schwimmt</span></div>
+  <div class="ka-zeile"><span>Auf dem Boot steht</span></div>
+  <div class="ka-zeile"><span>Links davon ragt</span></div>
+  <div class="ka-zeile"><span>Am rechten Ende des Bootes</span></div>
+  <div class="ka-zeile"><span>Das Boot ist mit einem Tau</span></div>
+
+  <span class="ka-geruest-teil h">Hauptteil: Hintergrund</span>
+  <div class="ka-zeile"><span>Im Hintergrund steht rechts</span></div>
+  <div class="ka-zeile"><span>Der Leuchtturm hat</span></div>
+  <div class="ka-zeile"><span>Weit hinten in der Mitte segelt</span></div>
+  <div class="ka-zeile"><span>Der Himmel</span></div>
+  <div class="ka-zeile"><span>Links am Himmel</span></div>
+  <div class="ka-zeile"><span>Oben</span></div>
+
+  <span class="ka-geruest-teil s">Schluss</span>
+  <div class="wortspeicher lila ka-kompakt"><span class="titel">Wirkung</span><span>ruhig</span><span>friedlich</span><span>gemütlich</span><span>abendlich</span><span>romantisch</span><span>fröhlich</span></div>
+  <div class="ka-zeile"><span>Das Bild wirkt auf mich</span></div>
+  <div class="ka-zeile"><span>weil</span></div>
+  <div class="ka-zeile"><span>Mir gefällt das Bild (nicht), weil</span></div>
+
+  <h3>Lupos Checkliste</h3>
+  <ul class="checkliste spalten-2">
+    <li>Ich habe alle Satzanfänge zu Sätzen ergänzt.</li>
+    <li>Ich habe Farben und Größen genannt.</li>
+    <li>Ich schreibe im Präsens (Gegenwart).</li>
+    <li>Im Schluss steht meine Meinung mit „weil“.</li>
+  </ul>
+  <div class="fussnote">Klassenarbeit · Im Hafen · Teil B ★ (2)</div>
+</section>
+
+<!-- =====================================================================
+     6. Erwartungshorizont
+     ===================================================================== -->
+<section class="blatt ka-blatt" id="ka-erwartung" data-ka-toc data-toc-titel="Erwartungshorizont (Lehrkraft)">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KA<b>EH</b></div><h2>Erwartungshorizont</h2>
+    <div class="felder"><span>Klassenarbeit „Im Hafen“ · nur für die Lehrkraft</span></div></div>
+
+  <h3 class="mt-0">Teil A – Lösungen (15 P.)</h3>
+  <div class="tabelle-scroll">
+  <table>
+    <thead><tr><th>Aufg.</th><th>Lösung</th><th>Punkte / Bewertungshinweis</th></tr></thead>
+    <tbody>
+      <tr><td><strong>A1</strong></td><td>a) Leuchtturm → <strong>Hintergrund</strong>; Fischerboot „MÖWE 3“ → <strong>Mittelgrund</strong>; Kisten mit Fischen → <strong>Vordergrund</strong>; kleines Segelboot → <strong>Hintergrund</strong>.<br>b) 1. <strong>links oben</strong> · 2. <strong>am rechten Bildrand</strong></td><td>a) je 0,5 P. (2 P.)<br>b) je 0,5 P. (1 P.)<br>Gesamt 3 P.</td></tr>
+      <tr><td><strong>A2</strong></td><td>1. neben d<strong>en</strong> Kisten · 2. auf d<strong>er</strong> Kaimauer · 3. an d<strong>em</strong> Poller · 4. über d<strong>em</strong> Meer · 5. auf ein<strong>em</strong> Felsen · 6. hinter d<strong>em</strong> Fischerboot</td><td>je 0,5 P. (3 P.). Auch korrekt als ganzes Wort geschrieben („dem“) werten.</td></tr>
+      <tr><td><strong>A3</strong></td><td>z. B. 1. Im Vordergrund <strong>liegt</strong> ein großer Anker. · 2. Am Himmel <strong>fliegen/schweben</strong> drei Möwen. · 3. Rechts <strong>steht</strong> ein Kind und <strong>wirft</strong> Brotkrumen in die Luft. / Rechts <strong>wirft</strong> ein Kind Brotkrumen in die Luft.</td><td>je 1 P. (3 P.): treffendes, zum Bild passendes Verb im Präsens und vollständiger Satz. 0,5 P., wenn das Verb passt, der Satz aber unvollständig ist oder ein Langweiler-Verb stehen bleibt. „befindet sich“ bei 1 akzeptieren.</td></tr>
+      <tr><td><strong>A4</strong></td><td><strong>trägt</strong> · <strong>sitzt</strong> · <strong>wirft</strong> · <strong>fliegen</strong></td><td>je 0,5 P. (2 P.). Rechtschreibfehler im Verb ohne Abzug, solange die Präsensform eindeutig ist (z. B. „trekt“ → 0 P., „sitst“ → 0,5 P. nach Ermessen).</td></tr>
+      <tr><td><strong>A5</strong></td><td>1. ich sehe · 2. ich vermute · 3. ich meine · 4. ich vermute</td><td>je 0,5 P. (2 P.). Mehrfachkreuze in einer Zeile = 0 P.</td></tr>
+      <tr><td><strong>A6</strong></td><td>Bildart · Titel · wer das Bild gemacht hat · Thema</td><td>je richtigem Kreuz 0,5 P.; je falschem Kreuz 0,5 P. Abzug; nicht unter 0 P. (2 P.)</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>Teil B – Bewertungskriterien (25 P.)</h3>
+  <div class="tabelle-scroll">
+  <table class="raster">
+    <thead><tr><th>Kriterium</th><th style="text-align:left">Erwartung</th><th>max.</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Einleitung</strong></td><td style="text-align:left">Bildart (Zeichnung/Illustration) 1 P. · Titel „Im Hafen“ 1 P. · Zeichner/in unbekannt bzw. „aus dem Unterrichtsmaterial“ 1 P. · Thema in einem Satz („Das Bild zeigt einen Hafen am Abend …“) 1 P.</td><td>4</td></tr>
+      <tr><td><strong>Hauptteil: Inhalt &amp; Vollständigkeit</strong></td><td style="text-align:left">Bildelemente korrekt und mit Merkmalen (Farbe, Größe, Kleidung, Tätigkeit) beschrieben, siehe Elementliste unten. Staffelung: <strong>8 P.</strong> ab 18 Elementen · <strong>7</strong>: 16–17 · <strong>6</strong>: 14–15 · <strong>5</strong>: 12–13 · <strong>4</strong>: 10–11 · <strong>3</strong>: 8–9 · <strong>2</strong>: 6–7 · <strong>1</strong>: 3–5. Elemente ohne jedes Merkmal zählen halb. Erfundenes (z. B. „Der Fischer angelt“) zählt nicht.</td><td>8</td></tr>
+      <tr><td><strong>Reihenfolge &amp; Aufbau</strong></td><td style="text-align:left">Erkennbare feste Reihenfolge (VG → MG → HG, links → rechts oder Blickfang → Details) 2 P. · ohne Sprünge eingehalten 1 P. · Gliederung in Einleitung, Hauptteil, Schluss durch Absätze 1 P.</td><td>4</td></tr>
+      <tr><td><strong>Sprache</strong></td><td style="text-align:left">Ortsangaben vielfältig und passend, abwechslungsreiche Satzanfänge 2 P. · treffende Verben statt ist/sind/gibt es/sieht man/hat (höchstens 2 Langweiler-Verben) 2 P. · genaue Adjektive (Farben, Größen, Muster, z. B. „rot-weiß gestreift“) 1 P.</td><td>5</td></tr>
+      <tr><td><strong>Präsens &amp; Sachlichkeit</strong></td><td style="text-align:left">Durchgehend Präsens (höchstens 1 Ausrutscher) 1 P. · Hauptteil sachlich, Vermutungen gekennzeichnet („vermutlich ist es Abend“), Meinung erst im Schluss 1 P.</td><td>2</td></tr>
+      <tr><td><strong>Schluss</strong></td><td style="text-align:left">Wirkung/Stimmung (z. B. ruhig, friedlich, abendlich) 1 P. · eigene Meinung mit Begründung („…, weil …“) 1 P.</td><td>2</td></tr>
+      <tr><td><strong>Summe Teil B</strong></td><td></td><td><strong>25</strong></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h4>Elementliste für das Kriterium „Inhalt“ (23 Elemente)</h4>
+  <div class="grid-3 ka-elemente">
+    <div>
+      <p class="mt-0"><strong>Vordergrund (8)</strong></p>
+      <ol>
+        <li>Kaimauer aus braun-grauen Steinplatten</li>
+        <li>Fischer links: grauer Bart, dunkle Mütze</li>
+        <li>gelbe Regenkleidung, Arm nach rechts ausgestreckt</li>
+        <li>drei hellblaue Kisten voller Fische (zwei unten, eine oben)</li>
+        <li>großer, dunkelgrauer Anker in der Mitte</li>
+        <li>orange Katze (sitzt rechts)</li>
+        <li>Kind: schwarze Locken, rotes T-Shirt, blaue kurze Hose, wirft Brotkrumen</li>
+        <li>Möwen: eine fliegt heran, eine steht ganz rechts auf der Kaimauer</li>
+      </ol>
+    </div>
+    <div>
+      <p class="mt-0"><strong>Mittelgrund (8)</strong></p>
+      <ol start="9">
+        <li>blaues Meer</li>
+        <li>großes blaues Fischerboot</li>
+        <li>weißer Rand am Boot</li>
+        <li>Name „MÖWE 3“</li>
+        <li>weißes Steuerhaus mit zwei Fenstern</li>
+        <li>brauner Mast mit Seilen</li>
+        <li>roter Rettungsring am rechten Ende</li>
+        <li>Tau zum schwarzen Poller an der Kaimauer</li>
+      </ol>
+    </div>
+    <div>
+      <p class="mt-0"><strong>Hintergrund &amp; Himmel (7)</strong></p>
+      <ol start="17">
+        <li>grauer Felsen rechts</li>
+        <li>rot-weiß gestreifter Leuchtturm</li>
+        <li>gelbe Laterne, dunkles Dach</li>
+        <li>heller Lichtstrahl nach links</li>
+        <li>kleines weißes Segelboot mit hellblauem Segel</li>
+        <li>orange-pfirsichfarbener Abendhimmel, große orange Sonne links</li>
+        <li>drei Möwen oben am Himmel</li>
+      </ol>
+    </div>
+  </div>
+
+  <h3>Notenschlüssel <span class="badge">anpassbar</span></h3>
+  <table class="raster">
+    <thead><tr><th>Note</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr></thead>
+    <tbody><tr><td><strong>Punkte (von 40)</strong></td><td>40–37</td><td>36–31</td><td>30–24</td><td>23–17</td><td>16–8</td><td>7–0</td></tr></tbody>
+  </table>
+  <p class="klein">Der Schlüssel ist ein Vorschlag und kann an schulinterne Vorgaben angepasst werden (Grenzen im <a href="#ka-rechner">Notenrechner</a> änderbar). Vorschlag zu halben Punkten: zugunsten des Kindes aufrunden (z. B. 36,5 P. → Note 1).</p>
+  <div class="fussnote">Klassenarbeit · Im Hafen · Erwartungshorizont</div>
+</section>
+
+<!-- =====================================================================
+     7. Musterlösung
+     ===================================================================== -->
+<section class="blatt ka-blatt ka-muster" id="ka-muster" data-ka-toc data-toc-titel="Musterlösung Teil B">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KA<b>ML</b></div><h2>Musterlösung: Im Hafen</h2>
+    <div class="felder"><span>Bildbeschreibung auf Klasse-5-Niveau</span></div></div>
+
+  <div id="ka-mustertext">
+    <p><span class="ka-abs">Einleitung</span>Das Bild „Im Hafen“ ist eine bunte Zeichnung. Wer sie gezeichnet hat, ist nicht bekannt. Das Bild zeigt einen ruhigen Abend in einem Hafen am Meer.</p>
+    <p><span class="ka-abs">Hauptteil – Vordergrund</span>Im Vordergrund erstreckt sich eine Kaimauer aus braun-grauen Steinplatten. Am linken Bildrand steht ein Fischer mit einem grauen Bart und einer dunklen Mütze. Er trägt gelbe Regenkleidung und streckt einen Arm nach rechts aus. Rechts neben ihm stehen drei hellblaue Kisten voller Fische. Zwei Kisten stehen unten, die dritte steht oben darauf. In der Bildmitte liegt ein großer, dunkelgrauer Anker. Auf der rechten Seite sitzt eine orange Katze. Daneben steht ein Kind mit schwarzen Locken, einem roten T-Shirt und einer blauen kurzen Hose. Es wirft Brotkrumen in die Luft. Eine Möwe fliegt schon heran. Eine andere Möwe steht ganz rechts auf der Kaimauer.</p>
+    <p><span class="ka-abs">Hauptteil – Mittelgrund</span>Im Mittelgrund breitet sich das blaue Meer aus. Dort schwimmt ein großes blaues Fischerboot mit einem weißen Rand. Auf dem Boot steht in weißen Buchstaben der Name „MÖWE 3“. Auf dem Deck befindet sich ein weißes Steuerhaus mit zwei Fenstern. Links davon ragt ein brauner Mast mit Seilen in die Höhe. Am rechten Ende des Bootes hängt ein roter Rettungsring. Mit einem Tau ist das Boot an einem schwarzen Poller an der Kaimauer festgemacht.</p>
+    <p><span class="ka-abs">Hauptteil – Hintergrund</span>Im Hintergrund erhebt sich am rechten Bildrand ein grauer Felsen. Darauf steht ein rot-weiß gestreifter Leuchtturm mit einer gelben Laterne und einem dunklen Dach. Ein heller Lichtstrahl fällt von ihm nach links. Weit hinten in der Mitte segelt ein kleines weißes Segelboot mit einem hellblauen Segel. Der Himmel leuchtet orange und pfirsichfarben. Links steht eine große orange Sonne tief am Himmel. Oben fliegen drei Möwen.</p>
+    <p><span class="ka-abs">Schluss</span>Das Bild wirkt auf mich ruhig und friedlich. Die warmen Farben und die tief stehende Sonne zeigen, dass es vermutlich Abend ist. Mir gefällt das Bild, weil ich gerne am Meer bin und Leuchttürme mag.</p>
+  </div>
+  <p class="ka-woerter no-print">Wortzahl: <span id="ka-wortzahl">…</span> Wörter</p>
+
+  <div class="tipp" data-label="Für die Rückgabe">
+    <p>Die Kinder können die Musterlösung in Stunde 14 mit Farben untersuchen: Ortsangaben blau, treffende Verben orange, Adjektive grün, Wirkung/Meinung rot unterstreichen. Wichtig: Eine gute Beschreibung muss nicht so lang sein, um die volle Punktzahl zu erreichen (siehe Staffelung „Inhalt“).</p>
+  </div>
+  <div class="fussnote">Klassenarbeit · Im Hafen · Musterlösung</div>
+</section>
+
+<!-- =====================================================================
+     8. Bewertungsbogen für Schülerinnen und Schüler
+     ===================================================================== -->
+<section class="blatt ka-blatt" id="ka-bewertung" data-ka-toc data-toc-titel="Bewertungsbogen für Kinder">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KA<b>BB</b></div><h2>Mein Bewertungsbogen</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+
+  <table class="raster ka-bb">
+    <thead>
+      <tr><th>Das hast du gemacht …</th><th>super<br><span class="ampel"><i style="background:#3d8b40"></i></span></th><th>teilweise<br><span class="ampel"><i style="background:#e0a51f;border-color:#e0a51f"></i></span></th><th>noch nicht<br><span class="ampel"><i style="background:#cc4141;border-color:#cc4141"></i></span></th><th>Punkte</th></tr>
+    </thead>
+    <tbody>
+      <tr><th colspan="5" style="text-align:left">Teil A – kurze Aufgaben</th></tr>
+      <tr><td>A1 Du ordnest Dinge den Bildbereichen zu und nutzt Ortsangaben.</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td>___ / 3</td></tr>
+      <tr><td>A2 Du benutzt Präpositionen mit dem Dativ richtig.</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td>___ / 3</td></tr>
+      <tr><td>A3 Du ersetzt Langweiler-Verben durch treffende Verben.</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td>___ / 3</td></tr>
+      <tr><td>A4 Du setzt Verben ins Präsens.</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td>___ / 2</td></tr>
+      <tr><td>A5 Du unterscheidest Sehen, Vermuten und Meinen.</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td>___ / 2</td></tr>
+      <tr><td>A6 Du weißt, was in die Einleitung gehört.</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td>___ / 2</td></tr>
+      <tr><th colspan="5" style="text-align:left">Teil B – deine Bildbeschreibung</th></tr>
+      <tr><td><strong>Einleitung:</strong> Du nennst Bildart, Titel, Zeichner/in und Thema.</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td>___ / 4</td></tr>
+      <tr><td><strong>Inhalt:</strong> Du beschreibst viele Dinge im Bild genau (mit Farbe, Größe, Kleidung …).</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td>___ / 8</td></tr>
+      <tr><td><strong>Reihenfolge:</strong> Du beschreibst in einer festen Reihenfolge und machst Absätze.</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td>___ / 4</td></tr>
+      <tr><td><strong>Sprache:</strong> Du benutzt Ortsangaben, treffende Verben und genaue Adjektive.</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td>___ / 5</td></tr>
+      <tr><td><strong>Präsens &amp; sachlich:</strong> Du schreibst in der Gegenwart. Deine Meinung steht erst im Schluss.</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td>___ / 2</td></tr>
+      <tr><td><strong>Schluss:</strong> Du nennst die Wirkung und deine Meinung mit Begründung.</td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td>___ / 2</td></tr>
+      <tr><td><strong>Gesamt</strong></td><td colspan="3"><strong>Note:</strong></td><td class="nowrap"><strong>___ / 40</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2">
+    <div>
+      <h4 class="mt-0">Das ist dir gut gelungen:</h4>
+      <div class="kasten ka-rueck"></div>
+    </div>
+    <div>
+      <h4 class="mt-0">Darauf achtest du nächstes Mal:</h4>
+      <div class="kasten ka-rueck"></div>
+    </div>
+  </div>
+
+  <h4>Und was denkst du? <span class="klein">(Kreuze an.)</span></h4>
+  <p>Ich bin mit meiner Arbeit … &nbsp; <span class="kreis"></span> sehr zufrieden &nbsp; <span class="kreis"></span> zufrieden &nbsp; <span class="kreis"></span> nicht so zufrieden</p>
+  <p>Das nehme ich mir vor: <span class="luecke lang"></span><span class="luecke lang"></span></p>
+  <div class="ka-unterschrift"><span>Unterschrift Lehrkraft</span><span>Unterschrift Erziehungsberechtigte/r</span></div>
+  <div class="fussnote">Klassenarbeit · Im Hafen · Bewertungsbogen</div>
+</section>
+
+<!-- =====================================================================
+     9. Berichtigungsanleitung
+     ===================================================================== -->
+<section class="blatt ka-blatt" id="ka-berichtigung" data-ka-toc data-toc-titel="Berichtigung – Schritt für Schritt">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KA<b>BR</b></div><h2>So schreibst du deine Berichtigung</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+
+  <div class="lupo">
+    <img src="bilder/lupo.svg" alt="Lupo">
+    <div class="bubble"><p>Fehler sind wie Spuren für einen Detektiv: Sie zeigen dir, wo du noch üben kannst. Mit der Berichtigung machst du aus einem Fehler etwas, das du richtig kannst!</p></div>
+  </div>
+
+  <ol class="stufen treppe">
+    <li><strong>Lesen:</strong> Lies deinen Bewertungsbogen. Wo hast du Punkte verloren? Markiere diese Zeilen mit einem Textmarker.</li>
+    <li><strong>Teil A verbessern:</strong> Schreibe jede Aufgabe, bei der du nicht die volle Punktzahl hast, <strong>noch einmal richtig</strong> ab. Schreib die Aufgabennummer davor (z. B. „A2“). Bei A2 schreibst du den ganzen Satz ab und unterstreichst den Artikel: „Die Katze sitzt auf <u>der</u> Kaimauer.“</li>
+    <li><strong>Teil B: Zwei Baustellen wählen:</strong> Such dir die <strong>zwei</strong> Bereiche mit den wenigsten Punkten aus (z. B. Einleitung und Verben).</li>
+    <li><strong>Neu schreiben:</strong> Verbessere zu jeder Baustelle <strong>drei Sätze</strong> aus deinem Text. Schreib zuerst den alten Satz ab, dann den neuen, besseren Satz. Fehlt etwas (z. B. die Einleitung oder der Schluss)? Dann schreibe diesen Teil ganz neu.</li>
+    <li><strong>Prüfen:</strong> Lies deine Berichtigung mit Lupos Checkliste. Fülle danach deine Lernlandkarte (AB 0) in der Spalte „nach der Arbeit“ aus.</li>
+  </ol>
+
+  <h3>So kann das aussehen</h3>
+  <table class="ka-vorher-nachher">
+    <thead><tr><th>Vorher (in der Arbeit)</th><th>Nachher (verbessert)</th></tr></thead>
+    <tbody>
+      <tr><td>Vorne <u>ist</u> ein Anker.</td><td>In der Bildmitte <strong>liegt</strong> ein <strong>großer, dunkelgrauer</strong> Anker.</td></tr>
+      <tr><td>Der Fischer <u>hatte</u> eine gelbe Jacke an.</td><td>Der Fischer <strong>trägt</strong> gelbe Regenkleidung.</td></tr>
+      <tr><td>Rechts ist eine <u>total süße</u> Katze.</td><td>Rechts <strong>sitzt</strong> eine <strong>orange</strong> Katze. <span class="klein">(Meinung kommt in den Schluss!)</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="tipp">
+    <ul class="mt-0">
+      <li>Schreibe ordentlich mit Lineal-Rand und Überschrift „Berichtigung“.</li>
+      <li>Schau dir bei Unsicherheit das Bild noch einmal genau an.</li>
+      <li>Nutze den großen Wortspeicher aus deinem Hefter.</li>
+    </ul>
+  </div>
+
+  <h3>Meine Berichtigung</h3>
+  <div class="linien l12"></div>
+  <div class="fussnote">Klassenarbeit · Im Hafen · Berichtigung</div>
+</section>
+
+<!-- =====================================================================
+     10. Notenrechner
+     ===================================================================== -->
+<section class="card no-print ka-rechner" id="ka-rechner" data-ka-toc data-toc-titel="Punkte- und Notenrechner">
+  <h2>Punkte- und Notenrechner</h2>
+  <p>Trage die Punkte einer Arbeit ein. Summe, Note und Tendenz werden sofort berechnet. Halbe Punkte sind möglich (z. B. 12,5).</p>
+
+  <div class="ka-rechner-grid" id="ka-eingaben">
+    <label>Teil A (max. 15)<input type="number" inputmode="decimal" min="0" max="15" step="0.5" data-max="15"></label>
+    <label>Einleitung (max. 4)<input type="number" inputmode="decimal" min="0" max="4" step="0.5" data-max="4"></label>
+    <label>Inhalt (max. 8)<input type="number" inputmode="decimal" min="0" max="8" step="0.5" data-max="8"></label>
+    <label>Reihenfolge/Aufbau (max. 4)<input type="number" inputmode="decimal" min="0" max="4" step="0.5" data-max="4"></label>
+    <label>Sprache (max. 5)<input type="number" inputmode="decimal" min="0" max="5" step="0.5" data-max="5"></label>
+    <label>Präsens &amp; sachlich (max. 2)<input type="number" inputmode="decimal" min="0" max="2" step="0.5" data-max="2"></label>
+    <label>Schluss (max. 2)<input type="number" inputmode="decimal" min="0" max="2" step="0.5" data-max="2"></label>
+  </div>
+
+  <div class="ka-ergebnis" aria-live="polite">
+    <span class="ka-gross" id="ka-summe">0 / 40</span>
+    <span class="ka-gross ka-note" id="ka-note">Note –</span>
+    <span id="ka-tendenz" class="klein"></span>
+    <span id="ka-warn" class="ka-warnung"></span>
+  </div>
+  <div class="werkzeugleiste">
+    <button class="btn" type="button" id="ka-hinzu">Zum Klassenspiegel hinzufügen</button>
+    <button class="btn hell" type="button" id="ka-leeren">Eingaben leeren</button>
+    <label class="klein"><input type="checkbox" id="ka-runden" checked> halbe Punkte zugunsten des Kindes aufrunden</label>
+  </div>
+
+  <details>
+    <summary><strong>Notenschlüssel anpassen</strong> (untere Grenze je Note)</summary>
+    <div class="ka-schluessel" id="ka-schluessel">
+      <label>Note 1 ab<input type="number" min="0" max="40" step="0.5" value="37"></label>
+      <label>Note 2 ab<input type="number" min="0" max="40" step="0.5" value="31"></label>
+      <label>Note 3 ab<input type="number" min="0" max="40" step="0.5" value="24"></label>
+      <label>Note 4 ab<input type="number" min="0" max="40" step="0.5" value="17"></label>
+      <label>Note 5 ab<input type="number" min="0" max="40" step="0.5" value="8"></label>
+      <label>Note 6 ab<input type="number" value="0" disabled></label>
+    </div>
+    <button class="btn klein hell" type="button" id="ka-standard">Standard wiederherstellen (37/31/24/17/8)</button>
+  </details>
+
+  <h3>Klassenspiegel</h3>
+  <div class="tabelle-scroll">
+    <table class="ka-spiegel">
+      <thead><tr><th>Note</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>Arbeiten</th><th>Durchschnitt</th></tr></thead>
+      <tbody><tr><td><strong>Anzahl</strong></td><td id="ka-n1">0</td><td id="ka-n2">0</td><td id="ka-n3">0</td><td id="ka-n4">0</td><td id="ka-n5">0</td><td id="ka-n6">0</td><td id="ka-nges">0</td><td id="ka-schnitt">–</td></tr></tbody>
+    </table>
+  </div>
+  <p class="klein">Der Klassenspiegel wird nur in diesem Browserfenster gezählt und nicht gespeichert. <button class="btn klein hell" type="button" id="ka-spiegel-reset">Klassenspiegel zurücksetzen</button></p>
+</section>
+
+<script>
+(function () {
+  // Wortzahl der Musterlösung (ohne Abschnittsbeschriftungen)
+  var muster = document.getElementById('ka-mustertext');
+  var wz = document.getElementById('ka-wortzahl');
+  if (muster && wz) {
+    var text = '';
+    muster.querySelectorAll('p').forEach(function (p) {
+      var k = p.cloneNode(true);
+      var abs = k.querySelector('.ka-abs');
+      if (abs) abs.remove();
+      text += ' ' + k.textContent;
+    });
+    wz.textContent = text.trim().split(/\s+/).filter(function (w) { return /[A-Za-zÄÖÜäöüß0-9]/.test(w); }).length;
+  }
+
+  // Punkte- und Notenrechner
+  var eingaben = Array.prototype.slice.call(document.querySelectorAll('#ka-eingaben input'));
+  var grenzenFelder = Array.prototype.slice.call(document.querySelectorAll('#ka-schluessel input:not([disabled])'));
+  var runden = document.getElementById('ka-runden');
+  var elSumme = document.getElementById('ka-summe');
+  var elNote = document.getElementById('ka-note');
+  var elTend = document.getElementById('ka-tendenz');
+  var elWarn = document.getElementById('ka-warn');
+  if (!eingaben.length || !elSumme) return;
+  var STANDARD = [37, 31, 24, 17, 8];
+  var spiegel = [0, 0, 0, 0, 0, 0];
+  var letzteNote = null;
+
+  function zahl(v) { var n = parseFloat(String(v).replace(',', '.')); return isNaN(n) ? 0 : n; }
+  function fmt(n) { return String(Math.round(n * 10) / 10).replace('.', ','); }
+
+  function grenzen() { return grenzenFelder.map(function (f) { return zahl(f.value); }); }
+
+  function noteFuer(p) {
+    var g = grenzen();
+    for (var i = 0; i < g.length; i++) { if (p >= g[i]) return i + 1; }
+    return 6;
+  }
+
+  function rechnen() {
+    var summe = 0, warn = '';
+    eingaben.forEach(function (f) {
+      var v = zahl(f.value), max = zahl(f.getAttribute('data-max'));
+      if (v > max || v < 0) { warn = 'Bitte Eingaben prüfen: Ein Wert liegt außerhalb des erlaubten Bereichs.'; }
+      summe += Math.max(0, Math.min(v, max));
+    });
+    var gewertet = runden && runden.checked ? Math.ceil(summe) : summe;
+    var note = noteFuer(gewertet);
+    letzteNote = note;
+    var g = grenzen();
+    var unten = note <= 5 ? g[note - 1] : 0;
+    var oben = note === 1 ? 40 : g[note - 2] - 0.5;
+    var tend = '';
+    if (note > 1 && gewertet >= oben - 0.5) tend = 'Tendenz: ' + note + '+ (obere Grenze)';
+    else if (note < 6 && gewertet <= unten + 0.5) tend = 'Tendenz: ' + note + '− (untere Grenze)';
+    elSumme.textContent = fmt(summe) + ' / 40';
+    elNote.textContent = 'Note ' + note;
+    elTend.textContent = tend + (gewertet !== summe ? (tend ? ' · ' : '') + 'gewertet: ' + fmt(gewertet) + ' P.' : '');
+    elWarn.textContent = warn;
+  }
+
+  function spiegelZeigen() {
+    var ges = 0, s = 0;
+    spiegel.forEach(function (n, i) {
+      document.getElementById('ka-n' + (i + 1)).textContent = n;
+      ges += n; s += n * (i + 1);
+    });
+    document.getElementById('ka-nges').textContent = ges;
+    document.getElementById('ka-schnitt').textContent = ges ? fmt(Math.round(s / ges * 100) / 100) : '–';
+  }
+
+  eingaben.concat(grenzenFelder).forEach(function (f) { f.addEventListener('input', rechnen); });
+  if (runden) runden.addEventListener('change', rechnen);
+  document.getElementById('ka-leeren').addEventListener('click', function () {
+    eingaben.forEach(function (f) { f.value = ''; });
+    rechnen();
+    eingaben[0].focus();
+  });
+  document.getElementById('ka-hinzu').addEventListener('click', function () {
+    var leer = eingaben.every(function (f) { return f.value === ''; });
+    if (leer) { elWarn.textContent = 'Bitte zuerst Punkte eintragen.'; return; }
+    spiegel[letzteNote - 1]++;
+    spiegelZeigen();
+    eingaben.forEach(function (f) { f.value = ''; });
+    rechnen();
+    eingaben[0].focus();
+  });
+  document.getElementById('ka-standard').addEventListener('click', function () {
+    grenzenFelder.forEach(function (f, i) { f.value = STANDARD[i]; });
+    rechnen();
+  });
+  document.getElementById('ka-spiegel-reset').addEventListener('click', function () {
+    spiegel = [0, 0, 0, 0, 0, 0];
+    spiegelZeigen();
+  });
+  rechnen();
+})();
+</script>
+
+</main>
+<footer class="site-footer no-print">
+  Unterrichtsreihe „Bildbeschreibung“ · Klasse 5 · Übungsbilder: eigene Illustrationen · Gemälde: Pieter Bruegel d. Ä. und Carl Spitzweg (gemeinfrei, Wikimedia Commons)
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,719 @@
+<style>
+/* ===== Beamer-Bilder (.bm-…) ===== */
+.bm-app [hidden] { display: none !important; }
+.bm-auswahl h2 { margin: 0 0 10px; font-size: 1.2rem; }
+.bm-thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+.bm-thumb { position: relative; display: flex; flex-direction: column; gap: 4px; align-items: stretch; background: #fff; border: 3px solid var(--line); border-radius: 12px; padding: 5px; cursor: pointer; font: 800 .8rem/1.2 var(--font-head); color: var(--ink); text-align: center; transition: border-color .15s, transform .1s; }
+.bm-thumb:hover { border-color: var(--orange); transform: translateY(-2px); }
+.bm-thumb[aria-pressed="true"] { border-color: var(--ink); box-shadow: 0 0 0 3px var(--orange); }
+.bm-thumb img { width: 100%; height: 72px; object-fit: cover; border-radius: 7px; background: #eee; }
+.bm-thumb .bm-nr { position: absolute; left: 8px; top: 8px; background: rgba(34,48,60,.85); color: #fff; border-radius: 6px; padding: 0 6px; font-size: .75rem; }
+.bm-thumb.bm-ka { border-color: var(--red); background: var(--red-soft); }
+.bm-thumb.bm-ka::after { content: "Klassenarbeit"; position: absolute; right: 6px; top: 6px; background: var(--red); color: #fff; font-size: .62rem; border-radius: 999px; padding: 1px 6px; }
+.bm-hafen-zeile { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin-top: 14px; padding-top: 12px; border-top: 2px dashed var(--line); }
+.bm-schalter { display: inline-flex; gap: 10px; align-items: center; cursor: pointer; font-family: var(--font-head); font-weight: 800; }
+.bm-schalter input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.bm-schalter .bm-spur { width: 48px; height: 26px; border-radius: 999px; background: #cfc6b5; position: relative; transition: background .2s; flex: none; }
+.bm-schalter .bm-spur::after { content: ""; position: absolute; left: 3px; top: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform .2s; box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+.bm-schalter input:checked + .bm-spur { background: var(--red); }
+.bm-schalter input:checked + .bm-spur::after { transform: translateX(22px); }
+.bm-schalter input:focus-visible + .bm-spur { outline: 3px solid var(--blue); outline-offset: 2px; }
+.bm-hafen-zeile small { color: var(--muted); }
+
+/* Bühne */
+.bm-buehne { background: #1b232c; color: #fff; border-radius: 18px; padding: 10px; margin: 18px 0; box-shadow: 0 10px 30px rgba(20,30,40,.25); }
+.bm-buehne.bm-voll { display: flex; flex-direction: column; width: 100vw; height: 100vh; margin: 0; border-radius: 0; padding: 8px 10px; }
+.bm-buehne.bm-pseudo { position: fixed; inset: 0; z-index: 9999; }
+html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
+.bm-leiste { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.bm-titelgruppe { display: flex; align-items: center; gap: 6px; margin-right: auto; min-width: 0; }
+.bm-titel { font-family: var(--font-head); font-weight: 900; font-size: 1.12rem; padding: 0 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 42vw; }
+.bm-knopf { display: inline-flex; align-items: center; gap: 6px; background: #2c3946; color: #fff; border: 2px solid #3b4a58; border-radius: 10px; padding: 6px 10px; cursor: pointer; font: 800 .88rem var(--font-head); transition: background .15s, border-color .15s; touch-action: manipulation; }
+.bm-knopf:hover { background: #3a4a5a; border-color: #5a6c7e; }
+.bm-knopf.an { background: var(--orange); border-color: #ffb27a; color: #fff; }
+.bm-knopf kbd { background: rgba(255,255,255,.16); border-radius: 4px; padding: 0 5px; font-size: .75rem; font-weight: 700; }
+.bm-knopf.rund { padding: 6px 12px; font-size: 1rem; }
+.bm-optionen { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.bm-opt { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; background: #26313c; border: 1px solid #3b4a58; border-radius: 10px; padding: 6px 12px; font-size: .9rem; }
+.bm-opt b { font-family: var(--font-head); color: #ffcf9f; }
+.bm-opt label { display: inline-flex; gap: 5px; align-items: center; cursor: pointer; }
+.bm-opt select, .bm-opt input[type="number"] { font: inherit; border-radius: 7px; border: 0; padding: 3px 6px; background: #fff; color: var(--ink); }
+.bm-opt input[type="number"] { width: 64px; }
+.bm-opt input[type="range"] { width: 130px; accent-color: var(--orange); }
+.bm-flaeche { position: relative; display: flex; justify-content: center; align-items: center; gap: 12px; padding: 10px 0 4px; min-height: 280px; }
+.bm-voll .bm-flaeche { flex: 1 1 0; min-height: 0; overflow: hidden; }
+
+.bm-bildbox { position: relative; flex: none; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+.bm-bildbox.bm-zieht { touch-action: none; }
+.bm-bildbox > img, .bm-vgl-box > img { display: block; width: 100%; height: 100%; border-radius: 6px; background: #fff; -webkit-user-drag: none; user-select: none; }
+.bm-ebene { position: absolute; inset: 0; border-radius: 6px; }
+
+.bm-raster { display: grid; pointer-events: none; }
+.bm-raster > div { border: 2px dashed rgba(255,255,255,.95); box-shadow: inset 0 0 0 1px rgba(0,0,0,.45); position: relative; }
+.bm-raster span { position: absolute; left: 6px; top: 6px; background: rgba(34,48,60,.86); color: #fff; border-radius: 999px; padding: 1px 10px; font: 800 clamp(.68rem, 1.25vw, 1.15rem)/1.4 var(--font-head); }
+.bm-bereiche { pointer-events: none; }
+.bm-bereiche svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.bm-bereiche polygon { fill-opacity: .3; stroke: #fff; stroke-width: 3; stroke-dasharray: 10 6; vector-effect: non-scaling-stroke; }
+.bm-blabel { position: absolute; color: #fff; border-radius: 999px; padding: 2px 12px; font: 900 clamp(.75rem, 1.5vw, 1.35rem)/1.35 var(--font-head); box-shadow: 0 2px 6px rgba(0,0,0,.35); white-space: nowrap; }
+
+.bm-kacheln { display: grid; overflow: hidden; }
+.bm-kachel { border: 1px solid rgba(255,255,255,.35); cursor: pointer; display: grid; place-items: center; color: rgba(255,255,255,.9); font: 900 clamp(.9rem, 2vw, 1.8rem) var(--font-head); transition: opacity .35s, transform .35s; padding: 0; }
+.bm-kachel:hover { filter: brightness(1.15); }
+.bm-kachel.offen { opacity: 0; transform: scale(.85); pointer-events: none; }
+.bm-guckloch { overflow: hidden; cursor: grab; touch-action: none; }
+.bm-guckloch:active { cursor: grabbing; }
+.bm-loch { position: absolute; border-radius: 50%; transform: translate(-50%, -50%); box-shadow: 0 0 0 4000px #141b22; border: 4px solid #fff; transition: width .2s, height .2s; }
+.bm-lupe { position: absolute; border-radius: 50%; border: 5px solid #fff; box-shadow: 0 6px 20px rgba(0,0,0,.45), inset 0 0 0 2px rgba(0,0,0,.25); pointer-events: none; background-repeat: no-repeat; background-color: #fff; z-index: 5; }
+.bm-vorhang { z-index: 6; display: grid; place-items: center; text-align: center; padding: 20px; background: repeating-linear-gradient(90deg, #7a4fa8 0 50px, #6a4096 50px 100px); font: 900 clamp(1.3rem, 3.4vw, 3rem)/1.2 var(--font-head); }
+.bm-vorhang small { display: block; color: #fff; font-size: .5em; font-weight: 700; margin: 10px 0 16px; opacity: .92; }
+.bm-uhr { position: absolute; right: 14px; top: 14px; z-index: 7; width: clamp(64px, 9vw, 120px); height: clamp(64px, 9vw, 120px); border-radius: 50%; background: rgba(255,255,255,.95); color: var(--ink); border: 6px solid var(--orange); display: grid; place-items: center; font: 900 clamp(1.6rem, 4vw, 3.4rem) var(--font-head); }
+.bm-uhr.knapp { border-color: var(--red); color: var(--red); }
+.bm-meldung { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 9; background: rgba(20,27,34,.88); color: #fff; padding: 6px 16px; border-radius: 999px; font: 800 .95rem var(--font-head); opacity: 0; transition: opacity .25s; pointer-events: none; white-space: nowrap; }
+.bm-meldung.zeigen { opacity: 1; }
+.bm-info { position: absolute; left: 10px; bottom: 10px; z-index: 8; max-width: min(420px, 90%); background: rgba(255,253,248,.97); color: var(--ink); border-radius: 14px; padding: 14px 18px; box-shadow: 0 8px 24px rgba(0,0,0,.35); font-size: clamp(.9rem, 1.3vw, 1.15rem); }
+.bm-info h3 { margin: 0 32px 6px 0; font-size: 1.3em; }
+.bm-info dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 0; }
+.bm-info dt { font-family: var(--font-head); font-weight: 800; color: var(--muted); }
+.bm-info dd { margin: 0; }
+.bm-info .bm-zu { position: absolute; right: 8px; top: 8px; border: 0; background: #eceae4; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 1rem; }
+.bm-vgl-box { position: relative; flex: none; }
+.bm-vgl-box .bm-vgl-label { position: absolute; left: 8px; top: 8px; z-index: 2; background: rgba(34,48,60,.88); color: #fff; border-radius: 999px; padding: 2px 12px; font: 900 .95rem var(--font-head); }
+.bm-vgl-box img.bm-vgl-oben { position: absolute; inset: 0; transition: opacity .15s; }
+.bm-vgl-box svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+.bm-vgl-box svg circle { fill: none; stroke: #f5c518; stroke-width: 6; stroke-dasharray: 14 8; }
+.bm-vgl-box svg text { font: 900 26px Nunito, Arial, sans-serif; fill: #22303c; stroke: #f5c518; stroke-width: 6; paint-order: stroke; }
+
+.bm-legende table { font-size: .92rem; }
+.bm-legende kbd { display: inline-block; min-width: 26px; text-align: center; background: #fff; border: 1px solid var(--line-strong); border-bottom-width: 3px; border-radius: 6px; padding: 1px 6px; font-weight: 700; }
+@media (max-width: 700px) {
+  .bm-knopf { padding: 5px 8px; font-size: .8rem; }
+  .bm-knopf kbd { display: none; }
+  .bm-titel { max-width: 60vw; font-size: 1rem; }
+}
+@media print { .bm-buehne { display: none; } }
+</style>
+
+<header class="seitenkopf">
+  <div>
+    <div class="kicker">Für die Lehrkraft · Präsentation</div>
+    <h1>Bilder für den Beamer</h1>
+    <p>Alle Unterrichtsbilder in groß – mit Raster, Bildbereichen, Lupe, Kim-Timer, Ausschnitt-Rätsel und Fehlerbild-Vergleich. Am besten im Vollbild zeigen (Taste <kbd>F</kbd>).</p>
+  </div>
+  <img src="bilder/lupo.svg" alt="">
+</header>
+
+<div class="bm-app" id="bm-app">
+  <section class="card bm-auswahl no-print" aria-labelledby="bm-auswahl-h">
+    <h2 id="bm-auswahl-h">1. Bild wählen</h2>
+    <div class="bm-thumbs" id="bm-thumbs"></div>
+    <div class="bm-hafen-zeile">
+      <label class="bm-schalter"><input type="checkbox" id="bm-hafen-schalter"><span class="bm-spur" aria-hidden="true"></span><span>Klassenarbeitsbild anzeigen</span></label>
+      <small>Das Bild „Im Hafen“ ist standardmäßig ausgeblendet.</small>
+    </div>
+    <div class="achtung" id="bm-hafen-warnung" hidden>
+      <p><strong>„Im Hafen“ ist das Bild der Klassenarbeit (Stunde 13).</strong> Bitte vor der Arbeit nicht im Unterricht zeigen – sonst kennen die Kinder das Bild schon. Nutzen Sie es erst zur Rückgabe und Besprechung (Stunde 14). Achten Sie darauf, dass der Beamer aus ist, solange Sie den Schalter umlegen.</p>
+    </div>
+  </section>
+
+  <section class="bm-buehne" id="bm-buehne" aria-label="Präsentationsfläche">
+    <div class="bm-leiste" role="toolbar" aria-label="Werkzeuge">
+      <div class="bm-titelgruppe">
+        <button type="button" class="bm-knopf rund" data-aktion="zurueck" title="Vorheriges Bild (Pfeil links)" aria-label="Vorheriges Bild">◀</button>
+        <span class="bm-titel" id="bm-titel" aria-live="polite"></span>
+        <button type="button" class="bm-knopf rund" data-aktion="vor" title="Nächstes Bild (Pfeil rechts)" aria-label="Nächstes Bild">▶</button>
+      </div>
+      <button type="button" class="bm-knopf" data-aktion="vollbild" aria-pressed="false">⛶ Vollbild <kbd>F</kbd></button>
+      <button type="button" class="bm-knopf" data-werkzeug="raster" aria-pressed="false">▦ Raster <kbd>R</kbd></button>
+      <button type="button" class="bm-knopf" data-werkzeug="bereiche" aria-pressed="false">☰ Bereiche <kbd>B</kbd></button>
+      <button type="button" class="bm-knopf" data-werkzeug="lupe" aria-pressed="false">🔍 Lupe <kbd>L</kbd></button>
+      <button type="button" class="bm-knopf" data-werkzeug="kim" aria-pressed="false">⏱ Kim-Spiel <kbd>K</kbd></button>
+      <button type="button" class="bm-knopf" data-werkzeug="ausschnitt" aria-pressed="false">◐ Ausschnitt <kbd>A</kbd></button>
+      <button type="button" class="bm-knopf" data-werkzeug="vergleich" aria-pressed="false">⇆ Fehlerbild <kbd>V</kbd></button>
+      <button type="button" class="bm-knopf" data-werkzeug="info" aria-pressed="false">ⓘ Bildinfo <kbd>I</kbd></button>
+    </div>
+
+    <div class="bm-optionen" id="bm-optionen">
+      <div class="bm-opt" data-optionen="raster" hidden>
+        <b>Raster</b>
+        <label><input type="radio" name="bm-raster-n" value="3" checked> 3 × 3</label>
+        <label><input type="radio" name="bm-raster-n" value="2"> 2 × 2 (Viertel, z. B. AB 15)</label>
+        <label>Beschriftung <select id="bm-raster-text">
+          <option value="begriffe">Fachbegriffe</option>
+          <option value="nummern">Nummern</option>
+          <option value="aus">keine</option>
+        </select></label>
+      </div>
+      <div class="bm-opt" data-optionen="bereiche" hidden>
+        <b>Bereiche</b> <span id="bm-bereiche-hinweis">Halbtransparente Bänder zeigen die Bildaufteilung (ungefähr).</span>
+      </div>
+      <div class="bm-opt" data-optionen="lupe" hidden>
+        <b>Lupe</b>
+        <label>Vergrößerung <select id="bm-zoom"><option value="2">2-fach</option><option value="3" selected>3-fach</option><option value="4">4-fach</option><option value="6">6-fach</option></select></label>
+        <label>Größe <select id="bm-lupengroesse"><option value="0.22">klein</option><option value="0.32" selected>mittel</option><option value="0.45">groß</option></select></label>
+        <span>Maus über das Bild bewegen (am Tablet: mit dem Finger ziehen).</span>
+      </div>
+      <div class="bm-opt" data-optionen="kim" hidden>
+        <b>Kim-Spiel</b>
+        <label>Zeigen für <input type="number" id="bm-kim-sek" min="3" max="180" value="20"> Sekunden</label>
+        <button type="button" class="bm-knopf" id="bm-kim-start">▶ Start</button>
+        <button type="button" class="bm-knopf" id="bm-kim-auf">Aufdecken</button>
+      </div>
+      <div class="bm-opt" data-optionen="ausschnitt" hidden>
+        <b>Ausschnitt-Rätsel</b>
+        <label><input type="radio" name="bm-a-modus" value="loch" checked> Guckloch</label>
+        <label><input type="radio" name="bm-a-modus" value="kacheln"> Kacheln aufdecken</label>
+        <span id="bm-a-loch-opt"><label>Größe <input type="range" id="bm-loch-r" min="3" max="60" value="10"></label>
+          <button type="button" class="bm-knopf" data-loch="-">−</button><button type="button" class="bm-knopf" data-loch="+">+</button></span>
+        <span id="bm-a-kachel-opt" hidden><label>Kacheln <select id="bm-kachel-n"><option value="3">3 × 3</option><option value="4" selected>4 × 4</option><option value="5">5 × 5</option><option value="6">6 × 6</option></select></label>
+          <button type="button" class="bm-knopf" id="bm-kachel-zufall">Zufällige Kachel <kbd>Z</kbd></button>
+          <button type="button" class="bm-knopf" id="bm-kachel-neu">Neu verdecken</button></span>
+        <button type="button" class="bm-knopf" id="bm-a-alles">Alles zeigen</button>
+      </div>
+      <div class="bm-opt" data-optionen="vergleich" hidden>
+        <b>Fehlerbild</b>
+        <label><input type="radio" name="bm-v-modus" value="neben" checked> nebeneinander</label>
+        <label><input type="radio" name="bm-v-modus" value="ueber"> überblenden</label>
+        <span id="bm-v-ueber-opt" hidden><label>A <input type="range" id="bm-v-regler" min="0" max="100" value="0"> B</label>
+          <button type="button" class="bm-knopf" id="bm-v-blinken" aria-pressed="false">Blinken</button></span>
+        <label><input type="checkbox" id="bm-v-loesung"> 8 Unterschiede markieren</label>
+      </div>
+    </div>
+
+    <div class="bm-flaeche" id="bm-flaeche">
+      <div class="bm-bildbox" id="bm-bildbox">
+        <img id="bm-bild" src="bilder/sommertag-am-see.svg" alt="" draggable="false">
+        <div class="bm-ebene bm-raster" id="bm-raster" hidden></div>
+        <div class="bm-ebene bm-bereiche" id="bm-bereiche" hidden></div>
+        <div class="bm-ebene bm-kacheln" id="bm-kacheln" hidden></div>
+        <div class="bm-ebene bm-guckloch" id="bm-guckloch" hidden><div class="bm-loch" id="bm-loch"></div></div>
+        <div class="bm-lupe" id="bm-lupe" hidden></div>
+        <div class="bm-ebene bm-vorhang" id="bm-vorhang" hidden></div>
+        <div class="bm-uhr" id="bm-uhr" hidden></div>
+      </div>
+      <div class="bm-vgl-box" id="bm-vgl-a" hidden><span class="bm-vgl-label">A · Original</span><img src="bilder/kinderzimmer.svg" alt="Das Kinderzimmer, Original" draggable="false"></div>
+      <div class="bm-vgl-box" id="bm-vgl-b" hidden><span class="bm-vgl-label" id="bm-vgl-b-label">B · Fehlerbild</span><img src="bilder/kinderzimmer.svg" alt="" id="bm-vgl-unten" draggable="false" hidden><img src="bilder/kinderzimmer-b.svg" alt="Das Kinderzimmer, Fehlerbild" id="bm-vgl-oben" draggable="false"><svg viewBox="0 0 800 560" preserveAspectRatio="none" id="bm-vgl-svg" hidden aria-hidden="true"></svg></div>
+      <div class="bm-info" id="bm-info" hidden></div>
+      <div class="bm-meldung" id="bm-meldung" role="status"></div>
+    </div>
+  </section>
+
+  <div class="grid-2">
+    <section class="card bm-legende" aria-labelledby="bm-tasten-h">
+      <h2 id="bm-tasten-h" style="font-size:1.2rem">Tastaturkürzel</h2>
+      <table>
+        <tr><td><kbd>→</kbd> <kbd>←</kbd></td><td>nächstes / vorheriges Bild (auch Presenter: <kbd>Bild ↓</kbd> <kbd>Bild ↑</kbd>)</td></tr>
+        <tr><td><kbd>1</kbd> … <kbd>9</kbd></td><td>Bild direkt wählen</td></tr>
+        <tr><td><kbd>F</kbd></td><td>Vollbild an/aus</td></tr>
+        <tr><td><kbd>R</kbd></td><td>Raster an/aus</td></tr>
+        <tr><td><kbd>B</kbd></td><td>Bereiche (Vorder-, Mittel-, Hintergrund) an/aus</td></tr>
+        <tr><td><kbd>L</kbd></td><td>Lupe an/aus</td></tr>
+        <tr><td><kbd>K</kbd></td><td>Kim-Spiel: starten · abbrechen · aufdecken</td></tr>
+        <tr><td><kbd>A</kbd></td><td>Ausschnitt-Rätsel an/aus; <kbd>+</kbd> / <kbd>−</kbd> Guckloch größer/kleiner, <kbd>Z</kbd> zufällige Kachel</td></tr>
+        <tr><td><kbd>V</kbd></td><td>Fehlerbild-Vergleich (Kinderzimmer A/B)</td></tr>
+        <tr><td><kbd>I</kbd></td><td>Bildinfo (Titel, Künstler, Jahr)</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>alle Werkzeuge aus (im Vollbild: Vollbild beenden)</td></tr>
+      </table>
+    </section>
+    <section class="card" aria-labelledby="bm-einsatz-h">
+      <h2 id="bm-einsatz-h" style="font-size:1.2rem">Einsatz in der Reihe</h2>
+      <ul>
+        <li><strong>Stunde 1:</strong> Kim-Spiel mit „Sommertag am See“ (20 Sek.); Fehlerbild-Vergleich zur Auflösung von AB 1 – erst „Blinken“, dann „8 Unterschiede markieren“.</li>
+        <li><strong>Stunde 2:</strong> Raster (Fachbegriffe) und Bereiche zum „Sommertag“; Zeigestock-Spiel: „Was liegt in der rechten unteren Ecke?“</li>
+        <li><strong>Stunde 3:</strong> Kinderzimmer mit Raster für Ortsangaben und Präpositionen.</li>
+        <li><strong>Stunde 4/5:</strong> Wochenmarkt mit Lupe (Farben, Muster, Verben) und Ausschnitt-Rätsel („Was zeigt das Guckloch?“).</li>
+        <li><strong>Stunde 6:</strong> Bildinfo zum „Bücherwurm“ für die W-Fragen der Einleitung.</li>
+        <li><strong>Stunde 8:</strong> „Die Jäger im Schnee“ mit Bereichen und Lupe; Kacheln aufdecken für Vermutungen.</li>
+        <li><strong>Stunde 11:</strong> „Die Kinderspiele“ mit Raster 2 × 2 für die vier Expertengruppen (AB 15).</li>
+        <li><strong>Stunde 14:</strong> „Im Hafen“ zur Besprechung der Klassenarbeit (Schalter oben).</li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return [].slice.call((r || document).querySelectorAll(s)); }
+
+  /* ---------- Bereichs-Formen (Angaben in Prozent) ---------- */
+  var FARBE = { VG: '#e8833a', MG: '#1f8f88', HG: '#2f6fb5', L: '#7a4fa8', M: '#d9a400', R: '#c2185b' };
+  var NAME = { VG: 'Vordergrund', MG: 'Mittelgrund', HG: 'Hintergrund', L: 'Linker Bildteil', M: 'Bildmitte', R: 'Rechter Bildteil' };
+  function baender(hg, mg) { // Grenzen HG|MG und MG|VG in %
+    return [
+      { k: 'HG', p: [[0, 0], [100, 0], [100, hg], [0, hg]], l: [98.5, hg - 1.5, 'ru'] },
+      { k: 'MG', p: [[0, hg], [100, hg], [100, mg], [0, mg]], l: [98.5, mg - 1.5, 'ru'] },
+      { k: 'VG', p: [[0, mg], [100, mg], [100, 100], [0, 100]], l: [98.5, 98.5, 'ru'] }
+    ];
+  }
+  function spalten(a, b) {
+    return [
+      { k: 'L', p: [[0, 0], [a, 0], [a, 100], [0, 100]], l: [a / 2, 97, 'mu'] },
+      { k: 'M', p: [[a, 0], [b, 0], [b, 100], [a, 100]], l: [(a + b) / 2, 97, 'mu'] },
+      { k: 'R', p: [[b, 0], [100, 0], [100, 100], [b, 100]], l: [(b + 100) / 2, 97, 'mu'] }
+    ];
+  }
+  var ILLU = { art: 'Zeichnung (Illustration)', von: 'unbekannt – aus dem Unterrichtsmaterial', jahr: '–' };
+  var BILDER = [
+    { id: 'sommertag', datei: 'sommertag-am-see.svg', titel: 'Sommertag am See', w: 800, h: 560, info: ILLU, stunden: 'Stunde 1, 2, 5–8', bereiche: baender(50.5, 71.5) },
+    { id: 'kinderzimmer', datei: 'kinderzimmer.svg', titel: 'Das Kinderzimmer', w: 800, h: 560, info: ILLU, stunden: 'Stunde 1 und 3', bereiche: spalten(36.5, 67), bereichHinweis: 'Im Kinderzimmer ordnet man besser von links nach rechts.' },
+    { id: 'kinderzimmer-b', datei: 'kinderzimmer-b.svg', titel: 'Das Kinderzimmer (Fehlerbild)', w: 800, h: 560, info: ILLU, stunden: 'Stunde 1 (AB 1)', bereiche: spalten(36.5, 67), bereichHinweis: 'Im Kinderzimmer ordnet man besser von links nach rechts.' },
+    { id: 'wochenmarkt', datei: 'wochenmarkt.svg', titel: 'Auf dem Wochenmarkt', w: 800, h: 560, info: ILLU, stunden: 'Stunde 4, 5 und 10', bereiche: baender(34, 71.5) },
+    { id: 'schulhof', datei: 'schulhof.svg', titel: 'Auf dem Schulhof', w: 800, h: 560, info: ILLU, stunden: 'Stunde 9 und 10', bereiche: baender(48, 77) },
+    { id: 'jaeger', datei: 'jaeger-im-schnee.jpg', titel: 'Die Jäger im Schnee', w: 1920, h: 1366, stunden: 'Stunde 8',
+      info: { art: 'Gemälde, Öl auf Holz', von: 'Pieter Bruegel der Ältere', jahr: '1565', mass: '117 × 162 cm', ort: 'Kunsthistorisches Museum Wien' },
+      bereiche: [
+        { k: 'HG', p: [[0, 0], [100, 0], [100, 42], [24, 42], [0, 30]], l: [62, 3] },
+        { k: 'MG', p: [[24, 42], [100, 42], [100, 100], [72, 100], [62, 78], [45, 55]], l: [78, 46] },
+        { k: 'VG', p: [[0, 30], [24, 42], [45, 55], [62, 78], [72, 100], [0, 100]], l: [2, 97, 'lu'] }
+      ], bereichHinweis: 'Bei Bruegel verlaufen die Bereiche schräg – die Jäger stehen auf einem Hügel im Vordergrund.' },
+    { id: 'kinderspiele', datei: 'kinderspiele.jpg', titel: 'Die Kinderspiele', w: 1920, h: 1395, stunden: 'Stunde 11',
+      info: { art: 'Gemälde, Öl auf Holz', von: 'Pieter Bruegel der Ältere', jahr: '1560', mass: '118 × 161 cm', ort: 'Kunsthistorisches Museum Wien' },
+      bereiche: baender(33, 62), bereichHinweis: 'Ungefähre Einteilung – das Bild ist von oben gesehen. Für die Expertengruppen besser: Raster 2 × 2.' },
+    { id: 'buecherwurm', datei: 'buecherwurm.jpg', titel: 'Der Bücherwurm', w: 859, h: 1600, stunden: 'Stunde 6 und 11',
+      info: { art: 'Gemälde, Öl auf Leinwand', von: 'Carl Spitzweg', jahr: 'um 1850', mass: 'Hochformat', ort: 'Museum Georg Schäfer, Schweinfurt' },
+      bereiche: null },
+    { id: 'hafen', datei: 'im-hafen.svg', titel: 'Im Hafen', w: 800, h: 560, klassenarbeit: true, stunden: 'Stunde 13 (Klassenarbeit) und 14 (Rückgabe)',
+      info: { art: 'Zeichnung (Illustration)', von: 'unbekannt – aus dem Unterrichtsmaterial', jahr: '–' }, bereiche: baender(41, 75) }
+  ];
+  var UNTERSCHIEDE = [[145, 165, 72, 'Poster'], [200, 388, 30, 'Ball'], [568, 128, 44, 'Katze'], [420, 468, 54, ''], [730, 170, 40, 'Uhr'], [745, 258, 40, 'Lampe'], [768, 322, 34, 'Rucksack'], [470, 200, 38, 'Blume'], [592, 176, 38, 'Bücher']];
+  var RASTER_TEXT = {
+    3: { begriffe: ['linke obere Ecke', 'oberer Bildrand', 'rechte obere Ecke', 'linker Bildrand', 'Bildmitte', 'rechter Bildrand', 'linke untere Ecke', 'unterer Bildrand', 'rechte untere Ecke'] },
+    2: { begriffe: ['links oben', 'rechts oben', 'links unten', 'rechts unten'] }
+  };
+
+  var buehne = $('#bm-buehne'), flaeche = $('#bm-flaeche'), box = $('#bm-bildbox'), bild = $('#bm-bild');
+  var ebRaster = $('#bm-raster'), ebBereiche = $('#bm-bereiche'), ebKacheln = $('#bm-kacheln'), ebLoch = $('#bm-guckloch'), loch = $('#bm-loch');
+  var lupeEl = $('#bm-lupe'), vorhang = $('#bm-vorhang'), uhr = $('#bm-uhr'), infoEl = $('#bm-info'), meldungEl = $('#bm-meldung');
+  var vglA = $('#bm-vgl-a'), vglB = $('#bm-vgl-b'), vglOben = $('#bm-vgl-oben'), vglUnten = $('#bm-vgl-unten'), vglSvg = $('#bm-vgl-svg');
+  var hafenSchalter = $('#bm-hafen-schalter');
+
+  var st = {
+    id: 'sommertag', hafen: false,
+    an: { raster: false, bereiche: false, lupe: false, kim: false, ausschnitt: false, vergleich: false, info: false },
+    rasterN: 3, rasterText: 'begriffe', zoom: 3, lupenFaktor: 0.32,
+    lochX: 50, lochY: 50, lochR: 10, aModus: 'loch', kachelN: 4,
+    vModus: 'neben', blinkTimer: null, kimTimer: null, kimEnde: 0
+  };
+
+  function sichtbare() { return BILDER.filter(function (b) { return !b.klassenarbeit || st.hafen; }); }
+  function aktuell() { for (var i = 0; i < BILDER.length; i++) if (BILDER[i].id === st.id) return BILDER[i]; return BILDER[0]; }
+
+  var meldungTimer = null;
+  function meldung(t) {
+    meldungEl.textContent = t;
+    meldungEl.classList.add('zeigen');
+    clearTimeout(meldungTimer);
+    meldungTimer = setTimeout(function () { meldungEl.classList.remove('zeigen'); }, 2200);
+  }
+
+  /* ---------- Bildauswahl ---------- */
+  function thumbsZeichnen() {
+    var t = $('#bm-thumbs');
+    t.innerHTML = '';
+    sichtbare().forEach(function (b, i) {
+      var k = document.createElement('button');
+      k.type = 'button';
+      k.className = 'bm-thumb' + (b.klassenarbeit ? ' bm-ka' : '');
+      k.setAttribute('aria-pressed', b.id === st.id ? 'true' : 'false');
+      k.innerHTML = '<img src="bilder/' + b.datei + '" alt="" loading="lazy"><span class="bm-nr">' + (i + 1) + '</span><span></span>';
+      k.lastChild.textContent = b.titel;
+      k.addEventListener('click', function () { waehlen(b.id); });
+      t.appendChild(k);
+    });
+  }
+  function waehlen(id) {
+    st.id = id;
+    var b = aktuell();
+    if (st.an.vergleich) werkzeug('vergleich', false, true);
+    kimStopp(true);
+    bild.src = 'bilder/' + b.datei;
+    bild.alt = b.titel;
+    $('#bm-titel').textContent = b.titel + (b.info && b.info.von && b.info.jahr !== '–' ? ' – ' + b.info.von + ', ' + b.info.jahr : '');
+    lupeEl.style.backgroundImage = 'url("bilder/' + b.datei + '")';
+    $$('.bm-thumb').forEach(function (k, i) { k.setAttribute('aria-pressed', sichtbare()[i] && sichtbare()[i].id === id ? 'true' : 'false'); });
+    if (st.an.bereiche) bereicheZeichnen();
+    if (st.an.ausschnitt) ausschnittReset();
+    infoZeichnen();
+    layout();
+  }
+  function blaettern(d) {
+    var l = sichtbare(), i = 0;
+    for (var k = 0; k < l.length; k++) if (l[k].id === st.id) i = k;
+    i = (i + d + l.length) % l.length;
+    waehlen(l[i].id);
+    meldung((i + 1) + ' / ' + l.length + ': ' + l[i].titel);
+  }
+
+  hafenSchalter.addEventListener('change', function () {
+    if (hafenSchalter.checked) {
+      var ok = true;
+      try { ok = window.confirm('Achtung: „Im Hafen“ ist das Bild der Klassenarbeit.\nNur zur Rückgabe und Besprechung zeigen.\n\nKlassenarbeitsbild wirklich einblenden?'); } catch (e) { ok = true; }
+      if (!ok) { hafenSchalter.checked = false; return; }
+    }
+    st.hafen = hafenSchalter.checked;
+    $('#bm-hafen-warnung').hidden = !st.hafen;
+    if (!st.hafen && st.id === 'hafen') waehlen(sichtbare()[0].id);
+    thumbsZeichnen();
+  });
+
+  /* ---------- Größe ---------- */
+  function istVoll() { return !!(document.fullscreenElement || document.webkitFullscreenElement) || buehne.classList.contains('bm-pseudo'); }
+  function verfuegbar() {
+    var w = flaeche.clientWidth - 4;
+    var h = istVoll() ? flaeche.clientHeight - 16 : Math.max(280, Math.min(window.innerHeight * 0.74, 980));
+    return { w: Math.max(w, 120), h: Math.max(h, 120) };
+  }
+  function einpassen(el, bw, bh, aw, ah) {
+    var s = Math.min(aw / bw, ah / bh);
+    el.style.width = Math.floor(bw * s) + 'px';
+    el.style.height = Math.floor(bh * s) + 'px';
+  }
+  function layout() {
+    var a = verfuegbar();
+    if (st.an.vergleich) {
+      if (st.vModus === 'neben') { einpassen(vglA, 800, 560, (a.w - 12) / 2, a.h); einpassen(vglB, 800, 560, (a.w - 12) / 2, a.h); }
+      else einpassen(vglB, 800, 560, a.w, a.h);
+    } else {
+      var b = aktuell();
+      einpassen(box, b.w, b.h, a.w, a.h);
+      lochZeichnen();
+    }
+  }
+  window.addEventListener('resize', function () { layout(); });
+
+  /* ---------- Raster ---------- */
+  function rasterZeichnen() {
+    var n = st.rasterN;
+    ebRaster.innerHTML = '';
+    ebRaster.style.gridTemplateColumns = 'repeat(' + n + ', 1fr)';
+    ebRaster.style.gridTemplateRows = 'repeat(' + n + ', 1fr)';
+    for (var i = 0; i < n * n; i++) {
+      var c = document.createElement('div');
+      if (st.rasterText !== 'aus') {
+        var s = document.createElement('span');
+        s.textContent = st.rasterText === 'nummern' ? String(i + 1) : RASTER_TEXT[n].begriffe[i];
+        c.appendChild(s);
+      }
+      ebRaster.appendChild(c);
+    }
+  }
+  $$('input[name="bm-raster-n"]').forEach(function (r) { r.addEventListener('change', function () { st.rasterN = parseInt(r.value, 10); rasterZeichnen(); }); });
+  $('#bm-raster-text').addEventListener('change', function () { st.rasterText = this.value; rasterZeichnen(); });
+
+  /* ---------- Bereiche ---------- */
+  function bereicheZeichnen() {
+    var b = aktuell();
+    ebBereiche.innerHTML = '';
+    var hinweis = $('#bm-bereiche-hinweis');
+    if (!b.bereiche) {
+      ebBereiche.hidden = true;
+      hinweis.textContent = 'Für dieses Bild passt die Einteilung in Bereiche nicht gut – nutzen Sie lieber das Raster (R).';
+      return false;
+    }
+    hinweis.textContent = b.bereichHinweis || 'Halbtransparente Bänder zeigen die Bildaufteilung (ungefähr).';
+    var svg = '<svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">';
+    b.bereiche.forEach(function (f) {
+      svg += '<polygon points="' + f.p.map(function (q) { return q[0] + ',' + q[1]; }).join(' ') + '" fill="' + FARBE[f.k] + '"/>';
+    });
+    svg += '</svg>';
+    ebBereiche.innerHTML = svg;
+    b.bereiche.forEach(function (f) {
+      var l = document.createElement('span');
+      l.className = 'bm-blabel';
+      l.style.left = f.l[0] + '%'; l.style.top = f.l[1] + '%'; l.style.background = FARBE[f.k];
+      if (f.l[2] === 'ru') l.style.transform = 'translate(-100%, -100%)';
+      else if (f.l[2] === 'lu') l.style.transform = 'translateY(-100%)';
+      else if (f.l[2] === 'mu') l.style.transform = 'translate(-50%, -100%)';
+      l.textContent = NAME[f.k];
+      ebBereiche.appendChild(l);
+    });
+    ebBereiche.hidden = false;
+    return true;
+  }
+
+  /* ---------- Lupe ---------- */
+  function lupeBewegen(e) {
+    if (!st.an.lupe) return;
+    var r = box.getBoundingClientRect();
+    var x = e.clientX - r.left, y = e.clientY - r.top;
+    if (x < 0 || y < 0 || x > r.width || y > r.height) { lupeEl.hidden = true; return; }
+    var L = Math.round(Math.max(110, Math.min(r.width, r.height) * st.lupenFaktor * 1.4));
+    var z = st.zoom;
+    lupeEl.hidden = false;
+    lupeEl.style.width = L + 'px'; lupeEl.style.height = L + 'px';
+    lupeEl.style.left = (x - L / 2) + 'px'; lupeEl.style.top = (y - L / 2) + 'px';
+    lupeEl.style.backgroundSize = (r.width * z) + 'px ' + (r.height * z) + 'px';
+    lupeEl.style.backgroundPosition = (-(x * z - L / 2)) + 'px ' + (-(y * z - L / 2)) + 'px';
+  }
+  box.addEventListener('pointermove', lupeBewegen);
+  box.addEventListener('pointerdown', lupeBewegen);
+  box.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') lupeEl.hidden = true; });
+  $('#bm-zoom').addEventListener('change', function () { st.zoom = parseFloat(this.value) || 3; });
+  $('#bm-lupengroesse').addEventListener('change', function () { st.lupenFaktor = parseFloat(this.value) || 0.32; });
+
+  /* ---------- Kim-Spiel ---------- */
+  function kimStopp(vorhangWeg) {
+    if (st.kimTimer) { clearInterval(st.kimTimer); st.kimTimer = null; }
+    uhr.hidden = true;
+    if (vorhangWeg) vorhang.hidden = true;
+  }
+  function kimStart() {
+    if (st.an.vergleich) werkzeug('vergleich', false, true);
+    if (!st.an.kim) werkzeug('kim', true, true);
+    kimStopp(true);
+    var sek = parseInt($('#bm-kim-sek').value, 10);
+    if (!(sek >= 1)) sek = 20;
+    sek = Math.min(sek, 600);
+    st.kimEnde = Date.now() + sek * 1000;
+    uhr.hidden = false; uhr.textContent = sek; uhr.classList.remove('knapp');
+    st.kimTimer = setInterval(function () {
+      var rest = st.kimEnde - Date.now();
+      var s = Math.max(0, Math.ceil(rest / 1000));
+      uhr.textContent = s;
+      uhr.classList.toggle('knapp', s <= 5);
+      if (rest <= 0) {
+        kimStopp(false);
+        vorhang.innerHTML = '<div>Zeit ist um!<small>Was habt ihr gesehen? Schreibt alles auf, woran ihr euch erinnert.</small><button type="button" class="bm-knopf" id="bm-kim-auf2">Bild aufdecken <kbd>K</kbd></button></div>';
+        vorhang.hidden = false;
+        var auf = $('#bm-kim-auf2');
+        if (auf) auf.addEventListener('click', kimAufdecken);
+      }
+    }, 200);
+    meldung('Kim-Spiel: ' + sek + ' Sekunden');
+  }
+  function kimAufdecken() { kimStopp(true); meldung('Bild aufgedeckt'); }
+  function kimTaste() {
+    if (st.kimTimer) { kimStopp(true); meldung('Kim-Spiel abgebrochen'); }
+    else if (!vorhang.hidden) kimAufdecken();
+    else kimStart();
+  }
+  $('#bm-kim-start').addEventListener('click', kimStart);
+  $('#bm-kim-auf').addEventListener('click', kimAufdecken);
+
+  /* ---------- Ausschnitt-Rätsel ---------- */
+  var KFARBEN = ['#7a4fa8', '#2f6fb5', '#1f8f88', '#3d8b40', '#e8833a', '#cc4141', '#c2185b', '#5c6bc0'];
+  function kachelnZeichnen() {
+    var n = st.kachelN;
+    ebKacheln.innerHTML = '';
+    ebKacheln.style.gridTemplateColumns = 'repeat(' + n + ', 1fr)';
+    ebKacheln.style.gridTemplateRows = 'repeat(' + n + ', 1fr)';
+    for (var i = 0; i < n * n; i++) {
+      var k = document.createElement('button');
+      k.type = 'button';
+      k.className = 'bm-kachel';
+      k.style.background = KFARBEN[(i + Math.floor(i / n)) % KFARBEN.length];
+      k.textContent = String(i + 1);
+      k.setAttribute('aria-label', 'Kachel ' + (i + 1) + ' aufdecken');
+      k.addEventListener('click', function () { this.classList.add('offen'); });
+      ebKacheln.appendChild(k);
+    }
+  }
+  function zufallsKachel() {
+    var zu = $$('.bm-kachel:not(.offen)', ebKacheln);
+    if (!zu.length) { meldung('Alle Kacheln sind offen'); return; }
+    zu[Math.floor(Math.random() * zu.length)].classList.add('offen');
+  }
+  function lochZeichnen() {
+    var w = box.clientWidth || parseFloat(box.style.width) || 600;
+    var d = Math.round(w * st.lochR * 2 / 100);
+    loch.style.width = d + 'px'; loch.style.height = d + 'px';
+    loch.style.left = st.lochX + '%'; loch.style.top = st.lochY + '%';
+  }
+  function ausschnittReset() {
+    var k = st.aModus === 'kacheln';
+    ebKacheln.hidden = !k; ebLoch.hidden = k;
+    $('#bm-a-loch-opt').hidden = k; $('#bm-a-kachel-opt').hidden = !k;
+    if (k) kachelnZeichnen(); else { st.lochX = 50; st.lochY = 50; lochZeichnen(); }
+    box.classList.toggle('bm-zieht', !k || st.an.lupe);
+  }
+  function ausschnittAus() { ebKacheln.hidden = true; ebLoch.hidden = true; box.classList.toggle('bm-zieht', st.an.lupe); }
+  function lochGroesse(d) {
+    st.lochR = Math.max(3, Math.min(60, st.lochR + d));
+    $('#bm-loch-r').value = st.lochR;
+    lochZeichnen();
+  }
+  var ziehen = false;
+  function lochNach(e) {
+    var r = box.getBoundingClientRect();
+    if (!r.width) return;
+    st.lochX = Math.max(0, Math.min(100, (e.clientX - r.left) / r.width * 100));
+    st.lochY = Math.max(0, Math.min(100, (e.clientY - r.top) / r.height * 100));
+    lochZeichnen();
+  }
+  ebLoch.addEventListener('pointerdown', function (e) {
+    ziehen = true;
+    try { ebLoch.setPointerCapture(e.pointerId); } catch (x) { /* egal */ }
+    lochNach(e); e.preventDefault();
+  });
+  ebLoch.addEventListener('pointermove', function (e) { if (ziehen) lochNach(e); });
+  ebLoch.addEventListener('pointerup', function () { ziehen = false; });
+  ebLoch.addEventListener('pointercancel', function () { ziehen = false; });
+  $$('input[name="bm-a-modus"]').forEach(function (r) { r.addEventListener('change', function () { st.aModus = r.value; ausschnittReset(); }); });
+  $('#bm-loch-r').addEventListener('input', function () { st.lochR = parseInt(this.value, 10) || 10; lochZeichnen(); });
+  $$('[data-loch]').forEach(function (b) { b.addEventListener('click', function () { lochGroesse(b.getAttribute('data-loch') === '+' ? 3 : -3); }); });
+  $('#bm-kachel-n').addEventListener('change', function () { st.kachelN = parseInt(this.value, 10) || 4; kachelnZeichnen(); });
+  $('#bm-kachel-zufall').addEventListener('click', zufallsKachel);
+  $('#bm-kachel-neu').addEventListener('click', kachelnZeichnen);
+  $('#bm-a-alles').addEventListener('click', function () { werkzeug('ausschnitt', false); });
+
+  /* ---------- Fehlerbild-Vergleich ---------- */
+  function vglLoesung() {
+    vglSvg.innerHTML = '';
+    var nr = 0;
+    UNTERSCHIEDE.forEach(function (u) {
+      vglSvg.insertAdjacentHTML('beforeend', '<circle cx="' + u[0] + '" cy="' + u[1] + '" r="' + u[2] + '"/>');
+      if (u[3]) { nr++; vglSvg.insertAdjacentHTML('beforeend', '<text x="' + (u[0] - u[2] * 0.75 - 6) + '" y="' + (u[1] - u[2] * 0.7 + 6) + '">' + nr + '</text>'); }
+    });
+  }
+  function blinkenStopp() {
+    if (st.blinkTimer) { clearInterval(st.blinkTimer); st.blinkTimer = null; }
+    var b = $('#bm-v-blinken'); b.classList.remove('an'); b.setAttribute('aria-pressed', 'false');
+  }
+  function vglModus() {
+    var neben = st.vModus === 'neben';
+    vglA.hidden = !neben;
+    vglUnten.hidden = neben;
+    vglOben.classList.toggle('bm-vgl-oben', !neben);
+    $('#bm-v-ueber-opt').hidden = neben;
+    $('#bm-vgl-b-label').textContent = neben ? 'B · Fehlerbild' : 'A ⇄ B';
+    if (neben) { blinkenStopp(); vglOben.style.opacity = 1; }
+    else vglOben.style.opacity = ($('#bm-v-regler').value / 100);
+    layout();
+  }
+  $$('input[name="bm-v-modus"]').forEach(function (r) { r.addEventListener('change', function () { st.vModus = r.value; vglModus(); }); });
+  $('#bm-v-regler').addEventListener('input', function () { blinkenStopp(); vglOben.style.opacity = this.value / 100; });
+  $('#bm-v-blinken').addEventListener('click', function () {
+    if (st.blinkTimer) { blinkenStopp(); return; }
+    this.classList.add('an'); this.setAttribute('aria-pressed', 'true');
+    var sichtbar = false;
+    st.blinkTimer = setInterval(function () { sichtbar = !sichtbar; vglOben.style.opacity = sichtbar ? 1 : 0; }, 700);
+  });
+  $('#bm-v-loesung').addEventListener('change', function () { vglSvg.hidden = !this.checked; });
+
+  /* ---------- Bildinfo ---------- */
+  function infoZeichnen() {
+    var b = aktuell(), i = b.info || {};
+    var zeilen = [['Bildart', i.art], ['Künstler/in', i.von], ['Jahr', i.jahr], ['Maße', i.mass], ['Ort', i.ort], ['Einsatz', b.stunden]];
+    infoEl.innerHTML = '<button type="button" class="bm-zu" aria-label="Bildinfo schließen">✕</button><h3></h3><dl></dl>';
+    $('h3', infoEl).textContent = '„' + b.titel + '“';
+    var dl = $('dl', infoEl);
+    zeilen.forEach(function (z) {
+      if (!z[1]) return;
+      var dt = document.createElement('dt'), dd = document.createElement('dd');
+      dt.textContent = z[0]; dd.textContent = z[1];
+      dl.appendChild(dt); dl.appendChild(dd);
+    });
+    $('.bm-zu', infoEl).addEventListener('click', function () { werkzeug('info', false); });
+  }
+
+  /* ---------- Werkzeuge schalten ---------- */
+  function werkzeug(name, an, still) {
+    if (an === undefined) an = !st.an[name];
+    if (an && name === 'lupe' && st.an.ausschnitt) werkzeug('ausschnitt', false, true);
+    if (an && name === 'ausschnitt' && st.an.lupe) werkzeug('lupe', false, true);
+    if (an && name !== 'vergleich' && name !== 'info' && st.an.vergleich) werkzeug('vergleich', false, true);
+    if (an && name === 'vergleich') ['raster', 'bereiche', 'lupe', 'ausschnitt', 'kim'].forEach(function (w) { if (st.an[w]) werkzeug(w, false, true); });
+    st.an[name] = an;
+    switch (name) {
+      case 'raster': if (an) rasterZeichnen(); ebRaster.hidden = !an; break;
+      case 'bereiche':
+        if (an && !bereicheZeichnen()) { meldung('Keine Bereichs-Einteilung für dieses Bild – Raster nutzen (R)'); }
+        if (!an) ebBereiche.hidden = true;
+        break;
+      case 'lupe': lupeEl.hidden = true; box.classList.toggle('bm-zieht', an || (st.an.ausschnitt && st.aModus === 'loch')); box.style.cursor = an ? 'none' : ''; break;
+      case 'kim': if (!an) kimStopp(true); break;
+      case 'ausschnitt': if (an) ausschnittReset(); else ausschnittAus(); break;
+      case 'vergleich':
+        box.hidden = an; vglB.hidden = !an; vglA.hidden = !an || st.vModus !== 'neben';
+        if (an) { vglLoesung(); vglModus(); $('#bm-titel').textContent = 'Fehlerbild-Vergleich: Das Kinderzimmer'; }
+        else { blinkenStopp(); vglA.hidden = true; var b = aktuell(); $('#bm-titel').textContent = b.titel + (b.info && b.info.jahr !== '–' ? ' – ' + b.info.von + ', ' + b.info.jahr : ''); }
+        break;
+      case 'info': infoEl.hidden = !an; break;
+    }
+    $$('[data-werkzeug="' + name + '"]').forEach(function (k) { k.classList.toggle('an', an); k.setAttribute('aria-pressed', an ? 'true' : 'false'); });
+    $$('[data-optionen]').forEach(function (o) { var w = o.getAttribute('data-optionen'); o.hidden = !st.an[w]; });
+    if (!still) meldung({ raster: 'Raster', bereiche: 'Bereiche', lupe: 'Lupe', kim: 'Kim-Spiel', ausschnitt: 'Ausschnitt-Rätsel', vergleich: 'Fehlerbild-Vergleich', info: 'Bildinfo' }[name] + (an ? ' an' : ' aus'));
+    layout();
+  }
+  function alleAus() { Object.keys(st.an).forEach(function (w) { if (st.an[w]) werkzeug(w, false, true); }); meldung('Alle Werkzeuge aus'); }
+
+  $$('[data-werkzeug]').forEach(function (k) {
+    k.addEventListener('click', function () { werkzeug(k.getAttribute('data-werkzeug')); });
+  });
+
+  /* ---------- Vollbild ---------- */
+  function pseudoVollbild(an) {
+    buehne.classList.toggle('bm-pseudo', an);
+    document.documentElement.classList.toggle('bm-pseudo-aktiv', an);
+    vollbildGeaendert();
+  }
+  function vollbild() {
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+      var ex = document.exitFullscreen || document.webkitExitFullscreen;
+      if (ex) ex.call(document);
+      return;
+    }
+    if (buehne.classList.contains('bm-pseudo')) { pseudoVollbild(false); return; }
+    var req = buehne.requestFullscreen || buehne.webkitRequestFullscreen;
+    if (!req) { pseudoVollbild(true); return; }
+    try {
+      var p = req.call(buehne);
+      if (p && typeof p.then === 'function') p.then(null, function () { pseudoVollbild(true); });
+    } catch (e) { pseudoVollbild(true); }
+  }
+  function vollbildGeaendert() {
+    var v = istVoll();
+    buehne.classList.toggle('bm-voll', v);
+    $$('[data-aktion="vollbild"]').forEach(function (k) { k.classList.toggle('an', v); k.setAttribute('aria-pressed', v ? 'true' : 'false'); });
+    layout();
+    setTimeout(layout, 120);
+  }
+  document.addEventListener('fullscreenchange', vollbildGeaendert);
+  document.addEventListener('webkitfullscreenchange', vollbildGeaendert);
+
+  $$('[data-aktion]').forEach(function (k) {
+    k.addEventListener('click', function () {
+      var a = k.getAttribute('data-aktion');
+      if (a === 'vor') blaettern(1);
+      else if (a === 'zurueck') blaettern(-1);
+      else if (a === 'vollbild') vollbild();
+    });
+  });
+
+  /* ---------- Tastatur ---------- */
+  document.addEventListener('keydown', function (e) {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    var t = e.target, tag = t && t.tagName;
+    if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA' || (t && t.isContentEditable)) return;
+    var k = e.key;
+    var treffer = true;
+    switch (k) {
+      case 'ArrowRight': case 'PageDown': blaettern(1); break;
+      case 'ArrowLeft': case 'PageUp': blaettern(-1); break;
+      case 'f': case 'F': vollbild(); break;
+      case 'r': case 'R': werkzeug('raster'); break;
+      case 'b': case 'B': werkzeug('bereiche'); break;
+      case 'l': case 'L': werkzeug('lupe'); break;
+      case 'k': case 'K': kimTaste(); break;
+      case 'a': case 'A': werkzeug('ausschnitt'); break;
+      case 'v': case 'V': werkzeug('vergleich'); break;
+      case 'i': case 'I': werkzeug('info'); break;
+      case 'z': case 'Z': if (st.an.ausschnitt && st.aModus === 'kacheln') zufallsKachel(); else treffer = false; break;
+      case '+': if (st.an.ausschnitt && st.aModus === 'loch') lochGroesse(3); else treffer = false; break;
+      case '-': if (st.an.ausschnitt && st.aModus === 'loch') lochGroesse(-3); else treffer = false; break;
+      case 'Escape': if (buehne.classList.contains('bm-pseudo')) pseudoVollbild(false); alleAus(); break;
+      default:
+        if (/^[1-9]$/.test(k)) {
+          var l = sichtbare(), n = parseInt(k, 10) - 1;
+          if (l[n]) { waehlen(l[n].id); meldung((n + 1) + ': ' + l[n].titel); } else treffer = false;
+        } else treffer = false;
+    }
+    if (treffer) e.preventDefault();
+  });
+
+  bild.addEventListener('load', layout);
+  thumbsZeichnen();
+  waehlen(st.id);
+})();
+</script>

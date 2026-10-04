@@ -1,0 +1,659 @@
+<style>
+/* Seitenspezifisch: Lehrplan (Präfix lp-) */
+.lp-kennzahlen .card { text-align: center; padding: 16px 14px; }
+.lp-kennzahlen .lp-zahl { font-family: var(--font-head); font-weight: 900; font-size: 2rem; line-height: 1.1; color: var(--orange); display: block; }
+.lp-kennzahlen .lp-was { font-size: .92rem; color: var(--ink-soft); }
+.lp-zeitleiste { display: grid; grid-template-columns: repeat(14, minmax(0, 1fr)); gap: 6px; margin: 16px 0 6px; }
+.lp-zeitleiste a { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 2px; text-decoration: none; color: var(--ink); background: var(--paper); border: 2px solid var(--line); border-top-width: 8px; border-radius: 10px; padding: 6px 2px 8px; font-size: .74rem; line-height: 1.2; text-align: center; min-height: 88px; }
+.lp-zeitleiste a b { font-family: var(--font-head); font-weight: 900; font-size: 1.15rem; }
+.lp-zeitleiste a:hover { background: var(--orange-soft); }
+.lp-zeitleiste .lp-st1 { border-top-color: var(--orange); }
+.lp-zeitleiste .lp-st2 { border-top-color: var(--blue); }
+.lp-zeitleiste .lp-st3 { border-top-color: var(--green); }
+.lp-zeitleiste .lp-st4 { border-top-color: var(--purple); }
+.lp-zeitleiste .lp-st5 { border-top-color: var(--red); }
+.lp-zeitleiste .lp-st6 { border-top-color: var(--teal); }
+.lp-legende { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .86rem; color: var(--ink-soft); margin-bottom: 8px; }
+.lp-legende span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; background: var(--c); }
+@media (max-width: 860px) { .lp-zeitleiste { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .lp-zeitleiste { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.lp-stufe-stunden { display: block; margin-top: 4px; font-size: .88rem; color: var(--ink-soft); }
+.lp-stufe-stunden a { font-weight: 700; }
+table.lp-uebersicht td:first-child { font-family: var(--font-head); font-weight: 900; font-size: 1.1rem; text-align: center; }
+table.lp-uebersicht td { font-size: .9rem; }
+table.lp-uebersicht td .badge { margin: 1px 0; }
+table.lp-uebersicht ul { margin: 0; padding-left: 1.1em; }
+table.lp-uebersicht tr.lp-ka td { background: var(--yellow-soft); }
+table.lp-matrix th, table.lp-matrix td { padding: 6px 5px; font-size: .86rem; }
+table.lp-matrix th:not(:first-child) { text-align: center; min-width: 30px; }
+table.lp-matrix td.x { color: var(--green); font-weight: 900; }
+table.lp-matrix td.o { color: var(--muted); }
+table.lp-matrix tr.lp-gruppe td { background: #f0ead9; font-family: var(--font-head); font-weight: 800; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; text-align: left !important; }
+.lp-linkkarten .card { display: flex; flex-direction: column; gap: 6px; }
+.lp-linkkarten .card h3 { margin: 0; font-size: 1.05rem; }
+.lp-linkkarten .card p { margin: 0; font-size: .92rem; color: var(--ink-soft); flex: 1; }
+.lp-linkkarten .card a.btn { align-self: flex-start; }
+.lp-abschnitt { scroll-margin-top: 90px; }
+@media print { .lp-zeitleiste a { min-height: 0; } }
+</style>
+
+<header class="seitenkopf">
+  <div>
+    <div class="kicker">Für Lehrkräfte · Deutsch Klasse 5 · 13 Stunden + Rückgabe</div>
+    <h1>Lehrplan der Unterrichtsreihe „Bildbeschreibung“</h1>
+    <p>Ziele, Einordnung, Progression und alle Stunden auf einen Blick – mit Kompetenzraster, Methoden- und Materialübersicht, Leistungsbewertung, Differenzierung und Kürzungsvorschlägen.</p>
+  </div>
+  <img src="bilder/lupo.svg" alt="">
+</header>
+
+<div class="werkzeugleiste no-print">
+  <button class="btn" data-print>Lehrplan drucken</button>
+  <a class="btn hell" href="stunden.html">Zu den Stundenverläufen</a>
+  <a class="btn hell" href="arbeitsblaetter.html">Zu den Arbeitsblättern</a>
+  <a class="btn hell" href="klassenarbeit.html">Zur Klassenarbeit</a>
+</div>
+
+<nav class="toc no-print" data-auto-toc="section.lp-abschnitt[id]"><h2>Inhalt dieser Seite</h2></nav>
+
+<div class="grid-4 lp-kennzahlen">
+  <div class="card"><span class="lp-zahl">13 + 1</span><span class="lp-was">Stunden à 45 Min.<br>inkl. Klassenarbeit, plus Rückgabe</span></div>
+  <div class="card"><span class="lp-zahl">5</span><span class="lp-was">Stufen nach Lupo:<br>Schauen · Ordnen · Einleiten · Beschreiben · Bewerten &amp; Prüfen</span></div>
+  <div class="card"><span class="lp-zahl">18</span><span class="lp-was">Arbeitsblätter (AB 0–17)<br>+ 12 Hausaufgaben</span></div>
+  <div class="card"><span class="lp-zahl">40 P.</span><span class="lp-was">Klassenarbeit „Im Hafen“<br>Teil A 15 P. · Teil B 25 P.</span></div>
+</div>
+
+<!-- ===================================================== -->
+<section class="lp-abschnitt" id="ziel">
+<h2>1. Ziel und Einordnung der Reihe</h2>
+
+<div class="grid-2">
+  <div>
+    <p>Am Ende der Reihe verfassen die Schülerinnen und Schüler <strong>selbstständig eine vollständige, sachliche Bildbeschreibung</strong> zu einem ihnen unbekannten Bild – mit Einleitung, geordnetem Hauptteil und begründetem Schluss. Leitgedanke ist der <strong>Adressatenbezug</strong>: <em>Jemand, der das Bild nicht sieht, soll es sich nach dem Lesen genau vorstellen können.</em></p>
+    <p>Die Bildbeschreibung ist eine der ersten <strong>sachlich-informierenden Schreibformen</strong> der Sekundarstufe I. Sie schult genaue Wahrnehmung, Wortschatz (Ortsangaben, Verben, Adjektive), Satzbau und Textaufbau und bereitet spätere Beschreibungsformen vor (Personen-, Gegenstands-, Vorgangs- und Wegbeschreibung, in höheren Klassen Bild- und Gedichtanalyse).</p>
+    <p>Durch das Maskottchen <strong>Lupo, den Bilddetektiv</strong>, und sein Motto <strong>„Erst schauen, dann ordnen, dann schreiben!“</strong> erhält die Reihe einen kindgerechten roten Faden, der in jeder Stunde, auf jedem Arbeitsblatt und in der Klassenarbeit wiederkehrt.</p>
+  </div>
+  <div class="card">
+    <h3>Einordnung: KMK-Bildungsstandards Deutsch</h3>
+    <ul>
+      <li><strong>Schreiben</strong> – Texte planen (Schreibplan, Stichwortzettel), sachlich und adressatengerecht schreiben, Texte mithilfe von Kriterien überarbeiten <span class="klein">(Std. 6–10, 13)</span></li>
+      <li><strong>Sprechen und Zuhören</strong> – genau beschreiben und erklären, gezielt nachfragen, Rückmeldungen geben, vor anderen sprechen (Bilddiktat, Rätselrunden, Audioguide, Textlupe) <span class="klein">(Std. 1, 3, 5, 10, 11)</span></li>
+      <li><strong>Sprache und Sprachgebrauch untersuchen</strong> – Wortarten funktional nutzen (Präpositionen mit Dativ, Verben, Adjektive), Tempus Präsens, Wortfelder, Satzanfänge <span class="klein">(Std. 3–5, 7, 8)</span></li>
+      <li><em>ergänzend:</em> <strong>Lesen – mit Texten und Medien umgehen</strong> – Bilder als Medien wahrnehmen, Kunstwerke erschließen <span class="klein">(Std. 8, 11)</span></li>
+    </ul>
+    <p class="klein">Hinweis: Die Zuordnung orientiert sich an den länderübergreifenden Bildungsstandards. Bitte an den jeweiligen <strong>Landeslehrplan / das schulinterne Curriculum</strong> anpassen (z. B. Bezeichnung „Beschreiben“ als Schreibform in Jg. 5/6, Umfang, Verbindlichkeit der Klassenarbeit).</p>
+  </div>
+</div>
+
+<div class="grid-3">
+  <div class="card">
+    <h3>Umfang</h3>
+    <p><strong>13 Stunden à 45 Minuten</strong> (12 Unterrichtsstunden + Klassenarbeit) und <strong>eine Rückgabe- und Reflexionsstunde</strong>. Bei drei bis vier Deutschstunden pro Woche etwa <strong>4 Unterrichtswochen</strong>. Die Klassenarbeit ist auf 45 Minuten angelegt, optional auf 90 Minuten erweiterbar.</p>
+  </div>
+  <div class="card">
+    <h3>Voraussetzungen</h3>
+    <ul>
+      <li>Wortarten Nomen, Verb, Adjektiv aus der Grundschule bekannt</li>
+      <li>Präsens und Präteritum grundsätzlich unterscheidbar</li>
+      <li>erste Erfahrung mit Partner- und Gruppenarbeit</li>
+      <li>Fälle (Dativ) <em>nicht</em> vorausgesetzt – werden in Std. 3 über die Frage „Wo?“ funktional eingeführt</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Bildmaterial</h3>
+    <p>Fünf eigene Illustrationen (A Sommertag am See, B Kinderzimmer + Fehlerbild, C Wochenmarkt, D Schulhof, E Im Hafen) und drei gemeinfreie Gemälde (Bruegel: „Die Jäger im Schnee“, „Die Kinderspiele“; Spitzweg: „Der Bücherwurm“). <strong>Bild E nur in der Klassenarbeit zeigen!</strong></p>
+  </div>
+</div>
+
+<h3>Didaktische Leitidee: Lupos 5 Stufen als Progression</h3>
+<p>Die Reihe folgt einer klaren Progression <strong>vom genauen Sehen über das Ordnen und die sprachlichen Werkzeuge zur ganzen Textsorte</strong>. Jede Stufe wird zunächst isoliert und spielerisch geübt, dann in die nächste eingebaut. Die sprachlichen Werkzeuge (Stufe 4) werden bewusst <em>vor</em> der Einleitung (Stufe 3) erarbeitet, weil sie die Grundlage für alle Textteile sind; die Reihenfolge der Stufen beim späteren Schreiben bleibt davon unberührt.</p>
+<p><strong>Spiralprinzip:</strong> Das Ankerbild A („Sommertag am See“) begleitet die ganze Reihe (Kim-Spiel → Bildbereiche → Adjektive → Einleitung → Hauptteil → Schluss), sodass die Kinder an einem vertrauten Bild immer tiefer gehen und am Ende eine Musterbeschreibung „besitzen“. Das <strong>selbst mitgebrachte Bild</strong> (HA 1) wird in HA 2 und HA 6 erneut aufgegriffen. Wortspeicher wachsen von Stunde zu Stunde, die Lernlandkarte (AB 0) wird dreimal ausgefüllt (Start – vor der Arbeit – nach der Arbeit).</p>
+
+<ol class="stufen treppe">
+  <li><strong>Schauen</strong> – genau hinsehen wie ein Detektiv: erst das ganze Bild, dann die Einzelheiten.
+    <span class="lp-stufe-stunden">Schwerpunkt in <a href="stunden.html#s1">Std. 1</a> (Kim-Spiel, Fehlerbild) · Ritual in jeder Stunde</span></li>
+  <li><strong>Ordnen</strong> – das Bild einteilen (Vordergrund / Mittelgrund / Hintergrund, links / Mitte / rechts) und Stichwörter sammeln.
+    <span class="lp-stufe-stunden"><a href="stunden.html#s2">Std. 2</a> (Bildbereiche, 9-Felder-Raster) · <a href="stunden.html#s3">Std. 3</a> (Ortsangaben, Präpositionen) · <a href="stunden.html#s7">Std. 7</a> (roter Faden)</span></li>
+  <li><strong>Einleiten</strong> – die Einleitung beantwortet die W-Fragen: Bildart, Titel, Künstler/in, Jahr, Thema.
+    <span class="lp-stufe-stunden"><a href="stunden.html#s6">Std. 6</a> (Steckbrief, Einleitungs-Puzzle) · Anwendung in <a href="stunden.html#s11">Std. 11</a> (Kunstwerk)</span></li>
+  <li><strong>Beschreiben</strong> – Schritt für Schritt mit Ortsangaben, treffenden Verben, genauen Adjektiven, im Präsens, sachlich.
+    <span class="lp-stufe-stunden"><a href="stunden.html#s4">Std. 4</a> (Verben) · <a href="stunden.html#s5">Std. 5</a> (Adjektive) · <a href="stunden.html#s7">Std. 7</a> (Reihenfolge, Satzanfänge)</span></li>
+  <li><strong>Bewerten &amp; Prüfen</strong> – im Schluss Wirkung und Meinung nennen, dann mit der Checkliste prüfen.
+    <span class="lp-stufe-stunden"><a href="stunden.html#s8">Std. 8</a> (Sehen – vermuten – meinen, Schluss) · <a href="stunden.html#s10">Std. 10</a> (Textlupe)</span></li>
+  <li><strong>Alles zusammen: die ganze Bildbeschreibung</strong> – planen, schreiben, überarbeiten, anwenden, zeigen.
+    <span class="lp-stufe-stunden"><a href="stunden.html#s9">Std. 9</a> (Schreibplan) · <a href="stunden.html#s11">Std. 11</a> (Museum) · <a href="stunden.html#s12">Std. 12</a> (Lerntheke) · <a href="stunden.html#s13">Std. 13</a> (Klassenarbeit) · <a href="stunden.html#s14">Rückgabe</a></span></li>
+</ol>
+
+<h3>Die Reihe auf einen Blick</h3>
+<div class="lp-legende">
+  <span style="--c: var(--orange)">Schauen</span>
+  <span style="--c: var(--blue)">Ordnen</span>
+  <span style="--c: var(--green)">Einleiten</span>
+  <span style="--c: var(--purple)">Beschreiben</span>
+  <span style="--c: var(--red)">Bewerten &amp; Prüfen</span>
+  <span style="--c: var(--teal)">ganze Textsorte</span>
+</div>
+<div class="lp-zeitleiste">
+  <a class="lp-st1" href="stunden.html#s1"><b>1</b>Genau hin&shy;geschaut!</a>
+  <a class="lp-st2" href="stunden.html#s2"><b>2</b>Ordnung im Bild</a>
+  <a class="lp-st2" href="stunden.html#s3"><b>3</b>Wo genau?</a>
+  <a class="lp-st4" href="stunden.html#s4"><b>4</b>Treffende Verben</a>
+  <a class="lp-st4" href="stunden.html#s5"><b>5</b>Bunt und genau</a>
+  <a class="lp-st3" href="stunden.html#s6"><b>6</b>Der Anfang zählt</a>
+  <a class="lp-st4" href="stunden.html#s7"><b>7</b>Der rote Faden</a>
+  <a class="lp-st5" href="stunden.html#s8"><b>8</b>Sehen oder meinen?</a>
+  <a class="lp-st6" href="stunden.html#s9"><b>9</b>Jetzt schreibe ich!</a>
+  <a class="lp-st5" href="stunden.html#s10"><b>10</b>Die Textlupe</a>
+  <a class="lp-st6" href="stunden.html#s11"><b>11</b>Ab ins Museum!</a>
+  <a class="lp-st6" href="stunden.html#s12"><b>12</b>Lerntheke</a>
+  <a class="lp-st6" href="stunden.html#s13"><b>13</b>Klassen&shy;arbeit</a>
+  <a class="lp-st6" href="stunden.html#s14"><b>14</b>Rückgabe</a>
+</div>
+<p class="klein">Farbe = Schwerpunkt-Stufe der Stunde. Ein Klick führt zum ausführlichen Stundenverlauf.</p>
+
+<div class="lupo">
+  <img src="bilder/lupo.svg" alt="Lupo">
+  <div class="bubble"><p><strong>Rituale, die durch die Reihe tragen:</strong> (1) Jede Stunde ab Std. 2 beginnt mit einer <em>aktiven</em> Hausaufgaben-Überprüfung (Spiel, Partnercheck, Rätsel) – nie mit bloßem Vorzeigen. (2) Lupos Motto und das Lernplakat „Lupos 5 Stufen“ hängen dauerhaft im Klassenraum; zu Stundenbeginn wird gezeigt, auf welcher Stufe wir heute arbeiten. (3) Der Wortspeicher wächst sichtbar mit (Ortsangaben → Verben → Adjektive → Satzanfänge → Wirkung).</p></div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<section class="lp-abschnitt" id="uebersicht">
+<h2>2. Übersicht aller Stunden</h2>
+<p>Jede Zeile verlinkt auf den ausführlichen Stundenverlauf, die Arbeitsblätter und die Hausaufgaben. Lernziele jeweils: <em>Die Schülerinnen und Schüler können …</em></p>
+
+<div class="tabelle-scroll">
+<table class="lp-uebersicht">
+  <thead>
+    <tr><th>Nr.</th><th>Titel</th><th>Lernziele (Die SuS können …)</th><th>Bild</th><th>Methoden (Kern)</th><th>Sozial&shy;formen</th><th>AB</th><th>HA</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="stunden.html#s1">1</a></td>
+      <td><strong>Genau hingeschaut!</strong><br>Warum beschreiben wir Bilder?</td>
+      <td><ul><li>… ein Bild aufmerksam betrachten und viele Einzelheiten benennen</li><li>… Situationen nennen, in denen genaue Beschreibungen wichtig sind</li><li>… das Ziel einer Bildbeschreibung erklären</li></ul></td>
+      <td>A (Kim-Spiel), B + B-Fehlerbild</td>
+      <td>Kim-Spiel (20 Sek. zeigen, aus dem Gedächtnis notieren), Fehlerbild in PA, Brainstorming „Wo braucht man genaue Beschreibungen?“, Lernlandkarte</td>
+      <td><span class="badge sp">Spiel</span> <span class="badge ea">EA</span> <span class="badge pa">PA</span> <span class="badge ug">UG</span></td>
+      <td><a href="arbeitsblaetter.html#ab0"><span class="badge ab">AB 0</span></a> <a href="arbeitsblaetter.html#ab1"><span class="badge ab">AB 1</span></a></td>
+      <td><a href="hausaufgaben.html#ha1"><span class="badge ha">HA 1</span></a></td>
+    </tr>
+    <tr>
+      <td><a href="stunden.html#s2">2</a></td>
+      <td><strong>Ordnung im Bild</strong><br>Vordergrund, Mittelgrund, Hintergrund</td>
+      <td><ul><li>… Bildbereiche mit Fachbegriffen benennen (VG/MG/HG, Bildmitte, Bildränder, Ecken)</li><li>… Bildelemente den Bereichen zuordnen</li></ul></td>
+      <td>A</td>
+      <td>„Bildstreifen“ (Bild in 3 Streifen zerschnitten → zuordnen), 9-Felder-Raster, Bild-Detektive in Gruppen, Zeigestock-Spiel</td>
+      <td><span class="badge pa">PA</span> <span class="badge ga">GA</span> <span class="badge sp">Spiel</span> <span class="badge ea">EA</span> <span class="badge ug">UG</span></td>
+      <td><a href="arbeitsblaetter.html#ab2"><span class="badge ab">AB 2</span></a> <a href="arbeitsblaetter.html#ab3"><span class="badge ab">AB 3</span></a></td>
+      <td><a href="hausaufgaben.html#ha2"><span class="badge ha">HA 2</span></a></td>
+    </tr>
+    <tr>
+      <td><a href="stunden.html#s3">3</a></td>
+      <td><strong>Wo genau?</strong><br>Ortsangaben und Präpositionen</td>
+      <td><ul><li>… Präpositionen für Orte (auf, unter, neben, zwischen, vor, hinter, über, in, an) richtig mit Dativ verwenden</li><li>… Fachbegriffe für Bildpositionen nutzen</li></ul></td>
+      <td>B</td>
+      <td>Bewegungsspiel „Lupo sagt …“, Bilddiktat Rücken an Rücken, Wortspeicher Ortsangaben</td>
+      <td><span class="badge pa">PA</span> <span class="badge sp">Spiel</span> <span class="badge ea">EA</span> <span class="badge ug">UG</span></td>
+      <td><a href="arbeitsblaetter.html#ab4"><span class="badge ab">AB 4</span></a> <a href="arbeitsblaetter.html#ab5"><span class="badge ab">AB 5</span></a></td>
+      <td><a href="hausaufgaben.html#ha3"><span class="badge ha">HA 3</span></a></td>
+    </tr>
+    <tr>
+      <td><a href="stunden.html#s4">4</a></td>
+      <td><strong>Mehr als „ist“ und „gibt es“</strong><br>treffende Verben</td>
+      <td><ul><li>… langweilige Verben (ist, sind, gibt es, sieht man, hat) durch treffende Verben ersetzen</li><li>… ein Wortfeld „Verben für Bildbeschreibungen“ anlegen</li></ul></td>
+      <td>C</td>
+      <td>„Langweiler-Text“ (Strichliste), Verben-Pantomime, Verben-Wortfeld (Plakat), Text-Tuning in PA</td>
+      <td><span class="badge sp">Spiel</span> <span class="badge pa">PA</span> <span class="badge ug">UG</span> <span class="badge ea">EA</span></td>
+      <td><a href="arbeitsblaetter.html#ab6"><span class="badge ab">AB 6</span></a></td>
+      <td><a href="hausaufgaben.html#ha4"><span class="badge ha">HA 4</span></a></td>
+    </tr>
+    <tr>
+      <td><a href="stunden.html#s5">5</a></td>
+      <td><strong>Bunt und genau</strong><br>Adjektive, Farben, Formen</td>
+      <td><ul><li>… Farben, Formen, Muster, Größen und Materialien mit genauen Adjektiven beschreiben</li><li>… Nominalgruppen schrittweise erweitern (Adjektiv-Treppe)</li></ul></td>
+      <td>C, A</td>
+      <td>„Ich sehe was, was du nicht siehst – Profi-Version“, Adjektiv-Treppe, Farbkarten-Spiel, Rätselbeschreibung</td>
+      <td><span class="badge sp">Spiel</span> <span class="badge pa">PA</span> <span class="badge ea">EA</span> <span class="badge ug">UG</span></td>
+      <td><a href="arbeitsblaetter.html#ab7"><span class="badge ab">AB 7</span></a></td>
+      <td><a href="hausaufgaben.html#ha5"><span class="badge ha">HA 5</span></a></td>
+    </tr>
+    <tr>
+      <td><a href="stunden.html#s6">6</a></td>
+      <td><strong>Der Anfang zählt</strong><br>die Einleitung</td>
+      <td><ul><li>… eine Einleitung mit Bildart, Titel, Künstler/in, Jahr und Thema schreiben</li><li>… gute und schwache Einleitungen unterscheiden</li></ul></td>
+      <td>A, Bücherwurm</td>
+      <td>HA-Rätselrunde, Bild-Steckbrief, Einleitungs-Puzzle (Satzbausteine), Daumenprobe</td>
+      <td><span class="badge sp">Spiel</span> <span class="badge ug">UG</span> <span class="badge ea">EA</span> <span class="badge pa">PA</span></td>
+      <td><a href="arbeitsblaetter.html#ab8"><span class="badge ab">AB 8</span></a></td>
+      <td><a href="hausaufgaben.html#ha6"><span class="badge ha">HA 6</span></a></td>
+    </tr>
+    <tr>
+      <td><a href="stunden.html#s7">7</a></td>
+      <td><strong>Der rote Faden</strong><br>der Hauptteil</td>
+      <td><ul><li>… eine sinnvolle Reihenfolge wählen und einhalten (VG→MG→HG, links→rechts, Wichtiges zuerst)</li><li>… abwechslungsreiche Satzanfänge/Überleitungen verwenden</li></ul></td>
+      <td>A</td>
+      <td>„Kamerafahrt“ (Papprolle als Kamera, Blickweg einzeichnen), Satzstreifen ordnen, Satzanfänge-Rad</td>
+      <td><span class="badge sp">Spiel</span> <span class="badge ga">GA</span> <span class="badge ea">EA</span> <span class="badge ug">UG</span></td>
+      <td><a href="arbeitsblaetter.html#ab9"><span class="badge ab">AB 9</span></a> <a href="arbeitsblaetter.html#ab10"><span class="badge ab">AB 10</span></a></td>
+      <td><a href="hausaufgaben.html#ha7"><span class="badge ha">HA 7</span></a></td>
+    </tr>
+    <tr>
+      <td><a href="stunden.html#s8">8</a></td>
+      <td><strong>Sehen oder meinen?</strong><br>Schluss, Sachlichkeit, Präsens</td>
+      <td><ul><li>… beschreibende, vermutende und wertende Aussagen unterscheiden</li><li>… im Präsens schreiben</li><li>… einen Schluss mit Wirkung und begründeter Meinung formulieren</li></ul></td>
+      <td>Jäger im Schnee + A</td>
+      <td>Ampelkarten (sehen/vermuten/meinen), Stimmungsbarometer, Wortspeicher Wirkung, Zeitmaschine (Präteritum → Präsens)</td>
+      <td><span class="badge sp">Spiel</span> <span class="badge ug">UG</span> <span class="badge pa">PA</span> <span class="badge ea">EA</span></td>
+      <td><a href="arbeitsblaetter.html#ab11"><span class="badge ab">AB 11</span></a></td>
+      <td><a href="hausaufgaben.html#ha8"><span class="badge ha">HA 8</span></a></td>
+    </tr>
+    <tr>
+      <td><a href="stunden.html#s9">9</a></td>
+      <td><strong>Jetzt schreibe ich!</strong><br>Schreibplan und erste ganze Bildbeschreibung</td>
+      <td><ul><li>… mit einem Schreibplan (Stichwortzettel) eine vollständige Bildbeschreibung verfassen</li></ul></td>
+      <td>D</td>
+      <td>Lupos Schreibfahrplan (5 Stufen), Stichwortzettel, Schreibzeit mit gestuften Tippkarten (Hilfe 1–3), Schreib-Ampel</td>
+      <td><span class="badge lv">LV</span> <span class="badge ea">EA</span> <span class="badge ug">UG</span></td>
+      <td><a href="arbeitsblaetter.html#ab12"><span class="badge ab">AB 12</span></a></td>
+      <td><a href="hausaufgaben.html#ha9"><span class="badge ha">HA 9</span></a></td>
+    </tr>
+    <tr>
+      <td><a href="stunden.html#s10">10</a></td>
+      <td><strong>Die Textlupe</strong><br>Überarbeiten</td>
+      <td><ul><li>… eigene und fremde Texte mit einer Checkliste überprüfen</li><li>… konstruktiv Rückmeldung geben („2 Sterne und 1 Wunsch“)</li><li>… Texte gezielt verbessern</li></ul></td>
+      <td>D (eigene Texte)</td>
+      <td>Fehlertext „Detektiv-Fall“, Schreibkonferenz/Textlupe in 3er-Gruppen mit Farbcode (grün Aufbau, blau Ortsangaben, orange Verben/Adjektive, rot Präsens &amp; sachlich)</td>
+      <td><span class="badge ug">UG</span> <span class="badge ga">GA</span> <span class="badge ea">EA</span></td>
+      <td><a href="arbeitsblaetter.html#ab13"><span class="badge ab">AB 13</span></a> <a href="arbeitsblaetter.html#ab14"><span class="badge ab">AB 14</span></a></td>
+      <td><a href="hausaufgaben.html#ha10"><span class="badge ha">HA 10</span></a></td>
+    </tr>
+    <tr>
+      <td><a href="stunden.html#s11">11</a></td>
+      <td><strong>Ab ins Museum!</strong><br>ein Kunstwerk beschreiben</td>
+      <td><ul><li>… ein Gemälde beschreiben und dabei die Einleitung mit Künstler/Jahr nutzen</li><li>… in Expertengruppen Bildausschnitte genau beschreiben und präsentieren</li></ul></td>
+      <td>Kinderspiele (+ Bücherwurm als Differenzierung)</td>
+      <td>Museumsführer-Spiel / Audioguide sprechen, Expertengruppen zu 4 Bildausschnitten (Gruppenpuzzle), Gallery Walk</td>
+      <td><span class="badge ga">GA</span> <span class="badge sp">Spiel</span> <span class="badge pa">PA</span> <span class="badge ug">UG</span></td>
+      <td><a href="arbeitsblaetter.html#ab15"><span class="badge ab">AB 15</span></a> <a href="arbeitsblaetter.html#ab16"><span class="badge ab">AB 16</span></a></td>
+      <td><a href="hausaufgaben.html#ha11"><span class="badge ha">HA 11</span></a></td>
+    </tr>
+    <tr>
+      <td><a href="stunden.html#s12">12</a></td>
+      <td><strong>Fit für die Klassenarbeit</strong><br>Lerntheke</td>
+      <td><ul><li>… ihr Wissen an Stationen selbstständig wiederholen und sich selbst einschätzen</li></ul></td>
+      <td>alle bekannten</td>
+      <td>Lerntheke mit 6 Pflicht- und 2 Wahlstationen, Laufzettel, Selbstkontrolle mit Lösungskarten, Ampel-Selbsteinschätzung</td>
+      <td><span class="badge ea">EA</span> <span class="badge pa">PA</span> <span class="badge sp">Spiel</span></td>
+      <td><a href="arbeitsblaetter.html#ab17"><span class="badge ab">AB 17</span></a></td>
+      <td><a href="hausaufgaben.html#ha12"><span class="badge ha">HA 12</span></a></td>
+    </tr>
+    <tr class="lp-ka">
+      <td><a href="stunden.html#s13">13</a></td>
+      <td><strong>Klassenarbeit</strong><br>„Im Hafen“ (45 Min., optional 90)</td>
+      <td>Anwenden aller Teilkompetenzen</td>
+      <td>E</td>
+      <td>Klassenarbeit: Teil A Übungsaufgaben (15 P.), Teil B Bildbeschreibung (25 P.)</td>
+      <td><span class="badge ea">EA</span></td>
+      <td>–</td>
+      <td>–</td>
+    </tr>
+    <tr>
+      <td><a href="stunden.html#s14">(14)</a></td>
+      <td><strong>Rückgabe &amp; Reflexion</strong></td>
+      <td><ul><li>… ihre Arbeit mit dem Bewertungsbogen nachvollziehen</li><li>… eine Berichtigung schreiben</li><li>… ihren Lernweg reflektieren</li></ul></td>
+      <td>E</td>
+      <td>Bewertungsbogen, Berichtigung, Lernlandkarte (AB 0) erneut ausfüllen</td>
+      <td><span class="badge ug">UG</span> <span class="badge ea">EA</span> <span class="badge pa">PA</span></td>
+      <td><span class="klein">(AB 0)</span></td>
+      <td>–</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<section class="lp-abschnitt" id="kompetenzen">
+<h2>3. Kompetenzraster und Lernziele der Reihe</h2>
+<p>Die neun Ich-kann-Sätze entsprechen den Kompetenzen der <a href="arbeitsblaetter.html#ab0">Lernlandkarte (AB 0)</a>. Die Kinder schätzen sich zu Beginn (Std. 1), vor der Klassenarbeit (HA 12) und nach der Rückgabe (Std. 14) mit der Ampel ein. Die drei Niveaustufen beschreiben, woran die Lehrkraft den Lernstand erkennt.</p>
+
+<div class="tabelle-scroll">
+<table class="raster">
+  <thead>
+    <tr><th>Ich kann …</th><th><span class="niveau n1">Basis</span></th><th><span class="niveau n2">Standard</span></th><th><span class="niveau n3">Profi</span></th><th>Std.</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1.</strong> … ein Bild genau betrachten und viele Einzelheiten entdecken.</td>
+      <td>nennt auffällige Dinge in der Bildmitte</td>
+      <td>nennt auch kleine Dinge an den Rändern</td>
+      <td>entdeckt systematisch Details, Farben und Beziehungen</td>
+      <td><a href="stunden.html#s1">1</a>, 12</td>
+    </tr>
+    <tr>
+      <td><strong>2.</strong> … erklären, wozu man Bilder beschreibt.</td>
+      <td>nennt eine Alltagssituation</td>
+      <td>nennt das Ziel (Leser soll sich das Bild vorstellen)</td>
+      <td>leitet daraus Anforderungen ab (genau, geordnet, sachlich)</td>
+      <td><a href="stunden.html#s1">1</a></td>
+    </tr>
+    <tr>
+      <td><strong>3.</strong> … ein Bild in Vordergrund, Mittelgrund und Hintergrund einteilen.</td>
+      <td>ordnet große Dinge richtig zu</td>
+      <td>ordnet alle Dinge zu und nutzt Bildrand/Ecke/Mitte</td>
+      <td>begründet Zuordnungen bei Grenzfällen</td>
+      <td><a href="stunden.html#s2">2</a>, 7</td>
+    </tr>
+    <tr>
+      <td><strong>4.</strong> … mit Ortsangaben und Präpositionen genau sagen, wo etwas ist.</td>
+      <td>nutzt Präpositionen mit Wortspeicher</td>
+      <td>nutzt Präpositionen sicher mit Dativ</td>
+      <td>verknüpft mehrere Ortsangaben („rechts neben dem Baum auf der Decke“)</td>
+      <td><a href="stunden.html#s3">3</a>, 12</td>
+    </tr>
+    <tr>
+      <td><strong>5.</strong> … treffende Verben statt „ist“ und „gibt es“ verwenden.</td>
+      <td>ersetzt „ist“ mit Hilfe des Wortspeichers</td>
+      <td>wählt passende Verben selbstständig und abwechselnd</td>
+      <td>nutzt genaue, bildhafte Verben (ragen, sich erstrecken)</td>
+      <td><a href="stunden.html#s4">4</a></td>
+    </tr>
+    <tr>
+      <td><strong>6.</strong> … Dinge mit genauen Adjektiven beschreiben (Farbe, Form, Größe, Muster, Material).</td>
+      <td>nennt Grundfarben und Größen</td>
+      <td>erweitert Nominalgruppen (Adjektiv-Treppe) mit richtigen Endungen</td>
+      <td>nutzt Farbnuancen, Muster, Material gezielt und sparsam</td>
+      <td><a href="stunden.html#s5">5</a></td>
+    </tr>
+    <tr>
+      <td><strong>7.</strong> … eine Einleitung mit den W-Fragen schreiben.</td>
+      <td>nennt Titel und Thema mit Satzbausteinen</td>
+      <td>nennt Bildart, Titel, Künstler/in, Jahr (falls bekannt) und Thema</td>
+      <td>formuliert ein präzises Thema in einem eleganten Satz</td>
+      <td><a href="stunden.html#s6">6</a>, 11</td>
+    </tr>
+    <tr>
+      <td><strong>8.</strong> … im Hauptteil eine feste Reihenfolge einhalten und Satzanfänge abwechseln.</td>
+      <td>beschreibt in einer erkennbaren Reihenfolge</td>
+      <td>hält eine Reihenfolge durch, wechselt Satzanfänge</td>
+      <td>leitet geschickt über, ordnet Wichtiges vor Details</td>
+      <td><a href="stunden.html#s7">7</a>, 9</td>
+    </tr>
+    <tr>
+      <td><strong>9.</strong> … sachlich im Präsens beschreiben und im Schluss meine Meinung begründen.</td>
+      <td>schreibt überwiegend im Präsens, nennt eine Meinung</td>
+      <td>trennt Sehen/Meinen, begründet die Meinung</td>
+      <td>kennzeichnet Vermutungen, verknüpft Wirkung mit Bildmerkmalen</td>
+      <td><a href="stunden.html#s8">8</a>, 10</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p class="klein">Übergreifend (Std. 9–11): <em>Ich kann mit einem Schreibplan eine ganze Bildbeschreibung schreiben und mit der Checkliste überarbeiten.</em> Dieses Ziel bündelt alle neun Teilkompetenzen und wird in Teil B der Klassenarbeit überprüft.</p>
+</section>
+
+<!-- ===================================================== -->
+<section class="lp-abschnitt" id="methoden">
+<h2>4. Methodenvielfalt und Sozialformen</h2>
+<p>Die Reihe wechselt bewusst zwischen <strong>Spiel und Bewegung</strong>, <strong>kooperativen Phasen</strong> und <strong>ruhiger Einzelarbeit</strong>. Jede Methode ist im <a href="methoden.html">Methodenkoffer</a> mit Ablauf und Varianten beschrieben. ● = zentrale Methode der Stunde, ○ = optional.</p>
+
+<div class="tabelle-scroll">
+<table class="raster lp-matrix">
+  <thead>
+    <tr><th>Methode / Sozialform</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th></tr>
+  </thead>
+  <tbody>
+    <tr class="lp-gruppe"><td colspan="15">Sozialformen</td></tr>
+    <tr><td><span class="badge ea">EA</span> Einzelarbeit</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="o">○</td><td class="x">●</td><td class="x">●</td><td class="x">●</td></tr>
+    <tr><td><span class="badge pa">PA</span> Partnerarbeit</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="o">○</td><td class="x">●</td><td class="o">○</td><td></td><td class="x">●</td><td class="x">●</td><td></td><td class="x">●</td></tr>
+    <tr><td><span class="badge ga">GA</span> Gruppenarbeit</td><td></td><td class="x">●</td><td></td><td></td><td></td><td></td><td class="x">●</td><td></td><td></td><td class="x">●</td><td class="x">●</td><td></td><td></td><td></td></tr>
+    <tr><td><span class="badge ug">UG</span> Unterrichtsgespräch</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="o">○</td><td></td><td class="x">●</td></tr>
+    <tr><td><span class="badge lv">LV</span> Lehrervortrag / Input</td><td class="o">○</td><td></td><td></td><td class="o">○</td><td></td><td></td><td></td><td></td><td class="x">●</td><td></td><td class="o">○</td><td class="o">○</td><td class="o">○</td><td class="o">○</td></tr>
+    <tr><td><span class="badge sp">Spiel</span> Spiel / Bewegung</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td></td><td></td><td class="x">●</td><td class="x">●</td><td></td><td></td></tr>
+    <tr class="lp-gruppe"><td colspan="15">Methoden</td></tr>
+    <tr><td>Wahrnehmungs- und Ratespiele (Kim-Spiel, Fehlerbild, „Ich sehe was …“, Rätselrunde)</td><td class="x">●</td><td class="o">○</td><td></td><td></td><td class="x">●</td><td class="x">●</td><td></td><td></td><td></td><td></td><td></td><td class="x">●</td><td></td><td></td></tr>
+    <tr><td>Bewegung im Raum („Lupo sagt …“, Pantomime, Zeigestock, Gallery Walk, Stationen)</td><td></td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td></td><td></td><td class="x">●</td><td class="x">●</td><td></td><td></td><td class="x">●</td><td class="x">●</td><td></td><td></td></tr>
+    <tr><td>Bilddiktat / Kommunikationsspiel</td><td></td><td></td><td class="x">●</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="x">●</td><td class="x">●</td><td></td><td></td></tr>
+    <tr><td>Wortspeicher / Lernplakat anlegen</td><td class="o">○</td><td class="o">○</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td></td><td class="x">●</td><td class="x">●</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>Puzzle / Streifen ordnen (Bildstreifen, Einleitungs-Puzzle, Satzstreifen)</td><td></td><td class="x">●</td><td></td><td></td><td></td><td class="x">●</td><td class="x">●</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>Expertengruppen / Gruppenpuzzle</td><td></td><td class="x">●</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="x">●</td><td></td><td></td><td></td></tr>
+    <tr><td>Schreibplan / Stichwortzettel</td><td></td><td class="o">○</td><td></td><td></td><td></td><td class="x">●</td><td></td><td></td><td class="x">●</td><td></td><td></td><td></td><td class="x">●</td><td></td></tr>
+    <tr><td>Feedback (Daumenprobe, „2 Sterne, 1 Wunsch“, Textlupe)</td><td></td><td></td><td></td><td class="o">○</td><td></td><td class="x">●</td><td></td><td class="x">●</td><td></td><td class="x">●</td><td class="x">●</td><td></td><td></td><td class="o">○</td></tr>
+    <tr><td>Selbsteinschätzung (Lernlandkarte, Ampel, Schreib-Ampel)</td><td class="x">●</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="o">○</td><td class="x">●</td><td></td><td></td><td class="x">●</td><td></td><td class="x">●</td></tr>
+    <tr><td>Lerntheke / Stationenarbeit</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="x">●</td><td></td><td></td></tr>
+    <tr><td>Beamer-Bild / Raster-Overlay (<a href="beamer.html">beamer.html</a>)</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="x">●</td><td class="o">○</td><td class="x">●</td><td class="o">○</td><td></td><td class="o">○</td></tr>
+    <tr><td>Interaktive Lernspiele (<a href="uebungen.html">uebungen.html</a>)</td><td class="o">○</td><td class="o">○</td><td class="o">○</td><td class="o">○</td><td class="o">○</td><td class="o">○</td><td class="o">○</td><td class="o">○</td><td></td><td></td><td></td><td class="x">●</td><td></td><td></td></tr>
+  </tbody>
+</table>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<section class="lp-abschnitt" id="material">
+<h2>5. Medien und Materialliste</h2>
+<div class="grid-2">
+  <div>
+    <div class="tabelle-scroll">
+    <table>
+      <thead><tr><th>Material</th><th>Wofür / Hinweis</th><th>Std.</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Beamer</strong> oder Smartboard, Laptop</td><td>Bilder in Vollbild, 9-Felder-Raster, Fehlerbild-Vergleich (<a href="beamer.html">beamer.html</a>); ohne Beamer: Farbausdrucke A3</td><td>1–12</td></tr>
+        <tr><td>Dokumentenkamera (optional)</td><td>Schülerbilder und -texte zeigen</td><td>2, 3, 6, 10</td></tr>
+        <tr><td><strong>Farbausdrucke</strong> Bild A in A3</td><td>einmal ganz, einmal in 3 waagerechte Streifen geschnitten; 6 Kleinsätze A4-Streifen in Umschlägen</td><td>2, 7</td></tr>
+        <tr><td>Kopien AB 0–17</td><td>AB 1, 2, 7, 15, 16 möglichst <strong>farbig</strong> (Farbunterschiede!)</td><td>1–12</td></tr>
+        <tr><td>Stoppuhr / Timer</td><td>Kim-Spiel (20 Sek.), Speed-Dating, Bilddiktat</td><td>1–5, 12</td></tr>
+        <tr><td>Zeigestock (oder Lineal)</td><td>Zeigestock-Spiel, Bildbereiche zeigen</td><td>2, 3, 7</td></tr>
+        <tr><td><strong>Papprollen</strong> (Küchen-/Klopapierrollen)</td><td>„Kamerafahrt“ – ab Std. 4 sammeln lassen</td><td>7</td></tr>
+        <tr><td><strong>Ampelkarten</strong> grün/gelb/rot</td><td>Sehen/vermuten/meinen, Schreib-Ampel, Selbsteinschätzung; einmal herstellen, laminieren</td><td>8, 9, 12</td></tr>
+        <tr><td>Farbige <strong>Kreide</strong> / Marker</td><td>Tafelbilder mit Farbcode (VG/MG/HG, Wortarten)</td><td>alle</td></tr>
+        <tr><td><strong>Schere, Kleber</strong></td><td>Bildstreifen, Einleitungs-Puzzle, Satzstreifen</td><td>2, 6, 7</td></tr>
+        <tr><td>Plakatpapier, dicke Stifte</td><td>Wortspeicher Ortsangaben, Verben-Wortfeld, Wortspeicher Wirkung</td><td>3, 4, 8</td></tr>
+        <tr><td>Wortkarten / Verbkarten</td><td>Verben-Pantomime (auf Karton, ca. 20 Stück)</td><td>4</td></tr>
+        <tr><td>Farbkarten (Farbmuster aus dem Baumarkt oder AB 7)</td><td>Farbkarten-Spiel: Farbnuancen</td><td>5</td></tr>
+        <tr><td>Buntstifte grün, blau, orange, rot</td><td>Textlupe mit Farbcode</td><td>10</td></tr>
+        <tr><td>Lösungskarten, Stationsschilder</td><td>Lerntheke (aus AB 17)</td><td>12</td></tr>
+        <tr><td>Karteikarten DIN A6</td><td>Spickzettel (HA 11)</td><td>11–12</td></tr>
+        <tr><td>Postkarten-Kiste</td><td>Ersatzbilder für HA 1, falls Kinder kein Bild haben</td><td>1–2</td></tr>
+        <tr><td>Lernplakat „Lupos 5 Stufen“, Großer Wortspeicher</td><td>dauerhaft aufhängen (Anhang der <a href="arbeitsblaetter.html">AB-Seite</a>)</td><td>ab 1</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+  <div>
+    <div class="card">
+      <h3>Vor Beginn der Reihe erledigen</h3>
+      <ul class="checkliste">
+        <li>Bilder auf <a href="beamer.html">beamer.html</a> im Klassenraum testen (Vollbild, Raster-Overlay, Helligkeit)</li>
+        <li>Lernplakat „Lupos 5 Stufen“ in A3 drucken und aufhängen</li>
+        <li>AB 0 und AB 1 kopieren (AB 1 farbig!)</li>
+        <li>Bild A in A3 farbig drucken und in 3 Streifen schneiden; Kleinsätze in Umschläge</li>
+        <li>Postkarten-Kiste für HA 1 zusammenstellen</li>
+        <li>Elternhinweis: Papprollen sammeln (für Std. 7)</li>
+        <li>Ampelkarten herstellen oder vorhandene nutzen</li>
+        <li>Termin der Klassenarbeit festlegen und ankündigen</li>
+        <li>Mit der Kunstlehrkraft absprechen (siehe <a href="#faecher">fächerverbindend</a>)</li>
+      </ul>
+    </div>
+    <div class="achtung" data-label="Wichtig">
+      <p>Bild E „Im Hafen“ ist <strong>ausschließlich</strong> für die Klassenarbeit bestimmt. Nicht im Unterricht, auf der Beamer-Seite im Vorfeld oder in Lernspielen zeigen.</p>
+    </div>
+    <div class="info" data-label="Urheberrecht &amp; Datenschutz">
+      <p>Die Gemälde von Bruegel und Spitzweg sind gemeinfrei, die Übungsbilder eigene Illustrationen. Bei HA 1 bringen die Kinder <strong>keine Fotos mit Personen aus ihrer Familie</strong> mit (Postkarten, Kalender- oder Zeitschriftenbilder).</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<section class="lp-abschnitt" id="bewertung">
+<h2>6. Leistungsbewertung</h2>
+<div class="grid-2">
+  <div class="card">
+    <h3>Formativ (begleitend, ohne Note)</h3>
+    <ul>
+      <li><strong>Hausaufgaben-Feedback</strong> zu Beginn jeder Stunde – spielerisch und kriterienorientiert (Speed-Dating, Bingo, Ist-Polizei, Rätselrunde, W-Fragen-Daumen, 5-Minuten-Check), Übersicht auf <a href="hausaufgaben.html">hausaufgaben.html</a>.</li>
+      <li><strong>Textlupe / Schreibkonferenz</strong> (Std. 10) mit Checkliste AB 13 – Peer-Feedback nach „2 Sterne und 1 Wunsch“.</li>
+      <li><strong>Lehrer-Feedback</strong> zur Endfassung (HA 10) mit dem Bewertungsraster – bewusst <em>ohne</em> Note, damit die Rückmeldung als Lernhilfe genutzt wird.</li>
+      <li><strong>Selbsteinschätzung</strong> mit der Lernlandkarte AB 0 (Start / vor der Arbeit / nach der Arbeit), Schreib-Ampel (Std. 9), Ampel-Laufzettel (Std. 12).</li>
+      <li>Beobachtung in Spiel- und Kooperationsphasen (z. B. Bilddiktat: Werden Ortsangaben genutzt?).</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Summativ: Klassenarbeit „Im Hafen“</h3>
+    <p>45 Minuten (optional 90), <strong>40 Punkte</strong>. Details, Erwartungshorizont und Bewertungsbogen: <a href="klassenarbeit.html">klassenarbeit.html</a>.</p>
+    <ul>
+      <li><strong>Teil A (15 P.)</strong>: Fachbegriffe/Bildbereiche zuordnen, Präpositionen mit Dativ, langweilige Verben ersetzen, Sätze ins Präsens setzen, Sehen/Meinen unterscheiden, Einleitungs-Infos.</li>
+      <li><strong>Teil B (25 P.)</strong>: vollständige Bildbeschreibung (Einleitung, Hauptteil, Schluss).</li>
+    </ul>
+    <table class="raster">
+      <thead><tr><th>Note</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th></tr></thead>
+      <tbody><tr><td>Punkte</td><td>40–37</td><td>36–31</td><td>30–24</td><td>23–17</td><td>16–8</td><td>7–0</td></tr></tbody>
+    </table>
+    <p class="klein">Notenschlüssel anpassbar an die Vorgaben der Fachkonferenz bzw. des Landes.</p>
+  </div>
+</div>
+<div class="tipp" data-label="Transparenz">
+  <p>Den Bewertungsbogen der Klassenarbeit in Std. 12 (Lerntheke) zeigen und mit der Checkliste aus AB 13 abgleichen: Die Kinder sollen wissen, dass genau die Kriterien bewertet werden, mit denen sie seit Std. 10 selbst arbeiten. Mündliche Beiträge in den Spiel- und Präsentationsphasen (Bilddiktat, Rätselrunde, Audioguide) können in die Note „Sonstige Mitarbeit“ einfließen.</p>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<section class="lp-abschnitt" id="differenzierung">
+<h2>7. Differenzierung, Inklusion und DaZ</h2>
+<div class="grid-3">
+  <div class="card">
+    <h3>Drei Niveaus</h3>
+    <p><span class="niveau n1">Basis</span> mit Wortspeicher, Satzanfängen, Lückentexten, kleineren Bildausschnitten.</p>
+    <p><span class="niveau n2">Standard</span> Regelaufgabe, Wortspeicher als Angebot.</p>
+    <p><span class="niveau n3">Profi</span> freies Schreiben, Begründen, Zusatzaufgaben, Kunstwerk „Der Bücherwurm“ (AB 16).</p>
+    <p>Die Kinder wählen ihr Niveau zunehmend selbst; die Lehrkraft berät anhand der Lernlandkarte.</p>
+  </div>
+  <div class="card">
+    <h3>Unterstützung</h3>
+    <ul>
+      <li><strong>Lupos Tipp- und Hilfekarten</strong> (gestuft, zum Abholen – v. a. Std. 9)</li>
+      <li><strong>„Frag erst drei, dann mich“</strong> als Regel in Arbeitsphasen</li>
+      <li>Lernpartnerschaften (stark/schwächer) für Bilddiktat und Text-Tuning</li>
+      <li><strong>„Für Schnelle“</strong>: in jeder Stunde Zusatzaufgaben, Lernspiele auf <a href="uebungen.html">uebungen.html</a></li>
+      <li>Schreiben am Laptop / Diktierfunktion als Option bei Schreibschwierigkeiten</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>DaZ / Deutsch als Zweitsprache</h3>
+    <ul>
+      <li>Wortspeicher mit <strong>Artikeln</strong> (der Hund, die Ente, das Boot) und Bildchen</li>
+      <li><strong>Satzmuster</strong>: „Im Vordergrund + Verb + Subjekt …“ (Verbzweitstellung!)</li>
+      <li>Dativ-Tabelle (dem / der / dem / den) als Karte auf dem Tisch</li>
+      <li>Adjektivendungen als Muster („ein brauner Hund – eine rote Kappe – ein rotes Halsband“)</li>
+      <li>Mündliche Phasen vor schriftlichen Phasen; Bilddiktat zuerst mit Zeigen erlaubt</li>
+    </ul>
+  </div>
+</div>
+<div class="grid-2">
+  <div class="card">
+    <h3>Inklusion</h3>
+    <ul>
+      <li><strong>Förderschwerpunkt Lernen</strong>: Bild in Ausschnitten bearbeiten (nur Vordergrund), Lückentexte, reduzierte Textmenge (Einleitung + 5 Hauptteilsätze), Checkliste mit Symbolen.</li>
+      <li><strong>LRS</strong>: Wortspeicher als Abschreibhilfe, Rechtschreibung im Lernprozess nicht bewerten, Nachteilsausgleich (Zeitzugabe) in der Klassenarbeit gemäß Landesregelung.</li>
+      <li><strong>Aufmerksamkeit (ADHS)</strong>: Bewegungsphasen nutzen, klare Zeitstruktur mit sichtbarem Timer, Aufgaben in kleinen Schritten, Rolle „Zeitwächter/in“ in Gruppen.</li>
+      <li><strong>Sehbeeinträchtigung</strong>: Bilder groß und kontrastreich ausdrucken bzw. am Tablet zoomen; Bilddiktat als Hörübung besonders wertvoll.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Begabte und Schnelle</h3>
+    <ul>
+      <li>Profi-Blatt „Der Bücherwurm“ (AB 16) zu Spitzweg</li>
+      <li>Audioguide aufnehmen (Tablet) zu einem Ausschnitt der „Kinderspiele“</li>
+      <li>Eigenes Fehlerbild oder Kim-Spiel-Bild zeichnen und Mitschüler/innen testen</li>
+      <li>Eine Beschreibung aus Sicht einer Figur im Bild verfassen (Abgrenzung zur sachlichen Beschreibung reflektieren)</li>
+      <li>Rolle als „Lupo-Helfer/in“ an der Lerntheke</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<section class="lp-abschnitt" id="kuerzen">
+<h2>8. Zeitpuffer und Kürzungsmöglichkeiten</h2>
+<p>Die Reihe ist dicht geplant. Wenn weniger Stunden zur Verfügung stehen, lassen sich einzelne Bausteine zusammenlegen, ohne die Progression zu zerstören. <strong>Nicht kürzen</strong> sollte man Std. 9 (Schreiben) und Std. 10 (Überarbeiten) – hier entsteht der eigentliche Lernzuwachs für die Klassenarbeit.</p>
+<div class="tabelle-scroll">
+<table>
+  <thead><tr><th>Verfügbare Zeit</th><th>Vorschlag</th><th>Was geht verloren / wie auffangen?</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>12 Stunden</strong> (+ Rückgabe)</td>
+      <td><strong>Std. 4 + 5 zusammenlegen</strong> zu „Treffende Wörter“: Langweiler-Text (Verben) und Adjektiv-Treppe; AB 6 und AB 7 je zur Hälfte, HA 4 und HA 5 zu einer HA kombinieren (6 Sätze Wochenmarkt mit treffenden Verben <em>und</em> genauen Adjektiven).</td>
+      <td>Pantomime und Farbkarten-Spiel entfallen → als Lernspiel (<a href="uebungen.html">uebungen.html</a>) oder 5-Minuten-Einstieg in Std. 6.</td>
+    </tr>
+    <tr>
+      <td><strong>11 Stunden</strong></td>
+      <td>zusätzlich <strong>Std. 11 (Museum)</strong> in die Zeit nach der Klassenarbeit verlegen (als Ausblick/Projekt) oder nur das Profi-Blatt AB 16 als Wahlaufgabe anbieten.</td>
+      <td>Kunstwerk-Einleitung mit Künstler/Jahr wurde schon in Std. 6 am „Bücherwurm“ geübt – das reicht für die Klassenarbeit.</td>
+    </tr>
+    <tr>
+      <td><strong>10 Stunden</strong></td>
+      <td>zusätzlich <strong>Std. 2 + 3 straffen</strong>: Bildstreifen und 9-Felder-Raster in Std. 2, Präpositionen (AB 4) als Hausaufgabe, Bilddiktat als Einstieg in Std. 4; <strong>Lerntheke</strong> nur mit den 6 Pflichtstationen als Wochenplan zu Hause/in Vertretungsstunden.</td>
+      <td>Weniger Bewegungsphasen – dafür HA-Überprüfungen kurz und spielerisch halten.</td>
+    </tr>
+    <tr>
+      <td><strong>Mehr Zeit</strong> (15–16 Std.)</td>
+      <td>Std. 9 als <strong>Doppelstunde</strong> (Schreibzeit ohne Druck), Klassenarbeit 90 Min., Projekt „Klassenmuseum“ (eigene Bilder malen und beschreiben), Audiodeskription eines kurzen Filmausschnitts.</td>
+      <td>–</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="tipp" data-label="Puffer-Bausteine (5–10 Min.)">
+  <p>Falls eine Stunde früher fertig ist oder Zeit aufgeholt werden muss: Kim-Spiel mit einem anderen Bild, „Ich sehe was, was du nicht siehst – Profi-Version“, Bilddiktat mit Gegenständen, Präpositionen-Pantomime, ein Lernspiel auf <a href="uebungen.html">uebungen.html</a>. Umgekehrt lassen sich die Vertiefungsphasen der Stunden 2–8 ohne Schaden kürzen, da AB-Reste als Übung zu Hause erledigt werden können.</p>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<section class="lp-abschnitt" id="faecher">
+<h2>9. Fächerverbindende Ideen</h2>
+<div class="grid-3">
+  <div class="card">
+    <h3>Kunst</h3>
+    <ul>
+      <li>Bildaufbau und Raumwirkung: Vorder-, Mittel-, Hintergrund, Größenverhältnisse (Std. 2)</li>
+      <li>Bruegel und Spitzweg im Kunstunterricht vertiefen; Lieblingsbild aus einem Museum vorstellen</li>
+      <li>Bilddiktat umgekehrt: Kinder malen nach einer Beschreibung aus dem Deutschunterricht</li>
+      <li>Eigene Wimmelbilder im Stil der „Kinderspiele“ gestalten</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Erdkunde</h3>
+    <ul>
+      <li>Lagebeschreibung und Orientierung: links/rechts, oben/unten, Himmelsrichtungen</li>
+      <li>Das <strong>9-Felder-Raster</strong> entspricht dem Prinzip der <strong>Planquadrate</strong> im Atlas</li>
+      <li>Luftbild oder Landschaftsfoto beschreiben (Vordergrund – Hintergrund)</li>
+      <li>Bruegels Winterlandschaft: Gebirge, Tal, Dorf, Gewässer</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Weitere Fächer</h3>
+    <ul>
+      <li><strong>Englisch</strong>: <em>in the foreground, on the left, next to, there is</em> – Präpositionen im Vergleich</li>
+      <li><strong>Musik</strong>: Mussorgsky „Bilder einer Ausstellung“ – Musik beschreibt Bilder</li>
+      <li><strong>Mathematik</strong>: Raster und Koordinaten</li>
+      <li><strong>Medienbildung / Ethik</strong>: Audiodeskription für blinde Menschen, Bildrechte, Datenschutz bei Fotos</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<!-- ===================================================== -->
+<section class="lp-abschnitt" id="links">
+<h2>10. Alle Materialien der Reihe</h2>
+<div class="grid-3 lp-linkkarten">
+  <div class="card"><h3>Stundenverläufe</h3><p>Ausführliche Verläufe mit wörtlichen Impulsen, Tafelbildern, Differenzierung und Stolpersteinen – Stunde für Stunde.</p><a class="btn klein" href="stunden.html#s1">Zu Stunde 1</a></div>
+  <div class="card"><h3>Arbeitsblätter</h3><p>AB 0–17, Lernplakat „Lupos 5 Stufen“ und Großer Wortspeicher, druckfertig in A4.</p><a class="btn klein" href="arbeitsblaetter.html#ab0">Zu AB 0</a></div>
+  <div class="card"><h3>Lösungen</h3><p>Musterlösungen und Erwartungshorizonte zu allen Arbeitsblättern.</p><a class="btn klein" href="loesungen.html">Zu den Lösungen</a></div>
+  <div class="card"><h3>Hausaufgaben</h3><p>HA 1–12 mit Arbeitsauftrag und spielerischer Überprüfungsmethode für die Folgestunde.</p><a class="btn klein" href="hausaufgaben.html">Zu den Hausaufgaben</a></div>
+  <div class="card"><h3>Methodenkoffer</h3><p>Alle Methoden der Reihe mit Ablauf, Zeitbedarf und Varianten.</p><a class="btn klein" href="methoden.html">Zum Methodenkoffer</a></div>
+  <div class="card"><h3>Lernspiele</h3><p>Interaktive Übungen zum Üben im Unterricht oder zu Hause.</p><a class="btn klein" href="uebungen.html">Zu den Lernspielen</a></div>
+  <div class="card"><h3>Beamer-Bilder</h3><p>Alle Unterrichtsbilder im Vollbild, mit 9-Felder-Raster und Fehlerbild-Vergleich.</p><a class="btn klein" href="beamer.html">Zur Beamer-Seite</a></div>
+  <div class="card"><h3>Klassenarbeit</h3><p>„Im Hafen“: Aufgaben, Erwartungshorizont, Bewertungsbogen, Notenschlüssel.</p><a class="btn klein" href="klassenarbeit.html">Zur Klassenarbeit</a></div>
+  <div class="card"><h3>Startseite</h3><p>Überblick über die Reihe und Lupo, den Bilddetektiv.</p><a class="btn klein" href="index.html">Zur Startseite</a></div>
+</div>
+</section>

@@ -1,0 +1,1288 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Methodenkoffer · Bildbeschreibung Klasse 5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="icon" href="bilder/lupo.svg">
+</head>
+<body class="seite-methoden">
+<header class="site-header no-print">
+  <div class="inner">
+    <a class="brand" href="index.html"><img src="bilder/lupo.svg" alt=""><span>Bildbeschreibung<small>Deutsch · Klasse 5</small></span></a>
+    <nav class="nav" aria-label="Hauptnavigation">
+      <a href="index.html">Start</a>
+      <a href="lehrplan.html">Lehrplan</a>
+      <a href="stunden.html">Stundenverläufe</a>
+      <a href="arbeitsblaetter.html">Arbeitsblätter</a>
+      <a href="loesungen.html">Lösungen</a>
+      <a href="hausaufgaben.html">Hausaufgaben</a>
+      <a href="methoden.html" class="active" aria-current="page">Methoden</a>
+      <a href="uebungen.html">Lernspiele</a>
+      <a href="beamer.html">Beamer-Bilder</a>
+      <a href="klassenarbeit.html">Klassenarbeit</a>
+    </nav>
+  </div>
+</header>
+<main class="wrap">
+<style>
+/* ---------- Methodenkoffer (.me-…) ---------- */
+.me-sprung { margin-top: -6px; }
+.me-legende { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: .92rem; }
+.me-filter { position: relative; }
+.me-filter h2 { margin: 0 0 8px; font-size: 1.2rem; }
+.me-filter-zeile { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 8px 0; }
+.me-filter-label { font-family: var(--font-head); font-weight: 800; font-size: .9rem; min-width: 96px; color: var(--ink-soft); }
+.me-filter .btn.me-aktiv, .me-filter .btn.me-aktiv:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+.me-eingabe { font: inherit; font-size: .95rem; padding: 6px 14px; border: 2px solid var(--line-strong); border-radius: 999px; background: #fff; color: var(--ink); }
+.me-eingabe:focus { outline: none; border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-soft); }
+input.me-eingabe { flex: 1; min-width: 220px; }
+.me-zaehler { margin: 10px 0 0; font-weight: 700; color: var(--ink-soft); }
+.me-leer { text-align: center; }
+.me-toc ol { columns: 3; }
+@media (max-width: 860px) { .me-toc ol { columns: 2; } }
+@media (max-width: 620px) { .me-toc ol { columns: 1; } }
+
+.me-liste { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start; }
+.me-liste > .card { margin: 0; }
+@media (max-width: 920px) { .me-liste { grid-template-columns: 1fr; } }
+.me-methode { scroll-margin-top: 90px; border-top: 6px solid var(--orange); }
+.me-methode[data-phase^="erarbeitung"] { border-top-color: var(--blue); }
+.me-methode[data-phase^="sicherung"] { border-top-color: var(--green); }
+.me-methode[data-phase^="uebung"] { border-top-color: var(--purple); }
+.me-methode:target { box-shadow: 0 0 0 4px var(--orange-soft), var(--shadow); }
+.me-versteckt { display: none !important; }
+.me-kopf { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 8px; }
+.me-kopf h3 { margin: 0 0 6px; }
+.me-nr { flex: none; width: 38px; height: 38px; border-radius: 12px; background: var(--ink); color: #fff; display: grid; place-items: center; font-family: var(--font-head); font-weight: 900; }
+.me-badges { display: flex; flex-wrap: wrap; gap: 4px; }
+.me-phase { display: inline-block; font-family: var(--font-head); font-weight: 800; font-size: .74rem; padding: 1px 9px; border-radius: 999px; border: 2px solid; background: #fff; white-space: nowrap; vertical-align: middle; }
+.me-phase.me-einstieg { border-color: var(--orange); color: #9a4d12; }
+.me-phase.me-erarbeitung { border-color: var(--blue); color: #1d4f86; }
+.me-phase.me-sicherung { border-color: var(--green); color: #2a6a2d; }
+.me-phase.me-uebung { border-color: var(--purple); color: #5c3787; }
+.me-kurz { color: var(--ink-soft); }
+.me-fakten { display: grid; gap: 4px; margin: 10px 0 6px; padding: 10px 14px; background: var(--bg); border-radius: var(--radius-sm); font-size: .92rem; }
+.me-fakten > div { display: grid; grid-template-columns: 100px 1fr; gap: 8px; }
+.me-fakten dt { font-family: var(--font-head); font-weight: 800; color: var(--muted); }
+.me-fakten dd { margin: 0; }
+.me-methode h4 { margin: 14px 0 4px; }
+.me-ablauf { margin: 0 0 8px; }
+.me-ablauf li { margin: .35em 0; }
+.me-box { border-radius: var(--radius-sm); padding: 8px 12px; margin: 10px 0; font-size: .93rem; }
+.me-box h4 { margin: 0 0 2px !important; font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; }
+.me-box p { margin: 0; }
+.me-variante { background: var(--purple-soft); }
+.me-variante h4 { color: #5c3787; }
+.me-praxis { background: var(--green-soft); }
+.me-praxis h4 { color: #2a6a2d; }
+.me-kompetenz { border-top: 2px dashed var(--line); padding-top: 8px; margin: 12px 0 0; font-size: .93rem; }
+
+.me-mix th, .me-mix td { font-size: .9rem; }
+.me-mix td.me-punkt { text-align: center; font-size: 1.1rem; color: var(--ink); }
+.me-mix td:nth-child(3) { min-width: 260px; }
+table.raster.me-mix td:nth-child(2), table.raster.me-mix td:nth-child(3), table.raster.me-mix th:nth-child(3) { text-align: left; }
+.me-balken { display: grid; grid-template-columns: 210px 1fr 34px; gap: 10px; align-items: center; margin: 7px 0; font-size: .92rem; }
+.me-balken-spur { display: block; height: 14px; background: #ece5d5; border-radius: 999px; overflow: hidden; }
+.me-balken-wert { display: block; height: 100%; border-radius: 999px; }
+.me-balken-zahl { font-family: var(--font-head); font-weight: 900; text-align: right; }
+.me-b-ea { background: var(--blue); } .me-b-pa { background: var(--green); } .me-b-ga { background: var(--purple); }
+.me-b-ug { background: var(--orange); } .me-b-sp { background: var(--teal); } .me-b-lv { background: #8a96a1; }
+.me-b-einstieg { background: var(--orange); } .me-b-erarbeitung { background: var(--blue); } .me-b-sicherung { background: var(--green); } .me-b-uebung { background: var(--purple); }
+@media (max-width: 620px) { .me-balken { grid-template-columns: 1fr 34px; } .me-balken-spur { grid-column: 1 / -1; grid-row: 2; } }
+
+/* Kopiervorlagen */
+.me-blatt { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.me-blatt .werkzeugleiste { justify-content: flex-end; margin: -12px 0 8px; }
+.me-blatt-unter { margin: 0; font-size: .9rem; color: var(--ink-soft); }
+.me-ampelkarten { display: grid; gap: 0; }
+.me-ampelkarte { display: grid; grid-template-columns: 140px 1fr; gap: 26px; align-items: center; border: 2px dashed #9aa5ae; margin-top: -2px; padding: 20px 28px; min-height: 240px; }
+.me-licht { width: 128px; height: 128px; border-radius: 50%; border: 6px solid #22303c; box-shadow: inset 0 -10px 0 rgba(0,0,0,.12); }
+.me-ampel-wort { font-family: var(--font-head); font-weight: 900; font-size: 3rem; line-height: 1; margin: 0 0 6px; }
+.me-ampel-satz { font-size: 1.15rem; font-weight: 700; margin: 0 0 8px; }
+.me-ampel-signal { font-size: .95rem; margin: 0; }
+.me-ampelkarte.gruen { background: var(--green-soft); } .me-ampelkarte.gruen .me-licht { background: #3d8b40; } .me-ampelkarte.gruen .me-ampel-wort { color: #2a6a2d; }
+.me-ampelkarte.gelb { background: var(--yellow-soft); } .me-ampelkarte.gelb .me-licht { background: #f5c518; } .me-ampelkarte.gelb .me-ampel-wort { color: #7a5b00; }
+.me-ampelkarte.rot { background: var(--red-soft); } .me-ampelkarte.rot .me-licht { background: #cc4141; } .me-ampelkarte.rot .me-ampel-wort { color: #9c2b2b; }
+.me-rolle .me-rolle-kopf { margin: -14px -16px 10px; padding: 8px 16px; color: #fff; font-family: var(--font-head); font-weight: 900; font-size: 1.05rem; }
+.me-rolle.gruen .me-rolle-kopf { background: var(--green); }
+.me-rolle.blau .me-rolle-kopf { background: var(--blue); }
+.me-rolle.orange .me-rolle-kopf { background: var(--orange); }
+.me-rolle.rot .me-rolle-kopf { background: var(--red); }
+.me-rolle.lila .me-rolle-kopf { background: var(--purple); }
+.me-rolle.tuerkis .me-rolle-kopf { background: var(--teal); }
+.me-rolle ul { margin: 4px 0 8px; padding-left: 1.15em; font-size: .92rem; }
+.me-rolle p { margin: 4px 0; font-size: .92rem; }
+.me-sag { background: var(--bg); padding: 4px 8px; border-radius: 6px; }
+.me-rad-wrap { max-width: 540px; margin: 6px auto; }
+.me-rad, .me-kamera { display: block; width: 100%; height: auto; }
+.me-rad-legende { display: flex; flex-wrap: wrap; gap: 6px 16px; justify-content: center; font-size: .88rem; }
+.me-rad-legende i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; border: 1px solid #7d7360; vertical-align: -2px; margin-right: 4px; }
+
+@media print {
+  .me-filter, .me-sprung, .me-leer { display: none !important; }
+  .me-liste { display: block; }
+  .me-methode { break-inside: avoid; margin: 0 0 6mm; }
+  .me-ampelkarte { min-height: 0; height: 76mm; padding: 6mm 9mm; }
+  .me-rad-wrap { max-width: 150mm; }
+  .me-blatt .werkzeugleiste { display: none !important; }
+}
+</style>
+
+<header class="seitenkopf">
+  <div>
+    <div class="kicker">Für Lehrkräfte · Nachschlagewerk</div>
+    <h1>Der Methodenkoffer</h1>
+    <p>Alle 35 Methoden der Reihe „Bildbeschreibung“ auf einen Blick – mit Ablauf in Schritten, wörtlichen Impulsen, Material, Differenzierung und Praxistipps. Dazu Kopiervorlagen für Ampelkarten, Rollenkarten, das Satzanfänge-Rad und den Kamera-Sucher.</p>
+  </div>
+  <img src="bilder/lupo.svg" alt="">
+</header>
+
+<div class="werkzeugleiste no-print me-sprung">
+  <a class="btn klein hell" href="#me-methoden">Zu den Methoden</a>
+  <a class="btn klein hell" href="#me-mix">Sozialformen-Mix</a>
+  <a class="btn klein hell" href="#me-vorlagen">Kopiervorlagen</a>
+  <button class="btn klein" data-print>Seite drucken</button>
+</div>
+
+<div class="info" data-label="So nutzen Sie den Methodenkoffer">
+  <p>Jede Karte nennt die Stunde(n), in denen die Methode vorkommt (Link zum Stundenverlauf), die Phase, die Sozialform, die Dauer und das Material. Der <strong>Ablauf</strong> enthält wörtliche Impulse, die Sie direkt übernehmen können. Mit der Filterleiste finden Sie schnell passende Methoden, z. B. „alle Einstiege in Partnerarbeit“ oder alles zum Stichwort „Präsens“.</p>
+  <div class="me-legende">
+    <strong>Phasen:</strong>
+    <span class="me-phase me-einstieg">Einstieg</span><span class="me-phase me-erarbeitung">Erarbeitung</span><span class="me-phase me-sicherung">Sicherung</span><span class="me-phase me-uebung">Übung</span>
+    <strong>Sozialformen:</strong>
+    <span class="badge ea">EA</span> Einzelarbeit <span class="badge pa">PA</span> Partnerarbeit <span class="badge ga">GA</span> Gruppenarbeit <span class="badge ug">UG</span> Unterrichtsgespräch <span class="badge sp">Spiel</span> Spiel/Bewegung <span class="badge lv">LV</span> Lehrervortrag
+  </div>
+</div>
+
+<section class="card me-filter no-print" id="me-filter" aria-label="Methoden filtern">
+  <h2>Methode finden</h2>
+  <div class="me-filter-zeile"><span class="me-filter-label">Phase</span><button type="button" class="btn klein hell me-aktiv" data-phase="alle" aria-pressed="true">Alle</button><button type="button" class="btn klein hell" data-phase="einstieg" aria-pressed="false">Einstieg</button><button type="button" class="btn klein hell" data-phase="erarbeitung" aria-pressed="false">Erarbeitung</button><button type="button" class="btn klein hell" data-phase="sicherung" aria-pressed="false">Sicherung</button><button type="button" class="btn klein hell" data-phase="uebung" aria-pressed="false">Übung</button></div>
+  <div class="me-filter-zeile"><span class="me-filter-label">Sozialform</span><button type="button" class="btn klein hell me-aktiv" data-sozial="alle" aria-pressed="true">Alle</button><button type="button" class="btn klein hell" data-sozial="ea" aria-pressed="false" title="Einzelarbeit">EA</button><button type="button" class="btn klein hell" data-sozial="pa" aria-pressed="false" title="Partnerarbeit">PA</button><button type="button" class="btn klein hell" data-sozial="ga" aria-pressed="false" title="Gruppenarbeit">GA</button><button type="button" class="btn klein hell" data-sozial="ug" aria-pressed="false" title="Unterrichtsgespräch">UG</button><button type="button" class="btn klein hell" data-sozial="sp" aria-pressed="false" title="Spiel/Bewegung">Spiel</button><button type="button" class="btn klein hell" data-sozial="lv" aria-pressed="false" title="Lehrervortrag">LV</button></div>
+  <div class="me-filter-zeile"><label class="me-filter-label" for="me-stunde">Stunde</label><select id="me-stunde" class="me-eingabe"><option value="alle">alle Stunden</option><option value="1">Stunde 1 · Genau hingeschaut!</option><option value="2">Stunde 2 · Ordnung im Bild</option><option value="3">Stunde 3 · Wo genau?</option><option value="4">Stunde 4 · Mehr als „ist“ und „gibt es“</option><option value="5">Stunde 5 · Bunt und genau</option><option value="6">Stunde 6 · Der Anfang zählt</option><option value="7">Stunde 7 · Der rote Faden</option><option value="8">Stunde 8 · Sehen oder meinen?</option><option value="9">Stunde 9 · Jetzt schreibe ich!</option><option value="10">Stunde 10 · Die Textlupe</option><option value="11">Stunde 11 · Ab ins Museum!</option><option value="12">Stunde 12 · Fit für die Klassenarbeit</option><option value="13">Stunde 13 · Klassenarbeit „Im Hafen“</option><option value="14">Stunde 14 · Rückgabe & Reflexion</option></select></div>
+  <div class="me-filter-zeile"><label class="me-filter-label" for="me-suche">Suche</label><input type="search" id="me-suche" class="me-eingabe" placeholder="z. B. Präsens, Wortspeicher, Bewegung, Kinderzimmer …" autocomplete="off"><button type="button" class="btn klein" id="me-reset">Filter zurücksetzen</button></div>
+  <p class="me-zaehler" id="me-zaehler" aria-live="polite"></p>
+</section>
+
+<nav class="toc me-toc" data-auto-toc="article.me-methode" aria-label="Inhaltsverzeichnis der Methoden"><h2>Inhaltsverzeichnis: alle Methoden (in der Reihenfolge der Stunden)</h2></nav>
+
+<h2 id="me-methoden">Die Methoden</h2>
+<p class="klein">Die Farbe der oberen Kante zeigt die Hauptphase: <span style="color:var(--orange)">■</span> Einstieg, <span style="color:var(--blue)">■</span> Erarbeitung, <span style="color:var(--green)">■</span> Sicherung, <span style="color:var(--purple)">■</span> Übung. Beim Drucken werden nur die gerade angezeigten (gefilterten) Methoden gedruckt.</p>
+<div class="achtung me-leer" id="me-leer" hidden><p>Keine Methode passt zu dieser Auswahl. Lockern Sie einen Filter oder klicken Sie auf „Filter zurücksetzen“.</p></div>
+
+<div class="me-liste">
+  <article class="card me-methode" id="m-brainstorming" data-phase="einstieg" data-sozial="ug" data-stunden="1" data-toc-titel="Brainstorming „Wo braucht man genaue Beschreibungen?“">
+    <div class="me-kopf"><span class="me-nr">1</span><div><h3>Brainstorming „Wo braucht man genaue Beschreibungen?“</h3><div class="me-badges"><span class="me-phase me-einstieg">Einstieg</span> <span class="badge ug" title="Unterrichtsgespräch">UG</span> <span class="badge zeit">8 Min.</span></div></div></div>
+    <p class="me-kurz">Die Klasse sammelt Alltagssituationen, in denen eine genaue Beschreibung entscheidend ist. So wird das Ziel der Bildbeschreibung von Anfang an sinnvoll begründet.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s1">Stunde 1 · Genau hingeschaut!</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Unterrichtsgespräch</dd></div>
+      <div><dt>Dauer</dt><dd>8 Min.</dd></div>
+      <div><dt>Material</dt><dd>Tafel oder Plakat (Mindmap), Lupo-Bild in der Mitte</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Impuls: „Stellt euch vor, ihr habt euren Rucksack verloren und geht zum Fundbüro. Was müsst ihr dort tun?“</li>
+      <li>Weitere Situationen sammeln lassen: „Wo ist es noch wichtig, etwas ganz genau zu beschreiben?“ – Erwartet: Fundbüro, Polizei/Zeugenaussage, blinde Menschen (Audiodeskription), Museumsführung, Telefonat mit jemandem, der das Bild nicht sieht.</li>
+      <li>Antworten als Mindmap um Lupo herum notieren.</li>
+      <li>Gemeinsam den Zielsatz formulieren und rahmen: „Wer meine Beschreibung liest, soll sich das Bild genau vorstellen können – ohne es zu sehen.“</li>
+      <li>Zielsatz ins Heft übernehmen lassen.</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Situationen als Bildkarten vorgeben (Fundbüro, Polizei, Museum), die Kinder erzählen dazu. ★★★ Profis überlegen, was passiert, wenn die Beschreibung ungenau ist (z. B. falscher Rucksack).</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Die Audiodeskription (Filme für blinde Menschen) beeindruckt Kinder sehr – ein 30-Sekunden-Hörbeispiel aus einer Mediathek macht das Ziel besonders greifbar.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Ziel und Nutzen einer Bildbeschreibung erklären (Adressatenbezug).</p>
+  </article>
+
+  <article class="card me-methode" id="m-kim" data-phase="einstieg" data-sozial="ea ug" data-stunden="1 12" data-toc-titel="Kim-Spiel">
+    <div class="me-kopf"><span class="me-nr">2</span><div><h3>Kim-Spiel</h3><div class="me-badges"><span class="me-phase me-einstieg">Einstieg</span> <span class="badge ea" title="Einzelarbeit">EA</span> <span class="badge ug" title="Unterrichtsgespräch">UG</span> <span class="badge zeit">10 Min.</span></div></div></div>
+    <p class="me-kurz">Die Klasse sieht ein Bild nur 20 Sekunden lang und notiert danach aus dem Gedächtnis möglichst viele Einzelheiten. Macht spürbar, wie wenig man beim flüchtigen Hinsehen behält – der ideale Einstieg ins genaue Schauen.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s1">Stunde 1 · Genau hingeschaut!</a>, <a href="stunden.html#s12">Stunde 12 · Fit für die Klassenarbeit</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Einzelarbeit, Unterrichtsgespräch</dd></div>
+      <div><dt>Dauer</dt><dd>10 Min.</dd></div>
+      <div><dt>Material</dt><dd>Bild A „Sommertag am See“ am Beamer, sichtbarer Timer, Notizzettel; für Station W2: Bildkarten im Umschlag</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Ankündigen: „Ich zeige euch gleich ein Bild – aber nur 20 Sekunden! Schaut so genau hin, wie ihr könnt. Nichts aufschreiben!“</li>
+      <li>Bild A 20 Sekunden zeigen (Timer sichtbar), dann ausblenden.</li>
+      <li>2 Minuten Einzelarbeit: „Schreibt alles auf, was ihr behalten habt – in Stichwörtern.“</li>
+      <li>Zählen lassen: „Wer hat mehr als 5 Dinge? Mehr als 10?“ – Das Kind mit den meisten Stichwörtern liest vor, die anderen ergänzen.</li>
+      <li>Bild erneut zeigen und abgleichen: „Was haben fast alle vergessen?“ (meist: Fahrrad, rote Pose, Wimpel, Äpfel im Korb).</li>
+      <li>Überleitung: „Was hätte euch geholfen, mehr zu behalten?“ → Ordnung im Bild, genaues Hinsehen.</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Stichwörter dürfen auch gezeichnet werden. ★★★ Profis notieren zusätzlich, wo im Bild etwas war (links, rechts, oben). In Stunde 12 als Wahlstation W2: Bildkarte 30 Sekunden ansehen, umdrehen, aufschreiben, mit der Karte vergleichen.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Hund, Mädchen, Boot und Sonne werden fast immer genannt, Kleinigkeiten wie die rote Pose oder die Farbe der Äpfel selten. Genau dieses Gefälle als Gesprächsanlass nutzen. Eine zweite Runde mit einem anderen Bildausschnitt bringt meist einen deutlichen Zuwachs – ein schnelles Erfolgserlebnis.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Wahrnehmung schulen, Einzelheiten benennen, Motivation für genaues Beobachten.</p>
+  </article>
+
+  <article class="card me-methode" id="m-fehlerbild" data-phase="erarbeitung uebung" data-sozial="pa" data-stunden="1 12" data-toc-titel="Fehlerbild (Finde die Unterschiede)">
+    <div class="me-kopf"><span class="me-nr">3</span><div><h3>Fehlerbild (Finde die Unterschiede)</h3><div class="me-badges"><span class="me-phase me-erarbeitung">Erarbeitung</span> <span class="me-phase me-uebung">Übung</span> <span class="badge pa" title="Partnerarbeit">PA</span> <span class="badge zeit">12–15 Min.</span></div></div></div>
+    <p class="me-kurz">Zwei fast gleiche Bilder des Kinderzimmers – mit genau acht Unterschieden. Die Partner suchen gemeinsam und müssen jeden Unterschied sprachlich genau benennen.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s1">Stunde 1 · Genau hingeschaut!</a>, <a href="stunden.html#s12">Stunde 12 · Fit für die Klassenarbeit</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Partnerarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>12–15 Min.</dd></div>
+      <div><dt>Material</dt><dd>AB 1, Bild B „Das Kinderzimmer“ und Fehlerbild (farbig), Buntstifte</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Auftrag: „Ihr bekommt zwei Bilder vom Kinderzimmer. Im zweiten Bild hat jemand genau acht Dinge verändert. Findet sie zu zweit!“</li>
+      <li>Profi-Regel: Partner A schaut nur auf Bild 1, Partner B nur auf Bild 2. Verglichen wird durch Sprechen: „Bei mir liegt unter dem Bett ein schwarz-weißer Ball. Bei dir?“</li>
+      <li>Gefundene Unterschiede auf AB 1 einkreisen und jeweils in einem Satz notieren.</li>
+      <li>Auswertung am Beamer: Jedes Paar nennt einen Unterschied in einem vollständigen Satz mit Ortsangabe.</li>
+      <li>Reflexion: „Welche Wörter haben euch geholfen, dem anderen zu zeigen, wo etwas ist?“ → erste Sammlung von Ortsangaben für Stunde 2 und 3.</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Beide Bilder dürfen nebeneinander angesehen werden. ★★★ Nur sprechen, Bilder nicht zeigen. Für Schnelle: zu Bild A ein eigenes Fehlerbild mit drei Änderungen zeichnen.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Die acht Unterschiede: Planet statt Rakete auf dem Poster, gelber Ball, Katze oben auf dem Regal, Uhr zeigt 9 statt 3 Uhr, grüne Lampe, Rucksack fehlt, gelbe Blume, nur drei Bücher im obersten Fach. Uhr und oberstes Regalfach werden am häufigsten übersehen – Hinweis geben: „Zählt auch nach!“</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Genaues Vergleichen, Benennen mit Ortsangaben, kooperatives Sprechen.</p>
+  </article>
+
+  <article class="card me-methode" id="m-lernlandkarte" data-phase="einstieg sicherung" data-sozial="ea" data-stunden="1 12 14" data-toc-titel="Lernlandkarte">
+    <div class="me-kopf"><span class="me-nr">4</span><div><h3>Lernlandkarte</h3><div class="me-badges"><span class="me-phase me-einstieg">Einstieg</span> <span class="me-phase me-sicherung">Sicherung</span> <span class="badge ea" title="Einzelarbeit">EA</span> <span class="badge zeit">8 Min. je Durchgang</span></div></div></div>
+    <p class="me-kurz">Auf AB 0 schätzen die Kinder neun Ich-kann-Sätze mit Ampelfarben ein – zum Start, vor der Arbeit und nach der Arbeit. So wird der eigene Lernweg sichtbar.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s1">Stunde 1 · Genau hingeschaut!</a>, <a href="stunden.html#s12">Stunde 12 · Fit für die Klassenarbeit</a>, <a href="stunden.html#s14">Stunde 14 · Rückgabe & Reflexion</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Einzelarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>8 Min. je Durchgang</dd></div>
+      <div><dt>Material</dt><dd>AB 0, Buntstifte grün/gelb/rot, Portfolio oder Hefter</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Einführung mit Lupo: „Lupo will wissen, was ihr schon könnt. Hier gibt es kein Richtig oder Falsch – nur ehrlich!“</li>
+      <li>Die Ich-kann-Sätze gemeinsam lesen; unbekannte Begriffe (z. B. „Präsens“) kurz erklären, ohne zu unterrichten.</li>
+      <li>Jedes Kind malt den Kreis in der Spalte „Start“ grün, gelb oder rot an.</li>
+      <li>AB 0 abheften. Vor der Arbeit (HA 12) wird Spalte 2 ausgefüllt, bei der Rückgabe (Stunde 14) Spalte 3.</li>
+      <li>In Stunde 14 vergleichen die Kinder die drei Spalten und ergänzen einen Satz: „Am meisten gelernt habe ich bei …, weil …“</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Die Lehrkraft liest die Sätze vor, die Kinder halten ihre Ampelkarte hoch und malen dann aus. DaZ: Ich-kann-Sätze mit kleinem Symbolbild.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Viele Kinder schätzen sich zu Beginn grün ein, weil sie „beschreiben“ alltagssprachlich verstehen. Nicht korrigieren – der Vergleich am Ende wird dadurch umso aussagekräftiger und ist ein schöner Gesprächsanlass bei der Rückgabe.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Selbsteinschätzung und Reflexion des eigenen Lernwegs (Metakognition).</p>
+  </article>
+
+  <article class="card me-methode" id="m-speeddating" data-phase="einstieg" data-sozial="pa sp" data-stunden="2" data-toc-titel="Bild-Speed-Dating">
+    <div class="me-kopf"><span class="me-nr">5</span><div><h3>Bild-Speed-Dating</h3><div class="me-badges"><span class="me-phase me-einstieg">Einstieg</span> <span class="badge pa" title="Partnerarbeit">PA</span> <span class="badge sp" title="Spiel/Bewegung">Spiel</span> <span class="badge zeit">8–10 Min.</span></div></div></div>
+    <p class="me-kurz">Überprüfung von HA 1: In schnellen Partnerwechseln zeigen sich die Kinder ihre mitgebrachten Bilder und ergänzen gegenseitig ihre Stichwortlisten.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s2">Stunde 2 · Ordnung im Bild</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Partnerarbeit, Spiel/Bewegung</dd></div>
+      <div><dt>Dauer</dt><dd>8–10 Min.</dd></div>
+      <div><dt>Material</dt><dd>Mitgebrachte Bilder und Stichwortlisten (HA 1), Ersatzstapel Postkarten/Kalenderbilder, Gong oder Klingel</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Innen- und Außenkreis bilden (alternativ: zwei Stuhlreihen gegenüber).</li>
+      <li>Runde 1 (90 Sekunden): A zeigt sein Bild und liest seine Liste vor. B sucht drei Dinge, die noch nicht auf der Liste stehen. Dann Wechsel.</li>
+      <li>Gong: Der Außenkreis rückt einen Platz weiter. Insgesamt drei Runden.</li>
+      <li>Abschluss im Plenum: „Wer hat durch einen Partner etwas Neues in seinem Bild entdeckt?“ – zwei bis drei Beispiele.</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>Kinder ohne Bild ziehen eine Karte aus dem Ersatzstapel. ★★★ Der Partner fasst das Bild zusätzlich in einem Satz zusammen: „Das Bild zeigt …“</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Ein Ersatzstapel ist Pflicht – erfahrungsgemäß vergessen drei bis fünf Kinder ihr Bild. Klare Zeitansage und Gong halten das Tempo hoch; nach drei Runden ist die Luft raus.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Genaues Hinsehen, Beobachtungen ergänzen, mündliches Benennen (HA-Überprüfung).</p>
+  </article>
+
+  <article class="card me-methode" id="m-bildstreifen" data-phase="einstieg erarbeitung" data-sozial="pa ga" data-stunden="2" data-toc-titel="Bildstreifen">
+    <div class="me-kopf"><span class="me-nr">6</span><div><h3>Bildstreifen</h3><div class="me-badges"><span class="me-phase me-einstieg">Einstieg</span> <span class="me-phase me-erarbeitung">Erarbeitung</span> <span class="badge pa" title="Partnerarbeit">PA</span> <span class="badge ga" title="Gruppenarbeit">GA</span> <span class="badge zeit">10 Min.</span></div></div></div>
+    <p class="me-kurz">Bild A ist in drei waagerechte Streifen zerschnitten. Die Kinder setzen es wieder zusammen und entdecken dabei Vordergrund, Mittelgrund und Hintergrund.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s2">Stunde 2 · Ordnung im Bild</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Partnerarbeit, Gruppenarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>10 Min.</dd></div>
+      <div><dt>Material</dt><dd>Bild A farbig, in drei Streifen geschnitten (ein Umschlag pro Gruppe), Wortkarten „Vordergrund“, „Mittelgrund“, „Hintergrund“</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Umschläge austeilen: „In eurem Umschlag steckt ein Bild – leider in Streifen zerschnitten. Setzt es wieder zusammen!“</li>
+      <li>Nachfragen: „Woran habt ihr erkannt, welcher Streifen nach oben gehört?“ (Himmel oben, Dinge hinten wirken kleiner, Hügel liegen weit weg).</li>
+      <li>Wortkarten zuordnen lassen: „Welcher Streifen ist nah bei uns, welcher weit weg?“</li>
+      <li>Merksatz an der Tafel: „Was nah ist, ist im Vordergrund – es wirkt groß. Was weit weg ist, ist im Hintergrund – es wirkt klein.“</li>
+      <li>Jede Gruppe nennt pro Streifen zwei Dinge in einem Satz: „Im Mittelgrund schwimmen zwei Enten.“</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Streifen mit farbigem Rand zur Orientierung. ★★★ Zusätzlich senkrecht schneiden (sechs Teile) – dann kommen links und rechts hinzu.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Die Schnittkanten vorher selbst festlegen und einheitlich schneiden: Bei Bild A gehören See, Boot, Steg und Junge zum Mittelgrund, Hügel, Haus, Wald, Himmel und Sonne zum Hintergrund. So bleibt die Zuordnung eindeutig.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Fachbegriffe Vordergrund, Mittelgrund und Hintergrund verstehen und anwenden.</p>
+  </article>
+
+  <article class="card me-methode" id="m-raster" data-phase="erarbeitung" data-sozial="ug ea" data-stunden="2" data-toc-titel="9-Felder-Raster">
+    <div class="me-kopf"><span class="me-nr">7</span><div><h3>9-Felder-Raster</h3><div class="me-badges"><span class="me-phase me-erarbeitung">Erarbeitung</span> <span class="badge ug" title="Unterrichtsgespräch">UG</span> <span class="badge ea" title="Einzelarbeit">EA</span> <span class="badge zeit">15 Min.</span></div></div></div>
+    <p class="me-kurz">Ein Raster aus 3 × 3 Feldern liegt über dem Bild. Jedes Feld hat einen Fachbegriff (linke obere Ecke, Bildmitte, rechter Bildrand …) – so lassen sich Positionen genau benennen.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s2">Stunde 2 · Ordnung im Bild</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Unterrichtsgespräch, Einzelarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>15 Min.</dd></div>
+      <div><dt>Material</dt><dd>Beamer-Bild mit Raster-Overlay, AB 3, Folienstift</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Bild A mit eingeblendetem Raster zeigen: „Lupo hat ein Netz über das Bild gelegt. Wie könnten die neun Felder heißen?“</li>
+      <li>Feldnamen gemeinsam erarbeiten und an der Tafel festhalten: linke obere Ecke – oberer Bildrand – rechte obere Ecke / linker Bildrand – Bildmitte – rechter Bildrand / linke untere Ecke – unterer Bildrand – rechte untere Ecke.</li>
+      <li>Kurze Rateübung: „Ich denke an etwas in der rechten oberen Ecke.“ (Sonne)</li>
+      <li>Einzelarbeit auf AB 3: In jedes Feld mindestens ein Ding aus dem Bild eintragen.</li>
+      <li>Vergleich mit dem Sitznachbarn; Grenzfälle klären, z. B.: „Der See erstreckt sich über die ganze Bildbreite.“</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Feldnamen sind im Raster schon eingetragen. ★★★ In jedes Feld einen ganzen Satz mit treffendem Verb schreiben.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Das Raster mit Vorder-, Mittel- und Hintergrund verknüpfen: Die untere Reihe entspricht ungefähr dem Vordergrund, die obere dem Hintergrund. Das Raster hilft später beim Bilddiktat und in Teil A der Klassenarbeit.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Fachbegriffe für Bildpositionen (Bildränder, Ecken, Bildmitte) sicher verwenden.</p>
+  </article>
+
+  <article class="card me-methode" id="m-detektive" data-phase="erarbeitung" data-sozial="ga" data-stunden="2" data-toc-titel="Bild-Detektive">
+    <div class="me-kopf"><span class="me-nr">8</span><div><h3>Bild-Detektive</h3><div class="me-badges"><span class="me-phase me-erarbeitung">Erarbeitung</span> <span class="badge ga" title="Gruppenarbeit">GA</span> <span class="badge zeit">15 Min.</span></div></div></div>
+    <p class="me-kurz">Jede Gruppe untersucht als Detektivteam einen Bildbereich und legt eine möglichst vollständige „Spurenliste“ an. Anschließend berichten die Teams.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s2">Stunde 2 · Ordnung im Bild</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Gruppenarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>15 Min.</dd></div>
+      <div><dt>Material</dt><dd>Bild A farbig pro Gruppe, Lupen (echt oder aus Pappe), Rollenschilder, Spurenliste bzw. AB 2</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Vierergruppen bilden und Bereiche verteilen: Vordergrund links, Vordergrund rechts, Mittelgrund, Hintergrund (bei sechs Gruppen zwei Bereiche doppelt).</li>
+      <li>Rollen verteilen: Lupenträger/in (zeigt), Schreiber/in, Sprecher/in, Zeitwächter/in.</li>
+      <li>Auftrag (8 Min.): „Findet in eurem Bereich so viele Spuren wie möglich: Was ist da? Welche Farbe hat es? Wo genau ist es?“</li>
+      <li>Berichte: Die Sprecher/innen stellen ihren Bereich vor, die anderen Teams ergänzen „vergessene Spuren“.</li>
+      <li>Ergebnisse in die Tabelle auf AB 2 (Vordergrund – Mittelgrund – Hintergrund) übernehmen.</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Die Gruppe bekommt eine Bilder-Checkliste zum Abhaken. ★★★ Profis notieren zu jeder Spur Farbe und Größe (Vorbereitung auf die Adjektive in Stunde 5).</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Echte Lupen steigern die Motivation enorm. Doppelt vergebene Bereiche erzeugen einen sportlichen Vergleich: „Welches Team hat mehr Spuren gefunden?“</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Gründliches Beobachten, kooperatives Arbeiten, Zuordnung zu Bildbereichen.</p>
+  </article>
+
+  <article class="card me-methode" id="m-zeigestock" data-phase="sicherung uebung" data-sozial="sp ug" data-stunden="2" data-toc-titel="Zeigestock-Spiel">
+    <div class="me-kopf"><span class="me-nr">9</span><div><h3>Zeigestock-Spiel</h3><div class="me-badges"><span class="me-phase me-sicherung">Sicherung</span> <span class="me-phase me-uebung">Übung</span> <span class="badge sp" title="Spiel/Bewegung">Spiel</span> <span class="badge ug" title="Unterrichtsgespräch">UG</span> <span class="badge zeit">5–8 Min.</span></div></div></div>
+    <p class="me-kurz">Ein Kind zeigt mit dem Zeigestock auf eine Stelle im Beamerbild, die Klasse nennt den Fachbegriff für die Position – oder umgekehrt.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s2">Stunde 2 · Ordnung im Bild</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Spiel/Bewegung, Unterrichtsgespräch</dd></div>
+      <div><dt>Dauer</dt><dd>5–8 Min.</dd></div>
+      <div><dt>Material</dt><dd>Bild A am Beamer/Whiteboard, Zeigestock (oder Lineal)</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Runde 1: Die Lehrkraft nennt eine Position („rechte obere Ecke“). Ein Kind zeigt am Bild und sagt, was dort ist: „In der rechten oberen Ecke strahlt die Sonne.“</li>
+      <li>Runde 2 (Rollentausch): Ein Kind zeigt, die Klasse nennt die Position. Wer zuerst richtig antwortet, darf als Nächstes zeigen.</li>
+      <li>Runde 3 (Profi): Ein Kind zeigt, ein anderes formuliert einen ganzen Satz mit Ortsangabe und treffendem Verb.</li>
+      <li>Abschluss: „Welche Ortsangabe war am schwierigsten?“</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>Blind-Variante: Ein Kind beschreibt eine Position, ein anderes muss mit geschlossenen Augen ungefähr dorthin zeigen. Bewegungsvariante: Der Klassenraum wird zum Bild – die Kinder stellen sich „in die rechte obere Ecke“.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Links und rechts werden häufig verwechselt, wenn Kinder mit dem Rücken zum Bild stehen. Immer klären: „Links im Bild“ meint die Sicht der Betrachterin bzw. des Betrachters.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Fachbegriffe für Bildbereiche mündlich festigen, schnelle Orientierung im Bild.</p>
+  </article>
+
+  <article class="card me-methode" id="m-luposagt" data-phase="einstieg" data-sozial="sp ug" data-stunden="3" data-toc-titel="„Lupo sagt …“">
+    <div class="me-kopf"><span class="me-nr">10</span><div><h3>„Lupo sagt …“</h3><div class="me-badges"><span class="me-phase me-einstieg">Einstieg</span> <span class="badge sp" title="Spiel/Bewegung">Spiel</span> <span class="badge ug" title="Unterrichtsgespräch">UG</span> <span class="badge zeit">7 Min.</span></div></div></div>
+    <p class="me-kurz">Bewegungsspiel nach dem Prinzip „Simon sagt“: Die Kinder legen einen Gegenstand auf, unter, neben … ihr Mäppchen – aber nur, wenn vorher „Lupo sagt“ zu hören ist.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s3">Stunde 3 · Wo genau?</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Spiel/Bewegung, Unterrichtsgespräch</dd></div>
+      <div><dt>Dauer</dt><dd>7 Min.</dd></div>
+      <div><dt>Material</dt><dd>Mäppchen und Radiergummi pro Kind; optional Lupo-Bild oder Handpuppe</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Spielregel erklären: „Ihr macht nur, was Lupo sagt. Wenn ich nicht ‚Lupo sagt‘ davor sage – nicht bewegen!“</li>
+      <li>Anweisungen geben und das Tempo steigern: „Lupo sagt: Leg den Radiergummi auf das Mäppchen! – Lupo sagt: … unter das Mäppchen! – … zwischen deine Hefte! – Leg ihn neben das Buch!“ (ohne „Lupo sagt“ → wer sich bewegt, setzt eine Runde aus).</li>
+      <li>Nach einigen Runden geben Kinder die Anweisungen.</li>
+      <li>Reflexion: „Welche Wörter haben gesagt, wo etwas liegt?“ → Präpositionen an die Tafel.</li>
+      <li>Gezielt nachfragen: „Wo liegt der Radiergummi jetzt?“ – Antwort im ganzen Satz: „Er liegt auf dem Mäppchen.“ Artikel farbig markieren (dem, der, den).</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>Ganzkörper-Version: Die Kinder stellen sich vor, hinter oder neben ihren Stuhl. DaZ: Präpositionskarten mit Symbolbild hochhalten; Artikel der Gegenstände an der Tafel (das Mäppchen, der Stuhl, die Tasche).</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Kern ist der Wechsel von „Wohin?“ (Leg ihn auf das Mäppchen!) zu „Wo?“ (Er liegt auf dem Mäppchen). In der Bildbeschreibung brauchen wir fast immer „Wo?“ – also den Dativ. Den Unterschied hier nur anbahnen, die Vertiefung folgt auf AB 4.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Präpositionen des Ortes kennen und mit dem Dativ verwenden.</p>
+  </article>
+
+  <article class="card me-methode" id="m-bilddiktat" data-phase="uebung" data-sozial="pa" data-stunden="3 12" data-toc-titel="Bilddiktat Rücken an Rücken">
+    <div class="me-kopf"><span class="me-nr">11</span><div><h3>Bilddiktat Rücken an Rücken</h3><div class="me-badges"><span class="me-phase me-uebung">Übung</span> <span class="badge pa" title="Partnerarbeit">PA</span> <span class="badge zeit">15 Min.</span></div></div></div>
+    <p class="me-kurz">Zwei Kinder sitzen Rücken an Rücken. A beschreibt eine einfache Szene, B zeichnet nur nach der Beschreibung. Der Vergleich zeigt sofort, wie genau beschrieben wurde.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s3">Stunde 3 · Wo genau?</a>, <a href="stunden.html#s12">Stunde 12 · Fit für die Klassenarbeit</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Partnerarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>15 Min.</dd></div>
+      <div><dt>Material</dt><dd>AB 5 (Bilddiktat-Karten A/B mit zwei Mini-Szenen, Zeichenfeld), Bleistift, Buntstifte, Wortspeicher Ortsangaben</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Stühle Rücken an Rücken stellen. Partner A bekommt Karte A, Partner B das leere Zeichenfeld.</li>
+      <li>A beschreibt (4 Min.): „Benutzt die Wörter aus dem Wortspeicher Ortsangaben!“ B darf nachfragen, aber nicht schauen.</li>
+      <li>Vergleichen: Karte und Zeichnung nebeneinanderlegen. „Was stimmt? Was nicht? Woran lag es?“</li>
+      <li>Rollentausch mit Karte B.</li>
+      <li>Auswertung im Plenum: „Welche Ortsangabe hat euch am meisten geholfen?“ – gute Formulierungen sammeln.</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Nachfragen unbegrenzt erlaubt, Wortspeicher liegt auf dem Tisch. ★★★ Keine Nachfragen erlaubt, zusätzlich Farben und Größen angeben. In Stunde 12 als Wahlstation W1.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Die Szenen bewusst einfach halten (drei bis fünf Elemente). Die Kinder lachen viel über die Ergebnisse – das ist gewollt: So wird erfahrbar, wozu eine Bildbeschreibung da ist (jemand soll sich das Bild vorstellen können).</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Präzise und adressatenbezogen beschreiben, Ortsangaben anwenden, genau zuhören.</p>
+  </article>
+
+  <article class="card me-methode" id="m-langweiler" data-phase="einstieg" data-sozial="ug ea" data-stunden="4" data-toc-titel="Langweiler-Text mit Strichliste">
+    <div class="me-kopf"><span class="me-nr">12</span><div><h3>Langweiler-Text mit Strichliste</h3><div class="me-badges"><span class="me-phase me-einstieg">Einstieg</span> <span class="badge ug" title="Unterrichtsgespräch">UG</span> <span class="badge ea" title="Einzelarbeit">EA</span> <span class="badge zeit">8 Min.</span></div></div></div>
+    <p class="me-kurz">Die Lehrkraft liest eine Beschreibung des Wochenmarkts vor, in der es von „ist“, „sind“, „gibt es“ und „sieht man“ wimmelt. Die Kinder machen für jedes Langweiler-Verb einen Strich.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s4">Stunde 4 · Mehr als „ist“ und „gibt es“</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Unterrichtsgespräch, Einzelarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>8 Min.</dd></div>
+      <div><dt>Material</dt><dd>Langweiler-Text (siehe AB 6), Bild C „Auf dem Wochenmarkt“ am Beamer, Strichlisten-Zettel</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Bild C zeigen. Auftrag: „Ich lese euch eine Beschreibung vor. Macht jedes Mal einen Strich, wenn ihr ‚ist‘, ‚sind‘, ‚gibt es‘, ‚sieht man‘ oder ‚hat‘ hört.“</li>
+      <li>Text betont eintönig vorlesen, z. B.: „Links ist ein Obststand. Auf dem Obststand sind Äpfel. Davor ist eine Frau. Es gibt auch eine Taube. Man sieht einen Kirchturm …“</li>
+      <li>Striche zählen und vergleichen (meist 12 bis 15).</li>
+      <li>Impuls: „Wie klingt der Text? Woran liegt das?“ → langweilig, alles klingt gleich, man kann sich wenig vorstellen.</li>
+      <li>Überleitung: „Was macht die Taube wirklich? Was macht die Frau?“ → erste treffende Verben sammeln (pickt, zeigt).</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Strichliste mit vorgedruckten Spalten für jedes Verb. ★★★ Zu jedem Strich gleich ein besseres Verb notieren.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Mit übertrieben gelangweilter Stimme vorlesen – das sorgt für Lacher und Aufmerksamkeit. Den Text als Folie bereithalten, um anschließend die ersten zwei Sätze gemeinsam zu „tunen“.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Sprachbewusstsein für Wortwiederholungen und schwache Verben entwickeln.</p>
+  </article>
+
+  <article class="card me-methode" id="m-pantomime" data-phase="erarbeitung uebung" data-sozial="sp ga" data-stunden="4" data-toc-titel="Verben-Pantomime">
+    <div class="me-kopf"><span class="me-nr">13</span><div><h3>Verben-Pantomime</h3><div class="me-badges"><span class="me-phase me-erarbeitung">Erarbeitung</span> <span class="me-phase me-uebung">Übung</span> <span class="badge sp" title="Spiel/Bewegung">Spiel</span> <span class="badge ga" title="Gruppenarbeit">GA</span> <span class="badge zeit">10 Min.</span></div></div></div>
+    <p class="me-kurz">Ein Kind zieht eine Verbkarte (z. B. „lehnen“, „ragen“, „schweben“) und stellt sie pantomimisch dar. Die Klasse rät und bildet einen Satz zum Wochenmarkt-Bild.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s4">Stunde 4 · Mehr als „ist“ und „gibt es“</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Spiel/Bewegung, Gruppenarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>10 Min.</dd></div>
+      <div><dt>Material</dt><dd>Verbkarten (stehen, sitzen, liegen, hängen, lehnen, ragen, schweben, wachsen, leuchten, picken, zeigen, tragen, halten, verkaufen, sich erheben …), Bild C, Wortfeld-Plakat</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Verbkarten verdeckt auf das Pult legen.</li>
+      <li>Ein Kind zieht eine Karte und spielt das Verb vor (höchstens 30 Sekunden).</li>
+      <li>Wer es errät, nennt das Verb und bildet sofort einen Satz zu Bild C: „Die Taube pickt Krümel vom Boden.“</li>
+      <li>Das Verb wird an das Plakat „Verben für Bildbeschreibungen“ geheftet.</li>
+      <li>Nach sechs bis acht Runden das Plakat gemeinsam ordnen: Verben für die Lage (stehen, liegen, hängen …) und Verben für Tätigkeiten (verkaufen, zeigen, picken …).</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>Gruppenversion: Jede Gruppe erhält vier Karten und baut daraus ein Standbild, die anderen raten alle Verben. DaZ: Karten mit Symbolbild und Beispielsatz.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Schwierige Verben wie „ragen“ oder „sich erheben“ (Kirchturm) sind pantomimisch besonders lustig. Es lohnt sich, gemeinsam zu überlegen, wie man „ragen“ zeigen kann – das bleibt hängen.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Wortfeld treffender Verben erweitern und im Bildkontext anwenden.</p>
+  </article>
+
+  <article class="card me-methode" id="m-ichsehewas" data-phase="einstieg" data-sozial="sp ug" data-stunden="5" data-toc-titel="Ich sehe was – Profi-Version">
+    <div class="me-kopf"><span class="me-nr">14</span><div><h3>Ich sehe was – Profi-Version</h3><div class="me-badges"><span class="me-phase me-einstieg">Einstieg</span> <span class="badge sp" title="Spiel/Bewegung">Spiel</span> <span class="badge ug" title="Unterrichtsgespräch">UG</span> <span class="badge zeit">7 Min.</span></div></div></div>
+    <p class="me-kurz">Das bekannte Ratespiel mit höheren Anforderungen: Statt nur einer Farbe müssen zwei Merkmale und eine Ortsangabe genannt werden.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s5">Stunde 5 · Bunt und genau</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Spiel/Bewegung, Unterrichtsgespräch</dd></div>
+      <div><dt>Dauer</dt><dd>7 Min.</dd></div>
+      <div><dt>Material</dt><dd>Bild C (oder A) am Beamer</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Die Lehrkraft macht es vor: „Ich sehe was, was du nicht siehst, und das ist lila, rund und schwebt am rechten Bildrand.“ (Luftballon)</li>
+      <li>Regel: immer Farbe + ein weiteres Adjektiv (Form, Größe oder Muster) + Ortsangabe.</li>
+      <li>Wer richtig rät, ist dran. Wer nur „rot“ sagt, wird von Lupo zurückgeschickt: „Das ist mir zu ungenau!“</li>
+      <li>Nach fünf bis sechs Runden: „Welche Adjektive haben beim Raten am meisten geholfen?“ → Sammlung nach Farbe, Form, Muster, Größe.</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Wortspeicher Adjektive an der Tafel. ★★★ Grundfarben sind verboten – nur genaue Farbtöne (knallrot, hellblau, dunkelgrün).</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Gut geeignet sind die rot-weiß gestreifte Markise, der lila Hut, die Brezeln und die graue Taube. Das Beispiel „gestreift“ zeigt, dass Muster genauso wichtig sind wie Farben.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Genaue Adjektive (Farbe, Form, Muster, Größe) mündlich anwenden.</p>
+  </article>
+
+  <article class="card me-methode" id="m-treppe" data-phase="erarbeitung" data-sozial="ea pa" data-stunden="5" data-toc-titel="Adjektiv-Treppe">
+    <div class="me-kopf"><span class="me-nr">15</span><div><h3>Adjektiv-Treppe</h3><div class="me-badges"><span class="me-phase me-erarbeitung">Erarbeitung</span> <span class="badge ea" title="Einzelarbeit">EA</span> <span class="badge pa" title="Partnerarbeit">PA</span> <span class="badge zeit">12 Min.</span></div></div></div>
+    <p class="me-kurz">Eine Nominalgruppe wird Stufe für Stufe genauer: „ein Hund“ → „ein brauner Hund“ → „ein brauner Hund mit einem roten Halsband“.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s5">Stunde 5 · Bunt und genau</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Einzelarbeit, Partnerarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>12 Min.</dd></div>
+      <div><dt>Material</dt><dd>AB 7, Tafelbild als Treppe, Bilder A und C</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Tafelbild: Treppe mit drei Stufen. Unterste Stufe: „ein Hund“.</li>
+      <li>Impuls: „Kann man sich diesen Hund schon vorstellen? Was fehlt?“ → Stufe 2: „ein brauner Hund“, Stufe 3: „ein brauner Hund mit einem roten Halsband“.</li>
+      <li>Ein zweites Beispiel gemeinsam: „eine Markise“ → „eine gestreifte Markise“ → „eine rot-weiß gestreifte Markise über dem Obststand“.</li>
+      <li>Einzelarbeit auf AB 7: drei eigene Treppen bauen (Taube, Luftballon, Hut).</li>
+      <li>Partnercheck: A liest die oberste Stufe vor, B zeigt auf das passende Ding im Bild.</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Adjektive als Wortkarten zum Auswählen. ★★★ Vierte Stufe mit Ortsangabe und Verb: „Am rechten Bildrand hält ein Mädchen einen lila Luftballon.“</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Typische Fehler sind überladene Ketten („ein schöner, großer, toller Hund“). Wertende Adjektive wie „schön“ oder „toll“ gehören nicht in den Hauptteil – hier lässt sich die Sachlichkeit aus Stunde 8 bereits vorbereiten.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Nominalgruppen mit Adjektiven und Präpositionalattributen erweitern.</p>
+  </article>
+
+  <article class="card me-methode" id="m-farbkarten" data-phase="uebung" data-sozial="pa ga" data-stunden="5" data-toc-titel="Farbkarten-Spiel">
+    <div class="me-kopf"><span class="me-nr">16</span><div><h3>Farbkarten-Spiel</h3><div class="me-badges"><span class="me-phase me-uebung">Übung</span> <span class="badge pa" title="Partnerarbeit">PA</span> <span class="badge ga" title="Gruppenarbeit">GA</span> <span class="badge zeit">10 Min.</span></div></div></div>
+    <p class="me-kurz">Die Kinder ordnen Farbmuster passenden Farbwörtern zu (hell-, dunkel-, knall-, türkis, lila …) und üben so genaue Farbtöne.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s5">Stunde 5 · Bunt und genau</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Partnerarbeit, Gruppenarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>10 Min.</dd></div>
+      <div><dt>Material</dt><dd>Farbkarten (Farbmusterkarten aus dem Baumarkt oder ausgedruckt), Wortkärtchen (hellblau, dunkelblau, türkis, knallrot, rosa, lila, hellgrün, dunkelgrün, orange …)</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Pro Paar ein Set Farbkarten und Wortkärtchen austeilen.</li>
+      <li>Auftrag: „Legt zu jeder Farbe das passende Wort!“ (4 Min.)</li>
+      <li>Kontrolle mit Lösungsfoto am Beamer.</li>
+      <li>Übertragung: „Sucht in Bild A drei Dinge und nennt ihre Farbe ganz genau.“ (hellblauer Himmel, dunkelgrüner Tannenwald, rot-weiß karierte Decke)</li>
+      <li>Wortbildung sichern: hell-/dunkel-/knall- + Farbe; zwei Farben + Muster: rot-weiß kariert, blau-weiß gestreift.</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>Memory-Variante: Farbkarte und Farbwort bilden ein Paar. ★★★ Vergleiche bilden: „blau wie das Meer“ (im Hauptteil sparsam einsetzen).</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Farbmusterkarten aus dem Baumarkt sind kostenlos und ideal. Auf die Kleinschreibung der Farbadjektive achten und auf die unveränderlichen Formen „lila“ und „rosa“ (ein lila Hut, nicht „ein lilaner Hut“).</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Farbadjektive differenziert bilden und verwenden, Wortbildung.</p>
+  </article>
+
+  <article class="card me-methode" id="m-raetsel" data-phase="uebung" data-sozial="ea ug" data-stunden="5 6" data-toc-titel="Rätselbeschreibung">
+    <div class="me-kopf"><span class="me-nr">17</span><div><h3>Rätselbeschreibung</h3><div class="me-badges"><span class="me-phase me-uebung">Übung</span> <span class="badge ea" title="Einzelarbeit">EA</span> <span class="badge ug" title="Unterrichtsgespräch">UG</span> <span class="badge zeit">8–10 Min.</span></div></div></div>
+    <p class="me-kurz">Ein Kind beschreibt einen Gegenstand so genau wie möglich, ohne seinen Namen zu verraten – die anderen raten. Nur wer genau beschreibt, wird erraten.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s5">Stunde 5 · Bunt und genau</a>, <a href="stunden.html#s6">Stunde 6 · Der Anfang zählt</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Einzelarbeit, Unterrichtsgespräch</dd></div>
+      <div><dt>Dauer</dt><dd>8–10 Min.</dd></div>
+      <div><dt>Material</dt><dd>Gegenstände im Klassenraum; in Stunde 6: die Texte aus HA 5</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Stunde 5 – die Lehrkraft macht es vor: „Es ist rechteckig, ungefähr so lang wie ein Lineal, aus grünem Stoff und hat einen Reißverschluss.“ (Mäppchen)</li>
+      <li>Die Kinder wählen einen Gegenstand im Raum und notieren vier Sätze mit mindestens vier Adjektiven.</li>
+      <li>Rätselrunde: vorlesen, die Klasse rät. Wird der Gegenstand erst nach dem letzten Satz erraten, gibt es einen „Genau-Punkt“.</li>
+      <li>Stunde 6 (HA-Überprüfung): Vier bis fünf Kinder lesen ihre HA 5 vor; die Klasse rät und nennt das hilfreichste Adjektiv.</li>
+      <li>Kurze Reflexion: „Welche Information war entscheidend?“</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Satzmuster vorgeben („Es ist …“, „Es hat …“, „Es besteht aus …“). ★★★ Die Wörter „ist“ und „hat“ sind verboten.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Damit nicht sofort geraten wird: mit allgemeinen Merkmalen beginnen und das Entscheidende erst am Ende verraten. Das trainiert nebenbei die Reihenfolge „vom Groben zum Feinen“.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Genau und adressatenorientiert beschreiben, Adjektive gezielt einsetzen.</p>
+  </article>
+
+  <article class="card me-methode" id="m-steckbrief" data-phase="erarbeitung" data-sozial="ea" data-stunden="6" data-toc-titel="Bild-Steckbrief">
+    <div class="me-kopf"><span class="me-nr">18</span><div><h3>Bild-Steckbrief</h3><div class="me-badges"><span class="me-phase me-erarbeitung">Erarbeitung</span> <span class="badge ea" title="Einzelarbeit">EA</span> <span class="badge zeit">10 Min.</span></div></div></div>
+    <p class="me-kurz">Bevor die Einleitung geschrieben wird, füllen die Kinder einen Steckbrief mit den W-Fragen aus: Bildart, Titel, Künstler/in, Jahr, Thema.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s6">Stunde 6 · Der Anfang zählt</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Einzelarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>10 Min.</dd></div>
+      <div><dt>Material</dt><dd>AB 8 (Steckbrief), Bild A und „Der Bücherwurm“ mit Bildangaben</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>„Der Bücherwurm“ zeigen. Impuls: „Stell dir vor, du rufst deine Oma an und willst ihr dieses Bild beschreiben. Was muss sie als Erstes wissen?“</li>
+      <li>W-Fragen an der Tafel sammeln: Was für ein Bild? Wie heißt es? Wer hat es gemacht? Wann? Was zeigt es?</li>
+      <li>Den Steckbrief zum Bücherwurm gemeinsam ausfüllen (Gemälde – „Der Bücherwurm“ – Carl Spitzweg – um 1850 – ein alter Mann liest oben auf einer Leiter in einer Bibliothek).</li>
+      <li>Einzelarbeit: Steckbrief zu Bild A („Sommertag am See“, Zeichnung, Zeichner/in unbekannt).</li>
+      <li>Aus dem Steckbrief zwei Sätze bilden: „Das Bild „…“ ist ein/eine … von … aus dem Jahr … . Es zeigt …“</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Steckbrief mit Auswahlmöglichkeiten (Foto / Gemälde / Zeichnung ankreuzen). ★★★ Den Themensatz in eigenen Worten mit mehr als einer Information formulieren.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Titel und Thema werden oft verwechselt. Den Unterschied deutlich machen: Der Titel ist der Name des Bildes, das Thema sagt in einem Satz, worum es geht.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Einleitungsinformationen (W-Fragen) erkennen und strukturiert erfassen.</p>
+  </article>
+
+  <article class="card me-methode" id="m-puzzle" data-phase="erarbeitung uebung" data-sozial="pa" data-stunden="6" data-toc-titel="Einleitungs-Puzzle">
+    <div class="me-kopf"><span class="me-nr">19</span><div><h3>Einleitungs-Puzzle</h3><div class="me-badges"><span class="me-phase me-erarbeitung">Erarbeitung</span> <span class="me-phase me-uebung">Übung</span> <span class="badge pa" title="Partnerarbeit">PA</span> <span class="badge zeit">10 Min.</span></div></div></div>
+    <p class="me-kurz">Satzbausteine zweier Einleitungen liegen durcheinander. Die Kinder setzen daraus vollständige, korrekte Einleitungen zusammen – und finden das „Kuckucksei“.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s6">Stunde 6 · Der Anfang zählt</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Partnerarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>10 Min.</dd></div>
+      <div><dt>Material</dt><dd>AB 8 (Puzzleteile zum Ausschneiden), Schere, Klebestift</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Puzzleteile ausschneiden: Die Bausteine für zwei Einleitungen (Bücherwurm und Sommertag) sind vermischt.</li>
+      <li>Auftrag: „Baut zwei Einleitungen. Achtung: Ein Teil gehört in keine Einleitung!“ (z. B. „Mir gefällt das Bild sehr gut.“)</li>
+      <li>Die Paare legen, lesen sich ihre Einleitungen laut vor und prüfen sie mit den W-Fragen.</li>
+      <li>Vergleich im Plenum: „Welches Teil war das Kuckucksei – und warum?“</li>
+      <li>Einleitungen ins Heft kleben.</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Bausteine sind nach W-Frage farbig markiert. ★★★ Zusätzlich eine dritte Einleitung frei formulieren (z. B. zu „Die Kinderspiele“).</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Das Kuckucksei (eine Meinung in der Einleitung) ist der wichtigste Lerneffekt: Die Meinung kommt erst in den Schluss.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Aufbau einer Einleitung verstehen, Sätze sinnvoll verknüpfen.</p>
+  </article>
+
+  <article class="card me-methode" id="m-daumenprobe" data-phase="sicherung" data-sozial="ug" data-stunden="6 7" data-toc-titel="Daumenprobe">
+    <div class="me-kopf"><span class="me-nr">20</span><div><h3>Daumenprobe</h3><div class="me-badges"><span class="me-phase me-sicherung">Sicherung</span> <span class="badge ug" title="Unterrichtsgespräch">UG</span> <span class="badge zeit">5 Min.</span></div></div></div>
+    <p class="me-kurz">Die Lehrkraft liest kurze Einleitungen vor. Alle zeigen gleichzeitig mit dem Daumen: hoch = gute Einleitung, waagerecht = fast gut, runter = schwach.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s6">Stunde 6 · Der Anfang zählt</a>, <a href="stunden.html#s7">Stunde 7 · Der rote Faden</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Unterrichtsgespräch</dd></div>
+      <div><dt>Dauer</dt><dd>5 Min.</dd></div>
+      <div><dt>Material</dt><dd>Vier bis fünf vorbereitete Beispiel-Einleitungen (gut und schwach)</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Beispiel vorlesen, z. B.: „Auf dem Bild ist ein Hund und ein See und es ist schön.“</li>
+      <li>„3, 2, 1 – Daumen!“ – alle zeigen gleichzeitig.</li>
+      <li>Ein bis zwei Kinder begründen: „Daumen runter, weil Bildart und Titel fehlen und ‚schön‘ eine Meinung ist.“</li>
+      <li>Zum Vergleich eine gute Einleitung vorlesen: „Das Bild „Sommertag am See“ ist eine bunte Zeichnung. Es zeigt einen fröhlichen Sommertag an einem See …“</li>
+      <li>Stunde 7 (Überprüfung HA 6): Partner zählen die erfüllten W-Fragen an den Fingern ab (Daumen + vier Finger = fünf W-Fragen).</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ W-Fragen-Checkliste liegt auf dem Tisch. ★★★ Eine schwache Einleitung sofort mündlich verbessern.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Das gleichzeitige Zeigen verhindert Abschauen. Die Daumenprobe ist eine schnelle Lernstandsdiagnose für die ganze Klasse: Wo viele Daumen falsch liegen, lohnt sich eine Wiederholung.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Qualitätskriterien einer Einleitung anwenden und begründet urteilen.</p>
+  </article>
+
+  <article class="card me-methode" id="m-kamerafahrt" data-phase="einstieg erarbeitung" data-sozial="ea ug" data-stunden="7" data-toc-titel="Kamerafahrt">
+    <div class="me-kopf"><span class="me-nr">21</span><div><h3>Kamerafahrt</h3><div class="me-badges"><span class="me-phase me-einstieg">Einstieg</span> <span class="me-phase me-erarbeitung">Erarbeitung</span> <span class="badge ea" title="Einzelarbeit">EA</span> <span class="badge ug" title="Unterrichtsgespräch">UG</span> <span class="badge zeit">10 Min.</span></div></div></div>
+    <p class="me-kurz">Mit einem Kamera-Sucher (Pappfenster, Papprolle oder Hände) fahren die Kinder wie ein Kameramann durch das Bild. Der Weg der Kamera wird zur Reihenfolge im Hauptteil.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s7">Stunde 7 · Der rote Faden</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Einzelarbeit, Unterrichtsgespräch</dd></div>
+      <div><dt>Dauer</dt><dd>10 Min.</dd></div>
+      <div><dt>Material</dt><dd>Kamera-Sucher (Kopiervorlage unten) oder Papprollen, Bild A als Ausdruck, Bleistift</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Die Lehrkraft macht es vor, Sucher vor dem Auge, Bild A am Beamer: „Klappe, die erste! Meine Kamera fährt jetzt erst ganz nach vorne zur Wiese. Was seht ihr?“</li>
+      <li>Die Kinder „filmen“ mit ihrem Sucher das ausgedruckte Bild und sprechen leise mit: „Zuerst sehe ich … dann …“</li>
+      <li>Den Kameraweg mit Pfeilen in das Bild einzeichnen (Blickweg) und das Protokoll auf der Kopiervorlage ausfüllen.</li>
+      <li>Vergleich: „Welche Wege gibt es?“ → vom Vordergrund zum Hintergrund, von links nach rechts, vom Wichtigsten zu den Einzelheiten. Als drei Pfeil-Symbole an der Tafel sichern.</li>
+      <li>Merksatz: „Wähle eine Reihenfolge und bleib dabei! Die Kamera springt nicht hin und her.“</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Kameraweg ist vorgegeben (Nummern im Bild). ★★★ Zwei Kamerafahrten vergleichen und begründen, welche besser zum Bild passt.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Zur Verdeutlichung eine „wackelige Kamera“ vorspielen, die wild durch das Bild springt – die Kinder merken sofort, dass man so nichts versteht. Das ist das Bild für den „roten Faden“.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Eine sinnvolle Reihenfolge im Hauptteil wählen und einhalten.</p>
+  </article>
+
+  <article class="card me-methode" id="m-satzstreifen" data-phase="erarbeitung" data-sozial="ga" data-stunden="7" data-toc-titel="Satzstreifen ordnen">
+    <div class="me-kopf"><span class="me-nr">22</span><div><h3>Satzstreifen ordnen</h3><div class="me-badges"><span class="me-phase me-erarbeitung">Erarbeitung</span> <span class="badge ga" title="Gruppenarbeit">GA</span> <span class="badge zeit">15 Min.</span></div></div></div>
+    <p class="me-kurz">Der Hauptteil der Musterbeschreibung „Sommertag am See“ ist in Satzstreifen zerschnitten. Gruppen bringen ihn wieder in eine sinnvolle Reihenfolge.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s7">Stunde 7 · Der rote Faden</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Gruppenarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>15 Min.</dd></div>
+      <div><dt>Material</dt><dd>AB 9 (Satzstreifen zum Ausschneiden), Umschläge, Bild A</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Pro Gruppe ein Umschlag mit gemischten Satzstreifen.</li>
+      <li>Auftrag: „Ordnet die Sätze so, dass eine Kamerafahrt durch das Bild entsteht. Achtet auf die Satzanfänge!“</li>
+      <li>Hilfsfrage bei Bedarf: „Welche Wörter verraten, wo wir gerade im Bild sind?“ (Im Vordergrund, Rechts neben dem Baum, Darauf …)</li>
+      <li>Zwei Gruppen vergleichen ihre Reihenfolge und begründen sie.</li>
+      <li>Lösung am Beamer zeigen; Überleitungswörter farbig markieren.</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Die Streifen eines Bildbereichs haben dieselbe Farbe. ★★★ Einen fehlenden Satz selbst schreiben und an der richtigen Stelle einfügen.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Innerhalb eines Bildbereichs gibt es nicht nur eine richtige Lösung – begründete Abweichungen akzeptieren, solange der Weg stimmig bleibt. Wörter wie „Darauf“ oder „Neben dem Mädchen“ sind gute Anlässe, über Bezugswörter zu sprechen.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Textzusammenhang, Reihenfolge und Überleitungen erkennen.</p>
+  </article>
+
+  <article class="card me-methode" id="m-satzrad" data-phase="uebung" data-sozial="ea pa" data-stunden="7 9" data-toc-titel="Satzanfänge-Rad">
+    <div class="me-kopf"><span class="me-nr">23</span><div><h3>Satzanfänge-Rad</h3><div class="me-badges"><span class="me-phase me-uebung">Übung</span> <span class="badge ea" title="Einzelarbeit">EA</span> <span class="badge pa" title="Partnerarbeit">PA</span> <span class="badge zeit">10 Min. (+ 10 Min. Basteln, gut als Bastel-HA)</span></div></div></div>
+    <p class="me-kurz">Eine selbst gebastelte Drehscheibe zeigt im Fenster jeweils einen Satzanfang. Die Kinder drehen und bilden mit jedem Satzanfang einen Satz zum Bild – das Mittel gegen ewiges „Dann …“ und „Da ist …“.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s7">Stunde 7 · Der rote Faden</a>, <a href="stunden.html#s9">Stunde 9 · Jetzt schreibe ich!</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Einzelarbeit, Partnerarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>10 Min. (+ 10 Min. Basteln, gut als Bastel-HA)</dd></div>
+      <div><dt>Material</dt><dd>Kopiervorlage Satzanfänge-Rad (zwei Scheiben, unten), Musterbeutelklammern, Schere, Tonpapier, AB 10</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Scheiben und Fenster ausschneiden und mit einer Musterbeutelklammer verbinden (Bastelanleitung auf der Vorlage).</li>
+      <li>Partner A dreht und liest den Satzanfang vor, Partner B bildet einen Satz zu Bild A.</li>
+      <li>Nach vier Sätzen wechseln.</li>
+      <li>Einzelarbeit auf AB 10: fünf Sätze mit fünf verschiedenen Satzanfängen.</li>
+      <li>Das Rad bleibt im Mäppchen und wird in Stunde 9 beim Schreiben benutzt.</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Nur sechs Satzanfänge verwenden (die anderen Felder mit Klebezettel abdecken). ★★★ Auf der Rückseite eigene Satzanfänge für den Schluss ergänzen („Das Bild wirkt …“, „Mir gefällt …, weil …“).</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Bastelzeit großzügig planen oder als Bastel-Hausaufgabe vergeben. Musterbeutelklammern vorher abzählen; wer keine hat, steckt einen Bleistift durch die Mitte. Das Fenster am besten vorab mit dem Cutter vorschneiden.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Abwechslungsreiche Satzanfänge und Überleitungen verwenden.</p>
+  </article>
+
+  <article class="card me-methode" id="m-ampelkarten" data-phase="erarbeitung" data-sozial="ug" data-stunden="8 9" data-toc-titel="Ampelkarten (Sehen – Vermuten – Meinen)">
+    <div class="me-kopf"><span class="me-nr">24</span><div><h3>Ampelkarten (Sehen – Vermuten – Meinen)</h3><div class="me-badges"><span class="me-phase me-erarbeitung">Erarbeitung</span> <span class="badge ug" title="Unterrichtsgespräch">UG</span> <span class="badge zeit">12 Min.</span></div></div></div>
+    <p class="me-kurz">Jedes Kind hat drei Karten: grün = „Ich sehe“, gelb = „Ich vermute“, rot = „Ich meine“. Zu vorgelesenen Sätzen über ein Bild wird die passende Karte hochgehalten.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s8">Stunde 8 · Sehen oder meinen?</a>, <a href="stunden.html#s9">Stunde 9 · Jetzt schreibe ich!</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Unterrichtsgespräch</dd></div>
+      <div><dt>Dauer</dt><dd>12 Min.</dd></div>
+      <div><dt>Material</dt><dd>Ampelkarten (Kopiervorlage unten), „Die Jäger im Schnee“ am Beamer, vorbereitete Satzsammlung, AB 11</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Karten erklären: „Grün: Das sieht jeder im Bild. Gelb: Das könnte so sein – ich vermute es. Rot: Das ist meine Meinung oder mein Gefühl.“</li>
+      <li>Sätze vorlesen: „Drei Jäger gehen durch den Schnee.“ (grün) – „Die Jäger sind vermutlich müde.“ (gelb) – „Das Bild ist wunderschön.“ (rot)</li>
+      <li>Bei unterschiedlichen Karten begründen lassen: „Woran erkennst du, dass es eine Vermutung ist?“ → Signalwörter: vermutlich, wahrscheinlich, vielleicht, es sieht so aus, als ob.</li>
+      <li>Regel sichern: Grün gehört in den Hauptteil, Gelb mit Signalwort auch – Rot nur in den Schluss.</li>
+      <li>Übertragung auf AB 11: Sätze in den drei Farben markieren.</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Signalwörter stehen unten auf der Karte. ★★★ Einen roten Satz in einen gelben umformen („Die Jäger sind traurig.“ → „Die Jäger sind vermutlich erschöpft.“). In Stunde 9 als Schreib-Ampel: Die Karte auf dem Tisch zeigt, ob ein Kind gut vorankommt (grün), eine Frage hat (gelb) oder Hilfe braucht (rot).</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Grenzfälle wie „Es ist kalt.“ sind besonders ergiebig: Man sieht Schnee und Eis – die Kälte selbst ist aber eine Schlussfolgerung (gelb). Solche Diskussionen schärfen das Bewusstsein für Sachlichkeit.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Beschreibende, vermutende und wertende Aussagen unterscheiden (Sachlichkeit).</p>
+  </article>
+
+  <article class="card me-methode" id="m-barometer" data-phase="erarbeitung" data-sozial="ug sp" data-stunden="8" data-toc-titel="Stimmungsbarometer">
+    <div class="me-kopf"><span class="me-nr">25</span><div><h3>Stimmungsbarometer</h3><div class="me-badges"><span class="me-phase me-erarbeitung">Erarbeitung</span> <span class="badge ug" title="Unterrichtsgespräch">UG</span> <span class="badge sp" title="Spiel/Bewegung">Spiel</span> <span class="badge zeit">10 Min.</span></div></div></div>
+    <p class="me-kurz">Auf einer Linie im Raum ordnen sich die Kinder zwischen zwei Gegensätzen ein, etwa „fröhlich – traurig“, und begründen ihre Position mit Bildmerkmalen.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s8">Stunde 8 · Sehen oder meinen?</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Unterrichtsgespräch, Spiel/Bewegung</dd></div>
+      <div><dt>Dauer</dt><dd>10 Min.</dd></div>
+      <div><dt>Material</dt><dd>„Die Jäger im Schnee“ und Bild A, Wortkarten mit Gegensatzpaaren, Klebeband am Boden oder Wäscheleine, Wortspeicher Wirkung</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Eine Linie im Raum markieren und die Enden beschriften: „fröhlich“ ↔ „traurig“.</li>
+      <li>„Die Jäger im Schnee“ zeigen: „Stellt euch dorthin, wo das Bild für euch steht.“</li>
+      <li>Drei bis vier Kinder begründen: „Ich stehe eher bei ‚traurig‘, weil die Farben dunkel sind und die Jäger den Kopf hängen lassen.“</li>
+      <li>Dasselbe mit Bild A – Positionen vergleichen.</li>
+      <li>Wirkungswörter in den Wortspeicher Wirkung übernehmen (friedlich, kalt, still, lebhaft, gemütlich, einsam …). Satzmuster: „Das Bild wirkt …, weil …“</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>Sitzvariante: Wäscheklammern mit Namen an eine Leine an der Tafel hängen. Weitere Gegensatzpaare: laut – still, warm – kalt. ★★★ Begründung mit zwei Bildmerkmalen.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Ziel ist die Begründung, nicht die Position – unterschiedliche Standorte ausdrücklich wertschätzen. So wird klar: Im Schluss darf die eigene Meinung stehen, aber immer mit „weil“.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Wirkung eines Bildes benennen und begründen (Schluss vorbereiten).</p>
+  </article>
+
+  <article class="card me-methode" id="m-zeitmaschine" data-phase="uebung" data-sozial="pa sp" data-stunden="8" data-toc-titel="Zeitmaschine">
+    <div class="me-kopf"><span class="me-nr">26</span><div><h3>Zeitmaschine</h3><div class="me-badges"><span class="me-phase me-uebung">Übung</span> <span class="badge pa" title="Partnerarbeit">PA</span> <span class="badge sp" title="Spiel/Bewegung">Spiel</span> <span class="badge zeit">8 Min.</span></div></div></div>
+    <p class="me-kurz">Sätze in der Vergangenheit werden mit der „Zeitmaschine“ in die Gegenwart geholt: Die Kinder setzen sie ins Präsens – mündlich mit Bewegung oder schriftlich.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s8">Stunde 8 · Sehen oder meinen?</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Partnerarbeit, Spiel/Bewegung</dd></div>
+      <div><dt>Dauer</dt><dd>8 Min.</dd></div>
+      <div><dt>Material</dt><dd>Satzkarten im Präteritum (Lösung auf der Rückseite), „Zeitmaschine“ (Karton oder Tafelzeichnung), AB 11</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Erklärung: „Bildbeschreibungen spielen immer jetzt. Unsere Zeitmaschine holt Sätze aus der Vergangenheit zurück!“</li>
+      <li>Ein Kind zieht eine Karte („Der Hund rannte zum Ball.“) und wirft sie in die Zeitmaschine; die Klasse ruft das Präsens: „Der Hund rennt zum Ball.“</li>
+      <li>Partnerübung: sechs Satzkarten abwechselnd umformen und mit der Rückseite kontrollieren.</li>
+      <li>Schwierige Formen sammeln: saß → sitzt, lag → liegt, hing → hängt, stand → steht.</li>
+      <li>Übertragung auf AB 11 und HA 8.</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Verbtabelle Präteritum/Präsens als Hilfe. ★★★ In einem Fehlertext alle Präteritum-Formen finden und verbessern. Bewegung: bei Präteritum ein Schritt zurück, bei Präsens ein Schritt nach vorn.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Gerade die unregelmäßigen Verben (hing, lag, saß, stand) kommen in Bildbeschreibungen ständig vor – sie gezielt üben lohnt sich doppelt.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Zeitformen unterscheiden und sicher im Präsens schreiben.</p>
+  </article>
+
+  <article class="card me-methode" id="m-sterne" data-phase="sicherung" data-sozial="pa" data-stunden="8 10 14" data-toc-titel="2 Sterne + 1 Wunsch">
+    <div class="me-kopf"><span class="me-nr">27</span><div><h3>2 Sterne + 1 Wunsch</h3><div class="me-badges"><span class="me-phase me-sicherung">Sicherung</span> <span class="badge pa" title="Partnerarbeit">PA</span> <span class="badge zeit">5 Min.</span></div></div></div>
+    <p class="me-kurz">Feedback-Ritual: zwei Dinge, die gut gelungen sind (Sterne), und ein konkreter Verbesserungsvorschlag (Wunsch).</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s8">Stunde 8 · Sehen oder meinen?</a>, <a href="stunden.html#s10">Stunde 10 · Die Textlupe</a>, <a href="stunden.html#s14">Stunde 14 · Rückgabe & Reflexion</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Partnerarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>5 Min.</dd></div>
+      <div><dt>Material</dt><dd>Feedback-Kärtchen oder Heftrand, Satzanfänge an der Tafel</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Satzanfänge zeigen: „Gut gelungen ist …“ / „Mir gefällt, dass du …“ / „Ich wünsche mir, dass du …“</li>
+      <li>Der Partner liest oder hört den Text (z. B. HA 7 in Stunde 8).</li>
+      <li>Zwei Sterne zeichnen und notieren, dann einen Wunsch.</li>
+      <li>Austausch; die Verfasserin bzw. der Verfasser bedankt sich – ohne Diskussion.</li>
+      <li>Ein bis zwei Beispiele im Plenum: Was ist ein hilfreicher Wunsch? („Schreib genauer.“ ↔ „Ersetze in Satz 3 ‚ist‘ durch ‚steht‘.“)</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Auswahl-Kärtchen mit vorformulierten Sternen und Wünschen. ★★★ Zum Wunsch einen Formulierungsvorschlag aufschreiben. Bei der Rückgabe (Stunde 14) gibt die Lehrkraft selbst 2 Sterne + 1 Wunsch auf dem Bewertungsbogen.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Wünsche müssen konkret und machbar sein. Gleich zu Beginn einmal schwache und gute Wünsche vergleichen – das spart später viel Zeit.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Wertschätzende und konkrete Rückmeldung geben.</p>
+  </article>
+
+  <article class="card me-methode" id="m-fahrplan" data-phase="einstieg erarbeitung" data-sozial="lv ea" data-stunden="9 13" data-toc-titel="Lupos Schreibfahrplan">
+    <div class="me-kopf"><span class="me-nr">28</span><div><h3>Lupos Schreibfahrplan</h3><div class="me-badges"><span class="me-phase me-einstieg">Einstieg</span> <span class="me-phase me-erarbeitung">Erarbeitung</span> <span class="badge lv" title="Lehrervortrag">LV</span> <span class="badge ea" title="Einzelarbeit">EA</span> <span class="badge zeit">5 Min. Einführung, dann begleitend</span></div></div></div>
+    <p class="me-kurz">Lupos 5 Stufen (Schauen – Ordnen – Einleiten – Beschreiben – Bewerten & Prüfen) werden als Fahrplan sichtbar gemacht. Die Kinder arbeiten Station für Station und haken ab.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s9">Stunde 9 · Jetzt schreibe ich!</a>, <a href="stunden.html#s13">Stunde 13 · Klassenarbeit „Im Hafen“</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Lehrervortrag, Einzelarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>5 Min. Einführung, dann begleitend</dd></div>
+      <div><dt>Material</dt><dd>Lernplakat „Lupos 5 Stufen“, Magnet-Lupo für die Tafel, AB 12, Büroklammern</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Plakat zeigen und die Stufen wiederholen: „Was macht Lupo auf Stufe 2?“ – „Er ordnet: Vordergrund, Mittelgrund, Hintergrund.“</li>
+      <li>Zeitplan an die Tafel: Stufe 1–2: 10 Min., Stufe 3: 5 Min., Stufe 4: 15 Min., Stufe 5: 5 Min.</li>
+      <li>Jedes Kind steckt eine Büroklammer an seine aktuelle Stufe auf AB 12.</li>
+      <li>Die Lehrkraft schiebt den Magnet-Lupo an der Tafel mit und erinnert an die Wechsel.</li>
+      <li>Abschluss: „Auf welcher Stufe seid ihr? Was war am schwierigsten?“</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Fahrplan mit Satzanfängen für jede Stufe. ★★★ Ohne Zeitvorgabe – eigene Zeiteinteilung.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Der Fahrplan ist zugleich die Struktur der Klassenarbeit. Dieselben Begriffe verwenden („Denk an Lupos 5 Stufen!“) – das gibt in Stunde 13 Sicherheit.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Den Schreibprozess planen und eine Schreibstrategie selbstständig anwenden.</p>
+  </article>
+
+  <article class="card me-methode" id="m-tippkarten" data-phase="erarbeitung" data-sozial="ea" data-stunden="9 12" data-toc-titel="Gestufte Tippkarten">
+    <div class="me-kopf"><span class="me-nr">29</span><div><h3>Gestufte Tippkarten</h3><div class="me-badges"><span class="me-phase me-erarbeitung">Erarbeitung</span> <span class="badge ea" title="Einzelarbeit">EA</span> <span class="badge zeit">begleitend (Schreibzeit 20–25 Min.)</span></div></div></div>
+    <p class="me-kurz">Während der Schreibzeit holen sich die Kinder bei Bedarf Hilfekarten in drei Stufen ab: Hilfe 1 (Denkanstoß), Hilfe 2 (Wortspeicher), Hilfe 3 (Satzanfänge und Beispielsatz).</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s9">Stunde 9 · Jetzt schreibe ich!</a>, <a href="stunden.html#s12">Stunde 12 · Fit für die Klassenarbeit</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Einzelarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>begleitend (Schreibzeit 20–25 Min.)</dd></div>
+      <div><dt>Material</dt><dd>Tippkarten Hilfe 1–3 (AB 12), drei Ablagefächer am Pult, Strichliste für die Lehrkraft</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Einführen: „Wenn ihr nicht weiterkommt: erst nachdenken, dann den Partner fragen, dann eine Tippkarte holen – immer zuerst Hilfe 1!“</li>
+      <li>Karten nach Stufen in drei Fächern auslegen (z. B. grün, gelb, rot).</li>
+      <li>Die Kinder holen sich die Karten selbstständig und bringen sie zurück.</li>
+      <li>Die Lehrkraft notiert unauffällig, wer welche Hilfe nutzt (Diagnose).</li>
+      <li>Nachbesprechung: „Welche Hilfe war besonders nützlich?“</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>DaZ: Tippkarte mit Artikel-Wortspeicher (der Steg, die Decke, das Boot). Für Schnelle: eine Profi-Karte mit Zusatzauftrag (Adjektiv-Treppe zu drei Gegenständen).</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Die Strichliste hilft bei der Planung der Lerntheke: Oft geholte Hilfen zeigen, welche Station Pflicht sein sollte. Dazu die Regel „Frag erst drei, dann mich“ nennen.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Selbstständig arbeiten und Hilfen gezielt nutzen (Selbstregulation).</p>
+  </article>
+
+  <article class="card me-methode" id="m-detektivfall" data-phase="einstieg uebung" data-sozial="ug pa" data-stunden="10" data-toc-titel="Fehlertext „Detektiv-Fall“">
+    <div class="me-kopf"><span class="me-nr">30</span><div><h3>Fehlertext „Detektiv-Fall“</h3><div class="me-badges"><span class="me-phase me-einstieg">Einstieg</span> <span class="me-phase me-uebung">Übung</span> <span class="badge ug" title="Unterrichtsgespräch">UG</span> <span class="badge pa" title="Partnerarbeit">PA</span> <span class="badge zeit">12 Min.</span></div></div></div>
+    <p class="me-kurz">Eine Beschreibung des Wochenmarkts steckt voller typischer Fehler (ist/gibt es, Präteritum, Meinung im Hauptteil, falsche Ortsangaben, Sprünge, unvollständige Einleitung). Die Klasse ermittelt gemeinsam.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s10">Stunde 10 · Die Textlupe</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Unterrichtsgespräch, Partnerarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>12 Min.</dd></div>
+      <div><dt>Material</dt><dd>AB 14, Fehlertext als Folie, Farbstifte</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Einstieg als Fall: „Lupo hat einen verdächtigen Text gefunden. Darin verstecken sich mindestens zehn Fehler. Wer findet die meisten?“</li>
+      <li>Partnerarbeit: Fehler markieren (5 Min.).</li>
+      <li>Gemeinsame Auswertung an der Folie: Jeden Fehler benennen und einer Fehlerart zuordnen (Verb, Zeitform, Meinung, Ort, Reihenfolge, Einleitung).</li>
+      <li>Aus den Fehlerarten entsteht die Checkliste für die Textlupe.</li>
+      <li>Zwei Sätze gemeinsam verbessern, den Rest auf AB 14.</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Die Zahl der Fehler pro Absatz ist angegeben. ★★★ Den Text anschließend komplett neu schreiben.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Der Fehlertext entlastet: In einem fremden Text findet man Fehler leichter als im eigenen. Danach fällt die Textlupe am eigenen Text deutlich leichter.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Fehler erkennen und benennen, Kriterien einer guten Bildbeschreibung anwenden.</p>
+  </article>
+
+  <article class="card me-methode" id="m-textlupe" data-phase="sicherung uebung" data-sozial="ga" data-stunden="10" data-toc-titel="Schreibkonferenz / Textlupe">
+    <div class="me-kopf"><span class="me-nr">31</span><div><h3>Schreibkonferenz / Textlupe</h3><div class="me-badges"><span class="me-phase me-sicherung">Sicherung</span> <span class="me-phase me-uebung">Übung</span> <span class="badge ga" title="Gruppenarbeit">GA</span> <span class="badge zeit">20 Min.</span></div></div></div>
+    <p class="me-kurz">In Gruppen prüft jedes Kind die Texte der anderen mit einem Schwerpunkt und einer Farbe: grün Aufbau, blau Ortsangaben, orange Verben/Adjektive, rot Präsens & sachlich.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s10">Stunde 10 · Die Textlupe</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Gruppenarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>20 Min.</dd></div>
+      <div><dt>Material</dt><dd>Rollenkarten Schreibkonferenz (Kopiervorlage unten), AB 13 (Checkliste & Textlupe-Bogen), Buntstifte in vier Farben, Texte aus HA 9</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Dreier- oder Vierergruppen bilden und Rollenkarten verteilen (in Dreiergruppen übernimmt ein Kind zusätzlich die rote Karte).</li>
+      <li>Text 1 geht reihum: Jedes Kind liest nur mit seiner „Lupe“ und markiert in seiner Farbe (je 4 Min.).</li>
+      <li>Die Verfasserin bzw. der Verfasser erhält den Text mit dem Textlupe-Bogen zurück; Rückmeldung mit „2 Sterne und 1 Wunsch“.</li>
+      <li>Weiterreichen, bis jeder Text geprüft ist.</li>
+      <li>Jedes Kind entscheidet, welche drei Hinweise es umsetzt (HA 10: Endfassung, Verbesserungen markieren).</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Rollenkarten mit Beispielen und Ja/Nein-Fragen. ★★★ Zusätzlich Gesprächsleitung und Zeitwächter/in (Rollenkarten). Bei großen Leistungsunterschieden bewusst gemischte Gruppen bilden.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Vorher eine Regel vereinbaren: „Wir sprechen über den Text, nicht über die Person.“ Am Textlupe-Bogen sieht die Lehrkraft schnell, welche Kriterien noch unsicher sind.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Texte kriterienorientiert prüfen, konstruktive Rückmeldung geben und annehmen.</p>
+  </article>
+
+  <article class="card me-methode" id="m-experten" data-phase="erarbeitung" data-sozial="ga" data-stunden="11" data-toc-titel="Expertengruppen / Gruppenpuzzle">
+    <div class="me-kopf"><span class="me-nr">32</span><div><h3>Expertengruppen / Gruppenpuzzle</h3><div class="me-badges"><span class="me-phase me-erarbeitung">Erarbeitung</span> <span class="badge ga" title="Gruppenarbeit">GA</span> <span class="badge zeit">25 Min.</span></div></div></div>
+    <p class="me-kurz">Das Gemälde „Die Kinderspiele“ wird in vier Ausschnitte geteilt. Expertengruppen beschreiben je einen Ausschnitt genau und erklären ihn anschließend in gemischten Stammgruppen.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s11">Stunde 11 · Ab ins Museum!</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Gruppenarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>25 Min.</dd></div>
+      <div><dt>Material</dt><dd>AB 15 (Expertenauftrag: links oben / rechts oben / links unten / rechts unten), „Die Kinderspiele“ farbig mit vergrößerten Ausschnitten, Lupen</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Stammgruppen zu viert bilden; jedes Mitglied erhält eine Nummer 1–4 (= Bildausschnitt).</li>
+      <li>Expertenphase (12 Min.): Alle mit derselben Nummer setzen sich zusammen, beschreiben ihren Ausschnitt mit Ortsangaben, Verben und Adjektiven und notieren fünf bis sechs Sätze.</li>
+      <li>Stammgruppenphase (10 Min.): Jede Expertin, jeder Experte erklärt den eigenen Ausschnitt; die anderen zeigen am Gesamtbild mit.</li>
+      <li>Abschluss: „Welche Spiele kennt ihr heute noch?“ – gemeinsam die Einleitung zum Gemälde formulieren (Pieter Bruegel der Ältere, 1560).</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Ausschnitte mit Suchaufträgen (Finde: Reifen, Fass, Stelzen …). ★★★ AB 16 „Der Bücherwurm“ als Profi-Auftrag.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Das Gemälde ist sehr wuselig – vergrößerte, farbige Ausschnitte (A4) sind unverzichtbar. Zeitansagen per Timer am Beamer halten die Phasen im Takt.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Ausschnitte eines Kunstwerks genau beschreiben und Wissen an andere weitergeben.</p>
+  </article>
+
+  <article class="card me-methode" id="m-museum" data-phase="sicherung" data-sozial="pa ga" data-stunden="11" data-toc-titel="Museumsführer / Audioguide">
+    <div class="me-kopf"><span class="me-nr">33</span><div><h3>Museumsführer / Audioguide</h3><div class="me-badges"><span class="me-phase me-sicherung">Sicherung</span> <span class="badge pa" title="Partnerarbeit">PA</span> <span class="badge ga" title="Gruppenarbeit">GA</span> <span class="badge zeit">15 Min.</span></div></div></div>
+    <p class="me-kurz">Die Kinder werden zu Museumsführern: Sie sprechen einen kurzen Audioguide-Text zum Gemälde – live oder als Aufnahme.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s11">Stunde 11 · Ab ins Museum!</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Partnerarbeit, Gruppenarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>15 Min.</dd></div>
+      <div><dt>Material</dt><dd>Gemälde am Beamer und als Ausdruck, Karteikarten, optional Tablets mit Sprachaufnahme</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Impuls: „Im Museum hört man oft einen Audioguide. Heute seid ihr die Stimme!“</li>
+      <li>Paare schreiben einen Audioguide-Text auf Karteikarten: Einleitung + drei bis vier Sätze zu ihrem Ausschnitt + ein Satz zur Wirkung.</li>
+      <li>Sprechprobe: deutlich, langsam, mit Zeigen.</li>
+      <li>Präsentation als „Museumsrundgang“: Die Paare führen die Klasse am Beamerbild (oder spielen ihre Aufnahme vor).</li>
+      <li>Rückmeldung: „Konnte man sich gut vorstellen, was gemeint war?“</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Satzanfänge-Karte für den Audioguide. ★★★ Audioguide für Menschen, die nicht sehen können (Audiodeskription) – dann muss besonders genau beschrieben werden.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Aufnahmen motivieren sehr, brauchen aber ruhige Ecken (Flur, Nebenraum). Datenschutz: Aufnahmen nur lokal speichern und nach der Stunde löschen.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Mündlich beschreiben und adressatengerecht präsentieren.</p>
+  </article>
+
+  <article class="card me-methode" id="m-gallery" data-phase="sicherung" data-sozial="sp ga" data-stunden="11 12" data-toc-titel="Gallery Walk">
+    <div class="me-kopf"><span class="me-nr">34</span><div><h3>Gallery Walk</h3><div class="me-badges"><span class="me-phase me-sicherung">Sicherung</span> <span class="badge sp" title="Spiel/Bewegung">Spiel</span> <span class="badge ga" title="Gruppenarbeit">GA</span> <span class="badge zeit">10 Min.</span></div></div></div>
+    <p class="me-kurz">Ergebnisse (Plakate, Texte, Spickzettel) hängen im Raum aus. Die Kinder gehen wie im Museum herum, lesen und hinterlassen Rückmeldungen auf Klebezetteln.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s11">Stunde 11 · Ab ins Museum!</a>, <a href="stunden.html#s12">Stunde 12 · Fit für die Klassenarbeit</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Spiel/Bewegung, Gruppenarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>10 Min.</dd></div>
+      <div><dt>Material</dt><dd>Ergebnisse (Expertenplakate aus Stunde 11, Spickzettel aus HA 11), Klebezettel, Kriterienkarte, leise Musik</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Ergebnisse an Wänden und Tischen auslegen.</li>
+      <li>Auftrag: „Geht leise wie im Museum. Lest mindestens drei Arbeiten und klebt an jede einen Stern-Zettel mit einem Satz.“</li>
+      <li>Leise Musik als Zeitsignal: Musik aus = zurück an den Platz.</li>
+      <li>Jede Gruppe liest die Zettel an ihrem Plakat.</li>
+      <li>Kurzauswertung: „Was habt ihr bei anderen gesehen, das ihr übernehmen wollt?“</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>In Stunde 12 mit Kriterien-Check der Spickzettel (Sind alle 5 Stufen drin? Gibt es einen Wortspeicher?). ★ Klebezettel mit vorgedruckten Satzanfängen.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Höchstens vier bis fünf Kinder gleichzeitig an einer Station; ein Laufweg mit Pfeilen auf dem Boden verhindert Staus.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Ergebnisse würdigen, Kriterien anwenden, von anderen lernen.</p>
+  </article>
+
+  <article class="card me-methode" id="m-lerntheke" data-phase="uebung" data-sozial="ea pa" data-stunden="12" data-toc-titel="Lerntheke">
+    <div class="me-kopf"><span class="me-nr">35</span><div><h3>Lerntheke</h3><div class="me-badges"><span class="me-phase me-uebung">Übung</span> <span class="badge ea" title="Einzelarbeit">EA</span> <span class="badge pa" title="Partnerarbeit">PA</span> <span class="badge zeit">40 Min.</span></div></div></div>
+    <p class="me-kurz">Vor der Klassenarbeit wiederholen die Kinder an 6 Pflicht- und 2 Wahlstationen selbstständig alle Teilkompetenzen – mit Laufzettel und Lösungskarten zur Selbstkontrolle.</p>
+    <dl class="me-fakten">
+      <div><dt>Stunde(n)</dt><dd><a href="stunden.html#s12">Stunde 12 · Fit für die Klassenarbeit</a></dd></div>
+      <div><dt>Sozialform</dt><dd>Einzelarbeit, Partnerarbeit</dd></div>
+      <div><dt>Dauer</dt><dd>40 Min.</dd></div>
+      <div><dt>Material</dt><dd>AB 17 (Laufzettel + Stationskarten S1–S6, W1, W2), Lösungskarten am Kontrolltisch, Spickzettel (HA 11), Tippkarten</dd></div>
+    </dl>
+    <h4>Ablauf</h4>
+    <ol class="me-ablauf">
+      <li>Stationen aufbauen: S1 Ortsangaben, S2 Verben, S3 Adjektive, S4 Einleitung, S5 Reihenfolge, S6 Sachlich & Präsens, W1 Bilddiktat, W2 Kim-Spiel/Unterschiede.</li>
+      <li>Ablauf erklären: Laufzettel führen, Lösungskarten nur zur Kontrolle nutzen, nach jeder Station eine Ampel-Selbsteinschätzung.</li>
+      <li>Arbeitsphase (30 Min.): Die Kinder wählen die Reihenfolge selbst; die Lehrkraft berät gezielt Kinder mit vielen roten Ampeln.</li>
+      <li>Abschluss (5 Min.): Laufzettel auswerten, HA 12 erklären (Lernlandkarte Spalte „vor der Arbeit“).</li>
+    </ol>
+    <div class="me-box me-variante"><h4>Variante &amp; Differenzierung</h4><p>★ Basis-Stationskarten mit Wortspeicher. ★★★ Profi-Aufgaben auf der Kartenrückseite. Kinder mit Förderbedarf bekommen eine Startstation vorgegeben.</p></div>
+    <div class="me-box me-praxis"><h4>Tipp aus der Praxis</h4><p>Die Lösungskarten an einem zentralen Kontrolltisch auslegen – das verhindert Abschreiben und bringt Bewegung. Stationsnummern und Ampelfarben wie auf der Lernlandkarte verwenden.</p></div>
+    <p class="me-kompetenz"><strong>Fördert:</strong> Selbstständig wiederholen, sich selbst einschätzen und kontrollieren.</p>
+  </article>
+</div>
+
+<hr>
+
+<section id="me-mix">
+  <h2>Sozialformen-Mix der Reihe</h2>
+  <p>Die Reihe wechselt bewusst zwischen ruhigen Einzelphasen, kooperativen Phasen und Bewegung. Faustregel für Klasse 5: <strong>spätestens nach 15–20 Minuten ein Wechsel</strong> der Sozialform oder der Aktivität, und in jeder Stunde mindestens eine Phase, in der alle Kinder selbst sprechen (PA/GA).</p>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Methoden nach Sozialform</h3>
+    <div class="me-balken"><span class="me-balken-name"><span class="badge ea">EA</span> Einzelarbeit</span><span class="me-balken-spur"><span class="me-balken-wert me-b-ea" style="width:34%"></span></span><span class="me-balken-zahl">12</span></div>
+    <div class="me-balken"><span class="me-balken-name"><span class="badge pa">PA</span> Partnerarbeit</span><span class="me-balken-spur"><span class="me-balken-wert me-b-pa" style="width:37%"></span></span><span class="me-balken-zahl">13</span></div>
+    <div class="me-balken"><span class="me-balken-name"><span class="badge ga">GA</span> Gruppenarbeit</span><span class="me-balken-spur"><span class="me-balken-wert me-b-ga" style="width:26%"></span></span><span class="me-balken-zahl">9</span></div>
+    <div class="me-balken"><span class="me-balken-name"><span class="badge ug">UG</span> Unterrichtsgespräch</span><span class="me-balken-spur"><span class="me-balken-wert me-b-ug" style="width:37%"></span></span><span class="me-balken-zahl">13</span></div>
+    <div class="me-balken"><span class="me-balken-name"><span class="badge sp">Spiel</span> Spiel/Bewegung</span><span class="me-balken-spur"><span class="me-balken-wert me-b-sp" style="width:23%"></span></span><span class="me-balken-zahl">8</span></div>
+    <div class="me-balken"><span class="me-balken-name"><span class="badge lv">LV</span> Lehrervortrag</span><span class="me-balken-spur"><span class="me-balken-wert me-b-lv" style="width:3%"></span></span><span class="me-balken-zahl">1</span></div>
+      <p class="klein">Anzahl der Methoden, in denen die Sozialform vorkommt (Mehrfachnennung möglich).</p>
+    </div>
+    <div class="card">
+      <h3>Methoden nach Phase</h3>
+    <div class="me-balken"><span class="me-balken-name"><span class="me-phase me-einstieg">Einstieg</span></span><span class="me-balken-spur"><span class="me-balken-wert me-b-einstieg" style="width:31%"></span></span><span class="me-balken-zahl">11</span></div>
+    <div class="me-balken"><span class="me-balken-name"><span class="me-phase me-erarbeitung">Erarbeitung</span></span><span class="me-balken-spur"><span class="me-balken-wert me-b-erarbeitung" style="width:43%"></span></span><span class="me-balken-zahl">15</span></div>
+    <div class="me-balken"><span class="me-balken-name"><span class="me-phase me-sicherung">Sicherung</span></span><span class="me-balken-spur"><span class="me-balken-wert me-b-sicherung" style="width:20%"></span></span><span class="me-balken-zahl">7</span></div>
+    <div class="me-balken"><span class="me-balken-name"><span class="me-phase me-uebung">Übung</span></span><span class="me-balken-spur"><span class="me-balken-wert me-b-uebung" style="width:34%"></span></span><span class="me-balken-zahl">12</span></div>
+      <p class="klein">Viele Methoden lassen sich in mehreren Phasen einsetzen.</p>
+    </div>
+  </div>
+  <h3>Übersicht nach Stunden</h3>
+  <div class="tabelle-scroll">
+  <table class="raster me-mix">
+    <thead><tr><th>Std.</th><th>Thema</th><th>Methoden</th><th><span class="badge ea">EA</span></th><th><span class="badge pa">PA</span></th><th><span class="badge ga">GA</span></th><th><span class="badge ug">UG</span></th><th><span class="badge sp">Spiel</span></th><th><span class="badge lv">LV</span></th></tr></thead>
+    <tbody>
+      <tr><td><a href="stunden.html#s1"><strong>1</strong></a></td><td>Genau hingeschaut!</td><td><a href="#m-brainstorming">Brainstorming „Wo braucht man genaue Beschreibungen?“</a>, <a href="#m-kim">Kim-Spiel</a>, <a href="#m-fehlerbild">Fehlerbild (Finde die Unterschiede)</a>, <a href="#m-lernlandkarte">Lernlandkarte</a></td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt"></td><td class="me-punkt">●</td><td class="me-punkt"></td><td class="me-punkt"></td></tr>
+      <tr><td><a href="stunden.html#s2"><strong>2</strong></a></td><td>Ordnung im Bild</td><td><a href="#m-speeddating">Bild-Speed-Dating</a>, <a href="#m-bildstreifen">Bildstreifen</a>, <a href="#m-raster">9-Felder-Raster</a>, <a href="#m-detektive">Bild-Detektive</a>, <a href="#m-zeigestock">Zeigestock-Spiel</a></td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt"></td></tr>
+      <tr><td><a href="stunden.html#s3"><strong>3</strong></a></td><td>Wo genau?</td><td><a href="#m-luposagt">„Lupo sagt …“</a>, <a href="#m-bilddiktat">Bilddiktat Rücken an Rücken</a></td><td class="me-punkt"></td><td class="me-punkt">●</td><td class="me-punkt"></td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt"></td></tr>
+      <tr><td><a href="stunden.html#s4"><strong>4</strong></a></td><td>Mehr als „ist“ und „gibt es“</td><td><a href="#m-langweiler">Langweiler-Text mit Strichliste</a>, <a href="#m-pantomime">Verben-Pantomime</a></td><td class="me-punkt">●</td><td class="me-punkt"></td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt"></td></tr>
+      <tr><td><a href="stunden.html#s5"><strong>5</strong></a></td><td>Bunt und genau</td><td><a href="#m-ichsehewas">Ich sehe was – Profi-Version</a>, <a href="#m-treppe">Adjektiv-Treppe</a>, <a href="#m-farbkarten">Farbkarten-Spiel</a>, <a href="#m-raetsel">Rätselbeschreibung</a></td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt"></td></tr>
+      <tr><td><a href="stunden.html#s6"><strong>6</strong></a></td><td>Der Anfang zählt</td><td><a href="#m-raetsel">Rätselbeschreibung</a>, <a href="#m-steckbrief">Bild-Steckbrief</a>, <a href="#m-puzzle">Einleitungs-Puzzle</a>, <a href="#m-daumenprobe">Daumenprobe</a></td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt"></td><td class="me-punkt">●</td><td class="me-punkt"></td><td class="me-punkt"></td></tr>
+      <tr><td><a href="stunden.html#s7"><strong>7</strong></a></td><td>Der rote Faden</td><td><a href="#m-daumenprobe">Daumenprobe</a>, <a href="#m-kamerafahrt">Kamerafahrt</a>, <a href="#m-satzstreifen">Satzstreifen ordnen</a>, <a href="#m-satzrad">Satzanfänge-Rad</a></td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt"></td><td class="me-punkt"></td></tr>
+      <tr><td><a href="stunden.html#s8"><strong>8</strong></a></td><td>Sehen oder meinen?</td><td><a href="#m-ampelkarten">Ampelkarten (Sehen – Vermuten – Meinen)</a>, <a href="#m-barometer">Stimmungsbarometer</a>, <a href="#m-zeitmaschine">Zeitmaschine</a>, <a href="#m-sterne">2 Sterne + 1 Wunsch</a></td><td class="me-punkt"></td><td class="me-punkt">●</td><td class="me-punkt"></td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt"></td></tr>
+      <tr><td><a href="stunden.html#s9"><strong>9</strong></a></td><td>Jetzt schreibe ich!</td><td><a href="#m-satzrad">Satzanfänge-Rad</a>, <a href="#m-ampelkarten">Ampelkarten (Sehen – Vermuten – Meinen)</a>, <a href="#m-fahrplan">Lupos Schreibfahrplan</a>, <a href="#m-tippkarten">Gestufte Tippkarten</a></td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt"></td><td class="me-punkt">●</td><td class="me-punkt"></td><td class="me-punkt">●</td></tr>
+      <tr><td><a href="stunden.html#s10"><strong>10</strong></a></td><td>Die Textlupe</td><td><a href="#m-sterne">2 Sterne + 1 Wunsch</a>, <a href="#m-detektivfall">Fehlertext „Detektiv-Fall“</a>, <a href="#m-textlupe">Schreibkonferenz / Textlupe</a></td><td class="me-punkt"></td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt"></td><td class="me-punkt"></td></tr>
+      <tr><td><a href="stunden.html#s11"><strong>11</strong></a></td><td>Ab ins Museum!</td><td><a href="#m-experten">Expertengruppen / Gruppenpuzzle</a>, <a href="#m-museum">Museumsführer / Audioguide</a>, <a href="#m-gallery">Gallery Walk</a></td><td class="me-punkt"></td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt"></td><td class="me-punkt">●</td><td class="me-punkt"></td></tr>
+      <tr><td><a href="stunden.html#s12"><strong>12</strong></a></td><td>Fit für die Klassenarbeit</td><td><a href="#m-kim">Kim-Spiel</a>, <a href="#m-fehlerbild">Fehlerbild (Finde die Unterschiede)</a>, <a href="#m-lernlandkarte">Lernlandkarte</a>, <a href="#m-bilddiktat">Bilddiktat Rücken an Rücken</a>, <a href="#m-tippkarten">Gestufte Tippkarten</a>, <a href="#m-gallery">Gallery Walk</a>, <a href="#m-lerntheke">Lerntheke</a></td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt"></td></tr>
+      <tr><td><a href="stunden.html#s13"><strong>13</strong></a></td><td>Klassenarbeit „Im Hafen“</td><td><a href="#m-fahrplan">Lupos Schreibfahrplan</a> <span class="klein">(Klassenarbeit in Einzelarbeit)</span></td><td class="me-punkt">●</td><td class="me-punkt"></td><td class="me-punkt"></td><td class="me-punkt"></td><td class="me-punkt"></td><td class="me-punkt">●</td></tr>
+      <tr><td><a href="stunden.html#s14"><strong>14</strong></a></td><td>Rückgabe & Reflexion</td><td><a href="#m-lernlandkarte">Lernlandkarte</a>, <a href="#m-sterne">2 Sterne + 1 Wunsch</a> <span class="klein">+ Bewertungsbogen, Berichtigung (EA)</span></td><td class="me-punkt">●</td><td class="me-punkt">●</td><td class="me-punkt"></td><td class="me-punkt"></td><td class="me-punkt"></td><td class="me-punkt"></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="tipp" data-label="Planungstipp">
+    <p>Die Stunden 2, 5 und 8 sind besonders bewegungsreich (Zeigestock-Spiel, Ich sehe was, Stimmungsbarometer, Zeitmaschine). Planen Sie hier etwas mehr Zeit für Übergänge ein. In den Schreibstunden 9 und 10 überwiegen Einzel- und Gruppenarbeit – kurze Bewegungspausen (z. B. eine Runde „Lupo sagt …“) halten die Konzentration.</p>
+  </div>
+</section>
+
+<hr>
+
+<section id="me-vorlagen">
+  <h2>Kopiervorlagen</h2>
+  <p>Alle Vorlagen sind für A4 eingerichtet. Mit „Dieses Blatt drucken“ wird nur die jeweilige Vorlage gedruckt. Für Ampelkarten, Satzanfänge-Rad und Kamera-Sucher empfiehlt sich farbiger Druck auf festes Papier (160 g/m²) oder Aufkleben auf Tonkarton.</p>
+</section>
+
+<section class="blatt me-blatt" id="kv-ampel">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KV<b>1</b></div><h2>Ampelkarten: Sehen – Vermuten – Meinen</h2>
+    <p class="me-blatt-unter">Stunde 8 · ausschneiden, auf Pappe kleben, bei jedem Satz die passende Karte hochhalten</p></div>
+  <div class="me-ampelkarten">
+    <div class="me-ampelkarte gruen">
+      <div class="me-licht" aria-hidden="true"></div>
+      <div>
+        <p class="me-ampel-wort">Ich sehe</p>
+        <p class="me-ampel-satz">Das ist im Bild zu sehen. Jeder kann es entdecken.</p>
+        <p class="me-ampel-signal"><strong>Gehört in den Hauptteil.</strong> Beispiel: „Drei Jäger gehen durch den Schnee.“</p>
+      </div>
+    </div>
+    <div class="me-ampelkarte gelb">
+      <div class="me-licht" aria-hidden="true"></div>
+      <div>
+        <p class="me-ampel-wort">Ich vermute</p>
+        <p class="me-ampel-satz">Das könnte so sein – sicher weiß ich es nicht.</p>
+        <p class="me-ampel-signal"><strong>Signalwörter:</strong> vermutlich, wahrscheinlich, vielleicht, es sieht so aus, als ob … Beispiel: „Die Jäger sind vermutlich müde.“</p>
+      </div>
+    </div>
+    <div class="me-ampelkarte rot">
+      <div class="me-licht" aria-hidden="true"></div>
+      <div>
+        <p class="me-ampel-wort">Ich meine</p>
+        <p class="me-ampel-satz">Das ist meine Meinung oder mein Gefühl.</p>
+        <p class="me-ampel-signal"><strong>Gehört nur in den Schluss!</strong> Signalwörter: ich finde, mir gefällt, schön, toll, langweilig … Beispiel: „Mir gefällt das Bild, weil …“</p>
+      </div>
+    </div>
+  </div>
+  <p class="schere">Entlang der gestrichelten Linien ausschneiden.</p>
+  <div class="fussnote">Kopiervorlage 1 · Stunde 8 · Sehen oder meinen?</div>
+</section>
+
+<section class="blatt me-blatt" id="kv-rollen">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KV<b>2</b></div><h2>Rollenkarten für die Schreibkonferenz</h2>
+    <p class="me-blatt-unter">Stunde 10 · Jede Lupe prüft nur ihren Bereich und markiert in ihrer Farbe. In Dreiergruppen übernimmt ein Kind zusätzlich die rote Lupe.</p></div>
+  <div class="karten">
+    <div class="karte me-rolle gruen">
+      <div class="me-rolle-kopf">Grüne Lupe: Aufbau</div>
+      <p><strong>Du prüfst:</strong></p>
+      <ul>
+        <li>Gibt es eine Einleitung mit Bildart, Titel und Thema?</li>
+        <li>Folgt der Hauptteil einer Reihenfolge (z. B. vorne → Mitte → hinten)?</li>
+        <li>Springt der Text hin und her? Markiere die Stelle.</li>
+        <li>Gibt es einen Schluss mit Wirkung und Meinung?</li>
+      </ul>
+      <p class="me-sag">So kannst du es sagen: „Deine Einleitung ist gut, weil … Bei … springst du.“</p>
+    </div>
+    <div class="karte me-rolle blau">
+      <div class="me-rolle-kopf">Blaue Lupe: Ortsangaben</div>
+      <p><strong>Du prüfst:</strong></p>
+      <ul>
+        <li>Steht bei jedem Ding, <em>wo</em> es im Bild ist?</li>
+        <li>Benutzt der Text Fachwörter wie „im Vordergrund“, „am linken Bildrand“?</li>
+        <li>Stimmt der Dativ? (auf <strong>dem</strong> Tisch, neben <strong>der</strong> Lampe)</li>
+        <li>Stimmen links und rechts?</li>
+      </ul>
+      <p class="me-sag">So kannst du es sagen: „Bei … weiß ich nicht, wo es ist. Schreib doch: …“</p>
+    </div>
+    <div class="karte me-rolle orange">
+      <div class="me-rolle-kopf">Orange Lupe: Verben &amp; Adjektive</div>
+      <p><strong>Du prüfst:</strong></p>
+      <ul>
+        <li>Kringle jedes „ist“, „sind“, „gibt es“, „sieht man“, „hat“ ein.</li>
+        <li>Gibt es treffende Verben (steht, liegt, hängt, ragt, sitzt …)?</li>
+        <li>Werden Farben, Formen und Größen genau genannt?</li>
+        <li>Schlage für ein Verb ein besseres vor.</li>
+      </ul>
+      <p class="me-sag">So kannst du es sagen: „Statt ‚ist‘ passt hier besser ‚…‘.“</p>
+    </div>
+    <div class="karte me-rolle rot">
+      <div class="me-rolle-kopf">Rote Lupe: Präsens &amp; sachlich</div>
+      <p><strong>Du prüfst:</strong></p>
+      <ul>
+        <li>Steht alles in der Gegenwart? Unterstreiche Verben in der Vergangenheit (stand, lag …).</li>
+        <li>Steht die Meinung (schön, toll, ich finde) erst im Schluss?</li>
+        <li>Sind Vermutungen mit „vermutlich“ oder „vielleicht“ gekennzeichnet?</li>
+      </ul>
+      <p class="me-sag">So kannst du es sagen: „In Satz … steht ‚lag‘. Richtig ist: ‚liegt‘.“</p>
+    </div>
+    <div class="karte me-rolle lila">
+      <div class="me-rolle-kopf">Gesprächsleitung</div>
+      <p><strong>Deine Aufgabe:</strong></p>
+      <ul>
+        <li>Du achtest darauf, dass alle drankommen.</li>
+        <li>Reihenfolge: erst die 2 Sterne, dann 1 Wunsch.</li>
+        <li>Du erinnerst an die Regel: „Wir sprechen über den Text, nicht über die Person.“</li>
+      </ul>
+      <p class="me-sag">So kannst du es sagen: „Wer möchte als Nächstes einen Stern geben?“</p>
+    </div>
+    <div class="karte me-rolle tuerkis">
+      <div class="me-rolle-kopf">Zeitwächter/in</div>
+      <p><strong>Deine Aufgabe:</strong></p>
+      <ul>
+        <li>Du hast die Uhr im Blick: 4 Minuten pro Text.</li>
+        <li>Eine Minute vorher sagst du Bescheid.</li>
+        <li>Dann wird der Text weitergegeben.</li>
+      </ul>
+      <p class="me-sag">So kannst du es sagen: „Noch eine Minute! – Bitte weitergeben.“</p>
+    </div>
+  </div>
+  <p class="schere">Karten ausschneiden. Tipp: laminieren, dann halten sie die ganze Reihe.</p>
+  <div class="fussnote">Kopiervorlage 2 · Stunde 10 · Die Textlupe</div>
+</section>
+
+<section class="blatt me-blatt" id="kv-rad-unten">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KV<b>3a</b></div><h2>Satzanfänge-Rad – Scheibe 1 (unten)</h2>
+    <p class="me-blatt-unter">Stunde 7 · Bastelanleitung und große Scheibe mit den Satzanfängen</p></div>
+  <div class="lupo"><img src="bilder/lupo.svg" alt="Lupo"><div class="bubble">
+    <p><strong>So baust du dein Satzanfänge-Rad:</strong> 1. Schneide diese große Scheibe aus (gestrichelte Linie). 2. Schneide die kleine Scheibe (Blatt 3b) aus und dort auch das rote Fenster. 3. Lege die kleine Scheibe auf die große. 4. Stich mit der Bleistiftspitze durch beide Mittelpunkte und stecke eine Musterbeutelklammer hindurch. 5. Dreh die untere Scheibe – im Fenster erscheint immer ein neuer Satzanfang!</p>
+  </div></div>
+  <div class="me-rad-wrap">
+<svg class="me-rad" viewBox="0 0 400 400" role="img" aria-label="Untere Scheibe des Satzanfänge-Rads mit zwölf Satzanfängen" font-family="Nunito, Trebuchet MS, sans-serif">
+  <path d="M366.1 155.5 A172 172 0 0 1 366.1 244.5 L200.0 200.0 A0.01 0.01 0 0 0 200.0 200.0 Z" fill="#ffffff" stroke="#b9ad94" stroke-width="1"/><path d="M387.4 149.8 A194 194 0 0 1 387.4 250.2 L366.1 244.5 A172 172 0 0 0 366.1 155.5 Z" fill="#9cc0e6" stroke="#7d7360" stroke-width="1"/><text x="237" y="200" dy=".35em" font-size="12" font-weight="700" fill="#22303c" transform="rotate(0 200 200)">Im Vordergrund</text><text x="383.0" y="200.0" dy=".35em" text-anchor="middle" font-size="11" font-weight="800" fill="#22303c">1</text><path d="M366.1 244.5 A172 172 0 0 1 321.6 321.6 L200.0 200.0 A0.01 0.01 0 0 0 200.0 200.0 Z" fill="#f7f2e7" stroke="#b9ad94" stroke-width="1"/><path d="M387.4 250.2 A194 194 0 0 1 337.2 337.2 L321.6 321.6 A172 172 0 0 0 366.1 244.5 Z" fill="#9fd09b" stroke="#7d7360" stroke-width="1"/><text x="237" y="200" dy=".35em" font-size="12" font-weight="700" fill="#22303c" transform="rotate(30 200 200)">Links daneben</text><text x="358.5" y="291.5" dy=".35em" text-anchor="middle" font-size="11" font-weight="800" fill="#22303c">2</text><path d="M321.6 321.6 A172 172 0 0 1 244.5 366.1 L200.0 200.0 A0.01 0.01 0 0 0 200.0 200.0 Z" fill="#ffffff" stroke="#b9ad94" stroke-width="1"/><path d="M337.2 337.2 A194 194 0 0 1 250.2 387.4 L244.5 366.1 A172 172 0 0 0 321.6 321.6 Z" fill="#9fd09b" stroke="#7d7360" stroke-width="1"/><text x="237" y="200" dy=".35em" font-size="12" font-weight="700" fill="#22303c" transform="rotate(60 200 200)">Dahinter</text><text x="291.5" y="358.5" dy=".35em" text-anchor="middle" font-size="11" font-weight="800" fill="#22303c">3</text><path d="M244.5 366.1 A172 172 0 0 1 155.5 366.1 L200.0 200.0 A0.01 0.01 0 0 0 200.0 200.0 Z" fill="#f7f2e7" stroke="#b9ad94" stroke-width="1"/><path d="M250.2 387.4 A194 194 0 0 1 149.8 387.4 L155.5 366.1 A172 172 0 0 0 244.5 366.1 Z" fill="#9cc0e6" stroke="#7d7360" stroke-width="1"/><text x="237" y="200" dy=".35em" font-size="12" font-weight="700" fill="#22303c" transform="rotate(90 200 200)">Im Mittelgrund</text><text x="200.0" y="383.0" dy=".35em" text-anchor="middle" font-size="11" font-weight="800" fill="#22303c">4</text><path d="M155.5 366.1 A172 172 0 0 1 78.4 321.6 L200.0 200.0 A0.01 0.01 0 0 0 200.0 200.0 Z" fill="#ffffff" stroke="#b9ad94" stroke-width="1"/><path d="M149.8 387.4 A194 194 0 0 1 62.8 337.2 L78.4 321.6 A172 172 0 0 0 155.5 366.1 Z" fill="#9cc0e6" stroke="#7d7360" stroke-width="1"/><text x="237" y="200" dy=".35em" font-size="12" font-weight="700" fill="#22303c" transform="rotate(120 200 200)">In der Bildmitte</text><text x="108.5" y="358.5" dy=".35em" text-anchor="middle" font-size="11" font-weight="800" fill="#22303c">5</text><path d="M78.4 321.6 A172 172 0 0 1 33.9 244.5 L200.0 200.0 A0.01 0.01 0 0 0 200.0 200.0 Z" fill="#f7f2e7" stroke="#b9ad94" stroke-width="1"/><path d="M62.8 337.2 A194 194 0 0 1 12.6 250.2 L33.9 244.5 A172 172 0 0 0 78.4 321.6 Z" fill="#9cc0e6" stroke="#7d7360" stroke-width="1"/><text x="237" y="200" dy=".35em" font-size="12" font-weight="700" fill="#22303c" transform="rotate(150 200 200)">Am rechten Bildrand</text><text x="41.5" y="291.5" dy=".35em" text-anchor="middle" font-size="11" font-weight="800" fill="#22303c">6</text><path d="M33.9 244.5 A172 172 0 0 1 33.9 155.5 L200.0 200.0 A0.01 0.01 0 0 0 200.0 200.0 Z" fill="#ffffff" stroke="#b9ad94" stroke-width="1"/><path d="M12.6 250.2 A194 194 0 0 1 12.6 149.8 L33.9 155.5 A172 172 0 0 0 33.9 244.5 Z" fill="#9fd09b" stroke="#7d7360" stroke-width="1"/><text x="237" y="200" dy=".35em" font-size="12" font-weight="700" fill="#22303c" transform="rotate(180 200 200)">Weiter hinten</text><text x="17.0" y="200.0" dy=".35em" text-anchor="middle" font-size="11" font-weight="800" fill="#22303c">7</text><path d="M33.9 155.5 A172 172 0 0 1 78.4 78.4 L200.0 200.0 A0.01 0.01 0 0 0 200.0 200.0 Z" fill="#f7f2e7" stroke="#b9ad94" stroke-width="1"/><path d="M12.6 149.8 A194 194 0 0 1 62.8 62.8 L78.4 78.4 A172 172 0 0 0 33.9 155.5 Z" fill="#9cc0e6" stroke="#7d7360" stroke-width="1"/><text x="237" y="200" dy=".35em" font-size="12" font-weight="700" fill="#22303c" transform="rotate(210 200 200)">Im Hintergrund</text><text x="41.5" y="108.5" dy=".35em" text-anchor="middle" font-size="11" font-weight="800" fill="#22303c">8</text><path d="M78.4 78.4 A172 172 0 0 1 155.5 33.9 L200.0 200.0 A0.01 0.01 0 0 0 200.0 200.0 Z" fill="#ffffff" stroke="#b9ad94" stroke-width="1"/><path d="M62.8 62.8 A194 194 0 0 1 149.8 12.6 L155.5 33.9 A172 172 0 0 0 78.4 78.4 Z" fill="#9fd09b" stroke="#7d7360" stroke-width="1"/><text x="237" y="200" dy=".35em" font-size="12" font-weight="700" fill="#22303c" transform="rotate(240 200 200)">Darüber</text><text x="108.5" y="41.5" dy=".35em" text-anchor="middle" font-size="11" font-weight="800" fill="#22303c">9</text><path d="M155.5 33.9 A172 172 0 0 1 244.5 33.9 L200.0 200.0 A0.01 0.01 0 0 0 200.0 200.0 Z" fill="#f7f2e7" stroke="#b9ad94" stroke-width="1"/><path d="M149.8 12.6 A194 194 0 0 1 250.2 12.6 L244.5 33.9 A172 172 0 0 0 155.5 33.9 Z" fill="#9cc0e6" stroke="#7d7360" stroke-width="1"/><text x="237" y="200" dy=".35em" font-size="12" font-weight="700" fill="#22303c" transform="rotate(270 200 200)">Am linken Bildrand</text><text x="200.0" y="17.0" dy=".35em" text-anchor="middle" font-size="11" font-weight="800" fill="#22303c">10</text><path d="M244.5 33.9 A172 172 0 0 1 321.6 78.4 L200.0 200.0 A0.01 0.01 0 0 0 200.0 200.0 Z" fill="#ffffff" stroke="#b9ad94" stroke-width="1"/><path d="M250.2 12.6 A194 194 0 0 1 337.2 62.8 L321.6 78.4 A172 172 0 0 0 244.5 33.9 Z" fill="#f3b98a" stroke="#7d7360" stroke-width="1"/><text x="237" y="200" dy=".35em" font-size="12" font-weight="700" fill="#22303c" transform="rotate(300 200 200)">Außerdem</text><text x="291.5" y="41.5" dy=".35em" text-anchor="middle" font-size="11" font-weight="800" fill="#22303c">11</text><path d="M321.6 78.4 A172 172 0 0 1 366.1 155.5 L200.0 200.0 A0.01 0.01 0 0 0 200.0 200.0 Z" fill="#f7f2e7" stroke="#b9ad94" stroke-width="1"/><path d="M337.2 62.8 A194 194 0 0 1 387.4 149.8 L366.1 155.5 A172 172 0 0 0 321.6 78.4 Z" fill="#f3b98a" stroke="#7d7360" stroke-width="1"/><text x="237" y="200" dy=".35em" font-size="12" font-weight="700" fill="#22303c" transform="rotate(330 200 200)">Auffällig ist</text><text x="358.5" y="108.5" dy=".35em" text-anchor="middle" font-size="11" font-weight="800" fill="#22303c">12</text>
+  <circle cx="200" cy="200" r="194" fill="none" stroke="#22303c" stroke-width="1.6" stroke-dasharray="7 5"/>
+  <circle cx="200" cy="200" r="16" fill="#fff" stroke="#b9ad94"/>
+  <path d="M194 200 H206 M200 194 V206" stroke="#22303c" stroke-width="1.6"/>
+</svg>
+  </div>
+  <div class="me-rad-legende">
+    <span><i style="background:#9cc0e6"></i>Bildbereich (Wo im Bild?)</span>
+    <span><i style="background:#9fd09b"></i>Anschluss (Was ist daneben/dahinter?)</span>
+    <span><i style="background:#f3b98a"></i>Ergänzung</span>
+  </div>
+  <div class="fussnote">Kopiervorlage 3a · Stunde 7 · Der rote Faden</div>
+</section>
+
+<section class="blatt me-blatt" id="kv-rad-oben">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KV<b>3b</b></div><h2>Satzanfänge-Rad – Scheibe 2 (oben)</h2>
+    <p class="me-blatt-unter">Stunde 7 · kleine Deckscheibe mit Fenster</p></div>
+  <div class="me-rad-wrap">
+<svg class="me-rad" viewBox="0 0 400 400" role="img" aria-label="Obere Scheibe des Satzanfänge-Rads mit Fenster" font-family="Nunito, Trebuchet MS, sans-serif">
+  <defs><pattern id="me-schraffur" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#fff"/><line x1="0" y1="0" x2="0" y2="8" stroke="#e9a3a0" stroke-width="2"/></pattern>
+  <marker id="me-spitze" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#e8833a"/></marker></defs>
+  <circle cx="200" cy="200" r="172" fill="#fffdf8" stroke="#22303c" stroke-width="1.6" stroke-dasharray="7 5"/>
+  <circle cx="200" cy="200" r="162" fill="none" stroke="#e8833a" stroke-width="3"/>
+  <path d="M361.1 159.8 A166 166 0 0 1 361.1 240.2 L233.0 208.2 A34 34 0 0 0 233.0 191.8 Z" fill="url(#me-schraffur)" stroke="#cc4141" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="244" y="200" dy=".35em" font-size="10.5" font-weight="800" fill="#9c2b2b">✂ Fenster ausschneiden</text>
+  <text x="200" y="104" text-anchor="middle" font-size="18" font-weight="900" fill="#22303c">Lupos Satzanfänge-Rad</text>
+  <text x="200" y="124" text-anchor="middle" font-size="12" fill="#4a5866">Lies den Satzanfang im Fenster</text>
+  <text x="200" y="140" text-anchor="middle" font-size="12" fill="#4a5866">und bilde einen Satz zum Bild!</text>
+  <image href="bilder/lupo.svg" x="48" y="152" width="110" height="92"/>
+  <text x="103" y="264" text-anchor="middle" font-size="14" font-weight="900" fill="#e8833a">Dreh mich!</text>
+  <path d="M114.0 322.9 A150 150 0 0 1 55.1 238.8" fill="none" stroke="#e8833a" stroke-width="4" marker-end="url(#me-spitze)"/>
+  <text x="200" y="318" text-anchor="middle" font-size="12" fill="#4a5866">Name:</text>
+  <line x1="140" y1="338" x2="260" y2="338" stroke="#4a5866" stroke-width="1.2"/>
+  <circle cx="200" cy="200" r="10" fill="#fff" stroke="#22303c"/>
+  <path d="M195 200 H205 M200 195 V205" stroke="#22303c" stroke-width="1.6"/>
+</svg>
+  </div>
+  <div class="tipp" data-label="Hinweis für die Lehrkraft">
+    <p>Das Fenster am besten vorab mit dem Cutter vorschneiden oder die Kinder anleiten: Fenster in der Mitte knicken, mit der Schere einschneiden, dann ausschneiden. Beide Scheiben auf festes Papier kopieren. Musterbeutelklammern (ca. 30 Stück) vorher bereitlegen. Die Rückseite der oberen Scheibe bietet Platz für eigene Satzanfänge für den Schluss (★★★).</p>
+  </div>
+  <div class="fussnote">Kopiervorlage 3b · Stunde 7 · Der rote Faden</div>
+</section>
+
+<section class="blatt me-blatt" id="kv-kamera">
+  <div class="werkzeugleiste no-print"><button class="btn klein hell no-print" data-print-einzeln>Dieses Blatt drucken</button></div>
+  <div class="blatt-kopf"><div class="ab-nr">KV<b>4</b></div><h2>Kamera-Sucher zum Basteln</h2>
+    <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
+  <p><strong>So geht’s:</strong> Klebe das Blatt auf Pappe. Schneide die Kamera an der gestrichelten Linie aus. Schneide dann das rote Fenster heraus. Halte die Kamera vor dein Auge und „filme“ das Bild: Wohin fährt deine Kamera zuerst, wohin dann?</p>
+<svg class="me-kamera" viewBox="0 0 700 440" role="img" aria-label="Bastelvorlage Kamera-Sucher mit Fenster zum Ausschneiden" font-family="Nunito, Trebuchet MS, sans-serif">
+  <defs><pattern id="me-schraffur2" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="10" fill="#fff"/><line x1="0" y1="0" x2="0" y2="10" stroke="#e9a3a0" stroke-width="2"/></pattern></defs>
+  <path d="M50 60 H240 L270 20 H430 L460 60 H650 Q680 60 680 90 V390 Q680 420 650 420 H50 Q20 420 20 390 V90 Q20 60 50 60 Z" fill="#fffdf8" stroke="#22303c" stroke-width="2" stroke-dasharray="9 6"/>
+  <text x="350" y="47" text-anchor="middle" font-size="16" font-weight="800" fill="#4a5866">Sucher</text>
+  <rect x="40" y="76" width="620" height="30" rx="8" fill="#e8833a"/>
+  <text x="350" y="97" text-anchor="middle" font-size="19" font-weight="900" fill="#fff" letter-spacing="3">LUPO-KAMERA</text>
+  <circle cx="110" cy="250" r="62" fill="#e1edf9" stroke="#2f6fb5" stroke-width="4"/>
+  <circle cx="110" cy="250" r="40" fill="#fff" stroke="#2f6fb5" stroke-width="3"/>
+  <circle cx="110" cy="250" r="16" fill="#2f6fb5"/>
+  <text x="110" y="340" text-anchor="middle" font-size="14" font-weight="800" fill="#2f6fb5">Zoom</text>
+  <circle cx="598" cy="140" r="10" fill="#cc4141"/>
+  <text x="616" y="146" font-size="16" font-weight="900" fill="#cc4141">REC</text>
+  <rect x="200" y="135" width="300" height="200" rx="6" fill="url(#me-schraffur2)" stroke="#cc4141" stroke-width="2.5" stroke-dasharray="8 5"/>
+  <path d="M184 150 V119 H215 M485 119 H516 V150 M516 320 V351 H485 M215 351 H184 V320" fill="none" stroke="#22303c" stroke-width="4"/>
+  <text x="350" y="230" text-anchor="middle" font-size="17" font-weight="800" fill="#9c2b2b">✂ Fenster ausschneiden</text>
+  <text x="350" y="252" text-anchor="middle" font-size="13" fill="#9c2b2b">(in der Mitte knicken und einschneiden)</text>
+  <text x="590" y="250" text-anchor="middle" font-size="13" font-weight="800" fill="#4a5866">Mein Weg:</text>
+  <text x="590" y="274" text-anchor="middle" font-size="13" fill="#4a5866">vorne</text>
+  <text x="590" y="292" text-anchor="middle" font-size="13" fill="#4a5866">↓</text>
+  <text x="590" y="310" text-anchor="middle" font-size="13" fill="#4a5866">Mitte</text>
+  <text x="590" y="328" text-anchor="middle" font-size="13" fill="#4a5866">↓</text>
+  <text x="590" y="346" text-anchor="middle" font-size="13" fill="#4a5866">hinten</text>
+  <text x="350" y="392" text-anchor="middle" font-size="14" font-weight="700" fill="#22303c">Klappe, die erste! Erst schauen, dann ordnen, dann schreiben.</text>
+</svg>
+  <h3>Mein Kamerafahrt-Protokoll</h3>
+  <p>Meine Kamera fährt: <span class="kreis"></span> von vorne nach hinten &nbsp; <span class="kreis"></span> von links nach rechts &nbsp; <span class="kreis"></span> vom Wichtigsten zu den Einzelheiten</p>
+  <table>
+    <thead><tr><th style="width:16%">Station</th><th style="width:34%">Wo ist meine Kamera?</th><th>Was sehe ich dort?</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td></td><td></td></tr>
+      <tr><td>2</td><td></td><td></td></tr>
+      <tr><td>3</td><td></td><td></td></tr>
+      <tr><td>4</td><td></td><td></td></tr>
+      <tr><td>5</td><td></td><td></td></tr>
+    </tbody>
+  </table>
+  <div class="fussnote">Kopiervorlage 4 · Stunde 7 · Der rote Faden</div>
+</section>
+
+<script>
+(function () {
+  var karten = Array.prototype.slice.call(document.querySelectorAll('.me-methode'));
+  var zaehler = document.getElementById('me-zaehler');
+  var leer = document.getElementById('me-leer');
+  var suche = document.getElementById('me-suche');
+  var stunde = document.getElementById('me-stunde');
+  if (!karten.length || !zaehler) return;
+  var zustand = { phase: 'alle', sozial: 'alle', stunde: 'alle', suche: [] };
+
+  function norm(t) { return (t || '').toLowerCase().replace(/[„“"]/g, '').replace(/\s+/g, ' ').trim(); }
+  var texte = karten.map(function (k) { return norm(k.textContent); });
+  function passt(liste, wert) { return wert === 'alle' || (' ' + liste + ' ').indexOf(' ' + wert + ' ') > -1; }
+
+  function anwenden() {
+    var n = 0;
+    karten.forEach(function (k, i) {
+      var ok = passt(k.getAttribute('data-phase'), zustand.phase) &&
+        passt(k.getAttribute('data-sozial'), zustand.sozial) &&
+        passt(k.getAttribute('data-stunden'), zustand.stunde) &&
+        zustand.suche.every(function (w) { return texte[i].indexOf(w) > -1; });
+      k.classList.toggle('me-versteckt', !ok);
+      if (ok) n++;
+    });
+    zaehler.textContent = n === karten.length
+      ? 'Alle ' + n + ' Methoden werden angezeigt.'
+      : n + ' von ' + karten.length + ' Methoden passen zu Ihrer Auswahl.';
+    leer.hidden = n > 0;
+  }
+
+  function markiere(gruppe, wert) {
+    document.querySelectorAll('.me-filter [data-' + gruppe + ']').forEach(function (b) {
+      var an = b.getAttribute('data-' + gruppe) === wert;
+      b.classList.toggle('me-aktiv', an);
+      b.setAttribute('aria-pressed', an ? 'true' : 'false');
+    });
+  }
+
+  ['phase', 'sozial'].forEach(function (gruppe) {
+    document.querySelectorAll('.me-filter [data-' + gruppe + ']').forEach(function (b) {
+      b.addEventListener('click', function () {
+        zustand[gruppe] = b.getAttribute('data-' + gruppe);
+        markiere(gruppe, zustand[gruppe]);
+        anwenden();
+      });
+    });
+  });
+  stunde.addEventListener('change', function () { zustand.stunde = stunde.value; anwenden(); });
+  suche.addEventListener('input', function () {
+    var q = norm(suche.value);
+    zustand.suche = q ? q.split(' ') : [];
+    anwenden();
+  });
+
+  function zuruecksetzen() {
+    zustand = { phase: 'alle', sozial: 'alle', stunde: 'alle', suche: [] };
+    markiere('phase', 'alle'); markiere('sozial', 'alle');
+    stunde.value = 'alle'; suche.value = '';
+    anwenden();
+  }
+  document.getElementById('me-reset').addEventListener('click', zuruecksetzen);
+
+  // Sprung zu einer ausgeblendeten Methode: Filter automatisch lösen
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a[href^="#m-"]') : null;
+    if (!a) return;
+    var ziel = document.getElementById(a.getAttribute('href').slice(1));
+    if (ziel && ziel.classList.contains('me-versteckt')) zuruecksetzen();
+  });
+
+  anwenden();
+})();
+</script>
+
+</main>
+<footer class="site-footer no-print">
+  Unterrichtsreihe „Bildbeschreibung“ · Klasse 5 · Übungsbilder: eigene Illustrationen · Gemälde: Pieter Bruegel d. Ä. und Carl Spitzweg (gemeinfrei, Wikimedia Commons)
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>
