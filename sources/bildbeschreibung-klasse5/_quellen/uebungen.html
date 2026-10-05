@@ -33,7 +33,7 @@
 
 /* Lupo-Feedback */
 .ue-lupo { margin: 14px 0; }
-.ue-lupo > img { width: 62px; }
+.ue-lupo > img { width: 62px; height: auto; }
 .ue-lupo .bubble { transition: background .2s, border-color .2s; }
 .ue-lupo.gut .bubble, .ue-lupo.gut .bubble::before { background: var(--green-soft); border-color: #7cbf78; }
 .ue-lupo.falsch .bubble, .ue-lupo.falsch .bubble::before { background: var(--red-soft); border-color: #e39b97; }
@@ -91,11 +91,11 @@
 .ue-bildflaeche { position: relative; line-height: 0; border-radius: 8px; overflow: hidden; }
 .ue-bildflaeche img { display: block; width: 100%; height: auto; }
 .ue-overlay { position: absolute; inset: 0; width: 100%; height: 100%; cursor: crosshair; touch-action: manipulation; }
-.ue-overlay .ue-treffer { fill: rgba(61, 139, 64, .14); stroke: #2e7d32; stroke-width: 5; animation: ue-plopp .35s; transform-box: fill-box; transform-origin: center; }
-.ue-overlay .ue-treffer.geloest { fill: rgba(232, 131, 58, .14); stroke: #e8833a; stroke-dasharray: 10 6; }
-.ue-overlay .ue-treffer-nr { font: 900 22px Nunito, Arial, sans-serif; fill: #fff; stroke: #2e7d32; stroke-width: 5; paint-order: stroke; }
-.ue-overlay .ue-daneben { font: 900 34px Nunito, Arial, sans-serif; fill: #cc4141; stroke: #fff; stroke-width: 4; paint-order: stroke; animation: ue-weg 1s forwards; }
-.ue-overlay .ue-tippkreis { fill: none; stroke: #f5c518; stroke-width: 6; stroke-dasharray: 14 8; animation: ue-blinken .5s 4 alternate; }
+.ue-overlay .ue-treffer { fill: rgba(61, 139, 64, .14); stroke: #2e7d32; stroke-width: 10; animation: ue-plopp .35s; transform-box: fill-box; transform-origin: center; }
+.ue-overlay .ue-treffer.geloest { fill: rgba(232, 131, 58, .14); stroke: #e8833a; stroke-dasharray: 19 12; }
+.ue-overlay .ue-treffer-nr { font: 900 44px Nunito, Arial, sans-serif; fill: #fff; stroke: #2e7d32; stroke-width: 10; paint-order: stroke; }
+.ue-overlay .ue-daneben { font: 900 66px Nunito, Arial, sans-serif; fill: #cc4141; stroke: #fff; stroke-width: 8; paint-order: stroke; animation: ue-weg 1s forwards; }
+.ue-overlay .ue-tippkreis { fill: none; stroke: #f5c518; stroke-width: 12; stroke-dasharray: 27 15; animation: ue-blinken .5s 4 alternate; }
 @keyframes ue-weg { 0% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; } }
 @keyframes ue-blinken { from { opacity: 1; } to { opacity: .2; } }
 .ue-gefunden { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 6px; margin: 10px 0 0; }
@@ -113,8 +113,8 @@
 
 /* Kim */
 .ue-kim-buehne { position: relative; width: 100%; max-width: 760px; margin: 10px auto; border-radius: 16px; overflow: hidden; background: #22303c; box-shadow: var(--shadow); }
-.ue-kim-buehne::before { content: ""; display: block; padding-top: 70%; }
-.ue-kim-buehne img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ue-kim-buehne::before { content: ""; display: block; padding-top: 66.6667%; } /* Bild 3:2 */
+.ue-kim-buehne img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .ue-kim-vorhang { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 20px; color: #fff; font-family: var(--font-head); font-weight: 900; font-size: clamp(1.2rem, 3vw, 1.9rem);
   background: repeating-linear-gradient(90deg, #7a4fa8 0 40px, #6a4096 40px 80px); }
 .ue-kim-vorhang small { display: block; color: #fff; font-size: .6em; font-weight: 700; opacity: .9; margin-top: 6px; }
@@ -183,7 +183,7 @@
 .ue-diplom { max-width: 720px; margin: 16px auto; background: #fffdf3; border: 12px double #e8833a; border-radius: 10px; padding: 26px 34px; text-align: center; position: relative;
   box-shadow: 0 10px 30px rgba(50,40,20,.15); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 .ue-diplom::after { content: ""; position: absolute; inset: 8px; border: 2px dashed #f0c08f; border-radius: 4px; pointer-events: none; }
-.ue-diplom img { width: 120px; }
+.ue-diplom img { width: 120px; height: auto; }
 .ue-diplom .ue-dip-kicker { font-family: var(--font-head); font-weight: 900; letter-spacing: .25em; text-transform: uppercase; color: #e8833a; font-size: .85rem; }
 .ue-diplom h3 { font-size: 2.3rem; margin: .1em 0 .2em; color: #22303c; }
 .ue-diplom .ue-dip-name { font-family: var(--font-head); font-weight: 900; font-size: 2rem; color: #2f6fb5; border-bottom: 3px solid #22303c; display: inline-block; min-width: 60%; padding: 0 12px 2px; margin: 6px 0 10px; }
@@ -219,12 +219,12 @@
     <h1>Werde Bilddetektiv!</h1>
     <p>Zehn Spiele zum Üben – von „Finde die Unterschiede“ bis zum Bilddetektiv-Diplom. Du bekommst sofort eine Rückmeldung von Lupo und sammelst Sterne.</p>
   </div>
-  <img src="bilder/lupo.svg" alt="Lupo, der Bilddetektiv">
+  <img src="bilder/lupo.png" alt="Lupo, der Bilddetektiv">
 </header>
 
 <div class="ue-oben">
   <div class="lupo">
-    <img src="bilder/lupo.svg" alt="Lupo">
+    <img src="bilder/lupo.png" alt="Lupo">
     <div class="bubble">
       <p><strong>Hallo, ich bin Lupo!</strong> Mein Motto: <em>„Erst schauen, dann ordnen, dann schreiben!“</em> Such dir unten ein Spiel aus. Du kannst jedes Spiel so oft spielen, wie du willst. Gezählt wird immer dein bester Versuch.</p>
     </div>
@@ -250,7 +250,7 @@
     <a class="ue-kachel ue-f4" href="#spiel-praepositionen"><span class="ue-kachel-nr">4</span><b>Präpositionen-Detektiv</b><small>auf, unter, neben … und „dem“ oder „der“?</small><span class="badge sp">Stunde 3</span><span class="ue-status" data-ue-status="praepositionen"></span></a>
     <a class="ue-kachel ue-f5" href="#spiel-verben"><span class="ue-kachel-nr">5</span><b>Verben-Tuning</b><small>Weg mit „ist“ und „gibt es“!</small><span class="badge sp">Stunde 4</span><span class="ue-status" data-ue-status="verben"></span></a>
     <a class="ue-kachel ue-f6" href="#spiel-adjektive"><span class="ue-kachel-nr">6</span><b>Adjektiv-Treppe</b><small>Stufe für Stufe genauer beschreiben.</small><span class="badge sp">Stunde 5</span><span class="ue-status" data-ue-status="adjektive"></span></a>
-    <a class="ue-kachel ue-f7" href="#spiel-ampel"><span class="ue-kachel-nr">7</span><b>Sehen – vermuten – meinen</b><small>Die Ampel zu „Die Jäger im Schnee“.</small><span class="badge sp">Stunde 8</span><span class="ue-status" data-ue-status="ampel"></span></a>
+    <a class="ue-kachel ue-f7" href="#spiel-ampel"><span class="ue-kachel-nr">7</span><b>Sehen – vermuten – meinen</b><small>Die Ampel zum „Winterabend am Dorfteich“.</small><span class="badge sp">Stunde 8</span><span class="ue-status" data-ue-status="ampel"></span></a>
     <a class="ue-kachel ue-f8" href="#spiel-praesens"><span class="ue-kachel-nr">8</span><b>Zeitmaschine Präsens</b><small>Von früher ins Jetzt: rannte → rennt.</small><span class="badge sp">Stunde 8</span><span class="ue-status" data-ue-status="praesens"></span></a>
     <a class="ue-kachel ue-f9" href="#spiel-ordnen"><span class="ue-kachel-nr">9</span><b>Ordne den Text</b><small>Bring die Satzstreifen in die richtige Reihenfolge.</small><span class="badge sp">Stunde 7</span><span class="ue-status" data-ue-status="ordnen"></span></a>
     <a class="ue-kachel ue-f10" href="#spiel-diplom"><span class="ue-kachel-nr">10</span><b>Bilddetektiv-Diplom</b><small>12 Fragen – am Ende gibt es dein Diplom zum Ausdrucken.</small><span class="badge sp">Stunde 12</span><span class="ue-status" data-ue-status="diplom"></span></a>
@@ -274,15 +274,15 @@
   </div>
   <div class="ue-bildpaar">
     <figure class="ue-bildrahmen">
-      <div class="ue-bildflaeche"><img src="bilder/kinderzimmer.svg" alt="Das Kinderzimmer, Originalbild"><svg class="ue-overlay" viewBox="0 0 800 560" preserveAspectRatio="none" data-seite="a" aria-hidden="true"></svg></div>
+      <div class="ue-bildflaeche"><img src="bilder/kinderzimmer.jpg" alt="Das Kinderzimmer, Originalbild"><svg class="ue-overlay" viewBox="0 0 1536 1024" preserveAspectRatio="none" data-seite="a" aria-hidden="true"></svg></div>
       <figcaption>Bild A – das Original</figcaption>
     </figure>
     <figure class="ue-bildrahmen">
-      <div class="ue-bildflaeche"><img src="bilder/kinderzimmer-b.svg" alt="Das Kinderzimmer, Fehlerbild mit acht Unterschieden"><svg class="ue-overlay" viewBox="0 0 800 560" preserveAspectRatio="none" data-seite="b" aria-hidden="true"></svg></div>
+      <div class="ue-bildflaeche"><img src="bilder/kinderzimmer-b.jpg" alt="Das Kinderzimmer, Fehlerbild mit acht Unterschieden"><svg class="ue-overlay" viewBox="0 0 1536 1024" preserveAspectRatio="none" data-seite="b" aria-hidden="true"></svg></div>
       <figcaption>Bild B – das Fehlerbild</figcaption>
     </figure>
   </div>
-  <div class="lupo ue-lupo info" id="ud-lupo"><img src="bilder/lupo.svg" alt="Lupo"><div class="bubble">Los geht’s! Schau genau hin wie ein Detektiv – ich bin gespannt, wie viele Unterschiede du findest.</div></div>
+  <div class="lupo ue-lupo info" id="ud-lupo"><img src="bilder/lupo.png" alt="Lupo"><div class="bubble">Los geht’s! Schau genau hin wie ein Detektiv – ich bin gespannt, wie viele Unterschiede du findest.</div></div>
   <ul class="ue-gefunden" id="ud-liste"></ul>
 </section>
 
@@ -304,7 +304,7 @@
     <button type="button" class="btn" id="kim-start">Los geht’s!</button>
   </div>
   <div class="ue-kim-buehne" id="kim-buehne">
-    <img src="bilder/sommertag-am-see.svg" alt="Sommertag am See" id="kim-bild" hidden>
+    <img src="bilder/sommertag-am-see.jpg" alt="Sommertag am See" id="kim-bild" hidden>
     <div class="ue-kim-vorhang" id="kim-vorhang">Bist du bereit?<small>Drück auf „Los geht’s!“ – dann hast du 20 Sekunden Zeit.</small></div>
     <div class="ue-kim-uhr" id="kim-uhr" hidden>20</div>
     <div class="ue-kim-zeitbalken" id="kim-balken" hidden></div>
@@ -323,11 +323,11 @@
   <p class="ue-anleitung"><strong>So geht’s:</strong> 1. Tippe auf ein Kärtchen. 2. Tippe dann auf den Bereich, in den es gehört. (Mit der Maus kannst du die Kärtchen auch hinüberziehen.) <br><strong>Vordergrund</strong> = ganz vorne, nah bei dir · <strong>Mittelgrund</strong> = in der Mitte · <strong>Hintergrund</strong> = ganz hinten, weit weg.</p>
   <div class="grid-2">
     <figure class="ue-bildrahmen">
-      <div class="ue-bildflaeche"><img src="bilder/sommertag-am-see.svg" alt="Sommertag am See">
+      <div class="ue-bildflaeche"><img src="bilder/sommertag-am-see.jpg" alt="Sommertag am See">
         <div class="ue-baender" id="ber-baender" hidden>
-          <div style="top:0;height:50.5%;background:rgba(47,111,181,.28)"><span>Hintergrund</span></div>
-          <div style="top:50.5%;height:21%;background:rgba(31,143,136,.30)"><span>Mittelgrund</span></div>
-          <div style="top:71.5%;height:28.5%;background:rgba(61,139,64,.30);border-bottom:0"><span>Vordergrund</span></div>
+          <div style="top:0;height:33%;background:rgba(47,111,181,.28)"><span>Hintergrund</span></div>
+          <div style="top:33%;height:22%;background:rgba(31,143,136,.30)"><span>Mittelgrund</span></div>
+          <div style="top:55%;height:45%;background:rgba(61,139,64,.30);border-bottom:0"><span>Vordergrund</span></div>
         </div>
       </div>
       <figcaption><label><input type="checkbox" id="ber-hilfe"> Hilfe: Bereiche im Bild einzeichnen</label></figcaption>
@@ -335,7 +335,7 @@
     <div>
       <div class="ue-zeile"><span class="ue-zaehler" id="ber-zaehler">0 / 12</span></div>
       <div class="ue-pool" id="ber-pool" aria-label="Kärtchen"></div>
-      <div class="lupo ue-lupo info" id="ber-lupo"><img src="bilder/lupo.svg" alt="Lupo"><div class="bubble">Wähle zuerst ein Kärtchen aus!</div></div>
+      <div class="lupo ue-lupo info" id="ber-lupo"><img src="bilder/lupo.png" alt="Lupo"><div class="bubble">Wähle zuerst ein Kärtchen aus!</div></div>
     </div>
   </div>
   <div class="ue-zonen" id="ber-zonen">
@@ -355,7 +355,7 @@
   </div>
   <p class="ue-anleitung">Schau ins Kinderzimmer und finde das passende Wort für die Lücke. Erst geht es um die <strong>Präposition</strong> (auf, unter, neben …), danach um den richtigen <strong>Artikel</strong>: Auf die Frage <strong>„Wo?“</strong> folgt der Dativ – also <em>dem</em>, <em>der</em> oder <em>den</em>.</p>
   <div class="grid-2">
-    <figure class="ue-bildrahmen"><div class="ue-bildflaeche"><img src="bilder/kinderzimmer.svg" alt="Das Kinderzimmer"></div><figcaption>Das Kinderzimmer</figcaption></figure>
+    <figure class="ue-bildrahmen"><div class="ue-bildflaeche"><img src="bilder/kinderzimmer.jpg" alt="Das Kinderzimmer"></div><figcaption>Das Kinderzimmer</figcaption></figure>
     <div class="merke" data-label="Lupos Dativ-Trick">
       <p><strong>Wo?</strong> → Dativ</p>
       <p><em>der</em> Schreibtisch → auf <strong>dem</strong> Schreibtisch<br><em>das</em> Bett → unter <strong>dem</strong> Bett<br><em>die</em> Fensterbank → auf <strong>der</strong> Fensterbank<br><em>die</em> Bücher (Mehrzahl) → zwischen <strong>den</strong> Büchern</p>
@@ -373,7 +373,7 @@
     <button type="button" class="btn hell klein ue-neu" data-neustart="verben">Nochmal</button>
   </div>
   <p class="ue-anleitung">Die Langweiler-Wörter <strong>„ist“, „sind“, „gibt es“, „sieht man“, „hat“</strong> sagen fast nichts. Tausche sie gegen ein <strong>treffendes Verb</strong> aus! Wähle das Verb, das genau zum Bildausschnitt passt.</p>
-  <div class="wortspeicher orange"><span class="titel">Lupos Verben-Kiste</span><span>stehen</span><span>liegen</span><span>hängen</span><span>ragen</span><span>halten</span><span>fahren</span><span>zeigen</span><span>picken</span><span>gehen</span><span>stemmen</span><span>verkaufen</span></div>
+  <div class="wortspeicher orange"><span class="titel">Lupos Verben-Kiste</span><span>stehen</span><span>liegen</span><span>hängen</span><span>ragen</span><span>halten</span><span>fahren</span><span>zeigen</span><span>picken</span><span>gehen</span><span>reichen</span><span>stemmen</span><span>verkaufen</span></div>
   <div id="verb-quiz"></div>
 </section>
 
@@ -398,7 +398,7 @@
     <button type="button" class="btn hell klein ue-neu" data-neustart="ampel">Nochmal</button>
   </div>
   <div class="grid-2">
-    <figure class="ue-bildrahmen"><div class="ue-bildflaeche"><img src="bilder/jaeger-im-schnee.jpg" alt="Pieter Bruegel der Ältere: Die Jäger im Schnee, 1565"></div><figcaption>Pieter Bruegel der Ältere: „Die Jäger im Schnee“ (1565)</figcaption></figure>
+    <figure class="ue-bildrahmen"><div class="ue-bildflaeche"><img src="bilder/winterabend.jpg" alt="Winterabend am Dorfteich: Kinder laufen auf einem zugefrorenen Teich Schlittschuh, vorn baut ein Junge einen Schneemann, rechts geht ein alter Mann mit einem Korb voller Brennholz"></div><figcaption>„Winterabend am Dorfteich“ (farbige Illustration)</figcaption></figure>
     <div>
       <p class="ue-anleitung">Lies jeden Satz und entscheide mit der <strong>Ampel</strong>:</p>
       <ul>
@@ -484,7 +484,7 @@
   function lupo(box, html, typ) {
     if (!box) return;
     box.className = 'lupo ue-lupo' + (typ ? ' ' + typ : '');
-    box.innerHTML = '<img src="bilder/lupo.svg" alt="Lupo"><div class="bubble">' + html + '</div>';
+    box.innerHTML = '<img src="bilder/lupo.png" alt="Lupo"><div class="bubble">' + html + '</div>';
     void box.offsetWidth;
     box.classList.add('hops');
   }
@@ -553,11 +553,12 @@
   });
 
   /* ---------------- Bildausschnitt (Lupen-Blick) ---------------- */
-  function ausschnitt(src, r, alt) {
-    var W = 800, H = 560, x = r[0], y = r[1], w = r[2], h = r[3];
-    var bx = w >= W ? 0 : x / (W - w) * 100, by = h >= H ? 0 : y / (H - h) * 100;
+  // r = [x, y, Breite, Höhe] in Prozent des Bildes; verhaeltnis = Bildhöhe / Bildbreite (Querformat 3:2 → 1024/1536)
+  function ausschnitt(src, r, alt, verhaeltnis) {
+    var q = verhaeltnis || (1024 / 1536), x = r[0], y = r[1], w = r[2], h = r[3];
+    var bx = w >= 100 ? 0 : x / (100 - w) * 100, by = h >= 100 ? 0 : y / (100 - h) * 100;
     return '<div class="ue-ausschnitt-rahmen"><div class="ue-ausschnitt" role="img" aria-label="' + (alt || 'Bildausschnitt') + '" style="background-image:url(\'' + src + '\');background-size:' +
-      (W / w * 100).toFixed(2) + '% auto;background-position:' + bx.toFixed(2) + '% ' + by.toFixed(2) + '%;padding-top:' + (h / w * 100).toFixed(2) + '%"></div></div>';
+      (100 / w * 100).toFixed(2) + '% auto;background-position:' + bx.toFixed(2) + '% ' + by.toFixed(2) + '%;padding-top:' + (h / w * q * 100).toFixed(2) + '%"></div></div>';
   }
 
   /* ---------------- Quiz-Baukasten ---------------- */
@@ -660,16 +661,21 @@
 
   /* ======================= Spiel 1: Unterschiede ======================= */
   sicher('Unterschiede', function () {
+    /* Trefferzonen in Prozent der Bildbreite/-höhe: [x von, x bis, y von, y bis] (VORGABE Abschnitt 3, Bild B).
+       Markierungskreise in Prozent: [Mitte x, Mitte y, Radius in % der Bildbreite]. Bild: 3:2 (1536 × 1024). */
     var U = [
-      { name: 'Poster', text: 'Das Poster zeigt einen orangefarbenen Planeten mit Ring statt einer Rakete.', zonen: [[62, 102, 166, 126]], kreise: [[145, 165, 72]], tipp: 'Schau dir das Bild an der Wand über dem Bett genau an!' },
-      { name: 'Ball', text: 'Der Ball unter dem Bett ist gelb statt schwarz-weiß.', zonen: [[172, 362, 56, 52]], kreise: [[200, 388, 28]], tipp: 'Guck mal unter das Bett. Hat da etwas eine andere Farbe?' },
-      { name: 'Katze', text: 'Die Katze schläft oben auf dem Bücherregal statt auf dem Teppich.', zonen: [[525, 98, 90, 51], [330, 440, 180, 62]], kreise: [[568, 128, 42], [420, 468, 52]], tipp: 'Wo schläft die Katze? Such im ganzen Zimmer!' },
-      { name: 'Uhr', text: 'Die Uhr zeigt 9 Uhr statt 3 Uhr.', zonen: [[696, 136, 68, 68]], kreise: [[730, 170, 38]], tipp: 'Wie spät ist es? Vergleiche die beiden Uhren!' },
-      { name: 'Lampe', text: 'Die Schreibtischlampe ist grün statt gelb.', zonen: [[712, 228, 80, 68]], kreise: [[745, 258, 38]], tipp: 'Schau auf den Schreibtisch. Ist dort alles gleich?' },
-      { name: 'Rucksack', text: 'Am Stuhl fehlt der orangefarbene Rucksack.', zonen: [[740, 297, 58, 56]], kreise: [[768, 322, 32]], tipp: 'Schau dir den roten Stuhl genau an. Fehlt da etwas?' },
-      { name: 'Blume', text: 'Die Blume auf der Fensterbank ist gelb statt rot.', zonen: [[444, 160, 52, 104]], kreise: [[470, 200, 36]], tipp: 'Schau auf die Fensterbank!' },
-      { name: 'Bücher', text: 'Im obersten Regalfach stehen nur drei statt fünf Bücher.', zonen: [[546, 150, 92, 52]], kreise: [[592, 176, 36]], tipp: 'Zähle die Bücher im obersten Regalfach!' }
+      { name: 'Poster', text: 'Das Poster zeigt einen orangefarbenen Planeten mit Ring statt einer Rakete.', zonen: [[4, 21, 3, 32]], kreise: [[12.5, 17.5, 10.5]], tipp: 'Schau dir das Bild an der Wand über dem Bett genau an!' },
+      { name: 'Ball', text: 'Der Ball unter dem Bett ist gelb-schwarz statt schwarz-weiß.', zonen: [[4, 11.5, 70, 81]], kreise: [[7.75, 75.5, 4.5]], tipp: 'Guck mal unter das Bett. Hat da etwas eine andere Farbe?' },
+      { name: 'Katze', text: 'Die Katze schläft oben auf dem Bücherregal statt auf dem Teppich.', zonen: [[65, 79, 0, 10], [42, 61, 72, 86]], kreise: [[72, 5, 6], [51.5, 79, 9.5]], tipp: 'Wo schläft die Katze? Such im ganzen Zimmer!' },
+      { name: 'Uhr', text: 'Die Uhr zeigt 9 Uhr statt 3 Uhr.', zonen: [[84, 97, 6, 25]], kreise: [[90.5, 15.5, 6.8]], tipp: 'Wie spät ist es? Vergleiche die beiden Uhren!' },
+      { name: 'Lampe', text: 'Die Schreibtischlampe ist grün statt gelb.', zonen: [[91, 99.5, 26, 44]], kreise: [[95.2, 35, 6]], tipp: 'Schau auf den Schreibtisch. Ist dort alles gleich?' },
+      { name: 'Rucksack', text: 'Am Stuhl fehlt der orangefarbene Rucksack.', zonen: [[89, 99.5, 44, 67]], kreise: [[94.2, 55.5, 7.5]], tipp: 'Schau dir den roten Stuhl genau an. Fehlt da etwas?' },
+      { name: 'Blume', text: 'Die Blume auf der Fensterbank ist gelb statt rot.', zonen: [[51, 56, 27, 42]], kreise: [[53.5, 34.5, 5.2]], tipp: 'Schau auf die Fensterbank!' },
+      { name: 'Bücher', text: 'Im obersten Regalfach stehen nur drei statt fünf Bücher.', zonen: [[65, 76, 11, 23]], kreise: [[70.5, 17, 5.6]], tipp: 'Zähle die Bücher im obersten Regalfach!' }
     ];
+    var VB = 1536, VH = 1024; // viewBox der Overlays (= Bildpixel, Seitenverhältnis 3:2)
+    function kx(p) { return p / 100 * VB; }
+    function ky(p) { return p / 100 * VH; }
     var overlays = $$('#spiel-unterschiede .ue-overlay');
     var zaehler = $('#ud-zaehler'), liste = $('#ud-liste'), box = $('#ud-lupo'), danebenInfo = $('#ud-daneben');
     var NS = 'http://www.w3.org/2000/svg';
@@ -684,9 +690,10 @@
       var u = U[i];
       overlays.forEach(function (svg) {
         u.kreise.forEach(function (k, idx) {
-          svg.appendChild(svgEl('circle', { cx: k[0], cy: k[1], r: k[2], 'class': 'ue-treffer' + (art === 'geloest' ? ' geloest' : '') }));
+          var cx = kx(k[0]), cy = ky(k[1]), r = kx(k[2]);
+          svg.appendChild(svgEl('circle', { cx: cx, cy: cy, r: r, 'class': 'ue-treffer' + (art === 'geloest' ? ' geloest' : '') }));
           if (idx === 0) {
-            var t = svgEl('text', { x: k[0] - k[2] * 0.7 - 6, y: k[1] - k[2] * 0.7 + 6, 'class': 'ue-treffer-nr' });
+            var t = svgEl('text', { x: Math.max(4, cx - r * 0.7 - 12), y: Math.max(40, cy - r * 0.7 + 12), 'class': 'ue-treffer-nr' });
             t.textContent = String(Object.keys(gefunden).length + Object.keys(geloest).length);
             svg.appendChild(t);
           }
@@ -714,9 +721,9 @@
     function klick(e, svg) {
       var r = svg.getBoundingClientRect();
       if (!r.width) return;
-      var x = (e.clientX - r.left) / r.width * 800, y = (e.clientY - r.top) / r.height * 560;
+      var x = (e.clientX - r.left) / r.width * 100, y = (e.clientY - r.top) / r.height * 100; // Klick in Prozent
       for (var i = 0; i < U.length; i++) {
-        var treffer = U[i].zonen.some(function (z) { return x >= z[0] && x <= z[0] + z[2] && y >= z[1] && y <= z[1] + z[3]; });
+        var treffer = U[i].zonen.some(function (z) { return x >= z[0] && x <= z[1] && y >= z[2] && y <= z[3]; });
         if (treffer) {
           if (gefunden[i] || geloest[i]) { lupo(box, 'Den Unterschied „' + U[i].name + '“ hast du schon. Such weiter!', 'info'); return; }
           gefunden[i] = true;
@@ -730,7 +737,7 @@
       }
       daneben++;
       danebenInfo.textContent = 'Danebengetippt: ' + daneben;
-      var t = svgEl('text', { x: x - 11, y: y + 12, 'class': 'ue-daneben' });
+      var t = svgEl('text', { x: kx(x) - 21, y: ky(y) + 23, 'class': 'ue-daneben' });
       t.textContent = '✗';
       svg.appendChild(t);
       setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 1100);
@@ -745,7 +752,7 @@
           lupo(box, '<strong>Tipp:</strong> ' + U[i].tipp, 'info');
           var k = U[i].kreise[0];
           overlays.forEach(function (svg) {
-            var c = svgEl('circle', { cx: k[0], cy: k[1], r: k[2] * 2.2, 'class': 'ue-tippkreis' });
+            var c = svgEl('circle', { cx: kx(k[0]), cy: ky(k[1]), r: kx(k[2]) * 2, 'class': 'ue-tippkreis' });
             svg.appendChild(c);
             setTimeout(function () { if (c.parentNode) c.parentNode.removeChild(c); }, 2200);
           });
@@ -765,25 +772,28 @@
   /* ======================= Spiel 2: Kim ======================= */
   sicher('Kim', function () {
     var POOL_JA = [
-      ['ein Segelboot mit rotem Rumpf', 'Es segelt genau in der Mitte auf dem See.'],
-      ['ein Junge, der angelt', 'Er sitzt am Ende des Holzstegs und hat eine blaue Kappe auf.'],
-      ['ein Mädchen, das ein Buch liest', 'Es sitzt auf der Picknickdecke und trägt ein blaues Kleid.'],
-      ['ein Haus mit rotem Dach', 'Es steht links hinten auf einem Hügel.'],
-      ['ein roter Ball', 'Der Hund rennt auf den roten Ball zu.'],
+      ['ein Segelboot mit rotem Rumpf', 'Es segelt genau in der Mitte auf dem See und hat zwei weiße Segel.'],
+      ['ein Junge, der angelt', 'Er sitzt rechts auf dem Holzsteg, trägt eine blaue Kappe und dreht dir den Rücken zu.'],
+      ['ein Mädchen, das ein Buch liest', 'Es sitzt unter dem großen Baum auf der Picknickdecke, trägt ein blaues Kleid und liest ein grünes Buch.'],
+      ['ein weißes Haus mit rotem Dach', 'Es steht links hinten auf einem Hügel.'],
+      ['ein roter Ball', 'Der braune Hund springt auf den roten Ball zu.'],
       ['zwei Enten', 'Sie schwimmen links auf dem See.'],
-      ['ein Picknickkorb mit Äpfeln', 'Im Korb liegen ein roter und ein grüner Apfel.'],
+      ['ein Korb mit Äpfeln', 'Im Weidenkorb neben dem Mädchen liegen rote und grüne Äpfel.'],
       ['eine gelbe Sonne', 'Sie strahlt in der rechten oberen Ecke.'],
-      ['ein Tannenwald', 'Er wächst rechts hinten auf den Hügeln.']
+      ['ein Tannenwald', 'Er wächst rechts hinten am Ufer.'],
+      ['ein Hund mit rotem Halsband', 'Der flauschige braune Hund springt in der Bildmitte über die Wiese.']
     ];
     var POOL_NEIN = [
-      ['eine Katze', 'Im Bild gibt es keine Katze – aber einen braunen Hund mit rotem Halsband.'],
+      ['eine Katze', 'Im Bild gibt es keine Katze – aber einen flauschigen braunen Hund mit rotem Halsband.'],
       ['ein blaues Fahrrad', 'Ein Fahrrad gibt es, aber es ist <strong>grün</strong>!'],
       ['drei Enten', 'Es sind nur <strong>zwei</strong> Enten.'],
       ['eine blau-weiß karierte Picknickdecke', 'Die Decke ist <strong>rot-weiß</strong> kariert.'],
       ['ein Regenbogen', 'Am Himmel sind nur zwei Wolken und die Sonne.'],
       ['ein Mädchen in einem roten Kleid', 'Das Mädchen trägt ein <strong>blaues</strong> Kleid.'],
       ['ein Junge mit einer roten Kappe', 'Der Junge auf dem Steg trägt eine <strong>blaue</strong> Kappe.'],
-      ['ein Flugzeug am Himmel', 'Am Himmel fliegt kein Flugzeug.']
+      ['ein Flugzeug am Himmel', 'Am Himmel fliegt kein Flugzeug.'],
+      ['ein rotes Buch', 'Das Mädchen liest ein <strong>grünes</strong> Buch.'],
+      ['ein Haus mit blauem Dach', 'Das Haus auf dem Hügel hat ein <strong>rotes</strong> Dach.']
     ];
     function frage(eintrag, ja) {
       return {
@@ -855,8 +865,8 @@
     var ITEMS = [
       ['Picknickdecke', 'VG', 'Die Picknickdecke liegt vorne auf der Wiese – ganz nah bei dir.'],
       ['Mädchen mit Buch', 'VG', 'Das Mädchen sitzt vorne auf der Picknickdecke.'],
-      ['Picknickkorb', 'VG', 'Der Korb steht vorne auf der Decke, neben dem Mädchen.'],
-      ['brauner Hund', 'VG', 'Der Hund rennt vorne über die Wiese.'],
+      ['Korb mit Äpfeln', 'VG', 'Der Weidenkorb steht vorne auf der Decke, rechts neben dem Mädchen.'],
+      ['brauner Hund', 'VG', 'Der Hund springt vorne über die Wiese.'],
       ['roter Ball', 'VG', 'Der Ball liegt vorne auf der Wiese, in der Bildmitte.'],
       ['grünes Fahrrad', 'VG', 'Das Fahrrad liegt vorne rechts im Gras.'],
       ['großer Laubbaum', 'VG', 'Der Baum steht vorne am linken Bildrand.'],
@@ -864,13 +874,13 @@
       ['Segelboot', 'MG', 'Das Segelboot segelt auf dem See – und der See liegt im Mittelgrund.'],
       ['zwei Enten', 'MG', 'Die Enten schwimmen auf dem See, also im Mittelgrund.'],
       ['Holzsteg', 'MG', 'Der Steg ragt vom rechten Bildrand in den See – Mittelgrund.'],
-      ['Junge mit Angel', 'MG', 'Der Junge sitzt am Ende des Stegs, mitten über dem See.'],
+      ['Junge mit Angel', 'MG', 'Der Junge sitzt auf dem Steg über dem Wasser – also im Mittelgrund.'],
       ['blauer See', 'MG', 'Der See liegt zwischen der Wiese und den Hügeln – genau in der Mitte.'],
-      ['Haus mit rotem Dach', 'HG', 'Das Haus steht weit hinten auf einem Hügel.'],
-      ['Tannenwald', 'HG', 'Der Wald wächst hinten rechts auf den Hügeln.'],
+      ['weißes Haus', 'HG', 'Das weiße Haus mit dem roten Dach steht weit hinten links auf einem Hügel.'],
+      ['Tannenwald', 'HG', 'Der Wald wächst hinten rechts am Ufer, hinter dem See.'],
       ['gelbe Sonne', 'HG', 'Die Sonne strahlt ganz hinten am Himmel, in der rechten oberen Ecke.'],
       ['weiße Wolken', 'HG', 'Die Wolken schweben hinten am Himmel.'],
-      ['grüne Hügel', 'HG', 'Die Hügel erheben sich hinten, hinter dem See.']
+      ['grüne Hügel', 'HG', 'Die bewaldeten Hügel erheben sich hinten, hinter dem See.']
     ];
     var NAMEN = { VG: 'Vordergrund', MG: 'Mittelgrund', HG: 'Hintergrund' };
     var pool = $('#ber-pool'), box = $('#ber-lupo'), zaehler = $('#ber-zaehler');
@@ -959,8 +969,8 @@
   sicher('Präpositionen', function () {
     var L = '<span class="ue-luecke">?</span>';
     var PRAE = [
-      ['Der Teddy sitzt ' + L + ' dem Kissen.', 'auf', ['auf', 'unter', 'hinter', 'neben'], 'Der Teddy sitzt oben drauf – also <b>auf</b> dem Kissen.'],
-      ['Der Fußball liegt ' + L + ' dem Bett.', 'unter', ['unter', 'auf', 'über', 'an'], 'Der Ball liegt auf dem Boden unter dem Bettgestell – <b>unter</b> dem Bett.'],
+      ['Der Teddy sitzt ' + L + ' dem Bett.', 'auf', ['auf', 'unter', 'hinter', 'neben'], 'Der Teddy sitzt oben auf der Bettdecke – also <b>auf</b> dem Bett.'],
+      ['Der Fußball liegt ' + L + ' dem Bett.', 'unter', ['unter', 'auf', 'über', 'an'], 'Der Ball liegt vorn am Bettende auf dem Boden, unter dem Bettgestell – <b>unter</b> dem Bett.'],
       ['Das Poster hängt ' + L + ' dem Bett an der Wand.', 'über', ['über', 'unter', 'in', 'zwischen'], 'Das Poster hängt höher als das Bett – <b>über</b> dem Bett.'],
       ['Die lila Socken liegen ' + L + ' dem Bett auf dem Boden.', 'vor', ['vor', 'auf', 'über', 'hinter'], 'Die Socken liegen vorne auf dem Boden – <b>vor</b> dem Bett.'],
       ['Die Gitarre lehnt rechts ' + L + ' dem Bett an der Wand.', 'neben', ['neben', 'unter', 'auf', 'in'], 'Die Gitarre lehnt direkt daneben – <b>neben</b> dem Bett.'],
@@ -973,12 +983,12 @@
       ['Das rote Spielzeugauto steht ' + L + ' dem Regal.', 'in', ['in', 'unter', 'über', 'an'], 'Das Auto steht in einem Fach – <b>in</b> dem Regal. Kurz sagt man auch: <b>im</b> Regal.']
     ];
     var ART = [
-      ['Der Teddy sitzt auf ' + L + ' Kissen.', 'dem', '<i>das</i> Kissen → Wo? → auf <b>dem</b> Kissen.'],
+      ['Der Teddy sitzt vor ' + L + ' Kissen.', 'dem', '<i>das</i> Kissen → Wo? → vor <b>dem</b> Kissen.'],
       ['Die Lampe steht auf ' + L + ' Schreibtisch.', 'dem', '<i>der</i> Schreibtisch → Wo? → auf <b>dem</b> Schreibtisch.'],
       ['Der Blumentopf steht auf ' + L + ' Fensterbank.', 'der', '<i>die</i> Fensterbank → Wo? → auf <b>der</b> Fensterbank.'],
       ['Der Rucksack hängt an ' + L + ' Stuhllehne.', 'der', '<i>die</i> Stuhllehne → Wo? → an <b>der</b> Stuhllehne.'],
       ['Die Katze schläft auf ' + L + ' Teppich.', 'dem', '<i>der</i> Teppich → Wo? → auf <b>dem</b> Teppich.'],
-      ['Das Auto steht zwischen ' + L + ' Büchern und der Spielekiste.', 'den', '<i>die</i> Bücher (Mehrzahl) → Wo? → zwischen <b>den</b> Büchern. In der Mehrzahl bekommt das Nomen oft ein <b>-n</b>.'],
+      ['Das Auto steht zwischen ' + L + ' Büchern und der türkisfarbenen Kiste.', 'den', '<i>die</i> Bücher (Mehrzahl) → Wo? → zwischen <b>den</b> Büchern. In der Mehrzahl bekommt das Nomen oft ein <b>-n</b>.'],
       ['Die Socken liegen vor ' + L + ' Bett.', 'dem', '<i>das</i> Bett → Wo? → vor <b>dem</b> Bett.'],
       ['Die Uhr hängt über ' + L + ' Schreibtisch.', 'dem', '<i>der</i> Schreibtisch → Wo? → über <b>dem</b> Schreibtisch.'],
       ['Die Gitarre lehnt an ' + L + ' Wand.', 'der', '<i>die</i> Wand → Wo? → an <b>der</b> Wand.'],
@@ -1002,21 +1012,21 @@
 
   /* ======================= Spiel 5: Verben ======================= */
   sicher('Verben', function () {
-    var M = 'bilder/wochenmarkt.svg';
+    var M = 'bilder/wochenmarkt.jpg';
     var L = '<span class="ue-luecke">?</span>';
-    var V = [
-      ['Auf dem Obststand <s>gibt es</s> Äpfel, Orangen und Bananen.', 'Auf dem Obststand ' + L + ' rote Äpfel, Orangen und gelbe Bananen.', 'liegen', ['liegen', 'fliegen', 'sitzen', 'gibt es'], 'Obst kann nicht sitzen oder fliegen – es <b>liegt</b> in der Auslage.', [20, 270, 250, 125]],
-      ['Hinter dem Obststand <s>ist</s> ein Verkäufer.', 'Hinter dem Obststand ' + L + ' ein Verkäufer mit Glatze und Schnurrbart.', 'steht', ['steht', 'liegt', 'schwimmt', 'ist'], 'Der Verkäufer <b>steht</b> aufrecht hinter seinem Stand.', [40, 200, 180, 190]],
-      ['Der Verkäufer <s>hat</s> eine Papiertüte.', 'Der Verkäufer ' + L + ' eine Papiertüte in der Hand.', 'hält', ['hält', 'isst', 'wirft', 'hat'], 'Er hat die Tüte fest in der Hand – er <b>hält</b> sie.', [60, 220, 140, 120]],
-      ['In der Mitte <s>ist</s> ein Kirchturm.', 'In der Mitte ' + L + ' ein Kirchturm mit grünem Spitzdach über die Häuser.', 'ragt', ['ragt', 'liegt', 'rennt', 'ist'], '„Ragen“ passt zu Dingen, die hoch über andere hinausgehen: Der Turm <b>ragt</b> über die Häuser.', [300, 0, 200, 250]],
-      ['Vorne <s>ist</s> eine Taube.', 'In der Mitte vorn ' + L + ' eine graue Taube Krümel vom Boden.', 'pickt', ['pickt', 'backt', 'verkauft', 'ist'], 'Vögel fressen mit dem Schnabel – die Taube <b>pickt</b> Krümel.', [260, 450, 160, 100]],
-      ['Links <s>ist</s> ein Junge auf einem Tretroller.', 'Links ' + L + ' ein Junge mit roter Kappe auf einem Tretroller.', 'fährt', ['fährt', 'schläft', 'schwimmt', 'ist'], 'Auf einem Roller <b>fährt</b> man.', [20, 390, 160, 160]],
-      ['Die Frau mit dem lila Hut <s>macht</s> etwas beim Obst.', 'Die Frau mit dem lila Hut ' + L + ' auf das Obst.', 'zeigt', ['zeigt', 'sitzt', 'hängt', 'macht'], 'Sie streckt den Arm aus – sie <b>zeigt</b> auf das Obst.', [150, 290, 180, 180]],
-      ['Das Mädchen <s>hat</s> einen Luftballon.', 'Das Mädchen ' + L + ' einen lila Luftballon an einer Schnur.', 'hält', ['hält', 'isst', 'verkauft', 'hat'], 'Sie <b>hält</b> die Schnur des Ballons in ihren hochgereckten Händen.', [470, 220, 170, 320]],
-      ['Im Blumenstand <s>sind</s> vier Eimer.', 'Im Blumenstand ' + L + ' vier graue Eimer mit Sonnenblumen und Tulpen.', 'stehen', ['stehen', 'rennen', 'fliegen', 'sind'], 'Eimer <b>stehen</b> auf dem Boden.', [290, 230, 230, 170]],
-      ['Auf dem Bäckerstand <s>sieht man</s> Brote und Brezeln.', 'Auf dem Bäckerstand ' + L + ' drei Brote und zwei Brezeln.', 'liegen', ['liegen', 'laufen', 'hängen', 'sieht man'], 'Brote und Brezeln <b>liegen</b> in der Auslage.', [550, 270, 235, 90]],
-      ['Die Bäckerin <s>hat</s> die Hände in den Hüften.', 'Die Bäckerin ' + L + ' die Hände in die Hüften.', 'stemmt', ['stemmt', 'backt', 'wirft', 'hat'], '„Die Hände in die Hüften <b>stemmen</b>“ – so sagt man, wenn jemand die Hände an die Seiten drückt.', [590, 230, 160, 160]],
-      ['Rechts <s>sind</s> ein Vater und seine Tochter.', 'Rechts ' + L + ' ein Vater und seine Tochter über den Markt.', 'gehen', ['gehen', 'schwimmen', 'liegen', 'sind'], 'Die beiden machen Schritte – sie <b>gehen</b> über den Markt.', [400, 220, 240, 330]]
+    var V = [ // letzte Angabe: Bildausschnitt [x, y, Breite, Höhe] in Prozent
+      ['Auf dem Obststand <s>gibt es</s> Äpfel, Orangen und Bananen.', 'Auf dem Obststand ' + L + ' rote Äpfel, Orangen und gelbe Bananen.', 'liegen', ['liegen', 'fliegen', 'sitzen', 'gibt es'], 'Obst kann nicht sitzen oder fliegen – es <b>liegt</b> in den Holzkisten.', [2.6, 42, 32.6, 21.5]],
+      ['Hinter dem Obststand <s>ist</s> ein Verkäufer.', 'Hinter dem Obststand ' + L + ' ein Verkäufer mit Glatze und Schnurrbart.', 'steht', ['steht', 'liegt', 'schwimmt', 'ist'], 'Der Verkäufer <b>steht</b> aufrecht hinter seinem Stand.', [6.5, 35.2, 16.9, 21.5]],
+      ['Der Verkäufer <s>hat</s> eine Papiertüte.', 'Der Verkäufer ' + L + ' eine braune Papiertüte über den Stand.', 'reicht', ['reicht', 'isst', 'wirft', 'hat'], 'Er gibt die Tüte mit ausgestrecktem Arm weiter – er <b>reicht</b> sie über den Stand.', [9.1, 36.1, 14.3, 16.6]],
+      ['In der Mitte <s>ist</s> ein Kirchturm.', 'In der Mitte ' + L + ' ein Kirchturm mit grünem Spitzdach über die Häuser.', 'ragt', ['ragt', 'liegt', 'rennt', 'ist'], '„Ragen“ passt zu Dingen, die hoch über andere hinausgehen: Der Turm <b>ragt</b> über die Häuser.', [39.1, 0, 24.7, 32.2]],
+      ['Vorne <s>ist</s> eine Taube.', 'In der Mitte vorn ' + L + ' eine graue Taube Krümel vom Boden.', 'pickt', ['pickt', 'backt', 'verkauft', 'ist'], 'Vögel fressen mit dem Schnabel – die Taube <b>pickt</b> Krümel.', [36.5, 72.3, 19.5, 19.5]],
+      ['Links <s>ist</s> ein Junge auf einem Tretroller.', 'Links ' + L + ' ein Junge mit roter Kappe auf einem Tretroller.', 'fährt', ['fährt', 'schläft', 'schwimmt', 'ist'], 'Auf einem Roller <b>fährt</b> man.', [1.3, 54.7, 21.5, 39.1]],
+      ['Die Frau mit dem lila Hut <s>macht</s> etwas beim Obst.', 'Die Frau mit dem lila Hut ' + L + ' auf das Obst.', 'zeigt', ['zeigt', 'sitzt', 'hängt', 'macht'], 'Sie streckt den Arm aus – sie <b>zeigt</b> auf das Obst.', [15, 37.1, 19.5, 41]],
+      ['Das Mädchen <s>hat</s> einen Luftballon.', 'Das Mädchen ' + L + ' einen lila Luftballon an einer Schnur.', 'hält', ['hält', 'isst', 'verkauft', 'hat'], 'Sie reckt einen Arm hoch und <b>hält</b> die Schnur des Ballons fest.', [74.9, 38.1, 22.8, 57.6]],
+      ['Im Blumenstand <s>sind</s> vier Eimer.', 'Im Blumenstand ' + L + ' vier Metalleimer mit Sonnenblumen und Tulpen.', 'stehen', ['stehen', 'rennen', 'fliegen', 'sind'], 'Eimer <b>stehen</b> auf dem Boden.', [35.8, 39.1, 29.3, 21.5]],
+      ['Auf dem Bäckerstand <s>sieht man</s> Brote und Brezeln.', 'Auf dem Bäckerstand ' + L + ' Brote, Brötchen und Brezeln.', 'liegen', ['liegen', 'laufen', 'hängen', 'sieht man'], 'Brote, Brötchen und Brezeln <b>liegen</b> auf dem blau-weiß karierten Tisch.', [74.9, 46.9, 19.5, 15.6]],
+      ['Die Bäckerin <s>hat</s> die Hände in den Hüften.', 'Die Bäckerin ' + L + ' die Hände in die Hüften.', 'stemmt', ['stemmt', 'backt', 'wirft', 'hat'], '„Die Hände in die Hüften <b>stemmen</b>“ – so sagt man, wenn jemand die Hände an die Seiten drückt.', [72.3, 36.1, 14.3, 19.5]],
+      ['Rechts <s>sind</s> ein Vater und seine Tochter.', 'Rechts ' + L + ' ein Vater und seine Tochter über den Markt.', 'gehen', ['gehen', 'schwimmen', 'liegen', 'sind'], 'Die beiden machen Schritte – sie <b>gehen</b> über den Markt.', [66.4, 39.1, 27.3, 56.6]]
     ];
     var q = Quiz($('#verb-quiz'), {
       id: 'verben',
@@ -1038,29 +1048,29 @@
 
   /* ======================= Spiel 6: Adjektiv-Treppe ======================= */
   sicher('Adjektiv-Treppe', function () {
-    var S = 'bilder/sommertag-am-see.svg', M = 'bilder/wochenmarkt.svg';
-    var T = [
-      { bild: S, titel: 'Sommertag am See', r: [320, 395, 240, 105], start: 'ein Hund', schritte: [
+    var S = 'bilder/sommertag-am-see.jpg', M = 'bilder/wochenmarkt.jpg';
+    var T = [ // r = Bildausschnitt [x, y, Breite, Höhe] in Prozent
+      { bild: S, titel: 'Sommertag am See', r: [40.4, 48.8, 24.7, 29.3], start: 'ein Hund', schritte: [
         { f: 'Welche Farbe hat das Fell?', o: [['ein <mark>brauner</mark> Hund', 1], ['ein <mark>schwarzer</mark> Hund', 'Schau genau hin: Das Fell ist braun, nicht schwarz.'], ['ein <mark>weißer</mark> Hund', 'Weiß? Nein – das Fell ist braun.']] },
         { f: 'Was trägt der Hund um den Hals?', o: [['ein brauner Hund <mark>mit einem roten Halsband</mark>', 1], ['ein brauner Hund <mark>mit einem blauen Halsband</mark>', 'Das Halsband ist rot – so rot wie der Ball.'], ['ein brauner Hund <mark>mit einer roten Fliege</mark>', 'Eine rote Fliege trägt der Teddy im Kinderzimmer – der Hund hat ein Halsband.']] }
       ] },
-      { bild: S, titel: 'Sommertag am See', r: [140, 440, 230, 80], start: 'eine Decke', schritte: [
+      { bild: S, titel: 'Sommertag am See', r: [0, 54.7, 40.4, 23.4], start: 'eine Decke', schritte: [
         { f: 'Welches Muster hat die Decke?', o: [['eine <mark>karierte</mark> Decke', 1], ['eine <mark>gestreifte</mark> Decke', 'Gestreift bedeutet: Streifen nur in eine Richtung. Hier kreuzen sich die Streifen – das ist kariert.'], ['eine <mark>gepunktete</mark> Decke', 'Punkte findest du auf der Bettdecke im Kinderzimmer, nicht hier.']] },
         { f: 'Welche Farben hat das Karomuster?', o: [['eine <mark>rot-weiß</mark> karierte Picknickdecke', 1], ['eine <mark>blau-weiß</mark> karierte Picknickdecke', 'Blau ist das Kleid des Mädchens. Die Decke ist rot-weiß.'], ['eine <mark>grün-gelb</mark> karierte Picknickdecke', 'Grün ist die Wiese drumherum – die Decke ist rot-weiß.']] }
       ] },
-      { bild: S, titel: 'Sommertag am See', r: [290, 235, 140, 125], start: 'ein Segelboot', schritte: [
+      { bild: S, titel: 'Sommertag am See', r: [44.3, 15.6, 16.3, 23.4], start: 'ein Segelboot', schritte: [
         { f: 'Wie groß ist das Boot?', o: [['ein <mark>kleines</mark> Segelboot', 1], ['ein <mark>riesiges</mark> Segelboot', 'Im Vergleich zum großen See ist das Boot eher klein.'], ['ein <mark>kleines Ruderboot</mark>', 'Das Boot hat Segel – also ist es ein Segelboot!']] },
         { f: 'Wie sehen Rumpf und Segel aus?', o: [['ein kleines Segelboot <mark>mit einem roten Rumpf und zwei weißen Segeln</mark>', 1], ['ein kleines Segelboot <mark>mit einem blauen Rumpf und zwei roten Segeln</mark>', 'Genau andersherum gedacht? Der Rumpf ist rot, die Segel sind weiß.'], ['ein kleines Segelboot <mark>mit einem roten Rumpf und drei gelben Segeln</mark>', 'Zähl nach: Es sind zwei Segel, und sie sind weiß. Nur der kleine Wimpel ist gelb.']] }
       ] },
-      { bild: M, titel: 'Auf dem Wochenmarkt', r: [10, 175, 270, 90], start: 'eine Markise', schritte: [
+      { bild: M, titel: 'Auf dem Wochenmarkt', r: [1.3, 26.4, 36.5, 13.7], start: 'eine Markise', schritte: [
         { f: 'Welches Muster hat die Markise über dem Obststand?', o: [['eine <mark>gestreifte</mark> Markise', 1], ['eine <mark>karierte</mark> Markise', 'Kariert wäre ein Kästchenmuster. Hier siehst du Streifen nebeneinander.'], ['eine <mark>gepunktete</mark> Markise', 'Punkte? Schau noch einmal – die Markise hat Streifen.']] },
         { f: 'Welche Farben haben die Streifen?', o: [['eine <mark>rot-weiß</mark> gestreifte Markise', 1], ['eine <mark>blau-weiß</mark> gestreifte Markise', 'Blau-weiß ist die Markise der Bäckerei. Schau auf den Obststand!'], ['eine <mark>grün-hellgrün</mark> gestreifte Markise', 'Grün-hellgrün gehört zum Blumenstand in der Mitte.']] }
       ] },
-      { bild: M, titel: 'Auf dem Wochenmarkt', r: [160, 290, 170, 185], start: 'eine Frau', schritte: [
+      { bild: M, titel: 'Auf dem Wochenmarkt', r: [18.9, 37.1, 14.3, 41], start: 'eine Frau', schritte: [
         { f: 'Was trägt die Frau auf dem Kopf?', o: [['eine Frau <mark>mit einem lila Hut</mark>', 1], ['eine Frau <mark>mit einer roten Kappe</mark>', 'Die rote Kappe trägt der Junge auf dem Tretroller.'], ['eine Frau <mark>mit einem gelben Hut</mark>', 'Gelb ist ihr Oberteil – der Hut ist lila.']] },
         { f: 'Was trägt sie noch bei sich?', o: [['eine Frau mit einem lila Hut <mark>und einer lila Handtasche</mark>', 1], ['eine Frau mit einem lila Hut <mark>und einem roten Regenschirm</mark>', 'Einen Regenschirm hat sie nicht. Schau auf ihren Arm: eine Handtasche!'], ['eine Frau mit einem lila Hut <mark>und einer grünen Handtasche</mark>', 'Die Handtasche passt zum Hut – sie ist lila.']] }
       ] },
-      { bild: M, titel: 'Auf dem Wochenmarkt', r: [310, 0, 180, 250], start: 'ein Kirchturm', schritte: [
+      { bild: M, titel: 'Auf dem Wochenmarkt', r: [41.7, 0, 16.9, 30.3], start: 'ein Kirchturm', schritte: [
         { f: 'Wie ist der Kirchturm?', o: [['ein <mark>hoher</mark> Kirchturm', 1], ['ein <mark>niedriger</mark> Kirchturm', 'Der Turm ragt über alle Häuser – er ist hoch, nicht niedrig.'], ['ein <mark>runder</mark> Kirchturm', 'Der Turm ist eckig, nicht rund. Rund ist nur die Uhr.']] },
         { f: 'Wie sieht sein Dach aus?', o: [['ein hoher Kirchturm <mark>mit einem grünen Spitzdach</mark>', 1], ['ein hoher Kirchturm <mark>mit einem roten Spitzdach</mark>', 'Rotbraune Dächer haben die Häuser. Das Dach des Turms ist grün.'], ['ein hoher Kirchturm <mark>mit einem flachen Dach</mark>', 'Das Dach läuft oben spitz zu – es ist ein Spitzdach.']] }
       ] }
@@ -1149,26 +1159,29 @@
 
   /* ======================= Spiel 7: Ampel ======================= */
   sicher('Ampel', function () {
-    var A = {
+    var A = { // Bild: „Winterabend am Dorfteich“
       sehen: [
-        ['Im Vordergrund gehen drei Jäger durch den tiefen Schnee.', 'Das kann jeder im Bild sehen – eine sachliche Beschreibung.'],
-        ['Ein Jäger trägt einen Fuchs über der Schulter.', 'Den Fuchs kann man im Bild erkennen – das ist eine Beschreibung.'],
-        ['Auf den kahlen Bäumen sitzen schwarze Vögel.', 'Die Vögel sind im Bild zu sehen – grün!'],
-        ['Auf den zugefrorenen Teichen laufen viele Menschen Schlittschuh.', 'Das ist unten rechts im Tal zu sehen – eine Beschreibung.'],
-        ['Links vor dem Gasthaus machen Menschen ein Feuer.', 'Das Feuer kann man links im Bild sehen.'],
+        ['Im Vordergrund baut ein Junge mit einer grünen Mütze einen Schneemann.', 'Den Jungen und den Schneemann kann jeder im Bild sehen – eine sachliche Beschreibung.'],
+        ['Der Schneemann hat eine Karottennase und trägt einen schwarzen Zylinder.', 'Nase und Hut sind deutlich im Bild zu erkennen – das ist eine Beschreibung.'],
+        ['Auf dem zugefrorenen Teich laufen mehrere Kinder Schlittschuh.', 'Die Kinder auf dem Eis sind im Mittelgrund zu sehen – grün!'],
+        ['Auf den kahlen Bäumen links sitzen drei schwarze Krähen.', 'Die Krähen kann man oben links zählen – eine Beschreibung.'],
+        ['Am rechten Bildrand trägt ein alter Mann einen Korb voller Brennholz auf dem Rücken.', 'Den Mann mit dem Korb sieht man rechts im Vordergrund – grün!'],
+        ['Links ziehen zwei Kinder einen Holzschlitten den Hügel hinauf.', 'Den Schlitten mit dem kleinen Kind kann man links im Bild sehen.'],
         ['Im Hintergrund erheben sich schneebedeckte, schroffe Berge.', 'Die Berge sieht man im Hintergrund – grün!']
       ],
       vermuten: [
-        ['Die Jäger sind vermutlich müde und hungrig.', 'Das Signalwort <b>„vermutlich“</b> zeigt: Man kann es nicht sicher sehen.'],
-        ['Wahrscheinlich war die Jagd nicht sehr erfolgreich.', '<b>„Wahrscheinlich“</b> – man sieht nur einen Fuchs, aber sicher weiß man es nicht.'],
+        ['Der alte Mann geht vermutlich nach Hause, um den Ofen zu heizen.', 'Das Signalwort <b>„vermutlich“</b> zeigt: Wohin er geht, kann man nicht sicher sehen.'],
+        ['Vielleicht hat sich das Kind auf dem Eis wehgetan.', '<b>„Vielleicht“</b> – man sieht nur, dass es hingefallen ist. Ob es wehtut, weiß man nicht.'],
         ['Es sieht so aus, als ob es sehr kalt ist.', '<b>„Es sieht so aus, als ob“</b> ist eine Vermutung. Kälte kann man nicht direkt sehen.'],
-        ['Vielleicht wollen sich die Jäger im Gasthaus aufwärmen.', '<b>„Vielleicht“</b> – das kann man nur vermuten.']
+        ['Wahrscheinlich ist bald Weihnachten.', '<b>„Wahrscheinlich“</b> – im Dorf steht ein geschmückter Tannenbaum, aber sicher weiß man es nicht.'],
+        ['Der kleine braune Hund gehört vermutlich einem der Kinder.', '<b>„Vermutlich“</b> – wem der Hund gehört, kann man im Bild nicht sehen.']
       ],
       meinen: [
         ['Ich finde das Bild wunderschön.', '<b>„Ich finde“</b> zeigt deine Meinung. Sie gehört in den Schluss.'],
-        ['Die Farben sind langweilig.', 'Das ist eine Meinung – jemand anderes findet die Farben vielleicht toll. Sie gehört in den Schluss.'],
-        ['Mir gefällt das Bild, weil es so ruhig wirkt.', '<b>„Mir gefällt“</b> – eine Meinung mit Begründung. Perfekt für den Schluss!'],
-        ['Das ist das beste Winterbild der Welt!', 'Das ist eine Meinung (sogar eine übertriebene). Im Hauptteil hat sie nichts zu suchen.']
+        ['Der Himmel hat die schönsten Farben der Welt.', 'Das ist eine Meinung (sogar eine übertriebene) – jemand anderes sieht das vielleicht anders. Sie gehört in den Schluss.'],
+        ['Mir gefällt das Bild, weil es so gemütlich wirkt.', '<b>„Mir gefällt“</b> – eine Meinung mit Begründung. Perfekt für den Schluss!'],
+        ['Der Schneemann sieht total lustig aus.', '„Lustig“ ist dein Eindruck – eine Meinung. Im Hauptteil schreibst du nur, was du siehst.'],
+        ['Ich würde am liebsten sofort mit den Kindern Schlittschuh laufen.', 'Das ist dein Wunsch und dein Gefühl – rot! Es passt in den Schluss.']
       ]
     };
     var OPT = [
@@ -1195,19 +1208,20 @@
   /* ======================= Spiel 8: Zeitmaschine ======================= */
   sicher('Zeitmaschine', function () {
     var Z = [
-      ['Der Hund', 'rannte', 'auf den Ball zu.', 'rennt', ['rennt', 'rannte', 'rennte', 'gerannt'], 'rennen → er <b>rennt</b>'],
-      ['Das Mädchen', 'las', 'ein Buch.', 'liest', ['liest', 'lest', 'las', 'lieste'], 'lesen → sie <b>liest</b>. Achtung: Aus „e“ wird „ie“!'],
-      ['Der Junge', 'saß', 'am Ende des Stegs.', 'sitzt', ['sitzt', 'saß', 'sitzte', 'setzt'], 'sitzen → er <b>sitzt</b>. („setzt“ bedeutet: sich hinsetzen.)'],
+      ['Der Hund', 'sprang', 'auf den roten Ball zu.', 'springt', ['springt', 'sprang', 'springte', 'gesprungen'], 'springen → er <b>springt</b>'],
+      ['Das Mädchen', 'las', 'ein grünes Buch.', 'liest', ['liest', 'lest', 'las', 'lieste'], 'lesen → sie <b>liest</b>. Achtung: Aus „e“ wird „ie“!'],
+      ['Der Junge', 'saß', 'auf dem Holzsteg.', 'sitzt', ['sitzt', 'saß', 'sitzte', 'setzt'], 'sitzen → er <b>sitzt</b>. („setzt“ bedeutet: sich hinsetzen.)'],
       ['Zwei Enten', 'schwammen', 'auf dem See.', 'schwimmen', ['schwimmen', 'schwammen', 'schwimmt', 'geschwommen'], 'schwimmen → sie <b>schwimmen</b> (Mehrzahl!)'],
       ['In der rechten oberen Ecke', 'strahlte', 'eine gelbe Sonne.', 'strahlt', ['strahlt', 'strahlte', 'strahlen', 'gestrahlt'], 'strahlen → sie <b>strahlt</b>'],
-      ['Der Verkäufer', 'hielt', 'eine Papiertüte in der Hand.', 'hält', ['hält', 'haltet', 'hielt', 'gehalten'], 'halten → er <b>hält</b>. Achtung: Aus „a“ wird „ä“!'],
+      ['Der Verkäufer', 'hielt', 'eine braune Papiertüte in der Hand.', 'hält', ['hält', 'haltet', 'hielt', 'gehalten'], 'halten → er <b>hält</b>. Achtung: Aus „a“ wird „ä“!'],
       ['Die Taube', 'pickte', 'Krümel vom Boden.', 'pickt', ['pickt', 'pickte', 'packt', 'gepickt'], 'picken → sie <b>pickt</b>'],
       ['Die Frau', 'zeigte', 'auf das Obst.', 'zeigt', ['zeigt', 'zeigte', 'zeugt', 'gezeigt'], 'zeigen → sie <b>zeigt</b>'],
       ['Der Vater', 'ging', 'über den Markt.', 'geht', ['geht', 'ging', 'gehte', 'gegangen'], 'gehen → er <b>geht</b>'],
       ['Die graue Katze', 'schlief', 'auf dem Teppich.', 'schläft', ['schläft', 'schlaft', 'schlief', 'schlafte'], 'schlafen → sie <b>schläft</b>. Aus „a“ wird „ä“!'],
       ['Ein grünes Fahrrad', 'lag', 'im Gras.', 'liegt', ['liegt', 'lag', 'legt', 'liegte'], 'liegen → es <b>liegt</b>. („legt“ heißt: etwas hinlegen.)'],
       ['Im Hintergrund', 'erhoben', 'sich schneebedeckte Berge.', 'erheben', ['erheben', 'erhoben', 'erhebt', 'erhebten'], 'sich erheben → sie <b>erheben</b> sich (Mehrzahl!)'],
-      ['Drei Jäger', 'stapften', 'durch den Schnee.', 'stapfen', ['stapfen', 'stapften', 'stapft', 'gestapft'], 'stapfen → sie <b>stapfen</b> (Mehrzahl!)'],
+      ['Der alte Mann', 'stapfte', 'durch den Schnee.', 'stapft', ['stapft', 'stapfte', 'stapfen', 'gestapft'], 'stapfen → er <b>stapft</b>'],
+      ['Ein Junge', 'baute', 'einen Schneemann.', 'baut', ['baut', 'baute', 'bauen', 'gebaut'], 'bauen → er <b>baut</b>'],
       ['Die Lehrerin', 'trug', 'eine gelbe Trillerpfeife.', 'trägt', ['trägt', 'tragt', 'trug', 'trägte'], 'tragen → sie <b>trägt</b>. Aus „a“ wird „ä“!']
     ];
     var profi = $('#zeit-profi');
@@ -1233,7 +1247,7 @@
   sicher('Ordnen', function () {
     var AUFGABEN = [
       { titel: 'Aufgabe 1: Der Aufbau', frage: 'Bring Einleitung, Hauptteil und Schluss in die richtige Reihenfolge.', streifen: [
-        ['Das Bild „Sommertag am See“ ist eine bunte Zeichnung.', 'Einleitung'],
+        ['Das Bild „Sommertag am See“ ist eine farbige Illustration aus unserem Unterrichtsmaterial.', 'Einleitung'],
         ['Es zeigt einen fröhlichen Sommertag an einem See, an dem Kinder ihre Freizeit verbringen.', 'Einleitung'],
         ['Im Vordergrund erstreckt sich eine grüne Wiese mit bunten Blumen. Am linken Bildrand steht ein großer Laubbaum …', 'Hauptteil'],
         ['Das Bild wirkt auf mich fröhlich und friedlich. Mir gefällt es, weil ich auch gerne am See bin.', 'Schluss']
@@ -1241,13 +1255,13 @@
       { titel: 'Aufgabe 2: Der rote Faden im Hauptteil', frage: 'Ordne die Sätze vom Vordergrund über den Mittelgrund zum Hintergrund.', streifen: [
         ['Im Vordergrund erstreckt sich eine grüne Wiese mit bunten Blumen.', 'Vordergrund'],
         ['Am linken Bildrand steht ein großer Laubbaum mit einem dicken braunen Stamm.', 'Vordergrund'],
-        ['Rechts neben dem Baum liegt eine rot-weiß karierte Picknickdecke.', 'Vordergrund'],
+        ['Unter dem Baum liegt eine rot-weiß karierte Picknickdecke.', 'Vordergrund'],
         ['Darauf sitzt ein Mädchen mit langen braunen Haaren und einem blauen Kleid.', 'Vordergrund'],
         ['Im Mittelgrund breitet sich ein blauer See über die ganze Bildbreite aus.', 'Mittelgrund'],
         ['Genau in der Mitte segelt ein kleines Segelboot mit einem roten Rumpf und zwei weißen Segeln.', 'Mittelgrund'],
-        ['Im Hintergrund erheben sich sanfte grüne Hügel.', 'Hintergrund'],
+        ['Im Hintergrund erheben sich grüne, bewaldete Hügel.', 'Hintergrund'],
         ['In der rechten oberen Ecke strahlt eine gelbe Sonne.', 'Hintergrund']
-      ], tipp: 'Achte auf die Satzanfänge! „Im Vordergrund …“, „Im Mittelgrund …“, „Im Hintergrund …“ zeigen dir den Weg. Und: „Rechts neben <em>dem Baum</em>“ geht nur, wenn der Baum vorher schon genannt wurde. „Darauf“ meint die Decke.' }
+      ], tipp: 'Achte auf die Satzanfänge! „Im Vordergrund …“, „Im Mittelgrund …“, „Im Hintergrund …“ zeigen dir den Weg. Und: „Unter <em>dem Baum</em>“ geht nur, wenn der Baum vorher schon genannt wurde. „Darauf“ meint die Decke.' }
     ];
     var root = $('#ordnen-spiel');
     var st;
@@ -1342,17 +1356,17 @@
   sicher('Diplom', function () {
     var D = [
       { text: 'Was ist das <strong>Ziel</strong> einer Bildbeschreibung?', richtig: 'Jemand, der das Bild nicht sieht, soll es sich genau vorstellen können.', optionen: ['Jemand, der das Bild nicht sieht, soll es sich genau vorstellen können.', 'Ich soll erzählen, was ich am Wochenende erlebt habe.', 'Ich soll das Bild möglichst schnell abmalen.'], erklaerung: 'Deine Beschreibung ist wie ein Bild aus Wörtern.' },
-      { text: 'In welcher <strong>Zeitform</strong> schreibst du eine Bildbeschreibung?', richtig: 'im Präsens (Gegenwart)', optionen: ['im Präsens (Gegenwart)', 'im Präteritum (Vergangenheit)', 'im Futur (Zukunft)'], erklaerung: 'Du schreibst so, als ob du gerade auf das Bild schaust: „Der Hund rennt …“' },
-      { text: 'Was gehört <strong>nicht</strong> in die Einleitung?', richtig: 'deine Meinung zum Bild', optionen: ['deine Meinung zum Bild', 'der Titel des Bildes', 'die Bildart (z. B. Gemälde)', 'das Thema („Das Bild zeigt …“)'], erklaerung: 'Deine Meinung kommt erst in den Schluss.' },
+      { text: 'In welcher <strong>Zeitform</strong> schreibst du eine Bildbeschreibung?', richtig: 'im Präsens (Gegenwart)', optionen: ['im Präsens (Gegenwart)', 'im Präteritum (Vergangenheit)', 'im Futur (Zukunft)'], erklaerung: 'Du schreibst so, als ob du gerade auf das Bild schaust: „Der Hund springt …“' },
+      { text: 'Was gehört <strong>nicht</strong> in die Einleitung?', richtig: 'deine Meinung zum Bild', optionen: ['deine Meinung zum Bild', 'der Titel des Bildes', 'die Bildart (z. B. Illustration)', 'das Thema („Das Bild zeigt …“)'], erklaerung: 'Deine Meinung kommt erst in den Schluss.' },
       { text: 'Wo steht deine <strong>eigene Meinung</strong>?', richtig: 'im Schluss', optionen: ['im Schluss', 'in der Einleitung', 'im Hauptteil'], erklaerung: 'Im Schluss nennst du die Wirkung und deine Meinung mit Begründung: „Mir gefällt das Bild, weil …“' },
       { text: 'Im Bild „Sommertag am See“: Wo liegt das <strong>grüne Fahrrad</strong>?', richtig: 'im Vordergrund rechts', optionen: ['im Vordergrund rechts', 'im Hintergrund links', 'im Mittelgrund auf dem Steg'], erklaerung: 'Das Fahrrad liegt vorne rechts im Gras.' },
       { text: 'Welches Verb ist am treffendsten? „Der Kirchturm <span class="ue-luecke">?</span> über die Häuser.“', richtig: 'ragt', optionen: ['ragt', 'ist', 'liegt'], erklaerung: '„ragen“ passt zu Dingen, die hoch hinausgehen. „ist“ ist ein Langweiler!' },
       { text: 'Welcher Artikel passt? „Der Ball liegt unter <span class="ue-luecke">?</span> Bett.“', richtig: 'dem', optionen: ['dem', 'den', 'das'], erklaerung: 'Wo? → Dativ: <i>das</i> Bett → unter <b>dem</b> Bett.' },
       { text: 'Welche <strong>Reihenfolge</strong> ist für den Hauptteil sinnvoll?', richtig: 'vom Vordergrund über den Mittelgrund zum Hintergrund', optionen: ['vom Vordergrund über den Mittelgrund zum Hintergrund', 'kreuz und quer, wie es mir gerade einfällt', 'zuerst die kleinsten Einzelheiten, das Große zum Schluss'], erklaerung: 'Wähle eine feste Reihenfolge und behalte sie bei – zum Beispiel VG → MG → HG oder von links nach rechts.' },
-      { text: 'Welcher Satz ist eine <strong>Vermutung</strong>?', richtig: 'Die Jäger sind vermutlich müde.', optionen: ['Die Jäger sind vermutlich müde.', 'Drei Jäger gehen durch den Schnee.', 'Ich finde das Bild wunderschön.'], erklaerung: 'Das Signalwort „vermutlich“ zeigt die Vermutung.' },
+      { text: 'Welcher Satz ist eine <strong>Vermutung</strong>?', richtig: 'Der alte Mann ist vermutlich müde.', optionen: ['Der alte Mann ist vermutlich müde.', 'Ein Junge baut einen Schneemann.', 'Ich finde das Bild wunderschön.'], erklaerung: 'Das Signalwort „vermutlich“ zeigt die Vermutung.' },
       { text: 'Welcher Satz steht im <strong>Präsens</strong>?', richtig: 'Die Taube pickt Krümel vom Boden.', optionen: ['Die Taube pickt Krümel vom Boden.', 'Die Taube pickte Krümel vom Boden.', 'Die Taube hat Krümel gepickt.'], erklaerung: '„pickt“ ist Gegenwart.' },
       { text: 'Welche Beschreibung ist am <strong>genauesten</strong>?', richtig: 'ein brauner Hund mit einem roten Halsband', optionen: ['ein brauner Hund mit einem roten Halsband', 'ein Hund', 'ein schöner Hund'], erklaerung: 'Farbe + Einzelheit = genau! („schön“ ist eine Meinung.)' },
-      { text: 'Wer hat das Gemälde „Die Jäger im Schnee“ (1565) gemalt?', richtig: 'Pieter Bruegel der Ältere', optionen: ['Pieter Bruegel der Ältere', 'Carl Spitzweg', 'Lupo, die Eule'], erklaerung: 'Bruegel hat auch „Die Kinderspiele“ gemalt. Von Carl Spitzweg ist „Der Bücherwurm“.' }
+      { text: 'Welcher Satz ist eine gute <strong>Einleitung</strong> zum Bild „Opa Willi in der Bibliothek“?', richtig: 'Das Bild „Opa Willi in der Bibliothek“ ist eine farbige Illustration. Es zeigt einen alten Mann, der auf einer hohen Leiter steht und liest.', optionen: ['Das Bild „Opa Willi in der Bibliothek“ ist eine farbige Illustration. Es zeigt einen alten Mann, der auf einer hohen Leiter steht und liest.', 'Opa Willi stand auf einer Leiter und las ein rotes Buch.', 'Ich finde das Bild sehr lustig, weil Opa Willi alles um sich herum vergisst.'], erklaerung: 'Eine gute Einleitung nennt Bildart, Titel und Thema („Es zeigt …“) – im Präsens und ohne Meinung.' }
     ];
     var root = $('#diplom-quiz');
     var druck = $('#ue-druckbereich');
@@ -1362,7 +1376,7 @@
     }
     function diplom(name, p, n) {
       var d = el('div', 'ue-diplom');
-      d.innerHTML = '<img src="bilder/lupo.svg" alt="Lupo">' +
+      d.innerHTML = '<img src="bilder/lupo.png" alt="Lupo">' +
         '<div class="ue-dip-kicker">Lupos Detektivbüro</div>' +
         '<h3>Bilddetektiv-Diplom</h3>' +
         '<p>Hiermit wird feierlich bestätigt, dass</p>' +

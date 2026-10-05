@@ -2,11 +2,17 @@
 /* ===== Arbeitsblätter AB 0–8 (Präfix .ab1-) ===== */
 .ab1 { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 .ab1 > .werkzeugleiste { justify-content: flex-end; margin: -16px 0 8px; }
-.ab1 .lupo > img { width: 62px; }
+.ab1 .lupo > img { width: 54px; height: auto; object-fit: contain; }
 .ab1-umbruch { height: 0; }
 @media print { .ab1-umbruch { break-before: page; } }
 .ab1-l1 { --zeilen: 1 !important; }
 @media print { .ab1 .aufgabe > .nr { top: 0; } }
+/* lange Aufgaben dürfen beim Druck umbrechen, ihre Bausteine bleiben zusammen */
+@media print {
+  .ab1 .aufgabe.ab1-teilbar { break-inside: auto; }
+  .ab1-teilbar > p { break-after: avoid; }
+  .ab1-treppe, .ab1-muster, .ab1-farben, .ab1-raetsel-reihe, .ab1-bausteine, .ab1-einleitungen, .ab1-bildzeile, .ab1-teilbar .grid-2 { break-inside: avoid; }
+}
 .ab1-hinweis { font-size: .86rem; color: var(--ink-soft); margin: 2px 0 8px; }
 .ab1-kompakt p { margin: 3px 0 5px; }
 .ab1-kompakt .linien { margin: 0 0 6px; }
@@ -15,7 +21,7 @@
 .ab1-bildzeile { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 10px 0; }
 .ab1-bildzeile > div { display: flex; gap: 10px; align-items: flex-start; }
 .ab1-bildzeile figure.bild { margin: 0; flex: none; padding: 6px; }
-.ab1-bildzeile figure.bild img { width: auto; }
+.ab1-bildzeile figure.bild img { width: auto; max-width: 100%; }
 .ab1-bildzeile figcaption { padding-top: 4px; }
 .ab1-raetsel-reihe { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
 .ab1-raetsel-reihe .ab1-raetsel { margin: 0; font-size: .92rem; }
@@ -38,6 +44,7 @@ table.ab1-lernkarte small { display: block; line-height: 1.35; margin-top: 2px; 
 
 /* Bild mit 3×3-Raster */
 .ab1-rahmen { position: relative; }
+.ab1-rahmen > img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
 .ab1-netz { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); pointer-events: none; }
 .ab1-netz span { border: 1.5px dashed rgba(34, 48, 60, .85); position: relative; }
 .ab1-netz span b { position: absolute; left: 4px; top: 4px; background: #fff; color: var(--ink); border-radius: 50%; width: 22px; height: 22px; display: grid; place-items: center; font-family: var(--font-head); font-weight: 900; font-size: .78rem; border: 1.5px solid var(--ink); }
@@ -98,7 +105,7 @@ table.ab1-strich td { height: 2.4em; }
 
 /* AB 8 – Steckbrief & Puzzle */
 .ab1-schild { border: 2px solid var(--ink-soft); border-radius: 6px; background: #faf6ec; padding: 6px 10px; font-size: .82rem; line-height: 1.4; flex: 1; }
-.ab1-einleitungen { border-left: 4px solid var(--line-strong); padding-left: 12px; margin: 6px 0 8px; font-size: .9rem; line-height: 1.45; }
+.ab1-einleitungen { border-left: 4px solid var(--line-strong); padding-left: 12px; margin: 6px 0 8px; font-size: .88rem; line-height: 1.4; }
 .ab1-einleitungen p { margin: 3px 0; }
 table.ab1-daumen td, table.ab1-daumen th { padding: 3px 8px; }
 table.ab1-daumen th:last-child { width: 30%; }
@@ -133,7 +140,7 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
   <div class="blatt-kopf"><div class="ab-nr">AB<b>0</b></div><h2>Meine Lernlandkarte: Was kann ich schon?</h2>
     <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
 
-  <div class="lupo"><img src="bilder/lupo.svg" alt="Lupo"><div class="bubble">
+  <div class="lupo"><img src="bilder/lupo.png" alt="Lupo"><div class="bubble">
     <p>Hallo, ich bin <strong>Lupo, der Bilddetektiv</strong>! In den nächsten Wochen wirst du selbst zum Bilddetektiv. Auf dieser Karte siehst du alle Stationen unserer Reise. Du füllst sie <strong>dreimal</strong> aus: heute am Start, kurz vor der Klassenarbeit und danach. So siehst du, wie viel du dazugelernt hast!</p>
   </div></div>
 
@@ -172,7 +179,7 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
       <tr><td><span class="ab1-station" style="background:var(--green)">3</span></td><td>… mit Präpositionen genau sagen, wo etwas ist.<small class="klein">Zum Beispiel: „auf dem Bett“, „unter dem Tisch“</small></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td></tr>
       <tr><td><span class="ab1-station" style="background:var(--purple)">4</span></td><td>… treffende Verben statt „ist“, „sind“ und „gibt es“ benutzen.<small class="klein">Zum Beispiel: „Die Taube pickt …“</small></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td></tr>
       <tr><td><span class="ab1-station" style="background:var(--red)">5</span></td><td>… Farben, Formen und Muster mit genauen Adjektiven beschreiben.<small class="klein">Zum Beispiel: „eine rot-weiß karierte Decke“</small></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td></tr>
-      <tr><td><span class="ab1-station" style="background:var(--teal)">6</span></td><td>… eine Einleitung schreiben, die die W-Fragen beantwortet.<small class="klein">Bildart, Titel, Künstler/in, Jahr, Thema</small></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td></tr>
+      <tr><td><span class="ab1-station" style="background:var(--teal)">6</span></td><td>… eine Einleitung schreiben, die die W-Fragen beantwortet.<small class="klein">Bildart, Titel, Zeichner/in bzw. Künstler/in, Jahr, Thema</small></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td></tr>
       <tr><td><span class="ab1-station">7</span></td><td>… im Hauptteil in einer sinnvollen Reihenfolge beschreiben und meine Satzanfänge abwechseln.<small class="klein">Zum Beispiel: vom Vordergrund zum Hintergrund</small></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td></tr>
       <tr><td><span class="ab1-station" style="background:var(--blue)">8</span></td><td>… sachlich und im Präsens schreiben und im Schluss meine Meinung begründen.<small class="klein">Zum Beispiel: „Mir gefällt das Bild, weil …“</small></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td></tr>
       <tr><td><span class="ab1-station" style="background:var(--green)">9</span></td><td>… meinen Text mit einer Checkliste prüfen und verbessern.<small class="klein">Zum Beispiel: mit der Textlupe</small></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td><td class="ab1-sp"><span class="ampel"><i></i><i></i><i></i></span></td></tr>
@@ -198,13 +205,13 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
   <div class="blatt-kopf"><div class="ab-nr">AB<b>1</b></div><h2>Finde die 8 Unterschiede!</h2>
     <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
 
-  <div class="lupo"><img src="bilder/lupo.svg" alt="Lupo"><div class="bubble">
+  <div class="lupo"><img src="bilder/lupo.png" alt="Lupo"><div class="bubble">
     <p><strong>Lupos Detektiv-Trick: Feld für Feld!</strong> Springe nicht wild hin und her. Ich habe dir ein Raster über die Bilder gelegt. Fang <strong>oben links</strong> an. Vergleiche dieses Feld in Bild A und in Bild B ganz genau. Dann gehst du ein Feld nach rechts – Reihe für Reihe, wie beim Lesen. So entwischt dir kein Unterschied!</p>
   </div></div>
 
   <div class="grid-2 ab1-paar">
-    <figure class="bild"><div class="ab1-rahmen"><img src="bilder/kinderzimmer.svg" alt="Bild A: Ein Kinderzimmer mit Bett, Fenster, Bücherregal und Schreibtisch"><div class="ab1-netz zart" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div><figcaption><b>Bild A</b> – Das Kinderzimmer</figcaption></figure>
-    <figure class="bild"><div class="ab1-rahmen"><img src="bilder/kinderzimmer-b.svg" alt="Bild B: Das gleiche Kinderzimmer mit acht kleinen Unterschieden"><div class="ab1-netz zart" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div><figcaption><b>Bild B</b> – Hier hat jemand etwas verändert!</figcaption></figure>
+    <figure class="bild"><div class="ab1-rahmen"><img src="bilder/kinderzimmer.jpg" alt="Bild A: Ein Kinderzimmer mit Bett und Teddy, Raketen-Poster, Gitarre, Fenster, Bücherregal, Schreibtisch und einer Katze auf dem Teppich"><div class="ab1-netz zart" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div><figcaption><b>Bild A</b> – Das Kinderzimmer</figcaption></figure>
+    <figure class="bild"><div class="ab1-rahmen"><img src="bilder/kinderzimmer-b.jpg" alt="Bild B: Das gleiche Kinderzimmer mit acht kleinen Unterschieden"><div class="ab1-netz zart" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div><figcaption><b>Bild B</b> – Hier hat jemand etwas verändert!</figcaption></figure>
   </div>
 
   <div class="aufgabe"><span class="nr">1</span>
@@ -259,7 +266,7 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
       <p><strong>Mittelgrund (MG):</strong> der Bereich in der Mitte, zwischen vorn und hinten.</p>
       <p><strong>Vordergrund (VG):</strong> ganz vorn, nah bei dir, meist unten im Bild. Die Dinge wirken <strong>groß</strong>.</p>
     </div>
-    <figure class="bild mt-0" style="margin-bottom:0"><img src="bilder/sommertag-am-see.svg" alt="Sommertag am See: Wiese mit Picknick vorn, See mit Segelboot in der Mitte, Hügel, Haus und Wald hinten"><figcaption>„Sommertag am See“</figcaption></figure>
+    <figure class="bild mt-0" style="margin-bottom:0"><img src="bilder/sommertag-am-see.jpg" alt="Sommertag am See: vorn eine Blumenwiese mit Mädchen auf der Picknickdecke, Hund und Fahrrad, in der Mitte der See mit Enten, Segelboot und Steg, hinten Hügel, ein weißes Haus und ein Tannenwald"><figcaption>„Sommertag am See“</figcaption></figure>
   </div>
 
   <div class="aufgabe"><span class="nr">1</span>
@@ -268,7 +275,7 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
 
   <div class="aufgabe ab1-kompakt"><span class="nr">2</span>
     <p>Ergänze die Sätze. Schau genau ins Bild! <span class="niveau n1">Basis</span></p>
-    <p>a) Im Vordergrund sitzt ein Mädchen auf einer <span class="luecke lang"></span> und liest ein Buch.</p>
+    <p>a) Im Vordergrund sitzt ein Mädchen auf einer <span class="luecke lang"></span> und liest ein grünes Buch.</p>
     <p>b) Im Mittelgrund segelt in der Mitte ein <span class="luecke lang"></span> über den See.</p>
     <p>c) Im Hintergrund steht links auf einem Hügel ein <span class="luecke lang"></span> .</p>
     <p>d) Am Ende des Stegs sitzt ein Junge und <span class="luecke"></span> . Er gehört zum <span class="luecke lang"></span> .</p>
@@ -277,7 +284,7 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
   <div class="aufgabe"><span class="nr">3</span>
     <p>Sortiere die Wörter aus dem Wortspeicher in die Tabelle. Streiche jedes Wort durch, wenn du es eingetragen hast. <span class="niveau n2">Standard</span></p>
     <div class="wortspeicher gruen"><span class="titel">Wortspeicher</span>
-      <span>der Himmel</span><span>die Sonne</span><span>die Wolken</span><span>die Hügel</span><span>das Haus</span><span>der Tannenwald</span><span>der See</span><span>die Enten</span><span>das Segelboot</span><span>der Steg</span><span>der Junge mit der Angel</span><span>die Wiese</span><span>die Blumen</span><span>der Laubbaum</span><span>die Picknickdecke</span><span>das Mädchen</span><span>der Picknickkorb</span><span>der Hund</span><span>der Ball</span><span>das Fahrrad</span>
+      <span>der Himmel</span><span>die Sonne</span><span>die Wolken</span><span>die Hügel</span><span>das Haus</span><span>der Tannenwald</span><span>der See</span><span>die Enten</span><span>das Segelboot</span><span>der Steg</span><span>der Junge mit der Angel</span><span>die Wiese</span><span>die Blumen</span><span>der Laubbaum</span><span>die Picknickdecke</span><span>das Mädchen</span><span>der Korb mit Äpfeln</span><span>der Hund</span><span>der Ball</span><span>das Fahrrad</span>
     </div>
     <table class="ab1-vmh">
       <thead><tr><th class="vg">Vordergrund</th><th class="mg">Mittelgrund</th><th class="hg">Hintergrund</th></tr></thead>
@@ -294,7 +301,7 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
   </div>
 
   <div class="tipp" data-label="Für Schnelle">
-    <p>Vergleiche den großen Laubbaum vorn mit den Tannen hinten. Welche Bäume sind größer gezeichnet? Warum hat der Zeichner das wohl so gemacht?</p>
+    <p>Vergleiche den großen Laubbaum vorn mit den Tannen hinten. Welche Bäume sind größer gezeichnet? Warum hat die Zeichnerin oder der Zeichner das wohl so gemacht?</p>
     <div class="linien ab1-l1"></div>
   </div>
   <div class="fussnote">Stunde 2 · Ordnung im Bild</div>
@@ -308,14 +315,14 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
   <div class="blatt-kopf"><div class="ab-nr">AB<b>3</b></div><h2>Das Bildraster: 9 Felder</h2>
     <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
 
-  <div class="lupo"><img src="bilder/lupo.svg" alt="Lupo"><div class="bubble">
+  <div class="lupo"><img src="bilder/lupo.png" alt="Lupo"><div class="bubble">
     <p>Ein Bild ist wie ein Tic-Tac-Toe-Feld: <strong>3 Reihen und 3 Spalten</strong> ergeben 9 Felder. Für jedes Feld gibt es einen Fachbegriff. Wenn du ihn benutzt, weiß jeder sofort, wo er hinschauen muss – auch ohne das Bild zu sehen!</p>
   </div></div>
 
   <div class="aufgabe"><span class="nr">1</span>
     <p>Welcher Fachbegriff gehört zu welchem Feld? Schreibe die Begriffe aus dem Wortspeicher in das passende Feld der Tabelle. <span class="niveau n1">Basis</span></p>
     <div class="grid-2">
-      <figure class="bild mt-0" style="margin-bottom:0"><div class="ab1-rahmen"><img src="bilder/sommertag-am-see.svg" alt="Sommertag am See mit einem Raster aus neun nummerierten Feldern"><div class="ab1-netz" aria-hidden="true"><span><b>1</b></span><span><b>2</b></span><span><b>3</b></span><span><b>4</b></span><span><b>5</b></span><span><b>6</b></span><span><b>7</b></span><span><b>8</b></span><span><b>9</b></span></div></div><figcaption>„Sommertag am See“ mit Bildraster</figcaption></figure>
+      <figure class="bild mt-0" style="margin-bottom:0"><div class="ab1-rahmen"><img src="bilder/sommertag-am-see.jpg" alt="Sommertag am See mit einem Raster aus neun nummerierten Feldern"><div class="ab1-netz" aria-hidden="true"><span><b>1</b></span><span><b>2</b></span><span><b>3</b></span><span><b>4</b></span><span><b>5</b></span><span><b>6</b></span><span><b>7</b></span><span><b>8</b></span><span><b>9</b></span></div></div><figcaption>„Sommertag am See“ mit Bildraster</figcaption></figure>
       <div class="wortspeicher orange mt-0" style="align-content:flex-start"><span class="titel">Fachbegriffe</span>
         <span>in der Bildmitte</span><span>in der rechten oberen Ecke</span><span>am linken Bildrand</span><span>in der linken unteren Ecke</span><span>am oberen Bildrand</span><span>in der rechten unteren Ecke</span><span>am rechten Bildrand</span><span>in der linken oberen Ecke</span><span>am unteren Bildrand</span>
       </div>
@@ -340,19 +347,19 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
   <div class="aufgabe ab1-kompakt"><span class="nr">3</span>
     <p>Wo ist das? Schreibe ganze Sätze mit einem Fachbegriff. <span class="niveau n2">Standard</span></p>
     <p class="ab1-hinweis">Beispiel: die Sonne → <em>In der rechten oberen Ecke strahlt die Sonne.</em></p>
-    <p>a) die große Wolke</p><div class="linien ab1-l1"></div>
-    <p>b) das Segelboot</p><div class="linien ab1-l1"></div>
-    <p>c) der Tannenwald</p><div class="linien ab1-l1"></div>
+    <p>a) das kleine weiße Haus</p><div class="linien ab1-l1"></div>
+    <p>b) der braune Hund</p><div class="linien ab1-l1"></div>
+    <p>c) der Junge mit der Angel</p><div class="linien ab1-l1"></div>
     <p>d) das grüne Fahrrad</p><div class="linien ab1-l1"></div>
   </div>
 
   <div class="aufgabe"><span class="nr">4</span>
-    <p>Zeigestock-Rätsel: Schreibe zwei Rätsel für deine Partnerin oder deinen Partner. Nenne nur den Fachbegriff und eine Farbe. Beispiel: „In der linken unteren Ecke sehe ich etwas Braunes, Dickes. Was ist es?“ <span class="niveau n3">Profi</span> <span class="badge pa">PA</span></p>
+    <p>Zeigestock-Rätsel: Schreibe zwei Rätsel für deine Partnerin oder deinen Partner. Nenne nur den Fachbegriff und eine Farbe. Beispiel: „In der linken unteren Ecke sehe ich etwas Graues, Rundes. Was ist es?“ <span class="niveau n3">Profi</span> <span class="badge pa">PA</span></p>
     <div class="linien l2"></div>
   </div>
 
   <div class="tipp" data-label="Für Schnelle">
-    <p>Oft zeigt die <strong>obere Reihe</strong> den Hintergrund und die <strong>untere Reihe</strong> den Vordergrund. Stimmt das bei „Sommertag am See“ ganz genau? Prüfe Haus und Wald!</p>
+    <p>Oft zeigt die <strong>obere Reihe</strong> den Hintergrund und die <strong>untere Reihe</strong> den Vordergrund. Stimmt das bei „Sommertag am See“ ganz genau? Prüfe das Mädchen, den Hund und das Segelboot!</p>
   </div>
   <div class="fussnote">Stunde 2 · Ordnung im Bild</div>
 </section>
@@ -366,7 +373,7 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
     <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
 
   <div class="grid-2">
-    <figure class="bild mt-0" style="margin-bottom:0"><img src="bilder/kinderzimmer.svg" alt="Das Kinderzimmer: links ein Bett mit Teddy, in der Mitte ein Fenster und ein Teppich mit Katze, rechts ein Bücherregal und ein Schreibtisch"><figcaption>„Das Kinderzimmer“</figcaption></figure>
+    <figure class="bild mt-0" style="margin-bottom:0"><img src="bilder/kinderzimmer.jpg" alt="Das Kinderzimmer: links ein Bett mit Teddy, daneben eine Gitarre, in der Mitte ein Fenster und ein runder Teppich mit Katze, rechts ein Bücherregal und ein Schreibtisch mit Stuhl"><figcaption>„Das Kinderzimmer“</figcaption></figure>
     <div class="merke mt-0" style="margin-bottom:0">
       <p class="mt-0"><strong>auf, unter, über, vor, hinter, neben, zwischen, in, an</strong> sind <strong>Präpositionen</strong>. Sie sagen dir, <strong>wo</strong> etwas ist.</p>
       <p>Fragst du „<strong>Wo?</strong>“, ändert sich der Artikel (Dativ):<br>
@@ -379,14 +386,14 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
     <p>Setze die passende Präposition aus dem Wortspeicher ein. Schau dafür genau ins Bild. <span class="niveau n1">Basis</span></p>
     <div class="wortspeicher"><span class="titel">Präpositionen</span><span>auf</span><span>unter</span><span>über</span><span>vor</span><span>neben</span><span>zwischen</span><span>in</span><span>an</span></div>
     <div class="spalten-2">
-      <p>a) Der Teddybär sitzt <span class="luecke"></span> dem Kissen.</p>
+      <p>a) Der Teddybär sitzt auf dem Bett <span class="luecke"></span> dem Kissen.</p>
       <p>b) Der Fußball liegt <span class="luecke"></span> dem Bett.</p>
       <p>c) Das Poster hängt <span class="luecke"></span> dem Bett.</p>
-      <p>d) Zwei lila Socken liegen <span class="luecke"></span> dem Bett.</p>
-      <p>e) Die Gitarre lehnt <span class="luecke"></span> der Wand.</p>
+      <p>d) Die Gitarre lehnt rechts <span class="luecke"></span> dem Bett.</p>
+      <p>e) Die runde Uhr hängt <span class="luecke"></span> der Wand.</p>
       <p>f) Die graue Katze schläft <span class="luecke"></span> dem Teppich.</p>
       <p>g) Das rote Spielzeugauto steht <span class="luecke"></span> dem Regal.</p>
-      <p>h) Das Fenster befindet sich <span class="luecke"></span> dem Bett und dem Bücherregal.</p>
+      <p>h) Das Fenster befindet sich <span class="luecke"></span> der Gitarre und dem Bücherregal.</p>
     </div>
   </div>
 
@@ -405,10 +412,10 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
 
   <div class="aufgabe ab1-kompakt"><span class="nr">3</span>
     <p>„Wo ist …?“ Antworte in ganzen Sätzen. Benutze eine Präposition und den richtigen Artikel. <span class="niveau n2">Standard</span></p>
-    <p class="ab1-hinweis">Beispiel: Wo sitzt der Teddybär? → <em>Der Teddybär sitzt auf dem Kissen.</em></p>
+    <p class="ab1-hinweis">Beispiel: Wo liegen die lila Socken? → <em>Die lila Socken liegen vor dem Bett.</em></p>
     <p>a) Wo steht der Stapel aus drei Büchern?</p><div class="linien ab1-l1"></div>
     <p>b) Wo liegt der grüne Teppich?</p><div class="linien ab1-l1"></div>
-    <p>c) Wo steht die türkisfarbene Kiste mit der Aufschrift „SPIELE“?</p><div class="linien ab1-l1"></div>
+    <p>c) Wo steht die türkisfarbene Kiste?</p><div class="linien ab1-l1"></div>
     <p>d) Wo steht der Schreibtisch?</p><div class="linien ab1-l1"></div>
   </div>
 
@@ -431,7 +438,7 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
   <div class="blatt-kopf"><div class="ab-nr">AB<b>5</b></div><h2>Bilddiktat: Rücken an Rücken</h2>
     <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
 
-  <div class="lupo"><img src="bilder/lupo.svg" alt="Lupo"><div class="bubble">
+  <div class="lupo"><img src="bilder/lupo.png" alt="Lupo"><div class="bubble">
     <p>Du beschreibst ein Bild – und dein Partner zeichnet es, <strong>ohne es zu sehen</strong>. Das klappt nur, wenn du ganz genau sagst, <strong>wo</strong> etwas ist. Genau das ist das Ziel einer Bildbeschreibung!</p>
   </div></div>
 
@@ -558,14 +565,14 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
     <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
 
   <div class="grid-2">
-    <figure class="bild mt-0"><img src="bilder/wochenmarkt.svg" alt="Auf dem Wochenmarkt: drei Marktstände für Obst, Blumen und Brot vor bunten Häusern und einem Kirchturm"><figcaption>„Auf dem Wochenmarkt“</figcaption></figure>
-    <div class="lupo mt-0"><img src="bilder/lupo.svg" alt="Lupo"><div class="bubble">
+    <figure class="bild mt-0"><img src="bilder/wochenmarkt.jpg" alt="Auf dem Wochenmarkt: drei Marktstände für Obst, Blumen und Brot vor bunten Giebelhäusern und einem Kirchturm, vorn Kinder, eine Frau, ein Vater und eine Taube"><figcaption>„Auf dem Wochenmarkt“</figcaption></figure>
+    <div class="lupo mt-0"><img src="bilder/lupo.png" alt="Lupo"><div class="bubble">
       <p>Gähn! Immer nur „ist“, „sind“ und „gibt es“ – da schlafe ich ein. <strong>Treffende Verben</strong> machen deinen Text lebendig: Der Turm <em>ragt</em>, die Taube <em>pickt</em>, der Junge <em>fährt</em>.</p>
     </div></div>
   </div>
 
   <div class="wortspeicher lila"><span class="titel">Wortfeld: Verben für Bildbeschreibungen</span>
-    <span>stehen</span><span>sitzen</span><span>liegen</span><span>hängen</span><span>sich befinden</span><span>ragen</span><span>sich erheben</span><span>schweben</span><span>leuchten</span><span>gehen</span><span>fahren</span><span>laufen</span><span>picken</span><span>halten</span><span>tragen</span><span>zeigen</span><span>verkaufen</span><span>stemmen</span><span>recken</span><span>sich aneinanderreihen</span>
+    <span>stehen</span><span>sitzen</span><span>liegen</span><span>hängen</span><span>sich befinden</span><span>ragen</span><span>sich erheben</span><span>schweben</span><span>leuchten</span><span>gehen</span><span>fahren</span><span>laufen</span><span>picken</span><span>reichen</span><span>halten</span><span>tragen</span><span>zeigen</span><span>verkaufen</span><span>stemmen</span><span>recken</span><span>sich aneinanderreihen</span>
   </div>
 
   <div class="aufgabe"><span class="nr">1</span>
@@ -584,14 +591,14 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
       <p>c) Die Frau mit dem lila Hut <span class="luecke"></span> auf das Obst.</p>
       <p>d) Der Kirchturm <span class="luecke"></span> über die Häuser.</p>
       <p>e) Die Bäckerin <span class="luecke"></span> die Hände in die Hüften.</p>
-      <p>f) Der Verkäufer <span class="luecke"></span> eine Papiertüte.</p>
+      <p>f) Der Verkäufer <span class="luecke"></span> eine Papiertüte über den Stand.</p>
     </div>
   </div>
 
   <div class="aufgabe"><span class="nr">3</span>
     <p>Der Langweiler-Text: Lies den Text. Kreise jedes „ist“, „sind“, „gibt es“, „sieht man“ und „hat“ ein. Mach dann eine Strichliste. <span class="niveau n1">Basis</span> <span class="niveau n2">Standard</span></p>
     <div class="ab1-langweiler">
-      <p>Auf dem Bild ist ein Wochenmarkt. Im Hintergrund sind sechs bunte Häuser. In der Mitte ist ein Kirchturm mit einer Uhr. Links ist ein Obststand. Dort gibt es Äpfel, Orangen und Bananen. Hinter dem Stand ist ein Verkäufer. Er hat eine Papiertüte. In der Mitte ist ein Blumenstand. Da gibt es Sonnenblumen und Tulpen. Rechts sieht man einen Bäckerstand. Dort sind Brote und Brezeln. Vorne links ist ein Junge mit einem Tretroller. Vor dem Obststand ist eine Frau mit einem lila Hut. In der Mitte vorn ist eine Taube. Rechts sind ein Vater und seine Tochter. Das Mädchen hat einen lila Luftballon.</p>
+      <p>Auf dem Bild ist ein Wochenmarkt. Im Hintergrund sind viele bunte Häuser. In der Mitte ist ein Kirchturm mit einer Uhr. Links ist ein Obststand. Dort gibt es Äpfel, Orangen und Bananen. Hinter dem Stand ist ein Verkäufer mit einer grünen Schürze. Er hat eine Papiertüte. In der Mitte ist ein Blumenstand. Da gibt es Sonnenblumen und Tulpen. Rechts sieht man einen Bäckerstand. Dort sind Brote, Brötchen und Brezeln. Vorne links ist ein Junge mit einem Tretroller. Vor dem Obststand ist eine Frau mit einem lila Hut. In der Mitte vorn ist eine Taube. Rechts sind ein Vater und seine Tochter. Das Mädchen hat einen lila Luftballon.</p>
     </div>
     <table class="ab1-strich">
       <thead><tr><th>ist</th><th>sind</th><th>gibt es</th><th>sieht man</th><th>hat</th><th>zusammen</th></tr></thead>
@@ -601,8 +608,8 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
 
   <div class="aufgabe"><span class="nr">4</span>
     <p>Text-Tuning: Schreibe den Langweiler-Text neu. Ersetze jedes eingekreiste Wort durch ein treffendes Verb. <span class="niveau n2">Standard</span></p>
-    <p class="ab1-hinweis"><span class="niveau n1">Basis</span> Verbessere die ersten 8 Sätze. · <span class="niveau n3">Profi</span> Verbessere alle Sätze und beginne sie abwechslungsreich (Dahinter …, Daneben …, Auffällig ist …).</p>
-    <p class="ab1-hinweis">Beispiel: <s>Im Hintergrund sind sechs bunte Häuser.</s> → <em>Im Hintergrund reihen sich sechs bunte Häuser aneinander.</em> Reicht der Platz nicht, schreibst du im Heft weiter.</p>
+    <p class="ab1-hinweis"><span class="niveau n1">Basis</span> Verbessere die ersten 8 Sätze. · <span class="niveau n3">Profi</span> Verbessere alle Sätze und beginne sie abwechslungsreich (Dahinter …, Daneben …, Auffällig ist …). Ergänze zwei Sätze über Dinge, die im Text fehlen – schau mal an den rechten Bildrand!</p>
+    <p class="ab1-hinweis">Beispiel: <s>Im Hintergrund sind viele bunte Häuser.</s> → <em>Im Hintergrund reihen sich viele bunte Häuser aneinander.</em> Reicht der Platz nicht, schreibst du im Heft weiter.</p>
     <div class="linien l8"></div>
   </div>
 
@@ -621,17 +628,17 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
     <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
 
   <div class="ab1-bildzeile">
-    <div><figure class="bild"><img src="bilder/wochenmarkt.svg" alt="Auf dem Wochenmarkt" style="height:115px"><figcaption>„Auf dem Wochenmarkt“</figcaption></figure></div>
-    <div><figure class="bild"><img src="bilder/sommertag-am-see.svg" alt="Sommertag am See" style="height:115px"><figcaption>„Sommertag am See“</figcaption></figure></div>
+    <div><figure class="bild"><img src="bilder/wochenmarkt.jpg" alt="Auf dem Wochenmarkt" style="height:115px;aspect-ratio:3/2"><figcaption>„Auf dem Wochenmarkt“</figcaption></figure></div>
+    <div><figure class="bild"><img src="bilder/sommertag-am-see.jpg" alt="Sommertag am See" style="height:115px;aspect-ratio:3/2"><figcaption>„Sommertag am See“</figcaption></figure></div>
   </div>
 
   <div class="aufgabe"><span class="nr">1</span>
     <p>Die Adjektiv-Treppe: Mit jeder Stufe wird ein Ding genauer. Schau dir das Beispiel an. <span class="niveau n1">Basis</span></p>
     <div class="ab1-treppe">
       <div><small>Stufe 1</small>ein Hund</div>
-      <div><small>Stufe 2</small>ein <strong>brauner</strong> Hund</div>
-      <div><small>Stufe 3</small>ein <strong>brauner</strong> Hund <strong>mit einem roten Halsband</strong></div>
-      <div><small>Stufe 4</small>Ein <strong>brauner</strong> Hund <strong>mit einem roten Halsband</strong> rennt auf einen <strong>roten</strong> Ball zu.</div>
+      <div><small>Stufe 2</small>ein <strong>flauschiger brauner</strong> Hund</div>
+      <div><small>Stufe 3</small>ein <strong>flauschiger brauner</strong> Hund <strong>mit einem roten Halsband</strong></div>
+      <div><small>Stufe 4</small>Ein <strong>flauschiger brauner</strong> Hund <strong>mit einem roten Halsband</strong> springt auf einen <strong>roten</strong> Ball zu.</div>
     </div>
     <p>Baue jetzt selbst eine Treppe für <strong>eine Markise</strong> (Wochenmarkt). Stufe 4 ist ein ganzer Satz. <span class="niveau n2">Standard</span></p>
     <div class="ab1-treppe leer">
@@ -642,7 +649,7 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
     </div>
   </div>
 
-  <div class="aufgabe"><span class="nr">2</span>
+  <div class="aufgabe ab1-teilbar"><span class="nr">2</span>
     <p>Muster erkennen: Schreibe unter jedes Feld das Musterwort: <strong>gestreift</strong>, <strong>kariert</strong> oder <strong>gepunktet</strong>. <span class="niveau n1">Basis</span></p>
     <div class="ab1-muster">
       <div><i class="ab1-m-kariert"></i><div class="ab1-zeile"></div></div>
@@ -656,7 +663,7 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
        d) die Bettdecke im Kinderzimmer (AB 1): <span class="luecke lang"></span></p>
   </div>
 
-  <div class="aufgabe"><span class="nr">3</span>
+  <div class="aufgabe ab1-teilbar"><span class="nr">3</span>
     <p>Farbenwerkstatt: Mit <strong>hell-</strong>, <strong>dunkel-</strong> und <strong>knall-</strong> werden Farben genauer. Schreibe unter jedes Farbfeld das passende Farbwort. <span class="niveau n1">Basis</span></p>
     <p class="ab1-hinweis"><strong>Bausteine:</strong> hell- · dunkel- · knall- &nbsp;+&nbsp; blau · grün · rot · gelb &nbsp;|&nbsp; außerdem: rosa · lila · türkis · orange</p>
     <div class="ab1-farben">
@@ -678,12 +685,12 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
     </div>
   </div>
 
-  <div class="aufgabe"><span class="nr">4</span>
+  <div class="aufgabe ab1-teilbar"><span class="nr">4</span>
     <p>Rätselbeschreibung: Wer oder was ist gemeint? Schreibe die Lösung auf die Linie. <span class="niveau n1">Basis</span></p>
     <div class="ab1-raetsel-reihe">
       <div class="ab1-raetsel"><p>Ich bin rund und lila. Ich schwebe an einer dünnen Schnur über dem Markt. Ein Mädchen in einem rosa Kleid hält mich fest.</p><p>Ich bin: <span class="luecke"></span></p></div>
       <div class="ab1-raetsel"><p>Ich bin klein und grau. Ich stehe vorn auf dem Kopfsteinpflaster und picke Krümel vom Boden.</p><p>Ich bin: <span class="luecke"></span></p></div>
-      <div class="ab1-raetsel"><p>Ich bin rot-weiß kariert und liege auf der grünen Wiese. Ein Mädchen sitzt auf mir und liest ein Buch.</p><p>Ich bin: <span class="luecke"></span></p></div>
+      <div class="ab1-raetsel"><p>Ich bin rot-weiß kariert und liege auf der grünen Wiese. Ein Mädchen sitzt auf mir und liest ein grünes Buch.</p><p>Ich bin: <span class="luecke"></span></p></div>
     </div>
     <p style="margin-top:10px">Schreibe jetzt selbst ein Rätsel zu einem Ding aus einem der beiden Bilder. Benutze mindestens <strong>vier</strong> genaue Adjektive – aber verrate den Namen nicht! <span class="niveau n3">Profi</span></p>
     <p class="ab1-hinweis"><strong>Noch mehr genaue Adjektive:</strong> rund · eckig · oval · spitz · riesig · winzig · schmal · breit · hölzern · lockig · glatt · lang · kurz</p>
@@ -700,23 +707,23 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
   <div class="blatt-kopf"><div class="ab-nr">AB<b>8</b></div><h2>Der Anfang zählt: Steckbrief &amp; Einleitungs-Puzzle</h2>
     <div class="felder"><span>Name:</span><span>Klasse:</span><span>Datum:</span></div></div>
 
-  <div class="lupo"><img src="bilder/lupo.svg" alt="Lupo"><div class="bubble">
-    <p>Die Einleitung ist die <strong>Visitenkarte</strong> deines Bildes. In zwei Sätzen beantwortest du die <strong>W-Fragen</strong>: <em>Was für ein Bild? Wie heißt es? Wer hat es gemacht? Wann? Was zeigt es?</em> Weißt du etwas nicht, erfindest du nichts – du lässt es einfach weg.</p>
+  <div class="lupo"><img src="bilder/lupo.png" alt="Lupo"><div class="bubble">
+    <p>Die Einleitung ist die <strong>Visitenkarte</strong> deines Bildes. In zwei Sätzen beantwortest du die <strong>W-Fragen</strong>: <em>Was für ein Bild? Wie heißt es? Wer hat es gemacht? Wann? Was zeigt es?</em> Wenn du weißt, wer das Bild gemalt oder gezeichnet hat, nennst du den Namen. Weißt du etwas nicht, erfindest du nichts – du lässt es einfach weg.</p>
   </div></div>
 
   <div class="ab1-bildzeile">
     <div>
-      <figure class="bild"><img src="bilder/sommertag-am-see.svg" alt="Sommertag am See" style="height:120px"><figcaption>Bild 1</figcaption></figure>
-      <div class="ab1-schild"><b>„Sommertag am See“</b><br>Zeichnung (Illustration), bunt<br>Zeichner/in: unbekannt<br>Jahr: unbekannt</div>
+      <figure class="bild"><img src="bilder/sommertag-am-see.jpg" alt="Sommertag am See: Mädchen mit Buch, Hund und Segelboot an einem See" style="height:110px;aspect-ratio:3/2"><figcaption>Bild 1</figcaption></figure>
+      <div class="ab1-schild"><b>„Sommertag am See“</b><br>farbige Illustration<br>Zeichner/in: nicht angegeben<br>Jahr: 2026<br><small>aus unserem Unterrichtsmaterial</small></div>
     </div>
     <div>
-      <figure class="bild"><img src="bilder/buecherwurm.jpg" alt="Gemälde: Ein alter Mann steht oben auf einer Leiter zwischen hohen Bücherregalen und liest" style="height:170px"><figcaption>Bild 2</figcaption></figure>
-      <div class="ab1-schild"><b>Carl Spitzweg (1808–1885)</b><br>„Der Bücherwurm“, um 1850<br>Gemälde, Öl auf Leinwand<br>Museum Georg Schäfer, Schweinfurt</div>
+      <figure class="bild"><img src="bilder/bibliothek.jpg" alt="Illustration: Ein alter Mann mit weißen Haaren steht ganz oben auf einer hohen Leiter zwischen Bücherregalen und liest; unten schaut ein Mädchen mit Bücherstapel zu ihm hinauf" style="height:150px;aspect-ratio:2/3"><figcaption>Bild 2</figcaption></figure>
+      <div class="ab1-schild"><b>„Opa Willi in der Bibliothek“</b><br>farbige Illustration<br>Zeichner/in: nicht angegeben<br>Jahr: 2026<br><small>aus unserem Unterrichtsmaterial</small></div>
     </div>
   </div>
 
   <div class="aufgabe"><span class="nr">1</span>
-    <p>Fülle den Bild-Steckbrief aus. Die Angaben findest du auf den Museumsschildern. Das Thema schreibst du in einem kurzen Satz selbst. <span class="niveau n1">Basis</span></p>
+    <p>Fülle den Bild-Steckbrief aus. Die Angaben findest du auf den Bildschildern neben den Bildern. Das Thema schreibst du in einem kurzen Satz selbst. <span class="niveau n1">Basis</span></p>
     <table class="ab1-schreibtab">
       <thead><tr><th>W-Frage</th><th>Bild 1</th><th>Bild 2</th></tr></thead>
       <tbody>
@@ -737,21 +744,23 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
   <div class="aufgabe"><span class="nr">2</span>
     <p>Einleitungs-Puzzle: Setze aus den Bausteinen eine Einleitung zu <strong>Bild 2</strong> zusammen. Schreibe sie auf. Achtung: Nicht alle Bausteine passen zu Bild 2! <span class="niveau n1">Basis</span> <span class="niveau n2">Standard</span></p>
     <div class="ab1-wfragen">
-      <span style="--c:var(--blue)">Bildart</span><span style="--c:var(--orange)">Titel</span><span style="--c:var(--green)">Künstler/in</span><span style="--c:var(--purple)">Jahr</span><span style="--c:var(--red)">Thema</span><span style="--c:var(--ink-soft)">Verbinder</span>
+      <span style="--c:var(--blue)">Bildart</span><span style="--c:var(--orange)">Titel</span><span style="--c:var(--green)">Wer? (Zeichner/in, Herkunft)</span><span style="--c:var(--purple)">Jahr</span><span style="--c:var(--red)">Thema</span><span style="--c:var(--ink-soft)">Verbinder</span>
     </div>
     <div class="ab1-bausteine">
+      <span class="ab1-baustein verb">Die</span>
       <span class="ab1-baustein verb">Das</span>
-      <span class="ab1-baustein was">Gemälde</span>
+      <span class="ab1-baustein was">farbige Illustration</span>
       <span class="ab1-baustein was">Foto</span>
-      <span class="ab1-baustein titel">„Der Bücherwurm“</span>
-      <span class="ab1-baustein titel">„Der Lesewurm“</span>
-      <span class="ab1-baustein wer">von Carl Spitzweg</span>
+      <span class="ab1-baustein titel">„Opa Willi in der Bibliothek“</span>
+      <span class="ab1-baustein titel">„Opa Willi im Buchladen“</span>
+      <span class="ab1-baustein wer">aus unserem Unterrichtsmaterial</span>
+      <span class="ab1-baustein wer">von Opa Willi</span>
       <span class="ab1-baustein verb">ist</span>
+      <span class="ab1-baustein wann">2026</span>
       <span class="ab1-baustein wann">um 1850</span>
-      <span class="ab1-baustein wann">im Jahr 2020</span>
       <span class="ab1-baustein verb">entstanden.</span>
-      <span class="ab1-baustein verb">Es zeigt</span>
-      <span class="ab1-baustein thema">einen alten Mann, der in einer Bibliothek oben auf einer Leiter steht und in einem Buch liest.</span>
+      <span class="ab1-baustein verb">Sie zeigt</span>
+      <span class="ab1-baustein thema">einen alten Mann, der in einer Bibliothek oben auf einer Leiter steht und liest.</span>
       <span class="ab1-baustein thema">einen Mann, der sich langweilt.</span>
     </div>
     <div class="linien l3"></div>
@@ -761,12 +770,12 @@ table.ab1-check td.ab1-text { text-align: left; font-size: .9rem; }
     <p>Daumenprobe: Welche Einleitung ist gut, welche ist schwach? Kreuze an, welche W-Fragen beantwortet werden. Male dann einen Daumen nach oben oder nach unten. <span class="niveau n2">Standard</span></p>
     <div class="ab1-einleitungen">
       <p><b>A</b> Ich finde das Bild total schön. Da ist ein Mann auf einer Leiter.</p>
-      <p><b>B</b> Das Gemälde „Der Bücherwurm“ wurde um 1850 von Carl Spitzweg gemalt. Es zeigt einen alten Mann, der in einer Bibliothek auf einer Leiter steht und liest.</p>
+      <p><b>B</b> Die farbige Illustration „Opa Willi in der Bibliothek“ ist 2026 entstanden. Sie zeigt einen alten Mann, der in einer Bibliothek auf einer Leiter steht und liest.</p>
       <p><b>C</b> Auf dem Bild sieht man einen Hund, einen Ball, ein Fahrrad, ein Boot und zwei Enten.</p>
-      <p><b>D</b> Das Bild „Sommertag am See“ ist eine bunte Zeichnung. Es zeigt einen fröhlichen Sommertag an einem See, an dem Kinder ihre Freizeit verbringen.</p>
+      <p><b>D</b> Das Bild „Sommertag am See“ ist eine farbige Illustration aus dem Jahr 2026. Es zeigt einen fröhlichen Sommertag an einem See, an dem Kinder ihre Freizeit verbringen.</p>
     </div>
     <table class="ab1-check ab1-daumen">
-      <thead><tr><th>Einleitung</th><th>Bildart</th><th>Titel</th><th>Wer?</th><th>Wann?</th><th>Thema</th><th>Daumen hoch oder runter?</th></tr></thead>
+      <thead><tr><th>Einleitung</th><th>Bildart</th><th>Titel</th><th>Wer?</th><th>Wann?</th><th>Thema</th><th>Daumen hoch/runter?</th></tr></thead>
       <tbody>
         <tr><td><b>A</b></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td></td></tr>
         <tr><td><b>B</b></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td><span class="kreis"></span></td><td></td></tr>

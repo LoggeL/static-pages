@@ -7,6 +7,7 @@
 .bm-thumb:hover { border-color: var(--orange); transform: translateY(-2px); }
 .bm-thumb[aria-pressed="true"] { border-color: var(--ink); box-shadow: 0 0 0 3px var(--orange); }
 .bm-thumb img { width: 100%; height: 72px; object-fit: cover; border-radius: 7px; background: #eee; }
+.bm-thumb.bm-hoch img { object-position: 50% 22%; } /* Hochformat: oberen Bildteil zeigen */
 .bm-thumb .bm-nr { position: absolute; left: 8px; top: 8px; background: rgba(34,48,60,.85); color: #fff; border-radius: 6px; padding: 0 6px; font-size: .75rem; }
 .bm-thumb.bm-ka { border-color: var(--red); background: var(--red-soft); }
 .bm-thumb.bm-ka::after { content: "Klassenarbeit"; position: absolute; right: 6px; top: 6px; background: var(--red); color: #fff; font-size: .62rem; border-radius: 999px; padding: 1px 6px; }
@@ -80,8 +81,8 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
 .bm-vgl-box .bm-vgl-label { position: absolute; left: 8px; top: 8px; z-index: 2; background: rgba(34,48,60,.88); color: #fff; border-radius: 999px; padding: 2px 12px; font: 900 .95rem var(--font-head); }
 .bm-vgl-box img.bm-vgl-oben { position: absolute; inset: 0; transition: opacity .15s; }
 .bm-vgl-box svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-.bm-vgl-box svg circle { fill: none; stroke: #f5c518; stroke-width: 6; stroke-dasharray: 14 8; }
-.bm-vgl-box svg text { font: 900 26px Nunito, Arial, sans-serif; fill: #22303c; stroke: #f5c518; stroke-width: 6; paint-order: stroke; }
+.bm-vgl-box svg circle { fill: none; stroke: #f5c518; stroke-width: 12; stroke-dasharray: 27 15; }
+.bm-vgl-box svg text { font: 900 50px Nunito, Arial, sans-serif; fill: #22303c; stroke: #f5c518; stroke-width: 12; paint-order: stroke; }
 
 .bm-legende table { font-size: .92rem; }
 .bm-legende kbd { display: inline-block; min-width: 26px; text-align: center; background: #fff; border: 1px solid var(--line-strong); border-bottom-width: 3px; border-radius: 6px; padding: 1px 6px; font-weight: 700; }
@@ -99,7 +100,7 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
     <h1>Bilder für den Beamer</h1>
     <p>Alle Unterrichtsbilder in groß – mit Raster, Bildbereichen, Lupe, Kim-Timer, Ausschnitt-Rätsel und Fehlerbild-Vergleich. Am besten im Vollbild zeigen (Taste <kbd>F</kbd>).</p>
   </div>
-  <img src="bilder/lupo.svg" alt="">
+  <img src="bilder/lupo.png" alt="">
 </header>
 
 <div class="bm-app" id="bm-app">
@@ -136,7 +137,7 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
       <div class="bm-opt" data-optionen="raster" hidden>
         <b>Raster</b>
         <label><input type="radio" name="bm-raster-n" value="3" checked> 3 × 3</label>
-        <label><input type="radio" name="bm-raster-n" value="2"> 2 × 2 (Viertel, z. B. AB 15)</label>
+        <label><input type="radio" name="bm-raster-n" value="2"> 2 × 2 (Viertel, z. B. Parkfest/AB 15)</label>
         <label>Beschriftung <select id="bm-raster-text">
           <option value="begriffe">Fachbegriffe</option>
           <option value="nummern">Nummern</option>
@@ -181,7 +182,7 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
 
     <div class="bm-flaeche" id="bm-flaeche">
       <div class="bm-bildbox" id="bm-bildbox">
-        <img id="bm-bild" src="bilder/sommertag-am-see.svg" alt="" draggable="false">
+        <img id="bm-bild" src="bilder/sommertag-am-see.jpg" alt="" draggable="false">
         <div class="bm-ebene bm-raster" id="bm-raster" hidden></div>
         <div class="bm-ebene bm-bereiche" id="bm-bereiche" hidden></div>
         <div class="bm-ebene bm-kacheln" id="bm-kacheln" hidden></div>
@@ -190,8 +191,8 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
         <div class="bm-ebene bm-vorhang" id="bm-vorhang" hidden></div>
         <div class="bm-uhr" id="bm-uhr" hidden></div>
       </div>
-      <div class="bm-vgl-box" id="bm-vgl-a" hidden><span class="bm-vgl-label">A · Original</span><img src="bilder/kinderzimmer.svg" alt="Das Kinderzimmer, Original" draggable="false"></div>
-      <div class="bm-vgl-box" id="bm-vgl-b" hidden><span class="bm-vgl-label" id="bm-vgl-b-label">B · Fehlerbild</span><img src="bilder/kinderzimmer.svg" alt="" id="bm-vgl-unten" draggable="false" hidden><img src="bilder/kinderzimmer-b.svg" alt="Das Kinderzimmer, Fehlerbild" id="bm-vgl-oben" draggable="false"><svg viewBox="0 0 800 560" preserveAspectRatio="none" id="bm-vgl-svg" hidden aria-hidden="true"></svg></div>
+      <div class="bm-vgl-box" id="bm-vgl-a" hidden><span class="bm-vgl-label">A · Original</span><img src="bilder/kinderzimmer.jpg" alt="Das Kinderzimmer, Original" draggable="false"></div>
+      <div class="bm-vgl-box" id="bm-vgl-b" hidden><span class="bm-vgl-label" id="bm-vgl-b-label">B · Fehlerbild</span><img src="bilder/kinderzimmer.jpg" alt="" id="bm-vgl-unten" draggable="false" hidden><img src="bilder/kinderzimmer-b.jpg" alt="Das Kinderzimmer, Fehlerbild" id="bm-vgl-oben" draggable="false"><svg viewBox="0 0 1536 1024" preserveAspectRatio="none" id="bm-vgl-svg" hidden aria-hidden="true"></svg></div>
       <div class="bm-info" id="bm-info" hidden></div>
       <div class="bm-meldung" id="bm-meldung" role="status"></div>
     </div>
@@ -205,12 +206,12 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
         <tr><td><kbd>1</kbd> … <kbd>9</kbd></td><td>Bild direkt wählen</td></tr>
         <tr><td><kbd>F</kbd></td><td>Vollbild an/aus</td></tr>
         <tr><td><kbd>R</kbd></td><td>Raster an/aus</td></tr>
-        <tr><td><kbd>B</kbd></td><td>Bereiche (Vorder-, Mittel-, Hintergrund) an/aus</td></tr>
+        <tr><td><kbd>B</kbd></td><td>Bereiche an/aus (Vorder-, Mittel-, Hintergrund; Kinderzimmer: links/Mitte/rechts; Parkfest: vier Viertel; Bibliothek: oben/unten)</td></tr>
         <tr><td><kbd>L</kbd></td><td>Lupe an/aus</td></tr>
         <tr><td><kbd>K</kbd></td><td>Kim-Spiel: starten · abbrechen · aufdecken</td></tr>
         <tr><td><kbd>A</kbd></td><td>Ausschnitt-Rätsel an/aus; <kbd>+</kbd> / <kbd>−</kbd> Guckloch größer/kleiner, <kbd>Z</kbd> zufällige Kachel</td></tr>
         <tr><td><kbd>V</kbd></td><td>Fehlerbild-Vergleich (Kinderzimmer A/B)</td></tr>
-        <tr><td><kbd>I</kbd></td><td>Bildinfo (Titel, Künstler, Jahr)</td></tr>
+        <tr><td><kbd>I</kbd></td><td>Bildinfo (Bildart, Titel, Zeichner/in, Jahr – für die W-Fragen der Einleitung)</td></tr>
         <tr><td><kbd>Esc</kbd></td><td>alle Werkzeuge aus (im Vollbild: Vollbild beenden)</td></tr>
       </table>
     </section>
@@ -221,9 +222,9 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
         <li><strong>Stunde 2:</strong> Raster (Fachbegriffe) und Bereiche zum „Sommertag“; Zeigestock-Spiel: „Was liegt in der rechten unteren Ecke?“</li>
         <li><strong>Stunde 3:</strong> Kinderzimmer mit Raster für Ortsangaben und Präpositionen.</li>
         <li><strong>Stunde 4/5:</strong> Wochenmarkt mit Lupe (Farben, Muster, Verben) und Ausschnitt-Rätsel („Was zeigt das Guckloch?“).</li>
-        <li><strong>Stunde 6:</strong> Bildinfo zum „Bücherwurm“ für die W-Fragen der Einleitung.</li>
-        <li><strong>Stunde 8:</strong> „Die Jäger im Schnee“ mit Bereichen und Lupe; Kacheln aufdecken für Vermutungen.</li>
-        <li><strong>Stunde 11:</strong> „Die Kinderspiele“ mit Raster 2 × 2 für die vier Expertengruppen (AB 15).</li>
+        <li><strong>Stunde 6:</strong> „Opa Willi in der Bibliothek“ (Hochformat) mit Bildinfo für die W-Fragen der Einleitung (AB 8); Kacheln aufdecken: „Was macht der Mann auf der Leiter?“</li>
+        <li><strong>Stunde 8:</strong> „Winterabend am Dorfteich“ mit Bereichen und Lupe; Kacheln aufdecken für Vermutungen (Wohin geht der alte Mann? Hat sich das Kind auf dem Eis wehgetan?); danach Stimmungsvergleich mit „Sommertag am See“.</li>
+        <li><strong>Stunde 11:</strong> „Das große Parkfest“ mit Raster 2 × 2 oder Bereichen (vier Viertel) für die Expertengruppen (AB 15); Lupe beim Bildführer-Spiel. Zur Differenzierung „Opa Willi in der Bibliothek“ (AB 16).</li>
         <li><strong>Stunde 14:</strong> „Im Hafen“ zur Besprechung der Klassenarbeit (Schalter oben).</li>
       </ul>
     </section>
@@ -236,16 +237,20 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
   function $(s, r) { return (r || document).querySelector(s); }
   function $$(s, r) { return [].slice.call((r || document).querySelectorAll(s)); }
 
-  /* ---------- Bereichs-Formen (Angaben in Prozent) ---------- */
-  var FARBE = { VG: '#e8833a', MG: '#1f8f88', HG: '#2f6fb5', L: '#7a4fa8', M: '#d9a400', R: '#c2185b' };
-  var NAME = { VG: 'Vordergrund', MG: 'Mittelgrund', HG: 'Hintergrund', L: 'Linker Bildteil', M: 'Bildmitte', R: 'Rechter Bildteil' };
-  function baender(hg, mg) { // Grenzen HG|MG und MG|VG in %
+  /* ---------- Bereichs-Formen (alle Angaben in Prozent der Bildbreite/-höhe) ---------- */
+  var FARBE = { VG: '#e8833a', MG: '#1f8f88', HG: '#2f6fb5', L: '#7a4fa8', M: '#d9a400', R: '#c2185b', O: '#2f6fb5', U: '#e8833a', V1: '#2f6fb5', V2: '#c2185b', V3: '#3d8b40', V4: '#e8833a' };
+  var NAME = { VG: 'Vordergrund', MG: 'Mittelgrund', HG: 'Hintergrund', L: 'Linker Bildteil', M: 'Bildmitte', R: 'Rechter Bildteil', O: 'Oberer Bildteil', U: 'Unterer Bildteil',
+    V1: '1 · links oben', V2: '2 · rechts oben', V3: '3 · links unten', V4: '4 · rechts unten' };
+  // ob = Grenzlinie Hintergrund|Mittelgrund, un = Grenzlinie Mittelgrund|Vordergrund; jeweils Punkte [x, y] von links (x 0) nach rechts (x 100)
+  function zonen(ob, un) {
+    function rueck(a) { return a.slice().reverse(); }
     return [
-      { k: 'HG', p: [[0, 0], [100, 0], [100, hg], [0, hg]], l: [98.5, hg - 1.5, 'ru'] },
-      { k: 'MG', p: [[0, hg], [100, hg], [100, mg], [0, mg]], l: [98.5, mg - 1.5, 'ru'] },
-      { k: 'VG', p: [[0, mg], [100, mg], [100, 100], [0, 100]], l: [98.5, 98.5, 'ru'] }
+      { k: 'HG', p: [[0, 0], [100, 0]].concat(rueck(ob)), l: [98.5, ob[ob.length - 1][1] - 1.5, 'ru'] },
+      { k: 'MG', p: ob.concat(rueck(un)), l: [98.5, un[un.length - 1][1] - 1.5, 'ru'] },
+      { k: 'VG', p: un.concat([[100, 100], [0, 100]]), l: [98.5, 98.5, 'ru'] }
     ];
   }
+  function baender(hg, mg) { return zonen([[0, hg], [100, hg]], [[0, mg], [100, mg]]); }
   function spalten(a, b) {
     return [
       { k: 'L', p: [[0, 0], [a, 0], [a, 100], [0, 100]], l: [a / 2, 97, 'mu'] },
@@ -253,35 +258,51 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
       { k: 'R', p: [[b, 0], [100, 0], [100, 100], [b, 100]], l: [(b + 100) / 2, 97, 'mu'] }
     ];
   }
-  var ILLU = { art: 'Zeichnung (Illustration)', von: 'unbekannt – aus dem Unterrichtsmaterial', jahr: '–' };
+  function viertel(x, y) { // Kreuzungspunkt der Wege
+    return [
+      { k: 'V1', p: [[0, 0], [x, 0], [x, y], [0, y]], l: [1.5, 2] },
+      { k: 'V2', p: [[x, 0], [100, 0], [100, y], [x, y]], l: [98.5, 2, 'ro'] },
+      { k: 'V3', p: [[0, y], [x, y], [x, 100], [0, 100]], l: [1.5, 98.5, 'lu'] },
+      { k: 'V4', p: [[x, y], [100, y], [100, 100], [x, 100]], l: [98.5, 98.5, 'ru'] }
+    ];
+  }
+  var BODEN = 'Faustregel: Entscheidend ist, wo jemand auf dem Boden steht (Füße!) – nicht, wie weit er nach oben ragt.';
+  var ILLU = { art: 'farbige Illustration', von: 'nicht angegeben – Illustration aus dem Unterrichtsmaterial', jahr: '2026' };
+  var Q = { w: 1536, h: 1024 }, HOCH = { w: 1024, h: 1536 };
   var BILDER = [
-    { id: 'sommertag', datei: 'sommertag-am-see.svg', titel: 'Sommertag am See', w: 800, h: 560, info: ILLU, stunden: 'Stunde 1, 2, 5–8', bereiche: baender(50.5, 71.5) },
-    { id: 'kinderzimmer', datei: 'kinderzimmer.svg', titel: 'Das Kinderzimmer', w: 800, h: 560, info: ILLU, stunden: 'Stunde 1 und 3', bereiche: spalten(36.5, 67), bereichHinweis: 'Im Kinderzimmer ordnet man besser von links nach rechts.' },
-    { id: 'kinderzimmer-b', datei: 'kinderzimmer-b.svg', titel: 'Das Kinderzimmer (Fehlerbild)', w: 800, h: 560, info: ILLU, stunden: 'Stunde 1 (AB 1)', bereiche: spalten(36.5, 67), bereichHinweis: 'Im Kinderzimmer ordnet man besser von links nach rechts.' },
-    { id: 'wochenmarkt', datei: 'wochenmarkt.svg', titel: 'Auf dem Wochenmarkt', w: 800, h: 560, info: ILLU, stunden: 'Stunde 4, 5 und 10', bereiche: baender(34, 71.5) },
-    { id: 'schulhof', datei: 'schulhof.svg', titel: 'Auf dem Schulhof', w: 800, h: 560, info: ILLU, stunden: 'Stunde 9 und 10', bereiche: baender(48, 77) },
-    { id: 'jaeger', datei: 'jaeger-im-schnee.jpg', titel: 'Die Jäger im Schnee', w: 1920, h: 1366, stunden: 'Stunde 8',
-      info: { art: 'Gemälde, Öl auf Holz', von: 'Pieter Bruegel der Ältere', jahr: '1565', mass: '117 × 162 cm', ort: 'Kunsthistorisches Museum Wien' },
+    { id: 'sommertag', datei: 'sommertag-am-see.jpg', titel: 'Sommertag am See', w: Q.w, h: Q.h, info: ILLU, stunden: 'Stunde 1, 2, 5, 6, 7 und 8',
+      bereiche: zonen([[0, 33], [100, 33]], [[0, 49], [40, 53], [65, 56], [85, 59], [100, 61]]),
+      bereichHinweis: 'Hintergrund = Himmel, Hügel, Haus und Tannenwald · Mittelgrund = der See mit Booten, Enten und Steg · Vordergrund = die Wiese (Mädchen, Hund, Fahrrad).' },
+    { id: 'kinderzimmer', datei: 'kinderzimmer.jpg', titel: 'Das Kinderzimmer', w: Q.w, h: Q.h, info: ILLU, stunden: 'Stunde 1 und 3', bereiche: spalten(34, 63.5), bereichHinweis: 'Im Kinderzimmer ordnet man besser von links nach rechts: Bett – Fenster – Regal und Schreibtisch.' },
+    { id: 'kinderzimmer-b', datei: 'kinderzimmer-b.jpg', titel: 'Das Kinderzimmer (Fehlerbild)', w: Q.w, h: Q.h, info: ILLU, stunden: 'Stunde 1 (AB 1)', bereiche: spalten(34, 63.5), bereichHinweis: 'Im Kinderzimmer ordnet man besser von links nach rechts: Bett – Fenster – Regal und Schreibtisch.' },
+    { id: 'wochenmarkt', datei: 'wochenmarkt.jpg', titel: 'Auf dem Wochenmarkt', w: Q.w, h: Q.h, info: ILLU, stunden: 'Stunde 4, 5 und 10',
+      bereiche: zonen([[0, 29], [100, 29]], [[0, 73], [60, 72], [100, 70]]),
+      bereichHinweis: 'Hintergrund = Häuser und Kirchturm · Mittelgrund = die drei Marktstände · Vordergrund = Pflaster mit Junge, Frau, Taube, Vater und Tochter. ' + BODEN },
+    { id: 'schulhof', datei: 'schulhof.jpg', titel: 'Auf dem Schulhof', w: Q.w, h: Q.h, info: ILLU, stunden: 'Stunde 9 und 10 (HA 6)',
+      bereiche: zonen([[0, 47], [100, 47]], [[0, 64], [100, 64]]),
+      bereichHinweis: 'Hintergrund = Schulgebäude und Bäume · Mittelgrund = Klettergerüst, Lehrerin, Fußballtor · Vordergrund = Seilspringen, Hüpfkästchen, Bank. ' + BODEN },
+    { id: 'winterabend', datei: 'winterabend.jpg', titel: 'Winterabend am Dorfteich', w: Q.w, h: Q.h, info: ILLU, stunden: 'Stunde 8 (AB 11)',
+      bereiche: zonen([[0, 27], [24, 41], [100, 41]], [[0, 27], [24, 41], [30, 54], [40, 59], [57, 60], [64, 71], [78, 71], [100, 66]]),
+      bereichHinweis: 'Die Bereiche verlaufen schräg: Der verschneite Hügel links (Schlitten, kahle Bäume mit Krähen) gehört zum Vordergrund, ebenso Schneemann und alter Mann. Mittelgrund = Teich mit Bank, Hintergrund = Dorf und Berge.' },
+    { id: 'parkfest', datei: 'parkfest.jpg', titel: 'Das große Parkfest', w: Q.w, h: Q.h, info: ILLU, stunden: 'Stunde 11 (AB 15)', raster: 2,
+      kreuz: [50, 48], viertel: ['1 · links oben: Teich', '2 · rechts oben: Karussell', '3 · links unten: Spielplatz', '4 · rechts unten: Geburtstag'],
+      bereiche: viertel(50, 48), bereichHinweis: 'Die Kieswege kreuzen sich am Brunnen und teilen das Wimmelbild in vier Viertel – eines je Expertengruppe (AB 15).' },
+    { id: 'bibliothek', datei: 'bibliothek.jpg', titel: 'Opa Willi in der Bibliothek', w: HOCH.w, h: HOCH.h, hoch: true, info: ILLU, stunden: 'Stunde 6 (AB 8) und 11 (AB 16)',
       bereiche: [
-        { k: 'HG', p: [[0, 0], [100, 0], [100, 42], [24, 42], [0, 30]], l: [62, 3] },
-        { k: 'MG', p: [[24, 42], [100, 42], [100, 100], [72, 100], [62, 78], [45, 55]], l: [78, 46] },
-        { k: 'VG', p: [[0, 30], [24, 42], [45, 55], [62, 78], [72, 100], [0, 100]], l: [2, 97, 'lu'] }
-      ], bereichHinweis: 'Bei Bruegel verlaufen die Bereiche schräg – die Jäger stehen auf einem Hügel im Vordergrund.' },
-    { id: 'kinderspiele', datei: 'kinderspiele.jpg', titel: 'Die Kinderspiele', w: 1920, h: 1395, stunden: 'Stunde 11',
-      info: { art: 'Gemälde, Öl auf Holz', von: 'Pieter Bruegel der Ältere', jahr: '1560', mass: '118 × 161 cm', ort: 'Kunsthistorisches Museum Wien' },
-      bereiche: baender(33, 62), bereichHinweis: 'Ungefähre Einteilung – das Bild ist von oben gesehen. Für die Expertengruppen besser: Raster 2 × 2.' },
-    { id: 'buecherwurm', datei: 'buecherwurm.jpg', titel: 'Der Bücherwurm', w: 859, h: 1600, stunden: 'Stunde 6 und 11',
-      info: { art: 'Gemälde, Öl auf Leinwand', von: 'Carl Spitzweg', jahr: 'um 1850', mass: 'Hochformat', ort: 'Museum Georg Schäfer, Schweinfurt' },
-      bereiche: null },
-    { id: 'hafen', datei: 'im-hafen.svg', titel: 'Im Hafen', w: 800, h: 560, klassenarbeit: true, stunden: 'Stunde 13 (Klassenarbeit) und 14 (Rückgabe)',
-      info: { art: 'Zeichnung (Illustration)', von: 'unbekannt – aus dem Unterrichtsmaterial', jahr: '–' }, bereiche: baender(41, 75) }
+        { k: 'O', p: [[0, 0], [100, 0], [100, 50], [0, 50]], l: [98.5, 48.5, 'ru'] },
+        { k: 'U', p: [[0, 50], [100, 50], [100, 100], [0, 100]], l: [98.5, 98.5, 'ru'] }
+      ], bereichHinweis: 'Im Hochformat ordnet man gut von oben nach unten: oben Opa Willi auf der Leiter, das Bogenfenster und die Regale – unten Sessel mit Katze, das Mädchen und der Globus.' },
+    { id: 'hafen', datei: 'im-hafen.jpg', titel: 'Im Hafen', w: Q.w, h: Q.h, klassenarbeit: true, stunden: 'Stunde 13 (Klassenarbeit) und 14 (Rückgabe)', info: ILLU,
+      bereiche: zonen([[0, 34], [100, 34]], [[0, 62], [50, 67], [100, 73]]),
+      bereichHinweis: 'Hintergrund = Himmel, Sonne, Leuchtturm auf der Insel · Mittelgrund = Meer und Fischerboot „MÖWE 3“ · Vordergrund = Kaimauer mit Fischer, Kisten, Anker, Katze und Kind.' }
   ];
-  var UNTERSCHIEDE = [[145, 165, 72, 'Poster'], [200, 388, 30, 'Ball'], [568, 128, 44, 'Katze'], [420, 468, 54, ''], [730, 170, 40, 'Uhr'], [745, 258, 40, 'Lampe'], [768, 322, 34, 'Rucksack'], [470, 200, 38, 'Blume'], [592, 176, 38, 'Bücher']];
+  /* Fehlerbild: Markierungen in Prozent [Mitte x, Mitte y, Radius in % der Bildbreite, Name] – passend zu den Klickbereichen aus VORGABE Abschnitt 3, Bild B */
+  var UNTERSCHIEDE = [[12.5, 17.5, 10.5, 'Poster'], [7.75, 75.5, 4.5, 'Ball'], [72, 5, 6, 'Katze'], [51.5, 79, 9.5, ''], [90.5, 15.5, 6.8, 'Uhr'], [95.2, 35, 6, 'Lampe'], [94.2, 55.5, 7.5, 'Rucksack'], [53.5, 34.5, 5.2, 'Blume'], [70.5, 17, 5.6, 'Bücher']];
+  var VB = 1536, VH = 1024; // viewBox des Lösungs-SVG (Bild 3:2)
   var RASTER_TEXT = {
     3: { begriffe: ['linke obere Ecke', 'oberer Bildrand', 'rechte obere Ecke', 'linker Bildrand', 'Bildmitte', 'rechter Bildrand', 'linke untere Ecke', 'unterer Bildrand', 'rechte untere Ecke'] },
     2: { begriffe: ['links oben', 'rechts oben', 'links unten', 'rechts unten'] }
   };
-
   var buehne = $('#bm-buehne'), flaeche = $('#bm-flaeche'), box = $('#bm-bildbox'), bild = $('#bm-bild');
   var ebRaster = $('#bm-raster'), ebBereiche = $('#bm-bereiche'), ebKacheln = $('#bm-kacheln'), ebLoch = $('#bm-guckloch'), loch = $('#bm-loch');
   var lupeEl = $('#bm-lupe'), vorhang = $('#bm-vorhang'), uhr = $('#bm-uhr'), infoEl = $('#bm-info'), meldungEl = $('#bm-meldung');
@@ -314,7 +335,7 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
     sichtbare().forEach(function (b, i) {
       var k = document.createElement('button');
       k.type = 'button';
-      k.className = 'bm-thumb' + (b.klassenarbeit ? ' bm-ka' : '');
+      k.className = 'bm-thumb' + (b.klassenarbeit ? ' bm-ka' : '') + (b.hoch ? ' bm-hoch' : '');
       k.setAttribute('aria-pressed', b.id === st.id ? 'true' : 'false');
       k.innerHTML = '<img src="bilder/' + b.datei + '" alt="" loading="lazy"><span class="bm-nr">' + (i + 1) + '</span><span></span>';
       k.lastChild.textContent = b.titel;
@@ -329,7 +350,13 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
     kimStopp(true);
     bild.src = 'bilder/' + b.datei;
     bild.alt = b.titel;
-    $('#bm-titel').textContent = b.titel + (b.info && b.info.von && b.info.jahr !== '–' ? ' – ' + b.info.von + ', ' + b.info.jahr : '');
+    $('#bm-titel').textContent = b.titel;
+    var rn = b.raster || 3; // Parkfest startet mit dem 2 × 2-Raster (Viertel für AB 15)
+    if (rn !== st.rasterN) {
+      st.rasterN = rn;
+      $$('input[name="bm-raster-n"]').forEach(function (r) { r.checked = parseInt(r.value, 10) === rn; });
+    }
+    if (st.an.raster) rasterZeichnen();
     lupeEl.style.backgroundImage = 'url("bilder/' + b.datei + '")';
     $$('.bm-thumb').forEach(function (k, i) { k.setAttribute('aria-pressed', sichtbare()[i] && sichtbare()[i].id === id ? 'true' : 'false'); });
     if (st.an.bereiche) bereicheZeichnen();
@@ -372,8 +399,8 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
   function layout() {
     var a = verfuegbar();
     if (st.an.vergleich) {
-      if (st.vModus === 'neben') { einpassen(vglA, 800, 560, (a.w - 12) / 2, a.h); einpassen(vglB, 800, 560, (a.w - 12) / 2, a.h); }
-      else einpassen(vglB, 800, 560, a.w, a.h);
+      if (st.vModus === 'neben') { einpassen(vglA, VB, VH, (a.w - 12) / 2, a.h); einpassen(vglB, VB, VH, (a.w - 12) / 2, a.h); }
+      else einpassen(vglB, VB, VH, a.w, a.h);
     } else {
       var b = aktuell();
       einpassen(box, b.w, b.h, a.w, a.h);
@@ -384,15 +411,17 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
 
   /* ---------- Raster ---------- */
   function rasterZeichnen() {
-    var n = st.rasterN;
+    var n = st.rasterN, b = aktuell();
+    var kreuz = (n === 2 && b.kreuz) ? b.kreuz : null; // 2 × 2: Linien auf der Wegkreuzung (Parkfest)
     ebRaster.innerHTML = '';
-    ebRaster.style.gridTemplateColumns = 'repeat(' + n + ', 1fr)';
-    ebRaster.style.gridTemplateRows = 'repeat(' + n + ', 1fr)';
+    ebRaster.style.gridTemplateColumns = kreuz ? kreuz[0] + 'fr ' + (100 - kreuz[0]) + 'fr' : 'repeat(' + n + ', 1fr)';
+    ebRaster.style.gridTemplateRows = kreuz ? kreuz[1] + 'fr ' + (100 - kreuz[1]) + 'fr' : 'repeat(' + n + ', 1fr)';
+    var begriffe = (n === 2 && b.viertel) ? b.viertel : RASTER_TEXT[n].begriffe;
     for (var i = 0; i < n * n; i++) {
       var c = document.createElement('div');
       if (st.rasterText !== 'aus') {
         var s = document.createElement('span');
-        s.textContent = st.rasterText === 'nummern' ? String(i + 1) : RASTER_TEXT[n].begriffe[i];
+        s.textContent = st.rasterText === 'nummern' ? String(i + 1) : begriffe[i];
         c.appendChild(s);
       }
       ebRaster.appendChild(c);
@@ -425,6 +454,7 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
       if (f.l[2] === 'ru') l.style.transform = 'translate(-100%, -100%)';
       else if (f.l[2] === 'lu') l.style.transform = 'translateY(-100%)';
       else if (f.l[2] === 'mu') l.style.transform = 'translate(-50%, -100%)';
+      else if (f.l[2] === 'ro') l.style.transform = 'translateX(-100%)';
       l.textContent = NAME[f.k];
       ebBereiche.appendChild(l);
     });
@@ -516,7 +546,8 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
   }
   function lochZeichnen() {
     var w = box.clientWidth || parseFloat(box.style.width) || 600;
-    var d = Math.round(w * st.lochR * 2 / 100);
+    var h = box.clientHeight || parseFloat(box.style.height) || w;
+    var d = Math.round(Math.max(w, h) * st.lochR * 2 / 100); // Größe bezogen auf die lange Bildseite – passt auch im Hochformat
     loch.style.width = d + 'px'; loch.style.height = d + 'px';
     loch.style.left = st.lochX + '%'; loch.style.top = st.lochY + '%';
   }
@@ -562,8 +593,9 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
     vglSvg.innerHTML = '';
     var nr = 0;
     UNTERSCHIEDE.forEach(function (u) {
-      vglSvg.insertAdjacentHTML('beforeend', '<circle cx="' + u[0] + '" cy="' + u[1] + '" r="' + u[2] + '"/>');
-      if (u[3]) { nr++; vglSvg.insertAdjacentHTML('beforeend', '<text x="' + (u[0] - u[2] * 0.75 - 6) + '" y="' + (u[1] - u[2] * 0.7 + 6) + '">' + nr + '</text>'); }
+      var cx = u[0] / 100 * VB, cy = u[1] / 100 * VH, r = u[2] / 100 * VB;
+      vglSvg.insertAdjacentHTML('beforeend', '<circle cx="' + cx.toFixed(1) + '" cy="' + cy.toFixed(1) + '" r="' + r.toFixed(1) + '"/>');
+      if (u[3]) { nr++; vglSvg.insertAdjacentHTML('beforeend', '<text x="' + Math.max(4, cx - r * 0.75 - 12).toFixed(1) + '" y="' + Math.max(44, cy - r * 0.7 + 12).toFixed(1) + '">' + nr + '</text>'); }
     });
   }
   function blinkenStopp() {
@@ -589,12 +621,13 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
     var sichtbar = false;
     st.blinkTimer = setInterval(function () { sichtbar = !sichtbar; vglOben.style.opacity = sichtbar ? 1 : 0; }, 700);
   });
-  $('#bm-v-loesung').addEventListener('change', function () { vglSvg.hidden = !this.checked; });
+  // SVG-Elemente kennen die Eigenschaft .hidden nicht – deshalb das Attribut direkt setzen
+  $('#bm-v-loesung').addEventListener('change', function () { if (this.checked) vglSvg.removeAttribute('hidden'); else vglSvg.setAttribute('hidden', ''); });
 
   /* ---------- Bildinfo ---------- */
   function infoZeichnen() {
     var b = aktuell(), i = b.info || {};
-    var zeilen = [['Bildart', i.art], ['Künstler/in', i.von], ['Jahr', i.jahr], ['Maße', i.mass], ['Ort', i.ort], ['Einsatz', b.stunden]];
+    var zeilen = [['Bildart', i.art], ['Zeichner/in', i.von], ['Jahr', i.jahr], ['Format', b.hoch ? 'Hochformat (2 : 3)' : 'Querformat (3 : 2)'], ['Einsatz', b.stunden]];
     infoEl.innerHTML = '<button type="button" class="bm-zu" aria-label="Bildinfo schließen">✕</button><h3></h3><dl></dl>';
     $('h3', infoEl).textContent = '„' + b.titel + '“';
     var dl = $('dl', infoEl);
@@ -627,7 +660,7 @@ html.bm-pseudo-aktiv, html.bm-pseudo-aktiv body { overflow: hidden; }
       case 'vergleich':
         box.hidden = an; vglB.hidden = !an; vglA.hidden = !an || st.vModus !== 'neben';
         if (an) { vglLoesung(); vglModus(); $('#bm-titel').textContent = 'Fehlerbild-Vergleich: Das Kinderzimmer'; }
-        else { blinkenStopp(); vglA.hidden = true; var b = aktuell(); $('#bm-titel').textContent = b.titel + (b.info && b.info.jahr !== '–' ? ' – ' + b.info.von + ', ' + b.info.jahr : ''); }
+        else { blinkenStopp(); vglA.hidden = true; $('#bm-titel').textContent = aktuell().titel; }
         break;
       case 'info': infoEl.hidden = !an; break;
     }

@@ -33,12 +33,12 @@ HEAD = """<!doctype html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Andika:ital,wght@0,400;0,700;1,400&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
-<link rel="icon" href="bilder/lupo.svg">
+<link rel="icon" href="bilder/lupo.png">
 </head>
 <body class="seite-{slug}">
 <header class="site-header no-print">
   <div class="inner">
-    <a class="brand" href="index.html"><img src="bilder/lupo.svg" alt=""><span>Bildbeschreibung<small>Deutsch · Klasse 5</small></span></a>
+    <a class="brand" href="index.html"><img src="bilder/lupo.png" alt=""><span>Bildbeschreibung<small>Deutsch · Klasse 5</small></span></a>
     <nav class="nav" aria-label="Hauptnavigation">
 {nav}
     </nav>
@@ -50,7 +50,7 @@ HEAD = """<!doctype html>
 FOOT = """
 </main>
 <footer class="site-footer no-print">
-  Unterrichtsreihe „Bildbeschreibung“ · Klasse 5 · Übungsbilder: eigene Illustrationen · Gemälde: Pieter Bruegel d. Ä. und Carl Spitzweg (gemeinfrei, Wikimedia Commons)
+  Unterrichtsreihe „Bildbeschreibung“ · Klasse 5 · Alle Illustrationen wurden für diese Reihe mit KI-Bildgenerierung erstellt.
 </footer>
 <script src="assets/app.js"></script>
 </body>
