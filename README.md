@@ -4,6 +4,8 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
+- **[Was der Berg behält: Roman vom Donnersberg](https://loggel.github.io/static-pages/was-der-berg-behaelt/)**: a complete German historical low-fantasy novel (~113,000 words) about the Celtic oppidum on the Donnersberg, 54–51 BC, and why it was abandoned. A glassmaker with a lightning-struck, singing ear, a courteous Etruscan-Roman prefect as antagonist, Gaulish myth (Taranis, the triad of water, tree and fire), magic that is always ambiguous. Built in a reader with part illustrations, table of contents, reading progress, light/ember themes, glossary pop-ups, and an appendix with characters, calendar and an afterword on fact versus fiction. Source (chapters, story bible, chapter plan, research dossiers, build script): `sources/was-der-berg-behaelt/`.
+
 - **[Bildbeschreibung: Schritt für Schritt zum Bilddetektiv](https://loggel.github.io/static-pages/bildbeschreibung-klasse5/)**: a complete German grade-5 teaching unit on picture description. Lesson plan, 13 lessons plus a feedback lesson with word-for-word teacher prompts, 18 printable A4 worksheets with solutions, a poster and word bank, 12 homework tasks with varied checks and short tests, a 35-method kit, ten interactive learning games with a printable diploma, a projector mode (grid, zones, magnifier, Kim-game timer) and a class test with marking scheme. Nine consistent picture-book illustrations (incl. a spot-the-difference pair and a hidden-object picture) generated with Codex image generation. Source: `sources/bildbeschreibung-klasse5/`.
 
 - **[DOPAMIN: Eine Nacht auf Koks](https://loggel.github.io/static-pages/dopamin/)**: the cocaine counterpart to SEROTONIN. Drag a rolled note along the line, then live through five acts (the line, the kick, king of the world, the spiral, the crash) driven by a small pharmacokinetic model: every line is a bolus, acute tolerance shrinks each high while pulse and blood pressure keep stacking. Recurring "one more line?" decisions (including calling the dealer), a crystal-shard WebGL shader, generative tech-house, paranoid crowds that turn to stare, alcohol and cocaethylene, nosebleeds, extrasystoles, regrettable voice messages, and a Sunday recap with per-line highs and safer-use info. Art/education project, no endorsement. Source: `sources/dopamin/`.
@@ -48,6 +50,7 @@ The editable source for the Creepshow rehearsal planner lives in
 ## Live site
 
 - Gallery: <https://loggel.github.io/static-pages/>
+- Was der Berg behält (novel): <https://loggel.github.io/static-pages/was-der-berg-behaelt/>
 - Bildbeschreibung teaching unit: <https://loggel.github.io/static-pages/bildbeschreibung-klasse5/>
 - DOPAMIN night simulation: <https://loggel.github.io/static-pages/dopamin/>
 - SEROTONIN night simulation: <https://loggel.github.io/static-pages/serotonin/>

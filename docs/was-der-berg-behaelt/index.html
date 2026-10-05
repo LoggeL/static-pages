@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Was der Berg behält</title>
+    <meta name="description" content="Was der Berg behält – ein Roman vom Donnersberg. Kelten, Rom und die Frage, warum eine Stadt auf dem Berg verlassen wurde." />
+    <meta name="theme-color" content="#14110e" />
+    <meta property="og:title" content="Was der Berg behält – Roman vom Donnersberg" />
+    <meta property="og:description" content="Nordpfalz, 54 bis 51 v. Chr.: Eine Glasbrennerin mit singendem Ohr, ein höflicher römischer Präfekt und eine Stadt, die nie erobert wurde – und trotzdem verlassen." />
+    <meta property="og:image" content="img/preview.webp" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      try {
+        var t = localStorage.getItem("wdbb-theme");
+        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+        var f = localStorage.getItem("wdbb-size");
+        if (f) document.documentElement.style.setProperty("--fs", f + "px");
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div class="progress" aria-hidden="true"><i id="progress"></i></div>
+
+    <header class="bar" id="bar" hidden>
+      <button class="icon" id="btn-toc" aria-label="Inhaltsverzeichnis">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h11" /></svg>
+      </button>
+      <a class="bar__title" href="#" id="bar-title">Was der Berg behält</a>
+      <button class="icon" id="btn-settings" aria-label="Leseeinstellungen" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 10 5h1l5 14M7 14h7M17 9l2 6 2-6" /></svg>
+      </button>
+    </header>
+
+    <div class="settings" id="settings" hidden>
+      <div class="settings__row">
+        <span>Schriftgröße</span>
+        <div class="seg">
+          <button id="fs-down" aria-label="Kleiner">A−</button>
+          <button id="fs-up" aria-label="Größer">A+</button>
+        </div>
+      </div>
+      <div class="settings__row">
+        <span>Darstellung</span>
+        <div class="seg" role="radiogroup" aria-label="Darstellung">
+          <button data-theme-set="light" role="radio">Hell</button>
+          <button data-theme-set="auto" role="radio">Auto</button>
+          <button data-theme-set="dark" role="radio">Glut</button>
+        </div>
+      </div>
+    </div>
+
+    <main id="app">
+      <section class="cover" id="view-cover">
+        <div class="cover__img" role="img" aria-label="Eine Frau mit geflochtenem Haar steht auf einer Mauer aus Stein und Holzpfosten und blickt über die Rheinebene, über der ein Gewitter aufzieht"></div>
+        <div class="cover__text">
+          <p class="eyebrow">Roman vom Donnersberg</p>
+          <h1>Was der Berg behält</h1>
+          <p class="blurb">
+            Nordpfalz, 54 bis 51 vor Christus. Seit ein Blitz ihre Großmutter erschlug, singt Samocnas linkes Ohr, und die Leute nennen die Glasbrennerin das Kind des Donnernden. Sie selbst schweigt, seit ein Wort von ihr einen Unschuldigen das Leben kostete.
+          </p>
+          <p class="blurb">
+            Dann kommt Rom: nicht mit Sturm, sondern mit Wein, Geiseln, Getreidelisten und einem höflichen Präfekten, der die Menschen auf dem Berg schon verkauft hat, bevor er sie hat. Achteinhalbtausend Schritt Mauer schützen nicht vor einem Feind, der wartet. Was rettet man, wenn man den Ort nicht retten kann?
+          </p>
+          <div class="cover__actions">
+            <a class="btn btn--primary" id="btn-start" href="#prolog">Lesen beginnen</a>
+            <a class="btn" id="btn-continue" href="#" hidden>Weiterlesen</a>
+            <a class="btn btn--ghost" href="#inhalt">Inhalt</a>
+          </div>
+          <p class="meta" id="cover-meta"></p>
+        </div>
+      </section>
+
+      <section class="toc" id="view-toc" hidden>
+        <div class="toc__inner">
+          <p class="eyebrow">Was der Berg behält</p>
+          <h2>Inhalt</h2>
+          <nav id="toc-list" aria-label="Kapitel"></nav>
+        </div>
+      </section>
+
+      <article class="chapter" id="view-chapter" hidden>
+        <div class="part-opener" id="part-opener" hidden>
+          <img id="part-img" alt="" />
+          <div class="part-opener__text">
+            <p id="part-num"></p>
+            <h2 id="part-title"></h2>
+          </div>
+        </div>
+        <header class="chapter__head">
+          <p class="chapter__label" id="ch-label"></p>
+          <h1 id="ch-title"></h1>
+          <p class="chapter__dateline" id="ch-head"></p>
+        </header>
+        <div class="prose" id="ch-body"></div>
+        <nav class="pager" aria-label="Kapitelnavigation">
+          <a id="prev" class="pager__link pager__link--prev" href="#"><small>Zurück</small><span></span></a>
+          <a id="next" class="pager__link pager__link--next" href="#"><small>Weiter</small><span></span></a>
+        </nav>
+      </article>
+    </main>
+
+    <div class="gl-pop" id="gl-pop" role="tooltip" hidden></div>
+    <script src="app.js"></script>
+  </body>
+</html>
