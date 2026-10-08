@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deine Länge · Haarästhetik Lumen</title>
+<meta name="description" content="Das Längen-Lineal der Lumen Edition: vier Haarlängen, stufenlos ineinander gemorpht – Haarästhetik Christian Bernhardt.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@200;300;400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:,">
+<style>
+/* ───────────── Seite (nicht Teil der Komponente) ───────────── */
+:root{
+  --ivory:#f3f0ea; --travertine:#e7e1d6; --sand:#d9cfbf; --ink:#1a1816; --dim:#6f685e;
+  --gold:#c9a46a; --gold-2:#e8d5b0; --gold-deep:#9a7640;
+  --f-display:"Inter Tight",system-ui,sans-serif; --f-serif:"Cormorant Garamond",Georgia,serif;
+  --f-sans:"Inter",system-ui,sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--ivory);color:var(--ink);font-family:var(--f-sans);font-weight:300;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+.hl-page{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:clamp(28px,5vh,64px) clamp(16px,4vw,64px) clamp(40px,6vh,72px);isolation:isolate}
+.hl-page::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(60% 55% at 58% 42%, rgba(232,213,176,.42), transparent 70%),
+    radial-gradient(40% 40% at 10% 100%, rgba(217,207,191,.5), transparent 70%),
+    linear-gradient(180deg,#f5f2ec 0%,#efebe3 100%)}
+.hl-foot{position:absolute;left:clamp(16px,4vw,64px);right:clamp(16px,4vw,64px);bottom:18px;
+  display:flex;justify-content:space-between;gap:16px;font:400 10px/1.4 var(--f-mono);letter-spacing:.14em;
+  text-transform:uppercase;color:var(--dim);opacity:.8}
+@media (max-width:760px){.hl-foot{position:static;margin-top:28px;flex-direction:column;gap:4px}
+  .hl-page{flex-direction:column}}
+
+/* ───────────── Komponente .hl-morph ─────────────
+   Alles Folgende ist gekapselt und kann 1:1 in die Hauptseite übernommen werden.
+   Farben laufen über lokale Custom Properties mit Fallback auf die Lumen-Tokens. */
+.hl-morph{
+  --hl-fg:var(--fg,#1a1816); --hl-dim:var(--fg-dim,#6f685e); --hl-line:var(--line,rgba(26,24,22,.16));
+  --hl-gold:#c9a46a; --hl-gold-2:#e8d5b0; --hl-gold-deep:#9a7640;
+  --hl-h:min(76vh,740px);           /* Bildhöhe */
+  --hl-w:calc(var(--hl-h) * 2 / 3); /* Bildbreite (2:3) */
+  position:relative;width:100%;max-width:1280px;color:var(--hl-fg);
+  display:grid;grid-template-columns:minmax(0,1fr) var(--hl-w) 300px;
+  grid-template-areas:"head stage tape" "read stage tape";
+  grid-template-rows:auto 1fr;column-gap:clamp(24px,3.4vw,56px);align-items:start;
+  font-family:var(--f-sans,"Inter",sans-serif)}
+.hl-morph .hl-head{grid-area:head;padding-top:clamp(8px,4vh,48px)}
+.hl-morph .hl-kicker{font:500 11px/1.5 var(--f-mono,monospace);letter-spacing:.2em;text-transform:uppercase;color:var(--hl-dim);
+  display:flex;align-items:center;gap:12px;margin:0 0 22px}
+.hl-morph .hl-kicker::before{content:"";width:28px;height:1px;background:var(--hl-gold)}
+.hl-morph .hl-title{font:400 clamp(52px,6.2vw,96px)/.92 var(--f-serif,serif);letter-spacing:-.015em;margin:0}
+.hl-morph .hl-title em{font-style:italic;color:var(--hl-gold-deep)}
+.hl-morph .hl-lead{font:400 clamp(18px,1.45vw,21px)/1.45 var(--f-serif,serif);color:var(--hl-dim);max-width:30ch;margin:22px 0 0}
+
+/* Bühne: Bogen */
+.hl-morph .hl-stage{grid-area:stage;position:relative;margin:0;width:var(--hl-w);height:var(--hl-h)}
+.hl-morph .hl-stage::before{content:"";position:absolute;inset:-14px -14px -1px;border:1px solid rgba(201,164,106,.38);border-bottom:0;
+  border-radius:9999px 9999px 0 0;pointer-events:none}
+.hl-morph .hl-arch{position:absolute;inset:0;overflow:hidden;border-radius:9999px 9999px 0 0;background:#e3dccf;
+  box-shadow:0 40px 80px -40px rgba(60,44,20,.35);-webkit-mask-image:-webkit-radial-gradient(white,black);transform:translateZ(0)}
+.hl-morph .hl-layer,.hl-morph .hl-gl{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+.hl-morph .hl-layer{opacity:0;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.hl-morph .hl-layer.is-base{opacity:1}
+.hl-morph .hl-layer.is-top{opacity:1;
+  -webkit-mask-image:linear-gradient(180deg,#000 0,#000 calc(var(--f) - var(--s)),rgba(0,0,0,var(--x)) calc(var(--f) + var(--s)));
+          mask-image:linear-gradient(180deg,#000 0,#000 calc(var(--f) - var(--s)),rgba(0,0,0,var(--x)) calc(var(--f) + var(--s)))}
+.hl-morph .hl-gl{opacity:0;transition:opacity .6s ease}
+.hl-morph.is-gl .hl-gl{opacity:1}
+/* Messlinie auf Höhe des Reglers */
+.hl-morph .hl-gauge{position:absolute;left:0;right:-1px;top:0;height:0;pointer-events:none;
+  transform:translateY(var(--gy,0px));border-top:1px dashed rgba(255,247,232,.55);opacity:.0;transition:opacity .4s}
+.hl-morph.is-active .hl-gauge{opacity:1}
+
+/* Maßband */
+.hl-morph .hl-tape{grid-area:tape;position:relative;height:var(--hl-h);touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+.hl-morph.is-drag .hl-tape{cursor:grabbing}
+.hl-morph .hl-ruler{position:absolute;left:10px;top:0;bottom:0;width:22px}
+.hl-morph .hl-ruler::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--hl-line)}
+.hl-morph .hl-ticks{position:absolute;left:0;top:0;bottom:0;width:22px;
+  background:
+    repeating-linear-gradient(180deg,var(--hl-line) 0 1px,transparent 1px 40px) 0 0/14px 100% no-repeat,
+    repeating-linear-gradient(180deg,var(--hl-line) 0 1px,transparent 1px 8px) 0 0/7px 100% no-repeat;
+  opacity:.9}
+.hl-morph .hl-fill{position:absolute;left:-.5px;top:0;width:2px;height:var(--ty,0px);
+  background:linear-gradient(180deg,rgba(201,164,106,0),var(--hl-gold) 30%,var(--hl-gold-deep));border-radius:2px}
+.hl-morph .hl-thumb{position:absolute;left:-12px;top:0;width:24px;height:24px;margin-top:-12px;border-radius:50%;
+  transform:translateY(var(--ty,0px));outline:none;cursor:grab;z-index:3;
+  background:radial-gradient(circle at 35% 30%,#fff6e3 0,#e8d5b0 28%,#c9a46a 62%,#9a7640 100%);
+  box-shadow:0 0 0 1px rgba(154,118,64,.55),0 6px 18px -4px rgba(120,86,36,.55),0 0 0 6px rgba(201,164,106,.14)}
+.hl-morph .hl-thumb::after{content:"";position:absolute;inset:-11px;border-radius:50%;border:1px solid rgba(201,164,106,.45);
+  transform:scale(.6);opacity:0;transition:transform .35s cubic-bezier(.2,.8,.2,1),opacity .35s;animation:hl-pulse 2.6s cubic-bezier(.2,.7,.2,1) 1.2s infinite}
+.hl-morph.was-used .hl-thumb::after{animation:none}
+@keyframes hl-pulse{0%{transform:scale(.55);opacity:.9}70%,100%{transform:scale(1.5);opacity:0}}
+.hl-morph .hl-thumb:hover::after,.hl-morph.is-drag .hl-thumb::after{transform:scale(1);opacity:1}
+.hl-morph .hl-thumb:focus-visible{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--hl-gold-deep),0 6px 18px -4px rgba(120,86,36,.55)}
+.hl-morph .hl-marks{list-style:none;margin:0;padding:0;position:absolute;inset:0 0 0 0}
+.hl-morph .hl-mark{position:absolute;left:0;right:0;top:var(--my);height:0}
+.hl-morph .hl-mark button{all:unset;box-sizing:border-box;position:absolute;left:0;right:0;top:0;
+  padding:8px 0 8px 52px;cursor:pointer;display:block;-webkit-tap-highlight-color:transparent;transform:translateY(-15px)}
+.hl-morph .hl-mark button::before{content:"";position:absolute;left:10px;top:15px;width:22px;height:1px;background:var(--hl-fg);opacity:.55;
+  transition:width .4s cubic-bezier(.2,.8,.2,1),background .3s,opacity .3s}
+.hl-morph .hl-mark button::after{content:"";position:absolute;left:6px;top:15px;width:9px;height:9px;margin-top:-4px;border-radius:50%;
+  border:1px solid var(--hl-dim);background:var(--ivory,#f3f0ea);transition:border-color .3s,background .3s,transform .3s}
+.hl-morph .hl-mk-a{display:block;font:500 10.5px/1.3 var(--f-mono,monospace);letter-spacing:.16em;text-transform:uppercase;color:var(--hl-dim);transition:color .3s}
+.hl-morph .hl-dot{font-style:normal}
+.hl-morph .hl-mk-a b{font-weight:500;color:var(--hl-fg)}
+.hl-morph .hl-mk-b{display:block;margin-top:3px;font:italic 400 15px/1.25 var(--f-serif,serif);color:var(--hl-dim);max-width:31ch;text-wrap:balance;transition:color .3s}
+.hl-morph .hl-mark.is-on button::before{width:34px;background:var(--hl-gold);opacity:1}
+.hl-morph .hl-mark.is-on button::after{border-color:var(--hl-gold-deep);background:var(--hl-gold);transform:scale(1.1)}
+.hl-morph .hl-mark.is-on .hl-mk-a{color:var(--hl-gold-deep)}
+.hl-morph .hl-mark.is-on .hl-mk-b{color:var(--hl-fg)}
+.hl-morph .hl-mark button:focus-visible .hl-mk-a{outline:1px solid var(--hl-gold-deep);outline-offset:4px}
+.hl-morph .hl-mark button:hover .hl-mk-a{color:var(--hl-fg)}
+
+/* Anzeige */
+.hl-morph .hl-read{grid-area:read;align-self:end;padding-bottom:6px;container-type:inline-size;min-width:0}
+.hl-morph .hl-read-k{font:500 10.5px/1 var(--f-mono,monospace);letter-spacing:.2em;text-transform:uppercase;color:var(--hl-dim);display:flex;gap:10px;align-items:center}
+.hl-morph .hl-read-k i{font-style:normal;color:var(--hl-gold-deep)}
+.hl-morph .hl-name{position:relative;font:200 clamp(64px,9vw,144px)/1 var(--f-display,sans-serif);font-size:min(144px,20.5cqi);height:1.06em;overflow:hidden;margin:10px 0 4px}
+.hl-morph .hl-name span{position:absolute;left:-.04em;top:0;font:inherit;letter-spacing:-.045em;
+  white-space:nowrap;transition:transform .7s cubic-bezier(.2,.8,.15,1),opacity .5s}
+.hl-morph .hl-name span.out-up{transform:translateY(-105%);opacity:0}
+.hl-morph .hl-name span.out-down{transform:translateY(105%);opacity:0}
+.hl-morph .hl-name span.pre-up{transform:translateY(105%);opacity:0;transition:none}
+.hl-morph .hl-name span.pre-down{transform:translateY(-105%);opacity:0;transition:none}
+.hl-morph .hl-def{font:italic 400 clamp(20px,1.7vw,25px)/1.3 var(--f-serif,serif);margin:0;min-height:2.6em;max-width:26ch;text-wrap:balance}
+.hl-morph .hl-price{display:flex;align-items:baseline;gap:18px;margin-top:22px;padding-top:18px;border-top:1px solid var(--hl-line);max-width:420px}
+.hl-morph .hl-price-l{font:500 10px/1.5 var(--f-mono,monospace);letter-spacing:.16em;text-transform:uppercase;color:var(--hl-dim);flex:1}
+.hl-morph .hl-price-l small{display:block;font:italic 400 14px/1.3 var(--f-serif,serif);letter-spacing:0;text-transform:none;margin-top:2px}
+.hl-morph .hl-num{display:inline-flex;font:300 44px/1 var(--f-display,sans-serif);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.hl-morph .hl-digit{display:inline-block;height:1em;overflow:hidden;position:relative;width:.6em}
+.hl-morph .hl-digit i{display:flex;flex-direction:column;font-style:normal;transition:transform .8s cubic-bezier(.2,.8,.15,1)}
+.hl-morph .hl-digit i b{display:block;height:1em;font-weight:inherit;text-align:center}
+.hl-morph .hl-cur{font:300 26px/1 var(--f-display,sans-serif);margin-left:.18em;color:var(--hl-dim)}
+.hl-morph .hl-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Tablet */
+@media (max-width:1100px){
+  .hl-morph{--hl-h:min(70vh,640px);grid-template-columns:minmax(0,1fr) var(--hl-w) 200px}
+  .hl-morph .hl-mk-b{font-size:14px}
+}
+/* Mobil: Kopf oben, Bogen + schmales Maßband nebeneinander, Anzeige darunter */
+@media (max-width:760px){
+  .hl-morph{--hl-w:calc(100vw - 32px - 124px);--hl-h:calc(var(--hl-w) * 1.5);
+    grid-template-columns:var(--hl-w) 1fr;grid-template-areas:"head head" "stage tape" "read read";
+    grid-template-rows:auto auto auto;column-gap:14px}
+  .hl-morph .hl-head{padding-top:0;margin-bottom:34px}
+  .hl-morph .hl-title{font-size:56px}
+  .hl-morph .hl-lead{font-size:18px}
+  .hl-morph .hl-stage::before{inset:-9px -9px -1px}
+  .hl-morph .hl-ruler{left:6px}
+  .hl-morph .hl-mark button{padding:7px 0 7px 34px;transform:translateY(-13px)}
+  .hl-morph .hl-mark button::before,.hl-morph .hl-mark button::after{top:13px}
+  .hl-morph .hl-mark button::before{left:6px;width:14px}
+  .hl-morph .hl-mark.is-on button::before{width:22px}
+  .hl-morph .hl-mark button::after{left:2px}
+  .hl-morph .hl-mk-a{font-size:9.5px;letter-spacing:.12em}
+  .hl-morph .hl-mk-a span{display:block;color:var(--hl-dim);font-weight:400}
+  .hl-morph .hl-mk-b{display:none}
+  .hl-morph .hl-dot{display:none}
+  .hl-morph .hl-thumb{left:-6px}
+  .hl-morph .hl-read{margin-top:30px}
+}
+@media (prefers-reduced-motion:reduce){
+  .hl-morph *,.hl-morph *::after{transition-duration:.01ms!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<main class="hl-page">
+
+  <!-- ═══════════ Komponente: Längen-Lineal mit Morph ═══════════ -->
+  <section class="hl-morph" data-src="img/laenge/" data-value="1" aria-labelledby="hl-title">
+    <header class="hl-head">
+      <p class="hl-kicker">Haarästhetik · Lumen · Längen-Lineal</p>
+      <h1 class="hl-title" id="hl-title">Deine <em>Länge.</em></h1>
+      <p class="hl-lead">Vier Längen, ein Maßband. Zieh den goldenen Regler – und sieh, wo deine Länge beginnt.</p>
+    </header>
+
+    <figure class="hl-stage">
+      <div class="hl-arch">
+        <img class="hl-layer" data-i="0" src="img/laenge/kurz-s.webp" alt="" width="1024" height="1536" decoding="async">
+        <img class="hl-layer is-base" data-i="1" src="img/laenge/mittel-s.webp" alt="Porträt einer Frau mit kinnlangem Bob vor einer Travertinwand" width="1024" height="1536" decoding="async" fetchpriority="high">
+        <img class="hl-layer" data-i="2" src="img/laenge/lang-s.webp" alt="" width="1024" height="1536" decoding="async">
+        <img class="hl-layer" data-i="3" src="img/laenge/aufwendig-s.webp" alt="" width="1024" height="1536" decoding="async">
+        <canvas class="hl-gl" aria-hidden="true"></canvas>
+        <span class="hl-gauge" aria-hidden="true"></span>
+      </div>
+    </figure>
+
+    <div class="hl-tape">
+      <div class="hl-ruler">
+        <span class="hl-ticks" aria-hidden="true"></span>
+        <span class="hl-fill" aria-hidden="true"></span>
+        <span class="hl-thumb" role="slider" tabindex="0" aria-label="Haarlänge" aria-orientation="vertical"
+              aria-valuemin="0" aria-valuemax="3" aria-valuenow="1" aria-valuetext="mittel – über Ohr bis einschließlich Kinn"></span>
+      </div>
+      <ol class="hl-marks">
+        <li class="hl-mark" data-v="0" style="--my:35%"><button type="button"><span class="hl-mk-a"><b>Ohr</b><i class="hl-dot"> · </i><span>kurz</span></span><span class="hl-mk-b">bis einschließlich Ohr</span></button></li>
+        <li class="hl-mark" data-v="1" style="--my:46.5%"><button type="button"><span class="hl-mk-a"><b>Kinn</b><i class="hl-dot"> · </i><span>mittel</span></span><span class="hl-mk-b">über Ohr bis einschließlich Kinn</span></button></li>
+        <li class="hl-mark" data-v="2" style="--my:56%"><button type="button"><span class="hl-mk-a"><b>Schulter</b><i class="hl-dot"> · </i><span>lang</span></span><span class="hl-mk-b">über Kinn bis einschließlich Schulter</span></button></li>
+        <li class="hl-mark" data-v="3" style="--my:80%"><button type="button"><span class="hl-mk-a"><b>darüber</b><i class="hl-dot"> · </i><span>aufwendig</span></span><span class="hl-mk-b">über Schulterlänge bzw. sehr dichtes Haar</span></button></li>
+      </ol>
+    </div>
+
+    <div class="hl-read">
+      <p class="hl-read-k">Deine Länge <i>·</i> <span class="hl-idx">II / IV</span></p>
+      <div class="hl-name" aria-hidden="true"><span>mittel</span></div>
+      <p class="hl-def">über Ohr bis einschließlich Kinn</p>
+      <div class="hl-price">
+        <span class="hl-price-l">Schnittleistung<small>ohne Föhnen, inkl. Haarbad &amp; Pflege</small></span>
+        <span class="hl-num" aria-hidden="true"></span><span class="hl-cur" aria-hidden="true">€</span>
+      </div>
+      <p class="hl-sr" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <footer class="hl-foot">
+    <span>Christian Bernhardt · Haarästhetik</span>
+    <span>Grundpreise ab 09/2026 · inkl. MwSt.</span>
+  </footer>
+</main>
+
+<script>
+/* ═══════════ HLMorph – Längen-Lineal mit Haar-Morph ═══════════
+   API: HLMorph.init(rootEl, opts?) → { set(v, animate), get(), destroy() }
+   Event: 'hl:change' am Root, detail { value, index, len } (beim Einrasten).
+   ?morph=css erzwingt die CSS-Variante (Wachstums-Wipe). */
+(function () {
+  'use strict';
+  var LENS = ['kurz', 'mittel', 'lang', 'aufwendig'];
+  var DEFS = ['bis einschließlich Ohr', 'über Ohr bis einschließlich Kinn', 'über Kinn bis einschließlich Schulter', 'über Schulterlänge bzw. sehr dichtes Haar'];
+  var PRICES = [45, 57, 66, 90];
+  var ROMAN = ['I', 'II', 'III', 'IV'];
+  // vertikaler Änderungsbereich je Übergang (Anteil der Bildhöhe), aus Differenzbildern gemessen
+  var ZONES = [[0.24, 0.49], [0.41, 0.58], [0.45, 1.0]];
+
+  var VS = 'attribute vec2 p;varying vec2 uv;void main(){uv=vec2(p.x*.5+.5,.5-p.y*.5);gl_Position=vec4(p,0.,1.);}';
+  var FS = [
+    'precision highp float;varying vec2 uv;',
+    'uniform sampler2D A,B;uniform float t,y0,y1,soft,amp,rim,disp,fq;',
+    'float h(vec2 q){return fract(sin(dot(q,vec2(127.1,311.7)))*43758.5453);}',
+    'float n(vec2 q){vec2 i=floor(q),f=fract(q);f=f*f*(3.-2.*f);',
+    ' return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}',
+    'float lum(vec3 c){return dot(c,vec3(.299,.587,.114));}',
+    'void main(){',
+    // Strähnen: feines Rauschen in x (viele Strähnen), sehr langsam in y → unterschiedlich lange Spitzen
+    ' float st=n(vec2(uv.x*fq,uv.y*.8))*.45+n(vec2(uv.x*fq*.31+5.,uv.y*.5))*.35+n(vec2(uv.x*7.,1.3))*.2;',
+    ' float F=mix(y0-soft-amp,y1+soft+amp,t);',
+    ' float edge=F+(st-.5)*2.*amp;',
+    ' float w=1.-smoothstep(edge-soft,edge+soft,uv.y);',
+    ' w*=smoothstep(0.,.06,t);w=mix(w,1.,smoothstep(.92,1.,t));',
+    ' w=mix(w,t,.12);',
+    ' float band=clamp(w*(1.-w)*4.,0.,1.);',
+    ' float d=disp*band*sin(3.14159*t);',
+    ' vec3 a=texture2D(A,uv+vec2(0.,d*.4)).rgb;',
+    ' vec3 b=texture2D(B,uv-vec2(0.,d)).rgb;',
+    ' vec3 c=mix(a,b,w);',
+    // Lichtsaum nur an den Spitzen des neu wachsenden Haars (B dunkel = Haar, A hell = Haut/Wand)
+    ' float hb=1.-smoothstep(.30,.46,lum(b)),ha=1.-smoothstep(.30,.46,lum(a));',
+    ' float tip=hb*(1.-ha);',
+    ' float line=exp(-pow((uv.y-edge)/(soft*.55),2.));',
+    ' c+=vec3(.95,.80,.55)*line*tip*rim*sin(3.14159*t);',
+    ' gl_FragColor=vec4(c,1.);}'
+  ].join('\n');
+
+  function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
+  function easeOut(x) { return 1 - Math.pow(1 - x, 3); }
+  function easeIO(x) { return x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+
+  function init(root, opts) {
+    opts = opts || {};
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var forceCss = opts.mode === 'css' || /[?&]morph=css/.test(location.search);
+    var src = root.getAttribute('data-src') || 'img/laenge/';
+    var stage = root.querySelector('.hl-stage'), arch = root.querySelector('.hl-arch');
+    var layers = [].slice.call(root.querySelectorAll('.hl-layer'));
+    var canvas = root.querySelector('.hl-gl'), gauge = root.querySelector('.hl-gauge');
+    var tape = root.querySelector('.hl-tape'), thumb = root.querySelector('.hl-thumb');
+    var marks = [].slice.call(root.querySelectorAll('.hl-mark'));
+    var nameBox = root.querySelector('.hl-name'), defEl = root.querySelector('.hl-def'), idxEl = root.querySelector('.hl-idx');
+    var numEl = root.querySelector('.hl-num'), live = root.querySelector('[aria-live]');
+
+    // Shader-Parameter (per Query überschreibbar, zum Feintuning)
+    var P = { soft: .05, amp: .038, rim: .16, disp: .004, fq: 160 };
+    location.search.replace(/[?&](soft|amp|rim|disp|fq)=([\d.]+)/g, function (_, k, v) { P[k] = parseFloat(v); });
+    var value = clamp(parseFloat(root.getAttribute('data-value')) || 0, 0, 3);
+    var shown = -1, priceShown = -1, gl = null, raf = 0, anim = null, dragging = false, keyTimer = 0;
+
+    // ── Marken-Geometrie (Prozent der Bandhöhe) ──
+    function markY() { return marks.map(function (m) { return parseFloat(m.style.getPropertyValue('--my')) / 100; }); }
+    var MY = markY();
+    function valToY(v) { var i = Math.min(2, Math.floor(v)), f = v - i; return MY[i] + (MY[i + 1] - MY[i]) * f; }
+    function yToVal(y) {
+      if (y <= MY[0]) return 0; if (y >= MY[3]) return 3;
+      for (var i = 0; i < 3; i++) if (y <= MY[i + 1]) return i + (y - MY[i]) / (MY[i + 1] - MY[i]);
+      return 3;
+    }
+
+    // ── Bildquellen: große Variante, wenn das Display es braucht ──
+    function pickSrc(i) {
+      var big = stage.getBoundingClientRect().width * Math.min(window.devicePixelRatio || 1, 2) > 560;
+      return src + LENS[i] + (big ? '' : '-s') + '.webp';
+    }
+    layers.forEach(function (img, i) { var s = pickSrc(i); if (img.getAttribute('src') !== s) img.src = s; });
+
+    // ── WebGL ──
+    function setupGL() {
+      if (forceCss) return null;
+      var g = canvas.getContext('webgl', { premultipliedAlpha: false, antialias: false, preserveDrawingBuffer: true });
+      if (!g) return null;
+      function sh(type, s) { var o = g.createShader(type); g.shaderSource(o, s); g.compileShader(o); if (!g.getShaderParameter(o, g.COMPILE_STATUS)) throw new Error(g.getShaderInfoLog(o)); return o; }
+      try {
+        var pr = g.createProgram();
+        g.attachShader(pr, sh(g.VERTEX_SHADER, VS)); g.attachShader(pr, sh(g.FRAGMENT_SHADER, FS)); g.linkProgram(pr);
+        if (!g.getProgramParameter(pr, g.LINK_STATUS)) return null;
+        g.useProgram(pr);
+      } catch (e) { return null; }
+      var buf = g.createBuffer(); g.bindBuffer(g.ARRAY_BUFFER, buf);
+      g.bufferData(g.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), g.STATIC_DRAW);
+      var loc = g.getAttribLocation(pr, 'p'); g.enableVertexAttribArray(loc); g.vertexAttribPointer(loc, 2, g.FLOAT, false, 0, 0);
+      var U = {}; ['A', 'B', 't', 'y0', 'y1', 'soft', 'amp', 'rim', 'disp', 'fq'].forEach(function (k) { U[k] = g.getUniformLocation(pr, k); });
+      g.uniform1i(U.A, 0); g.uniform1i(U.B, 1);
+      return { g: g, U: U, tex: [], ready: 0 };
+    }
+    function loadTextures(cb) {
+      var g = gl.g, n = 0;
+      layers.forEach(function (img, i) {
+        var im = new Image(); im.decoding = 'async';
+        im.onload = function () {
+          var tx = g.createTexture(); g.bindTexture(g.TEXTURE_2D, tx);
+          g.texImage2D(g.TEXTURE_2D, 0, g.RGB, g.RGB, g.UNSIGNED_BYTE, im);
+          [g.TEXTURE_WRAP_S, g.TEXTURE_WRAP_T].forEach(function (p) { g.texParameteri(g.TEXTURE_2D, p, g.CLAMP_TO_EDGE); });
+          g.texParameteri(g.TEXTURE_2D, g.TEXTURE_MIN_FILTER, g.LINEAR); g.texParameteri(g.TEXTURE_2D, g.TEXTURE_MAG_FILTER, g.LINEAR);
+          gl.tex[i] = tx; if (++n === 4) cb();
+        };
+        im.onerror = function () { gl = null; root.classList.remove('is-gl'); };
+        im.src = pickSrc(i);
+      });
+    }
+    function resizeGL() {
+      if (!gl) return;
+      var r = arch.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = Math.round(r.width * dpr), h = Math.round(r.height * dpr);
+      if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; gl.g.viewport(0, 0, w, h); }
+    }
+
+    // ── Rendern ──
+    function render() {
+      raf = 0;
+      var i = Math.min(2, Math.floor(value)), t = value - i, z = ZONES[i];
+      var y = valToY(value), H = tape.getBoundingClientRect().height;
+      root.style.setProperty('--ty', (y * H).toFixed(1) + 'px');
+      gauge.style.setProperty('--gy', (y * arch.getBoundingClientRect().height).toFixed(1) + 'px');
+      if (gl && gl.ready) {
+        var g = gl.g, U = gl.U; resizeGL();
+        g.activeTexture(g.TEXTURE0); g.bindTexture(g.TEXTURE_2D, gl.tex[i]);
+        g.activeTexture(g.TEXTURE1); g.bindTexture(g.TEXTURE_2D, gl.tex[i + 1]);
+        g.uniform1f(U.t, t); g.uniform1f(U.y0, z[0]); g.uniform1f(U.y1, z[1]);
+        g.uniform1f(U.soft, P.soft * (i === 2 ? 1.4 : 1)); g.uniform1f(U.amp, P.amp * (i === 2 ? 1.5 : 1));
+        g.uniform1f(U.rim, reduce ? 0 : P.rim); g.uniform1f(U.disp, reduce ? 0 : P.disp); g.uniform1f(U.fq, P.fq);
+        g.drawArrays(g.TRIANGLE_STRIP, 0, 4);
+      } else {
+        // (a) Wachstums-Wipe per CSS-Maske + leichtes Crossfade
+        var soft = i === 2 ? .09 : .065;
+        var F = (z[0] - soft) + (z[1] + soft - (z[0] - soft)) * t;
+        var top = layers[i + 1];
+        layers.forEach(function (l, k) { l.classList.toggle('is-base', k === i); l.classList.toggle('is-top', k === i + 1 && t > 0.001); if (k !== i + 1 || t <= 0.001) l.style.opacity = ''; });
+        if (t > 0.001) {
+          var ramp = Math.min(1, t / .08);
+          top.style.setProperty('--f', (F * 100).toFixed(2) + '%');
+          top.style.setProperty('--s', (soft * 100).toFixed(2) + '%');
+          top.style.setProperty('--x', (.12 * t).toFixed(3));
+          top.style.opacity = t > .92 ? 1 : ramp;
+        }
+      }
+      // Marken / Anzeige
+      var near = Math.round(value);
+      marks.forEach(function (m, k) { m.classList.toggle('is-on', k === near); });
+      thumb.setAttribute('aria-valuenow', value.toFixed(2));
+      thumb.setAttribute('aria-valuetext', Math.abs(value - near) < .02
+        ? LENS[near] + ' – ' + DEFS[near]
+        : 'zwischen ' + LENS[i] + ' und ' + LENS[i + 1]);
+      setName(near);
+    }
+    function schedule() { if (!raf) raf = requestAnimationFrame(render); }
+
+    // ── großes Label mit Masken-Wechsel ──
+    function setName(k) {
+      if (k === shown) return;
+      var dir = shown < 0 ? 0 : (k > shown ? 1 : -1);
+      var old = nameBox.querySelector('span:not(.out-up):not(.out-down)');
+      var s = document.createElement('span'); s.textContent = LENS[k];
+      if (dir && !reduce) {
+        s.className = dir > 0 ? 'pre-up' : 'pre-down';
+        nameBox.appendChild(s); s.getBoundingClientRect();
+        s.className = '';
+        if (old) { old.className = dir > 0 ? 'out-up' : 'out-down'; setTimeout(function () { old.remove(); }, 800); }
+      } else { nameBox.innerHTML = ''; nameBox.appendChild(s); }
+      [].slice.call(nameBox.querySelectorAll('.out-up,.out-down')).forEach(function (o) { if (o !== old) o.remove(); });
+      defEl.textContent = DEFS[k];
+      if (idxEl) idxEl.textContent = ROMAN[k] + ' / IV';
+      setPrice(k);
+      shown = k;
+    }
+
+    // ── Preis mit Zahlen-Roll ──
+    function buildDigits(len) {
+      numEl.innerHTML = '';
+      for (var d = 0; d < len; d++) {
+        var w = document.createElement('span'); w.className = 'hl-digit';
+        var col = document.createElement('i');
+        for (var n = 0; n < 10; n++) { var b = document.createElement('b'); b.textContent = n; col.appendChild(b); }
+        w.appendChild(col); numEl.appendChild(w);
+      }
+    }
+    function setPrice(k) {
+      if (!numEl || k === priceShown) return;
+      var s = String(PRICES[k]);
+      if (numEl.children.length !== s.length) buildDigits(s.length);
+      [].slice.call(numEl.querySelectorAll('.hl-digit i')).forEach(function (col, d) {
+        col.style.transform = 'translateY(' + (-s.charCodeAt(d) + 48) + 'em)';
+      });
+      numEl.setAttribute('aria-label', s + ' Euro');
+      priceShown = k;
+    }
+
+    // ── Animation zu einem Wert ──
+    function animateTo(target, dur) {
+      target = clamp(target, 0, 3);
+      if (anim) cancelAnimationFrame(anim.id);
+      var from = value, d = reduce ? 0 : (dur || 420 + Math.abs(target - from) * 380), t0 = performance.now();
+      if (!d || Math.abs(target - from) < 1e-3) { value = target; render(); settled(); return; }
+      anim = { id: 0 };
+      (function step(now) {
+        var x = clamp((now - t0) / d, 0, 1);
+        value = from + (target - from) * easeIO(x);
+        render();
+        if (x < 1) anim.id = requestAnimationFrame(step); else { anim = null; settled(); }
+      })(t0);
+    }
+    function stop() { if (anim) { cancelAnimationFrame(anim.id); anim = null; } }
+    function settled() {
+      var k = Math.round(value);
+      if (Math.abs(value - k) > .001) return;
+      root.classList.remove('is-active');
+      if (live) live.textContent = 'Länge ' + LENS[k] + ': ' + DEFS[k] + '. Schnittleistung ohne Föhnen ' + PRICES[k] + ' Euro.';
+      root.dispatchEvent(new CustomEvent('hl:change', { bubbles: true, detail: { value: k, index: k, len: LENS[k] } }));
+    }
+    function used() { root.classList.add('was-used'); }
+
+    // ── Ziehen (Maus, Touch, Stift) ──
+    function yFromEvent(e) { var r = tape.getBoundingClientRect(); return clamp((e.clientY - r.top) / r.height, 0, 1); }
+    function onDown(e) {
+      if (e.target.closest('.hl-mark button') && e.target !== thumb) return; // Klick auf Marke separat
+      if (e.button !== undefined && e.button !== 0) return;
+      e.preventDefault(); stop(); used();
+      dragging = true; root.classList.add('is-drag', 'is-active');
+      try { tape.setPointerCapture(e.pointerId); } catch (_) {}
+      var target = yToVal(yFromEvent(e));
+      if (e.target === thumb) { /* Regler direkt gegriffen */ } else { animateTo(target, 260); return; }
+      thumb.focus({ preventScroll: true });
+    }
+    function onMove(e) {
+      if (!dragging) return;
+      stop(); value = yToVal(yFromEvent(e)); schedule();
+    }
+    function onUp() {
+      if (!dragging) return;
+      dragging = false; root.classList.remove('is-drag');
+      animateTo(Math.round(value), 520);
+    }
+    tape.addEventListener('pointerdown', onDown);
+    tape.addEventListener('pointermove', onMove);
+    tape.addEventListener('pointerup', onUp);
+    tape.addEventListener('pointercancel', onUp);
+    tape.addEventListener('lostpointercapture', onUp);
+
+    // Marken anklicken
+    marks.forEach(function (m) {
+      m.querySelector('button').addEventListener('click', function () {
+        used(); root.classList.add('is-active'); animateTo(+m.getAttribute('data-v'));
+      });
+    });
+
+    // Tastatur: Pfeile springen zur nächsten Marke, Shift+Pfeil stufenlos (rastet nach kurzer Pause ein)
+    thumb.addEventListener('keydown', function (e) {
+      var k = e.key, base = anim ? Math.round(value) : value, next = null;
+      if (e.shiftKey && (k === 'ArrowDown' || k === 'ArrowRight' || k === 'ArrowUp' || k === 'ArrowLeft')) {
+        e.preventDefault(); stop(); used(); root.classList.add('is-active');
+        value = clamp(value + ((k === 'ArrowDown' || k === 'ArrowRight') ? .1 : -.1), 0, 3); render();
+        clearTimeout(keyTimer); keyTimer = setTimeout(function () { animateTo(Math.round(value), 480); }, 900);
+        return;
+      }
+      if (k === 'ArrowDown' || k === 'ArrowRight' || k === 'PageDown') next = Math.floor(base + 1e-3) + 1;
+      else if (k === 'ArrowUp' || k === 'ArrowLeft' || k === 'PageUp') next = Math.ceil(base - 1e-3) - 1;
+      else if (k === 'Home') next = 0; else if (k === 'End') next = 3;
+      if (next === null) return;
+      e.preventDefault(); used(); clearTimeout(keyTimer); root.classList.add('is-active');
+      animateTo(clamp(next, 0, 3));
+    });
+
+    // Resize
+    var ro = 'ResizeObserver' in window ? new ResizeObserver(schedule) : null;
+    if (ro) ro.observe(root); else window.addEventListener('resize', schedule);
+
+    // Start
+    gl = setupGL();
+    if (gl) {
+      loadTextures(function () {
+        if (!gl) return;
+        gl.ready = 1; render();
+        requestAnimationFrame(function () { root.classList.add('is-gl'); });
+      });
+    }
+    render();
+
+    var api = {
+      set: function (v, animate) { if (animate === false) { stop(); value = clamp(v, 0, 3); render(); settled(); } else animateTo(v); },
+      get: function () { return value; },
+      mode: function () { return gl && gl.ready ? 'webgl' : 'css'; },
+      destroy: function () { stop(); if (ro) ro.disconnect(); tape.removeEventListener('pointerdown', onDown); }
+    };
+    root.hlMorph = api;
+    return api;
+  }
+
+  window.HLMorph = { init: init };
+  [].forEach.call(document.querySelectorAll('.hl-morph'), function (el) { init(el); });
+})();
+</script>
+</body>
+</html>

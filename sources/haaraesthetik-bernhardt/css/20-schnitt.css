@@ -1,0 +1,231 @@
+/* ==========================================================
+   Kapitel II · 10:30 · Schnitt (Haardesign & heiße Schere)
+   „Der Schnitt“
+   ========================================================== */
+
+/* ---------- Gepinnte Bühne ---------- */
+#schnitt .sc-pin { position: relative; height: 220vh; }
+#schnitt .sc-stage {
+  position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden;
+  --ang: -14deg; --t: 0;
+}
+#schnitt .sc-half {
+  position: absolute; inset: -24%;
+  will-change: transform, clip-path;
+}
+#schnitt .sc-half img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%;
+  transform: scale(var(--zoom, 1.06));
+}
+#schnitt .sc-a { z-index: 2; }
+#schnitt .sc-b { z-index: 1; }
+/* versiegelte Kanten */
+#schnitt .sc-edge {
+  position: absolute; left: 50%; top: 50%; width: 220%; height: 2px; margin: -1px 0 0 -110%;
+  transform: rotate(var(--ang)) translateY(var(--eo, 0px));
+  background: linear-gradient(90deg, rgba(201, 164, 106, .4), var(--gold) 14%, #fff1d2 50%, var(--gold) 86%, rgba(201, 164, 106, .4));
+  box-shadow: 0 0 22px 4px rgba(232, 190, 120, .8), 0 0 6px 1px rgba(255, 240, 210, 1);
+  opacity: var(--glow, 0);
+}
+#schnitt .sc-a .sc-edge { --eo: -1.5px; }
+#schnitt .sc-b .sc-edge { --eo: 1.5px; }
+
+/* zerschnittene Uhrzeit */
+#schnitt .sc-time {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: flex-start;
+  font: 200 clamp(110px, 19vw, 330px)/.84 var(--f-display); letter-spacing: -.06em;
+  color: #fbf6ec; white-space: nowrap; pointer-events: none;
+  text-shadow: 0 2px 40px rgba(60, 40, 15, .18);
+  mix-blend-mode: overlay;
+}
+#schnitt .sc-time.solid { mix-blend-mode: normal; opacity: .92; }
+#schnitt .sc-w2 { font: italic 400 .86em/.9 var(--f-serif); letter-spacing: -.02em; color: var(--gold-2); margin: -.02em 0 0 1.2em; }
+
+#schnitt .sc-meta {
+  position: absolute; z-index: 4; left: var(--gut); top: 92px; color: #fbf6ec;
+  text-shadow: 0 1px 12px rgba(40, 28, 10, .35);
+}
+#schnitt .sc-meta p { margin: 0; display: flex; align-items: center; gap: 12px; }
+#schnitt .sc-meta i { width: 34px; height: 1px; background: currentColor; opacity: .8; }
+#schnitt .sc-meta-sub { margin-top: 8px !important; opacity: .82; }
+
+/* Klinge */
+#schnitt .sc-blade {
+  position: absolute; z-index: 3; left: 50%; top: 50%; width: 170vmax; height: 1px; margin-left: -85vmax;
+  transform: rotate(var(--ang)); opacity: var(--bo, 0); pointer-events: none;
+}
+#schnitt .sc-blade::before {
+  content: ""; position: absolute; inset: 0; transform-origin: 0 50%; transform: scaleX(var(--draw, 0));
+  background: linear-gradient(90deg, rgba(232, 213, 176, 0) 10%, #fff3da 60%, #ffffff);
+  box-shadow: 0 0 16px 2px rgba(232, 200, 140, .9), 0 0 2px #fff;
+}
+#schnitt .sc-blade::after {
+  content: ""; position: absolute; left: calc(var(--draw, 0) * 100%); top: -3px; width: 7px; height: 7px; margin-left: -4px; border-radius: 50%;
+  background: #fff; box-shadow: 0 0 16px 7px rgba(255, 228, 170, .9);
+  opacity: calc(1 - var(--draw, 0) * var(--draw, 0));
+}
+
+/* Spalt-Inhalt */
+#schnitt .sc-gap { position: absolute; inset: 0; z-index: 0; display: grid; place-items: center; background: var(--bg); pointer-events: none; }
+#schnitt .sc-gap::before {
+  content: ""; position: absolute; inset: 0; opacity: .5;
+  background: radial-gradient(ellipse 60% 30% at 50% 50%, rgba(232, 213, 176, .45), transparent 70%);
+  transform: rotate(var(--ang));
+}
+#schnitt .sc-gap-in {
+  position: relative; width: min(820px, 86vw); text-align: center;
+  transform: rotate(var(--ang)) translateY(calc((1 - var(--t)) * 26px));
+  opacity: var(--t);
+  pointer-events: auto;
+}
+#schnitt .sc-kicker { color: var(--accent); margin: 0 0 14px; font: 500 12px/1.3 var(--f-mono); letter-spacing: .14em; }
+#schnitt .sc-title { font-size: clamp(46px, 6.4vw, 108px); line-height: .92; white-space: nowrap; }
+#schnitt .sc-title .cap { font-size: 1.3em; }
+#schnitt .sc-text { margin: 16px auto 0; max-width: 46ch; font: 400 clamp(17px, 1.35vw, 21px)/1.4 var(--f-serif); font-style: italic; color: var(--fg); }
+
+#schnitt .sc-hint {
+  position: absolute; z-index: 4; right: var(--gut); bottom: 104px; margin: 0; color: #fbf6ec;
+  display: flex; align-items: center; gap: 10px; text-shadow: 0 1px 10px rgba(40, 28, 10, .4);
+  opacity: calc(1 - var(--t));
+}
+#schnitt .sc-hint i { width: 40px; height: 1px; background: var(--gold-2); transform: rotate(var(--ang)); }
+
+/* ---------- Karte ---------- */
+#schnitt .sc-menu { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); padding-top: 18vh; padding-bottom: 22vh; }
+#schnitt .sc-side { display: none; }
+
+#schnitt .sc-card {
+  --r: 50%;
+  position: relative; width: 100%; max-width: 780px; margin: 0 auto;
+  padding: 0 clamp(22px, 6vw, 84px) clamp(36px, 6vw, 72px);
+  border-radius: 9999px 9999px 0 0;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--card) 100%, transparent), color-mix(in srgb, var(--card) 70%, transparent));
+}
+#schnitt .sc-card-tex {
+  position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: .32; mix-blend-mode: multiply;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1000' height='1000'%3E%3Cfilter id='t'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.004 .09' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .62  0 0 0 0 .55  0 0 0 0 .44  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23t)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(232, 213, 176, .35), transparent 70%);
+  background-size: 1000px 1000px, 100% 100%; background-position: 50% 0, 0 0;
+}
+.on-dark #schnitt .sc-card-tex { mix-blend-mode: soft-light; opacity: .35; }
+#schnitt .sc-arch-line { position: absolute; border-radius: 9999px 9999px 0 0; pointer-events: none; border: 1px solid var(--line); }
+#schnitt .sc-arch-1 { inset: 0; border-color: color-mix(in srgb, var(--accent) 55%, transparent); }
+#schnitt .sc-arch-2 { inset: 9px; }
+
+#schnitt .sc-card-head { position: relative; text-align: center; padding-top: clamp(70px, 17vw, 150px); }
+#schnitt .sc-card-k { color: var(--fg-dim); margin: 0; }
+#schnitt .sc-card-title { margin: 14px 0 0; font: 400 clamp(52px, 7vw, 96px)/.95 var(--f-serif); letter-spacing: -.02em; }
+#schnitt .sc-orn { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 22px 0 0; }
+#schnitt .sc-orn i { width: 46px; height: 1px; background: var(--accent); opacity: .7; }
+#schnitt .sc-orn b { width: 7px; height: 7px; transform: rotate(45deg); border: 1px solid var(--accent); }
+
+/* Föhn-Schalter */
+#schnitt .sc-toggle {
+  position: relative; display: inline-flex; margin: 30px auto 0; padding: 4px; border-radius: 999px;
+  border: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 60%, transparent);
+}
+#schnitt .sc-toggle button {
+  position: relative; z-index: 1; height: 42px; padding: 0 22px; border: 0; background: none; border-radius: 999px; cursor: pointer;
+  font: 400 19px/1 var(--f-serif); font-style: italic; color: var(--fg-dim); transition: color .45s var(--ease);
+}
+#schnitt .sc-toggle button[aria-checked="true"] { color: var(--bg); }
+#schnitt .sc-toggle button:hover:not([aria-checked="true"]) { color: var(--fg); }
+#schnitt .sc-toggle-thumb {
+  position: absolute; top: 4px; bottom: 4px; left: 0; border-radius: 999px; background: var(--fg);
+  transition: transform .7s var(--ease), width .7s var(--ease);
+  box-shadow: 0 6px 18px rgba(26, 24, 22, .16);
+}
+
+#schnitt .sc-len { text-transform: none; letter-spacing: .04em; font-size: 12px; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 6px 10px; margin: 26px auto 0; color: var(--fg-dim); max-width: 560px; }
+#schnitt .sc-len-v { color: var(--fg); }
+#schnitt .sc-len-v b { color: var(--accent); font-weight: 500; }
+#schnitt .sc-len-v.swap { animation: sc-swap .6s var(--ease); }
+@keyframes sc-swap { 0% { opacity: 0; transform: translateY(6px); } 100% { opacity: 1; transform: none; } }
+#schnitt .sc-len-link { color: var(--fg); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px; transition: color .3s; }
+#schnitt .sc-len-link::after { content: " ↑"; color: var(--accent); }
+#schnitt .sc-len-link:hover { color: var(--accent); }
+
+/* Gruppen & Zeilen */
+#schnitt .sc-group { position: relative; margin-top: clamp(40px, 5vw, 56px); }
+#schnitt .sc-group-t { display: flex; align-items: center; gap: 16px; margin: 0 0 10px; font: 500 11px/1 var(--f-mono); letter-spacing: .22em; text-transform: uppercase; color: var(--accent); }
+#schnitt .sc-group-t::before, #schnitt .sc-group-t::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+#schnitt .sc-list { list-style: none; margin: 0; padding: 0; }
+#schnitt .sc-item {
+  position: relative; display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 12px; padding: 17px 0 15px;
+}
+#schnitt .sc-sub { flex: 0 0 100%; margin-top: 5px; font: 400 13px/1.35 var(--f-sans); color: var(--fg-dim); }
+#schnitt .sc-sub[data-sc-foehn-label] { color: var(--accent); }
+#schnitt .sc-item + .sc-item { border-top: 1px solid color-mix(in srgb, var(--line) 50%, transparent); }
+#schnitt .sc-name { font: 400 clamp(22px, 2.1vw, 28px)/1.1 var(--f-serif); letter-spacing: -.005em; transition: transform .6s var(--ease); }
+#schnitt .sc-dots {
+  flex: 1; min-width: 24px; height: 2px; align-self: baseline;
+  background: radial-gradient(circle, var(--fg-dim) .75px, transparent 1.1px) 0 50% / 7px 2px repeat-x;
+  opacity: .65; transition: opacity .4s;
+  position: relative;
+}
+#schnitt .sc-dots::after {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle, var(--gold) .9px, transparent 1.2px) 0 50% / 7px 2px repeat-x;
+  clip-path: inset(0 100% 0 0); transition: clip-path .7s var(--ease);
+}
+#schnitt .sc-p { font: 300 clamp(22px, 2vw, 28px)/1 var(--f-display); letter-spacing: -.02em; min-width: 2.9em; text-align: right; }
+@media (hover: hover) {
+  #schnitt .sc-item:hover .sc-name { transform: translateX(6px); }
+  #schnitt .sc-item:hover .sc-dots::after { clip-path: inset(0 0 0 0); }
+}
+#schnitt .sc-item.flip .sc-p { color: var(--accent); transition: color 1.2s; }
+
+#schnitt .sc-foot { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--line); text-align: center; }
+#schnitt .sc-foot p { margin: 0; font: 400 17px/1.4 var(--f-serif); font-style: italic; color: var(--fg-dim); }
+#schnitt .sc-foot .sc-foot-na { margin-top: 10px; font: 500 10px/1.4 var(--f-mono); font-style: normal; opacity: 0; transition: opacity .5s; }
+#schnitt .sc-card.has-na .sc-foot-na { opacity: .8; }
+
+/* ---------- Desktop ---------- */
+@media (min-width: 1100px) {
+  #schnitt .sc-menu { grid-template-columns: minmax(0, 1fr) minmax(0, 780px) minmax(0, 1fr); column-gap: 3vw; }
+  #schnitt .sc-card { grid-column: 2; }
+  #schnitt .sc-side {
+    display: flex; flex-direction: column; gap: 14px; grid-column: 1; grid-row: 1;
+    position: sticky; top: 30vh; align-self: start; color: var(--fg-dim); margin-top: 22vh;
+  }
+  #schnitt .sc-side p { margin: 0; }
+  #schnitt .sc-side-no { font: 400 clamp(90px, 9vw, 150px)/.8 var(--f-serif); font-style: italic; color: var(--fg); opacity: .9; }
+  #schnitt .sc-side-v { writing-mode: vertical-rl; transform: rotate(180deg); margin-top: 18px !important; }
+}
+
+/* ---------- Mobil ---------- */
+@media (max-width: 640px) {
+  #schnitt .sc-stage { --ang: -18deg; }
+  #schnitt .sc-time { font-size: 29vw; }
+  #schnitt .sc-gap-in { width: 84vw; }
+  #schnitt .sc-kicker { margin-bottom: 12px; }
+  #schnitt .sc-title { font-size: 44px; }
+  #schnitt .sc-text { margin-top: 18px; font-size: 19px; line-height: 1.38; max-width: 25ch; }
+  #schnitt .sc-hint { bottom: 92px; }
+  #schnitt .sc-menu { padding-top: 96px; padding-bottom: 80px; }
+  #schnitt .sc-card { padding-left: 20px; padding-right: 20px; padding-bottom: 36px; }
+  #schnitt .sc-card-title { margin-top: 12px; }
+  #schnitt .sc-orn { margin-top: 18px; }
+  #schnitt .sc-toggle { margin-top: 24px; }
+  #schnitt .sc-toggle button { padding: 0 16px; font-size: 18px; height: 44px; }
+  #schnitt .sc-len { font-size: 10.5px; margin-top: 20px; line-height: 1.5; }
+  #schnitt .sc-len-link { position: relative; }
+  #schnitt .sc-len-link::before { content: ""; position: absolute; inset: -14px -10px; }
+  #schnitt .sc-group { margin-top: 44px; }
+  #schnitt .sc-item { gap: 8px; padding: 15px 0 14px; }
+  #schnitt .sc-name { font-size: 21px; }
+  #schnitt .sc-sub { font-size: 13px; }
+  #schnitt .sc-p { font-size: 21px; }
+  #schnitt .sc-foot { margin-top: 32px; }
+  #schnitt .sc-foot p { font-size: 18px; }
+}
+@media (max-width: 400px) {
+  #schnitt .sc-card { padding-left: 16px; padding-right: 16px; }
+  #schnitt .sc-item { column-gap: 8px; }
+  #schnitt .sc-name { font-size: 20px; }
+  #schnitt .sc-dots { min-width: 12px; }
+  #schnitt .sc-p { font-size: 20px; min-width: 2.6em; }
+}

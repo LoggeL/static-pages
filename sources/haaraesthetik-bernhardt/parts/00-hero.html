@@ -1,0 +1,44 @@
+<section class="hero" id="hero" data-scroll aria-labelledby="hero-title">
+  <div class="hr-stage">
+
+    <!-- Bild: Skizze (A) und deckungsgleicher Pastell-Entwurf (B). Mit WebGL übernimmt das Canvas. -->
+    <div class="hr-scene">
+      <picture class="hr-pic hr-pic-sketch" aria-hidden="true">
+        <source media="(max-width: 899px)" srcset="img/brunnen/sketch-m-s.webp 512w, img/brunnen/sketch-m.webp 1024w" sizes="150vw">
+        <img class="hr-img-sketch" src="img/brunnen/sketch.webp" srcset="img/brunnen/sketch-s.webp 1000w, img/brunnen/sketch.webp 2000w" sizes="100vw" width="2000" height="1333" alt="" decoding="async">
+      </picture>
+      <picture class="hr-pic hr-pic-color">
+        <source media="(max-width: 899px)" srcset="img/brunnen/color-m-s.webp 512w, img/brunnen/color-m.webp 1024w" sizes="150vw">
+        <img class="hr-img-color" src="img/brunnen/color.webp" srcset="img/brunnen/color-s.webp 1000w, img/brunnen/color.webp 2000w" sizes="100vw" width="2000" height="1333" fetchpriority="high" decoding="async"
+             alt="Kolorierter Entwurf: ein Brunnen aus hellem Travertin, aus dem ein ruhiger Wasserstrahl in ein flaches Becken fällt, dahinter ein Bogen mit Blick aufs Meer und ein Olivenbaum im Morgenlicht">
+      </picture>
+      <canvas class="hr-gl" aria-hidden="true"></canvas>
+    </div>
+    <div class="hr-wash" aria-hidden="true"></div>
+
+    <!-- Wortmarke -->
+    <div class="hr-brand">
+      <p class="hr-kicker t-mono"><span class="hr-ln"><span>Kirchheim a. d. Weinstraße</span></span><span class="hr-ln hr-geo"><span>49.53° N&nbsp; 8.18° E</span></span></p>
+      <h1 class="hr-word" id="hero-title" aria-label="Haarästhetik – Christian Bernhardt">
+        <span class="hr-wm" aria-hidden="true">Haarästhetik</span>
+        <span class="hr-name" aria-hidden="true"><i class="hr-rule"></i><span class="hr-ln"><span>Christian Bernhardt</span></span></span>
+      </h1>
+      <p class="hr-tag"><span class="hr-ln"><span>Quelle der <em>Entspannung.</em></span></span></p>
+    </div>
+
+    <a class="hr-hint" href="#beratung" data-cursor="Scrollen">
+      <i class="hr-hint-line" aria-hidden="true"></i>
+      <span class="t-mono hr-ln"><span>Ein Tag im Salon — scrollen</span></span>
+    </a>
+    <p class="hr-cue t-mono" aria-hidden="true"><i></i><span class="hr-cue-a">Male mit — bewege den Cursor</span><span class="hr-cue-b">Berühre das Wasser</span></p>
+
+    <!-- Leitmotiv -->
+    <div class="hr-statement">
+      <p class="hr-st-big" data-hr-split>Ein Tag<br> im Salon.</p>
+      <p class="hr-st-lead" data-hr-split>Vom ersten Licht bis zur blauen Stunde —<br> jedes Licht hat seinen Moment.</p>
+      <p class="hr-st-mono t-mono"><span class="hr-st-rule" aria-hidden="true"></span><span class="hr-st-cta">Scrolle durch den Tag ↓</span></p>
+    </div>
+
+    <div class="hr-veil" aria-hidden="true"></div>
+  </div>
+</section>

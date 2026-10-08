@@ -1,0 +1,338 @@
+/* ==========================================================
+   Kapitel I · 09:00 · Ankommen (Beratung & Analyse)
+   „Vermessen, bevor geschnitten wird“
+   ========================================================== */
+
+/* ---------- Kopf ---------- */
+#beratung .be-head {
+  display: grid; gap: 40px; padding: 20vh 0 12vh;
+}
+#beratung .be-kicker { display: flex; align-items: center; gap: 12px; color: var(--fg-dim); margin: 0 0 18px; }
+#beratung .be-kicker i { width: 34px; height: 1px; background: var(--accent); }
+/* Lichtname statt Uhrzeit: „Morgen“ ultraleicht, „licht“ kursiv eingerückt, Buchstaben steigen einzeln auf */
+#beratung .be-time {
+  display: grid; justify-items: start; color: var(--fg);
+  font: 200 clamp(84px, 12.6vw, 204px)/.9 var(--f-display); letter-spacing: -.06em;
+}
+#beratung .be-l1, #beratung .be-l2 { display: flex; overflow: hidden; padding: 0 .04em .16em 0; margin-bottom: -.16em; }
+#beratung .be-l1 { margin-left: -.05em; }
+#beratung .be-l2 { font: italic 400 .78em/.9 var(--f-serif); letter-spacing: -.015em; color: var(--accent); margin: .1em 0 0 1.15em; }
+#beratung .be-d { display: inline-block; transform: translateY(104%); transition: transform 1.3s var(--ease); transition-delay: calc(var(--i) * 55ms + .1s); }
+#beratung .be-time.in .be-d { transform: none; }
+
+#beratung .be-dial { position: relative; margin-top: 26px; max-width: 420px; }
+#beratung .be-dial-ticks {
+  height: 14px;
+  background:
+    linear-gradient(var(--fg), var(--fg)) 0 100% / 100% 1px no-repeat,
+    repeating-linear-gradient(90deg, var(--fg) 0 1px, transparent 1px calc(100% / 30)) 0 100% / 100% 6px no-repeat,
+    repeating-linear-gradient(90deg, var(--fg) 0 1px, transparent 1px calc(100% / 5)) 0 100% / 100% 14px no-repeat;
+  opacity: .35;
+}
+#beratung .be-dial-nums { display: flex; justify-content: space-between; margin-top: 10px; color: var(--fg-dim); font-size: 10.5px; }
+#beratung .be-dial-nums span:first-child { color: var(--accent); }
+#beratung .be-dial-mark {
+  position: absolute; left: 20%; bottom: 24px; width: 1px; height: 30px; background: var(--gold);
+  box-shadow: 0 0 10px rgba(201, 164, 106, .7);
+}
+#beratung .be-dial-mark::after {
+  content: ""; position: absolute; left: -3px; top: -7px; width: 7px; height: 7px; border-radius: 50%; background: var(--gold);
+}
+
+#beratung .be-sub { color: var(--accent); margin: 0 0 20px; }
+#beratung .be-title { font-size: clamp(48px, 7.2vw, 120px); line-height: .92; }
+#beratung .be-title .cap { font-size: 1.32em; }
+#beratung .be-lead { margin-top: 30px; max-width: 30ch; color: var(--fg); }
+
+@media (min-width: 960px) {
+  #beratung .be-head { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 4vw; align-items: end; padding: 24vh 0 16vh; }
+  #beratung .be-intro { padding-bottom: 42px; }
+}
+
+/* ---------- Split ---------- */
+#beratung .be-split { position: relative; display: grid; gap: 40px; }
+#beratung .be-visual { position: relative; }
+#beratung .be-arch {
+  position: relative; margin: 0; width: 100%; aspect-ratio: 4 / 5;
+  background: var(--travertine); isolation: isolate;
+  --scan: 0;
+}
+#beratung .be-arch img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transform: scale(1.0); transition: transform 1.6s var(--ease); }
+@media (hover: hover) { #beratung .be-arch:hover img { transform: scale(1.03); } #beratung .be-row-in:hover .be-row-title { font-style: italic; } }
+#beratung .be-arch-inner {
+  position: absolute; inset: 12px; border-radius: 9999px 9999px 0 0; border: 1px solid rgba(243, 240, 234, .42); border-bottom: 0; pointer-events: none;
+}
+#beratung .be-ruler {
+  position: absolute; left: 22px; top: 22%; bottom: 6%; width: 12px; opacity: .6;
+  background:
+    repeating-linear-gradient(180deg, rgba(243, 240, 234, .85) 0 1px, transparent 1px 12px) 0 0 / 6px 100% no-repeat,
+    repeating-linear-gradient(180deg, rgba(243, 240, 234, .85) 0 1px, transparent 1px 60px) 0 0 / 12px 100% no-repeat;
+}
+/* Scan-Linie: fährt mit --scan von oben nach unten */
+#beratung .be-scan {
+  position: absolute; left: 0; right: 0; top: 0; height: 100%; pointer-events: none;
+  transform: translateY(calc(var(--scan) * 100%));
+  will-change: transform;
+}
+#beratung .be-scan::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 26vh;
+  background: linear-gradient(180deg, transparent, rgba(232, 213, 176, .0) 30%, rgba(232, 213, 176, .26));
+  mix-blend-mode: screen;
+}
+#beratung .be-scan i {
+  position: absolute; left: 0; right: 0; top: -1px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-2) 12%, #fff8ea 50%, var(--gold-2) 88%, transparent);
+  box-shadow: 0 0 14px 1px rgba(232, 213, 176, .85), 0 0 2px rgba(255, 255, 255, .9);
+}
+#beratung .be-scan i::after {
+  content: ""; position: absolute; right: 18px; top: -16px; font: 500 9px/1 var(--f-mono); letter-spacing: .14em; color: rgba(255, 252, 244, .9);
+}
+
+/* Messpunkte */
+#beratung .be-points { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; pointer-events: none; }
+#beratung .be-points li {
+  --on: clamp(0, calc((var(--scan) - var(--y)) * 16), 1);
+  position: absolute; left: calc(var(--x) * 100%); top: calc(var(--y) * 100%);
+  opacity: var(--on);
+}
+#beratung .be-points li i {
+  position: absolute; left: -6px; top: -6px; width: 12px; height: 12px; border-radius: 50%;
+  border: 1px solid rgba(255, 250, 240, .95); box-shadow: 0 0 0 4px rgba(201, 164, 106, .22), 0 0 12px rgba(232, 213, 176, .8);
+  transform: scale(calc(.4 + var(--on) * .6));
+}
+#beratung .be-points li i::after { content: ""; position: absolute; inset: 3.5px; border-radius: 50%; background: var(--gold-2); }
+#beratung .be-points li span {
+  position: absolute; top: -9px; white-space: nowrap;
+  font: 500 10px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: #fffaf0;
+  padding: 4px 8px; border-radius: 99px; background: rgba(26, 24, 22, .32); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 250, 240, .22);
+}
+#beratung .be-points li[style*="--lx:1"] span { left: 46px; }
+#beratung .be-points li[style*="--lx:-1"] span { right: 46px; }
+#beratung .be-points li::before {
+  content: ""; position: absolute; top: 0; width: 34px; height: 1px; background: rgba(255, 250, 240, .7);
+  transform-origin: left; transform: scaleX(var(--on));
+}
+#beratung .be-points li[style*="--lx:1"]::before { left: 9px; }
+#beratung .be-points li[style*="--lx:-1"]::before { right: 9px; transform-origin: right; }
+
+#beratung .be-cap { display: flex; align-items: baseline; gap: 4px; margin: 16px 0 0; color: var(--fg-dim); }
+#beratung .be-cap-no { color: var(--accent); font-size: 13px; }
+#beratung .be-cap-txt { margin-left: 14px; padding-left: 14px; border-left: 1px solid var(--line); color: var(--fg); transition: opacity .4s; }
+#beratung .be-cap-txt.swap { opacity: 0; }
+
+/* Protokoll */
+#beratung .be-proto-head { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-bottom: 16px; border-bottom: 1px solid var(--fg); }
+#beratung .be-proto-head p { margin: 0; }
+#beratung .be-dim { color: var(--fg-dim); }
+#beratung .be-rows { list-style: none; margin: 0; padding: 0; }
+#beratung .be-row { position: relative; border-bottom: 1px solid var(--line); }
+#beratung .be-row-in {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 8px 18px; align-items: start;
+  padding: 34px 0 38px;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.5s cubic-bezier(.6, .05, .25, 1) .05s;
+}
+#beratung .be-row.in .be-row-in { clip-path: inset(0 -20px 0 0); }
+/* lesender Scan je Zeile */
+#beratung .be-row::after {
+  content: ""; position: absolute; top: 10px; bottom: 10px; left: 0; width: 1px;
+  background: linear-gradient(180deg, transparent, var(--gold) 20%, var(--gold-2) 50%, var(--gold) 80%, transparent);
+  box-shadow: 0 0 12px rgba(201, 164, 106, .8);
+  opacity: 0; transform: translateX(0);
+}
+#beratung .be-row.in::after { animation: be-read 1.5s cubic-bezier(.6, .05, .25, 1) .05s both; }
+@keyframes be-read {
+  0% { opacity: 0; transform: translateX(0); }
+  8% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(var(--rw, 600px)); }
+}
+#beratung .be-row::before {
+  content: ""; position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%; background: var(--accent);
+  transform: scaleX(0); transform-origin: left; transition: transform .9s var(--ease);
+}
+#beratung .be-row.is-active::before { transform: scaleX(1); }
+#beratung .be-no { color: var(--fg-dim); padding-top: 9px; transition: color .4s; }
+#beratung .be-row.is-active .be-no { color: var(--accent); }
+#beratung .be-row-title { font: 400 clamp(30px, 2.9vw, 46px)/1.02 var(--f-serif); letter-spacing: -.01em; margin: 0; }
+#beratung .be-row-tag { color: var(--accent); margin: 12px 0 14px; }
+#beratung .be-row .t-body { max-width: 38ch; }
+#beratung .be-price {
+  font: 200 clamp(30px, 2.8vw, 44px)/1 var(--f-display); letter-spacing: -.03em; padding-top: 4px;
+}
+
+@media (min-width: 900px) {
+  #beratung .be-split { grid-template-columns: minmax(0, 5fr) minmax(0, 1fr) minmax(0, 6fr); gap: 0; }
+  #beratung .be-visual { grid-column: 1; position: sticky; top: 11vh; align-self: start; height: 78vh; display: flex; flex-direction: column; }
+  #beratung .be-arch { aspect-ratio: auto; flex: 1; min-height: 0; }
+  #beratung .be-protocol { grid-column: 3; padding: 4vh 0 22vh; }
+  #beratung .be-row-in { padding: 9vh 0 9vh; }
+  #beratung .be-row:first-child .be-row-in { padding-top: 6vh; }
+}
+
+/* ---------- Lineal ---------- */
+#beratung .be-lineal { display: grid; gap: 44px; padding: 18vh 0 20vh; scroll-margin-top: 40px; }
+#beratung .be-lin-kicker { display: flex; align-items: center; gap: 12px; color: var(--fg-dim); margin: 0 0 22px; }
+#beratung .be-lin-kicker i { width: 34px; height: 1px; background: var(--accent); }
+#beratung .be-lin-title { font-size: clamp(52px, 6.6vw, 112px); }
+#beratung .be-lin-hint { font: 400 clamp(19px, 1.6vw, 24px)/1.3 var(--f-serif); font-style: italic; color: var(--fg-dim); margin: 22px 0 0; max-width: 32ch; }
+
+/* Anzeige: gewählte Länge */
+#beratung .be-read { padding-top: 22px; border-top: 1px solid var(--line); position: relative; container-type: inline-size; min-width: 0; }
+#beratung .be-read-k { margin: 0; color: var(--fg-dim); }
+#beratung .be-read-k i { font-style: normal; color: var(--accent); }
+#beratung .hl-name {
+  position: relative; overflow: hidden; margin: 12px 0 6px;
+  font: 200 clamp(64px, 8vw, 132px)/1 var(--f-display); font-size: min(132px, 20.5cqi); height: 1.06em;
+}
+#beratung .hl-name span { position: absolute; left: -.04em; top: 0; font: inherit; letter-spacing: -.045em; white-space: nowrap; transition: transform .8s var(--ease), opacity .5s; }
+#beratung .hl-name span.out-up { transform: translateY(-105%); opacity: 0; }
+#beratung .hl-name span.out-down { transform: translateY(105%); opacity: 0; }
+#beratung .hl-name span.pre-up { transform: translateY(105%); opacity: 0; transition: none; }
+#beratung .hl-name span.pre-down { transform: translateY(-105%); opacity: 0; transition: none; }
+#beratung .hl-def { margin: 0; font: italic 400 clamp(20px, 1.7vw, 25px)/1.3 var(--f-serif); color: var(--fg); min-height: 2.6em; max-width: 26ch; text-wrap: balance; }
+
+#beratung .be-sample { list-style: none; margin: 26px 0 0; padding: 0; max-width: 400px; }
+#beratung .be-sample li { display: flex; align-items: baseline; gap: 10px; padding: 9px 0; font: 400 15px/1.3 var(--f-sans); }
+#beratung .be-sample li i { flex: 1; height: 1px; transform: translateY(-4px); background: radial-gradient(circle, var(--fg-dim) .6px, transparent 1px) 0 0 / 6px 1px repeat-x; opacity: .7; }
+#beratung .be-sample li span:last-child { font: 300 20px/1 var(--f-display); letter-spacing: -.02em; min-width: 3.4em; text-align: right; }
+
+/* Instrument: Bogen mit Foto-Morph + Maßband (Komponente .hl-morph, Quelle: haarlaenge.html) */
+#beratung .hl-morph {
+  --hl-h: min(74vh, 700px);
+  position: relative; display: grid; grid-template-columns: auto 240px; column-gap: clamp(22px, 2.6vw, 40px); align-items: stretch;
+}
+#beratung .hl-stage { position: relative; margin: 0; height: var(--hl-h); aspect-ratio: 2 / 3; }
+#beratung .hl-stage::before {
+  content: ""; position: absolute; inset: -14px -14px -1px; border: 1px solid var(--accent); opacity: .4; border-bottom: 0;
+  border-radius: 9999px 9999px 0 0; pointer-events: none;
+}
+#beratung .hl-arch {
+  position: absolute; inset: 0; overflow: hidden; border-radius: 9999px 9999px 0 0; background: var(--travertine);
+  box-shadow: 0 40px 80px -40px rgba(60, 44, 20, .35); -webkit-mask-image: -webkit-radial-gradient(white, black); transform: translateZ(0);
+}
+#beratung .hl-layer, #beratung .hl-gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; }
+#beratung .hl-layer { opacity: 0; user-select: none; -webkit-user-drag: none; pointer-events: none; }
+#beratung .hl-layer.is-base { opacity: 1; }
+#beratung .hl-layer.is-top {
+  opacity: 1;
+  -webkit-mask-image: linear-gradient(180deg, #000 0, #000 calc(var(--f) - var(--s)), rgba(0, 0, 0, var(--x)) calc(var(--f) + var(--s)));
+          mask-image: linear-gradient(180deg, #000 0, #000 calc(var(--f) - var(--s)), rgba(0, 0, 0, var(--x)) calc(var(--f) + var(--s)));
+}
+#beratung .hl-gl { opacity: 0; transition: opacity .6s ease; }
+#beratung .hl-morph.is-gl .hl-gl { opacity: 1; }
+#beratung .hl-gauge {
+  position: absolute; left: 0; right: -1px; top: 0; height: 0; pointer-events: none;
+  transform: translateY(var(--gy, 0px)); border-top: 1px dashed rgba(255, 247, 232, .6); opacity: 0; transition: opacity .4s;
+}
+#beratung .hl-morph.is-active .hl-gauge { opacity: 1; }
+
+/* Maßband */
+#beratung .hl-tape { position: relative; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab; }
+#beratung .hl-morph.is-drag .hl-tape { cursor: grabbing; }
+#beratung .hl-ruler { position: absolute; left: 10px; top: 0; bottom: 0; width: 22px; }
+#beratung .hl-ruler::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--fg); opacity: .3; }
+#beratung .hl-ticks {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 22px; opacity: .3;
+  background:
+    repeating-linear-gradient(180deg, var(--fg) 0 1px, transparent 1px 40px) 0 0 / 14px 100% no-repeat,
+    repeating-linear-gradient(180deg, var(--fg) 0 1px, transparent 1px 8px) 0 0 / 7px 100% no-repeat;
+}
+#beratung .hl-fill {
+  position: absolute; left: -.5px; top: 0; width: 2px; height: var(--ty, 0px); border-radius: 2px;
+  background: linear-gradient(180deg, rgba(201, 164, 106, 0), var(--gold) 30%, var(--gold-deep));
+}
+#beratung .hl-thumb {
+  position: absolute; left: -12px; top: 0; width: 24px; height: 24px; margin-top: -12px; border-radius: 50%;
+  transform: translateY(var(--ty, 0px)); outline: none; cursor: grab; z-index: 3; touch-action: none;
+  background: radial-gradient(circle at 35% 30%, #fff6e3 0, var(--gold-2) 28%, var(--gold) 62%, var(--gold-deep) 100%);
+  box-shadow: 0 0 0 1px rgba(154, 118, 64, .55), 0 6px 18px -4px rgba(120, 86, 36, .55), 0 0 0 6px rgba(201, 164, 106, .14);
+}
+#beratung .hl-thumb::before { content: ""; position: absolute; inset: -12px; border-radius: 50%; } /* größere Trefferfläche */
+#beratung .hl-thumb::after {
+  content: ""; position: absolute; inset: -11px; border-radius: 50%; border: 1px solid rgba(201, 164, 106, .5);
+  transform: scale(.6); opacity: 0; transition: transform .35s var(--ease), opacity .35s;
+  animation: be-hl-pulse 2.6s cubic-bezier(.2, .7, .2, 1) 1.2s infinite;
+}
+#beratung .hl-morph.was-used .hl-thumb::after { animation: none; }
+#beratung .hl-thumb:hover::after, #beratung .hl-morph.is-drag .hl-thumb::after { transform: scale(1); opacity: 1; }
+#beratung .hl-thumb:focus-visible { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent), 0 6px 18px -4px rgba(120, 86, 36, .55); }
+@keyframes be-hl-pulse { 0% { transform: scale(.55); opacity: .9; } 70%, 100% { transform: scale(1.5); opacity: 0; } }
+
+#beratung .hl-marks { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; }
+#beratung .hl-mark { position: absolute; left: 0; right: 0; top: var(--my); height: 0; }
+#beratung .hl-mark button {
+  all: unset; box-sizing: border-box; position: absolute; left: 0; right: 0; top: 0; transform: translateY(-15px);
+  padding: 8px 0 8px 52px; cursor: pointer; display: block; -webkit-tap-highlight-color: transparent;
+}
+#beratung .hl-mark button::before {
+  content: ""; position: absolute; left: 10px; top: 15px; width: 22px; height: 1px; background: var(--fg); opacity: .55;
+  transition: width .4s var(--ease), background .3s, opacity .3s;
+}
+#beratung .hl-mark button::after {
+  content: ""; position: absolute; left: 6px; top: 15px; width: 9px; height: 9px; margin-top: -4px; border-radius: 50%;
+  border: 1px solid var(--fg-dim); background: var(--bg); transition: border-color .3s, background .3s, transform .3s;
+}
+#beratung .hl-mk-a { display: block; font-size: 10.5px; line-height: 1.3; color: var(--fg-dim); transition: color .3s; }
+#beratung .hl-mk-a b { font-weight: 500; color: var(--fg); }
+#beratung .hl-dot { font-style: normal; }
+#beratung .hl-mk-b { display: block; margin-top: 3px; font: italic 400 15px/1.25 var(--f-serif); color: var(--fg-dim); max-width: 26ch; text-wrap: balance; transition: color .3s; }
+#beratung .hl-mark.is-on button::before { width: 34px; background: var(--gold); opacity: 1; }
+#beratung .hl-mark.is-on button::after { border-color: var(--gold-deep); background: var(--gold); transform: scale(1.1); }
+#beratung .hl-mark.is-on .hl-mk-a { color: var(--accent); }
+#beratung .hl-mark.is-on .hl-mk-b { color: var(--fg); }
+#beratung .hl-mark button:hover .hl-mk-a b { color: var(--accent); }
+#beratung .hl-mark button:focus-visible .hl-mk-a { outline: 1px solid var(--accent); outline-offset: 4px; }
+
+/* Mobil / Tablet: Bogen + schmales Maßband nebeneinander, Anzeige darunter */
+@media (max-width: 899px) {
+  #beratung .be-time { font-size: 28.5vw; }
+  #beratung .be-head { gap: 48px; padding: 20vh 0 88px; }
+  #beratung .be-kicker { margin-bottom: 14px; }
+  #beratung .be-dial { margin-top: 22px; }
+  #beratung .be-sub { margin-bottom: 12px; }
+  #beratung .be-lead { margin-top: 18px; font-size: 22px; line-height: 1.22; }
+  #beratung .be-split { gap: 72px; }
+  #beratung .be-proto-head { padding-bottom: 14px; }
+  #beratung .be-row-in { grid-template-columns: 30px minmax(0, 1fr) auto; gap: 8px 12px; padding: 30px 0 32px; }
+  #beratung .be-row-tag { margin: 10px 0 12px; }
+  /* Mobil: Zeilen schnell und zuverlässig vollständig aufdecken (kein Glyphen-Decode) */
+  #beratung .be-row-in { transition: clip-path 1.05s cubic-bezier(.19, 1, .22, 1) .05s; }
+  #beratung .be-row.in::after { animation-duration: 1.05s; animation-timing-function: cubic-bezier(.19, 1, .22, 1); }
+  #beratung .be-lineal { gap: 40px; padding: 96px 0 104px; }
+  #beratung .be-lin-kicker { margin-bottom: 14px; }
+  #beratung .be-lin-hint { margin-top: 16px; }
+  #beratung .be-lin-out { margin-top: 8px; }
+  #beratung .hl-morph { grid-template-columns: minmax(0, 1fr) 112px; column-gap: 14px; max-width: 560px; }
+  #beratung .hl-stage { height: auto; width: 100%; }
+  #beratung .hl-stage::before { inset: -9px -9px -1px; }
+  #beratung .hl-ruler { left: 6px; }
+  #beratung .hl-thumb { left: -6px; }
+  #beratung .hl-mark button { padding: 7px 0 7px 32px; transform: translateY(-13px); }
+  #beratung .hl-mark button::before { left: 6px; top: 13px; width: 14px; }
+  #beratung .hl-mark.is-on button::before { width: 20px; }
+  #beratung .hl-mark button::after { left: 2px; top: 13px; }
+  #beratung .hl-mk-a { font-size: 10.5px; letter-spacing: .1em; }
+  #beratung .hl-mk-a > span { display: block; font-weight: 400; }
+  #beratung .hl-dot, #beratung .hl-mk-b { display: none; }
+}
+
+/* Desktop: Text links, Instrument rechts */
+@media (min-width: 900px) {
+  #beratung .be-lineal { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-rows: auto auto; column-gap: 4vw; row-gap: 6vh; align-items: center; }
+  #beratung .be-lin-text { grid-column: 1; grid-row: 1; align-self: end; }
+  #beratung .be-lin-out { grid-column: 1; grid-row: 2; align-self: start; }
+  #beratung .be-inst { grid-column: 2; grid-row: 1 / span 2; justify-self: end; }
+}
+@media (min-width: 900px) and (max-width: 1180px) {
+  #beratung .hl-morph { --hl-h: min(64vh, 560px); grid-template-columns: auto 190px; }
+  #beratung .hl-mk-b { font-size: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #beratung .hl-morph *, #beratung .hl-morph *::after { transition-duration: .01ms !important; animation: none !important; }
+  #beratung .be-row-in { clip-path: none !important; }
+  #beratung .be-row::after { display: none; }
+  #beratung .be-d { transform: none !important; }
+}

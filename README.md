@@ -4,6 +4,10 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
+- **[Haarästhetik · Quelle der Entspannung](https://loggel.github.io/static-pages/haaraesthetik-bernhardt/)**: a second, more refined redesign concept for the hair salon Haarästhetik Christian Bernhardt. A WebGL fountain hero that is first a pencil sketch and then paints itself in pastel watercolour from the spring outwards, with living water and cursor ripples; nine chapters that follow a day in the salon through its light (morning light to night) with colour shifts, a hair-length morph, a Great Lengths magnifier, Hårtræt care cards and a hair-tester lens, a wedding editorial and a vertical salon tour on mobile. Prices adapt to a hair-length switch. AI-generated imagery via Codex. Concept study, not affiliated with the salon. Source (parts, build script, agent contract): `sources/haaraesthetik-bernhardt/`.
+
+- **[Haarästhetik · Die Chroma Edition](https://loggel.github.io/static-pages/haaraesthetik-edition/)**: a futuristic redesign concept for the hair salon Haarästhetik Christian Bernhardt in Kirchheim an der Weinstraße, staged in the style of the Shopify Editions Winter '26. Obsidian black and electric violet, eight numbered chapters (I–VIII), scroll-driven reveals and parallax, a particle ring, and AI-generated imagery. Concept study, not affiliated with the salon. Source: `sources/haaraesthetik-edition/`.
+
 - **[Was der Berg behält: Roman vom Donnersberg](https://loggel.github.io/static-pages/was-der-berg-behaelt/)**: a complete German historical low-fantasy novel (~113,000 words) about the Celtic oppidum on the Donnersberg, 54–51 BC, and why it was abandoned. A glassmaker with a lightning-struck, singing ear, a courteous Etruscan-Roman prefect as antagonist, Gaulish myth (Taranis, the triad of water, tree and fire), magic that is always ambiguous. Built in a reader with part illustrations, table of contents, reading progress, light/ember themes, glossary pop-ups, and an appendix with characters, calendar and an afterword on fact versus fiction. Source (chapters, story bible, chapter plan, research dossiers, build script): `sources/was-der-berg-behaelt/`.
 
 - **[Bildbeschreibung: Schritt für Schritt zum Bilddetektiv](https://loggel.github.io/static-pages/bildbeschreibung-klasse5/)**: a complete German grade-5 teaching unit on picture description. Lesson plan, 13 lessons plus a feedback lesson with word-for-word teacher prompts, 18 printable A4 worksheets with solutions, a poster and word bank, 12 homework tasks with varied checks and short tests, a 35-method kit, ten interactive learning games with a printable diploma, a projector mode (grid, zones, magnifier, Kim-game timer) and a class test with marking scheme. Nine consistent picture-book illustrations (incl. a spot-the-difference pair and a hidden-object picture) generated with Codex image generation. Source: `sources/bildbeschreibung-klasse5/`.
@@ -50,6 +54,8 @@ The editable source for the Creepshow rehearsal planner lives in
 ## Live site
 
 - Gallery: <https://loggel.github.io/static-pages/>
+- Haarästhetik · Quelle der Entspannung (redesign concept): <https://loggel.github.io/static-pages/haaraesthetik-bernhardt/>
+- Haarästhetik Chroma Edition (redesign concept): <https://loggel.github.io/static-pages/haaraesthetik-edition/>
 - Was der Berg behält (novel): <https://loggel.github.io/static-pages/was-der-berg-behaelt/>
 - Bildbeschreibung teaching unit: <https://loggel.github.io/static-pages/bildbeschreibung-klasse5/>
 - DOPAMIN night simulation: <https://loggel.github.io/static-pages/dopamin/>

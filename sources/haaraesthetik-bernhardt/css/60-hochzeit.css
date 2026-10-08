@@ -1,0 +1,225 @@
+/* ==========================================================
+   Kapitel VI · 16:30 · Hochzeit (Goldene Stunde)
+   Vollflächige Eröffnung mit Ebenen-Parallax → Editorial-Liste
+   → Einladungskarte im Bogen.
+   ========================================================== */
+
+/* ---------- Eröffnung ---------- */
+#hochzeit .hz-open { position: relative; height: 210vh; }
+#hochzeit .hz-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: #3a2c1e; color: #f6efe2; isolation: isolate; }
+#hochzeit .hz-scene { position: absolute; inset: 0; }
+#hochzeit .hz-l { position: absolute; inset: -5%; will-change: transform; }
+#hochzeit .hz-l img { width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 34% 50%; }
+#hochzeit .hz-flat { z-index: 1; }
+#hochzeit .hz-l.is-stack { opacity: 0; transition: opacity 1.4s var(--ease); }
+#hochzeit .hz-scene.has-layers .hz-l.is-stack { opacity: 1; }
+#hochzeit .hz-scene.has-layers .hz-flat { opacity: 0; transition: opacity 1.4s var(--ease) .2s; }
+#hochzeit .hz-l-bg { z-index: 1; }
+#hochzeit .hz-l-mid { z-index: 2; }
+#hochzeit .hz-timeplane { z-index: 3; pointer-events: none; }
+#hochzeit .hz-l-fg { z-index: 4; }
+
+/* Der Lichtname, groß im Bild – mit Ebenen liegt er zwischen Kapelle und Braut */
+#hochzeit .hz-time {
+  position: absolute; right: 9%; top: 15%;
+  display: flex; flex-direction: column; align-items: flex-end;
+  font: 200 clamp(96px, 12.4vw, 220px)/.86 var(--f-display); letter-spacing: -.055em;
+  color: rgba(255, 249, 238, .94);
+  text-shadow: 0 0 60px rgba(120, 78, 30, .28), 0 1px 1px rgba(80, 50, 20, .12);
+}
+#hochzeit .hz-time > span { display: inline-block; opacity: 0; transform: translateY(18%); transition: opacity 1.8s var(--ease), transform 2s var(--ease); }
+#hochzeit .hz-time .hz-m { font: italic 400 .9em/.92 var(--f-serif); letter-spacing: -.02em; color: var(--gold-2); margin: .02em .12em 0 0; padding-right: .04em; transition-delay: .3s; }
+#hochzeit.hz-on .hz-time > span { opacity: 1; transform: none; }
+/* Mit Ebenen rückt die Uhrzeit hinter die Schulter der Braut */
+@media (min-width: 900px) {
+  #hochzeit .hz-time { transition: transform 1.6s var(--ease); }
+  #hochzeit .has-layers .hz-time { transform: translateX(-7.5vw); }
+}
+
+#hochzeit .hz-shade {
+  position: absolute; inset: 0; z-index: 5; pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(30, 20, 11, .72) 0%, rgba(30, 20, 11, .32) 30%, rgba(30, 20, 11, 0) 55%),
+    radial-gradient(60% 55% at 85% 82%, rgba(30, 20, 11, .42), rgba(30, 20, 11, 0) 70%),
+    radial-gradient(120% 90% at 70% 30%, rgba(0, 0, 0, 0) 55%, rgba(30, 20, 11, .28) 100%);
+}
+#hochzeit .hz-motes { position: absolute; inset: 0; z-index: 6; pointer-events: none; }
+
+#hochzeit .hz-copy {
+  position: absolute; z-index: 7; right: var(--gut); bottom: 13vh; width: min(560px, 42vw);
+}
+#hochzeit .hz-meta { margin: 0 0 22px; display: flex; flex-wrap: wrap; gap: 8px 22px; color: rgba(246, 239, 226, .78); }
+#hochzeit .hz-meta span:not(.sr-only) { display: inline-flex; align-items: center; gap: 12px; }
+#hochzeit .hz-meta span:first-child::before { content: ""; width: 34px; height: 1px; background: var(--gold-2); }
+#hochzeit .hz-h2 { margin: 0; font: 400 clamp(54px, 6.4vw, 108px)/.9 var(--f-serif); letter-spacing: -.02em; }
+#hochzeit .hz-h2 .pearl { background-image: var(--pearl); padding-right: .06em; }
+#hochzeit .hz-lead { margin: 22px 0 0; font: 400 clamp(20px, 1.7vw, 26px)/1.25 var(--f-serif); color: rgba(246, 239, 226, .9); max-width: 30ch; }
+#hochzeit .hz-scroll { position: absolute; z-index: 7; left: var(--gut); bottom: 13vh; margin: 0; display: flex; align-items: center; gap: 14px; color: rgba(246, 239, 226, .75); }
+#hochzeit .hz-scroll i { width: 1px; height: 56px; background: rgba(246, 239, 226, .3); position: relative; overflow: hidden; }
+#hochzeit .hz-scroll i::after { content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 40%; background: var(--gold-2); animation: hz-drip 2.6s var(--ease-io) infinite; }
+@keyframes hz-drip { 0% { transform: translateY(-100%); } 100% { transform: translateY(260%); } }
+
+@media (max-width: 899px) {
+  #hochzeit .hz-l img { object-position: 31% 50%; }
+  /* translate gleicht das Hochfahren der Bildebene aus, damit der Lichtname nie unter den Header rutscht */
+  /* Mobil: Braut füllt fast die ganze Breite – der Lichtname liegt deshalb VOR der Braut-Ebene, sonst verdeckt der Schleier „Go…“ */
+  #hochzeit .hz-timeplane { z-index: 5; }
+  #hochzeit .hz-time { right: calc(var(--gut) + 8%); top: calc(13svh + 52px); font-size: 20vw; translate: 0 calc(var(--p, 0) * 10.5svh); }
+  #hochzeit .hz-copy { left: var(--gut); right: var(--gut); width: auto; bottom: 104px; }
+  #hochzeit .hz-h2 { font-size: 54px; }
+  #hochzeit .hz-lead { font-size: 20px; }
+  #hochzeit .hz-scroll { display: none; }
+  #hochzeit .hz-shade { background: linear-gradient(to top, rgba(30, 20, 11, .82) 0%, rgba(30, 20, 11, .45) 32%, rgba(30, 20, 11, 0) 58%); }
+}
+
+/* ---------- Bahn im Bogen ---------- */
+#hochzeit .hz-sheet {
+  position: relative; z-index: 2; margin-top: -60vh;
+  background: var(--bg);
+  border-radius: 50% 50% 0 0 / 18vh 18vh 0 0;
+  padding-top: 20vh;
+}
+#hochzeit .hz-sheet::before { content: ""; position: absolute; left: 50%; top: 5vh; width: 1px; height: 9vh; background: linear-gradient(to bottom, transparent, var(--accent)); }
+
+/* ---------- Editorial-Liste ---------- */
+#hochzeit .hz-list-wrap { position: relative; }
+#hochzeit .hz-list-head { display: grid; gap: 18px; margin-bottom: 7vh; }
+#hochzeit .hz-kicker { margin: 0; color: var(--fg-dim); display: flex; align-items: center; gap: 12px; }
+#hochzeit .hz-kicker::before { content: ""; width: 34px; height: 1px; background: var(--accent); }
+#hochzeit .hz-list-intro { margin: 0; font: italic 400 clamp(22px, 2vw, 30px)/1.2 var(--f-serif); max-width: 30ch; color: var(--fg); }
+@media (min-width: 900px) {
+  #hochzeit .hz-list-head { grid-template-columns: 1fr 1fr; align-items: end; }
+  #hochzeit .hz-list-intro { justify-self: end; text-align: right; }
+}
+
+#hochzeit .hz-list { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--line); }
+#hochzeit .hz-row { position: relative; border-top: 1px solid var(--line); transition: opacity .7s var(--ease); }
+#hochzeit .hz-btn {
+  width: 100%; display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 10px;
+  padding: 20px 0 18px; border: 0; background: none; text-align: left; cursor: pointer; color: var(--fg);
+}
+#hochzeit .hz-n { color: var(--accent); align-self: start; padding-top: .9em; }
+#hochzeit .hz-t { font: 400 clamp(36px, 7.2vw, 128px)/.98 var(--f-serif); letter-spacing: -.025em; transition: transform 1s var(--ease), letter-spacing 1s var(--ease); transform-origin: left center; }
+#hochzeit .hz-t em { font-style: italic; }
+#hochzeit .hz-tag { display: none; color: var(--fg-dim); }
+#hochzeit .hz-plus { position: relative; width: 18px; height: 18px; justify-self: end; }
+#hochzeit .hz-plus::before, #hochzeit .hz-plus::after { content: ""; position: absolute; left: 0; top: 50%; width: 100%; height: 1px; background: currentColor; transition: transform .7s var(--ease); }
+#hochzeit .hz-plus::after { transform: rotate(90deg); }
+#hochzeit .hz-row.open .hz-plus::after { transform: rotate(0deg); }
+#hochzeit .hz-row.open .hz-plus::before { background: var(--accent); }
+
+#hochzeit .hz-d { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .9s var(--ease); }
+#hochzeit .hz-d-in { min-height: 0; overflow: hidden; display: grid; grid-template-columns: 38% 1fr; gap: 18px; align-items: end; }
+#hochzeit .hz-row.open .hz-d { grid-template-rows: 1fr; }
+#hochzeit .hz-d p { margin: 0 0 26px; font: italic 400 20px/1.3 var(--f-serif); color: var(--fg); opacity: 0; transform: translateY(14px); transition: opacity .8s var(--ease) .1s, transform .9s var(--ease) .1s; }
+#hochzeit .hz-row.open .hz-d p { opacity: 1; transform: none; }
+#hochzeit .hz-d-img { margin: 0 0 26px; aspect-ratio: 3 / 4; position: relative; }
+#hochzeit .hz-d-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--fx) var(--fy); transform-origin: var(--fx) var(--fy); transform: scale(var(--z)); }
+
+/* Desktop: Hover-Editorial */
+@media (min-width: 900px) {
+  #hochzeit .hz-btn { grid-template-columns: 7.2vw 1fr auto 40px; padding: 2.2vh 0 1.8vh; column-gap: 0; }
+  #hochzeit .hz-n { padding-top: 1.6em; }
+  #hochzeit .hz-tag { display: block; padding-right: 3vw; }
+  #hochzeit .hz-d-in { grid-template-columns: 7.2vw minmax(0, 36ch); gap: 0; }
+  #hochzeit .hz-d-img { display: none; }
+  #hochzeit .hz-d p { grid-column: 2; font-size: clamp(20px, 1.6vw, 26px); margin-bottom: 4vh; padding-left: .2em; }
+  #hochzeit .hz-list.has-active .hz-row:not(.open) { opacity: .22; }
+  #hochzeit .hz-row.open .hz-t { transform: translateX(2.2vw); }
+  #hochzeit .hz-row.open .hz-t em { color: var(--accent); }
+}
+
+/* Vorschau-Bogen */
+#hochzeit .hz-peek {
+  position: absolute; left: 0; top: 0; z-index: 4; pointer-events: none;
+  width: clamp(124px, 9.5vw, 150px); aspect-ratio: 4 / 3;
+  margin: 0;
+  display: none; will-change: transform;
+}
+@media (min-width: 900px) and (hover: hover) and (pointer: fine) { #hochzeit .hz-peek { display: block; } }
+#hochzeit .hz-peek-in {
+  position: absolute; inset: 0; background: #3a2c1e;
+  opacity: 0; transform: scale(.82); transition: opacity .55s var(--ease), transform .9s var(--ease);
+  box-shadow: 0 30px 60px -20px rgba(40, 26, 12, .45);
+}
+#hochzeit .hz-peek.show .hz-peek-in { opacity: 1; transform: none; }
+#hochzeit .hz-peek img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: var(--fx) var(--fy); transform-origin: var(--fx) var(--fy); transform: scale(calc(var(--z) * 1.12)); opacity: 0; transition: opacity .6s var(--ease), transform 1.4s var(--ease); }
+#hochzeit .hz-peek img.on { opacity: 1; transform: scale(var(--z)); }
+#hochzeit .hz-peek-n { position: absolute; left: calc(100% + 12px); top: 50%; color: var(--accent); opacity: 0; transition: opacity .4s; }
+#hochzeit .hz-peek.show .hz-peek-n { opacity: 1; }
+
+/* ---------- Einladung ---------- */
+#hochzeit .hz-invite { padding-top: 20vh; padding-bottom: 18vh; display: grid; gap: 10vh; align-items: center; }
+#hochzeit .hz-quote { margin: 0; display: grid; gap: 22px; }
+#hochzeit .hz-q { margin: 0; font: 400 clamp(46px, 6.4vw, 108px)/.95 var(--f-serif); letter-spacing: -.02em; }
+#hochzeit .hz-q em { font-style: italic; }
+#hochzeit .hz-q-sub { margin: 0; font: 400 15px/1.6 var(--f-sans); color: var(--fg); opacity: .72; max-width: 34ch; }
+
+#hochzeit .hz-card { position: relative; width: min(100%, 420px); aspect-ratio: 400 / 600; justify-self: center; border-radius: 999px 999px 0 0; background: radial-gradient(70% 45% at 50% 22%, color-mix(in srgb, var(--gold-2) 45%, transparent), transparent 70%), var(--card); box-shadow: 0 40px 80px -40px rgba(60, 40, 18, .35); }
+#hochzeit .hz-card-frame { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+#hochzeit .hz-card-frame path { fill: none; stroke: var(--gold); stroke-width: 1; }
+#hochzeit .hz-card-frame path.in { stroke: var(--gold); opacity: .55; }
+#hochzeit .hz-card-body { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-align: center; padding: 0 28px 30px; }
+#hochzeit .hz-card-k { margin: 0 0 14px; color: var(--accent); }
+#hochzeit .hz-orn { width: 80px; height: 20px; overflow: visible; margin-bottom: 18px; }
+#hochzeit .hz-orn path { fill: none; stroke: var(--gold); stroke-width: 1; }
+#hochzeit .hz-card-t { margin: 0; font: 400 clamp(46px, 4.4vw, 64px)/.9 var(--f-serif); letter-spacing: -.02em; }
+#hochzeit .hz-card-t em { font-style: italic; }
+#hochzeit .hz-card-s { margin: 12px 0 0; font: italic 400 19px/1.2 var(--f-serif); color: var(--fg-dim); }
+#hochzeit .hz-card-p { margin: 4vh 0 0; font: 200 clamp(84px, 8vw, 124px)/.8 var(--f-display); letter-spacing: -.055em; }
+#hochzeit .hz-card-n { margin: 14px 0 26px; color: var(--fg-dim); font-size: 10px; }
+#hochzeit .hz-card-btn { --h: 52px; padding: 0 22px; font-size: 14px; }
+#hochzeit .hz-card-btn:hover { background: var(--fg); color: var(--bg); }
+#hochzeit .hz-card-a { margin: 18px 0 0; color: var(--fg-dim); font-size: 9.5px; }
+
+@media (min-width: 960px) {
+  #hochzeit .hz-invite { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 2vw; }
+  #hochzeit .hz-quote { grid-column: 1 / span 6; align-self: end; padding-bottom: 6vh; }
+  #hochzeit .hz-card { grid-column: 8 / span 5; justify-self: end; margin-right: 3vw; }
+}
+@media (max-width: 420px) {
+  #hochzeit .hz-card-body { padding: 0 20px 24px; }
+  #hochzeit .hz-card-btn { font-size: 13px; padding: 0 16px; }
+}
+
+/* ---------- Ausklang: Kapellenfenster ---------- */
+#hochzeit .hz-dusk { position: relative; margin: 0 auto; padding: 0 var(--gut) 12vh; max-width: calc(min(980px, 72vw) + 2 * var(--gut)); }
+#hochzeit .hz-dusk-win { position: relative; height: min(84vh, 820px); border-radius: 9999px 9999px 0 0; overflow: hidden; background: #2b241d; isolation: isolate; }
+#hochzeit .hz-dusk-win img { position: absolute; inset: -8% 0; width: 100%; height: 116%; max-width: none; object-fit: cover; object-position: 80% 40%; transform: translate3d(0, var(--dy, 0px), 0) scale(1.3); transform-origin: 88% 35%; will-change: transform; transition: opacity 1.4s var(--ease); }
+#hochzeit .hz-dusk-win img.hz-dl { opacity: 0; }
+#hochzeit .hz-dusk-win.has-layers img.hz-dl { opacity: 1; }
+#hochzeit .hz-dusk-win.has-layers img.hz-dusk-flat { opacity: 0; }
+#hochzeit .hz-dusk-win img.hz-dl-bg { transform: translate3d(0, calc(var(--dy, 0px) * .4), 0) scale(1.16); }
+#hochzeit .hz-dusk-win img.hz-dl-mid { transform: translate3d(0, var(--dy, 0px), 0) scale(1.12); }
+#hochzeit .hz-dusk-night { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, rgba(14, 13, 12, .2), rgba(14, 13, 12, .92)); opacity: var(--night, .2); }
+#hochzeit .hz-dusk-win .motes { position: absolute; inset: 0; z-index: 2; }
+#hochzeit .hz-dusk-cap { position: absolute; z-index: 3; left: 0; right: 0; bottom: calc(12vh + 7vh); display: grid; justify-items: center; gap: 16px; color: #f6efe2; text-align: center; pointer-events: none; }
+#hochzeit .hz-dusk-cap .t-mono { color: rgba(246, 239, 226, .78); }
+#hochzeit .hz-dusk-sun { width: clamp(220px, 24vw, 340px); height: auto; overflow: visible; }
+#hochzeit .hz-sun-arc { fill: none; stroke: rgba(246, 239, 226, .6); stroke-width: 1; stroke-dasharray: 1.5 4; }
+#hochzeit .hz-sun-dot { fill: #fff4de; }
+#hochzeit .hz-sun-ticks { fill: none; stroke: rgba(246, 239, 226, .4); stroke-width: 1; }
+@media (max-width: 899px) {
+  #hochzeit .hz-dusk-win { height: 74svh; }
+  #hochzeit .hz-dusk { max-width: none; }
+  #hochzeit .hz-dusk { padding-bottom: 96px; }
+  #hochzeit .hz-dusk-cap { bottom: calc(96px + 6vh); gap: 14px; }
+  #hochzeit .hz-dusk-sun { width: 62vw; }
+  /* Liste & Einladung: ruhigere, feste Abstände */
+  #hochzeit .hz-list-head { gap: 14px; margin-bottom: 40px; }
+  #hochzeit .hz-btn { grid-template-columns: 36px 1fr auto; padding: 22px 0 20px; }
+  #hochzeit .hz-d-in { gap: 16px; }
+  #hochzeit .hz-d p { margin-bottom: 24px; }
+  #hochzeit .hz-d-img { margin-bottom: 24px; }
+  #hochzeit .hz-invite { padding-top: 104px; padding-bottom: 96px; gap: 64px; }
+  #hochzeit .hz-quote { gap: 14px; }
+  #hochzeit .hz-q-sub { margin-top: 6px; }
+  #hochzeit .hz-card-n { font-size: 10.5px; margin: 14px 0 22px; }
+  #hochzeit .hz-card-a { font-size: 10.5px; letter-spacing: .08em; margin-top: 16px; }
+}
+
+/* ---------- Reduzierte Bewegung ---------- */
+#hochzeit.hz-reduce .hz-open { height: auto; }
+#hochzeit.hz-reduce .hz-stage { position: relative; }
+#hochzeit.hz-reduce .hz-sheet { margin-top: -12vh; }
+#hochzeit.hz-reduce .hz-copy, #hochzeit.hz-reduce .hz-scroll { bottom: 22vh; }

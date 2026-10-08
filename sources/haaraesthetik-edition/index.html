@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Haarästhetik · Die Chroma Edition</title>
+<meta name="description" content="Haarästhetik Christian Bernhardt · Die Chroma Edition · Winter '26. Eine neue Ära der Haarästhetik an der Deutschen Weinstraße.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2307060b'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23b69cff' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="topbar">
+  <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span><b>Haarästhetik Editions</b><span class="dim">Winter '26</span></a>
+  <nav class="topnav">
+    <a href="#preise">Preise</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+  <div class="topright">
+    <a class="status" href="#kontakt" data-open-status><i></i><span>Status</span></a>
+    <a class="pill" href="https://kmkx.mitdenkt.io/" target="_blank" rel="noopener">Termin buchen</a>
+  </div>
+</header>
+
+<!-- ============ SIDEBAR (erscheint nach dem Hero) ============ -->
+<aside class="sidebar" aria-label="Kapitel">
+  <a class="side-title" href="#top">Die<br>Chr<em>o</em>ma<br>Edition</a>
+  <ol class="side-index" data-index></ol>
+  <div class="side-foot">© Haarästhetik<br><a href="#impressum">Impressum</a></div>
+</aside>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero" data-scroll="hero">
+  <div class="hero-stage">
+    <div class="hero-bg"><img src="img/hero.webp" alt="" fetchpriority="high"></div>
+    <canvas class="portal" aria-hidden="true"></canvas>
+    <div class="hero-grain" aria-hidden="true"></div>
+    <div class="hero-box">
+      <h1 class="edition-title">Die<br>Chr<em>o</em>ma<br>Edition</h1>
+      <p class="hero-tag">Eine neue Ära der Haarästhetik.<br><span class="mono">40+ Leistungen · Kirchheim a. d. Weinstraße</span></p>
+      <ol class="hero-index" data-index></ol>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><i></i></div>
+  </div>
+</section>
+
+<!-- ============ I · BERATUNG ============ -->
+<section class="chapter" id="beratung" data-chapter="Beratung" data-num="I">
+  <div class="intro" data-scroll="intro">
+    <div class="intro-stage">
+      <div class="intro-bg"><img src="img/analyse.webp" alt="" loading="lazy"></div>
+      <div class="sparkles" aria-hidden="true"></div>
+      <h2 class="mega">Beratung</h2>
+      <p class="lead"><em class="cap">D</em>ein Haar, gelesen wie ein Datensatz, bevor die erste Strähne fällt.</p>
+    </div>
+  </div>
+  <div class="panel">
+    <svg class="tear" aria-hidden="true"></svg>
+    <div class="panel-inner">
+      <article class="feature reveal">
+        <h3 class="swash"><em class="cap">A</em>nalyse, digitalisiert</h3>
+        <p class="label">Haar- &amp; Kopfhautanalyse</p>
+        <p class="desc">Mit dem digitalen Haartester messen wir direkt im Salon, was dein Haar braucht: Feuchtigkeit, Proteinhaushalt, Zustand der Kopfhaut. Aus den Daten entsteht dein Pflegeplan.</p>
+        <div class="chips"><span class="chip">45 €</span><a class="chip link" href="https://kmkx.mitdenkt.io/" target="_blank" rel="noopener">Analyse buchen ↗</a></div>
+      </article>
+
+      <div class="cloud reveal" data-cloud>
+        <div class="cloud-card center" data-depth="0">
+          <div class="cc-head"><span class="dot"></span>Hair Scan <span class="tag">Live</span></div>
+          <div class="orbit"><img src="img/analyse-s.webp" alt="Makroaufnahme eines Haares mit Scan-Overlay" loading="lazy"><svg viewBox="0 0 200 200" aria-hidden="true"><ellipse cx="100" cy="100" rx="96" ry="34"/></svg><i class="orbit-dot"></i><i class="orbit-dot d2"></i></div>
+          <div class="cc-foot">Ergebnis in deinem Termin <span>→</span></div>
+        </div>
+        <div class="cloud-card float f1" data-depth="0.6"><small>Feuchtigkeit</small><b data-count="72">0</b><span>%</span><div class="bar"><i style="--w:72%"></i></div></div>
+        <div class="cloud-card float f2" data-depth="1"><small>Protein-Balance</small><b>stabil</b><div class="spark"><svg viewBox="0 0 120 30"><polyline points="0,22 15,18 30,20 45,10 60,14 75,8 90,12 105,6 120,9"/></svg></div></div>
+        <div class="cloud-card float f3" data-depth="0.4"><small>Kopfhaut-pH</small><b>5,5</b></div>
+        <div class="cloud-card float f4 pill-card" data-depth="0.9"><span class="ok"></span>Säureschutzmantel intakt</div>
+        <div class="cloud-card float f5 pill-card" data-depth="0.7"><span class="warn"></span>Spitzen: Pflege empfohlen</div>
+        <div class="cloud-card float f6" data-depth="1.2"><small>Erstgespräch</small><b>29 €</b></div>
+      </div>
+
+      <div class="grid-2">
+        <article class="mini reveal">
+          <p class="label">Erstgespräch Neukunden</p>
+          <p class="desc-s">Wir lernen dich, dein Haar und deine Wünsche kennen, bevor wir irgendetwas schneiden.</p>
+          <span class="chip">29 €</span>
+        </article>
+        <article class="mini reveal">
+          <p class="label">Braut-Beratung</p>
+          <p class="desc-s">Probestecken, Make-up-Abstimmung und ein Plan für den großen Tag.</p>
+          <span class="chip">90 €</span>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ II · SCHNITT ============ -->
+<section class="chapter" id="schnitt" data-chapter="Schnitt" data-num="II">
+  <div class="intro" data-scroll="intro">
+    <div class="intro-stage">
+      <div class="intro-bg"><img src="img/schere.webp" alt="" loading="lazy"></div>
+      <div class="sparkles" aria-hidden="true"></div>
+      <h2 class="mega">Schnitt</h2>
+      <p class="lead"><em class="cap">P</em>räzision mit Temperatur: Die heiße Schere versiegelt jede Spitze im Moment des Schnitts.</p>
+    </div>
+  </div>
+  <div class="panel" id="preise">
+    <svg class="tear" aria-hidden="true"></svg>
+    <div class="panel-inner">
+      <div class="sticky-split">
+        <div class="sticky-col">
+          <article class="feature reveal">
+            <h3 class="swash"><em class="cap">S</em>pitzen, versiegelt</h3>
+            <p class="label">Heiße Schere</p>
+            <p class="desc">Die erhitzte Klinge schließt die Haarspitze beim Schneiden. Das Ergebnis hält länger, splisst weniger und fällt sichtbar glatter. Auch zusätzlich zu jedem Schnitt buchbar.</p>
+          </article>
+          <div class="toggle reveal" role="group" aria-label="Föhnen">
+            <button class="on" data-mode="ohne">ohne Föhnen</button>
+            <button data-mode="mit">mit Föhnen</button>
+            <i></i>
+          </div>
+          <p class="fine reveal">Preis nach Haarlänge: <b>kurz</b> bis Ohr · <b>mittel</b> bis Kinn · <b>lang</b> bis Schulter · <b>aufwendig</b> darüber oder sehr dicht.</p>
+        </div>
+        <div class="price-col" data-prices>
+          <div class="price-card reveal">
+            <div class="pc-head"><span class="mono">01</span>Schnittleistung<small>inkl. Haarbad &amp; Pflege</small></div>
+            <ul class="len" data-ohne="45,57,66,90" data-mit="59,75,90,105"></ul>
+          </div>
+          <div class="price-card reveal">
+            <div class="pc-head"><span class="mono">02</span>Heiße Schere<small>inkl. Haarbad &amp; Pflege</small></div>
+            <ul class="len" data-ohne="–,57,66,75" data-mit="–,75,90,105"></ul>
+          </div>
+          <div class="price-card reveal">
+            <div class="pc-head"><span class="mono">03</span>Kurzhaarschnitt<small>Maschine &amp; Schere</small></div>
+            <div class="flat">43 €</div>
+          </div>
+          <div class="price-card reveal">
+            <div class="pc-head"><span class="mono">04</span>Fade<small>nur Seiten</small></div>
+            <div class="flat">30 €</div>
+          </div>
+          <div class="price-card reveal">
+            <div class="pc-head"><span class="mono">05</span>Kinderhaarschnitt<small>bis einschl. 14 Jahre</small></div>
+            <ul class="len" data-ohne="30,45,60,–" data-mit="30,45,60,–"></ul>
+          </div>
+          <div class="price-card reveal">
+            <div class="pc-head"><span class="mono">06</span>Föhnen &amp; Styling<small>inkl. Haarbad &amp; Pflege</small></div>
+            <ul class="len" data-ohne="30,45,60,90" data-mit="30,45,60,90"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ III · FARBE ============ -->
+<section class="chapter" id="farbe" data-chapter="Farbe" data-num="III">
+  <div class="intro" data-scroll="intro">
+    <div class="intro-bg-wrap"></div>
+    <div class="intro-stage">
+      <div class="intro-bg"><img src="img/farbe.webp" alt="" loading="lazy"></div>
+      <div class="sparkles" aria-hidden="true"></div>
+      <h2 class="mega">Farbe</h2>
+      <p class="lead"><em class="cap">K</em>upfer, Rosé, Platin, Asch: Farbtechniken, die mit dem Licht spielen statt es zu schlucken.</p>
+    </div>
+  </div>
+  <div class="panel">
+    <svg class="tear" aria-hidden="true"></svg>
+    <div class="panel-inner">
+      <article class="feature reveal">
+        <h3 class="swash"><em class="cap">F</em>arbe, als Befehl</h3>
+        <p class="label">Farb-Shortcuts</p>
+        <p class="desc">Tipp einen Befehl an und sieh, was er kostet. Jede Technik ist ein Werkzeug. Welche zu dir passt, klären wir im Gespräch.</p>
+      </article>
+      <div class="tagcloud reveal" data-tagcloud>
+        <div class="tc-stage"></div>
+        <div class="prompt" aria-live="polite">
+          <span class="prompt-icon" aria-hidden="true"></span>
+          <span class="prompt-text">Wähle einen Befehl …</span>
+          <span class="prompt-send" aria-hidden="true">↑</span>
+        </div>
+      </div>
+      <div class="table reveal">
+        <div class="row"><b>Ansatzfarbe</b><span>bis 3 cm Nachwuchs</span><em>66 €</em></div>
+        <div class="row"><b>Komplettfarbe</b><span>kurz · mittel · lang · aufwendig</span><em>78–138 €</em></div>
+        <div class="row"><b>Color Glossing</b><span>Glanz und Ton auffrischen</span><em>48–90 €</em></div>
+        <div class="row"><b>Highlights Teil</b><span>gezielte Lichtreflexe</span><em>70–105 €</em></div>
+        <div class="row"><b>Highlights komplett</b><span>Strähnen rundum</span><em>120–160 €</em></div>
+        <div class="row"><b>Balayage &amp; Spezial</b><span>Freihand-Techniken</span><em>285–380 €</em></div>
+        <div class="row"><b>Umformung</b><span>Teil- oder Komplettbehandlung</span><em>45–90 €</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IV · PFLEGE ============ -->
+<section class="chapter" id="pflege" data-chapter="Pflege" data-num="IV">
+  <div class="intro" data-scroll="intro">
+    <div class="intro-stage">
+      <div class="intro-bg"><img src="img/pflege.webp" alt="" loading="lazy"></div>
+      <div class="sparkles" aria-hidden="true"></div>
+      <h2 class="mega">Hårtræt</h2>
+      <p class="lead"><em class="cap">T</em>he science of beautiful hair. Unsere Eigenmarke für Reduktion, Klarheit und organische Wirkstoffe.</p>
+    </div>
+  </div>
+  <div class="panel">
+    <svg class="tear" aria-hidden="true"></svg>
+    <div class="panel-inner">
+      <div class="media-row">
+        <article class="feature reveal">
+          <h3 class="swash"><em class="cap">P</em>flege, maßgeschneidert</h3>
+          <p class="label">Individuelles Pflegeritual</p>
+          <p class="desc">Jedes Hårtræt-Produkt hat genau eine Aufgabe: reinigen, pflegen oder schützen. Die Aktivstoffe gleichen den Protein- und Feuchtigkeitshaushalt aus und stärken die äußere Haarschicht.</p>
+          <div class="chips"><span class="chip">15 €</span><a class="chip link" href="https://haaraesthetik-bernhardt.de/hartraet/" target="_blank" rel="noopener">Hårtræt entdecken ↗</a></div>
+        </article>
+        <figure class="media reveal tilt"><img src="img/pflege-s.webp" alt="Unbeschriftete Pflegeflaschen auf schwarzem Sockel mit holografischem Scan-Raster" loading="lazy"></figure>
+      </div>
+      <div class="ftable reveal">
+        <div><b>Reinigen</b><span>Sanft, ohne den Säureschutzmantel der Kopfhaut anzugreifen.</span></div>
+        <div><b>Pflegen</b><span>Organische Wirkstoffe, die tief in die Haarstruktur wirken.</span></div>
+        <div><b>Schützen</b><span>Repariert und versiegelt die äußere Schuppenschicht.</span></div>
+        <div><b>Messen</b><span>Der digitale Haartester wählt die passenden Produkte.</span></div>
+        <div><b>Nachhaltig</b><span>Hochwertige Inhaltsstoffe, bewusst reduziert.</span></div>
+        <div><b>Für zu Hause</b><span>Dein Ritual geht mit dir aus dem Salon.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ V · GREAT LENGTHS ============ -->
+<section class="chapter" id="lengths" data-chapter="Great Lengths" data-num="V">
+  <div class="intro" data-scroll="intro">
+    <div class="intro-stage">
+      <div class="intro-bg"><img src="img/lengths.webp" alt="" loading="lazy"></div>
+      <div class="sparkles" aria-hidden="true"></div>
+      <h2 class="mega">Längen</h2>
+      <p class="lead"><em class="cap">V</em>olumen mit Ultraschall gesetzt: Echthaar-Strähnen, unsichtbar mit deinem Haar verbunden.</p>
+    </div>
+  </div>
+  <div class="panel">
+    <svg class="tear" aria-hidden="true"></svg>
+    <div class="panel-inner">
+      <div class="media-row flip">
+        <article class="feature reveal">
+          <h3 class="swash"><em class="cap">V</em>olumen, unsichtbar</h3>
+          <p class="label">Great Lengths Haarverlängerung &amp; -verdichtung</p>
+          <p class="desc">Hochwertige Echthaar-Strähnen, unsichtbare Bondings und lange Tragedauer dank Ultraschallsystem MultiSonic. Auch für feines Haar, in jeder Farbe, Struktur und Länge.</p>
+          <div class="chips"><span class="chip">Beratung 45 €</span><a class="chip link" href="https://kmkx.mitdenkt.io/" target="_blank" rel="noopener">Beratung buchen ↗</a></div>
+        </article>
+        <div class="sonic reveal" aria-hidden="true">
+          <img src="img/lengths-s.webp" alt="" loading="lazy">
+          <div class="rings"><i></i><i></i><i></i><i></i></div>
+          <div class="sonic-label mono">MultiSonic · 40 kHz</div>
+        </div>
+      </div>
+      <div class="ftable reveal">
+        <div><b>Unsichtbare Bondings</b><span>Die Verbindungen verschwinden im Eigenhaar.</span></div>
+        <div><b>Sicherer Halt</b><span>In jeder Lebenslage, vom Sport bis zur Hochzeit.</span></div>
+        <div><b>Tragekomfort</b><span>Leicht und flexibel, kein Ziepen.</span></div>
+        <div><b>Natürlicher Fall</b><span>Jede Strähne einzeln und präzise gesetzt.</span></div>
+        <div><b>Effekte</b><span>Highlights setzen, ganz ohne Farbe.</span></div>
+        <div><b>Feines Haar</b><span>Verschiedene Strukturen für jede Haarqualität.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VI · HOCHZEIT ============ -->
+<section class="chapter" id="hochzeit" data-chapter="Hochzeit" data-num="VI">
+  <div class="intro" data-scroll="intro">
+    <div class="intro-stage">
+      <div class="intro-bg"><img src="img/hochzeit.webp" alt="" loading="lazy"></div>
+      <div class="sparkles" aria-hidden="true"></div>
+      <h2 class="mega">Hochzeit</h2>
+      <p class="lead"><em class="cap">D</em>ein schönster Tag, von der Zeremonie bis zum letzten Tanz.</p>
+    </div>
+  </div>
+  <div class="panel">
+    <svg class="tear" aria-hidden="true"></svg>
+    <div class="htrack" data-scroll="htrack">
+      <div class="htrack-stage">
+        <div class="panel-inner">
+          <article class="feature reveal">
+            <h3 class="swash"><em class="cap">E</em>leganz, gesteckt</h3>
+            <p class="label">Hochzeitsfrisuren &amp; Make-up</p>
+            <p class="desc">Für die moderne Braut, die Stärke und Selbstbewusstsein ausstrahlt: Looks, die natürlich wirken und den ganzen Tag halten.</p>
+          </article>
+        </div>
+        <div class="htrack-rail">
+          <div class="hcard"><span class="mono">01</span><h4>Romantisch gesteckt</h4><p>Sanft fallende Locken und weich gesteckte Strähnen. Struktur und Bewegung in perfekter Balance.</p></div>
+          <div class="hcard"><span class="mono">02</span><h4>Natürlich schön</h4><p>Make-up, das deine Strahlkraft betont statt sie zu überdecken. Ein feiner Lidstrich, ein makelloser Teint.</p></div>
+          <div class="hcard img"><img src="img/hochzeit-s.webp" alt="Braut von hinten mit geflochtener Hochsteckfrisur und Lichtschleier" loading="lazy"></div>
+          <div class="hcard"><span class="mono">03</span><h4>Wellen &amp; Leichtigkeit</h4><p>Seidig fließende Wellen, als hätte eine Brise sie geformt. Mühelos elegant.</p></div>
+          <div class="hcard"><span class="mono">04</span><h4>Romantisch &amp; modern</h4><p>Die Renaissance des geflochtenen Haares: locker im Nacken, ideal zum Rückenausschnitt.</p></div>
+          <div class="hcard"><span class="mono">05</span><h4>Einzigartige Twists</h4><p>Der Bauernzopf neu gedacht, mit lockerem Twist und mattem Finish.</p></div>
+          <div class="hcard cta"><h4>Braut-Beratung</h4><p class="big">90 €</p><a class="chip link" href="https://kmkx.mitdenkt.io/" target="_blank" rel="noopener">Termin sichern ↗</a></div>
+        </div>
+        <div class="htrack-progress"><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VII · BART & GESICHT ============ -->
+<section class="chapter" id="bart" data-chapter="Bart &amp; Gesicht" data-num="VII">
+  <div class="intro" data-scroll="intro">
+    <div class="intro-stage">
+      <div class="intro-bg"><img src="img/bart.webp" alt="" loading="lazy"></div>
+      <div class="sparkles" aria-hidden="true"></div>
+      <h2 class="mega">Kontur</h2>
+      <p class="lead"><em class="cap">K</em>linge, Schaum, heißes Tuch: Rasur als Ritual, nicht als Pflichtprogramm.</p>
+    </div>
+  </div>
+  <div class="panel">
+    <svg class="tear" aria-hidden="true"></svg>
+    <div class="panel-inner">
+      <article class="feature reveal">
+        <h3 class="swash"><em class="cap">K</em>onturen, geschärft</h3>
+        <p class="label">Gesicht &amp; Bartpflege</p>
+        <p class="desc">Vom schnellen Konturschnitt bis zur klassischen Nassrasur mit Pflege. Dazu Augenbrauen und Wimpern in Form und Farbe.</p>
+      </article>
+      <div class="bento reveal">
+        <div class="b-item"><small>Rasur + Pflege</small><b>30 €</b></div>
+        <div class="b-item hi"><small>Nassrasur + Pflege</small><b>45 €</b></div>
+        <div class="b-item"><small>Kurzhaarschnitt &amp; Rasur</small><b>63 €</b></div>
+        <div class="b-item"><small>Augenbrauen formen</small><b>14 €</b></div>
+        <div class="b-item"><small>Augenbrauen färben</small><b>14 €</b></div>
+        <div class="b-item"><small>Wimpern färben</small><b>14 €</b></div>
+        <div class="b-item wide"><small>Augenpflege-Paket</small><b>35 €</b><span>Formen &amp; Färben komplett</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VIII · SALON ============ -->
+<section class="chapter" id="salon" data-chapter="Salon &amp; Team" data-num="VIII">
+  <div class="intro" data-scroll="intro">
+    <div class="intro-stage">
+      <div class="intro-bg"><img src="img/salon.webp" alt="" loading="lazy"></div>
+      <div class="sparkles" aria-hidden="true"></div>
+      <h2 class="mega">Salon</h2>
+      <p class="lead"><em class="cap">D</em>unkles Holz, schwarze Möbel, eine Glasfront zur Pfalz und wechselnde Kunst von regionalen Künstlern.</p>
+    </div>
+  </div>
+  <div class="panel">
+    <svg class="tear" aria-hidden="true"></svg>
+    <div class="panel-inner">
+      <article class="feature reveal">
+        <h3 class="swash"><em class="cap">R</em>aum, kuratiert</h3>
+        <p class="label">Beauty trifft Kunst</p>
+        <p class="desc">Als Unterstützer der regionalen Kunstszene stellen wir regelmäßig Werke lokaler Künstler aus. Ein Salon zum Ankommen, nicht zum Abfertigen.</p>
+      </article>
+      <div class="stats reveal">
+        <div><b data-count="120">0</b><span>m² Salon</span></div>
+        <div><b data-count="10">0</b><span>Bedienplätze</span></div>
+        <div><b data-count="3">0</b><span>Waschplätze</span></div>
+        <div><b data-count="2018" data-from="1990">1990</b><span>eigener Salon seit</span></div>
+      </div>
+      <div class="founder reveal">
+        <div class="f-text">
+          <p class="label">Christian Bernhardt</p>
+          <p class="desc">Friseurmeister und Betriebswirt der Deutschen Friseur-Akademie in Neu-Ulm, spezialisiert als Colorist und Pflegeexperte. Lehrlingswart und Vorstandsmitglied der Friseurinnung Süd-Pfalz Deutsche Weinstraße. 2023 Seminarreihe zu Business Consulting für die Beauty-Branche in Miami und New York.</p>
+        </div>
+        <blockquote>»Creating something that is universally beautiful. That is art.«<cite>Shu Uemura</cite></blockquote>
+      </div>
+    </div>
+    <div class="marquee" aria-label="Unser Team: Yvo, Tatjana, Walled, Hendrik, Hamza, Lucien, Nero">
+      <div class="mq-track" aria-hidden="true"></div>
+    </div>
+    <div class="panel-inner">
+      <div class="grid-2">
+        <article class="mini reveal">
+          <p class="label">Modelle gesucht</p>
+          <p class="desc-s">Unsere Auszubildenden suchen Übungsmodelle, immer unter Anleitung einer Fachkraft. Je nach Ausbildungsjahr gibt es Rabatt auf alle Leistungen.</p>
+          <a class="chip link" href="https://haaraesthetik-bernhardt.de/friseure/" target="_blank" rel="noopener">Mehr erfahren ↗</a>
+        </article>
+        <article class="mini reveal">
+          <p class="label">Karriere</p>
+          <p class="desc-s">Weiterbildung auf höchstem Niveau und echte Förderung junger Talente. Werde Teil des Teams.</p>
+          <a class="chip link" href="https://haaraesthetik-bernhardt.de/karriere/" target="_blank" rel="noopener">Zur Karriereseite ↗</a>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KONTAKT ============ -->
+<section class="contact" id="kontakt" data-chapter="Kontakt" data-num="IX">
+  <canvas class="portal portal-2" aria-hidden="true"></canvas>
+  <div class="contact-inner">
+    <p class="mono kicker">// Termin</p>
+    <h2 class="contact-title">Dein Haar in<br><em>Meisterhand.</em></h2>
+    <div class="contact-grid">
+      <div class="c-block">
+        <p class="label">Öffnungszeiten</p>
+        <ul class="hours" data-hours>
+          <li data-d="1"><span>Montag</span><span>geschlossen</span></li>
+          <li data-d="2"><span>Dienstag</span><span>09:00 – 18:00</span></li>
+          <li data-d="3"><span>Mittwoch</span><span>09:00 – 18:00</span></li>
+          <li data-d="4"><span>Donnerstag</span><span>09:00 – 18:00</span></li>
+          <li data-d="5"><span>Freitag</span><span>09:00 – 18:00</span></li>
+          <li data-d="6"><span>Samstag</span><span>09:00 – 14:00</span></li>
+          <li data-d="0"><span>Sonntag</span><span>geschlossen</span></li>
+        </ul>
+        <p class="live" data-open-status><i></i><span>…</span></p>
+      </div>
+      <div class="c-block">
+        <p class="label">Salon</p>
+        <address>Christian Bernhardt · Haarästhetik<br>Bissersheimer Straße 2A<br>67281 Kirchheim an der Weinstraße</address>
+        <p class="c-links"><a href="tel:+496359840080">06359 840 080</a><br><a href="mailto:info@haaraesthetik-bernhardt.de">info@haaraesthetik-bernhardt.de</a></p>
+        <p class="c-links"><a href="https://www.instagram.com/haaraesthetik_bernhardt" target="_blank" rel="noopener">Instagram ↗</a> · <a href="https://www.facebook.com/haaraesthetikbernhardt" target="_blank" rel="noopener">Facebook ↗</a></p>
+      </div>
+      <div class="c-block cta-block">
+        <p class="desc-s">Terminanfragen und Absagen bitte online oder telefonisch, nicht per Kontaktformular.</p>
+        <a class="pill big" href="https://kmkx.mitdenkt.io/" target="_blank" rel="noopener">Online-Termin buchen ↗</a>
+        <a class="pill ghost big" href="tel:+496359840080">Anrufen</a>
+      </div>
+    </div>
+  </div>
+  <footer class="foot" id="impressum">
+    <p>Christian Bernhardt · Haarästhetik · Bissersheimer Straße 2A · 67281 Kirchheim an der Weinstraße · <a href="https://haaraesthetik-bernhardt.de/impressum/" target="_blank" rel="noopener">Impressum</a> · <a href="https://haaraesthetik-bernhardt.de/datenschutzerklaerung/" target="_blank" rel="noopener">Datenschutz</a></p>
+    <p class="dim">Designkonzept „Die Chroma Edition“, inspiriert von Shopify Editions Winter '26. Keine offizielle Seite des Salons. Bilder KI-generiert. Preise laut Preisliste 09/2026, ohne Gewähr.</p>
+  </footer>
+</section>
+
+</main>
+
+<script src="vendor/lenis.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
