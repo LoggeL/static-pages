@@ -4,6 +4,8 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
+- **[LUMEN: Lichtdesign-Studio](https://loggel.github.io/static-pages/lumen/)**: a browser-based lighting design console in the spirit of grandMA3, Capture or WYSIWYG. Patch fixtures, build looks in the programmer, store cues, run executors and a beat-synced timeline, and watch beams cut through haze on a live Three.js stage (generic drum risers, keyboard spot, low-poly placeholder figures). Ships with a complete demo show programmed to "Drum Show" by Twenty One Pilots (structural cue names only). The song is **not** in the repo: put it locally at `public/lumen/audio/drum-show.mp3` (e.g. via `yt-dlp -x --audio-format mp3`; the folder is gitignored) or load it with the "Song laden" file dialog / drag & drop. Without the song, a synthesized beat click from the analysed beat grid keeps the demo running. Source: `sources/lumen/` (without `audio/` and `vendor/`).
+
 - **[Haarästhetik · Quelle der Entspannung](https://loggel.github.io/static-pages/haaraesthetik-bernhardt/)**: a second, more refined redesign concept for the hair salon Haarästhetik Christian Bernhardt. A WebGL fountain hero that is first a pencil sketch and then paints itself in pastel watercolour from the spring outwards, with living water and cursor ripples; nine chapters that follow a day in the salon through its light (morning light to night) with colour shifts, a hair-length morph, a Great Lengths magnifier, Hårtræt care cards and a hair-tester lens, a wedding editorial and a vertical salon tour on mobile. Prices adapt to a hair-length switch. AI-generated imagery via Codex. Concept study, not affiliated with the salon. Source (parts, build script, agent contract): `sources/haaraesthetik-bernhardt/`.
 
 - **[Haarästhetik · Die Chroma Edition](https://loggel.github.io/static-pages/haaraesthetik-edition/)**: a futuristic redesign concept for the hair salon Haarästhetik Christian Bernhardt in Kirchheim an der Weinstraße, staged in the style of the Shopify Editions Winter '26. Obsidian black and electric violet, eight numbered chapters (I–VIII), scroll-driven reveals and parallax, a particle ring, and AI-generated imagery. Concept study, not affiliated with the salon. Source: `sources/haaraesthetik-edition/`.
@@ -54,6 +56,7 @@ The editable source for the Creepshow rehearsal planner lives in
 ## Live site
 
 - Gallery: <https://loggel.github.io/static-pages/>
+- LUMEN lighting design studio: <https://loggel.github.io/static-pages/lumen/>
 - Haarästhetik · Quelle der Entspannung (redesign concept): <https://loggel.github.io/static-pages/haaraesthetik-bernhardt/>
 - Haarästhetik Chroma Edition (redesign concept): <https://loggel.github.io/static-pages/haaraesthetik-edition/>
 - Was der Berg behält (novel): <https://loggel.github.io/static-pages/was-der-berg-behaelt/>

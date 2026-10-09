@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="35%" r="80%">
+      <stop offset="0" stop-color="#1a1d2e"/>
+      <stop offset=".55" stop-color="#0a0b12"/>
+      <stop offset="1" stop-color="#040407"/>
+    </radialGradient>
+    <linearGradient id="bm" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".85"/>
+      <stop offset=".35" stop-color="#fff" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="fade"><rect width="800" height="450" fill="url(#bm)"/></mask>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#15161f"/>
+      <stop offset="1" stop-color="#050508"/>
+    </linearGradient>
+    <linearGradient id="txt" x1="0" x2="1">
+      <stop offset="0" stop-color="#ffb347"/>
+      <stop offset=".5" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#5ec8ff"/>
+    </linearGradient>
+    <filter id="haze" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="4"/></filter>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <ellipse cx="400" cy="200" rx="380" ry="140" fill="#3a2f6a" opacity=".18" filter="url(#haze)"/>
+
+  <g mask="url(#fade)" filter="url(#haze)" style="mix-blend-mode:screen">
+    <g fill="#ff3d7f" opacity=".62">
+      <path d="M120 78 L20 360 L95 360Z"/><path d="M120 78 L150 360 L225 360Z"/>
+      <path d="M680 78 L575 360 L650 360Z"/><path d="M680 78 L705 360 L780 360Z"/>
+    </g>
+    <g fill="#5ec8ff" opacity=".62">
+      <path d="M260 78 L170 360 L240 360Z"/><path d="M260 78 L300 360 L370 360Z"/>
+      <path d="M540 78 L430 360 L500 360Z"/><path d="M540 78 L560 360 L630 360Z"/>
+    </g>
+    <g fill="#ffb347" opacity=".7">
+      <path d="M400 78 L330 360 L380 360Z"/><path d="M400 78 L420 360 L470 360Z"/>
+    </g>
+  </g>
+
+  <path d="M0 360 L800 360 L800 450 L0 450Z" fill="url(#floor)"/>
+  <g fill="#ffffff" opacity=".22" filter="url(#glow)">
+    <ellipse cx="58" cy="362" rx="38" ry="6" fill="#ff3d7f"/><ellipse cx="188" cy="362" rx="38" ry="6" fill="#ff3d7f"/>
+    <ellipse cx="205" cy="362" rx="35" ry="6" fill="#5ec8ff"/><ellipse cx="335" cy="362" rx="35" ry="6" fill="#5ec8ff"/>
+    <ellipse cx="355" cy="362" rx="25" ry="6" fill="#ffb347"/><ellipse cx="445" cy="362" rx="25" ry="6" fill="#ffb347"/>
+    <ellipse cx="465" cy="362" rx="35" ry="6" fill="#5ec8ff"/><ellipse cx="595" cy="362" rx="35" ry="6" fill="#5ec8ff"/>
+    <ellipse cx="612" cy="362" rx="38" ry="6" fill="#ff3d7f"/><ellipse cx="742" cy="362" rx="38" ry="6" fill="#ff3d7f"/>
+  </g>
+
+  <g fill="#0c0d14" stroke="#2c2f40" stroke-width="1.5">
+    <rect x="150" y="318" width="150" height="42"/>
+    <rect x="500" y="318" width="150" height="42"/>
+    <rect x="360" y="336" width="80" height="24"/>
+  </g>
+  <g fill="none" stroke="#3a3e54" stroke-width="2">
+    <ellipse cx="225" cy="306" rx="18" ry="10"/><ellipse cx="195" cy="300" rx="10" ry="4"/><ellipse cx="255" cy="300" rx="10" ry="4"/>
+    <ellipse cx="575" cy="306" rx="18" ry="10"/><ellipse cx="545" cy="300" rx="10" ry="4"/><ellipse cx="605" cy="300" rx="10" ry="4"/>
+  </g>
+
+  <g stroke="#8a90a8" stroke-width="2" fill="none">
+    <line x1="40" y1="60" x2="760" y2="60"/><line x1="40" y1="78" x2="760" y2="78"/>
+    <path d="M40 60 L58 78 L76 60 L94 78 L112 60 L130 78 L148 60 L166 78 L184 60 L202 78 L220 60 L238 78 L256 60 L274 78 L292 60 L310 78 L328 60 L346 78 L364 60 L382 78 L400 60 L418 78 L436 60 L454 78 L472 60 L490 78 L508 60 L526 78 L544 60 L562 78 L580 60 L598 78 L616 60 L634 78 L652 60 L670 78 L688 60 L706 78 L724 60 L742 78 L760 60" stroke-width="1.2" opacity=".7"/>
+    <line x1="40" y1="0" x2="40" y2="60" opacity=".5"/><line x1="760" y1="0" x2="760" y2="60" opacity=".5"/>
+  </g>
+  <g>
+    <g fill="#1d1f2b" stroke="#5a6078" stroke-width="1.2">
+      <rect x="110" y="78" width="20" height="16" rx="3"/><rect x="250" y="78" width="20" height="16" rx="3"/>
+      <rect x="390" y="78" width="20" height="16" rx="3"/><rect x="530" y="78" width="20" height="16" rx="3"/>
+      <rect x="670" y="78" width="20" height="16" rx="3"/>
+    </g>
+    <g filter="url(#glow)">
+      <circle cx="120" cy="94" r="5" fill="#ff3d7f"/><circle cx="260" cy="94" r="5" fill="#5ec8ff"/>
+      <circle cx="400" cy="94" r="5" fill="#ffb347"/><circle cx="540" cy="94" r="5" fill="#5ec8ff"/>
+      <circle cx="680" cy="94" r="5" fill="#ff3d7f"/>
+    </g>
+    <g fill="#fff"><circle cx="120" cy="94" r="2"/><circle cx="260" cy="94" r="2"/><circle cx="400" cy="94" r="2"/><circle cx="540" cy="94" r="2"/><circle cx="680" cy="94" r="2"/></g>
+  </g>
+
+  <text x="400" y="232" text-anchor="middle" font-family="Arial Black, Helvetica, sans-serif" font-weight="900" font-size="88" letter-spacing="10" fill="url(#txt)">LUMEN</text>
+  <text x="400" y="268" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="21" fill="#e9ecf5">Lichtdesign-Studio im Browser</text>
+  <g font-family="Menlo, monospace" font-size="12" fill="#8a90a8" letter-spacing="2">
+    <text x="24" y="430">CUE 7 · REFRAIN 2</text>
+    <text x="776" y="430" text-anchor="end">DMX 512 · 161.5 BPM</text>
+  </g>
+</svg>
