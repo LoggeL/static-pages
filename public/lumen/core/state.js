@@ -4,8 +4,9 @@
 
 import { FIXTURE_TYPES, getType, hasAttr, aimAt, SWATCHES, ATTR_KEYS, ATTRS, clamp } from "./fixtures.js";
 
-export const SHOW_VERSION = 3; // bump → a stale stock demo in localStorage is replaced by the current demo; user shows are upgraded
+export const SHOW_VERSION = 4; // bump → a stale stock demo in localStorage is replaced by the current demo; user shows are upgraded
 // v3: one drum riser + frontman (mic / piano) instead of two drum risers + keys; validateShow migrates older stages
+// v4: touring band (bass, guitar, synth) on podiums + band PARs (g-band*) + presets Bass / Gitarre / Synth
 export const STORAGE_KEY = "lumen.show.v1";
 export const DEMO_NAME = "Drum Show – Demo";
 const HISTORY_MAX = 120;
@@ -110,8 +111,15 @@ export function createVenue() {
     ],
     // one drum riser upstage centre: kit + seated drummer, LED fascia glows with the fascia group
     risers: [{ id: "r-drum", name: "Drum-Riser", x: 0, z: -1.7, w: 4.2, d: 2.8, h: 1.4, kit: true, fascia: "g-riser" }],
-    // frontman: mic stand downstage centre, grand piano stage left (= house right, +x); yaw in deg (0 = player faces +x)
-    band: { mic: { x: 0, z: 2.4 }, piano: { x: 3.3, z: 0.6, yaw: 30 } },
+    // frontman: mic stand downstage centre, grand piano stage left (= house right, +x) downstage of the guitar podium,
+    // mirroring the synth; yaw in deg (0 = player faces +x)
+    band: { mic: { x: 0, z: 2.4 }, piano: { x: 4.4, z: 1.45, yaw: 30 } },
+    // touring band on low podiums (LED fascia = the podium's band-PAR group); yaw deg, 0 = player faces the audience, + = turns to +x
+    podiums: [
+      { id: "pd-bass", name: "Podest Bass", player: "bass", x: -3.55, z: -0.95, w: 1.7, d: 1.5, h: 0.5, yaw: 16, fascia: "g-band-bass" },
+      { id: "pd-git", name: "Podest Gitarre", player: "guitar", x: 3.55, z: -0.95, w: 1.7, d: 1.5, h: 0.5, yaw: -16, fascia: "g-band-git" },
+      { id: "pd-synth", name: "Podest Synth", player: "synth", x: -5.05, z: 0.8, w: 2.0, d: 1.6, h: 0.4, yaw: 38, fascia: "g-band-synth" },
+    ],
     backdrop: { z: -4.6, h: 11 },
     audience: { z0: 6, z1: 24, rows: 14 },
   };
@@ -122,7 +130,7 @@ export function createVenue() {
 export function bandSpots(v = createVenue()) {
   const SH = v.stage?.h ?? 1.2;
   const R = (v.risers || []).find((r) => r.kit) || (v.risers || [])[0] || { x: 0, z: -1.7, w: 4.2, d: 2.8, h: 1.4 };
-  const mic = v.band?.mic || { x: 0, z: 2 }, pn = v.band?.piano || { x: 3.3, z: 0.6, yaw: 30 };
+  const mic = v.band?.mic || { x: 0, z: 2 }, pn = v.band?.piano || { x: 4.4, z: 1.45, yaw: 30 };
   const a = ((pn.yaw || 0) * Math.PI) / 180, ca = Math.cos(a), sa = Math.sin(a);
   const pw = (lx, lz) => ({ x: pn.x + lx * ca - lz * sa, z: pn.z + lx * sa + lz * ca });
   const kitZ = R.z + 0.25; // kit origin (riser centre, nudged downstage)
@@ -135,10 +143,14 @@ export function bandSpots(v = createVenue()) {
     piano: { x: pn.x, z: pn.z, yaw: pn.yaw || 0, at: pw },
     bench: { ...pw(-0.62, 0), yaw: pn.yaw || 0 }, // seated pianist
     pianoWalk: pw(-0.62, 0.78), // where he stands up / sits down (downstage side of the bench)
+    // touring band: player spot on the podium (feet), podium top, facing yaw (rad, 0 = +z)
+    players: Object.fromEntries((v.podiums || []).map((p) => [p.player, {
+      x: p.x, z: p.z - (p.player === "synth" ? 0.25 : 0.12), y: SH + p.h, yaw: ((p.yaw || 0) * Math.PI) / 180, podium: p,
+    }])),
   };
 }
 
-// Builds the 77-fixture demo rig. Ids are "f" + fixture number (fid).
+// Builds the 83-fixture demo rig (77 + 6 band PARs). Ids are "f" + fixture number (fid).
 export function createDefaultRig(venue = createVenue()) {
   const fixtures = [];
   const add = (fid, type, name, universe, address, pos, mount = "hang", extra = {}) => {
@@ -162,6 +174,8 @@ export function createDefaultRig(venue = createVenue()) {
     const f = { type: "par", mount: "floor", yaw: 0, pos: [R.x + s * (R.w / 2 - 0.28), RT + 0.13, R.z + fz * (R.d / 2 - 0.28)] };
     add(511 + i, "par", `Riser-PAR ${i + 1}`, 2, 261 + i * 6, f.pos, "floor", { orient: aimAt(f, [B.drummer.x, RT + 1.1, B.drummer.z]) });
   });
+  // band PARs on the podium front corners (v4)
+  for (const f of bandPars(venue)) add(f.fid, "par", f.name, 2, f.address, f.pos, "floor", { orient: f.orient });
   [-5.25, -1.75, 1.75, 5.25].forEach((x, i) =>
     add(601 + i, "strobe", `Strobe ${i + 1}`, 2, 301 + i * 4, [x, 8.75, 0.35], "hang", { orient: { pan: 0, tilt: 45 } }));
   [-5, -2.5, 2.5, 5].forEach((x, i) =>
@@ -214,18 +228,55 @@ export function createDefaultRig(venue = createVenue()) {
     G("g-spark-riser", "Sparkulars Riser", ids(1005, 2), "#ffe08a"),
     G("g-co2", "CO2-Jets", ids(1101, 4), "#cfe8ff"),
     G("g-flame", "Flammen", ids(1201, 4), "#ff6a1a"),
+    ...bandGroups(fixtures, venue),
   ];
   return { fixtures, groups };
+}
+
+// band PARs (v4): two per podium on its front corners, aimed at the player's chest. f521/522 bass, f523/524 guitar, f525/526 synth
+const BAND_PAR = { bass: 521, guitar: 523, synth: 525 };
+function bandPars(venue) {
+  const B = bandSpots(venue), out = [];
+  for (const [pl, fid0] of Object.entries(BAND_PAR)) {
+    const P = B.players[pl];
+    if (!P) continue;
+    const p = P.podium;
+    [-1, 1].forEach((s, i) => {
+      const pos = [p.x + s * (p.w / 2 - 0.2), P.y + 0.13, p.z + p.d / 2 - 0.2].map((v) => Math.round(v * 1000) / 1000);
+      const fid = fid0 + i, f = { type: "par", mount: "floor", yaw: 0, pos };
+      out.push({ fid, name: `Band-PAR ${fid - 520}`, address: 351 + (fid - 521) * 6, pos: f.pos, orient: aimAt(f, [P.x, P.y + 1.25, P.z]) });
+    });
+  }
+  return out;
+}
+// band groups; only fixtures that are band PARs: stock id + type "par" + stock name or within 0.6 m of the stock spot
+// (a user fixture that merely reuses an id f521…f526 stays out)
+function bandGroups(fixtures, venue = createVenue()) {
+  const spot = new Map(bandPars(venue).map((p) => [`f${p.fid}`, p]));
+  const ok = new Set(fixtures.filter((f) => {
+    const p = spot.get(f.id);
+    return p && f.type === "par" && (f.name === p.name || (Array.isArray(f.pos) && Math.hypot(f.pos[0] - p.pos[0], f.pos[2] - p.pos[2]) < 0.6));
+  }).map((f) => f.id));
+  const G = (id, name, fx) => ({ id, name, fixtures: fx.filter((x) => ok.has(x)), color: "#7fd6c2" });
+  return [
+    G("g-band", "Band-PARs", ["f521", "f522", "f523", "f524", "f525", "f526"]),
+    G("g-band-bass", "Band Bass", ["f521", "f522"]),
+    G("g-band-git", "Band Gitarre", ["f523", "f524"]),
+    G("g-band-synth", "Band Synth", ["f525", "f526"]),
+  ];
 }
 
 // band position presets (name → aim point); "Drums links/rechts" = left / right half of the one kit
 function bandAims(venue) {
   const B = bandSpots(venue), D = B.drummer, hy = B.top + 0.95, kb = B.piano.at(-0.3, 0);
+  const pl = (k) => { const P = B.players[k]; return P ? [P.x, P.y + 1.3, P.z] : [0, B.SH + 1.5, 0]; };
   return [
     ["Drums", [D.x, hy, D.z]], ["Drums links", [D.x - 0.7, hy, D.z]], ["Drums rechts", [D.x + 0.7, hy, D.z]],
     ["Sänger", [B.singer.x, B.SH + 1.5, B.singer.z]], ["Piano", [kb.x, B.SH + 1.05, kb.z]],
+    ["Bass", pl("bass")], ["Gitarre", pl("guitar")], ["Synth", pl("synth")],
   ];
 }
+const BAND4_PRESETS = ["Bass", "Gitarre", "Synth"];
 // cue.performer: where the frontman is (tracked like cue.camera; the viz walks him there)
 export const PERFORMER_PLACES = ["mic", "piano"];
 // old preset names → current ones (the demo and old shows may still say "Keys/Mikro")
@@ -269,8 +320,10 @@ function migrateStage(s) {
     }
   }
   for (const c of s.cues) if (LEGACY_SHOTS[c.camera]) c.camera = LEGACY_SHOTS[c.camera];
-  // pan/tilt baked into cues / executors from a stock band aim (within 0.05°) follow the re-aimed preset
-  const legacy = Object.entries(LEGACY_AIM).map(([n, aim]) => [aim, aims.get(PRESET_ALIASES[n] || n)]);
+  rebakeAims(s, Object.entries(LEGACY_AIM).map(([n, aim]) => [aim, aims.get(PRESET_ALIASES[n] || n)]));
+}
+// pan/tilt baked into cues / executors from an old stock aim (within 0.05°) follow the re-aimed preset; legacy = [[old, now]]
+function rebakeAims(s, legacy) {
   const fx = new Map(s.fixtures.map((f) => [f.id, f]));
   const rebake = (h) => {
     let vals = h.values;
@@ -288,6 +341,59 @@ function migrateStage(s) {
   };
   s.cues.forEach(rebake);
   s.executors = s.executors.map((x) => (x && typeof x === "object" ? (rebake((x = { ...x })), x) : x));
+}
+
+/* ---- ≤ v3 → v4: touring band on podiums. Venue gets the podiums; band PARs / groups / presets are added (when missing)
+   only to shows that still carry the stock rig (a custom / emptied rig stays as it is, like a fresh empty v4 show) */
+// v3 stock piano spot (it sat where the guitar podium is now): moved downstage with its stock "Piano" aim
+const V3_PIANO = { x: 3.3, z: 0.6, yaw: 30 };
+function migrateBand(s) {
+  const base = createVenue();
+  s.venue.podiums ??= base.podiums;
+  const pn = s.venue.band?.piano;
+  if (pn && ["x", "z", "yaw"].every((k) => Math.abs((pn[k] ?? 0) - V3_PIANO[k]) < 1e-3)) {
+    const was = bandAims({ ...s.venue, band: { ...s.venue.band, piano: V3_PIANO } }).find(([n]) => n === "Piano")[1];
+    s.venue.band = { ...s.venue.band, piano: { ...base.band.piano } };
+    const now = bandAims(s.venue).find(([n]) => n === "Piano")[1];
+    s.presets = s.presets.map((p) => (p && p.kind === "position" && p.name === "Piano" && near(p.aim, was) ? { ...p, aim: now.slice() } : p));
+    rebakeAims(s, [[was, now]]);
+  }
+  const have = new Set(s.fixtures.map((f) => f.id));
+  const stock = createDefaultRig(base).fixtures.filter((f) => f.type !== "par" || !/^Band-PAR/.test(f.name));
+  const kept = stock.filter((f) => s.fixtures.some((x) => x.id === f.id && x.type === f.type)).length;
+  if (kept < stock.length * 0.6 || !["g-riser", "g-par"].every((id) => s.groups.some((g) => g && g.id === id))) return;
+  // DMX range check: stock addresses if free, else the first free block in universe 2, else in the next universe with room
+  const used = (u) => {
+    const m = new Uint8Array(513);
+    for (const f of s.fixtures) if (f.universe === u) { const n = getType(f.type)?.footprint || 1; for (let i = 0; i < n; i++) if (f.address + i <= 512) m[f.address + i] = 1; }
+    return m;
+  };
+  for (const p of bandPars(base)) {
+    if (have.has(`f${p.fid}`)) continue;
+    const n = getType("par").footprint;
+    let uni = 2, addr = p.address;
+    for (;; uni++, addr = 1) {
+      const m = used(uni), free = (a) => a + n - 1 <= 512 && !m.slice(a, a + n).some(Boolean);
+      if (!free(addr)) { addr = 1; while (addr <= 512 && !free(addr)) addr++; }
+      if (addr <= 512) break;
+    }
+    const fid = s.fixtures.some((f) => f.fid === p.fid) ? Math.max(0, ...s.fixtures.map((f) => +f.fid || 0)) + 1 : p.fid;
+    // same key order as validateShow's normalisation (a reload stays byte-identical)
+    s.fixtures.push({ mount: "floor", yaw: 0, orient: { ...p.orient }, universe: uni, address: addr, pos: p.pos.slice(), name: p.name, fid, id: `f${p.fid}`, type: "par" });
+    have.add(`f${p.fid}`);
+  }
+  for (const g of bandGroups(s.fixtures, base)) if (!s.groups.some((x) => x && x.id === g.id)) s.groups.push(g);
+  // presets "Bass", "Gitarre", "Synth" after "Piano" (else at the end of the position presets)
+  const aims = new Map(bandAims(base));
+  s.presets = s.presets.map((p) => (p && typeof p === "object" ? { ...p } : p));
+  for (const n of BAND4_PRESETS) {
+    if (s.presets.some((p) => p && p.kind === "position" && p.name === n)) continue;
+    const prev = BAND4_PRESETS.slice(0, BAND4_PRESETS.indexOf(n)).reverse().concat("Piano");
+    let at = -1;
+    for (const r of prev) { at = s.presets.findIndex((p) => p && p.kind === "position" && p.name === r); if (at >= 0) break; }
+    if (at < 0) at = s.presets.reduce((k, p, i) => (p && p.kind === "position" ? i : k), -1);
+    s.presets.splice(at + 1, 0, { id: uid("p-position-"), kind: "position", name: n, color: null, aim: aims.get(n).slice() });
+  }
 }
 
 export function createDefaultPresets(rig, venue = createVenue()) {
@@ -404,6 +510,7 @@ export function validateShow(o) {
   s.cues.sort((a, b) => a.time - b.time);
   s.hits = s.hits.map(makeHit).filter(Boolean).sort((a, b) => a.t - b.t);
   if (!(o.version >= 3)) migrateStage(s);
+  if (!(o.version >= 4)) migrateBand(s);
   return s;
 }
 
@@ -563,10 +670,11 @@ export function createState(initialShow) {
       if (!raw) return null;
       const o = JSON.parse(raw);
       if (!o || typeof o !== "object") return null;
-      // a stale stock demo (older version, never edited) gives way to the current demo; an edited one is a user show.
+      // an untouched stock demo always gives way to the current demo (same version or not: the demo / stage may have
+      // changed without a version bump); an edited one is a user show.
       // `stock` is set by createDemoShow and cleared by the first edit; older saves without it: edited ≥ 60 s after creation
       const untouched = typeof o.stock === "boolean" ? o.stock : !(o.modified - o.created >= 60000);
-      if (o.version !== SHOW_VERSION && o.name === DEMO_NAME && untouched) return { stale: true, raw };
+      if (o.name === DEMO_NAME && (o.stock === true || (o.version !== SHOW_VERSION && untouched))) return { stale: true, raw };
       return { show: o };
     } catch (e) {
       return null;
