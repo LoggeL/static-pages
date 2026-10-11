@@ -4,6 +4,8 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
+- **[Quadratische Gleichungen: drei Wege, ohne Formel](https://loggel.github.io/static-pages/quadratische-gleichungen/)**: a mobile-first German learning app for a grade-9 quiz (HÜ) on solving quadratic equations without the quadratic formula: graphically (interactive parabola and parabola-meets-line labs), by factoring (zero-product property, factoring out x, square roots, binomial formulas backwards, a sum-product pair finder) and by completing the square (animated area model and a step-by-step solver for your own equation). Every chapter has step-by-step worked examples, typical mistakes and checked exercises that understand inputs like `L = {−3; 2}`, plus a method chooser, a sorting game and an error detective, an endless randomized trainer with generated solutions, two timed practice quizzes with marking schemes, a printable one-page cheat sheet and a tutor's guide for a 90-minute lesson. Source (parts, build script, agent contract, Node tests): `sources/quadratische-gleichungen/`.
+
 - **[LUMEN: Lichtdesign-Studio](https://loggel.github.io/static-pages/lumen/)**: a browser-based lighting design console in the spirit of grandMA3, Capture or WYSIWYG. Patch fixtures, build looks in the programmer, store cues, run executors and a beat-synced timeline, and watch beams cut through haze on a live Three.js stage (generic drum risers, keyboard spot, low-poly placeholder figures). Ships with a complete demo show programmed to "Drum Show" by Twenty One Pilots (structural cue names only). The song is **not** in the repo: put it locally at `public/lumen/audio/drum-show.mp3` (e.g. via `yt-dlp -x --audio-format mp3`; the folder is gitignored) or load it with the "Song laden" file dialog / drag & drop. Without the song, a synthesized beat click from the analysed beat grid keeps the demo running. Source: `sources/lumen/` (without `audio/` and `vendor/`).
 
 - **[Haarästhetik · Quelle der Entspannung](https://loggel.github.io/static-pages/haaraesthetik-bernhardt/)**: a second, more refined redesign concept for the hair salon Haarästhetik Christian Bernhardt. A WebGL fountain hero that is first a pencil sketch and then paints itself in pastel watercolour from the spring outwards, with living water and cursor ripples; nine chapters that follow a day in the salon through its light (morning light to night) with colour shifts, a hair-length morph, a Great Lengths magnifier, Hårtræt care cards and a hair-tester lens, a wedding editorial and a vertical salon tour on mobile. Prices adapt to a hair-length switch. AI-generated imagery via Codex. Concept study, not affiliated with the salon. Source (parts, build script, agent contract): `sources/haaraesthetik-bernhardt/`.
@@ -56,6 +58,7 @@ The editable source for the Creepshow rehearsal planner lives in
 ## Live site
 
 - Gallery: <https://loggel.github.io/static-pages/>
+- Quadratische Gleichungen learning app: <https://loggel.github.io/static-pages/quadratische-gleichungen/>
 - LUMEN lighting design studio: <https://loggel.github.io/static-pages/lumen/>
 - Haarästhetik · Quelle der Entspannung (redesign concept): <https://loggel.github.io/static-pages/haaraesthetik-bernhardt/>
 - Haarästhetik Chroma Edition (redesign concept): <https://loggel.github.io/static-pages/haaraesthetik-edition/>

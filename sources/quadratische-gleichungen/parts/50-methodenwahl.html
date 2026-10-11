@@ -1,0 +1,669 @@
+<section class="chapter" id="methodenwahl" data-title="Welcher Weg wann?" data-short="Welcher Weg?" data-color="pink" data-icon="🧭">
+  <header class="ch-head">
+    <p class="ch-kicker">Methodenwahl</p>
+    <h1>Welcher Weg wann?</h1>
+    <p class="ch-lead">Drei Wege führen zur Lösung – aber nicht jeder ist gleich schnell. Hier lernst du, einer Gleichung in wenigen Sekunden anzusehen, welcher Weg am besten passt.</p>
+  </header>
+
+  <nav class="mw-toc no-print" aria-label="In diesem Kapitel">
+    <a href="#mw-check"><span aria-hidden="true">⚡</span> 5-Sekunden-Check</a>
+    <a href="#mw-wegweiser"><span aria-hidden="true">🧭</span> Wegweiser</a>
+    <a href="#mw-vergleich"><span aria-hidden="true">⚖️</span> Vergleich</a>
+    <a href="#mw-dreiwege"><span aria-hidden="true">🔀</span> Drei Wege</a>
+    <a href="#mw-spiel"><span aria-hidden="true">🎯</span> Sortier-Spiel</a>
+    <a href="#mw-detektiv"><span aria-hidden="true">🔍</span> Fehlerdetektiv</a>
+    <a href="#mw-mix"><span aria-hidden="true">✍️</span> Aufgaben</a>
+  </nav>
+
+  <!-- ============================================================ 1. CHECK -->
+  <div class="block" id="mw-check">
+    <h2>Der 5-Sekunden-Check</h2>
+    <p>Bevor du losrechnest, schau dir die Gleichung kurz an und stell dir diese Fragen <b>der Reihe nach</b>. Die erste Frage, bei der du „Ja“ sagst, verrät dir den schnellsten Weg.</p>
+
+    <ol class="mw-flow">
+      <li class="mw-flow-start">
+        <p class="mw-flow-q"><span class="mw-flow-n" aria-hidden="true">0</span> Steht rechts eine 0?</p>
+        <p class="mw-flow-text">Wenn nicht: Bring erst alles auf eine Seite.</p>
+        <p class="mw-flow-ex"><span class="m">x² + 3x = 10</span> <span class="mw-arrow" aria-hidden="true">→</span> <span class="m">x² + 3x − 10 = 0</span></p>
+        <p class="mw-flow-text small">Ausnahme: Steht links schon ein Quadrat und rechts nur eine Zahl, z. B. <span class="m">(x − 2)² = 16</span>, ziehst du direkt die Wurzel.</p>
+      </li>
+      <li data-m="green">
+        <p class="mw-flow-q"><span class="mw-flow-n" aria-hidden="true">1</span> Fehlt die Zahl ohne <span class="m">x</span>? <span class="mw-flow-c">(<span class="m">c = 0</span>)</span></p>
+        <p class="mw-flow-yes"><span class="mw-yes">Ja</span> <a href="#fakt-a">x ausklammern</a></p>
+        <p class="mw-flow-ex"><span class="m">x² − 5x = 0</span> <span class="mw-arrow" aria-hidden="true">→</span> <span class="m">x · (x − 5) = 0</span></p>
+      </li>
+      <li data-m="green">
+        <p class="mw-flow-q"><span class="mw-flow-n" aria-hidden="true">2</span> Fehlt das Glied mit <span class="m">x</span>? <span class="mw-flow-c">(<span class="m">b = 0</span>)</span></p>
+        <p class="mw-flow-yes"><span class="mw-yes">Ja</span> <a href="#fakt-b">Wurzel ziehen – mit ±!</a></p>
+        <p class="mw-flow-ex"><span class="m">x² − 49 = 0</span> <span class="mw-arrow" aria-hidden="true">→</span> <span class="m">x² = 49</span> <span class="mw-arrow" aria-hidden="true">→</span> <span class="m">x = ±7</span></p>
+      </li>
+      <li data-m="green">
+        <p class="mw-flow-q"><span class="mw-flow-n" aria-hidden="true">3</span> Steckt eine binomische Formel drin?</p>
+        <p class="mw-flow-text small">Die Zahl ist eine Quadratzahl, und das Mittelglied ist genau „2 · … · <span class="m">x</span>“.</p>
+        <p class="mw-flow-yes"><span class="mw-yes">Ja</span> <a href="#fakt-c">Binomische Formel rückwärts</a></p>
+        <p class="mw-flow-ex"><span class="m">x² + 6x + 9 = 0</span> <span class="mw-arrow" aria-hidden="true">→</span> <span class="m">(x + 3)² = 0</span></p>
+      </li>
+      <li data-m="green">
+        <p class="mw-flow-q"><span class="mw-flow-n" aria-hidden="true">4</span> Findest du zwei ganze Zahlen mit Produkt <span class="m">q</span> und Summe <span class="m">p</span>?</p>
+        <p class="mw-flow-text small">Steht vor <span class="m">x²</span> eine andere Zahl als 1, teilst du vorher die ganze Gleichung durch diese Zahl.</p>
+        <p class="mw-flow-yes"><span class="mw-yes">Ja</span> <a href="#fakt-d">Produkt-Summen-Trick (Vieta)</a></p>
+        <p class="mw-flow-ex"><span class="m">x² + 7x + 12 = 0</span> <span class="mw-arrow" aria-hidden="true">→</span> <span class="m">(x + 3)(x + 4) = 0</span></p>
+      </li>
+      <li data-m="orange" class="mw-flow-end">
+        <p class="mw-flow-q"><span class="mw-flow-n" aria-hidden="true">5</span> Nichts passt?</p>
+        <p class="mw-flow-yes"><span class="mw-yes">Dann</span> <a href="#ergaenzung">Quadratische Ergänzung – die klappt immer</a></p>
+        <p class="mw-flow-ex"><span class="m">x² + 4x − 3 = 0</span> <span class="mw-arrow" aria-hidden="true">→</span> <span class="m">(x + 2)² = 7</span></p>
+      </li>
+    </ol>
+
+    <div class="grid2">
+      <div class="box info" data-m="blue">
+        <p class="box-title">Und grafisch?</p>
+        <p>Zeichnen lohnt sich, wenn ein <b>Graph schon gegeben</b> ist, wenn nur gefragt ist, <b>wie viele</b> Lösungen es gibt, oder zur <b>Kontrolle</b>. Für exakte Lösungen ist es meist zu langsam und zu ungenau.</p>
+      </div>
+      <div class="box tipp">
+        <p>Steht vor <span class="m">x²</span> eine Zahl, z. B. <span class="m">2x² − 4x − 30 = 0</span>? Teile zuerst durch diese Zahl: <span class="m">x² − 2x − 15 = 0</span>. Dann springen dir die Muster viel leichter ins Auge.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ 2. WEGWEISER -->
+  <div class="block" id="mw-wegweiser">
+    <h2>Dein Wegweiser</h2>
+    <p>Tipp eine Gleichung ein – der Wegweiser geht den 5-Sekunden-Check für dich durch, empfiehlt den schnellsten Weg und begründet ihn. Oder du beantwortest die Fragen selbst, Schritt für Schritt.</p>
+    <div class="mw-guide card no-print" data-widget="mw-wegweiser">
+      <p class="muted">Der Wegweiser wird geladen …</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ 3. VERGLEICH -->
+  <div class="block" id="mw-vergleich">
+    <h2>Die drei Wege im Vergleich</h2>
+    <p>Jeder Weg hat seine Stärken. Wenn du sie kennst, triffst du in der HÜ schnell die richtige Wahl.</p>
+
+    <div class="mw-cmp-grid">
+      <article class="mw-cmp" data-m="blue">
+        <header class="mw-cmp-head">
+          <span class="mw-cmp-ico" aria-hidden="true">📈</span>
+          <div><h3>Grafisch</h3><p class="mw-cmp-sub">Parabel zeichnen, Nullstellen ablesen</p></div>
+        </header>
+        <dl class="mw-cmp-list">
+          <div><dt>Gut, wenn …</dt><dd>ein Graph gegeben ist, nur die <b>Anzahl</b> der Lösungen gefragt ist oder du kontrollieren willst.</dd></div>
+          <div><dt>Vorteil</dt><dd>Sehr anschaulich: Du siehst sofort, ob es 0, 1 oder 2 Lösungen gibt.</dd></div>
+          <div><dt>Nachteil</dt><dd>Zeichnen dauert. Krumme Lösungen wie <span class="m">2 + √5</span> kannst du nur schätzen. Probe nötig!</dd></div>
+          <div><dt>Genauigkeit</dt><dd><span class="mw-meter" data-v="1" role="img" aria-label="1 von 3"><i></i><i></i><i></i></span> ungefähr</dd></div>
+          <div><dt>Tempo</dt><dd><span class="mw-meter" data-v="1" role="img" aria-label="1 von 3"><i></i><i></i><i></i></span> langsam</dd></div>
+        </dl>
+        <a class="mw-cmp-link" href="#grafisch">Zu Weg 1 →</a>
+      </article>
+
+      <article class="mw-cmp" data-m="green">
+        <header class="mw-cmp-head">
+          <span class="mw-cmp-ico" aria-hidden="true">🧩</span>
+          <div><h3>Faktorisieren</h3><p class="mw-cmp-sub">Produkt bilden, Satz vom Nullprodukt</p></div>
+        </header>
+        <dl class="mw-cmp-list">
+          <div><dt>Gut, wenn …</dt><dd><span class="m">c</span> oder <span class="m">b</span> fehlt, eine binomische Formel passt oder die Lösungen ganze Zahlen sind.</dd></div>
+          <div><dt>Vorteil</dt><dd>Oft in einer Zeile fertig – fast Kopfrechnen. Die Lösungen sind exakt.</dd></div>
+          <div><dt>Nachteil</dt><dd>Klappt nicht immer: Bei krummen Lösungen findest du kein Zahlenpaar.</dd></div>
+          <div><dt>Genauigkeit</dt><dd><span class="mw-meter" data-v="3" role="img" aria-label="3 von 3"><i></i><i></i><i></i></span> exakt</dd></div>
+          <div><dt>Tempo</dt><dd><span class="mw-meter" data-v="3" role="img" aria-label="3 von 3"><i></i><i></i><i></i></span> sehr schnell</dd></div>
+        </dl>
+        <a class="mw-cmp-link" href="#faktorisieren">Zu Weg 2 →</a>
+      </article>
+
+      <article class="mw-cmp" data-m="orange">
+        <header class="mw-cmp-head">
+          <span class="mw-cmp-ico" aria-hidden="true">🟧</span>
+          <div><h3>Quadratische Ergänzung</h3><p class="mw-cmp-sub">Auf ein Quadrat ergänzen, Wurzel ziehen</p></div>
+        </header>
+        <dl class="mw-cmp-list">
+          <div><dt>Gut, wenn …</dt><dd>nichts anderes passt, die Lösungen krumm sind (Wurzeln, Brüche) oder du den Scheitelpunkt brauchst.</dd></div>
+          <div><dt>Vorteil</dt><dd>Klappt <b>immer</b> und liefert exakte Lösungen. Zeigt auch sicher, wenn es keine Lösung gibt.</dd></div>
+          <div><dt>Nachteil</dt><dd>Mehr Schritte, mehr Fehlerquellen: <span class="m">(<span class="frac"><span>p</span><span>2</span></span>)²</span> auf <b>beiden</b> Seiten ergänzen!</dd></div>
+          <div><dt>Genauigkeit</dt><dd><span class="mw-meter" data-v="3" role="img" aria-label="3 von 3"><i></i><i></i><i></i></span> exakt</dd></div>
+          <div><dt>Tempo</dt><dd><span class="mw-meter" data-v="2" role="img" aria-label="2 von 3"><i></i><i></i><i></i></span> mittel</dd></div>
+        </dl>
+        <a class="mw-cmp-link" href="#ergaenzung">Zu Weg 3 →</a>
+      </article>
+    </div>
+
+    <div class="box merke">
+      <p>Faktorisieren ist der <b>Sprinter</b>, die quadratische Ergänzung der <b>Allrounder</b>, das Zeichnen die <b>Landkarte</b>. Probier immer zuerst den Sprinter – und nimm den Allrounder, wenn der Sprinter stolpert.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ 4. DREI WEGE -->
+  <div class="block" id="mw-dreiwege">
+    <h2>Eine Gleichung – drei Wege</h2>
+    <p>Damit du den Unterschied wirklich siehst, lösen wir dieselbe Gleichung auf allen drei Wegen. Tippe auf die Reiter.</p>
+    <div class="mblock">x² − 2x − 8 = 0</div>
+
+    <div class="mw-tabs" data-widget="mw-tabs">
+      <div class="mw-tablist no-print" role="tablist" aria-label="Lösungsweg wählen">
+        <button type="button" role="tab" class="mw-tab" id="mw-tab-graf" aria-controls="mw-panel-graf" aria-selected="true" data-m="blue"><span aria-hidden="true">📈</span> Grafisch</button>
+        <button type="button" role="tab" class="mw-tab" id="mw-tab-fakt" aria-controls="mw-panel-fakt" aria-selected="false" data-m="green"><span aria-hidden="true">🧩</span> Faktorisieren</button>
+        <button type="button" role="tab" class="mw-tab" id="mw-tab-erg" aria-controls="mw-panel-erg" aria-selected="false" data-m="orange"><span aria-hidden="true">🟧</span> Ergänzung</button>
+      </div>
+
+      <div class="mw-panel" role="tabpanel" id="mw-panel-graf" aria-labelledby="mw-tab-graf" data-m="blue" tabindex="0">
+        <p class="mw-panel-title">Weg 1: Grafisch</p>
+        <p><b>1. Wertetabelle</b> für <span class="m">f(x) = x² − 2x − 8</span>:</p>
+        <div class="table-wrap">
+          <table class="nice mw-wt">
+            <tbody>
+              <tr><th scope="row"><span class="m">x</span></th><td class="c">−2</td><td class="c">−1</td><td class="c">0</td><td class="c">1</td><td class="c">2</td><td class="c">3</td><td class="c">4</td></tr>
+              <tr><th scope="row"><span class="m">f(x)</span></th><td class="c mw-zero">0</td><td class="c">−5</td><td class="c">−8</td><td class="c">−9</td><td class="c">−8</td><td class="c">−5</td><td class="c mw-zero">0</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><b>2. Parabel zeichnen</b> und ablesen, wo sie die <span class="m">x</span>-Achse schneidet:</p>
+        <figure>
+          <div class="qg-plot-wrap" data-widget="mw-plot" data-plot="dreiwege"></div>
+          <figcaption>Die Parabel schneidet die <span class="m">x</span>-Achse bei <span class="m">x = −2</span> und <span class="m">x = 4</span>.</figcaption>
+        </figure>
+        <p><b>3. Probe</b> – beim Ablesen unverzichtbar:</p>
+        <div class="calc">
+          <div class="row"><span class="l">(−2)² − 2 · (−2) − 8</span><span class="r">= 0 ✓</span></div>
+          <div class="row"><span class="l">4² − 2 · 4 − 8</span><span class="r">= 0 ✓</span></div>
+          <div class="row result sep"><span class="l">L</span><span class="r">= {−2; 4}</span></div>
+        </div>
+        <p class="mw-verdict"><span class="pill blue">Fazit</span> Klappt hier gut, weil die Lösungen ganze Zahlen sind. Aber: Tabelle und Zeichnung kosten die meiste Zeit.</p>
+      </div>
+
+      <div class="mw-panel" role="tabpanel" id="mw-panel-fakt" aria-labelledby="mw-tab-fakt" data-m="green" tabindex="0">
+        <p class="mw-panel-title">Weg 2: Faktorisieren (Produkt-Summen-Trick)</p>
+        <p>Alle Glieder sind da, vor <span class="m">x²</span> steht 1. Also suchst du zwei Zahlen mit <b>Produkt −8</b> und <b>Summe −2</b>:</p>
+        <div class="table-wrap">
+          <table class="nice mw-pairs">
+            <thead><tr><th>Zahlenpaar</th><th>Produkt</th><th>Summe</th></tr></thead>
+            <tbody>
+              <tr><td class="narrow"><span class="m">1 und −8</span></td><td class="c">−8</td><td class="c">−7 ✗</td></tr>
+              <tr><td class="narrow"><span class="m">−1 und 8</span></td><td class="c">−8</td><td class="c">7 ✗</td></tr>
+              <tr class="mw-hit"><td class="narrow"><span class="m">2 und −4</span></td><td class="c">−8</td><td class="c">−2 ✓</td></tr>
+              <tr><td class="narrow"><span class="m">−2 und 4</span></td><td class="c">−8</td><td class="c">2 ✗</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="calc">
+          <div class="row"><span class="l">x² − 2x − 8</span><span class="r">= 0</span><span class="op">| Zahlenpaar 2 und −4</span></div>
+          <div class="row"><span class="l">(x + 2) · (x − 4)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+          <div class="row"><span class="note mw-or"><span class="mw-nw">x + 2 = 0</span>&ensp;oder&ensp;<span class="mw-nw">x − 4 = 0</span></span></div>
+          <div class="row"><span class="note mw-or"><span class="mw-nw">x = −2</span>&ensp;oder&ensp;<span class="mw-nw">x = 4</span></span></div>
+          <div class="row result sep"><span class="l">L</span><span class="r">= {−2; 4}</span></div>
+        </div>
+        <p class="mw-verdict"><span class="pill green">Fazit</span> Am schnellsten! Wer das Zahlenpaar sieht, ist in drei Zeilen fertig. Vorzeichen beachten: Aus <span class="m">(x + 2)</span> wird <span class="m">x = −2</span>.</p>
+      </div>
+
+      <div class="mw-panel" role="tabpanel" id="mw-panel-erg" aria-labelledby="mw-tab-erg" data-m="orange" tabindex="0">
+        <p class="mw-panel-title">Weg 3: Quadratische Ergänzung</p>
+        <p>Hälfte von <span class="m">−2</span> ist <span class="m">−1</span>, zum Quadrat <span class="m">(−1)² = 1</span>. Diese 1 ergänzt du auf <b>beiden</b> Seiten:</p>
+        <div class="calc">
+          <div class="row"><span class="l">x² − 2x − 8</span><span class="r">= 0</span><span class="op">| + 8</span></div>
+          <div class="row"><span class="l">x² − 2x</span><span class="r">= 8</span><span class="op">| + 1 (ergänzen)</span></div>
+          <div class="row"><span class="l">x² − 2x + 1</span><span class="r">= 9</span><span class="op">| 2. binomische Formel</span></div>
+          <div class="row"><span class="l">(x − 1)²</span><span class="r">= 9</span><span class="op">| √ (±!)</span></div>
+          <div class="row"><span class="note mw-or"><span class="mw-nw">x − 1 = 3</span>&ensp;oder&ensp;<span class="mw-nw">x − 1 = −3</span><span class="mw-or-op">| + 1</span></span></div>
+          <div class="row"><span class="note mw-or"><span class="mw-nw">x = 4</span>&ensp;oder&ensp;<span class="mw-nw">x = −2</span></span></div>
+          <div class="row result sep"><span class="l">L</span><span class="r">= {−2; 4}</span></div>
+        </div>
+        <p class="mw-verdict"><span class="pill orange">Fazit</span> Klappt sicher, braucht aber ein paar Zeilen mehr. Bonus: Du siehst gleich den Scheitelpunkt <span class="m">S(1 | −9)</span>.</p>
+      </div>
+    </div>
+
+    <div class="box tipp">
+      <p class="box-title">Was lernst du daraus?</p>
+      <p>Alle drei Wege liefern dieselbe Lösungsmenge – sie sind nur unterschiedlich schnell. Wenn du nach dem Faktorisieren noch Zeit hast, kannst du mit einem zweiten Weg (oder der Probe) kontrollieren.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ 5. SPIEL -->
+  <div class="block" id="mw-spiel">
+    <h2>Sortier-Spiel: Welcher Weg ist am schnellsten?</h2>
+    <p>Du siehst 12 Gleichungen nacheinander. Rechne <b>nicht</b> – tippe nur den schnellsten Weg an. Du bekommst sofort Rückmeldung mit Begründung. Dein Bestwert wird gespeichert.</p>
+    <div class="mw-game card no-print" data-widget="mw-sortierspiel">
+      <p class="muted">Das Spiel wird geladen …</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ 6. FEHLERDETEKTIV -->
+  <div class="block" id="mw-detektiv">
+    <h2>Fehlerdetektiv</h2>
+    <p>Diese Schülerlösungen sehen ordentlich aus – aber in jeder steckt ein typischer Fehler. Neben jeder Zeile steht, wie sie entstanden ist. <b>Tippe auf die Zeile, in der der Fehler zum ersten Mal passiert.</b></p>
+    <div class="box tipp">
+      <p>Die beste Waffe des Detektivs ist die <b>Probe</b>: Setz die angeblichen Lösungen in die Aufgabe ein. Geht die Probe schief, prüfst du Zeile für Zeile, wo die Gleichung zum ersten Mal „kippt“.</p>
+    </div>
+
+    <div class="tasks mw-det-list">
+
+      <!-- Fall 1: ± vergessen -->
+      <div class="task mw-det" data-id="wahl-fehler-1" data-kind="choice" data-level="1" data-label="Fall 1">
+        <p class="task-q">Mia löst <span class="m">2x² − 50 = 0</span>.</p>
+        <div class="choices mw-heft">
+          <button type="button" class="choice" data-why="Zeile 1 ist nur die Aufgabe – hier kann noch nichts schiefgehen."><span class="mw-ln m">2x² − 50 = 0</span><span class="mw-how">Aufgabe</span></button>
+          <button type="button" class="choice" data-why="Diese Zeile stimmt: Auf beiden Seiten + 50."><span class="mw-ln m">2x² = 50</span><span class="mw-how">| + 50</span></button>
+          <button type="button" class="choice" data-why="Diese Zeile stimmt: 50 : 2 = 25."><span class="mw-ln m">x² = 25</span><span class="mw-how">| : 2</span></button>
+          <button type="button" class="choice" data-correct data-why="Auch (−5)² = 25! Beim Wurzelziehen gibt es zwei Lösungen: x = 5 und x = −5."><span class="mw-ln m">x = 5</span><span class="mw-how">Wurzel gezogen</span></button>
+          <button type="button" class="choice" data-why="Die Lösungsmenge ist unvollständig – aber der Fehler passiert schon eine Zeile vorher."><span class="mw-ln m">L = {5}</span><span class="mw-how">Ergebnis</span></button>
+        </div>
+        <details class="hint"><summary>Tipp</summary><p>Rechne mal <span class="m">(−5)²</span> aus. Was fällt dir auf?</p></details>
+        <details class="solution"><summary>Erklärung &amp; richtige Lösung</summary>
+          <p><b>Fehler: ± vergessen.</b> <span class="m">x² = 25</span> hat zwei Lösungen, denn <span class="m">5² = 25</span> und <span class="m">(−5)² = 25</span>. Beim Wurzelziehen immer an ± denken!</p>
+          <div class="calc">
+            <div class="row"><span class="l">2x² − 50</span><span class="r">= 0</span><span class="op">| + 50</span></div>
+            <div class="row"><span class="l">2x²</span><span class="r">= 50</span><span class="op">| : 2</span></div>
+            <div class="row"><span class="l">x²</span><span class="r">= 25</span><span class="op">| √ (±!)</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = 5</span>&ensp;oder&ensp;<span class="mw-nw">x = −5</span></span></div>
+            <div class="row result sep"><span class="l">L</span><span class="r">= {−5; 5}</span></div>
+          </div>
+          <p class="small">Probe mit −5: <span class="m">2 · (−5)² − 50 = 50 − 50 = 0</span> ✓</p>
+        </details>
+      </div>
+
+      <!-- Fall 2: Wurzel aus negativer Zahl -->
+      <div class="task mw-det" data-id="wahl-fehler-2" data-kind="choice" data-level="1" data-label="Fall 2">
+        <p class="task-q">Lina löst <span class="m">x² + 9 = 0</span>.</p>
+        <div class="choices mw-heft">
+          <button type="button" class="choice" data-why="Zeile 1 ist nur die Aufgabe – die stimmt."><span class="mw-ln m">x² + 9 = 0</span><span class="mw-how">Aufgabe</span></button>
+          <button type="button" class="choice" data-why="Diese Zeile stimmt: Auf beiden Seiten − 9."><span class="mw-ln m">x² = −9</span><span class="mw-how">| − 9</span></button>
+          <button type="button" class="choice" data-correct data-why="Aus einer negativen Zahl kann man keine Wurzel ziehen: 3² = 9 und (−3)² = 9 – nie −9. Ein Quadrat ist nie negativ."><span class="mw-ln m">x = ±3</span><span class="mw-how">Wurzel gezogen</span></button>
+          <button type="button" class="choice" data-why="Die Probe geht schief (3² + 9 = 18), aber der Fehler passiert schon eine Zeile früher."><span class="mw-ln m">L = {−3; 3}</span><span class="mw-how">Ergebnis</span></button>
+        </div>
+        <details class="hint"><summary>Tipp</summary><p>Rechne <span class="m">(−3)²</span> aus. Kommt da wirklich <span class="m">−9</span> heraus?</p></details>
+        <details class="solution"><summary>Erklärung &amp; richtige Lösung</summary>
+          <p><b>Fehler: Wurzel aus einer negativen Zahl.</b> Jede Zahl zum Quadrat ist positiv oder 0. Also kann <span class="m">x²</span> nie <span class="m">−9</span> sein.</p>
+          <div class="calc">
+            <div class="row"><span class="l">x² + 9</span><span class="r">= 0</span><span class="op">| − 9</span></div>
+            <div class="row"><span class="l">x²</span><span class="r">= −9</span></div>
+            <div class="row"><span class="note">Ein Quadrat ist nie negativ ⇒ keine Lösung.</span></div>
+            <div class="row result sep"><span class="l">L</span><span class="r">= { }</span></div>
+          </div>
+          <p class="small">Grafisch: Die Parabel <span class="m">y = x² + 9</span> hat den Scheitelpunkt <span class="m">S(0 | 9)</span> und liegt komplett über der <span class="m">x</span>-Achse.</p>
+        </details>
+      </div>
+
+      <!-- Fall 3: durch x geteilt -->
+      <div class="task mw-det" data-id="wahl-fehler-3" data-kind="choice" data-level="2" data-label="Fall 3">
+        <p class="task-q">Ben löst <span class="m">3x² = 12x</span>.</p>
+        <div class="choices mw-heft">
+          <button type="button" class="choice" data-why="Zeile 1 ist nur die Aufgabe – die stimmt."><span class="mw-ln m">3x² = 12x</span><span class="mw-how">Aufgabe</span></button>
+          <button type="button" class="choice" data-correct data-why="Durch x teilen ist verboten – x könnte ja 0 sein. Genau dabei geht die Lösung x = 0 verloren."><span class="mw-ln m">3x = 12</span><span class="mw-how">| : x</span></button>
+          <button type="button" class="choice" data-why="12 : 3 = 4 stimmt – der Fehler passiert schon davor."><span class="mw-ln m">x = 4</span><span class="mw-how">| : 3</span></button>
+          <button type="button" class="choice" data-why="Hier fehlt etwas – aber der Fehler passiert früher."><span class="mw-ln m">L = {4}</span><span class="mw-how">Ergebnis</span></button>
+        </div>
+        <details class="hint"><summary>Tipp</summary><p>Setz mal <span class="m">x = 0</span> in die Aufgabe ein. Stimmt die Gleichung? Und wo ist diese Lösung verloren gegangen?</p></details>
+        <details class="solution"><summary>Erklärung &amp; richtige Lösung</summary>
+          <p><b>Fehler: durch <span class="m">x</span> geteilt.</b> Bring stattdessen alles auf eine Seite und klammere <span class="m">x</span> aus.</p>
+          <div class="calc">
+            <div class="row"><span class="l">3x²</span><span class="r">= 12x</span><span class="op">| − 12x</span></div>
+            <div class="row"><span class="l">3x² − 12x</span><span class="r">= 0</span><span class="op">| 3x ausklammern</span></div>
+            <div class="row"><span class="l">3x · (x − 4)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = 0</span>&ensp;oder&ensp;<span class="mw-nw">x = 4</span></span></div>
+            <div class="row result sep"><span class="l">L</span><span class="r">= {0; 4}</span></div>
+          </div>
+        </details>
+      </div>
+
+      <!-- Fall 4: Vorzeichen bei Vieta -->
+      <div class="task mw-det" data-id="wahl-fehler-4" data-kind="choice" data-level="2" data-label="Fall 4">
+        <p class="task-q">Noah löst <span class="m">x² − x − 12 = 0</span>.</p>
+        <div class="choices mw-heft">
+          <button type="button" class="choice" data-why="Zeile 1 ist nur die Aufgabe – die stimmt."><span class="mw-ln m">x² − x − 12 = 0</span><span class="mw-how">Aufgabe</span></button>
+          <button type="button" class="choice" data-why="Diese Zeile stimmt: Produkt (−4) · 3 = −12, Summe (−4) + 3 = −1. Das Zahlenpaar passt."><span class="mw-ln m"><span class="nw">(−4) · 3 = −12</span> und <span class="nw">(−4) + 3 = −1</span></span><span class="mw-how">Zahlenpaar</span></button>
+          <button type="button" class="choice" data-why="Diese Zeile stimmt: Ausmultipliziert ergibt (x − 4)(x + 3) genau x² − x − 12."><span class="mw-ln m">(x − 4) · (x + 3) = 0</span><span class="mw-how">faktorisiert</span></button>
+          <button type="button" class="choice" data-correct data-why="Aus x − 4 = 0 folgt x = 4 (nicht −4), aus x + 3 = 0 folgt x = −3. Die Lösungen haben das umgekehrte Vorzeichen wie die Zahlen in den Klammern."><span class="mw-ln m"><span class="nw">x = −4</span> oder <span class="nw">x = 3</span></span><span class="mw-how">Nullprodukt</span></button>
+          <button type="button" class="choice" data-why="Folgefehler – der eigentliche Fehler passiert eine Zeile früher."><span class="mw-ln m">L = {−4; 3}</span><span class="mw-how">Ergebnis</span></button>
+        </div>
+        <details class="hint"><summary>Tipp</summary><p>Setz <span class="m">x = −4</span> in die Klammer <span class="m">(x − 4)</span> ein. Wird sie wirklich 0?</p></details>
+        <details class="solution"><summary>Erklärung &amp; richtige Lösung</summary>
+          <p><b>Fehler: Vorzeichen beim Ablesen.</b> Jeden Faktor einzeln gleich 0 setzen – dann passiert das nicht.</p>
+          <div class="calc">
+            <div class="row"><span class="l">x² − x − 12</span><span class="r">= 0</span><span class="op">| Zahlenpaar −4 und 3</span></div>
+            <div class="row"><span class="l">(x − 4) · (x + 3)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x − 4 = 0</span>&ensp;oder&ensp;<span class="mw-nw">x + 3 = 0</span></span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = 4</span>&ensp;oder&ensp;<span class="mw-nw">x = −3</span></span></div>
+            <div class="row result sep"><span class="l">L</span><span class="r">= {−3; 4}</span></div>
+          </div>
+          <p class="small">Probe: <span class="m">4² − 4 − 12 = 0</span> ✓ und <span class="m">(−3)² + 3 − 12 = 0</span> ✓</p>
+        </details>
+      </div>
+
+      <!-- Fall 5: rechte Seite nicht 0 beim Nullprodukt -->
+      <div class="task mw-det" data-id="wahl-fehler-5" data-kind="choice" data-level="2" data-label="Fall 5">
+        <p class="task-q">Finn löst <span class="m">x · (x − 3) = 10</span>.</p>
+        <div class="choices mw-heft">
+          <button type="button" class="choice" data-why="Zeile 1 ist nur die Aufgabe – die stimmt."><span class="mw-ln m">x · (x − 3) = 10</span><span class="mw-how">Aufgabe</span></button>
+          <button type="button" class="choice" data-correct data-why="Der Satz vom Nullprodukt gilt nur, wenn auf der anderen Seite 0 steht! Die 10 kann man auf viele Arten als Produkt schreiben – daraus lässt sich nichts ablesen."><span class="mw-ln m"><span class="nw">x = 10</span> oder <span class="nw">x − 3 = 10</span></span><span class="mw-how">Nullprodukt</span></button>
+          <button type="button" class="choice" data-why="Rechnerisch richtig (+ 3) – aber die Zeile davor ist schon falsch."><span class="mw-ln m"><span class="nw">x = 10</span> oder <span class="nw">x = 13</span></span><span class="mw-how">| + 3</span></button>
+          <button type="button" class="choice" data-why="Die Probe geht schief (10 · 7 = 70), aber der Fehler steckt früher."><span class="mw-ln m">L = {10; 13}</span><span class="mw-how">Ergebnis</span></button>
+        </div>
+        <details class="hint"><summary>Tipp</summary><p>Mach die Probe mit <span class="m">x = 10</span>: <span class="m">10 · (10 − 3) = ?</span> Und dann frag dich: Wann darf man den Satz vom Nullprodukt benutzen?</p></details>
+        <details class="solution"><summary>Erklärung &amp; richtige Lösung</summary>
+          <p><b>Fehler: Nullprodukt ohne Null.</b> Erst ausmultiplizieren und alles auf eine Seite bringen.</p>
+          <div class="calc">
+            <div class="row"><span class="l">x · (x − 3)</span><span class="r">= 10</span><span class="op">| ausmultiplizieren</span></div>
+            <div class="row"><span class="l">x² − 3x</span><span class="r">= 10</span><span class="op">| − 10</span></div>
+            <div class="row"><span class="l">x² − 3x − 10</span><span class="r">= 0</span><span class="op">| Zahlenpaar −5 und 2</span></div>
+            <div class="row"><span class="l">(x − 5) · (x + 2)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = 5</span>&ensp;oder&ensp;<span class="mw-nw">x = −2</span></span></div>
+            <div class="row result sep"><span class="l">L</span><span class="r">= {−2; 5}</span></div>
+          </div>
+          <p class="small">Probe: <span class="m">5 · 2 = 10</span> ✓ und <span class="m">(−2) · (−5) = 10</span> ✓</p>
+        </details>
+      </div>
+
+      <!-- Fall 6: Vorzeichen beim Umstellen -->
+      <div class="task mw-det" data-id="wahl-fehler-6" data-kind="choice" data-level="2" data-label="Fall 6">
+        <p class="task-q">Sara löst <span class="m">x² − 4x = 5</span>.</p>
+        <div class="choices mw-heft">
+          <button type="button" class="choice" data-why="Zeile 1 ist nur die Aufgabe – die stimmt."><span class="mw-ln m">x² − 4x = 5</span><span class="mw-how">Aufgabe</span></button>
+          <button type="button" class="choice" data-correct data-why="Wer auf beiden Seiten 5 abzieht, bekommt links x² − 4x − 5. Das Vorzeichen der 5 ist falsch."><span class="mw-ln m">x² − 4x + 5 = 0</span><span class="mw-how">| − 5</span></button>
+          <button type="button" class="choice" data-why="Ausgehend von der Zeile davor richtig gerechnet (− 5, dann + 4 ergänzt) – aber die Zeile davor ist schon falsch."><span class="mw-ln m">x² − 4x + 4 = −1</span><span class="mw-how">| − 5, + 4</span></button>
+          <button type="button" class="choice" data-why="Formal korrekt – der Fehler steckt weiter oben."><span class="mw-ln m">(x − 2)² = −1</span><span class="mw-how">binomische Formel</span></button>
+          <button type="button" class="choice" data-why="Folgefehler! Probe mit x = 5: 25 − 20 = 5 ✓ – es gibt also doch Lösungen."><span class="mw-ln m">L = { }</span><span class="mw-how">kein Quadrat ist negativ</span></button>
+        </div>
+        <details class="hint"><summary>Tipp</summary><p>Mach die Probe mit <span class="m">x = 5</span>. Dann weißt du: <span class="m">L = { }</span> kann nicht stimmen. Prüf jetzt jede Umformung einzeln.</p></details>
+        <details class="solution"><summary>Erklärung &amp; richtige Lösung</summary>
+          <p><b>Fehler: Vorzeichen beim Umstellen.</b> Wer auf beiden Seiten <span class="m">5</span> abzieht, bekommt links <span class="m">− 5</span> – nicht <span class="m">+ 5</span>.</p>
+          <div class="calc">
+            <div class="row"><span class="l">x² − 4x</span><span class="r">= 5</span><span class="op">| − 5</span></div>
+            <div class="row"><span class="l">x² − 4x − 5</span><span class="r">= 0</span><span class="op">| Zahlenpaar −5 und 1</span></div>
+            <div class="row"><span class="l">(x − 5) · (x + 1)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = 5</span>&ensp;oder&ensp;<span class="mw-nw">x = −1</span></span></div>
+            <div class="row result sep"><span class="l">L</span><span class="r">= {−1; 5}</span></div>
+          </div>
+        </details>
+      </div>
+
+      <!-- Fall 7: Ergänzung nur links -->
+      <div class="task mw-det" data-id="wahl-fehler-7" data-kind="choice" data-level="3" data-label="Fall 7">
+        <p class="task-q">Lea löst <span class="m">x² + 6x − 7 = 0</span> mit quadratischer Ergänzung.</p>
+        <div class="choices mw-heft">
+          <button type="button" class="choice" data-why="Zeile 1 ist nur die Aufgabe – die stimmt."><span class="mw-ln m">x² + 6x − 7 = 0</span><span class="mw-how">Aufgabe</span></button>
+          <button type="button" class="choice" data-why="Diese Zeile stimmt: Auf beiden Seiten + 7."><span class="mw-ln m">x² + 6x = 7</span><span class="mw-how">| + 7</span></button>
+          <button type="button" class="choice" data-correct data-why="Links wurde 9 addiert, rechts nicht! Eine Gleichung ist wie eine Waage: Rechts muss 7 + 9 = 16 stehen."><span class="mw-ln m">x² + 6x + 9 = 7</span><span class="mw-how">3² ergänzt</span></button>
+          <button type="button" class="choice" data-why="Die binomische Formel ist richtig angewendet – aber die rechte Seite ist schon falsch."><span class="mw-ln m">(x + 3)² = 7</span><span class="mw-how">binomische Formel</span></button>
+          <button type="button" class="choice" data-why="Das ± ist vorbildlich! Der Fehler steckt weiter oben."><span class="mw-ln m">x + 3 = ±√7</span><span class="mw-how">Wurzel gezogen</span></button>
+          <button type="button" class="choice" data-why="Folgefehler – der eigentliche Fehler steckt weiter oben."><span class="mw-ln m">x = −3 ± √7</span><span class="mw-how">| − 3</span></button>
+        </div>
+        <details class="hint"><summary>Tipp</summary><p>Vergleiche Zeile 2 und Zeile 3: Was ist links dazugekommen – und was rechts?</p></details>
+        <details class="solution"><summary>Erklärung &amp; richtige Lösung</summary>
+          <p><b>Fehler: nur links ergänzt.</b> Die Ergänzung <span class="m">3² = 9</span> gehört auf <b>beide</b> Seiten.</p>
+          <div class="calc">
+            <div class="row"><span class="l">x² + 6x − 7</span><span class="r">= 0</span><span class="op">| + 7</span></div>
+            <div class="row"><span class="l">x² + 6x</span><span class="r">= 7</span><span class="op">| + 9 (beide Seiten!)</span></div>
+            <div class="row"><span class="l">x² + 6x + 9</span><span class="r">= 16</span><span class="op">| 1. binomische Formel</span></div>
+            <div class="row"><span class="l">(x + 3)²</span><span class="r">= 16</span><span class="op">| √ (±!)</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x + 3 = 4</span>&ensp;oder&ensp;<span class="mw-nw">x + 3 = −4</span><span class="mw-or-op">| − 3</span></span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = 1</span>&ensp;oder&ensp;<span class="mw-nw">x = −7</span></span></div>
+            <div class="row result sep"><span class="l">L</span><span class="r">= {−7; 1}</span></div>
+          </div>
+          <p class="small"><b>Methodenwahl:</b> Hier wäre der Produkt-Summen-Trick sogar schneller: <span class="m">7 · (−1) = −7</span> und <span class="m">7 + (−1) = 6</span> ⇒ <span class="m">(x + 7)(x − 1) = 0</span>.</p>
+        </details>
+      </div>
+
+      <!-- Fall 8: p statt p/2 -->
+      <div class="task mw-det" data-id="wahl-fehler-8" data-kind="choice" data-level="3" data-label="Fall 8">
+        <p class="task-q">Emma löst <span class="m">x² + 8x + 12 = 0</span> mit quadratischer Ergänzung.</p>
+        <div class="choices mw-heft">
+          <button type="button" class="choice" data-why="Zeile 1 ist nur die Aufgabe – die stimmt."><span class="mw-ln m">x² + 8x + 12 = 0</span><span class="mw-how">Aufgabe</span></button>
+          <button type="button" class="choice" data-why="Diese Zeile stimmt: Auf beiden Seiten − 12."><span class="mw-ln m">x² + 8x = −12</span><span class="mw-how">| − 12</span></button>
+          <button type="button" class="choice" data-correct data-why="Ergänzt wird die Hälfte von 8, zum Quadrat: 4² = 16 – nicht 8² = 64. Kontrolle: (x + 8)² = x² + 16x + 64, das passt nicht zu x² + 8x. Richtig wäre (x + 4)² = −12 + 16 = 4."><span class="mw-ln m">(x + 8)² = 52</span><span class="mw-how">8² = 64 ergänzt, binomische Formel</span></button>
+          <button type="button" class="choice" data-why="Das ± ist vorbildlich – aber die Zeile davor ist schon falsch."><span class="mw-ln m">x + 8 = ±√52</span><span class="mw-how">Wurzel gezogen</span></button>
+          <button type="button" class="choice" data-why="Folgefehler – such den ersten Fehler weiter oben."><span class="mw-ln m">x = −8 ± √52</span><span class="mw-how">| − 8</span></button>
+        </div>
+        <details class="hint"><summary>Tipp</summary><p>Welche Zahl ergänzt man bei <span class="m">x² + 8x</span>? Die <b>Hälfte</b> der 8, zum Quadrat.</p></details>
+        <details class="solution"><summary>Erklärung &amp; richtige Lösung</summary>
+          <p><b>Fehler: <span class="m">p²</span> statt <span class="m">(<span class="frac"><span>p</span><span>2</span></span>)²</span> ergänzt.</b> Die Hälfte von 8 ist 4, also ergänzt man <span class="m">4² = 16</span>.</p>
+          <div class="calc">
+            <div class="row"><span class="l">x² + 8x + 12</span><span class="r">= 0</span><span class="op">| − 12</span></div>
+            <div class="row"><span class="l">x² + 8x</span><span class="r">= −12</span><span class="op">| + 16 (= 4²)</span></div>
+            <div class="row"><span class="l">x² + 8x + 16</span><span class="r">= 4</span><span class="op">| 1. binomische Formel</span></div>
+            <div class="row"><span class="l">(x + 4)²</span><span class="r">= 4</span><span class="op">| √ (±!)</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x + 4 = 2</span>&ensp;oder&ensp;<span class="mw-nw">x + 4 = −2</span><span class="mw-or-op">| − 4</span></span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = −2</span>&ensp;oder&ensp;<span class="mw-nw">x = −6</span></span></div>
+            <div class="row result sep"><span class="l">L</span><span class="r">= {−6; −2}</span></div>
+          </div>
+          <p class="small"><b>Methodenwahl:</b> Schneller wäre der Produkt-Summen-Trick: <span class="m">2 · 6 = 12</span> und <span class="m">2 + 6 = 8</span> ⇒ <span class="m">(x + 2)(x + 6) = 0</span>.</p>
+        </details>
+      </div>
+
+      <!-- Fall 9: falsch abgelesen -->
+      <div class="task mw-det" data-id="wahl-fehler-9" data-kind="choice" data-level="3" data-label="Fall 9">
+        <p class="task-q">Paul löst <span class="m">x² + 2x = 3</span> grafisch. Er zeichnet die Parabel <span class="m">y = x² + 2x</span> und markiert, was er abliest (rote Punkte).</p>
+        <figure>
+          <div class="qg-plot-wrap" data-widget="mw-plot" data-plot="det-paul"></div>
+        </figure>
+        <div class="choices mw-heft">
+          <button type="button" class="choice" data-why="Zeile 1 ist nur die Aufgabe – die stimmt."><span class="mw-ln m">x² + 2x = 3</span><span class="mw-how">Aufgabe</span></button>
+          <button type="button" class="choice" data-why="Diese Parabel zu zeichnen ist in Ordnung – man muss danach nur an der richtigen Stelle ablesen."><span class="mw-ln m">y = x² + 2x</span><span class="mw-how">Parabel gezeichnet</span></button>
+          <button type="button" class="choice" data-correct data-why="Die Nullstellen von y = x² + 2x lösen x² + 2x = 0. Gesucht ist aber x² + 2x = 3: Man muss ablesen, wo die Parabel die Höhe 3 hat – also wo sie die Gerade y = 3 schneidet."><span class="mw-ln m"><span class="nw">x = −2</span> oder <span class="nw">x = 0</span></span><span class="mw-how">Nullstellen abgelesen</span></button>
+          <button type="button" class="choice" data-why="Folgefehler. Probe: (−2)² + 2 · (−2) = 0, nicht 3."><span class="mw-ln m">L = {−2; 0}</span><span class="mw-how">Ergebnis</span></button>
+        </div>
+        <details class="hint"><summary>Tipp</summary><p>Mach die Probe mit <span class="m">x = 0</span>: Kommt links 3 heraus? Wo auf dem Graphen ist <span class="m">y = 3</span>?</p></details>
+        <details class="solution"><summary>Erklärung &amp; richtige Lösung</summary>
+          <p><b>Fehler: falsch abgelesen.</b> Rechts steht 3, nicht 0. Also suchst du die Stellen, an denen die Parabel die Gerade <span class="m">y = 3</span> schneidet:</p>
+          <figure>
+            <div class="qg-plot-wrap" data-widget="mw-plot" data-plot="det-paul-ok"></div>
+            <figcaption>Schnittpunkte mit <span class="m">y = 3</span>: bei <span class="m">x = −3</span> und <span class="m">x = 1</span>.</figcaption>
+          </figure>
+          <div class="calc">
+            <div class="row"><span class="l">(−3)² + 2 · (−3)</span><span class="r">= 9 − 6</span></div>
+            <div class="row"><span class="l"></span><span class="r">= 3 ✓</span></div>
+            <div class="row sep"><span class="l">1² + 2 · 1</span><span class="r">= 1 + 2</span></div>
+            <div class="row"><span class="l"></span><span class="r">= 3 ✓</span></div>
+            <div class="row result sep"><span class="l">L</span><span class="r">= {−3; 1}</span></div>
+          </div>
+          <p class="small">Oder: Erst umformen zu <span class="m">x² + 2x − 3 = 0</span> und dann die Nullstellen der Parabel <span class="m">y = x² + 2x − 3</span> ablesen – oder gleich rechnen: <span class="m">(x + 3)(x − 1) = 0</span>.</p>
+        </details>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ 7. AUFGABEN -->
+  <div class="block" id="mw-mix">
+    <h2>Wähle selbst den Weg</h2>
+    <p>Jetzt bist du dran: Entscheide selbst, welcher Weg am schnellsten ist, und gib die Lösungsmenge ein. In jeder Lösung findest du <b>mindestens zwei Wege</b> – so kannst du vergleichen.</p>
+    <p class="small muted">Eingabe z. B. <span class="kbd">−5; 3</span>, Wurzeln mit der √-Taste wie <span class="kbd">2+√5; 2−√5</span>, oder <span class="kbd">keine</span>.</p>
+
+    <div class="tasks">
+
+      <div class="task" data-id="wahl-mix-1" data-answer="-5;3" data-level="1">
+        <p class="task-q">Löse: <span class="m">x² + 2x − 15 = 0</span></p>
+        <div class="wrong" data-match="5;-3">Fast! Vorzeichen prüfen: Aus <span class="m">x + 5 = 0</span> folgt <span class="m">x = −5</span>.</div>
+        <details class="hint"><summary>Tipp 1</summary><p>Alle Glieder sind da, vor <span class="m">x²</span> steht 1. Gibt es zwei ganze Zahlen mit Produkt <span class="m">−15</span> und Summe <span class="m">2</span>?</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p>Probier <span class="m">5</span> und <span class="m">−3</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p><span class="pill green">Weg A · Produkt-Summen-Trick</span> – am schnellsten</p>
+          <div class="calc">
+            <div class="row"><span class="l">x² + 2x − 15</span><span class="r">= 0</span><span class="op">| Zahlenpaar 5 und −3</span></div>
+            <div class="row"><span class="note">5 · (−3) = −15 und 5 + (−3) = 2 ✓</span></div>
+            <div class="row"><span class="l">(x + 5) · (x − 3)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = −5</span>&ensp;oder&ensp;<span class="mw-nw">x = 3</span></span></div>
+          </div>
+          <p><span class="pill orange">Weg B · Quadratische Ergänzung</span></p>
+          <div class="calc">
+            <div class="row"><span class="l">x² + 2x − 15</span><span class="r">= 0</span><span class="op">| + 15</span></div>
+            <div class="row"><span class="l">x² + 2x</span><span class="r">= 15</span><span class="op">| + 1 (= 1²)</span></div>
+            <div class="row"><span class="l">x² + 2x + 1</span><span class="r">= 16</span><span class="op">| 1. binomische Formel</span></div>
+            <div class="row"><span class="l">(x + 1)²</span><span class="r">= 16</span><span class="op">| √ (±!)</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x + 1 = 4</span>&ensp;oder&ensp;<span class="mw-nw">x + 1 = −4</span><span class="mw-or-op">| − 1</span></span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = 3</span>&ensp;oder&ensp;<span class="mw-nw">x = −5</span></span></div>
+            <div class="row result sep"><span class="l">L</span><span class="r">= {−5; 3}</span></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="task" data-id="wahl-mix-2" data-answer="0;4" data-level="1">
+        <p class="task-q">Löse: <span class="m">5x² − 20x = 0</span></p>
+        <div class="wrong" data-match="4">Da fehlt eine Lösung! Hast du durch <span class="m">x</span> geteilt? Dabei geht <span class="m">x = 0</span> verloren – klammere lieber aus.</div>
+        <details class="hint"><summary>Tipp 1</summary><p>Es gibt keine Zahl ohne <span class="m">x</span>. Was kannst du ausklammern?</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p>Klammere <span class="m">5x</span> aus: <span class="m">5x · (x − 4) = 0</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p><span class="pill green">Weg A · x ausklammern</span> – am schnellsten</p>
+          <div class="calc">
+            <div class="row"><span class="l">5x² − 20x</span><span class="r">= 0</span><span class="op">| 5x ausklammern</span></div>
+            <div class="row"><span class="l">5x · (x − 4)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = 0</span>&ensp;oder&ensp;<span class="mw-nw">x = 4</span></span></div>
+          </div>
+          <p><span class="pill orange">Weg B · Quadratische Ergänzung</span></p>
+          <div class="calc">
+            <div class="row"><span class="l">5x² − 20x</span><span class="r">= 0</span><span class="op">| : 5</span></div>
+            <div class="row"><span class="l">x² − 4x</span><span class="r">= 0</span><span class="op">| + 4 (= 2²)</span></div>
+            <div class="row"><span class="l">x² − 4x + 4</span><span class="r">= 4</span><span class="op">| 2. binomische Formel</span></div>
+            <div class="row"><span class="l">(x − 2)²</span><span class="r">= 4</span><span class="op">| √ (±!)</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x − 2 = 2</span>&ensp;oder&ensp;<span class="mw-nw">x − 2 = −2</span><span class="mw-or-op">| + 2</span></span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = 4</span>&ensp;oder&ensp;<span class="mw-nw">x = 0</span></span></div>
+            <div class="row result sep"><span class="l">L</span><span class="r">= {0; 4}</span></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="task" data-id="wahl-mix-3" data-answer="3" data-level="2">
+        <p class="task-q">Löse: <span class="m">x² + 9 = 6x</span></p>
+        <div class="wrong" data-match="-3;3">Nur eine Lösung stimmt. Probe mit <span class="m">−3</span>: <span class="m">9 + 9 = 18</span>, aber <span class="m">6 · (−3) = −18</span>.</div>
+        <div class="wrong" data-match="-3">Vorzeichen! Aus <span class="m">(x − 3)² = 0</span> folgt <span class="m">x − 3 = 0</span>, also <span class="m">x = 3</span>.</div>
+        <details class="hint"><summary>Tipp 1</summary><p>Rechts steht keine 0. Bring erst alles nach links: <span class="m">| − 6x</span>.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p><span class="m">x² − 6x + 9</span> – erkennst du eine binomische Formel?</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p>Zuerst rechts 0 machen:</p>
+          <div class="calc">
+            <div class="row"><span class="l">x² + 9</span><span class="r">= 6x</span><span class="op">| − 6x</span></div>
+            <div class="row"><span class="l">x² − 6x + 9</span><span class="r">= 0</span></div>
+          </div>
+          <p><span class="pill green">Weg A · Binomische Formel rückwärts</span> – am schnellsten</p>
+          <div class="calc">
+            <div class="row"><span class="l">x² − 6x + 9</span><span class="r">= 0</span><span class="op">| 2. binomische Formel</span></div>
+            <div class="row"><span class="l">(x − 3)²</span><span class="r">= 0</span><span class="op">| √</span></div>
+            <div class="row"><span class="l">x − 3</span><span class="r">= 0</span><span class="op">| + 3</span></div>
+            <div class="row"><span class="l">x</span><span class="r">= 3</span></div>
+          </div>
+          <p><span class="pill green">Weg B · Produkt-Summen-Trick</span></p>
+          <div class="calc">
+            <div class="row"><span class="note">(−3) · (−3) = 9 und (−3) + (−3) = −6 ✓</span></div>
+            <div class="row"><span class="l">(x − 3) · (x − 3)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="l">x</span><span class="r">= 3</span></div>
+            <div class="row result sep"><span class="l">L</span><span class="r">= {3}</span></div>
+          </div>
+          <p class="small">Grafisch: Die Parabel <span class="m">y = (x − 3)²</span> berührt die <span class="m">x</span>-Achse nur in ihrem Scheitelpunkt <span class="m">S(3 | 0)</span> – deshalb gibt es genau eine Lösung.</p>
+        </details>
+      </div>
+
+      <div class="task" data-id="wahl-mix-4" data-answer="-3;5" data-level="2">
+        <p class="task-q">Löse: <span class="m">2x² − 4x − 30 = 0</span></p>
+        <div class="wrong" data-match="3;-5">Vorzeichen prüfen! Aus <span class="m">x − 5 = 0</span> folgt <span class="m">x = 5</span>.</div>
+        <details class="hint"><summary>Tipp 1</summary><p>Vor <span class="m">x²</span> steht eine 2. Teile zuerst die ganze Gleichung durch 2.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p><span class="m">x² − 2x − 15 = 0</span>: Gesucht sind zwei Zahlen mit Produkt <span class="m">−15</span> und Summe <span class="m">−2</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p><span class="pill green mw-pill-wrap">Weg A · Teilen, dann Produkt-Summen-Trick</span> – am schnellsten</p>
+          <div class="calc">
+            <div class="row"><span class="l">2x² − 4x − 30</span><span class="r">= 0</span><span class="op">| : 2</span></div>
+            <div class="row"><span class="l">x² − 2x − 15</span><span class="r">= 0</span><span class="op">| Zahlenpaar −5 und 3</span></div>
+            <div class="row"><span class="note">(−5) · 3 = −15 und (−5) + 3 = −2 ✓</span></div>
+            <div class="row"><span class="l">(x − 5) · (x + 3)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = 5</span>&ensp;oder&ensp;<span class="mw-nw">x = −3</span></span></div>
+          </div>
+          <p><span class="pill orange">Weg B · Quadratische Ergänzung</span></p>
+          <div class="calc">
+            <div class="row"><span class="l">x² − 2x − 15</span><span class="r">= 0</span><span class="op">| + 15</span></div>
+            <div class="row"><span class="l">x² − 2x</span><span class="r">= 15</span><span class="op">| + 1 (= 1²)</span></div>
+            <div class="row"><span class="l">x² − 2x + 1</span><span class="r">= 16</span><span class="op">| 2. binomische Formel</span></div>
+            <div class="row"><span class="l">(x − 1)²</span><span class="r">= 16</span><span class="op">| √ (±!)</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x − 1 = 4</span>&ensp;oder&ensp;<span class="mw-nw">x − 1 = −4</span><span class="mw-or-op">| + 1</span></span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = 5</span>&ensp;oder&ensp;<span class="mw-nw">x = −3</span></span></div>
+            <div class="row result sep"><span class="l">L</span><span class="r">= {−3; 5}</span></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="task" data-id="wahl-mix-5" data-answer="2+sqrt(5);2-sqrt(5)" data-level="3">
+        <p class="task-q">Löse: <span class="m">x² − 4x − 1 = 0</span></p>
+        <div class="wrong" data-match="*1">Eine Lösung fehlt noch – denk an ±! Aus <span class="m">(x − 2)² = 5</span> folgen <b>zwei</b> Gleichungen: <span class="m">x − 2 = √5</span> und <span class="m">x − 2 = −√5</span>.</div>
+        <div class="wrong" data-match="-2+sqrt(5);-2-sqrt(5)">Vorzeichen! Aus <span class="m">x − 2 = ±√5</span> folgt <span class="m">x = 2 ± √5</span>.</div>
+        <details class="hint"><summary>Tipp 1</summary><p>Für <span class="m">−1</span> gibt es nur das Zahlenpaar <span class="m">1</span> und <span class="m">−1</span> – Summe 0, nicht −4. Also: quadratische Ergänzung!</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p>Ergänze <span class="m">(−2)² = 4</span> auf beiden Seiten: <span class="m">(x − 2)² = 5</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p><span class="pill orange">Weg A · Quadratische Ergänzung</span> – der einzige exakte Weg hier</p>
+          <div class="calc">
+            <div class="row"><span class="l">x² − 4x − 1</span><span class="r">= 0</span><span class="op">| + 1</span></div>
+            <div class="row"><span class="l">x² − 4x</span><span class="r">= 1</span><span class="op">| + 4 (= 2²)</span></div>
+            <div class="row"><span class="l">x² − 4x + 4</span><span class="r">= 5</span><span class="op">| 2. binomische Formel</span></div>
+            <div class="row"><span class="l">(x − 2)²</span><span class="r">= 5</span><span class="op">| √ (±!)</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x − 2 = √5</span>&ensp;oder&ensp;<span class="mw-nw">x − 2 = −√5</span><span class="mw-or-op">| + 2</span></span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = 2 + √5</span>&ensp;oder&ensp;<span class="mw-nw">x = 2 − √5</span></span></div>
+            <div class="row result sep"><span class="note mw-or"><b class="mw-nw">L = {2 − √5; 2 + √5}</b></span></div>
+          </div>
+          <p class="small">Gerundet: <span class="m">x ≈ −0,24</span> und <span class="m">x ≈ 4,24</span>.</p>
+          <p><span class="pill blue">Weg B · Grafisch (zur Kontrolle)</span></p>
+          <p>Aus <span class="m">(x − 2)² − 5</span> liest du den Scheitelpunkt <span class="m">S(2 | −5)</span> ab. Die Parabel schneidet die <span class="m">x</span>-Achse ungefähr bei <span class="m">−0,2</span> und <span class="m">4,2</span> – passt! Genau ablesen kannst du <span class="m">2 ± √5</span> aber nicht. Darum ist hier Rechnen Pflicht.</p>
+        </details>
+      </div>
+
+      <div class="task" data-id="wahl-mix-6" data-answer="-3;3" data-level="3">
+        <p class="task-q">Löse: <span class="m">(x + 1)² = 2x + 10</span></p>
+        <div class="wrong" data-match="3">Eine Lösung fehlt: Auch <span class="m">(−3)² = 9</span>. Denk beim Wurzelziehen an ±!</div>
+        <details class="hint"><summary>Tipp 1</summary><p>Rechts steht ein <span class="m">x</span> – direkt Wurzel ziehen geht hier nicht. Multipliziere die Klammer aus.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p><span class="m">x² + 2x + 1 = 2x + 10</span>. Was passiert mit <span class="m">2x</span>, wenn du alles auf eine Seite bringst?</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p>Zuerst ausmultiplizieren und vereinfachen – das <span class="m">2x</span> fällt weg:</p>
+          <div class="calc">
+            <div class="row"><span class="l">(x + 1)²</span><span class="r">= 2x + 10</span><span class="op">| 1. binomische Formel</span></div>
+            <div class="row"><span class="l">x² + 2x + 1</span><span class="r">= 2x + 10</span><span class="op">| − 2x</span></div>
+            <div class="row"><span class="l">x² + 1</span><span class="r">= 10</span><span class="op">| − 1</span></div>
+            <div class="row"><span class="l">x²</span><span class="r">= 9</span></div>
+          </div>
+          <p><span class="pill green">Weg A · Wurzel ziehen</span> – am schnellsten</p>
+          <div class="calc">
+            <div class="row"><span class="l">x²</span><span class="r">= 9</span><span class="op">| √ (±!)</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = 3</span>&ensp;oder&ensp;<span class="mw-nw">x = −3</span></span></div>
+          </div>
+          <p><span class="pill green">Weg B · 3. binomische Formel</span></p>
+          <div class="calc">
+            <div class="row"><span class="l">x² − 9</span><span class="r">= 0</span><span class="op">| 3. binomische Formel</span></div>
+            <div class="row"><span class="l">(x + 3) · (x − 3)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="note mw-or"><span class="mw-nw">x = −3</span>&ensp;oder&ensp;<span class="mw-nw">x = 3</span></span></div>
+            <div class="row result sep"><span class="l">L</span><span class="r">= {−3; 3}</span></div>
+          </div>
+          <p class="small">Probe mit −3: <span class="m">(−2)² = 4</span> und <span class="m">2 · (−3) + 10 = 4</span> ✓</p>
+        </details>
+      </div>
+
+      <div class="task" data-id="wahl-mix-7" data-answer="leer" data-level="3" data-label="Bonus">
+        <p class="task-q">Löse: <span class="m">x² + 4x + 7 = 0</span></p>
+        <div class="wrong" data-match="-2+sqrt(3);-2-sqrt(3)">Rechne die rechte Seite noch einmal nach: <span class="m">−7 + 4 = −3</span>, nicht <span class="m">3</span>. Und aus einer negativen Zahl kannst du keine Wurzel ziehen.</div>
+        <details class="hint"><summary>Tipp 1</summary><p>Für 7 gibt es nur die Zahlenpaare <span class="m">1 und 7</span> bzw. <span class="m">−1 und −7</span> – Summe 8 oder −8, nie 4. Also: quadratische Ergänzung.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p>Nach dem Ergänzen steht rechts eine negative Zahl. Was heißt das?</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p><span class="pill orange">Weg A · Quadratische Ergänzung</span></p>
+          <div class="calc">
+            <div class="row"><span class="l">x² + 4x + 7</span><span class="r">= 0</span><span class="op">| − 7</span></div>
+            <div class="row"><span class="l">x² + 4x</span><span class="r">= −7</span><span class="op">| + 4 (= 2²)</span></div>
+            <div class="row"><span class="l">x² + 4x + 4</span><span class="r">= −3</span><span class="op">| 1. binomische Formel</span></div>
+            <div class="row"><span class="l">(x + 2)²</span><span class="r">= −3</span></div>
+            <div class="row"><span class="note">Ein Quadrat ist nie negativ ⇒ keine Lösung.</span></div>
+            <div class="row result sep"><span class="l">L</span><span class="r">= { }</span></div>
+          </div>
+          <p><span class="pill blue">Weg B · Grafisch</span></p>
+          <p>Aus <span class="m">f(x) = (x + 2)² + 3</span> liest du <span class="m">S(−2 | 3)</span> ab. Die Parabel ist nach oben geöffnet und ihr tiefster Punkt liegt <b>über</b> der <span class="m">x</span>-Achse – sie schneidet die Achse also nie.</p>
+        </details>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ 8. MERKE -->
+  <div class="block" id="mw-merke">
+    <h2>Kurz gemerkt</h2>
+    <div class="box merke">
+      <ol class="mw-merke-list">
+        <li><b>Rechts 0 machen.</b> Erst dann darfst du ausklammern oder den Satz vom Nullprodukt benutzen.</li>
+        <li><b>Was fehlt?</b> Fehlt <span class="m">c</span> → <span class="m">x</span> ausklammern. Fehlt <span class="m">b</span> → Wurzel ziehen (±!).</li>
+        <li><b>Was erkennst du?</b> Binomische Formel → rückwärts. Ganzzahliges Zahlenpaar → Produkt-Summen-Trick.</li>
+        <li><b>Nichts passt?</b> Quadratische Ergänzung – die klappt immer.</li>
+        <li><b>Grafisch</b> für den Überblick und zur Kontrolle.</li>
+        <li><b>Nie durch <span class="m">x</span> teilen</b> – und am Ende immer <span class="m">L = {…}</span> angeben.</li>
+      </ol>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,131 @@
+/* Kapitel 10 · Grundlagen & Vorwissen */
+
+/* Inhaltsverzeichnis als Chips */
+#grundlagen .gl-toc {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0;
+}
+#grundlagen .gl-toc a {
+  display: inline-flex; align-items: center; min-height: 40px; padding: 6px 14px;
+  border-radius: 999px; background: var(--surface); border: 1.5px solid var(--line);
+  font-weight: 800; font-size: .88rem; color: var(--text); text-decoration: none;
+  transition: border-color .15s, background-color .15s;
+}
+#grundlagen .gl-toc a:hover { border-color: var(--accent); background: var(--accent-soft); }
+
+/* Beispiele / Gegenbeispiele */
+#grundlagen .gl-card-title { font-weight: 900; margin: 0 0 8px; display: flex; gap: 8px; align-items: center; }
+#grundlagen .gl-yes { border-top: 4px solid var(--ok); }
+#grundlagen .gl-no { border-top: 4px solid var(--bad); }
+#grundlagen .gl-yes .gl-card-title { color: var(--ok); }
+#grundlagen .gl-no .gl-card-title { color: var(--bad); }
+#grundlagen .gl-eqlist { list-style: none; padding: 0; margin: 0; }
+#grundlagen .gl-eqlist li { padding: 6px 0; border-top: 1px dashed var(--line); margin: 0; }
+#grundlagen .gl-eqlist li:first-child { border-top: 0; padding-top: 0; }
+#grundlagen .gl-eqlist .m { font-size: 1.06em; margin-right: 6px; }
+#grundlagen .gl-eqlist .small { display: inline-block; }
+
+/* Formen */
+#grundlagen .gl-formcard {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 14px 14px 16px; box-shadow: var(--shadow-1);
+}
+#grundlagen .gl-formlabel { font-size: .78rem; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; color: var(--accent-ink); margin: 0 0 6px; }
+#grundlagen .gl-formcard .mblock { font-size: 1.32em; margin-bottom: 10px; }
+#grundlagen .gl-cond { font-size: .7em; color: var(--text-dim); margin-left: .4em; }
+#grundlagen .gl-legend { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .9em; }
+#grundlagen .gl-legend li { margin: 0; display: inline-flex; gap: 6px; align-items: baseline; }
+#grundlagen .gl-abc td .m { white-space: nowrap; }
+#grundlagen .gl-abc td.c { min-width: 2.6em; }
+
+/* Rezept */
+#grundlagen .gl-recipe { counter-reset: gl-r; list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+#grundlagen .gl-recipe li {
+  counter-increment: gl-r; position: relative; margin: 0;
+  padding: 10px 12px 10px 52px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm);
+}
+#grundlagen .gl-recipe li::before {
+  content: counter(gl-r); position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  width: 28px; height: 28px; border-radius: 9px; display: grid; place-items: center;
+  background: var(--accent); color: var(--on-accent); font-weight: 900; font-size: .9rem;
+}
+
+/* Mini-Parabeln 0/1/2 Lösungen */
+#grundlagen .gl-three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 16px; }
+#grundlagen .gl-mini { margin: 0; min-width: 0; display: flex; flex-direction: column; }
+#grundlagen .gl-mini-plot { padding: 3px; }
+#grundlagen .gl-mini figcaption {
+  display: flex; flex-direction: column; gap: 1px; margin-top: 6px; line-height: 1.3;
+  font-size: .78rem; color: var(--text-dim);
+}
+#grundlagen .gl-mini figcaption strong { color: var(--text); font-size: .92rem; }
+#grundlagen .gl-mini figcaption .m { color: var(--text); white-space: nowrap; }
+@media (min-width: 520px) { #grundlagen .gl-three { gap: 12px; } #grundlagen .gl-mini figcaption { font-size: .85rem; } }
+
+/* Nullprodukt */
+#grundlagen .gl-big { font-size: 1.12em; font-weight: 700; line-height: 1.45; }
+#grundlagen .gl-why { margin-top: 16px; }
+#grundlagen .gl-whylist { list-style: none; padding: 0; margin: 8px 0 10px; }
+#grundlagen .gl-whylist li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 0; padding: 4px 0; }
+#grundlagen .gl-ok, #grundlagen .gl-bad { font-size: .82rem; font-weight: 800; border-radius: 999px; padding: 0 9px; }
+#grundlagen .gl-ok { background: var(--ok-soft); color: var(--ok); }
+#grundlagen .gl-bad { background: var(--bad-soft); color: var(--bad); }
+#grundlagen .gl-L { font-size: 1.12em; font-weight: 800; margin-top: 8px; }
+#grundlagen .gl-L .m { background: var(--accent-soft); padding: 2px 10px; border-radius: 8px; color: var(--accent-ink); }
+
+/* Probe-Labor */
+#grundlagen .gl-lab { margin-top: 16px; border-color: color-mix(in srgb, var(--accent) 30%, var(--line)); }
+#grundlagen .gl-lab-title { font-weight: 900; margin: 0 0 4px; font-size: 1.05rem; }
+#grundlagen .gl-lab-q { margin: 0 0 10px; }
+#grundlagen .gl-lab-chips { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; max-width: 460px; }
+#grundlagen .gl-lab-chips button {
+  min-width: 0; height: 46px; padding: 0;
+  font: 800 1.05rem var(--font-math); color: var(--text);
+  background: var(--surface-2); border: 2px solid var(--line); border-radius: 12px; cursor: pointer;
+  touch-action: manipulation; transition: border-color .15s, background-color .15s;
+}
+#grundlagen .gl-lab-chips button:hover { border-color: var(--accent); }
+#grundlagen .gl-lab-chips button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent-ink); }
+#grundlagen .gl-lab-chips button.is-root { box-shadow: inset 0 -3px 0 var(--ok); }
+#grundlagen .gl-lab-out { margin: 12px 0; min-height: 5.4em; }
+#grundlagen .gl-lab-out .mblock { margin-bottom: 8px; font-size: 1.05em; }
+#grundlagen .gl-lab-verdict { font-weight: 800; padding: 8px 12px; border-radius: 12px; margin: 0; }
+#grundlagen .gl-lab-verdict.ok { background: var(--ok-soft); color: color-mix(in srgb, var(--ok) 80%, var(--text)); }
+#grundlagen .gl-lab-verdict.no { background: var(--surface-2); color: var(--text-dim); }
+#grundlagen .gl-lab-found { font-size: .88rem; color: var(--text-dim); font-weight: 700; margin: 8px 0 0; }
+
+/* Fit-Check */
+#grundlagen .gl-sub { font-weight: 800; margin: 18px 0 10px; color: var(--accent-ink); }
+#grundlagen .gl-binom-row { display: flex; gap: 10px; align-items: baseline; padding: 4px 0; font-size: 1.08em; }
+#grundlagen .gl-bn { font-weight: 900; color: var(--accent-ink); min-width: 1.4em; }
+#grundlagen .gl-squares {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); gap: 6px;
+  margin: 12px 0 16px; font-family: var(--font-math); font-weight: 700; font-size: .92em;
+}
+#grundlagen .gl-squares span {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+  padding: 5px 8px; text-align: center; white-space: nowrap;
+}
+#grundlagen .gl-rules { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+#grundlagen .gl-rules li { margin: 0; display: flex; gap: 10px; align-items: baseline; line-height: 1.45; }
+#grundlagen .gl-rule-ok, #grundlagen .gl-rule-bad {
+  flex: none; font-size: .74rem; font-weight: 900; letter-spacing: .04em; text-transform: uppercase;
+  padding: 1px 8px; border-radius: 999px; min-width: 6.4em; text-align: center;
+}
+#grundlagen .gl-rule-ok { background: var(--ok-soft); color: var(--ok); }
+#grundlagen .gl-rule-bad { background: var(--bad-soft); color: var(--bad); }
+#grundlagen .gl-summary { margin-top: 28px; }
+
+@media print {
+  #grundlagen .gl-toc, #grundlagen .gl-lab { display: none !important; }
+}
+
+#grundlagen .choices.cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+#grundlagen .choice > span { min-width: 0; overflow-wrap: anywhere; }
+/* kurze Inline-Terme nicht mitten im Term umbrechen */
+#grundlagen p .m, #grundlagen li .m, #grundlagen td .m, #grundlagen .choice .m { white-space: nowrap; }
+#grundlagen .m.wrap { white-space: normal; }
+#grundlagen .box-title .m { text-transform: none; font-size: 1.15em; }
+
+/* Mathe in Versal-Überschriften nicht in Großbuchstaben setzen (x bleibt x, a bleibt a) */
+#grundlagen .box-title .m,
+#grundlagen .gl-formlabel .m { text-transform: none; letter-spacing: 0; }

@@ -1,0 +1,204 @@
+/* Kapitel 60 · Trainingsraum (alles unter #training) */
+
+/* ---------- Einstieg ---------- */
+#training .tr-how { padding-left: 0; list-style: none; counter-reset: tr-how; margin-bottom: 14px; }
+#training .tr-how > li {
+  position: relative; padding: 2px 0 2px 42px; min-height: 32px;
+  counter-increment: tr-how;
+}
+#training .tr-how > li + li { margin-top: 10px; }
+#training .tr-how > li::before {
+  content: counter(tr-how);
+  position: absolute; left: 0; top: 0;
+  width: 30px; height: 30px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--accent-soft); color: var(--accent-ink);
+  font-weight: 900; font-size: .95rem;
+}
+
+/* ---------- Auswahl (Chips) ---------- */
+#training .tr-setup { padding: 14px 14px 12px; }
+#training .tr-label {
+  margin: 0 0 8px; font-size: .78rem; font-weight: 900; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--text-dim);
+}
+#training .tr-chips + .tr-label { margin-top: 16px; }
+#training .tr-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+#training .tr-chip {
+  --chip: var(--c-teal); --chip-soft: var(--c-teal-soft); --chip-ink: var(--c-teal-ink);
+  display: inline-flex; align-items: center; gap: 7px;
+  min-height: 44px; padding: 6px 14px 6px 10px;
+  border-radius: 999px; border: 1.5px solid var(--line);
+  background: var(--surface); color: var(--text);
+  font: inherit; font-weight: 800; font-size: .95rem; line-height: 1.15;
+  cursor: pointer; text-align: left;
+  transition: background-color .15s, border-color .15s, color .15s, transform .1s;
+  -webkit-tap-highlight-color: transparent;
+}
+#training .tr-chip[data-c="blue"] { --chip: var(--c-blue); --chip-soft: var(--c-blue-soft); --chip-ink: var(--c-blue-ink); }
+#training .tr-chip[data-c="green"] { --chip: var(--c-green); --chip-soft: var(--c-green-soft); --chip-ink: var(--c-green-ink); }
+#training .tr-chip[data-c="orange"] { --chip: var(--c-orange); --chip-soft: var(--c-orange-soft); --chip-ink: var(--c-orange-ink); }
+#training .tr-chip[data-c="pink"] { --chip: var(--c-pink); --chip-soft: var(--c-pink-soft); --chip-ink: var(--c-pink-ink); }
+#training .tr-chip:hover:not(:disabled) { border-color: var(--chip); }
+#training .tr-chip:active:not(:disabled) { transform: scale(.97); }
+#training .tr-chip:disabled { opacity: .5; cursor: not-allowed; }
+#training .tr-chip[aria-pressed="true"] {
+  background: var(--chip-soft); border-color: var(--chip); color: var(--chip-ink);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--chip) 16%, transparent);
+}
+#training .tr-chip var { font-family: var(--font-math); font-style: italic; font-weight: 800; }
+#training .tr-chip-ic {
+  flex: none; width: 28px; height: 28px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 15px; line-height: 1;
+  background: var(--surface-2);
+}
+#training .tr-chip-sym { font-family: var(--font-math); font-weight: 900; font-size: 13px; color: var(--chip-ink); white-space: nowrap; letter-spacing: -.02em; }
+#training .tr-chip[aria-pressed="true"] .tr-chip-ic { background: var(--surface); }
+#training .tr-lv { display: inline-flex; gap: 3px; margin-right: 2px; }
+#training .tr-lv i { width: 7px; height: 7px; border-radius: 50%; background: var(--line-strong); display: block; }
+#training .tr-lv i.on { background: var(--chip); }
+#training .tr-level-desc { margin: 10px 2px 0; font-size: .9rem; color: var(--text-dim); min-height: 1.4em; }
+
+/* ---------- Serie & Abzeichen ---------- */
+#training .tr-status {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;
+  margin: 14px 0 12px;
+}
+#training .tr-streak {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 8px; border-radius: 999px;
+  background: var(--surface); border: 1.5px solid var(--line);
+  font-weight: 800;
+}
+#training .tr-streak b { font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+#training .tr-flame { font-size: 20px; filter: grayscale(1); opacity: .45; transition: filter .3s, opacity .3s; }
+#training .tr-streak.hot { border-color: color-mix(in srgb, var(--c-orange) 60%, var(--line)); background: var(--c-orange-soft); color: var(--c-orange-ink); }
+#training .tr-streak.on .tr-flame { filter: none; opacity: 1; }
+#training .tr-streak.pop { animation: tr-pop .6s var(--ease); }
+#training .tr-best { font-size: .88rem; color: var(--text-dim); font-weight: 700; }
+#training .tr-badges { display: flex; gap: 6px; margin-left: auto; }
+#training .tr-badge {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 18px;
+  background: var(--surface-2); border: 1.5px dashed var(--line-strong);
+  filter: grayscale(1); opacity: .45;
+}
+#training .tr-badge.got {
+  filter: none; opacity: 1; border-style: solid;
+  border-color: color-mix(in srgb, var(--c-yellow) 70%, var(--line));
+  background: var(--c-yellow-soft);
+}
+@keyframes tr-pop { 0% { transform: scale(1); } 35% { transform: scale(1.14); } 100% { transform: scale(1); } }
+
+/* ---------- Aktionen & Aufgabe ---------- */
+#training .tr-actions { margin-bottom: 14px; }
+#training .tr-actions .btn.primary { flex: 1 1 180px; }
+#training .tr-actions .tr-turbo-btn { flex: 1 1 140px; }
+#training .tr-host { min-height: 120px; }
+#training .tr-host > .task { margin: 0; animation: tr-in .35s var(--ease); }
+@keyframes tr-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+#training .tr-task .mblock { font-size: 1.28em; }
+#training .tr-plot { margin: 10px 0 0; }
+#training .tr-input-note { margin: 10px 0 0; }
+#training .tr-input-note .nomath { font-family: var(--font-math); font-weight: 700; color: var(--text); white-space: nowrap; }
+#training .tr-legend { margin: 8px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; }
+#training .tr-key { display: inline-block; width: 18px; height: 4px; border-radius: 2px; vertical-align: middle; margin-right: 2px; }
+#training .tr-key + * { margin-right: 8px; }
+#training .tr-key.blue { background: var(--c-blue); }
+#training .tr-key.orange { background: var(--c-orange); margin-left: 8px; }
+#training .tr-best + .qg-plot-wrap, #training details.solution .tr-plot { margin: 4px 0 12px; }
+#training p.tr-best { margin: 0 0 12px; line-height: 1.5; }
+#training p.tr-best .pill { margin-right: 4px; }
+#training .tr-alt { margin-top: 10px; }
+#training .tr-step {
+  display: inline-block; margin: 4px 6px 0 0; padding: 1px 9px;
+  border-radius: 999px; background: var(--c-orange-soft); color: var(--c-orange-ink);
+  font-size: .82em; font-weight: 900; letter-spacing: .02em; white-space: nowrap;
+}
+#training .tr-sol .tr-note { margin: 12px 0 6px; font-size: .95em; color: var(--text-dim); line-height: 1.5; }
+#training .tr-sol .tr-note:first-child { margin-top: 2px; }
+#training .tr-sol .tr-note .m { color: var(--text); }
+#training .tr-sol .calc { margin: 0 0 4px; }
+#training .tr-sol .tr-note + .calc { margin-top: 0; }
+
+/* ---------- Turbo ---------- */
+#training .tr-turbo {
+  margin: 0 0 14px; padding: 14px 16px;
+  border-color: color-mix(in srgb, var(--c-yellow) 55%, var(--line));
+  background: linear-gradient(135deg, var(--c-yellow-soft), var(--surface) 70%);
+}
+#training .tr-turbo[hidden] { display: none; }
+#training .tr-turbo-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+#training .tr-turbo-title { font-weight: 900; font-size: 1.05rem; }
+#training .tr-time { font-family: var(--font-math); font-weight: 900; font-size: 1.8rem; font-variant-numeric: tabular-nums; color: var(--c-yellow-ink); line-height: 1; }
+#training .tr-dots { display: flex; gap: 8px; margin: 12px 0 8px; }
+#training .tr-dot { flex: 1; height: 10px; border-radius: 5px; background: var(--surface-3); transition: background-color .3s; }
+#training .tr-dot.now { background: color-mix(in srgb, var(--c-yellow) 45%, var(--surface-3)); }
+#training .tr-dot.done { background: var(--ok); }
+#training .tr-turbo-note { margin: 0 0 10px; }
+#training .tr-result { text-align: center; padding: 22px 16px; }
+#training .tr-result:focus { outline: none; }
+#training .tr-result h3 { margin: 0 0 4px; }
+#training .tr-result-icon { font-size: 40px; margin: 0; line-height: 1.2; }
+#training .tr-result-time { font-family: var(--font-math); font-weight: 900; font-size: 2.6rem; margin: 4px 0 6px; color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+#training .tr-record { font-weight: 800; }
+#training .tr-result .btn-row { justify-content: center; margin-top: 14px; }
+
+/* ---------- Statistik ---------- */
+#training .tr-stats-card { padding: 14px; }
+#training .tr-stats { display: flex; flex-direction: column; gap: 10px; }
+#training .tr-stat {
+  --bar: var(--c-teal);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name num" "bar bar";
+  gap: 4px 10px; align-items: center;
+}
+#training .tr-stat[data-c="blue"] { --bar: var(--c-blue); }
+#training .tr-stat[data-c="green"] { --bar: var(--c-green); }
+#training .tr-stat[data-c="orange"] { --bar: var(--c-orange); }
+#training .tr-stat-name { grid-area: name; font-weight: 800; font-size: .95rem; }
+#training .tr-stat-name var { font-family: var(--font-math); }
+#training .tr-stat-num { grid-area: num; font-weight: 900; font-variant-numeric: tabular-nums; color: var(--text-dim); font-size: .92rem; }
+#training .tr-stat-bar { grid-area: bar; height: 8px; border-radius: 4px; background: var(--surface-3); overflow: hidden; }
+#training .tr-stat-bar > span { display: block; height: 100%; background: var(--bar); border-radius: 4px; transition: width .5s var(--ease); }
+#training .tr-total { margin: 14px 0 6px; }
+#training .tr-tip { margin: 0 0 8px; color: var(--text-dim); }
+#training .tr-link {
+  font: inherit; font-weight: 800; color: var(--accent-ink); background: none; border: 0; padding: 4px 0; min-height: 32px;
+  text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent); cursor: pointer;
+}
+#training [data-tr-reset].confirm { color: var(--bad); background: var(--bad-soft); }
+
+/* ---------- Trainingsplan ---------- */
+#training .tr-plan { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; margin: 0 0 16px; }
+#training .tr-day {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm);
+  padding: 12px 14px; border-left: 5px solid var(--accent);
+}
+#training .tr-day p { margin: 0; }
+#training .tr-day-name { font-weight: 900; color: var(--accent-ink); font-size: .85rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px !important; }
+
+@media (min-width: 640px) {
+  #training .tr-plan { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 380px) {
+  #training .tr-chip { padding: 6px 12px 6px 8px; font-size: .9rem; gap: 6px; }
+  #training .tr-chip-ic { width: 26px; height: 26px; }
+  #training .tr-badges { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #training .tr-host > .task, #training .tr-streak.pop { animation: none; }
+}
+@media print {
+  #training .tr-plan { grid-template-columns: 1fr 1fr; }
+  #training .tr-day { break-inside: avoid; }
+}
+#training .tr-help { margin: 12px 2px 0; }
+#training .tr-actions .btn { white-space: nowrap; }
+@media (max-width: 420px) {
+  #training .tr-sol .calc { font-size: 1em; padding: 10px 10px; }
+  #training .tr-sol .calc .op { padding-left: 10px; min-width: 3.2em; }
+  #training .tr-task details.solution > :not(summary) { margin-left: 10px; margin-right: 10px; }
+}
+#training .tr-sol .calc .op { overflow-wrap: break-word; }
+#training .tr-sol .calc.tr-L { margin-top: 6px; font-size: 1.1em; }

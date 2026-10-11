@@ -1,0 +1,687 @@
+<section class="chapter" id="probe-hue" data-title="Probe-HÜ" data-short="Probe-HÜ" data-color="red" data-icon="📝">
+  <header class="ch-head">
+    <p class="ch-kicker">Generalprobe</p>
+    <h1>Probe-HÜ</h1>
+    <p class="ch-lead">Zwei komplette Übungs-HÜs mit Timer, Erwartungshorizont und Notenschätzung. So weißt du schon vorher, wo du stehst – und was du noch üben solltest.</p>
+  </header>
+
+  <!-- ============ 1. So läuft's ============ -->
+  <div class="block hue-b-intro">
+    <h2>So läuft’s</h2>
+    <ol class="hue-howto">
+      <li><span class="hue-howto-ico" aria-hidden="true">📄</span><div><b>Papier und Stift bereitlegen.</b> Am besten ein kariertes Blatt. Das Handy brauchst du nur für die Aufgaben und den Timer.</div></li>
+      <li><span class="hue-howto-ico" aria-hidden="true">⏱️</span><div><b>Timer starten: 20 Minuten.</b> Kein Taschenrechner (bzw. nur das, was in eurer HÜ erlaubt ist), kein Spickzettel, keine Tipps.</div></li>
+      <li><span class="hue-howto-ico" aria-hidden="true">✍️</span><div><b>Alles aufschreiben.</b> Jeder Rechenweg zählt – und am Ende immer <span class="m">L = {…}</span>. Hängst du fest? Weiter zur nächsten Aufgabe und später zurück.</div></li>
+      <li><span class="hue-howto-ico" aria-hidden="true">✅</span><div><b>Zeit um? Stift weg.</b> Dann korrigierst du dich selbst mit dem Erwartungshorizont. Hak ehrlich ab, was du wirklich hattest.</div></li>
+      <li><span class="hue-howto-ico" aria-hidden="true">🎯</span><div><b>Auswertung lesen und gezielt üben.</b> Die Seite zeigt dir, welches Kapitel du dir nochmal ansehen solltest.</div></li>
+    </ol>
+    <div class="box tipp">
+      <p>Beide Probe-HÜs sind <b>gleich schwer und gleich aufgebaut</b>: je eine Aufgabe zu jedem der drei Wege, dazu Wurzelziehen, „Wie viele Lösungen?“, eine Fehlersuche und eine Textaufgabe. Schreib <b>HÜ A</b> zuerst, übe dann, was gefehlt hat, und schreib <b>HÜ B</b> ein, zwei Tage später.</p>
+    </div>
+  </div>
+
+  <!-- ============ 2. Version & Timer ============ -->
+  <div class="block hue-b-timer">
+    <h2>Probe-HÜ wählen und Zeit starten</h2>
+    <div class="hue-tabs" role="tablist" aria-label="Probe-HÜ auswählen">
+      <button type="button" role="tab" class="hue-tab" id="hue-tab-A" data-v="A" aria-selected="true" aria-controls="hue-sheet-A">
+        <span class="hue-tab-badge" aria-hidden="true">A</span>
+        <span class="hue-tab-text"><b>HÜ A</b><small class="hue-tab-state">noch offen</small></span>
+      </button>
+      <button type="button" role="tab" class="hue-tab" id="hue-tab-B" data-v="B" aria-selected="false" aria-controls="hue-sheet-B">
+        <span class="hue-tab-badge" aria-hidden="true">B</span>
+        <span class="hue-tab-text"><b>HÜ B</b><small class="hue-tab-state">noch offen</small></span>
+      </button>
+    </div>
+
+    <div class="hue-timer card" data-state="idle">
+      <div class="hue-ring" style="--p:1">
+        <div class="hue-ring-in">
+          <span class="hue-time" role="timer" aria-label="Verbleibende Zeit">20:00</span>
+          <span class="hue-sub">bereit</span>
+        </div>
+      </div>
+      <div class="hue-durs" role="group" aria-label="Dauer wählen">
+        <button type="button" class="hue-dur" data-min="15" aria-pressed="false">15 Min.</button>
+        <button type="button" class="hue-dur" data-min="20" aria-pressed="true">20 Min.</button>
+        <button type="button" class="hue-dur" data-min="30" aria-pressed="false">30 Min.</button>
+      </div>
+      <div class="btn-row hue-tctrl">
+        <button type="button" class="btn primary hue-start"><span aria-hidden="true">▶</span> <span class="hue-start-label">Start</span></button>
+        <button type="button" class="btn hue-reset"><span aria-hidden="true">↺</span> Zurücksetzen</button>
+      </div>
+      <div class="hue-sound">
+        <label><input type="checkbox" class="hue-snd" checked> Ton &amp; Vibration am Ende</label>
+        <button type="button" class="btn ghost hue-snd-test">🔔 Testen</button>
+      </div>
+      <div class="hue-done" hidden>
+        <p><b>Zeit ist um – Stift weg!</b> Jetzt kommt die Selbstkorrektur.</p>
+        <button type="button" class="btn primary hue-to-corr">Zur Selbstkorrektur ↓</button>
+      </div>
+    </div>
+
+    <div class="hue-mini no-print" hidden>
+      <button type="button" class="hue-mini-jump" aria-label="Zum Timer springen"><span aria-hidden="true">⏱</span> <span class="hue-mini-time">20:00</span></button>
+      <button type="button" class="hue-mini-toggle">Pause</button>
+    </div>
+  </div>
+
+  <!-- ============ 3. Aufgabenblatt ============ -->
+  <div class="block hue-b-sheet" id="hue-blatt">
+    <h2 class="no-print">Aufgabenblatt</h2>
+
+    <!-- ------------------------- HÜ A ------------------------- -->
+    <div class="hue-panel hue-sheet" id="hue-sheet-A" data-v="A" role="tabpanel" aria-labelledby="hue-tab-A">
+      <div class="hue-paper">
+        <div class="hue-paper-head">
+          <span class="hue-ph-badge" aria-hidden="true">A</span>
+          <div>
+            <p class="hue-ph-kicker">Probe-HÜ A · Klasse 9</p>
+            <p class="hue-ph-title">Quadratische Gleichungen lösen – ohne Lösungsformel</p>
+          </div>
+        </div>
+        <ul class="hue-ph-meta">
+          <li><span aria-hidden="true">⏱</span> 20 Minuten</li>
+          <li><span aria-hidden="true">🚫</span> kein Taschenrechner</li>
+          <li><span aria-hidden="true">🎯</span> 20 Punkte</li>
+        </ul>
+        <div class="print-only hue-ph-fields"><span>Name: ______________________</span><span>Datum: ____________</span><span>Punkte: ______ / 20</span></div>
+        <p class="hue-ph-note">Schreib alle Rechenwege auf. Gib jede Lösungsmenge in der Form <span class="m">L = {…}</span> an.</p>
+
+        <ol class="hue-qs">
+          <li class="hue-q">
+            <div class="hue-q-head"><span class="hue-num">1</span><h3>Grafisch lösen</h3><span class="hue-pts">2 P.</span></div>
+            <p>Der Graph zeigt die Parabel zu <span class="m">f(x) = x² − 2x − 3</span>.</p>
+            <figure class="hue-fig" data-widget="hue-plot" data-plot="A"></figure>
+            <ol class="hue-parts">
+              <li>Löse die Gleichung <span class="m">x² − 2x − 3 = 0</span> grafisch: Lies die Lösungen ab und gib die Lösungsmenge an. <span class="hue-pp">1 P.</span></li>
+              <li>Mach für beide Lösungen die Probe. <span class="hue-pp">1 P.</span></li>
+            </ol>
+          </li>
+
+          <li class="hue-q">
+            <div class="hue-q-head"><span class="hue-num">2</span><h3>Wurzel ziehen</h3><span class="hue-pts">3 P.</span></div>
+            <p>Löse durch Wurzelziehen.</p>
+            <ol class="hue-parts hue-cols">
+              <li><span class="m">x² = 49</span> <span class="hue-pp">1 P.</span></li>
+              <li><span class="m">2x² − 18 = 0</span> <span class="hue-pp">1 P.</span></li>
+              <li><span class="m">(x − 2)² = 9</span> <span class="hue-pp">1 P.</span></li>
+            </ol>
+          </li>
+
+          <li class="hue-q">
+            <div class="hue-q-head"><span class="hue-num">3</span><h3>Faktorisieren</h3><span class="hue-pts">4 P.</span></div>
+            <p>Löse durch Faktorisieren und mit dem Satz vom Nullprodukt.</p>
+            <ol class="hue-parts hue-cols">
+              <li><span class="m">x² − 6x = 0</span> <span class="hue-pp">1 P.</span></li>
+              <li><span class="m">x² + 2x − 15 = 0</span> <span class="hue-pp">2 P.</span></li>
+              <li><span class="m">x² − 10x + 25 = 0</span> <span class="hue-pp">1 P.</span></li>
+            </ol>
+          </li>
+
+          <li class="hue-q">
+            <div class="hue-q-head"><span class="hue-num">4</span><h3>Quadratische Ergänzung</h3><span class="hue-pts">4 P.</span></div>
+            <p>Löse mit quadratischer Ergänzung:</p>
+            <div class="mblock">2x² + 8x − 10 = 0</div>
+          </li>
+
+          <li class="hue-q">
+            <div class="hue-q-head"><span class="hue-num">5</span><h3>Wie viele Lösungen?</h3><span class="hue-pts">2 P.</span></div>
+            <p>Gib an, wie viele Lösungen die Gleichung hat. <b>Begründe, ohne zu rechnen.</b></p>
+            <ol class="hue-parts hue-cols">
+              <li><span class="m">(x − 3)² = −4</span> <span class="hue-pp">1 P.</span></li>
+              <li><span class="m">(x + 1)² = 0</span> <span class="hue-pp">1 P.</span></li>
+            </ol>
+          </li>
+
+          <li class="hue-q">
+            <div class="hue-q-head"><span class="hue-num">6</span><h3>Fehler finden</h3><span class="hue-pts">2 P.</span></div>
+            <p>Mia löst <span class="m">x² − 8x = 9</span> mit quadratischer Ergänzung:</p>
+            <div class="hue-work">
+              <div class="calc">
+                <div class="row"><span class="l">x² − 8x + 16</span><span class="r">= 9</span></div>
+                <div class="row"><span class="l">(x − 4)²</span><span class="r">= 9</span></div>
+                <div class="row"><span class="l">x − 4</span><span class="r">= ±3</span></div>
+                <div class="row"><span class="l">x1</span><span class="r">= 7</span></div>
+                <div class="row"><span class="l">x2</span><span class="r">= 1</span></div>
+                <div class="row"><span class="l">L</span><span class="r">= {1; 7}</span></div>
+              </div>
+            </div>
+            <p>Finde den Fehler und erkläre ihn. Gib die richtige Lösungsmenge an.</p>
+          </li>
+
+          <li class="hue-q">
+            <div class="hue-q-head"><span class="hue-num">7</span><h3>Textaufgabe</h3><span class="hue-pts">3 P.</span></div>
+            <p>Ein Rechteck ist <b>3 cm länger als breit</b>. Sein Flächeninhalt beträgt <b>40 cm²</b>. Wie lang und wie breit ist das Rechteck?</p>
+            <p class="hue-hint-line">Stell eine Gleichung auf und löse sie ohne Lösungsformel. Schreib einen Antwortsatz.</p>
+          </li>
+        </ol>
+        <p class="hue-paper-end">Viel Erfolg! 🍀</p>
+      </div>
+    </div>
+
+    <!-- ------------------------- HÜ B ------------------------- -->
+    <div class="hue-panel hue-sheet" id="hue-sheet-B" data-v="B" role="tabpanel" aria-labelledby="hue-tab-B" hidden>
+      <div class="hue-paper">
+        <div class="hue-paper-head">
+          <span class="hue-ph-badge" aria-hidden="true">B</span>
+          <div>
+            <p class="hue-ph-kicker">Probe-HÜ B · Klasse 9</p>
+            <p class="hue-ph-title">Quadratische Gleichungen lösen – ohne Lösungsformel</p>
+          </div>
+        </div>
+        <ul class="hue-ph-meta">
+          <li><span aria-hidden="true">⏱</span> 20 Minuten</li>
+          <li><span aria-hidden="true">🚫</span> kein Taschenrechner</li>
+          <li><span aria-hidden="true">🎯</span> 20 Punkte</li>
+        </ul>
+        <div class="print-only hue-ph-fields"><span>Name: ______________________</span><span>Datum: ____________</span><span>Punkte: ______ / 20</span></div>
+        <p class="hue-ph-note">Schreib alle Rechenwege auf. Gib jede Lösungsmenge in der Form <span class="m">L = {…}</span> an.</p>
+
+        <ol class="hue-qs">
+          <li class="hue-q">
+            <div class="hue-q-head"><span class="hue-num">1</span><h3>Grafisch lösen</h3><span class="hue-pts">2 P.</span></div>
+            <p>Im Koordinatensystem siehst du die Normalparabel <span class="m">y = x²</span> und die Gerade <span class="m">y = x + 2</span>.</p>
+            <figure class="hue-fig" data-widget="hue-plot" data-plot="B"></figure>
+            <ol class="hue-parts">
+              <li>Löse die Gleichung <span class="m">x² = x + 2</span> grafisch: Lies die passenden Werte ab und gib die Lösungsmenge an. <span class="hue-pp">1 P.</span></li>
+              <li>Mach für beide Lösungen die Probe. <span class="hue-pp">1 P.</span></li>
+            </ol>
+          </li>
+
+          <li class="hue-q">
+            <div class="hue-q-head"><span class="hue-num">2</span><h3>Wurzel ziehen</h3><span class="hue-pts">3 P.</span></div>
+            <p>Löse durch Wurzelziehen.</p>
+            <ol class="hue-parts hue-cols">
+              <li><span class="m">x² = 81</span> <span class="hue-pp">1 P.</span></li>
+              <li><span class="m">3x² − 48 = 0</span> <span class="hue-pp">1 P.</span></li>
+              <li><span class="m">(x + 1)² = 16</span> <span class="hue-pp">1 P.</span></li>
+            </ol>
+          </li>
+
+          <li class="hue-q">
+            <div class="hue-q-head"><span class="hue-num">3</span><h3>Faktorisieren</h3><span class="hue-pts">4 P.</span></div>
+            <p>Löse durch Faktorisieren und mit dem Satz vom Nullprodukt.</p>
+            <ol class="hue-parts hue-cols">
+              <li><span class="m">x² + 8x = 0</span> <span class="hue-pp">1 P.</span></li>
+              <li><span class="m">x² − x − 12 = 0</span> <span class="hue-pp">2 P.</span></li>
+              <li><span class="m">x² + 6x + 9 = 0</span> <span class="hue-pp">1 P.</span></li>
+            </ol>
+          </li>
+
+          <li class="hue-q">
+            <div class="hue-q-head"><span class="hue-num">4</span><h3>Quadratische Ergänzung</h3><span class="hue-pts">4 P.</span></div>
+            <p>Löse mit quadratischer Ergänzung:</p>
+            <div class="mblock">3x² − 12x − 15 = 0</div>
+          </li>
+
+          <li class="hue-q">
+            <div class="hue-q-head"><span class="hue-num">5</span><h3>Wie viele Lösungen?</h3><span class="hue-pts">2 P.</span></div>
+            <p>Gib an, wie viele Lösungen die Gleichung hat. <b>Begründe, ohne zu rechnen.</b></p>
+            <ol class="hue-parts hue-cols">
+              <li><span class="m">x² + 7 = 0</span> <span class="hue-pp">1 P.</span></li>
+              <li><span class="m">(x − 2)² = 5</span> <span class="hue-pp">1 P.</span></li>
+            </ol>
+          </li>
+
+          <li class="hue-q">
+            <div class="hue-q-head"><span class="hue-num">6</span><h3>Fehler finden</h3><span class="hue-pts">2 P.</span></div>
+            <p>Tom löst <span class="m">x² + 6x = 7</span> mit quadratischer Ergänzung:</p>
+            <div class="hue-work">
+              <div class="calc">
+                <div class="row"><span class="l">x² + 6x + 9</span><span class="r">= 7 + 9</span></div>
+                <div class="row"><span class="l">(x + 3)²</span><span class="r">= 16</span></div>
+                <div class="row"><span class="l">x + 3</span><span class="r">= 4</span></div>
+                <div class="row"><span class="l">x</span><span class="r">= 1</span></div>
+                <div class="row"><span class="l">L</span><span class="r">= {1}</span></div>
+              </div>
+            </div>
+            <p>Finde den Fehler und erkläre ihn. Gib die richtige Lösungsmenge an.</p>
+          </li>
+
+          <li class="hue-q">
+            <div class="hue-q-head"><span class="hue-num">7</span><h3>Textaufgabe</h3><span class="hue-pts">3 P.</span></div>
+            <p>Lena denkt sich eine Zahl. Sie <b>quadriert</b> die Zahl und <b>subtrahiert davon das Doppelte</b> der Zahl. Sie erhält <b>24</b>. Welche Zahl kann Lena sich gedacht haben?</p>
+            <p class="hue-hint-line">Stell eine Gleichung auf und löse sie ohne Lösungsformel. Gib alle Möglichkeiten an.</p>
+          </li>
+        </ol>
+        <p class="hue-paper-end">Viel Erfolg! 🍀</p>
+      </div>
+    </div>
+
+    <div class="btn-row hue-sheet-actions no-print">
+      <button type="button" class="btn hue-print-sheet"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 17H4v-7a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v7h-3M7 14h10v7H7z"/></svg> Aufgabenblatt drucken</button>
+      <button type="button" class="btn primary hue-to-corr">Fertig – zur Selbstkorrektur ↓</button>
+    </div>
+  </div>
+
+  <!-- ============ 4. Selbstkorrektur ============ -->
+  <div class="block hue-b-corr" id="hue-korrektur">
+    <h2 class="no-print">Selbstkorrektur</h2>
+
+    <!-- ------------------------- Korrektur A ------------------------- -->
+    <div class="hue-panel hue-corr is-locked" data-v="A">
+      <div class="hue-gate card no-print">
+        <p class="hue-gate-ico" aria-hidden="true">🔒</p>
+        <p><b>Erst schreiben, dann korrigieren.</b><br>Hier stehen die Lösungen zu Probe-HÜ A. Öffne sie erst, wenn deine Zeit um ist.</p>
+        <button type="button" class="btn primary hue-unlock">Ich bin fertig – Lösungen zeigen</button>
+      </div>
+      <div class="hue-corr-body">
+        <p class="print-only hue-print-title">Erwartungshorizont · Probe-HÜ A</p>
+        <p class="hue-corr-intro no-print">Öffne bei jeder Aufgabe den Erwartungshorizont, vergleich ihn mit deinem Blatt und <b>hak ab, was du richtig hast</b>. Sei ruhig streng – so wie deine Lehrkraft.</p>
+
+        <article class="hue-c" data-go="grafisch">
+          <header class="hue-c-head"><span class="hue-num">1</span><h3>Grafisch lösen</h3><span class="hue-score"><b>0</b> / 2 P.</span></header>
+          <details class="solution hue-eh"><summary>Erwartungshorizont</summary><div>
+            <p><b>a)</b> Die Lösungen sind die <b>Nullstellen</b>: Dort schneidet die Parabel die <span class="m">x</span>-Achse.</p>
+            <figure class="hue-fig hue-fig-sm" data-widget="hue-plot" data-plot="A" data-solution></figure>
+            <p class="hue-res"><span class="m">L = {−1; 3}</span></p>
+            <p><b>b)</b> Probe: Einsetzen in <span class="m">x² − 2x − 3</span></p>
+            <ul class="hue-probe">
+              <li><span class="m">x = −1:</span> <span class="m">(−1)² − 2 · (−1) − 3</span> <span class="m">= 1 + 2 − 3 = 0</span> ✓</li>
+              <li><span class="m">x = 3:</span> <span class="m">3² − 2 · 3 − 3</span> <span class="m">= 9 − 6 − 3 = 0</span> ✓</li>
+            </ul>
+          </div></details>
+          <fieldset class="hue-crit"><legend>Deine Punkte</legend>
+            <label><input type="checkbox" data-p="1"><span>a) Beide Nullstellen abgelesen und <span class="m">L = {−1; 3}</span> angegeben</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>b) Probe für beide Lösungen richtig gerechnet</span><b>1 P.</b></label>
+          </fieldset>
+        </article>
+
+        <article class="hue-c" data-go="faktorisieren grundlagen">
+          <header class="hue-c-head"><span class="hue-num">2</span><h3>Wurzel ziehen</h3><span class="hue-score"><b>0</b> / 3 P.</span></header>
+          <details class="solution hue-eh"><summary>Erwartungshorizont</summary><div>
+            <p><b>a)</b></p>
+            <div class="calc">
+              <div class="row"><span class="l">x²</span><span class="r">= 49</span><span class="op">| √ (±!)</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= 7</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= −7</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {−7; 7}</span></div>
+            </div>
+            <p><b>b)</b></p>
+            <div class="calc">
+              <div class="row"><span class="l">2x² − 18</span><span class="r">= 0</span><span class="op">| + 18</span></div>
+              <div class="row"><span class="l">2x²</span><span class="r">= 18</span><span class="op">| : 2</span></div>
+              <div class="row"><span class="l">x²</span><span class="r">= 9</span><span class="op">| √</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= 3</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= −3</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {−3; 3}</span></div>
+            </div>
+            <p><b>c)</b> Die Klammer als Ganzes behandeln:</p>
+            <div class="calc">
+              <div class="row"><span class="l">(x − 2)²</span><span class="r">= 9</span><span class="op">| √</span></div>
+              <div class="row"><span class="l">x − 2</span><span class="r">= ±3</span><span class="op">| + 2</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= 5</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= −1</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {−1; 5}</span></div>
+            </div>
+            <p class="hue-note">Nur eine Lösung angegeben (z. B. nur <span class="m">x = 7</span>)? Dann gibt es den Punkt nicht – das ± ist genau das, was hier geprüft wird.</p>
+          </div></details>
+          <fieldset class="hue-crit"><legend>Deine Punkte</legend>
+            <label><input type="checkbox" data-p="1"><span>a) <span class="m">L = {−7; 7}</span> – beide Lösungen</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>b) Umgeformt zu <span class="m">x² = 9</span> und <span class="m">L = {−3; 3}</span></span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>c) <span class="m">x − 2 = ±3</span> und <span class="m">L = {−1; 5}</span></span><b>1 P.</b></label>
+          </fieldset>
+        </article>
+
+        <article class="hue-c" data-go="faktorisieren">
+          <header class="hue-c-head"><span class="hue-num">3</span><h3>Faktorisieren</h3><span class="hue-score"><b>0</b> / 4 P.</span></header>
+          <details class="solution hue-eh"><summary>Erwartungshorizont</summary><div>
+            <p><b>a)</b> Kein Zahlglied – also <span class="m">x</span> ausklammern (nicht durch <span class="m">x</span> teilen!):</p>
+            <div class="calc">
+              <div class="row"><span class="l">x² − 6x</span><span class="r">= 0</span><span class="op">| x aus&shy;klammern</span></div>
+              <div class="row"><span class="l">x · (x − 6)</span><span class="r">= 0</span><span class="op">| Null&shy;produkt</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= 0</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= 6</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {0; 6}</span></div>
+            </div>
+            <p><b>b)</b> Gesucht: zwei Zahlen mit <b>Produkt −15</b> und <b>Summe 2</b>. Das sind <span class="m">5</span> und <span class="m">−3</span>, denn <span class="m">5 · (−3) = −15</span> und <span class="m">5 + (−3) = 2</span>.</p>
+            <div class="calc">
+              <div class="row"><span class="l">x² + 2x − 15</span><span class="r">= 0</span><span class="op">| faktori&shy;sieren</span></div>
+              <div class="row"><span class="l">(x + 5)(x − 3)</span><span class="r">= 0</span><span class="op">| Null&shy;produkt</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= −5</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= 3</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {−5; 3}</span></div>
+            </div>
+            <p><b>c)</b> Das ist die 2. binomische Formel rückwärts: <span class="m">x² − 2 · 5 · x + 5²</span>.</p>
+            <div class="calc">
+              <div class="row"><span class="l">x² − 10x + 25</span><span class="r">= 0</span><span class="op">| 2. binom. Formel</span></div>
+              <div class="row"><span class="l">(x − 5)²</span><span class="r">= 0</span><span class="op">| Klammer = 0</span></div>
+              <div class="row"><span class="l">x</span><span class="r">= 5</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {5}</span></div>
+            </div>
+          </div></details>
+          <fieldset class="hue-crit"><legend>Deine Punkte</legend>
+            <label><input type="checkbox" data-p="1"><span>a) <span class="m">x(x − 6) = 0</span> und <span class="m">L = {0; 6}</span> (die 0 nicht vergessen)</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>b) Richtig faktorisiert: <span class="m">(x + 5)(x − 3) = 0</span></span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>b) <span class="m">L = {−5; 3}</span> mit richtigen Vorzeichen</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>c) <span class="m">(x − 5)² = 0</span> erkannt und <span class="m">L = {5}</span></span><b>1 P.</b></label>
+          </fieldset>
+        </article>
+
+        <article class="hue-c" data-go="ergaenzung">
+          <header class="hue-c-head"><span class="hue-num">4</span><h3>Quadratische Ergänzung</h3><span class="hue-score"><b>0</b> / 4 P.</span></header>
+          <details class="solution hue-eh"><summary>Erwartungshorizont</summary><div>
+            <div class="calc">
+              <div class="row"><span class="l">2x² + 8x − 10</span><span class="r">= 0</span><span class="op">| : 2</span></div>
+              <div class="row"><span class="l">x² + 4x − 5</span><span class="r">= 0</span><span class="op">| + 5</span></div>
+              <div class="row"><span class="l">x² + 4x</span><span class="r">= 5</span><span class="op">| + 2²</span></div>
+              <div class="row"><span class="l">x² + 4x + 2²</span><span class="r">= 5 + 2²</span><span class="op">| 1. binom. Formel</span></div>
+              <div class="row"><span class="l">(x + 2)²</span><span class="r">= 9</span><span class="op">| √</span></div>
+              <div class="row"><span class="l">x + 2</span><span class="r">= ±3</span><span class="op">| − 2</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= 1</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= −5</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {−5; 1}</span></div>
+            </div>
+            <p class="hue-note">Ergänzung: Die Hälfte von 4 ist 2, also <span class="m">+ 2² = + 4</span> auf beiden Seiten.</p>
+            <p class="hue-note">Probe mit <span class="m">x = −5</span>: <span class="m">2 · 25 + 8 · (−5) − 10 = 50 − 40 − 10 = 0</span> ✓</p>
+          </div></details>
+          <fieldset class="hue-crit"><legend>Deine Punkte</legend>
+            <label><input type="checkbox" data-p="1"><span>Durch 2 geteilt und die Zahl auf die rechte Seite gebracht: <span class="m">x² + 4x = 5</span></span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>Richtig ergänzt: <span class="m">+ 4</span> auf <b>beiden</b> Seiten</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span><span class="m">(x + 2)² = 9</span> und Wurzel mit ± gezogen</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>Beide Lösungen und <span class="m">L = {−5; 1}</span></span><b>1 P.</b></label>
+          </fieldset>
+        </article>
+
+        <article class="hue-c" data-go="grundlagen">
+          <header class="hue-c-head"><span class="hue-num">5</span><h3>Wie viele Lösungen?</h3><span class="hue-score"><b>0</b> / 2 P.</span></header>
+          <details class="solution hue-eh"><summary>Erwartungshorizont</summary><div>
+            <p><b>a) Keine Lösung.</b> Ein Quadrat ist nie negativ. <span class="m">(x − 3)²</span> kann also niemals <span class="m">−4</span> sein. <span class="m">L = { }</span></p>
+            <p><b>b) Genau eine Lösung.</b> Ein Quadrat ist nur dann 0, wenn die Klammer 0 ist: <span class="m">x + 1 = 0</span>, also <span class="m">x = −1</span>. <span class="m">L = {−1}</span></p>
+            <p class="hue-note">Nur die Anzahl ohne Begründung? Dann den Punkt nicht abhaken – „Begründe“ heißt: Satz mit „weil …“.</p>
+          </div></details>
+          <fieldset class="hue-crit"><legend>Deine Punkte</legend>
+            <label><input type="checkbox" data-p="1"><span>a) „keine Lösung“ mit Begründung (Quadrat ist nie negativ)</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>b) „genau eine Lösung“ mit Begründung (Klammer muss 0 sein)</span><b>1 P.</b></label>
+          </fieldset>
+        </article>
+
+        <article class="hue-c" data-go="ergaenzung methodenwahl">
+          <header class="hue-c-head"><span class="hue-num">6</span><h3>Fehler finden</h3><span class="hue-score"><b>0</b> / 2 P.</span></header>
+          <details class="solution hue-eh"><summary>Erwartungshorizont</summary><div>
+            <p><b>Fehler in Zeile 1:</b> Mia hat die Ergänzung <span class="m">16</span> nur auf der <b>linken</b> Seite addiert. Bei einer Gleichung muss man auf beiden Seiten dasselbe tun – rechts muss also <span class="m">9 + 16 = 25</span> stehen.</p>
+            <p>Richtig:</p>
+            <div class="calc">
+              <div class="row"><span class="l">x² − 8x</span><span class="r">= 9</span><span class="op">| + 4²</span></div>
+              <div class="row"><span class="l">x² − 8x + 16</span><span class="r">= 9 + 16</span><span class="op">| 2. binom. Formel</span></div>
+              <div class="row"><span class="l">(x − 4)²</span><span class="r">= 25</span><span class="op">| √</span></div>
+              <div class="row"><span class="l">x − 4</span><span class="r">= ±5</span><span class="op">| + 4</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= 9</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= −1</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {−1; 9}</span></div>
+            </div>
+            <p class="hue-note">Probe: <span class="m">9² − 8 · 9 = 81 − 72 = 9</span> ✓ und <span class="m">(−1)² − 8 · (−1) = 1 + 8 = 9</span> ✓. Mias Zahlen fallen bei der Probe durch: <span class="m">7² − 8 · 7 = −7</span>, nicht 9.</p>
+          </div></details>
+          <fieldset class="hue-crit"><legend>Deine Punkte</legend>
+            <label><input type="checkbox" data-p="1"><span>Fehler gefunden und erklärt: 16 nur auf einer Seite addiert</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>Richtige Lösungsmenge <span class="m">L = {−1; 9}</span></span><b>1 P.</b></label>
+          </fieldset>
+        </article>
+
+        <article class="hue-c" data-go="faktorisieren training">
+          <header class="hue-c-head"><span class="hue-num">7</span><h3>Textaufgabe</h3><span class="hue-score"><b>0</b> / 3 P.</span></header>
+          <details class="solution hue-eh"><summary>Erwartungshorizont</summary><div>
+            <p><b>Variable festlegen:</b> Breite <span class="m">x</span> (in cm), dann ist die Länge <span class="m">x + 3</span>.</p>
+            <p><b>Gleichung:</b> Fläche = Länge · Breite</p>
+            <div class="calc">
+              <div class="row"><span class="l">x · (x + 3)</span><span class="r">= 40</span><span class="op">| Klammer auflösen</span></div>
+              <div class="row"><span class="l">x² + 3x</span><span class="r">= 40</span><span class="op">| − 40</span></div>
+              <div class="row"><span class="l">x² + 3x − 40</span><span class="r">= 0</span><span class="op">| faktori&shy;sieren</span></div>
+              <div class="row"><span class="l">(x + 8)(x − 5)</span><span class="r">= 0</span><span class="op">| Null&shy;produkt</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= −8</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= 5</span></div>
+            </div>
+            <p class="hue-note">Faktorisieren: Gesucht sind zwei Zahlen mit Produkt −40 und Summe 3 – das sind 8 und −5.</p>
+            <p><span class="m">x = −8</span> entfällt, denn eine Länge kann nicht negativ sein.</p>
+            <p class="hue-res"><b>Antwort:</b> Das Rechteck ist 5 cm breit und 8 cm lang.</p>
+            <p class="hue-note">Probe: <span class="m">5 · 8 = 40</span> ✓. Auch mit quadratischer Ergänzung kommst du ans Ziel: <span class="m">(x + 1,5)² = 42,25</span>, also <span class="m">x + 1,5 = ±6,5</span>.</p>
+          </div></details>
+          <fieldset class="hue-crit"><legend>Deine Punkte</legend>
+            <label><input type="checkbox" data-p="1"><span>Gleichung aufgestellt: <span class="m">x · (x + 3) = 40</span></span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>Richtig gelöst: <span class="m">x = 5</span> (und <span class="m">x = −8</span>)</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>Negative Lösung verworfen, Antwortsatz: 5 cm breit, 8 cm lang</span><b>1 P.</b></label>
+          </fieldset>
+        </article>
+      </div>
+    </div>
+
+    <!-- ------------------------- Korrektur B ------------------------- -->
+    <div class="hue-panel hue-corr is-locked" data-v="B" hidden>
+      <div class="hue-gate card no-print">
+        <p class="hue-gate-ico" aria-hidden="true">🔒</p>
+        <p><b>Erst schreiben, dann korrigieren.</b><br>Hier stehen die Lösungen zu Probe-HÜ B. Öffne sie erst, wenn deine Zeit um ist.</p>
+        <button type="button" class="btn primary hue-unlock">Ich bin fertig – Lösungen zeigen</button>
+      </div>
+      <div class="hue-corr-body">
+        <p class="print-only hue-print-title">Erwartungshorizont · Probe-HÜ B</p>
+        <p class="hue-corr-intro no-print">Öffne bei jeder Aufgabe den Erwartungshorizont, vergleich ihn mit deinem Blatt und <b>hak ab, was du richtig hast</b>. Sei ruhig streng – so wie deine Lehrkraft.</p>
+
+        <article class="hue-c" data-go="grafisch">
+          <header class="hue-c-head"><span class="hue-num">1</span><h3>Grafisch lösen</h3><span class="hue-score"><b>0</b> / 2 P.</span></header>
+          <details class="solution hue-eh"><summary>Erwartungshorizont</summary><div>
+            <p><b>a)</b> Die Lösungen von <span class="m">x² = x + 2</span> sind die <b><span class="m">x</span>-Werte der Schnittpunkte</b> von Parabel und Gerade.</p>
+            <figure class="hue-fig hue-fig-sm" data-widget="hue-plot" data-plot="B" data-solution></figure>
+            <p>Schnittpunkte <span class="m">P(−1 | 1)</span> und <span class="m">Q(2 | 4)</span>, also</p>
+            <p class="hue-res"><span class="m">L = {−1; 2}</span></p>
+            <p><b>b)</b> Probe: linke und rechte Seite vergleichen</p>
+            <ul class="hue-probe">
+              <li><span class="m">x = −1:</span> links <span class="m">(−1)² = 1</span>, rechts <span class="m">−1 + 2 = 1</span> ✓</li>
+              <li><span class="m">x = 2:</span> links <span class="m">2² = 4</span>, rechts <span class="m">2 + 2 = 4</span> ✓</li>
+            </ul>
+            <p class="hue-note">Achtung: Die <span class="m">y</span>-Werte 1 und 4 sind <b>keine</b> Lösungen der Gleichung.</p>
+          </div></details>
+          <fieldset class="hue-crit"><legend>Deine Punkte</legend>
+            <label><input type="checkbox" data-p="1"><span>a) <span class="m">x</span>-Werte abgelesen und <span class="m">L = {−1; 2}</span> angegeben</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>b) Probe für beide Lösungen richtig gerechnet</span><b>1 P.</b></label>
+          </fieldset>
+        </article>
+
+        <article class="hue-c" data-go="faktorisieren grundlagen">
+          <header class="hue-c-head"><span class="hue-num">2</span><h3>Wurzel ziehen</h3><span class="hue-score"><b>0</b> / 3 P.</span></header>
+          <details class="solution hue-eh"><summary>Erwartungshorizont</summary><div>
+            <p><b>a)</b></p>
+            <div class="calc">
+              <div class="row"><span class="l">x²</span><span class="r">= 81</span><span class="op">| √ (±!)</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= 9</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= −9</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {−9; 9}</span></div>
+            </div>
+            <p><b>b)</b></p>
+            <div class="calc">
+              <div class="row"><span class="l">3x² − 48</span><span class="r">= 0</span><span class="op">| + 48</span></div>
+              <div class="row"><span class="l">3x²</span><span class="r">= 48</span><span class="op">| : 3</span></div>
+              <div class="row"><span class="l">x²</span><span class="r">= 16</span><span class="op">| √</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= 4</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= −4</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {−4; 4}</span></div>
+            </div>
+            <p><b>c)</b> Die Klammer als Ganzes behandeln:</p>
+            <div class="calc">
+              <div class="row"><span class="l">(x + 1)²</span><span class="r">= 16</span><span class="op">| √</span></div>
+              <div class="row"><span class="l">x + 1</span><span class="r">= ±4</span><span class="op">| − 1</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= 3</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= −5</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {−5; 3}</span></div>
+            </div>
+            <p class="hue-note">Nur eine Lösung angegeben (z. B. nur <span class="m">x = 9</span>)? Dann gibt es den Punkt nicht – das ± ist genau das, was hier geprüft wird.</p>
+          </div></details>
+          <fieldset class="hue-crit"><legend>Deine Punkte</legend>
+            <label><input type="checkbox" data-p="1"><span>a) <span class="m">L = {−9; 9}</span> – beide Lösungen</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>b) Umgeformt zu <span class="m">x² = 16</span> und <span class="m">L = {−4; 4}</span></span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>c) <span class="m">x + 1 = ±4</span> und <span class="m">L = {−5; 3}</span></span><b>1 P.</b></label>
+          </fieldset>
+        </article>
+
+        <article class="hue-c" data-go="faktorisieren">
+          <header class="hue-c-head"><span class="hue-num">3</span><h3>Faktorisieren</h3><span class="hue-score"><b>0</b> / 4 P.</span></header>
+          <details class="solution hue-eh"><summary>Erwartungshorizont</summary><div>
+            <p><b>a)</b> Kein Zahlglied – also <span class="m">x</span> ausklammern (nicht durch <span class="m">x</span> teilen!):</p>
+            <div class="calc">
+              <div class="row"><span class="l">x² + 8x</span><span class="r">= 0</span><span class="op">| x aus&shy;klammern</span></div>
+              <div class="row"><span class="l">x · (x + 8)</span><span class="r">= 0</span><span class="op">| Null&shy;produkt</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= 0</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= −8</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {−8; 0}</span></div>
+            </div>
+            <p><b>b)</b> Gesucht: zwei Zahlen mit <b>Produkt −12</b> und <b>Summe −1</b>. Das sind <span class="m">−4</span> und <span class="m">3</span>, denn <span class="m">(−4) · 3 = −12</span> und <span class="m">−4 + 3 = −1</span>.</p>
+            <div class="calc">
+              <div class="row"><span class="l">x² − x − 12</span><span class="r">= 0</span><span class="op">| faktori&shy;sieren</span></div>
+              <div class="row"><span class="l">(x − 4)(x + 3)</span><span class="r">= 0</span><span class="op">| Null&shy;produkt</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= 4</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= −3</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {−3; 4}</span></div>
+            </div>
+            <p><b>c)</b> Das ist die 1. binomische Formel rückwärts: <span class="m">x² + 2 · 3 · x + 3²</span>.</p>
+            <div class="calc">
+              <div class="row"><span class="l">x² + 6x + 9</span><span class="r">= 0</span><span class="op">| 1. binom. Formel</span></div>
+              <div class="row"><span class="l">(x + 3)²</span><span class="r">= 0</span><span class="op">| Klammer = 0</span></div>
+              <div class="row"><span class="l">x</span><span class="r">= −3</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {−3}</span></div>
+            </div>
+          </div></details>
+          <fieldset class="hue-crit"><legend>Deine Punkte</legend>
+            <label><input type="checkbox" data-p="1"><span>a) <span class="m">x(x + 8) = 0</span> und <span class="m">L = {−8; 0}</span> (die 0 nicht vergessen)</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>b) Richtig faktorisiert: <span class="m">(x − 4)(x + 3) = 0</span></span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>b) <span class="m">L = {−3; 4}</span> mit richtigen Vorzeichen</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>c) <span class="m">(x + 3)² = 0</span> erkannt und <span class="m">L = {−3}</span></span><b>1 P.</b></label>
+          </fieldset>
+        </article>
+
+        <article class="hue-c" data-go="ergaenzung">
+          <header class="hue-c-head"><span class="hue-num">4</span><h3>Quadratische Ergänzung</h3><span class="hue-score"><b>0</b> / 4 P.</span></header>
+          <details class="solution hue-eh"><summary>Erwartungshorizont</summary><div>
+            <div class="calc">
+              <div class="row"><span class="l">3x² − 12x − 15</span><span class="r">= 0</span><span class="op">| : 3</span></div>
+              <div class="row"><span class="l">x² − 4x − 5</span><span class="r">= 0</span><span class="op">| + 5</span></div>
+              <div class="row"><span class="l">x² − 4x</span><span class="r">= 5</span><span class="op">| + 2²</span></div>
+              <div class="row"><span class="l">x² − 4x + 2²</span><span class="r">= 5 + 2²</span><span class="op">| 2. binom. Formel</span></div>
+              <div class="row"><span class="l">(x − 2)²</span><span class="r">= 9</span><span class="op">| √</span></div>
+              <div class="row"><span class="l">x − 2</span><span class="r">= ±3</span><span class="op">| + 2</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= 5</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= −1</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {−1; 5}</span></div>
+            </div>
+            <p class="hue-note">Ergänzung: Die Hälfte von 4 ist 2, also <span class="m">+ 2² = + 4</span> auf beiden Seiten. Das Minus aus <span class="m">− 4x</span> landet in der Klammer: <span class="m">(x − 2)²</span>.</p>
+            <p class="hue-note">Probe mit <span class="m">x = 5</span>: <span class="m">3 · 25 − 12 · 5 − 15 = 75 − 60 − 15 = 0</span> ✓</p>
+          </div></details>
+          <fieldset class="hue-crit"><legend>Deine Punkte</legend>
+            <label><input type="checkbox" data-p="1"><span>Durch 3 geteilt und die Zahl auf die rechte Seite gebracht: <span class="m">x² − 4x = 5</span></span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>Richtig ergänzt: <span class="m">+ 4</span> auf <b>beiden</b> Seiten</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span><span class="m">(x − 2)² = 9</span> und Wurzel mit ± gezogen</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>Beide Lösungen und <span class="m">L = {−1; 5}</span></span><b>1 P.</b></label>
+          </fieldset>
+        </article>
+
+        <article class="hue-c" data-go="grundlagen">
+          <header class="hue-c-head"><span class="hue-num">5</span><h3>Wie viele Lösungen?</h3><span class="hue-score"><b>0</b> / 2 P.</span></header>
+          <details class="solution hue-eh"><summary>Erwartungshorizont</summary><div>
+            <p><b>a) Keine Lösung.</b> <span class="m">x²</span> ist nie negativ. Also ist <span class="m">x² + 7</span> immer mindestens 7 und nie 0. <span class="m">L = { }</span></p>
+            <p><b>b) Zwei Lösungen.</b> Rechts steht eine positive Zahl. Beim Wurzelziehen gibt es deshalb zwei Möglichkeiten: <span class="m">x − 2 = √5</span> oder <span class="m">x − 2 = −√5</span>.</p>
+            <p class="hue-note">Die Lösungen <span class="m">2 + √5</span> und <span class="m">2 − √5</span> musstest du nicht ausrechnen. Nur die Anzahl ohne Begründung? Dann den Punkt nicht abhaken.</p>
+          </div></details>
+          <fieldset class="hue-crit"><legend>Deine Punkte</legend>
+            <label><input type="checkbox" data-p="1"><span>a) „keine Lösung“ mit Begründung (<span class="m">x²</span> ist nie negativ)</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>b) „zwei Lösungen“ mit Begründung (rechts positiv, ±)</span><b>1 P.</b></label>
+          </fieldset>
+        </article>
+
+        <article class="hue-c" data-go="ergaenzung methodenwahl">
+          <header class="hue-c-head"><span class="hue-num">6</span><h3>Fehler finden</h3><span class="hue-score"><b>0</b> / 2 P.</span></header>
+          <details class="solution hue-eh"><summary>Erwartungshorizont</summary><div>
+            <p><b>Fehler in Zeile 3:</b> Tom hat beim Wurzelziehen die <b>negative Lösung vergessen</b>. Aus <span class="m">(x + 3)² = 16</span> folgt <span class="m">x + 3 = 4</span> <b>oder</b> <span class="m">x + 3 = −4</span>.</p>
+            <p>Richtig:</p>
+            <div class="calc">
+              <div class="row"><span class="l">(x + 3)²</span><span class="r">= 16</span><span class="op">| √</span></div>
+              <div class="row"><span class="l">x + 3</span><span class="r">= ±4</span><span class="op">| − 3</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= 1</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= −7</span></div>
+              <div class="row result"><span class="l">L</span><span class="r">= {−7; 1}</span></div>
+            </div>
+            <p class="hue-note">Probe mit <span class="m">x = −7</span>: <span class="m">(−7)² + 6 · (−7) = 49 − 42 = 7</span> ✓</p>
+          </div></details>
+          <fieldset class="hue-crit"><legend>Deine Punkte</legend>
+            <label><input type="checkbox" data-p="1"><span>Fehler gefunden und erklärt: negative Lösung beim Wurzelziehen vergessen</span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>Richtige Lösungsmenge <span class="m">L = {−7; 1}</span></span><b>1 P.</b></label>
+          </fieldset>
+        </article>
+
+        <article class="hue-c" data-go="faktorisieren training">
+          <header class="hue-c-head"><span class="hue-num">7</span><h3>Textaufgabe</h3><span class="hue-score"><b>0</b> / 3 P.</span></header>
+          <details class="solution hue-eh"><summary>Erwartungshorizont</summary><div>
+            <p><b>Variable festlegen:</b> Die gedachte Zahl ist <span class="m">x</span>.</p>
+            <p><b>Gleichung:</b> Quadrat minus das Doppelte ergibt 24.</p>
+            <div class="calc">
+              <div class="row"><span class="l">x² − 2x</span><span class="r">= 24</span><span class="op">| − 24</span></div>
+              <div class="row"><span class="l">x² − 2x − 24</span><span class="r">= 0</span><span class="op">| faktori&shy;sieren</span></div>
+              <div class="row"><span class="l">(x − 6)(x + 4)</span><span class="r">= 0</span><span class="op">| Null&shy;produkt</span></div>
+              <div class="row"><span class="l">x1</span><span class="r">= 6</span></div>
+              <div class="row"><span class="l">x2</span><span class="r">= −4</span></div>
+            </div>
+            <p class="hue-note">Faktorisieren: Gesucht sind zwei Zahlen mit Produkt −24 und Summe −2 – das sind −6 und 4.</p>
+            <p>Hier passen <b>beide</b> Lösungen – eine gedachte Zahl darf auch negativ sein.</p>
+            <p class="hue-res"><b>Antwort:</b> Lena hat sich 6 oder −4 gedacht.</p>
+            <p class="hue-note">Probe: <span class="m">6² − 2 · 6 = 36 − 12 = 24</span> ✓ und <span class="m">(−4)² − 2 · (−4) = 16 + 8 = 24</span> ✓</p>
+          </div></details>
+          <fieldset class="hue-crit"><legend>Deine Punkte</legend>
+            <label><input type="checkbox" data-p="1"><span>Gleichung aufgestellt: <span class="m">x² − 2x = 24</span></span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>Richtig gelöst: <span class="m">x = 6</span> und <span class="m">x = −4</span></span><b>1 P.</b></label>
+            <label><input type="checkbox" data-p="1"><span>Antwortsatz mit beiden Zahlen (keine verworfen)</span><b>1 P.</b></label>
+          </fieldset>
+        </article>
+      </div>
+    </div>
+
+    <!-- ------------------------- Ergebnis (für die aktive Version) ------------------------- -->
+    <div class="hue-result card" aria-live="polite">
+      <p class="hue-result-kicker">Dein Ergebnis · <span class="hue-result-v">Probe-HÜ A</span></p>
+      <div class="hue-total">
+        <span class="hue-total-num"><b class="hue-sum">0</b><span> / 20 Punkte</span></span>
+        <span class="hue-total-pct">0 %</span>
+      </div>
+      <div class="hue-bar" aria-hidden="true"><span></span></div>
+      <div class="hue-grade-row">
+        <span class="hue-grade" aria-hidden="true">–</span>
+        <div>
+          <p class="hue-grade-text"><b>Notenschätzung:</b> <span class="hue-grade-word">noch nicht ausgewertet</span></p>
+          <p class="small muted hue-disclaimer">Schätzung nach einem üblichen Notenschlüssel – eure Lehrkraft kann anders bewerten.</p>
+        </div>
+      </div>
+      <div class="btn-row hue-eval-row no-print">
+        <button type="button" class="btn primary hue-eval">Auswertung anzeigen</button>
+      </div>
+      <div class="hue-recs" hidden>
+        <p class="hue-recs-msg"></p>
+        <h3>Das solltest du nochmal üben</h3>
+        <ul class="hue-rec-list"></ul>
+      </div>
+      <details class="more hue-key"><summary>Notenschlüssel ansehen</summary>
+        <div class="table-wrap">
+          <table class="nice">
+            <thead><tr><th>Note</th><th class="num">ab</th><th class="num">Punkte von 20</th></tr></thead>
+            <tbody>
+              <tr><td class="narrow">1 · sehr gut</td><td class="num">87,5 %</td><td class="num">17,5 – 20</td></tr>
+              <tr><td class="narrow">2 · gut</td><td class="num">75 %</td><td class="num">15 – 17</td></tr>
+              <tr><td class="narrow">3 · befriedigend</td><td class="num">62,5 %</td><td class="num">12,5 – 14,5</td></tr>
+              <tr><td class="narrow">4 · ausreichend</td><td class="num">50 %</td><td class="num">10 – 12</td></tr>
+              <tr><td class="narrow">5 · mangelhaft</td><td class="num">25 %</td><td class="num">5 – 9,5</td></tr>
+              <tr><td class="narrow">6 · ungenügend</td><td class="num">0 %</td><td class="num">0 – 4,5</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+      <div class="btn-row hue-result-actions no-print">
+        <button type="button" class="btn hue-print-sol"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 17H4v-7a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v7h-3M7 14h10v7H7z"/></svg> Lösungen drucken</button>
+        <button type="button" class="btn ghost hue-relock">🔒 Lösungen verdecken</button>
+        <button type="button" class="btn ghost hue-reset-score">↺ Bewertung zurücksetzen</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="block hue-nh no-print">
+    <div class="box info">
+      <p class="box-title">Für die Nachhilfe</p>
+      <p>Druck das <b>Aufgabenblatt</b> aus und lass die HÜ unter echten Bedingungen schreiben. Die <b>Lösungen</b> lassen sich getrennt drucken. Hier auf der Seite bleiben sie verdeckt, bis jemand auf „Lösungen zeigen“ tippt. Danach gemeinsam korrigieren: Die Teilpunkte im Erwartungshorizont zeigen genau, wo Punkte verloren gehen.</p>
+    </div>
+  </div>
+</section>

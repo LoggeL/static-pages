@@ -1,0 +1,446 @@
+/* Kapitel 50 · Welcher Weg wann? – alles unter #methodenwahl */
+
+/* ---------- Methodenfarben ---------- */
+#methodenwahl { --m: var(--accent); --m-soft: var(--accent-soft); --m-ink: var(--accent-ink); }
+#methodenwahl [data-m="blue"] { --m: var(--c-blue); --m-soft: var(--c-blue-soft); --m-ink: var(--c-blue-ink); }
+#methodenwahl [data-m="green"] { --m: var(--c-green); --m-soft: var(--c-green-soft); --m-ink: var(--c-green-ink); }
+#methodenwahl [data-m="orange"] { --m: var(--c-orange); --m-soft: var(--c-orange-soft); --m-ink: var(--c-orange-ink); }
+#methodenwahl [data-m="slate"] { --m: var(--c-slate); --m-soft: var(--c-slate-soft); --m-ink: var(--c-slate-ink); }
+#methodenwahl [data-m="pink"] { --m: var(--c-pink); --m-soft: var(--c-pink-soft); --m-ink: var(--c-pink-ink); }
+#methodenwahl .box.info[data-m="blue"] { --box: var(--c-blue); }
+
+/* ---------- Sprungleiste ---------- */
+#methodenwahl .mw-toc {
+  display: flex; gap: 8px; margin: 14px 0 0; padding: 2px 2px 6px;
+  overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  -webkit-mask-image: linear-gradient(to right, #000 88%, transparent);
+  mask-image: linear-gradient(to right, #000 88%, transparent);
+}
+#methodenwahl .mw-toc::-webkit-scrollbar { display: none; }
+#methodenwahl .mw-toc a {
+  flex: none; display: inline-flex; align-items: center; gap: 6px;
+  min-height: 44px; padding: 0 14px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-1);
+  color: var(--text); font-weight: 800; font-size: .88rem; text-decoration: none; white-space: nowrap;
+}
+#methodenwahl .mw-toc a:hover { border-color: var(--accent); color: var(--accent-ink); }
+#methodenwahl .mw-toc a:last-child { margin-right: 28px; }
+@media (min-width: 760px) {
+  #methodenwahl .mw-toc { flex-wrap: wrap; overflow: visible; -webkit-mask-image: none; mask-image: none; }
+  #methodenwahl .mw-toc a:last-child { margin-right: 0; }
+}
+
+/* ---------- Flussdiagramm (5-Sekunden-Check) ---------- */
+#methodenwahl .mw-flow { list-style: none; padding: 0; margin: 18px 0 18px; }
+#methodenwahl .mw-flow > li {
+  position: relative; margin: 0;
+  background: var(--surface); border: 1px solid var(--line); border-left: 5px solid var(--m);
+  border-radius: var(--radius); padding: 12px 14px 14px; box-shadow: var(--shadow-1);
+}
+#methodenwahl .mw-flow > li + li { margin-top: 34px; }
+#methodenwahl .mw-flow > li + li::before {
+  content: "nein"; position: absolute; left: 26px; top: -30px; height: 26px;
+  padding-left: 12px; border-left: 2.5px dashed var(--line-strong);
+  font-size: .7rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  line-height: 26px; color: var(--text-dim);
+}
+#methodenwahl .mw-flow > li.mw-flow-end::before { content: "nein"; }
+#methodenwahl .mw-flow-start { --m: var(--accent); background: linear-gradient(135deg, var(--accent-soft), var(--surface)) !important; }
+#methodenwahl .mw-flow-end { background: linear-gradient(135deg, var(--m-soft), var(--surface)) !important; }
+#methodenwahl .mw-flow p { margin: 0; }
+#methodenwahl .mw-flow p + p { margin-top: 7px; }
+#methodenwahl .mw-flow-q { position: relative; padding-left: 38px; min-height: 28px; font-weight: 850; font-size: 1.04rem; line-height: 1.35; padding-top: 2px; }
+#methodenwahl .mw-flow-n {
+  position: absolute; left: 0; top: 0; width: 28px; height: 28px; border-radius: 50%;
+  display: grid; place-items: center; font-size: .85rem; font-weight: 900;
+  background: var(--m); color: var(--on-accent);
+}
+#methodenwahl .mw-flow-c { font-weight: 650; color: var(--text-dim); white-space: nowrap; }
+#methodenwahl .mw-flow-text { color: var(--text-dim); padding-left: 38px; }
+#methodenwahl .mw-flow-yes { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding-left: 38px; font-weight: 850; }
+#methodenwahl .mw-yes {
+  display: inline-flex; align-items: center; padding: 1px 10px; border-radius: 999px;
+  background: var(--m); color: var(--on-accent); font-size: .75rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase;
+}
+#methodenwahl .mw-flow-yes a { color: var(--m-ink); text-decoration-color: color-mix(in srgb, var(--m) 45%, transparent); }
+#methodenwahl .mw-flow-ex {
+  margin-left: 38px !important; display: inline-block; padding: 6px 12px; border-radius: 10px;
+  background: var(--surface-2); font-size: 1.02rem; line-height: 1.5;
+}
+#methodenwahl .mw-flow-ex .m { white-space: nowrap; }
+#methodenwahl .mw-arrow { color: var(--m); font-weight: 900; margin: 0 .25em; }
+
+/* ---------- Vergleich ---------- */
+#methodenwahl .mw-cmp-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; margin: 16px 0; }
+#methodenwahl .mw-cmp {
+  display: flex; flex-direction: column; min-width: 0;
+  background: var(--surface); border: 1px solid var(--line); border-top: 6px solid var(--m);
+  border-radius: var(--radius); padding: 14px 16px 16px; box-shadow: var(--shadow-1);
+}
+#methodenwahl .mw-cmp-head { display: flex; align-items: center; gap: 12px; padding-bottom: 10px; }
+#methodenwahl .mw-cmp-head h3 { margin: 0; color: var(--m-ink); font-size: 1.12rem; }
+#methodenwahl .mw-cmp-sub { margin: 2px 0 0; font-size: .85rem; color: var(--text-dim); line-height: 1.3; }
+#methodenwahl .mw-cmp-ico {
+  flex: none; width: 44px; height: 44px; border-radius: 13px; display: grid; place-items: center;
+  font-size: 22px; background: var(--m-soft);
+}
+#methodenwahl .mw-cmp-list { margin: 0; }
+#methodenwahl .mw-cmp-list > div { padding: 9px 0; border-top: 1px dashed var(--line); }
+#methodenwahl .mw-cmp-list dt { font-size: .72rem; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; color: var(--m-ink); margin: 0 0 2px; }
+#methodenwahl .mw-cmp-list dd { margin: 0; font-size: .95rem; line-height: 1.45; }
+#methodenwahl .mw-cmp-link { text-decoration-color: color-mix(in srgb, var(--m) 45%, transparent); margin-top: auto; padding-top: 10px; font-weight: 850; color: var(--m-ink); align-self: flex-start; display: inline-flex; min-height: 44px; align-items: center; }
+#methodenwahl .mw-meter { display: inline-flex; gap: 3px; vertical-align: .05em; margin-right: 6px; }
+#methodenwahl .mw-meter i { display: block; width: 18px; height: 8px; border-radius: 4px; background: var(--surface-3); }
+#methodenwahl .mw-meter[data-v="1"] i:nth-child(-n+1),
+#methodenwahl .mw-meter[data-v="2"] i:nth-child(-n+2),
+#methodenwahl .mw-meter[data-v="3"] i { background: var(--m); }
+@media (min-width: 760px) {
+  #methodenwahl .mw-cmp-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  @supports (grid-template-rows: subgrid) {
+    #methodenwahl .mw-cmp { display: grid; grid-template-rows: subgrid; grid-row: span 7; row-gap: 0; }
+    #methodenwahl .mw-cmp-list { display: contents; }
+  }
+  #methodenwahl .mw-cmp { padding: 12px 13px 14px; }
+  #methodenwahl .mw-cmp-list dd { font-size: .9rem; }
+}
+
+/* ---------- Tabs: eine Gleichung, drei Wege ---------- */
+#methodenwahl .mw-tabs { margin-top: 14px; }
+#methodenwahl .mw-tablist {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px;
+  padding: 5px; border-radius: 18px; background: var(--surface-2);
+  position: sticky; top: calc(var(--topbar-h) + env(safe-area-inset-top) + 6px); z-index: 5;
+  box-shadow: 0 0 0 1px var(--line);
+}
+#methodenwahl .mw-tab {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+  min-height: 52px; padding: 4px 2px; border: 0; border-radius: 13px;
+  background: transparent; color: var(--text-dim); cursor: pointer;
+  font: inherit; font-weight: 850; font-size: .82rem; line-height: 1.15; text-align: center;
+  touch-action: manipulation; transition: background-color .15s, color .15s;
+}
+#methodenwahl .mw-tab > span { font-size: 1.15rem; line-height: 1; }
+#methodenwahl .mw-tab:hover { color: var(--m-ink); }
+#methodenwahl .mw-tab[aria-selected="true"] {
+  background: var(--surface); color: var(--m-ink);
+  box-shadow: var(--shadow-1), inset 0 -3px 0 var(--m);
+}
+@media (min-width: 480px) {
+  #methodenwahl .mw-tab { flex-direction: row; gap: 7px; font-size: .95rem; }
+}
+#methodenwahl .mw-panel {
+  margin-top: 10px; padding: 16px; border-radius: var(--radius);
+  background: var(--surface); border: 1.5px solid color-mix(in srgb, var(--m) 30%, var(--line)); border-top: 5px solid var(--m);
+  box-shadow: var(--shadow-1);
+}
+#methodenwahl .mw-panel:focus-visible { outline-offset: 3px; }
+@media screen {
+  #methodenwahl .mw-tabs.is-ready .mw-panel:not(.is-on) { display: none; }
+  #methodenwahl .mw-panel.is-on { animation: qg-fb-in .3s var(--ease); }
+}
+#methodenwahl .mw-panel-title { font-size: .78rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: var(--m-ink); margin: 0 0 10px; }
+#methodenwahl .mw-panel > * + .calc, #methodenwahl .mw-panel > * + .table-wrap, #methodenwahl .mw-panel > * + figure { margin-top: 10px; }
+#methodenwahl .mw-panel figure { margin-bottom: 14px; }
+#methodenwahl .mw-panel .qg-plot { max-width: 440px; }
+#methodenwahl .mw-verdict { margin: 14px 0 0; padding-top: 12px; border-top: 1px dashed var(--line); }
+#methodenwahl .mw-wt th, #methodenwahl .mw-wt td { padding: 8px 9px; text-align: center; white-space: nowrap; }
+#methodenwahl .mw-wt th { background: var(--surface-2); width: 1%; }
+#methodenwahl .mw-wt td.mw-zero { background: var(--c-blue-soft); color: var(--c-blue-ink); font-weight: 900; }
+#methodenwahl .mw-wt tr:first-child > * { border-bottom: 1px solid var(--line); }
+#methodenwahl .mw-pairs td, #methodenwahl .mw-pairs th { padding: 8px 12px; white-space: nowrap; }
+#methodenwahl .mw-pairs tr.mw-hit td { background: var(--c-green-soft); color: var(--c-green-ink); font-weight: 850; }
+
+/* ---------- Wegweiser ---------- */
+#methodenwahl .mw-guide { padding: 14px; margin-top: 14px; }
+#methodenwahl .mw-seg {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; margin: 0 0 16px;
+  border-radius: 15px; background: var(--surface-2);
+}
+#methodenwahl .mw-seg-btn {
+  min-height: 46px; padding: 6px 8px; border: 0; border-radius: 12px; background: transparent; cursor: pointer;
+  font: inherit; font-weight: 850; font-size: .9rem; line-height: 1.2; color: var(--text-dim);
+  touch-action: manipulation;
+}
+#methodenwahl .mw-seg-btn[aria-selected="true"] { background: var(--surface); color: var(--accent-ink); box-shadow: var(--shadow-1); }
+#methodenwahl .mw-label { display: block; font-weight: 850; margin: 0 0 2px; }
+#methodenwahl .mw-in-row { margin-top: 4px; }
+#methodenwahl .mw-in-row .check { min-width: 0; padding: 8px 14px; }
+#methodenwahl .mw-kb button { font-size: 1rem; }
+#methodenwahl .mw-ex-label { font-size: .85rem; font-weight: 800; color: var(--text-dim); margin: 14px 0 6px; }
+#methodenwahl .mw-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+#methodenwahl .mw-chip {
+  min-height: 44px; padding: 4px 12px; border-radius: 999px; cursor: pointer;
+  background: var(--surface-2); border: 1.5px solid var(--line); color: var(--text);
+  font: inherit; font-size: .92rem; touch-action: manipulation;
+}
+#methodenwahl .mw-chip:hover { border-color: var(--accent); background: var(--accent-soft); }
+#methodenwahl .mw-chip:active { transform: scale(.97); }
+#methodenwahl .mw-out { margin-top: 18px; }
+#methodenwahl .mw-out:empty { display: none; }
+#methodenwahl .mw-out > * { animation: qg-fb-in .3s var(--ease); }
+#methodenwahl .mw-err {
+  padding: 10px 14px; border-radius: 14px; font-weight: 650; line-height: 1.45;
+  background: var(--bad-soft); color: color-mix(in srgb, var(--bad) 72%, var(--text));
+}
+#methodenwahl .mw-read { margin: 0 0 4px; line-height: 1.5; }
+#methodenwahl .mw-read .m { font-size: 1.12em; }
+#methodenwahl .mw-read-k { font-size: .74rem; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; color: var(--text-dim); margin-right: 4px; }
+#methodenwahl .mw-path { list-style: none; padding: 0; margin: 12px 0 0; display: flex; flex-direction: column; gap: 6px; }
+#methodenwahl .mw-path > li {
+  margin: 0; display: flex; gap: 10px; align-items: flex-start;
+  padding: 8px 12px; border-radius: 12px; background: var(--surface-2);
+  font-size: .94rem; line-height: 1.4;
+}
+#methodenwahl .mw-path-ico {
+  flex: none; width: 24px; height: 24px; border-radius: 50%; margin-top: 1px;
+  display: grid; place-items: center; font-size: .8rem; font-weight: 900;
+  background: var(--line-strong); color: var(--text);
+}
+#methodenwahl .mw-path > li.is-no { color: var(--text-dim); }
+#methodenwahl .mw-path > li.is-no b { color: var(--text); }
+#methodenwahl .mw-path > li.is-yes { background: var(--ok-soft); }
+#methodenwahl .mw-path > li.is-yes .mw-path-ico { background: var(--ok); color: #fff; }
+#methodenwahl .mw-path > li.is-warn { background: var(--bad-soft); }
+#methodenwahl .mw-path > li.is-warn .mw-path-ico { background: var(--bad); color: #fff; }
+
+#methodenwahl .mw-rec {
+  margin-top: 14px; padding: 14px 16px 16px; border-radius: var(--radius);
+  background: linear-gradient(140deg, var(--m-soft), color-mix(in srgb, var(--m-soft) 45%, var(--surface)));
+  border: 1.5px solid color-mix(in srgb, var(--m) 40%, transparent);
+}
+#methodenwahl .mw-rec:focus { outline: none; }
+#methodenwahl .mw-rec-kicker { margin: 0; font-size: .72rem; font-weight: 900; letter-spacing: .09em; text-transform: uppercase; color: var(--m-ink); }
+#methodenwahl .mw-rec-name { display: flex; align-items: center; gap: 10px; margin: 4px 0 8px; font-size: 1.22rem; font-weight: 900; line-height: 1.2; color: var(--m-ink); }
+#methodenwahl .mw-rec-ico {
+  flex: none; min-width: 42px; height: 42px; padding: 0 8px; border-radius: 12px;
+  display: grid; place-items: center; background: var(--m); color: var(--on-accent);
+  font-family: var(--font-math); font-size: .95rem; font-weight: 900;
+}
+#methodenwahl .mw-rec-why { margin: 0; }
+#methodenwahl .mw-rec .mw-rec-sol { background: var(--surface); }
+#methodenwahl .mw-rec-sol .calc { margin-top: 6px; }
+#methodenwahl .mw-rec-alt { margin: 10px 0 0; font-size: .92rem; }
+#methodenwahl .mw-rec-link { margin-top: 12px; background: var(--surface); border-color: color-mix(in srgb, var(--m) 45%, var(--line)); color: var(--m-ink); white-space: normal; text-align: left; }
+#methodenwahl .mw-graf {
+  margin-top: 12px; padding: 12px 14px 14px; border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--line); border-left: 5px solid var(--m);
+}
+#methodenwahl .mw-graf-title { margin: 0 0 8px; font-weight: 850; }
+#methodenwahl .mw-graf-plot { max-width: 420px; margin: 0 auto 8px; }
+#methodenwahl .mw-graf-note { margin: 0; }
+
+/* Fragen-Modus */
+#methodenwahl .mw-trail { list-style: none; padding: 0; margin: 0 0 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+#methodenwahl .mw-trail > li { margin: 0; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); font-size: .8rem; font-weight: 700; color: var(--text-dim); }
+#methodenwahl .mw-trail > li.is-yes b { color: var(--ok); }
+#methodenwahl .mw-trail > li.is-no b { color: var(--bad); }
+#methodenwahl .mw-trail > li.is-info b { color: var(--accent-ink); }
+#methodenwahl .mw-qcard {
+  padding: 16px; border-radius: var(--radius);
+  background: linear-gradient(140deg, var(--accent-soft), color-mix(in srgb, var(--accent-soft) 40%, var(--surface)));
+  border: 1.5px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  animation: qg-fb-in .3s var(--ease);
+}
+#methodenwahl .mw-qnum { margin: 0 0 4px; font-size: .74rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-ink); }
+#methodenwahl .mw-q { margin: 0 0 8px; font-size: 1.14rem; font-weight: 800; line-height: 1.35; }
+#methodenwahl .mw-qex { margin: 0 0 14px; font-size: .93rem; color: var(--text-dim); }
+#methodenwahl .mw-qinfo > p:not([class]) { margin: 0 0 8px; }
+#methodenwahl .mw-yn { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+#methodenwahl .mw-qinfo .mw-yn { grid-template-columns: 1fr; }
+#methodenwahl .mw-yn .btn { min-height: 52px; font-size: 1.04rem; }
+#methodenwahl .mw-recipe { margin-top: 12px; padding: 14px 16px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); }
+#methodenwahl .mw-recipe-title { margin: 0 0 6px; font-size: .74rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); }
+#methodenwahl .mw-recipe ol { margin: 0 0 12px; }
+#methodenwahl .mw-ask-ctrl { margin-top: 10px; }
+#methodenwahl .mw-ask-ctrl:empty { display: none; }
+
+/* ---------- Sortier-Spiel ---------- */
+#methodenwahl .mw-game { padding: 16px; margin-top: 14px; }
+#methodenwahl .mw-g-start { text-align: center; padding: 6px 0 4px; }
+#methodenwahl .mw-g-start > p { margin: 0 auto 10px; max-width: 30em; }
+#methodenwahl .mw-g-hero { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+#methodenwahl .mw-g-hero span {
+  min-width: 46px; height: 46px; padding: 0 8px; border-radius: 13px; display: grid; place-items: center;
+  background: var(--c-green-soft); color: var(--c-green-ink); font-family: var(--font-math); font-weight: 900;
+  animation: mw-bob 2.6s ease-in-out infinite;
+}
+#methodenwahl .mw-g-hero span:nth-child(2) { animation-delay: .2s; }
+#methodenwahl .mw-g-hero span:nth-child(3) { animation-delay: .4s; }
+#methodenwahl .mw-g-hero span:nth-child(4) { animation-delay: .6s; }
+#methodenwahl .mw-g-hero span:nth-child(5) { animation-delay: .8s; background: var(--c-orange-soft); color: var(--c-orange-ink); }
+@keyframes mw-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+#methodenwahl .mw-g-title { font-size: 1.45rem !important; font-weight: 900; margin-bottom: 4px !important; }
+#methodenwahl .mw-g-best { font-weight: 700; }
+#methodenwahl .mw-g-startbtn { min-width: 220px; min-height: 52px; font-size: 1.05rem; margin-top: 4px; }
+
+#methodenwahl .mw-g-top { display: flex; align-items: center; gap: 6px; font-size: .88rem; font-weight: 800; }
+#methodenwahl .mw-g-count { margin-right: auto; color: var(--text-dim); }
+#methodenwahl .mw-g-count b { color: var(--text); }
+#methodenwahl .mw-g-score, #methodenwahl .mw-g-streak { padding: 2px 10px; border-radius: 999px; background: var(--surface-2); white-space: nowrap; }
+#methodenwahl .mw-g-score { color: var(--ok); }
+#methodenwahl .mw-g-streak { opacity: .45; }
+#methodenwahl .mw-g-streak.is-on { opacity: 1; background: var(--c-orange-soft); color: var(--c-orange-ink); }
+#methodenwahl .mw-g-bar { height: 6px; border-radius: 3px; background: var(--surface-3); overflow: hidden; margin: 10px 0 14px; }
+#methodenwahl .mw-g-bar > span { display: block; height: 100%; background: var(--accent); border-radius: 3px; transition: width .45s var(--ease); }
+#methodenwahl .mw-g-ask { margin: 0 0 6px; text-align: center; font-size: .9rem; font-weight: 750; color: var(--text-dim); }
+#methodenwahl .mw-g-eq {
+  margin: 0 0 14px; padding: 18px 10px; border-radius: var(--radius); text-align: center;
+  background: var(--accent-soft); font-size: 1.55rem; line-height: 1.3;
+  overflow-x: auto; white-space: nowrap; scrollbar-width: thin;
+}
+#methodenwahl .mw-g-opts { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+@media (min-width: 600px) {
+  #methodenwahl .mw-g-opts { grid-template-columns: 1fr 1fr; }
+  #methodenwahl .mw-g-opts .mw-opt:last-child { grid-column: 1 / -1; }
+}
+#methodenwahl .mw-opt {
+  position: relative; display: flex; align-items: center; gap: 12px; width: 100%;
+  min-height: 54px; padding: 7px 12px 7px 8px; border-radius: 14px; cursor: pointer;
+  background: var(--surface-2); border: 2px solid var(--line); color: var(--text);
+  font: inherit; font-weight: 800; text-align: left; touch-action: manipulation;
+  transition: border-color .15s, background-color .15s, transform .1s, opacity .2s;
+}
+#methodenwahl .mw-opt:hover:not(:disabled) { border-color: var(--m); }
+#methodenwahl .mw-opt:active:not(:disabled) { transform: scale(.985); }
+#methodenwahl .mw-opt-ico {
+  flex: none; min-width: 50px; height: 38px; padding: 0 6px; border-radius: 10px;
+  display: grid; place-items: center; background: var(--m-soft); color: var(--m-ink);
+  font-family: var(--font-math); font-weight: 900; font-size: .92rem;
+}
+#methodenwahl .mw-opt-label { flex: 1 1 auto; min-width: 0; line-height: 1.25; }
+#methodenwahl .mw-opt-key {
+  display: none; flex: none; font-size: .72rem; font-weight: 800; color: var(--text-dim);
+  border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 6px; padding: 0 6px;
+}
+@media (hover: hover) and (pointer: fine) { #methodenwahl .mw-opt-key { display: inline-block; } }
+#methodenwahl .mw-opt:disabled { cursor: default; }
+#methodenwahl .mw-opt:disabled:not(.is-right):not(.is-picked-bad) { opacity: .5; }
+#methodenwahl .mw-opt.is-right { border-color: var(--ok); background: var(--ok-soft); }
+#methodenwahl .mw-opt.is-picked-bad { border-color: var(--bad); background: var(--bad-soft); }
+#methodenwahl .mw-opt.is-right::after, #methodenwahl .mw-opt.is-picked-bad::after {
+  flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+  font-size: .8rem; font-weight: 900; color: #fff; margin-left: auto;
+}
+#methodenwahl .mw-opt.is-right::after { content: "✓"; background: var(--ok); }
+#methodenwahl .mw-opt.is-picked-bad::after { content: "✕"; background: var(--bad); }
+#methodenwahl .mw-opt.is-right .mw-opt-key, #methodenwahl .mw-opt.is-picked-bad .mw-opt-key { display: none; }
+#methodenwahl .mw-opt.is-picked-ok { animation: qg-pop .4s var(--ease); }
+#methodenwahl .mw-g-fb:empty { display: none; }
+#methodenwahl .mw-g-fbbox { margin-top: 12px; padding: 12px 14px; border-radius: 14px; line-height: 1.45; animation: qg-fb-in .3s var(--ease); }
+#methodenwahl .mw-g-fbbox.ok { background: var(--ok-soft); }
+#methodenwahl .mw-g-fbbox.bad { background: var(--bad-soft); }
+#methodenwahl .mw-g-fbbox > p { margin: 0 0 6px; }
+#methodenwahl .mw-g-fbbox.ok > p:first-child b { color: color-mix(in srgb, var(--ok) 80%, var(--text)); }
+#methodenwahl .mw-g-fbbox.bad > p:first-child > b:first-child { color: color-mix(in srgb, var(--bad) 80%, var(--text)); }
+#methodenwahl .mw-g-also { display: block; margin-top: 3px; font-weight: 600; }
+#methodenwahl .mw-g-why { font-size: .95rem; }
+#methodenwahl .mw-g-sol { padding: 8px 12px; border-radius: 10px; background: var(--surface); font-size: 1.04rem; overflow-x: auto; }
+#methodenwahl .mw-g-next { margin-top: 12px; display: flex; justify-content: flex-end; }
+#methodenwahl .mw-g-next .btn { min-height: 50px; min-width: min(100%, 240px); }
+#methodenwahl .mw-g-end { text-align: center; }
+#methodenwahl .mw-g-big { margin: 4px 0 6px; font-size: 1.1rem; font-weight: 800; color: var(--text-dim); }
+#methodenwahl .mw-g-big b { font-size: 3.4rem; line-height: 1; font-weight: 900; color: var(--accent-ink); margin-right: 4px; }
+#methodenwahl .mw-g-msg { font-weight: 750; margin: 0 auto 10px; max-width: 28em; }
+#methodenwahl .mw-g-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+#methodenwahl .mw-g-misses { text-align: left; margin: 16px 0; padding: 12px 14px; border-radius: var(--radius); background: var(--surface-2); }
+#methodenwahl .mw-g-mtitle { margin: 0 0 8px; font-weight: 900; }
+#methodenwahl .mw-g-misses ul { margin: 0; padding-left: 1.1em; }
+#methodenwahl .mw-g-misses li { margin: 0 0 10px; }
+#methodenwahl .mw-g-misses li:last-child { margin-bottom: 0; }
+#methodenwahl .mw-g-mwhy { display: block; font-size: .9rem; color: var(--text-dim); margin-top: 2px; }
+#methodenwahl .mw-g-end .btn-row { justify-content: center; }
+
+/* ---------- Fehlerdetektiv: Schülerheft ---------- */
+#methodenwahl .mw-heft {
+  counter-reset: mwln; gap: 0; padding: 2px 0; position: relative; overflow: hidden;
+  background:
+    linear-gradient(to right, transparent 42px, color-mix(in srgb, var(--c-red) 40%, transparent) 42px, color-mix(in srgb, var(--c-red) 40%, transparent) 44px, transparent 44px),
+    var(--surface);
+  border: 1.5px solid var(--line); border-radius: 14px;
+}
+#methodenwahl .mw-heft .choice {
+  counter-increment: mwln; position: relative;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 2px 0;
+  min-height: 50px; padding: 8px 12px 8px 42px; margin: 0;
+  background: transparent; border: 0; border-bottom: 1px dashed var(--line); border-radius: 0;
+  font-weight: 650; transition: background-color .15s;
+}
+#methodenwahl .mw-heft .choice:last-child { border-bottom: 0; }
+#methodenwahl .mw-heft .choice::before {
+  content: counter(mwln); position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  width: 42px; height: auto; border: 0; border-radius: 0; background: none;
+  display: block; text-align: center; font-size: .8rem; font-weight: 900; color: var(--text-dim);
+  font-family: var(--font);
+}
+#methodenwahl .mw-heft .choice:hover:not(:disabled) { background: var(--accent-soft); }
+#methodenwahl .mw-heft .choice:focus-visible { outline-offset: -3px; border-radius: 8px; }
+#methodenwahl .mw-ln { flex: 1 1 auto; min-width: 0; padding-left: 12px; font-size: 1.06em; }
+#methodenwahl .mw-how {
+  margin-left: auto; padding-left: 12px; font-family: var(--font); font-size: .78rem; font-weight: 750;
+  color: var(--text-dim); white-space: nowrap;
+}
+/* angetippte, aber richtige Zeile */
+#methodenwahl .mw-heft .choice.is-wrong { background: color-mix(in srgb, var(--ok-soft) 70%, transparent); opacity: 1; border-color: var(--line); }
+#methodenwahl .mw-heft .choice.is-wrong::before { content: "✓"; color: var(--ok); font-size: .95rem; background: none; border: 0; }
+#methodenwahl .mw-heft .choice.is-wrong .mw-how::after { content: " · stimmt"; color: var(--ok); font-weight: 900; }
+/* angetippte Zeile NACH der Fehlerzeile: nicht „stimmt“, sondern Folgefehler */
+#methodenwahl .mw-heft .choice[data-correct] ~ .choice.is-wrong { background: color-mix(in srgb, var(--c-orange-soft) 70%, transparent); }
+#methodenwahl .mw-heft .choice[data-correct] ~ .choice.is-wrong::before { content: "↳"; color: var(--c-orange); }
+#methodenwahl .mw-heft .choice[data-correct] ~ .choice.is-wrong .mw-how::after { content: " · Folgefehler"; color: var(--c-orange); }
+/* gefundene Fehlerzeile */
+#methodenwahl .mw-heft .choice.is-correct { background: var(--bad-soft); border-color: var(--line); }
+#methodenwahl .mw-heft .choice.is-correct::before { content: "✗"; color: var(--bad); font-size: 1.05rem; background: none; border: 0; }
+#methodenwahl .mw-heft .choice.is-correct .mw-ln {
+  text-decoration: underline wavy var(--bad); text-decoration-thickness: 1.5px; text-underline-offset: 6px;
+}
+#methodenwahl .mw-heft .choice.is-correct .mw-how::after { content: " · Fehler!"; color: var(--bad); font-weight: 900; }
+#methodenwahl .mw-det figure { margin: 10px 0 0; }
+#methodenwahl .mw-det .qg-plot { max-width: 360px; }
+#methodenwahl .mw-det details .qg-plot { max-width: 360px; }
+
+/* Notizzeilen sollen die Spaltenbreiten nicht aufblähen (sonst rutscht die |-Spalte aus dem Bild) */
+#methodenwahl .calc .note { contain: inline-size; }
+/* „oder“-Zeilen in Rechnungen: über alle Spalten (hält .calc schmal) */
+#methodenwahl .calc .note.mw-or {
+  font-family: var(--font-math); font-weight: 650; font-size: 1em; color: var(--text);
+  padding: 3px 4px 3px 1.2em; white-space: normal;
+}
+#methodenwahl .calc .mw-nw { white-space: nowrap; }
+#methodenwahl .calc .mw-or-op { display: inline-block; margin-left: 14px; font-size: .86em; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
+
+/* Schmale Screens: Umformungs-Hinweis „| …“ unter die Zeile statt in eine gequetschte 3. Spalte */
+@media screen and (max-width: 560px) {
+  #methodenwahl .calc .op {
+    grid-column: 1 / -1; contain: inline-size; min-width: 0;
+    padding: 0 2px 4px 0; margin-top: -3px; font-size: .8em; white-space: normal; text-align: right;
+  }
+  #methodenwahl .calc .mw-nw { white-space: nowrap; }
+#methodenwahl .calc .mw-or-op { display: block; margin: 0; text-align: right; font-size: .8em; }
+}
+
+/* ---------- Aufgaben & Merke ---------- */
+#methodenwahl .task details.solution .pill { margin: 4px 0 2px; }
+#methodenwahl .task details.solution p + .calc { margin-top: 6px; }
+#methodenwahl .task details.solution .calc + p { margin-top: 14px; }
+#methodenwahl .mw-merke-list { margin: 0; padding-left: 1.3em; }
+#methodenwahl .mw-merke-list li + li { margin-top: .45em; }
+
+/* ---------- Druck ---------- */
+@media print {
+  #methodenwahl .mw-toc { display: none !important; }
+  #methodenwahl .mw-flow > li, #methodenwahl .mw-cmp, #methodenwahl .mw-panel { box-shadow: none; break-inside: avoid; page-break-inside: avoid; }
+  #methodenwahl .mw-flow > li + li { margin-top: 26px; }
+  #methodenwahl .mw-cmp-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8pt; }
+  #methodenwahl .mw-cmp { padding: 8pt; }
+  #methodenwahl .mw-cmp-list dd { font-size: 9.5pt; }
+  #methodenwahl .mw-panel { display: block !important; margin-top: 10pt; }
+  #methodenwahl .mw-heft .choice { min-height: 0; padding: 3pt 8pt 3pt 42px; }
+  #methodenwahl .mw-g-hero span { animation: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #methodenwahl .mw-g-hero span { animation: none; }
+}
+#methodenwahl .pill.mw-pill-wrap { white-space: normal; }
+@media (max-width: 420px) {
+  #methodenwahl .mw-wt th, #methodenwahl .mw-wt td { padding: 7px 5px; }
+}

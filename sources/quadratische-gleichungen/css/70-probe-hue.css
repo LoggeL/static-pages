@@ -1,0 +1,371 @@
+/* Probe-HÜ (#probe-hue) */
+
+/* ---------- So läuft's ---------- */
+#probe-hue .hue-howto { list-style: none; padding: 0; margin: 0 0 16px; display: flex; flex-direction: column; gap: 10px; counter-reset: hue-how; }
+#probe-hue .hue-howto > li {
+  counter-increment: hue-how;
+  display: grid; grid-template-columns: 44px 1fr; gap: 12px; align-items: start;
+  margin: 0; padding: 12px 14px; border-radius: var(--radius);
+  background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-1);
+}
+#probe-hue .hue-howto-ico {
+  position: relative;
+  width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center;
+  font-size: 22px; line-height: 1; background: var(--accent-soft);
+}
+#probe-hue .hue-howto-ico::after {
+  content: counter(hue-how);
+  position: absolute; right: -6px; top: -6px;
+  width: 20px; height: 20px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-size: .72rem; font-weight: 900; color: var(--on-accent); background: var(--accent);
+  box-shadow: 0 0 0 2px var(--surface);
+}
+#probe-hue .hue-howto b { color: var(--text); }
+#probe-hue .hue-howto > li > div { line-height: 1.5; padding-top: 2px; }
+
+/* ---------- Tabs A / B ---------- */
+#probe-hue .hue-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 14px; }
+#probe-hue .hue-tab {
+  display: flex; align-items: center; gap: 10px; min-height: 64px; min-width: 0;
+  padding: 10px 12px; text-align: left;
+  font: inherit; color: var(--text); cursor: pointer;
+  background: var(--surface); border: 2px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+  transition: border-color .15s, background-color .15s, transform .1s;
+  touch-action: manipulation;
+}
+#probe-hue .hue-tab:hover { border-color: color-mix(in srgb, var(--accent) 50%, var(--line)); }
+#probe-hue .hue-tab:active { transform: scale(.98); }
+#probe-hue .hue-tab[aria-selected="true"] { border-color: var(--accent); background: var(--accent-soft); }
+#probe-hue .hue-tab-badge {
+  flex: none; width: 38px; height: 38px; border-radius: 12px;
+  display: grid; place-items: center; font-weight: 900; font-size: 1.15rem;
+  background: var(--surface-2); color: var(--accent-ink);
+  border: 1.5px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+}
+#probe-hue .hue-tab[aria-selected="true"] .hue-tab-badge { background: var(--accent); color: var(--on-accent); border-color: transparent; }
+#probe-hue .hue-tab-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.2; }
+#probe-hue .hue-tab-text b { font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#probe-hue .hue-tab-state { font-size: .78rem; font-weight: 700; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#probe-hue .hue-tab.is-evaluated .hue-tab-state { color: var(--ok); font-weight: 800; }
+
+/* ---------- Timer ---------- */
+#probe-hue .hue-timer { text-align: center; padding: 20px 16px 16px; }
+#probe-hue .hue-ring {
+  --ring: var(--accent);
+  position: relative; width: 196px; max-width: 70vw; aspect-ratio: 1; margin: 0 auto 14px;
+  border-radius: 50%;
+  background: conic-gradient(var(--ring) calc(var(--p, 1) * 360deg), var(--surface-3) 0);
+  display: grid; place-items: center;
+}
+#probe-hue .hue-ring-in {
+  position: absolute; inset: 13px; border-radius: 50%;
+  background: var(--surface);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+#probe-hue .hue-time {
+  font-size: 3rem; font-weight: 900; line-height: 1; letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums; color: var(--text);
+}
+#probe-hue .hue-sub { font-size: .8rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--text-dim); }
+#probe-hue .hue-timer[data-state="running"] .hue-sub { color: var(--accent-ink); }
+#probe-hue .hue-timer.is-warn .hue-ring { --ring: var(--c-orange); }
+#probe-hue .hue-timer.is-warn .hue-sub { color: var(--c-orange-ink); }
+#probe-hue .hue-timer.is-last .hue-ring { --ring: var(--c-red); }
+#probe-hue .hue-timer.is-last[data-state="running"] .hue-time { animation: hue-blink 1s steps(2, start) infinite; color: var(--c-red-ink); }
+#probe-hue .hue-timer[data-state="done"] .hue-ring { background: var(--c-red-soft); box-shadow: inset 0 0 0 3px var(--c-red); }
+#probe-hue .hue-timer[data-state="done"] .hue-time { color: var(--c-red-ink); }
+#probe-hue .hue-timer[data-state="done"] .hue-sub { color: var(--c-red-ink); }
+@keyframes hue-blink { 50% { opacity: .45; } }
+
+#probe-hue .hue-durs { display: flex; justify-content: center; gap: 6px; margin: 0 0 12px; flex-wrap: wrap; }
+#probe-hue .hue-dur {
+  min-height: 40px; min-width: 76px; padding: 4px 12px;
+  font: inherit; font-weight: 800; font-size: .88rem; color: var(--text-dim);
+  background: var(--surface-2); border: 1.5px solid var(--line); border-radius: 999px; cursor: pointer;
+  touch-action: manipulation;
+}
+#probe-hue .hue-dur[aria-pressed="true"] { color: var(--accent-ink); border-color: var(--accent); background: var(--accent-soft); }
+#probe-hue .hue-dur:disabled { opacity: .45; cursor: not-allowed; }
+#probe-hue .hue-tctrl { justify-content: center; }
+#probe-hue .hue-tctrl .hue-start { min-width: 150px; font-size: 1.05rem; min-height: 50px; }
+#probe-hue .hue-sound { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px 10px; margin-top: 10px; font-size: .9rem; color: var(--text-dim); font-weight: 700; }
+#probe-hue .hue-sound label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; }
+#probe-hue .hue-sound input { width: 20px; height: 20px; accent-color: var(--accent); }
+#probe-hue .hue-sound .btn { min-height: 40px; padding: 6px 12px; font-size: .88rem; }
+#probe-hue .hue-done {
+  margin-top: 14px; padding: 14px; border-radius: var(--radius-sm);
+  background: var(--c-red-soft); color: var(--text);
+  animation: qg-pop .45s var(--ease);
+}
+#probe-hue .hue-done p { margin: 0 0 10px; }
+
+/* Mini-Leiste beim Scrollen */
+#probe-hue .hue-mini {
+  position: fixed; z-index: 45;
+  top: calc(var(--topbar-h) + env(safe-area-inset-top) + 8px);
+  right: max(12px, env(safe-area-inset-right));
+  display: flex; align-items: center; gap: 4px;
+  padding: 4px; border-radius: 999px;
+  background: var(--text); color: var(--bg);
+  box-shadow: var(--shadow-2);
+  animation: hue-mini-in .3s var(--ease);
+}
+#probe-hue .hue-mini.is-warn { background: var(--c-orange); color: #fff; }
+#probe-hue .hue-mini button {
+  min-height: 40px; border: 0; border-radius: 999px; cursor: pointer;
+  font: inherit; font-weight: 900; color: inherit; background: transparent;
+  touch-action: manipulation;
+}
+#probe-hue .hue-mini-jump { padding: 0 8px 0 14px; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+#probe-hue .hue-mini-toggle { padding: 0 14px; font-size: .88rem; background: color-mix(in srgb, currentColor 18%, transparent) !important; }
+@keyframes hue-mini-in { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Aufgabenblatt ---------- */
+#probe-hue .hue-paper {
+  background: var(--surface);
+  border: 1px solid var(--line); border-top: 6px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+  padding: 18px 16px 16px;
+}
+#probe-hue .hue-paper-head { display: flex; gap: 12px; align-items: center; margin: 0 0 12px; }
+#probe-hue .hue-ph-badge {
+  flex: none; width: 46px; height: 46px; border-radius: 14px;
+  display: grid; place-items: center; font-weight: 900; font-size: 1.4rem;
+  background: var(--accent); color: var(--on-accent);
+}
+#probe-hue .hue-ph-kicker { margin: 0; font-size: .75rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-ink); }
+#probe-hue .hue-ph-title { margin: 0; font-weight: 900; font-size: 1.08rem; line-height: 1.25; }
+#probe-hue .hue-ph-meta { list-style: none; padding: 0; margin: 0 0 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+#probe-hue .hue-ph-meta li { margin: 0; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); font-size: .82rem; font-weight: 800; color: var(--text-dim); }
+#probe-hue .hue-ph-note { font-size: .92rem; color: var(--text-dim); margin: 0 0 4px; }
+
+#probe-hue .hue-qs { list-style: none; padding: 0; margin: 0; }
+#probe-hue .hue-q { margin: 0; padding: 16px 0; border-top: 1.5px dashed var(--line-strong); }
+#probe-hue .hue-q:last-child { padding-bottom: 6px; }
+#probe-hue .hue-q > p { margin: 0 0 10px; }
+#probe-hue .hue-q-head, #probe-hue .hue-c-head { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; }
+#probe-hue .hue-q-head h3, #probe-hue .hue-c-head h3 { margin: 0; font-size: 1.08rem; min-width: 0; }
+#probe-hue .hue-num {
+  flex: none; width: 30px; height: 30px; border-radius: 50%;
+  display: grid; place-items: center; font-weight: 900; font-size: .95rem;
+  background: var(--accent); color: var(--on-accent);
+}
+#probe-hue .hue-pts, #probe-hue .hue-score {
+  margin-left: auto; flex: none; white-space: nowrap;
+  padding: 2px 10px; border-radius: 999px;
+  font-size: .82rem; font-weight: 900;
+  background: var(--accent-soft); color: var(--accent-ink);
+}
+#probe-hue .hue-parts { list-style: none; padding: 0; margin: 0; counter-reset: hue-part; display: grid; gap: 8px; }
+#probe-hue .hue-parts > li {
+  counter-increment: hue-part; margin: 0;
+  position: relative; padding: 8px 12px 8px 40px;
+  background: var(--surface-2); border-radius: var(--radius-sm);
+}
+#probe-hue .hue-parts > li::before {
+  content: counter(hue-part, lower-alpha) ")";
+  position: absolute; left: 13px; top: 8px;
+  font-weight: 900; color: var(--accent-ink);
+}
+#probe-hue .hue-parts .m { font-size: 1.08em; }
+#probe-hue .hue-pp { font-size: .78rem; font-weight: 800; color: var(--text-dim); white-space: nowrap; margin-left: 4px; }
+#probe-hue .hue-pp::before { content: "("; }
+#probe-hue .hue-pp::after { content: ")"; }
+@media (min-width: 560px) {
+  #probe-hue .hue-parts.hue-cols { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+}
+#probe-hue .hue-q .mblock { margin: 0; }
+#probe-hue .hue-hint-line { font-size: .92rem; color: var(--text-dim); }
+#probe-hue .hue-fig { margin: 0 0 12px; }
+#probe-hue .hue-fig .qg-plot { max-width: 420px; }
+#probe-hue .hue-fig-sm .qg-plot { max-width: 340px; }
+#probe-hue .hue-paper-end { margin: 8px 0 0; text-align: right; font-weight: 800; color: var(--text-dim); }
+
+/* Schülerlösung („kariertes Heft“) */
+#probe-hue .hue-work {
+  margin: 0 0 10px; padding: 10px 12px; border-radius: var(--radius-sm);
+  border: 1.5px solid var(--line);
+  background-color: var(--surface);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--c-blue) 14%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--c-blue) 14%, transparent) 1px, transparent 1px);
+  background-size: 14px 14px;
+  overflow-x: auto;
+}
+#probe-hue .hue-work .calc { background: transparent; margin: 0; padding: 2px 4px; color: var(--c-blue-ink); font-style: italic; }
+#probe-hue .hue-work .calc var { font-style: italic; }
+
+#probe-hue .hue-sheet-actions { margin-top: 14px; }
+
+/* ---------- Selbstkorrektur ---------- */
+#probe-hue .hue-gate { text-align: center; padding: 22px 18px; border-style: dashed; border-width: 2px; }
+#probe-hue .hue-gate-ico { font-size: 2.2rem; line-height: 1; margin: 0 0 8px; }
+#probe-hue .hue-corr:not(.is-locked) .hue-gate { display: none; }
+#probe-hue .hue-corr.is-locked .hue-corr-body { display: none; }
+#probe-hue .hue-corr-intro { color: var(--text-dim); }
+#probe-hue .hue-corr-body { display: flex; flex-direction: column; gap: 14px; }
+#probe-hue .hue-corr-body > p { margin: 0; }
+
+#probe-hue .hue-c {
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius);
+  padding: 14px 16px 16px; box-shadow: var(--shadow-1);
+  transition: border-color .3s;
+}
+#probe-hue .hue-c.is-full { border-color: color-mix(in srgb, var(--ok) 55%, var(--line)); }
+#probe-hue .hue-c.is-full .hue-score { background: var(--ok-soft); color: var(--ok); }
+#probe-hue .hue-c .hue-eh { margin-top: 0; }
+#probe-hue .hue-eh .calc { font-size: .98em; padding-left: 12px; padding-right: 10px; }
+#probe-hue .hue-eh .calc .op { min-width: 3.6em; }
+#probe-hue .hue-eh figure { margin: 4px 0 8px; }
+#probe-hue .hue-res { font-weight: 850; font-size: 1.05em; }
+#probe-hue .hue-res .m { padding: 2px 10px; border-radius: 8px; background: var(--ok-soft); }
+#probe-hue .hue-probe { list-style: none; padding: 10px 12px; margin: 0 0 .9em; background: var(--surface-2); border-radius: var(--radius-sm); }
+#probe-hue .hue-probe li { margin: 0; }
+#probe-hue .hue-probe li + li { margin-top: 4px; }
+#probe-hue .hue-probe .m { white-space: nowrap; }
+#probe-hue .hue-note { font-size: .9rem; color: var(--text-dim); }
+
+#probe-hue .hue-crit { border: 0; padding: 0; margin: 12px 0 0; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+#probe-hue .hue-crit legend { padding: 0; margin: 0 0 6px; font-size: .78rem; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; color: var(--text-dim); }
+#probe-hue .hue-crit label {
+  display: grid; grid-template-columns: 26px 1fr auto; gap: 10px; align-items: center;
+  min-height: 48px; padding: 8px 12px;
+  background: var(--surface-2); border: 2px solid transparent; border-radius: 14px;
+  cursor: pointer; line-height: 1.35; font-size: .95rem;
+  transition: background-color .15s, border-color .15s;
+  touch-action: manipulation;
+}
+#probe-hue .hue-crit label:hover { border-color: color-mix(in srgb, var(--ok) 40%, var(--line)); }
+#probe-hue .hue-crit .m { white-space: nowrap; }
+#probe-hue .hue-crit input { width: 22px; height: 22px; margin: 0; accent-color: var(--ok); cursor: pointer; }
+#probe-hue .hue-crit label > b { font-size: .8rem; font-weight: 900; color: var(--text-dim); white-space: nowrap; }
+#probe-hue .hue-crit label.is-on { background: var(--ok-soft); border-color: color-mix(in srgb, var(--ok) 45%, transparent); }
+#probe-hue .hue-crit label.is-on > b { color: var(--ok); }
+#probe-hue .hue-crit label:focus-within { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Ergebnis */
+#probe-hue .hue-result { margin-top: 16px; border: 2px solid color-mix(in srgb, var(--accent) 35%, var(--line)); }
+#probe-hue .hue-result h3 { margin: 18px 0 10px; font-size: 1.05rem; }
+#probe-hue .hue-result-kicker { margin: 0 0 4px; font-size: .78rem; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; color: var(--accent-ink); }
+#probe-hue .hue-total { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+#probe-hue .hue-total-num b { font-size: 2.6rem; font-weight: 900; line-height: 1.1; font-variant-numeric: tabular-nums; }
+#probe-hue .hue-total-num span { font-weight: 800; color: var(--text-dim); }
+#probe-hue .hue-total-pct { font-weight: 900; font-size: 1.2rem; color: var(--accent-ink); }
+#probe-hue .hue-bar { height: 12px; border-radius: 6px; background: var(--surface-3); overflow: hidden; margin: 8px 0 14px; }
+#probe-hue .hue-bar > span { display: block; height: 100%; width: 0; border-radius: 6px; background: var(--accent); transition: width .5s var(--ease), background-color .3s; }
+#probe-hue .hue-result[data-grade="1"] .hue-bar > span, #probe-hue .hue-result[data-grade="2"] .hue-bar > span { background: var(--ok); }
+#probe-hue .hue-result[data-grade="3"] .hue-bar > span, #probe-hue .hue-result[data-grade="4"] .hue-bar > span { background: var(--c-orange); }
+#probe-hue .hue-grade-row { display: flex; align-items: center; gap: 14px; }
+#probe-hue .hue-grade-row p { margin: 0; }
+#probe-hue .hue-grade-row .hue-disclaimer { margin-top: 2px; }
+#probe-hue .hue-grade {
+  flex: none; width: 60px; height: 60px; border-radius: 18px;
+  display: grid; place-items: center; font-size: 2rem; font-weight: 900;
+  background: var(--surface-2); color: var(--text-dim); border: 2px dashed var(--line-strong);
+}
+#probe-hue .hue-result[data-grade] .hue-grade { border-style: solid; }
+#probe-hue .hue-result[data-grade="1"] .hue-grade, #probe-hue .hue-result[data-grade="2"] .hue-grade { background: var(--ok-soft); color: var(--ok); border-color: var(--ok); }
+#probe-hue .hue-result[data-grade="3"] .hue-grade, #probe-hue .hue-result[data-grade="4"] .hue-grade { background: var(--c-orange-soft); color: var(--c-orange-ink); border-color: var(--c-orange); }
+#probe-hue .hue-result[data-grade="5"] .hue-grade, #probe-hue .hue-result[data-grade="6"] .hue-grade { background: var(--c-red-soft); color: var(--c-red-ink); border-color: var(--c-red); }
+#probe-hue .hue-result[data-grade=""] .hue-grade { border-style: dashed; }
+#probe-hue .hue-eval-row { margin-top: 14px; }
+#probe-hue .hue-recs-msg { margin: 16px 0 0; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--accent-soft); font-weight: 700; }
+#probe-hue .hue-rec-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+#probe-hue .hue-rec {
+  display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: start;
+  margin: 0; padding: 10px 12px; border-radius: 14px; background: var(--surface-2);
+}
+#probe-hue .hue-rec p { margin: 0; }
+#probe-hue .hue-rec-ico {
+  width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 900; color: #fff; background: var(--text-dim);
+}
+#probe-hue .hue-rec.ok .hue-rec-ico { background: var(--ok); }
+#probe-hue .hue-rec.mid .hue-rec-ico { background: var(--c-orange); }
+#probe-hue .hue-rec.bad .hue-rec-ico { background: var(--c-red); }
+#probe-hue .hue-rec-pts { font-size: .82rem; font-weight: 800; color: var(--text-dim); white-space: nowrap; }
+#probe-hue .hue-rec-state { font-size: .85rem; font-weight: 800; color: var(--text-dim); }
+#probe-hue .hue-rec.ok .hue-rec-state { color: var(--ok); }
+#probe-hue .hue-rec.mid .hue-rec-state { color: var(--c-orange-ink); }
+#probe-hue .hue-rec.bad .hue-rec-state { color: var(--c-red-ink); }
+#probe-hue .hue-rec-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px !important; }
+#probe-hue .hue-go {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 4px 12px;
+  border-radius: 999px; text-decoration: none; font-weight: 800; font-size: .88rem;
+  background: var(--accent-soft); color: var(--accent-ink);
+  border: 1.5px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+#probe-hue .hue-go:hover { border-color: var(--accent); }
+#probe-hue .hue-key { margin-top: 14px; }
+#probe-hue .hue-key .table-wrap { margin-bottom: 14px; }
+#probe-hue .hue-result-actions { margin-top: 14px; }
+#probe-hue .hue-reset-score.is-armed { background: var(--bad-soft); color: var(--bad); }
+
+@media (prefers-reduced-motion: reduce) {
+  #probe-hue .hue-timer.is-last[data-state="running"] .hue-time { animation: none; }
+}
+
+/* ---------- Druck ---------- */
+@media print {
+  #probe-hue > .ch-head, #probe-hue .hue-b-intro, #probe-hue .hue-b-timer, #probe-hue .hue-nh, #probe-hue .hue-mini,
+  #probe-hue .hue-gate, #probe-hue .hue-result-actions, #probe-hue .hue-eval-row, #probe-hue .hue-recs { display: none !important; }
+  #probe-hue .block { margin-top: 0; }
+
+  /* Standard (auch „Kapitel drucken“ im Menü): nur das Aufgabenblatt der aktiven Version */
+  body:not(.hue-print-sol) #probe-hue .hue-b-corr { display: none !important; }
+  body.hue-print-sol #probe-hue .hue-b-sheet { display: none !important; }
+
+  #probe-hue .hue-paper { border: 0; border-top: 0; padding: 0; box-shadow: none; }
+  #probe-hue .hue-paper-head { margin-bottom: 6pt; }
+  #probe-hue .hue-ph-badge { width: 30pt; height: 30pt; border-radius: 8pt; font-size: 16pt; }
+  #probe-hue .hue-ph-title { font-size: 14pt; }
+  #probe-hue .hue-ph-meta { margin-bottom: 6pt; }
+  #probe-hue .hue-ph-meta li { background: none; border: 1pt solid #bbb; padding: 0 8pt; font-size: 9pt; }
+  #probe-hue .hue-ph-fields { display: flex !important; justify-content: space-between; gap: 12pt; margin: 4pt 0 10pt; font-weight: 700; font-size: 10.5pt; }
+  #probe-hue .hue-q { padding: 9pt 0; border-top: 1pt dashed #999; break-inside: avoid; page-break-inside: avoid; }
+  #probe-hue .hue-q-head { margin-bottom: 5pt; }
+  #probe-hue .hue-q-head h3 { font-size: 12pt; }
+  #probe-hue .hue-num { width: 20pt; height: 20pt; font-size: 10pt; }
+  #probe-hue .hue-pts, #probe-hue .hue-score { background: none; border: 1pt solid #999; color: #000; font-size: 9.5pt; }
+  #probe-hue .hue-parts { gap: 4pt; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  #probe-hue .hue-parts:not(.hue-cols) { grid-template-columns: 1fr; }
+  #probe-hue .hue-parts > li { background: none; padding: 2pt 4pt 2pt 22pt; }
+  #probe-hue .hue-parts > li::before { left: 4pt; top: 2pt; }
+  #probe-hue .hue-q { display: flow-root; }
+  #probe-hue .hue-sheet .hue-fig { float: right; width: 6.2cm; margin: 0 0 4pt 12pt; padding: 2pt; }
+  #probe-hue .hue-fig .qg-plot { max-width: 6.2cm; margin: 0; }
+  #probe-hue .hue-eh .hue-fig { width: 5.2cm; padding: 2pt; }
+  #probe-hue .hue-note { font-size: 8.8pt; }
+  #probe-hue .hue-q .mblock { background: none; padding: 4pt; }
+  #probe-hue .hue-work { background-size: 10pt 10pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  #probe-hue .hue-paper-end { margin-top: 4pt; }
+
+  /* Lösungen */
+  #probe-hue .hue-panel[hidden] { display: none !important; }
+  #probe-hue .hue-corr.is-locked .hue-corr-body { display: flex !important; }
+  #probe-hue .hue-corr-body { gap: 8pt; }
+  #probe-hue .hue-print-title { display: block !important; font-size: 16pt; font-weight: 900; margin: 0 0 4pt; border-bottom: 2pt solid var(--accent); padding-bottom: 4pt; }
+  body.hue-print-sol #probe-hue details.hue-eh { display: block !important; border: 0 !important; background: none !important; margin: 0; }
+  body.hue-print-sol #probe-hue details.hue-eh > summary { display: none; }
+  #probe-hue .hue-c { border: 1pt solid #999; padding: 6pt 9pt; font-size: 9.5pt; line-height: 1.35; }
+  #probe-hue .hue-c-head { margin-bottom: 4pt; break-after: avoid; page-break-after: avoid; }
+  body.hue-print-sol #probe-hue details.hue-eh > div { columns: 2; column-gap: 14pt; }
+  #probe-hue .hue-eh p { margin: 0 0 3pt; break-after: avoid; page-break-after: avoid; }
+  #probe-hue .hue-eh .calc { font-size: 9.5pt; padding: 3pt 6pt; margin: 0 0 4pt; row-gap: 0; break-inside: avoid; }
+  #probe-hue .hue-eh .calc .l, #probe-hue .hue-eh .calc .r { padding-top: 1pt; padding-bottom: 1pt; }
+  #probe-hue .hue-eh .calc .op { padding: 1pt 0 1pt 8pt; }
+  #probe-hue .hue-eh figure { break-inside: avoid; margin: 0 0 3pt; }
+  #probe-hue .hue-fig-sm .qg-plot { max-width: 5cm; }
+  #probe-hue .hue-probe { padding: 3pt 6pt; margin: 0 0 3pt; }
+  #probe-hue .hue-crit { margin-top: 4pt; gap: 0; break-inside: avoid; }
+  #probe-hue .hue-crit label { min-height: 0; padding: 2pt 6pt; background: none !important; border: 0 !important; font-size: 10pt; }
+  #probe-hue .hue-crit .m { white-space: nowrap; }
+#probe-hue .hue-crit input { width: 12pt; height: 12pt; }
+  #probe-hue .hue-crit legend { margin-bottom: 2pt; }
+  #probe-hue .hue-result { border: 1pt solid #999; break-inside: avoid; page-break-inside: avoid; }
+  #probe-hue .hue-key > summary { display: none; }
+}

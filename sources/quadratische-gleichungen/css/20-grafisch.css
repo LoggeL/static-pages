@@ -1,0 +1,228 @@
+/* Kapitel 20 · Grafisch lösen – alles unter #grafisch */
+
+/* Formeln im Fließtext nicht mitten im Term umbrechen */
+#grafisch .m { white-space: nowrap; }
+
+/* ---------- Abbildungen ---------- */
+#grafisch figure.graf-fig { margin: 16px 0 0; }
+#grafisch figure figcaption {
+  margin-top: 8px; font-size: .92rem; color: var(--text-dim); line-height: 1.45; text-align: center;
+}
+#grafisch .graf-trio {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 12px;
+}
+#grafisch .graf-mini { margin: 0; min-width: 0; }
+#grafisch .graf-mini .qg-plot-wrap { padding: 3px; }
+#grafisch .graf-mini figcaption {
+  display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: 6px;
+  font-size: .8rem; line-height: 1.25;
+}
+#grafisch .graf-mini figcaption .pill { font-size: .74rem; white-space: nowrap; padding-left: 8px; padding-right: 8px; }
+#grafisch .task .qg-plot-wrap, #grafisch .step-math .qg-plot-wrap, #grafisch details .qg-plot-wrap { margin: 10px 0; }
+
+/* ---------- Rezept ---------- */
+#grafisch .graf-recipe, #grafisch .graf-merk {
+  list-style: none; counter-reset: graf; padding: 0; margin: 14px 0 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+#grafisch .graf-recipe > li, #grafisch .graf-merk > li {
+  counter-increment: graf; position: relative; padding-left: 44px; min-height: 32px; line-height: 1.5;
+}
+#grafisch .graf-recipe > li::before, #grafisch .graf-merk > li::before {
+  content: counter(graf); position: absolute; left: 0; top: -1px;
+  display: grid; place-items: center; width: 32px; height: 32px; border-radius: 11px;
+  background: var(--accent); color: var(--on-accent); font-weight: 900; font-size: .95rem;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+#grafisch .graf-merk { gap: 8px; margin-top: 4px; }
+#grafisch .graf-merk > li { padding-left: 36px; min-height: 26px; }
+#grafisch .graf-merk > li::before { width: 26px; height: 26px; border-radius: 8px; font-size: .82rem; top: 0; background: var(--box, var(--accent)); }
+
+#grafisch .grid2 { margin-top: 16px; }
+#grafisch .graf-howto-title { font-weight: 900; margin: 0 0 8px; display: flex; align-items: center; gap: 8px; }
+#grafisch .graf-howto ul, #grafisch .graf-pro ul, #grafisch .graf-con ul { padding-left: 1.15em; margin: 0; }
+#grafisch .graf-howto li + li, #grafisch .graf-pro li + li, #grafisch .graf-con li + li { margin-top: 5px; }
+#grafisch .graf-schablone { display: flex; flex-direction: column; gap: 4px; margin: 10px 0; }
+#grafisch .graf-schablone > span {
+  background: var(--accent-soft); color: var(--accent-ink); border-radius: 10px; padding: 6px 12px; font-weight: 700;
+}
+#grafisch .graf-schablone b { font-size: 1.12em; }
+#grafisch .graf-pro { border-top: 4px solid var(--ok); }
+#grafisch .graf-con { border-top: 4px solid var(--bad); }
+#grafisch .graf-lr .card { padding: 12px 14px; }
+#grafisch .graf-lr .card p:last-child { font-size: 1.08em; }
+#grafisch .graf-dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; flex: none; }
+#grafisch .graf-dot.blue { background: var(--c-blue); }
+#grafisch .graf-dot.orange { background: var(--c-orange); }
+
+/* Wertetabellen (waagrecht) */
+#grafisch .graf-wt { width: fit-content; max-width: 100%; margin-top: 8px; }
+#grafisch .graf-wt table.nice { width: auto; }
+#grafisch .graf-wt th, #grafisch .graf-wt td { padding: 7px 5px; min-width: 2.1em; font-variant-numeric: tabular-nums; white-space: nowrap; font-size: .95em; }
+#grafisch .graf-wt thead th { font-size: .95em; letter-spacing: 0; }
+@media (max-width: 420px) {
+  #grafisch .graf-wt th, #grafisch .graf-wt td { padding: 6px 3px; min-width: 1.8em; font-size: .9em; }
+}
+#grafisch .graf-wt tbody th { background: var(--surface-2); }
+#grafisch .graf-wt thead th:first-child { border-right: 1px solid var(--line); }
+#grafisch .graf-wt tbody th { border-right: 1px solid var(--line); }
+#grafisch .graf-wt td.graf-zero { background: var(--c-orange-soft); color: var(--c-orange-ink); font-weight: 900; }
+#grafisch .graf-wt td.graf-s { background: var(--c-slate-soft); color: var(--c-slate-ink); font-weight: 800; }
+
+#grafisch ol.graf-sub { padding-left: 1.3em; margin: 0 0 4px; }
+#grafisch ol.graf-sub li + li { margin-top: 4px; }
+
+/* ---------- Labor-Widgets ---------- */
+#grafisch .graf-lab { padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+#grafisch .graf-seg {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px;
+  background: var(--surface-2); border-radius: 14px;
+}
+#grafisch .graf-seg button {
+  min-height: 44px; border: 0; border-radius: 11px; background: transparent; color: var(--text-dim);
+  font: inherit; font-weight: 800; font-size: .92rem; cursor: pointer; padding: 6px 8px; line-height: 1.2;
+  transition: background-color .2s, color .2s, box-shadow .2s;
+}
+#grafisch .graf-seg button[aria-pressed="true"] {
+  background: var(--surface); color: var(--accent-ink);
+  box-shadow: var(--shadow-1), inset 0 0 0 1.5px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+#grafisch .graf-seg button:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; }
+
+#grafisch .graf-eq {
+  text-align: center; font-size: 1.32em; font-weight: 700; line-height: 1.35;
+  padding: 10px 12px; border-radius: var(--radius-sm);
+  background: var(--accent-soft); color: var(--text);
+  overflow-x: auto; white-space: nowrap; scrollbar-width: thin;
+}
+#grafisch .graf-gl .graf-eq { font-size: 1.12em; }
+#grafisch .graf-lab-plot { padding: 4px; }
+
+#grafisch .graf-sliders { display: flex; flex-direction: column; gap: 2px; }
+#grafisch .graf-sl {
+  display: grid; grid-template-columns: var(--graf-lw, 34px) minmax(0, 1fr) 4.2em; align-items: center; gap: 10px;
+}
+#grafisch .graf-gl .graf-sl { --graf-lw: 7.4em; }
+#grafisch .graf-gl .graf-sl label { flex-direction: row; justify-content: flex-start; align-items: baseline; gap: 6px; }
+#grafisch .graf-gl .graf-sl-name { font-size: .62em; }
+#grafisch .graf-sl[hidden] { display: none; }
+#grafisch .graf-sl label {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-width: 34px; font-size: 1.2em; font-weight: 800; color: var(--sl-c); line-height: 1.05;
+}
+#grafisch .graf-sl label .m var { font-weight: 900; }
+#grafisch .graf-sl-name { font-size: .56em; font-weight: 800; color: var(--text-dim); letter-spacing: .02em; }
+#grafisch .graf-sl output {
+  text-align: right; font-weight: 900; font-variant-numeric: tabular-nums; font-size: 1.05em; white-space: nowrap;
+}
+
+/* Range-Input */
+#grafisch .graf-sl input[type="range"] {
+  -webkit-appearance: none; appearance: none; width: 100%; height: 44px; margin: 0;
+  background: transparent; cursor: pointer; touch-action: pan-y;
+  --pct: 50%;
+}
+#grafisch .graf-sl input[type="range"]:focus { outline: none; }
+#grafisch .graf-sl input[type="range"]::-webkit-slider-runnable-track {
+  height: 8px; border-radius: 4px;
+  background: linear-gradient(to right, var(--sl-c) 0 var(--pct), var(--surface-3, var(--line)) var(--pct) 100%);
+}
+#grafisch .graf-sl input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 28px; height: 28px; border-radius: 50%; margin-top: -10px;
+  background: var(--surface); border: 3.5px solid var(--sl-c);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .18);
+  transition: transform .15s;
+}
+#grafisch .graf-sl input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.12); }
+#grafisch .graf-sl input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 5px color-mix(in srgb, var(--sl-c) 30%, transparent); }
+#grafisch .graf-sl input[type="range"]::-moz-range-track { height: 8px; border-radius: 4px; background: var(--surface-3, var(--line)); }
+#grafisch .graf-sl input[type="range"]::-moz-range-progress { height: 8px; border-radius: 4px; background: var(--sl-c); }
+#grafisch .graf-sl input[type="range"]::-moz-range-thumb {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--surface); border: 3.5px solid var(--sl-c); box-shadow: 0 2px 6px rgba(0, 0, 0, .18);
+}
+#grafisch .graf-sl input[type="range"]:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 5px color-mix(in srgb, var(--sl-c) 30%, transparent); }
+
+/* Ausgabe */
+#grafisch .graf-out { display: flex; flex-direction: column; gap: 6px; }
+#grafisch .graf-row {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 12px;
+  padding: 8px 12px; border-radius: 12px; background: var(--surface-2);
+}
+#grafisch .graf-k { font-size: .8rem; font-weight: 850; letter-spacing: .04em; text-transform: uppercase; color: var(--text-dim); }
+#grafisch .graf-v { font-weight: 700; text-align: right; margin-left: auto; }
+#grafisch .graf-v .pill { margin-left: 6px; vertical-align: 1px; }
+#grafisch .graf-res { background: var(--accent-soft); }
+#grafisch .graf-res .graf-v { font-size: 1.12em; }
+#grafisch .graf-note {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 10px 12px; border-radius: 12px; font-size: .93rem; line-height: 1.45;
+  background: var(--c-blue-soft); color: var(--text);
+}
+#grafisch .graf-note.warn { background: var(--c-yellow-soft); box-shadow: inset 3px 0 0 var(--c-yellow); }
+#grafisch .graf-note.ok { background: var(--ok-soft); }
+#grafisch .graf-round { margin: 0; text-align: right; }
+
+#grafisch .graf-presets { display: flex; flex-wrap: wrap; gap: 8px; }
+#grafisch .graf-chip {
+  min-height: 40px; padding: 6px 14px; border-radius: 999px; cursor: pointer;
+  border: 1.5px solid var(--line); background: var(--surface); color: var(--text);
+  font: inherit; font-weight: 800; font-size: .88rem;
+  transition: border-color .15s, background-color .15s, transform .1s;
+}
+#grafisch .graf-chip:hover { border-color: var(--accent); background: var(--accent-soft); }
+#grafisch .graf-chip:active { transform: scale(.96); }
+#grafisch .graf-chip:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Missionen */
+#grafisch .graf-mission {
+  border: 1.5px dashed color-mix(in srgb, var(--c-orange) 55%, var(--line));
+  background: color-mix(in srgb, var(--c-orange-soft) 60%, var(--surface));
+  border-radius: var(--radius-sm); padding: 12px 14px;
+  transition: border-color .25s, background-color .25s;
+}
+#grafisch .graf-mission.is-hit, #grafisch .graf-mission.is-done {
+  border-style: solid; border-color: color-mix(in srgb, var(--ok) 60%, var(--line)); background: var(--ok-soft);
+}
+#grafisch .graf-mission > p { margin: 8px 0 0; }
+#grafisch .graf-mis-head { display: flex; gap: 8px; align-items: center; }
+#grafisch .graf-mission details.hint { margin-top: 10px; background: var(--surface); }
+#grafisch .graf-mission .btn-row { margin-top: 10px; }
+#grafisch .graf-mis-yes { margin: 10px 0 0; font-weight: 800; color: color-mix(in srgb, var(--ok) 80%, var(--text)); }
+
+@media (min-width: 600px) {
+  #grafisch .graf-trio { gap: 14px; }
+  #grafisch .graf-schablone { flex-direction: row; flex-wrap: wrap; }
+}
+
+@media print {
+  #grafisch .graf-lab { break-inside: avoid; }
+  #grafisch .graf-eq { background: none; border: 1px solid #999; }
+  #grafisch .graf-row { background: none; border: 1px solid #ccc; }
+  #grafisch .graf-recipe > li::before, #grafisch .graf-merk > li::before { box-shadow: none; }
+  #grafisch .qg-plot-wrap { break-inside: avoid; }
+}
+
+/* ---------- Probe-Blöcke ---------- */
+#grafisch .graf-probe {
+  background: var(--surface-2); border-radius: var(--radius-sm); padding: 10px 12px; margin: 10px 0;
+  display: flex; flex-direction: column; gap: 6px;
+}
+#grafisch details .graf-probe { background: var(--surface); }
+#grafisch .graf-probe > p { margin: 0; line-height: 1.5; }
+#grafisch .graf-probe > p:not(.graf-probe-h) { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: baseline; gap: 8px; }
+#grafisch .graf-pe { min-width: 0; }
+#grafisch .graf-probe-h { font-size: .78rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: var(--text-dim); }
+#grafisch .graf-probe-h .m { text-transform: none; letter-spacing: 0; font-size: 1.15rem; }
+#grafisch .graf-x {
+  display: inline-block; background: var(--accent-soft); color: var(--accent-ink);
+  border-radius: 8px; padding: 0 8px; font-weight: 800; white-space: nowrap;
+}
+#grafisch .graf-ok { color: var(--ok); font-weight: 900; }
+@media (min-width: 480px) {
+  #grafisch .choices.graf-cols { display: grid; grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 420px) {
+  #grafisch .table-wrap:not(.graf-wt) table.nice :is(th, td) { padding-left: 8px; padding-right: 8px; }
+}

@@ -1,0 +1,154 @@
+/* Spickzettel (#spickzettel) */
+
+#spickzettel .sz-actions { margin-top: 14px; }
+
+#spickzettel .sz-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin-top: 16px; }
+@media (min-width: 680px) {
+  #spickzettel .sz-grid { display: block; columns: 2; column-gap: 12px; }
+  #spickzettel .sz-grid > .sz-card { break-inside: avoid; margin: 0 0 12px; }
+}
+
+#spickzettel .sz-card {
+  --sz: var(--c-yellow); --sz-soft: var(--c-yellow-soft); --sz-ink: var(--c-yellow-ink);
+  position: relative; min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 5px solid var(--sz);
+  border-radius: var(--radius);
+  padding: 12px 14px 14px;
+  box-shadow: var(--shadow-1);
+  font-size: .95rem; line-height: 1.5;
+}
+#spickzettel .sz-card p { margin: 0 0 6px; }
+#spickzettel .sz-card > :last-child { margin-bottom: 0; }
+#spickzettel .sz-way { --sz: var(--accent); --sz-soft: var(--accent-soft); --sz-ink: var(--accent-ink); background: color-mix(in srgb, var(--accent-soft) 45%, var(--surface)); border-color: color-mix(in srgb, var(--accent) 30%, var(--line)); }
+#spickzettel .sz-basics, #spickzettel .sz-null { --sz: var(--c-violet); --sz-ink: var(--c-violet-ink); --sz-soft: var(--c-violet-soft); }
+#spickzettel .sz-which { --sz: var(--c-pink); --sz-ink: var(--c-pink-ink); --sz-soft: var(--c-pink-soft); }
+#spickzettel .sz-binom { --sz: var(--c-slate); --sz-ink: var(--c-slate-ink); --sz-soft: var(--c-slate-soft); }
+#spickzettel .sz-errors { --sz: var(--c-red); --sz-ink: var(--c-red-ink); --sz-soft: var(--c-red-soft); }
+#spickzettel .sz-check { --sz: var(--c-teal); --sz-ink: var(--c-teal-ink); --sz-soft: var(--c-teal-soft); }
+
+#spickzettel .sz-h {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 1.02rem; font-weight: 900; margin: 0 0 8px; color: var(--sz-ink);
+  letter-spacing: 0;
+}
+#spickzettel .sz-tag { font-size: 1.05rem; line-height: 1; }
+#spickzettel .sz-num {
+  flex: none; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-size: .85rem; font-weight: 900;
+  background: var(--sz); color: #fff;
+}
+
+#spickzettel .sz-dim { color: var(--text-dim); font-weight: 600; }
+#spickzettel .sz-card .m { white-space: nowrap; }
+#spickzettel .sz-small { font-size: .9em; }
+#spickzettel .sz-quote { font-weight: 800; font-style: italic; border-left: 3px solid var(--sz); padding-left: 10px; }
+#spickzettel .sz-ex {
+  background: var(--surface-2); border-radius: 10px; padding: 6px 10px; margin: 0 0 6px;
+  line-height: 1.65;
+}
+#spickzettel .sz-way .sz-ex { background: var(--surface); }
+
+#spickzettel .sz-defs { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; margin: 0; }
+#spickzettel .sz-defs dt { font-weight: 800; color: var(--text-dim); font-size: .88em; padding-top: .12em; }
+#spickzettel .sz-defs dd { margin: 0; }
+
+#spickzettel .sz-way-body { display: grid; grid-template-columns: 1fr 74px; gap: 10px; align-items: center; margin: 0 0 6px; }
+#spickzettel .sz-mini { width: 74px; height: auto; display: block; overflow: visible; }
+#spickzettel .sz-mini .sz-ax { stroke: var(--text-dim); stroke-width: 2; }
+#spickzettel .sz-mini .sz-par { fill: none; stroke: var(--c-blue); stroke-width: 5; stroke-linecap: round; }
+#spickzettel .sz-mini .sz-pt { fill: var(--c-red); stroke: var(--surface); stroke-width: 2; }
+#spickzettel .sz-mini text { font: 800 15px var(--font); fill: var(--text); }
+
+#spickzettel .sz-recipe { margin: 0; padding-left: 1.35em; }
+#spickzettel .sz-recipe li { margin: 0; }
+#spickzettel .sz-recipe li + li { margin-top: 1px; }
+#spickzettel .sz-recipe li::marker { color: var(--sz-ink); font-weight: 900; }
+#spickzettel .sz-recipe-inline { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 4px; counter-reset: sz-r; margin: 0 0 8px; }
+#spickzettel .sz-recipe-inline li {
+  counter-increment: sz-r; margin: 0 !important;
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 2px 9px 2px 3px; border-radius: 999px;
+  background: var(--surface); border: 1px solid color-mix(in srgb, var(--sz) 30%, var(--line));
+  font-size: .86em; font-weight: 700; line-height: 1.5;
+}
+#spickzettel .sz-recipe-inline li::before {
+  content: counter(sz-r); flex: none;
+  width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center;
+  font-size: .78em; font-weight: 900; background: var(--sz); color: #fff;
+}
+#spickzettel .sz-recipe-inline .frac { font-size: .8em; }
+
+#spickzettel .sz-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+#spickzettel .sz-list li { margin: 0; padding: 6px 10px; background: var(--surface); border-radius: 10px; line-height: 1.55; }
+#spickzettel .sz-list li > b:first-child { color: var(--sz-ink); }
+
+#spickzettel .sz-way .calc { background-color: var(--surface); font-size: .98em; margin: 0; }
+#spickzettel .sz-way .calc {
+  background-image:
+    linear-gradient(to right, var(--surface), var(--surface)),
+    linear-gradient(to right, var(--surface), var(--surface)),
+    linear-gradient(to right, color-mix(in srgb, var(--text) 12%, transparent), transparent),
+    linear-gradient(to left, color-mix(in srgb, var(--text) 12%, transparent), transparent);
+}
+#spickzettel .sz-way .calc .op { color: var(--sz-ink); }
+#spickzettel .sz-bcalc { margin: 0 0 8px; font-size: 1em; }
+#spickzettel .sz-bcalc .op { color: var(--sz-ink); min-width: 0; padding-left: 12px; }
+
+#spickzettel .sz-rules { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
+#spickzettel .sz-rules li {
+  margin: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, auto); align-items: baseline; gap: 2px 10px;
+  padding: 4px 0; border-bottom: 1px dashed var(--line);
+}
+#spickzettel .sz-rules li:last-child { border-bottom: 0; }
+#spickzettel .sz-rules li > b { font-weight: 900; text-align: right; max-width: 15em; }
+#spickzettel .sz-rules li > b::before { content: "→ "; color: var(--text-dim); font-weight: 700; }
+#spickzettel .c-green { color: var(--c-green-ink); }
+#spickzettel .c-orange { color: var(--c-orange-ink); }
+#spickzettel .c-blue { color: var(--c-blue-ink); }
+#spickzettel .sz-rules li:first-child { background: var(--c-pink-soft); border-radius: 8px; padding: 4px 8px; border: 0; margin-bottom: 2px; }
+
+#spickzettel .sz-err { margin: 0; padding-left: 1.5em; }
+#spickzettel .sz-err li { margin: 0; }
+#spickzettel .sz-err li + li { margin-top: 3px; }
+#spickzettel .sz-err li::marker { color: var(--c-red); font-weight: 900; }
+
+/* ---------- Druck: genau eine A4-Seite ---------- */
+@media print {
+  #spickzettel > .ch-head { display: none !important; }
+  #spickzettel .sz-printhead {
+    display: flex !important; align-items: center; gap: 6pt;
+    font-size: 11pt; margin: 0 0 5pt; padding: 0 0 4pt;
+    border-bottom: 2pt solid var(--c-yellow);
+  }
+  #spickzettel .sz-printhead b { font-size: 14pt; font-weight: 900; }
+  #spickzettel .sz-ph-right { margin-left: auto; color: #555; font-size: 9pt; }
+  #spickzettel .sz-grid { display: block !important; columns: 2; column-gap: 7pt; margin: 0; }
+  #spickzettel .sz-grid > .sz-card { break-inside: avoid; page-break-inside: avoid; margin: 0 0 6pt; }
+  #spickzettel .sz-card {
+    font-size: 9pt; line-height: 1.32; padding: 4pt 6pt 5pt;
+    border-radius: 5pt; border-top-width: 3pt; box-shadow: none;
+  }
+  #spickzettel .sz-card p { margin: 0 0 2.5pt; }
+  #spickzettel .sz-h { font-size: 10pt; margin: 0 0 3pt; gap: 4pt; }
+  #spickzettel .sz-tag { font-size: 9pt; }
+  #spickzettel .sz-num { width: 13pt; height: 13pt; font-size: 7.5pt; }
+  #spickzettel .sz-ex { padding: 2pt 5pt; margin: 0 0 2.5pt; line-height: 1.4; border-radius: 4pt; }
+  #spickzettel .sz-way-body { grid-template-columns: 1fr 40pt; gap: 4pt; margin: 0 0 2.5pt; }
+  #spickzettel .sz-mini { width: 40pt; }
+  #spickzettel .sz-list { gap: 2pt; }
+  #spickzettel .sz-list li { padding: 2pt 5pt; line-height: 1.4; border-radius: 4pt; }
+  #spickzettel .sz-recipe-inline { gap: 2pt; margin: 0 0 3pt; }
+  #spickzettel .sz-recipe-inline li { padding: 0 5pt 0 1pt; font-size: 8.3pt; }
+  #spickzettel .sz-recipe-inline li::before { width: 10pt; height: 10pt; font-size: 6.5pt; }
+  #spickzettel .calc { padding: 2pt 4pt; font-size: 9pt; line-height: 1.3; row-gap: 0; }
+  #spickzettel .calc .l, #spickzettel .calc .r { padding-top: 0; padding-bottom: 0; }
+  #spickzettel .calc .op { padding: 0 0 0 8pt; min-width: 0; }
+  #spickzettel .sz-defs { gap: 1pt 6pt; }
+  #spickzettel .sz-rules { gap: 0; }
+  #spickzettel .sz-rules li { padding: 1pt 0; }
+  #spickzettel .sz-rules li:first-child { padding: 1pt 4pt; }
+  #spickzettel .sz-err li + li { margin-top: 1pt; }
+  #spickzettel .sz-quote { padding-left: 5pt; }
+}

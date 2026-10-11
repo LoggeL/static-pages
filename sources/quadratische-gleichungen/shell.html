@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f4fa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e0d16" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+<title>Quadratische Gleichungen ohne Formel – Lernseite Klasse 9</title>
+<meta name="description" content="Quadratische Gleichungen lösen – ohne Lösungsformel: grafisch, durch Faktorisieren und mit quadratischer Ergänzung. Erklärungen, Beispiele Schritt für Schritt, Übungsaufgaben mit sofortigem Feedback, Probe-HÜ und Spickzettel für Klasse 9.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%236d4ee0'/%3E%3Cpath d='M8 36H56' stroke='white' stroke-opacity='.45' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M12 13Q32 73 52 13' fill='none' stroke='white' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='22.4' cy='36' r='5' fill='%23ffd166'/%3E%3Ccircle cx='41.6' cy='36' r='5' fill='%23ffd166'/%3E%3C/svg%3E">
+<script>
+/* Theme so früh wie möglich setzen (kein Aufblitzen) */
+(function () {
+  try {
+    var t = JSON.parse(localStorage.getItem('qg:theme'));
+    if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400..900;1,400..800&display=swap">
+<link rel="stylesheet" href="style.css?v={{V}}">
+</head>
+<body data-accent="violet">
+
+<header class="topbar no-print" id="qg-topbar">
+  <div class="topbar-inner">
+    <button type="button" class="tb-title" data-qg-menu aria-haspopup="dialog" aria-controls="qg-menu">
+      <span class="tb-icon" aria-hidden="true">🏁</span>
+      <span class="tb-text">
+        <span class="tb-kicker">Quadratische Gleichungen</span>
+        <span class="tb-short">Start</span>
+      </span>
+      <span class="sr-only">– Kapitelmenü öffnen</span>
+    </button>
+    <button type="button" class="icon-btn" data-qg-theme aria-label="Hell- oder Dunkelmodus umschalten" title="Hell/Dunkel">
+      <svg class="ico ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1Z"/></svg>
+      <svg class="ico ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M5.3 18.7l1.5-1.5M17.2 6.8l1.5-1.5"/></svg>
+    </button>
+    <button type="button" class="icon-btn" data-qg-menu aria-label="Kapitelmenü öffnen" aria-haspopup="dialog" aria-controls="qg-menu" title="Kapitel">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+    </button>
+  </div>
+  <div class="tb-progress" role="progressbar" aria-label="Gesamtfortschritt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+</header>
+
+<main id="main" class="page">
+<!--PARTS-->
+<nav class="ch-nav no-print" aria-label="Kapitel wechseln"></nav>
+</main>
+
+<footer class="site-foot no-print">
+  <p>Lernseite Klasse 9 · Quadratische Gleichungen ohne Lösungsformel</p>
+  <p class="muted small">Dein Fortschritt wird nur auf diesem Gerät gespeichert.</p>
+</footer>
+
+<dialog class="sheet no-print" id="qg-menu" aria-labelledby="qg-menu-title">
+  <div class="sheet-inner">
+    <div class="sheet-grip" aria-hidden="true"></div>
+    <div class="sheet-head">
+      <div>
+        <h2 id="qg-menu-title">Kapitel</h2>
+        <p class="sheet-total">0 von 0 Aufgaben gelöst</p>
+      </div>
+      <button type="button" class="icon-btn" data-qg-close aria-label="Menü schließen">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <nav class="menu-list" aria-label="Alle Kapitel"></nav>
+    <div class="sheet-foot">
+      <button type="button" class="btn ghost" data-qg-print>
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 17H4v-7a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v7h-3M7 14h10v7H7z"/></svg>
+        Kapitel drucken
+      </button>
+      <button type="button" class="btn ghost" data-qg-theme>
+        <svg class="ico ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1Z"/></svg>
+        <svg class="ico ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.5 1.5M17.2 17.2l1.5 1.5M5.3 18.7l1.5-1.5M17.2 6.8l1.5-1.5"/></svg>
+        Hell/Dunkel
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<div class="toasts no-print" id="qg-toasts" role="status" aria-live="polite" aria-atomic="false"></div>
+
+<script src="app.js?v={{V}}"></script>
+</body>
+</html>

@@ -1,0 +1,1305 @@
+<section class="chapter" id="nachhilfe" data-title="Für die Nachhilfe" data-short="Nachhilfe" data-color="slate" data-icon="🎓" data-print-solutions>
+  <header class="ch-head">
+    <p class="ch-kicker">Für die Nachhilfelehrkraft</p>
+    <h1>Leitfaden für die Nachhilfe</h1>
+    <p class="ch-lead">Alles für eine souveräne Stunde vor der HÜ: Lernziele, ein Stundenplan mit wörtlichen Impulsen, Erklärbilder, typische Fehler mit Gegenmitteln, Hefteinträge und ein druckfertiges Übungsblatt mit Lösungen.</p>
+  </header>
+
+  <!-- ============ Werkzeugleiste ============ -->
+  <div class="nh-toolbar no-print">
+    <button type="button" class="btn primary" data-nh-print="all">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 17H4v-7a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v7h-3M7 14h10v7H7z"/></svg>
+      Leitfaden drucken
+    </button>
+    <div class="nh-printopts" role="group" aria-label="Nur einen Teil drucken">
+      <span class="nh-printopts-lbl">Oder nur einen Teil drucken:</span>
+      <button type="button" class="btn" data-nh-print="sheets">Arbeitsblätter</button>
+      <button type="button" class="btn" data-nh-print="solutions">Lösungen</button>
+      <button type="button" class="btn" data-nh-print="guide">Leitfaden</button>
+    </div>
+    <p class="nh-toolbar-note small muted">„Leitfaden drucken“ enthält alles: Leitfaden, Diagnose-Blatt, Übungsblatt, Exit-Ticket, Hausaufgabe und am Ende das Lösungsblatt. „Arbeitsblätter“ ist die Version für deinen Schüler – ganz ohne Lösungen.</p>
+  </div>
+
+  <nav class="nh-toc no-print" aria-label="Inhalt dieses Leitfadens">
+    <a href="#nh-ziele"><span>1</span>Ziele &amp; Checkliste</a>
+    <a href="#nh-plan"><span>2</span>Stundenplan</a>
+    <a href="#nh-diagnose"><span>3</span>Diagnose</a>
+    <a href="#nh-strat"><span>4</span>Erklärstrategien</a>
+    <a href="#nh-fehler"><span>5</span>Typische Fehler</a>
+    <a href="#nh-heft"><span>6</span>Hefteinträge</a>
+    <a href="#nh-diff"><span>7</span>Differenzierung</a>
+    <a href="#nh-blatt"><span>8</span>Übungsblatt</a>
+    <a href="#nh-exit"><span>9</span>Exit-Ticket &amp; Hausaufgabe</a>
+  </nav>
+
+  <!-- =========================================================
+       1. ZIELE & CHECKLISTE
+       ========================================================= -->
+  <div class="block nh-guide" id="nh-ziele">
+    <h2>Worum es in der HÜ geht</h2>
+    <p>Dein Schüler soll quadratische Gleichungen auf <strong>drei Arten</strong> lösen – <strong>ohne Lösungsformel</strong> (keine p-q-Formel, keine Mitternachtsformel). Die HÜ ist kurz, also zählt vor allem: den passenden Weg erkennen, sauber rechnen, Lösungsmenge richtig hinschreiben.</p>
+
+    <div class="nh-ways">
+      <div class="nh-way" data-color="blue">
+        <span class="nh-way-ico" aria-hidden="true">📈</span>
+        <div><p class="nh-way-name">Weg 1 · Grafisch</p><p class="nh-way-txt">Parabel zeichnen, Nullstellen ablesen – oder Normalparabel mit Gerade schneiden. Immer mit Probe.</p></div>
+      </div>
+      <div class="nh-way" data-color="green">
+        <span class="nh-way-ico" aria-hidden="true">🧩</span>
+        <div><p class="nh-way-name">Weg 2 · Faktorisieren</p><p class="nh-way-txt"><span class="m">x</span> ausklammern, binomische Formel rückwärts oder Produkt-Summen-Trick, dann Satz vom Nullprodukt. Dazu der Sonderfall <span class="m">x² = k</span> (Wurzel ziehen, ±).</p></div>
+      </div>
+      <div class="nh-way" data-color="orange">
+        <span class="nh-way-ico" aria-hidden="true">🟧</span>
+        <div><p class="nh-way-name">Weg 3 · Quadratische Ergänzung</p><p class="nh-way-txt">Auf eine binomische Formel ergänzen, Wurzel ziehen, nach <span class="m">x</span> auflösen. Funktioniert immer.</p></div>
+      </div>
+    </div>
+
+    <div class="box achtung">
+      <p class="box-title">Keine Lösungsformel</p>
+      <p>Falls dein Schüler die p-q-Formel schon kennt (große Geschwister, YouTube): Heute bitte nicht benutzen. Die HÜ fragt ausdrücklich nach den drei Wegen. Gut zu wissen: Die quadratische Ergänzung ist genau der Weg, aus dem die Formel später hergeleitet wird.</p>
+    </div>
+
+    <h3>Checkliste: Das muss am Ende sitzen</h3>
+    <p class="muted small">Hak ab, was dein Schüler <em>allein</em> kann. Der Stand wird auf diesem Gerät gespeichert – praktisch für die nächste Stunde.</p>
+    <div class="card nh-checkcard" data-widget="nh-check">
+      <div class="nh-check-head">
+        <span class="nh-check-count" aria-live="polite">0 von 10 sicher</span>
+        <span class="nh-check-bar" aria-hidden="true"><span></span></span>
+        <button type="button" class="btn ghost nh-check-reset no-print">Zurücksetzen</button>
+      </div>
+      <ul class="nh-check">
+        <li><label><input type="checkbox" data-k="normal"><span>bringt eine Gleichung auf die Form <span class="m">… = 0</span> (Normalform <span class="m">x² + px + q = 0</span>, notfalls durch <span class="m">a</span> teilen)</span></label></li>
+        <li><label><input type="checkbox" data-k="null"><span>kann den <strong>Satz vom Nullprodukt</strong> sagen und anwenden – und weiß, dass er nur bei <span class="m">= 0</span> gilt</span></label></li>
+        <li><label><input type="checkbox" data-k="wurzel"><span>löst <span class="m">x² = k</span> mit <strong>±</strong> und erkennt: <span class="m">k</span> &lt; 0 ⇒ keine Lösung</span></label></li>
+        <li><label><input type="checkbox" data-k="aus"><span>klammert <span class="m">x</span> aus, statt durch <span class="m">x</span> zu teilen (Lösung 0 bleibt erhalten)</span></label></li>
+        <li><label><input type="checkbox" data-k="binom"><span>erkennt binomische Formeln rückwärts, z. B. <span class="m">x² − 8x + 16 = (x − 4)²</span></span></label></li>
+        <li><label><input type="checkbox" data-k="vieta"><span>faktorisiert mit dem <strong>Produkt-Summen-Trick</strong> (Satz von Vieta), auch mit negativen Zahlen</span></label></li>
+        <li><label><input type="checkbox" data-k="erg"><span>löst mit <strong>quadratischer Ergänzung</strong> – auch wenn Wurzeln herauskommen oder es keine Lösung gibt</span></label></li>
+        <li><label><input type="checkbox" data-k="graf"><span>liest Nullstellen bzw. Schnittstellen am Graphen ab und macht die <strong>Probe</strong></span></label></li>
+        <li><label><input type="checkbox" data-k="wahl"><span>wählt in wenigen Sekunden einen passenden Weg und kann die Wahl begründen</span></label></li>
+        <li><label><input type="checkbox" data-k="menge"><span>schreibt die Lösungsmenge korrekt: <span class="m">L = {−3; 2}</span>, <span class="m">L = {5}</span>, <span class="m">L = { }</span></span></label></li>
+      </ul>
+    </div>
+
+    <div class="box info">
+      <p class="box-title">Vorher kurz klären</p>
+      <ul>
+        <li>Lass dir <strong>Heft und Arbeitsblätter</strong> zeigen: Welche Schreibweise nutzt die Lehrkraft (<span class="m">L = {…}</span>, <span class="m">x1</span>/<span class="m">x2</span>, „∨“ oder „oder“)? Übernimm sie.</li>
+        <li>Wurde im Unterricht mit <strong>Parabelschablone</strong> gezeichnet? Wurde der Produkt-Summen-Trick (Satz von Vieta) behandelt?</li>
+        <li>Zählt „Wurzel ziehen“ dort als eigener Weg? Manche Lehrkräfte nennen die drei Wege „grafisch, Wurzel ziehen, quadratische Ergänzung“. Dieser Leitfaden deckt beides ab.</li>
+        <li>Wann ist die HÜ, wie lange dauert sie, ist ein Taschenrechner erlaubt?</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       2. STUNDENPLAN
+       ========================================================= -->
+  <div class="block nh-guide" id="nh-plan">
+    <h2>Stundenplan</h2>
+    <p>Acht Phasen plus eine kurze Pause, vom Einfachen zum Schweren. Die Reihenfolge ist bewusst: Erst der <strong>Satz vom Nullprodukt</strong>, weil Faktorisieren darauf aufbaut. Dann die <strong>Ergänzung</strong>, solange der Kopf noch frisch ist. <strong>Grafisch</strong> kommt danach als Kontrolle und Abwechslung.</p>
+
+    <div class="card nh-planbar" data-widget="nh-plan">
+      <div class="nh-seg no-print" role="group" aria-label="Länge der Stunde">
+        <button type="button" data-dur="90" aria-pressed="true">90 Minuten</button>
+        <button type="button" data-dur="60" aria-pressed="false">60 Minuten</button>
+      </div>
+      <p class="nh-plan-sum"><span class="nh-plan-total">90 Minuten</span> · <span class="nh-plan-count">8 Phasen + Pause</span><span class="print-only nh-print-dur"></span></p>
+      <div class="nh-timer no-print">
+        <div class="nh-timer-top">
+          <span class="nh-timer-clock" aria-live="off">0:00</span>
+          <span class="nh-timer-phase" aria-live="polite">Stunden-Timer: zeigt dir, in welcher Phase du sein solltest.</span>
+        </div>
+        <div class="nh-timer-bar" aria-hidden="true"><span></span></div>
+        <div class="btn-row">
+          <button type="button" class="btn primary nh-timer-go">▶ Stunde starten</button>
+          <button type="button" class="btn ghost nh-timer-reset" hidden>↺ Zurücksetzen</button>
+          <button type="button" class="btn ghost nh-expand">Alle Phasen aufklappen</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="nh-phases">
+
+      <!-- Phase 1 -->
+      <article class="nh-phase" data-color="violet" data-m90="10" data-m60="6">
+        <div class="nh-ph-head">
+          <span class="nh-ph-num" aria-hidden="true">1</span>
+          <div>
+            <p class="nh-ph-time"><span class="nh-ph-range">Min. 0–10</span> · <span class="nh-ph-len">10 Min.</span></p>
+            <h3>Ankommen &amp; Diagnose</h3>
+          </div>
+        </div>
+        <p class="nh-ph-goal"><b>Ziel:</b> Herausfinden, was schon sitzt und wo es hakt. Druck rausnehmen.</p>
+        <details class="more"><summary>Ablauf, Impulse &amp; Material</summary><div class="nh-ph-body">
+          <h4 class="nh-lbl say">Du sagst / fragst</h4>
+          <ul class="nh-say">
+            <li>„Zeig mir mal, was ihr zuletzt im Heft gemacht habt. Was fandest du da schwierig?“</li>
+            <li>„Ich hab fünf kurze Aufgaben. Das ist kein Test – ich will nur wissen, wo wir anfangen. Wenn du etwas nicht weißt, mal ein Fragezeichen hin.“</li>
+            <li>„Erzähl mir bei Aufgabe 3 mal laut, was du gedacht hast.“</li>
+          </ul>
+          <h4 class="nh-lbl do">Dein Schüler</h4>
+          <p>löst die fünf Diagnose-Aufgaben auf Papier (höchstens 5 Minuten) und erklärt dir danach eine oder zwei laut.</p>
+          <h4 class="nh-lbl mat">Material</h4>
+          <ul class="nh-mat">
+            <li><a href="#nh-diagnose">Diagnose-Aufgaben mit Auswertung</a> (auch als Druckblatt bei „Arbeitsblätter“)</li>
+            <li>Heft und Arbeitsblätter aus der Schule</li>
+          </ul>
+          <p class="nh-v90"><b>Tipp:</b> Nicht korrigieren, nur beobachten. Die Fehler sind dein Fahrplan für die Stunde.</p>
+          <p class="nh-v60"><b>In 60 Minuten:</b> Heft nur kurz durchblättern, Diagnose mit 4 Minuten Zeitlimit.</p>
+        </div></details>
+      </article>
+
+      <!-- Phase 2 -->
+      <article class="nh-phase" data-color="violet" data-m90="8" data-m60="5">
+        <div class="nh-ph-head">
+          <span class="nh-ph-num" aria-hidden="true">2</span>
+          <div>
+            <p class="nh-ph-time"><span class="nh-ph-range">Min. 10–18</span> · <span class="nh-ph-len">8 Min.</span></p>
+            <h3>Satz vom Nullprodukt sichern</h3>
+          </div>
+        </div>
+        <p class="nh-ph-goal"><b>Ziel:</b> Dein Schüler weiß: Nur wenn auf einer Seite <span class="m">0</span> steht, darf man jeden Faktor einzeln null setzen.</p>
+        <details class="more"><summary>Ablauf, Impulse &amp; Material</summary><div class="nh-ph-body">
+          <h4 class="nh-lbl say">Du sagst / fragst</h4>
+          <ul class="nh-say">
+            <li>„Ich denke mir zwei Zahlen. Ihr Produkt ist 0. Was weißt du sicher über meine Zahlen?“</li>
+            <li>„Und wenn das Produkt 12 ist – kannst du dann auch etwas sicher sagen?“ <span class="muted">(Nein: 3 · 4, 2 · 6, 1 · 12, (−3) · (−4) …)</span></li>
+            <li>„Wenn ein Produkt 0 ist, muss einer die 0 mitgebracht haben. Wer könnte das hier sein?“ <span class="muted">(auf die Klammern zeigen)</span></li>
+            <li>„Welche Zahl muss ich für <span class="m">x</span> einsetzen, damit <span class="m">x + 5</span> null wird?“</li>
+          </ul>
+          <h4 class="nh-lbl do">Dein Schüler</h4>
+          <p>löst drei Produktgleichungen mündlich, z. B. <span class="m">(x − 2)(x + 6) = 0</span>, <span class="m">x(x − 9) = 0</span>, <span class="m">(x + 1)² = 0</span>, und schreibt eine davon sauber mit „oder“ und <span class="m">L = {…}</span> auf.</p>
+          <h4 class="nh-lbl mat">Material</h4>
+          <ul class="nh-mat">
+            <li><a href="#nh-s-null">Erklärstrategie Nullprodukt</a></li>
+            <li><a href="#nh-blatt">Übungsblatt</a> Aufgabe 1</li>
+            <li>Kapitel <a href="#grundlagen">Grundlagen</a></li>
+          </ul>
+          <p class="nh-v90"><b>Stolperstelle:</b> Vorzeichen. Aus <span class="m">x + 5 = 0</span> folgt <span class="m">x = −5</span>. Lass ihn die Zahl immer einsetzen statt „abzulesen“.</p>
+          <p class="nh-v60"><b>In 60 Minuten:</b> Nur das Zahlenrätsel und zwei Gleichungen mündlich.</p>
+        </div></details>
+      </article>
+
+      <!-- Phase 3 -->
+      <article class="nh-phase" data-color="green" data-m90="20" data-m60="14">
+        <div class="nh-ph-head">
+          <span class="nh-ph-num" aria-hidden="true">3</span>
+          <div>
+            <p class="nh-ph-time"><span class="nh-ph-range">Min. 18–38</span> · <span class="nh-ph-len">20 Min.</span></p>
+            <h3>Weg 2: Faktorisieren</h3>
+          </div>
+        </div>
+        <p class="nh-ph-goal"><b>Ziel:</b> Aus einer Summe ein Produkt machen – mit drei Werkzeugen. Dazu der Sonderfall <span class="m">x² = k</span>.</p>
+        <details class="more"><summary>Ablauf, Impulse &amp; Material</summary><div class="nh-ph-body">
+          <ol class="nh-sub">
+            <li><b>Wurzel ziehen</b> bei <span class="m">x² = k</span> <span class="nh-mins">2 Min.</span></li>
+            <li><b><span class="m">x</span> ausklammern</b>, wenn die Zahl fehlt <span class="nh-mins nh-v90">3 Min.</span><span class="nh-mins nh-v60">2 Min.</span></li>
+            <li class="nh-v90"><b>Binomische Formel rückwärts</b> <span class="nh-mins">3 Min.</span></li>
+            <li><b>Produkt-Summen-Trick</b> (Vieta) <span class="nh-mins nh-v90">7 Min.</span><span class="nh-mins nh-v60">6 Min.</span></li>
+            <li><b>Üben:</b> Übungsblatt 2, 3, 5–8 (eine Auswahl) <span class="nh-mins nh-v90">5 Min.</span><span class="nh-mins nh-v60">4 Min.</span></li>
+          </ol>
+          <h4 class="nh-lbl say">Du sagst / fragst</h4>
+          <ul class="nh-say">
+            <li>„Bei <span class="m">x² = 49</span>: Welche Zahl mal sich selbst ergibt 49? Findest du noch eine zweite?“</li>
+            <li>„Bei <span class="m">x² − 5x = 0</span>: Was steckt in beiden Teilen drin? Hol es vor die Klammer.“</li>
+            <li>„Darf ich hier durch <span class="m">x</span> teilen? Was wäre, wenn <span class="m">x</span> gerade 0 ist?“</li>
+            <li>„Produkt-Summen-Trick: Such zwei Zahlen, die <em>mal</em> genommen −15 und <em>plus</em> genommen 2 ergeben.“</li>
+            <li>„Kontrolle: Multiplizier deine Klammern wieder aus. Kommt die Gleichung heraus?“</li>
+          </ul>
+          <h4 class="nh-lbl do">Dein Schüler</h4>
+          <p>legt für das Rätsel eine kleine Tabelle mit Faktorpaaren an, faktorisiert, liest die Lösungen ab und prüft durch Ausmultiplizieren.</p>
+          <h4 class="nh-lbl mat">Material</h4>
+          <ul class="nh-mat">
+            <li><a href="#nh-s-vieta">Erklärstrategie Produkt-Summen-Trick</a> mit Rätsel-Generator</li>
+            <li><a href="#nh-heft">Hefteintrag 1</a></li>
+            <li>Kapitel <a href="#faktorisieren">Faktorisieren</a></li>
+          </ul>
+          <p class="nh-v60"><b>In 60 Minuten:</b> Binomische Formeln überspringen – die kommen bei der Ergänzung ohnehin vor. Übungsblatt 8 wird Hausaufgabe.</p>
+        </div></details>
+      </article>
+
+      <!-- Phase 4 -->
+      <article class="nh-phase nh-phase-pause" data-color="teal" data-m90="3" data-m60="0">
+        <div class="nh-ph-head">
+          <span class="nh-ph-num" aria-hidden="true">☕</span>
+          <div>
+            <p class="nh-ph-time"><span class="nh-ph-range">Min. 38–41</span> · <span class="nh-ph-len">3 Min.</span></p>
+            <h3>Kurze Pause</h3>
+          </div>
+        </div>
+        <p class="nh-ph-goal"><b>Ziel:</b> Aufstehen, trinken, kurz über etwas anderes reden. Danach kommt der anspruchsvollste Teil.</p>
+      </article>
+
+      <!-- Phase 5 -->
+      <article class="nh-phase" data-color="orange" data-m90="20" data-m60="14">
+        <div class="nh-ph-head">
+          <span class="nh-ph-num" aria-hidden="true">4</span>
+          <div>
+            <p class="nh-ph-time"><span class="nh-ph-range">Min. 41–61</span> · <span class="nh-ph-len">20 Min.</span></p>
+            <h3>Weg 3: Quadratische Ergänzung</h3>
+          </div>
+        </div>
+        <p class="nh-ph-goal"><b>Ziel:</b> Verstehen, <em>warum</em> man <span class="m">(p : 2)²</span> ergänzt – und das Rezept sicher anwenden.</p>
+        <details class="more"><summary>Ablauf, Impulse &amp; Material</summary><div class="nh-ph-body">
+          <ol class="nh-sub">
+            <li><b>Quadrat-Puzzle</b> mit Papier legen <span class="nh-mins nh-v90">6 Min.</span><span class="nh-mins nh-v60">3 Min.</span></li>
+            <li><b>Rezept</b> an einem Beispiel gemeinsam <span class="nh-mins">5 Min.</span></li>
+            <li><b>Allein rechnen:</b> Übungsblatt 9, du schaust nur zu <span class="nh-mins nh-v90">5 Min.</span><span class="nh-mins nh-v60">4 Min.</span></li>
+            <li><b>Sonderfälle:</b> Wurzel-Lösung (Blatt 11) und keine Lösung (Blatt 12) <span class="nh-mins nh-v90">4 Min.</span><span class="nh-mins nh-v60">2 Min.</span></li>
+          </ol>
+          <h4 class="nh-lbl say">Du sagst / fragst</h4>
+          <ul class="nh-say">
+            <li>„Hier ist ein Quadrat, <span class="m">x</span> mal <span class="m">x</span>, und ein Streifen. Bau daraus ein möglichst großes Quadrat. Was fehlt?“</li>
+            <li>„Wie groß ist das fehlende Eckstück? Was hat das mit der 6 zu tun?“</li>
+            <li>„Warum halbieren wir zuerst?“ <span class="muted">(Weil der Streifen an zwei Seiten anliegt.)</span></li>
+            <li>„Was du links dazulegst, musst du rechts auch dazulegen – sonst kippt die Waage.“</li>
+            <li>„Bei Blatt 12 steht am Ende <span class="m">(x + 2)² = −1</span>. Kann ein Quadrat negativ sein?“</li>
+          </ul>
+          <h4 class="nh-lbl do">Dein Schüler</h4>
+          <p>legt das Puzzle, formuliert das Rezept in eigenen Worten (aufschreiben lassen!) und rechnet Aufgabe 9 allein.</p>
+          <h4 class="nh-lbl mat">Material</h4>
+          <ul class="nh-mat">
+            <li>Kariertes Papier, Schere, zwei Buntstifte</li>
+            <li><a href="#nh-s-erg">Erklärstrategie Quadrat-Puzzle</a> (mit Bildschirm-Puzzle)</li>
+            <li><a href="#nh-heft">Hefteintrag 2</a> · Kapitel <a href="#ergaenzung">Ergänzung</a></li>
+          </ul>
+          <p class="nh-v60"><b>In 60 Minuten:</b> Puzzle am Bildschirm zeigen statt basteln. Aufgaben 11 und 12 werden Hausaufgabe.</p>
+        </div></details>
+      </article>
+
+      <!-- Phase 6 -->
+      <article class="nh-phase" data-color="blue" data-m90="10" data-m60="6">
+        <div class="nh-ph-head">
+          <span class="nh-ph-num" aria-hidden="true">5</span>
+          <div>
+            <p class="nh-ph-time"><span class="nh-ph-range">Min. 61–71</span> · <span class="nh-ph-len">10 Min.</span></p>
+            <h3>Weg 1: Grafisch lösen</h3>
+          </div>
+        </div>
+        <p class="nh-ph-goal"><b>Ziel:</b> Lösungen = Nullstellen der Parabel (oder Schnittstellen mit einer Geraden). Ablesen und Probe gehören zusammen.</p>
+        <details class="more"><summary>Ablauf, Impulse &amp; Material</summary><div class="nh-ph-body">
+          <h4 class="nh-lbl say">Du sagst / fragst</h4>
+          <ul class="nh-say">
+            <li>„Welchen <span class="m">y</span>-Wert hat jeder Punkt auf der <span class="m">x</span>-Achse?“</li>
+            <li>„Die Gleichung fragt: Für welche <span class="m">x</span> ist <span class="m">x² − 2x − 3</span> genau 0? Wo sieht man das am Graphen?“</li>
+            <li>„Lies ab – und dann beweis mir mit einer Probe, dass es stimmt.“</li>
+            <li class="nh-v90">„Schreib <span class="m">x² − x − 2 = 0</span> als <span class="m">x² = x + 2</span>. Welche zwei Graphen kannst du jetzt zeichnen?“</li>
+          </ul>
+          <h4 class="nh-lbl do">Dein Schüler</h4>
+          <p>liest bei Übungsblatt 4 ab und macht die Probe. <span class="nh-v90">Dann zeichnet er für Aufgabe 10 Normalparabel und Gerade (mit Schablone) und liest die <span class="m">x</span>-Werte der Schnittpunkte ab.</span></p>
+          <h4 class="nh-lbl mat">Material</h4>
+          <ul class="nh-mat">
+            <li>Parabelschablone (gekauft oder <a href="#nh-s-graf">selbst gebastelt</a>), Geodreieck, kariertes Papier</li>
+            <li>Kapitel <a href="#grafisch">Grafisch</a></li>
+          </ul>
+          <p class="nh-v60"><b>In 60 Minuten:</b> Nur Aufgabe 4 am Bildschirm. Aufgabe 10 wird Hausaufgabe.</p>
+        </div></details>
+      </article>
+
+      <!-- Phase 7 -->
+      <article class="nh-phase" data-color="pink" data-m90="6" data-m60="4">
+        <div class="nh-ph-head">
+          <span class="nh-ph-num" aria-hidden="true">6</span>
+          <div>
+            <p class="nh-ph-time"><span class="nh-ph-range">Min. 71–77</span> · <span class="nh-ph-len">6 Min.</span></p>
+            <h3>Methodenwahl</h3>
+          </div>
+        </div>
+        <p class="nh-ph-goal"><b>Ziel:</b> In Sekunden erkennen, welcher Weg am bequemsten ist – ohne zu rechnen.</p>
+        <details class="more"><summary>Ablauf, Impulse &amp; Material</summary><div class="nh-ph-body">
+          <h4 class="nh-lbl say">Du sagst / fragst</h4>
+          <ul class="nh-say">
+            <li>„Ich zeig dir eine Gleichung. Du hast zehn Sekunden: Welchen Weg nimmst du und warum? Nicht rechnen!“</li>
+            <li>„Geht die Ergänzung hier auch? Und warum nimmst du sie trotzdem nicht?“</li>
+          </ul>
+          <h4 class="nh-lbl do">Dein Schüler</h4>
+          <p>begründet seine Wahl mit der Frageliste aus <a href="#nh-heft">Hefteintrag 3</a>. Blitzkarten zum Vorlesen:</p>
+          <div class="table-wrap nh-cardswrap">
+            <table class="nice nh-cards">
+              <thead><tr><th>Karte</th><th>Bester Weg</th><th>Lösung</th></tr></thead>
+              <tbody>
+                <tr><td class="narrow"><span class="m">x² = 36</span></td><td>Wurzel ziehen</td><td class="narrow"><span class="m">L = {−6; 6}</span></td></tr>
+                <tr><td class="narrow"><span class="m">x² + 4x = 0</span></td><td><span class="m">x</span> ausklammern</td><td class="narrow"><span class="m">L = {−4; 0}</span></td></tr>
+                <tr><td class="narrow"><span class="m">x² − 8x + 16 = 0</span></td><td>2. binomische Formel</td><td class="narrow"><span class="m">L = {4}</span></td></tr>
+                <tr><td class="narrow"><span class="m">x² + x − 6 = 0</span></td><td>Produkt-Summen-Trick: 3 und −2</td><td class="narrow"><span class="m">L = {−3; 2}</span></td></tr>
+                <tr><td class="narrow"><span class="m">x² + 4x − 3 = 0</span></td><td>Ergänzung (kein ganzzahliges Zahlenpaar)</td><td class="narrow"><span class="m">L = {−2 − √7; −2 + √7}</span></td></tr>
+                <tr><td class="narrow"><span class="m">2x² − 18 = 0</span></td><td>durch 2 teilen, Wurzel ziehen</td><td class="narrow"><span class="m">L = {−3; 3}</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h4 class="nh-lbl mat">Material</h4>
+          <ul class="nh-mat">
+            <li><a href="#nh-blitz">Methoden-Blitz</a> (unendlich viele Karten zum Antippen)</li>
+            <li>Kapitel <a href="#methodenwahl">Welcher Weg?</a></li>
+          </ul>
+        </div></details>
+      </article>
+
+      <!-- Phase 8 -->
+      <article class="nh-phase" data-color="red" data-m90="8" data-m60="7">
+        <div class="nh-ph-head">
+          <span class="nh-ph-num" aria-hidden="true">7</span>
+          <div>
+            <p class="nh-ph-time"><span class="nh-ph-range">Min. 77–85</span> · <span class="nh-ph-len">8 Min.</span></p>
+            <h3>Mini-HÜ</h3>
+          </div>
+        </div>
+        <p class="nh-ph-goal"><b>Ziel:</b> Die HÜ-Situation einmal echt erleben: allein, mit Zeitlimit, ohne Nachfragen.</p>
+        <details class="more"><summary>Ablauf, Impulse &amp; Material</summary><div class="nh-ph-body">
+          <h4 class="nh-lbl say">Du sagst / fragst</h4>
+          <ul class="nh-say">
+            <li>„Jetzt bin ich nicht da. Drei Aufgaben, <span class="nh-v90">sechs</span><span class="nh-v60">fünf</span> Minuten. Schreib bei jeder <span class="m">L = {…}</span> hin.“</li>
+            <li>Danach: „Welche war am leichtesten? Wo warst du unsicher?“</li>
+          </ul>
+          <h4 class="nh-lbl do">Mini-HÜ zum Diktieren</h4>
+          <div class="table-wrap nh-cardswrap">
+            <table class="nice nh-cards">
+              <thead><tr><th>Aufgabe</th><th>Weg</th><th>Lösung</th></tr></thead>
+              <tbody>
+                <tr><td class="narrow"><span class="m">5x² − 45 = 0</span></td><td>Wurzel ziehen</td><td class="narrow"><span class="m">L = {−3; 3}</span></td></tr>
+                <tr><td class="narrow"><span class="m">x² − 3x − 10 = 0</span></td><td>Faktorisieren: <span class="m">(x − 5)(x + 2) = 0</span></td><td class="narrow"><span class="m">L = {−2; 5}</span></td></tr>
+                <tr><td class="narrow"><span class="m">x² + 10x + 16 = 0</span></td><td>Ergänzung: <span class="m">(x + 5)² = 9</span></td><td class="narrow"><span class="m">L = {−8; −2}</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p><b>Bewerten wie in der HÜ:</b> je 1 Punkt für den Weg, die Rechnung und die korrekte Lösungsmenge (9 Punkte). Die restliche Zeit fürs gemeinsame Besprechen.</p>
+          <h4 class="nh-lbl mat">Material</h4>
+          <ul class="nh-mat">
+            <li>Alternative mit Timer und Punkten: Kapitel <a href="#probe-hue">Probe-HÜ</a></li>
+          </ul>
+        </div></details>
+      </article>
+
+      <!-- Phase 9 -->
+      <article class="nh-phase" data-color="slate" data-m90="5" data-m60="4">
+        <div class="nh-ph-head">
+          <span class="nh-ph-num" aria-hidden="true">8</span>
+          <div>
+            <p class="nh-ph-time"><span class="nh-ph-range">Min. 85–90</span> · <span class="nh-ph-len">5 Min.</span></p>
+            <h3>Abschluss: Exit-Ticket &amp; Hausaufgabe</h3>
+          </div>
+        </div>
+        <p class="nh-ph-goal"><b>Ziel:</b> Lernstand sichern, mit einem Erfolgserlebnis gehen, klarer Plan bis zur HÜ.</p>
+        <details class="more"><summary>Ablauf, Impulse &amp; Material</summary><div class="nh-ph-body">
+          <h4 class="nh-lbl say">Du sagst / fragst</h4>
+          <ul class="nh-say">
+            <li>„Drei letzte Aufgaben, jede auf einem anderen Weg. Danach gibst du dir pro Weg eine Ampelfarbe.“</li>
+            <li>„Erklär mir in einem Satz: Wann nimmst du welchen Weg?“</li>
+            <li>„Bis zur HÜ jeden Tag 15 Minuten. Ich schreib dir genau auf, was.“</li>
+          </ul>
+          <h4 class="nh-lbl do">Dein Schüler</h4>
+          <p>löst das Exit-Ticket (am Handy oder auf Papier) und füllt die Selbsteinschätzung aus. Die Hausaufgabe passt du an die roten Ampeln an.</p>
+          <h4 class="nh-lbl mat">Material</h4>
+          <ul class="nh-mat">
+            <li><a href="#nh-exit">Exit-Ticket mit Ampel</a> · <a href="#nh-ha">Hausaufgabe bis zur HÜ</a></li>
+            <li>Kapitel <a href="#spickzettel">Spickzettel</a> zum Mitgeben, <a href="#training">Trainingsraum</a> für zu Hause</li>
+          </ul>
+        </div></details>
+      </article>
+    </div>
+
+    <div class="box tipp">
+      <p class="box-title">Wenn die Zeit knapp wird</p>
+      <p>Kürze zuerst <strong>Methodenwahl</strong> und <strong>Grafisch</strong> – beides lässt sich gut zu Hause mit der Seite üben. Spar nie an der <strong>Ergänzung</strong>: Sie ist für die meisten der schwerste Teil der HÜ und braucht deine Begleitung.</p>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       3. DIAGNOSE
+       ========================================================= -->
+  <div class="block nh-guide" id="nh-diagnose">
+    <h2>Diagnose zum Einstieg</h2>
+    <p>Fünf Aufgaben, fünf Minuten. Jede prüft eine Voraussetzung. Die <em>Art</em> des Fehlers sagt dir, wo du ansetzen musst.</p>
+
+    <div class="nh-diags">
+      <article class="nh-diag card">
+        <p class="nh-dq"><span class="nh-dnum">D1</span> Löse: <span class="m">(x − 3)(x + 5) = 0</span></p>
+        <p class="nh-dok">Richtig: <span class="m">L = {−5; 3}</span></p>
+        <ul class="nh-dlist">
+          <li><span class="nh-dans"><span class="m">L = {−3; 5}</span></span> Vorzeichen falsch „abgelesen“ → in Phase 2 immer <em>einsetzen</em> lassen.</li>
+          <li><span class="nh-dans">multipliziert aus, steckt fest</span> Satz vom Nullprodukt unbekannt → Phase 2 ausführlich.</li>
+          <li><span class="nh-dans">nur <span class="m">x = 3</span></span> sieht nur eine Klammer → das „oder“ betonen.</li>
+        </ul>
+      </article>
+
+      <article class="nh-diag card">
+        <p class="nh-dq"><span class="nh-dnum">D2</span> Löse: <span class="m">x² = 49</span></p>
+        <p class="nh-dok">Richtig: <span class="m">L = {−7; 7}</span></p>
+        <ul class="nh-dlist">
+          <li><span class="nh-dans">nur <span class="m">7</span></span> ± vergessen → fragen: „Was ist <span class="m">(−7)²</span>?“</li>
+          <li><span class="nh-dans"><span class="m">24,5</span></span> verwechselt Quadrieren mit Verdoppeln → Potenzen kurz wiederholen.</li>
+        </ul>
+      </article>
+
+      <article class="nh-diag card">
+        <p class="nh-dq"><span class="nh-dnum">D3</span> Löse: <span class="m">x² − 6x = 0</span></p>
+        <p class="nh-dok">Richtig: <span class="m">L = {0; 6}</span></p>
+        <ul class="nh-dlist">
+          <li><span class="nh-dans">nur <span class="m">6</span></span> hat durch <span class="m">x</span> geteilt → „Nie durch <span class="m">x</span> teilen, <span class="m">x</span> ausklammern!“</li>
+          <li><span class="nh-dans"><span class="m">x = ±√6</span></span> hat <span class="m">−6x</span> wie eine Zahl behandelt → Termstruktur klären: Was ist <span class="m">x²</span>, was <span class="m">x</span>, was Zahl?</li>
+        </ul>
+      </article>
+
+      <article class="nh-diag card">
+        <p class="nh-dq"><span class="nh-dnum">D4</span> Schreib als Quadrat einer Klammer: <span class="m">x² − 8x + 16</span></p>
+        <p class="nh-dok">Richtig: <span class="m">(x − 4)²</span></p>
+        <ul class="nh-dlist">
+          <li><span class="nh-dans"><span class="m">(x − 8)²</span> oder <span class="m">(x + 4)²</span></span> binomische Formeln unsicher → vor der Ergänzung 3 Minuten wiederholen.</li>
+          <li><span class="nh-dans"><span class="m">(x − 4)(x + 4)</span></span> mit der 3. binomischen Formel verwechselt → alle drei nebeneinander aufschreiben.</li>
+        </ul>
+      </article>
+
+      <article class="nh-diag card">
+        <div class="nh-dq">
+          <p><span class="nh-dnum">D5</span> Hier ist der Graph von <span class="m">y = x² + 2x − 3</span>. Lies die Lösungen von <span class="m">x² + 2x − 3 = 0</span> ab.</p>
+          <figure class="nh-fig">
+            <div class="nh-plot" data-widget="nh-plot" data-plot="diag"></div>
+          </figure>
+        </div>
+        <p class="nh-dok">Richtig: <span class="m">L = {−3; 1}</span></p>
+        <ul class="nh-dlist">
+          <li><span class="nh-dans"><span class="m">−1</span> oder <span class="m">(−1 | −4)</span></span> hat den Scheitelpunkt abgelesen → „Lösung heißt: <span class="m">y</span> ist 0.“</li>
+          <li><span class="nh-dans">Punkt <span class="m">(0 | −3)</span></span> hat den Schnittpunkt mit der <span class="m">y</span>-Achse genommen → beide Achsen benennen lassen.</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="table-wrap">
+      <table class="nice">
+        <thead><tr><th>Ergebnis</th><th>So geht es weiter</th></tr></thead>
+        <tbody>
+          <tr><td class="narrow"><b>5 von 5</b></td><td>Tempo machen: Phasen 2 und 3 straffen, mehr Zeit für Ergänzung mit Wurzeln, Methodenwahl und die Stufe-3-Aufgaben.</td></tr>
+          <tr><td class="narrow"><b>3–4 von 5</b></td><td>Stundenplan wie vorgesehen. Die Fehler zeigen dir, welche Phase du etwas länger machst.</td></tr>
+          <tr><td class="narrow"><b>0–2 von 5</b></td><td>Fundament zuerst: Phase 2 auf 15 Minuten, binomische Formeln wiederholen, bei der Ergänzung nur gerade Zahlen vor dem <span class="m">x</span>. Siehe <a href="#nh-diff">Differenzierung</a>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       4. ERKLÄRSTRATEGIEN
+       ========================================================= -->
+  <div class="block nh-guide" id="nh-strat">
+    <h2>Erklärstrategien</h2>
+    <p>Pro Weg ein Bild, das hängen bleibt, ein Satz zum Wörtlich-Sagen und etwas zum Anfassen. Bilder schlagen Regeln – vor allem unter HÜ-Stress.</p>
+
+    <!-- Nullprodukt -->
+    <article class="nh-strat card" data-color="violet" id="nh-s-null">
+      <p class="nh-strat-kicker">Grundlage für Weg 2</p>
+      <h3>Satz vom Nullprodukt</h3>
+      <div class="nh-strat-grid">
+        <div class="nh-strat-part"><p class="nh-lbl pic">Das Bild</p>
+          <p>„Wenn ein Produkt 0 ist, muss <strong>einer die 0 mitgebracht haben</strong>.“ Bei 3 · 4 · 0 · 7 ist es egal, wie groß die anderen sind – die 0 macht alles zu 0. Und ohne 0 kommt nie 0 heraus.</p></div>
+        <div class="nh-strat-part"><p class="nh-lbl say">So sagst du es</p>
+          <p>„In <span class="m">(x − 3)(x + 5) = 0</span> stehen zwei Faktoren. Einer davon muss null sein. Also fragen wir jeden einzeln: Wann bist <em>du</em> null?“</p></div>
+        <div class="nh-strat-part"><p class="nh-lbl hand">Zum Ausprobieren</p>
+          <p>Zahlenrätsel: „Mein Produkt ist 0“ gegen „Mein Produkt ist 12“. Beim Produkt 12 gibt es unendlich viele Möglichkeiten (z. B. 3 · 4 oder 24 · 0,5) – deshalb geht der Trick <strong>nur mit 0</strong>.</p></div>
+        <div class="nh-strat-part warn"><p class="nh-lbl warn">Vorsicht</p>
+          <p>Aus <span class="m">(x − 2)(x + 1) = 4</span> folgt <strong>nicht</strong> <span class="m">x − 2 = 4</span>. Erst ausmultiplizieren und alles auf eine Seite bringen.</p></div>
+      </div>
+    </article>
+
+    <!-- Wurzel -->
+    <article class="nh-strat card" data-color="green" id="nh-s-wurzel">
+      <p class="nh-strat-kicker">Weg 2 · Sonderfall</p>
+      <h3>Wurzel ziehen bei <span class="m">x² = k</span></h3>
+      <div class="nh-strat-grid">
+        <div class="nh-strat-part"><p class="nh-lbl pic">Das Bild</p>
+          <p><strong>Zwillinge:</strong> 7 und −7 sehen nach dem Quadrieren gleich aus (beide geben 49). Wer rückwärts rechnet, muss beide Zwillinge finden.</p></div>
+        <div class="nh-strat-part"><p class="nh-lbl say">So sagst du es</p>
+          <p>„Welche Zahl hoch zwei gibt 49? Der Taschenrechner verrät dir nur eine. Die zweite musst du selbst wissen.“</p></div>
+        <div class="nh-strat-part"><p class="nh-lbl hand">Zum Ausprobieren</p>
+          <p>Drei Kärtchen: <span class="m">x² = 25</span>, <span class="m">x² = 0</span>, <span class="m">x² = −9</span>. Er soll sie nach Anzahl der Lösungen sortieren: 2, 1, 0. Kein Quadrat ist negativ!</p></div>
+        <div class="nh-strat-part warn"><p class="nh-lbl warn">Vorsicht</p>
+          <p>Erst <span class="m">x²</span> allein stellen: <span class="m">3x² − 48 = 0</span> → <span class="m">x² = 16</span> → <span class="m">x = ±4</span>.</p></div>
+      </div>
+    </article>
+
+    <!-- Vieta -->
+    <article class="nh-strat card" data-color="green" id="nh-s-vieta">
+      <p class="nh-strat-kicker">Weg 2 · Faktorisieren</p>
+      <h3>Der Produkt-Summen-Trick als „Mal-Plus-Rätsel“ (Satz von Vieta)</h3>
+      <div class="nh-strat-grid">
+        <div class="nh-strat-part"><p class="nh-lbl pic">Das Bild</p>
+          <p>Bei <span class="m">x² + 7x + 12 = 0</span> suchst du <strong>zwei Zahlen</strong>, die <strong>mal 12</strong> und <strong>plus 7</strong> ergeben: 3 und 4. Dann ist <span class="m">x² + 7x + 12 = (x + 3)(x + 4)</span>.</p></div>
+        <div class="nh-strat-part"><p class="nh-lbl say">So sagst du es</p>
+          <p>„Die Zahl hinten ist das Mal-Ergebnis, die Zahl vor dem <span class="m">x</span> das Plus-Ergebnis. Fang immer beim Mal an – da gibt es weniger Möglichkeiten.“</p></div>
+        <div class="nh-strat-part"><p class="nh-lbl why">Warum es klappt</p>
+          <p>Ausmultiplizieren zeigt es: <span class="m">(x + m)(x + n) = x² + (m + n)x + m · n</span>. Die Lösungen sind die <strong>Gegenzahlen</strong> <span class="m">−m</span> und <span class="m">−n</span>.</p></div>
+        <div class="nh-strat-part warn"><p class="nh-lbl warn">Vorzeichen-Regel</p>
+          <p>Mal-Ergebnis positiv → beide Zahlen haben das gleiche Vorzeichen (das der Plus-Zahl). Mal-Ergebnis negativ → verschiedene Vorzeichen, die betragsgrößere Zahl hat das Vorzeichen der Plus-Zahl.</p></div>
+      </div>
+      <p class="nh-lbl tool mt-ish no-print">Rätsel-Generator fürs Kopfrechen-Warm-up</p>
+      <div class="nh-riddle no-print" data-widget="nh-riddle"></div>
+    </article>
+
+    <!-- Ergänzung -->
+    <article class="nh-strat card" data-color="orange" id="nh-s-erg">
+      <p class="nh-strat-kicker">Weg 3</p>
+      <h3>Quadratische Ergänzung als Quadrat-Puzzle</h3>
+      <div class="nh-strat-grid">
+        <div class="nh-strat-part"><p class="nh-lbl pic">Das Bild</p>
+          <p><span class="m">x²</span> ist ein Quadrat, <span class="m">6x</span> ist ein Streifen. Halbiert man den Streifen und legt ihn an zwei Seiten an, <strong>fehlt nur eine Ecke</strong>: <span class="m">3 · 3 = 9</span>. Ergänzen heißt: die Ecke dazulegen.</p></div>
+        <div class="nh-strat-part"><p class="nh-lbl say">So sagst du es</p>
+          <p>„Halbieren, quadrieren, auf <em>beiden</em> Seiten dazuzählen. Dann steht links eine binomische Formel, und du kannst die Wurzel ziehen.“</p></div>
+        <div class="nh-strat-part"><p class="nh-lbl hand">Zum Basteln (5 Minuten)</p>
+          <ol class="nh-tight">
+            <li>Aus Karopapier ein großes Quadrat schneiden (z. B. 10 × 10 Kästchen) und „<span class="m">x²</span>“ draufschreiben.</li>
+            <li>Einen Streifen 10 × 6 Kästchen schneiden: „<span class="m">6x</span>“.</li>
+            <li>Streifen der Länge nach halbieren → zwei Streifen 10 × 3 („<span class="m">3x</span>“).</li>
+            <li>An die rechte und untere Seite legen. Was fehlt? Ein 3 × 3-Eckstück.</li>
+            <li>Ecke ausschneiden, andersfarbig anmalen, „+ 9“ draufschreiben. Fertig ist <span class="m">(x + 3)²</span>.</li>
+          </ol></div>
+        <div class="nh-strat-part warn"><p class="nh-lbl warn">Vorsicht</p>
+          <p>Die Ecke ist <span class="m">(p : 2)²</span>, nicht <span class="m">p</span> und nicht <span class="m">p²</span>. Und sie kommt auf <strong>beide Seiten</strong> der Gleichung.</p></div>
+      </div>
+      <p class="nh-lbl tool mt-ish no-print">Puzzle am Bildschirm</p>
+      <p class="small muted nh-tool-hint no-print">Wähle die Zahl vor dem <span class="m">x</span> und geh die drei Schritte durch.</p>
+      <div class="nh-puzzle no-print" data-widget="nh-puzzle"></div>
+    </article>
+
+    <!-- Grafisch -->
+    <article class="nh-strat card" data-color="blue" id="nh-s-graf">
+      <p class="nh-strat-kicker">Weg 1</p>
+      <h3>Grafisch: Parabel-Schablone basteln</h3>
+      <div class="nh-strat-grid">
+        <div class="nh-strat-part"><p class="nh-lbl pic">Das Bild</p>
+          <p>Die <span class="m">x</span>-Achse ist die <strong>Wasseroberfläche</strong>. Die Gleichung fragt: Wo taucht die Parabel ein und wieder auf? Zweimal, einmal (berührt nur) oder gar nicht – genauso viele Lösungen gibt es.</p></div>
+        <div class="nh-strat-part"><p class="nh-lbl say">So sagst du es</p>
+          <p>„Lösen heißt hier: Wo ist <span class="m">y</span> genau 0? Lies die <span class="m">x</span>-Werte ab – und weil Ablesen ungenau sein kann, kommt danach <em>immer</em> die Probe.“</p></div>
+        <div class="nh-strat-part"><p class="nh-lbl hand">Schablone basteln</p>
+          <ol class="nh-tight">
+            <li>Auf Karton (1 Einheit = 1 cm) die Punkte <span class="m">(0 | 0)</span>, <span class="m">(±1 | 1)</span>, <span class="m">(±2 | 4)</span>, <span class="m">(±3 | 9)</span> markieren.</li>
+            <li>Sauber verbinden, ausschneiden, Scheitel und Symmetrieachse markieren.</li>
+            <li>Mit der Schablone wird jede verschobene Normalparabel zum Kinderspiel.</li>
+          </ol></div>
+        <div class="nh-strat-part warn"><p class="nh-lbl warn">Trick mit Gerade</p>
+          <p><span class="m">x² − x − 2 = 0</span> umstellen zu <span class="m">x² = x + 2</span>. Dann nur Normalparabel und Gerade zeichnen. Gesucht sind die <span class="m">x</span>-Werte der Schnittpunkte – nicht die <span class="m">y</span>-Werte!</p></div>
+      </div>
+      <figure class="nh-fig">
+        <div class="nh-plot" data-widget="nh-plot" data-plot="schablone"></div>
+        <figcaption>Die Schablonen-Punkte der Normalparabel <span class="m">y = x²</span></figcaption>
+      </figure>
+    </article>
+
+    <!-- Methodenwahl -->
+    <article class="nh-strat card" data-color="pink" id="nh-s-wahl">
+      <p class="nh-strat-kicker">Alle Wege</p>
+      <h3>Welcher Weg? Die Fragen-Kaskade</h3>
+      <p>Bring die Gleichung zuerst auf die Form <span class="m">… = 0</span> (bzw. auf <span class="m">x² = k</span>). Dann der Reihe nach fragen – die erste passende Antwort gewinnt:</p>
+      <ol class="nh-cascade">
+        <li><span class="nh-q">Fehlt der <span class="m">x</span>-Term?</span><span class="nh-a">→ <span class="m">x²</span> allein stellen, Wurzel ziehen (±).</span></li>
+        <li><span class="nh-q">Fehlt die Zahl?</span><span class="nh-a">→ <span class="m">x</span> ausklammern.</span></li>
+        <li><span class="nh-q">Binomische Formel zu sehen?</span><span class="nh-a">→ als Quadrat schreiben.</span></li>
+        <li><span class="nh-q">Klappt der Produkt-Summen-Trick mit ganzen Zahlen?</span><span class="nh-a">→ faktorisieren.</span></li>
+        <li><span class="nh-q">Sonst:</span><span class="nh-a">→ quadratische Ergänzung. Die geht immer.</span></li>
+      </ol>
+      <p class="muted small">Grafisch nimmt man, wenn es verlangt ist, zum Überblick oder zur Kontrolle.</p>
+      <p class="nh-lbl tool mt-ish no-print" id="nh-blitz">Methoden-Blitz</p>
+      <p class="small muted nh-tool-hint no-print">Gleichung ansehen, Weg antippen – nicht rechnen. Ideal für Phase 6 oder als Warm-up.</p>
+      <div class="nh-blitz no-print" data-widget="nh-blitz"></div>
+    </article>
+  </div>
+
+  <!-- =========================================================
+       5. FEHLVORSTELLUNGEN
+       ========================================================= -->
+  <div class="block nh-guide" id="nh-fehler">
+    <h2>Typische Fehler &amp; Gegenmittel</h2>
+    <p>Die zehn häufigsten Stolpersteine. Wenn du einen erkennst: nicht nur korrigieren, sondern die passende Übungsaufgabe direkt hinterherschieben.</p>
+    <div class="table-wrap nh-errwrap">
+      <table class="nice nh-err">
+        <thead><tr><th>Fehler</th><th>Woran du ihn erkennst</th><th>Warum er passiert</th><th>Was hilft</th><th>Übungsaufgabe</th></tr></thead>
+        <tbody>
+          <tr>
+            <th scope="row" data-label="Fehler"><span class="nh-errn">1</span> Durch <span class="m">x</span> geteilt</th>
+            <td data-label="Erkennen"><span class="m">x² = 5x</span> → <span class="m">x = 5</span>. Die Lösung 0 fehlt.</td>
+            <td data-label="Ursache">„Teilen ist doch erlaubt.“ Durch 0 aber nicht – und <span class="m">x</span> könnte 0 sein.</td>
+            <td data-label="Was hilft">Merksatz: „Nie durch <span class="m">x</span> teilen – <span class="m">x</span> ausklammern!“ Probe mit <span class="m">x = 0</span> machen lassen.</td>
+            <td data-label="Übung"><span class="m">x² = 7x</span><br><span class="nh-sol">→ <span class="m">L = {0; 7}</span></span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Fehler"><span class="nh-errn">2</span> ± vergessen</th>
+            <td data-label="Erkennen"><span class="m">x² = 16</span> → <span class="m">x = 4</span>. Nur die positive Lösung.</td>
+            <td data-label="Ursache">Die √-Taste liefert nur eine Zahl.</td>
+            <td data-label="Was hilft">„Was ist <span class="m">(−4)²</span>?“ Zwillingsbild. Beim Wurzelziehen sofort „±“ schreiben.</td>
+            <td data-label="Übung"><span class="m">x² − 25 = 0</span><br><span class="nh-sol">→ <span class="m">L = {−5; 5}</span></span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Fehler"><span class="nh-errn">3</span> Nullprodukt ohne 0</th>
+            <td data-label="Erkennen"><span class="m">(x − 2)(x + 1) = 4</span> → <span class="m">x − 2 = 4</span> oder <span class="m">x + 1 = 4</span>.</td>
+            <td data-label="Ursache">Das Muster „Klammern einzeln gleichsetzen“ ist auswendig gelernt, nicht verstanden.</td>
+            <td data-label="Was hilft">Produkt 4 hat viele Zerlegungen: 1 · 4, 2 · 2, (−1) · (−4) … „Nur die 0 ist magisch.“</td>
+            <td data-label="Übung"><span class="m">(x − 2)(x + 1) = 4</span><br><span class="nh-sol">→ <span class="m">x² − x − 6 = 0</span> → <span class="m">L = {−2; 3}</span></span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Fehler"><span class="nh-errn">4</span> Vorzeichen beim Ablesen</th>
+            <td data-label="Erkennen"><span class="m">(x + 3)(x − 1) = 0</span> → <span class="m">x = 3</span>, <span class="m">x = −1</span>.</td>
+            <td data-label="Ursache">Die Zahl wird aus der Klammer „abgeschrieben“ statt die Gleichung <span class="m">x + 3 = 0</span> gelöst.</td>
+            <td data-label="Was hilft">Jede Klammer als eigene Mini-Gleichung aufschreiben. Oder fragen: „Was muss ich einsetzen, damit die Klammer 0 wird?“</td>
+            <td data-label="Übung"><span class="m">(x + 4)(x − 6) = 0</span><br><span class="nh-sol">→ <span class="m">L = {−4; 6}</span></span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Fehler"><span class="nh-errn">5</span> Ergänzung nur links</th>
+            <td data-label="Erkennen"><span class="m">x² + 6x = 7</span> → <span class="m">x² + 6x + 9 = 7</span>.</td>
+            <td data-label="Ursache">„Ergänzen“ wird als Umformen des Terms verstanden, nicht als Umformen der Gleichung.</td>
+            <td data-label="Was hilft">Waage-Bild: „Was du links dazulegst, legst du rechts auch dazu.“ Rechenzeichen <span class="m">| + 9</span> immer hinschreiben.</td>
+            <td data-label="Übung"><span class="m">x² + 8x = 9</span><br><span class="nh-sol">→ <span class="m">(x + 4)² = 25</span> → <span class="m">L = {−9; 1}</span></span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Fehler"><span class="nh-errn">6</span> Falsche Ergänzungszahl</th>
+            <td data-label="Erkennen">Bei <span class="m">x² + 6x</span> wird <span class="m">6</span> oder <span class="m">36</span> ergänzt statt <span class="m">9</span>.</td>
+            <td data-label="Ursache">Die Regel „halbieren, quadrieren“ ist nur halb gemerkt.</td>
+            <td data-label="Was hilft">Quadrat-Puzzle: zwei Streifen → halbieren; Ecke ist ein Quadrat → quadrieren.</td>
+            <td data-label="Übung">Was ergänzt man bei <span class="m">x² + 10x</span>?<br><span class="nh-sol">→ <span class="m">5² = 25</span></span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Fehler"><span class="nh-errn">7</span> Nicht normiert</th>
+            <td data-label="Erkennen"><span class="m">2x² + 8x − 10 = 0</span>: Produkt-Summen-Trick mit „mal −10, plus 8“ oder Ergänzung mit <span class="m">4²</span>.</td>
+            <td data-label="Ursache">Produkt-Summen-Trick und Ergänzung (so wie gelernt) funktionieren nur, wenn vor <span class="m">x²</span> eine 1 steht.</td>
+            <td data-label="Was hilft">Erster Schritt immer: „Steht <span class="m">x²</span> allein? Sonst durch die Zahl davor teilen.“</td>
+            <td data-label="Übung"><span class="m">2x² + 8x − 10 = 0</span><br><span class="nh-sol">→ <span class="m">x² + 4x − 5 = 0</span> → <span class="m">L = {−5; 1}</span></span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Fehler"><span class="nh-errn">8</span> Grafisch: falsche Werte</th>
+            <td data-label="Erkennen">Schreibt <span class="m">y</span>-Werte der Schnittpunkte oder den Scheitelpunkt als Lösung. Oder krumme Werte wie 1,8 ohne Probe.</td>
+            <td data-label="Ursache">Unklar, was „Lösung“ am Graphen bedeutet. Ablesen ist ungenau.</td>
+            <td data-label="Was hilft">„Lösungen stehen auf der <span class="m">x</span>-Achse.“ Abgelesene Werte immer einsetzen.</td>
+            <td data-label="Übung">Zeichne <span class="m">y = x² − 2x − 8</span>, lies ab, mach die Probe.<br><span class="nh-sol">→ <span class="m">L = {−2; 4}</span></span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Fehler"><span class="nh-errn">9</span> Binomische Formel „vergessen“</th>
+            <td data-label="Erkennen"><span class="m">(x + 3)² = x² + 9</span>.</td>
+            <td data-label="Ursache">„Hoch 2 auf jeden Teil“ fühlt sich logisch an.</td>
+            <td data-label="Was hilft">Zahlenbeispiel: <span class="m">(2 + 3)² = 25</span>, aber <span class="m">2² + 3² = 13</span>. Und das Quadrat-Puzzle: Es sind vier Teile, nicht zwei.</td>
+            <td data-label="Übung">Multipliziere aus: <span class="m">(x − 5)²</span><br><span class="nh-sol">→ <span class="m">x² − 10x + 25</span></span></td>
+          </tr>
+          <tr>
+            <th scope="row" data-label="Fehler"><span class="nh-errn">10</span> „Keine Lösung“ falsch notiert</th>
+            <td data-label="Erkennen">Schreibt <span class="m">L = {0}</span>, <span class="m">x = √−4</span> oder „Fehler“.</td>
+            <td data-label="Ursache"><span class="m">{0}</span> und <span class="m">{ }</span> sehen ähnlich aus. Dass ein Quadrat nie negativ ist, ist nicht präsent.</td>
+            <td data-label="Was hilft">„<span class="m">L = {0}</span> heißt: 0 ist eine Lösung. Mach die Probe mit 0!“ Leere Menge als leere Schachtel zeigen.</td>
+            <td data-label="Übung"><span class="m">x² + 2x + 5 = 0</span><br><span class="nh-sol">→ <span class="m">(x + 1)² = −4</span> → <span class="m">L = { }</span></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       6. HEFTEINTRÄGE
+       ========================================================= -->
+  <div class="block nh-guide" id="nh-heft">
+    <h2>Hefteinträge zum Abschreiben</h2>
+    <p>Drei Tafelbilder, die dein Schüler ins Heft übernimmt – am besten mit Füller und Lineal, Überschrift rot. Selbst geschrieben bleibt es besser hängen als ausgedruckt.</p>
+
+    <!-- Heft 1 -->
+    <article class="nh-heft" data-color="green">
+      <p class="nh-heft-no">Hefteintrag 1</p>
+      <h3 class="nh-heft-title">Quadratische Gleichungen lösen durch Faktorisieren</h3>
+      <p class="nh-heft-rule"><b>Satz vom Nullprodukt:</b> Ein Produkt ist genau dann null, wenn mindestens ein Faktor null ist.</p>
+      <div class="mblock">a · b = 0 ⇔ a = 0 oder b = 0</div>
+      <div class="nh-heft-ex">
+        <p class="nh-heft-sub">① <span class="m">x</span> ausklammern (wenn die Zahl fehlt)</p>
+        <div class="calc">
+          <div class="row"><span class="l">x² − 4x</span><span class="r">= 0</span><span class="op">| <span class="m">x</span> ausklammern</span></div>
+          <div class="row"><span class="l">x · (x − 4)</span><span class="r">= 0</span><span class="op">| Nullprodukt</span></div>
+          <div class="row"><span class="nh-or">x = 0 oder x = 4</span></div>
+          <div class="row result"><span class="nh-res">L = {0; 4}</span></div>
+        </div>
+        <p class="nh-heft-sub">② Binomische Formel rückwärts</p>
+        <div class="calc">
+          <div class="row"><span class="l">x² + 6x + 9</span><span class="r">= 0</span><span class="op">| 1. binomische Formel</span></div>
+          <div class="row"><span class="l">(x + 3)²</span><span class="r">= 0</span><span class="op">| Nullprodukt</span></div>
+          <div class="row"><span class="l">x</span><span class="r">= −3</span></div>
+          <div class="row result"><span class="nh-res">L = {−3}</span></div>
+        </div>
+        <p class="nh-heft-sub">③ Produkt-Summen-Trick: zwei Zahlen mit Produkt −15 und Summe 2 → 5 und −3</p>
+        <div class="calc">
+          <div class="row"><span class="l">x² + 2x − 15</span><span class="r">= 0</span><span class="op">| faktorisieren</span></div>
+          <div class="row"><span class="l">(x + 5)(x − 3)</span><span class="r">= 0</span><span class="op">| Nullprodukt</span></div>
+          <div class="row"><span class="nh-or">x = −5 oder x = 3</span></div>
+          <div class="row result"><span class="nh-res">L = {−5; 3}</span></div>
+        </div>
+        <p class="nh-heft-sub">Sonderfall <span class="m">x² = k</span>: Wurzel ziehen</p>
+        <ul class="nh-tight">
+          <li><span class="m">k &gt; 0</span>: zwei Lösungen <span class="m">x = ±√k</span>, z. B. <span class="m">x² = 9</span> → <span class="m">L = {−3; 3}</span></li>
+          <li><span class="m">k = 0</span>: eine Lösung <span class="m">x = 0</span></li>
+          <li><span class="m">k &lt; 0</span>: keine Lösung, <span class="m">L = { }</span></li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- Heft 2 -->
+    <article class="nh-heft" data-color="orange">
+      <p class="nh-heft-no">Hefteintrag 2</p>
+      <h3 class="nh-heft-title">Quadratische Ergänzung</h3>
+      <ol class="nh-recipe">
+        <li>Auf Normalform bringen (durch die Zahl vor <span class="m">x²</span> teilen).</li>
+        <li>Die Zahl ohne <span class="m">x</span> auf die rechte Seite bringen.</li>
+        <li>Die Hälfte der Zahl vor <span class="m">x</span> quadrieren und auf <strong>beiden</strong> Seiten addieren.</li>
+        <li>Links mit der binomischen Formel als Quadrat schreiben.</li>
+        <li>Wurzel ziehen (±). Steht rechts 0, gibt es nur eine Lösung. Steht rechts etwas Negatives: <span class="m">L = { }</span>.</li>
+        <li>Nach <span class="m">x</span> auflösen und <span class="m">L</span> angeben.</li>
+      </ol>
+      <p class="nh-heft-sub">Beispiel</p>
+      <div class="calc">
+        <div class="row"><span class="l">x² − 6x + 5</span><span class="r">= 0</span><span class="op">| − 5</span></div>
+        <div class="row"><span class="l">x² − 6x</span><span class="r">= −5</span><span class="op">| + 3² (Hälfte von 6, quadriert)</span></div>
+        <div class="row"><span class="l">x² − 6x + 9</span><span class="r">= 4</span><span class="op">| 2. binomische Formel</span></div>
+        <div class="row"><span class="l">(x − 3)²</span><span class="r">= 4</span><span class="op">| √ (±)</span></div>
+        <div class="row"><span class="l">x − 3</span><span class="r">= ±2</span><span class="op">| + 3</span></div>
+        <div class="row"><span class="l">x</span><span class="r">= 3 ± 2</span></div>
+        <div class="row"><span class="nh-or">x1 = 5 oder x2 = 1</span></div>
+        <div class="row result"><span class="nh-res">L = {1; 5}</span></div>
+      </div>
+      <p class="nh-heft-note">Merke: halbieren → quadrieren → auf beiden Seiten addieren.</p>
+    </article>
+
+    <!-- Heft 3 -->
+    <article class="nh-heft" data-color="blue">
+      <p class="nh-heft-no">Hefteintrag 3</p>
+      <h3 class="nh-heft-title">Grafisch lösen &amp; welcher Weg wann?</h3>
+      <p class="nh-heft-rule">Die Lösungen von <span class="m">x² + px + q = 0</span> sind die <b>Nullstellen</b> der Parabel <span class="m">y = x² + px + q</span>.</p>
+      <p><b>Variante:</b> Umstellen zu <span class="m">x² = −px − q</span>. Dann Normalparabel und Gerade zeichnen. Die Lösungen sind die <span class="m">x</span>-Werte der Schnittpunkte.</p>
+      <div class="nh-heft-ex">
+        <p class="nh-heft-sub">Beispiel: <span class="m">x² + x − 2 = 0</span> ⇔ <span class="m">x² = −x + 2</span></p>
+        <figure class="nh-fig">
+          <div class="nh-plot" data-widget="nh-plot" data-plot="heft3"></div>
+          <figcaption><span class="nh-key" data-color="blue"></span><span class="m">y = x²</span> &nbsp; <span class="nh-key" data-color="orange"></span><span class="m">y = −x + 2</span></figcaption>
+        </figure>
+        <p>Schnittpunkte bei <span class="m">x = −2</span> und <span class="m">x = 1</span>. Probe: <span class="m">(−2)² + (−2) − 2 = 0</span> ✓ und <span class="m">1² + 1 − 2 = 0</span> ✓. Also <span class="m">L = {−2; 1}</span>.</p>
+      </div>
+      <p class="nh-heft-sub">2 Schnittpunkte → 2 Lösungen · 1 Berührpunkt → 1 Lösung · kein Schnittpunkt → <span class="m">L = { }</span></p>
+      <p class="nh-heft-sub">Welcher Weg?</p>
+      <div class="table-wrap">
+        <table class="nice">
+          <tbody>
+            <tr><td class="narrow">kein <span class="m">x</span>-Term, z. B. <span class="m">x² − 9 = 0</span></td><td>Wurzel ziehen (±)</td></tr>
+            <tr><td class="narrow">keine Zahl, z. B. <span class="m">x² + 5x = 0</span></td><td><span class="m">x</span> ausklammern</td></tr>
+            <tr><td class="narrow">binomische Formel / Produkt-Summen-Trick klappt</td><td>faktorisieren</td></tr>
+            <tr><td class="narrow">sonst</td><td>quadratische Ergänzung</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="nh-heft-note">Merke: Zum Schluss immer <span class="m">L = {…}</span> aufschreiben. Probe nicht vergessen!</p>
+    </article>
+  </div>
+
+  <!-- =========================================================
+       7. DIFFERENZIERUNG
+       ========================================================= -->
+  <div class="block nh-guide" id="nh-diff">
+    <h2>Differenzierung &amp; wenn es hakt</h2>
+    <div class="grid2">
+      <div class="card nh-diffcard" data-color="teal">
+        <h3>Wenn dein Schüler sehr unsicher ist</h3>
+        <ul class="nh-tight">
+          <li><strong>Weniger ist mehr:</strong> Ziel für die HÜ sind sichere Punkte bei <span class="m">x² = k</span>, Ausklammern, Produkt-Summen-Trick mit kleinen Zahlen und grafischem Ablesen.</li>
+          <li>Ergänzung nur mit <strong>geraden Zahlen</strong> vor dem <span class="m">x</span> und Lösungen ohne Wurzel (Blatt 9, Hausaufgabe 4).</li>
+          <li><strong>Rechengerüst</strong> vorgeben: Lückentext mit den Rezeptschritten, er füllt nur die Zahlen ein.</li>
+          <li>Jede Lösung mit <strong>Probe</strong> – das gibt Sicherheit und Erfolgserlebnisse.</li>
+          <li>Vorher 10 Minuten <a href="#grundlagen">Grundlagen</a>: binomische Formeln, Ausklammern, Wurzeln.</li>
+        </ul>
+      </div>
+      <div class="card nh-diffcard" data-color="violet">
+        <h3>Wenn dein Schüler schon fit ist</h3>
+        <ul class="nh-tight">
+          <li><strong>Vor <span class="m">x²</span> steht keine 1</strong>: <span class="m">3x² − 12x − 15 = 0</span> → <span class="m">L = {−1; 5}</span>.</li>
+          <li><strong>Ungerade Zahl vor <span class="m">x</span></strong> bei der Ergänzung: <span class="m">x² + 3x − 4 = 0</span> → <span class="m">(x + 1,5)² = 6,25</span> → <span class="m">L = {−4; 1}</span>.</li>
+          <li><strong>Textaufgaben:</strong> „Ein Rechteck ist 3 cm länger als breit und hat 40 cm² Fläche.“ → <span class="m">x(x + 3) = 40</span> → Breite 5 cm (−8 entfällt).</li>
+          <li><strong>Begründen:</strong> Warum geht die Ergänzung immer? Wann gibt es keine Lösung?</li>
+          <li><strong>Ausblick:</strong> Die Ergänzung allgemein mit <span class="m">p</span> und <span class="m">q</span> durchführen – so entsteht die Lösungsformel, die nächstes Jahr kommt.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Wenn er blockiert</h3>
+    <div class="nh-block-tips">
+      <div class="nh-tip"><span class="nh-tip-ico" aria-hidden="true">🔢</span><p><b>Kleinere Zahlen.</b> Dieselbe Aufgabe mit 1, 2, 3 statt mit 12 und −15. Struktur zuerst, Zahlen später.</p></div>
+      <div class="nh-tip"><span class="nh-tip-ico" aria-hidden="true">🙋</span><p><b>„Was weißt du schon?“</b> statt „Was ist hier falsch?“. Mit dem ersten richtigen Schritt anfangen.</p></div>
+      <div class="nh-tip"><span class="nh-tip-ico" aria-hidden="true">🔄</span><p><b>Rollentausch.</b> Du rechnest absichtlich mit einem typischen Fehler vor, er ist der Lehrer und findet ihn.</p></div>
+      <div class="nh-tip"><span class="nh-tip-ico" aria-hidden="true">🎯</span><p><b>Ausprobieren erlaubt.</b> „Setz einfach mal 1, 2, −1 ein.“ Raten mit Probe ist ein legitimer Einstieg.</p></div>
+      <div class="nh-tip"><span class="nh-tip-ico" aria-hidden="true">⏸️</span><p><b>Kurz raus.</b> Eine Minute Pause oder eine Aufgabe, die sicher klappt. Erfolg vor Schwierigkeit.</p></div>
+      <div class="nh-tip"><span class="nh-tip-ico" aria-hidden="true">✍️</span><p><b>Schreiben lassen, nicht du.</b> Wenn du den Stift hältst, lernt er zuschauen. Gib ihm den Stift zurück.</p></div>
+    </div>
+
+    <div class="box merke">
+      <p class="box-title">HÜ-Tipps zum Mitgeben</p>
+      <ul class="nh-tight">
+        <li>Erst alle Aufgaben anschauen, mit der leichtesten anfangen.</li>
+        <li>Immer zuerst prüfen: Steht rechts eine 0? Steht <span class="m">x²</span> allein?</li>
+        <li>Jede Umformung mit „| …“ dahinter – das bringt auch bei Rechenfehlern Teilpunkte.</li>
+        <li>Lösungsmenge hinschreiben, auch <span class="m">L = { }</span>.</li>
+        <li>Am Ende Probe mit mindestens einer Lösung.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       DIAGNOSE-BLATT (nur Druck)
+       ========================================================= -->
+  <div class="block nh-sheetpart nh-diagsheet print-only print-page" data-widget="nh-diagsheet" aria-hidden="true">
+    <h2>Diagnose: fünf kurze Aufgaben</h2>
+    <p class="nh-namebar"><span>Name: ____________________</span><span>Datum: ____________</span></p>
+    <p class="small">Kein Test! Wenn du etwas nicht weißt, mach ein Fragezeichen. Zeit: 5 Minuten.</p>
+    <div class="nh-diagsheet-list"></div>
+  </div>
+
+  <!-- =========================================================
+       8. ÜBUNGSBLATT
+       ========================================================= -->
+  <div class="block nh-sheet nh-sheetpart print-page" id="nh-blatt">
+    <h2>Übungsblatt für die Stunde</h2>
+    <p class="nh-namebar print-only"><span>Name: ____________________</span><span>Datum: ____________</span></p>
+    <p class="no-print">Zwölf Aufgaben in drei Stufen. Dein Schüler kann sie hier direkt eintippen und sofort prüfen – oder auf Papier rechnen (Druckversion mit Platz zum Rechnen, Lösungen auf eigener Seite).</p>
+    <p class="print-only small">Löse jede Gleichung. Schreib jede Umformung auf und gib am Ende die Lösungsmenge <span class="m">L</span> an.</p>
+    <div class="nh-legend">
+      <span class="pill green">Stufe 1 · Basis</span>
+      <span class="pill orange">Stufe 2 · Standard</span>
+      <span class="pill red">Stufe 3 · Knifflig</span>
+    </div>
+
+    <div class="tasks" data-nh-title="Übungsblatt">
+
+      <!-- 1 -->
+      <div class="task" data-id="nh-blatt-1" data-answer="-7;4" data-level="1" data-prefix="L =">
+        <p class="task-q">Löse mit dem Satz vom Nullprodukt: <span class="m">(x − 4)(x + 7) = 0</span></p>
+        <div class="nh-space print-only s1" aria-hidden="true"></div>
+        <div class="wrong" data-match="-4;7">Vorzeichen! Welche Zahl musst du für <span class="m">x</span> einsetzen, damit <span class="m">x + 7</span> null wird?</div>
+        <details class="hint"><summary>Tipp</summary><div><p>Ein Produkt ist null, wenn ein Faktor null ist. Löse <span class="m">x − 4 = 0</span> und <span class="m">x + 7 = 0</span> einzeln.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="calc">
+            <div class="row"><span class="l">(x − 4)(x + 7)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="l">x − 4</span><span class="r">= 0</span><span class="op">| + 4</span></div>
+            <div class="row"><span class="l">x</span><span class="r">= 4</span></div>
+            <div class="row"><span class="note">oder</span></div>
+            <div class="row"><span class="l">x + 7</span><span class="r">= 0</span><span class="op">| − 7</span></div>
+            <div class="row"><span class="l">x</span><span class="r">= −7</span></div>
+            <div class="row result sep"><span class="nh-res">L = {−7; 4}</span></div>
+          </div>
+        </div></details>
+      </div>
+
+      <!-- 2 -->
+      <div class="task" data-id="nh-blatt-2" data-answer="-9;9" data-level="1" data-prefix="L =">
+        <p class="task-q">Löse: <span class="m">x² = 81</span></p>
+        <div class="nh-space print-only s1" aria-hidden="true"></div>
+        <details class="hint"><summary>Tipp</summary><div><p>Welche Zahlen ergeben mit sich selbst multipliziert 81? Es sind zwei.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="calc">
+            <div class="row"><span class="l">x²</span><span class="r">= 81</span><span class="op">| √ (±)</span></div>
+            <div class="row"><span class="l">x</span><span class="r">= ±9</span></div>
+            <div class="row result sep"><span class="nh-res">L = {−9; 9}</span></div>
+          </div>
+          <p>Probe: <span class="m">9² = 81</span> ✓ und <span class="m">(−9)² = 81</span> ✓</p>
+        </div></details>
+      </div>
+
+      <!-- 3 -->
+      <div class="task" data-id="nh-blatt-3" data-answer="0;5" data-level="1" data-prefix="L =">
+        <p class="task-q">Löse: <span class="m">x² − 5x = 0</span></p>
+        <div class="nh-space print-only s1" aria-hidden="true"></div>
+        <div class="wrong" data-match="5">Da fehlt eine Lösung. Hast du durch <span class="m">x</span> geteilt? Klammere lieber <span class="m">x</span> aus – dann siehst du beide.</div>
+        <details class="hint"><summary>Tipp</summary><div><p>Hier fehlt die Zahl ohne <span class="m">x</span>. Klammere <span class="m">x</span> aus.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="calc">
+            <div class="row"><span class="l">x² − 5x</span><span class="r">= 0</span><span class="op">| <span class="m">x</span> ausklammern</span></div>
+            <div class="row"><span class="l">x · (x − 5)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="nh-or">x = 0 oder x − 5 = 0<span class="nh-op">| + 5</span></span></div>
+            <div class="row"><span class="nh-or">x = 0 oder x = 5</span></div>
+            <div class="row result sep"><span class="nh-res">L = {0; 5}</span></div>
+          </div>
+          <p>Nicht durch <span class="m">x</span> teilen – sonst geht die Lösung 0 verloren.</p>
+        </div></details>
+      </div>
+
+      <!-- 4 -->
+      <div class="task" data-id="nh-blatt-4" data-answer="-1;3" data-level="1" data-prefix="L =">
+        <p class="task-q">Lies die Lösungen von <span class="m">x² − 2x − 3 = 0</span> am Graphen ab und mach die Probe.</p>
+        <figure class="nh-fig">
+          <div class="nh-plot" data-widget="nh-plot" data-plot="a4"></div>
+          <figcaption>Graph von <span class="m">y = x² − 2x − 3</span></figcaption>
+        </figure>
+        <div class="nh-space print-only s0" aria-hidden="true"></div>
+        <div class="wrong" data-match="1">Das ist die <span class="m">x</span>-Koordinate des Scheitelpunkts. Gesucht sind die Stellen, an denen die Parabel die <span class="m">x</span>-Achse schneidet.</div>
+        <div class="wrong" data-match="-3">Bei <span class="m">y = −3</span> schneidet die Parabel die <span class="m">y</span>-Achse. Gesucht sind die Schnittstellen mit der <span class="m">x</span>-Achse.</div>
+        <details class="hint"><summary>Tipp</summary><div><p>Lösungen der Gleichung = Stellen, an denen <span class="m">y = 0</span> ist. Wo trifft die Parabel die <span class="m">x</span>-Achse?</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Die Parabel schneidet die <span class="m">x</span>-Achse bei <span class="m">x = −1</span> und <span class="m">x = 3</span>.</p>
+          <p class="nh-probe-h"><b>Probe:</b></p>
+          <ul class="nh-probe"><li><span class="m">(−1)² − 2 · (−1) − 3 = 1 + 2 − 3 = 0</span> ✓</li><li><span class="m">3² − 2 · 3 − 3 = 9 − 6 − 3 = 0</span> ✓</li></ul>
+          <p class="nh-L"><span class="m">L = {−1; 3}</span></p>
+        </div></details>
+      </div>
+
+      <!-- 5 -->
+      <div class="task" data-id="nh-blatt-5" data-answer="-4;4" data-level="2" data-prefix="L =">
+        <p class="task-q">Löse: <span class="m">3x² − 48 = 0</span></p>
+        <div class="nh-space print-only s1" aria-hidden="true"></div>
+        <div class="wrong" data-match="-16;16">Fast: <span class="m">16</span> ist <span class="m">x²</span>. Jetzt noch die Wurzel ziehen.</div>
+        <details class="hint"><summary>Tipp</summary><div><p>Stell zuerst <span class="m">x²</span> allein: erst <span class="m">+ 48</span>, dann <span class="m">: 3</span>.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="calc">
+            <div class="row"><span class="l">3x² − 48</span><span class="r">= 0</span><span class="op">| + 48</span></div>
+            <div class="row"><span class="l">3x²</span><span class="r">= 48</span><span class="op">| : 3</span></div>
+            <div class="row"><span class="l">x²</span><span class="r">= 16</span><span class="op">| √ (±)</span></div>
+            <div class="row"><span class="l">x</span><span class="r">= ±4</span></div>
+            <div class="row result sep"><span class="nh-res">L = {−4; 4}</span></div>
+          </div>
+        </div></details>
+      </div>
+
+      <!-- 6 -->
+      <div class="task" data-id="nh-blatt-6" data-answer="-4;-3" data-level="2" data-prefix="L =">
+        <p class="task-q">Faktorisiere mit dem Produkt-Summen-Trick und löse: <span class="m">x² + 7x + 12 = 0</span></p>
+        <div class="nh-space print-only s2" aria-hidden="true"></div>
+        <div class="wrong" data-match="3;4">Die Zahlen 3 und 4 hast du richtig gefunden. Aber aus <span class="m">x + 3 = 0</span> folgt <span class="m">x = −3</span>.</div>
+        <details class="hint"><summary>Tipp 1</summary><div><p>Gesucht: zwei Zahlen mit Produkt 12 und Summe 7.</p></div></details>
+        <details class="hint"><summary>Tipp 2</summary><div><p>3 und 4. Also <span class="m">(x + 3)(x + 4) = 0</span>.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Produkt-Summen-Trick: <span class="m">3 · 4 = 12</span> und <span class="m">3 + 4 = 7</span>.</p>
+          <div class="calc">
+            <div class="row"><span class="l">x² + 7x + 12</span><span class="r">= 0</span><span class="op">| faktorisieren</span></div>
+            <div class="row"><span class="l">(x + 3)(x + 4)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="nh-or">x = −3 oder x = −4</span></div>
+            <div class="row result sep"><span class="nh-res">L = {−4; −3}</span></div>
+          </div>
+          <p>Kontrolle: <span class="m">(x + 3)(x + 4) = x² + 4x + 3x + 12 = x² + 7x + 12</span> ✓</p>
+        </div></details>
+      </div>
+
+      <!-- 7 -->
+      <div class="task" data-id="nh-blatt-7" data-answer="-5;2" data-level="2" data-prefix="L =">
+        <p class="task-q">Löse: <span class="m">x² + 3x = 10</span></p>
+        <div class="nh-space print-only s2" aria-hidden="true"></div>
+        <div class="wrong" data-match="7;10">Vorsicht: Den Satz vom Nullprodukt darfst du nur benutzen, wenn auf einer Seite 0 steht. Bring zuerst die 10 nach links.</div>
+        <div class="wrong" data-match="10;-3">Vorsicht: Den Satz vom Nullprodukt darfst du nur benutzen, wenn auf einer Seite 0 steht. Bring zuerst die 10 nach links.</div>
+        <div class="wrong" data-match="-3;0">Das wären die Lösungen von <span class="m">x² + 3x = 0</span>. Hier steht rechts aber 10 – bring sie zuerst nach links.</div>
+        <details class="hint"><summary>Tipp 1</summary><div><p>Erst auf <span class="m">… = 0</span> bringen: <span class="m">x² + 3x − 10 = 0</span>.</p></div></details>
+        <details class="hint"><summary>Tipp 2</summary><div><p>Zwei Zahlen mit Produkt −10 und Summe 3: 5 und −2.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Erst auf <span class="m">… = 0</span> bringen, dann Produkt-Summen-Trick: <span class="m">5 · (−2) = −10</span> und <span class="m">5 + (−2) = 3</span>.</p>
+          <div class="calc">
+            <div class="row"><span class="l">x² + 3x</span><span class="r">= 10</span><span class="op">| − 10</span></div>
+            <div class="row"><span class="l">x² + 3x − 10</span><span class="r">= 0</span><span class="op">| faktorisieren</span></div>
+            <div class="row"><span class="l">(x + 5)(x − 2)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="nh-or">x = −5 oder x = 2</span></div>
+            <div class="row result sep"><span class="nh-res">L = {−5; 2}</span></div>
+          </div>
+        </div></details>
+      </div>
+
+      <!-- 8 -->
+      <div class="task" data-id="nh-blatt-8" data-answer="5" data-level="2" data-prefix="L =">
+        <p class="task-q">Löse mit einer binomischen Formel: <span class="m">x² − 10x + 25 = 0</span></p>
+        <div class="nh-space print-only s1" aria-hidden="true"></div>
+        <div class="wrong" data-match="-5;5">Bei <span class="m">(x − 5)² = 0</span> gibt es nur eine Lösung: <span class="m">x − 5</span> muss 0 sein. Und <span class="m">(−5 − 5)²</span> ist nicht 0.</div>
+        <details class="hint"><summary>Tipp</summary><div><p>Das ist die 2. binomische Formel: <span class="m">a² − 2ab + b²</span> mit <span class="m">a = x</span> und <span class="m">b = 5</span>.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="calc">
+            <div class="row"><span class="l">x² − 10x + 25</span><span class="r">= 0</span><span class="op">| 2. binomische Formel</span></div>
+            <div class="row"><span class="l">(x − 5)²</span><span class="r">= 0</span><span class="op">| Nullprodukt</span></div>
+            <div class="row"><span class="l">x − 5</span><span class="r">= 0</span><span class="op">| + 5</span></div>
+            <div class="row"><span class="l">x</span><span class="r">= 5</span></div>
+            <div class="row result sep"><span class="nh-res">L = {5}</span></div>
+          </div>
+        </div></details>
+      </div>
+
+      <!-- 9 -->
+      <div class="task" data-id="nh-blatt-9" data-answer="-8;2" data-level="2" data-prefix="L =">
+        <p class="task-q">Löse mit quadratischer Ergänzung: <span class="m">x² + 6x − 16 = 0</span></p>
+        <div class="nh-space print-only s3" aria-hidden="true"></div>
+        <div class="wrong" data-match="-7;1">Hast du die 9 nur links ergänzt? Was du links addierst, musst du rechts auch addieren.</div>
+        <details class="hint"><summary>Tipp 1</summary><div><p>Bring die 16 nach rechts: <span class="m">x² + 6x = 16</span>.</p></div></details>
+        <details class="hint"><summary>Tipp 2</summary><div><p>Hälfte von 6 ist 3, quadriert 9. Addiere 9 auf beiden Seiten: <span class="m">(x + 3)² = 25</span>.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="calc">
+            <div class="row"><span class="l">x² + 6x − 16</span><span class="r">= 0</span><span class="op">| + 16</span></div>
+            <div class="row"><span class="l">x² + 6x</span><span class="r">= 16</span><span class="op">| + 3²</span></div>
+            <div class="row"><span class="l">x² + 6x + 9</span><span class="r">= 25</span><span class="op">| 1. binomische Formel</span></div>
+            <div class="row"><span class="l">(x + 3)²</span><span class="r">= 25</span><span class="op">| √ (±)</span></div>
+            <div class="row"><span class="l">x + 3</span><span class="r">= ±5</span><span class="op">| − 3</span></div>
+            <div class="row"><span class="l">x</span><span class="r">= −3 ± 5</span></div>
+            <div class="row"><span class="nh-or">x1 = 2 oder x2 = −8</span></div>
+            <div class="row result sep"><span class="nh-res">L = {−8; 2}</span></div>
+          </div>
+          <p>Probe: <span class="m">2² + 6 · 2 − 16 = 0</span> ✓ und <span class="m">(−8)² + 6 · (−8) − 16 = 64 − 48 − 16 = 0</span> ✓</p>
+        </div></details>
+      </div>
+
+      <!-- 10 -->
+      <div class="task" data-id="nh-blatt-10" data-answer="-1;2" data-level="2" data-prefix="L =">
+        <p class="task-q">Löse <span class="m">x² − x − 2 = 0</span> grafisch. Dazu ist die Gleichung umgestellt zu <span class="m">x² = x + 2</span> und beide Seiten sind gezeichnet.</p>
+        <figure class="nh-fig">
+          <div class="nh-plot" data-widget="nh-plot" data-plot="a10"></div>
+          <figcaption><span class="nh-key" data-color="blue"></span><span class="m">y = x²</span> &nbsp; <span class="nh-key" data-color="orange"></span><span class="m">y = x + 2</span></figcaption>
+        </figure>
+        <div class="nh-space print-only s0" aria-hidden="true"></div>
+        <div class="wrong" data-match="1;4">Das sind die <span class="m">y</span>-Werte der Schnittpunkte. Gesucht sind die <span class="m">x</span>-Werte.</div>
+        <details class="hint"><summary>Tipp</summary><div><p>Such die beiden Schnittpunkte von Parabel und Gerade. Ihre <span class="m">x</span>-Koordinaten sind die Lösungen.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Schnittpunkte: <span class="m">(−1 | 1)</span> und <span class="m">(2 | 4)</span>. Die Lösungen sind die <span class="m">x</span>-Werte.</p>
+          <p class="nh-probe-h"><b>Probe in <span class="m">x² − x − 2 = 0</span>:</b></p>
+          <ul class="nh-probe"><li><span class="m">(−1)² − (−1) − 2 = 1 + 1 − 2 = 0</span> ✓</li><li><span class="m">2² − 2 − 2 = 0</span> ✓</li></ul>
+          <p class="nh-L"><span class="m">L = {−1; 2}</span></p>
+        </div></details>
+      </div>
+
+      <!-- 11 -->
+      <div class="task" data-id="nh-blatt-11" data-answer="2-sqrt(5);2+sqrt(5)" data-level="3" data-prefix="L =">
+        <p class="task-q">Löse mit quadratischer Ergänzung: <span class="m">x² − 4x − 1 = 0</span> <span class="small muted no-print">(Die Lösungen enthalten eine Wurzel. Tippe z. B. <span class="kbd">2+√5</span>.)</span></p>
+        <div class="nh-space print-only s3" aria-hidden="true"></div>
+        <div class="wrong" data-match="-2-sqrt(5);-2+sqrt(5)">Vorzeichen: Aus <span class="m">x − 2 = ±√5</span> folgt <span class="m">x = 2 ± √5</span>.</div>
+        <details class="hint"><summary>Tipp 1</summary><div><p><span class="m">x² − 4x = 1</span>, dann <span class="m">2² = 4</span> auf beiden Seiten addieren.</p></div></details>
+        <details class="hint"><summary>Tipp 2</summary><div><p><span class="m">(x − 2)² = 5</span>. 5 ist keine Quadratzahl – die Wurzel bleibt einfach stehen: <span class="m">x − 2 = ±√5</span>.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="calc">
+            <div class="row"><span class="l">x² − 4x − 1</span><span class="r">= 0</span><span class="op">| + 1</span></div>
+            <div class="row"><span class="l">x² − 4x</span><span class="r">= 1</span><span class="op">| + 2²</span></div>
+            <div class="row"><span class="l">x² − 4x + 4</span><span class="r">= 5</span><span class="op">| 2. binomische Formel</span></div>
+            <div class="row"><span class="l">(x − 2)²</span><span class="r">= 5</span><span class="op">| √ (±)</span></div>
+            <div class="row"><span class="l">x − 2</span><span class="r">= ±√5</span><span class="op">| + 2</span></div>
+            <div class="row"><span class="l">x</span><span class="r">= 2 ± √5</span></div>
+            <div class="row result sep"><span class="nh-res">L = {2 − √5; 2 + √5}</span></div>
+          </div>
+          <p>Gerundet: <span class="m">x1 ≈ 4,24</span> und <span class="m">x2 ≈ −0,24</span>.</p>
+        </div></details>
+      </div>
+
+      <!-- 12 -->
+      <div class="task" data-id="nh-blatt-12" data-answer="leer" data-level="3" data-prefix="L =">
+        <p class="task-q">Löse: <span class="m">2x² + 8x + 10 = 0</span></p>
+        <div class="nh-space print-only s3" aria-hidden="true"></div>
+        <div class="wrong" data-match="0">„<span class="m">L = {0}</span>“ würde heißen: 0 ist eine Lösung. Mach die Probe mit 0 – passt das?</div>
+        <details class="hint"><summary>Tipp 1</summary><div><p>Erst durch 2 teilen: <span class="m">x² + 4x + 5 = 0</span>. Dann quadratische Ergänzung.</p></div></details>
+        <details class="hint"><summary>Tipp 2</summary><div><p>Du kommst auf <span class="m">(x + 2)² = −1</span>. Kann ein Quadrat negativ sein?</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="calc">
+            <div class="row"><span class="l">2x² + 8x + 10</span><span class="r">= 0</span><span class="op">| : 2</span></div>
+            <div class="row"><span class="l">x² + 4x + 5</span><span class="r">= 0</span><span class="op">| − 5</span></div>
+            <div class="row"><span class="l">x² + 4x</span><span class="r">= −5</span><span class="op">| + 2²</span></div>
+            <div class="row"><span class="l">x² + 4x + 4</span><span class="r">= −1</span><span class="op">| 1. binomische Formel</span></div>
+            <div class="row"><span class="l">(x + 2)²</span><span class="r">= −1</span></div>
+            <div class="row"><span class="note">Quadrate sind nie negativ!</span></div>
+            <div class="row result sep"><span class="nh-res">L = { }</span></div>
+          </div>
+        </div></details>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       9. EXIT-TICKET
+       ========================================================= -->
+  <div class="block nh-sheet nh-sheetpart print-page" id="nh-exit">
+    <h2>Exit-Ticket</h2>
+    <p class="nh-namebar print-only"><span>Name: ____________________</span><span>Datum: ____________</span></p>
+    <p>Drei Aufgaben zum Schluss – jede mit einem anderen Weg. Höchstens 5 Minuten, ohne Hilfe.</p>
+    <div class="tasks" data-nh-title="Exit-Ticket">
+      <div class="task" data-id="nh-exit-1" data-answer="-3;4" data-level="2" data-prefix="L =">
+        <p class="task-q"><span class="pill green">Faktorisieren</span> Löse: <span class="m">x² − x − 12 = 0</span></p>
+        <div class="nh-space print-only s2" aria-hidden="true"></div>
+        <div class="wrong" data-match="-4;3">Zahlenpaar richtig, aber Vorzeichen beim Ablesen vertauscht: Aus <span class="m">x − 4 = 0</span> folgt <span class="m">x = 4</span>.</div>
+        <details class="hint"><summary>Tipp</summary><div><p>Zwei Zahlen mit Produkt −12 und Summe −1.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Produkt-Summen-Trick: <span class="m">(−4) · 3 = −12</span> und <span class="m">−4 + 3 = −1</span>.</p>
+          <div class="calc">
+            <div class="row"><span class="l">x² − x − 12</span><span class="r">= 0</span><span class="op">| faktorisieren</span></div>
+            <div class="row"><span class="l">(x − 4)(x + 3)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="nh-or">x = 4 oder x = −3</span></div>
+            <div class="row result sep"><span class="nh-res">L = {−3; 4}</span></div>
+          </div>
+        </div></details>
+      </div>
+
+      <div class="task" data-id="nh-exit-2" data-answer="-5;1" data-level="2" data-prefix="L =">
+        <p class="task-q"><span class="pill orange">Ergänzung</span> Löse mit quadratischer Ergänzung: <span class="m">x² + 4x − 5 = 0</span></p>
+        <div class="nh-space print-only s3" aria-hidden="true"></div>
+        <div class="wrong" data-match="-2-sqrt(5);-2+sqrt(5)">Hast du die 4 nur links ergänzt? Sie gehört auf beide Seiten.</div>
+        <details class="hint"><summary>Tipp</summary><div><p><span class="m">x² + 4x = 5</span>, dann <span class="m">2² = 4</span> auf beiden Seiten addieren.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="calc">
+            <div class="row"><span class="l">x² + 4x − 5</span><span class="r">= 0</span><span class="op">| + 5</span></div>
+            <div class="row"><span class="l">x² + 4x</span><span class="r">= 5</span><span class="op">| + 2²</span></div>
+            <div class="row"><span class="l">x² + 4x + 4</span><span class="r">= 9</span><span class="op">| 1. binomische Formel</span></div>
+            <div class="row"><span class="l">(x + 2)²</span><span class="r">= 9</span><span class="op">| √ (±)</span></div>
+            <div class="row"><span class="l">x + 2</span><span class="r">= ±3</span><span class="op">| − 2</span></div>
+            <div class="row"><span class="l">x</span><span class="r">= −2 ± 3</span></div>
+            <div class="row"><span class="nh-or">x1 = 1 oder x2 = −5</span></div>
+            <div class="row result sep"><span class="nh-res">L = {−5; 1}</span></div>
+          </div>
+        </div></details>
+      </div>
+
+      <div class="task" data-id="nh-exit-3" data-answer="1;3" data-level="1" data-prefix="L =">
+        <p class="task-q"><span class="pill blue">Grafisch</span> Lies die Lösungen von <span class="m">x² − 4x + 3 = 0</span> ab.</p>
+        <figure class="nh-fig">
+          <div class="nh-plot" data-widget="nh-plot" data-plot="e3"></div>
+          <figcaption>Graph von <span class="m">y = x² − 4x + 3</span></figcaption>
+        </figure>
+        <div class="nh-space print-only s0" aria-hidden="true"></div>
+        <div class="wrong" data-match="2">Das ist die <span class="m">x</span>-Koordinate des Scheitelpunkts. Gesucht sind die Schnittstellen mit der <span class="m">x</span>-Achse.</div>
+        <details class="hint"><summary>Tipp</summary><div><p>Wo trifft die Parabel die <span class="m">x</span>-Achse?</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Nullstellen bei <span class="m">x = 1</span> und <span class="m">x = 3</span>.</p>
+          <p class="nh-probe-h"><b>Probe:</b></p>
+          <ul class="nh-probe"><li><span class="m">1² − 4 · 1 + 3 = 0</span> ✓</li><li><span class="m">3² − 4 · 3 + 3 = 9 − 12 + 3 = 0</span> ✓</li></ul>
+          <p class="nh-L"><span class="m">L = {1; 3}</span></p>
+        </div></details>
+      </div>
+    </div>
+
+    <h3>Selbsteinschätzung</h3>
+    <p class="no-print">Wie sicher fühlst du dich? Tipp pro Weg eine Farbe an.</p>
+    <p class="print-only small">Wie sicher fühlst du dich? Kreuze pro Weg eine Farbe an.</p>
+    <div class="card nh-ampel" data-widget="nh-ampel">
+      <div class="nh-amp-row" data-key="graf" data-ha="Hausaufgabe 6 · Kapitel „Grafisch“"><span class="nh-amp-name">📈 Grafisch</span></div>
+      <div class="nh-amp-row" data-key="fakt" data-ha="Hausaufgaben 1–3 und 7 · Kapitel „Faktorisieren“"><span class="nh-amp-name">🧩 Faktorisieren</span></div>
+      <div class="nh-amp-row" data-key="erg" data-ha="Hausaufgaben 4 und 5 · Kapitel „Ergänzung“"><span class="nh-amp-name">🟧 Ergänzung</span></div>
+      <p class="nh-amp-advice no-print" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       10. HAUSAUFGABE
+       ========================================================= -->
+  <div class="block nh-sheet nh-sheetpart print-page" id="nh-ha">
+    <h2>Hausaufgabe bis zur HÜ</h2>
+    <p class="nh-namebar print-only"><span>Name: ____________________</span><span>Abgabe: ____________</span></p>
+    <p>Sieben Aufgaben, gemischt wie in der HÜ. Verteil sie auf mehrere Tage – lieber jeden Tag 15 Minuten als einmal zwei Stunden.</p>
+
+    <div class="nh-week">
+      <div class="nh-day"><p class="nh-day-name">Tag 1</p><p>Aufgaben 1–3 · <a href="#spickzettel">Spickzettel</a> lesen</p></div>
+      <div class="nh-day"><p class="nh-day-name">Tag 2</p><p>Aufgaben 4–5 · 10 Min. <a href="#training">Trainingsraum</a></p></div>
+      <div class="nh-day"><p class="nh-day-name">Tag 3</p><p>Aufgaben 6–7 · <a href="#methodenwahl">Welcher Weg?</a></p></div>
+      <div class="nh-day"><p class="nh-day-name">Vor der HÜ</p><p>Eine <a href="#probe-hue">Probe-HÜ</a> mit Timer</p></div>
+    </div>
+
+    <div class="tasks" data-nh-title="Hausaufgabe">
+      <div class="task" data-id="nh-ha-1" data-answer="-8;8" data-level="1" data-prefix="L =">
+        <p class="task-q">Löse: <span class="m">x² − 64 = 0</span></p>
+        <div class="nh-space print-only s1" aria-hidden="true"></div>
+        <details class="hint"><summary>Tipp</summary><div><p>Erst <span class="m">+ 64</span>, dann Wurzel ziehen. Denk an ±.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="calc">
+            <div class="row"><span class="l">x² − 64</span><span class="r">= 0</span><span class="op">| + 64</span></div>
+            <div class="row"><span class="l">x²</span><span class="r">= 64</span><span class="op">| √ (±)</span></div>
+            <div class="row"><span class="l">x</span><span class="r">= ±8</span></div>
+            <div class="row result sep"><span class="nh-res">L = {−8; 8}</span></div>
+          </div>
+        </div></details>
+      </div>
+
+      <div class="task" data-id="nh-ha-2" data-answer="0;3" data-level="1" data-prefix="L =">
+        <p class="task-q">Löse: <span class="m">4x² = 12x</span></p>
+        <div class="nh-space print-only s1" aria-hidden="true"></div>
+        <div class="wrong" data-match="3">Eine Lösung fehlt. Hast du durch <span class="m">x</span> geteilt? Bring alles nach links und klammere aus.</div>
+        <details class="hint"><summary>Tipp</summary><div><p><span class="m">4x² − 12x = 0</span>, dann <span class="m">4x</span> ausklammern.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="calc">
+            <div class="row"><span class="l">4x²</span><span class="r">= 12x</span><span class="op">| − 12x</span></div>
+            <div class="row"><span class="l">4x² − 12x</span><span class="r">= 0</span><span class="op">| 4x ausklammern</span></div>
+            <div class="row"><span class="l">4x · (x − 3)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="nh-or">4x = 0 oder x − 3 = 0</span></div>
+            <div class="row"><span class="nh-or">x = 0 oder x = 3</span></div>
+            <div class="row result sep"><span class="nh-res">L = {0; 3}</span></div>
+          </div>
+        </div></details>
+      </div>
+
+      <div class="task" data-id="nh-ha-3" data-answer="-5;4" data-level="2" data-prefix="L =">
+        <p class="task-q">Faktorisiere und löse: <span class="m">x² + x − 20 = 0</span></p>
+        <div class="nh-space print-only s2" aria-hidden="true"></div>
+        <details class="hint"><summary>Tipp</summary><div><p>Zwei Zahlen mit Produkt −20 und Summe 1.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Produkt-Summen-Trick: <span class="m">5 · (−4) = −20</span> und <span class="m">5 + (−4) = 1</span>.</p>
+          <div class="calc">
+            <div class="row"><span class="l">x² + x − 20</span><span class="r">= 0</span><span class="op">| faktorisieren</span></div>
+            <div class="row"><span class="l">(x + 5)(x − 4)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="nh-or">x = −5 oder x = 4</span></div>
+            <div class="row result sep"><span class="nh-res">L = {−5; 4}</span></div>
+          </div>
+        </div></details>
+      </div>
+
+      <div class="task" data-id="nh-ha-4" data-answer="-7;-1" data-level="2" data-prefix="L =">
+        <p class="task-q">Löse mit quadratischer Ergänzung: <span class="m">x² + 8x + 7 = 0</span></p>
+        <div class="nh-space print-only s3" aria-hidden="true"></div>
+        <details class="hint"><summary>Tipp</summary><div><p><span class="m">x² + 8x = −7</span>, dann <span class="m">4² = 16</span> auf beiden Seiten addieren.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="calc">
+            <div class="row"><span class="l">x² + 8x + 7</span><span class="r">= 0</span><span class="op">| − 7</span></div>
+            <div class="row"><span class="l">x² + 8x</span><span class="r">= −7</span><span class="op">| + 4²</span></div>
+            <div class="row"><span class="l">x² + 8x + 16</span><span class="r">= 9</span><span class="op">| 1. binomische Formel</span></div>
+            <div class="row"><span class="l">(x + 4)²</span><span class="r">= 9</span><span class="op">| √ (±)</span></div>
+            <div class="row"><span class="l">x + 4</span><span class="r">= ±3</span><span class="op">| − 4</span></div>
+            <div class="row"><span class="l">x</span><span class="r">= −4 ± 3</span></div>
+            <div class="row"><span class="nh-or">x1 = −1 oder x2 = −7</span></div>
+            <div class="row result sep"><span class="nh-res">L = {−7; −1}</span></div>
+          </div>
+        </div></details>
+      </div>
+
+      <div class="task" data-id="nh-ha-5" data-answer="3-sqrt(5);3+sqrt(5)" data-level="3" data-prefix="L =">
+        <p class="task-q">Löse mit quadratischer Ergänzung: <span class="m">x² − 6x + 4 = 0</span></p>
+        <div class="nh-space print-only s3" aria-hidden="true"></div>
+        <details class="hint"><summary>Tipp</summary><div><p>Du kommst auf <span class="m">(x − 3)² = 5</span>. Die Wurzel aus 5 bleibt stehen.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="calc">
+            <div class="row"><span class="l">x² − 6x + 4</span><span class="r">= 0</span><span class="op">| − 4</span></div>
+            <div class="row"><span class="l">x² − 6x</span><span class="r">= −4</span><span class="op">| + 3²</span></div>
+            <div class="row"><span class="l">x² − 6x + 9</span><span class="r">= 5</span><span class="op">| 2. binomische Formel</span></div>
+            <div class="row"><span class="l">(x − 3)²</span><span class="r">= 5</span><span class="op">| √ (±)</span></div>
+            <div class="row"><span class="l">x − 3</span><span class="r">= ±√5</span><span class="op">| + 3</span></div>
+            <div class="row"><span class="l">x</span><span class="r">= 3 ± √5</span></div>
+            <div class="row result sep"><span class="nh-res">L = {3 − √5; 3 + √5}</span></div>
+          </div>
+          <p>Gerundet: <span class="m">x1 ≈ 5,24</span> und <span class="m">x2 ≈ 0,76</span>.</p>
+        </div></details>
+      </div>
+
+      <div class="task" data-id="nh-ha-6" data-answer="-3;2" data-level="2" data-prefix="L =">
+        <p class="task-q">Löse <span class="m">x² + x − 6 = 0</span> grafisch: Zeichne die Normalparabel <span class="m">y = x²</span> und die Gerade <span class="m">y = −x + 6</span> und lies die <span class="m">x</span>-Werte der Schnittpunkte ab. Mach die Probe.</p>
+        <div class="nh-space print-only grid" aria-hidden="true"></div>
+        <div class="wrong" data-match="4;9">Das sind die <span class="m">y</span>-Werte der Schnittpunkte. Gesucht sind die <span class="m">x</span>-Werte.</div>
+        <details class="hint"><summary>Tipp</summary><div><p>Die Gerade schneidet die <span class="m">y</span>-Achse bei 6 und fällt pro Schritt nach rechts um 1.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="nh-plot" data-widget="nh-plot" data-plot="h6"></div>
+          <p>Schnittpunkte: <span class="m">(−3 | 9)</span> und <span class="m">(2 | 4)</span>.</p>
+          <p class="nh-probe-h"><b>Probe in <span class="m">x² + x − 6 = 0</span>:</b></p>
+          <ul class="nh-probe"><li><span class="m">(−3)² + (−3) − 6 = 9 − 3 − 6 = 0</span> ✓</li><li><span class="m">2² + 2 − 6 = 0</span> ✓</li></ul>
+          <p class="nh-L"><span class="m">L = {−3; 2}</span></p>
+        </div></details>
+      </div>
+
+      <div class="task" data-id="nh-ha-7" data-answer="-5;6" data-level="3" data-prefix="L =">
+        <p class="task-q">Das Quadrat einer Zahl ist um 30 größer als die Zahl selbst. Welche Zahlen kommen infrage?</p>
+        <div class="nh-space print-only s2" aria-hidden="true"></div>
+        <details class="hint"><summary>Tipp 1</summary><div><p>Nenne die Zahl <span class="m">x</span>. Dann gilt <span class="m">x² = x + 30</span>.</p></div></details>
+        <details class="hint"><summary>Tipp 2</summary><div><p><span class="m">x² − x − 30 = 0</span>. Zwei Zahlen mit Produkt −30 und Summe −1.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Die gesuchte Zahl heißt <span class="m">x</span>. Ansatz: <span class="m">x² = x + 30</span>. Alles nach links: <span class="m">| − x − 30</span>. Produkt-Summen-Trick: <span class="m">(−6) · 5 = −30</span> und <span class="m">−6 + 5 = −1</span>.</p>
+          <div class="calc">
+            <div class="row"><span class="l">x² − x − 30</span><span class="r">= 0</span><span class="op">| faktorisieren</span></div>
+            <div class="row"><span class="l">(x − 6)(x + 5)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+            <div class="row"><span class="nh-or">x = 6 oder x = −5</span></div>
+            <div class="row result sep"><span class="nh-res">L = {−5; 6}</span></div>
+          </div>
+          <p>Antwort: Die Zahl ist 6 oder −5. Probe: <span class="m">6² = 36 = 6 + 30</span> ✓ und <span class="m">(−5)² = 25 = −5 + 30</span> ✓</p>
+        </div></details>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       LÖSUNGSBLATT (nur Druck, wird per JS aus den Aufgaben gebaut)
+       ========================================================= -->
+  <div class="block nh-solpage print-only print-page" data-widget="nh-solpage" aria-hidden="true">
+    <h2>Lösungen</h2>
+    <p class="small">Zum Übungsblatt, Exit-Ticket und zur Hausaufgabe.</p>
+    <div class="nh-sol-list"></div>
+  </div>
+</section>

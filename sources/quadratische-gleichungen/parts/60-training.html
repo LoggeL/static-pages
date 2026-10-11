@@ -1,0 +1,140 @@
+<section class="chapter" id="training" data-title="Trainingsraum" data-short="Training" data-color="teal" data-icon="🏋️">
+  <header class="ch-head">
+    <p class="ch-kicker">Üben ohne Ende</p>
+    <h1>Trainingsraum</h1>
+    <p class="ch-lead">Hier gehen dir die Aufgaben nie aus: Jede Aufgabe wird neu gewürfelt – mit zwei Tipps und dem kompletten Lösungsweg zum Vergleichen.</p>
+  </header>
+
+  <div class="block" id="training-app">
+    <h2>Los geht’s</h2>
+    <p class="print-only">Der Trainingsraum funktioniert nur am Bildschirm: Dort wird jede Aufgabe neu erzeugt.</p>
+
+    <div class="tr-app no-print" data-widget="trainer">
+      <div class="card tr-setup">
+        <p class="tr-label" id="tr-weg-label">Weg</p>
+        <div class="tr-chips" data-tr-group="weg" role="group" aria-labelledby="tr-weg-label">
+          <button type="button" class="tr-chip" data-value="gemischt" data-c="pink"><span class="tr-chip-ic" aria-hidden="true">🎲</span>Gemischt</button>
+          <button type="button" class="tr-chip" data-value="grafisch" data-c="blue"><span class="tr-chip-ic" aria-hidden="true">📈</span>Grafisch ablesen</button>
+          <button type="button" class="tr-chip" data-value="ausklammern" data-c="green"><span class="tr-chip-ic" aria-hidden="true">🧩</span><span><var>x</var> ausklammern</span></button>
+          <button type="button" class="tr-chip" data-value="wurzel" data-c="green"><span class="tr-chip-ic tr-chip-sym" aria-hidden="true">√</span>Wurzel ziehen</button>
+          <button type="button" class="tr-chip" data-value="binomisch" data-c="green"><span class="tr-chip-ic tr-chip-sym" aria-hidden="true">( )²</span>Binomische Formel</button>
+          <button type="button" class="tr-chip" data-value="vieta" data-c="green"><span class="tr-chip-ic tr-chip-sym" aria-hidden="true">×+</span>Produkt-Summen</button>
+          <button type="button" class="tr-chip" data-value="ergaenzung" data-c="orange"><span class="tr-chip-ic" aria-hidden="true">🟧</span>Quadr. Ergänzung</button>
+        </div>
+        <p class="tr-label" id="tr-level-label">Stufe</p>
+        <div class="tr-chips tr-levels" data-tr-group="level" role="group" aria-labelledby="tr-level-label">
+          <button type="button" class="tr-chip" data-value="1" data-c="teal"><span class="tr-lv" aria-hidden="true"><i class="on"></i><i></i><i></i></span>leicht</button>
+          <button type="button" class="tr-chip" data-value="2" data-c="teal"><span class="tr-lv" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span>mittel</button>
+          <button type="button" class="tr-chip" data-value="3" data-c="teal"><span class="tr-lv" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></span>knifflig</button>
+        </div>
+        <p class="tr-level-desc" data-tr-leveldesc aria-live="polite"></p>
+      </div>
+
+      <div class="tr-status" aria-live="polite"></div>
+
+      <div class="btn-row tr-actions">
+        <button type="button" class="btn primary" data-tr-new>
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.7M20 4v4.7h-4.7M20 12a8 8 0 0 1-13.7 5.6L4 15.3M4 20v-4.7h4.7"/></svg>
+          Neue Aufgabe
+        </button>
+        <button type="button" class="btn tr-turbo-btn" data-tr-turbo><span aria-hidden="true">⚡</span> Turbo-Runde</button>
+      </div>
+
+      <div class="card tr-turbo" hidden>
+        <div class="tr-turbo-top">
+          <span class="tr-turbo-title"><span aria-hidden="true">⚡</span> Turbo-Runde</span>
+          <span class="tr-time" role="timer" aria-label="Zeit">0:00</span>
+        </div>
+        <div class="tr-dots" role="img" aria-label="0 von 5 geschafft"></div>
+        <p class="small muted tr-turbo-note">5 Aufgaben gegen die Uhr. Überspringen kostet 30 Sekunden.</p>
+        <div class="btn-row">
+          <button type="button" class="btn" data-tr-skip>Überspringen (+30 s)</button>
+          <button type="button" class="btn ghost" data-tr-stop>Abbrechen</button>
+        </div>
+      </div>
+
+      <div class="tr-host"></div>
+      <p class="small muted tr-help">Brüche, Wurzeln, „keine Lösung“ – wie tippe ich das ein? <a href="#tr-eingabe">Zur Eingabe-Hilfe</a></p>
+    </div>
+  </div>
+
+  <div class="block no-print">
+    <h2>Deine Statistik</h2>
+    <p class="muted small">Pro Weg: <b>richtig</b> gelöst ohne Blick in die Lösung / <b>versucht</b>. Gespeichert wird nur auf diesem Gerät.</p>
+    <div class="card tr-stats-card" data-tr-stats></div>
+    <div class="box tipp">
+      <p class="box-title">Serie &amp; Abzeichen</p>
+      <p>Jede Aufgabe, die du <b>beim ersten Versuch</b> richtig hast, verlängert deine Serie. Tipps sind erlaubt, ein Blick in die Lösung beendet die Serie. Bei 5, 10 und 20 in Folge gibt es ein Abzeichen.</p>
+    </div>
+  </div>
+
+  <div class="block tr-intro">
+    <h2>So trainierst du</h2>
+    <ol class="tr-how">
+      <li><b>Weg und Stufe wählen.</b> Fang mit Stufe 1 an. Wenn drei Aufgaben hintereinander klappen, geh eine Stufe höher.</li>
+      <li><b>Im Heft rechnen</b>, nur das Ergebnis eintippen. In der HÜ musst du den Rechenweg auch aufschreiben.</li>
+      <li><b>Hängst du fest?</b> Erst Tipp 1, dann Tipp 2 – erst danach die Lösung. Wer zu früh nachschaut, lernt weniger.</li>
+    </ol>
+    <details class="more no-print" id="tr-eingabe">
+      <summary>So gibst du Lösungen ein</summary>
+      <div class="table-wrap">
+        <table class="nice">
+          <thead><tr><th>Lösungsmenge</th><th>Du tippst</th></tr></thead>
+          <tbody>
+            <tr><td class="narrow"><span class="m">L = {−3; 2}</span></td><td><span class="kbd nomath">-3; 2</span> oder <span class="kbd nomath">2 und -3</span></td></tr>
+            <tr><td class="narrow"><span class="m">L = {4}</span></td><td><span class="kbd nomath">4</span></td></tr>
+            <tr><td class="narrow"><span class="m">L = { }</span></td><td><span class="kbd nomath">keine</span> oder die Taste „keine Lösung“</td></tr>
+            <tr><td class="narrow"><span class="m">L = {−<span class="frac"><span>1</span><span>2</span></span>; 3}</span></td><td><span class="kbd nomath">-1/2; 3</span> oder <span class="kbd nomath">-0,5; 3</span></td></tr>
+            <tr><td class="narrow"><span class="m">L = {−√5; √5}</span></td><td><span class="kbd nomath">±√5</span> (Taste √ und ±)</td></tr>
+            <tr><td class="narrow"><span class="m">L = {2 − √3; 2 + √3}</span></td><td><span class="kbd nomath">2 ± √3</span> oder gerundet <span class="kbd nomath">0,27; 3,73</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+
+  <div class="block">
+    <h2>Trainingsplan bis zur HÜ</h2>
+    <p>Lieber jeden Tag 15 Minuten als einmal zwei Stunden. So könnten deine letzten Tage aussehen:</p>
+    <div class="tr-plan">
+      <div class="tr-day">
+        <p class="tr-day-name">Tag 1</p>
+        <p>Jeden Weg auf <b>Stufe 1</b>, je 3 Aufgaben. Schreib bei jeder Aufgabe den Weg vollständig ins Heft.</p>
+      </div>
+      <div class="tr-day">
+        <p class="tr-day-name">Tag 2</p>
+        <p>Die Wege, die in deiner Statistik am schwächsten sind, auf <b>Stufe 2</b>. Achte auf „keine Lösung“ und „nur eine Lösung“.</p>
+      </div>
+      <div class="tr-day">
+        <p class="tr-day-name">Tag 3</p>
+        <p><b>Gemischt, Stufe 2:</b> Jetzt musst du selbst erkennen, welcher Weg passt – genau wie in der HÜ.</p>
+      </div>
+      <div class="tr-day">
+        <p class="tr-day-name">Tag vor der HÜ</p>
+        <p>Zum Aufwärmen eine <b>Turbo-Runde</b>, dann eine <a href="#probe-hue">Probe-HÜ</a> unter echten Bedingungen. Danach Schluss – ausgeschlafen rechnet es sich besser.</p>
+      </div>
+    </div>
+    <div class="box achtung">
+      <p class="box-title">Die drei Klassiker unter den Fehlern</p>
+      <ul>
+        <li><b>Durch <span class="m">x</span> teilen</b> bei <span class="m">x² = 5x</span> – dabei geht <span class="m">x = 0</span> verloren. Immer ausklammern!</li>
+        <li><b>± vergessen</b> beim Wurzelziehen: <span class="m">x² = 9</span> hat zwei Lösungen, <span class="m">3</span> und <span class="m">−3</span>.</li>
+        <li><b>Vorzeichen</b> beim Auflösen: Aus <span class="m">x + 4 = 0</span> folgt <span class="m">x = −4</span>.</li>
+      </ul>
+      <p>Mit der <b>Probe</b> findest du alle drei Fehler selbst.</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Für die Nachhilfe</h2>
+    <div class="box info">
+      <p class="box-title">So nutzt du den Trainingsraum in der Stunde</p>
+      <ul>
+        <li><b>Diagnose in 10 Minuten:</b> „Gemischt, Stufe 1“ – fünf Aufgaben, laut mitdenken lassen. Welcher Weg wird gewählt? Wo stockt es?</li>
+        <li><b>Gezielt üben:</b> Den schwächsten Weg aus der Statistik auf Stufe 1 und 2. Erst danach wieder mischen.</li>
+        <li><b>Lösungsweg als Vorlage:</b> Den Lösungsweg erst aufklappen, wenn die eigene Rechnung im Heft steht – dann Zeile für Zeile vergleichen.</li>
+        <li><b>Hausaufgabe:</b> Jeden Tag eine Turbo-Runde und die Zeit notieren. Das motiviert mehr als ein Arbeitsblatt.</li>
+      </ul>
+    </div>
+  </div>
+</section>

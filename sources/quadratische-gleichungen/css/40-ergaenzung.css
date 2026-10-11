@@ -1,0 +1,210 @@
+/* Kapitel 40 · Quadratische Ergänzung (alles unter #ergaenzung) */
+
+/* ---------- kleine Bausteine ---------- */
+#ergaenzung .erg-box {
+  display: inline-grid; place-items: center;
+  min-width: 1.7em; height: 1.45em; padding: 0 .25em;
+  border: 2px dashed var(--accent); border-radius: 8px;
+  color: var(--accent-ink); font-weight: 900; font-style: normal;
+  background: var(--accent-soft); vertical-align: middle;
+}
+#ergaenzung .erg-tag {
+  margin: 4px 0 6px; font-size: .78rem; font-weight: 900;
+  letter-spacing: .06em; text-transform: uppercase; color: var(--accent-ink);
+}
+#ergaenzung .erg-probe { display: flex; flex-direction: column; gap: 4px; font-size: .95em; }
+#ergaenzung .erg-probe > .m { white-space: normal; padding: 2px 0; line-height: 1.6; }
+#ergaenzung .step-math .erg-probe + * { margin-top: 6px; }
+#ergaenzung .erg-probe-h { margin: 10px 0 4px; }
+#ergaenzung details .erg-probe { padding: 8px 12px; background: var(--surface-2); border-radius: var(--radius-sm); }
+#ergaenzung .erg-nw { white-space: nowrap; }
+#ergaenzung .erg-calc .note { contain: inline-size; }
+#ergaenzung .erg-or { display: flex; flex-direction: column; gap: 4px; }
+#ergaenzung .erg-oder { font-family: var(--font); font-size: .78em; font-weight: 800; color: var(--text-dim); margin: 0 .5em; }
+#ergaenzung .step-math .calc { background: none; padding: 2px 0; margin: 0; font-size: 1em; }
+#ergaenzung .steps > li { padding-left: 42px; }
+#ergaenzung .steps > li::before { width: 30px; height: 30px; font-size: .88rem; }
+#ergaenzung .steps > li::after { left: 14px; top: 36px; }
+#ergaenzung .step-math { padding: 8px 10px; font-size: 1.02em; }
+@media (min-width: 600px) {
+  #ergaenzung .steps > li { padding-left: 50px; }
+  #ergaenzung .step-math { padding: 10px 14px; font-size: 1.1em; }
+}
+#ergaenzung .erg-lines { list-style: none; counter-reset: erg-l; margin: 12px 0; padding: 10px 12px; background: var(--surface-2); border-radius: var(--radius-sm); display: grid; gap: 6px; }
+#ergaenzung .erg-lines > li { counter-increment: erg-l; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 1.08em; }
+#ergaenzung .erg-lines > li::before {
+  content: counter(erg-l); flex: none; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font-size: .8rem; font-weight: 900;
+  background: var(--surface); border: 1.5px solid var(--line-strong); color: var(--text-dim);
+}
+#ergaenzung .erg-lop { color: var(--accent-ink); font-weight: 800; font-size: .86em; }
+#ergaenzung .erg-tab th, #ergaenzung .erg-tab td { padding: 9px 7px; min-width: 0; white-space: nowrap; }
+#ergaenzung .erg-tab td:first-child, #ergaenzung .erg-tab th:first-child { padding-left: 12px; }
+
+/* ---------- Rezept ---------- */
+#ergaenzung .erg-recipe { list-style: none; margin: 16px 0 0; padding: 0; counter-reset: erg-r; display: grid; gap: 12px; }
+#ergaenzung .erg-recipe > li {
+  counter-increment: erg-r; position: relative;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 14px 14px 14px 58px; box-shadow: var(--shadow-1);
+}
+#ergaenzung .erg-recipe > li::before {
+  content: counter(erg-r);
+  position: absolute; left: 14px; top: 13px;
+  width: 32px; height: 32px; border-radius: 10px;
+  display: grid; place-items: center;
+  background: var(--accent); color: var(--on-accent); font-weight: 900;
+}
+#ergaenzung .erg-r-h { font-weight: 900; margin: 3px 0 4px; font-size: 1.05em; }
+#ergaenzung .erg-recipe p { margin: 0 0 8px; }
+#ergaenzung .erg-recipe .erg-r-ex { margin: 0; font-size: 1em; padding: 8px 12px; }
+
+/* ---------- Fallunterscheidung ---------- */
+#ergaenzung .erg-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 12px; }
+#ergaenzung .erg-case {
+  --k: var(--c-green); --ks: var(--c-green-soft); --ki: var(--c-green-ink);
+  background: var(--ks); border: 1px solid color-mix(in srgb, var(--k) 30%, transparent);
+  border-top: 5px solid var(--k); border-radius: var(--radius-sm);
+  padding: 10px 8px 12px; text-align: center; font-size: .92em;
+  display: flex; flex-direction: column; gap: 4px; align-items: center;
+}
+#ergaenzung .erg-case.is-one { --k: var(--c-orange); --ks: var(--c-orange-soft); --ki: var(--c-orange-ink); }
+#ergaenzung .erg-case.is-none { --k: var(--c-red); --ks: var(--c-red-soft); --ki: var(--c-red-ink); }
+#ergaenzung .erg-case-h { margin: 0 0 4px; font-weight: 900; color: var(--ki); line-height: 1.2; font-size: .92em; }
+#ergaenzung .erg-case-sym { display: block; font-size: 1.5em; line-height: 1.15; }
+#ergaenzung .erg-case .m { white-space: nowrap; }
+#ergaenzung .erg-case .small { line-height: 1.25; color: var(--ki); font-weight: 700; }
+#ergaenzung .erg-case-l { margin-top: auto; padding-top: 4px; font-weight: 850; }
+@media (max-width: 400px) {
+  #ergaenzung .erg-cases { gap: 6px; }
+  #ergaenzung .erg-case { font-size: .82em; padding: 8px 4px 10px; }
+}
+
+/* ---------- Typische Fehler: falsch / richtig ---------- */
+#ergaenzung .erg-vs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; margin: 4px 0 10px; }
+#ergaenzung .erg-vs > div { min-width: 0; }
+#ergaenzung .erg-vs .calc { margin: 0; font-size: .98em; padding: 8px 10px; width: 100%; }
+#ergaenzung .erg-vs-h { margin: 0 0 4px; font-size: .8rem; font-weight: 900; letter-spacing: .04em; }
+#ergaenzung .erg-bad .erg-vs-h { color: var(--c-red-ink); }
+#ergaenzung .erg-good .erg-vs-h { color: var(--c-green-ink); }
+#ergaenzung .erg-bad .calc { text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--c-red) 70%, transparent); text-decoration-thickness: 2px; }
+#ergaenzung .erg-good .calc { box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--c-green) 45%, transparent); }
+@media (max-width: 480px) {
+  #ergaenzung .erg-vs { grid-template-columns: 1fr; }
+}
+
+/* ---------- Übungen ---------- */
+#ergaenzung .tasks > .erg-stage { margin: 14px 0 -4px; font-size: 1.12rem; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+#ergaenzung .tasks > .erg-stage .pill { font-size: .75rem; }
+#ergaenzung .tasks > .erg-stage-note { margin: -6px 0 0; }
+#ergaenzung .task .choices .choice { text-align: left; }
+
+/* ---------- Flächenmodell ---------- */
+#ergaenzung .erg-area { padding: 14px; }
+#ergaenzung .erg-area-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+#ergaenzung .erg-area-plabel { font-weight: 850; }
+#ergaenzung .erg-seg { display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--line); }
+#ergaenzung .erg-seg button {
+  min-width: 44px; min-height: 40px; padding: 0 10px; border: 0; border-radius: 999px;
+  background: transparent; color: var(--text); font: inherit; font-weight: 850; cursor: pointer;
+  touch-action: manipulation;
+}
+#ergaenzung .erg-seg button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-1); }
+#ergaenzung .erg-seg button:not([aria-pressed="true"]):hover { background: var(--accent-soft); }
+#ergaenzung .erg-area-fig { margin: 0 -4px; }
+#ergaenzung .erg-area-svg { display: block; width: 100%; max-width: 460px; height: auto; margin: 0 auto; overflow: visible; }
+#ergaenzung .erg-area-svg rect { stroke-width: 2; vector-effect: non-scaling-stroke; }
+#ergaenzung .erg-q { fill: var(--c-violet-soft); stroke: var(--c-violet); }
+#ergaenzung .erg-r { fill: var(--c-teal-soft); stroke: var(--c-teal); }
+#ergaenzung .erg-c { fill: transparent; stroke: var(--c-orange); stroke-dasharray: 5 4; }
+#ergaenzung .erg-c.is-filled { fill: color-mix(in srgb, var(--c-orange) 45%, var(--surface)); stroke-dasharray: none; }
+#ergaenzung .erg-ol { fill: none; stroke: var(--c-orange) !important; stroke-width: 3.5 !important; }
+#ergaenzung .erg-br { fill: none; stroke: var(--c-orange); stroke-width: 2; vector-effect: non-scaling-stroke; }
+#ergaenzung .erg-area-svg text {
+  font-family: var(--font); font-weight: 800; font-size: 15px; fill: var(--text);
+}
+#ergaenzung .erg-area-svg .erg-tl { fill: var(--text-dim); font-size: 17px; }
+#ergaenzung .erg-area-svg .erg-tq { font-size: 26px; fill: var(--c-violet-ink); }
+#ergaenzung .erg-area-svg .erg-ta { fill: var(--c-teal-ink); font-size: 17px; paint-order: stroke; stroke: var(--c-teal-soft); stroke-width: 5px; stroke-linejoin: round; }
+#ergaenzung .erg-area-svg .erg-tc { fill: var(--c-orange-ink); font-size: 18px; font-weight: 900; }
+#ergaenzung .erg-area-svg.erg-thin .erg-ta { font-size: 12px; stroke-width: 3px; }
+#ergaenzung .erg-area-svg.erg-thin .erg-tc { font-size: 12px; }
+#ergaenzung .erg-area-svg .erg-tot { fill: var(--c-orange-ink); font-size: 19px; font-weight: 900; }
+#ergaenzung .erg-area-svg .erg-var { font-style: italic; }
+#ergaenzung .erg-mv { transition: transform .75s var(--ease), opacity .45s ease; }
+#ergaenzung .erg-rot { transform-box: fill-box; transform-origin: center; }
+#ergaenzung .erg-noanim .erg-mv { transition: none !important; }
+#ergaenzung .erg-area-cap { min-height: 7.2em; }
+#ergaenzung .erg-area-f { margin: 8px 0 6px; font-size: 1.15em; }
+#ergaenzung .erg-area-t { margin: 0; min-height: 3em; }
+#ergaenzung .erg-area-nav { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+#ergaenzung .erg-area-nav .btn { white-space: nowrap; padding: 8px 14px; }
+#ergaenzung .erg-area-nav .erg-next { margin-left: auto; min-width: 118px; }
+#ergaenzung .erg-dots { display: flex; gap: 5px; flex: 1; justify-content: center; }
+#ergaenzung .erg-dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line-strong); transition: background-color .3s; }
+#ergaenzung .erg-dots i.on { background: var(--accent); }
+@media (prefers-reduced-motion: reduce) {
+  #ergaenzung .erg-mv { transition: none; }
+}
+
+/* ---------- Rechner ---------- */
+#ergaenzung .erg-solver { padding: 14px; }
+#ergaenzung .erg-eq-line {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 4px;
+  font-size: 1.1em; font-family: var(--font-math);
+}
+#ergaenzung .erg-eq-t { white-space: nowrap; }
+#ergaenzung .erg-in input {
+  width: 2.9em; min-height: 46px; padding: 6px 2px; text-align: center;
+  font: inherit; font-weight: 800; color: var(--text);
+  background: var(--surface-2); border: 2px solid var(--line-strong); border-radius: 12px;
+}
+#ergaenzung .erg-in input:focus { outline: none; border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 3px var(--accent-soft); }
+#ergaenzung .erg-in input.is-bad { border-color: var(--bad); }
+#ergaenzung .erg-keys { display: flex; gap: 6px; margin: 10px 0 0; flex-wrap: wrap; }
+#ergaenzung .erg-keys button {
+  min-width: 52px; min-height: 40px; padding: 0 12px; border-radius: 10px;
+  border: 1px solid var(--line-strong); background: var(--surface); color: var(--text);
+  font: inherit; font-weight: 850; cursor: pointer; touch-action: manipulation;
+}
+#ergaenzung .erg-keys button:active { transform: scale(.95); background: var(--accent-soft); }
+#ergaenzung .erg-preview { margin: 10px 0 2px; min-height: 1.6em; }
+#ergaenzung .erg-eq-hint { margin: 0 0 10px; }
+#ergaenzung .erg-presets { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line-strong); }
+#ergaenzung .erg-presets p { margin: 0 0 8px; }
+#ergaenzung .erg-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+#ergaenzung .erg-chip {
+  min-height: 40px; padding: 4px 12px; border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line)); background: var(--accent-soft); color: var(--text);
+  font: inherit; font-size: .92em; cursor: pointer; touch-action: manipulation;
+}
+#ergaenzung .erg-chip:hover { border-color: var(--accent); }
+#ergaenzung .erg-chip:active { transform: scale(.96); }
+#ergaenzung .erg-out { margin-top: 16px; }
+#ergaenzung .erg-out:empty { display: none; }
+#ergaenzung .erg-out-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; font-size: 1.12em; font-weight: 800; }
+#ergaenzung .erg-out .steps { margin-bottom: 0; }
+
+/* ---------- Merkbox ---------- */
+#ergaenzung .erg-short { margin: 4px 0 10px; padding-left: 1.4em; }
+#ergaenzung .erg-short li { margin: 4px 0; }
+
+/* ---------- Druck ---------- */
+@media print {
+  #ergaenzung .erg-area-nav, #ergaenzung .erg-seg, #ergaenzung .erg-keys, #ergaenzung .erg-presets, #ergaenzung .erg-solver .btn-row { display: none !important; }
+  #ergaenzung .erg-mv { transition: none !important; }
+  #ergaenzung .erg-recipe > li, #ergaenzung .erg-case { break-inside: avoid; box-shadow: none; }
+}
+
+/* ---------- Schmale Screens: Umformungsschritt („| − 4“) unter die Zeile statt daneben ---------- */
+@media (max-width: 520px) {
+  #ergaenzung .erg-calc { grid-template-columns: max-content max-content; }
+  #ergaenzung .erg-calc .op {
+    grid-column: 2; min-width: 0; padding: 0 2px 3px 0; margin-top: -2px;
+    font-size: .8em; line-height: 1.2;
+  }
+}
+@media (max-width: 420px) {
+  #ergaenzung details .erg-calc { font-size: .92em; padding: 10px 8px; }
+  #ergaenzung .step-math .erg-calc { font-size: .92em; }
+}

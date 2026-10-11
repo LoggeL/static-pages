@@ -1,0 +1,152 @@
+<section class="chapter" id="spickzettel" data-title="Spickzettel" data-short="Spickzettel" data-color="yellow" data-icon="⭐">
+  <header class="ch-head">
+    <p class="ch-kicker">Alles auf einen Blick</p>
+    <h1>Spickzettel</h1>
+    <p class="ch-lead">Das Wichtigste für die HÜ auf einer Seite – perfekt zum Wiederholen am Abend vorher. Ausgedruckt passt er genau auf ein A4-Blatt. (In die HÜ darf er natürlich nicht mit 😉)</p>
+    <div class="btn-row sz-actions no-print">
+      <button type="button" class="btn primary" data-qg-print>
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9V3h10v6M7 17H4v-7a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v7h-3M7 14h10v7H7z"/></svg>
+        Spickzettel drucken
+      </button>
+    </div>
+  </header>
+
+  <div class="sz-sheet">
+    <div class="sz-printhead print-only">
+      <span class="sz-star" aria-hidden="true">⭐</span>
+      <span><b>Spickzettel</b> · Quadratische Gleichungen lösen – ohne Lösungsformel</span>
+      <span class="sz-ph-right">Klasse 9</span>
+    </div>
+
+    <div class="sz-grid">
+
+      <!-- Grundbegriffe -->
+      <article class="sz-card sz-basics">
+        <h2 class="sz-h"><span class="sz-tag" aria-hidden="true">🧱</span>Grundbegriffe</h2>
+        <dl class="sz-defs">
+          <dt>Allgemeine Form</dt><dd><span class="m">ax² + bx + c = 0</span> <span class="sz-dim m">(a ≠ 0)</span></dd>
+          <dt>Normalform</dt><dd><span class="m">x² + px + q = 0</span></dd>
+          <dt>Lösungen</dt><dd>= Nullstellen der Parabel: <b>0, 1 oder 2</b> Stück</dd>
+          <dt>Lösungsmenge</dt><dd><span class="m">L = {−3; 2}</span> · keine: <span class="m">L = { }</span></dd>
+        </dl>
+      </article>
+
+      <!-- Satz vom Nullprodukt -->
+      <article class="sz-card sz-null">
+        <h2 class="sz-h"><span class="sz-tag" aria-hidden="true">0️⃣</span>Satz vom Nullprodukt</h2>
+        <p class="sz-quote">Ein Produkt ist genau dann null, wenn mindestens ein Faktor null ist.</p>
+        <div class="sz-ex">
+          <span class="m">(x + 3) · (x − 2) = 0</span><br>
+          <span class="m">⇒ x + 3 = 0 oder x − 2 = 0</span><br>
+          <span class="m">⇒ L = {−3; 2}</span>
+        </div>
+        <p class="sz-small">Klappt nur, wenn auf einer Seite <b>0</b> steht!</p>
+      </article>
+
+      <!-- Weg 1 -->
+      <article class="sz-card sz-way" data-color="blue">
+        <h2 class="sz-h"><span class="sz-num">1</span>Grafisch lösen</h2>
+        <div class="sz-way-body">
+          <ol class="sz-recipe">
+            <li>Auf die Form <span class="m">… = 0</span> bringen.</li>
+            <li>Parabel zeichnen (Wertetabelle).</li>
+            <li>Nullstellen ablesen.</li>
+            <li><b>Probe!</b> (Ablesen ist ungenau.)</li>
+          </ol>
+          <svg class="sz-mini" viewBox="0 0 112 144" role="img" aria-label="Parabel mit Nullstellen bei −1 und 3">
+            <line class="sz-ax" x1="2" y1="72" x2="110" y2="72"/>
+            <line class="sz-ax" x1="40" y1="2" x2="40" y2="142"/>
+            <path class="sz-par" d="M9.6 1.4 Q56 270.6 102.4 1.4"/>
+            <circle class="sz-pt" cx="24" cy="72" r="5"/>
+            <circle class="sz-pt" cx="88" cy="72" r="5"/>
+            <text x="19" y="92" text-anchor="end">−1</text>
+            <text x="93" y="92">3</text>
+          </svg>
+        </div>
+        <p class="sz-ex"><span class="m">x² − 2x − 3 = 0</span> → Nullstellen bei <span class="m">−1</span> und <span class="m">3</span> → <span class="m">L = {−1; 3}</span></p>
+        <p class="sz-small"><b>Variante:</b> <span class="m">x² = x + 2</span> → Normalparabel <span class="m">y = x²</span> und Gerade <span class="m">y = x + 2</span> schneiden. Die <span class="m">x</span>-Werte der Schnittpunkte sind die Lösungen.</p>
+      </article>
+
+      <!-- Weg 2 -->
+      <article class="sz-card sz-way" data-color="green">
+        <h2 class="sz-h"><span class="sz-num">2</span>Faktorisieren</h2>
+        <p class="sz-small">Auf <span class="m">… = 0</span> bringen → als Produkt schreiben → Satz vom Nullprodukt.</p>
+        <ul class="sz-list">
+          <li><b><span class="m">x</span> ausklammern</b> (kein Zahlglied):<br><span class="m">x² − 5x = 0</span> <span class="m">⇒ x(x − 5) = 0</span> <span class="m">⇒ L = {0; 5}</span></li>
+          <li><b>Binomische Formel</b> rückwärts:<br><span class="m">x² − 6x + 9 = 0</span> <span class="m">⇒ (x − 3)² = 0</span> <span class="m">⇒ L = {3}</span></li>
+          <li><b>Produkt-Summen-Trick:</b> zwei Zahlen mit Produkt <span class="m">q</span> und Summe <span class="m">p</span>.<br><span class="m">x² + x − 6 = 0</span>: <span class="m">3 · (−2) = −6</span>, <span class="m">3 + (−2) = 1</span><br><span class="m">⇒ (x + 3)(x − 2) = 0</span> <span class="m">⇒ L = {−3; 2}</span></li>
+          <li><b>Wurzel ziehen</b> (kein <span class="m">x</span>-Glied):<br><span class="m">2x² − 18 = 0</span> <span class="m">⇒ x² = 9</span> <span class="m">⇒ x = ±3</span> <span class="m">⇒ L = {−3; 3}</span><br><span class="sz-dim"><span class="m">x² = k</span>: <span class="m">k &gt; 0</span> zwei, <span class="m">k = 0</span> eine, <span class="m">k &lt; 0</span> keine Lösung</span></li>
+        </ul>
+      </article>
+
+      <!-- Weg 3 -->
+      <article class="sz-card sz-way" data-color="orange">
+        <h2 class="sz-h"><span class="sz-num">3</span>Quadratische Ergänzung</h2>
+        <ol class="sz-recipe sz-recipe-inline">
+          <li>durch <span class="m">a</span> teilen</li>
+          <li>Zahl nach rechts</li>
+          <li><span class="m">(<span class="frac"><span>p</span><span>2</span></span>)²</span> auf <b>beiden</b> Seiten addieren</li>
+          <li>binomische Formel</li>
+          <li>Wurzel ziehen: ±</li>
+          <li>nach <span class="m">x</span> auflösen</li>
+        </ol>
+        <div class="calc">
+          <div class="row"><span class="note">Beispiel: x² + 6x − 7 = 0 &ensp;| + 7</span></div>
+          <div class="row"><span class="l">x² + 6x</span><span class="r">= 7</span><span class="op">| + 3²</span></div>
+          <div class="row"><span class="l">x² + 6x + 9</span><span class="r">= 16</span><span class="op">| binom. Formel</span></div>
+          <div class="row"><span class="l">(x + 3)²</span><span class="r">= 16</span><span class="op">| √</span></div>
+          <div class="row"><span class="l">x + 3</span><span class="r">= ±4</span><span class="op">| − 3</span></div>
+          <div class="row result"><span class="l">L</span><span class="r">= {−7; 1}</span></div>
+        </div>
+      </article>
+
+      <!-- Welcher Weg -->
+      <article class="sz-card sz-which">
+        <h2 class="sz-h"><span class="sz-tag" aria-hidden="true">🧭</span>Welcher Weg wann?</h2>
+        <ul class="sz-rules">
+          <li><span>Steht in der Aufgabe ein Weg?</span><b>genau den nehmen!</b></li>
+          <li><span>kein <span class="m">x</span>-Glied <span class="sz-dim m">(b = 0)</span></span><b class="c-green">Wurzel ziehen</b></li>
+          <li><span>kein Zahlglied <span class="sz-dim m">(c = 0)</span></span><b class="c-green"><span class="m">x</span> ausklammern</b></li>
+          <li><span>binomische Formel erkennbar</span><b class="c-green">zurückformen</b></li>
+          <li><span>Produkt-Summen-Zahlen findbar</span><b class="c-green">faktorisieren</b></li>
+          <li><span>sonst</span><b class="c-orange">quadr. Ergänzung – klappt immer</b></li>
+          <li><span>Kontrolle / Überblick</span><b class="c-blue">grafisch</b></li>
+        </ul>
+      </article>
+
+      <!-- Binomische Formeln -->
+      <article class="sz-card sz-binom">
+        <h2 class="sz-h"><span class="sz-tag" aria-hidden="true">🔁</span>Binomische Formeln</h2>
+        <div class="calc sz-bcalc">
+          <div class="row"><span class="l">(a + b)²</span><span class="r">= a² + 2ab + b²</span><span class="op">1.</span></div>
+          <div class="row"><span class="l">(a − b)²</span><span class="r">= a² − 2ab + b²</span><span class="op">2.</span></div>
+          <div class="row"><span class="l">(a + b)(a − b)</span><span class="r">= a² − b²</span><span class="op">3.</span></div>
+        </div>
+        <p class="sz-small"><b>Ergänzen:</b> <span class="m">x² + 8x + ?</span> → Hälfte von 8 ist 4, <span class="m">4² = 16</span> → <span class="m">x² + 8x + 16 = (x + 4)²</span></p>
+      </article>
+
+      <!-- Top-7-Fehler -->
+      <article class="sz-card sz-errors">
+        <h2 class="sz-h"><span class="sz-tag" aria-hidden="true">⚠️</span>Top-7-Fehler</h2>
+        <ol class="sz-err">
+          <li><b>± vergessen:</b> <span class="m">x² = 9</span> <span class="m">⇒ x = 3</span> <b>oder</b> <span class="m">x = −3</span></li>
+          <li><b>Durch <span class="m">x</span> geteilt:</b> dabei geht <span class="m">x = 0</span> verloren – lieber ausklammern!</li>
+          <li><b>Ergänzung nur links</b> addiert – immer auf beiden Seiten!</li>
+          <li><b>Vorzeichen:</b> <span class="m">x + 3 = 0</span> <span class="m">⇒ x = −3</span> (nicht 3)</li>
+          <li><b>Nullprodukt ohne „= 0“:</b> <span class="m">x(x − 2) = 3</span> heißt <b>nicht</b> <span class="m">x = 3</span></li>
+          <li><b>Nicht durch <span class="m">a</span> geteilt</b> vor der Ergänzung</li>
+          <li><b>Wurzel aus Negativem:</b> <span class="m">x² = −4</span> <span class="m">⇒ L = { }</span>, nicht ±2</li>
+        </ol>
+      </article>
+
+      <!-- Probe -->
+      <article class="sz-card sz-check">
+        <h2 class="sz-h"><span class="sz-tag" aria-hidden="true">✅</span>Immer: Probe!</h2>
+        <p class="sz-small">Jede Lösung in die <b>Ausgangsgleichung</b> einsetzen. Links = rechts? Dann stimmt’s.</p>
+        <p class="sz-ex"><span class="m">x = −7</span> in <span class="m">x² + 6x − 7</span>: <span class="m">49 − 42 − 7 = 0</span> ✓</p>
+        <p class="sz-small">Bei Textaufgaben: Passt das Ergebnis? Längen sind nie negativ. Antwortsatz nicht vergessen!</p>
+      </article>
+
+    </div>
+  </div>
+</section>

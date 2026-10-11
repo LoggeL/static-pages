@@ -1,0 +1,10 @@
+{
+  "name": "quadratische-gleichungen",
+  "private": true,
+  "description": "Lernseite „Quadratische Gleichungen ohne Formel“ – Quellen. Die .js-Dateien sind klassische Browser-Skripte (CommonJS-Fallback für Tests), nicht ES-Module.",
+  "type": "commonjs",
+  "scripts": {
+    "build": "python3 -I build.py",
+    "test": "node tests/parse.test.mjs && node tests/training.test.mjs"
+  }
+}

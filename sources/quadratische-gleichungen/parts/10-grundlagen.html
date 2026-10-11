@@ -1,0 +1,858 @@
+<section class="chapter" id="grundlagen" data-title="Grundlagen &amp; Vorwissen" data-short="Grundlagen" data-color="violet" data-icon="🧱">
+  <header class="ch-head">
+    <p class="ch-kicker">Das Fundament</p>
+    <h1>Grundlagen &amp; Vorwissen</h1>
+    <p class="ch-lead">Was ist eine quadratische Gleichung, wie bringst du sie in Form – und warum ist die Null dein bester Freund? Alles, worauf die drei Wege aufbauen.</p>
+  </header>
+
+  <nav class="gl-toc" aria-label="Abschnitte in diesem Kapitel">
+    <a href="#gl-was">Was ist das?</a>
+    <a href="#gl-form">Normalform</a>
+    <a href="#gl-normalform">Umformen</a>
+    <a href="#gl-anzahl">Wie viele Lösungen?</a>
+    <a href="#gl-nullprodukt">Nullprodukt</a>
+    <a href="#gl-probe">Probe</a>
+    <a href="#gl-menge">L = {…}</a>
+    <a href="#gl-fitcheck">Fit-Check</a>
+  </nav>
+
+  <!-- ================= 1. Was ist eine quadratische Gleichung? ================= -->
+  <div class="block" id="gl-was">
+    <h2>Was ist eine quadratische Gleichung?</h2>
+    <p>Eine Gleichung ist <strong>quadratisch</strong>, wenn die Variable <span class="m">x</span> darin <strong>im Quadrat</strong> vorkommt – also <span class="m">x²</span> – aber nie mit einer höheren Hochzahl wie <span class="m">x³</span>.</p>
+    <p>Wichtig: Das <span class="m">x²</span> darf beim Vereinfachen nicht wegfallen. Und manchmal versteckt es sich in einer Klammer.</p>
+
+    <div class="grid2">
+      <div class="card gl-yes">
+        <p class="gl-card-title"><span aria-hidden="true">✓</span> quadratisch</p>
+        <ul class="gl-eqlist">
+          <li><span class="m">x² = 9</span></li>
+          <li><span class="m">x² − 5x = 0</span></li>
+          <li><span class="m">x² + 2x − 15 = 0</span></li>
+          <li><span class="m">3x² − 12 = 0</span></li>
+          <li><span class="m">(x − 1)² = 4</span> <span class="small muted">versteckt in der Klammer</span></li>
+          <li><span class="m">x(x + 4) = 7</span> <span class="small muted">denn <span class="m">x · x = x²</span></span></li>
+        </ul>
+      </div>
+      <div class="card gl-no">
+        <p class="gl-card-title"><span aria-hidden="true">✗</span> nicht quadratisch</p>
+        <ul class="gl-eqlist">
+          <li><span class="m">3x + 7 = 1</span> <span class="small muted">kein <span class="m">x²</span> → linear</span></li>
+          <li><span class="m">x³ − x = 0</span> <span class="small muted">enthält <span class="m">x³</span></span></li>
+          <li><span class="m">x² + 2x = x² − 6</span> <span class="small muted"><span class="m">x²</span> fällt weg</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="box tipp">
+      <p>Steht das <span class="m">x</span> in einer Klammer, z. B. <span class="m">(x − 1)²</span> oder <span class="m">x(x + 4)</span>? Dann erst <strong>ausmultiplizieren</strong> – danach siehst du, ob ein <span class="m">x²</span> übrig bleibt.</p>
+    </div>
+
+    <div class="tasks">
+      <div class="task" data-id="grund-1" data-kind="choice" data-level="1">
+        <p class="task-q">Welche Gleichungen sind quadratisch?</p>
+        <div class="choices cols">
+          <button type="button" class="choice" data-correct><span><span class="m">x² − 5x = 0</span></span></button>
+          <button type="button" class="choice" data-why="3x + 7 = 0 hat kein x² – das ist eine lineare Gleichung."><span><span class="m">3x + 7 = 0</span></span></button>
+          <button type="button" class="choice" data-correct><span><span class="m">(x − 1)² = 4</span></span></button>
+          <button type="button" class="choice" data-why="Bei x² + 2x = x² − 6 fällt x² weg (| − x²). Übrig bleibt 2x = −6 – linear."><span><span class="m">x² + 2x</span> <span class="m">= x² − 6</span></span></button>
+          <button type="button" class="choice" data-correct><span><span class="m">2x² = 18</span></span></button>
+          <button type="button" class="choice" data-why="x³ − x = 0 enthält x³ – die Hochzahl 3 ist zu groß."><span><span class="m">x³ − x = 0</span></span></button>
+        </div>
+        <details class="solution"><summary>Lösung</summary>
+          <p>Quadratisch sind <span class="m">x² − 5x = 0</span>, <span class="m">(x − 1)² = 4</span> (ausmultipliziert: <span class="m">x² − 2x + 1 = 4</span>) und <span class="m">2x² = 18</span>.</p>
+          <p>Nicht quadratisch: <span class="m">3x + 7 = 0</span> (linear), <span class="m">x² + 2x = x² − 6</span> (nach <span class="m">| − x²</span> bleibt <span class="m">2x = −6</span>) und <span class="m">x³ − x = 0</span> (enthält <span class="m">x³</span>).</p>
+        </details>
+      </div>
+
+      <div class="task" data-id="grund-2" data-kind="choice" data-level="1">
+        <p class="task-q">Ist <span class="m">x(x + 4) = 7</span> eine quadratische Gleichung?</p>
+        <div class="choices">
+          <button type="button" class="choice" data-correct data-why="Ausmultipliziert: x · x + x · 4 = x² + 4x. Also x² + 4x = 7."><span>Ja – ausmultipliziert steht da <span class="m">x² + 4x = 7</span>.</span></button>
+          <button type="button" class="choice" data-why="Doch: x · x = x². Erst die Klammer auflösen, dann urteilen."><span>Nein – es steht kein <span class="m">x²</span> da.</span></button>
+          <button type="button" class="choice" data-why="Das spielt keine Rolle. Du kannst immer alles auf eine Seite bringen: x² + 4x − 7 = 0."><span>Nein – rechts steht nicht 0.</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 2. Normalform & allgemeine Form ================= -->
+  <div class="block" id="gl-form">
+    <h2>Allgemeine Form &amp; Normalform</h2>
+    <p>Jede quadratische Gleichung lässt sich so umformen, dass rechts eine 0 steht. Dann sieht sie so aus:</p>
+
+    <div class="gl-formcard">
+      <p class="gl-formlabel">Allgemeine Form</p>
+      <div class="mblock"><span class="hl-violet">a</span>x² + <span class="hl-blue">b</span>x + <span class="hl-orange">c</span> = 0 <span class="gl-cond">(a ≠ 0)</span></div>
+      <ul class="gl-legend">
+        <li><span class="hl-violet m">ax²</span><span>quadratisches Glied</span></li>
+        <li><span class="hl-blue m">bx</span><span>lineares Glied</span></li>
+        <li><span class="hl-orange m">c</span><span>Zahl ohne <span class="m">x</span> (Absolutglied)</span></li>
+      </ul>
+      <p class="gl-formlabel">Normalform – der Sonderfall <span class="m">a = 1</span></p>
+      <div class="mblock">x² + <span class="hl-blue">p</span>x + <span class="hl-orange">q</span> = 0</div>
+    </div>
+
+    <p>Warum <span class="m">a ≠ 0</span>? Wäre <span class="m">a = 0</span>, gäbe es kein <span class="m">x²</span> mehr – dann wäre die Gleichung linear.</p>
+
+    <div class="table-wrap">
+      <table class="nice gl-abc">
+        <thead><tr><th>Gleichung</th><th class="c">a</th><th class="c">b</th><th class="c">c</th></tr></thead>
+        <tbody>
+          <tr><td><span class="m">x² + 2x − 15 = 0</span></td><td class="c m">1</td><td class="c m">2</td><td class="c m">−15</td></tr>
+          <tr><td><span class="m">3x² − 5x + 2 = 0</span></td><td class="c m">3</td><td class="c m">−5</td><td class="c m">2</td></tr>
+          <tr><td><span class="m">−x² + 4 = 0</span></td><td class="c m">−1</td><td class="c m">0</td><td class="c m">4</td></tr>
+          <tr><td><span class="m">2x² + 7x = 0</span></td><td class="c m">2</td><td class="c m">7</td><td class="c m">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box merke">
+      <p>Das <strong>Vorzeichen gehört dazu</strong>: Bei <span class="m">− 5x</span> ist <span class="m">b = −5</span>. Fehlt ein Glied, ist die Zahl davor <strong>0</strong>. Und steht vor <span class="m">x²</span> scheinbar nichts, ist <span class="m">a = 1</span>.</p>
+    </div>
+
+    <div class="box info">
+      <p class="box-title">Schon mal vormerken</p>
+      <p>Fehlt <span class="m">c</span> (z. B. <span class="m">x² − 7x = 0</span>): <span class="m">x</span> ausklammern. Fehlt <span class="m">b</span> (z. B. <span class="m">x² − 9 = 0</span>): Wurzel ziehen. Beides lernst du im Kapitel <a href="#faktorisieren">Faktorisieren</a>.</p>
+    </div>
+
+    <div class="tasks">
+      <div class="task" data-id="grund-3" data-kind="number" data-answer="-5" data-prefix="b =" data-keys="−" data-level="1">
+        <p class="task-q">Gib <span class="m">b</span> an: <span class="m">3x² − 5x + 2 = 0</span></p>
+        <div class="wrong" data-match="5">Fast! Das Vorzeichen gehört dazu: <span class="m">− 5x</span> heißt <span class="m">b = −5</span>.</div>
+        <div class="wrong" data-match="3"><span class="m">3</span> steht vor <span class="m">x²</span> – das ist <span class="m">a</span>. Gesucht ist die Zahl vor <span class="m">x</span>.</div>
+        <div class="wrong" data-match="2"><span class="m">2</span> ist die Zahl ohne <span class="m">x</span> – das ist <span class="m">c</span>. Gesucht ist die Zahl vor <span class="m">x</span>.</div>
+        <details class="hint"><summary>Tipp</summary><p><span class="m">b</span> ist die Zahl vor dem <span class="m">x</span> (ohne Quadrat) – mitsamt Vorzeichen.</p></details>
+      </div>
+
+      <div class="task" data-id="grund-4" data-kind="number" data-answer="0" data-prefix="c =" data-keys="−" data-level="1">
+        <p class="task-q">Gib <span class="m">c</span> an: <span class="m">2x² + 7x = 0</span></p>
+        <div class="wrong" data-match="7"><span class="m">7</span> steht vor <span class="m">x</span> – das ist <span class="m">b</span>. <span class="m">c</span> ist die Zahl ganz ohne <span class="m">x</span>. Gibt es die hier?</div>
+        <div class="wrong" data-match="2"><span class="m">2</span> steht vor <span class="m">x²</span> – das ist <span class="m">a</span>. <span class="m">c</span> ist die Zahl ganz ohne <span class="m">x</span>.</div>
+        <details class="hint"><summary>Tipp</summary><p>Such eine Zahl, an der kein <span class="m">x</span> hängt. Wenn es keine gibt, was ist dann <span class="m">c</span>?</p></details>
+        <details class="solution"><summary>Lösung</summary><p>Es gibt kein Glied ohne <span class="m">x</span>. Man kann sich <span class="m">2x² + 7x + 0 = 0</span> denken, also <span class="m">c = 0</span>.</p></details>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 3. In Normalform bringen ================= -->
+  <div class="block" id="gl-normalform">
+    <h2>In Normalform bringen</h2>
+    <p>Fast jede Aufgabe beginnt damit, die Gleichung aufzuräumen. Das Rezept hat vier Schritte:</p>
+
+    <ol class="gl-recipe">
+      <li><strong>Klammern auflösen</strong> – ausmultiplizieren oder binomische Formel.</li>
+      <li><strong>Alles auf eine Seite</strong> – so, dass rechts <span class="m">0</span> steht.</li>
+      <li><strong>Zusammenfassen und sortieren</strong>: erst <span class="m">x²</span>, dann <span class="m">x</span>, dann die Zahl.</li>
+      <li><strong>Durch <span class="m">a</span> teilen</strong>, falls vor <span class="m">x²</span> keine 1 steht.</li>
+    </ol>
+
+    <h3>Beispiel Schritt für Schritt</h3>
+    <ol class="steps" data-stepper>
+      <li>
+        <div class="step-math"><div class="calc"><div class="row"><span class="l">2x(x + 3)</span><span class="r">= 4x + 12</span></div></div></div>
+        <p class="step-why">Links steht eine Klammer, rechts keine 0. Also: aufräumen.</p>
+      </li>
+      <li>
+        <div class="step-math"><div class="calc"><div class="row"><span class="l">2x² + 6x</span><span class="r">= 4x + 12</span><span class="op">| ausmultiplizieren</span></div></div></div>
+        <p class="step-why"><span class="m">2x · x = 2x²</span> und <span class="m">2x · 3 = 6x</span>.</p>
+      </li>
+      <li>
+        <div class="step-math"><div class="calc"><div class="row"><span class="l">2x² + 6x − 4x − 12</span><span class="r">= 0</span><span class="op">| − 4x − 12</span></div></div></div>
+        <p class="step-why">Alles nach links. Auf beiden Seiten <span class="m">4x</span> und <span class="m">12</span> abziehen – rechts bleibt 0.</p>
+      </li>
+      <li>
+        <div class="step-math"><div class="calc"><div class="row"><span class="l">2x² + 2x − 12</span><span class="r">= 0</span><span class="op">| zusammenfassen</span></div></div></div>
+        <p class="step-why"><span class="m">6x − 4x = 2x</span>. Jetzt ist es die allgemeine Form mit <span class="m">a = 2</span>.</p>
+      </li>
+      <li>
+        <div class="step-math"><div class="calc"><div class="row result"><span class="l">x² + x − 6</span><span class="r">= 0</span><span class="op">| : 2</span></div></div></div>
+        <p class="step-why"><strong>Jedes</strong> Glied durch 2 teilen – auch die <span class="m">−12</span>. Fertig: Normalform mit <span class="m">p = 1</span> und <span class="m">q = −6</span>.</p>
+      </li>
+    </ol>
+
+    <div class="box achtung">
+      <p class="box-title">Typische Fehler</p>
+      <ul>
+        <li><strong>Vorzeichen beim Rüberbringen:</strong> Aus <span class="m">+ 4x</span> rechts wird <span class="m">− 4x</span> links.</li>
+        <li><strong>Nur ein Glied geteilt:</strong> <span class="m">2x² + 2x − 12 = 0</span> <span class="m">| : 2</span> ergibt <span class="m">x² + x − 6 = 0</span> – nicht <span class="m">x² + 2x − 12 = 0</span>.</li>
+        <li><strong>Binomische Formel vergessen:</strong> <span class="m">(x + 3)²</span> ist <span class="m">x² + 6x + 9</span>, nicht <span class="m">x² + 9</span>.</li>
+      </ul>
+    </div>
+
+    <p>Gib bei den Aufgaben nur die linke Seite ein – das „= 0“ steht schon da. Sortiert: <span class="m">x²</span> zuerst, dann <span class="m">x</span>, dann die Zahl.</p>
+
+    <div class="tasks">
+      <div class="task" data-id="grund-5" data-kind="text" data-answer="x²+3x−10|x²+3x−10=0" data-suffix="= 0" data-placeholder="z. B. x² + 2x − 3" data-level="1">
+        <p class="task-q">Bring in Normalform: <span class="m">x² + 3x = 10</span></p>
+        <div class="wrong" data-match="x²+3x+10">Beim Rüberbringen dreht sich das Vorzeichen: Du rechnest <span class="m">| − 10</span>.</div>
+        <details class="hint"><summary>Tipp</summary><p>Rechts muss 0 stehen. Was musst du auf beiden Seiten rechnen, damit die 10 verschwindet?</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <div class="calc">
+            <div class="row"><span class="l">x² + 3x</span><span class="r">= 10</span><span class="op">| − 10</span></div>
+            <div class="row result"><span class="l">x² + 3x − 10</span><span class="r">= 0</span></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="task" data-id="grund-6" data-kind="text" data-answer="x²−x−6|x²−x−6=0|x²−1x−6" data-suffix="= 0" data-placeholder="z. B. x² + 2x − 3" data-level="2">
+        <p class="task-q">Bring in Normalform: <span class="m">(x − 2)(x + 3) = 2x</span></p>
+        <div class="wrong" data-match="x²+x−6">Du hast richtig ausmultipliziert – aber die <span class="m">2x</span> von rechts fehlt noch: <span class="m">| − 2x</span>.</div>
+        <div class="wrong" data-match="x²+3x−6">Achtung beim Ausmultiplizieren: Jedes Glied mit jedem! <span class="m">x · 3</span> und <span class="m">(−2) · x</span> ergeben zusammen <span class="m">+ x</span>.</div>
+        <details class="hint"><summary>Tipp 1</summary><p>Multipliziere „jedes mit jedem“: <span class="m">x · x</span>, <span class="m">x · 3</span>, <span class="m">(−2) · x</span>, <span class="m">(−2) · 3</span>.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p>Links ergibt das <span class="m">x² + x − 6</span>. Jetzt noch die <span class="m">2x</span> nach links bringen.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <div class="calc">
+            <div class="row"><span class="l">(x − 2)(x + 3)</span><span class="r">= 2x</span><span class="op">| ausmultiplizieren</span></div>
+            <div class="row"><span class="l">x² + 3x − 2x − 6</span><span class="r">= 2x</span><span class="op">| zusammenfassen</span></div>
+            <div class="row"><span class="l">x² + x − 6</span><span class="r">= 2x</span><span class="op">| − 2x</span></div>
+            <div class="row result"><span class="l">x² − x − 6</span><span class="r">= 0</span></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="task" data-id="grund-7" data-kind="text" data-answer="x²−4x+3|x²−4x+3=0" data-suffix="= 0" data-placeholder="z. B. x² + 2x − 3" data-level="2">
+        <p class="task-q">Bring in Normalform: <span class="m">2x² − 8x = −6</span></p>
+        <div class="wrong" data-match="2x²−8x+6">Fast! Für die Normalform muss vor <span class="m">x²</span> eine 1 stehen. Teil noch durch 2.</div>
+        <div class="wrong" data-match="x²−4x+6|x²−8x+6">Beim Teilen durch 2 musst du <strong>jedes</strong> Glied teilen.</div>
+        <div class="wrong" data-match="x²−4x−3|2x²−8x−6">Vorzeichen! Aus <span class="m">= −6</span> wird beim Rüberbringen <span class="m">+ 6</span> (du rechnest <span class="m">| + 6</span>).</div>
+        <details class="hint"><summary>Tipp</summary><p>Erst <span class="m">| + 6</span>, dann <span class="m">| : 2</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <div class="calc">
+            <div class="row"><span class="l">2x² − 8x</span><span class="r">= −6</span><span class="op">| + 6</span></div>
+            <div class="row"><span class="l">2x² − 8x + 6</span><span class="r">= 0</span><span class="op">| : 2</span></div>
+            <div class="row result"><span class="l">x² − 4x + 3</span><span class="r">= 0</span></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="task" data-id="grund-8" data-kind="text" data-answer="x²+2x−3|x²+2x−3=0" data-suffix="= 0" data-placeholder="z. B. x² + 2x − 3" data-level="2">
+        <p class="task-q">Bring in Normalform: <span class="m">(x + 3)² = 4x + 12</span></p>
+        <div class="wrong" data-match="x²−4x−3">Da hast du <span class="m">(x + 3)² = x² + 9</span> gerechnet. Das Mittelglied fehlt! 1. binomische Formel: <span class="m">x² + 6x + 9</span>.</div>
+        <div class="wrong" data-match="x²+10x+21">Vorzeichen beim Rüberbringen: Du musst <span class="m">4x</span> und <span class="m">12</span> <strong>abziehen</strong>.</div>
+        <details class="hint"><summary>Tipp 1</summary><p>1. binomische Formel: <span class="m wrap">(x + 3)² = x² + 2 · x · 3 + 3²</span>.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p>Links steht dann <span class="m">x² + 6x + 9</span>. Jetzt <span class="m">| − 4x − 12</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <div class="calc">
+            <div class="row"><span class="l">(x + 3)²</span><span class="r">= 4x + 12</span><span class="op">| 1. binomische Formel</span></div>
+            <div class="row"><span class="l">x² + 6x + 9</span><span class="r">= 4x + 12</span><span class="op">| − 4x − 12</span></div>
+            <div class="row result"><span class="l">x² + 2x − 3</span><span class="r">= 0</span></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="task" data-id="grund-9" data-kind="text" data-answer="x²−3x−4|x²−3x−4=0" data-suffix="= 0" data-placeholder="z. B. x² + 2x − 3" data-level="3">
+        <p class="task-q">Bring in Normalform: <span class="m">3x(x − 2) = x² + 8</span></p>
+        <div class="wrong" data-match="2x²−6x−8">Richtig umgeformt – jetzt noch <span class="m">| : 2</span>, damit vor <span class="m">x²</span> eine 1 steht.</div>
+        <div class="wrong" data-match="x²−6x−4|x²−3x−8">Beim Teilen durch 2 jedes Glied teilen: <span class="m">−6x : 2 = −3x</span> und <span class="m">−8 : 2 = −4</span>.</div>
+        <div class="wrong" data-match="3x²−6x−8|3x²−2x−8">Erst ausmultiplizieren: <span class="m">3x · x = 3x²</span>, <span class="m">3x · (−2) = −6x</span>. Dann <span class="m">x²</span> und <span class="m">8</span> nach links bringen.</div>
+        <details class="hint"><summary>Tipp 1</summary><p>Ausmultiplizieren: <span class="m">3x(x − 2) = 3x² − 6x</span>.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p>Dann <span class="m">| − x² − 8</span> und am Ende <span class="m">| : 2</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <div class="calc">
+            <div class="row"><span class="l">3x(x − 2)</span><span class="r">= x² + 8</span><span class="op">| ausmultiplizieren</span></div>
+            <div class="row"><span class="l">3x² − 6x</span><span class="r">= x² + 8</span><span class="op">| − x² − 8</span></div>
+            <div class="row"><span class="l">2x² − 6x − 8</span><span class="r">= 0</span><span class="op">| : 2</span></div>
+            <div class="row result"><span class="l">x² − 3x − 4</span><span class="r">= 0</span></div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 4. Wie viele Lösungen? ================= -->
+  <div class="block" id="gl-anzahl">
+    <h2>Wie viele Lösungen?</h2>
+    <p>Eine quadratische Gleichung hat <strong>zwei</strong>, <strong>eine</strong> oder <strong>keine</strong> Lösung. Am Bild siehst du sofort, warum: Die Lösungen von <span class="m">x² + px + q = 0</span> sind die Stellen, an denen die Parabel <span class="m">y = x² + px + q</span> die <span class="m">x</span>-Achse trifft.</p>
+
+    <div class="gl-three" data-widget="grund-count">
+      <figure class="gl-mini">
+        <div class="gl-mini-plot qg-plot-wrap" data-n="2"></div>
+        <figcaption><strong>2 Lösungen</strong><span class="m">x² − 4 = 0</span><span>schneidet zweimal</span><span class="m">L = {−2; 2}</span></figcaption>
+      </figure>
+      <figure class="gl-mini">
+        <div class="gl-mini-plot qg-plot-wrap" data-n="1"></div>
+        <figcaption><strong>1 Lösung</strong><span class="m">x² − 2x + 1 = 0</span><span>berührt einmal</span><span class="m">L = {1}</span></figcaption>
+      </figure>
+      <figure class="gl-mini">
+        <div class="gl-mini-plot qg-plot-wrap" data-n="0"></div>
+        <figcaption><strong>keine Lösung</strong><span class="m">x² + 1 = 0</span><span>trifft nie</span><span class="m">L = { }</span></figcaption>
+      </figure>
+    </div>
+
+    <h3>Rechnerisch: <span class="m">x² = k</span></h3>
+    <p>Am einfachsten siehst du es bei Gleichungen der Form <span class="m">x² = k</span> („Wurzel ziehen“):</p>
+    <div class="table-wrap">
+      <table class="nice">
+        <thead><tr><th>Fall</th><th>Beispiel</th><th>Lösungsmenge</th></tr></thead>
+        <tbody>
+          <tr><td class="narrow"><span class="m">k > 0</span></td><td class="narrow"><span class="m">x² = 9</span></td><td class="narrow"><span class="m">L = {−3; 3}</span></td></tr>
+          <tr><td class="narrow"><span class="m">k = 0</span></td><td class="narrow"><span class="m">x² = 0</span></td><td class="narrow"><span class="m">L = {0}</span></td></tr>
+          <tr><td class="narrow"><span class="m">k &lt; 0</span></td><td class="narrow"><span class="m">x² = −9</span></td><td class="narrow"><span class="m">L = { }</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Warum? <span class="m">3² = 9</span> <strong>und</strong> <span class="m">(−3)² = 9</span> – beide Zahlen passen. Nur <span class="m">0² = 0</span>. Und ein Quadrat ist <strong>nie negativ</strong>, also passt bei <span class="m">x² = −9</span> keine Zahl.</p>
+
+    <div class="box merke">
+      <p>Eine quadratische Gleichung hat <strong>höchstens zwei</strong> Lösungen. Bei <span class="m">x² = k</span> mit <span class="m">k > 0</span> sind es genau zwei: <span class="m">x = √k</span> und <span class="m">x = −√k</span>. Das „±“ nie vergessen!</p>
+    </div>
+
+    <div class="tasks">
+      <div class="task" data-id="grund-10" data-kind="choice" data-level="1">
+        <p class="task-q">Wie viele Lösungen hat <span class="m">x² = −9</span>?</p>
+        <div class="choices">
+          <button type="button" class="choice" data-why="(−3)² = +9 und 3² = +9. Keine Zahl ergibt quadriert −9."><span>zwei: <span class="m">−3</span> und <span class="m">3</span></span></button>
+          <button type="button" class="choice" data-why="(−3)² = +9, nicht −9. Minus mal Minus ergibt Plus."><span>eine: <span class="m">−3</span></span></button>
+          <button type="button" class="choice" data-correct data-why="Ein Quadrat ist nie negativ. Also L = { }."><span>keine</span></button>
+        </div>
+      </div>
+
+      <div class="task" data-id="grund-11" data-kind="choice" data-level="1">
+        <p class="task-q">Die Parabel zu einer Gleichung <strong>berührt</strong> die <span class="m">x</span>-Achse nur in ihrem Scheitelpunkt. Wie viele Lösungen hat die Gleichung?</p>
+        <div class="choices">
+          <button type="button" class="choice" data-why="Keine Lösung gibt es, wenn die Parabel die x-Achse gar nicht trifft."><span>keine</span></button>
+          <button type="button" class="choice" data-correct data-why="Ein gemeinsamer Punkt mit der x-Achse heißt: genau eine Lösung."><span>genau eine</span></button>
+          <button type="button" class="choice" data-why="Zwei Lösungen gibt es, wenn die Parabel die x-Achse zweimal schneidet."><span>zwei</span></button>
+        </div>
+      </div>
+
+      <div class="task" data-id="grund-12" data-answer="-5;5" data-level="1">
+        <p class="task-q">Löse: <span class="m">x² = 25</span></p>
+        <div class="wrong" data-match="12,5">Wurzelziehen ist nicht halbieren! Welche Zahl mal sich selbst ergibt 25?</div>
+        <div class="wrong" data-match="-12,5;12,5">Wurzelziehen ist nicht halbieren! Welche Zahl mal sich selbst ergibt 25?</div>
+        <details class="hint"><summary>Tipp</summary><p>Welche Zahlen ergeben quadriert 25? Es sind zwei – eine positive und eine negative.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <div class="calc">
+            <div class="row"><span class="l">x²</span><span class="r">= 25</span><span class="op">| √ (±!)</span></div>
+            <div class="row"><span class="l">x</span><span class="r">= ±5</span></div>
+          </div>
+          <p>Probe: <span class="m">5² = 25</span> ✓ und <span class="m">(−5)² = 25</span> ✓. Also <span class="m">L = {−5; 5}</span>.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 5. Satz vom Nullprodukt ================= -->
+  <div class="block" id="gl-nullprodukt">
+    <h2>Der Satz vom Nullprodukt</h2>
+    <p>Das ist <strong>der</strong> wichtigste Satz für dieses Thema. Mit ihm löst du jede Gleichung, die als Produkt dasteht und rechts eine 0 hat.</p>
+
+    <div class="box merke">
+      <p class="box-title">Satz vom Nullprodukt</p>
+      <p class="gl-big">Ein Produkt ist genau dann <strong>null</strong>, wenn <strong>mindestens ein Faktor null</strong> ist.</p>
+      <div class="mblock wrap"><span class="nw">A · B = 0</span> &nbsp;⇔&nbsp; <span class="nw">A = 0 oder B = 0</span></div>
+    </div>
+
+    <div class="gl-why card">
+      <p><strong>Warum stimmt das?</strong> Probier es aus:</p>
+      <ul class="gl-whylist">
+        <li><span class="m">7 · 0 = 0</span> <span class="gl-ok">✓ ein Faktor ist 0</span></li>
+        <li><span class="m">0 · (−3) = 0</span> <span class="gl-ok">✓ ein Faktor ist 0</span></li>
+        <li><span class="m">0,001 · 0,001 = 0,000001</span> <span class="gl-bad">winzig, aber nicht 0</span></li>
+      </ul>
+      <p class="mt0">Zwei Zahlen, die beide <strong>nicht</strong> 0 sind, ergeben nie 0 – egal, wie klein sie sind. Ist das Produkt also 0, <strong>muss</strong> ein Faktor 0 sein.</p>
+    </div>
+
+    <div class="box beispiel">
+      <p class="box-title">Beispiel 1: zwei Klammern</p>
+      <p>Löse <span class="m">(x − 4)(x + 2) = 0</span>.</p>
+      <div class="calc">
+        <div class="row"><span class="l">(x − 4)(x + 2)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+        <div class="row"><span class="note">1. Faktor = 0 oder 2. Faktor = 0</span></div>
+        <div class="row"><span class="l">x − 4</span><span class="r">= 0</span><span class="op">| + 4</span></div>
+        <div class="row result"><span class="l">x1</span><span class="r">= 4</span></div>
+        <div class="row sep"><span class="l">x + 2</span><span class="r">= 0</span><span class="op">| − 2</span></div>
+        <div class="row result"><span class="l">x2</span><span class="r">= −2</span></div>
+      </div>
+      <p class="gl-L"><span class="m">L = {−2; 4}</span></p>
+    </div>
+
+    <div class="box tipp">
+      <p>Abkürzung bei Klammern der Form <span class="m">(x ± Zahl)</span>: <strong>Das Vorzeichen dreht sich um.</strong> Aus <span class="m">(x − 4)</span> wird <span class="m">x = 4</span>, aus <span class="m">(x + 2)</span> wird <span class="m">x = −2</span>. Im Zweifel: Klammer gleich 0 setzen und auflösen.</p>
+    </div>
+
+    <div class="box beispiel">
+      <p class="box-title">Beispiel 2: ein Faktor ist nur <span class="m">x</span></p>
+      <p>Löse <span class="m">x(3x − 5) = 0</span>.</p>
+      <div class="calc">
+        <div class="row"><span class="l">x(3x − 5)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+        <div class="row result"><span class="l">x1</span><span class="r">= 0</span></div>
+        <div class="row sep"><span class="l">3x − 5</span><span class="r">= 0</span><span class="op">| + 5</span></div>
+        <div class="row"><span class="l">3x</span><span class="r">= 5</span><span class="op">| : 3</span></div>
+        <div class="row result"><span class="l">x2</span><span class="r">= <span class="frac"><span>5</span><span>3</span></span></span></div>
+      </div>
+      <p class="gl-L"><span class="m">L = {0; <span class="frac"><span>5</span><span>3</span></span>}</span></p>
+    </div>
+
+    <div class="box achtung">
+      <p class="box-title">Die Null nicht vergessen – und nie durch <span class="m">x</span> teilen!</p>
+      <p>Der Faktor <span class="m">x</span> allein liefert die Lösung <span class="m">x = 0</span>. Die wird am häufigsten vergessen.</p>
+      <p>Genauso gefährlich: Aus <span class="m">x² = 5x</span> durch Teilen <span class="m">| : x</span> einfach <span class="m">x = 5</span> machen. Dabei geht die Lösung 0 verloren! Richtig ist:</p>
+      <div class="calc">
+        <div class="row"><span class="l">x²</span><span class="r">= 5x</span><span class="op">| − 5x</span></div>
+        <div class="row"><span class="l">x² − 5x</span><span class="r">= 0</span><span class="op">| x ausklammern</span></div>
+        <div class="row"><span class="l">x(x − 5)</span><span class="r">= 0</span><span class="op">| Satz vom Nullprodukt</span></div>
+        <div class="row"><span class="note">x1 = 0 &nbsp;oder&nbsp; x − 5 = 0 ⇒ x2 = 5</span></div>
+      </div>
+      <p><span class="m">L = {0; 5}</span></p>
+    </div>
+
+    <h3>Beispiel 3 zum Durchklicken</h3>
+    <p>Löse <span class="m">(2x − 3)(x + 4) = 0</span>. Hier reicht „Vorzeichen umdrehen“ nicht ganz.</p>
+    <ol class="steps" data-stepper>
+      <li>
+        <div class="step-math"><span class="m">(2x − 3)(x + 4) = 0</span></div>
+        <p class="step-why">Links ein Produkt, rechts 0 – perfekt für den Satz vom Nullprodukt.</p>
+      </li>
+      <li>
+        <div class="step-math"><span class="m">2x − 3 = 0</span> &nbsp;oder&nbsp; <span class="m">x + 4 = 0</span></div>
+        <p class="step-why">Jeden Faktor einzeln gleich 0 setzen.</p>
+      </li>
+      <li>
+        <div class="step-math"><div class="calc">
+          <div class="row"><span class="l">2x − 3</span><span class="r">= 0</span><span class="op">| + 3</span></div>
+          <div class="row"><span class="l">2x</span><span class="r">= 3</span><span class="op">| : 2</span></div>
+          <div class="row result"><span class="l">x1</span><span class="r">= <span class="frac"><span>3</span><span>2</span></span> = 1,5</span></div>
+        </div></div>
+        <p class="step-why">Vor dem <span class="m">x</span> steht eine 2 – also am Ende noch durch 2 teilen. Die Lösung ist <strong>nicht</strong> 3!</p>
+      </li>
+      <li>
+        <div class="step-math"><div class="calc">
+          <div class="row"><span class="l">x + 4</span><span class="r">= 0</span><span class="op">| − 4</span></div>
+          <div class="row result"><span class="l">x2</span><span class="r">= −4</span></div>
+        </div></div>
+        <p class="step-why">Der zweite Faktor ist einfach: Vorzeichen umdrehen.</p>
+      </li>
+      <li>
+        <div class="step-math"><span class="m">L = {−4; <span class="frac"><span>3</span><span>2</span></span>}</span></div>
+        <p class="step-why">Lösungsmenge aufsteigend sortiert notieren.</p>
+      </li>
+    </ol>
+
+    <div class="box achtung">
+      <p class="box-title">Funktioniert nur mit 0!</p>
+      <p><span class="m">(x − 1)(x − 2) = 6</span> heißt <strong>nicht</strong> „<span class="m">x − 1 = 6</span> oder <span class="m">x − 2 = 6</span>“. Probe mit <span class="m">x = 7</span>: <span class="m">6 · 5 = 30 ≠ 6</span>.</p>
+      <p>Denn ein Produkt kann auf viele Arten 6 ergeben (<span class="m">2 · 3</span>, <span class="m">1 · 6</span>, <span class="m">(−2) · (−3)</span> …), aber 0 nur, wenn ein Faktor 0 ist. Also erst alles auf eine Seite bringen.</p>
+    </div>
+
+    <div class="tasks">
+      <div class="task" data-id="grund-13" data-answer="-5;3" data-level="1">
+        <p class="task-q">Löse: <span class="m">(x − 3)(x + 5) = 0</span></p>
+        <div class="wrong" data-match="-3;5">Vorzeichen vertauscht! Aus <span class="m">x − 3 = 0</span> folgt <span class="m">x = 3</span> (nicht −3). Mach die Probe.</div>
+        <details class="hint"><summary>Tipp</summary><p>Setz jede Klammer gleich 0: <span class="m">x − 3 = 0</span> oder <span class="m">x + 5 = 0</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <div class="calc">
+            <div class="row"><span class="l">x − 3</span><span class="r">= 0</span><span class="op">| + 3</span></div>
+            <div class="row result"><span class="l">x1</span><span class="r">= 3</span></div>
+            <div class="row sep"><span class="l">x + 5</span><span class="r">= 0</span><span class="op">| − 5</span></div>
+            <div class="row result"><span class="l">x2</span><span class="r">= −5</span></div>
+          </div>
+          <p><span class="m">L = {−5; 3}</span></p>
+        </details>
+      </div>
+
+      <div class="task" data-id="grund-14" data-answer="-6;-1" data-level="1">
+        <p class="task-q">Löse: <span class="m">(x + 6)(x + 1) = 0</span></p>
+        <div class="wrong" data-match="1;6">Vorzeichen! Aus <span class="m">x + 6 = 0</span> folgt <span class="m">x = −6</span>.</div>
+        <details class="hint"><summary>Tipp</summary><p>Beide Klammern haben ein Plus. Was muss man für <span class="m">x</span> einsetzen, damit <span class="m">x + 6</span> null wird?</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p><span class="m">x + 6 = 0 ⇒ x = −6</span> oder <span class="m">x + 1 = 0 ⇒ x = −1</span>.</p>
+          <p><span class="m">L = {−6; −1}</span> (aufsteigend: <span class="m">−6</span> ist kleiner als <span class="m">−1</span>)</p>
+        </details>
+      </div>
+
+      <div class="task" data-id="grund-15" data-answer="0;9" data-level="1">
+        <p class="task-q">Löse: <span class="m">x(x − 9) = 0</span></p>
+        <div class="wrong" data-match="9">Die Hälfte hast du! Der Faktor <span class="m">x</span> allein ist auch ein Faktor – er liefert <span class="m">x = 0</span>.</div>
+        <div class="wrong" data-match="0;-9">Vorzeichen: Aus <span class="m">x − 9 = 0</span> folgt <span class="m">x = 9</span>.</div>
+        <details class="hint"><summary>Tipp</summary><p>Hier gibt es zwei Faktoren: <span class="m">x</span> und <span class="m">(x − 9)</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p><span class="m">x1 = 0</span> oder <span class="m">x − 9 = 0 ⇒ x2 = 9</span>.</p>
+          <p><span class="m">L = {0; 9}</span></p>
+        </details>
+      </div>
+
+      <div class="task" data-id="grund-16" data-answer="0;7/2" data-level="2">
+        <p class="task-q">Löse: <span class="m">x(2x − 7) = 0</span></p>
+        <div class="wrong" data-match="7/2">Die 0 fehlt! Der Faktor <span class="m">x</span> allein liefert <span class="m">x = 0</span>.</div>
+        <div class="wrong" data-match="0;7">Fast! Aus <span class="m">2x − 7 = 0</span> folgt <span class="m">2x = 7</span> – jetzt noch durch 2 teilen.</div>
+        <div class="wrong" data-match="0;-7/2">Vorzeichen: <span class="m">2x − 7 = 0</span> <span class="m">| + 7</span> ergibt <span class="m">2x = 7</span>.</div>
+        <details class="hint"><summary>Tipp 1</summary><p>Faktor 1: <span class="m">x = 0</span>. Faktor 2: <span class="m">2x − 7 = 0</span> nach <span class="m">x</span> auflösen.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p>Brüche kannst du als <span class="kbd">7/2</span> oder als Dezimalzahl eingeben.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <div class="calc">
+            <div class="row result"><span class="l">x1</span><span class="r">= 0</span></div>
+            <div class="row sep"><span class="l">2x − 7</span><span class="r">= 0</span><span class="op">| + 7</span></div>
+            <div class="row"><span class="l">2x</span><span class="r">= 7</span><span class="op">| : 2</span></div>
+            <div class="row result"><span class="l">x2</span><span class="r">= <span class="frac"><span>7</span><span>2</span></span> = 3,5</span></div>
+          </div>
+          <p><span class="m">L = {0; <span class="frac"><span>7</span><span>2</span></span>}</span></p>
+        </details>
+      </div>
+
+      <div class="task" data-id="grund-17" data-answer="-1/2;4" data-level="2">
+        <p class="task-q">Löse: <span class="m">(2x + 1)(x − 4) = 0</span></p>
+        <div class="wrong" data-match="-1;4">Fast! Aus <span class="m">2x + 1 = 0</span> folgt <span class="m">2x = −1</span> – und dann noch <span class="m">| : 2</span>.</div>
+        <div class="wrong" data-match="1/2;-4">Beide Vorzeichen vertauscht. Löse jede Klammer sauber nach <span class="m">x</span> auf.</div>
+        <details class="hint"><summary>Tipp</summary><p><span class="m">2x + 1 = 0</span>: erst <span class="m">| − 1</span>, dann <span class="m">| : 2</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <div class="calc">
+            <div class="row"><span class="l">2x + 1</span><span class="r">= 0</span><span class="op">| − 1</span></div>
+            <div class="row"><span class="l">2x</span><span class="r">= −1</span><span class="op">| : 2</span></div>
+            <div class="row result"><span class="l">x1</span><span class="r">= −<span class="frac"><span>1</span><span>2</span></span></span></div>
+            <div class="row sep"><span class="l">x − 4</span><span class="r">= 0</span><span class="op">| + 4</span></div>
+            <div class="row result"><span class="l">x2</span><span class="r">= 4</span></div>
+          </div>
+          <p><span class="m">L = {−<span class="frac"><span>1</span><span>2</span></span>; 4}</span></p>
+        </details>
+      </div>
+
+      <div class="task" data-id="grund-18" data-answer="-3;2/3" data-level="2">
+        <p class="task-q">Löse: <span class="m">(3x − 2)(x + 3) = 0</span></p>
+        <div class="wrong" data-match="-3;2">Fast! <span class="m">3x − 2 = 0</span> ergibt <span class="m">3x = 2</span> – noch durch 3 teilen.</div>
+        <div class="wrong" data-match="-2/3;3">Beide Vorzeichen vertauscht. Löse jede Klammer sauber nach <span class="m">x</span> auf.</div>
+        <details class="hint"><summary>Tipp</summary><p><span class="m">3x − 2 = 0</span>: erst <span class="m">| + 2</span>, dann <span class="m">| : 3</span>. Bruch eingeben: <span class="kbd">2/3</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <div class="calc">
+            <div class="row"><span class="l">3x − 2</span><span class="r">= 0</span><span class="op">| + 2</span></div>
+            <div class="row"><span class="l">3x</span><span class="r">= 2</span><span class="op">| : 3</span></div>
+            <div class="row result"><span class="l">x1</span><span class="r">= <span class="frac"><span>2</span><span>3</span></span></span></div>
+            <div class="row sep"><span class="l">x + 3</span><span class="r">= 0</span><span class="op">| − 3</span></div>
+            <div class="row result"><span class="l">x2</span><span class="r">= −3</span></div>
+          </div>
+          <p><span class="m">L = {−3; <span class="frac"><span>2</span><span>3</span></span>}</span></p>
+        </details>
+      </div>
+
+      <div class="task" data-id="grund-19" data-answer="7" data-level="2">
+        <p class="task-q">Löse: <span class="m">(x − 7)² = 0</span></p>
+        <div class="wrong" data-match="-7;7">Hier gibt es nur eine Lösung. <span class="m wrap">(x − 7)² = (x − 7)(x − 7)</span> – beide Faktoren sind gleich. Probe mit <span class="m">−7</span>: <span class="m">(−14)² = 196 ≠ 0</span>.</div>
+        <div class="wrong" data-match="-7">Vorzeichen: Aus <span class="m">x − 7 = 0</span> folgt <span class="m">x = 7</span>.</div>
+        <details class="hint"><summary>Tipp</summary><p>Schreib das Quadrat als Produkt: <span class="m">(x − 7)(x − 7) = 0</span>. Welche Zahl macht einen Faktor zu 0?</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p><span class="m wrap">(x − 7)(x − 7) = 0 ⇒ x − 7 = 0 ⇒ x = 7</span>. Beide Faktoren liefern dieselbe Zahl.</p>
+          <p><span class="m">L = {7}</span> – genau eine Lösung (die Parabel berührt die <span class="m">x</span>-Achse nur).</p>
+        </details>
+      </div>
+
+      <div class="task" data-id="grund-20" data-kind="choice" data-level="3">
+        <p class="task-q">Lea rechnet: <span class="m">(x − 1)(x − 2) = 6</span>, also <span class="m">x − 1 = 6</span> oder <span class="m">x − 2 = 6</span>. Stimmt das?</p>
+        <div class="choices">
+          <button type="button" class="choice" data-why="Probe mit x = 7: (7 − 1)(7 − 2) = 6 · 5 = 30, nicht 6. Der Satz gilt nur für = 0."><span>Ja, das ist der Satz vom Nullprodukt.</span></button>
+          <button type="button" class="choice" data-correct data-why="Richtig: Erst ausmultiplizieren und alles auf eine Seite: x² − 3x + 2 = 6 ⇒ x² − 3x − 4 = 0 ⇒ (x − 4)(x + 1) = 0 ⇒ L = {−1; 4}."><span>Nein, der Satz funktioniert nur, wenn rechts 0 steht.</span></button>
+          <button type="button" class="choice" data-why="Leider nein – auch mit 3 statt 6 bleibt es falsch. Der Satz vom Nullprodukt funktioniert ausschließlich mit 0."><span>Nein, man muss die 6 vorher durch 2 teilen.</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 6. Probe ================= -->
+  <div class="block" id="gl-probe">
+    <h2>Probe machen</h2>
+    <p>Mit der Probe prüfst du, ob eine Zahl <strong>wirklich</strong> eine Lösung ist: in die <strong>Ausgangsgleichung</strong> einsetzen, ausrechnen – kommt 0 heraus (bzw. auf beiden Seiten dasselbe)?</p>
+
+    <div class="box beispiel">
+      <p class="box-title">Beispiel: <span class="m">x² − 2x − 3 = 0</span></p>
+      <div class="calc">
+        <div class="row"><span class="note">Probe für <span class="m">x = 3</span>:</span></div>
+        <div class="row"><span class="l">3² − 2 · 3 − 3</span><span class="r">= 9 − 6 − 3</span></div>
+        <div class="row"><span class="l"></span><span class="r">= 0</span><span class="op">✓ Lösung</span></div>
+        <div class="row sep"><span class="note">Probe für <span class="m">x = −1</span>:</span></div>
+        <div class="row"><span class="l">(−1)² − 2 · (−1) − 3</span><span class="r">= 1 + 2 − 3</span></div>
+        <div class="row"><span class="l"></span><span class="r">= 0</span><span class="op">✓ Lösung</span></div>
+        <div class="row sep"><span class="note">Probe für <span class="m">x = 1</span>:</span></div>
+        <div class="row"><span class="l">1² − 2 · 1 − 3</span><span class="r">= 1 − 2 − 3</span></div>
+        <div class="row"><span class="l"></span><span class="r">= −4 ≠ 0</span><span class="op">✗ keine Lösung</span></div>
+      </div>
+    </div>
+
+    <div class="box achtung">
+      <p class="box-title">Negative Zahlen in Klammern!</p>
+      <p><span class="m">(−1)² = 1</span>, aber <span class="m">−1² = −1</span>. Wer beim Einsetzen die Klammer weglässt, bekommt ein falsches Ergebnis – und hält eine richtige Lösung für falsch.</p>
+    </div>
+
+    <div class="gl-lab card" data-widget="grund-probe">
+      <p class="gl-lab-title">🔬 Probe-Labor</p>
+      <p class="gl-lab-q">Tippe eine Zahl an und setze sie in <span class="m">x² − 2x − 3</span> ein. Welche Zahlen ergeben 0?</p>
+      <div class="gl-lab-chips" role="group" aria-label="Zahl zum Einsetzen wählen"></div>
+      <div class="gl-lab-out" aria-live="polite"></div>
+      <div class="gl-lab-plot qg-plot-wrap"></div>
+    </div>
+
+    <div class="tasks">
+      <div class="task" data-id="grund-21" data-kind="choice" data-level="1">
+        <p class="task-q">Ist <span class="m">x = −2</span> eine Lösung von <span class="m">x² + 5x + 6 = 0</span>?</p>
+        <div class="choices">
+          <button type="button" class="choice" data-correct data-why="Genau: (−2)² + 5 · (−2) + 6 = 4 − 10 + 6 = 0."><span>Ja: <span class="m wrap">(−2)² + 5 · (−2) + 6 = 4 − 10 + 6 = 0</span></span></button>
+          <button type="button" class="choice" data-why="Achtung: (−2)² = +4, nicht −4. Negative Zahlen beim Einsetzen immer in Klammern setzen!"><span>Nein: <span class="m wrap">−2² + 5 · (−2) + 6 = −4 − 10 + 6 = −8</span></span></button>
+        </div>
+      </div>
+
+      <div class="task" data-id="grund-22" data-kind="choice" data-level="2">
+        <p class="task-q">Welche Zahl ist eine Lösung von <span class="m">x² − x − 12 = 0</span>? Mach die Probe.</p>
+        <div class="choices cols">
+          <button type="button" class="choice" data-why="3² − 3 − 12 = 9 − 3 − 12 = −6, nicht 0."><span><span class="m">3</span></span></button>
+          <button type="button" class="choice" data-correct data-why="4² − 4 − 12 = 16 − 4 − 12 = 0 ✓"><span><span class="m">4</span></span></button>
+          <button type="button" class="choice" data-why="(−4)² − (−4) − 12 = 16 + 4 − 12 = 8, nicht 0."><span><span class="m">−4</span></span></button>
+          <button type="button" class="choice" data-why="12² − 12 − 12 = 144 − 24 = 120, nicht 0."><span><span class="m">12</span></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 7. Lösungsmenge ================= -->
+  <div class="block" id="gl-menge">
+    <h2>Lösungsmenge richtig notieren</h2>
+    <p>Am Ende jeder Aufgabe steht die <strong>Lösungsmenge</strong> <span class="m">L</span>. Dafür gibt es feste Regeln – und in der HÜ gibt es dafür Punkte.</p>
+
+    <div class="table-wrap">
+      <table class="nice gl-Ltable">
+        <thead><tr><th>Situation</th><th>So schreibst du es</th></tr></thead>
+        <tbody>
+          <tr><td>zwei Lösungen</td><td><span class="m">L = {−5; 3}</span></td></tr>
+          <tr><td>eine Lösung</td><td><span class="m">L = {4}</span></td></tr>
+          <tr><td>keine Lösung</td><td><span class="m">L = { }</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box merke">
+      <ul>
+        <li>Geschweifte Klammern <span class="m">{ }</span>, die Zahlen durch <strong>Semikolon</strong> getrennt (wegen des Dezimalkommas).</li>
+        <li><strong>Aufsteigend</strong> sortieren: die kleinere Zahl zuerst.</li>
+        <li>Zwischenergebnisse darfst du als <span class="m">x1 = …</span> und <span class="m">x2 = …</span> notieren – am Ende kommt <span class="m">L</span>.</li>
+      </ul>
+    </div>
+
+    <div class="box achtung">
+      <p><span class="m">L = {0}</span> heißt: <strong>Die Zahl 0 ist die Lösung.</strong> Das ist etwas völlig anderes als <span class="m">L = { }</span> (es gibt keine Lösung)!</p>
+    </div>
+
+    <div class="tasks">
+      <div class="task" data-id="grund-23" data-kind="choice" data-level="1">
+        <p class="task-q"><span class="m">x² = −4</span> hat keine Lösung. Wie notierst du das richtig?</p>
+        <div class="choices cols">
+          <button type="button" class="choice" data-why="L = {0} würde heißen: 0 ist eine Lösung. Probe: 0² = 0, nicht −4."><span><span class="m">L = {0}</span></span></button>
+          <button type="button" class="choice" data-correct data-why="Die leere Menge: keine Zahl erfüllt die Gleichung."><span><span class="m">L = { }</span></span></button>
+          <button type="button" class="choice" data-why="(−2)² = 4 und 2² = 4 – aber gesucht ist −4."><span><span class="m">L = {−2; 2}</span></span></button>
+          <button type="button" class="choice" data-why="√−4 gibt es nicht: Keine Zahl ergibt quadriert −4. Aus einer negativen Zahl kann man keine Wurzel ziehen."><span><span class="m">L = {√−4}</span></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 8. Fit-Check Vorwissen ================= -->
+  <div class="block" id="gl-fitcheck">
+    <h2>Fit-Check Vorwissen</h2>
+    <p>Diese Werkzeuge brauchst du für alle drei Wege. Wenn hier alles grün ist, bist du startklar. Wenn nicht: Genau hier lohnt sich die Wiederholung am meisten.</p>
+
+    <h3>Binomische Formeln</h3>
+    <div class="box merke gl-binom">
+      <p class="box-title">Die drei binomischen Formeln</p>
+      <div class="gl-binom-row"><span class="gl-bn">1.</span><span class="m">(a + b)² = a² + <span class="hl-orange">2ab</span> + b²</span></div>
+      <div class="gl-binom-row"><span class="gl-bn">2.</span><span class="m">(a − b)² = a² − <span class="hl-orange">2ab</span> + b²</span></div>
+      <div class="gl-binom-row"><span class="gl-bn">3.</span><span class="m">(a + b)(a − b) = a² − b²</span></div>
+    </div>
+    <div class="box achtung">
+      <p>Der Klassiker: <span class="m">(x + 5)² ≠ x² + 25</span>. Das <span class="hl-orange">Mittelglied</span> <span class="m">2 · x · 5 = 10x</span> fehlt! Und bei der 2. Formel ist das letzte Glied trotzdem <strong>plus</strong>: <span class="m">(−4)² = +16</span>.</p>
+    </div>
+
+    <p class="gl-sub">Vorwärts: Multipliziere aus.</p>
+    <div class="tasks">
+      <div class="task" data-id="grund-24" data-kind="text" data-answer="x²+10x+25" data-placeholder="z. B. x² + 4x + 4" data-level="1">
+        <p class="task-q"><span class="m">(x + 5)² =</span></p>
+        <div class="wrong" data-match="x²+25">Das Mittelglied fehlt! <span class="m">2 · x · 5 = 10x</span>.</div>
+        <div class="wrong" data-match="x²+5x+25">Das Mittelglied ist <span class="m">2 · x · 5 = 10x</span> – die 2 nicht vergessen.</div>
+        <details class="hint"><summary>Tipp</summary><p>1. binomische Formel mit <span class="m">a = x</span> und <span class="m">b = 5</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary><p><span class="m wrap">(x + 5)² = x² + 2 · x · 5 + 5² = x² + 10x + 25</span></p></details>
+      </div>
+
+      <div class="task" data-id="grund-25" data-kind="text" data-answer="x²−8x+16" data-placeholder="z. B. x² + 4x + 4" data-level="1">
+        <p class="task-q"><span class="m">(x − 4)² =</span></p>
+        <div class="wrong" data-match="x²−8x−16">Fast! Das letzte Glied ist <span class="m">(−4)² = +16</span>. Bei der 2. binomischen Formel steht hinten immer Plus.</div>
+        <div class="wrong" data-match="x²−16|x²+16">Das Mittelglied fehlt: <span class="m">2 · x · 4 = 8x</span>, hier mit Minus.</div>
+        <details class="hint"><summary>Tipp</summary><p>2. binomische Formel: <span class="m">a² − 2ab + b²</span> mit <span class="m">a = x</span>, <span class="m">b = 4</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary><p><span class="m wrap">(x − 4)² = x² − 2 · x · 4 + 4² = x² − 8x + 16</span></p></details>
+      </div>
+
+      <div class="task" data-id="grund-26" data-kind="text" data-answer="x²−36" data-placeholder="z. B. x² − 4" data-level="1">
+        <p class="task-q"><span class="m">(x + 6)(x − 6) =</span></p>
+        <div class="wrong" data-match="x²+36">Fast: <span class="m">6 · (−6) = −36</span>. Bei der 3. binomischen Formel steht ein Minus.</div>
+        <div class="wrong" data-match="x²+12x+36|x²−12x+36">Das ist keine Quadratklammer, sondern Plus mal Minus: 3. binomische Formel. Die Mittelglieder heben sich weg.</div>
+        <details class="hint"><summary>Tipp</summary><p>3. binomische Formel: <span class="m">(a + b)(a − b) = a² − b²</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary><p><span class="m wrap">(x + 6)(x − 6) = x² − 6x + 6x − 36 = x² − 36</span></p></details>
+      </div>
+
+      <div class="task" data-id="grund-27" data-kind="text" data-answer="4x²+12x+9" data-placeholder="z. B. 9x² + 6x + 1" data-level="2">
+        <p class="task-q"><span class="m">(2x + 3)² =</span></p>
+        <div class="wrong" data-match="2x²+12x+9">Achtung: <span class="m">(2x)² = 2x · 2x = 4x²</span>.</div>
+        <div class="wrong" data-match="4x²+6x+9|2x²+6x+9">Das Mittelglied ist <span class="m">2 · 2x · 3 = 12x</span>.</div>
+        <div class="wrong" data-match="4x²+9|2x²+9">Das Mittelglied fehlt: <span class="m">2 · 2x · 3 = 12x</span>.</div>
+        <details class="hint"><summary>Tipp</summary><p>Hier ist <span class="m">a = 2x</span>. Also <span class="m">a² = (2x)²</span> – das Quadrat gilt für die 2 und das <span class="m">x</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary><p><span class="m wrap">(2x + 3)² = (2x)² + 2 · 2x · 3 + 3² = 4x² + 12x + 9</span></p></details>
+      </div>
+    </div>
+
+    <p class="gl-sub">Rückwärts: Schreib als Quadrat bzw. Produkt. Das brauchst du für Weg 2 und Weg 3!</p>
+    <div class="tasks">
+      <div class="task" data-id="grund-28" data-kind="text" data-answer="(x+3)²|(3+x)²|(x+3)(x+3)" data-placeholder="z. B. (x + 1)²" data-level="2">
+        <p class="task-q"><span class="m">x² + 6x + 9 =</span></p>
+        <div class="wrong" data-match="(x+9)²|(x+6)²">Prüf durch Ausmultiplizieren: Die Zahl in der Klammer ist die Wurzel aus der 9.</div>
+        <div class="wrong" data-match="(x−3)²">Das Mittelglied <span class="m">+ 6x</span> ist positiv – also 1. binomische Formel mit Plus.</div>
+        <details class="hint"><summary>Tipp 1</summary><p><span class="m">9 = 3²</span>. Und passt das Mittelglied? <span class="m">2 · x · 3 = 6x</span> ✓</p></details>
+        <details class="solution"><summary>Lösung</summary><p><span class="m">x² + 6x + 9 = (x + 3)²</span>. Probe: <span class="m">(x + 3)² = x² + 6x + 9</span> ✓</p></details>
+      </div>
+
+      <div class="task" data-id="grund-29" data-kind="text" data-answer="(x−5)²|(5−x)²|(x−5)(x−5)" data-placeholder="z. B. (x − 1)²" data-level="2">
+        <p class="task-q"><span class="m">x² − 10x + 25 =</span></p>
+        <div class="wrong" data-match="(x+5)²">Das Mittelglied <span class="m">− 10x</span> ist negativ – also 2. binomische Formel.</div>
+        <div class="wrong" data-match="(x−25)²|(x−10)²">Prüf durch Ausmultiplizieren: Die Zahl in der Klammer ist die Wurzel aus 25.</div>
+        <details class="hint"><summary>Tipp</summary><p><span class="m">25 = 5²</span>, und das Mittelglied hat ein Minus.</p></details>
+        <details class="solution"><summary>Lösung</summary><p><span class="m">x² − 10x + 25 = (x − 5)²</span>, denn <span class="m">2 · x · 5 = 10x</span> ✓</p></details>
+      </div>
+
+      <div class="task" data-id="grund-30" data-kind="text" data-answer="(x+7)(x−7)|(x−7)(x+7)|(7+x)(x−7)|(x−7)(7+x)|(x+7)(−7+x)|(−7+x)(x+7)|(7+x)(−7+x)|(−7+x)(7+x)" data-placeholder="z. B. (x + 1)(x − 1)" data-level="2">
+        <p class="task-q"><span class="m">x² − 49 =</span></p>
+        <div class="wrong" data-match="(x−7)²">Ausmultipliziert gibt <span class="m">(x − 7)²</span> ein Mittelglied <span class="m">− 14x</span>. Hier gibt es keins – das ist die 3. binomische Formel.</div>
+        <div class="wrong" data-match="(x+49)(x−49)|(x−49)(x+49)">Die Zahl in den Klammern ist die Wurzel aus 49.</div>
+        <details class="hint"><summary>Tipp</summary><p>Kein Mittelglied, ein Minus in der Mitte: <span class="m">a² − b² = (a + b)(a − b)</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary><p><span class="m">x² − 49 = (x + 7)(x − 7)</span></p></details>
+      </div>
+
+      <div class="task" data-id="grund-31" data-kind="number" data-answer="16" data-prefix="☐ =" data-keys="none" data-level="2">
+        <p class="task-q">Welche Zahl fehlt? <span class="m">x² + 8x + ☐ = (x + 4)²</span></p>
+        <div class="wrong" data-match="8">Das Mittelglied ist schon <span class="m">8x</span>. Gesucht ist das letzte Glied <span class="m">b²</span>.</div>
+        <div class="wrong" data-match="4">Fast – gesucht ist <span class="m">4²</span>, nicht 4.</div>
+        <details class="hint"><summary>Tipp</summary><p>Das letzte Glied der 1. binomischen Formel ist <span class="m">b²</span>. Hier ist <span class="m">b = 4</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary><p><span class="m">4² = 16</span>, also <span class="m">x² + 8x + 16 = (x + 4)²</span>. Genau dieser Trick steckt hinter der <a href="#ergaenzung">quadratischen Ergänzung</a>.</p></details>
+      </div>
+    </div>
+
+    <h3>Ausklammern</h3>
+    <p>Steckt in <strong>jedem</strong> Glied derselbe Faktor, ziehst du ihn vor die Klammer. Klammere so viel wie möglich aus:</p>
+    <div class="calc">
+      <div class="row"><span class="l">4x² − 6x</span><span class="r">= 2x · 2x − 2x · 3</span><span class="op">| 2x steckt in beiden</span></div>
+      <div class="row result"><span class="l"></span><span class="r">= 2x(2x − 3)</span></div>
+    </div>
+    <p class="small muted">Kontrolle: Wieder ausmultiplizieren muss den Ausgangsterm ergeben.</p>
+
+    <div class="tasks">
+      <div class="task" data-id="grund-32" data-kind="text" data-answer="x(x−7)|(x−7)x|x(−7+x)|(−7+x)x" data-placeholder="z. B. x(x + 2)" data-level="1">
+        <p class="task-q">Klammere aus: <span class="m">x² − 7x =</span></p>
+        <div class="wrong" data-match="x(x+7)">Vorzeichen: <span class="m">x · (+7) = +7x</span>. Hier brauchst du <span class="m">− 7x</span>.</div>
+        <div class="wrong" data-match="x(x−7x)|x²(1−7x)">Prüf durch Ausmultiplizieren – da kommt nicht <span class="m">x² − 7x</span> heraus.</div>
+        <details class="hint"><summary>Tipp</summary><p>Beide Glieder enthalten ein <span class="m">x</span>: <span class="m">x² = x · x</span> und <span class="m">7x = 7 · x</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary><p><span class="m">x² − 7x = x(x − 7)</span></p></details>
+      </div>
+
+      <div class="task" data-id="grund-33" data-kind="text" data-answer="3x(x+4)|3x(4+x)|(x+4)3x|(x+4)x3" data-placeholder="z. B. 2x(x + 1)" data-level="2">
+        <p class="task-q">Klammere so viel wie möglich aus: <span class="m">3x² + 12x =</span></p>
+        <div class="wrong" data-match="x(3x+12)|(3x+12)x">Richtig ausgeklammert – aber da geht mehr: Auch die 3 steckt in beiden Gliedern.</div>
+        <div class="wrong" data-match="3(x²+4x)">Richtig ausgeklammert – aber auch das <span class="m">x</span> steckt noch in beiden Gliedern.</div>
+        <details class="hint"><summary>Tipp</summary><p><span class="m">3x² = 3x · x</span> und <span class="m">12x = 3x · 4</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary><p><span class="m">3x² + 12x = 3x(x + 4)</span>. Probe: <span class="m wrap">3x · x + 3x · 4 = 3x² + 12x</span> ✓</p></details>
+      </div>
+    </div>
+
+    <h3>Quadratwurzeln</h3>
+    <p><span class="m">√a</span> ist die <strong>nicht-negative</strong> Zahl, die quadriert <span class="m">a</span> ergibt: <span class="m">√49 = 7</span>. Die Gleichung <span class="m">x² = 49</span> hat aber <strong>zwei</strong> Lösungen: <span class="m">7</span> und <span class="m">−7</span>. Merke dir die Quadratzahlen bis <span class="m">20² = 400</span> – das spart in der HÜ viel Zeit.</p>
+
+    <div class="gl-squares" aria-label="Quadratzahlen von 1 bis 20">
+      <span>1² = 1</span><span>2² = 4</span><span>3² = 9</span><span>4² = 16</span><span>5² = 25</span>
+      <span>6² = 36</span><span>7² = 49</span><span>8² = 64</span><span>9² = 81</span><span>10² = 100</span>
+      <span>11² = 121</span><span>12² = 144</span><span>13² = 169</span><span>14² = 196</span><span>15² = 225</span>
+      <span>16² = 256</span><span>17² = 289</span><span>18² = 324</span><span>19² = 361</span><span>20² = 400</span>
+    </div>
+
+    <div class="tasks">
+      <div class="task" data-id="grund-34" data-kind="number" data-answer="12" data-prefix="√144 =" data-keys="none" data-level="1">
+        <p class="task-q">Berechne ohne Taschenrechner: <span class="m">√144</span></p>
+        <div class="wrong" data-match="72">Wurzelziehen ist nicht halbieren. Welche Zahl mal sich selbst ergibt 144?</div>
+        <details class="hint"><summary>Tipp</summary><p>Schau in die Tabelle der Quadratzahlen oben.</p></details>
+      </div>
+
+      <div class="task" data-id="grund-35" data-kind="choice" data-level="2">
+        <p class="task-q">Was ist <span class="m">√(9 + 16)</span>?</p>
+        <div class="choices cols">
+          <button type="button" class="choice" data-why="√9 + √16 = 3 + 4 = 7 – aber die Wurzel einer Summe darf man nicht aufteilen! Erst addieren: 9 + 16 = 25."><span><span class="m">7</span></span></button>
+          <button type="button" class="choice" data-correct data-why="Erst addieren, dann Wurzel ziehen: √25 = 5."><span><span class="m">5</span></span></button>
+          <button type="button" class="choice" data-why="Erst addieren: 9 + 16 = 25. Dann die Wurzel: √25 = 5."><span><span class="m">25</span></span></button>
+          <button type="button" class="choice" data-why="12,5 ist die Hälfte von 25. Wurzelziehen ist nicht halbieren."><span><span class="m">12,5</span></span></button>
+        </div>
+      </div>
+
+      <div class="task" data-id="grund-36" data-kind="choice" data-level="2">
+        <p class="task-q">Welche Zahlen ergeben quadriert 49? (Löse <span class="m">x² = 49</span>.)</p>
+        <div class="choices cols">
+          <button type="button" class="choice" data-correct><span><span class="m">7</span></span></button>
+          <button type="button" class="choice" data-correct><span><span class="m">−7</span></span></button>
+          <button type="button" class="choice" data-why="24,5 · 2 = 49 – das ist verdoppeln, nicht quadrieren. 24,5² = 600,25."><span><span class="m">24,5</span></span></button>
+          <button type="button" class="choice" data-why="(−49)² = 2401. Gesucht ist eine Zahl, die mal sich selbst 49 ergibt."><span><span class="m">−49</span></span></button>
+        </div>
+      </div>
+    </div>
+
+    <h3>Äquivalenzumformungen</h3>
+    <p>Eine Gleichung bleibt „gleich wahr“, wenn du auf <strong>beiden Seiten dasselbe</strong> tust:</p>
+    <ul class="gl-rules">
+      <li><span class="gl-rule-ok">erlaubt</span><span>dieselbe Zahl oder denselben Term addieren bzw. subtrahieren</span></li>
+      <li><span class="gl-rule-ok">erlaubt</span><span>mit derselben Zahl multiplizieren oder durch dieselbe Zahl teilen – <strong>außer 0</strong></span></li>
+      <li><span class="gl-rule-bad">verboten</span><span>durch <span class="m">x</span> (oder einen Term mit <span class="m">x</span>) teilen – <span class="m">x</span> könnte 0 sein, und eine Lösung geht verloren</span></li>
+    </ul>
+    <p>Schreib hinter jede Zeile, was du gemacht hast, z. B. <span class="m">| − 7</span> oder <span class="m">| : 3</span>. Das hilft dir und bringt in der HÜ Punkte.</p>
+
+    <div class="tasks">
+      <div class="task" data-id="grund-37" data-kind="number" data-answer="6" data-prefix="x =" data-keys="−" data-level="1">
+        <p class="task-q">Löse: <span class="m">3x − 7 = 11</span></p>
+        <div class="wrong" data-match="4/3">Vorzeichen: Aus <span class="m">− 7</span> wird beim Rüberbringen <span class="m">+ 7</span> (du rechnest <span class="m">| + 7</span>).</div>
+        <div class="wrong" data-match="18">Fast: <span class="m">3x = 18</span> – jetzt noch <span class="m">| : 3</span>.</div>
+        <details class="hint"><summary>Tipp</summary><p>Erst <span class="m">| + 7</span>, dann <span class="m">| : 3</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <div class="calc">
+            <div class="row"><span class="l">3x − 7</span><span class="r">= 11</span><span class="op">| + 7</span></div>
+            <div class="row"><span class="l">3x</span><span class="r">= 18</span><span class="op">| : 3</span></div>
+            <div class="row result"><span class="l">x</span><span class="r">= 6</span></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="task" data-id="grund-38" data-kind="number" data-answer="-9/2" data-prefix="x =" data-keys="− , /" data-level="2">
+        <p class="task-q">Löse: <span class="m">2x + 9 = 0</span></p>
+        <div class="wrong" data-match="-18">Du hast mit 2 multipliziert. Richtig ist <span class="m">| : 2</span>.</div>
+        <div class="wrong" data-match="-9">Fast: <span class="m">2x = −9</span> – jetzt noch <span class="m">| : 2</span>.</div>
+        <div class="wrong" data-match="9/2">Vorzeichen: <span class="m">| − 9</span> ergibt <span class="m">2x = −9</span>.</div>
+        <details class="hint"><summary>Tipp</summary><p><span class="m">| − 9</span> ergibt <span class="m">2x = −9</span>. Dann <span class="m">| : 2</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <div class="calc">
+            <div class="row"><span class="l">2x + 9</span><span class="r">= 0</span><span class="op">| − 9</span></div>
+            <div class="row"><span class="l">2x</span><span class="r">= −9</span><span class="op">| : 2</span></div>
+            <div class="row result"><span class="l">x</span><span class="r">= −4,5</span></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="task" data-id="grund-39" data-kind="choice" data-level="3">
+        <p class="task-q">Welcher Schritt ist bei <span class="m">x² = 3x</span> ein <strong>Fehler</strong>?</p>
+        <div class="choices">
+          <button type="button" class="choice" data-why="Erlaubt: Auf beiden Seiten 3x abziehen ändert die Lösungen nicht. Das ist sogar der richtige erste Schritt!"><span><span class="m">| − 3x</span> &nbsp;→&nbsp; <span class="m">x² − 3x = 0</span></span></button>
+          <button type="button" class="choice" data-correct data-why="Genau: Teilen durch x ist verboten, weil x = 0 sein könnte. Dabei geht die Lösung 0 verloren. Richtig: x(x − 3) = 0 ⇒ L = {0; 3}."><span><span class="m">| : x</span> &nbsp;→&nbsp; <span class="m">x = 3</span></span></button>
+          <button type="button" class="choice" data-why="Erlaubt: Beide Seiten mal 2 ändert nichts an den Lösungen."><span><span class="m">| · 2</span> &nbsp;→&nbsp; <span class="m">2x² = 6x</span></span></button>
+          <button type="button" class="choice" data-why="Erlaubt: Auf beiden Seiten dieselbe Zahl addieren ist immer in Ordnung."><span><span class="m">| + 1</span> &nbsp;→&nbsp; <span class="m">x² + 1 = 3x + 1</span></span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="box merke gl-summary">
+      <p class="box-title">Kurz gemerkt</p>
+      <ul>
+        <li>Quadratische Gleichung: <span class="m">ax² + bx + c = 0</span> mit <span class="m">a ≠ 0</span>. Normalform: <span class="m">x² + px + q = 0</span>.</li>
+        <li>Aufräumen: Klammern auflösen → alles auf eine Seite → sortieren → durch <span class="m">a</span> teilen.</li>
+        <li>0, 1 oder 2 Lösungen – nie mehr.</li>
+        <li><strong>Satz vom Nullprodukt</strong>: <span class="m">A · B = 0 ⇔ A = 0</span> oder <span class="m">B = 0</span>. Nur mit 0!</li>
+        <li>Nie durch <span class="m">x</span> teilen. Probe in die Ausgangsgleichung, negative Zahlen in Klammern.</li>
+        <li>Am Ende: <span class="m">L = {…; …}</span> aufsteigend, keine Lösung: <span class="m">L = { }</span>.</li>
+      </ul>
+    </div>
+  </div>
+</section>

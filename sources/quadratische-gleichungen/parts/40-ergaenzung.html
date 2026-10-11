@@ -1,0 +1,680 @@
+<section class="chapter" id="ergaenzung" data-title="Weg 3: Quadratische Ergänzung" data-short="Ergänzung" data-color="orange" data-icon="🟧">
+  <header class="ch-head">
+    <p class="ch-kicker">Weg 3 von 3</p>
+    <h1>Quadratische Ergänzung</h1>
+    <p class="ch-lead">Du machst aus der linken Seite eine binomische Formel – danach reicht einmal Wurzelziehen. Dieser Weg klappt bei <b>jeder</b> quadratischen Gleichung.</p>
+  </header>
+
+  <!-- ================= 1 · Idee ================= -->
+  <div class="block" id="erg-idee">
+    <h2>Die Idee</h2>
+    <p>Manche quadratischen Gleichungen kannst du fast im Kopf lösen. Zum Beispiel diese:</p>
+    <div class="mblock">(x + 3)² = 16</div>
+    <p>Welche Zahl ergibt zum Quadrat 16? Die <b>4</b> – aber auch die <b>−4</b>. Also:</p>
+    <div class="mblock erg-or">
+      <div>x + 3 = 4 <span class="t erg-oder">oder</span> x + 3 = −4</div>
+      <div><b>x = 1</b> <span class="t erg-oder">oder</span> <b>x = −7</b></div>
+    </div>
+    <p>Jetzt kommt der Clou: Die Gleichung <span class="m">x² + 6x − 7 = 0</span> hat <b>genau dieselben Lösungen</b>. Man sieht es ihr nur nicht an. Die quadratische Ergänzung verwandelt die eine Gleichung in die andere.</p>
+    <div class="box merke">
+      <p class="box-title">Die Idee in einem Satz</p>
+      <p>Ergänze die linke Seite so, dass dort eine <b>binomische Formel</b> steht – dann kannst du einfach <b>die Wurzel ziehen</b>.</p>
+    </div>
+    <div class="box info">
+      <p class="box-title">Vorwissen: die 1. und 2. binomische Formel</p>
+      <p><span class="m">(x + b)² = x² + 2bx + b²</span> und <span class="m">(x − b)² = x² − 2bx + b²</span>.</p>
+      <p>Die Zahl vor <span class="m">x</span> ist also immer das <b>Doppelte</b> der Zahl in der Klammer. Rückwärts heißt das: Steht vor <span class="m">x</span> die Zahl <span class="m">p</span>, gehört <span class="m"><span class="frac"><span>p</span><span>2</span></span></span> in die Klammer. Unsicher? Wiederhole kurz die <a href="#grundlagen">Grundlagen</a>.</p>
+    </div>
+  </div>
+
+  <!-- ================= 2 · Flächenmodell ================= -->
+  <div class="block" id="erg-bild">
+    <h2>Das Bild dazu: Ein Quadrat ergänzen</h2>
+    <p>Warum heißt das Verfahren „Ergänzung“? Stell dir <span class="m">x² + 6x</span> als Fläche vor. Dann fehlt nur noch ein kleines Stück zu einem großen Quadrat. Klick dich durch – und probier auch andere Werte für <span class="m">p</span> aus.</p>
+    <div class="card erg-area" data-widget="erg-area" data-p="6">
+      <p class="muted small">Das Flächenmodell wird geladen …</p>
+    </div>
+    <p>Für jedes <span class="m">p</span> gilt also:</p>
+    <div class="mblock">x² + px + <span class="hl-orange">(<span class="frac"><span>p</span><span>2</span></span>)²</span> = (x + <span class="frac"><span>p</span><span>2</span></span>)²</div>
+    <p>Die Zahl, die du ergänzen musst, findest du so: <b>p halbieren, dann quadrieren.</b></p>
+    <div class="table-wrap">
+      <table class="nice erg-tab">
+        <thead><tr><th>Term</th><th class="c">p</th><th class="c"><span class="frac"><span>p</span><span>2</span></span></th><th class="c">Ergänzung</th><th>Binom</th></tr></thead>
+        <tbody>
+          <tr><td><span class="m">x² + 6x</span></td><td class="c"><span class="m">6</span></td><td class="c"><span class="m">3</span></td><td class="c"><span class="m">9</span></td><td><span class="m">(x + 3)²</span></td></tr>
+          <tr><td><span class="m">x² + 10x</span></td><td class="c"><span class="m">10</span></td><td class="c"><span class="m">5</span></td><td class="c"><span class="m">25</span></td><td><span class="m">(x + 5)²</span></td></tr>
+          <tr><td><span class="m">x² − 8x</span></td><td class="c"><span class="m">−8</span></td><td class="c"><span class="m">−4</span></td><td class="c"><span class="m">16</span></td><td><span class="m">(x − 4)²</span></td></tr>
+          <tr><td><span class="m">x² + 3x</span></td><td class="c"><span class="m">3</span></td><td class="c"><span class="m"><span class="frac"><span>3</span><span>2</span></span></span></td><td class="c"><span class="m"><span class="frac"><span>9</span><span>4</span></span></span></td><td><span class="m">(x + <span class="frac"><span>3</span><span>2</span></span>)²</span></td></tr>
+          <tr><td><span class="m">x² − 5x</span></td><td class="c"><span class="m">−5</span></td><td class="c"><span class="m">−<span class="frac"><span>5</span><span>2</span></span></span></td><td class="c"><span class="m"><span class="frac"><span>25</span><span>4</span></span></span></td><td><span class="m">(x − <span class="frac"><span>5</span><span>2</span></span>)²</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box tipp">
+      <p>Die Ergänzung ist <b>immer positiv</b> – auch wenn <span class="m">p</span> negativ ist, denn <span class="m">(−4)² = 16</span>. Das Vorzeichen von <span class="m">p</span> landet aber in der Klammer: <span class="m">x² − 8x + 16 = (x − 4)²</span>.</p>
+    </div>
+  </div>
+
+  <!-- ================= 3 · Rezept ================= -->
+  <div class="block" id="erg-rezept">
+    <h2>Das Rezept in 6 Schritten</h2>
+    <p>Unter jedem Schritt siehst du ihn gleich am Beispiel <span class="m">2x² + 12x − 14 = 0</span>.</p>
+    <ol class="erg-recipe">
+      <li>
+        <p class="erg-r-h">Normalform herstellen</p>
+        <p>Alles auf eine Seite, rechts steht 0. Steht vor <span class="m">x²</span> eine Zahl <span class="m">a ≠ 1</span>, teilst du die <b>ganze</b> Gleichung durch <span class="m">a</span>. Ziel: <span class="m">x² + px + q = 0</span>.</p>
+        <div class="calc erg-r-ex">
+          <div class="row"><span class="l">2x² + 12x − 14</span><span class="r">= 0</span><span class="op">| : 2</span></div>
+          <div class="row"><span class="l">x² + 6x − 7</span><span class="r">= 0</span></div>
+        </div>
+      </li>
+      <li>
+        <p class="erg-r-h"><span class="m">q</span> auf die andere Seite</p>
+        <p>Die Zahl ohne <span class="m">x</span> kommt nach rechts. Links bleibt nur <span class="m">x² + px</span>.</p>
+        <div class="calc erg-r-ex">
+          <div class="row"><span class="l">x² + 6x − 7</span><span class="r">= 0</span><span class="op">| + 7</span></div>
+          <div class="row"><span class="l">x² + 6x</span><span class="r">= 7</span></div>
+        </div>
+      </li>
+      <li>
+        <p class="erg-r-h">Ergänzen – auf beiden Seiten</p>
+        <p>Halbiere <span class="m">p</span> und quadriere: <span class="m">(<span class="frac"><span>p</span><span>2</span></span>)²</span>. Diese Zahl addierst du <b>links und rechts</b>.</p>
+        <div class="calc erg-r-ex">
+          <div class="row"><span class="l">x² + 6x</span><span class="r">= 7</span><span class="op">| + 3²</span></div>
+          <div class="row"><span class="l">x² + 6x + 9</span><span class="r">= 16</span></div>
+        </div>
+      </li>
+      <li>
+        <p class="erg-r-h">Als Binom schreiben</p>
+        <p>Links steht jetzt eine binomische Formel: <span class="m">(x + <span class="frac"><span>p</span><span>2</span></span>)²</span>. Das Vorzeichen in der Klammer ist das Vorzeichen von <span class="m">p</span>.</p>
+        <div class="calc erg-r-ex">
+          <div class="row"><span class="l">(x + 3)²</span><span class="r">= 16</span></div>
+        </div>
+      </li>
+      <li>
+        <p class="erg-r-h">Wurzel ziehen – mit ±</p>
+        <p>Wie viele Lösungen es gibt, entscheidet die Zahl rechts (siehe unten).</p>
+        <div class="calc erg-r-ex">
+          <div class="row"><span class="l">(x + 3)²</span><span class="r">= 16</span><span class="op">| √ (±!)</span></div>
+          <div class="row"><span class="l">x + 3</span><span class="r">= ±4</span></div>
+        </div>
+      </li>
+      <li>
+        <p class="erg-r-h">Nach <span class="m">x</span> auflösen, <span class="m">L</span> angeben</p>
+        <p>Einmal mit +, einmal mit − rechnen. Zum Schluss die Lösungsmenge – und am besten eine Probe.</p>
+        <div class="calc erg-r-ex">
+          <div class="row"><span class="l">x + 3</span><span class="r">= ±4</span><span class="op">| − 3</span></div>
+          <div class="row"><span class="l">x</span><span class="r">= −3 ± 4</span></div>
+          <div class="row result"><span class="l">L</span><span class="r">= {−7; 1}</span></div>
+        </div>
+      </li>
+    </ol>
+
+    <h3>Schritt 5 genauer: Wie viele Lösungen?</h3>
+    <p>Nach Schritt 4 steht da <span class="m">(x + <span class="frac"><span>p</span><span>2</span></span>)² = <span class="t">Zahl</span></span>. Schau dir die Zahl rechts an:</p>
+    <div class="erg-cases">
+      <div class="erg-case is-two">
+        <p class="erg-case-h"><span class="erg-case-sym">&gt; 0</span> zwei Lösungen</p>
+        <div class="m">(x + 1)² = 9</div>
+        <div class="m">x + 1 = ±3</div>
+        <div class="m erg-case-l">L = {−4; 2}</div>
+      </div>
+      <div class="erg-case is-one">
+        <p class="erg-case-h"><span class="erg-case-sym">= 0</span> eine Lösung</p>
+        <div class="m">(x + 1)² = 0</div>
+        <div class="m">x + 1 = 0</div>
+        <div class="m erg-case-l">L = {−1}</div>
+      </div>
+      <div class="erg-case is-none">
+        <p class="erg-case-h"><span class="erg-case-sym">&lt; 0</span> keine Lösung</p>
+        <div class="m">(x + 1)² = −9</div>
+        <div class="small">Ein Quadrat ist nie negativ!</div>
+        <div class="m erg-case-l">L = { }</div>
+      </div>
+    </div>
+    <div class="box merke">
+      <p class="box-title">Merksatz für Schritt 3</p>
+      <p><b>Halbieren – quadrieren – auf beiden Seiten addieren.</b></p>
+    </div>
+  </div>
+
+  <!-- ================= 4 · Beispiele ================= -->
+  <div class="block" id="erg-beispiele">
+    <h2>Beispiele Schritt für Schritt</h2>
+    <p>Sechs Beispiele, vom Grundfall bis zu den Sonderfällen. Deck die Schritte einzeln auf und überleg vorher jeweils selbst, was als Nächstes kommt.</p>
+
+    <div class="box beispiel">
+      <p class="box-title">Beispiel 1 · Der Grundfall</p>
+      <div class="mblock">x² + 6x − 7 = 0</div>
+      <ol class="steps" data-stepper>
+        <li><p class="erg-tag">Normalform herstellen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² + 6x − 7</span><span class="r">= 0</span></div></div></div><p class="step-why">Vor <span class="m">x²</span> steht schon eine 1 – die Gleichung hat die Normalform <span class="m">x² + px + q = 0</span>. Hier ist <span class="m">p = 6</span> und <span class="m">q = −7</span>.</p></li>
+        <li><p class="erg-tag">Zahl ohne <span class="m">x</span> nach rechts</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² + 6x − 7</span><span class="r">= 0</span><span class="op">| + 7</span></div><div class="row"><span class="l">x² + 6x</span><span class="r">= 7</span></div></div></div><p class="step-why">Bring die Zahl ohne <span class="m">x</span> auf die rechte Seite: Rechne <span class="m">+ 7</span> auf beiden Seiten. Links bleibt nur <span class="m">x² + 6x</span> stehen.</p></li>
+        <li><p class="erg-tag">Quadratisch ergänzen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² + 6x</span><span class="r">= 7</span><span class="op">| + 3²</span></div><div class="row"><span class="l">x² + 6x + 3²</span><span class="r">= 7 + 3²</span></div><div class="row"><span class="l">x² + 6x + 9</span><span class="r">= 16</span></div></div></div><p class="step-why">Halbiere <span class="m">p</span>: <span class="m">6 : 2 = 3</span>. Quadriere: <span class="m">3² = 9</span>. Addiere <span class="m">9</span> auf <b>beiden</b> Seiten – das ist die Ergänzung.</p></li>
+        <li><p class="erg-tag">Als Binom schreiben</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² + 6x + 9</span><span class="r">= 16</span><span class="op">| 1. bin. Formel</span></div><div class="row"><span class="l">(x + 3)²</span><span class="r">= 16</span></div></div></div><p class="step-why">Die linke Seite ist jetzt genau <span class="m">(x + 3)²</span>. In die Klammer kommt <span class="m"><span class="frac"><span>p</span><span>2</span></span> = 3</span> – mit Vorzeichen. Kontrolle: <span class="m">(x + 3)² = x² + 6x + 9</span> ✓</p></li>
+        <li><p class="erg-tag">Wurzel ziehen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">(x + 3)²</span><span class="r">= 16</span><span class="op">| √ (±!)</span></div><div class="row"><span class="l">x + 3</span><span class="r">= ±4</span></div></div></div><p class="step-why"><span class="m">16 > 0</span> → <b>zwei Lösungen</b>. Beim Wurzelziehen gibt es immer zwei Möglichkeiten: plus und minus. Denn <span class="m">4² = 16</span> und auch <span class="m">(−4)² = 16</span>.</p></li>
+        <li><p class="erg-tag">Nach <span class="m">x</span> auflösen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x + 3</span><span class="r">= ±4</span><span class="op">| − 3</span></div><div class="row"><span class="l">x</span><span class="r">= −3 ± 4</span></div><div class="row"><span class="l">x1</span><span class="r">= −3 + 4 = 1</span></div><div class="row"><span class="l">x2</span><span class="r">= −3 − 4 = −7</span></div><div class="row result"><span class="l">L</span><span class="r">= {−7; 1}</span></div></div></div><p class="step-why">Rechne <span class="m">− 3</span> – dann steht <span class="m">x</span> allein. Einmal mit +, einmal mit − rechnen: zwei Lösungen.</p></li>
+        <li><p class="erg-tag">Probe</p><div class="step-math"><div class="erg-probe"><div class="m"><b>x = −7:</b> (−7)² + 6·(−7) − 7 = 49 − 42 − 7 = 0 ✓</div><div class="m"><b>x = 1:</b> 1² + 6·1 − 7 = 1 + 6 − 7 = 0 ✓</div></div></div><p class="step-why">Setz jede Lösung in die <b>Ausgangsgleichung</b> ein. Kommt 0 heraus, stimmt alles.</p></li>
+      </ol>
+    </div>
+
+    <div class="box beispiel">
+      <p class="box-title">Beispiel 2 · Mit Minuszeichen</p>
+      <div class="mblock">x² − 8x + 12 = 0</div>
+      <ol class="steps" data-stepper>
+        <li><p class="erg-tag">Normalform herstellen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² − 8x + 12</span><span class="r">= 0</span></div></div></div><p class="step-why">Achtung, hier ist <span class="m">p</span> negativ. Vor <span class="m">x²</span> steht schon eine 1 – die Gleichung hat die Normalform <span class="m">x² + px + q = 0</span>. Hier ist <span class="m">p = −8</span> und <span class="m">q = 12</span>.</p></li>
+        <li><p class="erg-tag">Zahl ohne <span class="m">x</span> nach rechts</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² − 8x + 12</span><span class="r">= 0</span><span class="op">| − 12</span></div><div class="row"><span class="l">x² − 8x</span><span class="r">= −12</span></div></div></div><p class="step-why">Bring die Zahl ohne <span class="m">x</span> auf die rechte Seite: Rechne <span class="m">− 12</span> auf beiden Seiten. Links bleibt nur <span class="m">x² − 8x</span> stehen.</p></li>
+        <li><p class="erg-tag">Quadratisch ergänzen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² − 8x</span><span class="r">= −12</span><span class="op">| + (−4)²</span></div><div class="row"><span class="l">x² − 8x + (−4)²</span><span class="r">= −12 + (−4)²</span></div><div class="row"><span class="l">x² − 8x + 16</span><span class="r">= 4</span></div></div></div><p class="step-why">Halbiere <span class="m">p</span>: <span class="m">−8 : 2 = −4</span>. Quadriere: <span class="m">(−4)² = 16</span>. Addiere <span class="m">16</span> auf <b>beiden</b> Seiten – das ist die Ergänzung.</p></li>
+        <li><p class="erg-tag">Als Binom schreiben</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² − 8x + 16</span><span class="r">= 4</span><span class="op">| 2. bin. Formel</span></div><div class="row"><span class="l">(x − 4)²</span><span class="r">= 4</span></div></div></div><p class="step-why">Die linke Seite ist jetzt genau <span class="m">(x − 4)²</span>. In die Klammer kommt <span class="m"><span class="frac"><span>p</span><span>2</span></span> = −4</span> – mit Vorzeichen, hier also ein Minus. Kontrolle: <span class="m">(x − 4)² = x² − 8x + 16</span> ✓</p></li>
+        <li><p class="erg-tag">Wurzel ziehen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">(x − 4)²</span><span class="r">= 4</span><span class="op">| √ (±!)</span></div><div class="row"><span class="l">x − 4</span><span class="r">= ±2</span></div></div></div><p class="step-why"><span class="m">4 > 0</span> → <b>zwei Lösungen</b>. Beim Wurzelziehen gibt es immer zwei Möglichkeiten: plus und minus. Denn <span class="m">2² = 4</span> und auch <span class="m">(−2)² = 4</span>.</p></li>
+        <li><p class="erg-tag">Nach <span class="m">x</span> auflösen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x − 4</span><span class="r">= ±2</span><span class="op">| + 4</span></div><div class="row"><span class="l">x</span><span class="r">= 4 ± 2</span></div><div class="row"><span class="l">x1</span><span class="r">= 4 + 2 = 6</span></div><div class="row"><span class="l">x2</span><span class="r">= 4 − 2 = 2</span></div><div class="row result"><span class="l">L</span><span class="r">= {2; 6}</span></div></div></div><p class="step-why">Rechne <span class="m">+ 4</span> – dann steht <span class="m">x</span> allein. Einmal mit +, einmal mit − rechnen: zwei Lösungen.</p></li>
+        <li><p class="erg-tag">Probe</p><div class="step-math"><div class="erg-probe"><div class="m"><b>x = 2:</b> 2² − 8·2 + 12 = 4 − 16 + 12 = 0 ✓</div><div class="m"><b>x = 6:</b> 6² − 8·6 + 12 = 36 − 48 + 12 = 0 ✓</div></div></div><p class="step-why">Setz jede Lösung in die <b>Ausgangsgleichung</b> ein. Kommt 0 heraus, stimmt alles.</p></li>
+      </ol>
+    </div>
+
+    <div class="box beispiel">
+      <p class="box-title">Beispiel 3 · Erst durch 2 teilen</p>
+      <div class="mblock">2x² + 8x − 10 = 0</div>
+      <ol class="steps" data-stepper>
+        <li><p class="erg-tag">Normalform herstellen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">2x² + 8x − 10</span><span class="r">= 0</span><span class="op">| : 2</span></div><div class="row"><span class="l">x² + 4x − 5</span><span class="r">= 0</span></div></div></div><p class="step-why">Vor <span class="m">x²</span> steht <span class="m">2</span> – für die Ergänzung brauchst du dort eine 1. Teile deshalb <b>jede</b> Zahl der Gleichung durch <span class="m">2</span>. Jetzt ist <span class="m">p = 4</span> und <span class="m">q = −5</span>.</p></li>
+        <li><p class="erg-tag">Zahl ohne <span class="m">x</span> nach rechts</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² + 4x − 5</span><span class="r">= 0</span><span class="op">| + 5</span></div><div class="row"><span class="l">x² + 4x</span><span class="r">= 5</span></div></div></div><p class="step-why">Bring die Zahl ohne <span class="m">x</span> auf die rechte Seite: Rechne <span class="m">+ 5</span> auf beiden Seiten. Links bleibt nur <span class="m">x² + 4x</span> stehen.</p></li>
+        <li><p class="erg-tag">Quadratisch ergänzen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² + 4x</span><span class="r">= 5</span><span class="op">| + 2²</span></div><div class="row"><span class="l">x² + 4x + 2²</span><span class="r">= 5 + 2²</span></div><div class="row"><span class="l">x² + 4x + 4</span><span class="r">= 9</span></div></div></div><p class="step-why">Halbiere <span class="m">p</span>: <span class="m">4 : 2 = 2</span>. Quadriere: <span class="m">2² = 4</span>. Addiere <span class="m">4</span> auf <b>beiden</b> Seiten – das ist die Ergänzung.</p></li>
+        <li><p class="erg-tag">Als Binom schreiben</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² + 4x + 4</span><span class="r">= 9</span><span class="op">| 1. bin. Formel</span></div><div class="row"><span class="l">(x + 2)²</span><span class="r">= 9</span></div></div></div><p class="step-why">Die linke Seite ist jetzt genau <span class="m">(x + 2)²</span>. In die Klammer kommt <span class="m"><span class="frac"><span>p</span><span>2</span></span> = 2</span> – mit Vorzeichen. Kontrolle: <span class="m">(x + 2)² = x² + 4x + 4</span> ✓</p></li>
+        <li><p class="erg-tag">Wurzel ziehen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">(x + 2)²</span><span class="r">= 9</span><span class="op">| √ (±!)</span></div><div class="row"><span class="l">x + 2</span><span class="r">= ±3</span></div></div></div><p class="step-why"><span class="m">9 > 0</span> → <b>zwei Lösungen</b>. Beim Wurzelziehen gibt es immer zwei Möglichkeiten: plus und minus. Denn <span class="m">3² = 9</span> und auch <span class="m">(−3)² = 9</span>.</p></li>
+        <li><p class="erg-tag">Nach <span class="m">x</span> auflösen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x + 2</span><span class="r">= ±3</span><span class="op">| − 2</span></div><div class="row"><span class="l">x</span><span class="r">= −2 ± 3</span></div><div class="row"><span class="l">x1</span><span class="r">= −2 + 3 = 1</span></div><div class="row"><span class="l">x2</span><span class="r">= −2 − 3 = −5</span></div><div class="row result"><span class="l">L</span><span class="r">= {−5; 1}</span></div></div></div><p class="step-why">Rechne <span class="m">− 2</span> – dann steht <span class="m">x</span> allein. Einmal mit +, einmal mit − rechnen: zwei Lösungen.</p></li>
+        <li><p class="erg-tag">Probe</p><div class="step-math"><div class="erg-probe"><div class="m"><b>x = −5:</b> 2·(−5)² + 8·(−5) − 10 = 50 − 40 − 10 = 0 ✓</div><div class="m"><b>x = 1:</b> 2·1² + 8·1 − 10 = 2 + 8 − 10 = 0 ✓</div></div></div><p class="step-why">Setz jede Lösung in die <b>Ausgangsgleichung</b> ein. Kommt 0 heraus, stimmt alles. Die Probe machst du immer mit der <b>Ausgangsgleichung</b> – hier also mit der 2 vor <span class="m">x²</span>.</p></li>
+      </ol>
+    </div>
+
+    <div class="box beispiel">
+      <p class="box-title">Beispiel 4 · Mit Brüchen</p>
+      <div class="mblock">x² + 3x − 10 = 0</div>
+      <ol class="steps" data-stepper>
+        <li><p class="erg-tag">Normalform herstellen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² + 3x − 10</span><span class="r">= 0</span></div></div></div><p class="step-why"><span class="m">p = 3</span> ist ungerade – es wird Brüche geben. Keine Panik: Das Rezept bleibt genau gleich. Vor <span class="m">x²</span> steht schon eine 1 – die Gleichung hat die Normalform <span class="m">x² + px + q = 0</span>. Hier ist <span class="m">p = 3</span> und <span class="m">q = −10</span>.</p></li>
+        <li><p class="erg-tag">Zahl ohne <span class="m">x</span> nach rechts</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² + 3x − 10</span><span class="r">= 0</span><span class="op">| + 10</span></div><div class="row"><span class="l">x² + 3x</span><span class="r">= 10</span></div></div></div><p class="step-why">Bring die Zahl ohne <span class="m">x</span> auf die rechte Seite: Rechne <span class="m">+ 10</span> auf beiden Seiten. Links bleibt nur <span class="m">x² + 3x</span> stehen.</p></li>
+        <li><p class="erg-tag">Quadratisch ergänzen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² + 3x</span><span class="r">= 10</span><span class="op"><span class="erg-nw">| + (<span class="frac"><span>3</span><span>2</span></span>)²</span></span></div><div class="row"><span class="l">x² + 3x + <span class="frac"><span>9</span><span>4</span></span></span><span class="r">= <span class="frac"><span>40</span><span>4</span></span> + <span class="frac"><span>9</span><span>4</span></span></span></div><div class="row"><span class="l">x² + 3x + <span class="frac"><span>9</span><span>4</span></span></span><span class="r">= <span class="frac"><span>49</span><span>4</span></span></span></div></div></div><p class="step-why">Halbiere <span class="m">p</span>: <span class="m">3 : 2 = <span class="frac"><span>3</span><span>2</span></span></span>. Quadriere: <span class="m">(<span class="frac"><span>3</span><span>2</span></span>)² = <span class="frac"><span>9</span><span>4</span></span></span>. Addiere <span class="m"><span class="frac"><span>9</span><span>4</span></span></span> auf <b>beiden</b> Seiten – das ist die Ergänzung. Rechts machst du die Brüche gleichnamig: <span class="m">10 + <span class="frac"><span>9</span><span>4</span></span> = <span class="frac"><span>40</span><span>4</span></span> + <span class="frac"><span>9</span><span>4</span></span> = <span class="frac"><span>49</span><span>4</span></span></span>.</p></li>
+        <li><p class="erg-tag">Als Binom schreiben</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² + 3x + <span class="frac"><span>9</span><span>4</span></span></span><span class="r">= <span class="frac"><span>49</span><span>4</span></span></span><span class="op">| 1. bin. Formel</span></div><div class="row"><span class="l">(x + <span class="frac"><span>3</span><span>2</span></span>)²</span><span class="r">= <span class="frac"><span>49</span><span>4</span></span></span></div></div></div><p class="step-why">Die linke Seite ist jetzt genau <span class="m">(x + <span class="frac"><span>3</span><span>2</span></span>)²</span>. In die Klammer kommt <span class="m"><span class="frac"><span>p</span><span>2</span></span> = <span class="frac"><span>3</span><span>2</span></span></span> – mit Vorzeichen. Kontrolle: <span class="m">(x + <span class="frac"><span>3</span><span>2</span></span>)² = x² + 3x + <span class="frac"><span>9</span><span>4</span></span></span> ✓</p></li>
+        <li><p class="erg-tag">Wurzel ziehen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">(x + <span class="frac"><span>3</span><span>2</span></span>)²</span><span class="r">= <span class="frac"><span>49</span><span>4</span></span></span><span class="op">| √ (±!)</span></div><div class="row"><span class="l">x + <span class="frac"><span>3</span><span>2</span></span></span><span class="r">= ±<span class="frac"><span>7</span><span>2</span></span></span></div></div></div><p class="step-why"><span class="m"><span class="frac"><span>49</span><span>4</span></span> > 0</span> → <b>zwei Lösungen</b>. Beim Wurzelziehen gibt es immer zwei Möglichkeiten: plus und minus. Denn <span class="m">(<span class="frac"><span>7</span><span>2</span></span>)² = <span class="frac"><span>49</span><span>4</span></span></span> und auch <span class="m">(−<span class="frac"><span>7</span><span>2</span></span>)² = <span class="frac"><span>49</span><span>4</span></span></span>.</p></li>
+        <li><p class="erg-tag">Nach <span class="m">x</span> auflösen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x + <span class="frac"><span>3</span><span>2</span></span></span><span class="r">= ±<span class="frac"><span>7</span><span>2</span></span></span><span class="op"><span class="erg-nw">| − <span class="frac"><span>3</span><span>2</span></span></span></span></div><div class="row"><span class="l">x</span><span class="r">= −<span class="frac"><span>3</span><span>2</span></span> ± <span class="frac"><span>7</span><span>2</span></span></span></div><div class="row"><span class="l">x1</span><span class="r">= −<span class="frac"><span>3</span><span>2</span></span> + <span class="frac"><span>7</span><span>2</span></span> = 2</span></div><div class="row"><span class="l">x2</span><span class="r">= −<span class="frac"><span>3</span><span>2</span></span> − <span class="frac"><span>7</span><span>2</span></span> = −5</span></div><div class="row result"><span class="l">L</span><span class="r">= {−5; 2}</span></div></div></div><p class="step-why">Rechne <span class="m">− <span class="frac"><span>3</span><span>2</span></span></span> – dann steht <span class="m">x</span> allein. Einmal mit +, einmal mit − rechnen: zwei Lösungen.</p></li>
+        <li><p class="erg-tag">Probe</p><div class="step-math"><div class="erg-probe"><div class="m"><b>x = −5:</b> (−5)² + 3·(−5) − 10 = 25 − 15 − 10 = 0 ✓</div><div class="m"><b>x = 2:</b> 2² + 3·2 − 10 = 4 + 6 − 10 = 0 ✓</div></div></div><p class="step-why">Setz jede Lösung in die <b>Ausgangsgleichung</b> ein. Kommt 0 heraus, stimmt alles.</p></li>
+      </ol>
+    </div>
+
+    <div class="box beispiel">
+      <p class="box-title">Beispiel 5 · Keine Lösung</p>
+      <div class="mblock">x² + 2x + 5 = 0</div>
+      <ol class="steps" data-stepper>
+        <li><p class="erg-tag">Normalform herstellen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² + 2x + 5</span><span class="r">= 0</span></div></div></div><p class="step-why">Vor <span class="m">x²</span> steht schon eine 1 – die Gleichung hat die Normalform <span class="m">x² + px + q = 0</span>. Hier ist <span class="m">p = 2</span> und <span class="m">q = 5</span>.</p></li>
+        <li><p class="erg-tag">Zahl ohne <span class="m">x</span> nach rechts</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² + 2x + 5</span><span class="r">= 0</span><span class="op">| − 5</span></div><div class="row"><span class="l">x² + 2x</span><span class="r">= −5</span></div></div></div><p class="step-why">Bring die Zahl ohne <span class="m">x</span> auf die rechte Seite: Rechne <span class="m">− 5</span> auf beiden Seiten. Links bleibt nur <span class="m">x² + 2x</span> stehen.</p></li>
+        <li><p class="erg-tag">Quadratisch ergänzen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² + 2x</span><span class="r">= −5</span><span class="op">| + 1²</span></div><div class="row"><span class="l">x² + 2x + 1²</span><span class="r">= −5 + 1²</span></div><div class="row"><span class="l">x² + 2x + 1</span><span class="r">= −4</span></div></div></div><p class="step-why">Halbiere <span class="m">p</span>: <span class="m">2 : 2 = 1</span>. Quadriere: <span class="m">1² = 1</span>. Addiere <span class="m">1</span> auf <b>beiden</b> Seiten – das ist die Ergänzung.</p></li>
+        <li><p class="erg-tag">Als Binom schreiben</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² + 2x + 1</span><span class="r">= −4</span><span class="op">| 1. bin. Formel</span></div><div class="row"><span class="l">(x + 1)²</span><span class="r">= −4</span></div></div></div><p class="step-why">Die linke Seite ist jetzt genau <span class="m">(x + 1)²</span>. In die Klammer kommt <span class="m"><span class="frac"><span>p</span><span>2</span></span> = 1</span> – mit Vorzeichen. Kontrolle: <span class="m">(x + 1)² = x² + 2x + 1</span> ✓</p></li>
+        <li><p class="erg-tag">Wurzel ziehen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">(x + 1)²</span><span class="r">= −4</span></div><div class="row"><span class="note"><span class="t">Ein Quadrat ist nie negativ ⇒ keine Lösung.</span></span></div></div></div><p class="step-why"><span class="m">−4 &lt; 0</span> → <b>keine Lösung</b>. Egal, was du für <span class="m">x</span> einsetzt: <span class="m">(x + 1)²</span> ist immer ≥ 0 und kann nie <span class="m">−4</span> werden. Aus einer negativen Zahl kannst du keine Wurzel ziehen.</p></li>
+        <li><p class="erg-tag">Lösungsmenge angeben</p><div class="step-math"><div class="calc erg-calc"><div class="row result"><span class="l">L</span><span class="r">= { }</span></div></div></div><p class="step-why">Die Lösungsmenge ist leer. Schreib sie als <span class="m">L = { }</span>.</p></li>
+      </ol>
+    </div>
+
+    <div class="box beispiel">
+      <p class="box-title">Beispiel 6 · Lösung mit Wurzel</p>
+      <div class="mblock">x² − 4x − 1 = 0</div>
+      <ol class="steps" data-stepper>
+        <li><p class="erg-tag">Normalform herstellen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² − 4x − 1</span><span class="r">= 0</span></div></div></div><p class="step-why">Vor <span class="m">x²</span> steht schon eine 1 – die Gleichung hat die Normalform <span class="m">x² + px + q = 0</span>. Hier ist <span class="m">p = −4</span> und <span class="m">q = −1</span>.</p></li>
+        <li><p class="erg-tag">Zahl ohne <span class="m">x</span> nach rechts</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² − 4x − 1</span><span class="r">= 0</span><span class="op">| + 1</span></div><div class="row"><span class="l">x² − 4x</span><span class="r">= 1</span></div></div></div><p class="step-why">Bring die Zahl ohne <span class="m">x</span> auf die rechte Seite: Rechne <span class="m">+ 1</span> auf beiden Seiten. Links bleibt nur <span class="m">x² − 4x</span> stehen.</p></li>
+        <li><p class="erg-tag">Quadratisch ergänzen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² − 4x</span><span class="r">= 1</span><span class="op">| + (−2)²</span></div><div class="row"><span class="l">x² − 4x + (−2)²</span><span class="r">= 1 + (−2)²</span></div><div class="row"><span class="l">x² − 4x + 4</span><span class="r">= 5</span></div></div></div><p class="step-why">Halbiere <span class="m">p</span>: <span class="m">−4 : 2 = −2</span>. Quadriere: <span class="m">(−2)² = 4</span>. Addiere <span class="m">4</span> auf <b>beiden</b> Seiten – das ist die Ergänzung.</p></li>
+        <li><p class="erg-tag">Als Binom schreiben</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x² − 4x + 4</span><span class="r">= 5</span><span class="op">| 2. bin. Formel</span></div><div class="row"><span class="l">(x − 2)²</span><span class="r">= 5</span></div></div></div><p class="step-why">Die linke Seite ist jetzt genau <span class="m">(x − 2)²</span>. In die Klammer kommt <span class="m"><span class="frac"><span>p</span><span>2</span></span> = −2</span> – mit Vorzeichen, hier also ein Minus. Kontrolle: <span class="m">(x − 2)² = x² − 4x + 4</span> ✓</p></li>
+        <li><p class="erg-tag">Wurzel ziehen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">(x − 2)²</span><span class="r">= 5</span><span class="op">| √ (±!)</span></div><div class="row"><span class="l">x − 2</span><span class="r">= ±√5</span></div></div></div><p class="step-why"><span class="m">5 > 0</span> → <b>zwei Lösungen</b>. Beim Wurzelziehen gibt es immer zwei Möglichkeiten: plus und minus. Die Wurzel aus <span class="m">5</span> geht nicht glatt auf – sie bleibt einfach stehen. Das ist ein <b>exaktes</b> Ergebnis.</p></li>
+        <li><p class="erg-tag">Nach <span class="m">x</span> auflösen</p><div class="step-math"><div class="calc erg-calc"><div class="row"><span class="l">x − 2</span><span class="r">= ±√5</span><span class="op">| + 2</span></div><div class="row"><span class="l">x</span><span class="r">= 2 ± √5</span></div><div class="row"><span class="l">x1</span><span class="r">= 2 + √5</span></div><div class="row"><span class="l">x2</span><span class="r">= 2 − √5</span></div><div class="row"><span class="note"><span class="t">Gerundet:</span> x1 ≈ 4,24, x2 ≈ −0,24</span></div><div class="row result"><span class="l">L</span><span class="r">= {2 − √5; 2 + √5}</span></div></div></div><p class="step-why">Rechne <span class="m">+ 2</span> – dann steht <span class="m">x</span> allein. Einmal mit +, einmal mit − rechnen: zwei Lösungen. Gib die Lösungen exakt mit Wurzel an. Die gerundeten Werte helfen dir bei der Kontrolle.</p></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ================= 5 · Rechner ================= -->
+  <div class="block" id="erg-rechner">
+    <h2>Deine eigene Gleichung</h2>
+    <p>Trag eine Gleichung ein – zum Beispiel eine aus deinem Heft. Du bekommst den kompletten Rechenweg Schritt für Schritt. Erlaubt sind negative Zahlen, Dezimalzahlen und Brüche wie <span class="m">3/2</span>.</p>
+    <div class="card erg-solver" data-widget="erg-solver">
+      <form class="erg-eq" autocomplete="off" novalidate>
+        <div class="erg-eq-line">
+          <label class="erg-in"><span class="sr-only">Zahl vor x²</span><input name="a" type="text" inputmode="decimal" value="1" autocomplete="off" spellcheck="false"></label>
+          <span class="m erg-eq-t">x² +</span>
+          <label class="erg-in"><span class="sr-only">Zahl vor x</span><input name="b" type="text" inputmode="decimal" value="4" autocomplete="off" spellcheck="false"></label>
+          <span class="m erg-eq-t">x +</span>
+          <label class="erg-in"><span class="sr-only">Zahl ohne x</span><input name="c" type="text" inputmode="decimal" value="−1" autocomplete="off" spellcheck="false"></label>
+          <span class="m erg-eq-t">= 0</span>
+        </div>
+        <div class="erg-keys" role="group" aria-label="Eingabehilfen">
+          <button type="button" data-k="sign" aria-label="Vorzeichen umdrehen">+/−</button>
+          <button type="button" data-k="/" aria-label="Bruchstrich einfügen">/</button>
+          <button type="button" data-k="," aria-label="Komma einfügen">,</button>
+          <button type="button" data-k="clear" aria-label="Feld leeren">⌫</button>
+        </div>
+        <p class="erg-preview small" aria-live="polite"></p>
+        <p class="small muted erg-eq-hint">Vor <span class="m">x²</span> steht nichts? Dann lass die 1 stehen – das ist die Normalform mit <span class="m">p</span> und <span class="m">q</span>.</p>
+        <div class="btn-row"><button type="button" class="btn primary erg-go">Rechenweg zeigen</button></div>
+      </form>
+      <div class="erg-presets">
+        <p class="small muted">Oder nimm eins der Beispiele:</p>
+        <div class="erg-chips">
+          <button type="button" class="erg-chip" data-preset="0"><span class="m">x² + 6x − 7</span></button>
+          <button type="button" class="erg-chip" data-preset="1"><span class="m">x² − 8x + 12</span></button>
+          <button type="button" class="erg-chip" data-preset="2"><span class="m">2x² + 8x − 10</span></button>
+          <button type="button" class="erg-chip" data-preset="3"><span class="m">x² + 3x − 10</span></button>
+          <button type="button" class="erg-chip" data-preset="4"><span class="m">x² + 2x + 5</span></button>
+          <button type="button" class="erg-chip" data-preset="6"><span class="m">x² − 4x − 1</span></button>
+        </div>
+      </div>
+      <div class="erg-out"></div>
+    </div>
+    <div class="box tipp">
+      <p>Nutze den Rechner zur <b>Kontrolle</b>, nicht als Abkürzung: Rechne erst selbst im Heft und vergleiche dann Zeile für Zeile. In der HÜ hast du auch keinen Rechner, der dir die Schritte zeigt.</p>
+    </div>
+  </div>
+
+  <!-- ================= 6 · Typische Fehler ================= -->
+  <div class="block" id="erg-fehler">
+    <h2>Typische Fehler – und wie du sie vermeidest</h2>
+
+    <div class="box achtung">
+      <p class="box-title">Fehler 1 · Nur links ergänzt</p>
+      <div class="erg-vs">
+        <div class="erg-bad">
+          <p class="erg-vs-h">✗ Falsch</p>
+          <div class="calc"><div class="row"><span class="l">x² + 6x + 9</span><span class="r">= 7</span></div></div>
+        </div>
+        <div class="erg-good">
+          <p class="erg-vs-h">✓ Richtig</p>
+          <div class="calc"><div class="row"><span class="l">x² + 6x + 9</span><span class="r">= 7 + 9</span></div></div>
+        </div>
+      </div>
+      <p>Eine Gleichung ist wie eine Waage: Was du links dazulegst, musst du auch rechts dazulegen.</p>
+    </div>
+
+    <div class="box achtung">
+      <p class="box-title">Fehler 2 · <span class="m">p</span> statt <span class="m">p/2</span> quadriert</p>
+      <div class="erg-vs">
+        <div class="erg-bad">
+          <p class="erg-vs-h">✗ Falsch</p>
+          <div class="calc"><div class="row"><span class="l">x² + 6x + 36</span><span class="r">= 7 + 36</span></div></div>
+        </div>
+        <div class="erg-good">
+          <p class="erg-vs-h">✓ Richtig</p>
+          <div class="calc"><div class="row"><span class="l">x² + 6x + 9</span><span class="r">= 7 + 9</span></div></div>
+        </div>
+      </div>
+      <p>Erst <b>halbieren</b>, dann quadrieren: <span class="m">6 : 2 = 3</span>, <span class="m">3² = 9</span>. Kontrolle: <span class="m">(x + 6)²</span> wäre <span class="m">x² + 12x + 36</span> – das passt nicht zu <span class="m">6x</span>.</p>
+    </div>
+
+    <div class="box achtung">
+      <p class="box-title">Fehler 3 · Falsches Vorzeichen in der Klammer</p>
+      <div class="erg-vs">
+        <div class="erg-bad">
+          <p class="erg-vs-h">✗ Falsch</p>
+          <div class="calc"><div class="row"><span class="l">x² − 8x + 16</span><span class="r">= (x + 4)²</span></div></div>
+        </div>
+        <div class="erg-good">
+          <p class="erg-vs-h">✓ Richtig</p>
+          <div class="calc"><div class="row"><span class="l">x² − 8x + 16</span><span class="r">= (x − 4)²</span></div></div>
+        </div>
+      </div>
+      <p>Die Ergänzung <span class="m">+16</span> ist immer positiv. Das Vorzeichen in der Klammer kommt aber von <span class="m">p</span>: Bei <span class="m">−8x</span> steht ein Minus in der Klammer.</p>
+    </div>
+
+    <div class="box achtung">
+      <p class="box-title">Fehler 4 · Das ± vergessen</p>
+      <div class="erg-vs">
+        <div class="erg-bad">
+          <p class="erg-vs-h">✗ Falsch</p>
+          <div class="calc">
+            <div class="row"><span class="l">x + 3</span><span class="r">= 4</span></div>
+            <div class="row"><span class="l">L</span><span class="r">= {1}</span></div>
+          </div>
+        </div>
+        <div class="erg-good">
+          <p class="erg-vs-h">✓ Richtig</p>
+          <div class="calc">
+            <div class="row"><span class="l">x + 3</span><span class="r">= ±4</span></div>
+            <div class="row"><span class="l">L</span><span class="r">= {−7; 1}</span></div>
+          </div>
+        </div>
+      </div>
+      <p>Aus <span class="m">(x + 3)² = 16</span> folgt <span class="m">x + 3 = 4</span> <b>oder</b> <span class="m">x + 3 = −4</span>, denn auch <span class="m">(−4)² = 16</span>. Sonst verlierst du eine Lösung – und damit Punkte.</p>
+    </div>
+
+    <div class="box achtung">
+      <p class="box-title">Fehler 5 · <span class="m">a</span> nicht vorher rausgeteilt</p>
+      <div class="erg-vs">
+        <div class="erg-bad">
+          <p class="erg-vs-h">✗ Falsch</p>
+          <div class="calc"><div class="row"><span class="l">2x² + 8x + 16</span><span class="r">= 10 + 16</span></div></div>
+        </div>
+        <div class="erg-good">
+          <p class="erg-vs-h">✓ Richtig</p>
+          <div class="calc erg-calc">
+            <div class="row"><span class="l">2x² + 8x − 10</span><span class="r">= 0</span><span class="op">| : 2</span></div>
+            <div class="row"><span class="l">x² + 4x − 5</span><span class="r">= 0</span></div>
+          </div>
+        </div>
+      </div>
+      <p>Die Ergänzung klappt nur, wenn vor <span class="m">x²</span> eine <b>1</b> steht. Teile zuerst <b>jede</b> Zahl durch <span class="m">a</span> – auch die Zahl ohne <span class="m">x</span>.</p>
+    </div>
+
+    <div class="box achtung">
+      <p class="box-title">Fehler 6 · Wurzel aus einer negativen Zahl</p>
+      <div class="erg-vs">
+        <div class="erg-bad">
+          <p class="erg-vs-h">✗ Falsch</p>
+          <div class="calc">
+            <div class="row"><span class="l">(x + 1)²</span><span class="r">= −4</span></div>
+            <div class="row"><span class="l">x + 1</span><span class="r">= ±2</span></div>
+          </div>
+        </div>
+        <div class="erg-good">
+          <p class="erg-vs-h">✓ Richtig</p>
+          <div class="calc">
+            <div class="row"><span class="l">(x + 1)²</span><span class="r">= −4</span></div>
+            <div class="row result"><span class="l">L</span><span class="r">= { }</span></div>
+          </div>
+        </div>
+      </div>
+      <p>Probe mit <span class="m">x = 1</span>: <span class="m">(1 + 1)² = 4</span>, nicht <span class="m">−4</span>. Steht rechts eine negative Zahl, bist du fertig: keine Lösung.</p>
+    </div>
+  </div>
+
+  <!-- ================= 7 · Üben ================= -->
+  <div class="block" id="erg-ueben">
+    <h2>Jetzt du: Übungsaufgaben</h2>
+    <p>Die Aufgaben werden schrittweise schwerer. Erst übst du einzelne Teilschritte, dann ganze Gleichungen. Rechne im Heft mit und gib hier nur das Ergebnis ein.</p>
+
+    <div class="tasks">
+      <h3 class="erg-stage"><span class="pill orange">Stufe 1</span> Die Ergänzung finden</h3>
+
+      <div class="task" data-id="erg-ergaenzen-1" data-kind="number" data-answer="25" data-level="1">
+        <p class="task-q">Welche Zahl musst du ergänzen, damit ein Binom entsteht?</p>
+        <div class="mblock">x² + 10x + <span class="erg-box">?</span></div>
+        <div class="wrong" data-match="100">Du hast <span class="m">p = 10</span> quadriert. Erst <b>halbieren</b>, dann quadrieren!</div>
+        <div class="wrong" data-match="5">Halbiert hast du schon richtig. Jetzt musst du <span class="m">5</span> noch <b>quadrieren</b>.</div>
+        <div class="wrong" data-match="10">Das ist <span class="m">p</span> selbst. Gesucht ist <span class="m">(<span class="frac"><span>p</span><span>2</span></span>)²</span>.</div>
+        <details class="hint"><summary>Tipp</summary><p>Halbieren, dann quadrieren: <span class="m">(<span class="frac"><span>10</span><span>2</span></span>)² = ?</span></p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p><span class="m">10 : 2 = 5</span> und <span class="m">5² = 25</span>. Also: <span class="m">x² + 10x + 25 = (x + 5)²</span>.</p>
+        </details>
+      </div>
+
+      <div class="task" data-id="erg-ergaenzen-2" data-kind="number" data-answer="9" data-level="1">
+        <p class="task-q">Welche Zahl musst du ergänzen?</p>
+        <div class="mblock">x² − 6x + <span class="erg-box">?</span></div>
+        <div class="wrong" data-match="-9">Ein Quadrat ist nie negativ: <span class="m">(−3)² = 9</span>. Die Ergänzung ist immer positiv.</div>
+        <div class="wrong" data-match="36">Du hast <span class="m">6</span> quadriert. Erst halbieren: <span class="m">−6 : 2 = −3</span>.</div>
+        <div class="wrong" data-match="-3">Halbiert hast du richtig. Jetzt noch quadrieren!</div>
+        <div class="wrong" data-match="3">Halbiert hast du richtig. Jetzt noch quadrieren!</div>
+        <details class="hint"><summary>Tipp</summary><p>Hier ist <span class="m">p = −6</span>. Rechne <span class="m">(−6 : 2)²</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p><span class="m">−6 : 2 = −3</span> und <span class="m">(−3)² = 9</span>. Also: <span class="m">x² − 6x + 9 = (x − 3)²</span>.</p>
+        </details>
+      </div>
+
+      <div class="task" data-id="erg-ergaenzen-3" data-kind="number" data-answer="25/4" data-level="2">
+        <p class="task-q">Welche Zahl musst du ergänzen? Ein Bruch wie <span class="m">3/4</span> oder eine Dezimalzahl ist erlaubt.</p>
+        <div class="mblock">x² + 5x + <span class="erg-box">?</span></div>
+        <div class="wrong" data-match="25">Du hast <span class="m">5</span> quadriert. Erst halbieren: <span class="m">5 : 2 = <span class="frac"><span>5</span><span>2</span></span></span>.</div>
+        <div class="wrong" data-match="5/2">Halbiert hast du richtig. Jetzt <span class="m"><span class="frac"><span>5</span><span>2</span></span></span> noch quadrieren!</div>
+        <details class="hint"><summary>Tipp 1</summary><p><span class="m">5 : 2 = <span class="frac"><span>5</span><span>2</span></span></span> (oder <span class="m">2,5</span>). Keine Angst vor Brüchen!</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p>Einen Bruch quadrierst du, indem du Zähler und Nenner quadrierst: <span class="m">(<span class="frac"><span>5</span><span>2</span></span>)² = <span class="frac"><span>5²</span><span>2²</span></span></span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p><span class="m">(<span class="frac"><span>5</span><span>2</span></span>)² = <span class="frac"><span>25</span><span>4</span></span> = 6,25</span>. Also: <span class="m">x² + 5x + <span class="frac"><span>25</span><span>4</span></span> = (x + <span class="frac"><span>5</span><span>2</span></span>)²</span>.</p>
+        </details>
+      </div>
+
+      <h3 class="erg-stage"><span class="pill orange">Stufe 2</span> Als Binom schreiben</h3>
+
+      <div class="task" data-id="erg-binom-1" data-kind="text" data-answer="(x+4)^2|(4+x)^2" data-keys="x ² ( ) + − /" data-placeholder="z. B. (x + 1)²" data-level="1">
+        <p class="task-q">Schreib als Quadrat einer Klammer:</p>
+        <div class="mblock">x² + 8x + 16 = <span class="erg-box">?</span></div>
+        <div class="wrong" data-match="(x-4)^2|(4-x)^2">Prüf das Vorzeichen: Vor <span class="m">8x</span> steht ein Plus, also auch in der Klammer.</div>
+        <div class="wrong" data-match="(x+8)^2|(8+x)^2">In die Klammer kommt die <b>Hälfte</b> von <span class="m">8</span>. Kontrolle: <span class="m">(x + 8)² = x² + 16x + 64</span>.</div>
+        <div class="wrong" data-match="(x+16)^2|(x+16)">Gesucht ist die Zahl, deren Quadrat <span class="m">16</span> ist – und die gleichzeitig die Hälfte von <span class="m">8</span> ist.</div>
+        <details class="hint"><summary>Tipp</summary><p>Die Form ist <span class="m">(x + <span class="frac"><span>p</span><span>2</span></span>)²</span>. Was ist hier <span class="m"><span class="frac"><span>p</span><span>2</span></span></span>? Tippe z. B. <span class="kbd">(x+1)^2</span> oder nutze die Taste ².</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p><span class="m">x² + 8x + 16 = (x + 4)²</span>, denn <span class="m">8 : 2 = 4</span> und <span class="m">4² = 16</span>.</p>
+        </details>
+      </div>
+
+      <div class="task" data-id="erg-binom-2" data-kind="text" data-answer="(x-6)^2|(6-x)^2" data-keys="x ² ( ) + − /" data-placeholder="z. B. (x + 1)²" data-level="1">
+        <p class="task-q">Schreib als Quadrat einer Klammer:</p>
+        <div class="mblock">x² − 12x + 36 = <span class="erg-box">?</span></div>
+        <div class="wrong" data-match="(x+6)^2|(6+x)^2">Fast! Vor <span class="m">12x</span> steht ein <b>Minus</b> – also 2. binomische Formel.</div>
+        <div class="wrong" data-match="(x-12)^2|(x+12)^2">In die Klammer kommt die <b>Hälfte</b> von <span class="m">12</span>.</div>
+        <details class="hint"><summary>Tipp</summary><p>2. binomische Formel: <span class="m">(x − b)² = x² − 2bx + b²</span>. Hier ist <span class="m">2b = 12</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p><span class="m">x² − 12x + 36 = (x − 6)²</span>, denn <span class="m">−12 : 2 = −6</span> und <span class="m">(−6)² = 36</span>.</p>
+        </details>
+      </div>
+
+      <div class="task" data-id="erg-binom-3" data-kind="text" data-answer="(x+3/2)^2|(3/2+x)^2|(x+1,5)^2|(x+1.5)^2|(1,5+x)^2|(1.5+x)^2" data-keys="x ² ( ) + − /" data-placeholder="z. B. (x + 1/2)²" data-level="2">
+        <p class="task-q">Schreib als Quadrat einer Klammer:</p>
+        <div class="mblock">x² + 3x + <span class="frac"><span>9</span><span>4</span></span> = <span class="erg-box">?</span></div>
+        <div class="wrong" data-match="(x+3)^2|(x+9/4)^2">In die Klammer kommt die Hälfte von <span class="m">3</span>, also ein Bruch.</div>
+        <div class="wrong" data-match="(x-3/2)^2|(x-1,5)^2|(x-1.5)^2">Prüf das Vorzeichen: Vor <span class="m">3x</span> steht ein Plus.</div>
+        <details class="hint"><summary>Tipp</summary><p><span class="m">3 : 2 = <span class="frac"><span>3</span><span>2</span></span></span>. Einen Bruch tippst du mit Schrägstrich: <span class="kbd">3/2</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary>
+          <p><span class="m">x² + 3x + <span class="frac"><span>9</span><span>4</span></span> = (x + <span class="frac"><span>3</span><span>2</span></span>)²</span>, denn <span class="m">(<span class="frac"><span>3</span><span>2</span></span>)² = <span class="frac"><span>9</span><span>4</span></span></span>. Mit Dezimalzahl: <span class="m">(x + 1,5)²</span>.</p>
+        </details>
+      </div>
+
+      <h3 class="erg-stage"><span class="pill orange">Stufe 3</span> Ganze Gleichungen – glatte Zahlen</h3>
+      <p class="small muted erg-stage-note">Gib die Lösungsmenge ein, z. B. <span class="kbd">-3; 2</span>. Gibt es keine Lösung, tippe <span class="kbd">keine</span>.</p>
+
+      <div class="task" data-id="erg-glatt-1" data-answer="-6;2" data-level="1">
+        <p class="task-q">Löse mit quadratischer Ergänzung:</p>
+        <div class="mblock">x² + 4x − 12 = 0</div>
+        <div class="wrong" data-match="-4;4">Das sind die Werte für <span class="m">x + 2</span>. Jetzt musst du noch <span class="m">− 2</span> rechnen.</div>
+        <div class="wrong" data-match="leer">Prüf das Rüberbringen: Aus <span class="m">− 12</span> links wird <span class="m">+ 12</span> rechts.</div>
+        <div class="wrong" data-match="-2-2*sqrt(3);-2+2*sqrt(3)">Hast du die Ergänzung <span class="m">4</span> auch <b>rechts</b> addiert? Rechts muss <span class="m">12 + 4 = 16</span> stehen.</div>
+        <div class="wrong" data-match="*1">Denk an ±! Aus <span class="m">(x + 2)² = 16</span> folgt <span class="m">x + 2 = 4</span> <b>oder</b> <span class="m">x + 2 = −4</span>.</div>
+        <details class="hint"><summary>Tipp 1</summary><p><span class="m">x² + 4x = 12</span>. Ergänze <span class="m">(4 : 2)² = 4</span> auf beiden Seiten.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p><span class="m">(x + 2)² = 16</span>. Welche Zahlen ergeben zum Quadrat 16?</p></details>
+        <details class="solution"><summary>Lösung</summary><div data-widget="erg-sol" data-eq="1 4 -12"></div></details>
+      </div>
+
+      <div class="task" data-id="erg-glatt-2" data-answer="3;7" data-level="1">
+        <p class="task-q">Löse mit quadratischer Ergänzung:</p>
+        <div class="mblock">x² − 10x + 21 = 0</div>
+        <div class="wrong" data-match="-2;2">Das sind die Werte für <span class="m">x − 5</span>. Rechne noch <span class="m">+ 5</span>.</div>
+        <div class="wrong" data-match="-7;-3">Vorzeichen! Aus <span class="m">(x − 5)² = 4</span> folgt <span class="m">x − 5 = ±2</span>, also <span class="m">x = 5 ± 2</span>.</div>
+        <div class="wrong" data-match="leer">Rechts muss auch die Ergänzung <span class="m">+ 25</span> stehen: <span class="m">−21 + 25 = 4</span>.</div>
+        <div class="wrong" data-match="*1">Denk an ±! Aus <span class="m">(x − 5)² = 4</span> folgt <span class="m">x − 5 = 2</span> <b>oder</b> <span class="m">x − 5 = −2</span>.</div>
+        <details class="hint"><summary>Tipp 1</summary><p><span class="m">x² − 10x = −21</span>. Die Ergänzung ist <span class="m">(−10 : 2)² = 25</span>.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p><span class="m">(x − 5)² = 4</span></p></details>
+        <details class="solution"><summary>Lösung</summary><div data-widget="erg-sol" data-eq="1 -10 21"></div></details>
+      </div>
+
+      <div class="task" data-id="erg-glatt-3" data-answer="-5;3" data-level="2">
+        <p class="task-q">Löse mit quadratischer Ergänzung:</p>
+        <div class="mblock">x² + 2x − 15 = 0</div>
+        <div class="wrong" data-match="-4;4">Das sind die Werte für <span class="m">x + 1</span>. Rechne noch <span class="m">− 1</span>.</div>
+        <div class="wrong" data-match="-1-sqrt(15);-1+sqrt(15)">Hast du die Ergänzung <span class="m">1</span> auch rechts addiert? Rechts muss <span class="m">15 + 1 = 16</span> stehen.</div>
+        <div class="wrong" data-match="*1">Denk an ±! <span class="m">x + 1 = 4</span> <b>oder</b> <span class="m">x + 1 = −4</span>.</div>
+        <details class="hint"><summary>Tipp</summary><p>Die Ergänzung ist <span class="m">(2 : 2)² = 1</span>. Dann steht da <span class="m">(x + 1)² = 16</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary><div data-widget="erg-sol" data-eq="1 2 -15"></div></details>
+      </div>
+
+      <div class="task" data-id="erg-glatt-4" data-answer="-1;5" data-level="2">
+        <p class="task-q">Löse mit quadratischer Ergänzung:</p>
+        <div class="mblock">3x² − 12x − 15 = 0</div>
+        <div class="wrong" data-match="2-sqrt(19);2+sqrt(19)">Du hast nicht <b>jede</b> Zahl durch 3 geteilt. Auch aus <span class="m">−15</span> wird <span class="m">−5</span>.</div>
+        <div class="wrong" data-match="-5;1">Vorzeichen! Aus <span class="m">(x − 2)² = 9</span> folgt <span class="m">x = 2 ± 3</span>.</div>
+        <div class="wrong" data-match="-3;3">Das sind die Werte für <span class="m">x − 2</span>. Rechne noch <span class="m">+ 2</span>.</div>
+        <details class="hint"><summary>Tipp 1</summary><p>Vor <span class="m">x²</span> steht eine 3. Teile zuerst die ganze Gleichung durch 3.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p><span class="m">x² − 4x − 5 = 0</span>. Jetzt wie gewohnt weiter.</p></details>
+        <details class="solution"><summary>Lösung</summary><div data-widget="erg-sol" data-eq="3 -12 -15"></div></details>
+      </div>
+
+      <h3 class="erg-stage"><span class="pill orange">Stufe 4</span> Mit Brüchen</h3>
+
+      <div class="task" data-id="erg-bruch-1" data-answer="-4;-1" data-level="2">
+        <p class="task-q">Löse mit quadratischer Ergänzung:</p>
+        <div class="mblock">x² + 5x + 4 = 0</div>
+        <div class="wrong" data-match="1;4">Vorzeichen! <span class="m">x = −<span class="frac"><span>5</span><span>2</span></span> ± <span class="frac"><span>3</span><span>2</span></span></span> – beide Lösungen sind negativ.</div>
+        <div class="wrong" data-match="-3/2;3/2">Das sind die Werte für <span class="m">x + <span class="frac"><span>5</span><span>2</span></span></span>. Rechne noch <span class="m">− <span class="frac"><span>5</span><span>2</span></span></span>.</div>
+        <div class="wrong" data-match="leer">Rechts muss auch die Ergänzung stehen: <span class="m">−4 + <span class="frac"><span>25</span><span>4</span></span> = <span class="frac"><span>9</span><span>4</span></span></span>.</div>
+        <details class="hint"><summary>Tipp 1</summary><p>Ergänzung: <span class="m">(<span class="frac"><span>5</span><span>2</span></span>)² = <span class="frac"><span>25</span><span>4</span></span></span>. Schreib <span class="m">−4</span> als <span class="m">−<span class="frac"><span>16</span><span>4</span></span></span>.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p><span class="m">(x + <span class="frac"><span>5</span><span>2</span></span>)² = <span class="frac"><span>9</span><span>4</span></span></span> und <span class="m">√<span class="frac"><span>9</span><span>4</span></span> = <span class="frac"><span>3</span><span>2</span></span></span>.</p></details>
+        <details class="solution"><summary>Lösung</summary><div data-widget="erg-sol" data-eq="1 5 4"></div></details>
+      </div>
+
+      <div class="task" data-id="erg-bruch-2" data-answer="-1;4" data-level="2">
+        <p class="task-q">Löse mit quadratischer Ergänzung:</p>
+        <div class="mblock">x² − 3x − 4 = 0</div>
+        <div class="wrong" data-match="-4;1">Vorzeichen! Bei <span class="m">−3x</span> heißt die Klammer <span class="m">(x − <span class="frac"><span>3</span><span>2</span></span>)²</span>.</div>
+        <div class="wrong" data-match="-5/2;5/2">Das sind die Werte für <span class="m">x − <span class="frac"><span>3</span><span>2</span></span></span>. Rechne noch <span class="m">+ <span class="frac"><span>3</span><span>2</span></span></span>.</div>
+        <details class="hint"><summary>Tipp 1</summary><p>Ergänzung: <span class="m">(−<span class="frac"><span>3</span><span>2</span></span>)² = <span class="frac"><span>9</span><span>4</span></span></span>. Rechts: <span class="m">4 + <span class="frac"><span>9</span><span>4</span></span> = <span class="frac"><span>16</span><span>4</span></span> + <span class="frac"><span>9</span><span>4</span></span> = <span class="frac"><span>25</span><span>4</span></span></span>.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p><span class="m">x − <span class="frac"><span>3</span><span>2</span></span> = ±<span class="frac"><span>5</span><span>2</span></span></span></p></details>
+        <details class="solution"><summary>Lösung</summary><div data-widget="erg-sol" data-eq="1 -3 -4"></div></details>
+      </div>
+
+      <div class="task" data-id="erg-bruch-3" data-answer="-3/2;1/2" data-level="3">
+        <p class="task-q">Löse mit quadratischer Ergänzung:</p>
+        <div class="mblock">x² + x − <span class="frac"><span>3</span><span>4</span></span> = 0</div>
+        <div class="wrong" data-match="-1/2;3/2">Vorzeichen! <span class="m">x = −<span class="frac"><span>1</span><span>2</span></span> ± 1</span>.</div>
+        <div class="wrong" data-match="-1;1">Das sind die Werte für <span class="m">x + <span class="frac"><span>1</span><span>2</span></span></span>. Rechne noch <span class="m">− <span class="frac"><span>1</span><span>2</span></span></span>.</div>
+        <details class="hint"><summary>Tipp 1</summary><p>Vor <span class="m">x</span> steht unsichtbar eine 1, also <span class="m">p = 1</span>. Die Ergänzung ist <span class="m">(<span class="frac"><span>1</span><span>2</span></span>)² = <span class="frac"><span>1</span><span>4</span></span></span>.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p>Rechts: <span class="m"><span class="frac"><span>3</span><span>4</span></span> + <span class="frac"><span>1</span><span>4</span></span> = 1</span>. Also <span class="m">(x + <span class="frac"><span>1</span><span>2</span></span>)² = 1</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary><div data-widget="erg-sol" data-eq="1 1 -3/4"></div></details>
+      </div>
+
+      <div class="task" data-id="erg-bruch-4" data-answer="1;2" data-level="3">
+        <p class="task-q">Löse mit quadratischer Ergänzung:</p>
+        <div class="mblock">2x² − 6x + 4 = 0</div>
+        <div class="wrong" data-match="-2;-1">Vorzeichen! <span class="m">x = <span class="frac"><span>3</span><span>2</span></span> ± <span class="frac"><span>1</span><span>2</span></span></span>.</div>
+        <div class="wrong" data-match="-1/2;1/2">Das sind die Werte für <span class="m">x − <span class="frac"><span>3</span><span>2</span></span></span>. Rechne noch <span class="m">+ <span class="frac"><span>3</span><span>2</span></span></span>.</div>
+        <div class="wrong" data-match="leer">Hast du <b>jede</b> Zahl durch 2 geteilt? Aus <span class="m">+4</span> wird <span class="m">+2</span>.</div>
+        <details class="hint"><summary>Tipp 1</summary><p>Erst durch 2 teilen: <span class="m">x² − 3x + 2 = 0</span>.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p>Ergänzung <span class="m"><span class="frac"><span>9</span><span>4</span></span></span>. Rechts: <span class="m">−2 + <span class="frac"><span>9</span><span>4</span></span> = <span class="frac"><span>1</span><span>4</span></span></span>.</p></details>
+        <details class="solution"><summary>Lösung</summary><div data-widget="erg-sol" data-eq="2 -6 4"></div></details>
+      </div>
+
+      <h3 class="erg-stage"><span class="pill orange">Stufe 5</span> Wurzel-Lösungen und Sonderfälle</h3>
+      <p class="small muted erg-stage-note">Wurzeln tippst du mit der √-Taste, z. B. <span class="kbd">2 ± √3</span> oder <span class="kbd">2+√3; 2-√3</span>.</p>
+
+      <div class="task" data-id="erg-wurzel-1" data-answer="-3-sqrt(5);-3+sqrt(5)" data-level="2">
+        <p class="task-q">Löse mit quadratischer Ergänzung. Gib die Lösungen <b>exakt</b> an:</p>
+        <div class="mblock">x² + 6x + 4 = 0</div>
+        <div class="wrong" data-match="*1">Denk an ±! Es gibt auch die Lösung mit <span class="m">−√5</span>.</div>
+        <div class="wrong" data-match="3-sqrt(5);3+sqrt(5)">Vorzeichen! Aus <span class="m">x + 3 = ±√5</span> folgt <span class="m">x = −3 ± √5</span>.</div>
+        <div class="wrong" data-match="leer">Rechts muss auch <span class="m">+ 9</span> stehen: <span class="m">−4 + 9 = 5</span>. Und <span class="m">5 > 0</span>.</div>
+        <div class="wrong" data-match="-3-sqrt(13);-3+sqrt(13)">Prüf das Rüberbringen: Aus <span class="m">+ 4</span> links wird <span class="m">− 4</span> rechts.</div>
+        <details class="hint"><summary>Tipp 1</summary><p><span class="m">(x + 3)² = 5</span>. 5 ist keine Quadratzahl – die Wurzel bleibt einfach stehen.</p></details>
+        <details class="hint"><summary>Tipp 2</summary><p><span class="m">x + 3 = ±√5</span>. Jetzt noch <span class="m">− 3</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary><div data-widget="erg-sol" data-eq="1 6 4"></div></details>
+      </div>
+
+      <div class="task" data-id="erg-wurzel-2" data-answer="1-sqrt(3);1+sqrt(3)" data-level="2">
+        <p class="task-q">Löse mit quadratischer Ergänzung. Gib die Lösungen <b>exakt</b> an:</p>
+        <div class="mblock">x² − 2x − 2 = 0</div>
+        <div class="wrong" data-match="*1">Denk an ±! Es gibt auch die Lösung mit <span class="m">−√3</span>.</div>
+        <div class="wrong" data-match="-1-sqrt(3);-1+sqrt(3)">Vorzeichen! Aus <span class="m">x − 1 = ±√3</span> folgt <span class="m">x = 1 ± √3</span>.</div>
+        <div class="wrong" data-match="1-sqrt(2);1+sqrt(2)">Hast du die Ergänzung <span class="m">1</span> auch rechts addiert? Rechts muss <span class="m">2 + 1 = 3</span> stehen.</div>
+        <details class="hint"><summary>Tipp</summary><p>Ergänzung: <span class="m">(−1)² = 1</span>. Dann <span class="m">(x − 1)² = 3</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary><div data-widget="erg-sol" data-eq="1 -2 -2"></div></details>
+      </div>
+
+      <div class="task" data-id="erg-sonder-1" data-answer="leer" data-level="2">
+        <p class="task-q">Löse mit quadratischer Ergänzung:</p>
+        <div class="mblock">x² − 4x + 7 = 0</div>
+        <div class="wrong" data-match="2-sqrt(3);2+sqrt(3)">Schau genau hin: Rechts steht <span class="m">−3</span>. Aus einer negativen Zahl kannst du keine Wurzel ziehen!</div>
+        <div class="wrong" data-match="2-sqrt(11);2+sqrt(11)">Prüf das Rüberbringen: Aus <span class="m">+ 7</span> links wird <span class="m">− 7</span> rechts.</div>
+        <details class="hint"><summary>Tipp</summary><p>Du kommst auf <span class="m">(x − 2)² = −3</span>. Kann ein Quadrat negativ sein?</p></details>
+        <details class="solution"><summary>Lösung</summary><div data-widget="erg-sol" data-eq="1 -4 7"></div></details>
+      </div>
+
+      <div class="task" data-id="erg-sonder-2" data-answer="-5" data-level="2">
+        <p class="task-q">Löse mit quadratischer Ergänzung:</p>
+        <div class="mblock">x² + 10x + 25 = 0</div>
+        <div class="wrong" data-match="leer">Rechts steht 0 – und <span class="m">√0 = 0</span> gibt es! Also genau eine Lösung.</div>
+        <div class="wrong" data-match="-5;5">Aus <span class="m">(x + 5)² = 0</span> folgt nur <span class="m">x + 5 = 0</span>. <span class="m">+0</span> und <span class="m">−0</span> sind dasselbe.</div>
+        <details class="hint"><summary>Tipp</summary><p>Die Ergänzung ist schon da! Du kommst auf <span class="m">(x + 5)² = 0</span>.</p></details>
+        <details class="solution"><summary>Lösung</summary><div data-widget="erg-sol" data-eq="1 10 25"></div></details>
+      </div>
+
+      <h3 class="erg-stage"><span class="pill orange">Stufe 6</span> Fehler finden</h3>
+
+      <div class="task" data-id="erg-fehler-1" data-kind="choice" data-level="2">
+        <p class="task-q">Lena löst <span class="m">x² + 8x − 9 = 0</span> so. In welcher Zeile steckt der Fehler?</p>
+        <ol class="erg-lines">
+          <li><span class="m">x² + 8x = 9</span> <span class="erg-lop">| + 4²</span></li>
+          <li><span class="m">x² + 8x + 16 = 9</span></li>
+          <li><span class="m">(x + 4)² = 9</span> <span class="erg-lop">| √ (±)</span></li>
+          <li><span class="m">x + 4 = ±3</span> <span class="erg-lop">| − 4</span></li>
+          <li><span class="m">L = {−7; −1}</span></li>
+        </ol>
+        <div class="choices">
+          <button type="button" class="choice" data-correct data-why="Die 16 muss auch rechts dazu: 9 + 16 = 25. Richtig ist (x + 4)² = 25 und L = {−9; 1}.">Zeile 2: Die 16 fehlt auf der rechten Seite.</button>
+          <button type="button" class="choice" data-why="Bei +8x steht ein Plus in der Klammer – (x + 4)² stimmt.">Zeile 3: Es müsste (x − 4)² heißen.</button>
+          <button type="button" class="choice" data-why="Das ± ist genau richtig – sonst fehlt eine Lösung.">Zeile 4: Das ± ist falsch.</button>
+          <button type="button" class="choice" data-why="Ergänzt wird (8 : 2)² = 16, nicht 8² = 64. Zeile 1 ist richtig.">Zeile 1: Man muss 64 ergänzen.</button>
+        </div>
+        <details class="solution"><summary>Lösung</summary>
+          <p>In Zeile 2 wurde die Ergänzung nur links addiert. Richtig ist:</p>
+          <div data-widget="erg-sol" data-eq="1 8 -9"></div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 8 · Bonus Scheitelpunkt ================= -->
+  <div class="block" id="erg-bonus">
+    <h2>Bonus: Die Scheitelpunktform gibt’s gratis</h2>
+    <p>Mit derselben Idee kannst du eine Funktionsgleichung in die <b>Scheitelpunktform</b> <span class="m">f(x) = a · (x − d)² + e</span> bringen. Der Unterschied: Bei einem Term gibt es keine rechte Seite. Deshalb ergänzt du die Zahl und ziehst sie <b>sofort wieder ab</b> – so bleibt der Wert gleich.</p>
+    <div class="calc erg-calc">
+      <div class="row"><span class="l">f(x)</span><span class="r">= x² − 4x + 3</span><span class="op">| + 4 − 4</span></div>
+      <div class="row"><span class="l"></span><span class="r">= <span class="hl-orange">x² − 4x + 4</span> − 4 + 3</span><span class="op">| Binom</span></div>
+      <div class="row result"><span class="l"></span><span class="r">= (x − 2)² − 1</span></div>
+    </div>
+    <p>Jetzt liest du den Scheitelpunkt ab: <span class="m erg-nw">S(2 | −1)</span>. Und die Nullstellen bekommst du direkt dazu:</p>
+    <div class="calc erg-calc">
+      <div class="row"><span class="l">(x − 2)² − 1</span><span class="r">= 0</span><span class="op">| + 1</span></div>
+      <div class="row"><span class="l">(x − 2)²</span><span class="r">= 1</span><span class="op">| √ (±!)</span></div>
+      <div class="row"><span class="l">x − 2</span><span class="r">= ±1</span><span class="op">| + 2</span></div>
+      <div class="row result"><span class="l">L</span><span class="r">= {1; 3}</span></div>
+    </div>
+    <figure class="qg-plot-wrap" data-widget="erg-vertex"></figure>
+    <p class="small muted">Die Parabel <span class="m">f(x) = x² − 4x + 3</span>: Scheitelpunkt <span class="m erg-nw">S(2 | −1)</span>, Nullstellen bei <span class="m">1</span> und <span class="m">3</span>. So hängen Weg 3 und <a href="#grafisch">Weg 1 (grafisch)</a> zusammen.</p>
+
+    <div class="task" data-id="erg-bonus-s" data-kind="choice" data-label="Bonus" data-level="3">
+      <p class="task-q">Bring <span class="m">f(x) = x² − 6x + 5</span> in die Scheitelpunktform. Wo liegt der Scheitelpunkt?</p>
+      <div class="choices cols">
+        <button type="button" class="choice" data-correct data-why="f(x) = (x − 3)² − 4.">S(3 | −4)</button>
+        <button type="button" class="choice" data-why="Vorzeichen: In der Klammer steht (x − 3), also d = +3.">S(−3 | −4)</button>
+        <button type="button" class="choice" data-why="Ergänzt hast du 9 – die musst du auch wieder abziehen: 5 − 9 = −4.">S(3 | 5)</button>
+        <button type="button" class="choice" data-why="Rechne nach: 5 − 9 ist −4, nicht 4.">S(3 | 4)</button>
+      </div>
+      <details class="hint"><summary>Tipp</summary><p><span class="m">x² − 6x + 9 − 9 + 5</span> – fasse die ersten drei Glieder zum Binom zusammen.</p></details>
+      <details class="solution"><summary>Lösung</summary>
+        <div class="calc erg-calc">
+          <div class="row"><span class="l">f(x)</span><span class="r">= x² − 6x + 5</span><span class="op">| + 9 − 9</span></div>
+          <div class="row"><span class="l"></span><span class="r">= x² − 6x + 9 − 9 + 5</span><span class="op">| Binom</span></div>
+          <div class="row result"><span class="l"></span><span class="r">= (x − 3)² − 4</span></div>
+        </div>
+        <p>Also <span class="m erg-nw">S(3 | −4)</span>.</p>
+      </details>
+    </div>
+  </div>
+
+  <!-- ================= 9 · Merkbox ================= -->
+  <div class="block" id="erg-merke">
+    <h2>Kurz &amp; knapp</h2>
+    <div class="box merke">
+      <p class="box-title">Quadratische Ergänzung auf einen Blick</p>
+      <ol class="erg-short">
+        <li>Normalform <span class="m">x² + px + q = 0</span> herstellen (falls nötig durch <span class="m">a</span> teilen).</li>
+        <li><span class="m">q</span> auf die rechte Seite bringen.</li>
+        <li><span class="m">(<span class="frac"><span>p</span><span>2</span></span>)²</span> auf <b>beiden</b> Seiten addieren.</li>
+        <li>Links als Binom schreiben: <span class="m">(x + <span class="frac"><span>p</span><span>2</span></span>)²</span>.</li>
+        <li>Wurzel ziehen mit <b>±</b>. Rechts &gt; 0: zwei Lösungen, = 0: eine, &lt; 0: keine.</li>
+        <li>Nach <span class="m">x</span> auflösen und <span class="m">L = {…}</span> angeben.</li>
+      </ol>
+      <p><b>Halbieren – quadrieren – auf beiden Seiten addieren.</b></p>
+    </div>
+    <div class="box info">
+      <p>Die <b>p-q-Formel</b>, die du vielleicht später kennenlernst, ist nichts anderes als die quadratische Ergänzung – einmal allgemein mit Buchstaben durchgerechnet. Wer die Ergänzung versteht, versteht also auch die Formel.</p>
+    </div>
+    <p>Welcher Weg ist wann am schnellsten? Das klärt das nächste Kapitel: <a href="#methodenwahl">Welcher Weg wann?</a></p>
+  </div>
+</section>

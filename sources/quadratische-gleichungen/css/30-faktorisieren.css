@@ -1,0 +1,304 @@
+/* Kapitel 30 · Faktorisieren (alles unter #faktorisieren) */
+
+/* ---------- Werkzeug-Farben ---------- */
+#faktorisieren { --tool: var(--accent); --tool-soft: var(--accent-soft); --tool-ink: var(--accent-ink); }
+#faktorisieren [data-tool="a"] { --tool: var(--c-teal); --tool-soft: var(--c-teal-soft); --tool-ink: var(--c-teal-ink); }
+#faktorisieren [data-tool="b"] { --tool: var(--c-violet); --tool-soft: var(--c-violet-soft); --tool-ink: var(--c-violet-ink); }
+#faktorisieren [data-tool="c"] { --tool: var(--c-pink); --tool-soft: var(--c-pink-soft); --tool-ink: var(--c-pink-ink); }
+#faktorisieren [data-tool="d"] { --tool: var(--c-green); --tool-soft: var(--c-green-soft); --tool-ink: var(--c-green-ink); }
+
+#faktorisieren .fk-letter {
+  display: inline-grid; place-items: center; flex: none;
+  width: 1.75em; height: 1.75em; border-radius: .55em;
+  background: var(--tool); color: var(--on-accent);
+  font-weight: 900; font-size: .9em; line-height: 1; font-style: normal;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--tool) 30%, transparent);
+}
+
+/* Mathe in Box-Titeln nicht in Großbuchstaben */
+#faktorisieren .box-title .m { text-transform: none; letter-spacing: 0; font-size: 1.12em; }
+
+/* Ergebniszeile über alle Spalten einer .calc */
+#faktorisieren .calc .fk-sol { grid-column: 1 / -1; padding: 5px 2px 2px; font-weight: 850; white-space: normal; }
+#faktorisieren .calc .row + .row > .fk-sol { border-top: 1.5px dashed var(--line-strong); margin-top: 3px; }
+#faktorisieren .fk-expand .r { white-space: nowrap; }
+/* lange Hinweise: der Core setzt .stack-op, statt Wörter zu trennen */
+#faktorisieren .fk-expand .hl-teal, #faktorisieren .fk-expand .hl-violet { padding: 0 .16em; }
+@media (max-width: 380px) {
+  #faktorisieren .mblock { font-size: 1.04em; padding: 12px 10px; }
+  #faktorisieren .calc { font-size: 1em; }
+  #faktorisieren .calc .op { padding-left: 10px; }
+}
+
+#faktorisieren .m.fk-nw { white-space: nowrap; }
+#faktorisieren .fk-v-presets .fk-pre-t { white-space: nowrap; }
+
+/* ---------- Lösungsmenge ---------- */
+#faktorisieren .fk-L {
+  display: inline-block;
+  margin: 2px 0 .9em; padding: 5px 14px;
+  border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent-ink);
+  border: 1.5px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  font-weight: 850;
+}
+#faktorisieren .fk-L:last-child { margin-bottom: 0; }
+#faktorisieren .fk-L .m { font-size: 1.06em; font-weight: 850; }
+#faktorisieren details .fk-L { margin-bottom: 14px; }
+
+/* ---------- Fallunterscheidung „oder“ (Satz vom Nullprodukt) ---------- */
+#faktorisieren .fk-split { container-type: inline-size; margin: 0 0 .9em; }
+#faktorisieren .fk-split:last-child { margin-bottom: 0; }
+#faktorisieren .fk-split-in { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+#faktorisieren .fk-split .calc {
+  margin: 0; font-size: 1em;
+  background: var(--surface-2); border: 1px solid var(--line);
+  padding: 7px 12px; border-radius: 10px;
+}
+#faktorisieren .fk-split .calc .op { min-width: 0; padding-left: 10px; }
+#faktorisieren .fk-or {
+  font-family: var(--font); font-weight: 900; font-size: .74rem;
+  letter-spacing: .09em; text-transform: uppercase; color: var(--accent-ink);
+  padding: 0 0 0 1.4em;
+}
+@container (min-width: 340px) {
+  #faktorisieren .fk-split-in { display: grid; grid-template-columns: auto auto auto; justify-content: start; align-items: center; gap: 10px; }
+  #faktorisieren .fk-or { padding: 0; }
+}
+#faktorisieren .step-math .fk-split { margin: 2px 0; }
+
+/* ---------- Rezept ---------- */
+#faktorisieren .fk-recipe { list-style: none; padding: 0; counter-reset: fk-r; }
+#faktorisieren .fk-recipe > li {
+  counter-increment: fk-r; position: relative;
+  padding: 10px 12px 10px 52px; margin: 0 0 8px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-1);
+}
+#faktorisieren .fk-recipe > li::before {
+  content: counter(fk-r);
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  width: 28px; height: 28px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--accent); color: var(--on-accent); font-weight: 900; font-size: .9rem;
+}
+
+/* ---------- Wegweiser ---------- */
+#faktorisieren .fk-signpost { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 16px 0; }
+@media (max-width: 352px) { #faktorisieren .fk-signpost { grid-template-columns: minmax(0, 1fr); } }
+#faktorisieren .fk-sign {
+  display: flex; flex-direction: column; gap: 6px; min-width: 0;
+  padding: 12px 12px 12px; border-radius: var(--radius);
+  background: var(--tool-soft);
+  border: 1.5px solid color-mix(in srgb, var(--tool) 32%, transparent);
+  color: var(--text); text-decoration: none;
+  transition: transform .12s var(--ease), border-color .15s, box-shadow .15s;
+}
+#faktorisieren .fk-sign:hover { border-color: var(--tool); box-shadow: 0 4px 16px color-mix(in srgb, var(--tool) 22%, transparent); }
+#faktorisieren .fk-sign:active { transform: scale(.98); }
+#faktorisieren .fk-sign-top { display: block; font-weight: 900; line-height: 1.25; color: var(--tool-ink); font-size: .98rem; }
+#faktorisieren .fk-sign-top .fk-letter { margin-right: 7px; vertical-align: .05em; font-size: .85rem; }
+#faktorisieren .fk-sign-when { font-size: .84rem; line-height: 1.3; color: var(--text-dim); font-weight: 700; }
+#faktorisieren .fk-sign-ex {
+  margin-top: auto; align-self: stretch;
+  font-size: .84rem; padding: 4px 8px; border-radius: 8px;
+  background: var(--surface); color: var(--text); text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* ---------- Werkzeug-Blöcke ---------- */
+#faktorisieren .fk-block {
+  margin-top: 40px; padding-top: 22px;
+  border-top: 2px dashed color-mix(in srgb, var(--tool) 45%, var(--line));
+}
+#faktorisieren .fk-block > h2 { align-items: center; gap: 12px; }
+#faktorisieren .fk-block > h2::before { display: none; }
+#faktorisieren .fk-block > h2 .fk-letter { font-size: .78em; }
+#faktorisieren .fk-when {
+  background: var(--tool-soft);
+  border-left: 5px solid var(--tool);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 10px 14px;
+}
+#faktorisieren .fk-when b:first-child { color: var(--tool-ink); }
+
+/* ---------- Fälle bei x² = k ---------- */
+#faktorisieren .fk-cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 16px 0; }
+#faktorisieren .fk-case {
+  --cc: var(--ok); --cc-soft: var(--ok-soft);
+  text-align: center; padding: 10px 6px 12px; border-radius: var(--radius-sm);
+  background: var(--cc-soft); border: 1.5px solid color-mix(in srgb, var(--cc) 30%, transparent);
+  min-width: 0;
+}
+#faktorisieren .fk-case[data-n="1"] { --cc: var(--c-yellow); --cc-soft: var(--c-yellow-soft); }
+#faktorisieren .fk-case[data-n="0"] { --cc: var(--bad); --cc-soft: var(--bad-soft); }
+#faktorisieren .fk-case::before {
+  content: attr(data-n); display: block;
+  font-size: 1.9rem; font-weight: 900; line-height: 1.1;
+  color: color-mix(in srgb, var(--cc) 85%, var(--text));
+}
+#faktorisieren .fk-case p { margin: 0; line-height: 1.3; }
+#faktorisieren .fk-case-k { font-size: .8rem; color: var(--text-dim); min-height: 2.6em; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0 .25em; }
+#faktorisieren .fk-case-res { font-weight: 900; font-size: .88rem; margin: 2px 0 4px !important; }
+#faktorisieren .fk-case-m { font-size: .92rem; }
+
+/* ---------- Binomische Formeln ---------- */
+#faktorisieren .fk-binoms { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
+#faktorisieren .fk-binom {
+  background: var(--surface); border: 1px solid var(--line); border-left: 5px solid var(--tool);
+  border-radius: var(--radius-sm); padding: 10px 14px; box-shadow: var(--shadow-1);
+}
+#faktorisieren .fk-binom p { margin: 0; }
+#faktorisieren .fk-binom-n { font-size: .74rem; font-weight: 900; letter-spacing: .07em; text-transform: uppercase; color: var(--tool-ink); }
+#faktorisieren .fk-binom-f { font-size: 1.1em; margin: 2px 0 !important; }
+#faktorisieren .fk-binom-ex { font-size: .9em; color: var(--text-dim); }
+#faktorisieren .fk-binom-ex::before { content: "z. B. "; font-family: var(--font); font-weight: 700; }
+
+/* ---------- Vorzeichen-Kompass ---------- */
+#faktorisieren .fk-compass { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; margin: 16px 0; }
+@media (min-width: 560px) { #faktorisieren .fk-compass { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+#faktorisieren .fk-compass-item {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm);
+  padding: 10px 14px; box-shadow: var(--shadow-1);
+}
+#faktorisieren .fk-compass-item p { margin: 0; }
+#faktorisieren .fk-compass-h { font-weight: 900; color: var(--accent-ink); margin-bottom: 2px !important; }
+
+/* ---------- Typische Fehler ---------- */
+#faktorisieren .fk-errors { display: flex; flex-direction: column; gap: 14px; }
+#faktorisieren .fk-err {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 14px 16px 16px; box-shadow: var(--shadow-1);
+}
+#faktorisieren .fk-err h3 { display: flex; align-items: center; gap: 10px; font-size: 1.04rem; margin: 0 0 10px; }
+#faktorisieren .fk-err-n {
+  flex: none; width: 28px; height: 28px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--bad); color: #fff; font-size: .88rem; font-weight: 900;
+}
+#faktorisieren .fk-err-row {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+  padding: 8px 12px; border-radius: 12px; margin: 0 0 6px;
+}
+#faktorisieren .fk-err-row .m { min-width: 0; }
+#faktorisieren .fk-bad { background: var(--bad-soft); }
+#faktorisieren .fk-bad .m { color: color-mix(in srgb, var(--bad) 75%, var(--text)); }
+#faktorisieren .fk-good { background: var(--ok-soft); }
+#faktorisieren .fk-err-tag {
+  flex: none; font-size: .7rem; font-weight: 900; letter-spacing: .07em; text-transform: uppercase;
+  padding: 1px 8px; border-radius: 999px; color: #fff;
+}
+#faktorisieren .fk-bad .fk-err-tag { background: var(--bad); }
+#faktorisieren .fk-bad .fk-err-tag::before { content: "✗ "; }
+#faktorisieren .fk-good .fk-err-tag { background: var(--ok); }
+#faktorisieren .fk-good .fk-err-tag::before { content: "✓ "; }
+#faktorisieren .fk-err-why { margin: 8px 0 0; color: var(--text-dim); font-size: .95em; }
+#faktorisieren .fk-err .calc { margin-top: 4px; }
+#faktorisieren .fk-err .fk-L { margin-top: 4px; }
+#faktorisieren .fk-wrongcalc .op { color: var(--c-red-ink); }
+
+/* ---------- Merkbox ---------- */
+#faktorisieren .fk-sum-list { list-style: none; padding: 0; margin: 10px 0 12px; display: flex; flex-direction: column; gap: 8px; }
+#faktorisieren .fk-sum-list > li { display: flex; gap: 10px; align-items: flex-start; margin: 0; background: var(--surface); border-radius: 12px; padding: 8px 12px 8px 8px; }
+#faktorisieren .fk-sum-list .fk-letter { font-size: .82rem; margin-top: 1px; }
+
+/* ---------- Widgets (gemeinsam) ---------- */
+#faktorisieren .fk-widget { padding: 16px; }
+#faktorisieren .fk-w-title { font-weight: 900; font-size: 1.05rem; margin: 0 0 2px; color: var(--accent-ink); }
+#faktorisieren .fk-w-sub { color: var(--text-dim); font-size: .93em; margin: 0 0 12px; }
+#faktorisieren .fk-step {
+  flex: none; width: 44px; height: 44px; padding: 0;
+  display: inline-grid; place-items: center;
+  font: inherit; font-family: var(--font-math); font-size: 1.25rem; font-weight: 900; line-height: 1;
+  color: var(--text); background: var(--surface);
+  border: 1.5px solid var(--line-strong); border-bottom-width: 3px; border-radius: 12px;
+  cursor: pointer; touch-action: manipulation; user-select: none; -webkit-user-select: none;
+}
+#faktorisieren .fk-step:hover { border-color: var(--accent); }
+#faktorisieren .fk-step:active { transform: translateY(2px); border-bottom-width: 1.5px; }
+#faktorisieren .fk-slider { display: flex; align-items: center; gap: 10px; margin: 12px 0 4px; }
+#faktorisieren .fk-slider input[type="range"] {
+  flex: 1 1 auto; min-width: 0; width: 100%; height: 44px; margin: 0;
+  accent-color: var(--accent); cursor: pointer; background: transparent;
+}
+#faktorisieren .fk-range { flex: 1 1 auto; min-width: 0; display: flex; }
+
+/* Nullprodukt-Explorer */
+#faktorisieren .fk-null-eq { display: flex; align-items: stretch; justify-content: center; gap: 6px; margin: 4px 0 6px; }
+#faktorisieren .fk-f {
+  flex: 1 1 0; min-width: 0; max-width: 120px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  padding: 8px 4px; border-radius: 14px;
+  background: var(--surface-2); border: 2px solid var(--line);
+  transition: background-color .2s, border-color .2s, transform .2s var(--ease);
+}
+#faktorisieren .fk-f-term { font-size: .82rem; color: var(--text-dim); white-space: nowrap; }
+#faktorisieren .fk-f-val { font-family: var(--font-math); font-size: 1.3rem; font-weight: 900; font-variant-numeric: tabular-nums; white-space: nowrap; }
+#faktorisieren .fk-f.is-zero { background: var(--ok-soft); border-color: var(--ok); transform: scale(1.04); }
+#faktorisieren .fk-f.is-zero .fk-f-val { color: var(--ok); }
+#faktorisieren .fk-prod { border-style: dashed; }
+#faktorisieren .fk-op { align-self: center; font-weight: 900; font-size: 1.25rem; color: var(--text-dim); }
+#faktorisieren .fk-xval { text-align: center; margin: 0; font-size: 1.15rem; }
+#faktorisieren .fk-null-msg { text-align: center; color: var(--text-dim); font-size: .93em; margin: 4px 0 10px; min-height: 2.9em; }
+#faktorisieren .fk-null-msg.is-zero { color: var(--ok); font-weight: 800; }
+#faktorisieren .fk-found { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center; }
+#faktorisieren .fk-found-l { font-size: .85rem; font-weight: 800; color: var(--text-dim); }
+#faktorisieren .fk-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 12px; border-radius: 999px; font-weight: 800; font-size: .95rem;
+  background: var(--surface-2); border: 1.5px dashed var(--line-strong); color: var(--text-dim);
+}
+#faktorisieren .fk-chip.is-found { background: var(--ok-soft); border: 1.5px solid var(--ok); color: var(--ok); animation: qg-pop .45s var(--ease); }
+#faktorisieren .fk-null-done { margin: 12px 0 0; text-align: center; font-weight: 750; }
+
+/* Wurzel-Widget */
+#faktorisieren .fk-plot { margin: 10px 0 0; }
+#faktorisieren .fk-w-out { margin-top: 12px; text-align: center; }
+#faktorisieren .fk-w-out .fk-w-eq { font-size: 1.12rem; margin: 0 0 4px; }
+#faktorisieren .fk-w-out .fk-w-note { color: var(--text-dim); font-size: .93em; margin: 0; }
+#faktorisieren .fk-kval { text-align: center; margin: 0; font-weight: 800; }
+
+/* Zahlenpaar-Finder */
+#faktorisieren .fk-v-eq {
+  text-align: center; font-size: 1.3rem; font-weight: 750;
+  padding: 10px 12px; margin: 8px 0 12px;
+  background: var(--accent-soft); border-radius: var(--radius-sm);
+  overflow-x: auto; white-space: nowrap;
+}
+#faktorisieren .fk-v-inputs { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+@media (min-width: 600px) { #faktorisieren .fk-v-inputs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+#faktorisieren .fk-v-field { display: flex; align-items: center; gap: 6px; min-width: 0; }
+#faktorisieren .fk-v-field label { flex: none; width: 2.4em; font-size: 1.15rem; font-weight: 800; text-align: right; padding-right: 2px; }
+#faktorisieren .fk-v-in {
+  flex: 1 1 auto; min-width: 0; width: 100%; height: 44px;
+  font-family: var(--font-math); font-size: 1.15rem; font-weight: 800; text-align: center;
+  color: var(--text); background: var(--surface-2);
+  border: 2px solid var(--line); border-radius: 12px; padding: 0 6px;
+}
+#faktorisieren .fk-v-in:focus { outline: none; border-color: var(--accent); background: var(--surface); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent); }
+#faktorisieren .fk-v-in.is-bad { border-color: var(--bad); }
+#faktorisieren .fk-v-presets { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 12px 0 0; }
+#faktorisieren .fk-v-presets-l { font-size: .8rem; font-weight: 800; color: var(--text-dim); margin-right: 2px; }
+#faktorisieren .fk-v-presets .btn { min-height: 40px; padding: 4px 12px; font-size: .88rem; font-family: var(--font-math); font-weight: 750; }
+#faktorisieren .fk-v-out { margin-top: 14px; }
+#faktorisieren .fk-v-out > p { margin: 0 0 8px; }
+#faktorisieren .fk-v-goal { font-weight: 800; }
+#faktorisieren .fk-v-hint { font-size: .92em; color: var(--text-dim); }
+#faktorisieren .fk-vt th, #faktorisieren .fk-vt td { padding: 7px 8px; }
+#faktorisieren .fk-vt td { font-family: var(--font-math); font-weight: 700; }
+#faktorisieren .fk-vt tr.is-match td { background: var(--ok-soft); font-weight: 900; }
+#faktorisieren .fk-vt tr.is-match td.fk-v-ok { color: var(--ok); }
+#faktorisieren .fk-vt td.fk-v-no { color: var(--text-dim); }
+#faktorisieren .fk-v-res { margin-top: 12px; padding: 12px 14px; border-radius: var(--radius-sm); }
+#faktorisieren .fk-v-res > p { margin: 0 0 8px; }
+#faktorisieren .fk-v-res > :last-child { margin-bottom: 0; }
+#faktorisieren .fk-v-res.ok { background: var(--ok-soft); border: 1.5px solid color-mix(in srgb, var(--ok) 40%, transparent); }
+#faktorisieren .fk-v-res.bad { background: var(--c-orange-soft); border: 1.5px solid color-mix(in srgb, var(--c-orange) 40%, transparent); }
+#faktorisieren .fk-v-res .calc { background: var(--surface); background-image: none; font-size: 1em; }
+#faktorisieren .fk-v-res .btn { margin-top: 4px; }
+#faktorisieren .fk-v-msg { color: var(--bad); font-weight: 750; }
+
+@media print {
+  #faktorisieren .fk-sign, #faktorisieren .fk-err, #faktorisieren .fk-binom, #faktorisieren .fk-case { break-inside: avoid; page-break-inside: avoid; }
+  #faktorisieren .fk-widget[data-widget="fakt-wurzel"] .fk-slider { display: none; }
+}

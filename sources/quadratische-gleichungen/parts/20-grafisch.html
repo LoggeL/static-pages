@@ -1,0 +1,621 @@
+<section class="chapter" id="grafisch" data-title="Weg 1: Grafisch lösen" data-short="Grafisch" data-color="blue" data-icon="📈">
+  <header class="ch-head">
+    <p class="ch-kicker">Weg 1 von 3</p>
+    <h1>Grafisch lösen</h1>
+    <p class="ch-lead">Zu jeder quadratischen Gleichung gehört eine Parabel. Wo die Parabel die <span class="m">x</span>-Achse schneidet, stehen deine Lösungen – du musst sie nur ablesen.</p>
+  </header>
+
+  <!-- ============================================================ IDEE -->
+  <div class="block" id="graf-idee">
+    <h2>Die Idee in einem Satz</h2>
+    <p class="lead">Die Lösungen von <span class="m">ax² + bx + c = 0</span> sind die Stellen, an denen die Parabel <span class="m">y = ax² + bx + c</span> die <span class="m">x</span>-Achse schneidet (oder berührt).</p>
+    <p>Nimm zum Beispiel <span class="m">x² − 2x − 3 = 0</span>. Statt zu rechnen, zeichnest du die Parabel <span class="m">y = x² − 2x − 3</span>.</p>
+    <p>Gesucht sind die <span class="m">x</span>-Werte, für die <span class="m">y = 0</span> herauskommt. Auf der <span class="m">x</span>-Achse ist <span class="m">y</span> immer 0. Also sind die Lösungen genau die Schnittstellen mit der <span class="m">x</span>-Achse – die <b>Nullstellen</b>.</p>
+    <figure class="graf-fig">
+      <div class="qg-plot-wrap" data-widget="graf-plot" data-plot="idee"></div>
+      <figcaption>Die Parabel <span class="m">y = x² − 2x − 3</span> schneidet die <span class="m">x</span>-Achse bei <span class="m">−1</span> und <span class="m">3</span>. Also gilt: <span class="m">L = {−1; 3}</span>.</figcaption>
+    </figure>
+    <div class="box merke">
+      <p>Lösungen der Gleichung <span class="m">ax² + bx + c = 0</span><br>= <b>Nullstellen</b> der Parabel <span class="m">y = ax² + bx + c</span><br>= <span class="m">x</span>-Werte der Schnittpunkte mit der <span class="m">x</span>-Achse.</p>
+    </div>
+
+    <h3>0, 1 oder 2 Lösungen – du siehst es sofort</h3>
+    <p>Eine Parabel kann die <span class="m">x</span>-Achse zweimal schneiden, sie nur berühren oder ganz an ihr vorbeilaufen. Genauso viele Lösungen hat die Gleichung.</p>
+    <div class="graf-trio">
+      <figure class="graf-mini">
+        <div class="qg-plot-wrap" data-widget="graf-plot" data-plot="trio2"></div>
+        <figcaption><span class="pill green">2 Lösungen</span><span class="small">schneidet zweimal</span></figcaption>
+      </figure>
+      <figure class="graf-mini">
+        <div class="qg-plot-wrap" data-widget="graf-plot" data-plot="trio1"></div>
+        <figcaption><span class="pill orange">1 Lösung</span><span class="small">berührt im Scheitel</span></figcaption>
+      </figure>
+      <figure class="graf-mini">
+        <div class="qg-plot-wrap" data-widget="graf-plot" data-plot="trio0"></div>
+        <figcaption><span class="pill red">keine Lösung</span><span class="small">läuft vorbei</span></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ============================================================ LABOR -->
+  <div class="block" id="graf-labor">
+    <h2>Parabel-Labor</h2>
+    <p>Schieb an den Reglern und beobachte, was mit den Schnittpunkten passiert. Die Lösungen werden live markiert. Du kannst zwischen der allgemeinen Form und der Scheitelpunktform umschalten.</p>
+    <div class="card graf-lab" data-widget="graf-labor"></div>
+    <div class="box tipp">
+      <p>Probier es aus: Stell <b>Scheitelpunktform</b> ein und schieb <span class="m">e</span> nach oben. Ab wann verschwinden die Lösungen? Was ändert sich, wenn <span class="m">a</span> negativ ist?</p>
+    </div>
+    <details class="more">
+      <summary>Auflösung: Wann gibt es wie viele Lösungen?</summary>
+      <p>Schau auf den Scheitelpunkt <span class="m">S(d | e)</span> und darauf, ob die Parabel nach oben oder nach unten geöffnet ist:</p>
+      <div class="table-wrap">
+        <table class="nice">
+          <thead><tr><th>Öffnung</th><th>Scheitel liegt …</th><th class="c">Lösungen</th></tr></thead>
+          <tbody>
+            <tr><td class="narrow">nach oben (<span class="m">a &gt; 0</span>)</td><td class="narrow">unter der <span class="m">x</span>-Achse (<span class="m">e &lt; 0</span>)</td><td class="c"><span class="pill green">2</span></td></tr>
+            <tr><td class="narrow">nach oben (<span class="m">a &gt; 0</span>)</td><td class="narrow">über der <span class="m">x</span>-Achse (<span class="m">e &gt; 0</span>)</td><td class="c"><span class="pill red">0</span></td></tr>
+            <tr><td class="narrow">nach unten (<span class="m">a &lt; 0</span>)</td><td class="narrow">über der <span class="m">x</span>-Achse (<span class="m">e &gt; 0</span>)</td><td class="c"><span class="pill green">2</span></td></tr>
+            <tr><td class="narrow">nach unten (<span class="m">a &lt; 0</span>)</td><td class="narrow">unter der <span class="m">x</span>-Achse (<span class="m">e &lt; 0</span>)</td><td class="c"><span class="pill red">0</span></td></tr>
+            <tr><td class="narrow">egal</td><td class="narrow">genau auf der <span class="m">x</span>-Achse (<span class="m">e = 0</span>)</td><td class="c"><span class="pill orange">1</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted">Kurz gesagt: Zeigt die Parabel vom Scheitel aus <b>zur</b> <span class="m">x</span>-Achse hin, gibt es zwei Lösungen. Zeigt sie <b>weg</b>, gibt es keine.</p>
+    </details>
+  </div>
+
+  <!-- ============================================================ REZEPT A -->
+  <div class="block" id="graf-rezept">
+    <h2>Rezept A: Parabel zeichnen und ablesen</h2>
+    <ol class="graf-recipe">
+      <li><b>Auf „= 0“ bringen.</b> Bring alles auf eine Seite, sodass <span class="m">ax² + bx + c = 0</span> dasteht.</li>
+      <li><b>Parabel zeichnen.</b> Mit einer <b>Wertetabelle</b> – oder, wenn du die Scheitelpunktform kennst, mit der <b>Normalparabel-Schablone</b> ab dem Scheitelpunkt <span class="m">S</span>.</li>
+      <li><b>Schnittpunkte mit der <span class="m">x</span>-Achse ablesen.</b> Nur die <span class="m">x</span>-Werte sind Lösungen.</li>
+      <li><b>Probe machen.</b> Setz jeden abgelesenen Wert in die Ausgangsgleichung ein. Kommt dasselbe heraus?</li>
+      <li><b>Lösungsmenge angeben:</b> <span class="m">L = {x1; x2}</span>, aufsteigend sortiert.</li>
+    </ol>
+
+    <div class="grid2">
+      <div class="card graf-howto">
+        <p class="graf-howto-title"><span aria-hidden="true">📋</span> Wertetabelle – so geht’s</p>
+        <ul>
+          <li>Nimm ganze <span class="m">x</span>-Werte, etwa von −4 bis 4.</li>
+          <li>Rechne für jedes <span class="m">x</span> den <span class="m">y</span>-Wert aus. Klammern um negative Zahlen: <span class="m">(−3)² = 9</span>.</li>
+          <li>Die <span class="m">y</span>-Werte wiederholen sich <b>spiegelbildlich</b> um den Scheitel. Siehst du das nicht, obwohl der Scheitel bei einer ganzen Zahl liegt, prüf deine Rechnung.</li>
+          <li>Punkte eintragen und zu einer glatten Kurve verbinden – am Scheitel rund, keine Spitze.</li>
+        </ul>
+      </div>
+      <div class="card graf-howto">
+        <p class="graf-howto-title"><span aria-hidden="true">✂️</span> Normalparabel-Schablone</p>
+        <p>Die Normalparabel <span class="m">y = x²</span> sieht immer gleich aus. Vom Scheitel aus gilt:</p>
+        <p class="graf-schablone"><span>1 zur Seite → <b>1</b> hoch</span><span>2 zur Seite → <b>4</b> hoch</span><span>3 zur Seite → <b>9</b> hoch</span></p>
+        <p class="small muted">Die Schablone passt nur für <span class="m">a = 1</span> (bzw. umgedreht für <span class="m">a = −1</span>). Bei anderen <span class="m">a</span> ist die Parabel gestreckt oder gestaucht – dann nimm die Wertetabelle.</p>
+      </div>
+    </div>
+
+    <details class="more">
+      <summary><span>Wo ist der Scheitelpunkt bei <span class="m">f(x) = (x − d)² + e</span>?</span></summary>
+      <p>Bei der Scheitelpunktform <span class="m">f(x) = a·(x − d)² + e</span> liest du den Scheitelpunkt direkt ab: <span class="m">S(d | e)</span>.</p>
+      <p>Aber Vorsicht mit dem Vorzeichen in der Klammer! Frag dich: <b>Für welches <span class="m">x</span> wird die Klammer null?</b></p>
+      <ul>
+        <li><span class="m">f(x) = (x − 2)² − 1</span> ⇒ <span class="m">S(2 | −1)</span>, denn <span class="m">x − 2 = 0</span> bei <span class="m">x = 2</span>.</li>
+        <li><span class="m">f(x) = (x + 3)² + 4</span> ⇒ <span class="m">S(−3 | 4)</span>, denn <span class="m">x + 3 = 0</span> bei <span class="m">x = −3</span>.</li>
+      </ul>
+      <p class="small muted">Wie man eine Gleichung in Scheitelpunktform bringt, lernst du ausführlich bei <a href="#ergaenzung">Weg 3: Quadratische Ergänzung</a>.</p>
+    </details>
+
+    <h3>Durchgerechnetes Beispiel</h3>
+    <div class="box beispiel" data-notitle>
+      <p class="box-title">Beispiel 1</p>
+      <p>Löse grafisch: <span class="m">x² + 2x = 3</span></p>
+    </div>
+    <ol class="steps" data-stepper>
+      <li>
+        <div class="step-math">
+          <div class="calc">
+            <div class="row"><span class="l">x² + 2x</span><span class="r">= 3</span><span class="op">| − 3</span></div>
+            <div class="row result"><span class="l">x² + 2x − 3</span><span class="r">= 0</span><span class="op"></span></div>
+          </div>
+        </div>
+        <p class="step-why">Zuerst auf „= 0“ bringen. Nur dann sind die Lösungen die Nullstellen der Parabel.</p>
+      </li>
+      <li>
+        <div class="step-math">
+          <p>Wertetabelle für <span class="m">y = x² + 2x − 3</span>:</p>
+          <div class="table-wrap graf-wt">
+            <table class="nice">
+              <thead><tr><th class="c"><span class="m">x</span></th><th class="c">−4</th><th class="c">−3</th><th class="c">−2</th><th class="c">−1</th><th class="c">0</th><th class="c">1</th><th class="c">2</th></tr></thead>
+              <tbody><tr><th class="c"><span class="m">y</span></th><td class="c">5</td><td class="c graf-zero">0</td><td class="c">−3</td><td class="c graf-s">−4</td><td class="c">−3</td><td class="c graf-zero">0</td><td class="c">5</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+        <p class="step-why">Beispiel: <span class="m">x = −4</span> ⇒ <span class="m">y = (−4)² + 2·(−4) − 3</span> <span class="m">= 16 − 8 − 3 = 5</span>. Die Werte sind symmetrisch um <span class="m">x = −1</span> – gutes Zeichen.</p>
+      </li>
+      <li>
+        <div class="step-math"><p>Scheitelpunkt: <span class="m">S(−1 | −4)</span></p><p class="small">Passt zur Scheitelpunktform <span class="m">y = (x + 1)² − 4</span>.</p></div>
+        <p class="step-why">Der Scheitel liegt in der Mitte der symmetrischen Werte, also bei <span class="m">x = −1</span>. Ab hier könntest du auch die Normalparabel-Schablone anlegen.</p>
+      </li>
+      <li>
+        <div class="step-math"><div class="qg-plot-wrap" data-widget="graf-plot" data-plot="bspA"></div></div>
+        <p class="step-why">Punkte aus der Tabelle eintragen und zu einer glatten Parabel verbinden.</p>
+      </li>
+      <li>
+        <div class="step-math"><p>Schnittpunkte mit der <span class="m">x</span>-Achse: <span class="m">N<sub>1</sub>(−3 | 0)</span> und <span class="m">N<sub>2</sub>(1 | 0)</span></p><p><span class="m">⇒ x1 = −3; x2 = 1</span></p></div>
+        <p class="step-why">Nur die <span class="m">x</span>-Werte der Schnittpunkte sind die Lösungen.</p>
+      </li>
+      <li>
+        <div class="step-math">
+          <div class="graf-probe">
+            <p class="graf-probe-h">Probe</p>
+            <p><span class="graf-x"><span class="m">x = −3</span></span> <span class="graf-pe"><span class="m">(−3)² + 2·(−3)</span> <span class="m">= 9 − 6 = 3</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+            <p><span class="graf-x"><span class="m">x = 1</span></span> <span class="graf-pe"><span class="m">1² + 2·1</span> <span class="m">= 1 + 2 = 3</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+          </div>
+        </div>
+        <p class="step-why">Probe in der <b>Ausgangsgleichung</b> <span class="m">x² + 2x = 3</span>: Beide Male kommt 3 heraus. Die abgelesenen Werte stimmen exakt.</p>
+      </li>
+      <li>
+        <div class="step-math"><div class="mblock">L = {−3; 1}</div></div>
+        <p class="step-why">Lösungsmenge aufsteigend sortiert, mit Semikolon getrennt.</p>
+      </li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ REZEPT B -->
+  <div class="block" id="graf-gerade">
+    <h2>Rezept B: Normalparabel und Gerade</h2>
+    <p>Dieser Trick ist in Klasse 9 sehr beliebt. Du brauchst nur die Normalparabel – und die ist immer gleich. Dazu kommt eine Gerade, die du leicht zeichnen kannst.</p>
+    <div class="mblock wrap"><span class="nw">x² + px + q = 0</span> &nbsp;⇔&nbsp; <span class="nw">x² = −px − q</span></div>
+    <div class="grid2 graf-lr">
+      <div class="card"><p class="graf-howto-title"><span class="graf-dot blue" aria-hidden="true"></span> Linke Seite</p><p>Normalparabel <span class="m">y = x²</span></p></div>
+      <div class="card"><p class="graf-howto-title"><span class="graf-dot orange" aria-hidden="true"></span> Rechte Seite</p><p>Gerade <span class="m">y = −px − q</span></p></div>
+    </div>
+    <p>Wo Parabel und Gerade sich schneiden, sind beide Seiten gleich. Die <b><span class="m">x</span>-Werte</b> der Schnittpunkte sind deine Lösungen.</p>
+    <div class="box achtung">
+      <p class="box-title">Vorzeichen!</p>
+      <p>Wenn <span class="m">px</span> und <span class="m">q</span> auf die rechte Seite wandern, drehen sich ihre Vorzeichen um:</p>
+      <div class="calc">
+        <div class="row"><span class="l">x² + 3x − 4</span><span class="r">= 0</span><span class="op">| − 3x + 4</span></div>
+        <div class="row result"><span class="l">x²</span><span class="r">= −3x + 4</span><span class="op"></span></div>
+      </div>
+      <p>Die Gerade <span class="m">y = −3x + 4</span> hat also die Steigung −3 und den <span class="m">y</span>-Achsenabschnitt 4.</p>
+      <p>Steht vor dem <span class="m">x²</span> eine Zahl, teil zuerst dadurch:</p>
+      <div class="calc">
+        <div class="row"><span class="l">2x² − 2x − 4</span><span class="r">= 0</span><span class="op">| : 2</span></div>
+        <div class="row"><span class="l">x² − x − 2</span><span class="r">= 0</span><span class="op"></span></div>
+      </div>
+    </div>
+
+    <h3>Ausprobieren: Gerade verschieben</h3>
+    <p>Stell mit den Reglern die Gerade <span class="m">y = mx + n</span> ein. Die Schnittpunkte mit der Normalparabel werden live markiert. Schaffst du alle Missionen?</p>
+    <div class="card graf-lab graf-gl" data-widget="graf-gerade"></div>
+
+    <h3>Durchgerechnetes Beispiel</h3>
+    <div class="box beispiel" data-notitle>
+      <p class="box-title">Beispiel 2</p>
+      <p>Löse mit Normalparabel und Gerade: <span class="m">x² − x − 2 = 0</span></p>
+    </div>
+    <ol class="steps" data-stepper>
+      <li>
+        <div class="step-math">
+          <div class="calc">
+            <div class="row"><span class="l">x² − x − 2</span><span class="r">= 0</span><span class="op">| + x + 2</span></div>
+            <div class="row result"><span class="l">x²</span><span class="r">= x + 2</span><span class="op"></span></div>
+          </div>
+        </div>
+        <p class="step-why">Nur <span class="m">x²</span> bleibt links stehen. Alles andere kommt mit umgedrehtem Vorzeichen nach rechts.</p>
+      </li>
+      <li>
+        <div class="step-math"><p>Links: Normalparabel <span class="m">y = x²</span><br>Rechts: Gerade <span class="m">y = x + 2</span></p></div>
+        <p class="step-why">Die Gerade startet auf der <span class="m">y</span>-Achse bei 2 und geht pro Einheit nach rechts 1 nach oben (Steigung 1).</p>
+      </li>
+      <li>
+        <div class="step-math"><div class="qg-plot-wrap" data-widget="graf-plot" data-plot="bspB"></div></div>
+        <p class="step-why">Beide Graphen ins selbe Koordinatensystem zeichnen. Sie schneiden sich in <span class="m">P<sub>1</sub>(−1 | 1)</span> und <span class="m">P<sub>2</sub>(2 | 4)</span>.</p>
+      </li>
+      <li>
+        <div class="step-math"><p><span class="m">x1 = −1; x2 = 2</span></p></div>
+        <p class="step-why">Nur die <span class="m">x</span>-Werte der Schnittpunkte zählen. Die <span class="m">y</span>-Werte 1 und 4 sind <b>keine</b> Lösungen.</p>
+      </li>
+      <li>
+        <div class="step-math">
+          <div class="graf-probe">
+            <p class="graf-probe-h">Probe</p>
+            <p><span class="graf-x"><span class="m">x = −1</span></span> <span class="graf-pe"><span class="m">(−1)² − (−1) − 2</span> <span class="m">= 1 + 1 − 2 = 0</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+            <p><span class="graf-x"><span class="m">x = 2</span></span> <span class="graf-pe"><span class="m">2² − 2 − 2</span> <span class="m">= 4 − 2 − 2 = 0</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+          </div>
+        </div>
+        <p class="step-why">Probe in der Ausgangsgleichung. Beide Male kommt 0 heraus.</p>
+      </li>
+      <li>
+        <div class="step-math"><div class="mblock">L = {−1; 2}</div></div>
+        <p class="step-why">Fertig!</p>
+      </li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ VOR- UND NACHTEILE -->
+  <div class="block" id="graf-bewertung">
+    <h2>Stärken und Schwächen</h2>
+    <div class="grid2">
+      <div class="card graf-pro">
+        <p class="graf-howto-title"><span aria-hidden="true">👍</span> Das kann der grafische Weg</p>
+        <ul>
+          <li><b>Anschaulich:</b> Du siehst, was eine Lösung eigentlich ist.</li>
+          <li><b>Anzahl sofort klar:</b> 0, 1 oder 2 Schnittpunkte – ein Blick genügt.</li>
+          <li><b>Klappt bei jeder Gleichung</b> – zumindest als Näherung –, auch wenn sich nichts schön ausklammern lässt.</li>
+          <li><b>Super zur Kontrolle</b> von Weg 2 und Weg 3.</li>
+        </ul>
+      </div>
+      <div class="card graf-con">
+        <p class="graf-howto-title"><span aria-hidden="true">👎</span> Hier wird’s schwierig</p>
+        <ul>
+          <li><b>Ungenau bei krummen Lösungen:</b> Bei <span class="m">x² − 2 = 0</span> liest du nur <span class="m">x ≈ ±1,4</span> ab. Exakt wäre <span class="m">±√2</span>.</li>
+          <li><b>Zeichnen dauert</b> und muss sauber sein (1 Kästchen = 0,5 oder 1 Einheit, je nach Vorgabe).</li>
+          <li><b>Probe ist Pflicht</b> – nur sie zeigt, ob du exakt abgelesen hast.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="box tipp">
+      <p>Geht die Probe <b>knapp nicht</b> auf, ist die Lösung vermutlich krumm. Dann schreib den Näherungswert mit <span class="m">≈</span> (z. B. <span class="m">x ≈ 1,4</span>) – oder rechne exakt mit <a href="#faktorisieren">Weg 2</a> bzw. <a href="#ergaenzung">Weg 3</a>.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ TYPISCHE FEHLER -->
+  <div class="block" id="graf-fehler">
+    <h2>Typische Fehler – und wie du sie vermeidest</h2>
+
+    <div class="box achtung">
+      <p class="box-title">Fehler 1: <span class="m">y</span>-Achsenabschnitt statt Nullstelle</p>
+      <p>Die Parabel <span class="m">y = x² − 2x − 3</span> schneidet die <span class="m">y</span>-Achse bei <span class="m">−3</span>. Das ist <b>keine</b> Lösung!</p>
+      <p>Lösungen liegen immer auf der <b><span class="m">x</span>-Achse</b> (der waagrechten Achse), also bei <span class="m">y = 0</span>. Hier: <span class="m">L = {−1; 3}</span>.</p>
+    </div>
+
+    <div class="box achtung">
+      <p class="box-title">Fehler 2: Vorzeichen beim Scheitelpunkt</p>
+      <p>Bei <span class="m">y = (x − 2)² − 1</span> ist der Scheitel <span class="m">S(2 | −1)</span> – <b>nicht</b> <span class="m">S(−2 | −1)</span>.</p>
+      <p>Merke: In der Klammer steht das <b>Gegenteil</b>. Frag dich, wann die Klammer null wird: <span class="m">x − 2 = 0</span> ⇔ <span class="m">x = 2</span>. Wer den Scheitel falsch setzt, liest völlig falsche Nullstellen ab.</p>
+    </div>
+
+    <div class="box achtung">
+      <p class="box-title">Fehler 3: Nicht auf „= 0“ gebracht</p>
+      <p>Bei <span class="m">x² = 4x − 3</span> zeichnet jemand nur <span class="m">y = x²</span> und liest die Nullstelle 0 ab. Falsch – damit hat er <span class="m">x² = 0</span> gelöst!</p>
+      <p>Richtig ist eins von beiden:</p>
+      <ul>
+        <li>Rezept A: <span class="m">x² − 4x + 3 = 0</span> ⇒ Nullstellen von <span class="m">y = x² − 4x + 3</span></li>
+        <li>Rezept B: Normalparabel <span class="m">y = x²</span> mit der Geraden <span class="m">y = 4x − 3</span> schneiden</li>
+      </ul>
+      <p>Beide Wege ergeben <span class="m">L = {1; 3}</span>.</p>
+    </div>
+
+    <div class="box achtung">
+      <p class="box-title">Fehler 4: <span class="m">y</span>-Werte als Lösung (Rezept B)</p>
+      <p>Bei Parabel ∩ Gerade sind die Schnittpunkte zum Beispiel <span class="m">P<sub>1</sub>(−1 | 1)</span> und <span class="m">P<sub>2</sub>(2 | 4)</span>. Die Lösungen sind <b>−1 und 2</b>, nicht 1 und 4.</p>
+    </div>
+
+    <div class="box achtung">
+      <p class="box-title">Fehler 5: Keine Probe</p>
+      <p>Ein Kästchen daneben – und schon ist die Lösung falsch. Ohne Probe merkst du das nicht. In der HÜ gibt die Probe oft sogar eigene Punkte.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ AUFGABEN -->
+  <div class="block" id="graf-aufgaben">
+    <h2>Übungsaufgaben</h2>
+    <p>Von leicht nach schwer. Die Punkte neben der Aufgabennummer zeigen dir die Schwierigkeit. Zum Zeichnen nimm Karopapier – oder probier deine Idee im <a href="#graf-labor">Parabel-Labor</a> aus.</p>
+    <div class="tasks">
+
+      <!-- 1 -->
+      <div class="task" data-id="graf-1" data-answer="-3;2" data-level="1">
+        <p class="task-q">Das ist die Parabel <span class="m">y = x² + x − 6</span>. Lies die Lösungen der Gleichung <span class="m">x² + x − 6 = 0</span> ab.</p>
+        <div class="qg-plot-wrap" data-widget="graf-plot" data-plot="a1"></div>
+        <div class="wrong" data-match="-6">−6 ist der Schnittpunkt mit der <b><span class="m">y</span>-Achse</b>. Gesucht sind die Schnittpunkte mit der <span class="m">x</span>-Achse (der waagrechten).</div>
+        <div class="wrong" data-match="3;-2">Fast – aber die Vorzeichen sind vertauscht. Links von der <span class="m">y</span>-Achse sind die <span class="m">x</span>-Werte negativ.</div>
+        <details class="hint"><summary>Tipp</summary><div><p>Such die Punkte, an denen die Parabel die waagrechte Achse durchstößt. Nur deren <span class="m">x</span>-Werte zählen.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Schnittpunkte mit der <span class="m">x</span>-Achse: <span class="m">N<sub>1</sub>(−3 | 0)</span> und <span class="m">N<sub>2</sub>(2 | 0)</span>.</p>
+          <div class="graf-probe">
+            <p class="graf-probe-h">Probe</p>
+            <p><span class="graf-x"><span class="m">x = −3</span></span> <span class="graf-pe"><span class="m">(−3)² + (−3) − 6</span> <span class="m">= 9 − 3 − 6 = 0</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+            <p><span class="graf-x"><span class="m">x = 2</span></span> <span class="graf-pe"><span class="m">2² + 2 − 6</span> <span class="m">= 4 + 2 − 6 = 0</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+          </div>
+          <div class="mblock">L = {−3; 2}</div>
+        </div></details>
+      </div>
+
+      <!-- 2 -->
+      <div class="task" data-id="graf-2" data-answer="1;3" data-level="1">
+        <p class="task-q">Diese Parabel ist nach unten geöffnet: <span class="m">y = −x² + 4x − 3</span>. Gib die Lösungsmenge von <span class="m">−x² + 4x − 3 = 0</span> an.</p>
+        <div class="qg-plot-wrap" data-widget="graf-plot" data-plot="a2"></div>
+        <div class="wrong" data-match="-3">−3 ist der <span class="m">y</span>-Achsenabschnitt, keine Nullstelle. Schau, wo die Parabel die <span class="m">x</span>-Achse trifft.</div>
+        <div class="wrong" data-match="2">Bei <span class="m">x = 2</span> liegt der Scheitelpunkt. Gesucht sind aber die Schnittpunkte mit der <span class="m">x</span>-Achse.</div>
+        <details class="hint"><summary>Tipp</summary><div><p>Auch nach unten geöffnete Parabeln haben Nullstellen. Such wieder die Stellen auf der <span class="m">x</span>-Achse.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Schnittpunkte mit der <span class="m">x</span>-Achse: <span class="m">N<sub>1</sub>(1 | 0)</span> und <span class="m">N<sub>2</sub>(3 | 0)</span>.</p>
+          <div class="graf-probe">
+            <p class="graf-probe-h">Probe</p>
+            <p><span class="graf-x"><span class="m">x = 1</span></span> <span class="graf-pe"><span class="m">−(1²) + 4·1 − 3</span> <span class="m">= −1 + 4 − 3 = 0</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+            <p><span class="graf-x"><span class="m">x = 3</span></span> <span class="graf-pe"><span class="m">−(3²) + 4·3 − 3</span> <span class="m">= −9 + 12 − 3 = 0</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+          </div>
+          <div class="mblock">L = {1; 3}</div>
+        </div></details>
+      </div>
+
+      <!-- 3 -->
+      <div class="task" data-id="graf-3" data-kind="choice" data-level="1">
+        <p class="task-q">Hier siehst du die Parabel <span class="m">y = −x² − 2x − 1</span>. Wie viele Lösungen hat die Gleichung <span class="m">−x² − 2x − 1 = 0</span>?</p>
+        <div class="qg-plot-wrap" data-widget="graf-plot" data-plot="a3"></div>
+        <div class="choices">
+          <button type="button" class="choice" data-why="Die Parabel hat doch einen gemeinsamen Punkt mit der x-Achse – schau auf den Scheitel.">keine Lösung</button>
+          <button type="button" class="choice" data-correct>genau eine Lösung</button>
+          <button type="button" class="choice" data-why="Die Parabel schneidet die x-Achse nicht zweimal – sie berührt sie nur an einer Stelle.">zwei Lösungen</button>
+        </div>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Die Parabel <b>berührt</b> die <span class="m">x</span>-Achse genau im Scheitelpunkt <span class="m">S(−1 | 0)</span>. Ein gemeinsamer Punkt ⇒ genau eine Lösung.</p>
+          <p>Probe: <span class="m">−(−1)² − 2·(−1) − 1</span> <span class="m">= −1 + 2 − 1 = 0</span> ✓</p>
+          <div class="mblock">L = {−1}</div>
+        </div></details>
+      </div>
+
+      <!-- 4 -->
+      <div class="task" data-id="graf-4" data-answer="-1.5;0.5" data-level="2">
+        <p class="task-q">Lies genau ab: Welche Lösungen hat <span class="m">4x² + 4x − 3 = 0</span>? <span class="small muted">(Ein kleines Kästchen ist 0,5 breit.)</span></p>
+        <div class="qg-plot-wrap" data-widget="graf-plot" data-plot="a4"></div>
+        <div class="wrong" data-match="-3">−3 ist der <span class="m">y</span>-Achsenabschnitt. Gesucht sind die Schnittstellen mit der <span class="m">x</span>-Achse.</div>
+        <div class="wrong" data-match="-2;1">Zu grob abgelesen. Die Schnittpunkte liegen genau <b>zwischen</b> zwei ganzen Zahlen – nimm die kleinen Kästchen dazu.</div>
+        <div class="wrong" data-match="-1;0">Zu grob abgelesen. Die Schnittpunkte liegen genau <b>zwischen</b> zwei ganzen Zahlen – nimm die kleinen Kästchen dazu.</div>
+        <details class="hint"><summary>Tipp</summary><div><p>Die Lösungen sind keine ganzen Zahlen. Schreib sie als Dezimalzahl, z. B. <span class="m">0,5</span>.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Schnittpunkte: <span class="m">N<sub>1</sub>(−1,5 | 0)</span> und <span class="m">N<sub>2</sub>(0,5 | 0)</span>.</p>
+          <div class="graf-probe">
+            <p class="graf-probe-h">Probe</p>
+            <p><span class="graf-x"><span class="m">x = −1,5</span></span> <span class="graf-pe"><span class="m">4 · (−1,5)²</span> <span class="m">+ 4 · (−1,5) − 3</span> <span class="m">= 9 − 6 − 3 = 0</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+            <p><span class="graf-x"><span class="m">x = 0,5</span></span> <span class="graf-pe"><span class="m">4·0,5² + 4·0,5 − 3</span> <span class="m">= 1 + 2 − 3 = 0</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+          </div>
+          <div class="mblock">L = {−1,5; 0,5}</div>
+        </div></details>
+      </div>
+
+      <!-- 5 -->
+      <div class="task" data-id="graf-5" data-answer="-2;1" data-level="2">
+        <p class="task-q">Hier schneiden sich die Normalparabel <span class="m">y = x²</span> und die Gerade <span class="m">y = −x + 2</span>. Gib die Lösungsmenge von <span class="m">x² = −x + 2</span> an.</p>
+        <div class="qg-plot-wrap" data-widget="graf-plot" data-plot="a5"></div>
+        <div class="wrong" data-match="1;4">Das sind die <span class="m">y</span>-Werte der Schnittpunkte. Gesucht sind die <b><span class="m">x</span>-Werte</b>!</div>
+        <div class="wrong" data-match="2">2 ist der <span class="m">y</span>-Achsenabschnitt der Geraden. Gesucht sind die <span class="m">x</span>-Werte der beiden Schnittpunkte.</div>
+        <details class="hint"><summary>Tipp</summary><div><p>Lies die Koordinaten der beiden Schnittpunkte ab. Nur der <b>erste</b> Wert im Punkt <span class="m">P(x | y)</span> ist eine Lösung.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Schnittpunkte: <span class="m">P<sub>1</sub>(−2 | 4)</span> und <span class="m">P<sub>2</sub>(1 | 1)</span>.</p>
+          <div class="graf-probe">
+            <p class="graf-probe-h">Probe in <span class="m">x² = −x + 2</span></p>
+            <p><span class="graf-x"><span class="m">x = −2</span></span> <span class="graf-pe"><span class="m">(−2)² = 4</span> <span class="m">und −(−2) + 2 = 4</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+            <p><span class="graf-x"><span class="m">x = 1</span></span> <span class="graf-pe"><span class="m">1² = 1</span> <span class="m">und −1 + 2 = 1</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+          </div>
+          <div class="mblock">L = {−2; 1}</div>
+          <p class="small muted">Das ist dieselbe Gleichung wie <span class="m">x² + x − 2 = 0</span>.</p>
+        </div></details>
+      </div>
+
+      <!-- 6 -->
+      <div class="task" data-id="graf-6" data-answer="-2;4" data-level="2">
+        <p class="task-q">Löse grafisch: <span class="m">x² − 2x − 8 = 0</span></p>
+        <p class="small muted">Zeichne die Parabel in dein Heft – oder stell sie im Parabel-Labor ein.</p>
+        <div class="wrong" data-match="-4;2">Vorzeichen vertauscht? Mach die Probe: <span class="m">(−4)² − 2·(−4) − 8 = 16</span>, nicht 0.</div>
+        <div class="wrong" data-match="-8">−8 ist der <span class="m">y</span>-Achsenabschnitt, keine Nullstelle.</div>
+        <details class="hint"><summary>Tipp 1</summary><div><p>Wertetabelle für <span class="m">y = x² − 2x − 8</span> mit <span class="m">x</span> von −3 bis 5. Wo steht <span class="m">y = 0</span>?</p></div></details>
+        <details class="hint"><summary>Tipp 2</summary><div><p>Scheitelpunktform: <span class="m">y = (x − 1)² − 9</span>, also <span class="m">S(1 | −9)</span>. Mit der Schablone: 3 zur Seite → 9 hoch. Wo landest du?</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="table-wrap graf-wt">
+            <table class="nice">
+              <thead><tr><th class="c"><span class="m">x</span></th><th class="c">−3</th><th class="c">−2</th><th class="c">−1</th><th class="c">0</th><th class="c">1</th><th class="c">2</th><th class="c">3</th><th class="c">4</th><th class="c">5</th></tr></thead>
+              <tbody><tr><th class="c"><span class="m">y</span></th><td class="c">7</td><td class="c graf-zero">0</td><td class="c">−5</td><td class="c">−8</td><td class="c graf-s">−9</td><td class="c">−8</td><td class="c">−5</td><td class="c graf-zero">0</td><td class="c">7</td></tr></tbody>
+            </table>
+          </div>
+          <div class="qg-plot-wrap" data-widget="graf-plot" data-plot="a6"></div>
+          <p>Schnittpunkte mit der <span class="m">x</span>-Achse: <span class="m">N<sub>1</sub>(−2 | 0)</span>, <span class="m">N<sub>2</sub>(4 | 0)</span>.</p>
+          <div class="graf-probe">
+            <p class="graf-probe-h">Probe</p>
+            <p><span class="graf-x"><span class="m">x = −2</span></span> <span class="graf-pe"><span class="m">(−2)² − 2·(−2) − 8</span> <span class="m">= 4 + 4 − 8 = 0</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+            <p><span class="graf-x"><span class="m">x = 4</span></span> <span class="graf-pe"><span class="m">4² − 2·4 − 8</span> <span class="m">= 16 − 8 − 8 = 0</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+          </div>
+          <div class="mblock">L = {−2; 4}</div>
+        </div></details>
+      </div>
+
+      <!-- 7 -->
+      <div class="task" data-id="graf-7" data-kind="text" data-answer="3x-2|-2+3x|y=3x-2|y=-2+3x" data-prefix="y =" data-placeholder="z. B. 2x + 1" data-level="2">
+        <p class="task-q">Du willst <span class="m">x² − 3x + 2 = 0</span> mit Normalparabel und Gerade lösen. Welche Gerade musst du zeichnen?</p>
+        <div class="wrong" data-match="-3x+2|2-3x">Vorzeichen! Wenn <span class="m">−3x</span> und <span class="m">+2</span> nach rechts wandern, drehen sich die Vorzeichen um.</div>
+        <div class="wrong" data-match="-3x-2|-2-3x">Fast: Das <span class="m">−2</span> stimmt. Aber auch <span class="m">−3x</span> dreht beim Rüberbringen sein Vorzeichen um und wird rechts zu <span class="m">+3x</span>.</div>
+        <div class="wrong" data-match="3x+2|2+3x">Fast: <span class="m">+3x</span> stimmt. Aber das <span class="m">+2</span> wird auf der rechten Seite zu <span class="m">−2</span>.</div>
+        <details class="hint"><summary>Tipp</summary><div><p>Bring alles außer <span class="m">x²</span> auf die rechte Seite: <span class="m">| + 3x − 2</span></p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="calc">
+            <div class="row"><span class="l">x² − 3x + 2</span><span class="r">= 0</span><span class="op">| + 3x − 2</span></div>
+            <div class="row result"><span class="l">x²</span><span class="r">= 3x − 2</span><span class="op"></span></div>
+          </div>
+          <p>Du zeichnest die Gerade <span class="m">y = 3x − 2</span> (Achsenabschnitt −2, Steigung 3).</p>
+        </div></details>
+      </div>
+
+      <!-- 8 -->
+      <div class="task" data-id="graf-8" data-answer="1;2" data-level="2">
+        <p class="task-q">Weiter mit Aufgabe 7: Wo schneidet die Gerade <span class="m">y = 3x − 2</span> die Normalparabel? Gib die Lösungsmenge von <span class="m">x² − 3x + 2 = 0</span> an.</p>
+        <div class="wrong" data-match="1;4">Das sind die <span class="m">y</span>-Werte der Schnittpunkte. Gesucht sind die <span class="m">x</span>-Werte!</div>
+        <div class="wrong" data-match="-2;-1">Vorzeichen vertauscht? Probe: <span class="m">(−1)² − 3·(−1) + 2 = 6</span>, nicht 0.</div>
+        <details class="hint"><summary>Tipp</summary><div><p>Zeichne <span class="m">y = x²</span> und die Gerade: Start bei <span class="m">(0 | −2)</span>, dann 1 nach rechts und 3 nach oben. Oder prüf im Widget oben: <span class="m">m = 3</span>, <span class="m">n = −2</span>.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="qg-plot-wrap" data-widget="graf-plot" data-plot="a8"></div>
+          <p>Schnittpunkte: <span class="m">P<sub>1</sub>(1 | 1)</span> und <span class="m">P<sub>2</sub>(2 | 4)</span>.</p>
+          <div class="graf-probe">
+            <p class="graf-probe-h">Probe</p>
+            <p><span class="graf-x"><span class="m">x = 1</span></span> <span class="graf-pe"><span class="m">1² − 3·1 + 2</span> <span class="m">= 1 − 3 + 2 = 0</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+            <p><span class="graf-x"><span class="m">x = 2</span></span> <span class="graf-pe"><span class="m">2² − 3·2 + 2</span> <span class="m">= 4 − 6 + 2 = 0</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+          </div>
+          <div class="mblock">L = {1; 2}</div>
+        </div></details>
+      </div>
+
+      <!-- 9 -->
+      <div class="task" data-id="graf-9" data-answer="leer" data-level="2">
+        <p class="task-q">Löse grafisch: <span class="m">x² + 2x + 3 = 0</span></p>
+        <div class="wrong" data-match="-1">−1 ist der <span class="m">x</span>-Wert des Scheitelpunkts. Aber liegt der Scheitel wirklich auf der <span class="m">x</span>-Achse?</div>
+        <div class="wrong" data-match="3">3 ist der <span class="m">y</span>-Achsenabschnitt, keine Nullstelle.</div>
+        <details class="hint"><summary>Tipp 1</summary><div><p>Scheitelpunktform: <span class="m">x² + 2x + 3 = (x + 1)² + 2</span>. Wo liegt <span class="m">S</span>?</p></div></details>
+        <details class="hint"><summary>Tipp 2</summary><div><p>Die Parabel ist nach oben geöffnet. Ihr tiefster Punkt ist der Scheitel. Liegt der über oder unter der <span class="m">x</span>-Achse?</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="table-wrap graf-wt">
+            <table class="nice">
+              <thead><tr><th class="c"><span class="m">x</span></th><th class="c">−3</th><th class="c">−2</th><th class="c">−1</th><th class="c">0</th><th class="c">1</th></tr></thead>
+              <tbody><tr><th class="c"><span class="m">y</span></th><td class="c">6</td><td class="c">3</td><td class="c graf-s">2</td><td class="c">3</td><td class="c">6</td></tr></tbody>
+            </table>
+          </div>
+          <div class="qg-plot-wrap" data-widget="graf-plot" data-plot="a9"></div>
+          <p>Der Scheitel <span class="m">S(−1 | 2)</span> liegt <b>über</b> der <span class="m">x</span>-Achse und die Parabel ist nach oben geöffnet. Sie trifft die <span class="m">x</span>-Achse also nie.</p>
+          <div class="mblock">L = { }</div>
+          <p class="small muted">In das Eingabefeld schreibst du dafür „keine“ oder tippst auf „keine Lösung“.</p>
+        </div></details>
+      </div>
+
+      <!-- 10 -->
+      <div class="task" data-id="graf-10" data-answer="-2;3" data-level="3">
+        <p class="task-q">Löse grafisch: <span class="m">x² − 6 = x</span></p>
+        <div class="wrong" data-match="-sqrt(6);sqrt(6)">Du hast <span class="m">x² − 6 = 0</span> gelöst – aber rechts steht <span class="m">x</span>, nicht 0. Bring zuerst alles auf eine Seite!</div>
+        <div class="wrong" data-match="-2.4;2.4">Du hast die Nullstellen von <span class="m">y = x² − 6</span> abgelesen – aber rechts steht <span class="m">x</span>, nicht 0. Bring zuerst alles auf eine Seite!</div>
+        <div class="wrong" data-match="-2.45;2.45">Du hast die Nullstellen von <span class="m">y = x² − 6</span> abgelesen – aber rechts steht <span class="m">x</span>, nicht 0. Bring zuerst alles auf eine Seite!</div>
+        <div class="wrong" data-match="-2.5;2.5">Du hast die Nullstellen von <span class="m">y = x² − 6</span> abgelesen – aber rechts steht <span class="m">x</span>, nicht 0. Bring zuerst alles auf eine Seite!</div>
+        <div class="wrong" data-match="-3;2">Vorzeichen vertauscht? Probe: <span class="m">(−3)² − 6 = 3</span>, aber rechts steht <span class="m">−3</span>.</div>
+        <div class="wrong" data-match="4;9">Das sind die <span class="m">y</span>-Werte der Schnittpunkte. Gesucht sind die <span class="m">x</span>-Werte!</div>
+        <details class="hint"><summary>Tipp 1</summary><div><p>Hier steht rechts nicht 0. Rechne zuerst <span class="m">| − x</span>.</p></div></details>
+        <details class="hint"><summary>Tipp 2</summary><div><p>Mit Rezept B: <span class="m">x² − 6 = x</span> <span class="m">| + 6</span> ⇒ <span class="m">x² = x + 6</span>. Schneide <span class="m">y = x²</span> mit der Geraden <span class="m">y = x + 6</span>.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="calc">
+            <div class="row"><span class="l">x² − 6</span><span class="r">= x</span><span class="op">| − x</span></div>
+            <div class="row"><span class="l">x² − x − 6</span><span class="r">= 0</span><span class="op">Rezept A</span></div>
+            <div class="row sep"><span class="l">x² − 6</span><span class="r">= x</span><span class="op">| + 6</span></div>
+            <div class="row"><span class="l">x²</span><span class="r">= x + 6</span><span class="op">Rezept B</span></div>
+          </div>
+          <div class="qg-plot-wrap" data-widget="graf-plot" data-plot="a10"></div>
+          <p>Normalparabel und Gerade <span class="m">y = x + 6</span> schneiden sich in <span class="m">P<sub>1</sub>(−2 | 4)</span> und <span class="m">P<sub>2</sub>(3 | 9)</span>.</p>
+          <div class="graf-probe">
+            <p class="graf-probe-h">Probe in <span class="m">x² − 6 = x</span></p>
+            <p><span class="graf-x"><span class="m">x = −2</span></span> <span class="graf-pe"><span class="m">(−2)² − 6</span> <span class="m">= 4 − 6 = −2</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+            <p><span class="graf-x"><span class="m">x = 3</span></span> <span class="graf-pe"><span class="m">3² − 6</span> <span class="m">= 9 − 6 = 3</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+          </div>
+          <div class="mblock">L = {−2; 3}</div>
+        </div></details>
+      </div>
+
+      <!-- 11 -->
+      <div class="task" data-id="graf-11" data-kind="choice" data-level="2">
+        <p class="task-q">Ohne zu zeichnen: Wie viele Lösungen hat <span class="m">2·(x + 1)² + 3 = 0</span>?</p>
+        <div class="choices">
+          <button type="button" class="choice" data-correct>keine Lösung</button>
+          <button type="button" class="choice" data-why="Genau eine Lösung gibt es nur, wenn der Scheitelpunkt auf der x-Achse liegt (e = 0). Hier ist e = 3.">genau eine Lösung</button>
+          <button type="button" class="choice" data-why="Der Scheitel S(−1 | 3) liegt über der x-Achse, und die Parabel ist nach oben geöffnet (a = 2 &gt; 0). Sie kommt nie nach unten.">zwei Lösungen</button>
+        </div>
+        <details class="hint"><summary>Tipp</summary><div><p>Lies den Scheitelpunkt <span class="m">S(d | e)</span> ab. Achtung beim Vorzeichen von <span class="m">d</span>! Ist die Parabel nach oben oder nach unten geöffnet?</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Scheitelpunkt <span class="m">S(−1 | 3)</span>, also <b>über</b> der <span class="m">x</span>-Achse. Wegen <span class="m">a = 2 &gt; 0</span> ist die Parabel nach oben geöffnet. Sie schneidet die <span class="m">x</span>-Achse also nie.</p>
+          <p class="small">Man sieht es auch ohne Bild: <span class="m">(x + 1)²</span> ist nie negativ, also ist <span class="m">2·(x + 1)² + 3</span> immer mindestens 3.</p>
+          <div class="mblock">L = { }</div>
+        </div></details>
+      </div>
+
+      <!-- 12 -->
+      <div class="task" data-id="graf-12" data-kind="choice" data-level="2">
+        <p class="task-q">Welche Gleichungen haben <b>genau eine</b> Lösung?</p>
+        <div class="choices graf-cols">
+          <button type="button" class="choice" data-correct><span class="m">(x − 2)² = 0</span></button>
+          <button type="button" class="choice" data-why="S(2 | −1) liegt unter der x-Achse, die Parabel ist nach oben geöffnet: zwei Lösungen (1 und 3)."><span class="m">(x − 2)² − 1 = 0</span></button>
+          <button type="button" class="choice" data-why="S(0 | 1) liegt über der x-Achse, die Parabel ist nach oben geöffnet: keine Lösung."><span class="m">x² + 1 = 0</span></button>
+          <button type="button" class="choice" data-correct><span class="m">−(x + 3)² = 0</span></button>
+        </div>
+        <details class="hint"><summary>Tipp</summary><div><p>Genau eine Lösung heißt: Der Scheitelpunkt liegt <b>auf</b> der <span class="m">x</span>-Achse, also <span class="m">e = 0</span>.</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <ul>
+            <li><span class="m">(x − 2)² = 0</span>: <span class="m">S(2 | 0)</span> auf der <span class="m">x</span>-Achse ⇒ genau eine Lösung, <span class="m">L = {2}</span> ✓</li>
+            <li><span class="m">(x − 2)² − 1 = 0</span>: <span class="m">S(2 | −1)</span> darunter, nach oben offen ⇒ zwei Lösungen, <span class="m">L = {1; 3}</span></li>
+            <li><span class="m">x² + 1 = 0</span>: <span class="m">S(0 | 1)</span> darüber, nach oben offen ⇒ <span class="m">L = { }</span></li>
+            <li><span class="m">−(x + 3)² = 0</span>: <span class="m">S(−3 | 0)</span> auf der <span class="m">x</span>-Achse ⇒ genau eine Lösung, <span class="m">L = {−3}</span> ✓</li>
+          </ul>
+        </div></details>
+      </div>
+
+      <!-- 13 -->
+      <div class="task" data-id="graf-13" data-kind="choice" data-level="2">
+        <p class="task-q">Mia löst <span class="m">x² − 3 = 0</span> grafisch und liest <span class="m">x ≈ −1,7</span> und <span class="m">x ≈ 1,7</span> ab. Ihre Probe: <span class="m">1,7² − 3 = −0,11</span>. Was bedeutet das?</p>
+        <div class="choices">
+          <button type="button" class="choice" data-correct>Die Lösungen sind „krumm“. 1,7 ist nur ein Näherungswert.</button>
+          <button type="button" class="choice" data-why="Probe mit 2: 2² − 3 = 1. Das ist noch weiter weg von 0 als −0,11.">Sie hat falsch abgelesen, richtig ist 2.</button>
+          <button type="button" class="choice" data-why="Die Parabel schneidet die x-Achse ja – nur nicht an einer glatten Stelle.">Die Gleichung hat keine Lösung.</button>
+        </div>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Die Probe geht nur <b>knapp</b> nicht auf. Das zeigt: Die exakten Lösungen liegen zwischen den Kästchen. Hier sind es <span class="m">x = ±√3 ≈ ±1,73</span>.</p>
+          <p>Grafisch bekommst du nur Näherungswerte. Exakt geht es mit Wurzelziehen (<a href="#faktorisieren">Weg 2</a>):</p>
+          <div class="mblock">L = {−√3; √3}</div>
+        </div></details>
+      </div>
+
+      <!-- 14 -->
+      <div class="task" data-id="graf-14" data-kind="self" data-level="2">
+        <p class="task-q">Zeichenaufgabe fürs Heft: Löse <span class="m">x² − 4x = 0</span> grafisch.</p>
+        <ol class="graf-sub">
+          <li>Leg eine Wertetabelle für <span class="m">y = x² − 4x</span> an (<span class="m">x</span> von −1 bis 5).</li>
+          <li>Zeichne die Parabel (1 Kästchen = 0,5 Einheiten, also 1 cm = 1).</li>
+          <li>Markier die Nullstellen, mach die Probe und gib <span class="m">L</span> an.</li>
+        </ol>
+        <details class="solution"><summary>Lösung</summary><div>
+          <div class="table-wrap graf-wt">
+            <table class="nice">
+              <thead><tr><th class="c"><span class="m">x</span></th><th class="c">−1</th><th class="c">0</th><th class="c">1</th><th class="c">2</th><th class="c">3</th><th class="c">4</th><th class="c">5</th></tr></thead>
+              <tbody><tr><th class="c"><span class="m">y</span></th><td class="c">5</td><td class="c graf-zero">0</td><td class="c">−3</td><td class="c graf-s">−4</td><td class="c">−3</td><td class="c graf-zero">0</td><td class="c">5</td></tr></tbody>
+            </table>
+          </div>
+          <div class="qg-plot-wrap" data-widget="graf-plot" data-plot="a14"></div>
+          <p>Scheitel <span class="m">S(2 | −4)</span>, Nullstellen bei <span class="m">x = 0</span> und <span class="m">x = 4</span>. Vergiss die 0 nicht – sie ist auch eine Lösung!</p>
+          <div class="graf-probe">
+            <p class="graf-probe-h">Probe</p>
+            <p><span class="graf-x"><span class="m">x = 0</span></span> <span class="graf-pe"><span class="m">0² − 4·0</span> <span class="m">= 0</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+            <p><span class="graf-x"><span class="m">x = 4</span></span> <span class="graf-pe"><span class="m">4² − 4·4</span> <span class="m">= 16 − 16 = 0</span> <span class="graf-ok" aria-label="stimmt">✓</span></span></p>
+          </div>
+          <div class="mblock">L = {0; 4}</div>
+        </div></details>
+      </div>
+
+      <!-- 15 -->
+      <div class="task" data-id="graf-15" data-kind="number" data-answer="9" data-prefix="c =" data-label="Bonus" data-level="3">
+        <p class="task-q">Knobelaufgabe: Für welche Zahl <span class="m">c</span> hat <span class="m">x² − 6x + c = 0</span> <b>genau eine</b> Lösung?</p>
+        <div class="wrong" data-match="0">Mit <span class="m">c = 0</span> wird es <span class="m">x² − 6x = 0</span>. Das hat zwei Lösungen: 0 und 6.</div>
+        <div class="wrong" data-match="3">3 ist die Stelle, an der der Scheitel liegt. Gesucht ist aber die Zahl <span class="m">c</span>, für die der Scheitel genau auf der <span class="m">x</span>-Achse liegt.</div>
+        <div class="wrong" data-match="-9">Fast: Mit <span class="m">c = −9</span> liegt der Scheitel bei <span class="m">y = −18</span>. Er muss genau auf der <span class="m">x</span>-Achse liegen.</div>
+        <details class="hint"><summary>Tipp 1</summary><div><p>Genau eine Lösung heißt: Der Scheitelpunkt liegt genau auf der <span class="m">x</span>-Achse.</p></div></details>
+        <details class="hint"><summary>Tipp 2</summary><div><p>Ändert man <span class="m">c</span>, verschiebt sich die Parabel nur nach oben oder unten. Der Scheitel bleibt bei <span class="m">x = 3</span> (genau in der Mitte zwischen den Nullstellen 0 und 6 von <span class="m">x² − 6x</span>).</p></div></details>
+        <details class="solution"><summary>Lösung</summary><div>
+          <p>Der Scheitel liegt bei <span class="m">x = 3</span>. Dort ist <span class="m">y = 3² − 6·3 + c = c − 9</span>.</p>
+          <div class="calc">
+            <div class="row"><span class="l">c − 9</span><span class="r">= 0</span><span class="op">| + 9</span></div>
+            <div class="row result"><span class="l">c</span><span class="r">= 9</span><span class="op"></span></div>
+          </div>
+          <p>Kontrolle: <span class="m">x² − 6x + 9 = (x − 3)²</span>. Die Parabel berührt die <span class="m">x</span>-Achse nur bei <span class="m">x = 3</span> ⇒ <span class="m">L = {3}</span>.</p>
+        </div></details>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================ MERKE -->
+  <div class="block" id="graf-merke">
+    <h2>Das Wichtigste in 30 Sekunden</h2>
+    <div class="box merke">
+      <p class="box-title">Merke: Grafisch lösen</p>
+      <ol class="graf-merk">
+        <li>Gleichung auf <b>„= 0“</b> bringen: <span class="m">ax² + bx + c = 0</span>.</li>
+        <li>Parabel <span class="m">y = ax² + bx + c</span> zeichnen (Wertetabelle oder Schablone ab <span class="m">S</span>).</li>
+        <li><b>Nullstellen</b> ablesen = Schnittstellen mit der <b><span class="m">x</span>-Achse</b>.</li>
+        <li>Oder Rezept B: <span class="m">x² = −px − q</span> ⇒ Normalparabel mit Gerade schneiden, <b><span class="m">x</span>-Werte</b> ablesen.</li>
+        <li>2 / 1 / 0 Schnittpunkte ⇒ 2 / 1 / 0 Lösungen.</li>
+        <li><b>Immer Probe!</b> Geht sie nur knapp nicht auf, ist die Lösung krumm ⇒ nur Näherung (<span class="m">≈</span>).</li>
+        <li>Ergebnis: <span class="m">L = {x1; x2}</span> bzw. <span class="m">L = { }</span>.</li>
+      </ol>
+    </div>
+  </div>
+</section>
