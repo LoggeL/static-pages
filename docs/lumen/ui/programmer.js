@@ -1,7 +1,7 @@
 // Programmer panel: selection tools, attribute faders/encoders, colour picker, pan/tilt pad, effect editor.
 import { h, de, fmtDeg, fader, encoder, xyPad, segmented, section, clamp } from "./widgets.js";
 import { ATTRS, ATTR_KEYS, ATTR_GROUPS, GOBOS, PRISMS, LASER_PATTERNS, SWATCHES, hasAttr, hsv2rgb, rgb2hsv, rgbCss } from "../core/fixtures.js";
-import { EFFECT_FORMS, EFFECT_LABELS } from "../core/state.js";
+import { EFFECT_FORMS, EFFECT_LABELS, EFFECT_ATTRS } from "../core/state.js";
 import { btn } from "./panels.js";
 
 const FMT = {
@@ -215,9 +215,10 @@ export function createProgrammer(root, state, ctx = {}) {
         btn("small", "+ Dimmer", add("dim"), "Dimmer-Effekt für die Auswahl"),
         h("button.btn.small", { type: "button", disabled: !can((d) => d?.caps.pantilt), onclick: add("position") }, "+ Position"),
         h("button.btn.small", { type: "button", disabled: !can((d) => d && ["rgb", "rgbw", "cmy", "wheel"].includes(d.caps.color)), onclick: add("color") }, "+ Farbe"),
-        h("button.btn.small", { type: "button", disabled: !can((d) => d?.caps.pixels), onclick: add("pixel") }, "+ Pixel")),
+        h("button.btn.small", { type: "button", disabled: !can((d) => d?.caps.pixels), onclick: add("pixel") }, "+ Pixel"),
+        btn("small", "+ Attribut", add("attr"), "Attribut-Effekt (Zoom, Strobe, Laser …) für die Auswahl")),
       list.length ? h("div.fx-list", list.map((e) => h(`div.fx-item${e.id === fxSel ? ".active" : ""}`, { onclick: () => { fxSel = e.id; renderFx(); } },
-        h("span.grow", h("b", EFFECT_LABELS[e.type]), ` · ${EFFECT_LABELS[e.form] || e.form}`),
+        h("span.grow", h("b", EFFECT_LABELS[e.type] || e.type), e.type === "attr" ? ` ${ATTRS[e.attr]?.label || e.attr}` : "", ` · ${EFFECT_LABELS[e.form] || e.form}`),
         h("span.muted.mono", `${state.resolve(e.targets).length} Fx`),
         h("span.muted", `${de(e.speed, 2)}${e.sync === "beat" ? "/Beat" : " Hz"}`),
         h("button.btn.small.ghost", { type: "button", title: "Effekt entfernen", onclick: (ev) => { ev.stopPropagation(); state.removeEffect(e.id); } }, "×"))))
@@ -227,19 +228,48 @@ export function createProgrammer(root, state, ctx = {}) {
 
   function fxEditor(e) {
     const enc = (key, label, min, max, step, fmt) => encoder({ label, value: e[key], min, max, step, format: fmt || ((v) => de(v, 2)), onInput: (v) => fxUpdate({ [key]: v }) }).el;
-    const seg = (key, opts) => segmented(opts, e[key], (v) => { fxUpdate({ [key]: v }); if (key === "sync") renderFx(); }).el;
-    const isDim = e.type === "dim";
+    const seg = (key, opts) => segmented(opts, e[key], (v) => { fxUpdate(modePatch(key, v)); if (key === "sync" || (key === "mode" && isAttr)) renderFx(); }).el;
+    const isDim = e.type === "dim", isAttr = e.type === "attr", lvl = isDim || isAttr;
+    // attr effect switching mode: Low/High change meaning (value / factor / offset), start from a neutral range
+    const modePatch = (key, v) => {
+      if (key !== "mode" || !isAttr || v === e.mode) return { [key]: v };
+      const s = ATTRS[e.attr] || { min: 0, max: 1 }, span = s.max - s.min;
+      return v === "mul" ? { mode: v, low: 0.5, high: 1.5 } : v === "add" ? { mode: v, low: 0, high: s.discrete ? Math.max(1, Math.round(span / 4)) : span / 4 } : { mode: v, low: s.min, high: s.max };
+    };
+    const onsetish = e.form === "onset" || e.form === "onsetStep";
+    const encD = (key, label, min, max, step, fmt, def) => encoder({ label, value: e[key] ?? def, min, max, step, format: fmt || ((v) => de(v, 2)), onInput: (v) => fxUpdate({ [key]: v }) }).el;
     const encs = [
       e.sync === "beat" ? enc("speed", "Speed", 0.0625, 4, 0.0625, (v) => `${de(v, 2)}×/Beat`) : enc("speed", "Speed", 0.05, 10, 0.05, (v) => `${de(v, 2)} Hz`),
       enc("phase", "Phase", 0, 720, 15, (v) => `${Math.round(v)}°`),
       enc("wings", "Wings", 0, 8, 1, (v) => (v <= 1 ? "aus" : String(v))),
       enc("offset", "Offset", 0, 360, 15, (v) => `${Math.round(v)}°`),
     ];
-    if (isDim) encs.push(enc("low", "Low", 0, 1, 0.01, (v) => `${Math.round(v * 100)} %`), enc("high", "High", 0, 1, 0.01, (v) => `${Math.round(v * 100)} %`));
+    if (isDim || (e.type === "color" && e.form === "env")) encs.push(enc("low", "Low", 0, 1, 0.01, (v) => `${Math.round(v * 100)} %`), enc("high", "High", 0, 1, 0.01, (v) => `${Math.round(v * 100)} %`));
+    if (isAttr) {
+      // abs: attribute range · mul: factor 0..2 · add: ±(max − min)
+      const s = ATTRS[e.attr] || { min: 0, max: 1, discrete: false };
+      const f = FMT[e.attr] || ((v) => de(v, 2)), st = s.discrete ? 1 : 0, span = s.max - s.min;
+      if (e.mode === "mul") encs.push(encD("low", "Low", 0, 2, 0.01, (v) => `${de(v, 2)}×`, 1), encD("high", "High", 0, 2, 0.01, (v) => `${de(v, 2)}×`, 1));
+      else if (e.mode === "add") encs.push(encD("low", "Low", -span, span, st, f, 0), encD("high", "High", -span, span, st, f, 0));
+      else encs.push(encD("low", "Low", s.min, s.max, st, f, s.min), encD("high", "High", s.min, s.max, st, f, s.max));
+    }
+    if (lvl && e.form === "pattern") encs.push(encD("div", "Steps/Beat", 1, 8, 1, (v) => String(Math.round(v)), 4), encD("decay", "Decay", 0.02, 1, 0.01, (v) => `${Math.round(v * 1000)} ms`, 0.12));
+    if (onsetish && e.type !== "position") encs.push(
+      encD("threshold", "Schwelle", 0, 1, 0.01, (v) => `${Math.round(v * 100)} %`, 0),
+      encD("decay", "Decay", 0.02, 2, 0.01, (v) => `${Math.round(v * 1000)} ms`, e.form === "onsetStep" ? 0.25 : 0.11),
+      encD("every", "Jeder n.", 1, 8, 1, (v) => (v <= 1 ? "jeder" : `${Math.round(v)}.`), 1));
+    if (lvl && e.form === "onsetStep") encs.push(encD("size", "Breite", 1, 8, 1, (v) => String(Math.round(v)), 1));
+    if (e.type === "position" && (e.form === "random" || e.form === "step")) encs.push(enc("duty", "Fahrzeit", 0, 1, 0.05, (v) => `${Math.round(v * 100)} %`));
     if (e.type === "position") encs.push(enc("size", "Größe", 0, 90, 1, (v) => `${Math.round(v)}°`));
     if (e.type === "pixel") encs.push(enc("size", "Breite", 0.05, 1, 0.05, (v) => `${Math.round(v * 100)} %`));
-    if (["square", "pulse", "chase"].includes(e.form)) encs.push(enc("duty", "Duty", 0.05, 1, 0.05, (v) => `${Math.round(v * 100)} %`));
+    if (["square", "pulse", "chase"].includes(e.form) || (lvl && e.form === "random")) encs.push(enc("duty", "Duty", 0.05, 1, 0.05, (v) => `${Math.round(v * 100)} %`));
     if (e.type === "color" || e.type === "pixel") encs.push(enc("sat", "Sättigung", 0, 1, 0.05, (v) => `${Math.round(v * 100)} %`));
+    const forms = EFFECT_FORMS[e.type] || [];
+    const formCtl = forms.length > 7
+      ? h("select", { onchange: (ev) => { fxUpdate({ form: ev.target.value }); renderFx(); } }, forms.map((f) => h("option", { value: f, selected: f === e.form }, EFFECT_LABELS[f] || f)))
+      : segmented(forms.map((f) => ({ value: f, label: EFFECT_LABELS[f] || f })), e.form, (v) => { fxUpdate({ form: v }); renderFx(); }).el;
+    const bands = [{ value: "rms", label: "Gesamt" }, { value: "low", label: "Bass" }, { value: "mid", label: "Mitten" }, { value: "high", label: "Höhen" }];
+    if (onsetish || e.form === "onset") bands.push({ value: "all", label: "Alle" });
     const colors = (e.type === "color" || e.type === "pixel") && !["rainbow"].includes(e.form)
       ? h("div.row", h("span.hint", "Farben"), e.colors.map((c, i) => h("input", { type: "color", value: toHex(c), oninput: (ev) => {
         const cs = e.colors.map((x) => x.slice());
@@ -250,11 +280,16 @@ export function createProgrammer(root, state, ctx = {}) {
       e.colors.length > 1 ? btn("small ghost", "−", () => { fxUpdate({ colors: e.colors.slice(0, -1) }); renderFx(); }) : null)
       : null;
     return h("div.fx-editor",
-      h("div.row", h("span.hint", "Form"), segmented(EFFECT_FORMS[e.type].map((f) => ({ value: f, label: EFFECT_LABELS[f] || f })), e.form, (v) => { fxUpdate({ form: v }); renderFx(); }).el),
+      isAttr ? h("div.row", h("span.hint", "Attribut"), h("select", { onchange: (ev) => { fxUpdate({ attr: ev.target.value }); renderFx(); } },
+        EFFECT_ATTRS.map((k) => h("option", { value: k, selected: k === e.attr }, ATTRS[k].label || k)))) : null,
+      h("div.row", h("span.hint", "Form"), formCtl),
+      lvl && e.form === "pattern" ? h("div.row", h("span.hint", "Pattern"), h("input.mono.grow", { type: "text", value: e.pattern || "", title: "x = Hit, o = halb, 0–9 = Stufe, = = halten, . = Pause",
+        onkeydown: (ev) => ev.stopPropagation(), onchange: (ev) => { const v = ev.target.value.trim(); if (v) fxUpdate({ pattern: v }); } })) : null,
+      lvl && e.form === "onsetStep" ? h("div.row", h("span.hint", "Reihenfolge"), segmented([{ value: "seq", label: "Lauf" }, { value: "random", label: "Zufall" }], e.order || "seq", (v) => fxUpdate({ order: v })).el) : null,
       h("div.row", h("span.hint", "Sync"), seg("sync", [{ value: "beat", label: "Beat" }, { value: "free", label: "Frei" }]),
         h("span.hint", "Richtung"), seg("dir", [{ value: 1, label: "→" }, { value: -1, label: "←" }])),
-      isDim ? h("div.row", h("span.hint", "Modus"), seg("mode", [{ value: "mul", label: "Multipl." }, { value: "add", label: "Addieren" }, { value: "abs", label: "Absolut" }])) : null,
-      isDim && (e.form === "env" || e.form === "onset") ? h("div.row", h("span.hint", "Band"), seg("band", [{ value: "rms", label: "Gesamt" }, { value: "low", label: "Bass" }, { value: "mid", label: "Mitten" }, { value: "high", label: "Höhen" }])) : null,
+      lvl ? h("div.row", h("span.hint", "Modus"), seg("mode", [{ value: "mul", label: "Multipl." }, { value: "add", label: "Addieren" }, { value: "abs", label: "Absolut" }])) : null,
+      (lvl || e.type === "color") && (e.form === "env" || onsetish) ? h("div.row", h("span.hint", "Band"), seg("band", bands)) : null,
       h("div.enc-grid", encs),
       colors,
       h("div.row", h("span.hint.grow", `Ziele: ${e.targets.map((t) => state.group(t)?.name || state.fixture(t)?.name || t).slice(0, 4).join(", ")}${e.targets.length > 4 ? " …" : ""}`),

@@ -40,9 +40,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
   background: linear-gradient(var(--bg-2), var(--bg)); border-bottom: 1px solid var(--line);
 }
 #brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
-.logo { display: flex; align-items: center; gap: 7px; font-weight: 800; letter-spacing: .18em; font-size: 14px; }
+.logo { display: flex; align-items: center; gap: 7px; font-weight: 800; letter-spacing: .18em; font-size: 14px; flex: none; } /* never squeezed under the transport */
 .logo-mark { width: 14px; height: 18px; background: linear-gradient(var(--accent), transparent); clip-path: polygon(30% 0, 70% 0, 100% 100%, 0 100%); }
-.show-name { color: var(--text-2); font-size: var(--fs-s); max-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.show-name { color: var(--text-2); font-size: var(--fs-s); max-width: 180px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 #transport, #master, #toolbar { display: flex; align-items: center; gap: 4px; }
 #clock { display: flex; align-items: baseline; gap: 12px; padding: 4px 12px; background: #07090b; border: 1px solid var(--line); border-radius: var(--radius); }
 .clk-time { font-size: 20px; font-weight: 600; color: var(--text); min-width: 92px; }
@@ -56,6 +56,20 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .hud-group .fader.horizontal .fader-val { width: 26px; }
 .hud-group .fader.horizontal .fader-track { height: 14px; align-self: center; }
 #toolbar { margin-left: auto; }
+/* master volume in the transport */
+.vol { display: flex; align-items: center; gap: 2px; margin-left: 4px; padding-left: 6px; border-left: 1px solid var(--line); min-width: 0; }
+.vol .btn.on { background: rgba(255,77,94,.14); border-color: transparent; color: var(--danger); }
+.vol-range {
+  -webkit-appearance: none; appearance: none; width: 92px; min-width: 48px; height: 18px; margin: 0; padding: 0; background: transparent; cursor: pointer; flex: 0 1 auto;
+}
+.vol-range::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent-2) calc(var(--p, .8) * 100%), var(--line-2) 0); }
+.vol-range::-moz-range-track { height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent-2) calc(var(--p, .8) * 100%), var(--line-2) 0); }
+.vol-range::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; margin-top: -4px; border-radius: 50%; background: var(--text); border: 0; box-shadow: 0 0 0 2px var(--bg); }
+.vol-range::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--text); border: 0; box-shadow: 0 0 0 2px var(--bg); }
+.vol-range.muted::-webkit-slider-thumb { background: var(--text-3); }
+.vol-range.muted::-moz-range-thumb { background: var(--text-3); }
+.vol-range:focus { outline: none; }
+.vol-range:focus-visible { outline: 1px solid var(--accent-2); outline-offset: 2px; border-radius: 2px; }
 .tb-sep { width: 1px; height: 22px; background: var(--line); margin: 0 4px; }
 
 /* ------------------------------------------------------------ buttons */
@@ -102,11 +116,12 @@ kbd { font: 10px var(--mono); padding: 1px 4px; border: 1px solid var(--line-2);
 .hud-group .btn:hover { color: var(--text); background: var(--panel-2); }
 .hud-group .btn.on { color: var(--accent-2); background: rgba(62,197,255,.14); }
 .hud-group .fader.horizontal { width: 120px; padding: 0 4px; }
-.hud-right { margin-left: auto; }
+.hud-right { margin-left: auto; flex-wrap: wrap; justify-content: flex-end; min-width: 0; max-width: 100%; }
 
 /* ------------------------------------------------------------ sidebar & tabs */
 #sidebar { display: flex; flex-direction: column; min-height: 0; background: var(--panel); border-left: 1px solid var(--line); }
-#side-tabs { display: flex; border-bottom: 1px solid var(--line); background: var(--bg-2); flex: none; }
+#side-tabs { display: flex; border-bottom: 1px solid var(--line); background: var(--bg-2); flex: none; overflow-x: auto; scrollbar-width: none; }
+#side-tabs::-webkit-scrollbar { display: none; }
 .tab {
   flex: 1 1 auto; height: 36px; padding: 0 8px; background: none; border: 0; border-bottom: 2px solid transparent;
   color: var(--text-3); cursor: pointer; font-size: 12px; font-weight: 600; white-space: nowrap;
@@ -306,14 +321,34 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
 .start-note.warn { color: var(--warn); }
 
 /* ------------------------------------------------------------ responsive */
+@media (max-width: 1479px) {
+  .btn .lbl-s { display: none; }
+  .vol-range { width: 72px; }
+}
 @media (max-width: 1399px) {
   .clk-hide-m { display: none; }
-  .btn .lbl-s { display: none; }
+  #master .fader.horizontal { width: 130px; }
+  .show-name { max-width: 110px; }
+}
+@media (max-width: 1199px) {
+  #master .fader.horizontal { width: 96px; }
+  .vol-range { width: 56px; }
+  .show-name { display: none; }
 }
 @media (max-width: 1099px) {
   #app { grid-template-columns: minmax(0, 1fr) 320px; }
+  #topbar { flex-wrap: wrap; gap: 8px; } /* a second row instead of overflow */
   #master .fader.horizontal { width: 110px; }
   .show-name { display: none; }
+  .vol-range { width: 64px; }
+  .t-long { display: none; } .t-short { display: inline; } /* five tabs in the 320 px sidebar */
+}
+@media (max-width: 499px) {
+  /* HUD: one horizontally scrolling row instead of three wrapped rows over the stage */
+  #viewport-hud { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; left: 6px; right: 6px; top: 6px; }
+  #viewport-hud::-webkit-scrollbar { display: none; }
+  #viewport-hud > * { flex: none; }
+  .hud-right { margin-left: 0; flex-wrap: nowrap; max-width: none; }
 }
 @media (max-width: 759px) {
   html, body { overflow-x: hidden; overflow-y: auto; height: auto; }
@@ -323,6 +358,9 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
   #clock { order: 3; flex: 1 1 100%; justify-content: space-between; padding: 3px 8px; }
   .clk-time { font-size: 17px; }
   #toolbar { margin-left: auto; flex-wrap: wrap; justify-content: flex-end; }
+  #transport { flex: 1 1 auto; min-width: 0; }
+  .vol { flex: 1 1 auto; }
+  .vol-range { flex: 1 1 auto; width: 64px; max-width: 220px; height: 36px; }
   #toolbar .tb-sep { display: none; }
   #master { order: 4; flex: 1 1 100%; }
   #master .fader.horizontal { flex: 1; width: auto; }

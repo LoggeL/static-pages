@@ -23,7 +23,7 @@ export const ATTRS = {
   prism: { label: "Prisma", group: "beam", min: 0, max: 2, def: 0, unit: "", discrete: true },
   prismRot: { label: "Prisma-Rotation", group: "beam", min: -1, max: 1, def: 0, unit: "U/s" },
   strobe: { label: "Strobe", group: "shutter", min: 0, max: 25, def: 0, unit: "Hz" },
-  lzPattern: { label: "Laser-Muster", group: "laser", min: 0, max: 2, def: 1, unit: "", discrete: true },
+  lzPattern: { label: "Laser-Muster", group: "laser", min: 0, max: 4, def: 1, unit: "", discrete: true },
   lzFan: { label: "Fächerbreite", group: "laser", min: 0, max: 90, def: 40, unit: "°" },
   lzBeams: { label: "Strahlen", group: "laser", min: 1, max: 32, def: 12, unit: "", discrete: true },
   lzTilt: { label: "Laser-Tilt", group: "laser", min: -30, max: 30, def: 0, unit: "°" },
@@ -42,7 +42,7 @@ export const DISCRETE = new Set(ATTR_KEYS.filter((k) => ATTRS[k].discrete));
 
 export const GOBOS = ["Offen", "Punkte", "Speichen", "Ring", "Splitter", "Stern", "Wellen", "Gitter"];
 export const PRISMS = ["Aus", "3-fach rund", "6-fach linear"];
-export const LASER_PATTERNS = ["Strahl", "Fächer", "Fläche"];
+export const LASER_PATTERNS = ["Strahl", "Fächer", "Fläche", "Tunnel", "Scan"];
 
 // colour wheel of the beam fixture (slot 0 = open)
 export const COLOR_WHEEL = [
@@ -177,7 +177,36 @@ export const FIXTURE_TYPES = {
     beam: null,
     size: [0.5, 0.35, 0.6], weight: 20,
   }),
+  // stage FX: fire while dim > 0.5 (FX_FIRE); spark height / plume size / flame height scale with dim
+  spark: P({
+    key: "spark", name: "Sparkular (Kaltfunken)", short: "SPK", category: "fx", body: "spark",
+    channels: ["fire", "height"],
+    attrs: ["dim"],
+    caps: { pantilt: false, color: "none", zoom: null, gobos: 0, prisms: 0, strobe: 0, pixels: 0, fx: "spark" },
+    range: MOVER_RANGE,
+    beam: null,
+    size: [0.36, 0.3, 0.36], weight: 22,
+  }),
+  co2: P({
+    key: "co2", name: "CO2-Jet", short: "CO2", category: "fx", body: "co2",
+    channels: ["fire"],
+    attrs: ["dim"],
+    caps: { pantilt: false, color: "none", zoom: null, gobos: 0, prisms: 0, strobe: 0, pixels: 0, fx: "co2" },
+    range: MOVER_RANGE,
+    beam: null,
+    size: [0.3, 0.42, 0.3], weight: 9,
+  }),
+  flame: P({
+    key: "flame", name: "Flammenprojektor", short: "FLM", category: "fx", body: "flame",
+    channels: ["fire", "height"],
+    attrs: ["dim"],
+    caps: { pantilt: false, color: "none", zoom: null, gobos: 0, prisms: 0, strobe: 0, pixels: 0, fx: "flame" },
+    range: MOVER_RANGE,
+    beam: null,
+    size: [0.42, 0.38, 0.42], weight: 28,
+  }),
 };
+export const FX_FIRE = 0.5;
 for (const d of Object.values(FIXTURE_TYPES)) d.footprint = d.channels.length;
 
 export const TYPE_KEYS = Object.keys(FIXTURE_TYPES);
@@ -189,7 +218,7 @@ export const CHANNEL_LABELS = {
   cw: "Farbrad", gobo: "Gobo", goboRot: "Gobo-Rot.", prism: "Prisma", prismRot: "Prisma-Rot.",
   focus: "Fokus", zoom: "Zoom", iris: "Iris", frost: "Frost", r: "Rot", g: "Grün", b: "Blau", w: "Weiß",
   cto: "CTO", ctrl: "Control", rate: "Rate", dur: "Dauer", fx: "Effekt", mode: "Modus", pattern: "Muster",
-  lzFan: "Fächer", lzTilt: "Tilt", lzSpeed: "Speed", lzBeams: "Strahlen", output: "Ausstoß", fan: "Lüfter",
+  lzFan: "Fächer", lzTilt: "Tilt", lzSpeed: "Speed", lzBeams: "Strahlen", output: "Ausstoß", fan: "Lüfter", fire: "Zündung", height: "Höhe",
   cell1: "Zelle 1", cell2: "Zelle 2", cell3: "Zelle 3", cell4: "Zelle 4",
 };
 export function channelLabel(ch) {
@@ -306,7 +335,9 @@ export function channelValue(ch, a, d) {
     case "dur": return a.strobe > 0 ? 40 : 0;
     case "cell1": case "cell2": case "cell3": case "cell4": return b8(a.dim);
     case "mode": return a.dim > 0 ? Math.max(1, b8(a.dim)) : 0;
-    case "pattern": return a.lzPattern * 85;
+    case "pattern": return a.lzPattern * 60;
+    case "fire": return a.dim > FX_FIRE ? 255 : 0;
+    case "height": return b8(a.dim);
     case "lzFan": case "lzTilt": case "lzSpeed": case "lzBeams": return b8(norm(ch, a[ch]));
     case "output": return b8(a.dim);
     case "fan": return a.dim > 0 ? 160 : 0;

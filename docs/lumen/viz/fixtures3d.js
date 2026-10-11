@@ -2,17 +2,30 @@
 // floor spots (ray-plane), lens glow, LED pixels, strobe/blinder flashes and laser fans.
 
 import * as THREE from "../vendor/three.module.min.js";
-import { DEG, clamp, baseBasis } from "../core/fixtures.js";
+import { DEG, clamp, baseBasis, FX_FIRE } from "../core/fixtures.js";
 
 const SEL_COLOR = 0x3ec5ff;
 const TAU = Math.PI * 2;
-const _m = new THREE.Matrix4(), _q = new THREE.Quaternion();
+const _m = new THREE.Matrix4(), _mr = new THREE.Matrix4(), _q = new THREE.Quaternion();
 const _x = new THREE.Vector3(), _y = new THREE.Vector3(), _z = new THREE.Vector3();
 const _o = new THREE.Vector3(), _d = new THREE.Vector3(), _c = new THREE.Vector3(), _p = new THREE.Vector3();
 const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a)); return t * t * (3 - 2 * t); };
 
 /* ------------------------------------------------------------------ shaders */
-const GLSL_COMMON = /* glsl */ `
+// uLin = 1 when rendering into the linear HDR bloom target: these additive shaders were tuned as display
+// values, so there they are run through inverse sRGB + inverse ACES (three's RRT/ODT fit, exposure 1.15)
+// → OutputPass gives back the same picture; values above 1 become real HDR and bloom.
+export const VIZU = { uLin: { value: 0 } };
+export const GLSL_OUT = /* glsl */ `
+uniform float uLin;
+vec3 outc(vec3 c) {
+  if (uLin < 0.5) return c;
+  vec3 y = pow(clamp(c, 0.0, 0.96), vec3(2.2));
+  vec3 a = 0.983729 * y - 1.0, b = 0.432951 * y - 0.0245786, k = 0.238081 * y + 0.000090537;
+  vec3 x = (-b - sqrt(max(b * b - 4.0 * a * k, 0.0))) / (2.0 * a);
+  return max(x - 0.00325, 0.0) * 0.5217 + max(c - 0.96, 0.0) * 1.5;
+}`;
+const GLSL_COMMON = /* glsl */ `${GLSL_OUT}
 float hash1(float n) { return fract(sin(n) * 43758.5453); }
 float noise3(vec3 x) {
   vec3 p = floor(x), f = fract(x); f = f * f * (3.0 - 2.0 * f);
@@ -48,10 +61,15 @@ float goboDisc(float g, vec2 p) {
 const BEAM_VS = /* glsl */ `
 uniform float r0, r1, len;
 varying float vY;
-varying vec3 vN, vV, vW;
+varying vec3 vN, vV, vW, vIC;
 varying vec2 vXZ;
 void main() {
   float y = position.y;
+  #ifdef USE_INSTANCING_COLOR
+    vIC = instanceColor;
+  #else
+    vIC = vec3(1.0);
+  #endif
   float r = mix(r0, r1, y);
   vec4 lp = vec4(position.x * r, y * len, position.z * r, 1.0);
   vec3 n = vec3(position.x, -(r1 - r0) / max(len, 1e-3), position.z);
@@ -72,7 +90,7 @@ const BEAM_FS = /* glsl */ `
 uniform vec3 color;
 uniform float intensity, haze, time, gobo, goboRot, frost, facing, len, edgePow;
 varying float vY;
-varying vec3 vN, vV, vW;
+varying vec3 vN, vV, vW, vIC;
 varying vec2 vXZ;
 ${GLSL_COMMON}
 void main() {
@@ -85,7 +103,7 @@ void main() {
   float a = atan(vXZ.x, vXZ.y) + goboRot;
   float pat = mix(goboShell(gobo, a, vY, 1.0 - ndv), 1.0, frost * 0.8);
   float v = intensity * haze * edge * fall * hz * pat;
-  gl_FragColor = vec4(color * v, 1.0);
+  gl_FragColor = vec4(outc(color * vIC * v), 1.0);
 }`;
 
 const SPOT_VS = /* glsl */ `
@@ -105,7 +123,7 @@ void main() {
   float e = smoothstep(1.0, 1.0 - soft, r);
   float pat = mix(goboDisc(gobo, p), 1.0, frost * 0.85);
   float hot = 0.55 + 0.45 * (1.0 - r * r);
-  gl_FragColor = vec4(color * intensity * e * pat * hot, 1.0);
+  gl_FragColor = vec4(outc(color * intensity * e * pat * hot), 1.0);
 }`;
 
 const SHEET_FS = /* glsl */ `
@@ -119,7 +137,7 @@ void main() {
   if (abs(a) > fan * 0.5 || r > 1.0) discard;
   float n = noise3(vec3(vP * len * 0.4, time * 0.3));
   float v = intensity * haze * pow(1.0 - r, 1.3) * (0.3 + 0.9 * n) * smoothstep(fan * 0.5, fan * 0.42, abs(a));
-  gl_FragColor = vec4(color * v, 1.0);
+  gl_FragColor = vec4(outc(color * v), 1.0);
 }`;
 
 const additive = { transparent: true, depthWrite: false, blending: THREE.AdditiveBlending };
@@ -129,7 +147,7 @@ export function createBeamMaterial() {
     uniforms: {
       color: { value: new THREE.Color(1, 1, 1) }, intensity: { value: 0 }, haze: { value: 1 }, time: { value: 0 },
       r0: { value: 0.05 }, r1: { value: 1 }, len: { value: 10 }, gobo: { value: 0 }, goboRot: { value: 0 },
-      frost: { value: 0 }, facing: { value: 0 }, edgePow: { value: 1.6 },
+      frost: { value: 0 }, facing: { value: 0 }, edgePow: { value: 1.6 }, uLin: VIZU.uLin,
     },
     vertexShader: BEAM_VS, fragmentShader: BEAM_FS, side: THREE.DoubleSide, ...additive,
   });
@@ -139,7 +157,7 @@ function createSpotMaterial() {
   return new THREE.ShaderMaterial({
     uniforms: {
       color: { value: new THREE.Color(1, 1, 1) }, intensity: { value: 0 }, soft: { value: 0.2 },
-      gobo: { value: 0 }, goboRot: { value: 0 }, frost: { value: 0 },
+      gobo: { value: 0 }, goboRot: { value: 0 }, frost: { value: 0 }, uLin: VIZU.uLin,
     },
     vertexShader: SPOT_VS, fragmentShader: SPOT_FS, polygonOffset: true, polygonOffsetFactor: -2, ...additive,
   });
@@ -147,10 +165,87 @@ function createSpotMaterial() {
 
 function createSheetMaterial() {
   return new THREE.ShaderMaterial({
-    uniforms: { color: { value: new THREE.Color(0, 1, 0) }, intensity: { value: 0 }, haze: { value: 1 }, time: { value: 0 }, fan: { value: 0.7 }, len: { value: 30 } },
+    uniforms: { color: { value: new THREE.Color(0, 1, 0) }, intensity: { value: 0 }, haze: { value: 1 }, time: { value: 0 }, fan: { value: 0.7 }, len: { value: 30 }, uLin: VIZU.uLin },
     vertexShader: SPOT_VS, fragmentShader: SHEET_FS, side: THREE.DoubleSide, ...additive,
   });
 }
+
+/* ------------------------------------------------------------------ stage FX particles */
+// Pooled GPU particles: CPU only writes birth time + power into a ring buffer on emission,
+// the vertex shader integrates the motion. uPx = pixels per metre at 1 m distance.
+export const FXU = { uTime: { value: 0 }, uPx: { value: 800 } };
+const FX_VS = {
+  spark: /* glsl */ `
+float life = bp.y > 0.0 ? sqrt(2.0 * 9.81 * bp.y) / 9.81 * (1.15 + 0.6 * rnd.z) : 0.0;
+float v = sqrt(2.0 * 9.81 * bp.y) * (0.82 + 0.3 * rnd.x);
+float an = rnd.y * 6.2832, sp = 0.06 + 0.14 * rnd.z * rnd.z;
+vec3 p = vec3(cos(an) * sp * v * age, v * age - 4.905 * age * age, sin(an) * sp * v * age);
+p.y = max(p.y, -0.02);
+float px = 0.022 * (0.7 + 0.6 * rnd.x) * (1.0 + 0.8 * (1.0 - smoothstep(0.0, 0.3, age))); // fat young sparks: the fountain base reads as a core`,
+  co2: /* glsl */ `
+float life = 1.5 + 0.5 * rnd.z;
+float v = 15.0 * bp.y * (0.85 + 0.3 * rnd.x), k = 2.5;
+float rise = v * (1.0 - exp(-k * age)) / k;
+float an = rnd.y * 6.2832, sp = (0.12 + 0.9 * age) * (0.3 + 0.7 * rnd.z);
+vec3 p = vec3(cos(an) * sp, rise, sin(an) * sp + 0.35 * rise * 0.18);
+float px = (0.35 + 2.4 * age) * (0.7 + 0.6 * rnd.x);`,
+  flame: /* glsl */ `
+float life = 0.55 + 0.45 * rnd.z;
+float v = 7.0 * bp.y * (0.85 + 0.3 * rnd.x);
+float an = rnd.y * 6.2832, sp = (0.1 + 0.95 * age) * (0.25 + 0.75 * rnd.z);
+vec3 p = vec3(cos(an) * sp + sin(age * 9.0 + rnd.x * 6.0) * 0.18 * age, v * age + 1.6 * age * age, sin(an) * sp);
+float px = (0.32 + 1.5 * age) * (0.75 + 0.5 * rnd.x);`,
+};
+const FX_FS = {
+  // vertical streak (sparks fly mostly up/down), deep gold; young near sparks are HDR so their cores bloom
+  spark: /* glsl */ `
+vec2 q = gl_PointCoord - 0.5;
+float rs = length(vec2(q.x * 2.2, q.y));
+float tw = 0.45 + 0.55 * step(0.35, fract(sin(floor(uTime * 28.0) + vR * 91.7) * 4375.5));
+vec3 c = mix(vec3(1.0, 0.78, 0.4), vec3(1.0, 0.42, 0.1), smoothstep(0.1, 0.9, vT));
+// HDR core only on sprites big enough to bloom cleanly: a few-px HDR point turns into a square halo in the bloom mips
+c *= 1.0 + (uLin > 0.5 ? 2.6 * smoothstep(4.0, 12.0, vPs) : 0.5) * (1.0 - smoothstep(0.0, 0.4, vT));
+float a = smoothstep(0.5, 0.05, rs) * (1.0 - vT * vT) * tw * 0.95;`,
+  co2: /* glsl */ `
+vec3 c = uTint;
+float a = exp(-r * r * 10.0) * pow(1.0 - vT, 1.6) * smoothstep(0.0, 0.08, vT) * 0.16 * (0.75 + 0.5 * vR);`,
+  flame: /* glsl */ `
+vec3 c = mix(vec3(1.0, 0.82, 0.45), vec3(1.0, 0.36, 0.04), smoothstep(0.04, 0.3, vT));
+c = mix(c, vec3(0.4, 0.05, 0.01), smoothstep(0.4, 0.85, vT));
+float a = exp(-r * r * 11.0) * pow(1.0 - vT, 1.5) * smoothstep(0.0, 0.04, vT) * 0.75 * (0.6 + 0.8 * vR);`,
+};
+function createFxMaterial(kind) {
+  return new THREE.ShaderMaterial({
+    uniforms: { ...FXU, ...VIZU, uGain: { value: 1 }, uTint: { value: new THREE.Color(1, 1, 1) } },
+    vertexShader: /* glsl */ `
+uniform float uTime, uPx;
+attribute vec2 bp;
+attribute vec3 rnd;
+varying float vT, vR, vPs;
+void main() {
+  float age = uTime - bp.x;
+  ${FX_VS[kind]}
+  if (bp.y <= 0.0 || age < 0.0 || age > life) { gl_Position = vec4(2.0, 2.0, 2.0, 1.0); gl_PointSize = 0.0; return; }
+  vT = age / life; vR = rnd.x;
+  vec4 mv = modelViewMatrix * vec4(p, 1.0);
+  gl_PointSize = clamp(px * uPx / max(-mv.z, 0.1), ${kind === "spark" ? "3.0" : "1.5"}, 256.0);
+  vPs = gl_PointSize;
+  gl_Position = projectionMatrix * mv;
+}`,
+    fragmentShader: /* glsl */ `
+uniform float uTime, uGain;
+uniform vec3 uTint;
+varying float vT, vR, vPs;${GLSL_OUT}
+void main() {
+  float r = length(gl_PointCoord - 0.5);
+  if (r > 0.5) discard;
+  ${FX_FS[kind]}
+  gl_FragColor = vec4(outc(c * a * uGain), 1.0);
+}`,
+    ...additive,
+  });
+}
+const FX_CFG = { spark: { n: 3600, rate: 1800 }, co2: { n: 900, rate: 420 }, flame: { n: 700, rate: 480 } };
 
 /* ------------------------------------------------------------------ shared resources */
 let R = null;
@@ -163,8 +258,21 @@ function shared() {
   [[0, 1], [0.08, 0.85], [0.2, 0.36], [0.45, 0.1], [0.7, 0.03], [1, 0]].forEach(([o, a]) => grd.addColorStop(o, `rgba(255,255,255,${a})`));
   g.fillStyle = grd;
   g.fillRect(0, 0, 128, 128);
+  // anamorphic lens streak: thin horizontal line, soft ends
+  const cs = document.createElement("canvas");
+  cs.width = 256; cs.height = 32;
+  const gs = cs.getContext("2d"), img = gs.createImageData(256, 32);
+  for (let y = 0; y < 32; y++) for (let x = 0; x < 256; x++) {
+    const u = (x - 127.5) / 128, v = (y - 15.5) / 16;
+    const a = Math.exp(-v * v * 30) * Math.pow(1 - u * u, 2.2) * (0.35 + 0.65 * Math.exp(-u * u * 18)) + Math.exp(-(u * u * 40 + v * v * 8)) * 0.6;
+    const i = (y * 256 + x) * 4;
+    img.data[i] = img.data[i + 1] = img.data[i + 2] = 255;
+    img.data[i + 3] = Math.round(Math.min(1, a) * 255);
+  }
+  gs.putImageData(img, 0, 0);
   R = {
     glowTex: new THREE.CanvasTexture(cv),
+    streakTex: new THREE.CanvasTexture(cs),
     body: new THREE.MeshStandardMaterial({ color: 0x24272d, roughness: 0.45, metalness: 0.5 }),
     dark: new THREE.MeshStandardMaterial({ color: 0x0e0f12, roughness: 0.55, metalness: 0.4 }),
     proxy: new THREE.MeshBasicMaterial({ visible: false }),
@@ -210,6 +318,14 @@ export function createFixtureObject(fixture, def) {
     const s = new THREE.Sprite(mat(new THREE.SpriteMaterial({ map: S.glowTex, color: 0, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, toneMapped: false, fog: false })));
     s.position.set(x, y, z);
     s.visible = false;
+    parent.add(s);
+    return s;
+  };
+  const streak = (parent, x, y, z) => {
+    const s = new THREE.Sprite(mat(new THREE.SpriteMaterial({ map: S.streakTex, color: 0, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, toneMapped: false, fog: false })));
+    s.position.set(x, y, z);
+    s.visible = false;
+    s.renderOrder = 2;
     parent.add(s);
     return s;
   };
@@ -307,13 +423,17 @@ export function createFixtureObject(fixture, def) {
     part(tilt, S.box, S.dark, 0.08, 0.02, 0.08, 0, 0.105, 0);
     E.lensY = 0.118;
     E.lensR = 0.02;
+  } else if (body === "spark" || body === "co2" || body === "flame") {
+    part(rig, S.box, S.dark, w, h * 0.7, d, 0, h * 0.35, 0);
+    if (body === "co2") part(rig, S.cyl, S.body, 0.05, h * 0.5, 0.05, 0, h * 0.95, 0);
+    else part(rig, S.cyl, S.body, body === "flame" ? 0.07 : 0.045, h * 0.3, body === "flame" ? 0.07 : 0.045, 0, h * 0.85, 0);
   } else if (body === "hazer") {
     part(rig, S.box, S.body, w, h, d, 0, h / 2, 0);
     part(rig, S.cyl, S.dark, 0.05, 0.12, 0.05, 0, h * 0.62, d / 2 + 0.05).rotation.x = Math.PI / 2;
   }
 
   // emitters
-  let pixels = null, cells = null, laser = null, hazeLed = null;
+  let pixels = null, cells = null, laser = null, hazeLed = null, fx = null;
   if (def.category === "mover" || body === "par") {
     E.lens = lens(tilt, E.lensR, 0, E.lensY, 0);
     E.glow = glow(tilt, 0, E.lensY + 0.03, 0);
@@ -331,6 +451,7 @@ export function createFixtureObject(fixture, def) {
   } else if (body === "strobe") {
     E.panel = part(tilt, S.box, mat(new THREE.MeshBasicMaterial({ color: 0x0a0a0a })), w * 0.86, 0.01, d * 0.6, 0, 0.051, 0);
     E.glow = glow(tilt, 0, 0.12, 0);
+    E.streak = streak(tilt, 0, 0.14, 0);
     E.cones.push(cone(tilt, 0, 0.05, 0));
     E.cones[0].material.uniforms.edgePow.value = 2.6;
   } else if (body === "blinder2" || body === "blinder4") {
@@ -341,6 +462,7 @@ export function createFixtureObject(fixture, def) {
       part(tilt, S.cyl, S.dark, 0.135, 0.02, 0.135, cx, 0.05, cz);
       cells.push({ lens: lens(tilt, 0.11, cx, 0.062, cz), glow: glow(tilt, cx, 0.1, cz) });
     }
+    E.streak = streak(tilt, 0, 0.14, 0);
     E.cones.push(cone(tilt, 0, 0.05, 0));
     E.cones[0].material.uniforms.edgePow.value = 2.4;
   } else if (body === "laser") {
@@ -349,15 +471,38 @@ export function createFixtureObject(fixture, def) {
     tilt.add(spin);
     const lines = new THREE.InstancedMesh(S.thin, mat(createBeamMaterial()), 32);
     lines.frustumCulled = false;
-    lines.count = 0;
     lines.material.uniforms.edgePow.value = 0.9;
+    for (let i = 0; i < 32; i++) { lines.setMatrixAt(i, _m.identity()); lines.setColorAt(i, new THREE.Color(1, 1, 1)); }
+    lines.count = 0;
     const sheet = new THREE.Mesh(S.sheet, mat(createSheetMaterial()));
     sheet.frustumCulled = false;
     sheet.visible = false;
-    spin.add(lines, sheet);
-    laser = { spin, lines, sheet, key: "" };
+    const shell = new THREE.Mesh(S.cone, mat(createBeamMaterial())); // tunnel wall
+    shell.frustumCulled = false;
+    shell.visible = false;
+    shell.material.uniforms.edgePow.value = 4;
+    spin.add(lines, sheet, shell);
+    laser = { spin, lines, sheet, shell, key: "" };
     E.lens = lens(tilt, 0.025, 0, E.lensY, 0);
     E.glow = glow(tilt, 0, E.lensY + 0.02, 0);
+  } else if (def.caps.fx) {
+    const cfg = FX_CFG[def.caps.fx];
+    const g = new THREE.BufferGeometry();
+    const bp = new THREE.BufferAttribute(new Float32Array(cfg.n * 2), 2).setUsage(THREE.DynamicDrawUsage);
+    for (let i = 0; i < cfg.n; i++) bp.array[i * 2] = -1e4;
+    const rnd = new Float32Array(cfg.n * 3);
+    for (let i = 0; i < rnd.length; i++) rnd[i] = Math.random();
+    g.setAttribute("position", new THREE.BufferAttribute(new Float32Array(cfg.n * 3), 3));
+    g.setAttribute("bp", bp);
+    g.setAttribute("rnd", new THREE.BufferAttribute(rnd, 3));
+    own.push(g);
+    const pts = new THREE.Points(g, mat(createFxMaterial(def.caps.fx)));
+    pts.frustumCulled = false;
+    pts.position.y = h;
+    pts.renderOrder = 3;
+    rig.add(pts);
+    fx = { kind: def.caps.fx, cfg, pts, bp, head: 0, acc: 0, until: -1, was: false, level: 0 };
+    E.glow = glow(rig, 0, h + 0.15, 0);
   } else if (body === "hazer") {
     hazeLed = part(rig, S.box, mat(new THREE.MeshBasicMaterial({ color: 0x0a1a0a })), 0.04, 0.02, 0.01, w * 0.3, h * 0.8, d / 2 + 0.005);
   }
@@ -376,11 +521,18 @@ export function createFixtureObject(fixture, def) {
 
   /* -------------------------------------------------------------- update */
   const beam = def.beam;
+  const light = [0, 0, 0]; // FX light this frame (stage adds it to the flash light)
   function setGlow(g, r, gg, b, amt, size) {
     g.visible = amt > 0.004;
     if (!g.visible) return;
     g.material.color.setRGB(r * amt, gg * amt, b * amt);
     g.scale.setScalar(size);
+  }
+  function setStreak(s, r, gg, b, amt, len) {
+    s.visible = amt > 0.004;
+    if (!s.visible) return;
+    s.material.color.setRGB(r * amt, gg * amt, b * amt);
+    s.scale.set(len, len * 0.07, 1);
   }
   // facing: how much the camera looks into the beam (0..1), from origin _o and unit direction _d
   function facingOf(cam, half) {
@@ -393,14 +545,22 @@ export function createFixtureObject(fixture, def) {
     _o.set(e[12], e[13], e[14]);
     _d.set(e[4], e[5], e[6]).normalize();
   }
+  const _col = new THREE.Color();
+  function setLine(i, th, phi, k) {
+    _m.makeRotationZ(-th);
+    if (phi) _m.premultiply(_mr.makeRotationY(phi));
+    laser.lines.setMatrixAt(i, _m);
+    laser.lines.setColorAt(i, _col.setScalar(k));
+  }
 
-  function update(a, t, opts) {
+  // shut: shutter state from the stage's strobe integrator (true = open); falls back to the time rule
+  function update(a, t, opts, shut) {
     if (!a) return;
-    const open = !(a.strobe > 0) || ((t * a.strobe) % 1) < 0.3;
+    const open = shut ?? (!(a.strobe > 0) || ((t * a.strobe) % 1) < 0.3);
     const lvl = open ? clamp(a.dim) : 0;
     const wv = a.w || 0;
     const cr = Math.min(1, a.r + wv), cg = Math.min(1, a.g + wv * 0.94), cb = Math.min(1, a.b + wv * 0.86);
-    const haze = opts.haze ?? 1, showBeams = opts.beams !== false;
+    const haze = opts.haze ?? 1, showBeams = opts.beams !== false, G = opts.gain ?? 1, GG = opts.glowGain ?? 1;
     pan.rotation.y = a.pan * DEG;
     tilt.rotation.x = (a.tilt + (laser ? a.lzTilt : 0)) * DEG;
 
@@ -434,7 +594,7 @@ export function createFixtureObject(fixture, def) {
         u.r1.value = u.r0.value + len * Math.tan(half);
         u.len.value = len;
         u.color.value.setRGB(cr, cg, cb);
-        u.intensity.value = lvl * beam.power * narrow * (nP > 1 ? 0.5 : 1) * 0.42;
+        u.intensity.value = lvl * beam.power * narrow * (nP > 1 ? 0.5 : 1) * 0.42 * G;
         u.haze.value = haze;
         u.time.value = opts.time || 0;
         u.gobo.value = a.gobo;
@@ -455,7 +615,7 @@ export function createFixtureObject(fixture, def) {
           sp.matrix.makeBasis(_x.multiplyScalar(major), _y.multiplyScalar(r), n).setPosition(_p);
           const su = sp.material.uniforms;
           su.color.value.setRGB(cr, cg, cb);
-          su.intensity.value = lvl * beam.power * clamp(1.1 / (r * r + 0.35), 0.22, 1.6) * smooth(0.04, 0.3, cosI) * (nP > 1 ? 0.6 : 1) * (n.y > 0.5 ? 1 : 0.45);
+          su.intensity.value = lvl * beam.power * clamp(1.1 / (r * r + 0.35), 0.22, 1.6) * smooth(0.04, 0.3, cosI) * (nP > 1 ? 0.6 : 1) * (n.y > 0.5 ? 1 : 0.45) * (opts.spotGain ?? 1);
           su.soft.value = clamp((body === "wash" || body === "par" ? 0.55 : body === "beam" ? 0.35 : 0.14) + a.frost * 0.6 + (1 - a.focus) * 0.1, 0.05, 0.95);
           su.gobo.value = a.gobo;
           su.goboRot.value = goboRot;
@@ -470,7 +630,7 @@ export function createFixtureObject(fixture, def) {
       const front = fc.f > -0.05 ? 1 : 0;
       const hot = lvl * front;
       E.lens.material.color.setRGB(0.02 + cr * hot * (2 + 6 * fc.inCone), 0.02 + cg * hot * (2 + 6 * fc.inCone), 0.022 + cb * hot * (2 + 6 * fc.inCone));
-      const amt = hot * (0.25 + 0.9 * Math.pow(Math.max(fc.f, 0), 5) + 2.2 * face) * (body === "par" ? 0.7 : 1);
+      const amt = hot * (0.25 + 0.9 * Math.pow(Math.max(fc.f, 0), 5) + 2.2 * face) * (body === "par" ? 0.7 : 1) * GG;
       setGlow(E.glow, cr, cg, cb, amt, E.lensR * (6 + 22 * face) * (0.6 + 0.4 * lvl));
     } else if (body === "bar") {
       rig.updateMatrixWorld(true);
@@ -482,13 +642,13 @@ export function createFixtureObject(fixture, def) {
         const pr = p ? p.r : cr, pg = p ? p.g : cg, pb = p ? p.b : cb;
         const l = lvl * (p ? p.dim : 1);
         px.lens.material.color.setRGB(0.02 + pr * l * front * 4, 0.02 + pg * l * front * 4, 0.02 + pb * l * front * 4);
-        setGlow(px.glow, pr, pg, pb, l * front * (0.35 + 1.4 * fc.inCone), 0.32 + 0.5 * fc.inCone);
+        setGlow(px.glow, pr, pg, pb, l * front * (0.35 + 1.4 * fc.inCone) * GG, 0.32 + 0.5 * fc.inCone);
         const u = px.cone.material.uniforms;
         u.r0.value = 0.035;
         u.len.value = beam.length;
         u.r1.value = 0.035 + beam.length * Math.tan(beam.angle * 0.5 * DEG);
         u.color.value.setRGB(pr, pg, pb);
-        u.intensity.value = l * beam.power * 0.5;
+        u.intensity.value = l * beam.power * 0.5 * G;
         u.haze.value = haze;
         u.time.value = opts.time || 0;
         u.facing.value = fc.inCone * 0.3;
@@ -501,13 +661,15 @@ export function createFixtureObject(fixture, def) {
       const v = lvl * (a.strobe > 0 ? 1 : 0.8);
       const k = 0.03 + v * 14;
       E.panel.material.color.setRGB(k, k, k * 1.05);
-      setGlow(E.glow, 1, 1, 1.05, v * (0.6 + 1.2 * Math.max(fc.f, 0)), 1.2 + 2.6 * v);
+      const fw = Math.max(fc.f, 0);
+      setGlow(E.glow, 1, 1, 1.05, v * (0.6 + 1.2 * fw) * GG, 1.2 + 2.6 * v);
+      setStreak(E.streak, 0.85, 0.92, 1.05, v * (0.3 + 0.9 * fw) * GG, 3 + 5 * v);
       const u = E.cones[0].material.uniforms;
       u.r0.value = 0.22;
       u.len.value = beam.length;
       u.r1.value = 0.22 + beam.length * Math.tan(beam.angle * 0.5 * DEG);
       u.color.value.setRGB(1, 1, 1);
-      u.intensity.value = v * 0.35;
+      u.intensity.value = v * 0.35 * G;
       u.haze.value = haze;
       u.time.value = opts.time || 0;
       E.cones[0].visible = showBeams && v > 0.002;
@@ -518,65 +680,134 @@ export function createFixtureObject(fixture, def) {
       // tungsten: deeper orange when dimmed
       const tr = 1, tg = 0.38 + 0.36 * lvl, tb = 0.1 + 0.32 * lvl;
       const front = fc.f > -0.05 ? 1 : 0;
+      const fw = Math.max(fc.f, 0);
       for (const c of cells) {
         const k = 0.02 + lvl * front * 7;
         c.lens.material.color.setRGB(tr * k, tg * k, tb * k);
-        setGlow(c.glow, tr, tg, tb, lvl * front * (0.5 + 1.3 * Math.max(fc.f, 0)), 0.5 + 1.6 * lvl);
+        setGlow(c.glow, tr, tg, tb, lvl * front * (0.5 + 1.3 * fw) * GG, 0.5 + 1.6 * lvl);
       }
+      // anamorphic glare when looking into the blinder
+      setStreak(E.streak, tr, tg * 0.95, tb * 0.9, lvl * lvl * front * (0.15 + 1.1 * fw * fw) * GG, 2.5 + 7 * lvl * (0.4 + 0.6 * fw));
       const u = E.cones[0].material.uniforms;
       u.r0.value = 0.3;
       u.len.value = beam.length;
       u.r1.value = 0.3 + beam.length * Math.tan(beam.angle * 0.5 * DEG);
       u.color.value.setRGB(tr, tg, tb);
-      u.intensity.value = lvl * beam.power * 0.14;
+      u.intensity.value = lvl * beam.power * 0.14 * G;
       u.haze.value = haze;
       u.time.value = opts.time || 0;
       u.facing.value = fc.inCone * 0.5;
       E.cones[0].visible = showBeams && lvl > 0.002;
     } else if (laser) {
-      const count = lvl < 0.002 ? 0 : a.lzPattern === 0 ? 1 : a.lzPattern === 1 ? a.lzBeams : Math.min(a.lzBeams, 4);
+      const pat = a.lzPattern, nb = Math.max(1, Math.round(a.lzBeams));
+      const count = lvl < 0.002 ? 0 : pat === 0 ? 1 : pat === 2 ? Math.min(nb, 4) : nb;
       const fan = a.lzFan * DEG;
-      laser.spin.rotation.y = t * a.lzSpeed * Math.PI * 0.5;
+      laser.spin.rotation.y = pat === 4 ? 0 : t * a.lzSpeed * Math.PI * 0.5;
       rig.updateMatrixWorld(true);
       _o.setFromMatrixPosition(laser.spin.matrixWorld);
       _d.set(0, 1, 0).applyQuaternion(laser.spin.getWorldQuaternion(_q));
       const hit = opts.hit ? opts.hit(_o, _d, beam.length) : null;
       const len = hit ? Math.min(beam.length, hit.d) : beam.length;
-      const key = `${count}|${a.lzFan}`;
-      if (key !== laser.key) {
-        laser.key = key;
-        for (let i = 0; i < count; i++) {
-          const th = count === 1 ? 0 : (i / (count - 1) - 0.5) * fan;
-          _m.makeRotationZ(-th);
-          laser.lines.setMatrixAt(i, _m);
-        }
+      if (pat === 4) {
+        // scan: leading line sweeps across the fan, trailing lines fade out (persistence sheet)
+        const rate = Math.abs(a.lzSpeed) > 0.01 ? Math.abs(a.lzSpeed) : 1, tau = 0.45 / (rate * Math.max(count, 2));
+        for (let i = 0; i < count; i++) setLine(i, fan * 0.5 * Math.sin(TAU * rate * (t - i * tau)), 0, Math.pow(1 - i / count, 1.6));
+        laser.key = "";
         laser.lines.instanceMatrix.needsUpdate = true;
+        if (laser.lines.instanceColor) laser.lines.instanceColor.needsUpdate = true;
+      } else {
+        const key = `${pat}|${count}|${a.lzFan}`;
+        if (key !== laser.key) {
+          laser.key = key;
+          for (let i = 0; i < count; i++) {
+            if (pat === 3) setLine(i, fan * 0.5, (i / count) * TAU, 1);
+            else setLine(i, count === 1 ? 0 : (i / (count - 1) - 0.5) * fan, 0, 1);
+          }
+          laser.lines.instanceMatrix.needsUpdate = true;
+          if (laser.lines.instanceColor) laser.lines.instanceColor.needsUpdate = true;
+        }
       }
       laser.lines.count = count;
       laser.lines.visible = showBeams && count > 0;
+      // keep lines ≥ ~1.3 px wide at any camera distance
+      const dist = Math.max(1, _c.subVectors(opts.cam, _o).length());
+      const pw = opts.pxWorld || 0.0015;
       const u = laser.lines.material.uniforms;
-      u.r0.value = 0.004;
-      u.r1.value = 0.004 + len * 0.0005;
+      u.r0.value = Math.max(0.01, dist * pw * 0.65);
+      u.r1.value = u.r0.value + len * Math.max(0.0011, pw * 0.5);
       u.len.value = len;
       u.color.value.setRGB(cr, cg, cb);
-      u.intensity.value = lvl * (a.lzPattern === 2 ? 0.8 : 1.6);
-      u.haze.value = Math.max(haze, 0.35);
+      u.intensity.value = lvl * (pat === 2 ? 1.1 : pat === 3 ? 1.6 : 2.2) * G;
+      u.haze.value = Math.max(haze, 0.45);
       u.time.value = opts.time || 0;
       const su = laser.sheet.material.uniforms;
-      laser.sheet.visible = showBeams && lvl > 0.002 && a.lzPattern === 2;
+      laser.sheet.visible = showBeams && lvl > 0.002 && (pat === 2 || pat === 4);
       laser.sheet.scale.set(len, len, 1);
       su.color.value.setRGB(cr, cg, cb);
-      su.intensity.value = lvl * 0.16;
+      su.intensity.value = lvl * (pat === 4 ? 0.07 : 0.2) * G;
       su.haze.value = haze;
       su.time.value = opts.time || 0;
       su.fan.value = Math.max(fan, 0.01);
       su.len.value = len;
+      const sh = laser.shell, shu = sh.material.uniforms;
+      sh.visible = showBeams && lvl > 0.002 && pat === 3 && fan > 0.02;
+      if (sh.visible) {
+        shu.r0.value = 0.01;
+        shu.r1.value = 0.01 + len * Math.tan(Math.min(fan * 0.5, 1.4));
+        shu.len.value = len;
+        shu.color.value.setRGB(cr, cg, cb);
+        shu.intensity.value = lvl * 0.1 * G;
+        shu.haze.value = haze;
+        shu.time.value = opts.time || 0;
+      }
       const k = lvl * 6;
       E.lens.material.color.setRGB(0.02 + cr * k, 0.02 + cg * k, 0.02 + cb * k);
-      setGlow(E.glow, cr, cg, cb, lvl * 0.9, 0.25);
+      setGlow(E.glow, cr, cg, cb, lvl * 1.4 * GG, 0.35);
+    } else if (fx) {
+      updateFx(a, opts);
     } else if (hazeLed) {
       hazeLed.material.color.setRGB(0.04, 0.1 + a.dim * 1.5, 0.04);
     }
+  }
+
+  // FX: emit into the ring buffer while firing; flames fire a burst of ≥ 0.7 s per rising edge
+  function updateFx(a, opts) {
+    const now = opts.time || 0, dt = Math.min(opts.dt ?? 1 / 60, 0.1);
+    const on = a.dim > FX_FIRE && opts.fxOn !== false;
+    if (fx.kind === "flame" && on && !fx.was) fx.until = now + 0.7;
+    fx.was = on;
+    const firing = on || (fx.kind === "flame" && now < fx.until);
+    const power = fx.kind === "spark" ? 0.6 + 4.6 * clamp(a.dim) : 0.55 + 0.45 * clamp(a.dim);
+    fx.level += ((firing ? 1 : 0) - fx.level) * Math.min(1, dt * (firing ? 25 : 6));
+    if (firing) {
+      fx.acc += fx.cfg.rate * dt * (fx.kind === "spark" ? 0.6 + 0.4 * clamp(a.dim) : 1);
+      let n = Math.min(Math.floor(fx.acc), fx.cfg.n);
+      fx.acc -= n;
+      const arr = fx.bp.array, N = fx.cfg.n, start = fx.head;
+      for (let i = 0; i < n; i++) {
+        const j = (fx.head + i) % N;
+        arr[j * 2] = now - Math.random() * dt;
+        arr[j * 2 + 1] = power;
+      }
+      fx.head = (fx.head + n) % N;
+      if (n) {
+        fx.bp.clearUpdateRanges();
+        if (start + n <= N) fx.bp.addUpdateRange(start * 2, n * 2);
+        else { fx.bp.addUpdateRange(start * 2, (N - start) * 2); fx.bp.addUpdateRange(0, (start + n - N) * 2); }
+        fx.bp.needsUpdate = true;
+      }
+    } else fx.acc = 0;
+    const m = fx.pts.material.uniforms;
+    m.uGain.value = opts.fxGain ?? 1;
+    if (fx.kind === "co2") {
+      const tint = opts.tint;
+      m.uTint.value.setRGB(0.85, 0.9, 1).multiplyScalar(0.55);
+      if (tint) m.uTint.value.r += tint.r * 0.6, m.uTint.value.g += tint.g * 0.6, m.uTint.value.b += tint.b * 0.6;
+    }
+    const L = fx.level;
+    if (fx.kind === "flame") { light[0] = 0.6 * L; light[1] = 0.25 * L; light[2] = 0.06 * L; setGlow(E.glow, 1, 0.55, 0.15, L * 0.8, 1.6); }
+    else if (fx.kind === "spark") { light[0] = 0.14 * L; light[1] = 0.1 * L; light[2] = 0.05 * L; setGlow(E.glow, 1, 0.8, 0.5, L * 0.9, 0.6); }
+    else { light[0] = light[1] = light[2] = 0.05 * L; E.glow.visible = false; }
   }
 
   return {
@@ -585,6 +816,7 @@ export function createFixtureObject(fixture, def) {
     fixture,
     def,
     update,
+    light,
     setSelected(on) { outline.visible = !!on; },
     dispose() {
       root.removeFromParent();

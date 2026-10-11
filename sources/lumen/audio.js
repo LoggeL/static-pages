@@ -26,7 +26,24 @@ export function computePeaks(buffer, perSec = PEAKS_PER_SEC) {
 
 export function createAudio(state) {
   let ctx = null, master = null, clickBus = null, buffer = null, node = null, timer = null;
-  let volume = 0.8, click = true, nextBeat = 0, taps = [];
+  let volume = 0.8, muted = false, click = true, nextBeat = 0, taps = [];
+  // master volume + mute survive reloads (per browser)
+  try {
+    const v = parseFloat(localStorage.getItem("lumen.volume"));
+    if (Number.isFinite(v)) volume = Math.max(0, Math.min(1, v));
+    muted = localStorage.getItem("lumen.muted") === "1";
+  } catch (e) { /* ignore */ }
+  const gainTarget = () => (muted ? 0 : volume);
+  // smooth ramp (no zipper clicks); also emits so every volume control stays in sync
+  function applyGain() {
+    if (master && ctx) {
+      const g = master.gain, t = ctx.currentTime;
+      g.cancelAndHoldAtTime?.(t); // stacked setTarget events also glide where cancelAndHold is missing (Firefox)
+      g.setTargetAtTime(gainTarget(), t, 0.02);
+    }
+    try { localStorage.setItem("lumen.volume", String(volume)); localStorage.setItem("lumen.muted", muted ? "1" : "0"); } catch (e) { /* ignore */ }
+    state.emit?.("audio:volume", { volume, muted });
+  }
   let anchor = { clock: "wall", c0: 0, pos0: 0 };
 
   const tr = () => state.transport;
@@ -42,15 +59,21 @@ export function createAudio(state) {
     if (!AC) return null;
     try {
       ctx = new AC();
-      master = ctx.createGain(); master.gain.value = volume; master.connect(ctx.destination);
+      master = ctx.createGain(); master.gain.value = gainTarget(); master.connect(ctx.destination);
       clickBus = ctx.createGain(); clickBus.gain.value = click ? 1 : 0; clickBus.connect(master);
       ctx.onstatechange = resync;
     } catch (e) { ctx = null; }
     return ctx;
   }
+  // raw playhead (what the AudioContext is rendering now); A.time() = what is audible now (minus output latency)
+  function pos() {
+    if (!tr().playing) return anchor.pos0;
+    return Math.min(duration(), anchor.pos0 + (clockNow(anchor.clock) - anchor.c0) * (tr().rate || 1));
+  }
+  const latency = () => (anchor.clock === "ctx" && ctx ? ctx.outputLatency || ctx.baseLatency || 0 : 0);
   function resync() {
     if (!tr().playing) return;
-    const p = A.time();
+    const p = pos();
     anchorAt(p);
     startNode(p);
     nextBeat = Math.ceil(state.beatAt(p) - 1e-6);
@@ -94,7 +117,7 @@ export function createAudio(state) {
   }
 
   function tick() {
-    const t = A.time(), T = tr();
+    const t = pos(), T = tr();
     if (T.loop && T.loop.end > T.loop.start && t >= T.loop.end) { A.seek(T.loop.start); return; }
     if (t >= duration() - 1e-3) { A.pause(); return; }
     if (!click || !running() || anchor.clock !== "ctx") return;
@@ -108,7 +131,7 @@ export function createAudio(state) {
   }
 
   function setBuffer(buf, source, name) {
-    const playing = tr().playing, pos = A.time();
+    const playing = tr().playing, p0 = pos();
     stopNode();
     buffer = buf;
     A.source = source; A.name = name;
@@ -116,7 +139,7 @@ export function createAudio(state) {
     A.peaksPerSec = buf ? PEAKS_PER_SEC : 0;
     A.click = source === "synth";
     state.setTransport({ duration: duration() });
-    if (playing) { anchorAt(Math.min(pos, duration())); startNode(anchor.pos0); }
+    if (playing) { anchorAt(Math.min(p0, duration())); startNode(anchor.pos0); }
     state.emit("audio:loaded", { source, name, duration: duration() });
   }
 
@@ -132,7 +155,9 @@ export function createAudio(state) {
     get click() { return click; },
     set click(v) { click = !!v; if (clickBus) clickBus.gain.value = click ? 1 : 0; },
     get volume() { return volume; },
-    set volume(v) { volume = Math.max(0, Math.min(1, +v || 0)); if (master) master.gain.value = volume; },
+    set volume(v) { volume = Math.max(0, Math.min(1, +v || 0)); applyGain(); },
+    get muted() { return muted; },
+    set muted(m) { muted = !!m; applyGain(); },
     get ctx() { return ctx; },
     get duration() { return duration(); },
 
@@ -170,10 +195,12 @@ export function createAudio(state) {
       }
     },
 
+    // audible position; right after play/seek/loop wrap it holds at the target until the new audio reaches the speakers
     time() {
       if (!tr().playing) return anchor.pos0;
-      return Math.min(duration(), anchor.pos0 + (clockNow(anchor.clock) - anchor.c0) * (tr().rate || 1));
+      return Math.max(anchor.pos0, pos() - latency() * (tr().rate || 1));
     },
+    get latency() { return latency(); },
 
     play() {
       if (tr().playing) return;
@@ -191,11 +218,11 @@ export function createAudio(state) {
 
     pause() {
       if (!tr().playing) return;
-      const pos = A.time();
+      const p = A.time(); // audible position: nothing jumps, resume replays what was still in the output buffer
       stopNode();
       clearInterval(timer); timer = null;
-      anchor = { clock: "wall", c0: 0, pos0: pos };
-      state.setTransport({ playing: false, t: pos });
+      anchor = { clock: "wall", c0: 0, pos0: p };
+      state.setTransport({ playing: false, t: p });
     },
 
     toggle() { tr().playing ? A.pause() : A.play(); },

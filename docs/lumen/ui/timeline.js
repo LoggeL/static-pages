@@ -5,7 +5,7 @@ import { btn } from "./panels.js";
 
 const C = {
   bg: "#0e1116", lane: "#12161c", line: "#262c37", line2: "#323a47", text: "#a3adbb", text3: "#6b7684",
-  accent: "#ffb000", accent2: "#3ec5ff", sel: "#3ec5ff", low: "#ffb000", mid: "#3ec5ff", high: "#e6edf5", rms: "#3a4352",
+  accent: "#ffb000", accent2: "#3ec5ff", sel: "#3ec5ff", low: "#ffb000", mid: "#3ec5ff", high: "#e6edf5", rms: "#3a4352", hit: "#ff5ea8",
 };
 const SECT_COLORS = ["#2a3140", "#232a36"];
 const withA = (col, a) => (/^#[0-9a-f]{6}$/i.test(col || "") ? col : C.accent) + Math.round(a * 255).toString(16).padStart(2, "0");
@@ -206,6 +206,20 @@ export function createTimeline(root, state, ctx = {}) {
     } else {
       g.fillStyle = C.text3;
       g.fillText("Keine Audio-Analyse geladen", 6, mid);
+    }
+    // one-shot hits (show.hits) as ticks at the bottom of the energy lane
+    const hits = state.show.hits;
+    if (hits?.length) {
+      g.fillStyle = C.hit;
+      let lastX = -2;
+      for (const hh of hits) {
+        if (hh.t < t0 || hh.t > t1) continue;
+        const x = Math.round(xOf(hh.t));
+        if (x === lastX) continue;
+        lastX = x;
+        const hl = 4 + 6 * Math.min(1, hh.attrs?.dim ?? 1);
+        g.fillRect(x, cy - hl, 1, hl);
+      }
     }
     g.fillStyle = C.line;
     g.fillRect(0, cy - 0.5, W, 1);
@@ -420,9 +434,18 @@ export function createTimeline(root, state, ctx = {}) {
       h("h4", h("span.grow", "Cue"), btn("small ghost", "×", () => state.setUI("cueId", null), "Schließen")),
       h("label.field", "Name", h("input", { type: "text", value: c.name, onkeydown: stop, onchange: (e) => e.target.value.trim() && upd({ name: e.target.value.trim() }, "Cue umbenennen") })),
       h("div.grid2", num("time", "Zeit (s)", 0, dur()), h("label.field", "Takt", h("input", { type: "text", value: `${b.bar}.${b.beat}`, disabled: true })),
-        num("fade", "Fade (s)", 0, 60), num("delay", "Delay (s)", 0, 60)),
+        num("fade", "Fade (s)", 0, 60), num("delay", "Delay (s)", 0, 60),
+        // show-camera shot: only real shot names (an unknown name would silently fall back to the auto pool)
+        h("label.field", "Kamera", h("select", { onkeydown: stop, onchange: (e) => upd({ camera: e.target.value || null }, "Cue-Kamera") },
+          ["", "auto", ...(ctx.viz?.shots || [])].concat(c.camera && c.camera !== "auto" && !(ctx.viz?.shots || []).includes(c.camera) ? [c.camera] : [])
+            .map((v) => h("option", { value: v, selected: (c.camera || "") === v }, v === "" ? "–" : v === "auto" ? "Auto" : (ctx.viz?.shots || []).includes(v) ? v : `${v} (unbekannt)`)))),
+        // frontman place from this cue on (tracked like the camera; the 3D view walks him there)
+        h("label.field", "Sänger", h("select", { onkeydown: stop, onchange: (e) => upd({ performer: e.target.value || null }, "Cue-Sänger") },
+          [["", "–"], ["mic", "am Mikro"], ["piano", "am Piano"]].map(([v, n]) => h("option", { value: v, selected: (c.performer || "") === v }, n))))),
       h("div.row",
         h("label.row.hint", h("input", { type: "checkbox", checked: !!c.block, onchange: (e) => upd({ block: e.target.checked }, "Cue Block") }), "Block"),
+        h("label.row.hint", { title: "Effekte zum laufenden Effekt-Set hinzufügen statt es zu ersetzen" },
+          h("input", { type: "checkbox", checked: c.fxMode === "add", onchange: (e) => upd({ fxMode: e.target.checked ? "add" : "replace" }, "Cue FX-Modus") }), "FX addieren"),
         h("label.row.hint", "Farbe", h("input", { type: "color", value: /^#[0-9a-f]{6}$/i.test(c.color || "") ? c.color : "#ffb000", onchange: (e) => upd({ color: e.target.value }, "Cue-Farbe") }))),
       h("div.hint", `${targets.length} Ziele${targets.length ? ": " + targets.slice(0, 5).join(", ") + (targets.length > 5 ? " …" : "") : ""} · ${c.effects?.length || 0} Effekte${c.kill?.length ? ` · Kill: ${c.kill.length}` : ""}`),
       h("div.grid2",

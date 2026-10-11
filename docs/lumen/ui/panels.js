@@ -1,7 +1,7 @@
 // Topbar, viewport HUD, sidebar tabs (Patch, Gruppen & Presets, DMX, Show), executor bar, status bar, file handling.
 import { h, de, fmtTime, fader, segmented, section, promptValue, clamp } from "./widgets.js";
 import { TYPE_KEYS, getType, channelAt, channelLabel } from "../core/fixtures.js";
-import { createShow, applyAnalysis, STORAGE_KEY } from "../core/state.js";
+import { createShow, applyAnalysis } from "../core/state.js";
 
 const $ = (s) => document.querySelector(s);
 const setText = (el, s) => { if (el.textContent !== s) el.textContent = s; };
@@ -14,7 +14,8 @@ const ICONS = {
   undo: ["M9 14L4 9l5-5M4 9h10.5a5.5 5.5 0 010 11H11", 1], redo: ["M15 14l5-5-5-5M20 9H9.5a5.5 5.5 0 000 11H13", 1],
   save: ["M5 3h11l3 3v15H5zM8 3v5h7V3M8 21v-7h8v7", 1], download: ["M12 4v11M7 10l5 5 5-5M5 20h14", 1],
   upload: ["M12 16V5M7 10l5-5 5 5M5 20h14", 1], music: ["M9 18V6l11-2v12M9 18a3 3 0 11-6 0 3 3 0 016 0zM20 16a3 3 0 11-6 0 3 3 0 016 0z", 1],
-  click: ["M8 21h8L13 4h-2zM12 15l6-8", 1], trash: ["M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13", 1], plus: ["M12 5v14M5 12h14", 1],
+  click: ["M8 21h8L13 4h-2zM12 15l6-8", 1], vol: ["M4 9.5h3.5L12 5.5v13l-4.5-4H4zM15.5 9a4 4 0 010 6M18 6.5a7.5 7.5 0 010 11", 1],
+  volLow: ["M4 9.5h3.5L12 5.5v13l-4.5-4H4zM15.5 9a4 4 0 010 6", 1], mute: ["M4 9.5h3.5L12 5.5v13l-4.5-4H4zM16 9.5l5 5M21 9.5l-5 5", 1], trash: ["M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13", 1], plus: ["M12 5v14M5 12h14", 1],
 };
 export function icon(name) {
   const [d, stroke] = ICONS[name] || ICONS.plus;
@@ -73,6 +74,7 @@ export function createPanels(state, ctx = {}) {
     try {
       const m = await import("../demo/drum-show.js");
       state.load(m.createDemoShow(state.analysis), { undoable: true, label: "Demo laden" });
+      state.setUI("camera", "auto", { auto: true }); // the demo is directed: show camera on (not a user pick)
       state.status("Demo-Show „Drum Show“ geladen", "ok");
       return true;
     } catch (e) {
@@ -129,6 +131,30 @@ export function createPanels(state, ctx = {}) {
     btn("icon ghost", icon("next"), () => cueJump(1), "Nächster Cue"),
     clickBtn,
   );
+  /* master volume (song + synth click): slider + mute in the transport, mirrors the fader in the Show tab */
+  const muteBtn = btn("icon ghost vol-mute", icon("vol"), () => toggleMute(), "Stumm (M)");
+  const volIn = h("input.vol-range", { type: "range", min: 0, max: 100, step: 1, "aria-label": "Lautstärke",
+    oninput: () => { if (!audio) return; audio.volume = volIn.value / 100; if (audio.muted && audio.volume > 0) audio.muted = false; } });
+  const toggleMute = () => {
+    if (!audio) return;
+    if (audio.muted || audio.volume === 0) { if (audio.volume === 0) audio.volume = 0.5; audio.muted = false; } else audio.muted = true;
+  };
+  const syncVol = () => {
+    const v = audio?.volume ?? 0.8, m = !!audio?.muted || v === 0, pct = Math.round(v * 100);
+    if (document.activeElement !== volIn || +volIn.value !== pct) volIn.value = pct;
+    volIn.style.setProperty("--p", m ? 0 : v);
+    volIn.classList.toggle("muted", m);
+    volIn.setAttribute("aria-valuetext", m ? `Stumm (${pct} %)` : `${pct} %`);
+    volIn.title = `Lautstärke ${pct} %${audio?.muted ? " · stumm" : ""} (M: stumm)`;
+    muteBtn.replaceChildren(icon(m ? "mute" : v < 0.45 ? "volLow" : "vol"));
+    muteBtn.classList.toggle("on", m);
+    muteBtn.setAttribute("aria-pressed", String(!!audio?.muted));
+    muteBtn.setAttribute("aria-label", audio?.muted ? "Ton an (M)" : "Stumm schalten (M)");
+    muteBtn.title = `${audio?.muted ? "Ton an" : "Stumm"} (M) · Lautstärke ${pct} %`;
+  };
+  $("#transport").append(h("div.vol", { role: "group", "aria-label": "Lautstärke" }, muteBtn, volIn));
+  state.on("audio:volume", syncVol);
+  syncVol();
   const clk = { time: h("span.clk-time.mono", "0:00,00"), bar: h("b.mono", "1.1"), bpm: h("b.mono", "–"), cue: h("b", "–") };
   $("#clock").append(clk.time, h("span.clk-item", "Takt", clk.bar), h("span.clk-item.clk-hide-m", "BPM", clk.bpm), h("span.clk-item.clk-cue", "Cue", clk.cue));
 
@@ -435,7 +461,7 @@ export function createPanels(state, ctx = {}) {
       btn("danger", "Lokalen Speicher leeren", () => { state.clearLocal(); state.status("Lokaler Speicher geleert", "ok"); })));
   const audioInfo = h("div.hint");
   const clickToggle = h("input", { type: "checkbox", onchange: () => { if (audio) { audio.click = clickToggle.checked; clickBtn.classList.toggle("on", audio.click); } } });
-  const vol = fader({ label: "Lautstärke", value: audio?.volume ?? 1, horizontal: true, color: "var(--accent-2)", onInput: (v) => { if (audio) audio.volume = v; } });
+  const vol = fader({ label: "Lautstärke", value: audio?.volume ?? 1, horizontal: true, color: "var(--accent-2)", onInput: (v) => { if (!audio) return; audio.volume = v; if (audio.muted && v > 0) audio.muted = false; } });
   const audioSec = section("Audio", { color: "var(--accent-2)" });
   audioSec.body.append(audioInfo, h("div.row", btn("", [icon("music"), "Song laden"], pickAudio), h("label.row.hint", clickToggle, "Beat-Klick")), vol.el,
     h("div.hint", "Der Song ist nicht Teil der Veröffentlichung. MP3 per Button oder Drag & Drop laden – ohne Song läuft ein synthetischer Klick aus dem Beat-Grid."));
@@ -448,7 +474,7 @@ export function createPanels(state, ctx = {}) {
   const setSec = section("Einstellungen", { color: "var(--text-3)" });
   setSec.body.append(h("label.row.hint", "Standard-Fade (s)", fadeIn), h("label.row.hint", snapCb, "Cues auf Beats einrasten"), h("label.row.hint", followCb, "Timeline folgt dem Playhead"));
   const keys = [["Leertaste", "Play/Pause"], ["Pos1", "Zum Anfang"], ["← →", "±1 Beat (Shift: Takt)"], ["Strg+Z / Strg+Y", "Rückgängig / Wiederholen"],
-    ["Strg+S", "Speichern"], ["Esc", "Programmer leeren"], ["1–6", "Kameras"], ["B S W L F X", "Executoren"], ["Entf", "Cue löschen"], ["Strg+Mausrad", "Timeline-Zoom"]];
+    ["Strg+S", "Speichern"], ["Esc", "Programmer leeren"], ["M", "Ton stumm/an"], ["1–7", "Kameras (7: Show-Kamera)"], ["B S W L F X K C V", "Executoren"], ["Entf", "Cue löschen"], ["Strg+Mausrad", "Timeline-Zoom"]];
   const keySec = section("Tastenkürzel", { collapsible: true, color: "var(--text-3)" });
   keySec.body.append(...keys.map(([k, v]) => h("div.row.nowrap.hint", h("kbd", k), h("span", v))));
   showRoot.append(fileSec.el, audioSec.el, setSec.el, keySec.el);
@@ -469,6 +495,7 @@ export function createPanels(state, ctx = {}) {
     if (audio) vol.set(audio.volume ?? 1);
   }
   state.on("audio:loaded", syncAudio);
+  state.on("audio:volume", () => vol.set(audio.volume));
   state.on("ui:changed", (e) => { if (e.key === "snap" || e.key === "follow") renderShowTab(); });
 
   /* ---------------------------------------------------------------- executors */
@@ -533,10 +560,9 @@ export function createPanels(state, ctx = {}) {
   /* ---------------------------------------------------------------- start overlay */
   const start = $("#start-overlay");
   if (start) {
-    let hasLocal = false;
-    try { hasLocal = !!localStorage.getItem(STORAGE_KEY); } catch (e) { /* ignore */ }
+    // same rule as loadLocal: a stale stock demo is not offered as "saved show"
     const resume = start.querySelector('[data-start="resume"]');
-    if (resume) resume.hidden = !hasLocal;
+    if (resume) resume.hidden = !state.hasLocal();
     const close = () => { start.classList.add("hide"); setTimeout(() => start.remove(), 400); };
     start.addEventListener("click", async (e) => {
       const b = e.target.closest("[data-start]");
@@ -570,6 +596,6 @@ export function createPanels(state, ctx = {}) {
 
   return {
     tick(frame) { if (frame) for (const f of ticks) f(frame); },
-    setTab, loadDemo, newShow, exportShow, handleFile,
+    setTab, loadDemo, newShow, exportShow, handleFile, toggleMute,
   };
 }

@@ -4,8 +4,10 @@
 
 import { FIXTURE_TYPES, getType, hasAttr, aimAt, SWATCHES, ATTR_KEYS, ATTRS, clamp } from "./fixtures.js";
 
-export const SHOW_VERSION = 1;
+export const SHOW_VERSION = 3; // bump → a stale stock demo in localStorage is replaced by the current demo; user shows are upgraded
+// v3: one drum riser + frontman (mic / piano) instead of two drum risers + keys; validateShow migrates older stages
 export const STORAGE_KEY = "lumen.show.v1";
+export const DEMO_NAME = "Drum Show – Demo";
 const HISTORY_MAX = 120;
 const COALESCE_MS = 900;
 
@@ -15,23 +17,33 @@ const clone = (o) => (o === undefined ? o : JSON.parse(JSON.stringify(o)));
 const now = () => (typeof performance !== "undefined" ? performance.now() : Date.now()) / 1000;
 
 /* ------------------------------------------------------------------ effects */
+const DIM_FORMS = ["sine", "ramp", "rampDown", "square", "pulse", "random", "chase", "env", "onset", "pattern", "onsetStep"];
 export const EFFECT_FORMS = {
-  dim: ["sine", "ramp", "rampDown", "square", "pulse", "random", "chase", "env", "onset"],
-  position: ["circle", "eight", "pan", "tilt", "wave", "fan"],
-  color: ["rainbow", "chase"],
+  dim: DIM_FORMS,
+  position: ["circle", "eight", "pan", "tilt", "wave", "fan", "random", "step"],
+  color: ["rainbow", "chase", "onset", "env"],
   pixel: ["chase", "wave", "rainbow", "sparkle", "fill"],
+  attr: DIM_FORMS,
 };
+// attributes an "attr" effect may modulate (attribute units, see ATTRS ranges)
+export const EFFECT_ATTRS = ["zoom", "strobe", "w", "iris", "focus", "frost", "goboSpin", "prismRot", "lzTilt", "lzFan", "lzSpeed", "lzBeams", "lzPattern", "pan", "tilt", "dim"]
+  .filter((k) => ATTRS[k]);
 export const EFFECT_LABELS = {
-  dim: "Dimmer", position: "Position", color: "Farbe", pixel: "Pixel",
+  dim: "Dimmer", position: "Position", color: "Farbe", pixel: "Pixel", attr: "Attribut",
   sine: "Sinus", ramp: "Rampe ↑", rampDown: "Rampe ↓", square: "Rechteck", pulse: "Puls", random: "Zufall",
   chase: "Chase", env: "Audio-Hüllkurve", onset: "Drum-Onsets", circle: "Kreis", eight: "Acht", pan: "Pan-Schwenk",
   tilt: "Tilt-Schwenk", wave: "Welle", fan: "Fächer", rainbow: "Regenbogen", sparkle: "Funkeln", fill: "Füllen",
+  pattern: "Step-Pattern", onsetStep: "Onset-Lauflicht", step: "Schritte",
 };
 export const EFFECT_DEFAULTS = {
   type: "dim", form: "sine", targets: [], sync: "beat", speed: 1, size: 1, low: 0, high: 1,
   phase: 360, wings: 0, dir: 1, duty: 0.5, offset: 0, mode: "mul", colors: [[1, 0, 0], [0, 0.15, 1]],
   sat: 1, band: "low", name: "",
 };
+// per-form extra defaults (only filled when the form uses them, so legacy effects stay lean)
+const ONSET_FORMS = new Set(["onset", "onsetStep"]);
+const FORM_KEYS = ["decay", "div", "pattern", "threshold", "every", "hold", "order"]; // form-specific params, dropped on a form change
+const PHASELESS = new Set(["pattern", "onsetStep"]); // forms that default to phase 0
 export function makeEffect(spec = {}) {
   const e = { ...clone(EFFECT_DEFAULTS), ...clone(spec) };
   if (!e.id) e.id = uid("e");
@@ -39,7 +51,47 @@ export function makeEffect(spec = {}) {
   if (!EFFECT_FORMS[e.type].includes(e.form)) e.form = EFFECT_FORMS[e.type][0];
   if (e.type === "position" && spec.size === undefined) e.size = 30;
   if (e.type === "pixel" && spec.size === undefined) e.size = 0.35;
+  if (e.type === "attr") {
+    if (!ATTRS[e.attr]) e.attr = "zoom";
+    const s = ATTRS[e.attr];
+    if (spec.mode === undefined) e.mode = "abs";
+    if (spec.low === undefined) e.low = s.min;
+    if (spec.high === undefined) e.high = s.max;
+  }
+  if (e.form === "pattern" && e.type !== "position") {
+    if (typeof e.pattern !== "string" || !e.pattern.length) e.pattern = "x...x...x...x...";
+    e.div = Math.max(0.0625, +e.div || 4);
+    e.decay = Math.max(0.005, +e.decay || 0.12);
+    if (spec.phase === undefined) e.phase = 0;
+  }
+  if (ONSET_FORMS.has(e.form) && e.type !== "position") {
+    if (e.form === "onsetStep" && spec.phase === undefined) e.phase = 0;
+    if (e.form === "onsetStep" && e.decay === undefined) e.decay = 0.25;
+    if (e.type === "color" && e.decay === undefined) e.decay = 0.11;
+  }
+  if (e.threshold !== undefined) e.threshold = clamp(+e.threshold || 0, 0, 1);
+  if (e.every !== undefined) e.every = Math.max(1, Math.round(+e.every || 1));
+  if (e.decay !== undefined) e.decay = Math.max(0.005, +e.decay || 0.005);
   return e;
+}
+
+// normalises one show.hits entry ({t, targets, attrs, decay, hold, color?, stagger?, shake?, name?}); null if invalid
+export function makeHit(h) {
+  if (!h || typeof h.t !== "number" || !Number.isFinite(h.t)) return null;
+  const targets = (Array.isArray(h.targets) ? h.targets : h.targets ? [h.targets] : []).filter((x) => typeof x === "string");
+  if (!targets.length) return null;
+  const attrs = {};
+  for (const k in h.attrs || { dim: 1 }) {
+    const v = (h.attrs || { dim: 1 })[k];
+    if (ATTRS[k] && typeof v === "number" && Number.isFinite(v)) attrs[k] = v;
+  }
+  const out = { t: h.t, targets, attrs };
+  for (const k of ["decay", "hold", "stagger", "shake"]) if (typeof h[k] === "number" && Number.isFinite(h[k])) out[k] = h[k];
+  if (out.decay !== undefined) out.decay = Math.max(0.005, out.decay);
+  if (out.hold !== undefined) out.hold = Math.max(0, out.hold);
+  if (typeof h.color === "boolean") out.color = h.color;
+  if (h.name) out.name = String(h.name);
+  return out;
 }
 
 /* ------------------------------------------------------------------ venue & default rig */
@@ -56,21 +108,41 @@ export function createVenue() {
       { id: "tw-l", name: "Turm links", x: -7.7, z: 1.0, h: 6.5 },
       { id: "tw-r", name: "Turm rechts", x: 7.7, z: 1.0, h: 6.5 },
     ],
-    risers: [
-      { id: "r-l", name: "Drum-Riser links", x: -2.6, z: -1.6, w: 2.6, d: 2.6, h: 0.6 },
-      { id: "r-r", name: "Drum-Riser rechts", x: 2.6, z: -1.6, w: 2.6, d: 2.6, h: 0.6 },
-    ],
-    keys: { x: 0, z: 1.4 }, // keyboard / mic position
+    // one drum riser upstage centre: kit + seated drummer, LED fascia glows with the fascia group
+    risers: [{ id: "r-drum", name: "Drum-Riser", x: 0, z: -1.7, w: 4.2, d: 2.8, h: 1.4, kit: true, fascia: "g-riser" }],
+    // frontman: mic stand downstage centre, grand piano stage left (= house right, +x); yaw in deg (0 = player faces +x)
+    band: { mic: { x: 0, z: 2.4 }, piano: { x: 3.3, z: 0.6, yaw: 30 } },
     backdrop: { z: -4.6, h: 11 },
     audience: { z0: 6, z1: 24, rows: 14 },
   };
 }
 
-// Builds the 58-fixture demo rig. Ids are "f" + fixture number (fid).
+// Band positions derived from the venue (shared by presets, viz and camera): drummer seat, singer at the mic,
+// pianist on the bench. Piano frame: origin = keyboard front centre, local +x = where the player faces, +z = player's right.
+export function bandSpots(v = createVenue()) {
+  const SH = v.stage?.h ?? 1.2;
+  const R = (v.risers || []).find((r) => r.kit) || (v.risers || [])[0] || { x: 0, z: -1.7, w: 4.2, d: 2.8, h: 1.4 };
+  const mic = v.band?.mic || { x: 0, z: 2 }, pn = v.band?.piano || { x: 3.3, z: 0.6, yaw: 30 };
+  const a = ((pn.yaw || 0) * Math.PI) / 180, ca = Math.cos(a), sa = Math.sin(a);
+  const pw = (lx, lz) => ({ x: pn.x + lx * ca - lz * sa, z: pn.z + lx * sa + lz * ca });
+  const kitZ = R.z + 0.25; // kit origin (riser centre, nudged downstage)
+  return {
+    SH, riser: R, top: SH + R.h,
+    kit: { x: R.x, y: SH + R.h, z: kitZ },
+    drummer: { x: R.x, y: SH + R.h, z: kitZ - 0.42 },
+    mic: { x: mic.x, z: mic.z }, // stand
+    singer: { x: mic.x, z: mic.z - 0.38, yaw: 0 }, // standing spot, faces the audience (+z)
+    piano: { x: pn.x, z: pn.z, yaw: pn.yaw || 0, at: pw },
+    bench: { ...pw(-0.62, 0), yaw: pn.yaw || 0 }, // seated pianist
+    pianoWalk: pw(-0.62, 0.78), // where he stands up / sits down (downstage side of the bench)
+  };
+}
+
+// Builds the 77-fixture demo rig. Ids are "f" + fixture number (fid).
 export function createDefaultRig(venue = createVenue()) {
   const fixtures = [];
   const add = (fid, type, name, universe, address, pos, mount = "hang", extra = {}) => {
-    fixtures.push({ id: `f${fid}`, fid, type, name, universe, address, pos, mount, yaw: 0, orient: { pan: 0, tilt: 0 }, ...extra });
+    fixtures.push({ id: `f${fid}`, fid, type, name, universe, address, pos: pos.map((v) => Math.round(v * 1000) / 1000), mount, yaw: 0, orient: { pan: 0, tilt: 0 }, ...extra });
   };
   const row8 = (i) => -6.125 + i * 1.75;
   const SH = venue.stage.h;
@@ -84,10 +156,11 @@ export function createDefaultRig(venue = createVenue()) {
     add(401 + i, "bar", `Pixel-Bar ${i + 1}`, 2, 1 + i * 26, [row8(i), SH + 0.06, -3.85], "floor", { orient: { pan: 0, tilt: 35 } });
   [-5, -3, -1, 1, 3, 5].forEach((x, i) =>
     add(501 + i, "par", `Front-PAR ${i + 1}`, 2, 221 + i * 6, [x, SH + 0.13, 3.7], "floor", { orient: { pan: 180, tilt: 32 } }));
-  const [rl, rr] = venue.risers;
-  [[rl, -1], [rl, 1], [rr, -1], [rr, 1]].forEach(([r, s], i) => {
-    const f = { type: "par", mount: "floor", yaw: 0, pos: [r.x + s * 1.55, SH + 0.13, r.z + 1.7] };
-    add(511 + i, "par", `Riser-PAR ${i + 1}`, 2, 261 + i * 6, f.pos, "floor", { orient: aimAt(f, [r.x, SH + r.h + 1.1, r.z]) });
+  const B = bandSpots(venue), R = B.riser, RT = B.top, RF = R.z + R.d / 2;
+  // riser PARs on the riser deck: L = f511 front / f512 back, R = f513 front / f514 back, all on the drummer
+  [[-1, 1], [-1, -1], [1, 1], [1, -1]].forEach(([s, fz], i) => {
+    const f = { type: "par", mount: "floor", yaw: 0, pos: [R.x + s * (R.w / 2 - 0.28), RT + 0.13, R.z + fz * (R.d / 2 - 0.28)] };
+    add(511 + i, "par", `Riser-PAR ${i + 1}`, 2, 261 + i * 6, f.pos, "floor", { orient: aimAt(f, [B.drummer.x, RT + 1.1, B.drummer.z]) });
   });
   [-5.25, -1.75, 1.75, 5.25].forEach((x, i) =>
     add(601 + i, "strobe", `Strobe ${i + 1}`, 2, 301 + i * 4, [x, 8.75, 0.35], "hang", { orient: { pan: 0, tilt: 45 } }));
@@ -97,9 +170,22 @@ export function createDefaultRig(venue = createVenue()) {
     const f = { type: "blinder2", mount: "floor", yaw: 0, pos: [t.x, SH + 5.2, t.z + 0.3] };
     add(705 + i, "blinder2", `Turm-Blinder ${i + 1}`, 2, 341 + i * 2, f.pos, "floor", { orient: aimAt(f, [t.x * 0.5, 2, 16]) });
   });
-  [-1.2, 1.2].forEach((x, i) =>
-    add(801 + i, "laser", `Laser ${i + 1}`, 3, 1 + i * 10, [x, SH + 0.1, -3.2], "floor", { orient: { pan: 0, tilt: 84 } }));
+  [-1.5, 1.5].forEach((x, i) =>
+    add(801 + i, "laser", `Laser ${i + 1}`, 3, 1 + i * 10, [R.x + x, SH + 0.1, RF + 0.22], "floor", { orient: { pan: 0, tilt: 84 } })); // at the riser foot
   [-7.2, 7.2].forEach((x, i) => add(901 + i, "hazer", `Hazer ${i + 1}`, 3, 21 + i * 2, [x, SH, -3.6], "floor"));
+  // extra lasers: tower tops (crossing over the crowd), back truss (over stage + crowd), mid truss centre (tunnels)
+  const lz = (fid, name, address, pos, mount, aim) => {
+    const f = { type: "laser", mount, yaw: 0, pos };
+    add(fid, "laser", name, 3, address, pos, mount, { orient: aimAt(f, aim) });
+  };
+  venue.towers.forEach((t, i) => lz(803 + i, `Turm-Laser ${i + 1}`, 31 + i * 10, [t.x, t.h + 0.06, t.z], "floor", [-t.x * 0.35, 3.4, 24]));
+  [-3.5, 3.5].forEach((x, i) => lz(805 + i, `Truss-Laser ${i + 1}`, 51 + i * 10, [x, 9.25, -3.4], "hang", [x * 2.2, 2.8, 26]));
+  lz(807, "Truss-Laser Mitte", 71, [0, 8.75, 0], "hang", [0, 4.4, 24]);
+  // stage FX (universe 4): sparkulars front + on the riser front corners, CO2 jets downstage, flame projectors upstage
+  [-6.4, -4.2, 4.2, 6.4].forEach((x, i) => add(1001 + i, "spark", `Sparkular ${i + 1}`, 4, 1 + i * 2, [x, SH, 3.82], "floor"));
+  [-1, 1].forEach((s, i) => add(1005 + i, "spark", `Sparkular Riser ${i + 1}`, 4, 9 + i * 2, [R.x + s * (R.w / 2 - 0.3), RT, RF - 0.22], "floor"));
+  [-6.6, -2.2, 2.2, 6.6].forEach((x, i) => add(1101 + i, "co2", `CO2-Jet ${i + 1}`, 4, 21 + i, [x, SH, 3.35], "floor"));
+  [-6.5, -5, 5, 6.5].forEach((x, i) => add(1201 + i, "flame", `Flamme ${i + 1}`, 4, 31 + i * 2, [x, SH, -2.35], "floor"));
 
   const ids = (from, n) => Array.from({ length: n }, (_, i) => `f${from + i}`);
   const G = (id, name, fixtures, color) => ({ id, name, fixtures, color });
@@ -114,14 +200,94 @@ export function createDefaultRig(venue = createVenue()) {
     G("g-bars", "Pixel-Bars", ids(401, 8), "#44d17a"),
     G("g-par", "Front-PARs", ids(501, 6), "#ff5ea8"),
     G("g-riser", "Riser-PARs", ids(511, 4), "#ff5ea8"),
-    G("g-drum-l", "Drums links", ["f511", "f512"], "#ff5ea8"),
+    G("g-drum-l", "Drums links", ["f511", "f512"], "#ff5ea8"), // left / right half of the one kit
     G("g-drum-r", "Drums rechts", ["f513", "f514"], "#ff5ea8"),
     G("g-strobe", "Strobes", ids(601, 4), "#e6edf5"),
     G("g-blinder", "Blinder", ids(701, 6), "#ffd27a"),
-    G("g-laser", "Laser", ids(801, 2), "#44d17a"),
+    G("g-laser", "Laser", ids(801, 7), "#44d17a"),
     G("g-haze", "Hazer", ids(901, 2), "#8b95a3"),
+    G("g-laser-floor", "Laser Boden", ids(801, 2), "#44d17a"),
+    G("g-laser-tower", "Laser Türme", ids(803, 2), "#44d17a"),
+    G("g-laser-top", "Laser Truss", ids(805, 3), "#44d17a"),
+    G("g-spark", "Sparkulars", ids(1001, 6), "#ffe08a"),
+    G("g-spark-front", "Sparkulars vorne", ids(1001, 4), "#ffe08a"),
+    G("g-spark-riser", "Sparkulars Riser", ids(1005, 2), "#ffe08a"),
+    G("g-co2", "CO2-Jets", ids(1101, 4), "#cfe8ff"),
+    G("g-flame", "Flammen", ids(1201, 4), "#ff6a1a"),
   ];
   return { fixtures, groups };
+}
+
+// band position presets (name → aim point); "Drums links/rechts" = left / right half of the one kit
+function bandAims(venue) {
+  const B = bandSpots(venue), D = B.drummer, hy = B.top + 0.95, kb = B.piano.at(-0.3, 0);
+  return [
+    ["Drums", [D.x, hy, D.z]], ["Drums links", [D.x - 0.7, hy, D.z]], ["Drums rechts", [D.x + 0.7, hy, D.z]],
+    ["Sänger", [B.singer.x, B.SH + 1.5, B.singer.z]], ["Piano", [kb.x, B.SH + 1.05, kb.z]],
+  ];
+}
+// cue.performer: where the frontman is (tracked like cue.camera; the viz walks him there)
+export const PERFORMER_PLACES = ["mic", "piano"];
+// old preset names → current ones (the demo and old shows may still say "Keys/Mikro")
+export const PRESET_ALIASES = { "Keys/Mikro": "Sänger" };
+
+/* ---- ≤ v2 stage migration: two drum risers + keys → one riser + frontman */
+// stock positions of the fixtures that moved with the riser (only fixtures still at these spots are moved)
+const LEGACY_POS = {
+  f511: [-4.15, 1.33, 0.1], f512: [-1.05, 1.33, 0.1], f513: [1.05, 1.33, 0.1], f514: [4.15, 1.33, 0.1],
+  f801: [-1.2, 1.3, -3.2], f802: [1.2, 1.3, -3.2], f1005: [-2.6, 1.8, -0.52], f1006: [2.6, 1.8, -0.52],
+};
+const LEGACY_AIM = { "Drums links": [-2.6, 2.8, -1.6], "Drums rechts": [2.6, 2.8, -1.6], "Keys/Mikro": [0, 2.6, 1.4] };
+const LEGACY_SHOTS = { drumsL: "drums", drumsR: "drums" };
+const near = (a, b) => Array.isArray(a) && a.length === 3 && a.every((x, k) => Math.abs(x - b[k]) < 1e-3);
+function migrateStage(s) {
+  const base = createVenue(), rig = createDefaultRig(base);
+  s.venue.risers = base.risers;
+  s.venue.band = base.band;
+  delete s.venue.keys;
+  for (const f of s.fixtures) {
+    const nf = LEGACY_POS[f.id] && near(f.pos, LEGACY_POS[f.id]) && rig.fixtures.find((x) => x.id === f.id && x.type === f.type);
+    if (nf) { f.pos = nf.pos.slice(); f.orient = { ...nf.orient }; }
+  }
+  // stock band presets: re-aim, "Keys/Mikro" → "Sänger", add "Drums" / "Piano" after them
+  const aims = new Map(bandAims(base));
+  s.presets = s.presets.map((p) => (p && typeof p === "object" ? { ...p } : p));
+  const pos = s.presets.filter((p) => p && p.kind === "position");
+  let last = null;
+  for (const p of pos) {
+    if (!LEGACY_AIM[p.name] || !near(p.aim, LEGACY_AIM[p.name])) continue;
+    p.name = PRESET_ALIASES[p.name] || p.name;
+    p.aim = aims.get(p.name).slice();
+    if (!last || s.presets.indexOf(p) > s.presets.indexOf(last)) last = p;
+  }
+  if (last) {
+    // same order as a fresh rig: "Drums" before "Drums links", "Piano" after "Sänger" (else after the last re-aimed one)
+    for (const [n, ref, after] of [["Drums", "Drums links", 0], ["Piano", "Sänger", 1]]) {
+      if (pos.some((p) => p.name === n)) continue;
+      const r = s.presets.findIndex((p) => p && p.kind === "position" && p.name === ref);
+      s.presets.splice(r >= 0 ? r + after : s.presets.indexOf(last) + 1, 0, { id: uid("p-position-"), kind: "position", name: n, color: null, aim: aims.get(n).slice() });
+    }
+  }
+  for (const c of s.cues) if (LEGACY_SHOTS[c.camera]) c.camera = LEGACY_SHOTS[c.camera];
+  // pan/tilt baked into cues / executors from a stock band aim (within 0.05°) follow the re-aimed preset
+  const legacy = Object.entries(LEGACY_AIM).map(([n, aim]) => [aim, aims.get(PRESET_ALIASES[n] || n)]);
+  const fx = new Map(s.fixtures.map((f) => [f.id, f]));
+  const rebake = (h) => {
+    let vals = h.values;
+    for (const id in vals || {}) {
+      const v = vals[id], f = fx.get(id);
+      if (!v || typeof v.pan !== "number" || typeof v.tilt !== "number" || !f || !getType(f.type)?.caps.pantilt) continue;
+      for (const [old, now] of legacy) {
+        const a = aimAt(f, old);
+        if (Math.abs(a.pan - v.pan) > 0.05 || Math.abs(a.tilt - v.tilt) > 0.05) continue;
+        if (vals === h.values) vals = h.values = { ...vals };
+        vals[id] = { ...v, ...aimAt(f, now) };
+        break;
+      }
+    }
+  };
+  s.cues.forEach(rebake);
+  s.executors = s.executors.map((x) => (x && typeof x === "object" ? (rebake((x = { ...x })), x) : x));
 }
 
 export function createDefaultPresets(rig, venue = createVenue()) {
@@ -136,9 +302,7 @@ export function createDefaultPresets(rig, venue = createVenue()) {
   const per = (fn) => Object.fromEntries(movers.map((f) => [f.id, aimAt(f, fn(f))]));
   P("position", "Senkrecht", { attrs: { pan: 0, tilt: 0 } });
   P("position", "Bühne Mitte", { aim: [0, SH, 0.5] });
-  P("position", "Drums links", { aim: [venue.risers[0].x, SH + 1.6, venue.risers[0].z] });
-  P("position", "Drums rechts", { aim: [venue.risers[1].x, SH + 1.6, venue.risers[1].z] });
-  P("position", "Keys/Mikro", { aim: [venue.keys.x, SH + 1.4, venue.keys.z] });
+  for (const [name, aim] of bandAims(venue)) P("position", name, { aim });
   P("position", "Publikum", { aim: [0, 1.7, 14] });
   P("position", "Fächer hoch", { perFixture: per((f) => [f.pos[0] * 2.6, 13, f.pos[2] + 9]) });
   P("position", "Fächer Publikum", { perFixture: per((f) => [f.pos[0] * 2.2, 2, 18]) });
@@ -173,6 +337,13 @@ export function createDefaultExecutors() {
     { id: "x-fog", name: "Fog", key: "f", mode: "flash", kind: "values", color: "#8b95a3", fade: 0, release: 0,
       values: { "g-haze": { dim: 1 } }, effects: [] },
     { id: "x-blackout", name: "Blackout", key: "x", mode: "flash", kind: "blackout", color: "#ff4d5e", fade: 0, release: 0, values: {}, effects: [] },
+    // stage FX: fire while held (a flame fires its ≥ 0.7 s burst per press)
+    { id: "x-spark", name: "Funken", key: "k", mode: "flash", kind: "values", color: "#ffc24a", fade: 0, release: 0,
+      values: { "g-spark": { dim: 1 } }, effects: [] },
+    { id: "x-co2", name: "CO2", key: "c", mode: "flash", kind: "values", color: "#cfe3ff", fade: 0, release: 0,
+      values: { "g-co2": { dim: 1 } }, effects: [] },
+    { id: "x-flame", name: "Flammen", key: "v", mode: "flash", kind: "values", color: "#ff6a1a", fade: 0, release: 0,
+      values: { "g-flame": { dim: 1 } }, effects: [] },
   ];
 }
 
@@ -190,6 +361,7 @@ export function createShow(opts = {}) {
     presets: opts.empty ? [] : createDefaultPresets(rig, venue),
     executors: createDefaultExecutors(),
     cues: [],
+    hits: [],
     markers: [],
     audio: { src: "./audio/drum-show.mp3", title: "", artist: "", duration: 204.01, bpm: 120, beatsPerBar: 4, downbeat: 0, offset: 0, beats: [], segments: [] },
     settings: { fadeDefault: 1, snap: "beat" },
@@ -216,12 +388,22 @@ export function validateShow(o) {
   s.venue = { ...base.venue, ...(o.venue || {}) };
   s.audio = { ...base.audio, ...(o.audio || {}) };
   s.settings = { ...base.settings, ...(o.settings || {}) };
-  for (const k of ["groups", "presets", "executors", "cues", "markers"]) if (!Array.isArray(s[k])) s[k] = [];
+  for (const k of ["groups", "presets", "executors", "cues", "markers", "hits"]) if (!Array.isArray(s[k])) s[k] = [];
   s.fixtures = s.fixtures.filter((f) => f && f.id && getType(f.type)).map((f) => ({
     mount: "hang", yaw: 0, orient: { pan: 0, tilt: 0 }, universe: 1, address: 1, pos: [0, 5, 0], name: f.id, fid: 0, ...f,
   }));
-  s.cues = s.cues.map((c) => ({ fade: 1, delay: 0, values: {}, effects: [], kill: [], block: false, note: "", name: "Cue", ...c }));
+  s.cues = s.cues.map((c) => {
+    const o = { fade: 1, delay: 0, values: {}, effects: [], kill: [], block: false, note: "", name: "Cue", ...c };
+    if (!Array.isArray(o.effects)) o.effects = [];
+    if (!Array.isArray(o.kill)) o.kill = [];
+    if (o.fxMode !== "add") delete o.fxMode; // "replace" is the default
+    if (typeof o.camera !== "string" || !o.camera) delete o.camera;
+    if (!PERFORMER_PLACES.includes(o.performer)) delete o.performer;
+    return o;
+  });
   s.cues.sort((a, b) => a.time - b.time);
+  s.hits = s.hits.map(makeHit).filter(Boolean).sort((a, b) => a.t - b.t);
+  if (!(o.version >= 3)) migrateStage(s);
   return s;
 }
 
@@ -300,6 +482,7 @@ export function createState(initialShow) {
     S.history.redo.length = 0;
     const result = fn(S.show);
     S.show.modified = Date.now();
+    if (S.show.stock) S.show.stock = false;
     if (scope === "cues" || scope === "all") S.show.cues.sort((a, b) => a.time - b.time);
     reindex();
     S.emit("show:changed", { label, scope });
@@ -372,14 +555,33 @@ export function createState(initialShow) {
       return false;
     }
   };
-  S.loadLocal = () => {
+  // saved show → {show} | {stale, raw} (stock demo of an older version) | null
+  function readLocal() {
     try {
-      if (typeof localStorage === "undefined") return false;
+      if (typeof localStorage === "undefined") return null;
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return false;
+      if (!raw) return null;
       const o = JSON.parse(raw);
-      if (o.version !== SHOW_VERSION) return false;
-      S.load(o, { label: "Gespeicherte Show", save: false });
+      if (!o || typeof o !== "object") return null;
+      // a stale stock demo (older version, never edited) gives way to the current demo; an edited one is a user show.
+      // `stock` is set by createDemoShow and cleared by the first edit; older saves without it: edited ≥ 60 s after creation
+      const untouched = typeof o.stock === "boolean" ? o.stock : !(o.modified - o.created >= 60000);
+      if (o.version !== SHOW_VERSION && o.name === DEMO_NAME && untouched) return { stale: true, raw };
+      return { show: o };
+    } catch (e) {
+      return null;
+    }
+  }
+  S.hasLocal = () => !!readLocal()?.show;
+  S.loadLocal = () => {
+    const r = readLocal();
+    if (!r) return false;
+    if (r.stale) {
+      try { localStorage.setItem(`${STORAGE_KEY}.bak`, r.raw); } catch (e) { /* ignore */ }
+      return false;
+    }
+    try {
+      S.load(r.show, { label: "Gespeicherte Show", save: false }); // validateShow upgrades older versions
       return true;
     } catch (e) {
       return false;
@@ -468,6 +670,8 @@ export function createState(initialShow) {
       };
       show.cues.forEach(scrub);
       show.executors.forEach(scrub);
+      for (const h of show.hits || []) h.targets = h.targets.filter((t) => !del.has(t));
+      show.hits = (show.hits || []).filter((h) => h.targets.length);
       for (const p of show.presets) if (p.perFixture) for (const id of del) delete p.perFixture[id];
     }, { scope: "patch" });
     pruneProgrammer();
@@ -497,6 +701,7 @@ export function createState(initialShow) {
         }
         for (const e of holder.effects || []) e.targets = e.targets.flatMap((t) => (t === id ? g.fixtures : [t]));
       }
+      for (const hh of show.hits || []) hh.targets = hh.targets.flatMap((t) => (t === id ? g.fixtures : [t]));
       show.groups = show.groups.filter((x) => x.id !== id);
     }, { scope: "groups" });
   };
@@ -577,8 +782,24 @@ export function createState(initialShow) {
   S.updateEffect = (id, patch) => {
     const e = S.programmer.effects.find((x) => x.id === id);
     if (!e) return null;
+    const prevForm = e.form;
     Object.assign(e, clone(patch));
     if (patch.type && !EFFECT_FORMS[e.type].includes(e.form)) e.form = EFFECT_FORMS[e.type][0];
+    if (patch.type || patch.form || patch.attr) {
+      // refill type/form defaults (attr range, pattern, onset params); explicit patch values win
+      const spec = { ...e };
+      if (e.form !== prevForm) {
+        // the previous form's own params do not carry over (a chase must not inherit a pattern's unison phase)
+        for (const k of FORM_KEYS) if (patch[k] === undefined) delete spec[k];
+        if (prevForm === "onsetStep" && patch.size === undefined) delete spec.size;
+        if (PHASELESS.has(prevForm) && !PHASELESS.has(e.form) && patch.phase === undefined) spec.phase = EFFECT_DEFAULTS.phase;
+        for (const k of [...FORM_KEYS, "size"]) delete e[k];
+      }
+      if (patch.type === "attr" || patch.attr) { if (patch.low === undefined) delete spec.low; if (patch.high === undefined) delete spec.high; }
+      if (patch.type === "attr" && patch.mode === undefined) delete spec.mode;
+      if ((patch.form === "pattern" || patch.form === "onsetStep") && patch.phase === undefined) delete spec.phase;
+      Object.assign(e, makeEffect(spec), { id: e.id });
+    }
     progChanged(S.resolve(e.targets), [], true);
     return e;
   };
@@ -670,6 +891,8 @@ export function createState(initialShow) {
   S.updateCue = (id, patch, opts = {}) => S.mutate(opts.label || "Cue ändern", (show) => {
     const c = show.cues.find((x) => x.id === id);
     if (c) Object.assign(c, clone(patch));
+    // optional keys cleared in the editor ("–") are dropped, not stored as null
+    if (c) for (const k of ["camera", "performer"]) if (k in c && !c[k]) delete c[k];
     return c;
   }, { scope: "cues", coalesce: opts.coalesce });
   S.removeCue = (id) => S.mutate("Cue löschen", (show) => {
@@ -717,6 +940,20 @@ export function createState(initialShow) {
     return cue;
   };
 
+  /* ---- hits (one-shot flashes, show.hits) */
+  S.setHits = (hits, label = "Hits setzen") => S.mutate(label, (show) => {
+    show.hits = (hits || []).map(makeHit).filter(Boolean).sort((a, b) => a.t - b.t);
+    return show.hits;
+  }, { scope: "cues" });
+  S.addHits = (hits, label = "Hits hinzufügen") => S.mutate(label, (show) => {
+    const add = (Array.isArray(hits) ? hits : [hits]).map(makeHit).filter(Boolean);
+    show.hits = [...(show.hits || []), ...add].sort((a, b) => a.t - b.t);
+    return add;
+  }, { scope: "cues" });
+  S.removeHits = (t0, t1, label = "Hits löschen") => S.mutate(label, (show) => {
+    show.hits = (show.hits || []).filter((h) => h.t < t0 || h.t > t1);
+  }, { scope: "cues" });
+
   /* ---- markers */
   S.setMarkers = (markers) => S.mutate("Marker setzen", (show) => { show.markers = clone(markers).sort((a, b) => a.time - b.time); }, { scope: "cues" });
 
@@ -744,10 +981,11 @@ export function createState(initialShow) {
   };
 
   /* ---- ui */
-  S.setUI = (key, value) => {
+  // o.auto: set by the app itself (not a user pick), passed on in the event
+  S.setUI = (key, value, o = {}) => {
     if (S.ui[key] === value) return;
     S.ui[key] = value;
-    S.emit("ui:changed", { key, value });
+    S.emit("ui:changed", { key, value, auto: !!o.auto });
   };
 
   /* ---- beat grid */
