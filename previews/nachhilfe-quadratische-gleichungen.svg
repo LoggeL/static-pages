@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b1640"/>
+      <stop offset=".6" stop-color="#0e1030"/>
+      <stop offset="1" stop-color="#081a2a"/>
+    </linearGradient>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M20 0H0V20" fill="none" stroke="#ffffff" stroke-opacity=".06"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <rect width="800" height="450" fill="url(#grid)"/>
+  <g font-family="Nunito, ui-rounded, system-ui, sans-serif">
+    <text x="56" y="92" fill="#a9a6c2" font-size="18" font-weight="800" letter-spacing="3">NACHHILFE · KLASSE 9</text>
+    <text x="56" y="150" fill="#edecf6" font-size="48" font-weight="900">90 Minuten,</text>
+    <text x="56" y="204" fill="#ff9a45" font-size="48" font-weight="900">drei Wege</text>
+  </g>
+  <g transform="translate(56 260)" font-family="Nunito, ui-rounded, system-ui, sans-serif" font-weight="800" font-size="15">
+    <rect x="0" y="0" width="76" height="46" rx="8" fill="#56627a"/>
+    <rect x="80" y="0" width="76" height="46" rx="8" fill="#6b9bff"/>
+    <rect x="160" y="0" width="114" height="46" rx="8" fill="#a48dff"/>
+    <rect x="278" y="0" width="99" height="46" rx="8" fill="#3fcf8e"/>
+    <rect x="381" y="0" width="30" height="46" rx="8" fill="#46435f"/>
+    <rect x="415" y="0" width="175" height="46" rx="8" fill="#ff9a45"/>
+    <rect x="594" y="0" width="53" height="46" rx="8" fill="#6b9bff"/>
+    <rect x="651" y="0" width="45" height="46" rx="8" fill="#56627a"/>
+    <text x="38" y="29" text-anchor="middle" fill="#fff">Heft</text>
+    <text x="217" y="29" text-anchor="middle" fill="#fff">(2) √</text>
+    <text x="327" y="29" text-anchor="middle" fill="#fff">(3) 0</text>
+    <text x="502" y="29" text-anchor="middle" fill="#fff">(1) Ergänzung</text>
+  </g>
+  <g font-family="Nunito, ui-rounded, system-ui, sans-serif" font-size="22" font-weight="700" fill="#edecf6" fill-opacity=".85">
+    <text x="56" y="370">x² + 11x + 30 = 0</text>
+    <text x="56" y="404">(x + 5,5)² = 0,25</text>
+    <text x="330" y="404" fill="#3fcf8e" font-weight="900">L = {−6; −5}</text>
+  </g>
+  <g transform="translate(620 120)">
+    <circle r="64" fill="none" stroke="#2e2c45" stroke-width="12"/>
+    <circle r="64" fill="none" stroke="#ff9a45" stroke-width="12" stroke-linecap="round" stroke-dasharray="402 402" transform="rotate(-90)"/>
+    <text y="12" text-anchor="middle" font-family="ui-monospace, Menlo, monospace" font-size="34" font-weight="800" fill="#edecf6">90:00</text>
+  </g>
+</svg>

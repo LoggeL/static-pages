@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nachhilfe-Stundenplan</title>
+<meta name="description" content="90-Minuten-Plan für eine Nachhilfestunde zu quadratischen Gleichungen (Klasse 9), abgestimmt auf das Heft der Schülerin und die Lernseite.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f4fa;
+  --surface: #ffffff;
+  --surface-2: #f0eef8;
+  --text: #1c1a2e;
+  --text-dim: #5f5b78;
+  --line: #e3e0f0;
+  --line-strong: #cbc6e0;
+  --c-erg: #e2700b;
+  --c-wurzel: #6d4ee0;
+  --c-null: #12935e;
+  --c-base: #2f6bea;
+  --c-slate: #56627a;
+  --ok: #12935e;
+  --bad: #da3a4c;
+  --warn: #b07c00;
+  --hl: #ffe680;
+  --radius: 18px;
+  --radius-sm: 12px;
+  --font: "Nunito", ui-rounded, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e0d16; --surface: #181726; --surface-2: #211f33; --text: #edecf6; --text-dim: #a9a6c2;
+    --line: #2e2c45; --line-strong: #46435f; --c-erg: #ff9a45; --c-wurzel: #a48dff; --c-null: #3fcf8e;
+    --c-base: #6b9bff; --c-slate: #9aa6bf; --ok: #3fcf8e; --bad: #ff6b7c; --warn: #f0c040; --hl: #5a4a00;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e0d16; --surface: #181726; --surface-2: #211f33; --text: #edecf6; --text-dim: #a9a6c2;
+  --line: #2e2c45; --line-strong: #46435f; --c-erg: #ff9a45; --c-wurzel: #a48dff; --c-null: #3fcf8e;
+  --c-base: #6b9bff; --c-slate: #9aa6bf; --ok: #3fcf8e; --bad: #ff6b7c; --warn: #f0c040; --hl: #5a4a00;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 96px; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 16px/1.55 var(--font); overflow-x: hidden;
+}
+a { color: var(--c-base); text-underline-offset: 2px; }
+h1, h2, h3, h4 { line-height: 1.2; margin: 0; }
+p { margin: 0 0 .7em; }
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+.m { font-family: var(--font); font-weight: 700; white-space: nowrap; }
+.dim { color: var(--text-dim); }
+.small { font-size: .9rem; }
+
+/* Kopf */
+.hero { padding: 36px 0 22px; }
+.eyebrow { font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 10px; }
+.hero h1 { font-size: clamp(1.9rem, 6vw, 2.8rem); font-weight: 900; letter-spacing: -.02em; }
+.hero h1 em { font-style: normal; color: var(--c-erg); }
+.hero .lead { font-size: 1.08rem; color: var(--text-dim); margin-top: 12px; max-width: 60ch; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; padding: 0; list-style: none; }
+.facts li { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; font-size: .88rem; font-weight: 700; }
+
+/* Wege-Legende */
+.ways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0 6px; }
+.way { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--c); border-radius: var(--radius-sm); padding: 10px 12px; }
+.way b { display: block; color: var(--c); font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; }
+.way span { font-weight: 800; }
+.way .m { display: block; font-size: .85rem; color: var(--text-dim); font-weight: 600; white-space: normal; }
+@media (max-width: 560px) { .ways { grid-template-columns: 1fr; } }
+
+/* Timer-Leiste */
+.timerbar {
+  position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+}
+.timerbar .wrap { display: flex; align-items: center; gap: 10px; padding-top: 10px; padding-bottom: 10px; }
+.clock { font: 800 1.35rem/1 var(--mono); min-width: 4.6ch; }
+.now { flex: 1 1 0; min-width: 0; font-weight: 700; font-size: .95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.now small { color: var(--text-dim); font-weight: 600; }
+.btn {
+  appearance: none; border: 1px solid var(--line-strong); background: var(--surface); color: var(--text);
+  font: 800 .9rem var(--font); border-radius: 999px; padding: 7px 14px; cursor: pointer;
+}
+.btn.primary { background: var(--c-erg); border-color: var(--c-erg); color: #fff; }
+.btn:focus-visible, summary:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid var(--c-base); outline-offset: 2px; }
+.track { position: relative; height: 6px; background: var(--line); }
+.track i { position: absolute; inset: 0 auto 0 0; width: 0; background: linear-gradient(90deg, var(--c-wurzel), var(--c-null), var(--c-erg)); transition: width .5s; }
+
+/* Zeitleiste-Übersicht */
+.overview { display: flex; gap: 3px; margin: 22px 0 8px; height: 40px; }
+.overview a {
+  flex: var(--min) 1 0; min-width: 0; border-radius: 6px; background: var(--c, var(--c-slate)); color: #fff;
+  text-decoration: none; font-size: .72rem; font-weight: 800; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; white-space: nowrap; opacity: .9;
+}
+.overview a.pause { background: var(--line-strong); color: var(--text); }
+.legend { font-size: .82rem; color: var(--text-dim); margin-bottom: 26px; }
+
+/* Abschnitte */
+section.block { margin: 34px 0; }
+section.block > h2 { font-size: 1.45rem; font-weight: 900; margin-bottom: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+.callout { border-left: 4px solid var(--c, var(--c-base)); background: var(--surface); border-radius: var(--radius-sm); padding: 12px 14px; margin: 12px 0; }
+.callout.warn { --c: var(--warn); }
+.callout h4 { font-size: .95rem; margin-bottom: 4px; }
+
+/* Phasen */
+.phase {
+  --c: var(--c-slate); position: relative; background: var(--surface); border: 1px solid var(--line);
+  border-left: 6px solid var(--c); border-radius: var(--radius); padding: 18px 18px 14px; margin: 16px 0;
+  transition: box-shadow .3s, transform .3s;
+}
+.phase.is-now { box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 45%, transparent), 0 10px 30px -12px color-mix(in srgb, var(--c) 60%, transparent); }
+.phase.is-done { opacity: .62; }
+.phase-head { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; margin-bottom: 8px; }
+.phase-time { font: 800 .85rem var(--mono); color: var(--c); background: color-mix(in srgb, var(--c) 12%, transparent); padding: 3px 9px; border-radius: 999px; }
+.phase h3 { font-size: 1.2rem; font-weight: 900; }
+.tag { font-size: .78rem; font-weight: 800; color: var(--c); border: 1.5px solid var(--c); border-radius: 999px; padding: 1px 8px; }
+.goal { font-weight: 700; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 12px 0; }
+@media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+.cols h4 { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 6px; }
+.say { margin: 0; padding: 0; list-style: none; }
+.say li { position: relative; padding-left: 14px; margin-bottom: 7px; font-style: italic; }
+.say li::before { content: ""; position: absolute; left: 0; top: .5em; width: 6px; height: 6px; border-radius: 50%; background: var(--c); }
+.say li em { font-style: normal; color: var(--text-dim); }
+ul.plain { margin: 0; padding-left: 18px; }
+ul.plain li { margin-bottom: 5px; }
+.links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.links a { font-size: .85rem; font-weight: 700; text-decoration: none; border: 1px solid var(--line-strong); border-radius: 999px; padding: 4px 11px; color: var(--text); background: var(--surface-2); }
+.links a::after { content: " ↗"; color: var(--text-dim); }
+.trap { font-size: .92rem; background: color-mix(in srgb, var(--warn) 11%, transparent); border-radius: var(--radius-sm); padding: 9px 12px; margin-top: 10px; }
+.trap b { color: var(--warn); }
+
+/* Aufgaben */
+.tasks { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; margin: 10px 0 4px; }
+.task { border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface-2); }
+.task summary { cursor: pointer; padding: 9px 12px; font-weight: 800; list-style: none; display: flex; gap: 8px; align-items: baseline; }
+.task summary::-webkit-details-marker { display: none; }
+.task summary .no { color: var(--c); font-size: .8rem; min-width: 1.8em; }
+.task summary .hint { margin-left: auto; font-size: .72rem; color: var(--text-dim); font-weight: 700; }
+.task[open] summary .hint { visibility: hidden; }
+.task .sol { padding: 0 12px 10px; font-size: .92rem; }
+.steps { font-family: var(--font); margin: 4px 0 0; padding: 0; list-style: none; }
+.steps li { display: flex; gap: 10px; justify-content: space-between; border-bottom: 1px dashed var(--line); padding: 2px 0; }
+.steps li:last-child { border: 0; }
+.steps .op { color: var(--text-dim); white-space: nowrap; }
+.L { font-weight: 900; color: var(--ok); }
+
+/* Heft-Tabelle */
+table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: .75rem; letter-spacing: .07em; text-transform: uppercase; color: var(--text-dim); }
+.tablewrap { overflow-x: auto; }
+s { color: var(--bad); }
+.fix { color: var(--ok); font-weight: 800; }
+
+/* Heft-Abschrift */
+.heft {
+  background-color: var(--surface);
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 20px 20px; border: 1px solid var(--line); border-radius: var(--radius); padding: 18px;
+}
+.heft h4 { font-size: 1.05rem; margin-bottom: 8px; }
+.heft .rows { display: grid; grid-template-columns: max-content 1fr; gap: 2px 18px; font-weight: 700; }
+.heft .rows .op { color: var(--text-dim); font-weight: 600; }
+@media (max-width: 480px) { .heft .rows { grid-template-columns: 1fr; } .heft .rows .op { margin-bottom: 4px; } }
+
+/* Checklisten */
+.check { list-style: none; padding: 0; margin: 0; }
+.check li { margin: 0 0 6px; }
+.check label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+.check input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--ok); flex: none; }
+.check input:checked + span { color: var(--text-dim); text-decoration: line-through; }
+textarea { width: 100%; min-height: 130px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface); color: var(--text); font: 1rem/1.5 var(--font); padding: 10px 12px; resize: vertical; }
+
+/* Arbeitsblatt */
+.sheet h3 { font-size: 1.05rem; margin: 14px 0 6px; }
+.sheet ol { margin: 0; padding-left: 22px; columns: 2; column-gap: 28px; }
+.sheet ol li { margin-bottom: 8px; break-inside: avoid; font-weight: 700; }
+@media (max-width: 560px) { .sheet ol { columns: 1; } }
+.print-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+
+@media (max-width: 560px) {
+  .phase { padding: 14px 12px 12px; }
+  th, td { padding: 7px 6px; font-size: .84rem; }
+  .m { white-space: normal; }
+  .overview a { font-size: .62rem; }
+}
+footer { margin: 50px 0 40px; color: var(--text-dim); font-size: .88rem; }
+
+/* Druck */
+@media print {
+  :root { --bg: #fff; --surface: #fff; --surface-2: #fff; --text: #000; --text-dim: #444; --line: #ccc; --line-strong: #999; }
+  body { font-size: 11.5pt; }
+  .timerbar, .overview, .legend, .print-row, .no-print, .theme-toggle { display: none !important; }
+  .phase, .card, .heft, .callout { break-inside: avoid; box-shadow: none !important; opacity: 1 !important; }
+  .task { break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+  .links { display: none; }
+  body.print-sheet > *:not(main) { display: none !important; }
+  body.print-sheet main > *:not(#blatt) { display: none !important; }
+  body.print-sheet #blatt .solutions { display: none !important; }
+  body.print-sheet #blatt { margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="timerbar" role="region" aria-label="Stunden-Timer">
+  <div class="wrap">
+    <span class="clock" id="clock" aria-live="off">0:00</span>
+    <span class="now" id="now">Noch nicht gestartet <small>· 90 Minuten</small></span>
+    <button class="btn primary" id="startBtn" type="button">▶ Start</button>
+    <button class="btn" id="resetBtn" type="button">↺</button>
+  </div>
+  <div class="track" aria-hidden="true"><i id="trackFill"></i></div>
+</div>
+
+<main class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">Nachhilfe · Klasse 9 · Di., 13.10.2026</p>
+  <h1>Quadratische Gleichungen:<br><em>90 Minuten</em>, drei Wege</h1>
+  <p class="lead">Ein Stundenplan, der zum Heft der Schülerin passt (Abschnitt 1.4, Seite 18) und für Erklärungen und Übungen in die <a href="../quadratische-gleichungen/">Lernseite</a> verlinkt.</p>
+  <ul class="facts">
+    <li>⏱ 90 Min. inkl. Pause</li>
+    <li>📓 Heft S. 18 + Buch S. 18 Nr. 1</li>
+    <li>🚫 keine Lösungsformel</li>
+  </ul>
+
+  <div class="ways" aria-label="Die drei Wege laut Heft">
+    <div class="way" style="--c: var(--c-erg)"><b>Heft (1)</b><span>Quadratische Ergänzung</span><span class="m">ax² + bx + c = 0</span></div>
+    <div class="way" style="--c: var(--c-wurzel)"><b>Heft (2)</b><span>Wurzelziehen</span><span class="m">ax² + c = 0</span></div>
+    <div class="way" style="--c: var(--c-null)"><b>Heft (3)</b><span>Satz vom Nullprodukt</span><span class="m">ax² + bx = 0</span></div>
+  </div>
+</header>
+
+<section class="block" aria-labelledby="h-vorab">
+  <h2 id="h-vorab">Vorab: Was anders ist als in der Lernseite</h2>
+  <div class="callout">
+    <h4>Die Lehrkraft hat andere „drei Wege“</h4>
+    <p>Im Heft stehen <b>Ergänzung</b>, <b>Wurzelziehen</b> und <b>Nullprodukt</b>. Die Lernseite zählt stattdessen <i>Grafisch</i>, <i>Faktorisieren</i> und <i>Ergänzung</i>. Heute gelten nur die drei Wege aus dem Heft. Grafisch lösen, „binomische Formel rückwärts“ und den Produkt-Summen-Trick lassen wir weg, solange sie im Unterricht nicht drankamen.</p>
+  </div>
+  <div class="callout">
+    <h4>Reihenfolge heute: (2) → (3) → (1)</h4>
+    <p>Die Ergänzung endet mit Wurzelziehen, deshalb kommt das Wurzelziehen zuerst. Die Nummern aus dem Heft bleiben trotzdem stehen, damit sie alles wiederfindet.</p>
+  </div>
+  <div class="callout warn">
+    <h4>Am Anfang kurz fragen</h4>
+    <ul class="plain">
+      <li>Wann ist die HÜ? Was ist erlaubt (Taschenrechner)?</li>
+      <li>Kam „grafisch lösen“ oder „durch a teilen“ im Unterricht schon vor?</li>
+      <li>Wie lautet Buch S. 18 Nr. 1 vollständig? Ist sie fertig?</li>
+    </ul>
+  </div>
+</section>
+
+<section class="block" aria-labelledby="h-ablauf">
+  <h2 id="h-ablauf">Ablauf</h2>
+  <nav class="overview" aria-label="Phasen im Überblick">
+    <a href="#p1" style="--min:10;--c:var(--c-slate)" title="Heft-Check">Heft</a>
+    <a href="#p2" style="--min:10;--c:var(--c-base)" title="Fundament">Basis</a>
+    <a href="#p3" style="--min:15;--c:var(--c-wurzel)" title="Wurzelziehen">(2) √</a>
+    <a href="#p4" style="--min:13;--c:var(--c-null)" title="Nullprodukt">(3) Null</a>
+    <a href="#p5" class="pause" style="--min:4" title="Pause">☕</a>
+    <a href="#p6" style="--min:23;--c:var(--c-erg)" title="Quadratische Ergänzung">(1) Ergänzung</a>
+    <a href="#p7" style="--min:7;--c:var(--c-base)" title="Welcher Weg?">Wahl</a>
+    <a href="#p8" style="--min:6;--c:var(--c-slate)" title="Mini-HÜ">HÜ</a>
+    <a href="#p9" style="--min:2;--c:var(--c-slate)" title="Abschluss">✓</a>
+  </nav>
+  <p class="legend">Die Breite entspricht der Dauer. Mit „Start“ oben läuft der Timer, und die aktuelle Phase wird hervorgehoben.</p>
+
+  <!-- Phase 1 -->
+  <article class="phase" id="p1" data-start="0" data-end="10" style="--c: var(--c-slate)">
+    <div class="phase-head"><span class="phase-time">0–10</span><h3>Ankommen & Heft-Check</h3></div>
+    <p class="goal">Ziel: Sehen, was sie aus dem Unterricht mitgenommen hat, und die Abschreibfehler im Heft finden.</p>
+    <div class="cols">
+      <div>
+        <h4>Du sagst</h4>
+        <ul class="say">
+          <li>„Erklär mir Seite 18 so, als wäre ich krank gewesen.“</li>
+          <li>„Auf der Seite haben sich vier kleine Fehler eingeschlichen. Findest du sie?“ <em>(Fehlerdetektiv im eigenen Heft)</em></li>
+          <li>„Was ist der Unterschied zwischen x² und x₂?“</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Sie macht</h4>
+        <ul class="plain">
+          <li>erklärt die drei Wege mit eigenen Worten</li>
+          <li>sucht die Fehler und verbessert sie mit Farbe im Heft</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Im Heft</th><th>Richtig</th><th>Warum wichtig</th></tr></thead>
+        <tbody>
+          <tr><td>Satz vom <s>Nullpunkt</s></td><td class="fix">Satz vom Nullprodukt</td><td>Ein <i>Produkt</i> ist 0, wenn ein Faktor 0 ist. Der Name erklärt den Satz.</td></tr>
+          <tr><td>Form (3): <span class="m"><s>ax</s> + bx = 0</span></td><td class="fix m">ax² + bx = 0</td><td>Ohne x² ist es gar keine quadratische Gleichung.</td></tr>
+          <tr><td>zu (2): <span class="m"><s>4x</s> − 64 = 0</span></td><td class="fix m">4x² − 64 = 0</td><td>In der nächsten Zeile steht richtig 4x² = 64.</td></tr>
+          <tr><td><span class="m">x₁ = −5 &nbsp;<s>x²</s> = −6</span></td><td class="fix m">x₂ = −6</td><td>Index (x₂ = „zweite Lösung“) ist etwas anderes als Hochzahl (x² = x · x).</td></tr>
+          <tr><td><span class="m">L = {−5; −6}</span></td><td class="m">L = {−6; −5}</td><td>Kein Fehler, aber aufsteigend sortiert ist sauberer.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <!-- Phase 2 -->
+  <article class="phase" id="p2" data-start="10" data-end="20" style="--c: var(--c-base)">
+    <div class="phase-head"><span class="phase-time">10–20</span><h3>Fundament: Werkzeuge für alle drei Wege</h3></div>
+    <p class="goal">Ziel: Äquivalenzumformungen, Quadratzahlen und binomische Formeln sitzen, denn ohne sie scheitert jeder Weg.</p>
+    <div class="cols">
+      <div>
+        <h4>Du sagst</h4>
+        <ul class="say">
+          <li>„Was darfst du auf beiden Seiten machen, und was nie?“ <em>(Nie durch x teilen!)</em></li>
+          <li>„Ich sag eine Zahl, du sagst das Quadrat. 13? 15? 0,5? 5,5?“</li>
+          <li>„Rechne (x + 3)² aus, ohne die Formel aufzusagen.“</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Sie macht</h4>
+        <ul class="plain">
+          <li>Quadratzahlen-Blitz mündlich (1² bis 20², dazu 0,5², 1,5², 2,5², 5,5²)</li>
+          <li>3 binomische Formeln auf Papier</li>
+          <li>Fit-Check in der Lernseite, bis alles grün ist</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tasks">
+      <details class="task"><summary><span class="no">F1</span><span class="m">(x + 3)²</span><span class="hint">Lösung</span></summary><div class="sol"><span class="m">x² + 6x + 9</span></div></details>
+      <details class="task"><summary><span class="no">F2</span><span class="m">(x − 4)²</span><span class="hint">Lösung</span></summary><div class="sol"><span class="m">x² − 8x + 16</span></div></details>
+      <details class="task"><summary><span class="no">F3</span><span class="m">(x + 5,5)²</span><span class="hint">Lösung</span></summary><div class="sol"><span class="m">x² + 11x + 30,25</span>. Genau das braucht sie gleich für das Heft-Beispiel.</div></details>
+      <details class="task"><summary><span class="no">F4</span><span class="m">x² + 10x + 25 = (…)²</span><span class="hint">Lösung</span></summary><div class="sol"><span class="m">(x + 5)²</span>, also rückwärts erkennen.</div></details>
+    </div>
+    <div class="links">
+      <a href="../quadratische-gleichungen/#gl-fitcheck">Fit-Check Vorwissen</a>
+      <a href="../quadratische-gleichungen/#gl-menge">Lösungsmenge notieren</a>
+    </div>
+  </article>
+
+  <!-- Phase 3 -->
+  <article class="phase" id="p3" data-start="20" data-end="35" style="--c: var(--c-wurzel)">
+    <div class="phase-head"><span class="phase-time">20–35</span><h3>Weg (2): Wurzelziehen</h3><span class="tag">ax² + c = 0</span></div>
+    <p class="goal">Ziel: x² allein stellen, Wurzel ziehen, und das ± nie vergessen. Sie erkennt auch die Fälle „eine Lösung“ und „keine Lösung“.</p>
+    <div class="cols">
+      <div>
+        <h4>Du sagst</h4>
+        <ul class="say">
+          <li>„Welche Zahl mal sich selbst ergibt 49? Gibt es noch eine zweite?“</li>
+          <li>„Was muss weg, damit x² allein steht? Erst plus/minus, dann geteilt.“</li>
+          <li>„x² = −9: Kann ein Quadrat negativ sein?“</li>
+          <li>„Bei (x − 3)² = 16: Musst du ausmultiplizieren?“ <em>(Nein, direkt die Wurzel ziehen. Das ist die Brücke zur Ergänzung!)</em></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Sie macht</h4>
+        <ul class="plain">
+          <li>W1 und W2 (Heft und Buch) noch mal sauber, mit <span class="m">| …</span> hinter jeder Zeile</li>
+          <li>W3 bis W7 allein, du schaust nur zu</li>
+          <li>Probe bei W2: <span class="m">4 · (−4)² − 64 = 0</span> ✓</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tasks">
+      <details class="task"><summary><span class="no">W1</span><span class="m">x² = 49</span><span class="hint">Buch Nr. 1a</span></summary><div class="sol"><ol class="steps"><li><span>x² = 49</span><span class="op">| √ (±!)</span></li><li><span>x = ±7</span><span></span></li></ol><span class="L">L = {−7; 7}</span></div></details>
+      <details class="task"><summary><span class="no">W2</span><span class="m">4x² − 64 = 0</span><span class="hint">Heft</span></summary><div class="sol"><ol class="steps"><li><span>4x² = 64</span><span class="op">| + 64</span></li><li><span>x² = 16</span><span class="op">| : 4</span></li><li><span>x = ±4</span><span class="op">| √</span></li></ol><span class="L">L = {−4; 4}</span></div></details>
+      <details class="task"><summary><span class="no">W3</span><span class="m">3x² − 75 = 0</span><span class="hint">Lösung</span></summary><div class="sol"><ol class="steps"><li><span>3x² = 75</span><span class="op">| + 75</span></li><li><span>x² = 25</span><span class="op">| : 3</span></li><li><span>x = ±5</span><span class="op">| √</span></li></ol><span class="L">L = {−5; 5}</span></div></details>
+      <details class="task"><summary><span class="no">W4</span><span class="m">x² + 9 = 0</span><span class="hint">Lösung</span></summary><div class="sol"><ol class="steps"><li><span>x² = −9</span><span class="op">| − 9</span></li></ol>Ein Quadrat ist nie negativ, also gibt es keine Lösung. <span class="L">L = { }</span></div></details>
+      <details class="task"><summary><span class="no">W5</span><span class="m">5x² = 0</span><span class="hint">Lösung</span></summary><div class="sol"><ol class="steps"><li><span>x² = 0</span><span class="op">| : 5</span></li></ol>Nur 0² = 0, also eine Lösung. <span class="L">L = {0}</span></div></details>
+      <details class="task"><summary><span class="no">W6</span><span class="m">(x − 3)² = 16</span><span class="hint">Brücke</span></summary><div class="sol"><ol class="steps"><li><span>x − 3 = ±4</span><span class="op">| √</span></li><li><span>x = 3 ± 4</span><span class="op">| + 3</span></li></ol><span class="L">L = {−1; 7}</span></div></details>
+      <details class="task"><summary><span class="no">W7</span><span class="m">2x² − 50 = 0</span><span class="hint">Lösung</span></summary><div class="sol"><ol class="steps"><li><span>2x² = 50</span><span class="op">| + 50</span></li><li><span>x² = 25</span><span class="op">| : 2</span></li></ol><span class="L">L = {−5; 5}</span></div></details>
+    </div>
+    <div class="trap"><b>Stolperstelle:</b> Halbieren statt Wurzel ziehen (x² = 16 ⇒ x = 8). Frag dann: „8 · 8 ist?“</div>
+    <div class="links">
+      <a href="../quadratische-gleichungen/#fakt-b">Lernseite: Wurzel ziehen</a>
+      <a href="../quadratische-gleichungen/#gl-anzahl">Wie viele Lösungen?</a>
+    </div>
+  </article>
+
+  <!-- Phase 4 -->
+  <article class="phase" id="p4" data-start="35" data-end="48" style="--c: var(--c-null)">
+    <div class="phase-head"><span class="phase-time">35–48</span><h3>Weg (3): Satz vom Nullprodukt</h3><span class="tag">ax² + bx = 0</span></div>
+    <p class="goal">Ziel: x (mit gemeinsamer Zahl) ausklammern, jeden Faktor gleich 0 setzen, und die Lösung 0 nie verlieren.</p>
+    <div class="cols">
+      <div>
+        <h4>Du sagst</h4>
+        <ul class="say">
+          <li>„Ich denke mir zwei Zahlen. Ihr Produkt ist 0. Was weißt du sicher?“</li>
+          <li>„Und wenn das Produkt 12 ist?“ <em>(Dann weiß man nichts: 3 · 4, 2 · 6 …)</em></li>
+          <li>„Was steckt in beiden Teilen drin? Hol es vor die Klammer.“</li>
+          <li>„Darfst du bei x² = 5x durch x teilen? Was, wenn x gerade 0 ist?“</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Sie macht</h4>
+        <ul class="plain">
+          <li>N1 (Heft-Beispiel) mit Begründung vorrechnen</li>
+          <li>N2 bis N5 allein, zur Kontrolle wieder ausmultiplizieren</li>
+          <li>N6 als Falle: erst alles auf eine Seite bringen</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tasks">
+      <details class="task"><summary><span class="no">N1</span><span class="m">x² − 8x = 0</span><span class="hint">Heft</span></summary><div class="sol"><ol class="steps"><li><span>x · (x − 8) = 0</span><span class="op">| x ausklammern</span></li><li><span>x₁ = 0 oder x − 8 = 0</span><span class="op">| Nullprodukt</span></li><li><span>x₂ = 8</span><span></span></li></ol><span class="L">L = {0; 8}</span></div></details>
+      <details class="task"><summary><span class="no">N2</span><span class="m">3x² − 12x = 0</span><span class="hint">Lösung</span></summary><div class="sol"><ol class="steps"><li><span>3x · (x − 4) = 0</span><span class="op">| 3x ausklammern</span></li><li><span>x₁ = 0, x₂ = 4</span><span></span></li></ol><span class="L">L = {0; 4}</span></div></details>
+      <details class="task"><summary><span class="no">N3</span><span class="m">2x² + 10x = 0</span><span class="hint">Lösung</span></summary><div class="sol"><ol class="steps"><li><span>2x · (x + 5) = 0</span><span class="op">| 2x ausklammern</span></li><li><span>x₁ = 0, x₂ = −5</span><span></span></li></ol><span class="L">L = {−5; 0}</span></div></details>
+      <details class="task"><summary><span class="no">N4</span><span class="m">(x − 4)(x + 2) = 0</span><span class="hint">Lösung</span></summary><div class="sol">Schon ein Produkt: <span class="m">x − 4 = 0</span> oder <span class="m">x + 2 = 0</span>. <span class="L">L = {−2; 4}</span></div></details>
+      <details class="task"><summary><span class="no">N5</span><span class="m">x² + 9x = 0</span><span class="hint">Lösung</span></summary><div class="sol"><span class="m">x · (x + 9) = 0</span> <span class="L">L = {−9; 0}</span></div></details>
+      <details class="task"><summary><span class="no">N6</span><span class="m">x² = 5x</span><span class="hint">Falle!</span></summary><div class="sol"><ol class="steps"><li><span>x² − 5x = 0</span><span class="op">| − 5x</span></li><li><span>x · (x − 5) = 0</span><span class="op">| ausklammern</span></li></ol><span class="L">L = {0; 5}</span>. Wer durch x teilt, verliert die 0.</div></details>
+      <details class="task"><summary><span class="no">N7</span><span class="m">4x² = 6x</span><span class="hint">Zusatz</span></summary><div class="sol"><ol class="steps"><li><span>4x² − 6x = 0</span><span class="op">| − 6x</span></li><li><span>2x · (2x − 3) = 0</span><span class="op">| 2x ausklammern</span></li><li><span>2x − 3 = 0 ⇒ x = 1,5</span><span></span></li></ol><span class="L">L = {0; 1,5}</span></div></details>
+    </div>
+    <div class="trap"><b>Stolperstelle:</b> Der Satz gilt nur, wenn rechts 0 steht. Bei <span class="m">x(x − 2) = 3</span> darf man nicht „x = 3 oder x − 2 = 3“ rechnen.</div>
+    <div class="links">
+      <a href="../quadratische-gleichungen/#gl-nullprodukt">Lernseite: Satz vom Nullprodukt</a>
+      <a href="../quadratische-gleichungen/#fakt-a">x ausklammern</a>
+    </div>
+  </article>
+
+  <!-- Pause -->
+  <article class="phase" id="p5" data-start="48" data-end="52" style="--c: var(--line-strong)">
+    <div class="phase-head"><span class="phase-time">48–52</span><h3>☕ Pause</h3></div>
+    <p class="goal dim">Aufstehen, trinken, über etwas anderes reden. Danach kommt der schwerste Teil.</p>
+  </article>
+
+  <!-- Phase 6 -->
+  <article class="phase" id="p6" data-start="52" data-end="75" style="--c: var(--c-erg)">
+    <div class="phase-head"><span class="phase-time">52–75</span><h3>Weg (1): Quadratische Ergänzung</h3><span class="tag">ax² + bx + c = 0</span></div>
+    <p class="goal">Ziel: Das Rezept sitzt, auch mit Kommazahlen wie im Heft und bei den Sonderfällen „eine“ und „keine Lösung“.</p>
+
+    <div class="heft" aria-label="Heft-Beispiel abgeschrieben">
+      <h4>Das Heft-Beispiel, Zeile für Zeile</h4>
+      <div class="rows">
+        <span>x² + 11x + 30 = 0</span><span class="op">| − 30 · Äquivalenzumformung</span>
+        <span>x² + 11x = −30</span><span class="op">| + (11/2)² · quadr. Ergänzung</span>
+        <span>x² + 11x + 5,5² = −30 + 30,25</span><span class="op">| bin. Formel</span>
+        <span>(x + 5,5)² = 0,25</span><span class="op">| √ · Wurzel ziehen</span>
+        <span>x + 5,5 = ±0,5</span><span class="op">| − 5,5</span>
+        <span>x = −5,5 ± 0,5</span><span class="op"></span>
+        <span>x₁ = −5 &nbsp; x₂ = −6</span><span class="op">L = {−6; −5}</span>
+      </div>
+    </div>
+
+    <div class="cols">
+      <div>
+        <h4>Du sagst</h4>
+        <ul class="say">
+          <li>„Rezept in 5 Wörtern: Zahl rüber, halbieren, quadrieren, beidseitig addieren, Wurzel.“</li>
+          <li>„Warum halbieren wir die 11?“ <em>(Im Binom steht 2 · x · 5,5 = 11x.)</em></li>
+          <li>„Was du links dazulegst, musst du rechts auch dazulegen, sonst kippt die Waage.“</li>
+          <li>„Schau auf die Zahl rechts nach dem Binom: positiv, null oder negativ?“</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Sie macht</h4>
+        <ul class="plain">
+          <li>2 Min.: Flächenmodell in der Lernseite ansehen (warum „Ergänzung“)</li>
+          <li>Heft-Beispiel ohne Vorlage nachrechnen</li>
+          <li>E1 bis E3 gemeinsam, E4 bis E7 allein</li>
+          <li>das Rezept mit eigenen Worten ins Heft schreiben</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tasks">
+      <details class="task"><summary><span class="no">E1</span><span class="m">x² + 6x − 7 = 0</span><span class="hint">Lösung</span></summary><div class="sol"><ol class="steps"><li><span>x² + 6x = 7</span><span class="op">| + 7</span></li><li><span>x² + 6x + 3² = 7 + 9</span><span class="op">| + 3²</span></li><li><span>(x + 3)² = 16</span><span class="op">| bin. Formel</span></li><li><span>x + 3 = ±4</span><span class="op">| √</span></li><li><span>x = −3 ± 4</span><span class="op">| − 3</span></li></ol><span class="L">L = {−7; 1}</span></div></details>
+      <details class="task"><summary><span class="no">E2</span><span class="m">x² − 8x + 12 = 0</span><span class="hint">mit Minus</span></summary><div class="sol"><ol class="steps"><li><span>x² − 8x = −12</span><span class="op">| − 12</span></li><li><span>x² − 8x + 4² = −12 + 16</span><span class="op">| + 4²</span></li><li><span>(x − 4)² = 4</span><span class="op">| 2. bin. Formel</span></li><li><span>x − 4 = ±2</span><span class="op">| √</span></li></ol><span class="L">L = {2; 6}</span></div></details>
+      <details class="task"><summary><span class="no">E3</span><span class="m">x² + 3x − 4 = 0</span><span class="hint">Komma</span></summary><div class="sol"><ol class="steps"><li><span>x² + 3x = 4</span><span class="op">| + 4</span></li><li><span>x² + 3x + 1,5² = 4 + 2,25</span><span class="op">| + 1,5²</span></li><li><span>(x + 1,5)² = 6,25</span><span class="op">| bin. Formel</span></li><li><span>x + 1,5 = ±2,5</span><span class="op">| √</span></li><li><span>x = −1,5 ± 2,5</span><span class="op">| − 1,5</span></li></ol><span class="L">L = {−4; 1}</span></div></details>
+      <details class="task"><summary><span class="no">E4</span><span class="m">x² − 5x + 6 = 0</span><span class="hint">Komma</span></summary><div class="sol"><ol class="steps"><li><span>x² − 5x = −6</span><span class="op">| − 6</span></li><li><span>x² − 5x + 2,5² = −6 + 6,25</span><span class="op">| + 2,5²</span></li><li><span>(x − 2,5)² = 0,25</span><span class="op">| 2. bin. Formel</span></li><li><span>x − 2,5 = ±0,5</span><span class="op">| √</span></li></ol><span class="L">L = {2; 3}</span></div></details>
+      <details class="task"><summary><span class="no">E5</span><span class="m">x² + 7x + 10 = 0</span><span class="hint">Lösung</span></summary><div class="sol"><ol class="steps"><li><span>x² + 7x = −10</span><span class="op">| − 10</span></li><li><span>x² + 7x + 3,5² = −10 + 12,25</span><span class="op">| + 3,5²</span></li><li><span>(x + 3,5)² = 2,25</span><span class="op">| bin. Formel</span></li><li><span>x + 3,5 = ±1,5</span><span class="op">| √</span></li></ol><span class="L">L = {−5; −2}</span></div></details>
+      <details class="task"><summary><span class="no">E6</span><span class="m">x² − 10x + 25 = 0</span><span class="hint">eine Lösung</span></summary><div class="sol"><ol class="steps"><li><span>x² − 10x = −25</span><span class="op">| − 25</span></li><li><span>x² − 10x + 25 = 0</span><span class="op">| + 5²</span></li><li><span>(x − 5)² = 0</span><span class="op">| bin. Formel</span></li></ol>Rechts steht 0, also gibt es eine Lösung. <span class="L">L = {5}</span></div></details>
+      <details class="task"><summary><span class="no">E7</span><span class="m">x² + 4x + 5 = 0</span><span class="hint">keine Lösung</span></summary><div class="sol"><ol class="steps"><li><span>x² + 4x = −5</span><span class="op">| − 5</span></li><li><span>x² + 4x + 4 = −1</span><span class="op">| + 2²</span></li><li><span>(x + 2)² = −1</span><span class="op">| bin. Formel</span></li></ol>Ein Quadrat ist nie negativ. <span class="L">L = { }</span></div></details>
+      <details class="task"><summary><span class="no">E8</span><span class="m">2x² + 12x − 14 = 0</span><span class="hint">Zusatz</span></summary><div class="sol">Nur nehmen, wenn „durch a teilen“ im Unterricht dran war. <ol class="steps"><li><span>x² + 6x − 7 = 0</span><span class="op">| : 2</span></li></ol>Dann weiter wie bei E1. <span class="L">L = {−7; 1}</span></div></details>
+    </div>
+    <div class="trap"><b>Stolperstellen:</b> Die Ergänzung nur links addiert. Das Vorzeichen in der Klammer vergessen (x² − 8x → (x <b>−</b> 4)²). Am Ende nur „+“ gerechnet und eine Lösung verloren.</div>
+    <div class="links">
+      <a href="../quadratische-gleichungen/#erg-bild">Flächenmodell</a>
+      <a href="../quadratische-gleichungen/#erg-rezept">Rezept in 6 Schritten</a>
+      <a href="../quadratische-gleichungen/#erg-beispiele">Beispiele zum Aufdecken</a>
+      <a href="../quadratische-gleichungen/#erg-rechner">Eigene Gleichung</a>
+    </div>
+  </article>
+
+  <!-- Phase 7 -->
+  <article class="phase" id="p7" data-start="75" data-end="82" style="--c: var(--c-base)">
+    <div class="phase-head"><span class="phase-time">75–82</span><h3>Welcher Weg? Blitzrunde</h3></div>
+    <p class="goal">Ziel: In 10 Sekunden den passenden Heft-Weg nennen, ohne zu rechnen, und die Wahl begründen.</p>
+    <div class="cols">
+      <div>
+        <h4>Die Faustregel</h4>
+        <ul class="plain">
+          <li><b style="color:var(--c-wurzel)">kein x-Glied</b> (nur x² und Zahl) → (2) Wurzelziehen</li>
+          <li><b style="color:var(--c-null)">keine Zahl ohne x</b> → (3) ausklammern, Nullprodukt</li>
+          <li><b style="color:var(--c-erg)">alles da</b> → (1) Ergänzung (klappt immer)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Du sagst</h4>
+        <ul class="say">
+          <li>„Zehn Sekunden: Welcher Weg, und woran siehst du das?“</li>
+          <li>„Ginge die Ergänzung hier auch? Warum nimmst du sie trotzdem nicht?“</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Karte</th><th>Weg</th><th>Lösung</th></tr></thead>
+        <tbody>
+          <tr><td class="m">x² = 36</td><td>(2)</td><td class="m">{−6; 6}</td></tr>
+          <tr><td class="m">x² + 4x = 0</td><td>(3)</td><td class="m">{−4; 0}</td></tr>
+          <tr><td class="m">x² + 2x − 8 = 0</td><td>(1)</td><td class="m">{−4; 2}</td></tr>
+          <tr><td class="m">5x² − 20 = 0</td><td>(2)</td><td class="m">{−2; 2}</td></tr>
+          <tr><td class="m">7x² − 14x = 0</td><td>(3)</td><td class="m">{0; 2}</td></tr>
+          <tr><td class="m">x² − 6x + 5 = 0</td><td>(1)</td><td class="m">{1; 5}</td></tr>
+          <tr><td class="m">x² + 16 = 0</td><td>(2)</td><td class="m">{ }</td></tr>
+          <tr><td class="m">(x + 2)² = 25</td><td>(2), direkt √</td><td class="m">{−7; 3}</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="links"><a href="../quadratische-gleichungen/#mw-check">Lernseite: 5-Sekunden-Check</a></div>
+  </article>
+
+  <!-- Phase 8 -->
+  <article class="phase" id="p8" data-start="82" data-end="88" style="--c: var(--c-slate)">
+    <div class="phase-head"><span class="phase-time">82–88</span><h3>Mini-HÜ</h3></div>
+    <p class="goal">Ziel: Einmal die HÜ-Situation: allein, 6 Minuten, ohne Nachfragen. Danach gemeinsam vergleichen.</p>
+    <div class="tasks">
+      <details class="task"><summary><span class="no">H1</span><span class="m">3x² − 48 = 0</span><span class="hint">Lösung</span></summary><div class="sol">(2): <span class="m">x² = 16</span> <span class="L">L = {−4; 4}</span></div></details>
+      <details class="task"><summary><span class="no">H2</span><span class="m">x² + 9x = 0</span><span class="hint">Lösung</span></summary><div class="sol">(3): <span class="m">x(x + 9) = 0</span> <span class="L">L = {−9; 0}</span></div></details>
+      <details class="task"><summary><span class="no">H3</span><span class="m">x² − 4x − 12 = 0</span><span class="hint">Lösung</span></summary><div class="sol">(1): <span class="m">(x − 2)² = 16</span>, <span class="m">x = 2 ± 4</span> <span class="L">L = {−2; 6}</span></div></details>
+      <details class="task"><summary><span class="no">H4</span><span class="m">x² + 5x + 4 = 0</span><span class="hint">wer schnell ist</span></summary><div class="sol">(1): <span class="m">(x + 2,5)² = 2,25</span>, <span class="m">x = −2,5 ± 1,5</span> <span class="L">L = {−4; −1}</span></div></details>
+    </div>
+    <p class="small dim">Bewertung: je Aufgabe 1 Punkt für den richtigen Weg mit Umformungen und 1 Punkt für die richtige Lösungsmenge.</p>
+  </article>
+
+  <!-- Phase 9 -->
+  <article class="phase" id="p9" data-start="88" data-end="90" style="--c: var(--c-slate)">
+    <div class="phase-head"><span class="phase-time">88–90</span><h3>Abschluss & Hausaufgabe</h3></div>
+    <ul class="say">
+      <li>„Was nimmst du heute mit? Ein Satz pro Weg.“</li>
+      <li>„Was war am schwierigsten? Damit fangen wir nächstes Mal an.“</li>
+    </ul>
+    <p>Hausaufgabe: Teil C vom Aufgabenblatt, dazu täglich eine Turbo-Runde im <a href="../quadratische-gleichungen/#training">Trainingsraum</a> (Weg „Faktorisieren“ und „Ergänzung“, Stufe 1).</p>
+  </article>
+</section>
+
+<section class="block" id="blatt" aria-labelledby="h-blatt">
+  <h2 id="h-blatt">Aufgabenblatt</h2>
+  <div class="print-row">
+    <button class="btn primary" type="button" id="printSheet">🖨 Blatt ohne Lösungen drucken</button>
+    <button class="btn" type="button" id="printAll">🖨 Ganzen Plan drucken</button>
+  </div>
+  <div class="card sheet">
+    <p class="small dim">Quadratische Gleichungen · Nachhilfe 13.10.2026 · Schreib hinter jede Zeile, was du machst (<span class="m">| − 30</span>). Am Ende steht immer <span class="m">L = {…}</span>.</p>
+    <h3 style="color:var(--c-wurzel)">A · Wurzelziehen</h3>
+    <ol>
+      <li class="m">x² = 49</li>
+      <li class="m">4x² − 64 = 0</li>
+      <li class="m">3x² − 75 = 0</li>
+      <li class="m">x² + 9 = 0</li>
+      <li class="m">5x² = 0</li>
+      <li class="m">(x − 3)² = 16</li>
+    </ol>
+    <h3 style="color:var(--c-null)">B · Satz vom Nullprodukt</h3>
+    <ol start="7">
+      <li class="m">x² − 8x = 0</li>
+      <li class="m">3x² − 12x = 0</li>
+      <li class="m">2x² + 10x = 0</li>
+      <li class="m">(x − 4)(x + 2) = 0</li>
+      <li class="m">x² = 5x</li>
+      <li class="m">4x² = 6x</li>
+    </ol>
+    <h3 style="color:var(--c-erg)">C · Quadratische Ergänzung (Rest = Hausaufgabe)</h3>
+    <ol start="13">
+      <li class="m">x² + 6x − 7 = 0</li>
+      <li class="m">x² − 8x + 12 = 0</li>
+      <li class="m">x² + 3x − 4 = 0</li>
+      <li class="m">x² − 5x + 6 = 0</li>
+      <li class="m">x² + 7x + 10 = 0</li>
+      <li class="m">x² − 10x + 25 = 0</li>
+      <li class="m">x² + 4x + 5 = 0</li>
+      <li class="m">x² + 10x + 21 = 0</li>
+      <li class="m">x² − 3x − 10 = 0</li>
+      <li class="m">x² + 2x + 3 = 0</li>
+    </ol>
+    <details class="solutions" style="margin-top:14px">
+      <summary class="btn" style="display:inline-block">Lösungen anzeigen</summary>
+      <div class="tablewrap" style="margin-top:10px">
+        <table>
+          <tbody>
+            <tr><td>1</td><td class="m">{−7; 7}</td><td>7</td><td class="m">{0; 8}</td><td>13</td><td class="m">{−7; 1}</td><td>19</td><td class="m">{ }</td></tr>
+            <tr><td>2</td><td class="m">{−4; 4}</td><td>8</td><td class="m">{0; 4}</td><td>14</td><td class="m">{2; 6}</td><td>20</td><td class="m">{−7; −3}</td></tr>
+            <tr><td>3</td><td class="m">{−5; 5}</td><td>9</td><td class="m">{−5; 0}</td><td>15</td><td class="m">{−4; 1}</td><td>21</td><td class="m">{−2; 5}</td></tr>
+            <tr><td>4</td><td class="m">{ }</td><td>10</td><td class="m">{−2; 4}</td><td>16</td><td class="m">{2; 3}</td><td>22</td><td class="m">{ }</td></tr>
+            <tr><td>5</td><td class="m">{0}</td><td>11</td><td class="m">{0; 5}</td><td>17</td><td class="m">{−5; −2}</td><td></td><td></td></tr>
+            <tr><td>6</td><td class="m">{−1; 7}</td><td>12</td><td class="m">{0; 1,5}</td><td>18</td><td class="m">{5}</td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small dim" style="margin-top:8px">20: <span class="m">(x + 5)² = 4</span> · 21: <span class="m">(x − 1,5)² = 12,25</span> · 22: <span class="m">(x + 1)² = −2</span></p>
+    </details>
+  </div>
+</section>
+
+<section class="block no-print" aria-labelledby="h-nach">
+  <h2 id="h-nach">Nach der Stunde</h2>
+  <div class="cols">
+    <div class="card">
+      <h4 style="margin-bottom:10px">Sitzt allein?</h4>
+      <ul class="check" id="checklist">
+        <li><label><input type="checkbox" data-key="c1"><span>x² = k mit ± lösen, auch „keine Lösung“</span></label></li>
+        <li><label><input type="checkbox" data-key="c2"><span>Satz vom Nullprodukt sagen und anwenden</span></label></li>
+        <li><label><input type="checkbox" data-key="c3"><span>x ausklammern statt durch x teilen</span></label></li>
+        <li><label><input type="checkbox" data-key="c4"><span>Ergänzung mit ganzen Zahlen</span></label></li>
+        <li><label><input type="checkbox" data-key="c5"><span>Ergänzung mit Kommazahlen (wie im Heft)</span></label></li>
+        <li><label><input type="checkbox" data-key="c6"><span>Weg in 10 Sekunden wählen</span></label></li>
+        <li><label><input type="checkbox" data-key="c7"><span>L = {…} sauber notieren, x₁/x₂ statt x²</span></label></li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4 style="margin-bottom:10px">Notizen für nächstes Mal</h4>
+      <label class="small dim" for="notes">Wird nur auf diesem Gerät gespeichert.</label>
+      <textarea id="notes" placeholder="HÜ-Termin, Fehlerbilder, was nächstes Mal zuerst …"></textarea>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Passt zur Lernseite <a href="../quadratische-gleichungen/">Quadratische Gleichungen: drei Wege, ohne Formel</a>. Die Heft-Beispiele sind aus den Fotos der Schülerin abgeschrieben.
+</footer>
+</main>
+
+<script>
+(function () {
+  var TOTAL = 90 * 60 * 1000;
+  var KEY = 'nh-qg-2026-10-13:';
+  function load(k) { try { return localStorage.getItem(KEY + k); } catch (e) { return null; } }
+  function save(k, v) { try { if (v === null) localStorage.removeItem(KEY + k); else localStorage.setItem(KEY + k, v); } catch (e) {} }
+
+  var phases = Array.prototype.slice.call(document.querySelectorAll('.phase[data-start]'));
+  var clock = document.getElementById('clock');
+  var now = document.getElementById('now');
+  var fill = document.getElementById('trackFill');
+  var startBtn = document.getElementById('startBtn');
+  var resetBtn = document.getElementById('resetBtn');
+
+  // State: startedAt (ms) while running, elapsed (ms) while paused
+  var startedAt = Number(load('startedAt')) || 0;
+  var elapsed = Number(load('elapsed')) || 0;
+  var timerId = null;
+  var lastPhase = null;
+
+  function currentElapsed() { return startedAt ? Date.now() - startedAt : elapsed; }
+  function fmt(ms) {
+    var s = Math.floor(ms / 1000), m = Math.floor(s / 60);
+    return m + ':' + String(s % 60).padStart(2, '0');
+  }
+
+  function render() {
+    var ms = currentElapsed();
+    var min = ms / 60000;
+    clock.textContent = fmt(ms);
+    fill.style.width = Math.min(100, ms / TOTAL * 100) + '%';
+    var active = null;
+    phases.forEach(function (p) {
+      var s = Number(p.dataset.start), e = Number(p.dataset.end);
+      var isNow = ms > 0 && min >= s && min < e;
+      p.classList.toggle('is-now', isNow);
+      p.classList.toggle('is-done', ms > 0 && min >= e);
+      if (isNow) active = p;
+    });
+    if (ms === 0) {
+      now.innerHTML = 'Noch nicht gestartet <small>· 90 Minuten</small>';
+    } else if (active) {
+      var left = Math.max(0, Number(active.dataset.end) - min);
+      now.innerHTML = '';
+      now.textContent = active.querySelector('h3').textContent;
+      var small = document.createElement('small');
+      small.textContent = ' · noch ' + Math.ceil(left) + ' Min.';
+      now.appendChild(small);
+    } else {
+      now.textContent = 'Zeit um. Gut gemacht!';
+    }
+    if (active && active !== lastPhase && startedAt) {
+      active.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    lastPhase = active;
+    startBtn.textContent = startedAt ? '❚❚ Pause' : (ms > 0 ? '▶ Weiter' : '▶ Start');
+  }
+
+  function tick() { render(); }
+  function run() { if (!timerId) timerId = setInterval(tick, 1000); }
+  function stop() { clearInterval(timerId); timerId = null; }
+
+  startBtn.addEventListener('click', function () {
+    if (startedAt) {
+      elapsed = Date.now() - startedAt; startedAt = 0; stop();
+    } else {
+      startedAt = Date.now() - elapsed; run();
+    }
+    save('startedAt', startedAt ? String(startedAt) : null);
+    save('elapsed', String(elapsed));
+    lastPhase = null;
+    render();
+  });
+  resetBtn.addEventListener('click', function () {
+    startedAt = 0; elapsed = 0; stop();
+    save('startedAt', null); save('elapsed', null);
+    lastPhase = null;
+    render();
+  });
+  if (startedAt) run();
+  render();
+
+  // Checkliste und Notizen
+  document.querySelectorAll('#checklist input').forEach(function (cb) {
+    cb.checked = load('c:' + cb.dataset.key) === '1';
+    cb.addEventListener('change', function () { save('c:' + cb.dataset.key, cb.checked ? '1' : null); });
+  });
+  var notes = document.getElementById('notes');
+  notes.value = load('notes') || '';
+  notes.addEventListener('input', function () { save('notes', notes.value); });
+
+  // Drucken
+  document.getElementById('printSheet').addEventListener('click', function () {
+    document.body.classList.add('print-sheet');
+    window.print();
+  });
+  document.getElementById('printAll').addEventListener('click', function () {
+    document.body.classList.remove('print-sheet');
+    window.print();
+  });
+  // Zum Drucken alle Aufgaben aufklappen, danach alten Zustand wiederherstellen
+  var openBefore = [];
+  window.addEventListener('beforeprint', function () {
+    openBefore = Array.prototype.map.call(document.querySelectorAll('details.task'), function (d) {
+      var was = d.open; d.open = true; return was;
+    });
+  });
+  window.addEventListener('afterprint', function () {
+    document.body.classList.remove('print-sheet');
+    document.querySelectorAll('details.task').forEach(function (d, i) { d.open = !!openBefore[i]; });
+  });
+})();
+</script>
+</body>
+</html>
