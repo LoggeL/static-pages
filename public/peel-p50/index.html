@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Peel P50 · 3D</title>
+<meta name="description" content="Prozedural erzeugtes 3D-Modell des Peel P50, des kleinsten Serienautos der Welt – ohne Bildgenerierung, rein aus Code.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ece6da; --bg2: #f6f1e7; --ink: #1d1a16; --muted: #6d655a; --line: #d4cab8;
+    --panel: rgba(250, 246, 238, .82); --accent: #a8121a; --chip-ring: #1d1a16;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17161a; --bg2: #222026; --ink: #eee8dd; --muted: #a39b8e; --line: #3a363d;
+      --panel: rgba(30, 28, 33, .82); --accent: #e0444b; --chip-ring: #eee8dd;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17161a; --bg2: #222026; --ink: #eee8dd; --muted: #a39b8e; --line: #3a363d;
+    --panel: rgba(30, 28, 33, .82); --accent: #e0444b; --chip-ring: #eee8dd;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: radial-gradient(120% 90% at 50% 35%, var(--bg2), var(--bg)); color: var(--ink);
+         font: 15px/1.5 Inter, system-ui, sans-serif; overflow: hidden; }
+  #stage { position: fixed; inset: 0; }
+  canvas { display: block; outline: none; touch-action: none; }
+  header { position: fixed; top: 22px; left: 24px; right: 24px; display: flex; justify-content: space-between; align-items: flex-start; pointer-events: none; gap: 16px; }
+  h1 { font-family: Fraunces, Georgia, serif; font-weight: 700; font-size: clamp(30px, 5vw, 54px); line-height: .95; margin: 0; letter-spacing: -.02em; }
+  h1 small { display: block; font: 500 12px/1.4 "IBM Plex Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .tag { font: 12px/1.5 "IBM Plex Mono", monospace; color: var(--muted); max-width: 300px; text-align: right; }
+  .panel { position: fixed; background: var(--panel); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+           border: 1px solid var(--line); border-radius: 14px; }
+  #controls { left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; padding: 10px 14px; max-width: calc(100vw - 32px); flex-wrap: wrap; justify-content: center; }
+  .group { display: flex; gap: 6px; align-items: center; }
+  .sep { width: 1px; align-self: stretch; background: var(--line); }
+  .chip { width: 26px; height: 26px; border-radius: 50%; border: 2px solid transparent; cursor: pointer; padding: 0; box-shadow: inset 0 -3px 6px rgba(0,0,0,.25), inset 0 2px 4px rgba(255,255,255,.35); }
+  .chip[aria-pressed="true"] { outline: 2px solid var(--chip-ring); outline-offset: 2px; }
+  button.t { font: 500 12px/1 "IBM Plex Mono", monospace; letter-spacing: .04em; background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; cursor: pointer; }
+  button.t:hover, a.t:hover { border-color: var(--ink); }
+  button.t[aria-pressed="true"] { background: var(--ink); color: var(--bg2); border-color: var(--ink); }
+  a.t { font: 500 12px/1 "IBM Plex Mono", monospace; color: var(--bg2); background: var(--accent); border: 1px solid var(--accent); border-radius: 8px; padding: 8px 12px; text-decoration: none; }
+  #paintName { font: 12px "IBM Plex Mono", monospace; color: var(--muted); min-width: 92px; }
+  #specs { right: 24px; top: 50%; transform: translateY(-50%); padding: 16px 18px; width: 230px; font-size: 13px; }
+  #specs h2 { font: 500 11px "IBM Plex Mono", monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+  #specs dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; }
+  #specs dt { color: var(--muted); }
+  #specs dd { margin: 0; text-align: right; font-family: "IBM Plex Mono", monospace; font-size: 12.5px; }
+  #specs p { margin: 12px 0 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
+  #loading { position: fixed; inset: 0; display: grid; place-items: center; font: 13px "IBM Plex Mono", monospace; color: var(--muted); pointer-events: none; }
+  #hint { position: fixed; left: 24px; bottom: 26px; font: 11px "IBM Plex Mono", monospace; color: var(--muted); }
+  @media (max-width: 820px) {
+    header { top: 16px; left: 16px; right: 16px; }
+    .tag { display: none; }
+    #specs { display: none; }
+    #hint { display: none; }
+    #controls { bottom: 16px; gap: 10px; padding: 10px; }
+    .sep { display: none; }
+  }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div id="loading">Modell wird geladen …</div>
+<header>
+  <h1><small>Peel Engineering · Isle of Man · 1962–65</small>Peel P50</h1>
+  <div class="tag">Rein aus Code: Karosserie als Distanzfeld, per Surface Nets vernetzt. Keine Bildgenerierung, keine Fotos als Textur.</div>
+</header>
+
+<aside class="panel" id="specs">
+  <h2>Datenblatt</h2>
+  <dl>
+    <dt>Länge</dt><dd>1 370 mm</dd>
+    <dt>Breite</dt><dd>1 040 mm</dd>
+    <dt>Höhe</dt><dd>1 220 mm</dd>
+    <dt>Gewicht</dt><dd>59 kg</dd>
+    <dt>Motor</dt><dd>DKW 49 cm³</dd>
+    <dt>Leistung</dt><dd>4,2 PS</dd>
+    <dt>Spitze</dt><dd>61 km/h</dd>
+    <dt>Rückwärtsgang</dt><dd>keiner</dd>
+  </dl>
+  <p>Eine Tür (links), ein Scheinwerfer, ein Wischer. Wenden per Hand am Griff hinten.</p>
+</aside>
+
+<div class="panel" id="controls">
+  <div class="group" id="paints" role="group" aria-label="Lackfarbe"></div>
+  <span id="paintName"></span>
+  <span class="sep"></span>
+  <div class="group" role="group" aria-label="Ansicht">
+    <button class="t" data-view="34">¾</button>
+    <button class="t" data-view="front">Front</button>
+    <button class="t" data-view="side">Seite</button>
+    <button class="t" data-view="rear">Heck</button>
+  </div>
+  <span class="sep"></span>
+  <button class="t" id="spin" aria-pressed="true">Drehen</button>
+  <a class="t" href="p50.glb" download="peel-p50.glb">GLB ↓</a>
+</div>
+<div id="hint">Ziehen = drehen · Scrollen = zoomen</div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.0;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+stage.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+scene.environmentIntensity = 0.9;
+
+const camera = new THREE.PerspectiveCamera(32, innerWidth / innerHeight, 0.05, 50);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.minDistance = 1.4; controls.maxDistance = 9;
+controls.maxPolarAngle = Math.PI * 0.495;
+controls.target.set(0, 0.6, 0);
+controls.autoRotate = true; controls.autoRotateSpeed = 0.8;
+
+const sun = new THREE.DirectionalLight(0xfff3e0, 2.2);
+sun.position.set(2.5, 4.5, 2.0);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+Object.assign(sun.shadow.camera, { left: -1.5, right: 1.5, top: 1.5, bottom: -1.5, near: 0.5, far: 12 });
+sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.01; sun.shadow.radius = 6;
+scene.add(sun);
+scene.add(new THREE.HemisphereLight(0xffffff, 0x8a7d6a, 0.5));
+
+const ground = new THREE.Mesh(new THREE.CircleGeometry(6, 64), new THREE.ShadowMaterial({ opacity: 0.28 }));
+ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+// weicher Kontaktschatten
+const cs = document.createElement('canvas'); cs.width = cs.height = 256;
+const cx = cs.getContext('2d'); const gr = cx.createRadialGradient(128, 128, 10, 128, 128, 128);
+gr.addColorStop(0, 'rgba(0,0,0,.55)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); cx.fillStyle = gr; cx.fillRect(0, 0, 256, 256);
+const blob = new THREE.Mesh(new THREE.PlaneGeometry(1.9, 1.35), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(cs), transparent: true, depthWrite: false }));
+blob.rotation.x = -Math.PI / 2; blob.position.y = 0.001; scene.add(blob);
+
+const PAINTS = [
+  { name: 'Dragon Red', hex: 0xa8121a },
+  { name: 'Daytona White', hex: 0xeceae2 },
+  { name: 'Dark Blue', hex: 0x1d3a6e },
+  { name: 'Peel Blau', hex: 0x2f8fd0 },
+  { name: 'Gelb', hex: 0xf2c21b },
+];
+let paintMats = [];
+const paintsEl = document.getElementById('paints');
+const nameEl = document.getElementById('paintName');
+function setPaint(i) {
+  for (const m of paintMats) m.color.setHex(PAINTS[i].hex);
+  [...paintsEl.children].forEach((b, j) => b.setAttribute('aria-pressed', String(i === j)));
+  nameEl.textContent = PAINTS[i].name;
+  try { localStorage.setItem('p50-paint', i); } catch {}
+}
+PAINTS.forEach((p, i) => {
+  const b = document.createElement('button'); b.className = 'chip'; b.title = p.name; b.setAttribute('aria-label', p.name);
+  b.style.background = '#' + p.hex.toString(16).padStart(6, '0'); b.onclick = () => setPaint(i); paintsEl.appendChild(b);
+});
+
+const VIEWS = { '34': [2.6, 1.35, 2.9], front: [3.6, 0.9, 0.0], side: [0, 0.9, 3.9], rear: [-3.6, 1.0, 0.0] };
+let tween = null;
+function goView(k) {
+  const from = camera.position.clone(), to = new THREE.Vector3(...VIEWS[k]);
+  tween = { from, to, t0: performance.now() };
+  setSpin(false);
+}
+document.querySelectorAll('[data-view]').forEach((b) => (b.onclick = () => goView(b.dataset.view)));
+const spinBtn = document.getElementById('spin');
+function setSpin(on) { controls.autoRotate = on; spinBtn.setAttribute('aria-pressed', String(on)); }
+spinBtn.onclick = () => setSpin(!controls.autoRotate);
+controls.addEventListener('start', () => { tween = null; });
+
+camera.position.set(...VIEWS['34']);
+new GLTFLoader().load('p50.glb', (gltf) => {
+  const car = gltf.scene;
+  car.traverse((o) => {
+    if (!o.isMesh) return;
+    o.castShadow = !o.material.transparent; o.receiveShadow = true;
+    if (o.material.name === 'Lack' && !paintMats.includes(o.material)) paintMats.push(o.material);
+    if (o.material.side === THREE.DoubleSide) o.material.shadowSide = THREE.BackSide;
+    if (o.material.name === 'Glas') { o.material.depthWrite = false; o.renderOrder = 2; }
+  });
+  // GLTF verliert Klarlack-Feinheiten nicht, aber sicherheitshalber:
+  for (const m of paintMats) { if ('clearcoat' in m) { m.clearcoat = 1; m.clearcoatRoughness = 0.05; } }
+  scene.add(car);
+  let saved = 0; try { saved = +localStorage.getItem('p50-paint') || 0; } catch {}
+  setPaint(PAINTS[saved] ? saved : 0);
+  document.getElementById('loading').remove();
+  window.__ready = true;
+}, undefined, (e) => { document.getElementById('loading').textContent = 'Modell konnte nicht geladen werden.'; console.error(e); });
+
+// Hilfsfunktion für Screenshots
+window.__setView = (p, t = [0, 0.6, 0]) => { setSpin(false); tween = null; camera.position.set(...p); controls.target.set(...t); controls.update(); };
+
+// Hochformat: vertikales Sichtfeld so weiten, dass das Auto in der Breite passt
+function fit() {
+  camera.aspect = innerWidth / innerHeight;
+  camera.fov = Math.max(32, 2 * THREE.MathUtils.radToDeg(Math.atan(Math.tan(THREE.MathUtils.degToRad(19)) / camera.aspect)));
+  camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight);
+}
+addEventListener('resize', fit); fit();
+renderer.setAnimationLoop((now) => {
+  if (tween) {
+    const u = Math.min(1, (now - tween.t0) / 900), e = u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+    // über Kugelkoordinaten interpolieren, damit die Kamera nicht durchs Auto fährt
+    const a = new THREE.Spherical().setFromVector3(tween.from.clone().sub(controls.target));
+    const b = new THREE.Spherical().setFromVector3(tween.to.clone().sub(controls.target));
+    let dth = b.theta - a.theta; if (dth > Math.PI) dth -= 2 * Math.PI; if (dth < -Math.PI) dth += 2 * Math.PI;
+    const s = new THREE.Spherical(a.radius + (b.radius - a.radius) * e, a.phi + (b.phi - a.phi) * e, a.theta + dth * e);
+    camera.position.setFromSpherical(s).add(controls.target);
+    if (u >= 1) tween = null;
+  }
+  controls.update();
+  renderer.render(scene, camera);
+});
+</script>
+</body>
+</html>
