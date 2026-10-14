@@ -1,5 +1,29 @@
 # Bodycam-Test-Harness (C13/C16/C20)
 
+## Mobile Steuerung und Ausfälle
+
+`mobile-check.mjs` prüft in echtem Chromium mit mehreren nativen
+Touchkontakten die App bei 390 × 844, 844 × 390 und 1024 × 768.
+Der Lauf umfasst analoge Bewegung, Kamera und gleichzeitiges Feuer,
+Abbruch/Pause/Dispose, Umschalter und Aktionen, Trefferflächen sowie
+den tatsächlichen WebGL-Kontextverlust mit anschließendem Neustart.
+Ein Sandbox-Iframe ohne Pointer-Lock-Freigabe prüft die Ersatzsteuerung.
+Netzwerkfälle prüfen eine fehlende oder beschädigte Einzelaufnahme,
+fehlende Aufnahmen insgesamt, ein fehlendes Manifest und einfache Grafik.
+Die normal geladenen Modelle, Engine und Web-Audio-Nodes sind echt;
+Ausfälle werden gezielt über HTTP-Antworten erzeugt. Die Gerätegrößen
+und Touchkontakte werden auf der Mac-GPU emuliert.
+
+```sh
+node sources/bodycam-demo/tools/harness/mobile-check.mjs /absoluter/neuer/ausgabeordner
+node sources/bodycam-demo/tools/harness/suite.mjs --only mobile,source-integrity
+```
+
+Der Test ist als Gruppe `mobile` Bestandteil der Gesamtsuite. Eine optionale
+zweite CLI-Angabe bei `mobile-check.mjs` wählt eine veröffentlichte
+Demo-URL; der lokale Sandbox-Fall entfällt dann. Im Veröffentlichungsstand
+vom 14.10.2026 wurden 65 lokale Checks in zehn Szenarien bestanden.
+
 Lokales Node-Werkzeug, kein Build-Schritt für die Demo. Benötigt Node >= 22 und den in `_common.md` angegebenen Chromium. Installation ab Repo-Root:
 
 ```sh

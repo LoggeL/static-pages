@@ -29,6 +29,7 @@ export function gateInput(input, isPlaying) {
     emit: (...args) => input.emit(...args),
     isDown: code => isPlaying() && input.isDown(code),
     consumeLook: () => isPlaying() ? input.consumeLook() : { x: 0, y: 0 },
+    getMoveAxes: () => isPlaying() ? input.getMoveAxes?.() : null,
     requestLock: () => input.requestLock(),
     exitLock: () => input.exitLock(),
     get active() { return isPlaying() && input.active; },

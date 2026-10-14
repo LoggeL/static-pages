@@ -288,9 +288,13 @@ export function createOverlay(params) {
       context.shadowOffsetX = values[5] * scale;
       context.shadowOffsetY = values[6] * scale;
       context.shadowBlur = values[21] * scale;
-      const capPx = values[0] * scale;
-      drawBlock(values[10], metrics.left, values[1] * scale, values[2] * scale, 'left', capPx, -values[9], values[4]);
-      drawBlock(rightText(), metrics.right, canvas.width - (1920 - values[3]) * scale, values[2] * scale, 'right', capPx, values[9], values[4]);
+      const portrait = canvas.width < canvas.height;
+      const capPx = portrait ? Math.min(values[0] * scale, canvas.width / 40) : values[0] * scale;
+      const timestamp = rightText();
+      drawBlock(values[10], metrics.left, portrait ? canvas.width * 0.08 : values[1] * scale, values[2] * scale, 'left', capPx, -values[9], values[4]);
+      drawBlock(portrait ? values[13] : timestamp, metrics.right,
+        portrait ? canvas.width * 0.92 : canvas.width - (1920 - values[3]) * scale,
+        values[2] * scale, 'right', capPx, values[9], values[4]);
       if (effectMode) {
         drawBlock(values[effectMode === 1 ? 23 : 24], metrics.status, canvas.width * 0.5, canvas.height * 0.5,
           'center', values[20] * scale, 0, values[effectMode === 1 ? 18 : 19]);

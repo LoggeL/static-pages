@@ -39,6 +39,9 @@ export function createInput(element, { debug = false, preventDefault = true } = 
 
   const subscribers = new Map();
   const held = new Set();
+  const virtual = new Map();
+  let moveAxes = null;
+  let mode = 'pointer';
   const removers = [];
   let lookX = 0;
   let lookY = 0;
@@ -49,7 +52,8 @@ export function createInput(element, { debug = false, preventDefault = true } = 
   let lockRequest = null;
 
   const locked = () => doc.pointerLockElement === element;
-  const active = () => !disposed && !doc.hidden && focused && (debug || locked());
+  const active = () => !disposed && !doc.hidden && focused && (debug || mode === 'touch' || locked());
+  const isDown = code => held.has(code) || [...virtual.values()].some(keys => keys.has(code));
 
   function on(type, callback) {
     if (typeof callback !== 'function') throw new TypeError('Input listener must be a function.');
@@ -100,8 +104,9 @@ export function createInput(element, { debug = false, preventDefault = true } = 
   }
 
   function clearHeld(reason) {
-    const previous = [...held];
+    const previous = [...new Set([...held, ...[...virtual.values()].flatMap(keys => [...keys])])];
     held.clear();
+    virtual.clear(); moveAxes = null;
     lookX = 0;
     lookY = 0;
     for (const code of previous) {
@@ -115,11 +120,13 @@ export function createInput(element, { debug = false, preventDefault = true } = 
   function finishLockRequest(success) {
     const pending = lockRequest;
     lockRequest = null;
+    if (pending) win.clearTimeout(pending.timer);
     pending?.resolve(success);
   }
 
   function requestLock() {
     if (disposed || doc.hidden) return Promise.resolve(false);
+    if (mode === 'touch') { focused = true; return Promise.resolve(true); }
     if (locked()) return Promise.resolve(true);
     if (lockRequest) return lockRequest.promise;
     if (typeof element.requestPointerLock !== 'function') {
@@ -129,7 +136,12 @@ export function createInput(element, { debug = false, preventDefault = true } = 
 
     let resolve;
     const promise = new Promise((complete) => { resolve = complete; });
-    const pending = { promise, resolve };
+    const pending = { promise, resolve, timer: win.setTimeout(() => {
+      if (lockRequest === pending) {
+        finishLockRequest(false);
+        emit('pointerlockerror', { error: new Error('Pointer Lock timed out.') });
+      }
+    }, 2500) };
     lockRequest = pending;
     try {
       // No unadjustedMovement option: retain compatibility with Safari and Firefox.
@@ -160,7 +172,7 @@ export function createInput(element, { debug = false, preventDefault = true } = 
     const code = event.code;
     if (!code) return;
     if (GAME_KEYS.has(code)) prevent(event);
-    const repeat = !!event.repeat || held.has(code);
+    const repeat = !!event.repeat || isDown(code);
     held.add(code);
     const payload = keyPayload(event, repeat);
     emit('keydown', payload);
@@ -177,15 +189,17 @@ export function createInput(element, { debug = false, preventDefault = true } = 
   function handleKeyUp(event) {
     // A matching release must work even if focus moved to an editable element.
     const wasHeld = held.delete(event.code);
+    if (isDown(event.code)) return;
     if (!wasHeld && (!active() || (isEditable(event.target) && !locked()))) return;
     if (GAME_KEYS.has(event.code)) prevent(event);
     emit('keyup', keyPayload(event));
   }
 
   function handleMouseDown(event) {
+    if (mode === 'touch') return;
     if (!active() || (!locked() && !insideElement(event.target))) return;
     const code = `Mouse${event.button}`;
-    if (held.has(code)) return;
+    if (isDown(code)) { held.add(code); return; }
     prevent(event);
     held.add(code);
     const payload = {
@@ -200,11 +214,13 @@ export function createInput(element, { debug = false, preventDefault = true } = 
   function handleMouseUp(event) {
     const code = `Mouse${event.button}`;
     if (!held.delete(code)) return;
+    if (isDown(code)) return;
     prevent(event);
     releaseMouse(code, { originalEvent: event, synthetic: false });
   }
 
   function handleMouseMove(event) {
+    if (mode === 'touch') return;
     if (!active() || (!locked() && !insideElement(event.target))) return;
     const x = Number.isFinite(event.movementX) ? event.movementX : 0;
     const y = Number.isFinite(event.movementY) ? event.movementY : 0;
@@ -248,7 +264,7 @@ export function createInput(element, { debug = false, preventDefault = true } = 
   });
   listen(element, 'click', (event) => {
     // The click acquiring the lock never becomes a weapon trigger press.
-    if (event.button === 0 && !debug && !locked()) void requestLock();
+    if (event.button === 0 && !debug && mode !== 'touch' && !locked()) void requestLock();
   });
   listen(element, 'contextmenu', (event) => { if (active()) prevent(event); });
   listen(win, 'blur', () => {
@@ -261,7 +277,46 @@ export function createInput(element, { debug = false, preventDefault = true } = 
   return {
     on,
     emit,
-    isDown: (code) => held.has(code),
+    isDown,
+    setMode(value) {
+      if (!['touch', 'pointer'].includes(value)) throw new RangeError('Invalid input mode');
+      if (value !== mode) { clearHeld('mode'); mode = value; }
+    },
+    get mode() { return mode; },
+    setMoveAxes(x, y) {
+      if (disposed) return;
+      if (x === null) { moveAxes = null; return; }
+      if (![x, y].every(Number.isFinite)) throw new TypeError('Finite movement axes required');
+      const length = Math.max(1, Math.hypot(x, y));
+      moveAxes = { right: x / length, forward: y / length };
+    },
+    getMoveAxes() { return moveAxes; },
+    addLook(x, y) {
+      if (!active() || ![x, y].every(Number.isFinite)) return;
+      lookX += x; lookY += y; emit('look', { x, y, synthetic: true });
+    },
+    setVirtualKey(code, pressed, owner = 'touch') {
+      if (disposed || (pressed && !active())) return;
+      const before = isDown(code);
+      if (!virtual.has(owner)) virtual.set(owner, new Set());
+      const keys = virtual.get(owner);
+      if (pressed) keys.add(code); else keys.delete(code);
+      if (!keys.size) virtual.delete(owner);
+      if (before === isDown(code)) return;
+      const payload = { code, pressed, repeat: false, synthetic: true, originalEvent: null };
+      if (code.startsWith('Mouse')) {
+        if (!pressed) releaseMouse(code, payload);
+        else {
+          const button = Number(code.slice(5));
+          emit('mousedown', { ...payload, button });
+          if (button === 0 || button === 2) action(button === 0 ? 'fire' : 'aim', { ...payload, button });
+        }
+      } else {
+        emit(pressed ? 'keydown' : 'keyup', payload);
+        if (pressed && INPUT_ACTIONS[code]) action(INPUT_ACTIONS[code], payload);
+      }
+    },
+    reset: clearHeld,
     consumeLook() {
       const delta = { x: lookX, y: lookY };
       lookX = 0;

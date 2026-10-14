@@ -4,13 +4,15 @@ import { STRINGS } from './strings.js';
 import { createEventBus, gateInput, bridgePlayerEvents } from './events.js';
 import { createAudioSource } from './audio-source.js';
 import { createFallbackWorld, createFallbackPlayer, createFallbackInput } from './fallbacks.js';
+import { createTouchControls } from './touch.js';
+import { createQualityController, renderTier, prefersTouch } from './quality.js';
 
 const noop = () => {};
 
-export async function createDemo({ canvas, quality = 'high', volume = 0.65, onProgress = noop,
+export async function createDemo({ canvas, quality = 'auto', controls = 'auto', volume = 0.65, onProgress = noop,
   ui = {}, debug = false, syntheticAudio = false, hooks = {}, npcConfig = {} } = {}) {
   if (!canvas?.getContext) throw new TypeError('startDemo requires a canvas');
-  const view = Object.fromEntries(['setState', 'setProgress', 'notice', 'clearNotice', 'subtitle']
+  const view = Object.fromEntries(['setState', 'setProgress', 'notice', 'clearNotice', 'subtitle', 'setInputMode', 'setSettings']
     .map(name => [name, typeof ui[name] === 'function' ? ui[name].bind(ui) : noop]));
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' });
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -22,6 +24,11 @@ export async function createDemo({ canvas, quality = 'high', volume = 0.65, onPr
   renderer.shadowMap.autoUpdate = false;
   renderer.autoClear = false;
   renderer.info.autoReset = false;
+  const gl = renderer.getContext(), gpuInfo = gl.getExtension('WEBGL_debug_renderer_info');
+  const tier = renderTier(String(gl.getParameter(gpuInfo ? gpuInfo.UNMASKED_RENDERER_WEBGL : gl.RENDERER)), prefersTouch());
+  const qualityController = createQualityController({ tier, mode: quality, onChange: value => {
+    currentQuality = value.quality; post?.setQuality(currentQuality); resize();
+  } });
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(APP_CONFIG.camera.fov, 1, APP_CONFIG.camera.near, APP_CONFIG.camera.far);
   scene.add(camera);
@@ -34,11 +41,12 @@ export async function createDemo({ canvas, quality = 'high', volume = 0.65, onPr
   const inverseRecoil = new THREE.Quaternion();
   const state = { time: 0, angularVelocity: new THREE.Vector3(), linearVelocity: new THREE.Vector3(),
     shake: 0, muzzleFlash: 0, damage: 0, exposureHint: 0, flashlightOn: false };
-  let world, player, weapon = null, arms = null, npcs = null, input, rawInput, audio = null, post = null, audioSource;
+  let world, player, weapon = null, arms = null, npcs = null, input, rawInput, audio = null, post = null, audioSource, touchControls;
   let phase = 'loading', ready = false, disposed = false, contextLost = false;
   let introCalled = false, firstRoomSent = false, starting = false, frameFrozen = false, humStarted = false;
   let raf = 0, frames = 0, last = performance.now(), progress = 0;
-  let currentQuality = ['low', 'medium', 'high'].includes(quality) ? quality : 'high';
+  let currentQuality = qualityController.snapshot().quality;
+  let currentControls = controls;
   let currentVolume = Number.isFinite(volume) ? THREE.MathUtils.clamp(volume, 0, 1) : 0.65;
   const activeHooks = { onIntro: noop, onRoomEnter: noop, onAllSuspectsDown: noop, onPlayerDeath: noop, ...hooks };
 
@@ -54,7 +62,9 @@ export async function createDemo({ canvas, quality = 'high', volume = 0.65, onPr
     }
     view.notice(id, message);
   }
-  function setPhase(value) { phase = value; view.setState(value); }
+  function setPhase(value) {
+    phase = value; qualityController.reset(); touchControls?.setPlaying(value === 'playing'); view.setState(value);
+  }
   function invokeHook(name, payload = {}) {
     try {
       const result = activeHooks[name]?.({ ...payload, app: api, bus, ui: view });
@@ -83,9 +93,17 @@ export async function createDemo({ canvas, quality = 'high', volume = 0.65, onPr
   removers.push(bus.on('subtitle', payload => view.subtitle(payload.text, payload.ms ?? APP_CONFIG.subtitleMs)));
 
   function setQuality(value) {
-    if (!['low', 'medium', 'high'].includes(value)) throw new RangeError('quality: low, medium, high');
-    currentQuality = value; post?.setQuality(value); resize();
+    qualityController.setMode(value);
     samples.length = 0;
+    return value;
+  }
+  function setControls(value) {
+    if (!['auto', 'touch', 'mouse'].includes(value)) throw new RangeError('controls: auto, touch, mouse');
+    if (phase === 'playing') pause();
+    currentControls = value;
+    const touch = value === 'touch' || value === 'auto' && prefersTouch();
+    rawInput?.setMode?.(touch ? 'touch' : 'pointer');
+    touchControls?.setEnabled(touch); view.setInputMode(touch ? 'touch' : 'pointer');
     return value;
   }
   function setVolume(value) {
@@ -98,7 +116,7 @@ export async function createDemo({ canvas, quality = 'high', volume = 0.65, onPr
     if (disposed || contextLost) return;
     const width = Math.max(1, canvas.clientWidth || innerWidth);
     const height = Math.max(1, canvas.clientHeight || innerHeight);
-    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, APP_CONFIG.maxPixelRatio));
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, APP_CONFIG.maxPixelRatio) * qualityController.snapshot().scale);
     renderer.setSize(width, height, false);
     camera.aspect = width / height; camera.updateProjectionMatrix();
     renderer.getDrawingBufferSize(drawingSize);
@@ -150,6 +168,7 @@ export async function createDemo({ canvas, quality = 'high', volume = 0.65, onPr
           advance(dt);
           // Measure real rAF intervals, never the clamped simulation timestep.
           if (elapsed > 0) { samples.push(elapsed * 1000); if (samples.length > APP_CONFIG.measurementFrames) samples.shift(); }
+          qualityController.sample(elapsed * 1000);
         }
         render(phase === 'playing' ? dt : 0);
       }
@@ -177,7 +196,11 @@ export async function createDemo({ canvas, quality = 'high', volume = 0.65, onPr
       issue('audio-unlock', STRINGS.audioUnavailable, error); return false;
     }) : Promise.resolve(false);
     const lock = debug || !rawInput.available ? Promise.resolve(true) : input.requestLock();
-    const locked = await lock;
+    let locked = await lock;
+    if (!locked && !disposed && !contextLost && !document.hidden && rawInput.setMode) {
+      setControls('touch'); view.setSettings({ controls: 'touch' });
+      issue('pointer-lock', STRINGS.pointerLockUnavailable); locked = true;
+    }
     if (!locked || disposed || contextLost || document.hidden) {
       audio?.setMasterVolume(0); void audio?.context?.suspend().catch(noop);
       if (!locked) issue('pointer-lock', STRINGS.pointerLockUnavailable);
@@ -189,7 +212,7 @@ export async function createDemo({ canvas, quality = 'high', volume = 0.65, onPr
       if (!ok && audio) issue('audio-unlock', STRINGS.audioUnavailable);
       if (phase !== 'playing') { audio?.setMasterVolume(0); void audio?.context?.suspend().catch(noop); }
     });
-    view.clearNotice('pointer-lock');
+    if (rawInput.mode !== 'touch') view.clearNotice('pointer-lock');
     setPhase('playing'); frameFrozen = false; canvas.focus({ preventScroll: true });
     audio?.setMasterVolume(currentVolume); samples.length = 0; last = performance.now(); post?.resetHistory();
     if (audio && !humStarted && world.policeCar) {
@@ -203,7 +226,8 @@ export async function createDemo({ canvas, quality = 'high', volume = 0.65, onPr
     const sorted = [...samples].sort((a, b) => a - b);
     const mean = samples.length ? samples.reduce((sum, ms) => sum + ms, 0) / samples.length : 0;
     const gl = renderer.getContext(), extension = gl.getExtension('WEBGL_debug_renderer_info');
-    return { ready, phase, paused: phase !== 'playing', quality: currentQuality, volume: currentVolume,
+    return { ready, phase, paused: phase !== 'playing', quality: currentQuality, graphics: qualityController.snapshot(),
+      controls: rawInput?.mode ?? 'unavailable', volume: currentVolume,
       ...player?.stats(), frames, fps: mean ? 1000 / mean : 0, frameMs: { mean, p95: sorted[Math.floor(sorted.length * 0.95)] ?? 0, samples: samples.length },
       viewport: [canvas.width, canvas.height], pixelRatio: renderer.getPixelRatio(),
       gpu: extension ? gl.getParameter(extension.UNMASKED_RENDERER_WEBGL) : 'unknown',
@@ -211,11 +235,17 @@ export async function createDemo({ canvas, quality = 'high', volume = 0.65, onPr
       geometries: renderer.info.memory.geometries, textures: renderer.info.memory.textures,
       modules: { world: !world?.fallback, player: !player?.fallback, input: !!rawInput?.available,
         weapon: !!weapon, arms: !!arms, npcs: !!npcs, audio: !!audio, post: !!post },
-      audioMode: audioSource?.mode ?? 'unavailable', audio: audio?.getDiagnostics(),
+      audioMode: audioMode(), audio: audio?.getDiagnostics(),
       weapon: weapon?.state(), arms: arms?.state(), npcs: npcs?.state(), post: post ? { renderSize: [post.diagnostics.renderWidth, post.diagnostics.renderHeight], quality: post.diagnostics.quality,
         gpu: post.diagnostics.gpu.snapshot() } : null,
       time: state.time, events: { ...eventCounts }, issues: [...issues],
     };
+  }
+  function audioMode() {
+    if (!audio) return 'unavailable';
+    const diagnostics = audio.getDiagnostics();
+    return diagnostics.failed || diagnostics.manifestError
+      ? diagnostics.decodedFiles ? 'mixed' : 'synthetic' : audioSource?.mode ?? 'unavailable';
   }
   function cameraCut() { captureBase(); weapon?.update(0); arms?.update(0); npcs?.update(0); post?.resetHistory(); render(); }
   function teleport(...args) { player.teleport(...args); cameraCut(); return player.stats(); }
@@ -224,11 +254,11 @@ export async function createDemo({ canvas, quality = 'high', volume = 0.65, onPr
     if (disposed) return;
     disposed = true; ready = false; cancelAnimationFrame(raf);
     removers.splice(0).forEach(off => off());
-    npcs?.dispose(); input?.dispose(); arms?.dispose(); weapon?.dispose(); player?.dispose(); post?.dispose(); world?.dispose();
-    bus.clear(); renderer.dispose(); await audio?.dispose();
+    touchControls?.dispose(); npcs?.dispose(); input?.dispose(); arms?.dispose(); weapon?.dispose(); player?.dispose(); post?.dispose(); world?.dispose();
+    bus.clear(); renderer.dispose(); audioSource?.dispose(); await audio?.dispose();
   }
   const api = { get ready() { return ready; }, get player() { return player; }, get weapon() { return weapon; }, get arms() { return arms; }, get npcs() { return npcs; },
-    bus, hooks: activeHooks, ui: view, stats, pause, resume, setQuality, setVolume, teleport, look, dispose, get world() { return world; },
+    bus, hooks: activeHooks, ui: view, stats, pause, resume, setQuality, setControls, setVolume, teleport, look, dispose, get world() { return world; },
     onIntro: payload => invokeHook('onIntro', payload), onRoomEnter: payload => invokeHook('onRoomEnter', payload),
     onAllSuspectsDown: payload => bus.emit('allSuspectsDown', payload),
     onPlayerDeath: payload => bus.emit('playerDeath', payload),
@@ -255,6 +285,10 @@ export async function createDemo({ canvas, quality = 'high', volume = 0.65, onPr
     const moduleError = index => loaded[index].status === 'rejected' ? loaded[index].reason : null;
     rawInput = modules[2]?.createInput(canvas, { debug }) ?? createFallbackInput();
     rawInput.available = !!modules[2]; input = gateInput(rawInput, () => phase === 'playing');
+    if (rawInput.available && document.querySelector('#ui')) {
+      touchControls = createTouchControls({ root: document.querySelector('#ui'), input: rawInput, onPause: pause });
+      setControls(currentControls);
+    }
     if (!rawInput.available) issue('input', STRINGS.inputUnavailable, moduleError(2));
     try {
       if (!modules[0]) throw moduleError(0);
@@ -300,21 +334,29 @@ export async function createDemo({ canvas, quality = 'high', volume = 0.65, onPr
       audioSource = createAudioSource(baseUrl, { synthetic: syntheticAudio });
       audio = await modules[4].createAudio({ baseUrl, manifestUrl: 'data/sounds.json', fetch: audioSource.fetch });
       audio.setMasterVolume(0); await audio.preload();
+      audioSource.finish();
       await audio.context.suspend();
       removers.push(modules[4].attachAudio(audio, bus));
       bus.emit('roomChange', { roomId: player.room?.id ?? 'OUT', profile: player.room?.reverb ?? {} });
       audio.setListener(camera.position, camera.quaternion);
       const diagnostics = audio.getDiagnostics();
-      if (audioSource.mode === 'synthetic' || diagnostics.failed || diagnostics.manifestError)
-        issue('audio-files', STRINGS.audioFallback);
-    } catch (error) { await audio?.dispose(); audio = null; issue('audio', STRINGS.audioUnavailable, error); }
+      if (audioMode() === 'synthetic' || diagnostics.failed || diagnostics.manifestError)
+        issue('audio-files', audioMode() === 'mixed' ? STRINGS.audioPartial : STRINGS.audioFallback);
+    } catch (error) { audioSource?.dispose(); await audio?.dispose(); audio = null; issue('audio', STRINGS.audioUnavailable, error); }
     arms?.setAudio(audio);
     report('post', 0.93, STRINGS.progressPost);
     try {
+      if (new URLSearchParams(location.search).get('postfx') === '0') throw new Error('Simple graphics selected');
       if (!modules[5]) throw moduleError(5);
-      post = modules[5].createBodycamPost(renderer, scene, camera, { quality: currentQuality });
+      const params = tier === 'desktop' ? undefined : { quality: { low: { msaa: 0 }, medium: { msaa: 0 }, high: { msaa: 2 } }, exposure: { readHz: 2 } };
+      post = modules[5].createBodycamPost(renderer, scene, camera, { quality: currentQuality, params });
       resize(); await post.overlay.ready;
     } catch (error) { post?.dispose(); post = null; issue('post', STRINGS.postUnavailable, error); }
+    if (tier !== 'desktop') scene.traverse(node => {
+      if (!node.isLight || !node.shadow) return;
+      if (tier === 'software') node.castShadow = false;
+      node.shadow.mapSize.setScalar(Math.min(node.shadow.mapSize.x, tier === 'software' ? 256 : 512));
+    });
     removers.push(input.on('pause', pause));
     removers.push(input.on('reset', event => { if (['blur', 'hidden'].includes(event.reason)) pause(); }));
     removers.push(input.on('respawn', () => post?.resetHistory()));

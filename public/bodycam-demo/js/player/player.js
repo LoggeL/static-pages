@@ -116,10 +116,12 @@ export class Player {
     const sprint = !this.crouched && !sneak && (held('ShiftLeft') || held('ShiftRight'));
     const speed = this.crouched ? this.config.speed.crouch
       : sneak ? this.config.speed.sneak : sprint ? this.config.speed.sprint : this.config.speed.walk;
-    const forward = Number(held('KeyW')) - Number(held('KeyS'));
-    const right = Number(held('KeyD')) - Number(held('KeyA'));
+    const axes = this.input.active && this.input.getMoveAxes?.();
+    const forward = axes?.forward ?? Number(held('KeyW')) - Number(held('KeyS'));
+    const right = axes?.right ?? Number(held('KeyD')) - Number(held('KeyA'));
     const movement = new Vector3(right, 0, -forward);
-    if (movement.lengthSq() > 0) movement.normalize().multiplyScalar(speed).applyAxisAngle(UP, this.yaw);
+    if (movement.lengthSq() > 1) movement.normalize();
+    movement.multiplyScalar(speed).applyAxisAngle(UP, this.yaw);
     this.wishVelocity.copy(movement);
     const previousPosition = this.position.clone();
     this.accumulator += dt;

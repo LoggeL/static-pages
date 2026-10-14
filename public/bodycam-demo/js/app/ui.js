@@ -4,12 +4,13 @@ import { DEFAULT_SETTINGS, QUALITY_LEVELS } from './settings.js';
 const STATES = new Set(['loading', 'start', 'playing', 'paused', 'error']);
 
 /** DOM-only shell. Start callbacks run synchronously to preserve user activation. */
-export function createUI(root, { onStart, onQualityChange, onVolumeChange } = {}) {
+export function createUI(root, { onStart, onQualityChange, onVolumeChange, onControlsChange, onSimpleRestart } = {}) {
   if (!root?.ownerDocument) throw new TypeError('createUI requires a DOM root.');
   const doc = root.ownerDocument;
   const win = doc.defaultView;
   let state = 'loading';
   let disposed = false;
+  let touchMode = false;
   let subtitleTimer = null;
   const notices = new Map();
   const cleanup = [];
@@ -49,7 +50,7 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange } = {}
   qualityRow.append(element('span', '', STRINGS.quality));
   const quality = element('select');
   quality.name = 'quality';
-  const qualityNames = [STRINGS.qualityLow, STRINGS.qualityMedium, STRINGS.qualityHigh];
+  const qualityNames = [STRINGS.qualityAuto, STRINGS.qualityLow, STRINGS.qualityMedium, STRINGS.qualityHigh];
   QUALITY_LEVELS.forEach((value, index) => {
     const option = element('option', '', qualityNames[index]);
     option.value = value;
@@ -70,7 +71,12 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange } = {}
   volumeValue.setAttribute('aria-hidden', 'true');
   volumeGroup.append(volume, volumeValue);
   volumeRow.append(volumeGroup);
-  settings.append(qualityRow, volumeRow);
+  const inputRow = element('label', 'app-setting'); inputRow.append(element('span', '', STRINGS.input));
+  const inputMode = element('select'); inputMode.name = 'controls';
+  for (const [value, text] of [['auto', STRINGS.inputAuto], ['touch', STRINGS.inputTouch], ['mouse', STRINGS.inputMouse]]) {
+    const option = element('option', '', text); option.value = value; inputMode.append(option);
+  }
+  inputRow.append(inputMode); settings.append(qualityRow, inputRow, volumeRow);
 
   const controls = element('section', 'app-controls');
   controls.append(element('h3', '', STRINGS.controls));
@@ -79,6 +85,8 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange } = {}
   controls.append(bindings);
   const start = element('button', 'app-start');
   start.type = 'button';
+  const simpleRestart = element('button', 'app-simple-restart', STRINGS.simpleRestart);
+  simpleRestart.type = 'button'; simpleRestart.hidden = true;
   const help = element('p', 'app-help');
   const noticeList = element('ul', 'app-notices');
   noticeList.setAttribute('aria-label', STRINGS.notices);
@@ -87,7 +95,7 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange } = {}
   subtitleNode.setAttribute('role', 'status');
   subtitleNode.setAttribute('aria-label', STRINGS.subtitles);
   subtitleNode.hidden = true;
-  panel.append(title, heading, loading, settings, controls, start, help, noticeList);
+  panel.append(title, heading, loading, settings, controls, start, simpleRestart, help, noticeList);
   menu.append(panel);
   root.replaceChildren(menu, subtitleNode);
 
@@ -104,6 +112,8 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange } = {}
     if (!disposed && (state === 'start' || state === 'paused')) onStart?.();
   });
   listen(quality, 'change', () => onQualityChange?.(quality.value));
+  listen(inputMode, 'change', () => onControlsChange?.(inputMode.value));
+  listen(simpleRestart, 'click', () => onSimpleRestart?.());
   listen(volume, 'input', () => {
     const value = Number(volume.value);
     updateVolume(value);
@@ -122,10 +132,12 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange } = {}
     settings.hidden = !isMenu;
     controls.hidden = !isMenu;
     start.hidden = !isMenu && next !== 'error';
+    simpleRestart.hidden = next !== 'error';
     help.hidden = next === 'loading';
     heading.textContent = next === 'start' ? STRINGS.ready : STRINGS[next];
-    start.textContent = next === 'error' ? STRINGS.reload : next === 'paused' ? STRINGS.resume : STRINGS.start;
-    help.textContent = next === 'error' ? STRINGS.errorHelp : next === 'paused' ? STRINGS.pauseHelp : STRINGS.startHelp;
+    start.textContent = next === 'error' ? STRINGS.reload : next === 'paused' ? STRINGS.resume : touchMode ? STRINGS.touchStart : STRINGS.start;
+    help.textContent = next === 'error' ? STRINGS.errorHelp : next === 'paused'
+      ? touchMode ? STRINGS.touchPauseHelp : STRINGS.pauseHelp : touchMode ? STRINGS.touchHelp : STRINGS.startHelp;
     noticeList.classList.toggle('app-notices-playing', inGame);
     (inGame ? root : panel).append(noticeList);
     if (!inGame) subtitleNode.hidden = true;
@@ -136,6 +148,7 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange } = {}
   function setSettings(value = {}) {
     if (disposed) return;
     if (QUALITY_LEVELS.includes(value.quality)) quality.value = value.quality;
+    if (['auto', 'touch', 'mouse'].includes(value.controls)) inputMode.value = value.controls;
     if (typeof value.volume === 'number' && Number.isFinite(value.volume)) updateVolume(value.volume);
   }
   setSettings(DEFAULT_SETTINGS);
@@ -145,6 +158,17 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange } = {}
     get state() { return state; },
     setState,
     setSettings,
+    setInputMode(value) {
+      touchMode = value === 'touch'; root.dataset.inputMode = value;
+      bindings.replaceChildren();
+      const rows = touchMode ? [
+        ['Linker Stick', 'Bewegen'], ['Rechts ziehen', 'Umsehen'],
+        ['Feuer halten', 'Schießen'], ['Zielen / Ducken', 'Ein- und ausschalten'],
+        ['Tür / Licht', 'Aktion ausführen'], ['Mehr', 'Lehnen, Feuerart, Schleichen'],
+      ] : STRINGS.controlsList;
+      for (const [key, text] of rows) bindings.append(element('dt', '', key), element('dd', '', text));
+      setState(state);
+    },
     setProgress({ progress: value, label } = {}) {
       if (disposed) return;
       if (Number.isFinite(value)) {
@@ -190,6 +214,7 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange } = {}
       notices.clear();
       root.replaceChildren();
       delete root.dataset.state;
+      delete root.dataset.inputMode;
     },
   };
 }

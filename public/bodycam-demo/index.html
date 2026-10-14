@@ -2,17 +2,86 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="dark">
   <title>Bodycam-Tech-Demo</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=e30051f6d3fc">
   <script type="importmap">
     {
       "imports": {
         "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
         "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
-        "three-mesh-bvh": "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.8.3/+esm"
+        "three-mesh-bvh": "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.8.3/+esm",
+        "./js/app/audio-source.js": "./js/app/audio-source.js?v=4b1195fd476e",
+        "./js/app/config.js": "./js/app/config.js?v=39431fd0f250",
+        "./js/app/events.js": "./js/app/events.js?v=4f6e3f3d6fbd",
+        "./js/app/fallbacks.js": "./js/app/fallbacks.js?v=9a3abfb87271",
+        "./js/app/quality.js": "./js/app/quality.js?v=b3f41e53abe2",
+        "./js/app/runtime.js": "./js/app/runtime.js?v=f19235c9add1",
+        "./js/app/settings.js": "./js/app/settings.js?v=c325d09432e1",
+        "./js/app/strings.js": "./js/app/strings.js?v=1750c46dfacd",
+        "./js/app/touch.js": "./js/app/touch.js?v=5d8718c3c00a",
+        "./js/app/ui.js": "./js/app/ui.js?v=f8b927912bd0",
+        "./js/audio/engine.js": "./js/audio/engine.js?v=774129bbe656",
+        "./js/audio/events.js": "./js/audio/events.js?v=36e2d28272c8",
+        "./js/audio/impulse.js": "./js/audio/impulse.js?v=b07b6056d1c2",
+        "./js/audio/mix-config.js": "./js/audio/mix-config.js?v=75dd84ae9421",
+        "./js/audio/synthesis.js": "./js/audio/synthesis.js?v=81260f1e5406",
+        "./js/core/input.js": "./js/core/input.js?v=d7beba973d11",
+        "./js/core/loaders.js": "./js/core/loaders.js?v=e9d97f106aaf",
+        "./js/fp/animation.js": "./js/fp/animation.js?v=f54cdc09baf9",
+        "./js/fp/arms-config.js": "./js/fp/arms-config.js?v=f327d32f55f4",
+        "./js/fp/arms.js": "./js/fp/arms.js?v=7ede93c96ecc",
+        "./js/fp/ik.js": "./js/fp/ik.js?v=6e0c45d6f9d2",
+        "./js/main.js": "./js/main.js?v=91075f1eb3eb",
+        "./js/npc/animation.js": "./js/npc/animation.js?v=0e0f08a63a97",
+        "./js/npc/debug.js": "./js/npc/debug.js?v=df48dcd8e655",
+        "./js/npc/hit-zones.js": "./js/npc/hit-zones.js?v=933340b42154",
+        "./js/npc/index.js": "./js/npc/index.js?v=ce59bc7e1fa0",
+        "./js/npc/model.js": "./js/npc/model.js?v=a8d42e75efbc",
+        "./js/npc/navigation.js": "./js/npc/navigation.js?v=02fb6be2c134",
+        "./js/npc/npc-config.js": "./js/npc/npc-config.js?v=72583c8cdbf7",
+        "./js/npc/npc.js": "./js/npc/npc.js?v=488c3c06b102",
+        "./js/npc/perception.js": "./js/npc/perception.js?v=0a72ec448c64",
+        "./js/npc/shooting.js": "./js/npc/shooting.js?v=522d350bfb45",
+        "./js/npc/state-machine.js": "./js/npc/state-machine.js?v=b6a7b2e2d385",
+        "./js/player/bob.js": "./js/player/bob.js?v=d5ca81df9e39",
+        "./js/player/collision.js": "./js/player/collision.js?v=b2c381967772",
+        "./js/player/config.js": "./js/player/config.js?v=cf92c958aa05",
+        "./js/player/index.js": "./js/player/index.js?v=c29ebf0aa827",
+        "./js/player/physics.js": "./js/player/physics.js?v=d91ec99b3bec",
+        "./js/player/player.js": "./js/player/player.js?v=8f060701a80b",
+        "./js/postfx/bodycam.js": "./js/postfx/bodycam.js?v=91169404244a",
+        "./js/postfx/overlay.js": "./js/postfx/overlay.js?v=ee58345ac772",
+        "./js/postfx/params.js": "./js/postfx/params.js?v=3a93ce638a49",
+        "./js/postfx/shaders.js": "./js/postfx/shaders.js?v=af3a57d20b77",
+        "./js/postfx/timing.js": "./js/postfx/timing.js?v=30544fb9d0ac",
+        "./js/weapon/config.js": "./js/weapon/config.js?v=a205a801c53a",
+        "./js/weapon/effects-config.js": "./js/weapon/effects-config.js?v=35a4e66e18e4",
+        "./js/weapon/effects.js": "./js/weapon/effects.js?v=01e43f348008",
+        "./js/weapon/events.js": "./js/weapon/events.js?v=994c56006490",
+        "./js/weapon/index.js": "./js/weapon/index.js?v=26a102d545f9",
+        "./js/weapon/poses.js": "./js/weapon/poses.js?v=82707b18e32e",
+        "./js/weapon/recoil.js": "./js/weapon/recoil.js?v=10b7af6690ff",
+        "./js/weapon/state.js": "./js/weapon/state.js?v=db6dd9265ce3",
+        "./js/weapon/sway.js": "./js/weapon/sway.js?v=a6c2993773db",
+        "./js/weapon/weapon.js": "./js/weapon/weapon.js?v=3872b15aa32d",
+        "./js/world/available-props.js": "./js/world/available-props.js?v=b29653347502",
+        "./js/world/baked-level.js": "./js/world/baked-level.js?v=0a4abb2c8b78",
+        "./js/world/colliders.js": "./js/world/colliders.js?v=33f30f1104a7",
+        "./js/world/coordinates.js": "./js/world/coordinates.js?v=d0fed5f905ad",
+        "./js/world/decals.js": "./js/world/decals.js?v=0edd111670c9",
+        "./js/world/doors.js": "./js/world/doors.js?v=6bb3805d79e1",
+        "./js/world/index.js": "./js/world/index.js?v=400a5ac7d517",
+        "./js/world/lighting-config.js": "./js/world/lighting-config.js?v=c1c08ca3859d",
+        "./js/world/lighting.js": "./js/world/lighting.js?v=e66cf734a1be",
+        "./js/world/lightmaps.js": "./js/world/lightmaps.js?v=faa8b5204853",
+        "./js/world/materials.js": "./js/world/materials.js?v=27eb081a8416",
+        "./js/world/rgbm.js": "./js/world/rgbm.js?v=aba25b7fc770",
+        "./js/world/source-light-mask.js": "./js/world/source-light-mask.js?v=5d0e5595aaab",
+        "./js/world/surfaces.js": "./js/world/surfaces.js?v=f497acf5324e",
+        "./js/world/world.js": "./js/world/world.js?v=7ba23e641285"
       },
       "scopes": {
         "https://cdn.jsdelivr.net/npm/": {
@@ -26,6 +95,6 @@
 <body>
   <canvas id="view" tabindex="0"></canvas>
   <main id="ui"></main>
-  <script type="module" src="./js/main.js"></script>
+  <script type="module" src="./js/main.js?v=91075f1eb3eb"></script>
 </body>
 </html>

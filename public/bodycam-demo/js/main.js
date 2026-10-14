@@ -16,6 +16,7 @@ async function bootstrap() {
   const settings = loadSettings();
   const query = new URLSearchParams(location.search);
   if (['low', 'medium', 'high'].includes(query.get('quality'))) settings.quality = query.get('quality');
+  if (['auto', 'touch', 'mouse'].includes(query.get('controls'))) settings.controls = query.get('controls');
   let demo;
   function persist() {
     if (!saveSettings(settings)) ui.notice('storage', STRINGS.storageUnavailable);
@@ -24,13 +25,18 @@ async function bootstrap() {
     onStart: () => demo?.resume(),
     onQualityChange: quality => { settings.quality = quality; demo?.setQuality(quality); persist(); },
     onVolumeChange: volume => { settings.volume = volume; demo?.setVolume(volume); persist(); },
+    onControlsChange: controls => { settings.controls = controls; demo?.setControls(controls); persist(); },
+    onSimpleRestart: () => {
+      const url = new URL(location.href); url.searchParams.set('quality', 'low'); url.searchParams.set('postfx', '0');
+      location.assign(url.href);
+    },
   });
   ui.setSettings(settings);
   ui.setState('loading');
   if (settings.storageAvailable === false) ui.notice('storage', STRINGS.storageUnavailable);
   window.__bodycam = { ready: false };
   try {
-    demo = await startDemo({ canvas, quality: settings.quality, volume: settings.volume, ui,
+    demo = await startDemo({ canvas, quality: settings.quality, controls: settings.controls, volume: settings.volume, ui,
       debug: query.get('debug') === '1', syntheticAudio: query.get('audio') === 'synthetic' });
     window.__bodycam = demo;
   } catch (error) {

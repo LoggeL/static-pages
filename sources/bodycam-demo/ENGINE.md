@@ -71,6 +71,28 @@ unmittelbar den aktuellen Winkel; für eine Teststellung zusätzlich `targetAngl
 Ein optionales `canMove()` prüft den vorgeschlagenen Transform und kann ihn zurückweisen;
 das Ziel bleibt bestehen und die Tür versucht es im nächsten Schritt erneut.
 
+## Touch und automatische Grafik
+
+Die App unterstützt `controls: 'auto'|'touch'|'mouse'` und
+`quality: 'auto'|'low'|'medium'|'high'`. `auto` ist die Voreinstellung.
+`js/app/touch.js` erzeugt die Bildschirmsteuerung und räumt sie bei
+Dispose auf. Virtuelle Tasten verwenden denselben Ereignisbus wie die
+Tastatur; eigene Pointer-IDs halten Bewegung, Kamera und Feuer getrennt.
+
+Die Eingabe ergänzt `setMode('pointer'|'touch')`,
+`setVirtualKey(code, pressed, owner)`, `setMoveAxes(right, forward)`,
+`getMoveAxes()`, `addLook(dx,dy)` und `reset(reason)`.
+`setMoveAxes(null)` gibt die Achsen an die Tastatur zurück. Der Spieler
+erhält analoge Werte innerhalb des Einheitskreises; die Kollision und
+Bewegungsrichtung verwenden unverändert seine Blickrichtung.
+
+`js/app/quality.js` kapselt Geräteklassen und Auflösungsanpassung.
+`app.stats().graphics` nennt Modus, Geräteklasse, tatsächliche Stufe und
+Auflösungsskalierung. Die Auswahl "Automatisch" wird getrennt von der
+tatsächlichen Stufe gehalten. Pausen und große Zeitlücken setzen die
+Messfenster zurück. Grafik-, Kontext- und Audioausfälle bleiben über
+`stats().issues` sichtbar.
+
 ## Spieler und Eingabe (C12)
 
 ```js

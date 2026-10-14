@@ -29,7 +29,7 @@ const out = options.out ? await prepareOutput(options.out) : await mkdtemp(path.
 const only = options.only?.split(','), records = [];
 const audioSink = validateAudioSink(options['audio-sink'] ?? DEFAULT_AUDIO_SINK);
 const suites = ['world', 'world-legacy', 'weapon-model', 'character', 'weapon', 'postfx', 'lightmaps', 'app', 'app-lightmaps', 'arms-shots', 'npc-shots'];
-const names = ['presets', 'selftest', ...suites, 'doors', 'inertia', 'postfx-regression', 'arms', 'npc', 'network', 'audio', 'source-integrity'];
+const names = ['presets', 'selftest', ...suites, 'mobile', 'doors', 'inertia', 'postfx-regression', 'arms', 'npc', 'network', 'audio', 'source-integrity'];
 const allowedNames = [...names, 'audio-default'];
 if (only?.some(name => !allowedNames.includes(name))) throw new Error(`Unknown group: ${only.filter(name => !allowedNames.includes(name))}`);
 const selected = name => !only || only.includes(name);
@@ -71,6 +71,7 @@ for (const name of suites) await group(name, async () => {
   const result = await runHarness({ shots: path.join(HARNESS_DIR, 'shots', `${name}.json`), out: path.join(out, name), port: 8969, audioSink, readyTimeoutMs: 120000 });
   return { status: result.report.status, report: `${name}/report.json`, summary: JSON.stringify(result.report.summary), exitCode: result.exitCode };
 });
+await group('mobile', () => command('mobile', [path.join(HARNESS_DIR, 'mobile-check.mjs'), path.join(out, 'mobile')]));
 
 async function regression(name, callback) {
   return group(name, async () => {

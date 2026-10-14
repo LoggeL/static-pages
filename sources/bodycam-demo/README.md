@@ -2,9 +2,9 @@
 
 [Demo öffnen](https://loggel.github.io/static-pages/bodycam-demo/)
 
-Spielbare Technikdemo mit Three.js 0.170.0 und WebGL2. Maus und Tastatur
-sind erforderlich. Der Startbildschirm zeigt die Steuerung sowie Grafik-
-und Lautstärkeeinstellungen.
+Spielbare Technikdemo mit Three.js 0.170.0 und WebGL2. Unterstützt Maus,
+Tastatur und Touch. Der Startbildschirm zeigt die Steuerung sowie Grafik-,
+Eingabe- und Lautstärkeeinstellungen.
 
 `public/bodycam-demo/` enthält die Laufzeitdateien. Die Veröffentlichung
 auf GitHub Pages erfolgt aus `docs/bodycam-demo/` auf `main`.
@@ -42,3 +42,49 @@ python3 sources/bodycam-demo/tools/check_mime.py --root docs/bodycam-demo
 
 Ausführliche Testanleitung: [tools/harness/README.md](tools/harness/README.md).
 Python-Caches und Ausführungsprotokolle bleiben lokal.
+
+## Handy, Grafik und Ausfälle
+
+Auf Touchgeräten erscheint automatisch der Bewegungsstick links. Rechts
+ziehen dreht die Kamera. Bewegung, Umsehen und Feuer halten funktionieren
+gleichzeitig. Zielen, Ducken und Sprint lassen sich umschalten; weitere
+Aktionen liegen unter "Mehr". Pause, Fokusverlust, abgebrochene Kontakte
+und Bildschirmdrehung geben die Eingaben frei. Im Start-/Pausenmenü lässt
+sich die Eingabe auch ausdrücklich auf Touch oder Maus stellen. Wenn die
+Mausbindung gesperrt ist, startet die Bildschirmsteuerung als Ersatz.
+
+"Automatisch" verwendet auf Touchgeräten eine niedrige Grafikstufe.
+Anhaltend langsame Frames reduzieren Effekte und Auflösung, bei genügend
+Reserve steigt die Auflösung wieder. Tabwechsel und Pausen zählen nicht
+als langsame Frames. Software-Renderer erhalten eine eigene sparsame
+Voreinstellung. Eine manuell gewählte Stufe bleibt bestehen. Bei fehlendem
+HDR/Post-FX bleibt die Welt ohne Nachbearbeitung spielbar. Nach Verlust
+des Grafikkontexts bietet die Fehleranzeige einen Neustart mit einfacher
+Grafik an. Ohne WebGL2 kann die 3D-Demo nicht laufen.
+
+Bei fehlenden oder beschädigten Einzelaufnahmen bleiben die anderen
+Dateiquellen verfügbar. Drei getrennte Proben prüfen die Erreichbarkeit;
+komplett fehlende Aufnahmen führen direkt zur Synthese. Ein fehlendes oder
+ungültiges Manifest verwendet ebenfalls die Ersatzklänge. Die Netzphase
+zum Vorladen der Aufnahmen ist auf zehn Sekunden begrenzt; bereits
+dekodierte Aufnahmen bleiben nutzbar.
+
+Die Mechanismen für Geräteklassen, Auflösungsanpassung und sichere
+Touchfreigabe orientieren sich an Bulli Drive. Die Browserprüfung verwendet
+echte Chromium-Touchkontakte und Web Audio, einschließlich gleichzeitiger
+Kontakte, analoger Geschwindigkeit, gedrehter Blickrichtung, verweigerter
+Mausbindung im Sandbox-Iframe und echtem WebGL-Kontextverlust. Das ist
+eine Browseremulation von Handy-/Tabletgrößen auf der Mac-GPU, keine
+Abnahme auf einem physischen Android- oder iOS-Gerät.
+
+```sh
+node sources/bodycam-demo/tools/harness/mobile-check.mjs /absoluter/neuer/ergebnisordner
+# Optional dieselben Prüfungen gegen eine veröffentlichte URL:
+node sources/bodycam-demo/tools/harness/mobile-check.mjs /absoluter/neuer/ergebnisordner https://loggel.github.io/static-pages/bodycam-demo/
+```
+
+Vor jeder Veröffentlichung `node sources/bodycam-demo/tools/version-modules.mjs`
+ausführen und `public/bodycam-demo/` nach `docs/bodycam-demo/` synchronisieren.
+`npm run build` führt die Modulversionierung automatisch aus. Native
+Import-Map-Einträge und das CSS erhalten Inhaltshashes gegen veraltete
+Browserdateien; CDN-Versionen von Three.js und BVH bleiben fest gepinnt.
