@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sound-Test</title>
+<style>body{font:13px/1.4 ui-monospace,monospace;background:#111;color:#ddd;margin:16px}button{font:inherit;margin:2px;padding:3px 6px;background:#222;color:#ddd;border:1px solid #444;cursor:pointer}h2{font-size:13px;margin:12px 0 4px;color:#9cf}.bad{color:#f66}</style>
+</head><body>
+<div id="sum">lade…</div><div id="list"></div>
+<script type="module">
+// Dekodiert alle Dateien aus data/sounds.json mit decodeAudioData und listet sie zum Anhören.
+const base = '../../';
+const man = await (await fetch(base + 'data/sounds.json')).json();
+const ctx = new (window.AudioContext || window.webkitAudioContext)();
+let ok = 0, bad = 0, total = 0, secs = 0; const bufs = {};
+const list = document.getElementById('list');
+for (const [name, e] of Object.entries(man)) {
+  const h = document.createElement('h2'); h.textContent = `${name}  gain=${e.gain}${e.loop ? ' loop' : ''} – ${e.desc}`; list.append(h);
+  for (const f of e.files) {
+    total++;
+    try {
+      const ab = await (await fetch(base + f)).arrayBuffer();
+      const b = await ctx.decodeAudioData(ab);
+      bufs[f] = b; ok++; secs += b.duration;
+      const btn = document.createElement('button');
+      btn.textContent = `${f.split('/').pop()} ${b.duration.toFixed(2)}s ${b.numberOfChannels}ch`;
+      btn.onclick = () => { ctx.resume(); const s = ctx.createBufferSource(); s.buffer = b; const g = ctx.createGain(); g.gain.value = e.gain; s.connect(g).connect(ctx.destination); s.start(); };
+      list.append(btn);
+    } catch (err) { bad++; const d = document.createElement('div'); d.className = 'bad'; d.textContent = `FEHLER ${f}: ${err}`; list.append(d); console.error('DECODE-FEHLER', f, String(err)); }
+  }
+}
+const msg = `Namen: ${Object.keys(man).length}, Dateien: ${total}, dekodiert: ${ok}, Fehler: ${bad}, Gesamtdauer ${secs.toFixed(1)} s, sampleRate ${ctx.sampleRate}`;
+document.getElementById('sum').textContent = msg; console.log('SOUNDTEST', msg);
+window.__soundtest = { ok, bad, total };
+</script></body></html>

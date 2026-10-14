@@ -1,0 +1,246 @@
+{
+  "version": 1,
+  "page": "bodycam-demo/_dev/world/index.html?debug=1",
+  "description": "Welt: Spawn, Veranda, beide Flurabschnitte und jeder Innenraum.",
+  "source": {
+    "layout": "sources/bodycam-demo/blender/layout.json",
+    "sha256": "45d3a2d76fdeae3b664a5ca041650f929aaa42d35c71539434cea240be6133aa",
+    "coordinates": "Blender [x,y,z] -> Three.js [x,z,-y], Meter. teleport verwendet die Fussposition; yaw 0 blickt nach -Z, positiv nach links; pitch -4 blickt abwaerts.",
+    "cameraHeight": 1.4,
+    "capsuleRadius": 0.3,
+    "validation": "Punkte liegen im Raum-Polygon, mit mindestens 0.30 m Abstand zur Polygonkante. Konservative, gedrehte Katalog-Footprints vorhandener Bodenmoebel ueber 0.19 m werden geprueft. Geometrie, fehlende Props, Tueren und aktuelle Collider muessen im Browser geprueft werden."
+  },
+  "defaults": {
+    "settleMs": 500,
+    "measureSeconds": 2
+  },
+  "beforeReady": [
+    {
+      "type": "eval",
+      "code": "(function installWorldReadiness() {\n    let timer;\n    function attach() {\n      const api = window.__bodycam;\n      if (!api || (!('ready' in api) && typeof api.stats !== 'function')) return false;\n      if (!('ready' in api)) Object.defineProperty(api, 'ready', { configurable: true, get() { return api.stats().ready; } });\n      clearInterval(timer);\n      return true;\n    }\n    if (!attach()) {\n      timer = setInterval(attach, 25);\n      window.addEventListener('pagehide', () => clearInterval(timer), { once: true });\n    }\n    return { adapter: 'C12 stats().ready -> __bodycam.ready' };\n  })()"
+    }
+  ],
+  "integration": "C12 liefert Bereitschaft ueber stats().ready. beforeReady ergaenzt nur bei fehlendem ready einen Getter auf dieses echte Signal; kein UI- oder Licht-Eingriff.",
+  "shots": [
+    {
+      "name": "spawn",
+      "description": "Aussen: Spawn laut playerSpawn am Streifenwagen, Blick auf das Haus.",
+      "teleport": [
+        4.6,
+        -0.22,
+        11,
+        26,
+        -4
+      ],
+      "source": {
+        "room": "OUT",
+        "blenderPosition": [
+          4.6,
+          -11,
+          -0.22
+        ],
+        "rationale": "Spawn laut playerSpawn am Streifenwagen, Blick auf das Haus."
+      }
+    },
+    {
+      "name": "porch",
+      "description": "Veranda: Mittig auf der Veranda vor der Haustuer, zwischen den seitlichen Moebeln.",
+      "teleport": [
+        -0.28,
+        0.57,
+        1.3,
+        0,
+        -4
+      ],
+      "source": {
+        "room": "PORCH",
+        "blenderPosition": [
+          -0.28,
+          -1.3,
+          0.57
+        ],
+        "rationale": "Mittig auf der Veranda vor der Haustuer, zwischen den seitlichen Moebeln."
+      }
+    },
+    {
+      "name": "hall-long",
+      "description": "Flur: Mitte des schmalen Laengsflurs auf dem begehbaren Laeufer; hinter dem Schwenkbereich der Haustuer.",
+      "teleport": [
+        -0.28,
+        0.6,
+        -1.6,
+        0,
+        -4
+      ],
+      "source": {
+        "room": "HAL",
+        "blenderPosition": [
+          -0.28,
+          1.6,
+          0.6
+        ],
+        "rationale": "Mitte des schmalen Laengsflurs auf dem begehbaren Laeufer; hinter dem Schwenkbereich der Haustuer."
+      }
+    },
+    {
+      "name": "hall-cross",
+      "description": "Flur: Mitte des Querflurs, Blick zur Ostseite. Kein Mittelpunkt der L-foermigen Raum-AABB.",
+      "teleport": [
+        1.05,
+        0.6,
+        -4.95,
+        -90,
+        -4
+      ],
+      "source": {
+        "room": "HAL",
+        "blenderPosition": [
+          1.05,
+          4.95,
+          0.6
+        ],
+        "rationale": "Mitte des Querflurs, Blick zur Ostseite. Kein Mittelpunkt der L-foermigen Raum-AABB."
+      }
+    },
+    {
+      "name": "living",
+      "description": "Wohnzimmer: Freier Weg zwischen Wohnzimmerdurchgang, TV und Couchtisch; umgestuerztes Regal liegt weiter suedlich.",
+      "teleport": [
+        -2.05,
+        0.6,
+        -3.1,
+        75,
+        -4
+      ],
+      "source": {
+        "room": "LIV",
+        "blenderPosition": [
+          -2.05,
+          3.1,
+          0.6
+        ],
+        "rationale": "Freier Weg zwischen Wohnzimmerdurchgang, TV und Couchtisch; umgestuerztes Regal liegt weiter suedlich."
+      }
+    },
+    {
+      "name": "kitchen",
+      "description": "Kueche und Essbereich: Oestlich des Esstischs und seiner Stuehle, vor dem Kuehlschrank; Blick zur Kuechenzeile.",
+      "teleport": [
+        -2.55,
+        0.6,
+        -6.3,
+        22,
+        -4
+      ],
+      "source": {
+        "room": "KIT",
+        "blenderPosition": [
+          -2.55,
+          6.3,
+          0.6
+        ],
+        "rationale": "Oestlich des Esstischs und seiner Stuehle, vor dem Kuehlschrank; Blick zur Kuechenzeile."
+      }
+    },
+    {
+      "name": "bedroom-1",
+      "description": "Schlafzimmer 1: Freie Flaeche zwischen Einbauschrank und Bett, ausserhalb der Kommode und ihrer offenen Schubladen.",
+      "teleport": [
+        2.7,
+        0.6,
+        -2.6,
+        -85,
+        -4
+      ],
+      "source": {
+        "room": "BED1",
+        "blenderPosition": [
+          2.7,
+          2.6,
+          0.6
+        ],
+        "rationale": "Freie Flaeche zwischen Einbauschrank und Bett, ausserhalb der Kommode und ihrer offenen Schubladen."
+      }
+    },
+    {
+      "name": "closet",
+      "description": "Einbauschrank: Zwischen Karton und Muellsack, Blick durch die offene Schranktuer. Nur 0.62 m Raumbreite, 1 cm Wandreserve je Seite fuer Radius 0.30 m.",
+      "teleport": [
+        0.75,
+        0.6,
+        -2.55,
+        -90,
+        -4
+      ],
+      "source": {
+        "room": "CLO1",
+        "blenderPosition": [
+          0.75,
+          2.55,
+          0.6
+        ],
+        "rationale": "Zwischen Karton und Muellsack, Blick durch die offene Schranktuer. Nur 0.62 m Raumbreite, 1 cm Wandreserve je Seite fuer Radius 0.30 m."
+      }
+    },
+    {
+      "name": "bathroom",
+      "description": "Bad: Freie Mitte zwischen Waschtisch, Toilette und Wanne; Blick zur Ostwand.",
+      "teleport": [
+        1.15,
+        0.6,
+        -6.85,
+        -90,
+        -4
+      ],
+      "source": {
+        "room": "BATH",
+        "blenderPosition": [
+          1.15,
+          6.85,
+          0.6
+        ],
+        "rationale": "Freie Mitte zwischen Waschtisch, Toilette und Wanne; Blick zur Ostwand."
+      }
+    },
+    {
+      "name": "bedroom-2",
+      "description": "Schlafzimmer 2 (Kinderzimmer): Suedlich der Matratze, oestlich des Kleiderschranks und westlich der Kommode.",
+      "teleport": [
+        4.4,
+        0.6,
+        -6.8,
+        0,
+        -4
+      ],
+      "source": {
+        "room": "BED2",
+        "blenderPosition": [
+          4.4,
+          6.8,
+          0.6
+        ],
+        "rationale": "Suedlich der Matratze, oestlich des Kleiderschranks und westlich der Kommode."
+      }
+    },
+    {
+      "name": "utility",
+      "description": "Waschkueche / Abstellraum: Zwischen Muellsack, Karton und geschlossener Hintertuer; Blick zur Waschmaschine.",
+      "teleport": [
+        1.4,
+        0.6,
+        -9,
+        35,
+        -4
+      ],
+      "source": {
+        "room": "UTIL",
+        "blenderPosition": [
+          1.4,
+          9,
+          0.6
+        ],
+        "rationale": "Zwischen Muellsack, Karton und geschlossener Hintertuer; Blick zur Waschmaschine."
+      }
+    }
+  ]
+}

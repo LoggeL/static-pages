@@ -1,0 +1,20 @@
+:root { color-scheme: dark; font-family: system-ui, sans-serif; }
+* { box-sizing: border-box; }
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #202327; }
+#view { display: block; width: 100%; height: 100%; outline: none; }
+aside { position: fixed; max-width: calc(100vw - 24px); background: #161a20ee; border: 1px solid #606975; border-radius: 4px; padding: 12px; font-size: 12px; }
+#panel { top: 12px; right: 12px; width: 380px; max-height: 44vh; overflow: auto; }
+#controls { left: 12px; bottom: 12px; width: 640px; }
+h1 { font-size: 16px; font-weight: 550; margin: 0 0 8px; }
+p { line-height: 1.45; margin: 8px 0; }
+pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 11px; line-height: 1.45; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 7px 0; }
+label { display: flex; align-items: center; gap: 5px; }
+button, select { font: inherit; color: #e8edf4; background: #303943; border: 1px solid #6c7885; border-radius: 3px; padding: 5px 7px; }
+button { cursor: pointer; }
+button:disabled, select:disabled { opacity: 0.5; cursor: default; }
+button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid #bdd9fa; }
+a { color: #b7d6fa; }
+details { margin-top: 8px; }
+summary { cursor: pointer; margin-bottom: 5px; }
+@media (max-width: 700px) { #panel { width: 290px; max-height: 32vh; } #controls { max-height: 42vh; overflow: auto; } }

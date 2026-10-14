@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>C10 · Charakterprüfung</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="viewer.css">
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+  </script>
+</head>
+<body>
+  <main>
+    <section id="viewport" aria-label="Dreidimensionale Charakterprüfung">
+      <div id="loading" role="status">Charakter wird geladen …</div>
+      <p id="view-label">Freie Ansicht · Ziehen: drehen · Mausrad: zoomen</p>
+    </section>
+    <aside>
+      <h1>C10 · Charakterprüfung</h1>
+      <p class="intro">officer.glb · Meter · Vorwärts −Z</p>
+      <fieldset id="controls" disabled>
+        <label for="pose">Testpose</label>
+        <select id="pose">
+          <option value="rest">Ruhepose</option>
+          <option value="fist">Faust</option>
+          <option value="grip">Pistolengriff</option>
+          <option value="arms-forward">Arme vorn</option>
+          <option value="squat">Hocke</option>
+          <option value="look-down">Blick nach unten</option>
+        </select>
+        <label for="view">Ansicht</label>
+        <select id="view">
+          <option value="overview">Übersicht</option>
+          <option value="front">Vorne</option>
+          <option value="side">Seite</option>
+          <option value="back">Hinten</option>
+          <option value="hand">Linke Hand</option>
+          <option value="bodycam">Brustkamera · 1,40 m</option>
+        </select>
+        <label class="check"><input id="skeleton" type="checkbox"> Skelett anzeigen</label>
+        <label class="check"><input id="wireframe" type="checkbox"> Drahtgitter anzeigen</label>
+        <label class="check"><input id="weights" type="checkbox"> Gewichte als Farben anzeigen</label>
+        <label for="bone">Knochen für Gewichtsanzeige</label>
+        <select id="bone"></select>
+        <p class="hint">Blau = 0 · Grün = 0,5 · Rot = 1. Starr angehängte Teile behalten ihr Material.</p>
+      </fieldset>
+      <h2>Prüfung der Exportdaten</h2>
+      <p id="check-status" role="status">Lädt …</p>
+      <dl id="stats"></dl>
+      <details><summary>Gewichte je Mesh</summary><pre id="weight-report"></pre></details>
+      <details><summary>Hinweise zur Prüfung</summary>
+        <p>Die Gewichtskontrolle dekodiert die rohen GLB-Accessoren einschließlich Meshopt vor der Gewichtsnormalisierung des Modellladers. Fehlerhafte Eingangssummen bleiben im Bericht sichtbar. Externe Buffer und Draco werden ausdrücklich abgewiesen. Geometrische Durchdringungen werden in der Blender-Pipeline geprüft.</p>
+        <p>Die Brustkamera sitzt auf 1,40 m Höhe. Ihr Blickwinkel und die neutralen Prüfleuchten stehen in <code>viewer.js</code> als Parameter.</p>
+      </details>
+      <p id="pose-note" class="hint"></p>
+    </aside>
+  </main>
+  <script type="module" src="viewer.js"></script>
+</body>
+</html>

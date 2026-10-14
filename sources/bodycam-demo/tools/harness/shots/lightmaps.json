@@ -1,0 +1,284 @@
+{
+  "version": 1,
+  "page": "bodycam-demo/_dev/lightmaps/index.html",
+  "description": "C6: elf Kamerapunkte ueber die echte setCamera-API.",
+  "source": {
+    "layout": "sources/bodycam-demo/blender/layout.json",
+    "sha256": "45d3a2d76fdeae3b664a5ca041650f929aaa42d35c71539434cea240be6133aa",
+    "coordinates": "Blender [x,y,z] -> Three.js [x,z,-y], Meter. teleport verwendet die Fussposition; yaw 0 blickt nach -Z, positiv nach links; pitch -4 blickt abwaerts.",
+    "cameraHeight": 1.4,
+    "capsuleRadius": 0.3,
+    "validation": "Punkte liegen im Raum-Polygon, mit mindestens 0.30 m Abstand zur Polygonkante. Konservative, gedrehte Katalog-Footprints vorhandener Bodenmoebel ueber 0.19 m werden geprueft. Geometrie, fehlende Props, Tueren und aktuelle Collider muessen im Browser geprueft werden."
+  },
+  "defaults": {
+    "settleMs": 500,
+    "measureSeconds": 2
+  },
+  "integration": "C6 exportiert __bodycam.ready und __lightmaps.setCamera. Kamerahoehe absolut, Fussposition plus 1.40 m.",
+  "shots": [
+    {
+      "name": "spawn",
+      "description": "Aussen: Spawn laut playerSpawn am Streifenwagen, Blick auf das Haus. C6-Kamera-Query: absolute Kameraposition, 1.40 m ueber Boden.",
+      "source": {
+        "room": "OUT",
+        "blenderPosition": [
+          4.6,
+          -11,
+          -0.22
+        ],
+        "rationale": "Spawn laut playerSpawn am Streifenwagen, Blick auf das Haus.",
+        "cameraPosition": [
+          4.6,
+          1.18,
+          11
+        ]
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "window.__lightmaps.setCamera([4.6,1.18,11,26,-4])"
+        }
+      ]
+    },
+    {
+      "name": "porch",
+      "description": "Veranda: Mittig auf der Veranda vor der Haustuer, zwischen den seitlichen Moebeln. C6-Kamera-Query: absolute Kameraposition, 1.40 m ueber Boden.",
+      "source": {
+        "room": "PORCH",
+        "blenderPosition": [
+          -0.28,
+          -1.3,
+          0.57
+        ],
+        "rationale": "Mittig auf der Veranda vor der Haustuer, zwischen den seitlichen Moebeln.",
+        "cameraPosition": [
+          -0.28,
+          1.97,
+          1.3
+        ]
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "window.__lightmaps.setCamera([-0.28,1.97,1.3,0,-4])"
+        }
+      ]
+    },
+    {
+      "name": "hall-long",
+      "description": "Flur: Mitte des schmalen Laengsflurs auf dem begehbaren Laeufer; hinter dem Schwenkbereich der Haustuer. C6-Kamera-Query: absolute Kameraposition, 1.40 m ueber Boden.",
+      "source": {
+        "room": "HAL",
+        "blenderPosition": [
+          -0.28,
+          1.6,
+          0.6
+        ],
+        "rationale": "Mitte des schmalen Laengsflurs auf dem begehbaren Laeufer; hinter dem Schwenkbereich der Haustuer.",
+        "cameraPosition": [
+          -0.28,
+          2,
+          -1.6
+        ]
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "window.__lightmaps.setCamera([-0.28,2,-1.6,0,-4])"
+        }
+      ]
+    },
+    {
+      "name": "hall-cross",
+      "description": "Flur: Mitte des Querflurs, Blick zur Ostseite. Kein Mittelpunkt der L-foermigen Raum-AABB. C6-Kamera-Query: absolute Kameraposition, 1.40 m ueber Boden.",
+      "source": {
+        "room": "HAL",
+        "blenderPosition": [
+          1.05,
+          4.95,
+          0.6
+        ],
+        "rationale": "Mitte des Querflurs, Blick zur Ostseite. Kein Mittelpunkt der L-foermigen Raum-AABB.",
+        "cameraPosition": [
+          1.05,
+          2,
+          -4.95
+        ]
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "window.__lightmaps.setCamera([1.05,2,-4.95,-90,-4])"
+        }
+      ]
+    },
+    {
+      "name": "living",
+      "description": "Wohnzimmer: Freier Weg zwischen Wohnzimmerdurchgang, TV und Couchtisch; umgestuerztes Regal liegt weiter suedlich. C6-Kamera-Query: absolute Kameraposition, 1.40 m ueber Boden.",
+      "source": {
+        "room": "LIV",
+        "blenderPosition": [
+          -2.05,
+          3.1,
+          0.6
+        ],
+        "rationale": "Freier Weg zwischen Wohnzimmerdurchgang, TV und Couchtisch; umgestuerztes Regal liegt weiter suedlich.",
+        "cameraPosition": [
+          -2.05,
+          2,
+          -3.1
+        ]
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "window.__lightmaps.setCamera([-2.05,2,-3.1,75,-4])"
+        }
+      ]
+    },
+    {
+      "name": "kitchen",
+      "description": "Kueche und Essbereich: Oestlich des Esstischs und seiner Stuehle, vor dem Kuehlschrank; Blick zur Kuechenzeile. C6-Kamera-Query: absolute Kameraposition, 1.40 m ueber Boden.",
+      "source": {
+        "room": "KIT",
+        "blenderPosition": [
+          -2.55,
+          6.3,
+          0.6
+        ],
+        "rationale": "Oestlich des Esstischs und seiner Stuehle, vor dem Kuehlschrank; Blick zur Kuechenzeile.",
+        "cameraPosition": [
+          -2.55,
+          2,
+          -6.3
+        ]
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "window.__lightmaps.setCamera([-2.55,2,-6.3,22,-4])"
+        }
+      ]
+    },
+    {
+      "name": "bedroom-1",
+      "description": "Schlafzimmer 1: Freie Flaeche zwischen Einbauschrank und Bett, ausserhalb der Kommode und ihrer offenen Schubladen. C6-Kamera-Query: absolute Kameraposition, 1.40 m ueber Boden.",
+      "source": {
+        "room": "BED1",
+        "blenderPosition": [
+          2.7,
+          2.6,
+          0.6
+        ],
+        "rationale": "Freie Flaeche zwischen Einbauschrank und Bett, ausserhalb der Kommode und ihrer offenen Schubladen.",
+        "cameraPosition": [
+          2.7,
+          2,
+          -2.6
+        ]
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "window.__lightmaps.setCamera([2.7,2,-2.6,-85,-4])"
+        }
+      ]
+    },
+    {
+      "name": "closet",
+      "description": "Einbauschrank: Zwischen Karton und Muellsack, Blick durch die offene Schranktuer. Nur 0.62 m Raumbreite, 1 cm Wandreserve je Seite fuer Radius 0.30 m. C6-Kamera-Query: absolute Kameraposition, 1.40 m ueber Boden.",
+      "source": {
+        "room": "CLO1",
+        "blenderPosition": [
+          0.75,
+          2.55,
+          0.6
+        ],
+        "rationale": "Zwischen Karton und Muellsack, Blick durch die offene Schranktuer. Nur 0.62 m Raumbreite, 1 cm Wandreserve je Seite fuer Radius 0.30 m.",
+        "cameraPosition": [
+          0.75,
+          2,
+          -2.55
+        ]
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "window.__lightmaps.setCamera([0.75,2,-2.55,-90,-4])"
+        }
+      ]
+    },
+    {
+      "name": "bathroom",
+      "description": "Bad: Freie Mitte zwischen Waschtisch, Toilette und Wanne; Blick zur Ostwand. C6-Kamera-Query: absolute Kameraposition, 1.40 m ueber Boden.",
+      "source": {
+        "room": "BATH",
+        "blenderPosition": [
+          1.15,
+          6.85,
+          0.6
+        ],
+        "rationale": "Freie Mitte zwischen Waschtisch, Toilette und Wanne; Blick zur Ostwand.",
+        "cameraPosition": [
+          1.15,
+          2,
+          -6.85
+        ]
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "window.__lightmaps.setCamera([1.15,2,-6.85,-90,-4])"
+        }
+      ]
+    },
+    {
+      "name": "bedroom-2",
+      "description": "Schlafzimmer 2 (Kinderzimmer): Suedlich der Matratze, oestlich des Kleiderschranks und westlich der Kommode. C6-Kamera-Query: absolute Kameraposition, 1.40 m ueber Boden.",
+      "source": {
+        "room": "BED2",
+        "blenderPosition": [
+          4.4,
+          6.8,
+          0.6
+        ],
+        "rationale": "Suedlich der Matratze, oestlich des Kleiderschranks und westlich der Kommode.",
+        "cameraPosition": [
+          4.4,
+          2,
+          -6.8
+        ]
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "window.__lightmaps.setCamera([4.4,2,-6.8,0,-4])"
+        }
+      ]
+    },
+    {
+      "name": "utility",
+      "description": "Waschkueche / Abstellraum: Zwischen Muellsack, Karton und geschlossener Hintertuer; Blick zur Waschmaschine. C6-Kamera-Query: absolute Kameraposition, 1.40 m ueber Boden.",
+      "source": {
+        "room": "UTIL",
+        "blenderPosition": [
+          1.4,
+          9,
+          0.6
+        ],
+        "rationale": "Zwischen Muellsack, Karton und geschlossener Hintertuer; Blick zur Waschmaschine.",
+        "cameraPosition": [
+          1.4,
+          2,
+          -9
+        ]
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "window.__lightmaps.setCamera([1.4,2,-9,35,-4])"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Bodycam-Tech-Demo</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+        "three-mesh-bvh": "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.8.3/+esm"
+      },
+      "scopes": {
+        "https://cdn.jsdelivr.net/npm/": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "https://cdn.jsdelivr.net/npm/three@0.170.0/+esm": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="view" tabindex="0"></canvas>
+  <main id="ui"></main>
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

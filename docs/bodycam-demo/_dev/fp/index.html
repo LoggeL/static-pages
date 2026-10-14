@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>C18 · First-Person-Arme</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./style.css">
+  <script type="importmap">
+    {"imports":{
+      "three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+      "three-mesh-bvh":"https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.8.3/build/index.module.js"
+    }}
+  </script>
+</head>
+<body>
+  <canvas id="view" aria-label="First-Person-Arme mit Karabiner in neutraler Prüfumgebung"></canvas>
+  <aside id="panel"><h1>C18 · Arme und IK</h1><pre id="metrics">Modelle werden geladen …</pre></aside>
+  <aside id="controls">
+    <div class="row"><label>Waffenhaltung <select id="pose"><option value="lowready">Bereitschaft</option><option value="ads">Zielen</option><option value="reload">Nachladen</option><option value="empty">Leer nachladen</option><option value="sprint">Sprint</option><option value="inspect">Inspizieren</option></select></label><button id="fire">Schuss</button></div>
+    <div class="row"><label>Linke Hand <select id="target"><option value="grip">Standardgriff</option><option value="magwell">Magazinschacht</option><option value="magazine">Magazin</option><option value="free">Freies Ziel</option><option value="release">IK lösen</option></select></label></div>
+    <div class="row"><label>Finger links <select id="fingerL"><option value="grip">Griff</option><option value="open">Offen</option><option value="trigger">Abzug</option></select></label><label>rechts <select id="fingerR"><option value="trigger">Abzug</option><option value="grip">Griff</option><option value="open">Offen</option></select></label></div>
+    <div class="row"><label><input type="checkbox" id="markers" checked>Ziele sichtbar</label><label><input type="checkbox" id="arms" checked>Arme sichtbar</label><label><input type="checkbox" id="moving">Gehen</label></div>
+    <div class="row"><button id="turn">Schnell drehen</button><button id="down">Blick nach unten</button><button id="forward">Blick geradeaus</button></div>
+    <div class="row"><button id="pause">Pause</button><button id="step">+ 1/60 s</button><button id="reload-reset">Neue Instanzen</button></div>
+    <p>Orange: rechts. Türkis: links. Kleine Kugeln: Handknochen. Pfeile: Zielrotation.</p>
+  </aside>
+  <div id="hint">Maus ziehen: Kamera drehen · Ereignisse und Abstände rechts oben · neutrale technische Prüfung</div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

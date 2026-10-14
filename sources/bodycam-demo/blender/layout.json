@@ -1,0 +1,2384 @@
+{
+ "version": 1,
+ "coords": "Blender Z-up, Meter. three.js: (x, z, -y). rotZ in Grad um +Z (Blender) = rotation.y in three.js. Props: Vorderseite -Y bei rotZ=0.",
+ "constants": {
+  "floorZ": 0.6,
+  "ceilingZ": 3.2,
+  "ceilingHeight": 2.6,
+  "groundZ": 0.0,
+  "streetZ": -0.25,
+  "sidewalkZ": -0.1,
+  "porchDeckZ": 0.57,
+  "exteriorAABB": [
+   -6.5,
+   0.0,
+   6.5,
+   10.0
+  ],
+  "wallExt": 0.2,
+  "wallInt": 0.12
+ },
+ "rooms": [
+  {
+   "id": "LIV",
+   "name": "Wohnzimmer",
+   "polygon": [
+    [
+     -6.3,
+     0.2
+    ],
+    [
+     -1.0,
+     0.2
+    ],
+    [
+     -1.0,
+     5.0
+    ],
+    [
+     -6.3,
+     5.0
+    ]
+   ],
+   "aabb": [
+    -6.3,
+    0.2,
+    0.6,
+    -1.0,
+    5.0,
+    3.2
+   ],
+   "rects": [
+    [
+     -6.3,
+     0.2,
+     -1.0,
+     5.0
+    ]
+   ],
+   "floorZ": 0.6,
+   "ceilingZ": 3.2,
+   "floor": "M_carpet_stained",
+   "floorSurface": "carpet",
+   "walls": "M_wallpaper_peeling",
+   "reverb": {
+    "preset": "room_medium_soft",
+    "rt60": 0.55,
+    "sizeM3": 66.1
+   }
+  },
+  {
+   "id": "KIT",
+   "name": "Kueche und Essbereich",
+   "polygon": [
+    [
+     -6.3,
+     5.12
+    ],
+    [
+     -1.0,
+     5.12
+    ],
+    [
+     -1.0,
+     9.8
+    ],
+    [
+     -6.3,
+     9.8
+    ]
+   ],
+   "aabb": [
+    -6.3,
+    5.12,
+    0.6,
+    -1.0,
+    9.8,
+    3.2
+   ],
+   "rects": [
+    [
+     -6.3,
+     5.12,
+     -1.0,
+     9.8
+    ]
+   ],
+   "floorZ": 0.6,
+   "ceilingZ": 3.2,
+   "floor": "M_tile_floor_dirty",
+   "floorSurface": "tile",
+   "walls": "M_plaster_painted_dirty",
+   "reverb": {
+    "preset": "room_medium_hard",
+    "rt60": 0.8,
+    "sizeM3": 64.5
+   }
+  },
+  {
+   "id": "HAL",
+   "name": "Flur",
+   "polygon": [
+    [
+     -0.88,
+     0.2
+    ],
+    [
+     0.32,
+     0.2
+    ],
+    [
+     0.32,
+     4.4
+    ],
+    [
+     6.3,
+     4.4
+    ],
+    [
+     6.3,
+     5.5
+    ],
+    [
+     0.32,
+     5.5
+    ],
+    [
+     0.32,
+     8.0
+    ],
+    [
+     -0.88,
+     8.0
+    ]
+   ],
+   "aabb": [
+    -0.88,
+    0.2,
+    0.6,
+    6.3,
+    8.0,
+    3.2
+   ],
+   "rects": [
+    [
+     -0.88,
+     0.2,
+     0.32,
+     8.0
+    ],
+    [
+     0.32,
+     4.4,
+     6.3,
+     5.5
+    ]
+   ],
+   "floorZ": 0.6,
+   "ceilingZ": 3.2,
+   "floor": "M_wood_floor_worn",
+   "floorSurface": "wood",
+   "walls": "M_plaster_painted_dirty",
+   "reverb": {
+    "preset": "hallway",
+    "rt60": 0.65,
+    "sizeM3": 41.5
+   }
+  },
+  {
+   "id": "BED1",
+   "name": "Schlafzimmer 1",
+   "polygon": [
+    [
+     0.44,
+     0.2
+    ],
+    [
+     6.3,
+     0.2
+    ],
+    [
+     6.3,
+     4.28
+    ],
+    [
+     0.44,
+     4.28
+    ],
+    [
+     0.44,
+     3.72
+    ],
+    [
+     1.18,
+     3.72
+    ],
+    [
+     1.18,
+     1.38
+    ],
+    [
+     0.44,
+     1.38
+    ]
+   ],
+   "aabb": [
+    0.44,
+    0.2,
+    0.6,
+    6.3,
+    4.28,
+    3.2
+   ],
+   "rects": [
+    [
+     0.44,
+     0.2,
+     6.3,
+     1.38
+    ],
+    [
+     1.18,
+     1.38,
+     6.3,
+     3.72
+    ],
+    [
+     0.44,
+     3.72,
+     6.3,
+     4.28
+    ]
+   ],
+   "floorZ": 0.6,
+   "ceilingZ": 3.2,
+   "floor": "M_wood_floor_worn",
+   "floorSurface": "wood",
+   "walls": "M_plaster_painted_dirty",
+   "reverb": {
+    "preset": "room_medium_hard",
+    "rt60": 0.75,
+    "sizeM3": 62.2
+   }
+  },
+  {
+   "id": "CLO1",
+   "name": "Einbauschrank",
+   "polygon": [
+    [
+     0.44,
+     1.5
+    ],
+    [
+     1.06,
+     1.5
+    ],
+    [
+     1.06,
+     3.6
+    ],
+    [
+     0.44,
+     3.6
+    ]
+   ],
+   "aabb": [
+    0.44,
+    1.5,
+    0.6,
+    1.06,
+    3.6,
+    3.2
+   ],
+   "rects": [
+    [
+     0.44,
+     1.5,
+     1.06,
+     3.6
+    ]
+   ],
+   "floorZ": 0.6,
+   "ceilingZ": 3.2,
+   "floor": "M_carpet_stained",
+   "floorSurface": "carpet",
+   "walls": "M_plaster_painted_dirty",
+   "reverb": {
+    "preset": "closet",
+    "rt60": 0.25,
+    "sizeM3": 3.4
+   }
+  },
+  {
+   "id": "BATH",
+   "name": "Bad",
+   "polygon": [
+    [
+     0.44,
+     5.62
+    ],
+    [
+     2.58,
+     5.62
+    ],
+    [
+     2.58,
+     8.0
+    ],
+    [
+     0.44,
+     8.0
+    ]
+   ],
+   "aabb": [
+    0.44,
+    5.62,
+    0.6,
+    2.58,
+    8.0,
+    3.2
+   ],
+   "rects": [
+    [
+     0.44,
+     5.62,
+     2.58,
+     8.0
+    ]
+   ],
+   "floorZ": 0.6,
+   "ceilingZ": 3.2,
+   "floor": "M_tile_floor_dirty",
+   "floorSurface": "tile",
+   "walls": "M_tile_wall_white",
+   "reverb": {
+    "preset": "bathroom_tile",
+    "rt60": 1.0,
+    "sizeM3": 13.2
+   }
+  },
+  {
+   "id": "BED2",
+   "name": "Schlafzimmer 2 (Kinderzimmer)",
+   "polygon": [
+    [
+     2.7,
+     5.62
+    ],
+    [
+     6.3,
+     5.62
+    ],
+    [
+     6.3,
+     9.8
+    ],
+    [
+     2.7,
+     9.8
+    ]
+   ],
+   "aabb": [
+    2.7,
+    5.62,
+    0.6,
+    6.3,
+    9.8,
+    3.2
+   ],
+   "rects": [
+    [
+     2.7,
+     5.62,
+     6.3,
+     9.8
+    ]
+   ],
+   "floorZ": 0.6,
+   "ceilingZ": 3.2,
+   "floor": "M_carpet_stained",
+   "floorSurface": "carpet",
+   "walls": "M_wallpaper_peeling",
+   "reverb": {
+    "preset": "room_small_soft",
+    "rt60": 0.5,
+    "sizeM3": 39.1
+   }
+  },
+  {
+   "id": "UTIL",
+   "name": "Waschkueche / Abstellraum",
+   "polygon": [
+    [
+     -0.88,
+     8.12
+    ],
+    [
+     2.58,
+     8.12
+    ],
+    [
+     2.58,
+     9.8
+    ],
+    [
+     -0.88,
+     9.8
+    ]
+   ],
+   "aabb": [
+    -0.88,
+    8.12,
+    0.6,
+    2.58,
+    9.8,
+    3.2
+   ],
+   "rects": [
+    [
+     -0.88,
+     8.12,
+     2.58,
+     9.8
+    ]
+   ],
+   "floorZ": 0.6,
+   "ceilingZ": 3.2,
+   "floor": "M_concrete_floor",
+   "floorSurface": "concrete",
+   "walls": "M_plaster_painted_dirty",
+   "reverb": {
+    "preset": "utility_concrete",
+    "rt60": 0.9,
+    "sizeM3": 15.1
+   }
+  },
+  {
+   "id": "PORCH",
+   "name": "Veranda",
+   "polygon": [
+    [
+     -3.1,
+     -2.4
+    ],
+    [
+     2.1,
+     -2.4
+    ],
+    [
+     2.1,
+     0.0
+    ],
+    [
+     -3.1,
+     0.0
+    ]
+   ],
+   "aabb": [
+    -3.1,
+    -2.4,
+    0.57,
+    2.1,
+    0.0,
+    2.72
+   ],
+   "floorZ": 0.57,
+   "floor": "M_wood_planks_raw",
+   "floorSurface": "wood",
+   "reverb": {
+    "preset": "outdoor_covered",
+    "rt60": 0.3
+   },
+   "outdoor": true
+  },
+  {
+   "id": "OUT",
+   "name": "Aussen",
+   "outdoor": true,
+   "reverb": {
+    "preset": "outdoor_suburb_night",
+    "rt60": 0.15
+   }
+  }
+ ],
+ "doors": [
+  {
+   "id": "front",
+   "kind": "door",
+   "rooms": [
+    "EXT",
+    "HAL"
+   ],
+   "center": [
+    -0.28,
+    0.1,
+    0.6
+   ],
+   "axis": "x",
+   "width": 0.906,
+   "height": 2.05,
+   "object": "DOOR_front",
+   "hinge": [
+    -0.73,
+    0.198,
+    0.612
+   ],
+   "closedRotZ": -0.0,
+   "openDir": 1,
+   "openAngle": 28.0,
+   "maxAngle": 105.0,
+   "swingInto": "HAL",
+   "exterior": true,
+   "note": "rotZ(Blender, Grad) = closedRotZ + openDir * Winkel; three.js: rotation.y = gleicher Wert (rad)"
+  },
+  {
+   "id": "back",
+   "kind": "door",
+   "rooms": [
+    "UTIL",
+    "EXT"
+   ],
+   "center": [
+    1.6,
+    9.9,
+    0.6
+   ],
+   "axis": "x",
+   "width": 0.906,
+   "height": 2.05,
+   "object": "DOOR_back",
+   "hinge": [
+    1.15,
+    9.802,
+    0.612
+   ],
+   "closedRotZ": 180.0,
+   "openDir": -1,
+   "openAngle": 0.0,
+   "maxAngle": 105.0,
+   "swingInto": "UTIL",
+   "exterior": true,
+   "note": "rotZ(Blender, Grad) = closedRotZ + openDir * Winkel; three.js: rotation.y = gleicher Wert (rad)"
+  },
+  {
+   "id": "bed1",
+   "kind": "door",
+   "rooms": [
+    "BED1",
+    "HAL"
+   ],
+   "center": [
+    4.3,
+    4.34,
+    0.6
+   ],
+   "axis": "x",
+   "width": 0.906,
+   "height": 2.05,
+   "object": "DOOR_bed1",
+   "hinge": [
+    4.75,
+    4.282,
+    0.612
+   ],
+   "closedRotZ": 180.0,
+   "openDir": 1,
+   "openAngle": 0.0,
+   "maxAngle": 105.0,
+   "swingInto": "BED1",
+   "exterior": false,
+   "note": "rotZ(Blender, Grad) = closedRotZ + openDir * Winkel; three.js: rotation.y = gleicher Wert (rad)"
+  },
+  {
+   "id": "bed2",
+   "kind": "door",
+   "rooms": [
+    "HAL",
+    "BED2"
+   ],
+   "center": [
+    3.4,
+    5.56,
+    0.6
+   ],
+   "axis": "x",
+   "width": 0.906,
+   "height": 2.05,
+   "object": "DOOR_bed2",
+   "hinge": [
+    2.95,
+    5.618,
+    0.612
+   ],
+   "closedRotZ": -0.0,
+   "openDir": 1,
+   "openAngle": 65.0,
+   "maxAngle": 105.0,
+   "swingInto": "BED2",
+   "exterior": false,
+   "note": "rotZ(Blender, Grad) = closedRotZ + openDir * Winkel; three.js: rotation.y = gleicher Wert (rad)"
+  },
+  {
+   "id": "bath",
+   "kind": "door",
+   "rooms": [
+    "HAL",
+    "BATH"
+   ],
+   "center": [
+    0.38,
+    6.75,
+    0.6
+   ],
+   "axis": "y",
+   "width": 0.815,
+   "height": 2.05,
+   "object": "DOOR_bath",
+   "hinge": [
+    0.438,
+    7.1547,
+    0.612
+   ],
+   "closedRotZ": -90.0,
+   "openDir": 1,
+   "openAngle": 12.0,
+   "maxAngle": 105.0,
+   "swingInto": "BATH",
+   "exterior": false,
+   "note": "rotZ(Blender, Grad) = closedRotZ + openDir * Winkel; three.js: rotation.y = gleicher Wert (rad)"
+  },
+  {
+   "id": "util",
+   "kind": "door",
+   "rooms": [
+    "HAL",
+    "UTIL"
+   ],
+   "center": [
+    -0.28,
+    8.06,
+    0.6
+   ],
+   "axis": "x",
+   "width": 0.906,
+   "height": 2.05,
+   "object": "DOOR_util",
+   "hinge": [
+    0.17,
+    8.118,
+    0.612
+   ],
+   "closedRotZ": -0.0,
+   "openDir": -1,
+   "openAngle": 95.0,
+   "maxAngle": 105.0,
+   "swingInto": "UTIL",
+   "exterior": false,
+   "note": "rotZ(Blender, Grad) = closedRotZ + openDir * Winkel; three.js: rotation.y = gleicher Wert (rad)"
+  },
+  {
+   "id": "clo1",
+   "kind": "door",
+   "rooms": [
+    "CLO1",
+    "BED1"
+   ],
+   "center": [
+    1.12,
+    2.55,
+    0.6
+   ],
+   "axis": "y",
+   "width": 0.8,
+   "height": 2.05,
+   "object": "DOOR_clo1",
+   "hinge": [
+    1.178,
+    2.153,
+    0.612
+   ],
+   "closedRotZ": -90.0,
+   "openDir": -1,
+   "openAngle": 105.0,
+   "maxAngle": 110.0,
+   "swingInto": "BED1",
+   "exterior": false,
+   "note": "rotZ(Blender, Grad) = closedRotZ + openDir * Winkel; three.js: rotation.y = gleicher Wert (rad)"
+  },
+  {
+   "id": "liv_hal",
+   "kind": "cased",
+   "rooms": [
+    "LIV",
+    "HAL"
+   ],
+   "center": [
+    -0.94,
+    2.4,
+    0.6
+   ],
+   "axis": "y",
+   "width": 1.5,
+   "height": 2.1
+  },
+  {
+   "id": "liv_kit",
+   "kind": "cased",
+   "rooms": [
+    "LIV",
+    "KIT"
+   ],
+   "center": [
+    -3.0,
+    5.06,
+    0.6
+   ],
+   "axis": "x",
+   "width": 2.4,
+   "height": 2.18
+  },
+  {
+   "id": "kit_util",
+   "kind": "doorway",
+   "rooms": [
+    "KIT",
+    "UTIL"
+   ],
+   "center": [
+    -0.94,
+    8.95,
+    0.6
+   ],
+   "axis": "y",
+   "width": 0.815,
+   "height": 2.05
+  }
+ ],
+ "windows": [
+  {
+   "id": "liv_f1",
+   "room": "LIV",
+   "state": "boarded",
+   "center": [
+    -4.3,
+    0.1,
+    1.96
+   ],
+   "width": 1.8,
+   "sill": 1.22,
+   "head": 2.7,
+   "outward": [
+    -0.0,
+    -1.0,
+    0.0
+   ],
+   "objects": [
+    "WIN_liv_f1",
+    "GLASS_liv_f1",
+    "BOARDS_liv_f1"
+   ]
+  },
+  {
+   "id": "liv_f2",
+   "room": "LIV",
+   "state": "broken",
+   "center": [
+    -2.0,
+    0.1,
+    2.1
+   ],
+   "width": 0.9,
+   "sill": 1.5,
+   "head": 2.7,
+   "outward": [
+    -0.0,
+    -1.0,
+    0.0
+   ],
+   "objects": [
+    "WIN_liv_f2",
+    "GLASS_liv_f2"
+   ]
+  },
+  {
+   "id": "liv_w",
+   "room": "LIV",
+   "state": "intact",
+   "center": [
+    -6.4,
+    2.6,
+    2.1
+   ],
+   "width": 0.9,
+   "sill": 1.5,
+   "head": 2.7,
+   "outward": [
+    -1.0,
+    -0.0,
+    0.0
+   ],
+   "objects": [
+    "WIN_liv_w",
+    "GLASS_liv_w"
+   ]
+  },
+  {
+   "id": "kit_b",
+   "room": "KIT",
+   "state": "broken",
+   "center": [
+    -4.0,
+    9.9,
+    2.185
+   ],
+   "width": 1.0,
+   "sill": 1.67,
+   "head": 2.7,
+   "outward": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "objects": [
+    "WIN_kit_b",
+    "GLASS_kit_b"
+   ]
+  },
+  {
+   "id": "kit_w",
+   "room": "KIT",
+   "state": "boarded",
+   "center": [
+    -6.4,
+    6.4,
+    2.1
+   ],
+   "width": 1.2,
+   "sill": 1.5,
+   "head": 2.7,
+   "outward": [
+    -1.0,
+    -0.0,
+    0.0
+   ],
+   "objects": [
+    "WIN_kit_w",
+    "GLASS_kit_w",
+    "BOARDS_kit_w"
+   ]
+  },
+  {
+   "id": "bed1_f1",
+   "room": "BED1",
+   "state": "intact",
+   "center": [
+    2.6,
+    0.1,
+    2.1
+   ],
+   "width": 0.9,
+   "sill": 1.5,
+   "head": 2.7,
+   "outward": [
+    -0.0,
+    -1.0,
+    0.0
+   ],
+   "objects": [
+    "WIN_bed1_f1",
+    "GLASS_bed1_f1"
+   ]
+  },
+  {
+   "id": "bed1_f2",
+   "room": "BED1",
+   "state": "broken",
+   "center": [
+    5.0,
+    0.1,
+    2.1
+   ],
+   "width": 0.9,
+   "sill": 1.5,
+   "head": 2.7,
+   "outward": [
+    -0.0,
+    -1.0,
+    0.0
+   ],
+   "objects": [
+    "WIN_bed1_f2",
+    "GLASS_bed1_f2"
+   ]
+  },
+  {
+   "id": "bed1_e",
+   "room": "BED1",
+   "state": "boarded",
+   "center": [
+    6.4,
+    2.2,
+    2.1
+   ],
+   "width": 0.9,
+   "sill": 1.5,
+   "head": 2.7,
+   "outward": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "objects": [
+    "WIN_bed1_e",
+    "GLASS_bed1_e",
+    "BOARDS_bed1_e"
+   ]
+  },
+  {
+   "id": "hal_e",
+   "room": "HAL",
+   "state": "intact",
+   "center": [
+    6.4,
+    4.95,
+    2.15
+   ],
+   "width": 0.6,
+   "sill": 1.6,
+   "head": 2.7,
+   "outward": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "objects": [
+    "WIN_hal_e",
+    "GLASS_hal_e"
+   ]
+  },
+  {
+   "id": "bed2_b",
+   "room": "BED2",
+   "state": "open",
+   "center": [
+    4.6,
+    9.9,
+    2.1
+   ],
+   "width": 0.9,
+   "sill": 1.5,
+   "head": 2.7,
+   "outward": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "objects": [
+    "WIN_bed2_b",
+    "GLASS_bed2_b"
+   ]
+  },
+  {
+   "id": "bed2_e",
+   "room": "BED2",
+   "state": "broken",
+   "center": [
+    6.4,
+    7.7,
+    2.1
+   ],
+   "width": 0.9,
+   "sill": 1.5,
+   "head": 2.7,
+   "outward": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "objects": [
+    "WIN_bed2_e",
+    "GLASS_bed2_e"
+   ]
+  },
+  {
+   "id": "util_b",
+   "room": "UTIL",
+   "state": "boarded",
+   "center": [
+    -0.1,
+    9.9,
+    2.25
+   ],
+   "width": 0.6,
+   "sill": 1.8,
+   "head": 2.7,
+   "outward": [
+    0.0,
+    1.0,
+    0.0
+   ],
+   "objects": [
+    "WIN_util_b",
+    "GLASS_util_b",
+    "BOARDS_util_b"
+   ]
+  }
+ ],
+ "furniture": {
+  "LIV": [
+   {
+    "name": "sofa",
+    "prop": "sofa_torn",
+    "pos": [
+     -5.72,
+     2.55,
+     0.6
+    ],
+    "rotZ": 90,
+    "anchor": "floor"
+   },
+   {
+    "name": "coffee_table",
+    "prop": "coffee_table",
+    "pos": [
+     -4.45,
+     2.6,
+     0.6
+    ],
+    "rotZ": 92,
+    "anchor": "floor"
+   },
+   {
+    "name": "armchair",
+    "prop": "armchair_worn",
+    "pos": [
+     -5.55,
+     0.95,
+     0.6
+    ],
+    "rotZ": 125,
+    "anchor": "floor"
+   },
+   {
+    "name": "tv_stand",
+    "prop": "tv_stand",
+    "pos": [
+     -1.26,
+     4.2,
+     0.6
+    ],
+    "rotZ": -90,
+    "anchor": "floor"
+   },
+   {
+    "name": "tv",
+    "prop": "tv_crt",
+    "pos": [
+     -1.3,
+     4.2,
+     1.12
+    ],
+    "rotZ": -95,
+    "anchor": "floor"
+   },
+   {
+    "name": "floor_lamp",
+    "prop": "floor_lamp_bare",
+    "pos": [
+     -6.0,
+     4.65,
+     0.6
+    ],
+    "rotZ": 30,
+    "anchor": "floor"
+   },
+   {
+    "name": "bookshelf_down",
+    "prop": "bookshelf_toppled",
+    "pos": [
+     -3.0,
+     1.15,
+     0.6
+    ],
+    "rotZ": 12,
+    "anchor": "floor"
+   },
+   {
+    "name": "ceiling_fan",
+    "prop": "ceiling_fan",
+    "pos": [
+     -3.65,
+     2.6,
+     3.2
+    ],
+    "rotZ": 0,
+    "anchor": "ceiling"
+   },
+   {
+    "name": "picture",
+    "prop": "wall_picture_crooked",
+    "pos": [
+     -5.6,
+     4.99,
+     2.15
+    ],
+    "rotZ": 180,
+    "anchor": "wall"
+   },
+   {
+    "name": "curtain_f1",
+    "prop": "curtain_torn",
+    "pos": [
+     -4.3,
+     0.33,
+     0.95
+    ],
+    "rotZ": 180,
+    "anchor": "wall",
+    "note": "an Vorhangstange ueber WIN_liv_f1"
+   },
+   {
+    "name": "blinds_w",
+    "prop": "blinds_bent",
+    "pos": [
+     -6.27,
+     2.6,
+     1.4
+    ],
+    "rotZ": -90,
+    "anchor": "wall"
+   },
+   {
+    "name": "pizza",
+    "prop": "pizza_box_stack",
+    "pos": [
+     -4.4,
+     2.9,
+     1.065
+    ],
+    "rotZ": 30,
+    "anchor": "floor",
+    "note": "auf dem Couchtisch"
+   },
+   {
+    "name": "trash_1",
+    "prop": "trash_bag_a",
+    "pos": [
+     -1.5,
+     0.7,
+     0.6
+    ],
+    "rotZ": 20,
+    "anchor": "floor"
+   },
+   {
+    "name": "papers",
+    "prop": "papers_loose_a",
+    "pos": [
+     -3.5,
+     3.4,
+     0.6
+    ],
+    "rotZ": 40,
+    "anchor": "floor"
+   },
+   {
+    "name": "bottles",
+    "prop": "bottle_beer_lying",
+    "pos": [
+     -4.0,
+     2.0,
+     0.6
+    ],
+    "rotZ": 70,
+    "anchor": "floor"
+   },
+   {
+    "name": "box",
+    "prop": "box_open",
+    "pos": [
+     -6.0,
+     0.6,
+     0.6
+    ],
+    "rotZ": 15,
+    "anchor": "floor"
+   }
+  ],
+  "KIT": [
+   {
+    "name": "base_1",
+    "prop": "kitchen_base_cab_60",
+    "pos": [
+     -6.0,
+     9.48,
+     0.6
+    ],
+    "rotZ": 180,
+    "anchor": "floor",
+    "note": "Unterschraenke an der Rueckwand (y=9.8), Front -> +Y? siehe rotZ"
+   },
+   {
+    "name": "base_2",
+    "prop": "kitchen_base_cab_60",
+    "pos": [
+     -5.4,
+     9.48,
+     0.6
+    ],
+    "rotZ": 180,
+    "anchor": "floor"
+   },
+   {
+    "name": "base_3",
+    "prop": "kitchen_base_cab_45",
+    "pos": [
+     -4.875,
+     9.48,
+     0.6
+    ],
+    "rotZ": 180,
+    "anchor": "floor"
+   },
+   {
+    "name": "sink",
+    "prop": "kitchen_sink_cab_90",
+    "pos": [
+     -4.0,
+     9.48,
+     0.6
+    ],
+    "rotZ": 180,
+    "anchor": "floor"
+   },
+   {
+    "name": "base_4",
+    "prop": "kitchen_base_cab_45",
+    "pos": [
+     -3.325,
+     9.48,
+     0.6
+    ],
+    "rotZ": 180,
+    "anchor": "floor"
+   },
+   {
+    "name": "stove",
+    "prop": "stove_old",
+    "pos": [
+     -2.7,
+     9.45,
+     0.6
+    ],
+    "rotZ": 180,
+    "anchor": "floor"
+   },
+   {
+    "name": "hood",
+    "prop": "range_hood",
+    "pos": [
+     -2.7,
+     9.55,
+     2.25
+    ],
+    "rotZ": 180,
+    "anchor": "wall"
+   },
+   {
+    "name": "wall_cab_1",
+    "prop": "kitchen_wall_cab_76",
+    "pos": [
+     -5.7,
+     9.62,
+     2.05
+    ],
+    "rotZ": 180,
+    "anchor": "wall"
+   },
+   {
+    "name": "wall_cab_2",
+    "prop": "kitchen_wall_cab_60",
+    "pos": [
+     -3.2,
+     9.62,
+     2.05
+    ],
+    "rotZ": 180,
+    "anchor": "wall"
+   },
+   {
+    "name": "fridge",
+    "prop": "fridge_open",
+    "pos": [
+     -1.42,
+     7.6,
+     0.6
+    ],
+    "rotZ": -90,
+    "anchor": "floor",
+    "note": "Tuer offen"
+   },
+   {
+    "name": "microwave",
+    "prop": "microwave",
+    "pos": [
+     -6.0,
+     9.5,
+     1.52
+    ],
+    "rotZ": 170,
+    "anchor": "floor"
+   },
+   {
+    "name": "dining_table",
+    "prop": "dining_table",
+    "pos": [
+     -4.2,
+     6.2,
+     0.6
+    ],
+    "rotZ": 90,
+    "anchor": "floor"
+   },
+   {
+    "name": "chair_1",
+    "prop": "dining_chair",
+    "pos": [
+     -4.2,
+     5.55,
+     0.6
+    ],
+    "rotZ": 0,
+    "anchor": "floor"
+   },
+   {
+    "name": "chair_2",
+    "prop": "dining_chair",
+    "pos": [
+     -3.65,
+     6.6,
+     0.6
+    ],
+    "rotZ": -80,
+    "anchor": "floor"
+   },
+   {
+    "name": "chair_tipped",
+    "prop": "dining_chair_tipped",
+    "pos": [
+     -5.0,
+     7.0,
+     0.6
+    ],
+    "rotZ": 130,
+    "anchor": "floor"
+   },
+   {
+    "name": "lamp",
+    "prop": "ceiling_lamp_bulb",
+    "pos": [
+     -4.2,
+     6.2,
+     3.2
+    ],
+    "rotZ": 0,
+    "anchor": "ceiling"
+   },
+   {
+    "name": "pots",
+    "prop": "kitchen_pot",
+    "pos": [
+     -2.6,
+     9.4,
+     1.52
+    ],
+    "rotZ": 0,
+    "anchor": "floor"
+   },
+   {
+    "name": "plates",
+    "prop": "kitchen_plate_stack",
+    "pos": [
+     -4.9,
+     9.45,
+     1.52
+    ],
+    "rotZ": 0,
+    "anchor": "floor"
+   },
+   {
+    "name": "trash_1",
+    "prop": "trash_bag_b",
+    "pos": [
+     -1.6,
+     9.2,
+     0.6
+    ],
+    "rotZ": 40,
+    "anchor": "floor"
+   },
+   {
+    "name": "trash_2",
+    "prop": "trash_bag_a",
+    "pos": [
+     -2.0,
+     8.6,
+     0.6
+    ],
+    "rotZ": 200,
+    "anchor": "floor"
+   },
+   {
+    "name": "pizza",
+    "prop": "pizza_box",
+    "pos": [
+     -3.4,
+     8.2,
+     0.6
+    ],
+    "rotZ": 75,
+    "anchor": "floor"
+   }
+  ],
+  "HAL": [
+   {
+    "name": "runner",
+    "prop": "rug_runner",
+    "pos": [
+     -0.28,
+     2.6,
+     0.6
+    ],
+    "rotZ": 2,
+    "anchor": "floor"
+   },
+   {
+    "name": "lamp_1",
+    "prop": "ceiling_lamp_bulb",
+    "pos": [
+     -0.28,
+     2.0,
+     3.2
+    ],
+    "rotZ": 0,
+    "anchor": "ceiling"
+   },
+   {
+    "name": "lamp_2",
+    "prop": "ceiling_lamp_bulb",
+    "pos": [
+     3.6,
+     4.95,
+     3.2
+    ],
+    "rotZ": 0,
+    "anchor": "ceiling"
+   },
+   {
+    "name": "box",
+    "prop": "box_closed",
+    "pos": [
+     5.85,
+     4.75,
+     0.6
+    ],
+    "rotZ": 10,
+    "anchor": "floor"
+   },
+   {
+    "name": "papers",
+    "prop": "papers_loose_b",
+    "pos": [
+     1.8,
+     5.0,
+     0.6
+    ],
+    "rotZ": 80,
+    "anchor": "floor"
+   },
+   {
+    "name": "bottle",
+    "prop": "bottle_broken",
+    "pos": [
+     -0.5,
+     6.4,
+     0.6
+    ],
+    "rotZ": 0,
+    "anchor": "floor"
+   }
+  ],
+  "BED1": [
+   {
+    "name": "bed",
+    "prop": "bed_frame",
+    "pos": [
+     5.22,
+     2.25,
+     0.6
+    ],
+    "rotZ": -90,
+    "anchor": "floor"
+   },
+   {
+    "name": "nightstand",
+    "prop": "nightstand",
+    "pos": [
+     5.95,
+     3.55,
+     0.6
+    ],
+    "rotZ": -90,
+    "anchor": "floor"
+   },
+   {
+    "name": "dresser",
+    "prop": "dresser_open",
+    "pos": [
+     3.8,
+     0.52,
+     0.6
+    ],
+    "rotZ": 0,
+    "anchor": "floor"
+   },
+   {
+    "name": "lamp",
+    "prop": "ceiling_lamp_bulb",
+    "pos": [
+     3.4,
+     2.3,
+     3.2
+    ],
+    "rotZ": 0,
+    "anchor": "ceiling"
+   },
+   {
+    "name": "box",
+    "prop": "box_open",
+    "pos": [
+     1.8,
+     3.7,
+     0.6
+    ],
+    "rotZ": 25,
+    "anchor": "floor"
+   },
+   {
+    "name": "trash",
+    "prop": "trash_bag_c",
+    "pos": [
+     2.0,
+     0.6,
+     0.6
+    ],
+    "rotZ": 0,
+    "anchor": "floor"
+   },
+   {
+    "name": "curtain",
+    "prop": "curtain_torn",
+    "pos": [
+     2.6,
+     0.33,
+     0.95
+    ],
+    "rotZ": 180,
+    "anchor": "wall"
+   },
+   {
+    "name": "bottle",
+    "prop": "bottle_liquor",
+    "pos": [
+     5.9,
+     3.5,
+     1.18
+    ],
+    "rotZ": 0,
+    "anchor": "floor"
+   }
+  ],
+  "CLO1": [
+   {
+    "name": "boxes",
+    "prop": "box_closed",
+    "pos": [
+     0.75,
+     1.9,
+     0.6
+    ],
+    "rotZ": 5,
+    "anchor": "floor"
+   },
+   {
+    "name": "bag",
+    "prop": "trash_bag_c",
+    "pos": [
+     0.72,
+     3.2,
+     0.6
+    ],
+    "rotZ": 0,
+    "anchor": "floor"
+   }
+  ],
+  "BED2": [
+   {
+    "name": "mattress",
+    "prop": "mattress_floor",
+    "pos": [
+     4.6,
+     8.55,
+     0.6
+    ],
+    "rotZ": 3,
+    "anchor": "floor"
+   },
+   {
+    "name": "toy_box",
+    "prop": "toy_box",
+    "pos": [
+     3.2,
+     9.3,
+     0.6
+    ],
+    "rotZ": 180,
+    "anchor": "floor"
+   },
+   {
+    "name": "wardrobe",
+    "prop": "wardrobe_open",
+    "pos": [
+     3.26,
+     7.7,
+     0.6
+    ],
+    "rotZ": 90,
+    "anchor": "floor"
+   },
+   {
+    "name": "dresser",
+    "prop": "dresser_open",
+    "pos": [
+     5.98,
+     6.4,
+     0.6
+    ],
+    "rotZ": -90,
+    "anchor": "floor"
+   },
+   {
+    "name": "lamp",
+    "prop": "ceiling_lamp_bulb",
+    "pos": [
+     4.5,
+     7.7,
+     3.2
+    ],
+    "rotZ": 0,
+    "anchor": "ceiling"
+   },
+   {
+    "name": "syringe",
+    "prop": "syringe",
+    "pos": [
+     4.9,
+     7.6,
+     0.6
+    ],
+    "rotZ": 30,
+    "anchor": "floor"
+   },
+   {
+    "name": "bottle",
+    "prop": "bottle_beer_lying",
+    "pos": [
+     5.3,
+     8.0,
+     0.6
+    ],
+    "rotZ": 100,
+    "anchor": "floor"
+   },
+   {
+    "name": "papers",
+    "prop": "paper_pile",
+    "pos": [
+     3.6,
+     6.4,
+     0.6
+    ],
+    "rotZ": 0,
+    "anchor": "floor"
+   }
+  ],
+  "BATH": [
+   {
+    "name": "toilet",
+    "prop": "toilet",
+    "pos": [
+     1.05,
+     7.68,
+     0.6
+    ],
+    "rotZ": 0,
+    "anchor": "floor",
+    "planned": true
+   },
+   {
+    "name": "tub",
+    "prop": "bathtub",
+    "pos": [
+     2.2,
+     6.5,
+     0.6
+    ],
+    "rotZ": -90,
+    "anchor": "floor",
+    "note": "Wanne an Ostwand (Fliesen raumhoch), 1.52 x 0.76",
+    "planned": true
+   },
+   {
+    "name": "vanity",
+    "prop": "bath_vanity",
+    "pos": [
+     1.35,
+     5.88,
+     0.6
+    ],
+    "rotZ": 180,
+    "anchor": "floor",
+    "planned": true
+   },
+   {
+    "name": "mirror_cab",
+    "prop": "mirror_cabinet",
+    "pos": [
+     1.35,
+     5.635,
+     1.75
+    ],
+    "rotZ": 180,
+    "anchor": "wall",
+    "planned": true
+   },
+   {
+    "name": "lamp",
+    "prop": "ceiling_lamp_bulb",
+    "pos": [
+     1.5,
+     6.8,
+     3.2
+    ],
+    "rotZ": 0,
+    "anchor": "ceiling"
+   }
+  ],
+  "UTIL": [
+   {
+    "name": "washer",
+    "prop": "washing_machine",
+    "pos": [
+     -0.45,
+     9.45,
+     0.6
+    ],
+    "rotZ": 180,
+    "anchor": "floor",
+    "planned": true
+   },
+   {
+    "name": "dryer",
+    "prop": "dryer",
+    "pos": [
+     0.25,
+     9.45,
+     0.6
+    ],
+    "rotZ": 180,
+    "anchor": "floor",
+    "planned": true
+   },
+   {
+    "name": "water_heater",
+    "prop": "water_heater",
+    "pos": [
+     2.22,
+     8.45,
+     0.6
+    ],
+    "rotZ": -90,
+    "anchor": "floor",
+    "planned": true
+   },
+   {
+    "name": "shelf",
+    "prop": "bookshelf",
+    "pos": [
+     -0.6,
+     8.3,
+     0.6
+    ],
+    "rotZ": 0,
+    "anchor": "floor"
+   },
+   {
+    "name": "boxes",
+    "prop": "box_crushed",
+    "pos": [
+     2.1,
+     9.3,
+     0.6
+    ],
+    "rotZ": 20,
+    "anchor": "floor"
+   },
+   {
+    "name": "trash",
+    "prop": "trash_bag_a",
+    "pos": [
+     0.8,
+     8.5,
+     0.6
+    ],
+    "rotZ": 0,
+    "anchor": "floor"
+   }
+  ],
+  "PORCH": [
+   {
+    "name": "trash",
+    "prop": "trash_bag_a",
+    "pos": [
+     -2.6,
+     -0.5,
+     0.57
+    ],
+    "rotZ": 30,
+    "anchor": "floor"
+   },
+   {
+    "name": "chair",
+    "prop": "dining_chair_tipped",
+    "pos": [
+     1.5,
+     -1.0,
+     0.57
+    ],
+    "rotZ": 200,
+    "anchor": "floor"
+   },
+   {
+    "name": "porch_light",
+    "prop": "ceiling_lamp_bulb",
+    "pos": [
+     -0.28,
+     -0.3,
+     2.95
+    ],
+    "rotZ": 0,
+    "anchor": "ceiling",
+    "note": "Haustuerleuchte"
+   },
+   {
+    "name": "cans",
+    "prop": "can_crushed_a",
+    "pos": [
+     0.9,
+     -1.6,
+     0.57
+    ],
+    "rotZ": 0,
+    "anchor": "floor"
+   },
+   {
+    "name": "newspaper",
+    "prop": "newspaper_stack",
+    "pos": [
+     -1.6,
+     -0.6,
+     0.57
+    ],
+    "rotZ": 10,
+    "anchor": "floor"
+   }
+  ],
+  "OUT": [
+   {
+    "name": "trash_curb_1",
+    "prop": "trash_bag_a",
+    "pos": [
+     -3.6,
+     -9.6,
+     -0.115
+    ],
+    "rotZ": 10,
+    "anchor": "floor"
+   },
+   {
+    "name": "trash_curb_2",
+    "prop": "trash_bag_b",
+    "pos": [
+     -3.1,
+     -9.8,
+     -0.115
+    ],
+    "rotZ": 80,
+    "anchor": "floor"
+   },
+   {
+    "name": "box_yard",
+    "prop": "box_crushed",
+    "pos": [
+     3.0,
+     -5.0,
+     -0.091
+    ],
+    "rotZ": 30,
+    "anchor": "floor"
+   },
+   {
+    "name": "can_street",
+    "prop": "can_crushed_b",
+    "pos": [
+     -6.0,
+     -12.0,
+     -0.2
+    ],
+    "rotZ": 0,
+    "anchor": "floor"
+   },
+   {
+    "name": "bag_yard",
+    "prop": "plastic_bag",
+    "pos": [
+     -5.0,
+     -3.6,
+     -0.003
+    ],
+    "rotZ": 0,
+    "anchor": "floor"
+   },
+   {
+    "name": "dead_tree_1",
+    "prop": "tree_dead",
+    "pos": [
+     -7.5,
+     -5.0,
+     -0.064
+    ],
+    "rotZ": 0,
+    "anchor": "floor",
+    "planned": true
+   },
+   {
+    "name": "bush_dead_1",
+    "prop": "bush_dead",
+    "pos": [
+     4.5,
+     -1.2,
+     0.026
+    ],
+    "rotZ": 0,
+    "anchor": "floor",
+    "planned": true
+   },
+   {
+    "name": "bush_dead_2",
+    "prop": "bush_dead",
+    "pos": [
+     -5.0,
+     -0.8,
+     -0.0
+    ],
+    "rotZ": 0,
+    "anchor": "floor",
+    "planned": true
+   }
+  ]
+ },
+ "decals": [
+  {
+   "decal": "water_stain",
+   "pos": [
+    -3.3,
+    3.5,
+    3.1980000000000004
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "size": 2.2,
+   "rot": 20
+  },
+  {
+   "decal": "water_stain",
+   "pos": [
+    -4.5,
+    7.3,
+    3.1980000000000004
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "size": 2.6,
+   "rot": -40
+  },
+  {
+   "decal": "water_stain",
+   "pos": [
+    4.3,
+    8.3,
+    3.1980000000000004
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "size": 1.8,
+   "rot": 75
+  },
+  {
+   "decal": "water_stain",
+   "pos": [
+    -6.298,
+    4.2,
+    2.5
+   ],
+   "normal": [
+    1,
+    0,
+    0
+   ],
+   "size": 1.5,
+   "rot": 0
+  },
+  {
+   "decal": "mold_patch",
+   "pos": [
+    2.578,
+    7.6,
+    2.8000000000000003
+   ],
+   "normal": [
+    -1,
+    0,
+    0
+   ],
+   "size": 0.8,
+   "rot": 0
+  },
+  {
+   "decal": "mold_patch",
+   "pos": [
+    1.3,
+    7.3,
+    3.1980000000000004
+   ],
+   "normal": [
+    0,
+    0,
+    -1
+   ],
+   "size": 1.0,
+   "rot": 0
+  },
+  {
+   "decal": "mold_patch",
+   "pos": [
+    -0.6,
+    9.798,
+    1.0
+   ],
+   "normal": [
+    0,
+    -1,
+    0
+   ],
+   "size": 0.7,
+   "rot": 0
+  },
+  {
+   "decal": "grime_corner",
+   "pos": [
+    -6.298,
+    0.6,
+    1.0
+   ],
+   "normal": [
+    1,
+    0,
+    0
+   ],
+   "size": 0.8,
+   "rot": 0
+  },
+  {
+   "decal": "grime_corner",
+   "pos": [
+    -1.002,
+    9.4,
+    1.0
+   ],
+   "normal": [
+    -1,
+    0,
+    0
+   ],
+   "size": 0.8,
+   "rot": 0
+  },
+  {
+   "decal": "graffiti_1",
+   "pos": [
+    -3.8,
+    4.998,
+    2.0
+   ],
+   "normal": [
+    0,
+    -1,
+    0
+   ],
+   "size": 1.3,
+   "rot": 0,
+   "note": "LIV Nordwand"
+  },
+  {
+   "decal": "graffiti_2",
+   "pos": [
+    0.318,
+    6.0,
+    1.9
+   ],
+   "normal": [
+    -1,
+    0,
+    0
+   ],
+   "size": 1.3,
+   "rot": 0,
+   "note": "Flur Ostwand"
+  },
+  {
+   "decal": "graffiti_1",
+   "pos": [
+    -6.53,
+    7.6,
+    1.8
+   ],
+   "normal": [
+    -1,
+    0,
+    0
+   ],
+   "size": 1.6,
+   "rot": 0,
+   "note": "Fassade West aussen"
+  },
+  {
+   "decal": "footprints_mud",
+   "pos": [
+    -0.3,
+    1.2,
+    0.601
+   ],
+   "normal": [
+    0,
+    0,
+    1
+   ],
+   "size": 0.6,
+   "rot": 0
+  },
+  {
+   "decal": "footprints_mud",
+   "pos": [
+    -0.2,
+    3.4,
+    0.601
+   ],
+   "normal": [
+    0,
+    0,
+    1
+   ],
+   "size": 0.6,
+   "rot": 5
+  },
+  {
+   "decal": "papers_scattered",
+   "pos": [
+    -3.0,
+    2.0,
+    0.601
+   ],
+   "normal": [
+    0,
+    0,
+    1
+   ],
+   "size": 0.8,
+   "rot": 30
+  },
+  {
+   "decal": "papers_scattered",
+   "pos": [
+    4.0,
+    1.5,
+    0.601
+   ],
+   "normal": [
+    0,
+    0,
+    1
+   ],
+   "size": 0.8,
+   "rot": -60
+  }
+ ],
+ "lights": {
+  "streetlight": {
+   "pos": [
+    8.6,
+    -12.3,
+    7.5
+   ],
+   "color": "sodium",
+   "emissiveMaterial": "ME_sodium"
+  },
+  "porchLight": {
+   "pos": [
+    -0.28,
+    -0.3,
+    2.9
+   ]
+  }
+ },
+ "playerSpawn": {
+  "pos": [
+   4.6,
+   -11.0,
+   -0.22
+  ],
+  "yawDeg": 26.0,
+  "note": "yaw: 0 = Blick +Y (zum Haus), positiv = nach links (gegen Uhrzeiger)"
+ },
+ "policeCar": {
+  "pos": [
+   0.9,
+   -11.75,
+   -0.2
+  ],
+  "rotZ": -90,
+  "note": "am Bordstein geparkt, Fahrtrichtung -X (rechts am Bordstein), Prop-Front -Y"
+ },
+ "suspects": [
+  {
+   "id": "S1",
+   "room": "KIT",
+   "pos": [
+    -1.75,
+    8.95,
+    0.6
+   ],
+   "yawDeg": 180.0,
+   "stance": "crouch_cover",
+   "note": "hinter Kuehlschrank/Durchgang zur Waschkueche, Blick auf Essbereich/Wohnzimmer-Durchgang"
+  },
+  {
+   "id": "S2",
+   "room": "BED2",
+   "pos": [
+    5.75,
+    9.25,
+    0.6
+   ],
+   "yawDeg": 150.0,
+   "stance": "aim",
+   "note": "Kinderzimmer hinterste Ecke, zielt auf Tuer (Querflur)"
+  },
+  {
+   "id": "S3",
+   "room": "CLO1",
+   "pos": [
+    0.74,
+    2.2,
+    0.6
+   ],
+   "yawDeg": -90.0,
+   "stance": "hide",
+   "note": "im Einbauschrank von BED1, tritt heraus wenn Spieler im Raum"
+  }
+ ],
+ "suspectsAlt": [
+  {
+   "id": "A1",
+   "room": "UTIL",
+   "pos": [
+    1.9,
+    9.2,
+    0.6
+   ],
+   "yawDeg": 135.0,
+   "note": "neben Hintertuer"
+  },
+  {
+   "id": "A2",
+   "room": "BATH",
+   "pos": [
+    2.15,
+    6.55,
+    0.6
+   ],
+   "yawDeg": 90.0,
+   "note": "in der Wanne geduckt"
+  },
+  {
+   "id": "A3",
+   "room": "LIV",
+   "pos": [
+    -5.9,
+    4.55,
+    0.6
+   ],
+   "yawDeg": -135.0,
+   "note": "Ecke hinter Stehlampe, Blick auf Haustuer"
+  }
+ ],
+ "navHints": {
+  "stairs": {
+   "x": [
+    -1.03,
+    0.47
+   ],
+   "y": [
+    -3.02,
+    -2.4
+   ],
+   "steps": 3,
+   "rise": 0.19
+  },
+  "porchDeck": {
+   "x0": -3.1,
+   "x1": 2.1,
+   "y0": -2.4,
+   "deck": 0.57
+  },
+  "frontWalk": {
+   "x": [
+    -0.88,
+    0.32
+   ],
+   "y": [
+    -7.7,
+    -3.02
+   ]
+  }
+ }
+}

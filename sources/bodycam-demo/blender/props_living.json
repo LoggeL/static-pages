@@ -1,0 +1,473 @@
+[
+ {
+  "name": "sofa_torn",
+  "dims": [
+   2.094,
+   1.088,
+   0.86
+  ],
+  "surface": "fabric",
+  "materials": [
+   "M_cabinet_wood",
+   "M_fabric_sofa_dirty",
+   "M_foam_old"
+  ],
+  "roomHint": "wohnzimmer",
+  "notes": "Durchgesessenes 3-Sitzer-Sofa (80er), linkes Sitzkissen aufgerissen mit herausquellendem Schaumstoff, mittleres Kissen durchgesessen, rechtes verrutscht, Armlehne vorne aufgerissen. Schaumbrocken am Boden.",
+  "anchor": "floor",
+  "tris": 13784,
+  "set": "living"
+ },
+ {
+  "name": "armchair_worn",
+  "dims": [
+   0.974,
+   0.981,
+   0.936
+  ],
+  "surface": "fabric",
+  "materials": [
+   "M_cabinet_wood",
+   "M_fabric_sofa_dirty",
+   "M_foam_old"
+  ],
+  "roomHint": "wohnzimmer",
+  "notes": "Passender Ohrensessel/Polstersessel, Kissen schief, rechte Armlehne vorne aufgerissen, Sitz fleckig.",
+  "anchor": "floor",
+  "tris": 6520,
+  "set": "living"
+ },
+ {
+  "name": "coffee_table",
+  "dims": [
+   1.1,
+   0.6,
+   0.465
+  ],
+  "surface": "wood",
+  "materials": [
+   "MU_coffee_rings",
+   "M_cabinet_wood"
+  ],
+  "roomHint": "wohnzimmer",
+  "notes": "Couchtisch Eiche dunkel, Wasser-/Kaffeeraender (MU_coffee_rings, Alpha-Decal 1,2 mm ueber der Platte), abgeplatzte Ecke, Furnier vorne angehoben, Ablage unten.",
+  "anchor": "floor",
+  "tris": 3070,
+  "set": "living"
+ },
+ {
+  "name": "tv_crt",
+  "dims": [
+   0.658,
+   0.678,
+   0.541
+  ],
+  "surface": "metal",
+  "materials": [
+   "MU_crt_screen",
+   "M_cord_black",
+   "M_plastic_black",
+   "M_plastic_grey",
+   "M_plastic_tv",
+   "M_rubber_black"
+  ],
+  "roomHint": "wohnzimmer",
+  "notes": "27\"-Roehrenfernseher (90er), Kunststoffgehaeuse anthrazit, staubiger gewoelbter Bildschirm (MU_crt_screen), Lautsprechergitter, Tasten, Lueftungsschlitze, Netzkabel. Steht auf tv_stand (Oberkante 0,52 m).",
+  "anchor": "floor",
+  "tris": 7048,
+  "set": "living"
+ },
+ {
+  "name": "tv_stand",
+  "dims": [
+   1.001,
+   0.45,
+   0.52
+  ],
+  "surface": "wood",
+  "materials": [
+   "M_brass_tarnished",
+   "M_cabinet_wood",
+   "M_hardboard",
+   "M_plastic_black",
+   "M_plastic_grey",
+   "M_plastic_tv"
+  ],
+  "roomHint": "wohnzimmer",
+  "notes": "TV-Moebel Eiche-Furnier: linke Tuer fehlt, rechte Tuer haengt schief an einem Scharnier, Videorekorder und VHS-Kassetten im Fach, Rueckwand Hartfaser. Oberkante 0,52 m (tv_crt darauf).",
+  "anchor": "floor",
+  "tris": 3988,
+  "set": "living"
+ },
+ {
+  "name": "floor_lamp_bare",
+  "dims": [
+   0.827,
+   0.49,
+   1.753
+  ],
+  "surface": "metal",
+  "materials": [
+   "M_brass_tarnished",
+   "M_cord_black",
+   "M_glass_dirty",
+   "M_plastic_black",
+   "M_steel"
+  ],
+  "roomHint": "wohnzimmer",
+  "notes": "Stehlampe Messing angelaufen, ohne Schirm: verbogener Schirmhalter, nackte (aus) Gluehbirne, Kabel am Boden. Stange leicht schief.",
+  "anchor": "floor",
+  "tris": 2596,
+  "set": "living"
+ },
+ {
+  "name": "bookshelf",
+  "dims": [
+   0.8,
+   0.3,
+   1.83
+  ],
+  "surface": "wood",
+  "materials": [
+   "MU_book_spines",
+   "M_book_cover",
+   "M_cabinet_wood",
+   "M_hardboard",
+   "M_paper_old"
+  ],
+  "roomHint": "wohnzimmer",
+  "notes": "Buecherregal 0,80 x 0,30 x 1,83 m, 5 Boeden (mittlerer durchgebogen), Buecher teils herausgenommen/umgefallen, Buchruecken MU_book_spines.",
+  "anchor": "floor",
+  "tris": 4032,
+  "set": "living"
+ },
+ {
+  "name": "bookshelf_toppled",
+  "dims": [
+   1.604,
+   2.339,
+   0.402
+  ],
+  "surface": "wood",
+  "materials": [
+   "MU_book_spines",
+   "M_book_cover",
+   "M_cabinet_wood",
+   "M_hardboard",
+   "M_paper_old"
+  ],
+  "roomHint": "wohnzimmer",
+  "notes": "Dasselbe Regal umgekippt (liegt vornueber auf Buechern, ein Ende angehoben), Buecher ueber den Boden verstreut. Footprint ~0,9 x 2,3 m.",
+  "anchor": "floor",
+  "tris": 2960,
+  "set": "living"
+ },
+ {
+  "name": "dining_table",
+  "dims": [
+   1.5,
+   0.9,
+   0.76
+  ],
+  "surface": "wood",
+  "materials": [
+   "M_cabinet_wood"
+  ],
+  "roomHint": "esszimmer",
+  "notes": "Esstisch 1,50 x 0,90 m, gedrechselte Beine, Zarge, Platte mit Dellen/Kratzern und Wasserrand.",
+  "anchor": "floor",
+  "tris": 3708,
+  "set": "living"
+ },
+ {
+  "name": "dining_chair",
+  "dims": [
+   0.43,
+   0.474,
+   0.923
+  ],
+  "surface": "wood",
+  "materials": [
+   "M_cabinet_wood",
+   "M_fabric_sofa_dirty"
+  ],
+  "roomHint": "esszimmer",
+  "notes": "Esszimmerstuhl Holz mit Stoffpolster (Sitzhoehe 0,46 m). Mehrfach aufstellen (3x stehend).",
+  "anchor": "floor",
+  "tris": 4264,
+  "set": "living"
+ },
+ {
+  "name": "dining_chair_tipped",
+  "dims": [
+   0.593,
+   1.017,
+   0.439
+  ],
+  "surface": "wood",
+  "materials": [
+   "M_cabinet_wood",
+   "M_fabric_sofa_dirty"
+  ],
+  "roomHint": "esszimmer",
+  "notes": "Derselbe Stuhl nach hinten umgekippt (liegt auf Lehne und Hinterbeinen).",
+  "anchor": "floor",
+  "tris": 4264,
+  "set": "living",
+  "variantOf": "dining_chair"
+ },
+ {
+  "name": "mattress_floor",
+  "dims": [
+   1.542,
+   2.05,
+   0.319
+  ],
+  "surface": "fabric",
+  "materials": [
+   "M_mattress_stained"
+  ],
+  "roomHint": "schlafzimmer",
+  "notes": "Queen-Matratze 1,52 x 2,03 m direkt auf dem Boden, durchgelegen, Ecke hochgebogen, grosse Urin-/Wasserflecken, Keder.",
+  "anchor": "floor",
+  "tris": 6176,
+  "set": "living"
+ },
+ {
+  "name": "bed_frame",
+  "dims": [
+   1.611,
+   2.1,
+   1.11
+  ],
+  "surface": "wood",
+  "materials": [
+   "M_cabinet_wood",
+   "M_wood_planks_raw"
+  ],
+  "roomHint": "schlafzimmer",
+  "notes": "Bettgestell Queen (Holz) ohne Matratze: Kopfteil hinten (+Y), Lattenrost mit fehlenden/gebrochenen Latten.",
+  "anchor": "floor",
+  "tris": 6448,
+  "set": "living"
+ },
+ {
+  "name": "dresser_open",
+  "dims": [
+   1.309,
+   1.244,
+   0.826
+  ],
+  "surface": "wood",
+  "materials": [
+   "M_brass_tarnished",
+   "M_cabinet_wood",
+   "M_cloth_denim",
+   "M_cloth_red",
+   "M_cloth_white",
+   "M_hardboard",
+   "M_particleboard"
+  ],
+  "roomHint": "schlafzimmer",
+  "notes": "Kommode 1,20 x 0,48 x 0,82 m, 6 Schubladen, mehrere herausgezogen, eine liegt umgekippt davor, Kleidung haengt heraus, Messing-Buegelgriffe.",
+  "anchor": "floor",
+  "tris": 8744,
+  "set": "living"
+ },
+ {
+  "name": "wardrobe_open",
+  "dims": [
+   1.199,
+   1.066,
+   1.953
+  ],
+  "surface": "wood",
+  "materials": [
+   "M_brass_tarnished",
+   "M_cabinet_wood",
+   "M_cloth_denim",
+   "M_cloth_grey",
+   "M_cloth_red",
+   "M_cloth_white",
+   "M_hardboard",
+   "M_steel"
+  ],
+  "roomHint": "schlafzimmer",
+  "notes": "Kleiderschrank 1,00 x 0,58 x 1,95 m, linke Tuer weit offen (Scharnier links), rechte angelehnt; Kleiderstange mit Drahtbuegeln, Kleiderhaufen am Boden.",
+  "anchor": "floor",
+  "tris": 6574,
+  "set": "living"
+ },
+ {
+  "name": "nightstand",
+  "dims": [
+   0.466,
+   0.552,
+   0.58
+  ],
+  "surface": "wood",
+  "materials": [
+   "MU_book_spines",
+   "M_book_cover",
+   "M_brass_tarnished",
+   "M_cabinet_wood",
+   "M_hardboard",
+   "M_paper_old",
+   "M_particleboard"
+  ],
+  "roomHint": "schlafzimmer",
+  "notes": "Nachttisch 0,45 x 0,38 x 0,58 m, Schublade halb offen, offenes Fach mit umgefallenem Buch.",
+  "anchor": "floor",
+  "tris": 2456,
+  "set": "living"
+ },
+ {
+  "name": "toy_box",
+  "dims": [
+   0.72,
+   0.953,
+   0.803
+  ],
+  "surface": "wood",
+  "materials": [
+   "M_cloth_grey",
+   "M_paint_toybox",
+   "M_plastic_black",
+   "M_plush_brown",
+   "M_toy_blue",
+   "M_toy_green",
+   "M_toy_red",
+   "M_toy_yellow"
+  ],
+  "roomHint": "kinderzimmer",
+  "notes": "Spielzeugkiste aus Holz (blau lackiert, abgeplatzt), Deckel offen nach hinten, Bauklötze, Ball, Stoffbaer (dezent).",
+  "anchor": "floor",
+  "tris": 4400,
+  "set": "living"
+ },
+ {
+  "name": "wall_picture_crooked",
+  "dims": [
+   0.874,
+   0.064,
+   0.661
+  ],
+  "surface": "wood",
+  "materials": [
+   "MU_painting",
+   "M_cabinet_wood",
+   "M_canvas_back"
+  ],
+  "roomHint": "wohnzimmer",
+  "notes": "Wandbild (Oelbild-Druck Berglandschaft, MU_painting) im Holzrahmen 0,82 x 0,57 m, haengt schief (~6 Grad) und steht unten von der Wand ab. anchor wall: Ursprung Wandebene, Unterkante; empfohlen Unterkante ~1,25 m.",
+  "anchor": "wall",
+  "tris": 1436,
+  "set": "living"
+ },
+ {
+  "name": "curtain_torn",
+  "dims": [
+   1.778,
+   0.132,
+   1.778
+  ],
+  "surface": "fabric",
+  "materials": [
+   "MU_curtain",
+   "M_brass_tarnished"
+  ],
+  "roomHint": "wohnzimmer",
+  "notes": "Vorhangstange mit zwei Stoffbahnen (MU_curtain, doppelseitig), rechte Bahn halb von den Ringen gerissen, Loch und ausgefranster Saum. anchor wall: Ursprung Wandebene, Unterkante; Stange liegt 1,80 m darueber -> Ursprung z ~0,40 fuer Stange auf 2,20 m.",
+  "anchor": "wall",
+  "tris": 4286,
+  "set": "living"
+ },
+ {
+  "name": "blinds_bent",
+  "dims": [
+   0.92,
+   0.067,
+   1.358
+  ],
+  "surface": "metal",
+  "materials": [
+   "M_blind_vinyl",
+   "M_cord_white"
+  ],
+  "roomHint": "wohnzimmer",
+  "notes": "Alu-/Vinyl-Jalousie 0,90 x 1,20 m: Lamellen in der Mitte verbogen (Spaehloch), einige fehlen, Unterschiene haengt schief (Leiterkordel gerissen). anchor wall: Ursprung Rueckseite Kopfschiene, Unterkante.",
+  "anchor": "wall",
+  "tris": 4860,
+  "set": "living"
+ },
+ {
+  "name": "ceiling_fan",
+  "dims": [
+   1.376,
+   1.335,
+   0.634
+  ],
+  "surface": "metal",
+  "materials": [
+   "M_brass_tarnished",
+   "M_fan_blade",
+   "M_steel",
+   "M_steel_dark"
+  ],
+  "roomHint": "wohnzimmer",
+  "notes": "Deckenventilator 52\" (1,32 m): Baldachin, Stange, Motorgehaeuse, 5 Fluegel (Holzdekor), einer haengt herab, Zugkette. anchor ceiling: Ursprung an der Decke, haengt 0,42 m herab.",
+  "anchor": "ceiling",
+  "tris": 3020,
+  "set": "living"
+ },
+ {
+  "name": "ceiling_lamp_bulb",
+  "dims": [
+   0.124,
+   0.124,
+   0.61
+  ],
+  "surface": "metal",
+  "materials": [
+   "ME_bulb_warm",
+   "M_cord_black",
+   "M_paint_white_old",
+   "M_plastic_black",
+   "M_steel"
+  ],
+  "roomHint": "flur",
+  "notes": "Pendelfassung an der Decke mit nackter Gluehbirne (ME_bulb_warm, leuchtend). anchor ceiling. Lichtquelle: lightOffset (glTF-Koordinaten, relativ zum Ursprung).",
+  "anchor": "ceiling",
+  "tris": 792,
+  "set": "living",
+  "lightOffset": [
+   0.0,
+   -0.585,
+   0.0
+  ],
+  "lightColor": [
+   1.0,
+   0.62,
+   0.3
+  ]
+ },
+ {
+  "name": "rug_runner",
+  "dims": [
+   0.762,
+   2.52,
+   0.058
+  ],
+  "surface": "carpet",
+  "materials": [
+   "MU_rug_runner",
+   "M_rug_back",
+   "M_rug_fringe"
+  ],
+  "roomHint": "flur",
+  "notes": "Orientalischer Laeufer 0,76 x 2,40 m (MU_rug_runner, abgelaufen, Fussspuren), Falten, Ecke umgeschlagen, Fransen.",
+  "anchor": "floor",
+  "tris": 2776,
+  "set": "living"
+ }
+]

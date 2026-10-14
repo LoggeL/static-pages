@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><title>C12 Physikprüfungen</title><link rel="icon" href="data:,">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/","three-mesh-bvh":"https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.8.3/build/index.module.js"}}</script>
+</head><body><pre id="result">Physikprüfungen laufen …</pre><script type="module">
+import { runPhysicsTests } from './physics-tests.js';
+window.__physicsResults = runPhysicsTests();
+document.querySelector('#result').textContent = JSON.stringify(window.__physicsResults, null, 2);
+</script></body></html>

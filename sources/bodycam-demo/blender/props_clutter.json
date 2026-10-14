@@ -1,0 +1,406 @@
+[
+ {
+  "name": "trash_bag_a",
+  "dims": [
+   0.624,
+   0.546,
+   0.759
+  ],
+  "surface": "fabric",
+  "materials": [
+   "M_plastic_bag_black"
+  ],
+  "roomHint": "überall; Küche, Garage, Veranda, Hof",
+  "notes": "Schwarzer Müllsack, prall gefüllt, Hals mit Knoten und zwei Zipfeln. Tuchsimulation über Inhalt (Beulen).",
+  "tris": 4912,
+  "set": "clutter"
+ },
+ {
+  "name": "trash_bag_b",
+  "dims": [
+   0.557,
+   0.607,
+   0.642
+  ],
+  "surface": "fabric",
+  "materials": [
+   "MU_can_label",
+   "M_paper_white",
+   "M_plastic_bag_black"
+  ],
+  "roomHint": "Küche, Flur, Garage",
+  "notes": "Schwarzer Müllsack, unförmig, vorne unten aufgerissen – Papierknäuel und Dose schauen heraus.",
+  "tris": 4994,
+  "set": "clutter"
+ },
+ {
+  "name": "trash_bag_c",
+  "dims": [
+   0.337,
+   0.397,
+   0.499
+  ],
+  "surface": "fabric",
+  "materials": [
+   "M_plastic_bag_white",
+   "M_plastic_tie_red"
+  ],
+  "roomHint": "Küche, Bad, Schlafzimmer",
+  "notes": "Kleiner weißer Küchenbeutel mit rotem Zugband, schmutzig, etwas schlaff.",
+  "tris": 5068,
+  "set": "clutter"
+ },
+ {
+  "name": "box_closed",
+  "dims": [
+   0.512,
+   0.393,
+   0.366
+  ],
+  "surface": "cardboard",
+  "materials": [
+   "MU_box_label",
+   "M_cardboard",
+   "M_tape_packing"
+  ],
+  "roomHint": "überall; Garage, Keller, Flur",
+  "notes": "Umzugskarton 50×38×36 cm, zugeklebt, Deckel eingesackt, Delle an der Ecke, Seite mit Etikett/Kritzelei (MU_box_label).",
+  "tris": 1976,
+  "set": "clutter"
+ },
+ {
+  "name": "box_open",
+  "dims": [
+   0.662,
+   0.524,
+   0.458
+  ],
+  "surface": "cardboard",
+  "materials": [
+   "MU_box_label",
+   "M_cardboard",
+   "M_paper_news",
+   "M_paper_white",
+   "M_tape_packing"
+  ],
+  "roomHint": "Wohnzimmer, Schlafzimmer, Garage",
+  "notes": "Offener Karton 45×33×30 cm, Klappen in verschiedenen Winkeln durchhängend, Papierknäuel darin.",
+  "tris": 2302,
+  "set": "clutter"
+ },
+ {
+  "name": "box_crushed",
+  "dims": [
+   0.533,
+   0.425,
+   0.199
+  ],
+  "surface": "cardboard",
+  "materials": [
+   "MU_box_label",
+   "M_cardboard",
+   "M_tape_packing"
+  ],
+  "roomHint": "Garage, Hof, Keller",
+  "notes": "Zusammengedrückter Karton (draufgetreten/nass): gestaucht, geknickt, verschert, große Delle.",
+  "tris": 3076,
+  "set": "clutter"
+ },
+ {
+  "name": "box_flat",
+  "dims": [
+   0.88,
+   0.741,
+   0.029
+  ],
+  "surface": "cardboard",
+  "materials": [
+   "M_cardboard"
+  ],
+  "roomHint": "überall auf dem Boden, an Wände gelehnt",
+  "notes": "Flachgelegter Karton (zwei Lagen, Knickfalte, Klappen geschlitzt), leicht gewellt, liegt flach.",
+  "tris": 3016,
+  "set": "clutter"
+ },
+ {
+  "name": "pizza_box",
+  "dims": [
+   0.415,
+   0.415,
+   0.102
+  ],
+  "surface": "cardboard",
+  "materials": [
+   "MU_box_label",
+   "MU_pizza_box",
+   "M_cardboard",
+   "M_food_crust"
+  ],
+  "roomHint": "Wohnzimmer, Küche",
+  "notes": "Pizzakarton 41×41 cm, Deckel einen Spalt offen, Fett-/Kaffeeflecken im MU-Druck.",
+  "tris": 1682,
+  "set": "clutter"
+ },
+ {
+  "name": "pizza_box_stack",
+  "dims": [
+   0.469,
+   0.549,
+   0.553
+  ],
+  "surface": "cardboard",
+  "materials": [
+   "MU_box_label",
+   "MU_pizza_box",
+   "M_cardboard",
+   "M_food_crust"
+  ],
+  "roomHint": "Wohnzimmer, Küche, Couchtisch",
+  "notes": "Drei verdrehte Pizzakartons übereinander, oberster offen mit Rändern (Krusten).",
+  "tris": 3978,
+  "set": "clutter"
+ },
+ {
+  "name": "bottle_beer",
+  "dims": [
+   0.062,
+   0.062,
+   0.234
+  ],
+  "surface": "glass",
+  "materials": [
+   "MU_beer_label",
+   "M_glass_brown"
+  ],
+  "roomHint": "Küche, Wohnzimmer, Veranda",
+  "notes": "Leere braune Bierflasche (Longneck, 23 cm), Papieretikett (MU_beer_label) halb abgelöst. Stehend.",
+  "tris": 1140,
+  "set": "clutter"
+ },
+ {
+  "name": "bottle_beer_lying",
+  "dims": [
+   0.235,
+   0.108,
+   0.062
+  ],
+  "surface": "glass",
+  "materials": [
+   "M_glass_brown",
+   "M_paper_white"
+  ],
+  "roomHint": "überall auf dem Boden",
+  "notes": "Leere braune Bierflasche, liegend, Etikett abgerissen (nur Papierrest).",
+  "tris": 1096,
+  "set": "clutter"
+ },
+ {
+  "name": "bottle_wine",
+  "dims": [
+   0.294,
+   0.168,
+   0.075
+  ],
+  "surface": "glass",
+  "materials": [
+   "M_glass_green",
+   "M_paper_white"
+  ],
+  "roomHint": "Küche, Wohnzimmer",
+  "notes": "Leere grüne Weinflasche (30 cm), liegend, mit tiefer Bodenwölbung, Etikettreste.",
+  "tris": 1208,
+  "set": "clutter"
+ },
+ {
+  "name": "bottle_liquor",
+  "dims": [
+   0.095,
+   0.053,
+   0.186
+  ],
+  "surface": "glass",
+  "materials": [
+   "M_glass_dirty",
+   "M_metal_cap"
+  ],
+  "roomHint": "Schlafzimmer, Wohnzimmer",
+  "notes": "Flache Schnapsflasche (Taschenflasche, klar, schmutzig) mit Schraubverschluss, stehend.",
+  "tris": 1004,
+  "set": "clutter"
+ },
+ {
+  "name": "bottle_broken",
+  "dims": [
+   0.212,
+   0.166,
+   0.124
+  ],
+  "surface": "glass",
+  "materials": [
+   "M_glass_brown"
+  ],
+  "roomHint": "Küche, Flur, Veranda",
+  "notes": "Abgebrochene braune Flasche (unterer Teil mit gezackter Bruchkante) + Scherben am Boden.",
+  "tris": 620,
+  "set": "clutter"
+ },
+ {
+  "name": "can_crushed_a",
+  "dims": [
+   0.077,
+   0.073,
+   0.078
+  ],
+  "surface": "metal",
+  "materials": [
+   "MU_can_label",
+   "M_aluminium"
+  ],
+  "roomHint": "überall",
+  "notes": "Getränkedose (MU_can_label, generische Marke), axial zusammengestaucht mit Knickfalten, schief.",
+  "tris": 1332,
+  "set": "clutter"
+ },
+ {
+  "name": "can_crushed_b",
+  "dims": [
+   0.109,
+   0.126,
+   0.338
+  ],
+  "surface": "metal",
+  "materials": [
+   "MU_can_label",
+   "M_aluminium"
+  ],
+  "roomHint": "überall, draußen auf der Straße",
+  "notes": "Plattgetretene Dose, liegend, Mitte flach, Enden aufgeworfen.",
+  "tris": 1332,
+  "set": "clutter"
+ },
+ {
+  "name": "can_dented",
+  "dims": [
+   0.134,
+   0.097,
+   0.066
+  ],
+  "surface": "metal",
+  "materials": [
+   "MU_can_label",
+   "M_aluminium"
+  ],
+  "roomHint": "überall",
+  "notes": "Liegende Dose mit seitlicher Delle (nicht zerdrückt).",
+  "tris": 1332,
+  "set": "clutter"
+ },
+ {
+  "name": "newspaper_stack",
+  "dims": [
+   0.319,
+   0.405,
+   0.147
+  ],
+  "surface": "cardboard",
+  "materials": [
+   "MU_newspaper",
+   "M_paper_news",
+   "M_rope_twine"
+  ],
+  "roomHint": "Garage, Wohnzimmer, Veranda",
+  "notes": "Gebündelter Zeitungsstapel (≈22 Ausgaben), mit Schnur kreuzweise, oberste Zeitung bedruckt (MU_newspaper), Ränder gewellt.",
+  "tris": 3124,
+  "set": "clutter"
+ },
+ {
+  "name": "paper_pile",
+  "dims": [
+   0.444,
+   0.482,
+   0.052
+  ],
+  "surface": "cardboard",
+  "materials": [
+   "MU_newspaper",
+   "MU_paper_letter",
+   "M_paper_white"
+  ],
+  "roomHint": "Wohnzimmer, Küche, Arbeitszimmer",
+  "notes": "Unordentlicher Papierstapel: Briefe (MU_paper_letter), Zeitungsseiten, Umschläge, verrutscht und gewellt.",
+  "tris": 1696,
+  "set": "clutter"
+ },
+ {
+  "name": "papers_loose_a",
+  "dims": [
+   0.64,
+   0.977,
+   0.064
+  ],
+  "surface": "cardboard",
+  "materials": [
+   "MU_newspaper",
+   "MU_paper_letter",
+   "M_paper_white"
+  ],
+  "roomHint": "überall auf dem Boden",
+  "notes": "Verstreute lose Blätter (Mahnungen, Zeitungsseiten) mit Knicken/Wellen + Papierknäuel. Einseitige Flächen (doubleSided).",
+  "tris": 880,
+  "set": "clutter"
+ },
+ {
+  "name": "papers_loose_b",
+  "dims": [
+   0.725,
+   0.865,
+   0.059
+  ],
+  "surface": "cardboard",
+  "materials": [
+   "MU_newspaper",
+   "MU_paper_letter",
+   "M_paper_white"
+  ],
+  "roomHint": "überall auf dem Boden",
+  "notes": "Zweite Variante loser Blätter (andere Verteilung).",
+  "tris": 720,
+  "set": "clutter"
+ },
+ {
+  "name": "plastic_bag",
+  "dims": [
+   0.346,
+   0.557,
+   0.043
+  ],
+  "surface": "fabric",
+  "materials": [
+   "M_plastic_bag_white"
+  ],
+  "roomHint": "überall, Küche, Hof",
+  "notes": "Zerknüllte, platt gefallene Einkaufstüte (dünnes graues Plastik) mit Henkeln. Tuchsimulation.",
+  "tris": 1032,
+  "set": "clutter"
+ },
+ {
+  "name": "syringe",
+  "dims": [
+   0.123,
+   0.052,
+   0.012
+  ],
+  "surface": "metal",
+  "materials": [
+   "M_needle",
+   "M_plastic_clear",
+   "M_plastic_orange",
+   "M_plastic_white_dirty",
+   "M_rubber_black"
+  ],
+  "roomHint": "Schlafzimmer, Bad (sparsam)",
+  "notes": "Einweg-Spritze 3 ml, leer, liegend, Kanüle mit orangefarbener Schutzkappe daneben. Sehr klein und unauffällig.",
+  "tris": 408,
+  "set": "clutter"
+ }
+]

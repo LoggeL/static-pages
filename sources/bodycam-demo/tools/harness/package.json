@@ -1,0 +1,17 @@
+{
+  "name": "bodycam-demo-harness",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node suite.mjs",
+    "shots": "node generate-shots.mjs",
+    "test:self": "node selftest.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "1.64.0"
+  }
+}

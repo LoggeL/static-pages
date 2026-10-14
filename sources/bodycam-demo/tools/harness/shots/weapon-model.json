@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "page": "bodycam-demo/_dev/weapon_model/index.html",
+  "description": "Reale C9-Modellpruefseite, ohne Decoder-Patch im Harness.",
+  "source": {
+    "layout": "sources/bodycam-demo/blender/layout.json",
+    "sha256": "45d3a2d76fdeae3b664a5ca041650f929aaa42d35c71539434cea240be6133aa",
+    "coordinates": "Blender [x,y,z] -> Three.js [x,z,-y], Meter. teleport verwendet die Fussposition; yaw 0 blickt nach -Z, positiv nach links; pitch -4 blickt abwaerts.",
+    "cameraHeight": 1.4,
+    "capsuleRadius": 0.3,
+    "validation": "Punkte liegen im Raum-Polygon, mit mindestens 0.30 m Abstand zur Polygonkante. Konservative, gedrehte Katalog-Footprints vorhandener Bodenmoebel ueber 0.19 m werden geprueft. Geometrie, fehlende Props, Tueren und aktuelle Collider muessen im Browser geprueft werden."
+  },
+  "defaults": {
+    "settleMs": 500,
+    "measureSeconds": 2
+  },
+  "beforeReady": [
+    {
+      "type": "eval",
+      "code": "(() => {\n  window.__bodycam = {\n    get ready() { return window.weaponTest?.ready ?? false; },\n    stats() { return { results: window.weaponTest.results, renderer: { info: window.weaponTest.getRendererInfo() } }; }\n  };\n  return { adapter: 'weaponTest.ready/results' };\n})()"
+    }
+  ],
+  "shots": [
+    {
+      "name": "overview",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { window.weaponTest.view(\"overview\"); if (!window.weaponTest.results.ok) throw new Error('Weapon model audit failed'); return window.weaponTest.results; })()"
+        }
+      ]
+    },
+    {
+      "name": "left",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { window.weaponTest.view(\"left\"); if (!window.weaponTest.results.ok) throw new Error('Weapon model audit failed'); return window.weaponTest.results; })()"
+        }
+      ]
+    },
+    {
+      "name": "right",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { window.weaponTest.view(\"right\"); if (!window.weaponTest.results.ok) throw new Error('Weapon model audit failed'); return window.weaponTest.results; })()"
+        }
+      ]
+    },
+    {
+      "name": "top",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { window.weaponTest.view(\"top\"); if (!window.weaponTest.results.ok) throw new Error('Weapon model audit failed'); return window.weaponTest.results; })()"
+        }
+      ]
+    },
+    {
+      "name": "muzzle",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { window.weaponTest.view(\"muzzle\"); if (!window.weaponTest.results.ok) throw new Error('Weapon model audit failed'); return window.weaponTest.results; })()"
+        }
+      ]
+    },
+    {
+      "name": "receiver",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { window.weaponTest.view(\"receiver\"); if (!window.weaponTest.results.ok) throw new Error('Weapon model audit failed'); return window.weaponTest.results; })()"
+        }
+      ]
+    },
+    {
+      "name": "sight",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { window.weaponTest.view(\"sight\"); if (!window.weaponTest.results.ok) throw new Error('Weapon model audit failed'); return window.weaponTest.results; })()"
+        }
+      ]
+    },
+    {
+      "name": "magazine",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { window.weaponTest.view(\"magazine\"); if (!window.weaponTest.results.ok) throw new Error('Weapon model audit failed'); return window.weaponTest.results; })()"
+        }
+      ]
+    }
+  ]
+}

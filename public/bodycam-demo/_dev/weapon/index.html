@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>C3 · Waffenlogik</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./style.css">
+  <script type="importmap">
+    {"imports":{
+      "three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+      "three-mesh-bvh":"https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.8.3/build/index.module.js"
+    }}
+  </script>
+</head>
+<body>
+  <canvas id="view" tabindex="0" aria-label="Waffenprüfung in der begehbaren Testwelt"></canvas>
+  <div id="panel">C3 · Waffenlogik<div id="metrics">Welt wird geladen …</div></div>
+  <div id="controls">
+    <button id="start">Steuerung starten</button>
+    <button id="hall">Testposition Flur</button>
+    <button id="inspection">Prüflicht aus</button>
+    <button id="pause">Pause</button>
+  </div>
+  <div id="hint">WASD · Shift Sprint · Q/E Lehnen · E Tür · LMB Feuer · RMB Zielen · R Nachladen · B Einzel/Auto · F Waffenlicht · V Inspizieren</div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

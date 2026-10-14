@@ -1,0 +1,30 @@
+:root { color-scheme: dark; font: 14px/1.45 system-ui, sans-serif; background: #14191d; color: #e5e9eb; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { display: grid; grid-template-columns: minmax(0, 1fr) 310px; height: 100dvh; }
+#viewport { position: relative; overflow: hidden; min-height: 350px; }
+canvas { display: block; width: 100%; height: 100%; }
+aside { overflow: auto; padding: 20px; border-left: 1px solid #3b444b; background: #1e252a; }
+h1 { font-size: 18px; margin: 0 0 4px; }
+h2 { font-size: 14px; margin: 22px 0 8px; }
+.intro, .hint { color: #abb6bd; font-size: 12px; }
+.intro { margin: 0 0 20px; }
+fieldset { padding: 0; margin: 0; border: 0; }
+label:not(.check) { display: block; margin: 12px 0 5px; }
+select { font: inherit; color: inherit; width: 100%; padding: 7px; border: 1px solid #56616a; background: #11191f; border-radius: 3px; }
+.check { display: flex; align-items: center; gap: 7px; margin-top: 12px; }
+input { accent-color: #a3c4d6; }
+:focus-visible { outline: 2px solid #b6dff5; outline-offset: 3px; }
+#loading { position: absolute; inset: 25px auto auto 25px; max-width: calc(100% - 50px); z-index: 2; padding: 12px 16px; background: #18232bee; border: 1px solid #74838e; }
+#loading.error { border-color: #ea9c8c; color: #ffc5b9; }
+#loading[hidden] { display: none; }
+#view-label { position: absolute; bottom: 8px; left: 16px; right: 16px; padding: 8px; margin: 0; color: #e2e8ec; background: #101a22c0; pointer-events: none; font-size: 12px; }
+dl { display: grid; grid-template-columns: 1fr auto; gap: 5px 8px; font-size: 12px; }
+dt { color: #b2bec5; }
+dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+details { margin: 15px 0; font-size: 12px; }
+summary { cursor: pointer; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 11px; }
+.pass { color: #a9d7bc; }
+.warn { color: #f0c48b; }
+@media (max-width: 740px) { main { height: auto; grid-template-columns: 1fr; } #viewport { height: 65dvh; } aside { border-left: 0; border-top: 1px solid #3b444b; } }

@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "page": "bodycam-demo/_dev/fp/?pause=1&markers=1",
+  "description": "C18: zehn eingefrorene Posen mit echter Waffe, GLB-Armen und getrenntem Viewmodel-Tiefenpuffer.",
+  "source": {
+    "acceptance": "public/bodycam-demo/_dev/fp/acceptance.mjs",
+    "method": "Neue echte Waffen-/Arminstanz pro Pose; explizite 1/120-s-Simulation; kein Mock.",
+    "mobile": "Der arms-Regressionslauf prueft separat die echte 390x844-Viewportgroesse."
+  },
+  "defaults": {
+    "settleMs": 100,
+    "measureSeconds": 1
+  },
+  "beforeReady": [
+    {
+      "type": "eval",
+      "code": "(function installReadiness() {\n  window.__bodycam = {\n    get ready() { return window.fpTest?.ready === true; },\n    stats() {\n      const f = window.fpTest;\n      if (!f?.ready) throw new Error('C18 fpTest is not ready');\n      return { ...f.stats(), renderer: { info: {\n        render: { ...f.renderer.info.render }, memory: { ...f.renderer.info.memory },\n        programs: f.renderer.info.programs?.length,\n      } } };\n    },\n  };\n  return { adapter: 'C18 fpTest.ready/stats and real renderer.info -> __bodycam' };\n})()"
+    }
+  ],
+  "setup": [
+    {
+      "type": "eval",
+      "code": "window.fpTest.freeze(true)"
+    }
+  ],
+  "integration": "fpTest.ready bleibt massgeblich. freeze/step/turn/setPose und createInstances benutzen unveraenderte C18-Module. rAF-Messungen eingefrorener Shots belegen Screenshot-Cadence; Arm-Updatekosten werden gesondert im arms-Regressionslauf gemessen.",
+  "shots": [
+    {
+      "name": "low-ready",
+      "description": "Bereitschaft mit beiden Handkontakten und sichtbaren IK-Zielen.",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(async function preparePose(name) {\n  const f = window.fpTest;\n  if (!f?.ready) throw new Error('C18 fpTest is not ready');\n  f.freeze(true);\n  f.setMoving(false);\n  f.freeTarget.rotation.set(0, 0, 0);\n  await f.createInstances();\n  f.setMarkers(true);\n  f.setArmsVisible(true);\n  f.look(0, -4);\n  f.setPose('lowready');\n  f.step(0.5);\n  switch (name) {\n    case 'low-ready': break;\n    case 'ads': f.setPose('ads'); f.step(0.65); break;\n    case 'reload-magwell':\n      f.weapon.fire(1); f.step(0.2); f.weapon.reload(); f.step(0.4); break;\n    case 'fast-turn': f.turn(95, 0.12); break;\n    case 'look-down': f.look(95, -65); f.step(0.4); break;\n    case 'free-target': f.setTarget('L', 'free'); f.step(0.8); break;\n    case 'sprint': f.setPose('sprint'); f.step(0.35); break;\n    case 'inspect': f.setPose('inspect'); f.step(2); break;\n    case 'reload-empty': f.setPose('empty'); f.step(0.5); break;\n    case 'finger-open': f.arms.setFingerPose('L', 'open', 0.4); f.step(0.4); break;\n    default: throw new Error(`Unknown C18 shot pose: ${name}`);\n  }\n  return f.stats();\n})(\"low-ready\")"
+        }
+      ]
+    },
+    {
+      "name": "ads",
+      "description": "ADS nach 0,65 s mit freier Visierlinie.",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(async function preparePose(name) {\n  const f = window.fpTest;\n  if (!f?.ready) throw new Error('C18 fpTest is not ready');\n  f.freeze(true);\n  f.setMoving(false);\n  f.freeTarget.rotation.set(0, 0, 0);\n  await f.createInstances();\n  f.setMarkers(true);\n  f.setArmsVisible(true);\n  f.look(0, -4);\n  f.setPose('lowready');\n  f.step(0.5);\n  switch (name) {\n    case 'low-ready': break;\n    case 'ads': f.setPose('ads'); f.step(0.65); break;\n    case 'reload-magwell':\n      f.weapon.fire(1); f.step(0.2); f.weapon.reload(); f.step(0.4); break;\n    case 'fast-turn': f.turn(95, 0.12); break;\n    case 'look-down': f.look(95, -65); f.step(0.4); break;\n    case 'free-target': f.setTarget('L', 'free'); f.step(0.8); break;\n    case 'sprint': f.setPose('sprint'); f.step(0.35); break;\n    case 'inspect': f.setPose('inspect'); f.step(2); break;\n    case 'reload-empty': f.setPose('empty'); f.step(0.5); break;\n    case 'finger-open': f.arms.setFingerPose('L', 'open', 0.4); f.step(0.4); break;\n    default: throw new Error(`Unknown C18 shot pose: ${name}`);\n  }\n  return f.stats();\n})(\"ads\")"
+        }
+      ]
+    },
+    {
+      "name": "reload-magwell",
+      "description": "Echtes Nachladen, linke Hand am Magazinschacht.",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(async function preparePose(name) {\n  const f = window.fpTest;\n  if (!f?.ready) throw new Error('C18 fpTest is not ready');\n  f.freeze(true);\n  f.setMoving(false);\n  f.freeTarget.rotation.set(0, 0, 0);\n  await f.createInstances();\n  f.setMarkers(true);\n  f.setArmsVisible(true);\n  f.look(0, -4);\n  f.setPose('lowready');\n  f.step(0.5);\n  switch (name) {\n    case 'low-ready': break;\n    case 'ads': f.setPose('ads'); f.step(0.65); break;\n    case 'reload-magwell':\n      f.weapon.fire(1); f.step(0.2); f.weapon.reload(); f.step(0.4); break;\n    case 'fast-turn': f.turn(95, 0.12); break;\n    case 'look-down': f.look(95, -65); f.step(0.4); break;\n    case 'free-target': f.setTarget('L', 'free'); f.step(0.8); break;\n    case 'sprint': f.setPose('sprint'); f.step(0.35); break;\n    case 'inspect': f.setPose('inspect'); f.step(2); break;\n    case 'reload-empty': f.setPose('empty'); f.step(0.5); break;\n    case 'finger-open': f.arms.setFingerPose('L', 'open', 0.4); f.step(0.4); break;\n    default: throw new Error(`Unknown C18 shot pose: ${name}`);\n  }\n  return f.stats();\n})(\"reload-magwell\")"
+        }
+      ]
+    },
+    {
+      "name": "fast-turn",
+      "description": "Kontinuierliche 95-Grad-Drehung in 0,12 s mit echter Waffentraegheit.",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(async function preparePose(name) {\n  const f = window.fpTest;\n  if (!f?.ready) throw new Error('C18 fpTest is not ready');\n  f.freeze(true);\n  f.setMoving(false);\n  f.freeTarget.rotation.set(0, 0, 0);\n  await f.createInstances();\n  f.setMarkers(true);\n  f.setArmsVisible(true);\n  f.look(0, -4);\n  f.setPose('lowready');\n  f.step(0.5);\n  switch (name) {\n    case 'low-ready': break;\n    case 'ads': f.setPose('ads'); f.step(0.65); break;\n    case 'reload-magwell':\n      f.weapon.fire(1); f.step(0.2); f.weapon.reload(); f.step(0.4); break;\n    case 'fast-turn': f.turn(95, 0.12); break;\n    case 'look-down': f.look(95, -65); f.step(0.4); break;\n    case 'free-target': f.setTarget('L', 'free'); f.step(0.8); break;\n    case 'sprint': f.setPose('sprint'); f.step(0.35); break;\n    case 'inspect': f.setPose('inspect'); f.step(2); break;\n    case 'reload-empty': f.setPose('empty'); f.step(0.5); break;\n    case 'finger-open': f.arms.setFingerPose('L', 'open', 0.4); f.step(0.4); break;\n    default: throw new Error(`Unknown C18 shot pose: ${name}`);\n  }\n  return f.stats();\n})(\"fast-turn\")"
+        }
+      ]
+    },
+    {
+      "name": "look-down",
+      "description": "Blick 65 Grad nach unten mit beiden realen Armen.",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(async function preparePose(name) {\n  const f = window.fpTest;\n  if (!f?.ready) throw new Error('C18 fpTest is not ready');\n  f.freeze(true);\n  f.setMoving(false);\n  f.freeTarget.rotation.set(0, 0, 0);\n  await f.createInstances();\n  f.setMarkers(true);\n  f.setArmsVisible(true);\n  f.look(0, -4);\n  f.setPose('lowready');\n  f.step(0.5);\n  switch (name) {\n    case 'low-ready': break;\n    case 'ads': f.setPose('ads'); f.step(0.65); break;\n    case 'reload-magwell':\n      f.weapon.fire(1); f.step(0.2); f.weapon.reload(); f.step(0.4); break;\n    case 'fast-turn': f.turn(95, 0.12); break;\n    case 'look-down': f.look(95, -65); f.step(0.4); break;\n    case 'free-target': f.setTarget('L', 'free'); f.step(0.8); break;\n    case 'sprint': f.setPose('sprint'); f.step(0.35); break;\n    case 'inspect': f.setPose('inspect'); f.step(2); break;\n    case 'reload-empty': f.setPose('empty'); f.step(0.5); break;\n    case 'finger-open': f.arms.setFingerPose('L', 'open', 0.4); f.step(0.4); break;\n    default: throw new Error(`Unknown C18 shot pose: ${name}`);\n  }\n  return f.stats();\n})(\"look-down\")"
+        }
+      ]
+    },
+    {
+      "name": "free-target",
+      "description": "Freies kamera-relatives Object3D-Ziel fuer die linke Hand.",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(async function preparePose(name) {\n  const f = window.fpTest;\n  if (!f?.ready) throw new Error('C18 fpTest is not ready');\n  f.freeze(true);\n  f.setMoving(false);\n  f.freeTarget.rotation.set(0, 0, 0);\n  await f.createInstances();\n  f.setMarkers(true);\n  f.setArmsVisible(true);\n  f.look(0, -4);\n  f.setPose('lowready');\n  f.step(0.5);\n  switch (name) {\n    case 'low-ready': break;\n    case 'ads': f.setPose('ads'); f.step(0.65); break;\n    case 'reload-magwell':\n      f.weapon.fire(1); f.step(0.2); f.weapon.reload(); f.step(0.4); break;\n    case 'fast-turn': f.turn(95, 0.12); break;\n    case 'look-down': f.look(95, -65); f.step(0.4); break;\n    case 'free-target': f.setTarget('L', 'free'); f.step(0.8); break;\n    case 'sprint': f.setPose('sprint'); f.step(0.35); break;\n    case 'inspect': f.setPose('inspect'); f.step(2); break;\n    case 'reload-empty': f.setPose('empty'); f.step(0.5); break;\n    case 'finger-open': f.arms.setFingerPose('L', 'open', 0.4); f.step(0.4); break;\n    default: throw new Error(`Unknown C18 shot pose: ${name}`);\n  }\n  return f.stats();\n})(\"free-target\")"
+        }
+      ]
+    },
+    {
+      "name": "sprint",
+      "description": "Echter Sprint-Zustand der Waffenlogik.",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(async function preparePose(name) {\n  const f = window.fpTest;\n  if (!f?.ready) throw new Error('C18 fpTest is not ready');\n  f.freeze(true);\n  f.setMoving(false);\n  f.freeTarget.rotation.set(0, 0, 0);\n  await f.createInstances();\n  f.setMarkers(true);\n  f.setArmsVisible(true);\n  f.look(0, -4);\n  f.setPose('lowready');\n  f.step(0.5);\n  switch (name) {\n    case 'low-ready': break;\n    case 'ads': f.setPose('ads'); f.step(0.65); break;\n    case 'reload-magwell':\n      f.weapon.fire(1); f.step(0.2); f.weapon.reload(); f.step(0.4); break;\n    case 'fast-turn': f.turn(95, 0.12); break;\n    case 'look-down': f.look(95, -65); f.step(0.4); break;\n    case 'free-target': f.setTarget('L', 'free'); f.step(0.8); break;\n    case 'sprint': f.setPose('sprint'); f.step(0.35); break;\n    case 'inspect': f.setPose('inspect'); f.step(2); break;\n    case 'reload-empty': f.setPose('empty'); f.step(0.5); break;\n    case 'finger-open': f.arms.setFingerPose('L', 'open', 0.4); f.step(0.4); break;\n    default: throw new Error(`Unknown C18 shot pose: ${name}`);\n  }\n  return f.stats();\n})(\"sprint\")"
+        }
+      ]
+    },
+    {
+      "name": "inspect",
+      "description": "Echter Inspect-Zustand nach 2 s.",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(async function preparePose(name) {\n  const f = window.fpTest;\n  if (!f?.ready) throw new Error('C18 fpTest is not ready');\n  f.freeze(true);\n  f.setMoving(false);\n  f.freeTarget.rotation.set(0, 0, 0);\n  await f.createInstances();\n  f.setMarkers(true);\n  f.setArmsVisible(true);\n  f.look(0, -4);\n  f.setPose('lowready');\n  f.step(0.5);\n  switch (name) {\n    case 'low-ready': break;\n    case 'ads': f.setPose('ads'); f.step(0.65); break;\n    case 'reload-magwell':\n      f.weapon.fire(1); f.step(0.2); f.weapon.reload(); f.step(0.4); break;\n    case 'fast-turn': f.turn(95, 0.12); break;\n    case 'look-down': f.look(95, -65); f.step(0.4); break;\n    case 'free-target': f.setTarget('L', 'free'); f.step(0.8); break;\n    case 'sprint': f.setPose('sprint'); f.step(0.35); break;\n    case 'inspect': f.setPose('inspect'); f.step(2); break;\n    case 'reload-empty': f.setPose('empty'); f.step(0.5); break;\n    case 'finger-open': f.arms.setFingerPose('L', 'open', 0.4); f.step(0.4); break;\n    default: throw new Error(`Unknown C18 shot pose: ${name}`);\n  }\n  return f.stats();\n})(\"inspect\")"
+        }
+      ]
+    },
+    {
+      "name": "reload-empty",
+      "description": "Leeres Magazin, echtes ReloadEmpty und Magwell-Kontakt.",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(async function preparePose(name) {\n  const f = window.fpTest;\n  if (!f?.ready) throw new Error('C18 fpTest is not ready');\n  f.freeze(true);\n  f.setMoving(false);\n  f.freeTarget.rotation.set(0, 0, 0);\n  await f.createInstances();\n  f.setMarkers(true);\n  f.setArmsVisible(true);\n  f.look(0, -4);\n  f.setPose('lowready');\n  f.step(0.5);\n  switch (name) {\n    case 'low-ready': break;\n    case 'ads': f.setPose('ads'); f.step(0.65); break;\n    case 'reload-magwell':\n      f.weapon.fire(1); f.step(0.2); f.weapon.reload(); f.step(0.4); break;\n    case 'fast-turn': f.turn(95, 0.12); break;\n    case 'look-down': f.look(95, -65); f.step(0.4); break;\n    case 'free-target': f.setTarget('L', 'free'); f.step(0.8); break;\n    case 'sprint': f.setPose('sprint'); f.step(0.35); break;\n    case 'inspect': f.setPose('inspect'); f.step(2); break;\n    case 'reload-empty': f.setPose('empty'); f.step(0.5); break;\n    case 'finger-open': f.arms.setFingerPose('L', 'open', 0.4); f.step(0.4); break;\n    default: throw new Error(`Unknown C18 shot pose: ${name}`);\n  }\n  return f.stats();\n})(\"reload-empty\")"
+        }
+      ]
+    },
+    {
+      "name": "finger-open",
+      "description": "Offenes linkes Fingerpreset am unveraenderten Griffziel.",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(async function preparePose(name) {\n  const f = window.fpTest;\n  if (!f?.ready) throw new Error('C18 fpTest is not ready');\n  f.freeze(true);\n  f.setMoving(false);\n  f.freeTarget.rotation.set(0, 0, 0);\n  await f.createInstances();\n  f.setMarkers(true);\n  f.setArmsVisible(true);\n  f.look(0, -4);\n  f.setPose('lowready');\n  f.step(0.5);\n  switch (name) {\n    case 'low-ready': break;\n    case 'ads': f.setPose('ads'); f.step(0.65); break;\n    case 'reload-magwell':\n      f.weapon.fire(1); f.step(0.2); f.weapon.reload(); f.step(0.4); break;\n    case 'fast-turn': f.turn(95, 0.12); break;\n    case 'look-down': f.look(95, -65); f.step(0.4); break;\n    case 'free-target': f.setTarget('L', 'free'); f.step(0.8); break;\n    case 'sprint': f.setPose('sprint'); f.step(0.35); break;\n    case 'inspect': f.setPose('inspect'); f.step(2); break;\n    case 'reload-empty': f.setPose('empty'); f.step(0.5); break;\n    case 'finger-open': f.arms.setFingerPose('L', 'open', 0.4); f.step(0.4); break;\n    default: throw new Error(`Unknown C18 shot pose: ${name}`);\n  }\n  return f.stats();\n})(\"finger-open\")"
+        }
+      ]
+    }
+  ]
+}

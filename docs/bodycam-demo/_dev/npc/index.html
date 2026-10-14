@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>C19 · NPC-Technik</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./style.css">
+  <script type="importmap">
+    {"imports":{
+      "three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+      "three-mesh-bvh":"https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.8.3/build/index.module.js"
+    }}
+  </script>
+</head>
+<body>
+  <canvas id="view" tabindex="0" aria-label="NPC-Prüfung in der echten Haus-Szene"></canvas>
+  <aside id="panel">
+    <h1>C19 · NPC-Technik</h1>
+    <p id="loading">Echte Szene und Modelle werden geladen …</p>
+    <pre id="metrics" aria-live="off"></pre>
+    <details><summary>Ereignisse</summary><pre id="events"></pre></details>
+  </aside>
+  <aside id="controls">
+    <div class="row"><label>NPC <select id="npc"></select></label><button id="inspect">NPC ansehen</button><button id="face">Zum Spieler drehen</button></div>
+    <div class="row"><label>Zielraum <select id="room"></select></label><button id="move">Raum ansteuern</button><button id="place">NPC in Zielraum setzen</button></div>
+    <div class="row"><label>Zustand <select id="state"><option value="idle">Ruhe (idle)</option><option value="alert">Alarm (alert)</option><option value="flee">Flucht (flee)</option><option value="hide">Deckung (hide)</option><option value="aim">Zielen (aim)</option><option value="fire">Schuss (fire)</option><option value="surrender">Aufgeben (surrender)</option><option value="hit">Treffer (hit)</option><option value="dead">Tot (dead)</option></select></label><button id="state-set">Zustand setzen</button><button id="npc-fire">NPC-Schuss</button></div>
+    <div class="row"><label>Tür <select id="door"></select></label><button id="open">Öffnen</button><button id="close">Schließen</button></div>
+    <div class="row"><label><input id="debug" type="checkbox" checked>Pfad, Kegel und Kapseln</label><label><input id="neutral" type="checkbox" checked>Neutrale Prüfausgabe</label></div>
+    <div class="row"><button id="pause">Pause</button><button id="step">+ 1/60 s</button><label><input id="ads" type="checkbox">Karabiner zielen</label><button id="weapon-fire">Karabiner-Schuss</button><button id="rebuild">Neue Instanzen</button></div>
+    <p>WASD bewegt den echten Spieler. Maus ziehen dreht die Kamera. Zustände und Schüsse werden ausdrücklich ausgelöst. Der Officer ist ein Modellplatzhalter.</p>
+    <a href="?npcdebug=1&amp;npcs=0">Gleiche Szene ohne NPCs</a>
+  </aside>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "page": "index.html",
+  "defaults": { "settleMs": 80, "measureSeconds": 0.3 },
+  "shots": [
+    { "name": "baseline", "description": "Realer WebGL2-Frame mit initialem Zustand." },
+    {
+      "name": "actions",
+      "description": "Teleport, Blick, native Tasten, Maus und eval mit Zustandsprüfung.",
+      "teleport": [1, 2, 3, 15, -4],
+      "look": [25, -8],
+      "actions": [
+        { "type": "keys", "keys": ["ShiftLeft", "KeyW"], "durationMs": 100 },
+        { "type": "wait", "ms": 20 },
+        { "type": "mouse", "position": [600, 400], "button": "right", "durationMs": 20 },
+        { "type": "click", "selector": "#start" },
+        { "type": "eval", "code": "(() => { const p = window.__bodycam.player; if (p.position[0] !== 1 || p.position[1] !== 2 || p.position[2] >= 3 || p.yawDeg !== 25 || p.pitchDeg !== -8 || !p.keys.includes('down:KeyW') || !p.keys.includes('up:KeyW') || !p.keys.includes('up:ShiftLeft') || p.clicks < 2 || !p.started) throw new Error('Action state mismatch'); return {verified:true}; })()" }
+      ]
+    }
+  ]
+}

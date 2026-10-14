@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "coordinates": "Blender Z-up, metres; all colors are linear RGB",
+  "bake": {
+    "atlasSize": 2048,
+    "samples": 1024,
+    "seed": 27,
+    "device": "METAL",
+    "maxBounces": 8,
+    "diffuseBounces": 6,
+    "transparentBounces": 12,
+    "paddingPixels": 8,
+    "islandGapPixels": 18,
+    "smartAngleDegrees": 70,
+    "denoiser": "OIDN_RT_HDR",
+    "rgbmMinimumRange": 1,
+    "lightmapIntensity": 3.141592653589793,
+    "maxLightmapBytes": 40000000,
+    "doorsCastBakedShadows": false,
+    "minimumChartPixels": 2,
+    "chartPadding": {
+      "enabled": true,
+      "bilinearRadiusPixels": 1.02
+    },
+    "rgbmColorBits": 6,
+    "rgbmMultiplierSteps": "powersOfTwo",
+    "rgbmQuadraticAboveRange": 4,
+    "rgbmColorBitsByAtlas": {
+      "EXT": 5,
+      "NEIGHBORS": 5,
+      "PORCH": 5,
+      "SITE": 5
+    },
+    "pngOptimization": {
+      "workers": 4,
+      "filters": "01234mep"
+    }
+  },
+  "sky": {
+    "color": [
+      0.38,
+      0.48,
+      0.68
+    ],
+    "strength": 0.055
+  },
+  "moon": {
+    "color": [
+      0.62,
+      0.73,
+      1.0
+    ],
+    "energy": 0.16,
+    "direction": [
+      0.48,
+      0.38,
+      -0.79
+    ],
+    "angleDegrees": 1.8
+  },
+  "streetlight": {
+    "enabled": true,
+    "layoutAnchor": "streetlight",
+    "color": [
+      1.0,
+      0.48,
+      0.12
+    ],
+    "powerWatts": 130,
+    "radius": 0.18,
+    "visibleEmission": 2
+  },
+  "porch": {
+    "enabled": false,
+    "layoutAnchor": "porchLight",
+    "color": [
+      1.0,
+      0.64,
+      0.32
+    ],
+    "powerWatts": 12,
+    "radius": 0.06
+  },
+  "kitchen": {
+    "enabled": true,
+    "color": [
+      1.0,
+      0.64,
+      0.34
+    ],
+    "powerWatts": 18,
+    "radius": 0.075,
+    "position": [
+      -4.2,
+      6.2,
+      2.615
+    ],
+    "visibleEmission": 1.5
+  },
+  "decals": {
+    "offsetMeters": 0.0015
+  },
+  "runtime": {
+    "background": "#10151e",
+    "fog": {
+      "enabled": true,
+      "type": "exp2",
+      "color": "#141b26",
+      "density": 0.012
+    },
+    "camera": {
+      "fov": 82,
+      "height": 1.4,
+      "pitchDeg": -4
+    },
+    "dynamicPoliceLights": true
+  },
+  "export": {
+    "uv0GridMeters": 0.0001220703125,
+    "normalQuantizationBits": 10,
+    "uv1Bits": 16,
+    "uv1Float32Meshes": [
+      "LM_BED2_M_steel",
+      "LM_LIV_M_cord_black"
+    ],
+    "codec": "meshopt",
+    "maxDeployBytes": 120000000,
+    "vertexColorBits": 8,
+    "positionQuantizationBits": 16,
+    "maxPositionErrorMeters": 0.001
+  }
+}

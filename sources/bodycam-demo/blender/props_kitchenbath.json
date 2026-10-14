@@ -1,0 +1,285 @@
+[
+ {
+  "name": "kitchen_base_cab_60",
+  "dims": [
+   0.63,
+   0.899,
+   1.014
+  ],
+  "surface": "wood",
+  "materials": [
+   "M_cabinet_wood",
+   "M_cabinet_interior",
+   "M_brass_old",
+   "M_galvanized",
+   "M_particleboard",
+   "M_stainless",
+   "M_laminate_counter"
+  ],
+  "roomHint": "kitchen",
+  "notes": "Unterschrank 60 cm mit Arbeitsplatte (Laminat). Schublade halb herausgezogen und verkantet, Tür hängt am oberen Scharnier schief offen. Rückseite bündig an Wand (+Y), Ursprung = Mitte Korpusgrundfläche.",
+  "tris": 6836
+ },
+ {
+  "name": "kitchen_base_cab_45",
+  "dims": [
+   0.454,
+   0.647,
+   1.019
+  ],
+  "surface": "wood",
+  "materials": [
+   "M_cabinet_wood",
+   "M_particleboard_wet",
+   "M_cabinet_interior",
+   "M_brass_old",
+   "M_galvanized",
+   "M_particleboard",
+   "M_laminate_counter"
+  ],
+  "roomHint": "kitchen",
+  "notes": "Unterschrank 45 cm, Tür fehlt (Scharniere hängen noch, eins verbogen), Schublade fehlt, Fachboden abgesackt, Wasserschaden am Boden. Arbeitsplatte leicht angehoben (Stoß). Ursprung = Mitte Korpusgrundfläche.",
+  "tris": 4464
+ },
+ {
+  "name": "kitchen_sink_cab_90",
+  "dims": [
+   0.903,
+   1.022,
+   1.049
+  ],
+  "surface": "wood",
+  "materials": [
+   "M_cabinet_wood",
+   "M_particleboard_wet",
+   "M_cabinet_interior",
+   "M_galvanized",
+   "M_brass_old",
+   "MU_kitchen_sink",
+   "M_stainless_dark",
+   "M_particleboard",
+   "M_laminate_counter",
+   "M_chrome_dull",
+   "M_pvc_white"
+  ],
+  "roomHint": "kitchen",
+  "notes": "Spülenunterschrank 90 cm mit Edelstahl-Doppelbecken (MU_kitchen_sink gebacken), Einhebelarmatur, Siphon, Eckventilen. Linke Tür fehlt, rechte steht offen, Boden aufgequollen, Umleimer der Platte löst sich. Ursprung = Mitte Korpusgrundfläche.",
+  "tris": 12098
+ },
+ {
+  "name": "kitchen_wall_cab_60",
+  "dims": [
+   0.6,
+   0.71,
+   0.76
+  ],
+  "surface": "wood",
+  "materials": [
+   "M_cabinet_wood",
+   "M_cabinet_interior",
+   "M_brass_old",
+   "M_ceramic_plate"
+  ],
+  "roomHint": "kitchen",
+  "notes": "Oberschrank 60 x 76 x 31 cm, eine Tür halb offen, zwei Fachböden mit Tassen. Ursprung = Unterkante Mitte (Montagehöhe Unterkante 1,37 m), Rückseite an Wand (+Y).",
+  "tris": 2624,
+  "mount": "Unterkante 1.37 m über Boden"
+ },
+ {
+  "name": "kitchen_wall_cab_76",
+  "dims": [
+   0.911,
+   0.442,
+   0.821
+  ],
+  "surface": "wood",
+  "materials": [
+   "M_cabinet_wood",
+   "M_cabinet_interior",
+   "M_brass_old",
+   "M_ceramic_plate"
+  ],
+  "roomHint": "kitchen",
+  "notes": "Oberschrank 76 x 76 x 31 cm, zwei Türen: linke fehlt, rechte hängt nur noch am oberen Scharnier schräg herunter. Ursprung = Unterkante Mitte (Montagehöhe 1,37 m).",
+  "tris": 3164,
+  "mount": "Unterkante 1.37 m über Boden"
+ },
+ {
+  "name": "stove_old",
+  "dims": [
+   0.766,
+   0.827,
+   1.174
+  ],
+  "surface": "metal",
+  "materials": [
+   "MU_stove",
+   "M_steel_dark",
+   "M_chrome_dull",
+   "M_burner_pan",
+   "M_coil",
+   "M_plastic_white",
+   "MU_stove_panel",
+   "M_plastic_black",
+   "M_glass_dark",
+   "M_aluminium_dark"
+  ],
+  "roomHint": "kitchen",
+  "notes": "Alter 30\"-Elektroherd (Mandelweiß), vier Heizspiralen (eine fehlt), rostige Tropfschalen, Backofentür steht einen Spalt offen (Ofenraum mit Rost sichtbar), Schublade halb offen, ein Knebel fehlt, Delle in der linken Seitenwand. Bedienblende = Imagegen-Etikett MU_stove_panel. Rückseite an Wand (+Y).",
+  "tris": 22220
+ },
+ {
+  "name": "fridge_open",
+  "dims": [
+   0.979,
+   1.499,
+   1.687
+  ],
+  "surface": "metal",
+  "materials": [
+   "MU_fridge",
+   "M_glass_dirty",
+   "M_plastic_white",
+   "M_fridge_liner",
+   "M_plastic_clear",
+   "M_spill_dark",
+   "M_mold_green",
+   "M_steel_dark",
+   "M_plastic_black",
+   "M_gasket",
+   "M_chrome_dull",
+   "MU_fridge_note",
+   "M_plastic_red"
+  ],
+  "roomHint": "kitchen",
+  "notes": "Kühlschrank mit Gefrierfach oben (76 x 70 x 168 cm). Kühlteil-Tür ~105° offen (Scharnier rechts), Innenraum verschimmelt, Pfützen, Glasböden, ein Gemüsefach herausgezogen, Türfächer mit Flaschen. Kinderzeichnung (MU_fridge_note) am Gefrierfach. Ursprung = Mitte Korpusgrundfläche; offene Tür ragt nach vorn rechts.",
+  "tris": 20668
+ },
+ {
+  "name": "microwave",
+  "dims": [
+   0.512,
+   0.396,
+   0.29
+  ],
+  "surface": "metal",
+  "materials": [
+   "MU_microwave",
+   "M_plastic_grey",
+   "M_glass_dark",
+   "M_plastic_black",
+   "MU_microwave_panel",
+   "M_rubber_black"
+  ],
+  "roomHint": "kitchen",
+  "notes": "Alte Arbeitsplatten-Mikrowelle 51 x 38 x 29 cm, verfettet, Delle oben, Bedienfeld = MU_microwave_panel.",
+  "tris": 3154
+ },
+ {
+  "name": "range_hood",
+  "dims": [
+   0.762,
+   0.467,
+   0.165
+  ],
+  "surface": "metal",
+  "materials": [
+   "MU_range_hood",
+   "M_aluminium_dark",
+   "M_steel_dark",
+   "M_plastic_clear",
+   "M_plastic_black",
+   "M_grease"
+  ],
+  "roomHint": "kitchen",
+  "notes": "Unterbau-Dunstabzugshaube 30\" (76 x 46 x 15 cm), Mandelweiß, stark verfettet, Fettfilter, Lampenabdeckung, zwei Wippschalter. Ursprung = Unterkante Mitte; Montage unter Oberschrank (Unterkante ca. 1,52 m).",
+  "tris": 992,
+  "mount": "Unterkante ca. 1.52 m (unter 76er-Oberschrank, 61 cm über Kochfläche)"
+ },
+ {
+  "name": "kitchen_pot",
+  "dims": [
+   0.31,
+   0.248,
+   0.215
+  ],
+  "surface": "metal",
+  "materials": [
+   "M_aluminium",
+   "M_food_crust",
+   "M_bakelite"
+  ],
+  "roomHint": "kitchen",
+  "notes": "Alu-Kochtopf (Ø 24 cm) mit Delle, angebranntem Rest, Deckel schief aufgelegt.",
+  "tris": 1324
+ },
+ {
+  "name": "kitchen_saucepan",
+  "dims": [
+   0.176,
+   0.346,
+   0.102
+  ],
+  "surface": "metal",
+  "materials": [
+   "M_stainless",
+   "M_bakelite",
+   "M_food_crust"
+  ],
+  "roomHint": "kitchen",
+  "notes": "Kleiner Stieltopf (Ø 17 cm), Bakelitgriff, innen eingebrannt.",
+  "tris": 764
+ },
+ {
+  "name": "kitchen_pan",
+  "dims": [
+   0.284,
+   0.481,
+   0.09
+  ],
+  "surface": "metal",
+  "materials": [
+   "M_aluminium_dark",
+   "M_nonstick",
+   "M_bakelite",
+   "M_steel_dark",
+   "M_grease"
+  ],
+  "roomHint": "kitchen",
+  "notes": "Bratpfanne (Ø 28 cm), zerkratzte Antihaftschicht mit eingebranntem Fett.",
+  "tris": 928
+ },
+ {
+  "name": "kitchen_plate_stack",
+  "dims": [
+   0.274,
+   0.271,
+   0.075
+  ],
+  "surface": "glass",
+  "materials": [
+   "M_ceramic_plate",
+   "M_food_crust"
+  ],
+  "roomHint": "kitchen",
+  "notes": "Stapel aus 5 schmutzigen Tellern (Ø 26 cm), leicht versetzt, oberster mit Essensresten und Abplatzer.",
+  "tris": 1652
+ },
+ {
+  "name": "kitchen_plate",
+  "dims": [
+   0.26,
+   0.26,
+   0.026
+  ],
+  "surface": "glass",
+  "materials": [
+   "M_ceramic_plate",
+   "M_food_crust",
+   "M_grease"
+  ],
+  "roomHint": "kitchen",
+  "notes": "Einzelner schmutziger Teller (Ø 26 cm) mit angetrockneten Resten.",
+  "tris": 792
+ }
+]

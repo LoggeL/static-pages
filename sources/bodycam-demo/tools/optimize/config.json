@@ -1,0 +1,28 @@
+{
+  "budgetBytes": 60000000,
+  "textures": {
+    "tileMaxSize": 1024,
+    "albedoQuality": 80,
+    "normalQuality": 90,
+    "ormQuality": 90,
+    "decalQuality": 85,
+    "method": 6,
+    "retainSmallerOriginal": true,
+    "albedoMaxSize": 1024,
+    "normalMaxSize": 2048,
+    "ormMaxSize": 512,
+    "losslessKinds": [
+      "normal",
+      "orm"
+    ],
+    "dataBits": 8,
+    "preserveKinds": [
+      "albedo",
+      "normal",
+      "orm",
+      "decal"
+    ],
+    "minimumNormalSize": 1024
+  },
+  "qualityPolicy": "Restore full-resolution normal source bytes; retain accepted C7 albedo, ORM and decal bytes. Required Meshopt with bounded geometry precision and shared embedded image buffers."
+}

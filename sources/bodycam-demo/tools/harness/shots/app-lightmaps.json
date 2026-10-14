@@ -1,0 +1,238 @@
+{
+  "version": 1,
+  "page": "bodycam-demo/index.html?debug=1&lightmaps=1",
+  "description": "Identische App-Kamerapunkte mit Lightmaps an/aus.",
+  "source": {
+    "layout": "sources/bodycam-demo/blender/layout.json",
+    "sha256": "45d3a2d76fdeae3b664a5ca041650f929aaa42d35c71539434cea240be6133aa",
+    "coordinates": "Blender [x,y,z] -> Three.js [x,z,-y], Meter. teleport verwendet die Fussposition; yaw 0 blickt nach -Z, positiv nach links; pitch -4 blickt abwaerts.",
+    "cameraHeight": 1.4,
+    "capsuleRadius": 0.3,
+    "validation": "Punkte liegen im Raum-Polygon, mit mindestens 0.30 m Abstand zur Polygonkante. Konservative, gedrehte Katalog-Footprints vorhandener Bodenmoebel ueber 0.19 m werden geprueft. Geometrie, fehlende Props, Tueren und aktuelle Collider muessen im Browser geprueft werden."
+  },
+  "defaults": {
+    "settleMs": 500,
+    "measureSeconds": 2
+  },
+  "setup": [
+    {
+      "type": "eval",
+      "code": "(async () => {\n  const a = window.__bodycam; const c = a.dev.audio.context;\n  const stats = a.stats();\n  if (stats.issues.length || Object.values(stats.modules).some(v => !v)) throw new Error('App module fallback: ' + JSON.stringify(stats.issues));\n  return { audioSink: c.sinkId, audio: stats.audio };\n})()"
+    },
+    {
+      "type": "eval",
+      "code": "(async () => {\n  await window.__bodycam.resume();\n  if (window.__bodycam.stats().phase !== 'playing') throw new Error('App did not start');\n  return { phase: window.__bodycam.stats().phase };\n})()"
+    }
+  ],
+  "shots": [
+    {
+      "name": "spawn-lightmaps-1",
+      "description": "Aussen: Spawn laut playerSpawn am Streifenwagen, Blick auf das Haus.",
+      "teleport": [
+        4.6,
+        -0.22,
+        11,
+        26,
+        -4
+      ],
+      "source": {
+        "room": "OUT",
+        "blenderPosition": [
+          4.6,
+          -11,
+          -0.22
+        ],
+        "rationale": "Spawn laut playerSpawn am Streifenwagen, Blick auf das Haus."
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { const s=window.__bodycam.world.stats; if (s.lightmaps !== true) throw new Error('Wrong lightmap path'); return s; })()"
+        }
+      ]
+    },
+    {
+      "name": "hall-long-lightmaps-1",
+      "description": "Flur: Mitte des schmalen Laengsflurs auf dem begehbaren Laeufer; hinter dem Schwenkbereich der Haustuer.",
+      "teleport": [
+        -0.28,
+        0.6,
+        -1.6,
+        0,
+        -4
+      ],
+      "source": {
+        "room": "HAL",
+        "blenderPosition": [
+          -0.28,
+          1.6,
+          0.6
+        ],
+        "rationale": "Mitte des schmalen Laengsflurs auf dem begehbaren Laeufer; hinter dem Schwenkbereich der Haustuer."
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { const s=window.__bodycam.world.stats; if (s.lightmaps !== true) throw new Error('Wrong lightmap path'); return s; })()"
+        }
+      ]
+    },
+    {
+      "name": "bathroom-lightmaps-1",
+      "description": "Bad: Freie Mitte zwischen Waschtisch, Toilette und Wanne; Blick zur Ostwand.",
+      "teleport": [
+        1.15,
+        0.6,
+        -6.85,
+        -90,
+        -4
+      ],
+      "source": {
+        "room": "BATH",
+        "blenderPosition": [
+          1.15,
+          6.85,
+          0.6
+        ],
+        "rationale": "Freie Mitte zwischen Waschtisch, Toilette und Wanne; Blick zur Ostwand."
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { const s=window.__bodycam.world.stats; if (s.lightmaps !== true) throw new Error('Wrong lightmap path'); return s; })()"
+        }
+      ]
+    },
+    {
+      "name": "utility-lightmaps-1",
+      "description": "Waschkueche / Abstellraum: Zwischen Muellsack, Karton und geschlossener Hintertuer; Blick zur Waschmaschine.",
+      "teleport": [
+        1.4,
+        0.6,
+        -9,
+        35,
+        -4
+      ],
+      "source": {
+        "room": "UTIL",
+        "blenderPosition": [
+          1.4,
+          9,
+          0.6
+        ],
+        "rationale": "Zwischen Muellsack, Karton und geschlossener Hintertuer; Blick zur Waschmaschine."
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { const s=window.__bodycam.world.stats; if (s.lightmaps !== true) throw new Error('Wrong lightmap path'); return s; })()"
+        }
+      ]
+    },
+    {
+      "name": "spawn-lightmaps-0",
+      "description": "Aussen: Spawn laut playerSpawn am Streifenwagen, Blick auf das Haus.",
+      "teleport": [
+        4.6,
+        -0.22,
+        11,
+        26,
+        -4
+      ],
+      "source": {
+        "room": "OUT",
+        "blenderPosition": [
+          4.6,
+          -11,
+          -0.22
+        ],
+        "rationale": "Spawn laut playerSpawn am Streifenwagen, Blick auf das Haus."
+      },
+      "page": "bodycam-demo/index.html?debug=1&lightmaps=0",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { const s=window.__bodycam.world.stats; if (s.lightmaps !== false) throw new Error('Wrong lightmap path'); return s; })()"
+        }
+      ]
+    },
+    {
+      "name": "hall-long-lightmaps-0",
+      "description": "Flur: Mitte des schmalen Laengsflurs auf dem begehbaren Laeufer; hinter dem Schwenkbereich der Haustuer.",
+      "teleport": [
+        -0.28,
+        0.6,
+        -1.6,
+        0,
+        -4
+      ],
+      "source": {
+        "room": "HAL",
+        "blenderPosition": [
+          -0.28,
+          1.6,
+          0.6
+        ],
+        "rationale": "Mitte des schmalen Laengsflurs auf dem begehbaren Laeufer; hinter dem Schwenkbereich der Haustuer."
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { const s=window.__bodycam.world.stats; if (s.lightmaps !== false) throw new Error('Wrong lightmap path'); return s; })()"
+        }
+      ]
+    },
+    {
+      "name": "bathroom-lightmaps-0",
+      "description": "Bad: Freie Mitte zwischen Waschtisch, Toilette und Wanne; Blick zur Ostwand.",
+      "teleport": [
+        1.15,
+        0.6,
+        -6.85,
+        -90,
+        -4
+      ],
+      "source": {
+        "room": "BATH",
+        "blenderPosition": [
+          1.15,
+          6.85,
+          0.6
+        ],
+        "rationale": "Freie Mitte zwischen Waschtisch, Toilette und Wanne; Blick zur Ostwand."
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { const s=window.__bodycam.world.stats; if (s.lightmaps !== false) throw new Error('Wrong lightmap path'); return s; })()"
+        }
+      ]
+    },
+    {
+      "name": "utility-lightmaps-0",
+      "description": "Waschkueche / Abstellraum: Zwischen Muellsack, Karton und geschlossener Hintertuer; Blick zur Waschmaschine.",
+      "teleport": [
+        1.4,
+        0.6,
+        -9,
+        35,
+        -4
+      ],
+      "source": {
+        "room": "UTIL",
+        "blenderPosition": [
+          1.4,
+          9,
+          0.6
+        ],
+        "rationale": "Zwischen Muellsack, Karton und geschlossener Hintertuer; Blick zur Waschmaschine."
+      },
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { const s=window.__bodycam.world.stats; if (s.lightmaps !== false) throw new Error('Wrong lightmap path'); return s; })()"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Bodycam · PostFX-Test</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" href="data:,">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main id="viewport" aria-label="PostFX-Testszene"></main>
+  <nav id="controls" class="ui" aria-label="Teststeuerung">
+    <strong>PostFX-Test</strong>
+    <label>Ansicht <select id="mode"><option value="post">Nachher · PostFX</option><option value="raw">Vorher · ACES</option></select></label>
+    <label>Szenario <select id="scenario"><option value="still">Ruhig</option><option value="spin">Drehung</option><option value="dark">Dunkel</option><option value="muzzle">Mündungsfeuer</option></select></label>
+    <label>Qualität <select id="quality"><option value="low">Low</option><option value="medium">Medium</option><option value="high" selected>High</option></select></label>
+    <label><input id="room-light" type="checkbox" checked> Raumlicht</label>
+    <label><input id="flashlight" type="checkbox" checked> Taschenlampe</label>
+    <label><input id="spin" type="checkbox"> Drehen</label>
+    <button id="fire" type="button">Schuss (M)</button>
+    <button id="damage" type="button">Schaden (X)</button>
+    <button id="connect" type="button">Verbinden</button>
+    <button id="disconnect" type="button">Trennen</button>
+    <button id="pause" type="button">Pause (P)</button>
+    <button id="tune-toggle" type="button" aria-expanded="false" aria-controls="tune">Parameter (T)</button>
+  </nav>
+  <aside id="tune" class="ui" hidden aria-label="Live-Parameter"></aside>
+  <footer id="readout" class="ui">
+    <div id="status" role="status">Lade Three.js und PostFX …</div>
+    <pre id="stats" aria-label="Messwerte"></pre>
+    <small>Ziehen: Blickrichtung · F: Lampe · B: Vorher/Nachher · 1/2/3: Qualität</small>
+  </footer>
+  <pre id="error" role="alert" hidden></pre>
+  <script type="module">
+    const errorBox = document.getElementById('error');
+    const showError = (error) => {
+      errorBox.hidden = false;
+      errorBox.textContent = `PostFX-Test: ${error?.stack || error?.message || error}`;
+      document.getElementById('status').textContent = 'Fehler. Details stehen im roten Feld.';
+    };
+    window.addEventListener('error', (event) => {
+      if (event.error || event.message) showError(event.error || event.message);
+    });
+    window.addEventListener('unhandledrejection', (event) => showError(event.reason));
+    import('./demo.js').catch(showError);
+  </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "page": "bodycam-demo/_dev/postfx/index.html",
+  "description": "C5-Testszene: echte still/spin/dark/muzzle-Szenarien auf high, plus Raw-Vergleich.",
+  "source": {
+    "layout": "sources/bodycam-demo/blender/layout.json",
+    "sha256": "45d3a2d76fdeae3b664a5ca041650f929aaa42d35c71539434cea240be6133aa",
+    "coordinates": "Blender [x,y,z] -> Three.js [x,z,-y], Meter. teleport verwendet die Fussposition; yaw 0 blickt nach -Z, positiv nach links; pitch -4 blickt abwaerts.",
+    "cameraHeight": 1.4,
+    "capsuleRadius": 0.3,
+    "validation": "Punkte liegen im Raum-Polygon, mit mindestens 0.30 m Abstand zur Polygonkante. Konservative, gedrehte Katalog-Footprints vorhandener Bodenmoebel ueber 0.19 m werden geprueft. Geometrie, fehlende Props, Tueren und aktuelle Collider muessen im Browser geprueft werden."
+  },
+  "defaults": {
+    "settleMs": 500,
+    "measureSeconds": 2
+  },
+  "beforeReady": [
+    {
+      "type": "eval",
+      "code": "(function installPostfxAdapter() {\n    if (!window.__bodycam) window.__bodycam = {\n      get ready() { return window.postfxDemo?.ready ?? false; },\n      stats() {\n        const demo = window.postfxDemo;\n        if (!demo) throw new Error('C5 postfxDemo is not initialized');\n        return {\n          ...demo.stats,\n          scenario: demo.scenario, mode: demo.mode, quality: demo.quality,\n          renderer: { info: {\n            render: { ...demo.renderer.info.render },\n            memory: { ...demo.renderer.info.memory },\n            programs: demo.renderer.info.programs?.length,\n          } },\n        };\n      },\n    };\n    return { adapter: 'C5 postfxDemo.ready Promise and renderer.info -> __bodycam' };\n  })()"
+    }
+  ],
+  "integration": "Harness-Adapter reicht das echte postfxDemo.ready-Promise und postfxDemo.stats samt renderer.info weiter. Szenarien verwenden setScenario(), setMode(), setQuality() und resume() aus _dev/postfx/demo.js. Keine Aenderung an C5-Dateien.",
+  "shots": [
+    {
+      "name": "scene-overview",
+      "description": "C5 still: Startkamera fuer Maskenprofil, OSD, Schaerfetafel und gerade Linien; PostFX high.",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { const d = window.postfxDemo; if (!d) throw new Error('C5 postfxDemo is not initialized'); d.setQuality('high'); d.setMode(\"post\"); d.setScenario(\"still\"); d.resume(); return { scenario: d.scenario, mode: d.mode, quality: d.quality }; })()"
+        }
+      ],
+      "settleMs": 1500,
+      "measureSeconds": 3
+    },
+    {
+      "name": "spin",
+      "description": "C5 spin: echte Drehung fuer Bewegungsunschaerfe und Makrobloecke; eigene Testszene, keine Hauskoordinaten.",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { const d = window.postfxDemo; if (!d) throw new Error('C5 postfxDemo is not initialized'); d.setQuality('high'); d.setMode(\"post\"); d.setScenario(\"spin\"); d.resume(); return { scenario: d.scenario, mode: d.mode, quality: d.quality }; })()"
+        }
+      ],
+      "settleMs": 1500,
+      "measureSeconds": 3
+    },
+    {
+      "name": "dark",
+      "description": "C5 dark: Raumlicht auf darkGain reduziert, Waffenlicht an; Belichtung kann sich vor der Aufnahme anpassen.",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { const d = window.postfxDemo; if (!d) throw new Error('C5 postfxDemo is not initialized'); d.setQuality('high'); d.setMode(\"post\"); d.setScenario(\"dark\"); d.resume(); return { scenario: d.scenario, mode: d.mode, quality: d.quality }; })()"
+        }
+      ],
+      "settleMs": 1500,
+      "measureSeconds": 3
+    },
+    {
+      "name": "muzzle",
+      "description": "C5 muzzle: dauerhaftes Test-Muendungsfeuer via holdMuzzle. Reproduzierbarer Effektvergleich, keine Aussage ueber Dauer eines echten Schusses.",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { const d = window.postfxDemo; if (!d) throw new Error('C5 postfxDemo is not initialized'); d.setQuality('high'); d.setMode(\"post\"); d.setScenario(\"muzzle\"); d.resume(); return { scenario: d.scenario, mode: d.mode, quality: d.quality }; })()"
+        }
+      ],
+      "settleMs": 1500,
+      "measureSeconds": 3
+    },
+    {
+      "name": "raw-overview",
+      "description": "C5 still im echten Raw-Modus (ACES), gleiche Startkamera fuer den Vergleich mit scene-overview.",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => { const d = window.postfxDemo; if (!d) throw new Error('C5 postfxDemo is not initialized'); d.setQuality('high'); d.setMode(\"raw\"); d.setScenario(\"still\"); d.resume(); return { scenario: d.scenario, mode: d.mode, quality: d.quality }; })()"
+        }
+      ],
+      "settleMs": 1500,
+      "measureSeconds": 3
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "page": "bodycam-demo/_dev/character/index.html",
+  "description": "C10: roher Gewichts-Audit und alle statischen Prüfposen.",
+  "source": {
+    "layout": "sources/bodycam-demo/blender/layout.json",
+    "sha256": "45d3a2d76fdeae3b664a5ca041650f929aaa42d35c71539434cea240be6133aa",
+    "coordinates": "Blender [x,y,z] -> Three.js [x,z,-y], Meter. teleport verwendet die Fussposition; yaw 0 blickt nach -Z, positiv nach links; pitch -4 blickt abwaerts.",
+    "cameraHeight": 1.4,
+    "capsuleRadius": 0.3,
+    "validation": "Punkte liegen im Raum-Polygon, mit mindestens 0.30 m Abstand zur Polygonkante. Konservative, gedrehte Katalog-Footprints vorhandener Bodenmoebel ueber 0.19 m werden geprueft. Geometrie, fehlende Props, Tueren und aktuelle Collider muessen im Browser geprueft werden."
+  },
+  "defaults": {
+    "settleMs": 500,
+    "measureSeconds": 2
+  },
+  "beforeReady": [
+    {
+      "type": "eval",
+      "code": "(() => {\n      window.__bodycam={get ready(){return window.characterTest?.ready ?? false;}, stats(){return window.characterTest.snapshot();}};\n    })()"
+    }
+  ],
+  "shots": [
+    {
+      "name": "rest",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => {\n      const c=window.characterTest; c.setPose('rest'); const s=c.snapshot();\n      if(!s.ready || s.error || s.missingBones.length || ['nonNormalized','zeroWeights','invalidWeights','invalidJoints','overFour'].some(k=>s.audit[k])) throw new Error('Raw character audit failed: '+JSON.stringify(s.audit));\n      return s;\n    })()"
+        }
+      ]
+    },
+    {
+      "name": "fist",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => {\n      const c=window.characterTest; c.setPose('fist'); const s=c.snapshot();\n      if(!s.ready || s.error || s.missingBones.length || ['nonNormalized','zeroWeights','invalidWeights','invalidJoints','overFour'].some(k=>s.audit[k])) throw new Error('Raw character audit failed: '+JSON.stringify(s.audit));\n      return s;\n    })()"
+        }
+      ]
+    },
+    {
+      "name": "grip",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => {\n      const c=window.characterTest; c.setPose('grip'); const s=c.snapshot();\n      if(!s.ready || s.error || s.missingBones.length || ['nonNormalized','zeroWeights','invalidWeights','invalidJoints','overFour'].some(k=>s.audit[k])) throw new Error('Raw character audit failed: '+JSON.stringify(s.audit));\n      return s;\n    })()"
+        }
+      ]
+    },
+    {
+      "name": "arms-forward",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => {\n      const c=window.characterTest; c.setPose('arms-forward'); const s=c.snapshot();\n      if(!s.ready || s.error || s.missingBones.length || ['nonNormalized','zeroWeights','invalidWeights','invalidJoints','overFour'].some(k=>s.audit[k])) throw new Error('Raw character audit failed: '+JSON.stringify(s.audit));\n      return s;\n    })()"
+        }
+      ]
+    },
+    {
+      "name": "squat",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => {\n      const c=window.characterTest; c.setPose('squat'); const s=c.snapshot();\n      if(!s.ready || s.error || s.missingBones.length || ['nonNormalized','zeroWeights','invalidWeights','invalidJoints','overFour'].some(k=>s.audit[k])) throw new Error('Raw character audit failed: '+JSON.stringify(s.audit));\n      return s;\n    })()"
+        }
+      ]
+    },
+    {
+      "name": "look-down",
+      "actions": [
+        {
+          "type": "eval",
+          "code": "(() => {\n      const c=window.characterTest; c.setPose('look-down'); const s=c.snapshot();\n      if(!s.ready || s.error || s.missingBones.length || ['nonNormalized','zeroWeights','invalidWeights','invalidJoints','overFour'].some(k=>s.audit[k])) throw new Error('Raw character audit failed: '+JSON.stringify(s.audit));\n      return s;\n    })()"
+        }
+      ]
+    }
+  ]
+}

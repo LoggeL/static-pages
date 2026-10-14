@@ -1,0 +1,559 @@
+{
+ "rifle_shot_indoor": {
+  "files": [
+   "audio/rifle_shot_indoor_1.ogg",
+   "audio/rifle_shot_indoor_2.ogg",
+   "audio/rifle_shot_indoor_3.ogg",
+   "audio/rifle_shot_indoor_4.ogg",
+   "audio/rifle_shot_indoor_5.ogg"
+  ],
+  "gain": 1.0,
+  "desc": "5.56-Karabiner im Innenraum, Schütze-Perspektive, natürlicher Raumhall ~0,6 s (inkl. Hülsenklingeln)",
+  "source": "https://www.youtube.com/watch?v=78zgY95U8Q4&t=38 [0:38.731-0:39.900] | https://www.youtube.com/watch?v=78zgY95U8Q4&t=42 [0:42.619-0:43.750] | https://www.youtube.com/watch?v=78zgY95U8Q4&t=45 [0:45.977-0:47.380] | https://www.youtube.com/watch?v=78zgY95U8Q4&t=51 [0:51.566-0:52.700] | https://www.youtube.com/watch?v=78zgY95U8Q4&t=58 [0:58.334-0:59.560]"
+ },
+ "rifle_shot_outdoor": {
+  "files": [
+   "audio/rifle_shot_outdoor_1.ogg",
+   "audio/rifle_shot_outdoor_2.ogg",
+   "audio/rifle_shot_outdoor_3.ogg",
+   "audio/rifle_shot_outdoor_4.ogg",
+   "audio/rifle_shot_outdoor_5.ogg"
+  ],
+  "gain": 1.0,
+  "desc": "AR-15/M4 im Freien, Schütze-Perspektive, mit Gebäude-/Geländeecho",
+  "source": "https://www.youtube.com/watch?v=y5FMmbY2qm4&t=0 [0:00.023-0:02.600] | https://www.youtube.com/watch?v=aOl_17UOaBk&t=0 [0:00.028-0:02.400] | https://www.youtube.com/watch?v=SMCiY2Z4mxk&t=0 [0:00.345-0:02.800] | https://www.youtube.com/watch?v=Rdxw9VRmJsY&t=61 [1:01.125-1:03.600] | https://www.youtube.com/watch?v=Rdxw9VRmJsY&t=64 [1:04.987-1:07.400]"
+ },
+ "rifle_tail_indoor": {
+  "files": [
+   "audio/rifle_tail_indoor_1.ogg",
+   "audio/rifle_tail_indoor_2.ogg",
+   "audio/rifle_tail_indoor_3.ogg"
+  ],
+  "gain": 1.0,
+  "desc": "Raumhall eines Gewehrschusses ohne Transiente; zeitgleich mit dem Schuss starten",
+  "source": "https://www.youtube.com/watch?v=awf0v7tXi14&t=42 [0:42.328-0:44.000] | https://www.youtube.com/watch?v=awf0v7tXi14&t=45 [0:45.426-0:47.200] | https://www.youtube.com/watch?v=awf0v7tXi14&t=71 [1:11.605-1:14.000]"
+ },
+ "rifle_tail_outdoor": {
+  "files": [
+   "audio/rifle_tail_outdoor_1.ogg",
+   "audio/rifle_tail_outdoor_2.ogg",
+   "audio/rifle_tail_outdoor_3.ogg"
+  ],
+  "gain": 1.0,
+  "desc": "Außenecho/Nachhall eines Gewehrschusses ohne Transiente; zeitgleich mit dem Schuss starten",
+  "source": "https://www.youtube.com/watch?v=2Z-7slP1NmU&t=1 [0:01.138-0:05.000] | https://www.youtube.com/watch?v=y6mjfW_AO8Y&t=0 [0:00.314-0:04.500] | https://www.youtube.com/watch?v=Rdxw9VRmJsY&t=61 [1:01.125-1:03.600]"
+ },
+ "pistol_shot_indoor": {
+  "files": [
+   "audio/pistol_shot_indoor_1.ogg",
+   "audio/pistol_shot_indoor_2.ogg",
+   "audio/pistol_shot_indoor_3.ogg",
+   "audio/pistol_shot_indoor_4.ogg",
+   "audio/pistol_shot_indoor_5.ogg"
+  ],
+  "gain": 0.9,
+  "desc": "9-mm-Pistole im Innenraum (NPC-Schuss, nah)",
+  "source": "https://www.youtube.com/watch?v=5bYu9cTfZXc&t=0 [0:00.060-0:01.600] | https://www.youtube.com/watch?v=F0V01VJseUU&t=0 [0:00.021-0:01.800] | https://www.youtube.com/watch?v=OROFMGvxt5Q&t=0 [0:00.062-0:01.500] | https://www.youtube.com/watch?v=kuMpJhSeudY&t=0 [0:00.455-0:01.800] | https://www.youtube.com/watch?v=4p5kjTLx4_4&t=0 [0:00.019-0:01.800]"
+ },
+ "rifle_mech": {
+  "files": [
+   "audio/rifle_mech_1.ogg",
+   "audio/rifle_mech_2.ogg",
+   "audio/rifle_mech_3.ogg"
+  ],
+  "gain": 0.25,
+  "desc": "Verschluss-/Federgeräusch des Karabiners; leise unter jeden eigenen Schuss legen",
+  "source": "https://www.youtube.com/watch?v=G4D_681z8nQ&t=0 [0:00.442-0:00.850] | https://www.youtube.com/watch?v=1Ala1S6gG7I&t=11 [0:11.195-0:11.650] | https://www.youtube.com/watch?v=WmG10On2Jhs&t=3 [0:03.848-0:04.300]"
+ },
+ "dry_fire": {
+  "files": [
+   "audio/dry_fire_1.ogg",
+   "audio/dry_fire_2.ogg",
+   "audio/dry_fire_3.ogg"
+  ],
+  "gain": 0.6,
+  "desc": "Abzug auf leerer Kammer (Klick)",
+  "source": "https://www.youtube.com/watch?v=1Ala1S6gG7I&t=16 [0:16.530-0:16.950] | https://www.youtube.com/watch?v=S5qfBAZuIxU&t=0 [0:00.018-0:00.500] | https://www.youtube.com/watch?v=G8PdJf1ZRbE&t=0 [0:00.008-0:00.450]"
+ },
+ "mag_out": {
+  "files": [
+   "audio/mag_out_1.ogg",
+   "audio/mag_out_2.ogg",
+   "audio/mag_out_3.ogg"
+  ],
+  "gain": 0.6,
+  "desc": "Magazinhalter drücken, Magazin herausziehen",
+  "source": "https://www.youtube.com/watch?v=1Ala1S6gG7I&t=19 [0:19.631-0:20.400] | https://www.youtube.com/watch?v=PZGpLE2uPYE&t=0 [0:00.069-0:00.750] | https://www.youtube.com/watch?v=TpvlcTt0M7s&t=0 [0:00.072-0:00.750]"
+ },
+ "mag_in": {
+  "files": [
+   "audio/mag_in_1.ogg",
+   "audio/mag_in_2.ogg",
+   "audio/mag_in_3.ogg",
+   "audio/mag_in_4.ogg"
+  ],
+  "gain": 0.7,
+  "desc": "Magazin einsetzen und einrasten",
+  "source": "https://www.youtube.com/watch?v=1Ala1S6gG7I&t=2 [0:02.462-0:03.050] | https://www.youtube.com/watch?v=1Ala1S6gG7I&t=4 [0:04.918-0:05.400] | https://www.youtube.com/watch?v=1Ala1S6gG7I&t=7 [0:07.773-0:08.300] | https://www.youtube.com/watch?v=uBQAR4jda-c&t=0 [0:00.840-0:01.250]"
+ },
+ "mag_drop": {
+  "files": [
+   "audio/mag_drop_1.ogg",
+   "audio/mag_drop_2.ogg",
+   "audio/mag_drop_3.ogg",
+   "audio/mag_drop_4.ogg"
+  ],
+  "gain": 0.6,
+  "desc": "Leeres Magazin fällt auf den Boden",
+  "source": "https://www.youtube.com/watch?v=bHrVxdS0ceA&t=0 [0:00.078-0:00.750] | https://www.youtube.com/watch?v=bHrVxdS0ceA&t=5 [0:05.716-0:06.350] | https://www.youtube.com/watch?v=bHrVxdS0ceA&t=9 [0:09.221-0:09.800] | https://www.youtube.com/watch?v=bHrVxdS0ceA&t=14 [0:14.004-0:14.700]"
+ },
+ "bolt_release": {
+  "files": [
+   "audio/bolt_release_1.ogg",
+   "audio/bolt_release_2.ogg"
+  ],
+  "gain": 0.7,
+  "desc": "Verschlussfang lösen, Verschluss schlägt vor (mit Pufferfeder-Nachklang)",
+  "source": "https://www.youtube.com/watch?v=1Ala1S6gG7I&t=8 [0:08.397-0:09.000] | https://www.youtube.com/watch?v=L3tfNyPGGmg&t=27 [0:27.103-0:27.700]"
+ },
+ "charging_handle": {
+  "files": [
+   "audio/charging_handle_1.ogg",
+   "audio/charging_handle_2.ogg"
+  ],
+  "gain": 0.7,
+  "desc": "Spannhebel zurückziehen und vorschnellen lassen",
+  "source": "https://www.youtube.com/watch?v=G4D_681z8nQ&t=0 [0:00.030-0:00.850] | https://www.youtube.com/watch?v=ueIBF5aH1V4&t=1 [0:01.100-0:01.950]"
+ },
+ "selector": {
+  "files": [
+   "audio/selector_1.ogg",
+   "audio/selector_2.ogg",
+   "audio/selector_3.ogg",
+   "audio/selector_4.ogg"
+  ],
+  "gain": 0.4,
+  "desc": "Sicherungs-/Feuerwahlhebel klickt",
+  "source": "https://www.youtube.com/watch?v=1Vc0_yo4Kuo&t=1 [0:01.070-0:01.300] | https://www.youtube.com/watch?v=1Vc0_yo4Kuo&t=4 [0:04.622-0:04.850] | https://www.youtube.com/watch?v=1Vc0_yo4Kuo&t=8 [0:08.329-0:08.550] | https://www.youtube.com/watch?v=1Vc0_yo4Kuo&t=11 [0:11.608-0:11.830]"
+ },
+ "light_click": {
+  "files": [
+   "audio/light_click_1.ogg",
+   "audio/light_click_2.ogg",
+   "audio/light_click_3.ogg",
+   "audio/light_click_4.ogg"
+  ],
+  "gain": 0.4,
+  "desc": "Taster des Waffenlichts",
+  "source": "https://www.youtube.com/watch?v=_f3PGXD8JBY&t=1 [0:01.082-0:01.400] | https://www.youtube.com/watch?v=_f3PGXD8JBY&t=3 [0:03.199-0:03.500] | https://www.youtube.com/watch?v=sEQOkbANLWM&t=0 [0:00.462-0:00.630] | https://www.youtube.com/watch?v=sEQOkbANLWM&t=0 [0:00.644-0:00.840]"
+ },
+ "casing_concrete": {
+  "files": [
+   "audio/casing_concrete_1.ogg",
+   "audio/casing_concrete_2.ogg",
+   "audio/casing_concrete_3.ogg",
+   "audio/casing_concrete_4.ogg",
+   "audio/casing_concrete_5.ogg"
+  ],
+  "gain": 0.35,
+  "desc": "Messinghülse fällt auf Beton/harten Boden und springt",
+  "source": "https://www.youtube.com/watch?v=aDw-dENQ-LQ&t=0 [0:00.000-0:01.500] | https://www.youtube.com/watch?v=kOEZysagwHo&t=2 [0:02.375-0:04.050] | https://www.youtube.com/watch?v=kOEZysagwHo&t=4 [0:04.143-0:05.450] | https://www.youtube.com/watch?v=kOEZysagwHo&t=9 [0:09.979-0:11.600] | https://www.youtube.com/watch?v=FPzya0-3aHM&t=0 [0:00.000-0:01.500]"
+ },
+ "casing_wood": {
+  "files": [
+   "audio/casing_wood_1.ogg",
+   "audio/casing_wood_2.ogg",
+   "audio/casing_wood_3.ogg",
+   "audio/casing_wood_4.ogg"
+  ],
+  "gain": 0.35,
+  "desc": "Messinghülse fällt auf Holzboden",
+  "source": "https://www.youtube.com/watch?v=wF96mAC6imo&t=0 [0:00.000-0:01.300] | https://www.youtube.com/watch?v=x1W3qjGtZq8&t=0 [0:00.000-0:01.300] | https://www.youtube.com/watch?v=tS_5iGRO5wA&t=0 [0:00.000-0:01.300] | https://www.youtube.com/watch?v=Gs4klLSg01A&t=0 [0:00.000-0:01.300]"
+ },
+ "step_concrete": {
+  "files": [
+   "audio/step_concrete_1.ogg",
+   "audio/step_concrete_2.ogg",
+   "audio/step_concrete_3.ogg",
+   "audio/step_concrete_4.ogg",
+   "audio/step_concrete_5.ogg"
+  ],
+  "gain": 0.45,
+  "desc": "Einsatzstiefel auf Beton, ein Schritt",
+  "source": "https://www.youtube.com/watch?v=KLkHTvP_YiY&t=1 [0:01.612-0:02.212] | https://www.youtube.com/watch?v=KLkHTvP_YiY&t=2 [0:02.479-0:03.079] | https://www.youtube.com/watch?v=KLkHTvP_YiY&t=4 [0:04.213-0:04.813] | https://www.youtube.com/watch?v=KLkHTvP_YiY&t=7 [0:07.679-0:08.279] | https://www.youtube.com/watch?v=KLkHTvP_YiY&t=9 [0:09.413-0:10.013]"
+ },
+ "step_wood": {
+  "files": [
+   "audio/step_wood_1.ogg",
+   "audio/step_wood_2.ogg",
+   "audio/step_wood_3.ogg",
+   "audio/step_wood_4.ogg",
+   "audio/step_wood_5.ogg"
+  ],
+  "gain": 0.5,
+  "desc": "Einsatzstiefel auf Holzdielen, ein Schritt",
+  "source": "https://www.youtube.com/watch?v=8AnRxVsEnBU&t=0 [0:00.081-0:00.681] | https://www.youtube.com/watch?v=8AnRxVsEnBU&t=0 [0:00.789-0:01.389] | https://www.youtube.com/watch?v=8AnRxVsEnBU&t=1 [0:01.470-0:02.070] | https://www.youtube.com/watch?v=L8Q5ZjizTaQ&t=4 [0:04.952-0:05.552] | https://www.youtube.com/watch?v=L8Q5ZjizTaQ&t=9 [0:09.029-0:09.629]"
+ },
+ "step_carpet": {
+  "files": [
+   "audio/step_carpet_1.ogg",
+   "audio/step_carpet_2.ogg",
+   "audio/step_carpet_3.ogg",
+   "audio/step_carpet_4.ogg",
+   "audio/step_carpet_5.ogg"
+  ],
+  "gain": 0.35,
+  "desc": "Einsatzstiefel auf Teppich (über Holz), ein Schritt",
+  "source": "https://www.youtube.com/watch?v=ErYOrIpWzpg&t=0 [0:00.091-0:00.691] | https://www.youtube.com/watch?v=ErYOrIpWzpg&t=1 [0:01.621-0:02.221] | https://www.youtube.com/watch?v=ErYOrIpWzpg&t=4 [0:04.311-0:04.911] | https://www.youtube.com/watch?v=ErYOrIpWzpg&t=6 [0:06.946-0:07.546] | https://www.youtube.com/watch?v=ErYOrIpWzpg&t=8 [0:08.274-0:08.874]"
+ },
+ "step_tile": {
+  "files": [
+   "audio/step_tile_1.ogg",
+   "audio/step_tile_2.ogg",
+   "audio/step_tile_3.ogg",
+   "audio/step_tile_4.ogg",
+   "audio/step_tile_5.ogg"
+  ],
+  "gain": 0.45,
+  "desc": "Einsatzstiefel auf Fliesen, ein Schritt",
+  "source": "https://www.youtube.com/watch?v=Na6w0mPGTWE&t=7 [0:07.526-0:08.126] | https://www.youtube.com/watch?v=Na6w0mPGTWE&t=8 [0:08.124-0:08.724] | https://www.youtube.com/watch?v=Na6w0mPGTWE&t=9 [0:09.185-0:09.785] | https://www.youtube.com/watch?v=Na6w0mPGTWE&t=12 [0:12.211-0:12.811] | https://www.youtube.com/watch?v=Na6w0mPGTWE&t=14 [0:14.225-0:14.825]"
+ },
+ "step_grass": {
+  "files": [
+   "audio/step_grass_1.ogg",
+   "audio/step_grass_2.ogg",
+   "audio/step_grass_3.ogg",
+   "audio/step_grass_4.ogg",
+   "audio/step_grass_5.ogg"
+  ],
+  "gain": 0.4,
+  "desc": "Einsatzstiefel auf (nassem) Gras, ein Schritt",
+  "source": "https://www.youtube.com/watch?v=VyQLTIenpbU&t=0 [0:00.953-0:01.553] | https://www.youtube.com/watch?v=VyQLTIenpbU&t=2 [0:02.552-0:03.152] | https://www.youtube.com/watch?v=VyQLTIenpbU&t=3 [0:03.396-0:03.996] | https://www.youtube.com/watch?v=VyQLTIenpbU&t=8 [0:08.975-0:09.575] | https://www.youtube.com/watch?v=VyQLTIenpbU&t=9 [0:09.757-0:10.357]"
+ },
+ "step_asphalt": {
+  "files": [
+   "audio/step_asphalt_1.ogg",
+   "audio/step_asphalt_2.ogg",
+   "audio/step_asphalt_3.ogg",
+   "audio/step_asphalt_4.ogg",
+   "audio/step_asphalt_5.ogg"
+  ],
+  "gain": 0.45,
+  "desc": "Einsatzstiefel auf Asphalt, ein Schritt",
+  "source": "https://www.youtube.com/watch?v=nBUMP_182rQ&t=2 [0:02.386-0:02.986] | https://www.youtube.com/watch?v=nBUMP_182rQ&t=3 [0:03.602-0:04.202] | https://www.youtube.com/watch?v=nBUMP_182rQ&t=4 [0:04.203-0:04.803] | https://www.youtube.com/watch?v=nBUMP_182rQ&t=5 [0:05.436-0:06.036] | https://www.youtube.com/watch?v=nBUMP_182rQ&t=12 [0:12.277-0:12.877]"
+ },
+ "impact_wood": {
+  "files": [
+   "audio/impact_wood_1.ogg",
+   "audio/impact_wood_2.ogg",
+   "audio/impact_wood_3.ogg"
+  ],
+  "gain": 0.6,
+  "desc": "Geschoss schlägt in Holz ein (Splittern)",
+  "source": "https://www.youtube.com/watch?v=3MGi1if3Erg&t=0 [0:00.120-0:00.700] | https://www.youtube.com/watch?v=ERdpaHzO1B0&t=0 [0:00.000-0:00.500] | https://www.youtube.com/watch?v=MykNvlwocwg&t=0 [0:00.100-0:00.600]"
+ },
+ "impact_concrete": {
+  "files": [
+   "audio/impact_concrete_1.ogg",
+   "audio/impact_concrete_2.ogg",
+   "audio/impact_concrete_3.ogg",
+   "audio/impact_concrete_4.ogg"
+  ],
+  "gain": 0.6,
+  "desc": "Geschoss schlägt in Beton/Mauerwerk ein",
+  "source": "https://www.youtube.com/watch?v=_D2JCvEOego&t=2 [0:02.590-0:03.200] | https://www.youtube.com/watch?v=_D2JCvEOego&t=3 [0:03.310-0:03.900] | https://www.youtube.com/watch?v=n49bNiFBvgU&t=7 [0:07.790-0:08.400] | https://www.youtube.com/watch?v=n49bNiFBvgU&t=10 [0:10.570-0:11.200]"
+ },
+ "impact_plaster": {
+  "files": [
+   "audio/impact_plaster_1.ogg",
+   "audio/impact_plaster_2.ogg",
+   "audio/impact_plaster_3.ogg"
+  ],
+  "gain": 0.55,
+  "desc": "Geschoss schlägt in Putz/Gipskarton ein (aus Holz-/Beton-Einschlägen gefiltert)",
+  "source": "https://www.youtube.com/watch?v=ERdpaHzO1B0&t=0 [0:00.000-0:00.500] | https://www.youtube.com/watch?v=_D2JCvEOego&t=2 [0:02.590-0:03.200] | https://www.youtube.com/watch?v=n49bNiFBvgU&t=7 [0:07.790-0:08.400]"
+ },
+ "impact_metal": {
+  "files": [
+   "audio/impact_metal_1.ogg",
+   "audio/impact_metal_2.ogg",
+   "audio/impact_metal_3.ogg",
+   "audio/impact_metal_4.ogg",
+   "audio/impact_metal_5.ogg"
+  ],
+  "gain": 0.6,
+  "desc": "Geschoss trifft Metall (Klang/Klingeln)",
+  "source": "https://www.youtube.com/watch?v=-3XncwQA92Y&t=0 [0:00.130-0:00.700] | https://www.youtube.com/watch?v=8rJ1-Kc_OaI&t=0 [0:00.000-0:00.600] | https://www.youtube.com/watch?v=n49bNiFBvgU&t=13 [0:13.620-0:14.600] | https://www.youtube.com/watch?v=n49bNiFBvgU&t=16 [0:16.950-0:17.900] | https://www.youtube.com/watch?v=uGGkjt7DnVQ&t=0 [0:00.000-0:00.800]"
+ },
+ "impact_glass": {
+  "files": [
+   "audio/impact_glass_1.ogg",
+   "audio/impact_glass_2.ogg",
+   "audio/impact_glass_3.ogg",
+   "audio/impact_glass_4.ogg"
+  ],
+  "gain": 0.6,
+  "desc": "Geschoss durchschlägt Glas",
+  "source": "https://www.youtube.com/watch?v=3TY6uHoebmY&t=0 [0:00.020-0:00.900] | https://www.youtube.com/watch?v=9VJAKgEnApQ&t=0 [0:00.040-0:00.900] | https://www.youtube.com/watch?v=_81r02hS4yE&t=0 [0:00.030-0:01.000] | https://www.youtube.com/watch?v=gGiN1ILTqjA&t=0 [0:00.030-0:01.000]"
+ },
+ "impact_flesh": {
+  "files": [
+   "audio/impact_flesh_1.ogg",
+   "audio/impact_flesh_2.ogg",
+   "audio/impact_flesh_3.ogg",
+   "audio/impact_flesh_4.ogg",
+   "audio/impact_flesh_5.ogg"
+  ],
+  "gain": 0.55,
+  "desc": "Treffer im Körper (dumpf, nass)",
+  "source": "https://www.youtube.com/watch?v=ThFYeby_RLo&t=0 [0:00.050-0:00.500] | https://www.youtube.com/watch?v=cgTQ49sqo-I&t=0 [0:00.150-0:00.700] | https://www.youtube.com/watch?v=1Kz5vKZ3fHQ&t=0 [0:00.110-0:00.700] | https://www.youtube.com/watch?v=n49bNiFBvgU&t=3 [0:03.020-0:03.600] | https://www.youtube.com/watch?v=n49bNiFBvgU&t=5 [0:05.150-0:05.800]"
+ },
+ "pistol_shot_distant": {
+  "files": [
+   "audio/pistol_shot_distant_1.ogg",
+   "audio/pistol_shot_distant_2.ogg",
+   "audio/pistol_shot_distant_3.ogg",
+   "audio/pistol_shot_distant_4.ogg",
+   "audio/pistol_shot_distant_5.ogg"
+  ],
+  "gain": 0.6,
+  "desc": "Schuss aus größerer Entfernung im Freien (dumpf, mit Echo)",
+  "source": "https://www.youtube.com/watch?v=W4aErfms544&t=0 [0:00.024-0:01.950] | https://www.youtube.com/watch?v=W4aErfms544&t=5 [0:05.972-0:07.900] | https://www.youtube.com/watch?v=W4aErfms544&t=9 [0:09.965-0:11.900] | https://www.youtube.com/watch?v=eMuXTFeamdU&t=1 [0:01.094-0:04.500] | https://www.youtube.com/watch?v=zKLc9E0O4w8&t=0 [0:00.050-0:02.500]"
+ },
+ "glass_break": {
+  "files": [
+   "audio/glass_break_1.ogg",
+   "audio/glass_break_2.ogg",
+   "audio/glass_break_3.ogg",
+   "audio/glass_break_4.ogg",
+   "audio/glass_break_5.ogg"
+  ],
+  "gain": 0.7,
+  "desc": "Fensterscheibe zerbricht, Scherben fallen",
+  "source": "https://www.youtube.com/watch?v=3gN-G_E9RBM&t=0 [0:00.000-0:02.200] | https://www.youtube.com/watch?v=PwHVUZyKXBI&t=0 [0:00.000-0:02.400] | https://www.youtube.com/watch?v=ZJC6ONEBfL4&t=0 [0:00.000-0:01.800] | https://www.youtube.com/watch?v=nqexGlQDANs&t=0 [0:00.000-0:02.600] | https://www.youtube.com/watch?v=dI_khq7ZHwM&t=0 [0:00.000-0:01.800]"
+ },
+ "bullet_whiz": {
+  "files": [
+   "audio/bullet_whiz_1.ogg",
+   "audio/bullet_whiz_2.ogg",
+   "audio/bullet_whiz_3.ogg",
+   "audio/bullet_whiz_4.ogg",
+   "audio/bullet_whiz_5.ogg"
+  ],
+  "gain": 0.6,
+  "desc": "Geschoss zischt/knallt knapp vorbei",
+  "source": "https://www.youtube.com/watch?v=-hQpk-cSpyo&t=0 [0:00.043-0:00.800] | https://www.youtube.com/watch?v=mpL0VXZP4SI&t=0 [0:00.196-0:01.000] | https://www.youtube.com/watch?v=stzSY1gT0m0&t=12 [0:12.199-0:12.900] | https://www.youtube.com/watch?v=n49bNiFBvgU&t=20 [0:20.250-0:21.200] | https://www.youtube.com/watch?v=n49bNiFBvgU&t=23 [0:23.672-0:24.300]"
+ },
+ "door_open_creak": {
+  "files": [
+   "audio/door_open_creak_1.ogg",
+   "audio/door_open_creak_2.ogg",
+   "audio/door_open_creak_3.ogg",
+   "audio/door_open_creak_4.ogg"
+  ],
+  "gain": 0.6,
+  "desc": "Alte Holztür öffnet sich knarrend (inkl. Klinke)",
+  "source": "https://www.youtube.com/watch?v=D3ZuJ-I78yI&t=0 [0:00.240-0:04.050] | https://www.youtube.com/watch?v=D3ZuJ-I78yI&t=6 [0:06.300-0:10.200] | https://www.youtube.com/watch?v=xu0e1eikUK8&t=3 [0:03.350-0:06.600] | https://www.youtube.com/watch?v=p1xOeIKpH5w&t=0 [0:00.000-0:00.900]"
+ },
+ "door_close": {
+  "files": [
+   "audio/door_close_1.ogg",
+   "audio/door_close_2.ogg",
+   "audio/door_close_3.ogg",
+   "audio/door_close_4.ogg",
+   "audio/door_close_5.ogg"
+  ],
+  "gain": 0.6,
+  "desc": "Holztür schließt/fällt ins Schloss",
+  "source": "https://www.youtube.com/watch?v=EjuBvpSzJaU&t=0 [0:00.230-0:02.200] | https://www.youtube.com/watch?v=QmnVBw_CZ9U&t=3 [0:03.400-0:04.800] | https://www.youtube.com/watch?v=D3ZuJ-I78yI&t=4 [0:04.142-0:05.800] | https://www.youtube.com/watch?v=xu0e1eikUK8&t=15 [0:15.965-0:17.600] | https://www.youtube.com/watch?v=gpL7BC79uao&t=2 [0:02.366-0:03.900]"
+ },
+ "door_kick": {
+  "files": [
+   "audio/door_kick_1.ogg",
+   "audio/door_kick_2.ogg",
+   "audio/door_kick_3.ogg",
+   "audio/door_kick_4.ogg",
+   "audio/door_kick_5.ogg"
+  ],
+  "gain": 0.9,
+  "desc": "Tür wird eingetreten, Schloss/Rahmen bricht",
+  "source": "https://www.youtube.com/watch?v=SY8D9Dun3DQ&t=0 [0:00.360-0:02.400] | https://www.youtube.com/watch?v=UEkfyiIm_6I&t=0 [0:00.078-0:01.500] | https://www.youtube.com/watch?v=Uz5omH4CZg8&t=0 [0:00.033-0:02.800] | https://www.youtube.com/watch?v=8xbIyaZuYuw&t=0 [0:00.000-0:02.600] | https://www.youtube.com/watch?v=MPuUTDDzbyY&t=4 [0:04.180-0:05.800]"
+ },
+ "body_fall": {
+  "files": [
+   "audio/body_fall_1.ogg",
+   "audio/body_fall_2.ogg"
+  ],
+  "gain": 0.7,
+  "desc": "Körper fällt auf Holzboden",
+  "source": "https://www.youtube.com/watch?v=i0zjZEutHuo&t=0 [0:00.408-0:01.600] | https://www.youtube.com/watch?v=ncj_Wzmby-Y&t=0 [0:00.175-0:01.400]"
+ },
+ "gear_rattle": {
+  "files": [
+   "audio/gear_rattle_1.ogg",
+   "audio/gear_rattle_2.ogg",
+   "audio/gear_rattle_3.ogg",
+   "audio/gear_rattle_4.ogg",
+   "audio/gear_rattle_5.ogg",
+   "audio/gear_rattle_6.ogg"
+  ],
+  "gain": 0.25,
+  "desc": "Ausrüstung (Gürtel, Magazintaschen, Weste) klappert bei Schritt/Bewegung",
+  "source": "https://www.youtube.com/watch?v=nPOMmDn7A0E&t=2 [0:02.300-0:02.900] | https://www.youtube.com/watch?v=nPOMmDn7A0E&t=4 [0:04.880-0:05.450] | https://www.youtube.com/watch?v=nPOMmDn7A0E&t=6 [0:06.600-0:07.200] | https://www.youtube.com/watch?v=nPOMmDn7A0E&t=9 [0:09.200-0:09.800] | https://www.youtube.com/watch?v=nPOMmDn7A0E&t=12 [0:12.100-0:12.700] | https://www.youtube.com/watch?v=Vit00UEenoM&t=1 [0:01.300-0:02.300]"
+ },
+ "cloth_move": {
+  "files": [
+   "audio/cloth_move_1.ogg",
+   "audio/cloth_move_2.ogg",
+   "audio/cloth_move_3.ogg",
+   "audio/cloth_move_4.ogg",
+   "audio/cloth_move_5.ogg"
+  ],
+  "gain": 0.3,
+  "desc": "Kleidung raschelt (Jacke/Nylon) bei Drehungen",
+  "source": "https://www.youtube.com/watch?v=yl_hw7rhuBk&t=0 [0:00.500-0:02.100] | https://www.youtube.com/watch?v=yl_hw7rhuBk&t=5 [0:05.800-0:08.300] | https://www.youtube.com/watch?v=9x6O-UZMhQg&t=2 [0:02.000-0:03.200] | https://www.youtube.com/watch?v=9x6O-UZMhQg&t=6 [0:06.000-0:07.200] | https://www.youtube.com/watch?v=KkoWuCFB0W8&t=33 [0:33.000-0:35.500]"
+ },
+ "breath_calm": {
+  "files": [
+   "audio/breath_calm_1.ogg"
+  ],
+  "gain": 0.25,
+  "desc": "Ruhiges Atmen des Spielers (Schleife)",
+  "source": "https://www.youtube.com/watch?v=AwJtUdKAxSU&t=0 [0:00.300-0:11.200]",
+  "loop": true
+ },
+ "breath_heavy": {
+  "files": [
+   "audio/breath_heavy_1.ogg",
+   "audio/breath_heavy_2.ogg"
+  ],
+  "gain": 0.35,
+  "desc": "Schweres/schnelles Atmen nach Sprint oder Gefecht (Schleife)",
+  "source": "https://www.youtube.com/watch?v=79druzCcl98&t=1 [0:01.500-0:29.000] | https://www.youtube.com/watch?v=JwrNRw1ULBU&t=0 [0:00.500-0:17.500]",
+  "loop": true
+ },
+ "radio_chatter": {
+  "files": [
+   "audio/radio_chatter_1.ogg",
+   "audio/radio_chatter_2.ogg",
+   "audio/radio_chatter_3.ogg",
+   "audio/radio_chatter_4.ogg",
+   "audio/radio_chatter_5.ogg",
+   "audio/radio_chatter_6.ogg",
+   "audio/radio_chatter_7.ogg",
+   "audio/radio_chatter_8.ogg"
+  ],
+  "gain": 0.45,
+  "desc": "Polizeifunk, Leitstelle spricht (Bibliotheksaufnahmen, fiktive Einsätze)",
+  "source": "https://www.youtube.com/watch?v=gBP_NQsvWrg&t=0 [0:00.000-0:11.000] | https://www.youtube.com/watch?v=zNJ4hlwfwog&t=0 [0:00.000-0:10.400] | https://www.youtube.com/watch?v=y5xa66uYmIY&t=0 [0:00.000-0:11.900] | https://www.youtube.com/watch?v=xldiyZ8Y7ms&t=0 [0:00.000-0:05.900] | https://www.youtube.com/watch?v=WMhgNfKlAyM&t=0 [0:00.000-0:17.500] | https://www.youtube.com/watch?v=jjnRFLuHlwU&t=0 [0:00.000-0:10.200] | https://www.youtube.com/watch?v=s5jWNKFgRBk&t=0 [0:00.000-0:13.900] | https://www.youtube.com/watch?v=ln7Op4RmZGU&t=0 [0:00.000-0:16.200]"
+ },
+ "radio_squelch": {
+  "files": [
+   "audio/radio_squelch_1.ogg",
+   "audio/radio_squelch_2.ogg",
+   "audio/radio_squelch_3.ogg",
+   "audio/radio_squelch_4.ogg",
+   "audio/radio_squelch_5.ogg",
+   "audio/radio_squelch_6.ogg"
+  ],
+  "gain": 0.4,
+  "desc": "Funkgerät: Squelch/Rauschen beim Senden/Empfangen",
+  "source": "https://www.youtube.com/watch?v=AnWVHQfRK6w&t=0 [0:00.497-0:01.900] | https://www.youtube.com/watch?v=AnWVHQfRK6w&t=2 [0:02.050-0:03.300] | https://www.youtube.com/watch?v=AnWVHQfRK6w&t=6 [0:06.386-0:08.200] | https://www.youtube.com/watch?v=AnWVHQfRK6w&t=10 [0:10.209-0:12.100] | https://www.youtube.com/watch?v=xzAxTZ4x4ZI&t=3 [0:03.112-0:03.600] | https://www.youtube.com/watch?v=RfUDIUz4_0U&t=0 [0:00.839-0:01.900]"
+ },
+ "suspect_shout": {
+  "files": [
+   "audio/suspect_shout_1.ogg",
+   "audio/suspect_shout_2.ogg",
+   "audio/suspect_shout_3.ogg",
+   "audio/suspect_shout_4.ogg",
+   "audio/suspect_shout_5.ogg",
+   "audio/suspect_shout_6.ogg"
+  ],
+  "gain": 0.8,
+  "desc": "Verdächtiger schreit (ohne verständliche Wörter)",
+  "source": "https://www.youtube.com/watch?v=WdhqoL8gNiA&t=0 [0:00.000-0:01.600] | https://www.youtube.com/watch?v=lo4AD4JTCBo&t=0 [0:00.032-0:01.500] | https://www.youtube.com/watch?v=BZrVIfBRHBc&t=0 [0:00.920-0:02.150] | https://www.youtube.com/watch?v=BZrVIfBRHBc&t=4 [0:04.620-0:05.300] | https://www.youtube.com/watch?v=SYmju7D0Ev4&t=5 [0:05.872-0:08.300] | https://www.youtube.com/watch?v=SYmju7D0Ev4&t=11 [0:11.190-0:13.900]"
+ },
+ "officer_shout_police": {
+  "files": [
+   "audio/officer_shout_police_1.ogg",
+   "audio/officer_shout_police_2.ogg",
+   "audio/officer_shout_police_3.ogg",
+   "audio/officer_shout_police_4.ogg"
+  ],
+  "gain": 0.9,
+  "desc": "Beamter ruft (\"Show me your hands!\", \"This is the police\", \"Let me see your hands!\")",
+  "source": "https://www.youtube.com/watch?v=0wa6FkqSE68&t=0 [0:00.300-0:02.200] | https://www.youtube.com/watch?v=81gscXvRL0k&t=0 [0:00.094-0:01.300] | https://www.youtube.com/watch?v=81gscXvRL0k&t=6 [0:06.780-0:10.450] | https://www.youtube.com/watch?v=64JeXDdWzaA&t=25 [0:25.550-0:26.750]"
+ },
+ "siren_distant": {
+  "files": [
+   "audio/siren_distant_1.ogg",
+   "audio/siren_distant_2.ogg"
+  ],
+  "gain": 0.35,
+  "desc": "Sirene in der Ferne (Stereo, lang, einmalig abspielen)",
+  "source": "https://www.youtube.com/watch?v=gknL4rrKUHw&t=0 [0:00.000-0:40.000] | https://www.youtube.com/watch?v=uA3Ac7Aq6c0&t=0 [0:00.000-0:30.000]"
+ },
+ "dog_bark_distant": {
+  "files": [
+   "audio/dog_bark_distant_1.ogg",
+   "audio/dog_bark_distant_2.ogg",
+   "audio/dog_bark_distant_3.ogg",
+   "audio/dog_bark_distant_4.ogg",
+   "audio/dog_bark_distant_5.ogg",
+   "audio/dog_bark_distant_6.ogg"
+  ],
+  "gain": 0.3,
+  "desc": "Hund bellt in der Ferne",
+  "source": "https://www.youtube.com/watch?v=ZQGK-cdDom0&t=13 [0:13.200-0:16.200] | https://www.youtube.com/watch?v=ZQGK-cdDom0&t=25 [0:25.500-0:28.600] | https://www.youtube.com/watch?v=ZQGK-cdDom0&t=44 [0:44.400-0:47.600] | https://www.youtube.com/watch?v=xVBVAHiy22E&t=1 [0:01.500-0:04.200] | https://www.youtube.com/watch?v=xVBVAHiy22E&t=8 [0:08.900-0:11.600] | https://www.youtube.com/watch?v=kdZUyA3IWT0&t=29 [0:29.600-0:32.600]"
+ },
+ "police_lightbar_hum": {
+  "files": [
+   "audio/police_lightbar_hum_1.ogg"
+  ],
+  "gain": 0.3,
+  "desc": "Leerlauf/Brummen des Streifenwagens als Punktquelle (Schleife; echte Lichtbalken sind fast lautlos)",
+  "source": "https://www.youtube.com/watch?v=eaKRCsvdkIw&t=30 [0:30.000-1:00.000]",
+  "loop": true
+ },
+ "ear_ringing": {
+  "files": [
+   "audio/ear_ringing_1.ogg"
+  ],
+  "gain": 0.25,
+  "desc": "Ohrenklingeln (Tinnitus ~7,5 kHz) nach Schuss in Innenräumen, mit langem Ausklang",
+  "source": "https://www.youtube.com/watch?v=jHhjWxBWLmQ&t=1 [0:01.000-0:08.000]"
+ },
+ "ambient_night_suburb": {
+  "files": [
+   "audio/ambient_night_suburb_1.ogg",
+   "audio/ambient_night_suburb_2.ogg"
+  ],
+  "gain": 0.5,
+  "desc": "Vorstadt nachts: entfernter Verkehr, Grillen (Stereo-Schleife)",
+  "source": "https://www.youtube.com/watch?v=tDTkQjsh4nQ&t=20 [0:20.000-1:20.000] | https://www.youtube.com/watch?v=m_siEe_yhbo&t=10 [0:10.000-1:10.000]",
+  "loop": true,
+  "stereo": true
+ },
+ "ambient_rain_light": {
+  "files": [
+   "audio/ambient_rain_light_1.ogg",
+   "audio/ambient_rain_light_2.ogg"
+  ],
+  "gain": 0.45,
+  "desc": "Nieselregen/leichter Regen mit Tropfen (Stereo-Schleife)",
+  "source": "https://www.youtube.com/watch?v=JmeoAcbhnRs&t=20 [0:20.000-1:20.000] | https://www.youtube.com/watch?v=VpD7soH3PiQ&t=2 [0:02.000-0:50.000]",
+  "loop": true,
+  "stereo": true
+ },
+ "ambient_house_room_tone": {
+  "files": [
+   "audio/ambient_house_room_tone_1.ogg",
+   "audio/ambient_house_room_tone_2.ogg"
+  ],
+  "gain": 0.5,
+  "desc": "Raumton leeres Haus (leises Rauschen/Brummen, Stereo-Schleife)",
+  "source": "https://www.youtube.com/watch?v=bxDriu6XchY&t=5 [0:05.000-0:55.000] | https://www.youtube.com/watch?v=En92wSBi2TM&t=20 [0:20.000-1:00.000]",
+  "loop": true,
+  "stereo": true
+ }
+}
