@@ -428,7 +428,10 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
       const params = tier === 'desktop' ? undefined : { quality: { low: { msaa: 0 }, medium: { msaa: 0 }, high: { msaa: 2 } }, exposure: { readHz: 2 } };
       post = modules[5].createBodycamPost(renderer, scene, camera, { quality: currentQuality, params });
       resize(); await bounded(post.overlay.ready, 'Kameraeffekte');
-    } catch (error) { post?.dispose(); post = null; issue('post', STRINGS.postUnavailable, error); }
+    } catch (error) {
+      post?.dispose(); post = null;
+      if (query.get('postfx') !== '0' && assetProfile !== 'safe') issue('post', STRINGS.postUnavailable, error);
+    }
     checkActive();
     if (tier !== 'desktop' || assetProfile !== 'full') scene.traverse(node => {
       if (!node.isLight || !node.shadow) return;

@@ -156,7 +156,7 @@ export async function loadWorld(scene, {
       fraction => report('Lightmaps', 0.62 + fraction * 0.12), {
         ...loadOptions, concurrency: config.atlasLoadConcurrency, onWarning: warn,
       }) : null;
-    if (level && !useLightmaps) warn('Lightmaps deaktiviert. Das vollständige Haus verwendet normale Beleuchtung.');
+    if (level && !useLightmaps) console.info('[bodycam/world] Einfachere Beleuchtung für das vollständige Haus aktiv.');
     for (const placement of level?.staticPropsIncluded ? [] : placements) {
       const prototype = prototypes.get(placement.prop);
       if (!prototype) continue;
