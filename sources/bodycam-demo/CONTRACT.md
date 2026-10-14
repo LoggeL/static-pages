@@ -93,7 +93,9 @@ In `data/fp_anim.json`: Event-Zeitstempel je Clip (z. B. `Reload.magOut`, `Reloa
 Clips: `Idle`, `IdleNervous`, `Walk`, `Run`, `AimPistol`, `FirePistol`, `HitReact`, `DeathForward`, `DeathBackward`, `Crouch`.
 Empties: `S_Muzzle` (Pistolenmündung), `S_Head`. Pistole als Kind der rechten Hand.
 
-## Sounds (Baustein SOUNDS) — liegen in `public/bodycam-demo/audio/` (gitignored!)
+## Sounds (Baustein SOUNDS) — liegen in `public/bodycam-demo/audio/`
+
+Die 198 Clips werden mit der Demo unter `docs/bodycam-demo/audio/` veröffentlicht.
 
 OGG (Opus) oder MP3, 48 kHz, normalisiert, ohne Stille am Anfang. Manifest (wird committet): `public/bodycam-demo/data/sounds.json`
 `{ "<name>": { "files": ["audio/x_1.ogg", ...], "gain": 0.8, "desc": "...", "source": "YouTube-URL + Zeitstempel" } }`.

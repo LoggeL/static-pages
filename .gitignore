@@ -6,10 +6,6 @@ npm-debug.log*
 public/lumen/audio/
 docs/lumen/audio/
 
-# Bodycam-Demo: von YouTube geschnittene Sounds nur lokal (Privatkopie, nicht veröffentlichen)
-public/bodycam-demo/audio/
-docs/bodycam-demo/audio/
-
 # Bodycam: lokale Python-Caches und Ausführungsprotokolle
 public/bodycam-demo/**/__pycache__/
 docs/bodycam-demo/**/__pycache__/

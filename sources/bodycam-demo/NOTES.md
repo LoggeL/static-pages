@@ -66,7 +66,7 @@ Läuft losgelöst von Claude über `sources/bodycam-demo/codex/run.sh` (gpt-6-as
 - Format: **spielbar im Browser** (Three.js), kein vorgerendertes Video.
 - „end“ in der Anfrage bedeutet **Environment/Umgebung**. Umgebung, Waffe, Charakter und Animationen haben Priorität.
 - Grafik über Blender und Codex-Imagegen, Sounds echt von YouTube (Privatkopie).
-- Weil das Repo öffentlich über GitHub Pages läuft, ist `public/bodycam-demo/audio/` gitignored (wie bei LUMEN). Online soll eine synthetische Ersatzspur laufen.
+- Die 198 Soundclips werden auf ausdrücklichen Nutzerwunsch mit der Bodycam-Demo veröffentlicht (14.10.2026). `public/bodycam-demo/audio/` und `docs/bodycam-demo/audio/` sind Teil des Repositories. Die Synthese bleibt als Fallback für fehlende Dateien verfügbar.
 - Nutzungsgrenze: Bei etwa **98 % Claude-Nutzung** stoppen.
 
 ## Architektur (siehe `CONTRACT.md`)

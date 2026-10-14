@@ -1,6 +1,6 @@
 import { APP_CONFIG } from './config.js';
 
-/** Probe one manifest sample before preloading a gitignored directory.
+/** Probe one manifest sample before preloading the recordings directory.
  * A missing probe selects synthesis for this session, avoiding 198 known 404s.
  * In recorded mode individual missing files still use the C4 negative cache.
  */

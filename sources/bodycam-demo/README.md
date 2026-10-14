@@ -12,22 +12,22 @@ Die Quellen, Blender-Generatoren und Prüfwerkzeuge liegen in diesem Ordner.
 [CONTRACT.md](CONTRACT.md) beschreibt die Schnittstellen,
 die [Statusberichte](status/) dokumentieren den jeweiligen Prüfstand.
 
-Die öffentlichen Dateien enthalten keine lokal geschnittenen Audioaufnahmen.
-Die Laufzeit wählt beim ersten fehlenden Audio-Sample die vorhandene Synthese
-und zeigt dies an. Das verursacht eine erwartete HTTP-404-Probe; weitere
-Aufnahmen werden danach nicht angefragt. Die Audioengine unter `js/audio/`
-gehört zur Veröffentlichung.
+Die Veröffentlichung enthält 198 Opus-Soundclips für 50 Klangereignisse
+(8.153.247 Bytes). Die Laufzeit lädt und dekodiert die Aufnahmen vor dem
+Start. Bei fehlenden oder nicht lesbaren Dateien stehen synthetische
+Ersatzklänge bereit. Manifest: `data/sounds.json`, Dateien: `audio/`.
 
 ## Veröffentlichten Stand prüfen
 
 Am 14.10.2026 bestand der vollständige C20-Lauf alle 21 Gruppen mit
 104 Bildern und 435 funktionalen Prüfungen. Die 348 geprüften Dateien
 wurden vor der Veröffentlichung per SHA-256 mit dem Arbeitsstand verglichen.
-Die Prüfung der veröffentlichten Zusammenstellung ohne Aufnahmen bestand
-16 Checks: Start, echte Mausbindung, Bewegung, Waffenlicht, Schuss,
-Nachladen, Pause, alle Laufzeitmodule und Browserdiagnostik. Screenshots
-von Start und Spiel wurden angesehen. Die MIME- und Referenzprüfung
-bestand für 309 Dateien und 1.256 lokale Verweise.
+Der lokale Veröffentlichungscheck mit Aufnahmen bestand alle 21 Prüfungen:
+Start, echte Mausbindung, Bewegung,
+Waffenlicht, Schuss, Nachladen, Pause, alle Laufzeitmodule und
+Browserdiagnostik. Für die Aufnahmen werden zusätzlich die erfolgreiche
+Dekodierung aller 198 Dateien, die Audiozeit und die Wiedergabe der
+Dateiquellen ohne Synthese geprüft.
 
 Die Technikdemo enthält die in C18/C19 dokumentierten Modell- und
 Animationsgrenzen. Die Kamera der NPC-Prüfseite hat im engen CLO1 einen
@@ -41,4 +41,4 @@ python3 sources/bodycam-demo/tools/check_mime.py --root docs/bodycam-demo
 ```
 
 Ausführliche Testanleitung: [tools/harness/README.md](tools/harness/README.md).
-Audioaufnahmen, Python-Caches und Ausführungsprotokolle bleiben lokal.
+Python-Caches und Ausführungsprotokolle bleiben lokal.
