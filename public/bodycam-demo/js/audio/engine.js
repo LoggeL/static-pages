@@ -1,6 +1,7 @@
 import { makeMixConfig, dbToGain } from './mix-config.js';
 import { synthesize } from './synthesis.js';
 import { generateImpulse } from './impulse.js';
+import { runAudioTask } from './loading.js';
 export { attachAudio } from './events.js';
 
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
@@ -11,6 +12,12 @@ const vector = (v, fallback = [0, 0, 0]) => v ?
 /** No asset fetch lies on the event timing path. Call preload() for recorded first shots. */
 export async function createAudio(options = {}) {
   const config = makeMixConfig(options.config);
+  const mobile = options.mobile === true;
+  if (mobile && options.config?.loading?.concurrency == null) config.loading.concurrency = 2;
+  if (mobile && options.config?.limits?.voices == null) config.limits.voices = 32;
+  if (mobile && options.config?.limits?.fallbackBuffers == null) config.limits.fallbackBuffers = 16;
+  const memoryBudgetBytes = Math.max(1, finite(options.memoryBudgetBytes, mobile ? 24 * 1024 * 1024 : Infinity));
+  const preloadVariants = Math.max(1, finite(options.preloadVariants, mobile ? 1 : Infinity));
   const fetcher = options.fetch || globalThis.fetch.bind(globalThis);
   const random = options.random || Math.random;
   const rand = () => clamp(finite(random(), 0.5), 0, 0.999999999);
@@ -24,33 +31,31 @@ export async function createAudio(options = {}) {
   if (!context) throw new Error('Web Audio ist in diesem Browser nicht verfügbar.');
   const ownsContext = !options.context;
   const offline = typeof context.startRendering === 'function';
-  const cache = new Map(), inFlight = new Map(), synthCache = new Map(), lastVariant = new Map();
+  const cache = new Map(), cacheSizes = new Map(), inFlight = new Map(), synthCache = new Map(), lastVariant = new Map();
   const voices = new Set(), banks = new Set(), specials = new Set(), graph = [], history = [];
-  const diagnostics = { loaded: 0, failed: 0, synthesized: 0, played: 0, stolen: 0, manifestError: null };
-  let disposed = false, unlocked = false, started = false, listenerPosition = [0, 0, 0];
+  const diagnostics = { loaded: 0, failed: 0, synthesized: 0, played: 0, stolen: 0, evicted: 0,
+    manifestError: null, lastLoadError: null };
+  let disposed = false, unlocked = false, unlockRequested = false, started = false, cachedBytes = 0;
+  let listenerPosition = [0, 0, 0];
   let room = null, roomId = null, currentBank = null, nextRadio = Infinity, nextSiren = Infinity;
   let ringingUntil = -Infinity, ringVoice = null, siren = null;
   const controllers = new Set();
 
-  async function fetchWithTimeout(url) {
+  async function fetchWithTimeout(url, consume) {
     const controller = new AbortController();
     controllers.add(controller);
-    let timer;
     try {
-      // Explicit race also bounds test/custom fetch implementations ignoring AbortSignal.
-      return await Promise.race([
-        fetcher(url.href, { signal: controller.signal }),
-        new Promise((_, reject) => { timer = setTimeout(() => {
-          controller.abort(); reject(new Error('Audio-Ladezeit überschritten'));
-        }, config.loading.timeoutMs); }),
-      ]);
-    } finally { clearTimeout(timer); controllers.delete(controller); }
+      // Headers, body and decode share one deadline, including custom fetches ignoring abort.
+      return await runAudioTask(async signal => consume(await fetcher(url.href, { signal })),
+        { signals: [controller.signal], timeoutMs: config.loading.timeoutMs });
+    } finally { controllers.delete(controller); }
   }
   let manifest = {};
   try {
-    const response = await fetchWithTimeout(manifestUrl);
-    if (!response.ok) throw new Error(`Manifest HTTP ${response.status}`);
-    const data = await response.json();
+    const data = await fetchWithTimeout(manifestUrl, async response => {
+      if (!response.ok) throw new Error(`Manifest HTTP ${response.status}`);
+      return response.json();
+    });
     if (!data || Array.isArray(data) || typeof data !== 'object') throw new Error('Ungültiges Soundmanifest');
     manifest = Object.fromEntries(Object.entries(data).filter(([, entry]) => entry && typeof entry === 'object'));
   } catch (error) { diagnostics.manifestError = String(error.message); }
@@ -126,20 +131,58 @@ export async function createAudio(options = {}) {
     return 'foley';
   }
   function fileUrl(file) { return new URL(file, baseUrl); }
+  function readCache(key) {
+    const buffer = cache.get(key);
+    if (buffer) { cache.delete(key); cache.set(key, buffer); }
+    return buffer;
+  }
+  function remember(key, buffer) {
+    cachedBytes -= cacheSizes.get(key) || 0;
+    cache.delete(key); cacheSizes.delete(key);
+    const bytes = buffer ? buffer.length * buffer.numberOfChannels * 4 : 0;
+    cache.set(key, buffer); cacheSizes.set(key, bytes); cachedBytes += bytes;
+    for (const [candidate, saved] of cache) {
+      if (cachedBytes <= memoryBudgetBytes) break;
+      if (!saved) continue;
+      cachedBytes -= cacheSizes.get(candidate) || 0;
+      cache.delete(candidate); cacheSizes.delete(candidate); diagnostics.evicted++;
+    }
+  }
+  function compactBuffer(buffer) {
+    if (!mobile) return buffer;
+    // Long ambience clips dominate PCM memory. Keep their recordings at mono 22.05 kHz on phones.
+    const sampleRate = Math.min(22050, buffer.sampleRate), channels = 1;
+    if (buffer.sampleRate === sampleRate && buffer.numberOfChannels === channels) return buffer;
+    const length = Math.ceil(buffer.duration * sampleRate);
+    const result = context.createBuffer(channels, length, sampleRate), target = result.getChannelData(0);
+    const inputs = Array.from({ length: buffer.numberOfChannels }, (_, i) => buffer.getChannelData(i));
+    const ratio = buffer.sampleRate / sampleRate;
+    for (let i = 0; i < length; i++) {
+      const begin = i * ratio, end = Math.min(buffer.length, begin + ratio);
+      let sum = 0;
+      for (let source = Math.floor(begin); source < end; source++) {
+        const weight = Math.min(end, source + 1) - Math.max(begin, source);
+        for (const input of inputs) sum += input[source] * weight;
+      }
+      target[i] = sum / ((end - begin) * inputs.length || 1);
+    }
+    return result;
+  }
   async function load(file) {
     const url = fileUrl(file), key = url.href;
-    if (cache.has(key)) return cache.get(key);
+    if (cache.has(key)) return readCache(key);
     if (inFlight.has(key)) return inFlight.get(key);
     if (disposed) return null;
     const promise = (async () => {
       let buffer = null;
       try {
-        const response = await fetchWithTimeout(url);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        buffer = await context.decodeAudioData(await response.arrayBuffer());
-        diagnostics.loaded++;
-      } catch { diagnostics.failed++; }
-      if (!disposed) cache.set(key, buffer); // Negative cache avoids recurring 404s.
+        buffer = await fetchWithTimeout(url, async response => {
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return context.decodeAudioData(await response.arrayBuffer());
+        });
+        if (!disposed) { buffer = compactBuffer(buffer); diagnostics.loaded++; }
+      } catch (error) { diagnostics.failed++; diagnostics.lastLoadError = String(error.message); }
+      if (!disposed) remember(key, buffer); // Negative cache avoids recurring 404s.
       inFlight.delete(key);
       return buffer;
     })();
@@ -148,12 +191,18 @@ export async function createAudio(options = {}) {
   }
   async function preload(names = [...new Set([...Object.keys(config.defaults), ...Object.keys(manifest)])]) {
     if (typeof names === 'string') names = [names];
-    const files = [...new Set(names.flatMap(filesFor))];
+    const files = [...new Set(names.flatMap(name => filesFor(name).slice(0, preloadVariants)))];
     let index = 0;
     await Promise.all(Array.from({ length: Math.max(1, config.loading.concurrency) }, async () => {
       while (index < files.length && !disposed) await load(files[index++]);
     }));
     return getDiagnostics();
+  }
+  function preloadEssentials() {
+    return preload(['rifle_shot_indoor', 'rifle_shot_outdoor', 'rifle_tail_indoor', 'rifle_tail_outdoor',
+      'rifle_mech', 'dry_fire', 'step_concrete', 'step_wood', 'gear_rattle', 'mag_out', 'mag_in',
+      'bolt_release', 'ambient_night_suburb', 'ambient_rain_light', 'ambient_house_room_tone',
+      'police_lightbar_hum']);
   }
   function procedural(name, variant) {
     const key = `${name}:${variant}`;
@@ -169,9 +218,10 @@ export async function createAudio(options = {}) {
     const candidatesFiles = files.map((file, index) => ({ file, index }))
       .filter(({ file }) => cache.get(fileUrl(file).href) !== null);
     const decoded = candidatesFiles.filter(({ file }) => cache.get(fileUrl(file).href));
-    const available = decoded.length ? decoded : candidatesFiles;
-    // Load the remaining variants in the background without delaying this event.
-    if (files.some(file => !cache.has(fileUrl(file).href))) void preload([name]);
+    const pending = mobile ? candidatesFiles.filter(({ file }) => inFlight.has(fileUrl(file).href)) : [];
+    const available = decoded.length ? decoded : pending.length ? pending : candidatesFiles;
+    // Phones keep one usable recording per sound. First use fetches only one missing variant.
+    if (!mobile && files.some(file => !cache.has(fileUrl(file).href))) void preload([name]);
     const count = available.length || config.synth.variants;
     const previous = lastVariant.get(name);
     let candidates = Array.from({ length: count }, (_, i) => i);
@@ -180,7 +230,7 @@ export async function createAudio(options = {}) {
     const variant = available[pick]?.index ?? pick;
     lastVariant.set(name, variant);
     const file = available[pick]?.file;
-    const buffer = file && cache.get(fileUrl(file).href);
+    const buffer = file && readCache(fileUrl(file).href);
     if (file && !buffer) void load(file);
     return { buffer: buffer || procedural(name, variant), variant, fallback: !buffer, file: buffer ? file : null };
   }
@@ -394,12 +444,24 @@ export async function createAudio(options = {}) {
   }
   async function unlock() {
     if (disposed) return false;
+    unlockRequested = true;
     // resume() must be invoked synchronously inside the caller's pointer/key handler.
-    if (!offline && context.state !== 'running') await context.resume();
+    if (!offline && context.state !== 'running') {
+      try {
+        const resumed = context.resume();
+        // Safari can leave resume pending in its interrupted state. The game must remain usable.
+        await runAudioTask(() => resumed, { timeoutMs: 1500 });
+      } catch { /* A later gesture or state change can still unlock this context. */ }
+    }
     unlocked = offline || context.state === 'running';
     if (unlocked && options.autoStart !== false) startBackground();
     return unlocked;
   }
+  const contextStateChanged = () => {
+    unlocked = offline || context.state === 'running';
+    if (unlockRequested && unlocked && options.autoStart !== false) startBackground();
+  };
+  context.addEventListener?.('statechange', contextStateChanged);
   function update() {
     if (disposed) return;
     const t = now();
@@ -420,12 +482,15 @@ export async function createAudio(options = {}) {
   function getDiagnostics() {
     return { ...diagnostics, activeVoices: voices.size, activeSpecials: specials.size, reverbBanks: banks.size,
       decodedFiles: [...cache.values()].filter(Boolean).length,
+      decodedBytes: cachedBytes, memoryBudgetBytes: Number.isFinite(memoryBudgetBytes) ? memoryBudgetBytes : null,
+      mobile, preloadVariants: Number.isFinite(preloadVariants) ? preloadVariants : null,
       pendingLoads: inFlight.size, roomId, room: room && { ...room }, unlocked, started, disposed,
       contextState: context.state, sampleRate: context.sampleRate, nextRadio, nextSiren,
       history: history.map(item => ({ ...item })) };
   }
   async function dispose() {
     if (disposed) return; disposed = true;
+    context.removeEventListener?.('statechange', contextStateChanged);
     for (const controller of controllers) controller.abort();
     for (const voice of [...voices]) { voice.stop(); voice.cleanup(); }
     for (const bank of banks) { bank.node.disconnect(); bank.wet.disconnect(); }
@@ -433,10 +498,13 @@ export async function createAudio(options = {}) {
     for (const source of specials) { try { source.stop(); } catch { /* already ended */ } source.disconnect(); }
     specials.clear();
     for (const node of graph) node.disconnect();
-    cache.clear(); synthCache.clear();
-    if (ownsContext && context.state !== 'closed') await context.close();
+    cache.clear(); cacheSizes.clear(); synthCache.clear(); cachedBytes = 0;
+    if (ownsContext && context.state !== 'closed') {
+      try { await runAudioTask(() => context.close(), { timeoutMs: 1500 }); }
+      catch { /* Safari may leave close pending while interrupted. References are already released. */ }
+    }
   }
-  return { context, config, unlock, play, gunshot, footstep, setListener, setRoom, preload,
+  return { context, config, unlock, play, gunshot, footstep, setListener, setRoom, preload, preloadEssentials,
     setMasterVolume: value => ramp(volume.gain, clamp(finite(value, 1), 0, 1), now()),
     update, dispose, getDiagnostics };
 }

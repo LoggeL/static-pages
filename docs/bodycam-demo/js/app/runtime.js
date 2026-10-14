@@ -3,7 +3,7 @@ import { APP_CONFIG } from './config.js';
 import { STRINGS } from './strings.js';
 import { createEventBus, gateInput, bridgePlayerEvents } from './events.js';
 import { createAudioSource } from './audio-source.js';
-import { createFallbackWorld, createFallbackPlayer, createFallbackInput } from './fallbacks.js';
+import { createFallbackInput } from './fallbacks.js';
 import { createTouchControls } from './touch.js';
 import { createQualityController, renderTier, prefersTouch } from './quality.js';
 
@@ -34,6 +34,17 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
   scene.add(camera);
   const bus = createEventBus();
   const baseUrl = new URL('../../', import.meta.url);
+  const query = new URLSearchParams(location.search);
+  const requestedAssets = query.get('assets');
+  const mobileDevice = prefersTouch() || controls === 'touch' || (navigator.deviceMemory > 0 && navigator.deviceMemory <= 4) || tier === 'software';
+  let assetProfile = ['mobile', 'safe'].includes(requestedAssets) ? requestedAssets
+    : requestedAssets === 'full' ? 'full' : mobileDevice ? 'mobile' : 'full';
+  let assetBaseUrl = assetProfile === 'full' ? baseUrl : new URL('mobile/', baseUrl);
+  const bootAbort = new AbortController();
+  const bootStarted = performance.now();
+  let bootStage = 'modules';
+  // Small images must be chosen before GLTF decoding; render resolution alone saves no texture memory.
+  renderer.shadowMap.enabled = assetProfile === 'full';
   const removers = [], issues = [], samples = [], eventCounts = {};
   const basePosition = new THREE.Vector3(), baseQuaternion = new THREE.Quaternion();
   const recoilQuaternion = new THREE.Quaternion(), recoilEuler = new THREE.Euler(0, 0, 0, 'YXZ');
@@ -41,7 +52,7 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
   const inverseRecoil = new THREE.Quaternion();
   const state = { time: 0, angularVelocity: new THREE.Vector3(), linearVelocity: new THREE.Vector3(),
     shake: 0, muzzleFlash: 0, damage: 0, exposureHint: 0, flashlightOn: false };
-  let world, player, weapon = null, arms = null, npcs = null, input, rawInput, audio = null, post = null, audioSource, touchControls;
+  let world, player, weapon = null, arms = null, npcs = null, input, rawInput, audio = null, post = null, audioSource, audioContext, touchControls;
   let phase = 'loading', ready = false, disposed = false, contextLost = false;
   let introCalled = false, firstRoomSent = false, starting = false, frameFrozen = false, humStarted = false;
   let raf = 0, frames = 0, last = performance.now(), progress = 0;
@@ -52,8 +63,23 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
 
   function report(stage, value, label) {
     progress = Math.max(progress, Math.min(1, value));
+    bootStage = stage;
     const event = { stage, progress, label };
     view.setProgress(event); onProgress(event);
+  }
+  function checkActive() {
+    if (disposed || contextLost || bootAbort.signal.aborted) throw new Error(STRINGS.contextLost);
+  }
+  async function bounded(promise, label, timeoutMs = APP_CONFIG.assetTimeoutMs) {
+    let timer, expired = false;
+    const pending = Promise.resolve(promise);
+    pending.then(value => { if (expired || disposed) value?.dispose?.(); }, noop);
+    try {
+      const result = await Promise.race([pending, new Promise((_, reject) => {
+        timer = setTimeout(() => { expired = true; reject(new Error(`${label}: Zeitlimit nach ${timeoutMs / 1000} Sekunden`)); }, timeoutMs);
+      })]);
+      checkActive(); return result;
+    } finally { clearTimeout(timer); }
   }
   function issue(id, message, error) {
     if (!issues.some(entry => entry.id === id)) {
@@ -186,6 +212,13 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
     post?.resetHistory(); last = performance.now();
     return true;
   }
+  function activateAudio() {
+    if (!audio || phase !== 'playing' || disposed) return;
+    audio.setMasterVolume(currentVolume);
+    if (!humStarted && world.policeCar) {
+      humStarted = true; audio.play('police_lightbar_hum', { position: world.policeCar.position, loop: true });
+    }
+  }
   async function resume() {
     if (!ready || disposed || contextLost || phase === 'error' || starting) return false;
     if (phase === 'playing') return true;
@@ -194,7 +227,7 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
     // Both calls run before the first await to preserve transient user activation.
     const audioStart = audio ? audio.unlock().catch(error => {
       issue('audio-unlock', STRINGS.audioUnavailable, error); return false;
-    }) : Promise.resolve(false);
+    }) : audioContext ? Promise.resolve(audioContext.resume()).then(() => true, () => false) : Promise.resolve(false);
     const lock = debug || !rawInput.available ? Promise.resolve(true) : input.requestLock();
     let locked = await lock;
     if (!locked && !disposed && !contextLost && !document.hidden && rawInput.setMode) {
@@ -215,9 +248,7 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
     if (rawInput.mode !== 'touch') view.clearNotice('pointer-lock');
     setPhase('playing'); frameFrozen = false; canvas.focus({ preventScroll: true });
     audio?.setMasterVolume(currentVolume); samples.length = 0; last = performance.now(); post?.resetHistory();
-    if (audio && !humStarted && world.policeCar) {
-      humStarted = true; audio.play('police_lightbar_hum', { position: world.policeCar.position, loop: true });
-    }
+    activateAudio();
     if (!introCalled) { introCalled = true; post?.overlay.connected(); invokeHook('onIntro'); }
     if (!firstRoomSent) { firstRoomSent = true; roomEnter({ room: player.room, previous: null }); }
     starting = false; return true;
@@ -228,6 +259,8 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
     const gl = renderer.getContext(), extension = gl.getExtension('WEBGL_debug_renderer_info');
     return { ready, phase, paused: phase !== 'playing', quality: currentQuality, graphics: qualityController.snapshot(),
       controls: rawInput?.mode ?? 'unavailable', volume: currentVolume,
+      assets: assetProfile, world: world?.stats,
+      startup: { stage: bootStage, elapsedMs: Math.round(performance.now() - bootStarted) },
       ...player?.stats(), frames, fps: mean ? 1000 / mean : 0, frameMs: { mean, p95: sorted[Math.floor(sorted.length * 0.95)] ?? 0, samples: samples.length },
       viewport: [canvas.width, canvas.height], pixelRatio: renderer.getPixelRatio(),
       gpu: extension ? gl.getParameter(extension.UNMASKED_RENDERER_WEBGL) : 'unknown',
@@ -252,10 +285,12 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
   function look(...args) { player.look(...args); cameraCut(); return player.stats(); }
   async function dispose() {
     if (disposed) return;
-    disposed = true; ready = false; cancelAnimationFrame(raf);
+    disposed = true; ready = false; bootAbort.abort(); cancelAnimationFrame(raf);
     removers.splice(0).forEach(off => off());
     touchControls?.dispose(); npcs?.dispose(); input?.dispose(); arms?.dispose(); weapon?.dispose(); player?.dispose(); post?.dispose(); world?.dispose();
-    bus.clear(); renderer.dispose(); audioSource?.dispose(); await audio?.dispose();
+    bus.clear(); renderer.dispose(); audioSource?.dispose();
+    if (audioContext && audioContext.state !== 'closed') void audioContext.close().catch(noop);
+    await audio?.dispose();
   }
   const api = { get ready() { return ready; }, get player() { return player; }, get weapon() { return weapon; }, get arms() { return arms; }, get npcs() { return npcs; },
     bus, hooks: activeHooks, ui: view, stats, pause, resume, setQuality, setControls, setVolume, teleport, look, dispose, get world() { return world; },
@@ -277,10 +312,21 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
     render, resetMeasurements() { samples.length = 0; },
   };
 
+  const listen = (target, type, callback) => {
+    target.addEventListener(type, callback); removers.push(() => target.removeEventListener(type, callback));
+  };
+  // Watch context loss during decoding/upload too, before the first frame exists.
+  listen(canvas, 'webglcontextlost', event => {
+    event.preventDefault(); pause(); contextLost = true; bootAbort.abort();
+    issue('context', STRINGS.contextLost); setPhase('error'); void dispose();
+  });
+  listen(window, 'pagehide', event => { if (event.persisted) pause(); else void dispose(); });
+
   try {
     view.setState('loading'); report('modules', 0.01, STRINGS.progressModules); resize();
     const paths = ['../world/index.js', '../player/index.js', '../core/input.js', '../weapon/index.js', '../audio/engine.js', '../postfx/bodycam.js'];
-    const loaded = await Promise.allSettled(paths.map(path => import(path)));
+    const loaded = await Promise.allSettled(paths.map(path => bounded(import(path), path, 20000)));
+    checkActive();
     const modules = loaded.map(result => result.status === 'fulfilled' ? result.value : null);
     const moduleError = index => loaded[index].status === 'rejected' ? loaded[index].reason : null;
     rawInput = modules[2]?.createInput(canvas, { debug }) ?? createFallbackInput();
@@ -290,22 +336,31 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
       setControls(currentControls);
     }
     if (!rawInput.available) issue('input', STRINGS.inputUnavailable, moduleError(2));
-    try {
-      if (!modules[0]) throw moduleError(0);
-      world = await modules[0].loadWorld(scene, { renderer, baseUrl, onProgress: event =>
-        report('world', 0.08 + event.progress * 0.57, STRINGS.progressWorld) });
-    } catch (error) { issue('world', STRINGS.worldUnavailable, error); world = createFallbackWorld(scene); }
-    if (world.missingProps.length) issue('props', STRINGS.missingProps(world.missingProps.length));
+    if (!modules[0]) throw moduleError(0);
+    const loadMap = () => modules[0].loadWorld(scene, { renderer, baseUrl: assetBaseUrl,
+      signal: bootAbort.signal,
+      worldConfig: { baked: true, loadTimeoutMs: APP_CONFIG.assetTimeoutMs, bindLightmaps: assetProfile !== 'safe' }, onProgress: event => {
+        if (event.warning) issue('world-detail', STRINGS.worldPartial);
+        if (Number.isFinite(event.progress)) report('world', 0.08 + event.progress * 0.57, STRINGS.progressWorld);
+      } });
+    try { world = await loadMap(); }
+    catch (error) {
+      checkActive();
+      if (assetProfile === 'safe') throw error;
+      issue('world-retry', STRINGS.worldRetry, error);
+      assetProfile = 'safe'; assetBaseUrl = new URL('mobile/', baseUrl); renderer.shadowMap.enabled = false;
+      world = await loadMap();
+    }
+    checkActive();
+    if (world.missingProps?.length) issue('props', STRINGS.missingProps(world.missingProps.length));
     scene.traverse(node => { if (node.isLight) node.layers.enable(1); });
-    try {
-      if (!modules[1] || world.fallback) throw moduleError(1) ?? new Error('World unavailable');
-      player = modules[1].createPlayer({ camera, input, world });
-    } catch (error) { issue('player', STRINGS.playerUnavailable, error); player = createFallbackPlayer(camera, world); }
+    if (!modules[1]) throw moduleError(1) ?? new Error(STRINGS.playerUnavailable);
+    player = modules[1].createPlayer({ camera, input, world });
     captureBase(); removers.push(bridgePlayerEvents(input, bus, roomEnter));
     report('weapon', 0.67, STRINGS.progressWeapon);
     try {
       if (!modules[3]) throw moduleError(3);
-      weapon = await modules[3].createWeapon({ scene, camera, renderer, world, input, bus, baseUrl });
+      weapon = await bounded(modules[3].createWeapon({ scene, camera, renderer, world, input, bus, baseUrl: assetBaseUrl }), 'Waffe');
       // Hits shove unlatched doors around their hinge.
       removers.push(weapon.on('impact', hit => {
         let node = hit.object;
@@ -314,68 +369,88 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
         door?.impulse?.(hit.point, hit.direction ?? hit.normal.clone().negate());
       }));
     } catch (error) { issue('weapon', STRINGS.weaponUnavailable, error); }
+    checkActive();
     if (weapon && new URLSearchParams(location.search).get('arms') !== '0') {
       try {
-        const { createFPArms } = await import('../fp/arms.js');
-        arms = await createFPArms({ weapon, camera, renderer, baseUrl });
+        const { createFPArms } = await bounded(import('../fp/arms.js'), 'Arme');
+        arms = await bounded(createFPArms({ weapon, camera, renderer, baseUrl: assetBaseUrl }), 'Arme');
       } catch (error) { issue('arms', 'Arme konnten nicht geladen werden.', error); }
     }
+    checkActive();
     if (!world.fallback && !player.fallback && new URLSearchParams(location.search).get('npcs') !== '0') {
       try {
-        const { createNPCs } = await import('../npc/index.js');
+        const { createNPCs } = await bounded(import('../npc/index.js'), 'Figuren');
         const npcDebug = new URLSearchParams(location.search).get('npcdebug') === '1';
-        npcs = await createNPCs({ scene, world, player, camera, renderer, input, bus, baseUrl,
-          config: { ...npcConfig, debug: { ...npcConfig.debug, enabled: npcDebug || !!npcConfig.debug?.enabled } } });
+        npcs = await bounded(createNPCs({ scene, world, player, camera, renderer, input, bus, baseUrl: assetBaseUrl,
+          config: { ...npcConfig, debug: { ...npcConfig.debug, enabled: npcDebug || !!npcConfig.debug?.enabled } } }), 'Figuren');
       } catch (error) { issue('npcs', 'NPC-Technik konnte nicht geladen werden.', error); }
     }
+    checkActive();
     report('audio', 0.78, STRINGS.progressAudio);
-    try {
-      if (!modules[4]) throw moduleError(4);
-      audioSource = createAudioSource(baseUrl, { synthetic: syntheticAudio });
-      audio = await modules[4].createAudio({ baseUrl, manifestUrl: 'data/sounds.json', fetch: audioSource.fetch });
-      audio.setMasterVolume(0); await audio.preload();
-      audioSource.finish();
-      await audio.context.suspend();
-      removers.push(modules[4].attachAudio(audio, bus));
-      bus.emit('roomChange', { roomId: player.room?.id ?? 'OUT', profile: player.room?.reverb ?? {} });
-      audio.setListener(camera.position, camera.quaternion);
-      const diagnostics = audio.getDiagnostics();
-      if (audioMode() === 'synthetic' || diagnostics.failed || diagnostics.manifestError)
-        issue('audio-files', audioMode() === 'mixed' ? STRINGS.audioPartial : STRINGS.audioFallback);
-    } catch (error) { audioSource?.dispose(); await audio?.dispose(); audio = null; issue('audio', STRINGS.audioUnavailable, error); }
-    arms?.setAudio(audio);
+    // Recorded clips decode in the background. Interrupted/suspended Web Audio never gates the map.
+    const prepareAudio = async () => {
+      try {
+        if (!modules[4]) throw moduleError(4);
+        audioSource = createAudioSource(baseUrl, { synthetic: syntheticAudio });
+        const Context = globalThis.AudioContext || globalThis.webkitAudioContext;
+        if (!Context) throw new Error('Web Audio ist nicht verfügbar');
+        // Retain the context while the manifest loads so the very first Start tap can unlock it.
+        audioContext = new Context({ latencyHint: 'interactive' });
+        const loadedAudio = await bounded(modules[4].createAudio({ baseUrl, manifestUrl: 'data/sounds.json',
+          fetch: audioSource.fetch, context: audioContext, mobile: assetProfile !== 'full' }), 'Audio', 12000);
+        audio = loadedAudio;
+        audio.setMasterVolume(phase === 'playing' ? currentVolume : 0);
+        removers.push(modules[4].attachAudio(audio, bus));
+        bus.emit('roomChange', { roomId: player.room?.id ?? 'OUT', profile: player.room?.reverb ?? {} });
+        audio.setListener(camera.position, camera.quaternion); arms?.setAudio(audio);
+        if (phase === 'playing') { void audio.unlock().catch(noop); activateAudio(); }
+        // Audio unlock remains in resume(), inside the user's tap.
+        const preload = assetProfile === 'full' ? audio.preload() : audio.preloadEssentials();
+        void preload.then(() => {
+          if (disposed) return;
+          audioSource.finish();
+          const diagnostics = audio.getDiagnostics();
+          if (audioMode() === 'synthetic' || diagnostics.failed || diagnostics.manifestError)
+            issue('audio-files', audioMode() === 'mixed' ? STRINGS.audioPartial : STRINGS.audioFallback);
+        }).catch(error => issue('audio-files', STRINGS.audioPartial, error));
+      } catch (error) {
+        audioSource?.dispose(); void audio?.dispose(); audio = null;
+        if (audioContext && audioContext.state !== 'closed') void audioContext.close().catch(noop);
+        if (!disposed) issue('audio', STRINGS.audioUnavailable, error);
+      }
+    };
+    // Usually graph+manifest is ready before the start screen, but it has no blocking dependency.
+    void prepareAudio();
     report('post', 0.93, STRINGS.progressPost);
     try {
-      if (new URLSearchParams(location.search).get('postfx') === '0') throw new Error('Simple graphics selected');
+      if (query.get('postfx') === '0' || assetProfile === 'safe') throw new Error('Simple graphics selected');
       if (!modules[5]) throw moduleError(5);
       const params = tier === 'desktop' ? undefined : { quality: { low: { msaa: 0 }, medium: { msaa: 0 }, high: { msaa: 2 } }, exposure: { readHz: 2 } };
       post = modules[5].createBodycamPost(renderer, scene, camera, { quality: currentQuality, params });
-      resize(); await post.overlay.ready;
+      resize(); await bounded(post.overlay.ready, 'Kameraeffekte');
     } catch (error) { post?.dispose(); post = null; issue('post', STRINGS.postUnavailable, error); }
-    if (tier !== 'desktop') scene.traverse(node => {
+    checkActive();
+    if (tier !== 'desktop' || assetProfile !== 'full') scene.traverse(node => {
       if (!node.isLight || !node.shadow) return;
-      if (tier === 'software') node.castShadow = false;
+      if (tier === 'software' || assetProfile !== 'full') node.castShadow = false;
       node.shadow.mapSize.setScalar(Math.min(node.shadow.mapSize.x, tier === 'software' ? 256 : 512));
     });
     removers.push(input.on('pause', pause));
     removers.push(input.on('reset', event => { if (['blur', 'hidden'].includes(event.reason)) pause(); }));
     removers.push(input.on('respawn', () => post?.resetHistory()));
-    const listen = (target, type, callback) => {
-      target.addEventListener(type, callback); removers.push(() => target.removeEventListener(type, callback));
+    const unlockAudio = () => {
+      if (phase === 'playing' && audio && audio.context.state !== 'running') void audio.unlock().catch(noop);
     };
+    listen(document, 'pointerdown', unlockAudio);
+    listen(document, 'keydown', unlockAudio);
     listen(window, 'resize', resize);
     listen(window, 'blur', pause);
     listen(document, 'visibilitychange', () => { if (document.hidden) pause(); });
-    listen(window, 'pagehide', event => { if (event.persisted) pause(); else void dispose(); });
-    listen(canvas, 'webglcontextlost', event => {
-      event.preventDefault(); pause(); contextLost = true; issue('context', STRINGS.contextLost); setPhase('error');
-      // Tear down while the context is lost. Restoring these module-owned GPU
-      // objects leaves stale disposal handles in r170; the visible reload action
-      // creates a fresh renderer, world, post pipeline and audio context together.
-      void dispose();
-    });
     report('ready', 1, STRINGS.progressReady);
     ready = true; setPhase('start'); render(); last = performance.now(); raf = requestAnimationFrame(frame);
     return api;
-  } catch (error) { await dispose(); throw error; }
+  } catch (error) {
+    error.stage = bootStage; error.userMessage = bootStage === 'world' ? STRINGS.worldUnavailable : STRINGS.graphicsUnavailable;
+    void dispose(); throw error;
+  }
 }

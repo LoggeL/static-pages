@@ -1,0 +1,552 @@
+{
+  "concrete_floor": {
+    "tileMeters": 1.74,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "asphalt_wet": {
+    "tileMeters": 1.74,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "grass_dead": {
+    "tileMeters": 1.74,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "dirt_mud": {
+    "tileMeters": 1.74,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "wood_floor_worn": {
+    "tileMeters": 1.44,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "carpet_stained": {
+    "tileMeters": 1.305,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "tile_floor_dirty": {
+    "tileMeters": 0.9,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "tile_wall_white": {
+    "tileMeters": 0.75,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "wallpaper_peeling": {
+    "tileMeters": 1.305,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "plaster_painted_dirty": {
+    "tileMeters": 2.175,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "plaster_damaged": {
+    "tileMeters": 1.74,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "ceiling_stained": {
+    "tileMeters": 1.74,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "wood_door_painted": {
+    "tileMeters": 0.87,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "siding_vinyl_dirty": {
+    "tileMeters": 1.6,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "roof_shingles": {
+    "tileMeters": 1.4,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "wood_trim_painted": {
+    "tileMeters": 0.87,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "metal_rusty": {
+    "tileMeters": 0.87,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "fabric_sofa_dirty": {
+    "tileMeters": 0.435,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "mattress_stained": {
+    "tileMeters": 1.057,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "cardboard": {
+    "tileMeters": 0.522,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "laminate_counter": {
+    "tileMeters": 0.87,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "cabinet_wood": {
+    "tileMeters": 0.87,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "brick_red": {
+    "tileMeters": 1.062,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "wood_planks_raw": {
+    "tileMeters": 1.35,
+    "size": 256,
+    "maps": [
+      "albedo",
+      "normal",
+      "orm"
+    ],
+    "sizes": {
+      "albedo": 256,
+      "normal": 256,
+      "orm": 256
+    },
+    "files": {
+      "albedo": "albedo.webp",
+      "normal": "normal.webp",
+      "orm": "orm.webp"
+    }
+  },
+  "decals": {
+    "bullet_hole_plaster": {
+      "file": "decals/bullet_hole_plaster.webp",
+      "size": 256,
+      "sizeMeters": 0.081,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "normal": "decals/bullet_hole_plaster_normal.webp",
+      "surface": "plaster"
+    },
+    "bullet_hole_wood": {
+      "file": "decals/bullet_hole_wood.webp",
+      "size": 256,
+      "sizeMeters": 0.065,
+      "roughness": 0.8,
+      "metalness": 0.0,
+      "normal": "decals/bullet_hole_wood_normal.webp",
+      "surface": "wood"
+    },
+    "bullet_hole_concrete": {
+      "file": "decals/bullet_hole_concrete.webp",
+      "size": 256,
+      "sizeMeters": 0.077,
+      "roughness": 0.9,
+      "metalness": 0.0,
+      "normal": "decals/bullet_hole_concrete_normal.webp",
+      "surface": "concrete"
+    },
+    "bullet_hole_metal": {
+      "file": "decals/bullet_hole_metal.webp",
+      "size": 256,
+      "sizeMeters": 0.05,
+      "roughness": 0.45,
+      "metalness": 0.6,
+      "normal": "decals/bullet_hole_metal_normal.webp",
+      "surface": "metal"
+    },
+    "blood_splatter": {
+      "file": "decals/blood_splatter.webp",
+      "size": 256,
+      "sizeMeters": 0.579,
+      "roughness": 0.35,
+      "metalness": 0.0
+    },
+    "water_stain": {
+      "file": "decals/water_stain.webp",
+      "size": 256,
+      "sizeMeters": 1.479,
+      "roughness": 0.9,
+      "metalness": 0.0
+    },
+    "grime_corner": {
+      "file": "decals/grime_corner.webp",
+      "size": 256,
+      "sizeMeters": 0.8,
+      "roughness": 0.9,
+      "metalness": 0.0
+    },
+    "mold_patch": {
+      "file": "decals/mold_patch.webp",
+      "size": 256,
+      "sizeMeters": 0.458,
+      "roughness": 0.95,
+      "metalness": 0.0
+    },
+    "graffiti_1": {
+      "file": "decals/graffiti_1.webp",
+      "size": 256,
+      "sizeMeters": 1.245,
+      "roughness": 0.6,
+      "metalness": 0.0
+    },
+    "graffiti_2": {
+      "file": "decals/graffiti_2.webp",
+      "size": 256,
+      "sizeMeters": 1.358,
+      "roughness": 0.6,
+      "metalness": 0.0
+    },
+    "footprints_mud": {
+      "file": "decals/footprints_mud.webp",
+      "size": 256,
+      "sizeMeters": 0.502,
+      "roughness": 0.7,
+      "metalness": 0.0
+    },
+    "papers_scattered": {
+      "file": "decals/papers_scattered.webp",
+      "size": 256,
+      "sizeMeters": 0.71,
+      "roughness": 0.85,
+      "metalness": 0.0
+    }
+  }
+}

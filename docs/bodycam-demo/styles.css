@@ -107,3 +107,8 @@ input[type="range"] { accent-color: #c7d6e6; width: 10rem; max-width: 40vw; }
   .touch-extras { top: max(134px, calc(env(safe-area-inset-top) + 56px)); }
   #ui[data-input-mode="touch"] .app-panel { --ui-panel-width: 38rem; }
 }
+
+.app-diagnostics { margin-top: 1rem; color: var(--ui-muted); font-size: .8rem; }
+.app-diagnostics summary { cursor: pointer; }
+.app-diagnostics pre { max-height: 12rem; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+.app-diagnostics button { width: 100%; }

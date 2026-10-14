@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "events": {
+    "Idle": [],
+    "Walk": [],
+    "Sprint": [],
+    "Fire": [],
+    "FireADS": [],
+    "Reload": [],
+    "ReloadEmpty": [],
+    "Inspect": [],
+    "Draw": [],
+    "ADS_In": [],
+    "ADS_Idle": [],
+    "ADS_Out": [],
+    "LowReady": [],
+    "LightToggle": []
+  }
+}

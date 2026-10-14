@@ -4,7 +4,7 @@ import { DEFAULT_SETTINGS, QUALITY_LEVELS } from './settings.js';
 const STATES = new Set(['loading', 'start', 'playing', 'paused', 'error']);
 
 /** DOM-only shell. Start callbacks run synchronously to preserve user activation. */
-export function createUI(root, { onStart, onQualityChange, onVolumeChange, onControlsChange, onSimpleRestart } = {}) {
+export function createUI(root, { onStart, onQualityChange, onVolumeChange, onControlsChange, onSimpleRestart, getDiagnostics } = {}) {
   if (!root?.ownerDocument) throw new TypeError('createUI requires a DOM root.');
   const doc = root.ownerDocument;
   const win = doc.defaultView;
@@ -87,6 +87,11 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange, onCon
   start.type = 'button';
   const simpleRestart = element('button', 'app-simple-restart', STRINGS.simpleRestart);
   simpleRestart.type = 'button'; simpleRestart.hidden = true;
+  const diagnostics = element('details', 'app-diagnostics');
+  diagnostics.append(element('summary', '', 'Ladedetails'));
+  const diagnosticText = element('pre');
+  const copyDiagnostics = element('button', '', 'Fehlerdetails kopieren'); copyDiagnostics.type = 'button';
+  diagnostics.append(diagnosticText, copyDiagnostics);
   const help = element('p', 'app-help');
   const noticeList = element('ul', 'app-notices');
   noticeList.setAttribute('aria-label', STRINGS.notices);
@@ -95,7 +100,7 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange, onCon
   subtitleNode.setAttribute('role', 'status');
   subtitleNode.setAttribute('aria-label', STRINGS.subtitles);
   subtitleNode.hidden = true;
-  panel.append(title, heading, loading, settings, controls, start, simpleRestart, help, noticeList);
+  panel.append(title, heading, loading, settings, controls, start, simpleRestart, help, noticeList, diagnostics);
   menu.append(panel);
   root.replaceChildren(menu, subtitleNode);
 
@@ -114,6 +119,13 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange, onCon
   listen(quality, 'change', () => onQualityChange?.(quality.value));
   listen(inputMode, 'change', () => onControlsChange?.(inputMode.value));
   listen(simpleRestart, 'click', () => onSimpleRestart?.());
+  function refreshDiagnostics() { diagnosticText.textContent = getDiagnostics?.() || ''; }
+  listen(diagnostics, 'toggle', refreshDiagnostics);
+  listen(copyDiagnostics, 'click', async () => {
+    refreshDiagnostics();
+    try { await win.navigator.clipboard.writeText(diagnosticText.textContent); copyDiagnostics.textContent = 'Kopiert'; }
+    catch { const range = doc.createRange(); range.selectNodeContents(diagnosticText); const selection = win.getSelection(); selection.removeAllRanges(); selection.addRange(range); }
+  });
   listen(volume, 'input', () => {
     const value = Number(volume.value);
     updateVolume(value);
@@ -132,7 +144,9 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange, onCon
     settings.hidden = !isMenu;
     controls.hidden = !isMenu;
     start.hidden = !isMenu && next !== 'error';
-    simpleRestart.hidden = next !== 'error';
+    simpleRestart.hidden = !['loading', 'error', 'paused'].includes(next);
+    diagnostics.hidden = !['loading', 'error', 'paused'].includes(next);
+    if (diagnostics.open) refreshDiagnostics();
     help.hidden = next === 'loading';
     heading.textContent = next === 'start' ? STRINGS.ready : STRINGS[next];
     start.textContent = next === 'error' ? STRINGS.reload : next === 'paused' ? STRINGS.resume : touchMode ? STRINGS.touchStart : STRINGS.start;

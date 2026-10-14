@@ -166,8 +166,9 @@ try {
         if (kind === 'all-missing') await page.route('**/audio/*.ogg', route => route.fulfill({ status: 404, body: 'Missing' }));
         if (kind === 'manifest-missing') await page.route('**/data/sounds.json', route => route.fulfill({ status: 404, body: 'Missing' }));
         await page.goto(`${base}?debug=1${kind === 'simple-graphics' ? '&postfx=0' : ''}`); await ready(page);
+        await page.waitForFunction(() => { const a = window.__bodycam?.stats().audio; return a && a.pendingLoads === 0; }, null, { timeout: 30000 });
         const initial = await stats(page);
-        if (kind.startsWith('first-')) check(`${kind}-other-recordings-preserved`, initial.audioMode === 'mixed' && initial.audio.decodedFiles === 197 && initial.audio.failed === 1, { mode: initial.audioMode, decoded: initial.audio.decodedFiles, failed: initial.audio.failed });
+        if (kind.startsWith('first-')) check(`${kind}-other-recordings-preserved`, initial.audioMode === 'mixed' && initial.audio.decodedFiles > 0 && initial.audio.failed >= 1 && initial.audio.decodedBytes <= initial.audio.memoryBudgetBytes, { mode: initial.audioMode, decoded: initial.audio.decodedFiles, failed: initial.audio.failed });
         if (kind === 'all-missing' || kind === 'manifest-missing') check(`${kind}-bounded-synthesis`, initial.audioMode === 'synthetic' && initial.modules.audio && oggRequests <= 3, { mode: initial.audioMode, oggRequests });
         if (kind === 'simple-graphics') check('simple-graphics-world-still-playable', !initial.modules.post && initial.modules.world && initial.modules.player);
         await begin(page); await page.locator('[data-touch="fire"]').tap(); await page.waitForTimeout(250);

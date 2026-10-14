@@ -13,13 +13,15 @@ Die Quellen, Blender-Generatoren und Prüfwerkzeuge liegen in diesem Ordner.
 die [Statusberichte](status/) dokumentieren den jeweiligen Prüfstand.
 
 Die Veröffentlichung enthält 198 Opus-Soundclips für 50 Klangereignisse
-(8.153.247 Bytes). Die Laufzeit lädt und dekodiert die Aufnahmen vor dem
-Start. Bei fehlenden oder nicht lesbaren Dateien stehen synthetische
+(8.153.247 Bytes). Die Laufzeit lädt und dekodiert die Aufnahmen im Hintergrund.
+Das Laden der Karte wartet weder auf die Sounds noch auf einen Audio-Kontext.
+Auf Handys werden zuerst 16 häufige Sounds geladen, weitere Varianten bei Bedarf.
+Der dekodierte Cache ist dort auf 24 MiB begrenzt. Bei fehlenden oder nicht lesbaren Dateien stehen synthetische
 Ersatzklänge bereit. Manifest: `data/sounds.json`, Dateien: `audio/`.
 
 ## Veröffentlichten Stand prüfen
 
-Am 14.10.2026 bestand der vollständige C20-Lauf alle 21 Gruppen mit
+Der C20-Lauf vor der Handy-Korrektur vom 14.10.2026 bestand alle 21 Gruppen mit
 104 Bildern und 435 funktionalen Prüfungen. Die 348 geprüften Dateien
 wurden vor der Veröffentlichung per SHA-256 mit dem Arbeitsstand verglichen.
 Der lokale Veröffentlichungscheck mit Aufnahmen bestand alle 21 Prüfungen:
@@ -31,8 +33,7 @@ Dateiquellen ohne Synthese geprüft.
 
 Die Technikdemo enthält die in C18/C19 dokumentierten Modell- und
 Animationsgrenzen. Die Kamera der NPC-Prüfseite hat im engen CLO1 einen
-in C20 dokumentierten offenen Befund. Diese Veröffentlichung ändert
-keine Spielmechanik oder Modelle.
+in C20 dokumentierten offenen Befund. Die Handyfassung erhält die Geometrie und Spielmechanik dieses Stands.
 
 ```sh
 npm ci --prefix sources/bodycam-demo/tools/harness --ignore-scripts --no-audit --no-fund
@@ -62,12 +63,38 @@ HDR/Post-FX bleibt die Welt ohne Nachbearbeitung spielbar. Nach Verlust
 des Grafikkontexts bietet die Fehleranzeige einen Neustart mit einfacher
 Grafik an. Ohne WebGL2 kann die 3D-Demo nicht laufen.
 
+Handys und Geräte mit wenig gemeldetem RAM wählen vor dem Dekodieren das
+Profil `mobile/`. Es enthält dasselbe gebackene Haus, dieselbe Kollision,
+Türen, Spawnpunkte und Navigation. Haus-, Tile- und Decal-Texturen sind
+maximal 256 Pixel groß, Akteure/Waffen maximal 512 Pixel, RGBM-Lightmaps
+512 Pixel. Der reproduzierbare Builder mittelt RGBM in linearem Licht.
+Das vollständige mobile Profil umfasst 166 Dateien mit 29.040.890 Bytes.
+Die konservative Texturspeicherschätzung für alle Assets sinkt um 92,7 %.
+Dynamische Schatten entfallen im mobilen Profil.
+
+Eine fehlende Textur oder Lightmap verwirft das Gebäude nicht. Die betroffenen
+Materialien erhalten einfache Farben bzw. Beleuchtung. Fehlt `DecompressionStream`,
+dekodiert ein lokaler Deflate-Fallback die PNG-Daten. Der sparsame Neustart
+(`?assets=safe&quality=low&postfx=0`) verwendet die mobile Karte ohne Lightmaps
+und Kameraeffekte. Schlägt der eigentliche Haus-/Kollisionsdownload fehl,
+folgt ein automatischer Versuch mit diesem Profil. Scheitert auch der,
+erscheint ein Fehler statt einer startbereiten leeren Bodenplatte.
+Netz-/Dekodierphasen haben Zeitlimits; der sparsame Neustart und kopierbare
+Ladedetails sind bereits während des Ladens zugänglich.
+
 Bei fehlenden oder beschädigten Einzelaufnahmen bleiben die anderen
 Dateiquellen verfügbar. Drei getrennte Proben prüfen die Erreichbarkeit;
 komplett fehlende Aufnahmen führen direkt zur Synthese. Ein fehlendes oder
-ungültiges Manifest verwendet ebenfalls die Ersatzklänge. Die Netzphase
-zum Vorladen der Aufnahmen ist auf zehn Sekunden begrenzt; bereits
-dekodierte Aufnahmen bleiben nutzbar.
+ungültiges Manifest verwendet ebenfalls die Ersatzklänge. Abruf und Dekodierung einzelner Clips haben Zeitlimits; bereits
+dekodierte Aufnahmen bleiben nutzbar. Später benötigte Sounds können
+auch nach dem Start weitergeladen werden.
+
+Die Handy-Korrektur besteht 42 Prüfungen in acht WebKit-Szenarien,
+65 Chromium-Touch-/Ausfallprüfungen, 13 Desktop-/Karten-Retry-Prüfungen,
+32 Audioprüfungen und 19 isolierte Weltprüfungen. WebKit-Fälle umfassen
+fehlende Atlanten, fehlenden PNG-Entpacker, unterbrochenes Audio,
+einen endlos wartenden Audiodecoder, verzögertes Manifest und hängenden
+Hausdownload. Der Assetcheck prüft 2301 lokale Referenzen ohne Fehler.
 
 Die Mechanismen für Geräteklassen, Auflösungsanpassung und sichere
 Touchfreigabe orientieren sich an Bulli Drive. Die Browserprüfung verwendet
@@ -79,6 +106,8 @@ Abnahme auf einem physischen Android- oder iOS-Gerät.
 
 ```sh
 node sources/bodycam-demo/tools/harness/mobile-check.mjs /absoluter/neuer/ergebnisordner
+# WebKit mit iPhone-Profil und gezielt blockierten/defekten Downloads:
+node sources/bodycam-demo/tools/harness/phone-check.mjs /absoluter/neuer/webkit-ergebnisordner
 # Optional dieselben Prüfungen gegen eine veröffentlichte URL:
 node sources/bodycam-demo/tools/harness/mobile-check.mjs /absoluter/neuer/ergebnisordner https://loggel.github.io/static-pages/bodycam-demo/
 ```

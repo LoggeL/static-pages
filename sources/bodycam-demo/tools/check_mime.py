@@ -226,31 +226,44 @@ class Audit:
         elif extension not in IMAGE_TYPES[mime]:
             self.error(self.label(path), f"magic {mime} disagrees with extension {extension or '(none)'}")
 
-    def check_manifest(self):
-        path = self.root / "textures/index.json"
-        self.manifest = self.json_documents.get(path, {})
-        if not isinstance(self.manifest, dict):
-            self.error("textures/index.json", "manifest must be an object"); self.manifest = {}; return
-        for identity, metadata in self.manifest.items():
+    def asset_root(self, path):
+        # Each profile owns its own manifest and root-relative model/lightmap
+        # paths. Resolving mobile data against the desktop tree can hide a
+        # missing phone asset merely because its desktop counterpart exists.
+        for directory in path.parents:
+            if directory == self.root.parent: break
+            if directory / "textures/index.json" in self.json_documents:
+                return directory
+        return self.root
+
+    def is_texture_manifest(self, path):
+        return path.name == "index.json" and path.parent.name == "textures"
+
+    def check_manifest(self, path):
+        manifest = self.json_documents.get(path, {})
+        label = self.label(path)
+        if not isinstance(manifest, dict):
+            self.error(label, "manifest must be an object"); return
+        for identity, metadata in manifest.items():
             if identity == "decals":
-                if not isinstance(metadata, dict): self.error("textures/index.json", "decals must be an object"); continue
+                if not isinstance(metadata, dict): self.error(label, "decals must be an object"); continue
                 for decal_id, decal in metadata.items():
-                    if not isinstance(decal, dict): self.error("textures/index.json", f"invalid decal {decal_id}"); continue
-                    self.reference(f"textures/index.json decals.{decal_id}.file", decal.get("file"), path.parent, True)
+                    if not isinstance(decal, dict): self.error(label, f"invalid decal {decal_id}"); continue
+                    self.reference(f"{label} decals.{decal_id}.file", decal.get("file"), path.parent, True)
                     if decal.get("normal"):
-                        self.reference(f"textures/index.json decals.{decal_id}.normal", decal["normal"], path.parent, True)
+                        self.reference(f"{label} decals.{decal_id}.normal", decal["normal"], path.parent, True)
                 continue
             if not isinstance(metadata, dict) or "maps" not in metadata: continue
             maps = metadata["maps"]
             files = metadata.get("files", {})
             if not isinstance(maps, list) or not isinstance(files, dict):
-                self.error("textures/index.json", f"invalid maps/files for {identity}"); continue
+                self.error(label, f"invalid maps/files for {identity}"); continue
             for kind in maps:
-                if not isinstance(kind, str): self.error("textures/index.json", f"invalid map name for {identity}"); continue
-                self.reference(f"textures/index.json {identity}.{kind}", files.get(kind), path.parent / identity, True)
+                if not isinstance(kind, str): self.error(label, f"invalid map name for {identity}"); continue
+                self.reference(f"{label} {identity}.{kind}", files.get(kind), path.parent / identity, True)
             for kind, filename in files.items():
                 if kind not in maps:
-                    self.reference(f"textures/index.json {identity}.files.{kind}", filename, path.parent / identity, True)
+                    self.reference(f"{label} {identity}.files.{kind}", filename, path.parent / identity, True)
 
     def json_refs(self, path, document, keys=()):
         if isinstance(document, dict):
@@ -258,15 +271,16 @@ class Audit:
         elif isinstance(document, list):
             for index, value in enumerate(document): self.json_refs(path, value, keys + (str(index),))
         elif isinstance(document, str) and self.resource_path(document):
-            if path == self.root / "textures/index.json": return  # ID-relative manifest handled explicitly.
+            if self.is_texture_manifest(path): return  # ID-relative manifests handled explicitly.
             if keys and keys[-1] == "sourceLayout" and document.startswith("sources/"):
                 self.notes.add("Build provenance sourceLayout is outside the deployed asset tree")
                 return
             source = f"{self.label(path)} {'/'.join(keys)}"
+            asset_root = self.asset_root(path)
             if "sharedImageBuffers" in keys or "externalDecals" in keys:
-                base = self.root / "models"
+                base = asset_root / "models"
             elif document.split("/", 1)[0] in ASSET_DIRS:
-                base = self.root
+                base = asset_root
             else: base = path.parent
             self.reference(source, document, base)
 
@@ -282,7 +296,7 @@ class Audit:
             source = f"{self.label(path)} sharedImageBuffers"
             if not isinstance(record, dict) or "uri" not in record:
                 self.error(source, "invalid shared buffer record"); continue
-            target = self.reference(source, record["uri"], self.root / "models", True)
+            target = self.reference(source, record["uri"], self.asset_root(path) / "models", True)
             if not target or not target.is_file(): continue
             data = target.read_bytes()
             if "bytes" in record and record["bytes"] != len(data):
@@ -520,7 +534,10 @@ class Audit:
                 "fetch ( indexUrl )", "decals ?. [ name ] ?. file",
             )
             self.decal_alias_adapter = all(component in route for component in required_route)
-        self.check_manifest()
+        self.manifest = self.json_documents.get(self.root / "textures/index.json", {})
+        if not isinstance(self.manifest, dict): self.manifest = {}
+        for path in self.json_documents:
+            if self.is_texture_manifest(path): self.check_manifest(path)
         inventory = self.root / "js/world/available-props.js"
         if inventory.is_file():
             self.prop_ids = [t.value for t in js_tokens(inventory.read_text()) if t.kind == "string"]

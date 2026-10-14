@@ -11,37 +11,22 @@ import { bindLightmaps } from './lightmaps.js';
 import { createSourceLightMask } from './source-light-mask.js';
 import { LIGHTING_CONFIG } from './lighting-config.js';
 import { createMaterialLibrary, MATERIAL_CONFIG } from './materials.js';
+import { fetchAsset, loadGltfAsset, mapWithLimit, throwIfAborted, withLoadDeadline, disposeObjectResources } from './load-guards.js';
 
 export { surfaceOf } from './surfaces.js';
 export { fromBlender } from './coordinates.js';
 
 export const WORLD_CONFIG = {
+  baked: true,
   lightmaps: true,
+  bindLightmaps: true,
+  loadTimeoutMs: 15000,
+  atlasLoadConcurrency: 1,
   propLoadConcurrency: 6,
   surfaceRayLift: 0.12,
   surfaceRayDepth: 4,
   buildShootableBVHs: true,
 };
-
-async function readJSON(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`World data ${response.status}: ${url}`);
-  return response.json();
-}
-
-async function mapLimit(values, concurrency, callback) {
-  let cursor = 0;
-  const results = new Array(values.length);
-  const workers = await Promise.allSettled(Array.from({ length: Math.min(concurrency, values.length) }, async () => {
-    while (cursor < values.length) {
-      const index = cursor++;
-      results[index] = await callback(values[index], index);
-    }
-  }));
-  const failure = workers.find(result => result.status === 'rejected');
-  if (failure) throw failure.reason;
-  return results;
-}
 
 /**
  * Load static visual assets, colliders and metadata. No renderer/global prototype mutation.
@@ -58,28 +43,55 @@ export async function loadWorld(scene, {
   doors: doorOptions = {},
   decals: decalOptions = {},
   lightmaps,
+  signal,
 } = {}) {
   const started = performance.now();
   const config = { ...WORLD_CONFIG, ...worldConfig };
-  const useLightmaps = lightmaps ?? (config.lightmaps
-    && new URLSearchParams(globalThis.location?.search ?? '').get('lightmaps') !== '0');
+  const legacyUnbaked = lightmaps === false || !config.lightmaps
+    || new URLSearchParams(globalThis.location?.search ?? '').get('lightmaps') === '0';
+  // bindLightmaps:false is a shading fallback and MUST keep the baked house/collision/layout.
+  // Preserve the explicit old lightmaps=0 developer path unless baked:true was requested.
+  const useBaked = config.baked && (worldConfig.baked === true || !legacyUnbaked);
+  const useLightmaps = useBaked && config.bindLightmaps && !legacyUnbaked;
   const rootUrl = new URL(baseUrl, import.meta.url);
   if (!rootUrl.pathname.endsWith('/')) rootUrl.pathname += '/';
   const assetUrl = path => new URL(path, rootUrl).href;
   const report = (stage, progress, details = {}) => onProgress?.({ stage, progress, ...details });
+  const warnings = [];
+  const warn = message => {
+    if (warnings.includes(message)) return;
+    warnings.push(message);
+    console.warn('[bodycam/world]', message);
+    report('Hinweis', null, { warning: message });
+  };
+  const controller = new AbortController();
+  const abort = () => controller.abort(signal.reason);
+  if (signal?.aborted) abort(); else signal?.addEventListener('abort', abort, { once: true });
+  const loadOptions = { signal: controller.signal, timeoutMs: config.loadTimeoutMs };
+  const readJSON = path => fetchAsset(assetUrl(path), { ...loadOptions, type: 'json' });
   report('Daten', 0);
-  const [metadata, textureIndex, placementConfig] = await Promise.all([
-    readJSON(assetUrl(useLightmaps ? 'data/level.json' : 'data/layout.json')),
-    readJSON(assetUrl('textures/index.json')),
-    useLightmaps ? null : readJSON(assetUrl('js/world/placement-config.json')),
-  ]);
-  const level = useLightmaps ? metadata : null;
+  let metadata, textureIndex, placementConfig;
+  try {
+    [metadata, textureIndex, placementConfig] = await Promise.all([
+      readJSON(useBaked ? 'data/level.json' : 'data/layout.json'),
+      readJSON('textures/index.json').catch(error => {
+        throwIfAborted(controller.signal);
+        warn(`Texturliste nicht verfügbar, Materialfarben bleiben erhalten: ${error.message}`); return {};
+      }),
+      useBaked ? null : readJSON('js/world/placement-config.json'),
+    ]);
+  } catch (error) {
+    controller.abort(error); signal?.removeEventListener('abort', abort); throw error;
+  }
+  const level = useBaked ? metadata : null;
   const layout = level ? layoutFromLevel(level) : metadata;
   const manager = new LoadingManager();
   const assets = createAssetLoaders({ renderer, manager });
   const loader = assets.gltf;
-  const materialConfig = { ...MATERIAL_CONFIG, ...materialOptions };
-  const materialLibrary = createMaterialLibrary(textureIndex, assetUrl, { renderer, manager, config: materialConfig });
+  const materialConfig = { ...MATERIAL_CONFIG, loadTimeoutMs: config.loadTimeoutMs, ...materialOptions };
+  const materialLibrary = createMaterialLibrary(textureIndex, assetUrl, {
+    renderer, manager, config: materialConfig, signal: controller.signal, onWarning: warn,
+  });
   const root = new Group();
   root.name = 'BodycamWorld';
   const furnitureRoot = new Group();
@@ -89,6 +101,8 @@ export async function loadWorld(scene, {
   function dispose() {
     if (disposed) return;
     disposed = true;
+    controller.abort(new DOMException('Welt geschlossen', 'AbortError'));
+    signal?.removeEventListener('abort', abort);
     scene.remove(root);
     lighting?.dispose();
     const geometries = new Set();
@@ -108,7 +122,7 @@ export async function loadWorld(scene, {
       material.dispose();
     }
     for (const geometry of geometries) { geometry.boundsTree = null; geometry.dispose(); }
-    for (const texture of textures) texture.dispose();
+    for (const texture of textures) { texture.dispose(); texture.image?.close?.(); }
   }
   try {
     const placements = level?.propInstances ?? Object.entries(layout.furniture ?? {})
@@ -119,28 +133,30 @@ export async function loadWorld(scene, {
     if (missingProps.length) console.info('[bodycam/world] Fehlende Props, ausgelassen:', missingProps.join(', '));
     const available = neededProps.filter(id => AVAILABLE_PROPS.has(id));
     report('Haus', 0.04);
-    const houseAsset = await loader.loadAsync(assetUrl(level?.model ?? 'models/house_shell.glb'));
+    const houseAsset = await loadGltfAsset(loader, assetUrl(level?.model ?? 'models/house_shell.glb'), loadOptions);
     const house = houseAsset.scene;
     house.name = level ? 'BakedHouse' : 'HouseShell';
     root.add(house, furnitureRoot);
     report('Möbel', 0.18, { loaded: 0, total: available.length });
     let loaded = 0;
-    const prototypeEntries = await mapLimit(level?.staticPropsIncluded ? [] : available, Math.max(1, config.propLoadConcurrency), async id => {
-      const gltf = await loader.loadAsync(assetUrl(`models/props/${id}.glb`));
+    const prototypeEntries = await mapWithLimit(level?.staticPropsIncluded ? [] : available, Math.max(1, config.propLoadConcurrency), async id => {
+      const gltf = await loadGltfAsset(loader, assetUrl(`models/props/${id}.glb`), loadOptions);
       resourceRoots.push(gltf.scene);
       loaded++;
       report('Möbel', 0.18 + loaded / available.length * 0.4, { loaded, total: available.length, url: id });
       return [id, gltf.scene];
-    });
+    }, controller.signal);
     const prototypes = new Map(prototypeEntries);
-    const collisionSource = level?.collisionModel ? (await loader.loadAsync(assetUrl(level.collisionModel))).scene : null;
+    const collisionSource = level?.collisionModel
+      ? (await loadGltfAsset(loader, assetUrl(level.collisionModel), loadOptions)).scene : null;
     if (collisionSource) resourceRoots.push(collisionSource);
     report('Materialien', 0.6);
-    const materialResults = await Promise.allSettled([house, ...prototypes.values()].map(object => materialLibrary.apply(object)));
-    const materialFailure = materialResults.find(result => result.status === 'rejected');
-    if (materialFailure) throw materialFailure.reason;
-    lightmapData = level ? await bindLightmaps(houseAsset, level, assetUrl,
-      fraction => report('Lightmaps', 0.62 + fraction * 0.12)) : null;
+    await mapWithLimit([house, ...prototypes.values()], 1, object => materialLibrary.apply(object), controller.signal);
+    lightmapData = useLightmaps ? await bindLightmaps(houseAsset, level, assetUrl,
+      fraction => report('Lightmaps', 0.62 + fraction * 0.12), {
+        ...loadOptions, concurrency: config.atlasLoadConcurrency, onWarning: warn,
+      }) : null;
+    if (level && !useLightmaps) warn('Lightmaps deaktiviert. Das vollständige Haus verwendet normale Beleuchtung.');
     for (const placement of level?.staticPropsIncluded ? [] : placements) {
       const prototype = prototypes.get(placement.prop);
       if (!prototype) continue;
@@ -155,10 +171,21 @@ export async function loadWorld(scene, {
       furnitureRoot.add(instance);
     }
     report('Decals', 0.74);
-    const decals = level?.staticDecalsIncluded ? new Group()
-      : await createDecals(layout, textureIndex, assetUrl, manager, { ...DECAL_CONFIG, ...decalOptions });
+    let decals = new Group();
+    if (!level?.staticDecalsIncluded) {
+      try {
+        decals = await withLoadDeadline(() => createDecals(layout, textureIndex, assetUrl, manager,
+          { ...DECAL_CONFIG, ...decalOptions }), {
+          ...loadOptions, label: 'Decals', disposeLate: disposeObjectResources,
+        });
+      } catch (error) {
+        throwIfAborted(controller.signal);
+        warn(`Zusätzliche Wanddetails nicht verfügbar: ${error.message}`);
+      }
+    }
     decals.name = 'LayoutDecals';
     root.add(decals);
+    throwIfAborted(controller.signal);
     scene.add(root);
     root.updateWorldMatrix(true, true);
     report('Kollision', 0.82);
@@ -181,6 +208,13 @@ export async function loadWorld(scene, {
       key, typeof value === 'object' ? { ...value, ...lightingOptions[key] } : lightingOptions[key] ?? value,
     ]));
     lightingConfig.moon.shadow = { ...LIGHTING_CONFIG.moon.shadow, ...lightingOptions.moon?.shadow };
+    const ordinaryLightingFallback = Boolean(level && (!lightmapData?.records.length || lightmapData.failedAtlases.length));
+    if (ordinaryLightingFallback) {
+      // Missing baked irradiance must not leave otherwise intact rooms unreadably dark.
+      // Lightmapped materials still exclude these source lights through their normal mask.
+      lightingConfig.hemisphere.intensity = Math.max(lightingConfig.hemisphere.intensity, 0.55);
+      lightingConfig.moon.intensity = Math.max(lightingConfig.moon.intensity, 0.45);
+    }
     lighting = createLighting(scene, layout, lightingConfig, { level });
     if (lightmapData) {
       const mask = createSourceLightMask(scene);
@@ -207,6 +241,13 @@ export async function loadWorld(scene, {
     }
     const statistics = {
       lightmaps: useLightmaps,
+      baked: useBaked,
+      lightmapsRequested: useLightmaps,
+      lightmapsActive: Boolean(lightmapData?.records.length),
+      ordinaryLightingFallback,
+      failedAtlases: lightmapData?.failedAtlases ?? [],
+      textureFallbacks: materialLibrary.warnings.length,
+      warnings,
       model: level?.model ?? 'models/house_shell.glb',
       collisionModel: level?.collisionModel ?? null,
       loadMs: performance.now() - started,
@@ -232,7 +273,7 @@ export async function loadWorld(scene, {
       policeCar: anchorFromBlender(layout.policeCar),
       suspects: (layout.suspects ?? []).map(anchorFromBlender),
       suspectsAlt: (layout.suspectsAlt ?? []).map(anchorFromBlender),
-      layout, level, textureIndex, lighting, materialLibrary, lightmapData, missingProps, stats: statistics,
+      layout, level, textureIndex, lighting, materialLibrary, lightmapData, missingProps, warnings, stats: statistics,
       floorHit,
       surfaceAt(point) {
         const hit = floorHit(point);
@@ -249,7 +290,8 @@ export async function loadWorld(scene, {
     dispose();
     throw error;
   } finally {
-    // All loads settle before releasing worker/transcoder infrastructure.
+    signal?.removeEventListener('abort', abort);
+    // Late non-abortable parser results are disposed by loadGltfAsset.
     assets.dispose();
   }
 }
