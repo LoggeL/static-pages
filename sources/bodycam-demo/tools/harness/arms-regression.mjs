@@ -92,7 +92,7 @@ export async function runArmsRegression({ page, origin, out, audioSink = 'none' 
     });
     if (evidence.reloadTurnBlend) {
       const r = evidence.reloadTurnBlend;
-      record('reload-transition-active-during-turn', r.transitioning, r);
+      record('reload-choreography-active-during-turn', r.target?.startsWith('reload:'), r);
       record('reload-transition-reachable-during-turn', r.reachable, r);
       record('reload-turn-bone-within-5mm-of-blended-target', r.independentlyMeasured < 0.005, r);
       record('reload-turn-independent-metric-agreement', Math.abs(r.independentlyMeasured - r.distanceMeters) < 1e-6, r);
@@ -100,7 +100,7 @@ export async function runArmsRegression({ page, origin, out, audioSink = 'none' 
     await run('reload-magwell-pose', () => { window.fpTest.look(0, -4); window.fpTest.step(0.26); });
     await hands('reloadMagwell');
     record('reload-detaches-left-forward-grip', evidence.poses.reloadMagwell?.L.target !== 'W_Grip_L'
-      && evidence.poses.reloadMagwell?.L.target === 'W_MagWell', evidence.poses.reloadMagwell?.L);
+      && evidence.poses.reloadMagwell?.L.target?.startsWith('reload:'), evidence.poses.reloadMagwell?.L);
     await shot('03-reload-magwell.png', 'C18 echtes Nachladen am Magazinschacht');
     await run('finish-reload', () => window.fpTest.step(3.6));
     await hands('afterReload');
@@ -282,17 +282,25 @@ async function measureHands(app = false) {
     const data = f.arms.state().hands[side];
     const bone = f.arms.model.getObjectByName(side === 'L' ? 'LeftHand' : 'RightHand');
     const target = f.weapon.nodes[data.target] ?? f.scene.getObjectByName(data.target);
+    const actualPosition = bone?.getWorldPosition(new T.Vector3()), actualQ = bone?.getWorldQuaternion(new T.Quaternion());
+    if (bone && typeof data.target === 'string' && data.target.startsWith('reload:'))
+      // Choreographed reload pose: compare with the solved target the arms report.
+      return [side, { ...data, measured: actualPosition.distanceTo(new T.Vector3(...data.targetPosition)),
+        measuredRotation: actualQ.angleTo(new T.Quaternion(...data.targetQuaternion)), actualPosition: actualPosition.toArray() }];
     if (!target || !bone) return [side, { ...data, measured: null, measuredRotation: null }];
-    const axes = f.arms.config.handAxes[side];
-    // Independent world-space basis from configured finger/back directions.
+    const grip = f.arms.config.grips[side];
+    // Independent world-space basis from configured finger/palm directions.
     // Comparing the actual bone quaternion also detects stale metric snapshots.
     const targetQ = target.getWorldQuaternion(new T.Quaternion());
-    const y = new T.Vector3(...axes.fingers).normalize().applyQuaternion(targetQ);
-    const z = new T.Vector3(...axes.back).normalize().applyQuaternion(targetQ);
+    const y = new T.Vector3(...grip.fingers).normalize().applyQuaternion(targetQ);
+    const z = new T.Vector3(...grip.palm).normalize().applyQuaternion(targetQ);
     const x = new T.Vector3().crossVectors(y, z).normalize(); z.crossVectors(x, y).normalize();
     const desired = new T.Quaternion().setFromRotationMatrix(new T.Matrix4().makeBasis(x, y, z));
-    return [side, { ...data, measured: bone.getWorldPosition(new T.Vector3()).distanceTo(target.getWorldPosition(new T.Vector3())),
-      measuredRotation: bone.getWorldQuaternion(new T.Quaternion()).angleTo(desired),
-      actualPosition: bone.getWorldPosition(new T.Vector3()).toArray(), actualQuaternion: bone.getWorldQuaternion(new T.Quaternion()).toArray() }];
+    // Automatic grips place the palm contact on the anchor offset; other targets take the wrist.
+    const wrist = data.target === `W_Grip_${side}`
+      ? target.localToWorld(new T.Vector3(...grip.anchor)).sub(new T.Vector3(...grip.contact).applyQuaternion(desired))
+      : target.getWorldPosition(new T.Vector3());
+    return [side, { ...data, measured: actualPosition.distanceTo(wrist), measuredRotation: actualQ.angleTo(desired),
+      actualPosition: actualPosition.toArray(), actualQuaternion: actualQ.toArray() }];
   }));
 }

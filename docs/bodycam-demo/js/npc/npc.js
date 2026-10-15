@@ -31,6 +31,7 @@ export async function createNPCs({ scene, world, player, camera, renderer, input
   const npcs = [], removers = [], doorGuards = [], errors = [], sounds = [];
   const perception = createNPCPerception({ world, config: config.perception });
   const shooting = createNPCShooting({ world, player, camera, config: config.shooting, random });
+  const fallCollision = new CapsuleCollision(world.colliders);
   const target = new Vector3(), direction = new Vector3(), candidate = new Vector3();
   let time = 0, disposed = false, debug = null, allDownSent = false, updateMs = 0;
   let api;
@@ -56,6 +57,33 @@ export async function createNPCs({ scene, world, player, camera, renderer, input
       if (value && typeof value.then === 'function') { Promise.resolve(value).catch(report); return undefined; }
       return value;
     } catch (error) { report(error); return undefined; }
+  }
+  // Clip choice per state: the chosen fall for deaths, the armed variant for hits with the pistol out.
+  function clipFor(npc, state) {
+    const clip = config.states[state]?.clip;
+    if (state === 'dead' && npc.fall) return [npc.fall.clip, npc.fall.clip === 'DeathBackward' ? 'DeathForward' : 'DeathBackward'];
+    if (state === 'hit' && npc.instance.weaponDrawn && clip) return ['HitReactArmed', clip];
+    return clip;
+  }
+  // Death clip and a small turn whose fall path is free of walls and furniture; prefers falling away from the shooter.
+  function chooseFall(npc, from) {
+    const facing = npc.root.rotation.y, fall = config.fall;
+    const ahead = !from || (from.x - npc.position.x) * Math.sin(facing) + (from.z - npc.position.z) * Math.cos(facing) > 0;
+    const order = ahead ? ['DeathBackward', 'DeathForward'] : ['DeathForward', 'DeathBackward'];
+    let best = null;
+    for (const turnDeg of fall.turnsDeg) for (const clip of order) {
+      const yaw = facing + MathUtils.degToRad(turnDeg), sign = clip === 'DeathBackward' ? -1 : 1;
+      direction.set(Math.sin(yaw) * sign, 0, Math.cos(yaw) * sign);
+      let clear = fall.lengthMeters;
+      for (const height of fall.probeHeights) for (const side of [-fall.halfWidth, 0, fall.halfWidth]) {
+        candidate.set(npc.position.x + direction.z * side, npc.position.y + height, npc.position.z - direction.x * side);
+        const hit = fallCollision.raycast(candidate, direction, fall.lengthMeters);
+        if (hit) clear = Math.min(clear, hit.distance);
+      }
+      if (clear >= fall.lengthMeters - 1e-6) return { clip, turn: MathUtils.degToRad(turnDeg), clear };
+      if (!best || clear > best.clear) best = { clip, turn: MathUtils.degToRad(turnDeg), clear };
+    }
+    return best;
   }
   function stop(npc) { npc.path = []; npc.pathIndex = 0; npc.pathVersion++; npc.goal = null; npc.moving = false; }
   function setState(id, state, detail = {}) {
@@ -138,6 +166,10 @@ export async function createNPCs({ scene, world, player, camera, renderer, input
     npc.lastHit = { ...event, point: point.toArray(), normal: normal.toArray(), time };
     emit('npc.hit', npc, event); hook('onHit', { npc, hit: event });
     if (npc.health === 0) {
+      const from = event.sourceId === 'player' ? camera.getWorldPosition(new Vector3()) : null;
+      npc.fall = config.fall.enabled ? chooseFall(npc, from) : null;
+      if (npc.fall) npc.fall = { ...npc.fall, fromYaw: npc.root.rotation.y, age: 0 };
+      event.fall = npc.fall && { clip: npc.fall.clip, turnDeg: MathUtils.radToDeg(npc.fall.turn), clearMeters: npc.fall.clear };
       npc.stateMachine.set('dead', event, true); stop(npc);
       npc.hitZones.objects.forEach(object => { object.visible = false; });
       emit('npc.dead', npc, event);
@@ -246,9 +278,14 @@ export async function createNPCs({ scene, world, player, camera, renderer, input
         const step = Math.min(config.navigation.maxSubstepSeconds, rest); time += step; rest -= step;
         for (const npc of npcs) {
           npc.stateMachine.update(step); if (disposed) break; move(npc, step);
+          if (npc.fall && npc.fall.age < config.fall.turnSeconds) { // Turn into the free fall path while buckling.
+            npc.fall.age = Math.min(config.fall.turnSeconds, npc.fall.age + step);
+            const t = npc.fall.age / config.fall.turnSeconds;
+            npc.root.rotation.y = npc.fall.fromYaw + npc.fall.turn * t * t * (3 - 2 * t);
+          }
           npc.animation.update(step, { state: npc.stateMachine.state, moving: npc.moving,
             sprinting: npc.stateMachine.state === 'flee',
-            ...(!npc.moving ? { clip: config.states[npc.stateMachine.state]?.clip ?? null } : {}) });
+            ...(!npc.moving ? { clip: clipFor(npc, npc.stateMachine.state) ?? null } : {}) });
           npc.root.updateWorldMatrix(true, true); npc.hitZones.update();
           if (npc.health > 0 && time + 1e-9 >= npc.nextSenseTime) {
             npc.nextSenseTime = time + config.perception.intervalSeconds; sense(npc);
@@ -289,7 +326,9 @@ export async function createNPCs({ scene, world, player, camera, renderer, input
       npc.stateMachine = createNPCStateMachine({ config, context: () => ({ npc }),
         hook, changed(event) {
           if (['idle', 'alert', 'hide', 'surrender', 'dead'].includes(event.state)) stop(npc);
-          npc.animation.setState(event.state, { clip: config.states[event.state]?.clip });
+          // Drawn for aiming and firing; a hit or death keeps whatever the hand already holds.
+          if (!['hit', 'dead'].includes(event.state)) npc.instance.setWeaponDrawn(['aim', 'fire'].includes(event.state));
+          npc.animation.setState(event.state, { clip: clipFor(npc, event.state) });
           emit('npc.statechange', npc, { from: event.from, to: event.to, state: event.state, signal: event.payload?.signal ?? null });
           if (event.state === 'fire' && config.shooting.enabled) fire(npc);
         } });

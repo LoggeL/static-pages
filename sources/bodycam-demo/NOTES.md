@@ -199,3 +199,22 @@ Nächste Schritte in dieser Reihenfolge:
 - Post-FX: neuer Parameter `exposure.floorEV` (Untergrenze der Log-Messung, Standard −16 = altes Verhalten). Getestet mit −9: kein Effekt,
   weil die Szene insgesamt so dunkel ist. Stellschraube bleibt für später.
 - Wenn die Belichtung später einmal nicht mehr am Anschlag steht (z. B. höheres `maxEV` oder hellere Lightmaps), müssen beide Lichtwerte neu abgestimmt werden.
+
+## Hände, Nachladen, Gehweglücke (15.10., Claude)
+- Hände waren um 180° verdreht: Lokales +Z des Handknochens ist die **Handfläche** (nicht der Handrücken). `arms-config.js` hat jetzt `grips` (fingers/palm/contact/anchor); die Handfläche statt des Handgelenks liegt am Griff. `ForeArmTwist` übernimmt 55 % der Unterarmdrehung (kein Knick an der Manschette).
+- Linker Arm: Schulter `[-0.012, 0.022, 0.04]`, Pol `[-0.30, -0.90, -0.05]` → Ellbogen unten, Arm gestreckter. Weiter gestreckt verliert die Hand bei schnellen Drehungen (Waffenträgheit) den Griff.
+- Neues `js/fp/reload.js`: Keyframe-Choreografie der linken Hand (Magazin greifen, herausziehen, Tasche, neues Magazin, einsetzen; leer: Magazin fällt in die Welt, Verschlussfang). Waffenpose dezent `[-0.04,0.05,0.02]`/`[10,10,-25]` plus Stöße an magOut/magIn/boltRelease. `magDrop` 1.28 → 0.68 s (Aufschlag).
+- Straßenlampe 75 → 12: Das Viewmodel wurde gold, weil die Auto-Belichtung bei +4 EV am Anschlag steht (wie beim Waffenlicht).
+- Bodenlücke gegenüber (three z 20–21,5): Generatorfehler in `house_shell.py` behoben (beim nächsten Bake aktiv), bis dahin Laufzeit-Flicken `js/world/site-patches.js` (Optik und Kollision, schaltet sich bei vorhandenem Boden selbst ab).
+- Tests: arms 184/184, app/world/doors grün; inertia 14/15 nur wegen abgebrochenem `police_lightbar_hum_1.ogg`-Request (unabhängig).
+- Offen: NPCs haben weder Clips noch Waffe (A-Pose gleitet). `docs/` noch nicht synchronisiert.
+
+## NPC-Animationen zur Laufzeit (15.10., Claude)
+- `officer.glb` hat keine Clips. `js/npc/procedural-clips.js` baut beim Laden (~90 ms, einmal pro Bibliothek) echte AnimationClips mit den Vertragsnamen: Idle, IdleNervous, Walk, Run, AimPistol, FirePistol, HitReact, DeathForward, DeathBackward, Crouch und neu **Surrender** (Zustand `surrender` nutzt ihn jetzt).
+- Posen: FK in Charakterachsen (+Z vorn, +X links), Beine/Hände per Zwei-Knochen-IK (`fp/ik.js`), Fingerpresets, Gangzyklus Walk 0.96 s (1.25 m/s), Run 0.70 s (2.0 m/s), Tode als Hermite-Keyframes mit Stop-Keys. Rechte Seite wird gespiegelt notiert.
+- Pistole: Kopie der Holster-`Pistol` hängt an `RightHand` (`Pistol_Drawn`), `S_Muzzle` sitzt an ihrer Mündung. `instance.setWeaponDrawn()`; npc.js zieht sie bei aim/fire und holstert bei anderen Zuständen (hit/dead behalten den Stand).
+- Wenn eine GLB eigene Clips mitbringt, werden die verwendet; der Generator springt nur bei fehlenden Clips ein.
+- Regression `npc-all-nonterminal-states-select-procedural-clips` ersetzt die alte „missing clips“-Prüfung.
+- Nachtrag: Tod wählt Fallrichtung per Raycast (`config.fall`, 1.6 m frei, bis ±115° Drehung über 0.45 s; bevorzugt weg vom Schützen). `hit()`-Event trägt `fall`.
+- `HitReactArmed` (neuer Vertragsname) für Treffer mit gezogener Pistole; `animation.setState({clip})` akzeptiert jetzt Listen mit Fallback.
+- Liegende Todes-Keys (`'rest'`/`'clear'`) werden beim Bauen gegen echte Skin-Vertices am Boden ausgerichtet (Rumpf exakt, Glieder/Kopf per Koordinatenabstieg). Sohlen-Versatz der Bindpose (3 cm Schweben) wird abgezogen. Bauzeit jetzt ~350 ms.

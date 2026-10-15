@@ -1,7 +1,7 @@
 import { AnimationClip, AnimationMixer, LoopOnce, LoopRepeat, PropertyBinding } from 'three';
 
 export const NPC_CLIP_NAMES = Object.freeze(['Idle', 'IdleNervous', 'Walk', 'Run', 'AimPistol',
-  'FirePistol', 'HitReact', 'DeathForward', 'DeathBackward', 'Crouch']);
+  'FirePistol', 'HitReact', 'DeathForward', 'DeathBackward', 'Crouch', 'Surrender', 'HitReactArmed']);
 
 export const NPC_ANIMATION_CONFIG = Object.freeze({
   fade: 0.12,
@@ -10,12 +10,12 @@ export const NPC_ANIMATION_CONFIG = Object.freeze({
   maxSteps: 8,
   states: Object.freeze({
     idle: ['Idle'], alert: ['IdleNervous', 'Idle'], flee: ['Run', 'Walk'],
-    hide: ['Crouch'], aim: ['AimPistol'], fire: ['FirePistol'], surrender: [],
+    hide: ['Crouch'], aim: ['AimPistol'], fire: ['FirePistol'], surrender: ['Surrender'],
     hit: ['HitReact'], dead: ['DeathForward', 'DeathBackward'],
   }),
 });
 
-const LOOPS = new Set(['Idle', 'IdleNervous', 'Walk', 'Run', 'AimPistol', 'Crouch']);
+const LOOPS = new Set(['Idle', 'IdleNervous', 'Walk', 'Run', 'AimPistol', 'Crouch', 'Surrender']);
 const PROPERTIES = new Map([['position', 3], ['quaternion', 4], ['scale', 3]]);
 
 /** Bone-only, event-free visual mixer. State timings and damage stay with the NPC manager.
@@ -73,7 +73,8 @@ export function createNPCAnimation({ root, clips = [], config = {} } = {}) {
     }
   }
   function desired(state, options) {
-    if (options.clip !== undefined) return options.clip === null ? [] : [options.clip];
+    // A clip list is tried in order, so a preferred variant can fall back to the plain clip.
+    if (options.clip !== undefined) return options.clip === null ? [] : [options.clip].flat();
     if (state === 'dead' && options.deathBackward) return ['DeathBackward', 'DeathForward'];
     if (options.moving && !['dead', 'hit', 'fire', 'surrender'].includes(state))
       return options.sprinting ? ['Run', 'Walk'] : ['Walk'];

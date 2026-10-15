@@ -3,6 +3,7 @@ import { createAssetLoaders } from '../core/loaders.js';
 import { createFPAnimation } from './animation.js';
 import { resolveArmsConfig } from './arms-config.js';
 import { createTwoBoneIK } from './ik.js';
+import { createReloadMotion } from './reload.js';
 
 const SIDES = { L: 'Left', R: 'Right' };
 const smooth = t => { t = MathUtils.clamp(t, 0, 1); return t * t * (3 - 2 * t); };
@@ -17,7 +18,7 @@ export async function createFPArms({ weapon, camera, renderer, baseUrl = new URL
   for (const value of [settings.handBlendSeconds, settings.fingerBlendSeconds, settings.reachEpsilon])
     if (!Number.isFinite(value) || value <= 0) throw new RangeError('FP blend times and epsilon must be positive');
   for (const value of [settings.shoulderOffset, settings.shoulderOffsets.L, settings.shoulderOffsets.R,
-    settings.poles.L, settings.poles.R])
+    settings.poles.L, settings.poles.R, ...['L', 'R'].flatMap(side => [settings.grips[side].contact, settings.grips[side].anchor])])
     if (!Array.isArray(value) || value.length !== 3 || !value.every(Number.isFinite))
       throw new TypeError('FP offsets/poles must have three finite coordinates');
   const base = new URL(baseUrl, import.meta.url);
@@ -27,7 +28,7 @@ export async function createFPArms({ weapon, camera, renderer, baseUrl = new URL
   try { gltf = await assets.gltf.loadAsync(new URL(settings.model, base).href); }
   finally { assets.dispose(); }
   const model = gltf.scene, mount = new Group(), bones = {}, rest = new Map(), chains = {};
-  let animation, weaponSocket, weaponParent, disposed = false;
+  let animation, reload, weaponSocket, weaponParent, disposed = false;
   function restoreWeaponParent() {
     if (weaponSocket && weapon.model.parent === weaponSocket) weaponParent.add(weapon.model);
     weaponSocket?.removeFromParent();
@@ -65,27 +66,33 @@ export async function createFPArms({ weapon, camera, renderer, baseUrl = new URL
     const referenceRotation = rotation(weapon.poses.lowReady.rotationDeg);
     const inverseReference = referenceRotation.clone().invert();
     const position = new Vector3(), pole = new Vector3(), worldQ = new Quaternion(), deltaQ = new Quaternion();
-    const euler = new Euler(), identity = new Quaternion();
+    const euler = new Euler(), identity = new Quaternion(), twist = new Quaternion(), forearmAxis = new Vector3();
+    const cameraQ = new Quaternion(), cameraInverseQ = new Quaternion(), goalPosition = new Vector3();
+    const goal = { position: new Vector3(), quaternion: new Quaternion(), finger: null, key: null };
     const targets = {}, fingers = {}, metrics = {};
-    let lastReload = null;
     for (const [side, prefix] of Object.entries(SIDES)) {
       const upper = bones[`${prefix}Arm`], lower = bones[`${prefix}ForeArm`], hand = bones[`${prefix}Hand`];
       if (!upper || !lower || !hand) throw new Error(`Missing FP arm chain: ${prefix}`);
       chains[side] = createTwoBoneIK({ upper, lower, hand, epsilon: settings.reachEpsilon });
-      const axes = settings.handAxes[side];
-      const y = new Vector3(...axes.fingers).normalize(), z = new Vector3(...axes.back).normalize();
+      const grip = settings.grips[side];
+      const y = new Vector3(...grip.fingers).normalize(), z = new Vector3(...grip.palm).normalize();
       const x = new Vector3().crossVectors(y, z).normalize();
       z.crossVectors(x, y).normalize();
-      if (x.lengthSq() < 0.5) throw new Error(`Invalid FP hand axes: ${side}`);
+      if (x.lengthSq() < 0.5) throw new Error(`Invalid FP grip axes: ${side}`);
       const offset = new Quaternion().setFromRotationMatrix(new Matrix4().makeBasis(x, y, z));
       targets[side] = { mode: 'auto', object: weapon.nodes[`W_Grip_${side}`], current: null,
         blend: 1, age: 0, seconds: settings.handBlendSeconds, fromPosition: new Vector3(),
         fromQuaternion: new Quaternion(), localPosition: new Vector3(), localQuaternion: new Quaternion(),
-        position: new Vector3(), quaternion: new Quaternion(), offset };
+        position: new Vector3(), quaternion: new Quaternion(), offset,
+        contact: new Vector3(...grip.contact), anchor: new Vector3(...grip.anchor),
+        twist: bones[`${prefix}ForeArmTwist`] ?? null };
       const pose = side === 'R' ? 'trigger' : 'grip';
+      targets[side].autoFinger = pose;
       fingers[side] = { pose, age: settings.fingerBlendSeconds, seconds: settings.fingerBlendSeconds,
         from: new Map(), values: new Map() };
     }
+    if (settings.reload.enabled && weapon.nodes.W_Mag)
+      reload = createReloadMotion({ weapon, camera, config: settings.reload });
     animation = await createFPAnimation({ root: model, clips: gltf.animations, weapon, audio,
       baseUrl: base, config: settings.animation });
 
@@ -108,14 +115,16 @@ export async function createFPArms({ weapon, camera, renderer, baseUrl = new URL
       if (!Object.hasOwn(settings.fingerPoses, preset)) throw new RangeError(`Unknown FP finger preset: ${preset}`);
       if (!Number.isFinite(seconds) || seconds < 0) throw new RangeError('FP finger transition must be non-negative');
       const hand = fingers[side];
-      hand.from = new Map([...hand.values].map(([bone, q]) => [bone, q.clone()]));
+      for (const [bone, q] of hand.values) (hand.from.get(bone) ?? hand.from.set(bone, new Quaternion()).get(bone)).copy(q);
       hand.pose = preset; hand.age = 0; hand.seconds = seconds;
       return api;
     }
-    function applyFingers(side, dt) {
-      const hand = fingers[side], preset = settings.fingerPoses[hand.pose];
-      hand.age += dt;
-      const amount = hand.seconds ? smooth(hand.age / hand.seconds) : 1;
+    // Bone rotations per preset object, built once; presets may be replaced at runtime.
+    const presetCache = { L: new WeakMap(), R: new WeakMap() };
+    function presetRotations(side, preset) {
+      let list = presetCache[side].get(preset);
+      if (list) return list;
+      list = [];
       for (const [finger, values] of Object.entries(preset)) {
         for (let index = 0; index < 3; index++) {
           const bone = bones[`${SIDES[side]}Hand${finger}${index + 1}`];
@@ -123,12 +132,42 @@ export async function createFPArms({ weapon, camera, renderer, baseUrl = new URL
           const value = values[index];
           const angles = Array.isArray(value) ? [...value] : [value, 0, 0];
           if (side === 'R') { angles[1] = -angles[1]; angles[2] = -angles[2]; }
-          const desired = new Quaternion().setFromEuler(euler.set(...angles.map(MathUtils.degToRad), 'XYZ'));
-          const q = (hand.from.get(bone) ?? desired).clone().slerp(desired, amount);
-          hand.values.set(bone, q);
-          bone.quaternion.multiply(q);
+          list.push([bone, new Quaternion().setFromEuler(euler.set(...angles.map(MathUtils.degToRad), 'XYZ'))]);
         }
       }
+      presetCache[side].set(preset, list);
+      return list;
+    }
+    function applyFingers(side, dt) {
+      const hand = fingers[side];
+      hand.age += dt;
+      const amount = hand.seconds ? smooth(hand.age / hand.seconds) : 1;
+      for (const [bone, desired] of presetRotations(side, settings.fingerPoses[hand.pose])) {
+        let q = hand.values.get(bone);
+        if (!q) hand.values.set(bone, q = new Quaternion());
+        q.copy(hand.from.get(bone) ?? desired).slerp(desired, amount);
+        bone.quaternion.multiply(q);
+      }
+    }
+    function gripPose(side, outPosition, outQuaternion) {
+      const hand = targets[side], anchor = weapon.nodes[`W_Grip_${side}`];
+      anchor.updateWorldMatrix(true, false);
+      anchor.getWorldQuaternion(outQuaternion).multiply(hand.offset);
+      anchor.localToWorld(outPosition.copy(hand.anchor));
+      return outPosition.sub(pole.copy(hand.contact).applyQuaternion(outQuaternion));
+    }
+    // Pronation/supination: the twist bone takes a share of the hand's roll around the forearm,
+    // so the sleeve and glove cuff do not pinch at the wrist.
+    function applyForearmTwist(hand, handBone) {
+      if (!hand.twist || !(settings.forearmTwist > 0)) return;
+      twist.copy(rest.get(handBone).quaternion).invert().premultiply(handBone.quaternion);
+      forearmAxis.copy(handBone.position).normalize();
+      const along = twist.x * forearmAxis.x + twist.y * forearmAxis.y + twist.z * forearmAxis.z;
+      twist.set(forearmAxis.x * along, forearmAxis.y * along, forearmAxis.z * along, twist.w);
+      if (twist.lengthSq() < 1e-12) return;
+      twist.normalize();
+      hand.twist.quaternion.copy(identity).slerp(twist, settings.forearmTwist).multiply(rest.get(hand.twist).quaternion);
+      hand.twist.updateWorldMatrix(false, true);
     }
     function update(dt, locomotion = {}) {
       if (disposed) return;
@@ -143,55 +182,62 @@ export async function createFPArms({ weapon, camera, renderer, baseUrl = new URL
       deltaQ.copy(weapon.viewmodel.quaternion).multiply(inverseReference);
       mount.quaternion.slerpQuaternions(identity, deltaQ, settings.shoulderFollow.rotation);
       mount.updateWorldMatrix(true, true);
+      camera.getWorldQuaternion(cameraQ); cameraInverseQ.copy(cameraQ).invert();
       for (const [side, prefix] of Object.entries(SIDES)) {
         const shoulder = bones[`${prefix}Shoulder`];
         if (!shoulder) continue;
         // Side-specific anatomical placement, expressed in camera-space metres.
-        const parentInverse = shoulder.parent.getWorldQuaternion(new Quaternion()).invert();
-        const toParent = parentInverse.multiply(camera.getWorldQuaternion(new Quaternion()));
+        const toParent = shoulder.parent.getWorldQuaternion(deltaQ).invert().multiply(cameraQ);
         shoulder.position.add(position.fromArray(settings.shoulderOffsets[side]).applyQuaternion(toParent));
         shoulder.updateWorldMatrix(false, true);
       }
-      if (state.reloadKind !== lastReload && targets.L.mode === 'auto') {
-        setFingerPose('L', state.reloadKind ? 'open' : 'grip');
-        lastReload = state.reloadKind;
-      }
-      for (const side of Object.keys(SIDES)) {
-        const hand = targets[side];
-        let object = hand.object;
+      const reloadGoal = targets.L.mode === 'auto' ? reload?.sample(state, (p, q) => gripPose('L', p, q), goal) : null;
+      if (!reloadGoal) reload?.release();
+      for (const [side, prefix] of Object.entries(SIDES)) {
+        const hand = targets[side], handBone = bones[`${prefix}Hand`];
+        let object = hand.object, key = object;
         if (hand.mode === 'auto') {
-          object = weapon.nodes[`W_Grip_${side}`];
-          if (side === 'L' && state.reloadKind && settings.reload.enabled)
-            object = weapon.nodes.W_MagWell ?? object;
+          const reloading = side === 'L' && reloadGoal;
+          object = reloading ? null : weapon.nodes[`W_Grip_${side}`];
+          key = reloading ? reloadGoal.key : object;
+          const preset = reloading ? reloadGoal.finger : side === 'R' ? 'trigger' : 'grip';
+          // Only automatic changes; a manual setFingerPose stays until the next automatic one.
+          if (preset !== hand.autoFinger) { hand.autoFinger = preset; if (fingers[side].pose !== preset) setFingerPose(side, preset); }
         }
         applyFingers(side, dt);
-        if (object && hand.blend > 0) {
-          object.updateWorldMatrix(true, false);
-          object.getWorldPosition(position);
-          object.getWorldQuaternion(worldQ).multiply(hand.offset);
-          if (object !== hand.current) {
+        if (key && hand.blend > 0) {
+          if (hand.mode !== 'auto') {
+            object.updateWorldMatrix(true, false);
+            object.getWorldPosition(position);
+            object.getWorldQuaternion(worldQ).multiply(hand.offset);
+          } else if (object) gripPose(side, position, worldQ);
+          else { position.copy(reloadGoal.position); worldQ.copy(reloadGoal.quaternion); }
+          if (key !== hand.current) {
             const initial = hand.current === null;
-            hand.fromPosition.copy(initial ? camera.worldToLocal(position.clone()) : hand.localPosition);
-            hand.fromQuaternion.copy(initial
-              ? camera.getWorldQuaternion(new Quaternion()).invert().multiply(worldQ) : hand.localQuaternion);
-            hand.current = object; hand.age = initial ? settings.handBlendSeconds : 0;
-            hand.seconds = side === 'L' && hand.mode === 'auto'
-              ? state.reloadKind ? settings.reload.enterSeconds : settings.reload.returnSeconds : settings.handBlendSeconds;
+            if (initial) camera.worldToLocal(hand.fromPosition.copy(position));
+            else hand.fromPosition.copy(hand.localPosition);
+            hand.fromQuaternion.copy(initial ? deltaQ.copy(cameraInverseQ).multiply(worldQ) : hand.localQuaternion);
+            // Reload choreography starts and ends on the grip pose, so it only needs a short blend.
+            const choreographed = typeof key === 'string' || typeof hand.current === 'string';
+            hand.current = key; hand.age = initial ? settings.handBlendSeconds : 0;
+            hand.seconds = choreographed ? settings.reload.blendSeconds : settings.handBlendSeconds;
           }
           hand.age += dt;
           const t = hand.seconds > 0 ? smooth(hand.age / hand.seconds) : 1;
           // The outgoing hand pose moves with the body during a turn or step.
           // The incoming Object3D can still intentionally be fixed in world space.
-          hand.position.lerpVectors(camera.localToWorld(hand.fromPosition.clone()), position, t);
-          hand.quaternion.slerpQuaternions(camera.getWorldQuaternion(new Quaternion())
-            .multiply(hand.fromQuaternion), worldQ, t);
-          hand.localPosition.copy(camera.worldToLocal(hand.position.clone()));
-          hand.localQuaternion.copy(camera.getWorldQuaternion(new Quaternion()).invert()).multiply(hand.quaternion);
+          hand.position.lerpVectors(camera.localToWorld(goalPosition.copy(hand.fromPosition)), position, t);
+          hand.quaternion.slerpQuaternions(deltaQ.copy(cameraQ).multiply(hand.fromQuaternion), worldQ, t);
+          camera.worldToLocal(hand.localPosition.copy(hand.position));
+          hand.localQuaternion.copy(cameraInverseQ).multiply(hand.quaternion);
           camera.localToWorld(pole.fromArray(settings.poles[side]));
+          goalPosition.copy(position);
           const result = chains[side].solve(hand.position, pole, hand.quaternion, hand.blend);
-          metrics[side] = { ...result, target: object.name || object.uuid, blend: hand.blend,
-            transitioning: t < 1, targetDistanceMeters: bones[`${SIDES[side]}Hand`].getWorldPosition(position)
-              .distanceTo(object.getWorldPosition(pole)), fingerPose: fingers[side].pose };
+          applyForearmTwist(hand, handBone);
+          metrics[side] = { ...result, target: object ? object.name || object.uuid : key, blend: hand.blend,
+            transitioning: t < 1, targetQuaternion: hand.quaternion.toArray(),
+            targetDistanceMeters: handBone.getWorldPosition(position).distanceTo(goalPosition),
+            fingerPose: fingers[side].pose };
         } else {
           hand.current = null;
           metrics[side] = { target: null, blend: 0, reachable: null, distanceMeters: null,
@@ -199,21 +245,23 @@ export async function createFPArms({ weapon, camera, renderer, baseUrl = new URL
         }
       }
       mount.updateWorldMatrix(false, true);
+      if (reloadGoal) reload.applyMagazine(bones.LeftHand);
+      reload?.updateDropped(dt, locomotion.floorY);
       // updateMatrixWorld propagates bone transforms; renderer uploads the skin once.
     }
     function dispose() {
       if (disposed) return;
-      disposed = true; animation.dispose(); restoreWeaponParent(); mount.removeFromParent(); disposeModel(model);
+      disposed = true; animation.dispose(); reload?.dispose(); restoreWeaponParent(); mount.removeFromParent(); disposeModel(model);
     }
     const api = { model, root: mount, bones, animation, config: settings, update,
       setHandTarget, resetHandTarget, setFingerPose, setAudio: value => animation.setAudio(value), dispose,
-      state: () => ({ disposed, hands: structuredClone(metrics), animation: animation.state(),
+      state: () => ({ disposed, hands: structuredClone(metrics), animation: animation.state(), reload: reload?.state() ?? null,
         layer: mount.layers.mask, lengths: Object.fromEntries(Object.entries(chains).map(([side, chain]) => [side, chain.lengths])) }),
     };
     update(0);
     return api;
   } catch (error) {
-    animation?.dispose(); restoreWeaponParent(); mount.removeFromParent(); disposeModel(model); throw error;
+    animation?.dispose(); reload?.dispose(); restoreWeaponParent(); mount.removeFromParent(); disposeModel(model); throw error;
   }
 }
 

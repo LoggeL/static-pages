@@ -6,9 +6,16 @@ export const WEAPON_POSES = {
   lowReady: { muzzleUV: [0.52, 0.6], muzzleDepth: 0.78, rotationDeg: [9, 9, -6] },
   ads: { positionOffset: [0, 0, 0], rotationDeg: [0, 0, 0] },
   sprint: { positionOffset: [0.08, -0.12, 0.05], rotationDeg: [-24, 25, -30], tau: 0.1 },
-  reload: { positionOffset: [-0.10, 0.10, -0.20], rotationDeg: [0, -8, -22],
-    raiseSeconds: 0.28, returnSeconds: 0.42, magTravel: [-0.10, -0.34, 0.035],
-    magOutSeconds: 0.40, magInSeconds: 0.44, magRotationDeg: [0, 0, -16] },
+  // Pulled slightly towards the chest and canted; the muzzle stays forward like a real chest-level reload.
+  reload: { positionOffset: [-0.04, 0.05, 0.02], rotationDeg: [10, 10, -25],
+    raiseSeconds: 0.30, returnSeconds: 0.42, magTravel: [-0.10, -0.34, 0.035],
+    magOutSeconds: 0.40, magInSeconds: 0.44, magRotationDeg: [0, 0, -16],
+    // Short jolts at weapon markers: peak after `seconds`, then decay.
+    kicks: {
+      magOut: { offset: [0, -0.014, 0.002], rotationDeg: [-3, 0, 2], seconds: 0.07 },
+      magIn: { offset: [0, 0.02, 0.004], rotationDeg: [4.5, 0, -2.5], seconds: 0.055 },
+      boltRelease: { offset: [0.002, 0.006, 0.014], rotationDeg: [3, -1, 1.5], seconds: 0.045 },
+    } },
   inspect: { positionOffset: [-0.025, 0.01, 0.015], rotationDeg: [5, 18, 24] },
   // Inertia: radians/metres of lag per camera rotation/translation, spring in rad/s, pivot near the chest.
   sway: { turnLag: 0.45, moveLag: 0.25, stiffness: 9, damping: 0.5, maxAngle: 0.16, maxOffset: 0.06,

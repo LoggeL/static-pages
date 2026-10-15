@@ -150,6 +150,13 @@ export async function createWeapon({ scene, camera, renderer, world, input, bus 
         const envelope = smooth(t / r.raiseSeconds) * smooth((timeline.dur - t) / r.returnSeconds);
         viewmodel.position.addScaledVector(new Vector3(...r.positionOffset), envelope);
         viewmodel.quaternion.multiply(new Quaternion().slerp(rotationQuaternion(r.rotationDeg), envelope));
+        for (const [marker, kick] of Object.entries(r.kicks ?? {})) {
+          const x = (t - (timeline[marker] ?? Infinity)) / kick.seconds;
+          if (!(x > 0)) continue;
+          const amount = x * Math.exp(1 - x);
+          viewmodel.position.addScaledVector(new Vector3(...kick.offset), amount);
+          viewmodel.quaternion.multiply(new Quaternion().slerp(rotationQuaternion(kick.rotationDeg), amount));
+        }
         if (t >= timeline.magOut && t < timeline.magIn) {
           const outward = smooth((t - timeline.magOut) / r.magOutSeconds);
           const inward = smooth((timeline.magIn - t) / r.magInSeconds);
@@ -199,11 +206,11 @@ export async function createWeapon({ scene, camera, renderer, world, input, bus 
       let remaining = dt;
       while (remaining > 1e-10) {
         const step = Math.min(remaining, poseConfig.maxSubstep);
-        machine.update(step);
-        updatePose(0);
+        machine.update(step); // Integrates the pose through onAdvance.
         remaining -= step;
       }
-      if (dt === 0) updatePose(0);
+      // Final pose after the last state events of this frame.
+      updatePose(0);
       publishCameraRecoil();
     }
     function publishCameraRecoil() {

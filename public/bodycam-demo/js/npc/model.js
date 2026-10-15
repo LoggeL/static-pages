@@ -1,6 +1,7 @@
-import { Group, Object3D, Quaternion, Vector3 } from 'three';
+import { Group, Mesh, Object3D, Quaternion, Vector3 } from 'three';
 import { clone as cloneSkeleton } from 'three/addons/utils/SkeletonUtils.js';
 import { createAssetLoaders } from '../core/loaders.js';
+import { buildProceduralNPCClips } from './procedural-clips.js';
 
 export const NPC_MODEL_CONFIG = Object.freeze({
   fallbackModelUrl: 'models/officer.glb',
@@ -67,6 +68,11 @@ export async function loadNPCModel({ baseUrl = new URL('../../', import.meta.url
     }
     if (node.isSkinnedMesh) { sourceMeshes.push(node); sourceSkeletons.add(node.skeleton); }
   });
+  // Rigs without authored clips get runtime-built ones; the placeholder also draws its holstered pistol.
+  const sourceYaw = placeholder ? settings.placeholderYaw : settings.modelYaw;
+  const procedural = gltf.animations?.length ? null : buildProceduralNPCClips(source, { yaw: sourceYaw });
+  const animations = procedural?.clips.length ? procedural.clips : gltf.animations ?? [];
+  const drawable = procedural?.pistol ?? null;
   const instances = new Set();
   let disposed = false, created = 0;
 
@@ -113,13 +119,32 @@ export async function loadNPCModel({ baseUrl = new URL('../../', import.meta.url
     const authoredHead = Boolean(nodes.S_Head), authoredMuzzle = Boolean(nodes.S_Muzzle);
     const headBone = findBone(settings.headBones), handBone = findBone(settings.handBones);
     if (!authoredHead) makeSocket('S_Head', headBone, headBone ? headOffset : new Vector3(0, 1.74, 0));
-    if (!authoredMuzzle) makeSocket('S_Muzzle', handBone, handBone ? muzzleOffset : new Vector3(0.25, 1.25, 0.15));
+    // A drawable holster pistol gets a copy in the right hand; the muzzle socket sits on its muzzle.
+    const holstered = drawable && handBone ? nodes[drawable.mesh] : null;
+    let drawn = null, weaponDrawn = false;
+    if (holstered?.isMesh) {
+      drawn = new Mesh(holstered.geometry, holstered.material);
+      drawn.name = `${drawable.mesh}_Drawn`;
+      drawable.matrix.decompose(drawn.position, drawn.quaternion, drawn.scale);
+      drawn.castShadow = true; drawn.receiveShadow = true; drawn.visible = false;
+      drawn.userData.collidable = false;
+      handBone.add(drawn);
+      nodes[drawn.name] = drawn;
+    }
+    if (!authoredMuzzle) makeSocket('S_Muzzle', handBone, handBone ? drawn ? drawable.muzzle : muzzleOffset : new Vector3(0.25, 1.25, 0.15));
     const sockets = { head: nodes.S_Head, muzzle: nodes.S_Muzzle };
-    const forward = authoredMuzzle ? authoredForward : placeholderForward;
+    const forward = authoredMuzzle ? authoredForward : drawn ? drawable.forward.clone() : placeholderForward;
     const quaternion = new Quaternion();
     let instanceDisposed = false;
     const instance = {
-      root, model, nodes, sockets, animations: gltf.animations ?? [], placeholder,
+      root, model, nodes, sockets, animations, placeholder,
+      get weaponDrawn() { return weaponDrawn; },
+      /** Moves the pistol between holster and right hand; no-op for rigs without one. */
+      setWeaponDrawn(value) {
+        if (!drawn) return false;
+        weaponDrawn = !!value; drawn.visible = weaponDrawn; holstered.visible = !weaponDrawn;
+        return true;
+      },
       getMuzzleDirection(out = new Vector3()) {
         nodes.S_Muzzle.updateWorldMatrix(true, false);
         return out.copy(forward).applyQuaternion(nodes.S_Muzzle.getWorldQuaternion(quaternion)).normalize();
@@ -127,7 +152,8 @@ export async function loadNPCModel({ baseUrl = new URL('../../', import.meta.url
       state() {
         return { npcId, disposed: instanceDisposed, placeholder, sourceUrl: loadedUrl,
           bones: bones.size, skins: skeletons.size,
-          clips: (gltf.animations ?? []).map(clip => clip.name),
+          clips: animations.map(clip => clip.name), proceduralClips: !!procedural?.clips.length,
+          weapon: drawn ? (weaponDrawn ? 'hand' : 'holster') : null,
           sockets: {
             head: { authored: authoredHead, parent: nodes.S_Head.parent?.name ?? null },
             muzzle: { authored: authoredMuzzle, parent: nodes.S_Muzzle.parent?.name ?? null,
@@ -149,7 +175,8 @@ export async function loadNPCModel({ baseUrl = new URL('../../', import.meta.url
 
   function state() {
     return { disposed, sourceUrl: loadedUrl, requestedUrl, loadError, placeholder,
-      clips: (gltf.animations ?? []).map(clip => clip.name), created, instances: instances.size,
+      clips: animations.map(clip => clip.name), proceduralClips: !!procedural?.clips.length,
+      proceduralMissing: procedural?.missing ?? [], created, instances: instances.size,
       shared: { geometries: geometries.size, materials: materials.size, textures: textures.size } };
   }
   function dispose() {
@@ -161,5 +188,5 @@ export async function loadNPCModel({ baseUrl = new URL('../../', import.meta.url
     materials.forEach(material => material.dispose());
     textures.forEach(texture => { texture.dispose(); texture.source?.data?.close?.(); });
   }
-  return { instantiate, state, dispose, animations: gltf.animations ?? [], config: settings };
+  return { instantiate, state, dispose, animations, config: settings };
 }

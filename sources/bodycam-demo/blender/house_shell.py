@@ -1794,7 +1794,8 @@ def build_site():
     surface_grid(g, xs2, rngs(STREET['y1'] + 0.15, WALK['y0'], 0.35), lambda x, y: -0.115 + 0.01 * math.sin(x * 1.7),
                  lambda x, y: None if DRIVE['x0'] < x < DRIVE['x1'] else (M('dirt_mud') if math.sin(x * 0.6) > 0.7 else M('grass_dead')))
     surface_grid(g, xs2, rngs(-20.0 - 0.0, STREET['y0'] - 0.15, 0.35), lambda x, y: -0.115, lambda x, y: M('grass_dead'))
-    surface_grid(g, rngs(-44, 46, 3.0), rngs(-48, -21.5, 3.0), lambda x, y: -0.12 + 0.05 * math.sin(x * 0.3) * math.sin(y * 0.4),
+    # Bis an den gegenueberliegenden Gruenstreifen (y = -20); -21.5 liess eine Luecke ins Leere.
+    surface_grid(g, rngs(-44, 46, 3.0), rngs(-48, -20.0, 3.0), lambda x, y: -0.12 + 0.05 * math.sin(x * 0.3) * math.sin(y * 0.4),
                  lambda x, y: M('dirt_mud') if math.sin(x * 0.21 + y * 0.3) > 0.8 else M('grass_dead'))
     mk('SITE_ground', g, C_SITE, 'grass', props={'note': 'Material je Zelle: M_grass_dead / M_dirt_mud'})
     # Erdflecken, Traufstreifen, Fahrspuren (Auflagen)

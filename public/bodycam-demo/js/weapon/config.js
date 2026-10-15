@@ -13,7 +13,8 @@ export const WEAPON_CONFIG = Object.freeze({
   ads: Object.freeze({ in: 0.28, out: 0.22 }),
   reload: Object.freeze({
     Reload: Object.freeze({ dur: 3.7, magOut: 0.56, magStow: 1.33, magIn: 2.67, settle: 3.62 }),
-    ReloadEmpty: Object.freeze({ dur: 2.9, magOut: 0.26, magDrop: 1.28, magIn: 1.66, boltRelease: 2.55 }),
+    // magDrop: the empty magazine lands on the floor after falling from the well.
+    ReloadEmpty: Object.freeze({ dur: 2.9, magOut: 0.26, magDrop: 0.68, magIn: 1.66, boltRelease: 2.55 }),
   }),
   recoil: Object.freeze({
     weaponPitch: 2.2, weaponPitchRand: 0.8, weaponYawRand: 0.9, weaponBack: 0.025,

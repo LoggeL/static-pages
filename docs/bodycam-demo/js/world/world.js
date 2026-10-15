@@ -9,6 +9,7 @@ import { createDoors, DOOR_CONFIG } from './doors.js';
 import { createLighting } from './lighting.js';
 import { bindLightmaps } from './lightmaps.js';
 import { createSourceLightMask } from './source-light-mask.js';
+import { patchSiteGaps } from './site-patches.js';
 import { LIGHTING_CONFIG } from './lighting-config.js';
 import { createMaterialLibrary, MATERIAL_CONFIG } from './materials.js';
 import { fetchAsset, loadGltfAsset, mapWithLimit, throwIfAborted, withLoadDeadline, disposeObjectResources } from './load-guards.js';
@@ -188,6 +189,10 @@ export async function loadWorld(scene, {
     throwIfAborted(controller.signal);
     scene.add(root);
     root.updateWorldMatrix(true, true);
+    if (level) {
+      try { patchSiteGaps(house, collisionSource); }
+      catch (error) { warn(`Bodenlücke konnte nicht geschlossen werden: ${error.message}`); }
+    }
     report('Kollision', 0.82);
     if (level) prepareBakedDoors(house, level);
     const doors = createDoors(house, layout, { ...DOOR_CONFIG, ...doorOptions });

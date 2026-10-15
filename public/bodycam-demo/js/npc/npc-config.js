@@ -21,6 +21,9 @@ export const NPC_CONFIG = {
     cooldownSeconds: 0.5, aimDirection: 'target', socketForward: [0, 0, 1],
     playerRadius: 0.30, playerHeight: 1.80 },
   animation: { fadeSeconds: 0.12 },
+  // Death fall: clear path length from the feet, probe heights, half body width, turn options and duration.
+  fall: { enabled: true, lengthMeters: 1.6, probeHeights: [0.25, 0.7], halfWidth: 0.28,
+    turnsDeg: [0, 25, -25, 50, -50, 80, -80, 115, -115], turnSeconds: 0.45 },
   hitZones: {},
   states: {
     idle: { clip: 'Idle', duration: null },
@@ -29,7 +32,7 @@ export const NPC_CONFIG = {
     hide: { clip: 'Crouch', duration: null },
     aim: { clip: 'AimPistol', duration: null },
     fire: { clip: 'FirePistol', duration: 0.1 },
-    surrender: { clip: 'Idle', duration: null },
+    surrender: { clip: 'Surrender', duration: null },
     hit: { clip: 'HitReact', duration: 0.25 },
     dead: { clip: 'DeathBackward', duration: null },
   },
@@ -94,6 +97,10 @@ export function validateNPCConfig(config) {
     throw new RangeError('NPC socketForward requires a nonzero finite vector');
   if (!Number.isInteger(config.debug.coneSegments) || config.debug.coneSegments < 2 || config.debug.coneSegments > 256)
     throw new RangeError('NPC debug.coneSegments: 2..256');
+  for (const key of ['lengthMeters', 'halfWidth', 'turnSeconds']) positive(config.fall[key], `fall.${key}`);
+  for (const key of ['probeHeights', 'turnsDeg'])
+    if (!Array.isArray(config.fall[key]) || !config.fall[key].length || !config.fall[key].every(Number.isFinite))
+      throw new RangeError(`NPC fall.${key} requires finite numbers`);
   for (const state of NPC_STATES) {
     const duration = config.states[state]?.duration;
     if (duration !== null && duration !== undefined) positive(duration, `states.${state}.duration`);

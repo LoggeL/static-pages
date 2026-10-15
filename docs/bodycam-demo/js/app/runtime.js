@@ -172,7 +172,7 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
     captureBase();
     npcs?.update(dt);
     weapon?.update(dt, { sprinting: !!player.state.sprinting && !!player.state.moving });
-    arms?.update(dt, { moving: !!player.state.moving, sprinting: !!player.state.sprinting });
+    arms?.update(dt, { moving: !!player.state.moving, sprinting: !!player.state.sprinting, floorY: player.position.y });
     state.time += dt;
     state.angularVelocity.copy(player.angularVelocity).applyQuaternion(inverseRecoil.copy(recoilQuaternion).invert()).add(recoilAngular);
     state.linearVelocity.copy(player.velocity);

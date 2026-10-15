@@ -447,10 +447,22 @@ async function stateTests() {
     for (const state of ['idle', 'alert', 'flee', 'hide', 'aim', 'fire', 'surrender', 'hit']) {
       m.setState(npc.id, state, { source: 'regression' });
       const snapshot = m.state().npcs.find(record => record.id === npc.id);
-      states.push({ requested: state, state: snapshot.state, animation: snapshot.animation });
+      states.push({ requested: state, state: snapshot.state, animation: snapshot.animation, weapon: snapshot.model.weapon });
     }
-    checks.push({ name: 'npc-all-nonterminal-states-and-missing-clips', passed: states.every(record => record.requested === record.state
-      && record.animation.restPose && record.animation.selected === null && record.animation.missingClips.length === 10), details: { states } });
+    // officer.glb has no authored clips; procedural-clips.js builds the full contract set at load.
+    const expected = { idle: 'Idle', alert: 'IdleNervous', flee: 'Run', hide: 'Crouch', aim: 'AimPistol',
+      fire: 'FirePistol', surrender: 'Surrender', hit: 'HitReact' };
+    checks.push({ name: 'npc-all-nonterminal-states-select-procedural-clips', passed: states.every(record => record.requested === record.state
+      && !record.animation.restPose && record.animation.selected === expected[record.state] && record.animation.missingClips.length === 0
+      && record.weapon === (['aim', 'fire'].includes(record.state) ? 'hand' : 'holster')), details: { states } });
+    m.setState(npc.id, 'aim');
+    const health = npc.health;
+    m.hit(npc.id, { damage: 1, zone: 'arms' });
+    const armed = m.state().npcs.find(record => record.id === npc.id);
+    npc.health = health;
+    checks.push({ name: 'npc-hit-with-drawn-pistol-uses-armed-reaction', passed: armed.state === 'hit'
+      && armed.animation.selected === 'HitReactArmed' && armed.model.weapon === 'hand',
+      details: { state: armed.state, selected: armed.animation.selected, weapon: armed.model.weapon } });
     m.setState(npc.id, 'idle');
     m.config.hooks.beforeTransition = event => event.to === 'aim' ? false : undefined;
     const prevented = m.setState(npc.id, 'aim');

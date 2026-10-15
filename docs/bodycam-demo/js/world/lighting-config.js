@@ -9,6 +9,8 @@ export const LIGHTING_CONFIG = {
     target: [0, 0, -3], castShadow: true,
     shadow: { mapSize: 1024, extent: 22, near: 0.5, far: 65, bias: -0.00015, normalBias: 0.025 },
   },
-  streetlight: { color: '#ffbd72', intensity: 75, distance: 30, decay: 2, castShadow: false },
+  // Lights only dynamic objects (viewmodel, NPCs); the night exposure sits at +4 EV, so the old 75
+  // turned the black rifle gold against the baked street. Matches the lightmapped ground better.
+  streetlight: { color: '#ffbd72', intensity: 12, distance: 30, decay: 2, castShadow: false },
   porch: { enabled: false, color: '#ffd7a0', intensity: 8, distance: 7, decay: 2 },
 };
