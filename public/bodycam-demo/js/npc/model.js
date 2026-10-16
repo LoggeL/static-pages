@@ -121,7 +121,7 @@ export async function loadNPCModel({ baseUrl = new URL('../../', import.meta.url
     if (!authoredHead) makeSocket('S_Head', headBone, headBone ? headOffset : new Vector3(0, 1.74, 0));
     // A drawable holster pistol gets a copy in the right hand; the muzzle socket sits on its muzzle.
     const holstered = drawable && handBone ? nodes[drawable.mesh] : null;
-    let drawn = null, weaponDrawn = false;
+    let drawn = null, weaponDrawn = false, holsterShown = true;
     if (holstered?.isMesh) {
       drawn = new Mesh(holstered.geometry, holstered.material);
       drawn.name = `${drawable.mesh}_Drawn`;
@@ -142,8 +142,13 @@ export async function loadNPCModel({ baseUrl = new URL('../../', import.meta.url
       /** Moves the pistol between holster and right hand; no-op for rigs without one. */
       setWeaponDrawn(value) {
         if (!drawn) return false;
-        weaponDrawn = !!value; drawn.visible = weaponDrawn; holstered.visible = !weaponDrawn;
+        weaponDrawn = !!value; drawn.visible = weaponDrawn; holstered.visible = !weaponDrawn && holsterShown;
         return true;
+      },
+      /** Hides the holstered pistol for rigs that only show it in the hand. */
+      showHolster(value) {
+        holsterShown = !!value;
+        if (holstered) holstered.visible = !weaponDrawn && holsterShown;
       },
       getMuzzleDirection(out = new Vector3()) {
         nodes.S_Muzzle.updateWorldMatrix(true, false);

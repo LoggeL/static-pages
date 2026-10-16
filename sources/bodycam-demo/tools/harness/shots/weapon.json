@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "page": "bodycam-demo/index.html?debug=1",
+  "page": "bodycam-demo/index.html?debug=1&behavior=0",
   "description": "App-Viewmodel: Low-Ready, ADS, Schuss, Oberflaechen, Huelsen und Nachladen.",
   "source": {
     "layout": "sources/bodycam-demo/blender/layout.json",

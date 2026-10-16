@@ -58,7 +58,7 @@ export async function runNPCSuite({ out = path.join(WORK_ROOT, `npc-${new Date()
     page.on('requestfailed', request => { if (!closing) report.failedRequests.push(record({ url: request.url(), error: request.failure()?.errorText })); });
     page.on('response', response => { if (response.status() >= 400) report.httpErrors.push(record({ url: response.url(), status: response.status() })); });
     page.on('crash', () => report.fatalErrors.push(record({ error: 'Chromium-Tab abgestürzt' })));
-    await page.goto(`${server.origin}/bodycam-demo/_dev/npc/?npcdebug=1&pause=1`, { waitUntil: 'load' });
+    await page.goto(`${server.origin}/bodycam-demo/_dev/npc/?npcdebug=1&pause=1&behavior=0`, { waitUntil: 'load' });
     await page.waitForFunction(() => window.npcTest?.ready === true, { timeout: 120000 });
     phase = 'gpu'; report.environment.gpu = await gpuInfo(page);
     const cdp = await browser.newBrowserCDPSession();

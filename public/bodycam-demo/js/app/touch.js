@@ -71,6 +71,7 @@ export function createTouchControls({ root, input, onPause }) {
   button('FEUER', 'fire', actions, { code: 'Mouse0', hold: true });
   button('Ducken', 'crouch', leftActions, { code: 'KeyC', toggle: true });
   button('Sprint', 'sprint', leftActions, { code: 'ShiftLeft', toggle: true });
+  button('Rufen', 'shout', leftActions, { code: 'KeyT' }).setAttribute('aria-label', 'Rufen: Polizei, Hände hoch');
   button('Pause', 'pause', toolbar, { action: onPause });
   const more = button('Mehr', 'more', toolbar, { action: () => {
     extras.hidden = !extras.hidden; more.setAttribute('aria-expanded', String(!extras.hidden));

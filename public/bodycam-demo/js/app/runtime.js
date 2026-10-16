@@ -6,13 +6,14 @@ import { createAudioSource } from './audio-source.js';
 import { createFallbackInput } from './fallbacks.js';
 import { createTouchControls } from './touch.js';
 import { createQualityController, renderTier, prefersTouch } from './quality.js';
+import { createPlayerHealth } from './player-health.js';
 
 const noop = () => {};
 
 export async function createDemo({ canvas, quality = 'auto', controls = 'auto', volume = 0.65, onProgress = noop,
   ui = {}, debug = false, syntheticAudio = false, hooks = {}, npcConfig = {} } = {}) {
   if (!canvas?.getContext) throw new TypeError('startDemo requires a canvas');
-  const view = Object.fromEntries(['setState', 'setProgress', 'notice', 'clearNotice', 'subtitle', 'setInputMode', 'setSettings']
+  const view = Object.fromEntries(['setState', 'setProgress', 'notice', 'clearNotice', 'subtitle', 'setInputMode', 'setSettings', 'end']
     .map(name => [name, typeof ui[name] === 'function' ? ui[name].bind(ui) : noop]));
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' });
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -52,10 +53,12 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
   const inverseRecoil = new THREE.Quaternion();
   const state = { time: 0, angularVelocity: new THREE.Vector3(), linearVelocity: new THREE.Vector3(),
     shake: 0, muzzleFlash: 0, damage: 0, exposureHint: 0, flashlightOn: false };
-  let world, player, weapon = null, arms = null, npcs = null, input, rawInput, audio = null, post = null, audioSource, audioContext, touchControls;
+  let world, player, weapon = null, arms = null, npcs = null, behavior = null, viewmodelLight = null, input, rawInput, audio = null, post = null, audioSource, audioContext, touchControls;
   let phase = 'loading', ready = false, disposed = false, contextLost = false;
   let introCalled = false, firstRoomSent = false, starting = false, frameFrozen = false, humStarted = false;
   let raf = 0, frames = 0, last = performance.now(), progress = 0;
+  let ended = null, endTimer = 0, deathTime = 0;
+  const health = createPlayerHealth({ bus, state, camera });
   let currentQuality = qualityController.snapshot().quality;
   let currentControls = controls;
   let currentVolume = Number.isFinite(volume) ? THREE.MathUtils.clamp(volume, 0, 1) : 0.65;
@@ -114,8 +117,28 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
   removers.push(bus.on('*', event => {
     if (event.type !== 'cameraRecoil') eventCounts[event.type] = (eventCounts[event.type] ?? 0) + 1;
   }));
-  removers.push(bus.on('allSuspectsDown', payload => invokeHook('onAllSuspectsDown', payload)));
-  removers.push(bus.on('playerDeath', payload => { pause(); invokeHook('onPlayerDeath', payload); }));
+  removers.push(bus.on('allSuspectsDown', payload => { invokeHook('onAllSuspectsDown', payload); endGame('cleared', payload); }));
+  removers.push(bus.on('playerDeath', payload => { invokeHook('onPlayerDeath', payload); endGame('dead', payload); }));
+  removers.push(bus.on('sound', event => { if (event.name === 'suspect_shout') view.subtitle(STRINGS.suspectShoutSubtitle, 2500); }));
+  // Death: the camera drops and disconnects before the end card; a cleared house holds a moment longer.
+  function endGame(kind, payload = {}) {
+    if (ended || disposed) return;
+    ended = kind; deathTime = 0;
+    weapon?.trigger(false); weapon?.ads(false);
+    if (kind === 'dead') post?.overlay.disconnected(APP_CONFIG.end.deadSeconds);
+    const card = kind === 'dead' ? STRINGS.endDead(payload)
+      : STRINGS.endCleared({ down: (payload.npcIds?.length ?? 0) - (payload.surrendered?.length ?? 0), surrendered: payload.surrendered?.length ?? 0 });
+    endTimer = setTimeout(() => {
+      if (disposed) return;
+      pause(); phase = 'ended'; touchControls?.setPlaying(false); view.end(card);
+    }, (kind === 'dead' ? APP_CONFIG.end.deadSeconds : APP_CONFIG.end.clearedSeconds) * 1000);
+  }
+  function deathFall(dt) {
+    const fall = APP_CONFIG.end.fall, t = Math.min(1, (deathTime += dt) / fall.seconds), ease = t * t * (3 - 2 * t);
+    camera.position.y -= fall.drop * ease;
+    camera.rotateZ(THREE.MathUtils.degToRad(fall.rollDeg) * ease); camera.rotateX(THREE.MathUtils.degToRad(fall.pitchDeg) * ease);
+    camera.updateMatrixWorld(true);
+  }
   removers.push(bus.on('subtitle', payload => view.subtitle(payload.text, payload.ms ?? APP_CONFIG.subtitleMs)));
 
   function setQuality(value) {
@@ -165,12 +188,16 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
         post.dispose(); post = null; issue('post', STRINGS.postUnavailable, error); rawRender();
       }
     } else rawRender();
+    viewmodelLight?.update(dt);
     frames++;
   }
   function advance(dt) {
     player.update(dt); // C12 advances the world in physics substeps.
+    if (ended === 'dead') deathFall(dt);
     captureBase();
     npcs?.update(dt);
+    behavior?.update(dt);
+    health.update(dt);
     weapon?.update(dt, { sprinting: !!player.state.sprinting && !!player.state.moving });
     arms?.update(dt, { moving: !!player.state.moving, sprinting: !!player.state.sprinting, floorY: player.position.y });
     state.time += dt;
@@ -220,7 +247,7 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
     }
   }
   async function resume() {
-    if (!ready || disposed || contextLost || phase === 'error' || starting) return false;
+    if (!ready || disposed || contextLost || phase === 'error' || phase === 'ended' || starting) return false;
     if (phase === 'playing') return true;
     starting = true;
     input.exitLock();
@@ -269,7 +296,7 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
       modules: { world: !world?.fallback, player: !player?.fallback, input: !!rawInput?.available,
         weapon: !!weapon, arms: !!arms, npcs: !!npcs, audio: !!audio, post: !!post },
       audioMode: audioMode(), audio: audio?.getDiagnostics(),
-      weapon: weapon?.state(), arms: arms?.state(), npcs: npcs?.state(), post: post ? { renderSize: [post.diagnostics.renderWidth, post.diagnostics.renderHeight], quality: post.diagnostics.quality,
+      weapon: weapon?.state(), arms: arms?.state(), npcs: npcs?.state(), behavior: behavior?.state() ?? null, health: health.state(), ended, viewmodelLight: viewmodelLight?.stats() ?? null, post: post ? { renderSize: [post.diagnostics.renderWidth, post.diagnostics.renderHeight], quality: post.diagnostics.quality,
         gpu: post.diagnostics.gpu.snapshot() } : null,
       time: state.time, events: { ...eventCounts }, issues: [...issues],
     };
@@ -280,19 +307,19 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
     return diagnostics.failed || diagnostics.manifestError
       ? diagnostics.decodedFiles ? 'mixed' : 'synthetic' : audioSource?.mode ?? 'unavailable';
   }
-  function cameraCut() { captureBase(); weapon?.update(0); arms?.update(0); npcs?.update(0); post?.resetHistory(); render(); }
+  function cameraCut() { viewmodelLight?.reset(); captureBase(); weapon?.update(0); arms?.update(0); npcs?.update(0); post?.resetHistory(); render(); }
   function teleport(...args) { player.teleport(...args); cameraCut(); return player.stats(); }
   function look(...args) { player.look(...args); cameraCut(); return player.stats(); }
   async function dispose() {
     if (disposed) return;
     disposed = true; ready = false; bootAbort.abort(); cancelAnimationFrame(raf);
-    removers.splice(0).forEach(off => off());
-    touchControls?.dispose(); npcs?.dispose(); input?.dispose(); arms?.dispose(); weapon?.dispose(); player?.dispose(); post?.dispose(); world?.dispose();
+    removers.splice(0).forEach(off => off()); clearTimeout(endTimer);
+    touchControls?.dispose(); behavior?.dispose(); health.dispose(); npcs?.dispose(); input?.dispose(); arms?.dispose(); weapon?.dispose(); player?.dispose(); post?.dispose(); viewmodelLight?.dispose(); world?.dispose();
     bus.clear(); renderer.dispose(); audioSource?.dispose();
     if (audioContext && audioContext.state !== 'closed') void audioContext.close().catch(noop);
     await audio?.dispose();
   }
-  const api = { get ready() { return ready; }, get player() { return player; }, get weapon() { return weapon; }, get arms() { return arms; }, get npcs() { return npcs; },
+  const api = { get ready() { return ready; }, get player() { return player; }, get weapon() { return weapon; }, get arms() { return arms; }, get npcs() { return npcs; }, get behavior() { return behavior; }, get health() { return health; },
     bus, hooks: activeHooks, ui: view, stats, pause, resume, setQuality, setControls, setVolume, teleport, look, dispose, get world() { return world; },
     onIntro: payload => invokeHook('onIntro', payload), onRoomEnter: payload => invokeHook('onRoomEnter', payload),
     onAllSuspectsDown: payload => bus.emit('allSuspectsDown', payload),
@@ -330,7 +357,7 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
     const modules = loaded.map(result => result.status === 'fulfilled' ? result.value : null);
     const moduleError = index => loaded[index].status === 'rejected' ? loaded[index].reason : null;
     rawInput = modules[2]?.createInput(canvas, { debug }) ?? createFallbackInput();
-    rawInput.available = !!modules[2]; input = gateInput(rawInput, () => phase === 'playing');
+    rawInput.available = !!modules[2]; input = gateInput(rawInput, () => phase === 'playing' && ended !== 'dead');
     if (rawInput.available && document.querySelector('#ui')) {
       touchControls = createTouchControls({ root: document.querySelector('#ui'), input: rawInput, onPause: pause });
       setControls(currentControls);
@@ -354,6 +381,15 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
     checkActive();
     if (world.missingProps?.length) issue('props', STRINGS.missingProps(world.missingProps.length));
     scene.traverse(node => { if (node.isLight) node.layers.enable(1); });
+    if (world.lighting?.config.viewmodel && modules[0].createViewmodelLight) {
+      try {
+        viewmodelLight = modules[0].createViewmodelLight({ renderer, scene, camera, lighting: world.lighting, colliders: world.colliders,
+          config: world.lighting.config.viewmodel, mobile: tier !== 'desktop' || assetProfile !== 'full' });
+      } catch (error) { // Without the probe the viewmodel keeps the unoccluded world lights.
+        console.warn('Viewmodel light probe unavailable', error);
+        scene.traverse(node => { if (node.isLight) node.layers.enable(1); });
+      }
+    }
     if (!modules[1]) throw moduleError(1) ?? new Error(STRINGS.playerUnavailable);
     player = modules[1].createPlayer({ camera, input, world });
     captureBase(); removers.push(bridgePlayerEvents(input, bus, roomEnter));
@@ -381,8 +417,12 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
       try {
         const { createNPCs } = await bounded(import('../npc/index.js'), 'Figuren');
         const npcDebug = new URLSearchParams(location.search).get('npcdebug') === '1';
+        const { createSuspectBehavior, BEHAVIOR_NPC_OVERRIDES } = await bounded(import('../npc/behavior.js'), 'Figuren');
+        // ?behavior=0 keeps the bare C19 technology (config transitions, no suspect minds) for the regression tests.
+        const minds = query.get('behavior') !== '0';
         npcs = await bounded(createNPCs({ scene, world, player, camera, renderer, input, bus, baseUrl: assetBaseUrl,
-          config: { ...npcConfig, debug: { ...npcConfig.debug, enabled: npcDebug || !!npcConfig.debug?.enabled } } }), 'Figuren');
+          config: { ...(minds ? BEHAVIOR_NPC_OVERRIDES : {}), ...npcConfig, debug: { ...npcConfig.debug, enabled: npcDebug || !!npcConfig.debug?.enabled } } }), 'Figuren');
+        if (minds) behavior = createSuspectBehavior({ manager: npcs, player, camera, bus, weapon });
       } catch (error) { issue('npcs', 'NPC-Technik konnte nicht geladen werden.', error); }
     }
     checkActive();
@@ -439,6 +479,12 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
       node.shadow.mapSize.setScalar(Math.min(node.shadow.mapSize.x, tier === 'software' ? 256 : 512));
     });
     removers.push(input.on('pause', pause));
+    removers.push(input.on('shout', () => {
+      const position = camera.getWorldPosition(new THREE.Vector3()).toArray();
+      bus.emit('sound', { name: 'officer_shout_police', position }); bus.emit('shout', { position });
+      view.subtitle(STRINGS.shoutSubtitle, 2200);
+    }));
+    removers.push(bus.on('npc.statechange', event => { if (event.state === 'surrender') view.subtitle(STRINGS.surrenderSubtitle, 2500); }));
     removers.push(input.on('reset', event => { if (['blur', 'hidden'].includes(event.reason)) pause(); }));
     removers.push(input.on('respawn', () => post?.resetHistory()));
     const unlockAudio = () => {

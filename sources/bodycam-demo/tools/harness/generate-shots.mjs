@@ -245,7 +245,7 @@ const suites = {
     })()` }] })), { beforeReady: [{ type:'eval', code:`(() => {
       window.__bodycam={get ready(){return window.characterTest?.ready ?? false;}, stats(){return window.characterTest.snapshot();}};
     })()` }] }),
-  weapon: suite('bodycam-demo/index.html?debug=1', 'App-Viewmodel: Low-Ready, ADS, Schuss, Oberflaechen, Huelsen und Nachladen.', weaponShots, { setup: [appSilent, appResume] }),
+  weapon: suite('bodycam-demo/index.html?debug=1&behavior=0', 'App-Viewmodel: Low-Ready, ADS, Schuss, Oberflaechen, Huelsen und Nachladen.', weaponShots, { setup: [appSilent, appResume] }),
   postfx: suite('bodycam-demo/_dev/postfx/index.html', 'C5-Testszene: echte still/spin/dark/muzzle-Szenarien auf high, plus Raw-Vergleich.', [
     { name: 'scene-overview', description: 'C5 still: Startkamera fuer Maskenprofil, OSD, Schaerfetafel und gerade Linien; PostFX high.', actions: [postfxScenario('still')], settleMs: 1500, measureSeconds: 3 },
     { name: 'spin', description: 'C5 spin: echte Drehung fuer Bewegungsunschaerfe und Makrobloecke; eigene Testszene, keine Hauskoordinaten.', actions: [postfxScenario('spin')], settleMs: 1500, measureSeconds: 3 },
@@ -257,13 +257,13 @@ const suites = {
     integration: 'Harness-Adapter reicht das echte postfxDemo.ready-Promise und postfxDemo.stats samt renderer.info weiter. Szenarien verwenden setScenario(), setMode(), setQuality() und resume() aus _dev/postfx/demo.js. Keine Aenderung an C5-Dateien.',
   }),
   lightmaps: suite('bodycam-demo/_dev/lightmaps/index.html', 'C6: elf Kamerapunkte ueber die echte setCamera-API.', lightmapShots, { integration: 'C6 exportiert __bodycam.ready und __lightmaps.setCamera. Kamerahoehe absolut, Fussposition plus 1.40 m.' }),
-  app: suite('bodycam-demo/index.html?debug=1', 'App: alle Layout-Raeume sowie Licht, ADS, Schuss, Nachladen und Blick nach unten.', appShots, { setup: [appSilent], integration: 'Echte resume/pause-Hooks und Escape; natives Audio-Sink none vor Start, kein Mock. Start und Pause bleiben sichtbar.' }),
+  app: suite('bodycam-demo/index.html?debug=1&behavior=0', 'App: alle Layout-Raeume sowie Licht, ADS, Schuss, Nachladen und Blick nach unten.', appShots, { setup: [appSilent], integration: 'Echte resume/pause-Hooks und Escape; natives Audio-Sink none vor Start, kein Mock. Start und Pause bleiben sichtbar.' }),
 };
 suites['arms-shots'] = createArmsShots();
 suites['npc-shots'] = createNPCShots();
-suites['app-lightmaps'] = suite('bodycam-demo/index.html?debug=1&lightmaps=1', 'Identische App-Kamerapunkte mit Lightmaps an/aus.', [1, 0].flatMap(lightmaps => ['spawn','hall-long','bathroom','utility'].map((name,index) => {
+suites['app-lightmaps'] = suite('bodycam-demo/index.html?debug=1&behavior=0&lightmaps=1', 'Identische App-Kamerapunkte mit Lightmaps an/aus.', [1, 0].flatMap(lightmaps => ['spawn','hall-long','bathroom','utility'].map((name,index) => {
   const shot = cameraShots.find(s => s.name === name);
-  return { ...shot, name: `${name}-lightmaps-${lightmaps}`, ...(index === 0 && lightmaps === 0 ? { page: 'bodycam-demo/index.html?debug=1&lightmaps=0' } : {}), actions: [{ type: 'eval', code: `(() => { const s=window.__bodycam.world.stats; if (s.lightmaps !== ${Boolean(lightmaps)}) throw new Error('Wrong lightmap path'); return s; })()` }] };
+  return { ...shot, name: `${name}-lightmaps-${lightmaps}`, ...(index === 0 && lightmaps === 0 ? { page: 'bodycam-demo/index.html?debug=1&behavior=0&lightmaps=0' } : {}), actions: [{ type: 'eval', code: `(() => { const s=window.__bodycam.world.stats; if (s.lightmaps !== ${Boolean(lightmaps)}) throw new Error('Wrong lightmap path'); return s; })()` }] };
 })), { setup: [appSilent, appResume] });
 if (!check) await mkdir(join(here, 'shots'), { recursive: true });
 for (const [name, data] of Object.entries(suites)) {

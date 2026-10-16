@@ -3,3 +3,4 @@ export { LIGHTING_CONFIG } from './lighting-config.js';
 export { MATERIAL_CONFIG } from './materials.js';
 export { DOOR_CONFIG } from './doors.js';
 export { DECAL_CONFIG } from './decals.js';
+export { createViewmodelLight } from './viewmodel-light.js';

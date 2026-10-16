@@ -7,7 +7,7 @@ export function createNPCShooting({ world, player, camera, config, random = Math
   const collision = new CapsuleCollision(world.colliders), ray = new Ray();
   const origin = new Vector3(), direction = new Vector3(), right = new Vector3(), up = new Vector3();
   const target = new Vector3(), bottom = new Vector3(), top = new Vector3(), quaternion = new Quaternion();
-  function cast(npc, aimTarget) {
+  function cast(npc, aimTarget, { spreadDeg = config.spreadDeg } = {}) {
     npc.root.updateWorldMatrix(true, true);
     npc.nodes.S_Muzzle.getWorldPosition(origin);
     if (config.aimDirection === 'socket')
@@ -19,7 +19,7 @@ export function createNPCShooting({ world, player, camera, config, random = Math
     if (direction.lengthSq() < 1e-12) return { fired: false, reason: 'zero-direction' };
     direction.normalize();
     // Gleichmäßige Abtastung des konfigurierten Raumwinkels, keine FPS-abhängige Streuung.
-    const cosTheta = 1 - Math.max(0, Math.min(1, random())) * (1 - Math.cos(config.spreadDeg * Math.PI / 180));
+    const cosTheta = 1 - Math.max(0, Math.min(1, random())) * (1 - Math.cos(spreadDeg * Math.PI / 180));
     const sinTheta = Math.sqrt(Math.max(0, 1 - cosTheta * cosTheta));
     const phi = Math.max(0, Math.min(1, random())) * Math.PI * 2;
     right.set(0, Math.abs(direction.y) > 0.99 ? 0 : 1, Math.abs(direction.y) > 0.99 ? 1 : 0).cross(direction).normalize();

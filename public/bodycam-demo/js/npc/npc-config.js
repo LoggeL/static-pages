@@ -22,8 +22,11 @@ export const NPC_CONFIG = {
     playerRadius: 0.30, playerHeight: 1.80 },
   animation: { fadeSeconds: 0.12 },
   // Death fall: clear path length from the feet, probe heights, half body width, turn options and duration.
-  fall: { enabled: true, lengthMeters: 1.6, probeHeights: [0.25, 0.7], halfWidth: 0.28,
-    turnsDeg: [0, 25, -25, 50, -50, 80, -80, 115, -115], turnSeconds: 0.45 },
+  // sweep: chest height at the start and floor height at the end of a diagonal ray along the fall.
+  fall: { enabled: true, lengthMeters: 1.6, probeHeights: [0.25, 0.7], sweep: [1.25, 0.15], halfWidth: 0.28,
+    turnsDeg: [0, 25, -25, 50, -50, 80, -80, 115, -115], turnSeconds: 0.45,
+    // Below this clear length no full fall fits: the body folds down where it stands (DeathCrumple).
+    crumpleBelow: 1.1 },
   hitZones: {},
   states: {
     idle: { clip: 'Idle', duration: null },

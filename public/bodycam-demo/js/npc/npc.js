@@ -10,6 +10,7 @@ import { createNPCStateMachine } from './state-machine.js';
 import { createNPCPerception, npcVector } from './perception.js';
 import { createNPCShooting } from './shooting.js';
 import { createNPCDebug } from './debug.js';
+import { createSuspectCostumes } from './costume.js';
 
 export async function createNPCs({ scene, world, player, camera, renderer, input = player?.input,
   bus = createEventBus(), baseUrl = new URL('../../', import.meta.url), config: overrides = {},
@@ -27,12 +28,13 @@ export async function createNPCs({ scene, world, player, camera, renderer, input
   const navigation = createNavigation({ world, data: navData, config: config.navigation });
   const library = await loadNPCModel({ baseUrl: base, renderer,
     modelUrl: config.model.url ?? navData.assets?.npcModel ?? config.model.fallbackUrl, config: config.model });
+  const costumes = createSuspectCostumes();
   const root = new Group(); root.name = 'NPCs'; scene.add(root);
   const npcs = [], removers = [], doorGuards = [], errors = [], sounds = [];
   const perception = createNPCPerception({ world, config: config.perception });
   const shooting = createNPCShooting({ world, player, camera, config: config.shooting, random });
   const fallCollision = new CapsuleCollision(world.colliders);
-  const target = new Vector3(), direction = new Vector3(), candidate = new Vector3();
+  const target = new Vector3(), direction = new Vector3(), candidate = new Vector3(), slope = new Vector3();
   let time = 0, disposed = false, debug = null, allDownSent = false, updateMs = 0;
   let api;
   const find = id => {
@@ -61,7 +63,8 @@ export async function createNPCs({ scene, world, player, camera, renderer, input
   // Clip choice per state: the chosen fall for deaths, the armed variant for hits with the pistol out.
   function clipFor(npc, state) {
     const clip = config.states[state]?.clip;
-    if (state === 'dead' && npc.fall) return [npc.fall.clip, npc.fall.clip === 'DeathBackward' ? 'DeathForward' : 'DeathBackward'];
+    if (state === 'dead' && npc.fall) return [npc.fall.clip, npc.fall.clip === 'DeathBackward' ? 'DeathForward' : 'DeathBackward']
+      .filter((name, index, list) => list.indexOf(name) === index);
     if (state === 'hit' && npc.instance.weaponDrawn && clip) return ['HitReactArmed', clip];
     return clip;
   }
@@ -70,7 +73,7 @@ export async function createNPCs({ scene, world, player, camera, renderer, input
     const facing = npc.root.rotation.y, fall = config.fall;
     const ahead = !from || (from.x - npc.position.x) * Math.sin(facing) + (from.z - npc.position.z) * Math.cos(facing) > 0;
     const order = ahead ? ['DeathBackward', 'DeathForward'] : ['DeathForward', 'DeathBackward'];
-    let best = null;
+    let best = null, forward = null;
     for (const turnDeg of fall.turnsDeg) for (const clip of order) {
       const yaw = facing + MathUtils.degToRad(turnDeg), sign = clip === 'DeathBackward' ? -1 : 1;
       direction.set(Math.sin(yaw) * sign, 0, Math.cos(yaw) * sign);
@@ -80,10 +83,31 @@ export async function createNPCs({ scene, world, player, camera, renderer, input
         const hit = fallCollision.raycast(candidate, direction, fall.lengthMeters);
         if (hit) clear = Math.min(clear, hit.distance);
       }
+      // The toppling torso sweeps from chest height down to the floor; level rays pass under table tops.
+      if (fall.sweep) {
+        const [from, to] = fall.sweep, drop = from - to;
+        slope.set(direction.x * fall.lengthMeters, -drop, direction.z * fall.lengthMeters);
+        const length = slope.length(); slope.multiplyScalar(1 / length);
+        for (const side of [-fall.halfWidth, 0, fall.halfWidth]) {
+          candidate.set(npc.position.x + direction.z * side, npc.position.y + from, npc.position.z - direction.x * side);
+          const hit = fallCollision.raycast(candidate, slope, length);
+          if (hit) clear = Math.min(clear, hit.distance * fall.lengthMeters / length);
+        }
+      }
       if (clear >= fall.lengthMeters - 1e-6) return { clip, turn: MathUtils.degToRad(turnDeg), clear };
       if (!best || clear > best.clear) best = { clip, turn: MathUtils.degToRad(turnDeg), clear };
+      if (clip === 'DeathForward' && (!forward || clear > forward.clear)) forward = { turn: MathUtils.degToRad(turnDeg), clear };
     }
+    // Too tight for any full fall: fold down in place, slumping towards the most open side ahead.
+    if (best && fall.crumpleBelow && best.clear < fall.crumpleBelow)
+      return { clip: 'DeathCrumple', turn: forward?.turn ?? 0, clear: forward?.clear ?? best.clear };
     return best;
+  }
+  // A suspect who surrendered is as neutralized as one who is down.
+  function checkAllDown() {
+    if (allDownSent || !npcs.length || !npcs.every(entry => entry.health === 0 || entry.stateMachine?.state === 'surrender')) return;
+    allDownSent = true; bus.emit('allSuspectsDown', { time, npcIds: npcs.map(entry => entry.id),
+      surrendered: npcs.filter(entry => entry.health > 0).map(entry => entry.id) });
   }
   function stop(npc) { npc.path = []; npc.pathIndex = 0; npc.pathVersion++; npc.goal = null; npc.moving = false; }
   function setState(id, state, detail = {}) {
@@ -173,18 +197,16 @@ export async function createNPCs({ scene, world, player, camera, renderer, input
       npc.stateMachine.set('dead', event, true); stop(npc);
       npc.hitZones.objects.forEach(object => { object.visible = false; });
       emit('npc.dead', npc, event);
-      if (!allDownSent && npcs.length && npcs.every(entry => entry.health === 0)) {
-        allDownSent = true; bus.emit('allSuspectsDown', { time, npcIds: npcs.map(entry => entry.id) });
-      }
+      checkAllDown();
     } else npc.stateMachine.set('hit', event);
     return event;
   }
-  function fire(id, aimTarget) {
+  function fire(id, aimTarget, options) {
     const npc = find(id);
     if (disposed || npc.stateMachine.state === 'dead' || npc.stateMachine.state === 'surrender')
       return { fired: false, reason: 'state' };
     if (time + 1e-9 < npc.nextShotTime) return { fired: false, reason: 'cooldown' };
-    const shot = shooting.cast(npc, aimTarget);
+    const shot = shooting.cast(npc, aimTarget, options);
     if (!shot.fired) return shot;
     npc.nextShotTime = time + config.shooting.cooldownSeconds;
     npc.lastShot = { time, position: shot.position.toArray(), direction: shot.direction.toArray(),
@@ -249,7 +271,7 @@ export async function createNPCs({ scene, world, player, camera, renderer, input
         reason: npc.perception.reason, distance: npc.perception.distance } : null,
       lastSeen: stimulus(npc.lastSeen), lastHeard: stimulus(npc.lastHeard), lastHit: npc.lastHit,
       lastShot: npc.lastShot, shots: npc.shots, animation: npc.animation.state(),
-      hitZones: npc.hitZones.state(), model: npc.instance.state(), machine: npc.stateMachine.snapshot(), spawn: npc.spawn };
+      hitZones: npc.hitZones.state(), model: npc.instance.state(), machine: npc.stateMachine.snapshot(), spawn: npc.spawn, costume: npc.costume };
   }
   function dispose() {
     if (disposed) return; disposed = true;
@@ -260,7 +282,7 @@ export async function createNPCs({ scene, world, player, camera, renderer, input
       for (let i = world.shootables.length - 1; i >= 0; i--) if (objects.has(world.shootables[i])) world.shootables.splice(i, 1);
       npc.stateMachine?.dispose(); npc.animation?.dispose(); npc.hitZones?.dispose(); npc.instance?.dispose();
     }
-    scene.remove(root); library.dispose();
+    scene.remove(root); library.dispose(); costumes.dispose();
   }
   api = { npcs, root, config, navigation, perception, bus, get debug() { return debug; },
     get time() { return time; }, get disposed() { return disposed; }, setState, moveTo, teleport, look, perceive, hit, fire,
@@ -300,12 +322,12 @@ export async function createNPCs({ scene, world, player, camera, renderer, input
     for (const [index, spawn] of spawns.slice(0, config.maxNPCs).entries()) {
       const id = String(spawn.id ?? `S${index + 1}`);
       if (ids.has(id)) throw new Error(`Duplicate NPC id: ${id}`); ids.add(id);
-      const instance = library.instantiate(id); root.add(instance.root);
+      const instance = library.instantiate(id), costume = costumes.dress(instance, id); root.add(instance.root);
       const npc = { id, instance, root: instance.root, model: instance.model, nodes: instance.nodes,
         position: instance.root.position, health: config.health.initial, path: [], pathIndex: 0, pathVersion: 0,
         goal: null, allowDoorPush: config.navigation.allowDoorPush, blockedTime: 0, replanTime: 0,
         moving: false, visible: false, perception: null, lastSeen: null, lastHeard: null, lastHit: null, lastShot: null,
-        lastStimulus: -Infinity, nextSenseTime: index * config.perception.intervalSeconds / Math.max(1, spawns.length), nextShotTime: 0, shots: 0 };
+        costume, spawnStance: spawn.stance ?? null, lastStimulus: -Infinity, nextSenseTime: index * config.perception.intervalSeconds / Math.max(1, spawns.length), nextShotTime: 0, shots: 0 };
       npc.position.copy(npcVector(spawn.position ?? spawn.pos));
       const raw = npc.position.clone(), bakedSpawn = navData.spawns?.find(entry => entry.id === id);
       const matching = bakedSpawn?.raw && raw.distanceTo(new Vector3().fromArray(bakedSpawn.raw)) < 1e-4;
@@ -330,6 +352,7 @@ export async function createNPCs({ scene, world, player, camera, renderer, input
           if (!['hit', 'dead'].includes(event.state)) npc.instance.setWeaponDrawn(['aim', 'fire'].includes(event.state));
           npc.animation.setState(event.state, { clip: clipFor(npc, event.state) });
           emit('npc.statechange', npc, { from: event.from, to: event.to, state: event.state, signal: event.payload?.signal ?? null });
+          if (event.state === 'surrender') checkAllDown();
           if (event.state === 'fire' && config.shooting.enabled) fire(npc);
         } });
       npc.animation.setState('idle'); npc.hitZones.update();

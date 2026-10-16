@@ -9,12 +9,13 @@ export const INPUT_ACTIONS = Object.freeze({
   KeyF: 'flashlight',
   KeyB: 'firemode',
   KeyV: 'inspect',
+  KeyT: 'shout',
 });
 
 const GAME_KEYS = new Set([
   'KeyW', 'KeyA', 'KeyS', 'KeyD', 'ShiftLeft', 'ShiftRight',
   'AltLeft', 'AltRight', 'KeyC', 'ControlLeft', 'ControlRight',
-  'KeyQ', 'KeyE', 'KeyR', 'KeyF', 'KeyB', 'KeyV', 'Escape',
+  'KeyQ', 'KeyE', 'KeyR', 'KeyF', 'KeyB', 'KeyV', 'KeyT', 'Escape',
 ]);
 
 /**

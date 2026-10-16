@@ -223,7 +223,11 @@ export async function loadWorld(scene, {
     lighting = createLighting(scene, layout, lightingConfig, { level });
     if (lightmapData) {
       const mask = createSourceLightMask(scene);
-      for (const material of lightmapData.materials.values()) mask.apply(material);
+      for (const material of lightmapData.materials.values()) {
+        mask.apply(material);
+        const scale = lightingConfig.night?.bakedScale?.[material.userData.lightmap];
+        if (Number.isFinite(scale)) material.lightMapIntensity = material.userData.lightmapIntensity * scale;
+      }
     }
     const rooms = createRooms(layout);
     const outside = rooms.find(room => room.id === 'OUT') ?? null;

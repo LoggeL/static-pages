@@ -19,6 +19,8 @@ export function attachAudio(audio, bus) {
     // Extra animation events in CONTRACT/STYLE, useful without a second adapter.
     magDrop: data => audio.play('mag_drop', options(data)),
     chargingHandle: data => audio.play('charging_handle', options(data)),
+    // Named one-shots from gameplay (barks, near misses, player hits); position optional.
+    sound: data => audio.play(data.name, options(data)),
   };
   if (!bus || (typeof bus.addEventListener !== 'function' && typeof bus.on !== 'function')) throw new TypeError('Audio-Eventbus braucht on/off oder EventTarget.');
   for (const [name, handler] of Object.entries(handlers)) {

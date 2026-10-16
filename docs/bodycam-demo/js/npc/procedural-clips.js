@@ -451,6 +451,27 @@ const DEATH_FORWARD = [
     LArm: [-5, 0, 62], RArm: [-25, 0, 95], LFore: [-4, 0, 0], RFore: [-10, 0, 0] }, true, 'rest'],
 ];
 
+// No room to fall: the knees give, the body sinks onto the heels and slumps onto its side, curled.
+const DEATH_CRUMPLE = [
+  [0, { ...DEATH_START, LKnee: [0.12, 0, 1], RKnee: [0.12, 0, 1] }],
+  [0.1, { hips: [0, -0.04, 0.02], hipsRot: [6, -4, 0], spine: [14, -6, 0], head: [16, 0, 0],
+    LArm: [-15, 0, -6], RArm: [-18, 0, -6], LFore: [-35, 0, 0], RFore: [-35, 0, 0] }],
+  [0.4, { hips: [0, -0.47, 0.0], hipsRot: [12, -6, -3], spine: [30, -6, 0], head: [32, -6, 0],
+    LAnkle: [0.13, 0.10, -0.40], RAnkle: [0.12, 0.10, -0.38], LFoot: [70, -4, 0], RFoot: [70, -4, 0],
+    LKnee: [0.1, -0.5, 1], RKnee: [0.1, -0.5, 1],
+    LArm: [-8, 0, -4], RArm: [-8, 0, -4], LFore: [-12, 0, 0], RFore: [-12, 0, 0] }, true],
+  [0.68, { hips: [0.03, -0.66, -0.06], hipsRot: [24, -8, -10], spine: [38, -6, -6], head: [38, -10, -8],
+    LAnkle: [0.13, 0.10, -0.44], RAnkle: [0.12, 0.10, -0.42],
+    LArm: [-20, 0, 4], RArm: [-26, 0, 8], LFore: [-20, 0, 0], RFore: [-25, 0, 0] }],
+  [1.0, { hips: [0.2, -0.8, 0.02], hipsRot: [30, -12, -72], spine: [30, -6, -8], head: [24, -20, -14],
+    LLegIK: 0, RLegIK: 0, LUpLeg: [-75, 0, 0], LLeg: [115, 0, 0], RUpLeg: [-65, 0, 0], RLeg: [120, 0, 0],
+    LFootFK: [30, 0, 0], RFootFK: [30, 0, 0],
+    LArm: [-35, 0, 20], RArm: [-60, 0, 35], LFore: [-40, 0, 0], RFore: [-30, 0, 0] }, true, 'rest'],
+  [1.14, { hips: [0.2, -0.79, 0.02], hipsRot: [28, -12, -70], head: [20, -22, -12] }, false, 'clear'],
+  [1.4, { hips: [0.21, -0.81, 0.02], hipsRot: [32, -12, -76], spine: [28, -6, -8], head: [28, -24, -16],
+    LArm: [-30, 0, 15], RArm: [-55, 0, 40], LFore: [-45, 0, 0], RFore: [-25, 0, 0] }, true, 'rest'],
+];
+
 const CLIPS = {
   Idle: { duration: 6, loop: true, pose: t => {
     const p = t / 6, w = sin(TAU * p), b = sin(TAU * 2 * p), h = sin(TAU * p + 1.1);
@@ -515,6 +536,7 @@ const CLIPS = {
   } },
   DeathForward: { duration: 1.5, loop: false, keys: DEATH_FORWARD },
   DeathBackward: { duration: 1.5, loop: false, keys: DEATH_BACKWARD },
+  DeathCrumple: { duration: 1.55, loop: false, keys: DEATH_CRUMPLE },
   Crouch: { duration: 3, loop: true, pose: t => {
     const p = t / 3, b = sin(TAU * 2 * p), h = sin(TAU * p + 0.5);
     return { ...STANCE,

@@ -1,7 +1,7 @@
 import { STRINGS } from './strings.js';
 import { DEFAULT_SETTINGS, QUALITY_LEVELS } from './settings.js';
 
-const STATES = new Set(['loading', 'start', 'playing', 'paused', 'error']);
+const STATES = new Set(['loading', 'start', 'playing', 'paused', 'error', 'ended']);
 
 /** DOM-only shell. Start callbacks run synchronously to preserve user activation. */
 export function createUI(root, { onStart, onQualityChange, onVolumeChange, onControlsChange, onSimpleRestart, getDiagnostics } = {}) {
@@ -11,7 +11,7 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange, onCon
   let state = 'loading';
   let disposed = false;
   let touchMode = false;
-  let subtitleTimer = null;
+  let subtitleTimer = null, ending = null;
   const notices = new Map();
   const cleanup = [];
 
@@ -113,7 +113,7 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange, onCon
   }
 
   listen(start, 'click', () => {
-    if (!disposed && state === 'error') win.location.reload();
+    if (!disposed && (state === 'error' || state === 'ended')) win.location.reload();
     if (!disposed && (state === 'start' || state === 'paused')) onStart?.();
   });
   listen(quality, 'change', () => onQualityChange?.(quality.value));
@@ -143,14 +143,14 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange, onCon
     loading.hidden = next !== 'loading';
     settings.hidden = !isMenu;
     controls.hidden = !isMenu;
-    start.hidden = !isMenu && next !== 'error';
+    start.hidden = !isMenu && next !== 'error' && next !== 'ended';
     simpleRestart.hidden = !['loading', 'error', 'paused'].includes(next);
     diagnostics.hidden = !['loading', 'error', 'paused'].includes(next);
     if (diagnostics.open) refreshDiagnostics();
     help.hidden = next === 'loading';
-    heading.textContent = next === 'start' ? STRINGS.ready : STRINGS[next];
-    start.textContent = next === 'error' ? STRINGS.reload : next === 'paused' ? STRINGS.resume : touchMode ? STRINGS.touchStart : STRINGS.start;
-    help.textContent = next === 'error' ? STRINGS.errorHelp : next === 'paused'
+    heading.textContent = next === 'start' ? STRINGS.ready : next === 'ended' ? ending?.title ?? STRINGS.ended : STRINGS[next];
+    start.textContent = next === 'ended' ? STRINGS.restart : next === 'error' ? STRINGS.reload : next === 'paused' ? STRINGS.resume : touchMode ? STRINGS.touchStart : STRINGS.start;
+    help.textContent = next === 'ended' ? ending?.text ?? '' : next === 'error' ? STRINGS.errorHelp : next === 'paused'
       ? touchMode ? STRINGS.touchPauseHelp : STRINGS.pauseHelp : touchMode ? STRINGS.touchHelp : STRINGS.startHelp;
     noticeList.classList.toggle('app-notices-playing', inGame);
     (inGame ? root : panel).append(noticeList);
@@ -171,6 +171,8 @@ export function createUI(root, { onStart, onQualityChange, onVolumeChange, onCon
   return {
     get state() { return state; },
     setState,
+    /** Final screen with its own title and line; the button restarts. */
+    end(value = {}) { ending = value; setState('ended'); },
     setSettings,
     setInputMode(value) {
       touchMode = value === 'touch'; root.dataset.inputMode = value;

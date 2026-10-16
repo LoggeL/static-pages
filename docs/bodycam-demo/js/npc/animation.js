@@ -1,7 +1,7 @@
 import { AnimationClip, AnimationMixer, LoopOnce, LoopRepeat, PropertyBinding } from 'three';
 
 export const NPC_CLIP_NAMES = Object.freeze(['Idle', 'IdleNervous', 'Walk', 'Run', 'AimPistol',
-  'FirePistol', 'HitReact', 'DeathForward', 'DeathBackward', 'Crouch', 'Surrender', 'HitReactArmed']);
+  'FirePistol', 'HitReact', 'DeathForward', 'DeathBackward', 'Crouch', 'Surrender', 'HitReactArmed', 'DeathCrumple']);
 
 export const NPC_ANIMATION_CONFIG = Object.freeze({
   fade: 0.12,

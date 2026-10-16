@@ -19,7 +19,7 @@ export async function runNPCRegression({ page, origin, out, audioSink = DEFAULT_
     evidence.screenshots.push({ file, description });
   };
   if (!await page.evaluate(() => window.npcTest?.ready === true))
-    await page.goto(`${origin}/bodycam-demo/_dev/npc/?npcdebug=1&pause=1`, { waitUntil: 'load', timeout: 120000 });
+    await page.goto(`${origin}/bodycam-demo/_dev/npc/?npcdebug=1&pause=1&behavior=0`, { waitUntil: 'load', timeout: 120000 });
   await page.waitForFunction(() => window.npcTest?.ready === true, { timeout: 120000 });
   evidence.audioOutput = await configureAudioOutput(page, audioSink);
   await run('startup', setup);
@@ -117,7 +117,8 @@ async function setup() {
     details: { modules: a.modules, issues: a.issues, models: state.npcs.map(record => record.model) } });
   checks.push({ name: 'npc-independent-skins-and-shared-assets', passed: skins.every(list => list.length > 0)
     && skins[0][0].skeleton !== skins[1][0].skeleton && skins[0][0].geometry === skins[1][0].geometry
-    && skins[0][0].material === skins[1][0].material,
+    // Costumes give each suspect its own colours; the clones stay derived from the one shared atlas material.
+    && (skins[0][0].material === skins[1][0].material || [skins[0][0], skins[1][0]].every(mesh => mesh.material.name.startsWith('MU_OfficerAtlas'))),
     details: { skins: skins.map(list => list.length), skeletonIndependent: skins[0][0]?.skeleton !== skins[1][0]?.skeleton,
       geometryShared: skins[0][0]?.geometry === skins[1][0]?.geometry } });
   checks.push({ name: 'npc-fourteen-bone-hit-capsules-per-instance', passed: state.npcs.every(record => record.hitZones.count === 14
@@ -587,7 +588,7 @@ async function performanceTests({ page, origin, shot, audioSink }) {
   const cases = [], checks = [];
   for (let round = 0; round < 3; round++) {
     for (const enabled of round % 2 ? [true, false] : [false, true]) {
-      await page.goto(`${origin}/bodycam-demo/?debug=1&quality=high&npcdebug=0&npcs=${enabled ? '1' : '0'}`, { waitUntil: 'load' });
+      await page.goto(`${origin}/bodycam-demo/?debug=1&quality=high&npcdebug=0&behavior=0&npcs=${enabled ? '1' : '0'}`, { waitUntil: 'load' });
       await page.waitForFunction(() => window.__bodycam?.ready === true, { timeout: 120000 });
       await configureAudioOutput(page, audioSink);
       const setup = await page.evaluate(async enabled => {

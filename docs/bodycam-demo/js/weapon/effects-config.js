@@ -26,7 +26,7 @@ export const WEAPON_EFFECTS_CONFIG = {
     depth: 0.065, alphaTest: 0.025, polygonOffsetFactor: -3, polygonOffsetUnits: -3,
   },
   light: {
-    color: '#fff4df', intensity: 2.5, distance: 24, decay: 2,
+    color: '#eef2ff', intensity: 2.5, distance: 24, decay: 2, // LED, cool against the warm indoor grade (ref_32–36)
     angleDeg: 24, penumbra: 0.75, spillAngleDeg: 40, spillGain: 0.04,
     shadowSize: 1024, shadowNear: 0.05, shadowFar: 24,
     shadowBias: -0.00015, shadowNormalBias: 0.015,
