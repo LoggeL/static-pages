@@ -139,13 +139,96 @@ export function rgbmToTexture({ width, height, rgba }, { path, range, multiplier
   return texture;
 }
 
-export async function loadRgbmTexture(url, definition, options = {}) {
+// Lossless WebP siblings are ~28 % smaller than the PNGs. Only a WebGL2 upload with premultiplication
+// off returns their exact bytes, from an <img> in WebKit and from an unpremultiplied ImageBitmap in
+// Chrome (ImageDecoder and 2D canvas premultiply). A probe with low-alpha pixels picks the first exact
+// source per browser; without one the PNG decoder stays.
+const WEBP_PROBE = 'UklGRjYAAABXRUJQVlA4TCoAAAAvAwAAEBDTENNV/7klERIQWfT/kFeEBER2xw+fTCeYpKnt8V0+wux+boE=';
+const WEBP_PROBE_RGBA = [200, 100, 50, 3, 17, 250, 128, 254, 255, 1, 77, 128, 9, 240, 9, 1];
+const WEBP_SOURCES = {
+  async image(blob) {
+    const url = URL.createObjectURL(blob), image = new Image();
+    try {
+      image.src = url;
+      await image.decode();
+      return { source: image, width: image.naturalWidth, height: image.naturalHeight, close() {} };
+    } finally { URL.revokeObjectURL(url); }
+  },
+  async bitmap(blob) {
+    const bitmap = await createImageBitmap(blob, { premultiplyAlpha: 'none', colorSpaceConversion: 'none' });
+    return { source: bitmap, width: bitmap.width, height: bitmap.height, close: () => bitmap.close() };
+  },
+};
+let webpReader;
+
+async function readWebpRgba8(blob, gl, decode) {
+  const { source, width, height, close } = await decode(blob);
+  const texture = gl.createTexture(), framebuffer = gl.createFramebuffer();
+  try {
+    if (width > gl.getParameter(gl.MAX_TEXTURE_SIZE) || height > gl.getParameter(gl.MAX_TEXTURE_SIZE)) {
+      throw new Error('WebP-Atlas zu groß');
+    }
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+    gl.pixelStorei(gl.UNPACK_COLORSPACE_CONVERSION_WEBGL, gl.NONE);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, gl.RGBA, gl.UNSIGNED_BYTE, source);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+    if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE) throw new Error('WebP-Auslesen nicht möglich');
+    const rgba = new Uint8Array(width * height * 4);
+    gl.readPixels(0, 0, width, height, gl.RGBA, gl.UNSIGNED_BYTE, rgba);
+    if (gl.getError() !== gl.NO_ERROR || gl.isContextLost()) throw new Error('WebP-Auslesen fehlgeschlagen');
+    return { width, height, rgba };
+  } finally {
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.deleteFramebuffer(framebuffer); gl.deleteTexture(texture);
+    close();
+  }
+}
+
+function exactWebpReader() {
+  webpReader ??= (async () => {
+    let gl = null;
+    try { gl = typeof OffscreenCanvas === 'function' ? new OffscreenCanvas(1, 1).getContext('webgl2') : null; } catch { /* none */ }
+    gl ??= typeof document === 'object' ? document.createElement('canvas').getContext('webgl2') : null;
+    if (!gl) return null;
+    const bytes = Uint8Array.from(atob(WEBP_PROBE), char => char.charCodeAt(0));
+    for (const decode of Object.values(WEBP_SOURCES)) {
+      try {
+        const { rgba } = await readWebpRgba8(new Blob([bytes], { type: 'image/webp' }), gl, decode);
+        if (WEBP_PROBE_RGBA.every((value, index) => rgba[index] === value)) return blob => readWebpRgba8(blob, gl, decode);
+      } catch { /* try the next source */ }
+    }
+    gl.getExtension('WEBGL_lose_context')?.loseContext();
+    return null;
+  })();
+  return webpReader;
+}
+
+async function loadRgba8(url, options) {
+  const webp = /\.png(?=$|[?#])/.test(url) ? await exactWebpReader() : null;
+  if (webp) {
+    try {
+      const buffer = await fetchAsset(url.replace(/\.png(?=$|[?#])/, '.webp'), options);
+      throwIfAborted(options.signal);
+      return { ...await webp(new Blob([buffer], { type: 'image/webp' })), downloadBytes: buffer.byteLength, format: 'webp' };
+    } catch (error) {
+      throwIfAborted(options.signal);
+      options.onWarning?.(`WebP-Lightmap nicht lesbar, PNG wird geladen: ${error.message}`);
+    }
+  }
   const buffer = await fetchAsset(url, options);
-  const png = await decodePngRgba8(buffer, options);
-  if (definition.width && png.width !== definition.width || definition.height && png.height !== definition.height) {
+  return { ...await decodePngRgba8(buffer, options), downloadBytes: buffer.byteLength, format: 'png' };
+}
+
+export async function loadRgbmTexture(url, definition, options = {}) {
+  const image = await loadRgba8(url, options);
+  if (definition.width && image.width !== definition.width || definition.height && image.height !== definition.height) {
     throw new Error(`Atlasgröße stimmt nicht: ${definition.path}`);
   }
-  const texture = rgbmToTexture(png, { ...definition, signal: options.signal });
-  texture.userData.downloadBytes = buffer.byteLength;
+  const texture = rgbmToTexture(image, { ...definition, signal: options.signal });
+  texture.userData.downloadBytes = image.downloadBytes;
+  texture.userData.format = image.format;
   return texture;
 }

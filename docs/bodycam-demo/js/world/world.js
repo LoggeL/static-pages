@@ -280,8 +280,7 @@ export async function loadWorld(scene, {
       decals: level?.staticDecalsIncluded ? level.staticDecalInstances ?? null : decals.children.length,
       lightmappedMeshes: lightmapData?.records.length ?? 0,
       atlases: lightmapData?.textures.size ?? 0,
-      lightmapBytes: lightmapData ? [...lightmapData.textures.values()].reduce((sum, texture) => sum + texture.userData.downloadBytes, 0) : 0,
-      lightmapDecodedBytes: lightmapData ? [...lightmapData.textures.values()].reduce((sum, texture) => sum + texture.userData.decodedBytes, 0) : 0,
+      lightmapBytes: 0, lightmapDecodedBytes: 0, lightmapFormats: {}, // lightmapTotals()
       shootables: shootables.length,
       staticTriangles: collider.userData.triangles,
       doorTriangles: colliders.doors.reduce((sum, mesh) => sum + mesh.userData.triangles, 0),
@@ -294,7 +293,10 @@ export async function loadWorld(scene, {
       const values = lightmapData ? [...lightmapData.textures.values()] : [];
       statistics.lightmapBytes = values.reduce((sum, texture) => sum + texture.userData.downloadBytes, 0);
       statistics.lightmapDecodedBytes = values.reduce((sum, texture) => sum + texture.userData.decodedBytes, 0);
+      statistics.lightmapFormats = {};
+      for (const texture of values) statistics.lightmapFormats[texture.userData.format] = (statistics.lightmapFormats[texture.userData.format] ?? 0) + 1;
     };
+    lightmapTotals();
     let upgrading = null;
     /** Swaps the preview textures and atlases for the full-resolution files; resolves when done. */
     function upgrade({ timeoutMs = 120000 } = {}) {

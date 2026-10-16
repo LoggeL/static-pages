@@ -148,7 +148,7 @@ try {
     check('normal-clean-browser', !entry.console.some(value => value.type === 'error') && !entry.failedRequests.length && !entry.responses.some(value => value.status >= 400), { console: entry.console, failed: entry.failedRequests });
   });
   await scenario('atlas-404', async (context, page, entry) => {
-    await page.route('**/mobile/lightmaps/liv.png', route => { entry.injected = route.request().url(); return route.fulfill({ status: 404, contentType: 'text/plain', body: 'Intentional phone regression: absent atlas' }); });
+    await page.route('**/mobile/lightmaps/liv.{png,webp}', route => { entry.injected = route.request().url(); return route.fulfill({ status: 404, contentType: 'text/plain', body: 'Intentional phone regression: absent atlas' }); });
   }, async (page, entry) => {
     await ready(page); const stats = await mapAndCollision(page, 'atlas404');
     check('single-missing-atlas-keeps-actual-map', Boolean(entry.injected) && stats.world.failedAtlases.length === 1 && stats.world.ordinaryLightingFallback, stats.world);
@@ -160,7 +160,7 @@ try {
     await ready(page); const stats = await mapAndCollision(page, 'noDS');
     check('noDS-still-has-all-lightmaps', stats.world.lightmapsActive && stats.world.atlases === 12 && stats.world.failedAtlases.length === 0, stats.world);
     entry.decoder = await page.evaluate(async () => {
-      const { decodePngRgba8, rgbmToTexture } = await import(new URL('./js/world/rgbm.js', location.href));
+      const { decodePngRgba8, rgbmToTexture, loadRgbmTexture } = await import(new URL('./js/world/rgbm.js', location.href));
       const level = window.__bodycam.world.level, definition = { ...level.lightmaps[0], range: level.lightmaps[0].range ?? level.lightmapEncoding.range, multiplierExponent: level.lightmaps[0].multiplierExponent ?? level.lightmapEncoding.multiplierExponent ?? 1 };
       const buffer = await (await fetch(new URL(`./mobile/${definition.path}`, location.href))).arrayBuffer();
       globalThis.DecompressionStream = window.__phoneNativeDS;
@@ -170,10 +170,14 @@ try {
       const a = rgbmToTexture(native, definition), b = rgbmToTexture(fallback, definition);
       const rgbaExact = native.rgba.length === fallback.rgba.length && native.rgba.every((value, index) => value === fallback.rgba[index]);
       const radianceExact = a.image.data.length === b.image.data.length && a.image.data.every((value, index) => value === b.image.data[index]);
-      a.dispose(); b.dispose();
-      return { path: definition.path, width: native.width, height: native.height, bytes: native.rgba.length, rgbaExact, radianceExact };
+      // Lossless WebP sibling (read back through WebGL2 where exact) must give the same radiance as the PNG.
+      const c = await loadRgbmTexture(new URL(`./mobile/${definition.path}`, location.href).href, definition);
+      const webpFormat = c.userData.format, webpExact = c.image.data.length === a.image.data.length && c.image.data.every((value, index) => value === a.image.data[index]);
+      a.dispose(); b.dispose(); c.dispose();
+      return { path: definition.path, width: native.width, height: native.height, bytes: native.rgba.length, rgbaExact, radianceExact, webpFormat, webpExact };
     });
     check('noDS-exact-RGBA-and-linear-radiance', entry.decoder.rgbaExact && entry.decoder.radianceExact, entry.decoder);
+    check('webp-lightmap-matches-png', entry.decoder.webpExact, entry.decoder);
     await begin(page);
   });
   for (const state of ['suspended', 'interrupted']) await scenario(`audio-${state}-never-resolves`, context => context.addInitScript(forceAudioState, state), async (page, entry) => {

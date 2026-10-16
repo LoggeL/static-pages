@@ -89,7 +89,7 @@ async function regression(name, callback) {
       // Background downloads (all sounds, full-resolution textures and lightmaps after ready) still in flight
       // when a test navigates away are aborted by the browser, not failed.
       const navigationAbort = request => request.failure()?.errorText === 'net::ERR_ABORTED'
-        && /\/bodycam-demo\/(audio\/[^/]+\.ogg|lightmaps\/[^/]+\.png|textures\/.+\.(jpg|webp))$/.test(new URL(request.url()).pathname);
+        && /\/bodycam-demo\/(audio\/[^/]+\.ogg|lightmaps\/[^/]+\.(png|webp)|textures\/.+\.(jpg|webp))$/.test(new URL(request.url()).pathname);
       page.on('requestfailed', request => { if (!closing && !navigationAbort(request)) diagnostics.failedRequests.push({ url: request.url(), error: request.failure()?.errorText }); });
       page.on('response', response => { if (response.status() >= 400) diagnostics.httpErrors.push({ url: response.url(), status: response.status() }); });
       result = await deadline(callback({ page, origin: server.origin, out: dir, audioSink }), 600000, name);
