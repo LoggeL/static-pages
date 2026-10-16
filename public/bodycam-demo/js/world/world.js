@@ -44,6 +44,9 @@ export async function loadWorld(scene, {
   doors: doorOptions = {},
   decals: decalOptions = {},
   lightmaps,
+  // Progressive loading: { baseUrl } of a smaller asset set (mobile/) whose tile textures and lightmap
+  // atlases are shown first; world.upgrade() swaps in the full-resolution files later.
+  preview = null,
   signal,
 } = {}) {
   const started = performance.now();
@@ -57,6 +60,9 @@ export async function loadWorld(scene, {
   const rootUrl = new URL(baseUrl, import.meta.url);
   if (!rootUrl.pathname.endsWith('/')) rootUrl.pathname += '/';
   const assetUrl = path => new URL(path, rootUrl).href;
+  const previewRoot = preview?.baseUrl ? new URL(preview.baseUrl, import.meta.url) : null;
+  if (previewRoot && !previewRoot.pathname.endsWith('/')) previewRoot.pathname += '/';
+  const previewUrl = previewRoot ? path => new URL(path, previewRoot).href : assetUrl;
   const report = (stage, progress, details = {}) => onProgress?.({ stage, progress, ...details });
   const warnings = [];
   const warn = message => {
@@ -71,15 +77,16 @@ export async function loadWorld(scene, {
   const loadOptions = { signal: controller.signal, timeoutMs: config.loadTimeoutMs };
   const readJSON = path => fetchAsset(assetUrl(path), { ...loadOptions, type: 'json' });
   report('Daten', 0);
-  let metadata, textureIndex, placementConfig;
+  let metadata, textureIndex, placementConfig, previewLevel = null;
   try {
-    [metadata, textureIndex, placementConfig] = await Promise.all([
+    [metadata, textureIndex, placementConfig, previewLevel] = await Promise.all([
       readJSON(useBaked ? 'data/level.json' : 'data/layout.json'),
-      readJSON('textures/index.json').catch(error => {
+      fetchAsset(previewUrl('textures/index.json'), { ...loadOptions, type: 'json' }).catch(error => {
         throwIfAborted(controller.signal);
         warn(`Texturliste nicht verfügbar, Materialfarben bleiben erhalten: ${error.message}`); return {};
       }),
       useBaked ? null : readJSON('js/world/placement-config.json'),
+      previewRoot && useLightmaps ? fetchAsset(previewUrl('data/level.json'), { ...loadOptions, type: 'json' }).catch(() => null) : null,
     ]);
   } catch (error) {
     controller.abort(error); signal?.removeEventListener('abort', abort); throw error;
@@ -90,7 +97,7 @@ export async function loadWorld(scene, {
   const assets = createAssetLoaders({ renderer, manager });
   const loader = assets.gltf;
   const materialConfig = { ...MATERIAL_CONFIG, loadTimeoutMs: config.loadTimeoutMs, ...materialOptions };
-  const materialLibrary = createMaterialLibrary(textureIndex, assetUrl, {
+  const materialLibrary = createMaterialLibrary(textureIndex, previewUrl, {
     renderer, manager, config: materialConfig, signal: controller.signal, onWarning: warn,
   });
   const root = new Group();
@@ -153,7 +160,12 @@ export async function loadWorld(scene, {
     if (collisionSource) resourceRoots.push(collisionSource);
     report('Materialien', 0.6);
     await mapWithLimit([house, ...prototypes.values()], 1, object => materialLibrary.apply(object), controller.signal);
-    lightmapData = useLightmaps ? await bindLightmaps(houseAsset, level, assetUrl,
+    // Preview atlases only when they come from the same bake (same paths, ranges and exponents).
+    const sameBake = (a, b) => a?.length === b?.length && a.every((entry, index) => entry.path === b[index].path
+      && (entry.range ?? 1) === (b[index].range ?? 1) && (entry.multiplierExponent ?? 1) === (b[index].multiplierExponent ?? 1));
+    const previewAtlases = previewLevel && sameBake(previewLevel.lightmaps, level?.lightmaps) ? previewLevel.lightmaps : null;
+    lightmapData = useLightmaps ? await bindLightmaps(houseAsset, previewAtlases ? { ...level, lightmaps: previewAtlases } : level,
+      previewAtlases ? previewUrl : assetUrl,
       fraction => report('Lightmaps', 0.62 + fraction * 0.12), {
         ...loadOptions, concurrency: config.atlasLoadConcurrency, onWarning: warn,
       }) : null;
@@ -175,7 +187,7 @@ export async function loadWorld(scene, {
     let decals = new Group();
     if (!level?.staticDecalsIncluded) {
       try {
-        decals = await withLoadDeadline(() => createDecals(layout, textureIndex, assetUrl, manager,
+        decals = await withLoadDeadline(() => createDecals(layout, textureIndex, previewUrl, manager,
           { ...DECAL_CONFIG, ...decalOptions }), {
           ...loadOptions, label: 'Decals', disposeLate: disposeObjectResources,
         });
@@ -274,7 +286,40 @@ export async function loadWorld(scene, {
       staticTriangles: collider.userData.triangles,
       doorTriangles: colliders.doors.reduce((sum, mesh) => sum + mesh.userData.triangles, 0),
       sharedTiledMaterials: materialLibrary.materials.size,
+      // preview: textures/lightmaps currently from the small set; upgraded once world.upgrade() finished.
+      assets: { preview: Boolean(previewRoot), previewLightmaps: Boolean(previewAtlases), upgraded: false, upgradeMs: null,
+        upgradedLightmaps: 0, upgradedTextures: 0, upgradeFailures: [] },
     };
+    const lightmapTotals = () => {
+      const values = lightmapData ? [...lightmapData.textures.values()] : [];
+      statistics.lightmapBytes = values.reduce((sum, texture) => sum + texture.userData.downloadBytes, 0);
+      statistics.lightmapDecodedBytes = values.reduce((sum, texture) => sum + texture.userData.decodedBytes, 0);
+    };
+    let upgrading = null;
+    /** Swaps the preview textures and atlases for the full-resolution files; resolves when done. */
+    function upgrade({ timeoutMs = 120000 } = {}) {
+      if (!previewRoot || disposed) return Promise.resolve(statistics.assets);
+      return upgrading ??= (async () => {
+        const begun = performance.now(), options = { signal: controller.signal, timeoutMs };
+        try {
+          if (previewAtlases) {
+            const result = await lightmapData.upgrade(level, assetUrl, options);
+            statistics.assets.upgradedLightmaps = result.upgraded; statistics.assets.upgradeFailures.push(...result.failed);
+            lightmapTotals();
+          }
+          const fullIndex = await readJSON('textures/index.json');
+          const result = await materialLibrary.upgrade(fullIndex, assetUrl, options);
+          statistics.assets.upgradedTextures = result.upgraded; statistics.assets.upgradeFailures.push(...result.failed);
+          statistics.assets.upgraded = true;
+        } catch (error) {
+          if (disposed) return statistics.assets;
+          statistics.assets.upgradeFailures.push(error.message);
+          warn(`Volle Texturauflösung nicht geladen: ${error.message}`);
+        }
+        statistics.assets.upgradeMs = performance.now() - begun;
+        return statistics.assets;
+      })();
+    }
     report('Fertig', 1);
     return {
       root, house, furniture: furnitureRoot, decals, colliders, shootables, doors, rooms, roomAt,
@@ -289,6 +334,7 @@ export async function loadWorld(scene, {
         return hit ? surfaceOfHit(hit) : roomAt(point)?.floorSurface ?? 'concrete';
       },
       sourceOfHit,
+      upgrade,
       update(dt) {
         if (disposed) return;
         for (const door of doors) door.update(dt);

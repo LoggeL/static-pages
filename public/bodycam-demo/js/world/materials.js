@@ -40,11 +40,11 @@ export function createMaterialLibrary(textureIndex, assetUrl, {
     }
   }
 
-  async function imageTexture(url) {
-    textureDeadline ??= performance.now() + config.loadTimeoutMs;
-    const remaining = textureDeadline - performance.now();
+  async function imageTexture(url, { deadline, abort = signal } = {}) {
+    if (deadline === undefined) deadline = textureDeadline ??= performance.now() + config.loadTimeoutMs;
+    const remaining = deadline - performance.now();
     if (remaining <= 0) throw new Error('Zeitlimit für optionale Texturen erreicht');
-    const options = { signal, timeoutMs: remaining, label: url };
+    const options = { signal: abort, timeoutMs: remaining, label: url };
     // Fetch is abortable. Decode only two images at a time, with no burst of large ImageBitmaps.
     const blob = await fetchAsset(url, { ...options, type: 'blob' });
     if (typeof createImageBitmap === 'function') {
@@ -68,6 +68,7 @@ export function createMaterialLibrary(textureIndex, assetUrl, {
     textures.add(texture);
     throwIfAborted(signal);
     texture.name = `${id}/${kind}`;
+    texture.userData.tile = { id, kind };
     texture.colorSpace = kind === 'albedo' ? SRGBColorSpace : NoColorSpace;
     texture.flipY = false;
     texture.wrapS = texture.wrapT = RepeatWrapping;
@@ -154,11 +155,34 @@ export function createMaterialLibrary(textureIndex, assetUrl, {
     return materialPromises.get(key);
   }
 
+  // Progressive loading: tile maps came from the small preview set; swap in the full-resolution images.
+  // A size change needs fresh GPU storage, so each texture is disposed before its new image uploads.
+  async function upgrade(index, urlOf, { signal: abort, timeoutMs = config.loadTimeoutMs, concurrency = 1 } = {}) {
+    const deadline = performance.now() + timeoutMs, failed = [];
+    let upgraded = 0;
+    await mapWithLimit([...textures].filter(texture => texture.userData.tile), concurrency, async texture => {
+      const { id, kind } = texture.userData.tile, file = index[id]?.files?.[kind];
+      if (!file) return;
+      try {
+        const loaded = await imageTexture(urlOf(`textures/${id}/${file}`), { deadline, abort });
+        if (abort?.aborted || !textures.has(texture)) { loaded.image?.close?.(); return; }
+        const previous = texture.image;
+        texture.dispose(); texture.image = loaded.image; texture.needsUpdate = true;
+        previous?.close?.(); upgraded++;
+      } catch (error) {
+        throwIfAborted(abort);
+        failed.push(`${id}/${kind}: ${error.message}`);
+      }
+    }, abort);
+    return { upgraded, failed };
+  }
+
   return {
     materials,
     textures,
     sources,
     warnings,
+    upgrade,
     async apply(root) {
       const meshes = [];
       root.traverse(object => { if (object.isMesh) meshes.push(object); });

@@ -228,3 +228,12 @@ Nächste Schritte in dieser Reihenfolge:
 - **DeathCrumple:** Wenn keine Fallrichtung mindestens `fall.crumpleBelow` (1.1 m) frei hat, knickt der Körper ein und sackt seitlich gekrümmt zusammen (~1 m), statt unter den Tisch zu fallen.
 - Lokaler Testserver: `python3 -m http.server` setzt unter Last Verbindungen zurück (ein fehlgeschlagener Modul-Import lässt die App ohne Meldung hängen). Stattdessen läuft ein kleiner Node-Static-Server auf 8941.
 - Offen: Streifenwagen, Inszenierung/Intro/Funk, Galerie-Karte, Neubake (Mond), Ladezeit (Desktop lädt 82 MB: Modelle 28, Texturen 28, Lightmaps 21).
+
+## Ladezeit (16.10., Claude)
+- **Progressiv auf dem Desktop:** `loadWorld({ preview: { baseUrl: mobile/ } })` lädt Kacheltexturen (256 px) und Lightmaps (512 px) erst aus `mobile/`. Nach `ready` ruft runtime `world.upgrade()` auf: Lightmaps (gleicher Bake: Pfade, `range` und `multiplierExponent` werden verglichen) und Texturen werden durch die vollen Dateien ersetzt. Die Textur bekommt vor dem neuen Bild ein `dispose()`, denn WebGL braucht für die neue Größe neuen Speicher. Status steht in `world.stats.assets` (`upgraded`, `upgradeMs`, Zähler, Fehler). `?progressive=0` lädt alles wie früher sofort voll.
+- Audio: Bis zum Start nur `preloadEssentials()`, der volle `preload()` folgt nach dem Textur-Upgrade (Bandbreite).
+- `officer_fp.glb` 5,9 → 2,2 MB und `officer.glb` 5,1 → 4,1 MB: Normal-Maps verlustfrei als WebP, Albedo/ORM als WebP q92, Meshopt (gltf-transform aus `bodycam-work/codex/C14/optimize/tools`). **Nach jedem neuen Export aus `blender/officer_fp.py` wiederholen:**
+  `gltf-transform webp in.glb a.glb --slots normalTexture --lossless true && gltf-transform webp a.glb b.glb --slots "{baseColorTexture,occlusionTexture,metallicRoughnessTexture}" --quality 92 && gltf-transform meshopt b.glb out.glb --level medium` (WebP entpackt Meshopt, deshalb Meshopt zuletzt).
+- Gemessen (Desktop, Chromium): Bis zur Spielbereitschaft 82 → 39 MB. Bei 50 Mbit/s 18,1 → 11,1 s, das Upgrade ist ≈14 s später fertig (Startbildschirm). Rest: house.glb 10 MB, Modelle insgesamt ≈19 MB.
+- Nicht lohnend: Normal-JPGs als WebP (bei Rauschen *größer*). Lightmaps als WebP spart 28 %, braucht aber den exakten RGBM-Decoder (`rgbm.js` dekodiert PNG-Bytes selbst); offen.
+- Kleinigkeit: Chrome holt `three@0.170.0/+esm` (0,7 MB) spekulativ, obwohl die Importmap-Scope es auf `three.module.js` umbiegt (keine Doppelinstanz).

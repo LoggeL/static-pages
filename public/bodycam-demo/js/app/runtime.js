@@ -364,7 +364,10 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
     }
     if (!rawInput.available) issue('input', STRINGS.inputUnavailable, moduleError(2));
     if (!modules[0]) throw moduleError(0);
+    // Full assets start with the mobile tile textures and lightmaps and stream the full ones after ready.
+    const progressive = () => assetProfile === 'full' && query.get('progressive') !== '0';
     const loadMap = () => modules[0].loadWorld(scene, { renderer, baseUrl: assetBaseUrl,
+      preview: progressive() ? { baseUrl: new URL('mobile/', baseUrl) } : null,
       signal: bootAbort.signal,
       worldConfig: { baked: true, loadTimeoutMs: APP_CONFIG.assetTimeoutMs, bindLightmaps: assetProfile !== 'safe' }, onProgress: event => {
         if (event.warning) issue('world-detail', STRINGS.worldPartial);
@@ -445,7 +448,8 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
         audio.setListener(camera.position, camera.quaternion); arms?.setAudio(audio);
         if (phase === 'playing') { void audio.unlock().catch(noop); activateAudio(); }
         // Audio unlock remains in resume(), inside the user's tap.
-        const preload = assetProfile === 'full' ? audio.preload() : audio.preloadEssentials();
+        // Essentials first; on full assets the rest follows once the world has its full textures (see ready).
+        const preload = audio.preloadEssentials();
         void preload.then(() => {
           if (disposed) return;
           audioSource.finish();
@@ -460,7 +464,7 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
       }
     };
     // Usually graph+manifest is ready before the start screen, but it has no blocking dependency.
-    void prepareAudio();
+    const audioPrepared = prepareAudio();
     report('post', 0.93, STRINGS.progressPost);
     try {
       if (query.get('postfx') === '0' || assetProfile === 'safe') throw new Error('Simple graphics selected');
@@ -497,6 +501,10 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
     listen(document, 'visibilitychange', () => { if (document.hidden) pause(); });
     report('ready', 1, STRINGS.progressReady);
     ready = true; setPhase('start'); render(); last = performance.now(); raf = requestAnimationFrame(frame);
+    // Bandwidth order after the start screen appears: full-resolution textures and lightmaps, then all sounds.
+    void Promise.resolve(world.upgrade?.()).catch(error => console.warn('[bodycam/app] Volle Texturen nicht geladen', error))
+      .then(() => audioPrepared).then(() => { if (!disposed && assetProfile === 'full') return audio?.preload(); })
+      .catch(error => issue('audio-files', STRINGS.audioPartial, error));
     return api;
   } catch (error) {
     error.stage = bootStage; error.userMessage = bootStage === 'world' ? STRINGS.worldUnavailable : STRINGS.graphicsUnavailable;

@@ -17,7 +17,33 @@ export async function bindLightmaps(asset, level, assetUrl, onProgress = () => {
     if (seenWarnings.has(message)) return;
     seenWarnings.add(message); warnings.push(message); onWarning(message);
   }
-  const result = { textures, materials, sources, records, warnings, failedAtlases };
+  const result = { textures, materials, sources, records, warnings, failedAtlases, upgrade };
+  // Progressive loading: replace preview atlases with the full-resolution ones of the same bake.
+  async function upgrade(fullLevel, urlOf, { signal: abort, timeoutMs = ASSET_TIMEOUT_MS } = {}) {
+    const deadline = performance.now() + timeoutMs, failed = [];
+    let upgraded = 0;
+    for (const definition of fullLevel.lightmaps ?? []) {
+      const previous = textures.get(definition.path);
+      const preview = atlases.find(entry => entry.path === definition.path);
+      if (!previous || !preview || (preview.range ?? 1) !== (definition.range ?? 1)
+        || (preview.multiplierExponent ?? 1) !== (definition.multiplierExponent ?? 1)) continue;
+      try {
+        const remaining = deadline - performance.now();
+        if (remaining <= 0) throw new Error('Zeitlimit erreicht');
+        const texture = await loadRgbmTexture(urlOf(definition.path), {
+          ...definition, range: definition.range ?? fullLevel.lightmapEncoding?.range,
+          multiplierExponent: definition.multiplierExponent ?? fullLevel.lightmapEncoding?.multiplierExponent ?? 1,
+        }, { signal: abort, timeoutMs: remaining, onWarning: warn });
+        if (abort?.aborted) { texture.dispose(); return { upgraded, failed }; }
+        for (const material of materials.values()) if (material.lightMap === previous) material.lightMap = texture;
+        textures.set(definition.path, texture); previous.dispose(); upgraded++;
+      } catch (error) {
+        throwIfAborted(abort);
+        failed.push(`${definition.path}: ${error.message}`);
+      }
+    }
+    return { upgraded, failed };
+  }
   if (!atlases.length || !definitions.size) {
     warn('Keine Lightmap-Zuordnung vorhanden. Das Haus verwendet normale Beleuchtung.');
     return result;
