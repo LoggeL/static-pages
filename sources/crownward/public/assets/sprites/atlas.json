@@ -1,0 +1,988 @@
+{
+  "version": 1,
+  "sources": {
+    "monarch.walk": "assets/generated/sprites-monarch.png",
+    "monarch.graze": "assets/generated/sprites-monarch.png",
+    "monarch.gallop": "assets/generated/sprites-monarch-gallop.png",
+    "vagrant.idle": "assets/generated/sprites-folk.png",
+    "vagrant.walk": "assets/generated/sprites-folk.png",
+    "villager.idle": "assets/generated/sprites-folk.png",
+    "villager.walk": "assets/generated/sprites-folk.png",
+    "builder.idle": "assets/generated/sprites-folk.png",
+    "builder.walk": "assets/generated/sprites-folk.png",
+    "archer.idle": "assets/generated/sprites-folk.png",
+    "archer.walk": "assets/generated/sprites-folk.png",
+    "farmer.idle": "assets/generated/sprites-folk.png",
+    "farmer.walk": "assets/generated/sprites-folk.png",
+    "builder.work": "assets/generated/sprites-folk-actions.png",
+    "archer.shoot": "assets/generated/sprites-folk-actions.png",
+    "farmer.work": "assets/generated/sprites-folk-actions.png",
+    "vagrant.kneel": "assets/generated/sprites-folk-actions.png",
+    "mistling.walk": "assets/generated/sprites-enemies.png",
+    "mistling.attack": "assets/generated/sprites-enemies.png",
+    "mistling.flee": "assets/generated/sprites-enemies.png",
+    "breaker.walk": "assets/generated/sprites-enemies.png",
+    "breaker.attack": "assets/generated/sprites-enemies.png",
+    "rabbit.idle": "assets/generated/sprites-wildlife-props.png",
+    "rabbit.hop": "assets/generated/sprites-wildlife-props.png",
+    "coin": "assets/generated/sprites-wildlife-props.png",
+    "crown": "assets/generated/sprites-wildlife-props.png",
+    "torch": "assets/generated/sprites-wildlife-props.png",
+    "bush": "assets/generated/sprites-wildlife-props.png",
+    "fern": "assets/generated/sprites-wildlife-props.png",
+    "rock": "assets/generated/sprites-wildlife-props.png",
+    "tree.spruce": "assets/generated/sprites-trees.png",
+    "tree.fir": "assets/generated/sprites-trees.png",
+    "tree.pine": "assets/generated/sprites-trees.png",
+    "tree.dead": "assets/generated/sprites-trees.png",
+    "tree.birch": "assets/generated/sprites-trees.png",
+    "town.0": "assets/generated/buildings-town.png",
+    "town.1": "assets/generated/buildings-town.png",
+    "town.2": "assets/generated/buildings-town.png",
+    "town.3": "assets/generated/buildings-town.png",
+    "wall.1": "assets/generated/buildings-defense.png",
+    "wall.2": "assets/generated/buildings-defense.png",
+    "wall.3": "assets/generated/buildings-defense.png",
+    "wall.rubble": "assets/generated/buildings-defense.png",
+    "tower.1": "assets/generated/buildings-defense.png",
+    "tower.2": "assets/generated/buildings-defense.png",
+    "farm": "assets/generated/buildings-economy.png",
+    "stand.hammer": "assets/generated/buildings-economy.png",
+    "stand.bow": "assets/generated/buildings-economy.png",
+    "stand.scythe": "assets/generated/buildings-economy.png",
+    "buildsite": "assets/generated/buildings-economy.png",
+    "camp": "assets/generated/buildings-economy.png",
+    "chest.closed": "assets/generated/buildings-wild.png",
+    "chest.open": "assets/generated/buildings-wild.png",
+    "shrine.bow": "assets/generated/buildings-wild.png",
+    "shrine.hammer": "assets/generated/buildings-wild.png",
+    "rift": "assets/generated/buildings-wild.png",
+    "waymarker": "assets/generated/buildings-wild.png",
+    "ship.wreck": "assets/generated/ship.png",
+    "ship.repair": "assets/generated/ship.png",
+    "ship.ready": "assets/generated/ship.png",
+    "layer.mountains": "assets/generated/bg-mountains.png",
+    "layer.forest": "assets/generated/bg-forest.png",
+    "layer.ground": "assets/generated/bg-ground.png"
+  },
+  "sprites": {
+    "monarch.walk": {
+      "image": "sprites-monarch.png",
+      "frames": [
+        {
+          "x": 2,
+          "y": 2,
+          "w": 70,
+          "h": 54
+        },
+        {
+          "x": 74,
+          "y": 2,
+          "w": 70,
+          "h": 54
+        },
+        {
+          "x": 146,
+          "y": 2,
+          "w": 70,
+          "h": 54
+        },
+        {
+          "x": 218,
+          "y": 2,
+          "w": 70,
+          "h": 54
+        }
+      ],
+      "anchorX": 35,
+      "anchorY": 54,
+      "fps": 8
+    },
+    "monarch.gallop": {
+      "image": "sprites-monarch-gallop.png",
+      "frames": [
+        {
+          "x": 2,
+          "y": 2,
+          "w": 82,
+          "h": 48
+        },
+        {
+          "x": 86,
+          "y": 2,
+          "w": 82,
+          "h": 48
+        },
+        {
+          "x": 170,
+          "y": 2,
+          "w": 82,
+          "h": 48
+        },
+        {
+          "x": 254,
+          "y": 2,
+          "w": 82,
+          "h": 48
+        }
+      ],
+      "anchorX": 41,
+      "anchorY": 48,
+      "fps": 12
+    },
+    "monarch.graze": {
+      "image": "sprites-monarch.png",
+      "frames": [
+        {
+          "x": 290,
+          "y": 2,
+          "w": 66,
+          "h": 53
+        }
+      ],
+      "anchorX": 33,
+      "anchorY": 53
+    },
+    "vagrant.idle": {
+      "image": "sprites-folk.png",
+      "frames": [
+        {
+          "x": 294,
+          "y": 2,
+          "w": 18,
+          "h": 29
+        }
+      ],
+      "anchorX": 9,
+      "anchorY": 29
+    },
+    "vagrant.walk": {
+      "image": "sprites-folk.png",
+      "frames": [
+        {
+          "x": 314,
+          "y": 2,
+          "w": 24,
+          "h": 29
+        },
+        {
+          "x": 340,
+          "y": 2,
+          "w": 24,
+          "h": 29
+        }
+      ],
+      "anchorX": 12,
+      "anchorY": 29,
+      "fps": 4
+    },
+    "vagrant.kneel": {
+      "image": "sprites-folk-actions.png",
+      "frames": [
+        {
+          "x": 168,
+          "y": 2,
+          "w": 26,
+          "h": 18
+        }
+      ],
+      "anchorX": 13,
+      "anchorY": 18
+    },
+    "villager.idle": {
+      "image": "sprites-folk.png",
+      "frames": [
+        {
+          "x": 86,
+          "y": 2,
+          "w": 14,
+          "h": 30
+        }
+      ],
+      "anchorX": 7,
+      "anchorY": 30
+    },
+    "villager.walk": {
+      "image": "sprites-folk.png",
+      "frames": [
+        {
+          "x": 102,
+          "y": 2,
+          "w": 22,
+          "h": 30
+        },
+        {
+          "x": 126,
+          "y": 2,
+          "w": 22,
+          "h": 30
+        }
+      ],
+      "anchorX": 11,
+      "anchorY": 30,
+      "fps": 5
+    },
+    "builder.idle": {
+      "image": "sprites-folk.png",
+      "frames": [
+        {
+          "x": 150,
+          "y": 2,
+          "w": 18,
+          "h": 30
+        }
+      ],
+      "anchorX": 9,
+      "anchorY": 30
+    },
+    "builder.walk": {
+      "image": "sprites-folk.png",
+      "frames": [
+        {
+          "x": 170,
+          "y": 2,
+          "w": 22,
+          "h": 30
+        },
+        {
+          "x": 194,
+          "y": 2,
+          "w": 22,
+          "h": 30
+        }
+      ],
+      "anchorX": 11,
+      "anchorY": 30,
+      "fps": 5
+    },
+    "builder.work": {
+      "image": "sprites-folk-actions.png",
+      "frames": [
+        {
+          "x": 2,
+          "y": 2,
+          "w": 28,
+          "h": 37
+        },
+        {
+          "x": 32,
+          "y": 2,
+          "w": 28,
+          "h": 37
+        }
+      ],
+      "anchorX": 14,
+      "anchorY": 37,
+      "fps": 5
+    },
+    "archer.idle": {
+      "image": "sprites-folk.png",
+      "frames": [
+        {
+          "x": 218,
+          "y": 2,
+          "w": 22,
+          "h": 30
+        }
+      ],
+      "anchorX": 11,
+      "anchorY": 30
+    },
+    "archer.walk": {
+      "image": "sprites-folk.png",
+      "frames": [
+        {
+          "x": 242,
+          "y": 2,
+          "w": 24,
+          "h": 30
+        },
+        {
+          "x": 268,
+          "y": 2,
+          "w": 24,
+          "h": 30
+        }
+      ],
+      "anchorX": 12,
+      "anchorY": 30,
+      "fps": 5
+    },
+    "archer.shoot": {
+      "image": "sprites-folk-actions.png",
+      "frames": [
+        {
+          "x": 62,
+          "y": 2,
+          "w": 32,
+          "h": 36
+        },
+        {
+          "x": 96,
+          "y": 2,
+          "w": 32,
+          "h": 36
+        }
+      ],
+      "anchorX": 16,
+      "anchorY": 36,
+      "fps": 3
+    },
+    "farmer.idle": {
+      "image": "sprites-folk.png",
+      "frames": [
+        {
+          "x": 2,
+          "y": 2,
+          "w": 26,
+          "h": 32
+        }
+      ],
+      "anchorX": 13,
+      "anchorY": 32
+    },
+    "farmer.walk": {
+      "image": "sprites-folk.png",
+      "frames": [
+        {
+          "x": 30,
+          "y": 2,
+          "w": 26,
+          "h": 32
+        },
+        {
+          "x": 58,
+          "y": 2,
+          "w": 26,
+          "h": 32
+        }
+      ],
+      "anchorX": 13,
+      "anchorY": 32,
+      "fps": 5
+    },
+    "farmer.work": {
+      "image": "sprites-folk-actions.png",
+      "frames": [
+        {
+          "x": 130,
+          "y": 2,
+          "w": 36,
+          "h": 26
+        }
+      ],
+      "anchorX": 18,
+      "anchorY": 26
+    },
+    "mistling.walk": {
+      "image": "sprites-enemies.png",
+      "frames": [
+        {
+          "x": 246,
+          "y": 2,
+          "w": 24,
+          "h": 19
+        },
+        {
+          "x": 272,
+          "y": 2,
+          "w": 24,
+          "h": 19
+        }
+      ],
+      "anchorX": 12,
+      "anchorY": 19,
+      "fps": 7
+    },
+    "mistling.attack": {
+      "image": "sprites-enemies.png",
+      "frames": [
+        {
+          "x": 298,
+          "y": 2,
+          "w": 32,
+          "h": 18
+        }
+      ],
+      "anchorX": 16,
+      "anchorY": 18
+    },
+    "mistling.flee": {
+      "image": "sprites-enemies.png",
+      "frames": [
+        {
+          "x": 218,
+          "y": 2,
+          "w": 26,
+          "h": 21
+        }
+      ],
+      "anchorX": 13,
+      "anchorY": 21
+    },
+    "breaker.walk": {
+      "image": "sprites-enemies.png",
+      "frames": [
+        {
+          "x": 110,
+          "y": 2,
+          "w": 52,
+          "h": 44
+        },
+        {
+          "x": 164,
+          "y": 2,
+          "w": 52,
+          "h": 44
+        }
+      ],
+      "anchorX": 26,
+      "anchorY": 44,
+      "fps": 4
+    },
+    "breaker.attack": {
+      "image": "sprites-enemies.png",
+      "frames": [
+        {
+          "x": 2,
+          "y": 2,
+          "w": 52,
+          "h": 50
+        },
+        {
+          "x": 56,
+          "y": 2,
+          "w": 52,
+          "h": 50
+        }
+      ],
+      "anchorX": 26,
+      "anchorY": 50,
+      "fps": 3
+    },
+    "rabbit.idle": {
+      "image": "sprites-wildlife-props.png",
+      "frames": [
+        {
+          "x": 78,
+          "y": 2,
+          "w": 14,
+          "h": 11
+        }
+      ],
+      "anchorX": 7,
+      "anchorY": 11
+    },
+    "rabbit.hop": {
+      "image": "sprites-wildlife-props.png",
+      "frames": [
+        {
+          "x": 94,
+          "y": 2,
+          "w": 20,
+          "h": 11
+        }
+      ],
+      "anchorX": 10,
+      "anchorY": 11
+    },
+    "coin": {
+      "image": "sprites-wildlife-props.png",
+      "frames": [
+        {
+          "x": 134,
+          "y": 2,
+          "w": 10,
+          "h": 9
+        },
+        {
+          "x": 146,
+          "y": 2,
+          "w": 10,
+          "h": 9
+        },
+        {
+          "x": 158,
+          "y": 2,
+          "w": 10,
+          "h": 9
+        }
+      ],
+      "anchorX": 5,
+      "anchorY": 9,
+      "fps": 8
+    },
+    "crown": {
+      "image": "sprites-wildlife-props.png",
+      "frames": [
+        {
+          "x": 116,
+          "y": 2,
+          "w": 16,
+          "h": 10
+        }
+      ],
+      "anchorX": 8,
+      "anchorY": 10
+    },
+    "torch": {
+      "image": "sprites-wildlife-props.png",
+      "frames": [
+        {
+          "x": 2,
+          "y": 2,
+          "w": 6,
+          "h": 20
+        }
+      ],
+      "anchorX": 3,
+      "anchorY": 20
+    },
+    "bush": {
+      "image": "sprites-wildlife-props.png",
+      "frames": [
+        {
+          "x": 10,
+          "y": 2,
+          "w": 24,
+          "h": 14
+        }
+      ],
+      "anchorX": 12,
+      "anchorY": 14
+    },
+    "fern": {
+      "image": "sprites-wildlife-props.png",
+      "frames": [
+        {
+          "x": 36,
+          "y": 2,
+          "w": 22,
+          "h": 12
+        }
+      ],
+      "anchorX": 11,
+      "anchorY": 12
+    },
+    "rock": {
+      "image": "sprites-wildlife-props.png",
+      "frames": [
+        {
+          "x": 60,
+          "y": 2,
+          "w": 16,
+          "h": 12
+        }
+      ],
+      "anchorX": 8,
+      "anchorY": 12
+    },
+    "tree.spruce": {
+      "image": "sprites-trees.png",
+      "frames": [
+        {
+          "x": 2,
+          "y": 2,
+          "w": 78,
+          "h": 150
+        }
+      ],
+      "anchorX": 39,
+      "anchorY": 150
+    },
+    "tree.fir": {
+      "image": "sprites-trees.png",
+      "frames": [
+        {
+          "x": 82,
+          "y": 2,
+          "w": 106,
+          "h": 130
+        }
+      ],
+      "anchorX": 53,
+      "anchorY": 130
+    },
+    "tree.pine": {
+      "image": "sprites-trees.png",
+      "frames": [
+        {
+          "x": 190,
+          "y": 2,
+          "w": 64,
+          "h": 120
+        }
+      ],
+      "anchorX": 32,
+      "anchorY": 120
+    },
+    "tree.dead": {
+      "image": "sprites-trees.png",
+      "frames": [
+        {
+          "x": 256,
+          "y": 2,
+          "w": 62,
+          "h": 118
+        }
+      ],
+      "anchorX": 31,
+      "anchorY": 118
+    },
+    "tree.birch": {
+      "image": "sprites-trees.png",
+      "frames": [
+        {
+          "x": 320,
+          "y": 2,
+          "w": 70,
+          "h": 110
+        }
+      ],
+      "anchorX": 35,
+      "anchorY": 110
+    },
+    "town.0": {
+      "image": "buildings-town.png",
+      "frames": [
+        {
+          "x": 318,
+          "y": 2,
+          "w": 56,
+          "h": 44
+        }
+      ],
+      "anchorX": 28,
+      "anchorY": 44
+    },
+    "town.1": {
+      "image": "buildings-town.png",
+      "frames": [
+        {
+          "x": 242,
+          "y": 2,
+          "w": 74,
+          "h": 64
+        }
+      ],
+      "anchorX": 37,
+      "anchorY": 64
+    },
+    "town.2": {
+      "image": "buildings-town.png",
+      "frames": [
+        {
+          "x": 98,
+          "y": 2,
+          "w": 142,
+          "h": 92
+        }
+      ],
+      "anchorX": 71,
+      "anchorY": 92
+    },
+    "town.3": {
+      "image": "buildings-town.png",
+      "frames": [
+        {
+          "x": 2,
+          "y": 2,
+          "w": 94,
+          "h": 124
+        }
+      ],
+      "anchorX": 47,
+      "anchorY": 124
+    },
+    "wall.1": {
+      "image": "buildings-defense.png",
+      "frames": [
+        {
+          "x": 248,
+          "y": 2,
+          "w": 30,
+          "h": 22
+        }
+      ],
+      "anchorX": 15,
+      "anchorY": 22
+    },
+    "wall.2": {
+      "image": "buildings-defense.png",
+      "frames": [
+        {
+          "x": 210,
+          "y": 2,
+          "w": 36,
+          "h": 44
+        }
+      ],
+      "anchorX": 18,
+      "anchorY": 44
+    },
+    "wall.3": {
+      "image": "buildings-defense.png",
+      "frames": [
+        {
+          "x": 144,
+          "y": 2,
+          "w": 64,
+          "h": 52
+        }
+      ],
+      "anchorX": 32,
+      "anchorY": 52
+    },
+    "wall.rubble": {
+      "image": "buildings-defense.png",
+      "frames": [
+        {
+          "x": 280,
+          "y": 2,
+          "w": 26,
+          "h": 14
+        }
+      ],
+      "anchorX": 13,
+      "anchorY": 14
+    },
+    "tower.1": {
+      "image": "buildings-defense.png",
+      "frames": [
+        {
+          "x": 76,
+          "y": 2,
+          "w": 66,
+          "h": 92
+        }
+      ],
+      "anchorX": 33,
+      "anchorY": 92
+    },
+    "tower.2": {
+      "image": "buildings-defense.png",
+      "frames": [
+        {
+          "x": 2,
+          "y": 2,
+          "w": 72,
+          "h": 104
+        }
+      ],
+      "anchorX": 36,
+      "anchorY": 104
+    },
+    "farm": {
+      "image": "buildings-economy.png",
+      "frames": [
+        {
+          "x": 122,
+          "y": 2,
+          "w": 70,
+          "h": 26
+        }
+      ],
+      "anchorX": 35,
+      "anchorY": 26
+    },
+    "stand.hammer": {
+      "image": "buildings-economy.png",
+      "frames": [
+        {
+          "x": 194,
+          "y": 2,
+          "w": 26,
+          "h": 23
+        }
+      ],
+      "anchorX": 13,
+      "anchorY": 23
+    },
+    "stand.bow": {
+      "image": "buildings-economy.png",
+      "frames": [
+        {
+          "x": 54,
+          "y": 2,
+          "w": 30,
+          "h": 30
+        }
+      ],
+      "anchorX": 15,
+      "anchorY": 30
+    },
+    "stand.scythe": {
+      "image": "buildings-economy.png",
+      "frames": [
+        {
+          "x": 86,
+          "y": 2,
+          "w": 34,
+          "h": 30
+        }
+      ],
+      "anchorX": 17,
+      "anchorY": 30
+    },
+    "buildsite": {
+      "image": "buildings-economy.png",
+      "frames": [
+        {
+          "x": 222,
+          "y": 2,
+          "w": 26,
+          "h": 22
+        }
+      ],
+      "anchorX": 13,
+      "anchorY": 22
+    },
+    "camp": {
+      "image": "buildings-economy.png",
+      "frames": [
+        {
+          "x": 2,
+          "y": 2,
+          "w": 50,
+          "h": 32
+        }
+      ],
+      "anchorX": 25,
+      "anchorY": 32
+    },
+    "chest.closed": {
+      "image": "buildings-wild.png",
+      "frames": [
+        {
+          "x": 236,
+          "y": 2,
+          "w": 26,
+          "h": 12
+        }
+      ],
+      "anchorX": 13,
+      "anchorY": 12
+    },
+    "chest.open": {
+      "image": "buildings-wild.png",
+      "frames": [
+        {
+          "x": 208,
+          "y": 2,
+          "w": 26,
+          "h": 18
+        }
+      ],
+      "anchorX": 13,
+      "anchorY": 18
+    },
+    "shrine.bow": {
+      "image": "buildings-wild.png",
+      "frames": [
+        {
+          "x": 80,
+          "y": 2,
+          "w": 48,
+          "h": 58
+        }
+      ],
+      "anchorX": 24,
+      "anchorY": 58
+    },
+    "shrine.hammer": {
+      "image": "buildings-wild.png",
+      "frames": [
+        {
+          "x": 130,
+          "y": 2,
+          "w": 54,
+          "h": 36
+        }
+      ],
+      "anchorX": 27,
+      "anchorY": 36
+    },
+    "rift": {
+      "image": "buildings-wild.png",
+      "frames": [
+        {
+          "x": 2,
+          "y": 2,
+          "w": 76,
+          "h": 100
+        }
+      ],
+      "anchorX": 38,
+      "anchorY": 100
+    },
+    "waymarker": {
+      "image": "buildings-wild.png",
+      "frames": [
+        {
+          "x": 186,
+          "y": 2,
+          "w": 20,
+          "h": 26
+        }
+      ],
+      "anchorX": 10,
+      "anchorY": 26
+    },
+    "ship.wreck": {
+      "image": "ship.png",
+      "frames": [
+        {
+          "x": 258,
+          "y": 2,
+          "w": 104,
+          "h": 58
+        }
+      ],
+      "anchorX": 52,
+      "anchorY": 58
+    },
+    "ship.repair": {
+      "image": "ship.png",
+      "frames": [
+        {
+          "x": 140,
+          "y": 2,
+          "w": 116,
+          "h": 104
+        }
+      ],
+      "anchorX": 58,
+      "anchorY": 104
+    },
+    "ship.ready": {
+      "image": "ship.png",
+      "frames": [
+        {
+          "x": 2,
+          "y": 2,
+          "w": 136,
+          "h": 124
+        }
+      ],
+      "anchorX": 68,
+      "anchorY": 124
+    }
+  },
+  "layers": {
+    "layer.mountains": {
+      "image": "bg-mountains.png",
+      "width": 740,
+      "height": 170
+    },
+    "layer.forest": {
+      "image": "bg-forest.png",
+      "width": 1132,
+      "height": 130
+    },
+    "layer.ground": {
+      "image": "bg-ground.png",
+      "width": 864,
+      "height": 84
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "crownward",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Crownward – ein originales Side-Scrolling-Königreichsstrategiespiel (erste Insel).",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5173",
+    "build": "tsc --noEmit -p tsconfig.json && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "sharp": "^0.35.5",
+    "typescript": "~5.9",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  }
+}
