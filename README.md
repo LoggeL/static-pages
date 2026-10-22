@@ -4,6 +4,7 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
+- **[Kolping Ramsen · Klick-Prototyp](https://loggel.github.io/static-pages/kolping-ramsen-prototyp/)**: a clickable German prototype for the website relaunch of the Kolpingsfamilie Ramsen, built for a board demo. The public site has news, events (list and month view, iCal export), club pages and a photo review; the admin area is designed for older volunteers (18px+ type, 48px targets, icon-plus-text buttons, plain German, visible autosave, undo instead of confirm dialogs). A role bar switches between four demo people (admin, board, editor, member) to show role-based access: large-tile tasks, event and news editors, photo upload with in-browser compression, a board-only file store with folders, a minutes editor with live co-editing simulation, a permission matrix, an audit log, a trash bin and a guided tour. Sample data only; everything stays in localStorage and can be reset. Vanilla JS ES modules without a build step. Source and module conventions: `sources/kolping-ramsen-prototyp/`.
 - **[Bodycam-Tech-Demo](https://loggel.github.io/static-pages/bodycam-demo/)**: a playable Three.js/WebGL2 prototype with a furnished house, physics doors, a carbine with weapon inertia and first-person arms, three NPCs, bodycam post-processing, and 198 recorded sound clips. Supports mouse/keyboard and multitouch controls, automatic graphics reduction, and replacement sounds for unavailable recordings. Source, asset generators, and regression tools: `sources/bodycam-demo/`.
 
 - **[Peel P50 · 3D](https://loggel.github.io/static-pages/peel-p50/)**: a procedural 3D model of the Peel P50 (1962–65), built without any image generation. The body is a signed distance field (rounded extrusions, smooth unions, a raked windscreen plane, wheel wells) meshed with surface nets and Newton-projected onto the iso-surface. Windows, seals and the door seam are 2D distance fields cut into the mesh along exact iso-lines. Wheels with knobbly tread, the single headlight, lamps, trim strips, the rear handle, wiper, mirror and cabin are parametric Three.js parts placed on the body by raymarching. The viewer has orbit controls, factory paints and a GLB download. Source and generator: `sources/peel-p50/`.
@@ -63,6 +64,7 @@ The editable source for the Creepshow rehearsal planner lives in
 ## Live site
 
 - Gallery: <https://loggel.github.io/static-pages/>
+- Kolping Ramsen clickable prototype: <https://loggel.github.io/static-pages/kolping-ramsen-prototyp/>
 - Quadratische Gleichungen learning app: <https://loggel.github.io/static-pages/quadratische-gleichungen/>
 - LUMEN lighting design studio: <https://loggel.github.io/static-pages/lumen/>
 - Haarästhetik · Quelle der Entspannung (redesign concept): <https://loggel.github.io/static-pages/haaraesthetik-bernhardt/>

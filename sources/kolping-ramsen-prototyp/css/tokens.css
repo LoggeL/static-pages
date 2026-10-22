@@ -1,0 +1,75 @@
+/* =========================================================
+   Design-Tokens – Kolpingsfamilie Ramsen (Prototyp)
+   Kolping-Orange #eb6800 nur als Akzent (Flächen, Balken,
+   Fokus). Für Text/Buttons mit weißer Schrift: --brand-strong
+   (#8a3800, 7,9:1 auf Weiß).
+   ========================================================= */
+:root {
+  color-scheme: light;
+
+  /* Marke */
+  --brand: #eb6800;          /* Kolping-Orange (Logo) */
+  --brand-strong: #8a3800;   /* Text/Buttons, 7.9:1 auf Weiß */
+  --brand-deep: #6a2b00;     /* Hover */
+  --brand-soft: #fff1e3;     /* Hintergrund-Tönung */
+  --brand-softer: #fff8f0;
+  --ink-black: #0b0f0e;      /* Schwarz aus dem Logo */
+
+  /* Neutrale Farben */
+  --bg: #fbf7f0;             /* warmes Papierweiß */
+  --surface: #ffffff;
+  --surface-2: #f4eee4;
+  --text: #1c1917;           /* 16:1 */
+  --text-muted: #4a4642;     /* ≥8:1 auf Weiß und --surface-2 */
+  --border: #ded5c6;
+  --border-strong: #8c8174;  /* ≥3:1 für Rahmen */
+
+  /* Status */
+  --ok: #145a28;             /* „Auf der Website zeigen“, 7,6:1 auf --ok-soft */
+  --ok-soft: #dcfce7;
+  --danger: #991b1b;         /* 8.3:1 */
+  --danger-soft: #fee2e2;
+  --info: #1e3a8a;
+  --info-soft: #dbeafe;
+  --warn: #7c2d12;
+  --warn-soft: #ffedd5;
+
+  /* Sichtbarkeits-Schilder (Ablage, Termine) */
+  --vis-public: #14532d;     --vis-public-bg: #dcfce7;
+  --vis-members: #1e3a8a;    --vis-members-bg: #dbeafe;
+  --vis-board: #7c2d12;      --vis-board-bg: #ffedd5;
+
+  /* Typografie */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Charter, "Bitstream Charter", Georgia, serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Öffentliche Seite */
+  --fs-pub: 1.0625rem;       /* 17px */
+  /* Admin: mindestens 18px, mit „A+“ 21px (siehe html.font-lg) */
+  --fs-admin: 1.125rem;
+  --fs-admin-small: 1rem;    /* Hilfetexte ≥16px */
+
+  /* Abstände */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px;
+  --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px;
+
+  /* Formen */
+  --radius-s: 8px;
+  --radius: 14px;
+  --radius-l: 22px;
+  --shadow-1: 0 1px 2px rgba(28,25,23,.06), 0 1px 1px rgba(28,25,23,.04);
+  --shadow-2: 0 6px 18px rgba(28,25,23,.08), 0 2px 4px rgba(28,25,23,.05);
+  --shadow-3: 0 18px 48px rgba(28,25,23,.18);
+
+  /* Klickflächen */
+  --tap: 48px;               /* Mindesthöhe aller Bedienelemente im Admin */
+  --tap-primary: 56px;
+
+  --focus: 0 0 0 3px #fff, 0 0 0 6px var(--brand);
+  --maxw: 1200px;
+  --header-h: 72px;
+}
+
+/* „A+ Größere Schrift“ – wird über <html class="font-lg"> geschaltet */
+html.font-lg { --fs-admin: 1.3125rem; --fs-admin-small: 1.1875rem; --fs-pub: 1.25rem; }

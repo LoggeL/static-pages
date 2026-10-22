@@ -1,0 +1,296 @@
+/* =========================================================
+   Verwaltung (Admin) – Senioren-UX: ≥18px, ≥48px Klickfläche,
+   Kontrast ≥7:1, alles beschriftet, nichts nur per Hover.
+   ========================================================= */
+.layout-admin, .layout-bare .login { font-size: var(--fs-admin); line-height: 1.55; }
+.layout-admin { min-height: 100vh; background: var(--bg); }
+.admin-container { width: 100%; max-width: 1360px; margin-inline: auto; padding-inline: 16px; }
+@media (min-width: 720px) { .admin-container { padding-inline: 24px; } }
+
+/* ---------- Avatar ---------- */
+.avatar {
+  display: inline-grid; place-items: center; flex: none; border-radius: 50%;
+  background: var(--av, #57534e); color: #fff; font-weight: 800; letter-spacing: .02em; line-height: 1;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+/* ---------- Demo-Leiste „Rolle wechseln“ ---------- */
+.role-switch-wrap {
+  background: repeating-linear-gradient(135deg, #2a221d 0 14px, #241d18 14px 28px);
+  color: #fff; border-bottom: 3px solid var(--brand);
+}
+.role-switch { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; padding: 8px 0; }
+.role-switch__label { font-weight: 800; font-size: 16px; color: #ffd2a6; white-space: nowrap; }
+.role-switch__list { display: flex; flex-wrap: wrap; gap: 6px; }
+.role-switch__btn {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 4px 14px 4px 5px;
+  border-radius: 999px; border: 2px solid rgba(255,255,255,.28); background: rgba(255,255,255,.06); color: #fff;
+  font-size: 16px; cursor: pointer;
+}
+.role-switch__btn b { font-weight: 800; }
+.role-switch__btn:hover { background: rgba(255,255,255,.16); }
+.role-switch__btn[aria-pressed="true"] { background: #fff; color: var(--ink-black); border-color: #fff; }
+.role-switch__btn[aria-pressed="true"]::after { content: "✓"; font-weight: 800; color: var(--ok); }
+
+/* ---------- Kopfzeile ---------- */
+.admin-header { background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-1); position: sticky; top: 0; z-index: 40; }
+.admin-header__inner { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding: 10px 16px; max-width: 1360px; margin: 0 auto; }
+@media (min-width: 720px) { .admin-header__inner { padding-inline: 24px; } }
+.admin-brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink-black); min-height: 48px; }
+.admin-brand:hover { color: var(--ink-black); }
+.admin-brand__text { display: grid; line-height: 1.1; font-size: .9em; }
+.admin-brand__text b { font-size: 1.15em; }
+.admin-user { display: flex; align-items: center; gap: 10px; margin-right: auto; padding-left: 14px; border-left: 2px solid var(--border); }
+.admin-user__text { display: grid; line-height: 1.25; }
+.admin-user__text b { font-size: 1em; }
+.admin-user__role { font-size: max(16px, .85em); font-weight: 700; color: var(--rc, var(--text-muted)); }
+.admin-tools { display: flex; flex-wrap: wrap; gap: 8px; }
+.admin-tool { min-height: var(--tap); }
+.admin-tool--help { --btn-bg: var(--info-soft); --btn-fg: var(--info); --btn-bd: var(--info); }
+.admin-tool--help:hover { --btn-bg: #c7dcfb; color: var(--info); }
+.admin-tool[aria-pressed="true"] { --btn-bg: var(--brand-soft); --btn-bd: var(--brand-strong); }
+@media (max-width: 719px) {
+  .admin-user { border-left: 0; padding-left: 0; order: 3; width: 100%; }
+  .admin-tools { order: 4; width: 100%; }
+  .admin-tools .btn { flex: 1 1 calc(50% - 8px); padding-inline: .6em; }
+}
+
+/* ---------- Körper: Navigation + Inhalt ---------- */
+.admin-body { display: grid; gap: 20px; padding-top: 20px; padding-bottom: 96px; }
+@media (min-width: 1100px) { .admin-body { grid-template-columns: 272px minmax(0, 1fr); gap: 32px; align-items: start; } }
+.admin-main { min-width: 0; outline: none; }
+.admin-nav { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px; }
+@media (min-width: 1100px) { .admin-nav { position: sticky; top: 96px; } }
+.admin-nav__group + .admin-nav__group { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.admin-nav__h { font-size: max(16px, .78em); text-transform: uppercase; letter-spacing: .08em; color: var(--text-muted); margin: 6px 10px 4px; }
+.admin-nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.admin-nav__link {
+  display: flex; align-items: center; gap: 12px; min-height: var(--tap); padding: 6px 12px; border-radius: var(--radius-s);
+  text-decoration: none; color: var(--text); font-weight: 700;
+}
+.admin-nav__link:hover { background: var(--surface-2); color: var(--text); }
+.admin-nav__link[aria-current="page"] { background: var(--brand-soft); color: var(--brand-deep); box-shadow: inset 4px 0 0 var(--brand); }
+.admin-nav__icon { font-size: 1.2em; width: 1.5em; text-align: center; flex: none; }
+@media (max-width: 1099px) {
+  .admin-nav { padding: 8px; }
+  .admin-nav__group { display: contents; }
+  .admin-nav__h { display: none; }
+  .admin-nav { display: flex; flex-wrap: wrap; gap: 6px; }
+  .admin-nav ul { display: contents; }
+  .admin-nav__link { border: 2px solid var(--border); background: var(--surface); padding: 4px 14px; }
+}
+
+/* ---------- Seitenkopf ---------- */
+.admin-page > * + * { margin-top: 24px; }
+.admin-page h1 { font-size: 1.8em; }
+.admin-page h2 { font-size: 1.3em; }
+.page-head { display: grid; gap: 10px; }
+.back-link {
+  justify-self: start; display: inline-flex; align-items: center; gap: 6px; min-height: var(--tap);
+  font-weight: 800; text-decoration: none; padding: 0 4px;
+}
+.back-link:hover { text-decoration: underline; }
+.page-head__row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+.page-head__title { margin: 0; font-size: 1.8em; flex: 1 1 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.page-head__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.page-head__intro { margin: 0; color: var(--text-muted); max-width: 760px; }
+
+/* ---------- Dashboard ---------- */
+.dash-head h1 { margin: 0 0 4px; font-size: 2em; }
+.dash-head__sub { font-size: 1.25em; color: var(--text-muted); margin: 0; font-weight: 600; }
+.tile-grid-admin { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 620px) { .tile-grid-admin { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1280px) { .tile-grid-admin { grid-template-columns: repeat(3, 1fr); } }
+.tile {
+  --tile-c: var(--brand);
+  position: relative; display: grid; align-content: start; gap: 6px; min-height: 150px; padding: 22px 24px 22px 26px;
+  background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius-l);
+  text-decoration: none; color: var(--text); text-align: left; cursor: pointer; font: inherit;
+  box-shadow: var(--shadow-1); transition: border-color .15s, box-shadow .15s, transform .1s; overflow: hidden;
+}
+.tile::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 7px; background: var(--tile-c); }
+.tile:hover { border-color: var(--tile-c); box-shadow: var(--shadow-2); color: var(--text); }
+.tile:active { transform: translateY(1px); }
+.tile__icon { font-size: 2.3em; line-height: 1; }
+.tile__title { font-size: 1.3em; font-weight: 800; line-height: 1.2; }
+.tile__text { color: var(--text-muted); font-size: max(16px, .95em); }
+.tile__badge { position: absolute; right: 16px; top: 16px; background: var(--danger); color: #fff; border-radius: 999px; font-weight: 800; padding: 2px 10px; font-size: 16px; }
+
+.dash-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-l); padding: 20px 22px; box-shadow: var(--shadow-1); }
+.dash-box > h2 { margin: 0 0 12px; font-size: 1.25em; }
+.dash-search { display: grid; gap: 8px; }
+.dash-search__row { display: flex; flex-wrap: wrap; gap: 10px; }
+.dash-search__row input { flex: 1 1 260px; min-height: var(--tap-primary); padding: .6em .9em; border: 2px solid var(--border-strong); border-radius: var(--radius-s); background: var(--surface); font-size: 1em; }
+.dash-search__row .btn { min-height: var(--tap-primary); }
+.dash-foot { padding-top: 8px; }
+
+/* ---------- Listen mit Zeilen (überall im Admin nutzbar) ---------- */
+.admin-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.admin-row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; min-height: 64px;
+  padding: 10px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+}
+.dash-box .admin-row { background: var(--bg); }
+.admin-row__icon { font-size: 1.5em; width: 1.6em; text-align: center; flex: none; }
+.admin-row__thumb { width: 64px; height: 48px; object-fit: cover; border-radius: 6px; flex: none; }
+.admin-row__date { font-weight: 800; min-width: 7.5em; color: var(--brand-strong); }
+.admin-row__main { flex: 1 1 240px; display: grid; gap: 2px; min-width: 0; }
+.admin-row__main b { overflow-wrap: anywhere; }
+.admin-row__sub { color: var(--text-muted); font-size: max(16px, .92em); }
+.admin-row__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+/* ---------- Hinweise ---------- */
+.notice { display: flex; gap: 12px; align-items: flex-start; padding: 14px 18px; border-radius: var(--radius); font-size: max(16px, .98em); }
+.notice > :last-child { margin-bottom: 0; } .notice p:last-child { margin-bottom: 0; }
+.notice--info { background: var(--info-soft); color: var(--info); }
+.notice--ok { background: var(--ok-soft); color: var(--ok); }
+.notice--warn { background: var(--warn-soft); color: var(--warn); }
+.notice--calm { background: var(--surface-2); color: var(--text); }
+.notice--demo, .demo-note {
+  background: repeating-linear-gradient(135deg, #fff8f0 0 12px, #fff1e3 12px 24px); color: var(--text);
+  border: 2px dashed var(--brand); border-radius: var(--radius); padding: 14px 18px;
+}
+
+/* ---------- Formulare im Admin ---------- */
+.form-grid { display: grid; gap: 0 24px; }
+@media (min-width: 820px) { .form-grid--2 { grid-template-columns: 1fr 1fr; } }
+.form-actions {
+  position: sticky; bottom: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+  background: rgba(251,247,240,.97); border-top: 2px solid var(--border); padding: 14px 0; margin-top: 24px;
+}
+.admin-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-l); padding: 22px 24px; box-shadow: var(--shadow-1); }
+
+/* ---------- Kein Zugriff ---------- */
+.forbidden { max-width: 720px; margin: 24px auto; text-align: center; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-l); padding: 36px 24px; box-shadow: var(--shadow-1); }
+.forbidden__icon { font-size: 3.6em; line-height: 1; margin-bottom: 8px; }
+.forbidden h1 { font-size: 2em; margin-bottom: 8px; }
+.forbidden__lead { font-size: 1.2em; font-weight: 700; }
+.forbidden__actions { justify-content: center; margin: 20px 0; }
+.forbidden .demo-note { text-align: left; margin-top: 20px; font-size: max(16px, .92em); }
+
+/* ---------- Hilfe ---------- */
+.help > * + * { margin-top: 16px; }
+.help__steps { padding-left: 1.4em; display: grid; gap: 10px; margin: 0; }
+.help__steps li { padding-left: 4px; }
+.help__video { display: flex; gap: 16px; align-items: center; background: var(--ink-black); color: #fff; border-radius: var(--radius); padding: 18px; }
+.help__play { width: 56px; height: 56px; border-radius: 50%; background: var(--brand); color: var(--ink-black); display: grid; place-items: center; font-size: 1.4em; flex: none; }
+.help__contact { display: flex; gap: 12px; align-items: flex-start; background: var(--info-soft); color: var(--info); padding: 14px 16px; border-radius: var(--radius); }
+.help__calm { font-weight: 700; margin: 0; }
+
+/* ---------- Foto-Auswahl ---------- */
+.picker-upload { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 16px; }
+.picker-status { font-weight: 700; }
+.picker-grid { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.picker-item { display: grid; gap: 4px; padding: 6px; border: 2px solid var(--border); border-radius: var(--radius); background: var(--surface); cursor: pointer; text-align: left; }
+.picker-item:hover { border-color: var(--brand-strong); }
+.picker-item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 6px; }
+.picker-item__alt { font-weight: 700; font-size: 16px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.picker-item__size { color: var(--text-muted); font-size: 16px; }
+
+/* ---------- Fehlerkasten ---------- */
+.error-box { background: var(--danger-soft); color: var(--danger); border-radius: var(--radius); padding: 20px 24px; margin: 24px 0; }
+.error-box pre { white-space: pre-wrap; font-size: 15px; }
+
+/* ---------- Anmeldung ---------- */
+.login { max-width: 980px; margin: 0 auto; padding: 28px 16px 64px; }
+.login__brand { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; }
+.login__org { margin: 0; font-weight: 800; color: var(--brand-strong); text-transform: uppercase; letter-spacing: .08em; font-size: 16px; }
+.login__title { margin: 0; font-size: clamp(1.6em, 1.2em + 2vw, 2.2em); }
+.login__reason { background: var(--info-soft); color: var(--info); border-radius: var(--radius); padding: 14px 18px; font-weight: 700; margin-bottom: 16px; }
+.login__card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-l); padding: 24px; box-shadow: var(--shadow-2); }
+.login__foot { margin-top: 20px; color: var(--text-muted); }
+.login-h { font-size: 1.5em; margin: 0 0 4px; }
+.login-sub { margin-bottom: 20px; }
+.person-grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); }
+.person-card {
+  display: grid; justify-items: center; align-content: start; gap: 6px; text-align: center; padding: 22px 16px 18px;
+  border: 2px solid var(--border); border-radius: var(--radius-l); background: var(--bg); cursor: pointer; font: inherit; color: var(--text);
+  transition: border-color .15s, box-shadow .15s, transform .1s; min-height: 250px;
+}
+.person-card:hover { border-color: var(--brand-strong); box-shadow: var(--shadow-2); background: var(--surface); }
+.person-card:active { transform: translateY(1px); }
+.person-card .avatar { margin-bottom: 4px; }
+.person-card__name { font-weight: 800; font-size: 1.15em; }
+.person-card__role { font-weight: 800; color: #fff; background: var(--rc); border-radius: 999px; padding: 2px 12px; font-size: 16px; }
+.person-card__hint { color: var(--text-muted); font-size: 16px; }
+.person-card__perm { font-size: 16px; line-height: 1.35; }
+.person-card__cta { margin-top: auto; padding-top: 8px; font-weight: 800; color: var(--brand-strong); }
+.login-mail { margin-top: 24px; border-top: 1px solid var(--border); padding-top: 16px; }
+.login-mail summary { cursor: pointer; font-weight: 800; min-height: var(--tap); display: flex; align-items: center; color: var(--brand-strong); }
+.login-mail__form { display: grid; gap: 10px; max-width: 520px; margin-top: 12px; }
+.login-mail__form input { min-height: var(--tap-primary); padding: .6em .9em; border: 2px solid var(--border-strong); border-radius: var(--radius-s); font-size: 1em; }
+.login-sent { text-align: center; display: grid; justify-items: center; gap: 8px; padding: 12px 0; }
+.login-sent__icon { font-size: 3.4em; }
+.login-sent h2 { margin: 0; font-size: 1.5em; }
+.login-sent__lead { font-size: 1.15em; max-width: 560px; }
+
+/* ---------- Rundgang: Schritt-Titel als Knopf ---------- */
+.tour__pick { background: none; border: 0; padding: 0; font: inherit; font-weight: 700; color: inherit; cursor: pointer; text-align: left; }
+.tour__pick:hover { text-decoration: underline; }
+@media (max-width: 600px) {
+  .role-switch { gap: 6px; }
+  .role-switch__label { width: 100%; }
+  .role-switch__btn { font-size: 15px; min-height: 44px; padding-right: 10px; gap: 6px; }
+  .role-switch__list { gap: 5px; }
+}
+
+/* ---------- Handy: Kopfbereich kompakt, damit der Inhalt sofort sichtbar ist ---------- */
+@media (max-width: 719px) {
+  .admin-header { position: static; }
+  .admin-header__inner { gap: 10px 12px; }
+  .admin-brand__text { display: none; }
+  .admin-user { order: 2; width: auto; flex: 1 1 0; min-width: 0; }
+  .admin-user__text b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .role-switch { flex-wrap: nowrap; flex-direction: column; align-items: stretch; gap: 4px; padding: 6px 0; }
+  .role-switch__label { font-size: 14px; }
+  .role-switch__list { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
+  .role-switch__btn { flex: none; }
+  /* Unterseiten: Menü ausblenden – oben steht immer „← Zurück“, alle Bereiche gibt es auf der Übersicht */
+  .admin-body:not(.admin-body--home) > .admin-nav { display: none; }
+  .admin-body--home > .admin-nav { order: 2; }
+  .admin-body { padding-top: 14px; }
+}
+
+/* Lange Beschriftungen dürfen umbrechen statt die Seite zu verbreitern (v. a. mit „A+ Größere Schrift“) */
+.page-head { grid-template-columns: minmax(0, 1fr); }
+.page-head__row > *, .page-head > * { min-width: 0; }
+.layout-admin .btn { max-width: 100%; white-space: normal; }
+.layout-admin .badge { max-width: 100%; white-space: normal; }
+
+/* Klebende Aktionsleiste unten: deckend (nichts schimmert durch), Schatten nach oben.
+   Der Rundgang-Knopf wird auf solchen Seiten zu einem kleinen runden 🧭 ÜBER der Leiste (siehe base.css). */
+.form-actions { background: var(--bg); box-shadow: 0 -8px 18px -6px rgba(28,25,23,.16); }
+
+/* Hinweise (Toasts) immer über der klebenden Aktionsleiste – Höhe misst tour.js (--actions-h) */
+body.has-actions .toast-region { bottom: calc(var(--actions-h, 90px) + 14px); }
+
+/* Unten Platz lassen, damit der schwebende Rundgang-Knopf nichts am Seitenende verdeckt */
+.layout-admin .admin-main { padding-bottom: 88px; }
+
+/* Schilder und Vorschau-Elemente in der Verwaltung: mindestens 16px */
+.layout-admin .badge { font-size: max(16px, .88em); }
+.layout-admin .ablage-file__path .badge { font-size: 16px; }
+.layout-admin .date-block__wd, .layout-admin .date-block__mon { font-size: 16px; }
+.layout-admin .event-row__meta { font-size: max(16px, .97rem); }
+.role-switch__btn { min-height: 48px; }
+/* Anmeldung: 4 Personen als 2 × 2 (Tablet) bzw. 4 nebeneinander (breit) – keine verwaiste Karte */
+.person-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 479px) { .person-grid { grid-template-columns: 1fr; } }
+@media (min-width: 1100px) { .person-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+/* Aktionsleiste ab Tablet einzeilig: der Speicherstatus darf schmaler werden und umbrechen,
+   die Knöpfe behalten ihre Größe */
+@media (min-width: 720px) {
+  .layout-admin .form-actions { flex-wrap: nowrap; }
+  .layout-admin .form-actions > .btn { flex: 0 0 auto; }
+  .layout-admin .form-actions > .autosave { flex: 0 1 auto; min-width: 150px; border-radius: 18px; line-height: 1.25; }
+  .layout-admin .form-actions > .spacer { flex: 1 1 0; min-width: 0; }
+}
+@media (min-width: 720px) and (max-width: 1099px) {
+  .layout-admin .protokolle-actions > .btn:not(.btn--lg) { padding-inline: .8em; }
+}
+@media (min-width: 720px) and (max-width: 1099px) {
+  .layout-admin .form-actions > .autosave { display: block; min-width: 175px; padding: .45em .9em; }
+  .layout-admin .form-actions > .autosave--saving::before { display: inline-block; vertical-align: -1px; margin-right: .4em; }
+  .layout-admin .form-actions > .btn--lg { padding-inline: .95em; }
+  .layout-admin .form-actions { gap: 10px; }
+}

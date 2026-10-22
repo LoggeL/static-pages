@@ -1,0 +1,255 @@
+/* =========================================================
+   modules/ablage.css – Dateiablage des Vorstands
+   Senioren-UX: Schrift in em (A+ wirkt), Klickflächen ≥48px,
+   Kontrast ≥7:1, alles beschriftet.
+   ========================================================= */
+
+/* ---------- Brotkrumen ---------- */
+.ablage-crumbs ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 4px; }
+.ablage-crumbs li { display: inline-flex; align-items: center; gap: 4px; }
+.ablage-crumbs a, .ablage-crumbs__here {
+  display: inline-flex; align-items: center; min-height: var(--tap); padding: 0 10px; border-radius: var(--radius-s);
+  font-weight: 700; text-decoration: none;
+}
+.ablage-crumbs a { color: var(--brand-strong); background: var(--surface); border: 2px solid var(--border); }
+.ablage-crumbs a:hover { border-color: var(--brand-strong); background: var(--brand-softer); }
+.ablage-crumbs__here { color: var(--text); }
+.ablage-crumbs__here[aria-current="page"] { background: var(--surface-2); }
+.ablage-crumbs__sep { color: var(--text-muted); font-weight: 800; font-size: 1.2em; padding: 0 2px; }
+.admin-page.ablage > .ablage-crumbs + .page-head { margin-top: 10px; }
+.ablage-title { display: inline-flex; align-items: center; gap: 4px; }
+
+/* ---------- Ordner-Kacheln ---------- */
+.ablage-folders { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); }
+.ablage-folder {
+  --vc: var(--vis-board); --vbg: var(--vis-board-bg);
+  position: relative; display: grid; align-content: start; justify-items: start; gap: 8px;
+  min-height: 160px; padding: 20px 22px 18px 26px;
+  background: var(--surface); border: 2px solid var(--border); border-radius: var(--radius-l);
+  text-decoration: none; color: var(--text); box-shadow: var(--shadow-1);
+  transition: border-color .15s, box-shadow .15s, transform .1s; overflow: hidden;
+}
+.ablage-folder::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px; background: var(--vc); }
+.ablage-folder--members { --vc: var(--vis-members); --vbg: var(--vis-members-bg); }
+.ablage-folder--public  { --vc: var(--vis-public);  --vbg: var(--vis-public-bg); }
+.ablage-folder:hover { border-color: var(--vc); box-shadow: var(--shadow-2); color: var(--text); }
+.ablage-folder:active { transform: translateY(1px); }
+.ablage-folder__icon { font-size: 2.4em; line-height: 1; }
+.ablage-folder__name { font-size: 1.28em; font-weight: 800; line-height: 1.2; overflow-wrap: anywhere; }
+.ablage-folder__meta { color: var(--text-muted); font-size: max(16px, .95em); }
+.ablage-folder__open { margin-top: auto; font-weight: 800; color: var(--brand-strong); }
+.ablage-folders--roots .ablage-folder { min-height: 190px; }
+.ablage-folders--roots .ablage-folder__name { font-size: 1.45em; }
+
+/* ---------- Rechte-Schild am Ordner ---------- */
+.ablage-vis {
+  --vc: var(--vis-board); --vbg: var(--vis-board-bg);
+  border: 2px solid var(--vc); background: var(--vbg); color: var(--text); border-radius: var(--radius-l); padding: 16px 20px;
+}
+.ablage-vis--members { --vc: var(--vis-members); --vbg: var(--vis-members-bg); }
+.ablage-vis--public  { --vc: var(--vis-public);  --vbg: var(--vis-public-bg); }
+.ablage-vis__head { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px 16px; }
+.ablage-vis__icon { font-size: 2em; line-height: 1.1; flex: none; }
+.ablage-vis__text { flex: 1 1 320px; min-width: 0; }
+.ablage-vis__text p { margin: 0; }
+.ablage-vis__title { font-size: 1.12em; color: var(--vc); }
+.ablage-vis__title strong { color: var(--vc); }
+.ablage-vis__sub { color: var(--text); margin-top: 4px !important; }
+.ablage-vis__head .btn { flex: none; }
+.ablage-vis__people { display: grid; gap: 10px; margin-top: 14px; padding-top: 12px; border-top: 1px solid color-mix(in srgb, var(--vc) 35%, transparent); }
+@media (min-width: 900px) { .ablage-vis__people { grid-template-columns: 1fr 1fr; } }
+.ablage-vis__label { display: block; font-weight: 800; margin-bottom: 6px; color: var(--vc); }
+.ablage-vis__group--no .ablage-vis__label { color: var(--text); }
+.ablage-vis__group--no .avatar { filter: grayscale(1); opacity: .75; }
+.ablage-people { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.ablage-people li { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; }
+.ablage-people small { font-weight: 400; color: var(--text); font-size: max(16px, .85em); }
+
+/* ---------- Suche ---------- */
+.ablage-search .dash-search__row input { min-height: var(--tap); }
+.ablage-search .dash-search__row .btn { min-height: var(--tap); }
+.ablage-results { display: grid; gap: 16px; }
+.ablage-results__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.ablage-results__head h2 { margin: 0; }
+
+/* ---------- Dateiliste ---------- */
+.ablage-files-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; margin-bottom: 12px; }
+.ablage-files-head h2 { margin: 0; }
+.ablage-sort { align-items: center; }
+.ablage-sort__label { font-weight: 700; color: var(--text-muted); margin-right: 2px; }
+.ablage-sort .chip { min-height: var(--tap); }
+.ablage-files { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.ablage-file {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 16px; align-items: center;
+  padding: 14px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+}
+.dash-box .ablage-file { background: var(--bg); }
+.ablage-file--hl { border: 3px solid var(--brand); box-shadow: 0 0 0 4px var(--brand-soft); }
+.ablage-file--trash { background: var(--surface); border-style: dashed; border-width: 2px; }
+.ablage-file__lead { align-self: start; }
+.ablage-file__thumb { width: 76px; height: 58px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); display: block; background: var(--surface-2); }
+.ablage-type {
+  display: grid; place-items: center; width: 58px; height: 58px; border-radius: 12px; font-size: 1.6em;
+  background: var(--surface-2); border: 1px solid var(--border);
+}
+.ablage-type--pdf { background: #fee2e2; border-color: #fca5a5; }
+.ablage-type--sheet { background: #dcfce7; border-color: #86efac; }
+.ablage-type--text { background: #dbeafe; border-color: #93c5fd; }
+.ablage-type--image { background: var(--brand-soft); border-color: #fdba74; }
+.ablage-type--protocol { background: #fef3c7; border-color: #fcd34d; }
+.ablage-type--folder { background: var(--warn-soft); border-color: #fdba74; }
+.ablage-file__main { display: grid; gap: 3px; min-width: 0; }
+.ablage-file__name { font-weight: 800; font-size: 1.05em; overflow-wrap: anywhere; color: var(--text); text-align: left; }
+.ablage-file__name--btn {
+  background: none; border: 0; padding: 0; margin: 0; font: inherit; font-weight: 800; font-size: 1.05em; cursor: pointer;
+  color: var(--brand-strong); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px;
+  min-height: 48px; display: inline-flex; align-items: center; justify-self: start;
+}
+.ablage-file__name--btn:hover { color: var(--brand-deep); }
+.ablage-file__meta { color: var(--text-muted); font-size: max(16px, .92em); }
+.ablage-file__path { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: max(16px, .92em); font-weight: 600; }
+.ablage-file__note { font-size: max(16px, .92em); color: var(--text); }
+.ablage-file__actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px; }
+@media (min-width: 720px) { .ablage-file__actions { grid-column: 2; } }
+.ablage-file__actions .btn { min-height: var(--tap); }
+@media (max-width: 560px) {
+  .ablage-file__actions .btn { flex: 1 1 calc(50% - 8px); padding-inline: .6em; }
+  .ablage-file__thumb { width: 60px; height: 48px; }
+  .ablage-type { width: 48px; height: 48px; font-size: 1.35em; }
+}
+
+/* ---------- Ziehen & Ablegen ---------- */
+.ablage-drop {
+  display: flex; align-items: center; gap: 14px; margin-top: 14px; padding: 18px 20px; border-radius: var(--radius);
+  border: 2px dashed var(--border-strong); background: var(--surface); color: var(--text);
+}
+.ablage-drop__icon { font-size: 1.8em; color: var(--brand-strong); flex: none; }
+.ablage-drop--over { border-color: var(--brand-strong); background: var(--brand-soft); }
+@media (hover: none) { .ablage-drop { display: none; } }   /* Tablet/Handy: kein Ziehen – der Knopf reicht */
+
+/* ---------- „Dieser Ordner“ ---------- */
+.ablage-this h2 { margin: 0 0 6px; }
+.ablage-this .cluster { margin-top: 12px; }
+.ablage-foot { padding-top: 4px; }
+
+/* ---------- Speicherplatz ---------- */
+.ablage-storage__total { margin: 0 0 10px; font-size: 1.05em; }
+.ablage-meter {
+  display: flex; height: 22px; border-radius: 999px; overflow: hidden; background: var(--surface-2);
+  border: 2px solid var(--border-strong);
+}
+.ablage-meter__seg { height: 100%; }
+.ablage-meter__seg + .ablage-meter__seg { border-left: 2px solid var(--surface); }
+.ablage-meter__seg--board, .ablage-area__fill--board { background: var(--vis-board); }
+.ablage-meter__seg--members, .ablage-area__fill--members { background: var(--vis-members); }
+.ablage-meter__seg--public, .ablage-area__fill--public { background: var(--vis-public); }
+.ablage-areas { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 12px; }
+.ablage-area { display: grid; gap: 4px 16px; grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 760px) { .ablage-area { grid-template-columns: minmax(220px, 1.2fr) 2fr minmax(160px, auto); } }
+.ablage-area__name { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-weight: 800; }
+.ablage-area__name a { display: inline-flex; align-items: center; min-height: 48px; }
+.ablage-area__bar { display: block; height: 14px; background: var(--surface-2); border-radius: 999px; overflow: hidden; border: 1px solid var(--border); }
+.ablage-area__fill { display: block; height: 100%; border-radius: 999px; }
+.ablage-area__size { color: var(--text-muted); font-weight: 700; font-size: max(16px, .95em); }
+.ablage-storage__saved { margin: 16px 0 0; padding: 10px 14px; border-radius: var(--radius-s); background: var(--ok-soft); color: var(--ok); }
+.ablage-storage__saved strong { color: var(--ok); }
+.ablage-storage__note { margin: 10px 0 0; font-size: max(16px, .92em); }
+
+/* ---------- Auswahlkarten (Radio) ---------- */
+.ablage-choices { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; min-width: 0; }
+.ablage-choices legend { padding: 0; margin-bottom: 8px; }
+.ablage-req { font-weight: 400; color: var(--text-muted); }
+.ablage-choice {
+  --vc: var(--vis-board);
+  display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; min-height: var(--tap);
+  border: 2px solid var(--border); border-radius: var(--radius); background: var(--surface); cursor: pointer;
+}
+.ablage-choice--members { --vc: var(--vis-members); }
+.ablage-choice--public { --vc: var(--vis-public); }
+.ablage-choice:hover { border-color: var(--border-strong); }
+.ablage-choice input { width: 26px; height: 26px; margin: 2px 0 0; flex: none; accent-color: var(--brand-strong); }
+.ablage-choice:has(input:checked) { border-color: var(--brand-strong); background: var(--brand-softer); box-shadow: inset 6px 0 0 var(--vc); }
+.ablage-choice:has(input:focus-visible) { box-shadow: var(--focus); }
+.ablage-choice--off { opacity: .62; cursor: not-allowed; background: var(--surface-2); }
+.ablage-choice__body { display: grid; gap: 2px; min-width: 0; }
+.ablage-choice__title { font-weight: 800; color: var(--vc); }
+.ablage-choice--row .ablage-choice__title { color: var(--text); }
+.ablage-choice__title small { font-weight: 400; color: var(--text-muted); }
+.ablage-choice__text { color: var(--text); }
+.ablage-choice__who { color: var(--text-muted); font-size: max(16px, .92em); }
+.ablage-choice__warn { color: var(--warn); font-weight: 700; font-size: max(16px, .92em); }
+.ablage-choice--row { margin-left: calc(var(--depth, 0) * 24px); align-items: center; }
+.ablage-choice--row .badge { justify-self: start; margin-top: 4px; }
+.ablage-choices--invalid .ablage-choice { border-color: var(--danger); }
+.ablage-dest { max-height: min(52vh, 460px); overflow-y: auto; padding: 2px 4px 2px 2px; }
+.ablage-dest legend { position: sticky; top: 0; background: var(--surface); width: 100%; z-index: 1; padding-bottom: 6px; }
+@media (max-width: 560px) { .ablage-choice--row { margin-left: calc(var(--depth, 0) * 12px); } }
+
+/* ---------- Umbenennen ---------- */
+.ablage-rename { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 0 8px; }
+.ablage-rename__ext { font-weight: 800; color: var(--text-muted); padding-bottom: calc(var(--sp-5) + 12px); }
+.ablage-move-warn:empty { display: none; }
+
+/* ---------- Hochladen ---------- */
+.ablage-upload__dest { margin: 0; font-size: 1.05em; }
+.ablage-upload__vis {
+  --vc: var(--vis-board); --vbg: var(--vis-board-bg);
+  display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: var(--radius);
+  background: var(--vbg); color: var(--vc); border: 2px solid var(--vc); font-size: 1.08em;
+}
+.ablage-upload__vis.ablage-vis--members { --vc: var(--vis-members); --vbg: var(--vis-members-bg); }
+.ablage-upload__vis.ablage-vis--public { --vc: var(--vis-public); --vbg: var(--vis-public-bg); }
+.ablage-upload__vis strong { color: var(--vc); }
+.ablage-upload__vis > span:first-child { font-size: 1.5em; }
+.ablage-upload__demo { border: 2px dashed var(--brand); border-radius: var(--radius); padding: 12px 16px; background: var(--brand-softer); }
+.ablage-upload__demo-h { margin: 0 0 8px; font-weight: 800; }
+.ablage-up-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.ablage-up-list:empty { display: none; }
+.ablage-up { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); }
+.ablage-up__icon { font-size: 1.6em; flex: none; width: 64px; text-align: center; }
+.ablage-up__thumb { width: 64px; height: 48px; object-fit: cover; border-radius: 6px; flex: none; }
+.ablage-up__main { display: grid; gap: 4px; min-width: 0; }
+.ablage-up__main b { overflow-wrap: anywhere; }
+.ablage-up__status { display: grid; gap: 4px; color: var(--text-muted); }
+.ablage-up__ok { color: var(--ok); font-weight: 700; }
+.ablage-up--err { border-color: var(--danger); background: var(--danger-soft); }
+.ablage-up--err .ablage-up__status { color: var(--danger); font-weight: 700; }
+.ablage-up-summary:empty { display: none; }
+.ablage-up-summary { background: var(--ok-soft); color: var(--ok); border-radius: var(--radius); padding: 12px 16px; }
+.ablage-up-summary p { margin: 0; }
+
+/* ---------- Vorschau ---------- */
+.ablage-preview { display: grid; gap: 20px; }
+@media (min-width: 820px) { .ablage-preview { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: start; } }
+.ablage-preview__stage { background: var(--surface-2); border-radius: var(--radius); padding: 14px; display: grid; place-items: center; min-height: 220px; }
+.ablage-preview__img { margin: 0; }
+.ablage-preview__img img { max-width: 100%; max-height: 58vh; border-radius: 8px; box-shadow: var(--shadow-2); display: block; }
+.ablage-preview__facts { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 16px; align-items: baseline; }
+.ablage-preview__facts dt { font-weight: 800; color: var(--text-muted); }
+.ablage-preview__facts dd { margin: 0; overflow-wrap: anywhere; }
+.ablage-preview__facts .badge { white-space: normal; }
+
+/* PDF/Word/Excel-Platzhalter als Papierseite */
+.ablage-paper { display: grid; gap: 10px; justify-items: center; width: 100%; }
+.ablage-paper__page {
+  width: min(100%, 320px); aspect-ratio: 1 / 1.414; background: #fff; border: 1px solid var(--border);
+  box-shadow: var(--shadow-2); border-radius: 4px; padding: 18px 20px; display: grid; align-content: start; gap: 8px; overflow: hidden;
+  border-top: 10px solid var(--brand);
+}
+.ablage-paper__top { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--text-muted); }
+.ablage-paper__title { margin: 4px 0 6px; font-weight: 800; font-size: 15px; line-height: 1.3; color: var(--text); overflow-wrap: anywhere; }
+.ablage-paper__line { display: block; height: 7px; border-radius: 4px; background: #e7e1d6; margin: 5px 0; }
+.ablage-paper__h { display: block; height: 10px; width: 45%; border-radius: 4px; background: #cfc6b6; margin: 12px 0 6px; }
+.ablage-paper__sheet { display: grid; gap: 0; font-size: 11px; border: 1px solid #cfe8d6; }
+.ablage-paper__tr { display: grid; grid-template-columns: 1fr 1.6fr 1fr 1fr; }
+.ablage-paper__tr span { border: 1px solid #e3efe6; padding: 3px 4px; min-height: 20px; color: #3f3a35; }
+.ablage-paper__tr .th { background: #dcfce7; font-weight: 800; color: var(--vis-public); }
+.ablage-paper--sheet .ablage-paper__page { border-top-color: #15803d; }
+.ablage-paper--text .ablage-paper__page { border-top-color: #1d4ed8; }
+.ablage-paper__note { margin: 0; color: var(--text); font-size: max(16px, .9em); text-align: center; }
+
+/* Schild neben der Überschrift: normale Schildgröße statt Überschriftgröße */
+.ablage .page-head__title .badge { font-size: max(16px, .5em); }
+.ablage-file .badge, .ablage-choice .badge { white-space: normal; }
+@media (max-width: 560px) { .ablage .dash-box { padding: 16px 12px; } .ablage-file { padding: 12px; gap: 10px 12px; } }
+.ablage-preview__vis { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; }

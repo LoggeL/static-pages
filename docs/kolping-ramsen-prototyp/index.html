@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Kolpingsfamilie Ramsen</title>
+  <meta name="description" content="Klickbarer Prototyp für die neue Website der Kolpingsfamilie Ramsen – mit einfacher Verwaltung, Dateiablage für den Vorstand und Rechtesystem.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#eb6800">
+  <link rel="icon" href="img/kolping-logo.svg" type="image/svg+xml">
+
+  <!-- Kern -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/public.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <!-- Module (jedes Modul pflegt nur seine eigene Datei) -->
+  <link rel="stylesheet" href="css/modules/inhalte.css">
+  <link rel="stylesheet" href="css/modules/ablage.css">
+  <link rel="stylesheet" href="css/modules/protokolle.css">
+  <link rel="stylesheet" href="css/modules/termine.css">
+  <link rel="stylesheet" href="css/modules/benutzer.css">
+</head>
+<body>
+  <div id="demo-band" class="demo-band" role="note" aria-label="Hinweis zum Prototyp">
+    <div class="container">
+      <span><span class="demo-band__dot" aria-hidden="true"></span><strong>Klickbarer Prototyp</strong> · Beispieldaten · nichts wird gespeichert oder versendet</span>
+      <span class="cluster" style="gap:8px">
+        <button type="button" data-demo-tour>🧭 Rundgang</button>
+        <button type="button" data-demo-reset>↺ Demo zurücksetzen</button>
+      </span>
+    </div>
+  </div>
+
+  <div id="app" aria-live="off">
+    <noscript>
+      <p style="padding:24px;font-size:20px">Dieser Prototyp braucht JavaScript. Bitte in einem aktuellen Browser öffnen.</p>
+    </noscript>
+    <p class="boot-msg" style="padding:48px 16px;text-align:center;color:#57534e">Wird geladen …</p>
+  </div>
+  <div id="modal-root"></div>
+  <div id="tour-root" class="tour"></div>
+
+  <script type="module">
+    // Reihenfolge: Kern → Website → Verwaltung → Module → Rundgang → Router starten.
+    // Ein fehlerhaftes Modul darf den Rest nicht lahmlegen (Promise.allSettled).
+    const MODULES = ['inhalte', 'ablage', 'protokolle', 'termine', 'benutzer'];
+    const fail = (what, e) => {
+      console.error(`[Prototyp] ${what} konnte nicht geladen werden:`, e);
+      const box = document.createElement('div');
+      box.className = 'error-box';
+      box.style.margin = '16px';
+      box.textContent = `Fehler im Prototyp (${what}): ${e && e.message || e} `;
+      const again = document.createElement('button');
+      again.type = 'button'; again.className = 'btn btn--sm'; again.textContent = '↻ Seite neu laden';
+      again.addEventListener('click', () => location.reload());
+      box.append(again);
+      document.body.insertBefore(box, document.getElementById('app'));
+    };
+    try {
+      await import('./js/public.js');
+      await import('./js/admin.js');
+    } catch (e) { fail('Kern', e); throw e; }
+    const results = await Promise.allSettled(MODULES.map(m => import(`./js/modules/${m}.js`)));
+    results.forEach((r, i) => { if (r.status === 'rejected') fail(`Modul ${MODULES[i]}`, r.reason); });
+    try { await import('./js/tour.js'); } catch (e) { fail('Rundgang', e); }
+    const { start } = await import('./js/app.js');
+    start();
+  </script>
+</body>
+</html>
