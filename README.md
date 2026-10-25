@@ -4,6 +4,7 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
+- **[Premiere · Theater-Sammelkartenspiel](https://loggel.github.io/static-pages/premiere-tcg/)**: a German game design plan for a Magic-style trading card game built from the roles of the Kolpingtheater Ramsen. Card costs, rarity and keywords are derived from the scripts (text share, scenes, questions, scene partners), and each of the five colours is a backdrop from one of the plays. The page has an animated sample turn, a booster opening, a script-to-card pipeline animation, a colour wheel, keyword-by-colour heatmaps, cost curves, a scene network and generated illustrations of fictional characters; technical notes are collapsed at the end. Vanilla JS without a build step. Source and image prompts: `sources/premiere-tcg/`.
 - **[Kolping Ramsen · Klick-Prototyp](https://loggel.github.io/static-pages/kolping-ramsen-prototyp/)**: a clickable German prototype for the website relaunch of the Kolpingsfamilie Ramsen, built for a board demo. The public site has news, events (list and month view, iCal export), club pages and a photo review; the admin area is designed for older volunteers (18px+ type, 48px targets, icon-plus-text buttons, plain German, visible autosave, undo instead of confirm dialogs). A role bar switches between four demo people (admin, board, editor, member) to show role-based access: large-tile tasks, event and news editors, photo upload with in-browser compression, a board-only file store with folders, a minutes editor with live co-editing simulation, a permission matrix, an audit log, a trash bin and a guided tour. Sample data only; everything stays in localStorage and can be reset. Vanilla JS ES modules without a build step. Source and module conventions: `sources/kolping-ramsen-prototyp/`.
 - **[Bodycam-Tech-Demo](https://loggel.github.io/static-pages/bodycam-demo/)**: a playable Three.js/WebGL2 prototype with a furnished house, physics doors, a carbine with weapon inertia and first-person arms, three NPCs, bodycam post-processing, and 198 recorded sound clips. Supports mouse/keyboard and multitouch controls, automatic graphics reduction, and replacement sounds for unavailable recordings. Source, asset generators, and regression tools: `sources/bodycam-demo/`.
 
@@ -64,6 +65,7 @@ The editable source for the Creepshow rehearsal planner lives in
 ## Live site
 
 - Gallery: <https://loggel.github.io/static-pages/>
+- Premiere game design plan: <https://loggel.github.io/static-pages/premiere-tcg/>
 - Kolping Ramsen clickable prototype: <https://loggel.github.io/static-pages/kolping-ramsen-prototyp/>
 - Quadratische Gleichungen learning app: <https://loggel.github.io/static-pages/quadratische-gleichungen/>
 - LUMEN lighting design studio: <https://loggel.github.io/static-pages/lumen/>
