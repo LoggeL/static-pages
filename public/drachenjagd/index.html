@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#120d1c">
-<title>Jule & Logge: Drachenjagd</title>
+<title>Jule auf großer Drachenjagd</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <style>
@@ -832,17 +832,9 @@ function renderTitle() {
   const dusk = 0;
   drawBackground(dusk); drawMidground(dusk); drawGround();
   ctx.fillStyle = 'rgba(18,13,28,0.55)'; ctx.fillRect(0, 0, W, H);
-  // Porträts
-  const px = [58, 132, 206];
-  ['jule', 'logge'].forEach((k, i) => drawPortrait(k, px[i], 62));
-  rect(px[2] - 1, 61, 58, 58, '#f5f1e6'); rect(px[2], 62, 56, 56, '#2a1d3e');
-  ctx.drawImage((frameN >> 5) % 2 ? DRAGON.stand.c : DRAGON.standOpen.c, px[2] + 10, 76);
   blit();
-  text('JULE & LOGGE', 160, 14, 14, '#f6c35c', 'center');
-  text('und die große Drachenjagd', 160, 38, 6, '#f5f1e6', 'center');
-  text('Jule', px[0] + 28, 124, 5, NAME_COL.jule, 'center');
-  text('Logge', px[1] + 28, 124, 5, NAME_COL.logge, 'center');
-  text('Drache ???', px[2] + 28, 124, 5, NAME_COL.jakob, 'center');
+  text('Jule auf großer', 160, 48, 14, '#f6c35c', 'center');
+  text('Drachenjagd', 160, 72, 14, '#f6c35c', 'center');
   if ((frameN >> 5) % 2 === 0) text(isTouch ? 'Tippen zum Starten' : 'Enter drücken zum Starten', 160, 144, 6, '#ffffff', 'center');
   text(isTouch ? '' : 'Pfeile: laufen/springen   X: Captain Kuschel   M: Ton', 160, 162, 4, '#bfb4d6', 'center');
 }
