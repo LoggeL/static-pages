@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#120d1c">
+<title>Jule & Logge: Drachenjagd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #120d1c; }
+  html, body { margin: 0; height: 100%; background: var(--bg); overflow: hidden; overscroll-behavior: none;
+    touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+  body { display: flex; align-items: center; justify-content: center; font-family: "Press Start 2P", monospace; }
+  body.portrait { align-items: flex-start; padding-top: max(12px, env(safe-area-inset-top)); box-sizing: border-box; }
+  canvas { display: block; image-rendering: pixelated; image-rendering: crisp-edges; touch-action: none; }
+  #touch { position: fixed; left: 0; right: 0; bottom: 0; display: none; justify-content: space-between; align-items: flex-end;
+    padding: 0 max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left)); pointer-events: none; }
+  body.touch #touch { display: flex; }
+  #touch .grp { display: flex; gap: 14px; align-items: flex-end; pointer-events: none; }
+  #touch button { pointer-events: auto; width: 68px; height: 68px; border-radius: 50%; border: 2px solid #ffffff70; background: #ffffff22;
+    color: #fff; font: 22px system-ui, sans-serif; touch-action: none; padding: 0; backdrop-filter: blur(2px); }
+  #touch button.on { background: #ffffff66; transform: scale(0.94); }
+  #touch button[data-k="jump"] { margin-bottom: 34px; }
+  body.portrait #touch button { width: 74px; height: 74px; font-size: 26px; }
+  body.portrait #touch .grp { gap: 10px; }
+  body.portrait #touch { padding-bottom: max(34px, env(safe-area-inset-bottom)); }
+  #hint { display: none; position: fixed; left: 0; right: 0; text-align: center; color: #bfb4d6; font-size: 10px; line-height: 1.6; pointer-events: none; }
+  body.portrait #hint { display: block; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hint">Tipp: Handy quer halten<br>für ein größeres Bild</div>
+<div id="touch">
+  <div class="grp"><button data-k="left">◀</button><button data-k="right">▶</button></div>
+  <div class="grp"><button data-k="hat">🐰</button><button data-k="jump">▲</button></div>
+</div>
+<script>
+"use strict";
+// ================= Grundgerüst =================
+const W = 320, H = 180;
+const view = document.getElementById('c'), vctx = view.getContext('2d');
+const buf = document.createElement('canvas'); buf.width = W; buf.height = H;
+const ctx = buf.getContext('2d');
+let U = 3; // UI-Skalierung: Bildschirmpixel pro Spielpixel
+const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+if (isTouch) document.body.classList.add('touch');
+function resize() {
+  const dpr = window.devicePixelRatio || 1;
+  const portrait = isTouch && innerHeight > innerWidth;
+  document.body.classList.toggle('portrait', portrait);
+  const s = portrait ? innerWidth / W : Math.min(innerWidth / W, innerHeight / H);
+  const hint = document.getElementById('hint');
+  if (hint) hint.style.top = Math.round(H * s + 28) + 'px';
+  view.style.width = Math.floor(W * s) + 'px'; view.style.height = Math.floor(H * s) + 'px';
+  view.width = Math.floor(W * s * dpr); view.height = Math.floor(H * s * dpr);
+  U = view.width / W;
+  vctx.imageSmoothingEnabled = false;
+}
+addEventListener('resize', resize); addEventListener('orientationchange', () => setTimeout(resize, 200)); resize();
+
+// ================= Palette & Sprites =================
+const PAL = {
+  k:'#1b1424', s:'#f3c39d', S:'#d8956f', y:'#e9b45a', Y:'#b97c34', b:'#26232f', B:'#4a4560', w:'#f5f1e6',
+  r:'#c0343c', R:'#7a1f2b', e:'#1b1424', h:'#4a2818', H:'#7d4b2b', l:'#c7a3d9', L:'#9a77b3', o:'#2b2834', O:'#4a4558',
+  g:'#fbfbfb', G:'#d6d0dc', p:'#f2a0b0', n:'#6b4426', N:'#c98a4b', d:'#56b04f', D:'#2f7a3a', v:'#a6dd6b',
+  q:'#efd889', Q:'#c9ae5c', c:'#15131c', f:'#bfe6ff', M:'#79c35f', m:'#3f8f45', x:'#ff7a1a', z:'#ffe066',
+  P:'#5b3f7d', u:'#f6e27a', U:'#d4b048', a:'#8f8f9a', i:'#2b3f7a', t:'#e8c27a', j:'#e3a157', J:'#b8702c'
+};
+function mk(rows) {
+  const w = Math.max(...rows.map(r => r.length)), h = rows.length;
+  const make = (flip, white) => {
+    const c = document.createElement('canvas'); c.width = w; c.height = h;
+    const x = c.getContext('2d');
+    rows.forEach((r, j) => { for (let i = 0; i < r.length; i++) { const ch = r[i]; if (ch !== '.' && PAL[ch]) {
+      x.fillStyle = white ? '#ffffff' : PAL[ch]; x.fillRect(flip ? w - 1 - i : i, j, 1, 1); } } });
+    return c;
+  };
+  return { c: make(false), f: make(true), wc: make(false, true), wf: make(true, true), w, h };
+}
+
+// --- Logge (Zylinder, Frack, Handschuhe) ---
+const L_HAT = ["....kkkk....","...kbbbBk...","...kbbbBk...","...kbbbBk...","...krrrrk...",".kkkkkkkkkk."];
+const L_NOHAT = ["............","............","............","............","...kjkkjkk..",".kjJjjJjjJk."];
+const L_BODY = [
+  ".kjJjjJjjJjk","kjJssssssJjk","kJjssesesjJk",".kjssssssjk.","..kSssrrsk..","...kSsssk...",
+  "..kbbwwbbk..",".kbBwkkwBbk.","kbbBbwwbBbbk","kbkBbwwbBkbk","kbkBbwwbBkbk","kkkbbwwbbkkk",".kkbbbbbbkk.","..kbbBBbbk.."];
+const L_LEGS = {
+  idle: ["..kbbkkbbk..","..kbbkkbbk..","..kbbkkbbk..","..kbbkkbbk..","..kkk..kkk.."],
+  w1:   ["..kbbkbbk...","..kbbkbbk...",".kbbk.kbbk..","kbbk...kbbk.","kkk.....kkk."],
+  w2:   ["...kbbbbk...","...kbbbbk...","...kbbbk....","...kbbbk....","...kkkkk...."],
+  jump: ["..kbbkkbbk..","..kbbkkbbk..",".kbbk..kbbk.",".kkk....kkk.","............"]
+};
+const LOGGE = {}, LOGGE_NH = {};
+for (const k in L_LEGS) { LOGGE[k] = mk([...L_HAT, ...L_BODY, ...L_LEGS[k]]); LOGGE_NH[k] = mk([...L_NOHAT, ...L_BODY, ...L_LEGS[k]]); }
+
+// --- Jule (lange dunkle Wellen, lila Bluse, Latzhose) – Spielfigur ---
+const J_BODY = [
+  "....kkkkkk....","..kkhhHhhhkk..",".khhHhhhhhHhk.",".khHhsssshhhk.","khhhsweswesshk","khhHpssssSsphk",
+  "khhhhsrsssrhhk","khhHhhsrrrshhk","khhHlllllllhhk","khhlLollllolLk",".kslLooooooLsk","..kkoOOOOokk.."];
+const J_LEGS = {
+  idle: ["...kook.kook..","...kook.kook..","..knnnk.knnnk."],
+  w1:   ["...kook..kook.","..kook....kook",".knnk.....knnk"],
+  w2:   ["....kooook....","....kook......","....knnnk....."],
+  jump: ["...kook.kook..","..kook...kook.","..knnk...knnk."]
+};
+const JULE = {}; for (const k in J_LEGS) JULE[k] = mk([...J_BODY, ...J_LEGS[k]]);
+
+// --- Captain Kuschel (Jules Plüschhase mit Kapitänsmütze) ---
+const BUNNY = mk(["..k...k..",".kpk.kpk.",".kiiiiik.","kiiiuiiik","kkkkkkkkk","kgegggegk","kgggpgggk",".kgggggk.","..kkkkk.."]);
+const BUNNY_MINI = mk([".kkk.","kiuik","kkkkk","kgegk",".kkk."]);
+
+// --- Zylinder (Wurfgeschoss) ---
+const HAT = [
+  mk(["...kkkk...","..kbbbBk..","..kbbbBk..","..krrrrk..","kkkkkkkkkk"]),
+  mk(["....kk....","....kk....","....kk....","....kk....","....kk...."].map((r,i)=>i===2?"..kkkkkk..":r)),
+  mk(["kkkkkkkkkk","..krrrrk..","..kbbbBk..","..kbbbBk..","...kkkk..."]),
+  mk(["....kk....","....kk....","..kkkkkk..","....kk....","....kk...."])
+];
+
+// --- Drache Jakob (blonder Schopf, dicke Brille, Ledergurt) ---
+const DR_HEAD_CLOSED = [
+  "....u.uu...kk","...uuUuuu.kvk","..kuuuuuukvk",".kdduuuddkk","kddddddddddk","kdcccdddcccDk",
+  "kcfefcccfefcDk","kdcccdddcccdDk","kddddddddddddDk","kddkddddddddddDk","kddddddddddddddDk",
+  ".kkwkwkkkkdddddDk"];
+const DR_HEAD_OPEN = [
+  "....u.uu...kk","...uuUuuu.kvk","..kuuuuuukvk",".kdduuuddkk","kddddddddddk","kdcccdddcccDk",
+  "kcfefcccfefcDk","kdcccdddcccdDk","kddddddddddddDk","kkkkkkkkdddddDk","krrrrrrrkddddddDk",
+  "kwkwkwkkkddddddDk"];
+const DR_BODY = [
+  "..kkkkkkkkddddddDk................kk","........kdddddddDkkkkk...........kDk",
+  "........kddqqddddddddddkk........kdk",".......kddqqqqdddddddddddDk.....kddk",
+  ".......kdqqQqqqddddnnndddddk...kddk",".......kdqqqqqqqddnnddddddddkkkddk",
+  ".......kdqqQqqqqdnnddddddddddddddk",".......kdqqqqqqqnnddddddddddDDDkk",
+  ".......kddqqQqqqdddddddddddDkkk","........kddqqqqddddddddddddk",
+  ".........kdddddddkddddkdddk",".........kdDDkddk.kdDDkddk",
+  ".........kDDDDkk...kDDDDk",".........kkkkkk....kkkkkk"];
+const DR_LEGS_FLY = [
+  "..kkkkkkkkddddddDk................kk","........kdddddddDkkkkk...........kDk",
+  "........kddqqddddddddddkk........kdk",".......kddqqqqdddddddddddDk.....kddk",
+  ".......kdqqQqqqddddnnndddddk...kddk",".......kdqqqqqqqddnnddddddddkkkddk",
+  ".......kdqqQqqqqdnnddddddddddddddk",".......kdqqqqqqqnnddddddddddDDDkk",
+  ".......kddqqQqqqdddddddddddDkkk","........kddqqqqddddddddddddk",
+  ".........kdddddkkkddddddk","..........kDDk....kDDDk",
+  "...........kk......kkk.",""];
+const WING_UP = ["...........kk.",".........kkDDk",".......kkMMDMk",".....kkMMMDMMk","....kMMMMDMMMk","...kMMMMDMMMMk",
+  "..kMMMDMMMMDMk",".kMMMDMMMMDMMk","kMMMDMMMMDMMMk","kMMDkMMMDkMMk.","kMk.kMMk.kMk..",".k...kk...k..."];
+const WING_DOWN = ["....kkkkkkkkk","..kkMMMDMMMDk",".kMMMDMMMDMMk","kMMDMMMDMMMk.","kMDkMMDkMMk..","kk..kk..kk..."];
+const DRAGON = {
+  stand: mk([...DR_HEAD_CLOSED, ...DR_BODY]), standOpen: mk([...DR_HEAD_OPEN, ...DR_BODY]),
+  fly: mk([...DR_HEAD_CLOSED, ...DR_LEGS_FLY]), flyOpen: mk([...DR_HEAD_OPEN, ...DR_LEGS_FLY]),
+  wingUp: mk(WING_UP), wingDown: mk(WING_DOWN)
+};
+
+// --- Kleinkram ---
+const FIRE = [mk(["..xx..",".xzzx.","xzzwzx","xzwzzx",".xzzx.","..xx.."]), mk(["..xx..",".xzzx.","xzwzzx","xzzwzx",".xzzx.","..xx.."])];
+const BEETLE = [mk(["..kkkkkk..",".krrRrrrk.","kwrRrrRrrk","krRrrRrrRk","kkkkkkkkkk",".k.k..k.k."]),
+               mk(["..kkkkkk..",".krrRrrrk.","kwrRrrRrrk","krRrrRrrRk","kkkkkkkkkk","k.k..k.k.."])];
+const BAT = [mk(["k.........k","kk..kkk..kk","kPkkzPzkkPk",".kPPPPPPPk.","..kk.k.kk.."]),
+             mk(["...kkkkk...","..kkzPzkk..",".kPPPPPPPk.","kPPk.k.kPPk","kk.......kk"])];
+const BREZEL = mk([".NNN.NNN.","NwnN.NnwN","Nn.NnN.nN",".NN.N.NN.","..NN.NN..","...NNN..."]);
+const HEART = mk([".kk.kk.","krrkrrk","krrrrrk",".krrrk.","..krk..","...k..."]);
+const HEART_E = mk([".kk.kk.","kaakaak","kaaaaak",".kaaak.","..kak..","...k..."]);
+const SIGN = mk(["kkkkkkkkkkkkkkkkkk","kNNNNNNNNNNNNNNNNk","kNNNNNNNNNNNNNNNNk","kNNNNNNNNNNNNNNNNk","kNNNNNNNNNNNNNNNNk","kkkkkkkkkkkkkkkkkk",
+  "........kn........","........kn........","........kn........","........kn........"]);
+
+// Drachenkopf als Porträt (bevor er sich als Jakob entpuppt)
+const DRAGON_PORTRAIT = (() => {
+  const c = document.createElement('canvas'); c.width = 56; c.height = 56; const x = c.getContext('2d');
+  x.fillStyle = '#3b2b4b'; x.fillRect(0, 0, 56, 56); x.imageSmoothingEnabled = false;
+  x.drawImage(DRAGON.stand.c, 0, 0, 18, 18, 1, 2, 54, 54); return c;
+})();
+
+// Porträts im Stil des Drachen: 18×18 Sprite-Pixel, dreifach vergrößert, gleicher Hintergrund
+function mkPortrait(rows) {
+  const src = document.createElement('canvas'); src.width = 18; src.height = 18; const x = src.getContext('2d');
+  rows.forEach((r, j) => {
+    const px = r.split(' ').map(t => t[0].repeat(+t.slice(1))).join('');
+    const off = Math.floor((18 - px.length) / 2);
+    for (let i = 0; i < px.length; i++) if (px[i] !== '.' && PAL[px[i]]) { x.fillStyle = PAL[px[i]]; x.fillRect(off + i, j, 1, 1); }
+  });
+  const c = document.createElement('canvas'); c.width = 56; c.height = 56; const y = c.getContext('2d');
+  y.fillStyle = '#3b2b4b'; y.fillRect(0, 0, 56, 56); y.imageSmoothingEnabled = false; y.drawImage(src, 1, 2, 54, 54);
+  return c;
+}
+const PORTRAIT = {
+  logge: mkPortrait([
+    'k6', 'k1 b3 B1 k1', 'k1 b3 B1 k1', 'k1 r4 k1', 'k12', 'k1 j2 J1 j2 J1 j2 J1 j1 k1',
+    'k1 J1 j1 s8 j1 J1 k1', 'k1 j1 J1 s1 e1 s4 e1 s1 J1 j1 k1', 'k1 J1 s1 p1 s2 S2 s2 p1 s1 J1 k1',
+    'k1 s2 r1 w4 r1 s2 k1', 'k1 s2 S1 r4 S1 s2 k1', 'k2 S6 k2', 'k1 s4 k1', 'k1 b2 k1 w4 k1 b2 k1',
+    'k1 b3 k1 w1 k2 w1 k1 b3 k1', 'k1 b4 k1 w4 k1 b4 k1', 'k1 b1 B1 b3 k1 w4 k1 b3 B1 b1 k1', 'k1 b1 B1 b3 k1 w4 k1 b3 B1 b1 k1'
+  ]),
+  jule: mkPortrait([
+    'k6', 'k2 h6 k2', 'k1 h2 H1 h6 H1 h2 k1', 'k1 h1 H1 h2 s6 h2 H1 h1 k1', 'k1 h2 H1 h1 s8 h1 H1 h2 k1',
+    'k1 h2 H1 h1 s1 e2 s2 e2 s1 h1 H1 h2 k1', 'k1 h2 H1 h1 p1 s2 S2 s2 p1 h1 H1 h2 k1', 'k1 h2 H1 h1 s1 r1 s4 r1 s1 h1 H1 h2 k1',
+    'k1 h2 H1 h1 s2 r4 s2 h1 H1 h2 k1', 'k1 h3 H1 h2 S4 h2 H1 h3 k1', 'k1 h3 H1 h3 s2 h3 H1 h3 k1',
+    'k1 h3 H1 h1 l6 h1 H1 h3 k1', 'k1 h2 H1 l2 L1 l4 L1 l2 H1 h2 k1', 'k1 h1 l3 o2 l4 o2 l3 h1 k1',
+    'k1 l4 o2 l4 o2 l4 k1', 'k1 l3 L1 o8 L1 l3 k1', 'k1 l3 L1 o2 O4 o2 L1 l3 k1', 'k1 l3 L1 o8 L1 l3 k1'
+  ])
+};
+PORTRAIT.jakob = DRAGON_PORTRAIT;
+
+// ================= Audio =================
+let AC = null, muted = false;
+function initAudio() { if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} } else if (AC.state === 'suspended') AC.resume(); }
+function tone(f, d, type = 'square', v = 0.06, f2) {
+  if (!AC || muted) return; const t = AC.currentTime; const o = AC.createOscillator(), g = AC.createGain();
+  o.type = type; o.frequency.setValueAtTime(f, t); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + d);
+  g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(0.0001, t + d); o.connect(g).connect(AC.destination); o.start(t); o.stop(t + d);
+}
+const SFX = {
+  jump: () => tone(330, 0.12, 'square', 0.05, 660), hat: () => tone(520, 0.12, 'triangle', 0.08, 300),
+  coin: () => { tone(880, 0.07, 'square', 0.04); setTimeout(() => tone(1320, 0.1, 'square', 0.04), 60); },
+  hit: () => tone(180, 0.15, 'sawtooth', 0.07, 60), hurt: () => tone(240, 0.3, 'square', 0.07, 80),
+  roar: () => { tone(110, 0.7, 'sawtooth', 0.1, 45); tone(90, 0.8, 'square', 0.05, 40); },
+  fire: () => tone(220, 0.15, 'sawtooth', 0.03, 120), stomp: () => tone(140, 0.12, 'square', 0.07, 70),
+  boom: () => tone(70, 0.4, 'sawtooth', 0.1, 30),
+  chomp: () => { tone(320, 0.06, 'square', 0.09, 140); setTimeout(() => tone(260, 0.08, 'square', 0.09, 110), 90); }, blip: () => tone(640 + Math.random() * 80, 0.025, 'square', 0.015),
+  bunny: () => tone(700, 0.08, 'triangle', 0.06, 1000),
+  win: () => [523, 659, 784, 1047, 784, 1047].forEach((f, i) => setTimeout(() => tone(f, 0.18, 'square', 0.06), i * 140))
+};
+
+// ================= Eingabe =================
+const keys = {}, pressed = {};
+const KEYMAP = { ArrowLeft:'left', KeyA:'left', ArrowRight:'right', KeyD:'right', ArrowUp:'jump', KeyW:'jump', Space:'jump',
+  KeyX:'hat', KeyK:'hat', KeyJ:'hat', Enter:'ok', KeyM:'mute' };
+function press(k) { if (!keys[k]) pressed[k] = true; keys[k] = true; initAudio(); }
+function release(k) { keys[k] = false; }
+addEventListener('keydown', e => { const k = KEYMAP[e.code]; if (!k) return; e.preventDefault(); if (!e.repeat) press(k); });
+addEventListener('keyup', e => { const k = KEYMAP[e.code]; if (k) release(k); });
+if (isTouch) {
+  // Alle aktiven Finger auswerten: man kann zwischen Knöpfen gleiten und mehrere gleichzeitig drücken
+  const pad = document.getElementById('touch'), BTN_KEYS = ['left', 'right', 'jump', 'hat'];
+  const sync = e => {
+    e.preventDefault();
+    const active = new Set();
+    for (const t of e.touches) { const el = document.elementFromPoint(t.clientX, t.clientY); const k = el && el.dataset ? el.dataset.k : null; if (k) active.add(k); }
+    for (const k of BTN_KEYS) { if (active.has(k)) press(k); else if (keys[k]) release(k); }
+    pad.querySelectorAll('button').forEach(b => b.classList.toggle('on', active.has(b.dataset.k)));
+  };
+  ['touchstart', 'touchmove', 'touchend', 'touchcancel'].forEach(ev => pad.addEventListener(ev, sync, { passive: false }));
+  document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+  document.addEventListener('contextmenu', e => e.preventDefault());
+}
+const tapOk = e => { e.preventDefault(); press('ok'); setTimeout(() => release('ok'), 60); };
+view.addEventListener('pointerdown', tapOk);
+document.getElementById('hint').addEventListener('pointerdown', tapOk);
+const anyOk = () => pressed.ok || pressed.jump || pressed.hat;
+
+// ================= Welt =================
+const GROUND_Y = 150, LEVEL_END = 2620, ARENA_L = 2300, ARENA_R = 2620;
+const GROUNDS = [[0, 760], [800, 1100], [1180, 1500], [1560, 2620]];
+const PLATS = [[1120, 128, 40], [1255, 120, 36], [1325, 98, 36], [1515, 124, 30], [2010, 118, 44]];
+const BREZEL_POS = [[100,132],[160,132],[220,118],[300,132],[420,112],[520,132],[860,126],[920,108],[980,126],[1132,106],
+  [1268,98],[1338,76],[1420,132],[1524,100],[1650,132],[1720,112],[1800,132],[1880,124],[2024,96],[2100,124],[2180,132]];
+const ENEMY_DEF = [['beetle',440,380,520],['beetle',960,860,1080],['beetle',1300,1190,1490],['beetle',1430,1190,1490],
+  ['beetle',1700,1580,1800],['beetle',1880,1820,1990],['beetle',2100,2060,2220],
+  ['bat',1650,108],['bat',1790,98],['bat',1960,104],['bat',2170,96]];
+const SIGNS = [[24, 'Ramsen'], [1000, 'Drachenberg >'], [2230, 'Vorsicht Drache!']];
+
+let state = 'title', frameN = 0, camX = 0, shake = 0;
+let P, J, hat, bunny, enemies, brezeln, fireballs, waves, parts, boss, trail, totalD;
+let buddyJoined, bossStarted, arenaLocked, checkpoint, brezelCount, startFrame, endFrame, deaths, dialog, hatThrows;
+
+function newGame() {
+  buddyJoined = false; bossStarted = false; arenaLocked = false; checkpoint = 40; brezelCount = 0; deaths = 0; hatThrows = 0;
+  startFrame = frameN; endFrame = 0;
+  brezeln = BREZEL_POS.map(([x, y]) => ({ x, y, taken: false }));
+  enemies = ENEMY_DEF.map(d => d[0] === 'beetle'
+    ? { type: 'beetle', x: d[1], y: GROUND_Y - 6, w: 10, h: 6, vx: -0.4, vy: 0, min: d[2], max: d[3], alive: true }
+    : { type: 'bat', x: d[1], y: d[2], bx: d[1], by: d[2], w: 11, h: 5, t: Math.random() * 6, alive: true });
+  J = { x: 640, y: GROUND_Y - 20, w: 8, h: 20, face: -1, anim: 0, moving: false, air: false, cd: 60, hasBunny: true };
+  boss = null;
+  spawn();
+  const q = new URLSearchParams(location.search);
+  if (q.has('boss')) { buddyJoined = true; P.x = 2250; checkpoint = 2250; J.x = 2228; }
+}
+function spawn() {
+  P = { x: checkpoint, y: GROUND_Y - 15, w: 8, h: 15, vx: 0, vy: 0, face: 1, hp: 3, inv: 0, onGround: true, coyote: 0, jumpBuf: 0, knock: 0, anim: 0, safeX: checkpoint };
+  hat = null; bunny = null; fireballs = []; waves = []; parts = []; trail = []; totalD = 0;
+  if (buddyJoined) { J.x = buddySpot(); J.y = P.y + P.h - J.h; J.hasBunny = true; }
+  if (arenaLocked && boss) { boss.hp = boss.max; boss.state = 'hover'; boss.t = 0; boss.x = 2550; boss.y = 66; }
+  camX = arenaLocked ? ARENA_L : Math.max(0, Math.min(LEVEL_END - W, P.x - 140));
+}
+
+// ================= Dialoge =================
+const NAMES = { logge: 'Logge', jule: 'Jule', drache: 'Drache', jakob: 'Drache Jakob' };
+const NAME_COL = { logge: '#f6c35c', jule: '#d6a8ff', drache: '#7fe07a', jakob: '#7fe07a' };
+function say(lines, done) { dialog = { lines, i: 0, n: 0, done }; state = 'dialog'; }
+function updateDialog() {
+  const L = dialog.lines[dialog.i];
+  if (dialog.n < L.t.length) { dialog.n += 0.9; if (frameN % 3 === 0) SFX.blip(); }
+  if (anyOk()) {
+    if (dialog.n < L.t.length) dialog.n = L.t.length;
+    else if (++dialog.i >= dialog.lines.length) { const d = dialog.done; dialog = null; state = 'play'; d && d(); }
+    else { dialog.n = 0; const nl = dialog.lines[dialog.i]; if (nl.fx) nl.fx(); }
+  }
+}
+
+// ================= Physik =================
+const GRAV = 0.35;
+function overlap(a, b) { return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y; }
+function onGroundAt(x) { return GROUNDS.some(([a, b]) => x >= a && x <= b); }
+function moveX(e) {
+  e.x += e.vx;
+  if (e.x < 0) e.x = 0; if (e.x + e.w > LEVEL_END) e.x = LEVEL_END - e.w;
+  if (arenaLocked && e === P) { if (e.x < ARENA_L + 2) e.x = ARENA_L + 2; if (e.x + e.w > ARENA_R - 2) e.x = ARENA_R - 2 - e.w; }
+  if (e.y + e.h > GROUND_Y + 1) for (const [a, b] of GROUNDS) {
+    if (e.x + e.w > a && e.x < b) { if (e.x + e.w - a < b - e.x) e.x = a - e.w; else e.x = b; }
+  }
+}
+function moveY(e) {
+  const prevB = e.y + e.h; e.vy = Math.min(e.vy + GRAV, 7); e.y += e.vy; e.onGround = false;
+  if (e.vy >= 0) {
+    const bot = e.y + e.h;
+    for (const [a, b] of GROUNDS) if (e.x + e.w > a + 1 && e.x < b - 1 && prevB <= GROUND_Y + 0.01 && bot >= GROUND_Y) { e.y = GROUND_Y - e.h; e.vy = 0; e.onGround = true; }
+    for (const [px, py, pw] of PLATS) if (e.x + e.w > px && e.x < px + pw && prevB <= py + 0.01 && bot >= py) { e.y = py - e.h; e.vy = 0; e.onGround = true; }
+  }
+}
+function puff(x, y, col, n = 8, sp = 1.5) {
+  for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, s = Math.random() * sp; parts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 0.5, life: 20 + Math.random() * 20, col }); }
+}
+
+function hurt(fromX) {
+  if (P.inv > 0) return;
+  P.hp--; P.inv = 90; P.knock = 14; P.vx = (P.x < fromX ? -2 : 2); P.vy = -3; shake = 8; SFX.hurt();
+  puff(P.x + 4, P.y + 10, '#ff6b6b', 10);
+  if (P.hp <= 0) { deaths++; state = 'gameover'; }
+}
+
+// ================= Update =================
+function updatePlayer() {
+  const p = P;
+  let dir = (keys.left ? -1 : 0) + (keys.right ? 1 : 0);
+  if (p.knock > 0) { p.knock--; dir = 0; }
+  const acc = p.onGround ? 0.35 : 0.22;
+  if (dir) { p.vx += dir * acc; p.face = dir; } else if (p.knock <= 0) { p.vx *= p.onGround ? 0.7 : 0.93; if (Math.abs(p.vx) < 0.05) p.vx = 0; }
+  if (p.knock <= 0) p.vx = Math.max(-1.7, Math.min(1.7, p.vx));
+  if (pressed.jump) p.jumpBuf = 7; else if (p.jumpBuf > 0) p.jumpBuf--;
+  if (p.jumpBuf > 0 && (p.onGround || p.coyote > 0)) { p.vy = -6.2; p.onGround = false; p.coyote = 0; p.jumpBuf = 0; SFX.jump(); }
+  if (p.vy >= 0 || p.onGround) p.bounced = false;
+  if (!keys.jump && !p.bounced && p.vy < -2.6) p.vy = -2.6;
+  if (pressed.hat && !hat) {
+    hat = { x: p.x + (p.face > 0 ? 5 : -6), y: p.y + 3, vx: p.face * 4.2, face: p.face, back: false, t: 0, hitBoss: false, w: 9, h: 9 };
+    hatThrows++; SFX.bunny();
+  }
+  const ox = p.x, oy = p.y;
+  moveX(p); moveY(p);
+  p.coyote = p.onGround ? 6 : Math.max(0, p.coyote - 1);
+  if (p.inv > 0) p.inv--;
+  p.anim += Math.abs(p.vx) * 0.12;
+  // sichere Position merken (zum Wiedereinstieg nach Absturz)
+  if (p.onGround && p.y + p.h >= GROUND_Y - 0.5 && onGroundAt(p.x - 14) && onGroundAt(p.x + p.w + 14)) p.safeX = p.x;
+  if (p.y > H + 30) { // in eine Schlucht gefallen
+    P.inv = 0; hurt(p.x); if (state !== 'gameover') { p.x = p.safeX; p.y = GROUND_Y - p.h; p.vx = 0; p.vy = 0; P.inv = 90; trail = []; }
+  }
+  // Spur für Jule
+  const d = Math.hypot(p.x - ox, p.y - oy);
+  if (d > 0.01) { totalD += d; trail.push({ x: p.x, y: p.y + p.h, face: p.face, d: totalD, air: !p.onGround }); if (trail.length > 300) trail.shift(); }
+}
+
+function updateHat() {
+  if (!hat) return;
+  hat.t++;
+  if (!hat.back) { hat.x += hat.vx; hat.vx -= hat.face * 0.14; if (Math.sign(hat.vx) !== hat.face || hat.t > 60) hat.back = true; }
+  else {
+    const tx = P.x + 4 - hat.w / 2, ty = P.y + 4, dx = tx - hat.x, dy = ty - hat.y, dd = Math.hypot(dx, dy);
+    const sp = Math.min(4.5, 1.5 + hat.t * 0.05);
+    if (dd < 7 || hat.t > 200) { hat = null; return; }
+    hat.x += dx / dd * sp; hat.y += dy / dd * sp;
+  }
+  for (const en of enemies) if (en.alive && overlap(hat, en)) killEnemy(en);
+  if (boss && boss.hp > 0 && !hat.hitBoss && overlap(hat, bossBox())) { hat.hitBoss = true; hat.back = true; damageBoss(1); }
+}
+
+function standable(x, foot) {
+  if (Math.abs(foot - GROUND_Y) < 1) return onGroundAt(x) && onGroundAt(x + 8);
+  return PLATS.some(([px, py, pw]) => Math.abs(py - foot) < 1 && x >= px && x + 8 <= px + pw);
+}
+function buddySpot() { // freier Platz neben Jule, auf dem Logge stehen kann
+  const foot = P.y + P.h;
+  for (const dx of [-16 * P.face, 16 * P.face, -12 * P.face, 12 * P.face]) if (standable(P.x + dx, foot)) return P.x + dx;
+  return P.x - 4 * P.face;
+}
+function updateJule() {
+  if (!buddyJoined) { J.face = P.x < J.x ? -1 : 1; J.anim += 0; return; }
+  const target = totalD - 22;
+  let tp = null;
+  for (let i = trail.length - 1; i >= 0; i--) { if (trail[i].d <= target) { tp = trail[i]; break; } }
+  const ox = J.x, oy = J.y;
+  const idle = P.onGround && Math.abs(P.vx) < 0.05;
+  if (tp && idle && tp.air) { // Jule steht still: Logge soll nicht mitten in der Sprungbahn schweben
+    for (let i = trail.length - 1; i >= 0; i--) { const t = trail[i]; if (!t.air && t.d <= totalD - 10) { tp = t; break; } }
+  }
+  if (tp) {
+    let tx = tp.x, ty = tp.y - J.h;
+    if (idle && Math.abs(tx - P.x) < 12) { // nicht auf Jule draufstellen
+      if (Math.abs(J.x - P.x) >= 12 && standable(J.x, P.y + P.h)) tx = J.x; else tx = buddySpot();
+      ty = P.y + P.h - J.h;
+    }
+    J.x += Math.max(-2.4, Math.min(2.4, tx - J.x));
+    J.y += Math.max(-4, Math.min(4, ty - J.y));
+    J.air = tp.air && !idle;
+  } else if (Math.abs(P.x - J.x) > 22) {
+    // keine Spur (z. B. nach Respawn): bei Schlucht oder großer Distanz zu Jule „hinzaubern“
+    let gap = false; for (let x = Math.min(J.x, P.x); x < Math.max(J.x, P.x) + 8; x += 4) if (!onGroundAt(x)) gap = true;
+    if (gap || Math.abs(P.x - J.x) > 90 || J.y > GROUND_Y) {
+      puff(J.x + 4, J.y + 10, '#ffffff', 8); J.x = buddySpot(); J.y = P.y + P.h - J.h; puff(J.x + 4, J.y + 10, '#ffffff', 8);
+    } else { J.x += Math.sign(P.x - J.x) * 1.4; J.y += (P.y + P.h - J.h - J.y) * 0.2; }
+  }
+  J.moving = Math.abs(J.x - ox) > 0.05;
+  if (J.moving) J.face = J.x > ox ? 1 : -1; else J.face = P.x > J.x ? 1 : -1;
+  J.anim += Math.abs(J.x - ox) * 0.12;
+  // Hoppel werfen
+  if (J.cd > 0) J.cd--;
+  if (J.hasBunny && J.cd <= 0 && !bunny) {
+    let tgt = null, best = 1e9;
+    for (const en of enemies) if (en.alive) { const dx = en.x - J.x, dy = en.y - J.y; if (Math.abs(dx) < 120 && Math.abs(dy) < 70) { const d = Math.hypot(dx, dy); if (d < best) { best = d; tgt = en; } } }
+    if (boss && boss.hp > 0 && boss.state !== 'intro' && boss.state !== 'defeated') { const bb = bossBox(); tgt = { x: bb.x + bb.w / 2, y: bb.y + bb.h / 2, w: 0, h: 0 }; }
+    if (tgt) {
+      const sx = J.x + 4, sy = J.y - 1, dx = tgt.x + tgt.w / 2 - sx, dy = tgt.y + tgt.h / 2 - sy, d = Math.hypot(dx, dy) || 1;
+      bunny = { x: sx - 5, y: sy - 2, vx: dx / d * 3.2, vy: dy / d * 3.2, t: 0, back: false, w: 10, h: 5, hitBoss: false, spin: 0 };
+      J.hasBunny = false; SFX.hat();
+    }
+  }
+}
+function updateBunny() {
+  if (!bunny) return;
+  const b = bunny; b.t++; b.spin++;
+  if (!b.back) { b.x += b.vx; b.y += b.vy; if (b.t > 45) b.back = true; }
+  else {
+    const dx = J.x - 1 - b.x, dy = J.y - 3 - b.y, d = Math.hypot(dx, dy);
+    if (d < 8 || b.t > 220) { bunny = null; J.hasBunny = true; J.cd = boss && bossStarted ? 150 : 70; return; }
+    b.x += dx / d * 3.4; b.y += dy / d * 3.4;
+  }
+  for (const en of enemies) if (en.alive && overlap(b, en)) { killEnemy(en); b.back = true; }
+  if (boss && boss.hp > 0 && !b.hitBoss && overlap(b, bossBox())) { b.hitBoss = true; b.back = true; damageBoss(1); }
+}
+
+function killEnemy(en) { en.alive = false; puff(en.x + en.w / 2, en.y + en.h / 2, en.type === 'bat' ? '#9b7bd0' : '#ff8a4a', 10); SFX.hit(); }
+
+function updateEnemies() {
+  for (const en of enemies) {
+    if (!en.alive) continue;
+    if (Math.abs(en.x - P.x) > 360) continue;
+    if (en.type === 'beetle') {
+      const nx = en.x + en.vx;
+      if (nx < en.min || nx + en.w > en.max || !onGroundAt(en.vx < 0 ? nx : nx + en.w)) en.vx *= -1;
+      en.x += en.vx; en.t = (en.t || 0) + 1;
+    } else {
+      en.t += 0.03; en.x = en.bx + Math.sin(en.t) * 34; en.y = en.by + Math.sin(en.t * 2.3) * 9;
+    }
+    if (overlap(P, en)) {
+      if (P.vy > 0.5 && P.y + P.h - en.y < 7) { killEnemy(en); P.vy = keys.jump ? -6 : -4; SFX.stomp(); }
+      else hurt(en.x + en.w / 2);
+    }
+  }
+}
+
+function updateBrezeln() {
+  for (const b of brezeln) if (!b.taken && Math.abs(P.x + 4 - (b.x + 4)) < 9 && Math.abs(P.y + P.h / 2 - (b.y + 3)) < 13) {
+    b.taken = true; brezelCount++; SFX.coin(); puff(b.x + 4, b.y + 3, '#ffd27a', 6, 1);
+  }
+}
+
+// ================= Boss =================
+function bossBox() { const b = boss; return { x: b.x + 3, y: b.y + 4, w: 30, h: 21 }; }
+function damageBoss(n) {
+  if (boss.flash > 0 || boss.state === 'defeated') return;
+  boss.hp -= n; boss.flash = 22; shake = 5; SFX.hit(); puff(boss.x + 18, boss.y + 12, '#ffffff', 8);
+  if (boss.hp <= 0) { boss.hp = 0; boss.state = 'defeated'; boss.t = 0; fireballs = []; waves = []; SFX.roar(); }
+}
+// Begrüßung: Jule beißt Logge
+let biteT = 0;
+function updateBite() {
+  biteT++;
+  const tx = J.x - 8;
+  P.face = 1; P.vx = biteT < 70 && P.x < tx ? 1.2 : 0;
+  if (biteT === 38) P.vy = -3.2;
+  if (biteT === 50) { SFX.chomp(); shake = 7; J.flash = 34; J.face = -1; puff(J.x + 2, J.y + 2, '#ffffff', 12, 1.8); }
+  moveX(P); moveY(P); P.anim += Math.abs(P.vx) * 0.12;
+  if (J.flash > 0) J.flash--;
+  updateCamera();
+  if (biteT >= 115) meetLogge();
+}
+function meetLogge() {
+  P.vx = 0;
+  say([
+    { who: 'logge', t: 'AUA! Jule! Hast du mich gerade GEBISSEN?!' },
+    { who: 'jule', t: 'Hallo Logge! So begrüßt man sich halt.' },
+    { who: 'logge', t: '… Hallo auch. Und wo willst du so eilig hin?' },
+    { who: 'jule', t: 'Auf den Drachenberg! Da oben wohnt ein DRACHE! Captain Kuschel und ich jagen ihn.' },
+    { who: 'logge', t: 'Ein Drache? Pff. Ich hab einen Zylinder. Ich komm mit!', fx: () => SFX.hat() },
+    { who: null, t: 'Logge schließt sich an! Er wirft seinen Zylinder automatisch auf Gegner in der Nähe.' }
+  ], () => { buddyJoined = true; checkpoint = 600; trail = []; totalD = 0; J.x = Math.min(J.x, P.x - 16); J.face = 1; });
+}
+function startBoss() {
+  bossStarted = true; arenaLocked = true; checkpoint = 2330;
+  boss = { x: 2560, y: -40, hp: 14, max: 14, state: 'intro', t: 0, face: -1, flash: 0, mouth: 0, side: 1, swoopDir: -1, landed: false };
+  say([
+    { who: null, t: 'Ein Schatten fällt über den Berg …' , fx: () => SFX.roar() },
+    { who: 'drache', t: 'WER WAGT ES, MEINEN DRACHENBERG ZU BETRETEN?!' },
+    { who: 'jule', t: 'Moment mal … diese Brille kenn ich doch. Jakob?!' },
+    { who: 'drache', t: 'Ich bin nicht Jakob! Ich bin JAKOBUS DER SCHRECKLICHE! *rückt Brille zurecht*' },
+    { who: 'logge', t: 'Er hat sogar noch seine Frisur …' },
+    { who: 'jakob', t: 'GENUG GEREDET! FEUER FREI!', fx: () => SFX.roar() },
+    { who: null, t: 'Wirf Captain Kuschel mit ' + (isTouch ? 'den Hasen-Knopf' : 'X') + ' – am besten im Sprung! Logge hilft mit. Und: Spring Jakob auf den Rücken!' }
+  ], () => { boss.state = 'hover'; boss.t = 0; });
+}
+function shootAt(n, spread, speed) {
+  const b = boss, mx = b.face < 0 ? b.x + 2 : b.x + 34, my = b.y + 11;
+  const tx = P.x + 4, ty = P.y + P.h / 2, base = Math.atan2(ty - my, tx - mx);
+  for (let i = 0; i < n; i++) { const a = base + (i - (n - 1) / 2) * spread; fireballs.push({ x: mx - 3, y: my - 3, vx: Math.cos(a) * speed, vy: Math.sin(a) * speed, w: 6, h: 6, t: 0 }); }
+  b.mouth = 18; SFX.fire();
+}
+function updateBoss() {
+  const b = boss; if (!b) return;
+  b.t++; if (b.flash > 0) b.flash--; if (b.mouth > 0) b.mouth--; if (b.safe > 0) b.safe--;
+  const phase = b.hp > 9 ? 1 : b.hp > 4 ? 2 : 3;
+  const homeX = b.side > 0 ? 2560 : 2330;
+  switch (b.state) {
+    case 'intro': b.y += (66 - b.y) * 0.05; break;
+    case 'hover': {
+      b.x += (homeX - b.x) * 0.04; b.y = 66 + Math.sin(b.t * 0.05) * 14;
+      b.face = P.x + 4 < b.x + 18 ? -1 : 1;
+      const every = phase === 1 ? 62 : phase === 2 ? 58 : 54;
+      if (b.t % every === 30) { if (phase === 1) shootAt(1, 0, 1.7); else if (phase === 2) shootAt(3, 0.28, 1.9); else shootAt(4, 0.26, 2.1); }
+      if (b.t > (phase === 3 ? 170 : 210)) { b.state = 'descend'; b.t = 0; }
+      break;
+    }
+    case 'descend':
+      b.y += 2.6; b.x += (P.x - 14 - b.x) * 0.02; b.x = Math.max(ARENA_L + 4, Math.min(ARENA_R - 40, b.x));
+      if (b.y >= GROUND_Y - 26) {
+        b.y = GROUND_Y - 26; b.state = 'rest'; b.t = 0; shake = 12; SFX.boom();
+        const sp = phase === 1 ? 1.8 : 2.4;
+        waves.push({ x: b.x + 4, y: GROUND_Y - 8, vx: -sp, w: 8, h: 8, life: 200 }, { x: b.x + 26, y: GROUND_Y - 8, vx: sp, w: 8, h: 8, life: 200 });
+        puff(b.x + 18, GROUND_Y - 2, '#c9a27a', 16, 2.5);
+      }
+      break;
+    case 'rest': b.face = P.x + 4 < b.x + 18 ? -1 : 1; if (b.t > (phase === 3 ? 80 : 110)) { b.state = 'ascend'; b.t = 0; } break;
+    case 'ascend':
+      b.y -= 2; if (b.y <= 66) { b.y = 66; b.t = 0;
+        if (phase >= 2) { b.state = 'warn'; b.side = b.x + 18 > (ARENA_L + ARENA_R) / 2 ? 1 : -1; }
+        else { b.state = 'hover'; b.side *= -1; } }
+      break;
+    case 'warn': // kurz aufleuchten, dann Sturzflug
+      b.face = -b.side; b.y += (112 - b.y) * 0.08;
+      { const tx = b.side > 0 ? 2560 : 2330; b.x += (tx - b.x) * 0.1; }
+      if (b.t === 1) SFX.roar();
+      if (b.t > 50 && Math.abs(b.x - (b.side > 0 ? 2560 : 2330)) < 4) { b.state = 'swoop'; b.t = 0; }
+      break;
+    case 'swoop':
+      b.x += -b.side * (phase === 3 ? 3.6 : 3.1); b.y = 116 + Math.sin(b.t * 0.15) * 2;
+      if ((b.side > 0 && b.x <= 2310) || (b.side < 0 && b.x >= 2575)) { b.side *= -1; b.state = 'ascend2'; b.t = 0; }
+      break;
+    case 'ascend2': b.y -= 1.6; if (b.y <= 66) { b.state = 'hover'; b.t = 0; } break;
+    case 'defeated':
+      if (b.y < GROUND_Y - 26) b.y = Math.min(GROUND_Y - 26, b.y + 1.5);
+      if (b.t % 8 === 0 && b.t < 80) puff(b.x + 6 + Math.random() * 26, b.y + Math.random() * 20, '#fff6b0', 4);
+      if (b.t === 100) bossDefeatedDialog();
+      break;
+  }
+  // Kontakt mit dem Drachen
+  if (!(b.safe > 0) && b.state !== 'intro' && b.state !== 'defeated' && overlap(P, bossBox())) {
+    const bb = bossBox();
+    if (P.vy > 0 && P.y + P.h - bb.y < 13) { // von oben draufgesprungen
+      damageBoss(1); P.y = bb.y - P.h; P.vy = keys.jump ? -6.6 : -5.6; P.bounced = true; b.safe = 45; P.vx = P.x + 4 < bb.x + bb.w / 2 ? -1.2 : 1.2; P.inv = Math.max(P.inv, 12); SFX.stomp(); puff(P.x + 4, bb.y, '#ffe066', 6);
+      if (b.state === 'rest' && b.hp > 0) { b.state = 'ascend'; b.t = 0; SFX.roar(); }
+    } else hurt(bb.x + bb.w / 2);
+  }
+  for (const f of fireballs) { f.x += f.vx; f.y += f.vy; f.t++; if (overlap(P, f)) { f.dead = true; hurt(f.x); } if (f.y > GROUND_Y - 4) { f.dead = true; puff(f.x + 3, GROUND_Y - 2, '#ff9a3a', 5, 1); } if (f.x < ARENA_L - 20 || f.x > ARENA_R + 20 || f.y < -40) f.dead = true; }
+  fireballs = fireballs.filter(f => !f.dead);
+  for (const w of waves) { w.x += w.vx; w.life--; if (frameN % 3 === 0) puff(w.x + 4, GROUND_Y - 2, '#d9b38c', 1, 0.6); if (overlap(P, w)) hurt(w.x); if (w.x < ARENA_L || w.x > ARENA_R) w.life = 0; }
+  waves = waves.filter(w => w.life > 0);
+}
+function bossDefeatedDialog() {
+  say([
+    { who: 'jakob', t: 'Aua! Okay, okay! Ich ergebe mich! Nicht Captain Kuschel!' },
+    { who: 'jakob', t: 'Ehrlich gesagt … war mir hier oben einfach nur langweilig. So ganz allein.' },
+    { who: 'jule', t: 'Dann komm doch einfach mit uns! Captain Kuschel mag Drachen.' },
+    { who: 'logge', t: 'Aber nur, wenn du uns nach Hause fliegst.' },
+    { who: 'jakob', t: 'Abgemacht! Festhalten!' }
+  ], () => { state = 'ending'; endFrame = frameN; SFX.win(); });
+}
+
+// ================= Kamera & Hauptschleife =================
+function updateCamera() {
+  if (arenaLocked) camX += (ARENA_L - camX) * 0.08;
+  else { const t = P.x - 140 + P.face * 20; camX += (t - camX) * 0.12; }
+  camX = Math.max(0, Math.min(LEVEL_END - W, camX));
+}
+function update() {
+  frameN++;
+  if (pressed.mute) muted = !muted;
+  if (state === 'title') { if (pressed.ok || pressed.jump) { newGame(); state = 'play';
+      say([{ who: null, t: 'Ein ganz normaler Samstag in Ramsen …' },
+           { who: null, t: '… bis vom Drachenberg ein gewaltiges BRÜLLEN herüberschallt!', fx: () => SFX.roar() },
+           { who: 'jule', t: 'Ein Drache?! Den schau ich mir an. Captain Kuschel, wir gehen auf Drachenjagd!' },
+           { who: null, t: isTouch ? 'Steuerung: ◀ ▶ laufen, ▲ springen, Hasen-Knopf wirft Captain Kuschel. Sammle Brezeln!' : 'Pfeiltasten: laufen und springen. X: Captain Kuschel werfen. Sammle unterwegs Brezeln!' }]); }
+  } else if (state === 'dialog') { updateDialog(); updateCamera(); if (boss && boss.state === 'intro') updateBoss(); }
+  else if (state === 'play') {
+    updatePlayer(); updateHat(); updateJule(); updateBunny(); updateEnemies(); updateBrezeln();
+    if (boss) updateBoss();
+    if (!buddyJoined && P.x > 590) { state = 'bite'; biteT = 0; P.vx = 0; }
+    if (!bossStarted && P.x > 2340) startBoss();
+    updateCamera();
+  } else if (state === 'bite') { updateBite(); }
+  else if (state === 'gameover') { if (anyOk()) { spawn(); state = 'play'; } }
+  else if (state === 'ending') { if (frameN - endFrame > 120 && anyOk()) state = 'title'; }
+  for (const p of parts) { p.x += p.vx; p.y += p.vy; p.vy += 0.05; p.life--; }
+  parts = (parts || []).filter(p => p.life > 0);
+  if (shake > 0) shake--;
+  for (const k in pressed) delete pressed[k];
+}
+
+// ================= Zeichnen =================
+function hexA(h) { return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]; }
+function mix(a, b, t) { const A = hexA(a), B = hexA(b); return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join(''); }
+function hash(n) { n = (n << 13) ^ n; return ((n * (n * n * 15731 + 789221) + 1376312589) & 0x7fffffff) / 0x7fffffff; }
+function spr(s, x, y, flip, white) { ctx.drawImage(white ? (flip ? s.wf : s.wc) : (flip ? s.f : s.c), Math.round(x - camX), Math.round(y)); }
+function rect(x, y, w, h, c) { ctx.fillStyle = c; ctx.fillRect(Math.round(x), Math.round(y), w, h); }
+
+function drawBackground(dusk) {
+  // Himmel in Pixel-Bändern
+  const skyTop = mix('#62bdf0', '#2a1d4e', dusk), skyBot = mix('#d8f2ff', '#f08a5d', dusk);
+  for (let i = 0; i < 12; i++) rect(0, i * 15, W, 15, mix(skyTop, skyBot, i / 11));
+  // Sterne bei Dämmerung
+  if (dusk > 0.4) for (let i = 0; i < 30; i++) { if ((frameN >> 4) % 7 !== i % 7) rect((hash(i) * 340 - camX * 0.02 + 340) % 320, hash(i + 99) * 70, 1, 1, `rgba(255,255,230,${(dusk - 0.4) * 1.6})`); }
+  // Wolken
+  for (let i = 0; i < 6; i++) {
+    const cx = ((i * 97 + frameN * 0.04 - camX * 0.06) % 420 + 420) % 420 - 60, cy = 12 + (i * 23) % 44;
+    const col = mix('#ffffff', '#f3b2a0', dusk);
+    rect(cx, cy, 30, 6, col); rect(cx + 6, cy - 4, 14, 4, col); rect(cx + 18, cy - 2, 8, 2, col);
+  }
+  // Drachenberg in der Ferne
+  const px = 330 - camX * 0.1;
+  const mcol = mix('#7d6f9e', '#3a2648', dusk);
+  for (let y = 36; y < 150; y += 2) { const hw = (y - 36) * 0.85; rect(px - hw, y, hw * 2, 2, mcol); }
+  rect(px - 4, 36, 8, 2, '#ff6a3a'); rect(px - 2, 34, 4, 2, '#ffb15a');
+  for (let i = 0; i < 4; i++) { const t = ((frameN * 0.4 + i * 30) % 120); rect(px - 4 + Math.sin(t * 0.1 + i) * 4 + t * 0.15, 30 - t * 0.3, 6 - t * 0.03, 5 - t * 0.03, `rgba(90,80,100,${1 - t / 120})`); }
+  // Ferne Berge
+  const fcol = mix('#9db5d6', '#5a4a7a', dusk);
+  for (let sx = 0; sx < W; sx += 2) { const wx = sx + camX * 0.2; const hh = 26 + 12 * Math.sin(wx * 0.02) + 8 * Math.sin(wx * 0.047 + 2); rect(sx, 132 - hh, 2, H - 132 + hh, fcol); }
+  // Hügel: Weinberge → Wald → Fels
+  for (let sx = 0; sx < W; sx += 2) {
+    const wx = sx + camX * 0.4, top = 120 + 5 * Math.sin(wx * 0.03) + 3 * Math.sin(wx * 0.011);
+    const biome = wx < 420 ? 0 : wx < 760 ? 1 : 2;
+    const col = biome === 0 ? mix('#78b85a', '#4a6b48', dusk) : biome === 1 ? mix('#3e7d4a', '#2c4a3e', dusk) : mix('#7a6662', '#4a3644', dusk);
+    rect(sx, top, 2, H - top, col);
+    if (biome === 0) for (let ry = top + 4; ry < 150; ry += 5) if (((wx | 0) >> 1) % 3 === 0) rect(sx, ry, 2, 2, mix('#3f7a34', '#2c4a2e', dusk));
+  }
+}
+function layerX(anchor, f) { return 160 + (anchor - camX - 160) * f; }
+function drawMidground(dusk) {
+  // Fachwerkhäuser (Dorf)
+  for (const [ax, hw, hh, roof] of [[70, 34, 24, '#b5423a'], [210, 30, 28, '#a8483e'], [350, 38, 22, '#b5423a'], [500, 30, 26, '#9a3d36'], [700, 28, 22, '#b5423a']]) {
+    const x = Math.round(layerX(ax, 0.7)); if (x < -60 || x > W + 20) continue;
+    const by = 146; rect(x, by - hh, hw, hh, '#efe6d2');
+    rect(x, by - hh, hw, 2, '#5b3a22'); rect(x, by - hh / 2, hw, 2, '#5b3a22'); rect(x, by - hh, 2, hh, '#5b3a22'); rect(x + hw - 2, by - hh, 2, hh, '#5b3a22'); rect(x + (hw >> 1), by - hh, 2, hh, '#5b3a22');
+    for (let i = 0; i < 4; i++) rect(x + 4 + i * 2, by - hh + 3 + i * 2, 2, 2, '#5b3a22');
+    rect(x + 5, by - 9, 6, 9, '#6a4428'); rect(x + hw - 11, by - hh + 5, 6, 6, '#8fd0f0'); rect(x + hw - 11, by - hh + 8, 6, 1, '#5b3a22');
+    for (let r = 0; r < 12; r++) rect(x - 3 + r, by - hh - 1 - r, hw + 6 - r * 2, 1, roof);
+    if (dusk > 0.2) rect(x + hw - 11, by - hh + 5, 6, 6, '#ffd36a');
+  }
+  // Kirchturm
+  { const x = Math.round(layerX(420, 0.7)); if (x > -30 && x < W + 30) { rect(x, 96, 14, 50, '#e8dcc4'); for (let r = 0; r < 20; r++) rect(x + 7 - r * 0.4, 96 - 20 + r, Math.max(1, r * 0.8), 1, '#4b4a5e'); rect(x + 4, 104, 6, 8, '#3a2b2b'); rect(x + 6, 68, 2, 8, '#d9b44a'); rect(x + 4, 70, 6, 2, '#d9b44a'); } }
+  // Tannen (Wald)
+  for (let ax = 1050; ax < 1980; ax += 42) {
+    const x = Math.round(layerX(ax + hash(ax) * 20, 0.75)); if (x < -30 || x > W + 30) continue;
+    const hgt = 34 + hash(ax + 7) * 22, col = mix('#2f6a3e', '#20403a', dusk);
+    rect(x + 6, 146 - 8, 4, 8, '#4a3020');
+    for (let r = 0; r < hgt; r++) { const ww = Math.round((r % 12) * 0.9 + r * 0.22) + 1; rect(x + 8 - ww, 146 - 8 - hgt + r, ww * 2, 1, col); }
+  }
+  // Felsen & Lava (Drachenberg)
+  for (let ax = 1900; ax < 2800; ax += 48) {
+    const x = Math.round(layerX(ax + hash(ax) * 24, 0.7)); if (x < -40 || x > W + 40) continue;
+    const hgt = 30 + hash(ax + 3) * 40, wd = 16 + hash(ax + 5) * 14, col = mix('#5e4a52', '#3a2a3a', dusk);
+    for (let r = 0; r < hgt; r += 2) { const ww = wd * (r / hgt) + 2; rect(x - ww / 2, 148 - hgt + r, ww, 2, col); }
+    if (hash(ax) > 0.5) { const ly = 148 - hgt * 0.4; rect(x - 1, ly, 2, 6, '#ff6a2a'); rect(x, ly + 6, 2, 4, '#ff6a2a'); }
+  }
+}
+function drawGround() {
+  for (const [a, b] of GROUNDS) {
+    const x0 = Math.max(a, camX - 2), x1 = Math.min(b, camX + W + 2); if (x1 <= x0) continue;
+    for (let wx = Math.floor(x0 / 4) * 4; wx < x1; wx += 4) {
+      const biome = wx < 1100 ? 0 : wx < 1900 ? 1 : 2;
+      const sx = wx - camX;
+      const dirt = biome === 2 ? '#5b4a4e' : '#7a5232', dirt2 = biome === 2 ? '#463840' : '#5e3e26';
+      const top = biome === 0 ? '#6cc04a' : biome === 1 ? '#4a9a46' : '#8a7a78', top2 = biome === 0 ? '#3f8a36' : biome === 1 ? '#2f6e36' : '#6a5a5a';
+      const cw = Math.min(4, x1 - wx);
+      rect(sx, GROUND_Y, cw, 30, dirt);
+      rect(sx, GROUND_Y, cw, 3, top); rect(sx, GROUND_Y + 3, cw, 2, top2);
+      const hh = hash(wx);
+      if (hh > 0.55) rect(sx + (hh * 3 | 0), GROUND_Y + 8 + ((hh * 97 | 0) % 18), 2, 1, dirt2);
+      if (hash(wx + 5) > 0.7) rect(sx + 1, GROUND_Y + 12 + ((hash(wx + 9) * 13) | 0), 1, 1, dirt2);
+      if (biome < 2 && hh > 0.82) { rect(sx + 1, GROUND_Y - 2, 1, 2, top2); rect(sx + 2, GROUND_Y - 1, 1, 1, top2); }
+      if (biome === 0 && hash(wx + 1) > 0.9) { rect(sx + 1, GROUND_Y - 3, 1, 3, '#3f8a36'); rect(sx, GROUND_Y - 4, 3, 1, ['#ffd84a', '#ff8ab0', '#ffffff'][(hh * 30 | 0) % 3]); }
+      if (biome === 2 && hash(wx + 2) > 0.93) rect(sx, GROUND_Y + 6, 3, 1, '#ff6a2a');
+    }
+    // Kanten
+    if (a > 0) rect(a - camX, GROUND_Y, 1, 30, '#2a1a14');
+    if (b < LEVEL_END) rect(b - camX - 1, GROUND_Y, 1, 30, '#2a1a14');
+  }
+  for (const [px, py, pw] of PLATS) {
+    const stone = px > 1900, sx = px - camX;
+    rect(sx, py, pw, 6, stone ? '#7a6a6a' : '#9a6a3a'); rect(sx, py, pw, 2, stone ? '#a09090' : '#c98a4b');
+    rect(sx, py + 5, pw, 1, '#2a1a14');
+    for (let i = 6; i < pw; i += 8) rect(sx + i, py + 2, 1, 3, stone ? '#5a4a4a' : '#6b4426');
+  }
+}
+
+function drawPlayer() { // Jule
+  const p = P; if (p.inv > 0 && (frameN >> 2) % 2 === 0) return;
+  let f = 'idle';
+  if (!p.onGround) f = 'jump'; else if (Math.abs(p.vx) > 0.2) f = ((p.anim | 0) % 2) ? 'w1' : 'w2';
+  spr(JULE[f], p.x - 3, p.y, p.face < 0);
+  if (!hat) spr(BUNNY_MINI, p.x + (p.face > 0 ? 3 : 0), p.y + 8, p.face < 0);
+}
+function drawBuddy() { // Logge
+  let f = 'idle';
+  if (buddyJoined && J.air) f = 'jump'; else if (J.moving) f = ((J.anim | 0) % 2) ? 'w1' : 'w2';
+  const set = (J.hasBunny && !bunny) ? LOGGE : LOGGE_NH;
+  const hop = !buddyJoined && (frameN % 140) > 120 ? -2 : 0; // wartet und wippt ungeduldig
+  const ouch = J.flash > 0, jump = J.flash > 18 ? -3 : 0;
+  spr(set[f], J.x - 2 + (ouch ? (frameN % 4 < 2 ? -1 : 1) : 0), J.y - 5 + hop + jump, J.face < 0, ouch && (J.flash >> 2) % 2 === 0);
+}
+function drawDragon() {
+  const b = boss; if (!b) return;
+  const flying = b.state !== 'rest' && !(b.state === 'defeated' && b.y >= GROUND_Y - 26);
+  const open = b.mouth > 0 || b.state === 'warn';
+  const body = flying ? (open ? DRAGON.flyOpen : DRAGON.fly) : (open ? DRAGON.standOpen : DRAGON.stand);
+  const flip = b.face > 0, white = b.flash > 0 && (b.flash >> 1) % 2 === 0;
+  const wingUp = flying ? ((frameN >> 3) % 2 === 0) : true;
+  const wing = wingUp ? DRAGON.wingUp : DRAGON.wingDown;
+  const wy = wingUp ? b.y + 1 : b.y + 10;
+  const wx = flip ? b.x + 36 - 17 - wing.w : b.x + 17;
+  if (b.state === 'warn' && (frameN >> 2) % 2 === 0) { spr(body, b.x, b.y, flip, true); spr(wing, wx, wy, flip, true); return; }
+  spr(body, b.x, b.y, flip, white); spr(wing, wx, wy, flip, white);
+  if (b.state === 'rest' || (b.state === 'defeated' && b.t > 60)) {
+    for (let i = 0; i < 3; i++) { const a = frameN * 0.1 + i * 2.1; rect(b.x + 8 + Math.cos(a) * 9 - camX, b.y - 4 + Math.sin(a) * 3, 2, 2, '#ffe066'); }
+  }
+}
+function drawWorld() {
+  const dusk = Math.max(0, Math.min(1, (camX - 900) / 1300));
+  drawBackground(dusk); drawMidground(dusk);
+  for (const [x, label] of SIGNS) { const w = label.length * 3 + 6, sx = x - camX;
+    rect(sx + w / 2 - 1, GROUND_Y - 6, 2, 6, '#5b3a22'); rect(sx, GROUND_Y - 13, w, 8, '#1b1424'); rect(sx + 1, GROUND_Y - 12, w - 2, 6, '#c98a4b'); }
+  drawGround();
+  for (const b of brezeln) if (!b.taken) spr(BREZEL, b.x, b.y + Math.round(Math.sin(frameN * 0.07 + b.x) * 1.5));
+  for (const en of enemies) if (en.alive) {
+    if (en.type === 'beetle') spr(BEETLE[((en.t || 0) >> 3) % 2], en.x, en.y, en.vx > 0);
+    else spr(BAT[(frameN >> 3) % 2], en.x, en.y);
+  }
+  drawDragon();
+  drawBuddy();
+  if (bunny) spr(HAT[(bunny.spin >> 2) % 4], bunny.x, bunny.y);
+  drawPlayer();
+  if (hat) spr(BUNNY, hat.x, hat.y + ((hat.t >> 2) % 2), (hat.t >> 3) % 2 === 0);
+  for (const f of fireballs) spr(FIRE[(f.t >> 2) % 2], f.x, f.y);
+  for (const w of waves) { rect(w.x - camX, GROUND_Y - 6, 8, 6, '#d9b38c'); rect(w.x - camX + 2, GROUND_Y - 9, 4, 3, '#efd2a8'); }
+  for (const p of parts) rect(p.x - camX, p.y, 2, 2, p.col);
+}
+function drawHUD() {
+  for (let i = 0; i < 3; i++) ctx.drawImage(i < P.hp ? HEART.c : HEART_E.c, 4 + i * 9, 4);
+  ctx.drawImage(BREZEL.c, 4, 13);
+  if (boss && bossStarted && boss.state !== 'intro') {
+    rect(100, 5, 120, 6, '#1b1424'); rect(101, 6, 118, 4, '#4a2a3a'); rect(101, 6, Math.round(118 * boss.hp / boss.max), 4, '#6ad25a');
+  }
+}
+function drawBox(x, y, w, h) { rect(x, y, w, h, '#1b1424'); rect(x + 1, y + 1, w - 2, h - 2, '#f5f1e6'); rect(x + 2, y + 2, w - 4, h - 4, '#2b2140'); }
+function drawPortrait(who, x, y) {
+  rect(x - 1, y - 1, 58, 58, '#f5f1e6');
+  const im = who === 'drache' ? DRAGON_PORTRAIT : PORTRAIT[who];
+  if (im) ctx.drawImage(im, x, y, 56, 56);
+}
+
+// --- Text (auf der hochauflösenden Ebene) ---
+function font(sz) { return `${Math.round(sz * U)}px "Press Start 2P", monospace`; }
+function text(str, x, y, sz = 6, col = '#f5f1e6', align = 'left', shadow = true) {
+  vctx.font = font(sz); vctx.textAlign = align; vctx.textBaseline = 'top';
+  if (shadow) { vctx.fillStyle = '#1b1424'; vctx.fillText(str, Math.round((x + 0.7) * U), Math.round((y + 0.7) * U)); }
+  vctx.fillStyle = col; vctx.fillText(str, Math.round(x * U), Math.round(y * U));
+}
+function wrap(str, maxW, sz) {
+  vctx.font = font(sz); const words = str.split(' '), lines = []; let cur = '';
+  for (const w of words) { const t = cur ? cur + ' ' + w : w; if (vctx.measureText(t).width / U > maxW && cur) { lines.push(cur); cur = w; } else cur = t; }
+  if (cur) lines.push(cur); return lines;
+}
+function drawDialogText() {
+  const L = dialog.lines[dialog.i]; const hasP = !!L.who;
+  const tx = hasP ? 70 : 12, maxW = hasP ? 240 : 296;
+  if (hasP) text(NAMES[L.who], tx, 9, 6, NAME_COL[L.who]);
+  const lines = wrap(L.t.slice(0, Math.floor(dialog.n)), maxW, 6);
+  lines.forEach((ln, i) => text(ln, tx, (hasP ? 21 : 16) + i * 10, 6));
+}
+function blit() {
+  vctx.imageSmoothingEnabled = false;
+  const sx = shake > 0 ? (Math.random() - 0.5) * shake * 0.6 : 0, sy = shake > 0 ? (Math.random() - 0.5) * shake * 0.6 : 0;
+  vctx.fillStyle = '#120d1c'; vctx.fillRect(0, 0, view.width, view.height);
+  vctx.drawImage(buf, Math.round(sx * U), Math.round(sy * U), view.width, view.height);
+}
+
+function render() {
+  if (state === 'title') return renderTitle();
+  if (state === 'ending') return renderEnding();
+  drawWorld(); if (state !== 'dialog') drawHUD();
+  if (state === 'dialog') {
+    const L = dialog.lines[dialog.i];
+    drawBox(4, 4, 312, 64);
+    if (L.who) drawPortrait(L.who, 9, 8);
+    if (dialog.n >= L.t.length && (frameN >> 4) % 2 === 0) { rect(304, 58, 7, 2, '#f6c35c'); rect(305, 60, 5, 1, '#f6c35c'); rect(306, 61, 3, 1, '#f6c35c'); rect(307, 62, 1, 1, '#f6c35c'); }
+  }
+  if (state === 'gameover') { ctx.fillStyle = 'rgba(20,10,30,0.7)'; ctx.fillRect(0, 0, W, H); }
+  blit();
+  if (state !== 'dialog') for (const [x, label] of SIGNS) { const sx = x - camX; if (sx > -60 && sx < W + 10) { text(label, sx + 3.4, GROUND_Y - 10.6, 3, '#2a1a10', 'left', false); } }
+  if (state !== 'dialog') text('x' + brezelCount, 15, 14, 5);
+  if (state !== 'dialog' && boss && bossStarted && boss.state !== 'intro') text('JAKOBUS DER SCHRECKLICHE', 160, 13, 4, '#ffe9b0', 'center');
+  if (muted) text('Ton aus', 316, 4, 4, '#ffffff', 'right');
+  if (state === 'bite' && biteT >= 50 && biteT < 112) text('*HAPS*', J.x - camX + 4, J.y - 22 - (biteT - 50) * 0.12, 6, '#ff8a8a', 'center');
+  if (state === 'dialog') drawDialogText();
+  if (state === 'gameover') {
+    text('AUTSCH!', 160, 60, 12, '#ff7a7a', 'center');
+    text('Jule braucht eine Pause.', 160, 86, 6, '#f5f1e6', 'center');
+    if ((frameN >> 5) % 2 === 0) text('Enter / Tippen: Nochmal!', 160, 108, 6, '#f6c35c', 'center');
+  }
+}
+function renderTitle() {
+  camX = (frameN * 0.3) % 600;
+  const dusk = 0;
+  drawBackground(dusk); drawMidground(dusk); drawGround();
+  ctx.fillStyle = 'rgba(18,13,28,0.55)'; ctx.fillRect(0, 0, W, H);
+  // Porträts
+  const px = [58, 132, 206];
+  ['jule', 'logge'].forEach((k, i) => drawPortrait(k, px[i], 62));
+  rect(px[2] - 1, 61, 58, 58, '#f5f1e6'); rect(px[2], 62, 56, 56, '#2a1d3e');
+  ctx.drawImage((frameN >> 5) % 2 ? DRAGON.stand.c : DRAGON.standOpen.c, px[2] + 10, 76);
+  blit();
+  text('JULE & LOGGE', 160, 14, 14, '#f6c35c', 'center');
+  text('und die große Drachenjagd', 160, 38, 6, '#f5f1e6', 'center');
+  text('Jule', px[0] + 28, 124, 5, NAME_COL.jule, 'center');
+  text('Logge', px[1] + 28, 124, 5, NAME_COL.logge, 'center');
+  text('Drache ???', px[2] + 28, 124, 5, NAME_COL.jakob, 'center');
+  if ((frameN >> 5) % 2 === 0) text(isTouch ? 'Tippen zum Starten' : 'Enter drücken zum Starten', 160, 144, 6, '#ffffff', 'center');
+  text(isTouch ? '' : 'Pfeile: laufen/springen   X: Captain Kuschel   M: Ton', 160, 162, 4, '#bfb4d6', 'center');
+}
+function renderEnding() {
+  const t = frameN - endFrame;
+  for (let i = 0; i < 12; i++) rect(0, i * 15, W, 15, mix('#2a1d4e', '#f59a5d', i / 11));
+  for (let i = 0; i < 40; i++) rect(hash(i) * W, hash(i + 50) * 80, 1, 1, '#fff7d8');
+  rect(230, 120, 30, 30, '#ffd36a'); rect(226, 126, 38, 18, '#ffd36a');
+  for (let sx = 0; sx < W; sx += 2) { const wx = sx + t * 0.6; const hh = 18 + 8 * Math.sin(wx * 0.03) + 5 * Math.sin(wx * 0.07); rect(sx, 160 - hh, 2, 40, '#3a2848'); }
+  for (let sx = 0; sx < W; sx += 2) { const wx = sx + t * 1.4; const hh = 8 + 4 * Math.sin(wx * 0.05); rect(sx, 172 - hh, 2, 20, '#21162e'); }
+  // Drache mit Logge & Jule auf dem Rücken
+  const dx = Math.min(140, -60 + t * 1.2), dy = 70 + Math.sin(t * 0.06) * 6;
+  const savedCam = camX; camX = 0;
+  spr(LOGGE.idle, dx + 3, dy - 11, false); spr(JULE.idle, dx + 15, dy - 3, false); spr(BUNNY_MINI, dx + 21, dy + 5, false);
+  spr(DRAGON.fly, dx, dy, true);
+  const wing = (t >> 3) % 2 ? DRAGON.wingUp : DRAGON.wingDown; spr(wing, dx + 36 - 17 - wing.w, (t >> 3) % 2 ? dy + 1 : dy + 10, true);
+  camX = savedCam;
+  if (t % 6 === 0) puff(dx + 2, dy + 20, '#ffd27a', 1, 0.4);
+  for (const p of parts) rect(p.x, p.y, 1, 1, p.col);
+  blit();
+  text('ENDE', 160, 16, 14, '#ffe9b0', 'center');
+  text('Jule, Logge & Jakob fliegen heim nach Ramsen.', 160, 40, 5, '#f5f1e6', 'center');
+  if (t > 60) {
+    const secs = Math.round((endFrame - startFrame) / 60);
+    text(`Brezeln: ${brezelCount}/${BREZEL_POS.length}   Zeit: ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}   Versuche: ${deaths + 1}`, 160, 136, 5, '#f6c35c', 'center');
+  }
+  if (t > 120 && (frameN >> 5) % 2 === 0) text('Enter / Tippen: Zum Titel', 160, 150, 5, '#ffffff', 'center');
+}
+
+// ================= Start =================
+newGame(); state = 'title';
+let acc = 0, last = performance.now();
+function loop(now) {
+  acc += Math.min(100, now - last); last = now;
+  while (acc >= 1000 / 60) { update(); acc -= 1000 / 60; }
+  render(); requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
