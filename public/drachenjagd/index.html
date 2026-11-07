@@ -467,6 +467,10 @@ function updateBrezeln() {
 }
 
 // ================= Boss =================
+function bossParts() { // Kopf und Körper getrennt, damit der leere Raum hinter dem Kopf nicht trifft
+  const b = boss, m = (x, w) => b.face < 0 ? b.x + x : b.x + 36 - x - w;
+  return [{ x: m(0, 16), y: b.y + 4, w: 16, h: 9 }, { x: m(8, 26), y: b.y + 12, w: 26, h: 13 }];
+}
 function bossBox() { const b = boss; return { x: b.x + 3, y: b.y + 4, w: 30, h: 21 }; }
 function damageBoss(n) {
   if (boss.flash > 0 || boss.state === 'defeated') return;
@@ -564,12 +568,17 @@ function updateBoss() {
       break;
   }
   // Kontakt mit dem Drachen
-  if (!(b.safe > 0) && b.state !== 'intro' && b.state !== 'defeated' && overlap(P, bossBox())) {
-    const bb = bossBox();
-    if (P.vy > 0 && P.y + P.h - bb.y < 13) { // von oben draufgesprungen
-      damageBoss(1); P.y = bb.y - P.h; P.vy = keys.jump ? -6.6 : -5.6; P.bounced = true; b.safe = 45; P.vx = P.x + 4 < bb.x + bb.w / 2 ? -1.2 : 1.2; P.inv = Math.max(P.inv, 12); SFX.stomp(); puff(P.x + 4, bb.y, '#ffe066', 6);
-      if (b.state === 'rest' && b.hp > 0) { b.state = 'ascend'; b.t = 0; SFX.roar(); }
-    } else hurt(bb.x + bb.w / 2);
+  if (!(b.safe > 0) && b.state !== 'intro' && b.state !== 'defeated') {
+    const stunned = b.state === 'rest'; // betäubt: Berührung tut nicht weh, nur Draufspringen zählt
+    for (const bb of stunned ? [bossBox()] : bossParts()) {
+      if (!overlap(P, bb)) continue;
+      if (P.vy > 0 && P.y + P.h - bb.y < (stunned ? 16 : 12)) { // von oben draufgesprungen
+        damageBoss(1); P.y = bb.y - P.h; P.vy = keys.jump ? -6.6 : -5.6; P.bounced = true; b.safe = 45; P.vx = P.x + 4 < bb.x + bb.w / 2 ? -1.2 : 1.2; P.inv = Math.max(P.inv, 12); SFX.stomp(); puff(P.x + 4, bb.y, '#ffe066', 6);
+        if (stunned && b.hp > 0) { b.state = 'ascend'; b.t = 0; SFX.roar(); }
+        break;
+      }
+      if (!stunned) { hurt(bb.x + bb.w / 2); break; }
+    }
   }
   for (const f of fireballs) { f.x += f.vx; f.y += f.vy; f.t++; if (overlap(P, f)) { f.dead = true; hurt(f.x); } if (f.y > GROUND_Y - 4) { f.dead = true; puff(f.x + 3, GROUND_Y - 2, '#ff9a3a', 5, 1); } if (f.x < ARENA_L - 20 || f.x > ARENA_R + 20 || f.y < -40) f.dead = true; }
   fireballs = fireballs.filter(f => !f.dead);
