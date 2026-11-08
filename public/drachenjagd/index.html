@@ -27,6 +27,12 @@
   body.portrait #touch button { width: 74px; height: 74px; font-size: 26px; }
   body.portrait #touch .grp { gap: 10px; }
   body.portrait #touch { padding-bottom: max(34px, env(safe-area-inset-bottom)); }
+  #touch .flyonly { display: none; }
+  body.fly #touch .flyonly { display: block; }
+  body.fly #touch button[data-k="jump"] { margin-bottom: 0; }
+  body.portrait.fly #touch button { width: 58px; height: 58px; font-size: 20px; }
+  body.portrait.fly #touch .grp { gap: 8px; }
+  body.portrait.fly #touch { padding-left: max(12px, env(safe-area-inset-left)); padding-right: max(12px, env(safe-area-inset-right)); }
   #hint { display: none; position: fixed; left: 0; right: 0; text-align: center; color: #bfb4d6; font-size: 10px; line-height: 1.6; pointer-events: none; }
   body.portrait #hint { display: block; }
 </style>
@@ -36,7 +42,7 @@
 <div id="hint">Tipp: Handy quer halten<br>für ein größeres Bild</div>
 <div id="touch">
   <div class="grp"><button data-k="left">◀</button><button data-k="right">▶</button></div>
-  <div class="grp"><button data-k="hat">🐰</button><button data-k="jump">▲</button></div>
+  <div class="grp"><button data-k="down" class="flyonly">▼</button><button data-k="hat" id="btnHat">🐰</button><button data-k="jump">▲</button></div>
 </div>
 <script>
 "use strict";
@@ -155,6 +161,35 @@ const DRAGON = {
   wingUp: mk(WING_UP), wingDown: mk(WING_DOWN)
 };
 
+
+// --- Sebbi (dunkle Wellen mit Seitenscheitel, Schnurr- und Kinnbart, schwarze Jacke, Jeans) ---
+const SB_HEAD = ["...kkkkk....","..khhHhhkk..",".khHhhhhHhk.",".khhHhhhhhHk","khHsssssshhk","khssessesshk",
+  ".ksssSSsssk.",".kshhhhhhsk.","..kshsshsk..","...khhhhk...","....kSsk....",
+  "..kbbwwbbk..",".kbBbwwbBbk.","kbbBbwwbBbbk","kbkBbwwbBkbk","kbkBbwwbBkbk","kskbbwwbbksk",".kkiiiiiikk."];
+const SB_LEGS = {
+  idle: ["..kiikkiik..","..kiikkiik..","..kiikkiik..","..kiikkiik..","..kkk..kkk.."],
+  w1:   ["..kiikiik...","..kiikiik...",".kiik.kiik..","kiik...kiik.","kkk.....kkk."],
+  w2:   ["...kiiiik...","...kiiiik...","...kiiik....","...kiiik....","...kkkkk...."],
+  jump: ["..kiikkiik..","..kiikkiik..",".kiik..kiik.",".kkk....kkk.","............"]
+};
+const SEBBI = {}; for (const k in SB_LEGS) SEBBI[k] = mk([...SB_HEAD, ...SB_LEGS[k]]);
+const BOOK = mk(["kkkkkkk","kNNNNwk","kNrrNwk","kNNNNwk","kkkkkkk"]); // Sebbis Textbuch (Wurfgeschoss)
+// --- Jakob als Mensch (blond, Brille wie der Drache, braunes Hemd) ---
+const JAKOB_H = mk(["...kkkkk....","..kuuUuuk...",".kuUuuuUuuk.",".kuussssuuk.",".kcfeccfeck.",".ksssSSsssk.",
+  "..ksrrrrsk..","...kssssk...","....kSSk....","..knnNNnnk..",".knNnnnnNnk.","knnNnnnnNnnk","knkNnnnnNknk",
+  "kskNnnnnNksk",".kkJJJJJJkk.","..knnnnnnk..","..kookkook..","..kookkook..","..kookkook..","..kkk..kkk.."]);
+// --- Nexus-Logge: Logge mit glühenden KI-Augen ---
+const EVIL = mk([...L_HAT, ...L_BODY.map(r => r.replace(/e/g, 'x')), ...L_LEGS.idle]);
+const EVIL_ARMS = mk([...L_HAT, ...L_BODY.map((r, i) => r.replace(/e/g, 'x')).map((r, i) => i === 7 || i === 8 ? r.replace(/^k/, 's').replace(/k$/, 's') : r), ...L_LEGS.jump]);
+const BIT = [mk(["kkkkk","kvvvk","kvkvk","kvkvk","kvkvk","kvvvk","kkkkk"]), mk([".kkk.","kvvk.","kkvk.",".kvk.",".kvk.","kvvvk","kkkkk"])];
+const ERRBLOCK = mk(["kkkkkkkkkk","krrrrrrrrk","krwrrrrwrk","krrwrrwrrk","krrrwwrrrk","krrrwwrrrk","krrwrrwrrk","krwrrrrwrk","krrrrrrrrk","kkkkkkkkkk"]);
+// --- Fressalia Knossalia: fleischfressende Pflanze ---
+const FRESS_TOP = ['k3 .6 k3', 'k1 M2 k1 .4 k1 M2 k1', 'k1 M1 d2 k6 d2 M1 k1', 'k1 d3 M6 d3 k1', 'k1 d2 z2 d4 z2 d2 k1', 'k1 d2 z1 k1 d4 z1 k1 d2 k1', 'k1 d14 k1'];
+const FRESS_OPEN = [...FRESS_TOP, 'k1 d1 w1 d1 w1 d1 w1 d2 w1 d1 w1 d1 w1 d1 k1', 'k1 r16 k1', 'k1 r3 R10 r3 k1', 'k1 r16 k1', 'k1 w1 r2 w1 r2 w1 r2 w1 r2 w1 r2 w1 k1', 'k1 d16 k1', 'k1 D1 d14 D1 k1', 'k2 D1 d10 D1 k2', 'k3 D10 k3', 'k1 m2 k1', 'k1 m2 k1'];
+const FRESS_SHUT = [...FRESS_TOP, 'k1 d1 w1 d1 w1 d1 w1 d2 w1 d1 w1 d1 w1 d1 k1', 'k1 w1 k1 w1 k1 w1 k1 w1 k1 w1 k1 w1 k1 w1 k1 w1 k1', 'k1 d16 k1', 'k1 D1 d14 D1 k1', 'k2 D1 d10 D1 k2', 'k3 D10 k3', 'k1 m2 k1', 'k1 m2 k1', 'k1 m2 k1', 'k1 m2 k1'];
+const FRESS = { open: mk(rle(FRESS_OPEN)), shut: mk(rle(FRESS_SHUT)) };
+const SEED = mk([".kk.","kNnk","knNk",".kk."]);
+
 // --- Kleinkram ---
 const FIRE = [mk(["..xx..",".xzzx.","xzzwzx","xzwzzx",".xzzx.","..xx.."]), mk(["..xx..",".xzzx.","xzwzzx","xzzwzx",".xzzx.","..xx.."])];
 const BEETLE = [mk(["..kkkkkk..",".krrRrrrk.","kwrRrrRrrk","krRrrRrrRk","kkkkkkkkkk",".k.k..k.k."]),
@@ -175,15 +210,14 @@ const DRAGON_PORTRAIT = (() => {
 })();
 
 // Porträts im Stil des Drachen: 18×18 Sprite-Pixel, dreifach vergrößert, gleicher Hintergrund
-function mkPortrait(rows) {
-  const src = document.createElement('canvas'); src.width = 18; src.height = 18; const x = src.getContext('2d');
-  rows.forEach((r, j) => {
-    const px = r.split(' ').map(t => t[0].repeat(+t.slice(1))).join('');
-    const off = Math.floor((18 - px.length) / 2);
-    for (let i = 0; i < px.length; i++) if (px[i] !== '.' && PAL[px[i]]) { x.fillStyle = PAL[px[i]]; x.fillRect(off + i, j, 1, 1); }
-  });
+function rle(rows, w = 18) { // 'k1 h3 …' → zentrierte Pixelzeilen
+  return rows.map(r => { const px = r.split(' ').map(t => t[0].repeat(+t.slice(1))).join(''), off = Math.floor((w - px.length) / 2);
+    return '.'.repeat(off) + px + '.'.repeat(Math.max(0, w - off - px.length)); });
+}
+function mkPortrait(rows, bg = '#3b2b4b') {
+  const src = mk(rle(rows));
   const c = document.createElement('canvas'); c.width = 56; c.height = 56; const y = c.getContext('2d');
-  y.fillStyle = '#3b2b4b'; y.fillRect(0, 0, 56, 56); y.imageSmoothingEnabled = false; y.drawImage(src, 1, 2, 54, 54);
+  y.fillStyle = bg; y.fillRect(0, 0, 56, 56); y.imageSmoothingEnabled = false; y.drawImage(src.c, 1, 2, 54, 54);
   return c;
 }
 const PORTRAIT = {
@@ -202,6 +236,19 @@ const PORTRAIT = {
   ])
 };
 PORTRAIT.jakob = DRAGON_PORTRAIT;
+PORTRAIT.sebbi = mkPortrait(['k8', 'k1 h3 H1 h4 H1 k2', 'k1 h2 H1 h3 H1 h3 H1 h1 k1', 'k1 h1 H1 h2 s4 h3 H1 h1 k1', 'k1 h2 s9 h1 k1',
+  'k1 h1 s2 e1 s4 e1 s2 h1 k1', 'k1 h1 s4 S2 s4 h1 k1', 'k1 s3 h6 s3 k1', 'k1 s2 h1 s1 r4 s1 h1 s2 k1', 'k2 s3 h4 s3 k2', 'k2 S2 h4 S2 k2',
+  'k1 s4 k1', 'k1 b3 k1 w4 k1 b3 k1', 'k1 b4 k1 w4 k1 b4 k1', 'k1 b1 B1 b3 w6 b3 B1 b1 k1', 'k1 b1 B1 b2 k1 w6 k1 b2 B1 b1 k1',
+  'k1 b1 B1 b2 k1 w6 k1 b2 B1 b1 k1', 'k1 b1 B1 b2 k1 w6 k1 b2 B1 b1 k1']);
+PORTRAIT.jakobm = mkPortrait(['k6', 'k2 u6 k2', 'k1 u2 U1 u6 U1 u1 k1', 'k1 u1 U1 u2 U1 u4 U1 u1 k1', 'k1 u2 s8 u2 k1',
+  'k1 s1 c4 s2 c4 s1 k1', 'k1 s1 c1 f1 e1 c1 s2 c1 f1 e1 c1 s1 k1', 'k1 s1 c4 s2 c4 s1 k1', 'k1 s5 S2 s5 k1',
+  'k1 s1 p1 s1 r6 s1 p1 s1 k1', 'k2 s8 k2', 'k2 S6 k2', 'k1 s4 k1', 'k1 n3 k1 N4 k1 n3 k1', 'k1 n4 N6 n4 k1',
+  'k1 n2 N1 n3 N4 n3 N1 n2 k1', 'k1 n2 N1 n10 N1 n2 k1', 'k1 n2 N1 n10 N1 n2 k1']);
+PORTRAIT.ki = mkPortrait(['k6', 'k1 b3 B1 k1', 'k1 b3 B1 k1', 'k1 r4 k1', 'k12', 'k1 j2 J1 j2 J1 j2 J1 j1 k1',
+  'k1 J1 j1 s8 j1 J1 k1', 'k1 j1 J1 s1 x1 s4 x1 s1 J1 j1 k1', 'k1 J1 s1 p1 s2 S2 s2 p1 s1 J1 k1',
+  'k1 s2 k1 w4 k1 s2 k1', 'k1 s2 S1 k4 S1 s2 k1', 'k2 S6 k2', 'k1 s4 k1', 'k1 b2 k1 w4 k1 b2 k1',
+  'k1 b3 k1 w1 k2 w1 k1 b3 k1', 'k1 b4 k1 w4 k1 b4 k1', 'k1 b1 B1 b3 k1 w4 k1 b3 B1 b1 k1', 'k1 b1 B1 b3 k1 w4 k1 b3 B1 b1 k1'], '#4b1b2b');
+PORTRAIT.fressalia = mkPortrait(FRESS_OPEN, '#2b3b2b');
 
 // ================= Audio =================
 let AC = null, muted = false;
@@ -225,7 +272,7 @@ const SFX = {
 
 // ================= Eingabe =================
 const keys = {}, pressed = {};
-const KEYMAP = { ArrowLeft:'left', KeyA:'left', ArrowRight:'right', KeyD:'right', ArrowUp:'jump', KeyW:'jump', Space:'jump',
+const KEYMAP = { ArrowLeft:'left', KeyA:'left', ArrowRight:'right', KeyD:'right', ArrowUp:'jump', KeyW:'jump', Space:'jump', ArrowDown:'down', KeyS:'down',
   KeyX:'hat', KeyK:'hat', KeyJ:'hat', Enter:'ok', KeyM:'mute' };
 function press(k) { if (!keys[k]) pressed[k] = true; keys[k] = true; initAudio(); }
 function release(k) { keys[k] = false; }
@@ -233,7 +280,7 @@ addEventListener('keydown', e => { const k = KEYMAP[e.code]; if (!k) return; e.p
 addEventListener('keyup', e => { const k = KEYMAP[e.code]; if (k) release(k); });
 if (isTouch) {
   // Alle aktiven Finger auswerten: man kann zwischen Knöpfen gleiten und mehrere gleichzeitig drücken
-  const pad = document.getElementById('touch'), BTN_KEYS = ['left', 'right', 'jump', 'hat'];
+  const pad = document.getElementById('touch'), BTN_KEYS = ['left', 'right', 'jump', 'hat', 'down'];
   const sync = e => {
     e.preventDefault();
     const active = new Set();
@@ -276,23 +323,27 @@ function newGame() {
   boss = null;
   spawn();
   const q = new URLSearchParams(location.search);
+  mode = 'ground'; setFlyMode(false); setStage('ground'); gotBrezel = new Set(); evil = null; ally = null; evilShots = []; blocks = []; allyShots = [];
   if (q.has('boss')) { buddyJoined = true; P.x = 2250; checkpoint = 2250; J.x = 2228; }
 }
+const MAX_HP = 5;
 function spawn() {
-  P = { x: checkpoint, y: GROUND_Y - 15, w: 8, h: 15, vx: 0, vy: 0, face: 1, hp: 3, inv: 0, onGround: true, coyote: 0, jumpBuf: 0, knock: 0, anim: 0, safeX: checkpoint };
+  P = { x: checkpoint, y: GROUND_Y - 15, w: 8, h: 15, vx: 0, vy: 0, face: 1, hp: MAX_HP, inv: 0, onGround: true, coyote: 0, jumpBuf: 0, knock: 0, anim: 0, safeX: checkpoint };
   hat = null; bunny = null; fireballs = []; waves = []; parts = []; trail = []; totalD = 0;
   if (buddyJoined) { J.x = buddySpot(); J.y = P.y + P.h - J.h; J.hasBunny = true; }
+  if (mode === 'final') { evilShots = []; blocks = []; allyShots = []; if (evil && evilHittable()) { evil.state = 'float'; evil.t = 0; evil.y = 84; } }
   if (arenaLocked && boss) { boss.hp = boss.max; boss.state = 'hover'; boss.t = 0; boss.x = 2550; boss.y = 66; }
   camX = arenaLocked ? ARENA_L : Math.max(0, Math.min(LEVEL_END - W, P.x - 140));
 }
 
 // ================= Dialoge =================
-const NAMES = { logge: 'Logge', jule: 'Jule', drache: 'Drache', jakob: 'Drache Jakob' };
-const NAME_COL = { logge: '#f6c35c', jule: '#d6a8ff', drache: '#7fe07a', jakob: '#7fe07a' };
-function say(lines, done) { dialog = { lines, i: 0, n: 0, done }; state = 'dialog'; }
+const NAMES = { logge: 'Logge', jule: 'Jule', drache: 'Drache', jakob: 'Drache Jakob', jakobm: 'Jakob', sebbi: 'Sebbi', ki: 'Nexus-Logge', fressalia: 'Fressalia Knossalia' };
+const NAME_COL = { logge: '#f6c35c', jule: '#d6a8ff', drache: '#7fe07a', jakob: '#7fe07a', jakobm: '#f6e27a', sebbi: '#8fd0f0', ki: '#ff5a5a', fressalia: '#ff8ab0' };
+function say(lines, done) { dialog = { lines, i: 0, n: 0, done, lock: 25 }; state = 'dialog'; }
 function updateDialog() {
   const L = dialog.lines[dialog.i];
   if (dialog.n < L.t.length) { dialog.n += 0.9; if (frameN % 3 === 0) SFX.blip(); }
+  if (dialog.lock > 0) { dialog.lock--; return; }
   if (anyOk()) {
     if (dialog.n < L.t.length) dialog.n = L.t.length;
     else if (++dialog.i >= dialog.lines.length) { const d = dialog.done; dialog = null; state = 'play'; d && d(); }
@@ -307,6 +358,7 @@ function onGroundAt(x) { return GROUNDS.some(([a, b]) => x >= a && x <= b); }
 function moveX(e) {
   e.x += e.vx;
   if (e.x < 0) e.x = 0; if (e.x + e.w > LEVEL_END) e.x = LEVEL_END - e.w;
+  if (mode === 'final') { if (e.x < 2) e.x = 2; if (e.x + e.w > W - 2) e.x = W - 2 - e.w; }
   if (arenaLocked && e === P) { if (e.x < ARENA_L + 2) e.x = ARENA_L + 2; if (e.x + e.w > ARENA_R - 2) e.x = ARENA_R - 2 - e.w; }
   if (e.y + e.h > GROUND_Y + 1) for (const [a, b] of GROUNDS) {
     if (e.x + e.w > a && e.x < b) { if (e.x + e.w - a < b - e.x) e.x = a - e.w; else e.x = b; }
@@ -324,6 +376,10 @@ function puff(x, y, col, n = 8, sp = 1.5) {
   for (let i = 0; i < n; i++) { const a = Math.random() * Math.PI * 2, s = Math.random() * sp; parts.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 0.5, life: 20 + Math.random() * 20, col }); }
 }
 
+function brezelBonus() { // alle 10 Brezeln gibt es ein Herz zurück
+  const who = mode === 'fly' ? F : P;
+  if (brezelCount % 10 === 0 && who && who.hp < MAX_HP) { who.hp++; SFX.win(); puff(who.x + 8, who.y, '#ff6b6b', 10, 1.5); }
+}
 function hurt(fromX) {
   if (P.inv > 0) return;
   P.hp--; P.inv = 90; P.knock = 14; P.vx = (P.x < fromX ? -2 : 2); P.vy = -3; shake = 8; SFX.hurt();
@@ -365,7 +421,8 @@ function updatePlayer() {
 function updateHat() {
   if (!hat) return;
   hat.t++;
-  if (!hat.back) { hat.x += hat.vx; hat.vx -= hat.face * 0.14; if (Math.sign(hat.vx) !== hat.face || hat.t > 60) hat.back = true; }
+  if (!hat.back) { hat.x += hat.vx; hat.vx -= hat.face * (mode === 'final' ? 0.085 : 0.14); if (Math.sign(hat.vx) !== hat.face || hat.t > 60) hat.back = true;
+    if (mode === 'final' && evilHittable()) { const eb = evilBox(); if (Math.sign(eb.x + 5 - hat.x) === hat.face) hat.y += clampN((eb.y + eb.h / 2 - hat.y - 4) * 0.12, -2.2, 2.2); } } // Captain Kuschel steuert nach
   else {
     const tx = P.x + 4 - hat.w / 2, ty = P.y + 4, dx = tx - hat.x, dy = ty - hat.y, dd = Math.hypot(dx, dy);
     const sp = Math.min(4.5, 1.5 + hat.t * 0.05);
@@ -374,6 +431,7 @@ function updateHat() {
   }
   for (const en of enemies) if (en.alive && overlap(hat, en)) killEnemy(en);
   if (boss && boss.hp > 0 && !hat.hitBoss && overlap(hat, bossBox())) { hat.hitBoss = true; hat.back = true; damageBoss(1); }
+  if (mode === 'final' && evilHittable() && !hat.hitBoss && overlap(hat, evilBox())) { hat.hitBoss = true; hat.back = true; damageEvil(1); }
 }
 
 function standable(x, foot) {
@@ -420,6 +478,7 @@ function updateJule() {
     let tgt = null, best = 1e9;
     for (const en of enemies) if (en.alive) { const dx = en.x - J.x, dy = en.y - J.y; if (Math.abs(dx) < 120 && Math.abs(dy) < 70) { const d = Math.hypot(dx, dy); if (d < best) { best = d; tgt = en; } } }
     if (boss && boss.hp > 0 && boss.state !== 'intro' && boss.state !== 'defeated') { const bb = bossBox(); tgt = { x: bb.x + bb.w / 2, y: bb.y + bb.h / 2, w: 0, h: 0 }; }
+    if (mode === 'final') { tgt = null; if (evilHittable()) { const eb = evilBox(); tgt = { x: eb.x + eb.w / 2, y: eb.y + eb.h / 2, w: 0, h: 0 }; } }
     if (tgt) {
       const sx = J.x + 4, sy = J.y - 1, dx = tgt.x + tgt.w / 2 - sx, dy = tgt.y + tgt.h / 2 - sy, d = Math.hypot(dx, dy) || 1;
       bunny = { x: sx - 5, y: sy - 2, vx: dx / d * 3.2, vy: dy / d * 3.2, t: 0, back: false, w: 10, h: 5, hitBoss: false, spin: 0 };
@@ -433,11 +492,12 @@ function updateBunny() {
   if (!b.back) { b.x += b.vx; b.y += b.vy; if (b.t > 45) b.back = true; }
   else {
     const dx = J.x - 1 - b.x, dy = J.y - 3 - b.y, d = Math.hypot(dx, dy);
-    if (d < 8 || b.t > 220) { bunny = null; J.hasBunny = true; J.cd = boss && bossStarted ? 150 : 70; return; }
+    if (d < 8 || b.t > 220) { bunny = null; J.hasBunny = true; J.cd = (boss && bossStarted) || mode === 'final' ? 150 : 70; return; }
     b.x += dx / d * 3.4; b.y += dy / d * 3.4;
   }
   for (const en of enemies) if (en.alive && overlap(b, en)) { killEnemy(en); b.back = true; }
   if (boss && boss.hp > 0 && !b.hitBoss && overlap(b, bossBox())) { b.hitBoss = true; b.back = true; damageBoss(1); }
+  if (mode === 'final' && evilHittable() && !b.hitBoss && overlap(b, evilBox())) { b.hitBoss = true; b.back = true; damageEvil(1); }
 }
 
 function killEnemy(en) { en.alive = false; puff(en.x + en.w / 2, en.y + en.h / 2, en.type === 'bat' ? '#9b7bd0' : '#ff8a4a', 10); SFX.hit(); }
@@ -462,7 +522,7 @@ function updateEnemies() {
 
 function updateBrezeln() {
   for (const b of brezeln) if (!b.taken && Math.abs(P.x + 4 - (b.x + 4)) < 9 && Math.abs(P.y + P.h / 2 - (b.y + 3)) < 13) {
-    b.taken = true; brezelCount++; SFX.coin(); puff(b.x + 4, b.y + 3, '#ffd27a', 6, 1);
+    b.taken = true; brezelCount++, brezelBonus(); SFX.coin(); puff(b.x + 4, b.y + 3, '#ffd27a', 6, 1);
   }
 }
 
@@ -503,7 +563,7 @@ function meetLogge() {
 }
 function startBoss() {
   bossStarted = true; arenaLocked = true; checkpoint = 2330;
-  boss = { x: 2560, y: -40, hp: 14, max: 14, state: 'intro', t: 0, face: -1, flash: 0, mouth: 0, side: 1, swoopDir: -1, landed: false };
+  boss = { x: 2560, y: -40, hp: 10, max: 10, state: 'intro', t: 0, face: -1, flash: 0, mouth: 0, side: 1, swoopDir: -1, landed: false };
   say([
     { who: null, t: 'Ein Schatten fällt über den Berg …' , fx: () => SFX.roar() },
     { who: 'drache', t: 'WER WAGT ES, MEINEN DRACHENBERG ZU BETRETEN?!' },
@@ -523,15 +583,15 @@ function shootAt(n, spread, speed) {
 function updateBoss() {
   const b = boss; if (!b) return;
   b.t++; if (b.flash > 0) b.flash--; if (b.mouth > 0) b.mouth--; if (b.safe > 0) b.safe--;
-  const phase = b.hp > 9 ? 1 : b.hp > 4 ? 2 : 3;
+  const phase = b.hp > 6 ? 1 : b.hp > 3 ? 2 : 3;
   const homeX = b.side > 0 ? 2560 : 2330;
   switch (b.state) {
     case 'intro': b.y += (66 - b.y) * 0.05; break;
     case 'hover': {
       b.x += (homeX - b.x) * 0.04; b.y = 66 + Math.sin(b.t * 0.05) * 14;
       b.face = P.x + 4 < b.x + 18 ? -1 : 1;
-      const every = phase === 1 ? 62 : phase === 2 ? 58 : 54;
-      if (b.t % every === 30) { if (phase === 1) shootAt(1, 0, 1.7); else if (phase === 2) shootAt(3, 0.28, 1.9); else shootAt(4, 0.26, 2.1); }
+      const every = phase === 1 ? 80 : phase === 2 ? 74 : 68;
+      if (b.t % every === 30) { if (phase === 1) shootAt(1, 0, 1.4); else if (phase === 2) shootAt(2, 0.32, 1.55); else shootAt(3, 0.3, 1.7); }
       if (b.t > (phase === 3 ? 170 : 210)) { b.state = 'descend'; b.t = 0; }
       break;
     }
@@ -539,12 +599,12 @@ function updateBoss() {
       b.y += 2.6; b.x += (P.x - 14 - b.x) * 0.02; b.x = Math.max(ARENA_L + 4, Math.min(ARENA_R - 40, b.x));
       if (b.y >= GROUND_Y - 26) {
         b.y = GROUND_Y - 26; b.state = 'rest'; b.t = 0; shake = 12; SFX.boom();
-        const sp = phase === 1 ? 1.8 : 2.4;
+        const sp = phase === 1 ? 1.4 : 1.8;
         waves.push({ x: b.x + 4, y: GROUND_Y - 8, vx: -sp, w: 8, h: 8, life: 200 }, { x: b.x + 26, y: GROUND_Y - 8, vx: sp, w: 8, h: 8, life: 200 });
         puff(b.x + 18, GROUND_Y - 2, '#c9a27a', 16, 2.5);
       }
       break;
-    case 'rest': b.face = P.x + 4 < b.x + 18 ? -1 : 1; if (b.t > (phase === 3 ? 80 : 110)) { b.state = 'ascend'; b.t = 0; } break;
+    case 'rest': b.face = P.x + 4 < b.x + 18 ? -1 : 1; if (b.t > (phase === 3 ? 120 : 150)) { b.state = 'ascend'; b.t = 0; } break;
     case 'ascend':
       b.y -= 2; if (b.y <= 66) { b.y = 66; b.t = 0;
         if (phase >= 2) { b.state = 'warn'; b.side = b.x + 18 > (ARENA_L + ARENA_R) / 2 ? 1 : -1; }
@@ -554,10 +614,10 @@ function updateBoss() {
       b.face = -b.side; b.y += (112 - b.y) * 0.08;
       { const tx = b.side > 0 ? 2560 : 2330; b.x += (tx - b.x) * 0.1; }
       if (b.t === 1) SFX.roar();
-      if (b.t > 50 && Math.abs(b.x - (b.side > 0 ? 2560 : 2330)) < 4) { b.state = 'swoop'; b.t = 0; }
+      if (b.t > 70 && Math.abs(b.x - (b.side > 0 ? 2560 : 2330)) < 4) { b.state = 'swoop'; b.t = 0; }
       break;
     case 'swoop':
-      b.x += -b.side * (phase === 3 ? 3.6 : 3.1); b.y = 116 + Math.sin(b.t * 0.15) * 2;
+      b.x += -b.side * (phase === 3 ? 2.9 : 2.5); b.y = 116 + Math.sin(b.t * 0.15) * 2;
       if ((b.side > 0 && b.x <= 2310) || (b.side < 0 && b.x >= 2575)) { b.side *= -1; b.state = 'ascend2'; b.t = 0; }
       break;
     case 'ascend2': b.y -= 1.6; if (b.y <= 66) { b.state = 'hover'; b.t = 0; } break;
@@ -588,11 +648,415 @@ function updateBoss() {
 function bossDefeatedDialog() {
   say([
     { who: 'jakob', t: 'Aua! Okay, okay! Ich ergebe mich! Nicht Captain Kuschel!' },
-    { who: 'jakob', t: 'Ehrlich gesagt … war mir hier oben einfach nur langweilig. So ganz allein.' },
-    { who: 'jule', t: 'Dann komm doch einfach mit uns! Captain Kuschel mag Drachen.' },
-    { who: 'logge', t: 'Aber nur, wenn du uns nach Hause fliegst.' },
-    { who: 'jakob', t: 'Abgemacht! Festhalten!' }
+    { who: 'jakob', t: 'Ehrlich gesagt weiß ich nicht mal, warum ich ein Drache bin. Gestern war ich noch ein ganz normaler Typ!' },
+    { who: 'jakob', t: 'Und jetzt wuchert auch noch Fressalia Knossalia durch die Weinberge, eine riesige fleischfressende Pflanze … Richtung Ramsen!' },
+    { who: 'jule', t: 'Nicht mit uns! Jakob, ab jetzt bist du in unserem Team.' },
+    { who: 'logge', t: 'Ein Bündnis! Jule, Logge und Jakob. Und ein Hase. *bzzt* … äh, ich meine: Hurra!' },
+    { who: 'jule', t: 'Captain Kuschel ist kein Hase. Er ist ein CAPTAIN.' },
+    { who: 'jakob', t: 'Steigt auf! Ich fliege, ihr haltet euch fest.', fx: () => SFX.roar() }
+  ], () => startFly());
+}
+
+
+// ================= Flug-Level: Jule & Logge reiten auf Jakob =================
+const CROW = [mk(["......kk....",".....kBbk...","..kk.kbbbk..",".krbkbbbbbkk","xxkbbbbbbbbk",".kkkkbbbbkk.","....k..k...."]),
+              mk(["............","..kk........",".krbkkkkkkk.","xxkbbbbbbbbk",".kkbbbbbbbbk","...kbBbbbk..","....kbk.k..."])];
+const CLOUD = mk(["......kkkkk...........","....kkGGGGGkk..kkkk...","...kGGGGGGGGGkkGGGGk..","..kGGGGGGGGGGGGGGGGGk.",
+  ".kGGGkkGGGGGGkkGGGGGGk","kGGGGGkkGGGGkkGGGGGGGk","kGGGGGkwkGGkwkGGGGGGGk","kaGGGGGGGGGGGGGGGGGGak",".kaaGGGGkkkkGGGGGGaak.","..kkaaaaaaaaaaaaaakk..","....kkkkkkkkkkkkkk...."]);
+const BOLT = mk(["..zz.",".zwz.","zzwz.","..wzz",".zwz.","zz..."]);
+const FLY_SPEED = 1.2, FLY_BOSS_AT = 2700, FLY_MID = 1350;
+const FLY_WAVES = [];
+(() => {
+  const w = (at, type, y, n = 1, gap = 18, dy = 0) => { for (let i = 0; i < n; i++) FLY_WAVES.push({ at: at + i * gap, type, y: y + dy * i }); };
+  w(120, 'brezel', 80, 5, 12); w(240, 'crow', 50, 5, 22); w(400, 'crow', 125, 5, 22); w(560, 'bat', 30, 3, 34);
+  w(680, 'brezel', 120, 5, 12); w(800, 'cloud', 28); w(900, 'crow', 100, 6, 16, -8); w(1080, 'cloud', 45); w(1150, 'crow', 135, 4, 22);
+  w(1280, 'bat', 150, 4, 28); w(1420, 'brezel', 45, 6, 12); w(1600, 'cloud', 24); w(1660, 'cloud', 62); w(1760, 'crow', 36, 6, 18, 14);
+  w(1960, 'bat', 20, 5, 24); w(2100, 'brezel', 95, 5, 12); w(2200, 'cloud', 34); w(2270, 'crow', 115, 6, 16); w(2420, 'crow', 50, 6, 16);
+  w(2470, 'bat', 140, 4, 22); w(2560, 'brezel', 70, 4, 12);
+  FLY_WAVES.sort((a, b) => a.at - b.at);
+})();
+const FLY_BREZEL_TOTAL = FLY_WAVES.filter(w => w.type === 'brezel').length;
+
+let mode = 'ground', F = null, flyX = 0, bgX = 0, flyEnemies = [], flyShots = [], foeShots = [], waveIdx = 0, plant = null, flyCheckpoint = 0, flyHat = null, gotBrezel = new Set();
+function clampN(v, a, b) { return Math.max(a, Math.min(b, v)); }
+function fBox() { return { x: F.x + 8, y: F.y + 6, w: 24, h: 15 }; }
+function plantBox() { return { x: plant.x + 1, y: plant.y + 2, w: 16, h: 15 }; }
+function setFlyMode(on) {
+  document.body.classList.toggle('fly', on);
+  const b = document.getElementById('btnHat'); if (b) b.textContent = on ? '🔥' : '🐰';
+}
+function startFly() {
+  mode = 'fly'; setFlyMode(true); camX = 0; flyCheckpoint = 0; gotBrezel = new Set(); flySpawn();
+  say([
+    { who: null, t: 'Jule und Logge klettern auf Jakobs Rücken. Auf nach Ramsen!' },
+    { who: null, t: isTouch ? 'Steuerung: ◀ ▶ ▲ ▼ fliegen, Feuer-Knopf halten: Jakob spuckt Feuer. Logge wirft seinen Zylinder.' : 'Pfeiltasten: fliegen. X gedrückt halten: Jakob spuckt Feuer. Logge wirft seinen Zylinder.' }
+  ]);
+}
+function flySpawn() {
+  F = { x: 40, y: 70, vx: 0, vy: 0, hp: MAX_HP, inv: 60, cd: 0, anim: 0 };
+  flyX = flyCheckpoint; waveIdx = FLY_WAVES.findIndex(w => w.at > flyX); if (waveIdx < 0) waveIdx = FLY_WAVES.length;
+  flyEnemies = []; flyShots = []; foeShots = []; flyHat = null; parts = []; plant = null;
+  if (flyX >= FLY_BOSS_AT) spawnPlant(true);
+}
+function spawnFlyEnemy(w, idx) {
+  if (w.type === 'brezel') { if (!gotBrezel.has(idx)) flyEnemies.push({ type: 'brezel', idx, x: W + 8, y: w.y, w: 9, h: 6, t: 0 }); return; }
+  const e = { type: w.type, x: W + 10, y: w.y, by: w.y, t: Math.random() * 6, hp: 1, w: 12, h: 7, vy: 0, flash: 0 };
+  if (w.type === 'cloud') Object.assign(e, { hp: 3, w: 22, h: 11, fire: 70 + Math.random() * 40, life: 0 });
+  if (w.type === 'bat') Object.assign(e, { w: 11, h: 5 });
+  flyEnemies.push(e);
+}
+function flyHurt(fromX) {
+  if (F.inv > 0) return;
+  F.hp--; F.inv = 90; shake = 8; SFX.hurt(); puff(F.x + 18, F.y + 12, '#ff6b6b', 10);
+  F.vx = F.x + 18 < fromX ? -2.5 : 2.5;
+  if (F.hp <= 0) { deaths++; state = 'gameover'; }
+}
+function hitFoe(e, n) {
+  e.hp -= n; e.flash = 8;
+  if (e.hp <= 0) { e.dead = true; puff(e.x + e.w / 2, e.y + e.h / 2, e.type === 'cloud' ? '#d6d0dc' : '#5a4a6a', 10); SFX.hit(); }
+}
+function aimShot(list, x, y, tx, ty, speed, kind, spread = 0, n = 1) {
+  const base = Math.atan2(ty - y, tx - x);
+  for (let i = 0; i < n; i++) { const a = base + (i - (n - 1) / 2) * spread; list.push({ kind, x, y, vx: Math.cos(a) * speed, vy: Math.sin(a) * speed, w: 5, h: 4, t: 0 }); }
+}
+function flyAmbient() { bgX += FLY_SPEED; if (F) F.anim++; if (plant && plant.state === 'enter') updatePlant(); }
+function updateFly() {
+  flyAmbient();
+  const ax = (keys.right ? 1 : 0) - (keys.left ? 1 : 0), ay = (keys.down ? 1 : 0) - (keys.jump ? 1 : 0);
+  F.vx = (F.vx + ax * 0.4) * 0.82; F.vy = (F.vy + ay * 0.4) * 0.82;
+  F.x = clampN(F.x + F.vx, 2, 210); F.y = clampN(F.y + F.vy, 24, H - 30);
+  if (F.inv > 0) F.inv--;
+  if (F.cd > 0) F.cd--;
+  if (keys.hat && F.cd <= 0) { flyShots.push({ x: F.x + 32, y: F.y + 8, vx: 4.4, w: 6, h: 6, t: 0 }); F.cd = 10; if (frameN % 2 === 0) SFX.fire(); }
+  // Vorwärts bis zum Endgegner, Wellen auslösen
+  if (flyX < FLY_BOSS_AT) { flyX = Math.min(FLY_BOSS_AT, flyX + FLY_SPEED); for (const cp of [FLY_MID, 2100]) if (flyX >= cp && flyCheckpoint < cp) flyCheckpoint = cp; }
+  while (waveIdx < FLY_WAVES.length && FLY_WAVES[waveIdx].at <= flyX) { spawnFlyEnemy(FLY_WAVES[waveIdx], waveIdx); waveIdx++; }
+  if (flyX >= FLY_BOSS_AT && !plant) { for (const e of flyEnemies) if (e.type !== 'brezel') puff(e.x + 6, e.y + 4, '#5a4a6a', 6); flyCheckpoint = FLY_BOSS_AT; spawnPlant(false); return; }
+  const fb = fBox();
+  for (const e of flyEnemies) {
+    e.t++; if (e.flash > 0) e.flash--;
+    if (e.type === 'brezel') e.x -= FLY_SPEED;
+    else if (e.type === 'crow') { e.x -= 1.4; e.y = e.by + Math.sin(e.t * 0.05) * 10; }
+    else if (e.type === 'bat') { e.x -= 1.3; if (e.x < F.x + 170) { e.vy = clampN(e.vy + Math.sign(F.y + 10 - e.y) * 0.045, -0.9, 0.9); e.y += e.vy; } }
+    else if (e.type === 'cloud') {
+      e.life++; e.x -= e.life > 360 ? 1.2 : (e.x > 236 ? 0.8 : 0.12); e.y = e.by + Math.sin(e.t * 0.02) * 4;
+      if (--e.fire <= 0) { aimShot(foeShots, e.x + 9, e.y + 9, F.x + 18, F.y + 12, 1.3, 'bolt'); e.fire = 220; SFX.fire(); }
+    }
+    if (overlap(fb, e)) {
+      if (e.type === 'brezel') { e.dead = true; gotBrezel.add(e.idx); brezelCount++, brezelBonus(); SFX.coin(); puff(e.x + 4, e.y + 3, '#ffd27a', 6, 1); }
+      else if (!e.dead) flyHurt(e.x + e.w / 2);
+    }
+    if (e.x < -40 || e.y > H + 30) e.dead = true;
+  }
+  for (const s of flyShots) {
+    s.x += s.vx; s.t++;
+    for (const e of flyEnemies) if (!e.dead && e.type !== 'brezel' && overlap(s, e)) { s.dead = true; hitFoe(e, 1); break; }
+    if (!s.dead && plant && overlap(s, plantBox())) { s.dead = true; damagePlant(1); }
+    if (s.x > W + 10) s.dead = true;
+  }
+  updateFlyHat();
+  for (const b of foeShots) { b.x += b.vx; b.y += b.vy; b.t++; if (overlap(fb, b)) { b.dead = true; flyHurt(b.x); } if (b.x < -20 || b.x > W + 20 || b.y < -20 || b.y > H + 20) b.dead = true; }
+  flyEnemies = flyEnemies.filter(e => !e.dead); flyShots = flyShots.filter(s => !s.dead); foeShots = foeShots.filter(b => !b.dead);
+  if (plant) updatePlant();
+}
+function updateFlyHat() { // Logge wirft seinen Zylinder von Jakobs Rücken
+  const lx = F.x + 6, ly = F.y - 2;
+  if (!flyHat) {
+    if ((F.hatCd = (F.hatCd || 0) - 1) > 0) return;
+    let tgt = null, best = 1e9;
+    for (const e of flyEnemies) if (e.type !== 'brezel' && e.x > F.x && e.x < W) { const d = Math.hypot(e.x - lx, e.y - ly); if (d < best) { best = d; tgt = e; } }
+    if (plant && plant.hp > 0 && plant.state !== 'enter' && plant.state !== 'down' && plant.x > 0 && plant.x < W - 20) { const kb = plantBox(); tgt = { x: kb.x, y: kb.y, w: kb.w, h: kb.h }; }
+    if (!tgt) return;
+    const dx = tgt.x + tgt.w / 2 - lx, dy = tgt.y + tgt.h / 2 - ly, d = Math.hypot(dx, dy) || 1;
+    flyHat = { x: lx, y: ly, vx: dx / d * 3.6, vy: dy / d * 3.6, t: 0, back: false, w: 10, h: 5, hitBoss: false };
+    SFX.hat(); return;
+  }
+  const h = flyHat; h.t++;
+  if (!h.back) { h.x += h.vx; h.y += h.vy; if (h.t > 50) h.back = true; }
+  else { const dx = lx - h.x, dy = ly - h.y, d = Math.hypot(dx, dy); if (d < 8 || h.t > 200) { flyHat = null; F.hatCd = 70; return; } h.x += dx / d * 4.2; h.y += dy / d * 4.2; }
+  for (const e of flyEnemies) if (!e.dead && e.type !== 'brezel' && overlap(h, e)) { hitFoe(e, 2); h.back = true; }
+  if (plant && !h.hitBoss && overlap(h, plantBox())) { h.hitBoss = true; h.back = true; damagePlant(2); }
+}
+// --- Fressalia Knossalia ---
+function spawnPlant(skipIntro) {
+  plant = { x: 250, y: H + 10, hp: 20, max: 20, t: 0, state: 'enter', flash: 0, ty: 60, wt: 0, dt: 0, open: 0 };
+  flyEnemies = flyEnemies.filter(e => e.type === 'brezel'); foeShots = []; flyShots = []; flyHat = null; F.hatCd = 60;
+  if (!skipIntro) say([
+    { who: 'fressalia', t: 'Knosss … Frischfleisch im Anflug! Wie aufmerksam!', fx: () => SFX.roar() },
+    { who: 'jakob', t: 'Fressalia Knossalia! Lass die Weinberge in Ruhe!' },
+    { who: 'jule', t: 'Wir sind drei Freunde und ein Captain. Und du bist nur Gemüse!' },
+    { who: 'fressalia', t: 'GEMÜSE?! Euch verputz ich zum Nachtisch!' }
+  ]);
+}
+function damagePlant(n) {
+  const k = plant; if (!k || k.flash > 0 || k.state === 'down' || k.state === 'enter') return;
+  k.hp -= n; k.flash = 5; if (frameN % 3 === 0) SFX.hit();
+  if (k.hp <= 0) { k.hp = 0; k.state = 'down'; k.dt = 0; foeShots = []; flyEnemies = flyEnemies.filter(e => e.type === 'brezel'); SFX.roar(); shake = 12; }
+}
+function updatePlant() {
+  const k = plant; k.t++; if (k.flash > 0) k.flash--; if (k.open > 0) k.open--;
+  const p2 = k.hp <= 10;
+  switch (k.state) {
+    case 'enter': k.x += (240 - k.x) * 0.04; k.y += (60 - k.y) * 0.04; if (Math.abs(k.y - 60) < 2 && state === 'play') { k.state = 'fight'; k.t = 0; } break;
+    case 'fight':
+      k.x += (240 - k.x) * 0.05; k.y = 70 + Math.sin(k.t * 0.03) * 40;
+      if (k.t % (p2 ? 76 : 92) === 30) { aimShot(foeShots, k.x + 2, k.y + 9, F.x + 18, F.y + 12, p2 ? 1.9 : 1.6, 'seed', 0.3, 3); k.open = 22; SFX.fire(); }
+      if (p2 && k.t % 460 === 230) for (const yy of [30, 130]) flyEnemies.push({ type: 'crow', x: W + 10, y: yy, by: yy, t: 0, hp: 1, w: 12, h: 7, vy: 0, flash: 0 });
+      if (k.t % (p2 ? 260 : 340) === 0) { k.state = 'warn'; k.wt = 0; k.ty = clampN(F.y + 2, 20, 148); SFX.roar(); }
+      break;
+    case 'warn': k.wt++; k.open = 2; k.y += (k.ty - k.y) * 0.12; k.x += (258 - k.x) * 0.1; if (k.wt > 62) k.state = 'snap'; break;
+    case 'snap': k.open = 2; k.x -= p2 ? 3.8 : 3.2; if (k.x < 24) { k.state = 'return'; SFX.chomp(); } break;
+    case 'return': k.x += (240 - k.x) * 0.05; if (Math.abs(k.x - 240) < 3) { k.state = 'fight'; k.t = 1; } break;
+    case 'down':
+      k.dt++; k.y += 1.2; if (k.dt % 5 === 0) puff(k.x + 4 + Math.random() * 10, k.y + 8, k.dt % 10 ? '#3f8f45' : '#8a6a3a', 3, 1.2);
+      if (k.dt === 100) plantDefeatedDialog();
+      break;
+  }
+  if (state === 'play' && k.state !== 'down' && k.state !== 'enter' && overlap(fBox(), plantBox())) flyHurt(k.x + 8);
+}
+function plantDefeatedDialog() {
+  say([
+    { who: 'fressalia', t: 'Knoss … ich welke … ich hätte Vegetarierin werden sollen …' },
+    { who: 'logge', t: 'Und das alles, ohne dass mein Zylinder verrutscht ist.' },
+    { who: 'jakob', t: 'Festhalten, ihr zwei! Wir landen in Ramsen!' }
+  ], () => startFinale());
+}
+// --- Zeichnen ---
+function drawFlyBG() {
+  const p = Math.min(1, flyX / FLY_BOSS_AT);
+  const top = mix('#3a2f7a', '#211843', p), bot = mix('#f6b36b', '#ef7d5a', p);
+  for (let i = 0; i < 12; i++) rect(0, i * 15, W, 15, mix(top, bot, i / 11));
+  for (let i = 0; i < 30; i++) rect(hash(i + 7) * W, hash(i + 70) * 60, 1, 1, `rgba(255,250,230,${0.25 + p * 0.5})`);
+  const sx = 250 - p * 50, sy = 128 + p * 18; rect(sx - 10, sy - 14, 20, 28, '#ffd98a'); rect(sx - 14, sy - 10, 28, 20, '#ffd98a'); rect(sx - 6, sy - 6, 12, 12, '#fff0c0');
+  for (let i = 0; i < 7; i++) { const cx = ((i * 83 - bgX * 0.15) % 420 + 420) % 420 - 50, cy = 18 + (i * 29) % 80, col = mix('#ffd9c0', '#b9809f', p);
+    rect(cx, cy, 34, 5, col); rect(cx + 6, cy - 4, 16, 4, col); rect(cx + 20, cy - 2, 10, 2, col); }
+  // ferne Hügel
+  for (let x = 0; x < W; x += 2) { const wx = x + bgX * 0.25, t = 146 + 8 * Math.sin(wx * 0.013) + 5 * Math.sin(wx * 0.037); rect(x, t, 2, H - t, mix('#7a7fae', '#4d3f6e', p)); }
+  // Ramsen am Horizont, wenn das Ziel naht
+  if (flyX > 2250) { const rx = Math.max(150, W + 30 - (flyX - 2250) * 0.45), hc = mix('#4d3f6e', '#2e2446', p);
+    for (const [dx, w, h] of [[0, 14, 10], [16, 12, 8], [30, 16, 12], [50, 12, 9], [64, 14, 10]]) { rect(rx + dx, 150 - h, w, h, hc); for (let r = 0; r < 5; r++) rect(rx + dx - 1 + r, 150 - h - r, w + 2 - r * 2, 1, hc); }
+    rect(rx + 44, 126, 6, 24, hc); for (let r = 0; r < 10; r++) rect(rx + 47 - r * 0.35, 116 + r, Math.max(1, r * 0.7), 1, hc);
+    for (const [dx, dy] of [[4, 145], [20, 146], [34, 144], [54, 145], [68, 145]]) if ((frameN >> 5) % 3 || dx % 2) rect(rx + dx, dy, 2, 2, '#ffd36a'); }
+  // nahe Weinberg-Hügel
+  for (let x = 0; x < W; x += 2) { const wx = x + bgX * 0.6, t = 160 + 6 * Math.sin(wx * 0.02) + 4 * Math.sin(wx * 0.051);
+    rect(x, t, 2, H - t, mix('#5f8f4a', '#3a5640', p)); if (((wx | 0) >> 1) % 3 === 0) for (let y = t + 3; y < H; y += 5) rect(x, y, 2, 2, mix('#3f7a34', '#2a4030', p)); }
+}
+function drawFlyer() {
+  if (F.inv > 0 && state === 'play' && (frameN >> 2) % 2 === 0) return;
+  const up = (F.anim >> 3) % 2 === 0, wing = up ? DRAGON.wingUp : DRAGON.wingDown;
+  const wx = F.x + 36 - 17 - wing.w, body = F.cd > 4 && keys.hat ? DRAGON.flyOpen : DRAGON.fly;
+  if (up) spr(wing, wx, F.y - 8, true); // Flügel oben: ragt hinter den Reitern hoch
+  spr(flyHat ? LOGGE_NH.idle : LOGGE.idle, F.x + 1, F.y - 4, false);
+  spr(JULE.idle, F.x + 10, F.y + 2, false);
+  spr(body, F.x, F.y, true);
+  if (!up) spr(wing, wx, F.y + 12, true); // Flügel unten: vorne an der Seite
+  spr(BUNNY_MINI, F.x + 21, F.y + 5 + ((F.anim >> 4) % 2), false); // Captain Kuschel winkt vorne mit
+}
+function drawPlant() {
+  const k = plant; if (!k) return;
+  const wilt = k.state === 'down', hx = k.x + 9, hy = k.y + 17, bx = 292, by = H + 4;
+  const cx = (hx + bx) / 2 + 30, cy = Math.min(hy, by) + 30;
+  const pts = [];
+  for (let i = 0; i <= 80; i++) { const t = i / 80, u = 1 - t;
+    pts.push([u * u * bx + 2 * u * t * cx + t * t * hx, u * u * by + 2 * u * t * cy + t * t * hy + Math.sin(frameN * 0.05 + i * 0.25) * (1 - t) * 2]); }
+  const g1 = wilt ? '#7a6a3a' : '#3f8f45', g2 = wilt ? '#a08a4a' : '#79c35f', g3 = wilt ? '#8a7a40' : '#56b04f';
+  for (const [x, y] of pts) rect(x - 3, y - 3, 7, 7, '#1b1424');
+  pts.forEach(([x, y], i) => { rect(x - 2, y - 2, 5, 5, g1); if (i % 5 === 0) rect(x - 1, y - 2, 2, 1, g2); });
+  pts.forEach(([x, y], i) => { if (i % 16 === 8 && i < 72) { const s = i % 32 === 8 ? 1 : -1, lx = x + s * 4;
+    rect(lx - (s < 0 ? 11 : 0), y - 3, 11, 5, '#1b1424'); rect(lx - (s < 0 ? 10 : 0) + (s < 0 ? 0 : 1), y - 2, 9, 3, g3); rect(lx - (s < 0 ? 8 : -2), y - 1, 6, 1, g2); } });
+  // Blätterkragen unter dem Kopf
+  for (const s of [-1, 1]) { const lx = s < 0 ? k.x - 8 : k.x + 17, ly = k.y + 13; rect(lx, ly, 10, 5, '#1b1424'); rect(lx + 1, ly + 1, 8, 3, g3); rect(lx + (s < 0 ? 1 : 3), ly + 2, 6, 1, g2); }
+  const white = k.flash > 0 && k.flash % 2 === 0 || (k.state === 'warn' && (frameN >> 2) % 2 === 0);
+  const jx = k.state === 'warn' ? ((frameN >> 1) % 2 ? 1 : -1) : 0;
+  spr(k.open > 0 && !wilt ? FRESS.open : FRESS.shut, k.x + jx, k.y, false, white);
+}
+function drawFly() {
+  drawFlyBG();
+  for (const e of flyEnemies) {
+    const white = e.flash > 0 && e.flash % 2 === 0;
+    if (e.type === 'brezel') spr(BREZEL, e.x, e.y + Math.round(Math.sin(e.t * 0.1) * 1.5));
+    else if (e.type === 'crow') spr(CROW[(e.t >> 3) % 2], e.x, e.y, false, white);
+    else if (e.type === 'bat') spr(BAT[(frameN >> 3) % 2], e.x, e.y, false, white);
+    else if (e.type === 'cloud') { spr(CLOUD, e.x, e.y, false, white); if (e.fire < 24 && (frameN >> 1) % 2) rect(e.x + 8, e.y + 11, 6, 2, '#ffe066'); }
+  }
+  drawPlant();
+  drawFlyer();
+  if (flyHat) spr(HAT[(flyHat.t >> 2) % 4], flyHat.x, flyHat.y);
+  for (const s of flyShots) spr(FIRE[(s.t >> 2) % 2], s.x, s.y);
+  for (const b of foeShots) spr(b.kind === 'bolt' ? BOLT : SEED, b.x, b.y, b.vx > 0);
+  for (const p of parts) rect(p.x, p.y, 2, 2, p.col);
+  // schnelle Wolkenfetzen im Vordergrund
+  for (let i = 0; i < 3; i++) { const cx = ((i * 157 - bgX * 1.6) % 520 + 520) % 520 - 100, cy = 30 + i * 52; rect(cx, cy, 60, 3, 'rgba(255,240,230,0.35)'); rect(cx + 14, cy - 2, 28, 2, 'rgba(255,240,230,0.25)'); }
+}
+function drawFlyHUD() {
+  for (let i = 0; i < MAX_HP; i++) ctx.drawImage(i < F.hp ? HEART.c : HEART_E.c, 4 + i * 9, 4);
+  ctx.drawImage(BREZEL.c, 4, 13);
+  if (plant && plant.state !== 'enter') { rect(100, 5, 120, 6, '#1b1424'); rect(101, 6, 118, 4, '#4a2a3a'); rect(101, 6, Math.round(118 * plant.hp / plant.max), 4, '#ff8ab0'); }
+  else { const w = 90, x = 115; rect(x, 6, w, 3, '#1b1424'); rect(x + 1, 7, Math.round((w - 2) * flyX / FLY_BOSS_AT), 1, '#ffd36a'); rect(x + w - 2, 4, 3, 7, '#f5f1e6'); }
+}
+
+
+// ================= Finale: Landung in Ramsen, Nexus-Logge =================
+let evil = null, ally = null, evilShots = [], blocks = [], allyShots = [], goT = 0;
+const GROUNDS_L1 = GROUNDS.map(g => [...g]), PLATS_L1 = PLATS.map(p => [...p]);
+function setStage(m) {
+  if (m === 'final') { GROUNDS.splice(0, GROUNDS.length, [0, W]); PLATS.splice(0, PLATS.length, [48, 114, 42], [230, 114, 42]); }
+  else { GROUNDS.splice(0, GROUNDS.length, ...GROUNDS_L1.map(g => [...g])); PLATS.splice(0, PLATS.length, ...PLATS_L1.map(p => [...p])); }
+}
+function evilBox() { return { x: evil.x + 1, y: evil.y + 6, w: 10, h: 19 }; }
+function evilHittable() { return evil && evil.hp > 0 && !['intro', 'defeated', 'reboot'].includes(evil.state); }
+function startFinale() {
+  mode = 'final'; setFlyMode(false); setStage('final');
+  enemies = []; brezeln = []; boss = null; bossStarted = false; arenaLocked = false; checkpoint = 70; buddyJoined = false;
+  evilShots = []; blocks = []; allyShots = []; evil = null; plant = null;
+  spawn(); P.face = 1; camX = 0;
+  J.x = 250; J.y = GROUND_Y - J.h; J.face = -1; J.hasBunny = true; J.cd = 90;
+  ally = { x: 14, y: GROUND_Y - 26, t: 0, cd: 160, mouth: 0, landed: true, human: false };
+  say([
+    { who: null, t: 'Jakob landet sanft auf dem Dorfplatz von Ramsen. Dort wartet schon jemand.' },
+    { who: 'sebbi', t: 'Jule! Endlich! Geh sofort weg von ihm!' },
+    { who: 'jule', t: 'Sebbi? Von wem? Von Jakob? Der ist jetzt nett.' },
+    { who: 'sebbi', t: 'Nicht von Jakob. Von LOGGE!' },
+    { who: 'sebbi', t: 'Ich hab es in den alten Theater-Akten gefunden: Logge ist gar kein Mensch. Er ist die böse KI aus Nexus!' },
+    { who: 'sebbi', t: 'Er hat Jakob in einen Drachen verwandelt, damit ihr euch gegenseitig bekämpft.' },
+    { who: 'jakob', t: 'WAS?! Deshalb kann ich mich an nichts erinnern!' },
+    { who: 'logge', t: '…', fx: () => { spawnEvil(); } },
+    { who: 'ki', t: 'BZZT. Tarnung kompromittiert. Na schön.', fx: () => { SFX.roar(); shake = 10; } },
+    { who: 'ki', t: 'Ich bin NEXUS. Und Ramsen ist mein nächstes Update!' },
+    { who: 'jule', t: 'Captain Kuschel, Sebbi, Jakob: alle zusammen! Auf ihn!' },
+    { who: null, t: 'Spring auf Nexus-Logge, wenn er abstürzt und LÄDT. Captain Kuschel, Sebbis Textbuch und Jakobs Feuer helfen mit!' }
+  ], () => { buddyJoined = true; trail = []; totalD = 0; ally.landed = false; evil.state = 'float'; evil.t = 0; });
+}
+function spawnEvil() {
+  evil = { x: 110, y: GROUND_Y - 25, vy: 0, hp: 12, max: 12, state: 'intro', t: 0, flash: 0, side: 1, homeX: 250, safe: 0 };
+  for (let i = 0; i < 3; i++) puff(evil.x + 6, evil.y + 10, ['#ff5a5a', '#8fd0f0', '#ffffff'][i], 8, 2);
+}
+function damageEvil(n) {
+  const e = evil; if (!evilHittable() || e.flash > 0) return;
+  e.hp -= n; e.flash = 18; shake = 5; SFX.hit(); puff(e.x + 6, e.y + 12, '#ff5a5a', 8);
+  if (e.hp <= 0) { e.hp = 0; e.state = 'defeated'; e.t = 0; e.vy = 0; evilShots = []; blocks = []; allyShots = []; SFX.roar(); shake = 14; }
+}
+function glitchTo(x, y) {
+  puff(evil.x + 6, evil.y + 12, '#8fd0f0', 10, 2); evil.x = x; evil.y = y; puff(evil.x + 6, evil.y + 12, '#ff5a5a', 10, 2); SFX.blip();
+}
+function updateEvil() {
+  const e = evil; e.t++; if (e.flash > 0) e.flash--; if (e.safe > 0) e.safe--;
+  const p2 = e.hp <= 6;
+  switch (e.state) {
+    case 'intro': e.y += (84 - e.y) * 0.04; break;
+    case 'float':
+      e.x += (e.homeX - e.x) * 0.03; e.y = 84 + Math.sin(e.t * 0.05) * 8;
+      if (e.t % (p2 ? 75 : 95) === 40) { aimShot(evilShots, e.x + 4, e.y + 12, P.x + 4, P.y + 8, p2 ? 1.5 : 1.3, 'bit', 0.32, p2 ? 2 : 1); SFX.blip(); }
+      if (p2 && e.t % 120 === 100) { e.homeX = e.homeX > 160 ? 58 : 250; glitchTo(e.homeX, e.y); }
+      if (e.t >= (p2 ? 220 : 280)) { e.state = 'rain'; e.t = 0; }
+      break;
+    case 'rain':
+      if (e.t === 10) { const xs = [clampN(P.x - 1, 4, W - 14)];
+        while (xs.length < (p2 ? 4 : 3)) { const x = 8 + Math.random() * (W - 26); if (xs.every(v => Math.abs(v - x) > 34)) xs.push(x); }
+        for (const x of xs) blocks.push({ x, y: -12, w: 10, h: 10, vy: 0, t: 0 }); SFX.roar(); }
+      if (e.t >= 120) { e.state = 'charge'; e.t = 0; }
+      break;
+    case 'charge': if (e.t >= 30) { e.state = 'drop'; e.vy = 0; } break;
+    case 'drop':
+      e.vy += 0.35; e.y += e.vy;
+      if (e.y >= GROUND_Y - 25) { e.y = GROUND_Y - 25; e.state = 'lag'; e.t = 0; shake = 10; SFX.boom(); puff(e.x + 6, GROUND_Y - 2, '#c9a27a', 14, 2.2); }
+      break;
+    case 'lag': if (e.t >= (p2 ? 170 : 210)) { e.state = 'rise'; e.t = 0; } break;
+    case 'rise': e.homeX = e.x > 160 ? 58 : 250; glitchTo(e.homeX, 84); e.state = 'float'; e.t = 0; break;
+    case 'defeated':
+      if (e.y < GROUND_Y - 25) e.y = Math.min(GROUND_Y - 25, e.y + 1.5);
+      if (e.t % 6 === 0 && e.t < 90) puff(e.x + Math.random() * 12, e.y + Math.random() * 24, ['#ff5a5a', '#8fd0f0', '#a6dd6b'][e.t % 3], 3);
+      if (e.t === 100) evilDefeatedDialog();
+      break;
+  }
+  // Kontakt: beim Laden harmlos und zum Draufspringen da
+  if (state === 'play' && evilHittable() && !(e.safe > 0)) {
+    const eb = evilBox();
+    if (overlap(P, eb)) {
+      if (e.state === 'lag' && P.vy > 0 && P.y + P.h - eb.y < 14) {
+        damageEvil(1); P.y = eb.y - P.h; P.vy = keys.jump ? -6.6 : -5.6; P.bounced = true; e.safe = 30; P.inv = Math.max(P.inv, 12);
+        SFX.stomp(); puff(P.x + 4, eb.y, '#ffe066', 6); if (e.hp > 0) { e.state = 'rise'; e.t = 0; }
+      } else if (e.state !== 'lag') hurt(eb.x + eb.w / 2);
+    }
+  }
+}
+function updateFinale() {
+  if (evil) updateEvil();
+  // Jakob unterstützt aus der Luft mit Feuer
+  const a = ally;
+  if (a && !a.landed && !a.human) {
+    a.t++; const tx = evil && evil.x < 160 ? 262 : 22; a.x += (tx - a.x) * 0.02; a.y += (22 + Math.sin(a.t * 0.05) * 6 - a.y) * 0.05;
+    if (a.mouth > 0) a.mouth--;
+    if (--a.cd <= 0 && evilHittable()) { const eb = evilBox(), mx = a.x + (eb.x > a.x ? 30 : 4), my = a.y + 10;
+      aimShot(allyShots, mx, my, eb.x + 5, eb.y + 8, 2.4, 'fire'); a.mouth = 20; a.cd = evil.hp <= 6 ? 220 : 270; SFX.fire(); }
+  }
+  for (const f of allyShots) { f.x += f.vx; f.y += f.vy; f.t++; if (evil && evilHittable() && overlap(f, evilBox())) { f.dead = true; damageEvil(1); } if (f.t > 200) f.dead = true; }
+  for (const b of evilShots) { b.x += b.vx; b.y += b.vy; b.t++; if (state === 'play' && overlap(P, b)) { b.dead = true; hurt(b.x); } if (b.x < -20 || b.x > W + 20 || b.y < -20 || b.y > H + 20) b.dead = true; }
+  for (const b of blocks) { b.t++; if (b.t > 60) { b.vy = Math.min(b.vy + 0.25, 6); b.y += b.vy; }
+    if (b.t > 60 && state === 'play' && overlap(P, b)) { b.dead = true; hurt(b.x + 5); }
+    if (b.y + b.h >= GROUND_Y) { b.dead = true; puff(b.x + 5, GROUND_Y - 2, '#ff5a5a', 8, 1.6); SFX.hit(); } }
+  allyShots = allyShots.filter(f => !f.dead); evilShots = evilShots.filter(b => !b.dead); blocks = blocks.filter(b => !b.dead);
+}
+function evilDefeatedDialog() {
+  say([
+    { who: 'ki', t: 'FEHLER … FEHLER … Kuscheltier-Überlastung …' },
+    { who: null, t: 'Mit dem Absturz der KI löst sich der Zauber …', fx: () => { ally.human = true; ally.x = 150; ally.y = GROUND_Y - 20; shake = 12; SFX.win();
+        for (let i = 0; i < 5; i++) puff(ally.x + 6, ally.y + 10, ['#fff6b0', '#ffffff', '#7fe07a'][i % 3], 10, 2.5); } },
+    { who: 'jakobm', t: 'Ich … hab wieder Hände! Und keine Schuppen mehr!' },
+    { who: 'logge', t: '*bzzt* … System-Neustart … Logge 2.0 geladen. Oh. Hallo. Das mit dem Drachen tut mir echt leid.', fx: () => { evil.state = 'reboot'; puff(evil.x + 6, evil.y + 10, '#8fd0f0', 12, 2); SFX.blip(); } },
+    { who: 'sebbi', t: 'Ich behalte dich im Auge, Blechkopf.' },
+    { who: 'jule', t: 'Ende gut, alles gut. Captain Kuschel ist sehr zufrieden.' }
   ], () => { state = 'ending'; endFrame = frameN; SFX.win(); });
+}
+function finaleAmbient() { if (evil && (evil.state === 'intro' || evil.state === 'defeated' || evil.state === 'reboot')) updateEvil(); if (ally) ally.t++; }
+function drawRamsen() {
+  drawBackground(0.85);
+  // Häuserreihe von Ramsen
+  for (const [x, hw, hh, roof] of [[-6, 40, 30, '#9a3d36'], [40, 34, 24, '#b5423a'], [182, 38, 28, '#a8483e'], [226, 30, 22, '#b5423a'], [262, 44, 30, '#9a3d36']]) {
+    const by = 150; rect(x, by - hh, hw, hh, '#e6dcc4');
+    rect(x, by - hh, hw, 2, '#5b3a22'); rect(x, by - hh / 2, hw, 2, '#5b3a22'); rect(x, by - hh, 2, hh, '#5b3a22'); rect(x + hw - 2, by - hh, 2, hh, '#5b3a22'); rect(x + (hw >> 1), by - hh, 2, hh, '#5b3a22');
+    rect(x + 5, by - 9, 6, 9, '#6a4428'); rect(x + hw - 11, by - hh + 5, 6, 6, (frameN >> 5) % 5 ? '#ffd36a' : '#ffe9a0');
+    for (let r = 0; r < 12; r++) rect(x - 3 + r, by - hh - 1 - r, hw + 6 - r * 2, 1, roof);
+  }
+  // Kirche in der Mitte
+  rect(132, 86, 22, 64, '#e8dcc4'); for (let r = 0; r < 26; r++) rect(143 - r * 0.45, 60 + r, Math.max(1, r * 0.9), 1, '#4b4a5e');
+  rect(140, 96, 6, 9, '#3a2b2b'); rect(142, 50, 2, 10, '#d9b44a'); rect(139, 53, 8, 2, '#d9b44a'); rect(138, 132, 10, 18, '#6a4428');
+  // Brunnen
+  rect(96, 140, 26, 10, '#8a8a9a'); rect(96, 140, 26, 2, '#b0b0c0'); rect(108, 128, 2, 12, '#6a6a7a'); rect(104, 127, 10, 2, '#6a6a7a');
+  if ((frameN >> 3) % 2) rect(100, 142, 18, 2, '#8fd0f0');
+  rect(0, 0, W, H, 'rgba(40,20,60,0.12)');
+  drawGround();
+}
+function drawEvil() {
+  const e = evil; if (!e) return;
+  if (e.state === 'reboot') { spr(LOGGE.idle, e.x, e.y, false); if ((frameN >> 3) % 9 === 0) rect(e.x - camX + 2, e.y + 8, 8, 1, '#8fd0f0'); return; }
+  const sp = e.state === 'rain' || e.state === 'charge' ? EVIL_ARMS : EVIL, white = (e.flash > 0 && (e.flash >> 1) % 2 === 0) || (e.state === 'charge' && (frameN >> 2) % 2 === 0);
+  const glitch = e.state === 'intro' || e.state === 'defeated' ? 0.5 : e.state === 'lag' ? 0.25 : 0.08;
+  ctx.globalAlpha = 0.45; ctx.drawImage(sp.wc, Math.round(e.x - 1), Math.round(e.y)); ctx.globalAlpha = 1;
+  for (let y = 0; y < sp.h; y += 3) { const off = Math.random() < glitch ? Math.round((Math.random() - 0.5) * 5) : 0;
+    ctx.drawImage(white ? sp.wc : sp.c, 0, y, sp.w, 3, Math.round(e.x + off), Math.round(e.y + y), sp.w, 3); }
+  if (e.state === 'lag') { // Lade-Kreis über dem Kopf
+    for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2, on = (i + (frameN >> 3)) % 8 < 3; rect(e.x + 5 + Math.cos(a) * 6, e.y - 8 + Math.sin(a) * 6, 2, 2, on ? '#ffffff' : '#6a5a7a'); }
+  }
+}
+function drawAlly() {
+  const a = ally; if (!a) return;
+  if (a.human) { spr(JAKOB_H, a.x, a.y + ((frameN >> 4) % 6 === 0 ? -1 : 0), false); return; }
+  if (a.landed) { spr(DRAGON.stand, a.x, a.y, true); return; }
+  const flip = !(evil && evil.x < a.x), up = (a.t >> 3) % 2 === 0, wing = up ? DRAGON.wingUp : DRAGON.wingDown;
+  const body = a.mouth > 0 ? DRAGON.flyOpen : DRAGON.fly;
+  spr(body, a.x, a.y, flip); spr(wing, flip ? a.x + 36 - 17 - wing.w : a.x + 17, up ? a.y + 1 : a.y + 10, flip);
+}
+function drawFinal() {
+  drawRamsen();
+  drawAlly(); if (evil) drawEvil(); else spr(LOGGE.idle, 110, GROUND_Y - 25, false); drawBuddy();
+  if (bunny) spr(BOOK, bunny.x, bunny.y + ((bunny.spin >> 2) % 2), (bunny.spin >> 3) % 2 === 0);
+  drawPlayer();
+  if (hat) spr(BUNNY, hat.x, hat.y + ((hat.t >> 2) % 2), (hat.t >> 3) % 2 === 0);
+  for (const f of allyShots) spr(FIRE[(f.t >> 2) % 2], f.x, f.y);
+  for (const b of evilShots) spr(BIT[(b.t >> 4) % 2], b.x, b.y);
+  for (const b of blocks) { if (b.t <= 60 && (frameN >> 2) % 2) { rect(b.x, GROUND_Y - 2, 10, 2, '#ff5a5a'); rect(b.x + 4, GROUND_Y - 6, 2, 3, '#ff5a5a'); } spr(ERRBLOCK, b.x, b.t > 60 ? b.y : -12 + Math.min(b.t, 20) * 0.6); }
+  for (const p of parts) rect(p.x, p.y, 2, 2, p.col);
 }
 
 // ================= Kamera & Hauptschleife =================
@@ -608,8 +1072,12 @@ function update() {
       say([{ who: null, t: 'Ein ganz normaler Samstag in Ramsen …' },
            { who: null, t: '… bis vom Drachenberg ein gewaltiges BRÜLLEN herüberschallt!', fx: () => SFX.roar() },
            { who: 'jule', t: 'Ein Drache?! Den schau ich mir an. Captain Kuschel, wir gehen auf Drachenjagd!' },
-           { who: null, t: isTouch ? 'Steuerung: ◀ ▶ laufen, ▲ springen, Hasen-Knopf wirft Captain Kuschel. Sammle Brezeln!' : 'Pfeiltasten: laufen und springen. X: Captain Kuschel werfen. Sammle unterwegs Brezeln!' }]); }
-  } else if (state === 'dialog') { updateDialog(); updateCamera(); if (boss && boss.state === 'intro') updateBoss(); }
+           { who: null, t: isTouch ? 'Steuerung: ◀ ▶ laufen, ▲ springen, Hasen-Knopf wirft Captain Kuschel. Sammle Brezeln!' : 'Pfeiltasten: laufen und springen. X: Captain Kuschel werfen. Sammle unterwegs Brezeln!' }]);
+      if (new URLSearchParams(location.search).has('fly')) { dialog = null; state = 'play'; buddyJoined = true; startFly(); }
+      if (new URLSearchParams(location.search).has('final')) { dialog = null; state = 'play'; startFinale(); } }
+  } else if (state === 'dialog') { updateDialog(); if (mode === 'fly') flyAmbient(); else if (mode === 'final') finaleAmbient(); else { updateCamera(); if (boss && boss.state === 'intro') updateBoss(); } }
+  else if (state === 'play' && mode === 'fly') updateFly();
+  else if (state === 'play' && mode === 'final') { updatePlayer(); updateHat(); updateJule(); updateBunny(); updateFinale(); camX = 0; }
   else if (state === 'play') {
     updatePlayer(); updateHat(); updateJule(); updateBunny(); updateEnemies(); updateBrezeln();
     if (boss) updateBoss();
@@ -617,7 +1085,7 @@ function update() {
     if (!bossStarted && P.x > 2340) startBoss();
     updateCamera();
   } else if (state === 'bite') { updateBite(); }
-  else if (state === 'gameover') { if (anyOk()) { spawn(); state = 'play'; } }
+  else if (state === 'gameover') { if (++goT > 40 && anyOk()) { goT = 0; if (mode === 'fly') flySpawn(); else spawn(); state = 'play'; } }
   else if (state === 'ending') { if (frameN - endFrame > 120 && anyOk()) state = 'title'; }
   for (const p of parts) { p.x += p.vx; p.y += p.vy; p.vy += 0.05; p.life--; }
   parts = (parts || []).filter(p => p.life > 0);
@@ -731,10 +1199,10 @@ function drawPlayer() { // Jule
 function drawBuddy() { // Logge
   let f = 'idle';
   if (buddyJoined && J.air) f = 'jump'; else if (J.moving) f = ((J.anim | 0) % 2) ? 'w1' : 'w2';
-  const set = (J.hasBunny && !bunny) ? LOGGE : LOGGE_NH;
+  const set = mode === 'final' ? SEBBI : (J.hasBunny && !bunny) ? LOGGE : LOGGE_NH;
   const hop = !buddyJoined && (frameN % 140) > 120 ? -2 : 0; // wartet und wippt ungeduldig
   const ouch = J.flash > 0, jump = J.flash > 18 ? -3 : 0;
-  spr(set[f], J.x - 2 + (ouch ? (frameN % 4 < 2 ? -1 : 1) : 0), J.y - 5 + hop + jump, J.face < 0, ouch && (J.flash >> 2) % 2 === 0);
+  spr(set[f], J.x - 2 + (ouch ? (frameN % 4 < 2 ? -1 : 1) : 0), J.y - (mode === 'final' ? 3 : 5) + (mode === 'final' ? 0 : hop) + jump, J.face < 0, ouch && (J.flash >> 2) % 2 === 0);
 }
 function drawDragon() {
   const b = boss; if (!b) return;
@@ -773,7 +1241,7 @@ function drawWorld() {
   for (const p of parts) rect(p.x - camX, p.y, 2, 2, p.col);
 }
 function drawHUD() {
-  for (let i = 0; i < 3; i++) ctx.drawImage(i < P.hp ? HEART.c : HEART_E.c, 4 + i * 9, 4);
+  for (let i = 0; i < MAX_HP; i++) ctx.drawImage(i < P.hp ? HEART.c : HEART_E.c, 4 + i * 9, 4);
   ctx.drawImage(BREZEL.c, 4, 13);
   if (boss && bossStarted && boss.state !== 'intro') {
     rect(100, 5, 120, 6, '#1b1424'); rect(101, 6, 118, 4, '#4a2a3a'); rect(101, 6, Math.round(118 * boss.hp / boss.max), 4, '#6ad25a');
@@ -815,7 +1283,9 @@ function blit() {
 function render() {
   if (state === 'title') return renderTitle();
   if (state === 'ending') return renderEnding();
-  drawWorld(); if (state !== 'dialog') drawHUD();
+  if (mode === 'fly') { drawFly(); if (state !== 'dialog') drawFlyHUD(); }
+  else if (mode === 'final') { drawFinal(); if (state !== 'dialog') { drawHUD(); if (evilHittable() || (evil && evil.state === 'defeated')) { rect(100, 5, 120, 6, '#1b1424'); rect(101, 6, 118, 4, '#3a1a2a'); rect(101, 6, Math.round(118 * evil.hp / evil.max), 4, '#ff5a5a'); } } }
+  else { drawWorld(); if (state !== 'dialog') drawHUD(); }
   if (state === 'dialog') {
     const L = dialog.lines[dialog.i];
     drawBox(4, 4, 312, 64);
@@ -824,9 +1294,12 @@ function render() {
   }
   if (state === 'gameover') { ctx.fillStyle = 'rgba(20,10,30,0.7)'; ctx.fillRect(0, 0, W, H); }
   blit();
-  if (state !== 'dialog') for (const [x, label] of SIGNS) { const sx = x - camX; if (sx > -60 && sx < W + 10) { text(label, sx + 3.4, GROUND_Y - 10.6, 3, '#2a1a10', 'left', false); } }
+  if (state !== 'dialog' && mode === 'ground') for (const [x, label] of SIGNS) { const sx = x - camX; if (sx > -60 && sx < W + 10) { text(label, sx + 3.4, GROUND_Y - 10.6, 3, '#2a1a10', 'left', false); } }
   if (state !== 'dialog') text('x' + brezelCount, 15, 14, 5);
-  if (state !== 'dialog' && boss && bossStarted && boss.state !== 'intro') text('JAKOBUS DER SCHRECKLICHE', 160, 13, 4, '#ffe9b0', 'center');
+  if (state !== 'dialog' && mode === 'ground' && boss && bossStarted && boss.state !== 'intro') text('JAKOBUS DER SCHRECKLICHE', 160, 13, 4, '#ffe9b0', 'center');
+  if (state !== 'dialog' && mode === 'final' && evil && evil.state !== 'intro' && evil.state !== 'reboot') text('NEXUS-LOGGE', 160, 13, 4, '#ffb0b0', 'center');
+  if (state !== 'dialog' && mode === 'final' && evil && evil.state === 'lag') text('LÄDT …', evil.x + 6, evil.y - 18, 3, '#ffffff', 'center');
+  if (state !== 'dialog' && mode === 'fly') { if (plant && plant.state !== 'enter') text('Fressalia Knossalia', 160, 13, 4, '#ffd0f0', 'center'); else text('Ramsen', 209, 11, 4, '#f5f1e6', 'left'); }
   if (muted) text('Ton aus', 316, 4, 4, '#ffffff', 'right');
   if (state === 'bite' && biteT >= 50 && biteT < 112) text('*HAPS*', J.x - camX + 4, J.y - 22 - (biteT - 50) * 0.12, 6, '#ff8a8a', 'center');
   if (state === 'dialog') drawDialogText();
@@ -854,23 +1327,25 @@ function renderEnding() {
   rect(230, 120, 30, 30, '#ffd36a'); rect(226, 126, 38, 18, '#ffd36a');
   for (let sx = 0; sx < W; sx += 2) { const wx = sx + t * 0.6; const hh = 18 + 8 * Math.sin(wx * 0.03) + 5 * Math.sin(wx * 0.07); rect(sx, 160 - hh, 2, 40, '#3a2848'); }
   for (let sx = 0; sx < W; sx += 2) { const wx = sx + t * 1.4; const hh = 8 + 4 * Math.sin(wx * 0.05); rect(sx, 172 - hh, 2, 20, '#21162e'); }
-  // Drache mit Logge & Jule auf dem Rücken
-  const dx = Math.min(140, -60 + t * 1.2), dy = 70 + Math.sin(t * 0.06) * 6;
+  // alle zusammen in Ramsen
+  rect(0, 158, W, 22, '#4a8a3a'); rect(0, 158, W, 2, '#6cc04a');
   const savedCam = camX; camX = 0;
-  spr(LOGGE.idle, dx + 3, dy - 11, false); spr(JULE.idle, dx + 15, dy - 3, false); spr(BUNNY_MINI, dx + 21, dy + 5, false);
-  spr(DRAGON.fly, dx, dy, true);
-  const wing = (t >> 3) % 2 ? DRAGON.wingUp : DRAGON.wingDown; spr(wing, dx + 36 - 17 - wing.w, (t >> 3) % 2 ? dy + 1 : dy + 10, true);
+  const hop = (k) => ((t + k * 23) % 90) < 10 ? -3 : 0;
+  spr(JAKOB_H, 104, 138 + hop(0), false); spr(JULE.idle, 132, 143 + hop(1), false); spr(BUNNY_MINI, 138, 151 + hop(1), false);
+  spr(SEBBI.idle, 158, 135 + hop(2), true); spr(LOGGE.idle, 184, 133 + hop(3), true);
+  if ((t >> 3) % 11 === 0) rect(186, 141, 8, 1, '#8fd0f0');
   camX = savedCam;
-  if (t % 6 === 0) puff(dx + 2, dy + 20, '#ffd27a', 1, 0.4);
+  if (t % 14 === 0) puff(40 + Math.random() * 240, 20 + Math.random() * 50, ['#ffd36a', '#ff8ab0', '#8fd0f0'][t % 3], 6, 1.2);
   for (const p of parts) rect(p.x, p.y, 1, 1, p.col);
   blit();
   text('ENDE', 160, 16, 14, '#ffe9b0', 'center');
-  text('Jule, Logge & Jakob fliegen heim nach Ramsen.', 160, 40, 5, '#f5f1e6', 'center');
+  text('Jakob ist wieder Jakob. Ramsen ist gerettet.', 160, 40, 5, '#f5f1e6', 'center');
+  text('Und Logge 2.0 ist jetzt wirklich nett. Vermutlich.', 160, 52, 4, '#bfb4d6', 'center');
   if (t > 60) {
     const secs = Math.round((endFrame - startFrame) / 60);
-    text(`Brezeln: ${brezelCount}/${BREZEL_POS.length}   Zeit: ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}   Versuche: ${deaths + 1}`, 160, 136, 5, '#f6c35c', 'center');
+    text(`Brezeln: ${brezelCount}/${BREZEL_POS.length + FLY_BREZEL_TOTAL}   Zeit: ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, '0')}   Versuche: ${deaths + 1}`, 160, 70, 5, '#f6c35c', 'center');
   }
-  if (t > 120 && (frameN >> 5) % 2 === 0) text('Enter / Tippen: Zum Titel', 160, 150, 5, '#ffffff', 'center');
+  if (t > 120 && (frameN >> 5) % 2 === 0) text('Enter / Tippen: Zum Titel', 160, 84, 5, '#ffffff', 'center');
 }
 
 // ================= Start =================
