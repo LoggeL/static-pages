@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PBT-Anlage – interaktives 3D-Modell</title>
+<link rel="stylesheet" href="css/app.css">
+<script type="importmap">{"imports": {"three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"}}</script>
+</head>
+<body>
+<canvas id="view" aria-label="3D-Ansicht der PBT-Anlage"></canvas>
+<div id="labels" hidden></div>
+
+<header id="brand" class="panel">
+  <button id="menu" class="ib" title="Liste der Anlagenteile ein-/ausblenden" aria-label="Liste ein-/ausblenden"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  <div><h1>PBT-Anlage</h1><p>Polybutylenterephthalat · schematisches 3D-Modell</p></div>
+</header>
+
+<aside id="list" class="panel" aria-label="Anlagenteile"></aside>
+
+<aside id="info" class="panel" hidden aria-live="polite"></aside>
+
+<div id="sect" class="panel" hidden>
+  <label for="sectr">Schnitt von Süden <output id="secto">aus</output></label>
+  <input id="sectr" type="range" min="-10" max="18" step="0.25" value="-10">
+  <p>Schneidet Prozessbau und Apparate auf. Gelände bleibt stehen.</p>
+</div>
+
+<div id="legend" class="panel" hidden></div>
+
+<nav id="bar" class="panel" aria-label="Werkzeuge">
+  <div class="seg" id="views">
+    <button data-v="luft" title="Gesamtanlage von oben">Übersicht</button>
+    <button data-v="sued" title="Prozessbau von Süden">Süd</button>
+    <button data-v="nw" title="Blick von Nordwesten">Nordwest</button>
+    <button data-v="innen" title="Auf der Bühne im Gerüst">Im Gerüst</button>
+  </div>
+  <span class="sep"></span>
+  <button class="tb" id="bxray" title="Alle Hüllen transparent schalten"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5" opacity=".55"/></svg><span>Röntgenblick</span></button>
+  <button class="tb" id="bflow" title="Stoffströme animieren"><svg viewBox="0 0 24 24"><path d="M3 8h11a4 4 0 010 8H6"/><path d="M9 13l-3 3 3 3"/></svg><span>Stofffluss</span></button>
+  <button class="tb" id="blbl" title="Beschriftung ein-/ausblenden"><svg viewBox="0 0 24 24"><path d="M4 5h10l6 7-6 7H4z"/><circle cx="9" cy="12" r="1.3"/></svg><span>Beschriftung</span></button>
+  <button class="tb" id="bsect" title="Schnittebene verschieben"><svg viewBox="0 0 24 24"><path d="M4 20V8l8-4v12z"/><path d="M12 4l8 4v12l-8-4" opacity=".5"/></svg><span>Schnitt</span></button>
+  <button class="tb" id="borbit" title="Langsam um die Anlage kreisen"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 11-3-6.2"/><path d="M20 4v5h-5"/></svg><span>Rundflug</span></button>
+  <span class="sep"></span>
+  <button class="tb" id="breset" title="Alles wieder deckend und sichtbar"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 103-6.2"/><path d="M4 4v5h5"/></svg><span>Zurücksetzen</span></button>
+</nav>
+
+<div id="tip" hidden></div>
+<p id="hint">Ziehen: drehen · Rechte Maustaste: verschieben · Mausrad: zoomen · Klick: Anlagenteil wählen</p>
+
+<div id="load">
+  <div class="lbox">
+    <div class="lt">PBT-Anlage</div>
+    <div class="ls">Interaktives 3D-Modell</div>
+    <div class="ltrack"><div id="loadbar"></div></div>
+    <div id="loadtxt">Starte …</div>
+  </div>
+</div>
+
+<script src="js/units.js"></script>
+<script src="js/model.js"></script>
+<script src="js/viewer.js"></script>
+<script src="js/flows.js"></script>
+<script src="js/ui.js"></script>
+</body>
+</html>
