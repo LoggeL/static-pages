@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450" role="img" aria-label="Parabeln kreuzen sich bei S eins, vier">
+<defs><pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#ccc9df"/></pattern><clipPath id="plot"><rect x="399" y="73" width="360" height="293" rx="15"/></clipPath></defs>
+<rect width="800" height="450" fill="#201c3b"/><g font-family="system-ui,sans-serif">
+<text x="42" y="106" fill="#c5b8fb" font-size="18" font-weight="750" letter-spacing="2">NACHHILFE · KLASSE 9</text>
+<text x="40" y="182" fill="#fff" font-size="45" font-weight="790">Wo treffen sich</text><text x="40" y="240" fill="#c5b8fb" font-size="47" font-weight="790">die Parabeln?</text>
+<text x="42" y="307" fill="#ebe6ff" font-size="22">90 Minuten am Graphen</text>
+<g clip-path="url(#plot)"><rect x="399" y="73" width="360" height="293" fill="#f7f5ff"/><rect x="399" y="73" width="360" height="293" fill="url(#grid)"/>
+<path d="M399 273H759M579 73V366" stroke="#858198" stroke-width="2"/>
+<path d="M399 321Q579 393 759 33" fill="none" stroke="#2459c4" stroke-width="5"/>
+<path d="M399 33Q579 321 759 177" fill="none" stroke="#b54828" stroke-width="5" stroke-dasharray="9 5"/><path d="M579 225H639V273" fill="none" stroke="#6244ba" stroke-dasharray="4 3"/><circle cx="639" cy="225" r="7" fill="white" stroke="#6244ba" stroke-width="3"/><text x="649" y="206" fill="#493782" font-weight="700" font-size="18">S(1|4)</text></g>
+</g></svg>

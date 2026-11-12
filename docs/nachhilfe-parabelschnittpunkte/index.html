@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f4fa">
+<title>Wo treffen sich die Parabeln? · 90 Minuten Nachhilfe</title>
+<meta name="description" content="Zwei Parabeln aus dem Matheheft mit einem Schieber vergleichen, Gleichungen mit farbigen Termkarten umformen und den Schnittpunkt selbst bestimmen.">
+<style>
+:root{--bg:#f5f4fa;--paper:#fff;--ink:#201e32;--dim:#56546a;--rule:#dedbe9;--blue:#2459c4;--coral:#b54828;--purple:#6244ba;--violetwash:#f1edfc;--bluewash:#edf3ff;--coralwash:#fff0e9;--green:#176948;--mint:#e9f6ef;--max:1096px;color-scheme:light;font:16px/1.55 "Nunito",system-ui,sans-serif;color:var(--ink);background:var(--bg)}
+*{box-sizing:border-box}body,h1,h2,h3,h4,p,figure,ol,ul{margin:0}button,input{font:inherit}button,summary{cursor:pointer}button{background:white;color:var(--ink);border:1px solid #c5c1d4;border-radius:9px;padding:7px 13px;font-weight:650}button:disabled{opacity:.42;cursor:default}button:hover:enabled{border-color:var(--purple)}button.action{color:#fff;background:var(--purple);border-color:var(--purple)}a{color:var(--blue);text-underline-offset:3px}
+:focus-visible{outline:3px solid #5840a9;outline-offset:3px}[hidden]{display:none!important}
+.wrap{max-width:var(--max);margin:auto;padding-inline:clamp(16px,4vw,44px)}
+header.bar{position:sticky;top:0;z-index:3;border-bottom:1px solid var(--rule);background:rgba(249,248,252,.97)}
+.bar .wrap,.clock,.navline,.controls,.key,.navstep,.panelhead{display:flex;gap:10px;align-items:center}.bar .wrap{min-height:60px;justify-content:space-between}.brand{color:var(--purple);font-size:.91rem;font-weight:780;text-decoration:none}.clock{font-size:.82rem}.clock time{font:700 1.05rem ui-monospace,monospace}.clock button{padding:5px 10px}.track{height:3px;background:#e3dfec}.track div{height:100%;width:0;background:var(--purple)}
+.hero{display:grid;grid-template-columns:.86fr 1.14fr;gap:clamp(20px,3.7vw,54px);align-items:center;padding-block:40px 31px}.kicker,.phase{font-size:.73rem;letter-spacing:.085em;text-transform:uppercase;font-weight:800;color:var(--purple)}h1,h2,h3,h4{line-height:1.13}h1{margin:12px 0 16px;font-size:clamp(2.4rem,4.3vw,3.55rem);letter-spacing:-.045em;font-weight:780}h1 em{display:block;font-style:normal;color:var(--purple)}.lead{color:var(--dim);font-size:1.11rem;max-width:35ch}.jump{display:inline-block;margin-top:14px;font-weight:680;font-size:.92rem}
+.panel,.block{background:var(--paper);border:1px solid var(--rule);border-radius:18px}.panel{padding:clamp(13px,2vw,21px)}.hero figure{box-shadow:0 4px 16px #30264b0a}.panelhead{justify-content:space-between;flex-wrap:wrap;margin-bottom:6px}.panelhead b{font-size:.97rem}.key{gap:16px;flex-wrap:wrap;font-size:.83rem;font-weight:650}.key span::before{content:"";display:inline-block;width:20px;margin-right:5px;vertical-align:middle;border-top:3px solid var(--blue)}.key span:last-child::before{border-color:var(--coral);border-top-style:dashed}svg{display:block;width:100%;height:auto}
+.controls{flex-wrap:wrap;gap:8px 12px}.controls label{font-size:.9rem;font-weight:700}.controls input[type=range]{flex:1;min-width:90px;accent-color:var(--purple)}.controls output{font-variant-numeric:tabular-nums}.readings{display:flex;gap:7px;margin-top:8px;flex-wrap:wrap}.readings span,.pill{padding:3px 9px;border-radius:6px;font-weight:700;font-size:.88rem}.leftval{background:var(--bluewash);color:var(--blue)}.rightval{background:var(--coralwash);color:var(--coral)}.resultval{background:var(--violetwash);color:var(--purple)}
+.plan{padding-bottom:22px}.plan h2{font-size:1.12rem;margin-bottom:9px}.navline{display:grid;grid-template-columns:10fr 20fr 15fr 5fr 20fr 10fr 10fr;gap:4px}.navline a{padding:8px 2px;text-align:center;border-radius:6px;text-decoration:none;color:#272038;font-size:.81rem;font-weight:720;background:#e2dcf3;white-space:nowrap}.navline a:nth-child(2),.navline a:nth-child(5){background:#dbe7fd}.navline a:nth-child(3){background:#f8decd}.navline a:nth-child(4),.navline a:nth-child(6){background:#e3e7e8}.navline a[aria-current=step]{outline:2px solid var(--purple);outline-offset:-2px}.plan p{color:var(--dim);font-size:.9rem;margin-top:8px}
+section,figure[id]{scroll-margin-top:81px}.block{padding:clamp(18px,3vw,32px);margin-bottom:16px}.block.slim{background:#edeaf4;border:0}.block h2{font-size:clamp(1.45rem,3vw,2.05rem);letter-spacing:-.038em;margin:4px 0 10px}.block h3{font-size:1.03rem;margin:0 0 4px}.block p + p{margin-top:.5rem}.small,.caption{color:var(--dim);font-size:.91rem}.caption{margin-top:7px}.formulas{display:flex;flex-wrap:wrap;align-items:center;gap:7px 14px;margin:13px 0}.formulas span{padding:5px 10px;border-radius:6px;font-size:1.05rem}.math{font-variant-numeric:tabular-nums;font-weight:650}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.mini,.diagram,.practice{border:1px solid var(--rule);border-radius:12px;background:#fcfbfe;padding:clamp(12px,2vw,18px)}.mini svg{max-height:122px;margin:4px 0}.mini figcaption{font-size:.9rem}.mini figcaption strong{display:block}
+details{border-top:1px solid var(--rule);margin-top:12px}summary{padding:10px 0 4px;color:var(--purple);font-weight:680;font-size:.94rem}.inside{padding:4px 0 3px}.inside ol{padding-inline-start:1.4em}.inside li+li{margin-top:.28rem}
+.diagram,.practice{margin-top:14px}.eq{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:stretch;margin:12px 0}.eq-side{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;padding:12px 8px;min-height:70px;border-radius:10px;background:var(--bluewash);border:1px solid #cbdcfc}.eq-side.right{background:var(--coralwash);border-color:#f3d1c2}.equals{align-self:center;font-size:1.45rem;font-weight:700}.term{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:33px;background:#fff;color:#242137;border:1px solid #cac6d7;border-radius:6px;padding:0 7px;font-weight:720;font-size:1.08rem}.term.square{width:42px;height:42px;background:var(--violetwash);border-color:#b4a3df}.term.gone{opacity:.7;text-decoration:line-through;text-decoration-thickness:2px}.navstep{margin-top:12px;justify-content:space-between;flex-wrap:wrap}.navstep output{font-size:.85rem;color:var(--dim)}.stepnote{min-height:3em}.flow{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;margin:12px 0 4px}.flow .node,.point{padding:8px 10px;background:var(--violetwash);border-radius:8px;color:var(--purple);font-weight:750;text-align:center}.lanes{display:grid;gap:6px}.lanes span{text-align:center;border-radius:6px;padding:4px;font-size:.98rem}.point{background:var(--mint);color:var(--green)}.numberline{max-width:620px;margin:auto}.numberline text{font-family:system-ui,sans-serif}.practice form{display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap}.practice label{display:grid;gap:3px;font-size:.85rem;font-weight:640}.practice input{width:6em;max-width:100%;border:1px solid #bab6c9;border-radius:6px;padding:6px 8px;background:#fff}.feedback{font-size:.94rem;margin-top:9px;color:var(--purple);font-weight:650}.feedback:empty{display:none}.foot{margin:20px 0 34px;font-size:.92rem}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:23px;gap:16px}.hero figure{max-width:600px}.bar .wrap{min-height:52px}.navline{display:flex;flex-wrap:wrap}.navline a{padding:5px 9px}.lead{max-width:55ch}.jump{margin-top:9px}.pair{gap:9px}.clock #timer-phase{display:none}}
+@media(max-width:550px){.pair{grid-template-columns:1fr}.mini{display:grid;grid-template-columns:.95fr 1fr;align-items:center;gap:8px}.clock{gap:5px}.bar .wrap{gap:6px}.brand{font-size:.8rem}.flow{grid-template-columns:1fr}.flow .node,.flow .point{justify-self:center;padding:3px 14px}.stepnote{min-height:4.5em}.navstep button{font-size:.86rem;padding:7px 9px}.eq{gap:5px}.eq-side{padding:6px;gap:3px}.term{font-size:.96rem;min-width:26px;padding:0 4px}.term.square{width:33px;height:33px}.plan{padding-bottom:15px}.block{padding:16px}.top-reset{font-size:.8rem}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap">
+ <a class="brand" href="#plan">Nachhilfe · Klasse 9</a>
+ <div class="clock" id="clock" hidden><span id="timer-phase" aria-live="polite">Stundentimer</span><time id="elapsed" role="timer" aria-live="off">00:00</time><button class="action" id="timer-toggle">Start</button><button class="top-reset" id="timer-reset" aria-label="Timer zurücksetzen" hidden>↺</button></div>
+</div><div class="track" aria-hidden="true"><div id="progress"></div></div></header>
+<main class="wrap">
+<div class="hero">
+ <div><p class="kicker">Mathematik · 90 Minuten</p><h1>Wo treffen sich <em>die Parabeln?</em></h1>
+ <p class="lead">Stell dir ein Lineal vor, das senkrecht über das Bild wandert. Wo trifft es beide Kurven auf derselben Höhe?</p>
+ <a class="jump" href="#a">Zum ersten Heftbeispiel ↓</a></div>
+ <figure class="panel" id="graph">
+  <figcaption class="panelhead"><b>Die beiden Parabeln aus Heft A</b></figcaption>
+  <div class="key"><span>f(x) = x² + 4x − 1</span><span>g(x) = x² − 2x + 5</span></div>
+  <svg viewBox="0 0 520 246" role="img" aria-labelledby="mainTitle mainDesc"><title id="mainTitle">Die Parabeln aus dem Heft</title><desc id="mainDesc">Blau durchgezogen ist f, orange gestrichelt ist g. Bei x gleich 1 treffen sie sich auf Höhe 4.</desc><defs><clipPath id="mainClip"><rect x="32" y="18" width="448" height="210"/></clipPath></defs><rect x="32" y="18" width="448" height="210" fill="#fbfaff"/><g stroke="#e1deea" fill="none"><path d="M46.00 18.00L46.00 228.00" /><path d="M116.00 18.00L116.00 228.00" /><path d="M186.00 18.00L186.00 228.00" /><path d="M256.00 18.00L256.00 228.00" /><path d="M326.00 18.00L326.00 228.00" /><path d="M396.00 18.00L396.00 228.00" /><path d="M466.00 18.00L466.00 228.00" /><path d="M32.00 228.00L480.00 228.00" /><path d="M32.00 208.00L480.00 208.00" /><path d="M32.00 188.00L480.00 188.00" /><path d="M32.00 168.00L480.00 168.00" /><path d="M32.00 148.00L480.00 148.00" /><path d="M32.00 128.00L480.00 128.00" /><path d="M32.00 108.00L480.00 108.00" /><path d="M32.00 88.00L480.00 88.00" /><path d="M32.00 68.00L480.00 68.00" /><path d="M32.00 48.00L480.00 48.00" /><path d="M32.00 28.00L480.00 28.00" /></g><path d="M32.00 168.00L483.00 168.00" stroke="#89849b"/><path d="M256.00 16.00L256.00 228.00" stroke="#89849b"/><g clip-path="url(#mainClip)"><path d="M32.00,203.60 Q256.00,280.40 480.00,-52.40" fill="none" stroke="#2459c4" stroke-width="3" /><path d="M32.00,-48.40 Q256.00,220.40 480.00,79.60" fill="none" stroke="#b54828" stroke-width="3" stroke-dasharray="6 3"/><path d="M256.00 18.00L256.00 228.00" id="ruler" stroke="#776a91" stroke-dasharray="3 3" stroke-width="1.8"/><path id="projection" fill="none" stroke="#6244ba" stroke-width="1.8" stroke-dasharray="4 3"/><circle id="gmark" cx="256.0" cy="118.0" r="5" stroke="#b54828" fill="white" stroke-width="2"/><circle id="fmark" cx="256.0" cy="178.0" r="3" stroke="#2459c4" fill="#2459c4" stroke-width="2"/></g><g fill="#58556a" font-size="11" font-family="system-ui,sans-serif"><text x="46.00" y="242.00" text-anchor="middle" >−3</text><text x="116.00" y="242.00" text-anchor="middle" >−2</text><text x="186.00" y="242.00" text-anchor="middle" >−1</text><text x="256.00" y="242.00" text-anchor="middle" >0</text><text x="326.00" y="242.00" text-anchor="middle" >1</text><text x="396.00" y="242.00" text-anchor="middle" >2</text><text x="466.00" y="242.00" text-anchor="middle" >3</text><text x="27.00" y="212.00" text-anchor="end" >−4</text><text x="27.00" y="172.00" text-anchor="end" >0</text><text x="27.00" y="132.00" text-anchor="end" >4</text><text x="27.00" y="92.00" text-anchor="end" >8</text><text x="27.00" y="52.00" text-anchor="end" >12</text><text x="492.00" y="172.00" text-anchor="middle" >x</text><text x="266.00" y="19.00" text-anchor="middle" >y</text><text x="336.00" y="117.00" text-anchor="start" id="point-label" visibility="hidden" fill="#5239a0" font-weight="700">S(1|4)</text></g></svg>
+  <div class="controls" id="slider-controls" hidden><label for="xvalue">Lineal verschieben</label><input type="range" id="xvalue" min="-2" max="2" value="0" step=".25"><output for="xvalue" id="xread">x = 0</output></div>
+  <div class="readings" aria-live="polite" aria-atomic="true"><span class="leftval" id="fread">f(0) = −1</span><span class="rightval" id="gread">g(0) = 5</span><span class="resultval" id="order">g liegt höher</span></div>
+ </figure>
+</div>
+<section class="plan" id="plan"><h2>Die 90 Minuten</h2><nav class="navline" aria-label="Stundenphasen">
+ <a href="#sehen" data-start="0">Sehen · 10′</a><a href="#a" data-start="10">Heft A · 20′</a><a href="#b" data-start="30">Heft B · 15′</a><a href="#pause" data-start="45">Pause · 5′</a><a href="#c" data-start="50">Selbst üben · 20′</a><a href="#puffer" data-start="70">Puffer · 10′</a><a href="#ende" data-start="80">Abschluss · 10′</a>
+ </nav><p>Ein Rechenweg, zwei Heftbeispiele und eine eigene Aufgabe. Legt Heft und Stift bereit.</p></section>
+<section class="block" id="sehen"><p class="phase">Minute 0 bis 10 · Am Graphen</p><h2>Kreuzen oder berühren?</h2>
+<p>Schieb das Lineal im <a href="#graph">großen Graphen</a> erst auf 0 und dann auf 2. Welche Kurve liegt links vom Treffpunkt oben, welche rechts? Such die Stelle, an der die beiden Markierungen zusammenfallen.</p>
+<div class="pair">
+ <figure class="mini"><svg viewBox="0 0 230 118" role="img" aria-labelledby="crossTitle crossDesc"><title id="crossTitle">Kreuzung bei S</title><desc id="crossDesc">Die blaue Kurve wechselt am gemeinsamen Punkt von unten nach oben.</desc><defs><clipPath id="crossClip"><rect x="8" y="8" width="214" height="102"/></clipPath></defs><rect x="8" y="8" width="214" height="102" fill="#fbfaff"/><g stroke="#e1deea" fill="none"><path d="M115.00 8.00L115.00 110.00" /><path d="M8.00 100.73L222.00 100.73" /><path d="M8.00 82.18L222.00 82.18" /><path d="M8.00 63.64L222.00 63.64" /><path d="M8.00 45.09L222.00 45.09" /><path d="M8.00 26.55L222.00 26.55" /><path d="M8.00 8.00L222.00 8.00" /></g><path d="M8.00 100.73L225.00 100.73" stroke="#89849b"/><g clip-path="url(#crossClip)"><path d="M8.00,106.20 Q115.00,71.15 222.00,6.05" fill="none" stroke="#2459c4" stroke-width="3" /><path d="M8.00,56.13 Q115.00,71.15 222.00,56.13" fill="none" stroke="#b54828" stroke-width="3" stroke-dasharray="6 3"/><circle cx="115.00000000000001" cy="63.63636363636363" r="4.5" fill="white" stroke="#6244ba" stroke-width="2"/></g><g fill="#58556a" font-size="12" font-family="system-ui,sans-serif"><text x="126.00" y="54.64" text-anchor="start" fill="#5239a0" font-weight="700">S</text></g></svg><figcaption><strong>Kreuzen · wie im Heft</strong>Die blaue Kurve liegt erst unter der orangefarbenen, danach darüber. Die beiden tauschen die Reihenfolge.</figcaption></figure>
+ <figure class="mini"><svg viewBox="0 0 230 118" role="img" aria-labelledby="touchTitle touchDesc"><title id="touchTitle">Berührung im Ursprung</title><desc id="touchDesc">Die orangefarbene Parabel liegt auf beiden Seiten der Berührstelle über der blauen.</desc><defs><clipPath id="touchClip"><rect x="8" y="8" width="214" height="102"/></clipPath></defs><rect x="8" y="8" width="214" height="102" fill="#fbfaff"/><g stroke="#e1deea" fill="none"><path d="M43.67 8.00L43.67 110.00" /><path d="M115.00 8.00L115.00 110.00" /><path d="M186.33 8.00L186.33 110.00" /><path d="M8.00 100.29L222.00 100.29" /><path d="M8.00 76.00L222.00 76.00" /><path d="M8.00 51.71L222.00 51.71" /><path d="M8.00 27.43L222.00 27.43" /></g><path d="M8.00 100.29L225.00 100.29" stroke="#89849b"/><path d="M115.00 6.00L115.00 110.00" stroke="#89849b"/><g clip-path="url(#touchClip)"><path d="M8.00,45.64 Q115.00,154.93 222.00,45.64" fill="none" stroke="#2459c4" stroke-width="3" /><path d="M8.00,-9.00 Q115.00,209.57 222.00,-9.00" fill="none" stroke="#b54828" stroke-width="3" stroke-dasharray="6 3"/><circle cx="115.0" cy="100.28571428571428" r="4.5" fill="white" stroke="#6244ba" stroke-width="2"/></g><g fill="#58556a" font-size="12" font-family="system-ui,sans-serif"><text x="126.00" y="91.29" text-anchor="start" fill="#5239a0" font-weight="700">B</text></g></svg><figcaption><strong>Berühren · zum Vergleich</strong>Hier gilt f(x) = x² und g(x) = 2x². Links und rechts von 0 liegt die orangefarbene Kurve oben.</figcaption></figure>
+</div>
+<details><summary>Gesprächsimpuls und Auflösung</summary><div class="inside"><b>Du fragst</b> „Im Heft steht Berührpunkt. Zeig mir, was kurz vor und kurz nach dem Punkt passiert.“ Bei x = 0 liegt g oben, bei x = 2 liegt f oben. Bei x = 1 sind beide 4 hoch. Daher sprechen wir bei <b>S(1|4)</b> von einem Schnittpunkt, an dem sich die Parabeln kreuzen.</div></details>
+</section>
+<section class="block" id="a"><p class="phase">Minute 10 bis 30 · Gemeinsam rechnen</p><h2>A · Warum fällt x² weg?</h2>
+<p>Am gemeinsamen Punkt gilt f(x) = g(x). Lege die beiden Funktionsterme nebeneinander. Welche Karte liegt auf beiden Seiten?</p>
+<div class="diagram"><div class="panelhead"><h3 id="step-title">Gleiche Höhe, gleiche Funktionswerte</h3><span class="small" id="step-count">Schritt 1 von 5</span></div>
+<div class="eq" role="group" aria-label="Linke und rechte Seite der Gleichung">
+ <div id="lhs" class="eq-side"><span class="term square">x²</span><span class="term">+4x</span><span class="term">−1</span></div><b class="equals">=</b>
+ <div id="rhs" class="eq-side right"><span class="term square">x²</span><span class="term">−2x</span><span class="term">+5</span></div>
+</div>
+<p class="stepnote" id="step-note" aria-live="polite">Blau steht für f(x), Orange für g(x). Das Gleichheitszeichen fragt, bei welchem x beide Seiten denselben Wert haben.</p>
+<div class="navstep" id="step-controls" hidden><button id="back" disabled>← Zurück</button><button class="action" id="next">x² auf beiden Seiten abziehen →</button></div></div>
+<details><summary>Was wird aus x? Den Punkt zusammensetzen</summary><div class="inside"><p>Setze x = 1 in beide Funktionen ein. Verfolge die Zahl durch beide Rechenwege.</p>
+<div class="flow"><span class="node">x = 1</span><div class="lanes"><span class="leftval">f(1) = 1 + 4 − 1 = <b>4</b></span><span class="rightval">g(1) = 1 − 2 + 5 = <b>4</b></span></div><span class="point">S(1|4)</span></div>
+<p class="small">Die erste Koordinate verrät, wo das Lineal steht. Die zweite gibt die gemeinsame Höhe an.</p></div></details>
+<details><summary>Alle Rechenzeilen fürs Heft</summary><div class="inside"><ol><li>x² + 4x − 1 = x² − 2x + 5</li><li>Beidseits −x² ergibt 4x − 1 = −2x + 5.</li><li>Beidseits +2x ergibt 6x − 1 = 5.</li><li>Beidseits +1 ergibt 6x = 6.</li><li>Beidseits durch 6 teilen ergibt x = 1. Einsetzen ergibt S(1|4).</li></ol></div></details>
+</section>
+<section class="block" id="b"><p class="phase">Minute 30 bis 45 · Mit Unterstützung</p><h2>B · Woher kommt das Minus?</h2>
+<div class="formulas math"><span class="leftval">f(x) = x² + 6x + 11</span><span class="rightval">g(x) = x² − 2x + 3</span></div>
+<p>Setze gleich und rechne bis <b>8x + 11 = 3</b>. Jetzt soll links nur noch 8x stehen. Starte auf der Zahlengeraden bei 3. Wo landest du, wenn du 11 abziehst?</p>
+<div class="diagram"><div class="panelhead"><h3>Von der 3 nach links</h3></div>
+<svg class="numberline" viewBox="0 0 520 112" role="img" aria-labelledby="nlTitle nlDesc"><title id="nlTitle">3 minus 11 auf der Zahlengeraden</title><desc id="nlDesc">Von der 3 geht es zuerst drei Einheiten nach links zur Null, dann weitere acht zur minus 8.</desc><defs><marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#6244ba"/></marker></defs><path d="M23 76H498m-6 -4 6 4 -6 4" fill="none" stroke="#655e74" stroke-width="1.8"/><path d="M38.00 71.00L38.00 81.00" stroke="#655e74"/><text x="38.00" y="99.00" text-anchor="middle" fill="#393547" font-size="13">−9</text><path d="M72.00 71.00L72.00 81.00" stroke="#655e74"/><text x="72.00" y="99.00" text-anchor="middle" fill="#393547" font-size="13">−8</text><path d="M106.00 71.00L106.00 81.00" stroke="#655e74"/><path d="M140.00 71.00L140.00 81.00" stroke="#655e74"/><text x="140.00" y="99.00" text-anchor="middle" fill="#393547" font-size="13">−6</text><path d="M174.00 71.00L174.00 81.00" stroke="#655e74"/><path d="M208.00 71.00L208.00 81.00" stroke="#655e74"/><text x="208.00" y="99.00" text-anchor="middle" fill="#393547" font-size="13">−4</text><path d="M242.00 71.00L242.00 81.00" stroke="#655e74"/><path d="M276.00 71.00L276.00 81.00" stroke="#655e74"/><text x="276.00" y="99.00" text-anchor="middle" fill="#393547" font-size="13">−2</text><path d="M310.00 71.00L310.00 81.00" stroke="#655e74"/><path d="M344.00 71.00L344.00 81.00" stroke="#655e74"/><text x="344.00" y="99.00" text-anchor="middle" fill="#393547" font-size="13">0</text><path d="M378.00 71.00L378.00 81.00" stroke="#655e74"/><path d="M412.00 71.00L412.00 81.00" stroke="#655e74"/><text x="412.00" y="99.00" text-anchor="middle" fill="#393547" font-size="13">2</text><path d="M446.00 71.00L446.00 81.00" stroke="#655e74"/><text x="446.00" y="99.00" text-anchor="middle" fill="#393547" font-size="13">3</text><path d="M480.00 71.00L480.00 81.00" stroke="#655e74"/><text x="480.00" y="99.00" text-anchor="middle" fill="#393547" font-size="13">4</text><g id="hop1" visibility="hidden"><path d="M446 65Q395.0 -2 344 65" fill="none" stroke="#6244ba" stroke-width="3" marker-end="url(#arr)"/><text x="395.00" y="23.00" text-anchor="middle" font-weight="700" font-size="16" fill="#6244ba">−3</text></g><g id="hop2" visibility="hidden"><path d="M344 65Q208.0 -2 72 65" fill="none" stroke="#6244ba" stroke-width="3" marker-end="url(#arr)"/><text x="208.00" y="23.00" text-anchor="middle" font-weight="700" font-size="16" fill="#6244ba">−8</text></g><circle id="walker" cx="446" cy="76" r="6" fill="#6244ba"/></svg>
+<div class="controls" id="hop-controls" hidden><button id="hop" class="action">11 nach links gehen</button></div>
+<p id="hop-caption" class="caption" aria-live="polite">Der Punkt markiert die 3 auf der rechten Seite der Gleichung.</p></div>
+<details><summary>Rechnung mit dem Heft vergleichen</summary><div class="inside"><ol><li>x² + 6x + 11 = x² − 2x + 3. Ziehe x² auf beiden Seiten ab.</li><li>6x + 11 = −2x + 3. Addiere 2x. Jetzt steht dort 8x + 11 = 3.</li><li>Ziehe 11 ab. Rechts ergibt 3 − 11 den Wert −8. Aus 8x = −8 folgt <b>x = −1</b>.</li><li>f(−1) = (−1)² + 6 · (−1) + 11 = 1 − 6 + 11 = 6.</li><li>g(−1) = (−1)² − 2 · (−1) + 3 = 1 + 2 + 3 = 6. Damit gilt <b>S(−1|6)</b>.</li></ol><figure style="max-width:470px;margin:12px auto 0"><svg viewBox="0 0 450 195" role="img" aria-labelledby="bpointTitle bpointDesc"><title id="bpointTitle">Heft B: Schnittpunkt links der y-Achse</title><desc id="bpointDesc">Bei minus 1 schneiden sich die Kurven auf Höhe 6.</desc><defs><clipPath id="bpointClip"><rect x="12" y="12" width="415" height="172"/></clipPath></defs><rect x="12" y="12" width="415" height="172" fill="#fbfaff"/><g stroke="#e1deea" fill="none"><path d="M30.24 12.00L30.24 184.00" /><path d="M121.45 12.00L121.45 184.00" /><path d="M212.66 12.00L212.66 184.00" /><path d="M303.87 12.00L303.87 184.00" /><path d="M395.08 12.00L395.08 184.00" /><path d="M12.00 179.22L427.00 179.22" /><path d="M12.00 169.67L427.00 169.67" /><path d="M12.00 160.11L427.00 160.11" /><path d="M12.00 150.56L427.00 150.56" /><path d="M12.00 141.00L427.00 141.00" /><path d="M12.00 131.44L427.00 131.44" /><path d="M12.00 121.89L427.00 121.89" /><path d="M12.00 112.33L427.00 112.33" /><path d="M12.00 102.78L427.00 102.78" /><path d="M12.00 93.22L427.00 93.22" /><path d="M12.00 83.67L427.00 83.67" /><path d="M12.00 74.11L427.00 74.11" /><path d="M12.00 64.56L427.00 64.56" /><path d="M12.00 55.00L427.00 55.00" /><path d="M12.00 45.44L427.00 45.44" /><path d="M12.00 35.89L427.00 35.89" /><path d="M12.00 26.33L427.00 26.33" /><path d="M12.00 16.78L427.00 16.78" /></g><path d="M12.00 169.67L430.00 169.67" stroke="#89849b"/><path d="M303.87 10.00L303.87 184.00" stroke="#89849b"/><g clip-path="url(#bpointClip)"><path d="M12.00,150.17 Q219.50,158.87 427.00,-30.26" fill="none" stroke="#2459c4" stroke-width="3" /><path d="M12.00,-18.00 Q219.50,164.60 427.00,149.38" fill="none" stroke="#b54828" stroke-width="3" stroke-dasharray="6 3"/><path d="M212.65934065934064 169.66666666666666V112.33333333333333H303.8681318681318" fill="none" stroke="#6244ba" stroke-width="1.6" stroke-dasharray="3 3"/><circle cx="212.65934065934064" cy="112.33333333333333" r="4.5" fill="white" stroke="#6244ba" stroke-width="2"/></g><g fill="#58556a" font-size="12" font-family="system-ui,sans-serif"><text x="30.24" y="183.67" text-anchor="middle" >−3</text><text x="121.45" y="183.67" text-anchor="middle" >−2</text><text x="212.66" y="183.67" text-anchor="middle" >−1</text><text x="303.87" y="183.67" text-anchor="middle" >0</text><text x="395.08" y="183.67" text-anchor="middle" >1</text><text x="310.87" y="145.00" text-anchor="start" >3</text><text x="310.87" y="116.33" text-anchor="start" >6</text><text x="310.87" y="87.67" text-anchor="start" >9</text><text x="310.87" y="59.00" text-anchor="start" >12</text><text x="310.87" y="30.33" text-anchor="start" >15</text><text x="212.66" y="89.33" text-anchor="middle" paint-order="stroke" stroke="white" stroke-width="3" fill="#5239a0" font-weight="700">S(−1|6)</text><text x="437.00" y="173.67" text-anchor="middle" >x</text><text x="310.87" y="12.00" text-anchor="middle" >y</text></g></svg><figcaption class="caption">Lies zuerst unten x = −1 ab. Folge dann der waagerechten Hilfslinie zur y-Achse. Bei x = −1 haben beide Kurven die Höhe 6.</figcaption></figure></div></details>
+</section>
+<section id="pause" class="block slim"><p class="phase">Minute 45 bis 50</p><h2>Fünf Minuten Pause</h2><p>Wenn B noch offen ist, markiert eure letzte sichere Zeile. Dort steigt ihr nach der Pause wieder ein.</p></section>
+<section id="c" class="block"><p class="phase">Minute 50 bis 70 · Selbst rechnen</p><h2>C · Findest du den Punkt allein?</h2>
+<div class="formulas math"><span class="leftval">f(x) = x² − x + 3</span><span class="rightval">g(x) = x² + 2x − 3</span></div>
+<p>Bestimme den gemeinsamen Punkt im Heft. Prüfe mit der zweiten Funktion, ob du auf derselben Höhe ankommst.</p>
+<div class="practice" id="check-panel" hidden><form id="check"><label for="cx">x-Koordinate<input id="cx" type="text" inputmode="text" autocomplete="off" required></label><label for="cy">y-Koordinate<input id="cy" type="text" inputmode="text" autocomplete="off" required></label><button class="action">Punkt prüfen</button></form><p id="feedback" class="feedback" role="status"></p></div>
+<details><summary>Ein Tipp für den Anfang</summary><div class="inside">Zieh nach dem Gleichsetzen links und rechts x² ab. Jetzt steht dort −x + 3 = 2x − 3. Mit welcher Operation sammelst du alle x auf der rechten Seite?</div></details>
+<details><summary>Rechenweg und Probe aufklappen</summary><div class="inside"><ol><li>−x + 3 = 2x − 3. Addiere x. Übrig bleibt 3 = 3x − 3.</li><li>Addiere 3. Aus 6 = 3x folgt x = 2.</li><li>f(2) = 4 − 2 + 3 = 5. Die Probe ergibt g(2) = 4 + 4 − 3 = 5. Der Punkt ist <b>S(2|5)</b>.</li></ol></div></details>
+</section>
+<section id="puffer" class="block slim"><p class="phase">Minute 70 bis 80 · Puffer</p><h2>Wo hakt es noch?</h2><p>Nutzt die zehn Minuten für die offene Rechenzeile. Ist C schon fertig, erklärt die Schülerin an ihrem Ergebnis, warum beide y-Werte übereinstimmen müssen. Ist C noch unberührt, hebt sie die Aufgabe fürs nächste Mal auf. Bei Minute 80 beginnt der Abschluss.</p></section>
+<section id="ende" class="block"><p class="phase">Minute 80 bis 90 · Kurze Probe</p><h2>Eine Zahl fehlt noch</h2>
+<div class="formulas math"><span class="leftval">f(x) = x² + x + 1</span><span class="rightval">g(x) = x² − x − 3</span></div>
+<p>Jemand hat x = −2 gefunden. Rechne beide y-Werte aus. Welche Zahl gehört hinter den Strich in <b>S(−2|&nbsp;?&nbsp;)</b>?</p>
+<details><summary>Beide Wege zum Punkt anzeigen</summary><div class="inside"><div class="flow"><span class="node">x = −2</span><div class="lanes"><span class="leftval">f(−2) = 4 − 2 + 1 = <b>3</b></span><span class="rightval">g(−2) = 4 + 2 − 3 = <b>3</b></span></div><span class="point">S(−2|3)</span></div><p class="small">Die beiden Graphen haben bei x = −2 denselben y-Wert. Der Punkt gehört zu beiden.</p></div></details>
+</section>
+<footer class="foot"><a href="https://loggel.github.io/static-pages/nachhilfe-quadratische-gleichungen/">Zur früheren Einheit „90 Minuten, drei Wege“</a></footer>
+</main>
+<script>
+const el = id => document.getElementById(id);
+const format = n => String(n).replace('.', ',').replace('-', '−');
+function moveRuler() {
+  const x = Number(el('xvalue').value);
+  const f = x*x + 4*x - 1;
+  const g = x*x - 2*x + 5;
+  const column = 256 + 70*x;
+  const height = y => 168 - 10*y;
+  el('ruler').setAttribute('d','M' + column + ' 18V228');
+  for (const [id,y] of [['fmark',f],['gmark',g]]) {
+    el(id).setAttribute('cx',column);
+    el(id).setAttribute('cy',height(y));
+  }
+  el('projection').setAttribute('d',x === 1 ? 'M256 128H326V168' : '');
+  el('point-label').setAttribute('visibility',x === 1 ? 'visible' : 'hidden');
+  el('xread').textContent = 'x = ' + format(x);
+  el('fread').textContent = 'f(' + format(x) + ') = ' + format(f);
+  el('gread').textContent = 'g(' + format(x) + ') = ' + format(g);
+  el('order').textContent = f === g ? 'Gleiche Höhe · S(1|4)' : f > g ? 'f liegt höher' : 'g liegt höher';
+}
+el('slider-controls').hidden = false;
+el('xvalue').addEventListener('input',moveRuler);
+moveRuler();
+
+const steps = [
+  {left:['x²','+4x','−1'],right:['x²','−2x','+5'],title:'Gleiche Höhe, gleiche Funktionswerte',next:'x² auf beiden Seiten abziehen',note:el('step-note').textContent},
+  {left:['x²','4x','−1'],right:['x²','−2x','+5'],title:'Auf beiden Seiten fällt dasselbe x² weg',next:'Auf beiden Seiten 2x addieren',note:'Die durchgestrichenen Karten fallen weg. Übrig bleibt 4x − 1 = −2x + 5. Welche Rechenoperation hebt rechts das −2x auf?'},
+  {left:['6x','−1'],right:['5'],title:'Links kommen die x-Terme zusammen',next:'Auf beiden Seiten 1 addieren',note:'Links ergeben 4x + 2x zusammen 6x. Rechts addieren sich −2x und +2x zu null. Jetzt steht dort 6x − 1 = 5.'},
+  {left:['6x'],right:['6'],title:'Auf beiden Seiten kommt 1 dazu',next:'Beide Seiten durch 6 teilen',note:'Links heben sich −1 und +1 auf. Rechts wird aus 5 die 6. Damit gilt 6x = 6.'},
+  {left:['x'],right:['1'],title:'Ein x hat den Wert 1',note:'Sechs gleiche x ergeben zusammen 6. Ein x ist also 1. Für den Punkt fehlt jetzt noch die gemeinsame Höhe.'}
+];
+let step = 0;
+function drawStep() {
+  const item = steps[step];
+  for (const [id,terms] of [['lhs',item.left],['rhs',item.right]]) {
+    el(id).replaceChildren(...terms.map(term => {
+      const card = document.createElement('span');
+      card.className = 'term';
+      if (term === 'x²') {
+        card.classList.add('square');
+        if (step === 1) card.classList.add('gone');
+      }
+      card.textContent = term;
+      return card;
+    }));
+  }
+  el('step-title').textContent = item.title;
+  el('step-note').textContent = item.note;
+  el('step-count').textContent = 'Schritt ' + (step+1) + ' von ' + steps.length;
+  el('next').textContent = item.next ? item.next + ' →' : 'Zu x den Punkt anzeigen ↓';
+  el('back').disabled = step === 0;
+}
+el('step-controls').hidden = false;
+el('back').addEventListener('click',() => {if (step > 0) {step--; drawStep();}});
+el('next').addEventListener('click',() => {
+  if (step < steps.length-1) {step++; drawStep(); return;}
+  const answer = document.querySelector('#a details');
+  answer.open = true;
+  answer.querySelector('summary').focus();
+});
+let hop = 0;
+const stops = [[446,'3 bis zur Null gehen','Der Punkt markiert die 3 auf der rechten Seite der Gleichung.'],
+  [344,'Noch 8 nach links gehen','Von 3 bis 0 sind es drei Schritte. Von den elf Schritten bleiben acht übrig.'],
+  [72,'Noch einmal zeigen','Drei und acht Schritte sind zusammen elf. Rechts steht jetzt 3 − 11 = −8, also gilt 8x = −8.']];
+function drawHop() {
+  el('hop1').setAttribute('visibility',hop > 0 ? 'visible' : 'hidden');
+  el('hop2').setAttribute('visibility',hop > 1 ? 'visible' : 'hidden');
+  el('walker').setAttribute('cx',stops[hop][0]);
+  el('hop').textContent = stops[hop][1];
+  el('hop-caption').textContent = stops[hop][2];
+}
+el('hop-controls').hidden = false;
+el('hop').addEventListener('click',()=>{ hop = (hop+1)%stops.length; drawHop(); });
+drawHop();
+
+el('check-panel').hidden = false;
+function value(id) {
+  const raw = el(id).value.trim().replace('−','-').replace(',','.');
+  return /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(raw) ? Number(raw) : NaN;
+}
+el('check').addEventListener('submit',event=>{
+  event.preventDefault();
+  const x = value('cx'), y = value('cy');
+  let message;
+  if (!Number.isFinite(x) || !Number.isFinite(y)) message = 'Trage für jede Koordinate eine Zahl ein.';
+  else if (x !== 2) message = 'Prüfe zuerst x. Ziehe in der Gleichung auf beiden Seiten x² ab.';
+  else if (y !== 5) message = 'x = 2 stimmt. Setze die 2 für jedes x in f(x) = x² − x + 3 ein.';
+  else message = 'Richtig: S(2|5). Beide Funktionen haben bei x = 2 die Höhe 5.';
+  el('feedback').textContent = message;
+});
+el('check').addEventListener('input',()=>{ el('feedback').textContent=''; });
+
+const phases = Array.from(document.querySelectorAll('.navline a'));
+const total = 90 * 60_000;
+const timerKey = 'parabelschnittpunkte:stundentimer';
+let saved = 0, since = null;
+function persist(){
+  try {localStorage.setItem(timerKey,JSON.stringify({saved,since}));} catch {}
+}
+try {
+  const state = JSON.parse(localStorage.getItem(timerKey));
+  if (state && Number.isFinite(state.saved) && state.saved >= 0 && state.saved <= total &&
+      (state.since === null || (Number.isFinite(state.since) && state.since > 0 && state.since <= Date.now()))) {
+    saved = state.saved; since = state.since;
+  }
+} catch {}
+function elapsed() {return Math.min(total, saved + (since === null ? 0 : Math.max(0,Date.now()-since)));}
+function renderClock() {
+  const ms = elapsed(), sec = Math.floor(ms/1000);
+  const pad = n => String(n).padStart(2,'0');
+  el('elapsed').textContent = pad(Math.floor(sec/60)) + ':' + pad(sec%60);
+  el('progress').style.width = 100*ms/total + '%';
+  if (ms === total && since !== null) {since=null; saved=total; persist();}
+  const active = phases.filter(link=>Number(link.dataset.start)*60_000<=ms).at(-1);
+  const inLesson = (since !== null || ms > 0) && ms < total;
+  for (const link of phases) {
+    if (link === active && inLesson) link.setAttribute('aria-current','step');
+    else link.removeAttribute('aria-current');
+  }
+  const label = ms === total ? '90 Minuten sind um' : inLesson ? active.textContent.split(' · ')[0] : 'Stundentimer';
+  if (label !== el('timer-phase').textContent) el('timer-phase').textContent = label;
+  el('timer-toggle').textContent = since !== null ? 'Anhalten' : ms ? 'Weiter' : 'Start';
+  el('timer-toggle').hidden = ms === total;
+  el('timer-reset').hidden = since === null && saved === 0;
+}
+el('timer-toggle').addEventListener('click',()=>{
+  if (since === null) since=Date.now();
+  else {saved=elapsed(); since=null;}
+  persist(); renderClock();
+});
+el('timer-reset').addEventListener('click',()=>{saved=0;since=null;persist();renderClock();});
+el('clock').hidden=false;
+renderClock();
+setInterval(()=>{if(since !== null) renderClock();},500);
+</script>
+</body></html>
