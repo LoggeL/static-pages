@@ -23,6 +23,19 @@ details{border-top:1px solid var(--rule);margin-top:12px}summary{padding:10px 0 
 .diagram,.practice{margin-top:14px}.eq{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:stretch;margin:12px 0}.eq-side{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;padding:12px 8px;min-height:70px;border-radius:10px;background:var(--bluewash);border:1px solid #cbdcfc}.eq-side.right{background:var(--coralwash);border-color:#f3d1c2}.equals{align-self:center;font-size:1.45rem;font-weight:700}.term{display:inline-flex;align-items:center;justify-content:center;min-width:38px;height:33px;background:#fff;color:#242137;border:1px solid #cac6d7;border-radius:6px;padding:0 7px;font-weight:720;font-size:1.08rem}.term.square{width:42px;height:42px;background:var(--violetwash);border-color:#b4a3df}.term.gone{opacity:.7;text-decoration:line-through;text-decoration-thickness:2px}.navstep{margin-top:12px;justify-content:space-between;flex-wrap:wrap}.navstep output{font-size:.85rem;color:var(--dim)}.stepnote{min-height:3em}.flow{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;margin:12px 0 4px}.flow .node,.point{padding:8px 10px;background:var(--violetwash);border-radius:8px;color:var(--purple);font-weight:750;text-align:center}.lanes{display:grid;gap:6px}.lanes span{text-align:center;border-radius:6px;padding:4px;font-size:.98rem}.point{background:var(--mint);color:var(--green)}.numberline{max-width:620px;margin:auto}.numberline text{font-family:system-ui,sans-serif}.practice form{display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap}.practice label{display:grid;gap:3px;font-size:.85rem;font-weight:640}.practice input{width:6em;max-width:100%;border:1px solid #bab6c9;border-radius:6px;padding:6px 8px;background:#fff}.feedback{font-size:.94rem;margin-top:9px;color:var(--purple);font-weight:650}.feedback:empty{display:none}.foot{margin:20px 0 34px;font-size:.92rem}
 @media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:23px;gap:16px}.hero figure{max-width:600px}.bar .wrap{min-height:52px}.navline{display:flex;flex-wrap:wrap}.navline a{padding:5px 9px}.lead{max-width:55ch}.jump{margin-top:9px}.pair{gap:9px}.clock #timer-phase{display:none}}
 @media(max-width:550px){.pair{grid-template-columns:1fr}.mini{display:grid;grid-template-columns:.95fr 1fr;align-items:center;gap:8px}.clock{gap:5px}.bar .wrap{gap:6px}.brand{font-size:.8rem}.flow{grid-template-columns:1fr}.flow .node,.flow .point{justify-self:center;padding:3px 14px}.stepnote{min-height:4.5em}.navstep button{font-size:.86rem;padding:7px 9px}.eq{gap:5px}.eq-side{padding:6px;gap:3px}.term{font-size:.96rem;min-width:26px;padding:0 4px}.term.square{width:33px;height:33px}.plan{padding-bottom:15px}.block{padding:16px}.top-reset{font-size:.8rem}}
+
+#ruler-plot{touch-action:pan-y;cursor:ew-resize;user-select:none}
+.hero-links,.exercise-nav,.answers{display:flex;flex-wrap:wrap;gap:8px 12px}
+.hero-links .jump{font-size:.9rem}
+.gap-read{background:#f3f1f7;color:#494052}
+.exercise-nav{margin:18px 0 16px;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+.exercise-nav button,.answers button{min-height:40px}
+.exercise-nav [aria-pressed="true"],.answers [aria-pressed="true"]{background:var(--purple);border-color:var(--purple);color:white}
+.exercise{margin-top:14px}.exercise h3{font-size:1.18rem}
+.feedback.solved{color:var(--green)}
+.bonus-figure{max-width:430px;margin:8px auto 15px}
+.op-choice{padding:12px 14px;margin:10px 0;background:var(--violetwash);border-radius:9px}
+.op-choice .answers{margin-top:8px}
 </style>
 </head>
 <body>
@@ -33,19 +46,19 @@ details{border-top:1px solid var(--rule);margin-top:12px}summary{padding:10px 0 
 <main class="wrap">
 <div class="hero">
  <div><p class="kicker">Mathematik · 90 Minuten</p><h1>Wo treffen sich <em>die Parabeln?</em></h1>
- <p class="lead">Stell dir ein Lineal vor, das senkrecht über das Bild wandert. Wo trifft es beide Kurven auf derselben Höhe?</p>
- <a class="jump" href="#a">Zum ersten Heftbeispiel ↓</a></div>
+ <p class="lead">Zieh das senkrechte Lineal über den Graphen. Die violette Strecke zeigt den Höhenunterschied. Wo verschwindet sie?</p>
+ <div class="hero-links"><a class="jump" href="#a">Gemeinsam rechnen ↓</a><a class="jump" href="#c">Zu den Aufgaben ↓</a></div></div>
  <figure class="panel" id="graph">
   <figcaption class="panelhead"><b>Die beiden Parabeln aus Heft A</b></figcaption>
   <div class="key"><span>f(x) = x² + 4x − 1</span><span>g(x) = x² − 2x + 5</span></div>
-  <svg viewBox="0 0 520 246" role="img" aria-labelledby="mainTitle mainDesc"><title id="mainTitle">Die Parabeln aus dem Heft</title><desc id="mainDesc">Blau durchgezogen ist f, orange gestrichelt ist g. Bei x gleich 1 treffen sie sich auf Höhe 4.</desc><defs><clipPath id="mainClip"><rect x="32" y="18" width="448" height="210"/></clipPath></defs><rect x="32" y="18" width="448" height="210" fill="#fbfaff"/><g stroke="#e1deea" fill="none"><path d="M46.00 18.00L46.00 228.00" /><path d="M116.00 18.00L116.00 228.00" /><path d="M186.00 18.00L186.00 228.00" /><path d="M256.00 18.00L256.00 228.00" /><path d="M326.00 18.00L326.00 228.00" /><path d="M396.00 18.00L396.00 228.00" /><path d="M466.00 18.00L466.00 228.00" /><path d="M32.00 228.00L480.00 228.00" /><path d="M32.00 208.00L480.00 208.00" /><path d="M32.00 188.00L480.00 188.00" /><path d="M32.00 168.00L480.00 168.00" /><path d="M32.00 148.00L480.00 148.00" /><path d="M32.00 128.00L480.00 128.00" /><path d="M32.00 108.00L480.00 108.00" /><path d="M32.00 88.00L480.00 88.00" /><path d="M32.00 68.00L480.00 68.00" /><path d="M32.00 48.00L480.00 48.00" /><path d="M32.00 28.00L480.00 28.00" /></g><path d="M32.00 168.00L483.00 168.00" stroke="#89849b"/><path d="M256.00 16.00L256.00 228.00" stroke="#89849b"/><g clip-path="url(#mainClip)"><path d="M32.00,203.60 Q256.00,280.40 480.00,-52.40" fill="none" stroke="#2459c4" stroke-width="3" /><path d="M32.00,-48.40 Q256.00,220.40 480.00,79.60" fill="none" stroke="#b54828" stroke-width="3" stroke-dasharray="6 3"/><path d="M256.00 18.00L256.00 228.00" id="ruler" stroke="#776a91" stroke-dasharray="3 3" stroke-width="1.8"/><path id="projection" fill="none" stroke="#6244ba" stroke-width="1.8" stroke-dasharray="4 3"/><circle id="gmark" cx="256.0" cy="118.0" r="5" stroke="#b54828" fill="white" stroke-width="2"/><circle id="fmark" cx="256.0" cy="178.0" r="3" stroke="#2459c4" fill="#2459c4" stroke-width="2"/></g><g fill="#58556a" font-size="11" font-family="system-ui,sans-serif"><text x="46.00" y="242.00" text-anchor="middle" >−3</text><text x="116.00" y="242.00" text-anchor="middle" >−2</text><text x="186.00" y="242.00" text-anchor="middle" >−1</text><text x="256.00" y="242.00" text-anchor="middle" >0</text><text x="326.00" y="242.00" text-anchor="middle" >1</text><text x="396.00" y="242.00" text-anchor="middle" >2</text><text x="466.00" y="242.00" text-anchor="middle" >3</text><text x="27.00" y="212.00" text-anchor="end" >−4</text><text x="27.00" y="172.00" text-anchor="end" >0</text><text x="27.00" y="132.00" text-anchor="end" >4</text><text x="27.00" y="92.00" text-anchor="end" >8</text><text x="27.00" y="52.00" text-anchor="end" >12</text><text x="492.00" y="172.00" text-anchor="middle" >x</text><text x="266.00" y="19.00" text-anchor="middle" >y</text><text x="336.00" y="117.00" text-anchor="start" id="point-label" visibility="hidden" fill="#5239a0" font-weight="700">S(1|4)</text></g></svg>
+  <svg id="ruler-plot" viewBox="0 0 520 246" role="img" aria-labelledby="mainTitle mainDesc"><title id="mainTitle">Die Parabeln aus dem Heft</title><desc id="mainDesc">Blau durchgezogen ist f, orange gestrichelt ist g. Bei x gleich 1 treffen sie sich auf Höhe 4.</desc><defs><clipPath id="mainClip"><rect x="32" y="18" width="448" height="210"/></clipPath></defs><rect x="32" y="18" width="448" height="210" fill="#fbfaff"/><g stroke="#e1deea" fill="none"><path d="M46.00 18.00L46.00 228.00" /><path d="M116.00 18.00L116.00 228.00" /><path d="M186.00 18.00L186.00 228.00" /><path d="M256.00 18.00L256.00 228.00" /><path d="M326.00 18.00L326.00 228.00" /><path d="M396.00 18.00L396.00 228.00" /><path d="M466.00 18.00L466.00 228.00" /><path d="M32.00 228.00L480.00 228.00" /><path d="M32.00 208.00L480.00 208.00" /><path d="M32.00 188.00L480.00 188.00" /><path d="M32.00 168.00L480.00 168.00" /><path d="M32.00 148.00L480.00 148.00" /><path d="M32.00 128.00L480.00 128.00" /><path d="M32.00 108.00L480.00 108.00" /><path d="M32.00 88.00L480.00 88.00" /><path d="M32.00 68.00L480.00 68.00" /><path d="M32.00 48.00L480.00 48.00" /><path d="M32.00 28.00L480.00 28.00" /></g><path d="M32.00 168.00L483.00 168.00" stroke="#89849b"/><path d="M256.00 16.00L256.00 228.00" stroke="#89849b"/><g clip-path="url(#mainClip)"><path d="M32.00,203.60 Q256.00,280.40 480.00,-52.40" fill="none" stroke="#2459c4" stroke-width="3" /><path d="M32.00,-48.40 Q256.00,220.40 480.00,79.60" fill="none" stroke="#b54828" stroke-width="3" stroke-dasharray="6 3"/><path d="M256.00 18.00L256.00 228.00" id="ruler" stroke="#776a91" stroke-dasharray="3 3" stroke-width="1.8"/><path id="height-gap" d="M256 118V178" fill="none" stroke="#7358b9" stroke-width="5" opacity=".65"/><path id="projection" fill="none" stroke="#6244ba" stroke-width="1.8" stroke-dasharray="4 3"/><circle id="gmark" cx="256.0" cy="118.0" r="5" stroke="#b54828" fill="white" stroke-width="2"/><circle id="fmark" cx="256.0" cy="178.0" r="3" stroke="#2459c4" fill="#2459c4" stroke-width="2"/></g><g fill="#58556a" font-size="11" font-family="system-ui,sans-serif"><text x="46.00" y="242.00" text-anchor="middle" >−3</text><text x="116.00" y="242.00" text-anchor="middle" >−2</text><text x="186.00" y="242.00" text-anchor="middle" >−1</text><text x="256.00" y="242.00" text-anchor="middle" >0</text><text x="326.00" y="242.00" text-anchor="middle" >1</text><text x="396.00" y="242.00" text-anchor="middle" >2</text><text x="466.00" y="242.00" text-anchor="middle" >3</text><text x="27.00" y="212.00" text-anchor="end" >−4</text><text x="27.00" y="172.00" text-anchor="end" >0</text><text x="27.00" y="132.00" text-anchor="end" >4</text><text x="27.00" y="92.00" text-anchor="end" >8</text><text x="27.00" y="52.00" text-anchor="end" >12</text><text x="492.00" y="172.00" text-anchor="middle" >x</text><text x="266.00" y="19.00" text-anchor="middle" >y</text><text x="336.00" y="117.00" text-anchor="start" id="point-label" visibility="hidden" fill="#5239a0" font-weight="700">S(1|4)</text></g></svg>
   <div class="controls" id="slider-controls" hidden><label for="xvalue">Lineal verschieben</label><input type="range" id="xvalue" min="-2" max="2" value="0" step=".25"><output for="xvalue" id="xread">x = 0</output></div>
-  <div class="readings" aria-live="polite" aria-atomic="true"><span class="leftval" id="fread">f(0) = −1</span><span class="rightval" id="gread">g(0) = 5</span><span class="resultval" id="order">g liegt höher</span></div>
+  <div class="readings" aria-live="polite" aria-atomic="true"><span class="leftval" id="fread">f(0) = −1</span><span class="rightval" id="gread">g(0) = 5</span><span class="resultval" id="order">g liegt höher</span><span class="gap-read" id="gap-value">Abstand: 6</span></div>
  </figure>
 </div>
 <section class="plan" id="plan"><h2>Die 90 Minuten</h2><nav class="navline" aria-label="Stundenphasen">
  <a href="#sehen" data-start="0">Sehen · 10′</a><a href="#a" data-start="10">Heft A · 20′</a><a href="#b" data-start="30">Heft B · 15′</a><a href="#pause" data-start="45">Pause · 5′</a><a href="#c" data-start="50">Selbst üben · 20′</a><a href="#puffer" data-start="70">Puffer · 10′</a><a href="#ende" data-start="80">Abschluss · 10′</a>
- </nav><p>Ein Rechenweg, zwei Heftbeispiele und eine eigene Aufgabe. Legt Heft und Stift bereit.</p></section>
+ </nav><p>Ein Rechenweg, zwei Heftbeispiele und danach eine kurze Übungsrunde. Legt Heft und Stift bereit.</p></section>
 <section class="block" id="sehen"><p class="phase">Minute 0 bis 10 · Am Graphen</p><h2>Kreuzen oder berühren?</h2>
 <p>Schieb das Lineal im <a href="#graph">großen Graphen</a> erst auf 0 und dann auf 2. Welche Kurve liegt links vom Treffpunkt oben, welche rechts? Such die Stelle, an der die beiden Markierungen zusammenfallen.</p>
 <div class="pair">
@@ -61,6 +74,8 @@ details{border-top:1px solid var(--rule);margin-top:12px}summary{padding:10px 0 
  <div id="lhs" class="eq-side"><span class="term square">x²</span><span class="term">+4x</span><span class="term">−1</span></div><b class="equals">=</b>
  <div id="rhs" class="eq-side right"><span class="term square">x²</span><span class="term">−2x</span><span class="term">+5</span></div>
 </div>
+<div id="operation-choice" class="op-choice" hidden><p>Was addierst du auf beiden Seiten, damit rechts −2x wegfällt?</p>
+<div class="answers" role="group" aria-label="Rechenoperation wählen"><button data-add="2">+2</button><button data-add="2x">+2x</button><button data-add="-2x">−2x</button></div><p id="op-response" class="feedback" role="status"></p></div>
 <p class="stepnote" id="step-note" aria-live="polite">Blau steht für f(x), Orange für g(x). Das Gleichheitszeichen fragt, bei welchem x beide Seiten denselben Wert haben.</p>
 <div class="navstep" id="step-controls" hidden><button id="back" disabled>← Zurück</button><button class="action" id="next">x² auf beiden Seiten abziehen →</button></div></div>
 <details><summary>Was wird aus x? Den Punkt zusammensetzen</summary><div class="inside"><p>Setze x = 1 in beide Funktionen ein. Verfolge die Zahl durch beide Rechenwege.</p>
@@ -78,14 +93,48 @@ details{border-top:1px solid var(--rule);margin-top:12px}summary{padding:10px 0 
 <details><summary>Rechnung mit dem Heft vergleichen</summary><div class="inside"><ol><li>x² + 6x + 11 = x² − 2x + 3. Ziehe x² auf beiden Seiten ab.</li><li>6x + 11 = −2x + 3. Addiere 2x. Jetzt steht dort 8x + 11 = 3.</li><li>Ziehe 11 ab. Rechts ergibt 3 − 11 den Wert −8. Aus 8x = −8 folgt <b>x = −1</b>.</li><li>f(−1) = (−1)² + 6 · (−1) + 11 = 1 − 6 + 11 = 6.</li><li>g(−1) = (−1)² − 2 · (−1) + 3 = 1 + 2 + 3 = 6. Damit gilt <b>S(−1|6)</b>.</li></ol><figure style="max-width:470px;margin:12px auto 0"><svg viewBox="0 0 450 195" role="img" aria-labelledby="bpointTitle bpointDesc"><title id="bpointTitle">Heft B: Schnittpunkt links der y-Achse</title><desc id="bpointDesc">Bei minus 1 schneiden sich die Kurven auf Höhe 6.</desc><defs><clipPath id="bpointClip"><rect x="12" y="12" width="415" height="172"/></clipPath></defs><rect x="12" y="12" width="415" height="172" fill="#fbfaff"/><g stroke="#e1deea" fill="none"><path d="M30.24 12.00L30.24 184.00" /><path d="M121.45 12.00L121.45 184.00" /><path d="M212.66 12.00L212.66 184.00" /><path d="M303.87 12.00L303.87 184.00" /><path d="M395.08 12.00L395.08 184.00" /><path d="M12.00 179.22L427.00 179.22" /><path d="M12.00 169.67L427.00 169.67" /><path d="M12.00 160.11L427.00 160.11" /><path d="M12.00 150.56L427.00 150.56" /><path d="M12.00 141.00L427.00 141.00" /><path d="M12.00 131.44L427.00 131.44" /><path d="M12.00 121.89L427.00 121.89" /><path d="M12.00 112.33L427.00 112.33" /><path d="M12.00 102.78L427.00 102.78" /><path d="M12.00 93.22L427.00 93.22" /><path d="M12.00 83.67L427.00 83.67" /><path d="M12.00 74.11L427.00 74.11" /><path d="M12.00 64.56L427.00 64.56" /><path d="M12.00 55.00L427.00 55.00" /><path d="M12.00 45.44L427.00 45.44" /><path d="M12.00 35.89L427.00 35.89" /><path d="M12.00 26.33L427.00 26.33" /><path d="M12.00 16.78L427.00 16.78" /></g><path d="M12.00 169.67L430.00 169.67" stroke="#89849b"/><path d="M303.87 10.00L303.87 184.00" stroke="#89849b"/><g clip-path="url(#bpointClip)"><path d="M12.00,150.17 Q219.50,158.87 427.00,-30.26" fill="none" stroke="#2459c4" stroke-width="3" /><path d="M12.00,-18.00 Q219.50,164.60 427.00,149.38" fill="none" stroke="#b54828" stroke-width="3" stroke-dasharray="6 3"/><path d="M212.65934065934064 169.66666666666666V112.33333333333333H303.8681318681318" fill="none" stroke="#6244ba" stroke-width="1.6" stroke-dasharray="3 3"/><circle cx="212.65934065934064" cy="112.33333333333333" r="4.5" fill="white" stroke="#6244ba" stroke-width="2"/></g><g fill="#58556a" font-size="12" font-family="system-ui,sans-serif"><text x="30.24" y="183.67" text-anchor="middle" >−3</text><text x="121.45" y="183.67" text-anchor="middle" >−2</text><text x="212.66" y="183.67" text-anchor="middle" >−1</text><text x="303.87" y="183.67" text-anchor="middle" >0</text><text x="395.08" y="183.67" text-anchor="middle" >1</text><text x="310.87" y="145.00" text-anchor="start" >3</text><text x="310.87" y="116.33" text-anchor="start" >6</text><text x="310.87" y="87.67" text-anchor="start" >9</text><text x="310.87" y="59.00" text-anchor="start" >12</text><text x="310.87" y="30.33" text-anchor="start" >15</text><text x="212.66" y="89.33" text-anchor="middle" paint-order="stroke" stroke="white" stroke-width="3" fill="#5239a0" font-weight="700">S(−1|6)</text><text x="437.00" y="173.67" text-anchor="middle" >x</text><text x="310.87" y="12.00" text-anchor="middle" >y</text></g></svg><figcaption class="caption">Lies zuerst unten x = −1 ab. Folge dann der waagerechten Hilfslinie zur y-Achse. Bei x = −1 haben beide Kurven die Höhe 6.</figcaption></figure></div></details>
 </section>
 <section id="pause" class="block slim"><p class="phase">Minute 45 bis 50</p><h2>Fünf Minuten Pause</h2><p>Wenn B noch offen ist, markiert eure letzte sichere Zeile. Dort steigt ihr nach der Pause wieder ein.</p></section>
-<section id="c" class="block"><p class="phase">Minute 50 bis 70 · Selbst rechnen</p><h2>C · Findest du den Punkt allein?</h2>
-<div class="formulas math"><span class="leftval">f(x) = x² − x + 3</span><span class="rightval">g(x) = x² + 2x − 3</span></div>
-<p>Bestimme den gemeinsamen Punkt im Heft. Prüfe mit der zweiten Funktion, ob du auf derselben Höhe ankommst.</p>
-<div class="practice" id="check-panel" hidden><form id="check"><label for="cx">x-Koordinate<input id="cx" type="text" inputmode="text" autocomplete="off" required></label><label for="cy">y-Koordinate<input id="cy" type="text" inputmode="text" autocomplete="off" required></label><button class="action">Punkt prüfen</button></form><p id="feedback" class="feedback" role="status"></p></div>
-<details><summary>Ein Tipp für den Anfang</summary><div class="inside">Zieh nach dem Gleichsetzen links und rechts x² ab. Jetzt steht dort −x + 3 = 2x − 3. Mit welcher Operation sammelst du alle x auf der rechten Seite?</div></details>
-<details><summary>Rechenweg und Probe aufklappen</summary><div class="inside"><ol><li>−x + 3 = 2x − 3. Addiere x. Übrig bleibt 3 = 3x − 3.</li><li>Addiere 3. Aus 6 = 3x folgt x = 2.</li><li>f(2) = 4 − 2 + 3 = 5. Die Probe ergibt g(2) = 4 + 4 − 3 = 5. Der Punkt ist <b>S(2|5)</b>.</li></ol></div></details>
+<section id="c" class="block"><p class="phase">Minute 50 bis 70 · Selbst rechnen</p><h2>Jetzt bist du dran</h2>
+<p>Beginne mit Aufgabe 1. Wenn sie sitzt, probiere Aufgabe 2. Der Bonus ist für alle, die früher fertig sind.</p>
+<nav class="exercise-nav" id="exercise-nav" aria-label="Übung auswählen" hidden>
+ <button type="button" aria-controls="practice-one" aria-pressed="true">1 · Schnittpunkt</button>
+ <button type="button" aria-controls="practice-two" aria-pressed="false">2 · Vorzeichen</button>
+ <button type="button" aria-controls="practice-three" aria-pressed="false">3 · Bonus</button>
+</nav>
+<article class="exercise" id="practice-one">
+ <h3>1 · Wo treffen sich diese Parabeln?</h3>
+ <div class="formulas math"><span class="leftval">f(x) = x² − x + 3</span><span class="rightval">g(x) = x² + 2x − 3</span></div>
+ <p>Setze die Funktionen gleich und berechne x. Setze x anschließend in beide Funktionen ein. Auf welcher Höhe treffen sich die Graphen?</p>
+ <div class="practice" data-coordinate-check hidden><form id="check"><label for="cx">x-Koordinate<input id="cx" name="x" autocomplete="off" required></label><label for="cy">y-Koordinate<input id="cy" name="y" autocomplete="off" required></label><button class="action">Punkt prüfen</button></form><p id="feedback" class="feedback" role="status"></p></div>
+ <details><summary>Ich brauche einen Tipp</summary><div class="inside">Nach dem Abziehen von x² steht dort −x + 3 = 2x − 3. Addiere x auf beiden Seiten. Was bleibt links übrig?</div></details>
+ <details><summary>Rechenweg und Probe</summary><div class="inside"><ol><li>−x + 3 = 2x − 3. Addiere x. Das ergibt 3 = 3x − 3.</li><li>Addiere 3. Aus 6 = 3x folgt x = 2.</li><li>f(2) = 4 − 2 + 3 = 5. Die Probe ergibt g(2) = 4 + 4 − 3 = 5. Der gemeinsame Punkt ist <b>S(2|5)</b>.</li></ol></div></details>
+</article>
+<article class="exercise" id="practice-two">
+ <h3>2 · Ein Schnittpunkt unter der x-Achse?</h3>
+ <div class="formulas math"><span class="leftval">f(x) = x² + 3x − 1</span><span class="rightval">g(x) = x² − x − 9</span></div>
+ <p>Berechne den Punkt. Achte beim Einsetzen darauf, welche Zahl du quadrierst. Woran erkennst du am Ergebnis, ob der Punkt unter der x-Achse liegt?</p>
+ <div class="practice" data-coordinate-check hidden><form id="check-negative"><label for="neg-x">x-Koordinate<input id="neg-x" name="x" autocomplete="off" required></label><label for="neg-y">y-Koordinate<input id="neg-y" name="y" autocomplete="off" required></label><button class="action">Punkt prüfen</button></form><p class="feedback" role="status"></p></div>
+ <details><summary>Ich brauche einen Tipp</summary><div class="inside">Nach dem Wegfallen von x² bleibt 3x − 1 = −x − 9. Addiere zuerst x und dann 1 auf beiden Seiten. Beim Einsetzen hilft die Schreibweise (−2)².</div></details>
+ <details><summary>Rechenweg und Probe</summary><div class="inside"><ol><li>3x − 1 = −x − 9. Addiere x. Jetzt gilt 4x − 1 = −9.</li><li>Addiere 1. Aus 4x = −8 folgt x = −2.</li><li>f(−2) = 4 − 6 − 1 = −3 und g(−2) = 4 + 2 − 9 = −3. Bei <b>S(−2|−3)</b> ist die y-Koordinate negativ. Der Punkt liegt unter der x-Achse.</li></ol></div></details>
+</article>
+<article class="exercise" id="practice-three">
+ <h3>3 · Bonus: Gibt es immer einen Treffpunkt?</h3>
+ <div class="formulas math"><span class="leftval">f(x) = x² − 2x + 1</span><span class="rightval">g(x) = x² − 2x + 4</span></div>
+ <p>Vergleiche die Terme. Wie viele gemeinsame Punkte haben diese beiden Parabeln? Begründe deine Wahl.</p>
+ <div class="practice" id="bonus-check" hidden><div class="answers" role="group" aria-label="Anzahl gemeinsamer Punkte"><button data-count="0">Keinen</button><button data-count="1">Einen</button><button data-count="2">Zwei</button></div><p id="bonus-response" class="feedback" role="status"></p></div>
+ <details><summary>Ich brauche einen Tipp</summary><div class="inside">Bei x = 0 ist f(0) = 1 und g(0) = 4. Welche Teile der beiden Terme ändern sich genau gleich, wenn du x verschiebst?</div></details>
+ <details><summary>Am Bild und an der Gleichung prüfen</summary><div class="inside">
+ <figure class="bonus-figure"><svg viewBox="0 0 320 156" role="img" aria-label="Die orange gestrichelte Parabel liegt überall drei Einheiten über der blauen. Bei x gleich 1 zeigt eine senkrechte Strecke den Abstand 3.">
+  <defs><clipPath id="bonus-plot"><rect x="22" y="6" width="274" height="131"/></clipPath></defs>
+  <g fill="none" stroke="#e1deea"><path d="M25 22H294M25 54H294M25 86H294M25 118H294 M54 9V135M106 9V135M158 9V135M210 9V135M262 9V135"/></g>
+  <path d="M23 118H299M106 137V7" stroke="#817a91" fill="none"/>
+  <g clip-path="url(#bonus-plot)" fill="none" stroke-width="3"><path d="M28 18 Q158 218 288 18" stroke="#2459c4"/><path d="M28 -30 Q158 170 288 -30" stroke="#b54828" stroke-dasharray="6 3"/></g>
+  <path d="M153 70h10m-5 0v48m-5 0h10" stroke="#6244ba" stroke-width="2" fill="none"/>
+  <g fill="#56546a" font-family="system-ui,sans-serif" font-size="11"><text x="165" y="97">3</text><text x="103" y="150">0</text><text x="155" y="150">1</text><text x="299" y="133">x</text><text x="110" y="13">y</text></g>
+ </svg><figcaption class="small">Bei jedem x gilt g(x) = f(x) + 3. Die orange Kurve bleibt drei Einheiten über der blauen.</figcaption></figure>
+ <p>Beim Gleichsetzen fallen x² und −2x auf beiden Seiten weg. Übrig bliebe 1 = 4. Das ist für keinen x-Wert möglich.</p></div></details>
+</article>
 </section>
-<section id="puffer" class="block slim"><p class="phase">Minute 70 bis 80 · Puffer</p><h2>Wo hakt es noch?</h2><p>Nutzt die zehn Minuten für die offene Rechenzeile. Ist C schon fertig, erklärt die Schülerin an ihrem Ergebnis, warum beide y-Werte übereinstimmen müssen. Ist C noch unberührt, hebt sie die Aufgabe fürs nächste Mal auf. Bei Minute 80 beginnt der Abschluss.</p></section>
+<section id="puffer" class="block slim"><p class="phase">Minute 70 bis 80 · Puffer</p><h2>Wo hakt es noch?</h2><p>Greift die letzte unsichere Zeile aus der Übungsrunde auf. Wenn Aufgabe 1 noch Zeit braucht, hebt ihr die zweite fürs nächste Mal auf. Bei Minute 80 beginnt der Abschluss.</p></section>
 <section id="ende" class="block"><p class="phase">Minute 80 bis 90 · Kurze Probe</p><h2>Eine Zahl fehlt noch</h2>
 <div class="formulas math"><span class="leftval">f(x) = x² + x + 1</span><span class="rightval">g(x) = x² − x − 3</span></div>
 <p>Jemand hat x = −2 gefunden. Rechne beide y-Werte aus. Welche Zahl gehört hinter den Strich in <b>S(−2|&nbsp;?&nbsp;)</b>?</p>
@@ -103,6 +152,8 @@ function moveRuler() {
   const column = 256 + 70*x;
   const height = y => 168 - 10*y;
   el('ruler').setAttribute('d','M' + column + ' 18V228');
+  el('height-gap').setAttribute('d','M' + column + ' ' + height(f) + 'V' + height(g));
+  el('gap-value').textContent = 'Abstand: ' + format(Math.abs(f-g));
   for (const [id,y] of [['fmark',f],['gmark',g]]) {
     el(id).setAttribute('cx',column);
     el(id).setAttribute('cy',height(y));
@@ -116,11 +167,26 @@ function moveRuler() {
 }
 el('slider-controls').hidden = false;
 el('xvalue').addEventListener('input',moveRuler);
+const plot = el('ruler-plot');
+const slider = el('xvalue');
+function aimRuler(event) {
+  const point = new DOMPoint(event.clientX,event.clientY).matrixTransform(plot.getScreenCTM().inverse());
+  slider.value = String((point.x - 256) / 70);
+  moveRuler();
+}
+plot.addEventListener('pointerdown', event => {
+  if (!event.isPrimary || event.button !== 0) return;
+  plot.setPointerCapture(event.pointerId);
+  aimRuler(event);
+});
+plot.addEventListener('pointermove', event => {
+  if (plot.hasPointerCapture(event.pointerId)) aimRuler(event);
+});
 moveRuler();
 
 const steps = [
   {left:['x²','+4x','−1'],right:['x²','−2x','+5'],title:'Gleiche Höhe, gleiche Funktionswerte',next:'x² auf beiden Seiten abziehen',note:el('step-note').textContent},
-  {left:['x²','4x','−1'],right:['x²','−2x','+5'],title:'Auf beiden Seiten fällt dasselbe x² weg',next:'Auf beiden Seiten 2x addieren',note:'Die durchgestrichenen Karten fallen weg. Übrig bleibt 4x − 1 = −2x + 5. Welche Rechenoperation hebt rechts das −2x auf?'},
+  {left:['x²','4x','−1'],right:['x²','−2x','+5'],title:'Auf beiden Seiten fällt dasselbe x² weg',next:'Auf beiden Seiten 2x addieren',note:'Die durchgestrichenen Karten fallen weg. Übrig bleibt 4x − 1 = −2x + 5. Rechts soll jetzt nur die 5 stehen.'},
   {left:['6x','−1'],right:['5'],title:'Links kommen die x-Terme zusammen',next:'Auf beiden Seiten 1 addieren',note:'Links ergeben 4x + 2x zusammen 6x. Rechts addieren sich −2x und +2x zu null. Jetzt steht dort 6x − 1 = 5.'},
   {left:['6x'],right:['6'],title:'Auf beiden Seiten kommt 1 dazu',next:'Beide Seiten durch 6 teilen',note:'Links heben sich −1 und +1 auf. Rechts wird aus 5 die 6. Damit gilt 6x = 6.'},
   {left:['x'],right:['1'],title:'Ein x hat den Wert 1',note:'Sechs gleiche x ergeben zusammen 6. Ein x ist also 1. Für den Punkt fehlt jetzt noch die gemeinsame Höhe.'}
@@ -145,11 +211,31 @@ function drawStep() {
   el('step-count').textContent = 'Schritt ' + (step+1) + ' von ' + steps.length;
   el('next').textContent = item.next ? item.next + ' →' : 'Zu x den Punkt anzeigen ↓';
   el('back').disabled = step === 0;
+  el('next').hidden = step === 1;
+  el('operation-choice').hidden = step !== 1;
+  el('op-response').textContent = '';
+}
+for (const button of el('operation-choice').querySelectorAll('button')) {
+  button.addEventListener('click', () => {
+    if (button.dataset.add === '2x') {
+      step = 2;
+      drawStep();
+      el('next').focus({preventScroll:true});
+    } else {
+      el('op-response').textContent = button.dataset.add === '2'
+        ? 'Bei x = 3 wäre −2x gleich −6. Die Zahl +2 allein hebt den Term also nicht für jedes x auf. Was fehlt?'
+        : '−2x plus −2x ergibt −4x. Welcher Term ergänzt −2x zu null?';
+    }
+  });
 }
 el('step-controls').hidden = false;
 el('back').addEventListener('click',() => {if (step > 0) {step--; drawStep();}});
 el('next').addEventListener('click',() => {
-  if (step < steps.length-1) {step++; drawStep(); return;}
+  if (step < steps.length-1) {
+    step++; drawStep();
+    if (step === 1) el('operation-choice').querySelector('button').focus({preventScroll:true});
+    return;
+  }
   const answer = document.querySelector('#a details');
   answer.open = true;
   answer.querySelector('summary').focus();
@@ -169,22 +255,55 @@ el('hop-controls').hidden = false;
 el('hop').addEventListener('click',()=>{ hop = (hop+1)%stops.length; drawHop(); });
 drawHop();
 
-el('check-panel').hidden = false;
-function value(id) {
-  const raw = el(id).value.trim().replace('−','-').replace(',','.');
+const practiceTabs = [...document.querySelectorAll('#exercise-nav button')];
+function selectPractice(tab) {
+  for (const item of practiceTabs) {
+    const selected = item === tab;
+    item.setAttribute('aria-pressed', String(selected));
+    el(item.getAttribute('aria-controls')).hidden = !selected;
+  }
+}
+for (const tab of practiceTabs) tab.addEventListener('click', () => selectPractice(tab));
+selectPractice(practiceTabs[0]);
+el('exercise-nav').hidden = false;
+
+const pointTasks = {
+  check: {x:2, y:5, xTip:'Ziehe auf beiden Seiten x² ab. Nach dem Addieren von x steht links 3.', yTip:'Setze die 2 für jedes x in f(x) = x² − x + 3 ein.', proof:'f(2) = 4 − 2 + 3 = 5 und g(2) = 4 + 4 − 3 = 5.'},
+  'check-negative': {x:-2, y:-3, xTip:'Bringe alle x auf eine Seite. Aus 4x − 1 = −9 wird 4x = −8.', yTip:'(−2)² ergibt +4. Welches Vorzeichen hat 3 · (−2)?', proof:'f(−2) = 4 − 6 − 1 = −3 und g(−2) = 4 + 2 − 9 = −3.'}
+};
+function asNumber(field) {
+  const raw = field.value.trim().replace('−','-').replace(',','.');
   return /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(raw) ? Number(raw) : NaN;
 }
-el('check').addEventListener('submit',event=>{
-  event.preventDefault();
-  const x = value('cx'), y = value('cy');
-  let message;
-  if (!Number.isFinite(x) || !Number.isFinite(y)) message = 'Trage für jede Koordinate eine Zahl ein.';
-  else if (x !== 2) message = 'Prüfe zuerst x. Ziehe in der Gleichung auf beiden Seiten x² ab.';
-  else if (y !== 5) message = 'x = 2 stimmt. Setze die 2 für jedes x in f(x) = x² − x + 3 ein.';
-  else message = 'Richtig: S(2|5). Beide Funktionen haben bei x = 2 die Höhe 5.';
-  el('feedback').textContent = message;
-});
-el('check').addEventListener('input',()=>{ el('feedback').textContent=''; });
+for (const panel of document.querySelectorAll('[data-coordinate-check]')) {
+  const form = panel.querySelector('form');
+  const feedback = panel.querySelector('[role=status]');
+  const task = pointTasks[form.id];
+  panel.hidden = false;
+  form.addEventListener('input', () => { feedback.textContent = ''; });
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const x = asNumber(form.elements.x), y = asNumber(form.elements.y);
+    const solved = x === task.x && y === task.y;
+    feedback.classList.toggle('solved', solved);
+    if (!Number.isFinite(x) || !Number.isFinite(y)) feedback.textContent = 'Trage für jede Koordinate eine Zahl ein.';
+    else if (solved) feedback.textContent = 'Richtig: S(' + format(x) + '|' + format(y) + '). ' + task.proof;
+    else if (x === task.y && y === task.x) feedback.textContent = 'Du hast beide Zahlen gefunden. Bei S(x|y) kommt zuerst x und dann die gemeinsame Höhe.';
+    else if (x !== task.x) feedback.textContent = 'Prüfe zuerst x. ' + task.xTip;
+    else feedback.textContent = 'x = ' + format(x) + ' stimmt. ' + task.yTip;
+  });
+}
+el('bonus-check').hidden = false;
+for (const button of el('bonus-check').querySelectorAll('button')) {
+  button.addEventListener('click', () => {
+    const solved = button.dataset.count === '0';
+    for (const other of el('bonus-check').querySelectorAll('button')) other.setAttribute('aria-pressed', String(other === button));
+    el('bonus-response').classList.toggle('solved', solved);
+    el('bonus-response').textContent = solved
+      ? 'Genau. Für jedes x ist g(x) um 3 größer als f(x). Die Kurven erreichen beim selben x nie dieselbe Höhe.'
+      : 'Vergleiche die letzten Zahlen: Bei f steht +1, bei g steht +4. Kann der Abstand beim selben x jemals null werden?';
+  });
+}
 
 const phases = Array.from(document.querySelectorAll('.navline a'));
 const total = 90 * 60_000;
