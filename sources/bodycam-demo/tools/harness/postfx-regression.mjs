@@ -33,6 +33,9 @@ export async function runPostfxRegression({ page, origin, out }) {
       scene.add(camera);
       const post = createBodycamPost(renderer, scene, camera, { params: {
         osd: { enabled: false }, exposure: { enabled: false, manualEV: 0 },
+        // The block metric was calibrated on the first film-style grade; the sensor response is a look, not the mechanism under test.
+        grade: { sensorCurve: 0, contrast: 1, highlightDesat: 0, whiteBalance: [1, 1, 1], lift: 0, liftHighGain: 0,
+          saturation: 0.8, saturationHighGain: 0.8, warmIndoor: 0.06, toeCrush: 0.012, toePower: 1.05 },
         noise: { enabled: false }, bloom: { enabled: false },
         lens: { mask: { enabled: false } }, rollingShutter: { enabled: true },
         blocks: { ringing: 0 }, debug: { gpuTiming: false },

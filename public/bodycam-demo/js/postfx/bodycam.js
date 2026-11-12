@@ -78,6 +78,7 @@ export function createBodycamPost(renderer, scene, camera, opts = {}) {
   const up = material(shaders.bloomUpFragment,{tSource:null,tBase:null,texel:new THREE.Vector2(),radius:1});
   const grade = material(shaders.gradeFragment,{tSource:composite.texture,tBloom:black,tOverlay:overlay.texture,
     exposure:1,bloomStrength:0,saturation:0.8,warmth:0.06,toe:0.012,whiteClip:0.97,knee:0.9,toePower:1.05,
+    sensorCurve:1,curveGain:1.5,contrast:0.6,lift:0,highlightDesat:0.75,whiteBalance:new THREE.Vector3(1,1,1),
     osdEnabled:true,debugMode:0});
   const lens = material(shaders.lensFragment,{tSource:graded.texture,resolution:new THREE.Vector2(),
     shakeUV:new THREE.Vector2(),angularVelocity:new THREE.Vector3(),k1:0.06,k2:0.01,overscan:1.06,
@@ -91,7 +92,7 @@ export function createBodycamPost(renderer, scene, camera, opts = {}) {
     resolution:new THREE.Vector2(),blockGrid:new THREE.Vector2(),imageTiles:new THREE.Vector2(),maskAxes:new THREE.Vector2(),
     outsideColor:new THREE.Vector3(),noiseLuma:new THREE.Vector3(),damageColor:new THREE.Vector3(),
     profile:profileValues,radii:radiiValues,rimInner:0.94,rimOuter:1.05,innerVignette:0.08,outsideBlur:8,
-    sharpenAmount:0.5,sharpenRadius:1.2,haloClamp:0.1,noiseTick:0,noiseChroma:0.4,blockAmount:0,blockLuma:0.08,blockMaxDelta:0.02,
+    sharpenAmount:0.5,sharpenRadius:1.2,haloClamp:0.1,softness:0,noiseGrain:0.7,noiseTick:0,noiseChroma:0.4,blockAmount:0,blockLuma:0.08,blockMaxDelta:0.02,
     ringing:0,damageAmount:0,damageSaturation:1.25,dropout:0,glitchAmount:0,glitchTick:0,stripePixels:7,
     syncPosition:0,maskEnabled:true,noiseEnabled:true,outputLinear:false,debugMode:0});
   // The rare VHS pass reads OSD coverage separately from the combined viewmodel/OSD mask.
@@ -158,7 +159,9 @@ export function createBodycamPost(renderer, scene, camera, opts = {}) {
     pendingRead=false; diagnostics.readbackPending=false;
     if (disposed || pendingEpoch!==meterEpoch || elapsed<flashUntil) return;
     diagnostics.readbackError=null;
-    measuredLog=(meterBytes[0]*256+meterBytes[1])/65535*32-16;
+    const logMean=(meterBytes[0]*256+meterBytes[1])/65535*32-16, linearMean=(meterBytes[2]*256+meterBytes[3])/65535*32-16;
+    // The RMS is never below the log mean; equal for a flat field.
+    measuredLog=logMean+(Math.max(linearMean,logMean)-logMean)*clamp(finite(params.exposure.highlightWeight,0),0,1);
     diagnostics.luminance=2**measuredLog; diagnostics.readbacks++;
   }
   function onMeterError(error) {
@@ -218,7 +221,13 @@ export function createBodycamPost(renderer, scene, camera, opts = {}) {
     mu.depthReject.value=Math.max(0.00001,p.motionBlur.depthReject);
     const gu=grade.uniforms;
     gu.exposure.value=exposure; gu.bloomStrength.value=p.bloom.enabled ? p.bloom.strength : 0;
-    gu.saturation.value=p.grade.saturation; gu.warmth.value=p.grade.warmIndoor;
+    const g=p.grade, gain=THREE.MathUtils.smoothstep(ev,finite(g.gainFromEV,-1),Math.max(finite(g.gainToEV,2),finite(g.gainFromEV,-1)+0.001));
+    diagnostics.gain=gain;
+    gu.saturation.value=g.saturation+(finite(g.saturationHighGain,g.saturation)-g.saturation)*gain; gu.warmth.value=g.warmIndoor;
+    gu.lift.value=clamp(finite(g.lift,0)+(finite(g.liftHighGain,finite(g.lift,0))-finite(g.lift,0))*gain,0,0.5);
+    gu.sensorCurve.value=clamp(finite(g.sensorCurve,1),0,1); gu.curveGain.value=Math.max(0.01,finite(g.curveGain,1.5));
+    gu.contrast.value=clamp(finite(g.contrast,0.6),0,1); gu.highlightDesat.value=clamp(finite(g.highlightDesat,0),0,1);
+    if(Array.isArray(g.whiteBalance)) gu.whiteBalance.value.fromArray(g.whiteBalance); else gu.whiteBalance.value.setScalar(1);
     gu.toe.value=clamp(p.grade.toeCrush,0,0.99); gu.whiteClip.value=p.grade.whiteClip;
     gu.knee.value=p.grade.highlightsKnee; gu.toePower.value=Math.max(0.01,p.grade.toePower);
     gu.osdEnabled.value=p.osd.enabled; gu.debugMode.value=p.debug.mode;
@@ -249,14 +258,15 @@ export function createBodycamPost(renderer, scene, camera, opts = {}) {
     blockSetting(10,bu.detailReject.value); blockSetting(11,bu.historyReject.value);
     const su=sensor.uniforms, mask=p.lens.mask;
     su.maskAxes.value.set(Math.max(0.01,mask.a),Math.max(0.01,mask.b));
-    su.outsideColor.value.fromArray(mask.outside); su.noiseLuma.value.set(p.noise.lumaDark,p.noise.lumaMid,p.noise.lumaHigh);
+    su.outsideColor.value.fromArray(mask.outside); { const k=1+(Math.max(1,finite(p.noise.highGain,1))-1)*gain; su.noiseLuma.value.set(p.noise.lumaDark*k,p.noise.lumaMid*k,p.noise.lumaHigh*k);
+      su.noiseGrain.value=clamp(finite(p.noise.grain,0),0,1); }
     su.damageColor.value.fromArray(p.damage.color);
     for(let i=0;i<7;++i) profileValues[i].fromArray(mask.profile[i]);
     for(let i=0;i<8;++i) radiiValues[i]=mask.radii[i];
     su.rimInner.value=mask.rimInner; su.rimOuter.value=Math.max(mask.rimInner+0.001,mask.rimOuter);
     su.innerVignette.value=mask.innerVignette; su.outsideBlur.value=mask.outsideBlurPx1080*px;
     su.sharpenAmount.value=p.sharpen.amount; su.sharpenRadius.value=p.sharpen.radiusPx1080*px;
-    su.haloClamp.value=Math.max(0,p.sharpen.haloClamp); su.noiseTick.value=Math.floor(elapsed*Math.max(0,p.noise.rateHz));
+    su.haloClamp.value=Math.max(0,p.sharpen.haloClamp); su.softness.value=clamp(finite(p.sharpen.softness,0),0,1); su.noiseTick.value=Math.floor(elapsed*Math.max(0,p.noise.rateHz));
     su.noiseChroma.value=p.noise.chroma;
     const moving=angularSpeed>p.blocks.minAngVel ? clamp((angularSpeed-p.blocks.minAngVel)/Math.max(1,p.blocks.minAngVel*3),0,1) : -1;
     su.blockAmount.value=p.blocks.enabled ? Math.max(damage,moving<0 ? 0 : THREE.MathUtils.lerp(p.blocks.mix[0],p.blocks.mix[1],moving)) : 0;

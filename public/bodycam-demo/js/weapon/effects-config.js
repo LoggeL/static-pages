@@ -1,7 +1,7 @@
 // Measured timings/colors follow STYLE §5.3/6.1; neutral effect values stay tunable here.
 export const WEAPON_EFFECTS_CONFIG = {
   flash: {
-    color: '#ffb060', intensity: 2, distance: 8, decay: 2,
+    color: '#ffb060', intensity: 16, distance: 9, decay: 2, // against a camera capped at +2 EV
     hold: 2 / 60, decayTau: 0.015, cutoff: 0.002,
     size: 0.19, spriteOpacity: 0.95, textureSize: 64, variants: 3,
   },
@@ -26,8 +26,12 @@ export const WEAPON_EFFECTS_CONFIG = {
     depth: 0.065, alphaTest: 0.025, polygonOffsetFactor: -3, polygonOffsetUnits: -3,
   },
   light: {
-    color: '#eef2ff', intensity: 2.5, distance: 24, decay: 2, // LED, cool against the warm indoor grade (ref_32–36)
-    angleDeg: 24, penumbra: 0.75, spillAngleDeg: 40, spillGain: 0.04,
+    // LED weapon light (ref_32–36). intensity is the on-axis peak; the cookie shapes the rest:
+    // hotspot and corona are Gaussian sigmas in degrees, spill is flat out to angleDeg (half angle).
+    color: '#f2f5ff', intensity: 40, distance: 24, decay: 2,
+    angleDeg: 48, penumbra: 0.1, hotspotDeg: 5, coronaDeg: 13, coronaGain: 0.14, spillGain: 0.022,
+    // One diffuse bounce from the lit patch: beam flux (~0.17 sr) × albedo / π ≈ 0.03 of the peak.
+    bounceGain: 0.03, bounceColor: '#d9cfc0', bounceDistance: 9, bounceOffset: 0.3, bounceTau: 0.09,
     shadowSize: 1024, shadowNear: 0.05, shadowFar: 24,
     shadowBias: -0.00015, shadowNormalBias: 0.015,
   },

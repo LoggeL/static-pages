@@ -64,7 +64,10 @@ void main() {
   float logY = max(log2(max(dot(col, vec3(0.2126, 0.7152, 0.0722)), 0.000015258789)), floorLog);
   vec2 d = vUv - 0.5;
   float w = mix(1.0, exp(-dot(d,d) / max(2.0 * centerSigma * centerSigma, 0.0001)), centerWeight);
-  gl_FragColor = vec4(clamp(logY, -16.0, 16.0) * w, w, 0.0, 1.0);
+  // Blue carries the mean square: a small bright area (lamp-lit doorway, torch hotspot) pulls a real
+  // camera's exposure down long before it moves the log average. Equal to the log mean for a flat field.
+  float y = min(dot(col, vec3(0.2126, 0.7152, 0.0722)), 16.0);
+  gl_FragColor = vec4(clamp(logY, -16.0, 16.0) * w, w, y * y * w, 1.0);
 }
 `;
 export const reduceFragment = /* glsl */`
@@ -81,9 +84,11 @@ export const encodeMeterFragment = /* glsl */`
 varying vec2 vUv;
 uniform sampler2D tSource;
 void main() {
-  vec2 m = texture2D(tSource, vec2(0.5)).rg;
+  vec3 m = texture2D(tSource, vec2(0.5)).rgb;
   float code = floor(clamp((m.r / max(m.g, 0.00001) + 16.0) / 32.0, 0.0, 1.0) * 65535.0 + 0.5);
-  gl_FragColor = vec4(floor(code / 256.0), mod(code, 256.0), 0.0, 255.0) / 255.0;
+  float linearLog = 0.5 * log2(max(m.b / max(m.g, 0.00001), 2.3283064e-10));
+  float linearCode = floor(clamp((linearLog + 16.0) / 32.0, 0.0, 1.0) * 65535.0 + 0.5);
+  gl_FragColor = vec4(floor(code / 256.0), mod(code, 256.0), floor(linearCode / 256.0), mod(linearCode, 256.0)) / 255.0;
 }
 `;
 
@@ -129,17 +134,28 @@ export const gradeFragment = /* glsl */`
 varying vec2 vUv;
 uniform sampler2D tSource, tBloom, tOverlay;
 uniform float exposure, bloomStrength, saturation, warmth, toe, whiteClip, knee, toePower;
+uniform float sensorCurve, curveGain, contrast, lift, highlightDesat;
+uniform vec3 whiteBalance;
 uniform bool osdEnabled;
 uniform int debugMode;
 ${colorMath}
 vec3 tone(vec3 c) {
-  c *= exposure;
-  c = clamp((c * (2.51 * c + 0.03)) / (c * (2.43 * c + 0.59) + 0.14), 0.0, 1.0);
+  c *= exposure * whiteBalance;
+  vec3 film = clamp((c * (2.51 * c + 0.03)) / (c * (2.43 * c + 0.59) + 0.14), 0.0, 1.0);
+  // Small sensor: linear from black (no film toe), then a plain saturating shoulder.
+  vec3 sensor = 1.0 - exp(-c * curveGain);
+  c = mix(film, sensor, sensorCurve);
+  // Channels clip one after another; the ISP pulls near-clipped colour to white instead of to yellow.
+  float top = max(c.r, max(c.g, c.b));
+  c = mix(c, vec3(luma(c)), highlightDesat * smoothstep(0.55, 1.0, top));
   c = mix(vec3(luma(c)), c, saturation);
   c *= vec3(1.0 + warmth, 1.0, 1.0 - warmth);
-  c = pow(smoothstep(vec3(toe), vec3(1.0), c), vec3(toePower));
+  vec3 curved = pow(smoothstep(vec3(toe), vec3(1.0), c), vec3(toePower));
+  c = mix(pow(max(c - toe, 0.0) / max(1.0 - toe, 0.0001), vec3(toePower)), curved, contrast);
   vec3 shoulder = smoothstep(vec3(knee), vec3(max(whiteClip, knee + 0.001)), c);
-  return clamp(mix(c, vec3(1.0), shoulder), 0.0, 1.0);
+  c = clamp(mix(c, vec3(1.0), shoulder), 0.0, 1.0);
+  // Black pedestal (linear light): at high gain the sensor floor is not quite 0.
+  return lift + c * (1.0 - lift);
 }
 void main() {
   vec4 source = texture2D(tSource, vUv);
@@ -253,8 +269,8 @@ uniform vec2 blockGrid, imageTiles, maskAxes;
 uniform vec3 outsideColor, noiseLuma, damageColor;
 uniform vec3 profile[7];
 uniform float radii[8];
-uniform float rimInner, rimOuter, innerVignette, outsideBlur, sharpenAmount, sharpenRadius, haloClamp;
-uniform float noiseTick, noiseChroma, blockAmount, blockLuma, blockMaxDelta, ringing, damageAmount, damageSaturation, dropout;
+uniform float rimInner, rimOuter, innerVignette, outsideBlur, sharpenAmount, sharpenRadius, haloClamp, softness;
+uniform float noiseGrain, noiseTick, noiseChroma, blockAmount, blockLuma, blockMaxDelta, ringing, damageAmount, damageSaturation, dropout;
 uniform float glitchAmount, glitchTick, stripePixels, syncPosition;
 uniform bool maskEnabled, noiseEnabled, outputLinear;
 uniform int debugMode;
@@ -289,6 +305,11 @@ void main() {
   vec3 base = source.rgb;
   vec3 blur = (texture2D(tSource,vUv + vec2(d.x,0.0)).rgb + texture2D(tSource,vUv - vec2(d.x,0.0)).rgb
     + texture2D(tSource,vUv + vec2(0.0,d.y)).rgb + texture2D(tSource,vUv - vec2(0.0,d.y)).rgb) * 0.25;
+  // Small plastic lens and a 720p encoder: fine detail is gone before the ISP sharpens what is left.
+  vec2 dd = d * 0.7071;
+  vec3 wide = (texture2D(tSource,vUv + dd).rgb + texture2D(tSource,vUv - dd).rgb
+    + texture2D(tSource,vUv + vec2(dd.x,-dd.y)).rgb + texture2D(tSource,vUv + vec2(-dd.x,dd.y)).rgb) * 0.25;
+  base = mix(base, (base * 2.0 + blur * 2.0 + wide * 2.0) / 6.0, softness);
   vec3 sharp = base + clamp((base - blur) * sharpenAmount, vec3(-haloClamp), vec3(haloClamp));
   vec3 c = toSRGB(sharp);
   if (debugMode == 3) { gl_FragColor = vec4(c, 1.0); return; }
@@ -314,7 +335,12 @@ void main() {
     vec2 px = floor(vUv * resolution);
     // Uniform variates scaled to unit standard deviation.
     float n = (hash(vec3(px,noiseTick)) - 0.5) * 3.464102;
-    vec3 chroma = vec3(hash(vec3(px,noiseTick+17.0)),hash(vec3(px,noiseTick+37.0)),hash(vec3(px,noiseTick+71.0))) - 0.5;
+    // Denoiser and encoder smear single-pixel grain into 2–4 px clumps; chroma is subsampled, so it only clumps.
+    vec2 p2 = floor(px * 0.5), p4 = floor(px * 0.25);
+    float coarse = (hash(vec3(p2,noiseTick+5.0)) - 0.5) * 3.464102 * 0.75 + (hash(vec3(p4,noiseTick+9.0)) - 0.5) * 3.464102 * 0.5;
+    n = mix(n, n * 0.55 + coarse, noiseGrain);
+    vec2 pc = mix(px, p2, step(0.001, noiseGrain));
+    vec3 chroma = vec3(hash(vec3(pc,noiseTick+17.0)),hash(vec3(pc,noiseTick+37.0)),hash(vec3(pc,noiseTick+71.0))) - 0.5;
     c += sigma * (n + chroma * 3.464102 * noiseChroma);
   }
   c = mix(c, mix(vec3(luma(c)),c,damageSaturation) * damageColor, damageAmount);

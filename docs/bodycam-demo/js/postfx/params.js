@@ -12,16 +12,26 @@ export const POSTFX_DEFAULTS = {
     fontFamily: 'Share Tech Mono', startTime: '2026-10-14T23:14:07', connectedDuration: 1,
     disconnectedDuration: 0, connectedColor: '#50ee72', disconnectedColor: '#ff4040', effectCapPx1080: 24,
     shadowBlurPx1080: 1, connectedText: 'CAM CONNECTED', disconnectedText: 'CAM DISCONNECTED' },
-  grade: { saturation: 0.8, warmIndoor: 0.06, toeCrush: 0.012, whiteClip: 0.97,
-    highlightsKnee: 0.9, toePower: 1.05 },
+  // Camera response. sensorCurve 0 / contrast 1 / lift 0 / whiteBalance 1 restore the first film-style grade.
+  grade: { saturation: 0.72, warmIndoor: 0, toeCrush: 0, whiteClip: 0.97,
+    highlightsKnee: 0.9, toePower: 1,
+    sensorCurve: 1, curveGain: 1.5, contrast: 0.6, highlightDesat: 0.75,
+    // Auto white balance stops halfway under a bare tungsten bulb: warm, not orange.
+    whiteBalance: [0.86, 1.0, 1.2],
+    // Gain-dependent part (0 at gainFromEV, full at gainToEV): pedestal in linear light (0.001 ≈ 3/255)
+    // and chroma noise reduction.
+    lift: 0.0003, liftHighGain: 0.0011, saturationHighGain: 0.5, gainFromEV: -1, gainToEV: 2 },
   exposure: { enabled: true, tauDarken: 0.9, tauBrighten: 0.35, overshoot: 0.15,
-    minEV: -2, maxEV: 4, compensationEV: 0, manualEV: 0, key: 0.18,
+    minEV: -2, maxEV: 2, compensationEV: 0, manualEV: 0, key: 0.18,
+    // Share of the RMS luminance in the meter (0 = log average only). Protects highlights like a real AE.
+    highlightWeight: 0.8,
     meterSize: 64, readHz: 8, centerWeight: 0.85, centerSigma: 0.32, floorEV: -16, flashHoldSec: 0.08, retrySec: 1 },
   bloom: { enabled: true, strength: 0.16, threshold: 1.0, softKnee: 0.5,
     flashThreshold: 0.35, radius: 1.0 },
+  // Base values at low gain; highGain multiplies them at gainToEV (night interior). grain = clumped share.
   noise: { enabled: true, lumaDark: 2 / 255, lumaMid: 0.8 / 255,
-    lumaHigh: 0.3 / 255, chroma: 0.4, rateHz: 30 },
-  sharpen: { amount: 0.5, radiusPx1080: 1.2, haloClamp: 0.1 },
+    lumaHigh: 0.3 / 255, chroma: 0.4, rateHz: 30, highGain: 1.7, grain: 0.7 },
+  sharpen: { amount: 0.5, radiusPx1080: 1.2, haloClamp: 0.1, softness: 0.8 },
   blocks: { enabled: true, sizePx1080: 48, lumaMax: 0.08, minAngVel: 30,
     mix: [0.35, 0.6], holdFrames: [2, 4], rateHz: 60, ringing: 0.012,
     // Display-space safeguards: only average compatible, low-detail current surfaces.

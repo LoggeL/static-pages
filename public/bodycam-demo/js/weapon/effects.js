@@ -1,5 +1,6 @@
 import {
   AdditiveBlending, BufferAttribute, BufferGeometry, Color, DataTexture, DynamicDrawUsage,
+  LinearFilter,
   Euler, Group, MathUtils, Matrix3, Matrix4, Mesh, MeshStandardMaterial, NormalBlending,
   Object3D, PointLight, Points, Quaternion, Raycaster, ShaderMaterial, SpotLight,
   Sprite, SpriteMaterial, SRGBColorSpace, Vector3,
@@ -10,6 +11,39 @@ import { surfaceOfHit } from '../world/colliders.js';
 import { weaponEffectsConfig } from './effects-config.js';
 
 const UP = new Vector3(0, 1, 0);
+
+/**
+ * Beam profile of a weapon light as a spot-light cookie: tight hotspot, wider corona, flat spill
+ * up to the bezel cut-off. One light and one shadow map then cover the whole beam.
+ */
+function createBeamCookie(light, size = 256) {
+  const data = new Uint8Array(size * size * 4);
+  const edge = Math.tan(MathUtils.degToRad(light.angleDeg));
+  const hot = MathUtils.degToRad(light.hotspotDeg), corona = MathUtils.degToRad(light.coronaDeg);
+  const encode = value => Math.round(255 * (value <= 0.0031308 ? value * 12.92 : 1.055 * value ** (1 / 2.4) - 0.055));
+  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
+    const u = (x + 0.5) / size * 2 - 1, v = (y + 0.5) / size * 2 - 1;
+    const theta = Math.atan(Math.hypot(u, v) * edge), t = theta / MathUtils.degToRad(light.angleDeg);
+    const core = Math.exp(-0.5 * (theta / hot) ** 2);
+    const halo = light.coronaGain * Math.exp(-0.5 * (theta / corona) ** 2);
+    // Spill fades towards the bezel cut-off instead of ending in a drawn circle.
+    const spill = light.spillGain * (1 - MathUtils.smoothstep(t, 0.62, 1));
+    const total = Math.min(1, core + halo + spill);
+    // LED tint shift: slightly warm die image in the centre, cooler spill.
+    const warm = MathUtils.clamp(core + halo * 2, 0, 1), i = (y * size + x) * 4;
+    data[i] = encode(total * MathUtils.lerp(0.9, 1, warm));
+    data[i + 1] = encode(total * MathUtils.lerp(0.95, 0.985, warm));
+    data[i + 2] = encode(total * MathUtils.lerp(1, 0.93, warm));
+    data[i + 3] = 255;
+  }
+  const texture = new DataTexture(data, size, size);
+  texture.name = 'WeaponFlashlightCookie';
+  texture.colorSpace = SRGBColorSpace;
+  texture.magFilter = texture.minFilter = LinearFilter;
+  texture.generateMipmaps = false;
+  texture.needsUpdate = true;
+  return texture;
+}
 const DECAL_AXIS = new Vector3(0, 0, 1);
 const DECAL_SURFACES = ['wood', 'plaster', 'metal', 'concrete'];
 
@@ -217,13 +251,18 @@ export async function createWeaponEffects({
   spot.shadow.camera.layers.set(0);
   spot.shadow.bias = lightConfig.shadowBias;
   spot.shadow.normalBias = lightConfig.shadowNormalBias;
-  const spill = new SpotLight(lightConfig.color, lightConfig.intensity * lightConfig.spillGain,
-    lightConfig.distance, MathUtils.degToRad(lightConfig.spillAngleDeg), lightConfig.penumbra, lightConfig.decay);
-  spill.name = 'WeaponFlashlightSpill';
-  spill.target = target;
-  spill.layers.enable(1);
-  spot.visible = spill.visible = false;
-  nodes.W_LightEmitter.add(spot, spill);
+  spot.map = createBeamCookie(lightConfig);
+  // First diffuse bounce: everything the beam delivers leaves the lit patch again as a dim, wide
+  // source. Without it a torch in a dark room only paints a disc; with it the room reads.
+  const bounce = new PointLight(lightConfig.bounceColor, 0, lightConfig.bounceDistance, 2);
+  bounce.name = 'WeaponFlashlightBounce';
+  bounce.layers.enable(1);
+  bounce.visible = false;
+  root.add(bounce);
+  const beamOrigin = new Vector3(), beamDirection = new Vector3(), bounceGoal = new Vector3();
+  let bounceLevel = 0, bounceGoalLevel = 0, bouncePlaced = false;
+  spot.visible = false;
+  nodes.W_LightEmitter.add(spot);
 
   const casings = Array.from({ length: Math.max(0, Math.floor(config.casing.pool)) }, () => {
     const object = casingSource.clone(true);
@@ -410,12 +449,42 @@ export async function createWeaponEffects({
     });
     dust.update(dt, -0.12, config.particles.dustDrag);
     sparks.update(dt, config.particles.sparkGravity, 0.3);
+    updateBounce(dt, colliders);
+  }
+
+  function updateBounce(dt, colliders) {
+    if (!lightOn || !(lightConfig.bounceGain > 0)) { bounce.visible = false; bounceLevel = 0; bouncePlaced = false; return; }
+    nodes.W_LightEmitter.getWorldPosition(beamOrigin);
+    target.getWorldPosition(beamDirection).sub(beamOrigin);
+    bounceGoalLevel = 0;
+    if (colliders.length && beamDirection.lengthSq() > 1e-10) {
+      raycaster.set(beamOrigin, beamDirection.normalize());
+      raycaster.near = 0; raycaster.far = lightConfig.distance;
+      rayHits.length = 0;
+      raycaster.intersectObjects(colliders, false, rayHits);
+      const hit = rayHits[0];
+      if (hit) {
+        if (hit.face) {
+          normal.copy(hit.face.normal).applyMatrix3(normalMatrix.getNormalMatrix(hit.object.matrixWorld)).normalize();
+          if (normal.dot(beamDirection) > 0) normal.negate();
+        } else normal.copy(beamDirection).negate();
+        // Never push the source past the torch itself (muzzle against a wall).
+        bounceGoal.copy(hit.point).addScaledVector(normal, Math.min(lightConfig.bounceOffset, hit.distance * 0.5));
+        bounceGoalLevel = 1;
+      }
+    }
+    const blend = bouncePlaced ? 1 - Math.exp(-dt / Math.max(0.001, lightConfig.bounceTau)) : 1;
+    if (bounceGoalLevel > 0) { bounce.position.lerp(bounceGoal, blend); bouncePlaced = true; }
+    bounceLevel += (bounceGoalLevel - bounceLevel) * (1 - Math.exp(-dt / Math.max(0.001, lightConfig.bounceTau)));
+    bounce.intensity = lightConfig.intensity * lightConfig.bounceGain * bounceLevel;
+    bounce.visible = true;
   }
 
   function light(on) {
     if (disposed) return false;
     lightOn = !!on;
-    spot.visible = spill.visible = lightOn;
+    spot.visible = lightOn;
+    if (!lightOn) { bounce.visible = false; bounceLevel = 0; bouncePlaced = false; }
     return lightOn;
   }
 
@@ -435,9 +504,10 @@ export async function createWeaponEffects({
       decals: { active: decals.length, capacity: config.decals.pool, evictions: decalEvictions,
         surfaces: decals.map(decal => decal.name.replace('WeaponImpact_', '')) },
       lights: { flashLayers: flashLight.layers.mask, spotLayers: spot.layers.mask,
-        spillLayers: spill.layers.mask, angleDeg: MathUtils.radToDeg(spot.angle),
+        bounceLayers: bounce.layers.mask, angleDeg: MathUtils.radToDeg(spot.angle),
         penumbra: spot.penumbra, shadowSize: spot.shadow.mapSize.toArray(),
-        spillAngleDeg: MathUtils.radToDeg(spill.angle), spillGain: spill.intensity / spot.intensity },
+        hotspotDeg: lightConfig.hotspotDeg, spillGain: lightConfig.spillGain,
+        bounce: { intensity: bounce.intensity, level: bounceLevel, position: bounce.position.toArray() } },
     };
   }
 
@@ -447,10 +517,10 @@ export async function createWeaponEffects({
     lightOn = false;
     flashGain = 0;
     flashLight.intensity = 0;
-    flashSprite.visible = spot.visible = spill.visible = false;
+    flashSprite.visible = spot.visible = bounce.visible = false;
     root.removeFromParent();
-    for (const object of [flashSprite, flashLight, spot, spill, target]) object.removeFromParent();
-    spot.shadow.dispose();
+    for (const object of [flashSprite, flashLight, spot, bounce, target]) object.removeFromParent();
+    spot.shadow.dispose(); spot.map?.dispose();
     for (const decal of decals) { decal.removeFromParent(); decal.geometry.dispose(); }
     decals.length = 0;
     casings.forEach(slot => { slot.active = false; slot.object.visible = false; });
@@ -461,5 +531,5 @@ export async function createWeaponEffects({
   }
 
   return { shot, impact, light, update, stats, dispose, config, root,
-    lights: { flash: flashLight, spot, spill }, flashSprite };
+    lights: { flash: flashLight, spot, bounce }, flashSprite };
 }

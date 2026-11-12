@@ -3,23 +3,24 @@
 export const LIGHTING_CONFIG = {
   background: '#10151e',
   fog: { enabled: true, color: '#141b26', density: 0.012 },
-  hemisphere: { sky: '#b9c8df', ground: '#35302b', intensity: 0.05 },
+  hemisphere: { sky: '#b9c8df', ground: '#35302b', intensity: 0.033 },
   moon: {
-    color: '#bdcce4', intensity: 0.11, position: [-12, 20, -8],
+    color: '#bdcce4', intensity: 0.075, position: [-12, 20, -8],
     target: [0, 0, -3], castShadow: true,
     shadow: { mapSize: 1024, extent: 22, near: 0.5, far: 65, bias: -0.00015, normalBias: 0.025 },
   },
   // Lights only dynamic objects (viewmodel, NPCs); the night exposure sits at +4 EV, so the old 75
   // turned the black rifle gold against the baked street. Matches the lightmapped ground better.
-  streetlight: { color: '#ffbd72', intensity: 12, distance: 30, decay: 2, castShadow: false },
+  streetlight: { color: '#ffbd72', intensity: 8, distance: 30, decay: 2, castShadow: false },
   porch: { enabled: false, color: '#ffd7a0', intensity: 8, distance: 7, decay: 2 },
   // Night balance. The camera runs at full gain (+4 EV) everywhere at night, which matches the
   // lamp-lit interior, but the bake's moon and sky came out 10–30× brighter than that interior:
   // the street read as dusk (mean Y 64 against 9–21 in ref_40–42). Until a rebake with a weaker
   // moon, the exterior atlases, the dynamic moon/fill and the sky are scaled down together.
   night: {
-    sky: '#0a0c10',
-    bakedScale: { 'lightmaps/ext.png': 0.3, 'lightmaps/site.png': 0.3, 'lightmaps/porch.png': 0.3, 'lightmaps/neighbors.png': 0.3 },
+    // Retuned for the sensor response (linear toe, camera gain capped at +2 EV): street p50 ≈ 15–20/255.
+    sky: '#040507', fog: '#07090d',
+    bakedScale: { 'lightmaps/ext.png': 0.2, 'lightmaps/site.png': 0.2, 'lightmaps/porch.png': 0.2, 'lightmaps/neighbors.png': 0.2 },
   },
   // Light probe for the viewmodel layer (arms, rifle). World lights cannot be occluded for it, so
   // it is lit by what the surroundings actually send towards the camera instead.

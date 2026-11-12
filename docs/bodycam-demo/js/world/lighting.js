@@ -8,7 +8,7 @@ export function createLighting(scene, layout, config = LIGHTING_CONFIG, { level 
   const previous = { background: scene.background, fog: scene.fog };
   const fog = level?.fog ?? config.fog;
   scene.background = new Color(config.night?.sky ?? level?.background ?? config.background);
-  scene.fog = fog.enabled ? new FogExp2(fog.color, fog.density) : null;
+  scene.fog = fog.enabled ? new FogExp2(config.night?.fog ?? fog.color, fog.density) : null;
   const hemisphere = new HemisphereLight(config.hemisphere.sky, config.hemisphere.ground, config.hemisphere.intensity);
   hemisphere.name = 'NightFill';
   root.add(hemisphere);
