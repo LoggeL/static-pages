@@ -11,7 +11,10 @@ export const LIGHTING_CONFIG = {
   },
   // Lights only dynamic objects (viewmodel, NPCs); the night exposure sits at +4 EV, so the old 75
   // turned the black rifle gold against the baked street. Matches the lightmapped ground better.
-  streetlight: { color: '#ffbd72', intensity: 8, distance: 30, decay: 2, castShadow: false },
+  // dynamic: also lights the lightmapped ground (sodium pool under the lamp). distance ends before the house interior,
+  // because the light has no shadow.
+  streetlight: { color: '#ffa552', intensity: 110, distance: 14, decay: 2, castShadow: false, dynamic: true,
+    glow: { size: 1.3, strength: 5 } },
   porch: { enabled: false, color: '#ffd7a0', intensity: 8, distance: 7, decay: 2 },
   // Night balance. The camera runs at full gain (+4 EV) everywhere at night, which matches the
   // lamp-lit interior, but the bake's moon and sky came out 10–30× brighter than that interior:

@@ -10,6 +10,7 @@ import { createLighting } from './lighting.js';
 import { bindLightmaps } from './lightmaps.js';
 import { createSourceLightMask } from './source-light-mask.js';
 import { patchSiteGaps } from './site-patches.js';
+import { addPoliceCarCollision, createPoliceCar, POLICE_CAR_CONFIG } from './police-car.js';
 import { LIGHTING_CONFIG } from './lighting-config.js';
 import { createMaterialLibrary, MATERIAL_CONFIG } from './materials.js';
 import { fetchAsset, loadGltfAsset, mapWithLimit, throwIfAborted, withLoadDeadline, disposeObjectResources } from './load-guards.js';
@@ -205,6 +206,22 @@ export async function loadWorld(scene, {
       try { patchSiteGaps(house, collisionSource); }
       catch (error) { warn(`Bodenlücke konnte nicht geschlossen werden: ${error.message}`); }
     }
+    // Patrol car: one shared file for every asset profile, optional like any prop.
+    let policeCar = null;
+    const carAnchor = anchorFromBlender(layout.policeCar);
+    if (carAnchor && new URLSearchParams(globalThis.location?.search ?? '').get('car') !== '0') {
+      try {
+        const carAsset = await loadGltfAsset(loader, new URL(`../../${POLICE_CAR_CONFIG.model}`, import.meta.url).href, loadOptions);
+        resourceRoots.push(carAsset.scene);
+        policeCar = createPoliceCar(carAsset.scene, carAnchor);
+        root.add(policeCar.root);
+        policeCar.root.updateWorldMatrix(true, true);
+        addPoliceCarCollision(collisionSource, carAnchor);
+      } catch (error) {
+        if (controller.signal.aborted) throw error;
+        warn(`Streifenwagen nicht geladen: ${error.message}`);
+      }
+    }
     report('Kollision', 0.82);
     if (level) prepareBakedDoors(house, level);
     const doors = createDoors(house, layout, { ...DOOR_CONFIG, ...doorOptions });
@@ -326,7 +343,7 @@ export async function loadWorld(scene, {
     return {
       root, house, furniture: furnitureRoot, decals, colliders, shootables, doors, rooms, roomAt,
       spawn: { ...anchorFromBlender(layout.playerSpawn), pitchDeg: layout.playerSpawn.pitchDeg ?? -4 },
-      policeCar: anchorFromBlender(layout.policeCar),
+      policeCar: carAnchor, policeCarRig: policeCar,
       suspects: (layout.suspects ?? []).map(anchorFromBlender),
       suspectsAlt: (layout.suspectsAlt ?? []).map(anchorFromBlender),
       layout, level, textureIndex, lighting, materialLibrary, lightmapData, missingProps, warnings, stats: statistics,
@@ -340,6 +357,7 @@ export async function loadWorld(scene, {
       update(dt) {
         if (disposed) return;
         for (const door of doors) door.update(dt);
+        policeCar?.update(dt);
       },
       dispose,
     };

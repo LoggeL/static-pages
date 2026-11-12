@@ -192,6 +192,7 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
     frames++;
   }
   function advance(dt) {
+    world.policeCarRig?.setViewerInside(world.rooms.some(room => room.id !== 'PORCH' && room.id !== 'OUT' && room.contains(player.position)));
     player.update(dt); // C12 advances the world in physics substeps.
     if (ended === 'dead') deathFall(dt);
     captureBase();
@@ -383,6 +384,7 @@ export async function createDemo({ canvas, quality = 'auto', controls = 'auto', 
     }
     checkActive();
     if (world.missingProps?.length) issue('props', STRINGS.missingProps(world.missingProps.length));
+    world.policeCarRig?.setDynamicLights(tier === 'desktop' && assetProfile === 'full');
     scene.traverse(node => { if (node.isLight) node.layers.enable(1); });
     if (world.lighting?.config.viewmodel && modules[0].createViewmodelLight) {
       try {
