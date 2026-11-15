@@ -40,6 +40,16 @@ canvas:focus-visible { outline: 2px solid color-mix(in srgb, var(--accent) 70%, 
 #overlay circle.dot { stroke: #0b0e11; stroke-width: 2; }
 #overlay circle.dot.hover { fill-opacity: 0.55; stroke-opacity: 0.6; }
 #overlay circle.marker { fill: #fff; stroke: #0b0e11; stroke-width: 2; }
+#overlay path.boundary { fill: none; stroke: #ff5d73; stroke-width: 2.4; stroke-dasharray: 10 6; stroke-linecap: round; }
+#overlay path.boundary.halo { stroke: rgba(0, 0, 0, 0.6); stroke-width: 5; stroke-dasharray: none; }
+#overlay circle.corner { fill: #ff5d73; stroke: #0b0e11; stroke-width: 2; }
+#overlay path.boundary.secondary { stroke: #e8c9ce; stroke-width: 1.4; stroke-dasharray: 5 5; opacity: 0.8; }
+#overlay path.sewer { fill: none; stroke: #46c8ff; stroke-width: 2.6; stroke-linecap: round; }
+#overlay path.sewer.halo { stroke: rgba(0, 0, 0, 0.6); stroke-width: 5.2; }
+#overlay path.sewer.conn { stroke-width: 1.4; opacity: 0.75; }
+#overlay polygon.corridor { fill: rgba(70, 200, 255, 0.17); stroke: none; }
+#overlay path.corridor-edge { fill: none; stroke: #46c8ff; stroke-width: 1.3; stroke-dasharray: 7 5; opacity: 0.9; }
+#overlay circle.manhole { fill: #0b0e11; stroke: #46c8ff; stroke-width: 2.4; }
 
 .mlabel {
   position: absolute; transform: translate(-50%, -50%);
@@ -51,6 +61,11 @@ canvas:focus-visible { outline: 2px solid color-mix(in srgb, var(--accent) 70%, 
 }
 .mlabel.seg { font-size: 11.5px; font-weight: 550; padding: 2px 6px; opacity: 0.92; border-color: transparent; }
 .mlabel.draft { border-style: dashed; }
+.mlabel.bound { font-size: 11.5px; font-weight: 600; padding: 2px 7px; }
+.mlabel.bound.name { font-size: 12.5px; font-weight: 700; }
+.mlabel.bound.nb { font-size: 11px; font-weight: 600; opacity: 0.9; border-color: transparent; }
+.mlabel.bound.sewer { font-size: 11px; }
+.mlabel.above { transform: translate(-50%, calc(-100% - 10px)); }
 
 /* ---------- Kopfzeile ---------- */
 .topbar {
@@ -142,9 +157,14 @@ svg { width: 20px; height: 20px; }
 .list .del { grid-row: span 2; grid-column: 3; width: 28px; height: 28px; border-radius: 8px; color: var(--muted); font-size: 16px; line-height: 1; }
 .list .del:hover { background: rgba(255, 107, 107, 0.2); color: #ffd0d0; }
 .empty { margin: 4px 14px 12px; font-size: 12.5px; line-height: 1.45; color: var(--muted); }
+.calib + .calib { margin-top: 0; }
 .calib { margin: 6px 10px 10px; padding: 10px 12px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--line); }
 .calib h3 { margin: 0 0 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
 .calib p { margin: 0; font-size: 12.5px; line-height: 1.45; }
+.stepper { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 12.5px; }
+.stepper button { width: 28px; height: 28px; border-radius: 8px; background: rgba(255, 255, 255, 0.1); font-size: 16px; line-height: 1; }
+.stepper button:hover { background: rgba(255, 255, 255, 0.2); }
+.stepper b { min-width: 3.4em; text-align: center; font-variant-numeric: tabular-nums; color: #7fd8ff; }
 .calib-user { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; font-size: 12px; color: #7cc4ff; }
 
 /* ---------- Höhenprofil ---------- */

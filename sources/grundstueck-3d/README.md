@@ -5,7 +5,10 @@ Galerie und nicht im Haupt-README verlinkt und trägt `noindex`.
 
 Ein Gaussian Splat eines Gartengrundstücks (1,79 Mio. Splats, SOG-komprimiert, 28 MB), aus
 einem 92-Sekunden-Begehungsvideo rekonstruiert, mit Messwerkzeugen im Browser: Strecke,
-Fläche, Höhe, Höhenprofil entlang einer Strecke und Nachkalibrierung des Maßstabs.
+Fläche, Höhe, Höhenprofil entlang einer Strecke und Nachkalibrierung des Maßstabs. Aus dem
+Katasterplan (1:500) eingepasst und einblendbar: die Flurstücke 214 und 215 mit Seitenlängen
+und Fläche, die angrenzenden Flurstücke sowie der Kanal mit Schächten und einstellbarem
+Schutzstreifen.
 
 ## Bauen
 
@@ -27,13 +30,20 @@ Den Inhalt von `dist/` nach `public/grundstueck-3d/` kopieren und im Repo-Wurzel
   der die Deckkraft 35 % erreicht (robuster als der erste getroffene Splat)
 - `src/measure.js` – Messdaten, Flächenformel, CSV-Export, Speicherung im Browser
 - `src/profile.js` – Höhenprofil über lotrechte Strahlen entlang der Strecke
-- `src/overlay.js` – Linien, Punkte und Maßzahlen als SVG über dem 3D-Bild
-- `public/scene/scene.json` – Titel, Transformation (Drehung, Maßstab), Startansicht
+- `src/overlay.js` – Linien, Punkte und Maßzahlen als SVG über dem 3D-Bild, dazu Grenzen
+  und Kanal
+- `public/scene/scene.json` – Titel, Transformation (Drehung, Maßstab), Startansicht,
+  Flurstücksgrenzen (`boundaries`) und Kanal (`sewer`) in Weltkoordinaten
 
 three.js 0.180.0 und Spark 2.4.0 sind exakt gepinnt.
 
-## Maßstab
+## Maßstab, Grenzen und Kanal
 
-Kalibriert auf die mittlere Wegbreite von 2,00 m (im Modell 1,83 m bis 2,17 m);
-Unsicherheit etwa ±5 %. „Oben“ stammt aus der mittleren Kamera-Hochachse, ausgerichtet an
-Zaun und Tor (etwa ±2°).
+Maßstab und Lage stammen aus der Einpassung des Katasterplans: Mauer, Tor, Nachbargrenze und
+Zaun treffen die Grenzen von Flurstück 214 im Mittel auf 15 cm. Der Weg ist danach am Tor
+2,00 m breit. Die Höhen sind an den Schachtdeckelhöhen des Kanalplans ausgerichtet (etwa
+±0,5°).
+
+Die Grenzlinien sind auf etwa ±0,3 m eingepasst und kein amtlicher Grenznachweis; geprüft ist
+die Lage nur an Flurstück 214. Die Breite des Schutzstreifens am Kanal ist eine Annahme –
+verbindlich ist die Vorgabe des Kanalbetreibers.

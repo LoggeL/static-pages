@@ -41,6 +41,11 @@ const state = {
   centerDepth: null,  // Abstand der sichtbaren Oberfläche in Bildmitte (für die Maßstabsleiste)
   marker: null,       // Stelle, auf die das Höhenprofil gerade zeigt
   profileClosed: null, // Messung, deren Profil der Nutzer weggeklickt hat
+  boundaries: [],     // Flurstücksgrenzen aus scene.json
+  showBounds: true,
+  sewer: null,        // Kanal aus scene.json
+  showSewer: true,
+  corridor: 2,        // angenommener Schutzstreifen je Seite in m
 };
 
 // Hintergrund: senkrechter Farbverlauf (Himmel -> Dunst). Der Splat selbst enthält
@@ -181,6 +186,10 @@ async function loadScene() {
 
   state.cfg = cfg;
   state.mesh = mesh;
+  state.boundaries = Array.isArray(cfg.boundaries) ? cfg.boundaries.filter((b) => b.points || b.lines) : [];
+  state.sewer = cfg.sewer && Array.isArray(cfg.sewer.pipes) && cfg.sewer.pipes.length ? cfg.sewer : null;
+  if (state.sewer && state.sewer.corridor_m >= 0) state.corridor = state.sewer.corridor_m;
+  renderBounds();
   state.ready = true;
   $('status').textContent = `${new Intl.NumberFormat('de-DE').format(n)} Splats`;
   // Messungen gehören zu genau dieser Veröffentlichung, Datei und Kalibrierung
@@ -416,6 +425,52 @@ function renderCalibration() {
   if (n) $('calib-user-text').textContent = `Eigene Kalibrierung: Faktor ${fmtFactor(store.k)} (${n} Referenz${n > 1 ? 'en' : ''})`;
 }
 
+// ---------------------------------------------------------------- Flurstücksgrenzen und Kanal
+const M1 = new Intl.NumberFormat('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+function renderBounds() {
+  const own = state.boundaries.filter((b) => b.style !== 'secondary');
+  const has = state.boundaries.length > 0;
+  $('btn-bounds').hidden = !has;
+  $('bounds-box').hidden = !has;
+  if (has) {
+    const parts = own.map((b) => `${b.name}${b.area_m2 ? ` (${Math.round(b.area_m2)} m²)` : ''}`);
+    const total = own.reduce((s, b) => s + (b.area_m2 || 0), 0);
+    const acc = state.cfg?.plan?.accuracy_m || 0.3;
+    $('bounds-text').textContent = `${parts.join(' und ')}${own.length > 1 && total ? `, zusammen ${Math.round(total)} m²` : ''} laut Katasterplan.`
+      + ` Lage auf etwa ±${M1.format(Math.max(0.3, acc))} m eingepasst; außerhalb der Aufnahme ohne Kontrolle. Kein amtlicher Grenznachweis.`;
+  }
+  const sw = state.sewer;
+  $('btn-sewer').hidden = !sw;
+  $('sewer-box').hidden = !sw;
+  if (sw) {
+    const n = (sw.pipes || []).length;
+    $('sewer-text').textContent = `${n} Haltung${n === 1 ? '' : 'en'} laut Kanalplan (${[...new Set(sw.pipes.map((p) => p.dn))].join(', ')}).`
+      + ' Die Breite des Schutzstreifens ist eine Annahme: Verbindlich ist die Vorgabe des Kanalbetreibers (Satzung oder Grunddienstbarkeit).';
+    $('corr-value').textContent = `${M1.format(state.corridor)} m`;
+  }
+}
+function toggleBounds() {
+  state.showBounds = !state.showBounds;
+  $('btn-bounds').classList.toggle('on', state.showBounds);
+  $('btn-bounds').setAttribute('aria-pressed', String(state.showBounds));
+  state.dirty = true;
+}
+function toggleSewer() {
+  state.showSewer = !state.showSewer;
+  $('btn-sewer').classList.toggle('on', state.showSewer);
+  $('btn-sewer').setAttribute('aria-pressed', String(state.showSewer));
+  state.dirty = true;
+}
+function stepCorridor(delta) {
+  state.corridor = Math.min(6, Math.max(0, Math.round((state.corridor + delta) * 2) / 2));
+  $('corr-value').textContent = `${M1.format(state.corridor)} m`;
+  state.dirty = true;
+}
+$('btn-bounds').addEventListener('click', toggleBounds);
+$('btn-sewer').addEventListener('click', toggleSewer);
+$('corr-minus').addEventListener('click', () => stepCorridor(-0.5));
+$('corr-plus').addEventListener('click', () => stepCorridor(0.5));
+
 // ---------------------------------------------------------------- Liste
 function wideLayout() { return matchMedia('(min-width: 721px) and (min-height: 520px)').matches; }
 function showPanel(show, onlyIfWide = false) {
@@ -621,6 +676,8 @@ window.addEventListener('keydown', (e) => {
   if (key === 'h') { goHome(); return; }
   if (key === 't') { goTop(); return; }
   if (key === 'm') { showPanel($('panel').classList.contains('hidden')); return; }
+  if (key === 'g' && state.boundaries.length) { toggleBounds(); return; }
+  if (key === 'k' && state.sewer) { toggleSewer(); return; }
   if (key === '?') { $('help-dialog').showModal(); }
 });
 window.addEventListener('keyup', (e) => state.keys.delete(e.code));
@@ -694,7 +751,10 @@ renderer.setAnimationLoop((now) => {
     state.dirty = false;
     try {
       camera.updateMatrixWorld();
-      const items = store.items.slice();
+      const items = [];
+      if (state.showSewer && state.sewer) items.push({ type: 'sewer', ...state.sewer, corridor: state.corridor });
+      if (state.showBounds) items.push(...state.boundaries.map((b) => ({ type: 'boundary', ...b })));
+      items.push(...store.items);
       if (state.draft && (state.draft.points.length || state.draft.hover)) items.push({ ...state.draft, draft: true });
       if (state.marker) items.push({ type: 'marker', points: [state.marker] });
       overlay.render(items, store.k, state.selected);
