@@ -443,7 +443,8 @@ function renderBounds() {
     const parts = own.map((b) => `${b.name}${b.area_m2 ? ` (${M1.format(b.area_m2)} m²)` : ''}`);
     const total = own.reduce((s, b) => s + (b.area_m2 || 0), 0);
     const acc = state.cfg?.plan?.accuracy_m || 0.5;
-    $('bounds-text').textContent = `${parts.join(' und ')}${own.length > 1 && total ? `, zusammen ${M1.format(total)} m²` : ''} laut Katasterplan.`
+    const list = parts.length > 1 ? `${parts.slice(0, -1).join(', ')} und ${parts[parts.length - 1]}` : parts[0];
+    $('bounds-text').textContent = `${list}${own.length > 1 && total ? `, zusammen ${M1.format(total)} m²` : ''} laut Katasterplan.`
       + ` Lage auf etwa ±${M1.format(acc)} m eingepasst und nur an Flurstück 214 geprüft. Kein amtlicher Grenznachweis.`;
   }
   const sw = state.sewer;

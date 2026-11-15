@@ -6,7 +6,7 @@ Galerie und nicht im Haupt-README verlinkt und trägt `noindex`.
 Ein Gaussian Splat eines Gartengrundstücks (1,79 Mio. Splats, SOG-komprimiert, 28 MB), aus
 einem 92-Sekunden-Begehungsvideo rekonstruiert, mit Messwerkzeugen im Browser: Strecke,
 Fläche, Höhe, Höhenprofil entlang einer Strecke und Nachkalibrierung des Maßstabs. Aus dem
-Katasterplan (1:500) eingepasst und einblendbar: die Flurstücke 214 und 215 mit Seitenlängen
+Katasterplan (1:500) eingepasst und einblendbar: die Flurstücke 213, 214 und 215 mit Seitenlängen
 und Fläche, die angrenzenden Flurstücke sowie der Kanal mit Schächten und einstellbarem
 Schutzstreifen.
 
