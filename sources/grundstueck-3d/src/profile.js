@@ -9,7 +9,7 @@ import { fmtLen } from './measure.js';
 const W = 440, H = 150, PL = 50, PR = 10, PT = 10, PB = 22;
 const SAMPLES = 120;
 const PCT = new Intl.NumberFormat('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-const signed = (m) => `${m < -0.0005 ? '−' : '+'}${fmtLen(Math.abs(m))}`;
+const signed = (m) => (Math.abs(m) < 0.0005 ? '±0' : `${m < 0 ? '−' : '+'}${fmtLen(Math.abs(m))}`);
 
 export class HeightProfile {
   constructor({ picker, card, svg, info, title, onMarker }) {
@@ -23,13 +23,15 @@ export class HeightProfile {
     const move = (e) => this.hover(e);
     svg.addEventListener('pointermove', move);
     svg.addEventListener('pointerdown', move);
-    svg.addEventListener('pointerleave', () => { this.onMarker(null); this.info.textContent = this.summary; this.setCursor(null); });
+    svg.addEventListener('pointerleave', () => { this.onMarker(null); if (this.data) this.info.textContent = this.summary; this.setCursor(null); });
   }
 
   hide() {
     this.token++;
     this.key = null;
     this.data = null;
+    this.scale = null;
+    this.summary = '';
     this.card.hidden = true;
     this.onMarker(null);
   }
@@ -42,6 +44,8 @@ export class HeightProfile {
     if (key === this.key) { if (this.data) this.draw(); return; }
     this.key = key;
     this.data = null;
+    this.scale = null;
+    this.summary = '';
     const token = ++this.token;
     const [a, b] = item.points;
     const top = Math.max(a[1], b[1]) + 40;
@@ -57,10 +61,9 @@ export class HeightProfile {
       if (i % 12 === 0) this.info.textContent = `Profil wird berechnet … ${Math.round(t * 100)} %`;
     }
     // einzelne Ausreißer glätten (Median über drei Nachbarn)
-    const sm = ys.map((y, i) => {
-      const w = [ys[i - 1], y, ys[i + 1]].filter((v) => v != null).sort((p, q) => p - q);
-      return y == null ? null : w[Math.floor(w.length / 2)];
-    });
+    // (nur wo beide Nachbarn vorhanden sind: an Enden und Lücken bleibt der Messwert stehen)
+    const sm = ys.map((y, i) => (y == null || ys[i - 1] == null || ys[i + 1] == null
+      ? y : [ys[i - 1], y, ys[i + 1]].sort((p, q) => p - q)[1]));
     this.data = { a, b, ys: sm };
     this.draw();
   }
@@ -69,14 +72,16 @@ export class HeightProfile {
     const { a, b, ys } = this.data;
     const k = this.k;
     const L = Math.hypot(b[0] - a[0], b[2] - a[2]) * k;
-    const first = ys.find((y) => y != null);
-    if (first == null || !(L > 0)) {
+    if (!ys.some((y) => y != null) || !(L > 0)) {
       this.svg.innerHTML = '';
+      this.scale = null;
       this.summary = 'Entlang dieser Strecke ist keine Oberfläche erkennbar.';
       this.info.textContent = this.summary;
       return;
     }
-    const hs = ys.map((y) => (y == null ? null : (y - first) * k));
+    // Nullpunkt ist der angeklickte Startpunkt (wie beim Werkzeug „Höhe“), nicht die erste Profilprobe
+    const ref = a[1];
+    const hs = ys.map((y) => (y == null ? null : (y - ref) * k));
     const valid = hs.filter((h) => h != null);
     let lo = Math.min(...valid), hi = Math.max(...valid);
     const span = Math.max(0.2, hi - lo);
@@ -105,7 +110,7 @@ export class HeightProfile {
         + `<text x="${PL - 6}" y="${(y + 3.5).toFixed(1)}" text-anchor="end">${text}</text>`);
     };
     label(hi, signed(hi));
-    label(lo, signed(lo));
+    if (Y(lo) - Y(hi) >= 12) label(lo, signed(lo));
     if (0 > lo + span * 0.18 && 0 < hi - span * 0.18) label(0, '±0');
     this.svg.innerHTML = `${grid.join('')}
       <path d="${area}" class="area"/><path d="${line}" class="line"/>
@@ -115,9 +120,9 @@ export class HeightProfile {
       <text x="${PL + pw / 2}" y="${H - 6}" text-anchor="middle" class="dim">Strecke (horizontal)</text>
       <g id="profile-cursor" visibility="hidden"><line y1="${PT}" y2="${PT + ph}" class="cursor"/><circle r="4" class="cursor-dot"/></g>`;
 
-    const last = [...hs].reverse().find((h) => h != null);
+    const dh = (b[1] - a[1]) * k; // zwischen den beiden angeklickten Punkten
     const exagg = (ph / (y1 - y0)) / (pw / L);
-    this.summary = `Länge ${fmtLen(L)} · Höhenunterschied ${signed(last)} · Ø ${last < -0.0005 ? '−' : '+'}${PCT.format(Math.abs(last / L) * 100)} %`
+    this.summary = `Länge (horizontal) ${fmtLen(L)} · Höhenunterschied ${signed(dh)} · Ø ${dh < -0.0005 ? '−' : '+'}${PCT.format(Math.abs(dh / L) * 100)} %`
       + ` · höchster Punkt ${signed(hi)}, tiefster ${signed(lo)}`
       + (exagg > 1.5 ? ` · Höhen ${PCT.format(exagg)}-fach überhöht` : '');
     this.info.textContent = this.summary;

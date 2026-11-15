@@ -39,11 +39,14 @@ three.js 0.180.0 und Spark 2.4.0 sind exakt gepinnt.
 
 ## Maßstab, Grenzen und Kanal
 
-Maßstab und Lage stammen aus der Einpassung des Katasterplans: Mauer, Tor, Nachbargrenze und
-Zaun treffen die Grenzen von Flurstück 214 im Mittel auf 15 cm. Der Weg ist danach am Tor
-2,00 m breit. Die Höhen sind an den Schachtdeckelhöhen des Kanalplans ausgerichtet (etwa
-±0,5°).
+Maßstab und Lage stammen aus der Einpassung des Katasterplans: Bruchsteinmauer, Mauer und
+Hauswand zu 213 und das Tor liegen auf den Grenzen von Flurstück 214 (Tor auf 5 cm, Mauern
+mit etwa 20 cm Streuung). Der Maßstab (2,434 m pro Modelleinheit) ist auf etwa ±4 % sicher:
+Je nachdem, ob auch der Lattenzaun als Grenze gilt, ergibt die Einpassung 2,43 bis 2,52;
+Wegbreite und andere Gegenproben sprechen eher für etwas weniger. Eine nachgemessene Strecke
+entscheidet das und lässt sich über „Maßstab“ eintragen.
 
-Die Grenzlinien sind auf etwa ±0,3 m eingepasst und kein amtlicher Grenznachweis; geprüft ist
-die Lage nur an Flurstück 214. Die Breite des Schutzstreifens am Kanal ist eine Annahme –
-verbindlich ist die Vorgabe des Kanalbetreibers.
+Die Grenzlinien sind auf etwa ±0,5 m eingepasst und kein amtlicher Grenznachweis; geprüft ist
+die Lage nur an Flurstück 214. Die Höhen sind an den Schachtdeckelhöhen des Kanalplans
+ausgerichtet (längs des Wegs etwa ±1°). Die Breite des Schutzstreifens am Kanal ist eine
+Annahme – verbindlich ist die Vorgabe des Kanalbetreibers.

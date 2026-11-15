@@ -88,7 +88,7 @@
         <p id="sewer-text"></p>
         <div class="stepper" role="group" aria-label="Schutzstreifen je Seite">
           <span>Schutzstreifen je Seite</span>
-          <button id="corr-minus" aria-label="Schutzstreifen schmaler">−</button><b id="corr-value">2,0 m</b><button id="corr-plus" aria-label="Schutzstreifen breiter">+</button>
+          <button id="corr-minus" aria-label="Schutzstreifen schmaler">−</button><b id="corr-value" aria-live="polite">2,0 m</b><button id="corr-plus" aria-label="Schutzstreifen breiter">+</button>
         </div>
       </div>
       <div class="calib" id="calib-box">
@@ -108,7 +108,7 @@
         <button id="profile-close" class="mini" title="Höhenprofil schließen" aria-label="Höhenprofil schließen">×</button>
       </header>
       <svg id="profile-svg" role="img" aria-label="Höhenverlauf entlang der gewählten Strecke"></svg>
-      <p id="profile-info"></p>
+      <p id="profile-info" aria-live="polite"></p>
     </section>
 
     <div class="scalebar" id="scalebar" aria-hidden="true"><i></i><span>1 m</span></div>
@@ -159,9 +159,9 @@
               <li><b>Strecke:</b> zwei Punkte anklicken</li>
               <li><b>Fläche:</b> Eckpunkte anklicken, dann „Fläche schließen“ (oder <kbd>Enter</kbd> bzw. Doppelklick)</li>
               <li><b>Höhe:</b> zwei Punkte – angezeigt werden Höhenunterschied und horizontaler Abstand</li>
-              <li><b>Höhenprofil:</b> erscheint zu jeder Strecke – in der Liste anwählen, mit dem Zeiger über das Profil fahren</li>
+              <li><b>Höhenprofil:</b> erscheint zu jeder Strecke und Höhenmessung – in der Liste anwählen, mit dem Zeiger über das Profil fahren. Gezeigt wird die Oberfläche von oben gesehen (unter Bäumen deren Krone)</li>
               <li><b>Grenzen:</b> Flurstücksgrenzen aus dem Katasterplan ein- und ausblenden (<kbd>G</kbd>)</li>
-              <li><b>Kanal:</b> Kanal, Schächte und Schutzstreifen ein- und ausblenden (<kbd>K</kbd>); die Breite des Streifens lässt sich in der Liste rechts einstellen</li>
+              <li><b>Kanal:</b> Kanal, Schächte und Schutzstreifen ein- und ausblenden (<kbd>K</kbd>); die Breite des Streifens lässt sich in der Liste „Messungen“ einstellen</li>
               <li><b>Maßstab:</b> eine bekannte Strecke anklicken und ihre echte Länge eingeben</li>
               <li>„Rückgängig“ (<kbd>⌫</kbd>) entfernt den letzten Punkt, „Abbrechen“ (<kbd>Esc</kbd>) verwirft die Messung</li>
             </ul>

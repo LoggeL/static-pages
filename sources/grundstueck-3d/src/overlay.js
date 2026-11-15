@@ -92,13 +92,20 @@ export class Overlay {
     }
     for (const sd of b.sides || []) this.tag(lab, sd.at, `${NF2.format(sd.length)} m`, 'bound', '#ff8fa0', 70);
     for (const l of b.labels || []) this.tag(lab, l.at, l.text, 'bound nb', '#d9c3c7', 90);
-    if (b.center) this.tag(lab, b.center, `${b.name}${b.area_m2 ? ` · ${NF0.format(b.area_m2)} m²` : ''}`, 'bound name', '#ff8fa0');
+    if (b.center) this.tag(lab, b.center, `${b.name}${b.area_m2 ? ` · ${NF1.format(b.area_m2)} m²` : ''}`, 'bound name', '#ff8fa0');
   }
 
   // Kanal: Haltungen, Anschlussleitungen, Schächte und der Schutzstreifen beidseits der Achse
   drawSewer(sw, svg, lab) {
     const w = sw.corridor || 0;
     const near = -this.camera.near * 1.01;
+    const polys = [];
+    const poly = (pts3) => {
+      const V = pts3.map((q) => this.view(q));
+      if (V.every((v) => v.z < near)) {
+        polys.push(`<polygon points="${V.map((v) => this.screen(v).map((c) => c.toFixed(1)).join(',')).join(' ')}"/>`);
+      }
+    };
     let axis = '', edge = '', conn = '';
     for (const p of sw.pipes || []) {
       const pts = p.points;
@@ -112,18 +119,25 @@ export class Overlay {
           L.push([pts[i][0] + nx * w, pts[i][1], pts[i][2] + nz * w]);
           R.push([pts[i][0] - nx * w, pts[i][1], pts[i][2] - nz * w]);
         }
-        const VL = L.map((q) => this.view(q)), VR = R.map((q) => this.view(q));
-        for (let i = 0; i < pts.length - 1; i++) {
-          const quad = [VL[i], VL[i + 1], VR[i + 1], VR[i]];
-          if (quad.every((v) => v.z < near)) {
-            svg.push(`<polygon class="corridor" points="${quad.map((v) => this.screen(v).map((c) => c.toFixed(1)).join(',')).join(' ')}"/>`);
+        for (let i = 0; i < pts.length - 1; i++) poly([L[i], L[i + 1], R[i + 1], R[i]]);
+        // runde Enden: schließen den Streifen an Knicken und Schächten (Abstand zur Achse in alle Richtungen)
+        for (const c of [pts[0], pts[pts.length - 1]]) {
+          const ring = [];
+          for (let t = 0; t < 20; t++) {
+            const ang = (t / 20) * Math.PI * 2;
+            ring.push([c[0] + w * Math.cos(ang), c[1], c[2] + w * Math.sin(ang)]);
           }
+          poly(ring);
         }
         edge += this.polyPath(L, false) + this.polyPath(R, false);
       }
       const mid = pts[Math.floor(pts.length / 2)];
-      this.tag(lab, mid, `${p.dn} · ${NF2.format(p.length)} m · ${NF1.format(p.slope_permille)} ‰`, 'bound sewer', '#7fd8ff', 60);
+      const depth = p.depth_from != null && p.depth_to != null
+        ? ` · Sohle ${NF1.format(Math.min(p.depth_from, p.depth_to))}–${NF1.format(Math.max(p.depth_from, p.depth_to))} m tief` : '';
+      this.tag(lab, mid, `${p.dn} · ${NF2.format(p.length)} m · ${NF1.format(p.slope_permille)} ‰${depth}`, 'bound sewer', '#7fd8ff', 60);
     }
+    // eine Gruppe mit gemeinsamer Deckkraft: Überlappungen an Knicken werden nicht dunkler
+    if (polys.length) svg.push(`<g class="corridor">${polys.join('')}</g>`);
     for (const c of sw.connections || []) conn += this.polyPath(c, false);
     if (edge) svg.push(`<path class="corridor-edge" d="${edge}"/>`);
     if (conn) svg.push(`<path class="sewer conn" d="${conn}"/>`);

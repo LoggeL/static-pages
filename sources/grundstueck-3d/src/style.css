@@ -47,7 +47,8 @@ canvas:focus-visible { outline: 2px solid color-mix(in srgb, var(--accent) 70%, 
 #overlay path.sewer { fill: none; stroke: #46c8ff; stroke-width: 2.6; stroke-linecap: round; }
 #overlay path.sewer.halo { stroke: rgba(0, 0, 0, 0.6); stroke-width: 5.2; }
 #overlay path.sewer.conn { stroke-width: 1.4; opacity: 0.75; }
-#overlay polygon.corridor { fill: rgba(70, 200, 255, 0.17); stroke: none; }
+#overlay g.corridor { opacity: 0.2; }
+#overlay g.corridor polygon { fill: rgb(70, 200, 255); stroke: none; }
 #overlay path.corridor-edge { fill: none; stroke: #46c8ff; stroke-width: 1.3; stroke-dasharray: 7 5; opacity: 0.9; }
 #overlay circle.manhole { fill: #0b0e11; stroke: #46c8ff; stroke-width: 2.4; }
 
@@ -169,7 +170,7 @@ svg { width: 20px; height: 20px; }
 
 /* ---------- Höhenprofil ---------- */
 .profile {
-  position: absolute; left: 12px; top: calc(64px + var(--safe-t)); width: min(460px, calc(100vw - 24px));
+  position: absolute; left: 12px; top: calc(64px + var(--safe-t)); width: min(460px, calc(100vw - 348px));
   padding: 10px 12px 9px; background: var(--glass-strong); border: 1px solid var(--line);
   border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
@@ -259,6 +260,14 @@ kbd { display: inline-block; padding: 0 6px; margin: 0 1px; border-radius: 5px; 
   .hint { bottom: calc(126px + var(--safe-b)); }
   .help-grid { grid-template-columns: 1fr; }
   .profile { left: 8px; right: 8px; width: auto; top: calc(58px + var(--safe-t)); }
+  .mlabel { font-size: 11.5px; padding: 2px 6px; }
+  .mlabel.bound, .mlabel.seg { font-size: 10.5px; padding: 1px 5px; }
+}
+@media (max-width: 430px) {
+  #btn-home { display: none; }
+}
+@media (pointer: coarse) {
+  #profile-close { min-width: 40px; min-height: 40px; }
 }
 @media (max-width: 380px) {
   .toolbar button { min-width: 50px; font-size: 10.5px; }

@@ -308,7 +308,9 @@ function select(id) {
 // Höhenprofil gehört zur angewählten Strecke (oder Höhenmessung)
 function syncProfile() {
   const it = store.items.find((i) => i.id === state.selected);
-  if (it && state.pickOk && (it.type === 'dist' || it.type === 'height') && state.profileClosed !== it.id) {
+  const longEnough = it && it.points.length >= 2
+    && Math.hypot(it.points[1][0] - it.points[0][0], it.points[1][2] - it.points[0][2]) * store.k >= 0.5;
+  if (it && longEnough && state.pickOk && (it.type === 'dist' || it.type === 'height') && state.profileClosed !== it.id) {
     profile.show(it, store.k);
   } else {
     profile.hide();
@@ -342,6 +344,8 @@ async function handleClick(x, y) {
     const item = store.add(d.type, d.points);
     state.draft = { type: d.type, points: [], hover: null };
     select(item.id);
+    // auf schmalen Bildschirmen erscheint das Höhenprofil erst beim Antippen der Messung in der Liste
+    if (!wideLayout()) { state.profileClosed = item.id; syncProfile(); }
     showPanel(true, true);
   } else if (d.type === 'calib' && d.points.length === 2) {
     updateHint();
@@ -422,7 +426,10 @@ function renderCalibration() {
     || 'Der Maßstab stammt aus der Aufnahme. Mit dem Werkzeug „Maßstab“ lässt er sich über eine bekannte Strecke nachjustieren.';
   const n = store.calibPairs.length;
   $('calib-user').hidden = n === 0;
-  if (n) $('calib-user-text').textContent = `Eigene Kalibrierung: Faktor ${fmtFactor(store.k)} (${n} Referenz${n > 1 ? 'en' : ''})`;
+  if (n) {
+    $('calib-user-text').textContent = `Eigene Kalibrierung: Faktor ${fmtFactor(store.k)} (${n} Referenz${n > 1 ? 'en' : ''})`
+      + (state.boundaries.length || state.sewer ? ' – Planmaße (Grenzen, Kanal) bleiben im Planmaßstab.' : '');
+  }
 }
 
 // ---------------------------------------------------------------- Flurstücksgrenzen und Kanal
@@ -433,19 +440,24 @@ function renderBounds() {
   $('btn-bounds').hidden = !has;
   $('bounds-box').hidden = !has;
   if (has) {
-    const parts = own.map((b) => `${b.name}${b.area_m2 ? ` (${Math.round(b.area_m2)} m²)` : ''}`);
+    const parts = own.map((b) => `${b.name}${b.area_m2 ? ` (${M1.format(b.area_m2)} m²)` : ''}`);
     const total = own.reduce((s, b) => s + (b.area_m2 || 0), 0);
-    const acc = state.cfg?.plan?.accuracy_m || 0.3;
-    $('bounds-text').textContent = `${parts.join(' und ')}${own.length > 1 && total ? `, zusammen ${Math.round(total)} m²` : ''} laut Katasterplan.`
-      + ` Lage auf etwa ±${M1.format(Math.max(0.3, acc))} m eingepasst; außerhalb der Aufnahme ohne Kontrolle. Kein amtlicher Grenznachweis.`;
+    const acc = state.cfg?.plan?.accuracy_m || 0.5;
+    $('bounds-text').textContent = `${parts.join(' und ')}${own.length > 1 && total ? `, zusammen ${M1.format(total)} m²` : ''} laut Katasterplan.`
+      + ` Lage auf etwa ±${M1.format(acc)} m eingepasst und nur an Flurstück 214 geprüft. Kein amtlicher Grenznachweis.`;
   }
   const sw = state.sewer;
   $('btn-sewer').hidden = !sw;
   $('sewer-box').hidden = !sw;
   if (sw) {
     const n = (sw.pipes || []).length;
-    $('sewer-text').textContent = `${n} Haltung${n === 1 ? '' : 'en'} laut Kanalplan (${[...new Set(sw.pipes.map((p) => p.dn))].join(', ')}).`
+    const onOwn = sw.pipes.filter((p) => p.own_m > 0);
+    $('sewer-text').textContent = `${n} Haltung${n === 1 ? '' : 'en'} laut Kanalplan (${[...new Set(sw.pipes.map((p) => p.dn))].join(', ')})`
+      + (onOwn.length ? `, davon ${M1.format(onOwn.reduce((s, p) => s + p.own_m, 0))} m auf dem Grundstück.` : '.')
+      + ' Die Lage erbt die Unsicherheit der Einpassung; vor Erdarbeiten orten lassen. Schächte außerhalb der Aufnahme sind nur der Lage nach eingetragen.'
       + ' Die Breite des Schutzstreifens ist eine Annahme: Verbindlich ist die Vorgabe des Kanalbetreibers (Satzung oder Grunddienstbarkeit).';
+    $('corr-minus').disabled = state.corridor <= 0;
+    $('corr-plus').disabled = state.corridor >= 6;
     $('corr-value').textContent = `${M1.format(state.corridor)} m`;
   }
 }
@@ -464,6 +476,8 @@ function toggleSewer() {
 function stepCorridor(delta) {
   state.corridor = Math.min(6, Math.max(0, Math.round((state.corridor + delta) * 2) / 2));
   $('corr-value').textContent = `${M1.format(state.corridor)} m`;
+  $('corr-minus').disabled = state.corridor <= 0;
+  $('corr-plus').disabled = state.corridor >= 6;
   state.dirty = true;
 }
 $('btn-bounds').addEventListener('click', toggleBounds);
@@ -676,8 +690,8 @@ window.addEventListener('keydown', (e) => {
   if (key === 'h') { goHome(); return; }
   if (key === 't') { goTop(); return; }
   if (key === 'm') { showPanel($('panel').classList.contains('hidden')); return; }
-  if (key === 'g' && state.boundaries.length) { toggleBounds(); return; }
-  if (key === 'k' && state.sewer) { toggleSewer(); return; }
+  if (key === 'g' && !e.repeat && state.boundaries.length) { toggleBounds(); return; }
+  if (key === 'k' && !e.repeat && state.sewer) { toggleSewer(); return; }
   if (key === '?') { $('help-dialog').showModal(); }
 });
 window.addEventListener('keyup', (e) => state.keys.delete(e.code));
@@ -720,13 +734,16 @@ function scheduleCenterDepth() {
   }, 180);
 }
 
+// Vergleich mit kleiner Toleranz gegen den zuletzt gezeichneten Zustand: Das Ausschwingen der
+// Kamerabewegung löst sonst sekundenlang Neuzeichnungen aus, ohne dass sich sichtbar etwas ändert.
 const lastCam = new Float64Array(32);
 function cameraChanged() {
   const a = camera.matrixWorld.elements, b = camera.projectionMatrix.elements;
   let changed = false;
-  for (let i = 0; i < 16; i++) {
-    if (lastCam[i] !== a[i] || lastCam[16 + i] !== b[i]) { changed = true; lastCam[i] = a[i]; lastCam[16 + i] = b[i]; }
+  for (let i = 0; i < 16 && !changed; i++) {
+    changed = Math.abs(lastCam[i] - a[i]) > 1e-6 * Math.max(1, Math.abs(a[i])) || lastCam[16 + i] !== b[i];
   }
+  if (changed) { lastCam.set(a, 0); lastCam.set(b, 16); }
   return changed;
 }
 
