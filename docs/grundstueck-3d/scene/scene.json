@@ -1,0 +1,38 @@
+{
+  "title": "Grundstück",
+  "subtitle": "3D-Begehung vom 14.11.2026",
+  "splat": "garden.sog",
+  "version": "2026-11-15a",
+  "transform": {
+    "quaternion": [
+      0.8982749435666046,
+      -0.11696029087477222,
+      0.3959602965593797,
+      0.15045883047368855
+    ],
+    "position": [
+      0.059319367303968376,
+      1.679607423766963,
+      -5.577831721387012
+    ],
+    "scale": 2.2950939043852747
+  },
+  "view": {
+    "position": [
+      0.5,
+      2.1,
+      -8.2
+    ],
+    "target": [
+      0.0,
+      0.2,
+      -1.5
+    ]
+  },
+  "calibration": {
+    "reference": "Wegbreite 2,00 m",
+    "scale_m_per_unit": 2.2950939043852747,
+    "path_slope_deg": 7.456406081546403,
+    "text": "Maßstab über die mittlere Wegbreite (2,00 m) kalibriert; der Weg ist im Modell 1,83 m (torseitig) bis 2,17 m (gartenseitig) breit. Gegenproben über Körpergröße und Normmaße stimmen auf etwa ±5 %. Mit dem Werkzeug „Maßstab“ lässt er sich über eine exakt bekannte Strecke nachjustieren."
+  }
+}

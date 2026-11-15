@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0e1216">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Grundstück – 3D-Begehung</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230e1216'/%3E%3Cpath d='M6 22 16 8l10 14z' fill='none' stroke='%233ddc97' stroke-width='2.4' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='8' r='2.4' fill='%23ffd23f'/%3E%3C/svg%3E">
+  <script type="module" crossorigin src="./assets/index-CcC-1YDM.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-zo5s_IL5.css">
+</head>
+<body>
+  <div id="app" data-tool="nav">
+    <canvas id="view" tabindex="0" aria-label="3D-Ansicht des Grundstücks"></canvas>
+    <svg id="overlay" aria-hidden="true"></svg>
+    <div id="labels" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <h1 id="title">Grundstück</h1>
+        <p id="subtitle">3D-Begehung</p>
+      </div>
+      <div class="top-actions">
+        <button class="chip" id="btn-home" title="Startansicht (H)">
+          <svg viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5M6.5 10v8.5h11V10"/></svg><span>Start</span>
+        </button>
+        <button class="chip" id="btn-top" title="Draufsicht (T)">
+          <svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M12 9v6M9 12h6"/></svg><span>Draufsicht</span>
+        </button>
+        <button class="chip icon" id="btn-help" title="Hilfe (?)" aria-label="Hilfe">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.6 2.2c-.8.5-1.2 1-1.2 2M12 16.7v.1"/></svg>
+        </button>
+        <button class="chip icon" id="btn-panel" title="Messungen ein-/ausblenden (M)" aria-label="Messungen" aria-expanded="true" aria-controls="panel">
+          <svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h14M5 17h9"/></svg><b id="count-badge" hidden>0</b>
+        </button>
+      </div>
+    </header>
+
+    <nav class="toolbar" aria-label="Werkzeuge">
+      <button data-tool="nav" class="active" aria-pressed="true" title="Bewegen (1)">
+        <svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3l-2.5 2.5M12 3l2.5 2.5M12 21l-2.5-2.5M12 21l2.5-2.5M3 12l2.5-2.5M3 12l2.5 2.5M21 12l-2.5-2.5M21 12l-2.5 2.5"/></svg>
+        <span>Bewegen</span>
+      </button>
+      <button data-tool="dist" title="Strecke messen (2)">
+        <svg viewBox="0 0 24 24"><path d="M4 18 18 4l2 2L6 20zM8 14l1.5 1.5M11 11l1.5 1.5M14 8l1.5 1.5"/></svg>
+        <span>Strecke</span>
+      </button>
+      <button data-tool="area" title="Fläche messen (3)">
+        <svg viewBox="0 0 24 24"><path d="M5 8 12 4l7 5-2 10H7z"/><circle cx="5" cy="8" r="1.2"/><circle cx="12" cy="4" r="1.2"/><circle cx="19" cy="9" r="1.2"/><circle cx="17" cy="19" r="1.2"/><circle cx="7" cy="19" r="1.2"/></svg>
+        <span>Fläche</span>
+      </button>
+      <button data-tool="height" title="Höhe messen (4)">
+        <svg viewBox="0 0 24 24"><path d="M7 4v16M4 7l3-3 3 3M4 17l3 3 3-3M13 20h7M13 4h7"/></svg>
+        <span>Höhe</span>
+      </button>
+      <span class="sep"></span>
+      <button data-tool="calib" title="Maßstab kalibrieren (5)">
+        <svg viewBox="0 0 24 24"><path d="M3 15h18v4H3zM7 15v-2M11 15v-3M15 15v-2M19 15v-3M6 9h12M6 9l2-2M6 9l2 2M18 9l-2-2M18 9l-2 2"/></svg>
+        <span>Maßstab</span>
+      </button>
+    </nav>
+
+    <div class="hint" id="hint" role="status" aria-live="polite"></div>
+
+    <aside class="panel" id="panel" aria-label="Messungen">
+      <div class="panel-head">
+        <h2>Messungen</h2>
+        <div class="panel-actions">
+          <button id="btn-export" class="mini" title="Als CSV exportieren">CSV</button>
+          <button id="btn-clear" class="mini danger" title="Alle Messungen löschen">Alle löschen</button>
+        </div>
+      </div>
+      <div class="panel-body">
+      <ul id="list" class="list"></ul>
+      <p class="empty" id="empty">Noch keine Messungen. Wähle unten ein Werkzeug und klicke Punkte im Modell an.</p>
+      <div class="calib" id="calib-box">
+        <h3>Maßstab</h3>
+        <p id="calib-text"></p>
+        <div class="calib-user" id="calib-user" hidden>
+          <span id="calib-user-text"></span>
+          <button id="btn-calib-reset" class="mini">Zurücksetzen</button>
+        </div>
+      </div>
+      </div>
+    </aside>
+
+    <section class="profile" id="profile" hidden aria-label="Höhenprofil">
+      <header>
+        <h2 id="profile-title">Höhenprofil</h2>
+        <button id="profile-close" class="mini" title="Höhenprofil schließen" aria-label="Höhenprofil schließen">×</button>
+      </header>
+      <svg id="profile-svg" role="img" aria-label="Höhenverlauf entlang der gewählten Strecke"></svg>
+      <p id="profile-info"></p>
+    </section>
+
+    <div class="scalebar" id="scalebar" aria-hidden="true"><i></i><span>1 m</span></div>
+    <div class="status" id="status"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div class="loading" id="loading">
+      <div class="loading-card">
+        <div class="spinner"></div>
+        <strong id="loading-title">Modell wird geladen …</strong>
+        <div class="bar"><i id="loading-bar"></i></div>
+        <small id="loading-text"></small>
+        <button id="btn-reload" class="primary" hidden>Neu laden</button>
+      </div>
+    </div>
+
+    <dialog id="calib-dialog">
+      <form method="dialog">
+        <h2>Maßstab kalibrieren</h2>
+        <p>Gemessener Abstand der beiden Punkte: <b id="calib-measured"></b></p>
+        <label for="calib-input">Tatsächliche Länge in Metern</label>
+        <input id="calib-input" inputmode="decimal" autocomplete="off" value="2,00">
+        <p class="note">Tipp: mehrere Referenzstrecken an verschiedenen Stellen erhöhen die Genauigkeit – der Faktor wird über alle gemittelt.</p>
+        <menu>
+          <button type="button" id="calib-cancel" class="ghost">Abbrechen</button>
+          <button value="ok" id="calib-ok" class="primary">Übernehmen</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <dialog id="help-dialog">
+      <form method="dialog">
+        <h2>Bedienung</h2>
+        <div class="help-grid">
+          <section>
+            <h3>Bewegen</h3>
+            <ul>
+              <li><kbd>Ziehen</kbd> dreht · rechte Maustaste oder <kbd>Umschalt</kbd> + Ziehen verschiebt</li>
+              <li><kbd>Mausrad</kbd> zoomt zur Mausposition</li>
+              <li><kbd>Doppelklick</kbd> setzt den Drehpunkt auf die Stelle</li>
+              <li><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> laufen · <kbd>Q</kbd>/<kbd>E</kbd> runter/hoch</li>
+              <li>Touch: ein Finger dreht, zwei Finger zoomen und verschieben</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Messen</h3>
+            <ul>
+              <li><b>Strecke:</b> zwei Punkte anklicken</li>
+              <li><b>Fläche:</b> Eckpunkte anklicken, dann „Fläche schließen“ (oder <kbd>Enter</kbd> bzw. Doppelklick)</li>
+              <li><b>Höhe:</b> zwei Punkte – angezeigt werden Höhenunterschied und horizontaler Abstand</li>
+              <li><b>Höhenprofil:</b> erscheint zu jeder Strecke – in der Liste anwählen, mit dem Zeiger über das Profil fahren</li>
+              <li><b>Maßstab:</b> eine bekannte Strecke anklicken und ihre echte Länge eingeben</li>
+              <li>„Rückgängig“ (<kbd>⌫</kbd>) entfernt den letzten Punkt, „Abbrechen“ (<kbd>Esc</kbd>) verwirft die Messung</li>
+            </ul>
+          </section>
+        </div>
+        <p class="note">Für genaue Maße möglichst steil von oben und aus der Nähe klicken. Bei Bewuchs gibt es keine harte Oberfläche – dort sind Maße naturgemäß unschärfer.</p>
+        <menu><button value="ok" class="primary">Verstanden</button></menu>
+      </form>
+    </dialog>
+  </div>
+</body>
+</html>
