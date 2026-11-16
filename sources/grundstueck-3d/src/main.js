@@ -43,6 +43,8 @@ const state = {
   profileClosed: null, // Messung, deren Profil der Nutzer weggeklickt hat
   boundaries: [],     // Flurstücksgrenzen aus scene.json
   showBounds: true,
+  buildings: [],      // Gebäudeumrisse aus scene.json
+  showBuildings: true,
   sewer: null,        // Kanal aus scene.json
   showSewer: true,
   corridor: 2,        // angenommener Schutzstreifen je Seite in m
@@ -187,6 +189,9 @@ async function loadScene() {
   state.cfg = cfg;
   state.mesh = mesh;
   state.boundaries = Array.isArray(cfg.boundaries) ? cfg.boundaries.filter((b) => b.points || b.lines) : [];
+  const okPt = (q) => Array.isArray(q) && q.length === 3 && q.every(Number.isFinite);
+  state.buildings = Array.isArray(cfg.buildings)
+    ? cfg.buildings.filter((b) => b && Array.isArray(b.points) && b.points.length >= 3 && b.points.every(okPt)) : [];
   state.sewer = cfg.sewer && Array.isArray(cfg.sewer.pipes) && cfg.sewer.pipes.length ? cfg.sewer : null;
   if (state.sewer && state.sewer.corridor_m >= 0) state.corridor = state.sewer.corridor_m;
   renderBounds();
@@ -322,10 +327,15 @@ $('profile-close').addEventListener('click', () => { state.profileClosed = state
 let chain = Promise.resolve();
 function queue(fn) { chain = chain.then(fn).catch((e) => console.error(e)); return chain; }
 
-async function handleClick(x, y) {
+async function handleClick(x, y, touch = false, noSnap = false) {
   if (state.tool === 'nav' || !state.draft) return;
   const draft = state.draft;
-  const hit = await pickAt(x, y, true);
+  let snap = !noSnap && SNAP_TOOLS.has(state.tool) ? snapAt(x, y, touch) : null;
+  const lastPt = draft.points[draft.points.length - 1];
+  if (snap && lastPt && dist(lastPt, snap) < 1e-4) snap = null; // derselbe Planpunkt noch einmal: Oberfläche nehmen
+  const hit = snap
+    ? { point: new THREE.Vector3(snap[0], snap[1], snap[2]), spread: 0, scatter: 0, opacity: 1, conf: 'ok', snapped: true }
+    : await pickAt(x, y, true);
   if (state.draft !== draft) return; // Werkzeug wurde inzwischen gewechselt
   if (!hit) { toast('An dieser Stelle ist keine Oberfläche erkennbar.', 2200, true); return; }
   const p = [hit.point.x, hit.point.y, hit.point.z];
@@ -335,7 +345,9 @@ async function handleClick(x, y) {
   d.hover = null;
   invalidateHover();
   // Warnen nur bei wirklich dünnen Stellen; halbtransparente Flächen sind bei echten Splats normal
-  if (hit.opacity < 0.25 || (hit.spread != null && hit.spread > 0.6)) {
+  if (hit.snapped) {
+    toast('Auf Planpunkt eingerastet (Höhe dort nur geschätzt).', 1800);
+  } else if (hit.opacity < 0.25 || (hit.spread != null && hit.spread > 0.6)) {
     toast('Unscharfe Stelle (Bewuchs oder Lücke) – der Punkt ist hier weniger genau.', 2800, true);
   } else if (hit.scatter > Math.max(0.35, 0.05 * hit.point.distanceTo(camera.position))) {
     toast('Flacher Blickwinkel – für genauere Maße näher heran oder steiler von oben antippen.', 2800, true);
@@ -428,12 +440,15 @@ function renderCalibration() {
   $('calib-user').hidden = n === 0;
   if (n) {
     $('calib-user-text').textContent = `Eigene Kalibrierung: Faktor ${fmtFactor(store.k)} (${n} Referenz${n > 1 ? 'en' : ''})`
-      + (state.boundaries.length || state.sewer ? ' – Planmaße (Grenzen, Kanal) bleiben im Planmaßstab.' : '');
+      + (state.boundaries.length || state.buildings.length || state.sewer ? ' – Planmaße (Grenzen, Gebäude, Kanal) bleiben im Planmaßstab.' : '');
   }
 }
 
 // ---------------------------------------------------------------- Flurstücksgrenzen und Kanal
 const M1 = new Intl.NumberFormat('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const WALL_H = 2.5; // Höhe der Hilfswände an Gebäudeumrissen (nicht aus dem Plan)
+// Plan-Punkte tragen nur geschätzte Höhen und liegen im Planmaßstab: bei „Höhe“ und „Maßstab“ nicht einrasten
+const SNAP_TOOLS = new Set(['dist', 'area']);
 function renderBounds() {
   const own = state.boundaries.filter((b) => b.style !== 'secondary');
   const has = state.boundaries.length > 0;
@@ -446,6 +461,16 @@ function renderBounds() {
     const list = parts.length > 1 ? `${parts.slice(0, -1).join(', ')} und ${parts[parts.length - 1]}` : parts[0];
     $('bounds-text').textContent = `${list}${own.length > 1 && total ? `, zusammen ${M1.format(total)} m²` : ''} laut Katasterplan.`
       + ` Lage auf etwa ±${M1.format(acc)} m eingepasst und nur an Flurstück 214 geprüft. Kein amtlicher Grenznachweis.`;
+  }
+  const nb = state.buildings.length;
+  $('btn-buildings').hidden = !nb;
+  $('buildings-box').hidden = !nb;
+  if (nb) {
+    const named = state.buildings.filter((b) => b.name).map((b) => b.name.replace('Haus ', ''))
+      .sort((x, y) => x.localeCompare(y, 'de', { numeric: true })).join(', ');
+    $('buildings-text').textContent = `${nb} ${nb === 1 ? 'Gebäudeumriss' : 'Gebäudeumrisse'} laut Katasterplan${named ? ` (${named})` : ''}, gezeichnet als ${M1.format(WALL_H)} m hohe Hilfswände.`
+      + ' Die wahre Gebäudehöhe steht nicht im Plan; außerhalb der Aufnahme ist auch die Geländehöhe nur geschätzt.'
+      + ' Bei Strecke und Fläche rastet der Punkt auf Gebäudeecken, Grenzpunkte und Schächte der eingeblendeten Ebenen ein.';
   }
   const sw = state.sewer;
   $('btn-sewer').hidden = !sw;
@@ -468,6 +493,28 @@ function toggleBounds() {
   $('btn-bounds').setAttribute('aria-pressed', String(state.showBounds));
   state.dirty = true;
 }
+function toggleBuildings() {
+  state.showBuildings = !state.showBuildings;
+  $('btn-buildings').classList.toggle('on', state.showBuildings);
+  $('btn-buildings').setAttribute('aria-pressed', String(state.showBuildings));
+  state.dirty = true;
+}
+// Einrasten: Plan-Punkte der eingeblendeten Ebenen (Gebäudeecken, Grenzpunkte, Schächte)
+function snapAt(clientX, clientY, touch = false) {
+  const r = canvas.getBoundingClientRect();
+  const tol = touch ? 20 : 11;
+  let best = null, bestD = tol;
+  const test = (p) => {
+    const v = new THREE.Vector3(p[0], p[1], p[2]).project(camera);
+    if (v.z > 1 || v.z < -1) return;
+    const d = Math.hypot(r.left + (v.x * 0.5 + 0.5) * r.width - clientX, r.top + (1 - (v.y * 0.5 + 0.5)) * r.height - clientY);
+    if (d < bestD) { bestD = d; best = p; }
+  };
+  if (state.showBuildings) for (const b of state.buildings) b.points.forEach(test);
+  if (state.showBounds) for (const b of state.boundaries) (b.corners || []).forEach(test);
+  if (state.showSewer && state.sewer) for (const m of state.sewer.manholes || []) test(m.at);
+  return best;
+}
 function toggleSewer() {
   state.showSewer = !state.showSewer;
   $('btn-sewer').classList.toggle('on', state.showSewer);
@@ -483,6 +530,7 @@ function stepCorridor(delta) {
 }
 $('btn-bounds').addEventListener('click', toggleBounds);
 $('btn-sewer').addEventListener('click', toggleSewer);
+$('btn-buildings').addEventListener('click', toggleBuildings);
 $('corr-minus').addEventListener('click', () => stepCorridor(-0.5));
 $('corr-plus').addEventListener('click', () => stepCorridor(0.5));
 
@@ -625,7 +673,7 @@ function endPointer(e, cancelled) {
   const dbl = now - lastClick.t < 400 && Math.hypot(e.clientX - lastClick.x, e.clientY - lastClick.y) < 8;
   lastClick = { t: now, x: e.clientX, y: e.clientY };
   if (dbl) return;
-  queue(() => handleClick(e.clientX, e.clientY));
+  queue(() => handleClick(e.clientX, e.clientY, touch, e.altKey));
 }
 canvas.addEventListener('pointerup', (e) => endPointer(e, false));
 canvas.addEventListener('pointercancel', (e) => endPointer(e, true));
@@ -650,16 +698,18 @@ canvas.addEventListener('dblclick', (e) => {
 let hoverBusy = false;
 canvas.addEventListener('pointermove', (e) => {
   if (e.pointerType !== 'mouse' || state.tool === 'nav' || !state.draft || e.buttons) return;
-  hoverNext = [e.clientX, e.clientY];
+  hoverNext = [e.clientX, e.clientY, e.altKey];
   if (hoverBusy) return;
   hoverBusy = true;
   (async () => {
     try {
       while (hoverNext) {
-        const [x, y] = hoverNext; hoverNext = null;
+        const [x, y, alt] = hoverNext; hoverNext = null;
         const gen = hoverGen, draft = state.draft;
-        const hit = await pickAt(x, y, false);
+        const snap = !alt && SNAP_TOOLS.has(state.tool) ? snapAt(x, y) : null;
+        const hit = snap ? { point: new THREE.Vector3(snap[0], snap[1], snap[2]) } : await pickAt(x, y, false);
         if (gen === hoverGen && draft && state.draft === draft) {
+          draft.hoverSnap = !!snap;
           draft.hover = hit ? [hit.point.x, hit.point.y, hit.point.z] : null;
           state.dirty = true;
         }
@@ -693,6 +743,7 @@ window.addEventListener('keydown', (e) => {
   if (key === 'm') { showPanel($('panel').classList.contains('hidden')); return; }
   if (key === 'g' && !e.repeat && state.boundaries.length) { toggleBounds(); return; }
   if (key === 'k' && !e.repeat && state.sewer) { toggleSewer(); return; }
+  if (key === 'b' && !e.repeat && state.buildings.length) { toggleBuildings(); return; }
   if (key === '?') { $('help-dialog').showModal(); }
 });
 window.addEventListener('keyup', (e) => state.keys.delete(e.code));
@@ -770,6 +821,7 @@ renderer.setAnimationLoop((now) => {
     try {
       camera.updateMatrixWorld();
       const items = [];
+      if (state.showBuildings && state.buildings.length) items.push({ type: 'buildings', list: state.buildings, height: WALL_H });
       if (state.showSewer && state.sewer) items.push({ type: 'sewer', ...state.sewer, corridor: state.corridor });
       if (state.showBounds) items.push(...state.boundaries.map((b) => ({ type: 'boundary', ...b })));
       items.push(...store.items);

@@ -51,6 +51,19 @@ export class Overlay {
     this.labels.innerHTML = lab.join('');
   }
 
+  // Polygon (Kameraraum) an der Near-Plane kappen; Bildschirmpunkte oder null
+  clipPoly(V) {
+    const near = -(this.camera.near * 1.01);
+    const out = [];
+    for (let i = 0; i < V.length; i++) {
+      const a = V[i], b = V[(i + 1) % V.length];
+      const ain = a.z < near, bin = b.z < near;
+      if (ain) out.push(a);
+      if (ain !== bin) out.push(a.clone().lerp(b, (near - a.z) / (b.z - a.z)));
+    }
+    return out.length >= 3 ? out.map((v) => this.screen(v)) : null;
+  }
+
   // Hilfen für Plan-Überlagerungen (Grenzen, Kanal)
   polyPath(pts, closed) {
     const V = pts.map((p) => this.view(p));
@@ -95,16 +108,46 @@ export class Overlay {
     if (b.center) this.tag(lab, b.center, `${b.name}${b.area_m2 ? ` · ${NF1.format(b.area_m2)} m²` : ''}`, 'bound name', '#ff8fa0');
   }
 
+  // Gebäude laut Plan: Umriss am Boden und eine Hilfswand der Höhe `height` darüber.
+  // Die wahre Gebäudehöhe steht nicht im Plan; die Wand macht nur die Kanten räumlich lesbar.
+  drawBuildings(bs, svg, lab) {
+    const h = bs.height || 2.5;
+    const walls = [];
+    let base = '', top = '', posts = '', baseOwn = '', topOwn = '', postsOwn = '';
+    for (const b of bs.list) {
+      // Sockel folgt dem Gelände, die Oberkante ist je Gebäude waagerecht
+      const lo = b.points, topY = Math.max(...lo.map((p) => p[1])) + h, hi = lo.map((p) => [p[0], topY, p[2]]);
+      const VL = lo.map((p) => this.view(p)), VH = hi.map((p) => this.view(p));
+      const n = lo.length;
+      let bd = '', td = '', pd = '';
+      for (let i = 0; i < n; i++) {
+        const j = (i + 1) % n;
+        const s1 = this.clip(VL[i], VL[j]), s2 = this.clip(VH[i], VH[j]), s3 = this.clip(VL[i], VH[i]);
+        const seg = (s) => `M${s[0][0].toFixed(1)},${s[0][1].toFixed(1)}L${s[1][0].toFixed(1)},${s[1][1].toFixed(1)}`;
+        if (s1) bd += seg(s1);
+        if (s2) td += seg(s2);
+        if (s3) pd += seg(s3);
+        const pts = this.clipPoly([VL[i], VL[j], VH[j], VH[i]]);
+        if (pts) walls.push(`<polygon class="${b.own ? 'own' : ''}" points="${pts.map((q) => q.map((c) => c.toFixed(1)).join(',')).join(' ')}"/>`);
+      }
+      if (b.own) { baseOwn += bd; topOwn += td; postsOwn += pd; } else { base += bd; top += td; posts += pd; }
+      if (b.name && Array.isArray(b.center)) this.tag(lab, [b.center[0], topY, b.center[2]], b.name, 'bound house', '#ffe3a0', 90);
+    }
+    if (walls.length) svg.push(`<g class="bwalls">${walls.join('')}</g>`);
+    if (top || posts) svg.push(`<path class="building thin" d="${top}${posts}"/>`);
+    if (base) svg.push(`<path class="building" d="${base}"/>`);
+    if (topOwn || postsOwn) svg.push(`<path class="building thin own" d="${topOwn}${postsOwn}"/>`);
+    if (baseOwn) svg.push(`<path class="building own" d="${baseOwn}"/>`);
+  }
+
   // Kanal: Haltungen, Anschlussleitungen, Schächte und der Schutzstreifen beidseits der Achse
   drawSewer(sw, svg, lab) {
     const w = sw.corridor || 0;
     const near = -this.camera.near * 1.01;
     const polys = [];
     const poly = (pts3) => {
-      const V = pts3.map((q) => this.view(q));
-      if (V.every((v) => v.z < near)) {
-        polys.push(`<polygon points="${V.map((v) => this.screen(v).map((c) => c.toFixed(1)).join(',')).join(' ')}"/>`);
-      }
+      const pts = this.clipPoly(pts3.map((q) => this.view(q)));
+      if (pts) polys.push(`<polygon points="${pts.map((q) => q.map((c) => c.toFixed(1)).join(',')).join(' ')}"/>`);
     };
     let axis = '', edge = '', conn = '';
     for (const p of sw.pipes || []) {
@@ -155,6 +198,7 @@ export class Overlay {
   drawItem(it, k, selected, svg, lab) {
     if (it.type === 'boundary') { this.drawBoundary(it, svg, lab); return; }
     if (it.type === 'sewer') { this.drawSewer(it, svg, lab); return; }
+    if (it.type === 'buildings') { this.drawBuildings(it, svg, lab); return; }
     if (it.type === 'marker') { // Stelle, auf die das Höhenprofil gerade zeigt
       const v = this.view(it.points[0]);
       if (v.z < -this.camera.near * 1.01) {
@@ -230,6 +274,7 @@ export class Overlay {
       if (v.z >= -this.camera.near * 1.01) return;
       const [x, y] = this.screen(v);
       const isHover = hover && i === V.length - 1;
+      if (isHover && it.hoverSnap) svg.push(`<circle class="snap" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="9"/>`);
       svg.push(`<circle class="${cls} dot ${isHover ? 'hover' : ''}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${isHover ? 4 : 5}" fill="${color}"/>`);
     });
   }

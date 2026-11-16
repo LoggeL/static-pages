@@ -7,8 +7,9 @@ Ein Gaussian Splat eines Gartengrundstücks (1,79 Mio. Splats, SOG-komprimiert, 
 einem 92-Sekunden-Begehungsvideo rekonstruiert, mit Messwerkzeugen im Browser: Strecke,
 Fläche, Höhe, Höhenprofil entlang einer Strecke und Nachkalibrierung des Maßstabs. Aus dem
 Katasterplan (1:500) eingepasst und einblendbar: die Flurstücke 213, 214 und 215 mit Seitenlängen
-und Fläche, die angrenzenden Flurstücke sowie der Kanal mit Schächten und einstellbarem
-Schutzstreifen.
+und Fläche, die angrenzenden Flurstücke, die Gebäudeumrisse der Umgebung als Hilfswände sowie
+der Kanal mit Schächten und einstellbarem Schutzstreifen. Bei Strecke und Fläche rasten
+Messpunkte auf Gebäudeecken, Grenzpunkte und Schächte ein.
 
 ## Bauen
 
