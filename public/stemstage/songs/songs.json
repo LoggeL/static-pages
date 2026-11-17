@@ -1,0 +1,344 @@
+{
+  "songs": [
+    {
+      "id": "american-idiot",
+      "title": "American Idiot",
+      "artist": "Green Day",
+      "bpm": 186,
+      "duration": 174.69,
+      "source": "file",
+      "stems": [
+        {
+          "id": "vocals",
+          "label": "Gesang",
+          "instrument": "vocals",
+          "file": "songs/american-idiot/vocals.bin",
+          "color": "#ff3d8b",
+          "encrypted": true
+        },
+        {
+          "id": "guitar",
+          "label": "Gitarre",
+          "instrument": "guitar",
+          "file": "songs/american-idiot/guitar.bin",
+          "color": "#ffb020",
+          "encrypted": true
+        },
+        {
+          "id": "bass",
+          "label": "E-Bass",
+          "instrument": "bass",
+          "file": "songs/american-idiot/bass.bin",
+          "color": "#3dd6ff",
+          "encrypted": true
+        },
+        {
+          "id": "drums",
+          "label": "Schlagzeug",
+          "instrument": "drums",
+          "file": "songs/american-idiot/drums.bin",
+          "color": "#7cff4d",
+          "encrypted": true
+        }
+      ]
+    },
+    {
+      "id": "made-for-lovin-you",
+      "title": "I Was Made for Lovin' You",
+      "artist": "KISS",
+      "bpm": 128,
+      "duration": 271.25,
+      "source": "file",
+      "stems": [
+        {
+          "id": "vocals",
+          "label": "Gesang",
+          "instrument": "vocals",
+          "file": "songs/made-for-lovin-you/vocals.bin",
+          "color": "#ff3d8b",
+          "encrypted": true
+        },
+        {
+          "id": "guitar",
+          "label": "Gitarre",
+          "instrument": "guitar",
+          "file": "songs/made-for-lovin-you/guitar.bin",
+          "color": "#ffb020",
+          "encrypted": true
+        },
+        {
+          "id": "bass",
+          "label": "E-Bass",
+          "instrument": "bass",
+          "file": "songs/made-for-lovin-you/bass.bin",
+          "color": "#3dd6ff",
+          "encrypted": true
+        },
+        {
+          "id": "drums",
+          "label": "Schlagzeug",
+          "instrument": "drums",
+          "file": "songs/made-for-lovin-you/drums.bin",
+          "color": "#7cff4d",
+          "encrypted": true
+        },
+        {
+          "id": "other",
+          "label": "Synthesizer",
+          "instrument": "other",
+          "file": "songs/made-for-lovin-you/other.bin",
+          "color": "#ff7a45",
+          "encrypted": true
+        }
+      ]
+    },
+    {
+      "id": "hammer-to-fall",
+      "title": "Hammer to Fall",
+      "artist": "Queen",
+      "bpm": 129,
+      "duration": 218.33,
+      "source": "file",
+      "stems": [
+        {
+          "id": "vocals",
+          "label": "Gesang",
+          "instrument": "vocals",
+          "file": "songs/hammer-to-fall/vocals.bin",
+          "color": "#ff3d8b",
+          "encrypted": true
+        },
+        {
+          "id": "guitar",
+          "label": "Gitarre",
+          "instrument": "guitar",
+          "file": "songs/hammer-to-fall/guitar.bin",
+          "color": "#ffb020",
+          "encrypted": true
+        },
+        {
+          "id": "bass",
+          "label": "E-Bass",
+          "instrument": "bass",
+          "file": "songs/hammer-to-fall/bass.bin",
+          "color": "#3dd6ff",
+          "encrypted": true
+        },
+        {
+          "id": "drums",
+          "label": "Schlagzeug",
+          "instrument": "drums",
+          "file": "songs/hammer-to-fall/drums.bin",
+          "color": "#7cff4d",
+          "encrypted": true
+        },
+        {
+          "id": "other",
+          "label": "Sonstiges",
+          "instrument": "other",
+          "file": "songs/hammer-to-fall/other.bin",
+          "color": "#ff7a45",
+          "encrypted": true
+        }
+      ]
+    },
+    {
+      "id": "enter-sandman",
+      "title": "Enter Sandman",
+      "artist": "Metallica",
+      "bpm": 123,
+      "duration": 331.57,
+      "source": "file",
+      "stems": [
+        {
+          "id": "vocals",
+          "label": "Gesang",
+          "instrument": "vocals",
+          "file": "songs/enter-sandman/vocals.bin",
+          "color": "#ff3d8b",
+          "encrypted": true
+        },
+        {
+          "id": "guitar",
+          "label": "Gitarre",
+          "instrument": "guitar",
+          "file": "songs/enter-sandman/guitar.bin",
+          "color": "#ffb020",
+          "encrypted": true
+        },
+        {
+          "id": "bass",
+          "label": "E-Bass",
+          "instrument": "bass",
+          "file": "songs/enter-sandman/bass.bin",
+          "color": "#3dd6ff",
+          "encrypted": true
+        },
+        {
+          "id": "drums",
+          "label": "Schlagzeug",
+          "instrument": "drums",
+          "file": "songs/enter-sandman/drums.bin",
+          "color": "#7cff4d",
+          "encrypted": true
+        },
+        {
+          "id": "other",
+          "label": "Sonstiges",
+          "instrument": "other",
+          "file": "songs/enter-sandman/other.bin",
+          "color": "#ff7a45",
+          "encrypted": true
+        }
+      ]
+    },
+    {
+      "id": "neon-nights",
+      "title": "Neon Nights",
+      "artist": "StemStage Demo",
+      "bpm": 118,
+      "duration": 70.72,
+      "source": "demo",
+      "stems": [
+        {
+          "id": "vocals",
+          "label": "Gesang",
+          "instrument": "vocals",
+          "file": "songs/neon-nights/vocals.mp3",
+          "color": "#ff3d8b"
+        },
+        {
+          "id": "guitar",
+          "label": "Gitarre",
+          "instrument": "guitar",
+          "file": "songs/neon-nights/guitar.mp3",
+          "color": "#ffb020"
+        },
+        {
+          "id": "bass",
+          "label": "E-Bass",
+          "instrument": "bass",
+          "file": "songs/neon-nights/bass.mp3",
+          "color": "#3dd6ff"
+        },
+        {
+          "id": "drums",
+          "label": "Schlagzeug",
+          "instrument": "drums",
+          "file": "songs/neon-nights/drums.mp3",
+          "color": "#7cff4d"
+        },
+        {
+          "id": "piano",
+          "label": "Keyboard",
+          "instrument": "piano",
+          "file": "songs/neon-nights/piano.mp3",
+          "color": "#b26bff"
+        }
+      ]
+    },
+    {
+      "id": "funky-freitag",
+      "title": "Funky Freitag",
+      "artist": "StemStage Demo",
+      "bpm": 100,
+      "duration": 72.2,
+      "source": "demo",
+      "stems": [
+        {
+          "id": "vocals",
+          "label": "Gesang",
+          "instrument": "vocals",
+          "file": "songs/funky-freitag/vocals.mp3",
+          "color": "#ff3d8b"
+        },
+        {
+          "id": "guitar",
+          "label": "Gitarre",
+          "instrument": "guitar",
+          "file": "songs/funky-freitag/guitar.mp3",
+          "color": "#ffb020"
+        },
+        {
+          "id": "bass",
+          "label": "E-Bass",
+          "instrument": "bass",
+          "file": "songs/funky-freitag/bass.mp3",
+          "color": "#3dd6ff"
+        },
+        {
+          "id": "drums",
+          "label": "Schlagzeug",
+          "instrument": "drums",
+          "file": "songs/funky-freitag/drums.mp3",
+          "color": "#7cff4d"
+        },
+        {
+          "id": "piano",
+          "label": "Keyboard",
+          "instrument": "piano",
+          "file": "songs/funky-freitag/piano.mp3",
+          "color": "#b26bff"
+        },
+        {
+          "id": "other",
+          "label": "Sonstiges",
+          "instrument": "other",
+          "file": "songs/funky-freitag/other.mp3",
+          "color": "#ff7a45"
+        }
+      ]
+    },
+    {
+      "id": "mondlicht",
+      "title": "Mondlicht",
+      "artist": "StemStage Demo",
+      "bpm": 84,
+      "duration": 71.57,
+      "source": "demo",
+      "stems": [
+        {
+          "id": "vocals",
+          "label": "Gesang",
+          "instrument": "vocals",
+          "file": "songs/mondlicht/vocals.mp3",
+          "color": "#ff3d8b"
+        },
+        {
+          "id": "bass",
+          "label": "E-Bass",
+          "instrument": "bass",
+          "file": "songs/mondlicht/bass.mp3",
+          "color": "#3dd6ff"
+        },
+        {
+          "id": "drums",
+          "label": "Schlagzeug",
+          "instrument": "drums",
+          "file": "songs/mondlicht/drums.mp3",
+          "color": "#7cff4d"
+        },
+        {
+          "id": "piano",
+          "label": "Keyboard",
+          "instrument": "piano",
+          "file": "songs/mondlicht/piano.mp3",
+          "color": "#b26bff"
+        },
+        {
+          "id": "other",
+          "label": "Sonstiges",
+          "instrument": "other",
+          "file": "songs/mondlicht/other.mp3",
+          "color": "#ff7a45"
+        }
+      ]
+    }
+  ],
+  "encryption": {
+    "kdf": "PBKDF2-SHA-256",
+    "iterations": 310000,
+    "salt": "KN8E1h+bjw7/rowM3JNIFw==",
+    "check": "qU00v+Px4bYfLvAay+sTqmkhJ0t7+aYZRTuk3fWr8XgX1aYBu/Q/jw=="
+  }
+}

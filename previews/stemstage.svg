@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <defs>
+    <radialGradient id="bg" cx="38%" cy="40%" r="75%"><stop offset="0" stop-color="#1c1030"/><stop offset="1" stop-color="#07070c"/></radialGradient>
+    <linearGradient id="beam" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="floor" x2="0" y2="1"><stop offset="0" stop-color="#2a1b44"/><stop offset="1" stop-color="#0c0a14"/></linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+    <pattern id="led" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1.6" fill="#b26bff" opacity=".35"/></pattern>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <!-- LED-Wand -->
+  <rect x="30" y="40" width="440" height="170" rx="10" fill="url(#led)"/>
+  <!-- Lichtkegel -->
+  <g style="mix-blend-mode:screen" opacity=".7">
+    <polygon points="95,30 60,300 150,300" fill="#ffb020" opacity=".35"/>
+    <polygon points="250,30 205,300 295,300" fill="#ff3d8b" opacity=".4"/>
+    <polygon points="250,30 230,250 270,250" fill="url(#beam)" opacity=".5"/>
+    <polygon points="405,30 360,300 450,300" fill="#3dd6ff" opacity=".35"/>
+    <polygon points="330,30 300,220 360,220" fill="#7cff4d" opacity=".28"/>
+  </g>
+  <!-- Bühne -->
+  <path d="M20 300 H480 L500 340 H0 Z" fill="url(#floor)"/>
+  <rect x="0" y="338" width="500" height="4" fill="#b26bff" opacity=".8"/>
+  <!-- Drum-Podest -->
+  <rect x="285" y="215" width="95" height="22" rx="4" fill="#211735"/>
+  <circle cx="332" cy="226" r="16" fill="#151020" stroke="#7cff4d" stroke-width="3"/>
+  <!-- Toy-Musiker -->
+  <g>
+    <ellipse cx="105" cy="300" rx="30" ry="6" fill="#000" opacity=".4"/>
+    <rect x="88" y="240" width="34" height="48" rx="14" fill="#ffb020"/><circle cx="105" cy="222" r="20" fill="#ffd9b8"/><path d="M85 218 q20 -26 40 0" fill="#ffe14d"/>
+    <rect x="80" y="258" width="60" height="9" rx="4" fill="#7a3d12" transform="rotate(-24 110 262)"/>
+  </g>
+  <g>
+    <ellipse cx="250" cy="300" rx="30" ry="6" fill="#000" opacity=".4"/>
+    <rect x="233" y="240" width="34" height="48" rx="14" fill="#ff3d8b"/><circle cx="250" cy="222" r="20" fill="#f2c7a5"/><path d="M230 216 q20 -24 40 0 v-6 q-20 -14 -40 0z" fill="#2b1a2e"/>
+    <line x1="250" y1="250" x2="250" y2="300" stroke="#aaa" stroke-width="3"/><circle cx="250" cy="246" r="5" fill="#ddd"/>
+  </g>
+  <g>
+    <circle cx="332" cy="190" r="17" fill="#e8b996"/><rect x="318" y="204" width="28" height="22" rx="10" fill="#7cff4d"/>
+    <line x1="312" y1="208" x2="296" y2="196" stroke="#7cff4d" stroke-width="6" stroke-linecap="round"/>
+    <line x1="352" y1="208" x2="368" y2="198" stroke="#7cff4d" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g opacity=".55">
+    <ellipse cx="405" cy="300" rx="30" ry="6" fill="#000" opacity=".4"/>
+    <rect x="388" y="246" width="34" height="44" rx="14" fill="#8a8a96"/><circle cx="405" cy="230" r="20" fill="#b9b9c2"/>
+    <text x="428" y="214" font-family="Arial, sans-serif" font-weight="700" font-size="20" fill="#cfd2ff">z</text>
+    <text x="440" y="198" font-family="Arial, sans-serif" font-weight="700" font-size="15" fill="#cfd2ff">z</text>
+  </g>
+  <!-- Crowd -->
+  <g fill="#05040a">
+    <circle cx="40" cy="388" r="22"/><circle cx="105" cy="380" r="24"/><circle cx="170" cy="392" r="22"/><circle cx="240" cy="382" r="25"/><circle cx="310" cy="390" r="22"/><circle cx="375" cy="380" r="24"/><circle cx="445" cy="392" r="22"/>
+    <rect x="0" y="395" width="500" height="60"/>
+    <rect x="232" y="330" width="8" height="34" rx="4" transform="rotate(-12 236 347)"/>
+  </g>
+  <circle cx="380" cy="352" r="3" fill="#fff" filter="url(#glow)"/><circle cx="380" cy="352" r="2" fill="#fff"/>
+  <!-- Lanes -->
+  <g font-family="Arial, sans-serif" font-weight="700" font-size="13">
+    <g transform="translate(520 70)">
+      <rect width="250" height="54" rx="12" fill="#ffffff" opacity=".06"/><rect x="10" y="12" width="30" height="30" rx="9" fill="#ff3d8b"/>
+      <path d="M58 27 h6 m4 -8 v16 m4 -12 v8 m4 -14 v20 m4 -16 v12 m4 -6 v0 m4 -10 v14 m4 -18 v22 m4 -14 v6 m4 -10 v14 m4 -8 v2 m4 -12 v18 m4 -14 v10 m4 -6 v2 m4 -16 v22 m4 -12 v6 m4 -8 v10 m4 -14 v18 m4 -6 v2 m4 -10 v14 m4 -12 v10 m4 -8 v6 m4 -16 v20 m4 -10 v10 m4 -6 v4 m4 -12 v14 m4 -8 v8 m4 -14 v16 m4 -6 v2 m4 -10 v12 m4 -8 v6 m4 -12 v16 m4 -6 v2 m4 -10 v12" stroke="#ff3d8b" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(520 134)">
+      <rect width="250" height="54" rx="12" fill="#ffffff" opacity=".06"/><rect x="10" y="12" width="30" height="30" rx="9" fill="#ffb020"/>
+      <path d="M58 27 m0 -10 v20 m4 -16 v12 m4 -20 v28 m4 -24 v20 m4 -16 v12 m4 -22 v32 m4 -26 v20 m4 -14 v8 m4 -20 v28 m4 -24 v20 m4 -14 v8 m4 -22 v30 m4 -24 v18 m4 -16 v14 m4 -20 v26 m4 -22 v18 m4 -14 v10 m4 -20 v28 m4 -24 v20 m4 -14 v8 m4 -22 v30 m4 -24 v20 m4 -16 v12 m4 -20 v28 m4 -24 v20 m4 -14 v8 m4 -22 v32 m4 -24 v18 m4 -16 v12 m4 -20 v26 m4 -22 v18 m4 -14 v10 m4 -20 v28 m4 -24 v20 m4 -14 v8 m4 -22 v30" stroke="#ffb020" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(520 198)" opacity=".45">
+      <rect width="250" height="54" rx="12" fill="#ffffff" opacity=".06"/><rect x="10" y="12" width="30" height="30" rx="9" fill="#5a5a66"/>
+      <path d="M58 27 m0 -8 v16 m4 -12 v8 m4 -14 v20 m4 -12 v4 m4 -10 v16 m4 -12 v8 m4 -14 v20 m4 -12 v4 m4 -10 v16 m4 -12 v8 m4 -14 v20 m4 -12 v4 m4 -10 v16 m4 -12 v8 m4 -14 v20 m4 -12 v4 m4 -10 v16 m4 -12 v8 m4 -14 v20 m4 -12 v4 m4 -10 v16 m4 -12 v8 m4 -14 v20 m4 -12 v4 m4 -10 v16 m4 -12 v8 m4 -14 v20 m4 -12 v4 m4 -10 v16 m4 -12 v8 m4 -14 v20 m4 -12 v4 m4 -10 v16 m4 -12 v8 m4 -14 v20 m4 -12 v4" stroke="#8a8a96" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(520 262)">
+      <rect width="250" height="54" rx="12" fill="#ffffff" opacity=".06"/><rect x="10" y="12" width="30" height="30" rx="9" fill="#7cff4d"/>
+      <path d="M58 27 m0 -14 v28 m6 -24 v20 m6 -24 v28 m6 -24 v20 m6 -24 v28 m6 -24 v20 m6 -24 v28 m6 -24 v20 m6 -24 v28 m6 -24 v20 m6 -24 v28 m6 -24 v20 m6 -24 v28 m6 -24 v20 m6 -24 v28 m6 -24 v20 m6 -24 v28 m6 -24 v20 m6 -24 v28 m6 -24 v20 m6 -24 v28 m6 -24 v20 m6 -24 v28 m6 -24 v20 m6 -24 v28 m6 -24 v20 m6 -24 v28 m6 -24 v20" stroke="#7cff4d" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+    <rect x="640" y="66" width="2.5" height="254" fill="#fff" opacity=".85"/>
+  </g>
+  <!-- Wortmarke + QR-Andeutung -->
+  <text x="520" y="372" font-family="Arial, sans-serif" font-weight="800" font-size="34" fill="#fff">Stem<tspan fill="#ff7ab5">Stage</tspan></text>
+  <text x="522" y="398" font-family="Arial, sans-serif" font-size="14" fill="#b9b4d0">Bau dir deine Band zusammen</text>
+  <g transform="translate(722 352)">
+    <rect width="46" height="46" rx="8" fill="#fff"/>
+    <rect x="6" y="6" width="12" height="12" fill="#07070c"/><rect x="28" y="6" width="12" height="12" fill="#07070c"/><rect x="6" y="28" width="12" height="12" fill="#07070c"/>
+    <rect x="24" y="24" width="5" height="5" fill="#07070c"/><rect x="32" y="30" width="5" height="5" fill="#07070c"/><rect x="26" y="35" width="5" height="5" fill="#07070c"/>
+  </g>
+</svg>

@@ -1,0 +1,15 @@
+# StemStage – Song-Pipeline (tools/prepare_song.py)
+# Installation (macOS, Python 3.12):
+#   python3.12 -m venv tools/.venv
+#   tools/.venv/bin/python -m pip install -U pip
+#   tools/.venv/bin/python -m pip install -r tools/requirements.txt
+#
+# Demucs >= 4.1.0 (Juli 2026) braucht kein torchaudio mehr (Audio-I/O über sphn/ffmpeg)
+# und lädt Checkpoints mit weights_only=False -> läuft mit aktuellem torch (>= 2.6) und Python 3.12.
+# Ältere demucs 4.0.1 + torchaudio >= 2.9 scheitert beim Speichern (torchcodec) – siehe README.
+demucs>=4.1.0
+torch>=2.1
+numpy>=1.26
+# yt-dlp mit Extras (u.a. yt-dlp-ejs für YouTube); für YouTube zusätzlich: brew install deno
+yt-dlp[default]>=2025.11.12
+# Systemvoraussetzung (nicht per pip): ffmpeg mit libmp3lame -> brew install ffmpeg
