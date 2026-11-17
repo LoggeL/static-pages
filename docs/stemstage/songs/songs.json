@@ -338,7 +338,8 @@
   "encryption": {
     "kdf": "PBKDF2-SHA-256",
     "iterations": 310000,
-    "salt": "KN8E1h+bjw7/rowM3JNIFw==",
-    "check": "qU00v+Px4bYfLvAay+sTqmkhJ0t7+aYZRTuk3fWr8XgX1aYBu/Q/jw=="
+    "salt": "9A7oaQjga+wfJ/xrUp61Bw==",
+    "check": "JY5sflVEcUHJWiyYvHDtE/YF5gK8xU2389kSNAxw8NoPXHk/kOSA5A==",
+    "key": "d8shMGrmAkvlPZtvkUjK40oc4yXa+fEXWd3+bhftO7E+JIms/AyYNQSJYIn1tihPcScGgCklbE/PBRhm"
   }
 }

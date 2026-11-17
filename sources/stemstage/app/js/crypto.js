@@ -31,13 +31,20 @@ export async function decryptBuffer(key, buf) {
   return crypto.subtle.decrypt({ name: 'AES-GCM', iv: bytes.subarray(0, 12) }, key, bytes.subarray(12));
 }
 
-/** Prüft ein Passwort gegen den Prüfblock in songs.json. Liefert den Schlüssel oder null. */
+/**
+ * Prüft ein Passwort gegen den Prüfblock in songs.json. Liefert den Audio-Schlüssel oder null.
+ * Mit meta.key ist der eigentliche Inhaltsschlüssel mit dem Passwort-Schlüssel "eingepackt"
+ * (Passwortwechsel ändert dann nur songs.json, nicht die Audiodateien).
+ */
 export async function tryPassword(password, meta) {
   if (!password || !meta) return null;
   try {
-    const key = await deriveKey(password, meta);
-    const plain = await decryptBuffer(key, b64ToBytes(meta.check).buffer);
-    return new TextDecoder().decode(plain) === CHECK_TEXT ? key : null;
+    const kek = await deriveKey(password, meta);
+    const plain = await decryptBuffer(kek, b64ToBytes(meta.check).buffer);
+    if (new TextDecoder().decode(plain) !== CHECK_TEXT) return null;
+    if (!meta.key) return kek;
+    const raw = await decryptBuffer(kek, b64ToBytes(meta.key).buffer);
+    return crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']);
   } catch {
     return null;
   }

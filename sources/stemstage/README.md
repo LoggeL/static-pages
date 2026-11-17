@@ -18,3 +18,5 @@ Antippen schaltet das Instrument mitten im Song stumm (sample-genau synchron per
 Die echten Songs sind urheberrechtlich geschützt und nur für den Unterricht gedacht. Sie liegen ausschließlich
 verschlüsselt im Repo. Das Klassen-Passwort steckt im QR-Code der App (`#pw=…` im URL-Fragment, wird nie an den
 Server gesendet) oder wird von der Lehrkraft genannt. Neues Passwort: `node tools/build_deploy.mjs --out <ordner> --password <neu>`.
+Die Stems sind mit einem festen Inhaltsschlüssel verschlüsselt (`tools/.content-key`, nicht im Repo), der in `songs.json`
+mit dem Passwort eingepackt ist – ein Passwortwechsel ändert daher nur `songs.json`, nicht die Audiodateien.
