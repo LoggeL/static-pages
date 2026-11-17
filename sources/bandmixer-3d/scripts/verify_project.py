@@ -26,8 +26,6 @@ EXEMPLAR_SONGS = [
     "i-was-made-for-lovin-you",
     "hammer-to-fall",
     "enter-sandman",
-    "in-the-end",
-    "get-lucky",
 ]
 CANONICAL_STEM_ORDER = ["vocals", "guitar", "bass", "drums", "keys"]
 PEAK_BUCKET_COUNT = 240

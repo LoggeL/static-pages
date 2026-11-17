@@ -17,16 +17,12 @@ CANONICAL_ORDER = [
     "i-was-made-for-lovin-you",
     "hammer-to-fall",
     "enter-sandman",
-    "in-the-end",
-    "get-lucky",
 ]
 CANONICAL_ACCENTS = {
     "american-idiot": "#f43f5e",
     "i-was-made-for-lovin-you": "#f97316",
     "hammer-to-fall": "#10b981",
     "enter-sandman": "#38bdf8",
-    "in-the-end": "#0ea5e9",
-    "get-lucky": "#a855f7",
 }
 DEFAULT_ACCENT = "#f43f5e"
 
