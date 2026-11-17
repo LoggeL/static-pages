@@ -21,7 +21,14 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_SITE_DIR = PROJECT_ROOT / "site"
 DEFAULT_RAW_DIR = PROJECT_ROOT / "work" / "raw"
 
-EXEMPLAR_SONGS = ["american-idiot", "in-the-end", "get-lucky"]
+EXEMPLAR_SONGS = [
+    "american-idiot",
+    "i-was-made-for-lovin-you",
+    "hammer-to-fall",
+    "enter-sandman",
+    "in-the-end",
+    "get-lucky",
+]
 CANONICAL_STEM_ORDER = ["vocals", "guitar", "bass", "drums", "keys"]
 PEAK_BUCKET_COUNT = 240
 EXPECTED_SAMPLE_RATE = 44100
@@ -972,7 +979,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--allow-empty",
         action="store_true",
-        help="Allow an empty catalog (pre-separation dry run) and skip requiring the 3 exemplar songs.",
+        help=f"Allow an empty catalog (pre-separation dry run) and skip requiring the {len(EXEMPLAR_SONGS)} exemplar songs.",
     )
     parser.add_argument(
         "--skip-audio-check",

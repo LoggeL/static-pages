@@ -23,6 +23,19 @@ Interactive 3D band stage + synchronized DAW stem mixer with offline QR code sha
 
 ---
 
+## Included Songs
+
+`site/songs/index.json` lists the six built-in tracks in canonical order:
+
+1. **Green Day – American Idiot** (`american-idiot`)
+2. **KISS – I Was Made For Lovin' You** (`i-was-made-for-lovin-you`)
+3. **Queen – Hammer To Fall** (`hammer-to-fall`)
+4. **Metallica – Enter Sandman** (`enter-sandman`)
+5. **Linkin Park – In the End** (`in-the-end`)
+6. **Daft Punk – Get Lucky** (`get-lucky`)
+
+---
+
 ## Adding Custom Songs (YouTube & Hybrid Demucs)
 
 `scripts/add_song.py` fetches a YouTube track (`yt-dlp`), runs stem separation on the `logge-pc` GPU via Wake-on-LAN (or locally on Mac with `--local`), writes the stems and `song.json`, and updates `site/songs/index.json` via `scripts/build_catalog.py`.
@@ -101,7 +114,7 @@ docker run --rm -p 8080:80 stem-stage
 Run the full verification suite:
 
 ```bash
-# Strict mode: requires american-idiot, in-the-end, get-lucky + all audio/import checks
+# Strict mode: requires all 6 canonical songs + all audio/import checks
 python3 scripts/verify_project.py
 
 # Pre-separation dry run (allows empty site/songs/index.json)

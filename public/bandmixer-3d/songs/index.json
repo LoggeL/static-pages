@@ -16,12 +16,58 @@
       ]
     },
     {
+      "id": "i-was-made-for-lovin-you",
+      "title": "I Was Made For Lovin' You",
+      "artist": "KISS",
+      "duration": 258.67,
+      "bpm": 129,
+      "accent": "#f97316",
+      "manifestUrl": "./songs/i-was-made-for-lovin-you/song.json",
+      "stemIds": [
+        "vocals",
+        "guitar",
+        "bass",
+        "drums",
+        "keys"
+      ]
+    },
+    {
+      "id": "hammer-to-fall",
+      "title": "Hammer To Fall",
+      "artist": "Queen",
+      "duration": 218.32,
+      "bpm": 129,
+      "accent": "#10b981",
+      "manifestUrl": "./songs/hammer-to-fall/song.json",
+      "stemIds": [
+        "vocals",
+        "guitar",
+        "bass",
+        "drums"
+      ]
+    },
+    {
+      "id": "enter-sandman",
+      "title": "Enter Sandman",
+      "artist": "Metallica",
+      "duration": 331.56,
+      "bpm": 124,
+      "accent": "#38bdf8",
+      "manifestUrl": "./songs/enter-sandman/song.json",
+      "stemIds": [
+        "vocals",
+        "guitar",
+        "bass",
+        "drums"
+      ]
+    },
+    {
       "id": "in-the-end",
       "title": "In the End",
       "artist": "Linkin Park",
       "duration": 216.29,
       "bpm": 105,
-      "accent": "#38bdf8",
+      "accent": "#0ea5e9",
       "manifestUrl": "./songs/in-the-end/song.json",
       "stemIds": [
         "vocals",
