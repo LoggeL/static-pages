@@ -14,7 +14,7 @@
       "label": "Gesang",
       "shortLabel": "Gesang",
       "color": "#f43f5e",
-      "url": "./songs/hammer-to-fall/vocals.mp3",
+      "url": "./songs/hammer-to-fall/vocals.bin",
       "rmsDb": -17.7,
       "peaks": [
         0.0003,
@@ -264,7 +264,7 @@
       "label": "E-Gitarre",
       "shortLabel": "Gitarre",
       "color": "#f97316",
-      "url": "./songs/hammer-to-fall/guitar.mp3",
+      "url": "./songs/hammer-to-fall/guitar.bin",
       "rmsDb": -17.9,
       "peaks": [
         0.6491,
@@ -514,7 +514,7 @@
       "label": "E-Bass",
       "shortLabel": "Bass",
       "color": "#10b981",
-      "url": "./songs/hammer-to-fall/bass.mp3",
+      "url": "./songs/hammer-to-fall/bass.bin",
       "rmsDb": -20.8,
       "peaks": [
         0.0006,
@@ -764,7 +764,7 @@
       "label": "Schlagzeug",
       "shortLabel": "Drums",
       "color": "#38bdf8",
-      "url": "./songs/hammer-to-fall/drums.mp3",
+      "url": "./songs/hammer-to-fall/drums.bin",
       "rmsDb": -18.9,
       "peaks": [
         0.001,
@@ -999,7 +999,7 @@
         0.9217,
         0.9866,
         0.968,
-        1.0,
+        1,
         0.0503,
         0.4039,
         0.1528,

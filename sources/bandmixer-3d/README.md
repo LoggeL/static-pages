@@ -34,6 +34,23 @@ Interactive 3D band stage + synchronized DAW stem mixer with offline QR code sha
 
 ---
 
+## Klassen-Passwort / Urheberrecht
+
+Die Songs sind urheberrechtlich geschützt und liegen im Repo nur verschlüsselt (`songs/<id>/*.bin`, AES-256-GCM).
+`js/lock.js` ist der Einstiegspunkt: Es nimmt das Passwort aus dem QR-Link (`#pw=…`, das URL-Fragment wird nie an
+den Server geschickt), aus dem letzten Besuch oder fragt danach, entschlüsselt die `.bin`-Stems transparent beim `fetch()`
+und lädt dann `js/app.js`. Weil `#pw=…` in der Adresse bleibt, enthält der QR-Code im Teilen-Dialog automatisch das Passwort.
+
+Neue Songs verschlüsseln (MP3s nach `public/bandmixer-3d/songs/<id>/` legen, dann):
+
+```bash
+node sources/bandmixer-3d/scripts/lock_songs.mjs --songs public/bandmixer-3d/songs \
+  --manifests sources/bandmixer-3d/site/songs --password "<klassen-passwort>" --key-file <geheimer-schlüssel>
+```
+
+Der Inhaltsschlüssel (`--key-file`) bleibt außerhalb des Repos; in `songs/lock.json` liegt er nur mit dem Passwort
+eingepackt. Nur Passwort ändern: derselbe Aufruf mit `--rewrap`.
+
 ## Adding Custom Songs (YouTube & Hybrid Demucs)
 
 `scripts/add_song.py` fetches a YouTube track (`yt-dlp`), runs stem separation on the `logge-pc` GPU via Wake-on-LAN (or locally on Mac with `--local`), writes the stems and `song.json`, and updates `site/songs/index.json` via `scripts/build_catalog.py`.

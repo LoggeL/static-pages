@@ -144,7 +144,9 @@ export class QrModal {
     }
 
     if (this.urlDisplayEl) {
-      this.urlDisplayEl.textContent = trimmed || 'Keine URL eingegeben';
+      this.urlDisplayEl.textContent = trimmed
+        ? trimmed.replace(/#pw=[^&]*/, '') + (/#pw=/.test(trimmed) ? '  ·  🔓 Passwort ist im Code' : '')
+        : 'Keine URL eingegeben';
     }
 
     if (this.copyBtn) {

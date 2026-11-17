@@ -14,7 +14,7 @@
       "label": "Gesang",
       "shortLabel": "Gesang",
       "color": "#f43f5e",
-      "url": "./songs/enter-sandman/vocals.mp3",
+      "url": "./songs/enter-sandman/vocals.bin",
       "rmsDb": -25.3,
       "peaks": [
         0.0002,
@@ -264,7 +264,7 @@
       "label": "E-Gitarre",
       "shortLabel": "Gitarre",
       "color": "#f97316",
-      "url": "./songs/enter-sandman/guitar.mp3",
+      "url": "./songs/enter-sandman/guitar.bin",
       "rmsDb": -19.7,
       "peaks": [
         0.25,
@@ -514,7 +514,7 @@
       "label": "E-Bass",
       "shortLabel": "Bass",
       "color": "#10b981",
-      "url": "./songs/enter-sandman/bass.mp3",
+      "url": "./songs/enter-sandman/bass.bin",
       "rmsDb": -21.2,
       "peaks": [
         0.0002,
@@ -764,7 +764,7 @@
       "label": "Schlagzeug",
       "shortLabel": "Drums",
       "color": "#38bdf8",
-      "url": "./songs/enter-sandman/drums.mp3",
+      "url": "./songs/enter-sandman/drums.bin",
       "rmsDb": -20.3,
       "peaks": [
         0.036,
@@ -916,7 +916,7 @@
         0.8825,
         0.8982,
         0.8465,
-        1.0,
+        1,
         0.8512,
         0.8363,
         0.9606,

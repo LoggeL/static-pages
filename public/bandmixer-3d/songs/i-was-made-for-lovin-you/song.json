@@ -14,7 +14,7 @@
       "label": "Gesang",
       "shortLabel": "Gesang",
       "color": "#f43f5e",
-      "url": "./songs/i-was-made-for-lovin-you/vocals.mp3",
+      "url": "./songs/i-was-made-for-lovin-you/vocals.bin",
       "rmsDb": -18.5,
       "peaks": [
         0.0003,
@@ -255,8 +255,8 @@
         0.0012,
         0.0001,
         0.0001,
-        0.0,
-        0.0
+        0,
+        0
       ]
     },
     {
@@ -264,7 +264,7 @@
       "label": "E-Gitarre",
       "shortLabel": "Gitarre",
       "color": "#f97316",
-      "url": "./songs/i-was-made-for-lovin-you/guitar.mp3",
+      "url": "./songs/i-was-made-for-lovin-you/guitar.bin",
       "rmsDb": -22.3,
       "peaks": [
         0.2749,
@@ -502,11 +502,11 @@
         0.0265,
         0.0119,
         0.0013,
-        0.0,
-        0.0,
-        0.0,
-        0.0,
-        0.0
+        0,
+        0,
+        0,
+        0,
+        0
       ]
     },
     {
@@ -514,8 +514,8 @@
       "label": "E-Bass",
       "shortLabel": "Bass",
       "color": "#10b981",
-      "url": "./songs/i-was-made-for-lovin-you/bass.mp3",
-      "rmsDb": -22.0,
+      "url": "./songs/i-was-made-for-lovin-you/bass.bin",
+      "rmsDb": -22,
       "peaks": [
         0.4047,
         0.4629,
@@ -756,7 +756,7 @@
         0.0016,
         0.0007,
         0.0002,
-        0.0
+        0
       ]
     },
     {
@@ -764,13 +764,13 @@
       "label": "Schlagzeug",
       "shortLabel": "Drums",
       "color": "#38bdf8",
-      "url": "./songs/i-was-made-for-lovin-you/drums.mp3",
+      "url": "./songs/i-was-made-for-lovin-you/drums.bin",
       "rmsDb": -18.5,
       "peaks": [
         0.8485,
         0.8669,
         0.8513,
-        1.0,
+        1,
         0.8626,
         0.9986,
         0.8489,
@@ -1014,7 +1014,7 @@
       "label": "Keyboard / Synth",
       "shortLabel": "Keys",
       "color": "#a855f7",
-      "url": "./songs/i-was-made-for-lovin-you/keys.mp3",
+      "url": "./songs/i-was-made-for-lovin-you/keys.bin",
       "rmsDb": -26.3,
       "peaks": [
         0.0024,
@@ -1256,7 +1256,7 @@
         0.0026,
         0.0013,
         0.0003,
-        0.0
+        0
       ]
     }
   ]
