@@ -137,7 +137,6 @@ function askPassword(song) {
         <p class="pw-error" role="alert" hidden>Leider falsch – frag deine Lehrkraft 🙂</p>
         <div class="load-actions">
           <button class="pill-btn is-primary" type="submit">Entsperren</button>
-          <button class="pill-btn pw-cancel" type="button">Demo-Song hören</button>
         </div>
         <p class="pw-hint">Tipp: Wer den QR-Code an der Wand scannt, muss nichts eintippen.</p>
       </form>`;
@@ -160,7 +159,6 @@ function askPassword(song) {
     const close = (ok) => {
       el.classList.remove('is-open');
       form.onsubmit = null;
-      el.querySelector('.pw-cancel').onclick = null;
       resolve(ok);
     };
     form.onsubmit = async (e) => {
@@ -172,7 +170,6 @@ function askPassword(song) {
       err.hidden = false;
       input.select();
     };
-    el.querySelector('.pw-cancel').onclick = () => close(false);
   });
 }
 
@@ -234,12 +231,7 @@ async function loadSong(song, { autoplay = false } = {}) {
   if (state.loading) return false;
   if (isLocked(song)) {
     const ok = await askPassword(song);
-    if (!ok) {
-      // Abgebrochen → ersten frei hörbaren Song nehmen
-      const free = state.songs.find((s) => !isLocked(s));
-      if (free && free.id !== song.id) { setCurrent(free); return loadSong(free, { autoplay }); }
-      return false;
-    }
+    if (!ok) return false;
   }
   state.loading = true;
   state.loadedId = null;

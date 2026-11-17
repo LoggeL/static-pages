@@ -9,9 +9,8 @@ Antippen schaltet das Instrument mitten im Song stumm (sample-genau synchron per
   Gesang mit Mel-Band-RoFormer, Rest mit BS-Roformer-SW (Gitarre, Bass, Drums, Piano, Sonstiges).
 - `tools/import_stems.py` – WAV-Stems prüfen (stille Spuren verwerfen), MP3 kodieren, in `songs.json` eintragen.
 - `tools/prepare_song.py` – All-in-one-Variante mit yt-dlp + Demucs (CPU/MPS).
-- `tools/make_demo_songs.py` – erzeugt die drei frei verwendbaren Demo-Songs (eigene Kompositionen, numpy-Synthese).
 - `tools/build_deploy.mjs` – baut `public/stemstage/`: echte Songs werden mit AES-256-GCM verschlüsselt
-  (Schlüssel per PBKDF2-SHA-256 aus dem Klassen-Passwort), Demo-Songs bleiben frei.
+  (Schlüssel per PBKDF2-SHA-256 aus dem Klassen-Passwort).
 
 ## Urheberrecht
 
