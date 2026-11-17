@@ -4,6 +4,8 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
+- **[BandMixer 3D](https://loggel.github.io/static-pages/bandmixer-3d/)**: a German classroom stem mixer for phones and projectors where students mute or solo individual instruments mid-song by tapping a 3D band on stage or scrubbing multi-track waveform lanes, complete with a projector QR modal. Editable source and Demucs separation scripts: `sources/bandmixer-3d/`; separated audio stems live in `public/bandmixer-3d/songs/`.
+
 - **[Wo treffen sich die Parabeln?](https://loggel.github.io/static-pages/nachhilfe-parabelschnittpunkte/)**: a 90-minute grade 9 tutoring lesson with a draggable graph ruler, term cards, a number line and a coordinate check. Editable source: `sources/nachhilfe-parabelschnittpunkte/`.
 
 - **[PBT-Anlage](https://loggel.github.io/static-pages/pbt-anlage/)**: a German interactive 3D model of a schematic polybutylene terephthalate plant. Explore 15 process steps and six infrastructure groups, turn equipment shells transparent and follow animated material flows. The static viewer and its embedded model are in `public/pbt-anlage/`.

@@ -1,0 +1,51 @@
+{
+  "songs": [
+    {
+      "id": "american-idiot",
+      "title": "American Idiot",
+      "artist": "Green Day",
+      "duration": 174.7,
+      "bpm": 93,
+      "accent": "#f43f5e",
+      "manifestUrl": "./songs/american-idiot/song.json",
+      "stemIds": [
+        "vocals",
+        "guitar",
+        "bass",
+        "drums"
+      ]
+    },
+    {
+      "id": "in-the-end",
+      "title": "In the End",
+      "artist": "Linkin Park",
+      "duration": 216.29,
+      "bpm": 105,
+      "accent": "#38bdf8",
+      "manifestUrl": "./songs/in-the-end/song.json",
+      "stemIds": [
+        "vocals",
+        "guitar",
+        "bass",
+        "drums",
+        "keys"
+      ]
+    },
+    {
+      "id": "get-lucky",
+      "title": "Get Lucky",
+      "artist": "Daft Punk",
+      "duration": 248.64,
+      "bpm": 116,
+      "accent": "#a855f7",
+      "manifestUrl": "./songs/get-lucky/song.json",
+      "stemIds": [
+        "vocals",
+        "guitar",
+        "bass",
+        "drums",
+        "keys"
+      ]
+    }
+  ]
+}

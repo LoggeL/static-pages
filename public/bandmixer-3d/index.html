@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#090b10" />
+    <title>BandMixer 3D — Interaktiver Instrumenten-Mixer</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f172a'/%3E%3Crect x='6' y='13' width='4' height='13' rx='2' fill='%23f43f5e'/%3E%3Crect x='12' y='7' width='4' height='19' rx='2' fill='%23f97316'/%3E%3Crect x='18' y='10' width='4' height='16' rx='2' fill='%2310b981'/%3E%3Crect x='24' y='15' width='4' height='11' rx='2' fill='%2338bdf8'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand-badge" aria-label="BandMixer 3D">
+          <span class="brand-bars" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span class="brand-name">BandMixer <span>3D</span></span>
+        </div>
+
+        <nav
+          id="song-selector"
+          class="song-selector"
+          aria-label="Songauswahl"
+        ></nav>
+
+        <button
+          id="qr-btn"
+          type="button"
+          class="qr-trigger-btn"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="qr-modal"
+          title="QR-Code für Klassenzimmer anzeigen (Q)"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+            <path d="M14 14h3v3h-3z" />
+            <path d="M17 17h4v4h-4z" />
+            <path d="M14 21h1" />
+            <path d="M21 14v1" />
+          </svg>
+          <span>QR-Code</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section id="empty-state" class="empty-state" hidden>
+        <div class="empty-state-card">
+          <div class="empty-state-icon" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M9 18V5l12-2v13" />
+              <circle cx="6" cy="18" r="3" />
+              <circle cx="18" cy="16" r="3" />
+            </svg>
+          </div>
+          <h1>Noch keine Songs getrennt — Pipeline läuft oder Song hinzufügen</h1>
+          <p id="empty-state-detail">
+            Sobald die Audiospuren im Katalog bereitstehen, erscheinen sie hier automatisch.
+          </p>
+          <button id="reload-catalog-btn" type="button" class="retry-btn">
+            Katalog neu laden
+          </button>
+        </div>
+      </section>
+
+      <div id="mixer-workspace" class="mixer-workspace">
+        <section class="stage-column" aria-label="3D-Bühne und Wiedergabe">
+          <div class="stage-card">
+            <div id="stage-canvas-host" class="stage-canvas-host"></div>
+
+            <div class="stage-hud-top">
+              <div id="stage-song-meta" class="stage-song-meta" hidden>
+                <span id="stage-song-title" class="stage-song-title"></span>
+                <span id="stage-song-sub" class="stage-song-sub"></span>
+              </div>
+
+              <div
+                class="camera-pills"
+                role="group"
+                aria-label="Kameraperspektive"
+              >
+                <button
+                  type="button"
+                  class="camera-pill is-active"
+                  data-camera-view="overview"
+                  aria-pressed="true"
+                >
+                  Gesamt
+                </button>
+                <button
+                  type="button"
+                  class="camera-pill"
+                  data-camera-view="band"
+                  aria-pressed="false"
+                >
+                  Band
+                </button>
+                <button
+                  type="button"
+                  class="camera-pill"
+                  data-camera-view="crowd"
+                  aria-pressed="false"
+                >
+                  Publikum
+                </button>
+              </div>
+            </div>
+
+            <div class="stage-hint" aria-hidden="true">
+              Tippe auf ein Bandmitglied oder eine Spur
+            </div>
+
+            <div id="stage-fallback" class="stage-fallback" hidden>
+              3D-Bühne auf diesem Gerät nicht verfügbar — Audio-Mixer aktiv
+            </div>
+
+            <div id="stage-overlay" class="stage-overlay" hidden>
+              <div class="stage-overlay-card">
+                <div id="stage-spinner" class="stage-spinner" aria-hidden="true"></div>
+                <p id="stage-overlay-title" class="stage-overlay-title">
+                  Lade Spuren…
+                </p>
+                <div id="stage-progress-track" class="stage-progress-track">
+                  <div id="stage-progress-fill" class="stage-progress-fill"></div>
+                </div>
+                <button
+                  id="stage-retry-btn"
+                  type="button"
+                  class="retry-btn"
+                  hidden
+                >
+                  Erneut laden
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <section class="transport-bar" aria-label="Wiedergabesteuerung">
+            <div class="transport-main-row">
+              <button
+                id="play-pause-btn"
+                type="button"
+                class="play-pause-btn"
+                aria-label="Abspielen"
+                disabled
+              >
+                <svg
+                  class="icon-play"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M7 5.2a1 1 0 0 1 1.5-.86l11 6.8a1 1 0 0 1 0 1.72l-11 6.8A1 1 0 0 1 7 18.8V5.2z" />
+                </svg>
+                <svg
+                  class="icon-pause"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <rect x="6" y="5" width="4.5" height="14" rx="1.2" />
+                  <rect x="13.5" y="5" width="4.5" height="14" rx="1.2" />
+                </svg>
+              </button>
+
+              <div class="transport-time" aria-live="off">
+                <span id="current-time">00:00</span>
+                <span class="time-sep" aria-hidden="true">/</span>
+                <span id="total-time">00:00</span>
+              </div>
+
+              <div class="transport-actions">
+                <span
+                  id="active-stems-badge"
+                  class="active-stems-badge"
+                  aria-live="polite"
+                >
+                  0 / 0 aktiv
+                </span>
+                <button
+                  id="unmute-all-btn"
+                  type="button"
+                  class="unmute-all-btn"
+                  disabled
+                >
+                  Alle Instrumente an
+                </button>
+              </div>
+            </div>
+
+            <div class="master-scrubber-wrap">
+              <input
+                id="master-scrubber"
+                type="range"
+                class="master-scrubber"
+                min="0"
+                max="1000"
+                step="1"
+                value="0"
+                aria-label="Songposition"
+                disabled
+              />
+            </div>
+          </section>
+        </section>
+
+        <section class="lanes-column" aria-label="Instrumenten-Spuren">
+          <div class="lanes-header">
+            <h2 class="lanes-title">Instrumenten-Spuren</h2>
+            <span class="lanes-shortcuts-hint">
+              Leertaste: Play/Pause · 1–5: Spur · 0: Alle an
+            </span>
+          </div>
+          <div id="lanes-list" class="lanes-list"></div>
+        </section>
+      </div>
+    </main>
+
+    <div
+      id="qr-modal"
+      class="qr-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="qr-modal-title"
+      aria-hidden="true"
+      hidden
+    >
+      <div class="qr-backdrop" data-qr-backdrop></div>
+      <div class="qr-dialog">
+        <div class="qr-dialog-head">
+          <div>
+            <h2 id="qr-modal-title" class="qr-dialog-title">
+              Mit Smartphone öffnen
+            </h2>
+            <p class="qr-dialog-subtitle">
+              Kamera auf die Projektion richten — alle im selben WLAN steuern mit
+            </p>
+          </div>
+          <button
+            id="qr-close-btn"
+            type="button"
+            class="qr-close-btn"
+            aria-label="QR-Fenster schließen"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <line x1="6" y1="6" x2="18" y2="18" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <div id="qr-code-card" class="qr-code-card"></div>
+
+        <p id="qr-url-display" class="qr-url-display"></p>
+
+        <div class="qr-actions-row">
+          <button id="qr-copy-btn" type="button" class="qr-copy-btn">
+            URL kopieren
+          </button>
+        </div>
+
+        <label class="qr-input-label">
+          <span>URL anpassen (z. B. Tunnel, Domain oder Port)</span>
+          <input
+            id="qr-url-input"
+            type="url"
+            class="qr-url-input"
+            placeholder="http://192.168.x.x:8788/"
+            spellcheck="false"
+            autocomplete="off"
+          />
+        </label>
+      </div>
+    </div>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>
