@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1120" />
+  <meta name="description" content="Interaktiver Spiel- und Spieler-Scoutingbericht: SV 1920 Horchheim 1:2 SV 1970 Obersülzen (08.11.2026) mit 2D-Spielfeld, Einzelnoten für alle 12 Spieler, Phasen-Canvas, SVG-Taktiktafeln und Trainingsplan." />
+  <title>Spiel- &amp; Spielerbericht: SV 1920 Horchheim 1:2 SV 1970 Obersülzen</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    :root {
+      --background: #0b1120;
+      --foreground: #f3f4f6;
+      --card: #111827;
+      --content: #1a2436;
+      --border: #283548;
+      --card-border: #222f42;
+      --muted-foreground: #9ca3af;
+      --primary: #eab308;
+      --primary-foreground: #111827;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --error: #ef4444;
+      color-scheme: dark;
+    }
+    html[data-theme="light"] {
+      --background: #f8fafc;
+      --foreground: #0f172a;
+      --card: #ffffff;
+      --content: #f1f5f9;
+      --border: #cbd5e1;
+      --card-border: #e2e8f0;
+      --muted-foreground: #475569;
+      --primary: #ca8a04;
+      --primary-foreground: #ffffff;
+      --success: #16a34a;
+      --warning: #d97706;
+      --error: #dc2626;
+      color-scheme: light;
+    }
+    @media print {
+      :root, html[data-theme="light"] {
+        --background: #ffffff;
+        --foreground: #0f172a;
+        --card: #ffffff;
+        --content: #f8fafc;
+        --border: #cbd5e1;
+        --card-border: #e2e8f0;
+        --muted-foreground: #475569;
+        color-scheme: light;
+      }
+    }
+    html { scroll-behavior: smooth; font-size: 15px; }
+    .tabular-nums { font-variant-numeric: tabular-nums; }
+    .svo-pin { transition: transform 150ms ease, filter 150ms ease; cursor: pointer; }
+    .svo-pin:hover { transform: scale(1.09); }
+    .grade-pill { font-variant-numeric: tabular-nums; }
+    @media print {
+      .no-print { display: none !important; }
+      section { break-inside: avoid-page; }
+    }
+  </style>
+</head>
+<body class="bg-[var(--background)] text-[var(--foreground)] antialiased p-0 m-0 text-sm leading-relaxed">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+
+    <!-- HERO SCOREBOARD -->
+    <header class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 sm:p-8 shadow-sm">
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[var(--card-border)]">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[var(--content)] border border-[var(--card-border)] text-[var(--foreground)]">Bezirksliga Rheinhessen · 15. Spieltag</span>
+          <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-[var(--content)] text-[var(--muted-foreground)]">Sonntag, 08.11.2026</span>
+          <span class="px-2.5 py-1 rounded-full text-xs font-medium bg-[var(--content)] text-[var(--muted-foreground)]">Walter-Kraft-Stadion (Kunstrasen)</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 no-print">
+          <a href="../" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--content)] border border-[var(--card-border)] hover:opacity-90 text-[var(--muted-foreground)] hover:text-[var(--foreground)]">← Galerie</a>
+          <button type="button" id="theme-toggle-btn" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--content)] border border-[var(--card-border)] hover:opacity-90 text-[var(--foreground)] cursor-pointer">Hell / Dunkel</button>
+          <button type="button" onclick="window.print()" class="px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--content)] border border-[var(--card-border)] hover:opacity-90 text-[var(--foreground)] cursor-pointer">
+            Drucken / PDF
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center pt-6">
+        <!-- Home Team -->
+        <div class="lg:col-span-4 flex items-center lg:justify-end gap-4">
+          <div class="lg:text-right">
+            <div class="text-xs uppercase tracking-wider font-semibold text-[var(--muted-foreground)]">Heimmannschaft (Blau / TW Rot)</div>
+            <h1 class="text-xl sm:text-2xl font-bold text-[var(--foreground)]">SV 1920 Horchheim</h1>
+            <div class="text-xs text-[var(--muted-foreground)] mt-0.5">Ballbesitz 60,4% · 17 Schüsse · 12 aufs Tor</div>
+          </div>
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 border border-[var(--border)]" style="background: rgba(37,99,235,0.18); color: #60a5fa;">
+            SVH
+          </div>
+        </div>
+
+        <!-- Score Center -->
+        <div class="lg:col-span-4 flex flex-col items-center justify-center text-center bg-[var(--content)] border border-[var(--card-border)] rounded-xl py-4 px-5">
+          <div class="text-xs uppercase tracking-widest font-semibold text-[var(--muted-foreground)] mb-1">Endstand (HZ 1:2)</div>
+          <div class="text-4xl sm:text-5xl font-extrabold tracking-tight tabular-nums text-[var(--foreground)]">
+            <span>1</span>
+            <span class="mx-2 text-[var(--muted-foreground)]">:</span>
+            <span class="text-[var(--success)]">2</span>
+          </div>
+          <div class="mt-2 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-[var(--card)] border border-[var(--card-border)] text-[var(--success)]">
+            Auswärtssieg SV 1970 Obersülzen · +3 Punkte
+          </div>
+          <div class="mt-2 text-xs text-[var(--muted-foreground)] tabular-nums">
+            Netto-Spielzeit: 95:43 Min (H1 47:02 · H2 48:41)
+          </div>
+        </div>
+
+        <!-- Away Team (Focus) -->
+        <div class="lg:col-span-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 border border-[var(--border)]" style="background: rgba(234,179,8,0.22); color: #eab308;">
+            SVO
+          </div>
+          <div>
+            <div class="text-xs uppercase tracking-wider font-semibold text-[var(--primary)]">Fokus-Team (Gelb / TW Schwarz)</div>
+            <h2 class="text-xl sm:text-2xl font-bold text-[var(--foreground)]">SV 1970 Obersülzen</h2>
+            <div class="text-xs text-[var(--muted-foreground)] mt-0.5">Ballbesitz 39,6% · 17 Schüsse · 11 Paraden</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Goal Ticker + MVP Strip -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 mt-6 pt-5 border-t border-[var(--card-border)]">
+        <div class="lg:col-span-7 flex flex-wrap items-center gap-2">
+          <span class="text-xs font-semibold text-[var(--muted-foreground)] mr-1">Torfolge:</span>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-[var(--content)] border border-[var(--card-border)]">
+            <span class="font-bold text-[var(--success)] tabular-nums">23'</span>
+            <span>0:1 SVO · #22 Diagonal-Freistoß → 5m-Abstauber</span>
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-[var(--content)] border border-[var(--card-border)]">
+            <span class="font-bold text-[var(--error)] tabular-nums">24'</span>
+            <span>1:1 SVH · 62s nach Anstoß halblinks</span>
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-[var(--content)] border border-[var(--card-border)]">
+            <span class="font-bold text-[var(--success)] tabular-nums">28'</span>
+            <span>1:2 SVO · #5 (23m-Flatterball)</span>
+          </span>
+        </div>
+        <div class="lg:col-span-5 flex flex-wrap lg:justify-end items-center gap-2">
+          <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[var(--content)] border border-[var(--card-border)] text-[var(--success)]">
+            MVP: TW Schwarz (Note 1,3)
+          </span>
+          <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[var(--content)] border border-[var(--card-border)] text-[var(--foreground)]">
+            Matchwinner: #5 (1,7) &amp; #22 (1,9)
+          </span>
+          <span id="hero-avg-grade" class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[var(--content)] border border-[var(--card-border)] text-[var(--primary)] tabular-nums">
+            Team-Schnitt (12 Sp.): 2,19
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <!-- STICKY NAVIGATION -->
+    <nav class="sticky top-0 z-30 bg-[var(--background)] border-b border-[var(--border)] py-2.5 no-print" aria-label="Kapitelnavigation">
+      <div class="flex flex-wrap items-center gap-2">
+        <a href="#kap-1" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--card)] border border-[var(--border)] hover:border-[var(--primary)] text-[var(--foreground)]">1. Überblick &amp; KPIs</a>
+        <a href="#kap-2" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)]">2. Spielerbewertungen (Alle 12)</a>
+        <a href="#kap-3" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--card)] border border-[var(--border)] hover:border-[var(--primary)] text-[var(--foreground)]">3. Momentum &amp; Statistiken</a>
+        <a href="#kap-4" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--card)] border border-[var(--border)] hover:border-[var(--primary)] text-[var(--foreground)]">4. Taktik-Tafeln</a>
+        <a href="#kap-5" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--card)] border border-[var(--border)] hover:border-[var(--primary)] text-[var(--foreground)]">5. Ereignisprotokoll</a>
+        <a href="#kap-6" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--card)] border border-[var(--border)] hover:border-[var(--primary)] text-[var(--foreground)]">6. Fazit &amp; Trainingsplan</a>
+      </div>
+    </nav>
+
+    <!-- KAPITEL 1: EXECUTIVE SUMMARY & METHODIK -->
+    <section id="kap-1" class="space-y-5">
+      <div class="flex flex-wrap items-baseline justify-between gap-2">
+        <div>
+          <h2 class="text-xl font-bold text-[var(--foreground)]">1. Spielüberblick, KPIs &amp; Video-/Audio-Methodik</h2>
+          <p class="text-xs text-[var(--muted-foreground)]">Vollständige Auswertung aller 32 Videosegmente (6.848,8s · 1080p) aus Perspektive von SV 1970 Obersülzen</p>
+        </div>
+      </div>
+
+      <!-- 6 KPI Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4">
+          <div class="text-xs text-[var(--muted-foreground)] font-medium">Endstand (Auswärts)</div>
+          <div class="text-2xl font-bold text-[var(--success)] tabular-nums mt-1">2 : 1</div>
+          <div class="text-xs text-[var(--muted-foreground)] mt-1">Alle Tore fielen 23'–28'</div>
+        </div>
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4">
+          <div class="text-xs text-[var(--muted-foreground)] font-medium">Schüsse / aufs Tor</div>
+          <div class="text-2xl font-bold text-[var(--foreground)] tabular-nums mt-1">17 : 17</div>
+          <div class="text-xs text-[var(--muted-foreground)] mt-1">Aufs Tor: 8 SVO vs. 12 SVH</div>
+        </div>
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4">
+          <div class="text-xs text-[var(--muted-foreground)] font-medium">Großchancen</div>
+          <div class="text-2xl font-bold text-[var(--foreground)] tabular-nums mt-1">9 : 11</div>
+          <div class="text-xs text-[var(--success)] mt-1">SVO-Chancenquote: 22,2%</div>
+        </div>
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4">
+          <div class="text-xs text-[var(--muted-foreground)] font-medium">Torwart-Paraden</div>
+          <div class="text-2xl font-bold text-[var(--primary)] tabular-nums mt-1">11 : 6</div>
+          <div class="text-xs text-[var(--muted-foreground)] mt-1">TW Schwarz: 91,7% gehalten</div>
+        </div>
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4">
+          <div class="text-xs text-[var(--muted-foreground)] font-medium">Ballbesitz Ø (H1 / H2)</div>
+          <div class="text-2xl font-bold text-[var(--warning)] tabular-nums mt-1">39,6%</div>
+          <div class="text-xs text-[var(--muted-foreground)] mt-1">44,6% H1 · 34,5% H2 (20,8% ab 76')</div>
+        </div>
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-xl p-4">
+          <div class="text-xs text-[var(--muted-foreground)] font-medium">Schnelle Konter</div>
+          <div class="text-2xl font-bold text-[var(--success)] tabular-nums mt-1">25 : 15</div>
+          <div class="text-xs text-[var(--muted-foreground)] mt-1">Hohe Ballgewinne: 11 : 8 SVO</div>
+        </div>
+      </div>
+
+      <!-- Narrative + Audio Disambiguation -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+        <div class="lg:col-span-7 bg-[var(--card)] border border-[var(--border)] rounded-xl p-5 space-y-3">
+          <h3 class="text-base font-bold text-[var(--foreground)]">Warum Obersülzen dieses Auswärtsspiel gewonnen hat</h3>
+          <p class="text-sm text-[var(--foreground)]">
+            SV 1970 Obersülzen präsentierte auswärts bei einem spielstarken SV 1920 Horchheim zwei völlig unterschiedliche, aber jeweils effektive Gesichter:
+            In einer mutigen <strong>ersten Halbzeit</strong> (44,6% Ballbesitz, 15 Passketten &ge;4) rückte Verteidiger <strong>#4 [C]</strong> situativ in einen 3er-Aufbau, während <strong>#22</strong> und <strong>#5</strong> das Zentrum kontrollierten. In einem fünfminütigen Feuerwerk drehte SVO durch <strong>#22</strong>s Freistoß-Flanke (23') und <strong>#5</strong>s wuchtigen 23-Meter-Flatterball (28') das Spiel trotz des unnötigen 1:1-Konters (24', nur 62 Sekunden nach dem 1:0).
+          </p>
+          <p class="text-sm text-[var(--muted-foreground)]">
+            In der <strong>zweiten Halbzeit</strong> (nur noch 34,5% Ballbesitz, ab der 76. Minute 20,8%) wurde das Spiel zur Abwehrschlacht gegen massive Horchheimer Rechtsangriffe (60,7% aller SVH-Drittel-Eintritte kamen über deren rechte Seite). Obersülzen hielt mit <strong>16 schnellen Gegenstößen in H2</strong> (mehr Großchancen durch Konter von #9, #3, #10 und #27) dagegen – und hatte im <strong>Torwart in Schwarz (11 Paraden, 7 davon nach der Pause)</strong> den überragenden Rückhalt.
+          </p>
+        </div>
+
+        <div class="lg:col-span-5 bg-[var(--content)] border border-[var(--card-border)] rounded-xl p-5 space-y-2.5">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-sm font-bold text-[var(--foreground)]">Transparenz: Kamera, Audio &amp; Trikot-ID</h3>
+            <span class="px-2 py-0.5 rounded text-xs font-semibold bg-[var(--card)] border border-[var(--card-border)] text-[var(--primary)]">1080p + Audio</span>
+          </div>
+          <ul class="text-xs text-[var(--muted-foreground)] space-y-2 list-disc pl-4">
+            <li><strong class="text-[var(--foreground)]">Mikrofon-Standort:</strong> Die Veo-Kamera stand auf der Seite der <em>Horchheimer Heimbank</em>. Laute Bank- und Gegnerrufe wie <em>„Seibert!“</em>, <em>„Fleischy!“</em> (Jonas Fleischer), <em>„Lars!“</em>, <em>„Tom!“</em>, <em>„Malte!“</em> oder <em>„Silas!“</em> gehören nachweislich zum <strong>SV 1920 Horchheim (Blau)</strong> und werden strikt getrennt.</li>
+            <li><strong class="text-[var(--foreground)]">Trikotnummern-Prüfung:</strong> Alle 11 Startspieler in Gelb/Schwarz wurden via 29 Vollbild-Frames &amp; 79 Zoom-Crops direkt auf den Rücken verifiziert: <strong>TW Schwarz, #3, #4 [C], #5, #9, #10, #18, #20, #22, #27, #47</strong> plus ein unnummert gesichteter <strong>H2-Joker</strong> (weißes Handgelenktape, ab 50' aktiv).</li>
+            <li><strong class="text-[var(--foreground)]">Keine Spekulationen:</strong> Wo hörbare Obersülzer Vornamen (z. B. <em>Jan, Ole, Yassin, Ömer, Johnny, Joshi, Flo, Nicki</em>) nicht zweifelsfrei im Nahbild einer Rückennummer zugeordnet werden konnten, bleibt dies in der <em>Kader-Brücke</em> offen markiert.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- KAPITEL 2: SPIELERBEWERTUNGEN & INTERAKTIVES SPIELFELD -->
+    <section id="kap-2" class="space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 class="text-xl font-bold text-[var(--foreground)]">2. Wie gut war welcher Spieler? — Vollständige Einzelkritik</h2>
+          <p class="text-xs text-[var(--muted-foreground)]">Klicke im Taktik-Spielfeld auf einen Spieler oder filtere unten durch alle 12 eingesetzten SVO-Akteure (Schulnoten 1,0–6,0 &amp; Score 0–100)</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 no-print" role="group" aria-label="Formationsmodus">
+          <button type="button" data-formation="h1" class="formation-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] cursor-pointer">
+            H1 Grundordnung (4-2-3-1)
+          </button>
+          <button type="button" data-formation="buildup" class="formation-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] cursor-pointer">
+            H1 Aufbau (3-4-2-1 ab 4')
+          </button>
+          <button type="button" data-formation="h2" class="formation-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] cursor-pointer">
+            H2 Abwehrblock (4-4-1-1 / Joker)
+          </button>
+        </div>
+      </div>
+
+      <!-- 2A: Interactive Pitch + Player Spotlight -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        <!-- SVG Pitch -->
+        <div class="lg:col-span-7 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div id="formation-caption" class="text-xs font-semibold text-[var(--foreground)]">
+              Startaufstellung 1. Halbzeit (SVO greift von links nach rechts an →)
+            </div>
+            <div class="flex items-center gap-3 text-xs text-[var(--muted-foreground)]">
+              <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full inline-block" style="background:#facc15;"></span> Feldspieler Gelb</span>
+              <span class="inline-flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full inline-block" style="background:#111827; border:1px solid #9ca3af;"></span> TW Schwarz</span>
+            </div>
+          </div>
+
+          <div class="w-full overflow-hidden rounded-xl border border-[var(--card-border)]">
+            <svg id="tactical-pitch" viewBox="0 0 680 440" class="w-full h-auto block" role="img" aria-label="Interaktives Spielfeld SV 1970 Obersülzen">
+              <defs>
+                <pattern id="turf-stripes" width="68" height="440" patternUnits="userSpaceOnUse">
+                  <rect width="34" height="440" fill="#14532d" />
+                  <rect x="34" width="34" height="440" fill="#166534" />
+                </pattern>
+              </defs>
+              <rect width="680" height="440" fill="url(#turf-stripes)" />
+              <!-- Pitch Lines -->
+              <g stroke="rgba(255,255,255,0.45)" stroke-width="2" fill="none">
+                <rect x="24" y="20" width="632" height="400" />
+                <line x1="340" y1="20" x2="340" y2="420" />
+                <circle cx="340" cy="220" r="56" />
+                <circle cx="340" cy="220" r="3" fill="rgba(255,255,255,0.7)" />
+                <!-- Left Penalty Box (SVO Goal) -->
+                <rect x="24" y="100" width="98" height="240" />
+                <rect x="24" y="158" width="34" height="124" />
+                <path d="M 122 172 A 54 54 0 0 1 122 268" />
+                <circle cx="88" cy="220" r="2.5" fill="rgba(255,255,255,0.7)" />
+                <!-- Right Penalty Box (SVH Goal) -->
+                <rect x="558" y="100" width="98" height="240" />
+                <rect x="622" y="158" width="34" height="124" />
+                <path d="M 558 172 A 54 54 0 0 0 558 268" />
+                <circle cx="592" cy="220" r="2.5" fill="rgba(255,255,255,0.7)" />
+              </g>
+              <!-- Attack Direction Arrow & Labels -->
+              <g id="pitch-direction" fill="rgba(255,255,255,0.78)" font-size="12" font-weight="600">
+                <text x="36" y="40">Eigenes Tor (SVO)</text>
+                <text x="530" y="40">Gegner-Tor (SVH) →</text>
+              </g>
+              <!-- Tactical Links & Nodes injected by JS -->
+              <g id="pitch-links"></g>
+              <g id="pitch-nodes"></g>
+            </svg>
+          </div>
+
+          <div class="text-xs text-[var(--muted-foreground)] flex flex-wrap items-center justify-between gap-2">
+            <span>Tipp: Klicke auf jeden Kreis im Spielfeld, um rechts direkt das vollständige Scouting-Profil anzuzeigen.</span>
+            <span class="tabular-nums font-medium">Legende: ⚽ Tor · 🅰️ Assist · [C] Kapitän</span>
+          </div>
+        </div>
+
+        <!-- Spotlight Card -->
+        <aside id="player-spotlight" class="lg:col-span-5 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-4">
+          <div class="text-xs text-[var(--muted-foreground)]">Spieler-Spotlight wird geladen...</div>
+        </aside>
+      </div>
+
+      <!-- 2B: Kader-Brücke & O-Ton Mapping -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 class="text-base font-bold text-[var(--foreground)]">Kader-Brücke: Verifizierte Trikotnummern &amp; Hörbare SVO-Namen</h3>
+            <p class="text-xs text-[var(--muted-foreground)]">Kombination aus optischer Rückennummern-Verifizierung (Video) und Vereins-/Kaderabgleich inklusive Pitch-Audio (O-Töne)</p>
+          </div>
+          <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[var(--content)] text-[var(--muted-foreground)]">Transparentes ID-Protokoll</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="bg-[var(--content)] border border-[var(--card-border)] rounded-xl p-4 space-y-2">
+            <div class="font-bold text-[var(--foreground)]">Teilweise namentlich verknüpft (Kader- &amp; Audioabgleich)</div>
+            <ul class="space-y-1.5 text-[var(--muted-foreground)]">
+              <li><strong class="text-[var(--foreground)]">#4 [C] (Kapitän):</strong> Trägt Kapitänsbinde links (sichtbar bei 67:30) → mutmaßlich <strong class="text-[var(--foreground)]">Sören Müsel</strong> (gemeldeter SVO-Spielführer).</li>
+              <li><strong class="text-[var(--foreground)]">TW Schwarz (evtl. #1):</strong> Im SVO-Torwartpool stehen <strong class="text-[var(--foreground)]">Kempf</strong>, <strong class="text-[var(--foreground)]">Joshua Mayer</strong> und <strong class="text-[var(--foreground)]">Tim Neumeister</strong>.</li>
+              <li><strong class="text-[var(--foreground)]">H2-Joker (weißes Tape, ab 50'):</strong> Vermutlicher Halbzeitwechsel für #47; zusätzlich fällt in Minute 76' der hörbare Wechselruf <strong class="text-[var(--foreground)]">„Nicki rein!“</strong> (→ <strong class="text-[var(--foreground)]">Tim Niklas Odenbach</strong>).</li>
+            </ul>
+          </div>
+          <div class="bg-[var(--content)] border border-[var(--card-border)] rounded-xl p-4 space-y-2">
+            <div class="font-bold text-[var(--foreground)]">Hörbare SVO-O-Töne im Spiel (Trikotnummer noch offen)</div>
+            <p class="text-[var(--muted-foreground)]">Diese SVO-Kaderspieler wurden akustisch per Ruf oder Coaching-Kommando identifiziert, jedoch noch nicht im Nahbild mit fester Trikotnummer verknüpft:</p>
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span class="px-2 py-1 rounded bg-[var(--card)] border border-[var(--card-border)] text-[var(--foreground)]"><strong>Jan Gaschott</strong> („Jan“ 35', 63', 65')</span>
+              <span class="px-2 py-1 rounded bg-[var(--card)] border border-[var(--card-border)] text-[var(--foreground)]"><strong>Oliver Ziese</strong> („Ole“ 63', 69')</span>
+              <span class="px-2 py-1 rounded bg-[var(--card)] border border-[var(--card-border)] text-[var(--foreground)]"><strong>Jassin Naainiaa</strong> („Yassin“ 14')</span>
+              <span class="px-2 py-1 rounded bg-[var(--card)] border border-[var(--card-border)] text-[var(--foreground)]"><strong>Ömer Beker</strong> („Ömer“ 28')</span>
+              <span class="px-2 py-1 rounded bg-[var(--card)] border border-[var(--card-border)] text-[var(--foreground)]"><strong>Jonathan Samesch</strong> („Johnny“ 37', 72')</span>
+              <span class="px-2 py-1 rounded bg-[var(--card)] border border-[var(--card-border)] text-[var(--foreground)]"><strong>Joshua Schlischka</strong> („Joshi“ 23', 74')</span>
+              <span class="px-2 py-1 rounded bg-[var(--card)] border border-[var(--card-border)] text-[var(--foreground)]"><strong>Florian Limpert / Frank</strong> („Flo“ 23', 45+2')</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2C: Noten-Ranking + Filter & Full 12-Player Grid -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h3 class="text-base font-bold text-[var(--foreground)]">Noten-Ranking &amp; Einzelkritik aller 12 SVO-Spieler</h3>
+            <p class="text-xs text-[var(--muted-foreground)]">Skala: 1,0 = Überragend · 2,0 = Stark · 2,5 = Ordentlich · 3,0 = Ausbaufähig (keine unverdiente Gefälligkeitsnote)</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 no-print">
+            <div class="flex flex-wrap gap-1.5" role="group" aria-label="Positionsfilter">
+              <button type="button" data-filter="all" class="player-filter-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] cursor-pointer">Alle (12)</button>
+              <button type="button" data-filter="def" class="player-filter-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[var(--content)] border border-[var(--card-border)] text-[var(--foreground)] cursor-pointer">Tor &amp; Abwehr (5)</button>
+              <button type="button" data-filter="mid" class="player-filter-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[var(--content)] border border-[var(--card-border)] text-[var(--foreground)] cursor-pointer">Zentrum &amp; Flügel (5)</button>
+              <button type="button" data-filter="att" class="player-filter-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[var(--content)] border border-[var(--card-border)] text-[var(--foreground)] cursor-pointer">Angriff &amp; Joker (2)</button>
+            </div>
+            <select id="player-sort" aria-label="Spieler sortieren" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[var(--content)] border border-[var(--card-border)] text-[var(--foreground)] cursor-pointer">
+              <option value="grade">Sortieren: Beste Note</option>
+              <option value="score">Sortieren: Score (0-100)</option>
+              <option value="num">Sortieren: Trikotnummer</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Horizontal Grade Comparison Bars -->
+        <div id="grade-bars" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5 bg-[var(--content)] border border-[var(--card-border)] rounded-xl p-3.5"></div>
+
+        <!-- Detailed Cards Grid -->
+        <div id="players-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+      </div>
+
+      <!-- 2D: Opponent Top-4 Check -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 class="text-base font-bold text-[var(--foreground)]">Gegner-Check: Die 4 auffälligsten Akteure von SV 1920 Horchheim (Blau)</h3>
+            <p class="text-xs text-[var(--muted-foreground)]">Warum Obersülzens Linke und Tiefe 95 Minuten lang unter Hochspannung standen</p>
+          </div>
+          <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[var(--content)] text-[var(--muted-foreground)]">Gegneranalyse</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div class="bg-[var(--content)] border border-[var(--card-border)] rounded-xl p-3.5 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-[var(--foreground)]">#27 Silas Schneider</span>
+              <span class="px-2 py-0.5 rounded font-semibold bg-[var(--card)] text-[var(--error)]">RA · Gefahrenherd #1</span>
+            </div>
+            <p class="text-[var(--muted-foreground)]">Trieb 60,7% aller SVH-Drittel-Eintritte über rechts voran. Enorme 1v1-Geschwindigkeit, zog immer wieder in den Rücken von #3 und schoss noch in 90' gefährlich aufs kurze Eck.</p>
+          </div>
+          <div class="bg-[var(--content)] border border-[var(--card-border)] rounded-xl p-3.5 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-[var(--foreground)]">SVH-Zentrum / #13 Malte Rheinheimer</span>
+              <span class="px-2 py-0.5 rounded font-semibold bg-[var(--card)] text-[var(--warning)]">10er / MS</span>
+            </div>
+            <p class="text-[var(--muted-foreground)]">Verlagerte klug nach rechts, suchte zwischen #4 und #18 die Schnittstellen. Beteiligt an Großchancen in H1 (5', 9', 15') und dem späten Druckaufbau in der Schlussphase.</p>
+          </div>
+          <div class="bg-[var(--content)] border border-[var(--card-border)] rounded-xl p-3.5 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-[var(--foreground)]">SVH TW in Rot</span>
+              <span class="px-2 py-0.5 rounded font-semibold bg-[var(--card)] text-[var(--foreground)]">Libero-TW · 6 Paraden</span>
+            </div>
+            <p class="text-[var(--muted-foreground)]">Leitete mit einem weiten Abschlag direkt den 1:1-Ausgleich (24') ein. In H2 mit 5 starken Paraden (u.a. gegen #9 und #3 bei 66'), beim 23m-Flatterball von #5 machtlos.</p>
+          </div>
+          <div class="bg-[var(--content)] border border-[var(--card-border)] rounded-xl p-3.5 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-[var(--foreground)]">Jonas „Fleischy“ Fleischer &amp; C. Seibert</span>
+              <span class="px-2 py-0.5 rounded font-semibold bg-[var(--card)] text-[var(--foreground)]">IV / 6er</span>
+            </div>
+            <p class="text-[var(--muted-foreground)]">Dirigierten den Horchheimer Aufbau (71,9% kurze Eröffnungen, 56 Passketten &ge;4). Bei schnellen SVO-Kontern über die Flügel fehlte jedoch gelegentlich das Tempo im Rückwärtslauf.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KAPITEL 3: MOMENTUM & TEAMSTATISTIKEN -->
+    <section id="kap-3" class="space-y-6">
+      <div>
+        <h2 class="text-xl font-bold text-[var(--foreground)]">3. Spielverlauf, Momentum-Kurve &amp; Teamstatistiken</h2>
+        <p class="text-xs text-[var(--muted-foreground)]">Interaktive Minutenkurve über alle 32 Videosegmente plus vollständiger Halbzeit- und Gesamtvergleich</p>
+      </div>
+
+      <!-- 3A: Momentum Canvas -->
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h3 class="text-base font-bold text-[var(--foreground)]">90+4 Minuten Phasen- &amp; Ballbesitz-Timeline</h3>
+            <p class="text-xs text-[var(--muted-foreground)]">Fahre mit der Maus über eine Spielphase, um Ballbesitz, Schüsse und Schlüsselszenen anzuzeigen</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 no-print">
+            <button type="button" data-chartmode="momentum" class="chart-mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] cursor-pointer">
+              Spielkontrolle vs. 50/50
+            </button>
+            <button type="button" data-chartmode="possession" class="chart-mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--content)] border border-[var(--card-border)] text-[var(--foreground)] cursor-pointer">
+              Ballbesitz % SVO vs. SVH
+            </button>
+          </div>
+        </div>
+
+        <div class="w-full">
+          <canvas id="momentum-canvas" class="w-full block rounded-xl bg-[var(--content)] border border-[var(--card-border)]" style="height: 310px;"></canvas>
+        </div>
+
+        <div id="momentum-readout" class="bg-[var(--content)] border border-[var(--card-border)] rounded-xl px-4 py-3 text-xs flex flex-wrap items-center justify-between gap-2">
+          <span class="font-semibold text-[var(--foreground)]">Phasen-Inspektor: Fahre über eine Spielphase für exakten Ballbesitz, Abschlüsse und Schlüsselszenen (6 Phasen aus 32 Clips).</span>
+          <span class="text-[var(--muted-foreground)] tabular-nums">Gelb = SVO · Blau = SVH</span>
+        </div>
+      </div>
+
+      <!-- 3B + 3C: Stats Table + Flanks & Territory -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        <div class="lg:col-span-7 bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-3 overflow-x-auto">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-base font-bold text-[var(--foreground)]">Vollständige Spielstatistik (H1 · H2 · Gesamt)</h3>
+            <span class="text-xs text-[var(--muted-foreground)]">SVO vs. SVH</span>
+          </div>
+          <table class="w-full text-xs text-left border-collapse">
+            <thead>
+              <tr class="border-b border-[var(--card-border)] text-[var(--muted-foreground)]">
+                <th class="py-2 pr-2 font-semibold">Kennzahl</th>
+                <th class="py-2 px-2 text-right font-semibold">SVO (H1 / H2)</th>
+                <th class="py-2 px-2 text-right font-bold text-[var(--foreground)]">SVO Ges.</th>
+                <th class="py-2 px-2 text-center font-semibold">Verhältnis</th>
+                <th class="py-2 px-2 text-left font-bold text-[var(--foreground)]">SVH Ges.</th>
+                <th class="py-2 pl-2 text-left font-semibold">SVH (H1 / H2)</th>
+              </tr>
+            </thead>
+            <tbody id="stats-table-body" class="divide-y divide-[var(--card-border)]"></tbody>
+          </table>
+        </div>
+
+        <!-- Territory + Zone Map + Phase Summary -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-3">
+            <h3 class="text-base font-bold text-[var(--foreground)]">Angriffswege &amp; Zonen-Dominanz</h3>
+            <p class="text-xs text-[var(--muted-foreground)]">Eintritte ins letzte Angriffsdrittel (Links / Zentrum / Rechts)</p>
+
+            <!-- Custom Clean SVG Flank Distribution -->
+            <svg viewBox="0 0 420 210" class="w-full h-auto rounded-xl border border-[var(--card-border)] block" role="img" aria-label="Flanken- und Zonenverteilung">
+              <rect width="420" height="210" fill="#14532d" />
+              <g stroke="rgba(255,255,255,0.28)" stroke-width="1.5" fill="none">
+                <rect x="12" y="12" width="396" height="186" rx="4" />
+                <line x1="210" y1="12" x2="210" y2="198" />
+                <line x1="12" y1="74" x2="408" y2="74" stroke-dasharray="4 4" />
+                <line x1="12" y1="136" x2="408" y2="136" stroke-dasharray="4 4" />
+              </g>
+              <!-- Left Column: SVO Final Third (49) -->
+              <text x="110" y="30" text-anchor="middle" fill="#facc15" font-size="12" font-weight="700">SV Obersülzen (49)</text>
+              <rect x="28" y="38" width="164" height="30" rx="6" fill="rgba(250,204,21,0.18)" stroke="#facc15" />
+              <text x="110" y="57" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="600">Links: 15 (30,6%) · Box 6</text>
+              <rect x="28" y="88" width="164" height="30" rx="6" fill="rgba(250,204,21,0.14)" stroke="rgba(250,204,21,0.65)" />
+              <text x="110" y="107" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="600">Zentrum: 11 (22,4%) · Box 10</text>
+              <rect x="28" y="144" width="164" height="36" rx="6" fill="rgba(250,204,21,0.30)" stroke="#facc15" stroke-width="2" />
+              <text x="110" y="166" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="700">Rechts: 23 (46,9%) · Box 11</text>
+
+              <!-- Right Column: SVH Final Third (56) -->
+              <text x="310" y="30" text-anchor="middle" fill="#93c5fd" font-size="12" font-weight="700">SV Horchheim (56)</text>
+              <rect x="228" y="38" width="164" height="30" rx="6" fill="rgba(59,130,246,0.16)" stroke="rgba(147,197,253,0.65)" />
+              <text x="310" y="57" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="600">Links: 14 (25,0%) · Box 9</text>
+              <rect x="228" y="88" width="164" height="30" rx="6" fill="rgba(59,130,246,0.12)" stroke="rgba(147,197,253,0.55)" />
+              <text x="310" y="107" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="600">Zentrum: 8 (14,3%) · Box 10</text>
+              <rect x="228" y="144" width="164" height="36" rx="6" fill="rgba(239,68,68,0.34)" stroke="#f87171" stroke-width="2" />
+              <text x="310" y="166" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="700">Rechts: 34 (60,7%!) · Box 20</text>
+            </svg>
+
+            <div class="bg-[var(--content)] border border-[var(--card-border)] rounded-xl p-3 text-xs space-y-2">
+              <div class="font-semibold text-[var(--foreground)]">Territorium (aus SVO-Sicht: Abwehr / Mitte / Angriff)</div>
+              <div class="flex items-center justify-between text-[var(--muted-foreground)] tabular-nums">
+                <span>1. Halbzeit: 24,0% / 39,5% / 36,5%</span>
+                <span>2. Halbzeit: 28,6% / 35,6% / 35,8%</span>
+              </div>
+              <div class="w-full h-3 rounded-full overflow-hidden flex border border-[var(--card-border)]">
+                <div style="width:26.3%; background: var(--error);" title="Eigenes Abwehrdrittel 26,3%"></div>
+                <div style="width:37.6%; background: var(--warning);" title="Mittelfeld 37,6%"></div>
+                <div style="width:36.1%; background: var(--success);" title="Angriffsdrittel 36,1%"></div>
+              </div>
+              <div class="flex justify-between text-xs text-[var(--muted-foreground)] tabular-nums">
+                <span>Defensiv: 26,3%</span>
+                <span>Mittelfeld: 37,6%</span>
+                <span>Offensiv: 36,1%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6-Phase Breakdown -->
+          <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-2.5">
+            <h3 class="text-base font-bold text-[var(--foreground)]">Die 6 Spielphasen im Schnelldurchlauf</h3>
+            <div class="space-y-2 text-xs">
+              <div class="bg-[var(--content)] rounded-lg p-2.5 flex justify-between gap-2">
+                <span><strong class="text-[var(--foreground)]">1'–18':</strong> Offener Schlagabtausch, #4 rückt in 3er-Aufbau, TW rettet 2× (5', 9').</span>
+                <span class="font-bold text-[var(--muted-foreground)] shrink-0">0:0</span>
+              </div>
+              <div class="bg-[var(--content)] rounded-lg p-2.5 flex justify-between gap-2">
+                <span><strong class="text-[var(--success)]">19'–30':</strong> Irre 6 Minuten! #22 assistiert zum 1:0 (23'), Konter-1:1 (24'), #5-Hammer zum 2:1 (28').</span>
+                <span class="font-bold text-[var(--success)] shrink-0">2:1</span>
+              </div>
+              <div class="bg-[var(--content)] rounded-lg p-2.5 flex justify-between gap-2">
+                <span><strong class="text-[var(--foreground)]">31'–45+2':</strong> SVO schließt das Zentrum (#22/#47-Falle 36'), hält die Führung sicher in die Pause.</span>
+                <span class="font-bold text-[var(--foreground)] shrink-0">2:1 HZ</span>
+              </div>
+              <div class="bg-[var(--content)] rounded-lg p-2.5 flex justify-between gap-2">
+                <span><strong class="text-[var(--warning)]">46'–60':</strong> Horchheimer Sturmlauf, TW Schwarz hält 3× überragend (56', 57'), #9 vergibt Konter-1v1 (54').</span>
+                <span class="font-bold text-[var(--warning)] shrink-0">Druck SVH</span>
+              </div>
+              <div class="bg-[var(--content)] rounded-lg p-2.5 flex justify-between gap-2">
+                <span><strong class="text-[var(--success)]">61'–75':</strong> Obersülzens stärkste H2-Entlastung! #3 (65'/66' 5m-Chance!) und #10 verpassen das 3:1.</span>
+                <span class="font-bold text-[var(--success)] shrink-0">3:1 möglich</span>
+              </div>
+              <div class="bg-[var(--content)] rounded-lg p-2.5 flex justify-between gap-2">
+                <span><strong class="text-[var(--error)]">76'–90+4':</strong> Abwehrschlacht (20,8% Ballbesitz), 4 Paraden durch TW, #27 &amp; #20 entlasten bis zum Abpfiff.</span>
+                <span class="font-bold text-[var(--success)] shrink-0">Sieg 2:1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KAPITEL 4: DIE 4 TAKTISCHEN SCHLÜSSELSZENEN (SVG-TAFELN) -->
+    <section id="kap-4" class="space-y-4">
+      <div>
+        <h2 class="text-xl font-bold text-[var(--foreground)]">4. Die 4 Taktischen Schlüsselszenen (Detail-Tafeln)</h2>
+        <p class="text-xs text-[var(--muted-foreground)]">Rekonstruktion aus den Videostandbildern: Aufbau-Kniff, Pressing-Falle, das einzige Gegentor und das Siegtor</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <!-- Board 1: 3-Back Buildup -->
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-sm font-bold text-[var(--foreground)]">Szene 1 (04'–18'): Mutiger 3er-Aufbau durch #4 [C]</h3>
+            <span class="px-2 py-0.5 rounded text-xs font-semibold bg-[var(--content)] text-[var(--primary)]">Aufbau H1</span>
+          </div>
+          <svg viewBox="0 0 460 250" class="w-full h-auto rounded-xl border border-[var(--card-border)] block" role="img" aria-label="Taktiktafel 3er-Aufbau">
+            <defs><marker id="arr-y1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,1 L7,4 L0,7 Z" fill="#facc15" /></marker><marker id="arr-w1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,1 L7,4 L0,7 Z" fill="#ffffff" /></marker></defs>
+            <rect width="460" height="250" fill="#155e36" />
+            <g stroke="rgba(255,255,255,0.35)" stroke-width="1.5" fill="none">
+              <rect x="14" y="14" width="432" height="222" />
+              <line x1="250" y1="14" x2="250" y2="236" />
+              <rect x="14" y="62" width="70" height="126" />
+              <circle cx="250" cy="125" r="38" />
+            </g>
+            <!-- SVO Back 3 + Pivot -->
+            <path d="M 105 125 L 118 70" stroke="#facc15" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-y1)" />
+            <path d="M 118 70 L 185 95" stroke="#ffffff" stroke-width="2" marker-end="url(#arr-w1)" />
+            <path d="M 115 190 L 210 198" stroke="#facc15" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-y1)" />
+            <!-- Players Yellow -->
+            <circle cx="38" cy="125" r="14" fill="#111827" stroke="#9ca3af" stroke-width="2" /><text x="38" y="129" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">TW</text>
+            <circle cx="118" cy="68" r="14" fill="#facc15" stroke="#111827" stroke-width="2" /><text x="118" y="72" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#4</text>
+            <circle cx="112" cy="128" r="14" fill="#facc15" stroke="#111827" stroke-width="2" /><text x="112" y="132" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#5</text>
+            <circle cx="116" cy="188" r="14" fill="#facc15" stroke="#111827" stroke-width="2" /><text x="116" y="192" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#20</text>
+            <circle cx="188" cy="150" r="14" fill="#facc15" stroke="#111827" stroke-width="2" /><text x="188" y="154" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#22</text>
+            <circle cx="192" cy="96" r="14" fill="#facc15" stroke="#111827" stroke-width="2" /><text x="192" y="100" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#18</text>
+            <circle cx="222" cy="34" r="14" fill="#facc15" stroke="#111827" stroke-width="2" /><text x="222" y="38" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#3</text>
+            <!-- SVH Pressers Blue -->
+            <circle cx="236" cy="112" r="13" fill="#2563eb" stroke="#fff" stroke-width="1.5" /><text x="236" y="116" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">9</text>
+            <circle cx="240" cy="162" r="13" fill="#2563eb" stroke="#fff" stroke-width="1.5" /><text x="240" y="166" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">13</text>
+            <text x="24" y="226" fill="#fff" font-size="12" font-weight="600">3v2-Überzahl gegen SVH-Doppelspitze · #3 schiebt hoch als Flügel-Schiene</text>
+          </svg>
+          <p class="text-xs text-[var(--muted-foreground)]">Ab der 4. Minute bildeten #4 [C], #5 und #20 gegen Horchheims 4-4-2-Anlaufen eine breite Dreierkette. Dadurch schob #3 links weit vor und #18/#22 fanden freie Halbraum-Winkel.</p>
+        </div>
+
+        <!-- Board 2: Pressing Trap -->
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-sm font-bold text-[var(--foreground)]">Szene 2 (36'): Zentrales Pressing-Trap (#9, #22 &amp; #47)</h3>
+            <span class="px-2 py-0.5 rounded text-xs font-semibold bg-[var(--content)] text-[var(--success)]">Hoher Ballgewinn</span>
+          </div>
+          <svg viewBox="0 0 460 250" class="w-full h-auto rounded-xl border border-[var(--card-border)] block" role="img" aria-label="Taktiktafel Pressingfalle 36. Minute">
+            <defs><marker id="arr-y2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,1 L7,4 L0,7 Z" fill="#facc15" /></marker></defs>
+            <rect width="460" height="250" fill="#155e36" />
+            <g stroke="rgba(255,255,255,0.35)" stroke-width="1.5" fill="none">
+              <rect x="14" y="14" width="432" height="222" />
+              <line x1="210" y1="14" x2="210" y2="236" />
+              <circle cx="210" cy="125" r="38" />
+              <rect x="376" y="62" width="70" height="126" />
+            </g>
+            <!-- Trap Zone -->
+            <ellipse cx="268" cy="125" rx="46" ry="40" fill="rgba(250,204,21,0.18)" stroke="#facc15" stroke-dasharray="5 3" />
+            <circle cx="268" cy="125" r="13" fill="#2563eb" stroke="#fff" stroke-width="1.5" /><text x="268" y="129" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">6er</text>
+            <circle cx="348" cy="94" r="13" fill="#2563eb" stroke="#fff" stroke-width="1.5" /><text x="348" y="98" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">IV</text>
+            <!-- SVO Closing arrows -->
+            <path d="M 294 82 L 278 108" stroke="#facc15" stroke-width="2" marker-end="url(#arr-y2)" />
+            <path d="M 232 146 L 254 134" stroke="#facc15" stroke-width="2" marker-end="url(#arr-y2)" />
+            <path d="M 272 184 L 270 144" stroke="#facc15" stroke-width="2" marker-end="url(#arr-y2)" />
+            <!-- SVO Players -->
+            <circle cx="300" cy="74" r="14" fill="#facc15" stroke="#111827" stroke-width="2" /><text x="300" y="78" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#9</text>
+            <circle cx="222" cy="152" r="14" fill="#facc15" stroke="#111827" stroke-width="2" /><text x="222" y="156" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#22</text>
+            <circle cx="272" cy="192" r="14" fill="#facc15" stroke="#111827" stroke-width="2" /><text x="272" y="196" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#47</text>
+            <circle cx="174" cy="118" r="14" fill="#facc15" stroke="#111827" stroke-width="2" /><text x="174" y="122" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#5</text>
+            <text x="24" y="226" fill="#fff" font-size="12" font-weight="600">#9 macht Bogenlauf &amp; lenkt nach innen · #22 + #47 schließen sofort die Zange</text>
+          </svg>
+          <p class="text-xs text-[var(--muted-foreground)]">Musterbeispiel für mannschaftliche Kompaktheit (11 hohe Ballgewinne gesamt): #9 schnitt den Rückpass zum SVH-IV ab, während #47 von außen einrückte und gemeinsam mit #22 das Zentrum dichtmachte.</p>
+        </div>
+
+        <!-- Board 3: Conceded Goal 1:1 (24') -->
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-sm font-bold text-[var(--foreground)]">Szene 3 (24', 00:24:35): Das 1:1 — 62s nach Anstoß</h3>
+            <span class="px-2 py-0.5 rounded text-xs font-semibold bg-[var(--content)] text-[var(--error)]">Gegentor-Analyse</span>
+          </div>
+          <svg viewBox="0 0 460 250" class="w-full h-auto rounded-xl border border-[var(--card-border)] block" role="img" aria-label="Taktiktafel Gegentor 24. Minute">
+            <defs><marker id="arr-r3" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,1 L7,4 L0,7 Z" fill="#f87171" /></marker></defs>
+            <rect width="460" height="250" fill="#155e36" />
+            <g stroke="rgba(255,255,255,0.35)" stroke-width="1.5" fill="none">
+              <rect x="14" y="14" width="432" height="222" />
+              <line x1="230" y1="14" x2="230" y2="236" />
+              <rect x="14" y="62" width="74" height="126" />
+              <circle cx="230" cy="125" r="38" />
+            </g>
+            <!-- Exposed Depth Corridor -->
+            <polygon points="105,64 215,82 215,126 95,112" fill="rgba(239,68,68,0.28)" stroke="#f87171" stroke-dasharray="4 3" />
+            <!-- Long Ball + Flick + Through Ball -->
+            <path d="M 412 125 Q 320 65 256 96" stroke="#93c5fd" stroke-width="2" stroke-dasharray="5 3" />
+            <path d="M 244 102 L 122 86" stroke="#f87171" stroke-width="2.5" marker-end="url(#arr-r3)" />
+            <path d="M 110 86 L 52 114" stroke="#f87171" stroke-width="2.5" marker-end="url(#arr-r3)" />
+            <!-- SVH Players -->
+            <circle cx="420" cy="125" r="13" fill="#dc2626" stroke="#fff" stroke-width="1.5" /><text x="420" y="129" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">TW</text>
+            <circle cx="250" cy="100" r="13" fill="#2563eb" stroke="#fff" stroke-width="1.5" /><text x="250" y="104" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">SVH</text>
+            <circle cx="114" cy="84" r="13" fill="#2563eb" stroke="#fff" stroke-width="2" /><text x="114" y="88" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">1:1</text>
+            <!-- SVO Defenders out of sync -->
+            <circle cx="38" cy="125" r="14" fill="#111827" stroke="#9ca3af" stroke-width="2" /><text x="38" y="129" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">TW</text>
+            <circle cx="170" cy="136" r="14" fill="#facc15" stroke="#f87171" stroke-width="2" /><text x="170" y="140" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#18</text>
+            <circle cx="104" cy="166" r="14" fill="#facc15" stroke="#111827" stroke-width="2" /><text x="104" y="170" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#4</text>
+            <circle cx="114" cy="196" r="14" fill="#facc15" stroke="#111827" stroke-width="2" /><text x="114" y="200" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#20</text>
+            <text x="24" y="226" fill="#fff" font-size="12" font-weight="600">Nach dem 1:0-Jubel fehlt Restsicherung · Tiefe hinter #18 völlig offen</text>
+          </svg>
+          <p class="text-xs text-[var(--muted-foreground)]">Langer Abschlag vom Horchheimer Torhüter, gewonnene Kopfballverlängerung im Zentrum und direkter Steilpass in die halblinke Tiefe hinter dem vorgeschobenen #18 – eiskalt im 1v1 vollendet.</p>
+        </div>
+
+        <!-- Board 4: Winning Goal 2:1 by #5 (28') -->
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="text-sm font-bold text-[var(--foreground)]">Szene 4 (28', 00:28:42): Das Siegtor zum 2:1 durch #5</h3>
+            <span class="px-2 py-0.5 rounded text-xs font-semibold bg-[var(--content)] text-[var(--success)]">Matchwinner-Tor</span>
+          </div>
+          <svg viewBox="0 0 460 250" class="w-full h-auto rounded-xl border border-[var(--card-border)] block" role="img" aria-label="Taktiktafel Siegtor 28. Minute">
+            <defs><marker id="arr-g4" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,1 L7,4 L0,7 Z" fill="#4ade80" /></marker></defs>
+            <rect width="460" height="250" fill="#155e36" />
+            <g stroke="rgba(255,255,255,0.35)" stroke-width="1.5" fill="none">
+              <rect x="14" y="14" width="432" height="222" />
+              <line x1="210" y1="14" x2="210" y2="236" />
+              <rect x="372" y="62" width="74" height="126" />
+              <circle cx="210" cy="125" r="38" />
+            </g>
+            <!-- Zone 14 Highlight -->
+            <rect x="296" y="76" width="66" height="98" rx="6" fill="rgba(74,222,128,0.16)" stroke="#4ade80" stroke-dasharray="4 3" />
+            <!-- #5 Run & Shot -->
+            <path d="M 244 48 Q 275 85 314 108" stroke="#facc15" stroke-width="2.5" stroke-dasharray="5 3" marker-end="url(#arr-g4)" />
+            <path d="M 326 112 Q 382 104 436 122" stroke="#4ade80" stroke-width="3" marker-end="url(#arr-g4)" />
+            <!-- SVO Players -->
+            <circle cx="318" cy="112" r="15" fill="#facc15" stroke="#4ade80" stroke-width="2.5" /><text x="318" y="116" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#5</text>
+            <circle cx="364" cy="144" r="14" fill="#facc15" stroke="#111827" stroke-width="2" /><text x="364" y="148" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#9</text>
+            <circle cx="268" cy="54" r="14" fill="#facc15" stroke="#111827" stroke-width="2" /><text x="268" y="58" text-anchor="middle" fill="#111827" font-size="12" font-weight="700">#10</text>
+            <!-- SVH GK -->
+            <circle cx="428" cy="126" r="13" fill="#dc2626" stroke="#fff" stroke-width="1.5" /><text x="428" y="130" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">TW</text>
+            <text x="24" y="226" fill="#fff" font-size="12" font-weight="600">#5 zieht halblinks nach innen → ~23m-Flatterball schlägt unhaltbar ein (2:1!)</text>
+          </svg>
+          <p class="text-xs text-[var(--muted-foreground)]">Perfekter Mut-Anfall von Verteidiger/Sechser #5: Löst sich nach links-innen ins verwaiste Zone-14-Feld, nimmt bei ~23 Metern Maß und jagt einen flatternden Fernschuss über Horchheims Keeper hinweg ins Netz.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- KAPITEL 5: CHRONOLOGISCHES EREIGNISPROTOKOLL -->
+    <section id="kap-5" class="space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 class="text-xl font-bold text-[var(--foreground)]">5. Chronologisches Ereignisprotokoll (90+4 Minuten)</h2>
+          <p class="text-xs text-[var(--muted-foreground)]">Alle Schlüsselszenen mit Video-Zeitcode, Hauptbeteiligten und Einordnung</p>
+        </div>
+        <div class="flex flex-wrap gap-1.5 no-print" role="group" aria-label="Ereignisfilter">
+          <button type="button" data-evfilter="all" class="ev-filter-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] cursor-pointer">Alle</button>
+          <button type="button" data-evfilter="goal" class="ev-filter-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] cursor-pointer">Tore &amp; Großchancen</button>
+          <button type="button" data-evfilter="save" class="ev-filter-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] cursor-pointer">TW-Paraden</button>
+          <button type="button" data-evfilter="tactic" class="ev-filter-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] cursor-pointer">Standards, Karten &amp; Taktik</button>
+        </div>
+      </div>
+
+      <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 overflow-x-auto">
+        <table class="w-full text-xs text-left border-collapse">
+          <thead>
+            <tr class="border-b border-[var(--card-border)] text-[var(--muted-foreground)]">
+              <th class="py-2 pr-3 font-semibold">Minute</th>
+              <th class="py-2 px-2 font-semibold">Typ</th>
+              <th class="py-2 px-2 font-semibold">Team</th>
+              <th class="py-2 px-2 font-semibold">Akteure</th>
+              <th class="py-2 pl-2 font-semibold">Beschreibung</th>
+            </tr>
+          </thead>
+          <tbody id="events-table-body" class="divide-y divide-[var(--card-border)]"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- KAPITEL 6: FAZIT & TRAININGSPLAN -->
+    <section id="kap-6" class="space-y-5">
+      <div>
+        <h2 class="text-xl font-bold text-[var(--foreground)]">6. Taktisches Fazit, Stärken-Schwächen &amp; Konkreter Trainingsplan</h2>
+        <p class="text-xs text-[var(--muted-foreground)]">Was im nächsten Bezirksliga-Spiel wiederholt werden muss – und woran in den nächsten 3 Einheiten gezielt zu arbeiten ist</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-2.5">
+          <h3 class="text-base font-bold text-[var(--success)]">Was bereits Bezirksliga-Spitzenformat hatte</h3>
+          <ul class="text-xs text-[var(--foreground)] space-y-2 list-disc pl-4">
+            <li><strong>Überragende Strafraum- &amp; Torhüter-Präsenz:</strong> 11 Paraden (91,7% Fangquote), dazu kompromissloses Blocken von 4 gefährlichen Schüssen im Kollektiv.</li>
+            <li><strong>Brutale Konter- und Standard-Effizienz:</strong> Aus 39,6% Ballbesitz wurden ebenso viele Gesamtschüsse (17:17) wie der balldominante Gastgeber herausgespielt – mit 25 schnellen Gegenstößen.</li>
+            <li><strong>Variabler H1-Aufbau mit #4 [C] &amp; #5:</strong> Das Ausbrechen aus dem gegnerischen Pressing über die Dreierkette und #5s Tiefe-Läufe war taktisch hochreif.</li>
+            <li><strong>Waffen-Einwürfe von #20 &amp; ruhende Bälle von #22:</strong> Generierten sofort Stress im Horchheimer Sechzehner und leiteten direkt das 1:0 ein.</li>
+          </ul>
+        </div>
+
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-2.5">
+          <h3 class="text-base font-bold text-[var(--error)]">Klare Risikozonen (Dringender Handlungsbedarf)</h3>
+          <ul class="text-xs text-[var(--foreground)] space-y-2 list-disc pl-4">
+            <li><strong>Anfälligkeit für Halbraum-Steilpässe nach Ballverlust/Tor:</strong> Das 1:1 (24') nur 62 Sekunden nach eigener Führung war ein klassisches Restverteidigungs-Problem im Rücken von #18.</li>
+            <li><strong>Linke Defensivflanke gegen rechtslastige Gegner:</strong> 60,7% aller SVH-Drittel-Eintritte kamen über Horchheims rechte Seite (#27 Silas Schneider) – dort drohte in H2 mehrfach der Ausgleich.</li>
+            <li><strong>Entlastungsarmut in der letzten Viertelstunde:</strong> Nur 20,8% Ballbesitz ab der 76. Minute und hektische Befreiungsschläge ohne 2. Pass (nur 8 Passketten &ge;4 in ganz H2).</li>
+            <li><strong>Chancenverwertung nach der Pause (66'):</strong> Das offene 3:1 (u.a. 5m-Chance nach #3-Vorarbeit, 1v1 #9) muss zur Beruhigung früher gezogen werden.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 3 Training Drills -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-2">
+          <span class="px-2 py-0.5 rounded text-xs font-semibold bg-[var(--content)] text-[var(--primary)]">Übung 1 · Restverteidigung</span>
+          <h4 class="text-sm font-bold text-[var(--foreground)]">3+2 Restsicherung „Nach dem Tor / Ballverlust“</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">9v9-Spielform mit Zusatzregel: Nach Torerfolg wird sofort durch das Gegner-Torwart-Kommando ein zweiter Ball per weitem Abschlag eingespielt. Beide IV (#4, #5) + ein Sechser (#18/#22) müssen vor Überspielen der Mittellinie Tiefe &amp; Kopfball-Ablage abdecken.</p>
+          <div class="text-xs font-semibold text-[var(--foreground)] pt-1">Fokus: #18, #4 [C], #5 · Dauer: 20 Min</div>
+        </div>
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-2">
+          <span class="px-2 py-0.5 rounded text-xs font-semibold bg-[var(--content)] text-[var(--warning)]">Übung 2 · Flankenschutz Links</span>
+          <h4 class="text-sm font-bold text-[var(--foreground)]">Halbraum-Doppeln gegen inverse &amp; schnelle Außen</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">Seiten-Trichter 3v3+1 auf halbem Feld: Linksverteidiger (#3) stellt die Außenlinie, Linksaußen (#10) sprintet sofort diagonal in den Passwinkel nach innen, während LIV (#4/#5) die Schnittstelle schließt. Ziel: Flankenquote auf unter 30% drücken.</p>
+          <div class="text-xs font-semibold text-[var(--foreground)] pt-1">Fokus: #3, #10, #4 [C] · Dauer: 20 Min</div>
+        </div>
+        <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-5 space-y-2">
+          <span class="px-2 py-0.5 rounded text-xs font-semibold bg-[var(--content)] text-[var(--success)]">Übung 3 · Sauberer Entlastungsball</span>
+          <h4 class="text-sm font-bold text-[var(--foreground)]">2-Pass-Befreiung &amp; Zielspieler-Ablage unter Druck</h4>
+          <p class="text-xs text-[var(--muted-foreground)]">8v10 im eigenen Abwehrdrittel: Bei Ballgewinn zählt ein Kontertor erst nach einem Pflicht-Wandpass über Zielspieler #9/#27 auf einen nachrückenden Außen (#10, #20, Joker). Trainiert ruhige erste Kontakte unter Hochdruck statt blinder Schläge in Minute 75–90+.</p>
+          <div class="text-xs font-semibold text-[var(--foreground)] pt-1">Fokus: #27, #9, #10, #18 · Dauer: 25 Min</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="pt-4 pb-8 border-t border-[var(--card-border)] text-xs text-[var(--muted-foreground)] flex flex-wrap items-center justify-between gap-2">
+      <span>SV 1970 Obersülzen · Video- &amp; Kader-Scoutingbericht (Bezirksliga Rheinhessen, 08.11.2026)</span>
+      <span>Erstellt aus 32 Video-Clips (1080p), O-Ton-Disambiguierung &amp; Kader-Verifikation</span>
+    </footer>
+  </div>
+  <script>
+    (function () {
+      'use strict';
+
+      const PLAYERS = [
+        {
+          id: 'tw',
+          num: 'TW',
+          shortLabel: 'TW',
+          name: 'TW Schwarz (evtl. #1)',
+          squadHint: 'Kaderpool: Kempf / Joshua Mayer / Tim Neumeister',
+          role: 'Torwart · Libero-Rückhalt',
+          posGroup: 'def',
+          numOrder: 1,
+          grade: 1.3,
+          noteLabel: '1,3',
+          score: 93,
+          verdict: 'Überragend · Spieler des Spiels (MVP)',
+          minutes: '90+4 Min. (Durchgespielt)',
+          visualId: 'Komplett schwarzes Torwart-Outfit, durchgehend laute Kommandos an die Kette',
+          keyStats: '11 Paraden · 12 Schüsse aufs Tor (91,7%) · 1 Gegentor (1v1 chancenlos)',
+          actions: ['5\' Kurzes Eck', '9\' 1v1-Retter', '32\' Fünfer', '56\'/57\' Doppel', '83\'/87\' 1v1'],
+          strengths: 'Absoluter Matchwinner zwischen den Pfosten. Entschärfte in Halbzeit 1 drei riesige Chancen (5\', 9\', 32\') und steigerte sich nach dem Seitenwechsel mit 7 Paraden (darunter die Doppel-Großchance 56\'/57\' sowie zwei 1v1-Duelle in 83\' und 87\'). Exzellentes Timing beim Winkelverkürzen.',
+          improvements: 'Spieleröffnung in der 2. Halbzeit unter hohem Gegnerdruck fast ausschließlich mit langen Abschlägen (teamweit nur 2 kurze gegenüber 11 langen Eröffnungen in H2), was zu schnellem Wiederverlust führte. Beim 1:1 (24\') völlig im Stich gelassen.',
+          coachTip: 'Weiterhin Anspiel-Dreiecke mit #4 und #5 kurz einfordern, sobald der erste Pressingdruck nachlässt.'
+        },
+        {
+          id: 'p5',
+          num: '#5',
+          shortLabel: '#5',
+          name: 'Trikot #5 (Matchwinner 2:1)',
+          squadHint: 'Trikotnummer #5 optisch verifiziert',
+          role: 'LIV / einrückender Sechser-L',
+          posGroup: 'def',
+          numOrder: 5,
+          grade: 1.7,
+          noteLabel: '1,7',
+          score: 88,
+          verdict: 'Sehr stark · Offensiver Abwehr-Antreiber',
+          minutes: '90+4 Min. (Durchgespielt)',
+          visualId: 'Gelbes Trikot #5, schiebt im Ballbesitz mutig ins halblinke Mittelfeld vor',
+          keyStats: '1 Tor (28\' 2:1) · H1-Dreierkette · H2-Box-Leader bis 93\'',
+          actions: ['⚽ 28\' 2:1 (23m)', '4\' 3er-Aufbau', '65\' Block', '93\' Klärung'],
+          strengths: 'Spielentscheidende Leistung in beide Richtungen: Rückte immer wieder mutig aus der Kette in freie Zwischenräume, behauptete sich in Minute 28\' halblinks am Ball und jagte einen wuchtigen 23-Meter-Flatterball unhaltbar zum 2:1-Siegtor ins Netz. Auch defensiv bis in die 93. Minute extrem präsent.',
+          improvements: 'Wenn er weit ins Mittelfeld vordringt, muss die horizontale Staffelungs-Absprache mit #18 und #4 [C] noch enger greifen, damit hinter ihm kein offener Korridor für Konter entsteht.',
+          coachTip: 'Absoluter Schlüsselspieler – seine Vorstöße gezielt durch einen bleibenden 6er absichern lassen.'
+        },
+        {
+          id: 'p22',
+          num: '#22',
+          shortLabel: '#22',
+          name: 'Trikot #22',
+          squadHint: 'Trikotnummer #22 optisch verifiziert',
+          role: '6er-R / 8er · Standard-Schütze',
+          posGroup: 'mid',
+          numOrder: 22,
+          grade: 1.9,
+          noteLabel: '1,9',
+          score: 85,
+          verdict: 'Stark · Taktgeber & Vorlagengeber',
+          minutes: '90+4 Min. (Durchgespielt)',
+          visualId: 'Gelbes Trikot #22, enormer Aktionsradius zwischen beiden Sechzehnern',
+          keyStats: '1 Assist (23\' 1:0-Freistoß) · 36\' Zange · 63\' Rücksprint',
+          actions: ['🅰️ 23\' Assist 1:0', '36\' Zentrumszange', '63\' Rettungssprint'],
+          strengths: 'Servierte in der 23. Minute den messerscharfen Diagonal-Freistoß vor den Fünfmeterraum zum 1:0. Im Zentrum der taktisch klügste Arbeiter: schloss bei der 36\'-Pressingfalle gemeinsam mit #47 konsequent die Mitte und sprintete nach geblockten Ecken (63\', 4852s) bis zum eigenen Sechzehner zurück.',
+          improvements: 'In der Schlussviertelstunde (ab 75\') ging im Ballbesitz etwas die Anspielruhe verloren, sodass Entlastungsstafetten selten über 3 Pässe hinauskamen.',
+          coachTip: 'Als verlässlicher Taktgeber ideal für die „klare 6“-Rolle in engen Schlussphasen.'
+        },
+        {
+          id: 'p4',
+          num: '#4 [C]',
+          shortLabel: '#4 C',
+          name: 'Trikot #4 (Kapitän)',
+          squadHint: 'Kapitänsbinde links (67:30) · mutmaßlich Sören Müsel',
+          role: 'RIV / LIV-Absicherung · Abwehrchef',
+          posGroup: 'def',
+          numOrder: 4,
+          grade: 2.0,
+          noteLabel: '2,0',
+          score: 83,
+          verdict: 'Stark · Ruhiger Stabilisator',
+          minutes: '90+4 Min. (Durchgespielt)',
+          visualId: 'Gelbes Trikot #4 mit Kapitänsbinde am linken Oberarm',
+          keyStats: '0 Gegentore bei geschlossener Kette · H1-Dreierkette · H2-Cover hinter #3',
+          actions: ['[C] 4\' Dreierkette', '32\' Rettung', '65\' Cover #3', '80\'–90+4\' Box-Chef'],
+          strengths: 'Klassische Führungsspieler-Leistung: Initiierte in Minute 4\' die breite Dreierkette im Aufbau, rettete in H1 nach gegnerischen Durchbrüchen im Verbund auf/vor der Linie (32\') und rückte in Halbzeit 2 vorausschauend immer dann auf die linke Halbposition heraus, wenn #3 vorne anlief (65\').',
+          improvements: 'Bei weiten Diagonalverlagerungen auf Horchheims rechten Flügel musste auch er als Chef noch frühzeitiger das Ballseiten-Verschieben bremsen, damit der ballferne Flügel (#27 SVH) gedeckt bleibt.',
+          coachTip: 'Kommandos für das Einrücken der Außenbahn in Druckphasen noch früher einfordern.'
+        },
+        {
+          id: 'p20',
+          num: '#20',
+          shortLabel: '#20',
+          name: 'Trikot #20',
+          squadHint: 'Trikotnummer #20 optisch verifiziert',
+          role: 'Rechtsverteidiger (RV)',
+          posGroup: 'def',
+          numOrder: 20,
+          grade: 2.1,
+          noteLabel: '2,1',
+          score: 81,
+          verdict: 'Stark · Offensiv- & Einwurf-Waffe',
+          minutes: '90+4 Min. (Durchgespielt)',
+          visualId: 'Gelbes Trikot #20, weite Standard-Einwürfe von rechts',
+          keyStats: 'Flügelmotor Rechts H1 (13 von 23 Dritteln) · Weite Einwürfe (2\', 6\', 34\') · Läufe bis 93\'',
+          actions: ['2\'/6\'/34\' Weit-Einwurf', '4\' 3er-Kette', '90\'/93\' Box-Entlastung'],
+          strengths: 'Brachte mit seinen extrem weiten Einwürfen (2\', 6\', 34\') regelmäßig Ecken-ähnliche Torgefahr vor Horchheims Kasten. Bildete in H1 den rechten Eckpunkt der Dreierkette und glänzte in der Nachspielzeit (90\', 93\') mit vorbildlichen Entlastungsläufen bis in den gegnerischen Strafraum.',
+          improvements: 'Nach weiten Vorstößen vereinzelt auf schnelle Rückkehr-Unterstützung aus dem rechten Mittelfeld angewiesen, um nicht ausgekontert zu werden.',
+          coachTip: 'Seine Einwurf-Stärke künftig noch gezielter mit einstudierter Verlängerung am kurzen Pfosten (#9) verknüpfen.'
+        },
+        {
+          id: 'p3',
+          num: '#3',
+          shortLabel: '#3',
+          name: 'Trikot #3',
+          squadHint: 'Trikotnummer #3 optisch verifiziert',
+          role: 'Linksverteidiger (LV)',
+          posGroup: 'def',
+          numOrder: 3,
+          grade: 2.2,
+          noteLabel: '2,2',
+          score: 79,
+          verdict: 'Gut bis stark · Mutig nach vorne',
+          minutes: '90+4 Min. (Durchgespielt)',
+          visualId: 'Gelbes Trikot #3, kurze Ärmel, rötlich-braunes gewelltes Haar',
+          keyStats: 'Dynamische H2-Vorstöße (50\', 65\') · Großchance (66\') · Härtester Abwehrsektor vs SVH #27',
+          actions: ['50\' Links-Durchbruch', '65\' Flankenlauf', '66\' 5m-Chance', '83\'/90\' vs #27'],
+          strengths: 'Setzte nach dem Seitenwechsel die lautstärksten offensiven Ausrufezeichen aus der Abwehrkette. Sprintete in 50\' und 65\' dynamisch die linke Linie entlang und war an der dicken 66\'-Großchance am Fünfmeterraum unmittelbar beteiligt (ärgerte sich dort sichtbar über das knappe Verpassen des 3:1).',
+          improvements: 'Musste gegen den extrem rechtslastigen SVH-Angriff (60,7% aller SVH-Drittel-Eintritte über rechts / #27 Silas Schneider) enormes Pensum abspulen. Stand bei Verlagerungen ein- bis zweimal etwas zu weit innen, zudem fehlte bei der 66\'-Chance die letzte Kaltschnäuzigkeit.',
+          coachTip: 'Abstimmung mit LA (#10) verfeinern, damit Doppelpässe auf #27 früher unterbunden werden.'
+        },
+        {
+          id: 'p27',
+          num: '#27',
+          shortLabel: '#27',
+          name: 'Trikot #27',
+          squadHint: 'Trikotnummer #27 optisch verifiziert',
+          role: 'Zehner (10) / Hängende Spitze',
+          posGroup: 'mid',
+          numOrder: 27,
+          grade: 2.3,
+          noteLabel: '2,3',
+          score: 78,
+          verdict: 'Gut · Technik & Ruhepol unter Druck',
+          minutes: '90+4 Min. (Durchgespielt)',
+          visualId: 'Gelbes Trikot #27, leuchtend rote Fußballschuhe, Anstoßspieler H1 & H2',
+          keyStats: 'Anstoß H1/H2 · Technisches Schlüsselplay in 85\' · Verbindungsspieler Zentrale',
+          actions: ['1\'/46\' Anstoß', '18\'–30\' Zwischenlinien', '85\' Seitenlinien-Spin'],
+          strengths: 'Sehr hohe Ballsicherheit auf kleinem Raum. Seine Drehbewegung unter gegnerischem Druck an der Seitenlinie in Minute 85\', direkt gefolgt vom langen Diagonalball zum Konter, verschaffte der gesamten Mannschaft in der Schlussphase dringend nötige Entlastung.',
+          improvements: 'Fand in der mannorientierten ersten Halbzeit zwischen Horchheims Innenverteidigern und Sechsern nicht immer freie Passfenster und hätte häufiger tiefere Anbiet-Wege neben #22 wählen können.',
+          coachTip: 'Noch häufiger aus dem Deckungsschatten in den linken oder rechten Halbraum ausweichen.'
+        },
+        {
+          id: 'p9',
+          num: '#9',
+          shortLabel: '#9',
+          name: 'Trikot #9',
+          squadHint: 'Trikotnummer #9 optisch verifiziert',
+          role: 'Mittelstürmer (MS)',
+          posGroup: 'att',
+          numOrder: 9,
+          grade: 2.4,
+          noteLabel: '2,4',
+          score: 76,
+          verdict: 'Gut · Pausenloser Pressing-Arbeiter',
+          minutes: '90+4 Min. (Durchgespielt)',
+          visualId: 'Gelbes Trikot #9, kurze Ärmel, dunkles Haar, führt jede Anlaufwelle an',
+          keyStats: '1:0-Störpräsenz (23\') · Hohes Pressing (3\', 35\', 52\', 66\') · 1v1-Chance (54\')',
+          actions: ['3\'/35\'/66\' Pressing', '23\' Box-Chaos 1:0', '54\' 1v1 geblockt'],
+          strengths: 'Unermüdlicher erster Verteidiger. Lenkte Horchheims Keeper und Innenverteidiger immer wieder klug per Bogenlauf (3\', 35\', 52\', 66\') in Pressing-Fallen und erzwang genau dadurch viele der 11 hohen Ballgewinne. Band beim 1:0 (23\') mehrere Verteidiger im Fünfer.',
+          improvements: 'Ließ in der 54. Minute die hundertprozentige 1v1-Konterchance zentral im Strafraum durch zu spätes Abschließen/Abblocken ungenutzt. Bei langen Befreiungsbällen ab der 70. Minute fehlte gegen zwei Innenverteidiger zuweilen die saubere Ablage.',
+          coachTip: 'Beim 1v1-Durchbruch früher den schnellen Kontakt aufs lange Eck suchen oder querlegen.'
+        },
+        {
+          id: 'p10',
+          num: '#10',
+          shortLabel: '#10',
+          name: 'Trikot #10',
+          squadHint: 'Trikotnummer #10 optisch verifiziert',
+          role: 'Linksaußen (LA)',
+          posGroup: 'mid',
+          numOrder: 10,
+          grade: 2.5,
+          noteLabel: '2,5',
+          score: 74,
+          verdict: 'Ordentlich bis gut · Schnelle H2-Konter',
+          minutes: '90+4 Min. (Durchgespielt)',
+          visualId: 'Gelbes Trikot #10, auffällige neongelbe/lime Fußballschuhe',
+          keyStats: 'Gefährliche Konterläufe (62\', 75\') · Ballhaltung (87\') · 1 Fehlpässchen (69\')',
+          actions: ['62\' Durchbruch L', '69\' Aufbaufehlpass', '75\' 1v1-Chance', '87\' Ballhaltung'],
+          strengths: 'Trieb in Durchgang zwei das Konterspiel über die linke Bahn entscheidend an (62\', 75\'). Überragende Spielintelligenz in Minute 87\', als er den Ball ganz vorne ruhig abschirmte und Zeit von der Uhr nahm.',
+          improvements: 'Verzeichnete in der 69. Minute einen unnötigen Fehlpass in der eigenen Hälfte und scheiterte in Minute 75\' bei einer exzellenten 1v1-Chance zum vorentscheidenden 3:1 am weit herauseilenden Horchheimer Keeper.',
+          coachTip: 'Nach Balleroberung den ersten Blick sofort auf die offene kurze Linie oder das 1v1-Timing legen.'
+        },
+        {
+          id: 'p47',
+          num: '#47',
+          shortLabel: '#47',
+          name: 'Trikot #47',
+          squadHint: 'Trikotnummer #47 optisch verifiziert (Startelf H1)',
+          role: 'Rechtsaußen (RA)',
+          posGroup: 'mid',
+          numOrder: 47,
+          grade: 2.6,
+          noteLabel: '2,6',
+          score: 72,
+          verdict: 'Ordentlich · Disziplinierter H1-Teamspieler',
+          minutes: 'ca. 45 Min. (nur H1, vermutlich HT gewechselt)',
+          visualId: 'Gelbes Trikot #47, komplett weiße Fußballschuhe',
+          keyStats: 'Taktische Zange (36\') · H1-Laufarbeit gegen den Ball · Ohne eigenen Abschluss',
+          actions: ['4\'–30\' Rechte Bahn', '36\' Zange mit #22', 'HT Vermutl. Auswechslung'],
+          strengths: 'Erfüllte seine taktischen Aufgaben gegen den Ball ausgesprochen zuverlässig. Besonders sein diszipliniertes Einrücken in die 36\'-Pressingfalle (Doppeln auf der gegnerischen Zehn mit #22, raw_2155) schnitt Horchheims Spielaufbau ab.',
+          improvements: 'Offensiv am gegnerischen Sechzehner zu selten im direkten 1v1-Durchbruch oder Abschluss zu sehen; nach der Pause übernahm voraussichtlich der frische H2-Joker.',
+          coachTip: 'In Umschaltsituationen auf rechts noch aggressiver den Tiefenlauf hinter den gegnerischen LV anziehen.'
+        },
+        {
+          id: 'pjoker',
+          num: 'Joker',
+          shortLabel: 'H2',
+          name: 'H2-Joker (weißes Tape)',
+          squadHint: 'Nummer verdeckt · Ab 50\' sichtbar · evtl. Wechsel zu Tim Niklas Odenbach („Nicki“ 76\')',
+          role: 'Einwechselspieler Offensiv / Flügel',
+          posGroup: 'att',
+          numOrder: 99,
+          grade: 2.6,
+          noteLabel: '2,6',
+          score: 72,
+          verdict: 'Ordentlich · Energie-Impuls in H2',
+          minutes: 'ca. 45 Min. (ab 50\' eindeutig im Bild)',
+          visualId: 'Gelbes Trikot, weißes Handgelenktape, schwarzes lockiges Haar',
+          keyStats: 'Frischer Druck ab 50\' · Stützte 61\'–75\'-Hochphase & 76\'–90+4\'-Abwehrblock',
+          actions: ['50\' H2-Impuls', '61\'–75\' Druckphase', '80\'–90+4\' Defensivhilfe'],
+          strengths: 'Kam vermutlich direkt zur Halbzeit für frische Beine rein und erhöhte ab Minute 50\' die Laufintensität auf den Außenbahnen. Hilfreich in der starken 61\'–75\'-Druckphase und absolut mannschaftsdienlich beim Verdichten der eigenen Hälfte ab der 76. Minute.',
+          improvements: 'Konnte sich im gegnerischen Strafraum trotz frischer Kräfte keinen klaren eigenen Abschluss erspielen, um den Sack früher zuzumachen.',
+          coachTip: 'Bei Einwechslung unter Führung direkt die Tiefe hinter müden Außenverteidigern noch konsequenter belaufen.'
+        },
+        {
+          id: 'p18',
+          num: '#18',
+          shortLabel: '#18',
+          name: 'Trikot #18',
+          squadHint: 'Trikotnummer #18 optisch verifiziert',
+          role: '6er-L / 8er · Übergangsspieler',
+          posGroup: 'mid',
+          numOrder: 18,
+          grade: 2.7,
+          noteLabel: '2,7',
+          score: 71,
+          verdict: 'Ordentlich · Guter Vorwärtsdrang, aber Fehler beim 1:1',
+          minutes: '90+4 Min. (Durchgespielt)',
+          visualId: 'Gelbes Trikot #18, Bindeglied im halblinken Mittelfeld',
+          keyStats: 'Pass-Schnittstelle H1/H2 · Eigener Box-Lauf (57\') · Raum-Lücke beim 1:1 (24\')',
+          actions: ['⚠️ 24\' Raum hinter #18', '57\' H2-Box-Lauf', 'Pass-Brücke L'],
+          strengths: 'Solide Passqualität im Übergangsspiel und guter Offensivmut nach dem Seitenwechsel – stieß unter anderem in der 57. Minute gefährlich mit bis in den gegnerischen Strafraum vor und ließ sich vom Rückschlag in Halbzeit 1 nicht verunsichern.',
+          improvements: 'Die entscheidende Hypothek für seine Note geschah in Minute 24\' (00:24:30, 62 Sekunden nach eigener Führung): Beim langen Torwartabschlag stand er zu weit hochgeschoben, sodass Horchheims Stürmer genau in seinen ungesicherten Rücken halblinks zum 1:1-Ausgleich durchbrechen konnte.',
+          coachTip: 'Nach eigenem Tor und langen Abschlägen erst Tiefensicherung herstellen, bevor nach vorne geschoben wird.'
+        }
+      ];
+
+      // Coordinates inside 680x440 tactical pitch
+      const FORMATIONS = {
+        h1: {
+          caption: 'Startaufstellung 1. Halbzeit (4-2-3-1 · SVO greift Links → Rechts an)',
+          dirLeft: 'Eigenes Tor (SVO)',
+          dirRight: 'Gegner-Tor (SVH) →',
+          links: [['p4', 'p22'], ['p5', 'p18'], ['p22', 'p27'], ['p18', 'p27'], ['p27', 'p9']],
+          nodes: {
+            tw: [52, 220],
+            p3: [158, 72],
+            p5: [148, 165],
+            p4: [148, 275],
+            p20: [158, 368],
+            p18: [272, 168],
+            p22: [272, 272],
+            p10: [405, 76],
+            p27: [390, 220],
+            p47: [405, 364],
+            p9: [530, 220]
+          }
+        },
+        buildup: {
+          caption: 'Ballbesitz-Aufbau H1 (3-4-2-1 ab 4\': #4 [C]–#5–#20 Dreierkette, #3 schiebt hoch)',
+          dirLeft: 'Eigenes Tor (SVO)',
+          dirRight: 'Gegner-Tor (SVH) →',
+          links: [['p4', 'p5'], ['p5', 'p20'], ['p5', 'p18'], ['p4', 'p22'], ['p22', 'p27']],
+          nodes: {
+            tw: [56, 220],
+            p5: [165, 132],
+            p4: [155, 220],
+            p20: [165, 315],
+            p3: [305, 58],
+            p18: [285, 168],
+            p22: [285, 272],
+            p47: [340, 382],
+            p10: [435, 130],
+            p27: [435, 295],
+            p9: [555, 215]
+          }
+        },
+        h2: {
+          caption: '2. Halbzeit & Schlussblock (4-4-1-1 mit H2-Joker, SVO sichert tiefer im Zentrum)',
+          dirLeft: 'Eigenes Tor (SVO)',
+          dirRight: 'Entlastungs-Konter →',
+          links: [['p4', 'p5'], ['p3', 'p10'], ['p5', 'p18'], ['p4', 'p22'], ['p27', 'p9']],
+          nodes: {
+            tw: [52, 220],
+            p3: [142, 74],
+            p5: [134, 168],
+            p4: [134, 272],
+            p20: [142, 366],
+            p10: [248, 72],
+            p18: [232, 168],
+            p22: [232, 272],
+            pjoker: [248, 368],
+            p27: [358, 220],
+            p9: [465, 215]
+          }
+        }
+      };
+
+      // Exact verified Phase metrics from Spielanalyse (32 clips grouped into 6 match phases)
+      const PHASES_DATA = [
+        {
+          label: '1\'–15\'',
+          half: 'H1',
+          svoPoss: 48.8,
+          svhPoss: 51.2,
+          shots: '2 : 2',
+          scoreEnd: '0:0',
+          goals: [],
+          events: ['4\' Umstellung Dreieraufbau', '5\' TW-Parade kurzes Eck', '9\' TW-Retter 1v1', '14\' Yassin Pressing-Chance']
+        },
+        {
+          label: '16\'–30\'',
+          half: 'H1',
+          svoPoss: 54.6,
+          svhPoss: 45.4,
+          shots: 'Tore 2:1',
+          scoreEnd: '2:1',
+          goals: ['23\' 1:0 SVO (#22 FK)', '24\' 1:1 SVH', '28\' 2:1 SVO (#5)'],
+          events: ['23\' TOR 0:1 SVO (#22 Freistoß)', '24\' TOR 1:1 SVH (62s Konter)', '28\' TOR 1:2 SVO (#5 23m-Schuss)']
+        },
+        {
+          label: '31\'–45+2\'',
+          half: 'H1',
+          svoPoss: 32.8,
+          svhPoss: 67.2,
+          shots: 'HZ 2:1',
+          scoreEnd: '2:1 HZ',
+          goals: [],
+          events: ['32\' TW-Retter + Linienklärung', '34\' #20 Einwurf-Waffe', '36\' #22/#47 Pressingfalle', '45+2\' Solo-Konter 1v1']
+        },
+        {
+          label: '46\'–60\'',
+          half: 'H2',
+          svoPoss: 40.4,
+          svhPoss: 59.6,
+          shots: '3 : 3',
+          scoreEnd: '2:1',
+          goals: [],
+          events: ['50\' H2-Joker aktiv & #3 Vorstoß', '54\' #9 1v1 geblockt', '56\'/57\' Doppelparade TW Schwarz']
+        },
+        {
+          label: '61\'–75\'',
+          half: 'H2',
+          svoPoss: 45.0,
+          svhPoss: 55.0,
+          shots: '7 : 2',
+          scoreEnd: '2:1',
+          goals: [],
+          events: ['63\' Ole auf Jan + #22 Sprint', '64\' TW-Parade', '66\' 5m-Chance (#3/#9)', '72\' TW-Reflex', '75\' #10 1v1 & „klare 6“']
+        },
+        {
+          label: '76\'–90+4\'',
+          half: 'H2',
+          svoPoss: 20.8,
+          svhPoss: 79.2,
+          shots: '0 : 5',
+          scoreEnd: '1:2 Sieg',
+          goals: [],
+          events: ['76\' „Nicki rein!“', '83\' & 87\' 2× TW-1v1-Retter', '85\' #27 Spin', '90\' SVH #27 knapp', '93\' #20/#5 Entlastung']
+        }
+      ];
+
+      const TEAM_METRICS = [
+        { name: 'Tore', svoSplit: '2 / 0', svoTotal: '2', svhTotal: '1', svhSplit: '1 / 0', svoVal: 2, svhVal: 1 },
+        { name: 'Abschlüsse gesamt', svoSplit: '7 / 10', svoTotal: '17', svhTotal: '17', svhSplit: '7 / 10', svoVal: 17, svhVal: 17 },
+        { name: '— davon aufs Tor (inkl. Tore)', svoSplit: '3 / 5', svoTotal: '8', svhTotal: '12', svhSplit: '5 / 7', svoVal: 8, svhVal: 12 },
+        { name: '— davon vorbei / drüber', svoSplit: '2 / 3', svoTotal: '5', svhTotal: '5', svhSplit: '2 / 3', svoVal: 5, svhVal: 5 },
+        { name: '— davon geblockt', svoSplit: '2 / 2', svoTotal: '4', svhTotal: '0', svhSplit: '0 / 0', svoVal: 4, svhVal: 0 },
+        { name: 'Aluminiumtreffer', svoSplit: '0 / 0', svoTotal: '0', svhTotal: '0', svhSplit: '0 / 0', svoVal: 0, svhVal: 0 },
+        { name: 'Großchancen', svoSplit: '4 / 5', svoTotal: '9', svhTotal: '11', svhSplit: '4 / 7', svoVal: 9, svhVal: 11 },
+        { name: 'Torwart-Paraden', svoSplit: '4 / 7', svoTotal: '11', svhTotal: '6', svhSplit: '1 / 5', svoVal: 11, svhVal: 6 },
+        { name: 'Ballbesitz Ø (%)', svoSplit: '44,6% / 34,5%', svoTotal: '39,6%', svhTotal: '60,4%', svhSplit: '55,4% / 65,5%', svoVal: 39.6, svhVal: 60.4 },
+        { name: 'Passstafetten (≥ 4 Pässe)', svoSplit: '15 / 8', svoTotal: '23', svhTotal: '56', svhSplit: '23 / 33', svoVal: 23, svhVal: 56 },
+        { name: 'Eröffnungen (kurz / lang)', svoSplit: '8/10 | 2/11', svoTotal: '10 / 21 (32%)', svhTotal: '41 / 16 (72%)', svhSplit: '20/7 | 21/9', svoVal: 32.3, svhVal: 71.9 },
+        { name: 'Eintritte letztes Drittel', svoSplit: '23 / 26', svoTotal: '49', svhTotal: '56', svhSplit: '25 / 31', svoVal: 49, svhVal: 56 },
+        { name: '— Drittel Links / Zentrum / Rechts', svoSplit: '5-5-13 | 10-6-10', svoTotal: '15 / 11 / 23', svhTotal: '14 / 8 / 34', svhSplit: '3-3-19 | 11-5-15', svoVal: 49, svhVal: 56 },
+        { name: 'Strafraum-Eintritte (Box)', svoSplit: '14 / 13', svoTotal: '27', svhTotal: '39', svhSplit: '16 / 23', svoVal: 27, svhVal: 39 },
+        { name: 'Hohe Ballgewinne (vorne)', svoSplit: '5 / 6', svoTotal: '11', svhTotal: '8', svhSplit: '5 / 3', svoVal: 11, svhVal: 8 },
+        { name: 'Schnelle Konter', svoSplit: '9 / 16', svoTotal: '25', svhTotal: '15', svhSplit: '6 / 9', svoVal: 25, svhVal: 15 },
+        { name: 'Eckbälle', svoSplit: '7 / 4', svoTotal: '11', svhTotal: '10', svhSplit: '3 / 7', svoVal: 11, svhVal: 10 },
+        { name: 'Gefährl. Freistöße (letztes Dr.)', svoSplit: '2 / 5', svoTotal: '7', svhTotal: '3', svhSplit: '1 / 2', svoVal: 7, svhVal: 3 },
+        { name: 'Verletzungspausen', svoSplit: '1 / 3', svoTotal: '4', svhTotal: '4', svhSplit: '2 / 2', svoVal: 4, svhVal: 4 }
+      ];
+
+      const EVENTS = [
+        { min: '1\'', time: '00:01:24', cat: 'tactic', team: 'SVO', actors: '#27', desc: 'Anstoß 1. Halbzeit durch #27 (SV Obersülzen spielt von Links nach Rechts).' },
+        { min: '2\' / 6\'', time: '00:02:10', cat: 'tactic', team: 'SVO', actors: '#20', desc: 'Erste weite Offensiv-Einwürfe von #20 rechts in den Horchheimer Strafraum.' },
+        { min: '4\'', time: '00:04:34', cat: 'tactic', team: 'SVO', actors: '#4 [C], #5, #20', desc: 'Taktische Umstellung auf aufgefächerten Dreieraufbau gegen Horchheims Zweiersturm.' },
+        { min: '5\'', time: '00:05:37', cat: 'save', team: 'SVH', actors: 'TW Schwarz (SVO)', desc: 'Großchance Horchheim nach langem TW-Abschlag und Halbraum-Steckpass — TW Schwarz pariert stark im kurzen Eck.' },
+        { min: '9\'', time: '00:09:59', cat: 'save', team: 'SVH', actors: 'TW Schwarz (SVO)', desc: 'Horchheim presst links hoch ab; TW Schwarz gewinnt das freie 1-gegen-1 herausragend.' },
+        { min: '12\'', time: '00:12:31', cat: 'goal', team: 'SVO', actors: 'Offensive SVO', desc: 'Großchance Obersülzen nach Seitenverlagerung links: scharfe Flanke zentral geblockt.' },
+        { min: '14\'', time: '00:14:51', cat: 'goal', team: 'SVO', actors: 'Yassin (O-Ton)', desc: 'Hoher Ballgewinn im Pressing und schneller Durchbruch halblinks — Schuss knapp am Tor vorbei.' },
+        { min: '23\'', time: '00:23:33', cat: 'goal', team: 'SVO', actors: '#22 (Assist), #9 (Box)', desc: 'TOR 0:1 SV Obersülzen! Nach Pressing-Foul schlägt #22 einen diagonalen Freistoß scharf vor den Fünfer, ein einlaufender Gelber staubt ab.' },
+        { min: '24\'', time: '00:24:35', cat: 'goal', team: 'SVH', actors: '#18 (Raum), SVH-Angriff', desc: 'TOR 1:1 SV Horchheim (62s nach dem 1:0): Weiter TW-Abschlag, Kopfballverlängerung in den offenen Rücken von #18, 1v1-Ausgleich halblinks.' },
+        { min: '28\'', time: '00:28:42', cat: 'goal', team: 'SVO', actors: '#5 (Torschütze)', desc: 'TOR 1:2 SV Obersülzen! #5 behauptet sich links, zieht ins Zentrum (Zone 14, ~23m) und jagt einen Flatterball über den Horchheimer Keeper ins Netz.' },
+        { min: '32\'', time: '00:33:22', cat: 'save', team: 'SVH', actors: 'TW Schwarz, #4 [C]/#5', desc: 'Einwurf-Durchbruch links: TW Schwarz pariert an der Fünferkante, SVO-Abwehrspieler rettet anschließend vor der Linie.' },
+        { min: '34\'–36\'', time: '00:35:55', cat: 'tactic', team: 'SVO', actors: '#9, #22, #47, #20', desc: 'Einwurf-Waffe (#20) und exakte Pressingfalle im Zentrum: #9 lenkt per Bogenlauf an, #22 & #47 doppeln die gegnerische Zehn.' },
+        { min: '45+2\'', time: '00:47:31', cat: 'goal', team: 'SVO', actors: 'Konter Links', desc: 'Riesen-Konter in der Nachspielzeit über links nach zentralem Ballgewinn; SVH-TW hält im 1v1.' },
+        { min: '46\'', time: '01:02:46', cat: 'tactic', team: 'SVO', actors: '#27', desc: 'Anstoß 2. Halbzeit durch #27 (SVO spielt nun von Rechts nach Links).' },
+        { min: '50\'', time: '01:06:42', cat: 'tactic', team: 'SVO', actors: 'H2-Joker, #3', desc: 'H2-Joker (weißes Handgelenktape) erstmals aktiv im Bild; #3 mit starkem Offensivlauf links.' },
+        { min: '54\'', time: '01:10:57', cat: 'goal', team: 'SVO', actors: '#9', desc: 'Großchance SVO nach weitem Abstoß: #9 dringt zentral bis ins 1v1 vor, Abschluss im letzten Moment zur Ecke geblockt.' },
+        { min: '56\' / 57\'', time: '01:12:50', cat: 'save', team: 'SVH', actors: 'TW Schwarz, SVH #27, #18', desc: 'Doppel-Großchance SVH (Zentrum & #27 rechts) jeweils glänzend von TW Schwarz entschärft; eigener Box-Lauf von #18 (57\').' },
+        { min: '62\'–63\'', time: '01:20:03', cat: 'goal', team: 'SVO', actors: '#10, Ole→Jan, #22', desc: 'Offensiv-Feuerwerk: #10 bricht links durch (62\'), Ole steckt auf Jan durch (63\', Ecke + Nachschuss im Fünfer geblockt), starker Rücksprint von #22.' },
+        { min: '64\'', time: '01:21:14', cat: 'save', team: 'SVH', actors: 'TW Schwarz', desc: 'Gefährlicher Abschluss über Horchheims rechte Seite — TW Schwarz lenkt aus Nahdistanz zur Ecke.' },
+        { min: '65\'–66\'', time: '01:23:14', cat: 'goal', team: 'SVO', actors: '#3, #4 [C], #9', desc: '#3 geht links tief (#4 sichert dahinter ab), nach hohem Pressing von #9 verpasst #3/Sturm knapp am Fünfmeterraum das 3:1 (66\').' },
+        { min: '69\'–72\'', time: '01:28:52', cat: 'save', team: 'SVH', actors: '#10 (FP), TW Schwarz', desc: 'Nach Fehlpass von #10 (69\') erhöht Horchheim den Druck; in 72\' verhindert TW Schwarz mit blitzschneller Parade das 2:2.' },
+        { min: '75\'', time: '01:31:47', cat: 'goal', team: 'SVO', actors: '#10, Trainerbank', desc: '#10 läuft frei aufs Tor zu und scheitert im 1v1 am Horchheimer Keeper; Umstellung auf eine „klare 6“ vor der Abwehr.' },
+        { min: '76\'–79\'', time: '01:33:10', cat: 'tactic', team: 'SVO/SVH', actors: '„Nicki rein!“, SVH #15/#12', desc: 'Obersülzer Bank-Ruf „Nicki rein!“ (76\'); Horchheim wechselt bei 79\' (#15 für #12, „19 raus“).' },
+        { min: '83\' & 87\'', time: '01:40:23', cat: 'save', team: 'SVH', actors: 'TW Schwarz (2×)', desc: 'Zwei freie 1v1-Großchancen für Horchheim nach Seitenverlagerung bzw. Abstoßverlust — zweimal Weltklasse durch TW Schwarz pariert.' },
+        { min: '85\' & 87\'', time: '01:42:10', cat: 'tactic', team: 'SVO', actors: '#27, #10', desc: 'Clevere späte Ballbehauptung: #27 dreht sich an der Linie aus dem Pressing in einen Diagonal-Konter (85\'), #10 bindet vorne Zeit (87\').' },
+        { min: '90\' & 93\'', time: '01:47:16', cat: 'goal', team: 'SVH/SVO', actors: 'SVH #27 (Silas), #20, #5', desc: 'Letzter Alarm über SVH-Rechtsaußen #27 (90\', knapp vorbei); #20 und #5 klären souverän & schieben in 93\' noch bis in die Gegner-Box.' }
+      ];
+
+      // State
+      let activeFormation = 'h1';
+      let selectedPlayerId = 'tw';
+      let activeFilter = 'all';
+      let activeSort = 'grade';
+      let activeChartMode = 'control';
+      let activeEvFilter = 'all';
+      let hoveredPhaseIdx = -1;
+
+      function gradeBadgeColors(grade) {
+        if (grade <= 1.8) return { bg: 'var(--success)', fg: '#ffffff', text: 'var(--success)' };
+        if (grade <= 2.3) return { bg: 'var(--primary)', fg: 'var(--primary-foreground)', text: 'var(--primary)' };
+        return { bg: 'var(--warning)', fg: '#111827', text: 'var(--warning)' };
+      }
+
+      // Compute Team Grade Average dynamically
+      function renderHeroAverage() {
+        const avg = (PLAYERS.reduce((acc, p) => acc + p.grade, 0) / PLAYERS.length).toFixed(2).replace('.', ',');
+        const el = document.getElementById('hero-avg-grade');
+        if (el) el.textContent = 'Team-Schnitt (12 Sp.): ' + avg;
+      }
+
+      // 2A: Pitch SVG Rendering
+      function renderPitch() {
+        const form = FORMATIONS[activeFormation];
+        const caption = document.getElementById('formation-caption');
+        if (caption) caption.textContent = form.caption;
+
+        const dirG = document.getElementById('pitch-direction');
+        if (dirG) {
+          dirG.innerHTML =
+            '<text x="36" y="40" fill="rgba(255,255,255,0.82)" font-size="12" font-weight="600">' + form.dirLeft + '</text>' +
+            '<text x="485" y="40" fill="rgba(255,255,255,0.82)" font-size="12" font-weight="600">' + form.dirRight + '</text>';
+        }
+
+        const linksG = document.getElementById('pitch-links');
+        if (linksG) {
+          linksG.innerHTML = form.links.map(pair => {
+            const a = form.nodes[pair[0]];
+            const b = form.nodes[pair[1]];
+            if (!a || !b) return '';
+            return '<line x1="' + a[0] + '" y1="' + a[1] + '" x2="' + b[0] + '" y2="' + b[1] + '" stroke="rgba(250,204,21,0.38)" stroke-width="2" stroke-dasharray="5 4" />';
+          }).join('');
+        }
+
+        const nodesG = document.getElementById('pitch-nodes');
+        if (!nodesG) return;
+        let html = '';
+        Object.keys(form.nodes).forEach(pid => {
+          const p = PLAYERS.find(x => x.id === pid);
+          if (!p) return;
+          const [cx, cy] = form.nodes[pid];
+          const isSel = pid === selectedPlayerId;
+          const isGK = pid === 'tw';
+          const fill = isGK ? '#111827' : '#facc15';
+          const textFill = isGK ? '#ffffff' : '#111827';
+          const ringColor = isSel ? '#ffffff' : (isGK ? '#9ca3af' : '#111827');
+          const ringWidth = isSel ? 3.5 : 2;
+          const markerIcon = pid === 'p5' ? '⚽' : (pid === 'p22' ? '🅰️' : '');
+
+          html += '<g class="svo-pin" data-pid="' + pid + '" role="button" tabindex="0" aria-label="' + p.name + ' Note ' + p.noteLabel + '">';
+          if (isSel) {
+            html += '<circle cx="' + cx + '" cy="' + cy + '" r="25" fill="rgba(255,255,255,0.18)" />';
+          }
+          html += '<circle cx="' + cx + '" cy="' + cy + '" r="19" fill="' + fill + '" stroke="' + ringColor + '" stroke-width="' + ringWidth + '" />';
+          html += '<text x="' + cx + '" y="' + (cy + 4) + '" text-anchor="middle" fill="' + textFill + '" font-size="12" font-weight="800">' + p.shortLabel + '</text>';
+          // Grade pill below node (12px font minimum!)
+          html += '<rect x="' + (cx - 19) + '" y="' + (cy + 22) + '" width="38" height="17" rx="6" fill="rgba(17,24,39,0.88)" stroke="rgba(255,255,255,0.35)" stroke-width="1" />';
+          html += '<text x="' + cx + '" y="' + (cy + 34) + '" text-anchor="middle" fill="#facc15" font-size="12" font-weight="700">' + p.noteLabel + '</text>';
+          if (markerIcon) {
+            html += '<text x="' + (cx + 15) + '" y="' + (cy - 14) + '" font-size="12">' + markerIcon + '</text>';
+          }
+          html += '</g>';
+        });
+        nodesG.innerHTML = html;
+
+        nodesG.querySelectorAll('.svo-pin').forEach(el => {
+          const selectHandler = () => {
+            selectedPlayerId = el.getAttribute('data-pid');
+            renderPitch();
+            renderSpotlight();
+            renderGradeBars();
+          };
+          el.addEventListener('click', selectHandler);
+          el.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              selectHandler();
+            }
+          });
+        });
+      }
+
+      // 2A Right: Spotlight Card
+      function renderSpotlight() {
+        const box = document.getElementById('player-spotlight');
+        if (!box) return;
+        const p = PLAYERS.find(x => x.id === selectedPlayerId) || PLAYERS[0];
+        const col = gradeBadgeColors(p.grade);
+
+        box.innerHTML =
+          '<div class="flex items-start justify-between gap-3 pb-3 border-b border-[var(--card-border)]">' +
+            '<div>' +
+              '<div class="text-xs font-semibold uppercase tracking-wider text-[var(--primary)]">' + p.role + '</div>' +
+              '<h3 class="text-xl font-bold text-[var(--foreground)] mt-0.5">' + p.name + '</h3>' +
+              '<div class="text-xs text-[var(--muted-foreground)] mt-0.5">' + p.squadHint + '</div>' +
+            '</div>' +
+            '<div class="text-right shrink-0">' +
+              '<div class="inline-flex items-center px-3 py-1 rounded-xl text-base font-extrabold tabular-nums" style="background:' + col.bg + '; color:' + col.fg + ';">Note ' + p.noteLabel + '</div>' +
+              '<div class="text-xs font-semibold text-[var(--muted-foreground)] mt-1 tabular-nums">' + p.score + ' / 100 Pkt</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="space-y-1.5">' +
+            '<div class="flex justify-between text-xs"><span class="font-semibold text-[var(--foreground)]">' + p.verdict + '</span><span class="text-[var(--muted-foreground)]">' + p.minutes + '</span></div>' +
+            '<div class="w-full h-2.5 rounded-full bg-[var(--content)] overflow-hidden border border-[var(--card-border)]">' +
+              '<div class="h-full rounded-full" style="width:' + p.score + '%; background:' + col.bg + ';"></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="bg-[var(--content)] border border-[var(--card-border)] rounded-xl p-3 text-xs space-y-1">' +
+            '<div><span class="font-semibold text-[var(--foreground)]">Bilanz:</span> <span class="text-[var(--muted-foreground)]">' + p.keyStats + '</span></div>' +
+            '<div><span class="font-semibold text-[var(--foreground)]">Optik-ID:</span> <span class="text-[var(--muted-foreground)]">' + p.visualId + '</span></div>' +
+          '</div>' +
+          '<div class="flex flex-wrap gap-1.5">' +
+            p.actions.map(a => '<span class="px-2 py-0.5 rounded bg-[var(--content)] border border-[var(--card-border)] text-xs font-medium text-[var(--foreground)]">' + a + '</span>').join('') +
+          '</div>' +
+          '<div class="space-y-2 text-xs">' +
+            '<div><span class="font-bold text-[var(--success)]">+ Stärken: </span><span class="text-[var(--foreground)]">' + p.strengths + '</span></div>' +
+            '<div><span class="font-bold text-[var(--error)]">– Kritik / Entwicklung: </span><span class="text-[var(--muted-foreground)]">' + p.improvements + '</span></div>' +
+            '<div class="bg-[var(--content)] rounded-lg p-2.5 border-l-2 border-[var(--primary)]"><span class="font-bold text-[var(--primary)]">Trainer-Fokus: </span><span class="text-[var(--foreground)]">' + p.coachTip + '</span></div>' +
+          '</div>';
+      }
+
+      function getFilteredSortedPlayers() {
+        const list = PLAYERS.filter(p => activeFilter === 'all' || p.posGroup === activeFilter);
+        list.sort((a, b) => {
+          if (activeSort === 'grade') return a.grade - b.grade || b.score - a.score;
+          if (activeSort === 'score') return b.score - a.score;
+          return a.numOrder - b.numOrder;
+        });
+        return list;
+      }
+
+      function renderGradeBars() {
+        const wrap = document.getElementById('grade-bars');
+        if (!wrap) return;
+        const list = getFilteredSortedPlayers();
+        wrap.innerHTML = list.map(p => {
+          const col = gradeBadgeColors(p.grade);
+          const isSel = p.id === selectedPlayerId;
+          const borderCls = isSel ? 'border-[var(--primary)] ring-1 ring-[var(--primary)]' : 'border-[var(--card-border)]';
+          return (
+            '<button type="button" data-pick="' + p.id + '" class="grade-bar-pick text-left bg-[var(--card)] border ' + borderCls + ' rounded-lg p-2.5 hover:border-[var(--primary)] cursor-pointer space-y-1.5">' +
+              '<div class="flex items-center justify-between gap-2 text-xs">' +
+                '<span class="font-bold text-[var(--foreground)] truncate">' + p.num + ' · ' + p.role.split('·')[0].trim() + '</span>' +
+                '<span class="px-1.5 py-0.5 rounded font-extrabold tabular-nums shrink-0" style="background:' + col.bg + '; color:' + col.fg + ';">' + p.noteLabel + '</span>' +
+              '</div>' +
+              '<div class="w-full h-2 rounded-full bg-[var(--content)] overflow-hidden">' +
+                '<div class="h-full rounded-full" style="width:' + p.score + '%; background:' + col.bg + ';"></div>' +
+              '</div>' +
+            '</button>'
+          );
+        }).join('');
+
+        wrap.querySelectorAll('.grade-bar-pick').forEach(btn => {
+          btn.addEventListener('click', () => {
+            selectedPlayerId = btn.getAttribute('data-pick');
+            renderPitch();
+            renderSpotlight();
+            renderGradeBars();
+          });
+        });
+      }
+
+      function renderPlayersGrid() {
+        const grid = document.getElementById('players-grid');
+        if (!grid) return;
+        const list = getFilteredSortedPlayers();
+        grid.innerHTML = list.map(p => {
+          const col = gradeBadgeColors(p.grade);
+          return (
+            '<article class="bg-[var(--content)] border border-[var(--card-border)] rounded-xl p-4 space-y-3 flex flex-col justify-between">' +
+              '<div class="space-y-2.5">' +
+                '<div class="flex items-start justify-between gap-2">' +
+                  '<div>' +
+                    '<div class="text-xs font-semibold text-[var(--primary)]">' + p.role + '</div>' +
+                    '<h4 class="text-base font-bold text-[var(--foreground)]">' + p.name + '</h4>' +
+                    '<div class="text-xs text-[var(--muted-foreground)]">' + p.squadHint + '</div>' +
+                  '</div>' +
+                  '<div class="text-right shrink-0">' +
+                    '<span class="inline-block px-2.5 py-1 rounded-lg text-sm font-extrabold tabular-nums" style="background:' + col.bg + '; color:' + col.fg + ';">Note ' + p.noteLabel + '</span>' +
+                    '<div class="text-xs text-[var(--muted-foreground)] mt-1 tabular-nums">' + p.score + '/100</div>' +
+                  '</div>' +
+                '</div>' +
+                '<div class="text-xs font-semibold text-[var(--foreground)] bg-[var(--card)] border border-[var(--card-border)] rounded-lg px-3 py-2">' +
+                  p.keyStats +
+                '</div>' +
+                '<div class="flex flex-wrap gap-1.5">' +
+                  p.actions.map(a => '<span class="px-2 py-0.5 rounded bg-[var(--card)] border border-[var(--card-border)] text-xs text-[var(--foreground)]">' + a + '</span>').join('') +
+                '</div>' +
+                '<div class="text-xs space-y-1.5">' +
+                  '<p class="text-[var(--foreground)]"><strong class="text-[var(--success)]">Stärken:</strong> ' + p.strengths + '</p>' +
+                  '<p class="text-[var(--muted-foreground)]"><strong class="text-[var(--error)]">Kritikpunkte:</strong> ' + p.improvements + '</p>' +
+                '</div>' +
+              '</div>' +
+              '<div class="pt-2 border-t border-[var(--card-border)] flex items-center justify-between gap-2 text-xs">' +
+                '<span class="text-[var(--muted-foreground)]">' + p.minutes + '</span>' +
+                '<button type="button" data-focus="' + p.id + '" class="focus-pitch-btn px-2.5 py-1 rounded bg-[var(--card)] border border-[var(--card-border)] font-semibold text-[var(--primary)] hover:border-[var(--primary)] cursor-pointer no-print">Im Spielfeld zeigen ↑</button>' +
+              '</div>' +
+            '</article>'
+          );
+        }).join('');
+
+        grid.querySelectorAll('.focus-pitch-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const pid = btn.getAttribute('data-focus');
+            selectedPlayerId = pid;
+            if (pid === 'pjoker' && activeFormation !== 'h2') {
+              activeFormation = 'h2';
+              updateFormationButtons();
+            } else if (pid === 'p47' && activeFormation === 'h2') {
+              activeFormation = 'h1';
+              updateFormationButtons();
+            }
+            renderPitch();
+            renderSpotlight();
+            renderGradeBars();
+            document.getElementById('kap-2').scrollIntoView({ behavior: 'smooth' });
+          });
+        });
+      }
+
+      function renderStatsTable() {
+        const tbody = document.getElementById('stats-table-body');
+        if (!tbody) return;
+        tbody.innerHTML = TEAM_METRICS.map(m => {
+          const sum = (m.svoVal + m.svhVal) || 1;
+          const pct = Math.round((m.svoVal / sum) * 100);
+          return (
+            '<tr class="hover:bg-[var(--content)]">' +
+              '<td class="py-2 pr-2 font-medium text-[var(--foreground)]">' + m.name + '</td>' +
+              '<td class="py-2 px-2 text-right text-[var(--muted-foreground)] tabular-nums">' + m.svoSplit + '</td>' +
+              '<td class="py-2 px-2 text-right font-bold text-[var(--foreground)] tabular-nums">' + m.svoTotal + '</td>' +
+              '<td class="py-2 px-2 w-28">' +
+                '<div class="w-full h-2 rounded-full bg-[var(--content)] overflow-hidden flex border border-[var(--card-border)]">' +
+                  '<div style="width:' + pct + '%; background:#eab308;"></div>' +
+                  '<div style="width:' + (100 - pct) + '%; background:#3b82f6;"></div>' +
+                '</div>' +
+              '</td>' +
+              '<td class="py-2 px-2 text-left font-bold text-[var(--foreground)] tabular-nums">' + m.svhTotal + '</td>' +
+              '<td class="py-2 pl-2 text-left text-[var(--muted-foreground)] tabular-nums">' + m.svhSplit + '</td>' +
+            '</tr>'
+          );
+        }).join('');
+      }
+
+      function renderEvents() {
+        const tbody = document.getElementById('events-table-body');
+        if (!tbody) return;
+        const rows = EVENTS.filter(ev => activeEvFilter === 'all' || ev.cat === activeEvFilter);
+        tbody.innerHTML = rows.map(ev => {
+          let badgeColor = 'var(--primary)';
+          let catLabel = 'Taktik';
+          if (ev.cat === 'goal') {
+            badgeColor = ev.desc.indexOf('TOR') !== -1 && ev.team === 'SVO' ? 'var(--success)' : (ev.team === 'SVH' && ev.desc.indexOf('TOR') !== -1 ? 'var(--error)' : 'var(--warning)');
+            catLabel = ev.desc.indexOf('TOR') !== -1 ? 'TOR' : 'Chance';
+          } else if (ev.cat === 'save') {
+            badgeColor = 'var(--primary)';
+            catLabel = 'Parade';
+          }
+          return (
+            '<tr class="hover:bg-[var(--content)]">' +
+              '<td class="py-2.5 pr-3 font-bold tabular-nums text-[var(--foreground)] whitespace-nowrap">' + ev.min + ' <span class="font-normal text-[var(--muted-foreground)]">(' + ev.time + ')</span></td>' +
+              '<td class="py-2.5 px-2 whitespace-nowrap"><span class="px-2 py-0.5 rounded font-semibold text-xs bg-[var(--content)] border border-[var(--card-border)]" style="color:' + badgeColor + ';">' + catLabel + '</span></td>' +
+              '<td class="py-2.5 px-2 font-semibold text-[var(--foreground)] whitespace-nowrap">' + ev.team + '</td>' +
+              '<td class="py-2.5 px-2 font-medium text-[var(--foreground)]">' + ev.actors + '</td>' +
+              '<td class="py-2.5 pl-2 text-[var(--muted-foreground)]">' + ev.desc + '</td>' +
+            '</tr>'
+          );
+        }).join('');
+      }
+
+      // 3A: Canvas Momentum / Phase Renderer (themechange & resize compliant)
+      let barHitboxes = [];
+      function drawCanvas() {
+        const canvas = document.getElementById('momentum-canvas');
+        if (!canvas) return;
+        const rect = canvas.getBoundingClientRect();
+        if (rect.width === 0) return;
+
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = Math.round(rect.width * dpr);
+        canvas.height = Math.round(rect.height * dpr);
+        const ctx = canvas.getContext('2d');
+        ctx.scale(dpr, dpr);
+
+        const styles = getComputedStyle(document.documentElement);
+        const fg = styles.getPropertyValue('--foreground').trim() || '#e5e7eb';
+        const muted = styles.getPropertyValue('--muted-foreground').trim() || '#9ca3af';
+        const border = styles.getPropertyValue('--card-border').trim() || '#374151';
+        const success = styles.getPropertyValue('--success').trim() || '#22c55e';
+        const primary = styles.getPropertyValue('--primary').trim() || '#eab308';
+        const errorCol = styles.getPropertyValue('--error').trim() || '#ef4444';
+
+        const W = rect.width;
+        const H = rect.height;
+        const padL = 56;
+        const padR = 24;
+        const padT = 34;
+        const padB = 48;
+        const plotW = W - padL - padR;
+        const plotH = H - padT - padB;
+
+        ctx.clearRect(0, 0, W, H);
+        ctx.font = '600 12px system-ui, -apple-system, sans-serif';
+        barHitboxes = [];
+
+        const n = PHASES_DATA.length;
+        const slotW = plotW / n;
+
+        // Halftime Divider between phase 2 & 3
+        const htX = padL + 3 * slotW;
+        ctx.save();
+        ctx.strokeStyle = muted;
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([5, 4]);
+        ctx.beginPath();
+        ctx.moveTo(htX, padT - 12);
+        ctx.lineTo(htX, H - padB + 8);
+        ctx.stroke();
+        ctx.fillStyle = fg;
+        ctx.textAlign = 'center';
+        ctx.fillText('Halbzeit (1:2)', htX, padT - 16);
+        ctx.restore();
+
+        if (activeChartMode === 'control') {
+          // Centered 50/50 divergence chart (SVO Possession - 50%)
+          const midY = padT + plotH * 0.5;
+          const maxDev = 35; // +/- 35 percentage points around 50%
+
+          // Grid lines
+          [-30, -15, 0, 15, 30].forEach(dev => {
+            const y = midY - (dev / maxDev) * (plotH * 0.45);
+            ctx.strokeStyle = dev === 0 ? fg : border;
+            ctx.lineWidth = dev === 0 ? 1.5 : 1;
+            ctx.beginPath();
+            ctx.moveTo(padL, y);
+            ctx.lineTo(W - padR, y);
+            ctx.stroke();
+
+            ctx.fillStyle = muted;
+            ctx.textAlign = 'right';
+            const lbl = dev === 0 ? '50/50' : (dev > 0 ? '+' + dev + '%' : dev + '%');
+            ctx.fillText(lbl, padL - 8, y + 4);
+          });
+
+          PHASES_DATA.forEach((ph, i) => {
+            const dev = ph.svoPoss - 50; // exact verified difference from 50%
+            const barW = Math.min(58, slotW * 0.54);
+            const x = padL + i * slotW + (slotW - barW) / 2;
+            const barH = Math.abs(dev / maxDev) * (plotH * 0.45);
+            const y = dev >= 0 ? midY - barH : midY;
+
+            ctx.fillStyle = dev >= 0 ? '#eab308' : '#3b82f6';
+            if (i === hoveredPhaseIdx) {
+              ctx.fillStyle = dev >= 0 ? success : '#60a5fa';
+            }
+            ctx.beginPath();
+            ctx.roundRect(x, y, barW, Math.max(barH, 4), 5);
+            ctx.fill();
+
+            // Value label
+            ctx.fillStyle = fg;
+            ctx.textAlign = 'center';
+            const valText = ph.svoPoss.toFixed(1).replace('.', ',') + '%';
+            ctx.fillText(valText, x + barW / 2, dev >= 0 ? y - 6 : y + barH + 15);
+
+            // Goal badge in 16'-30'
+            if (ph.goals.length > 0) {
+              ctx.fillStyle = success;
+              ctx.fillText('23\'/24\'/28\' Tore', x + barW / 2, padT - 4);
+            }
+
+            // Bottom labels
+            ctx.fillStyle = fg;
+            ctx.fillText(ph.label, x + barW / 2, H - padB + 20);
+            ctx.fillStyle = muted;
+            ctx.fillText(ph.shots, x + barW / 2, H - padB + 36);
+
+            barHitboxes.push({ idx: i, x: padL + i * slotW, y: padT, w: slotW, h: plotH });
+          });
+        } else {
+          // Paired SVO vs SVH Possession % bars per phase
+          [0, 25, 50, 75, 100].forEach(pct => {
+            const y = padT + plotH - (pct / 100) * plotH;
+            ctx.strokeStyle = pct === 50 ? muted : border;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(padL, y);
+            ctx.lineTo(W - padR, y);
+            ctx.stroke();
+
+            ctx.fillStyle = muted;
+            ctx.textAlign = 'right';
+            ctx.fillText(pct + '%', padL - 8, y + 4);
+          });
+
+          PHASES_DATA.forEach((ph, i) => {
+            const bw = Math.min(28, slotW * 0.28);
+            const cx = padL + i * slotW + slotW / 2;
+            const svoH = (ph.svoPoss / 100) * plotH;
+            const svhH = (ph.svhPoss / 100) * plotH;
+
+            ctx.fillStyle = i === hoveredPhaseIdx ? success : '#eab308';
+            ctx.beginPath();
+            ctx.roundRect(cx - bw - 3, padT + plotH - svoH, bw, svoH, [4, 4, 0, 0]);
+            ctx.fill();
+
+            ctx.fillStyle = i === hoveredPhaseIdx ? '#60a5fa' : '#3b82f6';
+            ctx.beginPath();
+            ctx.roundRect(cx + 3, padT + plotH - svhH, bw, svhH, [4, 4, 0, 0]);
+            ctx.fill();
+
+            ctx.fillStyle = fg;
+            ctx.textAlign = 'center';
+            ctx.fillText(Math.round(ph.svoPoss) + '%', cx - bw / 2 - 3, padT + plotH - svoH - 5);
+            ctx.fillText(Math.round(ph.svhPoss) + '%', cx + bw / 2 + 3, padT + plotH - svhH - 5);
+
+            ctx.fillStyle = fg;
+            ctx.fillText(ph.label, cx, H - padB + 20);
+            ctx.fillStyle = muted;
+            ctx.fillText('SVO ' + ph.shots, cx, H - padB + 36);
+
+            barHitboxes.push({ idx: i, x: padL + i * slotW, y: padT, w: slotW, h: plotH });
+          });
+        }
+      }
+
+      function updateMomentumReadout(idx) {
+        const box = document.getElementById('momentum-readout');
+        if (!box) return;
+        if (idx < 0 || idx >= PHASES_DATA.length) {
+          box.innerHTML =
+            '<span class="font-semibold text-[var(--foreground)]">Phasen-Inspektor: Fahre über eine Spielphase für exakten Ballbesitz, Abschlüsse und Schlüsselszenen (6 Phasen aus 32 Clips).</span>' +
+            '<span class="text-[var(--muted-foreground)] tabular-nums">Gelb = SVO · Blau = SVH</span>';
+          return;
+        }
+        const ph = PHASES_DATA[idx];
+        box.innerHTML =
+          '<div class="flex flex-wrap items-center gap-2">' +
+            '<span class="px-2 py-0.5 rounded font-bold bg-[var(--card)] border border-[var(--card-border)] text-[var(--primary)]">' + ph.half + ' · ' + ph.label + '</span>' +
+            '<span class="font-bold text-[var(--foreground)] tabular-nums">Ballbesitz SVO ' + ph.svoPoss.toFixed(1).replace('.', ',') + '% vs. SVH ' + ph.svhPoss.toFixed(1).replace('.', ',') + '%</span>' +
+            '<span class="text-[var(--muted-foreground)]">| Schüsse/Stand: <strong class="text-[var(--foreground)]">' + ph.shots + '</strong></span>' +
+          '</div>' +
+          '<div class="text-[var(--muted-foreground)]">' + ph.events.join(' · ') + '</div>';
+      }
+
+      function updateFormationButtons() {
+        document.querySelectorAll('.formation-btn').forEach(btn => {
+          const isMatch = btn.getAttribute('data-formation') === activeFormation;
+          btn.className = isMatch
+            ? 'formation-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] cursor-pointer'
+            : 'formation-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] cursor-pointer';
+        });
+      }
+
+      // Wire Controls
+      document.querySelectorAll('.formation-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeFormation = btn.getAttribute('data-formation');
+          updateFormationButtons();
+          renderPitch();
+        });
+      });
+
+      document.querySelectorAll('.player-filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeFilter = btn.getAttribute('data-filter');
+          document.querySelectorAll('.player-filter-btn').forEach(b => {
+            const on = b.getAttribute('data-filter') === activeFilter;
+            b.className = on
+              ? 'player-filter-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] cursor-pointer'
+              : 'player-filter-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[var(--content)] border border-[var(--card-border)] text-[var(--foreground)] cursor-pointer';
+          });
+          renderGradeBars();
+          renderPlayersGrid();
+        });
+      });
+
+      const sortSel = document.getElementById('player-sort');
+      if (sortSel) {
+        sortSel.addEventListener('change', () => {
+          activeSort = sortSel.value;
+          renderGradeBars();
+          renderPlayersGrid();
+        });
+      }
+
+      document.querySelectorAll('.chart-mode-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const modeAttr = btn.getAttribute('data-chartmode');
+          activeChartMode = modeAttr === 'momentum' ? 'control' : 'possession';
+          document.querySelectorAll('.chart-mode-btn').forEach(b => {
+            const on = b === btn;
+            b.className = on
+              ? 'chart-mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] cursor-pointer'
+              : 'chart-mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-[var(--content)] border border-[var(--card-border)] text-[var(--foreground)] cursor-pointer';
+          });
+          drawCanvas();
+        });
+      });
+
+      document.querySelectorAll('.ev-filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeEvFilter = btn.getAttribute('data-evfilter');
+          document.querySelectorAll('.ev-filter-btn').forEach(b => {
+            const on = b.getAttribute('data-evfilter') === activeEvFilter;
+            b.className = on
+              ? 'ev-filter-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[var(--primary)] text-[var(--primary-foreground)] cursor-pointer'
+              : 'ev-filter-btn px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] cursor-pointer';
+          });
+          renderEvents();
+        });
+      });
+
+      const canvasEl = document.getElementById('momentum-canvas');
+      if (canvasEl) {
+        canvasEl.addEventListener('mousemove', e => {
+          const rect = canvasEl.getBoundingClientRect();
+          const mx = e.clientX - rect.left;
+          let found = -1;
+          for (let i = 0; i < barHitboxes.length; i++) {
+            if (mx >= barHitboxes[i].x && mx <= barHitboxes[i].x + barHitboxes[i].w) {
+              found = barHitboxes[i].idx;
+              break;
+            }
+          }
+          if (found !== hoveredPhaseIdx) {
+            hoveredPhaseIdx = found;
+            drawCanvas();
+            updateMomentumReadout(found);
+          }
+        });
+        canvasEl.addEventListener('mouseleave', () => {
+          hoveredPhaseIdx = -1;
+          drawCanvas();
+          updateMomentumReadout(-1);
+        });
+      }
+
+      // Standalone theme persistence & toggle
+      function applyTheme(mode) {
+        const next = mode === 'light' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', next === 'light' ? '#f8fafc' : '#0b1120');
+      }
+      try {
+        const savedTheme = localStorage.getItem('svo-report-theme');
+        if (savedTheme === 'light' || savedTheme === 'dark') applyTheme(savedTheme);
+      } catch (_) {}
+      const themeBtn = document.getElementById('theme-toggle-btn');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          const cur = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+          const next = cur === 'light' ? 'dark' : 'light';
+          applyTheme(next);
+          try { localStorage.setItem('svo-report-theme', next); } catch (_) {}
+          window.dispatchEvent(new Event('themechange'));
+        });
+      }
+
+      // Initial render + required listeners
+      renderHeroAverage();
+      renderPitch();
+      renderSpotlight();
+      renderGradeBars();
+      renderPlayersGrid();
+      renderStatsTable();
+      renderEvents();
+      updateMomentumReadout(-1);
+      drawCanvas();
+
+      window.addEventListener('resize', drawCanvas);
+      window.addEventListener('themechange', drawCanvas);
+    })();
+  </script>
+</body>
+</html>
