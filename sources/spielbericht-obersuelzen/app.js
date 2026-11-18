@@ -15,16 +15,47 @@ const observer = new IntersectionObserver((entries) => {
 observer.observe(dockAnchor);
 
 function seekToVideo(sec, title, useLeadIn = true) {
-    if (useLeadIn && document.getElementById('leadin-toggle').checked) sec = Math.max(0, sec - 7);
+    if (useLeadIn && document.getElementById('leadin-toggle') && document.getElementById('leadin-toggle').checked) sec = Math.max(0, sec - 7);
     video.currentTime = sec;
     video.play();
     document.querySelector('.dock-only h4').textContent = title;
 }
 
-// Wire up controls...
-document.querySelectorAll('.bookmark-btn').forEach(btn => {
-    btn.addEventListener('click', () => seekToVideo(parseFloat(btn.dataset.sec), btn.dataset.title, btn.dataset.leadin !== 'false'));
+function createVideoBtn(sec, label, leadIn=true) {
+    const btn = document.createElement('button');
+    btn.className = 'btn-video';
+    btn.textContent = '▶ ' + label;
+    btn.onclick = () => seekToVideo(sec, label, leadIn);
+    return btn;
+}
+
+// 1. Render Event Log (#kap-5)
+const logContainer = document.getElementById('kap-5');
+const logList = document.createElement('ul');
+EVENTS_ALL.forEach(ev => {
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>${ev.minLabel}</strong> ${ev.actors}: ${ev.desc} `;
+    li.appendChild(createVideoBtn(ev.videoSec, ev.actors));
+    logList.appendChild(li);
+});
+logContainer.appendChild(logList);
+
+// 2. Render Tactical Plays (#kap-4)
+const tacticContainer = document.getElementById('kap-4');
+TACTICAL_PLAYS.forEach(play => {
+    const div = document.createElement('div');
+    div.innerHTML = `<h3>${play.title}</h3><p>${play.desc}</p>`;
+    div.appendChild(createVideoBtn(play.videoSec, play.title));
+    tacticContainer.appendChild(div);
 });
 
-// Pitch/Canvas logic here (abbreviated for the final write)
+// 3. Simple Training Planner (#kap-6)
+const trainContainer = document.getElementById('kap-6');
+trainContainer.innerHTML += `
+    <ul id="training-list">
+        <li><input type="checkbox"> Fokus-Drill: Pressingfalle (1475s) <button class="btn-video" onclick="seekToVideo(1475, 'Pressing-Drill')">▶ Video</button></li>
+        <li><input type="checkbox"> Fokus-Drill: Distanzschuss-Verwertung (6023s) <button class="btn-video" onclick="seekToVideo(6023, 'Distanz-Drill')">▶ Video</button></li>
+        <li><input type="checkbox"> Fokus-Drill: Defensiv-Konterblock (6135s) <button class="btn-video" onclick="seekToVideo(6135, 'Konter-Drill')">▶ Video</button></li>
+    </ul>`;
+
 console.log("App initialized with", EVENTS_ALL.length, "events");
