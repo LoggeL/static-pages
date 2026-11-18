@@ -211,7 +211,7 @@ window.SVO_DATA = {
       "shortLabel": "#22",
       "name": "Trikot #22",
       "squadHint": "Trikotnummer #22 optisch verifiziert",
-      "role": "6er-R / 8er · Standard-Schütze",
+      "role": "Mittelfeld (Zentral)",
       "posGroup": "mid",
       "numOrder": 22,
       "grade": 1.9,
@@ -261,7 +261,7 @@ window.SVO_DATA = {
       "shortLabel": "#4 C",
       "name": "Trikot #4 (Kapitän)",
       "squadHint": "Kapitänsbinde links (67:30) · mutmaßlich Sören Müsel",
-      "role": "RIV / LIV-Absicherung · Abwehrchef",
+      "role": "Innenverteidiger (IV)",
       "posGroup": "def",
       "numOrder": 4,
       "grade": 2.0,
@@ -421,7 +421,7 @@ window.SVO_DATA = {
       "shortLabel": "#27",
       "name": "Trikot #27",
       "squadHint": "Trikotnummer #27 optisch verifiziert",
-      "role": "Zehner (10) / Hängende Spitze",
+      "role": "Mittelstürmer (MS)",
       "posGroup": "mid",
       "numOrder": 27,
       "grade": 2.3,
@@ -476,7 +476,7 @@ window.SVO_DATA = {
       "shortLabel": "#9",
       "name": "Trikot #9",
       "squadHint": "Trikotnummer #9 optisch verifiziert",
-      "role": "Mittelstürmer (MS)",
+      "role": "Mittelfeld (Zentral/R)",
       "posGroup": "att",
       "numOrder": 9,
       "grade": 2.4,
@@ -696,7 +696,7 @@ window.SVO_DATA = {
       "shortLabel": "#18",
       "name": "Trikot #18",
       "squadHint": "Trikotnummer #18 optisch verifiziert",
-      "role": "6er-L / 8er · Übergangsspieler",
+      "role": "Mittelfeld (Zentral/L)",
       "posGroup": "mid",
       "numOrder": 18,
       "grade": 2.7,
@@ -739,87 +739,84 @@ window.SVO_DATA = {
       "strengths": "Solide Passqualität im Übergangsspiel und guter Offensivmut nach dem Seitenwechsel – stieß unter anderem in der 57. Minute gefährlich mit bis in den gegnerischen Strafraum vor und ließ sich vom Rückschlag in Halbzeit 1 nicht verunsichern.",
       "improvements": "Die entscheidende Hypothek für seine Note geschah in Minute 24' (00:24:30, 62 Sekunden nach eigener Führung): Beim langen Torwartabschlag stand er zu weit hochgeschoben, sodass Horchheims Stürmer genau in seinen ungesicherten Rücken halblinks zum 1:1-Ausgleich durchbrechen konnte. Deshalb knapper Abschlag in der Endnote.",
       "coachTip": "Nach eigenem Tor und langen Abschlägen erst Tiefensicherung herstellen, bevor nach vorne geschoben wird."
+    },
+    {
+      "id": "p19",
+      "num": "#19",
+      "shortLabel": "#19",
+      "name": "Trikot #19",
+      "squadHint": "Neu identifiziert (IV)",
+      "role": "Innenverteidiger (IV)",
+      "posGroup": "def",
+      "numOrder": 19,
+      "grade": 2.5,
+      "noteLabel": "2,5",
+      "score": 75,
+      "radar": [
+        85,
+        75,
+        20,
+        70,
+        80
+      ],
+      "zone": [
+        140,
+        290,
+        50,
+        80
+      ],
+      "videoActions": []
     }
   ],
   "FORMATIONS": {
     "h1": {
-      "caption": "Startaufstellung 1. Halbzeit (4-2-3-1 · SVO greift Links → Rechts an)",
-      "dirLeft": "Eigenes Tor (SVO)",
-      "dirRight": "Gegner-Tor (SVH) →",
-      "links": [
-        [
-          "p4",
-          "p22"
-        ],
-        [
-          "p5",
-          "p18"
-        ],
-        [
-          "p22",
-          "p27"
-        ],
-        [
-          "p18",
-          "p27"
-        ],
-        [
-          "p27",
-          "p9"
-        ],
-        [
-          "p3",
-          "p10"
-        ],
-        [
-          "p20",
-          "p47"
-        ]
-      ],
+      "caption": "Korrektive Aufstellung 1. Halbzeit (3-Mittelfeld-System)",
+      "dirLeft": "Eigenes Tor",
+      "dirRight": "Gegner-Tor →",
       "nodes": {
         "tw": [
           52,
           220
         ],
-        "p3": [
-          158,
-          72
-        ],
-        "p5": [
-          148,
-          165
-        ],
         "p4": [
-          148,
-          275
+          150,
+          150
         ],
-        "p20": [
-          158,
-          368
+        "p19": [
+          150,
+          290
         ],
         "p18": [
-          272,
-          168
-        ],
-        "p22": [
-          272,
-          272
-        ],
-        "p10": [
-          405,
-          76
-        ],
-        "p27": [
-          390,
+          270,
           220
-        ],
-        "p47": [
-          405,
-          364
         ],
         "p9": [
-          530,
+          300,
+          120
+        ],
+        "p22": [
+          300,
+          320
+        ],
+        "p10": [
+          400,
+          80
+        ],
+        "p47": [
+          400,
+          360
+        ],
+        "p27": [
+          500,
           220
+        ],
+        "p3": [
+          160,
+          50
+        ],
+        "p20": [
+          160,
+          390
         ]
       }
     },
@@ -4205,6 +4202,18 @@ window.SVO_DATA = {
       "actors": "Schlusspfiff!",
       "desc": "Abpfiff im Walter-Kraft-Stadion — SV 1970 Obersülzen siegt auswärts mit 2:1!",
       "timeStr": "01:51:27"
+    }
+  ],
+  "TACTICAL_HIGHLIGHTS": [
+    {
+      "label": "Analyse: 3er-Mittelfeld (9, 18, 22)",
+      "sec": 1413,
+      "desc": "Zentraler Block gegen Horchheim"
+    },
+    {
+      "label": "Analyse: #18 tiefes Fallenlassen",
+      "sec": 2155,
+      "desc": "Absicherung aus der Mittelfeldreihe"
     }
   ]
 };
