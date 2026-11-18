@@ -194,21 +194,31 @@ function normalizeSongs(list) {
 
 async function initStage() {
   const container = document.getElementById('stage');
+  let stage = null;
   try {
+    if (new URLSearchParams(location.search).has('nogl')) throw new Error('per ?nogl abgeschaltet');
     const { Stage3D } = await import('./stage3d.js');
-    const stage = new Stage3D(container, engine);
-    stage.onMemberClick((id) => {
-      ui.hideStageHint();
-      toggleStem(id);
-    });
-    state.stage = stage;
-    if (state.loadedId && engine.song) withStage((s) => s.setSong(engine.song));
+    stage = new Stage3D(container, engine);
   } catch (err) {
-    console.warn('[StemStage] 3D-Bühne deaktiviert:', err);
-    state.stage = null;
+    console.warn('[StemStage] 3D-Bühne nicht verfügbar, nutze 2D-Bühne:', err);
     container.replaceChildren();
-    ui.disableStage();
+    try {
+      const { Stage2D } = await import('./stage2d.js');
+      stage = new Stage2D(container, engine);
+    } catch (err2) {
+      console.warn('[StemStage] Bühne deaktiviert:', err2);
+      container.replaceChildren();
+      state.stage = null;
+      ui.disableStage();
+      return;
+    }
   }
+  stage.onMemberClick((id) => {
+    ui.hideStageHint();
+    toggleStem(id);
+  });
+  state.stage = stage;
+  if (state.loadedId && engine.song) withStage((s) => s.setSong(engine.song));
 }
 
 function withStage(fn) {
