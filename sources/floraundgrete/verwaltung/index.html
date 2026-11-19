@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f7f0e6">
+  <title>Verwaltung · Flora &amp; Grete</title>
+  <link rel="icon" href="../img/shop-logo.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Source+Sans+3:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <!-- Begrüßung (Demo-Anmeldung ohne Passwort) -->
+  <div id="welcome" class="welcome" hidden>
+    <div class="welcome-card">
+      <img class="welcome-logo" src="../img/shop-logo.webp" alt="Flora &amp; Grete – Handgemachte Einzelstücke" width="220" height="220">
+      <h1 class="welcome-title">Hallo Cathrin <span aria-hidden="true">👋</span></h1>
+      <p class="welcome-text">Hier pflegst du deine Website: Hinweise, Termine, Anproben und mehr. Alles, was du änderst, ist sofort auf der Seite zu sehen.</p>
+      <button type="button" class="btn btn-primary btn-xl" id="welcome-go">
+        <span>Weiter</span>
+        <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </button>
+      <figure class="welcome-dog">
+        <img src="../img/member-2.webp" alt="Struppi, ein schwarz-weiß-brauner Hund, sitzt zwischen Löwenzahn" width="72" height="72">
+        <figcaption>Struppi passt auf, dass nichts verloren geht.</figcaption>
+      </figure>
+      <p class="welcome-note">Prototyp ohne Passwort. Deine Eingaben bleiben nur in diesem Browser gespeichert.</p>
+    </div>
+  </div>
+
+  <!-- Verwaltung -->
+  <div id="app" class="app" hidden>
+    <a class="skip-link" href="#start" id="skip-link">Zum Inhalt springen</a>
+
+    <aside class="sidebar" aria-label="Bereiche">
+      <a class="brand" href="#start" aria-label="Flora &amp; Grete – Verwaltung, zur Übersicht">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-sub">Verwaltung</span>
+      </a>
+      <nav class="side-nav" id="side-nav" aria-label="Hauptnavigation"></nav>
+      <div class="side-foot">
+        <p class="side-label">Website ansehen</p>
+        <div class="side-sites" id="side-sites"></div>
+      </div>
+    </aside>
+
+    <header class="topbar">
+      <a class="brand brand-mobile" href="#start" aria-label="Flora &amp; Grete – Verwaltung, zur Übersicht">
+        <span class="brand-mark" aria-hidden="true"></span>
+      </a>
+      <p class="savestate" data-savestate><span class="save-dot" aria-hidden="true"></span><span class="save-text">Alles gespeichert ✓</span></p>
+    </header>
+
+    <main id="main" class="main" tabindex="-1"></main>
+
+    <nav class="tabbar" id="tabbar" aria-label="Hauptnavigation (kurz)"></nav>
+  </div>
+
+  <div id="toasts" class="toasts" role="status" aria-live="polite" aria-atomic="true"></div>
+  <div id="save-live" class="sr-only" aria-live="polite"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

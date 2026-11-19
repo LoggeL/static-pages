@@ -1,0 +1,240 @@
+// Verwaltung · Flora & Grete – Hülle, Navigation, Anmeldung, Live-Abgleich.
+import { getContent, update, subscribe } from "../../shared/store.js";
+import { h, icon, toast, markSaved } from "./ui.js";
+import renderStart from "./sections/start.js";
+import renderHinweis from "./sections/hinweis.js";
+import renderTermine from "./sections/termine.js";
+import renderLinks from "./sections/links.js";
+import renderAnprobe from "./sections/anprobe.js";
+import renderShop from "./sections/shop.js";
+import renderAtelier from "./sections/atelier.js";
+import renderUeber from "./sections/ueber.js";
+import renderEinstellungen from "./sections/einstellungen.js";
+import { SITES } from "./sections/common.js";
+
+
+const ROUTES = [
+  { id: "start", label: "Start", long: "Übersicht", icon: "home", render: renderStart },
+  { id: "hinweis", label: "Hinweis", long: "Hinweis oben", icon: "megaphone", render: renderHinweis },
+  { id: "termine", label: "Termine", long: "Termine", icon: "calendar", render: renderTermine },
+  { id: "anprobe", label: "Anprobe", long: "Anprobe", icon: "scissors", render: renderAnprobe },
+  { id: "links", label: "Links", long: "Links", icon: "link", render: renderLinks },
+  { id: "shop", label: "Shop", long: "Shop-Auswahl", icon: "bag", render: renderShop },
+  { id: "atelier", label: "Atelier", long: "Atelier & Zeiten", icon: "door", render: renderAtelier },
+  { id: "ueber", label: "Über mich", long: "Über mich", icon: "heart", render: renderUeber },
+  { id: "einstellungen", label: "Einstellungen", long: "Einstellungen", icon: "gear", render: renderEinstellungen },
+  { id: "mehr", label: "Mehr", long: "Mehr", icon: "more", render: renderMehr, hidden: true },
+];
+const TAB_IDS = ["start", "hinweis", "termine", "anprobe"];
+const SESSION_KEY = "floraundgrete-verwaltung-angemeldet";
+
+const $ = (s) => document.querySelector(s);
+const main = $("#main");
+let current = null; // {route, sub}
+let ownWrites = 0;
+let pendingRerender = false;
+
+// ---------- Speichern ----------
+function save(mutator) {
+  ownWrites++;
+  markSaved(new Date(), { pending: true, announce: false });
+  let out;
+  try { out = update(mutator); } finally { ownWrites--; }
+  markSaved(new Date());
+  return out;
+}
+
+function replaceAll(snapshot) {
+  return (draft) => { for (const k of Object.keys(draft)) delete draft[k]; Object.assign(draft, structuredClone(snapshot)); };
+}
+
+/** Store-Funktionen (setBookingStatus …) als eigene Änderung ausführen */
+function run(fn) {
+  ownWrites++;
+  let out;
+  try { out = fn(); } finally { ownWrites--; }
+  markSaved(new Date());
+  return out;
+}
+
+const ctx = {
+  get content() { return getContent(); },
+  save,
+  run,
+  replaceAll,
+  toast,
+  go: (hash) => { if (location.hash === "#" + hash) route(); else location.hash = hash; },
+  rerender: () => renderCurrent({ keepFocus: true }),
+  get sub() { return current?.sub || ""; },
+  /** Unteradresse (#termine/neu) nur einmal ausführen */
+  consumeSub() { const s = current?.sub || ""; if (current) { current.sub = ""; history.replaceState(null, "", "#" + current.route.id); } return s; },
+};
+
+// ---------- Navigation ----------
+function newCount(c = getContent()) {
+  return c.fitting.bookings.filter((b) => b.status === "angefragt").length;
+}
+
+function navItem(r, { compact }) {
+  const count = r.id === "anprobe" ? newCount() : 0;
+  return h("a", { href: "#" + r.id, class: "nav-item", "data-route": r.id },
+    h("span", { class: "nav-ico" }, icon(r.icon)),
+    h("span", { class: "nav-label" }, compact ? r.label : r.long),
+    count ? h("span", { class: "badge nav-count", "aria-hidden": "true" }, count) : null,
+    count ? h("span", { class: "sr-only" }, `, ${count} neue Anfrage${count === 1 ? "" : "n"}`) : null);
+}
+
+function buildNav() {
+  const visible = ROUTES.filter((r) => !r.hidden);
+  $("#side-nav").replaceChildren(...visible.map((r) => navItem(r, { compact: false })));
+  const tabs = ROUTES.filter((r) => TAB_IDS.includes(r.id) || r.id === "mehr");
+  $("#tabbar").replaceChildren(...tabs.map((r) => navItem(r, { compact: true })));
+  $("#side-sites").replaceChildren(...SITES.map((s) => h("a", { href: s.href, target: "_blank", rel: "noopener", class: "site-link" },
+    h("span", { class: "site-n", "aria-hidden": "true" }, s.n), h("span", {}, s.label), icon("external", "ico-sm"), h("span", { class: "sr-only" }, " (Entwurf " + s.n + ", öffnet neuen Tab)"))));
+  markActive();
+}
+
+function markActive() {
+  const id = current?.route.id;
+  const inMore = id && !TAB_IDS.includes(id);
+  document.querySelectorAll(".nav-item").forEach((a) => {
+    const r = a.dataset.route;
+    const isTabbar = a.closest(".tabbar");
+    const active = r === id || (isTabbar && r === "mehr" && inMore);
+    a.classList.toggle("is-active", active);
+    if (active) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+  });
+}
+
+function parseHash() {
+  const raw = decodeURIComponent(location.hash.replace(/^#/, ""));
+  const [id, sub = ""] = raw.split("/");
+  const r = ROUTES.find((x) => x.id === id);
+  return r ? { route: r, sub } : null;
+}
+
+function route() {
+  const parsed = parseHash();
+  if (!parsed) { if (location.hash && location.hash !== "#") return; history.replaceState(null, "", "#start"); return route(); }
+  const changed = !current || current.route.id !== parsed.route.id;
+  current = parsed;
+  renderCurrent({ focusTitle: changed });
+  if (changed) window.scrollTo(0, 0);
+  document.title = `${parsed.route.id === "start" ? "Verwaltung" : parsed.route.long} · Flora & Grete`;
+}
+
+function renderCurrent({ focusTitle = false, keepFocus = false } = {}) {
+  if (!current) return;
+  pendingRerender = false;
+  const active = document.activeElement;
+  const hadFocusInMain = !!(active && main.contains(active));
+  const focusKey = keepFocus && hadFocusInMain ? (active.dataset.key || active.id) : null;
+  const scrollY = window.scrollY;
+  const sub = current.sub;
+  let view;
+  try {
+    view = current.route.render(ctx);
+  } catch (e) {
+    console.error(e);
+    view = h("div", { class: "card" }, h("h1", { tabindex: "-1" }, "Hier ist etwas schiefgelaufen"), h("p", {}, "Lade die Seite bitte einmal neu."));
+  }
+  main.replaceChildren(view);
+  main.dataset.route = current.route.id;
+  markActive();
+  buildBadges();
+  if (focusTitle) {
+    const t = main.querySelector("h1");
+    if (t) t.focus({ preventScroll: true });
+  } else if (focusKey) {
+    const el = main.querySelector(`[data-key="${CSS.escape(focusKey)}"]`) || document.getElementById(focusKey);
+    if (el) el.focus({ preventScroll: true });
+    window.scrollTo(0, scrollY);
+  } else if (keepFocus) {
+    window.scrollTo(0, scrollY);
+  }
+  // Fokus ging verloren (z. B. gelöschter Eintrag): zum „Rückgängig“-Knopf, sonst zur Überschrift
+  if (keepFocus && hadFocusInMain && !main.contains(document.activeElement) && !document.querySelector("dialog[open]")) {
+    const target = document.querySelector(".toast-undo") || main.querySelector("h1");
+    if (target) target.focus({ preventScroll: true });
+  }
+  if (sub && focusTitle) {
+    const target = document.getElementById(sub);
+    if (target) setTimeout(() => target.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+  }
+}
+
+function buildBadges() {
+  const n = newCount();
+  document.querySelectorAll('.nav-item[data-route="anprobe"]').forEach((a) => {
+    let b = a.querySelector(".nav-count");
+    if (n && !b) { b = h("span", { class: "badge nav-count", "aria-hidden": "true" }); a.querySelector(".nav-label").after(b); }
+    if (b) { if (n) b.textContent = n; else b.remove(); }
+    let sr = a.querySelector(".sr-only");
+    if (n) { if (!sr) { sr = h("span", { class: "sr-only" }); a.append(sr); } sr.textContent = `, ${n} neue Anfrage${n === 1 ? "" : "n"}`; }
+    else if (sr) sr.remove();
+  });
+}
+
+// "Mehr" (nur Handy): große Kacheln für die übrigen Bereiche
+function renderMehr() {
+  const items = ROUTES.filter((r) => !r.hidden && !TAB_IDS.includes(r.id));
+  const desc = {
+    links: "Linkliste, z. B. für Instagram",
+    shop: "Welche Stücke vorne gezeigt werden",
+    atelier: "Status, Öffnungszeiten, Google",
+    ueber: "Dein kurzer Steckbrief-Text",
+    einstellungen: "Demo zurücksetzen, abmelden",
+  };
+  return h("div", { class: "stack" },
+    h("header", { class: "section-head" }, h("h1", { tabindex: "-1", class: "section-title" }, "Mehr"), h("p", { class: "lead" }, "Alle weiteren Bereiche deiner Website.")),
+    h("div", { class: "more-grid" }, items.map((r) => h("a", { href: "#" + r.id, class: "more-tile" },
+      h("span", { class: "more-ico" }, icon(r.icon)), h("span", { class: "more-text" }, h("strong", {}, r.long), h("span", {}, desc[r.id] || "")), icon("chevronRight", "ico-sm more-chev")))),
+    h("section", { class: "card" }, h("h2", { class: "card-title" }, "Website ansehen"),
+      h("div", { class: "site-list" }, SITES.map((s) => h("a", { href: s.href, target: "_blank", rel: "noopener", class: "btn btn-soft btn-block" },
+        icon("external"), h("span", {}, `Entwurf ${s.n}: ${s.label}`), h("span", { class: "sr-only" }, " (öffnet neuen Tab)"))))));
+}
+
+// ---------- Live-Abgleich mit anderen Tabs ----------
+subscribe(() => {
+  buildBadges();
+  if (ownWrites > 0) return;
+  markSaved(new Date(getContent().updatedAt), { announce: false });
+  const a = document.activeElement;
+  const typing = a && main.contains(a) && (a.tagName === "TEXTAREA" || (a.tagName === "INPUT" && !["checkbox", "radio", "button"].includes(a.type)));
+  if (document.querySelector("dialog[open]") || typing) { pendingRerender = true; return; }
+  renderCurrent({ keepFocus: true });
+});
+main.addEventListener("focusout", () => setTimeout(() => {
+  if (pendingRerender && !document.querySelector("dialog[open]") && !main.contains(document.activeElement)) renderCurrent({ keepFocus: true });
+}, 50));
+document.addEventListener("close", () => { if (pendingRerender) setTimeout(() => renderCurrent({ keepFocus: true }), 30); }, true);
+
+// ---------- Anmeldung ----------
+function isLoggedIn() { try { return sessionStorage.getItem(SESSION_KEY) === "1"; } catch { return window.__fgLoggedIn === true; } }
+function setLoggedIn(v) {
+  try { if (v) sessionStorage.setItem(SESSION_KEY, "1"); else sessionStorage.removeItem(SESSION_KEY); } catch { window.__fgLoggedIn = v; }
+}
+export function logout() { setLoggedIn(false); location.hash = ""; showWelcome(); }
+ctx.logout = logout;
+
+function showWelcome() {
+  $("#app").hidden = true;
+  $("#welcome").hidden = false;
+  document.title = "Verwaltung · Flora & Grete";
+  $("#welcome-go").focus();
+}
+
+function showApp() {
+  $("#welcome").hidden = true;
+  $("#app").hidden = false;
+  buildNav();
+  markSaved(new Date(getContent().updatedAt), { announce: false });
+  current = null;
+  route();
+}
+
+$("#welcome-go").addEventListener("click", () => { setLoggedIn(true); showApp(); });
+$("#skip-link").addEventListener("click", (e) => { e.preventDefault(); const t = main.querySelector("h1"); (t || main).focus(); });
+window.addEventListener("hashchange", () => { if (!$("#app").hidden) route(); });
+
+if (isLoggedIn()) showApp(); else showWelcome();

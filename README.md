@@ -4,6 +4,8 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
+- **[Flora & Grete · Drei Entwürfe](https://loggel.github.io/static-pages/floraundgrete/)**: three clickable German website concepts for Flora & Grete, a seamstress in Ramsen (Pfalz) who sells handmade, vintage-inspired clothing on Etsy. All three are built from her real shop data (14 products, 105 photos, reviews, profile): *Leinen & Licht* (calm cream editorial magazine), *Millefleur* (colourful fabric-drawer collage with stitches, pinked edges and stickers) and *Lookbook* (minimal fashion label with full-bleed photos and a scroll-snap lookbook). Each has the Etsy shop in focus with filterable catalogue and deep-linkable product galleries, a profile with her dog Struppi, reviews, dates, links, a fitting-appointment planner, an atelier status, a privacy-friendly two-click Google map and ClothingStore/Product JSON-LD. A shared mini-CMS (`verwaltung/`, mobile-first, undo instead of confirm dialogs) edits banners, dates, links, fitting slots and requests, featured products and status, and syncs live to all open variants via localStorage and BroadcastChannel; it also explains that Google opening hours live in the Google Business Profile. Sample data stays in the browser. Shared data and store: `public/floraundgrete/shared/`; source copy and image list: `sources/floraundgrete/`.
+
 - **[SV 1970 Obersülzen · Spielbericht](https://loggel.github.io/static-pages/spielbericht-obersuelzen/)**: a German match and player-scouting report for SV 1970 Obersülzen's 2:1 away win at SV 1920 Horchheim (Bezirksliga Rheinhessen), built from 32 full-match 1080p video segments. Features an interactive 2D formation pitch (`4-2-3-1`, `3-4-2-1` buildup, `4-4-1-1` H2 block), individual grades and critiques for all 12 observed players, a 90+4 minute `<canvas>` phase timeline, 19 half-by-half team metrics, four SVG tactical boards, a filterable event log and three targeted training drills. Source: `sources/spielbericht-obersuelzen/`.
 
 - **[StemStage](https://loggel.github.io/static-pages/stemstage/)**: a German, mobile-first classroom stem mixer. A dancing Three.js toy band plays the song; tap a musician to mute their instrument mid-song (they grey out and doze off), or use the waveform lanes with mute, solo and seek. Ships with four real songs (Green Day, KISS, Queen, Metallica) separated on a CUDA GPU (Mel-Band-RoFormer for vocals, BS-Roformer-SW for guitar, bass, drums and keys). The real songs are stored only AES-256-GCM-encrypted; the projector QR code carries the class password in the URL fragment so scanning unlocks them. Low-memory mode (32 kHz mono) for phones. Source, GPU separation and build scripts: `sources/stemstage/`.
@@ -74,6 +76,7 @@ The editable source for the Creepshow rehearsal planner lives in
 ## Live site
 
 - Gallery: <https://loggel.github.io/static-pages/>
+- Flora & Grete website concepts: <https://loggel.github.io/static-pages/floraundgrete/>
 - Premiere game design plan: <https://loggel.github.io/static-pages/premiere-tcg/>
 - Kolping Ramsen clickable prototype: <https://loggel.github.io/static-pages/kolping-ramsen-prototyp/>
 - Quadratische Gleichungen learning app: <https://loggel.github.io/static-pages/quadratische-gleichungen/>
