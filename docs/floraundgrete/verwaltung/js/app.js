@@ -90,7 +90,7 @@ function buildNav() {
   const tabs = ROUTES.filter((r) => TAB_IDS.includes(r.id) || r.id === "mehr");
   $("#tabbar").replaceChildren(...tabs.map((r) => navItem(r, { compact: true })));
   $("#side-sites").replaceChildren(...SITES.map((s) => h("a", { href: s.href, target: "_blank", rel: "noopener", class: "site-link" },
-    h("span", { class: "site-n", "aria-hidden": "true" }, s.n), h("span", {}, s.label), icon("external", "ico-sm"), h("span", { class: "sr-only" }, " (Entwurf " + s.n + ", öffnet neuen Tab)"))));
+    h("span", {}, s.label), icon("external", "ico-sm"), h("span", { class: "sr-only" }, " (öffnet neuen Tab)"))));
   markActive();
 }
 
@@ -191,7 +191,7 @@ function renderMehr() {
       h("span", { class: "more-ico" }, icon(r.icon)), h("span", { class: "more-text" }, h("strong", {}, r.long), h("span", {}, desc[r.id] || "")), icon("chevronRight", "ico-sm more-chev")))),
     h("section", { class: "card" }, h("h2", { class: "card-title" }, "Website ansehen"),
       h("div", { class: "site-list" }, SITES.map((s) => h("a", { href: s.href, target: "_blank", rel: "noopener", class: "btn btn-soft btn-block" },
-        icon("external"), h("span", {}, `Entwurf ${s.n}: ${s.label}`), h("span", { class: "sr-only" }, " (öffnet neuen Tab)"))))));
+        icon("external"), h("span", {}, s.label), h("span", { class: "sr-only" }, " (öffnet neuen Tab)"))))));
 }
 
 // ---------- Live-Abgleich mit anderen Tabs ----------

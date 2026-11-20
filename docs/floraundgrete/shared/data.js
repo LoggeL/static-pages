@@ -1,6 +1,6 @@
-// Cathrin Raasch Atelier – gemeinsame Inhalte für alle Entwürfe.
+// Cathrin Raasch Atelier – gemeinsame Inhalte für Website und Verwaltung.
 // Quelle: öffentlicher Etsy-Shop https://www.etsy.com/de/shop/FloraundGrete (Stand 19.11.2026).
-// Bilder liegen in ../img/<datei>.webp (relativ zu jeder Entwurfsseite).
+// Bilder liegen in img/<datei>.webp.
 
 export const SHOP = {
  name: "Cathrin Raasch Atelier",

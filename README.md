@@ -4,7 +4,7 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
-- **[Cathrin Raasch Atelier · Fünf Entwürfe](https://loggel.github.io/static-pages/floraundgrete/)**: five clickable German website concepts for Cathrin Raasch Atelier, a seamstress in Ramsen (Pfalz) who sells handmade, vintage-inspired clothing on Etsy, built from her real shop data (14 products, 105 photos, reviews, profile) but without live Etsy statistics: *Leinen & Licht* (calm cream editorial), *Atelier* (friendly card UI in the style of the admin), *Lookbook* (minimal fashion label), *Schnittmuster* (tissue-paper pattern sheet with dimension lines, a parts list and an interactive "Maße nehmen" guide) and *Nachtatelier* (dark, warm, cinematic, with a sticky "So entsteht ein Stück" chapter and a typographic index list). Each has a filterable catalogue with deep-linkable product galleries, a profile with her dog Struppi, reviews, dates, links, a fitting-appointment planner, an atelier status, a two-click Google map and ClothingStore/Product JSON-LD. A shared mini-CMS (`verwaltung/`) edits banners, dates, links, fitting slots and requests, featured products and status, and syncs live to all variants via localStorage and BroadcastChannel. Shared data, store and variant list: `public/floraundgrete/shared/`; source copy: `sources/floraundgrete/`.
+- **[Cathrin Raasch Atelier · Website](https://loggel.github.io/static-pages/floraundgrete/)**: German website for Cathrin Raasch Atelier, a seamstress in Ramsen (Pfalz) who sells handmade, vintage-inspired clothing on Etsy, built from her real shop data (14 products, 105 photos, reviews, profile) without live Etsy statistics. Dark, warm, cinematic "Nachtatelier" design (the winner of five concepts) with a scroll-driven making-of story, product detail dialogs, dates, links, a fitting-appointment planner, a two-click Google map and local-business JSON-LD. A mobile-first mini-CMS (`/floraundgrete/verwaltung/`) edits banner, dates, links, featured products, atelier status and fitting bookings, synced live via localStorage and BroadcastChannel. The old concept URLs redirect to the site.
 
 - **[SV 1970 Obersülzen · Spielbericht](https://loggel.github.io/static-pages/spielbericht-obersuelzen/)**: a German match and player-scouting report for SV 1970 Obersülzen's 2:1 away win at SV 1920 Horchheim (Bezirksliga Rheinhessen), built from 32 full-match 1080p video segments. Features an interactive 2D formation pitch (`4-2-3-1`, `3-4-2-1` buildup, `4-4-1-1` H2 block), individual grades and critiques for all 12 observed players, a 90+4 minute `<canvas>` phase timeline, 19 half-by-half team metrics, four SVG tactical boards, a filterable event log and three targeted training drills. Source: `sources/spielbericht-obersuelzen/`.
 
@@ -76,7 +76,7 @@ The editable source for the Creepshow rehearsal planner lives in
 ## Live site
 
 - Gallery: <https://loggel.github.io/static-pages/>
-- Cathrin Raasch Atelier website concepts (5): <https://loggel.github.io/static-pages/floraundgrete/>
+- Cathrin Raasch Atelier website: <https://loggel.github.io/static-pages/floraundgrete/>
 - Premiere game design plan: <https://loggel.github.io/static-pages/premiere-tcg/>
 - Kolping Ramsen clickable prototype: <https://loggel.github.io/static-pages/kolping-ramsen-prototyp/>
 - Quadratische Gleichungen learning app: <https://loggel.github.io/static-pages/quadratische-gleichungen/>

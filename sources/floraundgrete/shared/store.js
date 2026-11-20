@@ -1,5 +1,5 @@
 // Cathrin Raasch Atelier – Mini-CMS (Klick-Prototyp).
-// Alles liegt im localStorage dieses Browsers; alle Entwürfe und die Verwaltung
+// Alles liegt im localStorage dieses Browsers; Website und Verwaltung
 // teilen denselben Speicher. Änderungen werden live (auch tabübergreifend) verteilt.
 //
 // API (alle Funktionen synchron, Rückgabewerte sind Kopien):

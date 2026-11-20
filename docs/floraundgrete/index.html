@@ -1,54 +1,371 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cathrin Raasch Atelier · Entwürfe</title>
-  <!-- Entwurfsübersicht – nicht für Suchmaschinen gedacht -->
-  <meta name="robots" content="noindex" />
-  <meta name="description" content="Fünf Website-Entwürfe für Cathrin Raasch Atelier, handgemachte Einzelstücke aus Ramsen (Pfalz)." />
-  <meta property="og:title" content="Cathrin Raasch Atelier · Entwürfe" />
-  <meta property="og:image" content="https://loggel.github.io/static-pages/floraundgrete/img/preview-leinen.webp" />
-  <meta name="theme-color" content="#f4eee6" />
-  <link rel="icon" href="img/shop-logo.webp" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    :root { --bg: #f4eee6; --paper: #fffcf7; --ink: #3a2a22; --muted: #6a5649; --line: #e6d8c6; --rose: #a3485a; }
-    * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.5 "Source Sans 3", system-ui, sans-serif; }
-    img { display: block; max-width: 100%; }
-    main { width: min(1240px, 100% - 32px); margin: 0 auto; padding: clamp(32px, 6vw, 72px) 0 56px; }
-    header { display: flex; align-items: center; gap: 18px; margin-bottom: clamp(28px, 4vw, 44px); }
-    header img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
-    h1 { font: 500 clamp(28px, 4vw, 40px)/1.1 Lora, Georgia, serif; margin: 0; }
-    .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; }
-    .card { flex: 0 1 calc((100% - 44px) / 3); min-width: 280px; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; text-decoration: none; color: inherit; transition: transform .3s ease, box-shadow .3s ease; }
-    .card:hover, .card:focus-visible { transform: translateY(-4px); box-shadow: 0 18px 40px -20px rgb(58 42 34 / .35); }
-    .card:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; }
-    .shot { aspect-ratio: 4 / 5; background: var(--line); overflow: hidden; }
-    .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-    .meta { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 16px 18px 18px; }
-    .meta h2 { font: 500 22px/1.2 Lora, Georgia, serif; margin: 0; }
-    .meta span { color: var(--muted); font-size: 14px; font-weight: 600; letter-spacing: .04em; white-space: nowrap; }
-    @media (max-width: 640px) { .card { flex-basis: 100%; min-width: 0; } .shot { aspect-ratio: 16 / 12; } }
-    @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cathrin Raasch Atelier – handgenähte Einzelstücke aus Ramsen (Pfalz)</title>
+<meta name="description" content="Cathrin Raasch Atelier: Schneiderin Cathrin näht in ihrem Mini-Atelier in Ramsen (Pfalz) Röcke und Kleider auf Maß, Kleider aus Vintage-Bettwäsche, Liberty-Wendekragen und warme Accessoires. Erhältlich auf Etsy, Anprobe im Atelier nach Termin.">
+<!-- Vorschau auf GitHub Pages: "noindex" wird auf der echten Domain entfernt. -->
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://loggel.github.io/static-pages/floraundgrete/">
+<meta name="theme-color" content="#1A1412">
+<meta name="color-scheme" content="dark">
+<meta name="author" content="Cathrin Raasch">
+<meta name="geo.region" content="DE-RP">
+<meta name="geo.placename" content="Ramsen">
+<meta name="geo.position" content="49.5367;8.0138">
+<meta name="ICBM" content="49.5367, 8.0138">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Cathrin Raasch Atelier">
+<meta property="og:title" content="Cathrin Raasch Atelier – Handgemachte Einzelstücke aus Ramsen (Pfalz)">
+<meta property="og:description" content="Vintage-inspirierte Röcke, Kleider, Kragen und Accessoires, auf Maß genäht im Mini-Atelier in der Pfalz.">
+<meta property="og:url" content="https://loggel.github.io/static-pages/floraundgrete/">
+<meta property="og:image" content="https://loggel.github.io/static-pages/floraundgrete/img/muetze-1.webp">
+<meta property="og:image:width" content="1050">
+<meta property="og:image:height" content="1400">
+<meta property="og:image:alt" content="Frau mit rosa Rippmütze vor rotem Herbstlaub an einer Hauswand">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cathrin Raasch Atelier – Handgemachte Einzelstücke">
+<meta name="twitter:description" content="Röcke, Kleider, Kragen und Accessoires aus dem Mini-Atelier in Ramsen (Pfalz).">
+<meta name="twitter:image" content="https://loggel.github.io/static-pages/floraundgrete/img/muetze-1.webp">
+<link rel="icon" href="img/shop-logo.webp" type="image/webp">
+<link rel="apple-touch-icon" href="img/shop-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..700&amp;family=Figtree:ital,wght@0,400..700;1,400&amp;display=swap">
+<link rel="preload" as="image" href="img/muetze-1.webp" fetchpriority="high">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ClothingStore",
+ "@id": "https://loggel.github.io/static-pages/floraundgrete/#store",
+ "name": "Cathrin Raasch Atelier",
+ "description": "Vintage-inspirierte Kleidung, mit Hand und Herz genäht im Mini-Atelier mitten in der Pfalz: Röcke und Kleider auf Maß, Kleider aus Vintage-Bettwäsche, Liberty-Wendekragen, Musselintücher und Accessoires.",
+ "url": "https://loggel.github.io/static-pages/floraundgrete/",
+ "image": "https://loggel.github.io/static-pages/floraundgrete/img/muetze-1.webp",
+ "logo": "https://loggel.github.io/static-pages/floraundgrete/img/shop-logo.webp",
+ "address": {
+  "@type": "PostalAddress",
+  "addressLocality": "Ramsen",
+  "postalCode": "67305",
+  "addressRegion": "Rheinland-Pfalz",
+  "addressCountry": "DE"
+ },
+ "geo": { "@type": "GeoCoordinates", "latitude": 49.5367, "longitude": 8.0138 },
+ "founder": { "@type": "Person", "name": "Cathrin", "jobTitle": "Schneiderin" },
+ "foundingDate": "2021",
+ "sameAs": [
+  "https://www.etsy.com/de/shop/FloraundGrete",
+  "https://www.instagram.com/floraundgrete/"
+ ],
+ "priceRange": "€€",
+ "areaServed": "DE",
+ "hasMap": "https://www.google.com/maps?q=Ramsen%2067305%20Pfalz"
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"ItemList","name":"Kollektion Cathrin Raasch Atelier","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"Product","name":"Rock Lene","description":"Knielanger Rock aus Leinen, auf deine Taille genäht, mit großer Seitentasche, Reißverschluss und Knopf.","image":"https://loggel.github.io/static-pages/floraundgrete/img/lene-1.webp","url":"https://loggel.github.io/static-pages/floraundgrete/#produkt-lene","brand":{"@type":"Brand","name":"Cathrin Raasch Atelier"},"material":"Leinen / Viskose-Leinen","offers":{"@type":"Offer","priceCurrency":"EUR","price":"65.00","url":"https://www.etsy.com/de/listing/1111578564","availability":"https://schema.org/InStock","seller":{"@id":"https://loggel.github.io/static-pages/floraundgrete/#store"}}}},{"@type":"ListItem","position":2,"item":{"@type":"Product","name":"Musselinrock Millie","description":"Federleichter Musselinrock mit Gummibund, Zierknopfleiste und Seitentasche, auf deine Taille genäht.","image":"https://loggel.github.io/static-pages/floraundgrete/img/millie-1.webp","url":"https://loggel.github.io/static-pages/floraundgrete/#produkt-millie","brand":{"@type":"Brand","name":"Cathrin Raasch Atelier"},"material":"Baumwoll-Musselin","offers":{"@type":"Offer","priceCurrency":"EUR","price":"49.90","url":"https://www.etsy.com/de/listing/1512585340","availability":"https://schema.org/InStock","seller":{"@id":"https://loggel.github.io/static-pages/floraundgrete/#store"}}}},{"@type":"ListItem","position":3,"item":{"@type":"Product","name":"Rock Viola","description":"Aus echtem Vintage-Stoff, inklusive der originalen Knopfleiste der früheren Bettwäsche. Gute Laune in Rockform.","image":"https://loggel.github.io/static-pages/floraundgrete/img/viola-rock-1.webp","url":"https://loggel.github.io/static-pages/floraundgrete/#produkt-viola-rock","brand":{"@type":"Brand","name":"Cathrin Raasch Atelier"},"material":"100 % Baumwolle, Vintage-Stoff","offers":{"@type":"Offer","priceCurrency":"EUR","price":"45.00","url":"https://www.etsy.com/de/listing/1513137828","availability":"https://schema.org/InStock","seller":{"@id":"https://loggel.github.io/static-pages/floraundgrete/#store"}}}},{"@type":"ListItem","position":4,"item":{"@type":"Product","name":"Kleid Viola","description":"A-Linien-Kleid mit Rüschensaum, Seitentasche und Schlaufenträgern zum Binden, aus einem echten Vintage-Schätzchen.","image":"https://loggel.github.io/static-pages/floraundgrete/img/viola-kleid-3.webp","url":"https://loggel.github.io/static-pages/floraundgrete/#produkt-viola-kleid","brand":{"@type":"Brand","name":"Cathrin Raasch Atelier"},"material":"100 % Baumwolle, Vintage-Stoff","offers":{"@type":"Offer","priceCurrency":"EUR","price":"79.00","url":"https://www.etsy.com/de/listing/1526791039","availability":"https://schema.org/InStock","seller":{"@id":"https://loggel.github.io/static-pages/floraundgrete/#store"}}}},{"@type":"ListItem","position":5,"item":{"@type":"Product","name":"Kleid Rosemary","description":"A-Linien-Kleid mit gekräuseltem Rock und Seitentasche. Das graue war früher ein Bettbezug, die anderen Farben nähe ich auf Maß.","image":"https://loggel.github.io/static-pages/floraundgrete/img/rosemary-2.webp","url":"https://loggel.github.io/static-pages/floraundgrete/#produkt-rosemary","brand":{"@type":"Brand","name":"Cathrin Raasch Atelier"},"material":"Leinen/Baumwolle bzw. Leinen-Viskose","offers":{"@type":"Offer","priceCurrency":"EUR","price":"95.00","url":"https://www.etsy.com/de/listing/1125591835","availability":"https://schema.org/InStock","seller":{"@id":"https://loggel.github.io/static-pages/floraundgrete/#store"}}}},{"@type":"ListItem","position":6,"item":{"@type":"Product","name":"Crop-Top Eloise","description":"Einzelstück aus einem originalen Vintage-Kissenbezug, mit Tropfenausschnitt, Schleife im Rücken und kleinen Rüschenärmeln.","image":"https://loggel.github.io/static-pages/floraundgrete/img/eloise-2.webp","url":"https://loggel.github.io/static-pages/floraundgrete/#produkt-eloise","brand":{"@type":"Brand","name":"Cathrin Raasch Atelier"},"material":"100 % Baumwolle","offers":{"@type":"Offer","priceCurrency":"EUR","price":"42.00","url":"https://www.etsy.com/de/listing/1111592794","availability":"https://schema.org/InStock","seller":{"@id":"https://loggel.github.io/static-pages/floraundgrete/#store"}}}},{"@type":"ListItem","position":7,"item":{"@type":"Product","name":"Wendekragen Betsy","description":"Wendekragen mit Rüsche: eine Seite Liberty-Blümchen, die andere echter Vintage-Stoff. Macht jeden Pulli besonders.","image":"https://loggel.github.io/static-pages/floraundgrete/img/kragen-betsy-7.webp","url":"https://loggel.github.io/static-pages/floraundgrete/#produkt-kragen-betsy","brand":{"@type":"Brand","name":"Cathrin Raasch Atelier"},"material":"100 % Baumwolle","offers":{"@type":"Offer","priceCurrency":"EUR","price":"27.00","url":"https://www.etsy.com/de/listing/1139706973","availability":"https://schema.org/InStock","seller":{"@id":"https://loggel.github.io/static-pages/floraundgrete/#store"}}}},{"@type":"ListItem","position":8,"item":{"@type":"Product","name":"Wendekragen Forbidden Fruit","description":"Liberty Tana Lawn mit Früchten und Blüten, Rückseite aus Vintage-Weiß, mit Schleifenbändern.","image":"https://loggel.github.io/static-pages/floraundgrete/img/kragen-frucht-6.webp","url":"https://loggel.github.io/static-pages/floraundgrete/#produkt-kragen-frucht","brand":{"@type":"Brand","name":"Cathrin Raasch Atelier"},"material":"100 % Baumwolle","offers":{"@type":"Offer","priceCurrency":"EUR","price":"27.00","url":"https://www.etsy.com/de/listing/1139712447","availability":"https://schema.org/InStock","seller":{"@id":"https://loggel.github.io/static-pages/floraundgrete/#store"}}}},{"@type":"ListItem","position":9,"item":{"@type":"Product","name":"Wendekragen Holiday","description":"Originaler Vintage-Baumwollstoff mit gewebtem Karo, rot und weiß, mit Rüschen.","image":"https://loggel.github.io/static-pages/floraundgrete/img/kragen-karo-4.webp","url":"https://loggel.github.io/static-pages/floraundgrete/#produkt-kragen-karo","brand":{"@type":"Brand","name":"Cathrin Raasch Atelier"},"material":"100 % Baumwolle, Vintage","offers":{"@type":"Offer","priceCurrency":"EUR","price":"24.00","url":"https://www.etsy.com/de/listing/1125761228","availability":"https://schema.org/InStock","seller":{"@id":"https://loggel.github.io/static-pages/floraundgrete/#store"}}}},{"@type":"ListItem","position":10,"item":{"@type":"Product","name":"Musselin-Dreieckstuch XXL","description":"Großes, doppellagiges Dreieckstuch, gewendet genäht, also ohne offene Kanten. Kuschelig weich.","image":"https://loggel.github.io/static-pages/floraundgrete/img/tuch-uni-2.webp","url":"https://loggel.github.io/static-pages/floraundgrete/#produkt-tuch-uni","brand":{"@type":"Brand","name":"Cathrin Raasch Atelier"},"material":"100 % Baumwolle","offers":{"@type":"Offer","priceCurrency":"EUR","price":"29.00","url":"https://www.etsy.com/de/listing/1120733005","availability":"https://schema.org/InStock","seller":{"@id":"https://loggel.github.io/static-pages/floraundgrete/#store"}}}},{"@type":"ListItem","position":11,"item":{"@type":"Product","name":"Musselintuch Blumen","description":"Doppellagiges XXL-Tuch mit Blumendruck, superweich und warm.","image":"https://loggel.github.io/static-pages/floraundgrete/img/tuch-blumen-1.webp","url":"https://loggel.github.io/static-pages/floraundgrete/#produkt-tuch-blumen","brand":{"@type":"Brand","name":"Cathrin Raasch Atelier"},"material":"100 % Baumwolle","offers":{"@type":"Offer","priceCurrency":"EUR","price":"29.00","url":"https://www.etsy.com/de/listing/1337329930","availability":"https://schema.org/InStock","seller":{"@id":"https://loggel.github.io/static-pages/floraundgrete/#store"}}}},{"@type":"ListItem","position":12,"item":{"@type":"Product","name":"Stirnband Cordoptik","description":"Kuscheliges Stirnband, damit die Ohren immer warm bleiben. Auch ein tolles Weihnachtsgeschenk.","image":"https://loggel.github.io/static-pages/floraundgrete/img/stirnband-6.webp","url":"https://loggel.github.io/static-pages/floraundgrete/#produkt-stirnband","brand":{"@type":"Brand","name":"Cathrin Raasch Atelier"},"material":"Cord-Strick","offers":{"@type":"Offer","priceCurrency":"EUR","price":"12.00","url":"https://www.etsy.com/de/listing/1337336466","availability":"https://schema.org/InStock","seller":{"@id":"https://loggel.github.io/static-pages/floraundgrete/#store"}}}},{"@type":"ListItem","position":13,"item":{"@type":"Product","name":"Rippmütze","description":"Der Allrounder: doppellagig, total angenehm, wächst mit und passt auch unter den Helm.","image":"https://loggel.github.io/static-pages/floraundgrete/img/muetze-1.webp","url":"https://loggel.github.io/static-pages/floraundgrete/#produkt-muetze","brand":{"@type":"Brand","name":"Cathrin Raasch Atelier"},"material":"Baumwoll-Rippjersey, doppellagig","offers":{"@type":"Offer","priceCurrency":"EUR","price":"17.00","url":"https://www.etsy.com/de/listing/1472687336","availability":"https://schema.org/InStock","seller":{"@id":"https://loggel.github.io/static-pages/floraundgrete/#store"}}}},{"@type":"ListItem","position":14,"item":{"@type":"Product","name":"Walk-Stulpen","description":"Handgemachte Stulpen aus Walkloden: atmungsaktiv, wärmend, leicht wasserabweisend. Handy bedienen ohne auszuziehen.","image":"https://loggel.github.io/static-pages/floraundgrete/img/stulpen-4.webp","url":"https://loggel.github.io/static-pages/floraundgrete/#produkt-stulpen","brand":{"@type":"Brand","name":"Cathrin Raasch Atelier"},"material":"100 % Schurwolle (Walk)","offers":{"@type":"Offer","priceCurrency":"EUR","price":"15.00","url":"https://www.etsy.com/de/listing/4396882148","availability":"https://schema.org/InStock","seller":{"@id":"https://loggel.github.io/static-pages/floraundgrete/#store"}}}}]}
+</script>
 </head>
 <body>
-  <main>
-    <header>
-      <img src="img/shop-logo.webp" alt="Logo von Cathrin Raasch Atelier" width="64" height="64" />
-      <h1>Cathrin Raasch Atelier · Entwürfe</h1>
-    </header>
-    <div class="grid">
-      <a class="card" href="leinen/"><div class="shot"><img src="img/preview-leinen.webp" alt="Vorschau Entwurf 1, Leinen und Licht" /></div><div class="meta"><h2>Leinen &amp; Licht</h2><span>01</span></div></a>
-      <a class="card" href="atelier/"><div class="shot"><img src="img/preview-atelier.webp" alt="Vorschau Entwurf 2, Atelier" /></div><div class="meta"><h2>Atelier</h2><span>02</span></div></a>
-      <a class="card" href="lookbook/"><div class="shot"><img src="img/preview-lookbook.webp" alt="Vorschau Entwurf 3, Lookbook" /></div><div class="meta"><h2>Lookbook</h2><span>03</span></div></a>
-      <a class="card" href="schnittmuster/"><div class="shot"><img src="img/preview-schnittmuster.webp" alt="Vorschau Entwurf 4, Schnittmuster" /></div><div class="meta"><h2>Schnittmuster</h2><span>04</span></div></a>
-      <a class="card" href="nachtatelier/"><div class="shot"><img src="img/preview-nachtatelier.webp" alt="Vorschau Entwurf 5, Nachtatelier" /></div><div class="meta"><h2>Nachtatelier</h2><span>05</span></div></a>
+<a class="skip" href="#main">Zum Inhalt springen</a>
+
+<div id="banner-slot"></div>
+
+<header class="head" id="head">
+  <div class="head__in">
+    <a class="brand" href="#top" aria-label="Cathrin Raasch Atelier, zum Seitenanfang">Cathrin Raasch <span class="amp">Atelier</span></a>
+    <nav class="nav" id="nav" aria-label="Hauptnavigation">
+      <ul>
+        <li><a href="#entstehung">Entstehung</a></li>
+        <li><a href="#kollektion">Kollektion</a></li>
+        <li><a href="#ueber-mich">Über mich</a></li>
+        <li><a href="#termine">Termine</a></li>
+        <li><a href="#anprobe">Anprobe</a></li>
+        <li><a href="#atelier">Atelier</a></li>
+      </ul>
+    </nav>
+    <a class="head__shop" href="https://www.etsy.com/de/shop/FloraundGrete" target="_blank" rel="noopener">Etsy-Shop<span class="ext" aria-hidden="true"></span></a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu">
+      <span class="menu-btn__lines" aria-hidden="true"></span><span class="menu-btn__label">Menü</span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav aria-label="Menü">
+    <ol>
+      <li><a href="#entstehung"><span>01</span>Entstehung</a></li>
+      <li><a href="#kollektion"><span>02</span>Kollektion</a></li>
+      <li><a href="#ueber-mich"><span>03</span>Über mich</a></li>
+      <li><a href="#stimmen"><span>04</span>Stimmen</a></li>
+      <li><a href="#termine"><span>05</span>Termine</a></li>
+      <li><a href="#anprobe"><span>06</span>Anprobe</a></li>
+      <li><a href="#atelier"><span>07</span>Atelier &amp; Kontakt</a></li>
+      <li><a href="#fragen"><span>08</span>Fragen</a></li>
+    </ol>
+  </nav>
+  <p class="menu__foot">
+    <a class="btn btn--brass" href="https://www.etsy.com/de/shop/FloraundGrete" target="_blank" rel="noopener">Zum Etsy-Shop <span class="ext" aria-hidden="true"></span></a>
+  </p>
+</div>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero" id="top" aria-labelledby="hero-h">
+    <figure class="hero__media">
+      <img src="img/muetze-1.webp" width="1050" height="1400" alt="Frau mit rosa Rippmütze und grauem Strickpulli, die Augen geschlossen, vor leuchtend rotem Herbstlaub an einer Hauswand" fetchpriority="high" loading="eager" decoding="async">
+    </figure>
+    <div class="hero__copy">
+      <p class="eyebrow hero__place">Ramsen, Pfalz <span aria-hidden="true">·</span> seit 2021</p>
+      <h1 id="hero-h" class="hero__title">
+        <span class="hero__name">Cathrin <span class="amp">Raasch</span></span>
+        <span class="hero__claim">Atelier · Handgemachte Einzelstücke</span>
+      </h1>
+      <p class="hero__lede">Röcke, Kleider, Kragen und warme Kleinigkeiten, genäht mit Hand und Herz in meinem Mini-Atelier mitten in der Pfalz.</p>
+      <div class="hero__actions">
+        <a class="btn btn--brass" href="https://www.etsy.com/de/shop/FloraundGrete" target="_blank" rel="noopener">Zum Etsy-Shop <span class="ext" aria-hidden="true"></span></a>
+        <a class="btn btn--ghost" href="#anprobe">Anprobe anfragen</a>
+      </div>
     </div>
-  </main>
+    <a class="hero__cue" href="#entstehung"><span>Wie ein Stück entsteht</span><span class="hero__cue-line" aria-hidden="true"></span></a>
+  </section>
+
+  <!-- Entstehung (Scrollytelling) -->
+  <section class="story" id="entstehung" aria-labelledby="story-h">
+    <header class="story__head wrap">
+      <p class="eyebrow"><span class="chap">01</span> Entstehung</p>
+      <h2 id="story-h" class="h2">So entsteht ein Stück</h2>
+      <p class="lede">Vom Stoffregal bis zum Graskarton: Jedes Teil geht bei mir durch dieselben vier Hände. Na gut, durch zwei.</p>
+    </header>
+    <div class="story__body wrap">
+      <figure class="story__stage" aria-hidden="true">
+        <div class="story__frame">
+          <img class="is-on" src="img/lene-9.webp" width="1053" height="1400" alt="" loading="lazy" decoding="async" data-step="0" style="--pos:50% 60%">
+          <img src="img/rosemary-3.webp" width="862" height="1400" alt="" loading="lazy" decoding="async" data-step="1" style="--pos:50% 45%">
+          <img src="img/rosemary-4.webp" width="769" height="1400" alt="" loading="lazy" decoding="async" data-step="2" style="--pos:50% 40%">
+          <img src="img/stulpen-10.webp" width="1050" height="1400" alt="" loading="lazy" decoding="async" data-step="3" style="--pos:50% 50%">
+        </div>
+        <figcaption class="story__count"><span id="story-now">01</span> / 04</figcaption>
+      </figure>
+      <ol class="story__steps">
+        <li class="step is-on" data-step="0">
+          <p class="step__no">01</p>
+          <h3 class="step__title">Stoff aussuchen</h3>
+          <p>Leinen in vielen Farben, federleichter Musselin, alte Bettwäsche mit Blumen. Du suchst aus, ich berate dich gern, auf Wunsch auch mit einem Foto bei Tageslicht.</p>
+          <p class="step__meta">Leinen · Musselin · Vintage-Stoffe</p>
+        </li>
+        <li class="step" data-step="1">
+          <p class="step__no">02</p>
+          <h3 class="step__title">Zuschnitt auf deine Maße</h3>
+          <p>Du schickst mir Taille und Wunschlänge, oder wir messen bei einer Anprobe zusammen. Dann zeichne ich den Schnitt an und schneide zu, Teil für Teil.</p>
+          <p class="step__meta">Röcke &amp; Kleider auf Maß, XS bis 4X</p>
+        </li>
+        <li class="step" data-step="2">
+          <p class="step__no">03</p>
+          <h3 class="step__title">Nähen im Atelier</h3>
+          <p>An der Nähmaschine in Ramsen wird daraus dein Stück: Nähte sauber versäubert, innen ein hübsches Schrägband, und fast immer eine große Tasche.</p>
+          <p class="step__meta">Meist 1–2 Wochen Nähzeit</p>
+        </li>
+        <li class="step" data-step="3">
+          <p class="step__no">04</p>
+          <h3 class="step__title">Plastikfrei verpackt</h3>
+          <p>Zum Schluss kommt alles in einen Graskarton aus Deutschland, so plastikfrei wie möglich und auf Wunsch als Geschenk. Struppi prüft vorher, ob alles sitzt.</p>
+          <p class="step__meta">Graskarton, made in Germany</p>
+        </li>
+      </ol>
+    </div>
+    <p class="story__end wrap"><a class="link-arrow" href="#kollektion">Zu den fertigen Stücken</a></p>
+  </section>
+
+  <!-- Kollektion -->
+  <section class="shop" id="kollektion" aria-labelledby="shop-h">
+    <header class="shop__head wrap">
+      <p class="eyebrow"><span class="chap">02</span> Kollektion</p>
+      <h2 id="shop-h" class="h2">Gerade auf dem Arbeitstisch</h2>
+      <p class="lede">Ein paar Lieblinge im großen Bild, darunter alle Stücke auf einen Blick. Bestellen kannst du bequem über Etsy.</p>
+    </header>
+    <div class="feature wrap" id="featured"></div>
+
+    <div class="index wrap" id="index">
+      <div class="index__bar">
+        <h3 class="index__title" id="index-h">Alle Stücke</h3>
+        <div class="filters" id="filters" role="group" aria-label="Nach Kategorie filtern"></div>
+      </div>
+      <p class="visually-hidden" id="index-live" aria-live="polite"></p>
+      <ol class="index__list" id="index-list" aria-labelledby="index-h"></ol>
+      <div class="peek" id="peek" aria-hidden="true"></div>
+      <p class="index__foot">Noch mehr Farben, Längen und Einzelstücke findest du im Shop. <a class="link-arrow" href="https://www.etsy.com/de/shop/FloraundGrete" target="_blank" rel="noopener">Alle Stücke auf Etsy</a></p>
+    </div>
+  </section>
+
+  <!-- Über mich -->
+  <section class="about" id="ueber-mich" aria-labelledby="about-h">
+    <div class="about__grid wrap">
+      <figure class="about__portrait">
+        <div class="lamp-frame">
+          <img src="img/cathrin-avatar.webp" width="1400" height="1400" alt="Schwarz-Weiß-Porträt von Cathrin mit Pony, dunklen Locken und Brille" loading="lazy" decoding="async">
+        </div>
+        <figcaption>Cathrin, Schneiderin mit Herz und Seele</figcaption>
+      </figure>
+      <div class="about__text">
+        <p class="eyebrow"><span class="chap">03</span> Steckbrief</p>
+        <h2 id="about-h" class="h2" data-about="headline">Hi, ich bin Cathrin.</h2>
+        <p class="about__intro" data-about="intro"></p>
+        <dl class="facts" id="facts"></dl>
+      </div>
+    </div>
+    <div class="values wrap" id="values"></div>
+    <div class="dog wrap">
+      <figure class="dog__fig">
+        <img src="img/member-2.webp" width="1120" height="1400" alt="Struppi, ein schwarz-weißer Hund, zwischen Pusteblumen auf einem Waldweg" loading="lazy" decoding="async">
+      </figure>
+      <div class="dog__text">
+        <h3 class="h3">Und das ist Struppi.</h3>
+        <p id="dog-caption"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stimmen -->
+  <section class="voices" id="stimmen" aria-labelledby="voices-h">
+    <div class="wrap">
+      <header class="voices__head">
+        <p class="eyebrow"><span class="chap">04</span> Stimmen</p>
+        <h2 id="voices-h" class="h2">Was im Postfach landet</h2>
+      </header>
+      <div class="voices__grid" id="voices"></div>
+      <p class="voices__more"><a class="link-arrow" href="https://www.etsy.com/de/shop/FloraundGrete#reviews" target="_blank" rel="noopener">Weitere Bewertungen auf Etsy</a></p>
+    </div>
+  </section>
+
+  <!-- Termine -->
+  <section class="dates" id="termine" aria-labelledby="dates-h">
+    <div class="wrap">
+      <header class="dates__head">
+        <p class="eyebrow"><span class="chap">05</span> Termine</p>
+        <h2 id="dates-h" class="h2">Wo du mich triffst</h2>
+      </header>
+      <div class="dates__grid">
+        <div>
+          <h3 class="h3 dates__sub">Märkte, Atelier &amp; Kurse</h3>
+          <ol class="events" id="events"></ol>
+        </div>
+        <aside class="links" aria-labelledby="links-h">
+          <h3 class="h3 dates__sub" id="links-h">Aktuelles &amp; Links</h3>
+          <ul class="links__list" id="links"></ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Anprobe -->
+  <section class="fit" id="anprobe" aria-labelledby="fit-h">
+    <div class="fit__grid wrap">
+      <div class="fit__intro">
+        <p class="eyebrow"><span class="chap">06</span> Anprobe</p>
+        <h2 id="fit-h" class="h2">Komm vorbei und probier an</h2>
+        <p class="lede">Bei einer Anprobe messen wir zusammen, du fühlst die Stoffe und wir finden die richtige Länge. Ganz in Ruhe, ohne Kaufzwang.</p>
+        <dl class="fit__facts" id="fit-facts"></dl>
+        <figure class="fit__img">
+          <img src="img/rosemary-6.webp" width="1050" height="1400" alt="Cathrin lächelnd im grauen Leinenkleid Rosemary über einem weißen Shirt" loading="lazy" decoding="async">
+        </figure>
+      </div>
+      <div class="planner" id="planner" aria-labelledby="fit-h"></div>
+    </div>
+  </section>
+
+  <!-- Atelier & Kontakt -->
+  <section class="studio" id="atelier" aria-labelledby="studio-h">
+    <div class="wrap">
+      <header class="studio__head">
+        <p class="eyebrow"><span class="chap">07</span> Atelier &amp; Kontakt</p>
+        <h2 id="studio-h" class="h2">Das Licht ist an in Ramsen</h2>
+      </header>
+      <div class="studio__grid">
+        <div class="studio__info">
+          <div class="status" id="status"></div>
+          <dl class="hours" id="hours"></dl>
+          <ul class="contact">
+            <li><span class="contact__k">Atelier</span><span class="contact__v">67305 Ramsen, Pfalz<br><small>Genaue Adresse bekommst du mit der Terminbestätigung.</small></span></li>
+            <li><span class="contact__k">Shop</span><a class="contact__v" href="https://www.etsy.com/de/shop/FloraundGrete" target="_blank" rel="noopener">etsy.com/shop/FloraundGrete <span class="ext" aria-hidden="true"></span></a></li>
+            <li><span class="contact__k">Instagram</span><a class="contact__v" href="https://www.instagram.com/floraundgrete/" target="_blank" rel="noopener">@floraundgrete <span class="ext" aria-hidden="true"></span></a></li>
+          </ul>
+        </div>
+        <div class="map" id="map">
+          <div class="map__ph" id="map-ph">
+            <div class="map__pin" aria-hidden="true"><span></span></div>
+            <p class="map__place">Ramsen <small>67305 · Pfalz</small></p>
+            <p class="map__note">Die Karte kommt von Google Maps. Erst wenn du sie lädst, werden Daten an Google übertragen.</p>
+            <button class="btn btn--ghost" type="button" id="map-load">Karte laden (Google Maps)</button>
+          </div>
+          <p class="map__ext"><a class="link-arrow" href="https://www.google.com/maps?q=Ramsen%2067305%20Pfalz" target="_blank" rel="noopener">In Google Maps öffnen</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="fragen" aria-labelledby="faq-h">
+    <div class="faq__grid wrap">
+      <header>
+        <p class="eyebrow"><span class="chap">08</span> Fragen</p>
+        <h2 id="faq-h" class="h2">Gut zu wissen</h2>
+        <p class="lede">Deine Frage ist nicht dabei? Schreib mir einfach über Etsy oder Instagram.</p>
+      </header>
+      <div class="faq__list" id="faq"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="foot__name">Cathrin Raasch <span class="amp">Atelier</span></p>
+    <div class="foot__grid">
+      <p class="foot__claim">Handgemachte Einzelstücke aus Ramsen, Pfalz.<br>Genäht von Cathrin, begleitet von Struppi.</p>
+      <ul class="foot__links">
+        <li><a href="https://www.etsy.com/de/shop/FloraundGrete" target="_blank" rel="noopener">Etsy <span class="ext" aria-hidden="true"></span></a></li>
+        <li><a href="https://www.instagram.com/floraundgrete/" target="_blank" rel="noopener">Instagram <span class="ext" aria-hidden="true"></span></a></li>
+        <li><a href="#anprobe">Anprobe</a></li>
+        <li><a href="#fragen">Fragen</a></li>
+      </ul>
+      <ul class="foot__links">
+        <li><a href="#">Impressum</a></li>
+        <li><a href="#">Datenschutz</a></li>
+        <li><a href="verwaltung/">Verwaltung</a></li>
+      </ul>
+    </div>
+    <p class="foot__copy">© 2026 Cathrin Raasch Atelier</p>
+  </div>
+</footer>
+
+<!-- Produktdetail -->
+<div class="pd" id="pd" role="dialog" aria-modal="true" aria-labelledby="pd-title" hidden>
+  <div class="pd__bar">
+    <p class="pd__crumb" id="pd-crumb"></p>
+    <div class="pd__nav">
+      <button type="button" class="icon-btn" id="pd-prev" aria-label="Vorheriges Stück"><span aria-hidden="true">←</span></button>
+      <button type="button" class="icon-btn" id="pd-next" aria-label="Nächstes Stück"><span aria-hidden="true">→</span></button>
+      <button type="button" class="pd__close" id="pd-close">Schließen <span aria-hidden="true">×</span></button>
+    </div>
+  </div>
+  <div class="pd__body" id="pd-body">
+    <div class="pd__gallery">
+      <div class="pd__viewport">
+        <ul class="pd__track" id="pd-track" aria-label="Bilder" tabindex="0"></ul>
+        <button type="button" class="pd__arrow pd__arrow--prev icon-btn" id="pd-img-prev" aria-label="Vorheriges Bild"><span aria-hidden="true">←</span></button>
+        <button type="button" class="pd__arrow pd__arrow--next icon-btn" id="pd-img-next" aria-label="Nächstes Bild"><span aria-hidden="true">→</span></button>
+        <p class="pd__count" id="pd-count" aria-live="polite"></p>
+      </div>
+      <div class="pd__thumbs" id="pd-thumbs"></div>
+    </div>
+    <div class="pd__info" id="pd-info"></div>
+  </div>
+</div>
+
+<script type="module" src="main.js"></script>
 </body>
 </html>

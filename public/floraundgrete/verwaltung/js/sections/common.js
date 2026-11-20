@@ -1,11 +1,10 @@
 // Gemeinsame Bausteine für mehrere Bereiche
 import { TODAY, formatDate } from "../../../shared/store.js";
 import { SHOP } from "../../../shared/data.js";
-import { VARIANTS } from "../../../shared/variants.js";
 import { h, icon } from "../ui.js";
 
-// Alle Entwürfe aus der gemeinsamen Liste – so zeigen die Links immer auf die aktuellen Seiten.
-export const SITES = VARIANTS.map((v) => ({ href: `../${v.slug}/`, label: v.name, n: v.n }));
+// Die Website (liegt eine Ebene über der Verwaltung)
+export const SITES = [{ href: "../", label: "Deine Website" }];
 
 export const STATUS_MODES = [
   { id: "open", label: "Geöffnet", icon: "doorOpen", text: "Das Atelier ist zu den Zeiten unten für dich da." },

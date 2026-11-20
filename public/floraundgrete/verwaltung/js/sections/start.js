@@ -93,9 +93,9 @@ export default function renderStart(ctx) {
     h("p", { class: "note" }, icon("google"), h("span", {}, "Bei Google stehen deine Öffnungszeiten extra. ", h("a", { href: "#atelier/google" }, "So änderst du sie dort"))));
 
   // --- Website ansehen
-  const sitesCard = card("Website ansehen", { icon: "eye", sub: "Fünf Entwürfe – jede Änderung siehst du dort sofort." },
+  const sitesCard = card("Website ansehen", { icon: "eye", sub: "Jede Änderung siehst du dort sofort." },
     h("div", { class: "site-list" }, SITES.map((x) => h("a", { href: x.href, target: "_blank", rel: "noopener", class: "btn btn-soft btn-block" },
-      h("span", { class: "site-n", "aria-hidden": "true" }, x.n), h("span", {}, x.label), icon("external", "ico-sm push"), h("span", { class: "sr-only" }, " (öffnet neuen Tab)")))));
+      icon("eye"), h("span", {}, x.label), icon("external", "ico-sm push"), h("span", { class: "sr-only" }, " (öffnet neuen Tab)")))));
 
   // --- So funktioniert's
   const howCard = card("So funktioniert’s", { icon: "sparkle", cls: "card-soft" },

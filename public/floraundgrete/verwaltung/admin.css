@@ -312,7 +312,6 @@ select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmln
 .vac-form { display: flex; flex-direction: column; gap: 10px; padding: 14px; border-radius: var(--radius-sm); background: var(--surface-2); }
 .vac-form > label:first-child { font-weight: 600; }
 .site-list { display: flex; flex-direction: column; gap: 10px; }
-.site-n { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--blush); font: 600 15px var(--serif); flex: none; }
 .how { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px; }
 .how li::marker { color: var(--rose); font-weight: 700; }
 ul.how { list-style: disc; }
@@ -646,7 +645,6 @@ dialog.sheet::backdrop { background: rgba(42, 30, 24, .45); }
   .site-link { display: flex; align-items: center; gap: 10px; min-height: 46px; padding: 0 12px; border-radius: 12px; color: var(--ink); text-decoration: none; font-weight: 600; font-size: 16px; }
   .site-link:hover { background: rgba(255, 252, 247, .5); }
   .site-link .ico { margin-left: auto; color: var(--ink-3); }
-  .site-link .site-n { width: 26px; height: 26px; background: var(--surface); }
 
   .topbar { grid-column: 2; justify-content: flex-end; padding: 10px 32px; min-height: 60px; background: rgba(247, 240, 230, .9); }
   .brand-mobile { display: none; }
