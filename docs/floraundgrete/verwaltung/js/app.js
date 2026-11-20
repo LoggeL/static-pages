@@ -4,6 +4,7 @@ import { h, icon, toast, markSaved } from "./ui.js";
 import renderStart from "./sections/start.js";
 import renderHinweis from "./sections/hinweis.js";
 import renderTermine from "./sections/termine.js";
+import renderKurse from "./sections/kurse.js";
 import renderLinks from "./sections/links.js";
 import renderAnprobe from "./sections/anprobe.js";
 import renderShop from "./sections/shop.js";
@@ -18,6 +19,7 @@ const ROUTES = [
   { id: "start", label: "Start", long: "Übersicht", icon: "home", render: renderStart },
   { id: "hinweis", label: "Hinweis", long: "Hinweis oben", icon: "megaphone", render: renderHinweis },
   { id: "termine", label: "Termine", long: "Termine", icon: "calendar", render: renderTermine },
+  { id: "kurse", label: "Kurse", long: "Feste Kurse", icon: "clock", render: renderKurse },
   { id: "anprobe", label: "Anprobe", long: "Anprobe", icon: "scissors", render: renderAnprobe },
   { id: "links", label: "Links", long: "Links", icon: "link", render: renderLinks },
   { id: "shop", label: "Shop", long: "Shop-Auswahl", icon: "bag", render: renderShop },
@@ -182,6 +184,7 @@ function buildBadges() {
 function renderMehr() {
   const items = ROUTES.filter((r) => !r.hidden && !TAB_IDS.includes(r.id));
   const desc = {
+    kurse: "Deine wöchentlichen Nähkurse",
     links: "Linkliste, z. B. für Instagram",
     shop: "Welche Stücke vorne gezeigt werden",
     lookbook: "Fotos deiner bisherigen Projekte",

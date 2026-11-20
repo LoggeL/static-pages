@@ -124,6 +124,7 @@ export default function renderTermine(ctx) {
     h("p", { class: "note note-info" }, icon("info"), h("span", {},
       "Märkte und Nähkurse schließen das Atelier an diesen Tagen automatisch und sperren die Anprobe. ",
       h("a", { href: "#atelier" }, "Öffnungszeiten ansehen"))),
+    h("a", { href: "#kurse", class: "text-link small self-start" }, icon("clock", "ico-sm"), "Deine festen Kurse bearbeitest du unter „Feste Kurse“"),
     filterBar,
     upcoming.length
       ? h("section", { "aria-labelledby": "ev-up" }, h("h2", { id: "ev-up", class: "list-title" }, filter === "alle" ? "Kommende Termine " : `Kommende ${which.label} `, h("span", { class: "count" }, upcoming.length)),

@@ -1,6 +1,6 @@
 // Cathrin Raasch Atelier – Website
-import { ABOUT, CATEGORIES, PRODUCTS, REVIEWS, FAQ, fmtPrice, productById } from "./shared/data.js";
-import { getContent, subscribe, activeBanner, upcomingEvents, closedDays, eventTypeLabel, eventRange, formatDate } from "./shared/store.js";
+import { SHOP, ABOUT, CATEGORIES, PRODUCTS, REVIEWS, FAQ, fmtPrice, productById } from "./shared/data.js";
+import { getContent, subscribe, activeBanner, upcomingEvents, closedDays, eventTypeLabel, eventRange, formatDate, courseItems, courseRule, courseDates, TODAY } from "./shared/store.js";
 import { $, $$, esc, pad2, src, imgTag, focus, catLabel, productNo, badgesHtml, reduceMotion, smooth } from "./util.js";
 import { initProduct } from "./product.js";
 import { initPlanner, renderPlanner, preselectProduct } from "./planner.js";
@@ -355,7 +355,9 @@ function renderDates() {
         ${e.link ? `<p class="event__more"><a class="link-arrow" href="${esc(e.link)}"${ext ? ' target="_blank" rel="noopener"' : ""}>Mehr erfahren<span class="visually-hidden"> zu ${esc(e.title)}</span></a></p>` : ""}
       </div>
     </li>`;
-  }).join("") : `<li class="empty">Gerade stehen keine Termine an. Auf Instagram erfährst du als Erste, wenn ich wieder auf einem Markt bin.</li>`;
+  }).join("") : `<li class="empty">${courseItems().length
+    ? "Gerade stehen keine Märkte oder besonderen Termine an – die festen Nähkurse findest du weiter unten."
+    : "Gerade stehen keine Termine an."} Auf Instagram erfährst du als Erste, wenn ich wieder auf einem Markt bin.</li>`;
 
   const links = (content.links || []).filter((l) => l.visible !== false && l.url);
   $("#links").innerHTML = links.length ? links.map((l) => {
@@ -364,6 +366,47 @@ function renderDates() {
       <span class="lnk__label">${esc(l.label)}</span>${l.note ? `<span class="lnk__note">${esc(l.note)}</span>` : ""}
       <span class="lnk__arrow" aria-hidden="true">${ext ? '<span class="ext"></span>' : "→"}</span></a></li>`;
   }).join("") : `<li class="empty">Gerade gibt es keine besonderen Links. Alles Neue findest du im Etsy-Shop.</li>`;
+}
+
+/* ---------- Feste Nähkurse ---------- */
+// Uhrzeit wie bei den Terminen: "18–20" -> "18–20 Uhr"
+const withUhr = (t = "") => {
+  t = t.trim();
+  return t && /\d\s*$/.test(t) && !/uhr/i.test(t) ? `${t}\u00a0Uhr` : t;
+};
+function renderCourses() {
+  const box = $("#kurse");
+  const list = courseItems();
+  box.hidden = !list.length;
+  if (!list.length) { $("#course-list").innerHTML = ""; $("#course-foot").innerHTML = ""; return; }
+  $("#course-list").innerHTML = list.map((k) => {
+    const time = withUhr(k.time);
+    const rule = `${esc(courseRule(k))}${time ? ` <span aria-hidden="true">·</span> <span class="course__time">${esc(time)}</span>` : ""}`;
+    const next = courseDates(k, 2);
+    const hid = `course-next-${esc(k.id)}`;
+    return `<li class="course">
+      <h4 class="course__title">${esc(k.title)}</h4>
+      ${k.subtitle ? `<p class="course__sub">${esc(k.subtitle)}</p>` : ""}
+      <p class="course__rule">${rule}</p>
+      ${k.price ? `<p class="course__price price">${esc(k.price)}</p>` : ""}
+      ${k.audience ? `<p class="course__aud">${esc(k.audience)}</p>` : ""}
+      ${k.note ? `<p class="course__note">${esc(k.note)}</p>` : ""}
+      <div class="course__next">
+        <p class="course__next-h" id="${hid}">Nächste Termine</p>
+        ${next.length ? `<ul class="course__dates" aria-labelledby="${hid}">${next.map((d) => {
+          const p = parts(d);
+          return `<li><time datetime="${d}"><span aria-hidden="true">${WD_SHORT[p.wd]}, ${p.d}. ${MON[p.m - 1]}</span><span class="visually-hidden">${esc(longDate(d, p.y !== parts(TODAY).y))}</span></time></li>`;
+        }).join("")}</ul>` : `<p class="course__none">Neue Termine folgen bald.</p>`}
+      </div>
+    </li>`;
+  }).join("");
+  const note = (content.courseNote || "").trim();
+  $("#course-foot").innerHTML = `
+    ${note ? `<p class="courses__note">${esc(note)}</p>` : ""}
+    <div class="courses__signup">
+      <p>Anmelden kannst du dich per Nachricht.</p>
+      <a class="btn btn--brass" href="${esc(SHOP.instagram)}" target="_blank" rel="noopener">Nachricht auf Instagram <span class="ext" aria-hidden="true"></span><span class="visually-hidden"> (öffnet in neuem Tab)</span></a>
+    </div>`;
 }
 
 /* ---------- Atelier ---------- */
@@ -442,7 +485,7 @@ function renderFitFacts() {
 /* ---------- Sanftes Einblenden ---------- */
 function initReveal() {
   if (reduceMotion() || !("IntersectionObserver" in window)) return;
-  const els = $$(".h2, .lede, .stage, .still, .values, .dog, .voice, .lb, .events, .links, .fit__intro, .planner, .studio__grid, .faq__list, .about__portrait");
+  const els = $$(".h2, .lede, .stage, .still, .values, .dog, .voice, .lb, .events, .links, .courses, .fit__intro, .planner, .studio__grid, .faq__list, .about__portrait");
   els.forEach((el) => el.classList.add("rv"));
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("rv-in"); io.unobserve(e.target); } });
@@ -474,6 +517,7 @@ function renderAll() {
   renumber();
   renderAbout();
   renderDates();
+  renderCourses();
   renderStudio();
   renderFitFacts();
 }

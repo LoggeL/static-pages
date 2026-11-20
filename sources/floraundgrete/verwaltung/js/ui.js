@@ -226,27 +226,51 @@ export function markSaved(date = new Date(), { pending = false, announce = true 
 /**
  * openForm({ title, intro, fields:[{name,label,type,hint,required,placeholder,rows,url:true}], values, submitLabel, onSave(values), validate(values) })
  * type: text | date | textarea | url | switch | choice (große Auswahlknöpfe, options:[{value,label,icon}])
+ *       | multi (wie choice, aber mehrere wählbar; Wert ist ein Array; required = mindestens eins)
+ * choice/multi: chipsClass (zusätzliche Klasse fürs Raster), extra (Element unter den Knöpfen, z. B. Live-Vorschau),
+ *       onChange(wert, dialog)
  * validate(values) -> { feldname: "Fehlermeldung" } für Prüfungen über mehrere Felder (z. B. „bis“ nicht vor „von“)
  */
 export function openForm({ title, intro, fields, values = {}, submitLabel = "Speichern", onSave, onClose, validate }) {
   const dlg = h("dialog", { class: "sheet", "aria-labelledby": "sheet-title" });
   const controls = {};
+  // Fehlermeldung für Auswahlgruppen (choice/multi): wie bei field(), Fokus auf den ersten Knopf
+  const groupError = (set, errEl) => {
+    set.control = set.querySelector("input");
+    set.setError = (msg) => {
+      errEl.hidden = !msg; errEl.textContent = msg || "";
+      set.classList.toggle("has-error", !!msg);
+      set.querySelectorAll("input").forEach((i) => i.setAttribute("aria-invalid", msg ? "true" : "false"));
+    };
+  };
   const body = fields.map((f) => {
-    if (f.type === "choice") {
-      const gid = fid("choice");
-      const val = values[f.name] ?? f.default ?? f.options[0].value;
+    if (f.type === "choice" || f.type === "multi") {
+      // choice: genau eine Auswahl (Radio) · multi: mehrere (Checkboxen), Wert ist ein Array
+      const multi = f.type === "multi";
+      const gid = fid(f.type);
+      const val = values[f.name] ?? f.default ?? (multi ? [] : f.options[0].value);
+      const picked = new Set((multi ? val : [val]).map(String));
       const hintId = f.hint ? gid + "-hint" : null;
-      const set = h("fieldset", { class: "choice-group", "aria-describedby": hintId },
+      const errEl = h("p", { class: "field-error", id: gid + "-err", hidden: true });
+      const read = () => f.options.filter((o) => set.querySelector(`#${CSS.escape(`${gid}-${o.value}`)}`).checked).map((o) => o.value);
+      const set = h("fieldset", { class: "choice-group", "aria-describedby": [hintId, gid + "-err"].filter(Boolean).join(" ") },
         h("legend", { class: "field-label" }, f.label),
-        h("div", { class: "choice-chips" }, f.options.map((o) => {
+        h("div", { class: "choice-chips" + (f.chipsClass ? " " + f.chipsClass : "") }, f.options.map((o) => {
           const id = `${gid}-${o.value}`;
           return h("label", { class: "choice-chip", for: id },
-            h("input", { type: "radio", name: f.name, id, value: o.value, checked: String(o.value) === String(val),
-              onChange: () => { controls[f.name].value = o.value; if (f.onChange) f.onChange(o.value, dlg); } }),
-            o.icon ? icon(o.icon) : null, h("span", {}, o.label));
+            h("input", { type: multi ? "checkbox" : "radio", name: f.name, id, value: o.value, checked: picked.has(String(o.value)), "data-key": `${f.name}-${o.value}`,
+              onChange: () => {
+                set.setError("");
+                if (multi) { if (f.onChange) f.onChange(read(), dlg); return; }
+                controls[f.name].value = o.value; if (f.onChange) f.onChange(o.value, dlg);
+              } }),
+            o.icon ? icon(o.icon) : null, h("span", { class: "choice-text" }, o.label));
         })),
-        f.hint ? h("p", { class: "field-hint", id: hintId }, f.hint) : null);
-      controls[f.name] = { value: val, el: set };
+        f.hint ? h("p", { class: "field-hint", id: hintId }, f.hint) : null,
+        f.extra || null,
+        errEl);
+      groupError(set, errEl);
+      controls[f.name] = multi ? { el: set, get value() { return read(); } } : { value: val, el: set };
       return set;
     }
     if (f.type === "switch") {
@@ -269,6 +293,13 @@ export function openForm({ title, intro, fields, values = {}, submitLabel = "Spe
       const c = controls[f.name];
       if (f.type === "switch") { out[f.name] = !!c.value; continue; }
       if (f.type === "choice") { out[f.name] = c.value; continue; }
+      if (f.type === "multi") {
+        out[f.name] = c.value;
+        const msg = f.required && !out[f.name].length ? f.requiredMsg || `Bitte wähle bei „${f.label}“ mindestens eins aus.` : "";
+        c.el.setError(msg);
+        if (msg && !firstBad) firstBad = c.el.control;
+        continue;
+      }
       let v = String(c.value).trim();
       let msg = "";
       if (f.required && !v) msg = f.requiredMsg || `Bitte fülle „${f.label}“ aus.`;

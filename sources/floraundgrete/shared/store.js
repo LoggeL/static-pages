@@ -18,13 +18,19 @@
 //   deleteBooking(id)
 //   lookbookItems()              -> sichtbare Lookbook-Einträge in Anzeigereihenfolge
 //   imageSrc(image, prefix)      -> Bildpfad: Dateiname aus img/ (prefix + "img/" + name) oder data:-URL unverändert
+//   courseItems()                -> sichtbare feste Kurse in Anzeigereihenfolge
+//   courseRule(course)           -> z. B. "1. und 3. Donnerstag im Monat"
+//   courseDates(course, n?, days?) -> nächste n Termine (ISO), ohne Feiertage, Kurspausen und Tage mit Markt oder Nähkurs-Termin
+//   isHoliday(iso)               -> Feiertag in RLP (inkl. 24.12. und 31.12.)
 //   EVENT_TYPES, eventTypeLabel(id), eventRange(e), WEEKDAYS, formatDate, TODAY, uid
 //
-// Datenmodell (Version 2):
+// Datenmodell (Version 3):
 //   events[]   {id, type:'markt'|'kurs'|'atelier'|'sonstiges', date:'YYYY-MM-DD', until:'' | 'YYYY-MM-DD',
 //               time, title, place, note, link, visible}
 //   status     {mode, note, openWeekdays:[0..6], hours:[{day, time}], googleUrl, googleNote, autoClosed:boolean}
 //   lookbook[] {id, image:'datei.webp' | 'data:image/…', title, year, note, visible, sample?:true}
+//   courses[]  {id, title, subtitle, weekday:0..6, weeks:[1..5] (n-ter Wochentag im Monat), time, price, audience, note, visible}
+//   courseNote Hinweis unter den festen Kursen; courseBreaks:[iso] Kurspausen (zusätzlich zu Feiertagen)
 //   fitting    {enabled, weekdays, times:{wd:[hh:mm]}, duration, leadDays, horizonDays, blocked:[iso], skipEventDays, place, bookings[]}
 
 const KEY = "cathrin-raasch-cms-v3";
@@ -65,7 +71,7 @@ const START_EVENTS = [
   { type: "kurs", date: "2027-01-09", until: "", time: "10–16 Uhr", title: "Nähtag: Outdoorpulli", place: "", note: "Ein Unisex-Outdoorpulli an einem Tag, inklusive Material und Verpflegung, 110\u00a0€. Nichts für totale Anfänger: Mit deiner Nähmaschine solltest du schon vertraut sein. Anmeldung per Nachricht." },
 ];
 
-const DEMO_TIMES = { 3: ["15:00", "15:45", "16:30", "17:15"], 6: ["10:00", "10:45", "11:30", "12:15"] };
+const DEMO_TIMES = { 3: ["15:00", "15:45", "16:30", "17:15"], 6: ["12:30", "13:15", "14:00", "14:45"] }; // Samstagvormittag laufen die festen Kurse
 // Demo-Buchung auf einen echten Anprobe-Tag (ohne Markt/Kurs) mit einer Uhrzeit, die es an diesem Wochentag gibt
 function demoSlot(fromISO, idx) {
   const busy = new Set();
@@ -126,6 +132,15 @@ function defaults() {
       { id: uid(), image: "lb-kinderbluse.webp", title: "Weiße Kinderbluse", year: "2026", note: "", visible: true, sample: false },
       { id: uid(), image: "lb-jacken.webp", title: "Teddy- und Steppjacken", year: "2026", note: "", visible: true, sample: false },
     ],
+    // Feste Nähkurse (Stand: Cathrins Kreidetafel, Instagram September 2026)
+    courses: [
+      { id: uid(), title: "Trag’s weiter", subtitle: "Reparatur-Kurs", weekday: 4, weeks: [1, 3], time: "18–20 Uhr", price: "24\u00a0€ pro Termin", audience: "Für alle, auch absolute Einsteiger", note: "Hosen kürzen, Knöpfe austauschen, Jeans flicken. Material inklusive.", visible: true },
+      { id: uid(), title: "Offenes Nähen", subtitle: "Freie Projekte nach Wunsch", weekday: 4, weeks: [2, 4], time: "18–21 Uhr", price: "35\u00a0€ pro Termin", audience: "Für Anfänger und Fortgeschrittene", note: "Taschen, Kleidung und was du sonst nähen möchtest.", visible: true },
+      { id: uid(), title: "Kinderkurs", subtitle: "Kleinere Projekte", weekday: 6, weeks: [1, 3], time: "9–12 Uhr", price: "36\u00a0€ inklusive Material", audience: "Ab 8 Jahren", note: "", visible: true },
+      { id: uid(), title: "Nähmaschinen-Führerschein", subtitle: "Nähen lernen von Anfang an", weekday: 6, weeks: [2, 4], time: "9–12 Uhr", price: "60\u00a0€ für 2 Termine, inklusive Material", audience: "Für Einsteiger", note: "Basics, die Maschine kennenlernen und erste kleine Projekte.", visible: true },
+    ],
+    courseNote: "Bring nach Möglichkeit deine eigene Nähmaschine mit.",
+    courseBreaks: [], // Tage, an denen keine festen Kurse stattfinden (ISO)
     // Über-mich-Kurztext (überschreibt ABOUT.intro, wenn gesetzt)
     aboutIntro: "",
     // Anprobe-Planer
@@ -161,6 +176,9 @@ function normalize(c) {
   out.banner = { ...d.banner, ...(c.banner || {}) };
   out.events = (Array.isArray(c.events) ? c.events : d.events).map((e) => ({ type: "sonstiges", until: "", link: "", time: "", place: "", note: "", visible: true, ...e }));
   out.lookbook = Array.isArray(c.lookbook) ? c.lookbook : d.lookbook;
+  out.courses = (Array.isArray(c.courses) ? c.courses : d.courses).map((k) => ({ title: "", subtitle: "", weekday: 4, weeks: [1, 3], time: "", price: "", audience: "", note: "", visible: true, ...k, weeks: Array.isArray(k.weeks) ? k.weeks.filter((w) => w >= 1 && w <= 5).sort() : [1, 3] }));
+  if (typeof out.courseNote !== "string") out.courseNote = d.courseNote;
+  out.courseBreaks = Array.isArray(c.courseBreaks) ? c.courseBreaks : [];
   return out;
 }
 
@@ -306,6 +324,54 @@ export function deleteBooking(id) {
 
 export function lookbookItems() {
   return (load().lookbook || []).filter((x) => x.visible !== false && x.image).map((x) => ({ ...x }));
+}
+
+// ---------- Feste Kurse ----------
+export function courseItems() {
+  return (load().courses || []).filter((k) => k.visible !== false && k.title).map((k) => ({ ...k, weeks: [...k.weeks] }));
+}
+const ORD = ["", "1.", "2.", "3.", "4.", "5."];
+export function courseRule(k) {
+  const wd = WD[k.weekday] || "";
+  const ws = [...(k.weeks || [])].sort();
+  if (!ws.length || [1, 2, 3, 4, 5].every((w) => ws.includes(w))) return `jeden ${wd}`;
+  const parts = ws.map((w) => ORD[w]);
+  const list = parts.length > 1 ? `${parts.slice(0, -1).join(", ")} und ${parts[parts.length - 1]}` : parts[0];
+  return `${list} ${wd} im Monat`;
+}
+// Gesetzliche Feiertage in Rheinland-Pfalz plus Heiligabend und Silvester
+function easter(y) {
+  const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const month = Math.floor((h + l - 7 * m + 114) / 31), day = ((h + l - 7 * m + 114) % 31) + 1;
+  return `${y}-${pad(month)}-${pad(day)}`;
+}
+const holidayCache = {};
+export function isHoliday(isoStr) {
+  const y = Number(isoStr.slice(0, 4));
+  if (!holidayCache[y]) {
+    const e = easter(y);
+    holidayCache[y] = new Set([
+      ...["01-01", "05-01", "10-03", "11-01", "12-24", "12-25", "12-26", "12-31"].map((md) => `${y}-${md}`),
+      ...[-2, 1, 39, 50, 60].map((n) => addDays(e, n)),
+    ]);
+  }
+  return holidayCache[y].has(isoStr);
+}
+/** Nächste Kurstage ab heute; Feiertage, Kurspausen und Tage mit Markt oder Nähkurs-Termin fallen weg */
+export function courseDates(k, count = 2, days = 120) {
+  const out = [];
+  const ws = k.weeks && k.weeks.length ? k.weeks : [1, 2, 3, 4, 5];
+  for (let i = 0; i <= days && out.length < count; i++) {
+    const date = addDays(TODAY, i);
+    if (weekdayOf(date) !== Number(k.weekday)) continue;
+    const nth = Math.ceil(Number(date.slice(8, 10)) / 7);
+    if (!ws.includes(nth)) continue;
+    if (isHoliday(date) || (load().courseBreaks || []).includes(date) || eventsOn(date).length) continue;
+    out.push(date);
+  }
+  return out;
 }
 
 export const imageSrc = (image, prefix = "") => (/^data:image\//.test(image || "") ? image : `${prefix}img/${image}`);

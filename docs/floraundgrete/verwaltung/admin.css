@@ -884,3 +884,37 @@ dialog.sheet-wide { max-width: 100%; }
   .filter-chip { padding: 0 10px; gap: 6px; flex: 1 1 auto; justify-content: center; }
   .filter-count { padding: 2px 6px; min-width: 22px; }
 }
+
+/* ---------- Feste Kurse ---------- */
+/* Auswahlknöpfe im Kurs-Formular: Wochentage (7) und Wochen im Monat (5) in einer Reihe */
+.choice-chips.chips-days { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; max-width: 480px; }
+.choice-chips.chips-weeks { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; max-width: 420px; }
+.chips-days .choice-chip, .chips-weeks .choice-chip { justify-content: center; padding: 6px 2px; text-align: center; font-weight: 700; }
+.chips-weeks .choice-text { display: flex; flex-direction: column; align-items: center; line-height: 1.1; }
+.chips-weeks .choice-text strong { font: 600 20px var(--serif); }
+.chip-sub { font-size: 13px; font-weight: 600; color: var(--ink-2); }
+.choice-chip:has(input:checked) .chip-sub { color: var(--rose-ink); }
+.choice-group.has-error .choice-chip { border-color: #b3273f; }
+@media (max-width: 400px) { .choice-chips.chips-days, .choice-chips.chips-weeks { gap: 4px; } .chips-days .choice-chip, .chips-weeks .choice-chip { border-radius: 12px; } }
+.kc-rule-pv { display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border-radius: var(--radius-sm); background: var(--sage-soft); color: #36573a; font-size: 16px; }
+.kc-rule-pv .ico { margin-top: 1px; }
+.kc-rule-pv > span { min-width: 0; overflow-wrap: anywhere; }
+.kc-rule-next { color: var(--ink-2); }
+
+/* Kurskarten (Grundgerüst wie die Linkliste) */
+.kc .ev-tags .tag { vertical-align: 0; }
+.kc-sub { font-family: var(--serif); font-style: italic; color: var(--rose-ink); margin-top: -4px; overflow-wrap: break-word; }
+.kc-price { font-weight: 700; color: var(--ink); }
+.kc-line { font-size: 16px; color: var(--ink-2); overflow-wrap: break-word; }
+.kc-next { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; padding: 10px 12px; border-radius: var(--radius-sm); background: var(--surface-2); }
+.kc.is-hidden .kc-next { background: var(--surface); }
+.kc-dates { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.kc-date { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 2px 6px; padding: 5px 11px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); font-weight: 700; font-size: 15px; }
+.kc-skips { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; font-size: 15px; color: var(--ink-2); }
+.kc-skips li { overflow-wrap: anywhere; }
+.kc-skip-date { font-weight: 700; text-decoration: line-through; text-decoration-thickness: 1.5px; }
+
+/* Kurspausen: Datum + Knopf in einer Zeile (bricht bei Platzmangel um) */
+.kc-break-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.kc-break-row input[type="date"] { flex: 1 1 180px; min-width: 0; max-width: 260px; }
+.kc-break-row .btn { flex: none; }
