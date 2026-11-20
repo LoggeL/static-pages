@@ -1,4 +1,4 @@
-// Verwaltung · Flora & Grete – Hülle, Navigation, Anmeldung, Live-Abgleich.
+// Verwaltung · Cathrin Raasch Atelier – Hülle, Navigation, Anmeldung, Live-Abgleich.
 import { getContent, update, subscribe } from "../../shared/store.js";
 import { h, icon, toast, markSaved } from "./ui.js";
 import renderStart from "./sections/start.js";
@@ -120,7 +120,7 @@ function route() {
   current = parsed;
   renderCurrent({ focusTitle: changed });
   if (changed) window.scrollTo(0, 0);
-  document.title = `${parsed.route.id === "start" ? "Verwaltung" : parsed.route.long} · Flora & Grete`;
+  document.title = `${parsed.route.id === "start" ? "Verwaltung" : parsed.route.long} · Cathrin Raasch Atelier`;
 }
 
 function renderCurrent({ focusTitle = false, keepFocus = false } = {}) {
@@ -220,7 +220,7 @@ ctx.logout = logout;
 function showWelcome() {
   $("#app").hidden = true;
   $("#welcome").hidden = false;
-  document.title = "Verwaltung · Flora & Grete";
+  document.title = "Verwaltung · Cathrin Raasch Atelier";
   $("#welcome-go").focus();
 }
 

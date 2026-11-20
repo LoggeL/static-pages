@@ -1,4 +1,4 @@
-// Flora & Grete – Mini-CMS (Klick-Prototyp).
+// Cathrin Raasch Atelier – Mini-CMS (Klick-Prototyp).
 // Alles liegt im localStorage dieses Browsers; alle Entwürfe und die Verwaltung
 // teilen denselben Speicher. Änderungen werden live (auch tabübergreifend) verteilt.
 //
@@ -57,7 +57,7 @@ function defaults() {
     // Termine: Märkte, Workshops, Atelier-Pausen
     events: [
       { id: uid(), date: nextWeekday(addDays(TODAY, 8), [6]), time: "11:00–18:00", title: "Adventsmarkt Ramsen", place: "Ramsen, Ortsmitte", note: "Mit Stulpen, Tüchern und Stirnbändern zum Anprobieren.", visible: true },
-      { id: uid(), date: nextWeekday(addDays(TODAY, 15), [5]), time: "15:00–18:00", title: "Offenes Atelier", place: "Atelier Flora & Grete, Ramsen", note: "Stoffe fühlen, Röcke probieren, Kaffee trinken.", visible: true },
+      { id: uid(), date: nextWeekday(addDays(TODAY, 15), [5]), time: "15:00–18:00", title: "Offenes Atelier", place: "Cathrin Raasch Atelier, Ramsen", note: "Stoffe fühlen, Röcke probieren, Kaffee trinken.", visible: true },
       { id: uid(), date: nextWeekday(addDays(TODAY, 22), [1, 2, 3, 4, 5]), time: "", title: "Letzter Versand vor Weihnachten", place: "Etsy-Shop", note: "Bestellungen bis heute kommen noch vor dem Fest an.", visible: true },
       { id: uid(), date: nextWeekday(addDays(TODAY, 50), [6]), time: "10:00–16:00", title: "Nähkurs: Dein erster Musselinrock", place: "Atelier, max. 4 Personen", note: "Beispieltermin – Anmeldung per Nachricht.", visible: true },
     ],

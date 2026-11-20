@@ -189,7 +189,7 @@ export function openProduct(id, { fromHash = false } = {}) {
   document.documentElement.style.overflow = "hidden";
   const hash = `#produkt-${id}`;
   if (!fromHash && location.hash !== hash) history.pushState(null, "", hash);
-  document.title = `${p.name} – Flora & Grete`;
+  document.title = `${p.name} – Cathrin Raasch Atelier`;
 }
 
 function cleanup() {

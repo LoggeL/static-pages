@@ -1,4 +1,4 @@
-// Flora & Grete – Entwurf 3 · Lookbook
+// Cathrin Raasch Atelier – Entwurf 3 · Lookbook
 import { SHOP, ABOUT, CATEGORIES, PRODUCTS, REVIEWS, FAQ, fmtPrice, productById } from "../shared/data.js";
 import { getContent, subscribe, activeBanner, upcomingEvents, formatDate } from "../shared/store.js";
 import { $, $$, esc, img, pad2, productNo, catLabel, altImage, badgesHtml, reduceMotion } from "./util.js";

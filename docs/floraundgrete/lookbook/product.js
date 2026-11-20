@@ -104,7 +104,7 @@ export function open(id, { push = true } = {}) {
   track.scrollLeft = 0;
   syncUi();
   requestAnimationFrame(() => $("#pd-close").focus({ preventScroll: true }));
-  document.title = `${p.name} – Flora & Grete`;
+  document.title = `${p.name} – Cathrin Raasch Atelier`;
 }
 
 function hide({ immediate = false, restoreFocus = true } = {}) {
@@ -117,7 +117,7 @@ function hide({ immediate = false, restoreFocus = true } = {}) {
   };
   if (immediate || reduceMotion()) done();
   else { pd.classList.add("is-closing"); hideTimer = setTimeout(done, 220); }
-  document.title = "Flora & Grete – Handgemachte Einzelstücke aus Ramsen (Pfalz)";
+  document.title = "Cathrin Raasch Atelier – Handgemachte Einzelstücke aus Ramsen (Pfalz)";
   if (restoreFocus && lastFocus && document.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
   current = null;
 }

@@ -17,15 +17,15 @@ function mailto(b, kind, c) {
   const product = productById(b.product);
   let subject, body;
   if (kind === "confirm") {
-    subject = `Deine Anprobe bei Flora & Grete am ${formatDate(b.date)}`;
-    body = `Hallo ${name},\n\nwie schön, dass du zur Anprobe kommst! Hiermit bestätige ich dir deinen Termin:\n\n${longDate(b.date)}, ${b.start}–${end} Uhr\n${c.fitting.place}\n${product ? `\nWir schauen uns ${product.name} gemeinsam an.\n` : ""}\nFalls dir etwas dazwischenkommt, sag mir einfach kurz Bescheid.\n\nIch freu mich auf dich!\nHerzliche Grüße\nCathrin\nFlora & Grete`;
+    subject = `Deine Anprobe bei Cathrin Raasch am ${formatDate(b.date)}`;
+    body = `Hallo ${name},\n\nwie schön, dass du zur Anprobe kommst! Hiermit bestätige ich dir deinen Termin:\n\n${longDate(b.date)}, ${b.start}–${end} Uhr\n${c.fitting.place}\n${product ? `\nWir schauen uns ${product.name} gemeinsam an.\n` : ""}\nFalls dir etwas dazwischenkommt, sag mir einfach kurz Bescheid.\n\nIch freu mich auf dich!\nHerzliche Grüße\nCathrin Raasch\nAtelier in Ramsen`;
   } else {
     const alt = openSlots().flatMap((d) => d.slots.filter((s) => s.free).map((s) => ({ date: d.date, start: s.start })))
       .filter((s) => !(s.date === b.date && s.start === b.start)).slice(0, 3);
-    subject = "Deine Anprobe-Anfrage bei Flora & Grete";
+    subject = "Deine Anprobe-Anfrage bei Cathrin Raasch";
     body = `Hallo ${name},\n\ndanke für deine Anfrage! Am ${longDate(b.date)} um ${b.start} Uhr klappt es bei mir leider nicht.\n\n` +
       (alt.length ? `Wie wäre es mit einem dieser Termine?\n\n${alt.map((s) => `– ${longDate(s.date)}, ${s.start} Uhr`).join("\n")}\n\nSag mir einfach, welcher dir passt, dann trage ich dich ein.` : "Schreib mir gern, wann es dir sonst passt – wir finden bestimmt etwas.") +
-      `\n\nHerzliche Grüße\nCathrin\nFlora & Grete`;
+      `\n\nHerzliche Grüße\nCathrin Raasch\nAtelier in Ramsen`;
   }
   return `mailto:${encodeURIComponent(b.email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }

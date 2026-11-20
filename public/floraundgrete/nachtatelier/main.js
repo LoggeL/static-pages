@@ -1,4 +1,4 @@
-// Flora & Grete – Entwurf 5 · Nachtatelier
+// Cathrin Raasch Atelier – Entwurf 5 · Nachtatelier
 import { ABOUT, CATEGORIES, PRODUCTS, REVIEWS, FAQ, fmtPrice, productById } from "../shared/data.js";
 import { getContent, subscribe, activeBanner, upcomingEvents, formatDate } from "../shared/store.js";
 import { VARIANTS } from "../shared/variants.js";

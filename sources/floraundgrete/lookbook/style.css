@@ -1,4 +1,4 @@
-/* Flora & Grete – Entwurf 3 · Lookbook
+/* Cathrin Raasch Atelier – Entwurf 3 · Lookbook
    Minimal, fotozentriert. Near-white / near-black + ein Akzent (Weinrot aus dem Millie-Rock).
    Typo: Inter Tight (600–700, eng gesetzt) für alles; Instrument Serif nur für die große Wortmarke
    (Hero + Footer) und das eine Statement-Zitat im Shop-Abschnitt. */
@@ -213,7 +213,7 @@ i, em { font-style: italic; }
 .hero-status .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
 .hero-title { display: grid; gap: 14px; font-weight: 400; }
 .hero-name {
-  display: block; font-family: var(--serif); font-size: clamp(4.4rem, 23.2vw, 22rem); line-height: .78; letter-spacing: -.04em;
+  display: block; font-family: var(--serif); font-size: clamp(4.4rem, 19.4vw, 22rem); line-height: .78; letter-spacing: -.04em;
   white-space: nowrap; margin-left: -.04em;
 }
 .hero-name i { font-size: .9em; padding-right: .04em; }
@@ -242,7 +242,7 @@ i, em { font-style: italic; }
   .hero-foot { flex-direction: column; align-items: stretch; }
   .hero-ctas .btn { flex: 1 1 auto; }
   .hero-shade { background: linear-gradient(180deg, rgba(10,10,10,.45) 0%, rgba(10,10,10,0) 20%), linear-gradient(0deg, rgba(10,10,10,.8) 0%, rgba(10,10,10,.4) 45%, rgba(10,10,10,0) 70%); }
-  .hero-name { font-size: 21.4vw; }
+  .hero-name { font-size: 18.6vw; }
   .hero-content { padding-bottom: 64px; }
 }
 
@@ -626,7 +626,7 @@ i, em { font-style: italic; }
 
 /* ---------- Footer ---------- */
 .ftr { background: var(--ink); color: var(--paper); padding: clamp(56px, 8vw, 120px) 0 28px; overflow: hidden; }
-.ftr-mark { font-family: var(--serif); font-size: clamp(4rem, 23.2vw, 22rem); line-height: .82; letter-spacing: -.035em; white-space: nowrap; margin-left: -.04em; }
+.ftr-mark { font-family: var(--serif); font-size: clamp(4rem, 18.4vw, 22rem); line-height: .82; letter-spacing: -.035em; white-space: nowrap; margin-left: -.04em; }
 .ftr-mark i { color: #E6A4B4; }
 .ftr-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; margin-top: clamp(40px, 5vw, 72px); padding-top: 28px; border-top: 1px solid rgba(255,255,255,.2); }
 .ftr-about { color: rgba(250,250,247,.72); max-width: 40ch; }
@@ -780,7 +780,7 @@ i, em { font-style: italic; }
   .map { min-height: 420px; }
   .stepper li { flex-direction: column; gap: 2px; font-size: .62rem; }
   .step-big { font-size: 1.7rem; }
-  .ftr-mark { font-size: 21.4vw; }
+  .ftr-mark { font-size: 18.2vw; }
   .ftr-copy { padding-bottom: 64px; }
   .pd-ctas { grid-template-columns: 1fr; }
   .pd-crumb { font-size: .64rem; }

@@ -1,4 +1,4 @@
-// Flora & Grete · Entwurf 1 „Leinen & Licht“
+// Cathrin Raasch Atelier · Entwurf 1 „Leinen & Licht“
 import { SHOP, ABOUT, REVIEWS, FAQ, fmtPrice, productById, CATEGORIES } from "../shared/data.js";
 import { getContent, subscribe, activeBanner, upcomingEvents, formatDate } from "../shared/store.js";
 import { esc, img, badges, ICON, reduceMotion } from "./util.js";
@@ -254,7 +254,7 @@ function renderVisit(content) {
     ${s.note ? `<p class="status__note">${esc(s.note)}</p>` : ""}
     ${hours.length ? `<dl class="hours">${hours.map((h) => `<div><dt>${esc(h.day)}</dt><dd>${esc(h.time)}</dd></div>`).join("")}</dl>` : ""}
     <div class="visit__contact">
-      <address class="visit__address">Flora &amp; Grete · Atelier<br>67305 Ramsen, Pfalz<span>Die genaue Adresse bekommst du mit deiner Terminbestätigung.</span></address>
+      <address class="visit__address">Cathrin Raasch Atelier<br>67305 Ramsen, Pfalz<span>Die genaue Adresse bekommst du mit deiner Terminbestätigung.</span></address>
       <div class="visit__btns">
         <a class="btn btn--primary btn--small" href="${SHOP.etsy}" target="_blank" rel="noopener">Nachricht über Etsy <span aria-hidden="true">↗</span></a>
         <a class="btn btn--ghost btn--small" href="${SHOP.instagram}" target="_blank" rel="noopener">Instagram ${esc(SHOP.instagramHandle)}</a>

@@ -72,7 +72,7 @@ export default function renderAtelier(ctx) {
         h("p", { class: "card-sub" }, "Wichtig zu wissen: Was Google in der Suche und bei Google Maps anzeigt, kann diese Website nicht ändern."))),
     h("ol", { class: "steps" },
       h("li", {}, h("strong", {}, "Öffne dein Google-Unternehmensprofil. "), "Es ist kostenlos. Geh auf google.com/business und melde dich mit deinem Google-Konto an."),
-      h("li", {}, h("strong", {}, "Tipp auf „Profil bearbeiten“. "), "Du kannst auch einfach bei Google nach „Flora & Grete“ suchen – als Inhaberin siehst du dann die Bearbeiten-Knöpfe."),
+      h("li", {}, h("strong", {}, "Tipp auf „Profil bearbeiten“. "), "Du kannst auch einfach bei Google nach „Cathrin Raasch Atelier“ suchen – als Inhaberin siehst du dann die Bearbeiten-Knöpfe."),
       h("li", {}, h("strong", {}, "Wähle „Öffnungszeiten“. "), "Für Urlaub, Feiertage oder einen einzelnen geschlossenen Tag gibt es „Sonderöffnungszeiten“ – so bleiben deine normalen Zeiten erhalten."),
       h("li", {}, h("strong", {}, "Hier und dort ändern. "), "Wenn du schließt oder in den Urlaub gehst: oben den Status umstellen und bei Google die Sonderöffnungszeiten eintragen. Dann stimmt es überall.")),
     h("div", { class: "row" },

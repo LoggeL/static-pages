@@ -1,4 +1,4 @@
-// Flora & Grete · Entwurf 4 „Schnittmuster“
+// Cathrin Raasch Atelier · Entwurf 4 „Schnittmuster“
 import { SHOP, ABOUT, REVIEWS, FAQ, productById } from "../shared/data.js";
 import { getContent, subscribe, activeBanner, upcomingEvents, formatDate } from "../shared/store.js";
 import { VARIANTS } from "../shared/variants.js";
@@ -178,7 +178,7 @@ function renderVisit(content) {
     ${hours.length ? `<table class="hours"><caption class="mono">Zeiten</caption><tbody>${hours.map((h) => `<tr><th scope="row">${esc(h.day)}</th><td>${esc(h.time)}</td></tr>`).join("")}</tbody></table>` : ""}
     <address class="addr">
       <span class="mono">Anschrift</span>
-      Flora &amp; Grete · Atelier<br>67305 Ramsen, Pfalz
+      Cathrin Raasch Atelier<br>67305 Ramsen, Pfalz
       <small>Die genaue Adresse bekommst du mit deiner Terminbestätigung.</small>
     </address>
     <div class="row">

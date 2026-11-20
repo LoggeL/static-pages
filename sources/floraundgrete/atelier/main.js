@@ -234,7 +234,7 @@ function initProto() {
   const wrap = $(".proto");
   const btn = wrap.querySelector(".proto-toggle");
   const panel = $("#proto-panel");
-  panel.innerHTML = `<p class="proto-title">Entwürfe für Flora &amp; Grete</p>
+  panel.innerHTML = `<p class="proto-title">Entwürfe für Cathrin Raasch Atelier</p>
     <ul class="proto-list">${VARIANTS.map((v) => `<li><a href="../${esc(v.slug)}/"${v.slug === "atelier" ? ' aria-current="page"' : ""}>
       <span class="proto-n">${v.n}</span><span><strong>${esc(v.name)}</strong><span>${esc(v.short)}</span></span></a></li>`).join("")}</ul>
     <p class="proto-links"><a href="../verwaltung/">${icon("lock", "ico-xs")}Verwaltung</a><a href="../">${icon("chevronLeft", "ico-xs")}Übersicht</a></p>`;

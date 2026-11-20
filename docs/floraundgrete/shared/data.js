@@ -1,9 +1,9 @@
-// Flora & Grete – gemeinsame Inhalte für alle Entwürfe.
+// Cathrin Raasch Atelier – gemeinsame Inhalte für alle Entwürfe.
 // Quelle: öffentlicher Etsy-Shop https://www.etsy.com/de/shop/FloraundGrete (Stand 19.11.2026).
 // Bilder liegen in ../img/<datei>.webp (relativ zu jeder Entwurfsseite).
 
 export const SHOP = {
- name: "Flora & Grete",
+ name: "Cathrin Raasch Atelier",
  claim: "Handgemachte Einzelstücke",
  tagline: "Vintage-inspirierte Kleidung, mit Hand und Herz genäht im Mini-Atelier mitten in der Pfalz.",
  owner: "Cathrin",

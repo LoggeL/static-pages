@@ -39,7 +39,7 @@ export default function renderUeber(ctx) {
     h("dl", { class: "facts" }, ABOUT.facts.map((f) => [h("dt", {}, f.label), h("dd", {}, f.value)])));
 
   return h("div", { class: "stack" },
-    sectionHeader("Über mich", "Ein paar Sätze von dir – damit man spürt, wer hinter Flora & Grete steckt."),
+    sectionHeader("Über mich", "Ein paar Sätze von dir – damit man spürt, wer hinter dem Atelier steckt."),
     h("div", { class: "split" },
       h("div", { class: "split-main stack" }, card("", {}, area, actions), facts),
       h("aside", { class: "split-side" }, h("div", { class: "sticky" }, preview))));

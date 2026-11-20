@@ -1,4 +1,4 @@
-/* Verwaltung · Flora & Grete
+/* Verwaltung · Cathrin Raasch Atelier
    Ruhig, warm, gut lesbar: Creme, Tinte (Braun), ein Rosé-Akzent. Mobil zuerst. */
 
 :root {
@@ -68,15 +68,13 @@ h1:focus, h1:focus-visible, .main:focus { outline: none; }
 .row { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
 .stack { display: flex; flex-direction: column; gap: 20px; }
 
-/* ---------- Marke (Ausschnitt aus dem Logo) ---------- */
+/* ---------- Marke (Schriftzug) ---------- */
 .brand-mark {
   --w: 220px;
   display: block;
   width: var(--w);
   height: calc(var(--w) * 352 / 940);
-  background: var(--blush) url("../img/shop-logo.webp") no-repeat;
-  background-size: calc(var(--w) * 1080 / 940);
-  background-position: calc(var(--w) * -70 / 940) calc(var(--w) * -250 / 940);
+  background: rgb(236 215 193) url("../img/shop-wordmark.webp") center / contain no-repeat;
   border-radius: 10px;
 }
 

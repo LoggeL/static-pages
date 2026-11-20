@@ -101,7 +101,7 @@ export function open(id, { push = true } = {}) {
   track.scrollLeft = 0;
   syncUi();
   requestAnimationFrame(() => $("#pd-close").focus({ preventScroll: true }));
-  document.title = `${p.name} – Flora & Grete`;
+  document.title = `${p.name} – Cathrin Raasch Atelier`;
 }
 
 function hide({ immediate = false, restoreFocus = true } = {}) {

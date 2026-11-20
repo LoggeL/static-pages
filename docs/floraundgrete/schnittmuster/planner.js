@@ -34,7 +34,7 @@ function productOptions() {
 function shell() {
   root.innerHTML = `
   <div class="order">
-    <div class="order__head mono" aria-hidden="true"><span>Maßblatt · Anprobe</span><span>Flora &amp; Grete, Ramsen</span></div>
+    <div class="order__head mono" aria-hidden="true"><span>Maßblatt · Anprobe</span><span>Cathrin Raasch Atelier, Ramsen</span></div>
     <div class="order__grid">
       <div class="order__col">
         <fieldset class="step">

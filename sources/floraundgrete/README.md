@@ -1,6 +1,6 @@
-# Flora & Grete · Fünf Entwürfe
+# Cathrin Raasch Atelier · Fünf Entwürfe
 
-Klick-Prototyp mit fünf Website-Entwürfen für Flora & Grete (Cathrin, Schneiderin in Ramsen/Pfalz) plus gemeinsamer Verwaltung.
+Klick-Prototyp mit fünf Website-Entwürfen für Cathrin Raasch Atelier (Cathrin, Schneiderin in Ramsen/Pfalz) plus gemeinsamer Verwaltung.
 
 - `index.html` – Übersicht zum Vergleichen
 - `leinen/`, `atelier/`, `lookbook/`, `schnittmuster/`, `nachtatelier/` – die fünf Entwürfe (Vanilla JS, ES-Module, kein Build)

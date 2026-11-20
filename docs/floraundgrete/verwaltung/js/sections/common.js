@@ -38,7 +38,7 @@ export function bannerPreview(b, { compact = false, validLink = true } = {}) {
       b.linkLabel && b.linkUrl && validLink ? h("span", { class: "bn-link" }, b.linkLabel, " →") : null));
   if (compact) return h("div", { class: "bn-compact" + (off ? " is-off" : "") }, strip);
   return h("div", { class: "preview" + (off ? " is-off" : ""), "aria-label": "Vorschau des Hinweises", role: "img" },
-    h("div", { class: "pv-bar", "aria-hidden": "true" }, h("i"), h("i"), h("i"), h("span", { class: "pv-url" }, "floraundgrete.de")),
+    h("div", { class: "pv-bar", "aria-hidden": "true" }, h("i"), h("i"), h("i"), h("span", { class: "pv-url" }, "cathrin-raasch-atelier.de")),
     strip,
     h("div", { class: "pv-page", "aria-hidden": "true" },
       h("div", { class: "pv-nav" }, h("span", { class: "brand-mark pv-logo" }), h("span", { class: "pv-lines" }, h("i"), h("i"), h("i"))),
