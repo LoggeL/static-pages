@@ -4,6 +4,7 @@ import { getContent, subscribe, activeBanner, upcomingEvents, formatDate } from 
 import { esc, img, badges, ICON, reduceMotion } from "./util.js";
 import { initCatalog, initProductDialog } from "./product.js";
 import { initPlanner, preselectProduct } from "./planner.js";
+import { VARIANTS } from "../shared/variants.js";
 
 document.documentElement.classList.add("js");
 
@@ -188,7 +189,7 @@ function renderReviews() {
     const reply = r.reply ? `<p class="review__reply"><span>Antwort von Cathrin</span>${esc(r.reply)}</p>` : "";
     const meta = `<figcaption class="review__meta">
         <b>${esc(r.name)}</b>
-        <span><span class="stars" aria-label="5 von 5 Sternen">★★★★★</span> · <time datetime="${r.date}">${esc(date)}</time></span>
+        <span><time datetime="${r.date}">${esc(date)}</time></span>
         ${p ? `<span>zu <button type="button" class="review__product" data-product="${p.id}">${esc(p.name)}</button></span>` : ""}
       </figcaption>`;
     if (isLead) return `<figure class="review review--lead" data-reveal>
@@ -284,6 +285,9 @@ function initProto() {
   const wrap = document.querySelector(".proto");
   const btn = wrap.querySelector(".proto__toggle");
   const panel = document.getElementById("proto-panel");
+  const SELF = "leinen";
+  document.getElementById("proto-list").innerHTML = VARIANTS.map((v) =>
+    `<li><a href="../${v.slug}/"${v.slug === SELF ? ' aria-current="page"' : ""}><span>${v.n}</span> ${esc(v.name)}</a></li>`).join("");
   const set = (open) => { panel.hidden = !open; btn.setAttribute("aria-expanded", String(open)); };
   btn.addEventListener("click", () => set(panel.hidden));
   document.addEventListener("click", (e) => { if (!panel.hidden && !wrap.contains(e.target)) set(false); });

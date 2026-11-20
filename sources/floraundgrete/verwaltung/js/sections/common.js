@@ -1,13 +1,11 @@
 // Gemeinsame Bausteine für mehrere Bereiche
 import { TODAY, formatDate } from "../../../shared/store.js";
 import { SHOP } from "../../../shared/data.js";
+import { VARIANTS } from "../../../shared/variants.js";
 import { h, icon } from "../ui.js";
 
-export const SITES = [
-  { href: "../leinen/", label: "Leinen & Licht", n: 1 },
-  { href: "../millefleur/", label: "Millefleur", n: 2 },
-  { href: "../lookbook/", label: "Lookbook", n: 3 },
-];
+// Alle Entwürfe aus der gemeinsamen Liste – so zeigen die Links immer auf die aktuellen Seiten.
+export const SITES = VARIANTS.map((v) => ({ href: `../${v.slug}/`, label: v.name, n: v.n }));
 
 export const STATUS_MODES = [
   { id: "open", label: "Geöffnet", icon: "doorOpen", text: "Das Atelier ist zu den Zeiten unten für dich da." },
@@ -56,7 +54,7 @@ export function applyVacation(d, untilISO, alsoBanner) {
   d.status.note = `Im Urlaub bis ${until}. Bestellungen über Etsy nehme ich gern an – genäht wird ab ${back}.`;
   if (alsoBanner) {
     d.banner = { ...d.banner, active: true, tone: "closed", from: "", until: untilISO,
-      text: `Kleine Urlaubspause bis ${until} ♡ Du kannst trotzdem bestellen – ab ${back} nähe ich wieder für dich.`,
+      text: `Kleine Urlaubspause bis ${until}. Du kannst trotzdem bestellen – ab ${back} nähe ich wieder für dich.`,
       linkLabel: "Zum Etsy-Shop", linkUrl: SHOP.etsy };
   }
 }

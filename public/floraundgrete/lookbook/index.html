@@ -32,7 +32,7 @@
 <link rel="apple-touch-icon" href="../img/shop-logo.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter+Tight:wght@400;500;600&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter+Tight:wght@300;400;500;600;700&amp;display=swap">
 <link rel="preload" as="image" href="../img/viola-kleid-3.webp" fetchpriority="high">
 <link rel="stylesheet" href="style.css">
 <script type="application/ld+json">
@@ -66,12 +66,6 @@
   "https://www.etsy.com/de/shop/FloraundGrete",
   "https://www.instagram.com/floraundgrete/"
  ],
- "aggregateRating": {
-  "@type": "AggregateRating",
-  "ratingValue": "5.0",
-  "reviewCount": 38,
-  "bestRating": "5"
- },
  "priceRange": "€€",
  "hasMap": "https://www.google.com/maps?q=Ramsen%2067305%20Pfalz",
  "areaServed": "DE",
@@ -170,12 +164,13 @@
         </figure>
       </div>
       <div class="shop-row">
-        <dl class="stats">
-          <div class="stat"><dt>Bewertungen auf Etsy</dt><dd><span class="stat-big">5,0 <span class="stat-star" aria-hidden="true">★</span></span><span class="stat-small">aus 38 Bewertungen</span></dd></div>
-          <div class="stat"><dt>Verkäufe</dt><dd><span class="stat-big">115</span><span class="stat-small">Päckchen auf dem Weg</span></dd></div>
-          <div class="stat"><dt>Auf Etsy seit</dt><dd><span class="stat-big">2021</span><span class="stat-small">mit Struppi als Assistenz</span></dd></div>
-          <div class="stat"><dt>Verpackung</dt><dd><span class="stat-big">Plastikfrei</span><span class="stat-small">im Graskarton aus Deutschland</span></dd></div>
-        </dl>
+        <h3 class="steps-title">So bestellst du</h3>
+        <ol class="steps">
+          <li class="step"><span class="step-no">01</span><p class="step-big">Aussuchen</p><p class="step-small">Hier stöbern, dann im Etsy-Shop bestellen.</p></li>
+          <li class="step"><span class="step-no">02</span><p class="step-big">Maße senden</p><p class="step-small">Bei Maßteilen: Taille und Wunschlänge in die Bestellnachricht.</p></li>
+          <li class="step"><span class="step-no">03</span><p class="step-big">Genäht</p><p class="step-small">Ich nähe dein Stück einzeln in meinem Atelier in Ramsen.</p></li>
+          <li class="step"><span class="step-no">04</span><p class="step-big">Verschickt</p><p class="step-small">Plastikfrei im Graskarton, auf Wunsch als Geschenk.</p></li>
+        </ol>
       </div>
     </div>
   </section>
@@ -255,8 +250,8 @@
       <div class="reviews-side">
         <div class="sec-label"><span class="sec-no">06</span><span>Bewertungen</span></div>
         <h2 id="rev-title" class="display">Was ihr <i>schreibt</i></h2>
-        <p class="score"><span class="score-num">5,0</span><span class="score-stars" aria-hidden="true">★★★★★</span><span class="score-txt">Durchschnitt aus 38 Bewertungen auf Etsy</span></p>
-        <a class="link-arrow" href="https://www.etsy.com/de/shop/FloraundGrete#reviews" target="_blank" rel="noopener">Alle Bewertungen auf Etsy <span aria-hidden="true">↗</span></a>
+        <p class="sec-intro">Ein paar Nachrichten aus meinem Etsy-Shop, über die ich mich besonders gefreut habe.</p>
+        <a class="link-arrow" href="https://www.etsy.com/de/shop/FloraundGrete#reviews" target="_blank" rel="noopener">Weitere Bewertungen auf Etsy <span aria-hidden="true">↗</span></a>
       </div>
       <ul class="review-list" id="review-list"></ul>
     </div>
@@ -410,19 +405,15 @@
 <!-- PROTOTYPE SWITCHER -->
 <div class="proto" id="proto">
   <div class="proto-panel" id="proto-panel" hidden>
-    <p class="proto-head">Klick-Prototyp · 3 Entwürfe</p>
-    <ul>
-      <li><a href="../leinen/"><span>01</span>Leinen &amp; Licht</a></li>
-      <li><a href="../millefleur/"><span>02</span>Millefleur</a></li>
-      <li><a href="./" aria-current="page"><span>03</span>Lookbook <em>· hier</em></a></li>
-    </ul>
+    <p class="proto-head">Klick-Prototyp · 5 Entwürfe</p>
+    <ul id="proto-list"></ul>
     <ul class="proto-more">
       <li><a href="../verwaltung/">Verwaltung öffnen →</a></li>
       <li><a href="../">Übersicht →</a></li>
     </ul>
   </div>
   <button class="proto-toggle" type="button" id="proto-toggle" aria-expanded="false" aria-controls="proto-panel">
-    <span class="proto-dot" aria-hidden="true"></span><span class="proto-long">Entwurf 3 von 3 · </span><span>Lookbook</span><span class="proto-chev" aria-hidden="true">↑</span>
+    <span class="proto-dot" aria-hidden="true"></span><span class="proto-long" id="proto-long">Entwurf 3 von 5 · </span><span>Lookbook</span><span class="proto-chev" aria-hidden="true">↑</span>
   </button>
 </div>
 </body>

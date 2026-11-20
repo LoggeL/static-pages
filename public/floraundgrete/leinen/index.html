@@ -64,12 +64,6 @@
   "https://www.etsy.com/de/shop/FloraundGrete",
   "https://www.instagram.com/floraundgrete/"
  ],
- "aggregateRating": {
-  "@type": "AggregateRating",
-  "ratingValue": "5.0",
-  "bestRating": "5",
-  "reviewCount": 38
- },
  "priceRange": "€€",
  "hasMap": "https://www.google.com/maps?q=Ramsen%2067305%20Pfalz",
  "currenciesAccepted": "EUR"
@@ -124,7 +118,7 @@
           <a class="btn btn--primary" href="https://www.etsy.com/de/shop/FloraundGrete" target="_blank" rel="noopener">Zum Etsy-Shop <span aria-hidden="true">↗</span></a>
           <a class="btn btn--ghost" href="#anprobe">Anprobe anfragen</a>
         </div>
-        <p class="hero__trust"><span><span class="stars" aria-hidden="true">★★★★★</span> 5,0 aus 38 Bewertungen</span><span>115 Verkäufe</span><span>seit 2021 auf Etsy</span></p>
+        <p class="hero__trust"><span>Auf Maß genäht</span><span>Echte Vintage-Stoffe</span><span>Plastikfrei verschickt</span></p>
       </div>
       <div class="hero__media">
         <figure class="hero__main frame" data-parallax="0.06">
@@ -134,7 +128,6 @@
         <figure class="hero__inset frame frame--paper" data-parallax="-0.08">
           <img src="../img/lene-1.webp" alt="Rock Lene aus naturfarbenem Leinen mit feinem Karo, an der Schneiderpuppe" width="883" height="1400" decoding="async">
         </figure>
-        <p class="hero__stamp" aria-hidden="true"><span>auf Maß</span><span>genäht</span></p>
       </div>
     </div>
     <a class="hero__scroll" href="#kollektion"><span>Weiterblättern</span><span class="hero__scroll-line" aria-hidden="true"></span></a>
@@ -154,15 +147,15 @@
 
       <div class="etsy-card" data-reveal>
         <div class="etsy-card__text">
-          <p class="eyebrow">Mein Laden auf Etsy</p>
+          <p class="eyebrow">So bestellst du</p>
           <p class="etsy-card__lead">Bestellen, Maße angeben, Fragen stellen: Das alles geht ganz einfach in meinem Etsy-Shop.</p>
           <a class="btn btn--primary" href="https://www.etsy.com/de/shop/FloraundGrete" target="_blank" rel="noopener">Etsy-Shop besuchen <span aria-hidden="true">↗</span></a>
         </div>
-        <dl class="etsy-card__stats">
-          <div><dt>Bewertung</dt><dd><span class="num">5,0</span> <span class="stars" aria-hidden="true">★★★★★</span><span class="small">aus 38 Bewertungen</span></dd></div>
-          <div><dt>Verkäufe</dt><dd><span class="num">115</span><span class="small">glückliche Päckchen</span></dd></div>
-          <div><dt>Auf Etsy seit</dt><dd><span class="num">2021</span><span class="small">verschickt in Graskartons</span></dd></div>
-        </dl>
+        <ol class="etsy-card__steps">
+          <li><span class="num" aria-hidden="true">1</span><h3>Aussuchen</h3><p>Stöbere hier oder im Shop und such dir dein Lieblingsstück aus.</p></li>
+          <li><span class="num" aria-hidden="true">2</span><h3>Maße angeben</h3><p>Bei Maßteilen schreibst du mir Taille und Wunschlänge zur Bestellung.</p></li>
+          <li><span class="num" aria-hidden="true">3</span><h3>Genäht &amp; verschickt</h3><p>Ich nähe dein Teil und schicke es dir im Graskarton, ohne Plastik.</p></li>
+        </ol>
       </div>
 
       <div id="featured" class="spreads"></div>
@@ -230,10 +223,10 @@
           <p class="eyebrow">Stimmen</p>
           <h2 id="stimmen-title">Was ihr mir <em>schreibt</em></h2>
         </div>
-        <p class="chapter__intro">38 Bewertungen auf Etsy, alle mit fünf Sternen. Jede einzelne freut mich jedes Mal wieder riesig.</p>
+        <p class="chapter__intro">Ein paar Nachrichten und Bewertungen, über die ich mich besonders gefreut habe. Jede einzelne bedeutet mir viel.</p>
       </header>
       <div id="reviews" class="reviews"></div>
-      <p class="reviews__more"><a class="link-arrow" href="https://www.etsy.com/de/shop/FloraundGrete#reviews" target="_blank" rel="noopener">Alle Bewertungen auf Etsy <span aria-hidden="true">↗</span></a></p>
+      <p class="reviews__more"><a class="link-arrow" href="https://www.etsy.com/de/shop/FloraundGrete#reviews" target="_blank" rel="noopener">Weitere Bewertungen auf Etsy <span aria-hidden="true">↗</span></a></p>
     </div>
   </section>
 
@@ -392,23 +385,19 @@
         </div>
       </nav>
     </div>
-    <p class="footer__bottom"><span>© 2026 Flora &amp; Grete · Cathrin, Ramsen</span><span>Verpackt in Graskartons, so plastikfrei wie möglich ♡</span></p>
+    <p class="footer__bottom"><span>© 2026 Flora &amp; Grete · Cathrin, Ramsen</span><span>Verpackt in Graskartons, so plastikfrei wie möglich</span></p>
   </div>
 </footer>
 
 <nav class="proto" aria-label="Entwürfe vergleichen">
   <div class="proto__panel" id="proto-panel" hidden>
-    <p class="proto__title">Drei Entwürfe für Flora &amp; Grete</p>
-    <ul>
-      <li><a href="../leinen/" aria-current="page"><span>1</span> Leinen &amp; Licht</a></li>
-      <li><a href="../millefleur/"><span>2</span> Millefleur</a></li>
-      <li><a href="../lookbook/"><span>3</span> Lookbook</a></li>
-    </ul>
+    <p class="proto__title">Alle fünf Entwürfe</p>
+    <ul id="proto-list"></ul>
     <p class="proto__links"><a href="../verwaltung/">Verwaltung öffnen</a><a href="../">Übersicht</a></p>
   </div>
   <button class="proto__toggle" type="button" aria-expanded="false" aria-controls="proto-panel">
     <span class="proto__dot" aria-hidden="true"></span>
-    <span class="proto__long">Entwurf 1 von 3 · Leinen &amp; Licht</span><span class="proto__short">Entwurf 1/3</span>
+    <span class="proto__long">Entwurf 1 von 5 · Leinen &amp; Licht</span><span class="proto__short">Entwurf 1/5</span>
     <span class="proto__chev" aria-hidden="true"></span>
   </button>
 </nav>

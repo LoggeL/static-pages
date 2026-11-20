@@ -1,5 +1,5 @@
 // Flora & Grete – Mini-CMS (Klick-Prototyp).
-// Alles liegt im localStorage dieses Browsers; alle drei Entwürfe und die Verwaltung
+// Alles liegt im localStorage dieses Browsers; alle Entwürfe und die Verwaltung
 // teilen denselben Speicher. Änderungen werden live (auch tabübergreifend) verteilt.
 //
 // API (alle Funktionen synchron, Rückgabewerte sind Kopien):
@@ -38,7 +38,7 @@ function defaults() {
     banner: {
       active: true,
       tone: "info", // 'info' | 'warn' | 'closed' | 'sale'
-      text: "Weihnachtsbestellungen bitte bis 10. Dezember – danach nähe ich erst wieder ab dem 7. Januar ♡",
+      text: "Weihnachtsbestellungen bitte bis 10. Dezember – danach nähe ich erst wieder ab dem 7. Januar.",
       linkLabel: "Zum Etsy-Shop",
       linkUrl: "https://www.etsy.com/de/shop/FloraundGrete",
       from: "", // optional 'YYYY-MM-DD'

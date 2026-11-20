@@ -16,7 +16,7 @@ export default function renderEinstellungen(ctx) {
   const infoCard = card("Über diesen Prototyp", { icon: "info", cls: "card-soft" },
     h("ul", { class: "how" },
       h("li", {}, h("strong", {}, "Prototyp: "), "Daten bleiben nur in diesem Browser gespeichert. Auf einem anderen Gerät siehst du wieder die Beispiel-Inhalte."),
-      h("li", {}, "Alle drei Entwürfe lesen dieselben Daten – öffne einen in einem zweiten Tab und schau zu, wie sich Änderungen sofort zeigen."),
+      h("li", {}, "Alle fünf Entwürfe lesen dieselben Daten – öffne einen in einem zweiten Tab und schau zu, wie sich Änderungen sofort zeigen."),
       h("li", {}, "In der fertigen Version meldest du dich mit Passwort an, und alles wird sicher online gespeichert.")),
     h("div", { class: "site-list" }, SITES.map((s) => h("a", { href: s.href, target: "_blank", rel: "noopener", class: "btn btn-soft btn-block" },
       h("span", { class: "site-n", "aria-hidden": "true" }, s.n), h("span", {}, s.label), icon("external", "ico-sm push"), h("span", { class: "sr-only" }, " (öffnet neuen Tab)")))));

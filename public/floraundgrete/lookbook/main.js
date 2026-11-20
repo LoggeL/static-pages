@@ -4,6 +4,7 @@ import { getContent, subscribe, activeBanner, upcomingEvents, formatDate } from 
 import { $, $$, esc, img, pad2, productNo, catLabel, altImage, badgesHtml, reduceMotion } from "./util.js";
 import { initProduct } from "./product.js";
 import { initPlanner, render as renderPlanner, preselect } from "./planner.js";
+import { VARIANTS } from "../shared/variants.js";
 
 /* ------------------------------------------------------------------ Banner */
 const BANNER_KEY = "fg-lookbook-banner-dismissed";
@@ -297,7 +298,6 @@ function renderReviews() {
   $("#review-list").innerHTML = list.map((r) => {
     const p = productById(r.product);
     return `<li class="review">
-      <span class="review-stars" aria-label="5 von 5 Sternen">★★★★★</span>
       <blockquote><p>${esc(r.text)}</p></blockquote>
       <p class="review-meta"><strong>${esc(r.name)}</strong><span>${formatDate(r.date, { day: "numeric", month: "long", year: "numeric" })}</span>${p ? `<a href="#produkt-${p.id}" data-product="${p.id}">${esc(p.name)}</a>` : ""}</p>
       ${r.reply ? `<p class="review-reply"><span>Antwort von Cathrin</span>${esc(r.reply)}</p>` : ""}
@@ -357,6 +357,10 @@ function initMap() {
 /* ------------------------------------------------------------------ Prototyp-Umschalter */
 function initProto() {
   const t = $("#proto-toggle"), panel = $("#proto-panel");
+  const SELF = "lookbook";
+  $("#proto-list").innerHTML = VARIANTS.map((v) => v.slug === SELF
+    ? `<li><a href="./" aria-current="page"><span>${pad2(v.n)}</span>${esc(v.name)} <em>· hier</em></a></li>`
+    : `<li><a href="../${v.slug}/"><span>${pad2(v.n)}</span>${esc(v.name)}</a></li>`).join("");
   const set = (open) => { t.setAttribute("aria-expanded", String(open)); panel.hidden = !open; };
   t.addEventListener("click", () => set(panel.hidden));
   document.addEventListener("click", (e) => { if (!panel.hidden && !e.target.closest("#proto")) set(false); });

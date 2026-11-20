@@ -293,20 +293,20 @@ em { font-style: italic; }
   margin-bottom: clamp(64px, 9vw, 130px);
 }
 .etsy-card__lead { font-family: var(--serif); font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.3; margin: 12px 0 22px; }
-.etsy-card__stats { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0; }
-.etsy-card__stats > div { padding: 6px clamp(14px, 2vw, 28px); border-left: 1px solid var(--line); }
-.etsy-card__stats dt { font-size: .68rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; }
-.etsy-card__stats dd { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
-.etsy-card__stats .num { font-family: var(--serif); font-weight: 300; font-size: clamp(2.6rem, 4.4vw, 4rem); line-height: 1; }
-.etsy-card__stats .small { flex-basis: 100%; font-size: .85rem; color: var(--ink-soft); }
+.etsy-card__steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); margin: 0; padding: 0; }
+.etsy-card__steps > li { padding: 6px clamp(14px, 2vw, 28px); border-left: 1px solid var(--line); }
+.etsy-card__steps .num { display: block; font-family: var(--serif); font-weight: 300; font-style: italic; font-size: clamp(2.4rem, 3.8vw, 3.4rem); line-height: 1; color: var(--terra); margin-bottom: 10px; }
+.etsy-card__steps h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; line-height: 1.2; margin: 0 0 6px; }
+.etsy-card__steps p { font-size: .88rem; line-height: 1.55; color: var(--ink-soft); margin: 0; }
 @media (max-width: 860px) {
   .etsy-card { grid-template-columns: 1fr; }
-  .etsy-card__stats > div:first-child { border-left: 0; padding-left: 0; }
+  .etsy-card__steps > li:first-child { border-left: 0; padding-left: 0; }
 }
-@media (max-width: 520px) {
-  .etsy-card__stats { grid-template-columns: 1fr 1fr; row-gap: 18px; }
-  .etsy-card__stats > div:first-child { grid-column: 1 / -1; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
-  .etsy-card__stats > div:nth-child(2) { border-left: 0; padding-left: 0; }
+@media (max-width: 600px) {
+  .etsy-card__steps { grid-template-columns: 1fr; row-gap: 0; }
+  .etsy-card__steps > li { display: grid; grid-template-columns: 44px 1fr; column-gap: 12px; border-left: 0; padding: 14px 0; border-top: 1px solid var(--line); }
+  .etsy-card__steps > li:first-child { padding-top: 14px; }
+  .etsy-card__steps .num { grid-row: span 2; font-size: 2.2rem; margin: -4px 0 0; }
 }
 
 /* ---------- Doppelseiten (Featured) ---------- */

@@ -100,7 +100,7 @@ function renderRequests(ctx) {
     }
     return h("section", { class: "bk-group", "aria-labelledby": "grp-" + g.id },
       h("h2", { id: "grp-" + g.id, class: "list-title" }, g.title, " ", h("span", { class: "count" + (g.id === "angefragt" && g.items.length ? " count-rose" : "") }, g.items.length), h("span", { class: "list-sub" }, g.sub)),
-      g.items.length ? list : h("p", { class: "muted empty-line" }, g.id === "angefragt" ? "Alles beantwortet. Schön! ♡" : "Noch keine bestätigten Termine."));
+      g.items.length ? list : h("p", { class: "muted empty-line" }, g.id === "angefragt" ? "Alles beantwortet. Schön!" : "Noch keine bestätigten Termine."));
   };
 
   const demo = card("Ausprobieren", { icon: "sparkle", cls: "card-soft", sub: "So kommt eine Anfrage an, wenn jemand auf deiner Website einen Termin anfragt." },

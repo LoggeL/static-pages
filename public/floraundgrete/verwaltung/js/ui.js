@@ -200,7 +200,7 @@ export function markSaved(date = new Date(), { pending = false, announce = true 
   const time = date.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" });
   document.querySelectorAll("[data-savestate]").forEach((el) => {
     el.classList.toggle("is-pending", pending);
-    el.querySelector(".save-text").textContent = pending ? "Speichert …" : `Alles gespeichert ✓ ${time}`;
+    el.querySelector(".save-text").textContent = pending ? "Speichert …" : `Alles gespeichert · ${time}`;
     if (!pending) { el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
   });
   // Ansage für Screenreader erst, wenn kurz Ruhe ist (sonst bei jedem Tastendruck)

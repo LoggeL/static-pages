@@ -93,7 +93,7 @@ export default function renderStart(ctx) {
     h("p", { class: "note" }, icon("google"), h("span", {}, "Bei Google stehen deine Öffnungszeiten extra. ", h("a", { href: "#atelier/google" }, "So änderst du sie dort"))));
 
   // --- Website ansehen
-  const sitesCard = card("Website ansehen", { icon: "eye", sub: "Drei Entwürfe – jede Änderung siehst du dort sofort." },
+  const sitesCard = card("Website ansehen", { icon: "eye", sub: "Fünf Entwürfe – jede Änderung siehst du dort sofort." },
     h("div", { class: "site-list" }, SITES.map((x) => h("a", { href: x.href, target: "_blank", rel: "noopener", class: "btn btn-soft btn-block" },
       h("span", { class: "site-n", "aria-hidden": "true" }, x.n), h("span", {}, x.label), icon("external", "ico-sm push"), h("span", { class: "sr-only" }, " (öffnet neuen Tab)")))));
 
@@ -101,7 +101,7 @@ export default function renderStart(ctx) {
   const howCard = card("So funktioniert’s", { icon: "sparkle", cls: "card-soft" },
     h("ol", { class: "how" },
       h("li", {}, h("strong", {}, "Ändern: "), "Tipp unten (am Handy) oder links (am Computer) auf einen Bereich."),
-      h("li", {}, h("strong", {}, "Fertig: "), "Es gibt keinen Speichern-Knopf. Alles wird sofort gespeichert – oben steht dann „Alles gespeichert ✓“."),
+      h("li", {}, h("strong", {}, "Fertig: "), "Es gibt keinen Speichern-Knopf. Alles wird sofort gespeichert – oben steht dann „Alles gespeichert“."),
       h("li", {}, h("strong", {}, "Vertippt? "), "Nach dem Löschen erscheint unten „Rückgängig“. Damit holst du alles zurück."),
       h("li", {}, h("strong", {}, "Nachsehen: "), "Öffne deine Website in einem zweiten Tab – sie aktualisiert sich von allein.")));
 
