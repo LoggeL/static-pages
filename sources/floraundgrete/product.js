@@ -178,7 +178,7 @@ function render(p) {
   const note = p.madeToMeasure
     ? "Ich nähe dieses Stück auf deine Maße. Taille und Wunschlänge gibst du bei der Bestellung an, oder wir messen bei einer Anprobe zusammen."
     : p.unique ? "Echtes Einzelstück: Den Stoff gibt es nur einmal. Ist es weg, ist es weg."
-    : "Handgemacht in meinem Atelier in Ramsen und plastikfrei im Graskarton verschickt.";
+    : "Handgemacht in meinem Atelier in Ramsen und plastikfrei verschickt.";
 
   info.innerHTML = `
     <h2 class="pd__title" id="pd-title">${esc(p.name)}</h2>

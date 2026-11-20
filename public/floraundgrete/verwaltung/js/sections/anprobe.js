@@ -1,8 +1,8 @@
 // Anprobe: Anfragen beantworten + Planer einstellen
-import { TODAY, formatDate, openSlots, setBookingStatus, deleteBooking, requestFitting, WEEKDAYS } from "../../../shared/store.js";
+import { TODAY, formatDate, openSlots, setBookingStatus, deleteBooking, requestFitting, WEEKDAYS, eventsOn } from "../../../shared/store.js";
 import { PRODUCTS, productById, SHOP } from "../../../shared/data.js";
 import { h, icon, btn, iconBtn, card, toggle, field, sectionHeader, emptyState, firstName, plural, fid } from "../ui.js";
-import { pad, isoOf, addDays, dayMonth, relDay } from "./common.js";
+import { pad, isoOf, addDays, dayMonth, relDay, typeName } from "./common.js";
 
 let tab = "anfragen"; // 'anfragen' | 'planer'
 let calMonth = null; // 'YYYY-MM'
@@ -130,6 +130,22 @@ function renderPlanner(ctx) {
       hint: f.enabled ? "Kundinnen können freie Zeiten sehen und anfragen. Du bestätigst jede Anfrage selbst." : "Ausgeschaltet: Auf der Website steht dann nur „Schreib mir für einen Termin“.",
       onChange: (v) => save((x) => { x.enabled = v; }) }));
 
+  // Markt- und Nähkurstage automatisch sperren
+  const skip = f.skipEventDays !== false;
+  const eventDays = [];
+  for (let i = 0; i < f.leadDays + f.horizonDays && eventDays.length < 3; i++) {
+    const iso = addDays(TODAY, i);
+    const [y, m, d] = iso.split("-").map(Number);
+    const ev = eventsOn(iso);
+    if (ev.length && f.weekdays.includes(new Date(y, m - 1, d).getDay())) eventDays.push(`${formatDate(iso)} (${ev[0].title})`);
+  }
+  const skipCard = card("", { cls: "card-switch" },
+    toggle({ label: "An Markt- und Nähkurstagen keine Anproben", key: "fit-skip-events", checked: skip,
+      hint: !skip ? "Ausgeschaltet: Auch an Markt- und Kurstagen kann man eine Anprobe anfragen."
+        : eventDays.length ? `Deine Termine werden automatisch berücksichtigt. Gerade gesperrt: ${eventDays.join(", ")}.`
+          : "Deine Märkte und Nähkurse aus „Termine“ werden automatisch berücksichtigt.",
+      onChange: (v) => save((x) => { x.skipEventDays = v; }) }));
+
   // Wochentage
   const order = [1, 2, 3, 4, 5, 6, 0];
   const dayRow = (wd) => {
@@ -200,8 +216,9 @@ function renderPlanner(ctx) {
     const isPast = iso < TODAY;
     const fitDay = f.weekdays.includes(wd) && (f.times[wd] || []).length;
     const booked = f.bookings.filter((b) => b.date === iso && b.status !== "abgelehnt").length;
-    const state = blocked ? "gesperrt" : fitDay ? "Anprobe möglich" : "kein Anprobetag";
-    cells.push(h("button", { type: "button", class: "cal-day" + (blocked ? " is-blocked" : "") + (fitDay ? " is-fit" : "") + (iso === TODAY ? " is-today" : "") + (booked ? " has-booking" : ""),
+    const evDay = skip && fitDay && !blocked ? eventsOn(iso) : [];
+    const state = blocked ? "gesperrt" : evDay.length ? `${typeName(evDay[0].type)} (${evDay[0].title}), keine Anprobe` : fitDay ? "Anprobe möglich" : "kein Anprobetag";
+    cells.push(h("button", { type: "button", class: "cal-day" + (blocked ? " is-blocked" : "") + (fitDay && !evDay.length ? " is-fit" : "") + (evDay.length ? " is-event" : "") + (iso === TODAY ? " is-today" : "") + (booked ? " has-booking" : ""),
       disabled: isPast, "aria-pressed": String(blocked), "data-key": `cal-${iso}`,
       "aria-label": `${formatDate(iso, { weekday: "long", day: "numeric", month: "long" })}: ${state}${booked ? `, ${booked} Termin${booked > 1 ? "e" : ""}` : ""}`,
       onClick: () => {
@@ -212,7 +229,7 @@ function renderPlanner(ctx) {
   const monthName = first.toLocaleDateString("de-DE", { month: "long", year: "numeric" });
   const shift = (n) => { const dt = new Date(cy, cm - 1 + n, 1); calMonth = `${dt.getFullYear()}-${pad(dt.getMonth() + 1)}`; ctx.rerender(); document.querySelector(`[data-key="cal-${n < 0 ? "prev" : "next"}"]`)?.focus(); };
   const futureBlocked = f.blocked.filter((d) => d >= TODAY).sort();
-  const calCard = card("Freie Tage sperren", { icon: "lock", sub: "Urlaub, Markt oder einfach mal frei? Tipp auf einen Tag, um ihn zu sperren. Nochmal tippen gibt ihn wieder frei." },
+  const calCard = card("Freie Tage sperren", { icon: "lock", sub: skip ? "Urlaub oder einfach mal frei? Tipp auf einen Tag, um ihn zu sperren. Nochmal tippen gibt ihn wieder frei. Markt- und Kurstage sind schon von allein gesperrt." : "Urlaub, Markt oder einfach mal frei? Tipp auf einen Tag, um ihn zu sperren. Nochmal tippen gibt ihn wieder frei." },
     h("div", { class: "cal" },
       h("div", { class: "cal-head" },
         iconBtn("chevronLeft", "Vorheriger Monat", () => shift(-1), { disabled: calMonth <= TODAY.slice(0, 7), attrs: { "data-key": "cal-prev" } }),
@@ -223,6 +240,7 @@ function renderPlanner(ctx) {
       h("ul", { class: "cal-legend", "aria-label": "Legende" },
         h("li", {}, h("i", { class: "lg lg-fit" }), "Anprobe möglich"),
         h("li", {}, h("i", { class: "lg lg-blocked" }), "gesperrt"),
+        skip ? h("li", {}, h("i", { class: "lg lg-event" }), "Markt oder Nähkurs") : null,
         h("li", {}, h("i", { class: "lg lg-booked" }), "schon ein Termin"))),
     futureBlocked.length ? h("div", { class: "blocked-list" }, h("p", { class: "small strong" }, "Gesperrt:"),
       h("ul", { class: "time-chips" }, futureBlocked.map((d) => h("li", { class: "time-chip chip-rose" }, h("span", {}, formatDate(d)),
@@ -238,7 +256,7 @@ function renderPlanner(ctx) {
         : emptyState("calendar", "Gerade keine freien Termine", "Füge Wochentage oder Uhrzeiten hinzu oder gib gesperrte Tage frei."));
 
   return h("div", { class: "split" },
-    h("div", { class: "split-main stack" }, onCard, daysCard, rulesCard, calCard, placeCard),
+    h("div", { class: "split-main stack" }, onCard, skipCard, daysCard, rulesCard, calCard, placeCard),
     h("aside", { class: "split-side" }, h("div", { class: "sticky" }, preview)));
 }
 

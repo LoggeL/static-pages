@@ -68,6 +68,9 @@ const P = {
   google: '<path d="M20.5 12.2c0-.6-.1-1.2-.2-1.7H12v3.3h4.8a4.1 4.1 0 0 1-1.8 2.7v2.2h2.9c1.7-1.6 2.6-3.9 2.6-6.5Z"/><path d="M12 21c2.4 0 4.4-.8 5.9-2.2L15 16.6c-.8.5-1.8.9-3 .9-2.3 0-4.3-1.6-5-3.7H4v2.3A9 9 0 0 0 12 21Z"/><path d="M7 13.8a5.4 5.4 0 0 1 0-3.5V8H4a9 9 0 0 0 0 8.1l3-2.3Z"/><path d="M12 6.6c1.3 0 2.5.5 3.4 1.3L18 5.4A9 9 0 0 0 4 8l3 2.3c.7-2.1 2.7-3.7 5-3.7Z"/>',
   dog: '<path d="M6 9.5 4 4l4.5 2.5"/><path d="M18 9.5 20 4l-4.5 2.5"/><path d="M8.5 6.5h7A3.5 3.5 0 0 1 19 10v3a7 7 0 0 1-14 0v-3a3.5 3.5 0 0 1 3.5-3.5Z"/><circle cx="9.5" cy="11.5" r=".8" fill="currentColor"/><circle cx="14.5" cy="11.5" r=".8" fill="currentColor"/><path d="M11 15h2l-1 1.2-1-1.2Z" fill="currentColor"/>',
   wand: '<path d="M4 20 15 9"/><path d="m14 5 1-2 1 2 2 1-2 1-1 2-1-2-2-1 2-1ZM19 12l.6-1.4L21 10l-1.4-.6L19 8l-.6 1.4L17 10l1.4.6L19 12Z"/>',
+  photo: '<rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="m4 17.5 5-4.5 3.5 3 3-2.5 4.5 4"/>',
+  upload: '<path d="M12 15V4M7 8.5 12 4l5 4.5"/><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/>',
+  stall: '<path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5a2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0 2 2 0 0 0 4 0"/><path d="M5.5 12v8h13v-8M10 20v-4.5h4V20"/>',
 };
 
 export function icon(name, cls = "") {
@@ -188,7 +191,15 @@ export function toast(message, { undo, undoLabel = "Rückgängig", duration } = 
   const close = () => { el.classList.add("leaving"); setTimeout(() => el.remove(), 200); };
   const el = h("div", { class: "toast" },
     h("span", { class: "toast-msg" }, icon(undo ? "check" : "check"), h("span", {}, message)),
-    undo ? h("button", { type: "button", class: "toast-undo", onClick: () => { close(); undo(); } }, icon("undo"), h("span", {}, undoLabel)) : null,
+    undo ? h("button", { type: "button", class: "toast-undo", onClick: () => {
+      close(); undo();
+      requestAnimationFrame(() => {
+        const a = document.activeElement;
+        if (a && a !== document.body && !el.contains(a)) return;
+        const t = document.querySelector("#main h1") || document.getElementById("main");
+        if (t) { if (!t.hasAttribute("tabindex")) t.setAttribute("tabindex", "-1"); t.focus({ preventScroll: true }); }
+      });
+    } }, icon("undo"), h("span", {}, undoLabel)) : null,
     h("button", { type: "button", class: "toast-close", "aria-label": "Hinweis schließen", onClick: close }, icon("x")));
   region.append(el);
   toastTimer = setTimeout(close, duration || (undo ? 9000 : 3500));
@@ -213,20 +224,38 @@ export function markSaved(date = new Date(), { pending = false, announce = true 
 
 // ---------- Formular-Dialog (Bottom-Sheet auf dem Handy) ----------
 /**
- * openForm({ title, intro, fields:[{name,label,type,hint,required,placeholder,rows,url:true}], values, submitLabel, onSave(values) })
- * type: text | date | textarea | url | switch | star
+ * openForm({ title, intro, fields:[{name,label,type,hint,required,placeholder,rows,url:true}], values, submitLabel, onSave(values), validate(values) })
+ * type: text | date | textarea | url | switch | choice (große Auswahlknöpfe, options:[{value,label,icon}])
+ * validate(values) -> { feldname: "Fehlermeldung" } für Prüfungen über mehrere Felder (z. B. „bis“ nicht vor „von“)
  */
-export function openForm({ title, intro, fields, values = {}, submitLabel = "Speichern", onSave, onClose }) {
+export function openForm({ title, intro, fields, values = {}, submitLabel = "Speichern", onSave, onClose, validate }) {
   const dlg = h("dialog", { class: "sheet", "aria-labelledby": "sheet-title" });
   const controls = {};
   const body = fields.map((f) => {
+    if (f.type === "choice") {
+      const gid = fid("choice");
+      const val = values[f.name] ?? f.default ?? f.options[0].value;
+      const hintId = f.hint ? gid + "-hint" : null;
+      const set = h("fieldset", { class: "choice-group", "aria-describedby": hintId },
+        h("legend", { class: "field-label" }, f.label),
+        h("div", { class: "choice-chips" }, f.options.map((o) => {
+          const id = `${gid}-${o.value}`;
+          return h("label", { class: "choice-chip", for: id },
+            h("input", { type: "radio", name: f.name, id, value: o.value, checked: String(o.value) === String(val),
+              onChange: () => { controls[f.name].value = o.value; if (f.onChange) f.onChange(o.value, dlg); } }),
+            o.icon ? icon(o.icon) : null, h("span", {}, o.label));
+        })),
+        f.hint ? h("p", { class: "field-hint", id: hintId }, f.hint) : null);
+      controls[f.name] = { value: val, el: set };
+      return set;
+    }
     if (f.type === "switch") {
       let val = values[f.name] !== undefined ? !!values[f.name] : !!f.default;
       const t = toggle({ label: f.label, hint: f.hint, checked: val, onChange: (v) => { controls[f.name].value = v; } });
       controls[f.name] = { value: val, el: t };
       return t;
     }
-    const fl = field({ label: f.label + (f.required ? "" : " (freiwillig)"), hint: f.hint, type: f.type === "url" ? "url" : f.type, value: values[f.name] ?? "", placeholder: f.placeholder, rows: f.rows, attrs: { ...(f.required ? { required: true, "aria-required": "true" } : {}), ...(f.type === "url" ? { inputmode: "url", autocomplete: "url", spellcheck: "false" } : {}), ...(f.attrs || {}) } });
+    const fl = field({ label: f.label + (f.required ? "" : " (freiwillig)"), hint: f.hint, type: f.type === "url" ? "url" : f.type, value: values[f.name] ?? "", placeholder: f.placeholder, rows: f.rows, attrs: { name: f.name, ...(f.required ? { required: true, "aria-required": "true" } : {}), ...(f.type === "url" ? { inputmode: "url", autocomplete: "url", spellcheck: "false" } : {}), ...(f.attrs || {}) } });
     controls[f.name] = { el: fl, get value() { return fl.control.value; } };
     if (f.type === "url") fl.control.addEventListener("blur", () => { const r = checkUrl(fl.control.value, { allowEmpty: !f.required }); fl.setError(r.ok ? "" : r.msg); if (r.ok) fl.control.value = r.url; });
     fl.control.addEventListener("input", () => fl.classList.contains("has-error") && fl.setError(""));
@@ -239,6 +268,7 @@ export function openForm({ title, intro, fields, values = {}, submitLabel = "Spe
     for (const f of fields) {
       const c = controls[f.name];
       if (f.type === "switch") { out[f.name] = !!c.value; continue; }
+      if (f.type === "choice") { out[f.name] = c.value; continue; }
       let v = String(c.value).trim();
       let msg = "";
       if (f.required && !v) msg = f.requiredMsg || `Bitte fülle „${f.label}“ aus.`;
@@ -246,6 +276,13 @@ export function openForm({ title, intro, fields, values = {}, submitLabel = "Spe
       c.el.setError(msg);
       if (msg && !firstBad) firstBad = c.el.control;
       out[f.name] = v;
+    }
+    if (!firstBad && validate) {
+      for (const [name, msg] of Object.entries(validate(out) || {})) {
+        if (!msg || !controls[name]?.el.setError) continue;
+        controls[name].el.setError(msg);
+        if (!firstBad) firstBad = controls[name].el.control;
+      }
     }
     if (firstBad) { firstBad.focus(); return; }
     onSave(out);
@@ -258,12 +295,20 @@ export function openForm({ title, intro, fields, values = {}, submitLabel = "Spe
       btn("Abbrechen", { variant: "ghost", onClick: () => dlg.close() }),
       btn(submitLabel, { variant: "primary", icon: "check", type: "submit" })));
   dlg.append(form);
-  dlg.addEventListener("close", () => { const opener = dlg._opener; dlg.remove(); onClose && onClose(); if (opener && opener.isConnected) opener.focus(); });
+  dlg.addEventListener("close", () => {
+    const opener = dlg._opener;
+    const key = opener && opener.dataset ? opener.dataset.key : null;
+    dlg.remove();
+    onClose && onClose();
+    const target = opener && opener.isConnected ? opener
+      : key ? document.querySelector(`#main [data-key="${CSS.escape(key)}"]`) : null;
+    if (target) target.focus();
+  });
   dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
   dlg._opener = document.activeElement;
   document.body.append(dlg);
   dlg.showModal();
-  const first = dlg.querySelector(".sheet-body input:not([type=checkbox]), .sheet-body textarea");
+  const first = dlg.querySelector(".sheet-body input[type=radio]:checked, .sheet-body input:not([type=checkbox]):not([type=radio]), .sheet-body textarea");
   if (first) first.focus();
   return dlg;
 }

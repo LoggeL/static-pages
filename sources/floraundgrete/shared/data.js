@@ -20,7 +20,7 @@ export const SHOP = {
  announcement:
  "Alle Teile entstehen in meinem Mini-Atelier mitten in der Pfalz, mit Hand und Herz. Viele sind aus oder mit originalen Vintage-Stoffen genäht, echte Einzelstücke, die nur du allein tragen kannst.",
  packaging:
- "Der Umwelt zuliebe verschicke ich dein Päckchen in Graskartons (made in Germany) und verzichte so weit wie möglich auf Plastik.",
+ "Der Umwelt zuliebe verschicke ich dein Päckchen plastikfrei.",
  custom:
  "Du hast einen besonderen Wunsch bei Stoff, Größe oder Länge? Schreib mir gern, ich schaue nach Möglichkeiten!",
  logo: "logo-white.webp", // hell & freigestellt; dunkel: logo-ink.webp, quadratisch: logo.png
@@ -47,7 +47,7 @@ export const ABOUT = {
  values: [
   { title: "Maßgeschneidert", text: "Röcke und Kleider nähe ich auf deine Taille und Wunschlänge." },
   { title: "Vintage-Stoffe", text: "Alte Bettwäsche, Kissenbezüge und Liberty-Drucke bekommen ein zweites Leben." },
-  { title: "Ohne Plastik", text: "Verpackt in Graskartons aus Deutschland, liebevoll und auf Wunsch als Geschenk." },
+  { title: "Ohne Plastik", text: "Plastikfrei verpackt, liebevoll und auf Wunsch als Geschenk." },
  ],
  dogCaption: "Struppi, Assistenz. Hilft dir gern beim Auspacken deiner Bestellung.",
 };
@@ -227,7 +227,7 @@ export const FAQ = [
  { q: "Kann ich zur Anprobe vorbeikommen?", a: "Gern. Über den Anprobe-Planer kannst du dir einen Termin in meinem Atelier in Ramsen anfragen. Ich bestätige ihn dir persönlich." },
  { q: "Wie lange dauert eine Maßanfertigung?", a: "Meist 1–2 Wochen Nähzeit, je nach Auftragslage. Aktuelle Hinweise findest du oben im Banner." },
  { q: "Stimmen die Farben auf den Fotos?", a: "Ich achte sehr darauf, aber je nach Bildschirm können Farben leicht abweichen. Frag gern nach einem Foto bei Tageslicht." },
- { q: "Wie wird verpackt?", a: "In Graskartons aus Deutschland, so plastikfrei wie möglich und auf Wunsch als Geschenk." },
+ { q: "Wie wird verpackt?", a: "Plastikfrei und mit Liebe, auf Wunsch auch als Geschenk." },
  { q: "Kann ich zurückgeben?", a: "Passt etwas nicht, kannst du es innerhalb von 14 Tagen zurückschicken (Versandkosten trägst du). Maßanfertigungen sind Unikate, sprich mich bei Problemen einfach an." },
 ];
 

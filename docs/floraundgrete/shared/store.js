@@ -3,21 +3,33 @@
 // teilen denselben Speicher. Änderungen werden live (auch tabübergreifend) verteilt.
 //
 // API (alle Funktionen synchron, Rückgabewerte sind Kopien):
-//   getContent()                 -> vollständiger Inhalt (siehe DEFAULTS)
+//   getContent()                 -> vollständiger Inhalt (siehe defaults())
 //   update(mutator)              -> mutator(draft) ändert eine Kopie; wird gespeichert + verteilt
 //   subscribe(fn)                -> fn(content) bei jeder Änderung; gibt unsubscribe zurück
-//   reset()                      -> Demo-Inhalte wiederherstellen
-//   upcomingEvents(limit?)       -> sichtbare Termine ab heute, sortiert
+//   reset()                      -> Startinhalte wiederherstellen
+//   upcomingEvents(limit?)       -> sichtbare Termine, die heute oder später enden, sortiert
+//   eventsOn(iso)                -> sichtbare Märkte/Kurse, die diesen Tag belegen
+//   closedDays(days?)            -> [{date, weekday, reasons:[titel], events:[{type,title,place}]}] – reguläre Öffnungstage, die wegen Markt/Kurs ausfallen
 //   activeBanner()               -> Banner-Objekt oder null (berücksichtigt aktiv + Zeitraum)
-//   openSlots(fromISO?, days?)   -> [{date:'YYYY-MM-DD', weekday, slots:[{start:'16:00', end:'16:45', free:true}]}]
+//   openSlots(fromISO?, days?)   -> [{date:'YYYY-MM-DD', weekday, slots:[{start, end, free}]}]
+//                                   (Tage mit Markt/Kurs fallen automatisch weg, wenn fitting.skipEventDays)
 //   requestFitting(data)         -> legt Anfrage an {date,start,name,email,phone,product,note}; gibt Anfrage zurück
 //   setBookingStatus(id, status) -> 'angefragt' | 'bestaetigt' | 'abgelehnt'
 //   deleteBooking(id)
-//   TODAY                        -> heutiges Datum (ISO); Demo-Termine werden relativ dazu erzeugt
-//   uid()                        -> kurze ID
+//   lookbookItems()              -> sichtbare Lookbook-Einträge in Anzeigereihenfolge
+//   imageSrc(image, prefix)      -> Bildpfad: Dateiname aus img/ (prefix + "img/" + name) oder data:-URL unverändert
+//   EVENT_TYPES, eventTypeLabel(id), eventRange(e), WEEKDAYS, formatDate, TODAY, uid
+//
+// Datenmodell (Version 2):
+//   events[]   {id, type:'markt'|'kurs'|'atelier'|'sonstiges', date:'YYYY-MM-DD', until:'' | 'YYYY-MM-DD',
+//               time, title, place, note, link, visible}
+//   status     {mode, note, openWeekdays:[0..6], hours:[{day, time}], googleUrl, googleNote, autoClosed:boolean}
+//   lookbook[] {id, image:'datei.webp' | 'data:image/…', title, year, note, visible, sample?:true}
+//   fitting    {enabled, weekdays, times:{wd:[hh:mm]}, duration, leadDays, horizonDays, blocked:[iso], skipEventDays, place, bookings[]}
 
-const KEY = "floraundgrete-cms-v1";
-const CHANNEL = "floraundgrete-cms";
+const KEY = "cathrin-raasch-cms-v2";
+const CHANNEL = "cathrin-raasch-cms";
+const VERSION = 2;
 
 const pad = (n) => String(n).padStart(2, "0");
 const iso = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
@@ -27,40 +39,75 @@ const addDays = (isoStr, n) => {
   const [y, m, d] = isoStr.split("-").map(Number);
   return iso(new Date(y, m - 1, d + n));
 };
+const weekdayOf = (isoStr) => {
+  const [y, m, d] = isoStr.split("-").map(Number);
+  return new Date(y, m - 1, d).getDay();
+};
 export const uid = () => Math.random().toString(36).slice(2, 9);
 
-// Demo-Inhalte. Termine werden relativ zu "heute" erzeugt, damit sie nie veralten.
+export const EVENT_TYPES = [
+  { id: "markt", label: "Markt", plural: "Märkte" },
+  { id: "kurs", label: "Nähkurs", plural: "Nähkurse" },
+  { id: "atelier", label: "Atelier", plural: "Atelier" },
+  { id: "sonstiges", label: "Termin", plural: "Sonstiges" },
+];
+export const eventTypeLabel = (id) => (EVENT_TYPES.find((t) => t.id === id) || EVENT_TYPES[3]).label;
+// Märkte und Nähkurse belegen den Tag: Atelier zu, keine Anprobe
+const BLOCKING = ["markt", "kurs"];
+
+const GOOGLE_URL = "https://www.google.com/maps/search/?api=1&query=Cathrin%20Raasch%20Schneideratelier%20Ramsen";
+
+// Start-Termine (Cathrins echte Daten, Stand 20.11.2026)
+const START_EVENTS = [
+  { type: "markt", date: "2026-11-27", until: "2026-11-29", time: "", title: "Blaues Wunder", place: "Lorsch", note: "Weihnachtsmarkt" },
+  { type: "markt", date: "2026-12-05", until: "2026-12-06", time: "", title: "Woinacht", place: "Weinbiethaus, Neustadt", note: "Weihnachtsmarkt" },
+  { type: "markt", date: "2026-12-12", until: "2026-12-13", time: "", title: "Oppenheim", place: "Eventlocation Storch2, Oppenheim", note: "Weihnachtsmarkt" },
+  { type: "kurs", date: "2027-01-09", until: "", time: "", title: "Nähtag: Outdoorpulli", place: "", note: "Infos und Anmeldung per Nachricht." },
+];
+
+const DEMO_TIMES = { 3: ["15:00", "15:45", "16:30", "17:15"], 6: ["10:00", "10:45", "11:30", "12:15"] };
+// Demo-Buchung auf einen echten Anprobe-Tag (ohne Markt/Kurs) mit einer Uhrzeit, die es an diesem Wochentag gibt
+function demoSlot(fromISO, idx) {
+  const busy = new Set();
+  START_EVENTS.forEach((e) => { for (let d = e.date; d <= (e.until || e.date); d = addDays(d, 1)) busy.add(d); });
+  let date = fromISO;
+  for (let i = 0; i < 60; i++) {
+    const wd = weekdayOf(date);
+    if (DEMO_TIMES[wd] && !busy.has(date)) return { date, start: DEMO_TIMES[wd][idx] };
+    date = addDays(date, 1);
+  }
+  return { date: fromISO, start: "10:00" };
+}
+
 function defaults() {
   return {
-    version: 1,
+    version: VERSION,
     updatedAt: new Date().toISOString(),
     // Hinweisbanner oben auf der Seite
     banner: {
       active: true,
       tone: "info", // 'info' | 'warn' | 'closed' | 'sale'
-      text: "Weihnachtsbestellungen bitte bis 10. Dezember – danach nähe ich erst wieder ab dem 7. Januar.",
-      linkLabel: "Zum Etsy-Shop",
-      linkUrl: "https://www.etsy.com/de/shop/FloraundGrete",
-      from: "", // optional 'YYYY-MM-DD'
-      until: "", // optional 'YYYY-MM-DD'
+      text: "Diesen Winter findest du mich auf drei Weihnachtsmärkten: in Lorsch, Neustadt und Oppenheim.",
+      linkLabel: "Zu den Terminen",
+      linkUrl: "#termine",
+      from: "",
+      until: "2026-12-13",
     },
-    // Atelier-Status (die Website zeigt ihn; Google-Öffnungszeiten pflegt Cathrin im Google-Unternehmensprofil)
+    // Atelier: Grundregel + Hinweis auf Google (dort pflegt Cathrin die aktuellen Zeiten)
     status: {
       mode: "open", // 'open' | 'appointment' | 'closed' | 'vacation'
-      note: "Anprobe & Abholung nur nach Termin",
+      note: "Die aktuellen Öffnungszeiten stehen immer bei Google Maps – die halte ich aktuell.",
+      openWeekdays: [3, 6], // Mi, Sa
       hours: [
-        { day: "Dienstag", time: "16:00–19:00 (Anprobe nach Termin)" },
-        { day: "Donnerstag", time: "16:00–19:00 (Anprobe nach Termin)" },
-        { day: "Samstag", time: "10:00–13:00 (nach Absprache)" },
+        { day: "Mittwoch", time: "geöffnet" },
+        { day: "Samstag", time: "geöffnet, außer an Markt- und Nähkurstagen" },
       ],
+      googleUrl: GOOGLE_URL,
+      googleNote: "Aktuelle Öffnungszeiten bei Google Maps",
+      autoClosed: true, // reguläre Öffnungstage mit Markt oder Nähkurs automatisch als geschlossen zeigen
     },
-    // Termine: Märkte, Workshops, Atelier-Pausen
-    events: [
-      { id: uid(), date: nextWeekday(addDays(TODAY, 8), [6]), time: "11:00–18:00", title: "Adventsmarkt Ramsen", place: "Ramsen, Ortsmitte", note: "Mit Stulpen, Tüchern und Stirnbändern zum Anprobieren.", visible: true },
-      { id: uid(), date: nextWeekday(addDays(TODAY, 15), [5]), time: "15:00–18:00", title: "Offenes Atelier", place: "Cathrin Raasch Atelier, Ramsen", note: "Stoffe fühlen, Röcke probieren, Kaffee trinken.", visible: true },
-      { id: uid(), date: nextWeekday(addDays(TODAY, 22), [1, 2, 3, 4, 5]), time: "", title: "Letzter Versand vor Weihnachten", place: "Etsy-Shop", note: "Bestellungen bis heute kommen noch vor dem Fest an.", visible: true },
-      { id: uid(), date: nextWeekday(addDays(TODAY, 50), [6]), time: "10:00–16:00", title: "Nähkurs: Dein erster Musselinrock", place: "Atelier, max. 4 Personen", note: "Beispieltermin – Anmeldung per Nachricht.", visible: true },
-    ],
+    // Termine: Märkte, Nähkurse, Atelier
+    events: START_EVENTS.map((e) => ({ id: uid(), link: "", visible: true, ...e })),
     // Aktuelle Links (Linkliste, z. B. für Instagram-Bio)
     links: [
       { id: uid(), label: "Etsy-Shop: alle Einzelstücke", url: "https://www.etsy.com/de/shop/FloraundGrete", note: "", highlight: true, visible: true },
@@ -70,17 +117,27 @@ function defaults() {
     ],
     // Hervorgehobene Produkte (IDs aus data.js), Reihenfolge = Anzeige
     featured: ["lene", "viola-kleid", "millie", "rosemary", "stulpen", "kragen-frucht"],
+    // Lookbook: vergangene Projekte, nicht nachbestellbar. Startbilder sind Beispiele aus dem Shop (sample: true).
+    lookbook: [
+      { id: uid(), image: "viola-kleid-1.webp", title: "Kleid aus alter Bettwäsche", year: "", note: "", visible: true, sample: true },
+      { id: uid(), image: "eloise-1.webp", title: "Crop-Top aus einem Kissenbezug", year: "", note: "", visible: true, sample: true },
+      { id: uid(), image: "rosemary-1.webp", title: "Leinenkleid in Grau", year: "", note: "", visible: true, sample: true },
+      { id: uid(), image: "kragen-karo-1.webp", title: "Karokragen aus Vintage-Stoff", year: "", note: "", visible: true, sample: true },
+      { id: uid(), image: "viola-rock-2.webp", title: "Rock mit originaler Knopfleiste", year: "", note: "", visible: true, sample: true },
+      { id: uid(), image: "millie-3.webp", title: "Musselinrock für den Sommer", year: "", note: "", visible: true, sample: true },
+    ],
     // Über-mich-Kurztext (überschreibt ABOUT.intro, wenn gesetzt)
     aboutIntro: "",
     // Anprobe-Planer
     fitting: {
       enabled: true,
-      weekdays: [2, 4, 6], // 0=So … 6=Sa
+      weekdays: [3, 6], // 0=So … 6=Sa – wie das Atelier
       times: structuredClone(DEMO_TIMES),
       duration: 45,
       leadDays: 2, // frühestens in X Tagen buchbar
-      horizonDays: 28,
-      blocked: [nextWeekday(addDays(TODAY, 12), [4])], // gesperrte Tage (Urlaub, Markt …)
+      horizonDays: 35,
+      blocked: [], // zusätzlich gesperrte Tage (Urlaub …)
+      skipEventDays: true, // Tage mit Markt oder Nähkurs automatisch sperren
       place: "Atelier in Ramsen – genaue Adresse kommt mit der Bestätigung",
       bookings: [
         { id: uid(), ...demoSlot(addDays(TODAY, 2), 1), name: "Janne M.", email: "janne@example.de", phone: "", product: "lene", note: "Zweiter Lene-Rock in Flaschengrün, Taille 74 cm", status: "bestaetigt", createdAt: new Date().toISOString() },
@@ -90,28 +147,22 @@ function defaults() {
   };
 }
 
-const DEMO_TIMES = { 2: ["16:00", "16:45", "17:30", "18:15"], 4: ["16:00", "16:45", "17:30", "18:15"], 6: ["10:00", "10:45", "11:30", "12:15"] };
-// Demo-Buchung auf einen echten Anprobe-Tag mit einer Uhrzeit, die es an diesem Wochentag gibt
-function demoSlot(fromISO, idx) {
-  const date = nextWeekday(fromISO, [2, 4, 6]);
-  const [y, m, d] = date.split("-").map(Number);
-  return { date, start: DEMO_TIMES[new Date(y, m - 1, d).getDay()][idx] };
-}
-
-function nextWeekday(isoStr, weekdays) {
-  let d = isoStr;
-  for (let i = 0; i < 14; i++) {
-    const [y, m, dd] = d.split("-").map(Number);
-    if (weekdays.includes(new Date(y, m - 1, dd).getDay())) return d;
-    d = addDays(d, 1);
-  }
-  return isoStr;
-}
-
 let cache = null;
 const listeners = new Set();
 let bc = null;
 try { bc = new BroadcastChannel(CHANNEL); } catch { /* ältere Browser */ }
+
+// Teilweise Daten auffüllen, damit neue Felder nie fehlen
+function normalize(c) {
+  const d = defaults();
+  const out = { ...d, ...c };
+  out.status = { ...d.status, ...(c.status || {}) };
+  out.fitting = { ...d.fitting, ...(c.fitting || {}) };
+  out.banner = { ...d.banner, ...(c.banner || {}) };
+  out.events = (Array.isArray(c.events) ? c.events : d.events).map((e) => ({ type: "sonstiges", until: "", link: "", time: "", place: "", note: "", visible: true, ...e }));
+  out.lookbook = Array.isArray(c.lookbook) ? c.lookbook : d.lookbook;
+  return out;
+}
 
 function load() {
   if (cache) return cache;
@@ -119,7 +170,7 @@ function load() {
     const raw = localStorage.getItem(KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (parsed && parsed.version === 1) { cache = { ...defaults(), ...parsed }; return cache; }
+      if (parsed && parsed.version === VERSION) { cache = normalize(parsed); return cache; }
     }
   } catch { /* privates Fenster etc. */ }
   cache = defaults();
@@ -128,7 +179,10 @@ function load() {
 
 function persist() {
   cache.updatedAt = new Date().toISOString();
-  try { localStorage.setItem(KEY, JSON.stringify(cache)); } catch { /* ignorieren */ }
+  try { localStorage.setItem(KEY, JSON.stringify(cache)); } catch (e) {
+    // Speicher voll (z. B. zu viele hochgeladene Fotos) – Änderung bleibt in diesem Tab erhalten
+    console.warn("Speichern nicht möglich:", e && e.name);
+  }
   emit();
   try { bc && bc.postMessage("changed"); } catch { /* ignorieren */ }
 }
@@ -147,7 +201,7 @@ export const getContent = () => structuredClone(load());
 export function update(mutator) {
   const draft = structuredClone(load());
   mutator(draft);
-  cache = draft;
+  cache = normalize(draft);
   persist();
   return getContent();
 }
@@ -170,15 +224,41 @@ export function activeBanner() {
   return structuredClone(b);
 }
 
+// Zeitraum eines Termins (mehrtägig über "until")
+export const eventRange = (e) => ({ from: e.date, to: e.until && e.until > e.date ? e.until : e.date });
+
 export function upcomingEvents(limit = 99) {
   return load().events
-    .filter((e) => e.visible !== false && e.date >= TODAY)
-    .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time))
+    .filter((e) => e.visible !== false && e.date && eventRange(e).to >= TODAY)
+    .sort((a, b) => (a.date + (a.time || "")).localeCompare(b.date + (b.time || "")))
     .slice(0, limit)
     .map((e) => ({ ...e }));
 }
 
+export function eventsOn(isoStr) {
+  return load().events
+    .filter((e) => e.visible !== false && BLOCKING.includes(e.type) && e.date)
+    .filter((e) => { const r = eventRange(e); return r.from <= isoStr && isoStr <= r.to; })
+    .map((e) => ({ ...e }));
+}
+
 const WD = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+
+export function closedDays(days = 70) {
+  const s = load().status;
+  if (s.autoClosed === false) return [];
+  const open = s.openWeekdays || [];
+  const out = [];
+  for (let i = 0; i < days; i++) {
+    const date = addDays(TODAY, i);
+    const wd = weekdayOf(date);
+    if (!open.includes(wd)) continue;
+    const ev = eventsOn(date);
+    if (ev.length) out.push({ date, weekday: WD[wd], reasons: ev.map((e) => e.title), events: ev.map((e) => ({ type: e.type, title: e.title, place: e.place })) });
+  }
+  return out;
+}
+
 const addMin = (hhmm, min) => {
   const [h, m] = hhmm.split(":").map(Number);
   const t = h * 60 + m + min;
@@ -193,9 +273,9 @@ export function openSlots(fromISO, days) {
   const out = [];
   for (let i = 0; i < n; i++) {
     const date = addDays(start, i);
-    const [y, m, d] = date.split("-").map(Number);
-    const wd = new Date(y, m - 1, d).getDay();
-    if (!f.weekdays.includes(wd) || f.blocked.includes(date)) continue;
+    const wd = weekdayOf(date);
+    if (!f.weekdays.includes(wd) || (f.blocked || []).includes(date)) continue;
+    if (f.skipEventDays !== false && eventsOn(date).length) continue;
     const times = f.times[wd] || [];
     const taken = f.bookings.filter((b) => b.date === date && b.status !== "abgelehnt").map((b) => b.start);
     out.push({
@@ -223,6 +303,12 @@ export function setBookingStatus(id, status) {
 export function deleteBooking(id) {
   update((c) => { c.fitting.bookings = c.fitting.bookings.filter((x) => x.id !== id); });
 }
+
+export function lookbookItems() {
+  return (load().lookbook || []).filter((x) => x.visible !== false && x.image).map((x) => ({ ...x }));
+}
+
+export const imageSrc = (image, prefix = "") => (/^data:image\//.test(image || "") ? image : `${prefix}img/${image}`);
 
 export const WEEKDAYS = WD;
 export const formatDate = (isoStr, opts = { weekday: "short", day: "numeric", month: "long" }) => {

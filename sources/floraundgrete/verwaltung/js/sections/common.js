@@ -1,5 +1,5 @@
 // Gemeinsame Bausteine für mehrere Bereiche
-import { TODAY, formatDate } from "../../../shared/store.js";
+import { TODAY, formatDate, EVENT_TYPES, eventRange } from "../../../shared/store.js";
 import { SHOP } from "../../../shared/data.js";
 import { h, icon } from "../ui.js";
 
@@ -7,7 +7,7 @@ import { h, icon } from "../ui.js";
 export const SITES = [{ href: "../", label: "Deine Website" }];
 
 export const STATUS_MODES = [
-  { id: "open", label: "Geöffnet", icon: "doorOpen", text: "Das Atelier ist zu den Zeiten unten für dich da." },
+  { id: "open", label: "Geöffnet", icon: "doorOpen", text: "Das Atelier ist zu deinen Öffnungszeiten für dich da." },
   { id: "appointment", label: "Nur nach Termin", icon: "calendar", text: "Besuch und Anprobe nur nach Absprache." },
   { id: "closed", label: "Geschlossen", icon: "lock", text: "Gerade keine Besuche möglich. Der Etsy-Shop läuft weiter." },
   { id: "vacation", label: "Im Urlaub", icon: "sun", text: "Kurze Pause. Bestellungen werden danach genäht." },
@@ -28,6 +28,38 @@ export function addDays(isoStr, n) {
   return isoOf(new Date(y, m - 1, d + n));
 }
 export const dayMonth = (isoStr) => formatDate(isoStr, { day: "numeric", month: "long" });
+
+// ---------- Termin-Arten ----------
+// In der Verwaltung heißt „sonstiges“ auch so (auf der Website: „Termin“)
+export const typeName = (id) => (id === "sonstiges" ? "Sonstiges" : (EVENT_TYPES.find((t) => t.id === id) || EVENT_TYPES[3]).label);
+export const TYPE_ICONS = { markt: "stall", kurs: "scissors", atelier: "door", sonstiges: "calendar" };
+export const typeTag = (id) => h("span", { class: `tag tag-type tag-${EVENT_TYPES.some((t) => t.id === id) ? id : "sonstiges"}` }, typeName(id));
+
+/** Zeitraum in Worten: „Sa., 9. Januar“ · „27.–29. November“ · „30. November – 2. Dezember“ */
+export function eventDateText(e, { long = false } = {}) {
+  const r = eventRange(e);
+  const opt = long ? { weekday: "long", day: "numeric", month: "long", year: "numeric" } : null;
+  if (r.from === r.to) return formatDate(r.from, opt || { weekday: "short", day: "numeric", month: "long" });
+  if (long) return `${formatDate(r.from, opt)} bis ${formatDate(r.to, opt)}`;
+  if (r.from.slice(0, 7) === r.to.slice(0, 7)) return `${Number(r.from.slice(8))}.–${dayMonth(r.to)}`;
+  return `${dayMonth(r.from)} – ${dayMonth(r.to)}`;
+}
+
+/** Datumskästchen-Inhalte (kurz): {wd, day, month, multi} */
+export function dateParts(e) {
+  const r = eventRange(e);
+  const multi = r.from !== r.to;
+  const f = (d, o) => formatDate(d, o);
+  return {
+    multi,
+    wd: multi ? `${f(r.from, { weekday: "short" })}–${f(r.to, { weekday: "short" })}` : f(r.from, { weekday: "short" }),
+    day: multi ? `${Number(r.from.slice(8))}–${Number(r.to.slice(8))}` : String(Number(r.from.slice(8))),
+    month: multi && r.from.slice(0, 7) !== r.to.slice(0, 7) ? `${f(r.from, { month: "short" })}/${f(r.to, { month: "short" })}` : f(r.from, { month: "short" }),
+  };
+}
+
+/** Läuft der Termin heute (bei mehrtägigen: irgendwo im Zeitraum)? */
+export const isRunning = (e) => { const r = eventRange(e); return r.from <= TODAY && TODAY <= r.to; };
 
 /** Vorschau des Hinweis-Streifens. compact = nur Streifen, sonst mit angedeuteter Website */
 export function bannerPreview(b, { compact = false, validLink = true } = {}) {

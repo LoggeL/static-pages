@@ -1,7 +1,7 @@
 // Start / Übersicht
-import { TODAY, formatDate, upcomingEvents, activeBanner } from "../../../shared/store.js";
+import { TODAY, formatDate, upcomingEvents, activeBanner, closedDays } from "../../../shared/store.js";
 import { h, icon, btn, card, toggle, plural } from "../ui.js";
-import { STATUS_MODES, SITES, bannerPreview, applyVacation, statusLabel } from "./common.js";
+import { STATUS_MODES, SITES, bannerPreview, applyVacation, statusLabel, typeTag, eventDateText, dateParts, isRunning } from "./common.js";
 
 function greeting() {
   const hr = new Date().getHours();
@@ -37,9 +37,15 @@ export default function renderStart(ctx) {
   // --- Termine
   const evCard = card("Nächste Termine", { icon: "calendar", actions: h("a", { href: "#termine", class: "text-link" }, "Alle") },
     events.length
-      ? h("ul", { class: "mini-list" }, events.map((e) => h("li", {},
-        h("span", { class: "date-chip" }, h("strong", {}, formatDate(e.date, { day: "numeric" })), h("span", {}, formatDate(e.date, { month: "short" }))),
-        h("span", { class: "mini-text" }, h("strong", {}, e.title), h("span", { class: "muted" }, [e.time, e.place].filter(Boolean).join(" · "))))))
+      ? h("ul", { class: "mini-list" }, events.map((e) => {
+        const p = dateParts(e);
+        return h("li", {},
+          h("span", { class: "date-chip" + (p.multi ? " is-range" : ""), "aria-hidden": "true" }, h("strong", {}, p.day), h("span", {}, p.month)),
+          h("span", { class: "mini-text" },
+            h("span", { class: "mini-tags" }, typeTag(e.type), p.multi && isRunning(e) ? h("span", { class: "tag tag-rose" }, "läuft gerade") : null),
+            h("strong", {}, e.title),
+            h("span", { class: "muted" }, [eventDateText(e), e.time, e.place].filter(Boolean).join(" · "))));
+      }))
       : h("p", { class: "muted" }, "Gerade stehen keine Termine an."),
     h("a", { href: "#termine/neu", class: "btn btn-ghost btn-sm" }, icon("plus"), h("span", {}, "Termin eintragen")));
 
@@ -78,6 +84,11 @@ export default function renderStart(ctx) {
     ctx.rerender();
   } });
 
+  // Reguläre Öffnungstage, die wegen Markt/Kurs ausfallen (nur die nächsten paar)
+  const closed = closedDays(35).slice(0, 3);
+  const closedNote = closed.length ? h("p", { class: "note" }, icon("calendar"), h("span", {},
+    "Automatisch geschlossen: ", closed.map((x) => `${formatDate(x.date)} (${x.reasons.join(", ")})`).join(", "), ".")) : null;
+
   const atCard = card("Atelier", { icon: "door", actions: h("a", { href: "#atelier", class: "text-link" }, "Details") },
     h("p", { class: `status-pill status-${mode.id}` }, icon(mode.icon), h("span", {}, statusLabel(s.mode))),
     s.note ? h("p", { class: "muted" }, s.note) : null,
@@ -86,10 +97,11 @@ export default function renderStart(ctx) {
       quick("Heute geschlossen", "lock", (d) => { d.status.mode = "closed"; d.status.note = "Heute bleibt das Atelier geschlossen. Der Etsy-Shop ist trotzdem für dich da."; }, "Atelier steht auf „Heute geschlossen“"),
       btn("Im Urlaub bis …", { icon: "sun", onClick: () => { vacForm.hidden = false; vacDate.focus(); } }),
       quick("Wieder geöffnet", "doorOpen", (d) => {
-        d.status.mode = "open"; d.status.note = "Anprobe & Abholung nur nach Termin";
+        d.status.mode = "open"; d.status.note = "Die aktuellen Öffnungszeiten stehen immer bei Google Maps – die halte ich aktuell.";
         if (d.banner.tone === "closed" && d.banner.active) d.banner.active = false;
       }, "Atelier wieder geöffnet")),
     vacForm,
+    closedNote,
     h("p", { class: "note" }, icon("google"), h("span", {}, "Bei Google stehen deine Öffnungszeiten extra. ", h("a", { href: "#atelier/google" }, "So änderst du sie dort"))));
 
   // --- Website ansehen

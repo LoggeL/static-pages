@@ -1,9 +1,10 @@
 // Cathrin Raasch Atelier – Website
 import { ABOUT, CATEGORIES, PRODUCTS, REVIEWS, FAQ, fmtPrice, productById } from "./shared/data.js";
-import { getContent, subscribe, activeBanner, upcomingEvents, formatDate } from "./shared/store.js";
+import { getContent, subscribe, activeBanner, upcomingEvents, closedDays, eventTypeLabel, eventRange, formatDate } from "./shared/store.js";
 import { $, $$, esc, pad2, src, imgTag, focus, catLabel, productNo, badgesHtml, reduceMotion, smooth } from "./util.js";
 import { initProduct } from "./product.js";
 import { initPlanner, renderPlanner, preselectProduct } from "./planner.js";
+import { initLookbook, renderLookbook } from "./lookbook.js";
 
 let content = getContent();
 let filter = "alle";
@@ -304,21 +305,54 @@ function renderVoices() {
 }
 
 /* ---------- Termine & Links ---------- */
+const MON = ["Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sep", "Okt", "Nov", "Dez"];
+const WD_SHORT = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+const parts = (isoStr) => {
+  const [y, m, d] = isoStr.split("-").map(Number);
+  const dt = new Date(y, m - 1, d);
+  return { y, m, d, wd: dt.getDay(), dt };
+};
+const longDate = (isoStr, year = true) =>
+  formatDate(isoStr, year ? { weekday: "long", day: "numeric", month: "long", year: "numeric" } : { weekday: "long", day: "numeric", month: "long" });
+// Ort kurz für Listen: "Weinbiethaus, Neustadt" -> "Neustadt"
+const town = (place = "") => place.split(",").pop().trim();
+const closedReason = (e) => (e.place ? `${eventTypeLabel(e.type)} in ${town(e.place)}` : `${eventTypeLabel(e.type)} „${e.title}“`);
+
+function eventDateHtml(e) {
+  const { from, to } = eventRange(e);
+  const a = parts(from);
+  if (from === to) {
+    return `<div class="event__date">
+        <span class="event__day" aria-hidden="true">${a.d}</span>
+        <span class="event__mon" aria-hidden="true">${MON[a.m - 1]}</span>
+        <span class="event__wd" aria-hidden="true">${esc(a.dt.toLocaleDateString("de-DE", { weekday: "long" }))}</span>
+        <time class="visually-hidden" datetime="${from}">${esc(longDate(from))}</time>
+      </div>`;
+  }
+  // mehrtägig: "27.–29. Nov" / "Fr – So", über den Monatswechsel "30.–2. Dez – Jan"
+  const b = parts(to);
+  const sameMonth = a.m === b.m && a.y === b.y;
+  return `<div class="event__date event__date--range">
+        <span class="event__day" aria-hidden="true">${a.d}.–${b.d}.</span>
+        <span class="event__mon" aria-hidden="true">${sameMonth ? MON[a.m - 1] : `${MON[a.m - 1]} – ${MON[b.m - 1]}`}</span>
+        <span class="event__wd" aria-hidden="true">${WD_SHORT[a.wd]} – ${WD_SHORT[b.wd]}</span>
+        <span class="visually-hidden"><time datetime="${from}">${esc(longDate(from, a.y !== b.y))}</time> bis <time datetime="${to}">${esc(longDate(to))}</time></span>
+      </div>`;
+}
+
 function renderDates() {
-  const ev = upcomingEvents(6);
+  const ev = upcomingEvents();
   $("#events").innerHTML = ev.length ? ev.map((e) => {
-    const [y, m, d] = e.date.split("-").map(Number);
-    const dt = new Date(y, m - 1, d);
-    return `<li class="event">
-      <time class="event__date" datetime="${e.date}">
-        <span class="event__day">${d}</span>
-        <span class="event__mon">${esc(dt.toLocaleDateString("de-DE", { month: "short" }).replace(".", ""))}</span>
-        <span class="event__wd">${esc(dt.toLocaleDateString("de-DE", { weekday: "long" }))}</span>
-      </time>
+    const ext = /^https?:/.test(e.link || "");
+    const where = [e.time ? (/\d\s*$/.test(e.time) && !/uhr/i.test(e.time) ? `${esc(e.time.trim())} Uhr` : esc(e.time.trim())) : "", esc(e.place || "")].filter(Boolean).join(' <span aria-hidden="true">·</span> ');
+    return `<li class="event event--${esc(e.type || "sonstiges")}">
+      ${eventDateHtml(e)}
       <div class="event__body">
+        <p class="event__type">${esc(eventTypeLabel(e.type))}</p>
         <h4 class="event__title">${esc(e.title)}</h4>
-        <p class="event__where">${[e.time ? `${esc(e.time)} Uhr` : "", esc(e.place || "")].filter(Boolean).join(' <span aria-hidden="true">·</span> ')}</p>
+        ${where ? `<p class="event__where">${where}</p>` : ""}
         ${e.note ? `<p class="event__note">${esc(e.note)}</p>` : ""}
+        ${e.link ? `<p class="event__more"><a class="link-arrow" href="${esc(e.link)}"${ext ? ' target="_blank" rel="noopener"' : ""}>Mehr erfahren<span class="visually-hidden"> zu ${esc(e.title)}</span></a></p>` : ""}
       </div>
     </li>`;
   }).join("") : `<li class="empty">Gerade stehen keine Termine an. Auf Instagram erfährst du als Erste, wenn ich wieder auf einem Markt bin.</li>`;
@@ -341,14 +375,33 @@ const MODES = {
 };
 function renderStudio() {
   const s = content.status || {};
-  const m = MODES[s.mode] || MODES.open;
+  let m = MODES[s.mode] || MODES.open;
+  if (m === MODES.open) {
+    // Heute ein regulärer Öffnungstag, der wegen Markt oder Nähkurs ausfällt?
+    const today = closedDays(1)[0];
+    if (today) m = { label: `Heute geschlossen: ${closedReason(today.events[0])}`, cls: "closed" };
+  }
   $("#status").innerHTML = `
-    <p class="status__pill status__pill--${m.cls}"><span class="status__dot" aria-hidden="true"></span>${m.label}</p>
-    ${s.note ? `<p class="status__note">${esc(s.note)}</p>` : ""}`;
-  const hours = s.hours || [];
-  $("#hours").innerHTML = hours.length
-    ? hours.map((h) => `<div class="hours__row"><dt>${esc(h.day)}</dt><dd>${esc(h.time)}</dd></div>`).join("")
-    : `<div class="hours__row"><dt>Zeiten</dt><dd>Nach Absprache</dd></div>`;
+    <p class="status__pill status__pill--${m.cls}"><span class="status__dot" aria-hidden="true"></span>${esc(m.label)}</p>`;
+  const hours = (s.hours || []).filter((h) => (h.day || "").trim() || (h.time || "").trim());
+  $("#hours").innerHTML = hours.map((h) => `<div class="hours__row"><dt>${esc(h.day || "")}</dt><dd>${esc(h.time || "")}</dd></div>`).join("");
+  $("#hours").hidden = !hours.length;
+
+  // Reguläre Öffnungstage, die wegen Markt oder Nähkurs ausfallen (automatisch aus den Terminen)
+  const shown = closedDays(70).slice(0, 4);
+  const why = [...new Set(shown.flatMap((c) => c.events.map((e) => eventTypeLabel(e.type))))].join(" oder ");
+  $("#closed").innerHTML = shown.length ? `
+    <h3 class="closed__title" id="closed-h">Geschlossen wegen ${esc(why)}</h3>
+    <ul class="closed__list" aria-labelledby="closed-h">${shown.map((c) => {
+      const p = parts(c.date);
+      const e = c.events[0];
+      const reason = closedReason(e);
+      return `<li><time datetime="${c.date}"><span aria-hidden="true">${WD_SHORT[p.wd]}, ${p.d}. ${MON[p.m - 1]}</span><span class="visually-hidden">${esc(longDate(c.date, false))}</span></time><span aria-hidden="true"> · </span><span class="closed__why">${esc(reason)}</span></li>`;
+    }).join("")}</ul>` : "";
+
+  const google = s.googleUrl
+    ? `<p class="hours__google"><a class="btn btn--ghost" href="${esc(s.googleUrl)}" target="_blank" rel="noopener">${esc(s.googleNote || "Aktuelle Öffnungszeiten bei Google Maps")} <span class="ext" aria-hidden="true"></span></a></p>` : "";
+  $("#hours-more").innerHTML = `${google}${s.note ? `<p class="status__note">${esc(s.note)}</p>` : ""}`;
 }
 
 function initMap() {
@@ -389,7 +442,7 @@ function renderFitFacts() {
 /* ---------- Sanftes Einblenden ---------- */
 function initReveal() {
   if (reduceMotion() || !("IntersectionObserver" in window)) return;
-  const els = $$(".h2, .lede, .stage, .still, .values, .dog, .voice, .events, .links, .fit__intro, .planner, .studio__grid, .faq__list, .about__portrait");
+  const els = $$(".h2, .lede, .stage, .still, .values, .dog, .voice, .lb, .events, .links, .fit__intro, .planner, .studio__grid, .faq__list, .about__portrait");
   els.forEach((el) => el.classList.add("rv"));
   const io = new IntersectionObserver((entries) => {
     entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("rv-in"); io.unobserve(e.target); } });
@@ -397,11 +450,28 @@ function initReveal() {
   els.forEach((el) => io.observe(el));
 }
 
+/* ---------- Kapitelnummern ---------- */
+// Nummern laufen ohne Lücke, auch wenn eine Sektion (z. B. ein leeres Lookbook) ausgeblendet ist
+function renumber() {
+  let n = 0;
+  $$("main > section").forEach((sec) => {
+    const chap = $(".eyebrow .chap", sec);
+    if (chap && !sec.hidden) chap.textContent = pad2(++n);
+  });
+  n = 0;
+  $$("#menu li").forEach((li) => {
+    const no = $("a > span", li);
+    if (no && !li.hidden) no.textContent = pad2(++n);
+  });
+}
+
 /* ---------- Start ---------- */
 function renderAll() {
   renderBanner();
   renderFeatured();
   renderIndex();
+  renderLookbook();
+  renumber();
   renderAbout();
   renderDates();
   renderStudio();
@@ -417,6 +487,7 @@ initStory();
 initIndex();
 initMap();
 initPlanner();
+initLookbook();
 initProduct({
   onFitting(id) { preselectProduct(id); },
 });

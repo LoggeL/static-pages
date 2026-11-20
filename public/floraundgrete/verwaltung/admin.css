@@ -376,7 +376,7 @@ ul.how { list-style: disc; }
 .ev-date span { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); }
 .ev-wd { color: var(--rose-ink) !important; }
 .ev-body, .lk-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
-.ev-title, .lk-title { font: 600 19px/1.35 var(--serif); }
+.ev-title, .lk-title { font: 600 19px/1.35 var(--serif); overflow-wrap: break-word; hyphens: auto; }
 .ev-title .tag, .lk-title .tag { margin-left: 8px; }
 .lk-title .star-on { vertical-align: -3px; margin-right: 6px; }
 .ev-meta { display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--ink-2); font-size: 16px; }
@@ -761,3 +761,126 @@ dialog.sheet::backdrop { background: rgba(42, 30, 24, .45); }
 .pr-tags-body .tag { background: var(--surface-2); color: var(--ink-2); }
 .bk-mails a.btn { min-height: 44px; }
 .brand-mobile { min-height: 44px; justify-content: center; }
+
+/* =========================================================
+   Termine mit Art & Zeitraum, Öffnungstage, Lookbook
+   ========================================================= */
+
+/* Auswahlknöpfe im Formular (z. B. Art des Termins) */
+.choice-group { border: 0; margin: 0; padding: 0; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.choice-group legend { padding: 0; margin-bottom: 8px; }
+.choice-chips { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.choice-chip { position: relative; display: flex; align-items: center; gap: 10px; min-height: 56px; padding: 8px 12px; border: 1.5px solid var(--line-strong); border-radius: 14px; background: #fff; cursor: pointer; font-weight: 600; line-height: 1.2; }
+.choice-chip input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.choice-chip .ico { color: var(--ink-3); }
+.choice-chip:has(input:checked) { border-color: var(--rose); box-shadow: 0 0 0 1.5px var(--rose); background: var(--rose-soft); color: var(--rose-ink); }
+.choice-chip:has(input:checked) .ico { color: var(--rose-ink); }
+.choice-chip:has(input:focus-visible) { outline: 3px solid var(--rose); outline-offset: 2px; }
+@media (min-width: 560px) { .choice-chips { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* Art-Schildchen */
+.ev-tags, .mini-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag-type { text-transform: none; }
+.tag-markt { background: var(--amber-soft); color: #6b4a0e; }
+.tag-kurs { background: var(--sage-soft); color: #36573a; }
+.tag-atelier { background: var(--blush); color: var(--ink); }
+.tag-sonstiges { background: var(--surface-2); color: var(--ink-2); }
+.tag-sample { background: #efe6f3; color: #5c3f6b; }
+
+/* Mehrtägige Termine */
+.ev-date { width: 72px; }
+.ev-date.is-range { padding: 6px 4px; }
+.ev-date.is-range strong { font-size: 21px; white-space: nowrap; }
+.ev-date span { white-space: nowrap; }
+.ev.is-running { border-color: var(--rose); box-shadow: 0 0 0 1px var(--rose), var(--shadow); }
+.ev-body .lk-url { min-height: 44px; }
+.date-chip.is-range { width: auto; min-width: 56px; padding: 0 8px; }
+.date-chip.is-range strong { font-size: 17px; white-space: nowrap; }
+.mini-list li { align-items: flex-start; }
+.mini-text { gap: 2px; }
+.mini-tags .tag { vertical-align: 0; }
+
+/* Schnellfilter */
+.filter-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.filter-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--line-strong); background: var(--surface); font-weight: 600; cursor: pointer; }
+.filter-chip:hover { border-color: var(--rose); color: var(--rose-ink); }
+.filter-chip.is-active { background: var(--ink); border-color: var(--ink); color: #fff; }
+.filter-count { font-size: 14px; font-weight: 700; min-width: 24px; padding: 2px 7px; border-radius: 999px; background: var(--surface-2); color: var(--ink-2); text-align: center; }
+.filter-chip.is-active .filter-count { background: rgba(255, 255, 255, .2); color: #fff; }
+
+/* Öffnungstage als große Knöpfe */
+.day-set { border: 0; margin: 0; padding: 0; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.day-set legend { padding: 0; margin-bottom: 10px; }
+.day-chips { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; max-width: 480px; }
+.day-chip { position: relative; display: grid; place-items: center; min-height: 52px; border: 1.5px solid var(--line-strong); border-radius: 14px; background: #fff; font-weight: 700; cursor: pointer; }
+.day-chip input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.day-chip:has(input:checked) { background: var(--sage); border-color: var(--sage); color: #fff; }
+.day-chip:has(input:focus-visible) { outline: 3px solid var(--rose); outline-offset: 2px; }
+@media (max-width: 400px) { .day-chips { gap: 4px; } .day-chip { min-height: 48px; border-radius: 12px; font-size: 16px; } }
+
+/* Grundregel-Zeilen mit Reihenfolge */
+.hours-block { display: flex; flex-direction: column; gap: 10px; }
+.hours-row { grid-template-columns: minmax(0, 1fr); }
+.hours-row .field:nth-child(2) { grid-column: 1; }
+.hours-btns { display: flex; gap: 6px; justify-content: flex-end; }
+@media (min-width: 560px) {
+  .hours-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) auto; }
+  .hours-row .field:nth-child(2) { grid-column: auto; }
+  .hours-btns .icon-btn { width: 44px; }
+}
+.self-start { align-self: flex-start; }
+
+/* Vorschau: automatisch geschlossene Tage */
+.closed-pv { display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--surface-2); }
+.closed-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.closed-list li { display: flex; flex-wrap: wrap; gap: 2px 12px; }
+.closed-date { font-weight: 700; min-width: 11ch; }
+.closed-why { color: var(--ink-2); }
+.mini-text strong, .mini-text .muted, .closed-why, .closed-date, .switch-label, .switch-hint, .note > span { overflow-wrap: anywhere; hyphens: auto; min-width: 0; }
+
+/* Anprobe-Kalender: Markt- und Kurstage */
+.cal-day.is-event { background: var(--amber-soft); color: #6b4a0e; border: 1.5px dotted #c99a3c; }
+.lg-event { background: var(--amber-soft); border: 1.5px dotted #c99a3c; }
+
+/* Lookbook */
+.lb-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.lb {
+  display: grid; grid-template-columns: auto auto minmax(0, 1fr); gap: 12px 14px; align-items: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px;
+}
+.lb > .ev-actions { grid-column: 1 / -1; padding-top: 12px; border-top: 1px solid var(--line); }
+.lb.is-hidden { background: var(--surface-2); border-style: dashed; }
+.lb.is-hidden .lb-thumb { opacity: .55; }
+.lb.is-sample { border-style: dashed; border-color: var(--line-strong); }
+.lb-thumb { width: 80px; height: 100px; object-fit: cover; border-radius: 10px; background: var(--surface-2); }
+.lb-body { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.lb-title { font: 600 19px/1.35 var(--serif); overflow-wrap: break-word; }
+.lb-meta { font-size: 16px; color: var(--ink-2); overflow-wrap: break-word; }
+@media (max-width: 420px) {
+  .lb { padding: 14px; gap: 10px 12px; }
+  .lb-thumb { width: 64px; height: 80px; }
+}
+
+/* Foto-Auswahl */
+dialog.sheet-wide { max-width: 100%; }
+@media (min-width: 960px) { dialog.sheet-wide { width: min(860px, calc(100% - 48px)); } }
+.pick-upload { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; padding: 14px; border-radius: var(--radius-sm); background: var(--surface-2); }
+.pick-h { font: 600 19px var(--serif); }
+.pick-status:empty { display: none; }
+.pick-shop { display: flex; flex-direction: column; gap: 14px; }
+.pick-group { display: flex; flex-direction: column; gap: 8px; }
+.pick-title { margin: 0; font-size: 16px; font-weight: 700; color: var(--ink-2); }
+.pick-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 8px; }
+.pick { position: relative; display: block; width: 100%; padding: 0; border: 2px solid transparent; border-radius: 12px; overflow: hidden; background: var(--surface-2); cursor: pointer; }
+.pick img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.pick:hover { border-color: var(--rose); }
+.pick.is-used { border-color: var(--sage); }
+.pick-used { position: absolute; top: 6px; right: 6px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--sage); color: #fff; }
+.pick-used .ico { width: 18px; height: 18px; }
+.lb-form-pv { display: flex; align-items: center; gap: 14px; }
+.lb-form-pv img { width: 72px; height: 90px; object-fit: cover; border-radius: 10px; flex: none; }
+@media (max-width: 420px) {
+  .filter-chips { gap: 6px; }
+  .filter-chip { padding: 0 10px; gap: 6px; flex: 1 1 auto; justify-content: center; }
+  .filter-count { padding: 2px 6px; min-width: 22px; }
+}

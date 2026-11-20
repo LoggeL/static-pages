@@ -7,6 +7,7 @@ import renderTermine from "./sections/termine.js";
 import renderLinks from "./sections/links.js";
 import renderAnprobe from "./sections/anprobe.js";
 import renderShop from "./sections/shop.js";
+import renderLookbook from "./sections/lookbook.js";
 import renderAtelier from "./sections/atelier.js";
 import renderUeber from "./sections/ueber.js";
 import renderEinstellungen from "./sections/einstellungen.js";
@@ -20,6 +21,7 @@ const ROUTES = [
   { id: "anprobe", label: "Anprobe", long: "Anprobe", icon: "scissors", render: renderAnprobe },
   { id: "links", label: "Links", long: "Links", icon: "link", render: renderLinks },
   { id: "shop", label: "Shop", long: "Shop-Auswahl", icon: "bag", render: renderShop },
+  { id: "lookbook", label: "Lookbook", long: "Lookbook", icon: "photo", render: renderLookbook },
   { id: "atelier", label: "Atelier", long: "Atelier & Zeiten", icon: "door", render: renderAtelier },
   { id: "ueber", label: "Über mich", long: "Über mich", icon: "heart", render: renderUeber },
   { id: "einstellungen", label: "Einstellungen", long: "Einstellungen", icon: "gear", render: renderEinstellungen },
@@ -29,6 +31,7 @@ const TAB_IDS = ["start", "hinweis", "termine", "anprobe"];
 const SESSION_KEY = "floraundgrete-verwaltung-angemeldet";
 
 const $ = (s) => document.querySelector(s);
+const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const main = $("#main");
 let current = null; // {route, sub}
 let ownWrites = 0;
@@ -159,7 +162,7 @@ function renderCurrent({ focusTitle = false, keepFocus = false } = {}) {
   }
   if (sub && focusTitle) {
     const target = document.getElementById(sub);
-    if (target) setTimeout(() => target.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+    if (target) setTimeout(() => target.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth", block: "start" }), 60);
   }
 }
 
@@ -181,7 +184,8 @@ function renderMehr() {
   const desc = {
     links: "Linkliste, z. B. für Instagram",
     shop: "Welche Stücke vorne gezeigt werden",
-    atelier: "Status, Öffnungszeiten, Google",
+    lookbook: "Fotos deiner bisherigen Projekte",
+    atelier: "Öffnungstage, Grundregel, Google Maps",
     ueber: "Dein kurzer Steckbrief-Text",
     einstellungen: "Demo zurücksetzen, abmelden",
   };
