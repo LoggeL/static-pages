@@ -3,7 +3,7 @@ import { uid, imageSrc } from "../../../shared/store.js";
 import { PRODUCTS } from "../../../shared/data.js";
 import { h, icon, btn, iconBtn, sectionHeader, emptyState, openForm, card, fid } from "../ui.js";
 
-const STORE_KEY = "cathrin-raasch-cms-v2"; // wie in shared/store.js – zum Prüfen, ob ein Foto wirklich gespeichert wurde
+const STORE_KEY = "cathrin-raasch-cms-v3"; // wie in shared/store.js – zum Prüfen, ob ein Foto wirklich gespeichert wurde
 const MAX_EDGE = 1400;
 const QUALITY = 0.82;
 const WARN_ONE = 1.5e6; // ein Foto größer als ~1,5 MB

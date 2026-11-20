@@ -14,8 +14,8 @@ export const SHOP = {
  country: "DE",
  etsy: "https://www.etsy.com/de/shop/FloraundGrete",
  etsyReviews: "https://www.etsy.com/de/shop/FloraundGrete#reviews",
- instagram: "https://www.instagram.com/floraundgrete/",
- instagramHandle: "@floraundgrete",
+ instagram: "https://www.instagram.com/cathrinraasch.atelier/",
+ instagramHandle: "@cathrinraasch.atelier",
  since: 2021,
  announcement:
  "Alle Teile entstehen in meinem Mini-Atelier mitten in der Pfalz, mit Hand und Herz. Viele sind aus oder mit originalen Vintage-Stoffen genäht, echte Einzelstücke, die nur du allein tragen kannst.",

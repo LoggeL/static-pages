@@ -27,9 +27,9 @@
 //   lookbook[] {id, image:'datei.webp' | 'data:image/…', title, year, note, visible, sample?:true}
 //   fitting    {enabled, weekdays, times:{wd:[hh:mm]}, duration, leadDays, horizonDays, blocked:[iso], skipEventDays, place, bookings[]}
 
-const KEY = "cathrin-raasch-cms-v2";
+const KEY = "cathrin-raasch-cms-v3";
 const CHANNEL = "cathrin-raasch-cms";
-const VERSION = 2;
+const VERSION = 3;
 
 const pad = (n) => String(n).padStart(2, "0");
 const iso = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
@@ -62,7 +62,7 @@ const START_EVENTS = [
   { type: "markt", date: "2026-11-27", until: "2026-11-29", time: "", title: "Blaues Wunder", place: "Lorsch", note: "Weihnachtsmarkt" },
   { type: "markt", date: "2026-12-05", until: "2026-12-06", time: "", title: "Woinacht", place: "Weinbiethaus, Neustadt", note: "Weihnachtsmarkt" },
   { type: "markt", date: "2026-12-12", until: "2026-12-13", time: "", title: "Oppenheim", place: "Eventlocation Storch2, Oppenheim", note: "Weihnachtsmarkt" },
-  { type: "kurs", date: "2027-01-09", until: "", time: "", title: "Nähtag: Outdoorpulli", place: "", note: "Infos und Anmeldung per Nachricht." },
+  { type: "kurs", date: "2027-01-09", until: "", time: "10–16 Uhr", title: "Nähtag: Outdoorpulli", place: "", note: "Ein Unisex-Outdoorpulli an einem Tag, inklusive Material und Verpflegung, 110\u00a0€. Nichts für totale Anfänger: Mit deiner Nähmaschine solltest du schon vertraut sein. Anmeldung per Nachricht." },
 ];
 
 const DEMO_TIMES = { 3: ["15:00", "15:45", "16:30", "17:15"], 6: ["10:00", "10:45", "11:30", "12:15"] };
@@ -112,19 +112,19 @@ function defaults() {
     links: [
       { id: uid(), label: "Etsy-Shop: alle Einzelstücke", url: "https://www.etsy.com/de/shop/FloraundGrete", note: "", highlight: true, visible: true },
       { id: uid(), label: "Neu: Walk-Stulpen mit Daumenloch", url: "https://www.etsy.com/de/listing/4396882148", note: "Für kalte Hände", highlight: false, visible: true },
-      { id: uid(), label: "Instagram @floraundgrete", url: "https://www.instagram.com/floraundgrete/", note: "Blick ins Atelier", highlight: false, visible: true },
+      { id: uid(), label: "Instagram @cathrinraasch.atelier", url: "https://www.instagram.com/cathrinraasch.atelier/", note: "Blick ins Atelier", highlight: false, visible: true },
       { id: uid(), label: "Rock Lene auf Maß bestellen", url: "https://www.etsy.com/de/listing/1111578564", note: "", highlight: false, visible: true },
     ],
     // Hervorgehobene Produkte (IDs aus data.js), Reihenfolge = Anzeige
     featured: ["lene", "viola-kleid", "millie", "rosemary", "stulpen", "kragen-frucht"],
-    // Lookbook: vergangene Projekte, nicht nachbestellbar. Startbilder sind Beispiele aus dem Shop (sample: true).
+    // Lookbook: vergangene Projekte, nicht nachbestellbar. Startbilder stammen von Cathrins Instagram (@cathrinraasch.atelier).
     lookbook: [
-      { id: uid(), image: "viola-kleid-1.webp", title: "Kleid aus alter Bettwäsche", year: "", note: "", visible: true, sample: true },
-      { id: uid(), image: "eloise-1.webp", title: "Crop-Top aus einem Kissenbezug", year: "", note: "", visible: true, sample: true },
-      { id: uid(), image: "rosemary-1.webp", title: "Leinenkleid in Grau", year: "", note: "", visible: true, sample: true },
-      { id: uid(), image: "kragen-karo-1.webp", title: "Karokragen aus Vintage-Stoff", year: "", note: "", visible: true, sample: true },
-      { id: uid(), image: "viola-rock-2.webp", title: "Rock mit originaler Knopfleiste", year: "", note: "", visible: true, sample: true },
-      { id: uid(), image: "millie-3.webp", title: "Musselinrock für den Sommer", year: "", note: "", visible: true, sample: true },
+      { id: uid(), image: "lb-outdoorpulli-leo.webp", title: "Outdoorpulli aus Teddystoff", year: "2026", note: "", visible: true, sample: false },
+      { id: uid(), image: "lb-kinderdirndl.webp", title: "Kinderdirndl mit Bluse", year: "2026", note: "", visible: true, sample: false },
+      { id: uid(), image: "lb-tuellkleid.webp", title: "Tüllkleid mit Perlen und Blüten", year: "2026", note: "", visible: true, sample: false },
+      { id: uid(), image: "lb-steppjacke.webp", title: "Steppjacke in Altrosa", year: "2026", note: "", visible: true, sample: false },
+      { id: uid(), image: "lb-kinderbluse.webp", title: "Weiße Kinderbluse", year: "2026", note: "", visible: true, sample: false },
+      { id: uid(), image: "lb-jacken.webp", title: "Teddy- und Steppjacken", year: "2026", note: "", visible: true, sample: false },
     ],
     // Über-mich-Kurztext (überschreibt ABOUT.intro, wenn gesetzt)
     aboutIntro: "",
