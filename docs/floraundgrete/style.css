@@ -98,7 +98,6 @@ figure { margin: 0; }
 }
 .chap::after { content: ""; width: 40px; height: 1px; background: currentColor; opacity: 0.6; }
 .lede { color: var(--muted); font-size: clamp(17px, 1.35vw, 20px); line-height: 1.55; max-width: 46ch; margin-top: clamp(16px, 2vw, 26px); text-wrap: pretty; }
-.amp { color: var(--brass); font-weight: 300; }
 .kicker { font-size: 12.5px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); }
 .price { font-family: var(--display); font-weight: 500; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
 
@@ -193,7 +192,11 @@ a.link-arrow[target="_blank"]:hover::after { transform: translate(3px, -3px); }
 .brand {
   font-family: var(--display); font-weight: 600; font-size: 22px; letter-spacing: -0.02em; text-decoration: none;
   margin-right: auto; white-space: nowrap; transition: opacity 0.4s;
+  display: inline-flex; align-items: center; border-radius: 6px;
 }
+/* Am Desktop steht das große Logo im Hero – das kleine kommt erst beim Scrollen dazu */
+@media (min-width: 761px) { .head:not(.show-brand) .brand { opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0s 0.4s; } }
+.brand img { display: block; height: 52px; width: auto; filter: drop-shadow(0 1px 10px rgba(20, 15, 13, 0.55)); }
 .nav ul { display: flex; gap: clamp(16px, 2vw, 30px); }
 .nav a { text-decoration: none; color: rgba(242, 232, 220, 0.8); text-shadow: 0 1px 12px rgba(20, 15, 13, 0.6); font-size: 15px; font-weight: 500; padding: 8px 0; position: relative; transition: color 0.2s; }
 .nav a:hover, .nav a[aria-current] { color: var(--text); }
@@ -266,13 +269,12 @@ a.link-arrow[target="_blank"]:hover::after { transform: translate(3px, -3px); }
   padding-bottom: clamp(96px, 15vh, 168px);
 }
 .hero__title { display: block; }
-.hero__name {
-  display: block; font-family: var(--display); font-optical-sizing: auto;
-  font-weight: 600; font-size: clamp(76px, 12.6vw, 208px); line-height: 0.84; letter-spacing: -0.05em;
-  text-shadow: 0 2px 40px rgba(20, 15, 13, 0.5);
+.hero__title:focus { outline: none; }
+.hero__logo {
+  display: block; width: clamp(320px, 46vw, 760px); height: auto; margin-left: -0.6%;
+  filter: drop-shadow(0 2px 30px rgba(20, 15, 13, 0.55));
   animation: rise 1.4s 0.15s var(--ease) both;
 }
-.hero__name .amp { font-weight: 300; }
 .hero__claim {
   display: block; margin-top: clamp(16px, 2vw, 26px);
   font-family: var(--display); font-weight: 400; font-size: clamp(22px, 2.4vw, 34px); letter-spacing: -0.01em; color: var(--text);
@@ -673,7 +675,7 @@ a.contact__v:hover { text-decoration: underline; }
 .foot { background: var(--bg-deep); padding: clamp(64px, 8vw, 120px) 0 calc(48px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); position: relative; overflow: hidden; }
 .foot::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(50% 60% at 15% 0%, rgba(200, 164, 106, 0.1), transparent 70%); }
 .foot .wrap { position: relative; }
-.foot__name { font-family: var(--display); font-weight: 600; font-size: clamp(56px, 11vw, 176px); line-height: 0.86; letter-spacing: -0.05em; }
+.foot__name img { display: block; width: clamp(240px, 34vw, 520px); height: auto; }
 .foot__grid { margin-top: clamp(40px, 5vw, 72px); display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; padding-top: 28px; border-top: 1px solid var(--line); }
 .foot__claim { color: var(--muted); }
 .foot__links { display: grid; gap: 10px; align-content: start; }
@@ -781,7 +783,7 @@ a.contact__v:hover { text-decoration: underline; }
   :root { --head-h: 64px; --section: clamp(84px, 20vw, 110px); }
   body { font-size: 16.5px; }
   .head__shop { display: none; }
-  .brand { font-size: 20px; }
+  .brand img { height: 44px; }
 
   .hero { min-height: 0; display: block; }
   .hero__media { position: relative; width: auto; height: 66svh; min-height: 380px; margin-top: calc(-1 * var(--head-h)); -webkit-mask-image: linear-gradient(0deg, transparent 0%, #000 42%); mask-image: linear-gradient(0deg, transparent 0%, #000 42%); -webkit-mask-composite: source-over; mask-composite: add; }
@@ -789,7 +791,7 @@ a.contact__v:hover { text-decoration: underline; }
   .hero__media::after { background: radial-gradient(110% 80% at 50% 30%, transparent 45%, rgba(26, 20, 18, 0.65) 100%); }
   .hero::before { background: radial-gradient(90% 50% at 50% 30%, rgba(214, 150, 92, 0.2), transparent 70%); }
   .hero__copy { position: relative; margin-top: -132px; padding-bottom: 8px; }
-  .hero__name { font-size: clamp(64px, 19.5vw, 104px); }
+  .hero__logo { width: min(86vw, 440px); }
   .hero__claim { font-size: 22px; margin-top: 14px; }
   .hero__lede { font-size: 16.5px; }
   .hero__actions .btn { flex: 1 1 auto; }

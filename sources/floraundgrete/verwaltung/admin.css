@@ -73,9 +73,8 @@ h1:focus, h1:focus-visible, .main:focus { outline: none; }
   --w: 220px;
   display: block;
   width: var(--w);
-  height: calc(var(--w) * 352 / 940);
-  background: rgb(236 215 193) url("../img/shop-wordmark.webp") center / contain no-repeat;
-  border-radius: 10px;
+  height: calc(var(--w) * 295 / 1184);
+  background: url("../img/logo-ink-header.webp") left center / contain no-repeat;
 }
 
 /* ---------- Begrüßung ---------- */
@@ -90,7 +89,7 @@ h1:focus, h1:focus-visible, .main:focus { outline: none; }
   text-align: center;
   display: flex; flex-direction: column; align-items: center; gap: 18px;
 }
-.welcome-logo { width: 240px; height: 240px; margin: -20px 0 -36px; -webkit-mask-image: radial-gradient(closest-side, #000 80%, transparent); mask-image: radial-gradient(closest-side, #000 80%, transparent); }
+.welcome-logo { width: min(320px, 82vw); height: auto; margin: 0 0 4px; }
 .welcome-title { font: 600 clamp(34px, 8vw, 44px)/1.15 var(--serif); }
 .welcome-text { font-size: 19px; color: var(--ink-2); max-width: 34ch; }
 .btn-xl { min-height: 60px; padding: 0 34px; font-size: 20px; border-radius: 16px; width: min(320px, 100%); justify-content: center; }
@@ -110,7 +109,7 @@ h1:focus, h1:focus-visible, .main:focus { outline: none; }
   min-height: 64px;
 }
 .brand { text-decoration: none; color: inherit; display: inline-flex; flex-direction: column; align-items: flex-start; }
-.brand-mobile .brand-mark { --w: 128px; }
+.brand-mobile .brand-mark { --w: 168px; }
 .savestate {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 15px; font-weight: 600; color: var(--sage);
@@ -755,12 +754,10 @@ dialog.sheet::backdrop { background: rgba(42, 30, 24, .45); }
   .bk-mails .row .btn { flex: 1 1 auto; justify-content: center; }
 }
 @media (max-width: 400px) {
-  .brand-mobile .brand-mark { --w: 112px; }
+  .brand-mobile .brand-mark { --w: 150px; }
   .savestate { font-size: 14px; padding: 6px 10px; gap: 6px; }
   .topbar { gap: 8px; }
 }
-/* Logo in der Kopfzeile (Handy): nur der Schriftzug, die winzige Unterzeile war unlesbar */
-.brand-mobile .brand-mark { height: calc(var(--w) * 272 / 940); }
 .pr-tags-body .tag { background: var(--surface-2); color: var(--ink-2); }
 .bk-mails a.btn { min-height: 44px; }
 .brand-mobile { min-height: 44px; justify-content: center; }

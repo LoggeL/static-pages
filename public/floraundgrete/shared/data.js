@@ -23,7 +23,7 @@ export const SHOP = {
  "Der Umwelt zuliebe verschicke ich dein Päckchen in Graskartons (made in Germany) und verzichte so weit wie möglich auf Plastik.",
  custom:
  "Du hast einen besonderen Wunsch bei Stoff, Größe oder Länge? Schreib mir gern, ich schaue nach Möglichkeiten!",
- logo: "shop-logo.webp",
+ logo: "logo-white.webp", // hell & freigestellt; dunkel: logo-ink.webp, quadratisch: logo.png
  banner: "shop-banner.webp",
  portrait: "member-1.webp", // Schwarz-Weiß-Porträt von Cathrin (Etsy-Shopprofil)
  portraitSmall: "cathrin-avatar.webp",

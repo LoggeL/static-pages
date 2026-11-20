@@ -32,7 +32,9 @@ function renderBanner() {
     try { sessionStorage.setItem(BANNER_KEY, b.text); } catch { /* privat */ }
     slot.innerHTML = "";
     syncBannerH();
-    $(".brand").focus();
+    const brand = $(".brand");
+    brand.focus();
+    if (document.activeElement !== brand) $("#hero-h").focus();
   });
   syncBannerH();
 }
@@ -50,6 +52,8 @@ function initHead() {
   const solid = () => {
     ticking = false;
     head.classList.toggle("is-solid", scrollY > 12 || hero.getBoundingClientRect().bottom < head.offsetHeight + 24);
+    const logo = $(".hero__logo");
+    head.classList.toggle("show-brand", !logo || logo.getBoundingClientRect().top < head.offsetHeight);
   };
   addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(solid); } }, { passive: true });
   addEventListener("resize", solid, { passive: true });
