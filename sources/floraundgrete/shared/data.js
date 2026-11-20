@@ -225,7 +225,7 @@ export const REVIEWS = [
 export const FAQ = [
  { q: "Kann ich Stoff, Größe oder Länge selbst wählen?", a: "Ja! Röcke und viele Kleider nähe ich auf deine Maße. Gib deinen Taillenumfang und Wünsche bei der Bestellung an oder schreib mir vorher." },
  { q: "Kann ich zur Anprobe vorbeikommen?", a: "Gern. Über den Anprobe-Planer kannst du dir einen Termin in meinem Atelier in Ramsen anfragen. Ich bestätige ihn dir persönlich." },
- { q: "Wie lange dauert eine Maßanfertigung?", a: "Meist 1–2 Wochen Nähzeit, je nach Auftragslage. Aktuelle Hinweise findest du oben im Banner." },
+ { q: "Wie lange dauert eine Maßanfertigung?", a: "Meist 1–2 Wochen Nähzeit, je nach Auftragslage. Wenn ich gerade keine neuen Aufträge annehme, steht das oben auf der Seite und bei der Anprobe." },
  { q: "Stimmen die Farben auf den Fotos?", a: "Ich achte sehr darauf, aber je nach Bildschirm können Farben leicht abweichen. Frag gern nach einem Foto bei Tageslicht." },
  { q: "Wie wird verpackt?", a: "Plastikfrei und mit Liebe, auf Wunsch auch als Geschenk." },
  { q: "Kann ich zurückgeben?", a: "Passt etwas nicht, kannst du es innerhalb von 14 Tagen zurückschicken (Versandkosten trägst du). Maßanfertigungen sind Unikate, sprich mich bei Problemen einfach an." },

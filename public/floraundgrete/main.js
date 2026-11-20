@@ -1,6 +1,6 @@
 // Cathrin Raasch Atelier – Website
 import { SHOP, ABOUT, CATEGORIES, PRODUCTS, REVIEWS, FAQ, fmtPrice, productById } from "./shared/data.js";
-import { getContent, subscribe, activeBanner, upcomingEvents, closedDays, eventTypeLabel, eventRange, formatDate, courseItems, courseRule, courseDates, TODAY } from "./shared/store.js";
+import { getContent, subscribe, activeBanner, activePause, upcomingEvents, closedDays, eventTypeLabel, eventRange, formatDate, courseItems, courseRule, courseDates, TODAY } from "./shared/store.js";
 import { $, $$, esc, pad2, src, imgTag, focus, catLabel, productNo, badgesHtml, reduceMotion, smooth } from "./util.js";
 import { initProduct } from "./product.js";
 import { initPlanner, renderPlanner, preselectProduct } from "./planner.js";
@@ -471,6 +471,18 @@ function renderFaq() {
     </details>`).join("");
 }
 
+/* ---------- Auftragspause (Hero + Anprobe) ---------- */
+function renderPause() {
+  const p = activePause();
+  const text = p ? p.text.trim() : "";
+  // Oben im Hero nur der erste Satz, bei der Anprobe der ganze Text
+  const first = (text.match(/^.+?[.!?](?=\s|$)/) || [text])[0];
+  const hero = $("#hero-pause"), fit = $("#fit-pause");
+  hero.hidden = fit.hidden = !p;
+  hero.innerHTML = p ? `<span class="pause__tag">Auftragspause</span> ${esc(first)}${first.length < text.length ? ` <a href="#anprobe">Mehr</a>` : ""}` : "";
+  fit.innerHTML = p ? `<span class="pause__tag">Auftragspause</span> ${esc(text)}` : "";
+}
+
 /* ---------- Anprobe-Fakten ---------- */
 function renderFitFacts() {
   const f = content.fitting;
@@ -520,6 +532,7 @@ function renderAll() {
   renderCourses();
   renderStudio();
   renderFitFacts();
+  renderPause();
 }
 
 renderAll();

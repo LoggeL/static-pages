@@ -260,6 +260,35 @@ function renderPlanner(ctx) {
     h("aside", { class: "split-side" }, h("div", { class: "sticky" }, preview)));
 }
 
+// ---------- Auftragspause ----------
+function pauseState(p) {
+  if (!p.active) return { tone: "off", text: "Ausgeschaltet: Auf der Website steht kein Hinweis." };
+  if (!String(p.text || "").trim()) return { tone: "warn", text: "Eingeschaltet, aber es fehlt noch ein Text." };
+  if (p.until && TODAY > p.until) return { tone: "warn", text: `Abgelaufen am ${dayMonth(p.until)}: Der Hinweis wird nicht mehr gezeigt.` };
+  return { tone: "on", text: p.until ? `Wird gerade angezeigt, bis einschließlich ${dayMonth(p.until)}.` : "Wird gerade angezeigt, bis du ihn ausschaltest." };
+}
+
+function renderPause(ctx) {
+  const state = { ...ctx.content.orderPause };
+  const visSlot = h("p", { class: "vis-state", "aria-live": "polite" });
+  const refresh = () => {
+    const v = pauseState(state);
+    visSlot.className = "vis-state vis-" + v.tone;
+    visSlot.replaceChildren(icon(v.tone === "on" ? "eye" : v.tone === "off" ? "eyeOff" : "info"), h("span", {}, v.text));
+  };
+  const commit = (patch) => { Object.assign(state, patch); ctx.save((d) => { d.orderPause = { ...d.orderPause, ...patch }; }); refresh(); };
+  const textField = field({ label: "Text", type: "textarea", rows: 3, value: state.text, key: "pause-text", counter: 200,
+    hint: "Der erste Satz steht oben auf der Seite unter den Knöpfen, der ganze Text bei der Anprobe.", onInput: (v) => commit({ text: v }) });
+  const untilField = field({ label: "Zeigen bis einschließlich", type: "date", value: state.until, key: "pause-until",
+    hint: "Danach verschwindet der Hinweis von allein. Leer lassen = bis du ihn ausschaltest.",
+    onChange: (v) => commit({ until: v }), onInput: (v) => commit({ until: v }) });
+  untilField.append(btn("Leeren", { variant: "ghost", small: true, icon: "x", attrs: { "aria-label": "Datum leeren" }, onClick: () => { untilField.control.value = ""; commit({ until: "" }); untilField.control.focus(); } }));
+  refresh();
+  return card("Auftragspause", { icon: "lock", sub: "Wenn du gerade keine neuen Aufträge annimmst, sagst du es hier allen auf der Website." },
+    toggle({ label: "Hinweis zur Auftragspause zeigen", key: "pause-active", checked: state.active, onChange: (v) => commit({ active: v }) }),
+    visSlot, textField, untilField);
+}
+
 export default function renderAnprobe(ctx) {
   const sub = ctx.sub;
   if (sub === "planer" || sub === "anfragen") { tab = sub; ctx.consumeSub(); }
@@ -271,6 +300,7 @@ export default function renderAnprobe(ctx) {
     icon(ic), h("span", {}, label), badge ? h("span", { class: "badge badge-inline" }, badge) : null);
   return h("div", { class: "stack" },
     sectionHeader("Anprobe", "Kundinnen fragen auf deiner Website einen Termin an – du bestätigst oder schlägst einen anderen vor."),
+    renderPause(ctx),
     h("div", { class: "segmented", role: "tablist", "aria-label": "Anprobe-Bereich" },
       tabBtn("anfragen", "Anfragen", "mail", n), tabBtn("planer", "Planer", "gear")),
     h("div", { id: "anprobe-panel", role: "tabpanel", "aria-labelledby": "tab-" + tab }, tab === "anfragen" ? renderRequests(ctx) : renderPlanner(ctx)));

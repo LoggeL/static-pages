@@ -11,6 +11,7 @@
 //   eventsOn(iso)                -> sichtbare Märkte/Kurse, die diesen Tag belegen
 //   closedDays(days?)            -> [{date, weekday, reasons:[titel], events:[{type,title,place}]}] – reguläre Öffnungstage, die wegen Markt/Kurs ausfallen
 //   activeBanner()               -> Banner-Objekt oder null (berücksichtigt aktiv + Zeitraum)
+//   activePause()                -> Auftragspause {active, text, until} oder null (aktiv, Text da, bis-Datum nicht vorbei)
 //   openSlots(fromISO?, days?)   -> [{date:'YYYY-MM-DD', weekday, slots:[{start, end, free}]}]
 //                                   (Tage mit Markt/Kurs fallen automatisch weg, wenn fitting.skipEventDays)
 //   requestFitting(data)         -> legt Anfrage an {date,start,name,email,phone,product,note}; gibt Anfrage zurück
@@ -30,6 +31,7 @@
 //   status     {mode, note, openWeekdays:[0..6], hours:[{day, time}], googleUrl, googleNote, autoClosed:boolean}
 //   lookbook[] {id, image:'datei.webp' | 'data:image/…', title, year, note, visible, sample?:true}
 //   courses[]  {id, title, subtitle, weekday:0..6, weeks:[1..5] (n-ter Wochentag im Monat), time, price, audience, note, visible}
+//   orderPause {active, text, until:'' | 'YYYY-MM-DD'} Hinweis bei Hero und Anprobe, wenn keine neuen Aufträge angenommen werden
 //   courseNote Hinweis unter den festen Kursen; courseBreaks:[iso] Kurspausen (zusätzlich zu Feiertagen)
 //   fitting    {enabled, weekdays, times:{wd:[hh:mm]}, duration, leadDays, horizonDays, blocked:[iso], skipEventDays, place, bookings[]}
 
@@ -98,6 +100,12 @@ function defaults() {
       linkUrl: "#termine",
       from: "",
       until: "2026-12-13",
+    },
+    // Auftragspause (Cathrins Instagram-Post vom 12.11.2026); verschwindet nach "until" von selbst
+    orderPause: {
+      active: true,
+      text: "Bis Ende des Jahres nehme ich keine neuen Sonderanfertigungen, Änderungen und Reparaturen an. Fertige Stücke findest du weiter im Etsy-Shop und auf den Märkten.",
+      until: "2026-12-31",
     },
     // Atelier: Grundregel + Hinweis auf Google (dort pflegt Cathrin die aktuellen Zeiten)
     status: {
@@ -174,6 +182,7 @@ function normalize(c) {
   out.status = { ...d.status, ...(c.status || {}) };
   out.fitting = { ...d.fitting, ...(c.fitting || {}) };
   out.banner = { ...d.banner, ...(c.banner || {}) };
+  out.orderPause = { ...d.orderPause, ...(c.orderPause || {}) };
   out.events = (Array.isArray(c.events) ? c.events : d.events).map((e) => ({ type: "sonstiges", until: "", link: "", time: "", place: "", note: "", visible: true, ...e }));
   out.lookbook = Array.isArray(c.lookbook) ? c.lookbook : d.lookbook;
   out.courses = (Array.isArray(c.courses) ? c.courses : d.courses).map((k) => ({ title: "", subtitle: "", weekday: 4, weeks: [1, 3], time: "", price: "", audience: "", note: "", visible: true, ...k, weeks: Array.isArray(k.weeks) ? k.weeks.filter((w) => w >= 1 && w <= 5).sort() : [1, 3] }));
@@ -240,6 +249,13 @@ export function activeBanner() {
   if (b.from && TODAY < b.from) return null;
   if (b.until && TODAY > b.until) return null;
   return structuredClone(b);
+}
+
+export function activePause() {
+  const p = load().orderPause;
+  if (!p || !p.active || !String(p.text || "").trim()) return null;
+  if (p.until && TODAY > p.until) return null;
+  return structuredClone(p);
 }
 
 // Zeitraum eines Termins (mehrtägig über "until")
