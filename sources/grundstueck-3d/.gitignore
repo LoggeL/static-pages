@@ -1,0 +1,5 @@
+node_modules/
+dist/
+# Splat-Dateien liegen nur im veröffentlichten Ordner (zu groß fürs Quell-Repo)
+public/scene/*.sog
+__pycache__/

@@ -5,23 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0e1216">
   <meta name="robots" content="noindex, nofollow">
-  <title>Grundstück – 3D-Begehung</title>
+  <title>Grundstück – Karte und 3D-Begehung</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230e1216'/%3E%3Cpath d='M6 22 16 8l10 14z' fill='none' stroke='%233ddc97' stroke-width='2.4' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='8' r='2.4' fill='%23ffd23f'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
-  <div id="app" data-tool="nav">
-    <canvas id="view" tabindex="0" aria-label="3D-Ansicht des Grundstücks"></canvas>
+  <div id="app" data-tool="nav" data-view="2d">
+    <div id="map" role="region" aria-label="2D-Karte des Grundstücks"><div id="tiles"></div></div>
     <svg id="overlay" aria-hidden="true"></svg>
     <div id="labels" aria-hidden="true"></div>
 
     <header class="topbar">
       <div class="brand">
         <h1 id="title">Grundstück</h1>
-        <p id="subtitle">3D-Begehung</p>
+        <p id="subtitle"></p>
       </div>
       <div class="top-actions">
-        <button class="chip" id="btn-home" title="Startansicht (H)">
+        <button class="chip accent" id="btn-view" title="3D-Ansicht laden (V)">
+          <svg viewBox="0 0 24 24"><path d="M12 3.5 20 8v8l-8 4.5L4 16V8z"/><path d="M4 8l8 4.5L20 8M12 12.5V20.5"/></svg><span id="btn-view-text">3D laden</span>
+        </button>
+        <div class="quality-wrap">
+          <button class="chip" id="btn-quality" title="Qualität der 3D-Ansicht" aria-haspopup="menu" aria-expanded="false" aria-controls="quality-menu">
+            <svg viewBox="0 0 24 24"><path d="M4 18h3v-4H4zM10.5 18h3V9h-3zM17 18h3V5h-3z"/></svg><span id="quality-label">Qualität</span>
+          </button>
+          <div class="quality-menu" id="quality-menu" hidden></div>
+        </div>
+        <button class="chip" id="btn-home" title="Startausschnitt (H)">
           <svg viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5M6.5 10v8.5h11V10"/></svg><span>Start</span>
         </button>
         <button class="chip" id="btn-top" title="Draufsicht (T)">
@@ -80,8 +89,9 @@
         </div>
       </div>
       <div class="panel-body">
+      <p class="storage-note" id="storage-note" hidden></p>
       <ul id="list" class="list"></ul>
-      <p class="empty" id="empty">Noch keine Messungen. Wähle unten ein Werkzeug und klicke Punkte im Modell an.</p>
+      <p class="empty" id="empty">Noch keine Messungen. Wähle unten ein Werkzeug und tippe Punkte auf der Karte oder im Modell an.</p>
       <div class="calib" id="bounds-box" hidden>
         <h3>Flurstück</h3>
         <p id="bounds-text"></p>
@@ -97,6 +107,10 @@
           <span>Schutzstreifen je Seite</span>
           <button id="corr-minus" aria-label="Schutzstreifen schmaler">−</button><b id="corr-value" aria-live="polite">2,0 m</b><button id="corr-plus" aria-label="Schutzstreifen breiter">+</button>
         </div>
+      </div>
+      <div class="calib" id="ground-box">
+        <h3>Höhen in der 2D-Karte</h3>
+        <p id="ground-text"></p>
       </div>
       <div class="calib" id="calib-box">
         <h3>Maßstab</h3>
@@ -120,15 +134,31 @@
 
     <div class="scalebar" id="scalebar" aria-hidden="true"><i></i><span>1 m</span></div>
     <div class="status" id="status"></div>
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-text"></span><button id="toast-act" class="mini" hidden></button></div>
 
-    <div class="loading" id="loading">
-      <div class="loading-card">
+    <!-- keine Live-Region: Fortschritt sagt #load3d-live gedrosselt an, ein Fehler setzt role="alert" -->
+    <div class="load3d" id="load3d" hidden>
+      <div class="load3d-row">
         <div class="spinner"></div>
-        <strong id="loading-title">Modell wird geladen …</strong>
-        <div class="bar"><i id="loading-bar"></i></div>
-        <small id="loading-text"></small>
-        <button id="btn-reload" class="primary" hidden>Neu laden</button>
+        <strong id="load3d-title">3D-Programm wird geladen …</strong>
+      </div>
+      <div class="bar" id="load3d-barbox" hidden><i id="load3d-bar"></i></div>
+      <small id="load3d-text"></small>
+      <div class="load3d-actions">
+        <button id="load3d-cancel" class="mini">Abbrechen</button>
+        <button id="load3d-retry" class="mini go" hidden>Erneut versuchen</button>
+        <button id="load3d-prev" class="mini" hidden>Vorherige Stufe laden</button>
+        <button id="load3d-low" class="mini" hidden>Mit Stufe „Niedrig“ neu laden</button>
+        <button id="load3d-stay" class="mini" hidden>In 2D bleiben</button>
+      </div>
+    </div>
+    <p id="load3d-live" class="sr-only" role="status" aria-live="polite"></p>
+
+    <div class="fatal" id="fatal" role="alert" hidden>
+      <div class="fatal-card">
+        <strong id="fatal-title"></strong>
+        <p id="fatal-text"></p>
+        <button id="fatal-reload" class="primary">Neu laden</button>
       </div>
     </div>
 
@@ -151,35 +181,44 @@
         <h2>Bedienung</h2>
         <div class="help-grid">
           <section>
-            <h3>Bewegen</h3>
+            <h3>2D-Karte</h3>
             <ul>
-              <li><kbd>Ziehen</kbd> dreht · rechte Maustaste oder <kbd>Umschalt</kbd> + Ziehen verschiebt</li>
-              <li><kbd>Mausrad</kbd> zoomt zur Mausposition</li>
-              <li><kbd>Doppelklick</kbd> setzt den Drehpunkt auf die Stelle</li>
-              <li><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> laufen · <kbd>Q</kbd>/<kbd>E</kbd> runter/hoch</li>
-              <li>Touch: ein Finger dreht, zwei Finger zoomen und verschieben</li>
+              <li>Die Seite startet in der Karte (Luftbild aus der Aufnahme, Grenzen, Gebäude, Kanal) – leicht und auf jedem Gerät flüssig</li>
+              <li><kbd>Ziehen</kbd> verschiebt · <kbd>Mausrad</kbd> bzw. zwei Finger zoomen</li>
+              <li><kbd>Doppelklick</kbd> zoomt zur Stelle · <kbd>+</kbd>/<kbd>−</kbd> zoomen · Pfeile bzw. <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> verschieben</li>
+              <li>Höhen kommen aus dem Bodenmodell (0,5-m-Raster): gemessen, außerhalb der Aufnahme aus Planhöhen geschätzt</li>
+              <li><kbd>V</kbd> oder „3D laden“ öffnet die 3D-Ansicht (lädt das Modell herunter)</li>
             </ul>
           </section>
           <section>
+            <h3>3D-Ansicht</h3>
+            <ul>
+              <li><kbd>Ziehen</kbd> dreht · rechte Maustaste oder <kbd>Umschalt</kbd> + Ziehen verschiebt</li>
+              <li><kbd>Mausrad</kbd> zoomt zur Mausposition · <kbd>Doppelklick</kbd> setzt den Drehpunkt</li>
+              <li><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> laufen · <kbd>Q</kbd>/<kbd>E</kbd> runter/hoch · <kbd>T</kbd> Draufsicht</li>
+              <li>Touch: ein Finger dreht, zwei Finger zoomen und verschieben</li>
+              <li><b>Qualität:</b> Stufe passend zum Gerät vorgewählt; bei Ruckeln „Niedrig“ wählen</li>
+              <li>„2D-Karte“ (<kbd>V</kbd>) schließt 3D und gibt den Speicher frei</li>
+            </ul>
+          </section>
+          <section class="wide">
             <h3>Messen</h3>
             <ul>
-              <li><b>Strecke:</b> zwei Punkte anklicken</li>
-              <li><b>Fläche:</b> Eckpunkte anklicken, dann „Fläche schließen“ (oder <kbd>Enter</kbd> bzw. Doppelklick)</li>
-              <li><b>Höhe:</b> zwei Punkte – angezeigt werden Höhenunterschied und horizontaler Abstand</li>
-              <li><b>Höhenprofil:</b> erscheint zu jeder Strecke und Höhenmessung – in der Liste anwählen, mit dem Zeiger über das Profil fahren. Gezeigt wird die Oberfläche von oben gesehen (unter Bäumen deren Krone)</li>
-              <li><b>Grenzen:</b> Flurstücksgrenzen aus dem Katasterplan ein- und ausblenden (<kbd>G</kbd>)</li>
-              <li><b>Gebäude:</b> Gebäudeumrisse aus dem Katasterplan als Hilfswände (<kbd>B</kbd>). Bei Strecke und Fläche rastet der Punkt auf Gebäudeecken, Grenzpunkte und Schächte der eingeblendeten Ebenen ein (mit gedrückter <kbd>Alt</kbd>-Taste ohne Einrasten)</li>
-              <li><b>Kanal:</b> Kanal, Schächte und Schutzstreifen ein- und ausblenden (<kbd>K</kbd>); die Breite des Streifens lässt sich in der Liste „Messungen“ einstellen</li>
-              <li><b>Maßstab:</b> eine bekannte Strecke anklicken und ihre echte Länge eingeben</li>
-              <li>„Rückgängig“ (<kbd>⌫</kbd>) entfernt den letzten Punkt, „Abbrechen“ (<kbd>Esc</kbd>) verwirft die Messung</li>
+              <li><b>Strecke:</b> zwei Punkte antippen · <b>Höhe:</b> zwei Punkte – Höhenunterschied und horizontaler Abstand</li>
+              <li><b>Fläche:</b> Eckpunkte antippen, dann „Fläche schließen“ (oder <kbd>Enter</kbd> bzw. Doppelklick)</li>
+              <li><b>Höhenprofil:</b> erscheint zu jeder Strecke und Höhenmessung – in der Liste anwählen, mit dem Zeiger über das Profil fahren. In 2D zeigt es das Gelände, in 3D die Oberfläche von oben (unter Bäumen deren Krone)</li>
+              <li><b>Grenzen</b> (<kbd>G</kbd>), <b>Gebäude</b> (<kbd>B</kbd>), <b>Kanal</b> (<kbd>K</kbd>) ein- und ausblenden; die Breite des Schutzstreifens steht in der Liste „Messungen“</li>
+              <li>Bei Strecke und Fläche rastet der Punkt auf Gebäudeecken, Grenzpunkte und Schächte ein (mit gedrückter <kbd>Alt</kbd>-Taste ohne Einrasten)</li>
+              <li><b>Maßstab:</b> eine bekannte Strecke antippen und ihre echte Länge eingeben</li>
+              <li>„Rückgängig“ (<kbd>⌫</kbd>) entfernt den letzten Punkt, „Abbrechen“ (<kbd>Esc</kbd>) verwirft die Messung · Werkzeuge <kbd>1</kbd>–<kbd>5</kbd> · <kbd>H</kbd> Start · <kbd>M</kbd> Liste</li>
             </ul>
           </section>
         </div>
-        <p class="note">Für genaue Maße möglichst steil von oben und aus der Nähe klicken. Bei Bewuchs gibt es keine harte Oberfläche – dort sind Maße naturgemäß unschärfer.</p>
+        <p class="note">Für genaue Maße in 3D möglichst steil von oben und aus der Nähe tippen. Bei Bewuchs gibt es keine harte Oberfläche – dort sind Maße naturgemäß unschärfer. Messungen bleiben beim Wechsel zwischen Karte und 3D erhalten.</p>
         <menu><button value="ok" class="primary">Verstanden</button></menu>
       </form>
     </dialog>
   </div>
-  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/app.js"></script>
 </body>
 </html>
