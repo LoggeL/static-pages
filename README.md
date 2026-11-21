@@ -4,6 +4,8 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
+- **[VW Golf VII 1.6 TDI · 3D Keilriemenwechsel](https://loggel.github.io/static-pages/golf7-keilriemen-3d/)**: a German interactive 3D automotive repair game in the style of Car Mechanic Simulator for replacing the `6PK1025` serpentine belt and `04L 903 315` automatic tensioner on a VW Golf VII 1.6 TDI (EA288). Models were built in Blender 5.2 LTS (`public/golf7-keilriemen-3d/models/*.glb`) alongside a real-time analytical multi-ribbed belt solver, 12 guided or pro steps, SW 16 / `T10060A` tensioner locking, calibrated `40 Nm` & `120 Nm` torque-wrench minigames, X-Ray mode, and procedural Web Audio 1.6 TDI engine idle. Source & Blender scripts: `sources/golf7-keilriemen-3d/`.
+
 - **[AQUALITH · Master of the Living Tide](https://loggel.github.io/static-pages/aqualith/)**: a 2.5D singleplayer water-physics puzzle game built around a real-time 128×72 FLIP/MAC fluid simulation and multi-pass WebGL2 optical water rendering (Snell refraction, animated underwater caustics, Beer-Lambert absorption, Schlick Fresnel speculars, and procedural Web Audio foley). Features Surge wave slinging, freehand Ice sculpting & simultaneous Shatter flash floods, Vortex Cannons, clickable Brass Diverter Valves, two-way Hydraulic Seesaws, floating Hydro-Mines, Hydro-Portals, water-conducted electric Hydro-Relays, Geyser Pumps, Buoyant Relic Arks, and Magma-to-Obsidian quenching across 7 campaign chapters and a Tide Lab sandbox (DE/EN). Source: `sources/aqualith/`.
 
 - **[Cathrin Raasch Atelier · Website](https://loggel.github.io/static-pages/floraundgrete/)**: German website for Cathrin Raasch Atelier, a seamstress in Ramsen (Pfalz) who sells handmade, vintage-inspired clothing on Etsy, built from her real shop data (14 products, 105 photos, reviews, profile) without live Etsy statistics. Dark, warm, cinematic "Nachtatelier" design (the winner of five concepts) with a scroll-driven making-of story, product detail dialogs, dates, links, a fitting-appointment planner, a two-click Google map and local-business JSON-LD. A mobile-first mini-CMS (`/floraundgrete/verwaltung/`) edits banner, dates, links, featured products, atelier status and fitting bookings, synced live via localStorage and BroadcastChannel. The old concept URLs redirect to the site.
@@ -78,6 +80,7 @@ The editable source for the Creepshow rehearsal planner lives in
 ## Live site
 
 - Gallery: <https://loggel.github.io/static-pages/>
+- VW Golf VII 1.6 TDI 3D Keilriemenwechsel: <https://loggel.github.io/static-pages/golf7-keilriemen-3d/>
 - AQUALITH · Master of the Living Tide: <https://loggel.github.io/static-pages/aqualith/>
 - Cathrin Raasch Atelier website: <https://loggel.github.io/static-pages/floraundgrete/>
 - Premiere game design plan: <https://loggel.github.io/static-pages/premiere-tcg/>
