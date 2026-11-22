@@ -3,13 +3,13 @@
 // Der Nutzerfaktor `k` (Standard 1) korrigiert den Maßstab nachträglich.
 // Je Punkt wird die Herkunft gespeichert (`src`):
 //   'g' Boden gemessen (2D-Bodenraster q2), 'e' Boden geschätzt (q1),
-//   's' 3D-Oberfläche (Splat-Picking), 'p' Planpunkt (eingerastet; Höhe nur geschätzt)
+//   's' 3D-Oberfläche (Splat-Picking), 'h' Hausentwurf (Modellgeometrie), 'p' Planpunkt (eingerastet; Höhe nur geschätzt)
 
 const STORE_V2 = 'grundstueck-viewer:v2';
 const STORE_V1 = 'grundstueck-viewer:v1';
 
 export const TYPE_LABEL = { dist: 'Strecke', area: 'Fläche', height: 'Höhe' };
-export const SRC_LABEL = { g: 'Boden gemessen', e: 'Boden geschätzt', s: '3D-Oberfläche', p: 'Planpunkt' };
+export const SRC_LABEL = { g: 'Boden gemessen', e: 'Boden geschätzt', s: '3D-Oberfläche', h: 'Hausentwurf', p: 'Planpunkt' };
 
 const nf = (digits) => new Intl.NumberFormat('de-DE', {
   minimumFractionDigits: digits, maximumFractionDigits: digits,

@@ -35,6 +35,10 @@ const state = {
   showBounds: true,
   showBuildings: true,
   showSewer: true,
+  showBaugrenze: true,
+  showHouse: true,
+  houseMode: 'full',   // full | og | eg | cutaway
+  planTab: 'eg',       // eg | og | dach | section-cross | section-long
   corridor: 2,         // angenommener Schutzstreifen je Seite in m
   pickState: 'idle',   // 3D-Picker: idle | preparing | ready | failed
   pickError: null,
@@ -42,6 +46,7 @@ const state = {
 };
 let cfg, ground, groundP, overlay, profile, map2d, quality, view;
 let viewMod = null, loading = null;
+let houseCtrl = null, houseModP = null;
 const storageProblems = new Map();
 
 // ---------------------------------------------------------------- Anzeige
@@ -123,6 +128,28 @@ async function main() {
   renderBounds();
   renderGroundText();
 
+  // Hausentwurf, blaue Baugrenze und Live-Konfliktprüfung parallel nachladen (hält Start-Chunk ≤ 45 KB gzip)
+  houseModP = Promise.all([import('./house-controller.js'), groundP]).then(([{ HouseController }, g]) => {
+    houseCtrl = new HouseController(cfg, g);
+    houseCtrl.recompute(state.corridor);
+    overlay.setBaugrenze(houseCtrl.baugrenzeOverlay);
+    overlay.setHouse(houseCtrl.getOverlayData(state.houseMode));
+    $('btn-house').hidden = false;
+    $('house-bar').hidden = false;
+    $('house-box').hidden = false;
+    renderHousePanel();
+    syncHouseControls();
+    if (view?.kind === '3d') {
+      view.setHouse({ ...houseCtrl.get3DConfig(), visible: state.showHouse, mode: state.houseMode });
+    }
+    markDirty();
+    return houseCtrl;
+  }).catch((err) => {
+    console.error('Hausentwurf konnte nicht geladen werden:', err);
+    toast(`Hausentwurf konnte nicht geladen werden: ${err.message}`, 5000, true);
+    return null;
+  });
+
   const report = store.restore({ pathname: PATH, frame: cfg.frame, legacyIds: cfg.storage.legacy_ids });
   const msgs = [];
   if (report.migrated) msgs.push('Messungen aus der bisherigen Version übernommen.');
@@ -170,7 +197,23 @@ async function main() {
         : 'Karte: Ziehen verschiebt, Mausrad zoomt. „3D laden“ (V) öffnet das Modell.', 5200);
     }
   }
-  window.__app = { state, get view() { return view; }, store, stats, quality, cfg, get ground() { return ground; }, open3d, close3d, setTier: chooseQuality, overlay };
+  window.__app = {
+    state, get view() { return view; }, store, stats, quality, cfg, get ground() { return ground; },
+    get houseCtrl() { return houseCtrl; }, open3d, close3d, setTier: chooseQuality, overlay,
+    setHouseMode, focusHouse, openPlanDialog,
+  };
+  if (location.hash === '#haus' && await houseModP) {
+    await open3d();
+    if (view.kind === '3d') {
+      for (const [key, button] of [['showBounds', 'btn-bounds'], ['showBuildings', 'btn-buildings'], ['showSewer', 'btn-sewer']]) {
+        if (state[key]) toggleLayer(key, button);
+      }
+      if (state.showBaugrenze) toggleBaugrenze();
+      showPanel(false);
+      $('toast').classList.remove('show');
+    }
+    focusHouse(true);
+  }
 }
 
 // Ränder für den Startausschnitt der Karte. Auf schmalen Bildschirmen liegt die Hinweisleiste
@@ -184,7 +227,8 @@ function fitPad() {
   if (!host.height) throw new Error('fitPad ohne Kartengröße aufgerufen – MapView2D muss auf das erste Layout warten');
   const hintBottom = parseFloat(getComputedStyle($('hint')).bottom);
   if (!Number.isFinite(hintBottom)) throw new Error(`fitPad: Lage der Hinweisleiste unlesbar (${getComputedStyle($('hint')).bottom})`);
-  const top = document.querySelector('.topbar').getBoundingClientRect().bottom - host.top + 10;
+  const barBottom = $('house-bar').hidden ? 0 : $('house-bar').getBoundingClientRect().bottom;
+  const top = Math.max(document.querySelector('.topbar').getBoundingClientRect().bottom, barBottom) - host.top + 10;
   return { top, bottom: hintBottom + HINT_RESERVE };
 }
 
@@ -197,7 +241,8 @@ function drawOverlay() {
     grid = { step0: cfg.map.grid_m, extent: cfg.map.extent, image: cfg.map.image.bounds, view: view.visibleRect() };
   }
   overlay.render({
-    k: store.k, selectedId: state.selected, showBounds: state.showBounds, showBuildings: state.showBuildings, showSewer: state.showSewer,
+    k: store.k, selectedId: state.selected, showBounds: state.showBounds, showBuildings: state.showBuildings,
+    showSewer: state.showSewer, showBaugrenze: state.showBaugrenze, showHouse: state.showHouse,
     items: store.items, draft, marker: state.marker, grid,
   }, view.proj);
   stats.overlayBuilds++;
@@ -537,7 +582,8 @@ function renderBounds() {
     const acc = cfg.plan.accuracy_m;
     const list = parts.length > 1 ? `${parts.slice(0, -1).join(', ')} und ${parts[parts.length - 1]}` : parts[0];
     $('bounds-text').textContent = `${list}${own.length > 1 && total ? `, zusammen ${M1.format(total)} m²` : ''} laut Katasterplan.`
-      + ` Lage auf etwa ±${M1.format(acc)} m eingepasst und nur an Flurstück 214 geprüft. Kein amtlicher Grenznachweis.`;
+      + ` Lage auf etwa ±${M1.format(acc)} m eingepasst und nur an Flurstück 214 geprüft.`
+      + ' Hinweis Flurstück 214: Viewer-Polygon 206,5 m² (digitalisiert); amtliches ALKIS-Attribut 200 m², amtliches Polygon geometrisch 205,9 m². Flurstück 215 (447,7 m²): laut B-Plan private Grünfläche. Kein amtlicher Grenznachweis.';
   }
   const nb = buildings.length;
   $('btn-buildings').hidden = !nb;
@@ -581,6 +627,11 @@ function stepCorridor(delta) {
   state.corridor = Math.min(6, Math.max(0, Math.round((state.corridor + delta) * 2) / 2));
   overlay.setCorridor(state.corridor);
   renderCorridor();
+  if (houseCtrl) {
+    houseCtrl.recompute(state.corridor);
+    overlay.setHouse(houseCtrl.getOverlayData(state.houseMode));
+    renderHousePanel();
+  }
   markDirty();
 }
 $('btn-bounds').addEventListener('click', () => toggleLayer('showBounds', 'btn-bounds'));
@@ -588,6 +639,100 @@ $('btn-sewer').addEventListener('click', () => toggleLayer('showSewer', 'btn-sew
 $('btn-buildings').addEventListener('click', () => toggleLayer('showBuildings', 'btn-buildings'));
 $('corr-minus').addEventListener('click', () => stepCorridor(-0.5));
 $('corr-plus').addEventListener('click', () => stepCorridor(0.5));
+
+// ---------------------------------------------------------------- Hausentwurf & Grundrissdialog
+function renderHousePanel() {
+  if (!houseCtrl) return;
+  $('house-content').innerHTML = houseCtrl.renderPanelHtml();
+}
+function syncHouseControls() {
+  $('btn-house').classList.toggle('on', state.showHouse);
+  $('btn-house').setAttribute('aria-pressed', String(state.showHouse));
+  $('btn-baugrenze').classList.toggle('on', state.showBaugrenze);
+  $('btn-baugrenze').setAttribute('aria-pressed', String(state.showBaugrenze));
+  document.querySelectorAll('.hb-mode').forEach((b) => {
+    const on = b.dataset.hmode === state.houseMode;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-pressed', String(on));
+  });
+}
+function toggleHouse() {
+  if (!houseCtrl) return;
+  state.showHouse = !state.showHouse;
+  syncHouseControls();
+  if (view?.kind === '3d') view.setHouseVisible(state.showHouse);
+  markDirty();
+}
+function toggleBaugrenze() {
+  if (!houseCtrl) return;
+  state.showBaugrenze = !state.showBaugrenze;
+  syncHouseControls();
+  markDirty();
+}
+function setHouseMode(mode) {
+  if (!houseCtrl) return;
+  state.houseMode = mode;
+  if (!state.showHouse) state.showHouse = true;
+  syncHouseControls();
+  overlay.setHouse(houseCtrl.getOverlayData(mode));
+  if (view?.kind === '3d') {
+    view.setHouseMode(mode);
+    view.setHouseVisible(true);
+  }
+  markDirty();
+}
+function focusHouse(closePanelOnNarrow = false) {
+  if (!houseCtrl || !view) return;
+  if (!state.showHouse) {
+    state.showHouse = true;
+    syncHouseControls();
+    if (view.kind === '3d') view.setHouseVisible(true);
+  }
+  if (closePanelOnNarrow && !wideLayout()) showPanel(false);
+  const points = houseCtrl.getFocusPoints();
+  if (view.kind === '3d') view.focusHouse(points);
+  else view.focusOn(points);
+  markDirty();
+}
+let planReqGen = 0;
+async function renderPlanTab(tab) {
+  state.planTab = tab;
+  document.querySelectorAll('#plan-dialog [data-ptab]').forEach((b) => {
+    const on = b.dataset.ptab === tab;
+    b.classList.toggle('active', on);
+    b.setAttribute('aria-selected', String(on));
+  });
+  const ctrl = houseCtrl ?? (houseModP ? await houseModP : null);
+  if (!ctrl) return;
+  const gen = ++planReqGen;
+  try {
+    await ctrl.renderPlanDialog(tab, { canvas: $('plan-stage'), meta: $('plan-meta') });
+    if (gen !== planReqGen) return;
+  } catch (err) {
+    console.error('Planansicht fehlgeschlagen:', err);
+    if (gen === planReqGen) $('plan-stage').innerHTML = `<p class="plan-loading">Planansicht konnte nicht geladen werden: ${escapeHtml(err.message)}</p>`;
+  }
+}
+function openPlanDialog(tab = state.planTab) {
+  const dlg = $('plan-dialog');
+  if (!dlg.open) dlg.showModal();
+  renderPlanTab(tab);
+}
+$('btn-house').addEventListener('click', toggleHouse);
+$('btn-baugrenze').addEventListener('click', toggleBaugrenze);
+$('btn-house-focus').addEventListener('click', () => focusHouse(false));
+$('btn-house-focus-panel').addEventListener('click', () => focusHouse(true));
+$('btn-house-plan').addEventListener('click', () => openPlanDialog());
+$('btn-house-plan-panel').addEventListener('click', () => openPlanDialog());
+document.querySelectorAll('.hb-mode').forEach((b) => b.addEventListener('click', () => setHouseMode(b.dataset.hmode)));
+document.querySelectorAll('#plan-dialog [data-ptab]').forEach((b) => b.addEventListener('click', () => renderPlanTab(b.dataset.ptab)));
+$('plan-zoom').addEventListener('click', () => {
+  const zoomed = $('plan-stage').classList.toggle('zoomed');
+  $('plan-zoom').setAttribute('aria-pressed', String(zoomed));
+  $('plan-zoom').textContent = zoomed ? 'Ganze Zeichnung' : 'Zeichnung vergrößern';
+});
+$('plan-close').addEventListener('click', () => $('plan-dialog').close());
+$('plan-dialog').addEventListener('click', (e) => { if (e.target === $('plan-dialog')) $('plan-dialog').close(); });
 
 // ---------------------------------------------------------------- Liste
 function wideLayout() { return matchMedia('(min-width: 721px) and (min-height: 520px)').matches; }
@@ -1014,12 +1159,14 @@ async function open3d(tierId) {
   try {
     viewMod ??= await import('./view3d.js');
     await groundP; // Kamerahöhe aus dem Bodenmodell (cameraFrom2D)
+    if (houseModP) await houseModP;
     if (ac.signal.aborted) throw new DOMException('abgebrochen', 'AbortError');
     card.phase2(tier);
     const initial = cameraFrom2D();
+    const house = houseCtrl ? { ...houseCtrl.get3DConfig(), visible: state.showHouse, mode: state.houseMode } : null;
     // Der Canvas bleibt bis activate() unsichtbar und ohne Eingaben: 2D bleibt während des Downloads bedienbar.
     const v = await viewMod.View3D.create({
-      host: app, before: $('overlay'), cfg, base: BASE, tier, hooks: hooks3d, stats, initial, view2d: map2d.getViewState(), signal: ac.signal,
+      host: app, before: $('overlay'), cfg, base: BASE, tier, hooks: hooks3d, stats, initial, view2d: map2d.getViewState(), house, signal: ac.signal,
       onProgress: (ph, got, total) => card.progress(ph, got, total, tier),
     });
     map2d.suspend();
@@ -1132,6 +1279,10 @@ window.addEventListener('keydown', (e) => {
   if (key === 'g' && !e.repeat && cfg.boundaries.length) { toggleLayer('showBounds', 'btn-bounds'); return; }
   if (key === 'k' && !e.repeat) { toggleLayer('showSewer', 'btn-sewer'); return; }
   if (key === 'b' && !e.repeat && cfg.buildings.length) { toggleLayer('showBuildings', 'btn-buildings'); return; }
+  if (key === 'p' && !e.repeat && houseCtrl) { toggleHouse(); return; }
+  if (key === 'r' && !e.repeat && houseCtrl) { toggleBaugrenze(); return; }
+  if (key === 'f' && !e.repeat && houseCtrl) { focusHouse(false); return; }
+  if (key === 'l' && !e.repeat && houseCtrl) { openPlanDialog(); return; }
   if (key === '?') { $('help-dialog').showModal(); }
 });
 window.addEventListener('keyup', (e) => { if (view?.kind === '3d') view.keyUp(e.code); });

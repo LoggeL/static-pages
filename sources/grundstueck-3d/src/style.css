@@ -63,6 +63,27 @@ canvas:focus-visible { outline: 2px solid color-mix(in srgb, var(--accent) 70%, 
 #overlay path.corridor { fill: rgb(70, 200, 255); fill-opacity: 0.2; fill-rule: nonzero; stroke: none; }
 #overlay path.corridor-edge { fill: none; stroke: #46c8ff; stroke-width: 1.3; stroke-dasharray: 7 5; opacity: 0.9; }
 #overlay circle.manhole { fill: #0b0e11; stroke: #46c8ff; stroke-width: 2.4; }
+#overlay path.bg-band { fill: #4a90ff; fill-opacity: 0.14; stroke: none; }
+#overlay path.bg-edge { fill: none; stroke: #6ea8ff; stroke-width: 1; stroke-dasharray: 4 4; opacity: 0.72; }
+#overlay path.bg-line { fill: none; stroke: #4a90ff; stroke-width: 2.5; stroke-dasharray: 12 5 2 5; stroke-linecap: round; }
+#overlay path.bg-line.halo { stroke: rgba(0, 0, 0, 0.65); stroke-width: 5; stroke-dasharray: none; }
+#overlay path.house-floor-fill { fill: #f2eadf; fill-opacity: 0.28; stroke: none; }
+#overlay path.house-roof-fill { fill: #a94f39; fill-opacity: 0.58; stroke: none; }
+#overlay path.house-roof-edge { fill: none; stroke: #f7d7b5; stroke-width: 1.9; stroke-linejoin: round; }
+#overlay path.house-ridge { fill: none; stroke: #fff4e0; stroke-width: 2.4; stroke-linecap: round; }
+#overlay path.house-footprint-dash { fill: none; stroke: #ffe2b3; stroke-width: 1.4; stroke-dasharray: 5 4; }
+#overlay path.house-footprint-edge { fill: none; stroke: #ffe2b3; stroke-width: 1.6; }
+#overlay path.house-wall-ext { fill: #ece3d4; fill-opacity: 0.9; stroke: #1a1e24; stroke-width: 0.8; }
+#overlay path.house-wall-int { fill: #c9c0b1; fill-opacity: 0.85; stroke: #1a1e24; stroke-width: 0.6; }
+#overlay path.house-win { fill: none; stroke: #6fd3ff; stroke-width: 2.6; }
+#overlay path.house-door { fill: none; stroke: #ffd23f; stroke-width: 2.6; }
+#overlay path.house-stair { fill: rgba(240, 215, 168, 0.2); stroke: #f0d7a8; stroke-width: 1.1; }
+#overlay path.house-stair-open { fill: #0e1216; fill-opacity: 0.36; stroke: #ffd23f; stroke-width: 1.2; stroke-dasharray: 4 3; }
+#overlay path.house-cut { fill: none; stroke: #ff9c59; stroke-width: 1.8; stroke-dasharray: 8 4 2 4; }
+#overlay path.house-entry { fill: none; stroke: #ffe0a3; stroke-width: 2.2; stroke-linecap: round; }
+#overlay path.house-conflict { fill: #ff5d5d; fill-opacity: 0.36; stroke: none; }
+#overlay path.house-conflict-edge { fill: none; stroke: #ff7b6b; stroke-width: 1.8; stroke-dasharray: 6 4; }
+.mlabel.bound.bg, .mlabel.bound.house-dim, .mlabel.bound.house-room, .mlabel.bound.conflict { font-size: 10.5px; }
 
 .mlabel {
   position: absolute; left: 0; top: 0;
@@ -295,6 +316,95 @@ dialog menu button { padding: 9px 16px; border-radius: 10px; font-weight: 650; f
 .help-grid ul { margin: 0; padding-left: 18px; font-size: 13.5px; line-height: 1.6; }
 kbd { display: inline-block; padding: 0 6px; margin: 0 1px; border-radius: 5px; font: inherit; font-size: 12px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.16); }
 
+/* ---------- Hausentwurf-Leiste, Prüfpanel & Plan-Dialog ---------- */
+.house-bar {
+  position: absolute; top: calc(64px + var(--safe-t)); left: 12px; z-index: 3;
+  display: flex; align-items: center; gap: 5px; padding: 4px; max-width: calc(100vw - 336px);
+  overflow-x: auto; scrollbar-width: none;
+  background: var(--glass); border: 1px solid var(--line); border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
+}
+.house-bar::-webkit-scrollbar { display: none; }
+.hb-seg { display: inline-flex; gap: 2px; padding: 2px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); }
+.hb-btn, .hb-mode {
+  height: 30px; padding: 0 10px; border-radius: 999px; font-size: 12px; font-weight: 650;
+  white-space: nowrap; color: var(--text); transition: background 0.15s, color 0.15s;
+}
+.hb-btn { background: rgba(255, 255, 255, 0.07); }
+.hb-btn:hover, .hb-mode:hover { background: rgba(255, 255, 255, 0.15); }
+.hb-btn.on { color: #7cc4ff; box-shadow: inset 0 0 0 1px rgba(108, 182, 255, 0.65); }
+.hb-btn.accent, .hb-mode.active { background: var(--accent); color: var(--accent-ink); }
+#app:has(#house-bar:not([hidden])) .profile { top: calc(114px + var(--safe-t)); }
+
+.house-card-head { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 6px; }
+.house-card-head h3 { margin: 0; }
+.house-card-acts { display: flex; gap: 4px; }
+.h-meta { display: flex; flex-direction: column; gap: 2px; font-size: 12px; margin-bottom: 6px; }
+.h-sub { font-size: 11.5px; color: var(--muted); line-height: 1.35; }
+.h-sec { border-top: 1px solid var(--line); padding-top: 7px; margin-top: 7px; }
+.h-sec h4 { margin: 0 0 5px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.h-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; font-size: 11.5px; line-height: 1.4; margin: 2px 0; }
+.h-row span { color: var(--muted); }
+.h-row b { text-align: right; font-weight: 650; font-variant-numeric: tabular-nums; }
+.h-row .c-bad { color: #ff8b8b; }
+.h-row .c-warn { color: var(--warn); }
+.h-row .c-ok { color: var(--accent); }
+.h-badge { display: inline-block; padding: 1px 6px; border-radius: 6px; font-size: 10.5px; font-weight: 700; }
+.h-badge.bad { background: rgba(255, 107, 107, 0.2); color: #ffb3b3; }
+.h-badge.warn { background: rgba(255, 210, 63, 0.18); color: #ffe27a; }
+.h-badge.ok { background: rgba(61, 220, 151, 0.18); color: #7ef0bc; }
+.h-note { margin: 5px 0 0; font-size: 11.5px; line-height: 1.42; color: #cfd8e0; }
+.h-disc { margin: 6px 0 0; font-size: 11px; line-height: 1.4; color: var(--muted); }
+.house-card a, #plan-dialog a { color: #7fd8ff; text-decoration: underline; }
+
+#plan-dialog {
+  width: min(1040px, calc(100vw - 20px)); max-height: calc(100dvh - 20px); overflow: hidden;
+}
+.plan-shell { display: flex; flex-direction: column; max-height: calc(100dvh - 20px); }
+.plan-head {
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+  padding: 14px 16px 10px; border-bottom: 1px solid var(--line);
+}
+.plan-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.plan-actions .mini { white-space: nowrap; color: var(--text); text-decoration: none; }
+.plan-head h2 { margin: 0; font-size: 16px; }
+.plan-sub { margin: 2px 0 0; font-size: 12px; color: var(--muted); }
+.plan-tabs {
+  display: flex; gap: 6px; padding: 8px 16px; overflow-x: auto; scrollbar-width: none;
+  border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, 0.03);
+}
+.plan-tabs button {
+  padding: 6px 12px; border-radius: 999px; font-size: 12.5px; font-weight: 650; white-space: nowrap;
+  background: rgba(255, 255, 255, 0.07); color: var(--muted);
+}
+.plan-tabs button.active { background: var(--accent); color: var(--accent-ink); }
+.plan-body { overflow-y: auto; padding: 12px 16px 16px; flex: 1 1 auto; min-height: 0; }
+.plan-stage {
+  background: #f7f5f0; color: #1a1e24; border: 1px solid var(--line); border-radius: 12px;
+  padding: 6px; overflow: auto;
+}
+.plan-stage svg { display: block; width: 100%; height: auto; max-height: 60dvh; }
+.plan-head, .plan-tabs { flex-shrink: 0; }
+.plan-tabs button { flex: 0 0 auto; }
+.plan-zoom { display: block; margin: 0 0 7px auto; }
+.plan-stage.zoomed { max-height: 62dvh; }
+.plan-stage.zoomed svg { width: max(145%, 860px); max-height: none; }
+.plan-loading { margin: 24px 0; text-align: center; font-size: 13px; color: #47525e; }
+.plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+.plan-grid ul, .legend-cols ul { margin: 4px 0 0; padding-left: 16px; font-size: 12px; line-height: 1.5; }
+.plan-tbl { width: 100%; border-collapse: collapse; font-size: 11.5px; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.plan-tbl th, .plan-tbl td { padding: 4px 6px; border-bottom: 1px solid var(--line); text-align: left; }
+.plan-tbl th { color: var(--muted); font-weight: 600; }
+.plan-small { margin: 6px 0 0; font-size: 11.5px; line-height: 1.45; color: #cfd8e0; }
+.plan-legend { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); }
+.plan-legend h4 { margin: 0 0 8px; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); }
+.legend-cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.tag { display: inline-block; padding: 1px 6px; border-radius: 5px; font-size: 10.5px; font-weight: 700; }
+.tag.v { background: rgba(61, 220, 151, 0.2); color: #7ef0bc; }
+.tag.f { background: rgba(74, 144, 255, 0.22); color: #9ac5ff; }
+.tag.i { background: rgba(255, 210, 63, 0.2); color: #ffe27a; }
+.tag.e { background: rgba(255, 140, 90, 0.22); color: #ffb38a; }
+
 /* ---------- Schmale Bildschirme ---------- */
 @media (max-width: 880px) {
   .chip span { display: none; }
@@ -322,6 +432,10 @@ kbd { display: inline-block; padding: 0 6px; margin: 0 1px; border-radius: 5px; 
   .hint { bottom: calc(126px + var(--safe-b)); }
   .help-grid { grid-template-columns: 1fr; }
   .profile { left: 8px; right: 8px; width: auto; top: calc(58px + var(--safe-t)); }
+  .house-bar { top: calc(58px + var(--safe-t)); left: 8px; right: 8px; max-width: calc(100vw - 16px); }
+  #app:has(#house-bar:not([hidden])) .profile { top: calc(104px + var(--safe-t)); }
+  .plan-grid, .legend-cols { grid-template-columns: 1fr; }
+  .plan-stage svg { max-height: 46dvh; }
   .mlabel { font-size: 11.5px; padding: 2px 6px; }
   .mlabel.bound, .mlabel.seg { font-size: 10.5px; padding: 1px 5px; }
 }

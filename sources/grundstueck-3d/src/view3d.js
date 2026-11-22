@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { SparkRenderer, SplatMesh } from '@sparkjsdev/spark';
 import { Picker } from './picker.js';
+import { createHouse3D } from './house/model3d.js';
 import { INT, MB } from './format.js';
 
 const FOV = 60;
@@ -95,7 +96,7 @@ export class View3D {
     this.ac = new AbortController();
   }
 
-  init({ host, before, cfg, tier, initial }) {
+  init({ host, before, cfg, tier, initial, house }) {
     const sig = { signal: this.ac.signal };
     const canvas = document.createElement('canvas');
     canvas.id = 'view';
@@ -110,6 +111,16 @@ export class View3D {
     this.scene = new THREE.Scene();
     const bg = cfg.background ?? ['#141c25', '#0e1319', '#0a0d11'];
     this.scene.background = Array.isArray(bg) ? skyTexture(bg) : new THREE.Color(bg);
+    // Ausgewogene Tageslicht-Beleuchtung für 3D-Haus-Meshes (Gaussian Splats ignorieren Lichtquellen)
+    const hemi = new THREE.HemisphereLight(0xf3f7ff, 0x7e766b, 1.05);
+    hemi.position.set(0, 30, 0);
+    const sun = new THREE.DirectionalLight(0xfff5e4, 1.35);
+    sun.position.set(18, 28, 16);
+    const fill = new THREE.DirectionalLight(0xd8e8ff, 0.45);
+    fill.position.set(-16, 14, -14);
+    this.scene.add(hemi, sun, fill);
+    this.houseRoot = null;
+    this.houseApi = null;
     this.camera = new THREE.PerspectiveCamera(FOV, 1, 0.05, 400);
     this.spark = this.makeSpark(tier);
     this.camera.position.fromArray(initial.position);
@@ -186,12 +197,49 @@ export class View3D {
     this.ro = new ResizeObserver(() => this.resize());
     this.ro.observe(host);
     this.resize(); // bei Größe 0: wartet auf den ResizeObserver
+    if (house) this.setHouse(house);
 
     window.__viewer = {
       THREE, view: this, scene: this.scene, camera: this.camera, controls: this.controls, renderer: this.renderer,
       get spark() { return self.spark; }, get mesh() { return self.mesh; }, get picker() { return self.picker; },
+      get house() { return self.houseApi; }, get houseRoot() { return self.houseRoot; },
       requestRender: () => this.requestRender(), pickAt: (x, y, multi) => this.pickAt(x, y, { multi }),
     };
+  }
+
+  // ---------------------------------------------------------------- 3D-Hausmodell
+  setHouse(houseCfg) {
+    this.disposeHouse();
+    if (!houseCfg?.spec || !houseCfg?.placement) return;
+    const api = createHouse3D(houseCfg.spec, houseCfg.opts || {});
+    const root = new THREE.Group();
+    root.name = 'house-entwurf-214';
+    root.position.fromArray(houseCfg.placement.center);
+    root.rotation.y = houseCfg.placement.rotationY;
+    root.add(api.group);
+    root.visible = houseCfg.visible !== false;
+    this.scene.add(root);
+    this.houseRoot = root;
+    this.houseApi = api;
+    if (houseCfg.mode) this.setHouseMode(houseCfg.mode);
+    this.requestRender();
+  }
+  setHouseVisible(visible) {
+    if (!this.houseRoot) return;
+    this.houseRoot.visible = !!visible;
+    this.requestRender();
+  }
+  setHouseMode(mode) {
+    if (!this.houseApi) return;
+    if (typeof this.houseApi.setMode === 'function') this.houseApi.setMode(mode);
+    else if (mode === 'cutaway' && typeof this.houseApi.setCutaway === 'function') this.houseApi.setCutaway(true);
+    this.requestRender();
+  }
+  disposeHouse() {
+    if (this.houseRoot && this.scene) this.scene.remove(this.houseRoot);
+    try { this.houseApi?.dispose?.(); } catch (err) { console.error('3D-Haus-Freigabe:', err); }
+    this.houseRoot = null;
+    this.houseApi = null;
   }
 
   makeSpark(tier) {
@@ -336,13 +384,35 @@ export class View3D {
       return this.raycaster.ray.clone();
     });
   }
+  pickHouseMesh(clientX, clientY) {
+    if (!this.houseRoot?.visible) return null;
+    const r = this.canvas.getBoundingClientRect();
+    const ndc = new THREE.Vector2(((clientX - r.left) / r.width) * 2 - 1, -((clientY - r.top) / r.height) * 2 + 1);
+    this.camera.updateMatrixWorld();
+    this.houseRoot.updateWorldMatrix(true, true);
+    this.raycaster.setFromCamera(ndc, this.camera);
+    const hits = this.raycaster.intersectObject(this.houseRoot, true);
+    for (const h of hits) {
+      if (!h.object.isMesh) continue;
+      let vis = true;
+      for (let o = h.object; o; o = o.parent) { if (!o.visible) { vis = false; break; } }
+      if (vis) return h;
+    }
+    return null;
+  }
   async pickAt(clientX, clientY, { multi = true } = {}) {
     await this.pickReady();
     const picker = this.picker;
     if (this.disposed || !picker) throw new Error('Messen abgebrochen (3D geschlossen oder Qualität gewechselt)');
+    const meshHit = this.pickHouseMesh(clientX, clientY);
     const hit = await picker.pick(this.raysAt(clientX, clientY, multi));
+    const splatDist = hit ? hit.point.distanceTo(this.camera.position) : Infinity;
+    if (meshHit && meshHit.distance < splatDist) {
+      const p = meshHit.point;
+      return { point: [p.x, p.y, p.z], src: 'h', spread: 0, scatter: 0, opacity: 1, dist: meshHit.distance };
+    }
     if (!hit) return { error: 'An dieser Stelle ist keine Oberfläche erkennbar.' };
-    return { point: [hit.point.x, hit.point.y, hit.point.z], src: 's', spread: hit.spread, scatter: hit.scatter, opacity: hit.opacity, dist: hit.point.distanceTo(this.camera.position) };
+    return { point: [hit.point.x, hit.point.y, hit.point.z], src: 's', spread: hit.spread, scatter: hit.scatter, opacity: hit.opacity, dist: splatDist };
   }
   // Doppelklick im Werkzeug „Bewegen“: Drehpunkt auf die Stelle
   async doubleAt(clientX, clientY) {
@@ -394,6 +464,17 @@ export class View3D {
     const dir = this.camera.position.clone().sub(this.controls.target).normalize();
     if (dir.y < 0.45) { dir.y = 0.45; dir.normalize(); }
     this.animateTo(c.clone().addScaledVector(dir, r * 1.6 + 0.8), c);
+  }
+  focusHouse(points) {
+    const bounds = new THREE.Box3().setFromPoints(points.map(p => new THREE.Vector3(...p)));
+    const target = bounds.getCenter(new THREE.Vector3());
+    const size = bounds.getSize(new THREE.Vector3());
+    const halfAngle = THREE.MathUtils.degToRad(this.camera.fov / 2);
+    const halfView = Math.min(halfAngle, Math.atan(Math.tan(halfAngle) * this.camera.aspect));
+    const distance = size.length() * 0.57 / Math.sin(halfView);
+    // Look toward the street gable and courtyard facade from above the neighbouring roofline.
+    const direction = new THREE.Vector3(0.93, 0.90, 1.17).normalize();
+    this.animateTo(target.clone().addScaledVector(direction, distance), target);
   }
   home() { this.animateTo(this.home3.position, this.home3.target); }
   goTop() {
@@ -594,6 +675,7 @@ export class View3D {
     // Auch für eine nur teilweise angelegte Ansicht (Fehler in init()): fehlende Teile überspringen.
     step('Bildschleife', () => { cancelAnimationFrame(this.raf); this.raf = 0; clearTimeout(this.idleTimer); });
     step('Steuerung', () => this.controls?.dispose());
+    step('Hausmodell', () => this.disposeHouse());
     step('Modell', () => { if (this.mesh) { this.scene.remove(this.mesh); this.mesh.dispose(); this.mesh = null; } });
     step('Spark', () => { if (this.spark) { this.scene.remove(this.spark); this.spark.dispose(); } });
     step('Szene', () => { if (this.scene) { this.scene.background?.dispose?.(); this.scene.clear(); } });

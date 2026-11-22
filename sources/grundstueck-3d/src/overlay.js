@@ -2,22 +2,17 @@ import { evaluate, fmtLen, dist } from './measure.js';
 import { clipSegment, clipPolygon, screenAt, toScreen, inside, boxOutside, bbox } from './clip.js';
 import { COLORS, NF1, NF2 } from './format.js';
 
-// Zeichnet Messpunkte, Linien und Maßzahlen als SVG/HTML über Karte bzw. 3D-Bild.
-// Die Elemente liegen immer oben (keine Verdeckung durch den Splat) und bleiben bei jeder
-// Zoomstufe scharf. Ohne three: projiziert wird über `proj` (siehe clip.js), gekappt wird am
-// Bildausschnitt plus Rand, damit keine Koordinate ins Uferlose wächst.
+// Zeichnet Messpunkte, Linien, Grenzen, Bestand, Kanal, blaue Baugrenze und 2D-Hausgrundriss
+// als SVG/HTML über Karte bzw. 3D-Bild. Ohne three.js.
 
 const f1 = (v) => v.toFixed(1);
 const xy = (p) => `${f1(p[0])},${f1(p[1])}`;
 
-// Statische Gruppe: Weltpunkte als Liste, Clip-Puffer je Ecke (wiederverwendet) und Hüll-Box
 function group(points) {
   return { pts: points, C: points.map(() => new Float64Array(4)), box: bbox(points) };
 }
 function project(g, proj) { for (let i = 0; i < g.pts.length; i++) proj.toClip(g.pts[i], g.C[i]); }
 
-// Linienzug; aufeinanderfolgende ungekappte Segmente werden zu einem M…L…L verbunden,
-// damit die Strichelung durchläuft.
 function pathOf(C, closed, proj) {
   const n = C.length;
   let d = '', open = false;
@@ -34,8 +29,6 @@ function pathOf(C, closed, proj) {
   return d;
 }
 
-// Polygon als Teilpfad mit einheitlicher Umlaufrichtung (für einen gemeinsamen Pfad mit
-// fill-rule nonzero: Überlappungen werden nicht dunkler)
 function polySub(V, proj) {
   const s = clipPolygon(V, proj);
   if (!s) return '';
@@ -54,6 +47,8 @@ export class Overlay {
     this.c = new Float64Array(4);
     this.c2 = new Float64Array(4);
     this.builds = 0;
+    this.baugrenze = null;
+    this.house = null;
   }
 
   setSize(w, h) {
@@ -61,7 +56,6 @@ export class Overlay {
     this.svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
   }
 
-  // Plandaten einmalig vorbereiten (Gruppen mit Hüll-Box und Clip-Puffern)
   setStatic({ boundaries, buildings, sewer, wallH }) {
     this.bounds = boundaries.map((b) => ({
       b,
@@ -80,7 +74,49 @@ export class Overlay {
     this.corrWidth = null;
   }
 
-  // Schutzstreifen für die Breite w (je Seite) vorbereiten
+  // Amtliche rückwärtige blaue Baugrenze (±0,5 m Unsicherheitsband)
+  setBaugrenze(bg) {
+    if (!bg) { this.baugrenze = null; return; }
+    const line = group(bg.line);
+    const bandFront = group(bg.bandFront);
+    const bandBack = group(bg.bandBack);
+    const bandPoly = group(bg.bandPoly);
+    this.baugrenze = {
+      meta: bg.meta,
+      line, bandFront, bandBack, bandPoly,
+      labelAt: bg.labelAt,
+      box: bbox(bg.bandPoly),
+    };
+  }
+
+  // Maßstäblicher 2D-Hausgrundriss / Dachaufsicht + DN250-Konfliktzone
+  setHouse(h) {
+    if (!h) { this.house = null; return; }
+    const footprint = group(h.footprint);
+    const eaves = group(h.eaves);
+    const ridge = group(h.ridge);
+    const walls = (h.walls || []).map((w) => ({ ext: w.ext, g: group(w.poly) }));
+    const openings = (h.openings || []).map((o) => ({ kind: o.kind, g: group([o.a, o.b]) }));
+    const stairSteps = (h.stairSteps || []).map((p) => group(p));
+    const exteriorParts = (h.exteriorParts || []).map((p) => group(p));
+    const stairOpening = h.stairOpening ? group(h.stairOpening) : null;
+    const conflictPoly = h.conflictPoly ? group(h.conflictPoly) : null;
+    const entrance = h.entrance ? { g: group([h.entrance.from, h.entrance.to]), label: h.entrance.label, at: h.entrance.from } : null;
+    const cutLine = h.cutLine ? group(h.cutLine) : null;
+    this.house = {
+      mode: h.mode,
+      showRoof: !!h.showRoof,
+      footprint, eaves, ridge, walls, openings, stairSteps, exteriorParts, stairOpening,
+      rooms: h.rooms || [],
+      entrance,
+      dims: h.dims || null,
+      conflictPoly,
+      conflictLabel: h.conflictLabel || null,
+      cutLine,
+      box: bbox([...h.footprint, ...h.eaves, ...exteriorParts.flatMap((g) => g.pts)]),
+    };
+  }
+
   setCorridor(w) {
     if (w === this.corrWidth) return;
     this.corrWidth = w;
@@ -98,7 +134,6 @@ export class Overlay {
       }
       const quads = [];
       for (let i = 0; i < pts.length - 1; i++) quads.push(group([L[i], L[i + 1], R[i + 1], R[i]]));
-      // runde Enden: schließen den Streifen an Knicken und Schächten
       for (const c of [pts[0], pts[pts.length - 1]]) {
         const ring = [];
         for (let t = 0; t < 20; t++) { const ang = (t / 20) * Math.PI * 2; ring.push([c[0] + w * Math.cos(ang), c[1], c[2] + w * Math.sin(ang)]); }
@@ -109,14 +144,16 @@ export class Overlay {
     }
   }
 
-  // scene: { k, selectedId, showBounds, showBuildings, showSewer, items, draft, marker, grid }
+  // scene: { k, selectedId, showBounds, showBuildings, showSewer, showBaugrenze, showHouse, items, draft, marker, grid }
   render(scene, proj) {
     this.builds++;
     const svg = [], lab = [];
     if (scene.grid) this.drawGrid(scene.grid, svg, proj);
     if (scene.showBuildings) this.drawBuildings(svg, lab, proj);
     if (scene.showSewer) this.drawSewer(svg, lab, proj);
+    if (scene.showBaugrenze && this.baugrenze) this.drawBaugrenze(svg, lab, proj);
     if (scene.showBounds) for (const B of this.bounds) this.drawBoundary(B, svg, lab, proj);
+    if (scene.showHouse && this.house) this.drawHouse(svg, lab, proj, scene.showSewer);
     for (const it of scene.items) this.drawItem(it, scene.k, it.id === scene.selectedId, svg, lab, proj);
     if (scene.draft) this.drawItem(scene.draft, scene.k, false, svg, lab, proj);
     if (scene.marker) {
@@ -127,7 +164,6 @@ export class Overlay {
     this.setLabels(lab);
   }
 
-  // Labels: nur bei geändertem Text-/Sichtbarkeitssatz neu aufbauen, sonst nur verschieben
   setLabels(lab) {
     const sig = lab.map((l) => l.html + l.style).join('\u0001');
     if (sig === this.labelSig && this.labels.childElementCount === lab.length) {
@@ -146,7 +182,6 @@ export class Overlay {
       tf: `translate(${f1(s[0])}px,${f1(s[1])}px) translate(-50%,${above ? 'calc(-100% - 10px)' : '-50%'})`,
     });
   }
-  // Beschriftung an einem Weltpunkt, nur wenn sichtbar und nicht zu weit entfernt
   tag(lab, p, text, cls, color, proj, maxDist = Infinity, above = false) {
     const c = proj.toClip(p, this.c);
     if (!inside(c, proj, 80)) return null;
@@ -162,7 +197,6 @@ export class Overlay {
     svg.push(`<circle class="${cls}" cx="${f1(s[0])}" cy="${f1(s[1])}" r="${r}"/>`);
   }
 
-  // 5-m-Raster (nur 2D): Linien außerhalb des Orthofotos, Abstand mindestens 24 px
   drawGrid(grid, svg, proj) {
     const { step0, extent, image, view } = grid;
     let step = step0;
@@ -189,8 +223,6 @@ export class Overlay {
     if (d) svg.push(`<path class="grid" d="${d}"/>`);
   }
 
-  // Flurstücksgrenzen: eigenes Grundstück kräftig mit Seitenlängen und Fläche,
-  // angrenzende Flurstücke dünn mit ihrer Nummer
   drawBoundary(B, svg, lab, proj) {
     const b = B.b;
     if (boxOutside(B.box, proj)) return;
@@ -201,11 +233,142 @@ export class Overlay {
     for (const c of b.corners || []) this.dot(svg, c, proj, 'corner', 4);
     for (const sd of b.sides || []) this.tag(lab, sd.at, `${NF2.format(sd.length)} m`, 'bound', '#ff8fa0', proj, 70);
     for (const l of b.labels || []) this.tag(lab, l.at, l.text, 'bound nb', '#d9c3c7', proj, 90);
-    if (b.center) this.tag(lab, b.center, `${b.name}${b.area_m2 ? ` · ${NF1.format(b.area_m2)} m²` : ''}`, 'bound name', '#ff8fa0', proj);
+    if (b.center) {
+      const extra = b.name === 'Flurstück 215' ? ' · priv. Grünfläche' : b.name === 'Flurstück 214' ? ' (dig.)' : '';
+      this.tag(lab, b.center, `${b.name}${b.area_m2 ? ` · ${NF1.format(b.area_m2)} m²` : ''}${extra}`, 'bound name', '#ff8fa0', proj);
+    }
   }
 
-  // Gebäude laut Plan. 3D: Umriss am Boden und eine Hilfswand der Höhe wallH darüber (die wahre
-  // Gebäudehöhe steht nicht im Plan). 2D: Grundriss. Flächen aller Gebäude in einem Pfad.
+  // Amtliche rückwärtige blaue Baugrenze (B-Plan 1:1000) inkl. ±0,5-m-Unsicherheitsband
+  drawBaugrenze(svg, lab, proj) {
+    const bg = this.baugrenze;
+    if (!bg || boxOutside(bg.box, proj)) return;
+    project(bg.bandPoly, proj);
+    const fill = polySub(bg.bandPoly.C, proj);
+    if (fill) svg.push(`<path class="bg-band" d="${fill}"/>`);
+    project(bg.bandFront, proj);
+    project(bg.bandBack, proj);
+    const edge = pathOf(bg.bandFront.C, false, proj) + pathOf(bg.bandBack.C, false, proj);
+    if (edge) svg.push(`<path class="bg-edge" d="${edge}"/>`);
+    project(bg.line, proj);
+    const axis = pathOf(bg.line.C, false, proj);
+    if (axis) svg.push(`<path class="bg-line halo" d="${axis}"/><path class="bg-line" d="${axis}"/>`);
+    this.tag(lab, bg.labelAt, bg.meta.shortLabel || 'Baugrenze ±0,5 m', 'bound bg', '#6cb6ff', proj, 65, true);
+  }
+
+  // Maßstäblicher 2D-Hausgrundriss / Dachaufsicht in der 2D-Karte (in 3D trägt das echte 3D-Modell die Darstellung)
+  drawHouse(svg, lab, proj, showSewer) {
+    const H = this.house;
+    if (!H || boxOutside(H.box, proj)) return;
+    if (!proj.topDown) {
+      // In 3D kein flaches SVG über das echte 3D-Haus legen – nur optional dezente Konfliktlinie am Kanal
+      if (showSewer && H.conflictPoly) {
+        project(H.conflictPoly, proj);
+        const cf = polySub(H.conflictPoly.C, proj);
+        if (cf) svg.push(`<path class="house-conflict" d="${cf}"/>`);
+      }
+      return;
+    }
+
+    project(H.footprint, proj);
+    const fpFill = polySub(H.footprint.C, proj);
+    const fpEdge = pathOf(H.footprint.C, true, proj);
+
+    if (H.showRoof) {
+      project(H.eaves, proj);
+      project(H.ridge, proj);
+      const roofFill = polySub(H.eaves.C, proj);
+      const roofEdge = pathOf(H.eaves.C, true, proj);
+      const ridgePath = pathOf(H.ridge.C, false, proj);
+      if (roofFill) svg.push(`<path class="house-roof-fill" d="${roofFill}"/>`);
+      if (fpEdge) svg.push(`<path class="house-footprint-dash" d="${fpEdge}"/>`);
+      if (roofEdge) svg.push(`<path class="house-roof-edge" d="${roofEdge}"/>`);
+      if (ridgePath) svg.push(`<path class="house-ridge" d="${ridgePath}"/>`);
+    } else {
+      if (fpFill) svg.push(`<path class="house-floor-fill" d="${fpFill}"/>`);
+      let extD = '', intD = '';
+      for (const w of H.walls) {
+        project(w.g, proj);
+        const p = polySub(w.g.C, proj);
+        if (w.ext) extD += p; else intD += p;
+      }
+      if (extD) svg.push(`<path class="house-wall-ext" d="${extD}"/>`);
+      if (intD) svg.push(`<path class="house-wall-int" d="${intD}"/>`);
+
+      let winD = '', doorD = '';
+      for (const o of H.openings) {
+        project(o.g, proj);
+        const p = pathOf(o.g.C, false, proj);
+        if (o.kind === 'window') winD += p; else doorD += p;
+      }
+      if (winD) svg.push(`<path class="house-win" d="${winD}"/>`);
+      if (doorD) svg.push(`<path class="house-door" d="${doorD}"/>`);
+
+      let stairD = '';
+      for (const st of H.stairSteps) {
+        project(st, proj);
+        stairD += pathOf(st.C, true, proj);
+      }
+      if (stairD) svg.push(`<path class="house-stair" d="${stairD}"/>`);
+      if (H.stairOpening) {
+        project(H.stairOpening, proj);
+        const so = pathOf(H.stairOpening.C, true, proj);
+        if (so) svg.push(`<path class="house-stair-open" d="${so}"/>`);
+      }
+      if (H.cutLine) {
+        project(H.cutLine, proj);
+        const cl = pathOf(H.cutLine.C, false, proj);
+        if (cl) svg.push(`<path class="house-cut" d="${cl}"/>`);
+      }
+      if (fpEdge) svg.push(`<path class="house-footprint-edge" d="${fpEdge}"/>`);
+      for (const rm of H.rooms) {
+        this.tag(lab, rm.at, `${rm.name} · ${NF1.format(rm.areaM2)} m²`, 'bound house-room', '#f4efe6', proj, 28);
+      }
+    }
+
+    // Außentreppen / Podeste (Hof/Kanal & Garten) in 2D sichtbar halten
+    if (H.exteriorParts?.length) {
+      let extStairD = '';
+      for (const ep of H.exteriorParts) {
+        project(ep, proj);
+        extStairD += pathOf(ep.C, true, proj);
+      }
+      if (extStairD) svg.push(`<path class="house-stair" d="${extStairD}"/>`);
+    }
+
+    // DN250-Schutzstreifen-Überdeckung offen als Konfliktzone hervorheben
+    if (showSewer && H.conflictPoly) {
+      project(H.conflictPoly, proj);
+      const cf = polySub(H.conflictPoly.C, proj);
+      const ce = pathOf(H.conflictPoly.C, true, proj);
+      if (cf) svg.push(`<path class="house-conflict" d="${cf}"/>`);
+      if (ce) svg.push(`<path class="house-conflict-edge" d="${ce}"/>`);
+      if (H.conflictLabel) this.tag(lab, H.conflictLabel.at, H.conflictLabel.text, 'bound conflict', '#ff8b8b', proj, 48);
+    }
+
+    // Eingangspfeil (Dautengasse)
+    if (H.entrance) {
+      project(H.entrance.g, proj);
+      const r = clipSegment(H.entrance.g.C[0], H.entrance.g.C[1], proj);
+      if (r) {
+        const a = screenAt(H.entrance.g.C[0], H.entrance.g.C[1], r[0], proj);
+        const b = screenAt(H.entrance.g.C[0], H.entrance.g.C[1], r[1], proj);
+        const dx = b[0] - a[0], dy = b[1] - a[1], len = Math.hypot(dx, dy) || 1;
+        const ux = dx / len, uy = dy / len;
+        const h1 = [b[0] - ux * 8 + uy * 5, b[1] - uy * 8 - ux * 5];
+        const h2 = [b[0] - ux * 8 - uy * 5, b[1] - uy * 8 + ux * 5];
+        svg.push(`<path class="house-entry" d="M${xy(a)}L${xy(b)}M${xy(h1)}L${xy(b)}L${xy(h2)}"/>`);
+      }
+      this.tag(lab, H.entrance.at, H.entrance.label || 'Eingang', 'bound house-dim', '#ffe0a3', proj, 42);
+    }
+
+    // Außenbemaßung 11,00 m × 7,15 m
+    if (H.dims) {
+      this.tag(lab, H.dims.lengthAt, H.dims.length, 'bound house-dim', '#f6d8ae', proj, 55);
+      this.tag(lab, H.dims.widthAt, H.dims.width, 'bound house-dim', '#f6d8ae', proj, 55);
+    }
+  }
+
   drawBuildings(svg, lab, proj) {
     let fill = '', fillOwn = '', base = '', top = '', baseOwn = '', topOwn = '';
     for (const B of this.buildings) {
@@ -238,7 +401,6 @@ export class Overlay {
     if (baseOwn) svg.push(`<path class="building own" d="${baseOwn}"/>`);
   }
 
-  // Kanal: Haltungen, Anschlussleitungen, Schächte und der Schutzstreifen beidseits der Achse
   drawSewer(svg, lab, proj) {
     let fill = '', edge = '', axis = '', conn = '';
     for (const C of this.corr) {
@@ -304,11 +466,10 @@ export class Overlay {
       const est = !it.draft && it.src && evaluate(it, k).estimated;
       const main = `${dh >= 0 ? '↑' : '↓'} ${fmtLen(Math.abs(dh))}${est ? ' (geschätzt)' : ''}`;
       if (proj.topDown) {
-        // Draufsicht: der lotrechte Teil fällt auf einen Punkt, gezeigt wird die Verbindung
         const s = line(V[0], V[1], true);
         if (s) label(s.mid, main, 'main');
       } else {
-        const H = proj.toClip([b[0], a[1], b[2]], new Float64Array(4)); // lotrecht unter/über B auf Höhe von A
+        const H = proj.toClip([b[0], a[1], b[2]], new Float64Array(4));
         line(V[0], V[1], true);
         const sh = line(V[0], H);
         const sv = line(H, V[1]);
@@ -338,7 +499,6 @@ export class Overlay {
       }
     }
 
-    // Punkte zuletzt, damit sie über den Linien liegen
     V.forEach((c, i) => {
       if (!inside(c, proj, 12)) return;
       const [x, y] = toScreen(c, proj);
