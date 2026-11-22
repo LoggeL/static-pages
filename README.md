@@ -4,7 +4,7 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
-- **[VW Golf VII · 3D-Zahnriemen-Werkstatt](https://loggel.github.io/static-pages/golf7-zahnriemen-3d/)** shows the EA288 timing belt on the Golf VII 1.6 TDI. The interactive cutaway includes a switchable neon belt trace, a crank-angle scrubber, a vehicle view and an eight-step belt-change exercise. Source in `sources/golf7-zahnriemen-3d/`. Run `npm ci && npm run build` there, then `npm run build` at the repository root.
+- **[VW Golf VII · 3D-Zahnriemen-Werkstatt](https://loggel.github.io/static-pages/golf7-zahnriemen-3d/)** is a playable timing-belt job for the EA288 in the blue Golf VII. Choose the guided workshop or the master exam, lift the car, set the timing marks and fit the belt using the tools in the cockpit. Source in `sources/golf7-zahnriemen-3d/`. Run `npm ci && npm run build` there, then `npm run build` at the repository root.
 
 - **[VW Golf VII 1.6 TDI · 3D Keilriemenwechsel](https://loggel.github.io/static-pages/golf7-keilriemen-3d/)**: a German interactive 3D automotive repair game in the style of Car Mechanic Simulator for replacing the `6PK1025` serpentine belt and `04L 903 315` automatic tensioner on a VW Golf VII 1.6 TDI (EA288). Models were built in Blender 5.2 LTS (`public/golf7-keilriemen-3d/models/*.glb`) alongside a real-time analytical multi-ribbed belt solver, 12 guided or pro steps, SW 16 / `T10060A` tensioner locking, calibrated `40 Nm` & `120 Nm` torque-wrench minigames, X-Ray mode, and procedural Web Audio 1.6 TDI engine idle. Source & Blender scripts: `sources/golf7-keilriemen-3d/`.
 

@@ -1,118 +1,13 @@
 <!doctype html>
 <html lang="de">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#101411" />
-    <meta
-      name="description"
-      content="Der Zahnriementrieb des Golf VII 1.6 TDI als interaktives 3D-Modell. Riemenlauf erkunden, Steuerzeiten vergleichen und den Wechsel üben."
-    />
-    <title>Zahnriemen · Golf VII 1.6 TDI | 3D-Werkstatt</title>
-    <link rel="icon" href="data:," />
-    <script type="module" crossorigin src="./assets/index-DxCEfpKc.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Bk0Mxjmq.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Golf 7 1.6 TDI — 3D Zahnriemen-Werkstatt</title>
+    <script type="module" crossorigin src="./assets/index-BXoKEvG2.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BkneyKGM.css">
   </head>
   <body>
-    <header class="topbar">
-      <div class="wordmark">
-        <span class="brand-icon" data-icon="belt" aria-hidden="true"></span>3D-Werkstatt
-      </div>
-      <a href="../" class="back"><span data-icon="arrow-left"></span>Zur Galerie</a>
-    </header>
-    <main class="workspace">
-      <header class="heading">
-        <div>
-          <p class="eyebrow vehicle-id">VW Golf VII <span>/</span> 1.6 TDI <span>/</span> EA288</p>
-          <h1>Zahnriemen</h1>
-        </div>
-        <div class="mode-switch" role="group" aria-label="Arbeitsmodus">
-          <button id="explore" aria-pressed="true"><span data-icon="box"></span>Erkunden</button>
-          <button id="practice" aria-pressed="false">
-            <span data-icon="tool"></span>Wechsel üben
-          </button>
-        </div>
-      </header>
-      <div class="layout">
-        <section class="viewer-panel" aria-label="Modell und Wiedergabe">
-          <div class="stage">
-            <div
-              id="viewport"
-              role="img"
-              aria-label="Drehbares 3D-Modell des EA288 mit Zahnriemen und Rädern"
-            >
-              <div id="callout" class="callout" hidden><span></span></div>
-            </div>
-            <div class="stage-top">
-              <div class="stage-ident"><i></i><span id="view-name">3D-Modell</span></div>
-              <div class="stage-controls">
-                <button id="hood-toggle" class="stage-btn" aria-pressed="false" hidden>
-                  <span data-icon="hood"></span><span class="hood-label">Motorhaube öffnen</span>
-                </button>
-                <button id="neon" class="neon" aria-pressed="true">
-                  <span data-icon="trace"></span>Neonspur<span
-                    class="switch"
-                    aria-hidden="true"
-                  ></span>
-                </button>
-              </div>
-            </div>
-            <div class="stage-bottom">
-              <div class="cameras" role="group" aria-label="Kamera">
-                <button data-view="perspective" aria-pressed="true">Schrägansicht</button>
-                <button data-view="front" aria-pressed="false">Stirnseite</button>
-                <button data-view="car" aria-pressed="false">Fahrzeug</button>
-              </div>
-              <span class="stage-help" id="gesture"
-                ><span data-icon="orbit"></span>Ziehen zum Drehen</span
-              >
-            </div>
-          </div>
-          <div class="transport">
-            <button id="play" class="play" aria-label="Animation starten"></button>
-            <div class="angle-control">
-              <label for="cycle" id="cycle-label">Kurbelwelle</label
-              ><input
-                id="cycle"
-                type="range"
-                min="0"
-                max="720"
-                step="1"
-                value="0"
-                aria-label="Kurbelwinkel im Viertaktzyklus"
-              />
-            </div>
-            <div class="readout">
-              <div><span>Kurbelwelle</span><b id="crank-angle">0°</b></div>
-              <div><span>Nockenwelle</span><b id="cam-angle">0°</b></div>
-            </div>
-          </div>
-        </section>
-        <aside class="inspector" aria-label="Bauteile und Werkstattübung">
-          <div id="panel"></div>
-          <p id="feedback" role="status" aria-live="polite"></p>
-        </aside>
-      </div>
-      <footer>
-        <span>Schematisches Lernmodell <i>·</i> Golf VII (CLHA)</span>
-        <details>
-          <summary>Technische Grundlagen</summary>
-          <div>
-            <a
-              href="https://www.vag-technique.fr/ext_files/ssp/vw/SSP_820433_The_EA288_Diesel_Engine_Family_EN.pdf#page=11"
-              target="_blank"
-              rel="noreferrer"
-              >Volkswagen · EA288, Zahnriementrieb ↗</a
-            >
-            <a
-              href="https://www.repxpert.us/en-us/training-information/vw-ea-288-repair-video"
-              target="_blank"
-              rel="noreferrer"
-              >Schaeffler REPXPERT · Zahnriemenwechsel am EA288 ↗</a
-            >
-          </div>
-        </details>
-      </footer>
-    </main>
+    <div id="app"></div>
   </body>
 </html>
