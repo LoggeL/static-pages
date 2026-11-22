@@ -15,7 +15,8 @@ export type CameraPresetId =
   | 'engineTop'
   | 'wheelWell'
   | 'timingClose'
-  | 'tensionerMacro';
+  | 'tensionerMacro'
+  | 'oilSump';
 
 export type TimingWheelId =
   | 'crank'
@@ -26,6 +27,9 @@ export type TimingWheelId =
   | 'pump'
   | 'water';
 
+/** Official VW Rep.-Gr. 15 S. 118 primary laying stations (passive idlers guided in-line). */
+export type VwBeltLayStationId = 'crank' | 'tensioner' | 'cam' | 'pump' | 'water';
+
 export type LockableWheelId = 'crank' | 'cam' | 'pump';
 
 export type InteractableId =
@@ -33,6 +37,16 @@ export type InteractableId =
   | 'liftControlUp'
   | 'liftControlDown'
   | 'engineCover'
+  | 'coolantTank'
+  | 'fuelLines'
+  | 'fuelFilter'
+  | 'underbodyTray'
+  | 'engineBridgeSlot'
+  | 'engineBridge'
+  | 'engineMount'
+  | 'engineMountSlot'
+  | 'engineSupport'
+  | 'engineSupportSlot'
   | 'lugBolt_0'
   | 'lugBolt_1'
   | 'lugBolt_2'
@@ -48,23 +62,35 @@ export type InteractableId =
   | 'linerScrew_5'
   | 'wheelLiner'
   | 'wheelLinerSlot'
-  | 'timingCoverBolt_0'
-  | 'timingCoverBolt_1'
-  | 'timingCover'
-  | 'timingCoverSlot'
+  | 'auxTensioner'
+  | 'auxLockPin'
+  | 'auxBelt'
+  | 'auxBeltSlot'
+  | 'crankDamper'
+  | 'crankDamperSlot'
+  | 'upperTimingCover'
+  | 'upperTimingCoverSlot'
+  | 'lowerCoverBolt'
+  | 'lowerTimingCover'
+  | 'lowerTimingCoverSlot'
   | 'oldTimingBelt'
   | 'newTimingBeltSlot'
   | 'wheel_crank'
   | 'wheel_lower'
   | 'wheel_tensioner'
   | 'tensionerNut'
+  | 'tensionerLockPin'
   | 'wheel_cam'
+  | 'camCenterBolt'
+  | 'camFixBolt'
   | 'wheel_upper'
   | 'wheel_pump'
+  | 'pumpCenterNut'
   | 'wheel_water'
   | 'lockPin_crank'
   | 'lockPin_cam'
-  | 'lockPin_pump';
+  | 'lockPin_pump'
+  | 'oilPumpBelt';
 
 export interface InteractableMeta {
   id: InteractableId;
@@ -109,8 +135,29 @@ export interface CameraPresetDefinition {
 
 export type FasteningUnit = 'Nm' | '°';
 
+export type FasteningStageId =
+  | 'tensioner_torque'
+  | 'tensioner_angle'
+  | 'cam_pretorque'
+  | 'pump_pretorque'
+  | 'cam_final_torque'
+  | 'pump_final_torque'
+  | 'engine_support_torque'
+  | 'engine_support_angle'
+  | 'crank_damper_torque'
+  | 'crank_damper_angle'
+  | 'wheel';
+
 export type MinigameState =
   | { type: 'none' }
+  | {
+      type: 'auxTensioner';
+      swingDeg: number; // 0..38° (target 28..35° for T10060 A)
+      targetMinDeg: number;
+      targetMaxDeg: number;
+      aligned: boolean;
+      mode: 'pin' | 'unpin';
+    }
   | {
       type: 'ot';
       crankDeg: number; // 620..760 (720 = OT)
@@ -121,7 +168,7 @@ export type MinigameState =
     }
   | {
       type: 'eccentric';
-      tension: number; // 0..1 (0.50 = Zeiger mittig an Markierung)
+      tension: number; // 0..1 (0.50 = Zeiger mittig im Spalt)
       targetMin: number; // 0.46 (Spielhilfe)
       targetMax: number; // 0.54 (Spielhilfe)
       aligned: boolean;
@@ -129,13 +176,16 @@ export type MinigameState =
     }
   | {
       type: 'torque';
+      stageId: FasteningStageId;
       stageKind: 'torque' | 'angle';
       stageIndex: number; // 1 oder 2
-      stageTotal: number; // 1 (Serienrad 120 Nm) oder 2 (Spannrolle 20 Nm + 45°)
+      stageTotal: number; // 1 oder 2
+      stage1PillLabel?: string;
+      stage2PillLabel?: string;
       unit: FasteningUnit;
-      targetValue: number; // 20 Nm, 45°, 120 Nm
-      inputWindow: number; // Spielhilfe-Eingabefenster (keine Hersteller-Toleranz)
-      maxValue: number; // 30 Nm, 75°, 160 Nm
+      targetValue: number;
+      inputWindow: number; // Spielhilfe-Eingabefenster (keine Werkstoleranz)
+      maxValue: number;
       scaleTicks: number[];
       decimals: number;
       currentValue: number;
@@ -186,11 +236,15 @@ export interface GameSnapshot {
   engineRpm: number;
   liftRaised: boolean;
   diagramUnlocked: boolean;
+  fuelSystemBleedRequired: boolean;
+  fuelSystemBled: boolean;
+  fuelBleedInProgress: boolean;
+  oilSumpCutawayActive: boolean;
   crankAngleDeg: number;
   otAligned: boolean;
   tensionNormalized: number;
   lockedShafts: LockableWheelId[];
-  beltRoutingProgress: TimingWheelId[];
+  beltRoutingProgress: VwBeltLayStationId[];
   minigame: MinigameState;
   hoveredPart: InteractableMeta | null;
   toast: ToastMessage | null;
@@ -207,6 +261,8 @@ export interface HUDCallbacks {
   onToggleMute: () => void;
   onJumpToStep: (index: number) => void;
   onStartEngineToggle: () => void;
+  onBleedFuelSystem: () => void;
+  onAuxPressChange: (pressing: boolean) => void;
   onOtPressChange: (pressing: boolean) => void;
   onOtReset: () => void;
   onEccentricPressChange: (pressing: boolean) => void;

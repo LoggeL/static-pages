@@ -30,11 +30,13 @@ export class ToolModels {
   private readonly actionEccentricPivot = new THREE.Group();
   private readonly pinBodyGroup = new THREE.Group();
 
-  // Live attached tools for interactive OT cranking & eccentric tensioner minigames
+  // Live attached tools for interactive OT cranking, eccentric tensioner & counterhold T10172 / T10051
   private readonly liveEccentricRoot = new THREE.Group();
   private readonly liveEccentricPivot = new THREE.Group();
   private readonly liveCrankRoot = new THREE.Group();
   private readonly liveCrankPivot = new THREE.Group();
+  private readonly liveCounterholdRoot = new THREE.Group();
+  private counterholdTimer = 0;
 
   private activeAction: ActiveToolAction | null = null;
 
@@ -70,6 +72,12 @@ export class ToolModels {
     this.liveCrankRoot.visible = false;
     this.liveCrankRoot.add(this.buildCrankWrench(this.liveCrankPivot));
     this.group.add(this.liveCrankRoot);
+
+    // Live V-fork Counterhold tool (T10172 + T10172/11 on cam / T10051 on HDP)
+    this.liveCounterholdRoot.name = 'ActiveCounterholdTool';
+    this.liveCounterholdRoot.visible = false;
+    this.liveCounterholdRoot.add(this.buildCounterholdFork());
+    this.group.add(this.liveCounterholdRoot);
   }
 
   public async loadBlenderModel(): Promise<void> {
@@ -187,10 +195,35 @@ export class ToolModels {
     this.liveCrankPivot.rotation.x = angleRad;
   }
 
+  public showCounterhold(worldPos: THREE.Vector3, duration = 0.85, scale = 1): void {
+    this.liveCounterholdRoot.position.copy(worldPos);
+    this.liveCounterholdRoot.scale.setScalar(scale);
+    this.liveCounterholdRoot.visible = true;
+    this.counterholdTimer = Math.max(0.25, duration);
+  }
+
+  public setActiveCounterhold(visible: boolean, worldPos?: THREE.Vector3, scale = 1): void {
+    this.liveCounterholdRoot.visible = visible;
+    this.counterholdTimer = visible ? 999 : 0;
+    if (visible && worldPos) {
+      this.liveCounterholdRoot.position.copy(worldPos);
+      this.liveCounterholdRoot.scale.setScalar(scale);
+    }
+  }
+
   public update(dt: number): void {
+    const clampedDt = Math.min(dt, 0.05);
+
+    if (this.counterholdTimer > 0 && this.counterholdTimer < 900) {
+      this.counterholdTimer -= clampedDt;
+      if (this.counterholdTimer <= 0) {
+        this.counterholdTimer = 0;
+        this.liveCounterholdRoot.visible = false;
+      }
+    }
+
     if (!this.activeAction) return;
 
-    const clampedDt = Math.min(dt, 0.05);
     this.activeAction.elapsed += clampedDt;
     const progress = this.activeAction.elapsed / this.activeAction.duration;
 
@@ -387,6 +420,38 @@ export class ToolModels {
     grip.rotation.z = Math.PI / 2;
     grip.position.x = 0.088;
     this.pinBodyGroup.add(grip);
+    return root;
+  }
+
+  private buildCounterholdFork(): THREE.Group {
+    const root = new THREE.Group();
+    const steelMat = new THREE.MeshStandardMaterial({ color: 0xbac4d0, metalness: 0.88, roughness: 0.24 });
+    const gripMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.14, roughness: 0.78 });
+    const pinMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.72, roughness: 0.28 });
+
+    // Twin V-arms engaging two sprocket holes (T10172 + T10172/11 / T10051 style, matching REPXPERT 07:05 & 08:40)
+    for (const side of [-1, 1] as const) {
+      const arm = new THREE.Mesh(new THREE.BoxGeometry(0.008, 0.175, 0.014), steelMat);
+      arm.position.set(0.022, 0.082, side * 0.024);
+      arm.rotation.x = side * 0.16;
+      root.add(arm);
+
+      // Engagement adapter pin (T10172/11) reaching into sprocket lightening hole
+      const pin = new THREE.Mesh(new THREE.CylinderGeometry(0.0045, 0.0045, 0.024, 12), pinMat);
+      pin.rotation.z = Math.PI / 2;
+      pin.position.set(0.008, 0.004, side * 0.036);
+      root.add(pin);
+    }
+
+    // Pivot bridge & long vertical leverage handle extending upward clear of the timing drive
+    const bridge = new THREE.Mesh(new THREE.BoxGeometry(0.012, 0.022, 0.032), steelMat);
+    bridge.position.set(0.022, 0.168, 0);
+    root.add(bridge);
+
+    const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.010, 0.010, 0.15, 14), gripMat);
+    handle.position.set(0.022, 0.248, 0);
+    root.add(handle);
+
     return root;
   }
 

@@ -39,8 +39,8 @@ export class CameraController {
     this.controls = new OrbitControls(camera, domElement);
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.08;
-    this.controls.maxPolarAngle = Math.PI * 0.492;
-    this.controls.minDistance = 0.24;
+    this.controls.maxPolarAngle = Math.PI * 0.495;
+    this.controls.minDistance = 0.22;
     this.controls.maxDistance = 7.5;
     this.controls.enablePan = true;
     this.controls.screenSpacePanning = true;
@@ -61,27 +61,46 @@ export class CameraController {
           target: new THREE.Vector3(0.2, 0.75 + liftY * 0.72, -0.55),
         };
       case 'engineTop':
+        // Elevated passenger-side top view clearly framing TDI cover, coolant tank, fuel filter,
+        // low-pressure quick-couplings A/B, engine bridge 10-222 A, right engine mount & upper timing cover.
         return {
-          pos: new THREE.Vector3(1.05, 1.65 + liftY, -2.05),
-          target: new THREE.Vector3(0.10, 0.65 + liftY, -1.35),
+          pos: new THREE.Vector3(1.18, 1.62 + liftY, -1.92),
+          target: new THREE.Vector3(0.32, 0.72 + liftY, -1.30),
         };
       case 'wheelWell':
+        // Right wheel-well view framing wheel, all 5 lug bolts (clear above bottom hotbar!), liner & underbody tray.
         return {
-          pos: new THREE.Vector3(1.92, 0.58 + liftY, -1.42),
-          target: new THREE.Vector3(0.58, 0.44 + liftY, -1.32),
+          pos: new THREE.Vector3(1.88, 0.46 + liftY, -1.48),
+          target: new THREE.Vector3(0.50, 0.36 + liftY, -1.36),
         };
       case 'timingClose':
-        // Positioned inside the hollow front-right wheel arch cutout looking past strut & rotor
-        // directly onto all 7 wheels, OT marks & pointers with full headroom around upper idler.
+        // Inside the open front-right wheel arch cutout (clears both outer blue fender AND brake rotor/strut),
+        // cleanly framing everything from crank damper/aux belt at bottom up to camFixBolt at top!
         return {
-          pos: new THREE.Vector3(1.04, 0.53 + liftY, -1.72),
-          target: new THREE.Vector3(0.44, 0.54 + liftY, -1.35),
+          pos: new THREE.Vector3(0.98, 0.54 + liftY, -1.62),
+          target: new THREE.Vector3(0.42, 0.53 + liftY, -1.39),
         };
       case 'tensionerMacro':
-        // Unobstructed close-up framing the eccentric tensioner, reference window, orange pointer & cam mark.
+        // Unobstructed close-up framing Typ B eccentric tensioner, cast recess lug,
+        // T10265 lock pin, base-plate tabs & pointer.
         return {
-          pos: new THREE.Vector3(0.90, 0.56 + liftY, -1.60),
-          target: new THREE.Vector3(0.44, 0.56 + liftY, -1.30),
+          pos: new THREE.Vector3(0.88, 0.55 + liftY, -1.58),
+          target: new THREE.Vector3(0.41, 0.55 + liftY, -1.29),
+        };
+      case 'oilSump':
+        // Isolated lower-crankcase cutaway framing BOTH sprockets, toothed oil-bath wet belt,
+        // golden oil bath & N428 valve cleanly face-on (VW SSP 820433 S. 12/16).
+        // On narrow portrait mobile viewports (aspect < 0.85), zoom out slightly and raise target Y
+        // so both gears & belt strands sit fully inside the open middle band (~56–60% height) clear of HUD bars!
+        if (this.camera.aspect < 0.85) {
+          return {
+            pos: new THREE.Vector3(0.95, 0.392 + liftY, -1.44),
+            target: new THREE.Vector3(0.341, 0.386 + liftY, -1.367),
+          };
+        }
+        return {
+          pos: new THREE.Vector3(0.68, 0.312 + liftY, -1.41),
+          target: new THREE.Vector3(0.341, 0.308 + liftY, -1.367),
         };
     }
   }

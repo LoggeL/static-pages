@@ -4,6 +4,9 @@ import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
+/** Dedicated render layer for the isolated Oil-Sump Wet-Belt Cutaway camera (`Ölwanne [Z]`). */
+export const OIL_CUTAWAY_LAYER = 2;
+
 export class SceneManager {
   public readonly scene: THREE.Scene;
   public readonly camera: THREE.PerspectiveCamera;
@@ -65,11 +68,13 @@ export class SceneManager {
     this.carLiftGroup.name = 'CarLiftGroup';
     this.scene.add(this.carLiftGroup);
 
-    // Workshop Lighting Rig
+    // Workshop Lighting Rig (also enabled on OIL_CUTAWAY_LAYER so the isolated oil-sump view is brightly lit!)
     const hemiLight = new THREE.HemisphereLight(0xdbeafe, 0x1e293b, 0.65);
+    hemiLight.layers.enable(OIL_CUTAWAY_LAYER);
     this.scene.add(hemiLight);
 
     const keyDirLight = new THREE.DirectionalLight(0xfff7ed, 2.1);
+    keyDirLight.layers.enable(OIL_CUTAWAY_LAYER);
     keyDirLight.position.set(2.4, 5.4, -1.6);
     keyDirLight.castShadow = true;
     keyDirLight.shadow.mapSize.set(2048, 2048);
@@ -84,8 +89,15 @@ export class SceneManager {
     this.scene.add(keyDirLight);
 
     const fillDirLight = new THREE.DirectionalLight(0xcfe8ff, 0.9);
+    fillDirLight.layers.enable(OIL_CUTAWAY_LAYER);
     fillDirLight.position.set(4.2, 2.1, -3.6);
     this.scene.add(fillDirLight);
+
+    // Dedicated front-right studio fill exclusively for the isolated Oil-Sump Cutaway view (`Z`)
+    const cutawayKeyLight = new THREE.DirectionalLight(0xfff8eb, 1.45);
+    cutawayKeyLight.layers.set(OIL_CUTAWAY_LAYER);
+    cutawayKeyLight.position.set(3.0, 1.4, -2.2);
+    this.scene.add(cutawayKeyLight);
 
     // Toggleable Magnetic LED Work Lamp aimed at EA288 belt drive (0.44, 0.45 + liftY, -1.32)
     this.workLampTarget = new THREE.Object3D();
@@ -93,11 +105,13 @@ export class SceneManager {
     this.scene.add(this.workLampTarget);
 
     this.workLampSpot = new THREE.SpotLight(0xf0f9ff, 0, 4.5, Math.PI * 0.23, 0.52, 1.35);
+    this.workLampSpot.layers.enable(OIL_CUTAWAY_LAYER);
     this.workLampSpot.position.set(0.95, 0.88, -1.04);
     this.workLampSpot.target = this.workLampTarget;
     this.scene.add(this.workLampSpot);
 
     this.workLampPoint = new THREE.PointLight(0xe0f2fe, 0, 2.2, 1.4);
+    this.workLampPoint.layers.enable(OIL_CUTAWAY_LAYER);
     this.workLampPoint.position.set(0.76, 0.56, -1.24);
     this.scene.add(this.workLampPoint);
 
@@ -244,6 +258,15 @@ export class SceneManager {
     if (this.workLampEnabled) {
       this.workLampSpot.intensity = 6.5;
     }
+  }
+
+  /**
+   * Switches camera render layers between normal workshop scene (layer 0) and
+   * the isolated Oil-Sump Wet-Belt Cutaway diorama (OIL_CUTAWAY_LAYER) without
+   * mutating any vehicle/repair visibility state.
+   */
+  public setOilCutawayCameraLayer(active: boolean): void {
+    this.camera.layers.set(active ? OIL_CUTAWAY_LAYER : 0);
   }
 
   public resize(): void {

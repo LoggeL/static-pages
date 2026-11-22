@@ -1,15 +1,18 @@
 /// <reference types="vite/client" />
 import '../styles.css';
 
-import { wheels } from '../drive';
 import {
+  AUX_DRIVE_SPEC,
   CLHA_ACTIVE_DATASHEET,
   CLHA_LOCK_TOOLS,
   CLHA_MONTAGE_VALUES,
   CLHA_REFERENCE_DATASHEET,
   CLHA_SOURCES,
+  CLHA_SPECIAL_TOOLS,
   CLHA_TIMING_BELT,
   CLHA_TIMING_CHECK,
+  OIL_PUMP_BELT_SPEC,
+  SIMULATED_TENSIONER_VARIANT,
   VEHICLE_SPEC,
   formatMeasure,
   formatSignedDelta,
@@ -22,7 +25,7 @@ import type {
   MinigameState,
   TimingWheelId,
   ToolId,
-  TorqueScore,
+  VwBeltLayStationId,
 } from '../types';
 import { CAMERA_PRESETS, REPAIR_STEPS, TOOL_DEFINITIONS } from '../steps/stepDefinitions';
 import { renderBeltDiagramSVG } from './BeltDiagramSVG';
@@ -37,6 +40,8 @@ const TOOL_ICONS: Record<ToolId, string> = {
   torqueWrench: `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l11-11"/><path d="M14 9a4 4 0 1 0 3-3"/><path d="M5 18l3 3"/><path d="M15 4l5 5"/><path d="M9 12l3 3"/></svg>`,
   newTimingBelt: `<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4.5" stroke-dasharray="2.4 1.4"/><circle cx="16.5" cy="8.5" r="3" stroke-dasharray="2 1.2"/><path d="M5.5 11.3L14 6.4"/><path d="M11.6 17.7L19 10.2"/><circle cx="8" cy="15" r="1.3"/><circle cx="16.5" cy="8.5" r="0.9"/></svg>`,
 };
+
+const VW_LAY_ORDER: readonly VwBeltLayStationId[] = ['crank', 'tensioner', 'cam', 'pump', 'water'];
 
 const TORQUE_ARC_RADIUS = 82;
 const TORQUE_ARC_CENTER_X = 120;
@@ -75,36 +80,24 @@ function describeSvgArc(cx: number, cy: number, r: number, startAngle: number, e
 
 function evaluateGrade(snapshot: GameSnapshot): GradeEvaluation {
   const scores = snapshot.torqueScores;
-  const torquePenalty = scores.reduce((sum, entry) => {
-    switch (entry.rating) {
-      case 'Perfekt':
-        return sum;
-      case 'Gut':
-        return sum + 4;
-    }
-  }, 0);
-
+  const torquePenalty = scores.reduce((sum, entry) => (entry.rating === 'Perfekt' ? sum : sum + 3), 0);
   const perfektCount = scores.filter((entry) => entry.rating === 'Perfekt').length;
 
-  let quality = 100 - snapshot.mistakes * 6 - torquePenalty;
-  if (snapshot.xp >= 1200) quality += 4;
+  let quality = 100 - snapshot.mistakes * 5 - torquePenalty;
+  if (snapshot.xp >= 1800) quality += 4;
   if (snapshot.mode === 'pro') quality += 2;
-  if (snapshot.xp < 300 && scores.length === 0) quality = Math.min(quality, 75);
+  if (snapshot.xp < 400 && scores.length === 0) quality = Math.min(quality, 75);
   quality = Math.max(0, Math.min(100, quality));
 
   if (
-    quality >= 92 &&
-    snapshot.mistakes <= 1 &&
+    quality >= 90 &&
+    snapshot.mistakes <= 2 &&
     (scores.length === 0 || perfektCount >= Math.ceil(scores.length / 2))
   ) {
     return { grade: 'S', caption: 'Meister' };
   }
-  if (quality >= 78) {
-    return { grade: 'A', caption: 'Sehr gut' };
-  }
-  if (quality >= 60) {
-    return { grade: 'B', caption: 'Bestanden' };
-  }
+  if (quality >= 76) return { grade: 'A', caption: 'Sehr gut' };
+  if (quality >= 58) return { grade: 'B', caption: 'Bestanden' };
   return { grade: 'C', caption: 'Basis' };
 }
 
@@ -124,8 +117,9 @@ function createSvgEl<K extends keyof SVGElementTagNameMap>(tag: K): SVGElementTa
 }
 
 /**
- * Interactive German VW Digital Cockpit HUD overlay for the Golf 7 1.6 TDI 3D Zahnriemen workshop.
- * Mirrors the exact visual design & architecture of the original workshop with full EA288 timing-belt controls.
+ * Interactive German VW Digital Cockpit HUD overlay for the Golf VII 1.6 TDI (CLHA) 3D Zahnriemen workshop.
+ * Keeps the exact VW Digital Cockpit aesthetic while integrating authentic EA288 workflow controls,
+ * fuel-system diagnostic bleeding, oil-pump wet-belt cutaway card, and verified VW/YouTube sources.
  */
 export class GameHUD {
   private readonly root: HTMLElement;
@@ -163,7 +157,10 @@ export class GameHUD {
   private readonly stepDescEl: HTMLParagraphElement;
   private readonly subObjectiveListEl: HTMLUListElement;
 
-  // Engine Control Card (Step 12 / Free Inspect)
+  // Contextual Action Cards (Fuel System Bleed, Oil Pump Cutaway Info, Engine Start/Stop)
+  private readonly fuelBleedCardEl: HTMLDivElement;
+  private readonly fuelBleedBtnEl: HTMLButtonElement;
+  private readonly oilCutawayCardEl: HTMLDivElement;
   private readonly engineControlCardEl: HTMLDivElement;
   private readonly engineRpmPillEl: HTMLDivElement;
   private readonly engineRpmTextEl: HTMLSpanElement;
@@ -190,7 +187,7 @@ export class GameHUD {
     { btn: HTMLButtonElement; recBadge: HTMLSpanElement }
   >();
 
-  // Minigames (Linear bar view shared cleanly for OT & Eccentric, plus Radial SVG Torque/Angle view)
+  // Minigames
   private readonly minigameWrapEl: HTMLDivElement;
   private readonly linearViewEl: HTMLDivElement;
   private readonly linearEyebrowEl: HTMLDivElement;
@@ -249,12 +246,14 @@ export class GameHUD {
 
   // Local UI state & dirty-check caches
   private panelCollapsed = false;
+  private lastOilCutawayActive = false;
+  private panelCollapsedBeforeOil = false;
   private whyExpanded = false;
   private diagramExpanded = false;
   private specsExpanded = false;
   private lastAutoExpandedStepIndex = -1;
 
-  private activeLinearKind: 'none' | 'ot' | 'eccentric' = 'none';
+  private activeLinearKind: 'none' | 'auxTensioner' | 'ot' | 'eccentric' = 'none';
   private linearPressed = false;
   private torquePressed = false;
   private lastTorqueStageKey = '';
@@ -294,12 +293,12 @@ export class GameHUD {
     const titleSub = createEl(
       'p',
       'title-sub',
-      'Interaktive 3D-Reparatur: Wechsle den Zahnriemen am EA288, stecke die Wellen auf OT ab und stelle die Spannrolle ein.'
+      'Vollständiger Zahnriemenwechsel nach VW-Leitfaden 08.2015: Freilegung, Motorbrücke 10-222 A, Nebenantrieb, Abstecken mit Gegenhaltern, Spannrolle Typ B & Ölbad-Ölpumpenriemen.'
     );
     const specBadge = createEl(
       'div',
       'title-spec-badge',
-      `${VEHICLE_SPEC.badgeText} • ${CLHA_TIMING_BELT.shortSpec} • OT ${CLHA_TIMING_CHECK.crankDegrees}° / ${CLHA_TIMING_CHECK.camDegrees}°`
+      `${VEHICLE_SPEC.badgeText} • ${CLHA_TIMING_BELT.shortSpec} • ${SIMULATED_TENSIONER_VARIANT.shortLabel}`
     );
 
     const modesGrid = createEl('div', 'title-modes');
@@ -316,7 +315,7 @@ export class GameHUD {
       createEl(
         'span',
         'title-mode-desc',
-        'Pulsierende 3D-Highlights, Werkzeug-Hinweise, OT-/Spannzeiger-Hilfen & 7-Stationen-Schema.'
+        '16 reale VW-Schritte mit 3D-Markierungen, Werkzeug-Hinweisen, Sicherheits-Checks & Ölwanne-Schnittansicht.'
       )
     );
     guideBtn.addEventListener('click', () => this.callbacks.onStartGame('guide'));
@@ -333,7 +332,7 @@ export class GameHUD {
       createEl(
         'span',
         'title-mode-desc',
-        'Keine 3D-Markierungen, freie Werkzeugwahl & strenge Genauigkeitswertung.'
+        'Keine 3D-Markierungen, freie Werkzeugwahl, echte VW-Sperren & strenge Genauigkeitswertung.'
       )
     );
     proBtn.addEventListener('click', () => this.callbacks.onStartGame('pro'));
@@ -345,7 +344,7 @@ export class GameHUD {
       '<span><kbd>Klick</kbd>Bauteil</span>',
       '<span><kbd>Ziehen</kbd>Kamera</span>',
       '<span><kbd>1–8</kbd>Werkzeug</span>',
-      '<span><kbd>Q–T</kbd>Kameras</span>',
+      '<span><kbd>Q–Z</kbd>Kameras (+Ölwanne)</span>',
       '<span><kbd>X</kbd>X-Ray</span>',
       '<span><kbd>L</kbd>Lampe</span>',
       '<span><kbd>M</kbd>Ton</span>',
@@ -396,6 +395,7 @@ export class GameHUD {
     for (const preset of CAMERA_PRESETS) {
       const camBtn = createEl('button', 'cam-btn');
       camBtn.type = 'button';
+      camBtn.dataset.cam = preset.id;
       camBtn.append(
         createEl('span', 'cam-key', `${preset.hotkey}:`),
         createEl('span', undefined, preset.label)
@@ -475,7 +475,33 @@ export class GameHUD {
     this.stepDescEl = createEl('p', 'objective-desc');
     this.subObjectiveListEl = createEl('ul', 'subobjective-list');
 
-    // Engine Control Card (Step 12 / Free Inspect)
+    // Contextual Card: Fuel System Diagnostic Bleed (Step 14)
+    this.fuelBleedCardEl = createEl('div', 'fuel-bleed-card is-hidden');
+    this.fuelBleedCardEl.append(
+      createEl('div', 'card-mini-title', 'VW Diagnose • Rep.-Gr. 23 S. 281'),
+      createEl(
+        'p',
+        'card-mini-desc',
+        'Niederdruck-Schnellkupplungen A/B wurden geöffnet. Vor dem ersten Start muss das Kraftstoffsystem über die Vorförderpumpe befüllt & entlüftet werden.'
+      )
+    );
+    this.fuelBleedBtnEl = createEl(
+      'button',
+      'fuel-bleed-btn',
+      'Kraftstoffsystem entlüften (Diagnose starten)'
+    );
+    this.fuelBleedBtnEl.type = 'button';
+    this.fuelBleedBtnEl.addEventListener('click', () => this.callbacks.onBleedFuelSystem());
+    this.fuelBleedCardEl.append(this.fuelBleedBtnEl);
+
+    // Contextual Card: Separate Oil-Bath Oil Pump Belt Cutaway Info (Camera Z)
+    this.oilCutawayCardEl = createEl('div', 'oil-cutaway-card is-hidden');
+    this.oilCutawayCardEl.append(
+      createEl('div', 'card-mini-title', 'Schnittansicht • Ölpumpen-Zahnriemen (SSP 820433)'),
+      createEl('p', 'card-mini-desc', `${OIL_PUMP_BELT_SPEC.summary} ${OIL_PUMP_BELT_SPEC.serviceNote}`)
+    );
+
+    // Engine Control Card (Step 16 / Free Inspect)
     this.engineControlCardEl = createEl('div', 'engine-control-card is-hidden');
     const engineStatusRow = createEl('div', 'engine-status-row');
     engineStatusRow.append(createEl('span', 'engine-status-label', 'EA288 Probelauf'));
@@ -504,11 +530,11 @@ export class GameHUD {
     this.whyContentEl = createEl('div', 'accordion-content is-hidden');
     this.whyAccordionEl.append(this.whyTriggerEl, this.whyContentEl);
 
-    // Accordion: Zahnriemen-Schema (7 Stationen)
+    // Accordion: Zahnriemen-Schema (VW-Folge 1–5)
     this.diagramAccordionEl = createEl('div', 'accordion');
     this.diagramTriggerEl = createEl('button', 'accordion-trigger');
     this.diagramTriggerEl.type = 'button';
-    this.diagramTriggerTitleEl = createEl('span', undefined, 'Zahnriemen-Schema (7 Stationen)');
+    this.diagramTriggerTitleEl = createEl('span', undefined, 'Zahnriemen-Schema (VW-Folge)');
     this.diagramTriggerEl.append(
       this.diagramTriggerTitleEl,
       createEl('span', 'accordion-chevron', '▼')
@@ -522,7 +548,7 @@ export class GameHUD {
     this.diagramLockedBoxEl = createEl(
       'div',
       'diagram-locked-box is-hidden',
-      'Gesperrt: Lege in Schritt 5 die Zahnriemenabdeckung frei und inspiziere den Zahnriemen mit der Hand, um das 7-Stationen-Schema freizuschalten.'
+      'Gesperrt: Lege in Schritt 6 den unteren Zahnriemenschutz frei und inspiziere den Zahnriemen mit der Hand [1], um das VW-Schema freizuschalten.'
     );
     this.diagramSvgWrapEl = createEl('div', 'diagram-svg-wrap');
     this.diagramContentEl.append(this.diagramLockedBoxEl, this.diagramSvgWrapEl);
@@ -549,6 +575,8 @@ export class GameHUD {
       this.stepTitleEl,
       this.stepDescEl,
       this.subObjectiveListEl,
+      this.fuelBleedCardEl,
+      this.oilCutawayCardEl,
       this.engineControlCardEl,
       this.whyAccordionEl,
       this.diagramAccordionEl,
@@ -566,6 +594,7 @@ export class GameHUD {
     for (const tool of TOOL_DEFINITIONS) {
       const btn = createEl('button', 'tool-slot');
       btn.type = 'button';
+      btn.dataset.tool = tool.id;
       btn.title = `${tool.name} — ${tool.spec}`;
 
       const hotkey = createEl('span', 'tool-hotkey', tool.hotkey);
@@ -589,7 +618,7 @@ export class GameHUD {
     this.minigameWrapEl = createEl('div', 'hud-minigame-wrap is-hidden');
     const minigameCard = createEl('div', 'minigame-card');
 
-    // 5a. Linear Precision Gauge (OT Alignment & Eccentric Tensioner Pointer)
+    // 5a. Linear Precision Gauge (Aux Tensioner Spring Arm, OT Alignment, Eccentric Typ B Pointer)
     this.linearViewEl = createEl('div', 'minigame-panel is-hidden');
     const linScrollBody = createEl('div', 'minigame-scroll-body');
     const linHeader = createEl('div', 'minigame-header');
@@ -617,11 +646,7 @@ export class GameHUD {
     linScale.append(this.linearScaleLeftEl, this.linearScaleMidEl, this.linearScaleRightEl);
 
     const linActionsRow = createEl('div', 'minigame-actions-row');
-    this.linearHoldBtnEl = createEl(
-      'button',
-      'minigame-hold-btn',
-      'Gedrückt halten / [Leertaste]'
-    );
+    this.linearHoldBtnEl = createEl('button', 'minigame-hold-btn', 'Gedrückt halten / [Leertaste]');
     this.linearHoldBtnEl.type = 'button';
     this.bindHoldButton(
       this.linearHoldBtnEl,
@@ -629,7 +654,9 @@ export class GameHUD {
       (next) => {
         this.linearPressed = next;
         this.linearHoldBtnEl.classList.toggle('is-pressed', next);
-        if (this.activeLinearKind === 'ot') {
+        if (this.activeLinearKind === 'auxTensioner') {
+          this.callbacks.onAuxPressChange(next);
+        } else if (this.activeLinearKind === 'ot') {
           this.callbacks.onOtPressChange(next);
         } else if (this.activeLinearKind === 'eccentric') {
           this.callbacks.onEccentricPressChange(next);
@@ -665,16 +692,8 @@ export class GameHUD {
     torqueHeader.append(torqueTitleWrap);
 
     this.torqueStagePillsEl = createEl('div', 'minigame-stage-pills is-hidden');
-    this.torqueStage1PillEl = createEl(
-      'span',
-      'stage-pill tabular',
-      `Voranzug: ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm`
-    );
-    this.torqueStage2PillEl = createEl(
-      'span',
-      'stage-pill tabular',
-      `Drehwinkel: ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}°`
-    );
+    this.torqueStage1PillEl = createEl('span', 'stage-pill tabular', 'Stufe 1');
+    this.torqueStage2PillEl = createEl('span', 'stage-pill tabular', 'Stufe 2');
     this.torqueStagePillsEl.append(this.torqueStage1PillEl, this.torqueStage2PillEl);
 
     this.torqueRetryBannerEl = createEl('div', 'minigame-retry-banner is-hidden');
@@ -817,7 +836,7 @@ export class GameHUD {
       createEl(
         'p',
         'cert-sub',
-        `Zahnriemen (${CLHA_TIMING_BELT.specLabel}) montiert, Spannrollen-Mutter mit ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm + ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}° gesichert, ${CLHA_TIMING_CHECK.crankDegrees}° geprüft.`
+        `Zahnriemen (${CLHA_TIMING_BELT.specLabel}) in VW-Folge montiert, Spannrolle Typ B (${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm + ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}°), NW/HDP mit Gegenhalter & Rückbau inkl. Entlüftung bestanden.`
       )
     );
 
@@ -846,14 +865,14 @@ export class GameHUD {
     const exerciseNote = createEl(
       'p',
       'cert-exercise-note',
-      `Übungssimulation für ${VEHICLE_SPEC.badgeText}. Eingabefenster sind Spielhilfen für die Punktewertung. Montagewerte und Quellen siehe „Montagewerte & Quellen (${VEHICLE_SPEC.engineCode})“.`
+      `Übungssimulation für ${VEHICLE_SPEC.badgeText} (${SIMULATED_TENSIONER_VARIANT.shortLabel}). Eingabefenster sind Spielhilfen für die Punktewertung. Alle VW-Montagewerte, SSP 820433 (Ölpumpenriemen) & Video-Zeitmarken siehe „Montagewerte & Quellen (${VEHICLE_SPEC.engineCode})“.`
     );
 
     const certActions = createEl('div', 'cert-actions');
     const inspectBtn = createEl(
       'button',
       'cert-btn cert-btn--inspect',
-      'Freier Inspektionsmodus (Motor testen)'
+      'Freier Inspektionsmodus (Steuertrieb & Ölwanne)'
     );
     inspectBtn.type = 'button';
     inspectBtn.addEventListener('click', () => this.callbacks.onFreeInspect());
@@ -886,7 +905,6 @@ export class GameHUD {
     loadingCard.append(loadingSpinner, loadingCopy);
     this.loadingWrapEl.append(loadingCard);
 
-    // Mount all layers into flex-column HUD root
     this.stageRightEl.append(this.toastWrapEl, this.minigameWrapEl);
     this.middleStageEl.append(this.leftRailEl, this.stageRightEl);
 
@@ -905,7 +923,9 @@ export class GameHUD {
       if (this.linearPressed) {
         this.linearPressed = false;
         this.linearHoldBtnEl.classList.remove('is-pressed');
-        if (this.activeLinearKind === 'ot') {
+        if (this.activeLinearKind === 'auxTensioner') {
+          this.callbacks.onAuxPressChange(false);
+        } else if (this.activeLinearKind === 'ot') {
           this.callbacks.onOtPressChange(false);
         } else if (this.activeLinearKind === 'eccentric') {
           this.callbacks.onEccentricPressChange(false);
@@ -973,7 +993,11 @@ export class GameHUD {
     const header = createEl('div', 'specs-vehicle-line');
     header.append(
       createEl('strong', undefined, VEHICLE_SPEC.badgeText),
-      createEl('span', 'specs-subtitle-note', 'Montagewerte & technische Daten')
+      createEl(
+        'span',
+        'specs-subtitle-note',
+        `Simulierte Bauart: ${SIMULATED_TENSIONER_VARIANT.shortLabel}`
+      )
     );
     wrap.append(header);
 
@@ -997,25 +1021,25 @@ export class GameHUD {
     };
 
     wrap.append(
-      buildGroup('Montagewerte (Spielablauf)', CLHA_ACTIVE_DATASHEET),
-      buildGroup('Referenzwerte (Steuertrieb / Zugang)', CLHA_REFERENCE_DATASHEET)
+      buildGroup('Montagewerte (VW Golf VII CLHA)', CLHA_ACTIVE_DATASHEET),
+      buildGroup('Nebenantrieb, Ölbadriemen & Referenzen', CLHA_REFERENCE_DATASHEET)
     );
 
     const toolsGroup = createEl('div', 'specs-group');
-    toolsGroup.append(createEl('div', 'specs-group-title', 'Absteckwerkzeuge & Nachprüfung'));
+    toolsGroup.append(createEl('div', 'specs-group-title', 'Spezialwerkzeuge, Bauart & Sicherheitsregeln'));
     const toolRow = createEl('div', 'specs-row');
     toolRow.append(
       createEl(
         'div',
         'specs-note',
-        `Kurbelwellenstopp ${CLHA_LOCK_TOOLS.crank.code} • Nockenwelle ${CLHA_LOCK_TOOLS.cam.code} • Hochdruckpumpe ${CLHA_LOCK_TOOLS.pump.code}. Kontrolle nach ${CLHA_TIMING_CHECK.crankTurns} KW-Umdrehungen (${CLHA_TIMING_CHECK.crankDegrees}°): Ziel Zeigermitte, zulässige seitliche Zeigerabweichung max. ${CLHA_TIMING_CHECK.pointerRecheckMaxOffsetMm} mm (VW 08/2015, S. 122).`
+        `Brücke ${CLHA_SPECIAL_TOOLS.engineBridge} • Nebenriemen ${CLHA_SPECIAL_TOOLS.auxLockPin} • KW ${CLHA_LOCK_TOOLS.crank.code} • NW ${CLHA_LOCK_TOOLS.cam.code} (Mitnehmer-Gabel) • HDP ${CLHA_LOCK_TOOLS.pump.code} (Naben-Gabel) • Gegenhalter ${CLHA_SPECIAL_TOOLS.camCounterhold} / ${CLHA_SPECIAL_TOOLS.pumpCounterhold}. ${SIMULATED_TENSIONER_VARIANT.summary} Kontrolle nach ${CLHA_TIMING_CHECK.crankDegrees}°: NW-Dorn muss passen, leichte HDP-Abweichung zulässig (S. 121), Zeiger max. ${CLHA_TIMING_CHECK.pointerRecheckMaxOffsetMm} mm seitlich (S. 122). ${AUX_DRIVE_SPEC.exampleWrenchNote}`
       )
     );
     toolsGroup.append(toolRow);
     wrap.append(toolsGroup);
 
     const sourcesGroup = createEl('div', 'specs-group');
-    sourcesGroup.append(createEl('div', 'specs-group-title', 'Quellen'));
+    sourcesGroup.append(createEl('div', 'specs-group-title', 'Verifizierte Quellen & gesichtete Videos'));
     const sourcesList = createEl('div', 'specs-sources');
     for (const src of CLHA_SOURCES) {
       const link = document.createElement('a');
@@ -1079,11 +1103,16 @@ export class GameHUD {
   }
 
   private releaseStaleHolds(activeType: MinigameState['type']): void {
-    const nextLinearKind = activeType === 'ot' || activeType === 'eccentric' ? activeType : 'none';
+    const nextLinearKind =
+      activeType === 'auxTensioner' || activeType === 'ot' || activeType === 'eccentric'
+        ? activeType
+        : 'none';
     if (this.activeLinearKind !== nextLinearKind && this.linearPressed) {
       this.linearPressed = false;
       this.linearHoldBtnEl.classList.remove('is-pressed');
-      if (this.activeLinearKind === 'ot') {
+      if (this.activeLinearKind === 'auxTensioner') {
+        this.callbacks.onAuxPressChange(false);
+      } else if (this.activeLinearKind === 'ot') {
         this.callbacks.onOtPressChange(false);
       } else if (this.activeLinearKind === 'eccentric') {
         this.callbacks.onEccentricPressChange(false);
@@ -1151,7 +1180,6 @@ export class GameHUD {
         this.torqueSpecBadgeEl.classList.add('is-hidden');
       }
 
-      // Auto-expand 7-station timing diagram when entering Step 9 (install_new_belt)
       if (step.id === 'install_new_belt' && this.lastAutoExpandedStepIndex !== stepIndex) {
         this.diagramExpanded = true;
         this.lastAutoExpandedStepIndex = stepIndex;
@@ -1188,14 +1216,44 @@ export class GameHUD {
       this.subObjectiveListEl.replaceChildren(fragment);
     }
 
-    // Engine start/stop card (Step 12 check_timing_run or freeInspectMode)
-    const showEngineCard = step.id === 'check_timing_run' || snapshot.freeInspectMode;
+    // Fuel system bleed card (Step 14 `reassemble_aux_fuel_bleed`)
+    const showFuelBleedCard = step.id === 'reassemble_aux_fuel_bleed' && !snapshot.completed;
+    this.fuelBleedCardEl.classList.toggle('is-hidden', !showFuelBleedCard);
+    if (showFuelBleedCard) {
+      this.fuelBleedBtnEl.classList.toggle('is-done', snapshot.fuelSystemBled);
+      this.fuelBleedBtnEl.disabled = snapshot.fuelBleedInProgress || snapshot.fuelSystemBled;
+      this.fuelBleedBtnEl.textContent = snapshot.fuelSystemBled
+        ? '✓ Kraftstoffsystem befüllt & entlüftet'
+        : snapshot.fuelBleedInProgress
+          ? 'Vorförderpumpe läuft — entlüfte Niederdrucksystem…'
+          : 'Kraftstoffsystem entlüften (Diagnose starten)';
+    }
+
+    // Separate oil-pump wet belt info card when Oil Sump cutaway camera (`Z`) is active
+    this.oilCutawayCardEl.classList.toggle('is-hidden', !snapshot.oilSumpCutawayActive);
+
+    // On mobile viewports, automatically collapse the tall step card while inspecting Oil Sump [Z]
+    // so the isolated oil-pump wet belt diorama stays completely clear and directly tappable!
+    if (snapshot.oilSumpCutawayActive !== this.lastOilCutawayActive) {
+      this.lastOilCutawayActive = snapshot.oilSumpCutawayActive;
+      if (window.innerWidth <= 900) {
+        if (snapshot.oilSumpCutawayActive) {
+          this.panelCollapsedBeforeOil = this.panelCollapsed;
+          this.panelCollapsed = true;
+        } else {
+          this.panelCollapsed = this.panelCollapsedBeforeOil;
+        }
+      }
+    }
+
+    // Engine start/stop card (Step 16 final_test_run or freeInspectMode)
+    const showEngineCard = step.id === 'final_test_run' || snapshot.freeInspectMode;
     this.engineControlCardEl.classList.toggle('is-hidden', !showEngineCard);
     if (showEngineCard) {
       this.engineRpmPillEl.classList.toggle('is-running', snapshot.engineRunning);
       const rpm = Math.round(snapshot.engineRpm);
       this.engineRpmTextEl.textContent = snapshot.engineRunning
-        ? `${rpm} U/min Leerlauf`
+        ? `ca. ${rpm} U/min (Spielwert)`
         : `${rpm} U/min Aus`;
       this.engineToggleBtnEl.classList.toggle('is-running', snapshot.engineRunning);
       this.engineToggleBtnEl.textContent = snapshot.engineRunning
@@ -1203,8 +1261,8 @@ export class GameHUD {
         : '1.6 TDI Motor starten';
     }
 
-    // 7-Station Timing Belt Diagram Accordion
-    const diagramActuallyUnlocked = snapshot.diagramUnlocked || stepIndex >= 5;
+    // Timing Belt Diagram Accordion (unlocks at Step 6 lower_cover_inspect)
+    const diagramActuallyUnlocked = snapshot.diagramUnlocked || stepIndex >= 6;
     const canToggleDiagram = diagramActuallyUnlocked || snapshot.mode === 'guide';
     this.diagramTriggerEl.disabled = !canToggleDiagram;
 
@@ -1213,8 +1271,8 @@ export class GameHUD {
     }
 
     this.diagramTriggerTitleEl.textContent = diagramActuallyUnlocked
-      ? 'Zahnriemen-Schema (7 Stationen)'
-      : 'Zahnriemen-Schema (ab Schritt 5)';
+      ? 'Zahnriemen-Schema (VW-Folge 1–5)'
+      : 'Zahnriemen-Schema (ab Schritt 6)';
 
     const highlightedNode = this.resolveDiagramHighlight(snapshot, stepIndex);
     const diagramKey = `${diagramActuallyUnlocked}|${snapshot.mode}|${highlightedNode ?? 'none'}|${snapshot.beltRoutingProgress.join(',')}|${snapshot.lockedShafts.join(',')}`;
@@ -1240,19 +1298,18 @@ export class GameHUD {
     const step = REPAIR_STEPS[stepIndex];
     if (step.id === 'install_new_belt') {
       const done = new Set(snapshot.beltRoutingProgress);
-      for (const w of wheels) {
-        const id = w.id as TimingWheelId;
-        if (!done.has(id)) return id;
+      for (const st of VW_LAY_ORDER) {
+        if (!done.has(st)) return st;
       }
       return null;
     }
 
     if (snapshot.mode === 'guide') {
       if (step.id === 'find_ot') return 'crank';
-      if (step.id === 'set_tension') return 'tensioner';
-      if (step.id === 'lock_shafts') {
+      if (step.id === 'set_tension_and_pretorque') return 'tensioner';
+      if (step.id === 'lock_and_loosen_hubs') {
         const locked = new Set(snapshot.lockedShafts);
-        for (const lid of ['crank', 'cam', 'pump'] as const) {
+        for (const lid of ['cam', 'crank', 'pump'] as const) {
           if (!locked.has(lid)) return lid;
         }
       }
@@ -1303,21 +1360,61 @@ export class GameHUD {
 
     this.minigameWrapEl.classList.remove('is-hidden');
 
+    if (minigame.type === 'auxTensioner') {
+      this.linearViewEl.classList.remove('is-hidden');
+      this.torqueViewEl.classList.add('is-hidden');
+
+      this.linearEyebrowEl.textContent = 'Nebenantrieb • Keilrippenriemen-Federarm (Ringschlüssel, Beispiel SW 16)';
+      this.linearTitleEl.textContent =
+        minigame.mode === 'pin'
+          ? `Federarm schwenken für ${CLHA_SPECIAL_TOOLS.auxLockPin}`
+          : `Federarm halten & ${CLHA_SPECIAL_TOOLS.auxLockPin} entlasten`;
+      this.linearSubtitleEl.textContent =
+        minigame.mode === 'pin'
+          ? 'Nur Nebenantrieb (nicht Zahnriemen-Exzenter!): Federarm gegen die Federkraft schwenken, bis die Absteckbohrung fluchtet.'
+          : 'Federarm mit dem Ringschlüssel abfangen, damit der Stift T10060 A spannungsfrei gezogen werden kann.';
+
+      const maxDeg = 38;
+      const pct = Math.max(0, Math.min(100, (minigame.swingDeg / maxDeg) * 100));
+      this.linearValueEl.textContent = `${Math.round(minigame.swingDeg)}°`;
+      this.linearStatusEl.textContent = minigame.aligned ? 'BOHRUNG FREI!' : 'Schwenken (↺)';
+      this.linearStatusEl.classList.toggle('is-aligned', minigame.aligned);
+
+      const zoneLeftPct = (minigame.targetMinDeg / maxDeg) * 100;
+      const zoneWidthPct = ((minigame.targetMaxDeg - minigame.targetMinDeg) / maxDeg) * 100;
+      this.linearZoneEl.style.left = `${zoneLeftPct}%`;
+      this.linearZoneEl.style.width = `${zoneWidthPct}%`;
+
+      this.linearFillEl.style.width = `${pct.toFixed(2)}%`;
+      this.linearFillEl.classList.toggle('is-aligned', minigame.aligned);
+
+      this.linearScaleLeftEl.textContent = '0° (gespannt)';
+      this.linearScaleMidEl.textContent = `Absteckbohrung ${CLHA_SPECIAL_TOOLS.auxLockPin}`;
+      this.linearScaleRightEl.textContent = `${maxDeg}°`;
+      this.linearHoldBtnEl.textContent = 'Ringschlüssel drücken — bei BOHRUNG FREI loslassen / [Leertaste]';
+      this.linearResetBtnEl.classList.add('is-hidden');
+      return;
+    }
+
     if (minigame.type === 'ot') {
       this.linearViewEl.classList.remove('is-hidden');
       this.torqueViewEl.classList.add('is-hidden');
 
-      this.linearEyebrowEl.textContent = 'Kurbelwellen-Schlüssel • OT-Ausrichtung';
-      this.linearTitleEl.textContent = 'Kurbelwelle auf OT (720°) drehen';
+      this.linearEyebrowEl.textContent = 'Kurbelwellen-Knarre • Erste OT-Anfahrt (nur im Uhrzeigersinn!)';
+      this.linearTitleEl.textContent = 'Kurbelwelle bis zur OT-Markierung drehen';
       this.linearSubtitleEl.textContent =
-        'Im Uhrzeigersinn drehen bis alle 3 orangefarbenen OT-Marken (KW, NW, HDP) grün unter den Zeigern fluchten.';
+        'Von der aktuellen Stellung im Uhrzeigersinn bis zur OT-Deckung drehen (Gabel am NW-Mitnehmer über Bohrung, KW-Flansch & HDP-Gabel).';
 
       const minDeg = 620;
       const maxDeg = 760;
       const clampedDeg = Math.max(minDeg, Math.min(maxDeg, minigame.crankDeg));
-      const camDeg = clampedDeg / 2;
+      const relDeg = clampedDeg - minigame.targetDeg;
 
-      this.linearValueEl.textContent = `KW ${clampedDeg.toFixed(1)}° • NW ${camDeg.toFixed(1)}°`;
+      this.linearValueEl.textContent = minigame.aligned
+        ? 'OT-Markierung erreicht'
+        : relDeg < 0
+          ? `noch ${Math.abs(relDeg).toFixed(0)}° bis OT`
+          : `+${relDeg.toFixed(0)}° über OT`;
       this.linearStatusEl.textContent = minigame.aligned
         ? 'OT FLUCHTET!'
         : clampedDeg > minigame.targetDeg + minigame.toleranceDeg
@@ -1334,10 +1431,10 @@ export class GameHUD {
       this.linearFillEl.style.width = `${Math.max(0, Math.min(100, fillPct)).toFixed(2)}%`;
       this.linearFillEl.classList.toggle('is-aligned', minigame.aligned);
 
-      this.linearScaleLeftEl.textContent = '620°';
-      this.linearScaleMidEl.textContent = `OT ${minigame.targetDeg}° (Spielhilfe ±${minigame.toleranceDeg}°)`;
-      this.linearScaleRightEl.textContent = '760°';
-      this.linearHoldBtnEl.textContent = 'KW-Knarre drehen — bei OT loslassen / [Leertaste]';
+      this.linearScaleLeftEl.textContent = 'Vor OT';
+      this.linearScaleMidEl.textContent = `OT-Markierung (Spielhilfe ±${minigame.toleranceDeg}°)`;
+      this.linearScaleRightEl.textContent = 'Über OT';
+      this.linearHoldBtnEl.textContent = 'KW-Knarre drehen — an OT-Markierung loslassen / [Leertaste]';
       this.linearResetBtnEl.textContent = '↺ Zurück';
       this.linearResetBtnEl.classList.remove('is-hidden');
       return;
@@ -1347,22 +1444,22 @@ export class GameHUD {
       this.linearViewEl.classList.remove('is-hidden');
       this.torqueViewEl.classList.add('is-hidden');
 
-      this.linearEyebrowEl.textContent = 'Exzenter-Spannrolle • Einstellung bei kaltem Motor';
+      this.linearEyebrowEl.textContent = `Spannrolle Typ B (${CLHA_SPECIAL_TOOLS.tensionerWrenchTypeB}) • Einstellung bei kaltem Motor`;
       this.linearTitleEl.textContent =
         minigame.mode === 'release'
-          ? 'Spannrolle entlasten'
-          : 'Spannzeiger zur Markierung bringen';
+          ? `Exzenter entlasten für ${CLHA_SPECIAL_TOOLS.tensionerPinTypeB}`
+          : 'Spannzeiger mittig in Grundplatten-Spalt stellen';
       this.linearSubtitleEl.textContent =
         minigame.mode === 'release'
-          ? 'Exzenter gegen den Uhrzeigersinn entspannen, bis der alte Zahnriemen frei abnehmbar ist.'
-          : 'Einstellung bei kaltem Motor: Exzenter im Uhrzeigersinn drehen, bis der Spannzeiger mittig auf der Markierung steht.';
+          ? `Exzenter gegen den Uhrzeigersinn mit ${CLHA_SPECIAL_TOOLS.tensionerWrenchTypeB} drehen, bis Absteckstift ${CLHA_SPECIAL_TOOLS.tensionerPinTypeB} eingesetzt werden kann.`
+          : `Motor kalt: Exzenter mit ${CLHA_SPECIAL_TOOLS.tensionerWrenchTypeB} im Uhrzeigersinn drehen, bis der Zeiger mittig zwischen den Laschen steht.`;
 
       if (minigame.mode === 'release') {
         this.linearValueEl.textContent = minigame.aligned ? 'Entlastet' : 'Gespannt';
         this.linearStatusEl.textContent = minigame.aligned ? 'ENTLASTET!' : 'Entspannen (↺)';
       } else {
         this.linearValueEl.textContent = minigame.aligned
-          ? 'Markierung'
+          ? 'Spaltmitte'
           : minigame.tension < minigame.targetMin
             ? 'Links (−)'
             : 'Rechts (+)';
@@ -1385,8 +1482,8 @@ export class GameHUD {
       this.linearScaleLeftEl.textContent = 'Entlastet';
       this.linearScaleMidEl.textContent =
         minigame.mode === 'release'
-          ? 'Spielhilfe: Riemen entspannt'
-          : 'Zeiger an Markierung (Spielhilfe)';
+          ? `Bohrung ${CLHA_SPECIAL_TOOLS.tensionerPinTypeB} frei`
+          : 'Zeiger mittig im Spalt (Spielhilfe)';
       this.linearScaleRightEl.textContent = 'Stramm';
       this.linearHoldBtnEl.textContent =
         minigame.mode === 'release'
@@ -1397,11 +1494,11 @@ export class GameHUD {
       return;
     }
 
-    // Torque (Nm) & Angle (°) Minigame with real physical units
+    // Torque (Nm) & Angle (°) Radial Gauge Minigame
     this.linearViewEl.classList.add('is-hidden');
     this.torqueViewEl.classList.remove('is-hidden');
 
-    const stageKey = `${minigame.stageKind}|${minigame.stageIndex}|${minigame.targetValue}|${minigame.unit}`;
+    const stageKey = `${minigame.stageId}|${minigame.stageKind}|${minigame.stageIndex}|${minigame.targetValue}|${minigame.unit}`;
     const stageChanged = stageKey !== this.lastTorqueStageKey;
     const resetAfterRun = this.lastTorqueValue > 0 && minigame.currentValue === 0;
     this.lastTorqueStageKey = stageKey;
@@ -1422,23 +1519,21 @@ export class GameHUD {
     this.torqueTitleEl.textContent = minigame.label;
     this.torqueBoltEl.textContent = minigame.boltLabel;
 
-    // 2-stage progression pills (Spannrollen-Mutter: Voranzug -> Drehwinkel)
     const showStages = minigame.stageTotal > 1;
     this.torqueStagePillsEl.classList.toggle('is-hidden', !showStages);
     if (showStages) {
       const stage1Done = minigame.stageIndex > 1;
-      this.torqueStage1PillEl.textContent = stage1Done
-        ? `✓ Voranzug: ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm`
-        : `Voranzug: ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm`;
+      const p1 = minigame.stage1PillLabel ?? 'Stufe 1';
+      const p2 = minigame.stage2PillLabel ?? 'Stufe 2';
+      this.torqueStage1PillEl.textContent = stage1Done ? `✓ ${p1}` : p1;
       this.torqueStage1PillEl.classList.toggle('is-done', stage1Done);
       this.torqueStage1PillEl.classList.toggle('is-active', minigame.stageIndex === 1);
 
-      this.torqueStage2PillEl.textContent = `Drehwinkel: ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}°`;
+      this.torqueStage2PillEl.textContent = p2;
       this.torqueStage2PillEl.classList.toggle('is-done', false);
       this.torqueStage2PillEl.classList.toggle('is-active', minigame.stageIndex === 2);
     }
 
-    // Inline retry feedback banner on invalid attempt
     const isRetry = minigame.attemptStatus === 'retry' && Boolean(minigame.lastAttemptFeedback);
     this.torqueRetryBannerEl.classList.toggle('is-hidden', !isRetry);
     this.torqueRetryBannerEl.classList.toggle('is-retrying', isRetry && minigame.currentValue > 0);
@@ -1499,7 +1594,7 @@ export class GameHUD {
     const windowDisplay = formatMeasure(minigame.inputWindow, minigame.unit, winDecimals);
 
     this.torqueTargetSubEl.textContent =
-      minigame.stageTotal === 1 && minigame.unit === 'Nm'
+      minigame.stageId === 'wheel'
         ? `Soll: je ${targetDisplay}`
         : `Soll: ${targetDisplay}`;
     this.torquePlayAidEl.textContent = `Spielhilfe ±${windowDisplay}`;
@@ -1631,101 +1726,95 @@ export class GameHUD {
   }
 
   private applyTooltipTransform(): void {
-    const offset = 16;
-    const width = this.tooltipEl.offsetWidth || 220;
-    const height = this.tooltipEl.offsetHeight || 64;
-    const maxX = Math.max(12, window.innerWidth - width - 12);
-    const maxY = Math.max(12, window.innerHeight - height - 12);
+    const margin = 16;
+    const width = this.tooltipEl.offsetWidth || 240;
+    const height = this.tooltipEl.offsetHeight || 74;
+    let x = this.tooltipX + margin;
+    let y = this.tooltipY + margin;
 
-    const clampedX = Math.max(12, Math.min(maxX, this.tooltipX + offset));
-    const clampedY = Math.max(12, Math.min(maxY, this.tooltipY + offset));
-    this.tooltipEl.style.transform = `translate3d(${Math.round(clampedX)}px, ${Math.round(clampedY)}px, 0)`;
+    if (x + width > window.innerWidth - 12) {
+      x = Math.max(12, this.tooltipX - width - margin);
+    }
+    if (y + height > window.innerHeight - 12) {
+      y = Math.max(12, this.tooltipY - height - margin);
+    }
+    this.tooltipEl.style.transform = `translate3d(${Math.round(x)}px, ${Math.round(y)}px, 0)`;
   }
 
   private renderToast(snapshot: GameSnapshot): void {
     const toast = snapshot.toast;
     if (!toast) {
-      this.toastWrapEl.classList.add('is-hidden');
-      this.lastToastId = -1;
+      if (this.lastToastId !== -1) {
+        this.lastToastId = -1;
+        this.toastWrapEl.classList.add('is-hidden');
+      }
       return;
     }
 
-    this.toastWrapEl.classList.remove('is-hidden');
     if (toast.id !== this.lastToastId) {
       this.lastToastId = toast.id;
       this.toastEl.className = `hud-toast hud-toast--${toast.kind}`;
-      const prefix =
-        toast.kind === 'success'
-          ? '✓'
-          : toast.kind === 'warning'
-            ? '⚠'
-            : toast.kind === 'error'
-              ? '✕'
-              : 'ℹ';
-      this.toastEl.textContent = `${prefix}  ${toast.text}`;
-
-      this.toastEl.style.animation = 'none';
-      void this.toastEl.offsetWidth;
-      this.toastEl.style.animation = '';
+      this.toastEl.textContent = toast.text;
+      this.toastWrapEl.classList.remove('is-hidden');
     }
   }
 
   private renderCompletionModal(snapshot: GameSnapshot): void {
-    const shouldShow = snapshot.completed && !snapshot.freeInspectMode;
-    this.certWrapEl.classList.toggle('is-hidden', !shouldShow);
-    if (!shouldShow) return;
+    const show = snapshot.completed && !snapshot.freeInspectMode;
+    this.certWrapEl.classList.toggle('is-hidden', !show);
+    if (!show) return;
 
-    const certKey = `${snapshot.xp}|${snapshot.elapsedSeconds}|${snapshot.mistakes}|${snapshot.mode}|${snapshot.torqueScores.map((s) => `${s.label}:${s.achievedValue}${s.unit}`).join(',')}`;
+    const certKey = `${snapshot.xp}|${snapshot.elapsedSeconds}|${snapshot.mistakes}|${snapshot.mode}|${snapshot.torqueScores.length}`;
     if (certKey === this.lastCertKey) return;
     this.lastCertKey = certKey;
 
-    const { grade, caption } = evaluateGrade(snapshot);
-    this.certGradeLetterEl.textContent = grade;
-    this.certGradeCaptionEl.textContent = caption;
-    this.certGradeBadgeEl.className = `cert-grade-badge is-grade-${grade.toLowerCase()}`;
+    const evalRes = evaluateGrade(snapshot);
+    this.certGradeLetterEl.textContent = evalRes.grade;
+    this.certGradeCaptionEl.textContent = evalRes.caption;
+    this.certGradeBadgeEl.className = `cert-grade-badge${
+      evalRes.grade === 'A'
+        ? ' is-grade-a'
+        : evalRes.grade === 'B'
+          ? ' is-grade-b'
+          : evalRes.grade === 'C'
+            ? ' is-grade-c'
+            : ''
+    }`;
 
     this.certXpEl.textContent = `${snapshot.xp} XP`;
     this.certTimeEl.textContent = formatTimer(snapshot.elapsedSeconds);
     this.certMistakesEl.textContent = String(snapshot.mistakes);
     this.certModeEl.textContent = snapshot.mode === 'guide' ? 'Guide' : 'Profi';
 
-    this.renderTorqueScoreList(snapshot.torqueScores);
-  }
-
-  private renderTorqueScoreList(scores: TorqueScore[]): void {
-    if (scores.length === 0) {
-      const empty = createEl(
-        'div',
-        'cert-torque-row',
-        'Keine Anzugsmessungen in diesem Durchlauf protokolliert.'
+    const frag = document.createDocumentFragment();
+    if (snapshot.torqueScores.length === 0) {
+      frag.append(
+        createEl(
+          'div',
+          'cert-torque-row',
+          'Keine Anzugswerte erfasst (Direktsprung genutzt).'
+        )
       );
-      this.certTorqueListEl.replaceChildren(empty);
-      return;
+    } else {
+      for (const entry of snapshot.torqueScores) {
+        const row = createEl('div', 'cert-torque-row');
+        row.append(createEl('span', 'cert-torque-name', entry.label));
+
+        const vals = createEl('div', 'cert-torque-vals tabular');
+        const achieved = formatMeasure(entry.achievedValue, entry.unit, entry.decimals);
+        const delta = formatSignedDelta(entry.deltaValue, entry.unit, entry.decimals);
+        vals.append(
+          createEl('span', undefined, `${achieved} (${entry.targetLabel}, ${delta})`),
+          createEl(
+            'span',
+            `cert-rating-pill cert-rating-pill--${entry.rating.toLowerCase()}`,
+            entry.rating
+          )
+        );
+        row.append(vals);
+        frag.append(row);
+      }
     }
-
-    const fragment = document.createDocumentFragment();
-    for (const entry of scores) {
-      const row = createEl('div', 'cert-torque-row');
-      const name = createEl('span', 'cert-torque-name', entry.label);
-      const vals = createEl('div', 'cert-torque-vals tabular');
-
-      const achievedText = formatMeasure(entry.achievedValue, entry.unit, entry.decimals);
-      const deltaText = formatSignedDelta(entry.deltaValue, entry.unit, entry.decimals);
-      const valText = createEl(
-        'span',
-        undefined,
-        `${achievedText} (${deltaText} • ${entry.targetLabel})`
-      );
-      const ratingPill = createEl(
-        'span',
-        `cert-rating-pill cert-rating-pill--${entry.rating.toLowerCase()}`,
-        `${entry.rating} (+${entry.xp} XP)`
-      );
-
-      vals.append(valText, ratingPill);
-      row.append(name, vals);
-      fragment.append(row);
-    }
-    this.certTorqueListEl.replaceChildren(fragment);
+    this.certTorqueListEl.replaceChildren(frag);
   }
 }

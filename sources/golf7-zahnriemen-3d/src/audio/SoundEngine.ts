@@ -290,6 +290,17 @@ export class SoundEngine {
     this.spawnTone(ctx, t, 0.92, 'sine', 640, 180, 0.035);
   }
 
+  /** Electric low-pressure in-tank fuel pump priming hum (Rep.-Gr. 23 S. 281) */
+  public playFuelPrime(durationSec = 1.5): void {
+    const ctx = this.ensureContext();
+    if (!ctx || !this.masterGain) return;
+    const t = ctx.currentTime;
+    const dur = Math.max(0.6, durationSec);
+    this.spawnTone(ctx, t, dur, 'sine', 290, 325, 0.09);
+    this.spawnTone(ctx, t, dur, 'triangle', 580, 645, 0.045);
+    this.spawnNoiseBurst(ctx, t, dur * 0.9, 'bandpass', 1450, 2.2, 0.04);
+  }
+
   /** Electric-hydraulic 2-post car lift hum + safety latch clicks */
   public playLiftMotor(durationSec = 2.2): void {
     const ctx = this.ensureContext();

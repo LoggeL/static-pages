@@ -96,6 +96,36 @@ export class Golf7Model {
 
   private readonly wheelLinerSlotGroup = new THREE.Group();
 
+  // Passenger-side (+X) Golf VII service access, underbody & VW 10-222 A engine support bridge
+  private readonly coolantTankGroup = new THREE.Group();
+  private coolantTankProgress = 0;
+  private coolantTankTarget = 0;
+
+  private readonly fuelLinesGroup = new THREE.Group();
+  private readonly fuelLinesPlugGroup = new THREE.Group();
+  private fuelLinesProgress = 0;
+  private fuelLinesTarget = 0;
+
+  private readonly fuelFilterGroup = new THREE.Group();
+  private fuelFilterProgress = 0;
+  private fuelFilterTarget = 0;
+
+  private readonly underbodyTrayGroup = new THREE.Group();
+  private readonly underbodyMaterials: THREE.MeshStandardMaterial[] = [];
+  private underbodyProgress = 0;
+  private underbodyTarget = 0;
+
+  private readonly engineBridgeGroup = new THREE.Group();
+  private readonly engineBridgeSlotGroup = new THREE.Group();
+  private engineBridgeProgress = 0;
+  private engineBridgeTarget = 0;
+
+  private readonly engineMountGroup = new THREE.Group();
+  private readonly engineMountSlotGroup = new THREE.Group();
+  private readonly engineMountMaterials: THREE.MeshStandardMaterial[] = [];
+  private engineMountProgress = 0;
+  private engineMountTarget = 0;
+
   private xrayBlend = 0;
   private xrayTarget = 0;
 
@@ -130,6 +160,7 @@ export class Golf7Model {
     this.buildFrontRightWheelAndLugBolts(sharedTextures);
     this.buildWheelLinerAndScrews();
     this.buildWheelLinerGhostSlot();
+    this.buildGolf7ServiceAccessAndSupport();
   }
 
   public async loadBlenderModel(): Promise<void> {
@@ -300,6 +331,14 @@ export class Golf7Model {
     const roots: THREE.Object3D[] = [
       this.hoodGroup,
       this.engineCoverGroup,
+      this.coolantTankGroup,
+      this.fuelLinesGroup,
+      this.fuelFilterGroup,
+      this.underbodyTrayGroup,
+      this.engineBridgeGroup,
+      this.engineBridgeSlotGroup,
+      this.engineMountGroup,
+      this.engineMountSlotGroup,
       this.hubGroup,
       this.frontRightWheelGroup,
       this.wheelLinerGroup,
@@ -380,9 +419,71 @@ export class Golf7Model {
     this.xrayTarget = enabled ? 1 : 0;
   }
 
-  public setGhostSlotVisible(id: 'wheelLinerSlot', visible: boolean): void {
+  public setCoolantTankMoved(moved: boolean, instant = false): void {
+    this.coolantTankTarget = moved ? 1 : 0;
+    if (instant) {
+      this.coolantTankProgress = this.coolantTankTarget;
+      this.applyCoolantTankTransform();
+    }
+  }
+
+  public setFuelLinesDisconnected(disconnected: boolean, instant = false): void {
+    this.fuelLinesTarget = disconnected ? 1 : 0;
+    if (instant) {
+      this.fuelLinesProgress = this.fuelLinesTarget;
+      this.applyFuelLinesTransform();
+    }
+  }
+
+  public setFuelFilterMoved(moved: boolean, instant = false): void {
+    this.fuelFilterTarget = moved ? 1 : 0;
+    if (instant) {
+      this.fuelFilterProgress = this.fuelFilterTarget;
+      this.applyFuelFilterTransform();
+    }
+  }
+
+  public setUnderbodyRemoved(removed: boolean, ghostForReinstall = false, instant = false): void {
+    this.underbodyTarget = removed ? (ghostForReinstall ? 0.0 : 1.0) : 0.0;
+    this.underbodyTrayGroup.userData.ignoreRaycast = removed && !ghostForReinstall;
+    this.underbodyTrayGroup.userData.isReinstallGhost = removed && ghostForReinstall;
+    if (instant) {
+      this.underbodyProgress = this.underbodyTarget;
+      this.applyUnderbodyTransform();
+    } else if (removed && ghostForReinstall) {
+      this.underbodyProgress = 0;
+      this.applyUnderbodyTransform();
+    }
+  }
+
+  public setEngineBridgeInstalled(installed: boolean, instant = false): void {
+    this.engineBridgeTarget = installed ? 1 : 0;
+    this.engineBridgeGroup.userData.ignoreRaycast = !installed;
+    if (instant) {
+      this.engineBridgeProgress = this.engineBridgeTarget;
+      this.applyEngineBridgeTransform();
+    }
+  }
+
+  public setEngineMountRemoved(removed: boolean, instant = false): void {
+    this.engineMountTarget = removed ? 1 : 0;
+    this.engineMountGroup.userData.ignoreRaycast = removed;
+    if (instant) {
+      this.engineMountProgress = this.engineMountTarget;
+      this.applyEngineMountTransform();
+    }
+  }
+
+  public setGhostSlotVisible(
+    id: 'wheelLinerSlot' | 'engineBridgeSlot' | 'engineMountSlot',
+    visible: boolean
+  ): void {
     if (id === 'wheelLinerSlot') {
       this.wheelLinerSlotGroup.visible = visible;
+    } else if (id === 'engineBridgeSlot') {
+      this.engineBridgeSlotGroup.visible = visible;
+    } else if (id === 'engineMountSlot') {
+      this.engineMountSlotGroup.visible = visible;
     }
   }
 
@@ -434,6 +535,42 @@ export class Golf7Model {
     if (nextLiner !== null) {
       this.linerProgress = nextLiner;
       this.applyLinerTransform();
+    }
+
+    const nextCoolant = this.stepProgress(this.coolantTankProgress, this.coolantTankTarget, clampedDt, 2.4);
+    if (nextCoolant !== null) {
+      this.coolantTankProgress = nextCoolant;
+      this.applyCoolantTankTransform();
+    }
+
+    const nextFuelLines = this.stepProgress(this.fuelLinesProgress, this.fuelLinesTarget, clampedDt, 2.8);
+    if (nextFuelLines !== null) {
+      this.fuelLinesProgress = nextFuelLines;
+      this.applyFuelLinesTransform();
+    }
+
+    const nextFuelFilter = this.stepProgress(this.fuelFilterProgress, this.fuelFilterTarget, clampedDt, 2.4);
+    if (nextFuelFilter !== null) {
+      this.fuelFilterProgress = nextFuelFilter;
+      this.applyFuelFilterTransform();
+    }
+
+    const nextUnderbody = this.stepProgress(this.underbodyProgress, this.underbodyTarget, clampedDt, 2.2);
+    if (nextUnderbody !== null) {
+      this.underbodyProgress = nextUnderbody;
+      this.applyUnderbodyTransform();
+    }
+
+    const nextBridge = this.stepProgress(this.engineBridgeProgress, this.engineBridgeTarget, clampedDt, 2.6);
+    if (nextBridge !== null) {
+      this.engineBridgeProgress = nextBridge;
+      this.applyEngineBridgeTransform();
+    }
+
+    const nextMount = this.stepProgress(this.engineMountProgress, this.engineMountTarget, clampedDt, 2.5);
+    if (nextMount !== null) {
+      this.engineMountProgress = nextMount;
+      this.applyEngineMountTransform();
     }
 
     const nextXray = this.stepProgress(this.xrayBlend, this.xrayTarget, clampedDt, 3.6);
@@ -625,6 +762,102 @@ export class Golf7Model {
       mat.transparent = isTransparent;
       mat.opacity = alpha;
       mat.depthWrite = !isTransparent;
+    }
+  }
+
+  private applyCoolantTankTransform(): void {
+    const e = this.easeInOut(this.coolantTankProgress);
+    this.coolantTankGroup.position.set(
+      THREE.MathUtils.lerp(0.50, 0.10, e),
+      THREE.MathUtils.lerp(0.77, 0.87, e),
+      THREE.MathUtils.lerp(-0.98, -0.92, e)
+    );
+    this.coolantTankGroup.rotation.set(e * 0.12, e * 0.35, e * 0.14);
+  }
+
+  private applyFuelLinesTransform(): void {
+    const e = this.easeInOut(this.fuelLinesProgress);
+    this.fuelLinesGroup.position.set(
+      THREE.MathUtils.lerp(0.41, 0.20, e),
+      THREE.MathUtils.lerp(0.76, 0.82, e),
+      THREE.MathUtils.lerp(-1.29, -1.12, e)
+    );
+    this.fuelLinesGroup.rotation.set(0, e * 0.42, e * 0.14);
+    this.fuelLinesPlugGroup.visible = e > 0.35;
+  }
+
+  private applyFuelFilterTransform(): void {
+    const e = this.easeInOut(this.fuelFilterProgress);
+    this.fuelFilterGroup.position.set(
+      THREE.MathUtils.lerp(0.55, 0.04, e),
+      THREE.MathUtils.lerp(0.67, 0.81, e),
+      THREE.MathUtils.lerp(-1.56, -1.52, e)
+    );
+    this.fuelFilterGroup.rotation.set(e * 0.18, -e * 0.32, e * 0.45);
+  }
+
+  private applyUnderbodyTransform(): void {
+    const isGhost = Boolean(this.underbodyTrayGroup.userData.isReinstallGhost);
+    const t = this.underbodyProgress;
+    if (t >= 0.999 && !isGhost) {
+      this.underbodyTrayGroup.visible = false;
+      return;
+    }
+    this.underbodyTrayGroup.visible = true;
+
+    const e = this.easeInOut(t);
+    this.underbodyTrayGroup.position.set(0.14, 0.175 - e * 0.24, -1.36);
+
+    for (const mat of this.underbodyMaterials) {
+      if (isGhost) {
+        mat.color.setHex(0x22d3ee);
+        mat.emissive.setHex(0x0891b2);
+        mat.emissiveIntensity = 0.7;
+        mat.transparent = true;
+        mat.opacity = 0.34;
+        mat.depthWrite = false;
+      } else {
+        const alpha = 1 - Math.max(0, (t - 0.55) / 0.45);
+        mat.color.setHex(0x181c22);
+        mat.emissive.setHex(0x000000);
+        mat.emissiveIntensity = 0;
+        mat.transparent = alpha < 0.99;
+        mat.opacity = alpha;
+        mat.depthWrite = alpha >= 0.99;
+      }
+    }
+  }
+
+  private applyEngineBridgeTransform(): void {
+    const t = this.engineBridgeProgress;
+    if (t <= 0.001) {
+      this.engineBridgeGroup.visible = false;
+      return;
+    }
+    this.engineBridgeGroup.visible = true;
+    const e = this.easeInOut(t);
+    this.engineBridgeGroup.position.set(0, (1 - e) * 0.28, 0);
+  }
+
+  private applyEngineMountTransform(): void {
+    const t = this.engineMountProgress;
+    if (t >= 0.999) {
+      this.engineMountGroup.visible = false;
+      return;
+    }
+    this.engineMountGroup.visible = true;
+    const liftT = Math.min(1, t / 0.65);
+    const fadeT = Math.max(0, (t - 0.65) / 0.35);
+    const e = this.easeInOut(liftT);
+    this.engineMountGroup.position.set(0.54 + e * 0.04, 0.695 + e * 0.24, -1.32);
+    this.engineMountGroup.rotation.set(0, 0, -e * 0.16);
+
+    const alpha = 1 - fadeT;
+    const isTrans = alpha < 0.99;
+    for (const mat of this.engineMountMaterials) {
+      mat.transparent = isTrans;
+      mat.opacity = alpha;
+      mat.depthWrite = !isTrans;
     }
   }
 
@@ -2496,6 +2729,339 @@ export class Golf7Model {
     this.wheelLinerSlotGroup.add(slotAnchor);
     this.partAnchors.set('wheelLinerSlot', slotAnchor);
     this.tagInteractable(this.wheelLinerSlotGroup, 'wheelLinerSlot');
+  }
+
+  // ---------------------------------------------------------------------------
+  // Golf VII Passenger-Side (+X) Service Access, Underbody & VW 10-222 A Bridge
+  // ---------------------------------------------------------------------------
+
+  private buildGolf7ServiceAccessAndSupport(): void {
+    const rubberMat = new THREE.MeshStandardMaterial({
+      color: 0x171a20,
+      metalness: 0.08,
+      roughness: 0.82,
+    });
+    const aluMat = new THREE.MeshStandardMaterial({
+      color: 0xb7c1cd,
+      metalness: 0.82,
+      roughness: 0.34,
+    });
+    const darkAluMat = new THREE.MeshStandardMaterial({
+      color: 0x6f7985,
+      metalness: 0.72,
+      roughness: 0.44,
+    });
+    const boltMat = new THREE.MeshStandardMaterial({
+      color: 0xe2e8f0,
+      metalness: 0.92,
+      roughness: 0.18,
+    });
+    const ghostMat = new THREE.MeshStandardMaterial({
+      color: 0x22d3ee,
+      emissive: 0x0891b2,
+      emissiveIntensity: 0.75,
+      transparent: true,
+      opacity: 0.30,
+      depthWrite: false,
+    });
+
+    // 1. Passenger-side (+X) G13 Coolant Expansion Tank (`coolantTank`)
+    this.coolantTankGroup.name = 'CoolantExpansionTank';
+    this.group.add(this.coolantTankGroup);
+
+    const tankGlassMat = new THREE.MeshStandardMaterial({
+      color: 0xeef2f6,
+      roughness: 0.28,
+      metalness: 0.05,
+      transparent: true,
+      opacity: 0.78,
+    });
+    const g13PinkMat = new THREE.MeshStandardMaterial({
+      color: 0xec4899,
+      roughness: 0.32,
+      metalness: 0.04,
+    });
+    const capBlueMat = new THREE.MeshStandardMaterial({
+      color: 0x0284c7,
+      roughness: 0.38,
+      metalness: 0.1,
+    });
+
+    const tankBody = new THREE.Mesh(new THREE.SphereGeometry(0.084, 20, 16), tankGlassMat);
+    tankBody.castShadow = true;
+    const tankFluid = new THREE.Mesh(new THREE.SphereGeometry(0.072, 16, 12), g13PinkMat);
+    tankFluid.scale.set(1, 0.62, 1);
+    tankFluid.position.y = -0.015;
+    const tankSeam = new THREE.Mesh(new THREE.TorusGeometry(0.084, 0.006, 8, 24), tankGlassMat);
+    tankSeam.rotation.x = Math.PI / 2;
+    const tankNeck = new THREE.Mesh(new THREE.CylinderGeometry(0.026, 0.028, 0.026, 18), tankGlassMat);
+    tankNeck.position.y = 0.076;
+    const tankCap = new THREE.Mesh(new THREE.CylinderGeometry(0.030, 0.030, 0.022, 18), capBlueMat);
+    tankCap.position.y = 0.095;
+    // Level sensor electrical plug on rear edge (matches UseTool 02:55)
+    const sensorPlug = new THREE.Mesh(new THREE.BoxGeometry(0.028, 0.024, 0.036), rubberMat.clone());
+    sensorPlug.position.set(0.01, 0.052, 0.068);
+    // Return coolant hose stub
+    const returnHose = new THREE.Mesh(new THREE.CylinderGeometry(0.009, 0.009, 0.12, 10), rubberMat.clone());
+    returnHose.rotation.z = Math.PI / 2;
+    returnHose.position.set(-0.08, 0.02, -0.02);
+    this.coolantTankGroup.add(tankBody, tankFluid, tankSeam, tankNeck, tankCap, sensorPlug, returnHose);
+    const coolantAnchor = new THREE.Object3D();
+    coolantAnchor.position.set(0, 0.088, 0);
+    this.coolantTankGroup.add(coolantAnchor);
+    this.partAnchors.set('coolantTank', coolantAnchor);
+    this.tagInteractable(this.coolantTankGroup, 'coolantTank');
+    this.applyCoolantTankTransform();
+
+    // 2. Low-Pressure Fuel Lines & Quick-Release Couplings A & B (`fuelLines`)
+    this.fuelLinesGroup.name = 'LowPressureFuelLines';
+    this.group.add(this.fuelLinesGroup);
+
+    const couplingBlueMat = new THREE.MeshStandardMaterial({
+      color: 0x0ea5e9,
+      roughness: 0.35,
+      metalness: 0.15,
+    });
+    const couplingGreenMat = new THREE.MeshStandardMaterial({
+      color: 0x10b981,
+      roughness: 0.35,
+      metalness: 0.15,
+    });
+    const hoseMat = rubberMat.clone();
+
+    for (const [idx, zOff, colMat] of [
+      [0, -0.022, couplingBlueMat],
+      [1, +0.022, couplingGreenMat],
+    ] as const) {
+      const curve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(0.11, -0.04, -0.18 + zOff),
+        new THREE.Vector3(0.05, 0.005, -0.06 + zOff),
+        new THREE.Vector3(-0.05, 0.012, 0.02 + zOff),
+        new THREE.Vector3(-0.14, -0.015, 0.08 + zOff),
+      ]);
+      const hose = new THREE.Mesh(new THREE.TubeGeometry(curve, 16, 0.0085, 8, false), hoseMat);
+      hose.castShadow = true;
+      this.fuelLinesGroup.add(hose);
+
+      // Quick-release coupling A (blue) / B (green)
+      const coupling = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, 0.032, 14), colMat);
+      coupling.rotation.z = Math.PI / 2;
+      coupling.position.set(0.015, 0.01 + idx * 0.002, -0.01 + zOff);
+      this.fuelLinesGroup.add(coupling);
+    }
+
+    // Plastic hose clip bracket across the two hoses
+    const clipBracket = new THREE.Mesh(new THREE.BoxGeometry(0.036, 0.022, 0.068), hoseMat);
+    clipBracket.position.set(0.015, 0.008, -0.01);
+    this.fuelLinesGroup.add(clipBracket);
+
+    // Protective green/blue plugs shown once disconnected (matches UseTool 07:09!)
+    this.fuelLinesPlugGroup.visible = false;
+    for (const zOff of [-0.022, 0.022]) {
+      const plug = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.010, 0.024, 12), couplingGreenMat);
+      plug.rotation.z = Math.PI / 2;
+      plug.position.set(0.045, 0.012, -0.01 + zOff);
+      this.fuelLinesPlugGroup.add(plug);
+    }
+    this.fuelLinesGroup.add(this.fuelLinesPlugGroup);
+
+    const fuelLinesHit = new THREE.Mesh(
+      new THREE.BoxGeometry(0.24, 0.065, 0.16),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, colorWrite: false, depthWrite: false })
+    );
+    this.fuelLinesGroup.add(fuelLinesHit);
+    this.partAnchors.set('fuelLines', this.fuelLinesGroup);
+    this.tagInteractable(this.fuelLinesGroup, 'fuelLines');
+    this.applyFuelLinesTransform();
+
+    // 3. Passenger-front Diesel Fuel Filter Canister (`fuelFilter`)
+    this.fuelFilterGroup.name = 'DieselFuelFilter';
+    this.group.add(this.fuelFilterGroup);
+
+    const filterCanMat = aluMat.clone();
+    const filterLidMat = darkAluMat.clone();
+    const filterCan = new THREE.Mesh(new THREE.CylinderGeometry(0.052, 0.050, 0.145, 22), filterCanMat);
+    filterCan.castShadow = true;
+    const filterLid = new THREE.Mesh(new THREE.CylinderGeometry(0.056, 0.056, 0.018, 22), filterLidMat);
+    filterLid.position.y = 0.075;
+    const filterFlange = new THREE.Mesh(new THREE.BoxGeometry(0.115, 0.012, 0.095), filterLidMat);
+    filterFlange.position.y = 0.068;
+    this.fuelFilterGroup.add(filterCan, filterLid, filterFlange);
+    for (const [fx, fz] of [
+      [-0.02, -0.015],
+      [0.018, -0.012],
+      [0.0, 0.02],
+    ] as const) {
+      const pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.006, 0.032, 10), boltMat.clone());
+      pipe.position.set(fx, 0.095, fz);
+      this.fuelFilterGroup.add(pipe);
+    }
+    const fuelFilterAnchor = new THREE.Object3D();
+    fuelFilterAnchor.position.set(0, 0.078, 0);
+    this.fuelFilterGroup.add(fuelFilterAnchor);
+    this.partAnchors.set('fuelFilter', fuelFilterAnchor);
+    this.tagInteractable(this.fuelFilterGroup, 'fuelFilter');
+    this.applyFuelFilterTransform();
+
+    // 4. Underbody Acoustic Noise Insulation Tray (`underbodyTray`)
+    this.underbodyTrayGroup.name = 'UnderbodyNoiseInsulation';
+    this.group.add(this.underbodyTrayGroup);
+
+    const trayMat = new THREE.MeshStandardMaterial({
+      color: 0x181c22,
+      metalness: 0.08,
+      roughness: 0.86,
+      side: THREE.DoubleSide,
+    });
+    this.underbodyMaterials.push(trayMat);
+
+    const bellyPan = new THREE.Mesh(new THREE.BoxGeometry(0.86, 0.022, 0.62), trayMat);
+    bellyPan.receiveShadow = true;
+    // Right passenger-side mounting wing clearly visible from wheelWell camera
+    const rightWing = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.032, 0.44), trayMat);
+    rightWing.position.set(0.42, 0.018, -0.02);
+    rightWing.rotation.z = 0.24;
+    this.underbodyTrayGroup.add(bellyPan, rightWing);
+
+    const trayBoltMat = boltMat.clone();
+    for (const bz of [-0.18, 0.0, 0.18]) {
+      const bolt = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.014, 6), trayBoltMat);
+      bolt.position.set(0.45, 0.032, bz);
+      this.underbodyTrayGroup.add(bolt);
+    }
+
+    const underbodyAnchor = new THREE.Object3D();
+    underbodyAnchor.position.set(0.43, 0.025, -0.18);
+    this.underbodyTrayGroup.add(underbodyAnchor);
+    this.partAnchors.set('underbodyTray', underbodyAnchor);
+    this.tagInteractable(this.underbodyTrayGroup, 'underbodyTray');
+    this.applyUnderbodyTransform();
+
+    // 5. VW Engine Support Bridge `10-222 A` + Spindle & Shackle `10-222 A/12` (`engineBridge` & `engineBridgeSlot`)
+    const buildBridgeGeometry = (parent: THREE.Group, isGhost: boolean) => {
+      const barMat = isGhost
+        ? ghostMat.clone()
+        : new THREE.MeshStandardMaterial({ color: 0x0369a1, metalness: 0.62, roughness: 0.34 });
+      const steelMat = isGhost ? ghostMat.clone() : aluMat.clone();
+      const padMat = isGhost ? ghostMat.clone() : rubberMat.clone();
+      const knobMat = isGhost
+        ? ghostMat.clone()
+        : new THREE.MeshStandardMaterial({ color: 0xdc2626, metalness: 0.35, roughness: 0.42 });
+
+      // Main square transverse steel beam spanning left (-0.68) to right (+0.68) fender rails
+      const mainBeam = new THREE.Mesh(new THREE.BoxGeometry(1.40, 0.042, 0.042), barMat);
+      mainBeam.position.set(0, 0.99, -1.32);
+      mainBeam.castShadow = !isGhost;
+      parent.add(mainBeam);
+
+      // Left & right fender-rail foot adapters (10-222 A/29) with rubber wing guards
+      for (const sx of [-0.67, 0.67]) {
+        const footLeg = new THREE.Mesh(new THREE.BoxGeometry(0.048, 0.15, 0.056), steelMat);
+        footLeg.position.set(sx, 0.92, -1.32);
+        const rubberShoe = new THREE.Mesh(new THREE.BoxGeometry(0.085, 0.024, 0.14), padMat);
+        rubberShoe.position.set(sx, 0.85, -1.32);
+        parent.add(footLeg, rubberShoe);
+      }
+
+      // Sliding carriage (10-222 A/18) + threaded spindle (10-222 A/10) + red handwheel + shackle (10-222 A/12)
+      const carriage = new THREE.Mesh(new THREE.BoxGeometry(0.085, 0.062, 0.068), steelMat);
+      carriage.position.set(0.26, 0.99, -1.32);
+      const spindle = new THREE.Mesh(new THREE.CylinderGeometry(0.011, 0.011, 0.30, 14), steelMat);
+      spindle.position.set(0.26, 0.92, -1.32);
+      const handwheel = new THREE.Mesh(new THREE.TorusGeometry(0.046, 0.009, 10, 22), knobMat);
+      handwheel.rotation.x = Math.PI / 2;
+      handwheel.position.set(0.26, 1.07, -1.32);
+      const shackle = new THREE.Mesh(new THREE.TorusGeometry(0.022, 0.0055, 8, 16), steelMat);
+      shackle.position.set(0.26, 0.76, -1.32);
+      parent.add(carriage, spindle, handwheel, shackle);
+    };
+
+    this.engineBridgeGroup.name = 'EngineSupportBridge_10_222A';
+    buildBridgeGeometry(this.engineBridgeGroup, false);
+    const bridgeAnchor = new THREE.Object3D();
+    bridgeAnchor.position.set(0.26, 1.01, -1.32);
+    this.engineBridgeGroup.add(bridgeAnchor);
+    this.partAnchors.set('engineBridge', bridgeAnchor);
+    this.tagInteractable(this.engineBridgeGroup, 'engineBridge');
+    this.group.add(this.engineBridgeGroup);
+    this.applyEngineBridgeTransform();
+
+    this.engineBridgeSlotGroup.name = 'EngineBridgeSlot';
+    buildBridgeGeometry(this.engineBridgeSlotGroup, true);
+    const bridgeSlotHit = new THREE.Mesh(
+      new THREE.BoxGeometry(1.36, 0.22, 0.18),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, colorWrite: false, depthWrite: false })
+    );
+    bridgeSlotHit.position.set(0, 0.96, -1.32);
+    this.engineBridgeSlotGroup.add(bridgeSlotHit);
+    const bridgeSlotAnchor = new THREE.Object3D();
+    bridgeSlotAnchor.position.set(0.26, 1.00, -1.32);
+    this.engineBridgeSlotGroup.add(bridgeSlotAnchor);
+    this.partAnchors.set('engineBridgeSlot', bridgeSlotAnchor);
+    this.tagInteractable(this.engineBridgeSlotGroup, 'engineBridgeSlot');
+    this.engineBridgeSlotGroup.visible = false;
+    this.group.add(this.engineBridgeSlotGroup);
+
+    // 6. Right Hydraulic Engine Mount (`engineMount` & `engineMountSlot`, Rep.-Gr. 10 S. 32)
+    const buildMountGeometry = (parent: THREE.Group, isGhost: boolean) => {
+      const castMat = isGhost ? ghostMat.clone() : aluMat.clone();
+      const coreMat = isGhost ? ghostMat.clone() : rubberMat.clone();
+      const headMat = isGhost ? ghostMat.clone() : boltMat.clone();
+      if (!isGhost) {
+        this.engineMountMaterials.push(castMat, coreMat, headMat);
+      }
+
+      // Outer hydraulic mount housing bolted to right longitudinal member (X = +0.58..+0.66)
+      const outerHousing = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.068, 0.165), castMat);
+      outerHousing.position.set(0.055, 0, 0);
+      outerHousing.castShadow = !isGhost;
+      const rubberCore = new THREE.Mesh(new THREE.CylinderGeometry(0.044, 0.048, 0.055, 18), coreMat);
+      rubberCore.position.set(0.045, 0.012, 0);
+      // Inboard forged arm bridging to engine support (X = +0.44)
+      const supportArm = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.036, 0.115), castMat);
+      supportArm.position.set(-0.045, 0.018, 0);
+      supportArm.castShadow = !isGhost;
+      parent.add(outerHousing, rubberCore, supportArm);
+
+      // Pos. 4 & 6 (2× vertical bolts to frame rail: 40 Nm + 90°)
+      for (const bz of [-0.055, 0.055]) {
+        const b = new THREE.Mesh(new THREE.CylinderGeometry(0.009, 0.009, 0.022, 6), headMat);
+        b.position.set(0.088, 0.042, bz);
+        parent.add(b);
+      }
+      // Pos. 5 (lateral cross bolt: 20 Nm + 90°)
+      const crossBolt = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.024, 6), headMat);
+      crossBolt.rotation.z = Math.PI / 2;
+      crossBolt.position.set(0.118, 0.002, 0);
+      parent.add(crossBolt);
+      // Pos. 7 (2× vertical bolts mount to engine support: 60 Nm + 90°)
+      for (const bz of [-0.036, 0.036]) {
+        const b = new THREE.Mesh(new THREE.CylinderGeometry(0.010, 0.010, 0.024, 6), headMat);
+        b.position.set(-0.072, 0.044, bz);
+        parent.add(b);
+      }
+    };
+
+    this.engineMountGroup.name = 'RightEngineMount';
+    buildMountGeometry(this.engineMountGroup, false);
+    const engineMountAnchor = new THREE.Object3D();
+    engineMountAnchor.position.set(-0.045, 0.038, -0.045);
+    this.engineMountGroup.add(engineMountAnchor);
+    this.partAnchors.set('engineMount', engineMountAnchor);
+    this.tagInteractable(this.engineMountGroup, 'engineMount');
+    this.group.add(this.engineMountGroup);
+    this.applyEngineMountTransform();
+
+    this.engineMountSlotGroup.name = 'RightEngineMountSlot';
+    this.engineMountSlotGroup.position.set(0.54, 0.695, -1.32);
+    buildMountGeometry(this.engineMountSlotGroup, true);
+    const engineMountSlotAnchor = new THREE.Object3D();
+    engineMountSlotAnchor.position.set(-0.045, 0.038, -0.045);
+    this.engineMountSlotGroup.add(engineMountSlotAnchor);
+    this.partAnchors.set('engineMountSlot', engineMountSlotAnchor);
+    this.tagInteractable(this.engineMountSlotGroup, 'engineMountSlot');
+    this.engineMountSlotGroup.visible = false;
+    this.group.add(this.engineMountSlotGroup);
   }
 
   // ---------------------------------------------------------------------------
