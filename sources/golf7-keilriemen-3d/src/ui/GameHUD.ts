@@ -324,7 +324,9 @@ export class GameHUD {
       '<span><kbd>M</kbd>Ton</span>',
     ].join('');
 
-    titleCard.append(eyebrow, titleH1, titleSub, specBadge, modesGrid, controlsRow);
+    const timingLink = createEl('a', 'title-timing-link', 'Zur Zahnriemen-Werkstatt ↗');
+    timingLink.href = '../golf7-zahnriemen-3d/';
+    titleCard.append(eyebrow, titleH1, titleSub, specBadge, modesGrid, timingLink, controlsRow);
     this.titleScreenEl.append(titleCard);
 
     // ------------------------------------------------------------------

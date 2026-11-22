@@ -1826,3 +1826,11 @@ body,
     flex: 1 1 auto;
   }
 }
+
+.title-timing-link {
+  display: inline-block;
+  color: #c2f375;
+  font-size: 14px;
+  font-weight: 650;
+  text-underline-offset: 3px;
+}

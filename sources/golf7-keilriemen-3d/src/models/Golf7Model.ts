@@ -35,7 +35,7 @@ interface StrutPair {
   rod: THREE.Mesh;
 }
 
-const TORNADO_RED = new THREE.Color(0xb3141a);
+const PACIFIC_BLUE = new THREE.Color(0x1e4c92);
 const XRAY_BLUE = new THREE.Color(0x3898ff);
 
 const FRONT_AXLE_Z = -1.32;
@@ -53,7 +53,7 @@ const WHEEL_RACK_WORLD_X = 2.35;
 const WHEEL_RACK_WORLD_Z = -0.35;
 
 /**
- * Procedural 3D model of the VW Golf 7 Mk7 (1.6 TDI) in Tornado Red.
+ * Procedural 3D model of the VW Golf 7 Mk7 (1.6 TDI) in metallic blue.
  * Implements the exact coordinate contract with a truly hollow front-right wheel arch cutout
  * (X in [+0.45, +0.84], Y in [0.16, 0.78], Z in [-1.72, -0.92]) exposing X = +0.44 unobstructed.
  */
@@ -659,17 +659,17 @@ export class Golf7Model {
 
   private createPaintMaterial(isInteractable = false): THREE.MeshPhysicalMaterial {
     const mat = new THREE.MeshPhysicalMaterial({
-      color: TORNADO_RED.clone(),
-      metalness: 0.44,
-      roughness: 0.18,
+      color: PACIFIC_BLUE.clone(),
+      metalness: 0.62,
+      roughness: 0.24,
       clearcoat: 1.0,
-      clearcoatRoughness: 0.08,
+      clearcoatRoughness: 0.05,
     });
     this.exteriorPaintMaterials.push({
       material: mat,
-      baseColor: TORNADO_RED.clone(),
-      baseMetalness: 0.44,
-      baseRoughness: 0.18,
+      baseColor: PACIFIC_BLUE.clone(),
+      baseMetalness: 0.62,
+      baseRoughness: 0.24,
       baseClearcoat: 1.0,
       isInteractable,
     });
@@ -914,7 +914,7 @@ export class Golf7Model {
       rocker.position.set(side * 0.835, 0.165, 0.0);
       bodyGroup.add(rocker);
 
-      // Flush Tornado Red door handles (front & rear doors)
+      // Flush body-coloured door handles (front & rear doors)
       for (const hz of [-0.06, 0.72]) {
         const handle = new THREE.Mesh(new THREE.BoxGeometry(0.032, 0.026, 0.145), paintMat);
         handle.position.set(side * 0.865, hz < 0 ? 0.835 : 0.855, hz);
@@ -1026,7 +1026,7 @@ export class Golf7Model {
     bPillar.rotation.z = side * 0.34;
     parent.add(bPillar);
 
-    // Tornado Red A-pillar strip running from hood hinge up to roof front edge
+    // Body-coloured A-pillar strip running from hood hinge up to roof front edge
     const aPillarLen = Math.hypot(-0.21 - -0.82, 1.425 - 0.935);
     const aPillar = new THREE.Mesh(new THREE.BoxGeometry(0.048, 0.052, aPillarLen), paintMat);
     aPillar.position.set(side * 0.685, (0.935 + 1.425) * 0.5, (-0.82 + -0.21) * 0.5);
@@ -1238,7 +1238,7 @@ export class Golf7Model {
     lowerGrille.position.set(0, 0.30, -2.09);
     bumperGroup.add(lowerGrille);
 
-    // Left & right Tornado-Red bumper foglight fins
+    // Left and right body-coloured bumper foglight fins
     for (const side of [1, -1] as const) {
       const fogHousing = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.16, 0.06), glossBlackMat);
       fogHousing.position.set(side * 0.61, 0.31, -2.01);
