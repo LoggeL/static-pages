@@ -409,7 +409,7 @@ export class ToolModels {
     }
     ctx.fillStyle = '#f8fafc';
     ctx.font = 'bold 20px monospace';
-    ctx.fillText('SOLL (RLF)', 62, 92);
+    ctx.fillText('20–120 Nm', 56, 92);
     const tex = new THREE.CanvasTexture(canvas);
     tex.colorSpace = THREE.SRGBColorSpace;
     return tex;

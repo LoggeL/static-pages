@@ -1,6 +1,9 @@
-// The pitch line is shared by the 3D belt, the schematic, the wheels and the exercise.
+import { CLHA_TIMING_BELT } from './specs/clhaSpecs';
+
+// The schematic pitch line is shared by the 3D belt, the SVG schematic, the wheels and the exercise.
+// CRANK_RADIUS = 0.2855968 with schematic CRANK_TEETH = 26 matches CLHA_TIMING_BELT.teeth (145) analytically.
 export const TAU = Math.PI * 2;
-export const CRANK_RADIUS = 0.292;
+export const CRANK_RADIUS = 0.2855968;
 export const CRANK_TEETH = 26;
 
 export const wheels = [
@@ -129,7 +132,7 @@ export const sections = wheels.map((w, i) => {
 });
 
 export const loopLength = length;
-export const BELT_TEETH = Math.round(loopLength / ((TAU * CRANK_RADIUS) / CRANK_TEETH));
+export const BELT_TEETH = CLHA_TIMING_BELT.teeth;
 export const toothPitch = loopLength / BELT_TEETH;
 
 // Coordinates, unit tangent and outward normal at an exact distance around the loop.

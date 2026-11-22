@@ -1350,6 +1350,7 @@ body,
   font-weight: 800;
   line-height: 1.05;
   color: #f8fafc;
+  text-shadow: 0 2px 10px rgba(9, 14, 26, 0.92);
 }
 
 .torque-nm-value.is-in-zone {
@@ -1888,4 +1889,307 @@ body,
   font-size: 11.5px;
   line-height: 1.45;
   color: var(--text-muted);
+}
+
+/* Tool Slot Spec Sub-Label */
+
+.tool-spec {
+  font-size: 9.5px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: #7dd3fc;
+  opacity: 0.88;
+  white-space: nowrap;
+}
+
+.tool-slot.is-active .tool-spec {
+  color: #bae6fd;
+  opacity: 1;
+}
+
+/* Minigame Stage Pills, Play-Aid Caption & Retry Banner */
+
+.minigame-stage-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.stage-pill {
+  flex: 1 1 0;
+  text-align: center;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  color: var(--text-muted);
+}
+
+.stage-pill.is-active {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: rgba(56, 189, 248, 0.58);
+  color: #e0f2fe;
+}
+
+.stage-pill.is-done {
+  background: rgba(16, 185, 129, 0.18);
+  border-color: rgba(16, 185, 129, 0.52);
+  color: #6ee7b7;
+}
+
+.minigame-retry-banner {
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  background: rgba(239, 68, 68, 0.14);
+  border: 1px solid rgba(239, 68, 68, 0.45);
+  color: #fecaca;
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.minigame-retry-banner.is-retrying {
+  background: rgba(56, 189, 248, 0.14);
+  border-color: rgba(56, 189, 248, 0.45);
+  color: #bae6fd;
+}
+
+.torque-svg-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 240px;
+  height: 196px;
+}
+
+.torque-playaid-note {
+  margin-top: 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Montagewerte & Quellen Datasheet Accordion */
+
+.specs-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.specs-vehicle-line {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 7px 9px;
+  border-radius: 8px;
+  background: rgba(9, 14, 26, 0.72);
+  border: 1px solid rgba(56, 189, 248, 0.24);
+  font-size: 11px;
+  color: #e0f2fe;
+}
+
+.specs-subtitle-note {
+  font-size: 10.5px;
+  color: var(--text-muted);
+}
+
+.specs-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.specs-group-title {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cyan);
+}
+
+.specs-row {
+  padding: 6px 8px;
+  border-radius: 7px;
+  background: rgba(9, 14, 26, 0.62);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.specs-row-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.specs-part {
+  font-size: 11px;
+  font-weight: 600;
+  color: #e2e8f0;
+  line-height: 1.3;
+}
+
+.specs-val {
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 800;
+  color: #fcd34d;
+  white-space: nowrap;
+}
+
+.specs-note {
+  margin-top: 2px;
+  font-size: 10.5px;
+  line-height: 1.38;
+  color: var(--text-muted);
+}
+
+.specs-sources {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.specs-source-link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 8px;
+  border-radius: 7px;
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(56, 189, 248, 0.24);
+  text-decoration: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.specs-source-link:hover {
+  border-color: var(--cyan-bright);
+  background: rgba(56, 189, 248, 0.12);
+}
+
+.specs-source-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #7dd3fc;
+}
+
+.specs-source-link:hover .specs-source-title {
+  text-decoration: underline;
+}
+
+.specs-source-section {
+  font-size: 10px;
+  line-height: 1.35;
+  color: var(--text-muted);
+}
+
+/* Minigame Flex-Column Panel + Mobile / Compact-Viewport Overlay */
+
+.minigame-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: 100%;
+}
+
+.minigame-scroll-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
+}
+
+.minigame-panel > .minigame-hold-btn,
+.minigame-panel > .minigame-actions-row {
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+
+@media (max-width: 680px), (max-height: 620px) {
+  .hud-minigame-wrap {
+    position: fixed;
+    inset: 0;
+    width: auto;
+    max-height: none;
+    z-index: 55;
+    padding: 10px 12px calc(104px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(6, 10, 19, 0.52);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    pointer-events: none;
+  }
+
+  .hud-minigame-wrap .minigame-card {
+    display: flex;
+    flex-direction: column;
+    width: min(410px, 100%);
+    max-height: 100%;
+    overflow: hidden;
+    padding: 13px 14px 12px;
+  }
+
+  .hud-minigame-wrap .minigame-header {
+    margin-bottom: 8px;
+  }
+
+  .hud-minigame-wrap .minigame-stage-pills {
+    margin-bottom: 8px;
+  }
+
+  .hud-minigame-wrap .minigame-retry-banner {
+    margin-bottom: 8px;
+    padding: 6px 9px;
+  }
+
+  .hud-minigame-wrap .torque-gauge-box {
+    margin: 2px 0 4px;
+  }
+
+  .hud-minigame-wrap .torque-svg-wrap,
+  .hud-minigame-wrap .torque-svg {
+    width: 210px;
+    height: 172px;
+  }
+
+  .hud-minigame-wrap .torque-nm-value {
+    font-size: 26px;
+  }
+
+  .hud-minigame-wrap .minigame-hold-btn {
+    padding: 11px 14px;
+    font-size: 13px;
+  }
+}
+
+@media (max-height: 520px) {
+  .hud-minigame-wrap {
+    padding: 8px 12px calc(104px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .hud-minigame-wrap .minigame-card {
+    padding: 9px 12px;
+  }
+
+  .hud-minigame-wrap .torque-svg-wrap,
+  .hud-minigame-wrap .torque-svg {
+    width: 176px;
+    height: 144px;
+  }
+
+  .hud-minigame-wrap .torque-digital-overlay {
+    bottom: 10px;
+  }
+
+  .hud-minigame-wrap .torque-nm-value {
+    font-size: 21px;
+  }
 }

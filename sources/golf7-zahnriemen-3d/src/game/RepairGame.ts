@@ -7,6 +7,16 @@ import { EA288TimingEngine } from '../models/EA288TimingEngine';
 import { Golf7Model } from '../models/Golf7Model';
 import { ToolModels } from '../models/ToolModels';
 import { WorkshopEnvironment } from '../models/WorkshopEnvironment';
+import {
+  CLHA_FASTENING_STAGES,
+  CLHA_LOCK_TOOLS,
+  CLHA_MONTAGE_VALUES,
+  CLHA_TIMING_BELT,
+  CLHA_TIMING_CHECK,
+  formatMeasure,
+  formatSignedDelta,
+  type FasteningStageSpec,
+} from '../specs/clhaSpecs';
 import { CAMERA_PRESETS, REPAIR_STEPS, TOOL_DEFINITIONS } from '../steps/stepDefinitions';
 import type {
   CameraPresetId,
@@ -42,7 +52,7 @@ interface StoredMaterialHighlight {
 }
 
 interface PendingTorqueContext {
-  kind: 'tensioner' | 'wheel';
+  kind: FasteningStageSpec['id'];
   worldPos: THREE.Vector3;
 }
 
@@ -116,6 +126,7 @@ export class RepairGame {
   private beltRoutingProgress: TimingWheelId[] = [];
   private newBeltInstalled = false;
   private tensionPointerAligned = false;
+  private tensionerTorqueStage1Done = false;
   private tensionerTorqued = false;
   private manualCranked = false;
   private otPointerVerified = false;
@@ -127,6 +138,7 @@ export class RepairGame {
   private linerSeatedInReassembly = false;
   private linerReinstalled = false;
   private wheelReinstalled = false;
+  private wheelTorqueDone = false;
   private wheelBoltsTorqued = [false, false, false, false, false];
   private coverHoodReinstalled = false;
 
@@ -342,6 +354,10 @@ export class RepairGame {
     this.started = false;
     this.completed = false;
     this.freeInspectMode = false;
+    this.xp = 0;
+    this.elapsedSeconds = 0;
+    this.mistakes = 0;
+    this.torqueScores = [];
     this.xrayEnabled = false;
     this.golf7.setXRay(false);
     this.workLampEnabled = false;
@@ -530,7 +546,7 @@ export class RepairGame {
         this.minigame = { type: 'none' };
         this.sound.playSuccess();
         this.showToast(
-          'Spannzeiger steht exakt mittig im Referenzfenster! Jetzt Befestigung mit Drehmomentschlüssel [7] sichern.',
+          `Spannzeiger steht an der Markierung! Neue Mutter jetzt mit [7] in 2 Stufen sichern: ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm, dann ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}° weiterdrehen.`,
           'success'
         );
         this.completeSubObjective('align_tension_pointer', 80);
@@ -540,9 +556,9 @@ export class RepairGame {
         this.broadcastHud(true);
       } else if (this.tensionNormalized > this.minigame.targetMax) {
         this.sound.playError();
-        this.showToast('Riemen zu stramm! Klicke „↺ Entlasten“ und führe den Zeiger von links exakt ins Referenzfenster.', 'warning');
+        this.showToast('Riemen zu stramm! Klicke „↺ Entlasten“ und führe den Zeiger von links exakt zur Markierung.', 'warning');
       } else {
-        this.showToast('Noch zu locker — Taste gedrückt halten bis IM FENSTER! erscheint.', 'info');
+        this.showToast('Noch zu locker — Taste gedrückt halten bis AN MARKIERUNG! erscheint.', 'info');
       }
     }
   }
@@ -569,6 +585,13 @@ export class RepairGame {
     }
     if (pressing) {
       this.torquePressing = true;
+      if (this.minigame.attemptStatus === 'retry') {
+        this.minigame = {
+          ...this.minigame,
+          lastAttemptFeedback: 'Übung läuft. Im Spielhilfefenster loslassen.',
+        };
+        this.hudDirty = true;
+      }
       return;
     }
     if (!this.torquePressing) return;
@@ -668,6 +691,7 @@ export class RepairGame {
     this.linerSeatedInReassembly = false;
     this.linerReinstalled = false;
     this.wheelReinstalled = false;
+    this.wheelTorqueDone = false;
     this.wheelBoltsTorqued = [false, false, false, false, false];
     this.coverHoodReinstalled = false;
 
@@ -685,6 +709,7 @@ export class RepairGame {
       this.beltRoutingProgress = [];
       this.newBeltInstalled = false;
       this.tensionPointerAligned = false;
+      this.tensionerTorqueStage1Done = false;
       this.tensionerTorqued = false;
       this.manualCranked = false;
       this.otPointerVerified = false;
@@ -699,6 +724,7 @@ export class RepairGame {
       this.beltRoutingProgress = [];
       this.newBeltInstalled = false;
       this.tensionPointerAligned = false;
+      this.tensionerTorqueStage1Done = false;
       this.tensionerTorqued = false;
       this.manualCranked = false;
       this.otPointerVerified = false;
@@ -714,6 +740,7 @@ export class RepairGame {
       this.beltRoutingProgress = [];
       this.newBeltInstalled = false;
       this.tensionPointerAligned = false;
+      this.tensionerTorqueStage1Done = false;
       this.tensionerTorqued = false;
       this.manualCranked = false;
       this.otPointerVerified = false;
@@ -729,6 +756,7 @@ export class RepairGame {
       this.beltRoutingProgress = [];
       this.newBeltInstalled = false;
       this.tensionPointerAligned = false;
+      this.tensionerTorqueStage1Done = false;
       this.tensionerTorqued = false;
       this.manualCranked = false;
       this.otPointerVerified = false;
@@ -744,11 +772,12 @@ export class RepairGame {
       this.beltRoutingProgress = [...ROUTE_ORDER];
       this.newBeltInstalled = true;
       this.tensionPointerAligned = false;
+      this.tensionerTorqueStage1Done = false;
       this.tensionerTorqued = false;
       this.manualCranked = false;
       this.otPointerVerified = false;
     } else if (targetStep === 10) {
-      // remove_locks: new belt tensioned (0.50), torqued, 3 pins still inserted
+      // remove_locks: new belt tensioned (0.50), torqued (20 Nm + 45°), 3 pins still inserted
       this.crankAngleDeg = 720;
       this.lockedShafts = new Set(['crank', 'cam', 'pump']);
       this.tensionNormalized = 0.50;
@@ -759,6 +788,7 @@ export class RepairGame {
       this.beltRoutingProgress = [...ROUTE_ORDER];
       this.newBeltInstalled = true;
       this.tensionPointerAligned = true;
+      this.tensionerTorqueStage1Done = true;
       this.tensionerTorqued = true;
       this.manualCranked = false;
       this.otPointerVerified = false;
@@ -774,6 +804,7 @@ export class RepairGame {
       this.beltRoutingProgress = [...ROUTE_ORDER];
       this.newBeltInstalled = true;
       this.tensionPointerAligned = true;
+      this.tensionerTorqueStage1Done = true;
       this.tensionerTorqued = true;
       this.manualCranked = targetStep >= 12;
       this.otPointerVerified = targetStep >= 12;
@@ -930,9 +961,10 @@ export class RepairGame {
       case 'engineCover':
         return {
           id,
-          label: 'TDI-Motorabdeckung',
-          partNumber: 'EA288 1.6 TDI',
-          status: this.engineCoverRemoved ? 'Demontiert' : 'Aufgesteckt',
+          label: 'TDI-Motorabdeckung (EA288 CLHA)',
+          partNumber: 'Gesteckt',
+          status: this.engineCoverRemoved ? 'Demontiert' : 'Auf Gummizapfen gesteckt',
+          hint: 'Senkrecht abziehen bzw. aufstecken',
         };
       case 'lugBolt_0':
       case 'lugBolt_1':
@@ -943,24 +975,28 @@ export class RepairGame {
         return {
           id,
           label: `Radschraube #${idx + 1} (SW 17)`,
+          partNumber: `Montage: ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm`,
           status: this.lugBoltsRemoved[idx]
             ? 'Gelöst'
             : this.wheelBoltsTorqued[idx]
-              ? 'Angezogen (RLF)'
-              : 'Montiert',
+              ? `Angezogen: ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm`
+              : `Serienrad, je ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm`,
+          hint: 'Über Kreuz anziehen, einstufig',
         };
       }
       case 'frontRightWheel':
         return {
           id,
-          label: 'Vorderrad rechts (17" VW Dijon)',
+          label: 'Serienrad vorne rechts (17" VW Dijon)',
+          partNumber: `5× ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm`,
           status: this.wheelRemoved ? 'Auf Reifenständer' : 'Auf Radnabe',
+          hint: `Montage: je ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm über Kreuz, einstufig`,
         };
       case 'wheelHub':
         return {
           id,
           label: 'Radnabe & Bremsscheibe VR',
-          hint: this.stepIndex === 12 && this.wheelRemoved ? 'Klicken um Vorderrad aufzusetzen' : undefined,
+          hint: this.stepIndex === 12 && this.wheelRemoved ? 'Klicken um Serienrad aufzusetzen' : undefined,
         };
       case 'linerScrew_0':
       case 'linerScrew_1':
@@ -971,154 +1007,191 @@ export class RepairGame {
         const idx = Number(id.split('_')[1]);
         return {
           id,
-          label: `Torx-Schraube T25 #${idx + 1}`,
-          status: this.linerScrewsRemoved[idx] ? 'Entfernt' : 'Verschraubt',
+          label: `Radhausschale T25 #${idx + 1}`,
+          partNumber: `Montage: ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm`,
+          status: this.linerScrewsRemoved[idx]
+            ? 'Entfernt'
+            : `Vorderteil, je ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm`,
         };
       }
       case 'wheelLiner':
         return {
           id,
           label: 'Radhausschale vorne rechts',
+          partNumber: `6× T25 • je ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm`,
           status: this.linerRemoved ? 'Ausgebaut' : 'Montiert',
         };
       case 'wheelLinerSlot':
         return {
           id,
-          label: 'Einbauposition Radhausschale',
-          hint: 'Mit Hand [1] einsetzen, dann 6× Torx T25 [3] verschrauben',
+          label: 'Einbauposition Radhausschale vorn',
+          partNumber: `6× T25 • je ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm`,
+          hint: `Mit Hand [1] einsetzen, dann 6× T25 [3] mit je ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm`,
         };
       case 'timingCoverBolt_0':
-      case 'timingCoverBolt_1': {
-        const idx = Number(id.split('_')[1]);
         return {
           id,
-          label: `Zahnriemenabdeckung — Befestigung #${idx + 1}`,
-          partNumber: 'Torx T25',
-          status: this.timingCoverBoltsRemoved[idx] ? 'Gelöst' : 'Verschraubt',
+          label: 'Zahnriemenabdeckung — obere Halterung',
+          partNumber: 'T25 • zusammengefasst',
+          status: this.timingCoverBoltsRemoved[0] ? 'Gelöst' : 'Befestigt',
+          hint: 'Gehäuseteile im Modell zusammengefasst dargestellt',
         };
-      }
+      case 'timingCoverBolt_1':
+        return {
+          id,
+          label: 'Unterer Zahnriemenschutz — Bundschraube',
+          partNumber: `Montage: ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm`,
+          status: this.timingCoverBoltsRemoved[1]
+            ? 'Gelöst'
+            : `Unverlierbare Bundschraube (${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm)`,
+          hint: `Montagewert unterer Zahnriemenschutz: ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm`,
+        };
       case 'timingCover':
         return {
           id,
-          label: 'Zahnriemenabdeckung (EA288)',
-          partNumber: 'Steuertrieb-Schutz',
+          label: 'Zahnriemenabdeckung (EA288, zusammengefasst)',
+          partNumber: `Unten: ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm`,
           status: this.timingCoverRemoved ? 'Demontiert' : 'Montiert',
+          hint: `Bundschraube unten: ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm (Gehäuseteile zusammengefasst)`,
         };
       case 'timingCoverSlot':
         return {
           id,
           label: 'Einbauposition Zahnriemenabdeckung',
-          hint: 'Mit Hand [1] ansetzen, dann mit Torx T25 [3] sichern',
+          partNumber: `Unten: ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm`,
+          hint: `Mit Hand [1] ansetzen, mit T25 [3] sichern (Bundschraube unten: ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm)`,
         };
       case 'oldTimingBelt':
         return {
           id,
-          label: 'Alter Zahnriemen (EA288)',
-          partNumber: 'Steuerriemen',
+          label: 'Alter Zahnriemen (EA288 CLHA)',
+          partNumber: CLHA_TIMING_BELT.shortSpec,
           status: this.oldTensionerReleased ? 'Entspannt' : 'Unter Spannung',
+          hint: `Nockenwellen-Zahnriemen: ${CLHA_TIMING_BELT.specLabel}`,
         };
       case 'newTimingBeltSlot':
         return {
           id,
           label: 'Zahnriemen-Führungsspur (7 Stationen)',
-          hint: 'Räder in Reihenfolge 1 → 7 mit dem neuen Zahnriemen [8] anklicken',
+          partNumber: CLHA_TIMING_BELT.shortSpec,
+          hint: `Neuen Zahnriemen (${CLHA_TIMING_BELT.specLabel}) in Folge 1 → 7 auflegen [8]`,
         };
       case 'wheel_crank':
         return {
           id,
           label: 'Kurbelwellenrad (KW)',
-          partNumber: 'Station 1 • 2:1 Antrieb',
+          partNumber: `Stopp ${CLHA_LOCK_TOOLS.crank.code}`,
           status: this.lockedShafts.has('crank')
-            ? 'Mit Absteckdorn arretiert'
+            ? `Mit ${CLHA_LOCK_TOOLS.crank.code} arretiert`
             : isAtOT(this.crankAngleDeg, 4)
-              ? 'OT-Marke fluchtet (720°)'
+              ? `OT-Marke fluchtet (${CLHA_TIMING_CHECK.crankDegrees}°)`
               : `Winkel ${Math.round(this.crankAngleDeg)}°`,
+          hint: `Ref. Schwingungsdämpfer außen: neue Schrauben je ${CLHA_MONTAGE_VALUES.crankDamperOuterTorqueNm} Nm + ${CLHA_MONTAGE_VALUES.crankDamperOuterAngleDeg}°`,
         };
       case 'wheel_lower':
         return {
           id,
           label: 'Untere Umlenkrolle',
-          partNumber: 'Station 2 • Riemenrücken',
-          status: this.idlersChecked.lower ? 'Lager geprüft' : 'Umlenkrolle Zugtrum',
+          partNumber: `Ref.: ${CLHA_MONTAGE_VALUES.idlerNutNm} Nm`,
+          status: this.idlersChecked.lower ? 'Lagerprüfung OK' : 'Lagerprüfung (Ansicht)',
+          hint: `Referenzwert: Umlenkrolle mit Mutter / Schraube je ${CLHA_MONTAGE_VALUES.idlerNutNm} Nm`,
         };
       case 'wheel_tensioner':
         return {
           id,
           label: 'Exzenter-Spannrolle & Referenzfenster',
-          partNumber: 'Station 3 • Spannzeiger',
+          partNumber: `${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm + ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}° • kalt`,
           status:
             Math.abs(this.tensionNormalized - 0.5) <= 0.04
-              ? 'Zeiger mittig im Fenster'
+              ? 'Zeigermitte (Motor kalt)'
               : this.tensionNormalized < 0.25
                 ? 'Entlastet'
-                : 'Nicht zentriert',
+                : 'Ausrichten',
+          hint: `Voranzug ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm, Drehwinkel ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}° • Nachprüfung ${CLHA_TIMING_CHECK.crankDegrees}°: max. ${CLHA_TIMING_CHECK.pointerRecheckMaxOffsetMm} mm seitlich`,
         };
       case 'tensionerNut':
         return {
           id,
-          label: 'Spannrollen-Befestigung',
-          partNumber: 'Sollbereich (RLF)',
-          status: this.tensionerTorqued ? 'Angezogen (RLF)' : 'Offen / Einstellbar',
+          label: 'Spannrollen-Mutter (erneuern)',
+          partNumber: `${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm + ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}°`,
+          status: this.tensionerTorqued
+            ? `Angezogen: ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm + ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}°`
+            : this.tensionerTorqueStage1Done
+              ? `Voranzug ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm OK • Drehwinkel ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}° offen`
+              : `Voranzug ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm, dann Drehwinkel ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}°`,
+          hint:
+            this.stepIndex === 9 && this.tensionPointerAligned && !this.tensionerTorqued
+              ? !this.tensionerTorqueStage1Done
+                ? `Mit [7] Stufe 1/2: Voranzug ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm`
+                : `Mit [7] Stufe 2/2: Drehwinkel ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}°`
+              : 'Einstellung bei kaltem Motor • Mutter erneuern',
         };
       case 'wheel_cam':
         return {
           id,
-          label: 'Nockenwellenrad (NW)',
-          partNumber: 'Station 4 • 2:1 (360°)',
+          label: 'Nockenwellenrad (NW • 2:1)',
+          partNumber: `Dorn ${CLHA_LOCK_TOOLS.cam.code}`,
           status: this.lockedShafts.has('cam')
-            ? 'Mit Absteckdorn arretiert'
+            ? `Mit ${CLHA_LOCK_TOOLS.cam.code} arretiert`
             : isAtOT(this.crankAngleDeg, 4)
-              ? 'OT-Marke fluchtet'
+              ? `OT-Marke fluchtet (${CLHA_TIMING_CHECK.camDegrees}° NW)`
               : 'Dreht mit halber KW-Drehzahl',
+          hint: `Ref. Zentralschraube: Voranzug ${CLHA_MONTAGE_VALUES.camshaftCenterPreNm} Nm, nach ${CLHA_TIMING_CHECK.crankDegrees}° Endanzug ${CLHA_MONTAGE_VALUES.camshaftCenterFinalNm} Nm (Gegenhalter); Fixierschraube ${CLHA_MONTAGE_VALUES.camshaftFixBoltNm} Nm`,
         };
       case 'wheel_upper':
         return {
           id,
           label: 'Obere Umlenkrolle',
-          partNumber: 'Station 5 • Riemenrücken',
-          status: this.idlersChecked.upper ? 'Lager geprüft' : 'Umlenkrolle NW ↔ HDP',
+          partNumber: `Ref.: ${CLHA_MONTAGE_VALUES.idlerBoltNm} Nm`,
+          status: this.idlersChecked.upper ? 'Lagerprüfung OK' : 'Lagerprüfung (Ansicht)',
+          hint: `Referenzwert: Umlenkrolle mit Mutter / Schraube je ${CLHA_MONTAGE_VALUES.idlerBoltNm} Nm`,
         };
       case 'wheel_pump':
         return {
           id,
           label: 'Hochdruckpumpenrad (Common-Rail)',
-          partNumber: 'Station 6 • Verzahnt',
+          partNumber: `Dorn ${CLHA_LOCK_TOOLS.pump.code}`,
           status: this.lockedShafts.has('pump')
-            ? 'Mit Absteckdorn arretiert'
+            ? `Mit ${CLHA_LOCK_TOOLS.pump.code} arretiert`
             : isAtOT(this.crankAngleDeg, 4)
               ? 'OT-Marke fluchtet'
               : 'Synchron zu Kurbelwelle',
+          hint: `Ref. Mutter: Voranzug ${CLHA_MONTAGE_VALUES.hpPumpNutPreNm} Nm, nach ${CLHA_TIMING_CHECK.crankDegrees}° Endanzug ${CLHA_MONTAGE_VALUES.hpPumpNutFinalNm} Nm (Gegenhalter, ${CLHA_LOCK_TOOLS.pump.code} nur Absteckdorn)`,
         };
       case 'wheel_water':
         return {
           id,
-          label: 'Kühlmittelpumpe (Wasserpumpe)',
-          partNumber: 'Station 7 • Riemenrücken',
-          status: this.waterPumpChecked ? 'Lager geprüft' : 'Antrieb über Riemenrücken',
+          label: 'Kühlmittelpumpe (schaltbar)',
+          partNumber: `Ref.: ${CLHA_MONTAGE_VALUES.waterPumpHousingBoltsCount}× ${CLHA_MONTAGE_VALUES.waterPumpHousingTorqueNm} Nm+${CLHA_MONTAGE_VALUES.waterPumpHousingAngleDeg}°`,
+          status: this.waterPumpChecked ? 'Lagerprüfung OK' : 'Lagerprüfung (Riemenrücken)',
+          hint: `Ref. Pumpentausch: ${CLHA_MONTAGE_VALUES.waterPumpHousingBoltsCount} neue Schrauben je ${CLHA_MONTAGE_VALUES.waterPumpHousingTorqueNm} Nm + ${CLHA_MONTAGE_VALUES.waterPumpHousingAngleDeg}°; Kühlmittelventil ${CLHA_MONTAGE_VALUES.waterPumpValveBoltNm} Nm`,
         };
       case 'lockPin_crank':
         return {
           id,
-          label: 'Absteckdorn Kurbelwelle',
-          partNumber: 'OT-Arretierung',
-          status: 'Gesteckt',
-          hint: this.stepIndex === 10 ? 'Mit Absteckdorn-Satz [5] herausziehen' : undefined,
+          label: CLHA_LOCK_TOOLS.crank.name,
+          partNumber: `VW ${CLHA_LOCK_TOOLS.crank.code}`,
+          status: 'Gesteckt (OT)',
+          hint: this.stepIndex === 10 ? 'Mit Absteckwerkzeug [5] herausziehen' : undefined,
         };
       case 'lockPin_cam':
         return {
           id,
-          label: 'Absteckdorn Nockenwelle',
-          partNumber: 'OT-Arretierung',
-          status: 'Gesteckt',
-          hint: this.stepIndex === 10 ? 'Mit Absteckdorn-Satz [5] herausziehen' : undefined,
+          label: CLHA_LOCK_TOOLS.cam.name,
+          partNumber: `VW ${CLHA_LOCK_TOOLS.cam.code}`,
+          status: 'Gesteckt (OT)',
+          hint: this.stepIndex === 10 ? 'Mit Absteckwerkzeug [5] herausziehen' : undefined,
         };
       case 'lockPin_pump':
         return {
           id,
-          label: 'Absteckdorn Hochdruckpumpe',
-          partNumber: 'OT-Arretierung',
-          status: 'Gesteckt',
-          hint: this.stepIndex === 10 ? 'Mit Absteckdorn-Satz [5] herausziehen' : undefined,
+          label: CLHA_LOCK_TOOLS.pump.name,
+          partNumber: `VW ${CLHA_LOCK_TOOLS.pump.code}`,
+          status: 'Gesteckt (OT)',
+          hint:
+            this.stepIndex === 10
+              ? 'Mit Absteckwerkzeug [5] herausziehen'
+              : 'Reines Absteckwerkzeug (Gegenhalter separat verwenden)',
         };
     }
   }
@@ -1601,9 +1674,10 @@ export class RepairGame {
       this.minigame = {
         type: 'ot',
         crankDeg: this.crankAngleDeg,
-        targetDeg: 720,
-        toleranceDeg: 4,
-        aligned: isAtOT(this.crankAngleDeg, 4),
+        targetDeg: CLHA_TIMING_CHECK.crankDegrees,
+        toleranceDeg: CLHA_TIMING_CHECK.otPlayWindowDeg,
+        unit: '°',
+        aligned: isAtOT(this.crankAngleDeg, CLHA_TIMING_CHECK.otPlayWindowDeg),
       };
       this.updateLiveTools();
       this.showToast('KW-Knarre angesetzt — Taste/[Leertaste] halten bis OT FLUCHTET (720°)!', 'info');
@@ -1622,7 +1696,9 @@ export class RepairGame {
     };
     const shaft = mapWheel[id];
     if (!shaft) {
-      this.wrongTargetFeedback('Arretiere Kurbelwelle, Nockenwelle und Hochdruckpumpe mit dem Absteckdorn-Satz [5].');
+      this.wrongTargetFeedback(
+        `Arretiere Kurbelwelle (${CLHA_LOCK_TOOLS.crank.code}), Nockenwelle (${CLHA_LOCK_TOOLS.cam.code}) und Hochdruckpumpe (${CLHA_LOCK_TOOLS.pump.code}) mit [5].`
+      );
       return;
     }
     if (this.lockedShafts.has(shaft)) return;
@@ -1634,12 +1710,8 @@ export class RepairGame {
     this.toolModels.playToolAction('lockingPins', pos, 0.52);
     this.sound.playPinLock();
 
-    const names: Record<LockableWheelId, string> = {
-      crank: 'Kurbelwelle',
-      cam: 'Nockenwelle',
-      pump: 'Hochdruckpumpe',
-    };
-    this.showToast(`${names[shaft]} sicher in OT-Stellung abgesteckt!`, 'success');
+    const toolInfo = CLHA_LOCK_TOOLS[shaft];
+    this.showToast(`${toolInfo.name} sicher in OT-Stellung eingesetzt!`, 'success');
     this.completeSubObjective(`lock_${shaft}`, 50);
   }
 
@@ -1779,6 +1851,30 @@ export class RepairGame {
     this.completeSubObjective(`route_${clicked}`, 35);
   }
 
+  private openFasteningStage(stageId: FasteningStageSpec['id'], worldPos: THREE.Vector3): void {
+    const spec = CLHA_FASTENING_STAGES[stageId];
+    this.pendingTorque = { kind: stageId, worldPos: worldPos.clone() };
+    this.torquePressing = false;
+    this.minigame = {
+      type: 'torque',
+      stageKind: spec.stageKind,
+      stageIndex: spec.stageIndex,
+      stageTotal: spec.stageTotal,
+      unit: spec.unit,
+      targetValue: spec.targetValue,
+      inputWindow: spec.inputWindow,
+      maxValue: spec.maxValue,
+      scaleTicks: [...spec.scaleTicks],
+      decimals: spec.decimals,
+      currentValue: 0,
+      label: spec.label,
+      boltLabel: spec.boltLabel,
+      specNote: spec.specNote,
+      attemptStatus: 'ready',
+      active: true,
+    };
+  }
+
   private handleStep9SetTension(id: InteractableId): void {
     if ((id === 'wheel_tensioner' || id === 'tensionerNut') && !this.tensionPointerAligned) {
       if (!this.requireTool('eccentricKey')) return;
@@ -1792,25 +1888,22 @@ export class RepairGame {
         mode: 'set',
       };
       this.updateLiveTools();
-      this.showToast('Exzenter-Schlüssel angesetzt — Zeiger ins grüne Referenzfenster führen!', 'info');
+      this.showToast('Exzenter-Schlüssel angesetzt (Motor kalt) — Spannzeiger zur Markierung führen!', 'info');
       this.broadcastHud(true);
       return;
     }
 
-    if ((id === 'tensionerNut' || id === 'wheel_tensioner') && this.tensionPointerAligned && !this.tensionerTorqued) {
+    if (
+      (id === 'tensionerNut' || id === 'wheel_tensioner') &&
+      this.tensionPointerAligned &&
+      !this.tensionerTorqued
+    ) {
       if (!this.requireTool('torqueWrench')) return;
       const pos = this.getInteractableWorldPos('tensionerNut') ?? this.engine.getWheelWorldPos('tensioner');
-      this.pendingTorque = { kind: 'tensioner', worldPos: pos };
-      this.minigame = {
-        type: 'torque',
-        targetPct: 100,
-        tolerancePct: 6,
-        maxPct: 135,
-        currentPct: 0,
-        label: 'Exzenter-Spannrolle sichern',
-        boltLabel: 'Spannrollen-Befestigung (Sollbereich nach VW-RLF)',
-        active: true,
-      };
+      const nextStage: FasteningStageSpec['id'] = this.tensionerTorqueStage1Done
+        ? 'tensioner_angle'
+        : 'tensioner_torque';
+      this.openFasteningStage(nextStage, pos);
       this.sound.playClick();
       this.broadcastHud(true);
       return;
@@ -1818,8 +1911,10 @@ export class RepairGame {
 
     this.wrongTargetFeedback(
       !this.tensionPointerAligned
-        ? 'Stelle zuerst den Spannzeiger mit dem Exzenter-Schlüssel [6] mittig ins Referenzfenster.'
-        : 'Ziehe die Spannrollen-Befestigung mit dem Drehmomentschlüssel [7] im Sollbereich (RLF) an.'
+        ? 'Stelle zuerst den Spannzeiger bei kaltem Motor mit dem Exzenter-Schlüssel [6] zur Markierung.'
+        : !this.tensionerTorqueStage1Done
+          ? `Ziehe die neue Spannrollen-Mutter mit [7] in Stufe 1/2 auf ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm an.`
+          : `Drehe die Spannrollen-Mutter mit [7] in Stufe 2/2 separat um ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}° weiter.`
     );
   }
 
@@ -1834,7 +1929,9 @@ export class RepairGame {
     };
     const shaft = mapId[id];
     if (!shaft || !this.lockedShafts.has(shaft)) {
-      this.wrongTargetFeedback('Ziehe alle 3 roten Absteckdorne (KW, NW, HDP) mit dem Absteckdorn-Satz [5] heraus.');
+      this.wrongTargetFeedback(
+        `Ziehe alle 3 Absteckwerkzeuge (${CLHA_LOCK_TOOLS.crank.code}, ${CLHA_LOCK_TOOLS.cam.code}, ${CLHA_LOCK_TOOLS.pump.code}) mit [5] heraus.`
+      );
       return;
     }
     if (!this.requireTool('lockingPins')) return;
@@ -1845,12 +1942,7 @@ export class RepairGame {
     this.toolModels.playToolAction('lockingPins', pos, 0.48);
     this.sound.playPinLock();
 
-    const names: Record<LockableWheelId, string> = {
-      crank: 'Kurbelwelle',
-      cam: 'Nockenwelle',
-      pump: 'Hochdruckpumpe',
-    };
-    this.showToast(`Absteckdorn ${names[shaft]} entfernt!`, 'success');
+    this.showToast(`${CLHA_LOCK_TOOLS[shaft].name} entfernt!`, 'success');
     this.completeSubObjective(`unlock_${shaft}`, 45);
   }
 
@@ -1942,7 +2034,10 @@ export class RepairGame {
           }, i * 200);
         }
         this.golf7.setGhostSlotVisible('wheelLinerSlot', true);
-        this.showToast('Zahnriemenabdeckung gesichert! Jetzt Radhausschale einsetzen [1].', 'success');
+        this.showToast(
+          `Zahnriemenabdeckung gesichert (unterer Schutz Bundschraube: ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm)! Jetzt Radhausschale einsetzen [1].`,
+          'success'
+        );
         this.completeSubObjective('reinstall_timing_cover', 50);
         this.selectCamera('wheelWell');
         if (this.mode === 'guide') {
@@ -1953,13 +2048,13 @@ export class RepairGame {
 
       this.wrongTargetFeedback(
         this.timingCoverSeatedInReassembly
-          ? 'Verschraube die Zahnriemenabdeckung mit Torx T25 [3].'
+          ? `Sichere die Zahnriemenabdeckung mit Torx T25 [3] (unterer Schutz Bundschraube: ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm).`
           : 'Setze zuerst die Zahnriemenabdeckung mit der Hand [1] wieder auf den Steuertrieb.'
       );
       return;
     }
 
-    // 2. Insert wheel liner + 6x T25
+    // 2. Insert wheel liner + 6x T25 (je 2 Nm)
     if (!this.linerReinstalled) {
       if (id === 'wheelLinerSlot' && !this.linerSeatedInReassembly) {
         if (!this.requireTool('hand')) return;
@@ -1968,7 +2063,10 @@ export class RepairGame {
         this.golf7.setLinerRemoved(false);
         this.golf7.setGhostSlotVisible('wheelLinerSlot', false);
         this.sound.playSuccess();
-        this.showToast('Radhausschale eingesetzt — jetzt mit Torx T25 [3] die 6 Schrauben festdrehen!', 'info');
+        this.showToast(
+          `Radhausschale eingesetzt — jetzt mit Torx T25 [3] die 6 Schrauben festdrehen (je ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm)!`,
+          'info'
+        );
         if (this.mode === 'guide') {
           this.activeTool = 'torx25';
         }
@@ -1990,7 +2088,10 @@ export class RepairGame {
             if (i % 2 === 0) this.sound.playScrewdriver();
           }, i * 110);
         }
-        this.showToast('6× Torx T25 verschraubt! Setze nun das Vorderrad auf die Radnabe [1].', 'success');
+        this.showToast(
+          `6× Torx T25 (je ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm) verschraubt! Setze nun das Serienrad auf die Radnabe [1].`,
+          'success'
+        );
         this.completeSubObjective('reinstall_liner', 45);
         if (this.mode === 'guide') {
           this.activeTool = 'hand';
@@ -2000,7 +2101,7 @@ export class RepairGame {
 
       this.wrongTargetFeedback(
         this.linerSeatedInReassembly
-          ? 'Befestige die eingesetzte Radhausschale mit dem Torx-Schraubendreher T25 [3].'
+          ? `Befestige die eingesetzte Radhausschale mit Torx T25 [3] (je ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm).`
           : 'Setze zuerst die Radhausschale mit der Hand [1] in den Radkasten ein.'
       );
       return;
@@ -2018,39 +2119,34 @@ export class RepairGame {
           this.golf7.setLugBoltRemoved(i, false);
         }
         this.sound.playSuccess();
-        this.showToast('Vorderrad aufgesetzt! Ziehe die 5 Radschrauben mit dem Drehmomentschlüssel [7] über Kreuz an.', 'success');
+        this.showToast(
+          `Serienrad aufgesetzt! Ziehe die 5 Radschrauben mit [7] über Kreuz mit je ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm (ohne Winkelstufe) an.`,
+          'success'
+        );
         this.completeSubObjective('reinstall_wheel', 45);
         if (this.mode === 'guide') {
           this.activeTool = 'torqueWrench';
         }
         return;
       }
-      this.wrongTargetFeedback('Klicke die Radnabe mit der Hand [1] an, um das Vorderrad aufzusetzen.');
+      this.wrongTargetFeedback('Klicke die Radnabe mit der Hand [1] an, um das Serienrad aufzusetzen.');
       return;
     }
 
-    // 4. Torque 5 lug bolts in star pattern
-    if (!this.wheelBoltsTorqued.every(Boolean)) {
+    // 4. Torque 5 lug bolts in star pattern (Sammelübung je 120 Nm — guarded against double click / double XP)
+    if (!this.wheelTorqueDone) {
       if (id.startsWith('lugBolt_') || id === 'frontRightWheel') {
         if (!this.requireTool('torqueWrench')) return;
         const targetBoltId = id.startsWith('lugBolt_') ? id : 'lugBolt_0';
         const pos = this.getInteractableWorldPos(targetBoltId) ?? new THREE.Vector3(0.76, 0.32, -1.32);
-        this.pendingTorque = { kind: 'wheel', worldPos: pos };
-        this.minigame = {
-          type: 'torque',
-          targetPct: 100,
-          tolerancePct: 7,
-          maxPct: 135,
-          currentPct: 0,
-          label: 'Vorderrad rechts (über Kreuz)',
-          boltLabel: '5× Radschrauben (Sollbereich nach VW-RLF)',
-          active: true,
-        };
+        this.openFasteningStage('wheel', pos);
         this.sound.playClick();
         this.broadcastHud(true);
         return;
       }
-      this.wrongTargetFeedback('Ziehe die Radschrauben mit dem Drehmomentschlüssel [7] über Kreuz an.');
+      this.wrongTargetFeedback(
+        `Ziehe die 5 Radschrauben mit dem Drehmomentschlüssel [7] über Kreuz mit je ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm an.`
+      );
       return;
     }
 
@@ -2067,11 +2163,11 @@ export class RepairGame {
           this.golf7.setHoodOpen(false);
           this.sound.playClick();
         }, 420);
-        this.showToast('Motorabdeckung montiert & Haube geschlossen — jetzt Hebebühne ablassen!', 'success');
+        this.showToast('TDI-Motorabdeckung aufgesteckt (ohne Schrauben) & Haube geschlossen — jetzt Hebebühne ablassen!', 'success');
         this.completeSubObjective('reinstall_cover_hood', 50);
         return;
       }
-      this.wrongTargetFeedback('Klicke die Motorhaube [1] an, um Abdeckung einzusetzen und die Haube zu schließen.');
+      this.wrongTargetFeedback('Klicke die Motorhaube [1] an, um die gesteckte Abdeckung aufzusetzen und die Haube zu schließen.');
       return;
     }
 
@@ -2106,15 +2202,65 @@ export class RepairGame {
   // Minigame Resolution
   // =========================================================================
 
+  private recordTorqueScore(entry: TorqueScore): void {
+    const existingIdx = this.torqueScores.findIndex((s) => s.label === entry.label);
+    if (existingIdx >= 0) {
+      const prev = this.torqueScores[existingIdx];
+      this.torqueScores[existingIdx] = entry;
+      if (entry.xp > prev.xp) {
+        this.xp += entry.xp - prev.xp;
+      }
+    } else {
+      this.torqueScores.push(entry);
+      this.xp += entry.xp;
+    }
+  }
+
   private finalizeTorqueAttempt(): void {
     if (this.minigame.type !== 'torque' || !this.pendingTorque) return;
-    const { targetPct, tolerancePct, currentPct, label } = this.minigame;
+    const {
+      targetValue,
+      inputWindow,
+      currentValue,
+      unit,
+      decimals,
+      stageKind,
+    } = this.minigame;
     const ctx = this.pendingTorque;
+    const spec = CLHA_FASTENING_STAGES[ctx.kind];
 
-    if (currentPct < targetPct * 0.45) {
-      this.minigame = { ...this.minigame, currentPct: 0 };
+    const delta = currentValue - targetValue;
+    const absDelta = Math.abs(delta);
+    const achievedStr = formatMeasure(currentValue, unit, decimals);
+    const targetStr = formatMeasure(targetValue, unit, 0);
+
+    // Unpassende Versuche werden NICHT als erfolgreiche Montage gewertet -> Übung zurücksetzen
+    if (absDelta > inputWindow) {
+      const tooLow = currentValue < targetValue;
+      const isSeriousAttempt = currentValue >= targetValue * 0.25;
+      if (isSeriousAttempt) {
+        this.mistakes += 1;
+      }
       this.sound.playError();
-      this.showToast('Taste gedrückt halten, bis der grüne Sollbereich (100 % RLF) erreicht ist!', 'warning');
+
+      const feedback = !isSeriousAttempt
+        ? `Halten, bis ${targetStr} im Spielhilfefenster liegt.`
+        : stageKind === 'angle'
+          ? tooLow
+            ? `${achievedStr} zu kurz. Winkelübung zurückgesetzt. Ziele erneut auf ${targetStr}.`
+            : `${achievedStr} überschritten. Winkelübung zurückgesetzt. Ziele erneut auf ${targetStr}.`
+          : tooLow
+            ? `${achievedStr} zu gering. Übung zurückgesetzt. Ziele erneut auf ${targetStr}.`
+            : `${achievedStr} überschritten. Übung zurückgesetzt. Ziele erneut auf ${targetStr}.`;
+
+      this.minigame = {
+        ...this.minigame,
+        currentValue: 0,
+        attemptStatus: 'retry',
+        lastAttemptValue: Number(currentValue.toFixed(decimals)),
+        lastAttemptFeedback: feedback,
+      };
+      this.showToast(feedback, isSeriousAttempt ? 'error' : 'warning');
       this.broadcastHud(true);
       return;
     }
@@ -2122,48 +2268,48 @@ export class RepairGame {
     this.sound.playTorqueClick();
     this.toolModels.playToolAction('torqueWrench', ctx.worldPos, 0.72);
 
-    const delta = currentPct - targetPct;
-    const absDelta = Math.abs(delta);
-    let rating: TorqueScore['rating'];
-    let scoreXp: number;
-
-    if (absDelta <= tolerancePct * 0.5) {
-      rating = 'Perfekt';
-      scoreXp = 100;
-    } else if (absDelta <= tolerancePct) {
-      rating = 'Gut';
-      scoreXp = 75;
-    } else if (absDelta <= tolerancePct * 2) {
-      rating = 'Akzeptabel';
-      scoreXp = 45;
-    } else {
-      rating = 'Daneben';
-      scoreXp = 15;
-      this.mistakes += 1;
-    }
+    const rating: TorqueScore['rating'] = absDelta <= inputWindow * 0.5 ? 'Perfekt' : 'Gut';
+    const scoreXp = rating === 'Perfekt' ? 100 : 75;
 
     const scoreEntry: TorqueScore = {
-      label,
-      targetLabel: 'Soll RLF',
-      achievedPct: Number(currentPct.toFixed(1)),
-      deltaPct: Number(delta.toFixed(1)),
+      label: spec.scoreLabel,
+      stageKind,
+      unit,
+      targetValue,
+      targetLabel: spec.targetLabel,
+      achievedValue: Number(currentValue.toFixed(decimals)),
+      deltaValue: Number(delta.toFixed(decimals)),
+      decimals,
       rating,
       xp: scoreXp,
     };
-    this.torqueScores.push(scoreEntry);
-    this.xp += scoreXp;
+    this.recordTorqueScore(scoreEntry);
+
+    if (ctx.kind === 'tensioner_torque') {
+      this.tensionerTorqueStage1Done = true;
+      this.completeSubObjective('torque_tensioner_stage1', 0);
+      this.showToast(
+        `${rating}! Voranzug erledigt (${achievedStr}, ${formatSignedDelta(delta, unit, decimals)}). Jetzt Stufe 2/2: Drehwinkel ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}°.`,
+        'success'
+      );
+      this.openFasteningStage('tensioner_angle', ctx.worldPos);
+      this.broadcastHud(true);
+      return;
+    }
 
     this.minigame = { type: 'none' };
     this.pendingTorque = null;
 
-    if (ctx.kind === 'tensioner') {
+    if (ctx.kind === 'tensioner_angle') {
       this.tensionerTorqued = true;
       this.showToast(
-        `${rating}! Spannrollen-Befestigung mit ${scoreEntry.achievedPct.toFixed(0)} % Sollmoment angezogen (+${scoreXp} XP)`,
-        rating === 'Daneben' ? 'warning' : 'success'
+        `${rating}! Spannrollen-Mutter abgeschlossen (${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm + ${achievedStr}, +${scoreXp} XP).`,
+        'success'
       );
-      this.completeSubObjective('torque_tensioner_nut', 0);
+      this.completeSubObjective('angle_tensioner_stage2', 0);
     } else {
+      // Sammelübung sofort sperren, damit Mehrfachklicks während der Stern-Animation keinen zweiten Treffer/XP auslösen
+      this.wheelTorqueDone = true;
       for (let i = 0; i < STAR_BOLT_ORDER.length; i++) {
         const boltIdx = STAR_BOLT_ORDER[i];
         this.scheduleTimeout(() => {
@@ -2176,8 +2322,8 @@ export class RepairGame {
         }, i * 180);
       }
       this.showToast(
-        `${rating}! 5× Radschrauben über Kreuz mit ${scoreEntry.achievedPct.toFixed(0)} % Sollmoment angezogen (+${scoreXp} XP)`,
-        rating === 'Daneben' ? 'warning' : 'success'
+        `${rating}! Serienrad über Kreuz mit je ${achievedStr} angezogen (+${scoreXp} XP).`,
+        'success'
       );
       this.scheduleTimeout(() => {
         this.completeSubObjective('torque_wheel_bolts', 0);
@@ -2225,7 +2371,7 @@ export class RepairGame {
         if (!this.timingCoverReinstalled) return this.timingCoverSeatedInReassembly ? 'torx25' : 'hand';
         if (!this.linerReinstalled) return this.linerSeatedInReassembly ? 'torx25' : 'hand';
         if (!this.wheelReinstalled) return 'hand';
-        if (!this.wheelBoltsTorqued.every(Boolean)) return 'torqueWrench';
+        if (!this.wheelTorqueDone) return 'torqueWrench';
         return 'hand';
       default:
         return 'hand';
@@ -2293,7 +2439,7 @@ export class RepairGame {
           return this.linerSeatedInReassembly ? 'wheelLiner' : 'wheelLinerSlot';
         }
         if (!this.wheelReinstalled) return 'wheelHub';
-        if (!this.wheelBoltsTorqued.every(Boolean)) return 'lugBolt_0';
+        if (!this.wheelTorqueDone) return 'lugBolt_0';
         if (!this.coverHoodReinstalled) return 'hood';
         if (this.liftRaised) return 'liftControlDown';
         return null;
@@ -2469,11 +2615,11 @@ export class RepairGame {
         };
         this.hudDirty = true;
       }
-    } else if (this.minigame.type === 'torque' && this.torquePressing) {
-      const rate = 62;
-      const nextPct = Math.min(this.minigame.maxPct, this.minigame.currentPct + rate * dt);
-      this.minigame = { ...this.minigame, currentPct: nextPct };
-      if (nextPct >= this.minigame.maxPct) {
+    } else if (this.minigame.type === 'torque' && this.torquePressing && this.pendingTorque) {
+      const rate = CLHA_FASTENING_STAGES[this.pendingTorque.kind].ratePerSec;
+      const nextValue = Math.min(this.minigame.maxValue, this.minigame.currentValue + rate * dt);
+      this.minigame = { ...this.minigame, currentValue: nextValue };
+      if (nextValue >= this.minigame.maxValue) {
         this.torquePressing = false;
         this.finalizeTorqueAttempt();
       } else {

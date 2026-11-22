@@ -2,8 +2,21 @@
 import '../styles.css';
 
 import { wheels } from '../drive';
+import {
+  CLHA_ACTIVE_DATASHEET,
+  CLHA_LOCK_TOOLS,
+  CLHA_MONTAGE_VALUES,
+  CLHA_REFERENCE_DATASHEET,
+  CLHA_SOURCES,
+  CLHA_TIMING_BELT,
+  CLHA_TIMING_CHECK,
+  VEHICLE_SPEC,
+  formatMeasure,
+  formatSignedDelta,
+} from '../specs/clhaSpecs';
 import type {
   CameraPresetId,
+  FasteningUnit,
   GameSnapshot,
   HUDCallbacks,
   MinigameState,
@@ -68,14 +81,9 @@ function evaluateGrade(snapshot: GameSnapshot): GradeEvaluation {
         return sum;
       case 'Gut':
         return sum + 4;
-      case 'Akzeptabel':
-        return sum + 10;
-      case 'Daneben':
-        return sum + 20;
     }
   }, 0);
 
-  const hasDaneben = scores.some((entry) => entry.rating === 'Daneben');
   const perfektCount = scores.filter((entry) => entry.rating === 'Perfekt').length;
 
   let quality = 100 - snapshot.mistakes * 6 - torquePenalty;
@@ -87,7 +95,6 @@ function evaluateGrade(snapshot: GameSnapshot): GradeEvaluation {
   if (
     quality >= 92 &&
     snapshot.mistakes <= 1 &&
-    !hasDaneben &&
     (scores.length === 0 || perfektCount >= Math.ceil(scores.length / 2))
   ) {
     return { grade: 'S', caption: 'Meister' };
@@ -172,6 +179,9 @@ export class GameHUD {
   private readonly diagramContentEl: HTMLDivElement;
   private readonly diagramLockedBoxEl: HTMLDivElement;
   private readonly diagramSvgWrapEl: HTMLDivElement;
+  private readonly specsAccordionEl: HTMLDivElement;
+  private readonly specsTriggerEl: HTMLButtonElement;
+  private readonly specsContentEl: HTMLDivElement;
 
   // Bottom 8-Slot Tool Hotbar
   private readonly hotbarWrapEl: HTMLDivElement;
@@ -180,7 +190,7 @@ export class GameHUD {
     { btn: HTMLButtonElement; recBadge: HTMLSpanElement }
   >();
 
-  // Minigames (Linear bar view shared cleanly for OT & Eccentric, plus Radial SVG Torque view)
+  // Minigames (Linear bar view shared cleanly for OT & Eccentric, plus Radial SVG Torque/Angle view)
   private readonly minigameWrapEl: HTMLDivElement;
   private readonly linearViewEl: HTMLDivElement;
   private readonly linearEyebrowEl: HTMLDivElement;
@@ -197,14 +207,20 @@ export class GameHUD {
   private readonly linearResetBtnEl: HTMLButtonElement;
 
   private readonly torqueViewEl: HTMLDivElement;
+  private readonly torqueEyebrowEl: HTMLDivElement;
   private readonly torqueTitleEl: HTMLHeadingElement;
   private readonly torqueBoltEl: HTMLDivElement;
+  private readonly torqueStagePillsEl: HTMLDivElement;
+  private readonly torqueStage1PillEl: HTMLSpanElement;
+  private readonly torqueStage2PillEl: HTMLSpanElement;
+  private readonly torqueRetryBannerEl: HTMLDivElement;
   private readonly torqueBandPathEl: SVGPathElement;
   private readonly torqueActiveArcEl: SVGPathElement;
   private readonly torqueTicksGroupEl: SVGGElement;
   private readonly torqueNeedleGroupEl: SVGGElement;
   private readonly torqueValueEl: HTMLDivElement;
   private readonly torqueTargetSubEl: HTMLDivElement;
+  private readonly torquePlayAidEl: HTMLDivElement;
   private readonly torqueHoldBtnEl: HTMLButtonElement;
 
   // Floating Tooltip & Toast
@@ -235,11 +251,15 @@ export class GameHUD {
   private panelCollapsed = false;
   private whyExpanded = false;
   private diagramExpanded = false;
+  private specsExpanded = false;
   private lastAutoExpandedStepIndex = -1;
 
   private activeLinearKind: 'none' | 'ot' | 'eccentric' = 'none';
   private linearPressed = false;
   private torquePressed = false;
+  private lastTorqueStageKey = '';
+  private lastTorqueValue = 0;
+  private readonly cleanupFns: Array<() => void> = [];
 
   private tooltipX = 24;
   private tooltipY = 24;
@@ -279,7 +299,7 @@ export class GameHUD {
     const specBadge = createEl(
       'div',
       'title-spec-badge',
-      'VW Golf VII 1.6 TDI • EA288 Steuertrieb • 7 Stationen • OT 720° / 360°'
+      `${VEHICLE_SPEC.badgeText} • ${CLHA_TIMING_BELT.shortSpec} • OT ${CLHA_TIMING_CHECK.crankDegrees}° / ${CLHA_TIMING_CHECK.camDegrees}°`
     );
 
     const modesGrid = createEl('div', 'title-modes');
@@ -508,6 +528,22 @@ export class GameHUD {
     this.diagramContentEl.append(this.diagramLockedBoxEl, this.diagramSvgWrapEl);
     this.diagramAccordionEl.append(this.diagramTriggerEl, this.diagramContentEl);
 
+    // Accordion: Montagewerte & Quellen (CLHA) — immer in Guide & Profi aufklappbar
+    this.specsAccordionEl = createEl('div', 'accordion');
+    this.specsTriggerEl = createEl('button', 'accordion-trigger');
+    this.specsTriggerEl.type = 'button';
+    this.specsTriggerEl.append(
+      createEl('span', undefined, 'Montagewerte & Quellen (CLHA)'),
+      createEl('span', 'accordion-chevron', '▼')
+    );
+    this.specsTriggerEl.addEventListener('click', () => {
+      this.specsExpanded = !this.specsExpanded;
+      this.syncAccordions();
+    });
+    this.specsContentEl = createEl('div', 'accordion-content is-hidden');
+    this.specsContentEl.append(this.buildSpecsDatasheetContent());
+    this.specsAccordionEl.append(this.specsTriggerEl, this.specsContentEl);
+
     objBody.append(
       this.stepSubtitleEl,
       this.stepTitleEl,
@@ -515,7 +551,8 @@ export class GameHUD {
       this.subObjectiveListEl,
       this.engineControlCardEl,
       this.whyAccordionEl,
-      this.diagramAccordionEl
+      this.diagramAccordionEl,
+      this.specsAccordionEl
     );
     this.objectivePanelEl.append(objHeader, objBody);
     this.leftRailEl.append(this.expandPillEl, this.objectivePanelEl);
@@ -536,8 +573,9 @@ export class GameHUD {
       const iconWrap = createEl('div', 'tool-icon');
       iconWrap.innerHTML = TOOL_ICONS[tool.id];
       const nameSpan = createEl('span', 'tool-name', tool.shortName);
+      const specSpan = createEl('span', 'tool-spec tabular', tool.shortSpec);
 
-      btn.append(hotkey, recBadge, iconWrap, nameSpan);
+      btn.append(hotkey, recBadge, iconWrap, nameSpan, specSpan);
       btn.addEventListener('click', () => this.callbacks.onSelectTool(tool.id));
 
       this.toolSlots.set(tool.id, { btn, recBadge });
@@ -552,7 +590,8 @@ export class GameHUD {
     const minigameCard = createEl('div', 'minigame-card');
 
     // 5a. Linear Precision Gauge (OT Alignment & Eccentric Tensioner Pointer)
-    this.linearViewEl = createEl('div', 'is-hidden');
+    this.linearViewEl = createEl('div', 'minigame-panel is-hidden');
+    const linScrollBody = createEl('div', 'minigame-scroll-body');
     const linHeader = createEl('div', 'minigame-header');
     const linTitleWrap = createEl('div');
     this.linearEyebrowEl = createEl('div', 'minigame-eyebrow', 'Steuertrieb-Ausrichtung');
@@ -611,17 +650,34 @@ export class GameHUD {
 
     linActionsRow.append(this.linearHoldBtnEl, this.linearResetBtnEl);
 
-    this.linearViewEl.append(linHeader, linReadoutRow, linBarWrap, linScale, linActionsRow);
+    linScrollBody.append(linHeader, linReadoutRow, linBarWrap, linScale);
+    this.linearViewEl.append(linScrollBody, linActionsRow);
 
-    // 5b. Torque Wrench Minigame View (Radial SVG Gauge in % Sollwert nach RLF)
-    this.torqueViewEl = createEl('div', 'is-hidden');
+    // 5b. Torque & Angle Minigame View (Radial SVG Gauge with real Nm / ° units)
+    this.torqueViewEl = createEl('div', 'minigame-panel is-hidden');
+    const torqueScrollBody = createEl('div', 'minigame-scroll-body');
     const torqueHeader = createEl('div', 'minigame-header');
     const torqueTitleWrap = createEl('div');
-    torqueTitleWrap.append(createEl('div', 'minigame-eyebrow', 'Kalibrierter Drehmomentschlüssel (RLF)'));
-    this.torqueTitleEl = createEl('h3', 'minigame-title', 'Kontrolliertes Anziehen');
-    this.torqueBoltEl = createEl('div', 'minigame-subtitle', 'Schraubverbindung');
-    torqueTitleWrap.append(this.torqueTitleEl, this.torqueBoltEl);
+    this.torqueEyebrowEl = createEl('div', 'minigame-eyebrow', 'Voranzug (Nm)');
+    this.torqueTitleEl = createEl('h3', 'minigame-title', 'Spannrollen-Mutter: Voranzug');
+    this.torqueBoltEl = createEl('div', 'minigame-subtitle', 'Montagewert');
+    torqueTitleWrap.append(this.torqueEyebrowEl, this.torqueTitleEl, this.torqueBoltEl);
     torqueHeader.append(torqueTitleWrap);
+
+    this.torqueStagePillsEl = createEl('div', 'minigame-stage-pills is-hidden');
+    this.torqueStage1PillEl = createEl(
+      'span',
+      'stage-pill tabular',
+      `Voranzug: ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm`
+    );
+    this.torqueStage2PillEl = createEl(
+      'span',
+      'stage-pill tabular',
+      `Drehwinkel: ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}°`
+    );
+    this.torqueStagePillsEl.append(this.torqueStage1PillEl, this.torqueStage2PillEl);
+
+    this.torqueRetryBannerEl = createEl('div', 'minigame-retry-banner is-hidden');
 
     const torqueGaugeBox = createEl('div', 'torque-gauge-box');
     const torqueSvg = createSvgEl('svg');
@@ -689,16 +745,25 @@ export class GameHUD {
     );
 
     const torqueDigitalOverlay = createEl('div', 'torque-digital-overlay');
-    this.torqueValueEl = createEl('div', 'torque-nm-value tabular', '0 %');
-    this.torqueTargetSubEl = createEl('div', 'torque-target-sub tabular', 'Ziel: 100 % Soll (RLF)');
+    this.torqueValueEl = createEl('div', 'torque-nm-value tabular', '0 Nm');
+    this.torqueTargetSubEl = createEl('div', 'torque-target-sub tabular', 'Soll: 20 Nm');
     torqueDigitalOverlay.append(this.torqueValueEl, this.torqueTargetSubEl);
 
-    torqueGaugeBox.append(torqueSvg, torqueDigitalOverlay);
+    const torqueSvgWrap = createEl('div', 'torque-svg-wrap');
+    torqueSvgWrap.append(torqueSvg, torqueDigitalOverlay);
+
+    this.torquePlayAidEl = createEl(
+      'div',
+      'torque-playaid-note tabular',
+      'Spielhilfe-Fenster (keine Werkstoleranz)'
+    );
+
+    torqueGaugeBox.append(torqueSvgWrap, this.torquePlayAidEl);
 
     this.torqueHoldBtnEl = createEl(
       'button',
       'minigame-hold-btn',
-      'Anziehen — im grünen Bereich loslassen / [Leertaste]'
+      'Anziehen — im Eingabefenster loslassen / [Leertaste]'
     );
     this.torqueHoldBtnEl.type = 'button';
     this.bindHoldButton(
@@ -711,7 +776,13 @@ export class GameHUD {
       }
     );
 
-    this.torqueViewEl.append(torqueHeader, torqueGaugeBox, this.torqueHoldBtnEl);
+    torqueScrollBody.append(
+      torqueHeader,
+      this.torqueStagePillsEl,
+      this.torqueRetryBannerEl,
+      torqueGaugeBox
+    );
+    this.torqueViewEl.append(torqueScrollBody, this.torqueHoldBtnEl);
 
     minigameCard.append(this.linearViewEl, this.torqueViewEl);
     this.minigameWrapEl.append(minigameCard);
@@ -741,12 +812,12 @@ export class GameHUD {
     const certTop = createEl('div', 'cert-top');
     const certHeadingGroup = createEl('div');
     certHeadingGroup.append(
-      createEl('div', 'cert-eyebrow', 'Abnahme bestanden • VW EA288 1.6 TDI'),
+      createEl('div', 'cert-eyebrow', `Abnahme bestanden • ${VEHICLE_SPEC.badgeText}`),
       createEl('h2', 'cert-title', 'Meister-Zertifikat'),
       createEl(
         'p',
         'cert-sub',
-        'Zahnriemen-Steuertrieb erfolgreich gewechselt, OT & Spannzeiger geprüft und Fahrzeug rückgebaut.'
+        `Zahnriemen (${CLHA_TIMING_BELT.specLabel}) montiert, Spannrollen-Mutter mit ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm + ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}° gesichert, ${CLHA_TIMING_CHECK.crankDegrees}° geprüft.`
       )
     );
 
@@ -769,13 +840,13 @@ export class GameHUD {
       this.buildCertMetricBox('Prüfungsmodus', this.certModeEl)
     );
 
-    const torqueSectionTitle = createEl('h3', 'cert-section-title', 'Anzugs-Protokoll (Sollbereich RLF)');
+    const torqueSectionTitle = createEl('h3', 'cert-section-title', 'Anzugs-Protokoll (Montagewerte CLHA)');
     this.certTorqueListEl = createEl('div', 'cert-torque-list');
 
     const exerciseNote = createEl(
       'p',
       'cert-exercise-note',
-      'Übungssimulation: Am realen EA288 1.6 TDI gelten stets der aktuelle VW-Reparaturleitfaden, vorgeschriebene Spezialwerkzeuge, Dehnschraubenwechsel und verbindliche Anzugsvorgaben.'
+      `Übungssimulation für ${VEHICLE_SPEC.badgeText}. Eingabefenster sind Spielhilfen für die Punktewertung. Montagewerte und Quellen siehe „Montagewerte & Quellen (${VEHICLE_SPEC.engineCode})“.`
     );
 
     const certActions = createEl('div', 'cert-actions');
@@ -869,7 +940,7 @@ export class GameHUD {
     const clampedIndex = Math.max(0, Math.min(totalSteps - 1, snapshot.stepIndex));
     const currentStep = REPAIR_STEPS[clampedIndex];
 
-    this.renderTopBar(snapshot, clampedIndex, currentStep.subObjectives.length, totalSteps);
+    this.renderTopBar(snapshot, clampedIndex, currentStep.subObjectives, totalSteps);
     this.renderObjectivePanel(snapshot, clampedIndex, totalSteps);
     this.renderHotbar(snapshot);
     this.renderMinigame(snapshot.minigame);
@@ -891,7 +962,77 @@ export class GameHUD {
 
   public destroy(): void {
     window.removeEventListener('blur', this.windowBlurHandler);
+    for (const fn of this.cleanupFns) fn();
+    this.cleanupFns.length = 0;
     this.hudRoot.remove();
+  }
+
+  private buildSpecsDatasheetContent(): HTMLDivElement {
+    const wrap = createEl('div', 'specs-sheet');
+
+    const header = createEl('div', 'specs-vehicle-line');
+    header.append(
+      createEl('strong', undefined, VEHICLE_SPEC.badgeText),
+      createEl('span', 'specs-subtitle-note', 'Montagewerte & technische Daten')
+    );
+    wrap.append(header);
+
+    const buildGroup = (title: string, entries: typeof CLHA_ACTIVE_DATASHEET) => {
+      const group = createEl('div', 'specs-group');
+      group.append(createEl('div', 'specs-group-title', title));
+      for (const entry of entries) {
+        const row = createEl('div', 'specs-row');
+        const top = createEl('div', 'specs-row-top');
+        top.append(
+          createEl('span', 'specs-part', entry.part),
+          createEl('span', 'specs-val tabular', entry.value)
+        );
+        row.append(top);
+        if (entry.note) {
+          row.append(createEl('div', 'specs-note', entry.note));
+        }
+        group.append(row);
+      }
+      return group;
+    };
+
+    wrap.append(
+      buildGroup('Montagewerte (Spielablauf)', CLHA_ACTIVE_DATASHEET),
+      buildGroup('Referenzwerte (Steuertrieb / Zugang)', CLHA_REFERENCE_DATASHEET)
+    );
+
+    const toolsGroup = createEl('div', 'specs-group');
+    toolsGroup.append(createEl('div', 'specs-group-title', 'Absteckwerkzeuge & Nachprüfung'));
+    const toolRow = createEl('div', 'specs-row');
+    toolRow.append(
+      createEl(
+        'div',
+        'specs-note',
+        `Kurbelwellenstopp ${CLHA_LOCK_TOOLS.crank.code} • Nockenwelle ${CLHA_LOCK_TOOLS.cam.code} • Hochdruckpumpe ${CLHA_LOCK_TOOLS.pump.code}. Kontrolle nach ${CLHA_TIMING_CHECK.crankTurns} KW-Umdrehungen (${CLHA_TIMING_CHECK.crankDegrees}°): Ziel Zeigermitte, zulässige seitliche Zeigerabweichung max. ${CLHA_TIMING_CHECK.pointerRecheckMaxOffsetMm} mm (VW 08/2015, S. 122).`
+      )
+    );
+    toolsGroup.append(toolRow);
+    wrap.append(toolsGroup);
+
+    const sourcesGroup = createEl('div', 'specs-group');
+    sourcesGroup.append(createEl('div', 'specs-group-title', 'Quellen'));
+    const sourcesList = createEl('div', 'specs-sources');
+    for (const src of CLHA_SOURCES) {
+      const link = document.createElement('a');
+      link.className = 'specs-source-link';
+      link.href = src.href;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.append(
+        createEl('span', 'specs-source-title', `${src.title} (${src.edition}) ↗`),
+        createEl('span', 'specs-source-section', src.section)
+      );
+      sourcesList.append(link);
+    }
+    sourcesGroup.append(sourcesList);
+    wrap.append(sourcesGroup);
+
+    return wrap;
   }
 
   private buildCertMetricBox(label: string, valueEl: HTMLDivElement): HTMLDivElement {
@@ -905,14 +1046,6 @@ export class GameHUD {
     isPressed: () => boolean,
     setPressed: (next: boolean) => void
   ): void {
-    btn.addEventListener('pointerdown', (e) => {
-      if (e.button !== 0 && e.pointerType === 'mouse') return;
-      e.preventDefault();
-      if (!isPressed()) {
-        setPressed(true);
-      }
-    });
-
     const release = () => {
       if (isPressed()) {
         setPressed(false);
@@ -920,9 +1053,23 @@ export class GameHUD {
       btn.blur();
     };
 
+    btn.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0 && e.pointerType === 'mouse') return;
+      e.preventDefault();
+      try {
+        btn.setPointerCapture(e.pointerId);
+      } catch {
+        // Synthetic pointer events may not support capture
+      }
+      if (!isPressed()) {
+        setPressed(true);
+      }
+    });
+
     btn.addEventListener('pointerup', release);
     btn.addEventListener('pointercancel', release);
-    btn.addEventListener('pointerleave', release);
+    window.addEventListener('pointerup', release);
+    this.cleanupFns.push(() => window.removeEventListener('pointerup', release));
 
     btn.addEventListener('keydown', (e) => {
       if (e.code === 'Space') {
@@ -954,15 +1101,16 @@ export class GameHUD {
   private renderTopBar(
     snapshot: GameSnapshot,
     stepIndex: number,
-    stepSubCount: number,
+    stepSubs: { id: string }[],
     totalSteps: number
   ): void {
     if (document.activeElement !== this.stepSelectEl && this.stepSelectEl.value !== String(stepIndex)) {
       this.stepSelectEl.value = String(stepIndex);
     }
 
-    const doneInStep = snapshot.completedSubObjectives.length;
-    const stepFraction = stepSubCount > 0 ? Math.min(1, doneInStep / stepSubCount) : 0;
+    const doneSet = new Set(snapshot.completedSubObjectives);
+    const doneInStep = stepSubs.filter((s) => doneSet.has(s.id)).length;
+    const stepFraction = stepSubs.length > 0 ? Math.min(1, doneInStep / stepSubs.length) : 0;
     const overallPct = snapshot.completed
       ? 100
       : Math.round(((stepIndex + stepFraction) / totalSteps) * 100);
@@ -1124,6 +1272,9 @@ export class GameHUD {
 
     this.diagramAccordionEl.classList.toggle('is-open', this.diagramExpanded);
     this.diagramContentEl.classList.toggle('is-hidden', !this.diagramExpanded);
+
+    this.specsAccordionEl.classList.toggle('is-open', this.specsExpanded);
+    this.specsContentEl.classList.toggle('is-hidden', !this.specsExpanded);
   }
 
   private renderHotbar(snapshot: GameSnapshot): void {
@@ -1184,7 +1335,7 @@ export class GameHUD {
       this.linearFillEl.classList.toggle('is-aligned', minigame.aligned);
 
       this.linearScaleLeftEl.textContent = '620°';
-      this.linearScaleMidEl.textContent = '716°–724°: OT-Marken fluchten!';
+      this.linearScaleMidEl.textContent = `OT ${minigame.targetDeg}° (Spielhilfe ±${minigame.toleranceDeg}°)`;
       this.linearScaleRightEl.textContent = '760°';
       this.linearHoldBtnEl.textContent = 'KW-Knarre drehen — bei OT loslassen / [Leertaste]';
       this.linearResetBtnEl.textContent = '↺ Zurück';
@@ -1196,23 +1347,27 @@ export class GameHUD {
       this.linearViewEl.classList.remove('is-hidden');
       this.torqueViewEl.classList.add('is-hidden');
 
-      this.linearEyebrowEl.textContent = 'Exzenter-Spannrolle • Referenzfenster';
+      this.linearEyebrowEl.textContent = 'Exzenter-Spannrolle • Einstellung bei kaltem Motor';
       this.linearTitleEl.textContent =
         minigame.mode === 'release'
           ? 'Spannrolle entlasten'
-          : 'Spannzeiger ins Referenzfenster stellen';
+          : 'Spannzeiger zur Markierung bringen';
       this.linearSubtitleEl.textContent =
         minigame.mode === 'release'
           ? 'Exzenter gegen den Uhrzeigersinn entspannen, bis der alte Zahnriemen frei abnehmbar ist.'
-          : 'Exzenter im Uhrzeigersinn drehen, bis der orange Zeiger exakt mittig im Referenzfenster steht.';
+          : 'Einstellung bei kaltem Motor: Exzenter im Uhrzeigersinn drehen, bis der Spannzeiger mittig auf der Markierung steht.';
 
-      const pct = Math.round(minigame.tension * 100);
-      this.linearValueEl.textContent = `${pct}%`;
       if (minigame.mode === 'release') {
+        this.linearValueEl.textContent = minigame.aligned ? 'Entlastet' : 'Gespannt';
         this.linearStatusEl.textContent = minigame.aligned ? 'ENTLASTET!' : 'Entspannen (↺)';
       } else {
+        this.linearValueEl.textContent = minigame.aligned
+          ? 'Markierung'
+          : minigame.tension < minigame.targetMin
+            ? 'Links (−)'
+            : 'Rechts (+)';
         this.linearStatusEl.textContent = minigame.aligned
-          ? 'IM FENSTER!'
+          ? 'AN MARKIERUNG!'
           : minigame.tension > minigame.targetMax
             ? 'Zu stramm (↺)'
             : 'Spannen (↻)';
@@ -1230,33 +1385,84 @@ export class GameHUD {
       this.linearScaleLeftEl.textContent = 'Entlastet';
       this.linearScaleMidEl.textContent =
         minigame.mode === 'release'
-          ? '0–15%: Riemen entspannt'
-          : '46–54%: Zeiger mittig im Fenster!';
+          ? 'Spielhilfe: Riemen entspannt'
+          : 'Zeiger an Markierung (Spielhilfe)';
       this.linearScaleRightEl.textContent = 'Stramm';
       this.linearHoldBtnEl.textContent =
         minigame.mode === 'release'
           ? 'Exzenter entlasten / [Leertaste]'
-          : 'Exzenter drehen — im Fenster loslassen / [Leertaste]';
+          : 'Exzenter drehen — an Markierung loslassen / [Leertaste]';
       this.linearResetBtnEl.textContent = '↺ Entlasten';
       this.linearResetBtnEl.classList.toggle('is-hidden', minigame.mode === 'release');
       return;
     }
 
-    // Torque Wrench Minigame (% Sollwert nach RLF)
+    // Torque (Nm) & Angle (°) Minigame with real physical units
     this.linearViewEl.classList.add('is-hidden');
     this.torqueViewEl.classList.remove('is-hidden');
+
+    const stageKey = `${minigame.stageKind}|${minigame.stageIndex}|${minigame.targetValue}|${minigame.unit}`;
+    const stageChanged = stageKey !== this.lastTorqueStageKey;
+    const resetAfterRun = this.lastTorqueValue > 0 && minigame.currentValue === 0;
+    this.lastTorqueStageKey = stageKey;
+    this.lastTorqueValue = minigame.currentValue;
+    if ((stageChanged || resetAfterRun) && this.torquePressed) {
+      this.torquePressed = false;
+      this.torqueHoldBtnEl.classList.remove('is-pressed');
+    }
+
+    if (minigame.stageKind === 'angle') {
+      this.torqueEyebrowEl.textContent = `Stufe ${minigame.stageIndex}/${minigame.stageTotal} • Drehwinkel (${minigame.unit})`;
+    } else if (minigame.stageTotal > 1) {
+      this.torqueEyebrowEl.textContent = `Stufe ${minigame.stageIndex}/${minigame.stageTotal} • Voranzug (${minigame.unit})`;
+    } else {
+      this.torqueEyebrowEl.textContent = `Montagewert • Drehmoment (${minigame.unit})`;
+    }
 
     this.torqueTitleEl.textContent = minigame.label;
     this.torqueBoltEl.textContent = minigame.boltLabel;
 
-    const specKey = `${minigame.targetPct}|${minigame.tolerancePct}|${minigame.maxPct}`;
-    if (specKey !== this.lastMinigameSpecKey) {
-      this.lastMinigameSpecKey = specKey;
-      this.rebuildTorqueGaugeBands(minigame.targetPct, minigame.tolerancePct, minigame.maxPct);
+    // 2-stage progression pills (Spannrollen-Mutter: Voranzug -> Drehwinkel)
+    const showStages = minigame.stageTotal > 1;
+    this.torqueStagePillsEl.classList.toggle('is-hidden', !showStages);
+    if (showStages) {
+      const stage1Done = minigame.stageIndex > 1;
+      this.torqueStage1PillEl.textContent = stage1Done
+        ? `✓ Voranzug: ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm`
+        : `Voranzug: ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm`;
+      this.torqueStage1PillEl.classList.toggle('is-done', stage1Done);
+      this.torqueStage1PillEl.classList.toggle('is-active', minigame.stageIndex === 1);
+
+      this.torqueStage2PillEl.textContent = `Drehwinkel: ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}°`;
+      this.torqueStage2PillEl.classList.toggle('is-done', false);
+      this.torqueStage2PillEl.classList.toggle('is-active', minigame.stageIndex === 2);
     }
 
-    const safeMax = Math.max(1, minigame.maxPct);
-    const ratio = Math.max(0, Math.min(1, minigame.currentPct / safeMax));
+    // Inline retry feedback banner on invalid attempt
+    const isRetry = minigame.attemptStatus === 'retry' && Boolean(minigame.lastAttemptFeedback);
+    this.torqueRetryBannerEl.classList.toggle('is-hidden', !isRetry);
+    this.torqueRetryBannerEl.classList.toggle('is-retrying', isRetry && minigame.currentValue > 0);
+    if (isRetry && minigame.lastAttemptFeedback) {
+      this.torqueRetryBannerEl.textContent =
+        minigame.currentValue > 0
+          ? `↻ ${minigame.lastAttemptFeedback}`
+          : `⚠ ${minigame.lastAttemptFeedback}`;
+    }
+
+    const specKey = `${minigame.targetValue}|${minigame.inputWindow}|${minigame.maxValue}|${minigame.unit}|${minigame.scaleTicks.join(',')}`;
+    if (specKey !== this.lastMinigameSpecKey) {
+      this.lastMinigameSpecKey = specKey;
+      this.rebuildTorqueGaugeBands(
+        minigame.targetValue,
+        minigame.inputWindow,
+        minigame.maxValue,
+        minigame.scaleTicks,
+        minigame.unit
+      );
+    }
+
+    const safeMax = Math.max(1, minigame.maxValue);
+    const ratio = Math.max(0, Math.min(1, minigame.currentValue / safeMax));
     const needleAngle = TORQUE_ARC_START_DEG + ratio * TORQUE_ARC_SWEEP_DEG;
 
     this.torqueNeedleGroupEl.setAttribute(
@@ -1267,14 +1473,18 @@ export class GameHUD {
     const dashOffset = TORQUE_ARC_CIRCUMFERENCE * (1 - ratio);
     this.torqueActiveArcEl.style.strokeDashoffset = dashOffset.toFixed(2);
 
-    const minTarget = minigame.targetPct - minigame.tolerancePct;
-    const maxTarget = minigame.targetPct + minigame.tolerancePct;
-    const inZone = minigame.currentPct >= minTarget && minigame.currentPct <= maxTarget;
-    const overZone = minigame.currentPct > maxTarget;
+    const minTarget = minigame.targetValue - minigame.inputWindow;
+    const maxTarget = minigame.targetValue + minigame.inputWindow;
+    const inZone = minigame.currentValue >= minTarget && minigame.currentValue <= maxTarget;
+    const overZone = minigame.currentValue > maxTarget;
     const approaching =
-      !inZone && !overZone && minigame.currentPct >= minTarget - minigame.tolerancePct * 2.4;
+      !inZone && !overZone && minigame.currentValue >= minTarget - minigame.inputWindow * 2.2;
 
-    this.torqueValueEl.textContent = `${minigame.currentPct.toFixed(0)} %`;
+    this.torqueValueEl.textContent = formatMeasure(
+      minigame.currentValue,
+      minigame.unit,
+      minigame.decimals
+    );
     this.torqueValueEl.classList.toggle('is-in-zone', inZone);
     this.torqueValueEl.classList.toggle('is-approaching', approaching);
     this.torqueValueEl.classList.toggle('is-over', overZone);
@@ -1283,16 +1493,36 @@ export class GameHUD {
       'stroke',
       inZone ? '#10b981' : overZone ? '#ef4444' : approaching ? '#f59e0b' : '#38bdf8'
     );
-    this.torqueTargetSubEl.textContent = `Ziel: ${minigame.targetPct} ± ${minigame.tolerancePct} % Soll (RLF)`;
+
+    const targetDisplay = formatMeasure(minigame.targetValue, minigame.unit, 0);
+    const winDecimals = Number.isInteger(minigame.inputWindow) ? 0 : 1;
+    const windowDisplay = formatMeasure(minigame.inputWindow, minigame.unit, winDecimals);
+
+    this.torqueTargetSubEl.textContent =
+      minigame.stageTotal === 1 && minigame.unit === 'Nm'
+        ? `Soll: je ${targetDisplay}`
+        : `Soll: ${targetDisplay}`;
+    this.torquePlayAidEl.textContent = `Spielhilfe ±${windowDisplay}`;
+
+    this.torqueHoldBtnEl.textContent =
+      minigame.stageKind === 'angle'
+        ? `Weiterdrehen bis ${targetDisplay} / [Leertaste]`
+        : `Anziehen bis ${targetDisplay} / [Leertaste]`;
   }
 
-  private rebuildTorqueGaugeBands(targetPct: number, tolerancePct: number, maxPct: number): void {
-    const safeMax = Math.max(1, maxPct);
-    const pctToAngle = (val: number): number =>
+  private rebuildTorqueGaugeBands(
+    targetValue: number,
+    inputWindow: number,
+    maxValue: number,
+    scaleTicks: number[],
+    unit: FasteningUnit
+  ): void {
+    const safeMax = Math.max(1, maxValue);
+    const valToAngle = (val: number): number =>
       TORQUE_ARC_START_DEG + Math.max(0, Math.min(1, val / safeMax)) * TORQUE_ARC_SWEEP_DEG;
 
-    const bandStart = pctToAngle(targetPct - tolerancePct);
-    const bandEnd = pctToAngle(targetPct + tolerancePct);
+    const bandStart = valToAngle(targetValue - inputWindow);
+    const bandEnd = valToAngle(targetValue + inputWindow);
     this.torqueBandPathEl.setAttribute(
       'd',
       describeSvgArc(
@@ -1305,9 +1535,9 @@ export class GameHUD {
     );
 
     const fragment = document.createDocumentFragment();
-    const tickRatios = [0, 0.25, 0.5, 0.75, 1];
-    for (const r of tickRatios) {
-      const ang = TORQUE_ARC_START_DEG + r * TORQUE_ARC_SWEEP_DEG;
+    for (const tickVal of scaleTicks) {
+      const ang = valToAngle(tickVal);
+      const isTargetTick = Math.abs(tickVal - targetValue) < 0.001;
       const outer = polarToCartesian(TORQUE_ARC_CENTER_X, TORQUE_ARC_CENTER_Y, TORQUE_ARC_RADIUS + 11, ang);
       const inner = polarToCartesian(TORQUE_ARC_CENTER_X, TORQUE_ARC_CENTER_Y, TORQUE_ARC_RADIUS - 10, ang);
       const tick = createSvgEl('line');
@@ -1315,14 +1545,14 @@ export class GameHUD {
       tick.setAttribute('y1', inner.y.toFixed(1));
       tick.setAttribute('x2', outer.x.toFixed(1));
       tick.setAttribute('y2', outer.y.toFixed(1));
-      tick.setAttribute('stroke', 'rgba(148, 163, 184, 0.48)');
-      tick.setAttribute('stroke-width', '1.8');
+      tick.setAttribute('stroke', isTargetTick ? '#34d399' : 'rgba(148, 163, 184, 0.48)');
+      tick.setAttribute('stroke-width', isTargetTick ? '2.4' : '1.8');
       fragment.append(tick);
 
       const labelPos = polarToCartesian(
         TORQUE_ARC_CENTER_X,
         TORQUE_ARC_CENTER_Y,
-        TORQUE_ARC_RADIUS + 22,
+        TORQUE_ARC_RADIUS + 23,
         ang
       );
       const label = createSvgEl('text');
@@ -1330,14 +1560,17 @@ export class GameHUD {
       label.setAttribute('y', labelPos.y.toFixed(1));
       label.setAttribute('text-anchor', 'middle');
       label.setAttribute('dominant-baseline', 'middle');
-      label.setAttribute('fill', '#94a3b8');
-      label.setAttribute('font-size', '9.5');
+      label.setAttribute('fill', isTargetTick ? '#6ee7b7' : '#94a3b8');
+      label.setAttribute('font-size', isTargetTick ? '10' : '9.2');
       label.setAttribute('font-weight', '700');
-      label.textContent = `${Math.round(r * safeMax)}%`;
+      label.textContent =
+        tickVal === 0 || tickVal === maxValue || isTargetTick
+          ? formatMeasure(tickVal, unit, 0)
+          : String(tickVal);
       fragment.append(label);
     }
 
-    const targetAng = pctToAngle(targetPct);
+    const targetAng = valToAngle(targetValue);
     const tOuter = polarToCartesian(TORQUE_ARC_CENTER_X, TORQUE_ARC_CENTER_Y, TORQUE_ARC_RADIUS + 13, targetAng);
     const tInner = polarToCartesian(TORQUE_ARC_CENTER_X, TORQUE_ARC_CENTER_Y, TORQUE_ARC_RADIUS - 12, targetAng);
     const targetTick = createSvgEl('line');
@@ -1442,7 +1675,7 @@ export class GameHUD {
     this.certWrapEl.classList.toggle('is-hidden', !shouldShow);
     if (!shouldShow) return;
 
-    const certKey = `${snapshot.xp}|${snapshot.elapsedSeconds}|${snapshot.mistakes}|${snapshot.mode}|${snapshot.torqueScores.map((s) => `${s.label}:${s.achievedPct}`).join(',')}`;
+    const certKey = `${snapshot.xp}|${snapshot.elapsedSeconds}|${snapshot.mistakes}|${snapshot.mode}|${snapshot.torqueScores.map((s) => `${s.label}:${s.achievedValue}${s.unit}`).join(',')}`;
     if (certKey === this.lastCertKey) return;
     this.lastCertKey = certKey;
 
@@ -1476,11 +1709,12 @@ export class GameHUD {
       const name = createEl('span', 'cert-torque-name', entry.label);
       const vals = createEl('div', 'cert-torque-vals tabular');
 
-      const deltaSign = entry.deltaPct >= 0 ? '+' : '';
+      const achievedText = formatMeasure(entry.achievedValue, entry.unit, entry.decimals);
+      const deltaText = formatSignedDelta(entry.deltaValue, entry.unit, entry.decimals);
       const valText = createEl(
         'span',
         undefined,
-        `${entry.achievedPct.toFixed(0)} % (${deltaSign}${entry.deltaPct.toFixed(0)} %, ${entry.targetLabel})`
+        `${achievedText} (${deltaText} • ${entry.targetLabel})`
       );
       const ratingPill = createEl(
         'span',

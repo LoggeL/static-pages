@@ -1,5 +1,12 @@
 import * as THREE from 'three';
 import { lockable, loopLength, pointOnBelt, wheels } from '../drive';
+import {
+  CLHA_LOCK_TOOLS,
+  CLHA_MONTAGE_VALUES,
+  CLHA_TIMING_BELT,
+  CLHA_TIMING_CHECK,
+  VEHICLE_SPEC,
+} from '../specs/clhaSpecs';
 
 export interface PBRTextureSet {
   map: THREE.CanvasTexture;
@@ -288,13 +295,21 @@ export function getBeltPosterTexture(): THREE.CanvasTexture {
   ctx.fillRect(28, 28, w - 56, 132);
 
   ctx.fillStyle = '#ffffff';
-  ctx.font = 'bold 31px "Inter", "Segoe UI", Arial, sans-serif';
+  ctx.font = 'bold 30px "Inter", "Segoe UI", Arial, sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('VW GOLF VII 1.6 TDI (EA288) • STEUERTRIEB / ZAHNRIEMEN', w / 2, 86);
+  ctx.fillText(
+    `${VEHICLE_SPEC.model.toUpperCase()} (${VEHICLE_SPEC.engineFamily} • MKB ${VEHICLE_SPEC.engineCode} • ${VEHICLE_SPEC.powerKw} kW)`,
+    w / 2,
+    86
+  );
 
   ctx.fillStyle = '#bae6fd';
   ctx.font = '600 22px "Inter", "Segoe UI", Arial, sans-serif';
-  ctx.fillText('7-STATIONEN-RIEMENVERLAUF • OT-BEZUGSMARKEN & SPANNZEIGER', w / 2, 130);
+  ctx.fillText(
+    `ZAHNRIEMEN ${CLHA_TIMING_BELT.teeth} ZÄHNE / ${CLHA_TIMING_BELT.widthMm} MM • OT ${CLHA_TIMING_CHECK.crankDegrees}° / ${CLHA_TIMING_CHECK.camDegrees}°`,
+    w / 2,
+    130
+  );
 
   // Map analytical drive.ts coordinates to poster canvas space
   const scale = 195;
@@ -386,7 +401,7 @@ export function getBeltPosterTexture(): THREE.CanvasTexture {
     ctx.restore();
   }
 
-  // Bottom informational workshop banner (no invented vehicle-specific torque specs)
+  // Bottom verified CLHA workshop mounting data banner
   ctx.fillStyle = '#0f172a';
   ctx.fillRect(48, 975, w - 96, 245);
   ctx.strokeStyle = '#38bdf8';
@@ -394,18 +409,34 @@ export function getBeltPosterTexture(): THREE.CanvasTexture {
   ctx.strokeRect(48, 975, w - 96, 245);
 
   ctx.fillStyle = '#38bdf8';
-  ctx.font = 'bold 31px "Inter", Arial, sans-serif';
+  ctx.font = 'bold 28px "Inter", Arial, sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('720° KURBELWELLE = 360° NOCKENWELLE (OT-STELLUNG)', w / 2, 1038);
+  ctx.fillText(
+    `SPANNROLLE (KALT): ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm + ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}° • KONTROLLE: ${CLHA_TIMING_CHECK.crankDegrees}° (≤ ${CLHA_TIMING_CHECK.pointerRecheckMaxOffsetMm} mm)`,
+    w / 2,
+    1034
+  );
 
   ctx.fillStyle = '#e2e8f0';
-  ctx.font = '23px "Inter", Arial, sans-serif';
-  ctx.fillText('1. KW → 2. Untere Rolle → 3. Spannrolle → 4. Nockenwelle', w / 2, 1096);
-  ctx.fillText('5. Obere Rolle → 6. Hochdruckpumpe → 7. Kühlmittelpumpe', w / 2, 1136);
+  ctx.font = '22px "Inter", Arial, sans-serif';
+  ctx.fillText(
+    `ABSTECKEN: KW ${CLHA_LOCK_TOOLS.crank.code} • NW ${CLHA_LOCK_TOOLS.cam.code} • HDP ${CLHA_LOCK_TOOLS.pump.code}`,
+    w / 2,
+    1088
+  );
+  ctx.fillText(
+    `SCHUTZ UNTEN: ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm • RADHAUS: ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm • SERIENRAD: je ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm`,
+    w / 2,
+    1130
+  );
 
   ctx.fillStyle = '#facc15';
-  ctx.font = 'bold 20px monospace';
-  ctx.fillText('ÜBUNGSMODELL • AM FAHRZEUG VW-REPARATURLEITFADEN BEACHTEN', w / 2, 1190);
+  ctx.font = 'bold 18px monospace';
+  ctx.fillText(
+    `REF.: ROLLEN ${CLHA_MONTAGE_VALUES.idlerNutNm} Nm • WP ${CLHA_MONTAGE_VALUES.waterPumpHousingBoltsCount}× ${CLHA_MONTAGE_VALUES.waterPumpHousingTorqueNm} Nm+${CLHA_MONTAGE_VALUES.waterPumpHousingAngleDeg}° • NW ${CLHA_MONTAGE_VALUES.camshaftCenterPreNm}→${CLHA_MONTAGE_VALUES.camshaftCenterFinalNm} Nm • HDP ${CLHA_MONTAGE_VALUES.hpPumpNutPreNm}→${CLHA_MONTAGE_VALUES.hpPumpNutFinalNm} Nm`,
+    w / 2,
+    1188
+  );
 
   cachedPoster = toTexture(canvas, {
     srgb: true,
@@ -544,8 +575,8 @@ export function getOldBeltTextures(): PBRTextureSet {
   diff.save();
   diff.fillStyle = 'rgba(203, 213, 225, 0.22)';
   diff.font = 'bold 26px monospace';
-  diff.fillText('... 6PK1025  VW ... TDI ...', 140, 120);
-  diff.fillText('Cont... 6PK102...', 620, 120);
+  diff.fillText('... EA288 CLHA  VW ... TDI ...', 140, 120);
+  diff.fillText('ZAHNRIEMEN ... TDI ...', 620, 120);
   diff.restore();
 
   // Transverse ozone micro-cracks & edge fraying
@@ -660,7 +691,7 @@ export function getNewBeltTextures(): PBRTextureSet {
   diff.fillStyle = '#f8fafc';
   diff.font = 'bold 34px "Inter", "Segoe UI", Arial, sans-serif';
   diff.textBaseline = 'middle';
-  diff.fillText('ContiTech 6PK1025 • VW EA288 1.6 TDI • MADE IN GERMANY', 34, 108);
+  diff.fillText('VW EA288 1.6 TDI (CLHA) • ZAHNRIEMEN • STEUERTRIEB', 34, 108);
 
   // Directional arrows in cyan & yellow
   const drawArrow = (ax: number, ay: number, color: string) => {

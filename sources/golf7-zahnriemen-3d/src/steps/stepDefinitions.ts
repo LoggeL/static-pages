@@ -1,3 +1,10 @@
+import {
+  CLHA_LOCK_TOOLS,
+  CLHA_MONTAGE_VALUES,
+  CLHA_TIMING_BELT,
+  CLHA_TIMING_CHECK,
+  VEHICLE_SPEC,
+} from '../specs/clhaSpecs';
 import type { CameraPresetDefinition, StepDefinition, ToolDefinition } from '../types';
 
 export const TOOL_DEFINITIONS: ToolDefinition[] = [
@@ -6,56 +13,64 @@ export const TOOL_DEFINITIONS: ToolDefinition[] = [
     hotkey: '1',
     name: 'Montagehandschuhe / Hand',
     shortName: 'Hand',
-    spec: 'Demontage & Sichtprüfung',
+    shortSpec: 'Sichtprüfung',
+    spec: 'Demontage, gesteckte Abdeckung & Sicht-/Lagerprüfung',
   },
   {
     id: 'impact17',
     hotkey: '2',
     name: 'Schlagschrauber SW 17',
     shortName: 'SW 17',
-    spec: 'Radschrauben lösen',
+    shortSpec: 'Demontage Rad',
+    spec: `5× Radschrauben lösen (Montage später je ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm mit Drehmomentschlüssel)`,
   },
   {
     id: 'torx25',
     hotkey: '3',
     name: 'Torx-Schraubendreher T25',
     shortName: 'Torx T25',
-    spec: 'Radhaus & Abdeckung',
+    shortSpec: `${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} / ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm`,
+    spec: `Montagewerte: Radhausschale vorn je ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm • unterer Zahnriemenschutz (Bundschraube) ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm`,
   },
   {
     id: 'crankWrench',
     hotkey: '4',
     name: 'Kurbelwellen-Schlüssel / Knarre',
     shortName: 'KW-Knarre',
-    spec: 'OT finden & 720° drehen',
+    shortSpec: `OT ${CLHA_TIMING_CHECK.crankDegrees}°`,
+    spec: `Kurbelwelle auf OT drehen & Kontrolle nach ${CLHA_TIMING_CHECK.crankTurns} Umdrehungen (${CLHA_TIMING_CHECK.crankDegrees}° KW = ${CLHA_TIMING_CHECK.camDegrees}° NW)`,
   },
   {
     id: 'lockingPins',
     hotkey: '5',
-    name: 'Absteckdorn-Satz (OT)',
+    name: `Absteckwerkzeuge (${CLHA_LOCK_TOOLS.crank.code}, ${CLHA_LOCK_TOOLS.cam.code}, ${CLHA_LOCK_TOOLS.pump.code})`,
     shortName: 'Absteckdorne',
-    spec: 'KW / NW / HDP sichern',
+    shortSpec: `${CLHA_LOCK_TOOLS.crank.code}·${CLHA_LOCK_TOOLS.cam.code}·${CLHA_LOCK_TOOLS.pump.code}`,
+    spec: `KW-Stopp ${CLHA_LOCK_TOOLS.crank.code} • Nockenwelle ${CLHA_LOCK_TOOLS.cam.code} • Hochdruckpumpe ${CLHA_LOCK_TOOLS.pump.code}`,
   },
   {
     id: 'eccentricKey',
     hotkey: '6',
     name: 'Exzenter-Spannschlüssel',
     shortName: 'Exzenter',
-    spec: 'Spannzeiger einstellen',
+    shortSpec: 'Zeiger (kalt)',
+    spec: `Kalter Motor: Spannzeiger auf Mitte (Nachprüfung max. ${CLHA_TIMING_CHECK.pointerRecheckMaxOffsetMm} mm seitlich)`,
   },
   {
     id: 'torqueWrench',
     hotkey: '7',
-    name: 'Drehmomentschlüssel',
+    name: 'Drehmomentschlüssel & Drehwinkel',
     shortName: 'Drehmoment',
-    spec: 'Anzug nach RLF',
+    shortSpec: `${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm+${CLHA_MONTAGE_VALUES.tensionerAngleDeg}° · ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm`,
+    spec: `Spannrollen-Mutter: Voranzug ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm, Drehwinkel ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}° • Serienrad: je ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm über Kreuz`,
   },
   {
     id: 'newTimingBelt',
     hotkey: '8',
-    name: 'Neuer Zahnriemen-Satz',
+    name: `Neuer Zahnriemen (${CLHA_TIMING_BELT.specLabel})`,
     shortName: 'Zahnriemen',
-    spec: 'EA288 Steuertrieb (7 St.)',
+    shortSpec: CLHA_TIMING_BELT.shortSpec,
+    spec: `Nockenwellen-Zahnriemen ${VEHICLE_SPEC.engineCode}: ${CLHA_TIMING_BELT.specLabel} (7 Stationen)`,
   },
 ];
 
@@ -72,12 +87,13 @@ export const REPAIR_STEPS: StepDefinition[] = [
     index: 0,
     id: 'prep_lift',
     title: 'Motorhaube öffnen & Hebebühne hochfahren',
-    subtitle: 'Schritt 1 von 13 • Fahrzeugvorbereitung',
+    subtitle: `Schritt 1 von 13 • ${VEHICLE_SPEC.model} (${VEHICLE_SPEC.engineCode}, ${VEHICLE_SPEC.powerKw} kW)`,
     description:
-      'Öffne zuerst die Motorhaube des Golf VII und fahre anschließend das Fahrzeug über den grünen Aufwärts-Taster an der rechten Hebebühnensäule auf Arbeitshöhe.',
+      'Öffne zuerst die Motorhaube des Golf VII 1.6 TDI (MKB CLHA, 77 kW) und fahre anschließend das Fahrzeug über den grünen Aufwärts-Taster an der rechten Hebebühnensäule auf Arbeitshöhe.',
     whyTip:
-      'Für den Zahnriemenwechsel am quer eingebauten EA288 1.6 TDI brauchst du Zugang von oben (Motorraum/Nockenwelle) und seitlich über das rechte Radhaus zur Kurbelwelle. Hinweis: Diese 3D-Werkstatt bildet den Ablauf als Übungsmodell vereinfacht ab — am realen Fahrzeug gelten stets der VW-Reparaturleitfaden und vorgeschriebene Sonderwerkzeuge.',
+      'Für den Zahnriemenwechsel am EA288 (CLHA) brauchst du Zugang von oben und über das rechte Radhaus. Alle Montagewerte und Quellen stehen jederzeit unter „Montagewerte & Quellen (CLHA)“ bereit (auch im Profi-Modus).',
     requiredTools: ['hand'],
+    specBadge: `MKB ${VEHICLE_SPEC.engineCode} • ${VEHICLE_SPEC.powerKw} kW`,
     cameraPreset: 'overview',
     subObjectives: [
       { id: 'open_hood', label: 'Motorhaube entriegeln und öffnen' },
@@ -90,13 +106,14 @@ export const REPAIR_STEPS: StepDefinition[] = [
     title: 'TDI-Motorabdeckung abnehmen',
     subtitle: 'Schritt 2 von 13 • Zugang Motorraum oben',
     description:
-      'Ziehe die obere TDI-Akustikabdeckung senkrecht aus den Gummilagerzapfen nach oben ab, um freien Einblick auf Zylinderkopf, Kraftstoff-Hochdruckpumpe und die obere Zahnriemenabdeckung zu schaffen.',
+      'Ziehe die obere TDI-Motorabdeckung senkrecht aus den Gummilagerzapfen nach oben ab (gesteckt, ohne Verschraubung).',
     whyTip:
-      'Die Motorabdeckung ist gesteckt und gibt nach dem Abnehmen den oberen Bereich des Steuertriebs auf der Beifahrerseite frei.',
+      'Nach dem Abziehen der gesteckten Motorabdeckung liegen Zylinderkopf, Hochdruckpumpe und der obere Bereich des Steuertriebs auf der Beifahrerseite frei.',
     requiredTools: ['hand'],
+    specBadge: 'Gesteckt',
     cameraPreset: 'engineTop',
     subObjectives: [
-      { id: 'remove_cover', label: 'TDI-Motorabdeckung nach oben abziehen' },
+      { id: 'remove_cover', label: 'Gesteckte TDI-Motorabdeckung nach oben abziehen' },
     ],
   },
   {
@@ -104,11 +121,10 @@ export const REPAIR_STEPS: StepDefinition[] = [
     id: 'remove_wheel',
     title: 'Vorderrad rechts demontieren',
     subtitle: 'Schritt 3 von 13 • Zugang Beifahrerseite',
-    description:
-      'Löse alle 5 Radschrauben mit dem Schlagschrauber SW 17 und nimm anschließend das rechte Vorderrad mit der Hand ab (wird auf dem Reifenständer abgelegt).',
-    whyTip:
-      'Der gesamte EA288-Steuertrieb sitzt an der rechten Stirnseite des Motors — über das rechte Radhaus erreichst du Kurbelwellenrad, Umlenkrollen, Wasserpumpe und Spannrolle direkt.',
+    description: `Löse alle 5 Radschrauben mit dem Schlagschrauber SW 17 und nimm anschließend das Serienrad mit der Hand ab. Montagewert beim späteren Einbau: je ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm über Kreuz.`,
+    whyTip: `Über das rechte Radhaus sind Kurbelwellenrad, Umlenkrollen, Kühlmittelpumpe und Spannrolle direkt erreichbar. Montagewert Serienrad: je ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm über Kreuz, einstufig.`,
     requiredTools: ['impact17', 'hand'],
+    specBadge: `Einbau: je ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm`,
     cameraPreset: 'wheelWell',
     subObjectives: [
       { id: 'unbolt_lug_0', label: 'Radschraube 1 (SW 17) lösen' },
@@ -116,7 +132,7 @@ export const REPAIR_STEPS: StepDefinition[] = [
       { id: 'unbolt_lug_2', label: 'Radschraube 3 (SW 17) lösen' },
       { id: 'unbolt_lug_3', label: 'Radschraube 4 (SW 17) lösen' },
       { id: 'unbolt_lug_4', label: 'Radschraube 5 (SW 17) lösen' },
-      { id: 'take_off_wheel', label: 'Vorderrad rechts von der Radnabe abnehmen' },
+      { id: 'take_off_wheel', label: 'Serienrad vorne rechts von der Radnabe abnehmen' },
     ],
   },
   {
@@ -124,11 +140,10 @@ export const REPAIR_STEPS: StepDefinition[] = [
     id: 'remove_liner',
     title: 'Radhausschale vorne rechts ausbauen',
     subtitle: 'Schritt 4 von 13 • Spritzschutz entfernen',
-    description:
-      'Schraube alle 6 Torx-T25-Befestigungsschrauben heraus und entnimm die Radhausschale, um den direkten Arbeitsraum vor der Zahnriemenabdeckung freizulegen.',
-    whyTip:
-      'Erst nach dem Entfernen der Radhausschale hast du freie Sicht auf die komplette Stirnseite des EA288-Steuertriebs.',
+    description: `Schraube die 6 Torx-T25-Schrauben des Vorderteils heraus und entnimm die Radhausschale. Montagewert beim späteren Einbau: je ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm.`,
+    whyTip: `Die Schrauben des Vorderteils der Radhausschale werden beim Einbau mit je ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm angezogen. Danach liegt die Zahnriemenabdeckung frei.`,
     requiredTools: ['torx25', 'hand'],
+    specBadge: `6× T25 • Einbau je ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm`,
     cameraPreset: 'wheelWell',
     subObjectives: [
       { id: 'unscrew_liner_0', label: 'Torx-Schraube T25 #1 herausdrehen' },
@@ -137,7 +152,7 @@ export const REPAIR_STEPS: StepDefinition[] = [
       { id: 'unscrew_liner_3', label: 'Torx-Schraube T25 #4 herausdrehen' },
       { id: 'unscrew_liner_4', label: 'Torx-Schraube T25 #5 herausdrehen' },
       { id: 'unscrew_liner_5', label: 'Torx-Schraube T25 #6 herausdrehen' },
-      { id: 'take_off_liner', label: 'Radhausschale aus dem Radhaus nehmen' },
+      { id: 'take_off_liner', label: 'Radhausschale vorn aus dem Radhaus nehmen' },
     ],
   },
   {
@@ -145,15 +160,20 @@ export const REPAIR_STEPS: StepDefinition[] = [
     id: 'open_timing_cover',
     title: 'Zahnriemenabdeckung abnehmen & Steuertrieb prüfen',
     subtitle: 'Schritt 5 von 13 • Steuertrieb freilegen',
-    description:
-      'Löse die beiden Befestigungen der Zahnriemenabdeckung mit Torx T25, nimm die Abdeckung von Hand ab und inspiziere danach den alten Zahnriemen, um das 7-Stationen-Schema freizuschalten.',
-    whyTip:
-      'Der Zahnriemen koppelt Kurbelwelle, Nockenwelle (2:1) und Hochdruckpumpe formschlüssig über Zähne; über den glatten Rücken werden Kühlmittelpumpe, Umlenkrollen und Spannrolle angetrieben.',
+    description: `Löse die obere Halterung (Gehäuseteile im Modell zusammengefasst) und unten die unverlierbare Bundschraube des unteren Zahnriemenschutzes (Montagewert ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm). Nimm die Abdeckung ab und inspiziere den alten Zahnriemen.`,
+    whyTip: `Der Montagewert ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm gilt für die unverlierbare Bundschraube am unteren Zahnriemenschutz. Optionale Zugangs-Referenz am Schwingungsdämpfer KW: neue äußere Befestigungsschrauben je ${CLHA_MONTAGE_VALUES.crankDamperOuterTorqueNm} Nm + ${CLHA_MONTAGE_VALUES.crankDamperOuterAngleDeg}° (getrennt von der zentralen KW-Schraube).`,
     requiredTools: ['torx25', 'hand'],
+    specBadge: `Unterer Schutz: ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm`,
     cameraPreset: 'timingClose',
     subObjectives: [
-      { id: 'unbolt_timing_cover_0', label: 'Obere Befestigung der Zahnriemenabdeckung lösen (T25)' },
-      { id: 'unbolt_timing_cover_1', label: 'Untere Befestigung der Zahnriemenabdeckung lösen (T25)' },
+      {
+        id: 'unbolt_timing_cover_0',
+        label: 'Obere Abdeckungshalterung lösen (zusammengefasste Darstellung, T25)',
+      },
+      {
+        id: 'unbolt_timing_cover_1',
+        label: `Unterer Zahnriemenschutz: unverlierbare Bundschraube lösen (Einbau ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm)`,
+      },
       { id: 'remove_timing_cover', label: 'Zahnriemenabdeckung abnehmen' },
       { id: 'inspect_timing_belt', label: 'Alten Zahnriemen prüfen & 7-Stationen-Schema speichern' },
     ],
@@ -161,17 +181,18 @@ export const REPAIR_STEPS: StepDefinition[] = [
   {
     index: 5,
     id: 'find_ot',
-    title: 'Kurbelwelle auf OT (720°) drehen',
+    title: `Kurbelwelle auf OT (${CLHA_TIMING_CHECK.crankDegrees}°) drehen`,
     subtitle: 'Schritt 6 von 13 • Steuerzeiten-Ausgangsstellung',
-    description:
-      'Setze den Kurbelwellen-Schlüssel am Kurbelwellenrad an und drehe den Motor im Uhrzeigersinn, bis alle drei orangefarbenen Bezugsmarken an Kurbelwelle, Nockenwelle und Hochdruckpumpe exakt unter ihren festen Zeigern fluchten (OT).',
-    whyTip:
-      'Zwei Kurbelwellenumdrehungen (720°) entsprechen genau einer Nockenwellenumdrehung (360°). Nur im oberen Totpunkt (OT) stehen alle drei Absteckbohrungen gleichzeitig in Position.',
+    description: `Setze die KW-Knarre am Kurbelwellenrad an und drehe den Motor im Uhrzeigersinn, bis alle drei OT-Marken an Kurbelwelle, Nockenwelle und Hochdruckpumpe unter ihren festen Zeigern fluchten (${CLHA_TIMING_CHECK.crankDegrees}° KW = ${CLHA_TIMING_CHECK.camDegrees}° NW).`,
+    whyTip: `Zwei Kurbelwellenumdrehungen (${CLHA_TIMING_CHECK.crankDegrees}°) entsprechen einer Nockenwellenumdrehung (${CLHA_TIMING_CHECK.camDegrees}°). In OT lassen sich ${CLHA_LOCK_TOOLS.crank.code}, ${CLHA_LOCK_TOOLS.cam.code} und ${CLHA_LOCK_TOOLS.pump.code} gleichzeitig einsetzen.`,
     requiredTools: ['crankWrench'],
-    specBadge: 'OT • 720° KW',
+    specBadge: `OT • ${CLHA_TIMING_CHECK.crankDegrees}° KW / ${CLHA_TIMING_CHECK.camDegrees}° NW`,
     cameraPreset: 'timingClose',
     subObjectives: [
-      { id: 'align_ot', label: 'Kurbelwelle im Uhrzeigersinn auf OT (720°) ausrichten' },
+      {
+        id: 'align_ot',
+        label: `Kurbelwelle im Uhrzeigersinn auf OT (${CLHA_TIMING_CHECK.crankDegrees}°) ausrichten`,
+      },
     ],
   },
   {
@@ -179,48 +200,50 @@ export const REPAIR_STEPS: StepDefinition[] = [
     id: 'lock_shafts',
     title: 'Kurbelwelle, Nockenwelle & Hochdruckpumpe arretieren',
     subtitle: 'Schritt 7 von 13 • Steuerzeiten formschlüssig sichern',
-    description:
-      'Wähle den Absteckdorn-Satz und stecke Kurbelwelle, Nockenwelle und Hochdruckpumpe nacheinander in ihrer OT-Stellung fest, damit sich keine Welle beim Abnehmen des Riemens verdreht.',
-    whyTip:
-      'Beim Dieselmotor (EA288) liegen die Ventilfedern unter hoher Vorspannung. Ohne gesetzte Arretierdorne kann die Nockenwelle sofort wegschnappen und die Steuerzeiten verstellen.',
+    description: `Wähle die Absteckwerkzeuge [5] und fixiere Kurbelwelle (${CLHA_LOCK_TOOLS.crank.code}), Nockenwelle (${CLHA_LOCK_TOOLS.cam.code}) und Hochdruckpumpe (${CLHA_LOCK_TOOLS.pump.code}) in OT.`,
+    whyTip: `Referenz Steuerzeiten-Anzug (VW 08/2015, S. 119–122): Nockenwellenrad-Zentralschraube und HDP-Mutter vor der ${CLHA_TIMING_CHECK.crankDegrees}°-Kontrolle je ${CLHA_MONTAGE_VALUES.camshaftCenterPreNm} Nm Voranzug; nach erfolgreicher Kontrolle mit Gegenhalter Endanzug ${CLHA_MONTAGE_VALUES.camshaftCenterFinalNm} Nm (NW) bzw. ${CLHA_MONTAGE_VALUES.hpPumpNutFinalNm} Nm (HDP). Kleine NW-Fixierschraube separat ${CLHA_MONTAGE_VALUES.camshaftFixBoltNm} Nm. Dorn ${CLHA_LOCK_TOOLS.pump.code} dient nur zum Abstecken.`,
     requiredTools: ['lockingPins'],
-    specBadge: '3× Arretierung',
+    specBadge: `${CLHA_LOCK_TOOLS.crank.code} · ${CLHA_LOCK_TOOLS.cam.code} · ${CLHA_LOCK_TOOLS.pump.code}`,
     cameraPreset: 'timingClose',
     subObjectives: [
-      { id: 'lock_crank', label: 'Kurbelwellenrad in OT-Stellung arretieren' },
-      { id: 'lock_cam', label: 'Nockenwellenrad mit Absteckdorn sichern' },
-      { id: 'lock_pump', label: 'Hochdruckpumpenrad mit Absteckdorn sichern' },
+      { id: 'lock_crank', label: `Kurbelwellenrad mit Kurbelwellenstopp ${CLHA_LOCK_TOOLS.crank.code} sichern` },
+      { id: 'lock_cam', label: `Nockenwellenrad mit Absteckdorn ${CLHA_LOCK_TOOLS.cam.code} sichern` },
+      { id: 'lock_pump', label: `Hochdruckpumpenrad mit Absteckdorn ${CLHA_LOCK_TOOLS.pump.code} sichern` },
     ],
   },
   {
     index: 7,
     id: 'remove_old_belt',
     title: 'Spannrolle lösen, alten Zahnriemen abnehmen & Rollen prüfen',
-    subtitle: 'Schritt 8 von 13 • Demontage & Lagercheck',
+    subtitle: 'Schritt 8 von 13 • Demontage & Lagerprüfung',
     description:
-      'Entlaste die Exzenter-Spannrolle mit dem Exzenter-Schlüssel, hebe danach den entspannten alten Zahnriemen mit der Hand ab und prüfe Kühlmittelpumpe sowie beide Umlenkrollen auf spielfreien Lauf.',
-    whyTip:
-      'Bei jedem Zahnriemenwechsel werden Spannrolle, Umlenkrollen und die über den Zahnriemen angetriebene Kühlmittelpumpe sorgfältig auf Geräusche, Spiel und Dichtheit geprüft bzw. im Satz ersetzt.',
+      'Entlaste die Exzenter-Spannrolle mit dem Exzenter-Schlüssel [6], nimm danach den entspannten alten Zahnriemen mit der Hand [1] ab und prüfe Kühlmittelpumpe sowie beide Umlenkrollen von Hand auf leichten, spielfreien Lagerlauf.',
+    whyTip: `Im Spiel erfolgt hier eine reine Lagerprüfung. Referenzwerte für Tausch/Montage: Umlenkrolle mit Mutter ${CLHA_MONTAGE_VALUES.idlerNutNm} Nm, Umlenkrolle mit Schraube ${CLHA_MONTAGE_VALUES.idlerBoltNm} Nm; schaltbare Kühlmittelpumpe ${CLHA_MONTAGE_VALUES.waterPumpHousingBoltsCount} neue Gehäuseschrauben je ${CLHA_MONTAGE_VALUES.waterPumpHousingTorqueNm} Nm + ${CLHA_MONTAGE_VALUES.waterPumpHousingAngleDeg}° (Kühlmittelventil-Schraube separat ${CLHA_MONTAGE_VALUES.waterPumpValveBoltNm} Nm).`,
     requiredTools: ['eccentricKey', 'hand'],
+    specBadge: `Ref.: Rollen ${CLHA_MONTAGE_VALUES.idlerNutNm} Nm • WP 3× ${CLHA_MONTAGE_VALUES.waterPumpHousingTorqueNm} Nm+${CLHA_MONTAGE_VALUES.waterPumpHousingAngleDeg}°`,
     cameraPreset: 'timingClose',
     subObjectives: [
       { id: 'release_old_tensioner', label: 'Exzenter-Spannrolle entlasten' },
       { id: 'take_old_timing_belt', label: 'Alten Zahnriemen von den Rädern abnehmen' },
-      { id: 'check_water_pump', label: 'Kühlmittelpumpe von Hand auf leichten Lauf prüfen' },
-      { id: 'check_idlers', label: 'Obere & untere Umlenkrolle auf Lagerlauf prüfen' },
+      {
+        id: 'check_water_pump',
+        label: `Kühlmittelpumpe von Hand prüfen (Ref. Tausch: ${CLHA_MONTAGE_VALUES.waterPumpHousingBoltsCount}× ${CLHA_MONTAGE_VALUES.waterPumpHousingTorqueNm} Nm + ${CLHA_MONTAGE_VALUES.waterPumpHousingAngleDeg}°)`,
+      },
+      {
+        id: 'check_idlers',
+        label: `Beide Umlenkrollen auf Lagerlauf prüfen (Ref. je ${CLHA_MONTAGE_VALUES.idlerNutNm} Nm)`,
+      },
     ],
   },
   {
     index: 8,
     id: 'install_new_belt',
-    title: 'Neuen Zahnriemen auflegen (7 Stationen)',
-    subtitle: 'Schritt 9 von 13 • Formschlüssige Riemenführung',
-    description:
-      'Wähle den neuen Zahnriemen-Satz und führe den Riemen beginnend an der Kurbelwelle exakt entlang der blauen Führungsspur über alle 7 Räder und Rollen.',
-    whyTip:
-      'Beginne am Kurbelwellenrad und halte das Zugtrum über die Umlenk- und Spannrolle zur Nockenwelle straff, damit die Zähne ohne Versatz sauber in alle Zahnlücken greifen.',
+    title: `Neuen Zahnriemen auflegen (${CLHA_TIMING_BELT.specLabel})`,
+    subtitle: 'Schritt 9 von 13 • Formschlüssige Riemenführung (7 Stationen)',
+    description: `Wähle den neuen Nockenwellen-Zahnriemen [8] (${CLHA_TIMING_BELT.specLabel}) und führe ihn beginnend an der Kurbelwelle entlang der blauen Führungsspur über alle 7 Räder und Rollen.`,
+    whyTip: `CLHA-Zahnriemenmaß: ${CLHA_TIMING_BELT.specLabel}. Die Darstellung der Räder im Schaubild ist schematisch. Beginne an der Kurbelwelle und halte das Zugtrum über untere Umlenkrolle und Spannrolle zur Nockenwelle straff.`,
     requiredTools: ['newTimingBelt'],
-    specBadge: '7 Stationen',
+    specBadge: CLHA_TIMING_BELT.specLabel,
     cameraPreset: 'timingClose',
     subObjectives: [
       { id: 'route_crank', label: '1. Zahnriemen am Kurbelwellenrad ansetzen' },
@@ -235,52 +258,64 @@ export const REPAIR_STEPS: StepDefinition[] = [
   {
     index: 9,
     id: 'set_tension',
-    title: 'Spannzeiger im Referenzfenster einstellen & sichern',
-    subtitle: 'Schritt 10 von 13 • Riemenspannung einstellen',
-    description:
-      'Drehe den Exzenter der Spannrolle mit dem Exzenter-Schlüssel, bis der orange Zeiger exakt mittig im Referenzfenster steht (grün). Ziehe anschließend die Befestigung mit dem Drehmomentschlüssel im Sollbereich (nach RLF) an.',
-    whyTip:
-      'Zu geringe Spannung begünstigt Zahnübersprung, zu hohe Spannung überlastet Wasserpumpen- und Rollenlager. Der Zeiger wird stets von der entspannten Seite aus mittig in das Fenster geführt.',
+    title: `Spannzeiger einstellen & Mutter (${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm + ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}°)`,
+    subtitle: 'Schritt 10 von 13 • Kalter Motor • Voranzug & Drehwinkel',
+    description: `Einstellung bei kaltem Motor: Drehe den Exzenter [6] auf Zeigermitte. Ziehe dann die erneuerte Spannrollen-Mutter mit [7] zweistufig an: Voranzug ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm, danach Drehwinkel ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}°.`,
+    whyTip: `Voranzug (${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm) und Drehwinkel (${CLHA_MONTAGE_VALUES.tensionerAngleDeg}°) sind zwei getrennte Stufen mit eigenen Einheiten. Bei der späteren Nachprüfung nach ${CLHA_TIMING_CHECK.crankDegrees}° ist Ziel wieder Zeigermitte (lt. VW max. ${CLHA_TIMING_CHECK.pointerRecheckMaxOffsetMm} mm seitliche Abweichung, S. 122).`,
     requiredTools: ['eccentricKey', 'torqueWrench'],
-    specBadge: 'Zeiger Mitte • RLF',
+    specBadge: `${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm + ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}° • kalt`,
     cameraPreset: 'tensionerMacro',
     subObjectives: [
-      { id: 'align_tension_pointer', label: 'Exzenter drehen bis Spannzeiger mittig im Referenzfenster steht' },
-      { id: 'torque_tensioner_nut', label: 'Spannrollen-Befestigung mit Drehmomentschlüssel (Sollbereich RLF) anziehen' },
+      {
+        id: 'align_tension_pointer',
+        label: 'Spannzeiger bei kaltem Motor auf Zeigermitte stellen [6]',
+      },
+      {
+        id: 'torque_tensioner_stage1',
+        label: `Stufe 1/2: Spannrollen-Mutter Voranzug ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm [7]`,
+      },
+      {
+        id: 'angle_tensioner_stage2',
+        label: `Stufe 2/2: Spannrollen-Mutter Drehwinkel ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}° [7]`,
+      },
     ],
   },
   {
     index: 10,
     id: 'remove_locks',
-    title: 'Alle 3 Arretierdorne ziehen',
+    title: `Absteckwerkzeuge ziehen (${CLHA_LOCK_TOOLS.crank.code}, ${CLHA_LOCK_TOOLS.cam.code}, ${CLHA_LOCK_TOOLS.pump.code})`,
     subtitle: 'Schritt 11 von 13 • Wellen vor Durchdrehen freigeben',
-    description:
-      'Der neue Zahnriemen liegt sauber auf und ist korrekt gespannt. Ziehe jetzt alle drei Absteckdorne an Kurbelwelle, Nockenwelle und Hochdruckpumpe wieder heraus.',
+    description: `Die Spannrollen-Mutter ist mit ${CLHA_MONTAGE_VALUES.tensionerTorqueNm} Nm + ${CLHA_MONTAGE_VALUES.tensionerAngleDeg}° gesichert. Ziehe jetzt ${CLHA_LOCK_TOOLS.crank.code}, ${CLHA_LOCK_TOOLS.cam.code} und ${CLHA_LOCK_TOOLS.pump.code} heraus.`,
     whyTip:
-      'Vor dem Durchdrehen von Hand müssen ausnahmslos alle Arretierwerkzeuge entfernt werden — ein vergessener Dorn blockiert die Welle und beschädigt Nabe oder Gehäuse.',
+      'Vor dem Durchdrehen von Hand werden alle Absteck- und Fixierwerkzeuge vollständig aus den Rädern entfernt.',
     requiredTools: ['lockingPins'],
+    specBadge: `${CLHA_LOCK_TOOLS.crank.code} · ${CLHA_LOCK_TOOLS.cam.code} · ${CLHA_LOCK_TOOLS.pump.code}`,
     cameraPreset: 'timingClose',
     subObjectives: [
-      { id: 'unlock_crank', label: 'Absteckdorn Kurbelwelle herausziehen' },
-      { id: 'unlock_cam', label: 'Absteckdorn Nockenwelle herausziehen' },
-      { id: 'unlock_pump', label: 'Absteckdorn Hochdruckpumpe herausziehen' },
+      { id: 'unlock_crank', label: `Kurbelwellenstopp ${CLHA_LOCK_TOOLS.crank.code} herausziehen` },
+      { id: 'unlock_cam', label: `Absteckdorn Nockenwelle ${CLHA_LOCK_TOOLS.cam.code} herausziehen` },
+      { id: 'unlock_pump', label: `Absteckdorn Hochdruckpumpe ${CLHA_LOCK_TOOLS.pump.code} herausziehen` },
     ],
   },
   {
     index: 11,
     id: 'check_timing_run',
-    title: '720° von Hand durchdrehen, OT prüfen & Probelauf',
-    subtitle: 'Schritt 12 von 13 • Steuerzeiten- & Funktionskontrolle',
-    description:
-      'Drehe die Kurbelwelle mit der KW-Knarre zweimal komplett (720° KW = 360° NW) im Uhrzeigersinn durch, prüfe OT-Markierungen & Spannzeiger per Klick und starte danach den 1.6 TDI Probelauf.',
-    whyTip:
-      'Durch zwei volle Kurbelwellenumdrehungen setzt sich der neue Zahnriemen gleichmäßig in allen Verzahnungstälern. Fluchten alle drei OT-Marken und der Spannzeiger erneut exakt, passen die Steuerzeiten.',
+    title: `${CLHA_TIMING_CHECK.crankDegrees}° durchdrehen, Zeiger prüfen & Probelauf`,
+    subtitle: 'Schritt 12 von 13 • Steuerzeiten- & Zeiger-Nachprüfung',
+    description: `Drehe die Kurbelwelle mit [4] zweimal komplett (${CLHA_TIMING_CHECK.crankDegrees}° KW = ${CLHA_TIMING_CHECK.camDegrees}° NW) im Uhrzeigersinn durch, prüfe OT-Marken und Zeigermitte per Klick [1] (Nachprüfung lt. VW max. ${CLHA_TIMING_CHECK.pointerRecheckMaxOffsetMm} mm seitlich) und starte den Probelauf.`,
+    whyTip: `Nach ${CLHA_TIMING_CHECK.crankTurns} KW-Umdrehungen (${CLHA_TIMING_CHECK.crankDegrees}°) gilt: Ziel wieder Zeigermitte, zulässige seitliche Zeigerabweichung max. ${CLHA_TIMING_CHECK.pointerRecheckMaxOffsetMm} mm (VW 08/2015, S. 122). Bei gelösten Nabenrädern folgt erst nach bestandener Kontrolle der Endanzug mit Gegenhalter: NW-Zentralschraube ${CLHA_MONTAGE_VALUES.camshaftCenterFinalNm} Nm, HDP-Mutter ${CLHA_MONTAGE_VALUES.hpPumpNutFinalNm} Nm.`,
     requiredTools: ['crankWrench', 'hand'],
-    specBadge: '720° Prüfung',
+    specBadge: `${CLHA_TIMING_CHECK.crankDegrees}° • Zeiger ≤ ${CLHA_TIMING_CHECK.pointerRecheckMaxOffsetMm} mm`,
     cameraPreset: 'timingClose',
     subObjectives: [
-      { id: 'manual_crank_720', label: 'Kurbelwelle 2× (720°) von Hand durchdrehen' },
-      { id: 'verify_ot_and_pointer', label: 'OT-Marken & Spannzeiger im Referenzfenster bestätigen' },
+      {
+        id: 'manual_crank_720',
+        label: `Kurbelwelle ${CLHA_TIMING_CHECK.crankTurns}× (${CLHA_TIMING_CHECK.crankDegrees}°) von Hand durchdrehen`,
+      },
+      {
+        id: 'verify_ot_and_pointer',
+        label: `OT-Marken & Zeigermitte bestätigen (Nachprüfung max. ${CLHA_TIMING_CHECK.pointerRecheckMaxOffsetMm} mm seitlich)`,
+      },
       { id: 'engine_idle_check', label: '1.6 TDI Probelauf starten & ruhigen Riemenlauf prüfen' },
     ],
   },
@@ -288,20 +323,30 @@ export const REPAIR_STEPS: StepDefinition[] = [
     index: 12,
     id: 'reassemble',
     title: 'Rückbau & Übergabekontrolle',
-    subtitle: 'Schritt 13 von 13 • Fahrzeug wiederherstellen',
-    description:
-      'Montiere Zahnriemenabdeckung, Radhausschale (6× T25) und Vorderrad, ziehe die 5 Radschrauben über Kreuz mit dem Drehmomentschlüssel (Sollbereich RLF) an, schließe Motorabdeckung & Haube und lasse die Hebebühne ab.',
-    whyTip:
-      'Die Zahnriemenabdeckung schützt den Steuertrieb vor Schmutz und Steinschlag. Radschrauben immer über Kreuz nach Herstellervorgabe anziehen und nach der ersten Fahrt nachkontrollieren.',
+    subtitle: 'Schritt 13 von 13 • Fahrzeug nach Montagewerten wiederherstellen',
+    description: `Montiere Zahnriemenabdeckung (unterer Schutz Bundschraube ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm; obere Halter zusammengefasst), Radhausschale vorn (6× T25 je ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm) und Serienrad (5× je ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm über Kreuz), stecke die Motorabdeckung auf, schließe die Haube und lasse die Hebebühne ab.`,
+    whyTip: `Montagewerte Rückbau: unterer Zahnriemenschutz Bundschraube ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm, Radhausschale Vorderteil je ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm, Serienrad je ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm über Kreuz (einstufig), TDI-Motorabdeckung gesteckt.`,
     requiredTools: ['hand', 'torx25', 'torqueWrench'],
-    specBadge: 'Rückbau • RLF',
+    specBadge: `${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm · ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm · ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm`,
     cameraPreset: 'timingClose',
     subObjectives: [
-      { id: 'reinstall_timing_cover', label: 'Zahnriemenabdeckung ansetzen & befestigen (T25)' },
-      { id: 'reinstall_liner', label: 'Radhausschale einsetzen & 6× T25 verschrauben' },
-      { id: 'reinstall_wheel', label: 'Vorderrad rechts auf Radnabe aufsetzen' },
-      { id: 'torque_wheel_bolts', label: '5 Radschrauben über Kreuz im Sollbereich (RLF) anziehen' },
-      { id: 'reinstall_cover_hood', label: 'TDI-Motorabdeckung & Motorhaube schließen' },
+      {
+        id: 'reinstall_timing_cover',
+        label: `Zahnriemenabdeckung montieren (unterer Schutz Bundschraube ${CLHA_MONTAGE_VALUES.lowerTimingCoverCaptiveBoltNm} Nm; oben zusammengefasst)`,
+      },
+      {
+        id: 'reinstall_liner',
+        label: `Radhausschale vorn einsetzen & 6× T25 verschrauben (je ${CLHA_MONTAGE_VALUES.wheelLinerFrontScrewNm} Nm)`,
+      },
+      { id: 'reinstall_wheel', label: 'Serienrad vorne rechts auf Radnabe aufsetzen' },
+      {
+        id: 'torque_wheel_bolts',
+        label: `Serienrad, je ${CLHA_MONTAGE_VALUES.wheelBoltNm} Nm über Kreuz (Sammelübung)`,
+      },
+      {
+        id: 'reinstall_cover_hood',
+        label: 'TDI-Motorabdeckung aufstecken & Haube schließen',
+      },
       { id: 'lower_lift', label: 'Hebebühne komplett ablassen (gelber Abwärts-Taster)' },
     ],
   },

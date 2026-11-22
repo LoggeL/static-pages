@@ -97,6 +97,7 @@ export interface ToolDefinition {
   hotkey: string;
   name: string;
   shortName: string;
+  shortSpec: string;
   spec: string;
 }
 
@@ -106,31 +107,44 @@ export interface CameraPresetDefinition {
   label: string;
 }
 
+export type FasteningUnit = 'Nm' | '°';
+
 export type MinigameState =
   | { type: 'none' }
   | {
       type: 'ot';
       crankDeg: number; // 620..760 (720 = OT)
       targetDeg: number; // 720
-      toleranceDeg: number; // 4
+      toleranceDeg: number; // 4 (Spielhilfe-Eingabefenster)
+      unit: '°';
       aligned: boolean;
     }
   | {
       type: 'eccentric';
-      tension: number; // 0..1 (0.50 = centered in reference window)
-      targetMin: number; // 0.46
-      targetMax: number; // 0.54
+      tension: number; // 0..1 (0.50 = Zeiger mittig an Markierung)
+      targetMin: number; // 0.46 (Spielhilfe)
+      targetMax: number; // 0.54 (Spielhilfe)
       aligned: boolean;
       mode: 'release' | 'set';
     }
   | {
       type: 'torque';
-      targetPct: number; // 100 (% Sollmoment nach RLF)
-      tolerancePct: number; // 6
-      maxPct: number; // 135
-      currentPct: number;
+      stageKind: 'torque' | 'angle';
+      stageIndex: number; // 1 oder 2
+      stageTotal: number; // 1 (Serienrad 120 Nm) oder 2 (Spannrolle 20 Nm + 45°)
+      unit: FasteningUnit;
+      targetValue: number; // 20 Nm, 45°, 120 Nm
+      inputWindow: number; // Spielhilfe-Eingabefenster (keine Hersteller-Toleranz)
+      maxValue: number; // 30 Nm, 75°, 160 Nm
+      scaleTicks: number[];
+      decimals: number;
+      currentValue: number;
       label: string;
       boltLabel: string;
+      specNote: string;
+      attemptStatus: 'ready' | 'retry';
+      lastAttemptValue?: number;
+      lastAttemptFeedback?: string;
       active: boolean;
     };
 
@@ -142,10 +156,14 @@ export interface ToastMessage {
 
 export interface TorqueScore {
   label: string;
+  stageKind: 'torque' | 'angle';
+  unit: FasteningUnit;
+  targetValue: number;
   targetLabel: string;
-  achievedPct: number;
-  deltaPct: number;
-  rating: 'Perfekt' | 'Gut' | 'Akzeptabel' | 'Daneben';
+  achievedValue: number;
+  deltaValue: number;
+  decimals: number;
+  rating: 'Perfekt' | 'Gut';
   xp: number;
 }
 
