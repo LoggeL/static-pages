@@ -7,9 +7,7 @@ import renderTermine from "./sections/termine.js";
 import renderKurse from "./sections/kurse.js";
 import renderLinks from "./sections/links.js";
 import renderAnprobe from "./sections/anprobe.js";
-import renderShop from "./sections/shop.js";
 import renderLookbook from "./sections/lookbook.js";
-import renderAtelier from "./sections/atelier.js";
 import renderUeber from "./sections/ueber.js";
 import renderEinstellungen from "./sections/einstellungen.js";
 import { SITES } from "./sections/common.js";
@@ -22,9 +20,7 @@ const ROUTES = [
   { id: "kurse", label: "Kurse", long: "Feste Kurse", icon: "clock", render: renderKurse },
   { id: "anprobe", label: "Anprobe", long: "Anprobe", icon: "scissors", render: renderAnprobe },
   { id: "links", label: "Links", long: "Links", icon: "link", render: renderLinks },
-  { id: "shop", label: "Shop", long: "Shop-Auswahl", icon: "bag", render: renderShop },
-  { id: "lookbook", label: "Lookbook", long: "Lookbook", icon: "photo", render: renderLookbook },
-  { id: "atelier", label: "Atelier", long: "Atelier & Zeiten", icon: "door", render: renderAtelier },
+  { id: "lookbook", label: "Galerie", long: "Galerie", icon: "photo", render: renderLookbook },
   { id: "ueber", label: "Über mich", long: "Über mich", icon: "heart", render: renderUeber },
   { id: "einstellungen", label: "Einstellungen", long: "Einstellungen", icon: "gear", render: renderEinstellungen },
   { id: "mehr", label: "Mehr", long: "Mehr", icon: "more", render: renderMehr, hidden: true },
@@ -120,7 +116,8 @@ function parseHash() {
 
 function route() {
   const parsed = parseHash();
-  if (!parsed) { if (location.hash && location.hash !== "#") return; history.replaceState(null, "", "#start"); return route(); }
+  // Unbekannte oder entfernte Bereiche (z. B. alte Lesezeichen #shop, #atelier) landen auf der Übersicht
+  if (!parsed) { history.replaceState(null, "", "#start"); return route(); }
   const changed = !current || current.route.id !== parsed.route.id;
   current = parsed;
   renderCurrent({ focusTitle: changed });
@@ -186,9 +183,7 @@ function renderMehr() {
   const desc = {
     kurse: "Deine wöchentlichen Nähkurse",
     links: "Linkliste, z. B. für Instagram",
-    shop: "Welche Stücke vorne gezeigt werden",
-    lookbook: "Fotos deiner bisherigen Projekte",
-    atelier: "Öffnungstage, Grundregel, Google Maps",
+    lookbook: "Fotos deiner Projekte",
     ueber: "Dein kurzer Steckbrief-Text",
     einstellungen: "Demo zurücksetzen, abmelden",
   };

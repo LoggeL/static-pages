@@ -1,12 +1,12 @@
 // Feste Kurse: wiederkehrende Nähkurse (n-ter Wochentag im Monat), Hinweis darunter, Kurspausen
-import { TODAY, WEEKDAYS, formatDate, uid, courseRule, courseDates, isHoliday, eventsOn } from "../../../shared/store.js";
+import { TODAY, WEEKDAYS, formatDate, uid, courseRule, courseDates, courseSessions, isHoliday, eventsOn } from "../../../shared/store.js";
 import { h, icon, btn, iconBtn, sectionHeader, emptyState, openForm, card, field, fid } from "../ui.js";
 import { addDays, typeName } from "./common.js";
 
 const DAY_ORDER = [1, 2, 3, 4, 5, 6, 0]; // Montag zuerst
 const SHORT = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 const PREVIEW = 3; // so viele nächste Termine zeigt jede Kurskarte
-const HORIZON = 120; // Tage, die courseDates vorausschaut (wie im Store)
+const HORIZON = 240; // Tage, die die Website vorausschaut (courseSessions im Store)
 
 const dateShort = (d) => formatDate(d, { weekday: "short", day: "numeric", month: "short" });
 const dateLong = (d) => formatDate(d, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
@@ -37,6 +37,15 @@ function preview(k, breaks) {
   return { dates, items: out };
 }
 
+/** Passen „Termine pro Kurs“ und die gewählten Wochen zusammen? */
+function sessionsProblem(weeks, sessions) {
+  const n = Number(sessions) || 1;
+  if (n <= 1 || !weeks.length) return "";
+  if (weeks.length < n) return `Für ${n} Termine pro Kurs brauchst du mindestens ${n} Wochen im Monat.`;
+  if (weeks.length % n) return `Bei ${n} Terminen pro Kurs muss die Zahl der Wochen durch ${n} teilbar sein (z. B. ${n === 2 ? "2. und 4." : `${n} Wochen`}).`;
+  return "";
+}
+
 /** Formularfelder (Wochentags-Knöpfe werden je Dialog neu gebaut) */
 function buildFields(state, previewEl) {
   const refresh = () => {
@@ -44,10 +53,14 @@ function buildFields(state, previewEl) {
       previewEl.replaceChildren(icon("info", "ico-sm"), h("span", {}, "Wähle mindestens eine Woche."));
       return;
     }
-    const next = courseDates({ weekday: state.weekday, weeks: state.weeks }, 2, HORIZON);
+    const k = { weekday: state.weekday, weeks: state.weeks, sessions: state.sessions };
+    const bad = sessionsProblem(state.weeks, state.sessions);
+    if (bad) { previewEl.replaceChildren(icon("info", "ico-sm"), h("span", {}, bad)); return; }
+    const next = courseSessions(k, 2);
+    const multi = state.sessions > 1;
     previewEl.replaceChildren(icon("calendar", "ico-sm"), h("span", {},
-      h("strong", {}, courseRule({ weekday: state.weekday, weeks: state.weeks })),
-      next.length ? h("span", { class: "kc-rule-next" }, ` · nächste Termine: ${next.map(dateShort).join(", ")}`) : null));
+      h("strong", {}, courseRule(k)),
+      next.length ? h("span", { class: "kc-rule-next" }, ` · ${multi ? "nächste Kurse" : "nächste Termine"}: ${next.map((g) => g.map(dateShort).join(" + ")).join(multi ? " / " : ", ")}`) : null));
   };
   refresh();
   return [
@@ -62,6 +75,10 @@ function buildFields(state, previewEl) {
       options: [1, 2, 3, 4, 5].map((w) => ({ value: w, label: [h("strong", {}, `${w}.`), h("span", { class: "chip-sub" }, "Woche")] })),
       extra: previewEl,
       onChange: (v) => { state.weeks = v.map(Number); refresh(); } },
+    { name: "sessions", label: "Termine pro Kurs", type: "choice",
+      hint: "Bei 2 gehören die Termine eines Monats zusammen, z. B. 2. und 4. Samstag. Auf der Website stehen sie dann in einem Feld.",
+      options: [1, 2, 3, 4].map((n) => ({ value: n, label: n === 1 ? "1 Termin" : `${n} Termine` })),
+      onChange: (v) => { state.sessions = Number(v); refresh(); } },
     { name: "time", label: "Uhrzeit", type: "text", placeholder: "z. B. 18–20 Uhr", attrs: { maxlength: 40 } },
     { name: "price", label: "Preis", type: "text", placeholder: "z. B. 24 € pro Termin", attrs: { maxlength: 60 } },
     { name: "audience", label: "Für wen", type: "text", placeholder: "z. B. Für alle, auch absolute Einsteiger", attrs: { maxlength: 80 } },
@@ -77,16 +94,17 @@ export default function renderKurse(ctx) {
 
   // ---------- Bearbeiten / Neu ----------
   const openEditor = (k) => {
-    const state = { weekday: k ? Number(k.weekday) : 4, weeks: k ? [...k.weeks] : [] };
+    const state = { weekday: k ? Number(k.weekday) : 4, weeks: k ? [...k.weeks] : [], sessions: k ? Number(k.sessions) || 1 : 1 };
     const previewEl = h("p", { class: "kc-rule-pv", "aria-live": "polite" });
     openForm({
       title: k ? "Kurs bearbeiten" : "Neuer Kurs",
       intro: k ? null : "Trag den Kurs so ein, wie er auf deiner Tafel steht. Die Website rechnet die Termine selbst aus.",
       fields: buildFields(state, previewEl),
-      values: k ? { ...k } : { weekday: 4, weeks: [], visible: true },
+      values: k ? { ...k, sessions: Number(k.sessions) || 1 } : { weekday: 4, weeks: [], sessions: 1, visible: true },
       submitLabel: k ? "Änderungen speichern" : "Kurs speichern",
+      validate: (v) => { const msg = sessionsProblem((v.weeks || []).map(Number), v.sessions); return msg ? { sessions: msg } : {}; },
       onSave: (v) => {
-        const data = { ...v, weekday: Number(v.weekday), weeks: v.weeks.map(Number).sort((a, b) => a - b) };
+        const data = { ...v, weekday: Number(v.weekday), weeks: v.weeks.map(Number).sort((a, b) => a - b), sessions: Math.min(4, Math.max(1, Number(v.sessions) || 1)) };
         if (k) ctx.save((d) => { const x = d.courses.find((y) => y.id === k.id); if (x) Object.assign(x, data); });
         else ctx.save((d) => { d.courses.push({ id: uid(), ...data }); });
         ctx.toast(k ? "Kurs gespeichert" : `„${data.title}“ hinzugefügt`);
@@ -120,6 +138,8 @@ export default function renderKurse(ctx) {
     const pv = preview(k, breaks);
     const listId = `kc-next-${k.id}`;
     const skips = pv.items.filter((x) => x.skip);
+    const multi = (Number(k.sessions) || 1) > 1;
+    const groups = multi ? courseSessions(k, 2) : [];
     return h("li", { class: "lk kc" + (hidden ? " is-hidden" : "") },
       h("div", { class: "lk-order" },
         iconBtn("up", `„${name}“ nach oben`, () => move(i, -1), { disabled: i === 0, attrs: { "data-key": `kc-up-${k.id}` } }),
@@ -137,10 +157,15 @@ export default function renderKurse(ctx) {
         k.audience ? h("p", { class: "kc-line" }, icon("heart", "ico-xs"), k.audience) : null,
         k.note ? h("p", { class: "ev-note" }, k.note) : null,
         h("div", { class: "kc-next" },
-          h("p", { class: "small strong", id: listId }, "Nächste Termine"),
-          pv.dates.length
-            ? h("ul", { class: "kc-dates", "aria-labelledby": listId }, pv.dates.map((d) => h("li", { class: "kc-date" }, dateShort(d))))
-            : h("p", { class: "muted small" }, "In den nächsten Monaten findet kein Termin statt."),
+          h("p", { class: "small strong", id: listId }, multi ? `Nächste Kurse (je ${k.sessions} Termine)` : "Nächste Termine"),
+          multi
+            ? (groups.length
+              ? h("ul", { class: "kc-dates", "aria-labelledby": listId }, groups.map((g) => h("li", { class: "kc-date" }, g.map(dateShort).join(" + "))))
+              : h("p", { class: "muted small" }, "In den nächsten Monaten findet kein vollständiger Kurs statt."))
+            : pv.dates.length
+              ? h("ul", { class: "kc-dates", "aria-labelledby": listId }, pv.dates.map((d) => h("li", { class: "kc-date" }, dateShort(d))))
+              : h("p", { class: "muted small" }, "In den nächsten Monaten findet kein Termin statt."),
+          multi && skips.length ? h("p", { class: "muted small" }, "Fällt ein Termin aus, findet der Kurs in diesem Monat nicht statt.") : null,
           skips.length
             ? h("ul", { class: "kc-skips", "aria-label": "Fällt aus" }, skips.map((x) => h("li", {},
               h("span", { class: "kc-skip-date" }, dateShort(x.date)), ` fällt aus: ${x.skip}`)))

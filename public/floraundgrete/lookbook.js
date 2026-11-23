@@ -1,9 +1,9 @@
-// Lookbook: vergangene Projekte als Galerie mit Großansicht (Dialog, Tastatur, Wischen)
+// Galerie: Projekte aus dem Atelier mit Großansicht (Dialog, Tastatur, Wischen)
 import { lookbookItems, imageSrc } from "./shared/store.js";
 import { DIMS } from "./dims.js";
 import { $, $$, esc, pad2, trapFocus, reduceMotion } from "./util.js";
 
-const section = $("#lookbook");
+const section = $("#galerie");
 const grid = $("#lb-grid");
 const box = $("#lbx");
 const img = $("#lbx-img");
@@ -31,7 +31,7 @@ export function renderLookbook() {
   items = lookbookItems();
   const empty = !items.length;
   section.hidden = empty;
-  $$('a[href="#lookbook"]').forEach((a) => { const li = a.closest("li"); if (li) li.hidden = empty; });
+  $$('a[href="#galerie"]').forEach((a) => { const li = a.closest("li"); if (li) li.hidden = empty; else a.hidden = empty; });
   grid.innerHTML = items.map((it, i) => `
     <li class="lb__item">
       <button type="button" class="lb__btn" data-i="${i}" aria-haspopup="dialog">
@@ -58,13 +58,13 @@ function show() {
   const d = DIMS[it.image];
   if (d) { img.width = d[0]; img.height = d[1]; } else { img.removeAttribute("width"); img.removeAttribute("height"); }
   img.src = imageSrc(it.image, "");
-  img.alt = it.title || "Projekt aus dem Lookbook";
+  img.alt = it.title || "Projekt aus der Galerie";
   title.textContent = it.title || "Projekt";
   meta.innerHTML = [it.year ? `<span class="lbx__year">${esc(it.year)}</span>` : "", it.note ? `<span>${esc(it.note)}</span>` : ""].filter(Boolean).join(" ");
   meta.hidden = !it.year && !it.note;
   count.textContent = `${pad2(index + 1)} / ${pad2(items.length)}`;
   live.textContent = `Bild ${index + 1} von ${items.length}: ${label(it)}`;
-  if (!box.hidden && !box.classList.contains("is-closing")) document.title = `${it.title || "Lookbook"} – Cathrin Raasch Atelier`;
+  if (!box.hidden && !box.classList.contains("is-closing")) document.title = `${it.title || "Galerie"} – Cathrin Raasch Atelier`;
   const single = items.length < 2;
   $("#lbx-prev").hidden = single;
   $("#lbx-next").hidden = single;
@@ -101,8 +101,8 @@ function close() {
   const back = lastFocus && document.contains(lastFocus) ? lastFocus : $(`.lb__btn[data-i="${index}"]`) || $(".lb__btn");
   if (back && !section.hidden) back.focus({ preventScroll: true });
   else {
-    // Lookbook wurde während der Großansicht geleert: Fokus auf die nächste Sektion
-    const next = $("#ueber-mich");
+    // Galerie wurde während der Großansicht geleert: Fokus auf die nächste Sektion
+    const next = $("#termine");
     next.setAttribute("tabindex", "-1");
     next.focus({ preventScroll: true });
   }

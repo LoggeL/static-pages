@@ -3,9 +3,9 @@ import { uid } from "../../../shared/store.js";
 import { h, icon, btn, iconBtn, sectionHeader, emptyState, openForm, card } from "../ui.js";
 
 const FIELDS = [
-  { name: "label", label: "Beschriftung", type: "text", required: true, placeholder: "z. B. Neu: Walk-Stulpen", requiredMsg: "Bitte gib dem Link eine Beschriftung." },
+  { name: "label", label: "Beschriftung", type: "text", required: true, placeholder: "z. B. Anmeldung zum Nähtag", requiredMsg: "Bitte gib dem Link eine Beschriftung." },
   { name: "url", label: "Adresse (Link)", type: "url", required: true, placeholder: "https://…", hint: "Öffne die Seite im Browser und kopiere die Adresse oben aus der Adresszeile." },
-  { name: "note", label: "Kleine Notiz darunter", type: "text", placeholder: "z. B. Für kalte Hände" },
+  { name: "note", label: "Kleine Notiz darunter", type: "text", placeholder: "z. B. Nur noch 3 Plätze frei" },
   { name: "highlight", label: "Hervorheben", type: "switch", hint: "Wird als großer, farbiger Knopf gezeigt – gut für dein Wichtigstes." },
   { name: "visible", label: "Auf der Website zeigen", type: "switch", default: true },
 ];
@@ -66,6 +66,6 @@ export default function renderLinks(ctx) {
       btn("Neuer Link", { icon: "plus", variant: "primary", attrs: { "data-key": "lk-add" }, onClick: () => openEditor(null) })),
     links.length
       ? h("ol", { class: "lk-list" }, links.map(item))
-      : h("div", { class: "card" }, emptyState("link", "Noch keine Links", "Füge z. B. deinen Etsy-Shop oder ein neues Lieblingsstück hinzu.", btn("Ersten Link anlegen", { icon: "plus", variant: "primary", onClick: () => openEditor(null) }))),
+      : h("div", { class: "card" }, emptyState("link", "Noch keine Links", "Füge z. B. deinen Instagram-Account oder eine Kursanmeldung hinzu.", btn("Ersten Link anlegen", { icon: "plus", variant: "primary", onClick: () => openEditor(null) }))),
     card("", { cls: "card-soft" }, h("p", { class: "note" }, icon("star"), h("span", {}, "Tipp: Hebe nur einen Link hervor, dann fällt er richtig auf."))));
 }

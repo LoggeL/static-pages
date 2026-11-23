@@ -548,6 +548,11 @@ a.link-arrow[target="_blank"]:hover::after { transform: translate(3px, -3px); }
   font-weight: 600; font-size: 14.5px; font-variant-numeric: tabular-nums; white-space: nowrap;
 }
 .course__none { color: var(--muted); font-size: 15px; }
+/* Kurs mit mehreren Terminen: alle Termine eines Kurses in einem Feld */
+.course__next-sub { margin-left: 6px; letter-spacing: 0.08em; text-transform: none; font-weight: 500; color: var(--faint); }
+.course__dates--multi { flex-direction: column; align-items: flex-start; }
+.course__dates--multi li { display: inline-flex; align-items: center; gap: 8px; white-space: normal; flex-wrap: wrap; }
+.course__plus { color: var(--brass-2); font-weight: 600; }
 .courses__foot { margin-top: clamp(24px, 3vw, 36px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 32px; }
 .courses__note { color: var(--muted); font-size: 16px; max-width: 52ch; }
 .courses__signup { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-left: auto; }
@@ -666,6 +671,7 @@ a.link-arrow[target="_blank"]:hover::after { transform: translate(3px, -3px); }
 /* ---------- Atelier & Kontakt ---------- */
 .studio { padding-top: var(--section); }
 .studio__head { margin-bottom: clamp(40px, 5vw, 72px); }
+.studio__head .lede { margin-top: 16px; max-width: 52ch; }
 .studio__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(40px, 6vw, 96px); align-items: start; }
 .status__pill { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px 8px 12px; border-radius: 99px; font-weight: 600; font-size: 15.5px; border: 1px solid; }
 .status__dot { width: 10px; height: 10px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 22%, transparent); }
@@ -740,11 +746,10 @@ a.contact__v:hover { text-decoration: underline; }
 .qa__a { padding: 0 0 24px; color: var(--muted); max-width: 60ch; font-size: 17px; }
 
 /* ---------- Fuß ---------- */
-.foot { background: var(--bg-deep); padding: clamp(64px, 8vw, 120px) 0 calc(48px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); position: relative; overflow: hidden; }
+.foot { background: var(--bg-deep); padding: clamp(40px, 5vw, 64px) 0 calc(48px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); position: relative; overflow: hidden; }
 .foot::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(50% 60% at 15% 0%, rgba(200, 164, 106, 0.1), transparent 70%); }
 .foot .wrap { position: relative; }
-.foot__name img { display: block; width: clamp(240px, 34vw, 520px); height: auto; }
-.foot__grid { margin-top: clamp(40px, 5vw, 72px); display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; padding-top: 28px; border-top: 1px solid var(--line); }
+.foot__grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; }
 .foot__claim { color: var(--muted); }
 .foot__links { display: grid; gap: 10px; align-content: start; }
 .foot__links a { text-decoration: none; color: var(--text); }

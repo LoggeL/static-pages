@@ -35,7 +35,7 @@ export default function renderUeber(ctx) {
       h("div", {}, h("p", { class: "about-head" }, ABOUT.headline), h("p", { class: "about-role" }, SHOP.ownerRole), previewText)),
     stateLine);
 
-  const facts = card("Steckbrief", { icon: "heart", sub: "Diese Punkte stehen neben deinem Text. Im Prototyp sind sie fest – sag einfach Bescheid, wenn du etwas ändern möchtest." },
+  const facts = card("Steckbrief", { icon: "heart", sub: "Diese Punkte stehen neben deinem Text. Hier kannst du sie noch nicht selbst ändern – schick einfach eine Nachricht, dann passe ich sie an." },
     h("dl", { class: "facts" }, ABOUT.facts.map((f) => [h("dt", {}, f.label), h("dd", {}, f.value)])));
 
   return h("div", { class: "stack" },

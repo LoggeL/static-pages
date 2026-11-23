@@ -4,7 +4,7 @@ import { h, icon, btn, card, sectionHeader } from "../ui.js";
 import { SITES } from "./common.js";
 
 export default function renderEinstellungen(ctx) {
-  const resetCard = card("Demo zurücksetzen", { icon: "refresh", sub: "Stellt alle Beispiel-Inhalte wieder her: Hinweis, Termine, Links, Anfragen, Auswahl und Texte." },
+  const resetCard = card("Demo zurücksetzen", { icon: "refresh", sub: "Stellt alle Beispiel-Inhalte wieder her: Hinweis, Termine, Kurse, Links, Anfragen, Galerie und Texte." },
     btn("Alles auf Anfang", { icon: "refresh", variant: "danger", attrs: { "data-key": "reset" }, onClick: () => {
       const snapshot = ctx.content;
       ctx.run(() => reset());

@@ -1,9 +1,9 @@
-// Lookbook: Fotos von Stücken, die Cathrin schon genäht hat (nicht nachbestellbar)
+// Galerie: Fotos von Stücken, die Cathrin genäht hat
 import { uid, imageSrc } from "../../../shared/store.js";
 import { PRODUCTS } from "../../../shared/data.js";
 import { h, icon, btn, iconBtn, sectionHeader, emptyState, openForm, card, fid } from "../ui.js";
 
-const STORE_KEY = "cathrin-raasch-cms-v3"; // wie in shared/store.js – zum Prüfen, ob ein Foto wirklich gespeichert wurde
+const STORE_KEY = "cathrin-raasch-cms-v4"; // wie in shared/store.js – zum Prüfen, ob ein Foto wirklich gespeichert wurde
 const MAX_EDGE = 1400;
 const QUALITY = 0.82;
 const WARN_ONE = 1.5e6; // ein Foto größer als ~1,5 MB
@@ -98,7 +98,7 @@ function openPicker({ title, used, onPick }) {
     h("ul", { class: "pick-grid" }, p.images.map((file, i) => {
       const isUsed = used.includes(file);
       return h("li", {}, h("button", { type: "button", class: "pick" + (isUsed ? " is-used" : ""), "data-key": "pick-" + file,
-        "aria-label": `${p.name}, Foto ${i + 1}${isUsed ? " (schon im Lookbook)" : ""}`,
+        "aria-label": `${p.name}, Foto ${i + 1}${isUsed ? " (schon in der Galerie)" : ""}`,
         onClick: () => { dlg.close(); onPick(file, p); } },
         h("img", { src: `../img/${file}`, alt: "", loading: "lazy", decoding: "async", width: 120, height: 150 }),
         isUsed ? h("span", { class: "pick-used", "aria-hidden": "true" }, icon("check")) : null));
@@ -156,18 +156,18 @@ export default function renderLookbook(ctx) {
   // Neuer Eintrag: Foto wählen, dann Titel & Co.
   const addNew = () => {
     const opener = document.activeElement;
-    openPicker({ title: "Foto fürs Lookbook", used, onPick: (image, product) => {
+    openPicker({ title: "Foto für die Galerie", used, onPick: (image, product) => {
       const warn = sizeWarning(image);
       const form = openForm({
-        title: "Neues Foto im Lookbook",
+        title: "Neues Foto in der Galerie",
         intro: preview(image, warn || "Schön! Gib dem Foto noch einen kurzen Titel."),
         fields: FIELDS, values: { title: product ? product.name : "", year: "", note: "", visible: true },
-        submitLabel: "Ins Lookbook",
+        submitLabel: "In die Galerie",
         onSave: (v) => {
           const id = uid();
           const ok = saveChecked((d) => { d.lookbook = [{ id, image, ...v }, ...(d.lookbook || [])]; }, id, image);
           if (ok) {
-            ctx.toast("Foto oben ins Lookbook eingefügt");
+            ctx.toast("Foto oben in die Galerie eingefügt");
             ctx.rerender();
             setTimeout(() => document.querySelector(`[data-key="lb-edit-${id}"]`)?.focus(), 0);
           }
@@ -179,7 +179,7 @@ export default function renderLookbook(ctx) {
   };
 
   // Foto tauschen: Beispielbild wird damit zum eigenen Eintrag
-  const replace = (item) => openPicker({ title: `Foto tauschen: ${item.title || "Lookbook"}`, used, onPick: (image) => {
+  const replace = (item) => openPicker({ title: `Foto tauschen: ${item.title || "Galerie"}`, used, onPick: (image) => {
     const prev = { image: item.image, sample: !!item.sample };
     const ok = saveChecked((d) => { const x = d.lookbook.find((y) => y.id === item.id); if (x) { x.image = image; delete x.sample; } }, item.id, image);
     if (!ok) return;
@@ -243,15 +243,15 @@ export default function renderLookbook(ctx) {
   const addBtn = btn("Foto hinzufügen", { icon: "plus", variant: "primary", attrs: { "data-key": "lb-add" }, onClick: addNew });
 
   return h("div", { class: "stack" },
-    sectionHeader("Lookbook", "Stücke, die du schon genäht hast – zum Anschauen, nicht zum Nachbestellen. Mit den Pfeilen änderst du die Reihenfolge.", addBtn),
+    sectionHeader("Galerie", "Stücke, die du genäht hast, und Einblicke ins Atelier. Mit den Pfeilen änderst du die Reihenfolge.", addBtn),
     storageProblem ? h("p", { class: "note note-warn", role: "alert" }, icon("info"), h("span", {},
       h("strong", {}, "Das letzte Foto ließ sich nicht speichern. "), "Der Speicher dieses Browsers ist voll. Lösch ein hochgeladenes Foto, das du nicht mehr brauchst, oder nimm ein Foto aus deinem Shop.")) : null,
     samples ? h("p", { class: "note note-info" }, icon("photo"), h("span", {},
       h("strong", {}, "Beispielbilder: "), "Diese Fotos sind Platzhalter aus deinem Shop. Tausch sie nach und nach gegen Fotos deiner bisherigen Projekte.")) : null,
     items.length
       ? h("ol", { class: "lb-list" }, items.map(row))
-      : h("div", { class: "card" }, emptyState("photo", "Noch keine Fotos im Lookbook", "Zeig hier, was du schon genäht hast – ein Foto vom Handy reicht.", btn("Erstes Foto hinzufügen", { icon: "plus", variant: "primary", attrs: { "data-key": "lb-add-empty" }, onClick: addNew }))),
+      : h("div", { class: "card" }, emptyState("photo", "Noch keine Fotos in der Galerie", "Zeig hier, was du schon genäht hast – ein Foto vom Handy reicht.", btn("Erstes Foto hinzufügen", { icon: "plus", variant: "primary", attrs: { "data-key": "lb-add-empty" }, onClick: addNew }))),
     total ? h("p", { class: total > WARN_ALL ? "note note-warn" : "small muted" }, total > WARN_ALL ? icon("info") : null, h("span", {},
       total > WARN_ALL ? `Deine hochgeladenen Fotos belegen ${mb(total)} – der Speicher ist fast voll. Lösch alte Fotos, bevor du neue hinzufügst.` : `Hochgeladene Fotos belegen ${mb(total)} Speicher.`)) : null,
-    card("", { cls: "card-soft" }, h("p", { class: "note" }, icon("info"), h("span", {}, "Tipp: Fotos bei Tageslicht vor einer ruhigen Wand wirken im Lookbook am schönsten."))));
+    card("", { cls: "card-soft" }, h("p", { class: "note" }, icon("info"), h("span", {}, "Tipp: Fotos bei Tageslicht vor einer ruhigen Wand wirken in der Galerie am schönsten."))));
 }

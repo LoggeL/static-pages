@@ -109,9 +109,8 @@ function renderRequests(ctx) {
       if (!free.length) { ctx.toast("Gerade ist kein Termin frei – schau in den Planer-Einstellungen."); return; }
       const names = [["Mia S.", "mia"], ["Hanna W.", "hanna"], ["Paula R.", "paula"], ["Ida F.", "ida"], ["Greta L.", "greta"]];
       const [name, mail] = names[Math.floor(Math.random() * names.length)];
-      const prod = ["lene", "millie", "rosemary", "viola-kleid"][Math.floor(Math.random() * 4)];
       const slot = free[Math.floor(Math.random() * Math.min(free.length, 6))];
-      ctx.run(() => requestFitting({ ...slot, name, email: `${mail}@example.de`, product: prod, note: "Ich würde gern die Länge besprechen." }));
+      ctx.run(() => requestFitting({ ...slot, name, email: `${mail}@example.de`, product: "", note: "Ich würde gern einen Rock aus der Galerie anprobieren und die Länge besprechen." }));
       ctx.toast(`Neue Test-Anfrage von ${name}`);
       ctx.rerender();
     } }));

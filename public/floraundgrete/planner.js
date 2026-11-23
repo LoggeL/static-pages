@@ -1,7 +1,7 @@
 // Anprobe-Planer: Tag → Uhrzeit → Angaben → Danke. Zustand lebt hier, damit Eingaben jedes Neuzeichnen überstehen.
-import { PRODUCTS, CATEGORIES, SHOP, productById } from "./shared/data.js";
+import { SHOP, productById } from "./shared/data.js";
 import { getContent, openSlots, requestFitting, formatDate } from "./shared/store.js";
-import { $, esc, src, addMinutes, smooth, reduceMotion } from "./util.js";
+import { $, esc, addMinutes, smooth } from "./util.js";
 
 const WD_SHORT = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 const longDate = (d) => formatDate(d, { weekday: "long", day: "numeric", month: "long" });
@@ -24,21 +24,6 @@ export function renderPlanner(content) {
   if (root) render(content, { keepFocus: true });
 }
 
-/** Aus dem Produktdetail: Stück vormerken und zum Planer springen */
-export function preselectProduct(id) {
-  const p = productById(id);
-  if (p) state.form.product = id;
-  state.done = null;
-  render(getContent());
-  requestAnimationFrame(() => {
-    const narrow = innerWidth < 1000;
-    (narrow ? root : $("#anprobe")).scrollIntoView({ behavior: smooth(), block: "start" });
-    const target = root.querySelector(".day:not(:disabled)") || root;
-    setTimeout(() => target.focus({ preventScroll: true }), reduceMotion() ? 0 : 600);
-  });
-  if (p) announce(`${p.name} ist für deine Anprobe vorgemerkt. Such dir jetzt einen Tag aus.`);
-}
-
 function announce(text) {
   const live = $("#planner-live");
   if (live) { live.textContent = ""; setTimeout(() => (live.textContent = text), 40); }
@@ -53,7 +38,7 @@ function render(content, { keepFocus = false } = {}) {
 
   let html;
   if (state.done) html = renderDone(f);
-  else if (!f.enabled) html = renderPause("Die Anprobe macht gerade Pause.", "Im Moment plane ich keine Termine im Atelier. Schreib mir gern über Etsy, wir finden bestimmt eine Lösung. Maße kannst du mir auch einfach schicken.");
+  else if (!f.enabled) html = renderPause("Die Anprobe macht gerade Pause.", "Im Moment plane ich keine Termine im Atelier. Schreib mir gern auf Instagram, wir finden bestimmt eine Lösung. Maße kannst du mir auch einfach schicken.");
   else {
     const days = openSlots();
     const day = days.find((d) => d.date === state.date);
@@ -92,8 +77,6 @@ function renderSteps(f, days, day) {
   const step = !state.date ? 1 : !state.start ? 2 : 3;
   let html = stepper(step);
   if (state.msg) html += `<p class="planner__msg" role="status">${esc(state.msg)}</p>`;
-  const pre = productById(state.form.product);
-  if (pre && step < 3) html += `<p class="planner__pre"><img src="${src(pre.hero)}" alt="" width="40" height="50" loading="lazy"><span><small>Vorgemerkt</small>${esc(pre.name)}</span><button type="button" class="planner__pre-x" data-action="unpick" data-key="unpick" aria-label="${esc(pre.name)} nicht mehr vormerken"><span aria-hidden="true">×</span></button></p>`;
 
   html += `<div class="pstep${step > 1 ? " is-set" : ""}">
     <h3 class="pstep__title" id="ps-day"><span class="pstep__n">1</span>Such dir einen Tag aus</h3>
@@ -120,12 +103,6 @@ function renderSteps(f, days, day) {
   return html;
 }
 
-function productOptions(sel) {
-  return `<option value="">Noch offen, ich lasse mich beraten</option>` + CATEGORIES.map((c) => `
-    <optgroup label="${esc(c.label)}">${PRODUCTS.filter((p) => p.category === c.id).map((p) =>
-      `<option value="${esc(p.id)}"${p.id === sel ? " selected" : ""}>${esc(p.name)}</option>`).join("")}</optgroup>`).join("");
-}
-
 const inv = (id) => (state.errors[id] ? ` aria-invalid="true" aria-describedby="e-${id}"` : "");
 const errP = (id) => (state.errors[id] ? `<p class="field__err" id="e-${id}">${esc(state.errors[id])}</p>` : "");
 function field(id, label, input, { req = false, full = false } = {}) {
@@ -144,8 +121,7 @@ function renderForm(f, day) {
       ${field("name", "Name", `<input id="f-name" data-key="f-name" name="name" autocomplete="name" required value="${esc(v.name)}"${inv("name")}>`, { req: true })}
       ${field("email", "E-Mail", `<input id="f-email" data-key="f-email" name="email" type="email" autocomplete="email" required value="${esc(v.email)}"${inv("email")}>`, { req: true })}
       ${field("phone", "Telefon", `<input id="f-phone" data-key="f-phone" name="phone" type="tel" autocomplete="tel" value="${esc(v.phone)}">`)}
-      ${field("product", "Um welches Stück geht es?", `<select id="f-product" data-key="f-product" name="product">${productOptions(v.product)}</select>`)}
-      ${field("note", "Nachricht &amp; Maße", `<textarea id="f-note" data-key="f-note" name="note" rows="4" placeholder="z. B. Taille 74 cm, Wunschlänge knieumspielend, Lieblingsfarbe">${esc(v.note)}</textarea>`, { full: true })}
+      ${field("note", "Worum geht es?", `<textarea id="f-note" data-key="f-note" name="note" rows="4" placeholder="z. B. Rock aus der Galerie, Taille 74 cm, Wunschlänge knieumspielend">${esc(v.note)}</textarea>`, { full: true })}
       <div class="check field--full">
         <label class="check__l"><input type="checkbox" id="f-consent" data-key="f-consent" name="consent"${v.consent ? " checked" : ""}${inv("consent")}>
           <span>Ich bin einverstanden, dass Cathrin meine Angaben speichert, um den Termin mit mir abzusprechen. Mehr dazu im <a href="#">Datenschutz</a>. <span class="req" aria-hidden="true">*</span></span></label>
@@ -181,7 +157,7 @@ function renderPause(title, text) {
     <p class="done__tag">Gerade keine Termine</p>
     <h3 class="done__title">${esc(title)}</h3>
     <p>${esc(text)}</p>
-    <a class="btn btn--brass" href="${esc(SHOP.etsy)}" target="_blank" rel="noopener">Nachricht über Etsy <span class="ext" aria-hidden="true"></span></a>
+    <a class="btn btn--brass" href="${esc(SHOP.instagram)}" target="_blank" rel="noopener">Nachricht auf Instagram <span class="ext" aria-hidden="true"></span></a>
   </div>`;
 }
 
@@ -191,11 +167,7 @@ function onClick(e) {
   const day = t.closest(".day");
   const slot = t.closest(".slot");
   const action = t.closest("[data-action]")?.dataset.action;
-  if (action === "unpick") {
-    state.form.product = "";
-    render(getContent());
-    root.querySelector(".day:not(:disabled)")?.focus({ preventScroll: true });
-  } else if (action === "change") {
+  if (action === "change") {
     state.start = null;
     render(getContent());
     root.querySelector(".slot:not(:disabled)")?.focus({ preventScroll: true });

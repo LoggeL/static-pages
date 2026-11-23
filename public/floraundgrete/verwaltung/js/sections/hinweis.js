@@ -12,9 +12,8 @@ function nextWeekday(wd) { // 0=So … 6=Sa
 const TEMPLATES = [
   { id: "urlaub", label: "Urlaub", icon: "sun", make: (b) => {
     const until = b.until && b.until > TODAY ? b.until : addDays(TODAY, 14);
-    return { tone: "closed", from: "", until, text: `Kleine Urlaubspause bis ${dayMonth(until)}. Du kannst trotzdem bestellen – danach nähe ich als Erstes für dich.`, linkLabel: "Zum Etsy-Shop", linkUrl: SHOP.etsy };
+    return { tone: "closed", from: "", until, text: `Kleine Urlaubspause bis ${dayMonth(until)}. Danach bin ich wieder für dich da.`, linkLabel: "Nachricht auf Instagram", linkUrl: SHOP.instagram };
   } },
-  { id: "heute", label: "Heute geschlossen", icon: "lock", make: () => ({ tone: "closed", from: TODAY, until: TODAY, text: "Heute bleibt das Atelier geschlossen. Der Etsy-Shop ist natürlich trotzdem für dich da.", linkLabel: "Zum Etsy-Shop", linkUrl: SHOP.etsy }) },
   { id: "weihnachten", label: "Weihnachtsfrist", icon: "sparkle", make: () => {
     const y = TODAY.slice(0, 4);
     return { tone: "warn", from: "", until: `${y}-12-10`, text: "Weihnachtsbestellungen bitte bis 10. Dezember – dann kommt alles rechtzeitig unter den Baum.", linkLabel: "Zum Etsy-Shop", linkUrl: SHOP.etsy };

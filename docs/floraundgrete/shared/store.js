@@ -22,22 +22,23 @@
 //   courseItems()                -> sichtbare feste Kurse in Anzeigereihenfolge
 //   courseRule(course)           -> z. B. "1. und 3. Donnerstag im Monat"
 //   courseDates(course, n?, days?) -> nächste n Termine (ISO), ohne Feiertage, Kurspausen und Tage mit Markt oder Nähkurs-Termin
+//   courseSessions(course, n?, days?) -> nächste n Kurse als [[iso, …]]; bei sessions > 1 gehören die Termine eines Monats zusammen
 //   isHoliday(iso)               -> Feiertag in RLP (inkl. 24.12. und 31.12.)
 //   EVENT_TYPES, eventTypeLabel(id), eventRange(e), WEEKDAYS, formatDate, TODAY, uid
 //
-// Datenmodell (Version 3):
+// Datenmodell (Version 4):
 //   events[]   {id, type:'markt'|'kurs'|'atelier'|'sonstiges', date:'YYYY-MM-DD', until:'' | 'YYYY-MM-DD',
 //               time, title, place, note, link, visible}
 //   status     {mode, note, openWeekdays:[0..6], hours:[{day, time}], googleUrl, googleNote, autoClosed:boolean}
 //   lookbook[] {id, image:'datei.webp' | 'data:image/…', title, year, note, visible, sample?:true}
-//   courses[]  {id, title, subtitle, weekday:0..6, weeks:[1..5] (n-ter Wochentag im Monat), time, price, audience, note, visible}
+//   courses[]  {id, title, subtitle, weekday:0..6, weeks:[1..5] (n-ter Wochentag im Monat), sessions:1..4 (Termine pro Kurs), time, price, audience, note, visible}
 //   orderPause {active, text, until:'' | 'YYYY-MM-DD'} Hinweis bei Hero und Anprobe, wenn keine neuen Aufträge angenommen werden
 //   courseNote Hinweis unter den festen Kursen; courseBreaks:[iso] Kurspausen (zusätzlich zu Feiertagen)
 //   fitting    {enabled, weekdays, times:{wd:[hh:mm]}, duration, leadDays, horizonDays, blocked:[iso], skipEventDays, place, bookings[]}
 
-const KEY = "cathrin-raasch-cms-v3";
+const KEY = "cathrin-raasch-cms-v4";
 const CHANNEL = "cathrin-raasch-cms";
-const VERSION = 3;
+const VERSION = 4;
 
 const pad = (n) => String(n).padStart(2, "0");
 const iso = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
@@ -124,13 +125,9 @@ function defaults() {
     events: START_EVENTS.map((e) => ({ id: uid(), link: "", visible: true, ...e })),
     // Aktuelle Links (Linkliste, z. B. für Instagram-Bio)
     links: [
-      { id: uid(), label: "Etsy-Shop: alle Einzelstücke", url: "https://www.etsy.com/de/shop/FloraundGrete", note: "", highlight: true, visible: true },
-      { id: uid(), label: "Neu: Walk-Stulpen mit Daumenloch", url: "https://www.etsy.com/de/listing/4396882148", note: "Für kalte Hände", highlight: false, visible: true },
+      { id: uid(), label: "Einzelstücke im Etsy-Shop", url: "https://www.etsy.com/de/shop/FloraundGrete", note: "", highlight: true, visible: true },
       { id: uid(), label: "Instagram @cathrinraasch.atelier", url: "https://www.instagram.com/cathrinraasch.atelier/", note: "Blick ins Atelier", highlight: false, visible: true },
-      { id: uid(), label: "Rock Lene auf Maß bestellen", url: "https://www.etsy.com/de/listing/1111578564", note: "", highlight: false, visible: true },
     ],
-    // Hervorgehobene Produkte (IDs aus data.js), Reihenfolge = Anzeige
-    featured: ["lene", "viola-kleid", "millie", "rosemary", "stulpen", "kragen-frucht"],
     // Lookbook: vergangene Projekte, nicht nachbestellbar. Startbilder stammen von Cathrins Instagram (@cathrinraasch.atelier).
     lookbook: [
       { id: uid(), image: "lb-outdoorpulli-leo.webp", title: "Outdoorpulli aus Teddystoff", year: "2026", note: "", visible: true, sample: false },
@@ -145,7 +142,7 @@ function defaults() {
       { id: uid(), title: "Trag’s weiter", subtitle: "Reparatur-Kurs", weekday: 4, weeks: [1, 3], time: "18–20 Uhr", price: "24\u00a0€ pro Termin", audience: "Für alle, auch absolute Einsteiger", note: "Hosen kürzen, Knöpfe austauschen, Jeans flicken. Material inklusive.", visible: true },
       { id: uid(), title: "Offenes Nähen", subtitle: "Freie Projekte nach Wunsch", weekday: 4, weeks: [2, 4], time: "18–21 Uhr", price: "35\u00a0€ pro Termin", audience: "Für Anfänger und Fortgeschrittene", note: "Taschen, Kleidung und was du sonst nähen möchtest.", visible: true },
       { id: uid(), title: "Kinderkurs", subtitle: "Kleinere Projekte", weekday: 6, weeks: [1, 3], time: "9–12 Uhr", price: "36\u00a0€ inklusive Material", audience: "Ab 8 Jahren", note: "", visible: true },
-      { id: uid(), title: "Nähmaschinen-Führerschein", subtitle: "Nähen lernen von Anfang an", weekday: 6, weeks: [2, 4], time: "9–12 Uhr", price: "60\u00a0€ für 2 Termine, inklusive Material", audience: "Für Einsteiger", note: "Basics, die Maschine kennenlernen und erste kleine Projekte.", visible: true },
+      { id: uid(), title: "Nähmaschinen-Führerschein", subtitle: "Nähen lernen von Anfang an", weekday: 6, weeks: [2, 4], sessions: 2, time: "9–12 Uhr", price: "60\u00a0€ für 2 Termine, inklusive Material", audience: "Für Einsteiger", note: "Basics, die Maschine kennenlernen und erste kleine Projekte.", visible: true },
     ],
     courseNote: "Bring nach Möglichkeit deine eigene Nähmaschine mit.",
     courseBreaks: [], // Tage, an denen keine festen Kurse stattfinden (ISO)
@@ -163,8 +160,8 @@ function defaults() {
       skipEventDays: true, // Tage mit Markt oder Nähkurs automatisch sperren
       place: "Atelier in Ramsen – genaue Adresse kommt mit der Bestätigung",
       bookings: [
-        { id: uid(), ...demoSlot(addDays(TODAY, 2), 1), name: "Janne M.", email: "janne@example.de", phone: "", product: "lene", note: "Zweiter Lene-Rock in Flaschengrün, Taille 74 cm", status: "bestaetigt", createdAt: new Date().toISOString() },
-        { id: uid(), ...demoSlot(addDays(TODAY, 5), 0), name: "Laura K.", email: "laura@example.de", phone: "0170 1234567", product: "rosemary", note: "Rosemary in Flieder, Länge besprechen", status: "angefragt", createdAt: new Date().toISOString() },
+        { id: uid(), ...demoSlot(addDays(TODAY, 2), 1), name: "Janne M.", email: "janne@example.de", phone: "", product: "", note: "Rock in Flaschengrün wie in der Galerie, Taille 74 cm", status: "bestaetigt", createdAt: new Date().toISOString() },
+        { id: uid(), ...demoSlot(addDays(TODAY, 5), 0), name: "Laura K.", email: "laura@example.de", phone: "0170 1234567", product: "", note: "Kleid in Flieder, Länge besprechen", status: "angefragt", createdAt: new Date().toISOString() },
       ],
     },
   };
@@ -185,7 +182,7 @@ function normalize(c) {
   out.orderPause = { ...d.orderPause, ...(c.orderPause || {}) };
   out.events = (Array.isArray(c.events) ? c.events : d.events).map((e) => ({ type: "sonstiges", until: "", link: "", time: "", place: "", note: "", visible: true, ...e }));
   out.lookbook = Array.isArray(c.lookbook) ? c.lookbook : d.lookbook;
-  out.courses = (Array.isArray(c.courses) ? c.courses : d.courses).map((k) => ({ title: "", subtitle: "", weekday: 4, weeks: [1, 3], time: "", price: "", audience: "", note: "", visible: true, ...k, weeks: Array.isArray(k.weeks) ? k.weeks.filter((w) => w >= 1 && w <= 5).sort() : [1, 3] }));
+  out.courses = (Array.isArray(c.courses) ? c.courses : d.courses).map((k) => ({ title: "", subtitle: "", weekday: 4, weeks: [1, 3], time: "", price: "", audience: "", note: "", visible: true, ...k, weeks: Array.isArray(k.weeks) ? k.weeks.filter((w) => w >= 1 && w <= 5).sort() : [1, 3], sessions: Math.min(4, Math.max(1, Math.round(Number(k.sessions) || 1))) }));
   if (typeof out.courseNote !== "string") out.courseNote = d.courseNote;
   out.courseBreaks = Array.isArray(c.courseBreaks) ? c.courseBreaks : [];
   return out;
@@ -386,6 +383,34 @@ export function courseDates(k, count = 2, days = 120) {
     if (!ws.includes(nth)) continue;
     if (isHoliday(date) || (load().courseBreaks || []).includes(date) || eventsOn(date).length) continue;
     out.push(date);
+  }
+  return out;
+}
+
+// Kurse mit mehreren Terminen (z. B. Führerschein = 2. und 4. Samstag): Die Termine eines Monats gehören zusammen.
+// Fällt einer davon aus (Feiertag, Markt, Kurspause) oder liegt schon zurück, findet der Kurs in dem Monat nicht statt.
+export function courseSessions(k, count = 2, days = 240) {
+  const n = Math.min(4, Math.max(1, Math.round(Number(k.sessions) || 1)));
+  if (n === 1) return courseDates(k, count, days).map((d) => [d]);
+  const ws = k.weeks && k.weeks.length ? k.weeks : [1, 2, 3, 4, 5];
+  const all = courseDates(k, 999, days);
+  const ok = new Set(all);
+  const out = [];
+  const months = [...new Set(all.map((d) => d.slice(0, 7)))];
+  for (const ym of months) {
+    // alle Regel-Termine des Monats (auch ausgefallene), damit ein Ausfall den ganzen Kurs absagt
+    const [y, m] = ym.split("-").map(Number);
+    const rule = [];
+    for (let d = 1; d <= 31; d++) {
+      const dt = new Date(y, m - 1, d);
+      if (dt.getMonth() !== m - 1) break;
+      if (dt.getDay() === Number(k.weekday) && ws.includes(Math.ceil(d / 7))) rule.push(iso(dt));
+    }
+    for (let i = 0; i + n <= rule.length && out.length < count; i += n) {
+      const g = rule.slice(i, i + n);
+      if (g.every((d) => ok.has(d))) out.push(g);
+    }
+    if (out.length >= count) break;
   }
   return out;
 }

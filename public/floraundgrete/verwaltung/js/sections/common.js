@@ -17,7 +17,7 @@ export const statusLabel = (id) => (STATUS_MODES.find((m) => m.id === id) || STA
 export const TONES = [
   { id: "info", label: "Info", desc: "ruhig, für Neuigkeiten" },
   { id: "warn", label: "Wichtig", desc: "auffällig, für Fristen" },
-  { id: "closed", label: "Geschlossen", desc: "dunkel, für Pausen" },
+  { id: "closed", label: "Pause", desc: "dunkel, für Pausen und Urlaub" },
   { id: "sale", label: "Angebot", desc: "rosé, für Rabatte" },
 ];
 
@@ -77,17 +77,35 @@ export function bannerPreview(b, { compact = false, validLink = true } = {}) {
     off ? h("p", { class: "pv-off" }, icon("eyeOff"), h("span", {}, !b.text ? "Noch kein Text" : "Ausgeschaltet – auf der Website nicht sichtbar")) : null);
 }
 
-/** Urlaub eintragen (Atelier-Status + optional Hinweis oben) */
-export function applyVacation(d, untilISO, alsoBanner) {
+/** Urlaub eintragen: Anprobe-Tage sperren, auf Wunsch feste Kurse pausieren und Hinweis oben zeigen */
+export const VACATION_MAX_DAYS = 365;
+const vacationDays = (from, until) => { const out = []; for (let x = from; x <= until && out.length <= VACATION_MAX_DAYS; x = addDays(x, 1)) out.push(x); return out; };
+export function applyVacation(d, untilISO, { banner = true, courses = true } = {}) {
   const until = dayMonth(untilISO);
   const back = dayMonth(addDays(untilISO, 1));
-  d.status.mode = "vacation";
-  d.status.note = `Im Urlaub bis ${until}. Bestellungen über Etsy nehme ich gern an – genäht wird ab ${back}.`;
-  if (alsoBanner) {
+  const days = vacationDays(TODAY, untilISO);
+  const newBlocked = days.filter((x) => !(d.fitting.blocked || []).includes(x));
+  const newBreaks = courses ? days.filter((x) => !(d.courseBreaks || []).includes(x)) : [];
+  d.fitting.blocked = [...(d.fitting.blocked || []), ...newBlocked].sort();
+  if (courses) d.courseBreaks = [...(d.courseBreaks || []), ...newBreaks].sort();
+  // Merken, welche Tage die Pause eingetragen hat – damit „Pause beenden“ genau diese wieder freigibt
+  d.vacation = { from: TODAY, until: untilISO, blocked: newBlocked, breaks: newBreaks, banner };
+  if (banner) {
     d.banner = { ...d.banner, active: true, tone: "closed", from: "", until: untilISO,
-      text: `Kleine Urlaubspause bis ${until}. Du kannst trotzdem bestellen – ab ${back} nähe ich wieder für dich.`,
-      linkLabel: "Zum Etsy-Shop", linkUrl: SHOP.etsy };
+      text: `Kleine Urlaubspause bis ${until}. Ab ${back} bin ich wieder für dich da.`,
+      linkLabel: "Nachricht auf Instagram", linkUrl: SHOP.instagram };
   }
+}
+
+/** Pause vorzeitig beenden: von der Pause eingetragene Tage ab heute wieder freigeben */
+export function endVacation(d) {
+  const v = d.vacation;
+  if (!v) return;
+  const drop = (list, own) => (list || []).filter((x) => x < TODAY || !(own || []).includes(x));
+  d.fitting.blocked = drop(d.fitting.blocked, v.blocked);
+  d.courseBreaks = drop(d.courseBreaks, v.breaks);
+  if (v.banner && d.banner.tone === "closed" && d.banner.until === v.until) d.banner.active = false;
+  delete d.vacation;
 }
 
 /** Datum in Worten relativ zu heute */

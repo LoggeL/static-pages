@@ -6,7 +6,7 @@ import { relDay, addDays, typeName, typeTag, TYPE_ICONS, eventDateText, datePart
 const FIELDS = [
   { name: "type", label: "Was für ein Termin?", type: "choice", default: "markt",
     options: EVENT_TYPES.map((t) => ({ value: t.id, label: typeName(t.id), icon: TYPE_ICONS[t.id] })),
-    hint: "Bei Markt und Nähkurs ist das Atelier an diesen Tagen automatisch zu, und es gibt keine Anproben." },
+    hint: "An Markt- und Nähkurstagen gibt es automatisch keine Anproben und keine festen Kurse." },
   { name: "title", label: "Name", type: "text", required: true, placeholder: "z. B. Blaues Wunder", requiredMsg: "Bitte gib dem Termin einen Namen." },
   { name: "date", label: "Datum (erster Tag)", type: "date", required: true, requiredMsg: "Bitte wähle ein Datum." },
   { name: "until", label: "Bis einschließlich", type: "date", hint: "Nur bei mehreren Tagen, z. B. Freitag bis Sonntag. Sonst leer lassen." },
@@ -122,8 +122,7 @@ export default function renderTermine(ctx) {
   const view = h("div", { class: "stack" },
     sectionHeader("Termine", "Märkte, Nähkurse und offenes Atelier. Kommende Termine erscheinen auf deiner Website.", addBtn),
     h("p", { class: "note note-info" }, icon("info"), h("span", {},
-      "Märkte und Nähkurse schließen das Atelier an diesen Tagen automatisch und sperren die Anprobe. ",
-      h("a", { href: "#atelier" }, "Öffnungszeiten ansehen"))),
+      "An Markt- und Nähkurstagen sperrt die Website automatisch die Anprobe und lässt die festen Kurse ausfallen.")),
     h("a", { href: "#kurse", class: "text-link small self-start" }, icon("clock", "ico-sm"), "Deine festen Kurse bearbeitest du unter „Feste Kurse“"),
     filterBar,
     upcoming.length
