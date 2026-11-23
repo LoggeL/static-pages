@@ -7,7 +7,7 @@ export const SHOP = {
  claim: "Handgemachte Einzelstücke",
  tagline: "Vintage-inspirierte Kleidung, mit Hand und Herz genäht im Mini-Atelier mitten in der Pfalz.",
  owner: "Cathrin",
- ownerRole: "Schneiderin mit Herz und Seele",
+ ownerRole: "Maßschneiderin mit Herz und Seele",
  place: "Ramsen",
  region: "Pfalz, Rheinland-Pfalz",
  postalCode: "67305",
@@ -37,7 +37,7 @@ export const ABOUT = {
  intro:
  "In meinem kleinen Atelier in Ramsen nähe ich Röcke, Kleider, Kragen und Accessoires, am liebsten aus Leinen, Musselin und echten Vintage-Stoffen, die schon eine Geschichte erzählen.",
  facts: [
-  { label: "Beruf", value: "Schneiderin" },
+  { label: "Beruf", value: "Maßschneiderin" },
   { label: "Atelier", value: "Ramsen, Pfalz" },
   { label: "Auf Etsy seit", value: "2021" },
   { label: "Lieblingsstoff", value: "Leinen & alte Bettwäsche" },
