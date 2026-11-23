@@ -20,11 +20,17 @@
     <div class="welcome-card">
       <img class="welcome-logo" src="../img/logo-ink.webp" alt="Cathrin Raasch Schneideratelier" width="1200" height="567">
       <h1 class="welcome-title">Hallo Cathrin</h1>
-      <p class="welcome-text">Hier pflegst du deine Website: Hinweise, Termine, Anproben und mehr. Alles, was du änderst, ist sofort auf der Seite zu sehen.</p>
+      <p class="welcome-text">Hier pflegst du deine Website: Shop, Hinweise, Termine, Anproben und mehr. Alles, was du änderst, ist sofort auf der Seite zu sehen.</p>
       <button type="button" class="btn btn-primary btn-xl" id="welcome-go">
         <span>Weiter</span>
         <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </button>
+      <form id="login-form" class="login" novalidate hidden>
+        <label for="login-pw">Passwort</label>
+        <input id="login-pw" type="password" autocomplete="current-password" required aria-describedby="login-err">
+        <p class="field-error" id="login-err" role="alert" hidden></p>
+        <button type="submit" class="btn btn-primary btn-xl">Anmelden</button>
+      </form>
       <figure class="welcome-dog">
         <img src="../img/member-2.webp" alt="Struppi, ein schwarz-weiß-brauner Hund, sitzt zwischen Löwenzahn" width="72" height="72">
         <figcaption>Struppi passt auf, dass nichts verloren geht.</figcaption>

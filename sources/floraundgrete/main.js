@@ -4,6 +4,7 @@ import { getContent, subscribe, activeBanner, activePause, upcomingEvents, event
 import { $, $$, esc, pad2, reduceMotion, smooth } from "./util.js";
 import { initPlanner, renderPlanner } from "./planner.js";
 import { initLookbook, renderLookbook } from "./lookbook.js";
+import { initShop, refreshShop } from "./shop.js";
 
 let content = getContent();
 
@@ -308,6 +309,7 @@ function renumber() {
 function renderAll() {
   renderBanner();
   renderLookbook();
+  refreshShop();
   renumber();
   renderAbout();
   renderDates();
@@ -323,6 +325,7 @@ initHead();
 initMap();
 initPlanner();
 initLookbook();
+initShop();
 initReveal();
 
 subscribe((c) => {

@@ -1,0 +1,15 @@
+{
+  "name": "floraundgrete-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "db:migrate:local": "wrangler d1 migrations apply floraundgrete --local",
+    "db:migrate:remote": "wrangler d1 migrations apply floraundgrete --remote",
+    "deploy": "wrangler deploy",
+    "smoke:webhook": "node test/webhook.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "4.160.1"
+  }
+}

@@ -24,6 +24,9 @@
 //   courseDates(course, n?, days?) -> nächste n Termine (ISO), ohne Feiertage, Kurspausen und Tage mit Markt oder Nähkurs-Termin
 //   courseSessions(course, n?, days?) -> nächste n Kurse als [[iso, …]]; bei sessions > 1 gehören die Termine eines Monats zusammen
 //   isHoliday(iso)               -> Feiertag in RLP (inkl. 24.12. und 31.12.)
+//   shopSettings(), shopProducts() -> Shop-Einstellungen und sichtbare Artikel (Reihenfolge wie in der Verwaltung)
+//   placeLocalOrder({lines, delivery, customer}) -> nur Klick-Prototyp: Bestellung ohne echte Zahlung anlegen
+//   hydrate(content)             -> Inhalt vom Server übernehmen (Worker), ohne ihn erneut zu veröffentlichen
 //   EVENT_TYPES, eventTypeLabel(id), eventRange(e), WEEKDAYS, formatDate, TODAY, uid
 //
 // Datenmodell (Version 4):
@@ -34,7 +37,12 @@
 //   courses[]  {id, title, subtitle, weekday:0..6, weeks:[1..5] (n-ter Wochentag im Monat), sessions:1..4 (Termine pro Kurs), time, price, audience, note, visible}
 //   orderPause {active, text, until:'' | 'YYYY-MM-DD'} Hinweis bei Hero und Anprobe, wenn keine neuen Aufträge angenommen werden
 //   courseNote Hinweis unter den festen Kursen; courseBreaks:[iso] Kurspausen (zusätzlich zu Feiertagen)
-//   fitting    {enabled, weekdays, times:{wd:[hh:mm]}, duration, leadDays, horizonDays, blocked:[iso], skipEventDays, place, bookings[]}
+//   fitting    {enabled, weekdays, times:{wd:[hh:mm]}, duration, leadDays, horizonDays, blocked:[iso], skipEventDays, place, bookings[], deletedIds[]}
+//   shop       {settings, products[], orders[]} – Preise in Cent; siehe shared/shop-core.js.
+//              Im Worker liegen Artikel und Bestellungen in D1; hier steht dann nur eine Kopie zum Anzeigen.
+
+import { defaultShopSettings, normalizeShopSettings, defaultProducts, normalizeProduct, priceCart, qtyByProduct } from "./shop-core.js";
+import { backend, api } from "./api.js";
 
 const KEY = "cathrin-raasch-cms-v4";
 const CHANNEL = "cathrin-raasch-cms";
@@ -105,7 +113,7 @@ function defaults() {
     // Auftragspause (Cathrins Instagram-Post vom 12.11.2026); verschwindet nach "until" von selbst
     orderPause: {
       active: true,
-      text: "Bis Ende des Jahres nehme ich keine neuen Sonderanfertigungen, Änderungen und Reparaturen an. Fertige Stücke findest du weiter im Etsy-Shop und auf den Märkten.",
+      text: "Bis Ende des Jahres nehme ich keine neuen Sonderanfertigungen, Änderungen und Reparaturen an. Fertige Stücke findest du weiter im Shop und auf den Märkten.",
       until: "2026-12-31",
     },
     // Atelier: Grundregel + Hinweis auf Google (dort pflegt Cathrin die aktuellen Zeiten)
@@ -163,7 +171,35 @@ function defaults() {
         { id: uid(), ...demoSlot(addDays(TODAY, 2), 1), name: "Janne M.", email: "janne@example.de", phone: "", product: "", note: "Rock in Flaschengrün wie in der Galerie, Taille 74 cm", status: "bestaetigt", createdAt: new Date().toISOString() },
         { id: uid(), ...demoSlot(addDays(TODAY, 5), 0), name: "Laura K.", email: "laura@example.de", phone: "0170 1234567", product: "", note: "Kleid in Flieder, Länge besprechen", status: "angefragt", createdAt: new Date().toISOString() },
       ],
+      deletedIds: [],
     },
+    // Shop (Klick-Prototyp: alles hier; mit Worker: Artikel/Bestellungen in D1)
+    shop: { settings: defaultShopSettings(), products: defaultProducts(), orders: demoOrders() },
+  };
+}
+
+// Zwei Beispiel-Bestellungen, damit die Bestellverwaltung im Prototyp nicht leer ist
+function demoOrders() {
+  const at = (days, h) => { const d = new Date(); d.setDate(d.getDate() - days); d.setHours(h, 12, 0, 0); return d.toISOString(); };
+  return [
+    { id: "demo-1002", number: "FG-1002", status: "bezahlt", delivery: "versand", createdAt: at(0, 9), paidAt: at(0, 9),
+      items: [{ productId: "lene", name: "Rock Lene", option: "Grün", note: "Taille 74 cm, Länge 70 cm", qty: 1, unit: 6500, amount: 6500 },
+        { productId: "kragen-karo", name: "Wendekragen Holiday", option: "", note: "", qty: 1, unit: 2400, amount: 2400 }],
+      subtotal: 8900, shipping: 590, total: 9490, tracking: "", carrier: "dhl", dispute: null, sample: true,
+      customer: { name: "Mara Beispiel", email: "mara@example.de", phone: "", address: "Lindenweg 4, 67305 Ramsen" } },
+    { id: "demo-1001", number: "FG-1001", status: "verschickt", delivery: "versand", createdAt: at(3, 18), paidAt: at(3, 18),
+      items: [{ productId: "tuch-uni", name: "Musselin-Dreieckstuch XXL", option: "Senf", note: "", qty: 1, unit: 2900, amount: 2900 }],
+      subtotal: 2900, shipping: 590, total: 3490, tracking: "00340434161234567890", carrier: "dhl", dispute: null, sample: true,
+      customer: { name: "Jule Muster", email: "jule@example.de", phone: "", address: "Am Markt 2, 67227 Frankenthal" } },
+  ];
+}
+
+function normalizeShop(c, d) {
+  const s = c && typeof c === "object" ? c : {};
+  return {
+    settings: normalizeShopSettings(s.settings || d.settings),
+    products: (Array.isArray(s.products) ? s.products : d.products).map(normalizeProduct),
+    orders: Array.isArray(s.orders) ? s.orders : d.orders,
   };
 }
 
@@ -178,6 +214,8 @@ function normalize(c) {
   const out = { ...d, ...c };
   out.status = { ...d.status, ...(c.status || {}) };
   out.fitting = { ...d.fitting, ...(c.fitting || {}) };
+  out.fitting.deletedIds = Array.isArray(out.fitting.deletedIds) ? out.fitting.deletedIds.slice(-200) : [];
+  out.shop = normalizeShop(c.shop, d.shop);
   out.banner = { ...d.banner, ...(c.banner || {}) };
   out.orderPause = { ...d.orderPause, ...(c.orderPause || {}) };
   out.events = (Array.isArray(c.events) ? c.events : d.events).map((e) => ({ type: "sonstiges", until: "", link: "", time: "", place: "", note: "", visible: true, ...e }));
@@ -188,17 +226,48 @@ function normalize(c) {
   return out;
 }
 
+// Mit Worker steckt der veröffentlichte Inhalt schon im HTML (<script id="cms-data">), ohne extra Anfrage.
+function inlineJson(id) {
+  try {
+    const el = typeof document !== "undefined" && document.getElementById(id);
+    return el ? JSON.parse(el.textContent) : null;
+  } catch { return null; }
+}
+function serverContent() {
+  const parsed = inlineJson("cms-data");
+  return parsed && parsed.version === VERSION ? parsed : null;
+}
+
 function load() {
   if (cache) return cache;
+  let local = null;
   try {
     const raw = localStorage.getItem(KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (parsed && parsed.version === VERSION) { cache = normalize(parsed); return cache; }
-    }
+    const parsed = raw ? JSON.parse(raw) : null;
+    if (parsed && parsed.version === VERSION) local = parsed;
   } catch { /* privates Fenster etc. */ }
-  cache = defaults();
+  const server = serverContent();
+  // Der neuere Stand gewinnt: frisch Veröffentlichtes vor altem Browser-Speicher, eigene ungespeicherte Änderung vor altem HTML
+  const pick = server && (!local || String(server.updatedAt || "") >= String(local.updatedAt || "")) ? server : local;
+  cache = pick ? normalize(pick) : defaults();
+  // Shop-Artikel mit aktuellem Bestand kommen immer frisch vom Server (Bestellungen gibt es öffentlich nicht)
+  const shop = inlineJson("shop-data");
+  if (shop && Array.isArray(shop.products)) {
+    cache.shop.products = shop.products.map(normalizeProduct);
+    if (shop.settings) cache.shop.settings = normalizeShopSettings(shop.settings);
+    cache.shop.orders = [];
+  }
   return cache;
+}
+
+/** Inhalt vom Worker übernehmen (Verwaltung nach der Anmeldung, Shop-Kopie nach Änderungen) */
+export function hydrate(remote) {
+  if (!remote || remote.version !== VERSION) return false;
+  cache = normalize(remote);
+  try { localStorage.setItem(KEY, JSON.stringify(cache)); } catch { /* voll */ }
+  emit();
+  try { bc && bc.postMessage("changed"); } catch { /* ignorieren */ }
+  return true;
 }
 
 function persist() {
@@ -324,6 +393,8 @@ export function requestFitting(data) {
     phone: data.phone || "", product: data.product || "", note: data.note || "",
   };
   update((c) => { c.fitting.bookings.push(booking); });
+  // Mit Worker landet die Anfrage zusätzlich auf dem Server (sonst sähe Cathrin sie nur in diesem Browser)
+  backend().then((b) => b && api("fitting", { method: "POST", body: booking })).catch((e) => console.warn("Anfrage nicht gesendet:", e && e.message));
   return { ...booking };
 }
 
@@ -332,7 +403,7 @@ export function setBookingStatus(id, status) {
 }
 
 export function deleteBooking(id) {
-  update((c) => { c.fitting.bookings = c.fitting.bookings.filter((x) => x.id !== id); });
+  update((c) => { c.fitting.bookings = c.fitting.bookings.filter((x) => x.id !== id); c.fitting.deletedIds.push(id); });
 }
 
 export function lookbookItems() {
@@ -415,7 +486,36 @@ export function courseSessions(k, count = 2, days = 240) {
   return out;
 }
 
-export const imageSrc = (image, prefix = "") => (/^data:image\//.test(image || "") ? image : `${prefix}img/${image}`);
+// Bildpfad: hochgeladen (data:), im Worker-Speicher (/api/img/…) oder Dateiname aus img/
+export const imageSrc = (image, prefix = "") => (/^(data:image\/|https?:|\/)/.test(image || "") ? image : `${prefix}img/${image}`);
+
+// ---------- Shop ----------
+export const shopSettings = () => structuredClone(load().shop.settings);
+export function shopProducts() {
+  return load().shop.products.filter((p) => p.visible && p.name && p.price > 0).sort((a, b) => a.sort - b.sort).map((p) => structuredClone(p));
+}
+
+/** Nur Klick-Prototyp: prüft wie der Worker, zieht Bestand ab und legt eine bezahlte Bestellung an */
+export function placeLocalOrder({ lines, delivery, customer }) {
+  const c = load();
+  const res = priceCart(lines, c.shop.products, c.shop.settings, delivery, { madeToOrderPaused: !!activePause() });
+  if (!res.ok) return { ok: false, errors: res.errors };
+  const nums = c.shop.orders.map((o) => Number(String(o.number).replace(/\D/g, "")) || 1000);
+  const order = {
+    id: uid(), number: `FG-${Math.max(1000, ...nums) + 1}`, status: delivery === "abholung" ? "abholbereit" : "bezahlt", delivery,
+    createdAt: new Date().toISOString(), paidAt: new Date().toISOString(), items: res.items,
+    subtotal: res.subtotal, shipping: res.shipping, total: res.total, tracking: "", carrier: "dhl", dispute: null, demo: true,
+    customer: { name: String(customer.name || "").slice(0, 80), email: String(customer.email || "").slice(0, 120), phone: String(customer.phone || "").slice(0, 40), address: String(customer.address || "").slice(0, 240) },
+  };
+  update((d) => {
+    for (const [id, qty] of qtyByProduct(res.items)) {
+      const p = d.shop.products.find((x) => x.id === id);
+      if (p && p.stock !== null) p.stock = Math.max(0, p.stock - qty);
+    }
+    d.shop.orders.unshift(order);
+  });
+  return { ok: true, order: structuredClone(order) };
+}
 
 export const WEEKDAYS = WD;
 export const formatDate = (isoStr, opts = { weekday: "short", day: "numeric", month: "long" }) => {

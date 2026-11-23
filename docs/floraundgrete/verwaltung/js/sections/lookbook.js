@@ -2,6 +2,7 @@
 import { uid, imageSrc } from "../../../shared/store.js";
 import { PRODUCTS } from "../../../shared/data.js";
 import { h, icon, btn, iconBtn, sectionHeader, emptyState, openForm, card, fid } from "../ui.js";
+import { storeImage } from "../remote.js";
 
 const STORE_KEY = "cathrin-raasch-cms-v4"; // wie in shared/store.js – zum Prüfen, ob ein Foto wirklich gespeichert wurde
 const MAX_EDGE = 1400;
@@ -82,7 +83,7 @@ function openPicker({ title, used, onPick }) {
     statusEl.className = "pick-status";
     statusEl.textContent = "Foto wird vorbereitet …";
     try {
-      const image = await shrinkPhoto(file);
+      const image = await storeImage(await shrinkPhoto(file)); // mit Worker: nach R2 statt in den Inhalt
       dlg.close();
       onPick(image, null);
     } catch {

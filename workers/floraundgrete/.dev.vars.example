@@ -1,0 +1,17 @@
+# Kopieren nach .dev.vars (wird nicht eingecheckt) und für lokale Tests ausfüllen.
+# Für den echten Betrieb stattdessen: npx wrangler secret put NAME
+
+# Passwort für die Verwaltung
+ADMIN_PASSWORD=bitte-aendern
+# Zufälliger langer Text zum Signieren der Anmeldung (z. B. openssl rand -hex 32)
+SESSION_SECRET=bitte-aendern-langer-zufallstext
+
+# Stripe (Testmodus: Schlüssel beginnen mit sk_test_ bzw. whsec_)
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+
+# Ohne Stripe-Schlüssel: Bezahlung nur simulieren (nur für Tests, nie im echten Betrieb setzen)
+ALLOW_DEMO_PAYMENTS=1
+
+# Optional: Turnstile-Bot-Schutz an der Kasse (TURNSTILE_SITEKEY steht in wrangler.jsonc)
+TURNSTILE_SECRET=

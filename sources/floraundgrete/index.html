@@ -121,13 +121,18 @@
     <nav class="nav" id="nav" aria-label="Hauptnavigation">
       <ul>
         <li><a href="#galerie">Galerie</a></li>
+        <li data-shop-link><a href="#shop">Shop</a></li>
         <li><a href="#termine">Termine</a></li>
         <li><a href="#anprobe">Anprobe</a></li>
         <li><a href="#kontakt">Kontakt</a></li>
         <li><a href="#ueber-mich">Über mich</a></li>
       </ul>
     </nav>
-    <a class="head__shop" href="https://www.etsy.com/de/shop/FloraundGrete" target="_blank" rel="noopener">Etsy-Shop<span class="ext" aria-hidden="true"></span></a>
+    <button class="head__cart" id="cart-btn" type="button" aria-haspopup="dialog" aria-controls="cart" hidden>
+      <svg class="ico-bag" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg><span class="head__cart-label">Warenkorb</span>
+      <span class="head__count" id="cart-count" aria-hidden="true" hidden>0</span>
+      <span class="visually-hidden" id="cart-count-sr"></span>
+    </button>
     <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu">
       <span class="menu-btn__lines" aria-hidden="true"></span><span class="menu-btn__label">Menü</span>
     </button>
@@ -138,6 +143,7 @@
   <nav aria-label="Menü">
     <ol>
       <li><a href="#galerie"><span>01</span>Galerie</a></li>
+      <li data-shop-link><a href="#shop"><span>02</span>Shop</a></li>
       <li><a href="#termine"><span>02</span>Termine &amp; Kurse</a></li>
       <li><a href="#anprobe"><span>03</span>Anprobe</a></li>
       <li><a href="#kontakt"><span>04</span>Kontakt</a></li>
@@ -167,7 +173,7 @@
       <p class="hero__lede">Röcke, Kleider, Kragen und warme Kleinigkeiten, genäht mit Hand und Herz in meinem Mini-Atelier mitten in der Pfalz.</p>
       <div class="hero__actions">
         <a class="btn btn--brass" href="#anprobe">Anprobe anfragen</a>
-        <a class="btn btn--ghost" href="https://www.etsy.com/de/shop/FloraundGrete" target="_blank" rel="noopener">Einzelstücke auf Etsy <span class="ext" aria-hidden="true"></span></a>
+        <a class="btn btn--ghost" href="#shop" id="hero-shop">Zum Shop</a>
       </div>
       <p class="pause pause--hero" id="hero-pause" hidden></p>
     </div>
@@ -182,6 +188,25 @@
         <h2 id="galerie-h" class="h2">Galerie</h2>
       </header>
       <ul class="lb" id="lb-grid"></ul>
+    </div>
+  </section>
+
+  <!-- Shop -->
+  <section class="store" id="shop" aria-labelledby="shop-h" hidden>
+    <div class="wrap">
+      <header class="store__head">
+        <div>
+          <p class="eyebrow"><span class="chap">02</span> Fertig &amp; auf Maß</p>
+          <h2 id="shop-h" class="h2">Shop</h2>
+        </div>
+        <p class="lede" id="shop-lede">Fertige Einzelstücke und Lieblingsteile, die ich auf deine Maße nähe.</p>
+      </header>
+      <div class="store__bar">
+        <div class="chips" id="shop-filter" role="radiogroup" aria-label="Artikel filtern"></div>
+        <p class="store__ship" id="shop-ship"></p>
+      </div>
+      <ul class="wares" id="wares" aria-live="off"></ul>
+      <p class="store__empty" id="shop-empty" hidden>Gerade ist hier nichts zu haben. Schau bald wieder vorbei oder frag mich auf Instagram.</p>
     </div>
   </section>
 
@@ -354,6 +379,34 @@
   </figure>
   <p class="visually-hidden" id="lbx-live" aria-live="polite"></p>
 </div>
+
+<!-- Artikel-Ansicht -->
+<div class="ov ware-view" id="ware" role="dialog" aria-modal="true" aria-labelledby="ware-title" hidden>
+  <div class="ov__veil" data-close></div>
+  <article class="ware-view__panel">
+    <button type="button" class="ov__x" data-close aria-label="Schließen"><span aria-hidden="true"></span></button>
+    <div class="ware-view__stage" id="ware-stage">
+      <ul class="ware-view__slides" id="ware-slides"></ul>
+      <div class="ware-view__dots" id="ware-dots" role="group" aria-label="Fotos"></div>
+    </div>
+    <div class="ware-view__info" id="ware-info"></div>
+  </article>
+</div>
+
+<!-- Warenkorb -->
+<div class="ov cart" id="cart" role="dialog" aria-modal="true" aria-labelledby="cart-title" hidden>
+  <div class="ov__veil" data-close></div>
+  <aside class="cart__panel">
+    <header class="cart__head">
+      <h2 class="cart__title" id="cart-title" tabindex="-1">Warenkorb</h2>
+      <ol class="cart__steps" id="cart-steps" aria-label="Schritte"></ol>
+      <button type="button" class="ov__x" data-close aria-label="Warenkorb schließen"><span aria-hidden="true"></span></button>
+    </header>
+    <div class="cart__body" id="cart-body"></div>
+    <footer class="cart__foot" id="cart-foot"></footer>
+  </aside>
+</div>
+<p class="visually-hidden" id="shop-live" aria-live="polite"></p>
 
 <script type="module" src="main.js"></script>
 </body>

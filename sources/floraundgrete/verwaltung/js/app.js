@@ -10,11 +10,15 @@ import renderAnprobe from "./sections/anprobe.js";
 import renderLookbook from "./sections/lookbook.js";
 import renderUeber from "./sections/ueber.js";
 import renderEinstellungen from "./sections/einstellungen.js";
+import renderShop from "./sections/shop.js";
+import { detect, isRemote, isLoggedIn as remoteLoggedIn, login as remoteLogin, logout as remoteLogout, loadRemote, schedulePublish } from "./remote.js";
+import { isTodo } from "../../shared/shop-core.js";
 import { SITES } from "./sections/common.js";
 
 
 const ROUTES = [
   { id: "start", label: "Start", long: "Übersicht", icon: "home", render: renderStart },
+  { id: "shop", label: "Shop", long: "Shop", icon: "bag", render: renderShop },
   { id: "hinweis", label: "Hinweis", long: "Hinweis oben", icon: "megaphone", render: renderHinweis },
   { id: "termine", label: "Termine", long: "Termine", icon: "calendar", render: renderTermine },
   { id: "kurse", label: "Kurse", long: "Feste Kurse", icon: "clock", render: renderKurse },
@@ -25,7 +29,7 @@ const ROUTES = [
   { id: "einstellungen", label: "Einstellungen", long: "Einstellungen", icon: "gear", render: renderEinstellungen },
   { id: "mehr", label: "Mehr", long: "Mehr", icon: "more", render: renderMehr, hidden: true },
 ];
-const TAB_IDS = ["start", "hinweis", "termine", "anprobe"];
+const TAB_IDS = ["start", "shop", "termine", "anprobe"];
 const SESSION_KEY = "floraundgrete-verwaltung-angemeldet";
 
 const $ = (s) => document.querySelector(s);
@@ -42,7 +46,26 @@ function save(mutator) {
   let out;
   try { out = update(mutator); } finally { ownWrites--; }
   markSaved(new Date());
+  schedulePublish(onPublish);
   return out;
+}
+
+// Mit Worker: jede Änderung wird kurz danach veröffentlicht
+let lastPublishError = 0;
+function onPublish(state, info) {
+  if (state === "pending") markSaved(new Date(), { pending: true, announce: false });
+  else if (state === "ok") markSaved(new Date(info || Date.now()));
+  else if (state === "error") {
+    if (info && info.status === 401) { toast("Du bist abgemeldet. Bitte melde dich neu an, deine letzte Änderung ist noch nicht online."); showWelcome(); return; }
+    if (Date.now() - lastPublishError > 30000) toast(`Noch nicht online: ${info && info.message ? info.message : "keine Verbindung"}. Ich versuche es bei der nächsten Änderung erneut.`);
+    lastPublishError = Date.now();
+  }
+}
+
+/** Nur die Anzeige hier aktualisieren (Artikel/Bestellungen kommen schon vom Server) */
+function mirror(mutator) {
+  ownWrites++;
+  try { update(mutator); } finally { ownWrites--; }
 }
 
 function replaceAll(snapshot) {
@@ -55,6 +78,7 @@ function run(fn) {
   let out;
   try { out = fn(); } finally { ownWrites--; }
   markSaved(new Date());
+  schedulePublish(onPublish);
   return out;
 }
 
@@ -62,6 +86,8 @@ const ctx = {
   get content() { return getContent(); },
   save,
   run,
+  mirror,
+  get remote() { return isRemote(); },
   replaceAll,
   toast,
   go: (hash) => { if (location.hash === "#" + hash) route(); else location.hash = hash; },
@@ -75,14 +101,19 @@ const ctx = {
 function newCount(c = getContent()) {
   return c.fitting.bookings.filter((b) => b.status === "angefragt").length;
 }
+const shopCount = (c = getContent()) => (c.shop.orders || []).filter(isTodo).length;
+const BADGES = {
+  anprobe: { count: newCount, sr: (n) => `, ${n} neue Anfrage${n === 1 ? "" : "n"}` },
+  shop: { count: shopCount, sr: (n) => `, ${n} Bestellung${n === 1 ? "" : "en"} zu erledigen` },
+};
 
 function navItem(r, { compact }) {
-  const count = r.id === "anprobe" ? newCount() : 0;
+  const count = BADGES[r.id] ? BADGES[r.id].count() : 0;
   return h("a", { href: "#" + r.id, class: "nav-item", "data-route": r.id },
     h("span", { class: "nav-ico" }, icon(r.icon)),
     h("span", { class: "nav-label" }, compact ? r.label : r.long),
     count ? h("span", { class: "badge nav-count", "aria-hidden": "true" }, count) : null,
-    count ? h("span", { class: "sr-only" }, `, ${count} neue Anfrage${count === 1 ? "" : "n"}`) : null);
+    count ? h("span", { class: "sr-only" }, BADGES[r.id].sr(count)) : null);
 }
 
 function buildNav() {
@@ -166,13 +197,16 @@ function renderCurrent({ focusTitle = false, keepFocus = false } = {}) {
 }
 
 function buildBadges() {
-  const n = newCount();
-  document.querySelectorAll('.nav-item[data-route="anprobe"]').forEach((a) => {
+  for (const [route, def] of Object.entries(BADGES)) buildBadge(route, def);
+}
+function buildBadge(route, def) {
+  const n = def.count();
+  document.querySelectorAll(`.nav-item[data-route="${route}"]`).forEach((a) => {
     let b = a.querySelector(".nav-count");
     if (n && !b) { b = h("span", { class: "badge nav-count", "aria-hidden": "true" }); a.querySelector(".nav-label").after(b); }
     if (b) { if (n) b.textContent = n; else b.remove(); }
     let sr = a.querySelector(".sr-only");
-    if (n) { if (!sr) { sr = h("span", { class: "sr-only" }); a.append(sr); } sr.textContent = `, ${n} neue Anfrage${n === 1 ? "" : "n"}`; }
+    if (n) { if (!sr) { sr = h("span", { class: "sr-only" }); a.append(sr); } sr.textContent = def.sr(n); }
     else if (sr) sr.remove();
   });
 }
@@ -181,6 +215,7 @@ function buildBadges() {
 function renderMehr() {
   const items = ROUTES.filter((r) => !r.hidden && !TAB_IDS.includes(r.id));
   const desc = {
+    hinweis: "Hinweis oben auf der Seite",
     kurse: "Deine wöchentlichen Nähkurse",
     links: "Linkliste, z. B. für Instagram",
     lookbook: "Fotos deiner Projekte",
@@ -216,14 +251,14 @@ function isLoggedIn() { try { return sessionStorage.getItem(SESSION_KEY) === "1"
 function setLoggedIn(v) {
   try { if (v) sessionStorage.setItem(SESSION_KEY, "1"); else sessionStorage.removeItem(SESSION_KEY); } catch { window.__fgLoggedIn = v; }
 }
-export function logout() { setLoggedIn(false); location.hash = ""; showWelcome(); }
+export async function logout() { setLoggedIn(false); if (isRemote()) await remoteLogout(); location.hash = ""; showWelcome(); }
 ctx.logout = logout;
 
 function showWelcome() {
   $("#app").hidden = true;
   $("#welcome").hidden = false;
   document.title = "Verwaltung · Cathrin Raasch Atelier";
-  $("#welcome-go").focus();
+  (isRemote() ? $("#login-pw") : $("#welcome-go")).focus();
 }
 
 function showApp() {
@@ -236,7 +271,44 @@ function showApp() {
 }
 
 $("#welcome-go").addEventListener("click", () => { setLoggedIn(true); showApp(); });
+
+// Mit Worker: echtes Passwort statt "Weiter"
+function setupLogin(health) {
+  $("#welcome-go").hidden = true;
+  const form = $("#login-form");
+  form.hidden = false;
+  $(".welcome-note").textContent = health.login
+    ? "Deine Änderungen gehen nach dem Speichern direkt online."
+    : "Die Anmeldung ist noch nicht eingerichtet: Es fehlen ADMIN_PASSWORD und SESSION_SECRET im Worker.";
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const err = $("#login-err");
+    const btnEl = form.querySelector("button[type=submit]");
+    err.hidden = true;
+    btnEl.disabled = true;
+    try {
+      await remoteLogin($("#login-pw").value);
+      $("#login-pw").value = "";
+      await loadRemote();
+      showApp();
+    } catch (ex) {
+      err.textContent = ex.message || "Das hat nicht geklappt.";
+      err.hidden = false;
+      $("#login-pw").setAttribute("aria-invalid", "true");
+      $("#login-pw").focus();
+    } finally { btnEl.disabled = false; }
+  });
+  $("#login-pw").addEventListener("input", () => { $("#login-pw").removeAttribute("aria-invalid"); $("#login-err").hidden = true; });
+}
 $("#skip-link").addEventListener("click", (e) => { e.preventDefault(); const t = main.querySelector("h1"); (t || main).focus(); });
 window.addEventListener("hashchange", () => { if (!$("#app").hidden) route(); });
 
-if (isLoggedIn()) showApp(); else showWelcome();
+(async () => {
+  const health = await detect();
+  if (!health) { if (isLoggedIn()) showApp(); else showWelcome(); return; }
+  setupLogin(health);
+  if (await remoteLoggedIn()) {
+    try { await loadRemote(); showApp(); return; } catch (e) { console.warn(e); }
+  }
+  showWelcome();
+})();
