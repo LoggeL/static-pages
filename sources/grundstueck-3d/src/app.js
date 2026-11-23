@@ -37,6 +37,7 @@ const state = {
   showSewer: true,
   showBaugrenze: true,
   showHouse: true,
+  houseIsolated: false,
   houseMode: 'full',   // full | og | eg | cutaway
   planTab: 'eg',       // eg | og | dach | section-cross | section-long
   corridor: 2,         // angenommener Schutzstreifen je Seite in m
@@ -50,7 +51,10 @@ let houseCtrl = null, houseModP = null;
 const storageProblems = new Map();
 
 // ---------------------------------------------------------------- Anzeige
-let toastTimer = 0;
+let toastTimer = 0, mapIntroTimer = null;
+function dismissMapIntro() {
+  if (mapIntroTimer === toastTimer) $('toast').classList.remove('show');
+}
 function toast(text, ms = 2600, warn = false, action = null) {
   const el = $('toast'), btn = $('toast-act');
   $('toast-text').textContent = text;
@@ -140,7 +144,7 @@ async function main() {
     renderHousePanel();
     syncHouseControls();
     if (view?.kind === '3d') {
-      view.setHouse({ ...houseCtrl.get3DConfig(), visible: state.showHouse, mode: state.houseMode });
+      view.setHouse({ ...houseCtrl.get3DConfig(), visible: state.showHouse, mode: state.houseMode, isolated: state.houseIsolated });
     }
     markDirty();
     return houseCtrl;
@@ -192,9 +196,10 @@ async function main() {
     } catch (err) {
       storageProblem('sitzung', err, `Der Browser erlaubt keinen Sitzungsspeicher (${err.name}).`);
     }
-    if (!seen) {
+    if (!seen && !location.hash) {
       toast(coarse ? 'Karte: ein Finger verschiebt, zwei Finger zoomen. Unten ein Messwerkzeug wählen; „3D laden“ öffnet das Modell.'
         : 'Karte: Ziehen verschiebt, Mausrad zoomt. „3D laden“ (V) öffnet das Modell.', 5200);
+      mapIntroTimer = toastTimer;
     }
   }
   window.__app = {
@@ -202,7 +207,13 @@ async function main() {
     get houseCtrl() { return houseCtrl; }, open3d, close3d, setTier: chooseQuality, overlay,
     setHouseMode, focusHouse, openPlanDialog,
   };
-  if (location.hash === '#haus' && await houseModP) {
+  if (tourHash()) {
+    await openBlenderTour(tourHash());
+  } else if (['#haus', '#haus-eg', '#haus-og', '#haus-isoliert'].includes(location.hash) && await houseModP) {
+    if (location.hash !== '#haus') {
+      setHouseMode(location.hash === '#haus-og' ? 'og' : location.hash === '#haus-eg' ? 'eg' : 'full');
+      state.houseIsolated = true;
+    }
     await open3d();
     if (view.kind === '3d') {
       for (const [key, button] of [['showBounds', 'btn-bounds'], ['showBuildings', 'btn-buildings'], ['showSewer', 'btn-sewer']]) {
@@ -240,10 +251,11 @@ function drawOverlay() {
   if (view.kind === '2d') {
     grid = { step0: cfg.map.grid_m, extent: cfg.map.extent, image: cfg.map.image.bounds, view: view.visibleRect() };
   }
+  const isolated = !!view.houseIsolated;
   overlay.render({
-    k: store.k, selectedId: state.selected, showBounds: state.showBounds, showBuildings: state.showBuildings,
-    showSewer: state.showSewer, showBaugrenze: state.showBaugrenze, showHouse: state.showHouse,
-    items: store.items, draft, marker: state.marker, grid,
+    k: store.k, selectedId: state.selected, showBounds: !isolated && state.showBounds, showBuildings: !isolated && state.showBuildings,
+    showSewer: !isolated && state.showSewer, showBaugrenze: !isolated && state.showBaugrenze, showHouse: !isolated && state.showHouse,
+    items: isolated ? store.items.filter(it => it.src.every(source => source === 'h')) : store.items, draft, marker: state.marker, grid,
   }, view.proj);
   stats.overlayBuilds++;
   state.dirty = false;
@@ -292,17 +304,17 @@ function cancelDraft() {
   updateHint();
   markDirty();
 }
-const measureBlocked = () => state.view === '3d' && state.pickState === 'failed';
+const measureBlocked = () => state.view === '3d' && !view.houseIsolated && state.pickState === 'failed';
 function updateHint() {
   const el = $('hint');
   const d = state.draft;
   const n = d?.points.length || 0;
   let html = '';
   let err = false;
-  if (state.tool !== 'nav' && state.view === '3d' && state.pickState === 'failed') {
+  if (state.tool !== 'nav' && state.view === '3d' && !view.houseIsolated && state.pickState === 'failed') {
     html = `<span>Messen in 3D nicht möglich: ${escapeHtml(state.pickError)}. In der 2D-Karte messen.</span><button data-act="to2d">Zur 2D-Karte</button>`;
     err = true;
-  } else if (state.tool !== 'nav' && state.view === '3d' && state.pickState === 'preparing') {
+  } else if (state.tool !== 'nav' && state.view === '3d' && !view.houseIsolated && state.pickState === 'preparing') {
     html = '<span>Messwerkzeug wird vorbereitet …</span>';
   } else if (state.tool === 'area') {
     if (n === 0) html = 'Eckpunkte der Fläche nacheinander antippen';
@@ -369,8 +381,8 @@ function syncProfile(force = false) {
   const it = store.items.find((i) => i.id === state.selected);
   const longEnough = it && it.points.length >= 2
     && Math.hypot(it.points[1][0] - it.points[0][0], it.points[1][2] - it.points[0][2]) * store.k >= 0.5;
-  if (it && longEnough && !measureBlocked() && (it.type === 'dist' || it.type === 'height') && state.profileClosed !== it.id) {
-    profile.show(it, store.k, view.sampler);
+  if (it && longEnough && (!view.houseIsolated || it.src.every(source => source === 'h')) && !measureBlocked() && (it.type === 'dist' || it.type === 'height') && state.profileClosed !== it.id) {
+    profile.show(it, store.k, view.houseIsolated ? view.houseSampler : view.sampler);
   } else {
     profile.hide();
   }
@@ -385,6 +397,7 @@ function queue(fn) {
 }
 
 function snapLayers() {
+  if (view.houseIsolated) return {};
   return {
     buildings: state.showBuildings ? cfg.buildings : null,
     boundaries: state.showBounds ? cfg.boundaries : null,
@@ -477,7 +490,7 @@ async function finishArea() {
 // Vorschau unter dem Mauszeiger (nur mit Maus; auf Touch-Geräten gibt es kein Hover)
 function onHover(x, y, alt) {
   if (state.tool === 'nav' || !state.draft || measureBlocked()) return;
-  if (view.kind === '3d' && state.pickState !== 'ready') { view.warmPicker(); return; }
+  if (view.kind === '3d' && !view.houseIsolated && state.pickState !== 'ready') { view.warmPicker(); return; }
   hoverNext = [x, y, alt];
   if (hoverBusy) return;
   hoverBusy = true;
@@ -646,6 +659,12 @@ function renderHousePanel() {
   $('house-content').innerHTML = houseCtrl.renderPanelHtml();
 }
 function syncHouseControls() {
+  const isolated = !!view?.houseIsolated;
+  app.dataset.isolated = String(isolated);
+  const iso = $('btn-house-isolate');
+  iso.classList.toggle('on', isolated);
+  iso.setAttribute('aria-pressed', String(isolated));
+  iso.title = isolated ? 'Grundstück und Vegetation wieder einblenden' : 'Haus ohne Grundstück und Vegetation zeigen';
   $('btn-house').classList.toggle('on', state.showHouse);
   $('btn-house').setAttribute('aria-pressed', String(state.showHouse));
   $('btn-baugrenze').classList.toggle('on', state.showBaugrenze);
@@ -658,9 +677,14 @@ function syncHouseControls() {
 }
 function toggleHouse() {
   if (!houseCtrl) return;
+  if (view?.houseIsolated) { returnToSite(true); return; }
   state.showHouse = !state.showHouse;
+  if (!state.showHouse) state.houseIsolated = false;
+  if (view?.kind === '3d') {
+    view.setHouseVisible(state.showHouse);
+    syncProfile(true);
+  }
   syncHouseControls();
-  if (view?.kind === '3d') view.setHouseVisible(state.showHouse);
   markDirty();
 }
 function toggleBaugrenze() {
@@ -672,14 +696,52 @@ function toggleBaugrenze() {
 function setHouseMode(mode) {
   if (!houseCtrl) return;
   state.houseMode = mode;
-  if (!state.showHouse) state.showHouse = true;
-  syncHouseControls();
+  if (view?.siteRequest) view.siteRequest = null;
+  if (mode !== 'full') state.houseIsolated = true;
+  state.showHouse = true;
   overlay.setHouse(houseCtrl.getOverlayData(mode));
   if (view?.kind === '3d') {
     view.setHouseMode(mode);
     view.setHouseVisible(true);
+    applyIsolation();
+    if (state.houseIsolated) focusHouse();
   }
+  syncHouseControls();
   markDirty();
+}
+function finishSiteView(hideHouse) {
+  state.houseIsolated = false;
+  if (hideHouse) {
+    state.showHouse = false;
+    view.setHouseVisible(false);
+  }
+  applyIsolation();
+}
+async function returnToSite(hideHouse = false) {
+  if (!view?.houseIsolated) return;
+  if (view.mesh) { finishSiteView(hideHouse); return; }
+  if (loading) return;
+  view.siteRequest = { hideHouse };
+  await switchTier(quality.tier, null);
+}
+function applyIsolation() {
+  if (view?.kind !== '3d') return;
+  view.setHouseIsolated(state.houseIsolated);
+  invalidateHover();
+  if (state.draft) state.draft.hover = null;
+  syncHouseControls();
+  syncProfile(true);
+  updateToolbar();
+  updateHint();
+  markDirty();
+}
+async function enterIsolated(mode) {
+  if (!houseCtrl) await houseModP;
+  if (!houseCtrl) return;
+  state.houseIsolated = true;
+  setHouseMode(mode);
+  showPanel(false);
+  if (view.kind !== '3d') await open3d();
 }
 function focusHouse(closePanelOnNarrow = false) {
   if (!houseCtrl || !view) return;
@@ -690,7 +752,7 @@ function focusHouse(closePanelOnNarrow = false) {
   }
   if (closePanelOnNarrow && !wideLayout()) showPanel(false);
   const points = houseCtrl.getFocusPoints();
-  if (view.kind === '3d') view.focusHouse(points);
+  if (view.kind === '3d') view.focusHouse(points, state.houseMode);
   else view.focusOn(points);
   markDirty();
 }
@@ -718,6 +780,25 @@ function openPlanDialog(tab = state.planTab) {
   if (!dlg.open) dlg.showModal();
   renderPlanTab(tab);
 }
+function tourHash() {
+  return ({ '#innen': 'eg', '#innen-og': 'og', '#blender': 'aussen' })[location.hash];
+}
+async function openBlenderTour(room = 'eg') {
+  dismissMapIntro();
+  try {
+    const { openTour } = await import('./house/tour.js');
+    view?.clearKeys?.();
+    openTour(room, enterIsolated);
+  } catch (error) {
+    toast('Blender-Ansichten konnten nicht geladen werden: ' + error.message, 5000, true);
+  }
+}
+window.addEventListener('hashchange', () => { if (tourHash()) openBlenderTour(tourHash()); });
+$('btn-house-tour').addEventListener('click', () => openBlenderTour(state.houseMode === 'og' ? 'og' : 'eg'));
+$('btn-house-isolate').addEventListener('click', () => {
+  if (view?.houseIsolated) returnToSite();
+  else enterIsolated(state.houseMode);
+});
 $('btn-house').addEventListener('click', toggleHouse);
 $('btn-baugrenze').addEventListener('click', toggleBaugrenze);
 $('btn-house-focus').addEventListener('click', () => focusHouse(false));
@@ -928,7 +1009,7 @@ async function chooseQuality(choice) {
   renderQuality();
   const tier = quality.tier;
   if (loading) { retarget(tier); return; }
-  if (state.view !== '3d') return;
+  if (state.view !== '3d' || (view.houseIsolated && !view.mesh)) return;
   if (tier === state.tier3d && view.mesh) return;
   await switchTier(tier, state.tier3d, before);
 }
@@ -970,7 +1051,7 @@ async function switchTier(tier, prev, before = null, restore = null) {
   }
   const job = loading = newJob(tier);
   const { ac } = job;
-  card.show('Qualität wird gewechselt …', { cancel: () => ac.abort() });
+  card.show(v.siteRequest ? 'Grundstück wird geladen …' : 'Qualität wird gewechselt …', { cancel: () => ac.abort() });
   card.phase2(tier);
   let restart = null, after = null;
   try {
@@ -979,6 +1060,11 @@ async function switchTier(tier, prev, before = null, restore = null) {
     state.tier3d = tier;
     if (restore) restoreChoice(restore);
     card.hide();
+    if (v.siteRequest) {
+      const { hideHouse } = v.siteRequest;
+      v.siteRequest = null;
+      finishSiteView(hideHouse);
+    }
     syncProfile(true);
     markDirty();
     updateHint();
@@ -997,7 +1083,13 @@ async function switchTier(tier, prev, before = null, restore = null) {
     // „Zur 2D-Karte“ und „Mit Stufe … neu laden“; ein Neuversuch auf dem toten Kontext wäre sinnlos.
     if (err.name === 'ContextLostError') { console.error(err); $('status').textContent = '3D · vom Gerät beendet'; contextLostCard(); return; }
     if (err.name === 'AbortError' && job.retarget && job.next) restart = job.next;
-    else {
+    else if (v.houseIsolated && !prev) {
+      const hideHouse = !!v.siteRequest?.hideHouse;
+      v.siteRequest = null;
+      if (err.name === 'AbortError') card.hide();
+      else card.error(err.message, { title: 'Das Grundstück konnte nicht geladen werden.', retry: () => returnToSite(hideHouse), stay: ['Beim Haus bleiben', () => {}] });
+      v.updateSceneStatus();
+    } else {
       console.error(err);
       $('status').textContent = '3D · kein Modell geladen';
       const msg = err.name === 'AbortError' ? 'Qualitätswechsel abgebrochen – die vorherige Stufe ist bereits freigegeben.' : err.message;
@@ -1150,7 +1242,7 @@ async function open3d(tierId) {
   if (state.tierError && !tierId) { toast(state.tierError, 6000, true); return; }
   const tier = tierId ? quality.byId(tierId) : quality.tier;
   const conn = navigator.connection;
-  if ((conn?.saveData || /^(slow-2g|2g|3g)$/.test(conn?.effectiveType ?? '')) && !confirm(`3D lädt ${MB(tier.bytes)} MB herunter. Fortfahren?`)) return;
+  if ((conn?.saveData || /^(slow-2g|2g|3g)$/.test(conn?.effectiveType ?? '')) && !confirm(state.houseIsolated ? 'Das isolierte Hausmodell herunterladen?' : `3D lädt ${MB(tier.bytes)} MB herunter. Fortfahren?`)) return;
   if (quality.cls === 'software') toast('Kein Grafikprozessor erkannt (Software-Rendering) – 3D wird sehr langsam sein.', 6000, true);
   const job = loading = newJob(tier);
   const { ac } = job;
@@ -1161,9 +1253,9 @@ async function open3d(tierId) {
     await groundP; // Kamerahöhe aus dem Bodenmodell (cameraFrom2D)
     if (houseModP) await houseModP;
     if (ac.signal.aborted) throw new DOMException('abgebrochen', 'AbortError');
-    card.phase2(tier);
+    if (!state.houseIsolated) card.phase2(tier);
     const initial = cameraFrom2D();
-    const house = houseCtrl ? { ...houseCtrl.get3DConfig(), visible: state.showHouse, mode: state.houseMode } : null;
+    const house = houseCtrl ? { ...houseCtrl.get3DConfig(), visible: state.showHouse, mode: state.houseMode, isolated: state.houseIsolated } : null;
     // Der Canvas bleibt bis activate() unsichtbar und ohne Eingaben: 2D bleibt während des Downloads bedienbar.
     const v = await viewMod.View3D.create({
       host: app, before: $('overlay'), cfg, base: BASE, tier, hooks: hooks3d, stats, initial, view2d: map2d.getViewState(), house, signal: ac.signal,
@@ -1174,7 +1266,8 @@ async function open3d(tierId) {
     view = v;
     v.activate(); // übernimmt das Overlay (Größe, Neuaufbau)
     state.view = '3d';
-    state.tier3d = tier;
+    dismissMapIntro();
+    state.tier3d = v.mesh ? tier : null;
     state.marker = null;
     app.dataset.view = '3d';
     onLeave();
@@ -1183,6 +1276,10 @@ async function open3d(tierId) {
     updateToolbar();
     updateHint();
     syncProfile(true);
+    v.setHouseMode(state.houseMode);
+    v.setHouseVisible(state.showHouse);
+    applyIsolation();
+    if (v.houseIsolated) focusHouse();
     if (state.tool !== 'nav') v.warmPicker();
     v.canvas.focus({ preventScroll: true });
     markDirty();
@@ -1226,6 +1323,7 @@ function close3d() {
   state.pickError = null;
   state.marker = null;
   app.dataset.view = '2d';
+  syncHouseControls();
   card.hide();
   map2d.resume();
   map2d.moved = true;

@@ -68,7 +68,11 @@ export class View3D {
     const v = new View3D(opts);
     try {
       v.init(opts);
-      await v.loadMesh(opts.tier, opts.signal, opts.onProgress);
+      if (v.houseIsolated) {
+        v.renderer.setPixelRatio(Math.min(devicePixelRatio || 1, opts.tier.render.pixelRatio));
+      } else {
+        await v.loadMesh(opts.tier, opts.signal, opts.onProgress);
+      }
       if (v.lost) throw contextLostError();
     } catch (err) {
       v.dispose();
@@ -110,12 +114,22 @@ export class View3D {
     host.insertBefore(canvas, before);
     this.scene = new THREE.Scene();
     const bg = cfg.background ?? ['#141c25', '#0e1319', '#0a0d11'];
-    this.scene.background = Array.isArray(bg) ? skyTexture(bg) : new THREE.Color(bg);
+    this.siteBackground = Array.isArray(bg) ? skyTexture(bg) : new THREE.Color(bg);
+    this.studioBackground = skyTexture(['#a4b1b1', '#dde0d8', '#abaea5']);
+    this.scene.background = this.siteBackground;
+    this.houseIsolated = false;
     // Ausgewogene Tageslicht-Beleuchtung für 3D-Haus-Meshes (Gaussian Splats ignorieren Lichtquellen)
     const hemi = new THREE.HemisphereLight(0xf3f7ff, 0x7e766b, 1.05);
     hemi.position.set(0, 30, 0);
     const sun = new THREE.DirectionalLight(0xfff5e4, 1.35);
-    sun.position.set(18, 28, 16);
+    sun.position.set(16, 24, 13);
+    this.houseSun = sun;
+    Object.assign(sun.shadow.camera, { left: -13, right: 13, top: 13, bottom: -13, far: 65 });
+    sun.shadow.camera.updateProjectionMatrix();
+    sun.shadow.mapSize.set(1024, 1024);
+    sun.shadow.normalBias = 0.018;
+    sun.shadow.bias = -0.00015;
+    this.renderer.shadowMap.type = THREE.PCFShadowMap;
     const fill = new THREE.DirectionalLight(0xd8e8ff, 0.45);
     fill.position.set(-16, 14, -14);
     this.scene.add(hemi, sun, fill);
@@ -177,6 +191,20 @@ export class View3D {
       },
     };
 
+    this.houseSampler = {
+      kind: 'house',
+      title: 'Höhenprofil am sichtbaren Hausmodell',
+      sampleMany: async (points, top) => {
+        const ray = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, -1, 0));
+        this.houseRoot?.updateWorldMatrix(true, true);
+        return points.map(([x, z]) => {
+          ray.ray.origin.set(x, top, z);
+          const hit = ray.intersectObjects(this.houseTargets, false)[0];
+          return hit ? { y: hit.point.y, q: 2 } : null;
+        });
+      },
+    };
+
     c.addEventListener('change', () => this.requestRender());
     c.addEventListener('start', () => { this.tween = null; this.setMotion(true); this.requestRender(); });
     canvas.addEventListener('webglcontextlost', (e) => {
@@ -221,21 +249,87 @@ export class View3D {
     this.scene.add(root);
     this.houseRoot = root;
     this.houseApi = api;
-    if (houseCfg.mode) this.setHouseMode(houseCfg.mode);
+    root.traverse(o => {
+      if (!o.isMesh || o.material.transparent) return;
+      o.castShadow = !o.isInstancedMesh;
+      o.receiveShadow = true;
+    });
+    this.setHouseMode(houseCfg.mode || 'full');
+    this.setHouseIsolated(!!houseCfg.isolated && root.visible);
     this.requestRender();
   }
   setHouseVisible(visible) {
     if (!this.houseRoot) return;
     this.houseRoot.visible = !!visible;
+    if (!visible) this.setHouseIsolated(false);
+    else { this.loadHouseDetail(); this.refreshHouseSurfaces(); }
     this.requestRender();
   }
   setHouseMode(mode) {
     if (!this.houseApi) return;
-    if (typeof this.houseApi.setMode === 'function') this.houseApi.setMode(mode);
-    else if (mode === 'cutaway' && typeof this.houseApi.setCutaway === 'function') this.houseApi.setCutaway(true);
+    this.houseMode = mode;
+    this.houseApi.setMode(mode);
+    this.blenderHouse?.setMode(mode);
+    this.refreshHouseSurfaces();
+  }
+  refreshHouseSurfaces() {
+    if (!this.houseApi) return;
+    const detailed = !!this.blenderHouse;
+    this.houseApi.group.visible = !detailed;
+    if (this.blenderHouse) this.blenderHouse.group.visible = detailed;
+    this.scene.environment = detailed && this.houseIsolated ? this.studioLight?.texture ?? null : null;
+    this.houseTargets = [];
+    this.houseRoot.traverseVisible(o => { if (o.isMesh) this.houseTargets.push(o); });
+    this.centerDepth = null;
     this.requestRender();
   }
+  async loadHouseDetail() {
+    if (this.blenderHouse || this.detailRequest) return;
+    const request = new AbortController();
+    this.detailRequest = request;
+    try {
+      const { loadBlenderHouse, createStudioLight } = await import('./house/blender-model.js');
+      if (request.signal.aborted) return;
+      const detail = await loadBlenderHouse(this.base, request.signal);
+      if (request.signal.aborted) { detail.dispose(); return; }
+      this.blenderHouse = detail;
+      this.houseRoot.add(detail.group);
+      detail.setMode(this.houseMode);
+      this.refreshHouseSurfaces();
+      this.updateSceneStatus();
+      this.studioLight ??= createStudioLight(this.renderer);
+      this.scene.environmentIntensity = .42;
+      this.refreshHouseSurfaces();
+    } catch (error) {
+      if (!request.signal.aborted && this.houseIsolated && !this.blenderHouse) this.hooks.toast('Blender-Details konnten nicht geladen werden. Das Grundmodell ist sichtbar.', 4600, true);
+    } finally {
+      if (this.detailRequest === request) this.detailRequest = null;
+    }
+  }
+  setHouseIsolated(on) {
+    this.houseIsolated = !!(on && this.houseRoot?.visible);
+    if (this.mesh) this.mesh.visible = !this.houseIsolated;
+    if (this.spark) this.spark.visible = !this.houseIsolated;
+    this.scene.background = this.houseIsolated ? this.studioBackground : this.siteBackground;
+    if (this.houseRoot?.visible) this.loadHouseDetail();
+    this.refreshHouseSurfaces();
+    this.houseSun.castShadow = this.houseIsolated;
+    this.renderer.shadowMap.enabled = this.houseIsolated;
+    this.depthGen = (this.depthGen || 0) + 1;
+    this.centerDepth = null;
+    this.updateSceneStatus();
+    this.requestRender();
+  }
+  updateSceneStatus() {
+    if (this.houseIsolated) this.hooks.setStatus(this.blenderHouse ? 'Blender-Modell · Haus isoliert' : '3D · Haus isoliert');
+    else if (this.mesh) this.hooks.setStatus(`3D · ${this.tier.label} · ${INT.format(this.tier.count)} Splats`);
+  }
   disposeHouse() {
+    this.detailRequest?.abort();
+    this.detailRequest = null;
+    this.blenderHouse?.dispose();
+    this.blenderHouse = null;
+    this.houseTargets = [];
     if (this.houseRoot && this.scene) this.scene.remove(this.houseRoot);
     try { this.houseApi?.dispose?.(); } catch (err) { console.error('3D-Haus-Freigabe:', err); }
     this.houseRoot = null;
@@ -244,6 +338,7 @@ export class View3D {
 
   makeSpark(tier) {
     const spark = new SparkRenderer({ renderer: this.renderer, onDirty: () => this.requestRender(), enableLod: false, ...sparkParams(tier.render) });
+    spark.visible = !this.houseIsolated;
     this.scene.add(spark);
     return spark;
   }
@@ -296,6 +391,7 @@ export class View3D {
     mesh.scale.setScalar(t.scale);
     // Erst nach bestandenen Prüfungen wird das Modell this.mesh: Ein abgebrochenes oder falsches
     // Modell darf nie unter der Bezeichnung der vorherigen Stufe stehen bleiben.
+    mesh.visible = !this.houseIsolated;
     this.scene.add(mesh);
     let n;
     try {
@@ -318,7 +414,7 @@ export class View3D {
     this.mesh = mesh;
     this.tier = tier;
     this.applyTier(tier);
-    this.hooks.setStatus(`3D · ${tier.label} · ${INT.format(n)} Splats`);
+    this.updateSceneStatus();
     this.requestRender();
   }
 
@@ -339,7 +435,7 @@ export class View3D {
   // Stufenwechsel. Andere Datei: Speicher zuerst freigeben, dann laden (Spitzenspeicher).
   async setTier(tier, { signal, onProgress } = {}) {
     if (this.lost) throw contextLostError();
-    if (this.mesh && this.sameFile(this.tier, tier)) { this.applyTier(tier); this.hooks.setStatus(`3D · ${tier.label} · ${INT.format(tier.count)} Splats`); return false; }
+    if (this.mesh && this.sameFile(this.tier, tier)) { this.applyTier(tier); this.updateSceneStatus(); return false; }
     this.releaseMesh();
     this.scene.remove(this.spark);
     this.spark.dispose(); // Accumulatoren, orderingTexture und Readback-Puffer wachsen nur
@@ -391,25 +487,21 @@ export class View3D {
     this.camera.updateMatrixWorld();
     this.houseRoot.updateWorldMatrix(true, true);
     this.raycaster.setFromCamera(ndc, this.camera);
-    const hits = this.raycaster.intersectObject(this.houseRoot, true);
-    for (const h of hits) {
-      if (!h.object.isMesh) continue;
-      let vis = true;
-      for (let o = h.object; o; o = o.parent) { if (!o.visible) { vis = false; break; } }
-      if (vis) return h;
-    }
-    return null;
+    return this.raycaster.intersectObjects(this.houseTargets, false)[0] ?? null;
   }
   async pickAt(clientX, clientY, { multi = true } = {}) {
-    await this.pickReady();
-    const picker = this.picker;
-    if (this.disposed || !picker) throw new Error('Messen abgebrochen (3D geschlossen oder Qualität gewechselt)');
     const meshHit = this.pickHouseMesh(clientX, clientY);
-    const hit = await picker.pick(this.raysAt(clientX, clientY, multi));
+    let hit = null;
+    if (!this.houseIsolated) {
+      await this.pickReady();
+      const picker = this.picker;
+      if (this.disposed || !picker) throw new Error('Messen abgebrochen (3D geschlossen oder Qualität gewechselt)');
+      hit = await picker.pick(this.raysAt(clientX, clientY, multi));
+      if (this.houseIsolated) return this.pickAt(clientX, clientY, { multi });
+    }
     const splatDist = hit ? hit.point.distanceTo(this.camera.position) : Infinity;
     if (meshHit && meshHit.distance < splatDist) {
-      const p = meshHit.point;
-      return { point: [p.x, p.y, p.z], src: 'h', spread: 0, scatter: 0, opacity: 1, dist: meshHit.distance };
+      return { point: meshHit.point.toArray(), src: 'h', spread: 0, scatter: 0, opacity: 1, dist: meshHit.distance };
     }
     if (!hit) return { error: 'An dieser Stelle ist keine Oberfläche erkennbar.' };
     return { point: [hit.point.x, hit.point.y, hit.point.z], src: 's', spread: hit.spread, scatter: hit.scatter, opacity: hit.opacity, dist: splatDist };
@@ -435,7 +527,15 @@ export class View3D {
     return (2 * d * Math.tan(THREE.MathUtils.degToRad(FOV / 2))) / this.proj.h;
   }
   scheduleCenterDepth() {
-    if (!this.picker?.ready || this.raf || this.disposed || this.zero || this.lost) return;
+    if (this.raf || this.disposed || this.zero || this.lost) return;
+    if (this.houseIsolated) {
+      const rect = this.canvas.getBoundingClientRect();
+      const hit = this.pickHouseMesh(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      this.centerDepth = hit?.distance ?? null;
+      this.hooks.onScaleChanged();
+      return;
+    }
+    if (!this.picker?.ready) return;
     const gen = (this.depthGen = (this.depthGen || 0) + 1);
     const r = this.canvas.getBoundingClientRect();
     this.picker.pick(this.raysAt(r.left + r.width / 2, r.top + r.height / 2, false)).then((hit) => {
@@ -465,15 +565,21 @@ export class View3D {
     if (dir.y < 0.45) { dir.y = 0.45; dir.normalize(); }
     this.animateTo(c.clone().addScaledVector(dir, r * 1.6 + 0.8), c);
   }
-  focusHouse(points) {
+  focusHouse(points, mode = 'full') {
     const bounds = new THREE.Box3().setFromPoints(points.map(p => new THREE.Vector3(...p)));
+    if (this.houseIsolated && mode !== 'full') {
+      const floor = this.houseRoot.position.y;
+      bounds.min.y = floor - .4;
+      bounds.max.y = floor + (mode === 'eg' ? 2.7 : 5.65);
+    }
     const target = bounds.getCenter(new THREE.Vector3());
     const size = bounds.getSize(new THREE.Vector3());
     const halfAngle = THREE.MathUtils.degToRad(this.camera.fov / 2);
     const halfView = Math.min(halfAngle, Math.atan(Math.tan(halfAngle) * this.camera.aspect));
     const distance = size.length() * 0.57 / Math.sin(halfView);
     // Look toward the street gable and courtyard facade from above the neighbouring roofline.
-    const direction = new THREE.Vector3(0.93, 0.90, 1.17).normalize();
+    const elevation = this.houseIsolated && ['og', 'eg'].includes(mode) ? 2.65 : .90;
+    const direction = new THREE.Vector3(.93, elevation, 1.17).normalize();
     this.animateTo(target.clone().addScaledVector(direction, distance), target);
   }
   home() { this.animateTo(this.home3.position, this.home3.target); }
@@ -488,7 +594,7 @@ export class View3D {
   }
   // Pick-Worker ohne wartenden Aufrufer vorbereiten (Werkzeugwahl, Hover). Ein Fehler wird bereits
   // in pickReady() über hooks.onPickState('failed') sichtbar gemeldet und hier nicht erneut geworfen.
-  warmPicker() { if (this.mesh) this.pickReady().then(null, () => {}); }
+  warmPicker() { if (this.mesh && !this.houseIsolated) this.pickReady().then(null, () => {}); }
   keyDown(code) { if (!this.keys.has(code)) { this.keys.add(code); this.setMotion(true); this.requestRender(); } }
   keyUp(code) { this.keys.delete(code); }
   clearKeys() { this.keys.clear(); }
@@ -678,7 +784,7 @@ export class View3D {
     step('Hausmodell', () => this.disposeHouse());
     step('Modell', () => { if (this.mesh) { this.scene.remove(this.mesh); this.mesh.dispose(); this.mesh = null; } });
     step('Spark', () => { if (this.spark) { this.scene.remove(this.spark); this.spark.dispose(); } });
-    step('Szene', () => { if (this.scene) { this.scene.background?.dispose?.(); this.scene.clear(); } });
+    step('Szene', () => { if (this.scene) { this.siteBackground?.dispose?.(); this.studioBackground?.dispose(); this.studioLight?.dispose(); this.houseSun?.shadow.dispose(); this.scene.clear(); } });
     step('Picker', () => { this.picker?.dispose(); this.picker = null; });
     step('Renderer', () => this.renderer?.dispose());
     step('Kontext', () => { if (this.renderer && !this.lost) this.renderer.forceContextLoss(); });

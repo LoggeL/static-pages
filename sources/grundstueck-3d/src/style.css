@@ -334,7 +334,7 @@ kbd { display: inline-block; padding: 0 6px; margin: 0 1px; border-radius: 5px; 
 .hb-btn:hover, .hb-mode:hover { background: rgba(255, 255, 255, 0.15); }
 .hb-btn.on { color: #7cc4ff; box-shadow: inset 0 0 0 1px rgba(108, 182, 255, 0.65); }
 .hb-btn.accent, .hb-mode.active { background: var(--accent); color: var(--accent-ink); }
-#app:has(#house-bar:not([hidden])) .profile { top: calc(114px + var(--safe-t)); }
+#app:has(#house-bar:not([hidden])) :is(.profile, .toast) { top: calc(114px + var(--safe-t)); }
 
 .house-card-head { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 6px; }
 .house-card-head h3 { margin: 0; }
@@ -432,9 +432,17 @@ kbd { display: inline-block; padding: 0 6px; margin: 0 1px; border-radius: 5px; 
   .hint { bottom: calc(126px + var(--safe-b)); }
   .help-grid { grid-template-columns: 1fr; }
   .profile { left: 8px; right: 8px; width: auto; top: calc(58px + var(--safe-t)); }
-  .house-bar { top: calc(58px + var(--safe-t)); left: 8px; right: 8px; max-width: calc(100vw - 16px); }
-  #app:has(#house-bar:not([hidden])) .profile { top: calc(104px + var(--safe-t)); }
-  #app:has(#house-bar:not([hidden])) .toast { top: calc(120px + var(--safe-t)); }
+  .house-bar {
+    top: calc(58px + var(--safe-t)); left: 8px; right: 8px; max-width: calc(100vw - 16px);
+    display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 3px; border-radius: 14px;
+  }
+  .house-bar .hb-btn { grid-column: span 4; min-width: 0; padding-inline: 3px; }
+  .house-bar .hb-seg { grid-column: span 6; min-width: 0; }
+  .house-bar .hb-mode { min-width: 0; flex: 1; padding-inline: 2px; }
+  .house-bar :is(#btn-house-plan, #btn-baugrenze) { grid-column: span 3; }
+  #app[data-isolated="true"] .house-bar .hb-seg { grid-column: span 8; }
+  #app[data-isolated="true"] #btn-house-plan { grid-column: span 4; }
+  #app:has(#house-bar:not([hidden])) :is(.profile, .toast) { top: calc(150px + var(--safe-t)); }
   .plan-grid, .legend-cols { grid-template-columns: 1fr; }
   .plan-stage svg { max-height: 46dvh; }
   .mlabel { font-size: 11.5px; padding: 2px 6px; }
@@ -463,3 +471,6 @@ kbd { display: inline-block; padding: 0 6px; margin: 0 1px; border-radius: 5px; 
   * { transition: none !important; animation-duration: 0.01s !important; }
 }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+#app[data-isolated="true"] :is(#btn-bounds, #btn-buildings, #btn-sewer, #btn-baugrenze) { display: none; }
+#btn-house-isolate[aria-pressed="true"] { background: #d7e7d1; color: #1c3325; border-color: transparent; box-shadow: none; }

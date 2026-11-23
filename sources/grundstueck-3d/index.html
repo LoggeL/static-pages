@@ -58,6 +58,8 @@
     </header>
 
     <div class="house-bar" id="house-bar" role="region" aria-label="Hausentwurf-Steuerung" hidden>
+      <button class="hb-btn accent" id="btn-house-tour" title="In Blender gerenderte Innenräume in 360 Grad ansehen">Innenräume</button>
+      <button class="hb-btn" id="btn-house-isolate" aria-pressed="false" title="Haus ohne Grundstück und Vegetation zeigen">Haus isolieren</button>
       <button class="hb-btn" id="btn-house-focus" title="Haus fokussieren (F)">Fokus</button>
       <div class="hb-seg" role="group" aria-label="Geschossweise aufdecken">
         <button class="hb-mode active" data-hmode="full" aria-pressed="true" title="Komplettes Haus mit Dach">Dach</button>
@@ -253,7 +255,7 @@
           </div>
           <div class="plan-actions">
             <a class="mini" href="./Hausentwurf-Wattenheim.pdf" target="_blank" rel="noopener">Planheft (PDF)</a>
-            <a class="mini" href="./Hausentwurf-214.glb" download>Modell (GLB)</a>
+            <a class="mini" href="./blender/haus.glb" download="Wohnhaus-214.glb">Blender-Modell (GLB)</a>
             <button type="button" id="plan-close" class="mini" aria-label="Dialog schließen">Schließen ×</button>
           </div>
         </header>
