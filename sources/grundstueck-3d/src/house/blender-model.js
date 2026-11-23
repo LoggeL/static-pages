@@ -21,8 +21,9 @@ export async function loadBlenderHouse(base, signal) {
     if (!o.isMesh) return;
     surfaces.push(o); resources.add(o.geometry);
     const materials = Array.isArray(o.material) ? o.material : [o.material];
-    o.castShadow = materials.every(m => !m.transparent);
-    o.receiveShadow = true;
+    const isService = Boolean(o.userData?.service);
+    o.castShadow = !isService && materials.every(m => !m.transparent);
+    o.receiveShadow = !isService;
     for (const material of materials) {
       resources.add(material);
       for (const value of Object.values(material)) if (value?.isTexture) resources.add(value);
@@ -36,14 +37,36 @@ export async function loadBlenderHouse(base, signal) {
     resources.clear();
   };
   if (signal.aborted) { dispose(); throw new DOMException('Hausansicht geschlossen', 'AbortError'); }
-  function setMode(mode) {
-    const roof = mode === 'full' || mode === 'roof';
+  let currentMode = 'full';
+  const activeServices = { water: false, power: false };
+  function applyVisibility() {
+    const roof = currentMode === 'full' || currentMode === 'roof';
     for (const mesh of surfaces) {
-      const { level, frontCut } = mesh.userData;
-      mesh.visible = !((level === 'dach' || level === 'deckeOg') && !roof)
-        && !((level === 'og' || level === 'deckeEg') && mode === 'eg')
-        && !(frontCut && mode === 'cutaway');
+      const { level, frontCut, service } = mesh.userData;
+      if (service) {
+        const enabled = Boolean(activeServices[service]);
+        const levelOk = currentMode === 'eg'
+          ? (level === 'eg' || level === 'site')
+          : true;
+        mesh.visible = enabled && levelOk;
+      } else {
+        mesh.visible = !((level === 'dach' || level === 'deckeOg') && !roof)
+          && !((level === 'og' || level === 'deckeEg') && currentMode === 'eg')
+          && !(frontCut && currentMode === 'cutaway');
+      }
     }
   }
-  return { group, setMode, dispose };
+  function setMode(mode = 'full') {
+    currentMode = mode;
+    applyVisibility();
+  }
+  function setServices(services = {}) {
+    if (services && typeof services === 'object') {
+      if ('water' in services) activeServices.water = Boolean(services.water);
+      if ('power' in services) activeServices.power = Boolean(services.power);
+    }
+    applyVisibility();
+  }
+  applyVisibility();
+  return { group, setMode, setServices, dispose };
 }

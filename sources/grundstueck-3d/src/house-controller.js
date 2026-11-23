@@ -3,6 +3,7 @@
 // Alle sichtbaren Bezeichnungen strikt lagebezogen (Dautengasse / Garten / Hof/Kanal / Grenzwand 215/3),
 // keine falschen Himmelsrichtungen, ohne Farbcode-Bindung, keine „Wohnfläche“-Suggestion.
 
+import { designServices, systems } from './house/services.js';
 import { HOUSE_SPEC } from './house/spec.js';
 import { accessGeometry } from './house/access.js';
 import { getMapOverlayData, deriveDimensions } from './house/dimensions.js';
@@ -48,7 +49,7 @@ export function computeFloorAreas(spec = HOUSE_SPEC) {
   const stairBox = spec.stairs?.slabOpening || spec.stairs?.box;
   const boxArea = stairBox
     ? +((stairBox.u1 - stairBox.u0) * (stairBox.v1 - stairBox.v0)).toFixed(2)
-    : 5.93;
+    : 0;
   const ogRooms = spec.levels.og.rooms || [];
   const ogOpeningRoom = ogRooms.find((r) => r.isOpening || r.id === 'og_treppe' || /treppenloch/i.test(r.name));
   const stairOpeningM2 = spec.levels.og.stairOpeningAreaM2 ?? ogOpeningRoom?.areaM2 ?? boxArea;
@@ -81,13 +82,31 @@ export class HouseController {
     this.spec = HOUSE_SPEC;
     this.planMod = null;
     this.baugrenzeOverlay = buildBaugrenzeOverlay(cfg, ground, OFFICIAL_BAUGRENZE);
-    this.placement = computeSitePlacement(cfg, ground, this.spec, cfg.sewer.corridor_m, OFFICIAL_BAUGRENZE);
+    this.recompute(cfg.sewer.corridor_m);
   }
 
   get access() { return accessGeometry(this.spec); }
 
   recompute(corridorM) {
     this.placement = computeSitePlacement(this.cfg, this.ground, this.spec, corridorM, OFFICIAL_BAUGRENZE);
+    const { length, width } = this.spec.footprint;
+    const parcel = this.cfg.boundaries.find(b => b.name === 'Flurstück 214');
+    const tf = this.placement.transform;
+    const outline = parcel.points.map(([x,,z]) => {
+      const [u,v] = tf.toLocalXZ(x, z);
+      return [u + length/2, v + width/2];
+    });
+    this.parcelPlan = outline;
+    this.services = designServices(this.spec, outline);
+    this.serviceWorld = this.services.routes.map(route => ({
+      ...route, color: systems[route.system].bright, dash: systems[route.system].screenDash,
+      points: route.points.map(([u,v,h]) => tf.toWorld3(u-length/2, h, v-width/2, this.placement.terrain.okffEgY)),
+    }));
+    this.serviceStationsWorld = this.services.stations.map(st => ({
+      ...st,
+      color: systems[st.system].bright,
+      point: tf.toWorld3(st.point[0]-length/2, st.point[2], st.point[1]-width/2, this.placement.terrain.okffEgY),
+    }));
     return this.placement;
   }
 
@@ -111,6 +130,7 @@ export class HouseController {
         cornersTerrain: pl.terrain.corners,
         terrainInfo: pl.terrain,
         access: this.access,
+        services: this.services,
       },
     };
   }
@@ -148,6 +168,8 @@ export class HouseController {
 
     return {
       mode,
+      services: this.serviceWorld,
+      serviceStations: this.serviceStationsWorld,
       showRoof: mapData.showRoof,
       footprint: poly3(mapData.footprintLocal),
       eaves: poly3(mapData.eaveCornersLocal),
@@ -258,7 +280,7 @@ export class HouseController {
   }
 
   // Öffnet / rendert den interaktiven 2D-Grundriss- & Schnitt-Dialog (lädt plan2d.js erst bei Bedarf!)
-  async renderPlanDialog(tab, els) {
+  async renderPlanDialog(tab, els, layers = {}) {
     if (!this.planMod) {
       els.canvas.innerHTML = '<p class="plan-loading">Grundriss- und Schnittzeichnung wird geladen …</p>';
       this.planMod = await import('./house/plan2d.js');
@@ -295,6 +317,14 @@ export class HouseController {
       const axis = (tab === 'section-long' || tab === 'long') ? 'long' : 'cross';
       svgHtml = this.planMod.renderSectionSvg(this.spec, terrainInfo, { axis, placement: pl, dimensions: dims });
     }
+    if ((tab === 'eg' || tab === 'og') && (layers.water || layers.power || layers.sketch)) {
+      const [{servicePlanMarkup}, {referenceMarkup}] = await Promise.all([
+        import('./house/services-plan.js'), import('./house/sketch-overlay.js')
+      ]);
+      const extra = (layers.sketch ? referenceMarkup(tab, this.spec.footprint) : '')
+        + servicePlanMarkup(this.services, tab, layers);
+      svgHtml = svgHtml.replace('</svg>', extra + '</svg>');
+    }
     if (typeof svgHtml === 'string') els.canvas.innerHTML = svgHtml;
     else if (svgHtml instanceof Node) { els.canvas.innerHTML = ''; els.canvas.appendChild(svgHtml); }
 
@@ -316,9 +346,9 @@ export class HouseController {
         <section>
           <h3>Maße und Flächen</h3>
           <ul>
-            <li><b>Außenmaße:</b> ${m2(dims.outer.lengthM)} <span class="tag v">Vorgabe</span> × ${m2(dims.outer.widthM)} <span class="tag f">Foto-Näherung</span> · BGF ${area2(dims.outer.bgfPerFloorM2)}/Gesch.</li>
+            <li><b>Außenmaße:</b> ${m2(dims.outer.lengthM)} <span class="tag v">Vorgabe</span> × ${m2(dims.outer.widthM)} <span class="tag e">Entwurfstiefe</span> · BGF ${area2(dims.outer.bgfPerFloorM2)}/Gesch.</li>
             <li><b>Innenflächen (Entwurf, keine Wohnfläche nach WoFlV):</b> EG ${area2(areas.egAreaM2)} · OG ohne Treppenloch ${area2(areas.ogWithoutOpeningM2)} (Treppenöffnung separat ${area2(areas.stairOpeningM2)})</li>
-            <li><b>Treppe EG ↔ OG:</b> ${dims.stairs.risers} Stg. × ${NF2.format(dims.stairs.riseCm)} cm, ${dims.stairs.treads} Auftr. (∅ ${NF1.format(dims.stairs.treadMeanCm)} cm), 2s+a = ${NF1.format(dims.stairs.stepFormulaCm)} cm, Durchgangshöhe ≥ ${m2(dims.stairs.minHeadroomM)} <span class="tag i">Interpretation</span></li>
+            <li><b>Treppe EG ↔ OG:</b> Halbgewendelte U-Treppe nach DIN 18065 (${dims.stairs.risers} Stg., Treppenloch ${area2(areas.stairOpeningM2)}); abweichende Skizzenmotive sind im Skizzenoverlay sichtbar und in den Annahmen dokumentiert.</li>
             <li><b>Höhen ab OKFF EG <span class="tag e">Entwurfsannahme</span>:</b> Wand-Traufe ${m2(hs.eaveWall.local)} · Dachkante Grenzwand 215/3 (bündig/Attika) ${m2(hs.roofEdgeBoundary.local)} · Traufkante Hof/Kanal UK/OK ${m2(hs.roofEdgeHofUnder.local)} / ${m2(hs.roofEdgeHofTop.local)} · First der Dachflächen ${m2(hs.ridge.local)} (${NF2.format(hs.ridge.nhn)} m NHN), Oberkante Firstziegel ${m2(this.spec.heights.ridgeCapTopY)}</li>
             <li><b>Orientierung (LVermGeo ALKIS, EPSG:25832):</b> Modellachse +Z = Dautengasse (~NO 58°), −Z = Garten/Flst. 215, +X = Hof/Kanal, −X = Grenzwand 215/3.</li>
           </ul>

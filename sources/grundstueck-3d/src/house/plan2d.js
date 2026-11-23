@@ -118,16 +118,22 @@ function drawFixtures(furniture) {
       } else if (f.kind === 'shower') {
         out +=
           line(a, b, c, d, color.soft, 0.018) +
-          line(a, d, c, b, color.soft, 0.018);
+          line(a, d, c, b, color.soft, 0.018) +
+          `<circle cx="${n(c - 0.19)}" cy="${n(b + 0.19)}" r=".055" fill="#f3f4eb" stroke="${color.soft}" stroke-width=".016"/>`;
       } else if (f.kind === 'kitchen-hob') {
         for (const u of [0.28, 0.72])
           for (const v of [0.27, 0.73])
             out += `<circle cx="${n(a + (c - a) * u)}" cy="${n(b + (d - b) * v)}" r=".078" fill="none" stroke="${color.edge}" stroke-width=".018"/>`;
       } else if (f.kind === 'sofa') {
-        out +=
-          c - a > d - b
-            ? line(a + 0.06, d - 0.15, c - 0.06, d - 0.15, color.edge, 0.018)
-            : line(a + 0.15, b + 0.06, a + 0.15, d - 0.06, color.edge, 0.018);
+        const back = f.back || (c - a > d - b ? 'bottom' : 'left');
+        if (back === 'bottom')
+          out += line(a + 0.06, d - 0.15, c - 0.06, d - 0.15, color.edge, 0.018);
+        else if (back === 'top')
+          out += line(a + 0.06, b + 0.15, c - 0.06, b + 0.15, color.edge, 0.018);
+        else if (back === 'right')
+          out += line(c - 0.15, b + 0.06, c - 0.15, d - 0.06, color.edge, 0.018);
+        else
+          out += line(a + 0.15, b + 0.06, a + 0.15, d - 0.06, color.edge, 0.018);
       }
       return `<g><title>${xml(f.label || 'Möbel')} · ${dec(c - a)} × ${dec(d - b)} m</title>${out}</g>`;
     })
@@ -149,10 +155,10 @@ function openingMarkup(w, o) {
       ? line(a, v, c, v, color.door, 0.035)
       : line(u, b, u, d, color.door, 0.035);
     if (o.swing) {
-      const hingeAtEnd = o.swing === 'in-right';
+      const hingeAtEnd = o.swing.endsWith('right');
       const hinge = hingeAtEnd ? o.s1 : o.s0;
       const sign =
-        o.swing === 'in-neg' || o.side === 'east' || o.side === 'north'
+        o.swing.startsWith('in-neg') || o.side === 'east' || o.side === 'north'
           ? -1
           : 1;
       const direction = hingeAtEnd ? -1 : 1,
@@ -281,10 +287,25 @@ export function renderFloorPlanSvg(s, levelId, options = {}) {
   for (const step of s.stairs.steps)
     out.push(poly(step.poly, color.wood, color.edge, 0.018));
   const walk = s.stairs.walkLine;
-  if (walk?.length)
+  if (walk?.length >= 2) {
+    const start = walk[0];
+    const prev = walk[walk.length - 2];
+    const tip = walk[walk.length - 1];
+    const dx = tip[0] - prev[0];
+    const dy = tip[1] - prev[1];
+    const len = Math.hypot(dx, dy) || 1;
+    const ux = dx / len;
+    const uy = dy / len;
+    const ah = 0.19;
+    const aw = 0.11;
+    const leftWing = [tip[0] - ux * ah - uy * aw, tip[1] - uy * ah + ux * aw];
+    const rightWing = [tip[0] - ux * ah + uy * aw, tip[1] - uy * ah - ux * aw];
     out.push(
-      `<polyline points="${pts(walk)}" fill="none" stroke="${color.door}" stroke-width=".024" stroke-dasharray=".065 .04"/>`
+      `<polyline points="${pts(walk)}" fill="none" stroke="${color.door}" stroke-width=".024" stroke-dasharray=".065 .04"/>`,
+      `<circle cx="${n(start[0])}" cy="${n(start[1])}" r=".055" fill="${color.paper}" stroke="${color.door}" stroke-width=".022"/>`,
+      `<polyline points="${pts([leftWing, tip, rightWing])}" fill="none" stroke="${color.door}" stroke-width=".026" stroke-linejoin="round" stroke-linecap="round"/>`
     );
+  }
   for (const w of l.walls) {
     const parts = splitWallSegments(w, l.openings);
     for (const solid of parts.solid) out.push(rect(...solid, color.line));

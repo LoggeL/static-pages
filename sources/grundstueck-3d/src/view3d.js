@@ -135,6 +135,8 @@ export class View3D {
     this.scene.add(hemi, sun, fill);
     this.houseRoot = null;
     this.houseApi = null;
+    this.houseMode = 'full';
+    this.houseServices = { water: false, power: false };
     this.camera = new THREE.PerspectiveCamera(FOV, 1, 0.05, 400);
     this.spark = this.makeSpark(tier);
     this.camera.position.fromArray(initial.position);
@@ -230,7 +232,7 @@ export class View3D {
     window.__viewer = {
       THREE, view: this, scene: this.scene, camera: this.camera, controls: this.controls, renderer: this.renderer,
       get spark() { return self.spark; }, get mesh() { return self.mesh; }, get picker() { return self.picker; },
-      get house() { return self.houseApi; }, get houseRoot() { return self.houseRoot; },
+      get house() { return self.houseApi; }, get blenderHouse() { return self.blenderHouse; }, get houseRoot() { return self.houseRoot; },
       requestRender: () => this.requestRender(), pickAt: (x, y, multi) => this.pickAt(x, y, { multi }),
     };
   }
@@ -254,7 +256,9 @@ export class View3D {
       o.castShadow = !o.isInstancedMesh;
       o.receiveShadow = true;
     });
+    this.houseServices = { water: !!houseCfg.services?.water, power: !!houseCfg.services?.power };
     this.setHouseMode(houseCfg.mode || 'full');
+    this.setHouseServices(this.houseServices);
     this.setHouseIsolated(!!houseCfg.isolated && root.visible);
     this.requestRender();
   }
@@ -270,6 +274,14 @@ export class View3D {
     this.houseMode = mode;
     this.houseApi.setMode(mode);
     this.blenderHouse?.setMode(mode);
+    this.houseApi.setServices?.(this.houseServices);
+    this.blenderHouse?.setServices?.(this.houseServices);
+    this.refreshHouseSurfaces();
+  }
+  setHouseServices(services = {}) {
+    this.houseServices = { water: !!services.water, power: !!services.power };
+    this.houseApi?.setServices?.(this.houseServices);
+    this.blenderHouse?.setServices?.(this.houseServices);
     this.refreshHouseSurfaces();
   }
   refreshHouseSurfaces() {
@@ -295,6 +307,7 @@ export class View3D {
       this.blenderHouse = detail;
       this.houseRoot.add(detail.group);
       detail.setMode(this.houseMode);
+      detail.setServices?.(this.houseServices);
       this.refreshHouseSurfaces();
       this.updateSceneStatus();
       this.studioLight ??= createStudioLight(this.renderer);
@@ -334,6 +347,8 @@ export class View3D {
     try { this.houseApi?.dispose?.(); } catch (err) { console.error('3D-Haus-Freigabe:', err); }
     this.houseRoot = null;
     this.houseApi = null;
+    this.houseMode = 'full';
+    this.houseServices = { water: false, power: false };
   }
 
   makeSpark(tier) {

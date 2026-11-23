@@ -2,7 +2,7 @@
 import './tour.css';
 
 const rooms = {
-  eg: { title: 'Essbereich im Erdgeschoss', picture: 'eg-blick.webp', panorama: 'eg.webp' },
+  eg: { title: 'Offener Raum im Erdgeschoss', picture: 'eg-blick.webp', panorama: 'eg.webp' },
   og: { title: 'Wohnküche im Obergeschoss', picture: 'og-blick.webp', panorama: 'og.webp' },
   aussen: { title: 'Haus von der Gartenseite', picture: 'aussen.webp' },
 };
@@ -104,7 +104,7 @@ function createTour() {
       <header class="tour-header">
         <div class="tour-title"><p>Dautengasse · Wattenheim</p><h2 id="tour-heading">Haus in Blender</h2></div>
         <div class="tour-tabs" role="group" aria-label="Standpunkt wählen">
-          <button data-room="eg">EG <span>· Essbereich</span></button>
+          <button data-room="eg">EG <span>· Offener Raum</span></button>
           <button data-room="og">OG <span>· Wohnküche</span></button>
           <button data-room="aussen">Außen</button>
         </div>

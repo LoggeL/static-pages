@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0e1216">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Wohnhaus 3D – Interaktive Ansicht, Leitungen &amp; Grundriss</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230e1216'/%3E%3Cpath d='M5 16 16 6l11 10M8 14v11h16V14M13 25v-6h6v6' fill='none' stroke='%233ddc97' stroke-width='2.2' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/src/haus-view.css">
+</head>
+<body>
+  <div id="app" data-mode="full">
+    <canvas id="scene-canvas" tabindex="0" aria-label="Interaktive 3D-Ansicht des Wohnhauses"></canvas>
+
+    <header class="topbar">
+      <div class="brand">
+        <a class="back-link" id="link-site" href="./" title="Zurück zur Grundstückskarte &amp; 3D-Aufnahme">← Grundstück</a>
+        <div class="brand-text">
+          <h1>Wohnhaus · 11,00 × 7,15 m</h1>
+          <p id="brand-sub">Flurstück 214 · Wattenheim · Satteldach 35°</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="chip accent" id="btn-tour" type="button" title="Fotorealistische 360°-Innenräume öffnen">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><ellipse cx="12" cy="12" rx="3.8" ry="8.5"/><path d="M4 12h16"/></svg>
+          <span>360° Innenräume</span>
+        </button>
+        <button class="chip" id="btn-plan" type="button" title="2D-Grundriss, Schnitt &amp; Leitungsplan (L)">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 11h10M14 4v16M10 11v9"/></svg>
+          <span>Grundriss &amp; Schnitt</span>
+        </button>
+        <button class="chip" id="btn-info" type="button" aria-expanded="false" aria-controls="info-panel" title="Kennzahlen &amp; Raumliste ein-/ausblenden">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 10.5v5.5M12 7.5v.2"/></svg>
+          <span>Infos</span>
+        </button>
+      </div>
+    </header>
+
+    <aside class="info-panel hidden" id="info-panel" aria-label="Kennzahlen und Raumliste">
+      <div class="info-head">
+        <h2>Hausentwurf · Kennzahlen</h2>
+        <button class="mini" id="btn-info-close" type="button" aria-label="Infopanel schließen">×</button>
+      </div>
+      <div class="info-body" id="info-content"></div>
+    </aside>
+
+    <nav class="controls-dock" aria-label="3D-Haussteuerung">
+      <div class="dock-row">
+        <div class="seg" role="group" aria-label="Geschoss und Schnitt">
+          <button type="button" class="mode-btn active" data-mode="full" aria-pressed="true" title="Komplettes Haus mit Dach (1)">Dach</button>
+          <button type="button" class="mode-btn" data-mode="og" aria-pressed="false" title="Ohne Dach – Blick ins OG (2)">OG</button>
+          <button type="button" class="mode-btn" data-mode="eg" aria-pressed="false" title="Ohne Dach &amp; OG – Blick ins EG (3)">EG</button>
+          <button type="button" class="mode-btn" data-mode="cutaway" aria-pressed="false" title="Aufgeschnittene Innenansicht (4)">Schnitt</button>
+        </div>
+        <span class="dock-sep" aria-hidden="true"></span>
+        <div class="svc-group" role="group" aria-label="3D-Leitungen ein- und ausblenden">
+          <button type="button" class="svc-btn" id="btn-water" data-service="water" aria-pressed="false" title="3D-Trinkwasserleitungen ein-/ausblenden (W)">
+            <i class="dot dot-water" aria-hidden="true"></i>Trinkwasser
+          </button>
+          <button type="button" class="svc-btn" id="btn-power" data-service="power" aria-pressed="false" title="3D-Stromleitungen ein-/ausblenden (E)">
+            <i class="dot dot-power" aria-hidden="true"></i>Strom
+          </button>
+        </div>
+      </div>
+      <div class="dock-row cam-row" role="group" aria-label="Kamera-Ansichten">
+        <span class="cam-label">Ansicht</span>
+        <button type="button" class="cam-btn active" data-cam="garden" title="Blick von Garten &amp; Hof/Kanal (R)">Garten</button>
+        <button type="button" class="cam-btn" data-cam="street" title="Blick von Dautengasse &amp; Hof/Kanal">Straße &amp; Hof</button>
+        <button type="button" class="cam-btn" data-cam="top" title="Steile Draufsicht">Draufsicht</button>
+        <button type="button" class="cam-btn" data-cam="cutaway" title="Blick in die Schnittansicht &amp; Steigstränge">Schnitt-Blick</button>
+      </div>
+    </nav>
+
+    <div class="status-pill" id="status-pill" role="status" aria-live="polite">Blender-Modell wird geladen …</div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div class="loader" id="loader" role="status" aria-live="polite">
+      <div class="loader-card">
+        <div class="spinner" aria-hidden="true"></div>
+        <div>
+          <strong id="loader-title">3D-Hausmodell wird geladen …</strong>
+          <small id="loader-sub">Blender-PBR-Modell inkl. Trinkwasser &amp; Strom (ohne Grundstücks-Scan)</small>
+        </div>
+      </div>
+    </div>
+
+    <dialog id="plan-dialog" aria-labelledby="plan-dialog-title">
+      <div class="plan-shell">
+        <header class="plan-head">
+          <div>
+            <h2 id="plan-dialog-title">Grundriss, Schnitt &amp; Leitungsplan</h2>
+            <p class="plan-sub" id="plan-sub">Modellabgeleitete Maße (11,00 × 7,15 m) · Flurstück 214 · Entwurf</p>
+          </div>
+          <div class="plan-actions">
+            <a class="mini" href="./blender/Wohnhaus-214.blend" download="Wohnhaus-214.blend">Blender (.blend)</a>
+            <a class="mini" href="./blender/haus.glb" download="Wohnhaus-214.glb">3D-Modell (.glb)</a>
+            <button type="button" id="plan-close" class="mini" aria-label="Dialog schließen">Schließen ×</button>
+          </div>
+        </header>
+        <div class="plan-tabs" role="tablist" aria-label="Planansicht wählen">
+          <button type="button" role="tab" class="active" aria-selected="true" data-ptab="eg">EG</button>
+          <button type="button" role="tab" aria-selected="false" data-ptab="og">OG</button>
+          <button type="button" role="tab" aria-selected="false" data-ptab="dach">Dach 35°</button>
+          <button type="button" role="tab" aria-selected="false" data-ptab="section-cross">Querschnitt</button>
+          <button type="button" role="tab" aria-selected="false" data-ptab="section-long">Längsschnitt</button>
+        </div>
+        <div class="plan-body">
+          <div class="plan-tools">
+            <div id="plan-layers" class="plan-layers">
+              <label><input type="checkbox" id="sketch-switch"> <i class="key-sketch"></i> Skizze überlagern</label>
+              <label><input type="checkbox" data-plan-service="water"> <i class="key-water"></i> Trinkwasser</label>
+              <label><input type="checkbox" data-plan-service="power"> <i class="key-power"></i> Strom</label>
+            </div>
+            <button type="button" class="mini plan-zoom" id="plan-zoom" aria-controls="plan-stage" aria-pressed="false">Zeichnung vergrößern</button>
+          </div>
+          <p id="service-explain" class="layer-note" hidden>Leitungsentwurf · W = Wasserzähler, E = Elektroverteilung im HWR. Kreise zeigen Abgänge, Rauten die offenen Anschlusspunkte an der Straßengrenze Flst. 214.</p>
+          <p id="sketch-explain" class="layer-note" hidden>Magenta zeigt die entzerrten Linien der Handskizze (eingepasst auf 11,00 × 7,15 m).</p>
+          <div class="plan-stage" id="plan-stage"><p class="plan-loading">Plan wird geladen …</p></div>
+          <div id="plan-meta"></div>
+        </div>
+      </div>
+    </dialog>
+  </div>
+  <script type="module" src="/src/haus-app.js"></script>
+</body>
+</html>

@@ -80,18 +80,18 @@ function rectToLocalBox(u0, v0, u1, v1, yBottom, yTop) {
 function buildEntrances() {
   // 1) Haupteingang Dautengasse (Gelände ~ -1,50 m unter OKFF EG):
   //    [Entwurfsannahme: Split-Level-Eingang am Hang]
-  //    Haustür bündig in Dautengasse-Außenwand (u=0..0,365, v=4,38..5,43) mit Schwelle auf y=-1,44 m
-  //    (Δ ≈ 5–6 cm zur Straßenböschung, 0,00 m Überstand vor Fassade / 0,00 m auf Straßenfläche!),
+  //    Haustür bündig in Dautengasse-Außenwand (u=0..0,365, v=4,28..5,33, Mitte 4,805 m exakt auf Türpfeil im Foto!)
+  //    mit Schwelle auf y=-1,44 m (Δ ≈ 5–6 cm zur Straßenböschung, 0,00 m Überstand vor Fassade / 0,00 m auf Straßenfläche!),
   //    dahinter innenliegendes Eingangspodest (1,20 × 1,235 m auf y=-1,44 m) + gerader, voll begehbarer
   //    Innentreppe-Lauf (8 Steigungen × 18,0 cm = 1,44 m, 7 Auftritte × 26,5 cm = 1,855 m, 2s+a = 62,5 cm,
   //    Laufbreite licht 1,175 m ≥ 0,95 m, Kopfhöhe ≥ 2,20 m an Tür / 2,70 m über gesamtem Lauf) bis OKFF EG = 0,00 m.
-  const mainDoorV0 = 4.38;
-  const mainDoorV1 = 5.43; // Breite 1,05 m, Höhe 2,20 m (H/B = 2,10 >= 1,25)
-  const mainDoorMidV = +((mainDoorV0 + mainDoorV1) / 2).toFixed(4); // 4.905
+  const mainDoorV0 = 4.28;
+  const mainDoorV1 = 5.33; // Breite 1,05 m, Höhe 2,20 m (H/B = 2,10 >= 1,25)
+  const mainDoorMidV = +((mainDoorV0 + mainDoorV1) / 2).toFixed(4); // 4.805
   const mainSillY = -1.44;
   const mainDoorH = 2.20;
-  const mainPitV0 = 4.265;
-  const mainPitV1 = 5.50;
+  const mainPitV0 = 4.165;
+  const mainPitV1 = 5.40;
   const mainLandingU0 = T_EXT;   // 0.365
   const mainLandingU1 = 1.565;   // Tiefe 1,20 m >= 1,00 m
   const mainRisers = 8;
@@ -198,14 +198,14 @@ function buildEntrances() {
     },
     // Umschließende Innen-Sockelwände (y = -1,44..0,00 m) rund um Eingangspodest & Innentreppe
     enclosingWalls: [
-      { id: 'split_wall_wc',   u0: T_EXT,       v0: 4.15,      u1: mainStairU1, v1: mainPitV0, yBottom: mainSillY, yTop: 0.0 },
+      { id: 'split_wall_wc',   u0: T_EXT,       v0: 4.05,      u1: mainStairU1, v1: mainPitV0, yBottom: mainSillY, yTop: 0.0 },
       { id: 'split_wall_hof',  u0: T_EXT,       v0: mainPitV1, u1: mainStairU1, v1: +(mainPitV1 + T_INT_S).toFixed(3), yBottom: mainSillY, yTop: 0.0 },
       { id: 'split_wall_back', u0: mainStairU1, v0: mainPitV0, u1: +(mainStairU1 + T_INT_S).toFixed(3), v1: mainPitV1, yBottom: mainSillY, yTop: 0.0 },
     ],
     railingHeightM: 1.0,
     railingSegments: [
       { id: 'split_rail_hof', u0: T_EXT,       v0: mainPitV1, y0: 0.0,       u1: mainStairU1, v1: mainPitV1, y1: 0.0, heightM: 1.0, kind: 'level-guardrail' },
-      { id: 'split_rail_wc',  u0: 2.215,       v0: mainPitV0, y0: 0.0,       u1: mainStairU1, v1: mainPitV0, y1: 0.0, heightM: 1.0, kind: 'level-guardrail' },
+      { id: 'split_rail_wc',  u0: 2.165,       v0: mainPitV0, y0: 0.0,       u1: mainStairU1, v1: mainPitV0, y1: 0.0, heightM: 1.0, kind: 'level-guardrail' },
       { id: 'split_handrail', u0: mainStairU0, v0: +(mainPitV1 - 0.05).toFixed(3), y0: mainSillY, u1: mainStairU1, v1: +(mainPitV1 - 0.05).toFixed(3), y1: 0.0, heightM: 0.9, kind: 'sloped-handrail' },
     ],
     exteriorFootprintPlan: [], // 0,00 m vor Dautengasse-Außenwand!
@@ -324,11 +324,12 @@ function buildEntrances() {
   };
 
   // 3) Gartentür Garten (Gelände ~ -0,15 m unter OKFF EG):
-  //    1 Gartenstufe (0,30 m tief × 1,05 m breit, Δ ≈ 0,15 m), 100 % innerhalb Flurstück 214 UND vor der Baugrenze!
+  //    1 Gartenstufe (0,30 m tief × 1,03 m breit, Δ ≈ 0,15 m), exakt unter OG-Fenster F_og_n2 (v = 2,25..3,18),
+  //    100 % innerhalb Flurstück 214 UND vor der Baugrenze!
   const gStepU0 = L;
   const gStepU1 = +(L + 0.30).toFixed(3); // 11.30 (bleibt an allen 4 Ecken vor der blauen Baugrenze!)
-  const gStepV0 = 1.975;
-  const gStepV1 = 3.025; // Breite 1,05 m (Tür T_terr bei v = 2,025..2,975)
+  const gStepV0 = 2.20;
+  const gStepV1 = 3.23; // Breite 1,03 m (Tür T_terr bei v = 2,25..3,18)
   const gardenStep = {
     index: 1,
     u0: gStepU0,
@@ -349,14 +350,14 @@ function buildEntrances() {
     siteSide: 'garten',
     label: 'Gartentür (Garten · 1 Gartenstufe)',
     shortLabel: '1 Gartenstufe (~0,15 m)',
-    accessSummary: '1 Gartenstufe (0,30 × 1,05 m, Δ ≈ 0,15 m), im eingepassten Plan rund 2 cm vor der Baugrenze (Lagegenauigkeit etwa ±0,5 m)',
+    accessSummary: '1 Gartenstufe (0,30 × 1,03 m, Δ ≈ 0,15 m), bündig unter F_og_n2, im eingepassten Plan vor der Baugrenze (Lagegenauigkeit etwa ±0,5 m)',
     provenance: 'entwurf',
     recessed: false,
-    plan: [L, 2.50],
-    local: [planToLocal(L, 2.50)[0], 0, planToLocal(L, 2.50)[1]],
-    sampleLocal: [planToLocal(L + 0.30, 2.50)[0], 0, planToLocal(L + 0.30, 2.50)[1]],
+    plan: [L, 2.715],
+    local: [planToLocal(L, 2.715)[0], 0, planToLocal(L, 2.715)[1]],
+    sampleLocal: [planToLocal(L + 0.30, 2.715)[0], 0, planToLocal(L + 0.30, 2.715)[1]],
     outwardLocal: [1, 0, 0],
-    width: 0.95,
+    width: 0.93,
     height: 2.2,
     sillY: 0.0,
     headY: 2.2,
@@ -369,15 +370,16 @@ function buildEntrances() {
 }
 
 // Exakte 17-Steigungen / 16-Auftritte halbgewendelte U-Treppe im Eckkern Garten / Hof-Kanal
+// Exakt an die gezeichnete OG-U-Treppe (u = 8,22..10,635 m, v = 4,37..6,785 m, Pfeil aufwärts Richtung −v) angeglichen.
 function buildUStairSteps() {
-  const u0 = 8.15, u1 = 10.635, v0 = 4.40, v1 = 6.785;
-  const spU0 = 9.31, spU1 = 9.475; // Spindel / Auge (0,165 m)
-  const pivotU = (spU0 + spU1) / 2; // 9.3925
-  const pivotV = 5.72;
+  const u0 = 8.22, u1 = 10.635, v0 = 4.37, v1 = 6.785;
+  const spU0 = 9.34, spU1 = 9.48; // Spindel / Auge (0,14 m, Fotomitte 9,41 m)
+  const pivotU = (spU0 + spU1) / 2; // 9.41
+  const pivotV = 5.65;
   const risers = 17;
   const rise = OKFF_OG / risers;
   const straightN = 5;
-  const treadStraight = (pivotV - v0) / straightN; // 0.264 m
+  const treadStraight = (pivotV - v0) / straightN; // 0.256 m
   const steps = [];
 
   // 1..5: Antrittslauf (Gartenseite bei v0=4,40 -> Richtung Hof/Kanal +v)
@@ -475,8 +477,8 @@ function buildUStairSteps() {
     minHeadroomM: +EG_CLEAR.toFixed(2),
     railingHeightM: 1.0,
     railingSegments: [
-      { u0: 8.09, v0: 4.40, u1: 8.09, v1: 6.785, kind: 'parapet-rail' }, // Seite Wohnbereich (u=8,09)
-      { u0: spU0, v0: 4.40, u1: u1,   v1: 4.40,  kind: 'open-rail' },    // Seite über Antritt (Austritt u0..spU0 bleibt offen!)
+      { u0: 8.16, v0: 4.37, u1: 8.16, v1: 6.785, kind: 'parapet-rail' }, // Seite Wohnbereich/Eckbank (u=8,16)
+      { u0: spU0, v0: 4.37, u1: u1,   v1: 4.37,  kind: 'open-rail' },    // Seite über Antritt (Austritt u0..spU0 bleibt offen!)
     ],
     walkLine,
     steps,
@@ -493,66 +495,66 @@ function makeOuterWalls(prefix) {
   ];
 }
 
-// EG-Wände (unten im Foto) – sauber abgestimmt auf Split-Level-Haupteingang ohne WC/HWR-Blockade
+// EG-Wände (unten im Foto) – statisch & haustechnisch exakt unter OG gestapelt, abgestimmt auf Split-Level-Eingang
 const EG_WALLS = [
   ...makeOuterWalls('eg'),
-  { id: 'eg_hwr_east',   ext: false, axis: 'v', u0: 3.25,  v0: T_EXT, u1: 3.25 + T_INT_L, v1: 3.10 },
-  { id: 'eg_hwr_south',  ext: false, axis: 'u', u0: T_EXT, v0: 2.985, u1: 3.25,           v1: 3.10 },
-  { id: 'eg_wc_east',    ext: false, axis: 'v', u0: 2.10,  v0: 3.10,  u1: 2.10 + T_INT_S, v1: 4.15 },
-  { id: 'eg_wc_south',   ext: false, axis: 'u', u0: T_EXT, v0: 4.15,  u1: 2.10 + T_INT_S, v1: 4.265 },
-  { id: 'eg_entry_stub', ext: false, axis: 'v', u0: 3.25,  v0: 6.50,  u1: 3.25 + T_INT_L, v1: W - T_EXT },
-  { id: 'eg_stair_west', ext: false, axis: 'v', u0: 8.035, v0: 4.40,  u1: 8.15,           v1: W - T_EXT },
+  { id: 'eg_hwr_east',   ext: false, axis: 'v', u0: 3.24,  v0: T_EXT, u1: 3.24 + T_INT_L, v1: 3.055 },
+  { id: 'eg_hwr_south',  ext: false, axis: 'u', u0: T_EXT, v0: 2.94,  u1: 3.24,           v1: 3.055 },
+  { id: 'eg_wc_east',    ext: false, axis: 'v', u0: 2.05,  v0: 3.055, u1: 2.05 + T_INT_S, v1: 4.05 },
+  { id: 'eg_wc_south',   ext: false, axis: 'u', u0: T_EXT, v0: 4.05,  u1: 2.05 + T_INT_S, v1: 4.165 },
+  { id: 'eg_entry_stub', ext: false, axis: 'v', u0: 3.24,  v0: 6.35,  u1: 3.24 + T_INT_L, v1: W - T_EXT },
+  { id: 'eg_stair_west', ext: false, axis: 'v', u0: 8.105, v0: 4.37,  u1: 8.22,           v1: W - T_EXT },
 ];
 
-// OG-Wände (oben im Foto) – statisch & haustechnisch über EG-Wänden gestapelt
+// OG-Wände (oben im Foto) – exakt an entzerrter OG-Skizze ausgerichtet & statisch über EG gestapelt
 const OG_WALLS = [
   ...makeOuterWalls('og'),
-  { id: 'og_bath_east',  ext: false, axis: 'v', u0: 3.25,  v0: T_EXT, u1: 3.25 + T_INT_L, v1: 3.10 },
-  { id: 'og_bath_south', ext: false, axis: 'u', u0: T_EXT, v0: 2.985, u1: 3.25,           v1: 3.10 },
-  { id: 'og_wc_east',    ext: false, axis: 'v', u0: 2.10,  v0: 3.10,  u1: 2.10 + T_INT_S, v1: 4.15 },
-  { id: 'og_room_north', ext: false, axis: 'u', u0: T_EXT, v0: 4.15,  u1: 3.25,           v1: 4.265 },
-  { id: 'og_room_east',  ext: false, axis: 'v', u0: 3.25,  v0: 4.15,  u1: 3.25 + T_INT_L, v1: W - T_EXT },
+  { id: 'og_bath_east',  ext: false, axis: 'v', u0: 3.24,  v0: T_EXT, u1: 3.24 + T_INT_L, v1: 3.055 },
+  { id: 'og_bath_south', ext: false, axis: 'u', u0: T_EXT, v0: 2.94,  u1: 3.24,           v1: 3.055 },
+  { id: 'og_wc_east',    ext: false, axis: 'v', u0: 2.05,  v0: 3.055, u1: 2.05 + T_INT_S, v1: 4.05 },
+  { id: 'og_room_north', ext: false, axis: 'u', u0: T_EXT, v0: 4.05,  u1: 3.24,           v1: 4.165 },
+  { id: 'og_room_east',  ext: false, axis: 'v', u0: 3.24,  v0: 4.05,  u1: 3.24 + T_INT_L, v1: W - T_EXT },
 ];
 
 const ENTRANCES = buildEntrances();
 
 // Öffnungen (Türen & Fenster) – JEDE Außenöffnung im Hochformat H/B >= 1,25 (B-Plan Wattenheim „Ortskern“)
 const EG_OPENINGS = [
-  // Giebel Dautengasse (u = 0)
-  { id: 'F_eg_s1',  wallId: 'eg_ext_south', side: 'south', siteSide: 'dautengasse', kind: 'window', s0: 1.35, s1: 2.15, sillY: 0.95,  height: 1.25, label: 'Fenster HWR (Dautengasse)', provenance: 'entwurf' },
-  { id: 'F_eg_s2',  wallId: 'eg_ext_south', side: 'south', siteSide: 'dautengasse', kind: 'window', s0: 3.30, s1: 3.95, sillY: 1.15,  height: 1.05, label: 'Fenster WC EG (Dautengasse)', provenance: 'foto' },
-  { id: 'T_haupt',  wallId: 'eg_ext_south', side: 'south', siteSide: 'dautengasse', kind: 'door',   s0: 4.38, s1: 5.43, sillY: -1.44, height: 2.20, swing: 'in-left', mainEntrance: true, splitLevel: true, label: 'Haupteingang (Dautengasse · Split-Level)', provenance: 'entwurf' },
-  // Längswand Hof/Kanal (v = 7,15)
+  // Giebel Dautengasse (u = 0) – vertikal bündig unter OG-Fenstern; Haupteingang exakt auf Foto-Türpfeil
+  { id: 'F_eg_s1',  wallId: 'eg_ext_south', side: 'south', siteSide: 'dautengasse', kind: 'window', s0: 1.35, s1: 2.20, sillY: 0.95,  height: 1.25, label: 'Fenster HWR (Dautengasse)', provenance: 'entwurf' },
+  { id: 'F_eg_s2',  wallId: 'eg_ext_south', side: 'south', siteSide: 'dautengasse', kind: 'window', s0: 3.25, s1: 3.85, sillY: 1.15,  height: 1.05, label: 'Fenster WC EG (Dautengasse)', provenance: 'foto' },
+  { id: 'T_haupt',  wallId: 'eg_ext_south', side: 'south', siteSide: 'dautengasse', kind: 'door',   s0: 4.28, s1: 5.33, sillY: -1.44, height: 2.20, swing: 'in-left', mainEntrance: true, splitLevel: true, label: 'Haupteingang (Dautengasse · Split-Level)', provenance: 'entwurf' },
+  // Längswand Hof/Kanal (v = 7,15) – F_eg_o1 bündig unter F_og_o1
   { id: 'T_ost',    wallId: 'eg_ext_east',  side: 'east',  siteSide: 'hof',         kind: 'door',   s0: 2.20, s1: 3.15, sillY: 0.00,  height: 2.20, swing: 'in-right', sideEntrance: true, label: 'Nebeneingang (Hof/Kanal)', provenance: 'foto' },
-  { id: 'F_eg_o1',  wallId: 'eg_ext_east',  side: 'east',  siteSide: 'hof',         kind: 'window', s0: 4.45, s1: 5.35, sillY: 0.90,  height: 1.35, label: 'Fenster EG Hof/Kanal 1', provenance: 'entwurf' },
-  { id: 'F_eg_o2',  wallId: 'eg_ext_east',  side: 'east',  siteSide: 'hof',         kind: 'window', s0: 6.30, s1: 7.20, sillY: 0.90,  height: 1.35, label: 'Fenster EG Hof/Kanal 2', provenance: 'entwurf' },
-  // Giebel Garten / Flurstück 215 (u = 11,00)
-  { id: 'F_eg_n1',  wallId: 'eg_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 0.80,  s1: 1.68,  sillY: 0.90, height: 1.35, label: 'Fenster EG Garten 1', provenance: 'entwurf' },
-  { id: 'T_terr',   wallId: 'eg_ext_north', side: 'north', siteSide: 'garten',      kind: 'door',   s0: 2.025, s1: 2.975, sillY: 0.00, height: 2.20, swing: 'in-left', glazed: true, gardenEntrance: true, label: 'Gartentür (Garten)', provenance: 'entwurf' },
-  { id: 'F_eg_n2',  wallId: 'eg_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 3.32,  s1: 4.20,  sillY: 0.90, height: 1.35, label: 'Fenster EG Garten 2', provenance: 'entwurf' },
-  { id: 'F_eg_n3',  wallId: 'eg_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 4.58,  s1: 5.40,  sillY: 1.00, height: 1.35, label: 'Fenster Treppe EG (Garten)', provenance: 'entwurf' },
+  { id: 'F_eg_o1',  wallId: 'eg_ext_east',  side: 'east',  siteSide: 'hof',         kind: 'window', s0: 4.53, s1: 5.42, sillY: 0.90,  height: 1.35, label: 'Fenster EG Hof/Kanal 1', provenance: 'entwurf' },
+  { id: 'F_eg_o2',  wallId: 'eg_ext_east',  side: 'east',  siteSide: 'hof',         kind: 'window', s0: 6.32, s1: 7.21, sillY: 0.90,  height: 1.35, label: 'Fenster EG Hof/Kanal 2', provenance: 'entwurf' },
+  // Giebel Garten / Flurstück 215 (u = 11,00) – alle 4 Öffnungen exakt bündig unter OG-Fenstern (Pfeiler 0,26 m)
+  { id: 'F_eg_n1',  wallId: 'eg_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 1.06, s1: 1.99, sillY: 0.90, height: 1.35, label: 'Fenster EG Garten 1', provenance: 'entwurf' },
+  { id: 'T_terr',   wallId: 'eg_ext_north', side: 'north', siteSide: 'garten',      kind: 'door',   s0: 2.25, s1: 3.18, sillY: 0.00, height: 2.20, swing: 'in-left', glazed: true, gardenEntrance: true, label: 'Gartentür (Garten)', provenance: 'entwurf' },
+  { id: 'F_eg_n2',  wallId: 'eg_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 3.44, s1: 4.37, sillY: 0.90, height: 1.35, label: 'Fenster EG Garten 2', provenance: 'entwurf' },
+  { id: 'F_eg_n3',  wallId: 'eg_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 4.63, s1: 5.56, sillY: 1.00, height: 1.35, label: 'Fenster Treppe EG (Garten)', provenance: 'entwurf' },
   // Innentüren EG
-  { id: 'T_eg_hwr', wallId: 'eg_hwr_east',  kind: 'interior-door', s0: 1.90, s1: 2.785, sillY: 0.00, height: 2.10, swing: 'in-neg', label: 'Tür HWR', provenance: 'entwurf' },
-  { id: 'T_eg_wc',  wallId: 'eg_wc_east',   kind: 'interior-door', s0: 3.26, s1: 4.02,  sillY: 0.00, height: 2.10, swing: 'in-neg', label: 'Tür WC EG', provenance: 'foto' },
+  { id: 'T_eg_hwr', wallId: 'eg_hwr_east',  kind: 'interior-door', s0: 1.88, s1: 2.76, sillY: 0.00, height: 2.10, swing: 'in-neg', label: 'Tür HWR', provenance: 'entwurf' },
+  { id: 'T_eg_wc',  wallId: 'eg_wc_east',   kind: 'interior-door', s0: 3.18, s1: 3.94, sillY: 0.00, height: 2.10, swing: 'in-neg-right', label: 'Tür WC EG', provenance: 'foto' },
 ];
 
 const OG_OPENINGS = [
   // Giebel Dautengasse (u = 0) – exakt 3 Fenster wie in OG-Skizze
-  { id: 'F_og_s1',  wallId: 'og_ext_south', side: 'south', siteSide: 'dautengasse', kind: 'window', s0: 1.35, s1: 2.15, sillY: 0.95, height: 1.25, label: 'Fenster Bad (Dautengasse)', provenance: 'foto' },
-  { id: 'F_og_s2',  wallId: 'og_ext_south', side: 'south', siteSide: 'dautengasse', kind: 'window', s0: 3.30, s1: 3.95, sillY: 1.15, height: 1.05, label: 'Fenster WC OG (Dautengasse)', provenance: 'foto' },
-  { id: 'F_og_s3',  wallId: 'og_ext_south', side: 'south', siteSide: 'dautengasse', kind: 'window', s0: 5.15, s1: 5.95, sillY: 0.95, height: 1.25, label: 'Fenster Zimmer OG (Dautengasse)', provenance: 'foto' },
-  // Längswand Hof/Kanal (v = 7,15) – exakt 1 Fenster wie in OG-Skizze
-  { id: 'F_og_o1',  wallId: 'og_ext_east',  side: 'east',  siteSide: 'hof',         kind: 'window', s0: 4.45, s1: 5.35, sillY: 0.90, height: 1.35, label: 'Fenster OG Hof/Kanal', provenance: 'foto' },
-  // Giebel Garten (u = 11,00) – exakt 5 diskrete Hochformatfenster mit Pfeilern >= 0,36 m
-  { id: 'F_og_n1',  wallId: 'og_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 0.80, s1: 1.68, sillY: 0.90, height: 1.35, label: 'Fenster Wohnen 1 (Garten)', provenance: 'foto' },
-  { id: 'F_og_n2',  wallId: 'og_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 2.06, s1: 2.94, sillY: 0.90, height: 1.35, label: 'Fenster Wohnen 2 (Garten)', provenance: 'foto' },
-  { id: 'F_og_n3',  wallId: 'og_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 3.32, s1: 4.20, sillY: 0.90, height: 1.35, label: 'Fenster Wohnen 3 (Garten)', provenance: 'foto' },
-  { id: 'F_og_n4',  wallId: 'og_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 4.58, s1: 5.40, sillY: 0.90, height: 1.35, label: 'Fenster Treppe OG 1 (Garten)', provenance: 'foto' },
-  { id: 'F_og_n5',  wallId: 'og_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 5.76, s1: 6.58, sillY: 0.90, height: 1.35, label: 'Fenster Treppe OG 2 (Garten)', provenance: 'foto' },
-  // Innentüren OG
-  { id: 'T_og_bath', wallId: 'og_bath_south', kind: 'interior-door', s0: 2.30, s1: 3.15, sillY: 0.00, height: 2.10, swing: 'in-neg', label: 'Tür Bad', provenance: 'foto' },
-  { id: 'T_og_wc',   wallId: 'og_wc_east',    kind: 'interior-door', s0: 3.26, s1: 4.02, sillY: 0.00, height: 2.10, swing: 'in-neg', label: 'Tür WC OG', provenance: 'foto' },
-  { id: 'T_og_room', wallId: 'og_room_north', kind: 'interior-door', s0: 2.30, s1: 3.15, sillY: 0.00, height: 2.10, swing: 'in-pos', label: 'Tür Zimmer OG', provenance: 'foto' },
+  { id: 'F_og_s1',  wallId: 'og_ext_south', side: 'south', siteSide: 'dautengasse', kind: 'window', s0: 1.35, s1: 2.20, sillY: 0.95, height: 1.25, label: 'Fenster Bad (Dautengasse)', provenance: 'foto' },
+  { id: 'F_og_s2',  wallId: 'og_ext_south', side: 'south', siteSide: 'dautengasse', kind: 'window', s0: 3.25, s1: 3.85, sillY: 1.15, height: 1.05, label: 'Fenster WC OG (Dautengasse)', provenance: 'foto' },
+  { id: 'F_og_s3',  wallId: 'og_ext_south', side: 'south', siteSide: 'dautengasse', kind: 'window', s0: 5.09, s1: 5.90, sillY: 0.95, height: 1.25, label: 'Fenster Zimmer OG (Dautengasse)', provenance: 'foto' },
+  // Längswand Hof/Kanal (v = 7,15) – exakt 1 Fenster wie in OG-Skizze (4,53..5,42 m)
+  { id: 'F_og_o1',  wallId: 'og_ext_east',  side: 'east',  siteSide: 'hof',         kind: 'window', s0: 4.53, s1: 5.42, sillY: 0.90, height: 1.35, label: 'Fenster OG Hof/Kanal', provenance: 'foto' },
+  // Giebel Garten (u = 11,00) – exakt 5 diskrete Hochformatfenster (je 0,93 × 1,35 m, H/B=1,45, Pfeiler 0,26 m ≥ 0,24 m)
+  { id: 'F_og_n1',  wallId: 'og_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 1.06, s1: 1.99, sillY: 0.90, height: 1.35, label: 'Fenster Wohnen 1 (Garten)', provenance: 'foto' },
+  { id: 'F_og_n2',  wallId: 'og_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 2.25, s1: 3.18, sillY: 0.90, height: 1.35, label: 'Fenster Wohnen 2 (Garten)', provenance: 'foto' },
+  { id: 'F_og_n3',  wallId: 'og_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 3.44, s1: 4.37, sillY: 0.90, height: 1.35, label: 'Fenster Wohnen 3 (Garten)', provenance: 'foto' },
+  { id: 'F_og_n4',  wallId: 'og_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 4.63, s1: 5.56, sillY: 0.90, height: 1.35, label: 'Fenster Treppe OG 1 (Garten)', provenance: 'foto' },
+  { id: 'F_og_n5',  wallId: 'og_ext_north', side: 'north', siteSide: 'garten',      kind: 'window', s0: 5.82, s1: 6.75, sillY: 0.90, height: 1.35, label: 'Fenster Treppe OG 2 (Garten)', provenance: 'foto' },
+  // Innentüren OG – Anschlag & Aufschlagrichtung exakt wie in OG-Skizze
+  { id: 'T_og_bath', wallId: 'og_bath_south', kind: 'interior-door', s0: 2.28, s1: 3.16, sillY: 0.00, height: 2.10, swing: 'in-neg-right', label: 'Tür Bad', provenance: 'foto' },
+  { id: 'T_og_wc',   wallId: 'og_wc_east',    kind: 'interior-door', s0: 3.18, s1: 3.94, sillY: 0.00, height: 2.10, swing: 'in-neg-right', label: 'Tür WC OG', provenance: 'foto' },
+  { id: 'T_og_room', wallId: 'og_room_north', kind: 'interior-door', s0: 2.30, s1: 3.16, sillY: 0.00, height: 2.10, swing: 'in-pos-right', label: 'Tür Zimmer OG', provenance: 'foto' },
 ];
 
 // Spitzboden-Giebelfenster (je 1 zentriertes Hochformatfenster in den Giebeln Dautengasse und Garten)
@@ -567,58 +569,56 @@ function makeRoom(id, name, rects, labelAt, provenance, note = '', extra = {}) {
 }
 
 const EG_ROOMS = [
-  makeRoom('eg_hwr',     'HWR / Technik',       [[T_EXT, T_EXT, 3.25, 2.985]], [1.80, 1.65], 'foto', 'Handschrift „HWR“ in EG-Skizze; direkt unter OG-Bad'),
-  makeRoom('eg_wc',      'WC',                  [[T_EXT, 3.10, 2.10, 4.15]],   [1.22, 3.62], 'foto', 'Deckungsgleich unter OG-WC'),
-  makeRoom('eg_eingang', 'Split-Level Eingang', [[T_EXT, 4.265, 1.565, 5.50], [1.565, 4.265, 3.420, 5.50]], [0.96, 4.88], 'entwurf', 'Entwurfsannahme am Hang: Innenpodest auf −1,44 m + 8-stufiger Treppenlauf bis OKFF EG (0,00 m auf Straßenfläche)'),
-  makeRoom('eg_diele',   'Diele / Hofzugang',   [[T_EXT, 5.50, 3.25, W - T_EXT], [2.215, 3.10, 3.25, 4.265]], [2.52, 6.14], 'foto', 'Verbindung Nebeneingang (Hof/Kanal), Garderobe, WC & offene EG-Fläche'),
-  makeRoom('eg_halle',   'Offener Bereich EG',  [[3.425, T_EXT, L - T_EXT, 4.40], [3.425, 4.40, 8.035, W - T_EXT]], [6.40, 2.60], 'foto', 'Große offene Innenfläche laut EG-Skizze (Entwurf, keine WoFlV-Berechnung)'),
-  makeRoom('eg_treppe',  'Treppe',              [[8.15, 4.40, L - T_EXT, W - T_EXT]], [9.40, 5.60], 'interpretation', 'Zusammengeführte U-Treppe EG ↔ OG'),
+  makeRoom('eg_hwr',     'HWR / Technik',       [[T_EXT, T_EXT, 3.24, 2.94]], [1.80, 1.62], 'foto', 'Handschrift „HWR“ in EG-Skizze; direkt unter OG-Bad gestapelt'),
+  makeRoom('eg_wc',      'WC',                  [[T_EXT, 3.055, 2.05, 4.05]], [1.40, 3.68], 'foto', 'Deckungsgleich unter OG-WC'),
+  makeRoom('eg_eingang', 'Split-Level Eingang', [[T_EXT, 4.165, 1.565, 5.40], [1.565, 4.165, 3.420, 5.40]], [1.88, 4.78], 'entwurf', 'Entwurfsannahme am Hang: Innenpodest auf −1,44 m + 8-stufiger Treppenlauf bis OKFF EG (0,00 m auf Straßenfläche)'),
+  makeRoom('eg_diele',   'Diele / Hofzugang',   [[T_EXT, 5.40, 3.24, W - T_EXT], [2.165, 3.055, 3.24, 4.165]], [2.15, 5.92], 'foto', 'Verbindung Nebeneingang (Hof/Kanal), Garderobe, WC & offene EG-Fläche'),
+  makeRoom('eg_halle',   'Offener Bereich EG',  [[3.415, T_EXT, L - T_EXT, 4.37], [3.415, 4.37, 8.105, W - T_EXT]], [6.55, 2.55], 'foto', 'Große offene, unmöblierte Innenfläche laut EG-Skizze (Entwurf, keine WoFlV-Berechnung)'),
+  makeRoom('eg_treppe',  'Treppe',              [[8.22, 4.37, L - T_EXT, W - T_EXT]], [9.43, 5.58], 'interpretation', 'Zusammengeführte U-Treppe EG ↔ OG im Eckkern Garten / Hof-Kanal'),
 ];
 
 const OG_ROOMS = [
-  makeRoom('og_bad',    'Bad',                    [[T_EXT, T_EXT, 3.25, 2.985]], [1.75, 1.85], 'foto', 'Dusche, Schrank/G, Sanitär laut OG-Skizze'),
-  makeRoom('og_wc',     'WC',                     [[T_EXT, 3.10, 2.10, 4.15]],   [1.22, 3.62], 'foto', 'Separates WC + Handwaschbecken'),
-  makeRoom('og_flur',   'Flur',                   [[2.215, 3.10, 3.35, 4.15]],   [2.78, 3.62], 'foto', 'Verteiler Bad / WC / Zimmer'),
-  makeRoom('og_zimmer', 'Zimmer',                 [[T_EXT, 4.265, 3.25, W - T_EXT]], [1.80, 5.55], 'foto', 'Arbeits-/Gästezimmer (Skizzenmotiv an Hof/Kanal-Kante nicht als Treppe ausgeführt)'),
-  makeRoom('og_wohnen', 'Wohnen / Essen / Küche', [[3.425, T_EXT, L - T_EXT, 4.40], [3.425, 4.40, 8.035, W - T_EXT]], [6.30, 2.45], 'foto', '2-teilige Küchenzeile (Spülmasch./Spüle | Kühlschr./Herd/Backofen), Sitzecke & Wohnlandschaft'),
-  makeRoom('og_treppe', 'Treppenloch',            [[8.15, 4.40, L - T_EXT, W - T_EXT]], [9.40, 5.60], 'interpretation', 'Offenes Treppenloch 2,49 × 2,39 m (5,93 m²) – aus OG-Innenfläche herausgerechnet', { isOpening: true }),
+  makeRoom('og_bad',    'Bad',                    [[T_EXT, T_EXT, 3.24, 2.94]], [1.72, 1.80], 'foto', 'G-Schrank, Schrank, Dusche mit Ablauf, WT, WC, WT laut OG-Skizze'),
+  makeRoom('og_wc',     'WC',                     [[T_EXT, 3.055, 2.05, 4.05]], [1.40, 3.68], 'foto', 'Separates WC + Handwaschbecken'),
+  makeRoom('og_flur',   'Flur',                   [[2.165, 3.055, 3.415, 4.05]], [2.79, 3.56], 'foto', 'Verteiler Bad / WC / Zimmer (lichte Breite 1,00 m)'),
+  makeRoom('og_zimmer', 'Zimmer',                 [[T_EXT, 4.165, 3.24, W - T_EXT]], [1.75, 5.46], 'foto', 'Arbeits-/Gästezimmer (Skizzenmotiv an Hof/Kanal-Kante als Stauraum-Zone ausgeführt)'),
+  makeRoom('og_wohnen', 'Wohnen / Essen / Küche', [[3.415, T_EXT, L - T_EXT, 4.37], [3.415, 4.37, 8.105, W - T_EXT]], [6.25, 2.35], 'foto', '2-teilige Küchenzeile (Spülmasch./Spüle/Arbeitsfl. | Kühlschr./Herd/Backofen), Esstisch/Eckbank & L-Sofa'),
+  makeRoom('og_treppe', 'Treppenloch',            [[8.22, 4.37, L - T_EXT, W - T_EXT]], [9.43, 5.58], 'interpretation', 'Offenes Treppenloch 2,42 × 2,42 m (5,83 m²) – aus OG-Innenfläche herausgerechnet', { isOpening: true }),
 ];
 
-// Mobiliar (sämtliche EG-Möbel auf y = 0,00 m und frei von Split-Level-Ausschnitt & Türschwenkbereichen!)
+// Mobiliar (sämtliche EG-Möbel auf y = 0,00 m, frei von Split-Level-Ausschnitt & Türschwenkbereichen;
+// offene EG-Fläche entsprechend der Handskizze ohne erfundene Tische/Sideboards belassen!)
 const EG_FURNITURE = [
   { id: 'eg_wm',      kind: 'appliance', label: 'WM / TR',   u0: 0.42, v0: 0.42, u1: 1.65, v1: 1.05, h: 0.85 },
   { id: 'eg_wp',      kind: 'cabinet',   label: 'Technik',   u0: 1.80, v0: 0.42, u1: 3.18, v1: 1.08, h: 1.95 },
-  { id: 'eg_regal',   kind: 'shelf',     label: 'Regal',     u0: 0.42, v0: 2.50, u1: 2.95, v1: 2.94, h: 1.80 },
-  { id: 'eg_wc_pan',  kind: 'wc',        label: 'WC',        u0: 0.40, v0: 3.45, u1: 0.96, v1: 3.85, h: 0.42 },
-  { id: 'eg_wc_sink', kind: 'sink',      label: 'WB',        u0: 1.38, v0: 3.12, u1: 1.82, v1: 3.46, h: 0.84 },
+  { id: 'eg_regal',   kind: 'shelf',     label: 'Regal',     u0: 0.40, v0: 2.46, u1: 2.45, v1: 2.92, h: 1.80 },
+  { id: 'eg_wc_pan',  kind: 'wc',        label: 'WC',        u0: 0.38, v0: 3.30, u1: 0.98, v1: 3.88, h: 0.42 },
+  { id: 'eg_wc_sink', kind: 'sink',      label: 'WB',        u0: 1.36, v0: 3.065, u1: 1.80, v1: 3.40, h: 0.84 },
   { id: 'eg_gard',    kind: 'cabinet',   label: 'Garderobe', u0: 0.45, v0: 6.22, u1: 1.85, v1: 6.74, h: 2.00 },
-  { id: 'eg_table',   kind: 'table',     label: 'Tisch',     u0: 5.20, v0: 1.85, u1: 7.40, v1: 2.85, h: 0.76 },
-  { id: 'eg_sideb',   kind: 'cabinet',   label: 'Sideboard', u0: 4.20, v0: 0.42, u1: 7.20, v1: 0.90, h: 0.85 },
-  { id: 'eg_bench',   kind: 'table',     label: 'Arbeiten',  u0: 8.60, v0: 0.42, u1: 10.55, v1: 1.15, h: 0.78 },
 ];
 
 const OG_FURNITURE = [
-  { id: 'og_g_box',    kind: 'cabinet',      label: 'G',              u0: 0.40, v0: 0.40, u1: 1.22, v1: 1.18, h: 1.95 },
-  { id: 'og_bad_sch',  kind: 'cabinet',      label: 'Schrank',        u0: 1.25, v0: 0.40, u1: 2.10, v1: 1.18, h: 0.90 },
-  { id: 'og_dusche',   kind: 'shower',       label: 'Dusche',         u0: 2.14, v0: 0.38, u1: 3.23, v1: 1.46, h: 2.05 },
-  { id: 'og_bad_wb1',  kind: 'sink',         label: 'WT',             u0: 0.40, v0: 1.48, u1: 0.88, v1: 2.02, h: 0.85 },
-  { id: 'og_bad_wc',   kind: 'wc',           label: 'WC',             u0: 0.40, v0: 2.26, u1: 0.96, v1: 2.66, h: 0.42 },
-  { id: 'og_bad_wb2',  kind: 'sink',         label: 'WT',             u0: 1.35, v0: 2.54, u1: 1.92, v1: 2.96, h: 0.85 },
-  { id: 'og_wc_pan',   kind: 'wc',           label: 'WC',             u0: 0.40, v0: 3.45, u1: 0.96, v1: 3.85, h: 0.42 },
-  { id: 'og_wc_sink',  kind: 'sink',         label: 'WB',             u0: 1.38, v0: 3.12, u1: 1.82, v1: 3.46, h: 0.84 },
-  { id: 'og_desk',     kind: 'bed-desk',     label: 'Tisch/Bett',     u0: 0.40, v0: 4.30, u1: 2.25, v1: 5.18, h: 0.75 },
-  { id: 'og_lowb',     kind: 'shelf',        label: 'Stauraum',       u0: 0.42, v0: 6.20, u1: 3.18, v1: 6.74, h: 0.95 },
-  { id: 'og_k_spuelm', kind: 'kitchen',      label: 'Spülmasch.',     u0: 3.43, v0: 0.38, u1: 4.10, v1: 1.24, h: 0.90 },
-  { id: 'og_k_spuele', kind: 'kitchen-sink', label: 'Spüle',          u0: 3.43, v0: 1.24, u1: 4.10, v1: 2.12, h: 0.90 },
-  { id: 'og_k_arbp',   kind: 'kitchen',      label: 'Arbeitsfl.',     u0: 3.43, v0: 2.12, u1: 4.10, v1: 3.02, h: 0.90 },
-  { id: 'og_k_kuehl',  kind: 'kitchen-tall', label: 'Kühlschr.',      u0: 3.43, v0: 4.20, u1: 4.10, v1: 5.05, h: 2.15 },
-  { id: 'og_k_herd',   kind: 'kitchen-hob',  label: 'Herd',           u0: 3.43, v0: 5.05, u1: 4.10, v1: 5.92, h: 0.90 },
-  { id: 'og_k_ofen',   kind: 'kitchen-tall', label: 'Backofen',       u0: 3.43, v0: 5.92, u1: 4.10, v1: 6.76, h: 2.15 },
-  { id: 'og_ecktisch', kind: 'table',        label: 'Esstisch',       u0: 5.48, v0: 4.46, u1: 7.05, v1: 5.88, h: 0.76 },
-  { id: 'og_bank_s',   kind: 'sofa',         label: 'Eckbank',        u0: 5.48, v0: 6.08, u1: 8.00, v1: 6.74, h: 0.84 },
-  { id: 'og_bank_o',   kind: 'sofa',         label: '',               u0: 7.28, v0: 4.46, u1: 8.00, v1: 6.08, h: 0.84 },
-  { id: 'og_sofa_l',   kind: 'sofa',         label: 'Wohnlandschaft', u0: 8.08, v0: 0.75, u1: 9.18, v1: 3.32, h: 0.82 },
-  { id: 'og_sofa_c',   kind: 'sofa',         label: '',               u0: 9.18, v0: 2.38, u1: 9.85, v1: 3.32, h: 0.82 },
+  { id: 'og_g_box',    kind: 'cabinet',      label: 'G',              u0: 0.38, v0: 0.38,  u1: 1.21, v1: 1.22, h: 1.95 },
+  { id: 'og_bad_sch',  kind: 'cabinet',      label: 'Schrank',        u0: 1.23, v0: 0.38,  u1: 2.11, v1: 1.22, h: 0.90 },
+  { id: 'og_dusche',   kind: 'shower',       label: 'Dusche',         u0: 2.13, v0: 0.38,  u1: 3.23, v1: 1.43, h: 2.05 },
+  { id: 'og_bad_wb1',  kind: 'sink',         label: 'WT',             u0: 0.38, v0: 1.50,  u1: 0.84, v1: 1.99, h: 0.85 },
+  { id: 'og_bad_wc',   kind: 'wc',           label: 'WC',             u0: 0.38, v0: 2.25,  u1: 0.95, v1: 2.75, h: 0.42 },
+  { id: 'og_bad_wb2',  kind: 'sink',         label: 'WT',             u0: 1.36, v0: 2.55,  u1: 1.82, v1: 2.93, h: 0.85 },
+  { id: 'og_wc_pan',   kind: 'wc',           label: 'WC',             u0: 0.38, v0: 3.30,  u1: 0.98, v1: 3.88, h: 0.42 },
+  { id: 'og_wc_sink',  kind: 'sink',         label: 'WB',             u0: 1.36, v0: 3.065, u1: 1.80, v1: 3.40, h: 0.84 },
+  { id: 'og_desk',     kind: 'bed-desk',     label: 'Tisch/Bett',     u0: 0.38, v0: 4.18,  u1: 2.31, v1: 5.00, h: 0.75 },
+  { id: 'og_lowb',     kind: 'shelf',        label: 'Stauraum',       u0: 0.38, v0: 5.98,  u1: 3.22, v1: 6.77, h: 0.90 },
+  { id: 'og_k_spuelm', kind: 'kitchen',      label: 'Spülmasch.',     u0: 3.42, v0: 0.38,  u1: 4.28, v1: 1.20, h: 0.90 },
+  { id: 'og_k_spuele', kind: 'kitchen-sink', label: 'Spüle',          u0: 3.42, v0: 1.20,  u1: 4.28, v1: 2.06, h: 0.90 },
+  { id: 'og_k_arbp',   kind: 'kitchen',      label: 'Arbeitsfl.',     u0: 3.42, v0: 2.06,  u1: 4.28, v1: 3.05, h: 0.90 },
+  { id: 'og_k_kuehl',  kind: 'kitchen-tall', label: 'Kühlschr.',      u0: 3.42, v0: 4.06,  u1: 4.32, v1: 4.96, h: 2.15 },
+  { id: 'og_k_herd',   kind: 'kitchen-hob',  label: 'Herd',           u0: 3.42, v0: 4.96,  u1: 4.32, v1: 5.90, h: 0.90 },
+  { id: 'og_k_ofen',   kind: 'kitchen-tall', label: 'Backofen',       u0: 3.42, v0: 5.90,  u1: 4.32, v1: 6.77, h: 2.15 },
+  { id: 'og_ecktisch', kind: 'table',        label: 'Esstisch',       u0: 5.51, v0: 4.37,  u1: 7.13, v1: 5.82, h: 0.76 },
+  { id: 'og_bank_s',   kind: 'sofa',         label: 'Eckbank',        u0: 5.54, v0: 5.98,  u1: 8.10, v1: 6.77, h: 0.84, back: 'bottom' },
+  { id: 'og_bank_o',   kind: 'sofa',         label: '',               u0: 7.26, v0: 4.37,  u1: 8.10, v1: 5.98, h: 0.84, back: 'right' },
+  { id: 'og_sofa_l',   kind: 'sofa',         label: 'Wohnlandschaft', u0: 8.11, v0: 0.70,  u1: 9.34, v1: 2.36, h: 0.82, back: 'left' },
+  { id: 'og_sofa_c',   kind: 'sofa',         label: '',               u0: 8.11, v0: 2.36,  u1: 9.91, v1: 3.29, h: 0.82, back: 'bottom' },
 ];
 
 // Programmatische B-Plan-Fassaden- & Gestaltungsprüfung (100 % aus den echten Öffnungskoordinaten!)
@@ -717,8 +717,8 @@ const STAIRS = buildUStairSteps();
 const BPLAN_CHECK = computeBPlanCheck(EG_OPENINGS, OG_OPENINGS, GABLE_OPENINGS);
 
 const EG_NET_AREA_M2 = +EG_ROOMS.reduce((s, r) => s + r.areaM2, 0).toFixed(2);
-const OG_STAIR_OPENING_M2 = STAIRS.slabOpening.areaM2; // 5.93 m²
-const OG_NET_AREA_M2 = +OG_ROOMS.filter((r) => !r.isOpening).reduce((s, r) => s + r.areaM2, 0).toFixed(2); // 57.93 m² (OHNE Treppenloch!)
+const OG_STAIR_OPENING_M2 = STAIRS.slabOpening.areaM2; // 5.83 m²
+const OG_NET_AREA_M2 = +OG_ROOMS.filter((r) => !r.isOpening).reduce((s, r) => s + r.areaM2, 0).toFixed(2); // 58.09 m² (OHNE Treppenloch!)
 
 export const HOUSE_SPEC = {
   id: 'wattenheim-efh-11x715',
@@ -848,7 +848,7 @@ export const HOUSE_SPEC = {
       netAreaM2: OG_NET_AREA_M2,
       netAreaWithoutStairOpeningM2: OG_NET_AREA_M2,
       stairOpeningAreaM2: OG_STAIR_OPENING_M2,
-      areaNote: 'Innenfläche OG ohne offenes Treppenloch 5,93 m² (Entwurf; keine Wohnfläche nach WoFlV)',
+      areaNote: `Innenfläche OG ohne offenes Treppenloch ${OG_STAIR_OPENING_M2.toFixed(2).replace('.', ',')} m² (Entwurf; keine Wohnfläche nach WoFlV)`,
     },
     dach: {
       id: 'dach',
@@ -867,23 +867,23 @@ export const HOUSE_SPEC = {
       'B-Plan Wattenheim „Ortskern“ (Satzung): beidseits gleiche Dachneigung ab 30°, naturrote bis rotbraune unglasierte Tonziegel oder Betondachsteine, Fenster/Außentüren im Hochformat (H/B ≥ 1,25), Öffnungsfläche < 50 % je Fassade, Mauerpfeiler ≥ 0,24 m, keine Panoramabänder, farblich abgesetzte Fenstergesimse, 2 Stellplätze/WE, Grenzbauten nach I.3.',
     ],
     foto: [
-      'Die Umrisse ergeben bei jeweils 11,00 m Länge rund 6,4 m Tiefe im EG und 7,2 m im OG. Beide Geschosse erhalten im Entwurf 7,15 m.',
-      'EG-Raumaufteilung: HWR (Handschrift), WC, Eingang/Diele (Dautengasse + Hof/Kanal), große offene Innenfläche.',
-      'OG-Raumaufteilung: Bad (Dusche, G/Schrank, Sanitär), sep. WC, Flur, Zimmer (Dautengasse/Hof-Ecke), 2-teilige Küche (Handschrift: Spülmasch., Spüle | Kühlschr., Herd, Backofen), Wohn-/Essbereich (Eckgruppe + L-Sofa), U-Treppe (Garten/Hof-Ecke).',
-      'Fensterverteilung: Grenzwand 215/3 fensterlos, Dautengasse-Giebel 3 OG-Fenster, Garten-Giebel 5 getrennte Fenster mit Pfeilern, Hof/Kanal-Wand 1 OG-Fenster.',
+      'Lineal-kalibrierte Entzerrung des Maßstabsfotos: OG ergibt bei 11,00 m Außenlänge ca. 7,16–7,19 m Tiefe (Entwurfsmaß 7,15 m); EG ist auf dem Blatt ca. 9 % länger gezeichnet (Einzelproportion ~6,25 m), wobei HWR- und WC-Breite in physischen cm exakt unter OG-Bad und OG-WC liegen.',
+      'EG-Raumaufteilung: HWR (Handschrift, Regalwand v=2,46 m), WC + WB, Eingang/Diele (Türpfeile Dautengasse v≈4,80 m & Hof/Kanal), große offene unmöblierte Innenfläche.',
+      'OG-Raumaufteilung: Bad (G-Schrank, Schrank, Dusche mit Ablauf, WT/WC/WT), sep. WC + WB, Flur (1,00 m), Zimmer (Tisch/Bett + Stauraumzone), 2-teilige Küche (Handschrift: Spülmasch./Spüle/Arbeitsfl. | Kühlschr./Herd/Backofen), Esstisch + Eckbank, L-Sofa (Schenkel zu Gartenfenstern geöffnet), U-Treppe mit Pfeil aufwärts Richtung −v.',
+      'Fensterverteilung: Grenzwand 215/3 fensterlos, Dautengasse-Giebel 3 OG-Fenster, Garten-Giebel 5 getrennte Hochformatfenster (je 0,93 × 1,35 m, Pfeiler 0,26 m ≥ 0,24 m), Hof/Kanal-Wand 1 OG-Fenster (4,53..5,42 m).',
     ],
     interpretation: [
-      'Längenabweichung EG (~12,15 m) vs. OG (11,00 m) auf einheitliches Zweigeschoss-Gebäude 11,00 × 7,15 m zusammengeführt (EG-Einzelproportion wäre ~6,38 m tief).',
-      'Abweichende Treppenläufe (gerade EG-Skizzentreppe vs. OG-U-Treppe) auf durchgehende halbgewendelte U-Treppe EG ↔ OG mit Treppenloch (2,49 × 2,39 m = 5,93 m², aus OG-Innenfläche herausgerechnet) vereinheitlicht, um die OG-Sitzecke zu erhalten.',
-      'Schmales doppelt gewendeltes Skizzenmotiv im OG-Zimmer an der Hof/Kanal-Kante nicht als Treppe ausgeführt (kollidiert mit 35°-Satteldach-Traufe ohne Gaube; kein EG-Gegenstück).',
+      'Längenabweichung EG (~11,26 cm auf Blatt) vs. OG (~10,30 cm auf Blatt) auf einheitliches Zweigeschoss-Gebäude 11,00 × 7,15 m mit exakt übereinander gestapelten Nasskern-/Tragwänden (u=3,24..3,415 m, u=2,05..2,165 m, v=2,94..3,055 m, v=4,05..4,165 m) zusammengeführt.',
+      'Abweichende Treppenläufe (gerade EG-Skizzentreppe u≈4,58..9,13 m an Hof/Kanal-Kante + Eckpodest vs. OG-U-Treppe u=8,22..10,635 m, v=4,37..6,785 m) baulich schlüssig auf die durchgehende halbgewendelte U-Treppe EG ↔ OG (Treppenloch 2,42 × 2,42 m = 5,83 m², aus OG-Innenfläche herausgerechnet) im gemeinsamen Eckkern Garten/Hof vereinheitlicht, da die gerade EG-Treppe sonst OG-Eckbank und Esstisch durchschneiden würde.',
+      'Schmales doppelt gewendeltes Skizzenmotiv im OG-Zimmer (u=0,38..3,22 m, v=5,98..6,77 m) nicht als Treppe ausgeführt (nur ~0,55 m lichte Höhe unter der 35°-Traufe ohne Gaube; kein EG-Gegenstück), sondern als Stauraum-/Lowboard-Zone ausgebildet; im Skizzenoverlay weiterhin vollständig sichtbar.',
     ],
     entwurf: [
       'Fassadenoberfläche: Matte helle Putzfassade als freie Entwurfswahl (KEINE Satzungs-/B-Plan-Vorgabe; ohne Farbcode-Bindung).',
       'Wandstärken (0,365 / 0,175 / 0,115 m) und Geschosshöhen (EG licht 2,70 m, Decke 0,30 m, OG licht 2,65 m, Decke 0,25 m, Wand-Traufpunkt 5,90 m ab OKFF EG).',
       'Gleich geneigtes Satteldach 35,0° (Entwurf ≥ 30°): bündige Traufe Grenzwand 215/3 (0,00 m Überstand, innenliegende Kastenrinne, Dachkante 6,22 m), regulärer Überstand Hof/Kanal (0,45 m, Traufkante UK 5,58 m / OK 5,90 m), bündiger Ortgang Dautengasse & Garten (0,00 m), Firsthöhe 8,72 m ab OKFF EG und je 1 Giebelfenster (0,75 × 1,05 m).',
-      'Split-Level-Eingang am Hang (Dautengasse, Gelände ~−1,50 m): Haustürschwelle bündig in der Außenwand auf −1,44 m (0,00 m Überstand auf Straßenfläche), innenliegendes Eingangspodest (1,20 × 1,235 m) + Innentreppe (8 Stg. à 18,0 cm, 7 Auftr. à 26,5 cm = 1,855 m, 2s+a = 62,5 cm, Kopfhöhe ≥ 2,20 m / 2,70 m, Geländer 1,00 m) bis OKFF EG.',
-      'Nebeneingang Hof/Kanal (Gelände ~−1,27 m): Außenpodest 1,05 × 1,05 m + paralleler Treppenlauf (7 Stg. à 18,1 cm, 6 Auftr. à 27,0 cm = 1,62 m, 2s+a = 63,3 cm, Geländer 1,00 m), 100 % in Flst. 214; Gartentür Garten (~−0,15 m): 1 Gartenstufe (0,30 × 1,05 m) im Unsicherheitsbereich der Baugrenze.',
-      'U-Treppe EG ↔ OG nach DIN 18065 (17 Stg. × 17,65 cm, 16 Auftr. ≈ 27,1 cm, 2s+a = 62,4 cm, Durchgangshöhe ≥ 2,70 m), Hangsockel und stimmiges Mobiliar.',
+      'Split-Level-Eingang am Hang (Dautengasse, Gelände ~−1,50 m): Haustürschwelle bündig in der Außenwand auf −1,44 m (v=4,28..5,33 m, 0,00 m Überstand auf Straßenfläche), innenliegendes Eingangspodest (1,20 × 1,235 m) + Innentreppe (8 Stg. à 18,0 cm, 7 Auftr. à 26,5 cm = 1,855 m, 2s+a = 62,5 cm, Kopfhöhe ≥ 2,20 m / 2,70 m, Geländer 1,00 m) bis OKFF EG.',
+      'Nebeneingang Hof/Kanal (Gelände ~−1,27 m): Außenpodest 1,05 × 1,05 m + paralleler Treppenlauf (7 Stg. à 18,1 cm, 6 Auftr. à 27,0 cm = 1,62 m, 2s+a = 63,3 cm, Geländer 1,00 m), 100 % in Flst. 214; Gartentür Garten (~−0,15 m, bündig unter F_og_n2): 1 Gartenstufe (0,30 × 1,03 m) vor der eingepassten Baugrenze.',
+      'U-Treppe EG ↔ OG nach DIN 18065 (17 Stg. × 17,65 cm, 16 Auftr. ≈ 27,0 cm, 2s+a = 62,3 cm, Durchgangshöhe ≥ 2,70 m), Hangsockel und plangetreues Mobiliar.',
     ],
   },
 };

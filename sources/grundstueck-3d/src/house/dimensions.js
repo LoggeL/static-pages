@@ -89,7 +89,7 @@ export function deriveDimensions(spec = HOUSE_SPEC, { okffWorldY = null, nhnOffs
     levelElevation('ridgeTop',      h.ridgeTopY,           'Firsthöhe OK ab OKFF EG (Satteldach 35,0° · Entwurf)',           'entwurf'),
   ];
 
-  const ogOpeningAreaM2 = spec.levels.og.stairOpeningAreaM2 ?? st.slabOpening?.areaM2 ?? 5.93;
+  const ogOpeningAreaM2 = spec.levels.og.stairOpeningAreaM2 ?? st.slabOpening?.areaM2 ?? 5.83;
   const ogUsableRooms = spec.levels.og.rooms.filter((rm) => !rm.isOpening);
   const ogNetAreaM2 = spec.levels.og.netAreaM2 ?? r2(ogUsableRooms.reduce((s, rm) => s + rm.areaM2, 0));
 

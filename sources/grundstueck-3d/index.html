@@ -59,6 +59,7 @@
 
     <div class="house-bar" id="house-bar" role="region" aria-label="Hausentwurf-Steuerung" hidden>
       <button class="hb-btn accent" id="btn-house-tour" title="In Blender gerenderte Innenräume in 360 Grad ansehen">Innenräume</button>
+      <a class="hb-btn" id="btn-house-standalone" href="./haus.html" title="Eigenständige 3D-Hausansicht ohne Grundstücks-Scan">Haus-Ansicht ↗</a>
       <button class="hb-btn" id="btn-house-isolate" aria-pressed="false" title="Haus ohne Grundstück und Vegetation zeigen">Haus isolieren</button>
       <button class="hb-btn" id="btn-house-focus" title="Haus fokussieren (F)">Fokus</button>
       <div class="hb-seg" role="group" aria-label="Geschossweise aufdecken">
@@ -67,6 +68,7 @@
         <button class="hb-mode" data-hmode="eg" aria-pressed="false" title="Ohne Dach & OG – Blick ins EG">EG</button>
         <button class="hb-mode" data-hmode="cutaway" aria-pressed="false" title="Aufgeschnittene Innenansicht">Schnitt</button>
       </div>
+      <button class="hb-btn" id="btn-services" aria-expanded="false" aria-controls="service-menu">Leitungen</button>
       <button class="hb-btn accent" id="btn-house-plan" title="Grundriss, Schnitt & Bemaßung (L)">Grundriss</button>
       <button class="hb-btn on" id="btn-baugrenze" aria-pressed="true" title="Blaue hintere Baugrenze ein-/ausblenden (R)">Baugrenze</button>
     </div>
@@ -246,6 +248,13 @@
       </form>
     </dialog>
 
+    <section id="service-menu" class="service-menu" aria-label="Leitungen im Entwurf" hidden>
+      <strong>Leitungen im Entwurf</strong>
+      <label><input type="checkbox" data-service-switch="water"> <i class="key-water"></i> Trinkwasser</label>
+      <label><input type="checkbox" data-service-switch="power"> <i class="key-power"></i> Strom</label>
+      <p>„Dach“ zeigt die Hausanschlüsse. Mit EG, OG oder Schnitt siehst du die Verteilung im Haus. Die Netzanschlusspunkte sind offen.</p>
+      <button id="service-plans" class="mini">Leitungsplan öffnen</button>
+    </section>
     <dialog id="plan-dialog" aria-labelledby="plan-dialog-title">
       <div class="plan-shell">
         <header class="plan-head">
@@ -267,6 +276,13 @@
           <button type="button" role="tab" aria-selected="false" data-ptab="section-long">Längsschnitt</button>
         </div>
         <div class="plan-body">
+          <div id="plan-layers" class="plan-layers">
+            <label><input type="checkbox" id="sketch-switch"> <i class="key-sketch"></i> Skizze überlagern</label>
+            <label><input type="checkbox" data-service-switch="water"> <i class="key-water"></i> Trinkwasser</label>
+            <label><input type="checkbox" data-service-switch="power"> <i class="key-power"></i> Strom</label>
+          </div>
+          <p id="service-explain" class="layer-note" hidden>Leitungsentwurf · W = Wasserzähler, E = Elektroverteilung im HWR. Kreise zeigen Abgänge, Rauten die offenen Anschlusspunkte an der Straßengrenze. Lage und Tiefe im Bestand sind offen. <a href="https://www.vg-l.de/kommunale-betriebe/wasserversorgung/faq-wasser/" target="_blank" rel="noopener">VG-Werke Wasser</a> · <a href="https://www.keep-gmbh.com/de/strom/" target="_blank" rel="noopener">KEEP Planauskunft</a></p>
+          <p id="sketch-explain" class="layer-note" hidden>Magenta zeigt die von Hand nachgezeichneten Linien der jeweiligen Fotovorlage. Jede Skizze ist an den vier Außenecken auf 11,00 × 7,15 m eingepasst. Die Gebäudetiefe ist ein Entwurfsmaß.</p>
           <button type="button" class="mini plan-zoom" id="plan-zoom" aria-controls="plan-stage" aria-pressed="false">Zeichnung vergrößern</button>
           <div class="plan-stage" id="plan-stage"><p class="plan-loading">Plan wird geladen …</p></div>
           <div id="plan-meta"></div>

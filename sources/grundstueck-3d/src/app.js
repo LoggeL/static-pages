@@ -38,6 +38,7 @@ const state = {
   showBaugrenze: true,
   showHouse: true,
   houseIsolated: false,
+  planLayers: { water: false, power: false, sketch: false },
   houseMode: 'full',   // full | og | eg | cutaway
   planTab: 'eg',       // eg | og | dach | section-cross | section-long
   corridor: 2,         // angenommener Schutzstreifen je Seite in m
@@ -144,8 +145,14 @@ async function main() {
     renderHousePanel();
     syncHouseControls();
     if (view?.kind === '3d') {
-      view.setHouse({ ...houseCtrl.get3DConfig(), visible: state.showHouse, mode: state.houseMode, isolated: state.houseIsolated });
+      view.setHouse({ ...houseCtrl.get3DConfig(), visible: state.showHouse, mode: state.houseMode, isolated: state.houseIsolated, services: state.planLayers });
     }
+    const { length: hL, width: hW } = houseCtrl.spec.footprint;
+    const fmtFoot = `${hL.toFixed(2).replace('.', ',')} × ${hW.toFixed(2).replace('.', ',')} m`;
+    const planSub = document.querySelector('#plan-dialog .plan-sub');
+    if (planSub) planSub.textContent = `Modellabgeleitete Maße (${fmtFoot}) · Flurstück 214 · Entwurf, keine baurechtliche Zusicherung`;
+    const sketchExp = $('sketch-explain');
+    if (sketchExp) sketchExp.textContent = `Magenta zeigt die von Hand nachgezeichneten Linien der jeweiligen Fotovorlage. Jede Skizze ist an den vier Außenecken auf ${fmtFoot} eingepasst. Die Gebäudetiefe ist ein Entwurfsmaß.`;
     markDirty();
     return houseCtrl;
   }).catch((err) => {
@@ -205,9 +212,21 @@ async function main() {
   window.__app = {
     state, get view() { return view; }, store, stats, quality, cfg, get ground() { return ground; },
     get houseCtrl() { return houseCtrl; }, open3d, close3d, setTier: chooseQuality, overlay,
-    setHouseMode, focusHouse, openPlanDialog,
+    setHouseMode, setHouseServices, focusHouse, openPlanDialog,
   };
-  if (tourHash()) {
+  await followHouseLink();
+}
+
+async function followHouseLink() {
+  const hash = location.hash;
+  if (hash && !tourHash() && $('blender-dialog')?.open) $('blender-dialog').close();
+  if ((tourHash() || hash.startsWith('#haus')) && $('plan-dialog').open) $('plan-dialog').close();
+  if (['#leitungen', '#leitungen-og', '#planabgleich', '#planabgleich-og'].includes(location.hash)) {
+    const plumbing = location.hash.startsWith('#leitungen');
+    Object.assign(state.planLayers, { water: plumbing, power: plumbing, sketch: !plumbing });
+    if (view?.kind === '3d') view.setHouseServices?.(state.planLayers);
+    openPlanDialog(location.hash.endsWith('-og') ? 'og' : 'eg');
+  } else if (tourHash()) {
     await openBlenderTour(tourHash());
   } else if (['#haus', '#haus-eg', '#haus-og', '#haus-isoliert'].includes(location.hash) && await houseModP) {
     if (location.hash !== '#haus') {
@@ -255,6 +274,7 @@ function drawOverlay() {
   overlay.render({
     k: store.k, selectedId: state.selected, showBounds: !isolated && state.showBounds, showBuildings: !isolated && state.showBuildings,
     showSewer: !isolated && state.showSewer, showBaugrenze: !isolated && state.showBaugrenze, showHouse: !isolated && state.showHouse,
+    services: !isolated && state.showHouse && (state.planLayers.water || state.planLayers.power) ? state.planLayers : null,
     items: isolated ? store.items.filter(it => it.src.every(source => source === 'h')) : store.items, draft, marker: state.marker, grid,
   }, view.proj);
   stats.overlayBuilds++;
@@ -764,12 +784,16 @@ async function renderPlanTab(tab) {
     b.classList.toggle('active', on);
     b.setAttribute('aria-selected', String(on));
   });
-  const ctrl = houseCtrl ?? (houseModP ? await houseModP : null);
-  if (!ctrl) return;
+  refreshLayerControls();
   const gen = ++planReqGen;
+  const ctrl = houseCtrl ?? (houseModP ? await houseModP : null);
+  if (!ctrl || gen !== planReqGen) return;
   try {
-    await ctrl.renderPlanDialog(tab, { canvas: $('plan-stage'), meta: $('plan-meta') });
+    const canvas = document.createElement('div'), meta = document.createElement('div');
+    await ctrl.renderPlanDialog(tab, { canvas, meta }, { ...state.planLayers });
     if (gen !== planReqGen) return;
+    $('plan-stage').replaceChildren(...canvas.childNodes);
+    $('plan-meta').replaceChildren(...meta.childNodes);
   } catch (err) {
     console.error('Planansicht fehlgeschlagen:', err);
     if (gen === planReqGen) $('plan-stage').innerHTML = `<p class="plan-loading">Planansicht konnte nicht geladen werden: ${escapeHtml(err.message)}</p>`;
@@ -793,7 +817,7 @@ async function openBlenderTour(room = 'eg') {
     toast('Blender-Ansichten konnten nicht geladen werden: ' + error.message, 5000, true);
   }
 }
-window.addEventListener('hashchange', () => { if (tourHash()) openBlenderTour(tourHash()); });
+window.addEventListener('hashchange', () => { if (houseModP) followHouseLink(); });
 $('btn-house-tour').addEventListener('click', () => openBlenderTour(state.houseMode === 'og' ? 'og' : 'eg'));
 $('btn-house-isolate').addEventListener('click', () => {
   if (view?.houseIsolated) returnToSite();
@@ -803,6 +827,56 @@ $('btn-house').addEventListener('click', toggleHouse);
 $('btn-baugrenze').addEventListener('click', toggleBaugrenze);
 $('btn-house-focus').addEventListener('click', () => focusHouse(false));
 $('btn-house-focus-panel').addEventListener('click', () => focusHouse(true));
+function refreshLayerControls() {
+  document.querySelectorAll('[data-service-switch]').forEach(input => {
+    input.checked = state.planLayers[input.dataset.serviceSwitch];
+  });
+  const floor = ['eg','og'].includes(state.planTab);
+  $('plan-layers').hidden = !floor;
+  $('sketch-switch').checked = state.planLayers.sketch;
+  $('service-explain').hidden = !floor || !(state.planLayers.water || state.planLayers.power);
+  $('sketch-explain').hidden = !floor || !state.planLayers.sketch;
+  $('btn-services').classList.toggle('on', state.planLayers.water || state.planLayers.power);
+}
+function setServiceMenu(open) {
+  const menu = $('service-menu'), btn = $('btn-services');
+  menu.hidden = !open;
+  btn.setAttribute('aria-expanded', String(open));
+  if (!open) return;
+  refreshLayerControls();
+  const pos = btn.getBoundingClientRect();
+  menu.style.left = Math.max(8, Math.min(pos.left, innerWidth - menu.offsetWidth - 8)) + 'px';
+  menu.style.top = (pos.bottom + 6) + 'px';
+}
+$('btn-services').addEventListener('click', () => setServiceMenu($('service-menu').hidden));
+document.addEventListener('pointerdown', e => {
+  if (!$('service-menu').hidden && !e.target.closest('#service-menu, #btn-services')) setServiceMenu(false);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !$('service-menu').hidden) { setServiceMenu(false); $('btn-services').focus(); }
+});
+window.addEventListener('resize', () => { if (!$('service-menu').hidden) setServiceMenu(true); });
+function setHouseServices(next = {}) {
+  if ('water' in next) state.planLayers.water = !!next.water;
+  if ('power' in next) state.planLayers.power = !!next.power;
+  if ('sketch' in next) state.planLayers.sketch = !!next.sketch;
+  refreshLayerControls();
+  if (view?.kind === '3d') view.setHouseServices?.(state.planLayers);
+  if ($('plan-dialog').open) renderPlanTab(state.planTab);
+  markDirty();
+}
+document.querySelectorAll('[data-service-switch], #sketch-switch').forEach(input => {
+  input.addEventListener('change', () => {
+    const key = input.dataset.serviceSwitch || 'sketch';
+    setHouseServices({ [key]: input.checked });
+  });
+});
+$('service-plans').addEventListener('click', () => {
+  setServiceMenu(false);
+  if (!state.planLayers.water && !state.planLayers.power)
+    setHouseServices({ water: true, power: true });
+  openPlanDialog(state.houseMode === 'og' ? 'og' : 'eg');
+});
 $('btn-house-plan').addEventListener('click', () => openPlanDialog());
 $('btn-house-plan-panel').addEventListener('click', () => openPlanDialog());
 document.querySelectorAll('.hb-mode').forEach((b) => b.addEventListener('click', () => setHouseMode(b.dataset.hmode)));
@@ -1255,7 +1329,7 @@ async function open3d(tierId) {
     if (ac.signal.aborted) throw new DOMException('abgebrochen', 'AbortError');
     if (!state.houseIsolated) card.phase2(tier);
     const initial = cameraFrom2D();
-    const house = houseCtrl ? { ...houseCtrl.get3DConfig(), visible: state.showHouse, mode: state.houseMode, isolated: state.houseIsolated } : null;
+    const house = houseCtrl ? { ...houseCtrl.get3DConfig(), visible: state.showHouse, mode: state.houseMode, isolated: state.houseIsolated, services: state.planLayers } : null;
     // Der Canvas bleibt bis activate() unsichtbar und ohne Eingaben: 2D bleibt während des Downloads bedienbar.
     const v = await viewMod.View3D.create({
       host: app, before: $('overlay'), cfg, base: BASE, tier, hooks: hooks3d, stats, initial, view2d: map2d.getViewState(), house, signal: ac.signal,
@@ -1278,6 +1352,7 @@ async function open3d(tierId) {
     syncProfile(true);
     v.setHouseMode(state.houseMode);
     v.setHouseVisible(state.showHouse);
+    v.setHouseServices?.(state.planLayers);
     applyIsolation();
     if (v.houseIsolated) focusHouse();
     if (state.tool !== 'nav') v.warmPicker();

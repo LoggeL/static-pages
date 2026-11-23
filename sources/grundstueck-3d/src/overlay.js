@@ -105,6 +105,8 @@ export class Overlay {
     const cutLine = h.cutLine ? group(h.cutLine) : null;
     this.house = {
       mode: h.mode,
+      services: (h.services || []).map(r => ({ ...r, g: group(r.points) })),
+      serviceStations: (h.serviceStations || []).map(st => ({ ...st, pt: st.point })),
       showRoof: !!h.showRoof,
       footprint, eaves, ridge, walls, openings, stairSteps, exteriorParts, stairOpening,
       rooms: h.rooms || [],
@@ -154,6 +156,7 @@ export class Overlay {
     if (scene.showBaugrenze && this.baugrenze) this.drawBaugrenze(svg, lab, proj);
     if (scene.showBounds) for (const B of this.bounds) this.drawBoundary(B, svg, lab, proj);
     if (scene.showHouse && this.house) this.drawHouse(svg, lab, proj, scene.showSewer);
+    if (scene.services && this.house) this.drawServices(svg, proj, scene.services);
     for (const it of scene.items) this.drawItem(it, scene.k, it.id === scene.selectedId, svg, lab, proj);
     if (scene.draft) this.drawItem(scene.draft, scene.k, false, svg, lab, proj);
     if (scene.marker) {
@@ -257,6 +260,40 @@ export class Overlay {
   }
 
   // Maßstäblicher 2D-Hausgrundriss / Dachaufsicht in der 2D-Karte (in 3D trägt das echte 3D-Modell die Darstellung)
+  drawServices(svg, proj, active) {
+    const { mode, services, serviceStations } = this.house;
+    for (const r of services) {
+      if (!active[r.system] || boxOutside(r.g.box, proj)) continue;
+      const inView = proj.topDown
+        ? (mode === 'cutaway' || r.level === mode || (r.level === 'site' && mode !== 'og'))
+        : r.level === 'site';
+      if (!inView) continue;
+      project(r.g, proj);
+      const d = pathOf(r.g.C, false, proj);
+      if (!d) continue;
+      const end = r.g.C.at(-1);
+      let marker = '';
+      if (r.mark !== 'junction' && inside(end, proj)) {
+        const [x,y] = toScreen(end, proj);
+        marker = '<circle cx="'+f1(x)+'" cy="'+f1(y)+'" r="2.9" fill="#182025" stroke="'+r.color+'" stroke-width="1.5"/>';
+      }
+      if (r.level === 'site' && inside(r.g.C[0], proj)) {
+        const [sx,sy] = toScreen(r.g.C[0], proj);
+        marker += '<path d="M'+f1(sx)+','+f1(sy-4.2)+'l4.2,4.2l-4.2,4.2l-4.2,-4.2Z" fill="#182025" stroke="'+r.color+'" stroke-width="1.5"/>';
+      }
+      svg.push('<g data-service="'+r.system+'" data-route="'+r.id+'" fill="none" stroke-linejoin="round"><path d="'+d+'" stroke="#22313a" stroke-width="3.8"/><path d="'+d+'" stroke="'+r.color+'" stroke-width="2.3" stroke-dasharray="'+r.dash+'"/>'+marker+'</g>');
+    }
+    if (proj.topDown && (mode === 'eg' || mode === 'cutaway')) {
+      for (const st of serviceStations || []) {
+        if (!active[st.system]) continue;
+        const c = proj.toClip(st.pt, this.c);
+        if (!inside(c, proj, 12)) continue;
+        const [x, y] = toScreen(c, proj);
+        svg.push('<g data-station="'+st.id+'" data-service="'+st.system+'"><rect x="'+f1(x-7)+'" y="'+f1(y-7)+'" width="14" height="14" rx="3" fill="'+st.color+'" stroke="#182025" stroke-width="1.5"/><text x="'+f1(x)+'" y="'+f1(y+3.8)+'" text-anchor="middle" font-size="9.5" font-weight="700" fill="#10181e">'+st.id+'</text></g>');
+      }
+    }
+  }
+
   drawHouse(svg, lab, proj, showSewer) {
     const H = this.house;
     if (!H || boxOutside(H.box, proj)) return;

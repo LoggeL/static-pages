@@ -1,4 +1,4 @@
-var e={eg:{title:`Essbereich im Erdgeschoss`,picture:`eg-blick.webp`,panorama:`eg.webp`},og:{title:`Wohnküche im Obergeschoss`,picture:`og-blick.webp`,panorama:`og.webp`},aussen:{title:`Haus von der Gartenseite`,picture:`aussen.webp`}},t=e=>new URL(`blender/`+e,document.baseURI).href,n=Math.PI/180,r=(e,t,n)=>Math.max(t,Math.min(n,e));function i(e){let t=e.getContext(`webgl`,{alpha:!1,antialias:!1,depth:!1,powerPreference:`low-power`});if(!t)return null;let i=(e,n)=>{let r=t.createShader(e);if(t.shaderSource(r,n),t.compileShader(r),!t.getShaderParameter(r,t.COMPILE_STATUS))throw Error(t.getShaderInfoLog(r));return r},a=i(t.VERTEX_SHADER,`
+var e={eg:{title:`Offener Raum im Erdgeschoss`,picture:`eg-blick.webp`,panorama:`eg.webp`},og:{title:`Wohnküche im Obergeschoss`,picture:`og-blick.webp`,panorama:`og.webp`},aussen:{title:`Haus von der Gartenseite`,picture:`aussen.webp`}},t=e=>new URL(`blender/`+e,document.baseURI).href,n=Math.PI/180,r=(e,t,n)=>Math.max(t,Math.min(n,e));function i(e){let t=e.getContext(`webgl`,{alpha:!1,antialias:!1,depth:!1,powerPreference:`low-power`});if(!t)return null;let i=(e,n)=>{let r=t.createShader(e);if(t.shaderSource(r,n),t.compileShader(r),!t.getShaderParameter(r,t.COMPILE_STATUS))throw Error(t.getShaderInfoLog(r));return r},a=i(t.VERTEX_SHADER,`
     attribute vec2 position;
     varying vec2 screen;
     void main() { screen = position; gl_Position = vec4(position, 0.0, 1.0); }
@@ -21,7 +21,7 @@ var e={eg:{title:`Essbereich im Erdgeschoss`,picture:`eg-blick.webp`,panorama:`e
       <header class="tour-header">
         <div class="tour-title"><p>Dautengasse · Wattenheim</p><h2 id="tour-heading">Haus in Blender</h2></div>
         <div class="tour-tabs" role="group" aria-label="Standpunkt wählen">
-          <button data-room="eg">EG <span>· Essbereich</span></button>
+          <button data-room="eg">EG <span>· Offener Raum</span></button>
           <button data-room="og">OG <span>· Wohnküche</span></button>
           <button data-room="aussen">Außen</button>
         </div>

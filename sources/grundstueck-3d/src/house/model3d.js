@@ -23,6 +23,8 @@ export function createHouse3D(s, opts = {}) {
     'deckeOg',
     'deckeEg',
     'treppe',
+    'water',
+    'power',
   ])
     layers[id] = group(id);
   const paint = (name, hex, roughness = 1, extra = {}) =>
@@ -51,9 +53,15 @@ export function createHouse3D(s, opts = {}) {
     panel: paint('Küchenfront', 0xc7bea6),
     dark: paint('Kochfeld', 0x424743, 0.4),
     blue: paint('Becken', 0xdde4dd, 0.4),
+    waterPipe: paint('Trinkwasserleitung', 0x0b7ab8, 0.35, { metalness: 0.22 }),
+    waterBox: paint('Wasserzähler', 0x065585, 0.42, { metalness: 0.28 }),
+    powerPipe: paint('Elektroleitung', 0xd96b1f, 0.38, { metalness: 0.18 }),
+    powerBox: paint('Elektroverteilung', 0x9c430e, 0.44, { metalness: 0.22 }),
+    serviceAccent: paint('Anschlussarmatur', 0xdce4ea, 0.3, { metalness: 0.6 }),
   };
   const cube = new T.BoxGeometry(1, 1, 1),
-    resources = new Set([cube]);
+    jointSphere = new T.SphereGeometry(1, 10, 8),
+    resources = new Set([cube, jointSphere]);
   const xyz = (u, y, v) => new T.Vector3(u - L / 2, y, v - W / 2);
   function mesh(parent, name, geo, mat) {
     const o = new T.Mesh(geo, mat);
@@ -300,13 +308,27 @@ export function createHouse3D(s, opts = {}) {
         }
       } else if (f.kind === 'sofa') {
         part('Sitz', a, b, c, d, 0.05, 0.46, m.cush);
-        if (c - a > d - b)
+        const back = f.back || (c - a > d - b ? 'bottom' : 'left');
+        if (back === 'bottom')
           part('Rücken', a, d - 0.19, c, d, 0.45, height, m.cush);
+        else if (back === 'top')
+          part('Rücken', a, b, c, b + 0.19, 0.45, height, m.cush);
+        else if (back === 'right')
+          part('Rücken', c - 0.19, b, c, d, 0.45, height, m.cush);
         else part('Rücken', a, b, a + 0.19, d, 0.45, height, m.cush);
       } else if (f.kind === 'shower') {
         part('Brausetasse', a, b, c, d, 0, 0.09, m.light);
         part('Duschglas', a, b, a + 0.018, d, 0.09, height, m.glass);
-        part('Duschwand', a, b, c, b + 0.018, 0.09, height, m.glass);
+        part(
+          'Duschwand',
+          a,
+          d - 0.018,
+          a + (c - a) * 0.58,
+          d,
+          0.09,
+          height,
+          m.glass
+        );
       } else if (f.kind === 'wc' || f.kind === 'sink') {
         const geo = new T.SphereGeometry(1, 16, 10);
         resources.add(geo);
@@ -710,7 +732,100 @@ export function createHouse3D(s, opts = {}) {
     h.eaveWestTopY + 0.031,
     m.metal
   );
+  // 3D Trinkwasser- & Stromleitungen (steuerbar via setServices({ water, power }))
+  const serviceRadii = {
+    water: { supply: 0.024, riser: 0.022, junction: 0.017, outlet: 0.014, default: 0.016 },
+    power: { supply: 0.020, riser: 0.019, junction: 0.014, outlet: 0.011, default: 0.013 },
+  };
+  const tagService = (obj, service, level, extra = {}) => {
+    if (!obj) return obj;
+    obj.userData = { ...obj.userData, service, level, frontCut: false, ...extra };
+    return obj;
+  };
+  if (opts.services?.routes?.length) {
+    for (const r of opts.services.routes) {
+      const sys = r.system;
+      const parent = layers[sys];
+      if (!parent || !Array.isArray(r.points) || r.points.length < 2) continue;
+      const level = r.level || 'eg';
+      const pipeMat = sys === 'water' ? m.waterPipe : m.powerPipe;
+      const rad = serviceRadii[sys]?.[r.mark] ?? serviceRadii[sys]?.default ?? 0.015;
+      const rg = tagService(group(r.id, parent), sys, level, { routeId: r.id, mark: r.mark || '' });
+      for (let i = 0; i < r.points.length - 1; i++) {
+        const a = r.points[i], b = r.points[i + 1];
+        if (Math.hypot(b[0] - a[0], b[1] - a[1], b[2] - a[2]) < 1e-4) continue;
+        const seg = segment(rg, `${r.id}_${i}`, [a[0], a[2], a[1]], [b[0], b[2], b[1]], rad * 2, pipeMat);
+        tagService(seg, sys, level, { routeId: r.id });
+      }
+      for (let i = 0; i < r.points.length; i++) {
+        const p = r.points[i];
+        const isEnd = i === r.points.length - 1;
+        const isStart = i === 0;
+        const accent = (isEnd && r.mark === 'outlet') || (isStart && r.level === 'site');
+        const joint = mesh(rg, `${r.id}_j${i}`, jointSphere, accent ? m.serviceAccent : pipeMat);
+        joint.position.copy(xyz(p[0], p[2], p[1]));
+        joint.scale.setScalar(rad * (accent ? 1.55 : 1.15));
+        tagService(joint, sys, level, { routeId: r.id });
+      }
+    }
+  }
+  if (opts.services?.stations?.length) {
+    for (const st of opts.services.stations) {
+      const sys = st.system;
+      const parent = layers[sys];
+      if (!parent || !Array.isArray(st.point)) continue;
+      const level = st.level || 'eg';
+      const [su, sv, sz] = st.point;
+      const sg = tagService(group(`Station_${st.id}`, parent), sys, level, { stationId: st.id });
+      const mat = sys === 'water' ? m.waterBox : m.powerBox;
+      const du = sys === 'water' ? 0.14 : 0.15;
+      const dv = sys === 'water' ? 0.22 : 0.22;
+      const dz = sys === 'water' ? 0.24 : 0.56;
+      const u0 = Math.max(outer + 0.005, su - du / 2);
+      const u1 = u0 + du;
+      tagService(
+        box(sg, `${st.id} Gehäuse`, u0, sv - dv / 2, u1, sv + dv / 2, sz - dz / 2, sz + dz / 2, mat),
+        sys,
+        level,
+        { stationId: st.id }
+      );
+      tagService(
+        box(
+          sg,
+          `${st.id} Armatur`,
+          u1,
+          sv - dv * 0.34,
+          u1 + 0.018,
+          sv + dv * 0.34,
+          sz - dz * 0.34,
+          sz + dz * 0.34,
+          m.serviceAccent
+        ),
+        sys,
+        level,
+        { stationId: st.id }
+      );
+    }
+  }
+
+  let currentMode = 'full';
+  let currentServices = { water: false, power: false };
+
+  function applyServicesVisibility() {
+    for (const sys of ['water', 'power']) {
+      const layer = layers[sys];
+      const active = !!currentServices[sys];
+      layer.visible = active;
+      if (!active) continue;
+      layer.children.forEach((child) => {
+        const lvl = child.userData.level || 'eg';
+        child.visible = currentMode !== 'eg' || lvl === 'eg' || lvl === 'site';
+      });
+    }
+  }
+
   function mode(which) {
+    currentMode = which;
     layers.sockel.visible = true;
     layers.eg.visible = true;
     layers.og.visible = which !== 'eg';
@@ -722,12 +837,20 @@ export function createHouse3D(s, opts = {}) {
         (o) => (o.visible = !(which === 'cutaway' && o.userData.frontCut))
       )
     );
+    applyServicesVisibility();
   }
+
+  function setServices(next = {}) {
+    currentServices = { water: !!next.water, power: !!next.power };
+    applyServicesVisibility();
+  }
+
   mode('full');
   return {
     group: root,
     layers,
     setMode: mode,
+    setServices,
     setCutaway: (on) => mode(on ? 'cutaway' : 'full'),
     getBounds: () => new T.Box3().setFromObject(root),
     dispose() {
