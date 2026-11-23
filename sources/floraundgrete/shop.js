@@ -10,6 +10,19 @@ import { $, $$, esc, trapFocus, reduceMotion } from "./util.js";
 const CART_KEY = "fg-cart-v1";
 const EASE = "cubic-bezier(0.22, 0.61, 0.36, 1)";
 const EASE_IO = "cubic-bezier(0.65, 0, 0.35, 1)";
+// Gemeinsame Bewegungssprache (siehe style.css :root): linear()-Federn, wo der Browser sie kann
+const rootCss = getComputedStyle(document.documentElement);
+const tok = (n, fb) => {
+  const v = rootCss.getPropertyValue(n).trim();
+  try { document.createElement("i").animate(null, { easing: v }).cancel(); return v; } catch { return fb; }
+};
+const DRAPE = tok("--drape", "cubic-bezier(0.16, 1, 0.3, 1)");
+const SPRING = tok("--spring", "cubic-bezier(0.34, 1.4, 0.64, 1)");
+const FOLD = "cubic-bezier(0.32, 0.72, 0, 1)";
+const EXIT = "cubic-bezier(0.5, 0, 0.75, 0)";
+const EASE_OUT = "cubic-bezier(0.16, 1, 0.3, 1)";
+const T = { morph: 760, fold: 540, panel: 680, exit: 340, small: 520 };
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const grid = $("#wares");
 const wareEl = $("#ware");
@@ -25,6 +38,10 @@ let notice = "";
 let busy = false;
 let turnstileId = null;
 let vtNames = false; // Kartennamen nur während des Filterwechsels (sonst lägen Karten beim Öffnen über dem Schleier)
+let morph = null; // laufende View Transition Karte ⇄ Artikelansicht
+let dock = null; // Abbild des Warenkorb-Knopfs über dem Schleier, solange die Artikelansicht offen ist
+let dockT = 0;
+let settleT = 0; // Aufräumen nach dem Entfalten ohne View Transitions
 
 // ---------- Hilfen ----------
 const motion = () => !reduceMotion();
@@ -103,7 +120,11 @@ function hideOverlay(el, { instant = false } = {}) {
     if (el.hidden) return resolve();
     const done = () => {
       el.hidden = true;
-      el.classList.remove("is-closing", "is-instant");
+      el.classList.remove("is-closing", "is-instant", "is-morph", "is-late-rise", "is-folding", "is-handoff");
+      if (el === wareEl) {
+        dock?.remove(); dock = null; clearTimeout(dockT);
+        $$(".ware.is-lifted, .ware.is-lifting", grid).forEach((li) => li.classList.remove("is-lifted", "is-lifting"));
+      }
       openStack = openStack.filter((o) => o !== el);
       const top = openStack[openStack.length - 1];
       if (top) top.inert = false;
@@ -113,7 +134,7 @@ function hideOverlay(el, { instant = false } = {}) {
     el.classList.remove("is-open");
     if (instant || !motion()) return done();
     el.classList.add("is-closing");
-    setTimeout(done, 420);
+    setTimeout(done, el === cartEl ? 360 : 420);
   });
 }
 
@@ -194,17 +215,26 @@ function wareCard(p, i) {
 function setFilter(id) {
   if (id === filter) return;
   filter = id;
-  const apply = () => renderShop();
+  // Fokus und Ansage erst nach dem Neuaufbau: renderShop ersetzt die Filterknöpfe
+  const after = () => {
+    $(`#shop-filter [data-filter="${id}"]`)?.focus();
+    const n = grid.children.length;
+    announce(`${n} Artikel gezeigt`);
+  };
+  const apply = () => { renderShop(); after(); };
   if (canVT()) {
     vtNames = true;
     document.documentElement.classList.add("vt-filter");
     $$(".ware", grid).forEach((li) => { li.style.viewTransitionName = `ware-${li.dataset.id}`; });
-    const vt = document.startViewTransition(apply);
+    const h0 = grid.offsetHeight;
+    const vt = document.startViewTransition(() => {
+      apply();
+      // Der Abschnitt darunter gleitet mit, statt auf die neue Höhe zu springen
+      const h1 = grid.offsetHeight;
+      if (h0 !== h1) grid.animate({ height: [`${h0}px`, `${h1}px`] }, { duration: 620, easing: DRAPE });
+    });
     vt.finished.finally(() => { vtNames = false; document.documentElement.classList.remove("vt-filter"); $$(".ware", grid).forEach((li) => { li.style.viewTransitionName = ""; }); });
   } else apply();
-  $(`#shop-filter [data-filter="${id}"]`)?.focus();
-  const n = grid.children.length;
-  announce(`${n} ${n === 1 ? "Artikel" : "Artikel"} gezeigt`);
 }
 
 $("#shop-filter").addEventListener("click", (e) => { const b = e.target.closest("[data-filter]"); if (b) setFilter(b.dataset.filter); });
@@ -292,30 +322,46 @@ function wareInfo(p) {
     ${madeToOrder(p) && s.legalNote ? `<p class="ware-view__legal">${esc(s.legalNote)}</p>` : ""}`;
 }
 
-function fillWare(p) {
+function fillWare(p, { start = 0 } = {}) {
   current = p;
-  slide = 0;
   const imgs = p.images.length ? p.images : [];
-  $("#ware-slides").innerHTML = imgs.map((f, i) => `<li class="ware-view__slide${i === 0 ? " is-on" : ""}" aria-hidden="${i !== 0}">${pic(f, i === 0 ? p.name : `${p.name}, Foto ${i + 1}`, { eager: i === 0, sizes: "(max-width: 760px) 100vw, 55vw" })}</li>`).join("");
-  $("#ware-dots").innerHTML = imgs.length > 1 ? imgs.map((_, i) => `<button type="button" class="dot" data-slide="${i}" aria-label="Foto ${i + 1} von ${imgs.length}" aria-current="${i === 0}"></button>`).join("") : "";
+  slide = Math.min(start, Math.max(0, imgs.length - 1));
+  $("#ware-slides").innerHTML = imgs.map((f, i) => `<li class="ware-view__slide${i === slide ? " is-on" : ""}" aria-hidden="${i !== slide}">${pic(f, i === 0 ? p.name : `${p.name}, Foto ${i + 1}`, { eager: i === slide, sizes: "(max-width: 760px) 100vw, 55vw" })}</li>`).join("");
+  $("#ware-dots").innerHTML = imgs.length > 1 ? imgs.map((_, i) => `<button type="button" class="dot" data-slide="${i}" aria-label="Foto ${i + 1} von ${imgs.length}" aria-current="${i === slide}"></button>`).join("") : "";
   $("#ware-stage").classList.toggle("has-many", imgs.length > 1);
   $("#ware-info").innerHTML = wareInfo(p);
   $("#ware-info").scrollTop = 0;
   bindForm();
 }
 
-function goSlide(i) {
+/** Fotos wechseln wie eine Stoffbahn: das neue zieht sich aus der Richtung herein, das alte weicht zurück und dunkelt ab */
+function goSlide(i, dir = Math.sign(i - slide) || 1) {
+  if (morph) return; // nicht während Öffnen/Schließen (die Bühne ist gerade benannt)
   const slides = $$("#ware-slides > li");
-  if (!slides.length) return;
-  slide = (i + slides.length) % slides.length;
+  if (slides.length < 2) return;
+  const next = (i + slides.length) % slides.length;
+  if (next === slide) return;
+  slides.forEach((li) => { li.getAnimations({ subtree: true }).forEach((a) => a.finish()); li.classList.remove("is-leaving"); });
+  const from = slides[slide];
+  const to = slides[next];
+  slide = next;
   slides.forEach((li, n) => { li.classList.toggle("is-on", n === slide); li.setAttribute("aria-hidden", String(n !== slide)); });
   $$("#ware-dots .dot").forEach((d, n) => d.setAttribute("aria-current", String(n === slide)));
+  if (!motion()) return;
+  const D = 720;
+  from.classList.add("is-leaving");
+  to.animate({ clipPath: [dir > 0 ? "inset(0 0 0 100%)" : "inset(0 100% 0 0)", "inset(0 0 0 0)"] }, { duration: D, easing: DRAPE });
+  $("img", to)?.animate({ transform: [`translateX(${dir * 14}%) scale(1.06)`, "none"] }, { duration: D + 220, easing: EASE_OUT });
+  const leave = $("img", from)?.animate({ transform: ["none", `translateX(${-dir * 18}%)`], filter: ["sepia(.08) brightness(.96)", "sepia(.08) brightness(.5)"] }, { duration: D, easing: DRAPE });
+  const clear = () => from.classList.remove("is-leaving");
+  if (leave) leave.finished.then(clear, clear); else clear();
 }
 $("#ware-dots").addEventListener("click", (e) => { const d = e.target.closest("[data-slide]"); if (d) goSlide(+d.dataset.slide); });
 $("#ware-stage").addEventListener("click", (e) => {
   if (e.target.closest(".dot") || $$("#ware-slides > li").length < 2) return;
   const r = e.currentTarget.getBoundingClientRect();
-  goSlide(slide + (e.clientX - r.left < r.width / 3 ? -1 : 1));
+  const d = e.clientX - r.left < r.width / 3 ? -1 : 1;
+  goSlide(slide + d, d);
 });
 // Wischen auf dem Handy
 let touchX = null;
@@ -324,70 +370,209 @@ $("#ware-stage").addEventListener("touchend", (e) => {
   if (touchX === null) return;
   const dx = e.changedTouches[0].clientX - touchX;
   touchX = null;
-  if (Math.abs(dx) > 40) goSlide(slide + (dx < 0 ? 1 : -1));
+  if (Math.abs(dx) > 40) { const d = dx < 0 ? 1 : -1; goSlide(slide + d, d); }
 });
 wareEl.addEventListener("keydown", (e) => {
   if (e.target.matches("input, textarea")) return;
-  if (e.key === "ArrowRight") goSlide(slide + 1);
-  if (e.key === "ArrowLeft") goSlide(slide - 1);
+  if (e.key === "ArrowRight") goSlide(slide + 1, 1);
+  if (e.key === "ArrowLeft") goSlide(slide - 1, -1);
 });
 
+// Rechteck r (Viewport) als clip-path relativ zum Panel
+function insetFor(panel, r, rad = 6) {
+  const p = panel.getBoundingClientRect();
+  return `inset(${r.top - p.top}px ${p.right - r.right}px ${p.bottom - r.bottom}px ${r.left - p.left}px round ${rad}px)`;
+}
+const fullInset = (panel) => `inset(0px 0px 0px 0px round ${parseFloat(getComputedStyle(panel).borderTopLeftRadius) || 0}px)`;
+const panelEl = () => $(".ware-view__panel", wareEl);
+const veilEl = () => $(".ov__veil", wareEl);
+
+/**
+ * Karte → Artikelansicht: Der Fotorahmen der Karte wächst zur Bühne (View Transition), das Panel entfaltet sich
+ * im selben Takt aus genau diesem Rahmen (clip-path), der Schleier zieht mit. Ohne View Transitions entfaltet
+ * sich das Panel trotzdem aus der Karte.
+ */
 function openWare(id, { origin = null, push = true } = {}) {
   const p = productById(id);
   if (!p) return;
+  morph?.skipTransition();
+  clearTimeout(settleT);
+  wareEl.classList.remove("is-folding", "is-late-rise");
   lastFocus = document.activeElement;
   originCard = origin;
   if (push && location.hash !== `#artikel-${id}`) history.pushState({ ware: id }, "", `#artikel-${id}`);
-  const cardImg = origin && $(".ware__img", origin);
-  const reveal = () => {
-    fillWare(p);
-    showOverlay(wareEl, { instant: !!cardImg && canVT() });
-    const first = $("#ware-slides .ware-view__slide img");
-    if (first && cardImg && canVT()) first.style.viewTransitionName = "ware-photo";
-  };
-  if (cardImg && canVT()) {
-    // Das Kartenfoto gleitet in die große Ansicht
-    cardImg.style.viewTransitionName = "ware-photo";
-    const vt = document.startViewTransition(() => { cardImg.style.viewTransitionName = ""; reveal(); });
-    vt.finished.finally(() => { const f = $("#ware-slides img"); if (f) f.style.viewTransitionName = ""; focusTitle(); });
-  } else {
-    reveal();
-    focusTitle();
-  }
   document.title = `${p.name} · Cathrin Raasch Atelier`;
+  const li = origin?.closest(".ware");
+  const media = origin && $(".ware__media", origin);
+  const from = media?.getBoundingClientRect();
+  const onScreen = from && from.width > 0 && from.bottom > 0 && from.top < innerHeight;
+  // Galerie beim Bild beginnen, das man gerade sieht (Hover zeigt das zweite)
+  const alt = media && $(".ware__img--alt", media);
+  const start = alt && Number(getComputedStyle(alt).opacity) > 0.5 ? 1 : 0;
+
+  if (!onScreen || !motion()) {
+    fillWare(p, { start });
+    showOverlay(wareEl);
+    focusTitle();
+    return;
+  }
+  const html = document.documentElement;
+  const panel = panelEl();
+  const veil = veilEl();
+  const stage = $("#ware-stage");
+  const unfold = () => {
+    panel.animate({ clipPath: [insetFor(panel, from), fullInset(panel)] }, { duration: T.morph, easing: DRAPE });
+    veil.animate({ opacity: [0, 1] }, { duration: T.morph * 0.75, easing: EASE_OUT });
+    // Das Motiv setzt sich im wachsenden Rahmen
+    $("#ware-slides .is-on img")?.animate({ transform: ["scale(1.06)", "none"] }, { duration: 1100, easing: EASE_OUT });
+  };
+  const settle = () => {
+    wareEl.classList.remove("is-instant");
+    requestAnimationFrame(() => wareEl.classList.remove("is-morph"));
+  };
+
+  if (!canVT()) {
+    fillWare(p, { start });
+    showOverlay(wareEl, { instant: true });
+    wareEl.classList.add("is-morph", "is-late-rise");
+    panel.scrollTop = 0;
+    unfold();
+    focusTitle();
+    settleT = setTimeout(settle, T.morph);
+    return;
+  }
+
+  li?.classList.add("is-lifting"); // Etikett nicht mitwachsen lassen
+  media.style.viewTransitionName = "ware-photo";
+  html.classList.add("vt-ware", "vt-open");
+  const t = morph = document.startViewTransition(async () => {
+    media.style.viewTransitionName = "";
+    li?.classList.add("is-lifted"); // leerer Platz im Raster, solange das Stück „draußen“ ist
+    fillWare(p, { start });
+    showOverlay(wareEl, { instant: true });
+    wareEl.classList.add("is-morph", "is-late-rise");
+    panel.scrollTop = 0; // mobil scrollt das Panel
+    panel.style.clipPath = insetFor(panel, from);
+    veil.style.opacity = "0";
+    stage.style.viewTransitionName = "ware-photo";
+    await Promise.race([$("#ware-slides .is-on img")?.decode().catch(() => {}), wait(150)]);
+  });
+  const clearInline = () => { panel.style.clipPath = ""; veil.style.opacity = ""; };
+  // Bis ready wird nichts gemalt: Startwerte inline, ab dann dieselbe Uhr wie die Fotogruppe
+  t.ready.then(() => { clearInline(); unfold(); }, clearInline);
+  t.finished.finally(() => {
+    stage.style.viewTransitionName = "";
+    li?.classList.remove("is-lifting");
+    html.classList.remove("vt-open");
+    if (morph === t) { morph = null; html.classList.remove("vt-ware"); }
+    settle();
+    if (!wareEl.hidden) focusTitle();
+  });
 }
 function focusTitle() { $("#ware-title")?.focus({ preventScroll: true }); }
 
 const BASE_TITLE = document.title;
-async function closeWare({ fromHistory = false } = {}) {
-  if (wareEl.hidden) return;
+let closingWare = false;
+/**
+ * Artikelansicht → Karte: Das Panel faltet sich live in den Kartenrahmen zurück, das Foto fliegt mit.
+ * instant: Der Browser hat die Zurück-Geste schon selbst animiert, also ohne zweite Faltung schließen.
+ */
+async function closeWare({ fromHistory = false, instant = false } = {}) {
+  // Synchrone Sperre: popstate und hashchange kommen bei Zurück direkt hintereinander
+  if (wareEl.hidden || closingWare) return;
+  closingWare = true;
+  try {
+    await foldWare({ fromHistory, instant });
+  } finally {
+    closingWare = false;
+  }
+  // Kam während des Faltens ein Vor-Schritt, passt die Adresse wieder zur Ansicht
+  if (/^#artikel-/.test(location.hash)) fromHash();
+}
+async function foldWare({ fromHistory, instant }) {
+  morph?.skipTransition();
+  clearTimeout(settleT);
   if (!fromHistory && /^#artikel-/.test(location.hash)) history.replaceState(null, "", "#shop");
   document.title = BASE_TITLE;
   const id = current && current.id;
-  const card = id && $(`[data-ware="${CSS.escape(id)}"] .ware__img`, grid);
-  const stageImg = $("#ware-slides .is-on img");
-  const visible = card && card.getBoundingClientRect().bottom > 0 && card.getBoundingClientRect().top < innerHeight;
-  if (card && visible && stageImg && canVT() && !openStack.includes(cartEl)) {
-    stageImg.style.viewTransitionName = "ware-photo";
-    const vt = document.startViewTransition(async () => {
-      stageImg.style.viewTransitionName = "";
-      card.style.viewTransitionName = "ware-photo";
-      await hideOverlay(wareEl, { instant: true });
+  const li = id && $(`.ware[data-id="${CSS.escape(id)}"]`, grid);
+  const media = li && $(".ware__media", li);
+  const to = media?.getBoundingClientRect();
+  const vis = to && to.width > 0 && to.bottom > 0 && to.top < innerHeight;
+  const stage = $("#ware-stage");
+  const stageOn = stage.getBoundingClientRect().bottom > innerHeight * 0.25; // mobil weit gescrollt → normales Ausblenden
+  const html = document.documentElement;
+  if (instant) {
+    $$(".ware.is-lifted", grid).forEach((x) => x.classList.remove("is-lifted"));
+    await hideOverlay(wareEl, { instant: true });
+    [panelEl(), veilEl()].forEach((el) => el.getAnimations().forEach((a) => a.cancel()));
+  } else if (vis && stageOn && canVT() && !openStack.includes(cartEl)) {
+    const panel = panelEl();
+    const veil = veilEl();
+    wareEl.inert = true;
+    wareEl.classList.add("is-morph"); // Punkte schon vor dem Schnappschuss weg
+    stage.style.viewTransitionName = "ware-photo";
+    html.classList.add("vt-ware", "vt-close");
+    const t = morph = document.startViewTransition(() => {
+      stage.style.viewTransitionName = "";
+      media.style.viewTransitionName = "ware-photo";
+      li.classList.remove("is-lifted", "is-lifting");
+      if (!wareEl.hidden) wareEl.classList.add("is-folding"); // is-open bleibt, sonst spränge das Panel auf unsichtbar
     });
-    await vt.finished.catch(() => {});
-    card.style.viewTransitionName = "";
+    t.ready.then(() => {
+      panel.animate({ clipPath: [fullInset(panel), insetFor(panel, to)] }, { duration: T.fold, easing: FOLD, fill: "forwards" });
+      // zum Schluss liegt nur noch das Foto auf der Karte, kein dunkles Rechteck
+      panel.animate([{ opacity: 1 }, { opacity: 1, offset: 0.7 }, { opacity: 0 }], { duration: T.fold, easing: FOLD, fill: "forwards" });
+      veil.animate({ opacity: [1, 0] }, { duration: T.fold * 0.9, easing: "ease-in-out", fill: "forwards" });
+      $("#ware-info").animate({ opacity: [1, 0], transform: ["none", "translateY(6px)"] }, { duration: 150, easing: "ease-out", fill: "forwards" });
+      dock?.animate({ opacity: [1, 0] }, { duration: 160, fill: "forwards" });
+    }, () => {});
+    await t.finished.catch(() => {});
+    await hideOverlay(wareEl, { instant: true }); // erst verstecken …
+    [panel, veil, $("#ware-info")].forEach((el) => el.getAnimations().forEach((a) => a.cancel())); // … dann aufräumen
+    media.style.viewTransitionName = "";
+    html.classList.remove("vt-close");
+    if (morph === t) { morph = null; html.classList.remove("vt-ware"); }
   } else {
+    $$(".ware.is-lifted", grid).forEach((x) => x.classList.remove("is-lifted"));
+    // Läuft das Entfalten noch, den Schleier vom aktuellen Wert aus per CSS ausblenden statt weiter aufziehen zu lassen
+    const veil = veilEl(), panel = panelEl();
+    if (veil.getAnimations().length) veil.style.opacity = getComputedStyle(veil).opacity;
+    [veil, panel].forEach((el) => el.getAnimations().forEach((a) => a.cancel()));
+    wareEl.classList.remove("is-instant", "is-morph");
+    veil.offsetWidth;
+    veil.style.opacity = "";
     await hideOverlay(wareEl);
   }
   const back = (originCard && originCard.isConnected) ? originCard : (id && $(`[data-ware="${CSS.escape(id)}"]`, grid)) || lastFocus;
   if (back && back.isConnected && !openStack.length) back.focus({ preventScroll: true });
 }
 
-function fromHash() {
+/** „Zum Warenkorb“: Die Artikelansicht tritt zurück, während die Schublade einfährt – ein Schleier, eine Bewegung */
+async function wareToCart() {
+  if (wareEl.hidden) return openCart();
+  morph?.skipTransition();
+  if (/^#artikel-/.test(location.hash)) history.replaceState(null, "", "#shop");
+  document.title = BASE_TITLE;
+  const back = (originCard?.isConnected && originCard) || (current && $(`[data-ware="${CSS.escape(current.id)}"]`, grid)) || cartBtn;
+  $$(".ware.is-lifted", grid).forEach((x) => x.classList.remove("is-lifted"));
+  if (!motion()) { await hideOverlay(wareEl, { instant: true }); return openCart({ focusBack: back }); }
+  await openCart({ focusBack: back, onShow: () => { wareEl.classList.add("is-handoff"); cartEl.classList.add("is-handoff"); } });
+  const panel = panelEl();
+  await Promise.all([panel, dock].filter(Boolean).map((el) => el.animate(
+    [{ opacity: 1, transform: "none" }, { opacity: 0, transform: el === panel ? "translateX(-2.5%) scale(0.975)" : "translateY(-4px)" }],
+    { duration: 380, easing: EXIT, fill: "forwards" }).finished.catch(() => {})));
+  await hideOverlay(wareEl, { instant: true });
+  panel.getAnimations().forEach((a) => a.cancel());
+  cartEl.classList.remove("is-handoff");
+}
+
+function fromHash(e) {
+  if (closingWare) return; // closeWare gleicht die Adresse am Ende selbst ab
   const m = location.hash.match(/^#artikel-([\w-]+)$/);
   if (m && productById(m[1])) {
     if (wareEl.hidden || current?.id !== m[1]) openWare(m[1], { push: false });
-  } else if (!wareEl.hidden) closeWare({ fromHistory: true });
+  } else if (!wareEl.hidden) closeWare({ fromHistory: true, instant: !!e?.hasUAVisualTransition });
 }
 addEventListener("popstate", fromHash);
 addEventListener("hashchange", fromHash);
@@ -398,21 +583,24 @@ function bindForm() {
   if (!form) return;
   const max = Number(form.dataset.max) || 1;
   let qty = 1;
+  let sending = false; // Doppelklick / zweimal Enter legt nicht doppelt ab
   const qn = $(".qty__n", form);
+  const syncBtns = () => $$(".qty__b", form).forEach((b) => { b.disabled = (b.dataset.q === "-1" && qty <= 1) || (b.dataset.q === "1" && qty >= max); });
   const setQty = (n, dir) => {
     const next = Math.max(1, Math.min(max, n));
-    if (next === qty) { if (qn) wiggle(qn); return; }
+    if (next === qty) { wiggle($(".qty", form)); return; }
     qty = next;
     if (qn) rollNumber(qn, String(qty), dir);
-    $$(".qty__b", form).forEach((b) => { b.disabled = (b.dataset.q === "-1" && qty <= 1) || (b.dataset.q === "1" && qty >= max); });
+    syncBtns();
   };
   $$(".qty__b", form).forEach((b) => b.addEventListener("click", () => setQty(qty + Number(b.dataset.q), Number(b.dataset.q))));
-  setQty(1, 0);
+  syncBtns();
   $$("input", form).forEach((i) => i.addEventListener("input", () => clearErr(form, i.name)));
-  $("[data-go-cart]", form)?.addEventListener("click", async () => { await closeWare(); openCart(); });
+  $("[data-go-cart]", form)?.addEventListener("click", () => wareToCart());
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
+    if (sending) return;
     const p = current;
     const option = $("input[name=option]:checked", form)?.value || "";
     const note = ($("input[name=note]", form)?.value || "").trim();
@@ -429,20 +617,25 @@ function bindForm() {
       showErr(form, p.noteLabel ? "note" : "option", avail === already ? "Mehr davon habe ich gerade nicht – es liegt schon alles in deinem Warenkorb." : `Es sind nur noch ${avail} da, ${already} davon liegen schon in deinem Warenkorb.`);
       return;
     }
+    sending = true;
+    const before = count();
     if (existing) existing.qty = Math.min(MAX_QTY, existing.qty + qty);
     else cart.lines.push(line);
     saveCart();
     cartBtn.hidden = false;
-    flyToCart();
     const btn = $(".ware-form__add", form);
+    btn.setAttribute("aria-disabled", "true"); // nicht disabled: der Fokus soll bis zum Tausch auf dem Knopf bleiben
+    const landAt = flyToCart(before, count(), btn);
+    // Der Haken zeichnet sich genau dann, wenn das Muster in die Tasche fällt
+    btn.style.setProperty("--land", `${Math.max(0, landAt - 40)}ms`);
     btn.classList.add("is-added");
     announce(`${p.name} liegt im Warenkorb. ${count()} ${count() === 1 ? "Artikel" : "Artikel"} insgesamt.`);
     setTimeout(() => {
       const next = $(".ware-form__next", form);
-      if (!next || !form.isConnected) return;
+      if (!next || !form.isConnected || wareEl.hidden) return;
       const actions = $(".ware-form__actions", form);
-      swap(actions, next).then(() => $("[data-go-cart]", next).focus());
-    }, motion() ? 650 : 0);
+      swap(actions, next).then(() => { if (!wareEl.hidden) $("[data-go-cart]", next).focus({ preventScroll: true }); });
+    }, motion() ? landAt + 380 : 0);
   });
 }
 
@@ -468,49 +661,177 @@ async function swap(oldEl, newEl) {
   if (motion()) await newEl.animate([{ opacity: 0, transform: "translateY(10px)" }, { opacity: 1, transform: "none" }], { duration: 380, easing: EASE }).finished;
 }
 
+/** Ziffer rollt wie ein Zählwerk: die alte fällt weg, die neue federt herein (auch bei schnellem Klicken nie doppelt) */
 function rollNumber(box, value, dir = 1) {
-  const old = box.firstElementChild;
+  [...box.children].slice(0, -1).forEach((s) => s.remove());
+  const old = box.lastElementChild;
   const nu = document.createElement("span");
   nu.textContent = value;
   if (!motion() || !old || !dir) { box.replaceChildren(nu); return; }
+  old.getAnimations().forEach((a) => a.finish());
+  old.setAttribute("aria-hidden", "true");
   box.append(nu);
   const d = dir > 0 ? 1 : -1;
-  old.animate([{ transform: "translateY(0)", opacity: 1 }, { transform: `translateY(${-70 * d}%)`, opacity: 0 }], { duration: 260, easing: EASE, fill: "forwards" }).finished.then(() => old.remove());
-  nu.animate([{ transform: `translateY(${70 * d}%)`, opacity: 0 }, { transform: "translateY(0)", opacity: 1 }], { duration: 320, easing: EASE });
+  old.animate([{ transform: "none", opacity: 1 }, { transform: `translateY(${-65 * d}%)`, opacity: 0 }], { duration: 200, easing: EXIT, fill: "forwards" })
+    .finished.then(() => old.remove(), () => {});
+  nu.animate({ transform: [`translateY(${80 * d}%)`, "none"] }, { duration: T.small, easing: SPRING });
+  nu.animate({ opacity: [0, 1] }, { duration: 180, easing: "linear" });
 }
+/** Sanftes, gedämpftes Kopfschütteln (Grenze erreicht) */
 function wiggle(el) {
-  if (motion()) el.animate([{ transform: "translateX(0)" }, { transform: "translateX(-3px)" }, { transform: "translateX(3px)" }, { transform: "translateX(0)" }], { duration: 240, easing: "ease-in-out" });
+  if (motion() && el) el.animate({ transform: ["none", "translateX(-5px)", "translateX(4px)", "translateX(-2.5px)", "translateX(1px)", "none"] }, { duration: 420, easing: "cubic-bezier(0.3, 0.7, 0.4, 1)" });
 }
 
-/** Das Foto fliegt in einem weichen Bogen in den Warenkorb */
-function flyToCart() {
-  const src = $("#ware-slides .is-on img");
-  const target = cartBtn.getBoundingClientRect();
-  bump();
-  if (!src || !motion() || !target.width) return;
-  const r = src.getBoundingClientRect();
-  const size = Math.min(r.width, r.height, 220);
-  const ghost = src.cloneNode();
-  ghost.removeAttribute("style");
-  ghost.className = "fly";
-  Object.assign(ghost.style, { left: `${r.left + r.width / 2 - size / 2}px`, top: `${r.top + r.height / 2 - size / 2}px`, width: `${size}px`, height: `${size}px` });
-  document.body.append(ghost);
-  const dx = target.left + target.width / 2 - (r.left + r.width / 2);
-  const dy = target.top + target.height / 2 - (r.top + r.height / 2);
-  ghost.animate([
-    { transform: "translate(0, 0) scale(1)", opacity: 0.95, borderRadius: "10px" },
-    { transform: `translate(${dx * 0.55}px, ${dy * 0.55 - 70}px) scale(0.42) rotate(-6deg)`, opacity: 0.9, borderRadius: "40%", offset: 0.55 },
-    { transform: `translate(${dx}px, ${dy}px) scale(0.08) rotate(-10deg)`, opacity: 0.15, borderRadius: "50%" },
-  ], { duration: 820, easing: EASE_IO, fill: "forwards" }).finished.then(() => { ghost.remove(); bump(true); });
+// ---------- Warenkorb-Dock ----------
+// Der echte Knopf sitzt im Seitenkopf unter dem Schleier (und ist inert). Solange die Artikelansicht offen ist,
+// schwebt deshalb ein Abbild genau an seiner Stelle über dem Schleier und nimmt die Landung auf.
+// Bewusst ein <div> (inert, aria-hidden): kein zweites Fokusziel, keine doppelten IDs.
+function cartDock(n) {
+  clearTimeout(dockT);
+  if (dock?.isConnected) { dock.getAnimations({ subtree: true }).forEach((a) => a.cancel()); return dock; }
+  const r = cartBtn.getBoundingClientRect();
+  const d = document.createElement("div");
+  d.className = "head__cart cart-dock";
+  d.setAttribute("aria-hidden", "true");
+  d.dataset.openCartInfo = ""; // ein Klick aufs Abbild öffnet den Warenkorb wie der echte Knopf
+  d.innerHTML = `${$(".ico-bag", cartBtn).outerHTML}<span class="head__cart-label">Warenkorb</span><span class="head__count cart-dock__n"${n ? "" : " hidden"}><span>${n}</span></span><i class="cart-dock__ring"></i>`;
+  if (r.width) {
+    let left = r.left;
+    const top = Math.max(8, r.top);
+    // nie unter das Schließen-X der Ansicht
+    const x = $(".ov__x", wareEl).getBoundingClientRect();
+    if (left < x.right + 8 && left + r.width > x.left - 8 && top < x.bottom + 8 && top + r.height > x.top - 8) left = x.left - r.width - 12;
+    Object.assign(d.style, { left: `${left}px`, top: `${top}px`, width: `${r.width}px`, height: `${r.height}px` });
+  } else Object.assign(d.style, { right: "16px", top: "12px" });
+  wareEl.append(d);
+  return (dock = d);
+}
+function dockOut(after) {
+  clearTimeout(dockT);
+  dockT = setTimeout(() => {
+    const d = dock;
+    if (!d) return;
+    const done = () => { d.remove(); if (dock === d) dock = null; };
+    if (!motion()) return done();
+    d.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-4px) scale(0.97)" }], { duration: 320, easing: EXIT, fill: "forwards" }).finished.then(done, done);
+  }, after);
 }
 
-function bump(land = false) {
-  const c = $("#cart-count");
-  if (!motion() || cartBtn.hidden) return;
-  if (land) {
-    cartBtn.animate([{ transform: "scale(1)" }, { transform: "scale(1.08)" }, { transform: "scale(1)" }], { duration: 420, easing: EASE });
-    if (!c.hidden) c.animate([{ transform: "scale(1)" }, { transform: "scale(1.45)", offset: 0.35 }, { transform: "scale(1)" }], { duration: 520, easing: "cubic-bezier(0.34, 1.56, 0.64, 1)" });
+/** Landung: Tasche gibt nach, Zähler rollt von alt auf neu, ein Messingring breitet sich aus */
+function land(el, to) {
+  const n = $(".head__count", el);
+  if (el === dock) {
+    if (n.hidden) {
+      n.hidden = false;
+      if (motion()) n.animate([{ transform: "scale(0)" }, { transform: "none" }], { duration: T.small, easing: SPRING });
+    }
+    n.style.minWidth = String(to).length > 1 ? "28px" : "21px";
+    rollNumber(n, String(to), 1);
   }
+  if (!motion()) return;
+  $(".ico-bag", el).animate([
+    { transform: "none" },
+    { transform: "translateY(1.5px) scale(1.2, 0.8)", offset: 0.18 },
+    { transform: "translateY(-1px) scale(0.94, 1.07)", offset: 0.46 },
+    { transform: "none" },
+  ], { duration: 600, easing: "cubic-bezier(0.3, 0.7, 0.4, 1)" });
+  if (el !== dock) { n.animate([{ transform: "none" }, { transform: "scale(1.35)", offset: 0.3 }, { transform: "none" }], { duration: T.small, easing: EASE_OUT }); return; }
+  $(".cart-dock__ring", el).animate([{ opacity: 0.95, transform: "none" }, { opacity: 0, transform: "scale(1.14, 1.6)" }], { duration: 700, easing: EASE_OUT });
+  el.animate([{ boxShadow: "0 14px 34px -14px rgba(0,0,0,.85), 0 0 0 0 rgba(220,189,136,0)" }, { boxShadow: "0 14px 34px -14px rgba(0,0,0,.85), 0 0 26px 2px rgba(220,189,136,.32)", offset: 0.25 }, { boxShadow: "0 14px 34px -14px rgba(0,0,0,.85), 0 0 0 0 rgba(220,189,136,0)" }], { duration: 900, easing: "ease-out" });
+}
+
+/**
+ * Ein rundes Stoffmuster wird aus dem Foto gestanzt und fliegt in einem Bogen in die Tasche.
+ * Jede Achse hat ihre eigene Kurve (verschachtelte Ebenen): X gleichmäßig, Y steigt, überschießt und fällt von oben hinein.
+ * Gibt zurück, wann es landet (ms).
+ */
+function flyToCart(from, to, btn) {
+  const d = cartDock(from);
+  if (!motion()) { land(d, to); dockOut(1400); return 0; }
+  d.animate([{ opacity: 0, transform: "translateY(-6px) scale(0.94)" }, { opacity: 1, transform: "none" }], { duration: 340, easing: EASE_OUT, fill: "both" });
+  const bag = $(".ico-bag", d).getBoundingClientRect();
+  const tx = bag.left + bag.width / 2;
+  const ty = bag.top + bag.height / 2;
+
+  const img = $("#ware-slides .is-on img");
+  const r = img?.getBoundingClientRect();
+  const vTop = r ? Math.max(r.top, 0) : 0;
+  const vBot = r ? Math.min(r.bottom, innerHeight) : 0;
+  const fromBtn = !r || vBot - vTop < r.height * 0.4; // mobil: Panel zum Formular gescrollt, Foto kaum zu sehen
+  let cx, cy, D;
+  if (fromBtn) {
+    const b = btn.getBoundingClientRect();
+    D = 72; cx = b.left + b.width / 2; cy = b.top + b.height / 2;
+  } else {
+    const vh = vBot - vTop;
+    D = Math.round(Math.max(96, Math.min(180, 0.42 * Math.min(r.width, vh))));
+    cx = r.left + r.width / 2; cy = vTop + vh / 2;
+  }
+  const L = cx - D / 2;
+  const Tp = cy - D / 2;
+
+  const g = document.createElement("div");
+  g.className = "fly";
+  g.setAttribute("aria-hidden", "true");
+  Object.assign(g.style, { left: `${L}px`, top: `${Tp}px`, width: `${D}px`, height: `${D}px` });
+  g.innerHTML = `<div class="fly__y"><div class="fly__s"><div class="fly__img"></div><i class="fly__ring"></i></div></div>`;
+  const box = $(".fly__img", g);
+  if (img) {
+    const ghost = img.cloneNode();
+    ghost.removeAttribute("style");
+    ghost.removeAttribute("loading");
+    ghost.alt = "";
+    // Im Stanzmodus liegt das Foto deckungsgleich über dem Original, sonst füllt es den Kreis
+    if (!fromBtn) Object.assign(ghost.style, { position: "absolute", left: `${r.left - L}px`, top: `${r.top - Tp}px`, width: `${r.width}px`, height: `${r.height}px` });
+    box.append(ghost);
+  }
+  document.body.append(g);
+
+  const P = fromBtn ? 0 : 240; // Stanzen
+  const dx = tx - cx;
+  const dy = ty - cy;
+  const Tf = Math.round(Math.min(860, Math.max(600, 320 + Math.hypot(dx, dy) * 0.42)));
+  // Überhöhung, um von oben in die Tasche zu fallen – aber nie über den Bildschirmrand hinaus
+  const lift = Math.max(6, Math.min(46, Math.abs(dy) * 0.16 + 14, ty - 24));
+  const total = P + Tf;
+
+  if (fromBtn) {
+    box.style.clipPath = `inset(0 round ${D / 2}px)`;
+    $(".fly__ring", g).style.opacity = "1";
+  } else {
+    // 1) Stanzen: vom sichtbaren Foto zum runden Muster
+    const ins = `inset(${vTop - Tp}px ${L + D - r.right}px ${Tp + D - vBot}px ${r.left - L}px round 10px)`;
+    box.animate({ clipPath: [ins, `inset(0px 0px 0px 0px round ${D / 2}px)`] }, { duration: P, easing: EASE_IO, fill: "both" });
+    $(".fly__ring", g).animate({ opacity: [0, 1] }, { duration: 160, delay: P - 120, easing: "ease-out", fill: "both" });
+    // Ursache sichtbar: das Foto gibt kurz nach, wo das Muster herauskommt
+    img.animate({ filter: ["sepia(.08) brightness(.96)", "sepia(.08) brightness(.8)", "sepia(.08) brightness(.96)"] }, { duration: 760, easing: "ease-out" });
+  }
+  // 2) Bahn
+  g.animate({ transform: ["none", `translateX(${dx}px)`] }, { duration: Tf, delay: P, easing: "cubic-bezier(0.45, 0, 0.3, 1)", fill: "both" });
+  const fall = $(".fly__y", g).animate([
+    { transform: "none", easing: "cubic-bezier(0.2, 0.7, 0.4, 1)" },
+    { transform: `translateY(${dy - lift}px)`, offset: 0.72, easing: "cubic-bezier(0.5, 0, 0.8, 0.4)" },
+    { transform: `translateY(${dy}px)` },
+  ], { duration: Tf, delay: P, fill: "both" });
+  // 3) Größe: hebt sich ab, schrumpft im Flug, taucht in die Tasche
+  $(".fly__s", g).animate([
+    ...(fromBtn
+      ? [{ transform: "scale(0.3)", opacity: 0 }, { transform: "scale(1.06)", opacity: 1, offset: 0.18 }]
+      : [{ transform: "scale(1)", opacity: 1 }, { transform: "scale(1)", opacity: 1, offset: P / total }, { transform: "scale(1.08)", opacity: 1, offset: (P + 110) / total }]),
+    { transform: `scale(${30 / D}) rotate(-10deg)`, opacity: 1, offset: 0.9 },
+    { transform: `scale(${14 / D}) rotate(-12deg)`, opacity: 0 },
+  ], { duration: total, easing: EASE_IO, fill: "forwards" });
+
+  // Landung genau dann, wenn das Muster in die Tasche taucht (letzte gut 10 % des Flugs)
+  const landAt = Math.round(total * 0.88);
+  setTimeout(() => {
+    // Ansicht inzwischen zu? Dann landet es auf dem echten, jetzt sichtbaren Knopf
+    if (dock?.isConnected && !wareEl.hidden && !wareEl.classList.contains("is-handoff")) { land(dock, to); dockOut(1200); }
+    else if (!cartBtn.hidden) land(cartBtn, to);
+  }, landAt);
+  const finish = () => g.remove();
+  fall.finished.then(finish, finish);
+  return landAt;
 }
 
 function syncCount() {
@@ -524,13 +845,15 @@ function syncCount() {
 
 // ---------- Warenkorb ----------
 cartBtn.addEventListener("click", () => openCart());
-wareEl.addEventListener("click", (e) => { if (e.target.closest("[data-open-cart-info]")) { closeWare().then(() => openCart()); } });
+wareEl.addEventListener("click", (e) => { if (e.target.closest("[data-open-cart-info]")) wareToCart(); });
 
-function openCart({ at = "cart" } = {}) {
-  if (cartEl.hidden) lastFocus = document.activeElement;
+async function openCart({ at = "cart", focusBack = null, onShow = null } = {}) {
+  if (cartEl.hidden) lastFocus = focusBack || document.activeElement;
   step = at;
-  renderCart({ animate: false });
+  // Nie eine leere Schublade einfahren lassen: kurz (höchstens 160 ms) auf den Inhalt warten
+  await Promise.race([renderCart({ animate: false }), wait(160)]);
   showOverlay(cartEl);
+  onShow?.();
   // Inhalte steigen nur beim Öffnen gestaffelt auf, nicht bei jeder Mengenänderung
   cartEl.classList.add("is-entering");
   clearTimeout(openCart.t);
@@ -607,7 +930,7 @@ function cartHtml() {
     const avail = p ? availableOf(p) : 0;
     const max = Math.min(MAX_QTY, avail === null ? MAX_QTY : avail);
     const meta = [l.option, l.note && `„${l.note}“`].filter(Boolean).map(esc).join(" · ");
-    return `<li class="line${byIndex.has(i) ? " has-err" : ""}" data-line="${i}">
+    return `<li class="line${byIndex.has(i) ? " has-err" : ""}" data-line="${i}" style="--n:${Math.min(i, 4)}">
       <div class="line__img">${img ? pic(img, "", { sizes: "80px" }) : ""}</div>
       <div class="line__main">
         <p class="line__name">${esc(name)}</p>
@@ -622,7 +945,7 @@ function cartHtml() {
         </div>
         ${byIndex.has(i) ? `<p class="line__err" role="alert">${esc(byIndex.get(i))}</p>` : ""}
       </div>
-      <p class="line__price price">${p ? euro(p.price * l.qty) : ""}</p>
+      <p class="line__price price" data-v="${p ? p.price * l.qty : 0}" data-shown="${p ? p.price * l.qty : 0}">${p ? euro(p.price * l.qty) : ""}</p>
     </li>`;
   }).join("");
   const opts = deliveryOptions(settings);
@@ -632,11 +955,17 @@ function cartHtml() {
       ${opts.map((o) => `<label class="deliv__o"><input type="radio" name="delivery" value="${o}"${o === delivery ? " checked" : ""}>
         <span class="deliv__box"><span class="deliv__t">${o === "versand" ? "Versand" : "Abholung in Ramsen"}</span>
         <span class="deliv__s">${o === "versand" ? esc(`${settings.shipping.label}${settings.shipping.days ? `, ${settings.shipping.days}` : ""}`) : esc(settings.pickup.note)}</span></span>
-        <span class="deliv__p">${o === "versand" ? (res.shipping || delivery !== "versand" ? euro(settings.shipping.freeFrom && res.subtotal >= settings.shipping.freeFrom ? 0 : settings.shipping.flat) : "kostenlos") : "kostenlos"}</span></label>`).join("")}
+        <span class="deliv__p"${o === "versand" ? " data-ship-price" : ""}>${o === "versand" ? shipPriceText(settings, res.subtotal) : "kostenlos"}</span></label>`).join("")}
     </fieldset>` : "";
   return `${notice ? `<p class="cart__notice" role="status">${esc(notice)}</p>` : ""}
     ${top.length ? `<p class="cart__alert" role="alert">${esc(top[0])}</p>` : ""}
     <ul class="lines">${lines}</ul>${deliveryHtml}`;
+}
+
+/** Preis auf der Versand-Karte (kostenlos ab der Grenze) */
+function shipPriceText(settings, subtotal) {
+  const s = settings.shipping;
+  return !s.flat || (s.freeFrom && subtotal >= s.freeFrom) ? "kostenlos" : euro(s.flat);
 }
 
 function cartFootHtml(demo) {
@@ -696,15 +1025,20 @@ function doneHtml() {
   </div>`;
 }
 
+// Zeilen-Knöpfe einmal am Körper delegiert: Der Index wird beim Klick gelesen (nach dem Entfernen neu nummeriert)
+$("#cart-body").addEventListener("click", (e) => {
+  const li = e.target.closest("[data-line]");
+  if (!li) return;
+  const i = Number(li.dataset.line);
+  const q = e.target.closest("[data-lq]");
+  if (q && !q.disabled) changeQty(i, Number(q.dataset.lq), li);
+  else if (e.target.closest("[data-rm]")) removeLine(i, li);
+});
+
 function bindCart(demo) {
   const body = $("#cart-body");
   const foot = $("#cart-foot");
   $("[data-to-shop]", body)?.addEventListener("click", async () => { await closeCart(); $("#shop").scrollIntoView({ behavior: motion() ? "smooth" : "auto" }); });
-  $$("[data-line]", body).forEach((li) => {
-    const i = Number(li.dataset.line);
-    $$("[data-lq]", li).forEach((b) => b.addEventListener("click", () => changeQty(i, Number(b.dataset.lq), li)));
-    $("[data-rm]", li)?.addEventListener("click", () => removeLine(i, li));
-  });
   $$("input[name=delivery]", body).forEach((r) => r.addEventListener("change", () => { cart.delivery = r.value; saveCart(); refreshTotals(); }));
   $("[data-checkout]", foot)?.addEventListener("click", () => checkout(demo));
   $("[data-back]", body)?.addEventListener("click", () => { step = "cart"; renderCart({ dir: -1 }); });
@@ -723,53 +1057,95 @@ function changeQty(i, d, li) {
   saveCart();
   rollNumber($(".qty__n", li), String(next), d);
   $$("[data-lq]", li).forEach((b) => { b.disabled = (b.dataset.lq === "-1" && next <= 1) || (b.dataset.lq === "1" && next >= max); });
-  $(".line__price", li).textContent = p ? euro(p.price * next) : "";
+  const price = $(".line__price", li);
+  if (p) countTo(price, p.price * next); else price.textContent = "";
   refreshTotals();
 }
 
+// Zeilen nach dem Entfernen neu durchzählen (Index = Position in cart.lines)
+function renumber() { $$("#cart-body [data-line]").forEach((x, n) => { x.dataset.line = String(n); x.style.setProperty("--n", String(Math.min(n, 4))); }); }
+
+/** Zeile gleitet nach rechts hinaus, die anderen rücken weich nach – ohne Neuaufbau (Bilder blitzen nicht) */
 async function removeLine(i, li) {
+  if (li.dataset.gone || !cart.lines[i]) return;
+  li.dataset.gone = "1";
   const name = $(".line__name", li)?.textContent || "Artikel";
-  if (motion()) {
-    const h = li.offsetHeight;
-    li.style.overflow = "hidden";
-    await li.animate([
-      { opacity: 1, transform: "none", height: `${h}px` },
-      { opacity: 0, transform: "translateX(24px)", height: `${h}px`, offset: 0.45 },
-      { opacity: 0, transform: "translateX(24px)", height: "0px", paddingTop: "0px", paddingBottom: "0px", marginTop: "0px" },
-    ], { duration: 460, easing: EASE, fill: "forwards" }).finished;
-  }
   cart.lines.splice(i, 1);
   saveCart();
   announce(`${name} entfernt.`);
-  if (!cart.lines.length) { renderCart(); return; }
-  renderCart({ animate: false });
+  li.removeAttribute("data-line");
+  renumber();
+  const last = !cart.lines.length;
+  if (!last) refreshTotals(); // Summe zählt schon herunter, während die Zeile geht
+  if (motion()) {
+    const parts = [".line__img", ".line__main", ".line__price"].map((s) => $(s, li)).filter(Boolean);
+    await Promise.all(parts.map((el, k) => el.animate({ opacity: [1, 0], transform: ["none", "translateX(28px)"] }, { duration: 220, delay: k * 30, easing: EXIT, fill: "forwards" }).finished));
+    if (!last) {
+      const h = li.offsetHeight;
+      li.style.overflow = "hidden";
+      await li.animate([
+        { height: `${h}px`, paddingTop: getComputedStyle(li).paddingTop, paddingBottom: getComputedStyle(li).paddingBottom, borderBottomWidth: "1px" },
+        { height: "0px", paddingTop: "0px", paddingBottom: "0px", borderBottomWidth: "0px" },
+      ], { duration: 380, easing: DRAPE, fill: "forwards" }).finished;
+    }
+  }
+  if (last) {
+    // Der fokussierte Knopf verschwindet mit dem Neuaufbau, also Fokus bewusst im Dialog halten
+    await renderCart({ dir: 0 });
+    if (!cartEl.hidden) ($("[data-to-shop]", $("#cart-body")) || $("#cart-title")).focus({ preventScroll: true });
+    return;
+  }
+  li.remove();
   const next = $$("#cart-body [data-rm]")[Math.min(i, cart.lines.length - 1)];
   (next || $("#cart-title")).focus({ preventScroll: true });
 }
 
-/** Summen weich hoch- oder runterzählen */
-function refreshTotals() {
-  const { res, delivery } = priced();
-  const foot = $("#cart-foot");
-  const set = (key, cents, freeText) => {
-    const el = $(`[data-sum="${key}"]`, foot);
-    if (!el) return;
-    const from = Number(el.dataset.v ?? NaN);
-    el.dataset.v = cents;
-    if (freeText && !cents) { el.textContent = freeText; return; }
-    if (!motion() || !Number.isFinite(from) || from === cents) { el.textContent = euro(cents); return; }
-    const t0 = performance.now();
-    const tick = (t) => {
-      const k = Math.min(1, (t - t0) / 420);
-      const e = 1 - Math.pow(1 - k, 3);
-      el.textContent = euro(Math.round(from + (cents - from) * e));
-      if (k < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
+/** Betrag weich hoch- oder runterzählen; startet beim gerade angezeigten Wert (kein Flackern bei schnellem Klicken) */
+function countTo(el, cents) {
+  cancelAnimationFrame(el._raf);
+  const from = Number(el.dataset.shown ?? el.dataset.v ?? NaN);
+  el.dataset.v = cents;
+  const show = (v) => { el.dataset.shown = v; el.textContent = euro(v); };
+  if (!motion() || !Number.isFinite(from) || from === cents) { show(cents); return; }
+  const t0 = performance.now();
+  const tick = (t) => {
+    const k = Math.min(1, (t - t0) / 460);
+    const e = 1 - Math.pow(1 - k, 4);
+    show(Math.round(from + (cents - from) * e));
+    if (k < 1) el._raf = requestAnimationFrame(tick);
   };
-  set("sub", res.subtotal);
-  set("ship", res.shipping, "kostenlos");
-  set("total", res.total);
+  el._raf = requestAnimationFrame(tick);
+}
+
+/** Summen nachziehen; die Gesamtsumme glimmt kurz in Messing */
+function refreshTotals() {
+  const { res, delivery, settings } = priced();
+  const foot = $("#cart-foot");
+  const sub = $('[data-sum="sub"]', foot);
+  const ship = $('[data-sum="ship"]', foot);
+  const tot = $('[data-sum="total"]', foot);
+  if (sub) countTo(sub, res.subtotal);
+  if (ship) {
+    const wasFree = ship.textContent === "kostenlos";
+    if (!res.shipping) {
+      cancelAnimationFrame(ship._raf);
+      ship.dataset.v = 0; ship.dataset.shown = 0; ship.textContent = "kostenlos";
+      if (!wasFree && motion()) ship.animate([{ opacity: 0, transform: "translateY(6px)", color: "#dcbd88" }, { opacity: 1, transform: "none", color: "#dcbd88", offset: 0.5 }, { color: "" }], { duration: 900, easing: EASE_OUT });
+    } else {
+      if (wasFree) ship.dataset.shown = 0;
+      countTo(ship, res.shipping);
+    }
+  }
+  if (tot) {
+    const changed = Number(tot.dataset.v) !== res.total;
+    countTo(tot, res.total);
+    if (changed && motion()) {
+      tot._glow?.cancel();
+      tot._glow = tot.animate([{ transform: "none" }, { transform: "scale(1.045)", color: "#dcbd88", offset: 0.3 }, { transform: "none" }], { duration: 640, easing: EASE_OUT });
+    }
+  }
+  const sp = $("#cart-body [data-ship-price]");
+  if (sp) sp.textContent = shipPriceText(settings, res.subtotal);
   const label = $(".sum div:nth-child(2) dt", foot);
   if (label) label.textContent = delivery === "abholung" ? "Abholung" : "Versand";
   const go = $("[data-checkout]", foot);
