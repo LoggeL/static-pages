@@ -1,0 +1,369 @@
+{
+  "id": "10-fue4-digital-datenschutz-kalkulation",
+  "number": 10,
+  "moduleCode": "S-FÜ-4",
+  "moduleArea": "fue",
+  "title": "Digitale Werkzeuge, Datenschutz, Urheberrecht & Kalkulation",
+  "subtitle": "IT-Systeme, Standardsoftware, Persönlichkeitsrechte und Kostenrechnung für Feste/Ausflüge",
+  "year": "1. Jahr",
+  "estimatedMinutes": 20,
+  "hoursRef": "80 Std. (Teil 1/2)",
+  "pdfPages": "S. 19",
+  "crossCuttingTags": [
+    "Digitale Welt",
+    "Prävention"
+  ],
+  "summary": "Diese Einheit vermittelt angehenden Erzieher:innen fundierte Kompetenzen im Umgang mit digitalen Werkzeugen, rechtlichen Rahmenbedingungen (DSGVO, KUG, UrhG) sowie der mathematischen Kostenkalkulation für Ausflüge und Feste. Sie verbindet technisches Know-how mit professionellem Datenschutz und ökonomischem Handeln im Berufsalltag.",
+  "learningGoals": [
+    "Ich kann digitale Endgeräte und Standardsoftware (Textverarbeitung, Tabellenkalkulation) zielgerichtet für pädagogische Dokumentationen und Elternkommunikation nutzen.",
+    "Ich kann Urheberrechte (UrhG) sowie Persönlichkeitsrechte und das Recht am eigenen Bild (KUG) bei der Erstellung digitaler Medien in der Praxis beachten.",
+    "Ich kann personenbezogene Daten von Kindern und Familien gemäß den Vorgaben der DSGVO vor Verlust und unbefugtem Zugriff schützen.",
+    "Ich kann Ausflüge und Feste in der Einrichtung mathematisch präzise kalkulieren (Kosten pro Kopf, Fix- und variable Kosten).",
+    "Ich kann digitale Lern- und Arbeitsergebnisse (Grafiken, Dokumente) reflektiert erstellen und präsentieren."
+  ],
+  "sections": [
+    {
+      "body": "Digitale Endgeräte (Tablets, Laptops) und Standardsoftware (Textverarbeitung, Tabellenkalkulation, Präsentationen) sind unverzichtbare Werkzeuge im modernen sozialpädagogischen Alltag. Sie unterstützen die professionelle Dokumentation von Entwicklungsprozessen, die effiziente Elternkommunikation und die kreative Gestaltung von Lernangeboten mit Kindern. Angehende Erzieher:innen müssen diese Medien sicher bedienen und reflektiert in pädagogische Prozesse einbinden.",
+      "bulletPoints": [
+        "Sicherer Umgang mit Hardware und Betriebssystemen",
+        "Erstellung professioneller Dokumente und Tabellen",
+        "Einsatz digitaler Medien zur Entwicklungsbeobachtung"
+      ],
+      "heading": "Digitale Werkzeuge und Standardsoftware in der Kita",
+      "keyTakeaway": "Digitale Medien sind Werkzeuge der professionellen Gestaltung und Dokumentation im pädagogischen Alltag.",
+      "praxisTip": "Nutzen Sie Tablets gezielt als Dokumentationswerkzeug auf Augenhöhe der Kinder (z. B. gemeinsames Erstellen eines digitalen Bilderbuchs)."
+    },
+    {
+      "body": "Bei der Arbeit mit digitalen Medien greifen strenge rechtliche Rahmenbedingungen. Das Kunsturhebergesetz (KUG) schützt das Recht am eigenen Bild (§ 22 KUG), weshalb Foto- und Videoaufnahmen von Kindern stets die vorherige schriftliche Einwilligung der Sorgeberechtigten erfordern. Gleichzeitig schützt das Urheberrecht (UrhG) geistige Schöpfungen, weshalb fremde Inhalte nicht ungefragt kopiert werden dürfen. Die Datenschutz-Grundverordnung (DSGVO) verpflichtet Träger und Fachkräfte zum sorgsamen Umgang mit personenbezogenen Daten.",
+      "bulletPoints": [
+        "Recht am eigenen Bild nach § 22 KUG (Einwilligungspflicht)",
+        "Urheberrecht bei Texten, Bildern und Musik (UrhG)",
+        "Datenschutz und Datensicherheit nach DSGVO",
+        "Schutz vor Datenmissbrauch und unbefugtem Zugriff"
+      ],
+      "heading": "Rechtliche Grundlagen: Datenschutz, Urheberrecht & Persönlichkeitsrechte",
+      "keyTakeaway": "Der Einsatz digitaler Medien erfordert die strikte Einhaltung von Datenschutz, Urheberrecht und Persönlichkeitsrechten.",
+      "praxisTip": "Holen Sie vor jeder öffentlichkeitswirksamen Aktion (z. B. Website, Aushang) schriftliche Einverständniserklärungen aller Eltern ein und lagern Sie diese dokumentiert ab."
+    },
+    {
+      "body": "Berufstypische Aufgaben in der Sozialpädagogik – wie die Planung von Ausflügen, Sommerfesten oder Materialkäufen – erfordern mathematische Grundkompetenzen. Eine exakte Kostenkalkulation unterscheidet zwischen Fixkosten (z. B. Busmiete) und variablen Kosten (z. B. Eintritte, Verpflegung pro Person). Durch strukturierte Tabellenkalkulationen werden Ausgaben transparent budgetiert und für den Träger sowie Eltern nachvollziehbar abgerechnet.",
+      "bulletPoints": [
+        "Mathematische Erfassung beruflicher Alltagssituationen",
+        "Kalkulation von Fixkosten und variablen Kosten",
+        "Erstellung transparenter Budgets mit Tabellenkalkulationssoftware",
+        "Wirtschaftliche und gerechte Verteilung von Ausflugskosten"
+      ],
+      "heading": "Mathematische Kostenkalkulation für Ausflüge und Feste",
+      "keyTakeaway": "Transparente Kostenkalkulation verbindet mathematische Grundlagen mit ökonomischer Verantwortung im Team.",
+      "praxisTip": "Erstellen Sie für größere Feste eine standardisierte Excel-Vorlage mit automatischen Formeln für Fix- und variable Kosten."
+    }
+  ],
+  "visualBlocks": [
+    {
+      "centerLabel": "",
+      "id": "vb-1",
+      "isCycle": false,
+      "items": [
+        {
+          "badge": "Baustein 1",
+          "detail": "Bedienung von Hardware, Betriebssystemen und mobilen Endgeräten wie Tablets und Laptops im pädagogischen Alltag.",
+          "example": "Einsatz eines Tablets zur Dokumentation von Bauwerken im Elementarbereich.",
+          "id": "item-1",
+          "label": "Digitale Endgeräte",
+          "metric": "Hardware",
+          "summary": "Sicherer Umgang mit digitaler Hardware."
+        },
+        {
+          "badge": "Baustein 2",
+          "detail": "Erstellung von Elternbriefen, Berichten und professionellen Textdokumenten mit gängiger Bürosoftware.",
+          "example": "Verfassen eines standardisierten Übergabeprotokolls.",
+          "id": "item-2",
+          "label": "Textverarbeitung",
+          "metric": "Software",
+          "summary": "Professionelle Dokumentenerstellung."
+        },
+        {
+          "badge": "Baustein 3",
+          "detail": "Einsatz von Tabellenkalkulationen für Dienstpläne, Materiallisten und Budgetberechnungen von Festen.",
+          "example": "Kalkulation der Buskosten für den Sommerausflug.",
+          "id": "item-3",
+          "label": "Tabellenkalkulation",
+          "metric": "Finanzen",
+          "summary": "Strukturierte Daten- und Budgetverwaltung."
+        },
+        {
+          "badge": "Baustein 4",
+          "detail": "Erstellung von kreativen Lernpostern, Flyern und fotobasierten Dokumentationen unter Beachtung ästhetischer und technischer Standards.",
+          "example": "Design eines Flyers für den Tag der offenen Tür.",
+          "id": "item-4",
+          "label": "Grafik & Gestaltung",
+          "metric": "Medien",
+          "summary": "Visuelle Aufbereitung pädagogischer Inhalte."
+        }
+      ],
+      "kind": "feature_grid",
+      "leftPole": "",
+      "rightPole": "",
+      "subtitle": "Zentrale Säulen digitaler Medienkompetenz in der sozialpädagogischen Ausbildung",
+      "title": "Digitale Werkzeuge im Berufsfeld"
+    },
+    {
+      "centerLabel": "",
+      "id": "vb-2",
+      "isCycle": true,
+      "items": [
+        {
+          "badge": "Schritt 1",
+          "detail": "Ermittlung und schriftliche Fixierung des Bedarfs sowie Einholen rechtlicher Einwilligungen vor Beginn der Planung.",
+          "example": "Erfassung der Teilnehmendenzahl für den Zoobesuch.",
+          "id": "p-1",
+          "label": "Bedarfsanalyse & Recht",
+          "metric": "Phase 1",
+          "summary": "Erfassung von Rahmenbedingungen und rechtlichen Grundlagen."
+        },
+        {
+          "badge": "Schritt 2",
+          "detail": "Kalkulation aller festen (Fixkosten) und verbrauchsabhängigen (variable Kosten) Ausgaben in einer Tabellenkalkulation.",
+          "example": "Berechnung von Busmiete plus Eintritt pro Kind.",
+          "id": "p-2",
+          "label": "Kostenkalkulation",
+          "metric": "Phase 2",
+          "summary": "Mathematische Erfassung und Budgetierung."
+        },
+        {
+          "badge": "Schritt 3",
+          "detail": "Sichere und DSGVO-konforme Ablage aller digitalen Dokumente, Teilnehmerlisten und Einverständniserklärungen.",
+          "example": "Ablage auf passwortgeschütztem Server mit Zugriffsbeschränkung.",
+          "id": "p-3",
+          "label": "Datensicherung & DSGVO",
+          "metric": "Phase 3",
+          "summary": "Schutz vor Datenverlust und Missbrauch."
+        },
+        {
+          "badge": "Schritt 4",
+          "detail": "Reflexion des Projekts, Abrechnung mit dem Träger und Evaluation des digitalen Medieneinsatzes.",
+          "example": "Kassensturz und Feedbackrunde im Team.",
+          "id": "p-4",
+          "label": "Evaluation & Abrechnung",
+          "metric": "Phase 4",
+          "summary": "Rückblick und Qualitätsentwicklung."
+        }
+      ],
+      "kind": "process_flow",
+      "leftPole": "",
+      "rightPole": "",
+      "subtitle": "Iterativer Ablauf von der Planung bis zur Abrechnung von Ausflügen und Festen",
+      "title": "Prozesskette: Planung & Kalkulation"
+    },
+    {
+      "centerLabel": "",
+      "id": "vb-3",
+      "isCycle": false,
+      "items": [
+        {
+          "badge": "Ansatz A",
+          "detail": "Fotos und personenbezogene Daten werden ungefragt und öffentlich in sozialen Netzwerken geteilt, um Eltern schnell zu informieren.",
+          "example": "Hochladen von ungepixelten Kinderfotos auf Instagram ohne Einwilligung.",
+          "id": "c-1",
+          "label": "Unreflektierte Veröffentlichung",
+          "metric": "Rechtlich unzulässig",
+          "summary": "Verstoß gegen KUG und DSGVO mit hohem Risiko."
+        },
+        {
+          "badge": "Ansatz B",
+          "detail": "Vollständiger Verzicht auf digitale Medien und Tabellenkalkulationen; ausschließliche Nutzung handschriftlicher Zettelwirtschaft.",
+          "example": "Führung aller Kassenbücher und Elternlisten auf Papier.",
+          "id": "c-2",
+          "label": "Digitalisierungsverweigerung",
+          "metric": "Ineffizient",
+          "summary": "Widerspruch zu aktuellen Lehrplananforderungen und beruflicher Realität."
+        },
+        {
+          "badge": "Ansatz C",
+          "detail": "Gezielter Einsatz digitaler Werkzeuge bei strikter Beachtung von Datenschutz, Urheberrecht und präziser mathematischer Budgetierung.",
+          "example": "Passwortgeschützte Excel-Kalkulation und schriftliche Einwilligung der Eltern.",
+          "id": "c-3",
+          "label": "Reflektierte Medien- & Finanzkompetenz",
+          "metric": "Professioneller Standard",
+          "summary": "Ausgewogene, rechtssichere und ökonomische Praxis (Professionelle Balance)."
+        }
+      ],
+      "kind": "comparison",
+      "leftPole": "Unreflektierte Praxis",
+      "rightPole": "Digitaler Wildwuchs",
+      "subtitle": "Gegenüberstellung von Risiken und professionellem Handeln im Medien- und Finanzbereich",
+      "title": "Medienhandeln im Spannungsfeld"
+    }
+  ],
+  "caseStudy": {
+    "ageGroup": "Kindertagesstätte (3-6 Jahre)",
+    "context": "Einrichtung plant ein Sommerfest mit Fotograf und Ausflug zum Tierpark, wobei Elternfotos und Kostenkalkulation anfallen.",
+    "setting": "Städtische Kindertagesstätte mit 75 Kindern",
+    "steps": [
+      {
+        "options": [
+          {
+            "feedback": "Optimal: Vorab wird eine schriftliche, informierte Einwilligung nach DSGVO eingeholt, Urheberrechte von Fremdmaterial werden geprüft und eine transparente, centgenaue Kostenkalkulation für das Sommerfest erstellt.",
+            "label": "Datenschutzkonforme und transparente Planung mit Elternbeteiligung",
+            "quality": "optimal",
+            "theoryLink": "Art. 6 DSGVO, § 22 KUG, RLP-Lehrplan S-FÜ-4"
+          },
+          {
+            "feedback": "Problematisch: Fotos von Kindern werden ungefragt in sozialen Medien geteilt und die Budgetkalkulation weist ein großes Minus auf, da Kosten nicht korrekt berechnet wurden.",
+            "label": "Ungefragtes Posten von Fotos und fehlerhafte Kostenkalkulation",
+            "quality": "problematisch",
+            "theoryLink": "Verstoß gegen § 22 KUG und DSGVO"
+          },
+          {
+            "feedback": "Teilweise: Ein Aushang informiert über das Fest, aber einige Eltern haben keine Einverständniserklärung unterschrieben, und die Kalkulation enthält unvollständige Posten.",
+            "label": "Unvollständige Einwilligung und pauschale Kostenschätzung",
+            "quality": "teilweise",
+            "theoryLink": "Unzureichende Umsetzung der Informationspflichten"
+          }
+        ],
+        "prompt": "Wie gehen Sie bei der Organisation des Sommerfests in Bezug auf Datenschutz und Budget vor?",
+        "situation": "Organisation des Sommerfestes und Ausflugs mit Fotoaufnahmen und Budgetplanung."
+      },
+      {
+        "options": [
+          {
+            "feedback": "Optimal: Die digitalen Excel-Tabellen werden passwortgeschützt auf lokalen Servern gespeichert, und nicht einwilligende Kinder werden bei Fotos konsequent ausgespart.",
+            "label": "Sichere digitale Speicherung und konsequenter Schutz der Bildrechte",
+            "quality": "optimal",
+            "theoryLink": "Art. 32 DSGVO (Datensicherheit)"
+          },
+          {
+            "feedback": "Teilweise: Dateien werden auf einem unverschlüsselten Privatrechner abgelegt und die Eltern im Nachhinein informiert.",
+            "label": "Speicherung auf Privat-PC ohne Verschlüsselung",
+            "quality": "teilweise",
+            "theoryLink": "Mangelhafter technischer Schutz sensibler Daten"
+          },
+          {
+            "feedback": "Problematisch: Excel-Listen mit Namen und Beiträgen sowie sämtliche Fotos landen ungeschützt in einer öffentlich zugänglichen Cloud.",
+            "label": "Öffentliche Cloud-Speicherung ohne Zugriffsschutz",
+            "quality": "problematisch",
+            "theoryLink": "Schwerer Datenschutzverstoß (Data Breach)"
+          }
+        ],
+        "prompt": "Wie sichern Sie die erstellten digitalen Dokumente und Fotos gegen Missbrauch und Verlust?",
+        "situation": "Dokumenten- und Datenmanagement nach dem Sommerfest."
+      }
+    ],
+    "title": "Das Sommerfest und Ausflug planen: Recht, Technik und Finanzen"
+  },
+  "selfLearningTasks": [
+    "Entwickeln Sie in einer Kleingruppe eine digitale Checkliste für einen Kita-Ausflug in Excel, die alle Fix- und variablen Kosten automatisch berechnet.",
+    "Prüfen Sie die Datenschutz- und Einwilligungserklärungen Ihrer Praxiseinrichtung auf Übereinstimmung mit den aktuellen DSGVO-Vorgaben und schlagen Sie ggf. Optimierungen vor.",
+    "Erstellen Sie ein kurzes digitales Lernposter zu den Grundregeln des Urheberrechts für das Praxisteam."
+  ],
+  "flashcards": [
+    {
+      "definition": "Recht am eigenen Bild, wonach Bildnisse nur mit Einwilligung des Abgebildeten verbreitet oder öffentlich zur Schau gestellt werden dürfen.",
+      "example": "Einholen einer schriftlichen Erlaubnis vor dem Veröffentlichen von Kita-Fotos im Elternportal.",
+      "term": "KUG (§ 22)"
+    },
+    {
+      "definition": "Verordnung (EU) 2016/679 zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten.",
+      "example": "Speicherung von Kindernamen und Entwicklungsberichten nur in passwortgeschützten, lokalen Systemen.",
+      "term": "DSGVO"
+    },
+    {
+      "definition": "Zusammensetzung aller anfallenden Kosten (Fix- und variable Kosten) geteilt durch die Anzahl der Teilnehmenden zur Ermittlung des Einzelpreises.",
+      "example": "Kalkulation des Buspreises und Eintritts für einen Ausflug in den Zoo.",
+      "term": "Kostenkalkulation"
+    },
+    {
+      "definition": "Gesetzlicher Schutz von geistigem Eigentum an Sprach-, Bild- und Tonwerken.",
+      "example": "Verwendung lizenzfreier Grafiken oder Zitation bei der Erstellung von Elternbriefen.",
+      "term": "Urheberrecht"
+    },
+    {
+      "definition": "Regelmäßige Erstellung von Sicherheitskopien digitaler Daten auf externen, verschlüsselten Speichermedien zum Schutz vor Datenverlust.",
+      "example": "Wöchentliches Backup der Kita-Verwaltungsdaten auf einer externen Festplatte.",
+      "term": "Datensicherung (Backup)"
+    }
+  ],
+  "quiz": [
+    {
+      "correctIndices": [
+        1
+      ],
+      "difficulty": "basis",
+      "explanation": "Nach § 22 KunstUrhG (KUG) dürfen Bildnisse von Personen grundsätzlich nur mit deren (bzw. der Erziehungsberechtigten) Einwilligung verbreitet oder zur Schau gestellt werden.",
+      "id": "quiz-1",
+      "options": [
+        "Fotos von Kindern in der Kita dürfen ohne Einwilligung online gestellt werden, solange keine Namen genannt werden.",
+        "Das Recht am eigenen Bild besagt, dass Fotos von Kindern grundsätzlich nur mit Einwilligung der Sorgeberechtigten veröffentlicht werden dürfen.",
+        "Das Urheberrecht schützt ausschließlich kommerzielle Fotos und gilt nicht für private Kita-Ausflüge.",
+        "Die DSGVO verbietet jegliche digitale Fotografie in Bildungseinrichtungen."
+      ],
+      "question": "Welcher Grundsatz gilt für das Fotografieren und Veröffentlichen von Bildern von Kindern in der sozialpädagogischen Praxis?",
+      "type": "single"
+    },
+    {
+      "correctIndices": [
+        0,
+        2
+      ],
+      "difficulty": "vertiefung",
+      "explanation": "Personenbezogene Daten (Art. 4 DSGVO) müssen durch geeignete technische und organisatorische Maßnahmen (TOM) geschützt werden (Art. 32 DSGVO). Öffentliche Clouds ohne Verschlüsselung und ungesicherte USB-Sticks verstoßen dagegen.",
+      "id": "quiz-2",
+      "options": [
+        "Technische und organisatorische Maßnahmen (TOM) müssen den unbefugten Zugriff auf digitale Kinderdaten verhindern.",
+        "Passwörter für Kita-Computer müssen alle zwei Tage gewechselt und im Gruppenraum ausgehängt werden.",
+        "Die Speicherung sensibler Daten erfordert eine Rechtsgrundlage oder eine Einwilligung nach DSGVO.",
+        "Datensicherung ist eine freiwillige Leistung ohne rechtliche Relevanz für Träger."
+      ],
+      "question": "Welche Aussagen zum Datenschutz (DSGVO) in der Kita sind fachlich korrekt? (Mehrfachauswahl)",
+      "type": "multi"
+    },
+    {
+      "correctIndices": [
+        2
+      ],
+      "difficulty": "pruefung",
+      "explanation": "Die Gesamtkosten (Fixkosten + variable Kosten pro Kind * Anzahl) müssen durch die Anzahl der Kinder geteilt werden. 100€ + (5€ * 20) = 200€ / 20 = 10€ pro Kind.",
+      "id": "quiz-3",
+      "options": [
+        "8,00 €",
+        "9,00 €",
+        "10,00 €",
+        "12,50 €"
+      ],
+      "question": "Für einen Wanderausflug fallen feste Buskosten von 100,00 € an sowie Eintrittskosten von 5,00 € pro Kind. Es nehmen 20 Kinder teil. Wie hoch sind die Gesamtkosten pro Kind bei einer exakten Kalkulation?",
+      "type": "case"
+    },
+    {
+      "correctIndices": [
+        1
+      ],
+      "difficulty": "basis",
+      "explanation": "Tabellenkalkulationsprogramme (wie Excel oder LibreOffice Calc) eignen sich optimal für mathematische Berechnungen, Budgetierungen und Kostenkalkulationen.",
+      "id": "quiz-4",
+      "options": [
+        "Ein Bildbearbeitungsprogramm wie Photoshop",
+        "Ein Tabellenkalkulationsprogramm wie Excel oder LibreOffice Calc",
+        "Ein reines Textverarbeitungsprogramm ohne Tabellenfunktion",
+        "Ein Videobearbeitungsprogramm"
+      ],
+      "question": "Mit welchem Standardsoftware-Tool lässt sich eine Kostenkalkulation für ein Sommerfest am effizientesten erstellen?",
+      "type": "single"
+    },
+    {
+      "correctIndices": [
+        1
+      ],
+      "difficulty": "vertiefung",
+      "explanation": "Das Urheberrecht schützt persönliche geistige Schöpfungen (wie Texte, Grafiken, Lieder) automatisch ab Entstehung, unabhängig von einer Registrierung.",
+      "id": "quiz-5",
+      "options": [
+        "Werke sind nur dann urheberrechtlich geschützt, wenn sie kostenpflichtig im Handel erworben wurden.",
+        "Das Urheberrecht schützt geistige Schöpfungen (z. B. selbst gestaltete Elternbriefe, Lieder, Grafiken) automatisch ab ihrer Entstehung.",
+        "Lehrkräfte und Erzieher:innen dürfen urheberrechtlich geschützte Bilder aus dem Internet für den Kita-Aushang beliebig vervielfältigen.",
+        "Das Urheberrecht erlischt in Bildungseinrichtungen grundsätzlich nach einem Jahr."
+      ],
+      "question": "Was versteht man im Kontext digitaler Medien im Wesentlichen unter dem Urheberrecht?",
+      "type": "single"
+    }
+  ]
+}

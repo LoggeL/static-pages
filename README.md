@@ -4,6 +4,8 @@ A growing collection of ambitious static web experiments and interface studies.
 
 ## Published pages
 
+- **[Sozialpädagogik RLP · Interaktive Lernplattform](https://loggel.github.io/static-pages/sozialpaedagogik-lernen/)**: a comprehensive German interactive learning platform covering the entire 60-page curriculum (*Lehrplan Fachschule Sozialwesen, Fachrichtung Sozialpädagogik*, RLP 09/2024) across 50 structured units, featuring 150 interactive SVG/React visualizations (concept maps, process flows, stage timelines, comparison matrices, pyramids, tension-field scales, dialogue simulators), 50 two-step branching practice case studies, 293 3D flashcards with searchable glossary, 292 quiz questions plus cross-module exam simulator (S-SP-2/3/4), interactive 2,400-hour *Stundentafel* explorer, and full `localStorage` progress persistence with JSON export/import. Editable source lives in `sources/sozialpaedagogik-lernen/`; static production bundle is published in `public/sozialpaedagogik-lernen/` and `docs/sozialpaedagogik-lernen/`.
+
 - **[Kindenheim 3D · Pfälzer Traktor-Welt](https://loggel.github.io/static-pages/kindenheim-3d/)**: an interactive 3D digital twin and playable tractor-driving game for Kindenheim (Rheinland-Pfalz, Germany), built from official 2026 LVermGeo RLP DGM1 LiDAR terrain, DOP20 orthophoto imagery, 5 handcrafted Blender 5.2 PBR landmarks (Evangelische Martinskirche, Rathaus, Weingut Kreutzenberger, Winzerhof &amp; Agri-Halle), 1,093 village buildings calibrated street-by-street across all 22 village streets (1,098 buildings total incl. 70 DOP20-verified infills, 290 smooth terrain-sloping stone walls/hedges/gates/cypresses &amp; drivable Kinderbach bridge), 69 aerial-matched GPU-instanced agricultural fields with breeze-sway animation (wheat, stubble, corn, sugar beets, sunflowers, meadows, wildflower strips, hedgerows, vineyard rose posts, straw stacks, Hochsitze &amp; Wegekreuze), Web Audio diesel engine, 6-checkpoint *Pfälzer Weinlese-Tour*, and a 78-shot Reality-vs.-3D benchmark suite with live perceptual diff heatmap. Editable source &amp; Blender scripts live in `sources/kindenheim-3d/`; static production bundle is published in `public/kindenheim-3d/` and `docs/kindenheim-3d/`.
 
 - **[VW Golf VII · 3D-Zahnriemen-Werkstatt](https://loggel.github.io/static-pages/golf7-zahnriemen-3d/)** is a playable timing-belt job for the EA288 in the blue Golf VII. Choose the guided workshop or the master exam, lift the car, set the timing marks and fit the belt using the tools in the cockpit. Source in `sources/golf7-zahnriemen-3d/`. Run `npm ci && npm run build` there, then `npm run build` at the repository root.
@@ -84,6 +86,7 @@ The editable source for the Creepshow rehearsal planner lives in
 ## Live site
 
 - Gallery: <https://loggel.github.io/static-pages/>
+- Sozialpädagogik RLP Interaktive Lernplattform: <https://loggel.github.io/static-pages/sozialpaedagogik-lernen/>
 - VW Golf VII 3D-Zahnriemen-Werkstatt: <https://loggel.github.io/static-pages/golf7-zahnriemen-3d/>
 - VW Golf VII 1.6 TDI 3D Keilriemenwechsel: <https://loggel.github.io/static-pages/golf7-keilriemen-3d/>
 - AQUALITH · Master of the Living Tide: <https://loggel.github.io/static-pages/aqualith/>

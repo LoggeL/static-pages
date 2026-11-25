@@ -1,0 +1,390 @@
+{
+  "id": "04-fue1-berufliche-kommunikation",
+  "number": 4,
+  "moduleCode": "S-FÜ-1",
+  "moduleArea": "fue",
+  "title": "Schriftliches & mündliches Sprachhandeln im Beruf",
+  "subtitle": "Berichte, Dokumentationen, Portfolios, Präsentationen & wissenschaftliches Arbeiten",
+  "year": "1. Jahr",
+  "estimatedMinutes": 20,
+  "hoursRef": "80 Std. (Teil 1/2)",
+  "pdfPages": "S. 16",
+  "crossCuttingTags": [
+    "Sprachbildung",
+    "Digitale Welt"
+  ],
+  "summary": "Einheit 4 vermittelt angehenden Erzieher:innen fundierte Kompetenzen im schriftlichen und mündlichen Sprachhandeln sowie in den Grundlagen wissenschaftlichen Arbeitens. Im Fokus stehen professionelle Dokumentationen, Entwicklungsberichte, Präsentationen und Portfolios als Werkzeuge der Bildungs- und Erziehungspartnerschaft nach dem RLP Rheinland-Pfalz.",
+  "learningGoals": [
+    "Ich kann fachliche Berichte und Dokumentationen adressatengerecht, sachlich und unter Beachtung rechtlicher Vorgaben (Datenschutz) verfassen.",
+    "Ich kann wissenschaftliche Standards (Quellenangaben, Objektivität, Zitierweise) bei schriftlichen Arbeiten anwenden.",
+    "Ich kann Präsentationen und Vorträge medien- und zielgruppengestützt frei und anschaulich vortragen.",
+    "Ich kann Sprache, Körper und Stimme in beruflichen Kommunikationssituationen (Elterngespräch, Teamberatung) kongruent und wirksam einsetzen.",
+    "Ich kann Portfolios zur reflexiven Dokumentation des eigenen professionellen Lernwegs nutzen."
+  ],
+  "sections": [
+    {
+      "body": "In sozialpädagogischen Berufen ist professionelles Sprachhandeln ein zentrales Werkzeug der Qualitätsentwicklung. Fachkräfte müssen schriftliche Berichte, Dokumentationen und Entwicklungsverläufe adressatengerecht, sachlich und rechtssicher (unter Beachtung des Datenschutzes) verfassen. Dabei gilt es, Alltagssprache von fachlicher Fachsprache zu trennen und Beobachtungen theoriegeleitet zu strukturieren.",
+      "bulletPoints": [
+        "Adressatengerechte Ausrichtung von Texten (Eltern, Träger, Jugendamt, Team).",
+        "Strikte Trennung von Beobachtung und Interpretation.",
+        "Rechtssicherheit und Einhaltung des Datenschutzes in der Dokumentation."
+      ],
+      "heading": "Schriftliches Sprachhandeln und Dokumentation in der Praxis",
+      "keyTakeaway": "Schriftliches Handeln im Berufsfeld erfordert methodische Klarheit, Objektivität und Datenschutzkonformität.",
+      "praxisTip": "Führen Sie Beobachtungstagebücher in der Einrichtung stets mit klarer Trennung von Fakten und Deutungen, um Entwicklungsberichte fundiert zu erstellen."
+    },
+    {
+      "body": "Mündliche Kommunikation in Teamsitzungen, Elterngesprächen oder bei Präsentationen verlangt einen kongruenten Einsatz von Sprache, Stimme und Körpersprache (gemäß Watzlawick und Schulz von Thun). Fachkräfte moderieren Gespräche zielgerichtet, setzen Argumentationsstrukturen fachlich fundiert ein und gestalten Vorträge unter Einbindung moderner Medien anschaulich und zielgruppenorientiert.",
+      "bulletPoints": [
+        "Kongruenter Einsatz von Verbalem, Paraverbalem und Nonverbalem.",
+        "Strukturierte Gesprächsführung und Moderationstechniken.",
+        "Medieneinsatz in Präsentationen und Vorträgen."
+      ],
+      "heading": "Mündliches Sprachhandeln, Präsentation und Gesprächsführung",
+      "keyTakeaway": "Mündliche Professionalität zeigt sich in stimmiger Körpersprache, aktivem Zuhören und adressatengerechter Moderation.",
+      "praxisTip": "Nutzen Sie vor Elterngesprächen einen strukturierten Leitfaden und achten Sie bewusst auf eine zugewandte, offene Körpersprache."
+    },
+    {
+      "body": "Wissenschaftliches Arbeiten in der Fachschule bildet das Fundament für eine forschende Grundhaltung (FHR-Lernbaustein 2 A). Angehende Erzieher:innen lernen, Literatur zu recherchieren, fremdes Gedankengut durch korrekte Quellenangaben (Zitierweise nach APA) kenntlich zu machen und Objektivität sowie Validität in pädagogischen Fragestellungen sicherzustellen. Portfolios dokumentieren diesen reflexiven Lernweg.",
+      "bulletPoints": [
+        "Grundlagen der Literaturrecherche und kritischen Textanalyse.",
+        "Korrekte Zitierweisen und Vermeidung von Plagiaten (APA-Standard).",
+        "Reflexion des eigenen professionellen Handelns durch Portfolios."
+      ],
+      "heading": "Wissenschaftliches Arbeiten und Portfolios (FHR-Lernbaustein)",
+      "keyTakeaway": "Wissenschaftliches Arbeiten sichert durch Objektivität und Quellentreue die Qualität pädagogischer Reflexion.",
+      "praxisTip": "Legen Sie für Facharbeiten frühzeitig eine strukturierte Quellensammlung (Zotero oder Literaturkartei) an."
+    }
+  ],
+  "visualBlocks": [
+    {
+      "centerLabel": "Berufliches Sprachhandeln",
+      "id": "vb-1",
+      "isCycle": false,
+      "items": [
+        {
+          "badge": "Baustein 1",
+          "detail": "Verfassen von Entwicklungsberichten, Portfolios und Förderplänen unter Beachtung von Datenschutz und Objektivität.",
+          "example": "Schriftlicher Entwicklungsbericht für das Jugendamt.",
+          "id": "item-1",
+          "label": "Freies & Fachliches Schreiben",
+          "metric": "Kernkompetenz",
+          "summary": "Adressatengerechte Textproduktion für unterschiedliche Berufsfelder."
+        },
+        {
+          "badge": "Baustein 2",
+          "detail": "Planung und Durchführung von Fachvorträgen, Elternabenden und Teambesprechungen mit professionellem Medieneinsatz.",
+          "example": "Elternabend zum Thema Sprachentwicklung.",
+          "id": "item-2",
+          "label": "Präsentation & Moderation",
+          "metric": "Kernkompetenz",
+          "summary": "Mündliche Vermittlung komplexer Sachverhalte."
+        },
+        {
+          "badge": "Baustein 3",
+          "detail": "Systematische Beobachtung, Dokumentation und Analyse kindlicher Lernprozesse anhand anerkannter Modelle.",
+          "example": "Beller-Entwicklungstabelle in der Kita.",
+          "id": "item-3",
+          "label": "Pädagogische Dokumentation",
+          "metric": "Kernkompetenz",
+          "summary": "Evidenzbasierte Erfassung von Bildungsprozessen."
+        },
+        {
+          "badge": "Baustein 4",
+          "detail": "Anwendung wissenschaftlicher Standards (Zitieren, Literaturrecherche, Objektivität) gemäß FHR-Lernbaustein 2 A.",
+          "example": "Erstellung einer Facharbeit mit APA-Zitierung.",
+          "id": "item-4",
+          "label": "Wissenschaftliches Arbeiten",
+          "metric": "Kernkompetenz",
+          "summary": "Methodische Fundierung pädagogischen Handelns."
+        }
+      ],
+      "kind": "feature_grid",
+      "leftPole": "",
+      "rightPole": "",
+      "subtitle": "Zentrale Säulen des Moduls S-FÜ-1",
+      "title": "Funktions- und Inhaltsraster des Sprachhandelns"
+    },
+    {
+      "centerLabel": "",
+      "id": "vb-2",
+      "isCycle": true,
+      "items": [
+        {
+          "badge": "Schritt 1",
+          "detail": "Gezielte, unvoreingenommene und protokollierende Erfassung von Kinderverhalten oder Gruppensituationen.",
+          "example": "Videobasierte oder schriftliche Beobachtung im Freispiel.",
+          "id": "p1",
+          "label": "Beobachtung & Datenerhebung",
+          "metric": "Phase 1",
+          "summary": "Objektive Wahrnehmung ohne unmittelbare Wertung."
+        },
+        {
+          "badge": "Schritt 2",
+          "detail": "Verknüpfung der Beobachtungsdaten mit entwicklungspsychologischen und pädagogischen Theorien.",
+          "example": "Einordnung der Sprachentwicklung nach Piaget oder Wygotski.",
+          "id": "p2",
+          "label": "Theoriegeleitete Deutung",
+          "metric": "Phase 2",
+          "summary": "Fachliche Einordnung und Hypothesenbildung."
+        },
+        {
+          "badge": "Schritt 3",
+          "detail": "Verfassen des schriftlichen Berichts (Entwicklungsbericht, Dokumentation) für Eltern oder Team.",
+          "example": "Ausformulierung des Berichts für das Elterngespräch.",
+          "id": "p3",
+          "label": "Dokumentation & Bericht",
+          "metric": "Phase 3",
+          "summary": "Strukturierte schriftliche Fixierung."
+        },
+        {
+          "badge": "Schritt 4",
+          "detail": "Reflexion der Dokumentation im Team oder im Gespräch mit Erziehungsberechtigten und Zielvereinbarung.",
+          "example": "Gemeinsames Entwicklungsgespräch in der Kita.",
+          "id": "p4",
+          "label": "Reflexion & Gespräch",
+          "metric": "Phase 4",
+          "summary": "Dialogische Umsetzung und Evaluation."
+        }
+      ],
+      "kind": "process_flow",
+      "leftPole": "",
+      "rightPole": "",
+      "subtitle": "Der Kreislauf professioneller Dokumentation",
+      "title": "Prozess der pädagogischen Dokumentation"
+    },
+    {
+      "centerLabel": "",
+      "id": "vb-3",
+      "isCycle": false,
+      "items": [
+        {
+          "badge": "Alltagssprache",
+          "detail": "Subjektiv, wertend, emotional gefärbt und oft unpräzise; führt in Berichten zu Missverständnissen.",
+          "example": "'Das Kind ist heute wieder total unmöglich und zappelig.'",
+          "id": "c1",
+          "label": "Alltagssprachliche Beschreibung",
+          "metric": "Vergleichspol 1",
+          "summary": "Unreflektierte Alltagsbeobachtung ohne Fachbegriffe."
+        },
+        {
+          "badge": "Professionelle Balance",
+          "detail": "Faktenbasiert, theoriegeleitet, differenziert und wertschätzend; trennt exakt Beobachtung und Deutung.",
+          "example": "'Leon wechselte im Freispiel in 10 Minuten dreimal das Spielmaterial und zeigte eine hohe körperliche Aktivität.'",
+          "id": "c2",
+          "label": "Professionelles Sprachhandeln",
+          "metric": "Zielstandard",
+          "summary": "Wissenschaftlich fundierte und praxisgerechte Profi-Kommunikation."
+        },
+        {
+          "badge": "Wissenschaftssprache",
+          "detail": "Hochformal, abstrakt, theoriebezogen; kann ohne Übersetzung für Eltern unverständlich sein.",
+          "example": "'Die psychomotorische Desintegration manifestiert sich in hyperkinetischen Symptomkomplexen.'",
+          "id": "c3",
+          "label": "Reine Wissenschaftssprache",
+          "metric": "Vergleichspol 2",
+          "summary": "Abstrakter Fachjargon ohne direkten Praxisbezug."
+        }
+      ],
+      "kind": "comparison",
+      "leftPole": "Alltagssprache",
+      "rightPole": "Wissenschaftssprache",
+      "subtitle": "Sprachstile im sozialpädagogischen Berufsfeld",
+      "title": "Kommunikationsstile im Vergleich"
+    }
+  ],
+  "caseStudy": {
+    "ageGroup": "Kindergartenkinder (4-5 Jahre)",
+    "context": "Dokumentation und Elternarbeit in der Kita",
+    "setting": "Kindertagesstätte Sonnenschein",
+    "steps": [
+      {
+        "options": [
+          {
+            "feedback": "Ausgezeichnet! Der Entwicklungsbericht stützt sich auf strukturierte Beobachtungen (z.B. nach Kuno Bellers oder Beller-Entwicklungstabelle), trennt Fakten von Interpretationen, wahrt den Datenschutz und formuliert ressourcenorientierte Ziele für das Gespräch.",
+            "label": "Faktenbasierter, ressourcenorientierter Entwicklungsbericht mit klarer Struktur",
+            "quality": "optimal",
+            "theoryLink": "RLP S-FÜ-1 / Wissenschaftliches Arbeiten & Dokumentation (Objektivität)"
+          },
+          {
+            "feedback": "Problematisch. Pauschale Wertungen ('Das Kind ist wild und unkonzentriert') verletzen die professionelle Objektivität und erschweren eine konstruktive Erziehungs- und Bildungspartnerschaft.",
+            "label": "Subjektive Wertungen und stigmatisierende Etikettierungen im Bericht",
+            "quality": "problematisch",
+            "theoryLink": "Berufsbezogene Schreibstandards & Subjektivitätsfalle"
+          },
+          {
+            "feedback": "Teilweise geeignet. Zwar werden Beobachtungen genannt, jedoch fehlt die theoriegeleitete Einordnung sowie eine differenzierte Trennung von Beschreibung und Deutung.",
+            "label": "Unstrukturierte Anekdoten ohne Trennung von Beobachtung und Interpretation",
+            "quality": "teilweise",
+            "theoryLink": "Pädagogische Dokumentationsstandards"
+          }
+        ],
+        "prompt": "Wie verfasst die Fachkraft den schriftlichen Entwicklungsbericht für das anstehende Elterngespräch?",
+        "situation": "Erzieherin Anna plant das anstehende Entwicklungsgespräch für den 4-jährigen Leon. Sie muss einen schriftlichen Entwicklungsbericht verfassen."
+      },
+      {
+        "options": [
+          {
+            "feedback": "Teilweise geeignet. Das Gespräch ist zwar wertschätzend, aber ohne den schriftlichen Bericht und klare Vereinbarungen fehlt die Verbindlichkeit und Transparenz.",
+            "label": "Mündlicher Austausch im Flur ohne Vorbereitung und Dokumentation",
+            "quality": "teilweise",
+            "theoryLink": "Erziehungs- und Bildungspartnerschaft / Gesprächsführung"
+          },
+          {
+            "feedback": "Problematisch. Die Konfrontation mit ungefilterten Beobachtungen führt zu Abwehrhaltungen der Eltern und verletzt datenschutzrechtliche Vorgaben.",
+            "label": "Vorlesen interner Notizen mit Vorwürfen an die Eltern",
+            "quality": "problematisch",
+            "theoryLink": "Kommunikationsregeln & Datenschutz in der Kita"
+          },
+          {
+            "feedback": "Optimal! Die Fachkraft nutzt den strukturierten Bericht als Grundlage, moderiert das Gespräch transparent, setzt aktives Zuhören ein und vereinbart gemeinsam konkrete Schritte für die Zusammenarbeit.",
+            "label": "Strukturierte Gesprächsführung auf Basis des Berichts mit aktivem Zuhören und Zielvereinbarung",
+            "quality": "optimal",
+            "theoryLink": "Kommunikation & Moderation im Berufsfeld (S-FÜ-1)"
+          }
+        ],
+        "prompt": "Wie gestaltet Anna das anschließende Entwicklungsgespräch mit den Eltern von Leon?",
+        "situation": "Das Entwicklungsgespräch findet statt. Die Eltern sind anfangs besorgt über den Entwicklungsstand ihres Sohnes."
+      }
+    ],
+    "title": "Entwicklungsbericht und Elterngespräch bei Leon"
+  },
+  "selfLearningTasks": [
+    "Erstellen Sie einen zweiseitigen, anonymisierten Entwicklungsbericht zu einer beobachteten Situation in Ihrem Praxisfeld und trennen Sie dabei konsequent zwischen Verhaltensbeobachtung und pädagogischer Deutung.",
+    "Entwerfen Sie eine 10-minütige Mini-Präsentation zu einem pädagogischen Fachthema und erstellen Sie dazu einen strukturierten Handout nach wissenschaftlichen Zitierstandards.",
+    "Führen Sie ein sechswöchiges Lernportfolio zu Ihrer professionellen Entwicklung in der Fachschule und reflektieren Sie wöchentlich anhand konkreter Praxiserfahrungen."
+  ],
+  "flashcards": [
+    {
+      "definition": "Objektive, theoriegeleitete und nachvollziehbare Beschreibung von Lern- und Entwicklungsprozessen von Kindern.",
+      "example": "Festhalten von Meilensteinen in der Motorik anhand standardisierter Beobachtungsbögen.",
+      "term": "Pädagogische Dokumentation"
+    },
+    {
+      "definition": "Wissenschaftliches Gütekriterium, das besagt, dass ein Testergebnis oder eine Beobachtung unabhängig von der durchführenden Person ist.",
+      "example": "Getrennte Protokollierung derselben Szene durch zwei Fachkräfte mit übereinstimmenden Ergebnissen.",
+      "term": "Objektivität"
+    },
+    {
+      "definition": "Schriftliche, kriteriengeleitete Sammlung von Lernprodukten, Nachweisen und Reflexionen zur Dokumentation des eigenen professionellen Lernprozesses.",
+      "example": "Portfolio in der Fachschule zur Entwicklung der eigenen Hlehrer:innen-Rolle.",
+      "term": "Portfolioarbeit"
+    },
+    {
+      "definition": "Übereinstimmung von verbalen Aussagen, paraverbalem Ausdruck (Stimme) und nonverbalem Verhalten (Körper, Mimik).",
+      "example": "Eine Erzieherin sagt 'Ich freue mich auf euch' und strahlt dabei offen und zugewandt.",
+      "term": "Kongruenz (Kommunikation)"
+    },
+    {
+      "definition": "Systematisches Verzeichnis aller verwendeten Quellen zur Sicherung der Nachvollziehbarkeit und Vermeidung von Plagiaten.",
+      "example": "Angabe von Autor, Jahr und Seitenzahl nach APA-Standard in Facharbeiten.",
+      "term": "Quellensicherung"
+    },
+    {
+      "definition": "Methode zur planvollen und strukturierten Präsentation von Fachinhalten unter Einsatz digitaler und analoger Medien.",
+      "example": "Fachvortrag über Inklusion mit einer strukturierten Prezi-Präsentation und Handout.",
+      "term": "Präsentationstechnik"
+    }
+  ],
+  "quiz": [
+    {
+      "correctIndices": [
+        1
+      ],
+      "difficulty": "basis",
+      "explanation": "Pädagogische Dokumentationen müssen strikt zwischen objektiver Beschreibung (Was wurde beobachtet?) und subjektiver Interpretation (Wie wird das gedeutet?) trennen, um wissenschaftlichen und professionellen Standards zu genügen.",
+      "id": "quiz-1",
+      "options": [
+        "Pädagogische Dokumentationen enthalten primär persönliche Wertungen der Erzieherin über das Kind.",
+        "Eine professionelle Dokumentation trennt streng zwischen objektiver Verhaltensbeobachtung und subjektiver Deutung.",
+        "Entwicklungsberichte dürfen ohne Einwilligung der Eltern an Dritte weitergegeben werden.",
+        "Wissenschaftliches Arbeiten spielt in der Fachschule für Sozialpädagogik keine Rolle."
+      ],
+      "question": "Welche Anforderung gilt zentral für pädagogische Dokumentationen und Berichte im Berufsfeld?",
+      "type": "single"
+    },
+    {
+      "correctIndices": [
+        0,
+        2
+      ],
+      "difficulty": "vertiefung",
+      "explanation": "Wissenschaftliches Arbeiten erfordert die lückenlose Offenlegung von Quellen (APA-Standard) und strenge Objektivität, während eigene Meinungen in Sachtexten neutral und belegt darzustellen sind.",
+      "id": "quiz-2",
+      "options": [
+        "Verwendete Literatur und Studien müssen im Text und im Literaturverzeichnis korrekt nach wissenschaftlichen Standards zitiert werden.",
+        "Subjektive Meinungen dürfen in wissenschaftlichen Berichten als objektiv erwiesene Fakten dargestellt werden.",
+        "Objektivität bedeutet, dass Beobachtungen unabhängig von der beobachtenden Person Gültigkeit besitzen sollen.",
+        "Internetquellen müssen grundsätzlich nie mit URL und Abrufdatum belegt werden."
+      ],
+      "question": "Welche Merkmale kennzeichnen Grundlagen wissenschaftlichen Arbeitens im Lernfeld (Wähle zwei Antworten)?",
+      "type": "multi"
+    },
+    {
+      "correctIndices": [
+        2
+      ],
+      "difficulty": "pruefung",
+      "explanation": "Der Fall erfordert einen sachlichen, ressourcenorientierten und datenschutzkonformen Bericht sowie ein wertschätzendes, strukturiertes Elterngespräch auf Augenhöhe.",
+      "id": "quiz-3",
+      "options": [
+        "Die Erzieherin schreibt im Bericht: 'Kevin ist faul und stört ständig.'",
+        "Die Erzieherin verzichtet komplett auf jegliche schriftliche Dokumentation.",
+        "Die Erzieherin dokumentiert Verhaltensbeobachtungen faktenbasiert, analysiert Entwicklungsfortschritte und bereitet ein ressourcenorientiertes Elterngespräch vor.",
+        "Die Erzieherin liest den Bericht ungefiltert in der großen Gruppe vor."
+      ],
+      "question": "Praxissituation: Eine Fachkraft soll einen Entwicklungsbericht für ein Kind mit Förderbedarf verfassen und das Elterngespräch führen. Wie handelt sie professionell?",
+      "type": "case"
+    },
+    {
+      "correctIndices": [
+        1
+      ],
+      "difficulty": "basis",
+      "explanation": "Unter Kongruenz versteht man die stimmige Übereinstimmung von verbalem Inhalt, Tonfall (paraverbal) und Körpersprache (nonverbal).",
+      "id": "quiz-4",
+      "options": [
+        "Die strikte Vermeidung jeglichen Blickkontakts mit dem Publikum.",
+        "Die stimmige Übereinstimmung von verbaler Aussage, Tonfall und Körpersprache.",
+        "Das ausschließliche Lesen von ausgedruckten Manuskripten ohne Betonung.",
+        "Das laute Rufen, um Autorität zu demonstrieren."
+      ],
+      "question": "Was versteht man unter dem Begriff „Kongruenz“ beim sprachlichen und körperlichen Handeln im Beruf?",
+      "type": "single"
+    },
+    {
+      "correctIndices": [
+        0,
+        2,
+        3
+      ],
+      "difficulty": "vertiefung",
+      "explanation": "Ein professionelles Portfolio enthält Lernziele, eigene Reflexionen, strukturierte Nachweise von Praxisprojekten und dient der Selbstevaluation.",
+      "id": "quiz-5",
+      "options": [
+        "Es dient der individuellen Reflexion des eigenen Lern- und Professionalisierungsprozesses.",
+        "Es ist ein reines Fotoalbum ohne fachlichen Anspruch.",
+        "Es enthält kriteriengeleitet ausgewählte Dokumente, Arbeitsergebnisse und Reflexionen.",
+        "Es fördert die Dokumentation eigener Kompetenzentwicklungen im Ausbildungsgang."
+      ],
+      "question": "Welche Funktionen erfüllt die Portfolioarbeit in der Ausbildung zur Erzieherin / zum Erzieherin (Wähle drei Antworten)?",
+      "type": "multi"
+    },
+    {
+      "correctIndices": [
+        1
+      ],
+      "difficulty": "pruefung",
+      "explanation": "Das FHR-Lernmodul 2 (A) im Fach Deutsch verlangt fundiertes wissenschaftliches und argumentatives Schreiben, das in S-FÜ-1 vorbereitet wird.",
+      "id": "quiz-6",
+      "options": [
+        "Das Modul hat keinerlei Bezug zu schulischen Prüfungen.",
+        "Es kann unter bestimmten Bedingungen als Lernbaustein 2 (A) für die Fachhochschulreifeprüfung angerechnet werden.",
+        "Es ersetzt vollständig die praktische Ausbildung in der Kita.",
+        "Es ist ausschließlich für das dritte Ausbildungsjahr relevant."
+      ],
+      "question": "Welche Besonderheit gilt für das Lernmodul S-FÜ-1 im Kontext des Lehrplans Rheinland-Pfalz?",
+      "type": "single"
+    }
+  ]
+}
