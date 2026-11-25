@@ -1,0 +1,74 @@
+{
+  "evangelische_kirche": {
+    "osmId": "way/734605159",
+    "extraOsmIds": [
+      "way/889544779",
+      "lod2/DERPLP110000QOUz"
+    ],
+    "name": "Evangelische Martinskirche Kindenheim (Hauptstraße 58)",
+    "rotationOffsetRad": 0.0,
+    "params": {
+      "total_length": 21.42,
+      "nave_width": 8.32,
+      "nave_eave_h": 7.35,
+      "nave_roof_h": 5.71,
+      "tower_local_x": -6.85,
+      "tower_local_y": -10.49,
+      "tower_base_z": -0.40,
+      "tower_size": 5.32,
+      "tower_wall_h": 31.75,
+      "spire_total_h": 47.24
+    }
+  },
+  "rathaus": {
+    "osmId": "way/889544793",
+    "extraOsmIds": [],
+    "name": "Rathaus / Historisches Gemeindehaus Kindenheim (Hauptstraße 77)",
+    "rotationOffsetRad": 3.14159265,
+    "params": {
+      "length_x": 22.41,
+      "depth_y": 9.34,
+      "wall_h": 8.20,
+      "roof_h": 4.65,
+      "hip_x": 4.4
+    }
+  },
+  "weingut_estate": {
+    "osmId": "way/889544816",
+    "extraOsmIds": [
+      "lod2/DERPLP110000QOJB"
+    ],
+    "name": "Weingut Raspfambert (Hauptstraße 44)",
+    "rotationOffsetRad": 0.0,
+    "params": {
+      "length_x": 19.96,
+      "depth_y": 17.50,
+      "house_wall_h": 7.4,
+      "house_roof_h": 4.5
+    }
+  },
+  "winzerhof_barn": {
+    "osmId": "way/889544811",
+    "extraOsmIds": [],
+    "name": "Pfälzer Winzerhof Hauptstraße 107",
+    "rotationOffsetRad": 0.0,
+    "params": {
+      "length_x": 29.14,
+      "depth_y": 23.83,
+      "barn_wall_h": 6.4,
+      "barn_roof_h": 4.2
+    }
+  },
+  "agri_halle": {
+    "osmId": "way/275286713",
+    "extraOsmIds": [],
+    "name": "Landwirtschaftliche Halle Raiffeisenstraße 16",
+    "rotationOffsetRad": 0.0,
+    "params": {
+      "length_x": 31.84,
+      "depth_y": 24.73,
+      "wall_h": 7.6,
+      "roof_h": 3.1
+    }
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "name": "Kindenheim 3D Visual Fidelity Benchmark",
+  "municipality": "Kindenheim",
+  "district": "Landkreis Bad Dürkheim",
+  "state": "Rheinland-Pfalz",
+  "country": "Germany",
+  "postalCode": "67271",
+  "ags": "07332029",
+  "centerLat": 49.6099325,
+  "centerLon": 8.1618778,
+  "mapSizeM": 2048,
+  "halfMapSizeM": 1024,
+  "axes": {
+    "x": "+East (meters in [-1024, +1024])",
+    "y": "+Up (meters above minElevationM)",
+    "z": "+South / -North (meters in [-1024, +1024])",
+    "rotationRad": "Three.js rotation.y in radians; local +X maps to (cos(r), -sin(r)) in world (x, z)"
+  },
+  "projection": {
+    "crs": "EPSG:25832",
+    "name": "ETRS89 / UTM zone 32N",
+    "centerUtmE": 439450.0,
+    "centerUtmN": 5495600.0,
+    "boundsUtm": {
+      "minE": 438426.0,
+      "maxE": 440474.0,
+      "minN": 5494576.0,
+      "maxN": 5496624.0
+    },
+    "latLonToLocalAffine": {
+      "formula": "x = (lon - centerLon)*dX_dLon + (lat - centerLat)*dX_dLat; z = (lon - centerLon)*dZ_dLon + (lat - centerLat)*dZ_dLat",
+      "dX_dLon": 72244.015,
+      "dX_dLat": 1238.7381,
+      "dZ_dLon": 802.1657,
+      "dZ_dLat": -111177.9024,
+      "maxCornerErrorM": 0.25
+    }
+  },
+  "boundsWGS84": {
+    "minLat": 49.6006195,
+    "maxLat": 49.6192438,
+    "minLon": 8.1475448,
+    "maxLon": 8.1762055
+  },
+  "minElevationM": 171.708,
+  "maxElevationM": 296.423,
+  "elevationRangeM": 124.715,
+  "gridSize": 513,
+  "heightmapFormat": "Float32Array little-endian, row-major North-to-South (z=-1024..+1024), West-to-East (x=-1024..+1024), meters above minElevationM",
+  "orthophotoSize": 4096,
+  "landuseMaskSize": 2048,
+  "landuseMaskLegend": {
+    "water": {
+      "classId": 8,
+      "r": 16,
+      "rgb": [
+        16,
+        120,
+        210
+      ]
+    },
+    "forest": {
+      "classId": 4,
+      "r": 32,
+      "rgb": [
+        32,
+        105,
+        48
+      ]
+    },
+    "road_asphalt": {
+      "classId": 6,
+      "r": 64,
+      "rgb": [
+        64,
+        68,
+        76
+      ]
+    },
+    "vineyard": {
+      "classId": 2,
+      "r": 96,
+      "rgb": [
+        96,
+        175,
+        72
+      ]
+    },
+    "meadow": {
+      "classId": 3,
+      "r": 144,
+      "rgb": [
+        144,
+        210,
+        110
+      ]
+    },
+    "road_track": {
+      "classId": 7,
+      "r": 168,
+      "rgb": [
+        168,
+        148,
+        116
+      ]
+    },
+    "residential": {
+      "classId": 5,
+      "r": 192,
+      "rgb": [
+        192,
+        140,
+        120
+      ]
+    },
+    "farmland": {
+      "classId": 1,
+      "r": 224,
+      "rgb": [
+        224,
+        198,
+        130
+      ]
+    }
+  },
+  "imagerySource": "LVermGeo RLP OpenData DOP20 WMS (20cm RGB, EPSG:25832, 4096x4096, dl-de/by-2-0)",
+  "demSource": "LVermGeo RLP OpenData DGM1 (1m LiDAR GeoTIFF, 2026, dl-de/by-2-0)",
+  "buildingsSource": "LVermGeo RLP OpenData LoD2 CityGML (2026) + OpenStreetMap API v0.6",
+  "buildingCount": 1054,
+  "roadCount": 222,
+  "vineyardCount": 155,
+  "fieldCount": 5,
+  "treeCount": 373,
+  "poiCount": 18,
+  "landmarks": [
+    {
+      "landmarkKey": "evangelische_kirche",
+      "id": "way/734605159",
+      "name": "Evangelische Martinskirche Kindenheim",
+      "center": [
+        -30.8,
+        -75.81
+      ],
+      "widthM": 21.42,
+      "depthM": 8.32,
+      "rotationRad": 0.3073,
+      "baseElevationM": 57.698,
+      "wallHeightM": 7.35,
+      "roofHeightM": 5.71,
+      "roofShape": "gabled",
+      "tower": {
+        "lod2Id": "DERPLP110000QOUz",
+        "osmId": 889544779,
+        "center": [
+          -34.16,
+          -63.74
+        ],
+        "offsetFromNaveCenter": [
+          -3.36,
+          12.08
+        ],
+        "widthM": 5.41,
+        "depthM": 5.22,
+        "wallHeightM": 31.75,
+        "spireHeightM": 15.49,
+        "totalHeightM": 47.24,
+        "footprint": [
+          [
+            -35.97,
+            -60.5
+          ],
+          [
+            -37.49,
+            -65.47
+          ],
+          [
+            -32.3,
+            -67.01
+          ],
+          [
+            -30.85,
+            -61.99
+          ]
+        ]
+      }
+    },
+    {
+      "landmarkKey": "rathaus",
+      "id": "way/889544793",
+      "name": "Rathaus / Historisches Gemeindehaus Kindenheim",
+      "center": [
+        -21.13,
+        -46.76
+      ],
+      "widthM": 22.41,
+      "depthM": 9.34,
+      "rotationRad": 0.3556,
+      "baseElevationM": 55.942,
+      "wallHeightM": 8.2,
+      "roofHeightM": 4.8,
+      "roofShape": "hipped"
+    },
+    {
+      "landmarkKey": "weingut_1",
+      "id": "way/889544816",
+      "name": "Weingut Raspfambert (Hauptstraße 44)",
+      "center": [
+        79.47,
+        -94.16
+      ],
+      "widthM": 19.96,
+      "depthM": 17.5,
+      "rotationRad": 0.3673,
+      "baseElevationM": 53.481,
+      "wallHeightM": 8.16,
+      "roofHeightM": 4.88,
+      "roofShape": "gabled"
+    },
+    {
+      "landmarkKey": "bauernhof_1",
+      "id": "way/889544811",
+      "name": "Pfälzer Winzerhof Hauptstraße 107",
+      "center": [
+        -419.39,
+        125.99
+      ],
+      "widthM": 29.14,
+      "depthM": 23.83,
+      "rotationRad": -1.1278,
+      "baseElevationM": 73.015,
+      "wallHeightM": 6.38,
+      "roofHeightM": 3.09,
+      "roofShape": "gabled"
+    },
+    {
+      "landmarkKey": "halle_1",
+      "id": "way/275286713",
+      "name": "Landwirtschaftliche Halle Raiffeisenstraße 16",
+      "center": [
+        489.81,
+        -11.1
+      ],
+      "widthM": 31.84,
+      "depthM": 24.73,
+      "rotationRad": 0.1759,
+      "baseElevationM": 35.818,
+      "wallHeightM": 7.94,
+      "roofHeightM": 2.97,
+      "roofShape": "gabled"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "coordinateSystem": "Three.js Y-up (+X=East, -Z=North, +Y=Up), origin at ground contact Y=0 with -1.6m foundation skirt",
+  "excludedOsmIds": [
+    "lod2/DERPLP110000QOJB",
+    "lod2/DERPLP110000QOUz",
+    "way/275286713",
+    "way/734605159",
+    "way/889544779",
+    "way/889544793",
+    "way/889544811",
+    "way/889544816"
+  ],
+  "landmarks": [
+    {
+      "key": "evangelische_kirche",
+      "name": "Evangelische Martinskirche Kindenheim (Hauptstraße 58)",
+      "osmIds": [
+        "way/734605159",
+        "way/889544779",
+        "lod2/DERPLP110000QOUz"
+      ],
+      "primaryOsmId": "way/734605159",
+      "center": [
+        -30.8,
+        -75.81
+      ],
+      "baseElevationM": 57.698,
+      "rotationRad": 0.3073,
+      "footprintWidthM": 21.42,
+      "footprintDepthM": 8.32,
+      "foundationSkirtDepthM": 1.6,
+      "glbPath": "/assets/models/landmarks/evangelische_kirche.glb",
+      "blendSource": "blender/landmarks/evangelische_kirche.blend"
+    },
+    {
+      "key": "rathaus",
+      "name": "Rathaus / Historisches Gemeindehaus Kindenheim (Hauptstraße 77)",
+      "osmIds": [
+        "way/889544793"
+      ],
+      "primaryOsmId": "way/889544793",
+      "center": [
+        -21.13,
+        -46.76
+      ],
+      "baseElevationM": 55.942,
+      "rotationRad": -2.78599,
+      "footprintWidthM": 22.41,
+      "footprintDepthM": 9.34,
+      "foundationSkirtDepthM": 1.6,
+      "glbPath": "/assets/models/landmarks/rathaus.glb",
+      "blendSource": "blender/landmarks/rathaus.blend"
+    },
+    {
+      "key": "weingut_estate",
+      "name": "Weingut Raspfambert (Hauptstraße 44)",
+      "osmIds": [
+        "way/889544816",
+        "lod2/DERPLP110000QOJB"
+      ],
+      "primaryOsmId": "way/889544816",
+      "center": [
+        79.47,
+        -94.16
+      ],
+      "baseElevationM": 53.481,
+      "rotationRad": 0.3673,
+      "footprintWidthM": 19.96,
+      "footprintDepthM": 17.5,
+      "foundationSkirtDepthM": 1.6,
+      "glbPath": "/assets/models/landmarks/weingut_estate.glb",
+      "blendSource": "blender/landmarks/weingut_estate.blend"
+    },
+    {
+      "key": "winzerhof_barn",
+      "name": "Pfälzer Winzerhof Hauptstraße 107",
+      "osmIds": [
+        "way/889544811"
+      ],
+      "primaryOsmId": "way/889544811",
+      "center": [
+        -419.39,
+        125.99
+      ],
+      "baseElevationM": 73.015,
+      "rotationRad": -1.1278,
+      "footprintWidthM": 29.14,
+      "footprintDepthM": 23.83,
+      "foundationSkirtDepthM": 1.6,
+      "glbPath": "/assets/models/landmarks/winzerhof_barn.glb",
+      "blendSource": "blender/landmarks/winzerhof_barn.blend"
+    },
+    {
+      "key": "agri_halle",
+      "name": "Landwirtschaftliche Halle Raiffeisenstraße 16",
+      "osmIds": [
+        "way/275286713"
+      ],
+      "primaryOsmId": "way/275286713",
+      "center": [
+        489.81,
+        -11.1
+      ],
+      "baseElevationM": 35.818,
+      "rotationRad": 0.1759,
+      "footprintWidthM": 31.84,
+      "footprintDepthM": 24.73,
+      "foundationSkirtDepthM": 1.6,
+      "glbPath": "/assets/models/landmarks/agri_halle.glb",
+      "blendSource": "blender/landmarks/agri_halle.blend"
+    }
+  ]
+}

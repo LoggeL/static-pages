@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kindenheim 3D — Pfälzer Traktor-Spiel &amp; Realitäts-Benchmark</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%23e7b95a'/><path d='M8 21 L16 9 L24 21 Z' fill='%23162019'/></svg>" />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="scene-canvas"></canvas>
+
+      <!-- Full-viewport Split / Ghost / Live Diff-Heatmap Reality-vs-3D Overlay -->
+      <div id="compare-stage" class="compare-stage hidden">
+        <img id="compare-stage-img" class="compare-stage-img" alt="Kindenheim Referenzaufnahme" />
+        <canvas id="compare-diff-canvas" class="compare-diff-canvas hidden"></canvas>
+        <div id="compare-divider" class="compare-divider">
+          <div class="compare-handle" title="Ziehen zum Vergleichen">⇄</div>
+        </div>
+        <div id="compare-tag-left" class="compare-tag compare-tag-left">REALITÄT · REFERENZ</div>
+        <div id="compare-tag-right" class="compare-tag compare-tag-right">KINDENHEIM 3D</div>
+        <div id="compare-controls-bar" class="compare-controls-bar panel-glass">
+          <span id="compare-slider-label">Schnittlinie</span>
+          <input id="compare-range" type="range" min="0" max="100" value="50" />
+          <span id="compare-range-val">50%</span>
+        </div>
+      </div>
+
+      <!-- Progressive Loading Overlay -->
+      <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-card">
+          <div class="loading-eyebrow">RHEINLAND-PFALZ · LANDKREIS BAD DÜRKHEIM</div>
+          <h1 class="loading-title">Kindenheim 3D</h1>
+          <p class="loading-subtitle">Spielbares Pfälzer Traktor-Erlebnis in echtem 3D-Kindenheim</p>
+
+          <div class="loading-bar-track">
+            <div id="loading-bar-fill" class="loading-bar-fill" style="width: 4%"></div>
+          </div>
+          <div id="loading-status" class="loading-status">Initialisiere 3D-Szene…</div>
+
+          <div class="loading-steps">
+            <div class="loading-step" data-stage="terrain">
+              <span class="step-dot"></span><span>Gelände &amp; Höhenmodell</span>
+            </div>
+            <div class="loading-step" data-stage="orthophoto">
+              <span class="step-dot"></span><span>Luftbild &amp; Straßennetz</span>
+            </div>
+            <div class="loading-step" data-stage="buildings">
+              <span class="step-dot"></span><span>3D-Gebäude &amp; Traktor</span>
+            </div>
+            <div class="loading-step" data-stage="scenery">
+              <span class="step-dot"></span><span>Weinberge, Bäume &amp; Tour</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main HUD -->
+      <div id="hud" class="hud">
+        <!-- Top Left Brand + Weinlese-Tour Progress -->
+        <header class="hud-brand panel-glass">
+          <div class="brand-accent"></div>
+          <div class="brand-text">
+            <div class="brand-title-row">
+              <span class="brand-name">Kindenheim 3D</span>
+              <span class="brand-badge">Traktor · Pfalz</span>
+            </div>
+            <div id="hud-stats" class="brand-meta">Lade Geodaten…</div>
+          </div>
+        </header>
+
+        <!-- Compact Weinlese-Tour Checkpoint Badge -->
+        <section id="tour-card" class="tour-card panel-glass">
+          <div class="tour-top-row">
+            <span class="tour-eyebrow">PFÄLZER WEINLESE-TOUR</span>
+            <span id="tour-progress-badge" class="tour-step-badge">1 / 6</span>
+            <button id="btn-tour-restart" class="tour-restart-btn" title="Tour neu starten">↻</button>
+          </div>
+          <div id="tour-target-name" class="tour-target-name">Rathaus &amp; Martinskirche</div>
+          <div class="tour-meta-row">
+            <span id="tour-dist" class="tour-dist">– m</span>
+            <span class="tele-sep">·</span>
+            <span id="tour-timer">00:00</span>
+            <span class="tele-sep">·</span>
+            <span id="tour-km">0,0 km</span>
+          </div>
+        </section>
+
+        <!-- Checkpoint / Completion Toast -->
+        <div id="tour-toast" class="tour-toast panel-glass hidden"></div>
+
+        <!-- Top Right Controls Bar -->
+        <div class="hud-topbar">
+          <!-- Time of Day (incl. Abenddämmerung for Headlights & Beacon!) -->
+          <div class="segmented panel-glass" role="group" aria-label="Tageszeit">
+            <button class="seg-btn" data-tod="morning" title="Morgenlicht">Morgen</button>
+            <button class="seg-btn" data-tod="noon" title="Mittagssonne">Mittag</button>
+            <button class="seg-btn active" data-tod="golden" title="Pfälzer Goldene Stunde">Gold</button>
+            <button class="seg-btn" data-tod="dusk" title="Abenddämmerung (Scheinwerfer &amp; Rundumleuchte)">Dämmerung</button>
+          </div>
+
+          <!-- 3 Camera Modes -->
+          <div class="segmented panel-glass" role="group" aria-label="Kameramodus">
+            <button class="seg-btn active" data-cam-mode="chase" title="3rd-Person Verfolgerkamera (Taste C)">Verfolger</button>
+            <button class="seg-btn" data-cam-mode="cab" title="1st-Person Traktor-Kabine (Taste C)">Kabine</button>
+            <button class="seg-btn" data-cam-mode="drone" title="Freie Drohne &amp; Benchmark-Ansichten (Taste C)">Drohne</button>
+          </div>
+
+          <!-- Reality vs 3D Benchmark Toggle -->
+          <button id="btn-benchmark-mode" class="action-pill panel-glass" title="Realität vs. 3D Vergleichs-Modus (Taste V)">
+            <span class="pill-indicator"></span>
+            <span>Realität vs. 3D</span>
+          </button>
+
+          <!-- Settings Drawer Toggle -->
+          <button id="btn-settings" class="icon-btn panel-glass" title="Ansicht &amp; Licht anpassen" aria-label="Einstellungen">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.85 1 1.51 1H21a2 2 0 0 1 0 4h-.09c-.66 0-1.25.4-1.51 1Z"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Settings Popover -->
+        <aside id="settings-popover" class="settings-popover panel-glass hidden">
+          <div class="popover-title">Szene &amp; Spiel-Optionen</div>
+          <label class="control-row">
+            <span>Sonnenhöhe</span>
+            <span id="val-sun-elev" class="control-val">22°</span>
+            <input id="slider-sun-elev" type="range" min="4" max="70" step="1" value="22" />
+          </label>
+          <label class="control-row">
+            <span>Sonnenrichtung</span>
+            <span id="val-sun-azim" class="control-val">236°</span>
+            <input id="slider-sun-azim" type="range" min="0" max="360" step="1" value="236" />
+          </label>
+          <div class="toggle-list">
+            <label class="toggle-item">
+              <input id="chk-arrow" type="checkbox" checked />
+              <span>Weinlese-Richtungspfeil (3D)</span>
+            </label>
+            <label class="toggle-item">
+              <input id="chk-shadows" type="checkbox" checked />
+              <span>Sonnenschatten</span>
+            </label>
+            <label class="toggle-item">
+              <input id="chk-roads" type="checkbox" checked />
+              <span>3D-Straßennetz</span>
+            </label>
+            <label class="toggle-item">
+              <input id="chk-wireframe" type="checkbox" />
+              <span>Gelände-Drahtgitter</span>
+            </label>
+            <label class="toggle-item">
+              <input id="chk-pins" type="checkbox" checked />
+              <span>Referenz-Kamerapins (3D)</span>
+            </label>
+          </div>
+        </aside>
+
+        <!-- Reality vs 3D Benchmark Side Panel -->
+        <aside id="benchmark-panel" class="benchmark-panel panel-glass hidden">
+          <div class="bm-panel-header">
+            <div>
+              <div class="bm-eyebrow">VISUELLER GENAUIGKEITS-BENCHMARK</div>
+              <div class="bm-panel-title">Realität vs. Kindenheim 3D</div>
+            </div>
+            <button id="btn-benchmark-close" class="bm-close-btn" title="Vergleichs-Modus schließen">&times;</button>
+          </div>
+
+          <div class="layout-segmented layout-4" role="group" aria-label="Vergleichsansicht">
+            <button class="layout-btn active" data-layout="pip">PiP</button>
+            <button class="layout-btn" data-layout="split">Split</button>
+            <button class="layout-btn" data-layout="ghost">Ghost</button>
+            <button class="layout-btn" data-layout="diff">Differenz</button>
+          </div>
+
+          <div id="benchmark-score-banner" class="benchmark-score-banner hidden">
+            <div class="score-title">15-Shot Benchmark (Vorher → Nachher)</div>
+            <div id="benchmark-score-vals" class="score-vals">–</div>
+          </div>
+
+          <div id="ref-preview-box" class="ref-preview-box">
+            <img id="ref-preview-img" class="ref-preview-img" alt="Referenzfoto" />
+            <div class="ref-preview-overlay">
+              <span id="ref-source-badge" class="ref-source-badge">Street View</span>
+              <span id="ref-angle-badge" class="ref-angle-badge">0°</span>
+            </div>
+          </div>
+
+          <div id="ref-empty-msg" class="ref-empty-msg hidden">
+            Keine Referenzaufnahmen gefunden.
+          </div>
+
+          <div id="ref-meta-card" class="ref-meta-card">
+            <div class="ref-meta-top">
+              <div id="ref-title" class="ref-title">–</div>
+              <button id="btn-align-cam" class="align-btn" title="3D-Kamera exakt auf Referenzposition ausrichten">
+                Kamera ausrichten
+              </button>
+            </div>
+            <div id="ref-notes" class="ref-notes">Wähle eine Referenzaufnahme aus der Liste unten.</div>
+          </div>
+
+          <div class="bm-section-label">Referenz-Standorte (<span id="ref-count">0</span>)</div>
+          <div id="ref-shot-list" class="ref-shot-list"></div>
+
+          <div class="bm-section-label">Ortskarte &amp; Kamerapositionen</div>
+          <div class="minimap-wrapper">
+            <canvas id="benchmark-minimap" width="290" height="190"></canvas>
+            <div class="minimap-compass">N</div>
+          </div>
+        </aside>
+
+        <!-- Bottom Left Live Driving DOP20 Minimap -->
+        <div id="drive-minimap-box" class="drive-minimap-box panel-glass">
+          <canvas id="drive-minimap" width="176" height="176"></canvas>
+          <div class="minimap-compass">N</div>
+          <div id="drive-minimap-coords" class="drive-minimap-coords">49.610° N · 229 m</div>
+        </div>
+
+        <!-- Bottom Center Driving Controls Pill Dock (visible in Chase & Cab modes) -->
+        <div id="drive-controls-dock" class="drive-controls-dock panel-glass">
+          <span class="drive-hint-chip"><kbd>WASD</kbd> Fahren</span>
+          <span class="drive-hint-chip"><kbd>Space</kbd> Bremse</span>
+          <button id="btn-lights" class="ctrl-pill" title="Scheinwerfer umschalten (L)"><kbd>L</kbd>Licht</button>
+          <button id="btn-beacon" class="ctrl-pill active" title="Rundumleuchte umschalten (B)"><kbd>B</kbd>Leuchte</button>
+          <button id="btn-trailer" class="ctrl-pill active" title="Weinlese-Anhänger an-/abkuppeln (T)"><kbd>T</kbd>Anhänger</button>
+          <button id="btn-horn" class="ctrl-pill" title="Traktor-Hupe (H)"><kbd>H</kbd>Hupe</button>
+          <button id="btn-mute" class="ctrl-pill active" title="Motorton stummschalten (M)"><kbd>M</kbd>Ton</button>
+          <button id="btn-reset" class="ctrl-pill" title="Zurück auf Hauptstraße (R)"><kbd>R</kbd>Reset</button>
+        </div>
+
+        <!-- Bottom Center Drone Camera Bookmarks (visible in Drone mode) -->
+        <nav id="bookmark-dock" class="bookmark-dock panel-glass hidden" aria-label="Kamera-Ansichten">
+          <button class="bm-btn active" data-bm="0"><kbd>1</kbd><span>Übersicht Kindenheim</span></button>
+          <button class="bm-btn" data-bm="1"><kbd>2</kbd><span>Evangelische Kirche</span></button>
+          <button class="bm-btn" data-bm="2"><kbd>3</kbd><span>Hauptstraße &amp; Weingüter</span></button>
+          <button class="bm-btn" data-bm="3"><kbd>4</kbd><span>Weinberge (Pfalz)</span></button>
+          <button class="bm-btn" data-bm="4"><kbd>5</kbd><span>Straßenansicht</span></button>
+        </nav>
+
+        <!-- Bottom Right Tractor Speedometer / Tacho HUD -->
+        <aside id="tacho-card" class="tacho-card panel-glass">
+          <div class="tacho-top">
+            <div class="tacho-speed-block">
+              <span id="tacho-kmh" class="tacho-kmh">0</span>
+              <span class="tacho-unit">km/h</span>
+            </div>
+            <div class="tacho-gear-box">
+              <span class="tacho-gear-lbl">GANG</span>
+              <span id="tacho-gear" class="tacho-gear">N</span>
+            </div>
+          </div>
+          <div class="rpm-track">
+            <div id="rpm-fill" class="rpm-fill" style="width: 8%"></div>
+          </div>
+          <div class="tacho-bottom">
+            <span id="tacho-rpm">850 U/min</span>
+            <div class="tacho-badges">
+              <span id="ind-lights" class="tacho-dot" title="Licht">L</span>
+              <span id="ind-beacon" class="tacho-dot on-amber" title="Rundumleuchte">B</span>
+              <span id="ind-trailer" class="tacho-dot on-green" title="Anhänger gekuppelt">T</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

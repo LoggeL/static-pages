@@ -1,0 +1,151 @@
+{
+  "coordinateSystem": "Three.js Y-up, ground contact Y=0.0, vehicle centered X=0, forward +Z, left +X, right -X",
+  "forwardAxis": "+Z",
+  "tractorGlbPath": "/assets/models/tractor/tractor.glb",
+  "trailerGlbPath": "/assets/models/tractor/trailer.glb",
+  "tractorBlendSource": "blender/tractor/tractor.blend",
+  "trailerBlendSource": "blender/tractor/trailer.blend",
+  "tractorBounds": {
+    "min": [
+      -1.19,
+      0.0,
+      -2.206
+    ],
+    "max": [
+      1.19,
+      3.215,
+      2.615
+    ],
+    "size": [
+      2.38,
+      3.215,
+      4.821
+    ]
+  },
+  "trailerBounds": {
+    "min": [
+      -1.09,
+      0.0,
+      -2.298
+    ],
+    "max": [
+      1.09,
+      2.492,
+      2.436
+    ],
+    "size": [
+      2.18,
+      2.492,
+      4.733
+    ]
+  },
+  "frontWheelRadius": 0.58,
+  "rearWheelRadius": 0.88,
+  "wheelPositions": {
+    "FL": [
+      0.88,
+      0.58,
+      1.42
+    ],
+    "FR": [
+      -0.88,
+      0.58,
+      1.42
+    ],
+    "RL": [
+      0.88,
+      0.88,
+      -1.26
+    ],
+    "RR": [
+      -0.88,
+      0.88,
+      -1.26
+    ]
+  },
+  "cabCameraOffset": [
+    0.0,
+    2.24,
+    -0.58
+  ],
+  "steeringWheelOrigin": [
+    0.0,
+    1.88,
+    -0.02
+  ],
+  "steeringWheelSpinAxis": "z",
+  "exhaustTipOffset": [
+    -0.74,
+    2.74,
+    0.5
+  ],
+  "beaconOffset": [
+    0.56,
+    3.06,
+    0.24
+  ],
+  "headlightOffsets": [
+    [
+      0.34,
+      1.44,
+      2.23
+    ],
+    [
+      -0.34,
+      1.44,
+      2.23
+    ]
+  ],
+  "taillightOffsets": [
+    [
+      0.82,
+      1.56,
+      -1.84
+    ],
+    [
+      -0.82,
+      1.56,
+      -1.84
+    ]
+  ],
+  "rearHitchOffset": [
+    0.0,
+    0.62,
+    -2.02
+  ],
+  "trailerHitchOffset": [
+    0.0,
+    0.62,
+    2.35
+  ],
+  "trailerWheelRadius": 0.46,
+  "trailerAxleOffsetZ": -0.78,
+  "trailerWheelNames": [
+    "Wheel_FL",
+    "Wheel_FR",
+    "Wheel_RL",
+    "Wheel_RR"
+  ],
+  "trailerWheelPositions": {
+    "FL": [
+      0.88,
+      0.46,
+      -0.32
+    ],
+    "FR": [
+      -0.88,
+      0.46,
+      -0.32
+    ],
+    "RL": [
+      0.88,
+      0.46,
+      -1.24
+    ],
+    "RR": [
+      -0.88,
+      0.46,
+      -1.24
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "kindenheim-3d",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kindenheim (Rheinland-Pfalz) Interactive 3D World & Farming Simulator Map Preview",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host"
+  },
+  "dependencies": {
+    "three": "^0.172.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.172.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
+  }
+}
