@@ -41,9 +41,11 @@ def load_font(size: int):
     return ImageFont.load_default()
 
 
-def build_ui_mask(w: int, h: int, is_aerial: bool) -> np.ndarray:
+def build_ui_mask(w: int, h: int, is_aerial: bool, is_clean_dop20: bool = False) -> np.ndarray:
     """Boolean mask of PURE scene pixels (True = keep, False = Google Maps chrome)."""
     mask = np.ones((h, w), dtype=bool)
+    if is_clean_dop20:
+        return mask
     if is_aerial:
         # Google Maps Satellite chrome (exact 1440x900 layout):
         # Left navigation sidebar
@@ -314,8 +316,10 @@ def main():
             rend_img = rend_img.resize(real_img.size, Image.Resampling.BILINEAR)
 
         w, h = real_img.size
-        is_aerial = (ref.get("cameraHeightM", 2.5) > 22) or ("satellite" in ref.get("source", "").lower())
-        mask = build_ui_mask(w, h, is_aerial)
+        src_low = ref.get("source", "").lower()
+        is_clean_dop20 = ("dop20" in src_low) or ("lvermgeo" in src_low)
+        is_aerial = (ref.get("cameraHeightM", 2.5) > 22) or ("satellite" in src_low) or is_clean_dop20
+        mask = build_ui_mask(w, h, is_aerial, is_clean_dop20)
 
         real_np = np.asarray(real_img)
         rend_np = np.asarray(rend_img)
@@ -398,7 +402,8 @@ def main():
             font=font_sub,
         )
         # Panel labels
-        for idx_p, lbl in enumerate(["REAL (Google)", "KINDENHEIM 3D", "ΔE ERROR HEATMAP (0–65)"]):
+        real_lbl = "REAL (DOP20 20cm)" if is_clean_dop20 else "REAL (Google)"
+        for idx_p, lbl in enumerate([real_lbl, "KINDENHEIM 3D", "ΔE ERROR HEATMAP (0–65)"]):
             bx = idx_p * pw + 8
             by = hdr_h + 8
             draw.rectangle([bx, by, bx + 185, by + 22], fill=(12, 16, 18))
@@ -439,14 +444,22 @@ def main():
     def avg(key, subset=shot_results):
         return round(float(np.mean([s[key] for s in subset])), 4) if subset else 0.0
 
+    WAVE1_IDS = {
+        "aerial_overview_village", "aerial_center_church_roofs", "aerial_north_vineyards",
+        "sv_kirche_full_west", "sv_kirche_front_detail", "sv_kirche_east_angle",
+        "sv_rathaus_ortsmitte", "sv_hauptstrasse_west_weingueter", "sv_hauptstrasse_center_east",
+        "sv_weingut_kreutzenberger", "sv_side_street_neugasse", "sv_side_street_burgweg",
+        "sv_vineyard_edge_east", "sv_vineyard_edge_west", "sv_vineyard_hills_west",
+    }
     sv_shots = [s for s in shot_results if not s["isAerial"]]
     ae_shots = [s for s in shot_results if s["isAerial"]]
+    w1_shots = [s for s in shot_results if s["id"] in WAVE1_IDS]
     w2_shots = [
         s
         for s in shot_results
         if s["id"].startswith(("sv_triftstrasse_", "sv_kirchrain_", "sv_extra_", "aerial_trift_"))
     ]
-    w1_shots = [s for s in shot_results if s not in w2_shots]
+    w3_shots = [s for s in shot_results if s not in w1_shots and s not in w2_shots]
 
     overall = {
         "shotCount": len(shot_results),
@@ -471,22 +484,43 @@ def main():
         overall["wave2MeanSsim"] = avg("ssim", w2_shots)
         overall["wave2MeanLabDeltaE"] = round(avg("labDeltaE", w2_shots), 2)
         overall["wave2MeanEdgeCorr"] = avg("edgeCorr", w2_shots)
+    if w3_shots:
+        overall["wave3MeanSsim"] = avg("ssim", w3_shots)
+        overall["wave3MeanLabDeltaE"] = round(avg("labDeltaE", w3_shots), 2)
+        overall["wave3MeanEdgeCorr"] = avg("edgeCorr", w3_shots)
 
-    # Build 15-shot contact sheet (3 columns x 5 rows of compact 3-panel strips = 2160x1150 -> crisp 1800x1120)
-    # Sort contact sheet worst-to-best so highest-error shots are top-left!
+    # Matched-subset comparison against --compare (apples-to-apples even when shot count grows!)
+    common_now = [s for s in shot_results if s["id"] in prev_by_id]
+    common_prev = [prev_by_id[s["id"]] for s in common_now]
+    matched_cmp = None
+    if common_now:
+        matched_cmp = {
+            "count": len(common_now),
+            "nowSsim": avg("ssim", common_now),
+            "prevSsim": avg("ssim", common_prev),
+            "nowLabDeltaE": round(avg("labDeltaE", common_now), 2),
+            "prevLabDeltaE": round(avg("labDeltaE", common_prev), 2),
+            "nowMaeRgb": round(avg("maeRgb", common_now), 2),
+            "prevMaeRgb": round(avg("maeRgb", common_prev), 2),
+            "nowEdgeCorr": avg("edgeCorr", common_now),
+            "prevEdgeCorr": avg("edgeCorr", common_prev),
+        }
+
+    # Build contact sheet sorted worst-to-best so highest-error shots are top-left!
     strip_thumbs.sort(key=lambda x: x[1], reverse=True)
-    cols = 3
+    cols = 4 if len(strip_thumbs) > 30 else 3
     rows = math.ceil(len(strip_thumbs) / cols)
-    tw, th = 600, 144
+    tw, th = (480, 116) if cols == 4 else (600, 144)
     sheet_hdr = 64
     sheet = Image.new("RGB", (cols * tw, sheet_hdr + rows * th), (14, 18, 20))
     sdraw = ImageDraw.Draw(sheet)
     cmp_txt = ""
-    if prev_overall:
+    if matched_cmp:
         cmp_txt = (
-            f"  |  vs {args.compare}: SSIM {overall['meanSsim']-prev_overall['meanSsim']:+.4f}, "
-            f"ΔE {overall['meanLabDeltaE']-prev_overall['meanLabDeltaE']:+.2f}, "
-            f"EdgeCorr {overall['meanEdgeCorr']-prev_overall['meanEdgeCorr']:+.4f}"
+            f"  |  vs {args.compare} (n={matched_cmp['count']} matched): "
+            f"SSIM {matched_cmp['nowSsim']-matched_cmp['prevSsim']:+.4f}, "
+            f"ΔE {matched_cmp['nowLabDeltaE']-matched_cmp['prevLabDeltaE']:+.2f}, "
+            f"EdgeCorr {matched_cmp['nowEdgeCorr']-matched_cmp['prevEdgeCorr']:+.4f}"
         )
     sdraw.text(
         (16, 10),
@@ -521,8 +555,30 @@ def main():
         json.dump(metrics_out, f, indent=2)
 
     # Write data/benchmark/latest_summary.json for @threejs UI panel!
-    base_ov = baseline_data["overall"] if baseline_data else overall
+    # Keep baseline vs latest strictly apples-to-apples on the matched baseline shots when shot count expands,
+    # while also exposing fullSuite (all shots) and all perShot metrics.
     base_by_id = {s["id"]: s for s in baseline_data["shots"]} if baseline_data else {s["id"]: s for s in shot_results}
+    matched_now_base = [s for s in shot_results if s["id"] in base_by_id]
+    if baseline_data and matched_now_base and len(matched_now_base) < len(shot_results):
+        matched_prev_base = [base_by_id[s["id"]] for s in matched_now_base]
+        base_ov = {
+            "shotCount": len(matched_prev_base),
+            "meanSsim": avg("ssim", matched_prev_base),
+            "meanMaeRgb": round(avg("maeRgb", matched_prev_base), 2),
+            "meanLabDeltaE": round(avg("labDeltaE", matched_prev_base), 2),
+            "meanEdgeCorr": avg("edgeCorr", matched_prev_base),
+        }
+        latest_ov = {
+            "shotCount": len(matched_now_base),
+            "totalSuiteShots": len(shot_results),
+            "meanSsim": avg("ssim", matched_now_base),
+            "meanMaeRgb": round(avg("maeRgb", matched_now_base), 2),
+            "meanLabDeltaE": round(avg("labDeltaE", matched_now_base), 2),
+            "meanEdgeCorr": avg("edgeCorr", matched_now_base),
+        }
+    else:
+        base_ov = baseline_data["overall"] if baseline_data else overall
+        latest_ov = overall
 
     per_shot_summary = {}
     for s in shot_results:
@@ -547,12 +603,13 @@ def main():
         "latestRun": args.run,
         "timestamp": metrics_out["timestamp"],
         "baseline": base_ov,
-        "latest": overall,
+        "latest": latest_ov,
+        "fullSuite": overall,
         "improvement": {
-            "deltaSsim": round(overall["meanSsim"] - base_ov["meanSsim"], 4),
-            "deltaLabDeltaE": round(overall["meanLabDeltaE"] - base_ov["meanLabDeltaE"], 2),
-            "deltaMaeRgb": round(overall["meanMaeRgb"] - base_ov["meanMaeRgb"], 2),
-            "deltaEdgeCorr": round(overall["meanEdgeCorr"] - base_ov["meanEdgeCorr"], 4),
+            "deltaSsim": round(latest_ov["meanSsim"] - base_ov["meanSsim"], 4),
+            "deltaLabDeltaE": round(latest_ov["meanLabDeltaE"] - base_ov["meanLabDeltaE"], 2),
+            "deltaMaeRgb": round(latest_ov["meanMaeRgb"] - base_ov["meanMaeRgb"], 2),
+            "deltaEdgeCorr": round(latest_ov["meanEdgeCorr"] - base_ov["meanEdgeCorr"], 4),
         },
         "perShot": per_shot_summary,
     }
@@ -571,7 +628,7 @@ def main():
         f"  StreetView ({len(sv_shots):2d}): SSIM={overall['streetViewMeanSsim']:.4f} Lab_ΔE={overall['streetViewMeanLabDeltaE']:.2f} EdgeCorr={overall['streetViewMeanEdgeCorr']:.4f}"
     )
     print(
-        f"  Aerial      ({len(ae_shots):1d}): SSIM={overall['aerialMeanSsim']:.4f} Lab_ΔE={overall['aerialMeanLabDeltaE']:.2f} EdgeCorr={overall['aerialMeanEdgeCorr']:.4f}"
+        f"  Aerial      ({len(ae_shots):2d}): SSIM={overall['aerialMeanSsim']:.4f} Lab_ΔE={overall['aerialMeanLabDeltaE']:.2f} EdgeCorr={overall['aerialMeanEdgeCorr']:.4f}"
     )
     if w2_shots:
         print(
@@ -580,12 +637,17 @@ def main():
         print(
             f"  Wave2 New  ({len(w2_shots):2d}): SSIM={overall['wave2MeanSsim']:.4f} Lab_ΔE={overall['wave2MeanLabDeltaE']:.2f} EdgeCorr={overall['wave2MeanEdgeCorr']:.4f}"
         )
-    if prev_overall:
+    if w3_shots:
         print(
-            f"  DELTA vs {args.compare}: SSIM={overall['meanSsim']-prev_overall['meanSsim']:+.4f} | "
-            f"Lab_ΔE={overall['meanLabDeltaE']-prev_overall['meanLabDeltaE']:+.2f} | "
-            f"MAE={overall['meanMaeRgb']-prev_overall['meanMaeRgb']:+.2f} | "
-            f"EdgeCorr={overall['meanEdgeCorr']-prev_overall['meanEdgeCorr']:+.4f}"
+            f"  Wave3 All22({len(w3_shots):2d}): SSIM={overall['wave3MeanSsim']:.4f} Lab_ΔE={overall['wave3MeanLabDeltaE']:.2f} EdgeCorr={overall['wave3MeanEdgeCorr']:.4f}"
+        )
+    if matched_cmp:
+        print(
+            f"  DELTA vs {args.compare} (n={matched_cmp['count']} matched): "
+            f"SSIM={matched_cmp['nowSsim']-matched_cmp['prevSsim']:+.4f} | "
+            f"Lab_ΔE={matched_cmp['nowLabDeltaE']-matched_cmp['prevLabDeltaE']:+.2f} | "
+            f"MAE={matched_cmp['nowMaeRgb']-matched_cmp['prevMaeRgb']:+.2f} | "
+            f"EdgeCorr={matched_cmp['nowEdgeCorr']-matched_cmp['prevEdgeCorr']:+.4f}"
         )
 
     print(

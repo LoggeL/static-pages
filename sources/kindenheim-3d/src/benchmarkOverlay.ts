@@ -293,7 +293,7 @@ export class BenchmarkOverlay {
     const w = this.mapCanvas.width;
     const h = this.mapCanvas.height;
 
-    const viewSpanM = Math.min(this.terrain.mapSizeM, 1100);
+    const viewSpanM = Math.min(this.terrain.mapSizeM, 1560);
     const halfView = viewSpanM * 0.5;
     const toPx = (x: number, z: number): [number, number] => [
       ((x + halfView) / viewSpanM) * w,
@@ -389,7 +389,7 @@ export class BenchmarkOverlay {
     const rect = this.mapCanvas.getBoundingClientRect();
     const nx = THREE.MathUtils.clamp((clientX - rect.left) / rect.width, 0, 1);
     const ny = THREE.MathUtils.clamp((clientY - rect.top) / rect.height, 0, 1);
-    const viewSpanM = Math.min(this.terrain.mapSizeM, 1100);
+    const viewSpanM = Math.min(this.terrain.mapSizeM, 1560);
     const halfView = viewSpanM * 0.5;
     return [nx * viewSpanM - halfView, ny * viewSpanM - halfView];
   }

@@ -1,7 +1,7 @@
 {
   "coordinateSystem": "Three.js Y-up meters (+X East, -Z North, +Y Up above minElevationM)",
   "worldPositionedChunks": true,
-  "totalVillageBuildings": 1053,
+  "totalVillageBuildings": 1093,
   "excludedLandmarkIds": [
     "lod2/DERPLP110000QOJB",
     "lod2/DERPLP110000QOUz",
@@ -24,10 +24,10 @@
     {
       "id": "village_center",
       "glbPath": "/assets/models/village/village_center.glb",
-      "buildingCount": 370,
-      "triangles": 36076,
-      "materialCount": 35,
-      "fileSizeBytes": 5111128,
+      "buildingCount": 386,
+      "triangles": 36371,
+      "materialCount": 44,
+      "fileSizeBytes": 5347100,
       "worldPositioned": true,
       "bounds": {
         "min": [
@@ -37,7 +37,7 @@
         ],
         "max": [
           223.04,
-          82.27,
+          82.26,
           120.67
         ]
       }
@@ -45,20 +45,20 @@
     {
       "id": "village_north",
       "glbPath": "/assets/models/village/village_north.glb",
-      "buildingCount": 342,
-      "triangles": 34541,
-      "materialCount": 32,
-      "fileSizeBytes": 4927400,
+      "buildingCount": 353,
+      "triangles": 34945,
+      "materialCount": 43,
+      "fileSizeBytes": 5133132,
       "worldPositioned": true,
       "bounds": {
         "min": [
           -456.34,
-          30.41,
-          -375.07
+          30.7,
+          -375.09
         ],
         "max": [
-          450.45,
-          96.59,
+          455.63,
+          95.34,
           7.15
         ]
       }
@@ -66,19 +66,19 @@
     {
       "id": "village_south",
       "glbPath": "/assets/models/village/village_south.glb",
-      "buildingCount": 148,
-      "triangles": 15377,
-      "materialCount": 45,
-      "fileSizeBytes": 3890932,
+      "buildingCount": 153,
+      "triangles": 15948,
+      "materialCount": 46,
+      "fileSizeBytes": 3937164,
       "worldPositioned": true,
       "bounds": {
         "min": [
           -460.77,
-          37.74,
+          36.94,
           -14.19
         ],
         "max": [
-          456.77,
+          458.0,
           88.74,
           384.16
         ]
@@ -87,16 +87,16 @@
     {
       "id": "village_outskirts",
       "glbPath": "/assets/models/village/village_outskirts.glb",
-      "buildingCount": 193,
-      "triangles": 19790,
-      "materialCount": 38,
-      "fileSizeBytes": 3894116,
+      "buildingCount": 201,
+      "triangles": 21216,
+      "materialCount": 42,
+      "fileSizeBytes": 4153664,
       "worldPositioned": true,
       "bounds": {
         "min": [
           -776.09,
           26.93,
-          -384.87
+          -389.09
         ],
         "max": [
           793.42,

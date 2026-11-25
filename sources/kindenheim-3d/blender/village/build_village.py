@@ -2765,7 +2765,10 @@ class VillageMeshBuilder:
                 self.add_flat_parapet_roof(pts, z_eave, wall_mat, "roof_flat")
             else:
                 self.add_skillion_roof(obb, z_eave, max(0.45, roof_h), wall_mat, roof_mat, overhang=0.22, fascia_mat=fascia_mat)
-        elif rectangularity < 0.78 and poly_area >= 45.0 and not ov.get("roof_shape"):
+        elif rectangularity < 0.78 and poly_area >= 45.0 and (
+            not ov.get("roof_shape")
+            or (ov.get("_from_street") and roof_shape_tag == "gabled" and not ov.get("rotate_ridge_90"))
+        ):
             wings = decompose_rectilinear_wings(pts, obb)
             if wings:
                 ux, uy = obb["u_axis"]
@@ -2786,11 +2789,16 @@ class VillageMeshBuilder:
                         wall_mat, roof_mat,
                         overhang_eave=0.32, overhang_gable=0.24, slab_thick=0.15,
                         add_gable_walls=True,
-                        add_chimney=(w_idx == 0 and not is_barn),
-                        add_dormer=(w_idx == 0 and not is_barn and (h % 4 == 0)),
+                        add_chimney=(w_idx == 0 and not is_barn and not ov),
+                        add_dormer=(w_idx == 0 and (force_dormer or (not is_barn and (h % 4 == 0) and not ov))),
                         seed=h + w_idx * 17,
                         gable_wall_mat=gable_wall_mat,
+                        dormer_mat=dormer_mat,
+                        solar_pv_dir=(solar_pv_dir if w_idx == 0 else None),
+                        ivy_dir=(ivy_dir if w_idx == 0 else None),
+                        dormer_dir=(dormer_dir if w_idx == 0 else None),
                         fascia_mat=fascia_mat,
+                        no_attic_window=bool(ov.get("no_attic_window", False)),
                     )
             else:
                 self.add_polygon_hipped_roof(pts, z_eave, roof_h, roof_mat)
@@ -3335,14 +3343,42 @@ def add_courtyard_accessories(
         cap_mat: Optional[str] = None,
         bury: float = 0.65,
     ):
-        """Extrude a terrain-conforming 3D wall or hedge along Three.js (x, z) polyline (buried cleanly into slopes!)."""
+        """Extrude a smooth terrain-sloping 3D wall or hedge along Three.js (x, z) polyline (zero stair-stepping!)."""
+        def emit_sloped_prism(b_inst, p0_xy, p1_xy, z_b0, z_t0, z_b1, z_t1, w_thick, mk, uvs):
+            dx, dy = p1_xy[0] - p0_xy[0], p1_xy[1] - p0_xy[1]
+            dl = math.hypot(dx, dy)
+            if dl < 1e-4:
+                return
+            ux, uy = dx / dl, dy / dl
+            vx, vy = -uy, ux  # u x v = +Z
+            # Slight 0.03m overlap at joints to seal miter seams at polyline bends
+            x0e, y0e = p0_xy[0] - ux * 0.03, p0_xy[1] - uy * 0.03
+            x1e, y1e = p1_xy[0] + ux * 0.03, p1_xy[1] + uy * 0.03
+            hw = w_thick * 0.5
+            r0b = (x0e - vx * hw, y0e - vy * hw, z_b0)
+            r0t = (x0e - vx * hw, y0e - vy * hw, z_t0)
+            r1b = (x1e - vx * hw, y1e - vy * hw, z_b1)
+            r1t = (x1e - vx * hw, y1e - vy * hw, z_t1)
+            l0b = (x0e + vx * hw, y0e + vy * hw, z_b0)
+            l0t = (x0e + vx * hw, y0e + vy * hw, z_t0)
+            l1b = (x1e + vx * hw, y1e + vy * hw, z_b1)
+            l1t = (x1e + vx * hw, y1e + vy * hw, z_t1)
+            us = max(0.2, dl / uvs)
+            vs = max(0.2, (z_t0 - z_b0) / uvs)
+            ws = max(0.15, w_thick / uvs)
+            b_inst.add_quad(r0b, r1b, r1t, r0t, ((0, 0), (us, 0), (us, vs), (0, vs)), mk)
+            b_inst.add_quad(l1b, l0b, l0t, l1t, ((0, 0), (us, 0), (us, vs), (0, vs)), mk)
+            b_inst.add_quad(r0t, r1t, l1t, l0t, ((0, 0), (us, 0), (us, ws), (0, ws)), mk)
+            b_inst.add_quad(l0b, r0b, r0t, l0t, ((0, 0), (ws, 0), (ws, vs), (0, vs)), mk)
+            b_inst.add_quad(r1b, l1b, l1t, r1t, ((0, 0), (ws, 0), (ws, vs), (0, vs)), mk)
+
         for i in range(len(pts_xz) - 1):
             x0, z0 = pts_xz[i]
             x1, z1 = pts_xz[i + 1]
             seg_len = math.hypot(x1 - x0, z1 - z0)
             if seg_len < 0.25:
                 continue
-            # Subdivide long spans every <= 4.5m to track curved hill slopes tightly!
+            # Subdivide long spans every <= 4.5m to track curved hill slopes smoothly!
             n_sub = max(1, int(math.ceil(seg_len / 4.5)))
             for s in range(n_sub):
                 t0, t1 = s / n_sub, (s + 1) / n_sub
@@ -3350,18 +3386,13 @@ def add_courtyard_accessories(
                 bx_w, bz_w = x0 + (x1 - x0) * t1, z0 + (z1 - z0) * t1
                 mx, mz = 0.5 * (ax + bx_w), 0.5 * (az + bz_w)
                 b = get_b(mx, mz)
-                eg = elev_xz(mx, mz) + z_offset
-                # Blender coordinates: (x, -z)
+                e0 = elev_xz(ax, az) + z_offset
+                e1 = elev_xz(bx_w, bz_w) + z_offset
                 p0b = (ax, -az)
                 p1b = (bx_w, -bz_w)
-                dl = math.hypot(p1b[0] - p0b[0], p1b[1] - p0b[1])
-                u_v = Vector(((p1b[0] - p0b[0]) / dl, (p1b[1] - p0b[1]) / dl, 0.0))
-                v_v = Vector((-u_v.y, u_v.x, 0.0))
-                total_h = height + bury
-                zc = eg + height - total_h * 0.5
-                b.add_box(Vector((mx, -mz, zc)), u_v, v_v, sx=dl + 0.06, sy=thick, sz=total_h, mat_key=mat_key, uv_scale=uv_scale)
+                emit_sloped_prism(b, p0b, p1b, e0 - bury, e0 + height, e1 - bury, e1 + height, thick, mat_key, uv_scale)
                 if cap_mat:
-                    b.add_box(Vector((mx, -mz, eg + height + 0.045)), u_v, v_v, sx=dl + 0.08, sy=thick + 0.08, sz=0.09, mat_key=cap_mat, uv_scale=2.0)
+                    emit_sloped_prism(b, p0b, p1b, e0 + height, e0 + height + 0.09, e1 + height, e1 + height + 0.09, thick + 0.08, cap_mat, 2.0)
 
     def add_polyline_fence_panel(
         pts_xz: List[Tuple[float, float]],
@@ -3853,18 +3884,27 @@ def load_street_overrides_glob(
 
     protected_wave12 = set(BUILDING_OVERRIDES.keys())
     existing_infill_ids = {str(b.get("id")) for b in CORRIDOR_INFILL_BUILDINGS}
-    occupied_centers = []
-    for b in list(existing_buildings) + list(CORRIDOR_INFILL_BUILDINGS):
-        bid = str(b.get("id", ""))
-        if BUILDING_OVERRIDES.get(bid, {}).get("skip"):
-            continue
-        c = b.get("center")
-        if c and len(c) >= 2:
-            occupied_centers.append((float(c[0]), float(c[1])))
 
     merged_count = 0
+    dup_ov_ids = []
     extra_infills: List[Dict] = []
     extra_accessories: List[Dict] = []
+
+    ROOF_SHAPE_ALIASES = {
+        "gable": "gabled",
+        "gabled": "gabled",
+        "hip": "hipped",
+        "hipped": "hipped",
+        "half-hipped": "half-hipped",
+        "half_hipped": "half-hipped",
+        "halfhipped": "half-hipped",
+        "pyramidal": "pyramidal",
+        "pyramid": "pyramidal",
+        "skillion": "skillion",
+        "shed": "skillion",
+        "monopitch": "skillion",
+        "flat": "flat",
+    }
 
     def sanitize_ov(raw_ov: Dict) -> Dict:
         out = {}
@@ -3891,8 +3931,8 @@ def load_street_overrides_glob(
                 except Exception:
                     pass
         if raw_ov.get("roof_shape"):
-            rs = str(raw_ov["roof_shape"]).lower().strip()
-            if rs in ("gabled", "hipped", "half-hipped", "pyramidal", "skillion", "flat"):
+            rs = ROOF_SHAPE_ALIASES.get(str(raw_ov["roof_shape"]).lower().strip())
+            if rs:
                 out["roof_shape"] = rs
         for bk in ("rotate_ridge_90", "is_windowed", "no_door", "no_attic_window", "force_dormer", "bauhaus_penthouse"):
             if bk in raw_ov:
@@ -3912,6 +3952,7 @@ def load_street_overrides_glob(
             out["dormer_dir"] = dd
         return out
 
+    parsed_docs: List[Tuple[str, Dict]] = []
     for fp in files:
         slug = os.path.basename(os.path.dirname(fp))
         try:
@@ -3920,9 +3961,15 @@ def load_street_overrides_glob(
         except Exception as e:
             print(f"[WARN] Could not parse {fp}: {e}")
             continue
-        if not isinstance(doc, dict):
-            continue
+        if isinstance(doc, dict):
+            parsed_docs.append((slug, doc))
 
+    # Pass 1: Merge ALL per-street building_overrides first so newly-skipped slivers
+    # don't falsely block replacement infill_buildings in Pass 2!
+    # Rule: If ANY street marks a broken LoD2 sliver as skip=True (typically replacing it
+    # with a verified full infill or marking a demolished structure), skip ALWAYS wins!
+    seen_street_bids = {}
+    for slug, doc in parsed_docs:
         b_ovs = doc.get("building_overrides") or doc.get("BUILDING_OVERRIDES") or doc.get("overrides") or {}
         if isinstance(b_ovs, dict):
             for bid, raw_ov in b_ovs.items():
@@ -3931,9 +3978,63 @@ def load_street_overrides_glob(
                     continue
                 clean = sanitize_ov(raw_ov)
                 if clean:
+                    if bid_s in seen_street_bids:
+                        dup_ov_ids.append((bid_s, seen_street_bids[bid_s], slug))
+                        # Never overwrite an earlier skip=True with a non-skip override!
+                        if BUILDING_OVERRIDES.get(bid_s, {}).get("skip") and not clean.get("skip"):
+                            continue
+                    seen_street_bids[bid_s] = slug
+                    clean["_from_street"] = True
                     BUILDING_OVERRIDES[bid_s] = clean
                     merged_count += 1
 
+    # Build occupied_centers & polygons AFTER Pass 1 skips are applied!
+    occupied_centers = []
+    occupied_polys: List[Tuple[Tuple[float, float, float, float], List[Tuple[float, float]]]] = []
+
+    def fp_bbox(poly: List[Tuple[float, float]]) -> Tuple[float, float, float, float]:
+        xs = [p[0] for p in poly]
+        zs = [p[1] for p in poly]
+        return (min(xs), min(zs), max(xs), max(zs))
+
+    def poly_overlap_frac(
+        bb1: Tuple[float, float, float, float], poly1: List[Tuple[float, float]],
+        bb2: Tuple[float, float, float, float], poly2: List[Tuple[float, float]],
+    ) -> float:
+        ix0, iz0 = max(bb1[0], bb2[0]), max(bb1[1], bb2[1])
+        ix1, iz1 = min(bb1[2], bb2[2]), min(bb1[3], bb2[3])
+        if ix1 <= ix0 or iz1 <= iz0:
+            return 0.0
+        hits = 0
+        nx, nz = 7, 7
+        for ix in range(nx):
+            px = ix0 + (ix + 0.5) * (ix1 - ix0) / nx
+            for iz in range(nz):
+                pz = iz0 + (iz + 0.5) * (iz1 - iz0) / nz
+                if point_in_polygon(px, pz, poly1) and point_in_polygon(px, pz, poly2):
+                    hits += 1
+        if hits == 0:
+            return 0.0
+        inter_area = (hits / (nx * nz)) * (ix1 - ix0) * (iz1 - iz0)
+        a1 = max(abs(signed_area_2d(poly1)), 1e-3)
+        a2 = max(abs(signed_area_2d(poly2)), 1e-3)
+        return inter_area / min(a1, a2)
+
+    for b in list(existing_buildings) + list(CORRIDOR_INFILL_BUILDINGS):
+        bid = str(b.get("id", ""))
+        if BUILDING_OVERRIDES.get(bid, {}).get("skip"):
+            continue
+        c = b.get("center")
+        if c and len(c) >= 2:
+            occupied_centers.append((float(c[0]), float(c[1])))
+        bfp = b.get("footprint") or []
+        if len(bfp) >= 3:
+            bpoly = [(float(p[0]), float(p[1])) for p in bfp]
+            occupied_polys.append((fp_bbox(bpoly), bpoly))
+
+    # Pass 2: Merge infill_buildings & accessories (with 2D polygon overlap dedup!)
+    skipped_infill_dups = 0
+    for slug, doc in parsed_docs:
         infs = doc.get("infill_buildings") or doc.get("INFILL_BUILDINGS") or doc.get("infills") or []
         if isinstance(infs, list):
             for inf in infs:
@@ -3941,18 +4042,26 @@ def load_street_overrides_glob(
                     continue
                 iid = str(inf.get("id") or f"infill/{slug}_{len(extra_infills) + 1}")
                 if iid in existing_infill_ids or iid in excluded_ids:
+                    skipped_infill_dups += 1
                     continue
                 raw_fp = inf.get("footprint") or []
                 if len(raw_fp) < 3:
                     continue
-                cx = sum(float(p[0]) for p in raw_fp) / len(raw_fp)
-                cz = sum(float(p[1]) for p in raw_fp) / len(raw_fp)
-                # Reject accidental duplicates overlapping existing buildings/landmarks
+                ipoly = [(float(p[0]), float(p[1])) for p in raw_fp]
+                ibb = fp_bbox(ipoly)
+                cx = sum(p[0] for p in ipoly) / len(ipoly)
+                cz = sum(p[1] for p in ipoly) / len(ipoly)
+                # Reject accidental duplicates overlapping non-skipped existing buildings or earlier infills
                 if any(math.hypot(cx - ox, cz - oz) < 2.8 for ox, oz in occupied_centers):
+                    skipped_infill_dups += 1
+                    continue
+                if any(poly_overlap_frac(ibb, ipoly, obb, opoly) > 0.22 for obb, opoly in occupied_polys):
+                    skipped_infill_dups += 1
                     continue
                 elev = inf.get("baseElevationM")
                 if elev is None:
                     elev = round(sample_elev(cx, cz), 2)
+                rs_clean = ROOF_SHAPE_ALIASES.get(str(inf.get("roofShape", "gabled")).lower().strip(), "gabled")
                 clean_inf = {
                     "id": iid,
                     "category": str(inf.get("category", "residential")),
@@ -3960,14 +4069,17 @@ def load_street_overrides_glob(
                     "baseElevationM": float(elev),
                     "wallHeightM": float(inf.get("wallHeightM", 5.0)),
                     "roofHeightM": float(inf.get("roofHeightM", 3.0)),
-                    "roofShape": str(inf.get("roofShape", "gabled")),
+                    "roofShape": rs_clean,
                     "roofTone": str(inf.get("roofTone", "terracotta")),
                     "footprint": [[float(p[0]), float(p[1])] for p in raw_fp],
                 }
-                if isinstance(inf.get("override"), dict):
-                    clean_inf["override"] = sanitize_ov(inf["override"])
+                raw_inf_ov = inf.get("override") if isinstance(inf.get("override"), dict) else inf
+                clean_inf_ov = sanitize_ov(raw_inf_ov)
+                if clean_inf_ov:
+                    clean_inf["override"] = clean_inf_ov
                 existing_infill_ids.add(iid)
                 occupied_centers.append((cx, cz))
+                occupied_polys.append((ibb, ipoly))
                 extra_infills.append(clean_inf)
 
         accs = doc.get("accessories") or doc.get("STREET_ACCESSORIES") or doc.get("street_accessories") or []
@@ -3975,9 +4087,13 @@ def load_street_overrides_glob(
             extra_accessories.extend(accs)
 
     print(
-        f"Auto-merged {len(files)} street override files: "
-        f"+{merged_count} building overrides, +{len(extra_infills)} infills, +{len(extra_accessories)} accessories"
+        f"Auto-merged {len(parsed_docs)} street override files: "
+        f"+{merged_count} building overrides ({len(dup_ov_ids)} cross-street overlaps), "
+        f"+{len(extra_infills)} infills ({skipped_infill_dups} deduped), "
+        f"+{len(extra_accessories)} accessories"
     )
+    if dup_ov_ids:
+        print(f"  Cross-street duplicate building IDs (last slug won): {dup_ov_ids[:15]}")
     return merged_count, extra_infills, extra_accessories
 
 
@@ -4225,6 +4341,39 @@ def run_production(
                 target=(-532.0, -131.5, 78.5 + 4.0),
                 lens=20.0,
                 out_path=os.path.join(render_corridors_dir, "preview_im_rosengarten.png"),
+            )
+            # --- Wave 3 All-Streets Verification Previews (North/East/West/Central Corridors) ---
+            # 13. Wave 3 High NE->SW Full-Village Aerial Overview
+            render_camera(
+                bpy.context.scene,
+                cam_loc=(360.0, 290.0, med_elev + 135.0),
+                target=(-60.0, 20.0, med_elev + 4.0),
+                lens=30.0,
+                out_path=os.path.join(render_corridors_dir, "preview_wave3_overview_ne.png"),
+            )
+            # 14. Wave 3 Neugasse / Sport- und Freizeithalle / Andingstraße Corridor
+            render_camera(
+                bpy.context.scene,
+                cam_loc=(210.0, 205.0, 56.0 + 28.0),
+                target=(115.0, 238.0, 56.0 + 3.0),
+                lens=26.0,
+                out_path=os.path.join(render_corridors_dir, "preview_wave3_neugasse_anding.png"),
+            )
+            # 15. Wave 3 Bergstraße / Grabenweg / Kellergasse West Hillside Corridor
+            render_camera(
+                bpy.context.scene,
+                cam_loc=(-175.0, 55.0, 68.0 + 26.0),
+                target=(-215.0, 170.0, 74.0 + 4.0),
+                lens=26.0,
+                out_path=os.path.join(render_corridors_dir, "preview_wave3_bergstrasse.png"),
+            )
+            # 16. Wave 3 Am Kinderbach / Gässelstraße / Raiffeisenstraße East Village Corridor
+            render_camera(
+                bpy.context.scene,
+                cam_loc=(280.0, 120.0, 48.0 + 32.0),
+                target=(430.0, 65.0, 44.0 + 3.0),
+                lens=26.0,
+                out_path=os.path.join(render_corridors_dir, "preview_wave3_kinderbach_east.png"),
             )
 
     if not skip_archetypes:

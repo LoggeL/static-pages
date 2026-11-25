@@ -313,7 +313,11 @@ async function bootstrap(): Promise<void> {
   lighting.updateShadowFocus(cameraRig.getFocusTarget(), cameraRig.getFocusDistance());
 
   // Initial HUD sync
-  const bldgTotal = dataset.meta.buildingCount ?? dataset.scene.buildings.length;
+  const bldgTotal = Math.max(
+    dataset.meta.buildingCount ?? 0,
+    (dataset.villageManifest?.buildingCount ?? 0) + buildingRes.landmarkCount,
+    dataset.scene.buildings.length
+  );
   const fieldsLabel = fieldsSystem.stats.parcelCount > 0 ? ` · ${fieldsSystem.stats.parcelCount} Felder` : ` · ${collider.polyCount} Kollider`;
   ui.setStatsText(
     `${bldgTotal} Gebäude · ${sceneryRes.stats.vineInstances.toLocaleString('de-DE')} Rebzeilen${fieldsLabel}`
