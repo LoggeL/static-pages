@@ -49,58 +49,61 @@ function closestPointOnSegment(
   return [cx, cz, dx * dx + dz * dz];
 }
 
+const SKIPPED_COLLIDER_IDS = new Set([
+  'lod2/DERPLP110000QOZg',
+  'lod2/DERPLP110000QPa2',
+]);
+
 export class BuildingCollider {
   private readonly cellSize = 18;
   private readonly grid = new Map<number, ColliderPoly[]>();
   private readonly halfLimit: number;
-  public readonly polyCount: number;
+  public polyCount = 0;
 
   constructor(buildings: BuildingRecord[], mapSizeM: number) {
     this.halfLimit = mapSizeM * 0.5 - 8;
-    let count = 0;
-
-    const addPoly = (pts: [number, number][] | undefined) => {
-      if (!pts || pts.length < 3) return;
-      let minX = Infinity;
-      let maxX = -Infinity;
-      let minZ = Infinity;
-      let maxZ = -Infinity;
-      for (const [x, z] of pts) {
-        if (x < minX) minX = x;
-        if (x > maxX) maxX = x;
-        if (z < minZ) minZ = z;
-        if (z > maxZ) maxZ = z;
-      }
-      if (!Number.isFinite(minX)) return;
-      const poly: ColliderPoly = { points: pts, minX, maxX, minZ, maxZ };
-      count++;
-
-      const gx0 = Math.floor((minX - 2) / this.cellSize);
-      const gx1 = Math.floor((maxX + 2) / this.cellSize);
-      const gz0 = Math.floor((minZ - 2) / this.cellSize);
-      const gz1 = Math.floor((maxZ + 2) / this.cellSize);
-      for (let gz = gz0; gz <= gz1; gz++) {
-        for (let gx = gx0; gx <= gx1; gx++) {
-          const key = ((gx + 2048) << 16) | ((gz + 2048) & 0xffff);
-          let list = this.grid.get(key);
-          if (!list) {
-            list = [];
-            this.grid.set(key, list);
-          }
-          list.push(poly);
-        }
-      }
-    };
 
     for (const b of buildings) {
-      addPoly(b.footprint);
+      if (SKIPPED_COLLIDER_IDS.has(String(b.id))) continue;
+      this.addPolygon(b.footprint);
       // Include freestanding Evangelische Martinskirche bell tower footprint!
       if (b.tower?.footprint) {
-        addPoly(b.tower.footprint);
+        this.addPolygon(b.tower.footprint);
       }
     }
+  }
 
-    this.polyCount = count;
+  public addPolygon(pts: [number, number][] | undefined): void {
+    if (!pts || pts.length < 3) return;
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minZ = Infinity;
+    let maxZ = -Infinity;
+    for (const [x, z] of pts) {
+      if (x < minX) minX = x;
+      if (x > maxX) maxX = x;
+      if (z < minZ) minZ = z;
+      if (z > maxZ) maxZ = z;
+    }
+    if (!Number.isFinite(minX)) return;
+    const poly: ColliderPoly = { points: pts, minX, maxX, minZ, maxZ };
+    this.polyCount++;
+
+    const gx0 = Math.floor((minX - 2) / this.cellSize);
+    const gx1 = Math.floor((maxX + 2) / this.cellSize);
+    const gz0 = Math.floor((minZ - 2) / this.cellSize);
+    const gz1 = Math.floor((maxZ + 2) / this.cellSize);
+    for (let gz = gz0; gz <= gz1; gz++) {
+      for (let gx = gx0; gx <= gx1; gx++) {
+        const key = ((gx + 2048) << 16) | ((gz + 2048) & 0xffff);
+        let list = this.grid.get(key);
+        if (!list) {
+          list = [];
+          this.grid.set(key, list);
+        }
+        list.push(poly);
+      }
+    }
   }
 
   public resolveCircle(x: number, z: number, radius: number): CollisionHit {

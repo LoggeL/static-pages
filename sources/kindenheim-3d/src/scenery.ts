@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import type { LoadedLandmarkInfo } from './buildings';
+import { RECREATION_EXCLUSION_POLYS } from './recreation';
 import type { TerrainSystem } from './terrain';
 import type { BraveReferenceEntry, BuildingRecord, LanduseRecord, RoadRecord, SceneData, VillageManifest, VillagePropEntry } from './types';
 
@@ -298,6 +299,9 @@ function buildExclusionGrid(mapSizeM: number, buildings: BuildingRecord[], roads
     // Keep tighter clearance along rural L450 / tracks so lush Pfalz grapevine rows flank the road verge authentically
     const pad = hw === 'track' || hw === 'path' ? 0.85 : 1.05;
     grid.markPolyline(pts, w * 0.5 + pad, FLAG_ROAD);
+  }
+  for (const poly of RECREATION_EXCLUSION_POLYS) {
+    grid.markPolygon(poly, 1.5, FLAG_BUILDING);
   }
   return grid;
 }
@@ -850,6 +854,35 @@ export async function buildSceneryAndProps(
       [-304.2, 183.0, 0.92],
       // Am Kirchrain #18 garden tree masking upper-right cream facade behind stone-pillar fence (sv_kirchrain_mid_westbound.png)
       [-541.2, 60.8, 0.88],
+      // Calibrated wooded embankment belt separating Fußballplatz & Spielplatz / Sporthalle (verified in DOP20)
+      [25.5, -271.5, 1.24],
+      [32.5, -273.5, 1.32],
+      [39.5, -276.0, 1.36],
+      [46.5, -277.5, 1.22],
+      [53.0, -279.0, 1.28],
+      [59.5, -280.5, 1.18],
+      [66.0, -282.5, 1.30],
+      [73.0, -284.0, 1.25],
+      [80.0, -285.5, 1.34],
+      [87.5, -287.0, 1.22],
+      [94.5, -288.5, 1.28],
+      [101.5, -290.5, 1.30],
+      [108.5, -291.5, 1.18],
+      [115.5, -290.0, 1.12],
+      [62.0, -268.5, 1.12],
+      [69.5, -269.5, 1.16],
+      [78.0, -271.5, 1.18],
+      [86.5, -273.5, 1.14],
+      [52.5, -267.5, 1.05],
+      [64.5, -266.8, 1.02],
+      [74.5, -268.0, 1.08],
+      // Iconic Spielplatz south-east mature shade tree & western garden border trees (verified in DOP20)
+      [83.5, -231.5, 1.28],
+      [56.5, -254.5, 1.02],
+      [57.5, -238.5, 0.96],
+      // NE Sportplatz parking entrance trees
+      [110.5, -366.5, 1.08],
+      [115.5, -365.5, 1.14],
     ];
     for (const [bx, bz, sc] of triftBridgeCanopy) {
       if (exclusion.isBlocked(bx, bz, FLAG_ROAD)) continue;

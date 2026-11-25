@@ -69,6 +69,20 @@ export function buildKindenheimBookmarks(
   const stTargetZ = rathaus ? (chZ + rathaus.position.z) * 0.5 : -62;
   const stTargetY = terrain.getTerrainHeight(stTargetX, stTargetZ) + 14.5;
 
+  const spCamX = 122.0;
+  const spCamZ = -295.0;
+  const spCamY = terrain.getTerrainHeight(spCamX, spCamZ) + 25.5;
+  const spTargetX = 52.0;
+  const spTargetZ = -322.0;
+  const spTargetY = terrain.getTerrainHeight(spTargetX, spTargetZ) + 1.5;
+
+  const plCamX = 65.0;
+  const plCamZ = -224.0;
+  const plCamY = terrain.getTerrainHeight(plCamX, plCamZ) + 11.5;
+  const plTargetX = 75.0;
+  const plTargetZ = -254.0;
+  const plTargetY = terrain.getTerrainHeight(plTargetX, plTargetZ) + 1.5;
+
   return [
     {
       id: 'overview',
@@ -104,6 +118,20 @@ export function buildKindenheimBookmarks(
       position: [stCamX, stCamY, stCamZ],
       target: [stTargetX, stTargetY, stTargetZ],
       fovDeg: 58,
+    },
+    {
+      id: 'sportplatz',
+      label: 'Fußballplatz',
+      position: [spCamX, spCamY, spCamZ],
+      target: [spTargetX, spTargetY, spTargetZ],
+      fovDeg: 52,
+    },
+    {
+      id: 'spielplatz',
+      label: 'Spielplatz',
+      position: [plCamX, plCamY, plCamZ],
+      target: [plTargetX, plTargetY, plTargetZ],
+      fovDeg: 52,
     },
   ];
 }

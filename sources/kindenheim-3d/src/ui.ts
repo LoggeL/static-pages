@@ -261,7 +261,7 @@ export class UIController {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
       if (e.repeat && e.code !== 'KeyH') return;
 
-      if (e.key >= '1' && e.key <= '5') {
+      if (e.key >= '1' && e.key <= '7') {
         const idx = Number(e.key) - 1;
         this.setActiveBookmark(idx);
         this.handlers.onBookmark(idx);

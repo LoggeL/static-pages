@@ -1,0 +1,445 @@
+{
+  "coordinateSystem": "Three.js Y-up meters (+X East, +Y Up, +Z South / Blender -Y)",
+  "models": {
+    "sportheim_kindenheim": {
+      "glbPath": "/assets/models/recreation/sportheim_kindenheim.glb",
+      "bounds": {
+        "min": [
+          -24.242,
+          -2.8,
+          -3.7
+        ],
+        "max": [
+          24.242,
+          7.01,
+          5.07
+        ],
+        "size": [
+          48.484,
+          9.81,
+          8.77
+        ]
+      },
+      "triangles": 2038,
+      "fileSizeBytes": 841932
+    },
+    "sportplatz_terrace": {
+      "glbPath": "/assets/models/recreation/sportplatz_terrace.glb",
+      "bounds": {
+        "min": [
+          -14.0,
+          -2.4,
+          -1.74
+        ],
+        "max": [
+          14.0,
+          3.102,
+          1.75
+        ],
+        "size": [
+          28.0,
+          5.502,
+          3.49
+        ]
+      },
+      "triangles": 672,
+      "fileSizeBytes": 165956
+    },
+    "soccer_goal_full": {
+      "glbPath": "/assets/models/recreation/soccer_goal_full.glb",
+      "bounds": {
+        "min": [
+          -2.028,
+          -0.35,
+          -3.718
+        ],
+        "max": [
+          0.058,
+          2.498,
+          3.718
+        ],
+        "size": [
+          2.086,
+          2.848,
+          7.436
+        ]
+      },
+      "triangles": 1308,
+      "fileSizeBytes": 169260
+    },
+    "soccer_goal_mini": {
+      "glbPath": "/assets/models/recreation/soccer_goal_mini.glb",
+      "bounds": {
+        "min": [
+          -1.478,
+          -0.35,
+          -2.548
+        ],
+        "max": [
+          0.048,
+          2.048,
+          2.548
+        ],
+        "size": [
+          1.526,
+          2.398,
+          5.096
+        ]
+      },
+      "triangles": 1044,
+      "fileSizeBytes": 150776
+    },
+    "floodlight_mast": {
+      "glbPath": "/assets/models/recreation/floodlight_mast.glb",
+      "bounds": {
+        "min": [
+          -1.6,
+          -1.2,
+          -0.34
+        ],
+        "max": [
+          1.6,
+          16.839,
+          0.467
+        ],
+        "size": [
+          3.2,
+          18.039,
+          0.807
+        ]
+      },
+      "triangles": 1012,
+      "fileSizeBytes": 246248
+    },
+    "dugout_bench": {
+      "glbPath": "/assets/models/recreation/dugout_bench.glb",
+      "bounds": {
+        "min": [
+          -2.2,
+          -0.425,
+          -0.825
+        ],
+        "max": [
+          2.2,
+          2.152,
+          0.825
+        ],
+        "size": [
+          4.4,
+          2.577,
+          1.65
+        ]
+      },
+      "triangles": 888,
+      "fileSizeBytes": 222060
+    },
+    "scoreboard": {
+      "glbPath": "/assets/models/recreation/scoreboard.glb",
+      "bounds": {
+        "min": [
+          -1.37,
+          -0.5,
+          -0.102
+        ],
+        "max": [
+          1.37,
+          3.068,
+          0.222
+        ],
+        "size": [
+          2.74,
+          3.568,
+          0.323
+        ]
+      },
+      "triangles": 98,
+      "fileSizeBytes": 156280
+    },
+    "playground_tower": {
+      "glbPath": "/assets/models/recreation/playground_tower.glb",
+      "bounds": {
+        "min": [
+          -2.473,
+          -0.65,
+          -2.165
+        ],
+        "max": [
+          2.95,
+          4.358,
+          3.897
+        ],
+        "size": [
+          5.423,
+          5.008,
+          6.062
+        ]
+      },
+      "triangles": 1728,
+      "fileSizeBytes": 532968
+    },
+    "playground_swings": {
+      "glbPath": "/assets/models/recreation/playground_swings.glb",
+      "bounds": {
+        "min": [
+          -3.75,
+          -0.578,
+          -1.323
+        ],
+        "max": [
+          3.75,
+          2.8,
+          1.323
+        ],
+        "size": [
+          7.5,
+          3.378,
+          2.645
+        ]
+      },
+      "triangles": 1144,
+      "fileSizeBytes": 306752
+    },
+    "playground_pyramid": {
+      "glbPath": "/assets/models/recreation/playground_pyramid.glb",
+      "bounds": {
+        "min": [
+          -1.853,
+          -0.6,
+          -1.853
+        ],
+        "max": [
+          1.853,
+          3.99,
+          1.853
+        ],
+        "size": [
+          3.706,
+          4.59,
+          3.706
+        ]
+      },
+      "triangles": 756,
+      "fileSizeBytes": 196732
+    },
+    "playground_carousel": {
+      "glbPath": "/assets/models/recreation/playground_carousel.glb",
+      "bounds": {
+        "min": [
+          -1.1,
+          -0.475,
+          -1.1
+        ],
+        "max": [
+          1.1,
+          0.864,
+          1.1
+        ],
+        "size": [
+          2.2,
+          1.339,
+          2.2
+        ]
+      },
+      "triangles": 744,
+      "fileSizeBytes": 265660
+    },
+    "playground_seesaw": {
+      "glbPath": "/assets/models/recreation/playground_seesaw.glb",
+      "bounds": {
+        "min": [
+          -1.885,
+          -0.45,
+          -0.18
+        ],
+        "max": [
+          1.885,
+          1.197,
+          0.18
+        ],
+        "size": [
+          3.77,
+          1.647,
+          0.36
+        ]
+      },
+      "triangles": 708,
+      "fileSizeBytes": 268728
+    },
+    "spring_rider_tractor": {
+      "glbPath": "/assets/models/recreation/spring_rider_tractor.glb",
+      "bounds": {
+        "min": [
+          -0.287,
+          -0.4,
+          -0.48
+        ],
+        "max": [
+          0.287,
+          1.08,
+          0.46
+        ],
+        "size": [
+          0.573,
+          1.48,
+          0.94
+        ]
+      },
+      "triangles": 1392,
+      "fileSizeBytes": 197728
+    },
+    "spring_rider_horse": {
+      "glbPath": "/assets/models/recreation/spring_rider_horse.glb",
+      "bounds": {
+        "min": [
+          -0.22,
+          -0.4,
+          -0.48
+        ],
+        "max": [
+          0.22,
+          1.085,
+          0.599
+        ],
+        "size": [
+          0.44,
+          1.485,
+          1.079
+        ]
+      },
+      "triangles": 1112,
+      "fileSizeBytes": 250476
+    },
+    "playground_sandpit_toys": {
+      "glbPath": "/assets/models/recreation/playground_sandpit_toys.glb",
+      "bounds": {
+        "min": [
+          -1.27,
+          -0.46,
+          -0.66
+        ],
+        "max": [
+          1.65,
+          1.79,
+          1.35
+        ],
+        "size": [
+          2.92,
+          2.25,
+          2.01
+        ]
+      },
+      "triangles": 408,
+      "fileSizeBytes": 248628
+    },
+    "playground_pavilion": {
+      "glbPath": "/assets/models/recreation/playground_pavilion.glb",
+      "bounds": {
+        "min": [
+          -2.36,
+          -0.6,
+          -1.96
+        ],
+        "max": [
+          2.36,
+          3.864,
+          1.96
+        ],
+        "size": [
+          4.72,
+          4.464,
+          3.92
+        ]
+      },
+      "triangles": 492,
+      "fileSizeBytes": 318424
+    },
+    "tischtennisplatte": {
+      "glbPath": "/assets/models/recreation/tischtennisplatte.glb",
+      "bounds": {
+        "min": [
+          -1.37,
+          -0.45,
+          -0.783
+        ],
+        "max": [
+          1.37,
+          0.911,
+          0.783
+        ],
+        "size": [
+          2.74,
+          1.361,
+          1.565
+        ]
+      },
+      "triangles": 62,
+      "fileSizeBytes": 166704
+    },
+    "park_bench": {
+      "glbPath": "/assets/models/recreation/park_bench.glb",
+      "bounds": {
+        "min": [
+          -0.9,
+          -0.35,
+          -0.325
+        ],
+        "max": [
+          0.9,
+          0.87,
+          0.25
+        ],
+        "size": [
+          1.8,
+          1.22,
+          0.575
+        ]
+      },
+      "triangles": 132,
+      "fileSizeBytes": 130672
+    },
+    "trash_bin": {
+      "glbPath": "/assets/models/recreation/trash_bin.glb",
+      "bounds": {
+        "min": [
+          -0.19,
+          -0.4,
+          -0.05
+        ],
+        "max": [
+          0.19,
+          1.09,
+          0.33
+        ],
+        "size": [
+          0.38,
+          1.49,
+          0.38
+        ]
+      },
+      "triangles": 116,
+      "fileSizeBytes": 121144
+    },
+    "spielplatz_sign": {
+      "glbPath": "/assets/models/recreation/spielplatz_sign.glb",
+      "bounds": {
+        "min": [
+          -0.37,
+          -0.45,
+          -0.038
+        ],
+        "max": [
+          0.37,
+          2.27,
+          0.043
+        ],
+        "size": [
+          0.74,
+          2.72,
+          0.081
+        ]
+      },
+      "triangles": 50,
+      "fileSizeBytes": 131076
+    }
+  }
+}

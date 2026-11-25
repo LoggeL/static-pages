@@ -156,18 +156,20 @@ function attachOptionalManifestFallback(
   server: ViteDevServer | { middlewares: ViteDevServer['middlewares'] },
   assetsRoot: string
 ): void {
-  server.middlewares.use('/assets/models/fields/manifest.json', (_req, res, next) => {
-    const manifestPath = path.join(assetsRoot, 'models/fields/manifest.json');
-    if (fs.existsSync(manifestPath)) {
-      next();
-      return;
-    }
-    const body = JSON.stringify({ available: false });
-    res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    res.setHeader('Content-Length', String(Buffer.byteLength(body)));
-    res.setHeader('Cache-Control', 'no-cache');
-    res.end(body);
-  });
+  for (const subPath of ['models/fields/manifest.json', 'models/recreation/manifest.json']) {
+    server.middlewares.use(`/assets/${subPath}`, (_req, res, next) => {
+      const manifestPath = path.join(assetsRoot, subPath);
+      if (fs.existsSync(manifestPath)) {
+        next();
+        return;
+      }
+      const body = JSON.stringify({ available: false });
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      res.setHeader('Content-Length', String(Buffer.byteLength(body)));
+      res.setHeader('Cache-Control', 'no-cache');
+      res.end(body);
+    });
+  }
 }
 
 function serveAndCopyDataPlugin(): Plugin {

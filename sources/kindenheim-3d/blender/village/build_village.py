@@ -1417,13 +1417,13 @@ CORRIDOR_INFILL_BUILDINGS: List[Dict] = [
         # Neugasse 13 (crisp white steep-charcoal-roofed house 2nd on left in sv_side_street_neugasse.png!)
         "id": "infill/neugasse_13",
         "category": "residential",
-        "center": [63.0, -195.2],
-        "baseElevationM": 63.09,
+        "center": [64.97, -193.19],
+        "baseElevationM": 63.00,
         "wallHeightM": 3.8,
         "roofHeightM": 4.4,
         "roofShape": "gabled",
         "roofTone": "charcoal",
-        "footprint": [[69.4, -198.2], [59.6, -201.4], [56.5, -192.2], [66.4, -189.0]],
+        "footprint": [[68.83, -198.55], [58.62, -195.01], [61.11, -187.83], [71.32, -191.37]],
         "override": {
             "wall_mat": "wall_white_clean",
             "plinth_mat": "plinth_rubble",

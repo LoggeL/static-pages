@@ -1,7 +1,7 @@
 {
   "coordinateSystem": "Three.js Y-up meters (+X East, -Z North, +Y Up above minElevationM)",
   "worldPositionedChunks": true,
-  "totalVillageBuildings": 1093,
+  "totalVillageBuildings": 1091,
   "excludedLandmarkIds": [
     "lod2/DERPLP110000QOJB",
     "lod2/DERPLP110000QOUz",
@@ -45,10 +45,10 @@
     {
       "id": "village_north",
       "glbPath": "/assets/models/village/village_north.glb",
-      "buildingCount": 353,
-      "triangles": 34945,
+      "buildingCount": 351,
+      "triangles": 34779,
       "materialCount": 43,
-      "fileSizeBytes": 5133132,
+      "fileSizeBytes": 5121384,
       "worldPositioned": true,
       "bounds": {
         "min": [

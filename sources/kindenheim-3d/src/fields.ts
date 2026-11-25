@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { RECREATION_EXCLUSION_POLYS } from './recreation';
 import type { TerrainSystem } from './terrain';
 import type {
   BraveReferenceEntry,
@@ -417,6 +418,9 @@ function buildOccupancy(
     if (lu.type === 'vineyard' && lu.points && lu.points.length >= 3) {
       grid.markPolygon(lu.points, 0.5, FLAG_VINEYARD);
     }
+  }
+  for (const poly of RECREATION_EXCLUSION_POLYS) {
+    grid.markPolygon(poly, 1.5, FLAG_BUILDING);
   }
   return grid;
 }

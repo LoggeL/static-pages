@@ -9,6 +9,7 @@ import { loadAllDatasetMetadata } from './dataLoader';
 import { buildAgriculturalFields, type FieldsSystemResult } from './fields';
 import { WeinleseTourGame } from './game';
 import { LightingSystem } from './lighting';
+import { buildRecreationAreas, type RecreationSystemResult } from './recreation';
 import { buildRoadNetwork } from './roads';
 import { buildSceneryAndProps } from './scenery';
 import { TerrainSystem } from './terrain';
@@ -73,6 +74,7 @@ async function bootstrap(): Promise<void> {
   let benchmarkOverlay: BenchmarkOverlay | null = null;
   let tractor: TractorController | null = null;
   let tourGame: WeinleseTourGame | null = null;
+  let recreationSystem: RecreationSystemResult | null = null;
   let cleanCaptureActive = false;
 
   // Live driving keyboard state
@@ -123,6 +125,7 @@ async function bootstrap(): Promise<void> {
     onTimeOfDay: (preset) => {
       lighting.applyPreset(preset);
       ui.syncSunSliders(lighting.elevationDeg, lighting.azimuthDeg);
+      recreationSystem?.setDuskMode(preset === 'dusk');
       // Automatically switch headlights ON in Abenddämmerung for dramatic glow!
       if (preset === 'dusk' && tractor && !tractor.lightsOn) {
         tractor.setOptions({ lights: true, beacon: true });
@@ -268,9 +271,9 @@ async function bootstrap(): Promise<void> {
   scene.add(buildingRes.group);
   scene.add(tractor.group);
 
-  // 5. Populate Palatinate vineyards, trees, Ortsschilder, streetlamps, hay bales, barrels & agricultural crop fields
-  ui.setLoadingProgress('scenery', 84, 'Pflanze Pfälzer Weinberge, Felder, Bäume & Ortsdetails…');
-  const [sceneryRes, fieldsRes] = await Promise.all([
+  // 5. Populate Palatinate vineyards, trees, Ortsschilder, streetlamps, hay bales, barrels, fields & recreation areas
+  ui.setLoadingProgress('scenery', 84, 'Pflanze Pfälzer Weinberge, Felder, Sport- & Spielplatz…');
+  const [sceneryRes, fieldsRes, recreationRes] = await Promise.all([
     buildSceneryAndProps(
       dataset.scene,
       dataset.villageManifest,
@@ -287,9 +290,12 @@ async function bootstrap(): Promise<void> {
       maxAnisotropy,
       dataset.braveRefs?.references
     ),
+    buildRecreationAreas(terrain, collider, maxAnisotropy),
   ]);
   scene.add(sceneryRes.group);
   scene.add(fieldsRes.group);
+  scene.add(recreationRes.group);
+  recreationSystem = recreationRes;
   const fieldsSystem: FieldsSystemResult = fieldsRes;
 
   // 6. Initialize Pfälzer Weinlese-Tour checkpoints + Reality-vs-3D Benchmark overlay
@@ -437,6 +443,7 @@ async function bootstrap(): Promise<void> {
       ui.setActiveTimeOfDay(preset);
       lighting.applyPreset(preset);
       ui.syncSunSliders(lighting.elevationDeg, lighting.azimuthDeg);
+      recreationSystem?.setDuskMode(preset === 'dusk');
       renderer.render(scene, camera);
     },
     flyTo: (pos, target, instant = true, fovDeg?: number) => {
@@ -477,6 +484,10 @@ async function bootstrap(): Promise<void> {
       for (let i = 0; i < steps; i++) {
         tractor.step(fixedDt, input, true);
         tourGame.update(fixedDt, tractor.tractorRoot.position, tractor.speedMps, cameraRig.mode === 'chase');
+        recreationSystem?.update(fixedDt, tractor.tractorRoot.position, cleanCaptureActive, () => {
+          audio.playCheckpointChime(false);
+          ui.showToast('TOOOR für den TV 1920 Kindenheim! ⚽');
+        });
       }
       cameraRig.snapToCurrentMode();
       lighting.updateShadowFocus(cameraRig.getFocusTarget(), cameraRig.getFocusDistance());
@@ -515,6 +526,7 @@ async function bootstrap(): Promise<void> {
       roadCount: dataset.scene.roads.length,
       sceneryStats: sceneryRes.stats,
       fieldsStats: fieldsSystem.stats,
+      recreationStats: recreationRes.stats,
       referenceCount: allShots.length,
       tractor: tractor?.getTelemetry() ?? null,
       tour: tourGame
@@ -554,6 +566,10 @@ async function bootstrap(): Promise<void> {
       lighting.updateShadowFocus(focus, cameraRig.getFocusDistance());
       lighting.updateClouds(cleanCaptureActive ? 0 : dt, camera.position);
       fieldsSystem.update(cleanCaptureActive ? 0 : dt);
+      recreationSystem?.update(dt, tractor.tractorRoot.position, cleanCaptureActive, () => {
+        audio.playCheckpointChime(false);
+        ui.showToast('TOOOR für den TV 1920 Kindenheim! ⚽');
+      });
 
       // Synthesized Web Audio Diesel engine update
       audio.updateEngine(tractor.rpmNorm, Math.abs(input.throttle), cameraRig.mode !== 'drone');
