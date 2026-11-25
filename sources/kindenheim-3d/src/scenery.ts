@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import type { LoadedLandmarkInfo } from './buildings';
 import type { TerrainSystem } from './terrain';
-import type { BuildingRecord, RoadRecord, SceneData, VillageManifest, VillagePropEntry } from './types';
+import type { BraveReferenceEntry, BuildingRecord, LanduseRecord, RoadRecord, SceneData, VillageManifest, VillagePropEntry } from './types';
 
 function extractRoadXZ(p: [number, number] | [number, number, number]): [number, number] {
   return p.length === 3 ? [p[0], p[2]] : [p[0], p[1]];
@@ -307,7 +307,8 @@ export async function buildSceneryAndProps(
   villageManifest: VillageManifest | null,
   landmarks: Map<string, LoadedLandmarkInfo>,
   terrain: TerrainSystem,
-  maxAnisotropy: number
+  maxAnisotropy: number,
+  references?: BraveReferenceEntry[]
 ): Promise<SceneryResult> {
   const group = new THREE.Group();
   group.name = 'KindenheimScenery';
@@ -346,6 +347,19 @@ export async function buildSceneryAndProps(
     ]);
 
   const exclusion = buildExclusionGrid(terrain.mapSizeM, sceneData.buildings, sceneData.roads);
+  // Protect Street View camera positions from random non-explicit trees/lamps spawning directly in front of the lens
+  const svCamPoints: [number, number][] = (references ?? [])
+    .filter((r) => (r.cameraHeightM ?? 2.5) < 15 && typeof r.localX === 'number' && typeof r.localZ === 'number')
+    .map((r) => [r.localX!, r.localZ!]);
+  const isNearSvCamera = (x: number, z: number, radiusM = 4.6): boolean => {
+    const r2 = radiusM * radiusM;
+    for (const [cx, cz] of svCamPoints) {
+      const dx = x - cx;
+      const dz = z - cz;
+      if (dx * dx + dz * dz < r2) return true;
+    }
+    return false;
+  };
   const rand = mulberry32(496108);
 
   // Compute village core center & radius from building cluster
@@ -378,9 +392,37 @@ export async function buildSceneryAndProps(
   // 1. VINEYARDS (vine_row.glb instanced along real OSM vineyard polygons!)
   // ---------------------------------------------------------------------------
   let vineyardShowcasePoint: [number, number] | null = null;
-  const vineyards = sceneData.landuse.filter(
-    (lu) => lu.type === 'vineyard' && lu.points && lu.points.length >= 3
-  );
+  // Verified small roadside vineyard patches visible in Street View (Judenberg north embankment & Triftstraße east slope)
+  const extraVerifiedVineyards: LanduseRecord[] = [
+    {
+      id: 'sv_verified_judenberg_north',
+      type: 'vineyard',
+      areaHa: 0.14,
+      rowAngleRad: 0.04,
+      points: [
+        [-382, -88],
+        [-312, -84],
+        [-312, -68],
+        [-382, -70],
+      ],
+    },
+    {
+      id: 'sv_verified_triftstrasse_east',
+      type: 'vineyard',
+      areaHa: 0.17,
+      rowAngleRad: 0.14,
+      points: [
+        [-296, 118],
+        [-264, 116],
+        [-264, 168],
+        [-294, 168],
+      ],
+    },
+  ];
+  const vineyards = [
+    ...sceneData.landuse.filter((lu) => lu.type === 'vineyard' && lu.points && lu.points.length >= 3),
+    ...extraVerifiedVineyards,
+  ];
 
   if (vineProto && vineyards.length > 0) {
     // Determine whether vine_row.glb runs along local X or local Z
@@ -389,14 +431,16 @@ export async function buildSceneryAndProps(
     // vine_row.glb has 6.0m seamless post-to-post bay spacing (foliage overhangs slightly to ~6.5m)
     const segLen = rawAxisLen > 5.5 && rawAxisLen < 7.2 ? 6.0 : Math.max(2.5, rawAxisLen * 0.94);
 
-    // Prioritize vineyards around the village perimeter & key Street View approaches (East L450, Burgweg, West edge)
+    // Prioritize vineyards around the village perimeter & key Street View approaches (East L450, Burgweg, Judenberg, Am Kirchrain, Triftstraße)
     // and calibrate spacing across each full polygon so NO parcel stops halfway!
     const keyViewpoints: [number, number][] = [
       [710, -270],   // East L 450 vineyard entrance (sv_vineyard_edge_east — both North & South sides!)
       [580, -245],   // East approach slopes
       [250, -270],   // North village edge / Burgweg
       [20, -80],     // Village core / Martinskirche
-      [-340, 60],    // West village edge
+      [-340, 60],    // West village edge / Triftstraße
+      [-450, -65],   // Judenberg & Am Kirchrain northern hillside vineyards
+      [-300, 145],   // Triftstraße east slope vineyards
     ];
 
     const scoredVineyards = vineyards.map((vy) => {
@@ -429,7 +473,7 @@ export async function buildSceneryAndProps(
 
     const heroVineMatrices: THREE.Matrix4[] = [];
     const outerVineMatrices: THREE.Matrix4[] = [];
-    const heroBudget = 11500;
+    const heroBudget = 13500;
     const outerBudget = 3200;
     const dummy = new THREE.Object3D();
     const halfBound = terrain.halfSizeM - 12;
@@ -595,7 +639,7 @@ export async function buildSceneryAndProps(
     checkExclusion = true
   ) => {
     if (Math.abs(x) > maxBound || Math.abs(z) > maxBound) return;
-    if (checkExclusion && exclusion.isBlocked(x, z)) return;
+    if (checkExclusion && (exclusion.isBlocked(x, z) || isNearSvCamera(x, z, 4.6))) return;
     const y = terrain.getTerrainHeight(x, z) + groundOffset(proto) - 0.04;
     const s = scaleMin + rand() * (scaleMax - scaleMin);
     dummy.position.set(x, y, z);
@@ -674,7 +718,7 @@ export async function buildSceneryAndProps(
         }
       }
     } else if ((lu.type === 'forest' || lu.type === 'wood' || lu.type === 'scrub' || lu.type === 'cemetery' || lu.type === 'park') && pDecid) {
-      const step = lu.type === 'cemetery' || lu.type === 'park' ? 14.0 : 11.5;
+      const step = lu.type === 'cemetery' ? 9.5 : lu.type === 'park' ? 12.5 : 10.5;
       for (let z = minZ + 4; z < maxZ - 4; z += step) {
         for (let x = minX + 4; x < maxX - 4; x += step) {
           if (decidMatrices.length >= 2200) break;
@@ -766,19 +810,55 @@ export async function buildSceneryAndProps(
           const tz = (z1 - z0) / segD;
           const rx = -tz;
           const rz = tx;
+          const midX = (x0 + x1) * 0.5;
+          const midZ = (z0 + z1) * 0.5;
+          const nearTriftBridge = midX >= -365 && midX <= -265 && midZ >= 192 && midZ <= 258;
+          const spacing = nearTriftBridge ? 9.0 : 11.0;
           acc += segD;
-          if (acc >= 12.5 && decidMatrices.length < 3400) {
+          if (acc >= spacing && decidMatrices.length < 3600) {
             acc = 0;
             for (const side of [-1, 1]) {
-              if (rand() > 0.72) continue;
-              const offset = (ww.widthM ?? 1.8) * 0.5 + 2.4 + rand() * 3.8;
-              const wx = (x0 + x1) * 0.5 + rx * side * offset;
-              const wz = (z0 + z1) * 0.5 + rz * side * offset;
-              pushTree(decidMatrices, wx, wz, 0.85, 1.38, pDecid, true);
+              if (!nearTriftBridge && rand() > 0.78) continue;
+              const offset = (ww.widthM ?? 1.8) * 0.5 + (nearTriftBridge ? 4.8 : 2.2) + rand() * 3.6;
+              const wx = midX + rx * side * offset;
+              const wz = midZ + rz * side * offset;
+              // Keep immediate Triftstraße bridge railings & central sky corridor clear (handled by exact bank canopy below)
+              if (wx >= -328.5 && wx <= -307.5 && wz >= 195 && wz <= 226) continue;
+              pushTree(decidMatrices, wx, wz, nearTriftBridge ? 0.95 : 0.85, nearTriftBridge ? 1.32 : 1.38, pDecid, true);
             }
           }
         }
       }
+    }
+
+    // Calibrated riparian willow/alder canopy on Kinderbach creek banks flanking Triftstraße bridge (sv_triftstrasse_south_vista.png):
+    // Set back 8–13m off bridge centerline so zero branches clip railings and central sky wedge (35%–70%) stays open!
+    const triftBridgeCanopy: [number, number, number][] = [
+      // East bank (left side of photo): lush mid-height screen outside east railing + taller canopy further south
+      [-306.8, 204.5, 1.04],
+      [-307.2, 211.5, 1.18],
+      [-308.0, 219.5, 1.32],
+      [-309.5, 228.5, 1.24],
+      [-311.5, 237.5, 1.18],
+      // West bank (right side of photo): open foreground grass verge by concrete pillars; lush canopy set back 10–14m on bank!
+      [-331.5, 214.0, 1.26],
+      [-330.5, 222.5, 1.34],
+      [-329.8, 231.5, 1.28],
+      [-331.0, 240.0, 1.22],
+      // Triftstraße #3 southern garden deciduous foliage border (sv_triftstrasse_south_house3.png right side)
+      [-305.8, 190.5, 0.82],
+      [-304.2, 183.0, 0.92],
+      // Am Kirchrain #18 garden tree masking upper-right cream facade behind stone-pillar fence (sv_kirchrain_mid_westbound.png)
+      [-541.2, 60.8, 0.88],
+    ];
+    for (const [bx, bz, sc] of triftBridgeCanopy) {
+      if (exclusion.isBlocked(bx, bz, FLAG_ROAD)) continue;
+      const by = terrain.getTerrainHeight(bx, bz) + groundOffset(pDecid) - 0.08;
+      dummy.position.set(bx, by, bz);
+      dummy.rotation.set((rand() - 0.5) * 0.05, rand() * Math.PI * 2, (rand() - 0.5) * 0.05);
+      dummy.scale.set(sc, sc * (0.96 + rand() * 0.12), sc);
+      dummy.updateMatrix();
+      decidMatrices.push(dummy.matrix.clone());
     }
   }
 
@@ -854,7 +934,7 @@ export async function buildSceneryAndProps(
             const lx = mx + rx * offset;
             const lz = mz + rz * offset;
             const tooClose = placedLamps.some(([px, pz]) => Math.hypot(px - lx, pz - lz) < 26);
-            if (!tooClose && !exclusion.isBlocked(lx, lz, FLAG_BUILDING)) {
+            if (!tooClose && !exclusion.isBlocked(lx, lz, FLAG_BUILDING) && !isNearSvCamera(lx, lz, 4.2)) {
               const y = terrain.getTerrainHeight(lx, lz) + groundOffset(lampProto) - 0.02;
               // Face lamp arm (+Z in streetlamp.glb) inward toward road (-rx, -rz)
               const yaw = Math.atan2(-rx, -rz);

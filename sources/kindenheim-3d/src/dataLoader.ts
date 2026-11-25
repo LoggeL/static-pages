@@ -1,6 +1,9 @@
 import type {
   BraveReferenceEntry,
   BraveReferenceManifest,
+  FieldsLayoutData,
+  FieldsManifest,
+  FieldsManifestModel,
   LandmarkManifest,
   LandmarkManifestEntry,
   LoadedDataset,
@@ -244,10 +247,92 @@ export function normalizeTractorManifest(raw: unknown): TractorManifest | null {
   };
 }
 
+export function normalizeFieldsManifest(raw: unknown): FieldsManifest | null {
+  if (!raw || typeof raw !== 'object') return null;
+  const obj = raw as Record<string, unknown>;
+  if (obj.available === false) return null;
+
+  const models: Record<string, FieldsManifestModel> = {};
+  const addEntry = (keyHint: string, val: unknown) => {
+    if (typeof val === 'string') {
+      const k = keyHint || val.split('/').pop()?.replace(/\.glb$/i, '') || '';
+      if (k) models[k] = { key: k, name: k, glbPath: normalizeUrlPath(val, 'assets/models/fields') };
+      return;
+    }
+    if (!val || typeof val !== 'object') return;
+    const e = val as Record<string, unknown>;
+    const rawPath = String(e.glbPath ?? e.glb ?? e.path ?? e.file ?? '');
+    if (!rawPath) return;
+    const k = String(e.key ?? e.id ?? e.name ?? keyHint ?? rawPath.split('/').pop()?.replace(/\.glb$/i, '') ?? '');
+    if (!k) return;
+    const sp = (e.spacing ?? e.instancing ?? (e.recommendedSpacing && !Array.isArray(e.recommendedSpacing) ? e.recommendedSpacing : {})) as Record<string, unknown>;
+    const recArr = Array.isArray(e.recommendedSpacing) ? (e.recommendedSpacing as number[]) : null;
+    models[k] = {
+      key: k,
+      name: String(e.name ?? k),
+      glbPath: normalizeUrlPath(rawPath, 'assets/models/fields'),
+      bounds: Array.isArray(e.bounds) ? (e.bounds as [number, number, number]) : undefined,
+      spacingM:
+        typeof e.spacingM === 'number'
+          ? e.spacingM
+          : typeof e.recommendedGridSpacingM === 'number'
+            ? e.recommendedGridSpacingM
+            : typeof sp.gridM === 'number'
+              ? sp.gridM
+              : typeof sp.gridSpacingM === 'number'
+                ? sp.gridSpacingM
+                : typeof sp.spacingM === 'number'
+                  ? sp.spacingM
+                  : recArr && typeof recArr[0] === 'number'
+                    ? recArr[0]
+                    : undefined,
+      alongRowM:
+        typeof e.alongRowM === 'number'
+          ? e.alongRowM
+          : typeof sp.alongRowM === 'number'
+            ? sp.alongRowM
+            : typeof sp.alongStripM === 'number'
+              ? sp.alongStripM
+              : undefined,
+      betweenBaysM:
+        typeof e.betweenBaysM === 'number'
+          ? e.betweenBaysM
+          : typeof sp.betweenBaysM === 'number'
+            ? sp.betweenBaysM
+            : typeof sp.betweenRowsM === 'number'
+              ? sp.betweenRowsM
+              : undefined,
+      windSway: typeof e.windSway === 'number' ? e.windSway : typeof e.windSwayStrength === 'number' ? e.windSwayStrength : undefined,
+    };
+  };
+
+  for (const bucketKey of ['models', 'crops', 'props', 'assets']) {
+    const bucket = obj[bucketKey];
+    if (Array.isArray(bucket)) {
+      for (const item of bucket) addEntry('', item);
+    } else if (bucket && typeof bucket === 'object') {
+      for (const [k, v] of Object.entries(bucket as Record<string, unknown>)) {
+        addEntry(k, v);
+      }
+    }
+  }
+
+  // Also check top-level entries in case manifest directly maps model keys -> entries
+  if (Object.keys(models).length === 0) {
+    for (const [k, v] of Object.entries(obj)) {
+      if (v && typeof v === 'object' && ('glbPath' in v || 'glb' in v || 'path' in v || 'file' in v)) {
+        addEntry(k, v);
+      }
+    }
+  }
+
+  return Object.keys(models).length > 0 ? { models } : null;
+}
+
 export async function loadAllDatasetMetadata(onProgress?: ProgressCallback): Promise<LoadedDataset> {
   onProgress?.('terrain', 8, 'Lade Geodaten & Höhenmodell…');
 
-  const [metaRaw, hmBuf, sceneRaw, braveRaw, landmarksRaw, villageRaw, tractorRaw] = await Promise.all([
+  const [metaRaw, hmBuf, sceneRaw, braveRaw, landmarksRaw, villageRaw, tractorRaw, fieldsLayoutRaw] = await Promise.all([
     fetchJsonOptional<MetaData>('/data/meta.json'),
     fetchBinaryOptional('/data/terrain/heightmap.bin'),
     fetchJsonOptional<SceneData>('/data/osm/kindenheim_scene.json'),
@@ -255,7 +340,17 @@ export async function loadAllDatasetMetadata(onProgress?: ProgressCallback): Pro
     fetchJsonOptional<unknown>('/assets/models/landmarks/manifest.json'),
     fetchJsonOptional<unknown>('/assets/models/village/manifest.json'),
     fetchJsonOptional<unknown>('/assets/models/tractor/manifest.json'),
+    fetchJsonOptional<FieldsLayoutData>('/data/osm/fields_layout.json'),
   ]);
+
+  const fieldsLayout =
+    fieldsLayoutRaw && fieldsLayoutRaw.available !== false && Array.isArray(fieldsLayoutRaw.fields)
+      ? fieldsLayoutRaw
+      : null;
+
+  const fieldsManifestRaw = fieldsLayout
+    ? await fetchJsonOptional<unknown>('/assets/models/fields/manifest.json')
+    : null;
 
   const meta: MetaData = metaRaw ?? {
     centerLat: 49.6108,
@@ -294,6 +389,7 @@ export async function loadAllDatasetMetadata(onProgress?: ProgressCallback): Pro
   const landmarksManifest = normalizeLandmarkManifest(landmarksRaw);
   const villageManifest = normalizeVillageManifest(villageRaw);
   const tractorManifest = normalizeTractorManifest(tractorRaw);
+  const fieldsManifest = normalizeFieldsManifest(fieldsManifestRaw);
 
   onProgress?.('terrain', 22, 'Höhenmodell bereit, erstelle Gelände…');
 
@@ -305,5 +401,7 @@ export async function loadAllDatasetMetadata(onProgress?: ProgressCallback): Pro
     landmarksManifest,
     villageManifest,
     tractorManifest,
+    fieldsLayout,
+    fieldsManifest,
   };
 }

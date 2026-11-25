@@ -67,6 +67,7 @@ export class UIController {
   private readonly compareRangeVal = document.getElementById('compare-range-val')!;
   private readonly compareSliderLabel = document.getElementById('compare-slider-label')!;
   private readonly benchmarkScoreBanner = document.getElementById('benchmark-score-banner')!;
+  private readonly benchmarkScoreTitle = document.getElementById('benchmark-score-title')!;
   private readonly benchmarkScoreVals = document.getElementById('benchmark-score-vals')!;
   private readonly hudRoot = document.getElementById('hud')!;
 
@@ -420,6 +421,13 @@ export class UIController {
       }
 
       if (parts.length > 0) {
+        const count =
+          typeof latest?.shotCount === 'number'
+            ? latest.shotCount
+            : typeof data.shotCount === 'number'
+              ? data.shotCount
+              : Number(this.refCount.textContent) || 15;
+        this.benchmarkScoreTitle.textContent = `${count}-Shot Benchmark (Vorher → Nachher)`;
         this.benchmarkScoreVals.textContent = parts.join(' · ');
         this.benchmarkScoreBanner.classList.remove('hidden');
       }

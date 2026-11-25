@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import type { BuildingCollider } from './collision';
+import { getBridgeDeckSurfaceHeight } from './roads';
 import type { TerrainSystem } from './terrain';
 import type { TractorManifest } from './types';
 
@@ -603,8 +604,10 @@ export class TractorController {
   }
 
   private sampleSurfaceY(x: number, z: number): number {
-    // Draped roads sit ~0.07–0.11m above raw terrain height; slight +0.06m lift keeps tires flush on Hauptstraße!
-    return this.terrain.getTerrainHeight(x, z) + 0.06;
+    // Draped roads sit ~0.07–0.11m above raw terrain height; span smoothly over the Kinderbach bridge deck too!
+    const bridgeH = getBridgeDeckSurfaceHeight(x, z, this.terrain);
+    const baseH = bridgeH !== null ? bridgeH : this.terrain.getTerrainHeight(x, z);
+    return baseH + 0.06;
   }
 
   public resetToHauptstrasse(): void {

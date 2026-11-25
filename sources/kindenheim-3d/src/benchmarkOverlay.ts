@@ -35,6 +35,22 @@ export const REF_POSE_OVERRIDES: Record<string, ReferencePoseOverride> = {
   sv_vineyard_edge_east: { dHeadingDeg: 0.4, dPitchDeg: 0.0 },
   sv_vineyard_edge_west: { dHeadingDeg: -1.4, dPitchDeg: 0.0 },
   sv_vineyard_hills_west: { dHeadingDeg: -2.2, dPitchDeg: 0.8, fovDeg: 66 },
+
+  // Wave 2 — Triftstraße, Am Kirchrain & adjacent streets (Round 2 dual-point calibrated from wave2_baseline + wave2_iter1 #76/#88)
+  aerial_trift_kirchrain_west: { dx: -28, dz: 15, dy: 65 },
+  sv_triftstrasse_north_entry: { dHeadingDeg: 1.8, dPitchDeg: 1.5 },
+  sv_triftstrasse_mid_southbound: { dHeadingDeg: -3.2, dPitchDeg: 0.5 },
+  sv_triftstrasse_mid_northbound: { dHeadingDeg: 0.0, dPitchDeg: 0.5 },
+  sv_triftstrasse_south_house3: { dHeadingDeg: -4.2, dPitchDeg: 0.5 },
+  sv_triftstrasse_south_vista: { dHeadingDeg: -0.8, dPitchDeg: -3.2 },
+  sv_kirchrain_sw_eastbound: { dHeadingDeg: -5.5, dPitchDeg: 1.5 },
+  sv_kirchrain_mid_westbound: { dHeadingDeg: 3.0, dPitchDeg: -1.8 },
+  sv_kirchrain_ne_eastbound: { dHeadingDeg: -5.0, dPitchDeg: -0.5 },
+  sv_kirchrain_bend_east_vista: { dHeadingDeg: 2.2, dPitchDeg: -1.2 },
+  sv_kirchrain_north_southbound: { dHeadingDeg: 5.2, dPitchDeg: 0.8 },
+  sv_extra_im_rosengarten: { dHeadingDeg: 3.0, dPitchDeg: 1.0 },
+  sv_extra_judenberg: { dHeadingDeg: -3.8, dPitchDeg: 1.0 },
+  sv_extra_raiffeisenstrasse: { dHeadingDeg: 1.4, dPitchDeg: 1.0 },
 };
 
 export interface ResolvedReferenceShot {
@@ -299,37 +315,48 @@ export class BenchmarkOverlay {
       ctx.fillRect(0, 0, w, h);
     }
 
-    this.shots.forEach((shot, i) => {
+    const dense = this.shots.length > 35;
+    const drawPin = (shot: ResolvedReferenceShot, i: number, isSelected: boolean) => {
       const [px, py] = toPx(shot.worldX, shot.worldZ);
-      const isSelected = i === this.selectedIndex;
       const hRad = THREE.MathUtils.degToRad(shot.ref.headingDeg || 0);
 
-      ctx.save();
-      ctx.translate(px, py);
-      ctx.rotate(hRad);
-      ctx.fillStyle = isSelected ? 'rgba(231, 185, 90, 0.42)' : 'rgba(109, 227, 255, 0.22)';
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(-10, -22);
-      ctx.lineTo(10, -22);
-      ctx.closePath();
-      ctx.fill();
-      ctx.restore();
+      if (isSelected || !dense) {
+        ctx.save();
+        ctx.translate(px, py);
+        ctx.rotate(hRad);
+        ctx.fillStyle = isSelected ? 'rgba(231, 185, 90, 0.45)' : 'rgba(109, 227, 255, 0.22)';
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(-10, -22);
+        ctx.lineTo(10, -22);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
 
       ctx.fillStyle = isSelected ? '#e7b95a' : '#16201a';
       ctx.strokeStyle = isSelected ? '#ffffff' : '#6de3ff';
-      ctx.lineWidth = isSelected ? 2 : 1.5;
+      ctx.lineWidth = isSelected ? 2 : dense ? 1.2 : 1.5;
       ctx.beginPath();
-      ctx.arc(px, py, isSelected ? 9 : 7.5, 0, Math.PI * 2);
+      ctx.arc(px, py, isSelected ? 9 : dense ? 4.2 : 7.5, 0, Math.PI * 2);
       ctx.fill();
       ctx.stroke();
 
-      ctx.fillStyle = isSelected ? '#111814' : '#ffffff';
-      ctx.font = '800 9px system-ui, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(String(i + 1), px, py + 0.5);
+      if (isSelected || !dense) {
+        ctx.fillStyle = isSelected ? '#111814' : '#ffffff';
+        ctx.font = '800 9px system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(String(i + 1), px, py + 0.5);
+      }
+    };
+
+    // Draw unselected pins first, then selected pin cleanly on top
+    this.shots.forEach((shot, i) => {
+      if (i !== this.selectedIndex) drawPin(shot, i, false);
     });
+    const selShot = this.shots[this.selectedIndex];
+    if (selShot) drawPin(selShot, this.selectedIndex, true);
 
     const [cx, cy] = toPx(camX, camZ);
     ctx.save();

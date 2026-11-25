@@ -289,6 +289,74 @@ FACADE_STYLES = {
         "clapboard": True,
         "thin_surround": True,
     },
+    # --- Wave 2: Triftstraße, Am Kirchrain & Adjacent Streets Street-View-Exact Facades ---
+    "mustard_yellow": {
+        "stucco": (207, 162, 69),      # Am Kirchrain #7 vibrant warm mustard-ochre (#CFA245)
+        "stucco_var": (14, 12, 8),
+        "shutter": (52, 92, 148),
+        "stone": (184, 140, 62),
+        "frame": (236, 234, 228),
+        "has_shutters": False,
+        "rolladen": (0.18, 0.36),
+        "rolladen_col": (196, 194, 188),
+        "thin_surround": True,
+    },
+    "coral_terracotta": {
+        "stucco": (190, 114, 98),      # Am Kirchrain #13 & #10 dusty coral-terracotta stucco (#BE7262)
+        "stucco_var": (13, 10, 9),
+        "shutter": (76, 58, 48),
+        "stone": (218, 210, 202),
+        "frame": (240, 238, 234),
+        "has_shutters": False,
+        "rolladen": (0.24, 0.48),
+        "rolladen_col": (206, 204, 198),
+        "thin_surround": True,
+    },
+    "cool_gray": {
+        "stucco": (181, 186, 184),     # Im Rosengarten #6 modern concrete-gray smooth stucco (#B5BAB8)
+        "stucco_var": (9, 9, 9),
+        "shutter": (68, 72, 76),
+        "stone": (208, 210, 210),
+        "frame": (240, 242, 242),
+        "has_shutters": False,
+        "rolladen": (0.76, 0.82),      # Crisp closed white ribbed Rolläden!
+        "rolladen_col": (228, 230, 228),
+        "thin_surround": True,
+    },
+    "cool_gray_light": {
+        "stucco": (206, 207, 204),     # Am Kirchrain #25 & Gässelstraße 19 light gray stucco (#CECFCC)
+        "stucco_var": (10, 10, 10),
+        "shutter": (68, 72, 76),
+        "stone": (222, 224, 222),
+        "frame": (242, 242, 240),
+        "has_shutters": False,
+        "rolladen": (0.64, 0.72),
+        "rolladen_col": (226, 228, 226),
+        "thin_surround": True,
+    },
+    "sandstone_buff": {
+        "stucco": (191, 168, 131),     # Am Kirchrain #15 warm buff sand-lime brick/plaster (#BFA883)
+        "stucco_var": (18, 15, 12),
+        "shutter": (72, 54, 40),
+        "stone": (164, 144, 114),
+        "frame": (78, 56, 42),         # Dark brown wooden window frames!
+        "has_shutters": False,
+        "rolladen": (0.22, 0.35),
+        "rolladen_col": (162, 144, 118),
+        "thin_surround": True,
+    },
+    "modern_raffstore": {
+        "stucco": (229, 230, 223),     # Am Kirchrain #28 minimalist cubic off-white stucco (#E5E6DF)
+        "stucco_var": (7, 7, 7),
+        "shutter": (52, 56, 60),
+        "stone": (66, 70, 74),
+        "frame": (54, 58, 62),         # Dark anthracite aluminum frames!
+        "has_shutters": False,
+        "rolladen": (0.94, 0.90),      # Sleek silver-gray horizontal Raffstore venetian blinds!
+        "rolladen_col": (188, 192, 196),
+        "bauhaus_ribbon": True,
+        "thin_surround": True,
+    },
 }
 
 
@@ -940,6 +1008,40 @@ def generate_corridor_specials():
     save_png(height_to_normal(h_ivy, strength=4.5).resize((256, 256), Image.Resampling.LANCZOS),
              os.path.join(OUT_DIR, "ivy_foliage_normal.png"))
 
+    # 2b. Sun-Baked July Pfalz Manicured Olive-Sage Hedge (Triftstraße #6, Am Kirchrain, Im Rosengarten — #4E5B35!)
+    h_bg = tileable_fbm(IW, IW, ((8, 8, 0.5), (24, 24, 0.3), (64, 64, 0.2)), seed=3333)
+    h_arr = np.zeros((IW, IW, 3), dtype=np.float32)
+    h_arr[:, :, 0] = 52.0 + h_bg * 28.0
+    h_arr[:, :, 1] = 62.0 + h_bg * 30.0
+    h_arr[:, :, 2] = 34.0 + h_bg * 18.0
+    h_img = Image.fromarray(np.clip(h_arr, 0, 255).astype(np.uint8), mode="RGB")
+    hdraw = ImageDraw.Draw(h_img)
+    hrng = np.random.default_rng(3344)
+    for idx in range(1100):
+        lx = float(hrng.uniform(0, IW))
+        ly = float(hrng.uniform(0, IW))
+        rad = float(hrng.uniform(7, 15))
+        ang = float(hrng.uniform(0, 2 * math.pi))
+        sun = 0.72 + 0.52 * (idx / 1100.0)
+        is_dry_tip = (idx % 7 == 0)
+        if is_dry_tip:
+            col = (int(np.clip(108 * sun, 58, 150)), int(np.clip(102 * sun, 56, 142)), int(np.clip(62 * sun, 34, 92)))
+        else:
+            col = (
+                int(np.clip(hrng.uniform(58, 92) * sun, 36, 128)),
+                int(np.clip(hrng.uniform(72, 106) * sun, 44, 140)),
+                int(np.clip(hrng.uniform(36, 56) * sun, 24, 78)),
+            )
+        edge = (max(0, col[0] - 18), max(0, col[1] - 20), max(0, col[2] - 12))
+        for ox in (-IW, 0, IW):
+            for oy in (-IW, 0, IW):
+                cx_t, cy_t = lx + ox, ly + oy
+                if -rad <= cx_t <= IW + rad and -rad <= cy_t <= IW + rad:
+                    pts = [(cx_t + math.cos(ang + k * 1.047) * rad * (1.0 if k % 2 == 0 else 0.62),
+                            cy_t + math.sin(ang + k * 1.047) * rad * (1.0 if k % 2 == 0 else 0.62)) for k in range(6)]
+                    hdraw.polygon(pts, fill=col, outline=edge)
+    save_jpg(h_img, os.path.join(OUT_DIR, "hedge_olive_albedo.jpg"), quality=86)
+
     # 3. Vertical Weathered Wood Plank Cladding (Michelsberg corner QOQx upper gable!) — 512x512
     TW = 512
     t_fbm = tileable_fbm(TW, TW, ((4, 36, 0.5), (12, 72, 0.3), (32, 144, 0.2)), seed=3434)
@@ -1053,6 +1155,217 @@ def generate_corridor_specials():
     gd.rectangle([492, 118, 506, 511], fill=dk_col)
     gd.rectangle([248, 44, 264, 511], fill=dk_col)
     save_png(gate_dk, os.path.join(OUT_DIR, "gate_iron_dark.png"))
+
+    # --- Wave 2: Triftstraße, Am Kirchrain & Adjacent Street Specialized Textures ---
+
+    # 8. Crisp White Pfalz Fachwerk (Half-Timbered) Facade — Triftstraße #4 (QP17 / QOX6)! (1024x512)
+    FW, FH = 1024, 512
+    fw_fbm = tileable_fbm(FH, FW, ((6, 12, 0.45), (18, 36, 0.35), (48, 96, 0.20)), seed=4141)
+    fw_arr = np.zeros((FH, FW, 3), dtype=np.float32)
+    for c, bv in enumerate([232.0, 230.0, 226.0]):  # Smooth crisp off-white plaster (#E8E6E2)
+        fw_arr[:, :, c] = bv + (fw_fbm - 0.5) * 16.0
+    fw_img = Image.fromarray(np.clip(fw_arr, 0, 255).astype(np.uint8), mode="RGB")
+    fwd = ImageDraw.Draw(fw_img)
+    t_col = (58, 46, 40)       # Bold dark espresso-brown timber beams (#3A2E28)
+    t_hi = (82, 66, 56)
+    # Horizontal sill, mid-story & eave beams
+    for y0, y1 in [(0, 22), (244, 268), (490, 512)]:
+        fwd.rectangle([0, y0, FW, y1], fill=t_col)
+        fwd.line([(0, y0 + 2), (FW, y0 + 2)], fill=t_hi, width=2)
+    # Vertical structural posts
+    for px in [0, 170, 340, 512, 682, 852, 1002]:
+        fwd.rectangle([px, 0, min(FW - 1, px + 20), FH], fill=t_col)
+    # Classic Pfalz diagonal struts & Andreaskreuz X-braces!
+    for (x0, y0, x1, y1) in [
+        (16, 250, 172, 18), (344, 18, 514, 250), (528, 250, 684, 18), (856, 18, 1008, 250),
+        (16, 494, 172, 262), (172, 494, 16, 262), (856, 494, 1008, 262), (1008, 494, 856, 262),
+    ]:
+        fwd.line([(x0, y0), (x1, y1)], fill=t_col, width=15)
+    # Recessed timber-framed windows with red-brown sandstone reveals in central bays
+    for cx_w in [256, 768]:
+        x0, x1, y0, y1 = cx_w - 54, cx_w + 54, 62, 212
+        fwd.rectangle([x0 - 12, y0 - 12, x1 + 12, y1 + 10], fill=(148, 90, 74))
+        fwd.rectangle([x0, y0, x1, y1], fill=(56, 62, 72), outline=(182, 128, 104), width=6)
+        fwd.line([(cx_w, y0), (cx_w, y1)], fill=(182, 128, 104), width=5)
+        fwd.line([(x0, y0 + 54), (x1, y0 + 54)], fill=(182, 128, 104), width=5)
+    save_jpg(fw_img, os.path.join(OUT_DIR, "wall_fachwerk_white_albedo.jpg"), quality=86)
+
+    # 9. Unplastered Buff-Gray Limestone + Red-Brick Banded Barn Masonry — Triftstraße NW Corner (QOX3)! (1024x512)
+    LW, LH = 1024, 512
+    l_rows, l_cols = 18, 16
+    lyy = np.linspace(0, l_rows, LH, endpoint=False, dtype=np.float32)[:, None]
+    lr_idx = np.floor(lyy).astype(np.int32)
+    lfy = lyy - lr_idx
+    lxx = (np.linspace(0, l_cols, LW, endpoint=False, dtype=np.float32)[None, :] + (lr_idx % 2) * 0.48) % l_cols
+    lc_idx = np.floor(lxx).astype(np.int32)
+    lfx = lxx - lc_idx
+    l_fbm = tileable_fbm(LH, LW, ((8, 16, 0.45), (24, 48, 0.35), (64, 128, 0.20)), seed=4242)
+    l_wob = (l_fbm - 0.5) * 0.08
+    l_mort = ((lfy + l_wob < 0.09) | (lfy + l_wob > 0.93) | (lfx + l_wob < 0.04) | (lfx + l_wob > 0.96)).astype(np.float32)
+    lrng = np.random.default_rng(4343)
+    # Buff-gray Pfalz limestone blocks (#9E947E) + warm orange-red brick leveling band at rows 9-10 (#B5694F)!
+    lr_r = lrng.uniform(146, 178, (l_rows, l_cols)).astype(np.float32)
+    lr_g = lr_r * lrng.uniform(0.91, 0.96, (l_rows, l_cols)).astype(np.float32)
+    lr_b = lr_r * lrng.uniform(0.76, 0.84, (l_rows, l_cols)).astype(np.float32)
+    for brick_row in (9, 10):
+        lr_r[brick_row, :] = lrng.uniform(172, 198, l_cols)
+        lr_g[brick_row, :] = lrng.uniform(96, 118, l_cols)
+        lr_b[brick_row, :] = lrng.uniform(72, 92, l_cols)
+    # Scattered warm sandstone/brick accent stones in lower half
+    red_patch = (lr_idx >= 11) & (lrng.random((l_rows, l_cols))[lr_idx, lc_idx] < 0.22)
+    lim_arr = np.zeros((LH, LW, 3), dtype=np.float32)
+    for c, ch in enumerate([lr_r, lr_g, lr_b]):
+        bv = ch[lr_idx % l_rows, lc_idx % l_cols]
+        if c == 0:
+            bv = np.where(red_patch, bv * 1.10, bv)
+        elif c == 1:
+            bv = np.where(red_patch, bv * 0.78, bv)
+        else:
+            bv = np.where(red_patch, bv * 0.72, bv)
+        v_s = bv + (l_fbm - 0.5) * 28.0
+        lim_arr[:, :, c] = v_s * (1.0 - l_mort) + (116.0 + (l_fbm - 0.5) * 14.0) * l_mort
+    lim_img = Image.fromarray(np.clip(lim_arr, 0, 255).astype(np.uint8), mode="RGB")
+    ld = ImageDraw.Draw(lim_img)
+    # Recessed dusty-red plank shutter barn window + concrete lintel (lower) & paired brick vent slots (upper)
+    ld.rectangle([380, 294, 588, 318], fill=(154, 150, 142), outline=(104, 100, 94), width=2)
+    ld.rectangle([398, 318, 570, 444], fill=(116, 56, 54), outline=(66, 36, 34), width=5)
+    for sx in range(418, 564, 22):
+        ld.line([(sx, 322), (sx, 440)], fill=(78, 38, 36), width=2)
+    for vx in (742, 792):
+        ld.rectangle([vx, 58, vx + 26, 178], fill=(156, 92, 72), outline=(88, 54, 44), width=2)
+        for vy in range(72, 174, 18):
+            ld.rectangle([vx + 6, vy, vx + 20, vy + 8], fill=(54, 34, 28))
+    save_jpg(lim_img, os.path.join(OUT_DIR, "wall_limestone_brick_albedo.jpg"), quality=86)
+
+    # 10. Unplastered Warm Buff-Brown Limestone Rubble Barn Wall — Triftstraße #6 (QOWK) & #95 (QP1Q)! (1024x512)
+    rb_rows, rb_cols = 14, 14
+    rbyy = np.linspace(0, rb_rows, LH, endpoint=False, dtype=np.float32)[:, None]
+    rbr_idx = np.floor(rbyy).astype(np.int32)
+    rbfy = rbyy - rbr_idx
+    rbxx = (np.linspace(0, rb_cols, LW, endpoint=False, dtype=np.float32)[None, :] + (rbr_idx % 2) * 0.44) % rb_cols
+    rbc_idx = np.floor(rbxx).astype(np.int32)
+    rbfx = rbxx - rbc_idx
+    rb_fbm = tileable_fbm(LH, LW, ((6, 12, 0.45), (20, 40, 0.35), (56, 112, 0.20)), seed=4444)
+    rb_wob = (rb_fbm - 0.5) * 0.16
+    rb_mort = ((rbfy + rb_wob < 0.10) | (rbfy + rb_wob > 0.91) | (rbfx + rb_wob < 0.05) | (rbfx + rb_wob > 0.95)).astype(np.float32)
+    rbrng = np.random.default_rng(4545)
+    rb_v = rbrng.uniform(124, 174, (rb_rows, rb_cols)).astype(np.float32)
+    rb_tint_r = rbrng.uniform(0.96, 1.08, (rb_rows, rb_cols)).astype(np.float32)
+    rb_tint_b = rbrng.uniform(0.74, 0.86, (rb_rows, rb_cols)).astype(np.float32)
+    rbb = np.zeros((LH, LW, 3), dtype=np.float32)
+    v_grid = rb_v[rbr_idx % rb_rows, rbc_idx % rb_cols]
+    tr_grid = rb_tint_r[rbr_idx % rb_rows, rbc_idx % rb_cols]
+    tb_grid = rb_tint_b[rbr_idx % rb_rows, rbc_idx % rb_cols]
+    for c, ch in enumerate([v_grid * tr_grid, v_grid * 0.93, v_grid * tb_grid]):
+        sc = ch + (rb_fbm - 0.5) * 32.0
+        rbb[:, :, c] = sc * (1.0 - rb_mort) + (96.0 + (rb_fbm - 0.5) * 16.0) * rb_mort
+    save_jpg(Image.fromarray(np.clip(rbb, 0, 255).astype(np.uint8), mode="RGB"),
+             os.path.join(OUT_DIR, "wall_rubble_barn_albedo.jpg"), quality=86)
+
+    # 11. Mustard-Ochre Wood Siding w/ 3 Crisp White Round Porthole Windows (Bullaugen) — Am Kirchrain #7 Shed! (512x256)
+    PW, PH = 512, 256
+    p_fbm = tileable_fbm(PH, PW, ((6, 12, 0.5), (24, 48, 0.5)), seed=4646)
+    p_arr = np.zeros((PH, PW, 3), dtype=np.float32)
+    py_mod = np.arange(PH, dtype=np.float32) % 16
+    plank_sh = 0.94 + 0.08 * (py_mod / 16.0) - 0.16 * np.exp(-((py_mod) / 1.8) ** 2)
+    for c, bv in enumerate([207.0, 162.0, 69.0]):
+        p_arr[:, :, c] = (bv + (p_fbm - 0.5) * 18.0) * plank_sh[:, None]
+    p_img = Image.fromarray(np.clip(p_arr, 0, 255).astype(np.uint8), mode="RGB")
+    pd = ImageDraw.Draw(p_img)
+    for cx_p in (106, 256, 406):
+        cy_p, r_out, r_in = 104, 30, 22
+        pd.ellipse([cx_p - r_out, cy_p - r_out, cx_p + r_out, cy_p + r_out], fill=(238, 236, 232), outline=(146, 122, 68), width=2)
+        pd.ellipse([cx_p - r_in, cy_p - r_in, cx_p + r_in, cy_p + r_in], fill=(46, 56, 68))
+    save_jpg(p_img, os.path.join(OUT_DIR, "wall_mustard_porthole_albedo.jpg"), quality=86)
+
+    # 12. Dark Slate-Gray Basement Plinth (Raiffeisenstr #31 QOSx, Im Rosengarten #11 QOFN) — 512x256
+    sg_fbm = tileable_fbm(256, 512, ((6, 12, 0.5), (24, 48, 0.3), (64, 128, 0.2)), seed=4747)
+    sg = np.zeros((256, 512, 3), dtype=np.float32)
+    v_sg = np.linspace(1.03, 0.86, 256, dtype=np.float32)[:, None]
+    for c, bv in enumerate([98.0, 105.0, 112.0]):  # Slate-gray (#626970)
+        sg[:, :, c] = (bv + (sg_fbm - 0.5) * 18.0) * v_sg
+    save_jpg(Image.fromarray(np.clip(sg, 0, 255).astype(np.uint8), mode="RGB"),
+             os.path.join(OUT_DIR, "plinth_slate_gray_albedo.jpg"), quality=86)
+
+    # 13. Exposed Architectural Concrete & Split-Face Concrete Block Walls (Am Kirchrain #28, #15, Im Rosengarten #6)
+    # 13a. Smooth gray architectural concrete L-retaining wall (Winkelstützen)
+    conc = np.zeros((256, 512, 3), dtype=np.float32)
+    for c, bv in enumerate([178.0, 180.0, 176.0]):
+        conc[:, :, c] = (bv + (sg_fbm - 0.5) * 20.0) * v_sg
+    conc_img = Image.fromarray(np.clip(conc, 0, 255).astype(np.uint8), mode="RGB")
+    cd = ImageDraw.Draw(conc_img)
+    for sx in range(128, 512, 128):
+        cd.line([(sx, 0), (sx, 256)], fill=(122, 124, 122), width=3)  # Precast L-element vertical joints!
+    save_jpg(conc_img, os.path.join(OUT_DIR, "plinth_concrete_albedo.jpg"), quality=86)
+
+    # 13b. Pale Kalksandstein concrete-block wall (Am Kirchrain #15) & Dark split-face block wall (Im Rosengarten #6)
+    for fname, base_rgb in [("wall_block_light_albedo.jpg", (196.0, 194.0, 186.0)), ("wall_block_dark_albedo.jpg", (118.0, 122.0, 124.0))]:
+        br_c, bc_c = 8, 12
+        by = np.linspace(0, br_c, 256, endpoint=False, dtype=np.float32)[:, None]
+        br_i = np.floor(by).astype(np.int32)
+        bfy_c = by - br_i
+        bx = (np.linspace(0, bc_c, 512, endpoint=False, dtype=np.float32)[None, :] + (br_i % 2) * 0.5) % bc_c
+        bc_i = np.floor(bx).astype(np.int32)
+        bfx_c = bx - bc_i
+        mort_c = ((bfy_c < 0.06) | (bfy_c > 0.95) | (bfx_c < 0.03) | (bfx_c > 0.97)).astype(np.float32)
+        blk = np.zeros((256, 512, 3), dtype=np.float32)
+        for c in range(3):
+            blk[:, :, c] = (base_rgb[c] + (sg_fbm - 0.5) * 22.0) * (1.0 - mort_c) + (base_rgb[c] * 0.68) * mort_c
+        save_jpg(Image.fromarray(np.clip(blk, 0, 255).astype(np.uint8), mode="RGB"), os.path.join(OUT_DIR, fname), quality=86)
+
+    # 14. Terracotta-Brown Concrete Palisade Retaining Wall (Pflanzsteine — Am Kirchrain #25 & #13!) — 512x256
+    pal_w, pal_h = 512, 256
+    pal_cols = 24
+    px_f = (np.arange(pal_w, dtype=np.float32) / (pal_w / pal_cols)) % 1.0
+    cyl_sh = 0.72 + 0.34 * np.sin(px_f * math.pi)
+    pal_arr = np.zeros((pal_h, pal_w, 3), dtype=np.float32)
+    for c, bv in enumerate([152.0, 96.0, 74.0]):  # Terracotta-brown concrete palisades!
+        pal_arr[:, :, c] = (bv + (sg_fbm - 0.5) * 20.0) * cyl_sh[None, :] * v_sg
+    save_jpg(Image.fromarray(np.clip(pal_arr, 0, 255).astype(np.uint8), mode="RGB"),
+             os.path.join(OUT_DIR, "wall_palisade_brown_albedo.jpg"), quality=86)
+
+    # 15. Weathered Timber Courtyard Picket Gate (Triftstraße #4 / QOX3) — 512x512 RGBA
+    pg = Image.new("RGBA", (512, 512), (124, 114, 102, 0))
+    pgd = ImageDraw.Draw(pg)
+    for px in range(14, 502, 22):
+        # Weathered silver-brown vertical timber pickets + dark iron top spear finial
+        shade = 136 + ((px * 7) % 24) - 12
+        pgd.rectangle([px - 7, 86, px + 7, 511], fill=(shade, shade - 8, shade - 18, 255), outline=(68, 60, 52, 255), width=1)
+        pgd.polygon([(px, 34), (px - 5, 62), (px + 5, 62)], fill=(54, 48, 44, 255))
+        pgd.rectangle([px - 2, 58, px + 2, 92], fill=(54, 48, 44, 255))
+    pgd.rectangle([0, 74, 511, 88], fill=(64, 56, 50, 255))
+    pgd.rectangle([0, 476, 511, 496], fill=(96, 86, 74, 255))
+    pgd.rectangle([248, 72, 264, 511], fill=(58, 50, 44, 255))
+    save_png(pg, os.path.join(OUT_DIR, "fence_wood_picket.png"))
+
+    # 16. Dark-Green & Galvanized Weld-Mesh Fences (KDC Triftstraße & Raiffeisenstraße!) — 256x256 RGBA
+    for fname, wire_col, post_col in [
+        ("fence_mesh_green.png", (38, 62, 46, 255), (28, 48, 36, 255)),
+        ("fence_mesh_galv.png", (166, 170, 174, 255), (138, 144, 150, 255)),
+    ]:
+        fm = Image.new("RGBA", (256, 256), (wire_col[0], wire_col[1], wire_col[2], 0))
+        fmd = ImageDraw.Draw(fm)
+        for vx in range(0, 256, 16):
+            fmd.line([(vx, 0), (vx, 255)], fill=wire_col, width=2)
+        for hy in range(0, 256, 32):
+            fmd.line([(0, hy), (255, hy)], fill=wire_col, width=2)
+        fmd.rectangle([0, 0, 10, 255], fill=post_col)
+        fmd.rectangle([246, 0, 255, 255], fill=post_col)
+        fmd.rectangle([0, 0, 255, 6], fill=post_col)
+        save_png(fm, os.path.join(OUT_DIR, fname))
+
+    # 17. Galvanized Vertical-Bar Kinderbach Bridge Guard Railing — 256x256 RGBA
+    br_img = Image.new("RGBA", (256, 256), (170, 174, 178, 0))
+    brd = ImageDraw.Draw(br_img)
+    galv = (168, 172, 176, 255)
+    galv_dk = (116, 120, 126, 255)
+    brd.rectangle([0, 8, 255, 26], fill=galv, outline=galv_dk, width=2)
+    brd.rectangle([0, 214, 255, 230], fill=galv, outline=galv_dk, width=2)
+    for bx in range(12, 252, 24):
+        brd.rectangle([bx - 3, 24, bx + 3, 224], fill=galv, outline=galv_dk, width=1)
+    brd.rectangle([0, 8, 14, 255], fill=galv_dk)
+    brd.rectangle([242, 8, 255, 255], fill=galv_dk)
+    save_png(br_img, os.path.join(OUT_DIR, "bridge_railing_galv.png"))
 
 
 

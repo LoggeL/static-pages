@@ -1,7 +1,7 @@
 {
   "coordinateSystem": "Three.js Y-up meters (+X East, -Z North, +Y Up above minElevationM)",
   "worldPositionedChunks": true,
-  "totalVillageBuildings": 1051,
+  "totalVillageBuildings": 1053,
   "excludedLandmarkIds": [
     "lod2/DERPLP110000QOJB",
     "lod2/DERPLP110000QOUz",
@@ -45,10 +45,10 @@
     {
       "id": "village_north",
       "glbPath": "/assets/models/village/village_north.glb",
-      "buildingCount": 343,
-      "triangles": 34630,
-      "materialCount": 23,
-      "fileSizeBytes": 4453224,
+      "buildingCount": 342,
+      "triangles": 34541,
+      "materialCount": 32,
+      "fileSizeBytes": 4927400,
       "worldPositioned": true,
       "bounds": {
         "min": [
@@ -66,10 +66,10 @@
     {
       "id": "village_south",
       "glbPath": "/assets/models/village/village_south.glb",
-      "buildingCount": 147,
-      "triangles": 14477,
-      "materialCount": 23,
-      "fileSizeBytes": 2969624,
+      "buildingCount": 148,
+      "triangles": 15377,
+      "materialCount": 45,
+      "fileSizeBytes": 3890932,
       "worldPositioned": true,
       "bounds": {
         "min": [
@@ -79,7 +79,7 @@
         ],
         "max": [
           456.77,
-          90.04,
+          88.74,
           384.16
         ]
       }
@@ -87,10 +87,10 @@
     {
       "id": "village_outskirts",
       "glbPath": "/assets/models/village/village_outskirts.glb",
-      "buildingCount": 191,
-      "triangles": 19094,
-      "materialCount": 24,
-      "fileSizeBytes": 3545400,
+      "buildingCount": 193,
+      "triangles": 19790,
+      "materialCount": 38,
+      "fileSizeBytes": 3894116,
       "worldPositioned": true,
       "bounds": {
         "min": [

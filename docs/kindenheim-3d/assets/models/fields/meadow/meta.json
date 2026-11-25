@@ -1,0 +1,98 @@
+{
+  "category": "meadow",
+  "coordinateSystem": "glTF 2.0 Y-up meters (ground contact Y = 0.0, slope skirt minY = -0.22)",
+  "windSwayStrength": 0.1,
+  "assets": {
+    "meadow_grass_patch": {
+      "glbPath": "/assets/models/fields/meadow/meadow_grass_patch.glb",
+      "bounds": [
+        5.0,
+        0.794,
+        5.0
+      ],
+      "bbox": {
+        "min": [
+          -2.5,
+          -0.22,
+          -2.5
+        ],
+        "max": [
+          2.5,
+          0.574,
+          2.5
+        ],
+        "size": [
+          5.0,
+          0.794,
+          5.0
+        ]
+      },
+      "aboveGroundHeightM": 0.574,
+      "skirtDepthM": 0.22,
+      "triangles": 108,
+      "meshCount": 1,
+      "fileSizeBytes": 173208,
+      "fileSizeKB": 169.1,
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "externalImageURIs": 0,
+      "recommendedSpacing": {
+        "gridM": 4.75,
+        "patchSizeM": 5.0,
+        "jitterM": 0.35,
+        "randomYaw": true,
+        "scaleRange": [
+          0.9,
+          1.15
+        ]
+      },
+      "windSwayStrength": 0.1
+    },
+    "wildflower_strip": {
+      "glbPath": "/assets/models/fields/meadow/wildflower_strip.glb",
+      "bounds": [
+        5.0,
+        0.88,
+        1.6
+      ],
+      "bbox": {
+        "min": [
+          -2.5,
+          -0.22,
+          -0.8
+        ],
+        "max": [
+          2.5,
+          0.66,
+          0.8
+        ],
+        "size": [
+          5.0,
+          0.88,
+          1.6
+        ]
+      },
+      "aboveGroundHeightM": 0.66,
+      "skirtDepthM": 0.22,
+      "triangles": 124,
+      "meshCount": 1,
+      "fileSizeBytes": 173768,
+      "fileSizeKB": 169.7,
+      "alphaMode": "MASK",
+      "doubleSided": true,
+      "externalImageURIs": 0,
+      "recommendedSpacing": {
+        "alongStripM": 4.85,
+        "stripLengthM": 5.0,
+        "stripWidthM": 1.6,
+        "alignToEdge": true,
+        "lengthAxis": "+X",
+        "scaleRange": [
+          0.95,
+          1.12
+        ]
+      },
+      "windSwayStrength": 0.1
+    }
+  }
+}

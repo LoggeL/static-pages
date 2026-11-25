@@ -23,6 +23,7 @@ const RUNTIME_DATA_FILES = [
   'terrain/orthophoto.jpg',
   'terrain/landuse_mask.png',
   'osm/kindenheim_scene.json',
+  'osm/fields_layout.json',
 ] as const;
 
 function copyFileIfExists(srcPath: string, destPath: string): boolean {
@@ -46,12 +47,14 @@ function copySlimRuntimeData(srcData: string, destData: string): void {
     copyFileIfExists(path.join(srcData, rel), path.join(destData, rel));
   }
 
-  // Copy latest quantitative benchmark summary (or write stub so static hosts never 404)
-  const srcSummary = path.join(srcData, 'benchmark/latest_summary.json');
-  const destSummary = path.join(destData, 'benchmark/latest_summary.json');
-  if (!copyFileIfExists(srcSummary, destSummary)) {
-    fs.mkdirSync(path.dirname(destSummary), { recursive: true });
-    fs.writeFileSync(destSummary, JSON.stringify({ available: false }), 'utf-8');
+  // Copy latest quantitative benchmark summary & optional fields layout (or write stub so static hosts never 404)
+  for (const optionalRel of ['benchmark/latest_summary.json', 'osm/fields_layout.json']) {
+    const srcOpt = path.join(srcData, optionalRel);
+    const destOpt = path.join(destData, optionalRel);
+    if (!copyFileIfExists(srcOpt, destOpt)) {
+      fs.mkdirSync(path.dirname(destOpt), { recursive: true });
+      fs.writeFileSync(destOpt, JSON.stringify({ available: false }), 'utf-8');
+    }
   }
 
   // Copy & optimize Brave reference views listed in manifest.json (source stays untouched)
@@ -73,19 +76,26 @@ function copySlimRuntimeData(srcData: string, destData: string): void {
 
     try {
       const pyScript = `
-import json, os, sys
+import json, os, shutil, sys
 from PIL import Image
 src_dir, dst_dir, files_json = sys.argv[1], sys.argv[2], sys.argv[3]
-for name in json.loads(files_json):
+files = json.loads(files_json)
+# Keep deployed GitHub Pages bundle lean once full-village 22-street expansion adds 60-90+ reference photos
+max_w = 1200 if len(files) > 35 else 1440
+jpg_q = 84 if len(files) > 35 else 88
+for name in files:
     src_p = os.path.join(src_dir, name)
     if not os.path.isfile(src_p):
         continue
     if name.lower().endswith('.png'):
         dst_p = os.path.join(dst_dir, os.path.splitext(name)[0] + '.jpg')
         with Image.open(src_p) as im:
-            im.convert('RGB').save(dst_p, format='JPEG', quality=88, optimize=True, progressive=True)
+            rgb = im.convert('RGB')
+            if rgb.width > max_w:
+                new_h = int(round(rgb.height * (max_w / rgb.width)))
+                rgb = rgb.resize((max_w, new_h), Image.Resampling.LANCZOS)
+            rgb.save(dst_p, format='JPEG', quality=jpg_q, optimize=True, progressive=True)
     else:
-        import shutil
         shutil.copy2(src_p, os.path.join(dst_dir, name))
 `;
       execFileSync('python3', ['-c', pyScript, srcBrave, destBrave, JSON.stringify(fileList)], { stdio: 'pipe' });
@@ -115,8 +125,8 @@ function attachDataMiddleware(server: ViteDevServer | { middlewares: ViteDevServ
     const filePath = path.join(dataRoot, normalized);
 
     if (!filePath.startsWith(dataRoot) || !fs.existsSync(filePath)) {
-      // Gracefully return empty stub for optional benchmark summary so browser console stays 0-404 clean before first run
-      if (cleanUrl === '/benchmark/latest_summary.json') {
+      // Gracefully return empty stub for optional runtime files so browser console stays 0-404 clean before generation
+      if (cleanUrl === '/benchmark/latest_summary.json' || cleanUrl === '/osm/fields_layout.json') {
         const body = JSON.stringify({ available: false });
         res.setHeader('Content-Type', 'application/json; charset=utf-8');
         res.setHeader('Content-Length', String(Buffer.byteLength(body)));
@@ -142,6 +152,24 @@ function attachDataMiddleware(server: ViteDevServer | { middlewares: ViteDevServ
   });
 }
 
+function attachOptionalManifestFallback(
+  server: ViteDevServer | { middlewares: ViteDevServer['middlewares'] },
+  assetsRoot: string
+): void {
+  server.middlewares.use('/assets/models/fields/manifest.json', (_req, res, next) => {
+    const manifestPath = path.join(assetsRoot, 'models/fields/manifest.json');
+    if (fs.existsSync(manifestPath)) {
+      next();
+      return;
+    }
+    const body = JSON.stringify({ available: false });
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Content-Length', String(Buffer.byteLength(body)));
+    res.setHeader('Cache-Control', 'no-cache');
+    res.end(body);
+  });
+}
+
 function serveAndCopyDataPlugin(): Plugin {
   let rootDir = process.cwd();
   let outDir = 'dist';
@@ -155,17 +183,26 @@ function serveAndCopyDataPlugin(): Plugin {
     configureServer(server) {
       const dataRoot = path.resolve(rootDir, 'data');
       attachDataMiddleware(server, dataRoot);
+      attachOptionalManifestFallback(server, path.resolve(rootDir, 'public/assets'));
     },
     configurePreviewServer(server) {
       const distData = path.resolve(rootDir, outDir, 'data');
       const fallbackData = path.resolve(rootDir, 'data');
       attachDataMiddleware(server, fs.existsSync(distData) ? distData : fallbackData);
+      const distAssets = path.resolve(rootDir, outDir, 'assets');
+      attachOptionalManifestFallback(server, fs.existsSync(distAssets) ? distAssets : path.resolve(rootDir, 'public/assets'));
     },
     closeBundle() {
       const srcData = path.resolve(rootDir, 'data');
       const destData = path.resolve(rootDir, outDir, 'data');
       if (fs.existsSync(srcData)) {
         copySlimRuntimeData(srcData, destData);
+      }
+      // Ensure optional fields manifest exists in dist/ so static hosts never 404 before @blender-fields publishes
+      const destFieldsManifest = path.resolve(rootDir, outDir, 'assets/models/fields/manifest.json');
+      if (!fs.existsSync(destFieldsManifest)) {
+        fs.mkdirSync(path.dirname(destFieldsManifest), { recursive: true });
+        fs.writeFileSync(destFieldsManifest, JSON.stringify({ available: false }), 'utf-8');
       }
     },
   };

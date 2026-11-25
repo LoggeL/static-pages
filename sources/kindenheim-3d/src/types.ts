@@ -233,6 +233,59 @@ export interface CameraBookmark {
   refId?: string;
 }
 
+export interface FieldParcelRecord {
+  id?: string | number;
+  crop?: string;
+  cropType?: string;
+  landuse?: string;
+  points: [number, number][];
+  rowAngleRad?: number;
+  areaHa?: number;
+  aerialTintHex?: string;
+  meanRgb?: [number, number, number];
+}
+
+export interface FieldPropPlacement {
+  id?: string | number;
+  x?: number;
+  y?: number;
+  z?: number;
+  position?: [number, number] | [number, number, number];
+  rotationRad?: number;
+  yawRad?: number;
+  yaw?: number;
+  scale?: number;
+  lengthM?: number;
+  points?: ([number, number] | [number, number, number])[];
+}
+
+export interface FieldsLayoutData {
+  available?: boolean;
+  fields: FieldParcelRecord[];
+  hedgerows?: FieldPropPlacement[];
+  wildflowerStrips?: FieldPropPlacement[];
+  vineyardRoses?: FieldPropPlacement[];
+  strawStacks?: FieldPropPlacement[];
+  hochsitze?: FieldPropPlacement[];
+  waysideCrosses?: FieldPropPlacement[];
+}
+
+export interface FieldsManifestModel {
+  key?: string;
+  name?: string;
+  glbPath: string;
+  bounds?: [number, number, number];
+  spacingM?: number;
+  alongRowM?: number;
+  betweenBaysM?: number;
+  windSway?: number;
+  windSwayStrength?: number;
+}
+
+export interface FieldsManifest {
+  models: Record<string, FieldsManifestModel>;
+}
+
 export type LoadStage = 'terrain' | 'orthophoto' | 'buildings' | 'scenery';
 
 export interface LoadedDataset {
@@ -243,4 +296,6 @@ export interface LoadedDataset {
   landmarksManifest: LandmarkManifest | null;
   villageManifest: VillageManifest | null;
   tractorManifest: TractorManifest | null;
+  fieldsLayout: FieldsLayoutData | null;
+  fieldsManifest: FieldsManifest | null;
 }

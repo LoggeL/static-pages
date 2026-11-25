@@ -6,6 +6,7 @@ import { loadAllBuildings } from './buildings';
 import { buildKindenheimBookmarks, CameraRig } from './camera';
 import { BuildingCollider } from './collision';
 import { loadAllDatasetMetadata } from './dataLoader';
+import { buildAgriculturalFields, type FieldsSystemResult } from './fields';
 import { WeinleseTourGame } from './game';
 import { LightingSystem } from './lighting';
 import { buildRoadNetwork } from './roads';
@@ -267,16 +268,29 @@ async function bootstrap(): Promise<void> {
   scene.add(buildingRes.group);
   scene.add(tractor.group);
 
-  // 5. Populate Palatinate vineyards, trees, Ortsschilder, streetlamps, hay bales & barrels
-  ui.setLoadingProgress('scenery', 84, 'Pflanze Pfälzer Weinberge, Bäume & Ortsdetails…');
-  const sceneryRes = await buildSceneryAndProps(
-    dataset.scene,
-    dataset.villageManifest,
-    buildingRes.landmarks,
-    terrain,
-    maxAnisotropy
-  );
+  // 5. Populate Palatinate vineyards, trees, Ortsschilder, streetlamps, hay bales, barrels & agricultural crop fields
+  ui.setLoadingProgress('scenery', 84, 'Pflanze Pfälzer Weinberge, Felder, Bäume & Ortsdetails…');
+  const [sceneryRes, fieldsRes] = await Promise.all([
+    buildSceneryAndProps(
+      dataset.scene,
+      dataset.villageManifest,
+      buildingRes.landmarks,
+      terrain,
+      maxAnisotropy,
+      dataset.braveRefs?.references
+    ),
+    buildAgriculturalFields(
+      dataset.fieldsLayout,
+      dataset.fieldsManifest,
+      dataset.scene,
+      terrain,
+      maxAnisotropy,
+      dataset.braveRefs?.references
+    ),
+  ]);
   scene.add(sceneryRes.group);
+  scene.add(fieldsRes.group);
+  const fieldsSystem: FieldsSystemResult = fieldsRes;
 
   // 6. Initialize Pfälzer Weinlese-Tour checkpoints + Reality-vs-3D Benchmark overlay
   ui.setLoadingProgress('scenery', 94, 'Starte Pfälzer Weinlese-Tour & Vergleichs-Modus…');
@@ -300,8 +314,9 @@ async function bootstrap(): Promise<void> {
 
   // Initial HUD sync
   const bldgTotal = dataset.meta.buildingCount ?? dataset.scene.buildings.length;
+  const fieldsLabel = fieldsSystem.stats.parcelCount > 0 ? ` · ${fieldsSystem.stats.parcelCount} Felder` : ` · ${collider.polyCount} Kollider`;
   ui.setStatsText(
-    `${bldgTotal} Gebäude · ${sceneryRes.stats.vineInstances.toLocaleString('de-DE')} Rebzeilen · ${collider.polyCount} Kollider`
+    `${bldgTotal} Gebäude · ${sceneryRes.stats.vineInstances.toLocaleString('de-DE')} Rebzeilen${fieldsLabel}`
   );
   ui.updateTractorHud(tractor.getTelemetry(), audio.muted);
   const initTour = tourGame.update(0, tractor.tractorRoot.position, 0, true);
@@ -495,6 +510,7 @@ async function bootstrap(): Promise<void> {
       villageChunkCount: buildingRes.villageChunkCount,
       roadCount: dataset.scene.roads.length,
       sceneryStats: sceneryRes.stats,
+      fieldsStats: fieldsSystem.stats,
       referenceCount: allShots.length,
       tractor: tractor?.getTelemetry() ?? null,
       tour: tourGame
@@ -533,6 +549,7 @@ async function bootstrap(): Promise<void> {
       const focus = cameraRig.getFocusTarget();
       lighting.updateShadowFocus(focus, cameraRig.getFocusDistance());
       lighting.updateClouds(cleanCaptureActive ? 0 : dt, camera.position);
+      fieldsSystem.update(cleanCaptureActive ? 0 : dt);
 
       // Synthesized Web Audio Diesel engine update
       audio.updateEngine(tractor.rpmNorm, Math.abs(input.throttle), cameraRig.mode !== 'drone');

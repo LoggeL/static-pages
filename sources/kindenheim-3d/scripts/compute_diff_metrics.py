@@ -260,8 +260,10 @@ def delta_e_to_heatmap(de: np.ndarray, mask: np.ndarray) -> np.ndarray:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("run", help="Run name (e.g. baseline, iter1, iter2)")
+    parser.add_argument("run", help="Run name (e.g. baseline, iter1, iter2, wave2_baseline, wave2_iter1)")
     parser.add_argument("--compare", help="Previous run name for Before -> After deltas", default=None)
+    parser.add_argument("--baseline-run", help="Baseline run name for latest_summary.json", default="baseline")
+    parser.add_argument("--no-latest", action="store_true", help="Do not overwrite data/benchmark/latest_summary.json")
     args = parser.parse_args()
 
     run_dir = os.path.join(BENCH_ROOT, args.run)
@@ -286,8 +288,8 @@ def main():
 
     # Also check if baseline exists for latest_summary.json
     baseline_data = None
-    baseline_path = os.path.join(BENCH_ROOT, "baseline", "metrics.json")
-    if args.run != "baseline" and os.path.exists(baseline_path):
+    baseline_path = os.path.join(BENCH_ROOT, args.baseline_run, "metrics.json")
+    if args.run != args.baseline_run and os.path.exists(baseline_path):
         with open(baseline_path) as f:
             baseline_data = json.load(f)
 
@@ -439,6 +441,12 @@ def main():
 
     sv_shots = [s for s in shot_results if not s["isAerial"]]
     ae_shots = [s for s in shot_results if s["isAerial"]]
+    w2_shots = [
+        s
+        for s in shot_results
+        if s["id"].startswith(("sv_triftstrasse_", "sv_kirchrain_", "sv_extra_", "aerial_trift_"))
+    ]
+    w1_shots = [s for s in shot_results if s not in w2_shots]
 
     overall = {
         "shotCount": len(shot_results),
@@ -456,6 +464,13 @@ def main():
         "aerialMeanLabDeltaE": round(avg("labDeltaE", ae_shots), 2),
         "aerialMeanEdgeCorr": avg("edgeCorr", ae_shots),
     }
+    if w2_shots:
+        overall["wave1MeanSsim"] = avg("ssim", w1_shots)
+        overall["wave1MeanLabDeltaE"] = round(avg("labDeltaE", w1_shots), 2)
+        overall["wave1MeanEdgeCorr"] = avg("edgeCorr", w1_shots)
+        overall["wave2MeanSsim"] = avg("ssim", w2_shots)
+        overall["wave2MeanLabDeltaE"] = round(avg("labDeltaE", w2_shots), 2)
+        overall["wave2MeanEdgeCorr"] = avg("edgeCorr", w2_shots)
 
     # Build 15-shot contact sheet (3 columns x 5 rows of compact 3-panel strips = 2160x1150 -> crisp 1800x1120)
     # Sort contact sheet worst-to-best so highest-error shots are top-left!
@@ -475,7 +490,7 @@ def main():
         )
     sdraw.text(
         (16, 10),
-        f"KINDENHEIM 3D — 15-SHOT VISUAL DIFF BENCHMARK ({args.run.upper()})  |  Ranked Worst -> Best by Lab ΔE",
+        f"KINDENHEIM 3D — {overall['shotCount']}-SHOT VISUAL DIFF BENCHMARK ({args.run.upper()})  |  Ranked Worst -> Best by Lab ΔE",
         fill=(245, 220, 140),
         font=font_hdr,
     )
@@ -541,22 +556,30 @@ def main():
         },
         "perShot": per_shot_summary,
     }
-    with open(os.path.join(BENCH_ROOT, "latest_summary.json"), "w") as f:
-        json.dump(latest_summary, f, indent=2)
+    if not args.no_latest:
+        with open(os.path.join(BENCH_ROOT, "latest_summary.json"), "w") as f:
+            json.dump(latest_summary, f, indent=2)
 
     # Print crisp console table
     print(f"\n=== KINDENHEIM 3D VISUAL DIFF REPORT: {args.run.upper()} ===")
     print(
-        f"OVERALL (15 shots): SSIM={overall['meanSsim']:.4f} | Lab_ΔE={overall['meanLabDeltaE']:.2f} | "
+        f"OVERALL ({overall['shotCount']} shots): SSIM={overall['meanSsim']:.4f} | Lab_ΔE={overall['meanLabDeltaE']:.2f} | "
         f"MAE={overall['meanMaeRgb']:.2f} | EdgeCorr={overall['meanEdgeCorr']:.4f} | "
         f"Sky_ΔE={overall['meanSkyDeltaE']:.1f} Mid_ΔE={overall['meanMidDeltaE']:.1f} Gnd_ΔE={overall['meanGroundDeltaE']:.1f}"
     )
     print(
-        f"  StreetView (12): SSIM={overall['streetViewMeanSsim']:.4f} Lab_ΔE={overall['streetViewMeanLabDeltaE']:.2f} EdgeCorr={overall['streetViewMeanEdgeCorr']:.4f}"
+        f"  StreetView ({len(sv_shots):2d}): SSIM={overall['streetViewMeanSsim']:.4f} Lab_ΔE={overall['streetViewMeanLabDeltaE']:.2f} EdgeCorr={overall['streetViewMeanEdgeCorr']:.4f}"
     )
     print(
-        f"  Aerial      (3): SSIM={overall['aerialMeanSsim']:.4f} Lab_ΔE={overall['aerialMeanLabDeltaE']:.2f} EdgeCorr={overall['aerialMeanEdgeCorr']:.4f}"
+        f"  Aerial      ({len(ae_shots):1d}): SSIM={overall['aerialMeanSsim']:.4f} Lab_ΔE={overall['aerialMeanLabDeltaE']:.2f} EdgeCorr={overall['aerialMeanEdgeCorr']:.4f}"
     )
+    if w2_shots:
+        print(
+            f"  Wave1 Orig ({len(w1_shots):2d}): SSIM={overall['wave1MeanSsim']:.4f} Lab_ΔE={overall['wave1MeanLabDeltaE']:.2f} EdgeCorr={overall['wave1MeanEdgeCorr']:.4f}"
+        )
+        print(
+            f"  Wave2 New  ({len(w2_shots):2d}): SSIM={overall['wave2MeanSsim']:.4f} Lab_ΔE={overall['wave2MeanLabDeltaE']:.2f} EdgeCorr={overall['wave2MeanEdgeCorr']:.4f}"
+        )
     if prev_overall:
         print(
             f"  DELTA vs {args.compare}: SSIM={overall['meanSsim']-prev_overall['meanSsim']:+.4f} | "

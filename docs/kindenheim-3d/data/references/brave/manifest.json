@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "location": "Kindenheim (67271), Landkreis Bad Dürkheim, Rheinland-Pfalz, Germany",
   "capturedAt": "2026-11-25",
   "captureMethod": "Brave Browser CDP (dedicated debug profile, 1440x900 viewport, zero anti-bot bypass)",
@@ -32,19 +32,59 @@
     },
     "villagePaletteAndRoofs": {
       "wallPlasterColors": [
-        { "name": "Warm cream / off-white", "hex": "#E6DFD1", "share": "35%" },
-        { "name": "Palatinate ochre / mustard yellow", "hex": "#D8B86A", "share": "25%" },
-        { "name": "Pale beige-gray / putty", "hex": "#D2CBC0", "share": "18%" },
-        { "name": "Blush rose / dusty terracotta pink", "hex": "#C8A096", "share": "10%" },
-        { "name": "Muted heritage blue-gray", "hex": "#8EA1A8", "share": "6%" },
-        { "name": "Exposed sandstone / yellow brick barns", "hex": "#B98B56", "share": "6%" }
+        {
+          "name": "Warm cream / off-white",
+          "hex": "#E6DFD1",
+          "share": "35%"
+        },
+        {
+          "name": "Palatinate ochre / mustard yellow",
+          "hex": "#D8B86A",
+          "share": "25%"
+        },
+        {
+          "name": "Pale beige-gray / putty",
+          "hex": "#D2CBC0",
+          "share": "18%"
+        },
+        {
+          "name": "Blush rose / dusty terracotta pink",
+          "hex": "#C8A096",
+          "share": "10%"
+        },
+        {
+          "name": "Muted heritage blue-gray",
+          "hex": "#8EA1A8",
+          "share": "6%"
+        },
+        {
+          "name": "Exposed sandstone / yellow brick barns",
+          "hex": "#B98B56",
+          "share": "6%"
+        }
       ],
       "sandstoneAndPlinths": "Red Pfälzer Sandstein window/door surrounds (#9C5D50) are ubiquitous along Hauptstraße; plinths use rough gray limestone rubble (Bruchstein), red sandstone ashlar, or distinctive brown-ochre checkered ceramic plinth tiles on mid-20th-century Winzerhäuser.",
       "roofTileColors": [
-        { "name": "Classic terracotta orange-red clay tiles (Frankfurter Pfanne / Biberschwanz)", "hex": "#A95439", "share": "52%" },
-        { "name": "Weathered brownish-red / mossy clay tiles", "hex": "#7D4C3C", "share": "20%" },
-        { "name": "Dark anthracite / charcoal gray tiles (especially Neugasse & renovated roofs)", "hex": "#3B3E42", "share": "23%" },
-        { "name": "Dark corrugated barn / agricultural roofs + rooftop solar PV panels", "hex": "#4B5056", "share": "5%" }
+        {
+          "name": "Classic terracotta orange-red clay tiles (Frankfurter Pfanne / Biberschwanz)",
+          "hex": "#A95439",
+          "share": "52%"
+        },
+        {
+          "name": "Weathered brownish-red / mossy clay tiles",
+          "hex": "#7D4C3C",
+          "share": "20%"
+        },
+        {
+          "name": "Dark anthracite / charcoal gray tiles (especially Neugasse & renovated roofs)",
+          "hex": "#3B3E42",
+          "share": "23%"
+        },
+        {
+          "name": "Dark corrugated barn / agricultural roofs + rooftop solar PV panels",
+          "hex": "#4B5056",
+          "share": "5%"
+        }
       ],
       "courtyardsAndGates": "Closed Palatinate Hofreiten with tall black/gray wrought-iron arched courtyard gates, red sandstone gate pillars, miniature terracotta tiled gate canopies, and dense ivy climbing street-facing gable walls."
     },
@@ -52,6 +92,45 @@
       "hauptstrasse": "Two-lane medium-dark asphalt (#4B4E52) with subtle repair patches, concrete curbs, narrow gray interlocking concrete-paver sidewalks (1.0–1.5m), galvanized swan-neck streetlights, fanned granite cobblestones in front of Martinskirche.",
       "sideStreets": "Narrower light-gray asphalt / concrete lanes (Neugasse, Burgweg, Michelsberg), interlocking paver driveways, low limestone/concrete retaining walls, manicured boxwood & rose gardens, lush green canopy corridor along Kinderbach creek.",
       "vineyards": "Dense linear trellis rows (1.8–2.2m spacing, ~1.5–1.8m canopy height) with wooden & galvanized metal end posts, deep lush summer-green grapevine foliage (#355226 to #4F6E33) with dark purple grape clusters, mown grass alleys between rows, red rose bushes marking row ends, gently rolling slopes rising north and west of Kindenheim."
+    },
+    "triftstrasse": {
+      "name": "Triftstraße (North-South Western Village Lane from Hauptstraße to Kinderbach & Raiffeisenstraße)",
+      "character": "Historic Pfalz agricultural-residential transition lane descending south from Hauptstraße past unplastered limestone/brick barns, a classic Fachwerk corner house, an automotive workshop yard (KDC), cream-yellow stucco cottages with terracotta roofs and tall manicured hedges, and a galvanized-railed bridge crossing the lush tree-lined Kinderbach creek toward southern vineyards.",
+      "keyBuildings": {
+        "lod2/DERPLP110000QOX3": "Hauptstraße/Triftstraße NW corner barn: unplastered buff-gray limestone & horizontal red-brick banded stone masonry (#9E947E / #B5694F), recessed dusty-red timber louvered window with concrete lintel, weathered vertical timber picket courtyard gate.",
+        "lod2/DERPLP110000QP17": "Triftstraße #4 (with street wing QOX6): authentic 2-story Pfalz Fachwerk (half-timbered) gable house — crisp off-white smooth plaster (#E8E6E2) with dark-brown structural timber framing (#3A2E28), dark charcoal/anthracite glazed clay roof tiles (#3B3E42), brick chimney, red-brown sandstone window surrounds, climbing green grapevine/wisteria pergola along ground floor, hanging bracket tavern/winery sign.",
+        "lod2/DERPLP110000QP1P_QP1Q": "Hauptstraße 95 east-flank barns: tall dry-laid buff limestone rubble garden wall (Bruchsteinmauer, #8F856E) with concrete coping along east sidewalk, white-gabled shed (QP1P), massive limestone rubble barn (QP1Q) with weathered terracotta-red clay-tile gable roof (#A8553B) and huge dark blue-black rooftop solar PV array on its south slope.",
+        "lod2/DERPLP110000QP15": "KDC Kraftfahrzeug Diagnose Center yard (west side): gray interlocking paver parking apron, low dry-laid limestone retaining wall topped by dark-green weld-mesh fence, blue-and-white 'KDC' commercial sign.",
+        "lod2/DERPLP110000QOWK": "Triftstraße #6 historic barn: large unplastered buff/brown limestone rubble gable (#8F836C) with weathered terracotta-orange clay-tile gable roof (#A9583F).",
+        "lod2/DERPLP110000QOWN": "Triftstraße #6 main residence (with QOWL west annex & QOWQ/QOWP street wings): warm pale cream-yellow smooth stucco (#DFD09C), bright terracotta-orange clay-tile steep gable roof (#B65C41), south-facing dormer & cantilevered white-railed balcony with striped retractable awning, brown window frames with white Rolläden, enclosed on the street side by a 2m-tall dense dark-green manicured privet/hornbeam hedge.",
+        "lod2/DERPLP110000QP1N_QP1O": "East-side roadside shed/garage opposite #6: crisp white stucco walls (#EBEAE4) with distinctive bright brick-red metal roof fascia (#B83C34) and terracotta skillion wing.",
+        "lod2/DERPLP110000QOXe_QOXi": "Triftstraße #3: warm pale ochre-cream stucco (#E0D5A6) gabled dwelling + street-front wing (QOXi), bright terracotta-orange clay-tile roof (#AE573D), dark-brown timber window trim & eaves, landscaped with tall columnar cypresses (Thuja), ornamental dark-purple plum tree, lavender & pink/red hydrangeas/roses."
+      },
+      "streetAndBridge": "Narrow 4.5–5m smooth gray asphalt (#585A5E) with white painted '30' zone marking at north entry, granite cobble gutter on west / narrow gray concrete-paver strip on east, galvanized curved streetlights, descending south onto a narrow bridge over Kinderbach flanked by galvanized vertical-bar steel bridge railings on both sides and dense riparian tree canopy."
+    },
+    "am_kirchrain": {
+      "name": "Am Kirchrain (Western Hillside Residential Quarter Climbing SW-ENE-N to Judenberg)",
+      "character": "Sun-drenched late-20th/21st-century Pfalz hillside residential street curving along the elevated western village slope overlooking Kindenheim and framed by open grassy embankments, vineyards, and manicured front gardens. Rich color diversity: crisp white, mustard-ochre, coral-terracotta, salmon-pink, cream, pale gray, and buff sand-lime brick, with roughly 50/50 split between warm terracotta/burgundy clay roofs and dark charcoal/anthracite modern tiled roofs + rooftop solar PV.",
+      "keyBuildings": {
+        "way/734370315": "Am Kirchrain #5: modern crisp white smooth stucco 1.5-story (#ECECE8), steep dark anthracite glazed clay-tile gable roof (#383B3E) with skylight, dark anthracite recessed entry steps & aluminum/glass door, light-gray Rolläden, interlocking gray paver driveway, ornamental grasses & purple lavender.",
+        "lod2/DERPLP110000QOFP": "Am Kirchrain #7 (with matching front shed QOFh/11swg): unmistakable warm mustard-ochre yellow house (#CFA245), bright terracotta-orange clay-tile gable roof (#B65638), bright blue upper balcony door, distinctive round porthole windows (Bullaugen) on both house and mustard-yellow pitched-roof front garden shed, triangular attic gable window.",
+        "lod2/DERPLP110000QOG9": "Am Kirchrain #10 (visible WSW): dusty salmon/terracotta-pink plastered house (#D68E7A) with weathered red-brown half-hipped roof.",
+        "lod2/DERPLP110000QOFH": "Am Kirchrain #16: crisp white smooth stucco 2-story gable house (#EAEBE8), deep burgundy-brown tiled roof (#6B4540) with solar-thermal panels & skylights, white-railed side balcony.",
+        "lod2/DERPLP110000QOFR": "Am Kirchrain #18: warm pale cream stucco (#E5DEC6) with deep overhanging honey-stained natural timber eaves & balcony, terracotta-red clay-tile roof (#AC553A), framed by a signature tiered polygonal limestone rubble retaining wall with cream-plastered concrete-capped pillars and warm orange-brown horizontal timber fence slats.",
+        "lod2/DERPLP110000QOFV_QOFT": "Twin semi-detached Doppelhaus (south side east of #7, at Im Rosengarten corner): east half (QOFV) in warm cream-ochre stucco (#D7CCA6) with white Rolläden, boxwood hedge & red-brown cobbled curved path; west half (QOFT) in crisp white stucco (#ECEEEB) with medium-gray recessed entry bay, sculpted evergreen topiary garden & attached white garage with red-tile mini-gable.",
+        "lod2/DERPLP110000QONN": "Am Kirchrain #13 (corner of Am Sonnenberg): dusty terracotta-red / coral-salmon smooth stucco bungalow/1.5-story (#B96C5E), bright terracotta-orange gable roof (#B45539), brown brick chimney, curved gravel planter edged with dark-brown concrete palisades, red-brown paver driveway.",
+        "lod2/DERPLP110000QOWu": "Am Kirchrain #13/#15 double carport/garage: pale cream-beige clinker/stucco gabled structure (#DDD6C4) with open carport bays and terracotta roof.",
+        "lod2/DERPLP110000QONP": "Am Kirchrain #24: modern white/light-gray stucco home with dark charcoal/anthracite low-pitched hipped/gabled roof (#383C40) & solar PV, framed by tall columnar cypresses and post-and-wire pasture fence on the grassy hillside.",
+        "lod2/DERPLP110000QOO3_QOHK": "Am Kirchrain #15 (at east spur bend): warm buff/tan sand-lime brick & rough plaster (#BFA883) with dark charcoal/anthracite half-hipped & gabled roof (#363A3E) and pale gray concrete-block yard wall.",
+        "lod2/DERPLP110000QOO1": "Am Kirchrain #25 (inside corner of bend): pale light-gray stucco (#CECFCC), weathered dark gray-brown tiled gable roof (#5C534B) with large rooftop solar PV array on south slope, curved terracotta-brown concrete palisade retaining wall (Pflanzsteine) topped by lush shrubs & neat boxwood hedge on north leg.",
+        "lod2/DERPLP200000Iss2": "Am Kirchrain #28 (upper north slope): modern minimalist off-white cubic stucco villa (#E5E6DF) with flat/monopitch roof, wide dark-anthracite horizontal ribbon windows fitted with silver external venetian blinds (Raffstore), exposed architectural gray concrete L-retaining wall."
+      },
+      "streetAndTerrain": "Smooth medium-gray residential asphalt (#5A5D61) with concrete curb strips, interlocking paver driveways, modern angular straight-pole LED streetlights, terraced retaining walls (polygonal limestone, concrete palisades, concrete L-walls) absorbing the gentle western hill slope, and a distinctive central double-row gray concrete paver drainage gutter (Rinne) down the steep north leg."
+    },
+    "adjacentStreets": {
+      "im_rosengarten": "Modern Pfalz residential loop directly south of Am Kirchrain featuring sunny butter-yellow cross-gabled 2-story house (#11, #E0CC7D) with brown-red roof & wooden garden shed behind a curved beech hedge, cool concrete-gray modern house (#6, #B5BAB8) with full-roof black solar PV & dark split-face concrete-block terraced wall, and crisp white stucco (#4).",
+      "judenberg": "Elevated northern rim lane extending east from Am Kirchrain's north end: dry-laid limestone retaining wall with lush summer vineyard rows on the north side, warm butter-yellow stucco house with terracotta roof & timber carport (#5, #DEC472) on the south side, framing an iconic dead-center skyline vista of Evangelische Martinskirche's dark slate spire.",
+      "raiffeisenstrasse": "Southern village edge corridor featuring dusty blush-pink 2-story stucco block with slate-gray plinth (#31, #DFC4BE), brick-paver parking bays, galvanized mesh timber-yard fencing (Holzhandel Walter), modern light-gray solar-paneled house (Gässelstraße 19) & white terracotta-roofed homes backed by tall conifers."
     }
   },
   "references": [
@@ -61,16 +140,20 @@
       "file": "/data/references/brave/aerial_overview_village.jpg",
       "source": "Google Maps Satellite (Airbus / GeoBasis-DE/BKG / Maxar)",
       "captureDate": "2026 imagery",
-      "lat": 49.6110,
+      "lat": 49.611,
       "lon": 8.1636,
       "localX": 125.74,
-      "localZ": -117.30,
+      "localZ": -117.3,
       "headingDeg": 0,
       "pitchDeg": -90,
       "fovDeg": 55,
       "cameraHeightM": 680,
       "panoId": null,
-      "landmarkKeys": ["evangelische_kirche", "rathaus", "weingut_1"],
+      "landmarkKeys": [
+        "evangelische_kirche",
+        "rathaus",
+        "weingut_1"
+      ],
       "architecturalNotes": "Full linear village layout along Hauptstraße (WSW–ENE) with parallel Neugasse to the north and the dense green Kinderbach creek tree belt + Raiffeisenstraße to the south. Shows true terracotta vs. anthracite roof mix (~70% warm terracotta/brown clay, ~25% charcoal/gray), elongated courtyard farmsteads (Hofreiten), white flat-roofed Weingut Kreutzenberger at the eastern exit, sports pitch & Sport- und Freizeithalle to the north, and tightly striped NNW–SSE vineyard parcels enveloping the entire village."
     },
     {
@@ -88,7 +171,11 @@
       "fovDeg": 55,
       "cameraHeightM": 220,
       "panoId": null,
-      "landmarkKeys": ["evangelische_kirche", "rathaus", "weingut_1"],
+      "landmarkKeys": [
+        "evangelische_kirche",
+        "rathaus",
+        "weingut_1"
+      ],
       "architecturalNotes": "Close aerial of Martinskirche (note dark spire shadow cast NW, brown-tiled nave roof, mature tree canopy on east churchyard), Rathaus hipped dark-gray roof directly south across Hauptstraße, Weingut Schur & Michelsberg/Borngasse tight historic roof clusters, inner U-shaped and L-shaped courtyard barns, solar arrays on south-facing roofs, and verdant backyard orchards."
     },
     {
@@ -99,7 +186,7 @@
       "captureDate": "2026 imagery",
       "lat": 49.6120532,
       "lon": 8.1632312,
-      "localX": 100.40,
+      "localX": 100.4,
       "localZ": -234.69,
       "headingDeg": 0,
       "pitchDeg": -90,
@@ -124,7 +211,10 @@
       "fovDeg": 90,
       "cameraHeightM": 2.5,
       "panoId": "e6WSDbO6ciBeHLKd6zi7Uw",
-      "landmarkKeys": ["evangelische_kirche", "rathaus"],
+      "landmarkKeys": [
+        "evangelische_kirche",
+        "rathaus"
+      ],
       "architecturalNotes": "Primary benchmark view of Kindenheim village center! Shows full upper silhouette of Evangelische Martinskirche: yellow sandstone belfry shaft with red sandstone corner quoins, pointed dark louvered belfry arch, black-and-gold circular clock face, 4-gabled Neo-Gothic Rhineland helm (Wimperge), steep octagonal dark slate spire, golden orb & weathercock. Left foreground: ochre Winzerhaus (#62) with red sandstone window frames, terracotta roof, and solar-paneled ivy-draped neighbor. Right: pale-stucco 2-story Rathaus with dark gray hipped roof and ridge siren mast, plus half-timbered pale yellow gable house."
     },
     {
@@ -142,7 +232,9 @@
       "fovDeg": 90,
       "cameraHeightM": 2.5,
       "panoId": "AtjJPj_98iIgADcP-Wwb6A",
-      "landmarkKeys": ["evangelische_kirche"],
+      "landmarkKeys": [
+        "evangelische_kirche"
+      ],
       "architecturalNotes": "Close architectural reference for Martinskirche masonry and churchyard: lower tower built in coursed red Pfälzer Sandstein ashlar with Neo-Gothic pointed portal ('ERBAUT 1871'), quatrefoil stone rose window, projecting sandstone drip cornice, transitioning to yellow-beige sandstone ashlar with red corner quoins and paired pointed lancet windows above. Right: white plastered nave with dark arched windows, horizontal oval oculus over arched wooden doorway, weathered brown-terracotta clay gable roof, red sandstone churchyard retaining wall with stone flower boxes, fanned granite cobblestone forecourt, huge green tree, and Kriegerdenkmal lion statue on sandstone pedestal."
     },
     {
@@ -160,7 +252,10 @@
       "fovDeg": 88,
       "cameraHeightM": 2.5,
       "panoId": "OHVNkdRowRxjVbfR5AZ-lg",
-      "landmarkKeys": ["evangelische_kirche", "rathaus"],
+      "landmarkKeys": [
+        "evangelische_kirche",
+        "rathaus"
+      ],
       "architecturalNotes": "View from Hauptstraße #75 / Michelsberg looking WNW toward Martinskirche spire rising behind the mature churchyard tree and a distinctive mansard-roofed, horizontal-siding & brown-timber-gable corner building, plus an ivy-draped white plastered village house with bright terracotta roof on the right and cobblestone-paved Michelsberg lane."
     },
     {
@@ -178,7 +273,9 @@
       "fovDeg": 85,
       "cameraHeightM": 2.5,
       "panoId": "AtjJPj_98iIgADcP-Wwb6A",
-      "landmarkKeys": ["rathaus"],
+      "landmarkKeys": [
+        "rathaus"
+      ],
       "architecturalNotes": "Direct facade shot of Rathaus Kindenheim (Hauptstraße 77): pale warm beige-gray stucco walls, red Pfälzer Sandstein plinth, continuous sandstone horizontal belt course, molded red sandstone window surrounds with projecting cornice lintels on upper story, red sandstone portal with granite steps, painted municipal coat of arms ('GEMEINDE KINDENHEIM') above entrance flanked by twin black wrought-iron wall lanterns, interlocking gray paver sidewalk. Right neighbor: pale yellow 'Webers-Weinstube' with dark brown clay-tile roof."
     },
     {
@@ -196,7 +293,10 @@
       "fovDeg": 85,
       "cameraHeightM": 2.5,
       "panoId": "gZ1RuKr7RyLeo3eYJ70NWQ",
-      "landmarkKeys": ["weingut_1", "evangelische_kirche"],
+      "landmarkKeys": [
+        "weingut_1",
+        "evangelische_kirche"
+      ],
       "architecturalNotes": "Classic Pfalz Winzerdorf streetscape along Hauptstraße (L450) looking WSW with Martinskirche spire framed cleanly down the gentle curve. Right side: cream-yellow gabled Winzerhaus with red-sandstone window sills/frames, checkered brown-ochre tile plinth, ornate arched gray wrought-iron courtyard gate topped by a dark-tiled mini canopy, weathered terracotta roof tiles. Left side: weathered off-white stucco facade with dark red-brown window surrounds and matching checkered plinth. Clean gray asphalt road with narrow gray paved sidewalks and curved metal streetlights."
     },
     {
@@ -206,7 +306,7 @@
       "source": "Google Street View",
       "captureDate": "Aug 2023",
       "lat": 49.6109849,
-      "lon": 8.1639510,
+      "lon": 8.163951,
       "localX": 151.08,
       "localZ": -115.34,
       "headingDeg": 70,
@@ -241,7 +341,7 @@
       "file": "/data/references/brave/sv_side_street_neugasse.jpg",
       "source": "Google Street View",
       "captureDate": "Jul 2023",
-      "lat": 49.6118280,
+      "lat": 49.611828,
       "lon": 8.1629784,
       "localX": 81.86,
       "localZ": -209.85,
@@ -296,7 +396,7 @@
       "source": "Google Street View",
       "captureDate": "Aug 2023",
       "lat": 49.6094452,
-      "lon": 8.1575570,
+      "lon": 8.157557,
       "localX": -312.76,
       "localZ": 50.71,
       "headingDeg": 65,
@@ -304,7 +404,9 @@
       "fovDeg": 82,
       "cameraHeightM": 2.5,
       "panoId": "-xAEYe-qoLsuBM_K3574yA",
-      "landmarkKeys": ["evangelische_kirche"],
+      "landmarkKeys": [
+        "evangelische_kirche"
+      ],
       "architecturalNotes": "Western approach along Hauptstraße looking ENE toward the distant Martinskirche spire: left features a charming pale blue-gray plastered 1.5-story Winzerhaus with cream window frames, warm natural wood paneled shutters, and bright terracotta roof with roof skylights; right features an authentic unplastered yellow-orange sandstone/brick banded agricultural barn gable atop a dry-laid limestone rubble wall and dark green iron gate."
     },
     {
@@ -322,8 +424,266 @@
       "fovDeg": 82,
       "cameraHeightM": 2.5,
       "panoId": "IEfAZ6ppwnnI_wVS3FPTpQ",
-      "landmarkKeys": ["bauernhof_1"],
+      "landmarkKeys": [
+        "bauernhof_1"
+      ],
       "architecturalNotes": "Western edge of Kindenheim next to landmark bauernhof_1 (Hauptstraße 107) looking WSW toward the village exit: long plastered farmstead barn wall with basement cellar vents on left, modern white stucco gable-roofed residence with warm brown clay tiles and raised concrete stair on right, tall garden hedges atop concrete-palisade retaining wall, descending road bordered by lush green trees and vineyards."
+    },
+    {
+      "id": "aerial_trift_kirchrain_west",
+      "title": "West Kindenheim — Am Kirchrain, Im Rosengarten & Triftstraße (High-Zoom Satellite)",
+      "file": "/data/references/brave/aerial_trift_kirchrain_west.jpg",
+      "source": "Google Maps Satellite (Airbus / GeoBasis-DE/BKG / Maxar)",
+      "captureDate": "2026 imagery",
+      "lat": 49.6088498,
+      "lon": 8.155183,
+      "localX": -485,
+      "localZ": 115,
+      "headingDeg": 0,
+      "pitchDeg": -90,
+      "fovDeg": 55,
+      "cameraHeightM": 460,
+      "panoId": null,
+      "landmarkKeys": [
+        "bauernhof_1"
+      ],
+      "architecturalNotes": "High-zoom nadir satellite overview uniting all of Am Kirchrain, Im Rosengarten, Am Sonnenberg, Judenberg, and Triftstraße plus the Kinderbach green corridor and surrounding striped Pfalz vineyards. Clearly shows the terracotta vs. charcoal roof distribution across every parcel on Am Kirchrain and Triftstraße, solar PV roofs, long industrial/agricultural halls along Raiffeisenstraße south of Triftstraße, Jüdischer Friedhof tree belt to the NW, and the tight historic fabric transitioning to modern detached hillside plots."
+    },
+    {
+      "id": "sv_triftstrasse_north_entry",
+      "title": "Triftstraße North Entry (from Hauptstraße) — Looking South Past #4",
+      "file": "/data/references/brave/sv_triftstrasse_north_entry.jpg",
+      "source": "Google Street View",
+      "captureDate": "Jul 2023",
+      "lat": 49.6093083,
+      "lon": 8.1574957,
+      "localX": -317.35,
+      "localZ": 65.88,
+      "headingDeg": 170,
+      "pitchDeg": 3,
+      "fovDeg": 86,
+      "cameraHeightM": 2.5,
+      "panoId": "XzCGj-zYZtM2ITG0WjXzRg",
+      "landmarkKeys": [],
+      "architecturalNotes": "North entry of Triftstraße immediately south of Hauptstraße. Right foreground (lod2/DERPLP110000QOX3): unplastered buff-gray limestone & horizontal red-brick banded stone barn with recessed dusty-red timber louvered window and weathered vertical timber picket gate. Right mid-ground (Triftstraße #4, lod2/DERPLP110000QP17 & QOX6): authentic 2-story Pfalz half-timbered (Fachwerk) house with smooth white plaster (#E8E6E2), dark-brown structural timber framing, dark charcoal/anthracite glazed clay-tile gable roof (#3B3E42), brick chimney, red-brown sandstone window surrounds, green climbing grapevine pergola & hanging tavern/winery sign. Left (Hauptstraße 95 rear barns, QP1P & QP1Q): tall dry-laid buff limestone rubble wall (Bruchsteinmauer) along east sidewalk, white-gabled shed, massive limestone barn with terracotta clay-tile roof (#A8553B). Smooth gray asphalt with white painted '30' zone marking, cobble gutter west, narrow paver strip east, curved metal streetlight."
+    },
+    {
+      "id": "sv_triftstrasse_mid_southbound",
+      "title": "Triftstraße Mid-Upper (#4–#6) — Looking South Toward #6 Courtyard & #3",
+      "file": "/data/references/brave/sv_triftstrasse_mid_southbound.jpg",
+      "source": "Google Street View",
+      "captureDate": "Jul 2023",
+      "lat": 49.6088665,
+      "lon": 8.157646,
+      "localX": -307.04,
+      "localZ": 115.12,
+      "headingDeg": 185,
+      "pitchDeg": 4,
+      "fovDeg": 88,
+      "cameraHeightM": 2.5,
+      "panoId": "muFPcq616B2QAT63wfDH7g",
+      "landmarkKeys": [],
+      "architecturalNotes": "Upper-mid Triftstraße descending south. Right foreground (lod2/DERPLP110000QP15 yard): KDC Kraftfahrzeug Diagnose Center interlocking concrete-paver parking lot, low limestone rubble retaining wall topped with dark-green weld-mesh fence and blue-and-white 'KDC' sign. Behind fence (Triftstraße #6 barn, lod2/DERPLP110000QOWK): massive unplastered warm buff/brown limestone rubble gable (#8F836C) with weathered terracotta-orange clay-tile gable roof (#A9583F). Further south right (Triftstraße #6, QOWP/QOWQ/QOWN): warm cream-sand stucco facade (#D8CCA9) with bright terracotta roof. Left foreground: dry summer grass embankment dropping east to lush green vineyard rows & Kinderbach trees, tall concrete utility pole, small crisp white-plastered shed/garage (QP1N) with bright brick-red metal roof fascia (#B83C34). Distant left: Triftstraße #3 ochre-yellow gabled house (#QOXe) with terracotta roof."
+    },
+    {
+      "id": "sv_triftstrasse_mid_northbound",
+      "title": "Triftstraße Mid (#3–#6) — Looking North Uphill Toward #6, #4 & Hauptstraße",
+      "file": "/data/references/brave/sv_triftstrasse_mid_northbound.jpg",
+      "source": "Google Street View",
+      "captureDate": "Jul 2023",
+      "lat": 49.6083089,
+      "lon": 8.1576428,
+      "localX": -307.96,
+      "localZ": 177.11,
+      "headingDeg": 350,
+      "pitchDeg": 4,
+      "fovDeg": 86,
+      "cameraHeightM": 2.5,
+      "panoId": "1wmL2qrU-LJPARNlOyIijw",
+      "landmarkKeys": [],
+      "architecturalNotes": "Mid Triftstraße looking north uphill between #6 (left) and #3 (right). Left foreground: dense 2m-tall manicured dark-green privet/hornbeam hedge running the full length of Triftstraße #6. Behind hedge (Triftstraße #6 residence, lod2/DERPLP110000QOWN): warm pale cream-yellow smooth stucco (#DFD09C), bright terracotta-orange clay-tile gable roof (#B65C41) with south dormer, skylight, cantilevered white-railed upper balcony with striped awning, brown window trims & white Rolläden; pale gray-white plastered gabled annex behind left (QOWL). Right foreground (Triftstraße #3, lod2/DERPLP110000QOXi & QOXe): cream-yellow stucco (#E2DCBC), terracotta roof (#AE573D), dark-brown window frames, tall columnar cypresses (Thuja), ornamental dark-purple plum tree, lavender & pink/red rose/hydrangea border. North horizon: huge dark blue-black rooftop solar PV array covering the south roof slope of Hauptstraße 95 barn (QP1Q) above the red-trimmed white shed (QP1N)."
+    },
+    {
+      "id": "sv_triftstrasse_south_house3",
+      "title": "Triftstraße South Bend — Looking NNE Across #3 House, Garden & Street",
+      "file": "/data/references/brave/sv_triftstrasse_south_house3.jpg",
+      "source": "Google Street View",
+      "captureDate": "Jul 2023",
+      "lat": 49.608104,
+      "lon": 8.1575493,
+      "localX": -314.97,
+      "localZ": 199.82,
+      "headingDeg": 28,
+      "pitchDeg": 4,
+      "fovDeg": 88,
+      "cameraHeightM": 2.5,
+      "panoId": "XgB5QNSMqV9s0s7y9-8iTw",
+      "landmarkKeys": [],
+      "architecturalNotes": "South bend of Triftstraße just north of Kinderbach bridge looking NNE uphill. Shows full sweep of the manicured west hedge along Triftstraße #6 with cream-yellow #6 residence (QOWN), pale annex (QOWL), and tall limestone gable of barn QOWK rising behind it, plus the dark-blue solar PV barn roof further north. Right side: dense lush green overhanging shrubs & trees bordering the south garden of Triftstraße #3 with its warm ochre-yellow gable and terracotta roof (QOXe) emerging above the canopy. Smooth medium-gray asphalt with cast-iron manhole covers, concrete curb edging, and galvanized streetlight pole."
+    },
+    {
+      "id": "sv_triftstrasse_south_vista",
+      "title": "Triftstraße South Edge — Looking South Toward #7/#7A/#8 & Vineyard Slopes",
+      "file": "/data/references/brave/sv_triftstrasse_south_vista.jpg",
+      "source": "Google Street View",
+      "captureDate": "Jul 2023",
+      "lat": 49.608104,
+      "lon": 8.1575493,
+      "localX": -314.97,
+      "localZ": 199.82,
+      "headingDeg": 186,
+      "pitchDeg": 2,
+      "fovDeg": 85,
+      "cameraHeightM": 2.5,
+      "panoId": "XgB5QNSMqV9s0s7y9-8iTw",
+      "landmarkKeys": [],
+      "architecturalNotes": "Southern approach across the Kinderbach creek bridge on Triftstraße (southernmost Street View point on the lane). Iconic bridge architecture: galvanized vertical-bar steel pedestrian/guard railings along both edges of the narrow gray asphalt roadway, concrete bridge abutments/flood-wall pillars on the west side, dense lush green deciduous riparian trees (willow/alder/maple) overhanging both banks of Kinderbach, dry summer grass verge on right, and a distant glimpse of terracotta-roofed houses (#7/#7A/#8) rising uphill south toward Raiffeisenstraße."
+    },
+    {
+      "id": "sv_kirchrain_sw_eastbound",
+      "title": "Am Kirchrain SW (#5–#10 / Im Rosengarten Corner) — Looking ENE",
+      "file": "/data/references/brave/sv_kirchrain_sw_eastbound.jpg",
+      "source": "Google Street View",
+      "captureDate": "Jul 2023",
+      "lat": 49.6090222,
+      "lon": 8.153763,
+      "localX": -587.37,
+      "localZ": 94.7,
+      "headingDeg": 54,
+      "pitchDeg": 4,
+      "fovDeg": 86,
+      "cameraHeightM": 2.5,
+      "panoId": "dg-gYvbNPI2a2CE82R3yUQ",
+      "landmarkKeys": [],
+      "architecturalNotes": "SW section of Am Kirchrain looking ENE up the residential hillside. Right foreground (Am Kirchrain #5, way/734370315, house number '5' visible): crisp white smooth stucco modern 1.5-story (#ECECE8), steep dark anthracite glazed clay-tile gable roof (#383B3E) with skylight, dark anthracite recessed entry steps & aluminum/glass door, light-gray closed Rolläden, gray interlocking paver driveway, ornamental grasses & purple lavender. Right mid-ground (Am Kirchrain #7, lod2/DERPLP110000QOFP): vibrant mustard-ochre yellow house (#CFA245) with bright terracotta-orange clay-tile roof (#B65638), bright blue upper balcony door, circular porthole windows (Bullaugen), and matching mustard-yellow gabled front garden shed with circular porthole windows (lod2/DERPLP1100011swg / QOFh). Left foreground: open mown green hillside meadow with wild flowering shrub & wire fence. Left mid-ground (Am Kirchrain #16, lod2/DERPLP110000QOFH): crisp white 2-story gabled stucco (#EAEBE8) with deep burgundy-brown tiled roof (#6B4540), solar-thermal collectors & white-railed side balcony; behind it #18 (QOFR) with bright terracotta roof."
+    },
+    {
+      "id": "sv_kirchrain_mid_westbound",
+      "title": "Am Kirchrain Mid (#11/#16/#18) — Looking WSW Along Hillside Homes",
+      "file": "/data/references/brave/sv_kirchrain_mid_westbound.jpg",
+      "source": "Google Street View",
+      "captureDate": "Jul 2023",
+      "lat": 49.6092968,
+      "lon": 8.1545066,
+      "localX": -533.31,
+      "localZ": 64.76,
+      "headingDeg": 234,
+      "pitchDeg": 4,
+      "fovDeg": 86,
+      "cameraHeightM": 2.5,
+      "panoId": "CqxdWmeCuMoHWNEL5pU8Mg",
+      "landmarkKeys": [],
+      "architecturalNotes": "Mid Am Kirchrain looking WSW back down the slope. Right foreground (Am Kirchrain #18, lod2/DERPLP110000QOFR): warm pale cream stucco (#E5DEC6), deep overhanging honey-stained natural timber eaves & upper timber balcony, warm terracotta-red tiled roof (#AC553A), framed along the street by a signature tiered polygonal limestone rubble retaining wall (Bruchstein) with cream plastered square pillars capped in concrete & warm orange-brown horizontal timber fence slats. Behind #18 on right: white 2-story #16 (QOFH) with dark burgundy roof & white balcony, and distant salmon-terracotta pink plastered house #10 (QOG9, #D68E7A) with red-brown half-hipped roof. Left foreground (twin semi-detached Doppelhaus at Im Rosengarten corner): east unit (QOFV) in warm cream-ochre stucco (#D7CCA6) with white Rolläden, boxwood hedge & curved red-brown cobbled path; west unit (QOFT) in crisp white stucco (#ECEEEB) with medium-gray recessed entry bay, sculpted topiary garden & white garage with red-tile mini-gable. Further left: mustard-ochre #7 (QOFP) showing triangular attic window & wooden balcony, then white/anthracite #5."
+    },
+    {
+      "id": "sv_kirchrain_ne_eastbound",
+      "title": "Am Kirchrain NE (#13/#20/#24 & Am Sonnenberg) — Looking ENE Toward Bend",
+      "file": "/data/references/brave/sv_kirchrain_ne_eastbound.jpg",
+      "source": "Google Street View",
+      "captureDate": "Jul 2023",
+      "lat": 49.6095986,
+      "lon": 8.1553134,
+      "localX": -474.65,
+      "localZ": 31.86,
+      "headingDeg": 58,
+      "pitchDeg": 4,
+      "fovDeg": 86,
+      "cameraHeightM": 2.5,
+      "panoId": "DDG25413kfv3YlEszdSzdA",
+      "landmarkKeys": [],
+      "architecturalNotes": "Upper-east Am Kirchrain at the Am Sonnenberg corner looking ENE toward the street bend. Right foreground (Am Kirchrain #13, lod2/DERPLP110000QONN): distinctive dusty terracotta-red / coral-salmon smooth stucco bungalow/1.5-story (#B96C5E), bright terracotta-orange clay-tile gable roof (#B45539), brown brick chimney, green garden hedge, curved decorative gravel bed edged with dark-brown concrete palisades, red-brown brick paver driveway. Just ahead right (lod2/DERPLP110000QOWu): pale cream-beige clinker/stucco gabled double carport/garage (#DDD6C4) with terracotta roof. Left side (Am Kirchrain #24, lod2/DERPLP110000QONP): modern crisp white/light-gray stucco home with dark anthracite/charcoal low-pitched hipped/gabled roof (#383C40) & solar PV panels, flanked by tall narrow columnar cypresses, dense green shrubs, and a light post-and-wire pasture fence along the grassy north hillside embankment."
+    },
+    {
+      "id": "sv_kirchrain_bend_east_vista",
+      "title": "Am Kirchrain Bend — Looking East Along #15–#25 Spur & Village Roof Vista",
+      "file": "/data/references/brave/sv_kirchrain_bend_east_vista.jpg",
+      "source": "Google Street View",
+      "captureDate": "Jul 2023",
+      "lat": 49.6098109,
+      "lon": 8.1559594,
+      "localX": -427.72,
+      "localZ": 8.77,
+      "headingDeg": 78,
+      "pitchDeg": 3,
+      "fovDeg": 88,
+      "cameraHeightM": 2.5,
+      "panoId": "6XqqPcFSVokTMErVMWf0nw",
+      "landmarkKeys": [],
+      "architecturalNotes": "Scenic corner bend of Am Kirchrain looking East down the eastern spur (#15–#25) toward eastern village roofs and open fields. Right side (Am Kirchrain #15, lod2/DERPLP110000QOO3 & QOHK): warm buff/tan sand-lime brick & rough plaster (#BFA883), dark charcoal/anthracite glazed half-hipped & gabled roof (#363A3E), pale gray concrete-block retaining/yard wall (Kalksandstein), parked black agricultural dump trailer & vintage tractor in yard. Left side (Am Kirchrain #25, lod2/DERPLP110000QOO1): light gray stucco gable (#CECFCC), dark gray tiled roof with large black rooftop solar PV array, dense garden shrubs atop a curved terracotta-brown concrete palisade retaining wall (Pflanzsteine). Center distance down the spur (#15A/#17/#19): white plastered gabled residence with bright terracotta roof & blue garage door. Smooth gray asphalt with round manhole covers curving uphill left toward Judenberg."
+    },
+    {
+      "id": "sv_kirchrain_north_southbound",
+      "title": "Am Kirchrain North Slope (#28 / Judenberg Approach) — Looking South",
+      "file": "/data/references/brave/sv_kirchrain_north_southbound.jpg",
+      "source": "Google Street View",
+      "captureDate": "Jul 2023",
+      "lat": 49.6101761,
+      "lon": 8.1560166,
+      "localX": -423.13,
+      "localZ": -31.78,
+      "headingDeg": 175,
+      "pitchDeg": 3,
+      "fovDeg": 86,
+      "cameraHeightM": 2.5,
+      "panoId": "4rQRUf3kkxY6pX8sTiwiGQ",
+      "landmarkKeys": [],
+      "architecturalNotes": "Upper northern slope of Am Kirchrain descending south from Judenberg toward the bend. Right foreground (Am Kirchrain #28, lod2/DERPLP200000Iss2 area): modern minimalist cubic off-white smooth stucco villa (#E5E6DF) with flat/monopitch roof & dark metal coping, wide dark-anthracite horizontal ribbon windows fitted with silver external venetian blinds (Raffstore), vertical gray Rolladen window, and exposed gray architectural concrete L-retaining wall (Winkelstützen) along the sloped plot. Left foreground (Am Kirchrain #25 north flank, lod2/DERPLP110000QOO1): pale gray-cream stucco (#D5D6CF), weathered dark brown-gray tiled gable roof (#5C534B), white Rolläden, and neatly trimmed green boxwood/hornbeam hedge atop low stacked-stone border. Distinctive road feature: smooth gray asphalt split by a central double-row gray concrete paver drainage gutter (Rinne). Far southern horizon: terracotta village roofs, tall historic brick chimney & rolling golden summer farmland."
+    },
+    {
+      "id": "sv_extra_im_rosengarten",
+      "title": "Im Rosengarten (South of Am Kirchrain) — Looking WSW",
+      "file": "/data/references/brave/sv_extra_im_rosengarten.jpg",
+      "source": "Google Street View",
+      "captureDate": "Jul 2023",
+      "lat": 49.6088245,
+      "lon": 8.1549248,
+      "localX": -503.69,
+      "localZ": 117.61,
+      "headingDeg": 244,
+      "pitchDeg": 4,
+      "fovDeg": 86,
+      "cameraHeightM": 2.5,
+      "panoId": "0_xLFP43CsK9PSWGseK2jQ",
+      "landmarkKeys": [],
+      "architecturalNotes": "Quiet modern residential street directly south of Am Kirchrain looking WSW. Left (Im Rosengarten #11, lod2/DERPLP110000QOFN): sunny butter-yellow 2-story gabled house (#E0CC7D) with projecting front cross-gable bay, dark gray plinth, weathered brownish-red clay-tile roof (#8D5043) with small gable dormer, closed cream Rolläden, natural-wood garden shed (QOFr), and curved bright-green beech/hornbeam hedge wrapping the corner. Right foreground (Im Rosengarten #6, lod2/DERPLP110001536K): modern cool concrete-gray stucco residence (#B5BAB8), dark charcoal gable roof fully covered with sleek black solar PV panels & skylights, split-face dark gray concrete-block retaining wall with stepped concrete slabs & terracotta flowerpots. Right mid-ground (Im Rosengarten #4, QOFJ): crisp white 2-story stucco (#ECEEEB) with dark brown eaves behind a tall green hedge. Smooth gray asphalt with concrete curb & twin round manhole covers."
+    },
+    {
+      "id": "sv_extra_judenberg",
+      "title": "Judenberg (North of Am Kirchrain) — Looking East Along Hillside Lane",
+      "file": "/data/references/brave/sv_extra_judenberg.jpg",
+      "source": "Google Street View",
+      "captureDate": "Jul 2023",
+      "lat": 49.6104435,
+      "lon": 8.1567532,
+      "localX": -369.59,
+      "localZ": -60.92,
+      "headingDeg": 90,
+      "pitchDeg": 2,
+      "fovDeg": 86,
+      "cameraHeightM": 2.5,
+      "panoId": "PaXNDu2Myc5e-nYmhVHFVA",
+      "landmarkKeys": [
+        "evangelische_kirche"
+      ],
+      "architecturalNotes": "Elevated northern rim lane extending directly east from Am Kirchrain's north end toward Bergstraße. Left (north): dry-laid buff limestone rubble retaining wall supporting wild summer grass embankment topped directly by lush linear green vineyard rows. Right foreground (Judenberg #5, lod2/DERPLP110000QOOn): warm butter-yellow smooth stucco 1.5-story house (#DEC472), bright terracotta-orange clay-tile gable roof (#B0553A), brick chimney, dark brown timber eaves, recessed front entrance porch with tiled steps & metal handrail, attached open timber carport, warm buff interlocking paver driveway. Center skyline vista: Bergstraße/Neugasse terracotta roofs, dark purple-leaved ornamental tree, solar-paneled gray roof, and the steep dark slate spire of Evangelische Martinskirche rising dead-center on the eastern horizon!"
+    },
+    {
+      "id": "sv_extra_raiffeisenstrasse",
+      "title": "Raiffeisenstraße East — Looking WSW Along Southern Residential Corridor",
+      "file": "/data/references/brave/sv_extra_raiffeisenstrasse.jpg",
+      "source": "Google Street View",
+      "captureDate": "Jul 2023",
+      "lat": 49.6092416,
+      "lon": 8.1662439,
+      "localX": 314.57,
+      "localZ": 80.32,
+      "headingDeg": 252,
+      "pitchDeg": 3,
+      "fovDeg": 86,
+      "cameraHeightM": 2.5,
+      "panoId": "6_nR8FwvpE7A0m5fdfy9Qw",
+      "landmarkKeys": [],
+      "architecturalNotes": "Southern village corridor along Raiffeisenstraße looking WSW. Left foreground (Raiffeisenstraße #31, lod2/DERPLP110000QOSx): dusty rose-blush pink 2-story stucco apartment/commercial block (#DFC4BE) with dark slate-gray basement plinth (#626970), white-framed horizontal windows & closed white Rolläden, recessed brick-paver parking bays. Right foreground: galvanized chain-link/weld-mesh yard fence bordering dry summer grass (Holzhandel Walter). Right mid-ground: modern light-gray stucco gabled house (Gässelstraße 19, lod2/DERPLP110000QOV9, #C7CCCB) with dark anthracite roof & rooftop solar PV panels, plus crisp white stucco house with terracotta-red gable roof (Gässelstraße 17, QOSz) framed by tall spruce/conifer trees. Narrow gray asphalt lane with double-row concrete-block borders."
     }
   ]
 }

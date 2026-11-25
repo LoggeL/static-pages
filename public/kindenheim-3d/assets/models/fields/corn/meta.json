@@ -1,0 +1,46 @@
+{
+  "id": "crop_corn_row",
+  "cropType": "corn",
+  "labelDe": "Maisfeld",
+  "glbPath": "/assets/models/fields/corn/crop_corn_row.glb",
+  "bounds": [
+    5.964,
+    2.378,
+    2.517
+  ],
+  "boundsBox": {
+    "min": [
+      -2.983,
+      -0.25,
+      -1.258
+    ],
+    "max": [
+      2.981,
+      2.128,
+      1.259
+    ],
+    "size": [
+      5.964,
+      2.378,
+      2.517
+    ]
+  },
+  "heightAboveGroundM": 2.128,
+  "groundSkirtM": -0.25,
+  "triangles": 180,
+  "meshCount": 1,
+  "materialCount": 1,
+  "fileSizeBytes": 288580,
+  "alphaMode": "MASK",
+  "alphaCutoff": 0.5,
+  "doubleSided": true,
+  "rowCount": 3,
+  "rowSpacingM": 0.75,
+  "alongRowM": 6.0,
+  "betweenBaysM": 2.4,
+  "recommendedSpacing": {
+    "alongRowM": 6.0,
+    "betweenBaysM": 2.4
+  },
+  "windSwayStrength": 0.16
+}

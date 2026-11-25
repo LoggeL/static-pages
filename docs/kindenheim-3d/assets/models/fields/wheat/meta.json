@@ -1,0 +1,100 @@
+{
+  "category": "wheat",
+  "description": "Palatinate summer ripened wheat, freshly harvested golden stubble, and 6-bale round straw pyramid stack for Kindenheim (July/August harvest)",
+  "coordinateSystem": "glTF Y-up meters (+X East, +Y Up, -Z North; ground contact Y=0 with underground root/base skirt)",
+  "assets": {
+    "crop_wheat_patch": {
+      "id": "crop_wheat_patch",
+      "glbPath": "/assets/models/fields/wheat/crop_wheat_patch.glb",
+      "bounds": [
+        6.08,
+        1.23,
+        6.037
+      ],
+      "boundsMin": [
+        -3.04,
+        -0.25,
+        -2.997
+      ],
+      "boundsMax": [
+        3.04,
+        0.98,
+        3.04
+      ],
+      "aboveGroundHeight": 0.98,
+      "undergroundSkirtDepth": 0.25,
+      "triangles": 152,
+      "fileSizeBytes": 170496,
+      "recommendedGridSpacingM": 5.6,
+      "recommendedSpacing": [
+        5.6,
+        5.6
+      ],
+      "windSwayStrength": 0.12,
+      "alphaMode": "MASK",
+      "doubleSided": true
+    },
+    "crop_stubble_patch": {
+      "id": "crop_stubble_patch",
+      "glbPath": "/assets/models/fields/wheat/crop_stubble_patch.glb",
+      "bounds": [
+        6.08,
+        0.43,
+        6.08
+      ],
+      "boundsMin": [
+        -3.04,
+        -0.2,
+        -3.04
+      ],
+      "boundsMax": [
+        3.04,
+        0.23,
+        3.04
+      ],
+      "aboveGroundHeight": 0.23,
+      "undergroundSkirtDepth": 0.2,
+      "triangles": 80,
+      "fileSizeBytes": 102376,
+      "recommendedGridSpacingM": 5.6,
+      "recommendedSpacing": [
+        5.6,
+        5.6
+      ],
+      "windSwayStrength": 0.0,
+      "alphaMode": "MASK",
+      "doubleSided": true
+    },
+    "straw_bale_stack": {
+      "id": "straw_bale_stack",
+      "glbPath": "/assets/models/fields/wheat/straw_bale_stack.glb",
+      "bounds": [
+        4.68,
+        4.203,
+        1.4
+      ],
+      "boundsMin": [
+        -2.34,
+        -0.25,
+        -0.7
+      ],
+      "boundsMax": [
+        2.34,
+        3.953,
+        0.7
+      ],
+      "aboveGroundHeight": 3.953,
+      "undergroundSkirtDepth": 0.25,
+      "triangles": 358,
+      "fileSizeBytes": 277380,
+      "recommendedGridSpacingM": 8.0,
+      "recommendedSpacing": [
+        8.0,
+        8.0
+      ],
+      "windSwayStrength": 0.0,
+      "alphaMode": "OPAQUE",
+      "doubleSided": false
+    }
+  }
+}

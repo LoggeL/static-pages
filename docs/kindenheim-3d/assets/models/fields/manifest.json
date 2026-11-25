@@ -1,0 +1,347 @@
+{
+  "version": 1,
+  "coordinateSystem": "glTF 2.0 Y-up meters (+X East / along rows, +Y Up above ground contact Y=0 with underground slope skirt, -Z North)",
+  "modelCount": 12,
+  "totalFileSizeBytes": 2311824,
+  "totalFileSizeMB": 2.205,
+  "totalTriangles": 2491,
+  "externalImageURIs": 0,
+  "models": {
+    "crop_wheat_patch": {
+      "key": "crop_wheat_patch",
+      "name": "crop_wheat_patch",
+      "glbPath": "/assets/models/fields/wheat/crop_wheat_patch.glb",
+      "bounds": [
+        6.08,
+        1.23,
+        6.037
+      ],
+      "boundsMin": [
+        -3.04,
+        -0.25,
+        -2.997
+      ],
+      "boundsMax": [
+        3.04,
+        0.98,
+        3.04
+      ],
+      "triangles": 152,
+      "meshCount": 1,
+      "fileSizeBytes": 170496,
+      "alphaMaskDoubleSided": true,
+      "spacingM": 5.6,
+      "alongRowM": 5.6,
+      "betweenBaysM": 5.6,
+      "windSway": 0.12,
+      "windSwayStrength": 0.12
+    },
+    "crop_stubble_patch": {
+      "key": "crop_stubble_patch",
+      "name": "crop_stubble_patch",
+      "glbPath": "/assets/models/fields/wheat/crop_stubble_patch.glb",
+      "bounds": [
+        6.08,
+        0.43,
+        6.08
+      ],
+      "boundsMin": [
+        -3.04,
+        -0.2,
+        -3.04
+      ],
+      "boundsMax": [
+        3.04,
+        0.23,
+        3.04
+      ],
+      "triangles": 80,
+      "meshCount": 1,
+      "fileSizeBytes": 102376,
+      "alphaMaskDoubleSided": true,
+      "spacingM": 5.6,
+      "alongRowM": 5.6,
+      "betweenBaysM": 5.6,
+      "windSway": 0.0,
+      "windSwayStrength": 0.0
+    },
+    "straw_bale_stack": {
+      "key": "straw_bale_stack",
+      "name": "straw_bale_stack",
+      "glbPath": "/assets/models/fields/wheat/straw_bale_stack.glb",
+      "bounds": [
+        4.68,
+        4.203,
+        1.4
+      ],
+      "boundsMin": [
+        -2.34,
+        -0.25,
+        -0.7
+      ],
+      "boundsMax": [
+        2.34,
+        3.953,
+        0.7
+      ],
+      "triangles": 358,
+      "meshCount": 1,
+      "fileSizeBytes": 277380,
+      "alphaMaskDoubleSided": false,
+      "spacingM": 8.0,
+      "alongRowM": 8.0,
+      "betweenBaysM": 8.0,
+      "windSway": 0.0,
+      "windSwayStrength": 0.0
+    },
+    "crop_corn_row": {
+      "key": "crop_corn_row",
+      "name": "crop_corn_row",
+      "glbPath": "/assets/models/fields/corn/crop_corn_row.glb",
+      "bounds": [
+        5.964,
+        2.378,
+        2.517
+      ],
+      "boundsMin": [
+        -2.983,
+        -0.25,
+        -1.258
+      ],
+      "boundsMax": [
+        2.981,
+        2.128,
+        1.259
+      ],
+      "triangles": 180,
+      "meshCount": 1,
+      "fileSizeBytes": 288580,
+      "alphaMaskDoubleSided": true,
+      "alongRowM": 6.0,
+      "betweenBaysM": 2.4,
+      "windSway": 0.16,
+      "windSwayStrength": 0.16
+    },
+    "crop_sugarbeet_row": {
+      "key": "crop_sugarbeet_row",
+      "name": "crop_sugarbeet_row",
+      "glbPath": "/assets/models/fields/sugarbeet/crop_sugarbeet_row.glb",
+      "bounds": [
+        6.0,
+        0.685,
+        2.492
+      ],
+      "boundsMin": [
+        -3.0,
+        -0.22,
+        -1.246
+      ],
+      "boundsMax": [
+        3.0,
+        0.465,
+        1.246
+      ],
+      "triangles": 170,
+      "meshCount": 1,
+      "fileSizeBytes": 224816,
+      "alphaMaskDoubleSided": true,
+      "alongRowM": 6.0,
+      "betweenBaysM": 2.5,
+      "windSway": 0.05,
+      "windSwayStrength": 0.05
+    },
+    "crop_sunflower_patch": {
+      "key": "crop_sunflower_patch",
+      "name": "crop_sunflower_patch",
+      "glbPath": "/assets/models/fields/sunflower/crop_sunflower_patch.glb",
+      "bounds": [
+        5.0,
+        2.109,
+        4.909
+      ],
+      "boundsMin": [
+        -2.5,
+        -0.25,
+        -2.467
+      ],
+      "boundsMax": [
+        2.5,
+        1.859,
+        2.441
+      ],
+      "triangles": 224,
+      "meshCount": 1,
+      "fileSizeBytes": 254504,
+      "alphaMaskDoubleSided": true,
+      "spacingM": 5.0,
+      "alongRowM": 5.0,
+      "betweenBaysM": 5.0,
+      "windSway": 0.14,
+      "windSwayStrength": 0.14
+    },
+    "meadow_grass_patch": {
+      "key": "meadow_grass_patch",
+      "name": "meadow_grass_patch",
+      "glbPath": "/assets/models/fields/meadow/meadow_grass_patch.glb",
+      "bounds": [
+        5.0,
+        0.794,
+        5.0
+      ],
+      "boundsMin": [
+        -2.5,
+        -0.22,
+        -2.5
+      ],
+      "boundsMax": [
+        2.5,
+        0.574,
+        2.5
+      ],
+      "triangles": 108,
+      "meshCount": 1,
+      "fileSizeBytes": 173208,
+      "alphaMaskDoubleSided": true,
+      "spacingM": 4.75,
+      "windSway": 0.1,
+      "windSwayStrength": 0.1
+    },
+    "wildflower_strip": {
+      "key": "wildflower_strip",
+      "name": "wildflower_strip",
+      "glbPath": "/assets/models/fields/meadow/wildflower_strip.glb",
+      "bounds": [
+        5.0,
+        0.88,
+        1.6
+      ],
+      "boundsMin": [
+        -2.5,
+        -0.22,
+        -0.8
+      ],
+      "boundsMax": [
+        2.5,
+        0.66,
+        0.8
+      ],
+      "triangles": 124,
+      "meshCount": 1,
+      "fileSizeBytes": 173768,
+      "alphaMaskDoubleSided": true,
+      "alongRowM": 4.85,
+      "betweenBaysM": 1.6,
+      "windSway": 0.1,
+      "windSwayStrength": 0.1
+    },
+    "hedgerow_bay": {
+      "key": "hedgerow_bay",
+      "name": "hedgerow_bay",
+      "glbPath": "/assets/models/fields/props/hedgerow_bay.glb",
+      "bounds": [
+        5.758,
+        2.936,
+        2.287
+      ],
+      "boundsMin": [
+        -2.883,
+        -0.36,
+        -1.096
+      ],
+      "boundsMax": [
+        2.875,
+        2.576,
+        1.19
+      ],
+      "triangles": 352,
+      "meshCount": 2,
+      "fileSizeBytes": 200344,
+      "alphaMaskDoubleSided": true,
+      "alongRowM": 5.0,
+      "betweenBaysM": 2.2,
+      "windSway": 0.04,
+      "windSwayStrength": 0.04
+    },
+    "vineyard_rose_post": {
+      "key": "vineyard_rose_post",
+      "name": "vineyard_rose_post",
+      "glbPath": "/assets/models/fields/props/vineyard_rose_post.glb",
+      "bounds": [
+        1.43,
+        2.16,
+        1.581
+      ],
+      "boundsMin": [
+        -0.684,
+        -0.308,
+        -0.653
+      ],
+      "boundsMax": [
+        0.746,
+        1.852,
+        0.929
+      ],
+      "triangles": 173,
+      "meshCount": 3,
+      "fileSizeBytes": 180668,
+      "alphaMaskDoubleSided": true,
+      "spacingM": 5.5,
+      "windSway": 0.03,
+      "windSwayStrength": 0.03
+    },
+    "hochsitz": {
+      "key": "hochsitz",
+      "name": "hochsitz",
+      "glbPath": "/assets/models/fields/props/hochsitz.glb",
+      "bounds": [
+        1.729,
+        4.163,
+        2.313
+      ],
+      "boundsMin": [
+        -0.864,
+        -0.287,
+        -1.458
+      ],
+      "boundsMax": [
+        0.864,
+        3.875,
+        0.855
+      ],
+      "triangles": 398,
+      "meshCount": 2,
+      "fileSizeBytes": 152580,
+      "alphaMaskDoubleSided": false,
+      "spacingM": 4.0,
+      "windSway": 0.0,
+      "windSwayStrength": 0.0
+    },
+    "wegekreuz": {
+      "key": "wegekreuz",
+      "name": "wegekreuz",
+      "glbPath": "/assets/models/fields/props/wegekreuz.glb",
+      "bounds": [
+        1.04,
+        2.76,
+        0.86
+      ],
+      "boundsMin": [
+        -0.52,
+        -0.28,
+        -0.43
+      ],
+      "boundsMax": [
+        0.52,
+        2.48,
+        0.43
+      ],
+      "triangles": 172,
+      "meshCount": 2,
+      "fileSizeBytes": 113104,
+      "alphaMaskDoubleSided": false,
+      "spacingM": 2.5,
+      "windSway": 0.0,
+      "windSwayStrength": 0.0
+    }
+  }
+}

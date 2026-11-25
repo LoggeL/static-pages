@@ -31,6 +31,7 @@ Usage:
 """
 
 import argparse
+import glob
 import hashlib
 import json
 import math
@@ -158,12 +159,19 @@ def create_material_library() -> Dict[str, bpy.types.Material]:
         "white_clean",
         "blush_clean",
         "siding_lower",
+        # Wave 2: Triftstraße, Am Kirchrain & adjacent street facades
+        "mustard_yellow",
+        "coral_terracotta",
+        "cool_gray",
+        "cool_gray_light",
+        "sandstone_buff",
+        "modern_raffstore",
     ):
         mats[f"wall_{col}"] = make_arch_material(
             f"Pfalz_Wall_{col}",
             albedo_file=f"wall_{col}_albedo.jpg",
-            normal_file="facade_clean_normal.png" if col != "bauhaus_white" else None,
-            rough_file="facade_clean_rough.png" if col != "bauhaus_white" else None,
+            normal_file="facade_clean_normal.png" if col not in ("bauhaus_white", "modern_raffstore") else None,
+            rough_file="facade_clean_rough.png" if col not in ("bauhaus_white", "modern_raffstore") else None,
             roughness=0.84,
             normal_strength=0.95,
         )
@@ -187,6 +195,32 @@ def create_material_library() -> Dict[str, bpy.types.Material]:
         normal_file="wall_barn_normal.png",
         rough_file="wall_barn_rough.png",
         normal_strength=1.0,
+    )
+    mats["wall_fachwerk_white"] = make_arch_material(
+        "Pfalz_Wall_FachwerkWhite",
+        albedo_file="wall_fachwerk_white_albedo.jpg",
+        normal_file="wall_barn_normal.png",
+        rough_file="wall_barn_rough.png",
+        normal_strength=1.0,
+    )
+    mats["wall_limestone_brick"] = make_arch_material(
+        "Pfalz_Wall_LimestoneBrick",
+        albedo_file="wall_limestone_brick_albedo.jpg",
+        normal_file="sandstone_plinth_normal.png",
+        roughness=0.90,
+        normal_strength=1.10,
+    )
+    mats["wall_rubble_barn"] = make_arch_material(
+        "Pfalz_Wall_RubbleBarn",
+        albedo_file="wall_rubble_barn_albedo.jpg",
+        normal_file="sandstone_plinth_normal.png",
+        roughness=0.92,
+        normal_strength=1.15,
+    )
+    mats["wall_mustard_porthole"] = make_arch_material(
+        "Pfalz_Wall_MustardPorthole",
+        albedo_file="wall_mustard_porthole_albedo.jpg",
+        roughness=0.82,
     )
     mats["wall_peach_plain"] = make_arch_material(
         "Pfalz_Wall_PeachPlain",
@@ -228,6 +262,35 @@ def create_material_library() -> Dict[str, bpy.types.Material]:
         "Pfalz_Plinth_RedSmooth",
         albedo_file="plinth_red_smooth_albedo.jpg",
         roughness=0.86,
+    )
+    mats["plinth_slate_gray"] = make_arch_material(
+        "Pfalz_Plinth_SlateGray",
+        albedo_file="plinth_slate_gray_albedo.jpg",
+        roughness=0.86,
+    )
+    mats["plinth_concrete"] = make_arch_material(
+        "Pfalz_Plinth_Concrete",
+        albedo_file="plinth_concrete_albedo.jpg",
+        roughness=0.88,
+    )
+    mats["wall_block_light"] = make_arch_material(
+        "Pfalz_Wall_BlockLight",
+        albedo_file="wall_block_light_albedo.jpg",
+        normal_file="sandstone_plinth_normal.png",
+        roughness=0.88,
+        normal_strength=0.85,
+    )
+    mats["wall_block_dark"] = make_arch_material(
+        "Pfalz_Wall_BlockDark",
+        albedo_file="wall_block_dark_albedo.jpg",
+        normal_file="sandstone_plinth_normal.png",
+        roughness=0.90,
+        normal_strength=0.95,
+    )
+    mats["wall_palisade_brown"] = make_arch_material(
+        "Pfalz_Wall_PalisadeBrown",
+        albedo_file="wall_palisade_brown_albedo.jpg",
+        roughness=0.88,
     )
 
     # Traditional half-timbered Scheune barn wall & double oak gate
@@ -300,13 +363,19 @@ def create_material_library() -> Dict[str, bpy.types.Material]:
         roughness=0.68,
         normal_strength=1.25,
     )
+    mats["hedge_olive"] = make_arch_material(
+        "Pfalz_Hedge_Olive",
+        albedo_file="hedge_olive_albedo.jpg",
+        normal_file="ivy_foliage_normal.png",
+        roughness=0.78,
+        normal_strength=1.20,
+    )
     mats["cypress_foliage"] = make_arch_material(
         "Pfalz_Cypress_Foliage",
-        albedo_file="ivy_foliage_albedo.jpg",
+        albedo_file="hedge_olive_albedo.jpg",
         normal_file="ivy_foliage_normal.png",
-        base_color=(0.14, 0.26, 0.12, 1.0),
-        roughness=0.76,
-        normal_strength=1.35,
+        roughness=0.80,
+        normal_strength=1.30,
     )
     mats["gate_wrought_iron"] = make_arch_material(
         "Pfalz_Gate_WroughtIron",
@@ -331,6 +400,59 @@ def create_material_library() -> Dict[str, bpy.types.Material]:
         roughness=0.48,
         metallic=0.36,
         normal_strength=1.0,
+        double_sided=True,
+    )
+    # Wave 2 specialized trims, bright metal fascia, fences & Kinderbach bridge railings
+    mats["roof_red_bright"] = make_arch_material(
+        "Pfalz_Roof_RedBright",
+        base_color=(0.72, 0.24, 0.20, 1.0),
+        roughness=0.52,
+        metallic=0.22,
+    )
+    mats["trim_honey_wood"] = make_arch_material(
+        "Pfalz_Trim_HoneyWood",
+        base_color=(0.68, 0.46, 0.24, 1.0),
+        roughness=0.72,
+    )
+    mats["trim_white"] = make_arch_material(
+        "Pfalz_Trim_White",
+        base_color=(0.93, 0.92, 0.90, 1.0),
+        roughness=0.72,
+    )
+    mats["sign_kdc_blue"] = make_arch_material(
+        "Pfalz_Sign_KDCBlue",
+        base_color=(0.12, 0.28, 0.56, 1.0),
+        roughness=0.45,
+    )
+    mats["fence_wood_picket"] = make_arch_material(
+        "Pfalz_Fence_WoodPicket",
+        albedo_file="fence_wood_picket.png",
+        roughness=0.82,
+        alpha_clip=True,
+        double_sided=True,
+    )
+    mats["fence_mesh_green"] = make_arch_material(
+        "Pfalz_Fence_MeshGreen",
+        albedo_file="fence_mesh_green.png",
+        roughness=0.55,
+        metallic=0.35,
+        alpha_clip=True,
+        double_sided=True,
+    )
+    mats["fence_mesh_galv"] = make_arch_material(
+        "Pfalz_Fence_MeshGalv",
+        albedo_file="fence_mesh_galv.png",
+        roughness=0.42,
+        metallic=0.62,
+        alpha_clip=True,
+        double_sided=True,
+    )
+    mats["bridge_railing_galv"] = make_arch_material(
+        "Pfalz_Bridge_RailingGalv",
+        albedo_file="bridge_railing_galv.png",
+        roughness=0.36,
+        metallic=0.68,
+        alpha_clip=True,
         double_sided=True,
     )
     return mats
@@ -646,6 +768,601 @@ BUILDING_OVERRIDES: Dict[str, Dict] = {
         "wall_h": 4.8,
         "roof_h": 3.8,
     },
+    # =========================================================================
+    # WAVE 2: TRIFTSTRASSE, AM KIRCHRAIN & ADJACENT STREETS (Jul-2023 Street View)
+    # =========================================================================
+
+    # --- Triftstraße North Entry (sv_triftstrasse_north_entry) ---
+    "lod2/DERPLP110000QOX3": {
+        "wall_mat": "wall_limestone_brick",   # Unplastered buff limestone + red-brick band & louvered shutter!
+        "gable_wall_mat": "wall_limestone_brick",
+        "is_windowed": False,
+        "plinth_mat": "plinth_rubble",
+        "plinth_above": 0.45,
+        "roof_mat": "roof_darkred",
+        "roof_shape": "gabled",
+        "rotate_ridge_90": True,              # Eave runs along Triftstraße edge matching photo!
+        "wall_h": 5.4,
+        "roof_h": 3.5,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QP17": {
+        "wall_mat": "wall_fachwerk_white",    # Triftstraße #4: iconic 2-story white Pfalz Fachwerk! (keep L-wing decomposition!)
+        "gable_wall_mat": "wall_fachwerk_white",
+        "is_windowed": False,
+        "plinth_mat": "plinth_rubble",
+        "plinth_above": 0.55,
+        "roof_mat": "roof_slate",             # Dark anthracite glazed clay tiles (#3B3E42)
+        "wall_h": 6.4,
+        "roof_h": 3.4,
+        "ivy_dir": (1.0, 0.0),                # Green climbing grapevine/wisteria pergola along east facade!
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOX6": {
+        "wall_mat": "wall_fachwerk_white",    # Triftstraße #4 south-east street annex
+        "gable_wall_mat": "wall_fachwerk_white",
+        "is_windowed": False,
+        "plinth_mat": "plinth_rubble",
+        "plinth_above": 0.55,
+        "roof_mat": "roof_slate",
+        "roof_shape": "gabled",
+        "wall_h": 4.2,
+        "roof_h": 1.9,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOX7": {
+        "wall_mat": "wall_white_clean",
+        "plinth_mat": "plinth_rubble",
+        "roof_mat": "roof_slate",
+        "roof_shape": "skillion",
+        "wall_h": 3.8,
+        "roof_h": 0.9,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QP1P": {
+        "wall_mat": "wall_rubble_barn",       # Hauptstraße 95 east-flank shed w/ crisp blank white gable!
+        "gable_wall_mat": "wall_white_clean",
+        "no_attic_window": True,
+        "is_windowed": False,
+        "plinth_mat": "plinth_rubble",
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "wall_h": 3.2,
+        "roof_h": 2.7,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QP1Q": {
+        "wall_mat": "wall_rubble_barn",       # Hauptstraße 95 massive stone barn w/ HUGE south solar PV!
+        "gable_wall_mat": "wall_rubble_barn",
+        "is_windowed": False,
+        "plinth_mat": "plinth_rubble",
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "wall_h": 6.8,
+        "roof_h": 4.6,
+        "solar_pv_dir": (0.29, -0.96),        # Full-slope dark blue-slate PV facing south down Triftstraße!
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QP15": {
+        "wall_mat": "wall_utility",           # KDC workshop building
+        "plinth_mat": "plinth_rubble",
+        "roof_mat": "roof_terracotta",
+        "wall_h": 4.8,
+        "roof_h": 2.5,
+        "no_door": True,
+    },
+    # --- Triftstraße Mid (#6 & #3: mid_southbound, mid_northbound, south_house3) ---
+    "lod2/DERPLP110000QOWK": {
+        "wall_mat": "wall_rubble_barn",       # Triftstraße #6 massive unplastered limestone rubble barn!
+        "gable_wall_mat": "wall_rubble_barn",
+        "is_windowed": False,
+        "plinth_mat": "plinth_rubble",
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "wall_h": 5.8,
+        "roof_h": 5.1,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOWP": {
+        "wall_mat": "wall_rubble_barn",       # Triftstraße #6 north stone street wall wing
+        "gable_wall_mat": "wall_rubble_barn",
+        "is_windowed": False,
+        "plinth_mat": "plinth_rubble",
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "wall_h": 4.4,
+        "roof_h": 1.5,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOWM": {
+        "wall_mat": "wall_rubble_barn",
+        "is_windowed": False,
+        "roof_mat": "roof_terracotta",
+        "wall_h": 3.6,
+        "roof_h": 1.8,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOWQ": {
+        "wall_mat": "wall_butter_yellow",     # Triftstraße #6 cream-sand street wing
+        "is_windowed": False,
+        "plinth_mat": "plinth_rubble",
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "skillion",
+        "wall_h": 3.6,
+        "roof_h": 1.3,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOWN": {
+        "wall_mat": "wall_butter_yellow",     # Triftstraße #6 residence: cream-yellow + dormer + white balcony!
+        "plinth_mat": "plinth_rubble",
+        "plinth_above": 0.45,
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "wall_h": 4.7,
+        "roof_h": 3.6,
+        "force_dormer": True,
+        "dormer_dir": (0.0, -1.0),            # South-facing roof dormer visible in mid_northbound!
+        "balcony_dir": (0.0, -1.0),           # Cantilevered white-railed upper balcony on south wall!
+        "balcony_mat": "trim_white",
+        "balcony_w": 3.8,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOWL": {
+        "wall_mat": "wall_white_clean",       # Triftstraße #6 pale gray-white west annex
+        "plinth_mat": "plinth_rubble",
+        "roof_mat": "roof_darkbrown",
+        "roof_shape": "gabled",
+        "wall_h": 3.8,
+        "roof_h": 1.7,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QP1N": {
+        "wall_mat": "wall_white_clean",       # East roadside crisp white shed w/ bright brick-red fascia!
+        "is_windowed": False,
+        "plinth_mat": "plinth_concrete",
+        "plinth_above": 0.25,
+        "roof_mat": "roof_red_bright",
+        "fascia_mat": "roof_red_bright",
+        "roof_shape": "skillion",
+        "wall_h": 2.9,
+        "roof_h": 0.75,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QP1O": {
+        "wall_mat": "wall_white_clean",
+        "is_windowed": False,
+        "plinth_mat": "plinth_concrete",
+        "roof_mat": "roof_terracotta",
+        "fascia_mat": "roof_red_bright",
+        "roof_shape": "skillion",
+        "wall_h": 2.3,
+        "roof_h": 0.7,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOXi": {
+        "wall_mat": "wall_butter_yellow",     # Triftstraße #3 street-front cream wing
+        "plinth_mat": "plinth_rubble",
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "wall_h": 3.6,
+        "roof_h": 2.2,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOXe": {
+        "wall_mat": "wall_butter_yellow",     # Triftstraße #3 ochre-cream house + terracotta roof!
+        "plinth_mat": "plinth_rubble",
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "wall_h": 5.8,
+        "roof_h": 3.6,
+        "no_door": True,
+    },
+    # --- Triftstraße South (#7/#7A/#8 & Solar Barns visible on aerial_trift_kirchrain_west) ---
+    "lod2/DERPLP110000QP1G": {
+        "wall_mat": "wall_cream",
+        "roof_mat": "roof_darkred",
+        "wall_h": 4.8,
+        "roof_h": 2.4,
+    },
+    "lod2/DERPLP110000QOWH": {
+        "wall_mat": "wall_butter_yellow",
+        "roof_mat": "roof_terracotta",
+        "wall_h": 4.8,
+        "roof_h": 4.0,
+    },
+    "lod2/DERPLP110000QP1M": {
+        "wall_mat": "wall_utility",
+        "is_windowed": False,
+        "roof_mat": "roof_metal",
+        "roof_shape": "gabled",
+        "solar_pv_dir": (0.32, -0.95),        # Large south-slope rooftop solar PV visible on DOP20/satellite!
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOGj": {
+        "wall_mat": "wall_utility",
+        "is_windowed": False,
+        "roof_mat": "roof_metal",
+        "roof_shape": "gabled",
+        "solar_pv_dir": (0.32, -0.95),        # Large south-slope agricultural hall PV array!
+        "no_door": True,
+    },
+
+    # --- Am Kirchrain SW & Mid (sv_kirchrain_sw_eastbound & sv_kirchrain_mid_westbound) ---
+    "way/734370315": {
+        "wall_mat": "wall_white_clean",       # Am Kirchrain #5: crisp white 1.5-story + steep anthracite roof!
+        "plinth_mat": "plinth_slate_gray",
+        "plinth_above": 0.35,
+        "roof_mat": "roof_slate",
+        "roof_shape": "gabled",
+        "wall_h": 3.3,
+        "roof_h": 4.6,
+        "no_door": True,
+    },
+    "lod2/DERPLP1100011swg": {
+        "wall_mat": "wall_white_clean",       # Flat crisp white garage between #5 & #7!
+        "is_windowed": False,
+        "plinth_mat": "plinth_concrete",
+        "roof_mat": "roof_flat",
+        "roof_shape": "flat",
+        "wall_h": 2.7,
+        "roof_h": 0.0,
+        "no_door": True,
+    },
+    "lod2/DERPLP1100011swf": {
+        "wall_mat": "wall_white_clean",       # Rear annex of #5 (clamps crazy 5.8m LoD2 needle spike!)
+        "roof_mat": "roof_slate",
+        "roof_shape": "gabled",
+        "wall_h": 3.1,
+        "roof_h": 1.4,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOFP": {
+        "wall_mat": "wall_mustard_yellow",    # Am Kirchrain #7: unmistakable vibrant mustard-ochre (#CFA245)!
+        "plinth_mat": "plinth_rubble",
+        "plinth_above": 0.45,
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "wall_h": 3.8,
+        "roof_h": 4.6,
+        "balcony_dir": (-0.87, -0.49),        # WSW timber balcony rail facing street approach!
+        "balcony_mat": "trim_honey_wood",
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOFh": {
+        "wall_mat": "wall_white_clean",       # Crisp white garage west of Doppelhaus QOFT!
+        "is_windowed": False,
+        "plinth_mat": "plinth_concrete",
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "wall_h": 2.7,
+        "roof_h": 1.0,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOFo": {
+        "wall_mat": "wall_white_clean",       # Am Kirchrain #16 flat white garage
+        "is_windowed": False,
+        "roof_mat": "roof_flat",
+        "roof_shape": "flat",
+        "wall_h": 2.4,
+        "roof_h": 0.0,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOFH": {
+        "wall_mat": "wall_white_clean",       # Am Kirchrain #16: crisp white 2-story + deep burgundy roof!
+        "plinth_mat": "plinth_rubble",
+        "plinth_above": 0.40,
+        "roof_mat": "roof_darkred",
+        "roof_shape": "gabled",
+        "rotate_ridge_90": True,              # Burgundy roof slope faces WSW toward sw_eastbound; white balcony gable faces SE street!
+        "wall_h": 4.9,
+        "roof_h": 4.3,
+        "balcony_dir": (0.48, -0.88),         # White-railed side balcony facing SE toward Am Kirchrain!
+        "balcony_mat": "trim_white",
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOFR": {
+        "wall_mat": "wall_cream",             # Am Kirchrain #18: pale cream + honey-wood eaves/balcony + terracotta!
+        "plinth_mat": "plinth_rubble",
+        "plinth_above": 0.55,
+        "roof_mat": "roof_terracotta",
+        "fascia_mat": "trim_honey_wood",
+        "roof_shape": "gabled",
+        "wall_h": 5.0,
+        "roof_h": 4.4,
+        "balcony_dir": (0.48, -0.88),         # Warm honey-wood upper balcony facing street!
+        "balcony_mat": "trim_honey_wood",
+        "no_door": True,
+    },
+    "lod2/DERPLP200003sEHT": {
+        "wall_mat": "wall_cream",             # #18 street-edge wing
+        "is_windowed": False,
+        "roof_mat": "roof_terracotta",
+        "fascia_mat": "trim_honey_wood",
+        "roof_shape": "gabled",
+        "wall_h": 2.9,
+        "roof_h": 1.4,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOFV": {
+        "wall_mat": "wall_butter_yellow",     # Twin Doppelhaus EAST unit: cream-ochre, street-parallel ridge!
+        "plinth_mat": "plinth_rubble",
+        "plinth_above": 0.35,
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "rotate_ridge_90": True,              # Unifies ridge parallel to Am Kirchrain!
+        "wall_h": 5.5,
+        "roof_h": 2.9,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOFT": {
+        "wall_mat": "wall_white_clean",       # Twin Doppelhaus WEST unit: crisp white, street-parallel ridge!
+        "plinth_mat": "plinth_rubble",
+        "plinth_above": 0.35,
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "rotate_ridge_90": True,
+        "wall_h": 5.5,
+        "roof_h": 2.9,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOG9": {
+        "wall_mat": "wall_coral_terracotta",  # Am Kirchrain #10: dusty salmon-pink w/ red-brown half-hipped roof!
+        "plinth_mat": "plinth_rubble",
+        "roof_mat": "roof_darkred",
+        "roof_shape": "hipped",
+        "wall_h": 5.2,
+        "roof_h": 4.0,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOFz": {
+        "wall_mat": "wall_cream",             # Am Kirchrain #1 outbuilding (clamps 5.2m LoD2 spike!)
+        "is_windowed": False,
+        "roof_mat": "roof_darkred",
+        "roof_shape": "gabled",
+        "wall_h": 3.0,
+        "roof_h": 1.1,
+        "no_door": True,
+    },
+    # --- Am Kirchrain NE, Bend & North Slope (ne_eastbound, bend_east_vista, north_southbound) ---
+    "lod2/DERPLP110000QONN": {
+        "wall_mat": "wall_coral_terracotta",  # Am Kirchrain #13: dusty coral-terracotta stucco bungalow (#B96C5E)!
+        "plinth_mat": "plinth_rubble",
+        "plinth_above": 0.35,
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "wall_h": 3.6,
+        "roof_h": 3.4,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOHz": {
+        "wall_mat": "wall_coral_terracotta",  # #13 corner garage/wing
+        "is_windowed": False,
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "wall_h": 3.1,
+        "roof_h": 1.2,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOWu": {
+        "wall_mat": "wall_cream",             # Pale cream-beige gabled double carport/garage!
+        "is_windowed": False,
+        "plinth_mat": "plinth_concrete",
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "wall_h": 2.8,
+        "roof_h": 1.6,
+        "no_door": True,
+    },
+    "way/734370329": {
+        "wall_mat": "wall_coral_terracotta",  # Am Sonnenberg 2 / Kirchrain NE corner: coral-terracotta stucco bungalow!
+        "plinth_mat": "plinth_rubble",
+        "plinth_above": 0.35,
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "wall_h": 3.4,
+        "roof_h": 3.5,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QONP": {
+        "wall_mat": "wall_white_clean",       # Am Kirchrain #24: crisp white modern bungalow + anthracite hipped roof!
+        "plinth_mat": "plinth_concrete",
+        "plinth_above": 0.35,
+        "roof_mat": "roof_slate",
+        "roof_shape": "hipped",
+        "wall_h": 3.4,
+        "roof_h": 2.3,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QP0j": {
+        "wall_mat": "wall_white_clean",
+        "is_windowed": False,
+        "roof_mat": "roof_slate",
+        "wall_h": 2.6,
+        "roof_h": 1.0,
+        "no_door": True,
+    },
+    "lod2/DERPLP200000Iss2": {"skip": True},  # Replaced cleanly by exact DOP20 villa infill/am_kirchrain_28!
+    "lod2/DERPLP200000Iss3": {"skip": True},  # Replaced cleanly by exact DOP20 villa infill/am_kirchrain_28!
+    "lod2/DERPLP110000QOO1": {
+        "wall_mat": "wall_cool_gray_light",   # Am Kirchrain #25: light gray gable + E-W ridge + south solar PV!
+        "plinth_mat": "plinth_concrete",
+        "plinth_above": 0.35,
+        "roof_mat": "roof_darkbrown",
+        "roof_shape": "gabled",
+        "rotate_ridge_90": True,              # Ridge runs E-W so gable faces west & PV slope faces south!
+        "wall_h": 3.9,
+        "roof_h": 4.0,
+        "solar_pv_dir": (0.17, -0.98),        # Large black solar PV array on south roof slope!
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOO3": {
+        "wall_mat": "wall_sandstone_buff",    # Am Kirchrain #15: warm buff sand-lime brick + dark anthracite hipped roof!
+        "plinth_mat": "plinth_concrete",
+        "plinth_above": 0.40,
+        "roof_mat": "roof_slate",
+        "roof_shape": "hipped",
+        "wall_h": 5.2,
+        "roof_h": 3.3,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOHK": {
+        "wall_mat": "wall_sandstone_buff",    # #15 buff brick garage/gable wing w/ dark charcoal roof!
+        "is_windowed": False,
+        "plinth_mat": "plinth_concrete",
+        "roof_mat": "roof_slate",
+        "roof_shape": "gabled",
+        "wall_h": 3.7,
+        "roof_h": 2.4,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOO5": {
+        "wall_mat": "wall_white_clean",       # East spur houses (#17–#23) visible in bend_east_vista!
+        "roof_mat": "roof_terracotta",
+        "wall_h": 5.4,
+        "roof_h": 2.8,
+    },
+    "lod2/DERPLP110000QOOf": {
+        "wall_mat": "wall_white_clean",
+        "roof_mat": "roof_terracotta",
+        "wall_h": 5.4,
+        "roof_h": 3.8,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOHV": {
+        "wall_mat": "wall_white_clean",
+        "is_windowed": False,
+        "roof_mat": "roof_terracotta",
+        "wall_h": 2.8,
+        "roof_h": 1.3,
+        "no_door": True,
+    },
+
+    # --- Adjacent Streets: Im Rosengarten, Judenberg, Raiffeisenstraße East ---
+    "lod2/DERPLP110000QOFN": {
+        "wall_mat": "wall_butter_yellow",     # Im Rosengarten #11: sunny butter-yellow + slate plinth + darkred roof!
+        "plinth_mat": "plinth_slate_gray",
+        "plinth_above": 0.65,
+        "roof_mat": "roof_darkred",
+        "roof_shape": "gabled",
+        "rotate_ridge_90": True,              # Street-parallel main ridge + street-facing gable dormer!
+        "wall_h": 5.6,
+        "roof_h": 3.2,
+        "force_dormer": True,
+        "dormer_dir": (-0.48, 0.88),
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOFr": {
+        "wall_mat": "wall_timber_vertical",   # Im Rosengarten #11 natural wooden garden shed!
+        "gable_wall_mat": "wall_timber_vertical",
+        "is_windowed": False,
+        "roof_mat": "roof_darkred",
+        "roof_shape": "gabled",
+        "wall_h": 2.1,
+        "roof_h": 0.8,
+        "no_door": True,
+    },
+    "lod2/DERPLP110001536K": {
+        "wall_mat": "wall_cool_gray",         # Im Rosengarten #6: modern concrete-gray + full black solar PV roof!
+        "plinth_mat": "plinth_slate_gray",
+        "plinth_above": 0.35,
+        "roof_mat": "roof_slate",
+        "roof_shape": "gabled",
+        "wall_h": 3.4,
+        "roof_h": 3.3,
+        "solar_pv_dir": (0.48, -0.88),        # Full SSE street-facing solar PV slope!
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOFJ": {
+        "wall_mat": "wall_white_clean",       # Im Rosengarten #4: crisp white 2-story stucco!
+        "plinth_mat": "plinth_concrete",
+        "roof_mat": "roof_slate",
+        "roof_shape": "gabled",
+        "wall_h": 4.9,
+        "roof_h": 3.6,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOFf": {
+        "wall_mat": "wall_white_clean",       # Im Rosengarten #4 garage tucked behind green hedge
+        "is_windowed": False,
+        "roof_mat": "roof_flat",
+        "roof_shape": "flat",
+        "wall_h": 2.4,
+        "roof_h": 0.0,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOOn": {
+        "wall_mat": "wall_butter_yellow",     # Judenberg #5: warm butter-yellow + bright terracotta + rotated ridge!
+        "plinth_mat": "plinth_rubble",
+        "plinth_above": 0.35,
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "gabled",
+        "rotate_ridge_90": True,              # Ridge E-W so long terracotta slope faces Judenberg north!
+        "wall_h": 3.4,
+        "roof_h": 3.5,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QPa5": {
+        "wall_mat": "wall_timber_vertical",   # Judenberg #5 open timber carport/garage
+        "is_windowed": False,
+        "roof_mat": "roof_terracotta",
+        "roof_shape": "skillion",
+        "wall_h": 2.5,
+        "roof_h": 0.7,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOXq": {
+        "wall_mat": "wall_white_clean",       # Judenberg #4 distant white solar PV roof visible along Judenberg!
+        "roof_mat": "roof_slate",
+        "roof_shape": "gabled",
+        "rotate_ridge_90": True,
+        "solar_pv_dir": (0.13, -0.99),
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOSx": {
+        "wall_mat": "wall_blush_clean",       # Raiffeisenstraße #31: dusty blush-pink + 1.15m slate-gray plinth!
+        "plinth_mat": "plinth_slate_gray",
+        "plinth_above": 1.15,
+        "roof_mat": "roof_darkred",
+        "roof_shape": "gabled",
+        "wall_h": 6.4,
+        "roof_h": 3.1,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOV9": {
+        "wall_mat": "wall_cool_gray_light",   # Gässelstraße 19: light gray + anthracite roof + solar PV!
+        "plinth_mat": "plinth_slate_gray",
+        "roof_mat": "roof_slate",
+        "roof_shape": "gabled",
+        "wall_h": 5.6,
+        "roof_h": 2.9,
+        "solar_pv_dir": (0.27, -0.96),
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOSz": {
+        "wall_mat": "wall_white_clean",       # Gässelstraße 17: crisp white + terracotta roof!
+        "roof_mat": "roof_terracotta",
+        "wall_h": 5.6,
+        "roof_h": 2.8,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOLm": {
+        "wall_mat": "wall_utility",           # Raiffeisenstraße north flat concrete garage
+        "is_windowed": False,
+        "roof_mat": "roof_flat",
+        "roof_shape": "flat",
+        "wall_h": 2.6,
+        "roof_h": 0.0,
+        "no_door": True,
+    },
+    "lod2/DERPLP110000QOLl": {
+        "wall_mat": "wall_utility",
+        "is_windowed": False,
+        "roof_mat": "roof_flat",
+        "roof_shape": "flat",
+        "wall_h": 2.6,
+        "roof_h": 0.0,
+        "no_door": True,
+    },
 }
 
 # 3 real Kindenheim street-facing buildings visible on RLP DOP20 orthophoto & Street View
@@ -715,6 +1432,96 @@ CORRIDOR_INFILL_BUILDINGS: List[Dict] = [
             "roof_shape": "gabled",
             "wall_h": 3.8,
             "roof_h": 4.4,
+            "no_door": True,
+        },
+    },
+    # --- Wave 2: 4 DOP20- & Street-View-Verified Missing Buildings on Am Kirchrain & Triftstraße ---
+    {
+        # Am Kirchrain #28: Modern minimalist cubic off-white villa w/ dark Raffstore ribbon windows!
+        # (Replaces broken LoD2 slivers Iss2 & Iss3 in sv_kirchrain_north_southbound.png!)
+        "id": "infill/am_kirchrain_28",
+        "category": "residential",
+        "center": [-437.95, -23.7],
+        "baseElevationM": 84.10,
+        "wallHeightM": 6.1,
+        "roofHeightM": 0.0,
+        "roofShape": "flat",
+        "roofTone": "charcoal",
+        "footprint": [[-431.2, -29.8], [-429.7, -20.2], [-444.7, -17.6], [-446.2, -27.2]],
+        "override": {
+            "wall_mat": "wall_modern_raffstore",
+            "plinth_mat": "plinth_concrete",
+            "plinth_above": 0.22,
+            "roof_mat": "roof_flat",
+            "roof_shape": "flat",
+            "wall_h": 6.1,
+            "roof_h": 0.0,
+            "no_door": True,
+        },
+    },
+    {
+        # Am Kirchrain #7 Front Mustard-Yellow Porthole Garden Shed (Bullaugen — sv_kirchrain_sw_eastbound!)
+        "id": "infill/am_kirchrain_7_shed",
+        "category": "shed",
+        "center": [-564.35, 88.65],
+        "baseElevationM": 83.20,
+        "wallHeightM": 2.35,
+        "roofHeightM": 1.25,
+        "roofShape": "gabled",
+        "roofTone": "terracotta",
+        "footprint": [[-567.2, 88.0], [-563.4, 85.9], [-561.5, 89.3], [-565.3, 91.4]],
+        "override": {
+            "wall_mat": "wall_mustard_porthole",
+            "gable_wall_mat": "wall_mustard_yellow",
+            "is_windowed": False,
+            "plinth_mat": "plinth_concrete",
+            "plinth_above": 0.14,
+            "roof_mat": "roof_terracotta",
+            "roof_shape": "gabled",
+            "wall_h": 2.35,
+            "roof_h": 1.25,
+            "no_door": True,
+        },
+    },
+    {
+        # Am Kirchrain #1 Missing Main House (visible between QOFa/QOFc/QOFz on DOP20 & aerial_trift_kirchrain_west!)
+        "id": "infill/am_kirchrain_1",
+        "category": "residential",
+        "center": [-625.75, 131.4],
+        "baseElevationM": 85.30,
+        "wallHeightM": 5.3,
+        "roofHeightM": 3.5,
+        "roofShape": "gabled",
+        "roofTone": "dark_red",
+        "footprint": [[-634.5, 131.5], [-620.8, 124.2], [-617.0, 131.3], [-630.7, 138.6]],
+        "override": {
+            "wall_mat": "wall_cream",
+            "plinth_mat": "plinth_rubble",
+            "roof_mat": "roof_darkred",
+            "roof_shape": "gabled",
+            "wall_h": 5.3,
+            "roof_h": 3.5,
+            "no_door": True,
+        },
+    },
+    {
+        # Triftstraße #8 Missing Courtyard Building (between QOWH, QP0B & QOHR on DOP20 & aerial_trift_kirchrain_west!)
+        "id": "infill/triftstr_8_shed",
+        "category": "residential",
+        "center": [-332.8, 308.9],
+        "baseElevationM": 67.68,
+        "wallHeightM": 3.5,
+        "roofHeightM": 2.3,
+        "roofShape": "gabled",
+        "roofTone": "terracotta",
+        "footprint": [[-338.8, 307.6], [-328.8, 304.2], [-326.8, 310.2], [-336.8, 313.6]],
+        "override": {
+            "wall_mat": "wall_cream",
+            "plinth_mat": "plinth_rubble",
+            "roof_mat": "roof_terracotta",
+            "roof_shape": "gabled",
+            "wall_h": 3.5,
+            "roof_h": 2.3,
             "no_door": True,
         },
     },
@@ -1117,8 +1924,10 @@ class VillageMeshBuilder:
         z_base: float,
         z_eave: float,
         balcony_dir_blender: Tuple[float, float],
+        balcony_mat: str = "trim_wood",
+        balcony_w: Optional[float] = None,
     ):
-        """Add stacked dark-stained Pfalz timber balconies on the specified facade (Neugasse villa QOR1)."""
+        """Add stacked Pfalz timber/white balconies on the specified facade (Neugasse QOR1, Triftstr #6, Kirchrain #7/#16/#18)."""
         dx_t, dy_t = balcony_dir_blender
         dlen = math.hypot(dx_t, dy_t)
         if dlen < 1e-4:
@@ -1131,7 +1940,7 @@ class VillageMeshBuilder:
             x0, y0 = pts[i]
             x1, y1 = pts[(i + 1) % n]
             elen = math.hypot(x1 - x0, y1 - y0)
-            if elen < 5.0:
+            if elen < 4.5:
                 continue
             ex, ey = (x1 - x0) / elen, (y1 - y0) / elen
             nx, ny = ey, -ex
@@ -1144,19 +1953,18 @@ class VillageMeshBuilder:
         x0, y0, x1, y1, ex, ey, nx, ny, elen = best_e
         u_vec = Vector((ex, ey, 0.0))
         v_vec = Vector((nx, ny, 0.0))
-        bw = min(elen * 0.72, 9.2)
+        bw = min(elen * 0.62, balcony_w if balcony_w is not None else 7.6)
         bd = 1.25
         mx, my = 0.5 * (x0 + x1) + nx * (bd * 0.5), 0.5 * (y0 + y1) + ny * (bd * 0.5)
         for bz in (z_base + 3.05, z_base + 5.75):
             if bz > z_eave + 0.5:
                 continue
-            # Deck slab + front balustrade rail + top handrail + side rails
-            self.add_box(Vector((mx, my, bz)), u_vec, v_vec, sx=bw, sy=bd, sz=0.22, mat_key="trim_wood", uv_scale=2.0)
+            self.add_box(Vector((mx, my, bz)), u_vec, v_vec, sx=bw, sy=bd, sz=0.22, mat_key=balcony_mat, uv_scale=2.0)
             front_c = Vector((mx + nx * (bd * 0.45), my + ny * (bd * 0.45), bz + 0.56))
-            self.add_box(front_c, u_vec, v_vec, sx=bw, sy=0.12, sz=0.92, mat_key="trim_wood", uv_scale=2.0)
+            self.add_box(front_c, u_vec, v_vec, sx=bw, sy=0.12, sz=0.92, mat_key=balcony_mat, uv_scale=2.0)
             for sgn in (-1.0, 1.0):
                 sc = Vector((mx + ex * sgn * (bw * 0.48), my + ey * sgn * (bw * 0.48), bz + 0.56))
-                self.add_box(sc, u_vec, v_vec, sx=0.14, sy=bd, sz=0.92, mat_key="trim_wood", uv_scale=2.0)
+                self.add_box(sc, u_vec, v_vec, sx=0.14, sy=bd, sz=0.92, mat_key=balcony_mat, uv_scale=2.0)
 
     def add_facade_wall_ring(
         self,
@@ -1176,13 +1984,23 @@ class VillageMeshBuilder:
         else:
             v_span = wall_h / 3.0
 
+        plain_tile_mats = {
+            "wall_barn", "wall_utility", "wall_peach_plain", "wall_brick_barn_yellow",
+            "wall_timber_vertical", "wall_fachwerk_yellow", "wall_fachwerk_white",
+            "wall_limestone_brick", "wall_rubble_barn", "wall_mustard_porthole",
+        }
+        use_plain_stucco_strip = (not is_windowed) and (wall_mat not in plain_tile_mats)
+
         for i in range(n):
             x0, y0 = pts[i]
             x1, y1 = pts[(i + 1) % n]
             elen = math.hypot(x1 - x0, y1 - y0)
             if elen < 0.08:
                 continue
-            if is_windowed:
+            if use_plain_stucco_strip:
+                # Windowless stucco garage/shed using a windowed wall palette -> sample ONLY clean stucco strip [0.005..0.095]!
+                u0, u1 = 0.005, 0.095
+            elif is_windowed:
                 if elen < 2.1:
                     # Narrow wall jog -> map purely into clean stucco border [0.00..0.10]!
                     u0, u1 = 0.0, 0.10
@@ -1221,6 +2039,9 @@ class VillageMeshBuilder:
         dormer_mat: Optional[str] = None,
         solar_pv_dir: Optional[Tuple[float, float]] = None,
         ivy_dir: Optional[Tuple[float, float]] = None,
+        dormer_dir: Optional[Tuple[float, float]] = None,
+        fascia_mat: str = "trim_wood",
+        no_attic_window: bool = False,
     ):
         """Build a watertight gabled roof wing (Satteldach) with gable walls, thick overhang slabs, gutters, ridge cap, chimney, dormer, solar PV & ivy."""
         cx, cy = center_xy
@@ -1242,7 +2063,11 @@ class VillageMeshBuilder:
 
         # 1. Gable End Triangles at du = -hu and du = +hu
         if add_gable_walls:
-            full_clad_mats = {"wall_timber_vertical", "wall_fachwerk_yellow", "wall_brick_barn_yellow", "wall_peach_plain", "wall_utility"}
+            full_clad_mats = {
+                "wall_timber_vertical", "wall_fachwerk_yellow", "wall_fachwerk_white",
+                "wall_brick_barn_yellow", "wall_limestone_brick", "wall_rubble_barn",
+                "wall_peach_plain", "wall_utility", "wall_mustard_porthole",
+            }
             is_stucco_wall = g_mat.startswith("wall_") and g_mat not in (full_clad_mats | {"wall_barn"})
             if g_mat == "wall_barn":
                 uv_plain = ((0.29, 0.10), (0.48, 0.10), (0.385, 0.44))
@@ -1289,7 +2114,7 @@ class VillageMeshBuilder:
                                 )
 
                 # Human-scale centered Palatinate attic gable window
-                if is_stucco_wall and len_v >= 5.2 and roof_h >= 2.2:
+                if (not no_attic_window) and is_stucco_wall and len_v >= 5.2 and roof_h >= 2.2:
                     aw = min(1.18, len_v * 0.20)
                     ah = min(1.28, roof_h * 0.42)
                     zc_win = z_eave + roof_h * 0.34
@@ -1337,16 +2162,16 @@ class VillageMeshBuilder:
 
             if side > 0:
                 self.add_quad(e0_t, r0_t, r1_t, e1_t, ((0, 0), (0, tile_v), (tile_u, tile_v), (tile_u, 0)), roof_mat)
-                self.add_quad(r0_b, e0_b, e1_b, r1_b, ((0, 0), (0, 1), (1, 1), (1, 0)), "trim_wood")
-                self.add_quad(e0_b, e0_t, e1_t, e1_b, ((0, 0), (0, 0.2), (tile_u, 0.2), (tile_u, 0)), "trim_wood")
-                self.add_quad(r0_b, r0_t, e0_t, e0_b, ((0, 0), (0, 0.2), (tile_v, 0.2), (tile_v, 0)), "trim_wood")
-                self.add_quad(e1_b, e1_t, r1_t, r1_b, ((0, 0), (0, 0.2), (tile_v, 0.2), (tile_v, 0)), "trim_wood")
+                self.add_quad(r0_b, e0_b, e1_b, r1_b, ((0, 0), (0, 1), (1, 1), (1, 0)), fascia_mat)
+                self.add_quad(e0_b, e0_t, e1_t, e1_b, ((0, 0), (0, 0.2), (tile_u, 0.2), (tile_u, 0)), fascia_mat)
+                self.add_quad(r0_b, r0_t, e0_t, e0_b, ((0, 0), (0, 0.2), (tile_v, 0.2), (tile_v, 0)), fascia_mat)
+                self.add_quad(e1_b, e1_t, r1_t, r1_b, ((0, 0), (0, 0.2), (tile_v, 0.2), (tile_v, 0)), fascia_mat)
             else:
                 self.add_quad(e1_t, r1_t, r0_t, e0_t, ((0, 0), (0, tile_v), (tile_u, tile_v), (tile_u, 0)), roof_mat)
-                self.add_quad(r1_b, e1_b, e0_b, r0_b, ((0, 0), (0, 1), (1, 1), (1, 0)), "trim_wood")
-                self.add_quad(e1_b, e1_t, e0_t, e0_b, ((0, 0), (0, 0.2), (tile_u, 0.2), (tile_u, 0)), "trim_wood")
-                self.add_quad(e0_b, e0_t, r0_t, r0_b, ((0, 0), (0, 0.2), (tile_v, 0.2), (tile_v, 0)), "trim_wood")
-                self.add_quad(r1_b, r1_t, e1_t, e1_b, ((0, 0), (0, 0.2), (tile_v, 0.2), (tile_v, 0)), "trim_wood")
+                self.add_quad(r1_b, e1_b, e0_b, r0_b, ((0, 0), (0, 1), (1, 1), (1, 0)), fascia_mat)
+                self.add_quad(e1_b, e1_t, e0_t, e0_b, ((0, 0), (0, 0.2), (tile_u, 0.2), (tile_u, 0)), fascia_mat)
+                self.add_quad(e0_b, e0_t, r0_t, r0_b, ((0, 0), (0, 0.2), (tile_v, 0.2), (tile_v, 0)), fascia_mat)
+                self.add_quad(r1_b, r1_t, e1_t, e1_b, ((0, 0), (0, 0.2), (tile_v, 0.2), (tile_v, 0)), fascia_mat)
 
             # Galvanized zinc rainwater gutter (Regenrinne) along eave!
             if len_u >= 5.0 and overhang_eave >= 0.25:
@@ -1409,10 +2234,12 @@ class VillageMeshBuilder:
         # 5. Classic Pfalz Roof Dormer (Gaube) on larger residential houses
         if add_dormer and len_u >= 8.5 and len_v >= 6.4 and roof_h >= 2.6:
             d_mat = dormer_mat or wall_mat
-            n_dormers = 2 if (len_u >= 14.0 and dormer_mat is None) else 1
+            n_dormers = 2 if (len_u >= 14.0 and dormer_mat is None and dormer_dir is None) else 1
             d_offsets = [-hu * 0.38, hu * 0.38] if n_dormers == 2 else [0.0]
-            # If dormer_mat override (Michelsberg QOQx), put dormer on south-facing slope!
-            if dormer_mat is not None:
+            if dormer_dir is not None:
+                d_side = 1.0 if (vx * dormer_dir[0] + vy * dormer_dir[1]) >= 0 else -1.0
+                dw, dd, dh = 2.3, 2.0, 1.55
+            elif dormer_mat is not None:
                 d_side = 1.0 if vy < 0 else -1.0
                 dw, dd, dh = 2.6, 2.2, 1.65
             else:
@@ -1579,7 +2406,7 @@ class VillageMeshBuilder:
                     roof_mat,
                 )
 
-    def add_skillion_roof(self, obb: Dict, z_eave: float, roof_h: float, wall_mat: str, roof_mat: str, overhang: float = 0.26):
+    def add_skillion_roof(self, obb: Dict, z_eave: float, roof_h: float, wall_mat: str, roof_mat: str, overhang: float = 0.26, fascia_mat: str = "trim_wood"):
         """Mono-pitch shed/garage roof with clean slope walls & overhang fascia."""
         cx, cy = obb["center"]
         ux, uy = obb["u_axis"]
@@ -1605,7 +2432,7 @@ class VillageMeshBuilder:
 
         hu_o = hu + overhang
         hv_o = hv + overhang
-        thick = 0.14
+        thick = 0.16 if fascia_mat != "trim_wood" else 0.14
         z_hi = z_eave + roof_h + 0.05
         z_lo = z_eave - 0.06
         slope_l = math.hypot(2.0 * hv_o, z_hi - z_lo) / 4.0
@@ -1621,9 +2448,9 @@ class VillageMeshBuilder:
         b1 = wpt(hu_o, -hv_o, z_hi)
         b2 = wpt(hu_o, hv_o, z_lo)
         b3 = wpt(-hu_o, hv_o, z_lo)
-        self.add_quad(b0, b1, b2, b3, ((0, 0), (1, 0), (1, 1), (0, 1)), "trim_wood")
+        self.add_quad(b0, b1, b2, b3, ((0, 0), (1, 0), (1, 1), (0, 1)), fascia_mat)
         for q0, q1, r1, r0 in [(b0, b1, p1, p0), (b1, b2, p2, p1), (b2, b3, p3, p2), (b3, b0, p0, p3)]:
-            self.add_quad(q0, q1, r1, r0, ((0, 0), (1, 0), (1, 0.2), (0, 0.2)), "trim_wood")
+            self.add_quad(q0, q1, r1, r0, ((0, 0), (1, 0), (1, 0.2), (0, 0.2)), fascia_mat)
 
     def add_flat_parapet_roof(self, pts: List[Tuple[float, float]], z_eave: float, wall_mat: str, roof_mat: str):
         """Architectural flat roof with crisp raised parapet wall (Attika), dark coping rim, and textured roof slab."""
@@ -1738,6 +2565,15 @@ class VillageMeshBuilder:
         bid = str(bld.get("id", "0"))
         h = stable_hash_int(bid)
         ov = bld.get("override") or BUILDING_OVERRIDES.get(bid) or {}
+        if ov.get("skip"):
+            return False
+
+        if ov.get("rotate_ridge_90"):
+            ux_old, uy_old = obb["u_axis"]
+            vx_old, vy_old = obb["v_axis"]
+            obb["u_axis"] = (vx_old, vy_old)
+            obb["v_axis"] = (-ux_old, -uy_old)
+            obb["len_u"], obb["len_v"] = obb["len_v"], obb["len_u"]
 
         # Determine building category & Palatinate architectural parameters
         cat = str(bld.get("category", "")).lower()
@@ -1880,17 +2716,21 @@ class VillageMeshBuilder:
         self.add_plinth_skirt(pts, z_base - 2.0, z_plinth_top, plinth_mat=plinth_mat)
 
         # 2. Exact Footprint Exterior Facade Walls
-        non_windowed_mats = {"wall_barn", "wall_utility", "wall_peach_plain", "wall_brick_barn_yellow", "wall_timber_vertical", "wall_fachwerk_yellow"}
+        non_windowed_mats = {
+            "wall_barn", "wall_utility", "wall_peach_plain", "wall_brick_barn_yellow",
+            "wall_timber_vertical", "wall_fachwerk_yellow", "wall_fachwerk_white",
+            "wall_limestone_brick", "wall_rubble_barn", "wall_mustard_porthole",
+        }
         is_windowed = ov.get("is_windowed", (not is_utility) and (wall_mat not in non_windowed_mats))
         self.add_facade_wall_ring(pts, z_plinth_top, z_eave, wall_mat, is_windowed=is_windowed)
 
-        # 2b. Optional Climbing Ivy Blankets & Dark Timber Balconies on exact corridor buildings!
+        # 2b. Optional Climbing Ivy Blankets & Balconies on exact corridor buildings!
         ivy_dir = ov.get("ivy_dir")
         if ivy_dir is not None:
             self.add_ivy_blanket_on_wall(pts, z_plinth_top, z_eave, ivy_dir)
         balcony_dir = ov.get("balcony_dir")
         if balcony_dir is not None:
-            self.add_dark_balconies(pts, z_base, z_eave, balcony_dir)
+            self.add_dark_balconies(pts, z_base, z_eave, balcony_dir, balcony_mat=ov.get("balcony_mat", "trim_wood"), balcony_w=ov.get("balcony_w"))
 
         # 3. 3D Front Door / Barn Gate Accent on main street/courtyard wall
         if not ov.get("no_door", False) and not is_utility and poly_area >= 42.0:
@@ -1899,7 +2739,9 @@ class VillageMeshBuilder:
         # 4. Exact LoD2-Matched Roof Geometry (Flat Parapet / Skillion / Multi-Wing Gabled / Hipped)
         gable_wall_mat = ov.get("gable_wall_mat")
         dormer_mat = ov.get("dormer_mat")
+        dormer_dir = ov.get("dormer_dir")
         solar_pv_dir = ov.get("solar_pv_dir")
+        fascia_mat = ov.get("fascia_mat", "trim_wood")
         force_dormer = bool(ov.get("force_dormer", False))
 
         if is_true_flat:
@@ -1922,7 +2764,7 @@ class VillageMeshBuilder:
             if rectangularity < 0.82 and not ov:
                 self.add_flat_parapet_roof(pts, z_eave, wall_mat, "roof_flat")
             else:
-                self.add_skillion_roof(obb, z_eave, max(0.45, roof_h), wall_mat, roof_mat, overhang=0.22)
+                self.add_skillion_roof(obb, z_eave, max(0.45, roof_h), wall_mat, roof_mat, overhang=0.22, fascia_mat=fascia_mat)
         elif rectangularity < 0.78 and poly_area >= 45.0 and not ov.get("roof_shape"):
             wings = decompose_rectilinear_wings(pts, obb)
             if wings:
@@ -1948,6 +2790,7 @@ class VillageMeshBuilder:
                         add_dormer=(w_idx == 0 and not is_barn and (h % 4 == 0)),
                         seed=h + w_idx * 17,
                         gable_wall_mat=gable_wall_mat,
+                        fascia_mat=fascia_mat,
                     )
             else:
                 self.add_polygon_hipped_roof(pts, z_eave, roof_h, roof_mat)
@@ -1974,6 +2817,9 @@ class VillageMeshBuilder:
                     dormer_mat=dormer_mat,
                     solar_pv_dir=solar_pv_dir,
                     ivy_dir=ivy_dir,
+                    dormer_dir=dormer_dir,
+                    fascia_mat=fascia_mat,
+                    no_attic_window=bool(ov.get("no_attic_window", False)),
                 )
         return True
 
@@ -2283,8 +3129,13 @@ def compute_gltf_bbox_obj(obj) -> Dict:
     }
 
 
-def add_courtyard_accessories(builders: Dict[str, VillageMeshBuilder]):
-    """Add Street-View-exact Kindenheim courtyard gates (Hoftore), canopies, Bauhaus sliding gate + cypresses, hedges & rubble walls."""
+def add_courtyard_accessories(
+    builders: Dict[str, VillageMeshBuilder],
+    extra_accessories: Optional[List[Dict]] = None,
+    road_segments: Optional[List[Tuple[float, float, float, float, float]]] = None,
+    valid_mats: Optional[set] = None,
+):
+    """Add Street-View-exact Kindenheim courtyard gates (Hoftore), canopies, hedges, retaining walls & per-street accessories."""
 
     def get_b(wx: float, wz: float) -> VillageMeshBuilder:
         return builders[classify_chunk(wx, wz)]
@@ -2447,6 +3298,688 @@ def add_courtyard_accessories(builders: Dict[str, VillageMeshBuilder]):
     wv = Vector((-0.95, -0.32, 0.0))
     b_w95.add_box(Vector((-298.8, -54.2, 68.55)), wu, wv, sx=11.5, sy=0.45, sz=1.95, mat_key="plinth_rubble", uv_scale=2.4)
 
+    # =========================================================================
+    # WAVE 2: Terrain-Conforming Street Accessories (Triftstraße, Am Kirchrain,
+    #         Im Rosengarten, Judenberg, Raiffeisenstraße East)
+    # =========================================================================
+    hm_path = os.path.join(PROJECT_ROOT, "data/terrain/heightmap.bin")
+    hm_vals = None
+    hm_n = 0
+    if os.path.exists(hm_path):
+        import struct
+        raw = open(hm_path, "rb").read()
+        hm_n = int(round(math.sqrt(len(raw) // 4)))
+        hm_vals = struct.unpack(f"<{hm_n * hm_n}f", raw)
+
+    def elev_xz(wx: float, wz: float, fallback: float = 70.0) -> float:
+        if hm_vals is None or hm_n < 2:
+            return fallback
+        u = max(0.0, min(1.0, (wx + 1024.0) / 2048.0)) * (hm_n - 1)
+        v = max(0.0, min(1.0, (wz + 1024.0) / 2048.0)) * (hm_n - 1)
+        c0, r0 = int(math.floor(u)), int(math.floor(v))
+        c1, r1 = min(hm_n - 1, c0 + 1), min(hm_n - 1, r0 + 1)
+        fu, fv = u - c0, v - r0
+        h00 = hm_vals[r0 * hm_n + c0]
+        h10 = hm_vals[r0 * hm_n + c1]
+        h01 = hm_vals[r1 * hm_n + c0]
+        h11 = hm_vals[r1 * hm_n + c1]
+        return (h00 * (1.0 - fu) + h10 * fu) * (1.0 - fv) + (h01 * (1.0 - fu) + h11 * fu) * fv
+
+    def add_polyline_wall(
+        pts_xz: List[Tuple[float, float]],
+        height: float,
+        thick: float,
+        mat_key: str,
+        uv_scale: float = 2.0,
+        z_offset: float = 0.0,
+        cap_mat: Optional[str] = None,
+        bury: float = 0.65,
+    ):
+        """Extrude a terrain-conforming 3D wall or hedge along Three.js (x, z) polyline (buried cleanly into slopes!)."""
+        for i in range(len(pts_xz) - 1):
+            x0, z0 = pts_xz[i]
+            x1, z1 = pts_xz[i + 1]
+            seg_len = math.hypot(x1 - x0, z1 - z0)
+            if seg_len < 0.25:
+                continue
+            # Subdivide long spans every <= 4.5m to track curved hill slopes tightly!
+            n_sub = max(1, int(math.ceil(seg_len / 4.5)))
+            for s in range(n_sub):
+                t0, t1 = s / n_sub, (s + 1) / n_sub
+                ax, az = x0 + (x1 - x0) * t0, z0 + (z1 - z0) * t0
+                bx_w, bz_w = x0 + (x1 - x0) * t1, z0 + (z1 - z0) * t1
+                mx, mz = 0.5 * (ax + bx_w), 0.5 * (az + bz_w)
+                b = get_b(mx, mz)
+                eg = elev_xz(mx, mz) + z_offset
+                # Blender coordinates: (x, -z)
+                p0b = (ax, -az)
+                p1b = (bx_w, -bz_w)
+                dl = math.hypot(p1b[0] - p0b[0], p1b[1] - p0b[1])
+                u_v = Vector(((p1b[0] - p0b[0]) / dl, (p1b[1] - p0b[1]) / dl, 0.0))
+                v_v = Vector((-u_v.y, u_v.x, 0.0))
+                total_h = height + bury
+                zc = eg + height - total_h * 0.5
+                b.add_box(Vector((mx, -mz, zc)), u_v, v_v, sx=dl + 0.06, sy=thick, sz=total_h, mat_key=mat_key, uv_scale=uv_scale)
+                if cap_mat:
+                    b.add_box(Vector((mx, -mz, eg + height + 0.045)), u_v, v_v, sx=dl + 0.08, sy=thick + 0.08, sz=0.09, mat_key=cap_mat, uv_scale=2.0)
+
+    def add_polyline_fence_panel(
+        pts_xz: List[Tuple[float, float]],
+        height: float,
+        mat_key: str,
+        z_offset: float = 0.0,
+        tile_w: float = 2.0,
+    ):
+        """Add terrain-conforming double-sided alpha-clipped fence/picket panel along Three.js (x, z) polyline."""
+        for i in range(len(pts_xz) - 1):
+            x0, z0 = pts_xz[i]
+            x1, z1 = pts_xz[i + 1]
+            seg_len = math.hypot(x1 - x0, z1 - z0)
+            if seg_len < 0.25:
+                continue
+            n_sub = max(1, int(math.ceil(seg_len / 4.0)))
+            for s in range(n_sub):
+                t0, t1 = s / n_sub, (s + 1) / n_sub
+                ax, az = x0 + (x1 - x0) * t0, z0 + (z1 - z0) * t0
+                bx_w, bz_w = x0 + (x1 - x0) * t1, z0 + (z1 - z0) * t1
+                mx, mz = 0.5 * (ax + bx_w), 0.5 * (az + bz_w)
+                b = get_b(mx, mz)
+                e0 = elev_xz(ax, az) + z_offset
+                e1 = elev_xz(bx_w, bz_w) + z_offset
+                dl = math.hypot(bx_w - ax, bz_w - az)
+                u_span = max(0.5, dl / tile_w)
+                p_bl = (ax, -az, e0)
+                p_br = (bx_w, -bz_w, e1)
+                p_tr = (bx_w, -bz_w, e1 + height)
+                p_tl = (ax, -az, e0 + height)
+                b.add_quad(p_bl, p_br, p_tr, p_tl, ((0, 0), (u_span, 0), (u_span, 1.0), (0, 1.0)), mat_key)
+
+    def add_columnar_cypress(wx: float, wz: float, height: float, radius: float = 0.42):
+        b = get_b(wx, wz)
+        eg = elev_xz(wx, wz) - 0.15
+        bx_t, by_t = wx, -wz
+        for tier_i, (zf0, zf1, rf0, rf1) in enumerate([
+            (0.02, 0.38, radius * 0.92, radius * 1.05),
+            (0.32, 0.72, radius * 1.00, radius * 0.76),
+            (0.65, 1.00, radius * 0.72, 0.08),
+        ]):
+            segs = 7
+            z_lo = eg + height * zf0
+            z_hi = eg + height * zf1
+            for s in range(segs):
+                a0 = (s / segs) * 2.0 * math.pi + tier_i * 0.3
+                a1 = ((s + 1) / segs) * 2.0 * math.pi + tier_i * 0.3
+                p00 = (bx_t + math.cos(a0) * rf0, by_t + math.sin(a0) * rf0, z_lo)
+                p10 = (bx_t + math.cos(a1) * rf0, by_t + math.sin(a1) * rf0, z_lo)
+                p11 = (bx_t + math.cos(a1) * rf1, by_t + math.sin(a1) * rf1, z_hi)
+                p01 = (bx_t + math.cos(a0) * rf1, by_t + math.sin(a0) * rf1, z_hi)
+                b.add_quad(p00, p10, p11, p01, ((0, 0), (0.6, 0), (0.6, 1.4), (0, 1.4)), "cypress_foliage")
+
+    # 8. Triftstraße East Tall Dry-Laid Buff Limestone Rubble Wall (Bruchsteinmauer, sv_triftstrasse_north_entry!)
+    add_polyline_wall(
+        [(-315.2, 64.0), (-313.8, 72.0), (-312.5, 80.0), (-311.2, 88.8)],
+        height=1.72, thick=0.46, mat_key="wall_rubble_barn", uv_scale=2.2, cap_mat="plinth_concrete",
+    )
+
+    # 9. Triftstraße West Weathered Wooden Picket Courtyard Gate (between QOX3 & Triftstr #4 Fachwerk!)
+    add_polyline_fence_panel(
+        [(-320.2, 74.0), (-317.8, 86.2)],
+        height=1.95, mat_key="fence_wood_picket", z_offset=0.04, tile_w=2.4,
+    )
+
+    # 10. Triftstraße KDC Yard Limestone Retaining Wall + Dark-Green Weld-Mesh Fence + Blue KDC Sign!
+    kdc_wall_pts = [(-323.5, 115.5), (-313.8, 118.0), (-312.9, 126.0), (-312.2, 131.5)]
+    add_polyline_wall(kdc_wall_pts, height=0.92, thick=0.44, mat_key="wall_rubble_barn", uv_scale=2.0)
+    add_polyline_fence_panel(kdc_wall_pts, height=1.42, mat_key="fence_mesh_green", z_offset=0.92, tile_w=1.8)
+    # Iconic blue KDC sign panel at KDC yard corner
+    b_kdc = get_b(-314.5, 118.2)
+    ekdc = elev_xz(-314.5, 118.2)
+    b_kdc.add_box(Vector((-314.5, -118.2, ekdc + 1.55)), Vector((0.97, -0.24, 0.0)), Vector((0.24, 0.97, 0.0)),
+                  sx=2.1, sy=0.08, sz=0.82, mat_key="sign_kdc_blue", uv_scale=2.0)
+
+    # 11. Triftstraße #6 ICONIC 2.0m-Tall Dense Manicured Sun-Baked Olive-Sage Privet Hedge (sv_triftstrasse_mid_northbound & south_house3!)
+    add_polyline_wall(
+        [(-310.7, 153.5), (-311.6, 164.3), (-314.2, 176.2), (-316.8, 188.2), (-318.6, 196.5)],
+        height=1.98, thick=0.92, mat_key="hedge_olive", uv_scale=1.5, bury=0.35,
+    )
+
+    # 12. Triftstraße #3 East Columnar Cypresses (Thuja) & South Garden Shrub Border!
+    for cx_t, cz_t, ch, cr in [
+        (-302.5, 163.5, 3.8, 0.36),
+        (-303.2, 167.8, 4.3, 0.38),
+        (-304.0, 171.8, 3.5, 0.34),
+    ]:
+        add_columnar_cypress(cx_t, cz_t, ch, cr)
+    add_polyline_wall(
+        [(-306.2, 178.0), (-308.6, 188.0), (-310.5, 196.5)],
+        height=2.35, thick=1.35, mat_key="hedge_olive", uv_scale=1.6, bury=0.35,
+    )
+
+    # 13. Am Kirchrain #18 (QOFR) Signature Tiered Limestone Wall + Cream Plastered Pillars + Warm Timber Fence Slats!
+    #     (sv_kirchrain_mid_westbound right foreground!)
+    kr18_pts = [(-556.5, 73.8), (-545.8, 67.7), (-535.0, 61.5)]
+    add_polyline_wall(kr18_pts, height=0.88, thick=0.42, mat_key="plinth_rubble", uv_scale=2.0)
+    # 7 evenly spaced cream plastered concrete-capped fence pillars + twin horizontal honey-wood rails!
+    p_start, p_end = Vector((-556.5, -73.8, 0.0)), Vector((-535.0, -61.5, 0.0))
+    span_18 = (p_end - p_start).length
+    u18 = (p_end - p_start).normalized()
+    v18 = Vector((-u18.y, u18.x, 0.0))
+    n_pillars = 7
+    for k in range(n_pillars):
+        f = k / (n_pillars - 1)
+        px = -556.5 + (-535.0 - (-556.5)) * f
+        pz = 73.8 + (61.5 - 73.8) * f
+        ep = elev_xz(px, pz)
+        b_p = get_b(px, pz)
+        b_p.add_box(Vector((px, -pz, ep + 0.86)), u18, v18, sx=0.44, sy=0.46, sz=1.72, mat_key="wall_cream", uv_scale=4.0)
+        b_p.add_box(Vector((px, -pz, ep + 1.76)), u18, v18, sx=0.52, sy=0.54, sz=0.09, mat_key="plinth_concrete", uv_scale=2.0)
+    # Twin warm orange-brown horizontal timber slats running between pillars!
+    add_polyline_wall(kr18_pts, height=0.22, thick=0.10, mat_key="trim_honey_wood", z_offset=1.02, bury=0.0)
+    add_polyline_wall(kr18_pts, height=0.22, thick=0.10, mat_key="trim_honey_wood", z_offset=1.38, bury=0.0)
+
+    # 14. Am Kirchrain Twin Doppelhaus (QOFV/QOFT) Front Clipped Boxwood Hedge (sv_kirchrain_mid_westbound left!)
+    add_polyline_wall(
+        [(-538.5, 73.0), (-532.0, 69.5), (-525.5, 65.8)],
+        height=0.95, thick=0.72, mat_key="hedge_olive", uv_scale=1.4, bury=0.25,
+    )
+
+    # 15. Am Kirchrain #13 (QONN) & Am Sonnenberg 2 (way/734370329) Front Green Hedges & Brown Palisade Planter Curb!
+    #     (sv_kirchrain_ne_eastbound right foreground!)
+    add_polyline_wall(
+        [(-480.5, 41.6), (-474.8, 38.6), (-469.5, 36.2)],
+        height=1.55, thick=0.82, mat_key="hedge_olive", uv_scale=1.5, bury=0.30,
+    )
+    add_polyline_wall(
+        [(-463.5, 33.8), (-456.5, 30.2), (-450.5, 28.5)],
+        height=1.75, thick=0.95, mat_key="hedge_olive", uv_scale=1.5, bury=0.30,
+    )
+    add_polyline_wall(
+        [(-464.5, 33.0), (-461.0, 31.4), (-457.5, 32.5)],
+        height=0.42, thick=0.24, mat_key="wall_palisade_brown", uv_scale=1.8, bury=0.30,
+    )
+
+    # 16. Am Kirchrain #24 (QONP) Roadside Shrub Belt + 3 Tall Columnar Cypresses (sv_kirchrain_ne_eastbound left!)
+    add_polyline_wall(
+        [(-468.2, 24.4), (-458.0, 19.0), (-449.0, 14.3)],
+        height=1.68, thick=1.15, mat_key="hedge_olive", uv_scale=1.6, bury=0.35,
+    )
+    for cx_t, cz_t, ch, cr in [
+        (-454.5, 13.5, 6.2, 0.44),
+        (-451.0, 11.8, 5.4, 0.40),
+        (-448.5, 10.2, 4.8, 0.36),
+    ]:
+        add_columnar_cypress(cx_t, cz_t, ch, cr)
+
+    # 17. Am Kirchrain #25 (QOO1) Curved Terracotta-Brown Palisade Retaining Wall + Corner Shrubs + North Boxwood Hedge!
+    #     (sv_kirchrain_bend_east_vista left & sv_kirchrain_north_southbound left!)
+    kr25_bend = [(-414.5, -5.0), (-413.0, 1.5), (-406.0, 2.5), (-397.0, 1.2)]
+    add_polyline_wall(kr25_bend, height=0.85, thick=0.34, mat_key="wall_palisade_brown", uv_scale=1.8, bury=0.45)
+    add_polyline_wall(
+        [(-413.2, -5.5), (-411.5, 0.2), (-405.5, 1.0), (-397.5, -0.2)],
+        height=1.95, thick=1.35, mat_key="hedge_olive", uv_scale=1.6, z_offset=0.55, bury=0.30,
+    )
+    kr25_north = [(-419.6, -29.5), (-417.1, -17.0), (-414.6, -5.0)]
+    add_polyline_wall(kr25_north, height=0.42, thick=0.36, mat_key="wall_rubble_barn", uv_scale=1.8, bury=0.40)
+    add_polyline_wall(kr25_north, height=1.42, thick=0.78, mat_key="hedge_olive", uv_scale=1.5, z_offset=0.35, bury=0.20)
+
+    # 18. Am Kirchrain #15 (QOO3/QOHK) Pale Kalksandstein Concrete-Block Yard Wall (sv_kirchrain_bend_east_vista right!)
+    add_polyline_wall(
+        [(-410.5, 11.2), (-402.0, 10.9), (-391.0, 9.5)],
+        height=1.35, thick=0.34, mat_key="wall_block_light", uv_scale=2.0, cap_mat="plinth_concrete",
+    )
+
+    # 19. Am Kirchrain #28 (infill/am_kirchrain_28) Exposed Gray Concrete L-Retaining Wall (sv_kirchrain_north_southbound right!)
+    add_polyline_wall(
+        [(-438.0, -16.5), (-426.8, -18.5), (-424.8, -7.0)],
+        height=1.18, thick=0.28, mat_key="plinth_concrete", uv_scale=2.4, bury=0.55,
+    )
+
+    # 20. Im Rosengarten #11 Curved Beech Hedge, #6 Dark Concrete-Block Retaining Wall & #4 Tall Hedge!
+    add_polyline_wall(
+        [(-506.0, 121.2), (-516.5, 126.8), (-526.8, 132.2), (-534.5, 136.2)],
+        height=1.52, thick=0.82, mat_key="hedge_olive", uv_scale=1.5, bury=0.30,
+    )
+    add_polyline_wall(
+        [(-511.5, 112.8), (-520.5, 117.5), (-528.5, 121.8)],
+        height=1.22, thick=0.38, mat_key="wall_block_dark", uv_scale=2.0, cap_mat="plinth_concrete",
+    )
+    add_polyline_wall(
+        [(-530.5, 122.8), (-540.0, 127.8), (-550.0, 133.0)],
+        height=1.92, thick=0.88, mat_key="hedge_olive", uv_scale=1.5, bury=0.30,
+    )
+
+    # 21. Judenberg North Subtle Low Dry-Laid Buff Stone Embankment Toe (tucked below grassy slope, sv_extra_judenberg left!)
+    add_polyline_wall(
+        [(-374.0, -62.5), (-362.4, -64.3), (-350.8, -66.1), (-339.2, -67.9)],
+        height=0.38, thick=0.36, mat_key="wall_rubble_barn", uv_scale=2.0, bury=0.55,
+    )
+
+    # 22. Raiffeisenstraße East Galvanized Weld-Mesh Yard Fence (sv_extra_raiffeisenstrasse right!)
+    add_polyline_fence_panel(
+        [(314.0, 74.8), (304.0, 77.8), (293.0, 81.1), (285.0, 83.4)],
+        height=1.80, mat_key="fence_mesh_galv", z_offset=0.02, tile_w=2.0,
+    )
+
+    # 23. Auto-Merged Per-Street Accessories (data/streets/*/overrides.json) with >= 3.0m Tractor Road-Clearance Guard!
+    if extra_accessories:
+        def min_road_dist(px: float, pz: float) -> Tuple[float, float]:
+            if not road_segments:
+                return 999.0, 5.0
+            best_d = 999.0
+            best_w = 5.0
+            for x1, z1, x2, z2, rw in road_segments:
+                dx, dz = x2 - x1, z2 - z1
+                l2 = dx * dx + dz * dz
+                if l2 < 1e-6:
+                    d = math.hypot(px - x1, pz - z1)
+                else:
+                    t = max(0.0, min(1.0, ((px - x1) * dx + (pz - z1) * dz) / l2))
+                    d = math.hypot(px - (x1 + t * dx), pz - (z1 + t * dz))
+                if d < best_d:
+                    best_d = d
+                    best_w = rw
+            return best_d, best_w
+
+        def is_clear_of_roads(pts_list: List[Tuple[float, float]], extra_pad: float = 0.0) -> bool:
+            for i, (px, pz) in enumerate(pts_list):
+                d, rw = min_road_dist(px, pz)
+                req = max(2.85, rw * 0.5 + 0.55) + extra_pad
+                if d < req:
+                    return False
+                if i + 1 < len(pts_list):
+                    mx, mz = 0.5 * (px + pts_list[i + 1][0]), 0.5 * (pz + pts_list[i + 1][1])
+                    dm, rwm = min_road_dist(mx, mz)
+                    if dm < max(2.85, rwm * 0.5 + 0.55) + extra_pad:
+                        return False
+            return True
+
+        def safe_acc_mat(mk: Optional[str], default: str) -> str:
+            if not mk:
+                return default
+            if valid_mats is None or mk in valid_mats:
+                return mk
+            return sanitize_material_key(mk, valid_mats, role="wall", default=default)
+
+        acc_added = 0
+        acc_blocked = 0
+        for acc in extra_accessories:
+            if not isinstance(acc, dict):
+                continue
+            atype = str(acc.get("type", "")).lower().strip()
+            try:
+                if atype in ("wall", "retaining_wall", "hedge"):
+                    raw_pts = acc.get("points") or []
+                    pts_xz = [(float(p[0]), float(p[1])) for p in raw_pts if isinstance(p, (list, tuple)) and len(p) >= 2]
+                    if len(pts_xz) < 2:
+                        continue
+                    thick = max(0.15, min(2.0, float(acc.get("thick", 0.82 if atype == "hedge" else 0.42))))
+                    if not is_clear_of_roads(pts_xz, extra_pad=thick * 0.45):
+                        acc_blocked += 1
+                        continue
+                    h_val = max(0.25, min(4.0, float(acc.get("height", 1.65 if atype == "hedge" else 1.35))))
+                    default_m = "hedge_olive" if atype == "hedge" else "wall_rubble_barn"
+                    mk = safe_acc_mat(acc.get("mat") or acc.get("mat_key"), default_m)
+                    cap_m = safe_acc_mat(acc.get("cap_mat"), "plinth_concrete") if acc.get("cap_mat") else None
+                    add_polyline_wall(
+                        pts_xz, height=h_val, thick=thick, mat_key=mk,
+                        uv_scale=float(acc.get("uv_scale", 1.6 if atype == "hedge" else 2.0)),
+                        z_offset=float(acc.get("z_offset", 0.0)),
+                        cap_mat=cap_m,
+                        bury=float(acc.get("bury", 0.35 if atype == "hedge" else 0.55)),
+                    )
+                    acc_added += 1
+                elif atype == "fence":
+                    raw_pts = acc.get("points") or []
+                    pts_xz = [(float(p[0]), float(p[1])) for p in raw_pts if isinstance(p, (list, tuple)) and len(p) >= 2]
+                    if len(pts_xz) < 2:
+                        continue
+                    if not is_clear_of_roads(pts_xz):
+                        acc_blocked += 1
+                        continue
+                    h_val = max(0.5, min(3.0, float(acc.get("height", 1.6))))
+                    mk = safe_acc_mat(acc.get("mat") or acc.get("mat_key"), "fence_wood_picket")
+                    add_polyline_fence_panel(
+                        pts_xz, height=h_val, mat_key=mk,
+                        z_offset=float(acc.get("z_offset", 0.02)),
+                        tile_w=float(acc.get("tile_w", 2.0)),
+                    )
+                    acc_added += 1
+                elif atype == "gate":
+                    p0 = acc.get("p0")
+                    p1 = acc.get("p1")
+                    if not (isinstance(p0, (list, tuple)) and isinstance(p1, (list, tuple)) and len(p0) >= 2 and len(p1) >= 2):
+                        continue
+                    pts_g = [(float(p0[0]), float(p0[1])), (float(p1[0]), float(p1[1]))]
+                    if not is_clear_of_roads(pts_g):
+                        acc_blocked += 1
+                        continue
+                    mx_g, mz_g = 0.5 * (pts_g[0][0] + pts_g[1][0]), 0.5 * (pts_g[0][1] + pts_g[1][1])
+                    zg = float(acc.get("z_ground", elev_xz(mx_g, mz_g)))
+                    add_gate_span(
+                        pts_g[0], pts_g[1], z_ground=zg,
+                        gate_h=max(1.4, min(3.6, float(acc.get("height", 2.6)))),
+                        gate_mat=safe_acc_mat(acc.get("gate_mat"), "barn_gate"),
+                        canopy_mat=safe_acc_mat(acc.get("canopy_mat"), "roof_terracotta") if acc.get("canopy_mat") else None,
+                        pier_mat=safe_acc_mat(acc.get("pier_mat"), "wall_cream"),
+                        plinth_mat=safe_acc_mat(acc.get("plinth_mat"), "plinth_rubble"),
+                        pier_w=float(acc.get("pier_w", 0.45)),
+                    )
+                    acc_added += 1
+                elif atype == "cypress":
+                    cx_t = float(acc.get("x", 0.0))
+                    cz_t = float(acc.get("z", 0.0))
+                    if not is_clear_of_roads([(cx_t, cz_t)], extra_pad=0.35):
+                        acc_blocked += 1
+                        continue
+                    add_columnar_cypress(
+                        cx_t, cz_t,
+                        height=max(1.8, min(9.0, float(acc.get("height", 4.5)))),
+                        radius=max(0.22, min(0.85, float(acc.get("radius", 0.38)))),
+                    )
+                    acc_added += 1
+            except Exception as e:
+                print(f"[WARN] Skipping malformed street accessory {acc}: {e}")
+        print(f"Street accessories merged: {acc_added} added, {acc_blocked} skipped for road clearance")
+
+
+# ---------------------------------------------------------------------------
+# Per-Street Override Auto-Glob Merger & Defensive Validation
+# ---------------------------------------------------------------------------
+
+COMPASS_TO_BLENDER_XY: Dict[str, Tuple[float, float]] = {
+    "N": (0.0, 1.0), "S": (0.0, -1.0), "E": (1.0, 0.0), "W": (-1.0, 0.0),
+    "NE": (0.707, 0.707), "NW": (-0.707, 0.707), "SE": (0.707, -0.707), "SW": (-0.707, -0.707),
+    "NNE": (0.383, 0.924), "ENE": (0.924, 0.383), "ESE": (0.924, -0.383), "SSE": (0.383, -0.924),
+    "SSW": (-0.383, -0.924), "WSW": (-0.924, -0.383), "WNW": (-0.924, 0.383), "NNW": (-0.383, 0.924),
+}
+
+
+def parse_dir_blender(val) -> Optional[Tuple[float, float]]:
+    if val is None:
+        return None
+    if isinstance(val, str):
+        key = val.strip().upper()
+        return COMPASS_TO_BLENDER_XY.get(key)
+    if isinstance(val, (list, tuple)):
+        if len(val) >= 2 and all(isinstance(x, (int, float)) for x in val[:2]):
+            return (float(val[0]), float(val[1]))
+        # List of compass strings e.g. ["S", "E"] -> take first valid!
+        for item in val:
+            res = parse_dir_blender(item)
+            if res is not None:
+                return res
+    return None
+
+
+def sanitize_material_key(raw: Optional[str], valid_mats: set, role: str = "wall", default: str = "wall_cream") -> str:
+    if not raw:
+        return default
+    mk = str(raw).strip()
+    if mk in valid_mats:
+        return mk
+    low = mk.lower()
+    if role == "roof":
+        if any(k in low for k in ("slate", "charcoal", "anthracite", "black", "grey", "gray")):
+            return "roof_slate"
+        if "brown" in low:
+            return "roof_darkbrown"
+        if any(k in low for k in ("darkred", "dark_red", "burgundy")):
+            return "roof_darkred"
+        if "metal" in low:
+            return "roof_metal"
+        if "flat" in low:
+            return "roof_flat"
+        if "bright" in low:
+            return "roof_red_bright"
+        return "roof_terracotta"
+    if role == "plinth":
+        if any(k in low for k in ("slate", "dark", "anthracite")):
+            return "plinth_slate_gray"
+        if "concrete" in low:
+            return "plinth_concrete"
+        if "red" in low:
+            return "plinth_red_smooth"
+        if "check" in low:
+            return "plinth_checkered"
+        if any(k in low for k in ("rubble", "bruch", "stone", "lime")):
+            return "plinth_rubble"
+        return "plinth"
+    if role == "trim":
+        if "white" in low:
+            return "trim_white"
+        if "honey" in low or "light" in low:
+            return "trim_honey_wood"
+        return "trim_wood"
+    # General wall / accessory fallback
+    if "hedge" in low or "bush" in low:
+        return "hedge_olive"
+    if "ivy" in low:
+        return "ivy_foliage"
+    if "picket" in low:
+        return "fence_wood_picket"
+    if "mesh" in low and "green" in low:
+        return "fence_mesh_green"
+    if "mesh" in low or "fence" in low:
+        return "fence_mesh_galv"
+    if "gate" in low and "iron" in low:
+        return "gate_wrought_iron"
+    if "gate" in low:
+        return "barn_gate"
+    if "palisade" in low:
+        return "wall_palisade_brown"
+    if "block" in low and "dark" in low:
+        return "wall_block_dark"
+    if "block" in low:
+        return "wall_block_light"
+    if "fachwerk" in low and "yellow" in low:
+        return "wall_fachwerk_yellow"
+    if "fachwerk" in low:
+        return "wall_fachwerk_white"
+    if "brick" in low and "lime" in low:
+        return "wall_limestone_brick"
+    if "brick" in low:
+        return "wall_brick_barn_yellow"
+    if "rubble" in low or "stone" in low:
+        return "wall_rubble_barn"
+    if "timber" in low or "wood" in low:
+        return "wall_timber_vertical"
+    if "barn" in low:
+        return "wall_barn"
+    if "mustard" in low:
+        return "wall_mustard_yellow"
+    if "ochre" in low:
+        return "wall_ochre"
+    if "yellow" in low or "gold" in low:
+        return "wall_butter_yellow"
+    if "coral" in low or "salmon" in low or "red" in low:
+        return "wall_coral_terracotta"
+    if "blush" in low or "pink" in low or "rose" in low:
+        return "wall_blush_clean"
+    if "terracotta" in low:
+        return "wall_terracotta"
+    if "peach" in low:
+        return "wall_peach_plain"
+    if "sage" in low or "blue" in low or "green" in low:
+        return "wall_sage"
+    if "buff" in low or "sand" in low or "beige" in low:
+        return "wall_sandstone_buff"
+    if "gray" in low or "grey" in low:
+        return "wall_cool_gray_light"
+    if "bauhaus" in low:
+        return "wall_bauhaus_white"
+    if "white" in low:
+        return "wall_white_clean"
+    if "util" in low:
+        return "wall_utility"
+    return default
+
+
+def load_street_overrides_glob(
+    valid_mats: set,
+    excluded_ids: set,
+    existing_buildings: List[Dict],
+) -> Tuple[int, List[Dict], List[Dict]]:
+    """
+    Auto-glob data/streets/*/overrides.json (sorted by slug), validate & sanitize every override,
+    merge non-conflicting building overrides into BUILDING_OVERRIDES (protecting Wave 1+2 overrides!),
+    deduplicate infill buildings (auto-sampling DGM1 elevation if missing), and return accessories.
+    """
+    streets_dir = os.path.join(PROJECT_ROOT, "data/streets")
+    files = sorted(glob.glob(os.path.join(streets_dir, "*", "overrides.json")))
+    if not files:
+        return 0, [], []
+
+    # Load DGM1 elevation sampler for infill buildings missing baseElevationM
+    hm_path = os.path.join(PROJECT_ROOT, "data/terrain/heightmap.bin")
+    hm_vals, hm_n = None, 0
+    if os.path.exists(hm_path):
+        import struct
+        raw = open(hm_path, "rb").read()
+        hm_n = int(round(math.sqrt(len(raw) // 4)))
+        hm_vals = struct.unpack(f"<{hm_n * hm_n}f", raw)
+
+    def sample_elev(wx: float, wz: float) -> float:
+        if hm_vals is None or hm_n < 2:
+            return 60.0
+        u = max(0.0, min(1.0, (wx + 1024.0) / 2048.0)) * (hm_n - 1)
+        v = max(0.0, min(1.0, (wz + 1024.0) / 2048.0)) * (hm_n - 1)
+        c0, r0 = int(math.floor(u)), int(math.floor(v))
+        c1, r1 = min(hm_n - 1, c0 + 1), min(hm_n - 1, r0 + 1)
+        fu, fv = u - c0, v - r0
+        return (
+            (hm_vals[r0 * hm_n + c0] * (1.0 - fu) + hm_vals[r0 * hm_n + c1] * fu) * (1.0 - fv)
+            + (hm_vals[r1 * hm_n + c0] * (1.0 - fu) + hm_vals[r1 * hm_n + c1] * fu) * fv
+        )
+
+    protected_wave12 = set(BUILDING_OVERRIDES.keys())
+    existing_infill_ids = {str(b.get("id")) for b in CORRIDOR_INFILL_BUILDINGS}
+    occupied_centers = []
+    for b in list(existing_buildings) + list(CORRIDOR_INFILL_BUILDINGS):
+        bid = str(b.get("id", ""))
+        if BUILDING_OVERRIDES.get(bid, {}).get("skip"):
+            continue
+        c = b.get("center")
+        if c and len(c) >= 2:
+            occupied_centers.append((float(c[0]), float(c[1])))
+
+    merged_count = 0
+    extra_infills: List[Dict] = []
+    extra_accessories: List[Dict] = []
+
+    def sanitize_ov(raw_ov: Dict) -> Dict:
+        out = {}
+        if not isinstance(raw_ov, dict):
+            return out
+        if raw_ov.get("skip"):
+            out["skip"] = True
+            return out
+        for k, role, dflt in [
+            ("wall_mat", "wall", "wall_cream"),
+            ("gable_wall_mat", "wall", "wall_cream"),
+            ("dormer_mat", "wall", "wall_cream"),
+            ("plinth_mat", "plinth", "plinth"),
+            ("roof_mat", "roof", "roof_terracotta"),
+            ("balcony_mat", "trim", "trim_wood"),
+            ("fascia_mat", "trim", "trim_wood"),
+        ]:
+            if raw_ov.get(k):
+                out[k] = sanitize_material_key(raw_ov[k], valid_mats, role=role, default=dflt)
+        for fk in ("wall_h", "roof_h", "plinth_above", "balcony_w"):
+            if raw_ov.get(fk) is not None:
+                try:
+                    out[fk] = float(raw_ov[fk])
+                except Exception:
+                    pass
+        if raw_ov.get("roof_shape"):
+            rs = str(raw_ov["roof_shape"]).lower().strip()
+            if rs in ("gabled", "hipped", "half-hipped", "pyramidal", "skillion", "flat"):
+                out["roof_shape"] = rs
+        for bk in ("rotate_ridge_90", "is_windowed", "no_door", "no_attic_window", "force_dormer", "bauhaus_penthouse"):
+            if bk in raw_ov:
+                out[bk] = bool(raw_ov[bk])
+        # Direction fields (accept compass strings OR Blender [dx, dy] vectors, plus aliases!)
+        pv = parse_dir_blender(raw_ov.get("solar_pv_dir") or raw_ov.get("solar_slope"))
+        if pv is not None:
+            out["solar_pv_dir"] = pv
+        iv = parse_dir_blender(raw_ov.get("ivy_dir") or raw_ov.get("ivy_sides"))
+        if iv is not None:
+            out["ivy_dir"] = iv
+        bd = parse_dir_blender(raw_ov.get("balcony_dir"))
+        if bd is not None:
+            out["balcony_dir"] = bd
+        dd = parse_dir_blender(raw_ov.get("dormer_dir"))
+        if dd is not None:
+            out["dormer_dir"] = dd
+        return out
+
+    for fp in files:
+        slug = os.path.basename(os.path.dirname(fp))
+        try:
+            with open(fp, "r", encoding="utf-8") as f:
+                doc = json.load(f)
+        except Exception as e:
+            print(f"[WARN] Could not parse {fp}: {e}")
+            continue
+        if not isinstance(doc, dict):
+            continue
+
+        b_ovs = doc.get("building_overrides") or doc.get("BUILDING_OVERRIDES") or doc.get("overrides") or {}
+        if isinstance(b_ovs, dict):
+            for bid, raw_ov in b_ovs.items():
+                bid_s = str(bid).strip()
+                if not bid_s or bid_s in excluded_ids or bid_s in protected_wave12:
+                    continue
+                clean = sanitize_ov(raw_ov)
+                if clean:
+                    BUILDING_OVERRIDES[bid_s] = clean
+                    merged_count += 1
+
+        infs = doc.get("infill_buildings") or doc.get("INFILL_BUILDINGS") or doc.get("infills") or []
+        if isinstance(infs, list):
+            for inf in infs:
+                if not isinstance(inf, dict):
+                    continue
+                iid = str(inf.get("id") or f"infill/{slug}_{len(extra_infills) + 1}")
+                if iid in existing_infill_ids or iid in excluded_ids:
+                    continue
+                raw_fp = inf.get("footprint") or []
+                if len(raw_fp) < 3:
+                    continue
+                cx = sum(float(p[0]) for p in raw_fp) / len(raw_fp)
+                cz = sum(float(p[1]) for p in raw_fp) / len(raw_fp)
+                # Reject accidental duplicates overlapping existing buildings/landmarks
+                if any(math.hypot(cx - ox, cz - oz) < 2.8 for ox, oz in occupied_centers):
+                    continue
+                elev = inf.get("baseElevationM")
+                if elev is None:
+                    elev = round(sample_elev(cx, cz), 2)
+                clean_inf = {
+                    "id": iid,
+                    "category": str(inf.get("category", "residential")),
+                    "center": [round(cx, 2), round(cz, 2)],
+                    "baseElevationM": float(elev),
+                    "wallHeightM": float(inf.get("wallHeightM", 5.0)),
+                    "roofHeightM": float(inf.get("roofHeightM", 3.0)),
+                    "roofShape": str(inf.get("roofShape", "gabled")),
+                    "roofTone": str(inf.get("roofTone", "terracotta")),
+                    "footprint": [[float(p[0]), float(p[1])] for p in raw_fp],
+                }
+                if isinstance(inf.get("override"), dict):
+                    clean_inf["override"] = sanitize_ov(inf["override"])
+                existing_infill_ids.add(iid)
+                occupied_centers.append((cx, cz))
+                extra_infills.append(clean_inf)
+
+        accs = doc.get("accessories") or doc.get("STREET_ACCESSORIES") or doc.get("street_accessories") or []
+        if isinstance(accs, list):
+            extra_accessories.extend(accs)
+
+    print(
+        f"Auto-merged {len(files)} street override files: "
+        f"+{merged_count} building overrides, +{len(extra_infills)} infills, +{len(extra_accessories)} accessories"
+    )
+    return merged_count, extra_infills, extra_accessories
+
 
 def run_production(
     scene_json_path: str,
@@ -2466,6 +3999,20 @@ def run_production(
 
     clear_scene()
     mats = create_material_library()
+    valid_mats = set(mats.keys())
+
+    # Auto-glob & defensively merge ALL data/streets/*/overrides.json!
+    _, street_infills, street_accessories = load_street_overrides_glob(valid_mats, excluded_ids, buildings)
+
+    # Extract road centerline segments for tractor clearance checks on street accessories
+    road_segments = []
+    for r in scene_data.get("roads", []):
+        rw = float(r.get("widthM") or 4.5)
+        pts_r = r.get("points") or []
+        for i in range(len(pts_r) - 1):
+            p0, p1 = pts_r[i], pts_r[i + 1]
+            if len(p0) >= 3 and len(p1) >= 3:
+                road_segments.append((float(p0[0]), float(p0[2]), float(p1[0]), float(p1[2]), rw))
 
     chunk_names = ("village_center", "village_north", "village_south", "village_outskirts")
     builders = {cn: VillageMeshBuilder(cn, mats) for cn in chunk_names}
@@ -2474,7 +4021,7 @@ def run_production(
     skipped_landmark_ids = []
     elevs = []
 
-    all_buildings = list(buildings) + list(CORRIDOR_INFILL_BUILDINGS)
+    all_buildings = list(buildings) + list(CORRIDOR_INFILL_BUILDINGS) + list(street_infills)
     for b in all_buildings:
         bid = str(b.get("id", ""))
         osm_str = f"way/{b.get('osmId')}" if b.get("osmId") is not None else ""
@@ -2502,8 +4049,13 @@ def run_production(
             built_ids.append(bid)
             elevs.append(float(b.get("baseElevationM", 0.0)))
 
-    # Add Street-View-calibrated courtyard Hoftore, Bauhaus gateway + cypresses, hedges & walls!
-    add_courtyard_accessories(builders)
+    # Add Street-View-calibrated courtyard Hoftore, Bauhaus gateway + cypresses, hedges, walls & auto-merged street accessories!
+    add_courtyard_accessories(
+        builders,
+        extra_accessories=street_accessories,
+        road_segments=road_segments,
+        valid_mats=valid_mats,
+    )
 
     # Finalize chunk meshes, export GLBs, and collect manifest entries
     chunk_entries = []
@@ -2607,6 +4159,72 @@ def run_production(
                 target=(172.0, 123.0, 52.2 + 5.0),
                 lens=22.0,
                 out_path=os.path.join(render_corridors_dir, "preview_corridor_hauptstr36_45.png"),
+            )
+            # --- Wave 2 Corridor Previews (Triftstraße, Am Kirchrain & Adjacent Streets!) ---
+            # Note Blender coords: (localX, -localZ, elev + 2.5)
+            # 5. sv_triftstrasse_north_entry (cam=-317.35, 65.88, hdg=170° -> SSE)
+            render_camera(
+                bpy.context.scene,
+                cam_loc=(-317.35, -65.88, 69.5 + 2.5),
+                target=(-312.0, -95.0, 68.8 + 4.2),
+                lens=20.0,
+                out_path=os.path.join(render_corridors_dir, "preview_trift_north_entry.png"),
+            )
+            # 6. sv_triftstrasse_mid_northbound (cam=-307.96, 177.11, hdg=350° -> NNW)
+            render_camera(
+                bpy.context.scene,
+                cam_loc=(-307.96, -177.11, 64.5 + 2.5),
+                target=(-313.5, -146.0, 66.2 + 4.5),
+                lens=20.0,
+                out_path=os.path.join(render_corridors_dir, "preview_trift_mid_northbound.png"),
+            )
+            # 7. sv_kirchrain_sw_eastbound (cam=-587.37, 94.70, hdg=54° -> ENE)
+            render_camera(
+                bpy.context.scene,
+                cam_loc=(-587.37, -94.70, 84.1 + 2.5),
+                target=(-562.0, -76.5, 83.2 + 4.2),
+                lens=20.0,
+                out_path=os.path.join(render_corridors_dir, "preview_kirchrain_sw_eastbound.png"),
+            )
+            # 8. sv_kirchrain_mid_westbound (cam=-533.31, 64.76, hdg=234° -> WSW)
+            render_camera(
+                bpy.context.scene,
+                cam_loc=(-533.31, -64.76, 82.3 + 2.5),
+                target=(-558.0, -82.5, 83.5 + 4.2),
+                lens=20.0,
+                out_path=os.path.join(render_corridors_dir, "preview_kirchrain_mid_westbound.png"),
+            )
+            # 9. sv_kirchrain_ne_eastbound (cam=-474.65, 31.86, hdg=58° -> ENE)
+            render_camera(
+                bpy.context.scene,
+                cam_loc=(-474.65, -31.86, 81.1 + 2.5),
+                target=(-448.0, -15.5, 80.8 + 3.8),
+                lens=20.0,
+                out_path=os.path.join(render_corridors_dir, "preview_kirchrain_ne_eastbound.png"),
+            )
+            # 10. sv_kirchrain_north_southbound (cam=-423.13, -31.78, hdg=175° -> S)
+            render_camera(
+                bpy.context.scene,
+                cam_loc=(-423.13, 31.78, 84.3 + 2.5),
+                target=(-420.5, 2.0, 81.0 + 3.8),
+                lens=20.0,
+                out_path=os.path.join(render_corridors_dir, "preview_kirchrain_north_southbound.png"),
+            )
+            # 11. sv_kirchrain_bend_east_vista (cam=-427.72, 8.77, hdg=78° -> ENE)
+            render_camera(
+                bpy.context.scene,
+                cam_loc=(-427.72, -8.77, 80.5 + 2.5),
+                target=(-396.0, -2.5, 79.2 + 3.8),
+                lens=19.0,
+                out_path=os.path.join(render_corridors_dir, "preview_kirchrain_bend_east.png"),
+            )
+            # 12. sv_extra_im_rosengarten (cam=-503.69, 117.61, hdg=244° -> WSW)
+            render_camera(
+                bpy.context.scene,
+                cam_loc=(-503.69, -117.61, 77.7 + 2.5),
+                target=(-532.0, -131.5, 78.5 + 4.0),
+                lens=20.0,
+                out_path=os.path.join(render_corridors_dir, "preview_im_rosengarten.png"),
             )
 
     if not skip_archetypes:
