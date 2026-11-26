@@ -1,8 +1,65 @@
 import type { ResolvedReferenceShot } from './benchmarkOverlay';
 import type { TourCheckpoint, TourStateSnapshot } from './game';
 import type { TractorTelemetry } from './tractor';
+import { isQualityChoice, type QualityChoice, type QualityLevel } from './renderQuality';
 import type { BenchmarkLayout, CameraMode, LoadStage, TimeOfDayPreset } from './types';
 import { resolveAssetUrl } from './url';
+import { isFormControlTarget } from './camera';
+import { initTouchControls, setTouchControlsVisible } from './touchControls';
+
+/** The first fatal message shown on the overlay; once set, nothing may replace or hide it (see showFatal). */
+let fatalMessage: string | null = null;
+
+/** True once a fatal error is on screen: loading progress and the overlay fade-out are switched off. */
+export function isFatalShown(): boolean {
+  return fatalMessage !== null;
+}
+
+/**
+ * Shows a fatal problem on the loading overlay (brought back if it was already hidden) and latches it: later
+ * progress updates, the fade-out timer and further fatal errors cannot overwrite it. Further fatal errors are
+ * usually consequences of the first one; they still reach the console.
+ */
+export function showFatal(message: string): void {
+  if (fatalMessage !== null) {
+    console.error('[Kindenheim 3D] Another fatal error (the overlay keeps showing the first one):', message);
+    return;
+  }
+  fatalMessage = message;
+  const overlay = document.getElementById('loading-overlay');
+  const status = document.getElementById('loading-status');
+  if (!overlay || !status) {
+    // index.html always ships both elements; without them the only place left to be loud is the page itself
+    document.body.textContent = message;
+    return;
+  }
+  overlay.classList.remove('hidden', 'fade-out');
+  overlay.classList.add('fatal');
+  status.setAttribute('role', 'alert');
+  status.textContent = message;
+}
+
+/**
+ * Fail loud for problems that surface after start-up (an image that does not load, a broken data file):
+ * the message goes onto the loading overlay, which is brought back over the scene, and an Error is thrown
+ * so the console shows the stack as well. Never returns.
+ */
+export function failLoud(message: string): never {
+  showFatal(`Fehler: ${message}`);
+  throw new Error(message);
+}
+
+/** Loads an image and fails loudly (overlay + exception) with the URL if it cannot be loaded. */
+export function loadRequiredImage(url: string, purpose: string, onLoad: (img: HTMLImageElement) => void): void {
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => {
+    if (img.naturalWidth === 0) failLoud(`${url} decoded to an empty image (${purpose})`);
+    onLoad(img);
+  };
+  img.onerror = () => failLoud(`${url} could not be loaded (${purpose})`);
+  img.src = url;
+}
 
 export interface UIHandlers {
   onTimeOfDay: (preset: TimeOfDayPreset) => void;
@@ -13,6 +70,7 @@ export interface UIHandlers {
   onSelectReferenceShot: (index: number) => void;
   onAlignToCurrentRef: () => void;
   onSunAngles: (elevDeg: number, azimDeg: number) => void;
+  onQuality: (choice: QualityChoice) => void;
   onWireframe: (enabled: boolean) => void;
   onShadows: (enabled: boolean) => void;
   onRoadsToggle: (enabled: boolean) => void;
@@ -56,6 +114,9 @@ export class UIController {
   private readonly chkRoads = document.getElementById('chk-roads') as HTMLInputElement;
   private readonly chkPins = document.getElementById('chk-pins') as HTMLInputElement;
   private readonly chkArrow = document.getElementById('chk-arrow') as HTMLInputElement;
+  private readonly selQuality = document.getElementById('sel-quality') as HTMLSelectElement;
+  private readonly valQuality = document.getElementById('val-quality')!;
+  private readonly imageryCredit = document.getElementById('imagery-credit')!;
 
   private readonly compareStage = document.getElementById('compare-stage')!;
   private readonly compareStageImg = document.getElementById('compare-stage-img') as HTMLImageElement;
@@ -128,18 +189,36 @@ export class UIController {
   private driveOrthoImg: HTMLImageElement | null = null;
   private toastTimeout: number | null = null;
 
+  /** Reference photo chosen while the benchmark panel was closed; loaded only once the panel opens. */
+  private pendingReferenceFile: string | null = null;
+
   constructor(private readonly handlers: UIHandlers) {
+    initTouchControls({
+      onToggleLights: () => this.handlers.onToggleLights(),
+      onHornStart: () => this.handlers.onHornStart(),
+      onHornEnd: () => this.handlers.onHornEnd(),
+    });
     this.bindControls();
+    this.bindReferenceImageErrors();
     this.loadDriveMinimapImage();
+    this.syncHudLayoutVisibility();
   }
 
   private loadDriveMinimapImage(): void {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => {
+    loadRequiredImage(resolveAssetUrl('data/terrain/orthophoto.jpg'), 'aerial image for the driving minimap', (img) => {
       this.driveOrthoImg = img;
-    };
-    img.src = resolveAssetUrl('data/terrain/orthophoto.jpg');
+    });
+  }
+
+  /** The reference photos are listed in the shipped manifest: one that does not load is a broken build. */
+  private bindReferenceImageErrors(): void {
+    for (const img of [this.refPreviewImg, this.compareStageImg]) {
+      img.addEventListener('error', () => {
+        // An <img> without src (benchmark never opened) never fires; anything else is a real failure.
+        if (!img.getAttribute('src')) return;
+        failLoud(`reference photo ${img.getAttribute('src')} could not be loaded (Realität vs. 3D)`);
+      });
+    }
   }
 
   private bindControls(): void {
@@ -210,6 +289,7 @@ export class UIController {
     };
     this.btnHorn.addEventListener('pointerup', endHorn);
     this.btnHorn.addEventListener('pointerleave', endHorn);
+    this.btnHorn.addEventListener('pointercancel', endHorn);
 
     this.compareRange.addEventListener('input', () => {
       this.compareValue = Number(this.compareRange.value);
@@ -252,13 +332,52 @@ export class UIController {
     this.chkRoads.addEventListener('change', () => this.handlers.onRoadsToggle(this.chkRoads.checked));
     this.chkPins.addEventListener('change', () => this.handlers.onPinsToggle(this.chkPins.checked));
     this.chkArrow.addEventListener('change', () => this.handlers.onArrowToggle(this.chkArrow.checked));
+    this.selQuality.addEventListener('change', () => {
+      const choice = this.selQuality.value;
+      if (!isQualityChoice(choice)) throw new Error(`[UI] Unknown quality option "${choice}" in #sel-quality`);
+      this.handlers.onQuality(choice);
+    });
+
+    // A settings control keeps keyboard focus after use: Space would toggle the checkbox again and the
+    // drive keys would go to the slider / drop-down. Hand the keyboard back to the game once a value is set.
+    const releaseFocus = (e: Event): void => {
+      const el = e.currentTarget as HTMLElement;
+      el.blur();
+    };
+    for (const el of [
+      this.sliderSunElev,
+      this.sliderSunAzim,
+      this.chkWireframe,
+      this.chkShadows,
+      this.chkRoads,
+      this.chkPins,
+      this.chkArrow,
+      this.selQuality,
+      this.compareRange,
+    ]) {
+      el.addEventListener('change', releaseFocus);
+    }
+    // Sliders also get focus from a plain click without a change; let go when the pointer is released.
+    for (const el of [this.sliderSunElev, this.sliderSunAzim, this.compareRange]) {
+      el.addEventListener('pointerup', releaseFocus);
+    }
+    // Clicking into the 3D view always hands the keyboard back to driving.
+    document.getElementById('scene-canvas')?.addEventListener('pointerdown', () => {
+      const active = document.activeElement;
+      if (active instanceof HTMLElement && active !== document.body) active.blur();
+    });
+    // Buttons (time of day, camera, dock) must not keep focus either: Space would "click" them again.
+    this.hudRoot.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement | null)?.closest('button');
+      if (btn) btn.blur();
+    });
 
     this.minimapCanvas.addEventListener('click', (e) => {
       this.handlers.onMinimapClick(e.clientX, e.clientY);
     });
 
     window.addEventListener('keydown', (e) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (isFormControlTarget(e.target)) return;
       if (e.repeat && e.code !== 'KeyH') return;
 
       if (e.key >= '1' && e.key <= '7') {
@@ -298,6 +417,8 @@ export class UIController {
   }
 
   public setLoadingProgress(stage: LoadStage, percent: number, statusText: string): void {
+    // A fatal error is final: jobs still finishing in the background must not paint progress over it.
+    if (isFatalShown()) return;
     this.loadingBarFill.style.width = `${Math.min(100, Math.max(4, percent))}%`;
     this.loadingStatus.textContent = statusText;
 
@@ -311,10 +432,12 @@ export class UIController {
   }
 
   public hideLoadingOverlay(): void {
+    if (isFatalShown()) return;
     this.setLoadingProgress('scenery', 100, 'Kindenheim 3D bereit');
     this.loadingOverlay.classList.add('fade-out');
     window.setTimeout(() => {
-      this.loadingOverlay.classList.add('hidden');
+      // a fatal error (e.g. WebGL context loss) during the fade keeps the overlay up
+      if (!isFatalShown()) this.loadingOverlay.classList.add('hidden');
     }, 420);
   }
 
@@ -326,6 +449,20 @@ export class UIController {
     document.querySelectorAll<HTMLButtonElement>('[data-tod]').forEach((btn) => {
       btn.classList.toggle('active', btn.dataset.tod === preset);
     });
+  }
+
+  /** Reflects the active render quality in the settings panel ("auto" also shows what it resolved to). */
+  public setQualityChoice(choice: QualityChoice, resolved: QualityLevel): void {
+    const labels: Record<QualityLevel, string> = { low: 'Niedrig', medium: 'Mittel', high: 'Hoch', ultra: 'Ultra' };
+    this.selQuality.value = choice;
+    this.valQuality.textContent = choice === 'auto' ? `Auto: ${labels[resolved]}` : labels[resolved];
+  }
+
+  /** Licence credit of the aerial imagery (© GeoBasis-DE / LVermGeoRP, dl-de/by-2-0), shown in the settings panel. */
+  public setImageryAttribution(text: string): void {
+    if (!text) throw new Error('[UI] setImageryAttribution: empty attribution text');
+    this.imageryCredit.textContent = `Luftbild: ${text}`;
+    this.imageryCredit.classList.remove('hidden');
   }
 
   public syncSunSliders(elevDeg: number, azimDeg: number): void {
@@ -342,6 +479,7 @@ export class UIController {
     this.driveMinimapBox.classList.toggle('hidden', !showDrivingHud);
     this.driveControlsDock.classList.toggle('hidden', !showDrivingHud);
     this.tachoCard.classList.toggle('hidden', !showDrivingHud);
+    setTouchControlsVisible(showDrivingHud);
     this.tourCard.classList.toggle('hidden', this.benchmarkActive);
     this.bookmarkDock.classList.toggle('hidden', isDriving && !this.benchmarkActive);
   }
@@ -366,6 +504,10 @@ export class UIController {
     this.benchmarkPanel.classList.toggle('hidden', !enabled);
     this.syncHudLayoutVisibility();
     this.applyCompareVisuals();
+    if (enabled && this.pendingReferenceFile) {
+      this.applyReferenceImage(this.pendingReferenceFile);
+      this.pendingReferenceFile = null;
+    }
     if (enabled && !this.diffSummaryLoaded) {
       this.diffSummaryLoaded = true;
       void this.loadBenchmarkSummary();
@@ -385,11 +527,37 @@ export class UIController {
     return this.benchmarkActive && this.hasRefs && this.layout === 'diff';
   }
 
+  /**
+   * The benchmark summary is optional content, but the build always ships the file (a stub with
+   * `available: false` when no benchmark ran). A missing or unreadable file is therefore a broken build:
+   * it is shown in the score banner and thrown, never skipped.
+   */
   private async loadBenchmarkSummary(): Promise<void> {
+    const url = resolveAssetUrl('data/benchmark/latest_summary.json');
     try {
-      const res = await fetch(resolveAssetUrl('data/benchmark/latest_summary.json'));
-      if (!res.ok) return;
-      const data = (await res.json()) as Record<string, unknown>;
+      await this.loadBenchmarkSummaryFrom(url);
+    } catch (err) {
+      const message = `${url}: ${err instanceof Error ? err.message : String(err)}`;
+      this.benchmarkScoreTitle.textContent = 'Benchmark-Zusammenfassung fehlerhaft';
+      this.benchmarkScoreVals.textContent = message;
+      this.benchmarkScoreBanner.classList.add('score-error');
+      this.benchmarkScoreBanner.classList.remove('hidden');
+      throw new Error(`[UI] benchmark summary ${message}`);
+    }
+  }
+
+  private async loadBenchmarkSummaryFrom(url: string): Promise<void> {
+    {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`answered HTTP ${res.status}`);
+      const text = await res.text();
+      let data: Record<string, unknown>;
+      try {
+        data = JSON.parse(text) as Record<string, unknown>;
+      } catch {
+        throw new Error(`is not valid JSON (starts with "${text.slice(0, 40).replace(/\s+/g, ' ')}")`);
+      }
+      if (!data || typeof data !== 'object') throw new Error('is not a JSON object');
       if (data.available === false) return;
 
       const base = (data.baseline ?? data.before) as Record<string, number> | undefined;
@@ -431,8 +599,6 @@ export class UIController {
         this.benchmarkScoreVals.textContent = parts.join(' · ');
         this.benchmarkScoreBanner.classList.remove('hidden');
       }
-    } catch {
-      // Optional benchmark summary file
     }
   }
 
@@ -613,9 +779,20 @@ export class UIController {
     }
   }
 
+  private applyReferenceImage(file: string): void {
+    if (this.refPreviewImg.getAttribute('src') === file) return;
+    this.refPreviewImg.src = file;
+    this.compareStageImg.src = file;
+  }
+
   public displayActiveReference(shot: ResolvedReferenceShot, index: number): void {
-    this.refPreviewImg.src = shot.ref.file;
-    this.compareStageImg.src = shot.ref.file;
+    // The photos are only needed by the "Realität vs. 3D" mode: fetch them when it is open, not at start-up.
+    if (this.benchmarkActive) {
+      this.applyReferenceImage(shot.ref.file);
+      this.pendingReferenceFile = null;
+    } else {
+      this.pendingReferenceFile = shot.ref.file;
+    }
     this.refSourceBadge.textContent = shot.ref.source;
     this.refAngleBadge.textContent = `${Math.round(shot.ref.headingDeg)}° · ${shot.ref.cameraHeightM.toFixed(1)} m`;
     this.refTitle.textContent = shot.ref.title;

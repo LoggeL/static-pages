@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import type { TerrainSystem } from './terrain';
 import type { BenchmarkLayout, BraveReferenceEntry, CameraBookmark } from './types';
 import { resolveAssetUrl } from './url';
+import { loadRequiredImage } from './ui';
 
 export interface ReferencePoseOverride {
   dx?: number;
@@ -251,13 +252,10 @@ export class BenchmarkOverlay {
   }
 
   private loadMapBackground(): void {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => {
+    loadRequiredImage(resolveAssetUrl('data/terrain/orthophoto.jpg'), 'aerial image for the benchmark map', (img) => {
       this.orthoImg = img;
       if (this.active) this.renderMinimap(0, 0, 0);
-    };
-    img.src = resolveAssetUrl('data/terrain/orthophoto.jpg');
+    });
   }
 
   public setActive(enabled: boolean): void {

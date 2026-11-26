@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import type { LoadedLandmarkInfo } from './buildings';
+import type { BuildingCollider } from './collision';
 import type { SceneryResult } from './scenery';
 import type { TerrainSystem } from './terrain';
 import type { TractorController } from './tractor';
@@ -136,6 +137,60 @@ export function buildKindenheimBookmarks(
   ];
 }
 
+/**
+ * Chase-camera obstacle avoidance (a game-style spring arm). The boom from the tractor to the camera is swept
+ * against the collider polygons (treated as prisms up to each obstacle's top) and, near hero landmarks,
+ * against their meshes (archways, door lintels). Blocked:
+ *  1. a low obstacle (fence, wall, shed) that a moderately steeper boom clears at almost full length → tilt;
+ *  2. a tall one (a house right behind the tractor) → the boom shortens first, and only once it is shorter
+ *     than CHASE_COMFORT_DIST_M does it tilt, continuously, up to CHASE_MAX_PITCH_RAD (≈41°);
+ *  3. only when even the capped tilt leaves less than CHASE_SHORT_DIST_M (wall a metre or two behind the
+ *     tractor) does it go steeper, up to CHASE_EMERGENCY_PITCH_RAD: the camera then rises above the cab
+ *     instead of sitting on its roof.
+ * The VIEW never follows the boom down: the camera keeps looking ahead of the tractor (≤ ~30° down even on the
+ * emergency boom), so the road and the checkpoint stay in frame. Everything is eased (tilt up ~0.25 s, back
+ * down ~0.6 s); only the hard distance limit acts at once, so the camera is never placed inside a wall.
+ */
+const CHASE_PIVOT_HEIGHT_M = 2.0;
+/** Horizontal clearance kept between the boom and walls (covers roof overhangs and the near plane). */
+const CHASE_CLEAR_RADIUS_M = 0.9;
+/** Vertical clearance kept above an obstacle the boom passes over. */
+const CHASE_CLEAR_ABOVE_M = 0.6;
+const CHASE_PROFILE_STEP_M = 0.3;
+/** Steepest boom in normal play (≈41°): the road ahead stays in view. */
+const CHASE_MAX_PITCH_RAD = 0.72;
+/** Last resort when no boom of CHASE_MIN_DIST_M fits under the normal cap (≈60°). */
+const CHASE_EMERGENCY_PITCH_RAD = 1.08;
+const CHASE_PITCH_CANDIDATES = 8;
+/** A tilt candidate clears a low obstacle once it keeps this fraction of the wanted distance. */
+const CHASE_KEEP_FRACTION = 0.8;
+/** Behind a tall obstacle the boom shortens down to this length before it starts to tilt. */
+const CHASE_COMFORT_DIST_M = 5.2;
+/** Shorter than this at the normal cap, the boom may go steeper (emergency) to keep its length. */
+const CHASE_SHORT_DIST_M = 4.8;
+const CHASE_MIN_DIST_M = 2.4;
+/** Easing rates (1/s) of the boom tilt: up fast enough to clear a corner, back down gently. */
+const CHASE_PITCH_UP_RATE = 4.0;
+const CHASE_PITCH_DOWN_RATE = 1.6;
+/** Distance kept in front of a landmark surface hit by the boom ray. */
+const CHASE_MESH_MARGIN_M = 0.55;
+/** The solver also checks where the boom will be this many seconds ahead at the current turn rate. */
+const CHASE_LOOKAHEAD_S = 0.6;
+
+interface ChaseOccluder {
+  object: THREE.Object3D;
+  sphere: THREE.Sphere;
+}
+
+/** True for form controls that must keep their own keyboard handling (typing, arrow keys, type-ahead). */
+export function isFormControlTarget(target: EventTarget | null): boolean {
+  return (
+    target instanceof HTMLInputElement ||
+    target instanceof HTMLTextAreaElement ||
+    target instanceof HTMLSelectElement
+  );
+}
+
 interface FlightState {
   startPos: THREE.Vector3;
   endPos: THREE.Vector3;
@@ -163,9 +218,29 @@ export class CameraRig {
   private chaseOrbitPitch = 0.23;
   private chaseDistance = 10.2;
   private isDraggingLook = false;
+  /** Pointer that started the look-drag on the canvas (other fingers may be on the touch driving controls). */
+  private lookPointerId: number | null = null;
   private lastPointerX = 0;
   private lastPointerY = 0;
   private chaseLookTarget = new THREE.Vector3();
+
+  // Chase-camera obstacle avoidance state (see CHASE_* constants)
+  private collider: BuildingCollider | null = null;
+  private chaseOccluders: ChaseOccluder[] = [];
+  private readonly chaseRaycaster = new THREE.Raycaster();
+  private readonly chaseRayHits: THREE.Intersection[] = [];
+  /** Obstacle profiles under the boom: [0] current yaw, [1] and [2] where the boom will be in a moment. */
+  private readonly chaseProfiles = [new Float32Array(128), new Float32Array(128), new Float32Array(128)];
+  private readonly chaseProfileDirs = [new THREE.Vector2(), new THREE.Vector2(), new THREE.Vector2()];
+  private chaseProfileCount = 0;
+  private chaseProfilesUsed = 1;
+  private chasePrevYaw: number | null = null;
+  private chaseYawRate = 0;
+  private chaseBoomPitch = 0.22;
+  private chaseBoomDist = 10.2;
+  private readonly tmpPivot = new THREE.Vector3();
+  private readonly tmpBoomDir = new THREE.Vector3();
+  private readonly groundHeightAt = (x: number, z: number): number => this.terrain.getTerrainHeight(x, z);
 
   // 1st-person Cab look-around offsets
   private cabLookYaw = 0;
@@ -205,9 +280,27 @@ export class CameraRig {
     this.snapToCurrentMode();
   }
 
+  /**
+   * Gives the chase camera the world's obstacles so it never ends up inside a house: `collider` holds the
+   * building / landmark-solid polygons with their heights; `landmarkObjects` (optional) are the hero landmark
+   * models, ray-tested for overhead geometry that polygons cannot describe (archways, door lintels).
+   */
+  public setObstacles(collider: BuildingCollider, landmarkObjects: Iterable<THREE.Object3D> = []): void {
+    this.collider = collider;
+    this.chaseOccluders = [];
+    const box = new THREE.Box3();
+    for (const object of landmarkObjects) {
+      object.updateWorldMatrix(true, true);
+      box.setFromObject(object);
+      if (box.isEmpty()) throw new Error(`[camera] setObstacles: landmark "${object.name}" has no geometry`);
+      this.chaseOccluders.push({ object, sphere: box.getBoundingSphere(new THREE.Sphere()) });
+    }
+    this.snapToCurrentMode();
+  }
+
   private bindInputEvents(): void {
     window.addEventListener('keydown', (e) => {
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (isFormControlTarget(e.target)) return;
       this.keys.add(e.code);
     });
     window.addEventListener('keyup', (e) => {
@@ -216,18 +309,22 @@ export class CameraRig {
     window.addEventListener('blur', () => {
       this.keys.clear();
       this.isDraggingLook = false;
+      this.lookPointerId = null;
     });
 
     this.domElement.addEventListener('pointerdown', (e) => {
       if (this.mode === 'drone') return;
       if (e.button !== 0 && e.button !== 2) return;
+      if (this.isDraggingLook) return; // a second finger on the canvas does not take over the look-drag
       this.isDraggingLook = true;
+      this.lookPointerId = e.pointerId;
       this.lastPointerX = e.clientX;
       this.lastPointerY = e.clientY;
     });
 
     window.addEventListener('pointermove', (e) => {
       if (!this.isDraggingLook || this.mode === 'drone') return;
+      if (e.pointerId !== this.lookPointerId) return;
       const dx = e.clientX - this.lastPointerX;
       const dy = e.clientY - this.lastPointerY;
       this.lastPointerX = e.clientX;
@@ -242,9 +339,13 @@ export class CameraRig {
       }
     });
 
-    window.addEventListener('pointerup', () => {
+    const endLookDrag = (e: PointerEvent): void => {
+      if (e.pointerId !== this.lookPointerId) return;
       this.isDraggingLook = false;
-    });
+      this.lookPointerId = null;
+    };
+    window.addEventListener('pointerup', endLookDrag);
+    window.addEventListener('pointercancel', endLookDrag);
 
     this.domElement.addEventListener(
       'wheel',
@@ -347,8 +448,97 @@ export class CameraRig {
     );
   }
 
+  /**
+   * Samples obstacle profile `slot`: highest obstacle top every CHASE_PROFILE_STEP_M along the horizontal
+   * direction `yaw + π` (behind the tractor) from the pivot, out to `reachM`.
+   */
+  private sampleChaseProfile(slot: number, pivotX: number, pivotZ: number, yaw: number, reachM: number): void {
+    const collider = this.collider!;
+    const tops = this.chaseProfiles[slot];
+    const dir = this.chaseProfileDirs[slot].set(-Math.sin(yaw), -Math.cos(yaw));
+    const count = Math.min(tops.length, Math.ceil(reachM / CHASE_PROFILE_STEP_M) + 2);
+    for (let i = 0; i < count; i++) {
+      const s = i * CHASE_PROFILE_STEP_M;
+      tops[i] = collider.obstacleTopAt(pivotX + dir.x * s, pivotZ + dir.y * s, CHASE_CLEAR_RADIUS_M, this.groundHeightAt);
+    }
+    this.chaseProfileCount = count;
+  }
+
+  /**
+   * Longest clear boom length (≤ wantDist) at `pitch` over profile `slot`. With `refine`, the blocking
+   * edge is located to a few centimetres (so the result changes smoothly while the tractor moves).
+   */
+  private clearChaseDistance(
+    slot: number,
+    pivotX: number,
+    pivotY: number,
+    pivotZ: number,
+    pitch: number,
+    wantDist: number,
+    refine: boolean
+  ): number {
+    const tops = this.chaseProfiles[slot];
+    const dir = this.chaseProfileDirs[slot];
+    const tanP = Math.tan(pitch);
+    const cosP = Math.cos(pitch);
+    const reach = wantDist * cosP;
+    const blockedAt = (s: number, top: number): boolean => pivotY + s * tanP < top + CHASE_CLEAR_ABOVE_M;
+
+    for (let i = 0; i < this.chaseProfileCount; i++) {
+      const s = i * CHASE_PROFILE_STEP_M;
+      if (s > reach + CHASE_CLEAR_RADIUS_M) break;
+      if (!blockedAt(s, tops[i])) continue;
+      if (i === 0) return 0;
+      let lo = s - CHASE_PROFILE_STEP_M; // clear
+      if (refine) {
+        let hi = s; // blocked
+        for (let k = 0; k < 5; k++) {
+          const mid = (lo + hi) * 0.5;
+          const top = this.collider!.obstacleTopAt(
+            pivotX + dir.x * mid,
+            pivotZ + dir.y * mid,
+            CHASE_CLEAR_RADIUS_M,
+            this.groundHeightAt
+          );
+          if (blockedAt(mid, top)) hi = mid;
+          else lo = mid;
+        }
+      }
+      return Math.min(wantDist, lo / cosP);
+    }
+    return wantDist;
+  }
+
+  /** Clear boom length at `pitch` for the current yaw and the yaws the boom is about to sweep through. */
+  private clearChaseDistanceAhead(pivotX: number, pivotY: number, pivotZ: number, pitch: number, wantDist: number): number {
+    let d = wantDist;
+    for (let slot = 0; slot < this.chaseProfilesUsed; slot++) {
+      d = Math.min(d, this.clearChaseDistance(slot, pivotX, pivotY, pivotZ, pitch, wantDist, false));
+    }
+    return d;
+  }
+
+  /** Nearest landmark surface along the boom (or Infinity), so the camera stops under an arch or lintel. */
+  private landmarkHitDistance(pivot: THREE.Vector3, dir: THREE.Vector3, maxDist: number): number {
+    let nearest = Infinity;
+    for (const occ of this.chaseOccluders) {
+      const reach = occ.sphere.radius + maxDist;
+      if (occ.sphere.center.distanceToSquared(pivot) > reach * reach) continue;
+      this.chaseRaycaster.set(pivot, dir);
+      this.chaseRaycaster.near = 0;
+      this.chaseRaycaster.far = maxDist;
+      this.chaseRayHits.length = 0;
+      this.chaseRaycaster.intersectObject(occ.object, true, this.chaseRayHits);
+      for (const hit of this.chaseRayHits) {
+        if (hit.distance < nearest) nearest = hit.distance;
+      }
+    }
+    return nearest;
+  }
+
   private updateChaseCamera(smoothAlpha: number, dt: number): void {
     if (!this.tractor) return;
+    const snap = smoothAlpha >= 0.99;
 
     // Auto-recenter gently behind the tractor when driving forward without dragging
     if (!this.isDraggingLook && Math.abs(this.tractor.speedMps) > 0.7 && dt > 0) {
@@ -357,31 +547,162 @@ export class CameraRig {
     }
 
     const totalYaw = this.tractor.headingRad + this.chaseOrbitYaw;
-    const dist = this.tractor.trailerAttached ? Math.max(this.chaseDistance, 11.4) : this.chaseDistance;
-    const horizDist = dist * Math.cos(this.chaseOrbitPitch);
-    const heightOff = 2.0 + dist * Math.sin(this.chaseOrbitPitch);
+    const wantDist = this.tractor.trailerAttached ? Math.max(this.chaseDistance, 11.4) : this.chaseDistance;
+    const wantPitch = this.chaseOrbitPitch;
 
-    // Behind the tractor (-forward)
-    const camX = this.tractor.x - Math.sin(totalYaw) * horizDist;
-    const camZ = this.tractor.z - Math.cos(totalYaw) * horizDist;
+    // Boom: from a pivot above the tractor backwards (-forward) and up
+    const dirX = -Math.sin(totalYaw);
+    const dirZ = -Math.cos(totalYaw);
+    const pivotX = this.tractor.x;
+    const pivotY = this.tractor.y + CHASE_PIVOT_HEIGHT_M;
+    const pivotZ = this.tractor.z;
+
+    let pitch = wantPitch;
+    let dist = wantDist;
+    let clamped = false;
+
+    if (this.collider) {
+      // How fast the boom swings round (tractor turning or the player orbiting): the solver also looks at
+      // where the boom will be in a moment, so it tilts up before a house corner cuts into it.
+      if (snap || dt <= 0 || this.chasePrevYaw === null) {
+        this.chaseYawRate = 0;
+      } else {
+        const dYaw = Math.atan2(Math.sin(totalYaw - this.chasePrevYaw), Math.cos(totalYaw - this.chasePrevYaw));
+        this.chaseYawRate += (dYaw / dt - this.chaseYawRate) * Math.min(1, dt * 8);
+      }
+      this.chasePrevYaw = totalYaw;
+      const yawAhead = THREE.MathUtils.clamp(this.chaseYawRate * CHASE_LOOKAHEAD_S, -0.7, 0.7);
+
+      const reach = wantDist * Math.cos(wantPitch);
+      this.sampleChaseProfile(0, pivotX, pivotZ, totalYaw, reach);
+      this.chaseProfilesUsed = 1;
+      if (Math.abs(yawAhead) > 0.03) {
+        this.sampleChaseProfile(1, pivotX, pivotZ, totalYaw + yawAhead * 0.5, reach);
+        this.sampleChaseProfile(2, pivotX, pivotZ, totalYaw + yawAhead, reach);
+        this.chaseProfilesUsed = 3;
+      }
+
+      // 1. Where the boom would like to be (see the CHASE_* comment above for the order of preference).
+      const cap = Math.max(wantPitch, CHASE_MAX_PITCH_RAD);
+      const keepDist = wantDist * CHASE_KEEP_FRACTION;
+      const straightDist = this.clearChaseDistanceAhead(pivotX, pivotY, pivotZ, wantPitch, wantDist);
+      let targetPitch = wantPitch;
+      let targetDist = straightDist;
+      if (straightDist < keepDist) {
+        // (a) low obstacle: the lowest moderate tilt that keeps almost the full length
+        let cleared = false;
+        for (let k = 1; k <= CHASE_PITCH_CANDIDATES && cap > wantPitch; k++) {
+          const p = wantPitch + ((cap - wantPitch) * k) / CHASE_PITCH_CANDIDATES;
+          const d = this.clearChaseDistanceAhead(pivotX, pivotY, pivotZ, p, wantDist);
+          if (d >= keepDist) {
+            targetPitch = p;
+            targetDist = d;
+            cleared = true;
+            break;
+          }
+        }
+        if (!cleared) {
+          // (b) tall obstacle: shorten first; tilt grows continuously as the boom gets shorter than comfortable
+          const shortness = THREE.MathUtils.clamp(
+            (CHASE_COMFORT_DIST_M - straightDist) / (CHASE_COMFORT_DIST_M - CHASE_MIN_DIST_M),
+            0,
+            1
+          );
+          targetPitch = THREE.MathUtils.lerp(wantPitch, cap, shortness * shortness * (3 - 2 * shortness));
+          targetDist = Math.max(
+            straightDist,
+            this.clearChaseDistanceAhead(pivotX, pivotY, pivotZ, targetPitch, wantDist)
+          );
+          // (c) no usable boom even at the cap: steeper, but only as far as needed
+          if (targetDist < CHASE_SHORT_DIST_M) {
+            for (let k = 1; k <= CHASE_PITCH_CANDIDATES; k++) {
+              const p = cap + ((CHASE_EMERGENCY_PITCH_RAD - cap) * k) / CHASE_PITCH_CANDIDATES;
+              const d = this.clearChaseDistanceAhead(pivotX, pivotY, pivotZ, p, wantDist);
+              if (d > targetDist + 1e-3) {
+                targetPitch = p;
+                targetDist = d;
+              }
+              if (d >= CHASE_SHORT_DIST_M) break;
+            }
+          }
+        }
+      }
+
+      // 2. Ease towards it: tilt up briskly, settle back slowly (no pumping while passing house corners).
+      if (snap || dt <= 0) {
+        this.chaseBoomPitch = targetPitch;
+        this.chaseBoomDist = targetDist;
+      } else {
+        const pitchRate = this.isDraggingLook
+          ? 18
+          : targetPitch > this.chaseBoomPitch
+            ? CHASE_PITCH_UP_RATE
+            : CHASE_PITCH_DOWN_RATE;
+        this.chaseBoomPitch += (targetPitch - this.chaseBoomPitch) * Math.min(1, dt * pitchRate);
+        const distRate = targetDist < this.chaseBoomDist ? 10 : 2.4;
+        this.chaseBoomDist += (targetDist - this.chaseBoomDist) * Math.min(1, dt * distRate);
+      }
+
+      // 3. Hard limit at the tilt actually used this frame: the camera is never placed inside an obstacle.
+      const hardDist = this.clearChaseDistance(0, pivotX, pivotY, pivotZ, this.chaseBoomPitch, wantDist, true);
+      if (hardDist < this.chaseBoomDist) {
+        this.chaseBoomDist = hardDist;
+        clamped = true;
+      }
+      pitch = this.chaseBoomPitch;
+      dist = this.chaseBoomDist;
+
+      // 4. Overhead landmark geometry (archway, hall door lintel) that the polygons do not describe.
+      if (this.chaseOccluders.length > 0) {
+        this.tmpPivot.set(pivotX, pivotY, pivotZ);
+        this.tmpBoomDir.set(dirX * Math.cos(pitch), Math.sin(pitch), dirZ * Math.cos(pitch));
+        const hit = this.landmarkHitDistance(this.tmpPivot, this.tmpBoomDir, dist + CHASE_MESH_MARGIN_M);
+        if (hit - CHASE_MESH_MARGIN_M < dist) {
+          dist = hit - CHASE_MESH_MARGIN_M;
+          this.chaseBoomDist = dist;
+          clamped = true;
+        }
+      }
+      dist = Math.max(CHASE_MIN_DIST_M, dist);
+    }
+
+    const horizDist = dist * Math.cos(pitch);
+    const camX = pivotX + dirX * horizDist;
+    const camZ = pivotZ + dirZ * horizDist;
     const groundAtCam = this.terrain.getTerrainHeight(camX, camZ);
-    const camY = Math.max(this.tractor.y + heightOff, groundAtCam + 1.8);
+    const camY = Math.max(pivotY + dist * Math.sin(pitch), groundAtCam + 1.8);
 
-    // Look slightly ahead of tractor hood so the road, church spire & checkpoints fill the upper frame!
-    const lookAhead = 5.5;
+    // Look slightly ahead of tractor hood so the road, church spire & checkpoints fill the upper frame.
+    // A steeper boom (tilted up behind a house) lowers the aim point a little so the tractor stays in the
+    // lower frame, but the aim stays AHEAD of the tractor: the view never turns into a top-down shot.
+    const steep = THREE.MathUtils.smoothstep(pitch, 0.4, CHASE_EMERGENCY_PITCH_RAD);
+    const lookAhead = THREE.MathUtils.lerp(5.5, 6.0, steep);
     const lookX = this.tractor.x + Math.sin(this.tractor.headingRad) * lookAhead;
     const lookZ = this.tractor.z + Math.cos(this.tractor.headingRad) * lookAhead;
-    const lookY = this.tractor.y + 2.45;
+    const lookY = this.tractor.y + THREE.MathUtils.lerp(2.45, 1.2, steep);
 
     this.tmpDesiredPos.set(camX, camY, camZ);
     this.tmpDesiredLook.set(lookX, lookY, lookZ);
 
-    if (smoothAlpha >= 0.99) {
+    if (snap) {
       this.camera.position.copy(this.tmpDesiredPos);
       this.chaseLookTarget.copy(this.tmpDesiredLook);
     } else {
       this.camera.position.lerp(this.tmpDesiredPos, smoothAlpha);
       this.chaseLookTarget.lerp(this.tmpDesiredLook, Math.min(1, smoothAlpha * 1.3));
+      // The eased position lags behind the solved one; where that lag would cut through an obstacle
+      // (the tractor swung round a house corner) the camera goes straight to the solved position.
+      if (this.collider) {
+        const p = this.camera.position;
+        if (clamped) {
+          // Shortened boom: the eased camera may trail sideways, but never further out than the clear length.
+          this.tmpPivot.set(pivotX, pivotY, pivotZ);
+          const lagDist = p.distanceTo(this.tmpPivot);
+          if (lagDist > dist) p.sub(this.tmpPivot).multiplyScalar(dist / lagDist).add(this.tmpPivot);
+        }
+        const lagTop = this.collider.obstacleTopAt(p.x, p.z, CHASE_CLEAR_RADIUS_M * 0.6, this.groundHeightAt);
+        if (p.y < lagTop + CHASE_CLEAR_ABOVE_M * 0.5) p.copy(this.tmpDesiredPos);
+      }
     }
     this.camera.lookAt(this.chaseLookTarget);
   }

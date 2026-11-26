@@ -1,27 +1,20 @@
 #!/usr/bin/env python3
 """
-Blender Rural & Village Props Builder for Kindenheim (Rheinland-Pfalz).
+Kindenheim vegetation & village props builder (Blender 5.2, no rendering).
 
-Builds and exports 7 realistic, PBR-textured, GPU-instancing-ready .glb props to:
-  public/assets/models/village/props/
-    - vine_row.glb
-    - tree_deciduous.glb
-    - tree_orchard.glb
-    - ortsschild.glb
-    - streetlamp.glb
-    - hay_bale.glb
-    - wine_barrel.glb
+    python3 blender/village/props/build_veg_atlases.py          # once: photo leaf atlases (system python)
+    /opt/homebrew/bin/blender --background --python blender/village/build_props.py
 
-Also saves:
-  - blender/village/props/kindenheim_props.blend (all props neatly arranged for inspection/reuse)
-  - public/assets/models/village/props_meta.json (exact glTF bounding boxes & metadata)
-  - Optional sunlit 1280x720 preview render (--render <path>)
+Exports to public/assets/models/village/props/:
+    vine_row.glb      trellised vine bay (6 m along X): nodes vine_row_LOD0 / _LOD1 / _FAR (far = leaf tent + lane floor)
+    trees.glb         4 species x 3 LODs: tree_deciduous (linden), tree_orchard (apple), tree_riparian (alder),
+                      tree_poplar - nodes <key>_LOD0 / _LOD1 / _LOD2, each with a *_wood and a *_leaves mesh
+    ortsschild.glb, streetlamp.glb, hay_bale.glb, wine_barrel.glb
+and writes blender/village/props/props_meta.json + public/assets/models/village/props_meta.json and merges the
+`props` key of public/assets/models/village/manifest.json (all other manifest keys are left untouched).
 
-Run via:
-  /opt/homebrew/bin/blender --background --python blender/village/build_props.py -- --render <png_path>
+Mesh conventions are documented in blender/village/props/veg_blender.py.
 """
-
-import argparse
 import json
 import math
 import os
@@ -29,952 +22,847 @@ import random
 import sys
 
 import bpy
-import bmesh
-from mathutils import Matrix, Vector, Euler
+from mathutils import Vector
 
-PROJECT_ROOT = "/Users/logge/Documents/Projects/kindenheim-3d"
-TEX_DIR = os.path.join(PROJECT_ROOT, "blender/village/textures/props")
-BLEND_OUT = os.path.join(PROJECT_ROOT, "blender/village/props/kindenheim_props.blend")
-GLB_DIR = os.path.join(PROJECT_ROOT, "public/assets/models/village/props")
-META_OUT = os.path.join(PROJECT_ROOT, "blender/village/props/props_meta.json")
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'props'))
+from veg_blender import (  # noqa: E402
+    PROJECT_ROOT,
+    AtlasInfo,
+    MeshBuilder,
+    clear_scene,
+    export_glb,
+    join_under_empty,
+    library_tile_m,
+    make_flat_material,
+    make_library_material,
+    make_straw_material,
+    make_texture_material,
+    object_bounds_gltf,
+    rand_unit,
+    rot_about,
+    triangle_count,
+)
 
-os.makedirs(os.path.dirname(BLEND_OUT), exist_ok=True)
-os.makedirs(GLB_DIR, exist_ok=True)
+TEX_DIR = os.path.join(PROJECT_ROOT, 'blender/village/textures/props')
+BLEND_OUT = os.path.join(PROJECT_ROOT, 'blender/village/props/kindenheim_props.blend')
+GLB_DIR = os.path.join(PROJECT_ROOT, 'public/assets/models/village/props')
+META_OUT = os.path.join(PROJECT_ROOT, 'blender/village/props/props_meta.json')
+META_PUBLIC = os.path.join(PROJECT_ROOT, 'public/assets/models/village/props_meta.json')
+MANIFEST = os.path.join(PROJECT_ROOT, 'public/assets/models/village/manifest.json')
 
-
-# ---------------------------------------------------------------------------
-# Blender 5.2 Safe Material Helpers
-# ---------------------------------------------------------------------------
-
-def clear_scene():
-    bpy.ops.wm.read_factory_settings(use_empty=True)
-
-
-def load_image(path: str, colorspace: str = "sRGB"):
-    img = bpy.data.images.load(path, check_existing=True)
-    try:
-        img.colorspace_settings.name = colorspace
-    except Exception:
-        pass
-    img.pack()
-    return img
-
-
-def make_pbr_material(
-    name: str,
-    albedo_path: str = None,
-    normal_path: str = None,
-    base_color=(0.8, 0.8, 0.8, 1.0),
-    roughness: float = 0.75,
-    metallic: float = 0.0,
-    alpha_clip: bool = False,
-    double_sided: bool = False,
-    emission_color=None,
-    emission_strength: float = 0.0,
-    normal_strength: float = 1.0,
-):
-    mat = bpy.data.materials.new(name=name)
-    nt = mat.node_tree
-    nodes = nt.nodes
-    links = nt.links
-    bsdf = nodes.get("Principled BSDF")
-    bsdf.inputs["Roughness"].default_value = roughness
-    bsdf.inputs["Metallic"].default_value = metallic
-    bsdf.inputs["Base Color"].default_value = base_color
-
-    if emission_color is not None and emission_strength > 0.0:
-        bsdf.inputs["Emission Color"].default_value = emission_color
-        bsdf.inputs["Emission Strength"].default_value = emission_strength
-
-    if albedo_path and os.path.exists(albedo_path):
-        tex = nodes.new("ShaderNodeTexImage")
-        tex.image = load_image(albedo_path, "sRGB")
-        links.new(tex.outputs["Color"], bsdf.inputs["Base Color"])
-        if alpha_clip:
-            # Blender 5.x + glTF exporter maps Math(ROUND) on Alpha -> alphaMode: "MASK"
-            math_n = nodes.new("ShaderNodeMath")
-            math_n.operation = "ROUND"
-            links.new(tex.outputs["Alpha"], math_n.inputs[0])
-            links.new(math_n.outputs["Value"], bsdf.inputs["Alpha"])
-            mat.alpha_threshold = 0.45
-
-    if normal_path and os.path.exists(normal_path):
-        ntex = nodes.new("ShaderNodeTexImage")
-        ntex.image = load_image(normal_path, "Non-Color")
-        nmap = nodes.new("ShaderNodeNormalMap")
-        nmap.inputs["Strength"].default_value = normal_strength
-        links.new(ntex.outputs["Color"], nmap.inputs["Color"])
-        links.new(nmap.outputs["Normal"], bsdf.inputs["Normal"])
-
-    mat.use_backface_culling = not double_sided
-    return mat
+UP = Vector((0, 0, 1))
 
 
-def create_mesh_object(name: str, bm: bmesh.types.BMesh, material, smooth: bool = False, collection=None):
-    mesh = bpy.data.meshes.new(name)
-    bm.normal_update()
-    bm.to_mesh(mesh)
-    bm.free()
-    if smooth:
-        mesh.polygons.foreach_set("use_smooth", [True] * len(mesh.polygons))
-    mesh.materials.append(material)
-    obj = bpy.data.objects.new(name, mesh)
-    if collection is None:
-        bpy.context.collection.objects.link(obj)
-    else:
-        collection.objects.link(obj)
-    return obj
+def smoothstep(a: float, b: float, x: float) -> float:
+    t = min(1.0, max(0.0, (x - a) / (b - a)))
+    return t * t * (3 - 2 * t)
 
 
-def add_tapered_tube(
-    bm: bmesh.types.BMesh,
-    uv_layer,
-    points: list,
-    radii: list,
-    sides: int = 7,
-    uv_v_scale: float = 1.0,
-    cap_start: bool = False,
-    cap_end: bool = True,
-):
-    """Extrude an organic tapered cylindrical branch/post along a 3D polyline with clean UVs."""
-    rings = []
-    v_dist = 0.0
-    prev_up = Vector((0.0, 0.0, 1.0))
+# ---------------------------------------------------------------------------------------------------------
+# Vineyard bay
+# ---------------------------------------------------------------------------------------------------------
 
-    for idx, (pt, rad) in enumerate(zip(points, radii)):
-        p = Vector(pt)
-        if idx > 0:
-            v_dist += (p - Vector(points[idx - 1])).length
-        if idx == 0:
-            tangent = (Vector(points[1]) - p).normalized()
-        elif idx == len(points) - 1:
-            tangent = (p - Vector(points[idx - 1])).normalized()
-        else:
-            tangent = (Vector(points[idx + 1]) - Vector(points[idx - 1])).normalized()
-        if tangent.length < 1e-6:
-            tangent = Vector((0.0, 0.0, 1.0))
-
-        ref = Vector((1.0, 0.0, 0.0)) if abs(tangent.z) > 0.92 else Vector((0.0, 0.0, 1.0))
-        side_x = tangent.cross(ref).normalized()
-        side_y = tangent.cross(side_x).normalized()
-
-        ring = []
-        for s in range(sides):
-            a = (s / sides) * 2.0 * math.pi
-            offset = (side_x * math.cos(a) + side_y * math.sin(a)) * rad
-            ring.append(bm.verts.new(p + offset))
-        rings.append((ring, v_dist))
-
-    for i in range(len(rings) - 1):
-        r0, v0 = rings[i]
-        r1, v1 = rings[i + 1]
-        for s in range(sides):
-            sn = (s + 1) % sides
-            try:
-                f = bm.faces.new((r0[s], r0[sn], r1[sn], r1[s]))
-                u0 = s / sides
-                u1 = (s + 1) / sides
-                f.loops[0][uv_layer].uv = (u0, v0 * uv_v_scale)
-                f.loops[1][uv_layer].uv = (u1, v0 * uv_v_scale)
-                f.loops[2][uv_layer].uv = (u1, v1 * uv_v_scale)
-                f.loops[3][uv_layer].uv = (u0, v1 * uv_v_scale)
-            except ValueError:
-                pass
-
-    if cap_start and rings:
-        try:
-            f = bm.faces.new(list(reversed(rings[0][0])))
-            for lp in f.loops:
-                lp[uv_layer].uv = (0.5, 0.5)
-        except ValueError:
-            pass
-    if cap_end and rings:
-        try:
-            f = bm.faces.new(rings[-1][0])
-            for lp in f.loops:
-                lp[uv_layer].uv = (0.5, 0.5)
-        except ValueError:
-            pass
+def _quad_c(mb: MeshBuilder, pts, uvs, normals, datas, colors) -> None:
+    ids = [mb.vert(pts[i], normals[i], uvs[i], datas[i], colors[i]) for i in range(4)]
+    mb.face(*ids)
 
 
-def add_bent_foliage_card(
-    bm: bmesh.types.BMesh,
-    uv_layer,
-    center: Vector,
-    rot_euler: Euler,
-    width: float,
-    height: float,
-    cup: float = 0.14,
-):
-    """Add a 2-quad gently cupped foliage sprig card (4 tris) so crowns never look flat."""
-    mat = rot_euler.to_matrix()
-    hw, hh = width * 0.5, height * 0.5
-    # 6 vertices forming a subtly folded V/cup leaf cluster
-    local_pts = [
-        Vector((-hw, -cup, -hh)),
-        Vector((0.0, cup * 0.5, -hh)),
-        Vector((hw, -cup, -hh)),
-        Vector((-hw, -cup, hh)),
-        Vector((0.0, cup * 0.5, hh)),
-        Vector((hw, -cup, hh)),
-    ]
-    verts = [bm.verts.new(center + mat @ p) for p in local_pts]
-    quads = [
-        ((0, 1, 4, 3), ((0.0, 0.0), (0.5, 0.0), (0.5, 1.0), (0.0, 1.0))),
-        ((1, 2, 5, 4), ((0.5, 0.0), (1.0, 0.0), (1.0, 1.0), (0.5, 1.0))),
-    ]
-    for idxs, uvs in quads:
-        try:
-            f = bm.faces.new([verts[i] for i in idxs])
-            for lp, uv in zip(f.loops, uvs):
-                lp[uv_layer].uv = uv
-        except ValueError:
-            pass
+def _vine_wall(mb: MeshBuilder, rect, side: float, y: float, z0: float, z1: float, u_off: float, segs: int = 3, bulge: float = 0.05) -> None:
+    """Leaf-wall card on one side of the row; u runs along the row (3.94 m per repeat keeps the leaves life-size)."""
+    _, v0, _, v1 = rect
+    rep = 6.0 / 3.94
+    for s in range(segs):
+        xa = -3.0 + 6.0 * s / segs
+        xb = -3.0 + 6.0 * (s + 1) / segs
+        ua = u_off + rep * s / segs
+        ub = u_off + rep * (s + 1) / segs
+        ya = y + side * bulge * math.sin(s * 2.1 + u_off * 9)
+        yb = y + side * bulge * math.sin((s + 1) * 2.1 + u_off * 9)
+        n_lo = Vector((0, side * 0.85, 0.25))
+        n_hi = Vector((0, side * 0.6, 0.75))
+        pts = [(xa, ya, z0), (xb, yb, z0), (xb, yb * 0.6, z1), (xa, ya * 0.6, z1)]
+        _quad_c(mb, pts, [(ua, v0), (ub, v0), (ub, v1), (ua, v1)], [n_lo, n_lo, n_hi, n_hi],
+                [(0.0, 1.0), (0.0, 1.0), (0.6, 1.0), (0.6, 1.0)], [(0.70, 0.72, 0.68)] * 2 + [(1.0, 1.0, 1.0)] * 2)
 
 
-def compute_gltf_bbox(objects):
-    """Compute world-space glTF (Y-up) bounding box from Blender (Z-up) objects."""
-    xs, ys, zs = [], [], []
-    for obj in objects:
-        for corner in obj.bound_box:
-            w = obj.matrix_world @ Vector(corner)
-            # Blender (bx, by, bz) -> glTF (bx, bz, -by)
-            xs.append(w.x)
-            ys.append(w.z)
-            zs.append(-w.y)
-    return {
-        "min": [round(min(xs), 3), round(min(ys), 3), round(min(zs), 3)],
-        "max": [round(max(xs), 3), round(max(ys), 3), round(max(zs), 3)],
-        "size": [
-            round(max(xs) - min(xs), 3),
-            round(max(ys) - min(ys), 3),
-            round(max(zs) - min(zs), 3),
-        ],
-    }
+def _vine_canopy_top(mb: MeshBuilder, wall, rng: random.Random, pieces: int, z_base: float, leaves: int = 0, leaf_tiles=None) -> None:
+    """Leafy canopy top. Each piece is a pair of short leaf-wall panels leaning out from the row centre like a ridge;
+    they sample the strip from its dense middle (on the ridge) to its ragged upper edge (outside), so every panel ends
+    in a leaf silhouette that droops over the wall top. The previous single rolled panels cut from the dense middle
+    had four straight edges and caught the noon sun: from the chase camera they read as pale paper cards (review).
+    Optional single leaves scattered over the top break the ridge line up further (LOD0)."""
+    v_mid = wall[1] + (wall[3] - wall[1]) * 0.5
+    v_top = wall[3]
+    seg = 6.0 / pieces
+    for i in range(pieces):
+        xc = -3.0 + seg * (i + 0.5) + rng.uniform(-0.12, 0.12)
+        for side in (-1.0, 1.0):
+            half_l = seg * rng.uniform(0.62, 0.82)
+            yaw = math.radians(rng.uniform(-8, 8))
+            ax = Vector((math.cos(yaw), math.sin(yaw), 0.0))
+            z_ridge = z_base + rng.uniform(0.02, 0.14)
+            ridge = Vector((xc + rng.uniform(-0.1, 0.1), side * rng.uniform(-0.02, 0.04), z_ridge))
+            out = Vector((0.0, side * rng.uniform(0.24, 0.34), -rng.uniform(0.08, 0.24)))
+            n = Vector((0.0, side * 0.5, 0.82)).normalized()
+            sh = rng.uniform(0.78, 0.9)
+            tint = (sh * rng.uniform(0.95, 1.03), sh, sh * rng.uniform(0.9, 0.98))
+            uo = rng.random()
+            du = (2 * half_l) / 3.94
+            p0 = ridge - ax * half_l
+            p1 = ridge + ax * half_l
+            pts = [p0, p1, p1 + out, p0 + out]
+            _quad_c(mb, pts, [(uo, v_mid), (uo + du, v_mid), (uo + du, v_top), (uo, v_top)], [n] * 4,
+                    [(0.2, 0.7), (0.2, 0.7), (0.6, 0.7), (0.6, 0.7)], [tint] * 4)
+    for _ in range(leaves):
+        x = rng.uniform(-3.0, 3.0)
+        y = rng.uniform(-0.3, 0.3)
+        z = z_base + rng.uniform(-0.04, 0.2)
+        a = rng.uniform(0, math.tau)
+        right = Vector((math.cos(a), math.sin(a), 0.0))
+        up = Vector((-math.sin(a), math.cos(a), rng.uniform(0.35, 1.2))).normalized()
+        size = rng.uniform(0.14, 0.2)
+        u0, v0, u1, v1 = rng.choice(leaf_tiles)
+        sh = rng.uniform(0.8, 0.95)
+        mb.grid_card(Vector((x, y, z)), right, up, Vector((0, 0, 0)), size, size, (u0, v0, u1, v1), lambda p, c: (c if c.z >= 0 else -c) * 0.5 + UP * 0.6,
+                     color=(sh * rng.uniform(0.94, 1.06), sh, sh * rng.uniform(0.86, 0.98)), rows=1)
 
 
-def export_prop_glb(objects, glb_path: str):
-    bpy.ops.object.select_all(action="DESELECT")
-    for obj in objects:
-        obj.select_set(True)
-    bpy.context.view_layer.objects.active = objects[0]
-    bpy.ops.export_scene.gltf(
-        filepath=glb_path,
-        export_format="GLB",
-        use_selection=True,
-        export_yup=True,
-        export_materials="EXPORT",
-        export_image_format="AUTO",
-        export_texcoords=True,
-        export_draco_mesh_compression_enable=False,
-    )
-
-
-# ---------------------------------------------------------------------------
-# Prop 1: Palatinate Grapevine Trellis Section (vine_row.glb)
-# 6.0m seamless bay along X in [-3.0, +3.0], ground Z=0 (Y=0 in glTF)
-# ---------------------------------------------------------------------------
-
-def build_vine_row(col):
+def build_vine(col, atlas: AtlasInfo):
+    mat = atlas.material('Veg_Vine', roughness=0.7)
+    rect = atlas.rect
+    wall = rect('leaf_wall', 2.0)
+    wall = (0.0, wall[1], 1.0, wall[3])  # full-width tile: u wraps
     rng = random.Random(101)
-    mat_wood = make_pbr_material(
-        "Vine_Wood",
-        albedo_path=os.path.join(TEX_DIR, "bark_vine_albedo.jpg"),
-        normal_path=os.path.join(TEX_DIR, "bark_tree_normal.png"),
-        roughness=0.88,
-        normal_strength=0.9,
-    )
-    mat_wire = make_pbr_material(
-        "Vine_Wire",
-        base_color=(0.48, 0.50, 0.52, 1.0),
-        roughness=0.38,
-        metallic=0.82,
-    )
-    mat_canopy = make_pbr_material(
-        "Vine_Canopy_Mat",
-        albedo_path=os.path.join(TEX_DIR, "vine_leaves.png"),
-        roughness=0.62,
-        alpha_clip=True,
-        double_sided=True,
-    )
 
-    # 1. Wooden posts & gnarled vine trunks + cordon arms
-    bm_wood = bmesh.new()
-    uv_w = bm_wood.loops.layers.uv.new("UVMap")
-
-    # Two wooden Pfähle at X = -1.5 and +1.5 (seamless 3.0m spacing across tiled 6.0m bays!)
-    for px in (-1.5, 1.5):
-        pts = [(px, 0.0, -0.45), (px, 0.0, 0.0), (px + rng.uniform(-0.015, 0.015), rng.uniform(-0.015, 0.015), 1.72), (px, 0.0, 1.80)]
-        rads = [0.042, 0.042, 0.036, 0.008]
-        add_tapered_tube(bm_wood, uv_w, pts, rads, sides=7, uv_v_scale=0.6)
-
-    # 4 gnarled grapevine trunks at X = -2.25, -0.75, +0.75, +2.25
-    for vx in (-2.25, -0.75, 0.75, 2.25):
-        g1 = rng.uniform(-0.04, 0.04)
-        g2 = rng.uniform(-0.04, 0.04)
-        trunk_pts = [
-            (vx, 0.0, -0.35),
-            (vx + g1 * 0.5, g2 * 0.5, 0.20),
-            (vx - g1, g2, 0.48),
-            (vx + g1 * 0.3, -g2 * 0.4, 0.74),
+    # ---------------- LOD0 -------------------------------------------------------------------------------
+    mb = MeshBuilder()
+    steel = rect('post_steel', 3.0)
+    mb.box((-3.0 - 0.027, -0.019, -0.4), (-3.0 + 0.027, 0.019, 2.12), steel)
+    wire = rect('wire', 6.0)
+    wires = [(0.0, 0.74), (-0.03, 1.06), (0.03, 1.06), (-0.035, 1.38), (0.035, 1.38), (-0.03, 1.70), (0.03, 1.70)]
+    for wy, wz in wires:
+        n = Vector((0, -1 if wy <= 0 else 1, 0.25))
+        mb.quad([(-3, wy, wz - 0.006), (3, wy, wz - 0.006), (3, wy, wz + 0.006), (-3, wy, wz + 0.006)], wire, normals=[n] * 4)
+    bark = rect('bark', 3.0)
+    vine_x = [-2.4 + 1.2 * i + rng.uniform(-0.09, 0.09) for i in range(5)]
+    for xv in vine_x:
+        path = [
+            Vector((xv, 0.0, -0.12)),
+            Vector((xv + rng.uniform(-0.05, 0.05), rng.uniform(-0.04, 0.04), 0.24)),
+            Vector((xv + rng.uniform(-0.06, 0.06), rng.uniform(-0.04, 0.04), 0.50)),
+            Vector((xv + rng.uniform(-0.03, 0.03), 0.0, 0.73)),
         ]
-        trunk_rads = [0.038, 0.034, 0.028, 0.022]
-        add_tapered_tube(bm_wood, uv_w, trunk_pts, trunk_rads, sides=6, uv_v_scale=1.2)
-        # Left & right horizontal fruiting cordon arms along wire (Z=0.74m)
-        for dx in (-0.65, 0.65):
-            arm_pts = [
-                (vx, 0.0, 0.74),
-                (vx + dx * 0.5, rng.uniform(-0.03, 0.03), 0.78),
-                (vx + dx, rng.uniform(-0.02, 0.02), 0.73),
-            ]
-            add_tapered_tube(bm_wood, uv_w, arm_pts, [0.018, 0.014, 0.009], sides=5, uv_v_scale=1.2)
+        mb.tube(path, [0.036, 0.029, 0.026, 0.023], 5, bark)
+        top = path[-1]
+        for d in (-1, 1):
+            arm = [top, top + Vector((d * 0.30, rng.uniform(-0.015, 0.015), 0.035)), top + Vector((d * 0.60, 0, 0.01))]
+            mb.tube(arm, [0.019, 0.015, 0.011], 4, bark)
 
-    obj_wood = create_mesh_object("Vine_Wood", bm_wood, mat_wood, smooth=True, collection=col)
+    _vine_wall(mb, wall, -1.0, -0.10, 0.64, 1.90, rng.random())
+    _vine_wall(mb, wall, 1.0, 0.10, 0.64, 1.90, rng.random())
+    # ragged leafy top so the row is closed from the drone but never a flat strip
+    _vine_canopy_top(mb, wall, rng, 9, 1.82, leaves=36, leaf_tiles=[rect(f'leaf_{i}') for i in range(5)])
 
-    # 2. Galvanized trellis wires running full 6.0m bay (X = -3.0 .. +3.0)
-    bm_wire = bmesh.new()
-    uv_wi = bm_wire.loops.layers.uv.new("UVMap")
-    for wz in (0.74, 1.16, 1.56):
-        add_tapered_tube(bm_wire, uv_wi, [(-3.0, 0.0, wz), (3.0, 0.0, wz)], [0.006, 0.006], sides=4, cap_end=False)
-    obj_wire = create_mesh_object("Vine_Wire", bm_wire, mat_wire, smooth=False, collection=col)
+    def shoot_normal(side: float):
+        def fn(p, card_n):
+            cn = card_n if card_n.y * side >= 0 else -card_n
+            return cn * 0.45 + UP * 0.5 + Vector((0, side * 0.4, 0))
+        return fn
 
-    # 3. Lush dense multi-angle leafy canopy wall (Z = 0.58..1.72m, matching real Kindenheim L450 vineyards!)
-    # Note: add_bent_foliage_card lies in the vertical XZ plane (rx=0 is vertical, rx=90deg is horizontal!)
-    bm_leaf = bmesh.new()
-    uv_l = bm_leaf.loops.layers.uv.new("UVMap")
+    upright = [rect('shoot_0'), rect('shoot_1'), rect('shoot_3')]
+    hanging = rect('shoot_2')
+    for xv in vine_x:
+        for k in range(9):
+            lower = k < 5
+            x = xv + rng.uniform(-0.62, 0.62)
+            y = rng.uniform(-0.17, 0.17)
+            side = 1.0 if y >= 0 else -1.0
+            z = (0.70 + rng.uniform(0, 0.22)) if lower else (1.12 + rng.uniform(0, 0.2))
+            yaw = math.radians(rng.uniform(-42, 42))
+            right = Vector((math.cos(yaw), math.sin(yaw), 0))
+            up = Vector((rng.uniform(-0.15, 0.15), side * rng.uniform(0.04, 0.3), 1)).normalized()
+            s = rng.uniform(0.95, 1.3)
+            shade = rng.uniform(0.84, 1.0) if lower else rng.uniform(0.94, 1.08)
+            tint = (shade * rng.uniform(0.95, 1.05), shade, shade * rng.uniform(0.9, 1.05))
+            mb.grid_card(Vector((x, y, z)), right, up, Vector((0, side * 0.12, 0)), 0.52 * s, 0.70 * s, rng.choice(upright),
+                         shoot_normal(side), color=tint, rows=2, flip_u=rng.random() < 0.5)
+    for k in range(12):
+        # young shoots standing above the top wire: they break the silhouette of the row
+        x = -2.8 + 5.6 * (k + rng.uniform(0.1, 0.9)) / 12
+        yaw = math.radians(rng.uniform(-80, 80))
+        right = Vector((math.cos(yaw), math.sin(yaw), 0))
+        up = Vector((rng.uniform(-0.2, 0.2), rng.uniform(-0.25, 0.25), 1)).normalized()
+        s = rng.uniform(0.7, 1.0)
+        mb.grid_card(Vector((x, rng.uniform(-0.06, 0.06), 1.56)), right, up, Vector((0, rng.uniform(-0.08, 0.08), 0)), 0.52 * s, 0.70 * s, rng.choice(upright),
+                     shoot_normal(1.0 if rng.random() < 0.5 else -1.0), color=(1.02, 1.04, 0.96), rows=2, flip_u=rng.random() < 0.5)
+    for _ in range(7):
+        x = rng.uniform(-2.9, 2.9)
+        side = rng.choice((-1.0, 1.0))
+        y = side * rng.uniform(0.08, 0.2)
+        right = Vector((1, rng.uniform(-0.3, 0.3), 0)).normalized()
+        down = Vector((rng.uniform(-0.1, 0.1), side * rng.uniform(0.1, 0.3), -1)).normalized()
+        u0, v0, u1, v1 = hanging
+        mb.grid_card(Vector((x, y, 1.93)), right, down, Vector((0, side * 0.1, 0)), 0.52, 0.72, (u0, v1, u1, v0),
+                     shoot_normal(side), color=(1.0, 1.0, 0.96), rows=2)
+    leaf_tiles = [rect(f'leaf_{i}') for i in range(5)]
+    for _ in range(72):
+        side = rng.choice((-1.0, 1.0))
+        x = rng.uniform(-3.0, 3.0)
+        z = rng.uniform(0.78, 1.98)
+        y = side * rng.uniform(0.11, 0.27)
+        n = Vector((rng.uniform(-0.5, 0.5), side * rng.uniform(0.5, 1.0), rng.uniform(0.15, 0.9))).normalized()
+        hang = Vector((rng.uniform(-0.5, 0.5), 0, -1))
+        hang = (hang - n * hang.dot(n)).normalized()
+        right = hang.cross(n).normalized()
+        size = rng.uniform(0.13, 0.18)
+        u0, v0, u1, v1 = rng.choice(leaf_tiles)
+        shade = 0.8 + 0.25 * smoothstep(0.7, 1.7, z) + rng.uniform(-0.05, 0.05)
+        tint = (shade * rng.uniform(0.94, 1.1), shade, shade * rng.uniform(0.85, 1.0))
+        nn = (n * 0.6 + UP * 0.4)
+        mb.grid_card(Vector((x, y, z)), right, hang, n * 0.03, size, size, (u0, v1, u1, v0), lambda p, c, nn=nn: nn, color=tint, rows=1)
+    grape_tiles = [rect(f'grape_{i}') for i in range(3)]
+    for xv in vine_x:
+        for _ in range(3):
+            x = xv + rng.uniform(-0.5, 0.5)
+            side = rng.choice((-1.0, 1.0))
+            y = side * rng.uniform(0.04, 0.13)
+            zt = rng.uniform(0.80, 1.0)
+            u0, v0, u1, v1 = rng.choice(grape_tiles)
+            sz = rng.uniform(0.9, 1.15)
+            for yaw in (rng.uniform(-0.4, 0.4), math.pi / 2 + rng.uniform(-0.4, 0.4)):
+                r = Vector((math.cos(yaw), math.sin(yaw), 0))
+                nrm = Vector((-r.y, r.x, 0))
+                if nrm.y * side < 0:
+                    nrm = -nrm
+                w, h = 0.105 * sz, 0.195 * sz
+                top = Vector((x, y, zt))
+                pts = [top - r * (w / 2) - UP * h, top + r * (w / 2) - UP * h, top + r * (w / 2), top - r * (w / 2)]
+                na = (nrm * 0.8 + UP * 0.3)
+                mb.quad(pts, (u0, v0, u1, v1), normals=[na] * 4, color=(1.0, 1.0, 1.0))
+    lod0 = mb.to_object('vine_row_LOD0', mat, col)
 
-    # Longitudinal front & back vertical bushy foliage walls (9 overlapping cards per side along 6m!)
+    # ---------------- LOD1 -------------------------------------------------------------------------------
+    rng = random.Random(202)
+    mb = MeshBuilder()
+    mb.box((-3.0 - 0.03, -0.022, -0.3), (-3.0 + 0.03, 0.022, 2.12), steel)
+    for xv in vine_x:
+        mb.tube([Vector((xv, 0, -0.1)), Vector((xv + 0.03, 0.02, 0.36)), Vector((xv, 0, 0.74))], [0.036, 0.03, 0.026], 3, bark)
+    _vine_wall(mb, wall, -1.0, -0.13, 0.62, 1.92, rng.random(), segs=1, bulge=0.0)
+    _vine_wall(mb, wall, 1.0, 0.13, 0.62, 1.92, rng.random(), segs=1, bulge=0.0)
+    _vine_canopy_top(mb, wall, rng, 5, 1.82)
+    for k in range(18):
+        x = -2.85 + 5.7 * (k + rng.uniform(0.1, 0.9)) / 18
+        side = 1.0 if k % 2 == 0 else -1.0
+        y = side * rng.uniform(0.1, 0.2)
+        z = rng.uniform(0.74, 1.2)
+        yaw = math.radians(rng.uniform(-35, 35))
+        right = Vector((math.cos(yaw), math.sin(yaw), 0))
+        up = Vector((rng.uniform(-0.12, 0.12), side * rng.uniform(0.1, 0.32), 1)).normalized()
+        s = rng.uniform(1.25, 1.6)
+        mb.grid_card(Vector((x, y, z)), right, up, Vector((0, 0, 0)), 0.52 * s, 0.70 * s, rng.choice(upright), shoot_normal(side),
+                     color=(0.98, 1.0, 0.95), rows=1, flip_u=rng.random() < 0.5)
+    lod1 = mb.to_object('vine_row_LOD1', mat, col)
+
+    # ---------------- FAR: leaf tent, 4 triangles per bay (covers the hills) -------------------------------
+    mb = MeshBuilder()
     for side in (-1.0, 1.0):
-        for i in range(9):
-            cx = -2.66 + i * 0.665 + rng.uniform(-0.06, 0.06)
-            cy = side * (0.22 + rng.uniform(-0.04, 0.06))
-            cz = 1.15 + rng.uniform(-0.07, 0.08)
-            rx = math.radians(side * rng.uniform(-16.0, 14.0))
-            ry = math.radians(rng.uniform(-10.0, 10.0))
-            rz = math.radians((0.0 if side < 0 else 180.0) + rng.uniform(-16.0, 16.0))
-            add_bent_foliage_card(
-                bm_leaf, uv_l,
-                Vector((cx, cy, cz)),
-                Euler((rx, ry, rz), "XYZ"),
-                width=1.08, height=1.10, cup=0.10,
-            )
+        n_lo = Vector((0, side * 0.8, 0.45))
+        n_hi = Vector((0, side * 0.45, 0.9))
+        uo = 0.0 if side < 0 else 0.37
+        pts = [(-3, side * 0.42, 0.58), (3, side * 0.42, 0.58), (3, side * 0.05, 1.94), (-3, side * 0.05, 1.94)]
+        _quad_c(mb, pts, [(uo, wall[1]), (uo + 1.5, wall[1]), (uo + 1.5, wall[3]), (uo, wall[3])], [n_lo, n_lo, n_hi, n_hi],
+                [(0.0, 1.0)] * 2 + [(0.5, 1.0)] * 2, [(0.74, 0.76, 0.72)] * 2 + [(1.0, 1.0, 1.0)] * 2)
+    far = mb.to_object('vine_row_FAR', mat, col)
 
-    # Vertical diagonal cross-baffles inside canopy so row looks lush from down-the-alley angle!
-    for i in range(11):
-        cx = -2.72 + i * 0.544 + rng.uniform(-0.04, 0.04)
-        cy = rng.uniform(-0.06, 0.06)
-        cz = 1.14 + rng.uniform(-0.08, 0.08)
-        rz = math.radians(52.0 if i % 2 == 0 else -52.0) + math.radians(rng.uniform(-14, 14))
-        rx = math.radians(rng.uniform(-15.0, 15.0))
-        add_bent_foliage_card(
-            bm_leaf, uv_l,
-            Vector((cx, cy, cz)),
-            Euler((rx, 0.0, rz), "XYZ"),
-            width=0.76, height=1.06, cup=0.07,
-        )
-
-    # Horizontal ruffled top crown shoots (caps top of vine wall cleanly for aerial drone camera!)
-    for i in range(8):
-        cx = -2.62 + i * 0.75
-        cy = rng.uniform(-0.05, 0.05)
-        cz = 1.62 + rng.uniform(-0.05, 0.06)
-        add_bent_foliage_card(
-            bm_leaf, uv_l,
-            Vector((cx, cy, cz)),
-            Euler((math.radians(90.0 + rng.uniform(-18, 18)), math.radians(rng.uniform(-12, 12)), math.radians(rng.uniform(-18, 18))), "XYZ"),
-            width=1.12, height=0.68, cup=0.08,
-        )
-
-    obj_leaf = create_mesh_object("Vine_Canopy", bm_leaf, mat_canopy, smooth=True, collection=col)
-    return [obj_wood, obj_wire, obj_leaf]
+    # ---------------- FLOOR: material carrier for the lane carpet the runtime drapes over the terrain grid ----
+    floor_mat = make_texture_material('Floor_Vineyard', os.path.join(TEX_DIR, 'veg_vine_floor_albedo.jpg'),
+                                      os.path.join(TEX_DIR, 'veg_vine_floor_normal.jpg'), roughness=0.92)
+    mb = MeshBuilder()
+    mb.quad([(-3, -2, 0), (3, -2, 0), (3, 2, 0), (-3, 2, 0)], (0, 0, 1, 1), normals=[UP] * 4)
+    floor_obj = mb.to_object('vine_row_FLOOR', floor_mat, col, with_color=False, with_data=False)
+    floor_obj['tileM'] = [6.0, 4.0]
+    return {'LOD0': [lod0], 'LOD1': [lod1], 'FAR': [far], 'FLOOR': [floor_obj]}
 
 
-# ---------------------------------------------------------------------------
-# Prop 2 & 3: Natural Multi-Branch Deciduous & Orchard Trees
-# ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------
+# Trees
+# ---------------------------------------------------------------------------------------------------------
 
-def build_tree(col, name_prefix: str, orchard: bool = False):
-    rng = random.Random(202 if not orchard else 303)
-    mat_bark = make_pbr_material(
-        f"{name_prefix}_Bark_Mat",
-        albedo_path=os.path.join(TEX_DIR, "bark_tree_albedo.jpg"),
-        normal_path=os.path.join(TEX_DIR, "bark_tree_normal.png"),
-        roughness=0.90,
-        normal_strength=1.1,
-    )
-    fol_tex = "tree_foliage_orchard.png" if orchard else "tree_foliage_deciduous.png"
-    mat_fol = make_pbr_material(
-        f"{name_prefix}_Foliage_Mat",
-        albedo_path=os.path.join(TEX_DIR, fol_tex),
-        roughness=0.68,
-        alpha_clip=True,
-        double_sided=True,
-    )
+TREES = {
+    'tree_deciduous': dict(  # village linden / lime, round dense crown
+        atlas='linden', seed=11, height=11.5, trunk_h=2.7, trunk_r=0.27, crown_c=(0.0, 0.0, 7.0), crown_r=(4.3, 4.3, 4.5),
+        mains=6, leader=True, branch_angle=(38, 62), up_bias=0.42, droop=0.05, cards=360, card_m=1.45, shell=0.42,
+    ),
+    'tree_orchard': dict(  # half-standard apple, low broad crown with fruit
+        atlas='orchard', seed=23, height=5.2, trunk_h=1.45, trunk_r=0.13, crown_c=(0.0, 0.0, 3.3), crown_r=(2.7, 2.7, 1.9),
+        mains=5, leader=False, branch_angle=(48, 70), up_bias=0.22, droop=0.18, cards=230, card_m=1.05, shell=0.45,
+    ),
+    'tree_riparian': dict(  # black alder / ash along the Kinderbach: tall, irregular
+        atlas='alder', seed=37, height=14.5, trunk_h=3.4, trunk_r=0.24, crown_c=(0.2, 0.0, 9.0), crown_r=(3.5, 3.3, 5.6),
+        mains=6, leader=True, branch_angle=(34, 58), up_bias=0.5, droop=0.10, cards=360, card_m=1.4, shell=0.38,
+    ),
+    'tree_garden': dict(  # small ornamental / young garden tree (rowan, field maple): compact crown on a thin stem
+        atlas='alder', seed=71, height=6.4, trunk_h=1.7, trunk_r=0.11, crown_c=(0.0, 0.0, 4.2), crown_r=(2.3, 2.3, 2.2),
+        mains=5, leader=True, branch_angle=(36, 60), up_bias=0.4, droop=0.06, cards=210, card_m=1.05, shell=0.45,
+    ),
+    'tree_poplar': dict(  # Lombardy poplar, fastigiate column
+        atlas='poplar', seed=53, height=21.0, trunk_h=2.2, trunk_r=0.30, crown_c=(0.0, 0.0, 11.8), crown_r=(1.9, 1.9, 9.6),
+        mains=10, leader=True, branch_angle=(14, 26), up_bias=0.9, droop=0.0, cards=300, card_m=1.3, shell=0.5,
+    ),
+}
 
-    bm_bark = bmesh.new()
-    uv_b = bm_bark.loops.layers.uv.new("UVMap")
 
-    if not orchard:
-        # Palatinate Walnut / Oak / Linden (~8.4m tall, ~6.4m crown)
-        trunk_h = 2.65
-        base_r = 0.34
-        fork_r = 0.20
-        n_main = 5
-        branch_len = (2.4, 3.3)
-        branch_elev = (0.55, 1.05)
-        crown_center_z = 5.4
-        cluster_size = (1.75, 2.35)
+class TreeSkeleton:
+    def __init__(self, cfg: dict):
+        self.cfg = cfg
+        self.rng = random.Random(cfg['seed'])
+        self.c = Vector(cfg['crown_c'])
+        self.r = Vector(cfg['crown_r'])
+        self.branches: list[dict] = []   # {path, radii, level}
+        self.anchors: list[tuple[Vector, Vector]] = []  # leaf anchors (position, direction)
+        self._grow()
+
+    def crown_d(self, p: Vector) -> float:
+        q = p - self.c
+        return math.sqrt((q.x / self.r.x) ** 2 + (q.y / self.r.y) ** 2 + (q.z / self.r.z) ** 2)
+
+    def _grow(self) -> None:
+        cfg, rng = self.cfg, self.rng
+        h, th, tr = cfg['height'], cfg['trunk_h'], cfg['trunk_r']
+        lean = Vector((rng.uniform(-0.25, 0.25), rng.uniform(-0.25, 0.25), 0))
+        top_h = h * 0.86 if cfg['leader'] else th * 1.15
+        n = 7
+        path, radii = [], []
+        for i in range(n + 1):
+            t = i / n
+            z = -0.5 + (top_h + 0.5) * t
+            wob = Vector((math.sin(t * 5.1 + 1.0), math.cos(t * 4.3), 0)) * 0.10 * tr * 4 * t
+            path.append(Vector((lean.x * t, lean.y * t, z)) + wob)
+            flare = 1.0 + 0.55 * max(0.0, 1.0 - (z + 0.5) / 1.1) ** 2
+            taper = 1.0 - 0.9 * smoothstep(th * 0.6, top_h, z)
+            radii.append(max(0.03, tr * flare * taper))
+        self.branches.append({'path': path, 'radii': radii, 'level': 0})
+
+        def trunk_at(z: float) -> tuple[Vector, float]:
+            t = min(1.0, max(0.0, (z + 0.5) / (top_h + 0.5)))
+            f = t * n
+            i0 = min(int(f), n - 1)
+            fr = f - i0
+            return path[i0].lerp(path[i0 + 1], fr), radii[i0] + (radii[i0 + 1] - radii[i0]) * fr
+
+        mains = cfg['mains']
+        z_lo = th
+        z_hi = top_h * (0.94 if cfg['leader'] else 1.0)
+        for m in range(mains):
+            z = z_lo + (z_hi - z_lo) * ((m + rng.uniform(0.1, 0.9)) / mains if cfg['leader'] else rng.uniform(0.75, 1.0))
+            base, r_tr = trunk_at(z)
+            az = (m / mains) * math.tau * (2.4 if cfg['leader'] else 1.0) + rng.uniform(-0.35, 0.35)
+            el = math.radians(rng.uniform(*cfg['branch_angle']))
+            d = Vector((math.cos(az) * math.sin(el), math.sin(az) * math.sin(el), math.cos(el)))
+            reach = self._reach(base, d)
+            self._branch(base, d, reach * rng.uniform(0.82, 0.98), min(r_tr * 0.62, tr * 0.5), 1)
+        if cfg['leader']:
+            self.anchors.append((path[-1], UP))
+
+    def _reach(self, start: Vector, d: Vector) -> float:
+        lo, hi = 0.2, 30.0
+        for _ in range(18):
+            mid = (lo + hi) / 2
+            if self.crown_d(start + d * mid) < 1.0:
+                lo = mid
+            else:
+                hi = mid
+        return max(0.6, lo)
+
+    def _branch(self, start: Vector, d: Vector, length: float, radius: float, level: int) -> None:
+        cfg, rng = self.cfg, self.rng
+        segs = 5 if level == 1 else 4 if level == 2 else 3
+        path = [start]
+        radii = [radius]
+        p = start.copy()
+        dd = d.normalized()
+        for i in range(segs):
+            dd = (dd + rand_unit(rng) * 0.16 + UP * (cfg['up_bias'] * 0.10) - UP * (cfg['droop'] * 0.25 * level * (i / segs))).normalized()
+            p = p + dd * (length / segs)
+            path.append(p.copy())
+            radii.append(max(0.012, radius * (1.0 - 0.78 * (i + 1) / segs)))
+        self.branches.append({'path': path, 'radii': radii, 'level': level})
+        if level >= 3:
+            for i in range(1, len(path)):
+                self.anchors.append((path[i], (path[i] - path[i - 1]).normalized()))
+            return
+        if level == 2:
+            for i in range(2, len(path)):
+                self.anchors.append((path[i], (path[i] - path[i - 1]).normalized()))
+        kids = 5 if level == 1 else 3
+        for k in range(kids):
+            t = 0.28 + 0.66 * (k + rng.uniform(0.15, 0.85)) / kids
+            f = t * segs
+            i0 = min(int(f), segs - 1)
+            base = path[i0].lerp(path[i0 + 1], f - i0)
+            tangent = (path[i0 + 1] - path[i0]).normalized()
+            perp = tangent.orthogonal().normalized()
+            perp = rot_about(tangent, rng.uniform(0, math.tau)) @ perp
+            ang = math.radians(rng.uniform(32, 62))
+            cd = (tangent * math.cos(ang) + perp * math.sin(ang) + UP * cfg['up_bias'] * 0.25).normalized()
+            r0 = radii[i0] * 0.58
+            ln = min(length * rng.uniform(0.42, 0.6) * (1.15 - 0.5 * t), self._reach(base, cd) * 0.97)
+            if ln > 0.35:
+                self._branch(base, cd, ln, max(0.012, r0), level + 1)
+
+
+def _leaf_normal_fn(sk: TreeSkeleton, blend: float = 0.72):
+    centre = sk.c - Vector((0, 0, sk.r.z * 0.28))
+
+    def fn(p: Vector, card_n: Vector) -> Vector:
+        q = p - centre
+        sph = Vector((q.x / sk.r.x, q.y / sk.r.y, q.z / sk.r.z))
+        if sph.length < 1e-4:
+            sph = UP.copy()
+        sph.normalize()
+        cn = card_n if card_n.dot(sph) >= 0 else -card_n
+        return (sph * blend + cn * (1 - blend)).normalized()
+    return fn
+
+
+def _leaf_color(sk: TreeSkeleton, p: Vector, rng: random.Random):
+    d = sk.crown_d(p)
+    ao = 0.52 + 0.48 * smoothstep(0.30, 0.95, d)
+    ao *= 0.86 + 0.14 * smoothstep(-0.6, 0.5, (p.z - sk.c.z) / sk.r.z)
+    if rng.random() < 0.08:
+        tint = (1.12, 1.04, 0.78)
     else:
-        # Pfalz Apple / Almond Orchard Tree (~4.9m tall, ~4.5m crown)
-        trunk_h = 1.45
-        base_r = 0.22
-        fork_r = 0.14
-        n_main = 4
-        branch_len = (1.5, 2.2)
-        branch_elev = (0.42, 0.88)
-        crown_center_z = 3.1
-        cluster_size = (1.25, 1.75)
-
-    # Organic subtly leaning trunk extending -0.55m underground for hillside grounding
-    lean_x = rng.uniform(-0.14, 0.14)
-    lean_y = rng.uniform(-0.14, 0.14)
-    trunk_pts = [
-        (0.0, 0.0, -0.55),
-        (0.0, 0.0, 0.0),
-        (lean_x * 0.4, lean_y * 0.4, trunk_h * 0.48),
-        (lean_x, lean_y, trunk_h),
-    ]
-    trunk_rads = [base_r * 1.18, base_r * 1.12, (base_r + fork_r) * 0.52, fork_r]
-    add_tapered_tube(bm_bark, uv_b, trunk_pts, trunk_rads, sides=8, uv_v_scale=0.5)
-
-    # Primary & secondary limbs + collect foliage anchor points
-    foliage_anchors = []
-    fork_top = Vector((lean_x, lean_y, trunk_h))
-
-    # Central leader branch for tall deciduous trees
-    if not orchard:
-        leader_mid = fork_top + Vector((rng.uniform(-0.25, 0.25), rng.uniform(-0.25, 0.25), 1.9))
-        leader_tip = leader_mid + Vector((rng.uniform(-0.35, 0.35), rng.uniform(-0.35, 0.35), 2.1))
-        add_tapered_tube(bm_bark, uv_b, [fork_top, leader_mid, leader_tip], [fork_r * 0.72, 0.11, 0.04], sides=6, uv_v_scale=0.6)
-        foliage_anchors.append((leader_tip, 1.15))
-        foliage_anchors.append((leader_mid.lerp(leader_tip, 0.45), 1.0))
-
-    for i in range(n_main):
-        az = (i / n_main) * 2.0 * math.pi + rng.uniform(-0.28, 0.28)
-        elev = rng.uniform(*branch_elev)
-        blen = rng.uniform(*branch_len)
-        d = Vector((math.cos(az) * math.cos(elev), math.sin(az) * math.cos(elev), math.sin(elev)))
-        p0 = fork_top + Vector((0, 0, rng.uniform(-0.22, 0.05)))
-        p1 = p0 + d * (blen * 0.52) + Vector((0, 0, 0.18))
-        p2 = p0 + d * blen + Vector((rng.uniform(-0.25, 0.25), rng.uniform(-0.25, 0.25), 0.28))
-        add_tapered_tube(bm_bark, uv_b, [p0, p1, p2], [fork_r * 0.65, fork_r * 0.42, 0.04], sides=6, uv_v_scale=0.7)
-        foliage_anchors.append((p2, 1.05))
-        foliage_anchors.append((p1.lerp(p2, 0.55) + Vector((0, 0, 0.35)), 0.92))
-
-        # 2 secondary sub-branches per primary limb
-        for sub_side in (-1, 1):
-            az2 = az + sub_side * rng.uniform(0.45, 0.85)
-            elev2 = elev + rng.uniform(-0.15, 0.32)
-            slen = blen * rng.uniform(0.42, 0.60)
-            d2 = Vector((math.cos(az2) * math.cos(elev2), math.sin(az2) * math.cos(elev2), math.sin(elev2)))
-            sp1 = p1 + d2 * slen
-            add_tapered_tube(bm_bark, uv_b, [p1, sp1], [fork_r * 0.34, 0.03], sides=5, uv_v_scale=0.8)
-            foliage_anchors.append((sp1, 0.90))
-
-    obj_bark = create_mesh_object(f"{name_prefix}_Bark", bm_bark, mat_bark, smooth=True, collection=col)
-
-    # Multi-layered crossed & cupped organic leaf clusters at every branch tip
-    bm_fol = bmesh.new()
-    uv_f = bm_fol.loops.layers.uv.new("UVMap")
-    crown_center = Vector((lean_x, lean_y, crown_center_z))
-
-    for anchor, scale_w in foliage_anchors:
-        # 3-4 intersecting tilted foliage cards per branch cluster -> rich lush crown volume!
-        n_cards = 4 if not orchard else 3
-        for k in range(n_cards):
-            jitter = Vector((rng.uniform(-0.46, 0.46), rng.uniform(-0.46, 0.46), rng.uniform(-0.32, 0.40)))
-            pos = anchor + jitter
-            sz = rng.uniform(*cluster_size) * scale_w * 1.15
-            rx = math.radians(rng.uniform(32.0, 128.0)) if k < 2 else math.radians(rng.uniform(-32.0, 32.0))
-            ry = math.radians(rng.uniform(-35.0, 35.0))
-            rz = math.radians(rng.uniform(0.0, 360.0))
-            add_bent_foliage_card(
-                bm_fol, uv_f, pos, Euler((rx, ry, rz), "XYZ"),
-                width=sz, height=sz * rng.uniform(0.88, 1.12), cup=sz * 0.12,
-            )
-
-    # Extra sunlit upper-crown & inner-crown puffs so both street & aerial views look lush and natural
-    n_top = 12 if not orchard else 10
-    for i in range(n_top):
-        az = (i / n_top) * 2.0 * math.pi + rng.uniform(-0.25, 0.25)
-        rad = rng.uniform(0.3, 2.3 if not orchard else 1.55)
-        tz = (crown_center_z + (1.4 if not orchard else 0.7)) + rng.uniform(-0.85, 0.95)
-        pos = Vector((math.cos(az) * rad, math.sin(az) * rad, tz))
-        sz = rng.uniform(*cluster_size) * 1.12
-        add_bent_foliage_card(
-            bm_fol, uv_f, pos,
-            Euler((math.radians(rng.uniform(-32, 32)), math.radians(rng.uniform(-32, 32)), rng.uniform(0, 6.28)), "XYZ"),
-            width=sz, height=sz * 0.96, cup=sz * 0.11,
-        )
-
-    obj_fol = create_mesh_object(f"{name_prefix}_Foliage", bm_fol, mat_fol, smooth=True, collection=col)
-
-    # Smooth outward-blended custom normals on foliage mesh for lush natural sun wrap!
-    mesh = obj_fol.data
-    normals = []
-    for v in mesh.vertices:
-        radial = (v.co - crown_center)
-        if radial.length < 1e-4:
-            radial = Vector((0.0, 0.0, 1.0))
-        else:
-            radial.normalize()
-        # Bias slightly upward so top of crown catches warm sunlight
-        nrm = (radial * 0.78 + Vector((0.0, 0.0, 0.22))).normalized()
-        normals.append(nrm)
-    try:
-        mesh.normals_split_custom_set_from_vertices(normals)
-    except Exception:
-        pass
-
-    return [obj_bark, obj_fol]
+        tint = (rng.uniform(0.92, 1.06), rng.uniform(0.95, 1.05), rng.uniform(0.86, 1.04))
+    return (ao * tint[0], ao * tint[1], ao * tint[2])
 
 
-# ---------------------------------------------------------------------------
-# Prop 4: Authentic German Ortsschild ("Kindenheim / Landkreis Bad Dürkheim")
-# ---------------------------------------------------------------------------
+def _shell_points(sk: TreeSkeleton, count: int, rng: random.Random, d_range=(0.78, 0.98)):
+    pts = []
+    while len(pts) < count:
+        u = rand_unit(rng)
+        if u.z < -0.55:
+            continue
+        s = rng.uniform(*d_range)
+        p = sk.c + Vector((u.x * sk.r.x * s, u.y * sk.r.y * s, u.z * sk.r.z * s))
+        out = Vector((u.x / sk.r.x, u.y / sk.r.y, u.z / sk.r.z)).normalized()
+        pts.append((p, out))
+    return pts
+
+
+def _add_wood(mb: MeshBuilder, sk: TreeSkeleton, max_level: int, sides_by_level: dict, ring_step: dict, tile_m: float) -> None:
+    for br in sk.branches:
+        lvl = br['level']
+        if lvl > max_level:
+            continue
+        step = ring_step.get(lvl, 1)
+        idx = list(range(0, len(br['path']), step))
+        if idx[-1] != len(br['path']) - 1:
+            idx.append(len(br['path']) - 1)
+        path = [br['path'][i] for i in idx]
+        radii = [br['radii'][i] for i in idx]
+        sides = sides_by_level[lvl]
+        circ = math.tau * radii[0]
+        u_rep = max(1.0, round(circ / tile_m * 2.0)) / 2.0 if lvl == 0 else max(0.25, circ / tile_m)
+        mb.tube(path, radii, sides, (0.0, 0.0, 1.0, 1.0), v_per_m=1.0 / tile_m, u_repeat=u_rep, cap_end=(lvl >= 2 or lvl == max_level))
+
+
+def _core_cards(leaves: MeshBuilder, sk: TreeSkeleton, rng: random.Random, tile_crown, normal_fn, count: int) -> None:
+    """Dark, dense cards through the crown centre: real crowns are opaque inside, the sky must not show through."""
+    rx, rz = max(sk.r.x, sk.r.y), sk.r.z
+    stack = max(1, int(round(rz / rx * 0.8)))
+    for k in range(count):
+        for sidx in range(stack):
+            d = rand_unit(rng)
+            d.z *= 0.35
+            d.normalize()
+            right = d.cross(UP).normalized()
+            up = (UP + rand_unit(rng) * 0.35).normalized()
+            zc = sk.c.z + (0.0 if stack == 1 else (-rz * 0.7 + 1.4 * rz * (sidx + 0.5) / stack))
+            centre = Vector((sk.c.x, sk.c.y, zc)) + rand_unit(rng) * (0.22 * rx)
+            s = rx * rng.uniform(1.25, 1.6)
+            shade = rng.uniform(0.42, 0.58)
+            leaves.grid_card(centre, right, up, Vector((0, 0, 0)), s, s, tile_crown, normal_fn, color=(shade, shade * 1.02, shade * 0.95), rows=1,
+                             anchor_bottom=False, translucency=0.3, flip_u=rng.random() < 0.5)
+
+
+def build_tree(col, key: str, cfg: dict, atlas: AtlasInfo, mat_leaf, mat_bark, bark_tile_m: float):
+    sk = TreeSkeleton(cfg)
+    species = cfg['atlas']
+    tiles_branch = [atlas.rect(f'{species}_branch_a'), atlas.rect(f'{species}_branch_b')]
+    tile_crown = atlas.rect(f'{species}_crown')
+    tile_sprig = atlas.rect(f'{species}_sprig')
+    normal_fn = _leaf_normal_fn(sk)
+    out = {}
+
+    def card_frame(pos: Vector, direction: Vector, rng: random.Random):
+        outward = (pos - sk.c)
+        outward = Vector((outward.x / sk.r.x, outward.y / sk.r.y, outward.z / sk.r.z))
+        if outward.length < 1e-3:
+            outward = UP.copy()
+        outward.normalize()
+        up = (direction * 0.55 + outward * 0.6 + UP * 0.18 - UP * cfg['droop'] * 1.2 + rand_unit(rng) * 0.3).normalized()
+        right = up.cross(rand_unit(rng))
+        if right.length < 1e-3:
+            right = up.orthogonal()
+        right.normalize()
+        return right, up, outward
+
+    # ---------------- LOD0 ----------------
+    rng = random.Random(cfg['seed'] * 7 + 1)
+    wood = MeshBuilder()
+    _add_wood(wood, sk, 3, {0: 10, 1: 6, 2: 4, 3: 3}, {0: 1, 1: 1, 2: 1, 3: 2}, bark_tile_m)
+    leaves = MeshBuilder()
+    n_cards = cfg['cards']
+    n_shell = int(n_cards * cfg['shell'])
+    anchors = list(sk.anchors)
+    rng.shuffle(anchors)
+    anchors = anchors[: n_cards - n_shell]
+    spots = [(p, d) for p, d in anchors] + _shell_points(sk, n_shell, rng)
+    for pos, direction in spots:
+        right, up, outward = card_frame(pos, direction, rng)
+        s = cfg['card_m'] * rng.uniform(0.8, 1.2)
+        base = pos - up * (s * 0.18)
+        leaves.grid_card(base, right, up, outward * (0.10 * s) - UP * (cfg['droop'] * s * 0.5), s, s, rng.choice(tiles_branch), normal_fn,
+                         color=_leaf_color(sk, pos, rng), rows=2, flip_u=rng.random() < 0.5, cup=0.06)
+    _core_cards(leaves, sk, rng, tile_crown, normal_fn, 7)
+    for pos, outward in _shell_points(sk, 70, rng, (0.92, 1.04)):
+        up = (outward * 0.8 + UP * 0.3 + rand_unit(rng) * 0.35).normalized()
+        right = up.cross(rand_unit(rng)).normalized()
+        s = 0.55 * rng.uniform(0.85, 1.25)
+        leaves.grid_card(pos - up * 0.1, right, up, Vector((0, 0, -0.04)), s, s, tile_sprig, normal_fn, color=_leaf_color(sk, pos, rng), rows=1)
+    o_w = wood.to_object(f'{key}_LOD0_wood', mat_bark, col, with_color=False, with_data=True)
+    o_l = leaves.to_object(f'{key}_LOD0_leaves', mat_leaf, col)
+    out['LOD0'] = [join_under_empty(f'{key}_LOD0', [o_w, o_l], col), o_w, o_l]
+
+    # ---------------- LOD1 ----------------
+    rng = random.Random(cfg['seed'] * 7 + 2)
+    wood = MeshBuilder()
+    _add_wood(wood, sk, 1, {0: 6, 1: 3}, {0: 2, 1: 2}, bark_tile_m)
+    leaves = MeshBuilder()
+    n1 = max(70, int(n_cards * 0.42))
+    _core_cards(leaves, sk, rng, tile_crown, normal_fn, 5)
+    spots = [(p, d) for p, d in anchors[: n1 // 2]] + _shell_points(sk, n1 - n1 // 2, rng, (0.7, 0.95))
+    for pos, direction in spots:
+        right, up, outward = card_frame(pos, direction, rng)
+        s = cfg['card_m'] * 1.75 * rng.uniform(0.85, 1.15)
+        leaves.grid_card(pos - up * (s * 0.3), right, up, outward * (0.08 * s), s, s, rng.choice(tiles_branch), normal_fn,
+                         color=_leaf_color(sk, pos, rng), rows=1, flip_u=rng.random() < 0.5)
+    o_w = wood.to_object(f'{key}_LOD1_wood', mat_bark, col, with_color=False, with_data=True)
+    o_l = leaves.to_object(f'{key}_LOD1_leaves', mat_leaf, col)
+    out['LOD1'] = [join_under_empty(f'{key}_LOD1', [o_w, o_l], col), o_w, o_l]
+
+    # ---------------- LOD2: a handful of crown cards ----------------
+    rng = random.Random(cfg['seed'] * 7 + 3)
+    wood = MeshBuilder()
+    trunk = sk.branches[0]
+    wood.tube([trunk['path'][0], trunk['path'][3], trunk['path'][-1]], [trunk['radii'][0], trunk['radii'][3], trunk['radii'][-1]], 4,
+              (0.0, 0.0, 1.0, 1.0), v_per_m=1.0 / bark_tile_m)
+    leaves = MeshBuilder()
+    rx, rz = max(sk.r.x, sk.r.y), sk.r.z
+    stack = max(1, int(round(rz / rx * 0.8)))
+    cell_h = 2.0 * rz * 1.06 / stack
+    card_w = 2.0 * rx * 1.22
+    columnar = stack > 1
+    for k in range(4 if columnar else 3):
+        ang = k * math.pi / (4 if columnar else 3) + rng.uniform(-0.2, 0.2)
+        right = Vector((math.cos(ang), math.sin(ang), 0))
+        if columnar:
+            # fastigiate crown (poplar): ONE tall card per plane - stacked round crown cards read as a string of beads
+            leaves.grid_card(Vector((sk.c.x, sk.c.y, sk.c.z)), right, UP, Vector((0, 0, 0)), card_w * 1.1, 2.0 * rz * 1.04, tile_crown, normal_fn,
+                             color=(0.9, 0.92, 0.88), rows=2, anchor_bottom=False, flip_u=rng.random() < 0.5)
+            continue
+        centre = Vector((sk.c.x, sk.c.y, sk.c.z - rz * 1.03 + cell_h * 0.5)) + right * rng.uniform(-0.1, 0.1) * rx
+        leaves.grid_card(centre, right, UP, Vector((0, 0, 0)), card_w * rng.uniform(0.9, 1.08), cell_h, tile_crown, normal_fn,
+                         color=(0.66, 0.68, 0.64), rows=1, anchor_bottom=False, flip_u=rng.random() < 0.5)
+    n_sh = 0 if columnar else 14
+    normal_fn = _leaf_normal_fn(sk, 0.9)
+    for pos, outward in _shell_points(sk, n_sh, rng, (0.5, 0.9)):
+        up = (UP - outward * outward.dot(UP))
+        if up.length < 0.2:
+            up = outward.orthogonal()
+        up.normalize()
+        right = up.cross(outward).normalized()
+        # uneven lobes + the same depth shading as the detailed LODs: far crowns must not read as smooth green balls
+        s = rx * rng.uniform(0.75, 1.3)
+        leaves.grid_card(pos, right, up, Vector((0, 0, 0)), s * rng.uniform(0.85, 1.2), s, tile_crown, normal_fn, color=_leaf_color(sk, pos, rng), rows=1,
+                         anchor_bottom=False, flip_u=rng.random() < 0.5)
+    # lid seen from the drone (slightly tilted and off-centre so crowns do not read as perfect discs)
+    lid_x = Vector((1, rng.uniform(-0.3, 0.3), rng.uniform(-0.18, 0.18))).normalized()
+    lid_y = Vector((rng.uniform(-0.3, 0.3), 1, rng.uniform(-0.18, 0.18))).normalized()
+    leaves.grid_card(Vector((sk.c.x, sk.c.y, sk.c.z + rz * (0.6 if columnar else 0.25))), lid_x, lid_y, Vector((0, 0, 0)), card_w * 0.95, card_w * 0.95,
+                     tile_crown, normal_fn, color=(0.9, 0.92, 0.86), rows=1, anchor_bottom=False)
+    o_w = wood.to_object(f'{key}_LOD2_wood', mat_bark, col, with_color=False, with_data=True)
+    o_l = leaves.to_object(f'{key}_LOD2_leaves', mat_leaf, col)
+    out['LOD2'] = [join_under_empty(f'{key}_LOD2', [o_w, o_l], col), o_w, o_l]
+    return out
+
+
+# ---------------------------------------------------------------------------------------------------------
+# Village props
+# ---------------------------------------------------------------------------------------------------------
 
 def build_ortsschild(col):
-    mat_steel = make_pbr_material(
-        "Ortsschild_Steel",
-        base_color=(0.66, 0.68, 0.70, 1.0),
-        roughness=0.38,
-        metallic=0.82,
-    )
-    mat_front = make_pbr_material(
-        "Ortsschild_Front",
-        albedo_path=os.path.join(TEX_DIR, "ortsschild_front.png"),
-        roughness=0.32,
-        metallic=0.08,
-    )
-    mat_back = make_pbr_material(
-        "Ortsschild_Back",
-        albedo_path=os.path.join(TEX_DIR, "ortsschild_back.png"),
-        roughness=0.32,
-        metallic=0.08,
-    )
-
-    # Galvanized twin posts + rear mounting brackets + sign rim frame
-    bm_st = bmesh.new()
-    uv_st = bm_st.loops.layers.uv.new("UVMap")
+    galv_m = library_tile_m('metal_galvanized')
+    mat_steel = make_library_material('Ortsschild_Galvanized', 'metal_galvanized', size='_512')
+    mat_front = make_texture_material('Ortsschild_Front', os.path.join(TEX_DIR, 'ortsschild_front.png'), roughness=0.34)
+    mat_back = make_texture_material('Ortsschild_Back', os.path.join(TEX_DIR, 'ortsschild_back.png'), roughness=0.4)
+    mb = MeshBuilder()
     for px in (-0.34, 0.34):
-        add_tapered_tube(bm_st, uv_st, [(px, 0.032, -0.50), (px, 0.032, 2.26)], [0.030, 0.030], sides=12)
-    # Horizontal mounting rails behind sign
+        mb.tube([Vector((px, 0.034, -0.5)), Vector((px, 0.034, 1.2)), Vector((px, 0.034, 2.27))], [0.03, 0.03, 0.03], 10,
+                (0, 0, 1, 1), v_per_m=1 / galv_m, u_repeat=0.25, cap_end=True)
     for rz in (1.72, 2.12):
-        bmesh.ops.create_cube(bm_st, size=1.0, matrix=Matrix.Translation((0.0, 0.015, rz)) @ Matrix.Diagonal((0.86, 0.02, 0.03, 1.0)))
-    # Thin metal sign edge frame (width 0.96m, height 0.64m, centered at Z=1.92m)
-    sw, sh, st = 0.96, 0.64, 0.022
-    cz = 1.92
-    bmesh.ops.create_cube(bm_st, size=1.0, matrix=Matrix.Translation((0.0, 0.0, cz)) @ Matrix.Diagonal((sw, st, sh, 1.0)))
-    obj_steel = create_mesh_object("Ortsschild_Frame", bm_st, mat_steel, smooth=False, collection=col)
+        mb.box((-0.43, 0.004, rz - 0.015), (0.43, 0.026, rz + 0.015), (0, 0, 1, 1), uv_m=galv_m, skip_bottom=False)
+    sw, sh, st, cz = 0.96, 0.64, 0.02, 1.92
+    mb.box((-sw / 2, -st / 2, cz - sh / 2), (sw / 2, st / 2, cz + sh / 2), (0, 0, 1, 1), uv_m=galv_m, skip_bottom=False)
+    steel = mb.to_object('Ortsschild_Frame', mat_steel, col, with_color=False, with_data=False)
+    front = MeshBuilder()
+    yf = -st / 2 - 0.002
+    front.quad([(-sw / 2, yf, cz - sh / 2), (sw / 2, yf, cz - sh / 2), (sw / 2, yf, cz + sh / 2), (-sw / 2, yf, cz + sh / 2)], (0, 0, 1, 1))
+    o_front = front.to_object('Ortsschild_FrontFace', mat_front, col, with_color=False, with_data=False)
+    back = MeshBuilder()
+    yb = st / 2 + 0.002
+    back.quad([(sw / 2, yb, cz - sh / 2), (-sw / 2, yb, cz - sh / 2), (-sw / 2, yb, cz + sh / 2), (sw / 2, yb, cz + sh / 2)], (0, 0, 1, 1))
+    o_back = back.to_object('Ortsschild_BackFace', mat_back, col, with_color=False, with_data=False)
+    return [steel, o_front, o_back]
 
-    # Front face (facing -Y in Blender -> +Z in glTF!)
-    bm_fr = bmesh.new()
-    uv_fr = bm_fr.loops.layers.uv.new("UVMap")
-    y_f = -st * 0.5 - 0.002
-    v0 = bm_fr.verts.new((-sw * 0.5, y_f, cz - sh * 0.5))
-    v1 = bm_fr.verts.new((sw * 0.5, y_f, cz - sh * 0.5))
-    v2 = bm_fr.verts.new((sw * 0.5, y_f, cz + sh * 0.5))
-    v3 = bm_fr.verts.new((-sw * 0.5, y_f, cz + sh * 0.5))
-    f = bm_fr.faces.new((v0, v1, v2, v3))
-    for lp, uv in zip(f.loops, ((0, 0), (1, 0), (1, 1), (0, 1))):
-        lp[uv_fr].uv = uv
-    obj_front = create_mesh_object("Ortsschild_FrontFace", bm_fr, mat_front, smooth=False, collection=col)
-
-    # Back face (facing +Y in Blender -> -Z in glTF!)
-    bm_bk = bmesh.new()
-    uv_bk = bm_bk.loops.layers.uv.new("UVMap")
-    y_b = st * 0.5 + 0.002
-    b0 = bm_bk.verts.new((sw * 0.5, y_b, cz - sh * 0.5))
-    b1 = bm_bk.verts.new((-sw * 0.5, y_b, cz - sh * 0.5))
-    b2 = bm_bk.verts.new((-sw * 0.5, y_b, cz + sh * 0.5))
-    b3 = bm_bk.verts.new((sw * 0.5, y_b, cz + sh * 0.5))
-    fb = bm_bk.faces.new((b0, b1, b2, b3))
-    for lp, uv in zip(fb.loops, ((0, 0), (1, 0), (1, 1), (0, 1))):
-        lp[uv_bk].uv = uv
-    obj_back = create_mesh_object("Ortsschild_BackFace", bm_bk, mat_back, smooth=False, collection=col)
-
-    return [obj_steel, obj_front, obj_back]
-
-
-# ---------------------------------------------------------------------------
-# Prop 5: Authentic Kindenheim Galvanized Curved Peitschenleuchte (streetlamp.glb)
-# Matches real Kindenheim Hauptstraße, Neugasse & Burgweg streetlamps in Street View!
-# ---------------------------------------------------------------------------
 
 def build_streetlamp(col):
-    mat_metal = make_pbr_material(
-        "Streetlamp_Galvanized_Metal",
-        base_color=(0.56, 0.58, 0.60, 1.0),
-        roughness=0.38,
-        metallic=0.80,
-    )
-    mat_head = make_pbr_material(
-        "Streetlamp_Luminaire_Housing",
-        base_color=(0.24, 0.26, 0.28, 1.0),
-        roughness=0.42,
-        metallic=0.72,
-    )
-    mat_glass = make_pbr_material(
-        "Streetlamp_LED_Lens",
-        base_color=(1.0, 0.96, 0.86, 1.0),
-        roughness=0.16,
-        metallic=0.0,
-        emission_color=(1.0, 0.92, 0.72, 1.0),
-        emission_strength=1.5,
-    )
+    """Galvanised whip lamp (Peitschenleuchte) as on Hauptstrasse / Neugasse. Arm points to -Y (glTF +Z)."""
+    galv_m = library_tile_m('metal_galvanized')
+    mat_pole = make_library_material('Streetlamp_Galvanized', 'metal_galvanized', size='_512')
+    mat_head = make_library_material('Streetlamp_Housing', 'metal_painted', size='_512', tint=(0.24, 0.26, 0.28))
+    mat_lens = make_flat_material('Lamp_Emissive_Lens', (0.92, 0.9, 0.84), roughness=0.25, emission=(1.0, 0.86, 0.62), emission_strength=1.0)
+    pole_pts = [(0, 0, -0.5), (0, 0, 0.0), (0, 0, 1.15), (0, 0, 3.0), (0, 0, 4.45), (0, -0.06, 4.95), (0, -0.22, 5.35), (0, -0.50, 5.64),
+                (0, -0.84, 5.80), (0, -1.12, 5.86)]
+    pole_r = [0.07, 0.068, 0.062, 0.052, 0.044, 0.040, 0.036, 0.033, 0.030, 0.028]
+    mb = MeshBuilder()
+    mb.tube([Vector(p) for p in pole_pts], pole_r, 12, (0, 0, 1, 1), v_per_m=1 / galv_m, u_repeat=0.5)
+    mb.tube([Vector((0, 0, 0.0)), Vector((0, 0, 0.035))], [0.13, 0.13], 12, (0, 0, 1, 1), v_per_m=1 / galv_m, cap_end=True)
+    mb.box((-0.04, -0.074, 0.55), (0.04, -0.06, 0.95), (0, 0, 1, 1), uv_m=galv_m, skip_bottom=False)
+    pole = mb.to_object('Streetlamp_Pole', mat_pole, col, with_color=False, with_data=False)
+    hb = MeshBuilder()
+    paint_m = library_tile_m('metal_painted')
+    tilt = math.radians(-8)
+    c = Vector((0, -1.32, 5.885))
 
-    bm_m = bmesh.new()
-    uv_m = bm_m.loops.layers.uv.new("UVMap")
+    def tp(x, y, z):
+        return c + Vector((x, y * math.cos(tilt) - z * math.sin(tilt), y * math.sin(tilt) + z * math.cos(tilt)))
+    prof = [(-0.26, 0.055, 0.03), (-0.10, 0.105, 0.045), (0.12, 0.11, 0.05), (0.27, 0.07, 0.03)]  # (y, half width, half height)
+    rings = []
+    for (y, hw, hh) in prof:
+        ring = []
+        for (sx, sz) in ((-1, -1), (1, -1), (1, 0.4), (0.55, 1), (-0.55, 1), (-1, 0.4)):
+            ring.append(hb.vert(tp(sx * hw, y, sz * hh), Vector((sx, 0, sz)), (y / paint_m, (sx + sz) * 0.1 / paint_m)))
+        rings.append(ring)
+    for i in range(len(rings) - 1):
+        for s in range(6):
+            a, b = s, (s + 1) % 6
+            hb.face(rings[i][a], rings[i + 1][a], rings[i + 1][b], rings[i][b])
+    for ring, ny in ((rings[0], -1), (rings[-1], 1)):
+        ids = [hb.vert(hb.verts[i], (0, ny, 0), (0, 0)) for i in ring]
+        hb.face(*(ids if ny < 0 else list(reversed(ids))))
+    head = hb.to_object('Streetlamp_Housing', mat_head, col, with_color=False, with_data=False)
+    lb = MeshBuilder()
+    down = Vector((0, math.sin(tilt), -math.cos(tilt)))
+    lpts = [tp(-0.075, -0.16, -0.034), tp(0.075, -0.16, -0.034), tp(0.075, 0.2, -0.05), tp(-0.075, 0.2, -0.05)]
+    lb.quad([lpts[3], lpts[2], lpts[1], lpts[0]], (0, 0, 1, 1), normals=[down] * 4)
+    lens = lb.to_object('Streetlamp_Lamp_Emissive_Lens', mat_lens, col, with_color=False, with_data=False)
+    return [pole, head, lens]
 
-    # Authentic slim galvanized German Peitschenleuchte sweeping arc (height ~5.85m, reach 1.15m!)
-    pole_pts = [
-        (0.0, 0.0, -0.50),
-        (0.0, 0.0, 0.0),
-        (0.0, 0.0, 1.15),
-        (0.0, 0.0, 4.45),
-        (0.0, -0.06, 4.95),
-        (0.0, -0.22, 5.35),
-        (0.0, -0.50, 5.64),
-        (0.0, -0.84, 5.80),
-        (0.0, -1.12, 5.86),
-    ]
-    pole_rads = [0.068, 0.066, 0.060, 0.044, 0.040, 0.036, 0.033, 0.030, 0.028]
-    add_tapered_tube(bm_m, uv_m, pole_pts, pole_rads, sides=10)
-    obj_metal = create_mesh_object("Streetlamp_Pole", bm_m, mat_metal, smooth=True, collection=col)
-
-    # Streamlined modern-German LED luminaire shoe housing angled slightly upward at arc tip
-    bm_h = bmesh.new()
-    uv_h = bm_h.loops.layers.uv.new("UVMap")
-    head_mat = (
-        Matrix.Translation((0.0, -1.28, 5.89))
-        @ Matrix.Rotation(math.radians(-10.0), 4, "X")
-        @ Matrix.Diagonal((0.20, 0.44, 0.075, 1.0))
-    )
-    bmesh.ops.create_cube(bm_h, size=1.0, matrix=head_mat)
-    obj_head = create_mesh_object("Streetlamp_Housing", bm_h, mat_head, smooth=False, collection=col)
-
-    # Glowing underside diffuser lens
-    bm_g = bmesh.new()
-    uv_g = bm_g.loops.layers.uv.new("UVMap")
-    lens_mat = (
-        Matrix.Translation((0.0, -1.30, 5.848))
-        @ Matrix.Rotation(math.radians(-10.0), 4, "X")
-        @ Matrix.Diagonal((0.15, 0.30, 0.022, 1.0))
-    )
-    bmesh.ops.create_cube(bm_g, size=1.0, matrix=lens_mat)
-    obj_glass = create_mesh_object("Streetlamp_Diffuser", bm_g, mat_glass, smooth=False, collection=col)
-    return [obj_metal, obj_head, obj_glass]
-
-
-# ---------------------------------------------------------------------------
-# Prop 6: Round Straw Hay Bale (hay_bale.glb)
-# ---------------------------------------------------------------------------
 
 def build_hay_bale(col):
-    mat_hay = make_pbr_material(
-        "HayBale_Mat",
-        albedo_path=os.path.join(TEX_DIR, "hay_bale_albedo.jpg"),
-        normal_path=os.path.join(TEX_DIR, "hay_bale_normal.png"),
-        roughness=0.94,
-        normal_strength=1.2,
-    )
-
-    bm = bmesh.new()
-    uv = bm.loops.layers.uv.new("UVMap")
-    rng = random.Random(606)
-
-    radius = 0.75
-    half_len = 0.62
-    cz = radius - 0.02  # Slightly settled into ground (Z = -0.02..1.48)
-    segs = 20
-    # Build 5 rings along X from -half_len to +half_len for beveled organic round bale ends
-    x_profile = [
-        (-half_len, radius * 0.92),
-        (-half_len + 0.09, radius),
-        (0.0, radius * 1.01),
-        (half_len - 0.09, radius),
-        (half_len, radius * 0.92),
-    ]
+    """Round straw bale, 1.5 m diameter x 1.25 m, axis along X. Straw strands wrap around the circumference."""
+    mat = make_straw_material('HayBale_Straw', TEX_DIR)
+    mb = MeshBuilder()
+    radius, half = 0.75, 0.625
+    cz = radius - 0.03
+    segs = 28
+    prof = [(-half, radius * 0.9), (-half + 0.07, radius * 0.99), (-0.2, radius * 1.01), (0.2, radius * 1.01), (half - 0.07, radius * 0.99), (half, radius * 0.9)]
+    tile = 1.5
     rings = []
-    for r_i, (xp, rp) in enumerate(x_profile):
+    for xp, rp in prof:
         ring = []
-        for s in range(segs):
-            a = (s / segs) * 2.0 * math.pi
-            jit = rng.uniform(-0.015, 0.015)
-            y = math.cos(a) * (rp + jit)
-            z = cz + math.sin(a) * (rp + jit)
-            ring.append(bm.verts.new((xp, y, z)))
-        rings.append((ring, r_i / (len(x_profile) - 1)))
-
-    # Barrel UVs map into LEFT half of texture (u in 0.0..0.49)
+        for s in range(segs + 1):
+            a = (s % segs) / segs * math.tau
+            jit = 1.0 + 0.012 * math.sin(a * 7 + xp * 9) + 0.008 * math.sin(a * 13)
+            yy = math.cos(a) * rp * jit
+            zz = math.sin(a) * rp * jit
+            if zz < -radius * 0.9:
+                zz = -radius * 0.9 + (zz + radius * 0.9) * 0.35  # settled on the ground
+            n = Vector((0.25 * (1 if xp > half - 0.1 else -1 if xp < -half + 0.1 else 0), math.cos(a), math.sin(a)))
+            ring.append(mb.vert((xp, yy, cz + zz), n, (xp / tile, (s / segs) * math.tau * radius / tile)))
+        rings.append(ring)
     for i in range(len(rings) - 1):
-        r0, u_t0 = rings[i]
-        r1, u_t1 = rings[i + 1]
         for s in range(segs):
-            sn = (s + 1) % segs
-            f = bm.faces.new((r0[s], r1[s], r1[sn], r0[sn]))
-            v0 = s / segs
-            v1 = (s + 1) / segs
-            f.loops[0][uv].uv = (u_t0 * 0.49, v0)
-            f.loops[1][uv].uv = (u_t1 * 0.49, v0)
-            f.loops[2][uv].uv = (u_t1 * 0.49, v1)
-            f.loops[3][uv].uv = (u_t0 * 0.49, v1)
-
-    # Spiral end caps map into RIGHT half of texture (u in 0.51..0.99)
-    for is_pos, ring in [(False, rings[0][0]), (True, rings[-1][0])]:
-        cx_end = half_len if is_pos else -half_len
-        c_vert = bm.verts.new((cx_end + (0.02 if is_pos else -0.02), 0.0, cz))
+            mb.face(rings[i][s], rings[i][s + 1], rings[i + 1][s + 1], rings[i + 1][s])
+    for sign, ring in ((-1, rings[0]), (1, rings[-1])):
+        n = Vector((sign, 0, 0))
+        centre = mb.vert((sign * (half + 0.03), 0, cz), n, (0.5, 0.5))
+        rim = []
+        for s in range(segs + 1):
+            px, py, pz = mb.verts[ring[s]]
+            rim.append(mb.vert((px, py, pz), n + Vector((0, py, pz - cz)) * 0.3, (0.5 + py / tile, 0.5 + (pz - cz) / tile)))
         for s in range(segs):
-            sn = (s + 1) % segs
-            a0 = (s / segs) * 2.0 * math.pi
-            a1 = ((s + 1) / segs) * 2.0 * math.pi
-            if is_pos:
-                f = bm.faces.new((ring[s], c_vert, ring[sn]))
-                uvs = (
-                    (0.75 + 0.23 * math.cos(a0), 0.5 + 0.46 * math.sin(a0)),
-                    (0.75, 0.5),
-                    (0.75 + 0.23 * math.cos(a1), 0.5 + 0.46 * math.sin(a1)),
-                )
+            if sign > 0:
+                mb.face(rim[s], rim[s + 1], centre)
             else:
-                f = bm.faces.new((ring[sn], c_vert, ring[s]))
-                uvs = (
-                    (0.75 + 0.23 * math.cos(a1), 0.5 + 0.46 * math.sin(a1)),
-                    (0.75, 0.5),
-                    (0.75 + 0.23 * math.cos(a0), 0.5 + 0.46 * math.sin(a0)),
-                )
-            for lp, uvp in zip(f.loops, uvs):
-                lp[uv].uv = uvp
+                mb.face(rim[s + 1], rim[s], centre)
+    return [mb.to_object('HayBale', mat, col, with_color=False, with_data=False)]
 
-    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
-    obj = create_mesh_object("HayBale", bm, mat_hay, smooth=True, collection=col)
-    return [obj]
-
-
-# ---------------------------------------------------------------------------
-# Prop 7: Pfalz Oak Wine Barrel (wine_barrel.glb)
-# ---------------------------------------------------------------------------
 
 def build_wine_barrel(col):
-    mat_oak = make_pbr_material(
-        "WineBarrel_Oak",
-        albedo_path=os.path.join(TEX_DIR, "wine_barrel_albedo.jpg"),
-        normal_path=os.path.join(TEX_DIR, "wine_barrel_normal.png"),
-        roughness=0.72,
-        normal_strength=1.0,
-    )
-    mat_iron = make_pbr_material(
-        "WineBarrel_Iron",
-        base_color=(0.18, 0.19, 0.21, 1.0),
-        roughness=0.45,
-        metallic=0.85,
-    )
-
-    bm_oak = bmesh.new()
-    uv_o = bm_oak.loops.layers.uv.new("UVMap")
-    segs = 20
+    """Upright 225 l barrique: oak staves (grain along the staves), weathered steel hoops."""
+    oak_m = library_tile_m('wood_beam_oak')
+    mat_oak = make_library_material('WineBarrel_Oak', 'wood_beam_oak', size='_512', tint=(0.86, 0.74, 0.6))
+    mat_hoop = make_library_material('WineBarrel_Hoops', 'metal_rusty', size='_512', tint=(0.55, 0.5, 0.48))
+    segs = 24
     H = 0.94
-    # Classic Barrique / Halbstück profile (bulged belly)
-    profile = [
-        (0.00, 0.275),
-        (0.04, 0.285),
-        (0.18, 0.320),
-        (0.35, 0.348),
-        (0.47, 0.356),
-        (0.59, 0.348),
-        (0.76, 0.320),
-        (0.90, 0.285),
-        (0.94, 0.275),
-    ]
+    profile = [(0.00, 0.275), (0.04, 0.285), (0.18, 0.320), (0.35, 0.348), (0.47, 0.356), (0.59, 0.348), (0.76, 0.320), (0.90, 0.285), (0.94, 0.275)]
+    mb = MeshBuilder()
     rings = []
-    for zp, rp in profile:
+    for i, (zp, rp) in enumerate(profile):
+        slope = 0.0
+        if 0 < i < len(profile) - 1:
+            slope = (profile[i + 1][1] - profile[i - 1][1]) / (profile[i + 1][0] - profile[i - 1][0])
         ring = []
-        for s in range(segs):
-            a = (s / segs) * 2.0 * math.pi
-            ring.append(bm_oak.verts.new((math.cos(a) * rp, math.sin(a) * rp, zp)))
-        rings.append((ring, zp / H))
-
+        for s in range(segs + 1):
+            a = (s % segs) / segs * math.tau
+            ring.append(mb.vert((math.cos(a) * rp, math.sin(a) * rp, zp), Vector((math.cos(a), math.sin(a), -slope)),
+                                (s / segs * math.tau * 0.35 / oak_m, zp / oak_m)))
+        rings.append(ring)
     for i in range(len(rings) - 1):
-        r0, v0 = rings[i]
-        r1, v1 = rings[i + 1]
         for s in range(segs):
-            sn = (s + 1) % segs
-            f = bm_oak.faces.new((r0[s], r0[sn], r1[sn], r1[s]))
-            u0, u1 = s / segs, (s + 1) / segs
-            f.loops[0][uv_o].uv = (u0, v0)
-            f.loops[1][uv_o].uv = (u1, v0)
-            f.loops[2][uv_o].uv = (u1, v1)
-            f.loops[3][uv_o].uv = (u0, v1)
-
-    # Recessed top & bottom oak heads (with chime lip)
-    for is_top, edge_ring, z_lip, z_lid in [(False, rings[0][0], 0.0, 0.03), (True, rings[-1][0], H, H - 0.035)]:
-        inner_ring = []
+            mb.face(rings[i][s], rings[i][s + 1], rings[i + 1][s + 1], rings[i + 1][s])
+    for top in (True, False):
+        zl = H if top else 0.0
+        zh = H - 0.035 if top else 0.03
+        nz = 1 if top else -1
+        outer, inner = [], []
+        for s in range(segs + 1):
+            a = (s % segs) / segs * math.tau
+            ca, sa = math.cos(a), math.sin(a)
+            outer.append(mb.vert((ca * 0.275, sa * 0.275, zl), (0, 0, nz), (0.5 + ca * 0.275 / oak_m, 0.5 + sa * 0.275 / oak_m)))
+            inner.append(mb.vert((ca * 0.252, sa * 0.252, zh), (-ca, -sa, nz * 0.4), (0.5 + ca * 0.252 / oak_m, 0.5 + sa * 0.252 / oak_m)))
+        centre = mb.vert((0, 0, zh), (0, 0, nz), (0.5, 0.5))
+        lid = [mb.vert(mb.verts[i], (0, 0, nz), mb.uvs[i]) for i in inner]
         for s in range(segs):
-            a = (s / segs) * 2.0 * math.pi
-            inner_ring.append(bm_oak.verts.new((math.cos(a) * 0.255, math.sin(a) * 0.255, z_lid)))
+            if top:
+                mb.face(outer[s], outer[s + 1], inner[s + 1], inner[s])
+                mb.face(lid[s], lid[s + 1], centre)
+            else:
+                mb.face(outer[s + 1], outer[s], inner[s], inner[s + 1])
+                mb.face(lid[s + 1], lid[s], centre)
+    oak = mb.to_object('WineBarrel_Oak', mat_oak, col, with_color=False, with_data=False)
+    hb = MeshBuilder()
+    rust_m = library_tile_m('metal_rusty')
+    for hz, hr, hh in [(0.055, 0.292, 0.036), (0.21, 0.328, 0.032), (0.37, 0.354, 0.03), (0.57, 0.354, 0.03), (0.73, 0.328, 0.032), (0.885, 0.292, 0.036)]:
+        lo, hi = [], []
+        for s in range(segs + 1):
+            a = (s % segs) / segs * math.tau
+            n = (math.cos(a), math.sin(a), 0)
+            u = s / segs * math.tau * hr / rust_m
+            lo.append(hb.vert((math.cos(a) * (hr + 0.005), math.sin(a) * (hr + 0.005), hz - hh / 2), n, (u, 0)))
+            hi.append(hb.vert((math.cos(a) * (hr + 0.005), math.sin(a) * (hr + 0.005), hz + hh / 2), n, (u, hh / rust_m)))
         for s in range(segs):
-            sn = (s + 1) % segs
-            verts_q = (edge_ring[s], edge_ring[sn], inner_ring[sn], inner_ring[s]) if is_top else (edge_ring[sn], edge_ring[s], inner_ring[s], inner_ring[sn])
-            f = bm_oak.faces.new(verts_q)
-            for lp in f.loops:
-                lp[uv_o].uv = (0.5, 0.5)
-        f_lid = bm_oak.faces.new(inner_ring if is_top else list(reversed(inner_ring)))
-        for lp in f_lid.loops:
-            v = lp.vert.co
-            lp[uv_o].uv = (0.5 + v.x / 0.6, 0.5 + v.y / 0.6)
-
-    bmesh.ops.recalc_face_normals(bm_oak, faces=bm_oak.faces)
-    obj_oak = create_mesh_object("WineBarrel_Oak", bm_oak, mat_oak, smooth=True, collection=col)
-
-    # 6 distinct iron hoops hugging the barrel curve
-    bm_ir = bmesh.new()
-    uv_ir = bm_ir.loops.layers.uv.new("UVMap")
-    hoop_specs = [(0.055, 0.292, 0.034), (0.21, 0.328, 0.032), (0.37, 0.354, 0.030),
-                  (0.57, 0.354, 0.030), (0.73, 0.328, 0.032), (0.885, 0.292, 0.034)]
-    for hz, hr, hh in hoop_specs:
-        r_bot = []
-        r_top = []
-        for s in range(segs):
-            a = (s / segs) * 2.0 * math.pi
-            r_bot.append(bm_ir.verts.new((math.cos(a) * (hr + 0.004), math.sin(a) * (hr + 0.004), hz - hh * 0.5)))
-            r_top.append(bm_ir.verts.new((math.cos(a) * (hr + 0.004), math.sin(a) * (hr + 0.004), hz + hh * 0.5)))
-        for s in range(segs):
-            sn = (s + 1) % segs
-            f = bm_ir.faces.new((r_bot[s], r_bot[sn], r_top[sn], r_top[s]))
-            for lp in f.loops:
-                lp[uv_ir].uv = (0.5, 0.5)
-    bmesh.ops.recalc_face_normals(bm_ir, faces=bm_ir.faces)
-    obj_iron = create_mesh_object("WineBarrel_Hoops", bm_ir, mat_iron, smooth=True, collection=col)
-    return [obj_oak, obj_iron]
+            hb.face(lo[s], lo[s + 1], hi[s + 1], hi[s])
+    hoops = hb.to_object('WineBarrel_Hoops', mat_hoop, col, with_color=False, with_data=False)
+    return [oak, hoops]
 
 
-# ---------------------------------------------------------------------------
-# Sunlit Outdoor Showcase Renderer for Visual Self-Inspection
-# ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------------------
 
-def render_props_showcase(render_path: str, prop_groups: dict):
-    """Arrange all 7 props cleanly on a sunlit Pfalz courtyard/vineyard showcase stage and render 1280x720."""
-    # Offset each prop cleanly for the showcase shot (after GLB export at origin!)
-    placements = {
-        "vine_row": (0.0, 2.2, 0.0),
-        "tree_deciduous": (-5.8, 3.6, 0.0),
-        "tree_orchard": (5.2, 2.8, 0.0),
-        "ortsschild": (-2.4, -1.8, 0.0),
-        "streetlamp": (2.8, -0.6, 0.0),
-        "hay_bale": (0.2, -1.6, 0.0),
-        "wine_barrel": (-0.95, -2.1, 0.0),
+def _meta(glb_rel: str, objs: list, fsize: int, lods: dict | None = None, node_prefix: str | None = None) -> dict:
+    meshes = [o for o in objs if o.type == 'MESH']
+    entry = {
+        'glbPath': glb_rel,
+        'bounds': object_bounds_gltf(meshes),
+        'meshCount': len(meshes),
+        'approxTriangles': triangle_count(meshes),
+        'fileSizeBytes': fsize,
     }
-    for key, objs in prop_groups.items():
-        dx, dy, dz = placements[key]
-        for o in objs:
-            o.location = (dx, dy, dz)
-
-    # Sunlit ground pad
-    mat_ground = make_pbr_material("Showcase_Ground", base_color=(0.34, 0.38, 0.24, 1.0), roughness=0.92)
-    bpy.ops.mesh.primitive_plane_add(size=45.0, location=(0.0, 1.0, 0.0))
-    ground = bpy.context.active_object
-    ground.data.materials.append(mat_ground)
-
-    # Sky + Sun
-    scene = bpy.context.scene
-    scene.render.engine = "BLENDER_EEVEE"
-    scene.render.resolution_x = 1280
-    scene.render.resolution_y = 720
-    scene.render.image_settings.file_format = "PNG"
-    scene.view_settings.view_transform = "AgX"
-    scene.view_settings.exposure = -1.1
-
-    world = bpy.data.worlds.new("SkyWorld")
-    scene.world = world
-    wnt = world.node_tree
-    bg = wnt.nodes.get("Background")
-    sky = wnt.nodes.new("ShaderNodeTexSky")
-    sky.sky_type = "MULTIPLE_SCATTERING"
-    sky.sun_elevation = math.radians(34.0)
-    sky.sun_rotation = math.radians(215.0)
-    wnt.links.new(sky.outputs["Color"], bg.inputs["Color"])
-    bg.inputs["Strength"].default_value = 0.28
-
-    sun_data = bpy.data.lights.new("Sun", type="SUN")
-    sun_data.energy = 3.2
-    sun_data.angle = math.radians(1.5)
-    sun_obj = bpy.data.objects.new("Sun", sun_data)
-    sun_obj.rotation_euler = Euler((math.radians(52.0), math.radians(12.0), math.radians(-32.0)), "XYZ")
-    scene.collection.objects.link(sun_obj)
-
-    cam_data = bpy.data.cameras.new("ShowcaseCam")
-    cam_data.lens = 30.0
-    cam_obj = bpy.data.objects.new("ShowcaseCam", cam_data)
-    cam_obj.location = Vector((-0.8, -12.8, 3.8))
-    target = Vector((-0.2, 1.4, 2.8))
-    cam_obj.rotation_euler = (target - cam_obj.location).to_track_quat("-Z", "Y").to_euler()
-    scene.collection.objects.link(cam_obj)
-    scene.camera = cam_obj
-
-    os.makedirs(os.path.dirname(render_path), exist_ok=True)
-    scene.render.filepath = render_path
-    bpy.ops.render.render(write_still=True)
-    print(f"Rendered props showcase -> {render_path}")
+    if node_prefix:
+        entry['nodePrefix'] = node_prefix
+    if lods:
+        entry['lods'] = lods
+    return entry
 
 
-def main():
-    argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--render", type=str, default="", help="Optional 1280x720 showcase render output PNG")
-    args = parser.parse_args(argv)
-
+def main() -> None:
     clear_scene()
-    builders = {
-        "vine_row": lambda col: build_vine_row(col),
-        "tree_deciduous": lambda col: build_tree(col, "TreeDeciduous", orchard=False),
-        "tree_orchard": lambda col: build_tree(col, "TreeOrchard", orchard=True),
-        "ortsschild": lambda col: build_ortsschild(col),
-        "streetlamp": lambda col: build_streetlamp(col),
-        "hay_bale": lambda col: build_hay_bale(col),
-        "wine_barrel": lambda col: build_wine_barrel(col),
-    }
+    os.makedirs(GLB_DIR, exist_ok=True)
+    scene_col = bpy.context.scene.collection
+    props_meta: dict = {}
 
-    prop_groups = {}
-    props_meta = {}
+    col = bpy.data.collections.new('Prop_vine_row')
+    scene_col.children.link(col)
+    vine_atlas = AtlasInfo(os.path.join(TEX_DIR, 'veg_vine_atlas.json'))
+    vine = build_vine(col, vine_atlas)
+    vine_objs = vine['LOD0'] + vine['LOD1'] + vine['FAR'] + vine['FLOOR']
+    size = export_glb(vine_objs, os.path.join(GLB_DIR, 'vine_row.glb'), image_quality=80)
+    props_meta['vine_row'] = _meta('/assets/models/village/props/vine_row.glb', vine['LOD0'], size, node_prefix='vine_row', lods={
+        k: {'node': f'vine_row_{k}', 'triangles': triangle_count(v)} for k, v in vine.items()})
+    props_meta['vine_row']['bayLengthM'] = 6.0
+    props_meta['vine_row']['rowSpacingM'] = 2.0
 
-    for key, fn in builders.items():
-        col = bpy.data.collections.new(f"Prop_{key}")
-        bpy.context.scene.collection.children.link(col)
+    col = bpy.data.collections.new('Prop_trees')
+    scene_col.children.link(col)
+    tree_atlas = AtlasInfo(os.path.join(TEX_DIR, 'veg_tree_atlas.json'))
+    mat_leaf = tree_atlas.material('Veg_TreeLeaves', roughness=0.6)
+    mat_bark = make_library_material('Tree_Bark', 'bark_deciduous')
+    bark_m = library_tile_m('bark_deciduous')
+    tree_parts = {}
+    all_tree_objs = []
+    for key, cfg in TREES.items():
+        parts = build_tree(col, key, cfg, tree_atlas, mat_leaf, mat_bark, bark_m)
+        tree_parts[key] = parts
+        for objs in parts.values():
+            all_tree_objs += objs
+    size = export_glb(all_tree_objs, os.path.join(GLB_DIR, 'trees.glb'), image_quality=80)
+    for key, parts in tree_parts.items():
+        props_meta[key] = _meta('/assets/models/village/props/trees.glb', parts['LOD0'], size, node_prefix=key, lods={
+            k: {'node': f'{key}_{k}', 'triangles': triangle_count(v)} for k, v in parts.items()})
+        props_meta[key]['crownCenter'] = list(TREES[key]['crown_c'])
+        props_meta[key]['crownRadius'] = list(TREES[key]['crown_r'])
+        props_meta[key]['heightM'] = TREES[key]['height']
+
+    for key, fn in (('ortsschild', build_ortsschild), ('streetlamp', build_streetlamp), ('hay_bale', build_hay_bale), ('wine_barrel', build_wine_barrel)):
+        col = bpy.data.collections.new(f'Prop_{key}')
+        scene_col.children.link(col)
         objs = fn(col)
-        prop_groups[key] = objs
+        size = export_glb(objs, os.path.join(GLB_DIR, f'{key}.glb'), image_quality=85)
+        props_meta[key] = _meta(f'/assets/models/village/props/{key}.glb', objs, size)
 
-        glb_path = os.path.join(GLB_DIR, f"{key}.glb")
-        export_prop_glb(objs, glb_path)
-        bbox = compute_gltf_bbox(objs)
-        tris = sum(len(o.data.polygons) * 2 for o in objs if o.type == "MESH")
-        fsize = os.path.getsize(glb_path)
-        props_meta[key] = {
-            "glbPath": f"/assets/models/village/props/{key}.glb",
-            "bounds": bbox,
-            "meshCount": len(objs),
-            "approxTriangles": tris,
-            "fileSizeBytes": fsize,
-        }
-        print(f"Exported {key}.glb ({fsize/1024:.1f} KB, ~{tris} tris, size={bbox['size']})")
+    for key, m in props_meta.items():
+        print(f"[props] {key}: {m['fileSizeBytes'] / 1024:.0f} KB, LOD0 tris {m['approxTriangles']}, lods {m.get('lods')}")
 
-    with open(META_OUT, "w", encoding="utf-8") as f:
-        json.dump(props_meta, f, indent=2)
+    # keys written by other builders of this agent (garden.glb, groundcover.glb) are kept
+    for path in (META_OUT, META_PUBLIC):
+        merged = {}
+        if os.path.isfile(path):
+            with open(path, 'r', encoding='utf-8') as fh:
+                merged = json.load(fh)
+        merged.update(props_meta)
+        with open(path, 'w', encoding='utf-8') as fh:
+            json.dump(merged, fh, indent=2)
 
-    if args.render:
-        render_props_showcase(args.render, prop_groups)
+    # merge ONLY our prop keys into the shared village manifest
+    with open(MANIFEST, 'r', encoding='utf-8') as fh:
+        manifest = json.load(fh)
+    manifest.setdefault('props', {}).update(props_meta)
+    tmp = MANIFEST + '.props.tmp'
+    with open(tmp, 'w', encoding='utf-8') as fh:
+        json.dump(manifest, fh, indent=2)
+    os.replace(tmp, MANIFEST)
+
+    # the per-species tree GLBs of the previous pipeline are superseded by trees.glb
+    for stale in ('tree_deciduous.glb', 'tree_orchard.glb'):
+        p = os.path.join(GLB_DIR, stale)
+        if os.path.isfile(p):
+            os.remove(p)
 
     bpy.ops.wm.save_as_mainfile(filepath=BLEND_OUT)
-    print(f"Saved master props .blend -> {BLEND_OUT}")
+    print(f'[props] saved {BLEND_OUT}')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

@@ -17,14 +17,50 @@ const MIME_TYPES: Record<string, string> = {
   '.gltf': 'model/gltf+json',
 };
 
+/**
+ * Data the runtime cannot start without (the loaders fail loudly if one is missing), so the build fails loudly
+ * too instead of shipping a broken bundle.
+ */
 const RUNTIME_DATA_FILES = [
   'meta.json',
-  'terrain/heightmap.bin',
-  'terrain/orthophoto.jpg',
-  'terrain/landuse_mask.png',
+  'terrain/heightmap.bin', // 4 m height field with graded road beds (scripts/build_terrain_roadbed.py)
   'osm/kindenheim_scene.json',
   'osm/fields_layout.json',
+  'osm/vegetation_layout.json', // trees / hedges / shrubs detected in the 0.2 m aerial (scripts/detect_vegetation.py)
 ] as const;
+
+/** Terrain imagery, built by scripts/build_terrain_*.py (data/terrain/landuse_mask.png is build input only). */
+const REQUIRED_TERRAIN_FILES = [
+  'terrain/ground_splat.png', // 1 m ground material map (terrain shader, lossless)
+  'terrain/relief.jpg', // 1 m LiDAR micro-relief slopes
+  'terrain/ortho/manifest.json', // tile layout + DOP20 attribution (dl-de/by-2-0)
+  'terrain/ortho/base.webp', // whole map at 0.5 m/px
+  'terrain/far/manifest.json', // far terrain ring: extents + attribution
+  'terrain/far/inner.webp', // 6.1 km square at 3 m/px
+  'terrain/far/outer.webp', // 16.4 km square at 8 m/px
+] as const;
+const ORTHO_TILES_PER_SIDE = 8; // terrain/ortho/hi_<row>_<col>.webp, 0.2 m/px, streamed around the camera
+
+/**
+ * `data/terrain/orthophoto.jpg` (9.5 MB, 4096 px) stays untouched as the offline aerial reference. At runtime it
+ * is only drawn into the minimap and the benchmark overlay, so the bundle ships the 2048 px copy under its name.
+ */
+const MINIMAP_ORTHO_SRC = 'terrain/ortho/minimap.jpg';
+const MINIMAP_ORTHO_DEST = 'terrain/orthophoto.jpg';
+
+function copyRequired(srcData: string, destData: string, srcRel: string, destRel = srcRel): void {
+  const srcPath = path.join(srcData, srcRel);
+  if (!fs.existsSync(srcPath) || !fs.statSync(srcPath).isFile()) {
+    throw new Error(
+      `[serve-and-copy-data] required runtime file data/${srcRel} is missing. ` +
+        'Terrain files come from scripts/fetch_ortho_hires.py, fetch_ortho_far.py and build_terrain_*.py; ' +
+        'osm/* from scripts/fetch_geodata.py, build_fields_layout.py and detect_vegetation.py.'
+    );
+  }
+  const destPath = path.join(destData, destRel);
+  fs.mkdirSync(path.dirname(destPath), { recursive: true });
+  fs.copyFileSync(srcPath, destPath);
+}
 
 function copyFileIfExists(srcPath: string, destPath: string): boolean {
   if (!fs.existsSync(srcPath) || !fs.statSync(srcPath).isFile()) return false;
@@ -44,11 +80,22 @@ function copySlimRuntimeData(srcData: string, destData: string): void {
   fs.mkdirSync(destData, { recursive: true });
 
   for (const rel of RUNTIME_DATA_FILES) {
-    copyFileIfExists(path.join(srcData, rel), path.join(destData, rel));
+    copyRequired(srcData, destData, rel);
   }
 
-  // Copy latest quantitative benchmark summary & optional fields layout (or write stub so static hosts never 404)
-  for (const optionalRel of ['benchmark/latest_summary.json', 'osm/fields_layout.json']) {
+  // Terrain imagery: aerial base + 64 streamed 0.2 m tiles + material map + micro-relief (all mandatory)
+  for (const rel of REQUIRED_TERRAIN_FILES) {
+    copyRequired(srcData, destData, rel);
+  }
+  for (let row = 0; row < ORTHO_TILES_PER_SIDE; row++) {
+    for (let col = 0; col < ORTHO_TILES_PER_SIDE; col++) {
+      copyRequired(srcData, destData, `terrain/ortho/hi_${row}_${col}.webp`);
+    }
+  }
+  copyRequired(srcData, destData, MINIMAP_ORTHO_SRC, MINIMAP_ORTHO_DEST);
+
+  // The benchmark summary is the one truly optional file (write a stub so static hosts never 404)
+  for (const optionalRel of ['benchmark/latest_summary.json']) {
     const srcOpt = path.join(srcData, optionalRel);
     const destOpt = path.join(destData, optionalRel);
     if (!copyFileIfExists(srcOpt, destOpt)) {
@@ -72,10 +119,9 @@ function copySlimRuntimeData(srcData: string, destData: string): void {
       refFiles.add(m[1]);
     }
     const fileList = Array.from(refFiles).sort();
-    let convertedToJpg = false;
-
-    try {
-      const pyScript = `
+    // PNG references are re-encoded as JPEG with Pillow. No fallback: if python3 / Pillow is missing or an image is
+    // broken, the build fails with the Python error instead of silently shipping 5x larger PNGs.
+    const pyScript = `
 import json, os, shutil, sys
 from PIL import Image
 src_dir, dst_dir, files_json = sys.argv[1], sys.argv[2], sys.argv[3]
@@ -98,18 +144,13 @@ for name in files:
     else:
         shutil.copy2(src_p, os.path.join(dst_dir, name))
 `;
+    try {
       execFileSync('python3', ['-c', pyScript, srcBrave, destBrave, JSON.stringify(fileList)], { stdio: 'pipe' });
-      convertedToJpg = true;
-    } catch {
-      // Fallback: copy original files if Python/Pillow is unavailable
-      for (const name of fileList) {
-        copyFileIfExists(path.join(srcBrave, name), path.join(destBrave, name));
-      }
+    } catch (err) {
+      const stderr = (err as { stderr?: Buffer }).stderr?.toString().trim();
+      throw new Error(`[serve-and-copy-data] converting the reference photos with python3 + Pillow failed: ${stderr || (err as Error).message}`);
     }
-
-    const outManifest = convertedToJpg
-      ? rawManifest.replace(/(\/data\/references\/brave\/[^"']+)\.png/gi, '$1.jpg')
-      : rawManifest;
+    const outManifest = rawManifest.replace(/(\/data\/references\/brave\/[^"']+)\.png/gi, '$1.jpg');
     fs.writeFileSync(path.join(destBrave, 'manifest.json'), outManifest, 'utf-8');
   }
 }
@@ -124,25 +165,20 @@ function attachDataMiddleware(server: ViteDevServer | { middlewares: ViteDevServ
     const normalized = path.normalize(cleanUrl).replace(/^(\.\.(\/|\\|$))+/, '');
     const filePath = path.join(dataRoot, normalized);
 
-    if (!filePath.startsWith(dataRoot) || !fs.existsSync(filePath)) {
-      // Gracefully return empty stub for optional runtime files so browser console stays 0-404 clean before generation
-      if (cleanUrl === '/benchmark/latest_summary.json' || cleanUrl === '/osm/fields_layout.json') {
-        const body = JSON.stringify({ available: false });
-        res.setHeader('Content-Type', 'application/json; charset=utf-8');
-        res.setHeader('Content-Length', String(Buffer.byteLength(body)));
-        res.setHeader('Cache-Control', 'no-cache');
-        res.end(body);
-        return;
-      }
-      next();
+    if (!filePath.startsWith(dataRoot) || !fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
+      // The benchmark summary is optional: answer with a stub. Everything else under /data is a real 404, so a
+      // missing data file is reported by the loaders instead of being masked by the dev server's index.html.
+      const optional = cleanUrl === '/benchmark/latest_summary.json';
+      const body = optional ? JSON.stringify({ available: false }) : `Not found: /data${cleanUrl}`;
+      res.statusCode = optional ? 200 : 404;
+      res.setHeader('Content-Type', optional ? 'application/json; charset=utf-8' : 'text/plain; charset=utf-8');
+      res.setHeader('Content-Length', String(Buffer.byteLength(body)));
+      res.setHeader('Cache-Control', 'no-cache');
+      res.end(body);
       return;
     }
 
     const stat = fs.statSync(filePath);
-    if (!stat.isFile()) {
-      next();
-      return;
-    }
 
     const ext = path.extname(filePath).toLowerCase();
     res.setHeader('Content-Type', MIME_TYPES[ext] ?? 'application/octet-stream');
@@ -150,26 +186,6 @@ function attachDataMiddleware(server: ViteDevServer | { middlewares: ViteDevServ
     res.setHeader('Cache-Control', 'no-cache');
     fs.createReadStream(filePath).pipe(res);
   });
-}
-
-function attachOptionalManifestFallback(
-  server: ViteDevServer | { middlewares: ViteDevServer['middlewares'] },
-  assetsRoot: string
-): void {
-  for (const subPath of ['models/fields/manifest.json', 'models/recreation/manifest.json']) {
-    server.middlewares.use(`/assets/${subPath}`, (_req, res, next) => {
-      const manifestPath = path.join(assetsRoot, subPath);
-      if (fs.existsSync(manifestPath)) {
-        next();
-        return;
-      }
-      const body = JSON.stringify({ available: false });
-      res.setHeader('Content-Type', 'application/json; charset=utf-8');
-      res.setHeader('Content-Length', String(Buffer.byteLength(body)));
-      res.setHeader('Cache-Control', 'no-cache');
-      res.end(body);
-    });
-  }
 }
 
 function serveAndCopyDataPlugin(): Plugin {
@@ -185,14 +201,11 @@ function serveAndCopyDataPlugin(): Plugin {
     configureServer(server) {
       const dataRoot = path.resolve(rootDir, 'data');
       attachDataMiddleware(server, dataRoot);
-      attachOptionalManifestFallback(server, path.resolve(rootDir, 'public/assets'));
     },
     configurePreviewServer(server) {
       const distData = path.resolve(rootDir, outDir, 'data');
       const fallbackData = path.resolve(rootDir, 'data');
       attachDataMiddleware(server, fs.existsSync(distData) ? distData : fallbackData);
-      const distAssets = path.resolve(rootDir, outDir, 'assets');
-      attachOptionalManifestFallback(server, fs.existsSync(distAssets) ? distAssets : path.resolve(rootDir, 'public/assets'));
     },
     closeBundle() {
       const srcData = path.resolve(rootDir, 'data');
@@ -200,11 +213,12 @@ function serveAndCopyDataPlugin(): Plugin {
       if (fs.existsSync(srcData)) {
         copySlimRuntimeData(srcData, destData);
       }
-      // Ensure optional fields manifest exists in dist/ so static hosts never 404 before @blender-fields publishes
-      const destFieldsManifest = path.resolve(rootDir, outDir, 'assets/models/fields/manifest.json');
-      if (!fs.existsSync(destFieldsManifest)) {
-        fs.mkdirSync(path.dirname(destFieldsManifest), { recursive: true });
-        fs.writeFileSync(destFieldsManifest, JSON.stringify({ available: false }), 'utf-8');
+      // Model manifests the loaders require: a build without them would start as an empty world.
+      for (const rel of ['landmarks', 'village', 'tractor', 'fields', 'people' /* NPC pedestrians */]) {
+        const manifest = path.resolve(rootDir, outDir, `assets/models/${rel}/manifest.json`);
+        if (!fs.existsSync(manifest)) {
+          throw new Error(`[serve-and-copy-data] ${manifest} is missing (public/assets/models/${rel}/manifest.json was not built)`);
+        }
       }
     },
   };

@@ -1,61 +1,65 @@
 import * as THREE from 'three';
-import type { TerrainSystem } from './terrain';
+import { getGroundObstacles } from './dataLoader';
+import { GROUND_LAYER, KDH_GROUND_GLSL, type GroundMaterialLibrary, type TerrainSystem } from './terrain';
 import type { RoadRecord } from './types';
 
-type RoadTier = 'highway_urban' | 'highway_rural' | 'village' | 'village_rinne' | 'service' | 'track';
+/**
+ * Road network of Kindenheim.
+ *
+ * Every road is a decal draped on the RENDERED terrain surface (dense cross-sections, 3.5 cm lift, no depth
+ * write), shaded with the same CC0 PBR ground layers as the terrain: real asphalt with normal/roughness,
+ * patches, tar seams, cracks and wheel-polished lanes; white edge lines on the rural L 450, worn centre dashes
+ * on Hauptstraße; sett gutters; flush paver bands and the Am Kirchrain centre channel on village streets;
+ * gravel field tracks as two wheel ruts with the field's own grass between them. Edges are feathered into the
+ * terrain instead of ending in a hard ribbon. Hauptstraße additionally gets real raised kerbs and herringbone
+ * paver sidewalks (opaque mesh), dropped to road level wherever a side street or lane joins.
+ *
+ * Roads and sidewalks keep clear of buildings: per cross-section the free width to the nearest building footprint
+ * (OSM footprints + landmark boxes, `getGroundObstacles`) is measured on both sides; Hauptstraße is first shifted
+ * away from a facade that stands too close (so the Rathaus steps get their sidewalk), then sidewalk and finally
+ * carriageway are narrowed. Side streets are cut off exactly at the Hauptstraße gutter line.
+ *
+ * Heights: the terrain carries a graded, level road bed (scripts/build_terrain_roadbed.py), so draping on the
+ * rendered surface gives a level cross-section. Physics samples `terrain.getTerrainHeight`; the raised sidewalk
+ * is exposed through `group.userData.getSurfaceLift(x, z)` (metres above that height).
+ */
 
-interface TierStyle {
-  defaultWidth: number;
-  yOffset: number;
-  polygonOffsetFactor: number;
-  roughness: number;
-  uvRepeatLengthM: number;
-}
+/** Shader profile ids (must match the `prof` branches in ROAD_FRAGMENT_COLOR). */
+const PROFILE = {
+  urban: 0, // Hauptstraße / L 450 inside the village: asphalt, sett gutter, worn centre dashes
+  village: 1, // residential streets: asphalt with a flush paver band (optionally the Kirchrain centre channel)
+  rural: 2, // L 450 outside the village: asphalt, solid white edge lines, feathered verge
+  lane: 3, // K 26, Raiffeisenstraße: asphalt, no markings, feathered verge
+  service: 4, // paved farm tracks and service roads: worn, cracked asphalt with gravel creeping in
+  track: 5, // unpaved field tracks: two gravel wheel ruts
+  path: 6, // footpaths: one worn strip
+  kerb: 7, // raised kerb + sidewalk mesh (opaque)
+} as const;
 
-const TIER_STYLES: Record<RoadTier, TierStyle> = {
-  highway_urban: {
-    defaultWidth: 6.4,
-    yOffset: 0.11,
-    polygonOffsetFactor: -3,
-    roughness: 0.82,
-    uvRepeatLengthM: 14,
-  },
-  highway_rural: {
-    defaultWidth: 6.2,
-    yOffset: 0.11,
-    polygonOffsetFactor: -3,
-    roughness: 0.80,
-    uvRepeatLengthM: 16,
-  },
-  village: {
-    defaultWidth: 4.8,
-    yOffset: 0.09,
-    polygonOffsetFactor: -2,
-    roughness: 0.85,
-    uvRepeatLengthM: 11,
-  },
-  village_rinne: {
-    defaultWidth: 4.8,
-    yOffset: 0.092,
-    polygonOffsetFactor: -2.2,
-    roughness: 0.85,
-    uvRepeatLengthM: 11,
-  },
-  service: {
-    defaultWidth: 3.3,
-    yOffset: 0.075,
-    polygonOffsetFactor: -1.5,
-    roughness: 0.88,
-    uvRepeatLengthM: 10,
-  },
-  track: {
-    defaultWidth: 3.0,
-    yOffset: 0.06,
-    polygonOffsetFactor: -1,
-    roughness: 0.94,
-    uvRepeatLengthM: 10,
-  },
+type DecalTier = 'path' | 'track' | 'service' | 'lane' | 'village' | 'rural' | 'urban';
+
+/** Draw order of the decals (all before any other transparent object; later = on top at junctions). */
+const DECAL_RENDER_ORDER: Record<DecalTier, number> = {
+  path: -30,
+  track: -29,
+  service: -28,
+  lane: -27,
+  village: -26,
+  rural: -25,
+  urban: -24,
 };
+
+const DECAL_LIFT_M = 0.035;
+const ALONG_STEP_M = 2.5;
+const KERB_HEIGHT_M = 0.1;
+const KERB_WIDTH_M = 0.14;
+/** Clearance kept between road / sidewalk and a building footprint (m). */
+const FACADE_CLEARANCE_M = 0.12;
+/** Hauptstraße sidewalk: wanted width, and the narrowest one kept before the carriageway itself is narrowed. */
+const SIDEWALK_M = 1.2;
+const SIDEWALK_MIN_M = 0.45;
+/** Hauptstraße may be moved this far off its OSM centre line to clear a facade. */
+const MAX_SHIFT_M = 1.8;
 
 // Kinderbach creek bridge on Triftstraße: spans the ~2.4m DGM1 bare-earth creek dip between abutments
 const KINDERBACH_BRIDGE = {
@@ -112,13 +116,16 @@ function isInsideUrbanVillage(x: number, z: number): boolean {
   return x >= -475 && x <= 515 && z >= -265 && z <= 185;
 }
 
-function classifyRoadBase(road: RoadRecord): 'highway' | 'village' | 'service' | 'track' | null {
+function classifyRoadBase(road: RoadRecord): 'highway' | 'lane' | 'village' | 'service' | 'track' | 'path' | null {
   const hw = (road.highway || '').toLowerCase();
   const surf = (road.surface || '').toLowerCase();
   if (hw === 'primary' || hw === 'primary_link' || hw === 'trunk' || hw === 'secondary' || hw === 'secondary_link') {
     return 'highway';
   }
-  if (hw === 'tertiary' || hw === 'tertiary_link' || hw === 'residential' || hw === 'living_street' || hw === 'unclassified' || hw === 'road') {
+  if (hw === 'tertiary' || hw === 'tertiary_link' || hw === 'unclassified' || hw === 'road') {
+    return 'lane';
+  }
+  if (hw === 'residential' || hw === 'living_street') {
     return 'village';
   }
   if (hw === 'service') {
@@ -131,193 +138,9 @@ function classifyRoadBase(road: RoadRecord): 'highway' | 'village' | 'service' |
     return 'track';
   }
   if (hw === 'path' || hw === 'cycleway' || hw === 'footway' || hw === 'bridleway') {
-    return 'track';
+    return 'path';
   }
   return null;
-}
-
-function createRoadTexture(tier: RoadTier, maxAnisotropy: number): THREE.CanvasTexture {
-  const w = 256;
-  const h = 512;
-  const canvas = document.createElement('canvas');
-  canvas.width = w;
-  canvas.height = h;
-  const ctx = canvas.getContext('2d')!;
-
-  let seed =
-    tier === 'highway_urban'
-      ? 101
-      : tier === 'highway_rural'
-        ? 151
-        : tier === 'village'
-          ? 202
-          : tier === 'village_rinne'
-            ? 252
-            : tier === 'service'
-              ? 303
-              : 404;
-  const rand = () => {
-    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
-    return seed / 4294967295;
-  };
-
-  if (tier === 'highway_urban') {
-    // Authentic Aug-2023 Kindenheim Hauptstraße (L 450): sun-bleached medium-gray asphalt + granite curb + warm buff concrete-paver sidewalks
-    ctx.fillStyle = '#6c6f74';
-    ctx.fillRect(0, 0, w, h);
-
-    const wearGrad = ctx.createLinearGradient(0, 0, w, 0);
-    wearGrad.addColorStop(0.0, '#b4ada2');
-    wearGrad.addColorStop(0.12, '#aca59a');
-    wearGrad.addColorStop(0.145, '#918d85');
-    wearGrad.addColorStop(0.17, '#707378');
-    wearGrad.addColorStop(0.32, '#64676c');
-    wearGrad.addColorStop(0.5, '#72757a');
-    wearGrad.addColorStop(0.68, '#64676c');
-    wearGrad.addColorStop(0.83, '#707378');
-    wearGrad.addColorStop(0.855, '#918d85');
-    wearGrad.addColorStop(0.88, '#aca59a');
-    wearGrad.addColorStop(1.0, '#b4ada2');
-    ctx.fillStyle = wearGrad;
-    ctx.fillRect(0, 0, w, h);
-
-    // Subtle interlocking concrete-paver grid on sidewalks + crisp curb shadow
-    ctx.fillStyle = 'rgba(58, 54, 50, 0.25)';
-    for (let y = 0; y < h; y += 11) {
-      ctx.fillRect(0, y, 36, 1.5);
-      ctx.fillRect(w - 36, y, 36, 1.5);
-    }
-    ctx.fillStyle = 'rgba(46, 46, 48, 0.38)';
-    ctx.fillRect(35, 0, 2.5, h);
-    ctx.fillRect(w - 37.5, 0, 2.5, h);
-
-    for (let i = 0; i < 18000; i++) {
-      const x = Math.floor(rand() * w);
-      const y = Math.floor(rand() * h);
-      const v = 88 + Math.floor(rand() * 52);
-      ctx.fillStyle = `rgba(${v},${v},${v - 1},0.26)`;
-      ctx.fillRect(x, y, 2, 2);
-    }
-  } else if (tier === 'highway_rural') {
-    // Real rural L 450 (sv_vineyard_edge_east.png): sun-bleached medium-light gray asphalt + crisp solid white edge stripes ONLY (no dashed center line!)
-    ctx.clearRect(0, 0, w, h);
-    const wearGrad = ctx.createLinearGradient(0, 0, w, 0);
-    wearGrad.addColorStop(0.0, 'rgba(96, 102, 76, 0.0)');
-    wearGrad.addColorStop(0.045, 'rgba(112, 114, 106, 0.90)');
-    wearGrad.addColorStop(0.09, 'rgba(122, 125, 128, 1.0)');
-    wearGrad.addColorStop(0.28, 'rgba(110, 113, 117, 1.0)');
-    wearGrad.addColorStop(0.50, 'rgba(124, 127, 130, 1.0)');
-    wearGrad.addColorStop(0.72, 'rgba(110, 113, 117, 1.0)');
-    wearGrad.addColorStop(0.91, 'rgba(122, 125, 128, 1.0)');
-    wearGrad.addColorStop(0.955, 'rgba(112, 114, 106, 0.90)');
-    wearGrad.addColorStop(1.0, 'rgba(96, 102, 76, 0.0)');
-    ctx.fillStyle = wearGrad;
-    ctx.fillRect(0, 0, w, h);
-
-    for (let i = 0; i < 18000; i++) {
-      const x = 12 + Math.floor(rand() * (w - 24));
-      const y = Math.floor(rand() * h);
-      const v = 96 + Math.floor(rand() * 56);
-      ctx.fillStyle = `rgba(${v},${v},${v + 1},0.28)`;
-      ctx.fillRect(x, y, 2, 2);
-    }
-
-    // Crisp German solid white edge lines (Fahrbahnbegrenzung) matching sv_vineyard_edge_east.png
-    ctx.fillStyle = 'rgba(240, 242, 238, 0.92)';
-    ctx.fillRect(19, 0, 6.5, h);
-    ctx.fillRect(w - 25.5, 0, 6.5, h);
-  } else if (tier === 'village' || tier === 'village_rinne') {
-    // Authentic medium-gray Pfalz residential asphalt (Triftstraße / Am Kirchrain / Judenberg / Neugasse / Burgweg) with warm concrete border strip
-    ctx.fillStyle = '#686a6d';
-    ctx.fillRect(0, 0, w, h);
-
-    const grad = ctx.createLinearGradient(0, 0, w, 0);
-    grad.addColorStop(0.0, '#9e988d');
-    grad.addColorStop(0.105, '#727477');
-    grad.addColorStop(0.32, '#64666a');
-    grad.addColorStop(0.5, '#6b6d70');
-    grad.addColorStop(0.68, '#64666a');
-    grad.addColorStop(0.895, '#727477');
-    grad.addColorStop(1.0, '#9e988d');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, w, h);
-
-    ctx.fillStyle = 'rgba(48,45,40,0.28)';
-    for (let y = 0; y < h; y += 14) {
-      ctx.fillRect(0, y, 24, 1.5);
-      ctx.fillRect(w - 24, y, 24, 1.5);
-    }
-
-    for (let i = 0; i < 14000; i++) {
-      const x = Math.floor(rand() * w);
-      const y = Math.floor(rand() * h);
-      const v = 86 + Math.floor(rand() * 44);
-      ctx.fillStyle = `rgba(${v},${v},${v - 1},0.25)`;
-      ctx.fillRect(x, y, 2, 2);
-    }
-
-    if (tier === 'village_rinne') {
-      // Distinctive central double-row gray concrete paver drainage gutter (Rinne) down Am Kirchrain north slope
-      const cx = w * 0.5;
-      ctx.fillStyle = '#979288';
-      ctx.fillRect(cx - 10, 0, 20, h);
-      ctx.fillStyle = 'rgba(46, 44, 40, 0.45)';
-      ctx.fillRect(cx - 10.5, 0, 1.5, h);
-      ctx.fillRect(cx - 0.75, 0, 1.5, h);
-      ctx.fillRect(cx + 9, 0, 1.5, h);
-      for (let y = 0; y < h; y += 13) {
-        ctx.fillRect(cx - 10, y, 20, 1.4);
-      }
-    }
-  } else if (tier === 'service') {
-    ctx.fillStyle = '#6b6760';
-    ctx.fillRect(0, 0, w, h);
-    for (let i = 0; i < 12000; i++) {
-      const x = Math.floor(rand() * w);
-      const y = Math.floor(rand() * h);
-      const v = 82 + Math.floor(rand() * 52);
-      ctx.fillStyle = `rgba(${v},${v - 4},${v - 10},0.32)`;
-      ctx.fillRect(x, y, 2, 2);
-    }
-  } else {
-    ctx.clearRect(0, 0, w, h);
-    const grad = ctx.createLinearGradient(0, 0, w, 0);
-    grad.addColorStop(0.0, 'rgba(108, 119, 77, 0.0)');
-    grad.addColorStop(0.08, 'rgba(138, 128, 92, 0.78)');
-    grad.addColorStop(0.18, 'rgba(166, 148, 114, 0.96)');
-    grad.addColorStop(0.32, 'rgba(154, 134, 98, 0.96)');
-    grad.addColorStop(0.45, 'rgba(116, 122, 78, 0.86)');
-    grad.addColorStop(0.5, 'rgba(102, 118, 69, 0.82)');
-    grad.addColorStop(0.55, 'rgba(116, 122, 78, 0.86)');
-    grad.addColorStop(0.68, 'rgba(154, 134, 98, 0.96)');
-    grad.addColorStop(0.82, 'rgba(166, 148, 114, 0.96)');
-    grad.addColorStop(0.92, 'rgba(138, 128, 92, 0.78)');
-    grad.addColorStop(1.0, 'rgba(108, 119, 77, 0.0)');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, w, h);
-
-    for (let i = 0; i < 16000; i++) {
-      const x = 14 + Math.floor(rand() * (w - 28));
-      const y = Math.floor(rand() * h);
-      const distCenter = Math.abs(x - w * 0.5) / (w * 0.5);
-      if (distCenter < 0.24 || distCenter > 0.84) {
-        const g = 88 + Math.floor(rand() * 48);
-        ctx.fillStyle = `rgba(${g - 18},${g},${g - 38},0.28)`;
-      } else {
-        const s = 128 + Math.floor(rand() * 64);
-        ctx.fillStyle = `rgba(${s},${s - 14},${s - 34},0.32)`;
-      }
-      ctx.fillRect(x, y, 2, 3);
-    }
-  }
-
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.wrapS = THREE.ClampToEdgeWrapping;
-  tex.wrapT = THREE.RepeatWrapping;
-  tex.colorSpace = THREE.SRGBColorSpace;
-  tex.anisotropy = Math.min(8, maxAnisotropy);
-  tex.needsUpdate = true;
-  return tex;
 }
 
 function extractXZ(pt: [number, number] | [number, number, number]): [number, number] {
@@ -327,7 +150,7 @@ function extractXZ(pt: [number, number] | [number, number, number]): [number, nu
   return [pt[0], pt[1]];
 }
 
-function resamplePolyline(rawPts: [number, number][], maxStepM = 4.5): [number, number][] {
+function resamplePolyline(rawPts: [number, number][], maxStepM: number): [number, number][] {
   if (rawPts.length < 2) return rawPts;
   const out: [number, number][] = [rawPts[0]];
   for (let i = 0; i < rawPts.length - 1; i++) {
@@ -346,67 +169,66 @@ function resamplePolyline(rawPts: [number, number][], maxStepM = 4.5): [number, 
   return out;
 }
 
-function splitHighwayUrbanRural(pts: [number, number][]): { tier: 'highway_urban' | 'highway_rural'; pts: [number, number][] }[] {
+/** Splits a polyline into runs by a per-segment predicate (e.g. inside / outside the village). */
+function splitRuns<T extends string>(pts: [number, number][], tierAt: (x: number, z: number) => T): { tier: T; pts: [number, number][] }[] {
   if (pts.length < 2) return [];
-  const runs: { tier: 'highway_urban' | 'highway_rural'; pts: [number, number][] }[] = [];
-  let curTier: 'highway_urban' | 'highway_rural' = isInsideUrbanVillage(pts[0][0], pts[0][1])
-    ? 'highway_urban'
-    : 'highway_rural';
+  const runs: { tier: T; pts: [number, number][] }[] = [];
+  let curTier = tierAt((pts[0][0] + pts[1][0]) * 0.5, (pts[0][1] + pts[1][1]) * 0.5);
   let curPts: [number, number][] = [pts[0]];
-
   for (let i = 1; i < pts.length; i++) {
-    const segMidX = (pts[i - 1][0] + pts[i][0]) * 0.5;
-    const segMidZ = (pts[i - 1][1] + pts[i][1]) * 0.5;
-    const nextTier: 'highway_urban' | 'highway_rural' = isInsideUrbanVillage(segMidX, segMidZ)
-      ? 'highway_urban'
-      : 'highway_rural';
-    if (nextTier !== curTier) {
-      if (curPts.length >= 2) {
-        runs.push({ tier: curTier, pts: curPts });
-      }
-      curTier = nextTier;
+    const next = tierAt((pts[i - 1][0] + pts[i][0]) * 0.5, (pts[i - 1][1] + pts[i][1]) * 0.5);
+    if (next !== curTier) {
+      if (curPts.length >= 2) runs.push({ tier: curTier, pts: curPts });
+      curTier = next;
       curPts = [pts[i - 1], pts[i]];
     } else {
       curPts.push(pts[i]);
     }
   }
-  if (curPts.length >= 2) {
-    runs.push({ tier: curTier, pts: curPts });
-  }
+  if (curPts.length >= 2) runs.push({ tier: curTier, pts: curPts });
   return runs;
 }
 
-interface GeometryAccumulator {
+function hashSeed(id: string | number, salt: number): number {
+  const s = String(id);
+  let h = 2166136261 ^ salt;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return ((h >>> 0) % 10007) / 10007;
+}
+
+interface RoadGeometryAccumulator {
   positions: number[];
   normals: number[];
-  uvs: number[];
+  road: number[]; // across (m, signed), along (m), half width (m), profile id
+  roadB: number[]; // core half width (m), seed, flag, edge-band factor (decals) / kerb lift (kerb mesh)
+  dir: number[]; // unit along-direction (x, z)
+  clip: number[]; // distance outside the Hauptstraße carriageway (side streets are cut off below 0)
   indices: number[];
 }
 
-function createAccumulator(): GeometryAccumulator {
-  return { positions: [], normals: [], uvs: [], indices: [] };
+function createAccumulator(): RoadGeometryAccumulator {
+  return { positions: [], normals: [], road: [], roadB: [], dir: [], clip: [], indices: [] };
 }
 
-function appendRoadRibbon(
-  acc: GeometryAccumulator,
-  pts: [number, number][],
-  widthM: number,
-  style: TierStyle,
-  terrain: TerrainSystem
-): void {
-  const halfW = widthM * 0.5;
+interface Section {
+  x: number;
+  z: number;
+  tx: number;
+  tz: number;
+  along: number;
+}
+
+/** Centreline sections with a smoothed tangent (average of the adjoining segments). */
+function buildSections(pts: [number, number][]): Section[] {
   const n = pts.length;
-  if (n < 2) return;
-
-  const baseVertex = acc.positions.length / 3;
-  let distAlong = 0;
-
+  const out: Section[] = [];
+  let along = 0;
   for (let i = 0; i < n; i++) {
     const [cx, cz] = pts[i];
-    if (i > 0) {
-      distAlong += Math.hypot(cx - pts[i - 1][0], cz - pts[i - 1][1]);
-    }
-
+    if (i > 0) along += Math.hypot(cx - pts[i - 1][0], cz - pts[i - 1][1]);
     let tx = 0;
     let tz = 0;
     if (i > 0) {
@@ -423,65 +245,988 @@ function appendRoadRibbon(
       tx += dx / l;
       tz += dz / l;
     }
-    const tLen = Math.hypot(tx, tz) || 1;
-    tx /= tLen;
-    tz /= tLen;
+    const tl = Math.hypot(tx, tz) || 1;
+    out.push({ x: cx, z: cz, tx: tx / tl, tz: tz / tl, along });
+  }
+  return out;
+}
 
-    const rx = -tz;
-    const rz = tx;
+function surfaceHeight(terrain: TerrainSystem, x: number, z: number): number {
+  const bridge = getBridgeDeckSurfaceHeight(x, z, terrain);
+  return bridge !== null ? Math.max(bridge, terrain.getRenderedSurfaceHeight(x, z)) : terrain.getRenderedSurfaceHeight(x, z);
+}
 
-    const lx = cx - rx * halfW;
-    const lz = cz - rz * halfW;
-    const rpx = cx + rx * halfW;
-    const rpz = cz + rz * halfW;
+/** Cross-section sample positions: both edges, the core edges and an interior vertex at least every 1.1 m. */
+function acrossOffsets(halfWidth: number, core: number): number[] {
+  const out: number[] = [-halfWidth];
+  const c = Math.min(core, halfWidth);
+  if (halfWidth - c > 0.03) out.push(-c);
+  const inner = Math.max(2, Math.ceil((2 * c) / 1.1));
+  for (let i = 1; i < inner; i++) out.push(-c + (2 * c * i) / inner);
+  if (halfWidth - c > 0.03) out.push(c);
+  out.push(halfWidth);
+  return out;
+}
 
-    const sampleH = (px: number, pz: number): number => {
-      const bridgeH = getBridgeDeckSurfaceHeight(px, pz, terrain);
-      return bridgeH !== null ? bridgeH : terrain.getTerrainHeight(px, pz);
-    };
+interface DecalSpec {
+  profile: number;
+  halfWidth: number;
+  core: number;
+  seed: number;
+  flag: number;
+  /** Paved surfaces of all roads + this road's index: edge bands (gutter, paver strip) stop where another road joins. */
+  paved?: JunctionIndex;
+  roadIndex?: number;
+  /** Per section, [left, right]: half width / core narrowed against facades (default: halfWidth / core). */
+  sideHalfWidth?: [number[], number[]];
+  sideCore?: [number[], number[]];
+  /** Side streets: cut off at the Hauptstraße carriageway edge. */
+  urban?: UrbanIndex;
+}
 
-    const hCenter = sampleH(cx, cz) + style.yOffset + 0.03;
-    const hLeft = sampleH(lx, lz) + style.yOffset;
-    const hRight = sampleH(rpx, rpz) + style.yOffset;
+/** Per section and side, the half width a decal may have before it reaches a building (min `minHalf`). */
+function clearHalfWidths(sections: Section[], halfWidth: number, minHalf: number, obstacles: ObstacleIndex): [number[], number[]] {
+  return [-1, 1].map((side) =>
+    erodeSeries(
+      sections.map((s) => THREE.MathUtils.clamp(obstacles.sideGap(s, side, halfWidth + 0.5) - FACADE_CLEARANCE_M, minHalf, halfWidth)),
+      1
+    )
+  ) as [number[], number[]];
+}
 
-    const onBridge = getBridgeDeckSurfaceHeight(cx, cz, terrain) !== null;
-    const nC = onBridge ? new THREE.Vector3(0, 1, 0) : terrain.getTerrainNormal(cx, cz, 2.5);
-    const vCoord = distAlong / style.uvRepeatLengthM;
+function appendDecal(acc: RoadGeometryAccumulator, pts: [number, number][], spec: DecalSpec, terrain: TerrainSystem): void {
+  const sections = buildSections(pts);
+  if (sections.length < 2) return;
+  const offsets = acrossOffsets(spec.halfWidth, spec.core);
+  const cols = offsets.length;
+  const base = acc.positions.length / 3;
+  const n = sections.length;
 
-    acc.positions.push(lx, hLeft, lz, cx, hCenter, cz, rpx, hRight, rpz);
-    acc.normals.push(nC.x, nC.y, nC.z, nC.x, nC.y, nC.z, nC.x, nC.y, nC.z);
-    acc.uvs.push(0, vCoord, 0.5, vCoord, 1, vCoord);
+  // Per side: 1 = draw the edge band, 0 = another road's asphalt runs through here (smoothed along the road).
+  // "Through" = the band lies more than 0.45 m inside the other surface; an end-to-end continuation of the same
+  // street (next OSM way) only touches at the edge and keeps its band.
+  const bandFor = (side: number): number[] => {
+    if (!spec.paved) return sections.map(() => 1);
+    const raw = sections.map((s) =>
+      spec.paved!.near(s.x - s.tz * side * (spec.core - 0.2), s.z + s.tx * side * (spec.core - 0.2), -0.45, spec.roadIndex) ? 0 : 1
+    );
+    return raw.map((v, i) => {
+      const lo = raw[Math.max(0, i - 1)];
+      const hi = raw[Math.min(n - 1, i + 1)];
+      return Math.min(v, (lo + v + hi) / 3);
+    });
+  };
+  const bandL = bandFor(-1);
+  const bandR = bandFor(1);
 
-    if (i < n - 1) {
-      const r0 = baseVertex + i * 3;
-      const r1 = r0 + 3;
-      acc.indices.push(r0, r0 + 1, r1);
-      acc.indices.push(r0 + 1, r1 + 1, r1);
-      acc.indices.push(r0 + 1, r0 + 2, r1 + 1);
-      acc.indices.push(r0 + 2, r1 + 2, r1 + 1);
+  for (let si = 0; si < n; si++) {
+    const s = sections[si];
+    const rx = -s.tz;
+    const rz = s.tx;
+    const onBridge = getBridgeDeckSurfaceHeight(s.x, s.z, terrain) !== null;
+    const nrm = onBridge ? new THREE.Vector3(0, 1, 0) : terrain.getTerrainNormal(s.x, s.z, 2.5);
+    const hwL = spec.sideHalfWidth ? spec.sideHalfWidth[0][si] : spec.halfWidth;
+    const hwR = spec.sideHalfWidth ? spec.sideHalfWidth[1][si] : spec.halfWidth;
+    // narrowed side: the edge treatment (gutter, paver band) moves in with the edge
+    const coreL = spec.sideCore ? spec.sideCore[0][si] : Math.max(0.4, spec.core - (spec.halfWidth - hwL));
+    const coreR = spec.sideCore ? spec.sideCore[1][si] : Math.max(0.4, spec.core - (spec.halfWidth - hwR));
+    for (const a0 of offsets) {
+      const right = a0 > 0.01;
+      const left = a0 < -0.01;
+      const hw = left ? hwL : right ? hwR : Math.min(hwL, hwR);
+      const core = left ? coreL : right ? coreR : Math.min(coreL, coreR);
+      // map the cross-section onto the (possibly narrowed) side: the core edge stays the core edge
+      const aa0 = Math.abs(a0);
+      const coreIn = Math.min(spec.core, spec.halfWidth);
+      const aa = aa0 <= coreIn ? (aa0 / Math.max(coreIn, 1e-3)) * core : core + ((aa0 - coreIn) / Math.max(spec.halfWidth - coreIn, 1e-3)) * (hw - core);
+      const a = Math.sign(a0) * aa;
+      const px = s.x + rx * a;
+      const pz = s.z + rz * a;
+      acc.positions.push(px, surfaceHeight(terrain, px, pz) + DECAL_LIFT_M, pz);
+      acc.normals.push(nrm.x, nrm.y, nrm.z);
+      acc.road.push(a, s.along, hw, spec.profile);
+      acc.roadB.push(core, spec.seed, spec.flag, left ? bandL[si] : right ? bandR[si] : Math.max(bandL[si], bandR[si]));
+      acc.dir.push(s.tx, s.tz);
+      acc.clip.push(spec.urban ? spec.urban.outsideCarriageway(px, pz) : 1e3);
+    }
+  }
+  for (let i = 0; i < sections.length - 1; i++) {
+    for (let j = 0; j < cols - 1; j++) {
+      const a = base + i * cols + j;
+      const b = a + cols;
+      acc.indices.push(a, a + 1, b, a + 1, b + 1, b);
     }
   }
 }
 
-function splitKirchrainRinne(pts: [number, number][]): { tier: 'village' | 'village_rinne'; pts: [number, number][] }[] {
-  if (pts.length < 2) return [];
-  const runs: { tier: 'village' | 'village_rinne'; pts: [number, number][] }[] = [];
-  let curTier: 'village' | 'village_rinne' = isKirchrainRinnePoint(pts[0][0], pts[0][1]) ? 'village_rinne' : 'village';
-  let curPts: [number, number][] = [pts[0]];
-  for (let i = 1; i < pts.length; i++) {
-    const mx = (pts[i - 1][0] + pts[i][0]) * 0.5;
-    const mz = (pts[i - 1][1] + pts[i][1]) * 0.5;
-    const nextTier: 'village' | 'village_rinne' = isKirchrainRinnePoint(mx, mz) ? 'village_rinne' : 'village';
-    if (nextTier !== curTier) {
-      if (curPts.length >= 2) runs.push({ tier: curTier, pts: curPts });
-      curTier = nextTier;
-      curPts = [pts[i - 1], pts[i]];
-    } else {
-      curPts.push(pts[i]);
+/** Uniform grid over the centrelines of everything that can join Hauptstraße (to drop the kerb there). */
+class JunctionIndex {
+  private readonly cells = new Map<string, [number, number, number, number][]>();
+  private readonly cell = 8;
+
+  public add(pts: [number, number][], halfWidth: number, roadIndex: number): void {
+    for (const [x, z] of pts) {
+      const key = `${Math.floor(x / this.cell)},${Math.floor(z / this.cell)}`;
+      let list = this.cells.get(key);
+      if (!list) {
+        list = [];
+        this.cells.set(key, list);
+      }
+      list.push([x, z, halfWidth, roadIndex]);
     }
   }
-  if (curPts.length >= 2) runs.push({ tier: curTier, pts: curPts });
-  return runs;
+
+  /** True if the surface of any indexed road other than `exceptRoad` comes within `pad` metres of (x, z). */
+  public near(x: number, z: number, pad: number, exceptRoad = -1): boolean {
+    const cx = Math.floor(x / this.cell);
+    const cz = Math.floor(z / this.cell);
+    for (let i = cx - 1; i <= cx + 1; i++) {
+      for (let j = cz - 1; j <= cz + 1; j++) {
+        const list = this.cells.get(`${i},${j}`);
+        if (!list) continue;
+        for (const [px, pz, hw, idx] of list) {
+          if (idx !== exceptRoad && Math.hypot(px - x, pz - z) < hw + pad) return true;
+        }
+      }
+    }
+    return false;
+  }
+}
+
+/**
+ * Building footprints as a grid of edges, for "how far can the road extend sideways from here" queries.
+ */
+class ObstacleIndex {
+  private readonly cell = 8;
+  private readonly cells = new Map<number, number[]>();
+  /** Edge list: x0, z0, x1, z1, polygon index. */
+  private readonly edges: number[] = [];
+  private readonly polys: [number, number][][];
+  private readonly boxes: number[] = [];
+
+  constructor(polys: [number, number][][]) {
+    this.polys = polys;
+    polys.forEach((poly, pi) => {
+      let minX = Infinity;
+      let minZ = Infinity;
+      let maxX = -Infinity;
+      let maxZ = -Infinity;
+      for (let i = 0; i < poly.length; i++) {
+        const [x0, z0] = poly[i];
+        const [x1, z1] = poly[(i + 1) % poly.length];
+        if (!Number.isFinite(x0 + z0 + x1 + z1)) throw new Error(`Roads: obstacle polygon ${pi} has a non-finite vertex`);
+        minX = Math.min(minX, x0);
+        maxX = Math.max(maxX, x0);
+        minZ = Math.min(minZ, z0);
+        maxZ = Math.max(maxZ, z0);
+        const e = this.edges.length / 5;
+        this.edges.push(x0, z0, x1, z1, pi);
+        for (let cx = Math.floor(Math.min(x0, x1) / this.cell); cx <= Math.floor(Math.max(x0, x1) / this.cell); cx++) {
+          for (let cz = Math.floor(Math.min(z0, z1) / this.cell); cz <= Math.floor(Math.max(z0, z1) / this.cell); cz++) {
+            const key = cx * 4096 + cz;
+            let list = this.cells.get(key);
+            if (!list) {
+              list = [];
+              this.cells.set(key, list);
+            }
+            list.push(e);
+          }
+        }
+      }
+      this.boxes.push(minX, minZ, maxX, maxZ);
+    });
+  }
+
+  private inside(pi: number, x: number, z: number): boolean {
+    const b = pi * 4;
+    if (x < this.boxes[b] || z < this.boxes[b + 1] || x > this.boxes[b + 2] || z > this.boxes[b + 3]) return false;
+    const poly = this.polys[pi];
+    let c = false;
+    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+      const [xi, zi] = poly[i];
+      const [xj, zj] = poly[j];
+      if (zi > z !== zj > z && x < ((xj - xi) * (z - zi)) / (zj - zi) + xi) c = !c;
+    }
+    return c;
+  }
+
+  /**
+   * Distance from (x, z) along the unit direction (dx, dz) to the first footprint edge, at most `maxDist`.
+   * Footprints that contain the start point itself (an OSM way drawn through a gateway) are ignored.
+   */
+  public freeDistance(x: number, z: number, dx: number, dz: number, maxDist: number): number {
+    const ex = x + dx * maxDist;
+    const ez = z + dz * maxDist;
+    const seen = new Set<number>();
+    const skip = new Set<number>();
+    let best = maxDist;
+    for (let cx = Math.floor(Math.min(x, ex) / this.cell); cx <= Math.floor(Math.max(x, ex) / this.cell); cx++) {
+      for (let cz = Math.floor(Math.min(z, ez) / this.cell); cz <= Math.floor(Math.max(z, ez) / this.cell); cz++) {
+        const list = this.cells.get(cx * 4096 + cz);
+        if (!list) continue;
+        for (const e of list) {
+          if (seen.has(e)) continue;
+          seen.add(e);
+          const o = e * 5;
+          const pi = this.edges[o + 4];
+          if (skip.has(pi)) continue;
+          // ray (x, z) + t (dx, dz) against segment p0 + u (p1 - p0)
+          const sx = this.edges[o + 2] - this.edges[o];
+          const sz = this.edges[o + 3] - this.edges[o + 1];
+          const den = dx * sz - dz * sx;
+          if (Math.abs(den) < 1e-9) continue;
+          const qx = this.edges[o] - x;
+          const qz = this.edges[o + 1] - z;
+          const t = (qx * sz - qz * sx) / den;
+          const u = (qx * dz - qz * dx) / den;
+          if (t < 0 || t >= best || u < 0 || u > 1) continue;
+          if (this.inside(pi, x, z)) {
+            skip.add(pi);
+            continue;
+          }
+          best = t;
+        }
+      }
+    }
+    return best;
+  }
+
+  /** Free width on one side of a cross-section: three parallel rays (section centre and +-1.2 m along the road). */
+  public sideGap(s: Section, side: number, maxDist: number): number {
+    const rx = -s.tz * side;
+    const rz = s.tx * side;
+    let g = maxDist;
+    for (const off of [-1.2, 0, 1.2]) {
+      g = Math.min(g, this.freeDistance(s.x + s.tx * off, s.z + s.tz * off, rx, rz, maxDist));
+    }
+    return g;
+  }
+}
+
+/** Hauptstraße cross-sections (after shifting / narrowing): gutter-line cut for side streets and sidewalk heights. */
+class UrbanIndex {
+  private readonly cell = 8;
+  private readonly cells = new Map<number, number[]>();
+  /** Per section: x, z, tx, tz, coreL, coreR, outerL, outerR, liftL, liftR, spacing. */
+  private readonly data: number[] = [];
+  private static readonly STRIDE = 11;
+
+  public add(s: Section, core: [number, number], outer: [number, number], lift: [number, number], spacing: number): void {
+    const id = this.data.length / UrbanIndex.STRIDE;
+    this.data.push(s.x, s.z, s.tx, s.tz, core[0], core[1], outer[0], outer[1], lift[0], lift[1], spacing);
+    const key = Math.floor(s.x / this.cell) * 4096 + Math.floor(s.z / this.cell);
+    let list = this.cells.get(key);
+    if (!list) {
+      list = [];
+      this.cells.set(key, list);
+    }
+    list.push(id);
+  }
+
+  /** Nearest section whose along-extent covers (x, z): [section offset into data, signed across distance] or null. */
+  private nearest(x: number, z: number): [number, number] | null {
+    const cx = Math.floor(x / this.cell);
+    const cz = Math.floor(z / this.cell);
+    let best = Infinity;
+    let hit: [number, number] | null = null;
+    for (let i = cx - 1; i <= cx + 1; i++) {
+      for (let j = cz - 1; j <= cz + 1; j++) {
+        const list = this.cells.get(i * 4096 + j);
+        if (!list) continue;
+        for (const id of list) {
+          const o = id * UrbanIndex.STRIDE;
+          const dx = x - this.data[o];
+          const dz = z - this.data[o + 1];
+          const along = dx * this.data[o + 2] + dz * this.data[o + 3];
+          if (Math.abs(along) > this.data[o + 10] * 0.5 + 0.05) continue;
+          const d = dx * dx + dz * dz;
+          if (d < best) {
+            best = d;
+            hit = [o, -dx * this.data[o + 3] + dz * this.data[o + 2]];
+          }
+        }
+      }
+    }
+    return hit;
+  }
+
+  /** Distance outside the Hauptstraße carriageway edge (negative inside; 1e3 when no Hauptstraße is near). */
+  public outsideCarriageway(x: number, z: number): number {
+    const n = this.nearest(x, z);
+    if (!n) return 1e3;
+    const [o, across] = n;
+    return Math.abs(across) - (across < 0 ? this.data[o + 4] : this.data[o + 5]);
+  }
+
+  /** Height of the raised sidewalk / kerb above the road bed at (x, z) (0 off the sidewalk). */
+  public surfaceLift(x: number, z: number): number {
+    const n = this.nearest(x, z);
+    if (!n) return 0;
+    const [o, across] = n;
+    const side = across < 0 ? 0 : 1;
+    const a = Math.abs(across);
+    if (a < this.data[o + 4 + side] || a > this.data[o + 6 + side]) return 0;
+    return KERB_HEIGHT_M * this.data[o + 8 + side];
+  }
+}
+
+/** Gaussian smoothing of a per-section series (edges clamped). */
+function smoothSeries(v: number[], sigma: number): number[] {
+  const r = Math.ceil(sigma * 2.5);
+  return v.map((_, i) => {
+    let sum = 0;
+    let wsum = 0;
+    for (let k = -r; k <= r; k++) {
+      const w = Math.exp(-(k * k) / (2 * sigma * sigma));
+      sum += v[Math.min(v.length - 1, Math.max(0, i + k))] * w;
+      wsum += w;
+    }
+    return sum / wsum;
+  });
+}
+
+/** Running minimum over +-r samples (a narrowing starts before and ends after the obstacle). */
+function erodeSeries(v: number[], r: number): number[] {
+  return v.map((_, i) => {
+    let m = Infinity;
+    for (let k = -r; k <= r; k++) m = Math.min(m, v[Math.min(v.length - 1, Math.max(0, i + k))]);
+    return m;
+  });
+}
+
+/** Laplacian smoothing with fixed end points: rounds the sharp OSM corners the kerb strips would fold at. */
+function relaxPolyline(pts: [number, number][], iterations: number): [number, number][] {
+  let cur = pts.map((p) => [p[0], p[1]] as [number, number]);
+  for (let it = 0; it < iterations; it++) {
+    const next = cur.map((p) => [p[0], p[1]] as [number, number]);
+    for (let i = 1; i < cur.length - 1; i++) {
+      next[i][0] = cur[i][0] * 0.5 + (cur[i - 1][0] + cur[i + 1][0]) * 0.25;
+      next[i][1] = cur[i][1] * 0.5 + (cur[i - 1][1] + cur[i + 1][1]) * 0.25;
+    }
+    cur = next;
+  }
+  return cur;
+}
+
+/**
+ * Hauptstraße layout against the facades: shift of the centre line, then per section and side the carriageway
+ * half width (core) and the sidewalk edge (outer).
+ */
+interface UrbanLayout {
+  pts: [number, number][];
+  core: [number[], number[]];
+  outer: [number[], number[]];
+}
+
+function layoutUrbanRun(pts: [number, number][], core0: number, obstacles: ObstacleIndex): UrbanLayout {
+  const want = core0 + SIDEWALK_M;
+  const reach = want + MAX_SHIFT_M + 2;
+  const gapsOf = (sections: Section[], side: number): number[] =>
+    erodeSeries(sections.map((s) => obstacles.sideGap(s, side, reach) - FACADE_CLEARANCE_M), 1);
+
+  // 1. shift away from a facade that leaves less than the full sidewalk, as far as the other side allows
+  let sections = buildSections(pts);
+  const gl = gapsOf(sections, -1);
+  const gr = gapsOf(sections, 1);
+  const rawShift = sections.map((_, i) => {
+    const shortL = Math.max(0, want - gl[i]);
+    const shortR = Math.max(0, want - gr[i]);
+    if (shortL > 0 && shortR > 0) return THREE.MathUtils.clamp((gr[i] - gl[i]) * 0.5, -MAX_SHIFT_M, MAX_SHIFT_M);
+    if (shortL > 0) return Math.min(shortL, Math.max(0, gr[i] - want), MAX_SHIFT_M);
+    if (shortR > 0) return -Math.min(shortR, Math.max(0, gl[i] - want), MAX_SHIFT_M);
+    return 0;
+  });
+  // keep the strongest shift over +-3 sections, then ease it in and out over ~10 m
+  const held = rawShift.map((_, i) => {
+    let m = 0;
+    for (let k = -3; k <= 3; k++) {
+      const v = rawShift[Math.min(rawShift.length - 1, Math.max(0, i + k))];
+      if (Math.abs(v) > Math.abs(m)) m = v;
+    }
+    return m;
+  });
+  const shift = smoothSeries(held, 2.5);
+  const shifted = sections.map((s, i) => [s.x - s.tz * shift[i], s.z + s.tx * shift[i]] as [number, number]);
+  // the run's end points stay on the OSM node so the next way / the rural road continues seamlessly
+  shifted[0] = pts[0];
+  shifted[shifted.length - 1] = pts[pts.length - 1];
+
+  // 2. per side: sidewalk first, then the carriageway gives way
+  sections = buildSections(shifted);
+  const core: [number[], number[]] = [[], []];
+  const outer: [number[], number[]] = [[], []];
+  [-1, 1].forEach((side, k) => {
+    const gaps = gapsOf(sections, side);
+    gaps.forEach((g) => {
+      const o = Math.min(want, g);
+      const c = Math.max(1.6, Math.min(core0, o - SIDEWALK_MIN_M));
+      core[k].push(c);
+      outer[k].push(Math.max(c + KERB_WIDTH_M + 0.05, o));
+    });
+  });
+  for (let k = 0; k < 2; k++) {
+    core[k] = smoothSeries(erodeSeries(core[k], 1), 1);
+    outer[k] = outer[k].map((o, i) => Math.max(o, core[k][i] + KERB_WIDTH_M + 0.05));
+  }
+  return { pts: shifted, core, outer };
+}
+
+/**
+ * Raised kerb + paver sidewalk + outer skirt on both sides of an urban run. `lift` (0..1 per section and side)
+ * lowers the kerb to road level at junctions and at the open ends of the run. Core / outer are per section and
+ * side (narrowed against facades). Every section is registered in `urban` (side-street cut, sidewalk heights).
+ */
+function appendKerbs(
+  acc: RoadGeometryAccumulator,
+  pts: [number, number][],
+  core: [number[], number[]],
+  outer: [number[], number[]],
+  seed: number,
+  junctions: JunctionIndex,
+  openStart: boolean,
+  openEnd: boolean,
+  terrain: TerrainSystem,
+  urban: UrbanIndex,
+  obstacles: ObstacleIndex
+): void {
+  const sections = buildSections(pts);
+  const n = sections.length;
+  if (n < 2) return;
+  const total = sections[n - 1].along;
+
+  const lifts = [-1, 1].map((side, k) => {
+    // 1 = full kerb, 0 = dropped. Junction test at the middle of the sidewalk, then smoothed along the road.
+    const raw = sections.map((s, i) => {
+      const rx = -s.tz * side;
+      const rz = s.tx * side;
+      const mid = (core[k][i] + outer[k][i]) * 0.5;
+      return junctions.near(s.x + rx * mid, s.z + rz * mid, 1.0) ? 0 : 1;
+    });
+    return raw.map((_, i) => {
+      let sum = 0;
+      for (let d = -2; d <= 2; d++) sum += raw[Math.min(n - 1, Math.max(0, i + d))];
+      let l = Math.min(raw[i], sum / 5);
+      l = l * l * (3 - 2 * l);
+      if (openStart) l *= THREE.MathUtils.smoothstep(sections[i].along, 0, 4);
+      if (openEnd) l *= THREE.MathUtils.smoothstep(total - sections[i].along, 0, 4);
+      return l;
+    });
+  });
+  sections.forEach((s, i) => {
+    const spacing = i === 0 ? sections[1].along : i === n - 1 ? total - sections[n - 2].along : (sections[i + 1].along - sections[i - 1].along) * 0.5;
+    urban.add(s, [core[0][i], core[1][i]], [outer[0][i], outer[1][i]], [lifts[0][i], lifts[1][i]], spacing * 2);
+  });
+
+  [-1, 1].forEach((side, k) => {
+    const lift = lifts[k];
+    // Cross-section corners: [across (0 = core, 1 = core + kerb, 2 = outer), height factor, face type, normal
+    // (across, up)]. Each face has its own vertices so the kerb edge stays crisp.
+    // face: 0 kerb face, 1 kerb top, 2 sidewalk, 3 outer skirt.
+    const corners: [number, number, number, number, number][] = [
+      [0, 0, 0, -1, 0],
+      [0, 1, 0, -1, 0],
+      [0, 1, 1, 0, 1],
+      [1, 1, 1, 0, 1],
+      [1, 1, 2, 0, 1],
+      [2, 1, 2, 0, 1],
+      [2, 1, 3, 1, 0],
+      [2, -2.6, 3, 1, 0],
+    ];
+    const cols = corners.length;
+    const base = acc.positions.length / 3;
+    // Fold guard: on the inside of a tight bend an offset line can run backwards; such a vertex is held at the
+    // previous section's position instead (no kerb wedges sticking out into the gutter).
+    const prevX = new Float64Array(3).fill(NaN);
+    const prevZ = new Float64Array(3).fill(NaN);
+    sections.forEach((s, i) => {
+      const rx = -s.tz * side;
+      const rz = s.tx * side;
+      const acrossOf = [core[k][i], core[k][i] + KERB_WIDTH_M, outer[k][i]];
+      const px3: number[] = [];
+      const pz3: number[] = [];
+      for (let c = 0; c < 3; c++) {
+        let px = s.x + rx * acrossOf[c];
+        let pz = s.z + rz * acrossOf[c];
+        if (i > 0 && (px - prevX[c]) * s.tx + (pz - prevZ[c]) * s.tz < 0.02) {
+          px = prevX[c];
+          pz = prevZ[c];
+        }
+        prevX[c] = px;
+        prevZ[c] = pz;
+        px3.push(px);
+        pz3.push(pz);
+      }
+      for (const [ci, hf, face, na, nu] of corners) {
+        const px = px3[ci];
+        const pz = pz3[ci];
+        const h = hf >= 0 ? hf * KERB_HEIGHT_M * lift[i] : hf * KERB_HEIGHT_M; // the skirt always reaches below ground
+        acc.positions.push(px, surfaceHeight(terrain, px, pz) + DECAL_LIFT_M + h, pz);
+        acc.normals.push(rx * na, nu, rz * na);
+        acc.road.push(acrossOf[ci] * side, s.along, outer[k][i], PROFILE.kerb);
+        acc.roadB.push(core[k][i], seed, face, lift[i]);
+        acc.dir.push(s.tx, s.tz);
+        acc.clip.push(1e3);
+      }
+    });
+    for (let i = 0; i < n - 1; i++) {
+      for (let j = 0; j < cols - 1; j += 2) {
+        const a = base + i * cols + j;
+        const b = a + cols;
+        // Winding so the faces point up / towards the road / outwards for both sides.
+        if (side > 0) acc.indices.push(a, a + 1, b, a + 1, b + 1, b);
+        else acc.indices.push(a, b, a + 1, a + 1, b, b + 1);
+      }
+    }
+
+    appendRetainingWall(acc, sections, outer[k], lift, side, seed, terrain, obstacles);
+  });
+}
+
+/**
+ * Where the ground beside the sidewalk rises (yards and banks above the street: the 4 m height field cannot hold
+ * the real plinth walls), a sandstone rubble retaining wall stands at the back of the sidewalk, its top level with
+ * the ground behind it. Not where a facade already stands at the sidewalk edge.
+ */
+function appendRetainingWall(
+  acc: RoadGeometryAccumulator,
+  sections: Section[],
+  outer: number[],
+  lift: number[],
+  side: number,
+  seed: number,
+  terrain: TerrainSystem,
+  obstacles: ObstacleIndex
+): void {
+  const n = sections.length;
+  const THICK = 0.4;
+  const walk = sections.map((s, i) => {
+    const px = s.x - s.tz * side * outer[i];
+    const pz = s.z + s.tx * side * outer[i];
+    return surfaceHeight(terrain, px, pz) + DECAL_LIFT_M + KERB_HEIGHT_M * lift[i];
+  });
+  const rawRise = sections.map((s, i) => {
+    if (obstacles.sideGap(s, side, outer[i] + 0.7) < outer[i] + 0.6) return 0; // a house front is the wall here
+    let behind = -Infinity;
+    for (const d of [1.0, 2.0, 2.8]) {
+      const a = outer[i] + d;
+      behind = Math.max(behind, surfaceHeight(terrain, s.x - s.tz * side * a, s.z + s.tx * side * a));
+    }
+    const rise = behind - walk[i];
+    return rise > 0.35 ? Math.min(rise + 0.06, 3.2) : 0;
+  });
+  // hold the wall over +-1 section, ease its height in and out, never higher than the ground asks for + 0.3 m
+  const held = rawRise.map((_, i) => Math.max(rawRise[Math.max(0, i - 1)], rawRise[i], rawRise[Math.min(n - 1, i + 1)]));
+  const height = smoothSeries(held, 1.2).map((h, i) => Math.min(h, held[i] + 0.3));
+  if (!height.some((h) => h > 0.2)) return;
+
+  const corners: [number, number, number, number, number][] = [
+    // [across offset, use top (1) or base (0), face (4 wall, 5 coping), normal across, normal up]
+    [0, 0, 4, -1, 0],
+    [0, 1, 4, -1, 0],
+    [0, 1, 5, 0, 1],
+    [THICK, 1, 5, 0, 1],
+    [THICK, 1, 4, 1, 0],
+    [THICK, 0, 4, 1, 0],
+  ];
+  const cols = corners.length;
+  const base = acc.positions.length / 3;
+  sections.forEach((s, i) => {
+    const rx = -s.tz * side;
+    const rz = s.tx * side;
+    const h = height[i];
+    const top = walk[i] + Math.max(h, 0) - (h > 0.05 ? 0 : 0.08); // no wall: sunk just below the sidewalk
+    for (const [off, useTop, face, na, nu] of corners) {
+      const a = outer[i] + off;
+      const px = s.x + rx * a;
+      const pz = s.z + rz * a;
+      const bottom = off > 0 ? surfaceHeight(terrain, px, pz) - 0.3 : walk[i] - 0.02;
+      acc.positions.push(px, useTop ? top : Math.min(bottom, top), pz);
+      acc.normals.push(rx * na, nu, rz * na);
+      acc.road.push(a * side, s.along, a, PROFILE.kerb);
+      acc.roadB.push(outer[i], seed, face, 1);
+      acc.dir.push(s.tx, s.tz);
+      acc.clip.push(1e3);
+    }
+  });
+  for (let i = 0; i < n - 1; i++) {
+    for (let j = 0; j < cols - 1; j += 2) {
+      const a = base + i * cols + j;
+      const b = a + cols;
+      if (side > 0) acc.indices.push(a, a + 1, b, a + 1, b + 1, b);
+      else acc.indices.push(a, b, a + 1, a + 1, b, b + 1);
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------
+// Shader
+// ---------------------------------------------------------------------------------------------------
+
+const ROAD_FRAGMENT_PARS = /* glsl */ `
+varying vec3 vKdhWorldPos;
+varying vec3 vKdhWorldNormal;
+varying vec4 vKdhRoad;
+varying vec4 vKdhRoadB;
+varying vec2 vKdhRoadDir;
+varying float vKdhClip;
+uniform vec2 uKdhRoadRange; // x = normal-map fade end (m), y = fine procedural detail fade end (m)
+${KDH_GROUND_GLSL}
+vec3 kdhWorldN;
+float kdhRough;
+`;
+
+const ROAD_FRAGMENT_COLOR = /* glsl */ `
+{
+  vec3 kP = vKdhWorldPos;
+  float kDist = distance(cameraPosition, kP);
+  float ac = vKdhRoad.x;
+  float aa = abs(ac);
+  float al = vKdhRoad.y;
+  float hw = vKdhRoad.z;
+  int prof = int(vKdhRoad.w + 0.5);
+  float core = vKdhRoadB.x;
+  float seed = vKdhRoadB.y;
+  float flag = vKdhRoadB.z;
+  vec2 dirA = normalize(vKdhRoadDir);  // along the road (x, z)
+  vec2 dirR = vec2(-dirA.y, dirA.x);   // to the right
+  vec2 wst = kP.xz;
+  vec2 wdx = dFdx(wst);
+  vec2 wdy = dFdy(wst);
+  vec2 rst = vec2(ac, al);
+  vec2 rdx = dFdx(rst);
+  vec2 rdy = dFdy(rst);
+  vec2 vst = vec2(al, kP.y) * 3.0;     // for vertical faces (kerb face, skirt)
+  vec2 vdx = dFdx(vst);
+  vec2 vdy = dFdy(vst);
+  float bandK = vKdhRoadB.w;           // 0 where another road's asphalt runs through the edge band
+  float kFar = smoothstep(7.0, 42.0, kDist) * 0.8;
+  float fine = 1.0 - smoothstep(uKdhRoadRange.y * 0.26, uKdhRoadRange.y, kDist);   // thin procedural lines fade before they alias
+  float nBlot = kdhFbm(wst * 0.11 + seed * 31.0);     // metre-scale tone blotches
+  float nEdge = kdhFbm(wst * 1.7 + 5.0);              // edge raggedness
+  float nGrit = kdhFbm(wst * 6.0);
+
+  // ---- which layers, in which space, with which target colour -------------------------------------
+  int layerA = ${GROUND_LAYER.asphalt};
+  bool roadSpaceA = false;
+  vec3 targetA = vec3(0.128, 0.128, 0.132);
+  int layerB = ${GROUND_LAYER.setts};
+  bool roadSpaceB = true;
+  vec3 targetB = vec3(0.2, 0.195, 0.185);
+  float mixB = 0.0;
+  float scaleB = 1.0;
+  float alpha = 1.0;
+  float asphalt = 1.0;   // amount of asphalt-specific wear (patches, cracks, polish)
+  float crackAmt = 0.35;
+
+  if (prof == ${PROFILE.urban}) {
+    targetA = vec3(0.128, 0.128, 0.133);
+    mixB = smoothstep(core - 0.36, core - 0.33, aa) * bandK;               // 0.33 m sett gutter along the kerb
+    scaleB = 1.7;                                                          // 10-12 cm setts, three rows
+    alpha = 1.0 - smoothstep(hw - 0.03, hw, aa);
+  } else if (prof == ${PROFILE.village}) {
+    // mid-grey residential asphalt (reference Triftstrasse / Neugasse), a little different on every street
+    targetA = vec3(0.1, 0.1, 0.103) * (0.92 + 0.16 * fract(seed * 13.7));
+    layerB = ${GROUND_LAYER.pavers};
+    targetB = vec3(0.24, 0.233, 0.218);
+    float variant = fract(seed * 7.31);
+    float band;
+    if (variant < 0.45) {
+      band = smoothstep(core - 0.44, core - 0.41, aa);                      // two-row concrete-paver border strip
+    } else if (variant < 0.75) {
+      band = smoothstep(core - 0.23, core - 0.2, aa);                       // single row of setts
+      layerB = ${GROUND_LAYER.setts};
+      targetB = vec3(0.19, 0.185, 0.175);
+      scaleB = 1.7;
+    } else {
+      // no edging: the asphalt frays into a gravel shoulder
+      layerB = ${GROUND_LAYER.gravel};
+      roadSpaceB = false;
+      targetB = vec3(0.19, 0.17, 0.135);
+      band = smoothstep(core - 0.45, core + 0.02, aa + (nEdge - 0.5) * 0.5) * 0.85;
+    }
+    band *= bandK;
+    float rinne = flag * (1.0 - smoothstep(0.27, 0.3, aa));                // Am Kirchrain centre drainage channel
+    if (rinne > 0.0) {
+      layerB = ${GROUND_LAYER.pavers};
+      roadSpaceB = true;
+      targetB = vec3(0.24, 0.233, 0.218);
+      scaleB = 1.0;
+    }
+    mixB = max(band, rinne);
+    alpha = 1.0 - smoothstep(hw - 0.07, hw, aa + (nEdge - 0.5) * 0.06);
+  } else if (prof == ${PROFILE.rural} || prof == ${PROFILE.lane}) {
+    targetA = prof == ${PROFILE.rural} ? vec3(0.125, 0.126, 0.13) : vec3(0.135, 0.134, 0.134);
+    alpha = 1.0 - smoothstep(core - 0.05, hw, aa + (nEdge - 0.5) * 0.4);
+  } else if (prof == ${PROFILE.service}) {
+    targetA = vec3(0.14, 0.135, 0.128);                                    // old, sun-bleached farm-track asphalt
+    layerB = ${GROUND_LAYER.gravel};
+    roadSpaceB = false;
+    targetB = vec3(0.2, 0.172, 0.13);
+    mixB = smoothstep(core - 0.55, core + 0.05, aa + (nEdge - 0.5) * 0.7) * 0.75;
+    alpha = 1.0 - smoothstep(core - 0.1, hw, aa + (nEdge - 0.5) * 0.5);
+    crackAmt = 1.0;
+  } else if (prof == ${PROFILE.track}) {
+    // Two wheel ruts of compacted gravel/earth; the middle strip and the verges stay the field's own grass.
+    layerA = ${GROUND_LAYER.gravel};
+    targetA = vec3(0.26, 0.226, 0.172);
+    layerB = ${GROUND_LAYER.soil};
+    roadSpaceB = false;
+    targetB = vec3(0.17, 0.13, 0.09);
+    float wob = (kdhNoise(vec2(al * 0.07, seed * 40.0)) - 0.5) * 0.3;
+    float rut = 1.0 - smoothstep(0.24, 0.56, abs(aa - 0.74 + wob) + (nEdge - 0.5) * 0.3);
+    float worn = smoothstep(0.52, 0.8, kdhFbm(wst * 0.05 + seed * 9.0));   // stretches driven bare across the full width
+    float bare = max(rut, worn * (1.0 - smoothstep(1.1, 1.5, aa)) * smoothstep(0.3, 0.6, nEdge + 0.15));
+    mixB = smoothstep(0.35, 0.75, kdhFbm(wst * 0.35 + 11.0)) * 0.45;
+    alpha = bare * (0.76 + 0.2 * nGrit);
+    asphalt = 0.0;
+  } else if (prof == ${PROFILE.path}) {
+    layerA = ${GROUND_LAYER.gravel};
+    targetA = vec3(0.2, 0.172, 0.13);
+    layerB = ${GROUND_LAYER.soil};
+    roadSpaceB = false;
+    targetB = vec3(0.13, 0.098, 0.066);
+    mixB = smoothstep(0.3, 0.7, kdhFbm(wst * 0.4 + 3.0)) * 0.6;
+    alpha = (1.0 - smoothstep(hw * 0.35, hw * 0.95, aa + (nEdge - 0.5) * 0.5)) * 0.9;
+    asphalt = 0.0;
+  } else {
+    // Kerb + sidewalk mesh. flag = face type: 0 kerb face, 1 kerb top, 2 sidewalk, 3 outer skirt,
+    // 4 retaining wall face, 5 wall coping.
+    asphalt = 0.0;
+    if (flag > 1.5 && flag < 2.5) {
+      layerA = ${GROUND_LAYER.sidewalk};
+      roadSpaceA = true;
+      targetA = vec3(0.265, 0.258, 0.245) * (0.9 + 0.2 * nBlot);
+    } else if (flag > 3.5 && flag < 4.5) {
+      // dry-laid sandstone rubble: the sett scan at ~2.5x size reads as 20-35 cm field stones
+      layerA = ${GROUND_LAYER.setts};
+      wst = vst * 0.24;
+      wdx = vdx * 0.24;
+      wdy = vdy * 0.24;
+      targetA = vec3(0.24, 0.195, 0.14) * (0.85 + 0.3 * nBlot);
+    } else {
+      // precast concrete kerbstones: the asphalt scan at 3x frequency reads as fine concrete
+      bool upright = flag < 0.5 || (flag > 2.5 && flag < 3.5);
+      wst = upright ? vst : wst * 3.0;
+      wdx = upright ? vdx : wdx * 3.0;
+      wdy = upright ? vdy : wdy * 3.0;
+      targetA = flag > 2.5 ? vec3(0.15, 0.148, 0.142) : vec3(0.31, 0.305, 0.292);
+    }
+  }
+
+  // ---- sample -------------------------------------------------------------------------------------
+  vec3 aA;
+  vec2 nA;
+  float rA;
+  if (roadSpaceA) kdhGroundSample(layerA, rst, rdx, rdy, kFar, aA, nA, rA);
+  else kdhGroundSample(layerA, wst, wdx, wdy, kFar, aA, nA, rA);
+  vec3 col = aA / max(uKdhGroundMean[layerA], vec3(0.01)) * targetA;
+  vec2 nW = roadSpaceA ? dirR * nA.x + dirA * nA.y : nA;
+  float rough = rA;
+  if (mixB > 0.01) {
+    vec3 aB;
+    vec2 nB;
+    float rB;
+    if (roadSpaceB) kdhGroundSample(layerB, rst * scaleB, rdx * scaleB, rdy * scaleB, kFar, aB, nB, rB);
+    else kdhGroundSample(layerB, wst, wdx, wdy, kFar, aB, nB, rB);
+    col = mix(col, aB / max(uKdhGroundMean[layerB], vec3(0.01)) * targetB, mixB);
+    nW = mix(nW, roadSpaceB ? dirR * nB.x + dirA * nB.y : nB, mixB);
+    rough = mix(rough, rB, mixB);
+    asphalt *= 1.0 - mixB;
+  }
+
+  // ---- asphalt life: tone blotches, repair patches with tar seams, wheel-polished lanes, cracks ----
+  if (asphalt > 0.01) {
+    float tone = 1.0 + (nBlot - 0.5) * 0.3 + (seed - 0.5) * 0.12;
+    // Repair patches: rounded, slightly wobbly cut-outs of different size in a 2.6 x 7 m cell grid (road space),
+    // a few centimetres of dark bitumen seal along the cut instead of a ruler-straight joint line.
+    vec2 pcs = vec2(2.6, 7.0);
+    vec2 pg = vec2(ac + 9.0 * pcs.x, al) / pcs;
+    vec2 pcell = floor(pg);
+    float isPatch = step(0.82, kdhHash(pcell + seed * 91.0));
+    float seam = 0.0;
+    if (isPatch > 0.5) {
+      vec2 h2 = vec2(kdhHash(pcell + 3.7), kdhHash(pcell + 8.1));
+      vec2 local = (fract(pg) - 0.5) * pcs - (h2 - 0.5) * vec2(0.5, 1.6);
+      vec2 halfSize = pcs * 0.5 - vec2(0.25, 0.6) - h2.yx * vec2(0.55, 2.2);
+      float rad = 0.25 + 0.35 * h2.x;
+      vec2 q = abs(local) - halfSize + rad;
+      float sd = length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - rad;
+      sd += (kdhNoise(wst * 1.1 + seed * 17.0) - 0.5) * 0.09 + (kdhNoise(wst * 6.0) - 0.5) * 0.03;
+      isPatch = 1.0 - smoothstep(-0.01, 0.01, sd);
+      seam = 1.0 - smoothstep(0.01, 0.035, abs(sd));
+    }
+    tone -= isPatch * 0.14;
+    float lane = exp(-pow((aa - core * 0.47) / 0.42, 2.0)) * step(2.0, core);
+    tone *= 1.0 - 0.07 * lane;
+    float crackField = smoothstep(0.5, 0.72, kdhNoise(wst * 0.06 + seed * 13.0));
+    float crack = (1.0 - smoothstep(0.0, 0.014, abs(kdhNoise(wst * 0.55 + seed * 7.0) - 0.5))) * crackField * crackAmt;
+    float lines = max(seam * 0.4, crack * 0.6) * fine;
+    vec3 worn = col * tone;
+    worn = mix(worn, worn * 0.42, lines);
+    col = mix(col, worn, asphalt);
+    rough = mix(rough, rough - 0.1 * lane - 0.12 * isPatch + 0.05 * lines, asphalt);
+  }
+
+  // ---- cast-iron street furniture: manhole covers in the lane, gully grates in the sett gutter --------------
+  if (prof <= ${PROFILE.village}) {
+    float iron = 0.0;
+    float collar = 0.0;
+    float ironTone = 1.0;
+    // one manhole per ~46 m, at a hashed spot in one of the lanes
+    float mCell = floor(al / 46.0 + seed * 7.0);
+    float mAlong = (mCell + 0.25 + 0.5 * kdhHash(vec2(mCell, seed * 53.0)) - seed * 7.0) * 46.0;
+    float mAcross = (kdhHash(vec2(mCell + 11.0, seed * 29.0)) - 0.5) * core * 1.1;
+    vec2 mv = vec2(ac - mAcross, al - mAlong);
+    float md = length(mv);
+    if (md < 0.5) {
+      iron = 1.0 - smoothstep(0.3, 0.312, md);
+      collar = (1.0 - smoothstep(0.36, 0.375, md)) * (1.0 - iron);
+      float rings = 0.5 + 0.5 * sin(md * 105.0);
+      float spokes = 0.5 + 0.5 * sin(atan(mv.y, mv.x) * 16.0);
+      ironTone = 0.75 + 0.5 * mix(rings, rings * spokes, smoothstep(0.08, 0.14, md)) * fine + 0.25 * (1.0 - fine);
+    }
+    // gully grate every ~31 m in the sett gutter of Hauptstraße (alternating sides)
+    if (prof == ${PROFILE.urban} && bandK > 0.5) {
+      float gCell = floor(al / 31.0 + seed * 3.0);
+      float gAlong = (gCell + 0.5 - seed * 3.0) * 31.0;
+      float side = mod(gCell, 2.0) < 0.5 ? 1.0 : -1.0;
+      vec2 gv = vec2(ac * side - (core - 0.185), al - gAlong);
+      float grate = (1.0 - smoothstep(0.135, 0.145, abs(gv.x))) * (1.0 - smoothstep(0.235, 0.245, abs(gv.y)));
+      if (grate > 0.0) {
+        float slots = step(0.5, fract(gv.y / 0.052)) * (1.0 - smoothstep(0.105, 0.11, abs(gv.x)));
+        iron = max(iron, grate);
+        ironTone = mix(1.0, 0.25, slots * fine);
+      }
+    }
+    if (iron + collar > 0.001) {
+      col = mix(col, vec3(0.2, 0.198, 0.19) * (0.85 + 0.3 * nGrit), collar);
+      col = mix(col, vec3(0.055, 0.052, 0.05) * ironTone * (0.8 + 0.4 * nGrit), iron);
+      rough = mix(rough, 0.55, iron);
+      nW *= 1.0 - iron;
+    }
+  }
+
+  // ---- markings -----------------------------------------------------------------------------------
+  float mark = 0.0;
+  if (prof == ${PROFILE.rural}) {
+    mark = 1.0 - smoothstep(0.045, 0.055, abs(aa - (core - 0.2)));                // 12 cm solid edge lines (Fahrbahnbegrenzung)
+  } else if (prof == ${PROFILE.urban}) {
+    float dash = step(fract(al / 9.0), 1.0 / 3.0);                          // 3 m line, 6 m gap (Leitlinie innerorts)
+    mark = (1.0 - smoothstep(0.05, 0.06, aa)) * dash * 0.62;
+  }
+  if (mark > 0.001) {
+    float wornPaint = smoothstep(0.2, 0.55, kdhFbm(wst * 4.5) * 0.7 + nGrit * 0.45);   // paint flaked off by tyres
+    mark *= mix(1.0, wornPaint, prof == ${PROFILE.urban} ? 0.9 : 0.55);
+    col = mix(col, vec3(0.56, 0.56, 0.54) * (0.85 + 0.3 * nGrit), mark);
+    rough = mix(rough, 0.62, mark);
+    nW *= 1.0 - 0.6 * mark;
+  }
+
+  // ---- kerb / sidewalk details ----------------------------------------------------------------------
+  if (prof == ${PROFILE.kerb}) {
+    if (flag < 1.5) {
+      float joint = 1.0 - smoothstep(0.004, 0.012, 0.5 - abs(fract(al) - 0.5));          // 1 m kerbstones
+      col *= 1.0 - 0.5 * joint * fine;
+      if (flag < 0.5) col *= 0.82;                                                          // face: dirt + self-shadow
+    } else if (flag < 2.5) {
+      float toWall = smoothstep(core + 0.3, hw, aa);
+      col *= 1.0 - 0.14 * toWall * (0.5 + nEdge);                                           // grime gathers at the house wall
+    }
+  }
+
+  // side streets end exactly at the Hauptstrasse carriageway edge (no asphalt over its gutter and kerbs)
+  alpha *= smoothstep(-0.1, -0.04, vKdhClip);
+  diffuseColor.rgb = col;
+  diffuseColor.a *= clamp(alpha, 0.0, 1.0);
+  float kNrm = 1.0 - smoothstep(uKdhRoadRange.x * 0.18, uKdhRoadRange.x, kDist);
+  kdhWorldN = normalize(normalize(vKdhWorldNormal) + vec3(nW.x, 0.0, nW.y) * (0.9 * kNrm));
+  kdhRough = rough;
+}
+`;
+
+/** Shared by every road material: detail distances scaled by the quality level (`setQuality`). */
+const ROAD_RANGE_UNIFORM = { value: new THREE.Vector2(140, 70) };
+
+function createRoadMaterial(ground: GroundMaterialLibrary, decal: boolean): THREE.MeshStandardMaterial {
+  const mat = new THREE.MeshStandardMaterial({
+    color: 0xffffff,
+    roughness: 0.9,
+    metalness: 0.0,
+    envMapIntensity: 0.35,
+    transparent: decal,
+    depthWrite: !decal,
+    polygonOffset: true,
+    polygonOffsetFactor: decal ? -2 : -1,
+    polygonOffsetUnits: decal ? -8 : -4,
+  });
+  // Appends after stock #include lines only (uKdh*/vKdh*/kdh* names), so further onBeforeCompile hooks can be chained.
+  mat.onBeforeCompile = (shader) => {
+    Object.assign(shader.uniforms, ground.uniforms);
+    shader.uniforms.uKdhRoadRange = ROAD_RANGE_UNIFORM;
+    shader.vertexShader = shader.vertexShader
+      .replace(
+        '#include <common>',
+        `#include <common>
+        attribute vec4 aKdhRoad;
+        attribute vec4 aKdhRoadB;
+        attribute vec2 aKdhRoadDir;
+        attribute float aKdhClip;
+        varying float vKdhClip;
+        varying vec3 vKdhWorldPos;
+        varying vec3 vKdhWorldNormal;
+        varying vec4 vKdhRoad;
+        varying vec4 vKdhRoadB;
+        varying vec2 vKdhRoadDir;`
+      )
+      .replace(
+        '#include <defaultnormal_vertex>',
+        `#include <defaultnormal_vertex>
+        vKdhWorldNormal = normalize(mat3(modelMatrix) * objectNormal);`
+      )
+      .replace(
+        '#include <worldpos_vertex>',
+        `#include <worldpos_vertex>
+        vKdhWorldPos = (modelMatrix * vec4(transformed, 1.0)).xyz;
+        vKdhRoad = aKdhRoad;
+        vKdhRoadB = aKdhRoadB;
+        vKdhRoadDir = aKdhRoadDir;
+        vKdhClip = aKdhClip;`
+      );
+    shader.fragmentShader = shader.fragmentShader
+      .replace('#include <common>', `#include <common>\n${ROAD_FRAGMENT_PARS}`)
+      .replace('#include <map_fragment>', `#include <map_fragment>\n${ROAD_FRAGMENT_COLOR}`)
+      .replace(
+        '#include <roughnessmap_fragment>',
+        `#include <roughnessmap_fragment>
+        roughnessFactor = clamp(kdhRough, 0.3, 1.0);`
+      )
+      .replace(
+        '#include <normal_fragment_maps>',
+        `#include <normal_fragment_maps>
+        normal = normalize((viewMatrix * vec4(kdhWorldN, 0.0)).xyz);`
+      );
+  };
+  mat.customProgramCacheKey = () => `kdh-road-v3-${decal ? 'decal' : 'solid'}`;
+  return mat;
+}
+
+function buildMesh(acc: RoadGeometryAccumulator, material: THREE.Material, name: string, ground: GroundMaterialLibrary): THREE.Mesh {
+  const geom = new THREE.BufferGeometry();
+  geom.setAttribute('position', new THREE.Float32BufferAttribute(acc.positions, 3));
+  geom.setAttribute('normal', new THREE.Float32BufferAttribute(acc.normals, 3));
+  geom.setAttribute('aKdhRoad', new THREE.Float32BufferAttribute(acc.road, 4));
+  geom.setAttribute('aKdhRoadB', new THREE.Float32BufferAttribute(acc.roadB, 4));
+  geom.setAttribute('aKdhRoadDir', new THREE.Float32BufferAttribute(acc.dir, 2));
+  geom.setAttribute('aKdhClip', new THREE.Float32BufferAttribute(acc.clip, 1));
+  geom.setIndex(acc.indices);
+  geom.computeBoundingSphere();
+  geom.computeBoundingBox();
+  const mesh = new THREE.Mesh(geom, material);
+  mesh.name = name;
+  mesh.receiveShadow = true;
+  mesh.castShadow = false;
+  mesh.onBeforeRender = (renderer) => ground.ensureUploaded(renderer);
+  return mesh;
 }
 
 /**
@@ -660,103 +1405,214 @@ export function buildRoadNetwork(
   terrain: TerrainSystem,
   maxAnisotropy: number
 ): THREE.Group {
+  const ground = terrain.ground;
+  if (!ground) {
+    throw new Error('buildRoadNetwork: terrain.loadTextures() must finish first (the roads share its ground texture arrays)');
+  }
+
   const group = new THREE.Group();
   group.name = 'KindenheimRoads';
 
-  const accumulators: Record<RoadTier, GeometryAccumulator> = {
-    highway_urban: createAccumulator(),
-    highway_rural: createAccumulator(),
-    village: createAccumulator(),
-    village_rinne: createAccumulator(),
-    service: createAccumulator(),
+  const decals: Record<DecalTier, RoadGeometryAccumulator> = {
+    path: createAccumulator(),
     track: createAccumulator(),
+    service: createAccumulator(),
+    lane: createAccumulator(),
+    village: createAccumulator(),
+    rural: createAccumulator(),
+    urban: createAccumulator(),
   };
+  const kerbs = createAccumulator();
+
+  interface Prepared {
+    road: RoadRecord;
+    base: NonNullable<ReturnType<typeof classifyRoadBase>>;
+    pts: [number, number][];
+    widthM: number;
+    roadIndex: number;
+  }
+  const prepared: Prepared[] = [];
+  const junctions = new JunctionIndex(); // everything that can join Hauptstraße (kerbs drop there)
+  const paved = new JunctionIndex(); // all asphalt surfaces (edge bands stop where another one crosses)
+  const highwayEnds: [number, number][] = [];
 
   for (const road of roads) {
     if (!road.points || road.points.length < 2) continue;
-    const baseTier = classifyRoadBase(road);
-    if (!baseTier) continue;
-
-    const xzPts = road.points.map(extractXZ);
-    const resampled = resamplePolyline(xzPts, 4.5);
-    if (resampled.length < 2) continue;
-
-    if (baseTier === 'highway') {
-      const subRuns = splitHighwayUrbanRural(resampled);
-      for (const run of subRuns) {
-        const style = TIER_STYLES[run.tier];
-        const widthM = THREE.MathUtils.clamp(road.widthM && road.widthM > 1 ? road.widthM : style.defaultWidth, 4.5, 9.5);
-        appendRoadRibbon(accumulators[run.tier], run.pts, widthM, style, terrain);
-      }
-      continue;
+    const base = classifyRoadBase(road);
+    if (!base) continue;
+    const pts = resamplePolyline(road.points.map(extractXZ), ALONG_STEP_M);
+    if (pts.length < 2) continue;
+    const fallback = base === 'highway' ? 7.2 : base === 'lane' ? 5.8 : base === 'village' ? 5.0 : base === 'service' ? 3.4 : base === 'track' ? 3.2 : 1.8;
+    const widthM = road.widthM && road.widthM > 1 ? road.widthM : fallback;
+    const roadIndex = prepared.length;
+    prepared.push({ road, base, pts, widthM, roadIndex });
+    if (base === 'highway') {
+      highwayEnds.push(pts[0], pts[pts.length - 1]);
+    } else {
+      junctions.add(pts, widthM * 0.5, roadIndex);
     }
-
-    if (baseTier === 'village' && (road.name ?? '').toLowerCase().includes('kirchrain')) {
-      const subRuns = splitKirchrainRinne(resampled);
-      for (const run of subRuns) {
-        const style = TIER_STYLES[run.tier];
-        const widthM = THREE.MathUtils.clamp(road.widthM && road.widthM > 1 ? road.widthM : style.defaultWidth, 3.8, 7.5);
-        appendRoadRibbon(accumulators[run.tier], run.pts, widthM, style, terrain);
-      }
-      continue;
+    if (base === 'highway' || base === 'lane' || base === 'village' || base === 'service') {
+      paved.add(pts, widthM * 0.5, roadIndex);
     }
-
-    const style = TIER_STYLES[baseTier];
-    let widthM = road.widthM && road.widthM > 1 ? road.widthM : style.defaultWidth;
-    if (road.highway === 'footway' || road.highway === 'path') {
-      widthM = Math.min(widthM, 2.1);
-    }
-    widthM = THREE.MathUtils.clamp(widthM, 1.8, 10.0);
-
-    appendRoadRibbon(accumulators[baseTier], resampled, widthM, style, terrain);
   }
 
-  const tiers: RoadTier[] = ['track', 'service', 'village', 'village_rinne', 'highway_rural', 'highway_urban'];
-  for (const tier of tiers) {
-    const acc = accumulators[tier];
-    if (acc.indices.length === 0) continue;
+  // A way end "continues" when another highway way ends at the same node (every end is in the list once itself).
+  const continuesAt = (p: [number, number]): boolean => {
+    let hits = 0;
+    for (const e of highwayEnds) {
+      if (Math.hypot(e[0] - p[0], e[1] - p[1]) < 1.0) hits++;
+    }
+    return hits >= 2;
+  };
 
-    const geom = new THREE.BufferGeometry();
-    geom.setAttribute('position', new THREE.Float32BufferAttribute(acc.positions, 3));
-    geom.setAttribute('normal', new THREE.Float32BufferAttribute(acc.normals, 3));
-    geom.setAttribute('uv', new THREE.Float32BufferAttribute(acc.uvs, 2));
-    geom.setIndex(acc.indices);
-    geom.computeBoundingSphere();
+  const obstacles = new ObstacleIndex(getGroundObstacles());
+  const urban = new UrbanIndex();
+  const stats = { urbanShiftedM: 0, urbanNarrowedM: 0, sideNarrowedM: 0 };
 
-    const style = TIER_STYLES[tier];
-    const tex = createRoadTexture(tier, maxAnisotropy);
-    const usesAlphaEdge = tier === 'track' || tier === 'highway_rural';
-    const mat = new THREE.MeshStandardMaterial({
-      map: tex,
-      roughness: style.roughness,
-      metalness: 0.0,
-      envMapIntensity: 0.32,
-      transparent: usesAlphaEdge,
-      depthWrite: !usesAlphaEdge,
-      polygonOffset: true,
-      polygonOffsetFactor: style.polygonOffsetFactor,
-      polygonOffsetUnits: style.polygonOffsetFactor,
+  // Pass 1: L 450 / Hauptstraße (the side streets are cut against its final layout).
+  for (const { road, base, pts, widthM, roadIndex } of prepared) {
+    if (base !== 'highway') continue;
+    const seed = hashSeed(road.id, 17);
+    const runs = splitRuns(pts, (x, z) => (isInsideUrbanVillage(x, z) ? 'urban' : 'rural'));
+    runs.forEach((run) => {
+      if (run.tier === 'urban') {
+        // 7.2 m between the house fronts: 5.1 m carriageway incl. 2 x 0.33 m sett gutter, kerb, ~1.2 m sidewalks
+        const core0 = THREE.MathUtils.clamp(widthM * 0.5 - 1.05, 2.2, 3.2);
+        const relaxed = relaxPolyline(run.pts, 6);
+        const lay = layoutUrbanRun(relaxed, core0, obstacles);
+        lay.pts.forEach((p, i) => {
+          if (Math.hypot(p[0] - relaxed[i][0], p[1] - relaxed[i][1]) > 0.1) stats.urbanShiftedM += ALONG_STEP_M;
+          if (Math.min(lay.core[0][i], lay.core[1][i]) < core0 - 0.05) stats.urbanNarrowedM += ALONG_STEP_M;
+        });
+        appendDecal(
+          decals.urban,
+          lay.pts,
+          {
+            profile: PROFILE.urban,
+            halfWidth: core0 + 0.04,
+            core: core0,
+            seed,
+            flag: 0,
+            paved,
+            roadIndex,
+            sideCore: lay.core,
+            sideHalfWidth: [lay.core[0].map((c) => c + 0.04), lay.core[1].map((c) => c + 0.04)],
+          },
+          terrain
+        );
+        const first = run.pts[0];
+        const last = run.pts[run.pts.length - 1];
+        const openStart = !(first === pts[0] && continuesAt(first));
+        const openEnd = !(last === pts[pts.length - 1] && continuesAt(last));
+        appendKerbs(kerbs, lay.pts, lay.core, lay.outer, seed, junctions, openStart, openEnd, terrain, urban, obstacles);
+      } else {
+        // real L 450: ~6 m of asphalt between the white edge lines, soft grass verge
+        const core = THREE.MathUtils.clamp(widthM * 0.5 - 0.45, 2.6, 3.6);
+        appendDecal(decals.rural, run.pts, { profile: PROFILE.rural, halfWidth: core + 0.45, core, seed, flag: 0 }, terrain);
+      }
     });
+  }
 
-    const mesh = new THREE.Mesh(geom, mat);
-    mesh.name = `Roads_${tier}`;
-    mesh.receiveShadow = true;
-    mesh.castShadow = false;
-    mesh.renderOrder =
-      tier === 'highway_urban'
-        ? 5
-        : tier === 'highway_rural'
-          ? 4
-          : tier === 'village' || tier === 'village_rinne'
-            ? 3
-            : tier === 'service'
-              ? 2
-              : 1;
+  // Pass 2: everything else, narrowed against facades and cut off at the Hauptstraße gutter line.
+  const narrowed = (pts: [number, number][], halfWidth: number, minHalf: number): [number[], number[]] => {
+    const sides = clearHalfWidths(buildSections(pts), halfWidth, minHalf, obstacles);
+    sides[0].forEach((v, i) => {
+      if (Math.min(v, sides[1][i]) < halfWidth - 0.05) stats.sideNarrowedM += ALONG_STEP_M;
+    });
+    return sides;
+  };
+  for (const { road, base, pts, widthM, roadIndex } of prepared) {
+    if (base === 'highway') continue;
+    const seed = hashSeed(road.id, 17);
+
+    if (base === 'village') {
+      const w = THREE.MathUtils.clamp(widthM, 3.8, 7.5);
+      const kirchrain = (road.name ?? '').toLowerCase().includes('kirchrain');
+      const runs = kirchrain
+        ? splitRuns(pts, (x, z) => (isKirchrainRinnePoint(x, z) ? 'rinne' : 'plain'))
+        : [{ tier: 'plain' as const, pts }];
+      for (const run of runs) {
+        const halfWidth = w * 0.5 + 0.06;
+        appendDecal(
+          decals.village,
+          run.pts,
+          {
+            profile: PROFILE.village,
+            halfWidth,
+            core: w * 0.5,
+            seed,
+            flag: run.tier === 'rinne' ? 1 : 0,
+            paved,
+            roadIndex,
+            sideHalfWidth: narrowed(run.pts, halfWidth, 1.5),
+            urban,
+          },
+          terrain
+        );
+      }
+      continue;
+    }
+
+    if (base === 'lane') {
+      const core = THREE.MathUtils.clamp(widthM, 4.0, 8.0) * 0.5 - 0.2;
+      const halfWidth = core + 0.45;
+      appendDecal(
+        decals.lane,
+        pts,
+        { profile: PROFILE.lane, halfWidth, core, seed, flag: 0, sideHalfWidth: narrowed(pts, halfWidth, 1.8), urban },
+        terrain
+      );
+    } else if (base === 'service') {
+      const core = THREE.MathUtils.clamp(widthM, 2.4, 6.0) * 0.5 - 0.1;
+      const halfWidth = core + 0.4;
+      appendDecal(
+        decals.service,
+        pts,
+        { profile: PROFILE.service, halfWidth, core, seed, flag: 0, sideHalfWidth: narrowed(pts, halfWidth, 1.1), urban },
+        terrain
+      );
+    } else if (base === 'track') {
+      const hw = THREE.MathUtils.clamp(widthM, 2.6, 4.0) * 0.5;
+      appendDecal(decals.track, pts, { profile: PROFILE.track, halfWidth: hw, core: hw, seed, flag: 0, urban }, terrain);
+    } else {
+      const hw = Math.min(widthM, 2.1) * 0.5;
+      appendDecal(decals.path, pts, { profile: PROFILE.path, halfWidth: hw, core: hw, seed, flag: 0, urban }, terrain);
+    }
+  }
+
+  const decalMaterial = createRoadMaterial(ground, true);
+  const kerbMaterial = createRoadMaterial(ground, false);
+
+  (Object.keys(decals) as DecalTier[]).forEach((tier) => {
+    const acc = decals[tier];
+    if (acc.indices.length === 0) return;
+    const mesh = buildMesh(acc, decalMaterial, `Roads_${tier}`, ground);
+    mesh.renderOrder = DECAL_RENDER_ORDER[tier];
     group.add(mesh);
+  });
+  if (kerbs.indices.length > 0) {
+    group.add(buildMesh(kerbs, kerbMaterial, 'Roads_kerbs_sidewalks', ground));
   }
 
   group.add(buildKinderbachBridge(terrain));
   group.add(buildTriftstrasseZone30Decal(terrain, maxAnisotropy));
+
+  /** Height of the raised Hauptstraße sidewalk / kerb above `terrain.getTerrainHeight` (0 elsewhere), for wheels. */
+  group.userData.getSurfaceLift = (x: number, z: number): number => urban.surfaceLift(x, z);
+  /** How much road geometry was moved / narrowed to keep clear of facades (metres of road, for reports). */
+  group.userData.facadeClearance = stats;
+  /**
+   * Quality contract: scales the distance up to which normal maps and thin procedural detail (patch seams,
+   * cracks, iron covers) are drawn; footpath decals are dropped on 'low'.
+   */
+  group.userData.setQuality = (level: string): void => {
+    const range: Record<string, [number, number]> = { low: [60, 35], medium: [100, 55], high: [140, 70], ultra: [180, 90] };
+    const r = range[level];
+    if (!r) throw new Error(`Roads: unknown quality level "${level}"`);
+    ROAD_RANGE_UNIFORM.value.set(r[0], r[1]);
+    const paths = group.getObjectByName('Roads_path');
+    if (paths) paths.visible = level !== 'low';
+  };
 
   return group;
 }

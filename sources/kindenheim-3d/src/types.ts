@@ -166,6 +166,14 @@ export interface VillagePropEntry {
   size?: [number, number, number] | { x: number; y: number; z: number; width?: number; height?: number; depth?: number };
   dimensions?: [number, number, number] | { width?: number; height?: number; depth?: number; length?: number };
   bbox?: { min?: number[]; max?: number[]; size?: number[] };
+  /** Vegetation LOD assets: GLB child nodes are named `<nodePrefix>_<LOD0|LOD1|LOD2|FAR>`. */
+  nodePrefix?: string;
+  lods?: Record<string, { node: string; triangles?: number }>;
+  heightM?: number;
+  crownCenter?: number[];
+  crownRadius?: number[];
+  bayLengthM?: number;
+  rowSpacingM?: number;
 }
 
 export interface VillageManifest {
@@ -218,6 +226,31 @@ export interface TractorManifest {
   trailerHitchOffset?: [number, number, number];
   trailerWheelRadius?: number;
   trailerAxleOffsetZ?: number;
+  /** Rear cab work lamps (tractor-local): origin of the spot that lights the hitch / trailer load. */
+  workLightRearOffset?: [number, number, number];
+  /** Tail lamp lens centres on the trailer (trailer-local) for the glow sprites. */
+  trailerTaillightOffsets?: [number, number, number][];
+  /** Baked AO / cavity / edge atlases (file names next to the GLBs), sampled with the second UV set. */
+  tractorBakeMap?: string;
+  trailerBakeMap?: string;
+  /** Visual rig helpers written by blender/tractor/build_tractor.py (tractor-local metres). */
+  frontAxlePivot?: [number, number, number];
+  steerArmEnds?: [number, number, number][];
+  driver?: {
+    shoulders: [number, number, number][];
+    upperArm: number;
+    foreArm: number;
+    handRadius: number;
+    handAnglesDeg: number[];
+    hideRadius: number;
+  };
+  /** Hydraulic / lighting line sockets on the tractor and where the trailer's lines leave its hose rest. */
+  hoseAnchors?: [number, number, number][];
+  trailerHoseAnchors?: [number, number, number][];
+  /** Float32 file next to the GLBs: loose grape berries on the load (x, y, z, radius, tint) * n, trailer-local. */
+  grapeBerriesBin?: string;
+  /** Mirror glass planes for optional planar reflections in the cab view. */
+  mirrors?: { position: [number, number, number]; yawDeg: number; size: [number, number] }[];
 }
 
 export type TimeOfDayPreset = 'morning' | 'noon' | 'golden' | 'dusk';
@@ -280,6 +313,14 @@ export interface FieldsManifestModel {
   betweenBaysM?: number;
   windSway?: number;
   windSwayStrength?: number;
+  /** Vegetation LOD assets: GLB child nodes are named `<nodePrefix>_<LOD0|LOD1|FAR>`. */
+  nodePrefix?: string;
+  lods?: Record<string, { node: string; triangles?: number }>;
+  /** Footprint of one far/near tile in metres (along the row, across). */
+  tileM?: [number, number];
+  heightM?: number;
+  /** Maximum view distance (m) of each detailed LOD node, nearest first. */
+  lodDist?: number[];
 }
 
 export interface FieldsManifest {
@@ -298,4 +339,63 @@ export interface LoadedDataset {
   tractorManifest: TractorManifest | null;
   fieldsLayout: FieldsLayoutData | null;
   fieldsManifest: FieldsManifest | null;
+}
+
+/** data/terrain/ortho/manifest.json — streamed DOP20 aerial tiles (written by scripts/build_terrain_ortho.py). */
+export interface OrthoTileManifest {
+  attribution: string;
+  licence?: string;
+  licenceUrl?: string;
+  source?: string;
+  processing?: string;
+  mapSizeM: number;
+  base: { file: string; sizePx: number; metresPerPixel: number; bytes?: number };
+  tiles: {
+    perSide: number;
+    tileSizeM: number;
+    tilePx: number;
+    gutterPx: number;
+    imagePx: number;
+    metresPerPixel: number;
+    filePattern: string;
+    rowOrder?: string;
+    bytes?: number;
+  };
+}
+
+/** public/assets/textures/ground/ground.json — CC0 PBR ground layers (written by scripts/fetch_ground_textures.py). */
+export interface GroundTextureLayer {
+  index: number;
+  name: string;
+  albedo: string;
+  normalRoughness: string;
+  tileSizeM: number;
+  meanAlbedoLinear: [number, number, number];
+  meanRoughness: number;
+  source?: string;
+  sourceId?: string;
+  sourceUrl?: string;
+  licence?: string;
+}
+
+export interface GroundTextureManifest {
+  size: number;
+  normalConvention?: string;
+  layers: GroundTextureLayer[];
+}
+
+/** data/terrain/far/manifest.json — aerial textures of the far terrain ring (scripts/build_terrain_far.py). */
+export interface FarTerrainLayer {
+  file: string;
+  sizePx: number;
+  sideM: number;
+  metresPerPixel?: number;
+  bytes?: number;
+}
+
+export interface FarTerrainManifest {
+  attribution: string;
+  licence?: string;
+  source?: string;
+  layers: { inner: FarTerrainLayer; outer: FarTerrainLayer };
 }

@@ -1,10 +1,11 @@
 {
-  "version": 1,
-  "coordinateSystem": "glTF 2.0 Y-up meters (+X East / along rows, +Y Up above ground contact Y=0 with underground slope skirt, -Z North)",
+  "version": 2,
+  "coordinateSystem": "glTF 2.0 Y-up metres (+X along rows, +Y up from ground contact Y=0, -Z north); LOD nodes <key>_LOD0/_LOD1/_FAR",
   "modelCount": 12,
-  "totalFileSizeBytes": 2311824,
-  "totalFileSizeMB": 2.205,
-  "totalTriangles": 2491,
+  "uniqueGlbFiles": 10,
+  "totalFileSizeBytes": 6694176,
+  "totalFileSizeMB": 6.384,
+  "totalTriangles": 2878,
   "externalImageURIs": 0,
   "models": {
     "crop_wheat_patch": {
@@ -12,56 +13,91 @@
       "name": "crop_wheat_patch",
       "glbPath": "/assets/models/fields/wheat/crop_wheat_patch.glb",
       "bounds": [
-        6.08,
-        1.23,
-        6.037
+        6.01,
+        0.996,
+        6.005
       ],
       "boundsMin": [
-        -3.04,
-        -0.25,
-        -2.997
+        -3.003,
+        0.0,
+        -3.0
       ],
       "boundsMax": [
-        3.04,
-        0.98,
-        3.04
+        3.007,
+        0.996,
+        3.005
       ],
-      "triangles": 152,
+      "triangles": 210,
       "meshCount": 1,
-      "fileSizeBytes": 170496,
+      "fileSizeBytes": 821432,
       "alphaMaskDoubleSided": true,
-      "spacingM": 5.6,
-      "alongRowM": 5.6,
-      "betweenBaysM": 5.6,
-      "windSway": 0.12,
-      "windSwayStrength": 0.12
+      "spacingM": 6.0,
+      "alongRowM": 6.0,
+      "betweenBaysM": 6.0,
+      "tileM": [
+        6.0,
+        6.0
+      ],
+      "heightM": 0.95,
+      "nodePrefix": "crop_wheat_patch",
+      "lods": {
+        "LOD1": {
+          "node": "crop_wheat_patch_LOD1",
+          "triangles": 90
+        },
+        "LOD0": {
+          "node": "crop_wheat_patch_LOD0",
+          "triangles": 210
+        }
+      },
+      "lodDist": [
+        38,
+        140
+      ],
+      "windSway": 0.11,
+      "windSwayStrength": 0.11
     },
     "crop_stubble_patch": {
       "key": "crop_stubble_patch",
       "name": "crop_stubble_patch",
       "glbPath": "/assets/models/fields/wheat/crop_stubble_patch.glb",
       "bounds": [
-        6.08,
-        0.43,
-        6.08
+        6.0,
+        0.2,
+        5.633
       ],
       "boundsMin": [
-        -3.04,
-        -0.2,
-        -3.04
+        -3.0,
+        0.0,
+        -2.818
       ],
       "boundsMax": [
-        3.04,
-        0.23,
-        3.04
+        3.0,
+        0.2,
+        2.815
       ],
-      "triangles": 80,
+      "triangles": 110,
       "meshCount": 1,
-      "fileSizeBytes": 102376,
+      "fileSizeBytes": 560848,
       "alphaMaskDoubleSided": true,
-      "spacingM": 5.6,
-      "alongRowM": 5.6,
-      "betweenBaysM": 5.6,
+      "spacingM": 6.0,
+      "alongRowM": 6.0,
+      "betweenBaysM": 6.0,
+      "tileM": [
+        6.0,
+        6.0
+      ],
+      "heightM": 0.2,
+      "nodePrefix": "crop_stubble_patch",
+      "lods": {
+        "LOD0": {
+          "node": "crop_stubble_patch_LOD0",
+          "triangles": 110
+        }
+      },
+      "lodDist": [
+        36
+      ],
       "windSway": 0.0,
       "windSwayStrength": 0.0
     },
@@ -70,27 +106,25 @@
       "name": "straw_bale_stack",
       "glbPath": "/assets/models/fields/wheat/straw_bale_stack.glb",
       "bounds": [
-        4.68,
-        4.203,
-        1.4
+        4.735,
+        3.55,
+        1.274
       ],
       "boundsMin": [
-        -2.34,
-        -0.25,
-        -0.7
+        -2.382,
+        -0.03,
+        -0.624
       ],
       "boundsMax": [
-        2.34,
-        3.953,
-        0.7
+        2.353,
+        3.52,
+        0.65
       ],
-      "triangles": 358,
+      "triangles": 84,
       "meshCount": 1,
-      "fileSizeBytes": 277380,
+      "fileSizeBytes": 599000,
       "alphaMaskDoubleSided": false,
       "spacingM": 8.0,
-      "alongRowM": 8.0,
-      "betweenBaysM": 8.0,
       "windSway": 0.0,
       "windSwayStrength": 0.0
     },
@@ -99,138 +133,252 @@
       "name": "crop_corn_row",
       "glbPath": "/assets/models/fields/corn/crop_corn_row.glb",
       "bounds": [
-        5.964,
-        2.378,
-        2.517
+        6.172,
+        2.544,
+        2.643
       ],
       "boundsMin": [
-        -2.983,
-        -0.25,
-        -1.258
+        -3.03,
+        0.0,
+        -1.317
       ],
       "boundsMax": [
-        2.981,
-        2.128,
-        1.259
+        3.142,
+        2.544,
+        1.326
       ],
-      "triangles": 180,
+      "triangles": 192,
       "meshCount": 1,
-      "fileSizeBytes": 288580,
+      "fileSizeBytes": 1257856,
       "alphaMaskDoubleSided": true,
       "alongRowM": 6.0,
       "betweenBaysM": 2.4,
-      "windSway": 0.16,
-      "windSwayStrength": 0.16
+      "tileM": [
+        6.0,
+        2.4
+      ],
+      "heightM": 2.5,
+      "nodePrefix": "crop_corn_row",
+      "lods": {
+        "FAR": {
+          "node": "crop_corn_row_FAR",
+          "triangles": 10
+        },
+        "LOD1": {
+          "node": "crop_corn_row_LOD1",
+          "triangles": 22
+        },
+        "LOD0": {
+          "node": "crop_corn_row_LOD0",
+          "triangles": 192
+        }
+      },
+      "lodDist": [
+        34,
+        150
+      ],
+      "windSway": 0.15,
+      "windSwayStrength": 0.15
     },
     "crop_sugarbeet_row": {
       "key": "crop_sugarbeet_row",
       "name": "crop_sugarbeet_row",
       "glbPath": "/assets/models/fields/sugarbeet/crop_sugarbeet_row.glb",
       "bounds": [
-        6.0,
-        0.685,
-        2.492
+        6.448,
+        0.593,
+        2.903
       ],
       "boundsMin": [
-        -3.0,
-        -0.22,
-        -1.246
+        -3.214,
+        -0.02,
+        -1.448
       ],
       "boundsMax": [
-        3.0,
-        0.465,
-        1.246
+        3.234,
+        0.573,
+        1.455
       ],
-      "triangles": 170,
+      "triangles": 360,
       "meshCount": 1,
-      "fileSizeBytes": 224816,
+      "fileSizeBytes": 554592,
       "alphaMaskDoubleSided": true,
       "alongRowM": 6.0,
       "betweenBaysM": 2.5,
-      "windSway": 0.05,
-      "windSwayStrength": 0.05
+      "tileM": [
+        6.0,
+        2.5
+      ],
+      "heightM": 0.5,
+      "nodePrefix": "crop_sugarbeet_row",
+      "lods": {
+        "LOD1": {
+          "node": "crop_sugarbeet_row_LOD1",
+          "triangles": 40
+        },
+        "LOD0": {
+          "node": "crop_sugarbeet_row_LOD0",
+          "triangles": 360
+        }
+      },
+      "lodDist": [
+        30,
+        110
+      ],
+      "windSway": 0.03,
+      "windSwayStrength": 0.03
     },
     "crop_sunflower_patch": {
       "key": "crop_sunflower_patch",
       "name": "crop_sunflower_patch",
       "glbPath": "/assets/models/fields/sunflower/crop_sunflower_patch.glb",
       "bounds": [
-        5.0,
-        2.109,
-        4.909
+        6.162,
+        1.988,
+        6.154
       ],
       "boundsMin": [
-        -2.5,
-        -0.25,
-        -2.467
+        -3.077,
+        0.0,
+        -3.071
       ],
       "boundsMax": [
-        2.5,
-        1.859,
-        2.441
+        3.085,
+        1.988,
+        3.083
       ],
-      "triangles": 224,
+      "triangles": 336,
       "meshCount": 1,
-      "fileSizeBytes": 254504,
+      "fileSizeBytes": 884660,
       "alphaMaskDoubleSided": true,
-      "spacingM": 5.0,
-      "alongRowM": 5.0,
-      "betweenBaysM": 5.0,
-      "windSway": 0.14,
-      "windSwayStrength": 0.14
+      "spacingM": 6.0,
+      "alongRowM": 6.0,
+      "betweenBaysM": 6.0,
+      "tileM": [
+        6.0,
+        6.0
+      ],
+      "heightM": 1.95,
+      "nodePrefix": "crop_sunflower_patch",
+      "lods": {
+        "FAR": {
+          "node": "crop_sunflower_patch_FAR",
+          "triangles": 6
+        },
+        "LOD1": {
+          "node": "crop_sunflower_patch_LOD1",
+          "triangles": 24
+        },
+        "LOD0": {
+          "node": "crop_sunflower_patch_LOD0",
+          "triangles": 336
+        }
+      },
+      "lodDist": [
+        36,
+        150
+      ],
+      "windSway": 0.1,
+      "windSwayStrength": 0.1
     },
     "meadow_grass_patch": {
       "key": "meadow_grass_patch",
       "name": "meadow_grass_patch",
       "glbPath": "/assets/models/fields/meadow/meadow_grass_patch.glb",
       "bounds": [
-        5.0,
-        0.794,
-        5.0
+        6.058,
+        0.906,
+        6.473
       ],
       "boundsMin": [
-        -2.5,
-        -0.22,
-        -2.5
+        -3.028,
+        0.0,
+        -3.287
       ],
       "boundsMax": [
-        2.5,
-        0.574,
-        2.5
+        3.03,
+        0.906,
+        3.185
       ],
-      "triangles": 108,
+      "triangles": 448,
       "meshCount": 1,
-      "fileSizeBytes": 173208,
+      "fileSizeBytes": 1093124,
       "alphaMaskDoubleSided": true,
-      "spacingM": 4.75,
-      "windSway": 0.1,
-      "windSwayStrength": 0.1
+      "spacingM": 6.0,
+      "alongRowM": 6.0,
+      "betweenBaysM": 6.0,
+      "tileM": [
+        6.0,
+        6.0
+      ],
+      "heightM": 0.62,
+      "nodePrefix": "meadow_grass_patch",
+      "lods": {
+        "LOD1": {
+          "node": "meadow_grass_patch_LOD1",
+          "triangles": 32
+        },
+        "LOD0": {
+          "node": "meadow_grass_patch_LOD0",
+          "triangles": 448
+        }
+      },
+      "lodDist": [
+        34,
+        110
+      ],
+      "windSway": 0.09,
+      "windSwayStrength": 0.09
     },
     "wildflower_strip": {
       "key": "wildflower_strip",
       "name": "wildflower_strip",
-      "glbPath": "/assets/models/fields/meadow/wildflower_strip.glb",
+      "glbPath": "/assets/models/fields/meadow/meadow_grass_patch.glb",
       "bounds": [
-        5.0,
-        0.88,
-        1.6
+        5.003,
+        0.985,
+        1.603
       ],
       "boundsMin": [
-        -2.5,
-        -0.22,
-        -0.8
+        -2.501,
+        0.0,
+        -0.795
       ],
       "boundsMax": [
-        2.5,
-        0.66,
-        0.8
+        2.501,
+        0.985,
+        0.808
       ],
-      "triangles": 124,
+      "triangles": 78,
       "meshCount": 1,
-      "fileSizeBytes": 173768,
+      "fileSizeBytes": 1093124,
       "alphaMaskDoubleSided": true,
-      "alongRowM": 4.85,
+      "alongRowM": 5.0,
       "betweenBaysM": 1.6,
+      "tileM": [
+        5.0,
+        1.6
+      ],
+      "heightM": 0.95,
+      "nodePrefix": "wildflower_strip",
+      "lods": {
+        "FAR": {
+          "node": "wildflower_strip_FAR",
+          "triangles": 6
+        },
+        "LOD1": {
+          "node": "wildflower_strip_LOD1",
+          "triangles": 10
+        },
+        "LOD0": {
+          "node": "wildflower_strip_LOD0",
+          "triangles": 78
+        }
+      },
+      "lodDist": [
+        36,
+        120
+      ],
       "windSway": 0.1,
       "windSwayStrength": 0.1
     },
@@ -239,53 +387,88 @@
       "name": "hedgerow_bay",
       "glbPath": "/assets/models/fields/props/hedgerow_bay.glb",
       "bounds": [
-        5.758,
-        2.936,
-        2.287
+        6.673,
+        3.735,
+        3.355
       ],
       "boundsMin": [
-        -2.883,
-        -0.36,
-        -1.096
+        -3.571,
+        -0.216,
+        -1.576
       ],
       "boundsMax": [
-        2.875,
-        2.576,
-        1.19
+        3.102,
+        3.518,
+        1.779
       ],
-      "triangles": 352,
-      "meshCount": 2,
-      "fileSizeBytes": 200344,
+      "triangles": 384,
+      "meshCount": 1,
+      "fileSizeBytes": 353912,
       "alphaMaskDoubleSided": true,
       "alongRowM": 5.0,
       "betweenBaysM": 2.2,
+      "tileM": [
+        5.0,
+        1.8
+      ],
+      "heightM": 2.4,
+      "nodePrefix": "hedgerow_bay",
+      "lods": {
+        "LOD0": {
+          "node": "hedgerow_bay_LOD0",
+          "triangles": 384
+        },
+        "LOD1": {
+          "node": "hedgerow_bay_LOD1",
+          "triangles": 40
+        },
+        "FAR": {
+          "node": "hedgerow_bay_FAR",
+          "triangles": 12
+        }
+      },
+      "lodDist": [
+        45,
+        160
+      ],
       "windSway": 0.04,
       "windSwayStrength": 0.04
     },
     "vineyard_rose_post": {
       "key": "vineyard_rose_post",
       "name": "vineyard_rose_post",
-      "glbPath": "/assets/models/fields/props/vineyard_rose_post.glb",
+      "glbPath": "/assets/models/fields/props/hedgerow_bay.glb",
       "bounds": [
-        1.43,
-        2.16,
-        1.581
+        1.658,
+        2.086,
+        1.908
       ],
       "boundsMin": [
-        -0.684,
-        -0.308,
-        -0.653
+        -0.815,
+        -0.303,
+        -0.739
       ],
       "boundsMax": [
-        0.746,
-        1.852,
-        0.929
+        0.843,
+        1.783,
+        1.169
       ],
-      "triangles": 173,
-      "meshCount": 3,
-      "fileSizeBytes": 180668,
+      "triangles": 96,
+      "meshCount": 1,
+      "fileSizeBytes": 353912,
       "alphaMaskDoubleSided": true,
       "spacingM": 5.5,
+      "heightM": 1.8,
+      "nodePrefix": "vineyard_rose_post",
+      "lods": {
+        "LOD0": {
+          "node": "vineyard_rose_post_LOD0",
+          "triangles": 96
+        }
+      },
+      "lodDist": [
+        110
+      ],
       "windSway": 0.03,
       "windSwayStrength": 0.03
     },
@@ -294,23 +477,23 @@
       "name": "hochsitz",
       "glbPath": "/assets/models/fields/props/hochsitz.glb",
       "bounds": [
-        1.729,
-        4.163,
-        2.313
+        1.819,
+        4.365,
+        2.343
       ],
       "boundsMin": [
-        -0.864,
-        -0.287,
-        -1.458
+        -0.91,
+        -0.305,
+        -1.434
       ],
       "boundsMax": [
-        0.864,
-        3.875,
-        0.855
+        0.91,
+        4.06,
+        0.91
       ],
       "triangles": 398,
       "meshCount": 2,
-      "fileSizeBytes": 152580,
+      "fileSizeBytes": 202460,
       "alphaMaskDoubleSided": false,
       "spacingM": 4.0,
       "windSway": 0.0,
@@ -321,23 +504,23 @@
       "name": "wegekreuz",
       "glbPath": "/assets/models/fields/props/wegekreuz.glb",
       "bounds": [
-        1.04,
-        2.76,
-        0.86
+        1.1,
+        2.78,
+        1.1
       ],
       "boundsMin": [
-        -0.52,
-        -0.28,
-        -0.43
+        -0.55,
+        -0.3,
+        -0.55
       ],
       "boundsMax": [
-        0.52,
+        0.55,
         2.48,
-        0.43
+        0.55
       ],
-      "triangles": 172,
+      "triangles": 182,
       "meshCount": 2,
-      "fileSizeBytes": 113104,
+      "fileSizeBytes": 366292,
       "alphaMaskDoubleSided": false,
       "spacingM": 2.5,
       "windSway": 0.0,

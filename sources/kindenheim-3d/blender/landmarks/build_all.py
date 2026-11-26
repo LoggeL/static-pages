@@ -23,11 +23,34 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-from build_kirche import build_kirche
-from build_rathaus import build_rathaus
-from build_weingut import build_weingut
-from build_winzerhof import build_winzerhof
-from build_agri_halle import build_agri_halle
+import importlib
+
+# Builders are imported lazily (module, function) so that `--only a,b` never imports — and therefore never
+# breaks on — a builder script another person is editing at the same moment.
+_BUILDERS = {
+    "evangelische_kirche": ("build_kirche", "build_kirche"),
+    "rathaus": ("build_rathaus", "build_rathaus"),
+    "weingut_estate": ("build_weingut", "build_weingut"),
+    "winzerhof_barn": ("build_winzerhof", "build_winzerhof"),
+    "agri_halle": ("build_agri_halle", "build_agri_halle"),
+}
+
+
+def _lazy_builder(key: str):
+    module_name, fn_name = _BUILDERS[key]
+
+    def run(*args, **kwargs):
+        return getattr(importlib.import_module(module_name), fn_name)(*args, **kwargs)
+
+    run.__name__ = fn_name
+    return run
+
+
+build_kirche = _lazy_builder("evangelische_kirche")
+build_rathaus = _lazy_builder("rathaus")
+build_weingut = _lazy_builder("weingut_estate")
+build_winzerhof = _lazy_builder("winzerhof_barn")
+build_agri_halle = _lazy_builder("agri_halle")
 
 PROJECT_ROOT = SCRIPT_DIR.parent.parent
 SCENE_JSON = PROJECT_ROOT / "data" / "osm" / "kindenheim_scene.json"
@@ -244,6 +267,43 @@ def select_landmarks_from_scene(scene_data: dict, overrides: dict) -> list[dict]
     return selected
 
 
+COLLIDERS_OUT = PROJECT_ROOT / "public" / "assets" / "models" / "landmarks" / "colliders.json"
+
+
+def write_colliders(entry: dict):
+    """
+    Read-modify-write this landmark's key in colliders.json (contract: .gfx/review/FIXROUND.md):
+        { "<key>": { "replaceFootprint": bool, "solids": [ [[x, z], ...], ... ] } }   world space, metres.
+    The builder module publishes its solids in its own Blender frame as COLLIDER_SOLIDS (x east, y north of
+    the GLB origin). Builders without that attribute (other owners write their keys themselves) are skipped.
+    """
+    module_name, _fn = _BUILDERS[entry["key"]]
+    solids_local = getattr(importlib.import_module(module_name), "COLLIDER_SOLIDS", None)
+    if solids_local is None:
+        return
+    if not solids_local:
+        raise RuntimeError(f"{module_name}.COLLIDER_SOLIDS is empty after building {entry['key']}")
+    cx, cz = entry["center"]
+    ry = entry["rotationRad"]
+    c, s_ = math.cos(ry), math.sin(ry)
+    solids = []
+    for poly in solids_local:
+        if len(poly) < 3:
+            raise RuntimeError(f"{entry['key']}: collider polygon with fewer than 3 points: {poly}")
+        # Blender (bx, by) -> three local (bx, -by) -> world: x = cx + lx cos + lz sin ; z = cz - lx sin + lz cos
+        solids.append([[round(cx + bx * c + (-by) * s_, 3), round(cz - bx * s_ + (-by) * c, 3)] for bx, by in poly])
+    data = {}
+    if COLLIDERS_OUT.exists():
+        with open(COLLIDERS_OUT, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    data[entry["key"]] = {"replaceFootprint": True, "solids": solids}
+    tmp = COLLIDERS_OUT.with_suffix(".json.tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=1, ensure_ascii=False)
+    tmp.replace(COLLIDERS_OUT)
+    print(f"Wrote {len(solids)} collider solids for {entry['key']} -> {COLLIDERS_OUT.name}")
+
+
 def build_params_for_slot(entry: dict) -> dict:
     """Derive clean, architecturally proportioned build parameters matching the real OSM footprint."""
     key = entry["key"]
@@ -291,6 +351,15 @@ def main():
     argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
     prototype = "--prototype" in argv or (not SCENE_JSON.exists())
     do_render = "--no-render" not in argv
+    # --only key1,key2 : rebuild just these landmark keys (manifest is still written for all five,
+    # so two people can iterate on different landmarks without rebuilding each other's models).
+    only = None
+    if "--only" in argv:
+        only = {k.strip() for k in argv[argv.index("--only") + 1].split(",") if k.strip()}
+        known = {"evangelische_kirche", "rathaus", "weingut_estate", "winzerhof_barn", "agri_halle"}
+        unknown = only - known
+        if unknown:
+            raise SystemExit(f"--only: unknown landmark key(s) {sorted(unknown)}; valid: {sorted(known)}")
 
     if prototype:
         print("=== PROTOTYPE MODE: Building & rendering all 5 Kindenheim Hero Landmarks ===")
@@ -315,8 +384,12 @@ def main():
 
     for entry in selected:
         params = build_params_for_slot(entry)
-        print(f"Building {entry['key']} (OSM IDs={entry['osmIds']}, footprint={entry['footprintWidthM']}x{entry['footprintDepthM']}m, rot={math.degrees(entry['rotationRad']):.1f}deg)")
-        entry["builder"](params, do_render=do_render, do_export=True)
+        if only is not None and entry["key"] not in only:
+            print(f"Skipping build of {entry['key']} (--only {sorted(only)})")
+        else:
+            print(f"Building {entry['key']} (OSM IDs={entry['osmIds']}, footprint={entry['footprintWidthM']}x{entry['footprintDepthM']}m, rot={math.degrees(entry['rotationRad']):.1f}deg)")
+            entry["builder"](params, do_render=do_render, do_export=True)
+            write_colliders(entry)
         all_excluded_ids.extend(entry["osmIds"])
         manifest_landmarks.append({
             "key": entry["key"],

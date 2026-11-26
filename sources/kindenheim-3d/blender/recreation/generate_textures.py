@@ -1,481 +1,365 @@
 #!/usr/bin/env python3
 """
-Procedural PBR Texture Library for Kindenheim Recreation Areas
-(Fußballplatz / Sportplatz Andingstraße 7 & Kinderspielplatz Kindenheim).
+Unique (non-library) textures for the Kindenheim recreation assets.
 
-Generates seamless PBR Albedo (RGB), Roughness (L), Normal (RGB), and Metallic (L)
-maps into blender/recreation/textures/ using NumPy + Pillow.
+Everything that tiles (clay, sand, grass, timber, steel, concrete, plaster, roof tiles ...) comes
+from the shared CC0 PBR library in blender/shared_textures/. This script only produces the few
+maps the library cannot provide:
+
+  rec_net_albedo.png            RGBA  goal net (square mesh, alpha)
+  rec_chain_albedo.png          RGBA  swing chain strip (alpha)
+  rec_chainlink_albedo.png      RGBA  chain-link fence mesh (alpha)
+  rec_rope_albedo.png / _normal.png   twisted play-rope (neutral, tinted per material)
+  rec_sportheim_sign_albedo.png       club house fascia sign (fictional texts kept from v1)
+  rec_scoreboard_albedo.png           manual village scoreboard face
+  rec_spielplatz_sign_albedo.png      municipal playground sign
+  rec_decals_albedo.png               atlas: door labels, kiosk board, notice-board sheets
+
+Run with the system python (needs numpy + Pillow):
+    python3 blender/recreation/generate_textures.py
 """
+
+from __future__ import annotations
 
 import math
 from pathlib import Path
+
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 OUT_DIR = Path(__file__).resolve().parent / "textures"
+FONT_DIR = Path("/System/Library/Fonts/Supplemental")
+FONTS = {
+    "bold": FONT_DIR / "Arial Bold.ttf",
+    "regular": FONT_DIR / "Arial.ttf",
+    "narrow": FONT_DIR / "Arial Narrow Bold.ttf",
+    "black": FONT_DIR / "Arial Black.ttf",
+}
 
 
-# ---------------------------------------------------------------------------
-# Tileable Noise & PBR Helpers
-# ---------------------------------------------------------------------------
-
-def tileable_value_noise(size: int, grid: int, seed: int = 0) -> np.ndarray:
-    rng = np.random.default_rng(seed)
-    base = rng.random((grid, grid), dtype=np.float32)
-    coords = np.linspace(0, grid, size, endpoint=False, dtype=np.float32)
-    ix = np.floor(coords).astype(np.int32) % grid
-    fx = coords - np.floor(coords)
-    u = fx * fx * fx * (fx * (fx * 6.0 - 15.0) + 10.0)
-    ix1 = (ix + 1) % grid
-
-    v00 = base[np.ix_(ix, ix)]
-    v10 = base[np.ix_(ix, ix1)]
-    v01 = base[np.ix_(ix1, ix)]
-    v11 = base[np.ix_(ix1, ix1)]
-
-    ux = u[None, :]
-    uy = u[:, None]
-    nx0 = v00 * (1.0 - ux) + v10 * ux
-    nx1 = v01 * (1.0 - ux) + v11 * ux
-    return nx0 * (1.0 - uy) + nx1 * uy
+def font(kind: str, size: int) -> ImageFont.FreeTypeFont:
+    path = FONTS[kind]
+    if not path.exists():
+        raise FileNotFoundError(f"Font for sign textures is missing: {path}")
+    return ImageFont.truetype(str(path), size)
 
 
-def fbm(size: int, octaves=(4, 8, 16, 32, 64), weights=None, seed: int = 42) -> np.ndarray:
-    if weights is None:
-        weights = [0.5 ** i for i in range(len(octaves))]
-    acc = np.zeros((size, size), dtype=np.float32)
-    wsum = 0.0
-    for i, (g, w) in enumerate(zip(octaves, weights)):
-        acc += w * tileable_value_noise(size, g, seed + i * 137)
-        wsum += w
-    acc /= max(wsum, 1e-6)
-    return acc
-
-
-def height_to_normal(height: np.ndarray, strength: float = 2.0) -> np.ndarray:
-    dx = (np.roll(height, -1, axis=1) - np.roll(height, 1, axis=1)) * 0.5 * strength
-    dy = (np.roll(height, -1, axis=0) - np.roll(height, 1, axis=0)) * 0.5 * strength
-    nx = -dx
-    ny = dy
-    nz = np.ones_like(height)
-    length = np.sqrt(nx * nx + ny * ny + nz * nz) + 1e-8
-    nx /= length
-    ny /= length
-    nz /= length
-    rgb = np.stack([(nx * 0.5 + 0.5), (ny * 0.5 + 0.5), (nz * 0.5 + 0.5)], axis=-1)
-    return np.clip(rgb * 255.0, 0, 255).astype(np.uint8)
-
-
-def lerp_color(c0, c1, t):
-    t = np.clip(t, 0.0, 1.0)[..., None]
-    return np.array(c0, dtype=np.float32) * (1.0 - t) + np.array(c1, dtype=np.float32) * t
-
-
-def save_pbr(
-    name: str,
-    albedo: np.ndarray,
-    roughness: np.ndarray,
-    normal: np.ndarray,
-    metallic: np.ndarray | None = None,
-    normal_size: int = 512,
-    rough_size: int = 512,
-):
+def save(img: Image.Image, name: str) -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    Image.fromarray(np.clip(albedo, 0, 255).astype(np.uint8), mode="RGB").save(
-        OUT_DIR / f"{name}_albedo.jpg", quality=88, optimize=True
-    )
-    r_img = Image.fromarray(np.clip(roughness * 255.0, 0, 255).astype(np.uint8), mode="L")
-    if r_img.width > rough_size or r_img.height > rough_size:
-        r_img = r_img.resize(
-            (min(r_img.width, rough_size), min(r_img.height, rough_size)),
-            Image.Resampling.BILINEAR,
-        )
-    r_img.save(OUT_DIR / f"{name}_roughness.jpg", quality=84, optimize=True)
-
-    n_img = Image.fromarray(np.clip(normal, 0, 255).astype(np.uint8), mode="RGB")
-    if n_img.width > normal_size or n_img.height > normal_size:
-        n_img = n_img.resize(
-            (min(n_img.width, normal_size), min(n_img.height, normal_size)),
-            Image.Resampling.BILINEAR,
-        )
-    n_img.save(OUT_DIR / f"{name}_normal.png", optimize=True)
-
-    if metallic is not None:
-        m_img = Image.fromarray(np.clip(metallic * 255.0, 0, 255).astype(np.uint8), mode="L")
-        if m_img.width > rough_size or m_img.height > rough_size:
-            m_img = m_img.resize(
-                (min(m_img.width, rough_size), min(m_img.height, rough_size)),
-                Image.Resampling.BILINEAR,
-            )
-        m_img.save(OUT_DIR / f"{name}_metallic.jpg", quality=84, optimize=True)
+    path = OUT_DIR / name
+    img.save(path)
+    print(f"  wrote {path.name}  {img.size[0]}x{img.size[1]} {img.mode}")
 
 
-def load_font(size: int, bold: bool = True) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
-    candidates = (
-        [
-            "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
-            "/System/Library/Fonts/Supplemental/DIN Alternate Bold.ttf",
-            "/System/Library/Fonts/HelveticaNeue.ttc",
-            "/System/Library/Fonts/Helvetica.ttc",
-            "/Library/Fonts/Arial Bold.ttf",
-        ]
-        if bold
-        else [
-            "/System/Library/Fonts/Supplemental/Arial.ttf",
-            "/System/Library/Fonts/Helvetica.ttc",
-            "/System/Library/Fonts/HelveticaNeue.ttc",
-        ]
-    )
-    for fp in candidates:
-        if Path(fp).exists():
-            try:
-                return ImageFont.truetype(fp, size=size)
-            except Exception:
-                continue
-    return ImageFont.load_default()
+def tile_noise(w: int, h: int, grid: int, seed: int) -> np.ndarray:
+    rng = np.random.default_rng(seed)
+    gy = max(1, round(grid * h / w))
+    base = rng.random((gy, grid), dtype=np.float32)
+    xs = np.linspace(0, grid, w, endpoint=False, dtype=np.float32)
+    ys = np.linspace(0, gy, h, endpoint=False, dtype=np.float32)
+    ix, iy = np.floor(xs).astype(int) % grid, np.floor(ys).astype(int) % gy
+    fx, fy = xs - np.floor(xs), ys - np.floor(ys)
+    ux, uy = fx * fx * (3 - 2 * fx), fy * fy * (3 - 2 * fy)
+    ix1, iy1 = (ix + 1) % grid, (iy + 1) % gy
+    a = base[np.ix_(iy, ix)] * (1 - ux)[None, :] + base[np.ix_(iy, ix1)] * ux[None, :]
+    b = base[np.ix_(iy1, ix)] * (1 - ux)[None, :] + base[np.ix_(iy1, ix1)] * ux[None, :]
+    return a * (1 - uy)[:, None] + b * uy[:, None]
+
+
+def fbm(w: int, h: int, seed: int, grids=(4, 8, 16, 32, 64)) -> np.ndarray:
+    acc = np.zeros((h, w), dtype=np.float32)
+    wsum = 0.0
+    for i, g in enumerate(grids):
+        wgt = 0.5**i
+        acc += wgt * tile_noise(w, h, g, seed + 31 * i)
+        wsum += wgt
+    return acc / wsum
+
+
+def weather(img: Image.Image, seed: int, dirt: float = 0.10, streaks: float = 0.08) -> Image.Image:
+    """Subtle outdoor weathering: blotchy fading plus vertical rain streaks. No baked lighting."""
+    w, h = img.size
+    arr = np.asarray(img.convert("RGB"), dtype=np.float32) / 255.0
+    blot = fbm(w, h, seed, grids=(3, 6, 12, 24))
+    arr *= (1.0 - dirt) + dirt * blot[..., None] + dirt * 0.5
+    col = np.random.default_rng(seed + 7).random(w + 12).astype(np.float32)
+    col = np.convolve(col, np.ones(13, dtype=np.float32) / 13, mode="valid")[:w]
+    ramp = np.linspace(0.0, 1.0, h, dtype=np.float32)[:, None] ** 0.7
+    streak = np.clip((col[None, :] - 0.52) * 6.0, 0.0, 1.0) * ramp
+    grime = np.array([0.45, 0.42, 0.36], dtype=np.float32)
+    arr = arr * (1.0 - streaks * streak[..., None]) + grime * streaks * streak[..., None] * 0.6
+    grain = np.random.default_rng(seed + 3).normal(0.0, 0.012, (h, w, 1)).astype(np.float32)
+    arr = np.clip(arr + grain, 0.0, 1.0)
+    return Image.fromarray((arr * 255).astype(np.uint8), "RGB")
+
+
+def centered(draw: ImageDraw.ImageDraw, cx: float, y: float, text: str, fnt, fill) -> None:
+    box = draw.textbbox((0, 0), text, font=fnt)
+    draw.text((cx - (box[2] - box[0]) / 2 - box[0], y), text, fill=fill, font=fnt)
 
 
 # ---------------------------------------------------------------------------
-# 1. Robinia / Larch Natural Playground Wood
+# Alpha-blended thin structures
 # ---------------------------------------------------------------------------
 
-def gen_robinia_wood(size: int = 512):
-    yy, xx = np.mgrid[0:size, 0:size].astype(np.float32) / size
-    warp = fbm(size, (4, 8, 16), [0.55, 0.3, 0.15], seed=101)
-    fine_grain = fbm(size, (32, 64, 128), [0.5, 0.35, 0.15], seed=107)
-    ring_phase = (xx * 9.0 + warp * 2.4) * 2.0 * math.pi
-    rings = 0.5 + 0.5 * np.sin(ring_phase)
-    streak = 0.5 + 0.5 * np.sin((xx * 38.0 + fine_grain * 3.0) * 2.0 * math.pi)
-
-    # Subtle wood knots
-    knot = np.exp(-(((xx - 0.32) * 8.0) ** 2 + ((yy - 0.45) * 4.5) ** 2))
-    knot += np.exp(-(((xx - 0.74) * 9.0) ** 2 + ((yy - 0.78) * 5.0) ** 2)) * 0.85
-
-    t = np.clip(rings * 0.48 + streak * 0.25 + fine_grain * 0.27, 0.0, 1.0)
-    col = lerp_color((148, 102, 58), (206, 158, 98), t)
-    col = lerp_color(col, (96, 62, 34), np.clip(knot * 0.75, 0.0, 0.8))
-
-    height = 0.45 * rings + 0.35 * fine_grain + 0.20 * streak - knot * 0.25
-    normal = height_to_normal(height, strength=2.4)
-    roughness = np.clip(0.72 + (1.0 - rings) * 0.12 + knot * 0.08, 0.62, 0.90)
-    save_pbr("robinia_wood", col, roughness, normal)
-
-
-# ---------------------------------------------------------------------------
-# 2. Cedar Timber Shingles (Kletterturm Roof)
-# ---------------------------------------------------------------------------
-
-def gen_timber_shingle(size: int = 512):
-    rng = np.random.default_rng(202)
-    yy, xx = np.mgrid[0:size, 0:size].astype(np.float32) / size
-    rows = 8
-    cols = 10
-    rf = yy * rows
-    ri = np.floor(rf).astype(np.int32) % rows
-    r_frac = rf - np.floor(rf)
-    cf = (xx * cols + (ri % 2) * 0.5) % cols
-    ci = np.floor(cf).astype(np.int32) % cols
-    c_frac = cf - np.floor(cf)
-
-    tile_shade = rng.uniform(-16, 16, size=(rows, cols, 3)).astype(np.float32)
-    grain = fbm(size, (16, 48, 96), [0.5, 0.3, 0.2], seed=209)
-    base = np.array((156, 104, 62), dtype=np.float32) + tile_shade[ri, ci]
-    col = base * (0.86 + 0.26 * grain[..., None])
-
-    seam_x = np.minimum(c_frac, 1.0 - c_frac) < 0.045
-    seam_y = r_frac < 0.06
-    seam = seam_x | seam_y
-    col[seam] *= 0.55
-
-    height = r_frac * 0.65 + grain * 0.25 - seam.astype(np.float32) * 0.35
-    normal = height_to_normal(height, strength=2.8)
-    roughness = np.clip(0.76 + (1.0 - grain) * 0.14, 0.65, 0.94)
-    save_pbr("timber_shingle", col, roughness, normal)
+def gen_net() -> None:
+    """Knotted square goal net, 4 x 4 meshes per tile (tile = 0.48 m -> 12 cm mesh)."""
+    s, ss = 256, 4
+    big = s * ss
+    alpha = Image.new("L", (big, big), 0)
+    d = ImageDraw.Draw(alpha)
+    cell = big / 4
+    cord = 30  # ~5 mm cord on a 12 cm mesh, slightly fat so mip levels keep some coverage
+    for i in range(-1, 6):
+        c = (i + 0.5) * cell
+        d.line([(c, -8), (c, big + 8)], fill=255, width=cord)
+        d.line([(-8, c), (big + 8, c)], fill=255, width=cord)
+    for i in range(5):
+        for j in range(5):
+            cx, cy = (i + 0.5) * cell, (j + 0.5) * cell
+            r = cord * 0.95
+            d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=255)
+    alpha = alpha.resize((s, s), Image.LANCZOS)
+    a = np.asarray(alpha, dtype=np.float32) / 255.0
+    shade = 0.86 + 0.14 * fbm(s, s, 11, grids=(16, 32, 64))
+    rgb = np.stack([shade * 0.96, shade * 0.96, shade * 0.93], axis=-1)
+    out = np.dstack([np.clip(rgb, 0, 1), a])
+    save(Image.fromarray((out * 255).astype(np.uint8), "RGBA"), "rec_net_albedo.png")
 
 
-# ---------------------------------------------------------------------------
-# 3. Satin Child-Friendly Playground Enamel Paints
-# ---------------------------------------------------------------------------
-
-def gen_enamel_paint(name: str, base_rgb: tuple[int, int, int], seed: int, size: int = 256):
-    grain = fbm(size, (16, 32, 64), [0.5, 0.3, 0.2], seed=seed)
-    yy, xx = np.mgrid[0:size, 0:size].astype(np.float32) / size
-    brush = 0.5 + 0.5 * np.sin((xx * 24.0 + grain * 1.4) * 2.0 * math.pi)
-
-    c_dark = tuple(max(12, int(c * 0.86)) for c in base_rgb)
-    c_light = tuple(min(250, int(c * 1.06)) for c in base_rgb)
-    col = lerp_color(c_dark, c_light, np.clip(grain * 0.72 + brush * 0.28, 0.0, 1.0))
-
-    height = 0.6 * grain + 0.4 * brush
-    normal = height_to_normal(height, strength=0.75)
-    roughness = np.clip(0.36 + (1.0 - grain) * 0.14, 0.28, 0.56)
-    save_pbr(name, col, roughness, normal, normal_size=256, rough_size=256)
-
-
-# ---------------------------------------------------------------------------
-# 4. Galvanized Steel & Brushed Stainless Steel
-# ---------------------------------------------------------------------------
-
-def gen_galvanized_steel(size: int = 512):
-    spangle1 = tileable_value_noise(size, 24, seed=301)
-    spangle2 = tileable_value_noise(size, 48, seed=305)
-    fine = fbm(size, (32, 64, 128), [0.5, 0.3, 0.2], seed=309)
-    spangle = np.abs(spangle1 - spangle2) * 1.4 + fine * 0.45
-
-    col = lerp_color((168, 174, 180), (212, 218, 224), np.clip(spangle, 0.0, 1.0))
-    normal = height_to_normal(spangle, strength=1.1)
-    roughness = np.clip(0.34 + (1.0 - spangle) * 0.22, 0.26, 0.58)
-    metallic = np.full((size, size), 0.82, dtype=np.float32)
-    save_pbr("galvanized_steel", col, roughness, normal, metallic=metallic)
+def gen_chain() -> None:
+    """Short-link galvanised chain, 4 links per tile, alternating face-on / edge-on links."""
+    w, h, ss = 64, 256, 4
+    W, H = w * ss, h * ss
+    col = Image.new("RGB", (W, H), (150, 154, 158))
+    alpha = Image.new("L", (W, H), 0)
+    dc, da = ImageDraw.Draw(col), ImageDraw.Draw(alpha)
+    link_h = H / 4
+    for i in range(-1, 5):
+        cy = (i + 0.5) * link_h
+        if i % 2 == 0:
+            rx, ry, t = W * 0.36, link_h * 0.68, W * 0.15
+            da.ellipse([W / 2 - rx, cy - ry, W / 2 + rx, cy + ry], fill=255)
+            da.ellipse([W / 2 - rx + t, cy - ry + t, W / 2 + rx - t, cy + ry - t], fill=0)
+            dc.ellipse([W / 2 - rx, cy - ry, W / 2 + rx, cy + ry], fill=(176, 180, 184))
+            dc.arc([W / 2 - rx + 3, cy - ry + 3, W / 2 + rx - 3, cy + ry - 3], 200, 320, fill=(214, 218, 222), width=5)
+        else:
+            bw = W * 0.085
+            da.rounded_rectangle([W / 2 - bw, cy - link_h * 0.68, W / 2 + bw, cy + link_h * 0.68], radius=bw, fill=255)
+            dc.rounded_rectangle([W / 2 - bw, cy - link_h * 0.68, W / 2 + bw, cy + link_h * 0.68], radius=bw, fill=(132, 136, 140))
+    col = col.resize((w, h), Image.LANCZOS)
+    alpha = alpha.resize((w, h), Image.LANCZOS)
+    col.putalpha(alpha)
+    save(col, "rec_chain_albedo.png")
 
 
-def gen_stainless_brushed(size: int = 512):
-    yy, xx = np.mgrid[0:size, 0:size].astype(np.float32) / size
-    n = fbm(size, (16, 64, 128), [0.3, 0.4, 0.3], seed=401)
-    streak = tileable_value_noise(size, 128, seed=407)
-    # Fine longitudinal brushed polish lines along Y
-    brush = 0.5 + 0.5 * np.sin((xx * 96.0 + n * 2.0) * 2.0 * math.pi)
-    t = np.clip(brush * 0.5 + streak * 0.3 + n * 0.2, 0.0, 1.0)
+def gen_chainlink() -> None:
+    """Chain-link (Maschendraht) fence mesh, 4 x 4 diamonds per tile (tile = 0.24 m -> 60 mm mesh)."""
+    s, ss = 256, 4
+    big = s * ss
+    alpha = Image.new("L", (big, big), 0)
+    lum = Image.new("L", (big, big), 150)
+    da, dl = ImageDraw.Draw(alpha), ImageDraw.Draw(lum)
+    step = big / 4
+    wire = int(big * 0.030)
+    for i in range(-6, 12):
+        x = i * step
+        da.line([(x, 0), (x + big, big)], fill=255, width=wire)
+        da.line([(x, big), (x + big, 0)], fill=255, width=wire)
+        dl.line([(x, 0), (x + big, big)], fill=178, width=wire)
+        dl.line([(x, big), (x + big, 0)], fill=140, width=wire)
+        dl.line([(x - wire * 0.25, 0), (x + big - wire * 0.25, big)], fill=206, width=max(1, wire // 4))
+    alpha = alpha.resize((s, s), Image.LANCZOS)
+    lum = lum.resize((s, s), Image.LANCZOS)
+    l = np.asarray(lum, dtype=np.float32) / 255.0
+    rgb = np.stack([l * 0.97, l * 1.0, l * 1.02], axis=-1)
+    out = np.dstack([np.clip(rgb, 0, 1), np.asarray(alpha, dtype=np.float32) / 255.0])
+    save(Image.fromarray((out * 255).astype(np.uint8), "RGBA"), "rec_chainlink_albedo.png")
 
-    col = lerp_color((206, 212, 218), (236, 240, 244), t)
-    normal = height_to_normal(brush * 0.35 + streak * 0.25, strength=0.45)
-    roughness = np.clip(0.15 + (1.0 - t) * 0.09, 0.12, 0.26)
-    metallic = np.full((size, size), 0.92, dtype=np.float32)
-    save_pbr("stainless_brushed", col, roughness, normal, metallic=metallic)
+
+def gen_rope() -> None:
+    """Twisted 3-strand play rope. U runs along the rope (1 tile = 8 cm), V around it."""
+    s = 128
+    u = np.linspace(0, 1, s, endpoint=False, dtype=np.float32)[None, :]
+    v = np.linspace(0, 1, s, endpoint=False, dtype=np.float32)[:, None]
+    phase = (u * 2.0 + v * 3.0) % 1.0  # strands wrap diagonally, seamless in both directions
+    strand = np.sin(phase * math.pi) ** 0.6
+    fibre = 0.5 + 0.5 * np.sin((u * 2.0 + v * 3.0) * math.pi * 14.0)
+    height = strand * 0.85 + fibre * 0.15
+    lum = 0.62 + 0.30 * strand + 0.08 * (fibre - 0.5)
+    rgb = np.repeat(np.clip(lum, 0, 1)[..., None], 3, axis=2)
+    save(Image.fromarray((rgb * 255).astype(np.uint8), "RGB"), "rec_rope_albedo.png")
+    dx = (np.roll(height, -1, 1) - np.roll(height, 1, 1)) * 2.4
+    dy = (np.roll(height, -1, 0) - np.roll(height, 1, 0)) * 2.4
+    n = np.stack([-dx, dy, np.ones_like(height)], axis=-1)  # OpenGL (+Y up) convention
+    n /= np.linalg.norm(n, axis=-1, keepdims=True)
+    save(Image.fromarray(((n * 0.5 + 0.5) * 255).astype(np.uint8), "RGB"), "rec_rope_normal.png")
 
 
 # ---------------------------------------------------------------------------
-# 5. Vulcanized Black Rubber (Swing Seats & Seesaw Tires)
+# Signs (fictional texts carried over from the previous version)
 # ---------------------------------------------------------------------------
 
-def gen_rubber_black(size: int = 256):
-    fine = fbm(size, (32, 64, 128), [0.5, 0.35, 0.15], seed=501)
-    col = lerp_color((28, 30, 32), (48, 50, 54), fine)
-    normal = height_to_normal(fine, strength=1.5)
-    roughness = np.clip(0.76 + (1.0 - fine) * 0.14, 0.68, 0.92)
-    save_pbr("rubber_black", col, roughness, normal, normal_size=256, rough_size=256)
+def gen_sportheim_sign() -> None:
+    w, h = 2048, 256
+    img = Image.new("RGB", (w, h), (24, 66, 40))
+    d = ImageDraw.Draw(img)
+    d.rectangle([10, 10, w - 11, h - 11], outline=(238, 228, 196), width=7)
+    d.rectangle([24, 24, w - 25, h - 25], outline=(190, 160, 92), width=2)
+    for cx in (130, w - 130):  # club crest roundel on both ends
+        d.ellipse([cx - 78, h / 2 - 78, cx + 78, h / 2 + 78], fill=(238, 228, 196), outline=(190, 160, 92), width=5)
+        d.ellipse([cx - 62, h / 2 - 62, cx + 62, h / 2 + 62], fill=(24, 66, 40))
+        centered(d, cx, h / 2 - 48, "TV", font("black", 44), (238, 228, 196))
+        centered(d, cx, h / 2 + 6, "1920", font("bold", 34), (232, 196, 98))
+    centered(d, w / 2, 26, "OLLI'S SCHLEMMERSTUBE", font("black", 104), (248, 240, 214))
+    centered(d, w / 2, 172, "TV 1920 KINDENHEIM  ·  SPORTHEIM", font("bold", 50), (232, 196, 98))
+    save(weather(img, 501, dirt=0.08, streaks=0.10), "rec_sportheim_sign_albedo.png")
 
 
-# ---------------------------------------------------------------------------
-# 6. Braided Climbing Rope (Space-Net & Nest Swing)
-# ---------------------------------------------------------------------------
-
-def gen_rope(name: str, base_rgb: tuple[int, int, int], seed: int, size: int = 256):
-    yy, xx = np.mgrid[0:size, 0:size].astype(np.float32) / size
-    strand1 = 0.5 + 0.5 * np.sin((xx * 10.0 + yy * 10.0) * 2.0 * math.pi)
-    strand2 = 0.5 + 0.5 * np.sin((xx * 10.0 - yy * 10.0) * 2.0 * math.pi)
-    braid = strand1 * 0.5 + strand2 * 0.5
-    fine = fbm(size, (16, 32), [0.6, 0.4], seed=seed)
-
-    c_dark = tuple(max(10, int(c * 0.62)) for c in base_rgb)
-    c_bright = tuple(min(248, int(c * 1.12)) for c in base_rgb)
-    col = lerp_color(c_dark, c_bright, np.clip(braid * 0.78 + fine * 0.22, 0.0, 1.0))
-
-    normal = height_to_normal(braid * 0.8 + fine * 0.2, strength=3.4)
-    roughness = np.clip(0.78 + (1.0 - braid) * 0.14, 0.68, 0.94)
-    save_pbr(name, col, roughness, normal, normal_size=256, rough_size=256)
-
-
-# ---------------------------------------------------------------------------
-# 7. Cast Whitewashed Concrete Terrace (Stehtraversen)
-# ---------------------------------------------------------------------------
-
-def gen_concrete_terrace(size: int = 512):
-    macro = fbm(size, (4, 8, 16), [0.55, 0.3, 0.15], seed=601)
-    fine = fbm(size, (32, 64, 128), [0.45, 0.35, 0.2], seed=607)
-    yy, xx = np.mgrid[0:size, 0:size].astype(np.float32) / size
-    joint = (np.abs(xx - 0.5) < 0.008) | (np.abs(yy - 0.5) < 0.008)
-
-    col = lerp_color((206, 204, 198), (234, 232, 226), np.clip(macro * 0.65 + fine * 0.35, 0.0, 1.0))
-    col[joint] *= 0.78
-
-    height = 0.45 * macro + 0.55 * fine - joint.astype(np.float32) * 0.25
-    normal = height_to_normal(height, strength=1.8)
-    roughness = np.clip(0.84 + (1.0 - fine) * 0.10, 0.74, 0.96)
-    save_pbr("concrete_terrace", col, roughness, normal)
-
-
-# ---------------------------------------------------------------------------
-# 8. Sportheim Sign: "OLLI'S SCHLEMMERSTUBE · TV 1920 KINDENHEIM"
-# ---------------------------------------------------------------------------
-
-def gen_sportheim_sign():
-    w, h = 1024, 256
-    img = Image.new("RGB", (w, h), (22, 64, 38))
-    draw = ImageDraw.Draw(img)
-
-    # Cream border trim + subtle inner bevel
-    draw.rectangle([8, 8, w - 9, h - 9], outline=(240, 230, 196), width=6)
-    draw.rectangle([18, 18, w - 19, h - 19], outline=(196, 164, 92), width=2)
-
-    font_big = load_font(62, bold=True)
-    font_sub = load_font(34, bold=True)
-
-    title = "OLLI'S SCHLEMMERSTUBE"
-    sub = "TV 1920 KINDENHEIM  ·  SPORTHEIM"
-
-    tb = draw.textbbox((0, 0), title, font=font_big)
-    tw, th = tb[2] - tb[0], tb[3] - tb[1]
-    draw.text(((w - tw) / 2, 46), title, fill=(248, 240, 214), font=font_big)
-
-    sb = draw.textbbox((0, 0), sub, font=font_sub)
-    sw, sh = sb[2] - sb[0], sb[3] - sb[1]
-    draw.text(((w - sw) / 2, 150), sub, fill=(232, 196, 98), font=font_sub)
-
-    albedo = np.array(img, dtype=np.float32)
-    rough = np.full((h, w), 0.42, dtype=np.float32)
-    normal = np.zeros((h, w, 3), dtype=np.uint8)
-    normal[..., 0] = 128
-    normal[..., 1] = 128
-    normal[..., 2] = 255
-    save_pbr("sportheim_sign", albedo, rough, normal, normal_size=512, rough_size=512)
-
-
-# ---------------------------------------------------------------------------
-# 9. Village Scoreboard Face ("TV 1920 KINDENHEIM · HEIM 2 : 1 GAST")
-# ---------------------------------------------------------------------------
-
-def gen_scoreboard_face():
+def gen_scoreboard() -> None:
     w, h = 1024, 512
-    img = Image.new("RGB", (w, h), (20, 48, 30))
-    draw = ImageDraw.Draw(img)
-
-    # Outer white steel frame border
-    draw.rectangle([10, 10, w - 11, h - 11], outline=(232, 236, 230), width=8)
-    draw.rectangle([26, 26, w - 27, 132], fill=(28, 72, 42), outline=(218, 224, 214), width=3)
-
-    f_header = load_font(54, bold=True)
-    f_label = load_font(44, bold=True)
-    f_score = load_font(176, bold=True)
-
-    header = "TV 1920 KINDENHEIM"
-    hb = draw.textbbox((0, 0), header, font=f_header)
-    draw.text(((w - (hb[2] - hb[0])) / 2, 44), header, fill=(244, 242, 230), font=f_header)
-
-    # Team labels
-    for txt, cx in [("HEIM", 240), ("GAST", 784)]:
-        tb = draw.textbbox((0, 0), txt, font=f_label)
-        draw.text((cx - (tb[2] - tb[0]) / 2, 152), txt, fill=(236, 206, 104), font=f_label)
-
-    # Flip-number black tiles
-    for bx0, bx1, val in [(115, 365, "2"), (659, 909, "1")]:
-        draw.rounded_rectangle([bx0, 216, bx1, 456], radius=16, fill=(18, 20, 22), outline=(215, 220, 214), width=4)
-        draw.line([(bx0 + 6, 336), (bx1 - 6, 336)], fill=(46, 48, 52), width=3)
-        sb = draw.textbbox((0, 0), val, font=f_score)
-        draw.text(
-            ((bx0 + bx1) / 2 - (sb[2] - sb[0]) / 2, 234),
-            val,
-            fill=(248, 248, 242),
-            font=f_score,
-        )
-
-    # Center colon
-    draw.ellipse([496, 290, 528, 322], fill=(244, 242, 230))
-    draw.ellipse([496, 364, 528, 396], fill=(244, 242, 230))
-
-    albedo = np.array(img, dtype=np.float32)
-    rough = np.full((h, w), 0.46, dtype=np.float32)
-    normal = np.zeros((h, w, 3), dtype=np.uint8)
-    normal[..., 0] = 128
-    normal[..., 1] = 128
-    normal[..., 2] = 255
-    save_pbr("scoreboard_face", albedo, rough, normal, normal_size=512, rough_size=512)
+    img = Image.new("RGB", (w, h), (20, 50, 32))
+    d = ImageDraw.Draw(img)
+    d.rectangle([8, 8, w - 9, h - 9], outline=(230, 234, 228), width=8)
+    d.rectangle([26, 26, w - 27, 128], fill=(28, 74, 44), outline=(216, 222, 212), width=3)
+    centered(d, w / 2, 34, "TV 1920 KINDENHEIM", font("black", 60), (244, 242, 230))
+    for txt, cx in (("HEIM", 240), ("GAST", 784)):
+        centered(d, cx, 146, txt, font("bold", 50), (236, 206, 104))
+    # hanging number plates (raised geometry in the model re-uses these texels)
+    for bx0, bx1, val in ((115, 365, "2"), (659, 909, "1")):
+        d.rounded_rectangle([bx0, 214, bx1, 462], radius=10, fill=(18, 20, 22), outline=(206, 210, 204), width=4)
+        d.ellipse([bx0 + 40, 222, bx0 + 56, 238], fill=(120, 124, 120))
+        d.ellipse([bx1 - 56, 222, bx1 - 40, 238], fill=(120, 124, 120))
+        centered(d, (bx0 + bx1) / 2, 232, val, font("black", 190), (246, 246, 240))
+    d.ellipse([494, 288, 530, 324], fill=(244, 242, 230))
+    d.ellipse([494, 366, 530, 402], fill=(244, 242, 230))
+    centered(d, w / 2, 470, "SPORTPLATZ ANDINGSTRASSE", font("narrow", 26), (170, 190, 170))
+    save(weather(img, 502, dirt=0.10, streaks=0.14), "rec_scoreboard_albedo.png")
 
 
-# ---------------------------------------------------------------------------
-# 10. Municipal German Playground Sign ("Kinderspielplatz Kindenheim")
-# ---------------------------------------------------------------------------
-
-def gen_spielplatz_sign():
-    size = 512
-    img = Image.new("RGB", (size, size), (242, 244, 246))
-    draw = ImageDraw.Draw(img)
-
-    # Classic German municipal blue border & header
-    draw.rounded_rectangle([12, 12, size - 13, size - 13], radius=24, fill=(246, 248, 250), outline=(22, 82, 158), width=16)
-    draw.rectangle([28, 28, size - 29, 158], fill=(22, 82, 158))
-
-    f_title = load_font(44, bold=True)
-    f_sub = load_font(34, bold=True)
-    f_body = load_font(28, bold=False)
-
-    t1 = "KINDERSPIELPLATZ"
-    t2 = "Kindenheim"
-    b1 = draw.textbbox((0, 0), t1, font=f_title)
-    draw.text(((size - (b1[2] - b1[0])) / 2, 42), t1, fill=(255, 255, 255), font=f_title)
-    b2 = draw.textbbox((0, 0), t2, font=f_sub)
-    draw.text(((size - (b2[2] - b2[0])) / 2, 100), t2, fill=(238, 224, 118), font=f_sub)
-
-    # Stylized swing & slide pictogram in blue
-    pic_col = (22, 82, 158)
-    # Swing A-frame
-    draw.line([(96, 332), (160, 198), (224, 332)], fill=pic_col, width=11)
-    draw.line([(160, 198), (274, 198), (308, 332)], fill=pic_col, width=10)
-    draw.line([(204, 198), (204, 286)], fill=pic_col, width=5)
-    draw.line([(244, 198), (244, 286)], fill=pic_col, width=5)
-    draw.rectangle([194, 286, 254, 298], fill=(214, 58, 44))
-    # Slide icon on right
-    draw.line([(332, 332), (332, 214), (424, 326)], fill=pic_col, width=11)
-    draw.line([(312, 332), (332, 214)], fill=pic_col, width=8)
-
-    t3 = "Für Kinder 0–14 Jahre"
-    b3 = draw.textbbox((0, 0), t3, font=f_sub)
-    draw.text(((size - (b3[2] - b3[0])) / 2, 376), t3, fill=(24, 42, 68), font=f_sub)
-
-    t4 = "Ortsgemeinde Kindenheim"
-    b4 = draw.textbbox((0, 0), t4, font=f_body)
-    draw.text(((size - (b4[2] - b4[0])) / 2, 434), t4, fill=(82, 92, 108), font=f_body)
-
-    albedo = np.array(img, dtype=np.float32)
-    rough = np.full((size, size), 0.34, dtype=np.float32)
-    normal = np.zeros((size, size, 3), dtype=np.uint8)
-    normal[..., 0] = 128
-    normal[..., 1] = 128
-    normal[..., 2] = 255
-    save_pbr("spielplatz_sign", albedo, rough, normal, normal_size=256, rough_size=256)
+def gen_spielplatz_sign() -> None:
+    w, h = 512, 768
+    img = Image.new("RGB", (w, h), (244, 246, 248))
+    d = ImageDraw.Draw(img)
+    blue = (22, 82, 158)
+    d.rounded_rectangle([10, 10, w - 11, h - 11], radius=30, fill=(246, 248, 250), outline=blue, width=16)
+    d.rounded_rectangle([26, 26, w - 27, 190], radius=16, fill=blue)
+    centered(d, w / 2, 52, "KINDERSPIELPLATZ", font("bold", 44), (255, 255, 255))
+    centered(d, w / 2, 114, "Kindenheim", font("bold", 44), (238, 224, 118))
+    d.line([(96, 430), (160, 262), (224, 430)], fill=blue, width=13)
+    d.line([(160, 262), (286, 262), (322, 430)], fill=blue, width=12)
+    d.line([(206, 262), (206, 372)], fill=blue, width=5)
+    d.line([(250, 262), (250, 372)], fill=blue, width=5)
+    d.rectangle([194, 372, 262, 386], fill=(214, 58, 44))
+    d.line([(352, 430), (352, 284), (446, 424)], fill=blue, width=13)
+    d.line([(330, 430), (352, 284)], fill=blue, width=9)
+    centered(d, w / 2, 470, "Für Kinder 0–14 Jahre", font("bold", 36), (24, 42, 68))
+    y = 536
+    for line in ("Benutzung auf eigene Gefahr", "Spielzeit 8–20 Uhr", "Hunde bitte draußen lassen"):
+        centered(d, w / 2, y, line, font("regular", 27), (60, 70, 86))
+        y += 40
+    d.line([(60, 668), (w - 60, 668)], fill=blue, width=3)
+    centered(d, w / 2, 684, "Ortsgemeinde Kindenheim", font("bold", 30), (82, 92, 108))
+    save(weather(img, 503, dirt=0.07, streaks=0.10), "rec_spielplatz_sign_albedo.png")
 
 
-# ---------------------------------------------------------------------------
-# 11. Outdoor Concrete Table Tennis Top (Beton-Tischtennisplatte)
-# ---------------------------------------------------------------------------
+def gen_decals() -> None:
+    """1024 x 1024 atlas, 4 rows of 256 px. UV rects are listed in build_recreation.DECALS."""
+    s = 1024
+    img = Image.new("RGB", (s, s), (236, 236, 230))
+    d = ImageDraw.Draw(img)
+    green, cream, gold = (24, 66, 40), (242, 236, 214), (232, 196, 98)
 
-def gen_tischtennis_top():
-    w, h = 1024, 512
-    fine = fbm(w, (32, 64, 128), [0.5, 0.3, 0.2], seed=701)[:h, :]
-    col = lerp_color((118, 128, 124), (138, 148, 144), fine)
-    img = Image.fromarray(np.clip(col, 0, 255).astype(np.uint8), mode="RGB")
-    draw = ImageDraw.Draw(img)
+    # row 0: three door plates (each 341 x 256)
+    for i, (t1, t2) in enumerate((("UMKLEIDE", "HEIM"), ("UMKLEIDE", "GAST"), ("SCHIEDS-", "RICHTER"))):
+        x0 = i * 341
+        d.rectangle([x0, 0, x0 + 340, 255], fill=green)
+        d.rectangle([x0 + 10, 10, x0 + 330, 245], outline=cream, width=5)
+        centered(d, x0 + 170, 48, t1, font("bold", 52), cream)
+        centered(d, x0 + 170, 128, t2, font("black", 60), gold)
 
-    # Crisp white regulation outer court lines + center line
-    draw.rectangle([16, 16, w - 17, h - 17], outline=(244, 246, 244), width=12)
-    draw.line([(16, h // 2), (w - 17, h // 2)], fill=(244, 246, 244), width=8)
-    draw.line([(w // 2, 16), (w // 2, h - 17)], fill=(215, 220, 218), width=5)
+    # row 1: kiosk price board (chalkboard look), 1024 x 256
+    d.rectangle([0, 256, 1023, 511], fill=(34, 40, 38))
+    d.rectangle([8, 264, 1015, 503], outline=(150, 112, 70), width=10)
+    centered(d, 250, 280, "KIOSK", font("black", 84), (240, 238, 228))
+    centered(d, 250, 400, "Speisen & Getränke", font("bold", 40), gold)
+    y = 286
+    for item, price in (("Rostbratwurst im Brötchen", "3,00"), ("Pfälzer Weinschorle 0,5 l", "3,50"), ("Limo / Wasser", "2,00"), ("Kaffee & Kuchen", "3,00")):
+        d.text((500, y), item, fill=(232, 232, 224), font=font("regular", 34))
+        d.text((930, y), price, fill=(232, 232, 224), font=font("bold", 34))
+        y += 50
 
-    albedo = np.array(img, dtype=np.float32)
-    rough = np.full((h, w), 0.56, dtype=np.float32)
-    normal = height_to_normal(fine, strength=0.6)
-    save_pbr("tischtennis_top", albedo, rough, normal, normal_size=512, rough_size=512)
+    # row 2: notice board sheets (two sheets + a poster), 1024 x 256
+    d.rectangle([0, 512, 1023, 767], fill=(120, 96, 66))
+    sheets = (
+        (20, "SPIELPLAN", ("So 15:00  TV 1920 – Gäste", "Mi 19:00  Training Aktive", "Fr 17:30  Jugend E/F", "Sa 14:00  Alte Herren")),
+        (360, "VEREINSNACHRICHTEN", ("Arbeitseinsatz am Platz", "Samstag ab 9 Uhr", "Helfer willkommen!", "Der Vorstand")),
+    )
+    for x0, title, lines in sheets:
+        d.rectangle([x0, 526, x0 + 320, 754], fill=(248, 247, 240))
+        centered(d, x0 + 160, 536, title, font("bold", 26), (30, 30, 30))
+        d.line([(x0 + 20, 574), (x0 + 300, 574)], fill=(30, 30, 30), width=2)
+        yy = 586
+        for ln in lines:
+            d.text((x0 + 22, yy), ln, fill=(50, 50, 50), font=font("regular", 22))
+            yy += 40
+    d.rectangle([700, 526, 1004, 754], fill=(236, 206, 104))
+    centered(d, 852, 536, "SPORTFEST", font("black", 44), green)
+    centered(d, 852, 604, "mit Weinstand", font("bold", 34), (110, 30, 38))
+    centered(d, 852, 656, "am Sportplatz", font("bold", 30), green)
+    centered(d, 852, 704, "Eintritt frei", font("regular", 28), (40, 40, 40))
+
+    # row 3: house-rules plate + street-number plate
+    d.rectangle([0, 768, 511, 1023], fill=(250, 250, 246))
+    d.rectangle([8, 776, 503, 1015], outline=(196, 30, 36), width=10)
+    centered(d, 256, 800, "Betreten der Sportanlage", font("bold", 34), (30, 30, 30))
+    centered(d, 256, 850, "auf eigene Gefahr", font("bold", 34), (30, 30, 30))
+    centered(d, 256, 916, "Hunde sind an der Leine zu führen", font("regular", 26), (60, 60, 60))
+    centered(d, 256, 958, "TV 1920 Kindenheim e.V.", font("regular", 26), (60, 60, 60))
+    d.rectangle([512, 768, 1023, 1023], fill=(22, 82, 158))
+    d.rectangle([522, 778, 1013, 1013], outline=(255, 255, 255), width=6)
+    centered(d, 768, 800, "Andingstraße", font("bold", 62), (255, 255, 255))
+    centered(d, 768, 880, "7", font("black", 96), (255, 255, 255))
+
+    save(weather(img, 504, dirt=0.06, streaks=0.05), "rec_decals_albedo.png")
 
 
-def main():
-    print(f"Generating recreation PBR textures into {OUT_DIR} ...")
-    gen_robinia_wood()
-    gen_timber_shingle()
-    gen_enamel_paint("paint_red", (202, 46, 42), seed=801)
-    gen_enamel_paint("paint_blue", (38, 108, 186), seed=802)
-    gen_enamel_paint("paint_yellow", (232, 178, 34), seed=803)
-    gen_enamel_paint("paint_green", (46, 134, 68), seed=804)
-    gen_galvanized_steel()
-    gen_stainless_brushed()
-    gen_rubber_black()
-    gen_rope("rope_red", (198, 44, 42), seed=805)
-    gen_rope("rope_blue", (38, 102, 178), seed=806)
-    gen_concrete_terrace()
+def gen_bark_mulch() -> None:
+    """Size-reduced copies of the CC0 "Wood Chips" set (names are unique to the recreation area)."""
+    src = OUT_DIR.parent.parent / "shared_textures" / "_extra_recreation" / "bark_mulch"
+    for kind, size, quality, name in (
+        ("albedo", 1024, 84, "bark_mulch_albedo_1k.jpg"),
+        ("normal", 512, 86, "bark_mulch_normal_512.jpg"),
+        ("orm", 512, 84, "bark_mulch_orm_512.jpg"),
+    ):
+        path = src / f"bark_mulch_{kind}_1k.jpg"
+        if not path.exists():
+            raise FileNotFoundError(f"bark mulch source texture missing: {path}")
+        img = Image.open(path).convert("RGB")
+        if img.size != (size, size):
+            img = img.resize((size, size), Image.LANCZOS)
+        OUT_DIR.mkdir(parents=True, exist_ok=True)
+        img.save(OUT_DIR / name, quality=quality, optimize=True)
+        print(f"  wrote {name}  {size}x{size}")
+
+
+def main() -> None:
+    print("=== Generating unique recreation textures ===")
+    # v1 shipped hand-made noise maps for every material; they are superseded by the shared
+    # photo-scanned library, so remove them instead of leaving dead files next to the new ones.
+    if OUT_DIR.exists():
+        for old in OUT_DIR.iterdir():
+            if old.is_file() and not old.name.startswith(("rec_", "bark_mulch_")):
+                old.unlink()
+    gen_net()
+    gen_chain()
+    gen_chainlink()
+    gen_rope()
     gen_sportheim_sign()
-    gen_scoreboard_face()
+    gen_scoreboard()
     gen_spielplatz_sign()
-    gen_tischtennis_top()
-    print(f"Generated {len(list(OUT_DIR.glob('*_albedo.jpg')))} texture sets.")
+    gen_decals()
+    gen_bark_mulch()
 
 
 if __name__ == "__main__":

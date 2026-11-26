@@ -1,0 +1,21 @@
+{
+  "attribution": "© GeoBasis-DE / LVermGeoRP (2026), dl-de/by-2-0, http://www.lvermgeo.rlp.de [Daten bearbeitet]",
+  "licence": "Datenlizenz Deutschland - Namensnennung - Version 2.0 (dl-de/by-2-0)",
+  "source": "LVermGeo RLP OpenData DOP20 WMS https://geo4.service24.rlp.de/wms/rp_dop20.fcgi (layer rp_dop20), resampled by the server",
+  "layers": {
+    "inner": {
+      "file": "inner.webp",
+      "sizePx": 2048,
+      "sideM": 6144.0,
+      "metresPerPixel": 3.0,
+      "bytes": 1094888
+    },
+    "outer": {
+      "file": "outer.webp",
+      "sizePx": 2048,
+      "sideM": 16384.0,
+      "metresPerPixel": 8.0,
+      "bytes": 784538
+    }
+  }
+}

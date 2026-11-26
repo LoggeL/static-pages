@@ -269,6 +269,28 @@ body,
   background: var(--accent-emerald);
 }
 
+/* Fatal error on the loading overlay (src/ui.ts showFatal): final, selectable, multi-line. */
+.loading-overlay.fatal .loading-status {
+  color: #ffb4a6;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.45;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+  user-select: text;
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.loading-overlay.fatal .loading-bar-fill {
+  background: #c8503c;
+}
+
+.loading-overlay.fatal .loading-step.active .step-dot {
+  background: #c8503c;
+  box-shadow: 0 0 8px #c8503c;
+}
+
 /* HUD */
 .hud {
   position: fixed;
@@ -555,6 +577,38 @@ body,
   grid-column: 1 / -1;
   width: 100%;
   accent-color: var(--accent-gold);
+}
+
+.control-row .control-select {
+  grid-column: 1 / -1;
+  width: 100%;
+  padding: 5px 8px;
+  font: inherit;
+  font-size: 12px;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--border-glass);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.control-row .control-select:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 1px;
+}
+
+.control-row .control-select option {
+  color: #111814;
+  background: #f4f1e8;
+}
+
+.imagery-credit {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-glass);
+  font-size: 10px;
+  line-height: 1.35;
+  opacity: 0.7;
 }
 
 .toggle-list {
@@ -1145,4 +1199,475 @@ body,
 
 .tele-sep {
   opacity: 0.45;
+}
+
+.benchmark-score-banner.score-error {
+  background: rgba(220, 70, 50, 0.16);
+  border-color: rgba(255, 110, 80, 0.6);
+}
+
+.benchmark-score-banner.score-error .score-title {
+  color: #ff9a80;
+}
+
+/* ------------------------------------------------------------------------------------------------
+   Touch driving controls (src/touchControls.ts). Only on devices whose primary pointer is coarse:
+   the root element then carries .touch-ui.
+   ------------------------------------------------------------------------------------------------ */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  /* Height kept free at the bottom for the touch controls (0 without them) */
+  --touch-clear: 0px;
+  --hud-gap: 12px;
+}
+
+:root.touch-ui {
+  --touch-clear: 168px;
+}
+
+.touch-controls {
+  display: none;
+}
+
+.hud > .touch-controls {
+  pointer-events: none;
+}
+
+:root.touch-ui .touch-controls {
+  display: block;
+}
+
+:root.touch-ui .touch-controls.hidden {
+  display: none !important;
+}
+
+.touch-steer,
+.touch-pedal,
+.touch-aux-btn {
+  pointer-events: auto;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.touch-steer {
+  position: fixed;
+  left: calc(var(--safe-left) + 14px);
+  bottom: calc(var(--safe-bottom) + 16px);
+  width: 168px;
+  height: 92px;
+  border-radius: 46px;
+  background: rgba(14, 20, 17, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.touch-steer.pressed {
+  border-color: rgba(231, 185, 90, 0.7);
+}
+
+.touch-steer-track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  color: rgba(243, 245, 241, 0.55);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.touch-steer-label {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  align-self: flex-end;
+  margin-bottom: 7px;
+}
+
+.touch-steer-knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 40% 35%, #f6dc98, var(--accent-gold) 60%, #b98a33);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.touch-steer.pressed .touch-steer-knob {
+  box-shadow: 0 0 0 4px rgba(231, 185, 90, 0.35), 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+.touch-right {
+  position: fixed;
+  right: calc(var(--safe-right) + 14px);
+  bottom: calc(var(--safe-bottom) + 16px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.touch-aux,
+.touch-pedals {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.touch-aux-btn {
+  min-width: 58px;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 19px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(14, 20, 17, 0.7);
+  color: var(--text-main);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.touch-aux-btn.pressed,
+.touch-aux-btn:active {
+  background: rgba(231, 185, 90, 0.35);
+}
+
+.touch-pedal {
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: var(--text-main);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.15;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.05s ease;
+}
+
+.touch-pedal.pressed {
+  transform: scale(0.95);
+}
+
+.touch-pedal-hb {
+  width: 46px;
+  height: 58px;
+  background: rgba(14, 20, 17, 0.75);
+  font-size: 16px;
+}
+
+.touch-pedal-hb.pressed {
+  background: rgba(255, 94, 58, 0.55);
+}
+
+.touch-pedal-brake {
+  width: 64px;
+  height: 80px;
+  background: rgba(70, 32, 26, 0.78);
+}
+
+.touch-pedal-brake.pressed {
+  background: rgba(200, 70, 50, 0.8);
+}
+
+.touch-pedal-gas {
+  width: 72px;
+  height: 104px;
+  background: rgba(30, 70, 44, 0.8);
+  font-size: 14px;
+}
+
+.touch-pedal-gas.pressed {
+  background: rgba(82, 201, 128, 0.75);
+}
+
+/* Touch UI: the keyboard hints make no sense; light and horn live on the touch controls */
+:root.touch-ui .drive-hint-chip,
+:root.touch-ui #btn-lights,
+:root.touch-ui #btn-horn,
+:root.touch-ui .ctrl-pill kbd,
+:root.touch-ui .bm-btn kbd {
+  display: none;
+}
+
+:root.touch-ui .ctrl-pill,
+:root.touch-ui .seg-btn,
+:root.touch-ui .bm-btn {
+  min-height: 32px;
+}
+
+/* ------------------------------------------------------------------------------------------------
+   Small screens: below ~900 px the desktop HUD no longer fits side by side.
+   ------------------------------------------------------------------------------------------------ */
+@media (max-width: 900px), (max-height: 560px) {
+  :root {
+    --hud-gap: 8px;
+  }
+
+  .hud-brand {
+    top: calc(var(--safe-top) + var(--hud-gap));
+    left: calc(var(--safe-left) + var(--hud-gap));
+    padding: 6px 10px 6px 8px;
+  }
+
+  .brand-meta {
+    display: none;
+  }
+
+  .tour-card {
+    top: calc(var(--safe-top) + 52px);
+    left: calc(var(--safe-left) + var(--hud-gap));
+    width: 220px;
+  }
+
+  .hud-topbar {
+    top: calc(var(--safe-top) + var(--hud-gap));
+    right: calc(var(--safe-right) + var(--hud-gap));
+    gap: 5px;
+    max-width: calc(100vw - 210px - var(--safe-left) - var(--safe-right));
+  }
+
+  .seg-btn {
+    padding: 5px 7px;
+    font-size: 11px;
+  }
+
+  .action-pill {
+    padding: 6px 9px;
+    font-size: 11px;
+  }
+
+  .settings-popover {
+    top: calc(var(--safe-top) + 52px);
+    right: calc(var(--safe-right) + var(--hud-gap));
+    max-height: calc(100vh - var(--safe-top) - var(--safe-bottom) - 64px);
+    overflow-y: auto;
+  }
+
+  /* Scrolling sheet: its blocks keep their natural height instead of being squeezed */
+  .benchmark-panel > * {
+    flex-shrink: 0;
+  }
+
+  .ref-shot-list {
+    flex: none;
+    max-height: 150px;
+  }
+
+  .benchmark-panel {
+    top: auto;
+    left: calc(var(--safe-left) + var(--hud-gap));
+    right: calc(var(--safe-right) + var(--hud-gap));
+    bottom: calc(var(--safe-bottom) + 60px);
+    width: auto;
+    max-height: 52vh;
+    overflow-y: auto;
+  }
+
+  .compare-tag-right {
+    right: 12px;
+    top: 104px;
+  }
+
+  .compare-controls-bar {
+    bottom: calc(var(--safe-bottom) + 12px);
+  }
+
+  .drive-minimap-box {
+    left: calc(var(--safe-left) + var(--hud-gap));
+    bottom: calc(var(--safe-bottom) + var(--touch-clear) + var(--hud-gap));
+    width: 132px;
+  }
+
+  #drive-minimap {
+    width: 132px;
+    height: 112px;
+  }
+
+  .tacho-card {
+    right: calc(var(--safe-right) + var(--hud-gap));
+    bottom: calc(var(--safe-bottom) + var(--touch-clear) + var(--hud-gap));
+    width: 150px;
+    padding: 8px 10px;
+  }
+
+  .tacho-kmh {
+    font-size: 28px;
+  }
+
+  /* Dock sits between minimap and speedometer and wraps instead of running underneath them */
+  .drive-controls-dock {
+    left: calc(var(--safe-left) + 132px + 2 * var(--hud-gap));
+    right: calc(var(--safe-right) + 150px + 2 * var(--hud-gap));
+    bottom: calc(var(--safe-bottom) + var(--touch-clear) + var(--hud-gap));
+    transform: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .bookmark-dock {
+    left: calc(var(--safe-left) + var(--hud-gap));
+    right: calc(var(--safe-right) + var(--hud-gap));
+    bottom: calc(var(--safe-bottom) + var(--hud-gap));
+    transform: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .bm-btn {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+
+  .tour-toast {
+    top: auto;
+    bottom: calc(var(--safe-bottom) + var(--touch-clear) + 150px);
+    max-width: calc(100vw - 24px);
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+/* Phone portrait: one column — controls on top, tour card + minimap below them, speed + dock at the bottom */
+@media (max-width: 600px) {
+  .hud-brand {
+    display: none;
+  }
+
+  .hud-topbar {
+    left: calc(var(--safe-left) + var(--hud-gap));
+    max-width: none;
+    justify-content: center;
+  }
+
+  .tour-card {
+    top: calc(var(--safe-top) + 92px);
+    width: calc(100vw - 132px - 3 * var(--hud-gap) - var(--safe-left) - var(--safe-right));
+  }
+
+  .settings-popover {
+    top: calc(var(--safe-top) + 92px);
+  }
+
+  .drive-minimap-box {
+    top: calc(var(--safe-top) + 92px);
+    bottom: auto;
+    left: auto;
+    right: calc(var(--safe-right) + var(--hud-gap));
+    width: 120px;
+  }
+
+  #drive-minimap {
+    width: 120px;
+    height: 96px;
+  }
+
+  .tacho-card {
+    left: calc(var(--safe-left) + var(--hud-gap));
+    right: auto;
+  }
+
+  .drive-controls-dock {
+    left: calc(var(--safe-left) + 150px + 2 * var(--hud-gap));
+    right: calc(var(--safe-right) + var(--hud-gap));
+  }
+
+  .compare-tag-left {
+    top: calc(var(--safe-top) + 96px);
+  }
+
+  .touch-steer {
+    width: 150px;
+  }
+
+  /* The bookmark dock wraps to two rows here: the benchmark sheet sits above it */
+  .benchmark-panel {
+    bottom: calc(var(--safe-bottom) + 130px);
+    max-height: calc(100vh - var(--safe-top) - var(--safe-bottom) - 236px);
+  }
+
+  .compare-tag-right {
+    top: calc(var(--safe-top) + 128px);
+  }
+}
+
+/* Phone landscape: little height — tour card and minimap on the left, speed and dock between the thumbs */
+@media (max-height: 560px) and (min-width: 601px) {
+  .hud-brand {
+    display: none;
+  }
+
+  .tour-card {
+    top: calc(var(--safe-top) + var(--hud-gap));
+  }
+
+  .hud-topbar {
+    max-width: calc(100vw - 236px - var(--safe-left) - var(--safe-right));
+  }
+
+  .settings-popover {
+    top: calc(var(--safe-top) + 52px);
+  }
+
+  .drive-minimap-box {
+    top: calc(var(--safe-top) + 84px);
+    bottom: auto;
+    width: 116px;
+  }
+
+  #drive-minimap {
+    width: 116px;
+    height: 84px;
+  }
+
+  .tacho-card {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    bottom: calc(var(--safe-bottom) + var(--hud-gap));
+  }
+
+  /* Centred above the speedometer (≈ 92 px tall), between the thumbs */
+  .drive-controls-dock {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    max-width: calc(100vw - 196px - 230px - var(--safe-left) - var(--safe-right));
+    bottom: calc(var(--safe-bottom) + 110px);
+  }
+
+  :root:not(.touch-ui) .drive-controls-dock {
+    left: calc(var(--safe-left) + 140px);
+    right: calc(var(--safe-right) + var(--hud-gap));
+    transform: none;
+    max-width: none;
+    bottom: calc(var(--safe-bottom) + 110px);
+  }
+
+  .benchmark-panel {
+    top: calc(var(--safe-top) + 52px);
+    bottom: calc(var(--safe-bottom) + 58px);
+    left: auto;
+    width: min(322px, 46vw);
+    max-height: none;
+  }
+
+  .tour-toast {
+    bottom: auto;
+    top: calc(var(--safe-top) + 52px);
+  }
 }

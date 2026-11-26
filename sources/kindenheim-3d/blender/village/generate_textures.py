@@ -1609,16 +1609,687 @@ def generate_prop_textures():
     save_png(height_to_normal(h_bar, strength=3.5), os.path.join(PROPS_DIR, "wine_barrel_normal.png"))
 
 
+# ===========================================================================
+# V2 (graphics overhaul): authored atlases for REAL facade geometry.
+# The plaster / stone / roof / wood surfaces now come from the shared photo-scanned
+# CC0 library (blender/shared_textures); only things that cannot be tiled are authored here:
+#   village_window_atlas_{albedo,normal,orm,emissive}  4x4 window units (glass + frames)
+#   village_joinery_atlas_{albedo,normal,orm}          4x2 shutters / doors / garage doors (neutral, vertex-tinted)
+#   village_solar_{albedo,normal,orm}                  one PV module per tile
+#   village_plinth_tile_{albedo,normal,orm}            diagonal ceramic plinth tiles (Hauptstraße 59)
+# ===========================================================================
+
+V2_SS = 2  # supersampling factor
+
+
+class _Cell:
+    """One atlas cell painted in normalised [0,1]x[0,1] coords (origin top-left), supersampled."""
+
+    def __init__(self, px: int, seed: int = 0):
+        self.n = px * V2_SS
+        n = self.n
+        self.alb = np.zeros((n, n, 3), np.float32)
+        self.hgt = np.zeros((n, n), np.float32)
+        self.rgh = np.full((n, n), 0.5, np.float32)
+        self.met = np.zeros((n, n), np.float32)
+        self.ao = np.ones((n, n), np.float32)
+        self.emi = np.zeros((n, n, 3), np.float32)
+        self.rng = np.random.default_rng(seed)
+        yy, xx = np.mgrid[0:n, 0:n].astype(np.float32)
+        self.xx = (xx + 0.5) / n
+        self.yy = (yy + 0.5) / n
+
+    def _sl(self, x0, y0, x1, y1):
+        n = self.n
+        return (slice(max(0, int(round(y0 * n))), min(n, int(round(y1 * n)))),
+                slice(max(0, int(round(x0 * n))), min(n, int(round(x1 * n)))))
+
+    def rect(self, x0, y0, x1, y1, alb=None, hgt=None, rgh=None, met=None, ao=None, emi=None):
+        s = self._sl(x0, y0, x1, y1)
+        if alb is not None:
+            self.alb[s] = np.asarray(alb, np.float32) / 255.0
+        if hgt is not None:
+            self.hgt[s] = hgt
+        if rgh is not None:
+            self.rgh[s] = rgh
+        if met is not None:
+            self.met[s] = met
+        if ao is not None:
+            self.ao[s] = ao
+        if emi is not None:
+            self.emi[s] = np.asarray(emi, np.float32)
+        return s
+
+    def mul_alb(self, s, factor):
+        self.alb[s] *= factor
+
+    def down(self, arr):
+        n = self.n // V2_SS
+        if arr.ndim == 3:
+            return arr.reshape(n, V2_SS, n, V2_SS, arr.shape[2]).mean(axis=(1, 3))
+        return arr.reshape(n, V2_SS, n, V2_SS).mean(axis=(1, 3))
+
+
+GLASS_ALB = (30, 31, 33)      # neutral dark pane; dielectric (metalness 0) so the sky reflection stays a pale sheen
+GLASS_RGH = 0.09
+
+
+def _paint_glass(c: _Cell, x0, y0, x1, y1, lit=(1.0, 0.72, 0.42), lit_gain=1.0, curtain=None, blob=(0.5, 0.25)):
+    """Dark reflective pane + warm interior emissive picture. curtain: None | 'sides' | 'net' | 'full' | 'frost'."""
+    s = c.rect(x0, y0, x1, y1, alb=GLASS_ALB, hgt=0.0, rgh=GLASS_RGH, met=0.0, ao=1.0)
+    xx = (c.xx[s] - x0) / max(x1 - x0, 1e-5)
+    yy = (c.yy[s] - y0) / max(y1 - y0, 1e-5)
+    # Daylight look without a mirror: a pale, broken band low in the pane (the opposite house fronts seen in
+    # the glass), fading to near black towards the top, plus a hint of the room behind.
+    seed = int(x0 * 9173 + y0 * 7919) % 9973
+    blot = tileable_fbm(c.n, c.n, ((3, 5, 0.6), (7, 11, 0.4)), seed=seed)[s]
+    band = np.clip((yy - 0.38) / 0.45, 0.0, 1.0) ** 1.3
+    refl = band * (0.55 + 0.9 * blot)
+    room = 0.5 * np.exp(-(((xx - 0.5) / 0.6) ** 2 + ((yy - 0.75) / 0.35) ** 2)) * blot
+    tone = np.array([1.0, 0.99, 0.96], np.float32)
+    c.alb[s] = c.alb[s] * (0.85 + 0.9 * refl + 0.5 * room)[..., None] * tone
+    if curtain is None and lit_gain > 0.0:
+        curtain = "faint"
+    # interior by night: lit wall gradient + ceiling-lamp glow
+    bx, by = blob
+    glow = 0.42 + 0.58 * np.exp(-(((xx - bx) / 0.42) ** 2 + ((yy - by) / 0.34) ** 2))
+    glow *= (0.80 + 0.20 * (1.0 - yy))
+    # dark furniture silhouette along the bottom
+    sil = 0.55 + 0.45 * np.clip((0.86 - yy) / 0.10, 0.0, 1.0)
+    e = glow * sil * lit_gain
+    emi = np.stack([e * lit[0], e * lit[1], e * lit[2]], axis=-1)
+    cur_mask = np.zeros_like(xx)
+    if curtain == "sides":
+        fold = 0.5 + 0.5 * np.sin(xx * 95.0)
+        cur_mask = (np.clip((0.17 - xx) / 0.02, 0, 1) + np.clip((xx - 0.83) / 0.02, 0, 1)) * (0.75 + 0.25 * fold)
+    elif curtain == "net":
+        fold = 0.5 + 0.5 * np.sin(xx * 70.0 + 2.0 * np.sin(yy * 5.0))
+        hem = np.clip((yy - 0.42) / 0.03, 0, 1)
+        scallop = np.clip((yy - 0.42 - 0.035 * np.abs(np.sin(xx * 16.0))) / 0.02, 0, 1)
+        cur_mask = hem * scallop * (0.70 + 0.30 * fold)
+    elif curtain == "full":
+        fold = 0.5 + 0.5 * np.sin(xx * 60.0 + 1.5 * np.sin(yy * 4.0))
+        cur_mask = 0.72 + 0.28 * fold
+    elif curtain == "frost":
+        cur_mask = np.full_like(xx, 0.85)
+    elif curtain == "faint":
+        fold = 0.5 + 0.5 * np.sin(xx * 80.0)
+        cur_mask = (np.clip((0.12 - xx) / 0.03, 0, 1) + np.clip((xx - 0.88) / 0.03, 0, 1)) * (0.45 + 0.2 * fold)
+    if curtain:
+        cm = np.clip(cur_mask, 0.0, 1.0)
+        fabric = np.array([168, 166, 158], np.float32) / 255.0 if curtain != "frost" else np.array([150, 158, 162], np.float32) / 255.0
+        shade = (0.55 + 0.45 * cm)[..., None] * (0.6 if curtain == "faint" else 1.0)
+        m3 = (cm > 0.02)[..., None]
+        c.alb[s] = np.where(m3, fabric * shade * 0.62, c.alb[s])
+        c.met[s] = np.where(cm > 0.02, 0.0, c.met[s])
+        c.rgh[s] = np.where(cm > 0.02, 0.16 if curtain != "frost" else 0.42, c.rgh[s])
+        # curtains diffuse the room light: even, slightly brighter glow
+        diff = (0.62 + 0.25 * cm)[..., None] * np.array(lit, np.float32) * lit_gain
+        emi = np.where(m3, diff * np.array([1.0, 0.95, 0.86], np.float32), emi)
+    c.emi[s] = emi
+    return s
+
+
+def _paint_rollladen(c: _Cell, x0, y0, x1, y1, col=(214, 214, 208), slat=0.021, leak=0.0):
+    """Lowered roller shutter curtain made of horizontal slats."""
+    s = c.rect(x0, y0, x1, y1, alb=col, rgh=0.48, met=0.0)
+    yy = (c.yy[s] - y0) / slat
+    ph = yy - np.floor(yy)
+    prof = np.sin(ph * math.pi) ** 0.6
+    c.hgt[s] = 0.34 + 0.20 * prof
+    c.ao[s] = 0.72 + 0.28 * prof
+    c.alb[s] *= (0.86 + 0.14 * prof)[..., None]
+    if leak > 0.0:
+        slit = (ph < 0.10).astype(np.float32) * ((np.sin(c.xx[s] * 900.0) > 0.2).astype(np.float32))
+        c.emi[s] = (slit * leak)[..., None] * np.array([1.0, 0.74, 0.44], np.float32)
+    else:
+        c.emi[s] = 0.0
+
+
+def _window_cell(px, seed, frame_col=(236, 236, 232), frame_rgh=0.34, wings=2, sprossen=0, transom=0.0,
+                 curtain=None, shutter=0.0, shutter_col=(214, 214, 208), lit=(1.0, 0.72, 0.42), lit_gain=1.0,
+                 aspect=0.8, fw=0.052, blob=(0.5, 0.25), leak=0.0, box=0.0):
+    """aspect = window width / height (the square cell is stretched onto the unit quad)."""
+    c = _Cell(px, seed)
+    fx, fy = fw, fw * aspect
+    c.rect(0, 0, 1, 1, alb=frame_col, hgt=1.0, rgh=frame_rgh, met=0.0, ao=1.0)
+    y_top = fy
+    if box > 0.0:   # visible roller-shutter box (Rollladenkasten) at the head
+        sb = c.rect(0, 0, 1, box, alb=frame_col, hgt=1.0, rgh=frame_rgh)
+        c.mul_alb(sb, 0.96)
+        c.rect(0, box - 0.006, 1, box, alb=(120, 120, 118), hgt=0.6, ao=0.6)
+        y_top = box + fy * 0.4
+    # rebate between fixed frame and sashes
+    c.rect(fx * 0.72, y_top - fy * 0.28, 1 - fx * 0.72, 1 - fy * 0.72, hgt=0.80, ao=0.72)
+    c.rect(fx * 0.80, y_top - fy * 0.20, 1 - fx * 0.80, 1 - fy * 0.80, alb=frame_col, hgt=0.92, ao=1.0)
+    sx, sy = fw * 0.95, fw * 0.95 * aspect           # sash stile width
+    inner_x0, inner_x1 = fx * 0.80, 1 - fx * 0.80
+    inner_y0, inner_y1 = y_top - fy * 0.20, 1 - fy * 0.80
+    spans = []
+    if transom > 0.0:
+        ty = inner_y0 + (inner_y1 - inner_y0) * transom
+        spans.append((inner_x0, inner_y0, inner_x1, ty, 1))             # fanlight
+        c.rect(inner_x0, ty - fy * 0.35, inner_x1, ty + fy * 0.35, alb=frame_col, hgt=1.0)
+        spans.append((inner_x0, ty, inner_x1, inner_y1, wings))
+    else:
+        spans.append((inner_x0, inner_y0, inner_x1, inner_y1, wings))
+    panes = []
+    for (ax0, ay0, ax1, ay1, nw) in spans:
+        ww = (ax1 - ax0) / nw
+        for i in range(nw):
+            wx0, wx1 = ax0 + i * ww, ax0 + (i + 1) * ww
+            if i > 0:   # meeting stiles shadow gap
+                c.rect(wx0 - 0.004, ay0, wx0 + 0.004, ay1, alb=(70, 70, 70), hgt=0.55, ao=0.5)
+            gx0, gx1 = wx0 + sx, wx1 - sx
+            gy0, gy1 = ay0 + sy, ay1 - sy
+            # glazing bead step
+            c.rect(gx0 - 0.008, gy0 - 0.008 * aspect, gx1 + 0.008, gy1 + 0.008 * aspect, hgt=0.55, ao=0.70)
+            _paint_glass(c, gx0, gy0, gx1, gy1, lit=lit, lit_gain=lit_gain, curtain=curtain, blob=blob)
+            panes.append((gx0, gy0, gx1, gy1))
+            if sprossen and (ay1 - ay0) > 0.4:
+                bar = 0.016
+                for k in range(1, sprossen + 1):
+                    by = gy0 + (gy1 - gy0) * k / (sprossen + 1)
+                    c.rect(gx0, by - bar * aspect * 0.5, gx1, by + bar * aspect * 0.5, alb=frame_col, hgt=0.62, rgh=frame_rgh, met=0.0, emi=(0, 0, 0))
+    if shutter > 0.0:
+        gy0 = min(p[1] for p in panes) - sy * 0.6
+        gy1 = max(p[3] for p in panes)
+        y_end = gy0 + (gy1 - gy0 + sy * 0.6) * shutter
+        _paint_rollladen(c, inner_x0 + sx * 0.25, gy0, inner_x1 - sx * 0.25, y_end, col=shutter_col, leak=leak)
+        c.rect(inner_x0 + sx * 0.25, y_end - 0.014 * aspect, inner_x1 - sx * 0.25, y_end, alb=tuple(int(v * 0.8) for v in shutter_col), hgt=0.62, emi=(0, 0, 0))
+    # weathering: dirt in lower frame corners
+    grime = tileable_fbm(c.n, c.n, ((6, 6, 0.6), (18, 18, 0.4)), seed=seed + 5)
+    fr = (c.met < 0.5) & (c.hgt > 0.7)
+    c.alb[fr] *= (0.93 + 0.10 * grime[fr])[..., None]
+    return c
+
+
+def _louvre_cell(px, seed):
+    """Folding shutter leaf (Klappladen) with louvre slats; neutral light tone, tinted per house."""
+    c = _Cell(px, seed)
+    base = (206, 204, 198)
+    c.rect(0, 0, 1, 1, alb=base, hgt=0.9, rgh=0.56)
+    fx, fy = 0.13, 0.05
+    for (y0, y1) in ((fy, 0.485), (0.535, 1 - fy)):
+        s = c.rect(fx, y0, 1 - fx, y1, alb=base, rgh=0.58)
+        ph = (c.yy[s] - y0) / 0.0235
+        ph = ph - np.floor(ph)
+        c.hgt[s] = 0.35 + 0.45 * ph
+        c.ao[s] = 0.55 + 0.45 * ph
+        c.alb[s] *= (0.70 + 0.30 * ph)[..., None]
+    for (x0, y0, x1, y1) in ((0.02, 0.012, 0.98, 0.016), (0.02, 0.984, 0.98, 0.988)):
+        c.rect(x0, y0, x1, y1, hgt=0.6, ao=0.7)
+    # iron strap hinges
+    for hy in (0.14, 0.86):
+        c.rect(0.0, hy - 0.012, 0.30, hy + 0.012, alb=(52, 50, 48), hgt=1.0, rgh=0.5, met=0.6)
+    g = tileable_fbm(c.n, c.n, ((3, 40, 0.6), (9, 120, 0.4)), seed=seed)
+    c.alb *= (0.92 + 0.14 * g)[..., None]
+    return c
+
+
+def _plank_cell(px, seed, n_planks=5, brace=True, base=(202, 198, 190)):
+    """Board shutter / plank door with Z-brace; neutral, tinted per house."""
+    c = _Cell(px, seed)
+    c.rect(0, 0, 1, 1, alb=base, hgt=0.7, rgh=0.62)
+    g = tileable_fbm(c.n, c.n, ((2, 60, 0.6), (6, 160, 0.4)), seed=seed)
+    c.alb *= (0.84 + 0.26 * g)[..., None]
+    for i in range(1, n_planks):
+        x = i / n_planks
+        c.rect(x - 0.006, 0, x + 0.006, 1, hgt=0.25, ao=0.45)
+        s = c._sl(x - 0.006, 0, x + 0.006, 1)
+        c.alb[s] *= 0.55
+    if brace:
+        for by in (0.16, 0.84):
+            s = c.rect(0.03, by - 0.045, 0.97, by + 0.045, hgt=1.0, ao=1.0)
+            c.alb[s] = np.asarray(base, np.float32) / 255.0 * (0.88 + 0.16 * g[s])[..., None]
+        d = np.abs((c.yy - 0.16) - (c.xx - 0.03) * (0.68 / 0.94))
+        m = (d < 0.04) & (c.yy > 0.205) & (c.yy < 0.795)
+        c.hgt[m] = 1.0
+        c.alb[m] = np.asarray(base, np.float32) / 255.0 * (0.88 + 0.16 * g[m])[..., None]
+        for hy in (0.16, 0.84):
+            c.rect(0.0, hy - 0.013, 0.42, hy + 0.013, alb=(48, 46, 44), hgt=1.0, rgh=0.5, met=0.6)
+    return c
+
+
+def _door_cell(px, seed, kind="panel"):
+    c = _Cell(px, seed)
+    base = (198, 192, 182)
+    c.rect(0, 0, 1, 1, alb=base, hgt=0.8, rgh=0.5)
+    g = tileable_fbm(c.n, c.n, ((2, 50, 0.6), (6, 140, 0.4)), seed=seed)
+    c.alb *= (0.88 + 0.20 * g)[..., None]
+    # frame
+    c.rect(0, 0, 0.07, 1, hgt=1.0)
+    c.rect(0.93, 0, 1, 1, hgt=1.0)
+    c.rect(0, 0, 1, 0.035, hgt=1.0)
+    c.rect(0.07, 0.035, 0.078, 1, hgt=0.4, ao=0.5)
+    c.rect(0.922, 0.035, 0.93, 1, hgt=0.4, ao=0.5)
+    c.rect(0.07, 0.035, 0.93, 0.040, hgt=0.4, ao=0.5)
+
+    def panel(x0, y0, x1, y1, glass=False):
+        so = c.rect(x0, y0, x1, y1, hgt=0.45, ao=0.62)
+        c.alb[so] *= 0.74
+        if glass:
+            _paint_glass(c, x0 + 0.012, y0 + 0.006, x1 - 0.012, y1 - 0.006, curtain="frost", lit_gain=0.0)
+        else:
+            s = c.rect(x0 + 0.02, y0 + 0.01, x1 - 0.02, y1 - 0.01, hgt=0.66, ao=1.0)
+            c.alb[s] *= (0.96 / 0.74)
+
+    if kind == "panel":          # classic 1950-80 panelled door, two small upper lights
+        panel(0.16, 0.08, 0.47, 0.30, glass=True)
+        panel(0.53, 0.08, 0.84, 0.30, glass=True)
+        panel(0.16, 0.35, 0.84, 0.62)
+        panel(0.16, 0.67, 0.84, 0.93)
+        c.rect(0.80, 0.50, 0.87, 0.515, alb=(170, 160, 120), hgt=1.0, rgh=0.3, met=0.9)
+    elif kind == "modern":       # flat leaf, vertical glass strip, long bar handle
+        panel(0.62, 0.10, 0.76, 0.90, glass=True)
+        for y in (0.28, 0.50, 0.72):
+            c.rect(0.10, y - 0.003, 0.60, y + 0.003, hgt=0.5, ao=0.6)
+        c.rect(0.20, 0.25, 0.235, 0.75, alb=(200, 202, 204), hgt=1.0, rgh=0.25, met=0.9)
+    elif kind == "old":          # historic two-leaf door with fanlight
+        panel(0.10, 0.045, 0.90, 0.20, glass=True)
+        c.rect(0.07, 0.205, 0.93, 0.235, hgt=1.0)
+        c.rect(0.495, 0.235, 0.505, 1, hgt=0.3, ao=0.4)
+        for (x0, x1) in ((0.12, 0.46), (0.54, 0.88)):
+            panel(x0, 0.27, x1, 0.52)
+            panel(x0, 0.56, x1, 0.74)
+            panel(x0, 0.78, x1, 0.95)
+        c.rect(0.52, 0.56, 0.545, 0.61, alb=(150, 130, 80), hgt=1.0, rgh=0.3, met=0.9)
+    elif kind == "garage":       # sectional garage door
+        c.rect(0, 0, 1, 1, alb=(214, 214, 210), hgt=0.7, rgh=0.42)
+        c.alb *= (0.95 + 0.08 * g)[..., None]
+        for i in range(1, 5):
+            y = i / 5
+            c.rect(0, y - 0.006, 1, y + 0.006, hgt=0.2, ao=0.45)
+            s = c._sl(0, y - 0.006, 1, y + 0.006)
+            c.alb[s] *= 0.6
+        for i in range(20):
+            y = (i + 0.5) / 20
+            c.rect(0, y - 0.002, 1, y + 0.002, hgt=0.55, ao=0.8)
+        c.rect(0.47, 0.70, 0.53, 0.715, alb=(60, 60, 60), hgt=1.0, rgh=0.4, met=0.5)
+    elif kind == "hall":         # steel sliding hall door / industrial sectional door
+        c.rect(0, 0, 1, 1, alb=(206, 208, 208), hgt=0.7, rgh=0.38, met=0.25)
+        ph = (c.xx * 24.0) - np.floor(c.xx * 24.0)
+        prof = np.clip(np.abs(ph - 0.5) * 4.0 - 0.5, 0, 1)
+        c.hgt[:] = 0.4 + 0.4 * prof
+        c.ao[:] = 0.75 + 0.25 * prof
+        c.alb *= (0.86 + 0.14 * prof)[..., None] * (0.94 + 0.10 * g)[..., None]
+        c.rect(0, 0, 1, 0.03, alb=(120, 122, 124), hgt=1.0)
+        c.rect(0.495, 0, 0.505, 1, alb=(90, 90, 90), hgt=0.2, ao=0.5)
+    return c
+
+
+def _assemble_atlas(cells, cols, rows, px):
+    W, H = cols * px, rows * px
+    alb = np.zeros((H, W, 3), np.float32)
+    hgt = np.zeros((H, W), np.float32)
+    orm = np.zeros((H, W, 3), np.float32)
+    emi = np.zeros((H, W, 3), np.float32)
+    for idx, c in enumerate(cells):
+        r, col = divmod(idx, cols)
+        ys, xs = slice(r * px, (r + 1) * px), slice(col * px, (col + 1) * px)
+        alb[ys, xs] = c.down(c.alb)
+        hgt[ys, xs] = c.down(c.hgt)
+        orm[ys, xs, 0] = c.down(c.ao)
+        orm[ys, xs, 1] = c.down(c.rgh)
+        orm[ys, xs, 2] = c.down(c.met)
+        emi[ys, xs] = c.down(c.emi)
+    return alb, hgt, orm, emi
+
+
+def _to_img(arr):
+    return Image.fromarray(np.clip(arr * 255.0 + 0.5, 0, 255).astype(np.uint8), mode="RGB" if arr.ndim == 3 else "L")
+
+
+def _normal_from_height_cells(hgt, strength, px):
+    """Per-cell (non-wrapping across cells) normal map: pad by edge replication inside each cell."""
+    H, W = hgt.shape
+    out = np.zeros((H, W, 3), np.uint8)
+    for r in range(H // px):
+        for c in range(W // px):
+            cell = hgt[r * px:(r + 1) * px, c * px:(c + 1) * px]
+            pad = np.pad(cell, 2, mode="edge")
+            nm = np.asarray(height_to_normal(pad, strength))[2:-2, 2:-2]
+            out[r * px:(r + 1) * px, c * px:(c + 1) * px] = nm
+    return Image.fromarray(out, mode="RGB")
+
+
+def generate_window_atlas(px=512):
+    W_ = (236, 236, 232)       # white PVC / painted
+    BR = (96, 66, 46)          # brown wood
+    AN = (62, 66, 72)          # anthracite aluminium
+    warm, orange, cool, neutral = (1.0, 0.72, 0.42), (1.0, 0.60, 0.30), (0.62, 0.74, 1.0), (1.0, 0.84, 0.62)
+    cells = [
+        # row 0 - white two-wing casements (the village default)
+        _window_cell(px, 11, W_, curtain="sides", lit=warm, blob=(0.35, 0.25)),
+        _window_cell(px, 12, W_, curtain="net", lit=neutral),
+        _window_cell(px, 13, W_, curtain="sides", shutter=0.42, lit=warm, box=0.0),
+        _window_cell(px, 14, W_, shutter=1.0, lit=warm, leak=0.55),
+        # row 1 - traditional timber windows
+        _window_cell(px, 21, W_, sprossen=2, curtain=None, lit=orange, blob=(0.6, 0.3)),
+        _window_cell(px, 22, W_, sprossen=2, curtain="net", lit=warm),
+        _window_cell(px, 23, BR, frame_rgh=0.55, transom=0.27, curtain="sides", lit=orange),
+        _window_cell(px, 24, BR, frame_rgh=0.55, curtain=None, shutter=0.5, shutter_col=(118, 86, 62), lit=warm),
+        # row 2 - modern
+        _window_cell(px, 31, AN, frame_rgh=0.40, wings=1, curtain=None, lit=neutral, aspect=1.0, fw=0.045, blob=(0.4, 0.3)),
+        _window_cell(px, 32, AN, frame_rgh=0.40, wings=2, shutter=0.62, shutter_col=(150, 154, 158), lit=cool, aspect=1.3, fw=0.04),
+        _window_cell(px, 33, W_, wings=1, curtain="full", lit=warm, aspect=1.0, fw=0.05),
+        _window_cell(px, 34, W_, wings=1, curtain="frost", lit=neutral, lit_gain=0.8, aspect=0.9, fw=0.07),
+        # row 3 - small / special
+        _window_cell(px, 41, W_, wings=2, curtain=None, lit=warm, aspect=1.0, fw=0.075, lit_gain=0.9),
+        _window_cell(px, 42, (120, 104, 88), frame_rgh=0.7, wings=2, sprossen=1, lit_gain=0.0, aspect=1.1, fw=0.085),
+        _window_cell(px, 43, (92, 94, 96), frame_rgh=0.45, wings=1, lit=warm, lit_gain=0.7, aspect=0.75, fw=0.06),
+        _window_cell(px, 44, W_, wings=2, curtain="sides", shutter=0.2, lit=orange, box=0.11),
+    ]
+    alb, hgt, orm, emi = _assemble_atlas(cells, 4, 4, px)
+    save_png(_to_img(alb), os.path.join(OUT_DIR, "village_window_atlas_albedo.png"))
+    save_png(_normal_from_height_cells(hgt, 5.0, px), os.path.join(OUT_DIR, "village_window_atlas_normal.png"))
+    save_png(_to_img(orm), os.path.join(OUT_DIR, "village_window_atlas_orm.png"))
+    save_png(_to_img(emi), os.path.join(OUT_DIR, "village_window_atlas_emissive.png"))
+
+
+def generate_joinery_atlas(px=512):
+    cells = [
+        _louvre_cell(px, 51),
+        _plank_cell(px, 52, n_planks=4, brace=True),
+        _door_cell(px, 53, "panel"),
+        _door_cell(px, 54, "modern"),
+        _door_cell(px, 55, "garage"),
+        _door_cell(px, 56, "old"),
+        _plank_cell(px, 57, n_planks=7, brace=False),
+        _door_cell(px, 58, "hall"),
+    ]
+    alb, hgt, orm, _ = _assemble_atlas(cells, 4, 2, px)
+    save_png(_to_img(alb), os.path.join(OUT_DIR, "village_joinery_atlas_albedo.png"))
+    save_png(_normal_from_height_cells(hgt, 5.0, px), os.path.join(OUT_DIR, "village_joinery_atlas_normal.png"))
+    save_png(_to_img(orm), os.path.join(OUT_DIR, "village_joinery_atlas_orm.png"))
+
+
+def generate_solar_v2(px=512):
+    """One framed 6 x 10 cell mono-crystalline PV module per tile (1.0 m x 1.7 m)."""
+    c = _Cell(px, 71)
+    c.rect(0, 0, 1, 1, alb=(176, 180, 184), hgt=1.0, rgh=0.35, met=0.9)       # aluminium frame
+    c.rect(0.022, 0.013, 0.978, 0.987, alb=(205, 210, 214), hgt=0.55, rgh=0.25, met=0.0)  # white backsheet gaps
+    nx, ny = 6, 10
+    cw, ch = (0.956 - 0.012) / nx, (0.974 - 0.008) / ny
+    for i in range(nx):
+        for j in range(ny):
+            x0 = 0.028 + i * cw
+            y0 = 0.017 + j * ch
+            s = c.rect(x0 + 0.004, y0 + 0.0025, x0 + cw - 0.004, y0 + ch - 0.0025, alb=(16, 22, 40), hgt=0.5, rgh=0.10, met=0.55)
+            jit = 0.85 + 0.3 * c.rng.random()
+            c.alb[s] *= jit
+            for k in range(1, 4):   # busbars
+                bx = x0 + cw * k / 4
+                c.rect(bx - 0.0012, y0 + 0.0025, bx + 0.0012, y0 + ch - 0.0025, alb=(120, 128, 140), rgh=0.25, met=0.8)
+    alb, hgt, orm, _ = _assemble_atlas([c], 1, 1, px)
+    save_png(_to_img(alb), os.path.join(OUT_DIR, "village_solar_albedo.png"))
+    save_png(height_to_normal(hgt, 2.0), os.path.join(OUT_DIR, "village_solar_normal.png"))
+    save_png(_to_img(orm), os.path.join(OUT_DIR, "village_solar_orm.png"))
+
+
+def generate_plinth_tile_v2(px=512):
+    """Diagonal two-tone glazed ceramic plinth tiles (Hauptstraße 59): 8 x 8 diamonds per 1.2 m tile, muted & dirty."""
+    n = px
+    yy, xx = np.mgrid[0:n, 0:n].astype(np.float32) / n
+    k = 8.0
+    u = (xx + yy) * k
+    v = (xx - yy) * k
+    fu, fv = u - np.floor(u), v - np.floor(v)
+    iu, iv = np.floor(u).astype(np.int32), np.floor(v).astype(np.int32)
+    grout = np.clip(np.minimum(np.minimum(fu, 1 - fu), np.minimum(fv, 1 - fv)) / 0.045, 0.0, 1.0)
+    dark = ((iu + iv) % 2 == 0)
+    rng = np.random.default_rng(81)
+    jit = rng.random((64, 64)).astype(np.float32)[iu % 64, iv % 64]
+    col_d = np.array([122, 88, 66], np.float32) / 255.0
+    col_l = np.array([164, 134, 100], np.float32) / 255.0
+    base = np.where(dark[..., None], col_d, col_l) * (0.90 + 0.18 * jit)[..., None]
+    fbm = tileable_fbm(n, n, ((4, 4, 0.5), (12, 12, 0.3), (40, 40, 0.2)), seed=83)
+    base *= (0.86 + 0.24 * fbm)[..., None]
+    grout_col = np.array([128, 122, 112], np.float32) / 255.0
+    alb = base * grout[..., None] + grout_col * (1.0 - grout[..., None])
+    hgt = 0.35 + 0.55 * grout + 0.03 * fbm
+    orm = np.stack([0.75 + 0.25 * grout, np.where(grout > 0.6, 0.30 + 0.25 * fbm, 0.85), np.zeros_like(grout)], axis=-1)
+    save_png(_to_img(alb), os.path.join(OUT_DIR, "village_plinth_tile_albedo.png"))
+    save_png(height_to_normal(hgt, 2.5), os.path.join(OUT_DIR, "village_plinth_tile_normal.png"))
+    save_png(_to_img(orm), os.path.join(OUT_DIR, "village_plinth_tile_orm.png"))
+
+
+def generate_hedge_v2(px=1024):
+    """Clipped garden hedge / ivy: thousands of small overlapping leaves, painted back-to-front (tileable).
+
+    One tile covers ~1.5 m, so a leaf is 3-5 cm. Neutral mid-green; hedge vs. ivy vs. cypress hue comes from vertex tint.
+    """
+    S = 2
+    n = px * S
+    rng = np.random.default_rng(91)
+    img = Image.new("RGB", (n, n), (16, 24, 12))
+    hgt = Image.new("L", (n, n), 0)
+    d = ImageDraw.Draw(img)
+    dh = ImageDraw.Draw(hgt)
+    layers = 5
+    per_layer = 7000
+    for layer in range(layers):
+        depth = layer / (layers - 1)                     # 0 = deep inside the hedge, 1 = outermost leaves
+        for _ in range(per_layer):
+            cx, cy = rng.random() * n, rng.random() * n
+            ln = (0.017 + 0.013 * rng.random()) * n * (0.85 + 0.3 * depth)
+            wd = ln * (0.42 + 0.2 * rng.random())
+            ang = rng.random() * math.pi * 2.0
+            ca, sa = math.cos(ang), math.sin(ang)
+            pts = []
+            for k in range(10):
+                t = k / 10.0 * math.pi * 2.0
+                # pointed leaf outline
+                lx = math.cos(t) * ln * 0.5
+                ly = math.sin(t) * wd * 0.5 * (1.0 - 0.55 * abs(math.cos(t)) ** 3)
+                pts.append((lx * ca - ly * sa, lx * sa + ly * ca))
+            lum = 0.20 + 0.34 * depth + 0.14 * rng.random()
+            hue = rng.random()
+            col = (int(255 * lum * (0.42 + 0.16 * hue)), int(255 * lum * (0.62 + 0.10 * hue)), int(255 * lum * (0.24 + 0.08 * hue)))
+            hv = int(40 + 190 * depth + 25 * rng.random())
+            for ox in (-n, 0, n):
+                if cx + ox < -ln or cx + ox > n + ln:
+                    continue
+                for oy in (-n, 0, n):
+                    if cy + oy < -ln or cy + oy > n + ln:
+                        continue
+                    poly = [(cx + ox + px_, cy + oy + py_) for px_, py_ in pts]
+                    d.polygon(poly, fill=col)
+                    dh.polygon(poly, fill=hv)
+                    # midrib highlight
+                    d.line([(cx + ox - ca * ln * 0.42, cy + oy - sa * ln * 0.42), (cx + ox + ca * ln * 0.42, cy + oy + sa * ln * 0.42)],
+                           fill=tuple(min(255, int(c * 1.22)) for c in col), width=max(1, S))
+    img = img.resize((px, px), Image.LANCZOS)
+    hgt = hgt.resize((px, px), Image.LANCZOS)
+    h = np.asarray(hgt).astype(np.float32) / 255.0
+    save_jpg(img, os.path.join(OUT_DIR, "village_hedge_albedo.jpg"), quality=90)
+    save_png(height_to_normal(h, 4.0), os.path.join(OUT_DIR, "village_hedge_normal.png"))
+    orm = np.stack([0.35 + 0.65 * h, np.full_like(h, 0.62), np.zeros_like(h)], axis=-1)
+    save_png(_to_img(orm), os.path.join(OUT_DIR, "village_hedge_orm.png"))
+
+
+def generate_grime_atlas(px=256):
+    """Alpha-blended weathering decals (RGB white -> coloured by vertex tint, A = stain strength). 4 x 2 cells:
+    row 0: sill run-off streaks | eaves run-off streaks | rising damp A | rising damp B
+    row 1: repaired plaster patch | soot / algae cloud | flaking patch | long drip streaks
+    """
+    cols, rows = 4, 2
+    W, H = cols * px, rows * px
+    A = np.zeros((H, W), np.float32)
+    yy, xx = np.mgrid[0:px, 0:px].astype(np.float32) / px
+
+    def edge_fade(m=0.08):
+        fx = np.clip(np.minimum(xx, 1 - xx) / m, 0, 1)
+        fy = np.clip(np.minimum(yy, 1 - yy) / m, 0, 1)
+        return fx * fy
+
+    def put(col, row, a):
+        A[row * px:(row + 1) * px, col * px:(col + 1) * px] = np.clip(a * edge_fade(0.05), 0, 1)
+
+    def fbm(seed, o=((3, 3, 0.5), (7, 7, 0.3), (17, 17, 0.2))):
+        return tileable_fbm(px, px, o, seed=seed)
+
+    def streaks(seed, n, top_w=0.03, length=(0.4, 0.95), xs=None):
+        a = np.zeros((px, px), np.float32)
+        rng = np.random.default_rng(seed)
+        for i in range(n):
+            cx = rng.random() if xs is None else xs[i % len(xs)] + (rng.random() - 0.5) * 0.06
+            ln = length[0] + (length[1] - length[0]) * rng.random()
+            w = top_w * (0.5 + rng.random())
+            wob = 0.004 * np.sin(yy * (6 + 10 * rng.random()) + rng.random() * 6.0)
+            prof = np.exp(-((xx - cx - wob) / (w * (1.0 + 0.8 * yy))) ** 2)
+            fall = np.clip(1.0 - yy / ln, 0, 1) ** 1.2
+            a = np.maximum(a, prof * fall * (0.5 + 0.5 * rng.random()))
+        return a
+
+    n1, n2, n3 = fbm(11), fbm(23), fbm(37, ((2, 2, 0.6), (5, 5, 0.4)))
+    # sill run-off: strong at both sill ends, weak veil in between
+    # (strengths tuned against the Street View references: the stains must read at street distance, so the
+    #  streaks are wider and denser than a close-up texture would suggest, but still only a tone, never black)
+    put(0, 0, np.clip(np.maximum(streaks(5, 9, 0.05, (0.55, 1.0), xs=[0.06, 0.94, 0.1, 0.9, 0.5, 0.3, 0.7, 0.2, 0.8]), 0.45 * (1 - yy) * n1) * 1.5, 0, 0.85))
+    put(1, 0, np.clip(np.maximum(streaks(7, 22, 0.035, (0.3, 0.95)), 0.35 * (1 - yy) ** 1.5 * n2) * (0.8 + 0.6 * n2) * 1.3, 0, 0.85))
+    # rising damp: dense at the bottom, ragged upper edge
+    for k, (col, seed) in enumerate(((2, 41), (3, 53))):
+        nz = fbm(seed, ((4, 2, 0.5), (9, 5, 0.3), (20, 12, 0.2)))
+        top = 0.22 + 0.45 * nz
+        side = np.clip(np.minimum(xx, 1 - xx) / (0.12 + 0.18 * fbm(seed + 7, ((1, 5, 1.0),))), 0, 1)     # ragged, soft ends
+        put(col, 0, np.clip((yy - top) / 0.18, 0, 1) * (0.72 + 0.28 * fbm(seed + 3)) * side)
+    # repaired patch: soft-edged irregular rectangle, nearly uniform
+    rect = np.clip((0.40 + 0.10 * (n3 - 0.5) - np.maximum(np.abs(xx - 0.5), np.abs(yy - 0.5) * 1.15)) / 0.035, 0, 1)
+    put(0, 1, rect * (0.80 + 0.2 * n1))
+    put(1, 1, np.clip((n3 * 1.5 - 0.35) * 1.8, 0, 1) * np.exp(-(((xx - 0.5) / 0.40) ** 2 + ((yy - 0.5) / 0.40) ** 2)) * (0.7 + 0.4 * n2))
+    flake = np.clip((fbm(71, ((6, 6, 0.5), (14, 14, 0.5))) - 0.52) / 0.05, 0, 1) * np.exp(-(((xx - 0.5) / 0.33) ** 2 + ((yy - 0.55) / 0.3) ** 2))
+    put(2, 1, flake * 0.9)
+    put(3, 1, np.clip(streaks(9, 14, 0.02, (0.6, 1.0)) * 1.4, 0, 0.85))
+    rgba = np.zeros((H, W, 4), np.uint8)
+    rgba[..., :3] = 255
+    rgba[..., 3] = np.clip(A * 255.0, 0, 255).astype(np.uint8)
+    Image.fromarray(rgba, mode="RGBA").save(os.path.join(OUT_DIR, "village_grime_atlas.png"), optimize=True)
+
+
+def _ivy_leaf_poly(cx, cy, size, ang):
+    """Five-lobed ivy leaf outline."""
+    pts = []
+    lobes = [(0.0, 1.0), (0.9, 0.62), (2.0, 0.78), (math.pi, 0.30), (-2.0, 0.78), (-0.9, 0.62)]
+    for i in range(36):
+        t = i / 36.0 * 2.0 * math.pi - math.pi
+        r = 0.34
+        for (la, lr) in lobes:
+            d = abs((t - la + math.pi) % (2 * math.pi) - math.pi)
+            r = max(r, lr * max(0.0, 1.0 - (d / 0.55) ** 2) ** 0.7)
+        a = t + ang + math.pi / 2
+        pts.append((cx + math.cos(a) * r * size, cy + math.sin(a) * r * size))
+    return pts
+
+
+def generate_ivy_cards(px=512):
+    """2 x 2 atlas of alpha-cut ivy leaf clusters with ragged outlines (cards hugging / fringing a wall)."""
+    S = 2
+    n = px * 2 * S
+    img = Image.new("RGBA", (n, n), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    rng = np.random.default_rng(97)
+    cell = n // 2
+    for ci in range(4):
+        ox, oy = (ci % 2) * cell, (ci // 2) * cell
+        dense = ci < 2          # cells 0,1 = dense blanket, 2,3 = loose fringe tendrils
+        n_leaves = 420 if dense else 150
+        leaves = []
+        for _ in range(n_leaves):
+            if dense:
+                ang0 = rng.random() * 2 * math.pi
+                rad = (rng.random() ** 0.55) * 0.46 * (0.82 + 0.18 * math.sin(ang0 * 5 + ci))
+                lx, ly = 0.5 + math.cos(ang0) * rad, 0.5 + math.sin(ang0) * rad
+            else:
+                t = rng.random()
+                br = int(rng.random() * 4)
+                lx = 0.2 + 0.2 * br + 0.10 * math.sin(t * 7 + br) + (rng.random() - 0.5) * 0.12
+                ly = 0.06 + 0.88 * t
+            depth = rng.random()
+            leaves.append((depth, lx, ly))
+        leaves.sort()
+        for depth, lx, ly in leaves:
+            size = (0.050 + 0.035 * rng.random()) * cell
+            lum = 0.24 + 0.42 * depth + 0.10 * rng.random()
+            hue = rng.random()
+            col = (int(255 * lum * (0.34 + 0.22 * hue)), int(255 * lum * (0.60 + 0.12 * hue)), int(255 * lum * (0.22 + 0.10 * hue)), 255)
+            ang = math.pi + (rng.random() - 0.5) * 1.6        # ivy leaves hang point-down
+            cx, cy = ox + lx * cell, oy + ly * cell
+            if not (ox + size < cx < ox + cell - size and oy + size < cy < oy + cell - size):
+                continue
+            d.polygon(_ivy_leaf_poly(cx, cy, size, ang), fill=col)
+            vein = tuple(min(255, int(c * 1.35)) for c in col[:3]) + (255,)
+            for la in (0.0, 0.75, -0.75):
+                a = ang + la + math.pi / 2
+                d.line([(cx, cy), (cx + math.cos(a) * size * 0.7, cy + math.sin(a) * size * 0.7)], fill=vein, width=S)
+    img = img.resize((px * 2, px * 2), Image.LANCZOS)
+    arr = np.asarray(img).copy()
+    # bleed leaf colour into the transparent texels (no dark halos when mip-mapped), keep a hard alpha
+    rgb = arr[..., :3].astype(np.float32)
+    a = arr[..., 3].astype(np.float32) / 255.0
+    mean = (rgb * a[..., None]).sum(axis=(0, 1)) / max(a.sum(), 1.0)
+    rgb = rgb * a[..., None] + mean * (1.0 - a[..., None])
+    arr[..., :3] = np.clip(rgb, 0, 255).astype(np.uint8)
+    arr[..., 3] = np.where(a > 0.45, 255, 0).astype(np.uint8)
+    Image.fromarray(arr, mode="RGBA").save(os.path.join(OUT_DIR, "village_ivy_cards.png"), optimize=True)
+
+
+def generate_signs(px=512):
+    """Weingut Kreutzenberger signage: black street sign (top half) and white name board (bottom half)."""
+    img = Image.new("RGB", (px, px), (236, 236, 232))
+    d = ImageDraw.Draw(img)
+    # left 40 %: black portrait sign 'SEKT / WEIN / BRÄNDE / PRÄSENTE' + blue P
+    sw = int(px * 0.40)
+    d.rectangle([0, 0, sw, px], fill=(18, 18, 20))
+    f_big = load_font(int(px * 0.085), condensed=True)
+    y = int(px * 0.05)
+    d.text((sw // 2, y), "KREUTZENBERGER", font=load_font(int(px * 0.045), condensed=True), fill=(236, 236, 232), anchor="ma")
+    d.line([(int(sw * 0.1), int(px * 0.12)), (int(sw * 0.9), int(px * 0.12))], fill=(236, 236, 232), width=2)
+    for i, word in enumerate(("SEKT", "WEIN", "BRÄNDE", "PRÄSENTE")):
+        d.text((sw // 2, int(px * (0.17 + i * 0.135))), word, font=f_big, fill=(240, 240, 236), anchor="ma")
+    d.rectangle([int(sw * 0.32), int(px * 0.76), int(sw * 0.68), int(px * 0.94)], fill=(28, 78, 160))
+    d.text((sw // 2, int(px * 0.85)), "P", font=load_font(int(px * 0.13)), fill=(245, 245, 245), anchor="mm")
+    # right 60 %: white wall board
+    x0 = sw + int(px * 0.02)
+    d.rectangle([x0, int(px * 0.03), px - 4, px - 4], outline=(150, 150, 150), width=2)
+    d.text(((x0 + px) // 2, int(px * 0.10)), "WEINGUT", font=load_font(int(px * 0.06), condensed=True), fill=(40, 40, 44), anchor="ma")
+    d.text(((x0 + px) // 2, int(px * 0.19)), "KREUTZENBERGER", font=load_font(int(px * 0.062), condensed=True), fill=(20, 20, 24), anchor="ma")
+    d.line([(x0 + 20, int(px * 0.30)), (px - 24, int(px * 0.30))], fill=(60, 60, 60), width=2)
+    rng = np.random.default_rng(5)
+    yy = int(px * 0.35)
+    while yy < px * 0.92:      # small print lines (opening hours / plan), unreadable on purpose
+        d.line([(x0 + 24, yy), (x0 + 24 + int((px - x0 - 60) * (0.5 + 0.5 * rng.random())), yy)], fill=(120, 120, 124), width=2)
+        yy += int(px * 0.045)
+    img.save(os.path.join(OUT_DIR, "village_signs.png"), optimize=True)
+
+
+def generate_village_v2():
+    generate_window_atlas()
+    generate_joinery_atlas()
+    generate_solar_v2()
+    generate_plinth_tile_v2()
+    generate_hedge_v2()
+    generate_grime_atlas()
+    generate_ivy_cards()
+    generate_signs()
+    print("V2 village atlases written to", OUT_DIR)
+
+
 def main():
-    print("Generating Kindenheim Pfalz PBR textures...")
-    generate_pfalz_facades()
-    generate_roof_tiles()
-    generate_stone_and_barn()
-    generate_corridor_specials()
-    generate_prop_textures()
-    files = sorted(os.listdir(OUT_DIR))
-    pfiles = sorted(os.listdir(PROPS_DIR))
-    print(f"Done! Generated {len(files) - 1} architectural textures and {len(pfiles)} prop textures.")
+    """Default: only the V2 village atlases (the facade/roof/stone tiles now come from blender/shared_textures).
+
+    --legacy  additionally regenerates the pre-overhaul procedural village textures (kept for reference).
+    --props   regenerates textures/props/* (owned by the vegetation/props pipeline - do not run casually).
+    """
+    import sys
+    generate_village_v2()
+    if "--legacy" in sys.argv:
+        generate_pfalz_facades()
+        generate_roof_tiles()
+        generate_stone_and_barn()
+        generate_corridor_specials()
+    if "--props" in sys.argv:
+        generate_prop_textures()
 
 
 if __name__ == "__main__":

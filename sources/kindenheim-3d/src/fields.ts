@@ -1,6 +1,26 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RECREATION_EXCLUSION_POLYS } from './recreation';
+import {
+  FloorCarpetBuilder,
+  InstancedLodLayer,
+  addGroundCoverPatch,
+  clearanceTo,
+  excludeGroundCover,
+  createInstancedPropGroup,
+  extractPropPrototype,
+  listLodNodes,
+  loadFloorMaterial,
+  loadLodAsset,
+  loadVegGltf,
+  registerVegLayer,
+  registerFloorCull,
+  setVegetationQuality,
+  valueNoise,
+  type QualityLevel,
+  vegUniforms,
+  type LodAsset,
+  type VegClipConfig,
+} from './scenery';
 import type { TerrainSystem } from './terrain';
 import type {
   BraveReferenceEntry,
@@ -35,7 +55,10 @@ export interface FieldsStats {
 export interface FieldsSystemResult {
   group: THREE.Group;
   stats: FieldsStats;
+  /** Advances the shared vegetation wind clock (vines, trees and crops all sway from it). */
   update: (dt: number) => void;
+  /** Quality contract (FIXROUND.md): scales LOD distances of the crop layers (shared with the scenery layers). */
+  setQuality: (level: QualityLevel) => void;
 }
 
 function mulberry32(seed: number): () => number {
@@ -81,6 +104,60 @@ function distanceToPolygonEdgesSq(px: number, pz: number, poly: [number, number]
     if (d2 < best) best = d2;
   }
   return best;
+}
+
+/**
+ * Douglas-Peucker on a closed outline. Parcels traced from the land-use raster have 4 m stair steps along oblique
+ * borders; real field borders are straight survey lines.
+ */
+function simplifyOutline(poly: [number, number][], tolM: number): [number, number][] {
+  if (poly.length < 8) return poly;
+  // split the ring at its two mutually farthest-apart vertices, simplify both chains
+  let a = 0;
+  let b = 0;
+  let best = -1;
+  for (let i = 0; i < poly.length; i++) {
+    const d = (poly[i][0] - poly[0][0]) ** 2 + (poly[i][1] - poly[0][1]) ** 2;
+    if (d > best) {
+      best = d;
+      b = i;
+    }
+  }
+  best = -1;
+  for (let i = 0; i < poly.length; i++) {
+    const d = (poly[i][0] - poly[b][0]) ** 2 + (poly[i][1] - poly[b][1]) ** 2;
+    if (d > best) {
+      best = d;
+      a = i;
+    }
+  }
+  const chain = (from: number, to: number): [number, number][] => {
+    const out: [number, number][] = [];
+    for (let i = from; ; i = (i + 1) % poly.length) {
+      out.push(poly[i]);
+      if (i === to) break;
+    }
+    return out;
+  };
+  const dp = (pts: [number, number][]): [number, number][] => {
+    if (pts.length < 3) return pts;
+    const [ax, az] = pts[0];
+    const [bx, bz] = pts[pts.length - 1];
+    const len = Math.hypot(bx - ax, bz - az) || 1e-6;
+    let worst = 0;
+    let idx = 0;
+    for (let i = 1; i < pts.length - 1; i++) {
+      const d = Math.abs((pts[i][0] - ax) * (bz - az) - (pts[i][1] - az) * (bx - ax)) / len;
+      if (d > worst) {
+        worst = d;
+        idx = i;
+      }
+    }
+    if (worst <= tolM) return [pts[0], pts[pts.length - 1]];
+    return [...dp(pts.slice(0, idx + 1)).slice(0, -1), ...dp(pts.slice(idx))];
+  };
+  const out = [...dp(chain(a, b)).slice(0, -1), ...dp(chain(b, a)).slice(0, -1)];
+  return out.length >= 3 ? out : poly;
 }
 
 function estimateLongestEdgeAngle(poly: [number, number][]): number {
@@ -192,181 +269,98 @@ const FLAG_ROAD = 2;
 const FLAG_VINEYARD = 4;
 const FLAG_ROAD_CORE = 8;
 
-interface SubMeshPart {
-  geometry: THREE.BufferGeometry;
-  material: THREE.Material | THREE.Material[];
-  localMatrix: THREE.Matrix4;
-}
+/**
+ * CPU side of the crop clip map (VegClipConfig in src/scenery.ts): one texel per metre with the signed distance to
+ * the outline of the parcel that owns it (inside: also capped by the clearance to roads / buildings / vineyards, the
+ * same edge the floor carpet uses) and the owner's id. Texels within 4 m outside a parcel belong to it with a
+ * negative distance, so the linear-filtered distance gives a straight cut along free borders.
+ */
+class ParcelClipMap {
+  public readonly res: number;
+  private readonly cell: number;
+  private readonly half: number;
+  private readonly sd: Float32Array;
+  private readonly owner: Uint8Array;
 
-interface FieldPrototype {
-  parts: SubMeshPart[];
-  size: THREE.Vector3;
-  minY: number;
-  maxY: number;
-  meta: FieldsManifestModel;
-}
-
-function attachWindSway(
-  mat: THREE.Material,
-  windTimeUniform: { value: number },
-  strength: number,
-  maxH: number
-): void {
-  if (strength <= 0.001) return;
-  if (!(mat instanceof THREE.MeshStandardMaterial || mat instanceof THREE.MeshPhysicalMaterial)) return;
-  const key = `field-wind-${strength.toFixed(3)}-${maxH.toFixed(2)}`;
-  mat.customProgramCacheKey = () => key;
-  mat.onBeforeCompile = (shader) => {
-    shader.uniforms.uFieldWindTime = windTimeUniform;
-    shader.uniforms.uFieldWindStrength = { value: strength };
-    shader.uniforms.uFieldWindMaxH = { value: Math.max(0.25, maxH) };
-
-    shader.vertexShader = shader.vertexShader
-      .replace(
-        '#include <common>',
-        `#include <common>
-        uniform float uFieldWindTime;
-        uniform float uFieldWindStrength;
-        uniform float uFieldWindMaxH;`
-      )
-      .replace(
-        '#include <begin_vertex>',
-        `#include <begin_vertex>
-        #ifdef USE_INSTANCING
-          vec2 fwPos = instanceMatrix[3].xz;
-        #else
-          vec2 fwPos = vec2(0.0);
-        #endif
-        float fwH = smoothstep(0.06, uFieldWindMaxH, transformed.y);
-        float fwPhase = uFieldWindTime * 1.45 + fwPos.x * 0.085 + fwPos.y * 0.062 + transformed.x * 0.42;
-        float fwGust = sin(fwPhase) * 0.65 + sin(fwPhase * 1.83 + 1.3) * 0.35;
-        transformed.x += fwGust * uFieldWindStrength * fwH * fwH;
-        transformed.z += cos(fwPhase * 0.87 + 0.6) * uFieldWindStrength * 0.55 * fwH * fwH;`
-      );
-  };
-  mat.needsUpdate = true;
-}
-
-function extractFieldPrototype(
-  sceneRoot: THREE.Object3D,
-  meta: FieldsManifestModel,
-  maxAnisotropy: number,
-  windTimeUniform: { value: number },
-  windStrength: number
-): FieldPrototype {
-  sceneRoot.updateMatrixWorld(true);
-  const rootInv = sceneRoot.matrixWorld.clone().invert();
-  const parts: SubMeshPart[] = [];
-  const bbox = new THREE.Box3();
-  const patchedMats = new Set<THREE.Material>();
-
-  sceneRoot.traverse((obj) => {
-    if (!(obj instanceof THREE.Mesh) || !obj.geometry) return;
-    const localMatrix = new THREE.Matrix4().multiplyMatrices(rootInv, obj.matrixWorld);
-    const gBox = new THREE.Box3().setFromBufferAttribute(obj.geometry.attributes.position as THREE.BufferAttribute);
-    gBox.applyMatrix4(localMatrix);
-    bbox.union(gBox);
-    parts.push({ geometry: obj.geometry, material: obj.material, localMatrix });
-  });
-
-  const size = new THREE.Vector3(1, 1, 1);
-  let minY = 0;
-  let maxY = 1;
-  if (!bbox.isEmpty()) {
-    bbox.getSize(size);
-    minY = bbox.min.y;
-    maxY = Math.max(0.25, bbox.max.y);
+  constructor(mapSizeM: number) {
+    this.res = Math.round(mapSizeM);
+    this.cell = mapSizeM / this.res;
+    this.half = mapSizeM * 0.5;
+    this.sd = new Float32Array(this.res * this.res).fill(-4);
+    this.owner = new Uint8Array(this.res * this.res);
   }
 
-  for (const part of parts) {
-    const mats = Array.isArray(part.material) ? part.material : [part.material];
-    for (const mat of mats) {
-      if (patchedMats.has(mat)) continue;
-      patchedMats.add(mat);
-      if (mat instanceof THREE.MeshStandardMaterial || mat instanceof THREE.MeshPhysicalMaterial) {
-        mat.envMapIntensity = 0.62;
-        if (mat.map) mat.map.anisotropy = Math.min(4, maxAnisotropy);
-        if (windStrength > 0.001) {
-          attachWindSway(mat, windTimeUniform, windStrength, maxY);
+  public addParcel(id: number, poly: [number, number][], isBlocked: (x: number, z: number) => boolean): void {
+    if (!(id >= 1 && id <= 255)) throw new Error(`[fields] clip map holds parcel ids 1..255, got ${id}`);
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minZ = Infinity;
+    let maxZ = -Infinity;
+    for (const [x, z] of poly) {
+      minX = Math.min(minX, x);
+      maxX = Math.max(maxX, x);
+      minZ = Math.min(minZ, z);
+      maxZ = Math.max(maxZ, z);
+    }
+    const ix0 = Math.max(0, Math.floor((minX - 4.5 + this.half) / this.cell));
+    const ix1 = Math.min(this.res - 1, Math.floor((maxX + 4.5 + this.half) / this.cell));
+    const iz0 = Math.max(0, Math.floor((minZ - 4.5 + this.half) / this.cell));
+    const iz1 = Math.min(this.res - 1, Math.floor((maxZ + 4.5 + this.half) / this.cell));
+    for (let iz = iz0; iz <= iz1; iz++) {
+      const z = -this.half + (iz + 0.5) * this.cell;
+      for (let ix = ix0; ix <= ix1; ix++) {
+        const x = -this.half + (ix + 0.5) * this.cell;
+        const d = Math.min(4, Math.sqrt(distanceToPolygonEdgesSq(x, z, poly)));
+        const s = pointInPolygon(x, z, poly) ? Math.min(d, clearanceTo(isBlocked, x, z)) : -d;
+        const i = iz * this.res + ix;
+        if (s > this.sd[i]) {
+          this.sd[i] = s;
+          this.owner[i] = id;
         }
       }
     }
   }
 
-  return { parts, size, minY, maxY, meta };
-}
+  /** Signed distance (m) of (x, z) to the outline of parcel `id`; -4 where another parcel owns the texel. */
+  public ownSd(id: number, x: number, z: number): number {
+    const ix = Math.floor((x + this.half) / this.cell);
+    const iz = Math.floor((z + this.half) / this.cell);
+    if (ix < 0 || iz < 0 || ix >= this.res || iz >= this.res) return -4;
+    const i = iz * this.res + ix;
+    return this.owner[i] === id ? this.sd[i] : -4;
+  }
 
-function createInstancedFieldGroup(
-  name: string,
-  proto: FieldPrototype,
-  matrices: THREE.Matrix4[],
-  options?: { castShadow?: boolean; receiveShadow?: boolean; colors?: THREE.Color[] }
-): THREE.Group {
-  const group = new THREE.Group();
-  group.name = name;
-  if (matrices.length === 0 || proto.parts.length === 0) return group;
-
-  const castShadow = options?.castShadow ?? false;
-  const receiveShadow = options?.receiveShadow ?? true;
-  const tmpMat = new THREE.Matrix4();
-
-  for (let p = 0; p < proto.parts.length; p++) {
-    const part = proto.parts[p];
-    const inst = new THREE.InstancedMesh(part.geometry, part.material, matrices.length);
-    inst.name = `${name}_p${p}`;
-    inst.castShadow = castShadow;
-    inst.receiveShadow = receiveShadow;
-
-    for (let i = 0; i < matrices.length; i++) {
-      tmpMat.multiplyMatrices(matrices[i], part.localMatrix);
-      inst.setMatrixAt(i, tmpMat);
-      if (options?.colors && options.colors[i]) {
-        inst.setColorAt(i, options.colors[i]);
-      }
+  public toTexture(): THREE.DataTexture {
+    const data = new Uint8Array(this.res * this.res * 2);
+    for (let i = 0; i < this.sd.length; i++) {
+      data[i * 2] = Math.round(((THREE.MathUtils.clamp(this.sd[i], -4, 4) + 4) / 8) * 255);
+      data[i * 2 + 1] = this.owner[i];
     }
-    inst.instanceMatrix.needsUpdate = true;
-    if (inst.instanceColor) inst.instanceColor.needsUpdate = true;
-    inst.computeBoundingSphere();
-    group.add(inst);
+    const tex = new THREE.DataTexture(data, this.res, this.res, THREE.RGFormat, THREE.UnsignedByteType);
+    tex.name = 'FieldCropClipMap';
+    tex.magFilter = THREE.LinearFilter;
+    tex.minFilter = THREE.LinearFilter;
+    tex.generateMipmaps = false;
+    tex.wrapS = THREE.ClampToEdgeWrapping;
+    tex.wrapT = THREE.ClampToEdgeWrapping;
+    tex.colorSpace = THREE.NoColorSpace;
+    tex.needsUpdate = true;
+    return tex;
   }
-  return group;
-}
-
-function findModelEntry(manifest: FieldsManifest, ...keywords: string[]): FieldsManifestModel | null {
-  for (const kw of keywords) {
-    if (manifest.models[kw]) return manifest.models[kw];
-  }
-  for (const [k, entry] of Object.entries(manifest.models)) {
-    const kl = k.toLowerCase();
-    const ul = (entry.glbPath ?? '').toLowerCase();
-    for (const kw of keywords) {
-      if (kl.includes(kw) || ul.includes(kw)) return entry;
-    }
-  }
-  return null;
 }
 
 function makeAerialTintColor(hex: string | undefined, bucket: string, rand: () => number): THREE.Color {
-  // Keep sunlit golden sunflowers radiant rather than multiplying blooms by dark-green soil aerial tint
-  if (bucket === 'sunflower') {
-    const base = new THREE.Color(0xfffce8);
-    if (hex && /^#?[0-9a-f]{6}$/i.test(hex)) {
-      const tint = new THREE.Color(hex.startsWith('#') ? hex : `#${hex}`);
-      base.lerp(tint, 0.05);
-    }
-    const jitter = 0.96 + rand() * 0.1;
-    base.multiplyScalar(jitter);
-    return base;
-  }
-
+  // Sunflower heads must stay yellow: only a hint of the orthophoto tint
+  const blend = bucket === 'sunflower' ? 0.05 : 0.16;
   const base = new THREE.Color(0xffffff);
   if (hex && /^#?[0-9a-f]{6}$/i.test(hex)) {
     const tint = new THREE.Color(hex.startsWith('#') ? hex : `#${hex}`);
-    // Subtle 18% blend toward sampled DOP20 field tint keeps close-up crops vivid while matching satellite imagery
-    base.lerp(tint, 0.18);
+    // normalise the tint's brightness so it shifts hue between parcels without darkening the crop
+    const lum = Math.max(0.05, tint.r * 0.3 + tint.g * 0.59 + tint.b * 0.11);
+    tint.multiplyScalar(Math.min(2.5, 0.75 / lum));
+    base.lerp(tint, blend);
   }
-  const jitter = 0.94 + rand() * 0.12;
-  base.multiplyScalar(jitter);
+  base.multiplyScalar(0.95 + rand() * 0.1);
   return base;
 }
 
@@ -381,23 +375,12 @@ function extractPropCoords(item: FieldPropPlacement): { x: number; z: number; ya
     return null;
   }
   const yaw =
-    typeof item.rotationRad === 'number'
-      ? item.rotationRad
-      : typeof item.yawRad === 'number'
-        ? item.yawRad
-        : typeof item.yaw === 'number'
-          ? item.yaw
-          : 0;
+    typeof item.rotationRad === 'number' ? item.rotationRad : typeof item.yawRad === 'number' ? item.yawRad : typeof item.yaw === 'number' ? item.yaw : 0;
   const scale = typeof item.scale === 'number' && Number.isFinite(item.scale) ? THREE.MathUtils.clamp(item.scale, 0.65, 1.55) : 1.0;
   return { x, z, yaw, scale };
 }
 
-function buildOccupancy(
-  mapSizeM: number,
-  buildings: BuildingRecord[],
-  roads: RoadRecord[],
-  sceneData: SceneData
-): FieldOccupancyGrid {
+function buildOccupancy(mapSizeM: number, buildings: BuildingRecord[], roads: RoadRecord[], sceneData: SceneData): FieldOccupancyGrid {
   const grid = new FieldOccupancyGrid(mapSizeM);
   for (const b of buildings) {
     if (b.footprint && b.footprint.length >= 3) {
@@ -425,25 +408,65 @@ function buildOccupancy(
   return grid;
 }
 
-const DEFAULT_WIND: Record<string, number> = {
-  wheat: 0.11,
-  stubble: 0.0,
-  corn: 0.15,
-  sugarbeet: 0.05,
-  sunflower: 0.12,
-  meadow: 0.09,
-  wildflower: 0.1,
-  hedgerow: 0.04,
+type CropBucket = 'wheat' | 'stubble' | 'corn' | 'sugarbeet' | 'sunflower' | 'meadow';
+const CROP_KEYS: Record<CropBucket, string> = {
+  wheat: 'crop_wheat_patch',
+  stubble: 'crop_stubble_patch',
+  corn: 'crop_corn_row',
+  sugarbeet: 'crop_sugarbeet_row',
+  sunflower: 'crop_sunflower_patch',
+  meadow: 'meadow_grass_patch',
 };
+const CROP_BUCKETS = Object.keys(CROP_KEYS) as CropBucket[];
+/** Tall crops throw visible shadows; the low ones only receive them. */
+const CROP_CASTS_SHADOW: Record<CropBucket, boolean> = { wheat: false, stubble: false, corn: true, sugarbeet: false, sunflower: true, meadow: false };
 
-const CROP_BUDGETS: Record<string, number> = {
-  wheat: 9500,
-  stubble: 7500,
-  corn: 7500,
-  sugarbeet: 8500,
-  sunflower: 5000,
-  meadow: 5500,
+/** Sprayer tramlines in the floor carpet (strength 0..1); meadows have none. */
+const FLOOR_TRAMLINES: Record<CropBucket, number> = { wheat: 1.0, stubble: 0.7, corn: 0.6, sugarbeet: 0.8, sunflower: 0.6, meadow: 0 };
+/** Metres one repeat of the floor texture covers across the rows (matches tileM[1] of the crop assets). */
+const FLOOR_TILE_ACROSS_M: Record<CropBucket, number> = { wheat: 6, stubble: 6, corn: 2.4, sugarbeet: 2.5, sunflower: 6, meadow: 8.3 };
+
+/**
+ * Albedo scale per crop (floor carpet and plant cards). Ripe straw scans are close to white; real stubble / wheat
+ * reflect about 0.25-0.3, otherwise the fields are the brightest thing in the scene and glow at dusk.
+ */
+/**
+ * Mean tone that the plant cards add to the carpet near the camera (rendered floor+plants / floor alone, noon, 45 m
+ * top-down, linear RGB; a little stronger for oblique views). Applied to the carpet beyond the last plant LOD.
+ */
+const FLOOR_FAR_TINT: Partial<Record<CropBucket, { color: THREE.Color; grazing: THREE.Color }>> = {
+  // wheat ears cover the carpet from any angle: about the same tone top-down and at 30 m / 150 m (measured)
+  wheat: { color: new THREE.Color(0.81, 0.78, 0.71), grazing: new THREE.Color(0.79, 0.77, 0.7) },
+  // beet rows hide the soil at oblique angles: 60 m drone view at ~42 deg darkens the carpet to (0.39, 0.61, 0.32)
+  sugarbeet: { color: new THREE.Color(0.88, 0.91, 0.84), grazing: new THREE.Color(0.26, 0.54, 0.19) },
 };
+const CROP_ALBEDO: Record<CropBucket, number> = { wheat: 0.8, stubble: 0.72, corn: 1.0, sugarbeet: 1.0, sunflower: 1.0, meadow: 0.92 };
+/** Extra scale for the plant cards relative to the floor (cards face the sky and catch more light than the carpet). */
+const CARD_ALBEDO: Record<CropBucket, number> = { wheat: 0.78, stubble: 0.9, corn: 1.0, sugarbeet: 1.12, sunflower: 1.0, meadow: 1.0 };
+
+interface LoadedFieldAsset {
+  key: string;
+  entry: FieldsManifestModel;
+  asset: LodAsset;
+  /** Tile metadata carried by the GLB itself (glTF extras on the LOD0 node). */
+  tileM: [number, number] | null;
+  lodDist: number[];
+  heightM: number;
+  windSway: number;
+  alongRowM: number | null;
+}
+
+function numArray(v: unknown, len?: number): number[] | null {
+  if (!Array.isArray(v) || v.some((x) => typeof x !== 'number' || !Number.isFinite(x))) return null;
+  if (len !== undefined && v.length !== len) return null;
+  return v as number[];
+}
+
+function manifestEntry(manifest: FieldsManifest, key: string): FieldsManifestModel {
+  const entry = manifest.models[key];
+  if (!entry?.glbPath) throw new Error(`[fields] fields manifest has no model "${key}" (run blender/fields/build_fields.py + assemble_manifest.py)`);
+  return entry;
+}
 
 export async function buildAgriculturalFields(
   layout: FieldsLayoutData | null,
@@ -474,61 +497,82 @@ export async function buildAgriculturalFields(
     totalPropInstances: 0,
   };
 
-  const windTimeUniform = { value: 0 };
   const update = (dt: number) => {
-    windTimeUniform.value += dt;
+    vegUniforms.uVegTime.value += dt;
   };
 
+  // Field layout / models are optional data sets (the dev server answers {available:false} until they are generated)
   if (!layout || !manifest || Object.keys(manifest.models).length === 0) {
-    return { group, stats, update };
+    return { group, stats, update, setQuality: setVegetationQuality };
   }
 
-  const loader = new GLTFLoader();
-  const loadModel = async (defaultWindKey: string, ...keywords: string[]): Promise<FieldPrototype | null> => {
-    const entry = findModelEntry(manifest, ...keywords);
-    if (!entry?.glbPath) return null;
-    try {
-      const gltf = await loader.loadAsync(entry.glbPath);
-      const windStr =
-        typeof entry.windSway === 'number'
-          ? entry.windSway
-          : typeof entry.windSwayStrength === 'number'
-            ? entry.windSwayStrength
-            : DEFAULT_WIND[defaultWindKey] ?? 0;
-      return extractFieldPrototype(gltf.scene, entry, maxAnisotropy, windTimeUniform, windStr);
-    } catch (err) {
-      console.warn(`[fields] Failed to load ${entry.glbPath}:`, err);
-      return null;
-    }
+  const loadLod = async (key: string): Promise<LoadedFieldAsset> => {
+    const entry = manifestEntry(manifest, key);
+    const nodes = await listLodNodes(entry.glbPath, key, maxAnisotropy);
+    if (!nodes.includes('LOD0')) throw new Error(`[fields] ${entry.glbPath} has no node "${key}_LOD0"; rebuild the field assets`);
+    const levels = ['LOD0', 'LOD1'].filter((n) => nodes.includes(n));
+    const asset = await loadLodAsset(entry.glbPath, key, levels, nodes.includes('FAR') ? 'FAR' : null, maxAnisotropy);
+    const lodDist = numArray(asset.meta.lodDist, levels.length);
+    if (!lodDist) throw new Error(`[fields] node "${key}_LOD0" in ${entry.glbPath} lacks a lodDist extra with ${levels.length} entries`);
+    const tile = numArray(asset.meta.tileM, 2);
+    return {
+      key,
+      entry,
+      asset,
+      tileM: tile ? [tile[0], tile[1]] : null,
+      lodDist,
+      heightM: typeof asset.meta.heightM === 'number' ? asset.meta.heightM : asset.maxY,
+      windSway: typeof asset.meta.windSway === 'number' ? asset.meta.windSway : 0,
+      alongRowM: typeof asset.meta.alongRowM === 'number' ? asset.meta.alongRowM : null,
+    };
   };
+  const loadSimple = async (key: string) => extractPropPrototype(await loadVegGltf(manifestEntry(manifest, key).glbPath, maxAnisotropy));
 
-  const [
-    wheatProto,
-    stubbleProto,
-    cornProto,
-    sugarbeetProto,
-    sunflowerProto,
-    meadowProto,
-    wildflowerProto,
-    hedgerowProto,
-    roseProto,
-    strawStackProto,
-    hochsitzProto,
-    wegekreuzProto,
-  ] = await Promise.all([
-    loadModel('wheat', 'crop_wheat_patch', 'wheat'),
-    loadModel('stubble', 'crop_stubble_patch', 'stubble'),
-    loadModel('corn', 'crop_corn_row', 'corn', 'maize'),
-    loadModel('sugarbeet', 'crop_sugarbeet_row', 'sugarbeet', 'beet'),
-    loadModel('sunflower', 'crop_sunflower_patch', 'sunflower'),
-    loadModel('meadow', 'meadow_grass_patch', 'meadow'),
-    loadModel('wildflower', 'wildflower_strip', 'wildflower'),
-    loadModel('hedgerow', 'hedgerow_bay', 'hedgerow'),
-    loadModel('none', 'vineyard_rose_post', 'rose_post', 'rose'),
-    loadModel('none', 'straw_bale_stack', 'straw_stack', 'straw'),
-    loadModel('none', 'hochsitz', 'high_seat'),
-    loadModel('none', 'wegekreuz', 'wayside_cross'),
+  const cropAssetsP = Promise.all(CROP_BUCKETS.map((b) => loadLod(CROP_KEYS[b])));
+  const [cropAssets, cropFloorMats, wildflower, hedgerow, rose, strawStackProto, hochsitzProto, wegekreuzProto] = await Promise.all([
+    cropAssetsP,
+    cropAssetsP.then((assets) =>
+      Promise.all(
+        CROP_BUCKETS.map((b, i) => {
+          const tint = FLOOR_FAR_TINT[b];
+          // crops without a far mesh: the carpet beyond the last plant LOD takes the tone the plants add near the camera
+          if (tint && assets[i].asset.far) throw new Error(`[fields] ${CROP_KEYS[b]} has a far mesh now: drop its FLOOR_FAR_TINT entry`);
+          return loadFloorMaterial(manifestEntry(manifest, CROP_KEYS[b]).glbPath, CROP_KEYS[b], maxAnisotropy, {
+            tramlines: { strength: FLOOR_TRAMLINES[b], tileAcrossM: FLOOR_TILE_ACROSS_M[b] },
+            farTint: tint ? { ...tint, baseM: assets[i].lodDist[assets[i].lodDist.length - 1] } : undefined,
+            // harvested fields read as combine passes from the drone (aerial: 7.5 m light / dark bands along the rows)
+            swaths: b === 'stubble' ? { strength: 0.55, widthM: 7.5, tileAlongM: 6, tileAcrossM: FLOOR_TILE_ACROSS_M[b] } : undefined,
+          });
+        })
+      )
+    ),
+    loadLod('wildflower_strip'),
+    loadLod('hedgerow_bay'),
+    loadLod('vineyard_rose_post'),
+    loadSimple('straw_bale_stack'),
+    loadSimple('hochsitz'),
+    loadSimple('wegekreuz'),
   ]);
+
+  const makeLayer = (name: string, la: LoadedFieldAsset, opts: { cast: boolean; farCast?: boolean; sway?: number; clip?: VegClipConfig }): InstancedLodLayer => {
+    const dist = la.lodDist;
+    const sway = opts.sway ?? la.windSway;
+    return new InstancedLodLayer({
+      name,
+      asset: la.asset,
+      levelDist: dist,
+      band: 4,
+      // far field tiles are only 2-12 triangles each: large chunks keep the draw-call count low
+      chunkM: 512,
+      mapSizeM: terrain.mapSizeM,
+      castShadow: la.asset.levels.map((_, i) => opts.cast && i === 0),
+      farCastShadow: opts.farCast ?? false,
+      farCullM: 600,
+      wind: new THREE.Vector3(sway, sway > 0 ? 0.012 : 0, Math.max(0.3, la.heightM)),
+      translucency: new THREE.Color(0.9, 0.9, 0.35),
+      clip: opts.clip,
+    });
+  };
 
   const occupancy = buildOccupancy(terrain.mapSizeM, sceneData.buildings, sceneData.roads, sceneData);
   const svCamPoints: [number, number][] = (references ?? [])
@@ -544,281 +588,207 @@ export async function buildAgriculturalFields(
     return false;
   };
 
-  const groundOffset = (proto: FieldPrototype): number => (proto.minY > 0.04 ? -proto.minY : 0);
   const rand = mulberry32(6727102);
-  const halfBound = terrain.halfSizeM - 10;
+  const halfBound = terrain.halfSizeM - 8;
   const dummy = new THREE.Object3D();
-  const upVec = new THREE.Vector3(0, 1, 0);
-  const tiltQuat = new THREE.Quaternion();
-  const yawQuat = new THREE.Quaternion();
+  const m4 = new THREE.Matrix4();
 
   // ---------------------------------------------------------------------------
-  // 1. CLASSIFIED AGRICULTURAL FIELD PARCELS (wheat, stubble, corn, sugarbeet, sunflower, meadow)
+  // 1. CROP PARCELS: every parcel is carpeted with tiles on its row grid; detail comes from the LOD pools
   // ---------------------------------------------------------------------------
-  const cropProtos: Record<string, FieldPrototype | null> = {
-    wheat: wheatProto,
-    stubble: stubbleProto,
-    corn: cornProto,
-    sugarbeet: sugarbeetProto,
-    sunflower: sunflowerProto,
-    meadow: meadowProto,
-    orchard: meadowProto,
-  };
+  const cropLayers = {} as Record<CropBucket, InstancedLodLayer>;
+  const cropTile = {} as Record<CropBucket, [number, number]>;
+  CROP_BUCKETS.forEach((bucket, i) => {
+    const la = cropAssets[i];
+    if (!la.tileM) throw new Error(`[fields] node "${la.key}_LOD0" lacks the tileM extra; rebuild the field assets`);
+    if (bucket !== 'meadow' && Math.abs(la.tileM[1] - FLOOR_TILE_ACROSS_M[bucket]) > 1e-3) {
+      throw new Error(`[fields] ${la.key}: tile is ${la.tileM[1]} m across but FLOOR_TILE_ACROSS_M says ${FLOOR_TILE_ACROSS_M[bucket]} m`);
+    }
+    cropTile[bucket] = la.tileM;
+  });
 
-  const cropMatrices: Record<string, THREE.Matrix4[]> = {
-    wheat: [],
-    stubble: [],
-    corn: [],
-    sugarbeet: [],
-    sunflower: [],
-    meadow: [],
-  };
-  const cropColors: Record<string, THREE.Color[]> = {
-    wheat: [],
-    stubble: [],
-    corn: [],
-    sugarbeet: [],
-    sunflower: [],
-    meadow: [],
-  };
+  const floors = new FloorCarpetBuilder(terrain, 512);
+  const parcels = (Array.isArray(layout.fields) ? layout.fields : []).filter(
+    (f): f is FieldParcelRecord => Boolean(f && Array.isArray(f.points) && f.points.length >= 3)
+  );
+  stats.parcelCount = Array.isArray(layout.fields) ? layout.fields.length : 0;
+  const cropBlocked = (x: number, z: number): boolean => occupancy.isBlocked(x, z, FLAG_BUILDING | FLAG_ROAD | FLAG_VINEYARD);
 
-  const parcels = Array.isArray(layout.fields) ? layout.fields : [];
-  stats.parcelCount = parcels.length;
-
-  // Prioritize fields closer to the village, L450, Triftstraße, Am Kirchrain & Judenberg first
-  const priorityCenters: [number, number][] = [
-    [0, -40],
-    [-460, 40],
-    [-315, 160],
-    [520, -200],
-    [315, 80],
-  ];
-
-  const sortedParcels = parcels
-    .filter((f): f is FieldParcelRecord => Boolean(f && Array.isArray(f.points) && f.points.length >= 3))
-    .map((f) => {
-      let cx = 0;
-      let cz = 0;
-      for (const [x, z] of f.points) {
-        cx += x;
-        cz += z;
-      }
-      cx /= f.points.length;
-      cz /= f.points.length;
-      let minD = Infinity;
-      for (const [px, pz] of priorityCenters) {
-        const d = Math.hypot(cx - px, cz - pz);
-        if (d < minD) minD = d;
-      }
-      return { f, cx, cz, minD };
-    })
-    .sort((a, b) => a.minD - b.minD);
-
-  // Estimate total area per crop class so budgets distribute cleanly edge-to-edge across EVERY field!
-  const totalAreaByBucket: Record<string, number> = {};
-  for (const { f } of sortedParcels) {
+  // Parcels that get crop cards, with their simplified outline and clip-map id. The cards are cut per fragment at the
+  // outline (ParcelClipMap / VegClipConfig): tile strips run past oblique borders instead of stopping a whole tile
+  // short, which left a staircase of tile ends above a bare wedge of floor carpet (review: "raised straw slab").
+  const cropParcels: { f: FieldParcelRecord; bucket: CropBucket; pts: [number, number][]; clipId: number }[] = [];
+  const meadowParcels: { f: FieldParcelRecord; pts: [number, number][] }[] = [];
+  for (const f of parcels) {
     const rawCrop = (f.crop ?? f.cropType ?? '').toLowerCase();
+    if (rawCrop === 'plowed' || rawCrop === 'bare') excludeGroundCover(f.points);
     if (!rawCrop || rawCrop === 'plowed' || rawCrop === 'vineyard' || rawCrop === 'bare') continue;
-    const bucket = rawCrop === 'orchard' || rawCrop === 'grass' ? 'meadow' : rawCrop;
-    if (!(bucket in cropMatrices)) continue;
-    totalAreaByBucket[bucket] = (totalAreaByBucket[bucket] ?? 0) + Math.max(0.08, f.areaHa ?? 0.5);
+    const bucket = (rawCrop === 'orchard' || rawCrop === 'grass' ? 'meadow' : rawCrop) as CropBucket;
+    if (!CROP_BUCKETS.includes(bucket)) throw new Error(`[fields] parcel ${f.id ?? '?'} has unknown crop "${rawCrop}" (data/osm/fields_layout.json)`);
+    const pts = simplifyOutline(f.points, 4.5);
+    if (bucket === 'meadow') meadowParcels.push({ f, pts });
+    else cropParcels.push({ f, bucket, pts, clipId: cropParcels.length + 1 });
   }
+  if (cropParcels.length > 255) throw new Error(`[fields] ${cropParcels.length} crop parcels exceed the 255 ids of the clip map`);
+  const clipMap = new ParcelClipMap(terrain.mapSizeM);
+  for (const cp of cropParcels) clipMap.addParcel(cp.clipId, cp.pts, cropBlocked);
+  const clip: VegClipConfig = { texture: clipMap.toTexture(), mapSizeM: terrain.mapSizeM };
+  CROP_BUCKETS.forEach((bucket, i) => {
+    cropLayers[bucket] = makeLayer(`FieldCrop_${bucket}`, cropAssets[i], { cast: CROP_CASTS_SHADOW[bucket], clip: bucket === 'meadow' ? undefined : clip });
+  });
 
-  for (const { f } of sortedParcels) {
-    const rawCrop = (f.crop ?? f.cropType ?? '').toLowerCase();
-    if (!rawCrop || rawCrop === 'plowed' || rawCrop === 'vineyard' || rawCrop === 'bare') continue;
-    const bucket = rawCrop === 'orchard' || rawCrop === 'grass' ? 'meadow' : rawCrop;
-    const proto = cropProtos[bucket];
-    if (!proto || !(bucket in cropMatrices)) continue;
-
-    const targetMats = cropMatrices[bucket];
-    const targetCols = cropColors[bucket];
-    const budget = CROP_BUDGETS[bucket] ?? 4000;
-    if (targetMats.length >= budget) continue;
-
-    const pts = f.points;
-    const isRowCrop = bucket === 'corn' || bucket === 'sugarbeet';
-    const rotY =
-      typeof f.rowAngleRad === 'number' && Number.isFinite(f.rowAngleRad)
-        ? f.rowAngleRad
-        : estimateLongestEdgeAngle(pts);
-
+  const rowFrame = (f: FieldParcelRecord, pts: [number, number][]) => {
+    const rotY = typeof f.rowAngleRad === 'number' && Number.isFinite(f.rowAngleRad) ? f.rowAngleRad : estimateLongestEdgeAngle(pts);
     const dirX = Math.cos(rotY);
     const dirZ = -Math.sin(rotY);
-    const perpX = -dirZ;
-    const perpZ = dirX;
-
     let minU = Infinity;
     let maxU = -Infinity;
     let minV = Infinity;
     let maxV = -Infinity;
     for (const [x, z] of pts) {
       const u = x * dirX + z * dirZ;
-      const v = x * perpX + z * perpZ;
-      if (u < minU) minU = u;
-      if (u > maxU) maxU = u;
-      if (v < minV) minV = v;
-      if (v > maxV) maxV = v;
+      const v = x * -dirZ + z * dirX;
+      minU = Math.min(minU, u);
+      maxU = Math.max(maxU, u);
+      minV = Math.min(minV, v);
+      maxV = Math.max(maxV, v);
     }
+    return { dirX, dirZ, perpX: -dirZ, perpZ: dirX, minU, maxU, minV, maxV };
+  };
 
-    // Nominal tile/row dimensions from manifest metadata or measured GLB bounds
-    const baseStepU =
-      proto.meta.alongRowM ??
-      proto.meta.spacingM ??
-      Math.max(2.4, Math.min(8.0, proto.size.x * 0.94));
-    const baseStepV =
-      proto.meta.betweenBaysM ??
-      proto.meta.spacingM ??
-      Math.max(2.0, Math.min(8.0, proto.size.z * 0.94));
+  // meadows: floor carpet + near-camera ground cover only (cards on a 6 m lattice read as dark hash marks from the air)
+  for (const { f, pts } of meadowParcels) {
+    const { dirX, dirZ } = rowFrame(f, pts);
+    const parcelTint = makeAerialTintColor(f.aerialTintHex, 'meadow', rand).multiplyScalar(CROP_ALBEDO.meadow);
+    // no drill rows: an odd repeat length hides the 6 m tile rhythm
+    floors.addParcel('meadow', pts, dirX, dirZ, 9.7, 8.3, 0.5, 0.5, parcelTint, cropBlocked, 0.26);
+    addGroundCoverPatch(pts, 'tall_grass');
+    const area = Math.abs(pts.reduce((s, p, i) => s + p[0] * pts[(i + 1) % pts.length][1] - pts[(i + 1) % pts.length][0] * p[1], 0)) * 0.5;
+    stats.meadow += Math.round(area / 36);
+  }
 
-    // Scale grid spacing gently across all parcels of this crop class so every parcel fills 100% seamlessly within GPU budget
-    const totalAreaM2 = (totalAreaByBucket[bucket] ?? 1.0) * 10000;
-    const idealTileArea = baseStepU * baseStepV;
-    const estTotalTiles = totalAreaM2 / Math.max(4, idealTileArea);
-    const densityScale = estTotalTiles > budget * 0.92 ? Math.sqrt(estTotalTiles / (budget * 0.92)) : 1.0;
-    const clampedScale = THREE.MathUtils.clamp(densityScale, 1.0, 2.25);
-    const stepU = baseStepU * clampedScale;
-    const stepV = baseStepV * clampedScale;
-    // Match horizontal XZ footprint to step spacing (zero checkerboard gaps!) while keeping botanical Y height realistic
-    const overlapPad = bucket === 'stubble' ? 1.14 : 1.04;
-    const scaleBoostXZ = clampedScale > 1.01 ? clampedScale * overlapPad : bucket === 'stubble' ? 1.06 : 1.0;
-
-    const gOff = groundOffset(proto) - 0.03;
-    const margin = Math.min(1.6, Math.min(stepU, stepV) * 0.25);
-    const runsAlongX = proto.size.x >= proto.size.z;
-    const segLen = Math.max(2.5, runsAlongX ? proto.size.x : proto.size.z);
-
-    let rowIdx = 0;
-    for (let v = minV + margin; v <= maxV - margin; v += stepV) {
-      const stagger = isRowCrop ? 0 : (rowIdx % 2) * (stepU * 0.48);
-      rowIdx++;
-      for (let u = minU + margin + stagger; u <= maxU - margin; u += stepU) {
-        if (targetMats.length >= budget) break;
-
-        const jU = isRowCrop ? 0 : (rand() - 0.5) * stepU * 0.22;
-        const jV = isRowCrop ? 0 : (rand() - 0.5) * stepV * 0.22;
-        const wx = (u + jU) * dirX + (v + jV) * perpX;
-        const wz = (u + jU) * dirZ + (v + jV) * perpZ;
-
-        if (Math.abs(wx) > halfBound || Math.abs(wz) > halfBound) continue;
-        if (!pointInPolygon(wx, wz, pts)) continue;
-        if (occupancy.isBlocked(wx, wz, FLAG_BUILDING | FLAG_ROAD | FLAG_VINEYARD)) continue;
-        if (isNearSvCam(wx, wz, 5.2)) continue;
-
-        const hMid = terrain.getTerrainHeight(wx, wz);
-
-        if (isRowCrop) {
-          const halfS = segLen * 0.42;
-          const ax = wx - dirX * halfS;
-          const az = wz - dirZ * halfS;
-          const bx = wx + dirX * halfS;
-          const bz = wz + dirZ * halfS;
-          if (!pointInPolygon(ax, az, pts) || !pointInPolygon(bx, bz, pts)) continue;
-          if (occupancy.isBlocked(ax, az, FLAG_BUILDING | FLAG_ROAD) || occupancy.isBlocked(bx, bz, FLAG_BUILDING | FLAG_ROAD)) continue;
+  for (const { f, bucket, pts, clipId } of cropParcels) {
+    const layer = cropLayers[bucket];
+    const [tileU, tileV] = cropTile[bucket];
+    const isRowCrop = bucket === 'corn' || bucket === 'sugarbeet';
+    const { dirX, dirZ, perpX, perpZ, minU, maxU, minV, maxV } = rowFrame(f, pts);
+    const halfV = tileV * 0.5;
+    // one tint per parcel: tiles of a field must not form a checkerboard from the air
+    const parcelTint = makeAerialTintColor(f.aerialTintHex, bucket, rand).multiplyScalar(CROP_ALBEDO[bucket]);
+    // ground carpet on the terrain grid; tile centres sit on the global (tileU, tileV) grid -> texture offset 0.5;
+    // all floors get cloud-like tonal variation, stubble also greener weed patches (aerial: volunteer cereal)
+    floors.addParcel(bucket, pts, dirX, dirZ, tileU, tileV, 0.5, 0.5, parcelTint, cropBlocked,
+      bucket === 'sugarbeet' || bucket === 'corn' || bucket === 'sunflower' ? 0.1 : bucket === 'stubble' ? 0.34 : 0.26,
+      bucket === 'stubble' ? { tint: new THREE.Color(0.8, 0.9, 0.7), cover: 0.22, cellM: 26 } : undefined);
+    // near-camera ground cover (src/scenery.ts): nothing inside the crops
+    excludeGroundCover(pts);
+    const cardTint = parcelTint.clone().multiplyScalar(CARD_ALBEDO[bucket]);
+    const STEP = 0.5;
+    const nU = Math.ceil((maxU - minU + 2) / STEP);
+    // every strip of the global tile grid that touches the parcel; occupied = some point across the strip is inside
+    for (let v = Math.floor((minV - halfV) / tileV) * tileV + tileV; v - halfV < maxV; v += tileV) {
+      let runStart = NaN; // u is a world coordinate along the rows (may be negative)
+      const runs: [number, number][] = [];
+      for (let k = 0; k <= nU; k++) {
+        const u = minU - 1 + k * STEP;
+        let occ = false;
+        if (k < nU) {
+          for (let s = -2; s <= 2 && !occ; s++) {
+            const vv = v + s * halfV * 0.45;
+            occ = clipMap.ownSd(clipId, u * dirX + vv * perpX, u * dirZ + vv * perpZ) > 0.1;
+          }
+        }
+        if (occ && Number.isNaN(runStart)) runStart = u;
+        if (!occ && !Number.isNaN(runStart)) {
+          // half a step of slack on both ends: the clip map makes the exact cut
+          runs.push([runStart - STEP * 0.5, u + STEP * 0.5]);
+          runStart = NaN;
+        }
+      }
+      for (const [u0, u1] of runs) {
+        const span = u1 - u0;
+        if (span < tileU * 0.3) continue;
+        const nTiles = Math.max(1, Math.round(span / tileU));
+        const len = span / nTiles;
+        const sx = len / tileU;
+        const halfLen = len * 0.5;
+        for (let t = 0; t < nTiles; t++) {
+          const u = u0 + len * (t + 0.5);
+          const wx = u * dirX + v * perpX;
+          const wz = u * dirZ + v * perpZ;
+          if (Math.abs(wx) > halfBound || Math.abs(wz) > halfBound) continue;
+          if (isNearSvCam(wx, wz, 5.2)) continue;
+          const ax = wx - dirX * halfLen;
+          const az = wz - dirZ * halfLen;
+          const bx = wx + dirX * halfLen;
+          const bz = wz + dirZ * halfLen;
           const hA = terrain.getTerrainHeight(ax, az);
           const hB = terrain.getTerrainHeight(bx, bz);
-          const slopePitch = Math.atan2(hB - hA, segLen * 0.84);
-
-          dummy.position.set(wx, hMid + gOff, wz);
-          dummy.rotation.order = 'YXZ';
-          if (runsAlongX) {
-            dummy.rotation.set(0, rotY, slopePitch);
-          } else {
-            dummy.rotation.set(-slopePitch, Math.atan2(dirX, dirZ), 0);
-          }
-          const hVar = 0.92 + rand() * 0.16;
-          dummy.scale.set(scaleBoostXZ, hVar, scaleBoostXZ);
-          dummy.updateMatrix();
-        } else {
-          // Patch crop: gently follow hillside terrain normal so wide 5-6m patches hug slopes without floating
-          const n = terrain.getTerrainNormal(wx, wz, 3.0);
-          n.lerp(upVec, 0.28).normalize();
-          tiltQuat.setFromUnitVectors(upVec, n);
-
-          let yaw = rotY;
-          if (bucket === 'sunflower') {
-            // Pfalz sunflowers orient mostly southward with gentle organic spread
-            yaw = (rand() - 0.5) * 0.45;
-          } else if (bucket === 'meadow' || bucket === 'wheat' || bucket === 'stubble') {
-            yaw = rotY + Math.floor(rand() * 4) * (Math.PI * 0.5) + (rand() - 0.5) * 0.3;
-          }
-          yawQuat.setFromAxisAngle(upVec, yaw);
-
-          dummy.position.set(wx, hMid + gOff, wz);
-          dummy.quaternion.copy(tiltQuat).multiply(yawQuat);
-          const hVar = 0.88 + rand() * 0.24;
-          dummy.scale.set(scaleBoostXZ * (0.94 + rand() * 0.14), hVar, scaleBoostXZ * (0.94 + rand() * 0.14));
-          dummy.updateMatrix();
+          const hL = terrain.getTerrainHeight(wx - perpX * halfV, wz - perpZ * halfV);
+          const hR = terrain.getTerrainHeight(wx + perpX * halfV, wz + perpZ * halfV);
+          const slopeAlong = (hB - hA) / len;
+          const slopeCross = (hR - hL) / tileV;
+          // height varies smoothly over the field (not per tile): neighbouring canopy lids must meet without steps
+          const sy = 0.9 + 0.2 * valueNoise(wx, wz, 45);
+          const mx = rand() < 0.5 ? 1 : -1;
+          const mz = !isRowCrop && rand() < 0.5 ? -1 : 1;
+          // sheared basis: plants stay upright while the tile follows the slope in both directions
+          m4.set(
+            dirX * mx * sx, 0, perpX * mz, wx,
+            slopeAlong * mx * sx, sy, slopeCross * mz, (hA + hB) * 0.5 + 0.02,
+            dirZ * mx * sx, 0, perpZ * mz, wz,
+            0, 0, 0, 1
+          );
+          layer.add(m4, cardTint, clipId);
         }
-
-        targetMats.push(dummy.matrix.clone());
-        targetCols.push(makeAerialTintColor(f.aerialTintHex, bucket, rand));
       }
-      if (targetMats.length >= budget) break;
     }
   }
 
-  for (const key of ['wheat', 'stubble', 'corn', 'sugarbeet', 'sunflower', 'meadow'] as const) {
-    const proto = cropProtos[key];
-    const mats = cropMatrices[key];
-    if (proto && mats.length > 0) {
-      group.add(
-        createInstancedFieldGroup(`FieldCrop_${key}`, proto, mats, {
-          castShadow: key === 'corn',
-          receiveShadow: true,
-          colors: cropColors[key],
-        })
-      );
-      stats[key] = mats.length;
-      stats.totalCropInstances += mats.length;
-    }
+  const fieldFloorGroup = floors.build('FieldFloors', Object.fromEntries(CROP_BUCKETS.map((b, i) => [b, cropFloorMats[i]])));
+  // low quality: floor chunks far away are dropped, the terrain's aerial (same parcels) shows instead
+  registerFloorCull(fieldFloorGroup, 650);
+  group.add(fieldFloorGroup);
+  for (const bucket of CROP_BUCKETS) {
+    const layer = cropLayers[bucket];
+    group.add(layer.build());
+    registerVegLayer(layer);
+    if (bucket !== 'meadow') stats[bucket] = layer.count;
+    stats.totalCropInstances += layer.count;
   }
 
   // ---------------------------------------------------------------------------
-  // 2. LINEAR FIELD MARGINS: HEDGEROWS (Windschutzhecken) & WILDFLOWER STRIPS (Blühstreifen)
+  // 2. FIELD MARGINS: hedgerows (Windschutzhecken) & wildflower strips (Bluehstreifen), one bay per placement
   // ---------------------------------------------------------------------------
-  const populateLinearProp = (
+  const populateLinear = (
     name: string,
     items: FieldPropPlacement[] | undefined,
-    proto: FieldPrototype | null,
-    defaultBayLenM: number,
-    maxCount: number,
-    castShadow: boolean
+    la: LoadedFieldAsset,
+    cast: boolean
   ): number => {
-    if (!proto || !Array.isArray(items) || items.length === 0) return 0;
-    const matrices: THREE.Matrix4[] = [];
-    const gOff = groundOffset(proto) - 0.04;
-    const bayLen = Math.max(2.2, proto.meta.alongRowM ?? proto.meta.spacingM ?? (proto.size.x > 1.5 ? proto.size.x * 0.94 : defaultBayLenM));
-    const runsAlongX = proto.size.x >= proto.size.z;
-
-    const pushBay = (cx: number, cz: number, dirX: number, dirZ: number, scale = 1.0) => {
-      if (matrices.length >= maxCount) return;
+    const layer = makeLayer(name, la, { cast, farCast: cast });
+    const bayLen = la.alongRowM ?? la.tileM?.[0];
+    if (!bayLen) throw new Error(`[fields] node "${la.key}_LOD0" lacks the alongRowM extra; rebuild the field assets`);
+    const pushBay = (cx: number, cz: number, dirX: number, dirZ: number, scale: number) => {
       if (Math.abs(cx) > halfBound || Math.abs(cz) > halfBound) return;
       if (occupancy.isBlocked(cx, cz, FLAG_BUILDING | FLAG_ROAD_CORE)) return;
       if (isNearSvCam(cx, cz, 4.8)) return;
-
-      const halfB = bayLen * 0.42;
+      const halfB = bayLen * 0.5;
       const hA = terrain.getTerrainHeight(cx - dirX * halfB, cz - dirZ * halfB);
       const hB = terrain.getTerrainHeight(cx + dirX * halfB, cz + dirZ * halfB);
-      const hM = terrain.getTerrainHeight(cx, cz);
-      const slopePitch = Math.atan2(hB - hA, bayLen * 0.84);
-      const rotY = Math.atan2(-dirZ, dirX);
-
-      dummy.position.set(cx, hM + gOff, cz);
-      dummy.rotation.order = 'YXZ';
-      if (runsAlongX) {
-        dummy.rotation.set(0, rotY, slopePitch);
-      } else {
-        dummy.rotation.set(-slopePitch, Math.atan2(dirX, dirZ), 0);
-      }
-      const sVar = scale * (0.92 + rand() * 0.16);
-      dummy.scale.set(scale, sVar, scale * (0.92 + rand() * 0.16));
-      dummy.updateMatrix();
-      matrices.push(dummy.matrix.clone());
+      const perpX = -dirZ;
+      const perpZ = dirX;
+      const sy = scale * (0.9 + rand() * 0.2);
+      const mx = rand() < 0.5 ? 1 : -1;
+      m4.set(
+        dirX * mx * scale, 0, perpX * scale, cx,
+        ((hB - hA) / bayLen) * mx * scale, sy, 0, (hA + hB) * 0.5 - 0.03,
+        dirZ * mx * scale, 0, perpZ * scale, cz,
+        0, 0, 0, 1
+      );
+      layer.add(m4);
     };
-
-    for (const item of items) {
-      if (matrices.length >= maxCount) break;
+    for (const item of items ?? []) {
       if (Array.isArray(item.points) && item.points.length >= 2) {
         const poly = item.points.map(extractXZ);
         for (let i = 0; i < poly.length - 1; i++) {
@@ -826,90 +796,67 @@ export async function buildAgriculturalFields(
           const [x1, z1] = poly[i + 1];
           const segLen = Math.hypot(x1 - x0, z1 - z0);
           if (segLen < 1.2) continue;
-          const dx = (x1 - x0) / segLen;
-          const dz = (z1 - z0) / segLen;
           const count = Math.max(1, Math.round(segLen / bayLen));
           for (let k = 0; k < count; k++) {
             const t = (k + 0.5) / count;
-            pushBay(x0 + (x1 - x0) * t, z0 + (z1 - z0) * t, dx, dz, item.scale ?? 1.0);
+            pushBay(x0 + (x1 - x0) * t, z0 + (z1 - z0) * t, (x1 - x0) / segLen, (z1 - z0) / segLen, item.scale ?? 1.0);
           }
         }
       } else {
         const pt = extractPropCoords(item);
         if (!pt) continue;
-        const dx = Math.cos(pt.yaw);
-        const dz = -Math.sin(pt.yaw);
-        pushBay(pt.x, pt.z, dx, dz, pt.scale);
+        pushBay(pt.x, pt.z, Math.cos(pt.yaw), -Math.sin(pt.yaw), pt.scale);
       }
     }
-
-    if (matrices.length > 0) {
-      group.add(createInstancedFieldGroup(name, proto, matrices, { castShadow, receiveShadow: true }));
-    }
-    return matrices.length;
+    group.add(layer.build());
+    registerVegLayer(layer);
+    return layer.count;
   };
 
-  stats.hedgerows = populateLinearProp('FieldHedgerows', layout.hedgerows, hedgerowProto, 5.0, 1400, true);
-  stats.wildflowerStrips = populateLinearProp(
-    'FieldWildflowerStrips',
-    layout.wildflowerStrips,
-    wildflowerProto,
-    5.0,
-    1800,
-    false
-  );
+  stats.hedgerows = populateLinear('FieldHedgerows', layout.hedgerows, hedgerow, true);
+  stats.wildflowerStrips = populateLinear('FieldWildflowerStrips', layout.wildflowerStrips, wildflower, false);
 
   // ---------------------------------------------------------------------------
-  // 3. RURAL LANDMARKS & FIELD PROPS (Vineyard Roses, Straw Stacks, Hochsitze, Wegekreuze)
+  // 3. POINT PROPS: vineyard rose posts (LOD layer), straw stacks, hunting stands, wayside crosses
   // ---------------------------------------------------------------------------
-  const populatePointProp = (
-    name: string,
-    items: FieldPropPlacement[] | undefined,
-    proto: FieldPrototype | null,
-    maxCount: number,
-    allowInsideVineyard: boolean,
-    castShadow: boolean
-  ): number => {
-    if (!proto || !Array.isArray(items) || items.length === 0) return 0;
-    const matrices: THREE.Matrix4[] = [];
-    const gOff = groundOffset(proto) - 0.02;
-    const blockMask = allowInsideVineyard ? FLAG_BUILDING | FLAG_ROAD_CORE : FLAG_BUILDING | FLAG_ROAD_CORE;
-
-    for (const item of items) {
-      if (matrices.length >= maxCount) break;
+  const placePoints = (items: FieldPropPlacement[] | undefined, maxCount: number, minY: number, sink: (m: THREE.Matrix4) => void): number => {
+    let n = 0;
+    const gOff = (minY > 0.04 ? -minY : 0) - 0.02;
+    for (const item of items ?? []) {
+      if (n >= maxCount) break;
       const pt = extractPropCoords(item);
       if (!pt) continue;
       if (Math.abs(pt.x) > halfBound || Math.abs(pt.z) > halfBound) continue;
-      if (occupancy.isBlocked(pt.x, pt.z, blockMask)) continue;
+      if (occupancy.isBlocked(pt.x, pt.z, FLAG_BUILDING | FLAG_ROAD_CORE)) continue;
       if (isNearSvCam(pt.x, pt.z, 4.5)) continue;
-
-      const y = terrain.getTerrainHeight(pt.x, pt.z) + gOff;
-      dummy.position.set(pt.x, y, pt.z);
+      dummy.position.set(pt.x, terrain.getTerrainHeight(pt.x, pt.z) + gOff, pt.z);
       dummy.rotation.order = 'YXZ';
       dummy.rotation.set(0, pt.yaw, 0);
       dummy.scale.setScalar(pt.scale);
       dummy.updateMatrix();
-      matrices.push(dummy.matrix.clone());
+      sink(dummy.matrix);
+      n++;
     }
-
-    if (matrices.length > 0) {
-      group.add(createInstancedFieldGroup(name, proto, matrices, { castShadow, receiveShadow: true }));
-    }
-    return matrices.length;
+    return n;
   };
 
-  stats.vineyardRoses = populatePointProp('VineyardRosePosts', layout.vineyardRoses, roseProto, 800, true, true);
-  stats.strawStacks = populatePointProp('StrawBaleStacks', layout.strawStacks, strawStackProto, 120, false, true);
-  stats.hochsitze = populatePointProp('Hochsitze', layout.hochsitze, hochsitzProto, 24, false, true);
-  stats.waysideCrosses = populatePointProp('WaysideCrosses', layout.waysideCrosses, wegekreuzProto, 16, false, true);
+  const roseLayer = makeLayer('VineyardRosePosts', rose, { cast: true, sway: 0 });
+  stats.vineyardRoses = placePoints(layout.vineyardRoses, 800, rose.asset.minY, (m) => roseLayer.add(m));
+  group.add(roseLayer.build());
+  registerVegLayer(roseLayer);
+
+  const simple = (name: string, items: FieldPropPlacement[] | undefined, proto: Awaited<ReturnType<typeof loadSimple>>, maxCount: number): number => {
+    const matrices: THREE.Matrix4[] = [];
+    const n = placePoints(items, maxCount, proto.minY, (m) => matrices.push(m.clone()));
+    if (matrices.length > 0) group.add(createInstancedPropGroup(name, proto, matrices));
+    return n;
+  };
+  stats.strawStacks = simple('StrawBaleStacks', layout.strawStacks, strawStackProto, 120);
+  stats.hochsitze = simple('Hochsitze', layout.hochsitze, hochsitzProto, 24);
+  stats.waysideCrosses = simple('WaysideCrosses', layout.waysideCrosses, wegekreuzProto, 16);
 
   stats.totalPropInstances =
-    stats.hedgerows +
-    stats.wildflowerStrips +
-    stats.vineyardRoses +
-    stats.strawStacks +
-    stats.hochsitze +
-    stats.waysideCrosses;
+    stats.hedgerows + stats.wildflowerStrips + stats.vineyardRoses + stats.strawStacks + stats.hochsitze + stats.waysideCrosses;
 
-  return { group, stats, update };
+  return { group, stats, update, setQuality: setVegetationQuality };
 }

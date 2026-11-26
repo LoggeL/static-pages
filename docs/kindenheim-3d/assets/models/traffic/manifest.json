@@ -1,0 +1,506 @@
+{
+ "version": 1,
+ "glb": "assets/models/traffic/cars.glb",
+ "textures": {
+  "albedo": "assets/models/traffic/traffic_car_albedo.webp",
+  "albedo1k": "assets/models/traffic/traffic_car_albedo_1k.webp",
+  "normal": "assets/models/traffic/traffic_car_normal.webp",
+  "orm": "assets/models/traffic/traffic_car_orm.webp",
+  "mask": "assets/models/traffic/traffic_car_mask.png"
+ },
+ "plates": {
+  "rect": [
+   0.0,
+   0.375,
+   0.5,
+   0.5
+  ],
+  "cols": 4,
+  "rows": 4,
+  "count": 16
+ },
+ "types": {
+  "hatch": {
+   "label": "Kompaktwagen",
+   "length": 4.26,
+   "width": 1.79,
+   "height": 1.45,
+   "wheelbase": 2.63,
+   "track": 1.54,
+   "frontZ": 2.195,
+   "rearZ": -2.065,
+   "wheels": [
+    {
+     "lod0": "hatch_wheel_LOD0",
+     "lod1": "hatch_wheel_LOD1",
+     "radius": 0.316,
+     "x": 0.77,
+     "z": 1.315,
+     "steer": true
+    },
+    {
+     "lod0": "hatch_wheel_LOD0",
+     "lod1": "hatch_wheel_LOD1",
+     "radius": 0.316,
+     "x": 0.77,
+     "z": -1.315,
+     "steer": false
+    }
+   ],
+   "lods": [
+    "hatch_LOD0",
+    "hatch_LOD1",
+    "hatch_LOD2"
+   ],
+   "lamps": {
+    "head": [
+     [
+      0.355,
+      0.6,
+      2.274
+     ]
+    ],
+    "tail": [
+     [
+      0.485,
+      0.895,
+      -2.085
+     ]
+    ]
+   },
+   "triangles": {
+    "lod": [
+     5664,
+     1348,
+     642
+    ],
+    "wheel": [
+     684,
+     166
+    ]
+   }
+  },
+  "small": {
+   "label": "Kleinwagen",
+   "length": 3.62,
+   "width": 1.66,
+   "height": 1.48,
+   "wheelbase": 2.42,
+   "track": 1.43,
+   "frontZ": 1.87,
+   "rearZ": -1.75,
+   "wheels": [
+    {
+     "lod0": "small_wheel_LOD0",
+     "lod1": "small_wheel_LOD1",
+     "radius": 0.292,
+     "x": 0.715,
+     "z": 1.21,
+     "steer": true
+    },
+    {
+     "lod0": "small_wheel_LOD0",
+     "lod1": "small_wheel_LOD1",
+     "radius": 0.292,
+     "x": 0.715,
+     "z": -1.21,
+     "steer": false
+    }
+   ],
+   "lods": [
+    "small_LOD0",
+    "small_LOD1",
+    "small_LOD2"
+   ],
+   "lamps": {
+    "head": [
+     [
+      0.31,
+      0.6,
+      1.953
+     ]
+    ],
+    "tail": [
+     [
+      0.44,
+      0.875,
+      -1.77
+     ]
+    ]
+   },
+   "triangles": {
+    "lod": [
+     5268,
+     1380,
+     642
+    ],
+    "wheel": [
+     684,
+     166
+    ]
+   }
+  },
+  "estate": {
+   "label": "Kombi",
+   "length": 4.77,
+   "width": 1.83,
+   "height": 1.48,
+   "wheelbase": 2.79,
+   "track": 1.58,
+   "frontZ": 2.315,
+   "rearZ": -2.455,
+   "wheels": [
+    {
+     "lod0": "estate_wheel_LOD0",
+     "lod1": "estate_wheel_LOD1",
+     "radius": 0.33,
+     "x": 0.79,
+     "z": 1.395,
+     "steer": true
+    },
+    {
+     "lod0": "estate_wheel_LOD0",
+     "lod1": "estate_wheel_LOD1",
+     "radius": 0.33,
+     "x": 0.79,
+     "z": -1.395,
+     "steer": false
+    }
+   ],
+   "lods": [
+    "estate_LOD0",
+    "estate_LOD1",
+    "estate_LOD2"
+   ],
+   "lamps": {
+    "head": [
+     [
+      0.355,
+      0.6,
+      2.394
+     ]
+    ],
+    "tail": [
+     [
+      0.525,
+      0.895,
+      -2.475
+     ]
+    ]
+   },
+   "triangles": {
+    "lod": [
+     6180,
+     1740,
+     662
+    ],
+    "wheel": [
+     684,
+     166
+    ]
+   }
+  },
+  "suv": {
+   "label": "Kompakt-SUV",
+   "length": 4.5,
+   "width": 1.84,
+   "height": 1.66,
+   "wheelbase": 2.68,
+   "track": 1.58,
+   "frontZ": 2.24,
+   "rearZ": -2.26,
+   "wheels": [
+    {
+     "lod0": "suv_wheel_LOD0",
+     "lod1": "suv_wheel_LOD1",
+     "radius": 0.357,
+     "x": 0.79,
+     "z": 1.34,
+     "steer": true
+    },
+    {
+     "lod0": "suv_wheel_LOD0",
+     "lod1": "suv_wheel_LOD1",
+     "radius": 0.357,
+     "x": 0.79,
+     "z": -1.34,
+     "steer": false
+    }
+   ],
+   "lods": [
+    "suv_LOD0",
+    "suv_LOD1",
+    "suv_LOD2"
+   ],
+   "lamps": {
+    "head": [
+     [
+      0.36,
+      0.74,
+      2.319
+     ]
+    ],
+    "tail": [
+     [
+      0.51,
+      1.015,
+      -2.28
+     ]
+    ]
+   },
+   "triangles": {
+    "lod": [
+     5916,
+     1612,
+     702
+    ],
+    "wheel": [
+     684,
+     166
+    ]
+   }
+  },
+  "van": {
+   "label": "Transporter",
+   "length": 4.9,
+   "width": 1.9,
+   "height": 1.97,
+   "wheelbase": 3.0,
+   "track": 1.63,
+   "frontZ": 2.48,
+   "rearZ": -2.42,
+   "wheels": [
+    {
+     "lod0": "van_wheel_LOD0",
+     "lod1": "van_wheel_LOD1",
+     "radius": 0.345,
+     "x": 0.815,
+     "z": 1.5,
+     "steer": true
+    },
+    {
+     "lod0": "van_wheel_LOD0",
+     "lod1": "van_wheel_LOD1",
+     "radius": 0.345,
+     "x": 0.815,
+     "z": -1.5,
+     "steer": false
+    }
+   ],
+   "lods": [
+    "van_LOD0",
+    "van_LOD1",
+    "van_LOD2"
+   ],
+   "lamps": {
+    "head": [
+     [
+      0.43,
+      0.74,
+      2.543
+     ]
+    ],
+    "tail": [
+     [
+      0.68,
+      1.09,
+      -2.44
+     ]
+    ]
+   },
+   "triangles": {
+    "lod": [
+     5802,
+     1416,
+     606
+    ],
+    "wheel": [
+     684,
+     166
+    ]
+   }
+  },
+  "sedan_old": {
+   "label": "Limousine (\u00e4lter)",
+   "length": 4.74,
+   "width": 1.74,
+   "height": 1.42,
+   "wheelbase": 2.8,
+   "track": 1.5,
+   "frontZ": 2.3,
+   "rearZ": -2.44,
+   "wheels": [
+    {
+     "lod0": "sedan_old_wheel_LOD0",
+     "lod1": "sedan_old_wheel_LOD1",
+     "radius": 0.31,
+     "x": 0.75,
+     "z": 1.4,
+     "steer": true
+    },
+    {
+     "lod0": "sedan_old_wheel_LOD0",
+     "lod1": "sedan_old_wheel_LOD1",
+     "radius": 0.31,
+     "x": 0.75,
+     "z": -1.4,
+     "steer": false
+    }
+   ],
+   "lods": [
+    "sedan_old_LOD0",
+    "sedan_old_LOD1",
+    "sedan_old_LOD2"
+   ],
+   "lamps": {
+    "head": [
+     [
+      0.53,
+      0.6,
+      2.344
+     ]
+    ],
+    "tail": [
+     [
+      0.6,
+      0.78,
+      -2.46
+     ]
+    ]
+   },
+   "triangles": {
+    "lod": [
+     5944,
+     1480,
+     686
+    ],
+    "wheel": [
+     684,
+     166
+    ]
+   }
+  },
+  "pritsche": {
+   "label": "Pritschenwagen",
+   "length": 5.3,
+   "width": 1.95,
+   "height": 1.98,
+   "wheelbase": 3.4,
+   "track": 1.66,
+   "frontZ": 2.65,
+   "rearZ": -2.65,
+   "wheels": [
+    {
+     "lod0": "pritsche_wheel_LOD0",
+     "lod1": "pritsche_wheel_LOD1",
+     "radius": 0.35,
+     "x": 0.83,
+     "z": 1.7,
+     "steer": true
+    },
+    {
+     "lod0": "pritsche_wheel_LOD0",
+     "lod1": "pritsche_wheel_LOD1",
+     "radius": 0.35,
+     "x": 0.83,
+     "z": -1.7,
+     "steer": false
+    }
+   ],
+   "lods": [
+    "pritsche_LOD0",
+    "pritsche_LOD1",
+    "pritsche_LOD2"
+   ],
+   "lamps": {
+    "head": [
+     [
+      0.475,
+      0.74,
+      2.71
+     ]
+    ],
+    "tail": [
+     [
+      0.765,
+      1.1,
+      -2.67
+     ]
+    ]
+   },
+   "triangles": {
+    "lod": [
+     4304,
+     1226,
+     628
+    ],
+    "wheel": [
+     684,
+     166
+    ]
+   }
+  },
+  "tractor": {
+   "label": "Schmalspurschlepper",
+   "length": 3.35,
+   "width": 1.45,
+   "height": 2.28,
+   "wheelbase": 1.9,
+   "track": 1.16,
+   "frontZ": 1.7999999999999998,
+   "rearZ": -1.5,
+   "wheels": [
+    {
+     "lod0": "tractor_wheelF_LOD0",
+     "lod1": "tractor_wheelF_LOD1",
+     "radius": 0.37,
+     "x": 0.5599999999999999,
+     "z": 0.95,
+     "steer": true
+    },
+    {
+     "lod0": "tractor_wheelR_LOD0",
+     "lod1": "tractor_wheelR_LOD1",
+     "radius": 0.56,
+     "x": 0.58,
+     "z": -0.95,
+     "steer": false
+    }
+   ],
+   "lods": [
+    "tractor_LOD0",
+    "tractor_LOD1",
+    "tractor_LOD2"
+   ],
+   "lamps": {
+    "head": [
+     [
+      0.2,
+      1.07,
+      1.8199999999999998
+     ]
+    ],
+    "tail": [
+     [
+      0.68,
+      0.99,
+      -1.4
+     ]
+    ]
+   },
+   "triangles": {
+    "lod": [
+     620,
+     403,
+     429
+    ],
+    "wheel": [
+     766,
+     766,
+     194,
+     194
+    ]
+   }
+  }
+ }
+}

@@ -1,0 +1,25 @@
+{
+  "attribution": "© GeoBasis-DE / LVermGeoRP (2026), dl-de/by-2-0, http://www.lvermgeo.rlp.de [Daten bearbeitet]",
+  "licence": "Datenlizenz Deutschland - Namensnennung - Version 2.0 (dl-de/by-2-0)",
+  "licenceUrl": "https://www.govdata.de/dl-de/by-2-0",
+  "source": "LVermGeo RLP OpenData DOP20 WMS https://geo4.service24.rlp.de/wms/rp_dop20.fcgi (layer rp_dop20, EPSG:25832, native 0.2 m/px)",
+  "processing": "mosaicked, baked cast shadows on non-vegetated ground lifted and de-blued, WebP re-encoded",
+  "mapSizeM": 2048.0,
+  "base": {
+    "file": "base.webp",
+    "sizePx": 4096,
+    "metresPerPixel": 0.5,
+    "bytes": 4964130
+  },
+  "tiles": {
+    "perSide": 8,
+    "tileSizeM": 256.0,
+    "tilePx": 1280,
+    "gutterPx": 16,
+    "imagePx": 1312,
+    "metresPerPixel": 0.2,
+    "filePattern": "hi_{row}_{col}.webp",
+    "rowOrder": "row 0 = north (z = -mapSize/2), col 0 = west (x = -mapSize/2)",
+    "bytes": 21401386
+  }
+}

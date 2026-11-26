@@ -1,0 +1,510 @@
+{
+  "models": {
+    "crop_wheat_patch": {
+      "key": "crop_wheat_patch",
+      "name": "crop_wheat_patch",
+      "glbFile": "wheat/crop_wheat_patch.glb",
+      "fileSizeBytes": 821432,
+      "boundsBox": {
+        "min": [
+          -3.003,
+          0.0,
+          -3.0
+        ],
+        "max": [
+          3.007,
+          0.996,
+          3.005
+        ],
+        "size": [
+          6.01,
+          0.996,
+          6.005
+        ]
+      },
+      "meshCount": 1,
+      "tileM": [
+        6.0,
+        6.0
+      ],
+      "spacingM": 6.0,
+      "alongRowM": 6.0,
+      "betweenBaysM": 6.0,
+      "windSway": 0.11,
+      "heightM": 0.95,
+      "lodDist": [
+        38,
+        140
+      ],
+      "nodePrefix": "crop_wheat_patch",
+      "lods": {
+        "LOD1": {
+          "node": "crop_wheat_patch_LOD1",
+          "triangles": 90
+        },
+        "LOD0": {
+          "node": "crop_wheat_patch_LOD0",
+          "triangles": 210
+        }
+      }
+    },
+    "crop_stubble_patch": {
+      "key": "crop_stubble_patch",
+      "name": "crop_stubble_patch",
+      "glbFile": "wheat/crop_stubble_patch.glb",
+      "fileSizeBytes": 560848,
+      "boundsBox": {
+        "min": [
+          -3.0,
+          0.0,
+          -2.818
+        ],
+        "max": [
+          3.0,
+          0.2,
+          2.815
+        ],
+        "size": [
+          6.0,
+          0.2,
+          5.633
+        ]
+      },
+      "meshCount": 1,
+      "tileM": [
+        6.0,
+        6.0
+      ],
+      "spacingM": 6.0,
+      "alongRowM": 6.0,
+      "betweenBaysM": 6.0,
+      "windSway": 0.0,
+      "heightM": 0.2,
+      "lodDist": [
+        36
+      ],
+      "nodePrefix": "crop_stubble_patch",
+      "lods": {
+        "LOD0": {
+          "node": "crop_stubble_patch_LOD0",
+          "triangles": 110
+        }
+      }
+    },
+    "crop_corn_row": {
+      "key": "crop_corn_row",
+      "name": "crop_corn_row",
+      "glbFile": "corn/crop_corn_row.glb",
+      "fileSizeBytes": 1257856,
+      "boundsBox": {
+        "min": [
+          -3.03,
+          0.0,
+          -1.317
+        ],
+        "max": [
+          3.142,
+          2.544,
+          1.326
+        ],
+        "size": [
+          6.172,
+          2.544,
+          2.643
+        ]
+      },
+      "meshCount": 1,
+      "tileM": [
+        6.0,
+        2.4
+      ],
+      "alongRowM": 6.0,
+      "betweenBaysM": 2.4,
+      "windSway": 0.15,
+      "heightM": 2.5,
+      "lodDist": [
+        34,
+        150
+      ],
+      "nodePrefix": "crop_corn_row",
+      "lods": {
+        "FAR": {
+          "node": "crop_corn_row_FAR",
+          "triangles": 10
+        },
+        "LOD1": {
+          "node": "crop_corn_row_LOD1",
+          "triangles": 22
+        },
+        "LOD0": {
+          "node": "crop_corn_row_LOD0",
+          "triangles": 192
+        }
+      }
+    },
+    "crop_sugarbeet_row": {
+      "key": "crop_sugarbeet_row",
+      "name": "crop_sugarbeet_row",
+      "glbFile": "sugarbeet/crop_sugarbeet_row.glb",
+      "fileSizeBytes": 554592,
+      "boundsBox": {
+        "min": [
+          -3.214,
+          -0.02,
+          -1.448
+        ],
+        "max": [
+          3.234,
+          0.573,
+          1.455
+        ],
+        "size": [
+          6.448,
+          0.593,
+          2.903
+        ]
+      },
+      "meshCount": 1,
+      "tileM": [
+        6.0,
+        2.5
+      ],
+      "alongRowM": 6.0,
+      "betweenBaysM": 2.5,
+      "windSway": 0.03,
+      "heightM": 0.5,
+      "lodDist": [
+        30,
+        110
+      ],
+      "nodePrefix": "crop_sugarbeet_row",
+      "lods": {
+        "LOD1": {
+          "node": "crop_sugarbeet_row_LOD1",
+          "triangles": 40
+        },
+        "LOD0": {
+          "node": "crop_sugarbeet_row_LOD0",
+          "triangles": 360
+        }
+      }
+    },
+    "crop_sunflower_patch": {
+      "key": "crop_sunflower_patch",
+      "name": "crop_sunflower_patch",
+      "glbFile": "sunflower/crop_sunflower_patch.glb",
+      "fileSizeBytes": 884660,
+      "boundsBox": {
+        "min": [
+          -3.077,
+          0.0,
+          -3.071
+        ],
+        "max": [
+          3.085,
+          1.988,
+          3.083
+        ],
+        "size": [
+          6.162,
+          1.988,
+          6.154
+        ]
+      },
+      "meshCount": 1,
+      "tileM": [
+        6.0,
+        6.0
+      ],
+      "spacingM": 6.0,
+      "alongRowM": 6.0,
+      "betweenBaysM": 6.0,
+      "windSway": 0.1,
+      "heightM": 1.95,
+      "lodDist": [
+        36,
+        150
+      ],
+      "nodePrefix": "crop_sunflower_patch",
+      "lods": {
+        "FAR": {
+          "node": "crop_sunflower_patch_FAR",
+          "triangles": 6
+        },
+        "LOD1": {
+          "node": "crop_sunflower_patch_LOD1",
+          "triangles": 24
+        },
+        "LOD0": {
+          "node": "crop_sunflower_patch_LOD0",
+          "triangles": 336
+        }
+      }
+    },
+    "meadow_grass_patch": {
+      "key": "meadow_grass_patch",
+      "name": "meadow_grass_patch",
+      "glbFile": "meadow/meadow_grass_patch.glb",
+      "fileSizeBytes": 1093124,
+      "boundsBox": {
+        "min": [
+          -3.028,
+          0.0,
+          -3.287
+        ],
+        "max": [
+          3.03,
+          0.906,
+          3.185
+        ],
+        "size": [
+          6.058,
+          0.906,
+          6.473
+        ]
+      },
+      "meshCount": 1,
+      "tileM": [
+        6.0,
+        6.0
+      ],
+      "spacingM": 6.0,
+      "alongRowM": 6.0,
+      "betweenBaysM": 6.0,
+      "windSway": 0.09,
+      "heightM": 0.62,
+      "lodDist": [
+        34,
+        110
+      ],
+      "nodePrefix": "meadow_grass_patch",
+      "lods": {
+        "LOD1": {
+          "node": "meadow_grass_patch_LOD1",
+          "triangles": 32
+        },
+        "LOD0": {
+          "node": "meadow_grass_patch_LOD0",
+          "triangles": 448
+        }
+      }
+    },
+    "wildflower_strip": {
+      "key": "wildflower_strip",
+      "name": "wildflower_strip",
+      "glbFile": "meadow/meadow_grass_patch.glb",
+      "fileSizeBytes": 1093124,
+      "boundsBox": {
+        "min": [
+          -2.501,
+          0.0,
+          -0.795
+        ],
+        "max": [
+          2.501,
+          0.985,
+          0.808
+        ],
+        "size": [
+          5.003,
+          0.985,
+          1.603
+        ]
+      },
+      "meshCount": 1,
+      "tileM": [
+        5.0,
+        1.6
+      ],
+      "alongRowM": 5.0,
+      "betweenBaysM": 1.6,
+      "windSway": 0.1,
+      "heightM": 0.95,
+      "lodDist": [
+        36,
+        120
+      ],
+      "nodePrefix": "wildflower_strip",
+      "lods": {
+        "FAR": {
+          "node": "wildflower_strip_FAR",
+          "triangles": 6
+        },
+        "LOD1": {
+          "node": "wildflower_strip_LOD1",
+          "triangles": 10
+        },
+        "LOD0": {
+          "node": "wildflower_strip_LOD0",
+          "triangles": 78
+        }
+      }
+    },
+    "hedgerow_bay": {
+      "key": "hedgerow_bay",
+      "name": "hedgerow_bay",
+      "glbFile": "props/hedgerow_bay.glb",
+      "fileSizeBytes": 353912,
+      "boundsBox": {
+        "min": [
+          -3.571,
+          -0.216,
+          -1.576
+        ],
+        "max": [
+          3.102,
+          3.518,
+          1.779
+        ],
+        "size": [
+          6.673,
+          3.735,
+          3.355
+        ]
+      },
+      "meshCount": 1,
+      "tileM": [
+        5.0,
+        1.8
+      ],
+      "alongRowM": 5.0,
+      "betweenBaysM": 2.2,
+      "windSway": 0.04,
+      "heightM": 2.4,
+      "lodDist": [
+        45,
+        160
+      ],
+      "nodePrefix": "hedgerow_bay",
+      "lods": {
+        "LOD0": {
+          "node": "hedgerow_bay_LOD0",
+          "triangles": 384
+        },
+        "LOD1": {
+          "node": "hedgerow_bay_LOD1",
+          "triangles": 40
+        },
+        "FAR": {
+          "node": "hedgerow_bay_FAR",
+          "triangles": 12
+        }
+      }
+    },
+    "vineyard_rose_post": {
+      "key": "vineyard_rose_post",
+      "name": "vineyard_rose_post",
+      "glbFile": "props/hedgerow_bay.glb",
+      "fileSizeBytes": 353912,
+      "boundsBox": {
+        "min": [
+          -0.815,
+          -0.303,
+          -0.739
+        ],
+        "max": [
+          0.843,
+          1.783,
+          1.169
+        ],
+        "size": [
+          1.658,
+          2.086,
+          1.908
+        ]
+      },
+      "meshCount": 1,
+      "spacingM": 5.5,
+      "windSway": 0.03,
+      "heightM": 1.8,
+      "lodDist": [
+        110
+      ],
+      "nodePrefix": "vineyard_rose_post",
+      "lods": {
+        "LOD0": {
+          "node": "vineyard_rose_post_LOD0",
+          "triangles": 96
+        }
+      }
+    },
+    "straw_bale_stack": {
+      "key": "straw_bale_stack",
+      "name": "straw_bale_stack",
+      "glbFile": "wheat/straw_bale_stack.glb",
+      "fileSizeBytes": 599000,
+      "boundsBox": {
+        "min": [
+          -2.382,
+          -0.03,
+          -0.624
+        ],
+        "max": [
+          2.353,
+          3.52,
+          0.65
+        ],
+        "size": [
+          4.735,
+          3.55,
+          1.274
+        ]
+      },
+      "meshCount": 1,
+      "spacingM": 8.0,
+      "windSway": 0.0
+    },
+    "hochsitz": {
+      "key": "hochsitz",
+      "name": "hochsitz",
+      "glbFile": "props/hochsitz.glb",
+      "fileSizeBytes": 202460,
+      "boundsBox": {
+        "min": [
+          -0.91,
+          -0.305,
+          -1.434
+        ],
+        "max": [
+          0.91,
+          4.06,
+          0.91
+        ],
+        "size": [
+          1.819,
+          4.365,
+          2.343
+        ]
+      },
+      "meshCount": 2,
+      "spacingM": 4.0,
+      "windSway": 0.0
+    },
+    "wegekreuz": {
+      "key": "wegekreuz",
+      "name": "wegekreuz",
+      "glbFile": "props/wegekreuz.glb",
+      "fileSizeBytes": 366292,
+      "boundsBox": {
+        "min": [
+          -0.55,
+          -0.3,
+          -0.55
+        ],
+        "max": [
+          0.55,
+          2.48,
+          0.55
+        ],
+        "size": [
+          1.1,
+          2.78,
+          1.1
+        ]
+      },
+      "meshCount": 2,
+      "spacingM": 2.5,
+      "windSway": 0.0
+    }
+  }
+}

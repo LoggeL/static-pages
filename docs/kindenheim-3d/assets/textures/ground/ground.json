@@ -1,0 +1,142 @@
+{
+  "size": 1024,
+  "normalConvention": "OpenGL (+Y), XY in RG, roughness in B",
+  "layers": [
+    {
+      "index": 0,
+      "name": "grass",
+      "albedo": "0_grass_albedo.webp",
+      "normalRoughness": "0_grass_nr.jpg",
+      "tileSizeM": 2.0,
+      "meanAlbedoLinear": [
+        0.1269,
+        0.1615,
+        0.0343
+      ],
+      "meanRoughness": 0.263,
+      "source": "ambientCG",
+      "sourceId": "Grass004",
+      "sourceUrl": "https://ambientcg.com/view?id=Grass004",
+      "licence": "CC0 1.0"
+    },
+    {
+      "index": 1,
+      "name": "dry_grass",
+      "albedo": "1_dry_grass_albedo.webp",
+      "normalRoughness": "1_dry_grass_nr.jpg",
+      "tileSizeM": 2.0,
+      "meanAlbedoLinear": [
+        0.4253,
+        0.3039,
+        0.2019
+      ],
+      "meanRoughness": 0.808,
+      "source": "Poly Haven",
+      "sourceId": "withered_grass",
+      "sourceUrl": "https://polyhaven.com/a/withered_grass",
+      "licence": "CC0 1.0"
+    },
+    {
+      "index": 2,
+      "name": "soil",
+      "albedo": "2_soil_albedo.webp",
+      "normalRoughness": "2_soil_nr.jpg",
+      "tileSizeM": 2.0,
+      "meanAlbedoLinear": [
+        0.0986,
+        0.0514,
+        0.0217
+      ],
+      "meanRoughness": 0.976,
+      "source": "Poly Haven",
+      "sourceId": "farm_soil",
+      "sourceUrl": "https://polyhaven.com/a/farm_soil",
+      "licence": "CC0 1.0"
+    },
+    {
+      "index": 3,
+      "name": "gravel",
+      "albedo": "3_gravel_albedo.webp",
+      "normalRoughness": "3_gravel_nr.jpg",
+      "tileSizeM": 3.0,
+      "meanAlbedoLinear": [
+        0.2981,
+        0.2363,
+        0.1509
+      ],
+      "meanRoughness": 0.869,
+      "source": "Poly Haven",
+      "sourceId": "gravel_ground_01",
+      "sourceUrl": "https://polyhaven.com/a/gravel_ground_01",
+      "licence": "CC0 1.0"
+    },
+    {
+      "index": 4,
+      "name": "pavers",
+      "albedo": "4_pavers_albedo.webp",
+      "normalRoughness": "4_pavers_nr.jpg",
+      "tileSizeM": 2.0,
+      "meanAlbedoLinear": [
+        0.2538,
+        0.2546,
+        0.2316
+      ],
+      "meanRoughness": 0.529,
+      "source": "ambientCG",
+      "sourceId": "PavingStones099",
+      "sourceUrl": "https://ambientcg.com/view?id=PavingStones099",
+      "licence": "CC0 1.0"
+    },
+    {
+      "index": 5,
+      "name": "asphalt",
+      "albedo": "5_asphalt_albedo.webp",
+      "normalRoughness": "5_asphalt_nr.jpg",
+      "tileSizeM": 4.0,
+      "meanAlbedoLinear": [
+        0.2409,
+        0.225,
+        0.213
+      ],
+      "meanRoughness": 0.931,
+      "source": "Poly Haven",
+      "sourceId": "asphalt_04",
+      "sourceUrl": "https://polyhaven.com/a/asphalt_04",
+      "licence": "CC0 1.0"
+    },
+    {
+      "index": 6,
+      "name": "setts",
+      "albedo": "6_setts_albedo.webp",
+      "normalRoughness": "6_setts_nr.jpg",
+      "tileSizeM": 1.8,
+      "meanAlbedoLinear": [
+        0.3016,
+        0.275,
+        0.2311
+      ],
+      "meanRoughness": 0.578,
+      "source": "Poly Haven",
+      "sourceId": "cobblestone_floor_08",
+      "sourceUrl": "https://polyhaven.com/a/cobblestone_floor_08",
+      "licence": "CC0 1.0"
+    },
+    {
+      "index": 7,
+      "name": "sidewalk",
+      "albedo": "7_sidewalk_albedo.webp",
+      "normalRoughness": "7_sidewalk_nr.jpg",
+      "tileSizeM": 3.5,
+      "meanAlbedoLinear": [
+        0.1899,
+        0.1933,
+        0.207
+      ],
+      "meanRoughness": 0.576,
+      "source": "ambientCG",
+      "sourceId": "PavingStones110",
+      "sourceUrl": "https://ambientcg.com/view?id=PavingStones110",
+      "licence": "CC0 1.0"
+    }
+  ]
+}

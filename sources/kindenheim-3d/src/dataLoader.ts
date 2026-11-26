@@ -19,24 +19,51 @@ import { resolveAssetUrl } from './url';
 
 export type ProgressCallback = (stage: LoadStage, percent: number, statusText: string) => void;
 
-async function fetchJsonOptional<T>(url: string): Promise<T | null> {
+/** A static host or SPA fallback that answers a missing path with its index page (HTTP 200, text/html). */
+function isHtmlFallback(res: Response): boolean {
+  return (res.headers.get('content-type') ?? '').includes('text/html');
+}
+
+/** Required data the world cannot be built without: a missing or broken file aborts start-up with its name. */
+async function fetchRequired(url: string): Promise<Response> {
+  const resolved = resolveAssetUrl(url);
+  let res: Response;
   try {
-    const res = await fetch(resolveAssetUrl(url));
-    if (!res.ok) return null;
-    return (await res.json()) as T;
+    res = await fetch(resolved);
+  } catch (err) {
+    throw new Error(`Data: network error while loading ${resolved}: ${(err as Error).message}`);
+  }
+  if (!res.ok) throw new Error(`Data: ${resolved} answered HTTP ${res.status}`);
+  if (isHtmlFallback(res)) {
+    throw new Error(`Data: ${resolved} is missing (the server answered with an HTML page instead of the file)`);
+  }
+  return res;
+}
+
+async function fetchJsonRequired<T>(url: string): Promise<T> {
+  const text = await (await fetchRequired(url)).text();
+  try {
+    return JSON.parse(text) as T;
   } catch {
-    return null;
+    throw new Error(`Data: ${url} is not valid JSON (starts with "${text.slice(0, 40).replace(/\s+/g, ' ')}")`);
   }
 }
 
-async function fetchBinaryOptional(url: string): Promise<ArrayBuffer | null> {
-  try {
-    const res = await fetch(resolveAssetUrl(url));
-    if (!res.ok) return null;
-    return await res.arrayBuffer();
-  } catch {
-    return null;
-  }
+function requireManifest<T>(value: T | null, url: string, what: string): T {
+  if (value === null) throw new Error(`Data: ${url} was loaded but contains no usable ${what}`);
+  return value;
+}
+
+/** Ground obstacles for the road builder: building footprints (scene JSON) + landmark model boxes (manifest). */
+let loadedObstacles: [number, number][][] | null = null;
+
+/**
+ * Outlines (world x, z, metres) that roads and sidewalks must keep clear of. Available once
+ * `loadAllDatasetMetadata` has resolved; throws before that instead of handing out an empty list.
+ */
+export function getGroundObstacles(): [number, number][][] {
+  if (!loadedObstacles) throw new Error('getGroundObstacles: loadAllDatasetMetadata() has not finished yet');
+  return loadedObstacles;
 }
 
 function normalizeUrlPath(raw: string | undefined, basePrefix: string): string {
@@ -207,19 +234,6 @@ export function normalizeBraveReferences(raw: unknown): BraveReferenceManifest |
   };
 }
 
-function createSyntheticFallbackHeightmap(gridSize: number): Float32Array {
-  const arr = new Float32Array(gridSize * gridSize);
-  for (let r = 0; r < gridSize; r++) {
-    const nz = r / (gridSize - 1) - 0.5;
-    for (let c = 0; c < gridSize; c++) {
-      const nx = c / (gridSize - 1) - 0.5;
-      const h = 28 + (-nx * 26 - nz * 14) + Math.sin(nx * 5.2) * 5.0 + Math.cos(nz * 4.7) * 4.0;
-      arr[r * gridSize + c] = Math.max(0, h);
-    }
-  }
-  return arr;
-}
-
 export function normalizeTractorManifest(raw: unknown): TractorManifest | null {
   if (!raw || typeof raw !== 'object') return null;
   const obj = raw as Record<string, unknown>;
@@ -333,47 +347,40 @@ export async function loadAllDatasetMetadata(onProgress?: ProgressCallback): Pro
   onProgress?.('terrain', 8, 'Lade Geodaten & Höhenmodell…');
 
   const [metaRaw, hmBuf, sceneRaw, braveRaw, landmarksRaw, villageRaw, tractorRaw, fieldsLayoutRaw] = await Promise.all([
-    fetchJsonOptional<MetaData>('/data/meta.json'),
-    fetchBinaryOptional('/data/terrain/heightmap.bin'),
-    fetchJsonOptional<SceneData>('/data/osm/kindenheim_scene.json'),
-    fetchJsonOptional<unknown>('/data/references/brave/manifest.json'),
-    fetchJsonOptional<unknown>('/assets/models/landmarks/manifest.json'),
-    fetchJsonOptional<unknown>('/assets/models/village/manifest.json'),
-    fetchJsonOptional<unknown>('/assets/models/tractor/manifest.json'),
-    fetchJsonOptional<FieldsLayoutData>('/data/osm/fields_layout.json'),
+    fetchJsonRequired<MetaData>('/data/meta.json'),
+    fetchRequired('/data/terrain/heightmap.bin').then((r) => r.arrayBuffer()),
+    fetchJsonRequired<SceneData>('/data/osm/kindenheim_scene.json'),
+    fetchJsonRequired<unknown>('/data/references/brave/manifest.json'),
+    fetchJsonRequired<unknown>('/assets/models/landmarks/manifest.json'),
+    fetchJsonRequired<unknown>('/assets/models/village/manifest.json'),
+    fetchJsonRequired<unknown>('/assets/models/tractor/manifest.json'),
+    fetchJsonRequired<FieldsLayoutData>('/data/osm/fields_layout.json'),
   ]);
 
-  const fieldsLayout =
-    fieldsLayoutRaw && fieldsLayoutRaw.available !== false && Array.isArray(fieldsLayoutRaw.fields)
-      ? fieldsLayoutRaw
-      : null;
+  if (fieldsLayoutRaw.available === false || !Array.isArray(fieldsLayoutRaw.fields)) {
+    throw new Error('Data: data/osm/fields_layout.json has no "fields" array (run scripts/build_fields_layout.py)');
+  }
+  const fieldsLayout = fieldsLayoutRaw;
+  const fieldsManifestRaw = await fetchJsonRequired<unknown>('/assets/models/fields/manifest.json');
 
-  const fieldsManifestRaw = fieldsLayout
-    ? await fetchJsonOptional<unknown>('/assets/models/fields/manifest.json')
-    : null;
-
-  const meta: MetaData = metaRaw ?? {
-    centerLat: 49.6108,
-    centerLon: 8.1636,
-    mapSizeM: 2048,
-    minElevationM: 155,
-    maxElevationM: 245,
-    gridSize: 513,
-    imagerySource: 'Fallback',
-    demSource: 'Fallback',
-  };
-
-  let heightmap: Float32Array;
-  if (hmBuf && hmBuf.byteLength >= 16) {
-    const floats = new Float32Array(hmBuf);
-    const inferredGrid = Math.round(Math.sqrt(floats.length));
-    if (inferredGrid * inferredGrid === floats.length) {
-      meta.gridSize = inferredGrid;
-    }
-    heightmap = floats;
-  } else {
-    meta.gridSize = meta.gridSize || 257;
-    heightmap = createSyntheticFallbackHeightmap(meta.gridSize);
+  const meta: MetaData = metaRaw;
+  if (!(meta.mapSizeM > 0) || !Number.isFinite(meta.minElevationM)) {
+    throw new Error('Geodata: data/meta.json lacks mapSizeM / minElevationM');
+  }
+  if (hmBuf.byteLength % 4 !== 0) {
+    throw new Error(`Geodata: data/terrain/heightmap.bin has ${hmBuf.byteLength} bytes, not a Float32 array`);
+  }
+  const heightmap = new Float32Array(hmBuf);
+  const grid = Math.round(Math.sqrt(heightmap.length));
+  if (grid < 2 || grid * grid !== heightmap.length) {
+    throw new Error(`Geodata: data/terrain/heightmap.bin holds ${heightmap.length} samples, which is not a square grid`);
+  }
+  if (meta.gridSize && meta.gridSize !== grid) {
+    throw new Error(`Geodata: heightmap.bin is ${grid} x ${grid} but data/meta.json says gridSize ${meta.gridSize}`);
+  }
+  meta.gridSize = grid;
+  if (!Array.isArray(sceneRaw.roads) || !Array.isArray(sceneRaw.buildings)) {
+    throw new Error('Geodata: data/osm/kindenheim_scene.json has no roads / buildings arrays');
   }
 
   const scene: SceneData = {
@@ -386,10 +393,33 @@ export async function loadAllDatasetMetadata(onProgress?: ProgressCallback): Pro
   };
 
   const braveRefs = normalizeBraveReferences(braveRaw);
-  const landmarksManifest = normalizeLandmarkManifest(landmarksRaw);
-  const villageManifest = normalizeVillageManifest(villageRaw);
-  const tractorManifest = normalizeTractorManifest(tractorRaw);
-  const fieldsManifest = normalizeFieldsManifest(fieldsManifestRaw);
+  const landmarksManifest = requireManifest(normalizeLandmarkManifest(landmarksRaw), 'assets/models/landmarks/manifest.json', 'landmark list');
+  const villageManifest = requireManifest(normalizeVillageManifest(villageRaw), 'assets/models/village/manifest.json', 'chunk list');
+  const tractorManifest = requireManifest(normalizeTractorManifest(tractorRaw), 'assets/models/tractor/manifest.json', 'tractor entry');
+  const fieldsManifest = requireManifest(normalizeFieldsManifest(fieldsManifestRaw), 'assets/models/fields/manifest.json', 'model list');
+  if (landmarksManifest.landmarks.length === 0) throw new Error('Data: assets/models/landmarks/manifest.json lists no landmarks');
+  if (villageManifest.chunks.length === 0) throw new Error('Data: assets/models/village/manifest.json lists no village chunks');
+
+  // Obstacles for roads / sidewalks: every building footprint (towers included) and each landmark model's box.
+  const obstacles: [number, number][][] = [];
+  for (const b of sceneRaw.buildings) {
+    if (Array.isArray(b.footprint) && b.footprint.length >= 3) obstacles.push(b.footprint);
+    if (b.tower?.footprint && b.tower.footprint.length >= 3) obstacles.push(b.tower.footprint);
+  }
+  for (const lm of landmarksManifest.landmarks) {
+    if (!lm.center || !(lm.footprintWidthM && lm.footprintDepthM) || typeof lm.rotationRad !== 'number') continue;
+    const c = Math.cos(lm.rotationRad);
+    const sn = Math.sin(lm.rotationRad);
+    const hw = lm.footprintWidthM / 2;
+    const hd = lm.footprintDepthM / 2;
+    // rotation.y = r: local +X -> (cos r, -sin r), local +Z -> (sin r, cos r) in world (x, z)
+    obstacles.push(
+      ([[-hw, -hd], [hw, -hd], [hw, hd], [-hw, hd]] as [number, number][]).map(
+        ([lx, lz]) => [lm.center![0] + lx * c + lz * sn, lm.center![1] - lx * sn + lz * c] as [number, number]
+      )
+    );
+  }
+  loadedObstacles = obstacles;
 
   onProgress?.('terrain', 22, 'Höhenmodell bereit, erstelle Gelände…');
 

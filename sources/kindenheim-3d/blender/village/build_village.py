@@ -2,32 +2,39 @@
 """
 Footprint-Accurate Palatinate (Pfalz) Village Architecture Builder for Kindenheim (Rheinland-Pfalz).
 
-Generates realistic, pitched-roof, PBR-textured 3D Blender architecture for EVERY real OSM
-building polygon in Kindenheim (excluding hero landmarks built by @blender-landmarks):
-- Exact real-world footprint geometry at world (x, baseElevationM, z) coordinates
-  (Blender (x, -z, y) -> glTF Y-up (x, y, z) exact contract!)
-- 2.0m underground + 0.55m above-ground Pfälzer Sandstein plinth/foundation skirt (zero floating!)
-- Proper pitched gabled (Satteldach), hipped (Walmdach), and multi-wing L/T/U courtyard roofs
-  aligned to each building's longest axis / OBB — with roof overhangs, soffit thickness,
-  watertight gable end walls, ridge caps, brick/sandstone chimneys, roof dormers,
-  recessed front doors & barn gates!
-- Clean metric UV mapping (integer window bays & stories, slope-aligned roof tiles)
-- Deterministic varied Pfalz stucco & clay/slate roof materials (customizable via palette_override.json
-  once real Street View references from @streetview-ref are calibrated!)
-- Batched spatially grouped .glb chunks (village_center, village_north, village_south, village_outskirts)
-- Clean master .blend archive (blender/village/kindenheim_village.blend) + 4 modular building
-  archetype .blend files in blender/village/archetypes/
-- Writes public/assets/models/village/manifest.json combining chunks + props metadata!
+Builds every real OSM / LoD2 building polygon of Kindenheim (hero landmarks excluded) as real geometry,
+positioned in world space (Blender (x, -z, y) -> glTF Y-up (x, y, z)), and exports four spatial chunks.
+
+V2 (graphics overhaul) - what a house is made of:
+- Walls with REAL openings: recessed windows (reveals, sandstone / painted surrounds, sills), folding shutters,
+  recessed front doors with steps, barn gates, garage doors, string courses, half-timbering as separate beams.
+  Detail tiers per wall: 'A' = faces / is visible from a street (full depth), 'B' = rear (flush window units in
+  wall cut-outs), 'party' = wall on wall (blank). Tiers come from the road network + neighbouring footprints.
+- Plinth course standing proud of the wall, cut out at doors; 2 m buried skirt (no floating houses on slopes).
+- Roofs with thickness: tiles, soffit, fascia, barge boards + verge tile course, saddle ridge tiles, zinc gutters
+  and downpipes, brick chimneys, dormers with windows, roof lights, module-accurate solar PV.
+- Materials: photo-scanned CC0 library (blender/shared_textures, real-world UV scale from library.json).
+  Colour per house = neutral scan x linear vertex colour ('Col' / COLOR_0): tint, dirt at the wall foot,
+  rain shadow under the eaves, per-house roof tone. Authored atlases only for windows / joinery / PV
+  (blender/village/generate_textures.py).
+- Windows: `Pfalz_Window_Glass` (dark mirror glass via ORM) and `Pfalz_Window_Glass_Lit_A|B|C` (same atlas +
+  emissive interior); src/buildings.ts fades the lit groups in at dusk (setTimeOfDay contract).
+- Export: Draco-compressed GLB chunks (village_center / _north / _south / _outskirts). Textures are NOT embedded:
+  they are published once to public/assets/models/village/tex/ and referenced by relative URI from all chunks.
+- manifest.json: only the chunk / building keys are rewritten; the "props" section is preserved verbatim.
+- The per-building override vocabulary (BUILDING_OVERRIDES, data/streets/*/overrides.json: wall_mat, roof_mat,
+  plinth_mat, ...) is unchanged - every key resolves through the SEM palette to a real material + tint.
 
 Usage:
-  Demo mode (tests 12 varied Pfalz buildings on sloped terrain + renders sunlit preview):
-    /opt/homebrew/bin/blender --background --python blender/village/build_village.py -- --demo --render <png>
+  Demo (8 test houses -> public/assets/models/village/_wip/demo_village.glb):
+    /opt/homebrew/bin/blender --background --python blender/village/build_village.py -- --demo --skip-archetypes
 
-  Production mode (reads data/osm/kindenheim_scene.json + excludes landmark IDs):
-    /opt/homebrew/bin/blender --background --python blender/village/build_village.py -- \
-      --scene data/osm/kindenheim_scene.json \
-      --landmarks-manifest public/assets/models/landmarks/manifest.json \
-      --render-aerial <png1> --render-street <png2>
+  Dev build next to the live chunks (view with http://localhost:<port>/?villageDir=_wip):
+    /opt/homebrew/bin/blender --background --python blender/village/build_village.py -- --out-subdir _wip --no-blend
+    (optionally --only-near x,z,radius)
+
+  Production (rewrites the four live chunks, the master .blend, the archetypes and the manifest chunk keys):
+    /opt/homebrew/bin/blender --background --python blender/village/build_village.py
 """
 
 import argparse
@@ -36,11 +43,14 @@ import hashlib
 import json
 import math
 import os
+import shutil
+import struct
+import subprocess
 import sys
+import tempfile
 from typing import List, Tuple, Dict, Optional
 
 import bpy
-import bmesh
 from mathutils import Vector, Matrix, Euler
 from mathutils.geometry import tessellate_polygon
 
@@ -57,405 +67,417 @@ os.makedirs(OUT_GLB_DIR, exist_ok=True)
 
 
 # ---------------------------------------------------------------------------
-# Deterministic Hashing & Material Palette
+# Deterministic Hashing, Colour Helpers & PBR Material Library (V2: shared photo-scanned library)
 # ---------------------------------------------------------------------------
+
+SHARED_TEX_DIR = os.path.join(PROJECT_ROOT, "blender/shared_textures")
+LIBRARY_JSON = os.path.join(SHARED_TEX_DIR, "library.json")
+WEB_TEX_DIRNAME = "tex"
+WEB_TEX_DIR = os.path.join(OUT_GLB_DIR, WEB_TEX_DIRNAME)
+
+WHITE = (1.0, 1.0, 1.0)
+
 
 def stable_hash_int(key: str) -> int:
     return int(hashlib.md5(str(key).encode("utf-8")).hexdigest()[:8], 16)
+
+
+def hash01(key: str) -> float:
+    """Deterministic pseudo-random float in [0, 1) for any string key."""
+    return (int(hashlib.md5(str(key).encode("utf-8")).hexdigest()[:12], 16) % 1000003) / 1000003.0
+
+
+def srgb_to_lin(c255: float) -> float:
+    c = max(0.0, min(1.0, c255 / 255.0))
+    return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+
+
+def lin_rgb(rgb255) -> Tuple[float, float, float]:
+    return (srgb_to_lin(rgb255[0]), srgb_to_lin(rgb255[1]), srgb_to_lin(rgb255[2]))
+
+
+def mul3(a, b) -> Tuple[float, float, float]:
+    if isinstance(b, (int, float)):
+        return (a[0] * b, a[1] * b, a[2] * b)
+    return (a[0] * b[0], a[1] * b[1], a[2] * b[2])
+
+
+def clamp01_3(a) -> Tuple[float, float, float]:
+    return (max(0.0, min(1.0, a[0])), max(0.0, min(1.0, a[1])), max(0.0, min(1.0, a[2])))
 
 
 def clear_scene():
     bpy.ops.wm.read_factory_settings(use_empty=True)
 
 
-def load_image(path: str, colorspace: str = "sRGB"):
-    img = bpy.data.images.load(path, check_existing=True)
-    try:
-        img.colorspace_settings.name = colorspace
-    except Exception:
-        pass
-    img.pack()
+def load_library() -> Dict[str, Dict]:
+    if not os.path.exists(LIBRARY_JSON):
+        raise RuntimeError(f"Shared texture library missing: {LIBRARY_JSON} (built by scripts/build_texture_library.py)")
+    with open(LIBRARY_JSON, "r", encoding="utf-8") as f:
+        lib = json.load(f)
+    mats = lib.get("materials")
+    if isinstance(mats, dict):
+        return mats
+    return {m["id"]: m for m in mats}
+
+
+def load_image(path: str, colorspace: str = "sRGB", name: Optional[str] = None):
+    """Load (never pack) an image; the image NAME is the cross-GLB texture identity (src/sharedAssets.ts)."""
+    if not os.path.exists(path):
+        raise RuntimeError(f"Texture file missing: {path}")
+    want = name or os.path.splitext(os.path.basename(path))[0]
+    img = bpy.data.images.get(want)
+    if img is None:
+        img = bpy.data.images.load(path, check_existing=False)
+        img.name = want
+    img.colorspace_settings.name = colorspace
     return img
 
 
-def make_arch_material(
+def _gltf_output_group():
+    """The glTF exporter reads ambient occlusion from a node group called 'glTF Material Output'."""
+    ng = bpy.data.node_groups.get("glTF Material Output")
+    if ng is None:
+        ng = bpy.data.node_groups.new("glTF Material Output", "ShaderNodeTree")
+        ng.interface.new_socket(name="Occlusion", in_out="INPUT", socket_type="NodeSocketFloat")
+        ng.nodes.new("NodeGroupInput")
+    return ng
+
+
+def make_pbr_material(
     name: str,
-    albedo_file: Optional[str] = None,
-    normal_file: Optional[str] = None,
-    rough_file: Optional[str] = None,
-    base_color=(0.75, 0.72, 0.68, 1.0),
+    albedo_path: Optional[str] = None,
+    normal_path: Optional[str] = None,
+    orm_path: Optional[str] = None,
+    emissive_path: Optional[str] = None,
+    base_color=(1.0, 1.0, 1.0, 1.0),
     roughness: float = 0.85,
     metallic: float = 0.0,
     normal_strength: float = 1.0,
     alpha_clip: bool = False,
     double_sided: bool = False,
+    vertex_tint: bool = True,
+    alpha_blend: bool = False,
 ):
+    """glTF-exportable Principled material: base colour = albedo texture x vertex colour ('Col'), ORM packed map."""
     if name in bpy.data.materials:
         return bpy.data.materials[name]
     mat = bpy.data.materials.new(name=name)
     nt = mat.node_tree
-    nodes = nt.nodes
-    links = nt.links
+    nodes, links = nt.nodes, nt.links
     bsdf = nodes.get("Principled BSDF")
     bsdf.inputs["Base Color"].default_value = base_color
     bsdf.inputs["Roughness"].default_value = roughness
     bsdf.inputs["Metallic"].default_value = metallic
 
-    if albedo_file:
-        fp = os.path.join(TEX_DIR, albedo_file)
-        if os.path.exists(fp):
-            tex = nodes.new("ShaderNodeTexImage")
-            tex.image = load_image(fp, "sRGB")
-            links.new(tex.outputs["Color"], bsdf.inputs["Base Color"])
-            if alpha_clip:
-                math_n = nodes.new("ShaderNodeMath")
-                math_n.operation = "ROUND"
-                links.new(tex.outputs["Alpha"], math_n.inputs[0])
-                links.new(math_n.outputs["Value"], bsdf.inputs["Alpha"])
-                mat.alpha_threshold = 0.45
+    color_out = None
+    if albedo_path:
+        tex = nodes.new("ShaderNodeTexImage")
+        tex.image = load_image(albedo_path, "sRGB")
+        color_out = tex.outputs["Color"]
+        if alpha_clip:
+            math_n = nodes.new("ShaderNodeMath")
+            math_n.operation = "ROUND"
+            links.new(tex.outputs["Alpha"], math_n.inputs[0])
+            links.new(math_n.outputs["Value"], bsdf.inputs["Alpha"])
+            mat.alpha_threshold = 0.45
+        elif alpha_blend:
+            links.new(tex.outputs["Alpha"], bsdf.inputs["Alpha"])
+            mat.surface_render_method = "BLENDED"
+    if vertex_tint:
+        vcol = nodes.new("ShaderNodeVertexColor")
+        vcol.layer_name = "Col"
+        if color_out is not None:
+            mix = nodes.new("ShaderNodeMix")
+            mix.data_type = "RGBA"
+            mix.blend_type = "MULTIPLY"
+            mix.inputs["Factor"].default_value = 1.0
+            links.new(color_out, mix.inputs["A"])
+            links.new(vcol.outputs["Color"], mix.inputs["B"])
+            color_out = mix.outputs["Result"]
+        else:
+            mix = nodes.new("ShaderNodeMix")
+            mix.data_type = "RGBA"
+            mix.blend_type = "MULTIPLY"
+            mix.inputs["Factor"].default_value = 1.0
+            mix.inputs["A"].default_value = base_color
+            links.new(vcol.outputs["Color"], mix.inputs["B"])
+            color_out = mix.outputs["Result"]
+    if color_out is not None:
+        links.new(color_out, bsdf.inputs["Base Color"])
 
-    if rough_file:
-        fp = os.path.join(TEX_DIR, rough_file)
-        if os.path.exists(fp):
-            rtex = nodes.new("ShaderNodeTexImage")
-            rtex.image = load_image(fp, "Non-Color")
-            links.new(rtex.outputs["Color"], bsdf.inputs["Roughness"])
+    if orm_path:
+        otex = nodes.new("ShaderNodeTexImage")
+        otex.image = load_image(orm_path, "Non-Color")
+        sep = nodes.new("ShaderNodeSeparateColor")
+        links.new(otex.outputs["Color"], sep.inputs["Color"])
+        links.new(sep.outputs["Green"], bsdf.inputs["Roughness"])
+        links.new(sep.outputs["Blue"], bsdf.inputs["Metallic"])
+        grp = nodes.new("ShaderNodeGroup")
+        grp.node_tree = _gltf_output_group()
+        links.new(sep.outputs["Red"], grp.inputs["Occlusion"])
 
-    if normal_file:
-        fp = os.path.join(TEX_DIR, normal_file)
-        if os.path.exists(fp):
-            ntex = nodes.new("ShaderNodeTexImage")
-            ntex.image = load_image(fp, "Non-Color")
-            nmap = nodes.new("ShaderNodeNormalMap")
-            nmap.inputs["Strength"].default_value = normal_strength
-            links.new(ntex.outputs["Color"], nmap.inputs["Color"])
-            links.new(nmap.outputs["Normal"], bsdf.inputs["Normal"])
+    if normal_path:
+        ntex = nodes.new("ShaderNodeTexImage")
+        ntex.image = load_image(normal_path, "Non-Color")
+        nmap = nodes.new("ShaderNodeNormalMap")
+        nmap.inputs["Strength"].default_value = normal_strength
+        links.new(ntex.outputs["Color"], nmap.inputs["Color"])
+        links.new(nmap.outputs["Normal"], bsdf.inputs["Normal"])
+
+    if emissive_path:
+        etex = nodes.new("ShaderNodeTexImage")
+        etex.image = load_image(emissive_path, "sRGB")
+        links.new(etex.outputs["Color"], bsdf.inputs["Emission Color"])
+        bsdf.inputs["Emission Strength"].default_value = 1.0
 
     mat.use_backface_culling = not double_sided
     return mat
 
 
+def _vt(fname: str) -> str:
+    return os.path.join(TEX_DIR, fname)
+
+
+# real material key -> spec.  lib: (library id, kind, '2k'|'1k')   own: file in blender/village/textures
+#   tile  = metres covered by one texture repeat (real-world scale, from library.json)
+#   mean  = library id whose average albedo normalises target colours (see tint_for)
+REAL_SPECS: Dict[str, Dict] = {
+    "plaster_smooth": dict(name="Pfalz_Plaster_Smooth", alb=("plaster_smooth", "1k"), nrm=("plaster_smooth", "2k"), orm=("plaster_smooth", "1k"), mean="plaster_smooth"),
+    # rough render: neutral white albedo of the smooth scan (tintable) + relief / roughness of the coarse stucco scan
+    "plaster_rough": dict(name="Pfalz_Plaster_Rough", alb=("plaster_smooth", "1k"), nrm=("plaster_rough", "2k"), orm=("plaster_rough", "1k"), mean="plaster_smooth", tile=1.15, normal_strength=0.6, ao_strength=0.45),
+    "plaster_weathered": dict(name="Pfalz_Plaster_Weathered", alb=("plaster_weathered", "1k"), nrm=("plaster_weathered", "1k"), orm=("plaster_weathered", "1k"), mean="plaster_weathered"),
+    "sandstone_red": dict(name="Pfalz_Sandstone_Red", alb=("sandstone_red_ashlar", "1k"), nrm=("sandstone_red_ashlar", "1k"), orm=("sandstone_red_ashlar", "1k"), mean="sandstone_red_ashlar"),
+    # yellow ashlar shares normal + ORM pixels with the red one (same scan, recoloured albedo)
+    "sandstone_yellow": dict(name="Pfalz_Sandstone_Yellow", alb=("sandstone_yellow_ashlar", "1k"), nrm=("sandstone_red_ashlar", "1k"), orm=("sandstone_red_ashlar", "1k"), mean="sandstone_yellow_ashlar"),
+    "rubble": dict(name="Pfalz_Rubble_Stone", alb=("sandstone_rubble_wall", "1k"), nrm=("sandstone_rubble_wall", "1k"), orm=("sandstone_rubble_wall", "1k"), mean="sandstone_rubble_wall"),
+    "brick": dict(name="Pfalz_Brick_Red", alb=("brick_red", "1k"), nrm=("brick_red", "1k"), orm=("brick_red", "1k"), mean="brick_red"),
+    # Roof tile scale: one real-world course height for every tile scan (0.30 m exposed course, counted on the
+    # 1K maps: clay red 8 courses, weathered pantiles 6, dark tiles 10 per repeat); slate courses are 0.20 m.
+    "roof_clay_red": dict(name="Pfalz_Roof_Clay_Red", alb=("roof_tiles_clay_red", "1k"), nrm=("roof_tiles_clay_red", "1k"), orm=("roof_tiles_clay_red", "1k"), mean="roof_tiles_clay_red", tile=2.4),
+    "roof_clay_weathered": dict(name="Pfalz_Roof_Clay_Weathered", alb=("roof_tiles_clay_weathered", "1k"), nrm=("roof_tiles_clay_weathered", "1k"), orm=("roof_tiles_clay_weathered", "1k"), mean="roof_tiles_clay_weathered", tile=1.8),   # 6 courses per repeat -> 0.30 m
+    "roof_dark": dict(name="Pfalz_Roof_Tiles_Dark", alb=("roof_tiles_dark", "1k"), nrm=("roof_tiles_dark", "1k"), orm=("roof_tiles_dark", "1k"), mean="roof_tiles_dark", tile=3.0),   # 10 courses -> 0.30 m
+    "roof_slate": dict(name="Pfalz_Roof_Slate", alb=("roof_slate", "1k"), nrm=("roof_slate", "1k"), orm=("roof_slate", "1k"), mean="roof_slate", tile=2.2),   # 11 courses per repeat -> 0.20 m
+    "wood_planks": dict(name="Pfalz_Wood_Planks", alb=("wood_planks_weathered", "1k"), nrm=("wood_planks_weathered", "1k"), orm=("wood_planks_weathered", "1k"), mean="wood_planks_weathered"),
+    "wood_beam": dict(name="Pfalz_Wood_Beam", alb=("wood_beam_oak", "1k"), nrm=("wood_beam_oak", "1k"), orm=("wood_beam_oak", "1k"), mean="wood_beam_oak"),
+    "metal_corrugated": dict(name="Pfalz_Metal_Corrugated", alb=("metal_corrugated", "1k"), nrm=("metal_corrugated", "1k"), orm=("metal_corrugated", "1k"), mean="metal_corrugated"),
+    "concrete": dict(name="Pfalz_Concrete", alb=("concrete", "1k"), nrm=("concrete", "1k"), orm=("concrete", "1k"), mean="concrete"),
+    "gravel": dict(name="Pfalz_Gravel", alb=("gravel", "1k"), nrm=("gravel", "1k"), orm=("gravel", "1k"), mean="gravel"),
+    # authored atlases (generate_textures.py)
+    "window": dict(name="Pfalz_Window_Glass", own=("village_window_atlas_albedo.png", "village_window_atlas_normal.png", "village_window_atlas_orm.png"), tile=None, vertex_tint=False),
+    "window_lit_a": dict(name="Pfalz_Window_Glass_Lit_A", own=("village_window_atlas_albedo.png", "village_window_atlas_normal.png", "village_window_atlas_orm.png"), emi="village_window_atlas_emissive.png", tile=None, vertex_tint=False),
+    "window_lit_b": dict(name="Pfalz_Window_Glass_Lit_B", own=("village_window_atlas_albedo.png", "village_window_atlas_normal.png", "village_window_atlas_orm.png"), emi="village_window_atlas_emissive.png", tile=None, vertex_tint=False),
+    "window_lit_c": dict(name="Pfalz_Window_Glass_Lit_C", own=("village_window_atlas_albedo.png", "village_window_atlas_normal.png", "village_window_atlas_orm.png"), emi="village_window_atlas_emissive.png", tile=None, vertex_tint=False),
+    "joinery": dict(name="Pfalz_Joinery", own=("village_joinery_atlas_albedo.png", "village_joinery_atlas_normal.png", "village_joinery_atlas_orm.png"), tile=None),
+    "solar": dict(name="Pfalz_Solar_PV", own=("village_solar_albedo.png", "village_solar_normal.png", "village_solar_orm.png"), tile=None, vertex_tint=False),
+    "plinth_tile": dict(name="Pfalz_Plinth_Tile", own=("village_plinth_tile_albedo.png", "village_plinth_tile_normal.png", "village_plinth_tile_orm.png"), tile=0.72),
+    # flat colour materials (vertex-tinted)
+    "paint": dict(name="Pfalz_Paint", flat=dict(roughness=0.55, metallic=0.0), tile=None),
+    # weathered zinc / copper rainwater goods: mid-grey and fairly rough so they do not mirror the blue sky
+    "zinc": dict(name="Pfalz_Gutter_Zinc", flat=dict(roughness=0.58, metallic=0.30), tile=None),
+    "grime": dict(name="Pfalz_Grime_Decal", decal="village_grime_atlas.png", tile=None),
+    "ivy": dict(name="Pfalz_Ivy_Cards", cards="village_ivy_cards.png", tile=None),
+    "signs": dict(name="Pfalz_Signs", flat_tex="village_signs.png", tile=None, vertex_tint=False),
+    # garden greenery baked into the chunks (hedges, ivy, cypress columns) + alpha-cut fences / gates
+    "gate_wrought_iron": dict(name="Pfalz_Gate_WroughtIron", legacy=dict(albedo="gate_wrought_iron.png", roughness=0.42, metallic=0.55, alpha_clip=True, double_sided=True), tile=None, vertex_tint=False),
+    "gate_iron_dark": dict(name="Pfalz_Gate_IronDark", legacy=dict(albedo="gate_iron_dark.png", roughness=0.45, metallic=0.48, alpha_clip=True, double_sided=True), tile=None, vertex_tint=False),
+    "gate_bauhaus_slat": dict(name="Pfalz_Gate_BauhausSlat", legacy=dict(albedo="gate_bauhaus_slat_albedo.jpg", normal="gate_bauhaus_slat_normal.png", roughness=0.48, metallic=0.36, double_sided=True), tile=None, vertex_tint=False),
+    "fence_wood_picket": dict(name="Pfalz_Fence_WoodPicket", legacy=dict(albedo="fence_wood_picket.png", roughness=0.82, alpha_clip=True, double_sided=True), tile=None, vertex_tint=False),
+    "fence_mesh_green": dict(name="Pfalz_Fence_MeshGreen", legacy=dict(albedo="fence_mesh_green.png", roughness=0.55, metallic=0.35, alpha_clip=True, double_sided=True), tile=None, vertex_tint=False),
+    "fence_mesh_galv": dict(name="Pfalz_Fence_MeshGalv", legacy=dict(albedo="fence_mesh_galv.png", roughness=0.42, metallic=0.62, alpha_clip=True, double_sided=True), tile=None, vertex_tint=False),
+    "bridge_railing_galv": dict(name="Pfalz_Bridge_RailingGalv", legacy=dict(albedo="bridge_railing_galv.png", roughness=0.36, metallic=0.68, alpha_clip=True, double_sided=True), tile=None, vertex_tint=False),
+}
+
+ZINC_GREY = (0.40, 0.41, 0.42)
+COPPER_BROWN = (0.30, 0.19, 0.13)
+# median linear luminance of the aerial-sampled roof colours per roofTone class (filled by run_production)
+ROOF_CLASS_LUM: Dict[str, float] = {}
+
+REAL_TILE: Dict[str, Optional[float]] = {}
+REAL_MEAN_LIN: Dict[str, Tuple[float, float, float]] = {}
+
+
+def atlas_cell(col: int, row: int, cols: int = 4, rows: int = 4, inset: float = 0.0025):
+    """UV rect (u0, v0, u1, v1) of an atlas cell; row 0 is the TOP row of the image."""
+    u0, u1 = col / cols + inset, (col + 1) / cols - inset
+    v1, v0 = 1.0 - row / rows - inset, 1.0 - (row + 1) / rows + inset
+    return (u0, v0, u1, v1)
+
+
+def J_CELL(col: int, row: int):
+    return atlas_cell(col, row, 4, 2)
+
+
+# Semantic palette: the per-building override data (BUILDING_OVERRIDES, data/streets/*/overrides.json) keeps
+# speaking the ORIGINAL material vocabulary; every key resolves to a real PBR material + vertex-colour tint.
+#   rgb   = target surface colour (sRGB 0-255), normalised against the scan's mean albedo
+#   mul   = direct linear multiplier on the scan (used where the target is not reachable by darkening)
+#   plaster=True -> the building picks smooth / rough / weathered render itself (age & roughness variation)
+def _P(r, g, b, **kw):
+    d = dict(real="plaster_rough", rgb=(r, g, b), plaster=True)
+    d.update(kw)
+    return d
+
+
+SEM: Dict[str, Dict] = {
+    # --- rendered facades ---
+    "wall_cream": _P(229, 222, 209), "wall_ochre": _P(210, 176, 111), "wall_warmwhite": _P(237, 234, 227),
+    "wall_terracotta": _P(201, 163, 154), "wall_sage": _P(160, 172, 170), "wall_sandstone": _P(213, 205, 194),
+    "wall_ochre_rolladen": _P(200, 163, 91, win="rolladen"), "wall_ochre_arched": _P(199, 169, 96, win="sprossen"),
+    "wall_butter_yellow": _P(220, 209, 155), "wall_weathered_cream_dark": _P(204, 194, 176, aged=True),
+    "wall_bauhaus_white": _P(234, 234, 234, era="modern", smooth=True), "wall_white_clean": _P(234, 233, 228),
+    "wall_blush_clean": _P(197, 163, 154), "wall_siding_lower": _P(210, 206, 198),
+    "wall_mustard_yellow": _P(204, 160, 67), "wall_coral_terracotta": _P(187, 112, 96),
+    "wall_cool_gray": _P(178, 182, 181), "wall_cool_gray_light": _P(203, 203, 201),
+    "wall_sandstone_buff": _P(188, 165, 129), "wall_modern_raffstore": _P(226, 227, 221, era="modern", smooth=True, win="raffstore"),
+    "wall_mustard_porthole": _P(202, 158, 67), "wall_peach_plain": _P(224, 211, 194),
+    "wall_utility": _P(216, 212, 201), "wall_barn": _P(211, 199, 176, aged=True),
+    "wall_fachwerk_white": _P(229, 227, 223, fachwerk=True), "wall_fachwerk_yellow": _P(224, 211, 158, fachwerk=True),
+    # --- exposed masonry / cladding ---
+    "wall_rubble_barn": dict(real="rubble", mul=(0.96, 0.95, 0.93)),
+    "wall_limestone_brick": dict(real="rubble", mul=(0.90, 0.90, 0.90)),
+    "wall_brick_barn_yellow": dict(real="brick", mul=(1.0, 0.97, 0.84)),
+    "wall_timber_vertical": dict(real="wood_planks", mul=(1.0, 0.90, 0.80)),
+    "wall_block_light": dict(real="plaster_rough", rgb=(196, 193, 186)),
+    "wall_block_dark": dict(real="concrete", mul=(0.86, 0.92, 1.0)),
+    "wall_palisade_brown": dict(real="concrete", mul=(1.0, 0.68, 0.56)),
+    # --- plinths ---
+    "plinth": dict(real="sandstone_red", mul=(0.94, 0.94, 0.94)),
+    "plinth_checkered": dict(real="plinth_tile"),
+    "plinth_rubble": dict(real="rubble", mul=(0.98, 0.98, 0.98)),
+    "plinth_red_smooth": dict(real="plaster_smooth", rgb=(155, 97, 74)),
+    "plinth_slate_gray": dict(real="plaster_smooth", rgb=(92, 99, 106)),
+    "plinth_concrete": dict(real="plaster_rough", rgb=(167, 169, 164)),
+    # --- roofs ---
+    "roof_terracotta": dict(real="roof_clay_red"),
+    "roof_darkred": dict(real="roof_clay_red", mul=(0.74, 0.60, 0.62)),
+    "roof_darkbrown": dict(real="roof_clay_weathered", mul=(0.66, 0.56, 0.52)),
+    "roof_slate": dict(real="roof_slate", mul=(0.30, 0.31, 0.34)),
+    "roof_metal": dict(real="metal_corrugated", mul=(1.0, 1.0, 1.0)),
+    "roof_flat": dict(real="concrete", mul=(0.80, 0.84, 0.90)),
+    "roof_red_bright": dict(real="paint", rgb=(184, 62, 52)),
+    # --- trims & details ---
+    "trim_wood": dict(real="wood_beam", mul=(0.50, 0.37, 0.29)),
+    "trim_honey_wood": dict(real="wood_beam", mul=(1.0, 0.72, 0.42)),
+    "trim_white": dict(real="paint", rgb=(232, 230, 224)),
+    "gutter_metal": dict(real="zinc", mul=ZINC_GREY),
+    "sign_kdc_blue": dict(real="paint", rgb=(46, 92, 160)),
+    "solar_pv": dict(real="solar"),
+    "barn_gate": dict(real="joinery", rgb=(120, 92, 64), uvrect=J_CELL(2, 1)),
+    "door_wood": dict(real="joinery", rgb=(128, 92, 66), uvrect=J_CELL(2, 0)),
+    # hedges / cypress columns / slab ivy are no longer built here (see DROPPED_GREENERY)
+    "ivy_foliage": dict(real="ivy"), "hedge_olive": dict(real="ivy"), "cypress_foliage": dict(real="ivy"),
+    "gate_wrought_iron": dict(real="gate_wrought_iron"), "gate_iron_dark": dict(real="gate_iron_dark"),
+    "gate_bauhaus_slat": dict(real="gate_bauhaus_slat"),
+    "fence_wood_picket": dict(real="fence_wood_picket"), "fence_mesh_green": dict(real="fence_mesh_green"),
+    "fence_mesh_galv": dict(real="fence_mesh_galv"), "bridge_railing_galv": dict(real="bridge_railing_galv"),
+}
+
+
+# Garden greenery used to be baked into the chunks as boxes and cones. Hedges, shrubs and trees are now placed by
+# the vegetation system from the aerial detection (data/osm/vegetation_layout.json); the override data may still
+# name these materials, but the builder skips such geometry (counted in the build statistics).
+DROPPED_GREENERY = {"ivy_foliage", "hedge_olive", "cypress_foliage"}
+
+
+def tint_for(real_key: str, rgb255) -> Tuple[float, float, float]:
+    """Vertex-colour multiplier that turns the scan's mean albedo into the target colour (hue-preserving clamp to <= 1)."""
+    mean = REAL_MEAN_LIN.get(real_key)
+    tgt = lin_rgb(rgb255)
+    if mean is None:
+        return tgt
+    t = [tgt[i] / max(mean[i], 1e-4) for i in range(3)]
+    mx = max(t)
+    if mx > 1.0:
+        t = [x / mx for x in t]
+    return (t[0], t[1], t[2])
+
+
+def sem_look(key: str) -> Tuple[str, Tuple[float, float, float], Dict]:
+    """Resolve a semantic material key -> (real material key, linear tint, entry)."""
+    ent = SEM.get(key)
+    if ent is None:
+        if key in REAL_SPECS:
+            return key, WHITE, {}
+        raise KeyError(f"Unknown village material key '{key}' (not in SEM palette nor REAL_SPECS)")
+    real = ent["real"]
+    if "rgb" in ent:
+        tint = tint_for(real, ent["rgb"])
+    else:
+        tint = ent.get("mul", WHITE)
+    return real, tint, ent
+
+
 def create_material_library() -> Dict[str, bpy.types.Material]:
-    mats = {}
-    # 6 global real-world calibrated Kindenheim Pfalz residential stucco facades
-    shuttered = {"ochre", "warmwhite", "sage"}
-    for col in ("ochre", "cream", "warmwhite", "terracotta", "sage", "sandstone"):
-        v = "facade" if col in shuttered else "facade_clean"
-        mats[f"wall_{col}"] = make_arch_material(
-            f"Pfalz_Wall_{col}",
-            albedo_file=f"wall_{col}_albedo.jpg",
-            normal_file=f"{v}_normal.png",
-            rough_file=f"{v}_rough.png",
-            normal_strength=1.05,
-        )
+    """Build every real PBR material. Returns {real_key: material}; semantic keys resolve through SEM."""
+    lib = load_library()
+    mats: Dict[str, bpy.types.Material] = {}
 
-    # Photographed corridor-exact facade materials (reuse clean facade normal/rough!)
-    for col in (
-        "ochre_rolladen",
-        "ochre_arched",
-        "butter_yellow",
-        "weathered_cream_dark",
-        "bauhaus_white",
-        "white_clean",
-        "blush_clean",
-        "siding_lower",
-        # Wave 2: Triftstraße, Am Kirchrain & adjacent street facades
-        "mustard_yellow",
-        "coral_terracotta",
-        "cool_gray",
-        "cool_gray_light",
-        "sandstone_buff",
-        "modern_raffstore",
-    ):
-        mats[f"wall_{col}"] = make_arch_material(
-            f"Pfalz_Wall_{col}",
-            albedo_file=f"wall_{col}_albedo.jpg",
-            normal_file="facade_clean_normal.png" if col not in ("bauhaus_white", "modern_raffstore") else None,
-            rough_file="facade_clean_rough.png" if col not in ("bauhaus_white", "modern_raffstore") else None,
-            roughness=0.84,
-            normal_strength=0.95,
-        )
+    def lib_path(ref) -> str:
+        mid, kind, res = ref
+        if mid not in lib:
+            raise RuntimeError(f"Shared texture library has no material '{mid}' (needed by the village builder)")
+        files = lib[mid]["files"]
+        k = kind if res == "2k" else f"{kind}_1k"
+        if k not in files:
+            raise RuntimeError(f"Library material '{mid}' has no '{k}' file")
+        return os.path.join(PROJECT_ROOT, files[k])
 
-    # Specialized corridor cladding & masonry materials
-    mats["wall_timber_vertical"] = make_arch_material(
-        "Pfalz_Wall_TimberVertical",
-        albedo_file="wall_timber_vertical_albedo.jpg",
-        roughness=0.82,
-    )
-    mats["wall_brick_barn_yellow"] = make_arch_material(
-        "Pfalz_Wall_BrickBarnYellow",
-        albedo_file="wall_brick_barn_yellow_albedo.jpg",
-        normal_file="sandstone_plinth_normal.png",
-        roughness=0.88,
-        normal_strength=0.85,
-    )
-    mats["wall_fachwerk_yellow"] = make_arch_material(
-        "Pfalz_Wall_FachwerkYellow",
-        albedo_file="wall_fachwerk_yellow_albedo.jpg",
-        normal_file="wall_barn_normal.png",
-        rough_file="wall_barn_rough.png",
-        normal_strength=1.0,
-    )
-    mats["wall_fachwerk_white"] = make_arch_material(
-        "Pfalz_Wall_FachwerkWhite",
-        albedo_file="wall_fachwerk_white_albedo.jpg",
-        normal_file="wall_barn_normal.png",
-        rough_file="wall_barn_rough.png",
-        normal_strength=1.0,
-    )
-    mats["wall_limestone_brick"] = make_arch_material(
-        "Pfalz_Wall_LimestoneBrick",
-        albedo_file="wall_limestone_brick_albedo.jpg",
-        normal_file="sandstone_plinth_normal.png",
-        roughness=0.90,
-        normal_strength=1.10,
-    )
-    mats["wall_rubble_barn"] = make_arch_material(
-        "Pfalz_Wall_RubbleBarn",
-        albedo_file="wall_rubble_barn_albedo.jpg",
-        normal_file="sandstone_plinth_normal.png",
-        roughness=0.92,
-        normal_strength=1.15,
-    )
-    mats["wall_mustard_porthole"] = make_arch_material(
-        "Pfalz_Wall_MustardPorthole",
-        albedo_file="wall_mustard_porthole_albedo.jpg",
-        roughness=0.82,
-    )
-    mats["wall_peach_plain"] = make_arch_material(
-        "Pfalz_Wall_PeachPlain",
-        albedo_file="wall_peach_plain_albedo.jpg",
-        roughness=0.88,
-    )
-
-    # 4 classic Pfalz roof tile materials (terracotta, darkred, darkbrown, slate)
-    for rcol in ("terracotta", "darkred", "darkbrown", "slate"):
-        mats[f"roof_{rcol}"] = make_arch_material(
-            f"Pfalz_Roof_{rcol}",
-            albedo_file=f"roof_{rcol}_albedo.jpg",
-            normal_file="roof_tiles_normal.png",
-            rough_file="roof_tiles_rough.png",
-            normal_strength=1.25,
-        )
-
-    # 4 authentic Kindenheim plinth materials (dressed sandstone, checkered ceramic tiles, limestone rubble, smooth red)
-    mats["plinth"] = make_arch_material(
-        "Pfalz_Sandstone_Plinth",
-        albedo_file="sandstone_plinth_albedo.jpg",
-        normal_file="sandstone_plinth_normal.png",
-        rough_file="sandstone_plinth_rough.png",
-        normal_strength=1.15,
-    )
-    mats["plinth_checkered"] = make_arch_material(
-        "Pfalz_Plinth_Checkered",
-        albedo_file="plinth_checkered_albedo.jpg",
-        roughness=0.46,
-    )
-    mats["plinth_rubble"] = make_arch_material(
-        "Pfalz_Plinth_Rubble",
-        albedo_file="plinth_rubble_albedo.jpg",
-        normal_file="sandstone_plinth_normal.png",
-        roughness=0.90,
-        normal_strength=1.20,
-    )
-    mats["plinth_red_smooth"] = make_arch_material(
-        "Pfalz_Plinth_RedSmooth",
-        albedo_file="plinth_red_smooth_albedo.jpg",
-        roughness=0.86,
-    )
-    mats["plinth_slate_gray"] = make_arch_material(
-        "Pfalz_Plinth_SlateGray",
-        albedo_file="plinth_slate_gray_albedo.jpg",
-        roughness=0.86,
-    )
-    mats["plinth_concrete"] = make_arch_material(
-        "Pfalz_Plinth_Concrete",
-        albedo_file="plinth_concrete_albedo.jpg",
-        roughness=0.88,
-    )
-    mats["wall_block_light"] = make_arch_material(
-        "Pfalz_Wall_BlockLight",
-        albedo_file="wall_block_light_albedo.jpg",
-        normal_file="sandstone_plinth_normal.png",
-        roughness=0.88,
-        normal_strength=0.85,
-    )
-    mats["wall_block_dark"] = make_arch_material(
-        "Pfalz_Wall_BlockDark",
-        albedo_file="wall_block_dark_albedo.jpg",
-        normal_file="sandstone_plinth_normal.png",
-        roughness=0.90,
-        normal_strength=0.95,
-    )
-    mats["wall_palisade_brown"] = make_arch_material(
-        "Pfalz_Wall_PalisadeBrown",
-        albedo_file="wall_palisade_brown_albedo.jpg",
-        roughness=0.88,
-    )
-
-    # Traditional half-timbered Scheune barn wall & double oak gate
-    mats["wall_barn"] = make_arch_material(
-        "Pfalz_Wall_Barn",
-        albedo_file="wall_barn_albedo.jpg",
-        normal_file="wall_barn_normal.png",
-        rough_file="wall_barn_rough.png",
-        normal_strength=1.05,
-    )
-    mats["barn_gate"] = make_arch_material(
-        "Pfalz_Barn_Gate",
-        albedo_file="barn_gate_albedo.jpg",
-        normal_file="barn_gate_normal.png",
-        roughness=0.80,
-        normal_strength=1.0,
-    )
-    mats["door_wood"] = make_arch_material(
-        "Pfalz_Front_Door",
-        albedo_file="door_wood_albedo.jpg",
-        roughness=0.68,
-    )
-
-    # Utility plaster & corrugated agricultural metal / flat roofs
-    mats["wall_utility"] = make_arch_material(
-        "Pfalz_Wall_Utility",
-        albedo_file="wall_utility_albedo.jpg",
-        roughness=0.88,
-    )
-    mats["roof_metal"] = make_arch_material(
-        "Pfalz_Roof_Metal",
-        albedo_file="roof_metal_albedo.jpg",
-        normal_file="roof_metal_normal.png",
-        roughness=0.52,
-        metallic=0.35,
-        normal_strength=1.0,
-    )
-    mats["roof_flat"] = make_arch_material(
-        "Pfalz_Roof_Flat_Gravel",
-        base_color=(0.44, 0.45, 0.46, 1.0),
-        roughness=0.88,
-    )
-
-    # Dark timber roof soffit/fascia & galvanized zinc gutters
-    mats["trim_wood"] = make_arch_material(
-        "Pfalz_Roof_Trim_Wood",
-        base_color=(0.20, 0.14, 0.10, 1.0),
-        roughness=0.82,
-    )
-    mats["gutter_metal"] = make_arch_material(
-        "Pfalz_Gutter_Zinc",
-        base_color=(0.56, 0.58, 0.60, 1.0),
-        roughness=0.40,
-        metallic=0.62,
-    )
-
-    # Specialized photorealistic corridor details: Solar PV, Climbing Ivy, Gates, Hedges/Cypress
-    mats["solar_pv"] = make_arch_material(
-        "Pfalz_Solar_PV",
-        albedo_file="solar_pv_albedo.jpg",
-        normal_file="solar_pv_normal.png",
-        roughness=0.18,
-        metallic=0.34,
-        normal_strength=0.9,
-    )
-    mats["ivy_foliage"] = make_arch_material(
-        "Pfalz_Ivy_Foliage",
-        albedo_file="ivy_foliage_albedo.jpg",
-        normal_file="ivy_foliage_normal.png",
-        roughness=0.68,
-        normal_strength=1.25,
-    )
-    mats["hedge_olive"] = make_arch_material(
-        "Pfalz_Hedge_Olive",
-        albedo_file="hedge_olive_albedo.jpg",
-        normal_file="ivy_foliage_normal.png",
-        roughness=0.78,
-        normal_strength=1.20,
-    )
-    mats["cypress_foliage"] = make_arch_material(
-        "Pfalz_Cypress_Foliage",
-        albedo_file="hedge_olive_albedo.jpg",
-        normal_file="ivy_foliage_normal.png",
-        roughness=0.80,
-        normal_strength=1.30,
-    )
-    mats["gate_wrought_iron"] = make_arch_material(
-        "Pfalz_Gate_WroughtIron",
-        albedo_file="gate_wrought_iron.png",
-        roughness=0.42,
-        metallic=0.55,
-        alpha_clip=True,
-        double_sided=True,
-    )
-    mats["gate_iron_dark"] = make_arch_material(
-        "Pfalz_Gate_IronDark",
-        albedo_file="gate_iron_dark.png",
-        roughness=0.45,
-        metallic=0.48,
-        alpha_clip=True,
-        double_sided=True,
-    )
-    mats["gate_bauhaus_slat"] = make_arch_material(
-        "Pfalz_Gate_BauhausSlat",
-        albedo_file="gate_bauhaus_slat_albedo.jpg",
-        normal_file="gate_bauhaus_slat_normal.png",
-        roughness=0.48,
-        metallic=0.36,
-        normal_strength=1.0,
-        double_sided=True,
-    )
-    # Wave 2 specialized trims, bright metal fascia, fences & Kinderbach bridge railings
-    mats["roof_red_bright"] = make_arch_material(
-        "Pfalz_Roof_RedBright",
-        base_color=(0.72, 0.24, 0.20, 1.0),
-        roughness=0.52,
-        metallic=0.22,
-    )
-    mats["trim_honey_wood"] = make_arch_material(
-        "Pfalz_Trim_HoneyWood",
-        base_color=(0.68, 0.46, 0.24, 1.0),
-        roughness=0.72,
-    )
-    mats["trim_white"] = make_arch_material(
-        "Pfalz_Trim_White",
-        base_color=(0.93, 0.92, 0.90, 1.0),
-        roughness=0.72,
-    )
-    mats["sign_kdc_blue"] = make_arch_material(
-        "Pfalz_Sign_KDCBlue",
-        base_color=(0.12, 0.28, 0.56, 1.0),
-        roughness=0.45,
-    )
-    mats["fence_wood_picket"] = make_arch_material(
-        "Pfalz_Fence_WoodPicket",
-        albedo_file="fence_wood_picket.png",
-        roughness=0.82,
-        alpha_clip=True,
-        double_sided=True,
-    )
-    mats["fence_mesh_green"] = make_arch_material(
-        "Pfalz_Fence_MeshGreen",
-        albedo_file="fence_mesh_green.png",
-        roughness=0.55,
-        metallic=0.35,
-        alpha_clip=True,
-        double_sided=True,
-    )
-    mats["fence_mesh_galv"] = make_arch_material(
-        "Pfalz_Fence_MeshGalv",
-        albedo_file="fence_mesh_galv.png",
-        roughness=0.42,
-        metallic=0.62,
-        alpha_clip=True,
-        double_sided=True,
-    )
-    mats["bridge_railing_galv"] = make_arch_material(
-        "Pfalz_Bridge_RailingGalv",
-        albedo_file="bridge_railing_galv.png",
-        roughness=0.36,
-        metallic=0.68,
-        alpha_clip=True,
-        double_sided=True,
-    )
+    kinds = {"alb": "albedo", "nrm": "normal", "orm": "orm"}
+    for key, spec in REAL_SPECS.items():
+        vt = spec.get("vertex_tint", True)
+        if "alb" in spec:
+            mats[key] = make_pbr_material(
+                spec["name"],
+                albedo_path=lib_path((spec["alb"][0], kinds["alb"], spec["alb"][1])),
+                normal_path=lib_path((spec["nrm"][0], kinds["nrm"], spec["nrm"][1])),
+                orm_path=lib_path((spec["orm"][0], kinds["orm"], spec["orm"][1])),
+                vertex_tint=vt, normal_strength=spec.get("normal_strength", 1.0),
+            )
+            REAL_TILE[key] = float(spec["tile"]) if spec.get("tile") else float(lib[spec["alb"][0]]["tileSizeM"][0])
+            REAL_MEAN_LIN[key] = tuple(lib[spec["mean"]]["avgAlbedoLinear"])
+        elif "own" in spec:
+            a, n, o = spec["own"]
+            mats[key] = make_pbr_material(
+                spec["name"], albedo_path=_vt(a), normal_path=_vt(n), orm_path=_vt(o),
+                emissive_path=_vt(spec["emi"]) if spec.get("emi") else None, vertex_tint=vt,
+            )
+            REAL_TILE[key] = spec.get("tile")
+        elif "decal" in spec:
+            mats[key] = make_pbr_material(spec["name"], albedo_path=_vt(spec["decal"]), roughness=0.95, alpha_blend=True, vertex_tint=True)
+            REAL_TILE[key] = None
+        elif "cards" in spec:
+            mats[key] = make_pbr_material(spec["name"], albedo_path=_vt(spec["cards"]), roughness=0.62, alpha_clip=True, double_sided=True, vertex_tint=True)
+            REAL_TILE[key] = None
+        elif "flat_tex" in spec:
+            mats[key] = make_pbr_material(spec["name"], albedo_path=_vt(spec["flat_tex"]), roughness=0.5, vertex_tint=False)
+            REAL_TILE[key] = None
+        elif "flat" in spec:
+            fl = spec["flat"]
+            mats[key] = make_pbr_material(
+                spec["name"], base_color=fl.get("base", (1.0, 1.0, 1.0, 1.0)), roughness=fl["roughness"],
+                metallic=fl["metallic"], vertex_tint=vt,
+            )
+            REAL_TILE[key] = None
+        else:
+            lg = spec["legacy"]
+            mats[key] = make_pbr_material(
+                spec["name"], albedo_path=_vt(lg["albedo"]),
+                normal_path=_vt(lg["normal"]) if lg.get("normal") else None,
+                roughness=lg.get("roughness", 0.8), metallic=lg.get("metallic", 0.0),
+                normal_strength=lg.get("normal_strength", 1.0),
+                alpha_clip=lg.get("alpha_clip", False), double_sided=lg.get("double_sided", False), vertex_tint=vt,
+            )
+            REAL_TILE[key] = None
+    # vertex tints for the (light, neutral) joinery atlas are normalised against its mean tone
+    REAL_MEAN_LIN["joinery"] = lin_rgb((204, 200, 192))
+    REAL_MEAN_LIN["paint"] = (1.0, 1.0, 1.0)
     return mats
+
+
+def valid_material_keys() -> set:
+    """Keys that override data may use (semantic palette + real materials)."""
+    return set(SEM.keys()) | set(REAL_SPECS.keys())
 
 
 # ---------------------------------------------------------------------------
@@ -605,23 +627,27 @@ BUILDING_OVERRIDES: Dict[str, Dict] = {
     # --- sv_weingut_kreutzenberger (1929 Bauhaus Landmark, Hauptstraße 5!) ---
     "lod2/DERPLP110000QOUr": {
         "wall_mat": "wall_bauhaus_white",
-        "plinth_mat": "plinth_rubble",
-        "plinth_above": 0.14,
+        "plinth_mat": "plinth_concrete",      # smooth grey render socle (Street View), not rubble
+        "plinth_above": 0.30,
         "roof_mat": "roof_flat",
         "roof_shape": "flat",                 # Kills giant overhanging skillion wedge!
         "wall_h": 6.8,
         "roof_h": 0.0,
         "bauhaus_penthouse": True,            # Stepped upper 1929 Bauhaus clerestory block!
+        "ribbon_windows": True,               # horizontal window bands (Fensterbaender) instead of punched bays
         "no_door": True,
     },
     "lod2/DERPLP110000QOUm": {
         "wall_mat": "wall_bauhaus_white",
-        "plinth_mat": "plinth_rubble",
-        "plinth_above": 0.14,
+        "plinth_mat": "plinth_concrete",
+        "plinth_above": 0.30,
         "roof_mat": "roof_flat",
         "roof_shape": "flat",
         "wall_h": 4.8,
         "roof_h": 0.0,
+        "ribbon_windows": True,
+        "is_windowed": True,
+        "no_gate": True,                      # white Bauhaus wall on the street, no plank barn gate
         "no_door": True,
     },
     "lod2/DERPLP110000QP2T": {
@@ -1778,107 +1804,1267 @@ def decompose_rectilinear_wings(pts: List[Tuple[float, float]], obb: Dict) -> Op
 # Mesh Builder Core (Single BMesh per Chunk with Multiple Material Slots!)
 # ---------------------------------------------------------------------------
 
+class SiteContext:
+    """Village-wide spatial context: which facades face a street, which walls are party walls, ground height.
+
+    All coordinates are Blender XY = (worldX, -worldZ).
+    """
+
+    CELL = 24.0
+
+    def __init__(self, road_segments=None, footprints=None, heightmap_path: Optional[str] = None):
+        # road_segments: (x0, y0, x1, y1, width, role) in Blender XY
+        self.roads = list(road_segments or [])
+        self.road_grid: Dict[Tuple[int, int], List[int]] = {}
+        for idx, (x0, y0, x1, y1, _w, _role) in enumerate(self.roads):
+            pad = 26.0
+            for gx in range(int(math.floor((min(x0, x1) - pad) / self.CELL)), int(math.floor((max(x0, x1) + pad) / self.CELL)) + 1):
+                for gy in range(int(math.floor((min(y0, y1) - pad) / self.CELL)), int(math.floor((max(y0, y1) + pad) / self.CELL)) + 1):
+                    self.road_grid.setdefault((gx, gy), []).append(idx)
+        # footprints: (id, pts[(x, y)], z_top) in Blender XY
+        self.fps = list(footprints or [])
+        self.fp_grid: Dict[Tuple[int, int], List[int]] = {}
+        self.fp_bbox = []
+        for idx, (_bid, pts, _zt) in enumerate(self.fps):
+            xs = [p[0] for p in pts]
+            ys = [p[1] for p in pts]
+            bb = (min(xs), min(ys), max(xs), max(ys))
+            self.fp_bbox.append(bb)
+            for gx in range(int(math.floor(bb[0] / self.CELL)), int(math.floor(bb[2] / self.CELL)) + 1):
+                for gy in range(int(math.floor(bb[1] / self.CELL)), int(math.floor(bb[3] / self.CELL)) + 1):
+                    self.fp_grid.setdefault((gx, gy), []).append(idx)
+        self.hm_vals = None
+        self.hm_n = 0
+        if heightmap_path and os.path.exists(heightmap_path):
+            import struct
+            raw = open(heightmap_path, "rb").read()
+            self.hm_n = int(round(math.sqrt(len(raw) // 4)))
+            self.hm_vals = struct.unpack(f"<{self.hm_n * self.hm_n}f", raw)
+
+    def ground(self, x: float, y: float) -> Optional[float]:
+        """Terrain elevation at Blender (x, y) (same units as baseElevationM), None without a heightmap."""
+        if self.hm_vals is None or self.hm_n < 2:
+            return None
+        n = self.hm_n
+        u = max(0.0, min(1.0, (x + 1024.0) / 2048.0)) * (n - 1)
+        v = max(0.0, min(1.0, (-y + 1024.0) / 2048.0)) * (n - 1)
+        c0, r0 = int(math.floor(u)), int(math.floor(v))
+        c1, r1 = min(n - 1, c0 + 1), min(n - 1, r0 + 1)
+        fu, fv = u - c0, v - r0
+        hv = self.hm_vals
+        return (hv[r0 * n + c0] * (1 - fu) + hv[r0 * n + c1] * fu) * (1 - fv) + (hv[r1 * n + c0] * (1 - fu) + hv[r1 * n + c1] * fu) * fv
+
+    def nearest_road(self, x: float, y: float):
+        """(distance to road EDGE, (qx, qy) nearest centreline point, role) or None if no road within ~26 m."""
+        best = None
+        for idx in self.road_grid.get((int(math.floor(x / self.CELL)), int(math.floor(y / self.CELL))), ()):
+            x0, y0, x1, y1, w, role = self.roads[idx]
+            dx, dy = x1 - x0, y1 - y0
+            l2 = dx * dx + dy * dy
+            t = 0.0 if l2 < 1e-9 else max(0.0, min(1.0, ((x - x0) * dx + (y - y0) * dy) / l2))
+            qx, qy = x0 + dx * t, y0 + dy * t
+            d = math.hypot(x - qx, y - qy) - 0.5 * w
+            if best is None or d < best[0]:
+                best = (d, (qx, qy), role)
+        return best
+
+    def inside_other(self, x: float, y: float, self_id: str) -> bool:
+        for idx in self.fp_grid.get((int(math.floor(x / self.CELL)), int(math.floor(y / self.CELL))), ()):
+            bid, pts, _zt = self.fps[idx]
+            if bid == self_id:
+                continue
+            bb = self.fp_bbox[idx]
+            if x < bb[0] or x > bb[2] or y < bb[1] or y > bb[3]:
+                continue
+            if point_in_polygon(x, y, pts):
+                return True
+        return False
+
+    def near_role(self, x: float, y: float, role: str, dist: float) -> bool:
+        for idx in self.road_grid.get((int(math.floor(x / self.CELL)), int(math.floor(y / self.CELL))), ()):
+            x0, y0, x1, y1, w, r = self.roads[idx]
+            if r != role:
+                continue
+            dx, dy = x1 - x0, y1 - y0
+            l2 = dx * dx + dy * dy
+            t = 0.0 if l2 < 1e-9 else max(0.0, min(1.0, ((x - x0) * dx + (y - y0) * dy) / l2))
+            if math.hypot(x - (x0 + dx * t), y - (y0 + dy * t)) <= dist:
+                return True
+        return False
+
+    def sight_blocked(self, x: float, y: float, qx: float, qy: float, self_id: str) -> bool:
+        """True if another building stands between a facade point and the road point it would face."""
+        d = math.hypot(qx - x, qy - y)
+        steps = max(2, int(d / 1.6))
+        for i in range(1, steps):
+            t = i / steps
+            if self.inside_other(x + (qx - x) * t, y + (qy - y) * t, self_id):
+                return True
+        return False
+
+
+class Facade:
+    """Local frame of one wall edge: s runs along the edge, z is up, d is the outward offset."""
+
+    __slots__ = ("x0", "y0", "ex", "ey", "nx", "ny", "L", "s_base")
+
+    def __init__(self, x0, y0, x1, y1, s_base: float = 0.0):
+        self.x0, self.y0 = x0, y0
+        self.L = math.hypot(x1 - x0, y1 - y0)
+        inv = 1.0 / max(self.L, 1e-9)
+        self.ex, self.ey = (x1 - x0) * inv, (y1 - y0) * inv
+        self.nx, self.ny = self.ey, -self.ex      # outward for CCW footprints
+        self.s_base = s_base
+
+    def P(self, s: float, z: float, d: float = 0.0):
+        return (self.x0 + self.ex * s + self.nx * d, self.y0 + self.ey * s + self.ny * d, z)
+
+    @property
+    def n3(self):
+        return (self.nx, self.ny, 0.0)
+
+    @property
+    def e3(self):
+        return (self.ex, self.ey, 0.0)
+
+
+# Window atlas cells (col, row) - see generate_textures.generate_window_atlas()
+WIN_FAMILIES = {
+    "white": [(0, 0), (0, 0), (1, 0), (1, 0), (2, 0), (3, 0)],
+    "white_box": [(3, 3), (3, 3), (0, 0), (1, 0), (3, 0), (2, 0)],
+    "sprossen": [(0, 1), (0, 1), (1, 1), (1, 1), (3, 0)],
+    "brown": [(2, 1), (2, 1), (3, 1), (2, 1)],
+    "anthracite": [(0, 2), (0, 2), (1, 2), (0, 2)],
+    "modern_white": [(2, 2), (0, 0), (2, 0), (3, 3), (0, 2)],
+    "raffstore": [(1, 2), (1, 2), (0, 2)],
+}
+WIN_ATTIC = (0, 3)
+WIN_BARN = (1, 3)
+WIN_SKYLIGHT = (2, 3)
+WIN_BATH = (3, 2)
+WIN_NEVER_LIT = {(1, 3)}
+
+SHUTTER_COLOURS = [(52, 78, 58), (66, 44, 34), (96, 40, 36), (60, 72, 88), (120, 122, 118), (70, 54, 40), (40, 60, 46)]
+DOOR_COLOURS = [(110, 76, 50), (72, 50, 36), (228, 226, 220), (60, 66, 72), (46, 70, 56), (120, 44, 38), (150, 120, 88), (88, 96, 104)]
+GARAGE_COLOURS = [(226, 226, 222), (226, 226, 222), (196, 198, 198), (110, 82, 58), (64, 68, 74), (58, 84, 64), (150, 152, 150)]
+GATE_COLOURS = [(118, 88, 60), (92, 70, 50), (60, 84, 62), (130, 124, 112), (84, 60, 46), (150, 110, 70)]
+STONE_TRIMS = [
+    ("sandstone_red", (1.0, 1.0, 1.0)), ("sandstone_red", (0.86, 0.84, 0.84)), ("sandstone_red", (1.0, 0.92, 0.88)),
+    ("sandstone_yellow", (1.0, 1.0, 1.0)), ("sandstone_yellow", (0.90, 0.88, 0.84)),
+]
+
+
 class VillageMeshBuilder:
-    def __init__(self, name: str, mat_lib: Dict[str, bpy.types.Material]):
+    """Accumulates flat-shaded faces (position, UV, linear vertex colour) per real PBR material."""
+
+    def __init__(self, name: str, mat_lib: Dict[str, bpy.types.Material], site: Optional[SiteContext] = None, detail: float = 1.0):
         self.name = name
         self.mat_lib = mat_lib
+        self.site = site
+        self.detail = detail
         self.mat_order: List[str] = []
         self.mat_to_idx: Dict[str, int] = {}
-        self.bm = bmesh.new()
-        self.uv = self.bm.loops.layers.uv.new("UVMap")
+        self.co: List[Tuple[float, float, float]] = []
+        self.faces: List[Tuple[int, ...]] = []
+        self.fmat: List[int] = []
+        self.uvs: List[Tuple[float, float]] = []
+        self.cols: List[Tuple[float, float, float]] = []
+        self.fdet: List[bool] = []            # per face: True = small facade detail (separate '<chunk>_detail' mesh)
+        self._detail = False
+        self.detail_obj = None
+        self.cur: Optional[Dict] = None       # look of the building currently being built
+        self.warnings: List[str] = []
+        self.stats: Dict[str, int] = {}
 
-    def mat_idx(self, mat_key: str) -> int:
-        if mat_key not in self.mat_to_idx:
-            self.mat_to_idx[mat_key] = len(self.mat_order)
-            self.mat_order.append(mat_key)
-        return self.mat_to_idx[mat_key]
+    # ---------------- low level ----------------
+    def mat_idx(self, real_key: str) -> int:
+        idx = self.mat_to_idx.get(real_key)
+        if idx is None:
+            if real_key not in self.mat_lib:
+                raise KeyError(f"Real material '{real_key}' missing from material library")
+            idx = len(self.mat_order)
+            self.mat_to_idx[real_key] = idx
+            self.mat_order.append(real_key)
+        return idx
 
-    def add_quad(self, p0, p1, p2, p3, uvs, mat_key: str):
-        vs = [self.bm.verts.new(p) for p in (p0, p1, p2, p3)]
-        try:
-            f = self.bm.faces.new(vs)
-            f.material_index = self.mat_idx(mat_key)
-            for lp, uv_c in zip(f.loops, uvs):
-                lp[self.uv].uv = uv_c
-            return f
-        except ValueError:
-            return None
+    def count(self, key: str, n: int = 1):
+        self.stats[key] = self.stats.get(key, 0) + n
 
-    def add_tri(self, p0, p1, p2, uvs, mat_key: str):
-        vs = [self.bm.verts.new(p) for p in (p0, p1, p2)]
-        try:
-            f = self.bm.faces.new(vs)
-            f.material_index = self.mat_idx(mat_key)
-            for lp, uv_c in zip(f.loops, uvs):
-                lp[self.uv].uv = uv_c
-            return f
-        except ValueError:
-            return None
+    def _emit(self, real: str, pts, uv, col):
+        n = len(pts)
+        base = len(self.co)
+        self.co.extend(pts)
+        self.faces.append(tuple(range(base, base + n)))
+        self.fmat.append(self.mat_idx(real))
+        self.fdet.append(self._detail)
+        self.uvs.extend(uv)
+        if isinstance(col[0], (int, float)):
+            self.cols.extend([col] * n)
+        else:
+            self.cols.extend(col)
 
-    def add_box(self, center: Vector, u_axis: Vector, v_axis: Vector, sx: float, sy: float, sz: float, mat_key: str, uv_scale: float = 2.0):
-        """Add an oriented box centered at `center` along u_axis (sx), v_axis (sy), and +Z (sz)."""
+    def q(self, real: str, p0, p1, p2, p3, uv, col=WHITE, facing=None):
+        """Quad in a REAL material. facing: optional direction the face must look at (winding fixed automatically)."""
+        ax, ay, az = p2[0] - p0[0], p2[1] - p0[1], p2[2] - p0[2]
+        bx, by, bz = p3[0] - p1[0], p3[1] - p1[1], p3[2] - p1[2]
+        nx, ny, nz = ay * bz - az * by, az * bx - ax * bz, ax * by - ay * bx
+        if nx * nx + ny * ny + nz * nz < 1e-12:
+            return
+        pts = (tuple(p0), tuple(p1), tuple(p2), tuple(p3))
+        if facing is not None and (nx * facing[0] + ny * facing[1] + nz * facing[2]) < 0.0:
+            pts = pts[::-1]
+            uv = tuple(uv)[::-1]
+            if not isinstance(col[0], (int, float)):
+                col = tuple(col)[::-1]
+        self._emit(real, pts, uv, col)
+
+    def t(self, real: str, p0, p1, p2, uv, col=WHITE, facing=None):
+        ax, ay, az = p1[0] - p0[0], p1[1] - p0[1], p1[2] - p0[2]
+        bx, by, bz = p2[0] - p0[0], p2[1] - p0[1], p2[2] - p0[2]
+        nx, ny, nz = ay * bz - az * by, az * bx - ax * bz, ax * by - ay * bx
+        if nx * nx + ny * ny + nz * nz < 1e-12:
+            return
+        pts = (tuple(p0), tuple(p1), tuple(p2))
+        if facing is not None and (nx * facing[0] + ny * facing[1] + nz * facing[2]) < 0.0:
+            pts = pts[::-1]
+            uv = tuple(uv)[::-1]
+            if not isinstance(col[0], (int, float)):
+                col = tuple(col)[::-1]
+        self._emit(real, pts, uv, col)
+
+    class _DetailScope:
+        def __init__(self, b):
+            self.b = b
+
+        def __enter__(self):
+            self.prev = self.b._detail
+            self.b._detail = True
+
+        def __exit__(self, *a):
+            self.b._detail = self.prev
+
+    def detail_scope(self):
+        """with builder.detail_scope(): faces go to the '<chunk>_detail' mesh (hidden / shadow-less on low quality)."""
+        return VillageMeshBuilder._DetailScope(self)
+
+    def tile_of(self, mat_key: str, default: float) -> float:
+        """Real-world metres per texture repeat for a semantic or real key (default for untiled legacy materials)."""
+        real = SEM[mat_key]["real"] if mat_key in SEM else mat_key
+        t = REAL_TILE.get(real)
+        return float(t) if t else float(default)
+
+    def look(self, mat_key: str):
+        """(real, tint) for a semantic key; the current building's own wall / roof look wins for its keys."""
+        cur = self.cur
+        if cur is not None:
+            hit = cur.get("looks", {}).get(mat_key)
+            if hit is not None:
+                return hit
+        real, tint, _ = sem_look(mat_key)
+        return real, tint
+
+    # ---------------- legacy API (semantic keys, used by the courtyard / street accessories) ----------------
+    def _legacy_uv(self, mat_key: str, uvs):
+        ent = SEM.get(mat_key) or {}
+        rect = ent.get("uvrect")
+        if rect is None:
+            return uvs
+        u0, v0, u1, v1 = rect
+        return tuple((u0 + (u1 - u0) * max(0.0, min(1.0, uv[0])), v0 + (v1 - v0) * max(0.0, min(1.0, uv[1]))) for uv in uvs)
+
+    def add_quad(self, p0, p1, p2, p3, uvs, mat_key: str, col=None):
+        if mat_key in DROPPED_GREENERY:
+            self.count("greenery_faces_dropped")
+            return
+        real, tint = self.look(mat_key)
+        self.q(real, p0, p1, p2, p3, self._legacy_uv(mat_key, uvs), mul3(tint, col) if col else tint)
+
+    def add_tri(self, p0, p1, p2, uvs, mat_key: str, col=None):
+        if mat_key in DROPPED_GREENERY:
+            self.count("greenery_faces_dropped")
+            return
+        real, tint = self.look(mat_key)
+        self.t(real, p0, p1, p2, self._legacy_uv(mat_key, uvs), mul3(tint, col) if col else tint)
+
+    def add_box(self, center: Vector, u_axis: Vector, v_axis: Vector, sx: float, sy: float, sz: float, mat_key: str,
+                uv_scale: float = 2.0, col=None, skip_bottom: bool = False):
+        """Oriented box centered at `center` along u_axis (sx), v_axis (sy), +Z (sz); real-world UV scale."""
+        if mat_key in DROPPED_GREENERY:
+            self.count("greenery_boxes_dropped")
+            return
+        real, tint = self.look(mat_key)
+        if col:
+            tint = mul3(tint, col)
+        self.box(real, center, u_axis, v_axis, sx, sy, sz, tint, default_tile=uv_scale, skip_bottom=skip_bottom,
+                 uvrect=(SEM.get(mat_key) or {}).get("uvrect"))
+
+    def box(self, real: str, center, u_axis, v_axis, sx, sy, sz, col=WHITE, default_tile: float = 2.0,
+            skip_bottom: bool = False, skip_top: bool = False, uvrect=None, uv_off=(0.0, 0.0)):
         hx, hy, hz = sx * 0.5, sy * 0.5, sz * 0.5
+        c = Vector(center)
+        u_axis = Vector(u_axis)
+        v_axis = Vector(v_axis)
         z_axis = Vector((0.0, 0.0, 1.0))
+        tile = REAL_TILE.get(real) or default_tile
 
         def pt(dx, dy, dz):
-            return center + u_axis * dx + v_axis * dy + z_axis * dz
+            v = c + u_axis * dx + v_axis * dy + z_axis * dz
+            return (v.x, v.y, v.z)
 
-        c000 = pt(-hx, -hy, -hz)
-        c100 = pt(hx, -hy, -hz)
-        c110 = pt(hx, hy, -hz)
-        c010 = pt(-hx, hy, -hz)
-        c001 = pt(-hx, -hy, hz)
-        c101 = pt(hx, -hy, hz)
-        c111 = pt(hx, hy, hz)
-        c011 = pt(-hx, hy, hz)
-
+        c000, c100, c110, c010 = pt(-hx, -hy, -hz), pt(hx, -hy, -hz), pt(hx, hy, -hz), pt(-hx, hy, -hz)
+        c001, c101, c111, c011 = pt(-hx, -hy, hz), pt(hx, -hy, hz), pt(hx, hy, hz), pt(-hx, hy, hz)
         faces = [
-            ((c000, c100, c101, c001), sx / uv_scale, sz / uv_scale),  # -v side
-            ((c100, c110, c111, c101), sy / uv_scale, sz / uv_scale),  # +u side
-            ((c110, c010, c011, c111), sx / uv_scale, sz / uv_scale),  # +v side
-            ((c010, c000, c001, c011), sy / uv_scale, sz / uv_scale),  # -u side
-            ((c001, c101, c111, c011), sx / uv_scale, sy / uv_scale),  # top
-            ((c010, c110, c100, c000), sx / uv_scale, sy / uv_scale),  # bottom
+            ((c000, c100, c101, c001), sx, sz),
+            ((c100, c110, c111, c101), sy, sz),
+            ((c110, c010, c011, c111), sx, sz),
+            ((c010, c000, c001, c011), sy, sz),
         ]
-        for (a, b, c, d), su, sv in faces:
-            self.add_quad(a, b, c, d, ((0, 0), (su, 0), (su, sv), (0, sv)), mat_key)
+        if not skip_top:
+            faces.append(((c001, c101, c111, c011), sx, sy))
+        if not skip_bottom:
+            faces.append(((c010, c110, c100, c000), sx, sy))
+        uo, vo = uv_off
+        for (a, b, cc, d), wu, wv in faces:
+            if uvrect is not None:
+                u0, v0, u1, v1 = uvrect
+                uv = ((u0, v0), (u1, v0), (u1, v1), (u0, v1))
+            else:
+                su, sv = wu / tile, wv / tile
+                uv = ((uo, vo), (uo + su, vo), (uo + su, vo + sv), (uo, vo + sv))
+            self.q(real, a, b, cc, d, uv, col)
 
-    def add_plinth_skirt(self, pts: List[Tuple[float, float]], z_bot: float, z_top: float, plinth_mat: str = "plinth"):
-        """Extrude 2.0m underground + above-ground plinth with slight proud ledge."""
-        outer = offset_polygon_outward(pts, 0.045)
+    def gutter(self, center, along, outward, length: float):
+        """Half-round zinc gutter approximated by a channel: front, underside, back and dark inside.
+
+        The channel is closed at the back and tucked 3 cm under the fascia: an open profile standing off the
+        eave left a hair-thin lit gap between the roof's and the gutter's shadow, which the shadow map broke
+        up into a comb of light dots along every eave shadow."""
+        o = Vector(outward)
+        c = Vector(center) - o * 0.03
+        a = Vector(along)
+        h = length * 0.5
+        w, d = 0.12, 0.09
+        p = lambda da, do, dz: tuple(c + a * da + o * do + Vector((0.0, 0.0, dz)))   # noqa: E731
+        uv = ((0.0, 0.0), (0.2, 0.0), (0.2, 0.1), (0.0, 0.1))
+        zc = (self.cur or {}).get("zinc", ZINC_GREY)
+        with self.detail_scope():
+            self.q("zinc", p(-h, w * 0.5, -d * 0.5), p(h, w * 0.5, -d * 0.5), p(h, w * 0.5, d * 0.5), p(-h, w * 0.5, d * 0.5), uv, zc, facing=tuple(o))
+            self.q("zinc", p(-h, -w * 0.5, -d * 0.5), p(h, -w * 0.5, -d * 0.5), p(h, w * 0.5, -d * 0.5), p(-h, w * 0.5, -d * 0.5), uv, mul3(zc, 0.8), facing=(0, 0, -1))
+            self.q("zinc", p(-h, -w * 0.5, -d * 0.5), p(h, -w * 0.5, -d * 0.5), p(h, -w * 0.5, d * 0.5), p(-h, -w * 0.5, d * 0.5), uv, mul3(zc, 0.6), facing=tuple(-o))
+            self.q("zinc", p(-h, -w * 0.5, d * 0.5 - 0.03), p(h, -w * 0.5, d * 0.5 - 0.03), p(h, w * 0.5, d * 0.5 - 0.03), p(-h, w * 0.5, d * 0.5 - 0.03), uv, mul3(zc, 0.45), facing=(0, 0, 1))
+
+    def tube(self, real: str, pa, pb, radius: float, col=WHITE, sides: int = 6):
+        """Round pipe from pa to pb (open ends)."""
+        a, b = Vector(pa), Vector(pb)
+        d = b - a
+        ln = d.length
+        if ln < 1e-5:
+            return
+        d /= ln
+        ref = Vector((0.0, 0.0, 1.0)) if abs(d.z) < 0.95 else Vector((1.0, 0.0, 0.0))
+        e1 = d.cross(ref)
+        e1.normalize()
+        e2 = d.cross(e1)
+        ring = [(math.cos(2 * math.pi * k / sides), math.sin(2 * math.pi * k / sides)) for k in range(sides)]
+        for k in range(sides):
+            c0, s0 = ring[k]
+            c1, s1 = ring[(k + 1) % sides]
+            o0 = e1 * (c0 * radius) + e2 * (s0 * radius)
+            o1 = e1 * (c1 * radius) + e2 * (s1 * radius)
+            shade = 0.82 + 0.18 * (0.5 + 0.5 * c0)
+            self.q(real, tuple(a + o0), tuple(a + o1), tuple(b + o1), tuple(b + o0),
+                   ((0.0, 0.0), (0.05, 0.0), (0.05, ln * 0.2), (0.0, ln * 0.2)), mul3(col, shade), facing=tuple(o0 + o1))
+
+    def beam(self, real: str, pa, pb, w: float, h: float, col=WHITE, up=(0.0, 0.0, 1.0), caps: bool = False, tile: float = 1.0):
+        """4-sided prism from pa to pb with cross-section w (horizontal-ish) x h (along `up`)."""
+        a, b = Vector(pa), Vector(pb)
+        d = b - a
+        ln = d.length
+        if ln < 1e-5:
+            return
+        d /= ln
+        upv = Vector(up)
+        side = d.cross(upv)
+        if side.length < 1e-4:
+            side = d.cross(Vector((1.0, 0.0, 0.0)))
+        side.normalize()
+        upv = side.cross(d)
+        upv.normalize()
+        hw, hh = w * 0.5, h * 0.5
+        ring = [(-hw, -hh), (hw, -hh), (hw, hh), (-hw, hh)]
+        pa_r = [a + side * x + upv * y for x, y in ring]
+        pb_r = [b + side * x + upv * y for x, y in ring]
+        t_len = ln / max(REAL_TILE.get(real) or tile, 1e-3)
+        mid = (a + b) * 0.5
+        for i in range(4):
+            j = (i + 1) % 4
+            fc = (pa_r[i] + pa_r[j] + pb_r[i] + pb_r[j]) * 0.25 - mid
+            self.q(real, tuple(pa_r[i]), tuple(pa_r[j]), tuple(pb_r[j]), tuple(pb_r[i]),
+                   ((0.0, 0.0), (0.15, 0.0), (0.15, t_len), (0.0, t_len)), col, facing=tuple(fc))
+        if caps:
+            self.q(real, tuple(pa_r[0]), tuple(pa_r[1]), tuple(pa_r[2]), tuple(pa_r[3]), ((0, 0), (0.1, 0), (0.1, 0.1), (0, 0.1)), col, facing=tuple(-d))
+            self.q(real, tuple(pb_r[0]), tuple(pb_r[1]), tuple(pb_r[2]), tuple(pb_r[3]), ((0, 0), (0.1, 0), (0.1, 0.1), (0, 0.1)), col, facing=tuple(d))
+
+    # ---------------- plinth ----------------
+    def add_plinth_skirt(self, pts: List[Tuple[float, float]], z_bot: float, z_top: float, plinth_mat: str = "plinth",
+                         notches: Optional[Dict[int, List[Tuple[float, float, float]]]] = None, proud: float = 0.05,
+                         skip_edges: Optional[set] = None):
+        """2 m underground + above-ground plinth course standing proud of the wall, with door / gate cut-outs.
+
+        notches: {edge index: [(s0, s1, z_notch)]} - between s0..s1 the plinth only rises to z_notch.
+        """
+        real, tint = self.look(plinth_mat)
+        tile = REAL_TILE.get(real) or 2.0
+        outer = offset_polygon_outward(pts, proud)
         n = len(outer)
-        perim = 0.0
-        h = z_top - z_bot
-        uv_w = 2.2 if plinth_mat == "plinth_checkered" else 4.0
-        uv_h = 1.1 if plinth_mat == "plinth_checkered" else 2.0
-        v_top = h / uv_h
+        perim = hash01(f"pl{pts[0][0]:.2f}{pts[0][1]:.2f}") * 3.0
+        dirt = mul3(tint, (0.52, 0.50, 0.46))        # splash zone right above the ground
+        mid_c = mul3(tint, (0.80, 0.79, 0.76))
+        top_c = mul3(tint, (0.97, 0.97, 0.97))
+        site = self.site
+
+        def gnd(x, y):
+            g = site.ground(x, y) if site is not None else None
+            return (z_bot + 2.0) if g is None else g
+
         for i in range(n):
+            if skip_edges and i in skip_edges:
+                x0, y0 = outer[i]
+                x1, y1 = outer[(i + 1) % n]
+                perim += math.hypot(x1 - x0, y1 - y0)
+                continue
             x0, y0 = outer[i]
             x1, y1 = outer[(i + 1) % n]
             elen = math.hypot(x1 - x0, y1 - y0)
-            u0 = perim / uv_w
-            u1 = (perim + elen) / uv_w
-            self.add_quad(
-                (x0, y0, z_bot), (x1, y1, z_bot), (x1, y1, z_top), (x0, y0, z_top),
-                ((u0, 0.0), (u1, 0.0), (u1, v_top), (u0, v_top)),
-                plinth_mat,
-            )
+            if elen < 1e-4:
+                continue
             ix0, iy0 = pts[i]
             ix1, iy1 = pts[(i + 1) % n]
-            self.add_quad(
-                (x0, y0, z_top), (x1, y1, z_top), (ix1, iy1, z_top), (ix0, iy0, z_top),
-                ((u0, 0.0), (u1, 0.0), (u1, 0.08), (u0, 0.08)),
-                plinth_mat,
-            )
+            cuts = sorted((notches or {}).get(i, []))
+            # split the edge into spans: (t0, t1, z_span_top)
+            spans = []
+            cur_s = 0.0
+            ilen = math.hypot(ix1 - ix0, iy1 - iy0)
+            for (s0, s1, zn) in cuts:
+                a, b = max(0.0, s0 / max(ilen, 1e-6)), min(1.0, s1 / max(ilen, 1e-6))
+                if b <= a or a < cur_s:
+                    continue
+                if a > cur_s:
+                    spans.append((cur_s, a, z_top, False))
+                spans.append((a, b, min(z_top, zn), True))
+                cur_s = b
+            if cur_s < 1.0:
+                spans.append((cur_s, 1.0, z_top, False))
+            # a wall that stands in a slope: where the terrain rises above the plinth course, the course steps up
+            # with it (0.3 m above the ground, like a Sockel following the street) instead of the ground climbing
+            # over the plinth onto the render and the house reading as sunk
+            pieces = []
+            for (ta, tb, zt, is_cut) in spans:
+                if is_cut:
+                    pieces.append((ta, tb, zt, zt, True))
+                    continue
+                m = max(1, int(math.ceil((tb - ta) * elen / 2.5)))
+                ts = [ta + (tb - ta) * k / m for k in range(m + 1)]
+                tops = [max(zt, min(zt + 1.8, gnd(x0 + (x1 - x0) * t_, y0 + (y1 - y0) * t_) + 0.30)) for t_ in ts]
+                if max(tops) <= zt + 0.02:
+                    pieces.append((ta, tb, zt, zt, False))
+                    continue
+                self.count("plinth_stepped_spans")
+                k = 0
+                while k < m:
+                    if tops[k] <= zt + 0.02 and tops[k + 1] <= zt + 0.02:
+                        k2 = k + 1          # merge a run of level pieces into one
+                        while k2 < m and tops[k2 + 1] <= zt + 0.02:
+                            k2 += 1
+                        pieces.append((ts[k], ts[k2], zt, zt, False))
+                        k = k2
+                    else:
+                        pieces.append((ts[k], ts[k + 1], tops[k], tops[k + 1], False))
+                        k += 1
+            for (ta, tb, zta, ztb, is_cut) in pieces:
+                ax, ay = x0 + (x1 - x0) * ta, y0 + (y1 - y0) * ta
+                bx, by = x0 + (x1 - x0) * tb, y0 + (y1 - y0) * tb
+                u0 = (perim + elen * ta) / tile
+                u1 = (perim + elen * tb) / tile
+                vta, vtb = (zta - z_bot) / tile, (ztb - z_bot) / tile
+                if min(zta, ztb) > z_bot + 0.02:
+                    # lower quad up to a splash line 0.25 m above the terrain at each end (it follows the slope),
+                    # upper quad clean: no long grey gradient where a wall stands deep in a slope
+                    za_s = min(zta, max(z_bot + 0.05, gnd(ax, ay) + 0.25))
+                    zb_s = min(ztb, max(z_bot + 0.05, gnd(bx, by) + 0.25))
+                    if min(zta - za_s, ztb - zb_s) > 0.06:
+                        va, vb = (za_s - z_bot) / tile, (zb_s - z_bot) / tile
+                        self.q(real, (ax, ay, z_bot), (bx, by, z_bot), (bx, by, zb_s), (ax, ay, za_s),
+                               ((u0, 0.0), (u1, 0.0), (u1, vb), (u0, va)), (dirt, dirt, mid_c, mid_c))
+                        self.q(real, (ax, ay, za_s), (bx, by, zb_s), (bx, by, ztb), (ax, ay, zta),
+                               ((u0, va), (u1, vb), (u1, vtb), (u0, vta)), (mid_c, mid_c, top_c, top_c))
+                    else:
+                        self.q(real, (ax, ay, z_bot), (bx, by, z_bot), (bx, by, ztb), (ax, ay, zta),
+                               ((u0, 0.0), (u1, 0.0), (u1, vtb), (u0, vta)), (dirt, dirt, mid_c, mid_c))
+                # weathering ledge on top (connects back to the wall line)
+                jax, jay = ix0 + (ix1 - ix0) * ta, iy0 + (iy1 - iy0) * ta
+                jbx, jby = ix0 + (ix1 - ix0) * tb, iy0 + (iy1 - iy0) * tb
+                if not is_cut:
+                    self.q(real, (ax, ay, zta), (bx, by, ztb), (jbx, jby, ztb), (jax, jay, zta),
+                           ((u0, vta), (u1, vtb), (u1, vtb + 0.03), (u0, vta + 0.03)), top_c)
+                else:
+                    zt = zta
+                    # returns at both sides of the cut-out so one cannot look into the hollow plinth
+                    for (px_, py_, qx_, qy_, sgn) in ((ax, ay, jax, jay, 1.0), (bx, by, jbx, jby, -1.0)):
+                        ex_, ey_ = (x1 - x0) / elen * sgn, (y1 - y0) / elen * sgn
+                        self.q(real, (px_, py_, zt), (qx_, qy_, zt), (qx_, qy_, z_top), (px_, py_, z_top),
+                               ((0.0, 0.0), (0.03, 0.0), (0.03, 0.2), (0.0, 0.2)), top_c, facing=(ex_, ey_, 0.0))
             perim += elen
 
-    def add_ivy_blanket_on_wall(
-        self,
-        pts: List[Tuple[float, float]],
-        z_bot: float,
-        z_top: float,
-        ivy_dir_blender: Tuple[float, float],
-    ):
+    # ---------------- walls with real openings ----------------
+    def wall_panel(self, F: Facade, z0: float, z1: float, real: str, col, holes=None, notches=None,
+                   grime=(0.80, 0.90), uv_off=(0.0, 0.0), poly_top=None, bands: bool = True, top_band: bool = True):
+        """One wall face (z0..z1 over the whole edge) with rectangular holes and bottom notches cut out.
+
+        holes   : [(s0, s1, za, zb)] fully inside the wall
+        notches : [(s0, s1, zb)] openings that start at the wall foot (doors, gates)
+        grime   : vertex-colour multipliers at the wall foot / under the eaves (dirt gradients)
+        poly_top: optional list of (s, z) points replacing the straight top edge (gable / skillion walls), s descending
+        """
+        holes = [h for h in (holes or []) if h[1] - h[0] > 0.05 and h[3] - h[2] > 0.05]
+        notches = sorted([nn for nn in (notches or []) if nn[1] - nn[0] > 0.05])
+        L = F.L
+        tile = REAL_TILE.get(real) or 2.0
+        uo, vo = uv_off
+        H = z1 - z0
+
+        def UV(s, z):
+            return ((F.s_base + s) / tile + uo, (z - z0) / tile + vo)
+
+        g_b = mul3(col, grime[0])
+        g_b = (g_b[0], g_b[1] * 0.985, g_b[2] * 0.95)
+        g_t = mul3(col, grime[1])
+        hb = 0.50 if (bands and H > 1.7) else 0.0
+        ht = 0.38 if (bands and top_band and H > 1.7 and poly_top is None) else 0.0
+        tops = [h[3] for h in holes] + [nn[2] for nn in notches]
+        bots = [h[2] for h in holes]
+        if tops and ht > 0.0:
+            ht = min(ht, (z1 - max(tops)) - 0.03)
+            if ht < 0.08:
+                ht = 0.0
+        if bots and hb > 0.0:
+            hb = min(hb, (min(bots) - z0) - 0.03)
+            if hb < 0.08:
+                hb = 0.0
+        if notches and hb > 0.0:
+            hb = min(hb, min(nn[2] for nn in notches) - z0 - 0.05)
+            if hb < 0.08:
+                hb = 0.0
+        za, zb = z0 + hb, z1 - ht
+        nrm = F.n3
+
+        # foot band (dirt gradient), split around door / gate notches
+        if hb > 0.0:
+            cur_s = 0.0
+            segs = []
+            for (s0, s1, _z) in notches:
+                if s0 > cur_s + 1e-3:
+                    segs.append((cur_s, s0))
+                cur_s = max(cur_s, s1)
+            if cur_s < L - 1e-3:
+                segs.append((cur_s, L))
+            for (sa, sb) in segs:
+                self.q(real, F.P(sa, z0), F.P(sb, z0), F.P(sb, za), F.P(sa, za),
+                       (UV(sa, z0), UV(sb, z0), UV(sb, za), UV(sa, za)), (g_b, g_b, col, col), facing=nrm)
+        # eaves band (rain-shadow / soot gradient)
+        if ht > 0.0:
+            self.q(real, F.P(0.0, zb), F.P(L, zb), F.P(L, z1), F.P(0.0, z1),
+                   (UV(0.0, zb), UV(L, zb), UV(L, z1), UV(0.0, z1)), (col, col, g_t, g_t), facing=nrm)
+
+        # main field
+        if not holes and not notches and poly_top is None:
+            c_lo = col if (hb > 0.0 or not bands) else g_b
+            c_hi = col if (ht > 0.0 or not bands or not top_band) else (g_t if H > 1.0 else col)
+            self.q(real, F.P(0.0, za), F.P(L, za), F.P(L, zb), F.P(0.0, zb),
+                   (UV(0.0, za), UV(L, za), UV(L, zb), UV(0.0, zb)), (c_lo, c_lo, c_hi, c_hi), facing=nrm)
+            return True
+
+        outer = [(0.0, za)]
+        for (s0, s1, zn) in notches:
+            s0c, s1c = max(0.0, s0), min(L, s1)
+            if hb > 0.0 or zn > za + 1e-3:
+                if s0c > 1e-4:
+                    outer.append((s0c, za))
+                else:
+                    outer.pop()
+                outer.append((s0c, zn))
+                outer.append((s1c, zn))
+                if s1c < L - 1e-4:
+                    outer.append((s1c, za))
+        if outer[-1][0] < L - 1e-4:
+            outer.append((L, za))
+        if poly_top is not None:
+            outer.extend(poly_top)
+        else:
+            outer.append((L, zb))
+            outer.append((0.0, zb))
+        # drop consecutive duplicates
+        ring = []
+        for p in outer:
+            if not ring or abs(p[0] - ring[-1][0]) > 1e-5 or abs(p[1] - ring[-1][1]) > 1e-5:
+                ring.append(p)
+        if len(ring) > 2 and abs(ring[0][0] - ring[-1][0]) < 1e-5 and abs(ring[0][1] - ring[-1][1]) < 1e-5:
+            ring.pop()
+        loops = [[Vector((p[0], p[1], 0.0)) for p in ring]]
+        flat = list(ring)
+        area_expected = abs(signed_area_2d(ring))
+        for (s0, s1, ha, hb_) in holes:
+            hole = [(s0, ha), (s0, hb_), (s1, hb_), (s1, ha)]
+            loops.append([Vector((p[0], p[1], 0.0)) for p in hole])
+            flat.extend(hole)
+            area_expected -= (s1 - s0) * (hb_ - ha)
+        tris = tessellate_polygon(loops)
+        area_got = 0.0
+        out = []
+        for (i0, i1, i2) in tris:
+            a, b, c = flat[i0], flat[i1], flat[i2]
+            ar = 0.5 * ((b[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (b[1] - a[1]))
+            if abs(ar) < 1e-7:
+                continue
+            area_got += abs(ar)
+            out.append((a, b, c) if ar > 0 else (a, c, b))
+        if abs(area_got - area_expected) > 0.02 * max(area_expected, 0.5):
+            self.warnings.append(f"wall tessellation area mismatch ({area_got:.2f} vs {area_expected:.2f}) on {self.cur.get('id') if self.cur else '?'} L={L:.2f} z={z0:.2f}..{z1:.2f} holes={[(round(a,2),round(b,2),round(c,2),round(d,2)) for a,b,c,d in holes]} notches={[(round(a,2),round(b,2),round(c,2)) for a,b,c in notches]}")
+            return False
+        for (a, b, c) in out:
+            self.t(real, F.P(a[0], a[1]), F.P(b[0], b[1]), F.P(c[0], c[1]), (UV(*a), UV(*b), UV(*c)), col, facing=nrm)
+        return True
+
+    def _pick_lit(self, key: str, cell) -> str:
+        if cell in WIN_NEVER_LIT:
+            return "window"
+        cur = self.cur or {}
+        r = hash01("lit" + key)
+        p = cur.get("lit_share", 0.36)
+        if r > p:
+            return "window"
+        r2 = r / max(p, 1e-6)
+        return "window_lit_a" if r2 < 0.50 else ("window_lit_b" if r2 < 0.84 else "window_lit_c")
+
+    def window_unit(self, F: Facade, s0, s1, za, zb, d, cell, key: str):
+        u0, v0, u1, v1 = atlas_cell(cell[0], cell[1])
+        real = self._pick_lit(key, cell)
+        if hash01("flip" + key) < 0.5:
+            u0, u1 = u1, u0
+        self.q(real, F.P(s0, za, d), F.P(s1, za, d), F.P(s1, zb, d), F.P(s0, zb, d),
+               ((u0, v0), (u1, v0), (u1, v1), (u0, v1)), WHITE, facing=F.n3)
+        self.count("windows")
+
+    def add_window(self, F: Facade, s0, s1, za, zb, style: Dict, tier: str, wall_real: str, wall_col, key: str,
+                   cell=None, allow_shutters: bool = True, units: int = 1):
+        """Build one window; returns the wall hole (s0, s1, za, zb) it needs.
+
+        units > 1: one long opening (ribbon window / Fensterband) glazed as a row of `units` casements.
+        """
+        if units < 1:
+            raise ValueError(f"add_window {key}: units must be >= 1, got {units}")
+        cell = cell or style["cells"][int(hash01("cell" + key) * len(style["cells"])) % len(style["cells"])]
+        if tier != "A":
+            self.window_unit(F, s0, s1, za, zb, 0.0, cell, key)
+            return (s0, s1, za, zb)
+        n3, e3 = F.n3, F.e3
+        ne3 = (-e3[0], -e3[1], 0.0)
+        dep = style.get("reveal", 0.13)
+        sur = style.get("surround")
+        if sur == "stone":
+            fw, pr = style.get("fw", 0.13), 0.03
+            s_real, s_col = style["trim"]
+            sill_h, sill_out = 0.10, 0.075
+            tile = REAL_TILE.get(s_real) or 2.0
+            k = 1.0 / tile
+            uo = hash01("su" + key) * 3.0
+            # bevelled jambs + lintel (outer edge flush with the wall, inner edge proud)
+            self.q(s_real, F.P(s0 - fw, za), F.P(s0, za, pr), F.P(s0, zb, pr), F.P(s0 - fw, zb + fw),
+                   ((uo, 0.0), (uo + fw * k, 0.0), (uo + fw * k, (zb - za) * k), (uo, (zb - za + fw) * k)), s_col, facing=n3)
+            self.q(s_real, F.P(s1, za, pr), F.P(s1 + fw, za), F.P(s1 + fw, zb + fw), F.P(s1, zb, pr),
+                   ((uo + 0.5, 0.0), (uo + 0.5 + fw * k, 0.0), (uo + 0.5 + fw * k, (zb - za + fw) * k), (uo + 0.5, (zb - za) * k)), s_col, facing=n3)
+            self.q(s_real, F.P(s0, zb, pr), F.P(s1, zb, pr), F.P(s1 + fw, zb + fw), F.P(s0 - fw, zb + fw),
+                   ((uo, 0.6), (uo + (s1 - s0) * k, 0.6), (uo + (s1 - s0 + fw) * k, 0.6 + fw * k), (uo - fw * k, 0.6 + fw * k)), s_col, facing=n3)
+            # reveals
+            self.q(s_real, F.P(s0, za, pr), F.P(s0, za, -dep), F.P(s0, zb, -dep), F.P(s0, zb, pr),
+                   ((uo, 0.0), (uo + (dep + pr) * k, 0.0), (uo + (dep + pr) * k, (zb - za) * k), (uo, (zb - za) * k)), mul3(s_col, 0.92), facing=e3)
+            self.q(s_real, F.P(s1, za, pr), F.P(s1, za, -dep), F.P(s1, zb, -dep), F.P(s1, zb, pr),
+                   ((uo, 0.0), (uo + (dep + pr) * k, 0.0), (uo + (dep + pr) * k, (zb - za) * k), (uo, (zb - za) * k)), mul3(s_col, 0.92), facing=ne3)
+            self.q(s_real, F.P(s0, zb, pr), F.P(s1, zb, pr), F.P(s1, zb, -dep), F.P(s0, zb, -dep),
+                   ((uo, 0.0), (uo + (s1 - s0) * k, 0.0), (uo + (s1 - s0) * k, (dep + pr) * k), (uo, (dep + pr) * k)), mul3(s_col, 0.85), facing=(0, 0, -1))
+            # sill block (top doubles as the bottom reveal)
+            a, b = s0 - fw - 0.03, s1 + fw + 0.03
+            zs = za - sill_h
+            self.q(s_real, F.P(a, za, -dep), F.P(b, za, -dep), F.P(b, za - 0.012, sill_out), F.P(a, za - 0.012, sill_out),
+                   ((uo, 0.2), (uo + (b - a) * k, 0.2), (uo + (b - a) * k, 0.2 + (dep + sill_out) * k), (uo, 0.2 + (dep + sill_out) * k)), s_col, facing=(0, 0, 1))
+            self.q(s_real, F.P(a, zs, sill_out), F.P(b, zs, sill_out), F.P(b, za - 0.012, sill_out), F.P(a, za - 0.012, sill_out),
+                   ((uo, 0.4), (uo + (b - a) * k, 0.4), (uo + (b - a) * k, 0.4 + sill_h * k), (uo, 0.4 + sill_h * k)), mul3(s_col, 0.95), facing=n3)
+            self.q(s_real, F.P(a, zs, 0.0), F.P(b, zs, 0.0), F.P(b, zs, sill_out), F.P(a, zs, sill_out),
+                   ((uo, 0.0), (uo + (b - a) * k, 0.0), (uo + (b - a) * k, sill_out * k), (uo, sill_out * k)), mul3(s_col, 0.7), facing=(0, 0, -1))
+            for (sx_, fc) in ((a, ne3), (b, e3)):
+                self.q(s_real, F.P(sx_, zs, 0.0), F.P(sx_, zs, sill_out), F.P(sx_, za - 0.012, sill_out), F.P(sx_, za, 0.0),
+                       ((uo, 0.0), (uo + sill_out * k, 0.0), (uo + sill_out * k, sill_h * k), (uo, sill_h * k)), mul3(s_col, 0.9), facing=fc)
+            hole = (s0 - fw, s1 + fw, zs, zb + fw)
+            sh_edge = fw
+        else:
+            fw = 0.0
+            r_real, r_col = wall_real, wall_col
+            tile = REAL_TILE.get(r_real) or 2.0
+            k = 1.0 / tile
+            uo = hash01("su" + key) * 3.0
+            hole = (s0, s1, za, zb)
+            if sur == "fasche":
+                fw = style.get("fw", 0.11)
+                f_real, f_col = style["trim"]
+                ft = REAL_TILE.get(f_real) or 2.0
+                for (pa, pb, pc, pd) in (
+                    (F.P(s0 - fw, za - fw), F.P(s0, za), F.P(s0, zb), F.P(s0 - fw, zb + fw)),
+                    (F.P(s1, za), F.P(s1 + fw, za - fw), F.P(s1 + fw, zb + fw), F.P(s1, zb)),
+                    (F.P(s0, zb), F.P(s1, zb), F.P(s1 + fw, zb + fw), F.P(s0 - fw, zb + fw)),
+                    (F.P(s0 - fw, za - fw), F.P(s1 + fw, za - fw), F.P(s1, za), F.P(s0, za)),
+                ):
+                    self.q(f_real, pa, pb, pc, pd, ((uo, 0.0), (uo + 0.06, 0.0), (uo + 0.06, 0.5), (uo, 0.5)), f_col, facing=n3)
+                hole = (s0 - fw, s1 + fw, za - fw, zb + fw)
+                r_real, r_col = f_real, f_col
+            self.q(r_real, F.P(s0, za, 0.0), F.P(s0, za, -dep), F.P(s0, zb, -dep), F.P(s0, zb, 0.0),
+                   ((uo, 0.0), (uo + dep * k, 0.0), (uo + dep * k, (zb - za) * k), (uo, (zb - za) * k)), mul3(r_col, 0.93), facing=e3)
+            self.q(r_real, F.P(s1, za, 0.0), F.P(s1, za, -dep), F.P(s1, zb, -dep), F.P(s1, zb, 0.0),
+                   ((uo, 0.0), (uo + dep * k, 0.0), (uo + dep * k, (zb - za) * k), (uo, (zb - za) * k)), mul3(r_col, 0.93), facing=ne3)
+            self.q(r_real, F.P(s0, zb, 0.0), F.P(s1, zb, 0.0), F.P(s1, zb, -dep), F.P(s0, zb, -dep),
+                   ((uo, 0.0), (uo + (s1 - s0) * k, 0.0), (uo + (s1 - s0) * k, dep * k), (uo, dep * k)), mul3(r_col, 0.86), facing=(0, 0, -1))
+            # thin projecting sill (aluminium / artificial stone)
+            sill_real, sill_col = style.get("sill_mat", ("paint", (0.62, 0.62, 0.60)))
+            so = 0.04
+            self.q(sill_real, F.P(s0, za, -dep), F.P(s1, za, -dep), F.P(s1, za - 0.012, so), F.P(s0, za - 0.012, so),
+                   ((0.0, 0.0), (0.4, 0.0), (0.4, 0.08), (0.0, 0.08)), sill_col, facing=(0, 0, 1))
+            self.q(sill_real, F.P(s0, za - 0.045, so), F.P(s1, za - 0.045, so), F.P(s1, za - 0.012, so), F.P(s0, za - 0.012, so),
+                   ((0.0, 0.0), (0.4, 0.0), (0.4, 0.02), (0.0, 0.02)), mul3(sill_col, 0.9), facing=n3)
+            self.q(sill_real, F.P(s0, za - 0.045, 0.0), F.P(s1, za - 0.045, 0.0), F.P(s1, za - 0.045, so), F.P(s0, za - 0.045, so),
+                   ((0.0, 0.0), (0.4, 0.0), (0.4, 0.02), (0.0, 0.02)), mul3(sill_col, 0.6), facing=(0, 0, -1))
+            sh_edge = fw
+        if units == 1:
+            self.window_unit(F, s0, s1, za, zb, -dep, cell, key)
+        else:
+            uw = (s1 - s0) / units
+            for ui in range(units):
+                self.window_unit(F, s0 + uw * ui, s0 + uw * (ui + 1), za, zb, -dep, cell, f"{key}_u{ui}")
+        # folding shutters (Klappläden), opened flat against the wall
+        if units == 1 and allow_shutters and style.get("shutters") and (zb - za) > 0.9:
+            lw = (s1 - s0) * 0.5 - 0.01
+            sc = style["shutter_col"]
+            ju0, jv0, ju1, jv1 = J_CELL(*style.get("shutter_cell", (0, 0)))
+            dd = 0.05
+            self._detail = True
+            for side in (-1.0, 1.0):
+                inner = (s0 - sh_edge - 0.012) if side < 0 else (s1 + sh_edge + 0.012)
+                outer_s = inner + side * lw
+                a, b = (outer_s, inner) if side < 0 else (inner, outer_s)
+                uu0, uu1 = (ju0, ju1) if side < 0 else (ju1, ju0)
+                self.q("joinery", F.P(a, za, dd), F.P(b, za, dd), F.P(b, zb, dd), F.P(a, zb, dd),
+                       ((uu0, jv0), (uu1, jv0), (uu1, jv1), (uu0, jv1)), sc, facing=n3)
+                edge_uv = ((ju0 + 0.01, jv0 + 0.01), (ju0 + 0.02, jv0 + 0.01), (ju0 + 0.02, jv0 + 0.2), (ju0 + 0.01, jv0 + 0.2))
+                self.q("joinery", F.P(outer_s, za, 0.0), F.P(outer_s, za, dd), F.P(outer_s, zb, dd), F.P(outer_s, zb, 0.0),
+                       edge_uv, mul3(sc, 0.8), facing=(e3[0] * side, e3[1] * side, 0.0))
+                self.q("joinery", F.P(a, za, 0.0), F.P(b, za, 0.0), F.P(b, za, dd), F.P(a, za, dd),
+                       edge_uv, mul3(sc, 0.6), facing=(0, 0, -1))
+            self._detail = False
+            self.count("shutters")
+        return hole
+
+    def add_door(self, F: Facade, s0, s1, z_d0, z_top, style: Dict, tier: str, wall_real, wall_col, key: str,
+                 kind: str = "door", z_ground: Optional[float] = None):
+        """Recessed door / garage door / barn gate. Returns (notch for the wall, notch for the plinth)."""
+        n3, e3 = F.n3, F.e3
+        ne3 = (-e3[0], -e3[1], 0.0)
+        dep = {"door": 0.17, "garage": 0.10, "gate": 0.16, "hall": 0.12, "shed": 0.07}.get(kind, 0.12) if tier == "A" else 0.0
+        sur = style.get("surround") if kind in ("door", "gate") else None
+        fw = 0.0
+        pr = 0.0
+        if sur == "stone" and tier == "A":
+            fw, pr = (0.15 if kind == "door" else 0.20), 0.035
+            s_real, s_col = style["trim"]
+            k = 1.0 / (REAL_TILE.get(s_real) or 2.0)
+            uo = hash01("du" + key) * 3.0
+            H = z_top - z_d0
+            self.q(s_real, F.P(s0 - fw, z_d0), F.P(s0, z_d0, pr), F.P(s0, z_top, pr), F.P(s0 - fw, z_top + fw),
+                   ((uo, 0.0), (uo + fw * k, 0.0), (uo + fw * k, H * k), (uo, (H + fw) * k)), s_col, facing=n3)
+            self.q(s_real, F.P(s1, z_d0, pr), F.P(s1 + fw, z_d0), F.P(s1 + fw, z_top + fw), F.P(s1, z_top, pr),
+                   ((uo + 0.5, 0.0), (uo + 0.5 + fw * k, 0.0), (uo + 0.5 + fw * k, (H + fw) * k), (uo + 0.5, H * k)), s_col, facing=n3)
+            self.q(s_real, F.P(s0, z_top, pr), F.P(s1, z_top, pr), F.P(s1 + fw, z_top + fw), F.P(s0 - fw, z_top + fw),
+                   ((uo, 0.6), (uo + (s1 - s0) * k, 0.6), (uo + (s1 - s0 + fw) * k, 0.6 + fw * k), (uo - fw * k, 0.6 + fw * k)), s_col, facing=n3)
+            r_real, r_col = s_real, s_col
+        else:
+            r_real, r_col = wall_real, wall_col
+        if dep > 0.0:
+            k = 1.0 / (REAL_TILE.get(r_real) or 2.0)
+            uo = hash01("dr" + key) * 3.0
+            H = z_top - z_d0
+            self.q(r_real, F.P(s0, z_d0, pr), F.P(s0, z_d0, -dep), F.P(s0, z_top, -dep), F.P(s0, z_top, pr),
+                   ((uo, 0.0), (uo + (dep + pr) * k, 0.0), (uo + (dep + pr) * k, H * k), (uo, H * k)), mul3(r_col, 0.92), facing=e3)
+            self.q(r_real, F.P(s1, z_d0, pr), F.P(s1, z_d0, -dep), F.P(s1, z_top, -dep), F.P(s1, z_top, pr),
+                   ((uo, 0.0), (uo + (dep + pr) * k, 0.0), (uo + (dep + pr) * k, H * k), (uo, H * k)), mul3(r_col, 0.92), facing=ne3)
+            self.q(r_real, F.P(s0, z_top, pr), F.P(s1, z_top, pr), F.P(s1, z_top, -dep), F.P(s0, z_top, -dep),
+                   ((uo, 0.0), (uo + (s1 - s0) * k, 0.0), (uo + (s1 - s0) * k, (dep + pr) * k), (uo, (dep + pr) * k)), mul3(r_col, 0.82), facing=(0, 0, -1))
+            # threshold
+            th_real, th_col = style.get("step", ("concrete", (1.0, 1.0, 1.0)))
+            self.q(th_real, F.P(s0, z_d0, -dep), F.P(s1, z_d0, -dep), F.P(s1, z_d0, 0.06), F.P(s0, z_d0, 0.06),
+                   ((0.0, 0.0), (0.5, 0.0), (0.5, 0.1), (0.0, 0.1)), th_col, facing=(0, 0, 1))
+        # leaf
+        if kind == "gate":
+            mid = 0.5 * (s0 + s1)
+            if tier == "A":
+                # two real leaves: boards + ledged-and-braced frame + strap hinges
+                self.gate_leaf(F, s0, mid - 0.008, z_d0 + 0.03, z_top - 0.02, -dep, style["gate_wood"], style["gate_col"], key + "L", hinge_at_a=True)
+                self.gate_leaf(F, mid + 0.008, s1, z_d0 + 0.03, z_top - 0.02, -dep, style["gate_wood"], style["gate_col"], key + "R", hinge_at_a=False)
+                self.q("paint", F.P(s0, z_d0, -dep - 0.03), F.P(s1, z_d0, -dep - 0.03), F.P(s1, z_top, -dep - 0.03), F.P(s0, z_top, -dep - 0.03),
+                       ((0, 0), (0.1, 0), (0.1, 0.1), (0, 0.1)), (0.02, 0.02, 0.02), facing=n3)       # dark gap behind the leaves
+            else:
+                g_col = style["gate_col"]
+                u0, v0, u1, v1 = J_CELL(1, 0)
+                self.q("joinery", F.P(s0, z_d0, -dep), F.P(mid, z_d0, -dep), F.P(mid, z_top, -dep), F.P(s0, z_top, -dep),
+                       ((u0, v0), (u1, v0), (u1, v1), (u0, v1)), g_col, facing=n3)
+                self.q("joinery", F.P(mid, z_d0, -dep), F.P(s1, z_d0, -dep), F.P(s1, z_top, -dep), F.P(mid, z_top, -dep),
+                       ((u1, v0), (u0, v0), (u0, v1), (u1, v1)), g_col, facing=n3)
+            self.count("gates")
+        else:
+            if kind == "hall":
+                cell = (3, 1)
+                l_col = tint_for("joinery", [(150, 154, 156), (86, 110, 92), (196, 198, 196), (70, 84, 104)][int(hash01("hc" + key) * 4) % 4])
+                self.count("hall_doors")
+            elif kind == "garage":
+                cell = style.get("garage_cell", (0, 1))
+                l_col = style["garage_col"]
+                self.count("garage_doors")
+            elif kind == "shed":
+                cell = (2, 1)
+                l_col = style["gate_col"]
+                self.count("doors")
+            else:
+                cell = style["door_cell"]
+                l_col = style["door_col"]
+                self.count("doors")
+            u0, v0, u1, v1 = J_CELL(*cell)
+            if hash01("dflip" + key) < 0.5 and kind not in ("garage", "hall"):
+                u0, u1 = u1, u0
+            self.q("joinery", F.P(s0, z_d0, -dep), F.P(s1, z_d0, -dep), F.P(s1, z_top, -dep), F.P(s0, z_top, -dep),
+                   ((u0, v0), (u1, v0), (u1, v1), (u0, v1)), l_col, facing=n3)
+        # entrance step in front of house doors; where the terrain falls away a real flight of steps
+        if kind in ("door", "shed") and self._entrance_steps(F, s0 - fw - 0.06, s1 + fw + 0.06, z_d0, style, key):
+            pass
+        elif kind == "door" and tier == "A":
+            zg = z_ground if z_ground is not None else z_d0 - 0.17
+            if z_d0 - zg > 0.05:
+                st_real, st_col = style.get("step", ("concrete", (1.0, 1.0, 1.0)))
+                a, b, out = s0 - fw - 0.06, s1 + fw + 0.06, 0.34
+                zb_ = zg - 0.35
+                k = 1.0 / (REAL_TILE.get(st_real) or 2.0)
+                self.q(st_real, F.P(a, z_d0, 0.05), F.P(b, z_d0, 0.05), F.P(b, z_d0, out), F.P(a, z_d0, out),
+                       ((0, 0), ((b - a) * k, 0), ((b - a) * k, out * k), (0, out * k)), st_col, facing=(0, 0, 1))
+                self.q(st_real, F.P(a, zb_, out), F.P(b, zb_, out), F.P(b, z_d0, out), F.P(a, z_d0, out),
+                       ((0, 0), ((b - a) * k, 0), ((b - a) * k, (z_d0 - zb_) * k), (0, (z_d0 - zb_) * k)), mul3(st_col, 0.92), facing=n3)
+                for (sx_, fc) in ((a, ne3), (b, e3)):
+                    self.q(st_real, F.P(sx_, zb_, 0.05), F.P(sx_, zb_, out), F.P(sx_, z_d0, out), F.P(sx_, z_d0, 0.05),
+                           ((0, 0), (out * k, 0), (out * k, (z_d0 - zb_) * k), (0, (z_d0 - zb_) * k)), mul3(st_col, 0.88), facing=fc)
+        # vehicle openings: flush threshold apron that runs out onto (and a little into) the ground
+        if kind in ("gate", "hall", "garage") and tier == "A":
+            a, b, out = s0 - fw - 0.12, s1 + fw + 0.12, 0.85
+            zt_, zb_ = z_d0 - 0.005, z_d0 - 0.9
+            ap_real, ap_col = style.get("step", ("concrete", (1.0, 1.0, 1.0)))
+            k = 1.0 / (REAL_TILE.get(ap_real) or 2.0)
+            self.q(ap_real, F.P(a, zt_, 0.05), F.P(b, zt_, 0.05), F.P(b, zt_ - 0.06, out), F.P(a, zt_ - 0.06, out),
+                   ((0, 0), ((b - a) * k, 0), ((b - a) * k, out * k), (0, out * k)), mul3(ap_col, 0.9), facing=(0, 0, 1))
+            self.q(ap_real, F.P(a, zb_, out), F.P(b, zb_, out), F.P(b, zt_ - 0.06, out), F.P(a, zt_ - 0.06, out),
+                   ((0, 0), ((b - a) * k, 0), ((b - a) * k, 0.8 * k), (0, 0.8 * k)), mul3(ap_col, 0.8), facing=n3)
+            for (sx_, fc) in ((a, ne3), (b, e3)):
+                self.q(ap_real, F.P(sx_, zb_, 0.05), F.P(sx_, zb_, out), F.P(sx_, zt_ - 0.06, out), F.P(sx_, zt_, 0.05),
+                       ((0, 0), (out * k, 0), (out * k, 0.8 * k), (0, 0.8 * k)), mul3(ap_col, 0.8), facing=fc)
+        wall_notch = (s0 - fw, s1 + fw, z_top + fw)
+        plinth_notch = (s0 - fw, s1 + fw, z_d0)
+        return wall_notch, plinth_notch
+
+    STEP_RISE, STEP_TREAD, STEP_MAX = 0.17, 0.30, 14
+
+    def _entrance_steps(self, F: Facade, a: float, b: float, z_top: float, style, key: str) -> bool:
+        """Landing + flight of steps from a door threshold down to the real terrain, when the ground in front of the
+        door lies more than 0.3 m below it (doors of houses that stand on a bank or above a graded street).
+
+        The flight runs straight out from the wall when the ground levels out within ~2.5 m; otherwise it runs
+        along the facade towards the lower side (a Pfalz 'Freitreppe'). Returns False when no flight is needed
+        (the caller then builds the plain one-block stoop)."""
+        site = self.site
+        if site is None:
+            return False
+
+        def g_at(s_, d_):
+            x_, y_, _ = F.P(s_, 0.0, d_)
+            gz = site.ground(x_, y_)
+            if gz is None:
+                raise RuntimeError(f"_entrance_steps: no terrain height at ({x_:.1f}, {y_:.1f}) for door {key}")
+            return gz
+
+        sm = 0.5 * (a + b)
+        if z_top - min(g_at(sm, 0.4), g_at(sm, 0.9)) <= 0.30:
+            return False
+        R, T, NMAX = self.STEP_RISE, self.STEP_TREAD, self.STEP_MAX
+        w = b - a
+
+        def simulate(ground_fn, start):
+            """Step k occupies [start + (k-1)T, start + kT] along the run; returns step count or None."""
+            for k in range(1, NMAX + 1):
+                zt = z_top - k * R
+                pos = start + (k - 0.5) * T
+                if zt - ground_fn(pos) <= R * 0.75:
+                    return k
+            return None
+
+        st_real, st_col = style.get("step", ("concrete", (1.0, 1.0, 1.0)))
+        tile = REAL_TILE.get(st_real) or 2.0
+        n3, e3 = F.n3, F.e3
+        ne3, nn3 = (-e3[0], -e3[1], 0.0), (-n3[0], -n3[1], 0.0)
+
+        def block(sa, sb, da, db, zt, shade=1.0):
+            """Solid step block (Facade coords s sa..sb, outward da..db) from zt down into the ground."""
+            zb = min(g_at(sa, da), g_at(sb, da), g_at(sa, db), g_at(sb, db), g_at(0.5 * (sa + sb), 0.5 * (da + db))) - 0.30
+            c = mul3(st_col, shade)
+            k = 1.0 / tile
+            ds, dd, dh = (sb - sa) * k, (db - da) * k, (zt - zb) * k
+            self.q(st_real, F.P(sa, zt, da), F.P(sb, zt, da), F.P(sb, zt, db), F.P(sa, zt, db), ((0, 0), (ds, 0), (ds, dd), (0, dd)), c, facing=(0, 0, 1))
+            self.q(st_real, F.P(sa, zb, db), F.P(sb, zb, db), F.P(sb, zt, db), F.P(sa, zt, db), ((0, 0), (ds, 0), (ds, dh), (0, dh)), mul3(c, 0.92), facing=n3)
+            self.q(st_real, F.P(sa, zb, da), F.P(sa, zb, db), F.P(sa, zt, db), F.P(sa, zt, da), ((0, 0), (dd, 0), (dd, dh), (0, dh)), mul3(c, 0.86), facing=ne3)
+            self.q(st_real, F.P(sb, zb, da), F.P(sb, zb, db), F.P(sb, zt, db), F.P(sb, zt, da), ((0, 0), (dd, 0), (dd, dh), (0, dh)), mul3(c, 0.86), facing=e3)
+            self.count("step_blocks")
+
+        # 1. straight out from the wall
+        land = 0.95
+        n_out = simulate(lambda pos: min(g_at(a, pos), g_at(b, pos), g_at(sm, pos)), land)
+
+        def straight():
+            block(a, b, 0.05, land, z_top)
+            for k in range(1, n_out + 1):
+                block(a, b, land + (k - 1) * T, land + k * T, z_top - k * R, 0.97 if k % 2 else 1.0)
+            self.count("entrance_flights")
+            return True
+
+        if n_out is not None and land + n_out * T <= 2.9:
+            return straight()
+        # 2. along the facade, towards the lower side (a long straight flight would reach into the street)
+        depth = 1.05
+        best = None
+        for sgn in (-1.0, 1.0):
+            edge0 = b if sgn > 0 else a
+            n_side = simulate(lambda pos, _e=edge0, _g=sgn: min(g_at(_e + _g * pos, 0.4), g_at(_e + _g * pos, depth)), 0.0)
+            if n_side is None:
+                continue
+            end = edge0 + sgn * n_side * T
+            if end < 0.15 or end > F.L - 0.15:
+                continue
+            if best is None or n_side < best[1]:
+                best = (sgn, n_side)
+        if best is None and n_out is not None:
+            return straight()
+        if best is None:
+            raise RuntimeError(
+                f"_entrance_steps: door {key} sits {z_top - g_at(sm, 0.9):.2f} m above the terrain and neither a straight "
+                f"nor a facade flight of <= {NMAX} steps reaches the ground (wall length {F.L:.1f} m)")
+        sgn, n_side = best
+        block(a, b, 0.05, depth, z_top)
+        for k in range(1, n_side + 1):
+            if sgn > 0:
+                sa_, sb_ = b + (k - 1) * T, b + k * T
+            else:
+                sa_, sb_ = a - k * T, a - (k - 1) * T
+            block(sa_, sb_, 0.05, depth, z_top - k * R, 0.97 if k % 2 else 1.0)
+        self.count("entrance_flights")
+        return True
+
+    def gate_leaf(self, F: Facade, sa: float, sb: float, z0: float, z1: float, d: float, wood_col, frame_col, key: str,
+                  hinge_at_a: bool = True, frame: bool = True):
+        """One boarded gate leaf: vertical boards (base mesh) + stiles, three ledges, a brace and strap hinges (detail)."""
+        n3 = F.n3
+        tile = REAL_TILE.get("wood_planks") or 2.0
+        uo = hash01("gl" + key) * 3.0
+        w, hgt = sb - sa, z1 - z0
+        self.q("wood_planks", F.P(sa, z0, d), F.P(sb, z0, d), F.P(sb, z1, d), F.P(sa, z1, d),
+               ((uo, 0.0), (uo + w / tile, 0.0), (uo + w / tile, hgt / tile), (uo, hgt / tile)), wood_col, facing=n3)
+        if not frame or w < 0.5 or hgt < 1.0:
+            return
+        t, fwid = 0.045, min(0.14, w * 0.16)
+        fc = mul3(frame_col, 0.9)
+        pu0, pv0, pu1, pv1 = J_CELL(2, 1)
+        pw = (pu1 - pu0) / 7.0            # one plank of the 7-plank cell
+
+        def bar(a0, b0, za, zb, vertical, plank):
+            ua, ub = pu0 + pw * (plank + 0.12), pu0 + pw * (plank + 0.88)
+            if vertical:
+                uv = ((ua, pv0), (ub, pv0), (ub, pv1), (ua, pv1))
+            else:       # grain along the ledge
+                uv = ((ua, pv0), (ua, pv1), (ub, pv1), (ub, pv0))
+            self.q("joinery", F.P(a0, za, d + t), F.P(b0, za, d + t), F.P(b0, zb, d + t), F.P(a0, zb, d + t), uv, fc, facing=n3)
+            euv = ((ua, pv0), (ua + 0.004, pv0), (ua + 0.004, pv1), (ua, pv1))
+            if vertical:
+                self.q("joinery", F.P(a0, za, d), F.P(a0, za, d + t), F.P(a0, zb, d + t), F.P(a0, zb, d), euv, mul3(fc, 0.7), facing=(-F.ex, -F.ey, 0.0))
+                self.q("joinery", F.P(b0, za, d), F.P(b0, za, d + t), F.P(b0, zb, d + t), F.P(b0, zb, d), euv, mul3(fc, 0.7), facing=F.e3)
+            else:
+                self.q("joinery", F.P(a0, zb, d), F.P(b0, zb, d), F.P(b0, zb, d + t), F.P(a0, zb, d + t), euv, mul3(fc, 0.95), facing=(0, 0, 1))
+                self.q("joinery", F.P(a0, za, d), F.P(b0, za, d), F.P(b0, za, d + t), F.P(a0, za, d + t), euv, mul3(fc, 0.55), facing=(0, 0, -1))
+
+        with self.detail_scope():
+            bar(sa, sa + fwid, z0, z1, True, 0)
+            bar(sb - fwid, sb, z0, z1, True, 6)
+            ledges = (z0 + 0.14, z0 + hgt * 0.5 - fwid * 0.5, z1 - 0.14 - fwid)
+            for li, zr in enumerate(ledges):
+                bar(sa + fwid, sb - fwid, zr, zr + fwid, False, 2 + li)
+            # diagonal brace rising from the hinge side (lower field)
+            hs, fs = (sa + fwid, sb - fwid) if hinge_at_a else (sb - fwid, sa + fwid)
+            zb0, zb1 = ledges[0] + fwid, ledges[1]
+            dz = fwid * 1.05
+            ua, ub = pu0 + pw * 5.12, pu0 + pw * 5.88
+            self.q("joinery", F.P(hs, zb0, d + t), F.P(hs, zb0 + dz, d + t), F.P(fs, zb1, d + t), F.P(fs, zb1 - dz, d + t),
+                   ((ua, pv0), (ub, pv0), (ub, pv1), (ua, pv1)), mul3(fc, 0.95), facing=n3)
+            zc0, zc1 = ledges[1] + fwid, ledges[2]
+            self.q("joinery", F.P(hs, zc0, d + t), F.P(hs, zc0 + dz, d + t), F.P(fs, zc1, d + t), F.P(fs, zc1 - dz, d + t),
+                   ((ua, pv0), (ub, pv0), (ub, pv1), (ua, pv1)), mul3(fc, 0.95), facing=n3)
+            # wrought strap hinges on the top and bottom ledge
+            hu0, hv0, hu1, hv1 = J_CELL(0, 0)
+            huv = ((hu0 + 0.02, hv1 - 0.076), (hu0 + 0.06, hv1 - 0.076), (hu0 + 0.06, hv1 - 0.070), (hu0 + 0.02, hv1 - 0.070))
+            for zr in (ledges[0], ledges[2]):
+                zc = zr + fwid * 0.5
+                h0, h1 = (sa - 0.02, sa + w * 0.55) if hinge_at_a else (sb - w * 0.55, sb + 0.02)
+                self.q("joinery", F.P(h0, zc - 0.028, d + t + 0.008), F.P(h1, zc - 0.028, d + t + 0.008), F.P(h1, zc + 0.028, d + t + 0.008), F.P(h0, zc + 0.028, d + t + 0.008),
+                       huv, (0.05, 0.05, 0.05), facing=n3)
+
+    def _weathering_decals(self, F: Facade, z_foot: float, z_eave: float, holes, notches, col, age: float, key: str, eaves: bool = True):
+        """Alpha-blended stains on a street-facing wall: rising damp, run-off under sills and eaves, repaired patches."""
+        mean = REAL_MEAN_LIN.get("plaster_smooth", (0.68, 0.65, 0.63))
+        base = mul3(col, mean)          # what the wall actually reflects (linear albedo)
+        n3 = F.n3
+        L = F.L
+
+        def r(t):
+            return hash01(t + key)
+
+        def stain(k, hue=(1.0, 1.0, 1.0)):
+            return clamp01_3(mul3(mul3(base, k), hue))
+
+        def decal(sa, sb, za, zb, cell, c, salt):
+            u0, v0, u1, v1 = atlas_cell(cell[0], cell[1], 4, 2, 0.004)
+            if r("fl" + salt) < 0.5:
+                u0, u1 = u1, u0
+            self.q("grime", F.P(sa, za, 0.008), F.P(sb, za, 0.008), F.P(sb, zb, 0.008), F.P(sa, zb, 0.008),
+                   ((u0, v0), (u1, v0), (u1, v1), (u0, v1)), c, facing=n3)
+            self.count("decals")
+
+        def free(sa, sb, za, zb, pad=0.06):
+            for (h0, h1, ha, hb) in holes:
+                if h0 - pad < sb and h1 + pad > sa and ha - pad < zb and hb + pad > za:
+                    return False
+            for (n0, n1, nz) in notches:
+                if n0 - pad < sb and n1 + pad > sa and za < nz + pad:
+                    return False
+            return True
+
+        with self.detail_scope():
+            # rising damp / splash zone at the wall foot
+            # (Street View: grey-brown damp / splash bands above the plinth on most old and mid-age houses)
+            # every street wall has a splash zone; how dark and how high it reaches follows the house's age
+            n_d = 1 + int(L / 6.0)
+            for i in range(n_d):
+                w = min(L - 0.2, 1.8 + 2.8 * r(f"dw{i}"))
+                sa = 0.1 + (L - 0.2 - w) * (i + r(f"ds{i}")) / n_d
+                hgt = (0.45 + 0.50 * r(f"dh{i}")) * (0.75 + 0.6 * age)
+                # doors cut the band into pieces, low windows only cap its height
+                pieces = [(sa, sa + w)]
+                for (n0, n1, _nz) in notches:
+                    nxt = []
+                    for (pa, pb) in pieces:
+                        if n0 - 0.04 < pb and n1 + 0.04 > pa:
+                            nxt += [(pa, n0 - 0.04), (n1 + 0.04, pb)]
+                        else:
+                            nxt.append((pa, pb))
+                    pieces = nxt
+                for j, (pa, pb) in enumerate(pieces):
+                    if pb - pa < 0.5:
+                        continue
+                    h_p = hgt
+                    for (h0, h1, ha, _hb) in holes:
+                        if h0 - 0.04 < pb and h1 + 0.04 > pa:
+                            h_p = min(h_p, ha - 0.06 - z_foot)
+                    if h_p >= 0.25:
+                        decal(pa, pb, z_foot, z_foot + h_p, (2 + int(r(f"dc{i}") * 2) % 2, 0), stain(0.48 - 0.18 * age + 0.10 * r(f"dk{i}"), (0.95, 0.97, 0.90)), f"d{i}_{j}")
+            # dirt run-off below window sills
+            for hi, (h0, h1, ha, hb) in enumerate(holes):
+                if h1 - h0 < 0.7 or r(f"st{hi}") > 0.35 + 0.55 * age:
+                    continue
+                top = ha - 0.005
+                bot = max(z_foot + 0.03, top - (0.45 + 0.45 * r(f"sl{hi}")))
+                for (g0, g1, ga, gb) in holes:
+                    if g0 < h1 + 0.1 and g1 > h0 - 0.1 and gb < top:
+                        bot = max(bot, gb + 0.05)
+                for (n0, n1, nz) in notches:
+                    if n0 < h1 + 0.1 and n1 > h0 - 0.1:
+                        bot = max(bot, nz + 0.05)
+                if top - bot > 0.25:
+                    decal(max(0.02, h0 - 0.05), min(L - 0.02, h1 + 0.05), bot, top, (0, 0), stain(0.48 + 0.14 * r(f"sk{hi}")), f"s{hi}")
+            # rain-shadow streaks below the eaves
+            if eaves and r("ev") < 0.45 + 0.50 * age:
+                tops = [hb for (_a, _b, _c, hb) in holes] + [nz for (_a, _b, nz) in notches] + [z_foot]
+                hgt = min(0.85, (z_eave - 0.03) - max(tops) - 0.05)
+                if hgt > 0.22:
+                    w = min(L - 0.2, 1.8 + 3.0 * r("evw"))
+                    sa = 0.1 + (L - 0.2 - w) * r("evs")
+                    decal(sa, sa + w, z_eave - 0.03 - hgt, z_eave - 0.03, (1, 0) if r("evc") < 0.6 else (3, 1), stain(0.50 + 0.12 * r("evk")), "e")
+            # repaired plaster patches / flaking paint on older houses
+            if r("pt") < 0.25 + 0.70 * age:
+                for attempt in range(5):
+                    w = 0.7 + 1.3 * r(f"pw{attempt}")
+                    hgt = 0.6 + 1.0 * r(f"ph{attempt}")
+                    if L - w - 0.3 <= 0 or z_eave - hgt - 0.4 <= z_foot + 0.5:
+                        break
+                    sa = 0.15 + (L - w - 0.3) * r(f"ps{attempt}")
+                    za = z_foot + 0.5 + (z_eave - hgt - 0.4 - z_foot - 0.5) * r(f"pz{attempt}")
+                    if free(sa, sa + w, za, za + hgt, 0.10):
+                        if r("pk") < 0.55:
+                            decal(sa, sa + w, za, za + hgt, (0, 1), stain(1.12 if r("pl") < 0.5 else 0.80, (1.0, 0.99, 0.95)), "p")
+                        else:
+                            decal(sa, sa + w, za, za + hgt, (2, 1) if r("pf") < 0.6 else (1, 1), stain(0.66, (1.0, 0.98, 0.94)), "p")
+                        break
+
+    _vn_cache: Dict = {}
+
+    @staticmethod
+    def _vnoise(x: float, y: float, seed: str) -> float:
+        """Small deterministic 2D value noise in [0, 1)."""
+        x0, y0 = math.floor(x), math.floor(y)
+        fx, fy = x - x0, y - y0
+        sx, sy = fx * fx * (3 - 2 * fx), fy * fy * (3 - 2 * fy)
+
+        def lat(ix, iy):
+            k = (seed, ix, iy)
+            v = VillageMeshBuilder._vn_cache.get(k)
+            if v is None:
+                v = hash01(f"{seed}|{ix}|{iy}")
+                VillageMeshBuilder._vn_cache[k] = v
+            return v
+
+        a = lat(x0, y0) * (1 - sx) + lat(x0 + 1, y0) * sx
+        b = lat(x0, y0 + 1) * (1 - sx) + lat(x0 + 1, y0 + 1) * sx
+        return a * (1 - sy) + b * sy
+
+    def add_ivy_cards(self, F: Facade, z0: float, z1: float, top_fn, opens, key: str):
+        """Ivy as a thin, irregular layer of alpha-cut leaf cards hugging the wall; it leaves windows and doors free.
+
+        top_fn(s) -> highest z the ivy may reach at s (gable rake), or None for a straight top at z1.
+        """
+        step = 0.40
+        ns, nz = int(F.L / step) + 1, int((z1 - z0) / step) + 1
+        from_right = hash01("ivs" + key) < 0.5
+        cover = {}
+        for i in range(ns):
+            for j in range(nz):
+                s_ = (i + 0.5 + (hash01(f"ij{key}{i}{j}") - 0.5) * 0.5) * step
+                z_ = z0 + (j + 0.5 + (hash01(f"iz{key}{i}{j}") - 0.5) * 0.5) * step
+                if s_ < 0.15 or s_ > F.L - 0.15:
+                    continue
+                zt = top_fn(s_) if top_fn else z1
+                if z_ > zt - 0.1:
+                    continue
+                hf = (z_ - z0) / max(z1 - z0, 1.0)
+                sf = s_ / F.L if from_right else 1.0 - s_ / F.L
+                n = 0.72 * self._vnoise(s_ * 0.30, z_ * 0.30, key) + 0.28 * self._vnoise(s_ * 1.0, z_ * 1.0, key + "b")
+                if n + 0.16 * (1.0 - hf) + 0.22 * sf < 0.50:
+                    continue
+                if any(o0 - 0.36 < s_ < o1 + 0.36 and oa - 0.36 < z_ < ob + 0.36 for (o0, o1, oa, ob) in opens):
+                    continue
+                cover[(i, j)] = (s_, z_)
+        n3 = F.n3
+        with self.detail_scope():
+            for (i, j), (s_, z_) in cover.items():
+                nb = sum(1 for (di, dj) in ((1, 0), (-1, 0), (0, 1), (0, -1)) if (i + di, j + dj) in cover)
+                fringe = nb < 3
+                rk = f"{key}{i}_{j}"
+                size = (0.80 + 0.30 * hash01("isz" + rk)) * (0.9 if fringe else 1.0)
+                cidx = (2 + int(hash01("ic" + rk) * 2) % 2) if fringe else (int(hash01("ic" + rk) * 2) % 2)
+                u0, v0, u1, v1 = atlas_cell(cidx % 2, cidx // 2, 2, 2, 0.004)
+                ang = (hash01("ia" + rk) - 0.5) * 0.7 if fringe else hash01("ia" + rk) * 2.0 * math.pi
+                ca, sa_ = math.cos(ang), math.sin(ang)
+                d0 = 0.03 + 0.05 * hash01("id" + rk)
+                tilt = 0.10 if fringe else 0.03
+                # every corner of the (rotated) card stays below the eave / gable rake: cards poking past the
+                # wall top came out through the roof slab and lay on the tiles as stray green clumps
+                pts = None
+                for shrink in (1.0, 0.75, 0.55):
+                    hs = size * 0.5 * shrink
+                    cand = []
+                    for (lx, lz) in ((-hs, -hs), (hs, -hs), (hs, hs), (-hs, hs)):
+                        rx, rz = lx * ca - lz * sa_, lx * sa_ + lz * ca
+                        cand.append((s_ + rx, z_ + rz, d0 + tilt * (0.5 + rz / size)))
+                    if all(cz <= (top_fn(cs) if top_fn else z1) for (cs, cz, _cd) in cand):
+                        pts = [F.P(cs, cz, cd) for (cs, cz, cd) in cand]
+                        break
+                if pts is None:
+                    continue
+                g = 0.62 + 0.38 * hash01("ig" + rk)
+                colr = (g * (0.80 + 0.2 * hash01("ir" + rk)), g, g * (0.70 + 0.25 * hash01("ib" + rk)))
+                self.q("ivy", pts[0], pts[1], pts[2], pts[3], ((u0, v0), (u1, v0), (u1, v1), (u0, v1)), colr, facing=n3)
+            self.count("ivy_cards", len(cover))
+
+    def add_fachwerk(self, F: Facade, z0: float, z1: float, holes, floors: List[float], key: str, col):
+        """Exposed half-timbering: sill / rail beams per storey, posts beside every opening, corner braces."""
+        bw, d = 0.16, 0.02
+        real = "wood_beam"
+        n3 = F.n3
+        L = F.L
+
+        def hbeam(sa, sb, zc):
+            if sb - sa < 0.1:
+                return
+            self.q(real, F.P(sa, zc - bw * 0.5, d), F.P(sb, zc - bw * 0.5, d), F.P(sb, zc + bw * 0.5, d), F.P(sa, zc + bw * 0.5, d),
+                   ((0.0, sa * 2.0), (0.3, sa * 2.0), (0.3, sb * 2.0), (0.0, sb * 2.0))[::1], col, facing=n3)
+
+        def vbeam(sc, za, zb):
+            if zb - za < 0.1:
+                return
+            self.q(real, F.P(sc - bw * 0.5, za, d), F.P(sc + bw * 0.5, za, d), F.P(sc + bw * 0.5, zb, d), F.P(sc - bw * 0.5, zb, d),
+                   ((0.0, za * 2.0), (0.32, za * 2.0), (0.32, zb * 2.0), (0.0, zb * 2.0)), col, facing=n3)
+
+        levels = sorted(set([z0 + bw * 0.5] + [f for f in floors if z0 + 0.5 < f < z1 - 0.5] + [z1 - bw * 0.5]))
+        for zc in levels:
+            hbeam(0.0, L, zc)
+        for li in range(len(levels) - 1):
+            za, zb = levels[li] + bw * 0.5, levels[li + 1] - bw * 0.5
+            posts = [bw * 0.5, L - bw * 0.5]
+            hs = [h for h in holes if h[2] < zb and h[3] > za]
+            for h in hs:
+                posts.extend([h[0] - bw * 0.5, h[1] + bw * 0.5])
+                hbeam(h[0], h[1], min(zb, h[3] + bw * 0.5))
+                hbeam(h[0], h[1], max(za, h[2] - bw * 0.5))
+            posts = sorted(posts)
+            # fill long fields with extra posts
+            extra = []
+            for a, b in zip(posts[:-1], posts[1:]):
+                inside_hole = any(h[0] - 0.01 <= a and b <= h[1] + 0.01 + bw for h in hs)
+                if inside_hole:
+                    continue
+                gap = b - a
+                if gap > 1.55:
+                    n_in = int(gap / 1.15)
+                    for k_ in range(1, n_in + 0):
+                        extra.append(a + gap * k_ / n_in)
+            for sc in posts + extra:
+                vbeam(sc, za, zb)
+            # diagonal braces in the outer fields
+            allp = sorted(posts + extra)
+            for (a, b, flip) in ((allp[0], allp[1], False), (allp[-2], allp[-1], True)) if len(allp) >= 3 else ():
+                if b - a < 0.6 or any(h[0] < b and h[1] > a for h in hs):
+                    continue
+                sa, sb = (a + bw * 0.5, b - bw * 0.5) if not flip else (b - bw * 0.5, a + bw * 0.5)
+                dz = zb - za
+                ln = math.hypot(sb - sa, dz)
+                ox = bw * 0.5 * dz / ln * (1 if sb > sa else -1)
+                self.q(real, F.P(sa - ox * 0 , za, d), F.P(sa + 2 * ox, za, d), F.P(sb, zb, d), F.P(sb - 2 * ox, zb, d),
+                       ((0.0, 0.0), (0.32, 0.0), (0.32, ln * 2.0), (0.0, ln * 2.0)), col, facing=n3)
+    # ---------------- greenery & balconies (corridor specials) ----------------
+    def add_ivy_blanket_on_wall(self, pts: List[Tuple[float, float]], z_bot: float, z_top: float, ivy_dir_blender: Tuple[float, float]):
         """Drape organic multi-panel 3D climbing green ivy foliage slabs across walls facing ivy_dir_blender."""
         dx_t, dy_t = ivy_dir_blender
         dlen = math.hypot(dx_t, dy_t)
@@ -1893,41 +3079,30 @@ class VillageMeshBuilder:
             if elen < 2.2:
                 continue
             ex, ey = (x1 - x0) / elen, (y1 - y0) / elen
-            nx, ny = ey, -ex  # Outward normal for CCW polygon
+            nx, ny = ey, -ex
             if nx * tx + ny * ty < 0.45:
                 continue
             u_vec = Vector((ex, ey, 0.0))
             v_vec = Vector((nx, ny, 0.0))
             wall_h = max(1.0, z_top - z_bot)
-            # 5 organic staggered vertical foliage blankets covering ~75% of wall
             n_strips = max(4, int(elen / 1.4))
             for k in range(n_strips):
                 f0 = (k + 0.06) / n_strips
                 f1 = (k + 0.94) / n_strips
                 mid_f = 0.5 * (f0 + f1)
                 strip_w = (f1 - f0) * elen + 0.18
-                # Natural climbing ivy silhouette: fuller near right/top eaves and ground base
                 wave = 0.72 + 0.28 * math.sin(mid_f * math.pi * 1.4 + 0.5)
                 h_strip = min(wall_h + 0.15, wall_h * wave)
                 zc = z_top - h_strip * 0.48
-                px = x0 + (x1 - x0) * mid_f + nx * 0.12
-                py = y0 + (y1 - y0) * mid_f + ny * 0.12
-                self.add_box(
-                    Vector((px, py, zc)), u_vec, v_vec,
-                    sx=strip_w, sy=0.22, sz=h_strip,
-                    mat_key="ivy_foliage", uv_scale=1.8,
-                )
+                px = x0 + (x1 - x0) * mid_f + nx * 0.14
+                py = y0 + (y1 - y0) * mid_f + ny * 0.14
+                shade = 0.82 + 0.18 * hash01(f"ivy{i}{k}{x0:.1f}")
+                self.add_box(Vector((px, py, zc)), u_vec, v_vec, sx=strip_w, sy=0.24, sz=h_strip, mat_key="ivy_foliage", uv_scale=1.8,
+                             col=(shade, shade, shade))
 
-    def add_dark_balconies(
-        self,
-        pts: List[Tuple[float, float]],
-        z_base: float,
-        z_eave: float,
-        balcony_dir_blender: Tuple[float, float],
-        balcony_mat: str = "trim_wood",
-        balcony_w: Optional[float] = None,
-    ):
-        """Add stacked Pfalz timber/white balconies on the specified facade (Neugasse QOR1, Triftstr #6, Kirchrain #7/#16/#18)."""
+    def add_dark_balconies(self, pts: List[Tuple[float, float]], z_base: float, z_eave: float, balcony_dir_blender: Tuple[float, float],
+                           balcony_mat: str = "trim_wood", balcony_w: Optional[float] = None):
+        """Stacked timber / white balconies on the specified facade (Neugasse QOR1, Triftstr #6, Kirchrain #7/#16/#18)."""
         dx_t, dy_t = balcony_dir_blender
         dlen = math.hypot(dx_t, dy_t)
         if dlen < 1e-4:
@@ -1959,63 +3134,37 @@ class VillageMeshBuilder:
         for bz in (z_base + 3.05, z_base + 5.75):
             if bz > z_eave + 0.5:
                 continue
-            self.add_box(Vector((mx, my, bz)), u_vec, v_vec, sx=bw, sy=bd, sz=0.22, mat_key=balcony_mat, uv_scale=2.0)
-            front_c = Vector((mx + nx * (bd * 0.45), my + ny * (bd * 0.45), bz + 0.56))
-            self.add_box(front_c, u_vec, v_vec, sx=bw, sy=0.12, sz=0.92, mat_key=balcony_mat, uv_scale=2.0)
+            # slab + boarded parapet with gaps between rail and boards + posts
+            self.add_box(Vector((mx, my, bz)), u_vec, v_vec, sx=bw, sy=bd, sz=0.18, mat_key=balcony_mat)
+            front = Vector((mx + nx * (bd * 0.46), my + ny * (bd * 0.46), 0.0))
+            self.add_box(front + Vector((0, 0, bz + 0.48)), u_vec, v_vec, sx=bw, sy=0.05, sz=0.62, mat_key=balcony_mat)
+            self.add_box(front + Vector((0, 0, bz + 0.98)), u_vec, v_vec, sx=bw + 0.06, sy=0.09, sz=0.07, mat_key=balcony_mat)
+            n_post = max(2, int(bw / 1.8) + 1)
+            for k in range(n_post):
+                f = -0.5 + k / (n_post - 1)
+                self.add_box(front + u_vec * (bw * f * 0.985) + Vector((0, 0, bz + 0.52)), u_vec, v_vec, sx=0.08, sy=0.08, sz=0.94, mat_key=balcony_mat, skip_bottom=True)
             for sgn in (-1.0, 1.0):
-                sc = Vector((mx + ex * sgn * (bw * 0.48), my + ey * sgn * (bw * 0.48), bz + 0.56))
-                self.add_box(sc, u_vec, v_vec, sx=0.14, sy=bd, sz=0.92, mat_key=balcony_mat, uv_scale=2.0)
+                sc = Vector((mx + ex * sgn * (bw * 0.49), my + ey * sgn * (bw * 0.49), bz + 0.48))
+                self.add_box(sc, u_vec, v_vec, sx=0.05, sy=bd, sz=0.62, mat_key=balcony_mat)
+                self.add_box(sc + Vector((0, 0, 0.50)), u_vec, v_vec, sx=0.09, sy=bd, sz=0.07, mat_key=balcony_mat)
 
-    def add_facade_wall_ring(
-        self,
-        pts: List[Tuple[float, float]],
-        z_bot: float,
-        z_eave: float,
-        wall_mat: str,
-        is_windowed: bool = True,
-    ):
-        """Extrude footprint walls with clean integer-bay & integer-story metric UVs (zero half-cut windows!)."""
+    def add_facade_wall_ring(self, pts: List[Tuple[float, float]], z_bot: float, z_eave: float, wall_mat: str, is_windowed: bool = True):
+        """Plain wall ring (used by accessories / archetype fallbacks); buildings go through build_building()."""
+        real, tint = self.look(wall_mat)
+        perim = 0.0
         n = len(pts)
-        wall_h = max(0.5, z_eave - z_bot)
-        # Snap vertical UV count to clean integer stories for windowed facades (1 story = 2.95m)
-        if is_windowed:
-            n_stories = max(1, int(round(wall_h / 2.95)))
-            v_span = float(n_stories)
-        else:
-            v_span = wall_h / 3.0
-
-        plain_tile_mats = {
-            "wall_barn", "wall_utility", "wall_peach_plain", "wall_brick_barn_yellow",
-            "wall_timber_vertical", "wall_fachwerk_yellow", "wall_fachwerk_white",
-            "wall_limestone_brick", "wall_rubble_barn", "wall_mustard_porthole",
-        }
-        use_plain_stucco_strip = (not is_windowed) and (wall_mat not in plain_tile_mats)
-
         for i in range(n):
             x0, y0 = pts[i]
             x1, y1 = pts[(i + 1) % n]
-            elen = math.hypot(x1 - x0, y1 - y0)
-            if elen < 0.08:
-                continue
-            if use_plain_stucco_strip:
-                # Windowless stucco garage/shed using a windowed wall palette -> sample ONLY clean stucco strip [0.005..0.095]!
-                u0, u1 = 0.005, 0.095
-            elif is_windowed:
-                if elen < 2.1:
-                    # Narrow wall jog -> map purely into clean stucco border [0.00..0.10]!
-                    u0, u1 = 0.0, 0.10
-                else:
-                    # Snap to integer window bays (each bay = 0.5 U = 3.0m) -> NEVER slices windows!
-                    n_bays = max(1, int(round(elen / 3.0)))
-                    u0, u1 = 0.0, n_bays * 0.5
-            else:
-                u0, u1 = 0.0, elen / 6.0
+            F = Facade(x0, y0, x1, y1, perim)
+            if F.L >= 0.08:
+                self.wall_panel(F, z_bot, z_eave, real, tint, bands=False)
+            perim += F.L
 
-            self.add_quad(
-                (x0, y0, z_bot), (x1, y1, z_bot), (x1, y1, z_eave), (x0, y0, z_eave),
-                ((u0, 0.0), (u1, 0.0), (u1, v_span), (u0, v_span)),
-                wall_mat,
-            )
+    # ---------------- roofs ----------------
+    def _roof_look(self, roof_mat: str):
+        real, col = self.look(roof_mat)
+        return real, col, (REAL_TILE.get(real) or 3.0)
 
     def add_gabled_roof_wing(
         self,
@@ -2042,198 +3191,242 @@ class VillageMeshBuilder:
         dormer_dir: Optional[Tuple[float, float]] = None,
         fascia_mat: str = "trim_wood",
         no_attic_window: bool = False,
+        main_roof: bool = False,
+        gutters: bool = True,
     ):
-        """Build a watertight gabled roof wing (Satteldach) with gable walls, thick overhang slabs, gutters, ridge cap, chimney, dormer, solar PV & ivy."""
+        """Gabled roof wing (Satteldach): gable walls with attic windows, thick tiled slabs with verge + barge boards,
+        soffits, gutters, ridge tiles, chimney, dormers, roof lights, solar PV & ivy."""
         cx, cy = center_xy
         ux, uy = u_axis
         vx, vy = v_axis
         u_vec = Vector((ux, uy, 0.0))
         v_vec = Vector((vx, vy, 0.0))
         c_vec = Vector((cx, cy, 0.0))
-
         hu = len_u * 0.5
         hv = len_v * 0.5
         slope_ratio = roof_h / max(hv, 0.4)
         eave_drop = overhang_eave * slope_ratio
+        cur = self.cur if main_roof else None
+        style = (cur or {}).get("style")
 
         def wpt(du, dv, z):
-            return c_vec + u_vec * du + v_vec * dv + Vector((0.0, 0.0, z))
+            p = c_vec + u_vec * du + v_vec * dv
+            return (p.x, p.y, z)
 
         g_mat = gable_wall_mat or wall_mat
+        g_real, g_col = self.look(g_mat)
+        r_real, r_col, r_tile = self._roof_look(roof_mat)
+        f_real, f_col = self.look(fascia_mat)
+        uo = hash01(f"ruv{seed}{cx:.1f}") * 5.0
 
-        # 1. Gable End Triangles at du = -hu and du = +hu
+        # 1. gable end walls (du = -hu / +hu) with real attic windows
         if add_gable_walls:
-            full_clad_mats = {
-                "wall_timber_vertical", "wall_fachwerk_yellow", "wall_fachwerk_white",
-                "wall_brick_barn_yellow", "wall_limestone_brick", "wall_rubble_barn",
-                "wall_peach_plain", "wall_utility", "wall_mustard_porthole",
-            }
-            is_stucco_wall = g_mat.startswith("wall_") and g_mat not in (full_clad_mats | {"wall_barn"})
-            if g_mat == "wall_barn":
-                uv_plain = ((0.29, 0.10), (0.48, 0.10), (0.385, 0.44))
-            elif g_mat in full_clad_mats:
-                # Full proportional metric UV for timber cladding, half-timbered Fachwerk, or brick barns!
-                gu = len_v / 4.5
-                gv = roof_h / 3.0
-                uv_plain = ((0.0, 0.0), (gu, 0.0), (gu * 0.5, gv))
-            else:
-                uv_plain = ((0.005, 0.05), (0.095, 0.05), (0.05, 0.92))
             for sign_u in (-1.0, 1.0):
                 du = sign_u * hu
-                p_left = wpt(du, -hv, z_eave)
-                p_right = wpt(du, hv, z_eave)
-                p_peak = wpt(du, 0.0, z_eave + roof_h)
                 if sign_u > 0:
-                    self.add_tri(p_left, p_right, p_peak, uv_plain, g_mat)
+                    a, b = wpt(du, -hv, z_eave), wpt(du, hv, z_eave)
                 else:
-                    self.add_tri(p_right, p_left, p_peak, uv_plain, g_mat)
+                    a, b = wpt(du, hv, z_eave), wpt(du, -hv, z_eave)
+                F = Facade(a[0], a[1], b[0], b[1], hash01(f"g{seed}{sign_u}") * 4.0)
+                holes = []
+                tier = "B"
+                if cur is not None:
+                    tier = cur["tier_at"](0.5 * (a[0] + b[0]), 0.5 * (a[1] + b[1]), F.nx, F.ny)
+                want_window = (
+                    cur is not None and style is not None and cur.get("windowed") and (not no_attic_window)
+                    and tier != "party" and len_v >= 5.0 and roof_h >= 2.1
+                )
+                if want_window:
+                    aw = min(style["ww"] * 0.92, len_v * 0.19)
+                    ah = min(style["wh"] * 0.85, roof_h * 0.36)
+                    zc = z_eave + roof_h * 0.30
+                    fwm = style.get("fw", 0.12) if style.get("surround") else 0.0
+                    z_hi = zc + ah * 0.5 + fwm
+                    half_at_top = hv * max(0.0, 1.0 - (z_hi - z_eave) / max(roof_h, 0.5))
+                    if half_at_top >= aw * 0.5 + fwm + 0.30 and ah > 0.5 and aw > 0.5:
+                        key = f"{cur['id']}_g{sign_u}"
+                        wide = len_v >= 9.0 and roof_h >= 3.4
+                        offs = [-(aw * 0.5 + 0.55), (aw * 0.5 + 0.55)] if (wide and half_at_top >= aw * 1.5 + fwm + 0.9) else [0.0]
+                        for wi, off in enumerate(offs):
+                            holes.append(self.add_window(
+                                F, hv + off - aw * 0.5, hv + off + aw * 0.5, zc - ah * 0.5, zc + ah * 0.5,
+                                style, "A" if tier == "A" else "B", g_real, g_col, f"{key}_{wi}",
+                                cell=(WIN_ATTIC if hash01(key) < 0.45 else None), allow_shutters=False))
+                lift = min(0.07, slab_thick * 0.45)
+                g_top = [(F.L, z_eave + lift), (hv, z_eave + roof_h + lift), (0.0, z_eave + lift)]
+                ok = self.wall_panel(F, z_eave, z_eave + roof_h, g_real, g_col, holes=holes, poly_top=g_top, bands=False, uv_off=(uo, 0.0))
+                if not ok:
+                    self.wall_panel(F, z_eave, z_eave + roof_h, g_real, g_col, poly_top=g_top, bands=False)
+                if cur is not None and cur.get("fachwerk") and tier != "party":
+                    self._gable_fachwerk(F, z_eave, roof_h, hv, holes, cur["fachwerk_col"])
 
-                # Climbing green ivy across gable triangle if facing ivy_dir!
-                if ivy_dir is not None:
+                # climbing ivy across the gable triangle (leaf cards hugging the wall, clear of the attic windows)
+                if ivy_dir is not None and cur is not None:
                     gnx, gny = sign_u * ux, sign_u * uy
                     id_len = math.hypot(ivy_dir[0], ivy_dir[1])
                     if id_len > 1e-4 and (gnx * ivy_dir[0] + gny * ivy_dir[1]) / id_len > 0.45:
-                        du_iv = du + sign_u * 0.14
-                        p_l_iv = wpt(du_iv, -hv * 0.88, z_eave - 0.10)
-                        p_r_iv = wpt(du_iv, hv * 0.88, z_eave - 0.10)
-                        p_p_iv = wpt(du_iv, 0.0, z_eave + roof_h * 0.92)
-                        gu_i = len_v / 2.2
-                        gv_i = roof_h / 2.2
-                        if sign_u > 0:
-                            self.add_tri(p_l_iv, p_r_iv, p_p_iv, ((0, 0), (gu_i, 0), (gu_i * 0.5, gv_i)), "ivy_foliage")
-                        else:
-                            self.add_tri(p_r_iv, p_l_iv, p_p_iv, ((0, 0), (gu_i, 0), (gu_i * 0.5, gv_i)), "ivy_foliage")
-                        # Lush volumetric ivy tufts near gable base & corners
-                        for dv_f in (-0.52, -0.18, 0.18, 0.52):
-                            h_here = roof_h * (1.0 - abs(dv_f)) * 0.82
-                            if h_here > 0.45:
-                                self.add_box(
-                                    wpt(du + sign_u * 0.14, dv_f * hv, z_eave + h_here * 0.46),
-                                    u_vec, v_vec, sx=0.22, sy=len_v * 0.22, sz=h_here,
-                                    mat_key="ivy_foliage", uv_scale=1.8,
-                                )
+                        self.add_ivy_cards(F, z_eave - 0.05, z_eave + roof_h,
+                                           lambda s_, _hv=hv, _ze=z_eave, _rh=roof_h: _ze + _rh * max(0.0, 1.0 - abs(s_ - _hv) / _hv) - 0.25,
+                                           holes, f"{cur['id']}_givy{sign_u}")
 
-                # Human-scale centered Palatinate attic gable window
-                if (not no_attic_window) and is_stucco_wall and len_v >= 5.2 and roof_h >= 2.2:
-                    aw = min(1.18, len_v * 0.20)
-                    ah = min(1.28, roof_h * 0.42)
-                    zc_win = z_eave + roof_h * 0.34
-                    max_half_w_at_top = hv * max(0.0, 1.0 - ((zc_win + ah * 0.5) - z_eave) / max(roof_h, 0.5)) - 0.35
-                    if max_half_w_at_top >= aw * 0.5:
-                        du_out = du + sign_u * 0.035
-                        z0_w, z1_w = zc_win - ah * 0.5, zc_win + ah * 0.5
-                        uv_win = ((0.148, 0.18), (0.352, 0.18), (0.352, 0.78), (0.148, 0.78))
-                        if sign_u > 0:
-                            self.add_quad(
-                                wpt(du_out, -aw * 0.5, z0_w),
-                                wpt(du_out, aw * 0.5, z0_w),
-                                wpt(du_out, aw * 0.5, z1_w),
-                                wpt(du_out, -aw * 0.5, z1_w),
-                                uv_win, g_mat,
-                            )
-                        else:
-                            self.add_quad(
-                                wpt(du_out, aw * 0.5, z0_w),
-                                wpt(du_out, -aw * 0.5, z0_w),
-                                wpt(du_out, -aw * 0.5, z1_w),
-                                wpt(du_out, aw * 0.5, z1_w),
-                                uv_win, g_mat,
-                            )
-
-        # 2. Thick Overhanging Roof Slabs (left slope dv < 0, right slope dv > 0)
+        # 2. roof slabs
         hu_o = hu + overhang_gable
         hv_o = hv + overhang_eave
         z_ridge = z_eave + roof_h
         z_eave_o = z_eave - eave_drop
         slope_len = math.hypot(hv_o, z_ridge - z_eave_o)
-        tile_u = (2.0 * hu_o) / 4.0
-        tile_v = slope_len / 4.0
+        tu = (2.0 * hu_o) / r_tile
+        tv = slope_len / r_tile
+        up3 = (0.0, 0.0, 1.0)
+        verge_h = min(0.085, slab_thick * 0.5)
+        # slope-normal offset direction components for the given side
+        s_cos = hv_o / max(slope_len, 1e-6)
 
         for side in (-1.0, 1.0):
-            r0_t = wpt(-hu_o, 0.0, z_ridge + slab_thick)
-            r1_t = wpt(hu_o, 0.0, z_ridge + slab_thick)
-            e0_t = wpt(-hu_o, side * hv_o, z_eave_o + slab_thick)
-            e1_t = wpt(hu_o, side * hv_o, z_eave_o + slab_thick)
+            out3 = (vx * side, vy * side, 0.0)
+            r0_t, r1_t = wpt(-hu_o, 0.0, z_ridge + slab_thick), wpt(hu_o, 0.0, z_ridge + slab_thick)
+            e0_t, e1_t = wpt(-hu_o, side * hv_o, z_eave_o + slab_thick), wpt(hu_o, side * hv_o, z_eave_o + slab_thick)
+            r0_b, r1_b = wpt(-hu_o, 0.0, z_ridge), wpt(hu_o, 0.0, z_ridge)
+            e0_b, e1_b = wpt(-hu_o, side * hv_o, z_eave_o), wpt(hu_o, side * hv_o, z_eave_o)
+            # tiles: V runs up the slope from the eave (eaves = bottom of the scan)
+            if cur is not None and (2.0 * hu_o) * slope_len > 16.0:
+                # weathering never is even: 2 rows x n columns with a tone per node (soot, lichen, replaced areas)
+                r_age = cur.get("age", 0.4)
+                ncol = max(1, min(4, int(round(2.0 * hu_o / 5.5))))
+                nrow = 2
+                mossy = (vx * side * 0.0 + vy * side) > 0.3 and r_age > 0.45     # north-facing slopes of old roofs
 
-            r0_b = wpt(-hu_o, 0.0, z_ridge)
-            r1_b = wpt(hu_o, 0.0, z_ridge)
-            e0_b = wpt(-hu_o, side * hv_o, z_eave_o)
-            e1_b = wpt(hu_o, side * hv_o, z_eave_o)
+                def node(i, j):
+                    uf, vf = i / ncol, j / nrow
+                    pnt = wpt(-hu_o + 2.0 * hu_o * uf, side * hv_o * (1.0 - vf),
+                              (z_eave_o + slab_thick) * (1.0 - vf) + (z_ridge + slab_thick) * vf)
+                    k = 1.0 - (0.06 + 0.14 * r_age) * hash01(f"rn{seed}{side}{i}{j}{cx:.1f}")
+                    if j == 0:
+                        k *= 0.96
+                    c = mul3(r_col, k)
+                    if mossy and j == 0:
+                        c = (c[0] * 0.90, c[1] * 0.98, c[2] * 0.84)
+                    return pnt, (uo + tu * uf, tv * vf), c
 
-            if side > 0:
-                self.add_quad(e0_t, r0_t, r1_t, e1_t, ((0, 0), (0, tile_v), (tile_u, tile_v), (tile_u, 0)), roof_mat)
-                self.add_quad(r0_b, e0_b, e1_b, r1_b, ((0, 0), (0, 1), (1, 1), (1, 0)), fascia_mat)
-                self.add_quad(e0_b, e0_t, e1_t, e1_b, ((0, 0), (0, 0.2), (tile_u, 0.2), (tile_u, 0)), fascia_mat)
-                self.add_quad(r0_b, r0_t, e0_t, e0_b, ((0, 0), (0, 0.2), (tile_v, 0.2), (tile_v, 0)), fascia_mat)
-                self.add_quad(e1_b, e1_t, r1_t, r1_b, ((0, 0), (0, 0.2), (tile_v, 0.2), (tile_v, 0)), fascia_mat)
+                for i in range(ncol):
+                    for j in range(nrow):
+                        (p00, uv00, c00), (p10, uv10, c10) = node(i, j), node(i + 1, j)
+                        (p11, uv11, c11), (p01, uv01, c01) = node(i + 1, j + 1), node(i, j + 1)
+                        self.q(r_real, p00, p10, p11, p01, (uv00, uv10, uv11, uv01), (c00, c10, c11, c01), facing=up3)
             else:
-                self.add_quad(e1_t, r1_t, r0_t, e0_t, ((0, 0), (0, tile_v), (tile_u, tile_v), (tile_u, 0)), roof_mat)
-                self.add_quad(r1_b, e1_b, e0_b, r0_b, ((0, 0), (0, 1), (1, 1), (1, 0)), fascia_mat)
-                self.add_quad(e1_b, e1_t, e0_t, e0_b, ((0, 0), (0, 0.2), (tile_u, 0.2), (tile_u, 0)), fascia_mat)
-                self.add_quad(e0_b, e0_t, r0_t, r0_b, ((0, 0), (0, 0.2), (tile_v, 0.2), (tile_v, 0)), fascia_mat)
-                self.add_quad(r1_b, r1_t, e1_t, e1_b, ((0, 0), (0, 0.2), (tile_v, 0.2), (tile_v, 0)), fascia_mat)
+                self.q(r_real, e0_t, e1_t, r1_t, r0_t, ((uo, 0.0), (uo + tu, 0.0), (uo + tu, tv), (uo, tv)), r_col, facing=up3)
+            # soffit
+            self.q(f_real, e0_b, e1_b, r1_b, r0_b, ((0.0, 0.0), (0.0, tu * 2.0), (2.0, tu * 2.0), (2.0, 0.0)), mul3(f_col, 0.85), facing=(0, 0, -1))
+            # eaves fascia
+            self.q(f_real, e0_b, e1_b, e1_t, e0_t, ((0.0, 0.0), (0.0, tu * 3.0), (0.4, tu * 3.0), (0.4, 0.0)), f_col, facing=out3)
+            # verges: barge board + tile edge course
+            for (sg, rb, rt, eb, et) in ((-1.0, r0_b, r0_t, e0_b, e0_t), (1.0, r1_b, r1_t, e1_b, e1_t)):
+                g3 = (ux * sg, uy * sg, 0.0)
+                self.q(f_real, eb, rb, rt, et, ((0.0, 0.0), (0.0, tv * 3.0), (0.4, tv * 3.0), (0.4, 0.0)), f_col, facing=g3)
+                o = 0.014
+                et2 = (et[0] + g3[0] * o, et[1] + g3[1] * o, et[2] + 0.004)
+                rt2 = (rt[0] + g3[0] * o, rt[1] + g3[1] * o, rt[2] + 0.004)
+                eb2 = (et2[0], et2[1], et2[2] - verge_h)
+                rb2 = (rt2[0], rt2[1], rt2[2] - verge_h)
+                self.q(r_real, eb2, rb2, rt2, et2, ((uo, 0.0), (uo, tv), (uo + 0.06, tv), (uo + 0.06, 0.0)), mul3(r_col, 0.88), facing=g3)
 
-            # Galvanized zinc rainwater gutter (Regenrinne) along eave!
-            if len_u >= 5.0 and overhang_eave >= 0.25:
-                self.add_box(
-                    wpt(0.0, side * (hv_o + 0.055), z_eave_o + 0.05),
-                    u_vec, v_vec, sx=2.0 * hu_o + 0.04, sy=0.09, sz=0.09,
-                    mat_key="gutter_metal", uv_scale=2.0,
-                )
+            # zinc gutter along the eaves
+            if gutters and len_u >= 3.2 and overhang_eave >= 0.2:
+                self.gutter(wpt(0.0, side * (hv_o + 0.06), z_eave_o + 0.035), u_vec, v_vec * side, 2.0 * hu_o - 0.04)
 
-            # Rooftop Photovoltaic Solar PV Array mounted proud on target slope!
+            # solar PV array (module-accurate UVs) on the slope facing solar_pv_dir
             if solar_pv_dir is not None:
                 snx, sny = side * vx, side * vy
                 sd_len = math.hypot(solar_pv_dir[0], solar_pv_dir[1])
                 if sd_len > 1e-4 and (snx * solar_pv_dir[0] + sny * solar_pv_dir[1]) / sd_len > 0.35:
-                    # Inset solar array slightly from gable edges & eave/ridge
-                    u_pad = min(0.55, hu * 0.12)
-                    t_lo, t_hi = 0.12, 0.90  # Fraction up slope from eave to ridge
-                    dz_pv = 0.11  # Proud mounting rail clearance
-                    def pv_pt(du_val, frac):
+                    mod_w, mod_h = 1.03, 1.72
+                    n_u = max(1, int((2.0 * hu - 0.7) / mod_w))
+                    n_v = max(1, int((slope_len * 0.80) / mod_h))
+                    arr_w, arr_h = n_u * mod_w, n_v * mod_h
+                    t_lo = max(0.08, 0.5 - 0.5 * arr_h / slope_len - 0.04)
+                    t_hi = t_lo + arr_h / slope_len
+                    dz_pv = 0.10
+
+                    def pv_pt(du_val, frac, lift=dz_pv):
                         dv_val = side * hv_o * (1.0 - frac)
-                        zz = (z_eave_o + slab_thick) * (1.0 - frac) + (z_ridge + slab_thick) * frac + dz_pv
+                        zz = (z_eave_o + slab_thick) * (1.0 - frac) + (z_ridge + slab_thick) * frac + lift
                         return wpt(du_val, dv_val, zz)
-                    p_e0 = pv_pt(-(hu_o - u_pad), t_lo)
-                    p_e1 = pv_pt(hu_o - u_pad, t_lo)
-                    p_r0 = pv_pt(-(hu_o - u_pad), t_hi)
-                    p_r1 = pv_pt(hu_o - u_pad, t_hi)
-                    pv_u = max(1.0, (2.0 * (hu_o - u_pad)) / 3.4)
-                    pv_v = max(1.0, (slope_len * (t_hi - t_lo)) / 3.0)
-                    if side > 0:
-                        self.add_quad(p_e0, p_r0, p_r1, p_e1, ((0, 0), (0, pv_v), (pv_u, pv_v), (pv_u, 0)), "solar_pv")
-                    else:
-                        self.add_quad(p_e1, p_r1, p_r0, p_e0, ((0, 0), (0, pv_v), (pv_u, pv_v), (pv_u, 0)), "solar_pv")
 
-        # 3. Crisp 3D Ridge Cap Beam along du in [-hu_o, +hu_o]
-        self.add_box(
-            wpt(0.0, 0.0, z_ridge + slab_thick + 0.05),
-            u_vec, v_vec,
-            sx=2.0 * hu_o + 0.06, sy=0.24, sz=0.14,
-            mat_key=roof_mat, uv_scale=4.0,
-        )
+                    p_e0, p_e1 = pv_pt(-arr_w * 0.5, t_lo), pv_pt(arr_w * 0.5, t_lo)
+                    p_r0, p_r1 = pv_pt(-arr_w * 0.5, t_hi), pv_pt(arr_w * 0.5, t_hi)
+                    self.q("solar", p_e0, p_e1, p_r1, p_r0, ((0.0, 0.0), (n_u, 0.0), (n_u, n_v), (0.0, n_v)), WHITE, facing=up3)
+                    b_e0, b_e1 = pv_pt(-arr_w * 0.5, t_lo, 0.01), pv_pt(arr_w * 0.5, t_lo, 0.01)
+                    b_r0, b_r1 = pv_pt(-arr_w * 0.5, t_hi, 0.01), pv_pt(arr_w * 0.5, t_hi, 0.01)
+                    dark = (0.10, 0.10, 0.11)
+                    euv = ((0, 0), (0.1, 0), (0.1, 0.1), (0, 0.1))
+                    self.q("paint", b_e0, b_e1, p_e1, p_e0, euv, dark, facing=out3)
+                    self.q("paint", b_e1, b_r1, p_r1, p_e1, euv, dark, facing=(ux, uy, 0.0))
+                    self.q("paint", b_r0, b_e0, p_e0, p_r0, euv, dark, facing=(-ux, -uy, 0.0))
+                    self.count("solar_arrays")
 
-        # 4. Brick/Sandstone Chimney rising cleanly above ridge
+            # roof lights (Dachflächenfenster) on lived-in attics
+            if cur is not None and cur.get("skylights") and len_u >= 6.0 and solar_pv_dir is None:
+                n_sky = cur["skylights"]
+                if hash01(f"sk{cur['id']}{side}") < 0.55:
+                    sw, sh = 0.78, 1.18
+                    for k in range(n_sky):
+                        du_c = (k - (n_sky - 1) * 0.5) * max(2.2, len_u * 0.28) + (hash01(f"sko{cur['id']}{side}") - 0.5) * 1.0
+                        if abs(du_c) > hu - 1.0:
+                            continue
+                        f_lo = 0.34
+                        f_hi = f_lo + sh / slope_len
+
+                        def sk_pt(du_val, frac, lift):
+                            dv_val = side * hv_o * (1.0 - frac)
+                            zz = (z_eave_o + slab_thick) * (1.0 - frac) + (z_ridge + slab_thick) * frac + lift
+                            return wpt(du_val, dv_val, zz)
+
+                        a0, a1 = sk_pt(du_c - sw * 0.5, f_lo, 0.05), sk_pt(du_c + sw * 0.5, f_lo, 0.05)
+                        b0, b1 = sk_pt(du_c - sw * 0.5, f_hi, 0.05), sk_pt(du_c + sw * 0.5, f_hi, 0.05)
+                        u0_, v0_, u1_, v1_ = atlas_cell(*WIN_SKYLIGHT)
+                        self.q(self._pick_lit(f"sky{cur['id']}{side}{k}", WIN_SKYLIGHT), a0, a1, b1, b0,
+                               ((u0_, v0_), (u1_, v0_), (u1_, v1_), (u0_, v1_)), WHITE, facing=up3)
+                        self.count("skylights")
+
+        # 3. ridge tiles (saddle profile)
+        rw, rh = 0.15, 0.075
+        z_r = z_ridge + slab_thick
+        drop = rw * slope_ratio
+        for side in (-1.0, 1.0):
+            a0, a1 = wpt(-hu_o - 0.02, 0.0, z_r + rh), wpt(hu_o + 0.02, 0.0, z_r + rh)
+            b0, b1 = wpt(-hu_o - 0.02, side * rw, z_r - drop + 0.035), wpt(hu_o + 0.02, side * rw, z_r - drop + 0.035)
+            self.q(r_real, b0, b1, a1, a0, ((uo, 0.0), (uo + tu, 0.0), (uo + tu, 0.09), (uo, 0.09)), mul3(r_col, 0.90), facing=up3)
+        for sg in (-1.0, 1.0):
+            du_e = sg * (hu_o + 0.02)
+            self.t(r_real, wpt(du_e, -rw, z_r - drop + 0.035), wpt(du_e, rw, z_r - drop + 0.035), wpt(du_e, 0.0, z_r + rh),
+                   ((0.0, 0.0), (0.1, 0.0), (0.05, 0.05)), mul3(r_col, 0.8), facing=(ux * sg, uy * sg, 0.0))
+
+        # 4. chimney near the ridge
         if add_chimney and len_u >= 5.0 and len_v >= 4.0:
             ch_u = ((seed % 5) - 2) * (hu * 0.26)
             ch_v = (0.28 if (seed % 2 == 0) else -0.28) * min(hv * 0.45, 1.2)
             ch_base_z = z_eave + roof_h * (1.0 - abs(ch_v) / max(hv, 0.5)) - 0.35
-            ch_top_z = z_ridge + slab_thick + 0.88
+            ch_top_z = z_ridge + slab_thick + 0.72 + (seed % 3) * 0.14
             ch_h = max(1.1, ch_top_z - ch_base_z)
-            self.add_box(
-                wpt(ch_u, ch_v, ch_base_z + ch_h * 0.5),
-                u_vec, v_vec, sx=0.56, sy=0.56, sz=ch_h,
-                mat_key="plinth", uv_scale=2.0,
-            )
-            self.add_box(
-                wpt(ch_u, ch_v, ch_top_z + 0.05),
-                u_vec, v_vec, sx=0.68, sy=0.68, sz=0.10,
-                mat_key="trim_wood", uv_scale=1.0,
-            )
+            brick = (seed >> 3) % 5 < 3
+            if brick:
+                c_real, c_col = "brick", (0.86 + 0.14 * hash01(f"chb{seed}"),) * 3
+            else:
+                c_real, c_col = g_real, mul3(g_col, 0.92)
+            cs = 0.50 + ((seed >> 5) % 3) * 0.06
+            self.box(c_real, wpt(ch_u, ch_v, ch_base_z + ch_h * 0.5), u_vec, v_vec, cs, cs, ch_h, c_col, skip_bottom=True, skip_top=True)
+            self.box("concrete", wpt(ch_u, ch_v, ch_top_z + 0.04), u_vec, v_vec, cs + 0.12, cs + 0.12, 0.08, (0.9, 0.9, 0.9))
+            # sooty flue opening on top of the cover slab
+            fl = cs * 0.28
+            self.q("paint", wpt(ch_u - fl, ch_v - fl, ch_top_z + 0.085), wpt(ch_u + fl, ch_v - fl, ch_top_z + 0.085),
+                   wpt(ch_u + fl, ch_v + fl, ch_top_z + 0.085), wpt(ch_u - fl, ch_v + fl, ch_top_z + 0.085),
+                   ((0, 0), (0.1, 0), (0.1, 0.1), (0, 0.1)), (0.03, 0.03, 0.03), facing=(0, 0, 1))
+            self.count("chimneys")
 
-        # 5. Classic Pfalz Roof Dormer (Gaube) on larger residential houses
+        # 5. roof dormers (Gauben) with a real window in the front
         if add_dormer and len_u >= 8.5 and len_v >= 6.4 and roof_h >= 2.6:
             d_mat = dormer_mat or wall_mat
+            d_real, d_col = self.look(d_mat)
             n_dormers = 2 if (len_u >= 14.0 and dormer_mat is None and dormer_dir is None) else 1
             d_offsets = [-hu * 0.38, hu * 0.38] if n_dormers == 2 else [0.0]
             if dormer_dir is not None:
@@ -2245,169 +3438,170 @@ class VillageMeshBuilder:
             else:
                 d_side = 1.0 if (seed % 2 == 0) else -1.0
                 dw, dd, dh = 1.65, 1.85, 1.35
-            for du_d in d_offsets:
+            for di, du_d in enumerate(d_offsets):
                 dv_front = d_side * (hv * 0.58)
                 dv_center = dv_front - d_side * (dd * 0.42)
                 z_d_bot = z_eave + roof_h * (1.0 - abs(dv_front) / max(hv, 0.5)) - 0.14
-                d_front_c = wpt(du_d, dv_center, z_d_bot + dh * 0.5)
-                self.add_box(d_front_c, u_vec, v_vec, sx=dw, sy=dd, sz=dh, mat_key=d_mat, uv_scale=3.0)
+                d_c = wpt(du_d, dv_center, z_d_bot + dh * 0.5)
+                self.box(d_real, d_c, u_vec, v_vec, dw, dd, dh, d_col, skip_bottom=True, skip_top=True)
+                # window on the dormer front (flush unit + slim frame)
+                fa = wpt(du_d - d_side * dw * 0.5, dv_center + d_side * (dd * 0.5 + 0.012), 0.0)
+                fb = wpt(du_d + d_side * dw * 0.5, dv_center + d_side * (dd * 0.5 + 0.012), 0.0)
+                Fd = Facade(fa[0], fa[1], fb[0], fb[1])
+                if Fd.nx * vx * d_side + Fd.ny * vy * d_side < 0:
+                    Fd = Facade(fb[0], fb[1], fa[0], fa[1])
+                wkey = f"{(cur or {}).get('id', seed)}_d{di}"
+                cells = style["cells"] if style else WIN_FAMILIES["white"]
+                cell = cells[int(hash01("dc" + wkey) * len(cells)) % len(cells)]
+                self.window_unit(Fd, 0.22, dw - 0.22, z_d_bot + 0.32, z_d_bot + dh - 0.14, 0.0, cell, wkey)
                 self.add_gabled_roof_wing(
-                    center_xy=(d_front_c.x, d_front_c.y),
+                    center_xy=(d_c[0], d_c[1]),
                     u_axis=(v_vec.x * d_side, v_vec.y * d_side),
                     v_axis=(-v_vec.y * d_side, v_vec.x * d_side),
-                    len_u=dd + 0.15,
-                    len_v=dw + 0.10,
-                    z_eave=z_d_bot + dh,
+                    len_u=dd + 0.15, len_v=dw + 0.10, z_eave=z_d_bot + dh,
                     roof_h=0.95 if dormer_mat else 0.68,
-                    wall_mat=d_mat,
-                    roof_mat=roof_mat,
-                    overhang_eave=0.16,
-                    overhang_gable=0.18,
-                    slab_thick=0.10,
-                    add_gable_walls=True,
-                    add_chimney=False,
-                    add_dormer=False,
-                    gable_wall_mat=d_mat,
+                    wall_mat=d_mat, roof_mat=roof_mat,
+                    overhang_eave=0.16, overhang_gable=0.18, slab_thick=0.10,
+                    add_gable_walls=True, gable_wall_mat=d_mat, gutters=False, seed=seed + 7,
                 )
+                self.count("dormers")
 
-    def add_hipped_roof_obb(
-        self,
-        obb: Dict,
-        z_eave: float,
-        roof_h: float,
-        roof_mat: str,
-        overhang: float = 0.36,
-        slab_thick: float = 0.16,
-        add_chimney: bool = False,
-        seed: int = 0,
-    ):
-        """Classic Pfalz hipped roof (Walmdach / Zeltdach) with thick fascia & ridge cap."""
+    def _gable_fachwerk(self, F: Facade, z_eave: float, roof_h: float, hv: float, holes, col):
+        """Half-timbered gable triangle: tie beam, king post, collar + struts following the rafters."""
+        bw, d = 0.16, 0.02
+        n3 = F.n3
+
+        def qb(p0, p1, p2, p3):
+            self.q("wood_beam", F.P(p0[0], p0[1], d), F.P(p1[0], p1[1], d), F.P(p2[0], p2[1], d), F.P(p3[0], p3[1], d),
+                   ((0.0, 0.0), (0.32, 0.0), (0.32, 2.0), (0.0, 2.0)), col, facing=n3)
+
+        L = F.L
+        qb((0.0, z_eave), (L, z_eave), (L, z_eave + bw), (0.0, z_eave + bw))
+        zc = z_eave + roof_h * 0.55
+        half_c = hv * (1.0 - 0.55)
+        qb((hv - half_c, zc), (hv + half_c, zc), (hv + half_c - bw * 0.3, zc + bw), (hv - half_c + bw * 0.3, zc + bw))
+        if not any(h[0] < hv + bw and h[1] > hv - bw for h in holes):
+            qb((hv - bw * 0.5, z_eave + bw), (hv + bw * 0.5, z_eave + bw), (hv + bw * 0.5, z_eave + roof_h - 0.25), (hv - bw * 0.5, z_eave + roof_h - 0.25))
+        for frac in (0.28, 0.72):
+            sc = L * frac
+            top = z_eave + roof_h * (1.0 - abs(sc - hv) / hv) - 0.12
+            if top - z_eave > 0.6 and not any(h[0] < sc + bw and h[1] > sc - bw for h in holes):
+                qb((sc - bw * 0.5, z_eave + bw), (sc + bw * 0.5, z_eave + bw), (sc + bw * 0.5, top), (sc - bw * 0.5, top))
+
+    def add_hipped_roof_obb(self, obb: Dict, z_eave: float, roof_h: float, roof_mat: str, overhang: float = 0.36,
+                            slab_thick: float = 0.16, add_chimney: bool = False, seed: int = 0, fascia_mat: str = "trim_wood"):
+        """Hipped roof (Walmdach / Zeltdach) with fascia, soffit, gutters and ridge / hip tiles."""
         cx, cy = obb["center"]
         ux, uy = obb["u_axis"]
         vx, vy = obb["v_axis"]
         u_vec = Vector((ux, uy, 0.0))
         v_vec = Vector((vx, vy, 0.0))
         c_vec = Vector((cx, cy, 0.0))
-
+        r_real, r_col, T = self._roof_look(roof_mat)
+        f_real, f_col = self.look(fascia_mat)
         hu = obb["len_u"] * 0.5 + overhang
         hv = obb["len_v"] * 0.5 + overhang
-        # Inset ridge length so hip faces slope around ~40-45 deg cleanly
         ridge_half = max(0.0, hu - hv * 0.92)
         z_bot = z_eave - 0.10
         z_top = z_eave + slab_thick
         z_ridge = z_eave + roof_h + slab_thick
+        up3 = (0.0, 0.0, 1.0)
+        uo = hash01(f"hip{seed}{cx:.1f}") * 5.0
 
         def wpt(du, dv, z):
-            return c_vec + u_vec * du + v_vec * dv + Vector((0.0, 0.0, z))
+            p = c_vec + u_vec * du + v_vec * dv
+            return (p.x, p.y, z)
 
-        # 4 eaves corners (bottom fascia + top roof edge)
-        b0 = wpt(-hu, -hv, z_bot)
-        b1 = wpt(hu, -hv, z_bot)
-        b2 = wpt(hu, hv, z_bot)
-        b3 = wpt(-hu, hv, z_bot)
-        t0 = wpt(-hu, -hv, z_top)
-        t1 = wpt(hu, -hv, z_top)
-        t2 = wpt(hu, hv, z_top)
-        t3 = wpt(-hu, hv, z_top)
+        b0, b1, b2, b3 = wpt(-hu, -hv, z_bot), wpt(hu, -hv, z_bot), wpt(hu, hv, z_bot), wpt(-hu, hv, z_bot)
+        t0, t1, t2, t3 = wpt(-hu, -hv, z_top), wpt(hu, -hv, z_top), wpt(hu, hv, z_top), wpt(-hu, hv, z_top)
+        self.q(f_real, b3, b2, b1, b0, ((0, 0), (2, 0), (2, 2), (0, 2)), mul3(f_col, 0.85), facing=(0, 0, -1))
+        for (p0, p1, q1, q0, fc, ln) in ((b0, b1, t1, t0, (-vx, -vy, 0), 2 * hu), (b1, b2, t2, t1, (ux, uy, 0), 2 * hv),
+                                          (b2, b3, t3, t2, (vx, vy, 0), 2 * hu), (b3, b0, t0, t3, (-ux, -uy, 0), 2 * hv)):
+            self.q(f_real, p0, p1, q1, q0, ((0, 0), (0, ln * 2.0), (0.5, ln * 2.0), (0.5, 0)), f_col, facing=fc)
+            mid = Vector(((p0[0] + p1[0]) * 0.5 + fc[0] * 0.06, (p0[1] + p1[1]) * 0.5 + fc[1] * 0.06, z_top - 0.07))
+            ax = u_vec if abs(fc[0] * ux + fc[1] * uy) < 0.5 else v_vec
+            self.gutter(mid, ax, Vector((fc[0], fc[1], 0.0)), ln - 0.04)
 
-        # Soffit bottom & vertical fascia band
-        self.add_quad(b3, b2, b1, b0, ((0, 0), (1, 0), (1, 1), (0, 1)), "trim_wood")
-        for p0, p1, q1, q0 in [(b0, b1, t1, t0), (b1, b2, t2, t1), (b2, b3, t3, t2), (b3, b0, t0, t3)]:
-            self.add_quad(p0, p1, q1, q0, ((0, 0), (2, 0), (2, 0.2), (0, 0.2)), "trim_wood")
-
-        slope_v = math.hypot(hv, roof_h) / 4.0
-        u_full = (2.0 * hu) / 4.0
-        u_r0 = (hu - ridge_half) / 4.0
-        u_r1 = (hu + ridge_half) / 4.0
-
+        slope_v = math.hypot(hv, roof_h) / T
+        u_full = (2.0 * hu) / T
+        u_r0 = (hu - ridge_half) / T
+        u_r1 = (hu + ridge_half) / T
         if ridge_half < 0.25:
-            # Pyramid roof (Zeltdach) for square houses
             apex = wpt(0.0, 0.0, z_ridge)
-            for p0, p1 in [(t0, t1), (t1, t2), (t2, t3), (t3, t0)]:
-                elen = (p1 - p0).length / 4.0
-                self.add_tri(p0, p1, apex, ((0, 0), (elen, 0), (elen * 0.5, slope_v)), roof_mat)
+            for p0, p1 in ((t0, t1), (t1, t2), (t2, t3), (t3, t0)):
+                elen = math.dist(p0, p1) / T
+                self.t(r_real, p0, p1, apex, ((uo, 0), (uo + elen, 0), (uo + elen * 0.5, slope_v)), r_col, facing=up3)
         else:
             r0 = wpt(-ridge_half, 0.0, z_ridge)
             r1 = wpt(ridge_half, 0.0, z_ridge)
-            # 2 trapezoidal side slopes
-            self.add_quad(t0, t1, r1, r0, ((0, 0), (u_full, 0), (u_r1, slope_v), (u_r0, slope_v)), roof_mat)
-            self.add_quad(t2, t3, r0, r1, ((0, 0), (u_full, 0), (u_r1, slope_v), (u_r0, slope_v)), roof_mat)
-            # 2 triangular hip ends
-            hv_u = (2.0 * hv) / 4.0
-            hip_slope = math.hypot(hu - ridge_half, roof_h) / 4.0
-            self.add_tri(t1, t2, r1, ((0, 0), (hv_u, 0), (hv_u * 0.5, hip_slope)), roof_mat)
-            self.add_tri(t3, t0, r0, ((0, 0), (hv_u, 0), (hv_u * 0.5, hip_slope)), roof_mat)
-            # Ridge cap beam
-            self.add_box(wpt(0.0, 0.0, z_ridge + 0.05), u_vec, v_vec, sx=2.0 * ridge_half + 0.2, sy=0.22, sz=0.13, mat_key=roof_mat, uv_scale=4.0)
+            self.q(r_real, t0, t1, r1, r0, ((uo, 0), (uo + u_full, 0), (uo + u_r1, slope_v), (uo + u_r0, slope_v)), r_col, facing=up3)
+            self.q(r_real, t2, t3, r0, r1, ((uo, 0), (uo + u_full, 0), (uo + u_r1, slope_v), (uo + u_r0, slope_v)), r_col, facing=up3)
+            hv_u = (2.0 * hv) / T
+            hip_slope = math.hypot(hu - ridge_half, roof_h) / T
+            self.t(r_real, t1, t2, r1, ((uo, 0), (uo + hv_u, 0), (uo + hv_u * 0.5, hip_slope)), r_col, facing=up3)
+            self.t(r_real, t3, t0, r0, ((uo, 0), (uo + hv_u, 0), (uo + hv_u * 0.5, hip_slope)), r_col, facing=up3)
+            self.beam(r_real, wpt(-ridge_half - 0.1, 0.0, z_ridge + 0.03), wpt(ridge_half + 0.1, 0.0, z_ridge + 0.03), 0.24, 0.12, mul3(r_col, 0.9), caps=True)
+            for (tp, rp) in ((t0, r0), (t3, r0), (t1, r1), (t2, r1)):
+                self.beam(r_real, (tp[0], tp[1], tp[2] + 0.03), (rp[0], rp[1], rp[2] + 0.03), 0.22, 0.10, mul3(r_col, 0.9))
 
         if add_chimney:
             ch_u = (ridge_half * 0.35) * (1 if seed % 2 == 0 else -1)
-            self.add_box(wpt(ch_u, 0.35, z_ridge + 0.25), u_vec, v_vec, sx=0.55, sy=0.55, sz=1.25, mat_key="plinth", uv_scale=2.0)
-            self.add_box(wpt(ch_u, 0.35, z_ridge + 0.92), u_vec, v_vec, sx=0.66, sy=0.66, sz=0.09, mat_key="trim_wood", uv_scale=1.0)
+            self.box("brick", wpt(ch_u, 0.35, z_ridge + 0.25), u_vec, v_vec, 0.55, 0.55, 1.25, (0.92, 0.92, 0.92), skip_bottom=True)
+            self.box("concrete", wpt(ch_u, 0.35, z_ridge + 0.92), u_vec, v_vec, 0.66, 0.66, 0.09, (0.9, 0.9, 0.9))
 
     def add_polygon_hipped_roof(self, pts: List[Tuple[float, float]], z_eave: float, roof_h: float, roof_mat: str):
         """Guaranteed watertight pitched roof for ANY arbitrary non-rectangular/irregular polygon."""
+        r_real, r_col, T = self._roof_look(roof_mat)
+        f_real, f_col = self.look("trim_wood")
         outer = offset_polygon_outward(pts, 0.28)
         n = len(outer)
-        # Compute interior pole/centroid (average of vertices clamped inside polygon)
         cx = sum(p[0] for p in pts) / n
         cy = sum(p[1] for p in pts) / n
         if not point_in_polygon(cx, cy, pts):
-            # Fallback to midpoint of longest interior chord via tessellation
             vecs = [Vector((p[0], p[1], 0.0)) for p in pts]
             tris = tessellate_polygon([vecs])
             if tris:
                 best_t = max(tris, key=lambda t: abs((vecs[t[1]] - vecs[t[0]]).cross(vecs[t[2]] - vecs[t[0]]).z))
                 cx = (vecs[best_t[0]].x + vecs[best_t[1]].x + vecs[best_t[2]].x) / 3.0
                 cy = (vecs[best_t[0]].y + vecs[best_t[1]].y + vecs[best_t[2]].y) / 3.0
-
-        # Fascia rim around outer overhang
-        z_bot = z_eave - 0.08
-        z_top = z_eave + 0.14
+        z_bot = z_eave - 0.10
+        z_top = z_eave + 0.16
         for i in range(n):
             x0, y0 = outer[i]
             x1, y1 = outer[(i + 1) % n]
-            self.add_quad((x0, y0, z_bot), (x1, y1, z_bot), (x1, y1, z_top), (x0, y0, z_top),
-                          ((0, 0), (1, 0), (1, 0.2), (0, 0.2)), "trim_wood")
-
-        # Tessellate outer polygon and lift an inward-shrunk ring + centroid to create true sloped hip roof!
+            ln = math.hypot(x1 - x0, y1 - y0)
+            self.q(f_real, (x0, y0, z_bot), (x1, y1, z_bot), (x1, y1, z_top), (x0, y0, z_top),
+                   ((0, 0), (0, ln * 2.0), (0.5, ln * 2.0), (0.5, 0)), f_col)
+            ix0, iy0 = pts[i]
+            ix1, iy1 = pts[(i + 1) % n]
+            self.q(f_real, (x0, y0, z_bot), (ix0, iy0, z_bot), (ix1, iy1, z_bot), (x1, y1, z_bot),
+                   ((0, 0), (0.5, 0), (0.5, ln * 2.0), (0, ln * 2.0)), mul3(f_col, 0.85), facing=(0, 0, -1))
         vecs = [Vector((p[0], p[1], 0.0)) for p in outer]
         tris = tessellate_polygon([vecs])
-        # Build clean pitched roof triangles using boundary-distance elevation on vertices + centroid peak
         apex = (cx, cy, z_top + roof_h)
-        # Check if star-shaped from (cx, cy); if yes, crisp radial fan; else tessellated cap + slight ridge lift
         is_star = True
         for i in range(n):
             x0, y0 = outer[i]
             x1, y1 = outer[(i + 1) % n]
-            # Cross product (p1-p0) x (apex-p0) must be > 0 for CCW star-shaped
             if (x1 - x0) * (cy - y0) - (y1 - y0) * (cx - x0) <= 0.01:
                 is_star = False
                 break
-
+        up3 = (0.0, 0.0, 1.0)
         if is_star:
             for i in range(n):
                 x0, y0 = outer[i]
                 x1, y1 = outer[(i + 1) % n]
                 elen = math.hypot(x1 - x0, y1 - y0)
                 slope = math.hypot(math.hypot(0.5 * (x0 + x1) - cx, 0.5 * (y0 + y1) - cy), roof_h)
-                self.add_tri(
-                    (x0, y0, z_top), (x1, y1, z_top), apex,
-                    ((0, 0), (elen / 4.0, 0), (elen / 8.0, slope / 4.0)),
-                    roof_mat,
-                )
+                self.t(r_real, (x0, y0, z_top), (x1, y1, z_top), apex, ((0, 0), (elen / T, 0), (elen / (2 * T), slope / T)), r_col, facing=up3)
         else:
-            # Safe fallback for non-star polygons: clean tiled roof cap without floating gray utility boxes!
             for t in tris:
                 p0, p1, p2 = outer[t[0]], outer[t[1]], outer[t[2]]
-                self.add_tri(
-                    (p0[0], p0[1], z_top), (p1[0], p1[1], z_top), (p2[0], p2[1], z_top),
-                    ((p0[0] / 4.0, p0[1] / 4.0), (p1[0] / 4.0, p1[1] / 4.0), (p2[0] / 4.0, p2[1] / 4.0)),
-                    roof_mat,
-                )
+                self.t(r_real, (p0[0], p0[1], z_top), (p1[0], p1[1], z_top), (p2[0], p2[1], z_top),
+                       (((p0[0] - cx) / T, (p0[1] - cy) / T), ((p1[0] - cx) / T, (p1[1] - cy) / T), ((p2[0] - cx) / T, (p2[1] - cy) / T)), r_col, facing=up3)
 
     def add_skillion_roof(self, obb: Dict, z_eave: float, roof_h: float, wall_mat: str, roof_mat: str, overhang: float = 0.26, fascia_mat: str = "trim_wood"):
-        """Mono-pitch shed/garage roof with clean slope walls & overhang fascia."""
+        """Mono-pitch shed/garage roof with raised rear wall, side spandrels & overhang fascia."""
         cx, cy = obb["center"]
         ux, uy = obb["u_axis"]
         vx, vy = obb["v_axis"]
@@ -2416,138 +3610,320 @@ class VillageMeshBuilder:
         c_vec = Vector((cx, cy, 0.0))
         hu = obb["len_u"] * 0.5
         hv = obb["len_v"] * 0.5
+        w_real, w_col = self.look(wall_mat)
+        r_real, r_col, T = self._roof_look(roof_mat)
+        f_real, f_col = self.look(fascia_mat)
+        wt = REAL_TILE.get(w_real) or 2.0
 
         def wpt(du, dv, z):
-            return c_vec + u_vec * du + v_vec * dv + Vector((0.0, 0.0, z))
+            p = c_vec + u_vec * du + v_vec * dv
+            return (p.x, p.y, z)
 
-        # High wall along -hv, low along +hv
-        # Add triangular side spandrels + raised rear wall
-        self.add_quad(
-            wpt(-hu, -hv, z_eave), wpt(hu, -hv, z_eave),
-            wpt(hu, -hv, z_eave + roof_h), wpt(-hu, -hv, z_eave + roof_h),
-            ((0, 0), (0.1, 0), (0.1, 0.4), (0, 0.4)), wall_mat,
-        )
-        self.add_tri(wpt(hu, -hv, z_eave), wpt(hu, hv, z_eave), wpt(hu, -hv, z_eave + roof_h), ((0, 0), (0.1, 0), (0, 0.4)), wall_mat)
-        self.add_tri(wpt(-hu, hv, z_eave), wpt(-hu, -hv, z_eave), wpt(-hu, -hv, z_eave + roof_h), ((0, 0), (0.1, 0), (0, 0.4)), wall_mat)
+        self.q(w_real, wpt(-hu, -hv, z_eave), wpt(hu, -hv, z_eave), wpt(hu, -hv, z_eave + roof_h), wpt(-hu, -hv, z_eave + roof_h),
+               ((0, 0), (2 * hu / wt, 0), (2 * hu / wt, roof_h / wt), (0, roof_h / wt)), w_col, facing=(-vx, -vy, 0))
+        self.t(w_real, wpt(hu, -hv, z_eave), wpt(hu, hv, z_eave), wpt(hu, -hv, z_eave + roof_h),
+               ((0, 0), (2 * hv / wt, 0), (0, roof_h / wt)), w_col, facing=(ux, uy, 0))
+        self.t(w_real, wpt(-hu, hv, z_eave), wpt(-hu, -hv, z_eave), wpt(-hu, -hv, z_eave + roof_h),
+               ((0, 0), (2 * hv / wt, 0), (2 * hv / wt, roof_h / wt)), w_col, facing=(-ux, -uy, 0))
 
         hu_o = hu + overhang
         hv_o = hv + overhang
-        thick = 0.16 if fascia_mat != "trim_wood" else 0.14
+        thick = 0.16
         z_hi = z_eave + roof_h + 0.05
         z_lo = z_eave - 0.06
-        slope_l = math.hypot(2.0 * hv_o, z_hi - z_lo) / 4.0
-        u_len = (2.0 * hu_o) / 4.0
-
-        p0 = wpt(-hu_o, -hv_o, z_hi + thick)
-        p1 = wpt(hu_o, -hv_o, z_hi + thick)
-        p2 = wpt(hu_o, hv_o, z_lo + thick)
-        p3 = wpt(-hu_o, hv_o, z_lo + thick)
-        self.add_quad(p3, p2, p1, p0, ((0, 0), (u_len, 0), (u_len, slope_l), (0, slope_l)), roof_mat)
-
-        b0 = wpt(-hu_o, -hv_o, z_hi)
-        b1 = wpt(hu_o, -hv_o, z_hi)
-        b2 = wpt(hu_o, hv_o, z_lo)
-        b3 = wpt(-hu_o, hv_o, z_lo)
-        self.add_quad(b0, b1, b2, b3, ((0, 0), (1, 0), (1, 1), (0, 1)), fascia_mat)
-        for q0, q1, r1, r0 in [(b0, b1, p1, p0), (b1, b2, p2, p1), (b2, b3, p3, p2), (b3, b0, p0, p3)]:
-            self.add_quad(q0, q1, r1, r0, ((0, 0), (1, 0), (1, 0.2), (0, 0.2)), fascia_mat)
+        slope_l = math.hypot(2.0 * hv_o, z_hi - z_lo) / T
+        u_len = (2.0 * hu_o) / T
+        uo = hash01(f"sk{cx:.1f}{cy:.1f}") * 5.0
+        p0, p1 = wpt(-hu_o, -hv_o, z_hi + thick), wpt(hu_o, -hv_o, z_hi + thick)
+        p2, p3 = wpt(hu_o, hv_o, z_lo + thick), wpt(-hu_o, hv_o, z_lo + thick)
+        # eaves (low side) at V = 0
+        self.q(r_real, p3, p2, p1, p0, ((uo, 0), (uo + u_len, 0), (uo + u_len, slope_l), (uo, slope_l)), r_col, facing=(0, 0, 1))
+        b0, b1 = wpt(-hu_o, -hv_o, z_hi), wpt(hu_o, -hv_o, z_hi)
+        b2, b3 = wpt(hu_o, hv_o, z_lo), wpt(-hu_o, hv_o, z_lo)
+        self.q(f_real, b0, b1, b2, b3, ((0, 0), (2, 0), (2, 2), (0, 2)), mul3(f_col, 0.85), facing=(0, 0, -1))
+        for (q0, q1, r1, r0, fc) in ((b0, b1, p1, p0, (-vx, -vy, 0)), (b1, b2, p2, p1, (ux, uy, 0)), (b2, b3, p3, p2, (vx, vy, 0)), (b3, b0, p0, p3, (-ux, -uy, 0))):
+            ln = math.dist(q0, q1)
+            self.q(f_real, q0, q1, r1, r0, ((0, 0), (0, ln * 2.0), (0.4, ln * 2.0), (0.4, 0)), f_col, facing=fc)
+        if obb["len_u"] >= 3.0:
+            self.gutter(wpt(0.0, hv_o + 0.06, z_lo + 0.04), u_vec, v_vec, 2.0 * hu_o - 0.04)
 
     def add_flat_parapet_roof(self, pts: List[Tuple[float, float]], z_eave: float, wall_mat: str, roof_mat: str):
-        """Architectural flat roof with crisp raised parapet wall (Attika), dark coping rim, and textured roof slab."""
+        """Flat roof with raised parapet (Attika), metal coping and gravel / membrane deck."""
+        w_real, w_col = self.look(wall_mat)
+        r_real, r_col, T = self._roof_look(roof_mat)
+        wt = REAL_TILE.get(w_real) or 2.0
         n = len(pts)
         parapet_h = 0.28
         z_parapet = z_eave + parapet_h
-        # Raised parapet outer wall (plain stucco border)
+        perim = 0.0
         for i in range(n):
             x0, y0 = pts[i]
             x1, y1 = pts[(i + 1) % n]
-            self.add_quad(
-                (x0, y0, z_eave), (x1, y1, z_eave), (x1, y1, z_parapet), (x0, y0, z_parapet),
-                ((0.0, 0.0), (0.08, 0.0), (0.08, 0.12), (0.0, 0.12)), wall_mat,
-            )
-        # Slightly proud dark metal coping cap around perimeter
+            ln = math.hypot(x1 - x0, y1 - y0)
+            self.q(w_real, (x0, y0, z_eave), (x1, y1, z_eave), (x1, y1, z_parapet), (x0, y0, z_parapet),
+                   ((perim / wt, 0.0), ((perim + ln) / wt, 0.0), ((perim + ln) / wt, parapet_h / wt), (perim / wt, parapet_h / wt)), mul3(w_col, 0.92))
+            perim += ln
         outer = offset_polygon_outward(pts, 0.07)
+        inner = offset_polygon_outward(pts, -0.22)
+        cop = (0.66, 0.66, 0.65) if wall_mat == "wall_bauhaus_white" else (0.20, 0.21, 0.22)
         for i in range(n):
             x0, y0 = outer[i]
             x1, y1 = outer[(i + 1) % n]
-            self.add_quad(
-                (x0, y0, z_parapet - 0.04), (x1, y1, z_parapet - 0.04),
-                (x1, y1, z_parapet + 0.06), (x0, y0, z_parapet + 0.06),
-                ((0, 0), (1, 0), (1, 0.1), (0, 0.1)), "trim_wood",
-            )
-        # Tessellated roof deck surface slightly recessed inside parapet
-        vecs = [Vector((p[0], p[1], 0.0)) for p in outer]
+            j0, j1 = inner[i], inner[(i + 1) % n]
+            self.q("paint", (x0, y0, z_parapet - 0.05), (x1, y1, z_parapet - 0.05), (x1, y1, z_parapet + 0.05), (x0, y0, z_parapet + 0.05),
+                   ((0, 0), (0.1, 0), (0.1, 0.1), (0, 0.1)), cop)
+            self.q("paint", (x0, y0, z_parapet + 0.05), (x1, y1, z_parapet + 0.05), (j1[0], j1[1], z_parapet + 0.05), (j0[0], j0[1], z_parapet + 0.05),
+                   ((0, 0), (0.1, 0), (0.1, 0.1), (0, 0.1)), mul3(cop, 1.2), facing=(0, 0, 1))
+        vecs = [Vector((p[0], p[1], 0.0)) for p in pts]
         tris = tessellate_polygon([vecs])
+        ox, oy = pts[0]
         for t in tris:
-            p0, p1, p2 = outer[t[0]], outer[t[1]], outer[t[2]]
-            self.add_tri(
-                (p0[0], p0[1], z_parapet + 0.05),
-                (p1[0], p1[1], z_parapet + 0.05),
-                (p2[0], p2[1], z_parapet + 0.05),
-                ((p0[0] / 4.0, p0[1] / 4.0), (p1[0] / 4.0, p1[1] / 4.0), (p2[0] / 4.0, p2[1] / 4.0)),
-                roof_mat,
-            )
+            p0, p1, p2 = pts[t[0]], pts[t[1]], pts[t[2]]
+            self.t(r_real, (p0[0], p0[1], z_parapet - 0.06), (p1[0], p1[1], z_parapet - 0.06), (p2[0], p2[1], z_parapet - 0.06),
+                   (((p0[0] - ox) / T, (p0[1] - oy) / T), ((p1[0] - ox) / T, (p1[1] - oy) / T), ((p2[0] - ox) / T, (p2[1] - oy) / T)), r_col, facing=(0, 0, 1))
 
     def add_door_or_gate(self, pts: List[Tuple[float, float]], z_ground: float, z_eave: float, is_barn: bool, seed: int):
-        """Attach a crisp 3D framed German Haustür (or double wooden Barn Gate) on the longest straight facade wall."""
+        """Legacy entry point (kept for external callers): doors and gates are now part of build_building()."""
+        return
+    # ---------------- per-building look & facade style ----------------
+    def _jitter(self, key: str, amount: float = 0.06, hue: float = 0.025):
+        v = 1.0 - amount * hash01("jv" + key)
+        return (v * (1.0 - hue * hash01("jr" + key)), v * (1.0 - hue * hash01("jg" + key)), v * (1.0 - hue * hash01("jb" + key)))
+
+    def _make_look(self, bid: str, h: int, wall_mat: str, gable_wall_mat: Optional[str], dormer_mat: Optional[str], roof_mat: str,
+                   plinth_mat: str, is_barn: bool, is_utility: bool, cx: float, cy: float, roof_tone: str,
+                   roof_hex: Optional[str] = None, plinth_free: bool = False) -> Dict:
+        ent = SEM.get(wall_mat, {})
+        site = self.site
+        near_main = bool(site and site.near_role(cx, cy, "main", 34.0))
+        r_era = hash01("era" + bid)
+        modern_walls = ("wall_white_clean", "wall_cool_gray_light", "wall_cool_gray", "wall_bauhaus_white", "wall_modern_raffstore")
+        if ent.get("era"):
+            era = ent["era"]
+        elif is_barn or is_utility:
+            era = "old" if (is_barn and r_era < 0.7) else "mid"
+        elif roof_mat == "roof_slate" and wall_mat in modern_walls:
+            era = "modern" if r_era < 0.72 else "mid"
+        elif near_main:
+            era = "old" if r_era < 0.72 else "mid"
+        elif roof_mat in ("roof_terracotta", "roof_darkred", "roof_darkbrown") and wall_mat not in modern_walls:
+            era = "old" if r_era < 0.30 else ("mid" if r_era < 0.88 else "modern")
+        else:
+            era = "mid" if r_era < 0.55 else ("modern" if r_era < 0.85 else "old")
+
+        looks: Dict[str, Tuple[str, Tuple[float, float, float]]] = {}
+
+        def wall_look(key: str, salt: str):
+            e = SEM.get(key)
+            if e is None:
+                raise KeyError(f"Unknown wall material '{key}' on building {bid}")
+            jit = self._jitter(bid + salt, 0.07, 0.03)
+            if e.get("plaster"):
+                rv = hash01("pv" + bid)
+                if e.get("smooth") or (era == "modern" and rv < 0.80) or (era == "mid" and rv < 0.35):
+                    real = "plaster_smooth"
+                else:
+                    real = "plaster_rough"
+                tint = tint_for(real, e["rgb"])
+                if real == "plaster_weathered":
+                    tint = (min(1.0, tint[0] * 1.0), min(1.0, tint[1] * 1.0), min(1.0, tint[2] * 1.0))
+                return real, clamp01_3(mul3(tint, jit))
+            real, tint, _ = sem_look(key)
+            return real, clamp01_3(mul3(tint, jit))
+
+        looks[wall_mat] = wall_look(wall_mat, "w")
+        for extra in (gable_wall_mat, dormer_mat):
+            if extra and extra not in looks:
+                looks[extra] = wall_look(extra, "g")
+
+        # roofs: scan + tone follow the AERIAL-sampled roof colour of this very building (scene roofColorHex):
+        # brightness relative to its tone class, a share of its hue, and how saturated (= how new) the tiles are.
+        rr = hash01("rv" + bid)
+        rj = self._jitter(bid + "roof", 0.10, 0.04)
+        f_lum, sat, hue_n = 1.0, 0.22, (1.0, 1.0, 1.0)
+        if roof_hex and len(roof_hex) == 7:
+            a_lin = lin_rgb((int(roof_hex[1:3], 16), int(roof_hex[3:5], 16), int(roof_hex[5:7], 16)))
+            lum = 0.2126 * a_lin[0] + 0.7152 * a_lin[1] + 0.0722 * a_lin[2]
+            ref = ROOF_CLASS_LUM.get(roof_tone)
+            if ref:
+                f_lum = max(0.66, min(1.10, (lum / ref) ** 0.75))
+            mx_a = max(a_lin)
+            sat = (mx_a - min(a_lin)) / max(mx_a, 1e-4)
+            hue_n = tuple(0.45 + 0.55 * (c / max(mx_a, 1e-4)) for c in a_lin)
+
+        def roof_tint(base):
+            t = mul3(mul3(mul3(base, hue_n), f_lum), rj)
+            mx = max(t)
+            return tuple(c / mx for c in t) if mx > 1.0 else t
+
+        if roof_mat == "roof_terracotta":
+            # the clay-red scan is far more saturated than any roof in the orthophoto (beige-brown to dull red):
+            # it is used for a minority of roofs only and always toned down (red channel cut hardest)
+            if sat > 0.48 and rr < 0.45:
+                looks[roof_mat] = ("roof_clay_red", roof_tint((0.78, 0.90, 1.0)))           # fairly new clay tiles
+            elif rr < 0.28:
+                looks[roof_mat] = ("roof_clay_red", roof_tint((0.60, 0.76, 0.92)))          # aged, sooty red-brown
+            elif rr < 0.82:
+                looks[roof_mat] = ("roof_clay_weathered", roof_tint((0.98, 0.84, 0.72)))     # old pantiles, warm red-brown
+            else:
+                looks[roof_mat] = ("roof_clay_weathered", roof_tint((0.86, 0.78, 0.72)))    # old pantiles, brown with patina
+        elif roof_mat == "roof_darkred":
+            looks[roof_mat] = ("roof_clay_red", roof_tint((0.56, 0.62, 0.74))) if rr < 0.45 else ("roof_clay_weathered", roof_tint((0.80, 0.66, 0.60)))
+        elif roof_mat == "roof_darkbrown":
+            looks[roof_mat] = ("roof_clay_weathered", roof_tint((0.62, 0.54, 0.50)))
+        elif roof_mat == "roof_slate":
+            if era != "modern" and rr < 0.38:
+                looks[roof_mat] = ("roof_dark", roof_tint((0.78, 0.78, 0.82)))              # old dark concrete tiles with lichen
+            else:
+                looks[roof_mat] = ("roof_slate", roof_tint((0.30, 0.31, 0.34)))
+        else:
+            real, tint, _ = sem_look(roof_mat)
+            looks[roof_mat] = (real, clamp01_3(mul3(mul3(tint, max(0.75, min(1.0, f_lum))), rj)))
+        # the default plinth of the street-level data is "rubble everywhere"; where it is not a verified
+        # per-house observation choose what the references show: mostly painted render, some sandstone,
+        # concrete, a few tiled, and rubble only on barns / old houses.
+        if plinth_free:
+            rp = hash01("plv" + bid)
+            w_real, w_col = looks[wall_mat]
+            if is_utility:
+                plinth_mat_eff = ("plaster_rough", tint_for("plaster_rough", (150, 150, 146))) if rp < 0.7 else ("concrete", (0.9, 0.9, 0.9))
+            elif is_barn:
+                plinth_mat_eff = ("rubble", (0.96, 0.95, 0.93)) if rp < 0.55 else (("sandstone_red", (0.9, 0.9, 0.9)) if rp < 0.8 else ("plaster_rough", tint_for("plaster_rough", (140, 136, 128))))
+            elif rp < 0.40:      # painted render: a darker / greyer tone of the wall colour
+                dark = [(0.52, 0.50, 0.48), (0.60, 0.42, 0.34), (0.44, 0.45, 0.47), (0.66, 0.62, 0.54)][int(hash01("plc" + bid) * 4) % 4]
+                base = w_col if w_real != "plaster_weathered" else (0.9, 0.88, 0.84)
+                plinth_mat_eff = ("plaster_smooth" if rp < 0.2 else "plaster_rough", clamp01_3(mul3(base, dark)))
+            elif rp < 0.60:
+                plinth_mat_eff = ("sandstone_red", (0.94, 0.94, 0.94))
+            elif rp < 0.74:
+                plinth_mat_eff = ("plaster_rough", tint_for("plaster_rough", (158, 158, 152)))        # grey cement render
+            elif rp < 0.80 and era != "modern":
+                plinth_mat_eff = ("plinth_tile", WHITE)
+            elif rp < 0.88:
+                plinth_mat_eff = ("sandstone_yellow", (0.92, 0.90, 0.86))
+            else:
+                plinth_mat_eff = ("rubble", (0.98, 0.98, 0.98))
+            looks[plinth_mat] = (plinth_mat_eff[0], clamp01_3(mul3(plinth_mat_eff[1], self._jitter(bid + "pl", 0.10, 0.03))))
+        if plinth_mat not in looks:
+            p_real, p_tint, _ = sem_look(plinth_mat)
+            looks[plinth_mat] = (p_real, clamp01_3(mul3(p_tint, self._jitter(bid + "pl", 0.10, 0.03))))
+
+        # ---- facade style ----
+        r = lambda s: hash01(s + bid)      # noqa: E731
+        st: Dict = {"era": era}
+        hint = ent.get("win")
+        if era == "old":
+            st.update(ww=0.94 + 0.16 * r("ww"), wh=1.30 + 0.20 * r("wh"), sill_h=0.86 + 0.12 * r("si"), gap=1.15 + 0.55 * r("gp"), reveal=0.15)
+            rs = r("sur")
+            st["surround"] = "stone" if rs < 0.68 else ("fasche" if rs < 0.84 else None)
+            fam = "sprossen" if r("fam") < 0.28 else ("white" if r("fam") < 0.74 else "brown")
+            st["shutters"] = r("sh") < 0.34
+            st["door_cell"] = (1, 1) if r("dc") < 0.5 else (2, 0)
+        elif era == "mid":
+            st.update(ww=1.08 + 0.28 * r("ww"), wh=1.20 + 0.16 * r("wh"), sill_h=0.88 + 0.10 * r("si"), gap=1.35 + 0.65 * r("gp"), reveal=0.12)
+            rs = r("sur")
+            st["surround"] = "fasche" if rs < 0.30 else ("stone" if rs < 0.44 else None)
+            fam = "white" if r("fam") < 0.48 else ("white_box" if r("fam") < 0.78 else "brown")
+            st["shutters"] = r("sh") < 0.12
+            st["door_cell"] = (2, 0) if r("dc") < 0.62 else (3, 0)
+        else:
+            st.update(ww=1.20 + 0.55 * r("ww"), wh=1.26 + 0.16 * r("wh"), sill_h=0.86 + 0.10 * r("si"), gap=1.6 + 0.8 * r("gp"), reveal=0.16)
+            st["surround"] = "fasche" if r("sur") < 0.10 else None
+            fam = "anthracite" if r("fam") < 0.46 else "modern_white"
+            st["shutters"] = False
+            st["door_cell"] = (3, 0)
+        if hint == "rolladen":
+            fam = "white_box"
+        elif hint == "sprossen":
+            fam = "sprossen"
+        elif hint == "raffstore":
+            fam = "raffstore"
+        st["family"] = fam
+        st["cells"] = WIN_FAMILIES[fam]
+        st["fw"] = 0.115 + 0.04 * r("fw")
+        trim = STONE_TRIMS[int(r("trim") * len(STONE_TRIMS)) % len(STONE_TRIMS)]
+        if st["surround"] == "stone":
+            if r("trimpaint") < 0.22:      # painted stone surrounds (white / grey / brown-red oil paint)
+                pc = [(226, 224, 216), (150, 150, 146), (122, 66, 52), (96, 70, 56)][int(r("tp2") * 4) % 4]
+                st["trim"] = ("plaster_smooth", tint_for("plaster_smooth", pc))
+            else:
+                st["trim"] = (trim[0], mul3(trim[1], self._jitter(bid + "tr", 0.10, 0.03)))
+        elif st["surround"] == "fasche":
+            w_real, w_col = looks[wall_mat]
+            light = sum(w_col) / 3.0 < 0.72
+            pc = (232, 230, 224) if light else [(168, 166, 160), (150, 132, 112), (206, 204, 198)][int(r("fc") * 3) % 3]
+            st["trim"] = ("plaster_smooth", tint_for("plaster_smooth", pc))
+        st["sill_mat"] = ("paint", lin_rgb((150, 150, 146))) if era == "modern" else ("concrete", (0.95, 0.95, 0.95))
+        st["step"] = ("sandstone_red", (0.92, 0.92, 0.92)) if (era == "old" and r("stp") < 0.6) else ("concrete", (1.0, 1.0, 1.0))
+        st["shutter_cell"] = (0, 0) if r("shc") < 0.75 else (1, 0)
+        st["shutter_col"] = tint_for("joinery", SHUTTER_COLOURS[int(r("shcol") * len(SHUTTER_COLOURS)) % len(SHUTTER_COLOURS)])
+        dcols = DOOR_COLOURS if era != "modern" else [(60, 66, 72), (228, 226, 220), (88, 96, 104), (110, 76, 50)]
+        st["door_col"] = tint_for("joinery", dcols[int(r("dcol") * len(dcols)) % len(dcols)])
+        st["garage_col"] = tint_for("joinery", GARAGE_COLOURS[int(r("gcol") * len(GARAGE_COLOURS)) % len(GARAGE_COLOURS)])
+        st["garage_cell"] = (0, 1) if r("gcell") < 0.8 else (2, 1)
+        gate_rgb = GATE_COLOURS[int(r("gate") * len(GATE_COLOURS)) % len(GATE_COLOURS)]
+        st["gate_col"] = tint_for("joinery", gate_rgb)
+        st["gate_wood"] = tint_for("wood_planks", gate_rgb)
+        st["belt"] = (era == "old" and st["surround"] == "stone" and r("belt") < 0.5)
+        # how weathered this house is: 0 = freshly painted ... 1 = decades without a coat
+        age = {"old": 0.45, "mid": 0.25, "modern": 0.05}[era] + 0.55 * r("age") ** 1.6
+        if is_barn or is_utility:
+            age = min(1.0, age + 0.2)
+        age = min(1.0, age)
+        grime = (0.86 - 0.34 * age, 0.95 - 0.16 * age)
+        rz = r("zinc")
+        zinc = mul3(ZINC_GREY, 0.85 + 0.3 * r("zj")) if rz < 0.80 else (mul3(COPPER_BROWN, 0.8 + 0.4 * r("zj")) if rz < 0.92 else (0.10, 0.10, 0.11))
+        lit_share = 0.0 if (is_barn or is_utility) else (0.30 + 0.25 * r("lit"))
+        sky = 0
+        if not is_barn and not is_utility and era != "old" and r("sky") < 0.34:
+            sky = 1 + int(r("sky2") * 2.0)
+        return dict(id=bid, looks=looks, style=st, grime=grime, age=age, zinc=zinc, lit_share=lit_share, skylights=sky,
+                    fachwerk=bool(ent.get("fachwerk")), fachwerk_col=mul3((0.42, 0.32, 0.26), self._jitter(bid + "fw", 0.2, 0.05)))
+
+    def _classify_edges(self, pts, bid: str):
+        """Tier per footprint edge: 'A' street-facing / visible from a street, 'B' rear, 'party' wall on wall."""
+        site = self.site
         n = len(pts)
-        # Pick longest wall edge
-        best_i = -1
-        best_len = 0.0
+        out = []
+        perim = hash01("per" + bid) * 4.0
         for i in range(n):
             x0, y0 = pts[i]
             x1, y1 = pts[(i + 1) % n]
-            l = math.hypot(x1 - x0, y1 - y0)
-            if l > best_len:
-                best_len = l
-                best_i = i
-        if best_i < 0 or best_len < (4.2 if is_barn else 3.2):
-            return
-
-        x0, y0 = pts[best_i]
-        x1, y1 = pts[(best_i + 1) % n]
-        e = Vector((x1 - x0, y1 - y0, 0.0)).normalized()
-        nrm = Vector((e.y, -e.x, 0.0))  # Outward normal for CCW polygon
-
-        # Place offset cleanly along wall (slightly off-center or centered)
-        t = 0.5 if is_barn else (0.34 if seed % 2 == 0 else 0.66)
-        mid = Vector((x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, 0.0))
-
-        if is_barn:
-            dw = min(3.1, best_len * 0.48)
-            dh = min(3.2, max(2.2, (z_eave - z_ground) - 0.45))
-            mat_k = "barn_gate"
-            z0 = z_ground + 0.06
-        else:
-            dw = 1.25
-            dh = min(2.25, max(1.9, (z_eave - z_ground) - 0.50))
-            mat_k = "door_wood"
-            z0 = z_ground + 0.28
-            # Sandstone entrance step!
-            self.add_box(
-                mid + nrm * 0.22 + Vector((0, 0, z_ground + 0.14)),
-                e, nrm, sx=dw + 0.40, sy=0.44, sz=0.28,
-                mat_key="plinth", uv_scale=2.0,
-            )
-
-        # Slightly proud door/gate frame panel (0.07m proud of facade -> zero z-fighting!)
-        p_bl = mid - e * (dw * 0.5) + nrm * 0.07 + Vector((0, 0, z0))
-        p_br = mid + e * (dw * 0.5) + nrm * 0.07 + Vector((0, 0, z0))
-        p_tr = p_br + Vector((0, 0, dh))
-        p_tl = p_bl + Vector((0, 0, dh))
-        self.add_quad(p_bl, p_br, p_tr, p_tl, ((0, 0), (1, 0), (1, 1), (0, 1)), mat_k)
-
-        # Side reveal jambs connecting back to wall
-        b_bl = p_bl - nrm * 0.07
-        b_br = p_br - nrm * 0.07
-        b_tr = p_tr - nrm * 0.07
-        b_tl = p_tl - nrm * 0.07
-        self.add_quad(b_bl, p_bl, p_tl, b_tl, ((0, 0), (0.1, 0), (0.1, 1), (0, 1)), "plinth")
-        self.add_quad(p_br, b_br, b_tr, p_tr, ((0, 0), (0.1, 0), (0.1, 1), (0, 1)), "plinth")
-        self.add_quad(p_tl, b_tl, b_tr, p_tr, ((0, 0), (0.1, 0), (0.1, 1), (0, 1)), "plinth")
+            F = Facade(x0, y0, x1, y1, perim)
+            perim += F.L
+            info = dict(F=F, tier="A", front=True, road_d=0.0)
+            if F.L < 0.9:
+                info.update(tier="B", front=False)
+            elif site is not None:
+                hits = 0
+                for frac in (0.25, 0.5, 0.75):
+                    px, py, _ = F.P(F.L * frac, 0.0, 0.75)
+                    if site.inside_other(px, py, bid):
+                        hits += 1
+                mx, my, _ = F.P(F.L * 0.5, 0.0, 0.3)
+                if hits >= 2:
+                    info.update(tier="party", front=False, road_d=99.0)
+                else:
+                    rd = site.nearest_road(mx, my)
+                    tier, front, d = "B", False, 99.0
+                    if rd is not None:
+                        d, (qx, qy), _role = rd
+                        tl = math.hypot(qx - mx, qy - my) or 1.0
+                        facing = (F.nx * (qx - mx) + F.ny * (qy - my)) / tl
+                        r_front = 18.0 * self.detail
+                        r_side = 9.0 * self.detail
+                        if d <= r_front and facing >= 0.30:
+                            if not site.sight_blocked(mx, my, qx, qy, bid):
+                                tier, front = "A", True
+                        elif d <= r_side and facing > -0.30:
+                            if not site.inside_other(*F.P(F.L * 0.5, 0.0, 2.2)[:2], bid):
+                                tier = "A"
+                    info.update(tier=tier, front=front, road_d=d)
+            out.append(info)
+        return out
 
     def build_building(self, bld: Dict):
-        """Construct one complete realistic Kindenheim village building directly in world space."""
+        """Construct one complete Kindenheim village building directly in world space."""
         raw_fp = bld.get("footprint", [])
         if len(raw_fp) < 3:
             return False
@@ -2618,7 +3994,6 @@ class VillageMeshBuilder:
             and (roof_h_raw is None or float(roof_h_raw) < 0.35)
         )
         if is_sliver and obb["len_v"] < 1.85 and roof_shape_tag != "flat":
-            # Prevent bizarre knife-blade gables on narrow LoD2 sliver polygons (< 1.85m wide)!
             roof_shape_tag = "skillion"
         if is_true_flat:
             roof_h = 0.0
@@ -2635,7 +4010,6 @@ class VillageMeshBuilder:
             roof_h = float(roof_h_raw)
 
         if not is_true_flat:
-            # Global artifact cleanup: clamp narrow slivers & prevent impossible >50 deg LoD2 needle spikes!
             half_span = max(0.4, obb["len_v"] * 0.5)
             if is_sliver:
                 roof_h = min(roof_h, max(0.35, obb["len_v"] * 0.32))
@@ -2708,35 +4082,13 @@ class VillageMeshBuilder:
             else:
                 wall_mat = pfalz_wall_weights[h % len(pfalz_wall_weights)]
 
-        # 1. 2.0m Underground + Above-Ground Plinth Skirt (ZERO floating houses!)
         plinth_mat = ov.get("plinth_mat", "plinth")
-        plinth_above = float(ov.get("plinth_above", 0.18 if is_utility else 0.55))
+        # "plinth_free": no hand-verified plinth for this house (only the blanket default of the street data)
+        plinth_free = ("plinth_mat" not in ov) or (bool(ov.get("_from_street")) and plinth_mat in ("plinth_rubble", "plinth", "plinth_concrete"))
+        plinth_above = float(ov.get("plinth_above", 0.24 if is_utility else 0.55))
         z_plinth_top = z_base + plinth_above
         z_eave = z_base + wall_h
-        self.add_plinth_skirt(pts, z_base - 2.0, z_plinth_top, plinth_mat=plinth_mat)
 
-        # 2. Exact Footprint Exterior Facade Walls
-        non_windowed_mats = {
-            "wall_barn", "wall_utility", "wall_peach_plain", "wall_brick_barn_yellow",
-            "wall_timber_vertical", "wall_fachwerk_yellow", "wall_fachwerk_white",
-            "wall_limestone_brick", "wall_rubble_barn", "wall_mustard_porthole",
-        }
-        is_windowed = ov.get("is_windowed", (not is_utility) and (wall_mat not in non_windowed_mats))
-        self.add_facade_wall_ring(pts, z_plinth_top, z_eave, wall_mat, is_windowed=is_windowed)
-
-        # 2b. Optional Climbing Ivy Blankets & Balconies on exact corridor buildings!
-        ivy_dir = ov.get("ivy_dir")
-        if ivy_dir is not None:
-            self.add_ivy_blanket_on_wall(pts, z_plinth_top, z_eave, ivy_dir)
-        balcony_dir = ov.get("balcony_dir")
-        if balcony_dir is not None:
-            self.add_dark_balconies(pts, z_base, z_eave, balcony_dir, balcony_mat=ov.get("balcony_mat", "trim_wood"), balcony_w=ov.get("balcony_w"))
-
-        # 3. 3D Front Door / Barn Gate Accent on main street/courtyard wall
-        if not ov.get("no_door", False) and not is_utility and poly_area >= 42.0:
-            self.add_door_or_gate(pts, z_base, z_eave, is_barn=is_barn, seed=h)
-
-        # 4. Exact LoD2-Matched Roof Geometry (Flat Parapet / Skillion / Multi-Wing Gabled / Hipped)
         gable_wall_mat = ov.get("gable_wall_mat")
         dormer_mat = ov.get("dormer_mat")
         dormer_dir = ov.get("dormer_dir")
@@ -2744,10 +4096,379 @@ class VillageMeshBuilder:
         fascia_mat = ov.get("fascia_mat", "trim_wood")
         force_dormer = bool(ov.get("force_dormer", False))
 
+        non_windowed_mats = {
+            "wall_barn", "wall_utility", "wall_peach_plain", "wall_brick_barn_yellow",
+            "wall_timber_vertical", "wall_limestone_brick", "wall_rubble_barn",
+        }
+        is_windowed = bool(ov.get("is_windowed", (not is_utility) and (not is_barn) and (wall_mat not in non_windowed_mats)))
+        if (SEM.get(wall_mat) or {}).get("fachwerk") and not is_utility:
+            is_windowed = True      # the old flag only existed because the Fachwerk texture had its windows painted in
+
+        # ---- look, style & edge tiers ----
+        cx_c = sum(p[0] for p in pts) / len(pts)
+        cy_c = sum(p[1] for p in pts) / len(pts)
+        cur = self._make_look(bid, h, wall_mat, gable_wall_mat, dormer_mat, roof_mat, plinth_mat, is_barn, is_utility, cx_c, cy_c, roof_tone,
+                              roof_hex=bld.get("roofColorHex"), plinth_free=plinth_free)
+        cur["windowed"] = is_windowed
+        if fascia_mat == "trim_wood" and cur["style"]["era"] == "modern" and hash01("fas" + bid) < 0.6:
+            cur["looks"]["trim_wood"] = ("paint", lin_rgb((226, 226, 222)) if hash01("fas2" + bid) < 0.6 else lin_rgb((70, 72, 76)))
+        elif fascia_mat == "trim_wood":
+            cur["looks"]["trim_wood"] = ("wood_beam", mul3((0.50, 0.37, 0.29), self._jitter(bid + "fa", 0.35, 0.08)))
+        edges = self._classify_edges(pts, bid)
+
+        def tier_at(x, y, nx, ny):
+            best, best_d = "B", 1e9
+            for e in edges:
+                F = e["F"]
+                if F.nx * nx + F.ny * ny < 0.80:
+                    continue
+                mx, my, _ = F.P(F.L * 0.5, 0.0)
+                dd = math.hypot(mx - x, my - y)
+                if dd < best_d:
+                    best, best_d = e["tier"], dd
+            return best
+
+        cur["tier_at"] = tier_at
+        self.cur = cur
+        style = cur["style"]
+        wall_real, wall_col = cur["looks"][wall_mat]
+        uv_off = (hash01("uo" + bid) * 6.0, hash01("vo" + bid) * 6.0)
+        site = self.site
+
+        def ground_at(F, s):
+            """Terrain height in front of the wall, for house doors (kept near the plinth; stoops bridge the rest)."""
+            if site is None:
+                return z_base
+            px, py, _ = F.P(s, 0.0, 0.4)
+            g = site.ground(px, py)
+            return z_base if g is None else max(z_base - 0.9, min(z_plinth_top - 0.05, g))
+
+        def ground_span(F, sa, sb):
+            """Real terrain height under a vehicle opening: gates and garage doors reach the ground, whatever the
+            building's base elevation says (on sloping streets the downhill side lies well below it)."""
+            if site is None:
+                return z_base
+            gs = []
+            for ss in (sa, 0.5 * (sa + sb), sb):
+                px, py, _ = F.P(ss, 0.0, 0.5)
+                g = site.ground(px, py)
+                if g is not None:
+                    gs.append(g)
+            if not gs:
+                return z_base
+            return max(z_base - 1.8, min(z_plinth_top + 0.5, sum(gs) / len(gs)))
+
+        # which kind of roof will close this shell (walls poke slightly into pitched roofs so no light leaks)
+        flat_like = is_true_flat or ((roof_shape_tag == "skillion" or (is_utility and poly_area < 28.0 and h % 2 == 0 and not ov)) and rectangularity < 0.82 and not ov)
+        z_wall_top = z_eave + (0.0 if flat_like else 0.07)
+
+        # ---- which edge carries the entrance / gate / garage door ----
+        usable_edges = [e for e in edges if e["tier"] != "party"]
+        door_edge = None
+        door_kind = None
+        if is_barn:
+            cands = [e for e in usable_edges if e["F"].L >= 4.4]
+            door_kind = "gate"
+        elif is_utility:
+            if btype in ("carport", "roof", "greenhouse") or poly_area < 6.0:
+                cands = []
+            elif poly_area < 13.0:
+                cands = [e for e in usable_edges if e["F"].L >= 1.5]
+                door_kind = "shed"
+            else:
+                cands = [e for e in usable_edges if e["F"].L >= 2.9]
+                door_kind = "garage"
+        else:
+            cands = [e for e in usable_edges if e["F"].L >= 2.4]
+            door_kind = "door"
+        if cands and wall_h >= 2.25:
+            def score(e):
+                sc = e["F"].L
+                if e["front"]:
+                    sc += 40.0
+                elif e["tier"] == "A":
+                    sc += 18.0
+                sc -= min(e["road_d"], 40.0) * 0.4
+                if door_kind == "garage":
+                    sc -= e["F"].L * 0.6     # garages open on the gable end facing the drive
+                return sc
+            door_edge = max(cands, key=score)
+        elif is_utility and wall_h >= 2.1 and poly_area >= 6.0 and btype not in ("carport", "roof", "greenhouse"):
+            # garage-sized footprint without a wall long enough for a garage door: at least a plank door
+            cands = [e for e in usable_edges if e["F"].L >= 1.5]
+            if cands:
+                door_kind = "shed"
+                door_edge = max(cands, key=lambda e: e["F"].L + (30.0 if e["tier"] == "A" else 0.0) - min(e["road_d"], 40.0) * 0.4)
+        if ov.get("no_gate") and door_kind in ("gate", "garage", "shed"):
+            door_edge = None        # verified frontage without a vehicle opening (e.g. Kreutzenberger QOUm)
+        # barns / outbuildings whose vehicle opening ended up on a hidden side (or that got none) still show the
+        # street a plain plank door, so no street-facing outbuilding is a blank box
+        side_door_edge = None
+        if (is_barn or is_utility) and not ov.get("no_gate") and wall_h >= 2.1 and btype not in ("carport", "roof", "greenhouse") \
+                and (door_edge is None or door_edge["tier"] != "A"):
+            a_edges = [e for e in usable_edges if e["tier"] == "A" and e["F"].L >= 1.5 and e is not door_edge]
+            if a_edges:
+                side_door_edge = max(a_edges, key=lambda e: e["F"].L - min(e["road_d"], 40.0) * 0.3)
+        is_hall = is_barn and poly_area > 260.0 and roof_mat in ("roof_metal", "roof_flat") and cur["style"]["era"] != "old"
+
+        # ---- storey layout ----
+        floor0 = max(z_plinth_top, z_base + 0.12)
+        sur = style.get("surround")
+        fw_out = style["fw"] if sur else 0.0
+        n_st = max(1, int(round((z_eave - floor0) / 2.85)))
+        S = max(2.55, min(3.15, (z_eave - floor0) / n_st))
+        stories = []
+        for k in range(n_st + 1):
+            za = floor0 + k * S + style["sill_h"]
+            zb = min(za + style["wh"], z_eave - 0.26 - fw_out)
+            if zb - za >= 0.55:
+                stories.append((za, zb))
+        floors = [floor0 + k * S for k in range(1, n_st + 1)]
+
+        gable_roof = (not is_true_flat) and roof_shape_tag not in ("skillion", "hipped", "pyramidal", "half-hipped", "flat")
+        plinth_notches: Dict[int, List[Tuple[float, float, float]]] = {}
+        skip_plinth = set()
+        edge_open: Dict[int, List[Tuple[float, float, float, float]]] = {}     # per edge: rectangles taken by openings
+        aux_win_budget = 2 if (is_utility and poly_area >= 13.0 and wall_h >= 2.3) else 0
+        for ei, e in enumerate(edges):
+            F = e["F"]
+            tier = e["tier"]
+            if F.L < 0.08:
+                continue
+            holes: List[Tuple[float, float, float, float]] = []
+            notches: List[Tuple[float, float, float]] = []
+            key = f"{bid}_e{ei}"
+            if tier == "party":
+                # wall on wall: one blank panel right down into the ground (keeps the shell light-tight)
+                self.wall_panel(F, z_base - 2.0, z_wall_top, wall_real, mul3(wall_col, 0.95), bands=False, uv_off=uv_off)
+                skip_plinth.add(ei)
+                continue
+            # sun-bleached / shaded sides: every facade of a house is a slightly different tone
+            e_col = clamp01_3(mul3(wall_col, 1.0 - 0.07 * cur["age"] * hash01("ec" + key)))
+            is_door_edge = (door_edge is e)
+            blocked: List[Tuple[float, float]] = []     # s-ranges taken by doors on the ground floor
+
+            if is_door_edge and door_kind == "gate":
+                gw = min(4.2 if is_hall else 3.4, F.L - 1.3)
+                gh = min(3.9 if is_hall else 3.3, wall_h - 0.75)
+                if gw >= 2.4 and gh >= 2.1:
+                    sc = F.L * (0.5 if F.L < 9.0 else (0.32 if h % 2 == 0 else 0.68))
+                    zg = min(ground_span(F, sc - gw * 0.5, sc + gw * 0.5) + 0.02, z_eave - 0.6 - 2.1)
+                    gh = max(2.1, min(gh, z_eave - zg - 0.6))
+                    wn, pn = self.add_door(F, sc - gw * 0.5, sc + gw * 0.5, zg, zg + gh, style, tier, wall_real, e_col, key, kind="hall" if is_hall else "gate")
+                    notches.append(wn)
+                    plinth_notches.setdefault(ei, []).append(pn)
+                    blocked.append((wn[0] - 0.3, wn[1] + 0.3))
+            elif is_door_edge and door_kind == "garage":
+                gw = 2.45
+                gh = min(2.12, wall_h - 0.42)
+                n_g = max(1, min(3, int((F.L - 0.5) / 2.95)))
+                if F.L - 0.5 >= gw and gh >= 1.8:
+                    pitch = (F.L - 0.5) / n_g
+                    for gi in range(n_g):
+                        sc = 0.25 + pitch * (gi + 0.5)
+                        zg = min(ground_span(F, sc - gw * 0.5, sc + gw * 0.5) + 0.02, z_eave - 0.30 - 1.8)
+                        gh_i = max(1.8, min(gh, z_eave - zg - 0.30))
+                        wn, pn = self.add_door(F, sc - gw * 0.5, sc + gw * 0.5, zg, zg + gh_i, style, tier, wall_real, e_col, f"{key}_{gi}", kind="garage")
+                        notches.append(wn)
+                        plinth_notches.setdefault(ei, []).append(pn)
+                        blocked.append((wn[0] - 0.2, wn[1] + 0.2))
+            elif (is_door_edge and door_kind == "shed") or e is side_door_edge:
+                if e is side_door_edge:
+                    self.count("side_doors")
+                sc = F.L * (0.35 if h % 2 == 0 else 0.6)
+                dw, dh = 0.9, min(1.95, wall_h - 0.3)
+                if F.L >= dw + 0.5:
+                    sc = max(dw * 0.5 + 0.25, min(F.L - dw * 0.5 - 0.25, sc))
+                    zg = min(ground_span(F, sc - dw * 0.5, sc + dw * 0.5) + 0.04, z_eave - 0.25 - 1.7)
+                    dh = max(1.7, min(dh, z_eave - zg - 0.25))
+                    wn, pn = self.add_door(F, sc - dw * 0.5, sc + dw * 0.5, zg, zg + dh, style, tier, wall_real, e_col, key, kind="shed")
+                    notches.append(wn)
+                    plinth_notches.setdefault(ei, []).append(pn)
+
+            # windows
+            margin = 0.55 + fw_out
+            ww = style["ww"]
+            use_shutters = bool(style.get("shutters")) and tier == "A"
+            bays: List[float] = []
+            if is_windowed and F.L - 2 * margin >= ww * 0.8 and stories:
+                ww_e = min(ww, F.L - 2 * margin)
+                usable = F.L - 2 * margin
+                pitch_min = ww_e + style["gap"]
+                n_b = max(1, int((usable + style["gap"]) // pitch_min))
+                if use_shutters:
+                    need = 2.0 * ww_e + 2.0 * fw_out + 0.14
+                    while n_b > 1 and usable / n_b < need:
+                        n_b -= 1
+                    if usable / n_b < need - 0.3 or usable < need:
+                        use_shutters = False
+                pitch = usable / n_b
+                bays = [margin + pitch * (bi + 0.5) for bi in range(n_b)]
+            else:
+                ww_e = ww
+
+            door_bay = -1
+            if is_door_edge and door_kind == "door":
+                old_door = style["door_cell"] == (1, 1)
+                dw = 1.22 if old_door else 1.02
+                dh = 2.42 if old_door else 2.10
+                if bays:
+                    order = [0, len(bays) - 1, len(bays) // 2]
+                    door_bay = order[h % 3] if len(bays) > 1 else 0
+                    sc = bays[door_bay]
+                else:
+                    sc = F.L * 0.5
+                fw_d = 0.15 if sur == "stone" else 0.0
+                if F.L >= dw + 2 * fw_d + 0.5:
+                    sc = max(dw * 0.5 + fw_d + 0.2, min(F.L - dw * 0.5 - fw_d - 0.2, sc))
+                    zg = ground_at(F, sc)
+                    z_d0 = min(z_plinth_top, max(zg + 0.17, z_base + 0.02))
+                    dh = min(dh, z_eave - z_d0 - 0.45 - fw_d)
+                    if dh >= 1.9:
+                        wn, pn = self.add_door(F, sc - dw * 0.5, sc + dw * 0.5, z_d0, z_d0 + dh, style, tier, wall_real, e_col, key, kind="door", z_ground=zg)
+                        notches.append(wn)
+                        plinth_notches.setdefault(ei, []).append(pn)
+                        blocked.append((wn[0] - 0.25, wn[1] + 0.25))
+                    else:
+                        door_bay = -1
+                else:
+                    door_bay = -1
+
+            def hits_notch(sa, sb, z_lo):
+                # an opening must never overlap a door / gate cut-out (also not the lintel zone above it)
+                return any(n0 - 0.12 < sb and n1 + 0.12 > sa and z_lo < nz + 0.12 for (n0, n1, nz) in notches)
+
+            if bays and ov.get("ribbon_windows") and tier == "A" and F.L >= 3.2:
+                # Bauhaus Fensterband: per storey one long, low opening from margin to margin (split around doors /
+                # gates), glazed as a row of white single-pane casements, flush render reveal, thin metal sill
+                r_style = dict(style)
+                r_style.update(surround=None, shutters=False, reveal=0.16, sill_mat=("paint", (0.74, 0.74, 0.72)))
+                rm = 0.7
+                for si, (za, zb) in enumerate(stories):
+                    zb_r = min(zb, za + 1.25)
+                    cuts = sorted([(a - 0.3, b + 0.3) for a, b in blocked] +
+                                  [(n0 - 0.4, n1 + 0.4) for (n0, n1, nz) in notches if za - 0.2 < nz + 0.12])
+                    spans, cur_s = [], rm
+                    for a, b in cuts:
+                        if a > cur_s:
+                            spans.append((cur_s, min(a, F.L - rm)))
+                        cur_s = max(cur_s, b)
+                    if cur_s < F.L - rm:
+                        spans.append((cur_s, F.L - rm))
+                    for ri, (ra, rb) in enumerate(spans):
+                        if rb - ra < 1.4:
+                            continue
+                        n_u = max(1, int(round((rb - ra) / 1.05)))
+                        holes.append(self.add_window(F, ra, rb, za, zb_r, r_style, tier, wall_real, e_col, f"{key}_{si}_r{ri}",
+                                                     cell=(3, 2), allow_shutters=False, units=n_u))
+                        self.count("ribbon_windows")
+            elif bays:
+                for si, (za, zb) in enumerate(stories):
+                    for bi, sc in enumerate(bays):
+                        wkey = f"{key}_{si}_{bi}"
+                        if si == 0 and (bi == door_bay or any(a < sc + ww_e * 0.5 + fw_out and b > sc - ww_e * 0.5 - fw_out for a, b in blocked)):
+                            continue
+                        if hits_notch(sc - ww_e * 0.5 - fw_out, sc + ww_e * 0.5 + fw_out, za - 0.2):
+                            continue
+                        rskip = hash01("skip" + wkey)
+                        if (tier == "B" and rskip < 0.16) or (tier == "A" and rskip < 0.035):
+                            continue
+                        w_here, za_h, zb_h, cell = ww_e, za, zb, None
+                        if hash01("bath" + wkey) < 0.07 and (zb - za) > 0.9:
+                            w_here, za_h, cell = min(ww_e, 0.62), zb - 0.72, WIN_BATH
+                        holes.append(self.add_window(F, sc - w_here * 0.5, sc + w_here * 0.5, za_h, zb_h, style, tier, wall_real, e_col, wkey,
+                                                     cell=cell, allow_shutters=use_shutters and cell is None))
+            elif is_barn and tier == "A" and F.L >= 4.0 and wall_h >= 3.4 and not is_windowed:
+                # small stable / loft openings high up in barn walls
+                n_w = max(1, int(F.L / 4.6))
+                zc = z_base + min(wall_h * 0.66, wall_h - 0.9)
+                for bi in range(n_w):
+                    sc = F.L * (bi + 0.5) / n_w
+                    if hits_notch(sc - 0.6, sc + 0.6, zc - 0.5):
+                        continue
+                    if hash01(f"bw{key}{bi}") < 0.25:
+                        continue
+                    b_style = dict(style)
+                    b_style.update(surround="stone" if style.get("surround") == "stone" else None, shutters=False, reveal=0.16)
+                    holes.append(self.add_window(F, sc - 0.38, sc + 0.38, zc - 0.32, zc + 0.32, b_style, "A", wall_real, e_col, f"{key}_b{bi}", cell=WIN_BARN, allow_shutters=False))
+
+            elif (not is_windowed and not is_door_edge and F.L >= 2.6
+                  and ((tier == "A" and (is_utility or is_barn)) or (aux_win_budget > 0 and hash01("aw" + key) < 0.75))):
+                # garages / sheds / annexes: a plain small window on a side wall; a street-facing (tier A) wall of an
+                # outbuilding always gets one, so no outbuilding shows the street a blank box
+                aux_win_budget -= 1
+                sc = F.L * (0.35 + 0.3 * hash01("aws" + key))
+                wwa, wha = (0.9, 0.62) if hash01("awk" + key) < 0.6 else (0.6, 0.9)
+                za_w = min(z_base + 1.35, z_eave - wha - 0.35)
+                if site is not None:
+                    # clear of a plinth course that steps up with the terrain (see add_plinth_skirt)
+                    g_w = max(site.ground(*F.P(s_w, 0.0, 0.3)[:2]) for s_w in (sc - wwa * 0.5, sc + wwa * 0.5))
+                    za_w = max(za_w, g_w + 0.75)
+                if hits_notch(sc - wwa * 0.5 - 0.1, sc + wwa * 0.5 + 0.1, za_w):
+                    # a side door already sits there: use the free end of the wall, or leave the window out
+                    sc = F.L - sc
+                if (za_w > z_plinth_top + 0.3 and za_w + wha < z_eave - 0.25
+                        and not hits_notch(sc - wwa * 0.5 - 0.1, sc + wwa * 0.5 + 0.1, za_w)):
+                    a_style = dict(style)
+                    a_style.update(surround=None, shutters=False, reveal=0.10)
+                    holes.append(self.add_window(F, sc - wwa * 0.5, sc + wwa * 0.5, za_w, za_w + wha, a_style, tier, wall_real, e_col, f"{key}_aux",
+                                                 cell=(WIN_ATTIC if wwa > wha else WIN_BATH), allow_shutters=False))
+
+            has_open = bool(holes or notches)
+            edge_open[ei] = list(holes) + [(n0, n1, z_base - 2.0, nz) for (n0, n1, nz) in notches]
+            is_gable_edge = gable_roof and abs(F.ex * obb["u_axis"][0] + F.ey * obb["u_axis"][1]) < 0.5
+            ok = self.wall_panel(F, z_plinth_top, z_wall_top, wall_real, e_col, holes=holes, notches=notches,
+                                 grime=cur["grime"], uv_off=uv_off, bands=(tier == "A" or has_open), top_band=not is_gable_edge)
+            if not ok:
+                self.wall_panel(F, z_plinth_top, z_wall_top, wall_real, e_col, grime=cur["grime"], uv_off=uv_off, bands=False)
+            if tier == "A" and F.L >= 1.8 and wall_real in ("plaster_smooth", "plaster_rough"):
+                self._weathering_decals(F, z_plinth_top, z_eave, holes, notches, e_col, cur["age"], key, eaves=not is_gable_edge)
+            # string course between the storeys of old stone-trimmed houses
+            if tier == "A" and style.get("belt") and len(floors) >= 1 and not is_barn and is_windowed and F.L > 2.5:
+                zb_ = floors[0] - 0.02
+                t_real, t_col = style["trim"]
+                if zb_ + 0.2 < z_eave - 0.6 and not any(hh[2] < zb_ + 0.16 and hh[3] > zb_ - 0.02 for hh in holes) and not any(nn[2] > zb_ - 0.02 for nn in notches):
+                    k = 1.0 / (REAL_TILE.get(t_real) or 2.0)
+                    self.q(t_real, F.P(0.0, zb_, 0.035), F.P(F.L, zb_, 0.035), F.P(F.L, zb_ + 0.14, 0.035), F.P(0.0, zb_ + 0.14, 0.035),
+                           ((0, 0), (F.L * k, 0), (F.L * k, 0.14 * k), (0, 0.14 * k)), t_col, facing=F.n3)
+                    self.q(t_real, F.P(0.0, zb_ + 0.14, 0.0), F.P(F.L, zb_ + 0.14, 0.0), F.P(F.L, zb_ + 0.14, 0.035), F.P(0.0, zb_ + 0.14, 0.035),
+                           ((0, 0), (F.L * k, 0), (F.L * k, 0.02), (0, 0.02)), t_col, facing=(0, 0, 1))
+                    self.q(t_real, F.P(0.0, zb_, 0.0), F.P(F.L, zb_, 0.0), F.P(F.L, zb_, 0.035), F.P(0.0, zb_, 0.035),
+                           ((0, 0), (F.L * k, 0), (F.L * k, 0.02), (0, 0.02)), mul3(t_col, 0.7), facing=(0, 0, -1))
+            if cur["fachwerk"]:
+                self.add_fachwerk(F, z_plinth_top, z_eave, holes, floors, key, cur["fachwerk_col"])
+
+        # 1. 2.0m Underground + Above-Ground Plinth Skirt (ZERO floating houses!)
+        # the buried skirt reaches below the lowest terrain point of the footprint (on graded streets the
+        # ground in front of a downhill wall can lie more than 2 m below the LoD2 base elevation)
+        z_skirt = z_base - 2.0
+        if site is not None:
+            g_fp = [site.ground(px_, py_) for (px_, py_) in offset_polygon_outward(pts, 0.3)]
+            if any(gv is None for gv in g_fp):
+                raise RuntimeError(f"building {bid}: footprint lies outside the terrain heightmap")
+            z_skirt = min(z_skirt, min(g_fp) - 0.6)
+        self.add_plinth_skirt(pts, z_skirt, z_plinth_top, plinth_mat=plinth_mat, notches=plinth_notches, skip_edges=skip_plinth)
+
+        # 2b. Optional Climbing Ivy Blankets & Balconies on exact corridor buildings!
+        ivy_dir = ov.get("ivy_dir")
+        if ivy_dir is not None:
+            il = math.hypot(ivy_dir[0], ivy_dir[1]) or 1.0
+            for ei, e in enumerate(edges):
+                F = e["F"]
+                if e["tier"] == "party" or F.L < 2.2 or (F.nx * ivy_dir[0] + F.ny * ivy_dir[1]) / il < 0.45:
+                    continue
+                self.add_ivy_cards(F, z_plinth_top - 0.1, z_eave - 0.12, None, edge_open.get(ei, []), f"{bid}_ivy{ei}")
+        balcony_dir = ov.get("balcony_dir")
+        if balcony_dir is not None:
+            self.add_dark_balconies(pts, z_base, z_eave, balcony_dir, balcony_mat=ov.get("balcony_mat", "trim_wood"), balcony_w=ov.get("balcony_w"))
+
+        # 4. Exact LoD2-Matched Roof Geometry (Flat Parapet / Skillion / Multi-Wing Gabled / Hipped)
+        residential = (not is_barn) and (not is_utility)
+        want_chimney = residential and poly_area >= 40.0 and hash01("chim" + bid) < (0.9 if style["era"] != "modern" else 0.55)
+        gabled_main = False
         if is_true_flat:
             flat_mat = "roof_flat" if (roof_mat not in ("roof_metal",)) else "roof_metal"
             self.add_flat_parapet_roof(pts, z_eave, wall_mat, flat_mat)
-            # Stepped upper 1929 Bauhaus clerestory penthouse on Weingut Kreutzenberger QOUr!
             if ov.get("bauhaus_penthouse"):
                 cx_p, cy_p = obb["center"]
                 ux_p, uy_p = obb["u_axis"]
@@ -2755,12 +4476,12 @@ class VillageMeshBuilder:
                 ph_w = obb["len_u"] * 0.44
                 ph_d = obb["len_v"] * 0.48
                 ph_h = 2.05
-                # Shift slightly back (south-east in Blender -Y, +X) like real Bauhaus stepped massing
                 pc = Vector((cx_p + 1.2, cy_p - 1.2, z_eave + 0.25 + ph_h * 0.5))
                 self.add_box(pc, Vector((ux_p, uy_p, 0.0)), Vector((vx_p, vy_p, 0.0)), sx=ph_w, sy=ph_d, sz=ph_h, mat_key="wall_bauhaus_white", uv_scale=6.0)
-                self.add_box(pc + Vector((0, 0, ph_h * 0.5 + 0.05)), Vector((ux_p, uy_p, 0.0)), Vector((vx_p, vy_p, 0.0)), sx=ph_w + 0.14, sy=ph_d + 0.14, sz=0.10, mat_key="trim_wood", uv_scale=2.0)
+                # thin light metal coping (not a brown timber band)
+                self.box("paint", pc + Vector((0, 0, ph_h * 0.5 + 0.03)), Vector((ux_p, uy_p, 0.0)), Vector((vx_p, vy_p, 0.0)), ph_w + 0.08, ph_d + 0.08, 0.06,
+                         (0.66, 0.66, 0.65), default_tile=2.0)
         elif roof_shape_tag == "skillion" or (is_utility and poly_area < 28.0 and h % 2 == 0 and not ov):
-            # Prevent floating overhanging skillion wedges on irregular/L-shaped footprints!
             if rectangularity < 0.82 and not ov:
                 self.add_flat_parapet_roof(pts, z_eave, wall_mat, "roof_flat")
             else:
@@ -2787,10 +4508,10 @@ class VillageMeshBuilder:
                     self.add_gabled_roof_wing(
                         w_center, w_u, w_v, w_lu, w_lv, z_eave, w_roof_h,
                         wall_mat, roof_mat,
-                        overhang_eave=0.32, overhang_gable=0.24, slab_thick=0.15,
+                        overhang_eave=0.32, overhang_gable=0.24, slab_thick=0.20,
                         add_gable_walls=True,
-                        add_chimney=(w_idx == 0 and not is_barn and not ov),
-                        add_dormer=(w_idx == 0 and (force_dormer or (not is_barn and (h % 4 == 0) and not ov))),
+                        add_chimney=(w_idx == 0 and want_chimney),
+                        add_dormer=(w_idx == 0 and (force_dormer or (residential and (h % 4 == 0) and not solar_pv_dir))),
                         seed=h + w_idx * 17,
                         gable_wall_mat=gable_wall_mat,
                         dormer_mat=dormer_mat,
@@ -2799,6 +4520,7 @@ class VillageMeshBuilder:
                         dormer_dir=(dormer_dir if w_idx == 0 else None),
                         fascia_mat=fascia_mat,
                         no_attic_window=bool(ov.get("no_attic_window", False)),
+                        main_roof=True,
                     )
             else:
                 self.add_polygon_hipped_roof(pts, z_eave, roof_h, roof_mat)
@@ -2807,19 +4529,21 @@ class VillageMeshBuilder:
             if use_hipped:
                 self.add_hipped_roof_obb(
                     obb, z_eave, roof_h, roof_mat,
-                    overhang=0.36, slab_thick=0.16,
+                    overhang=0.36, slab_thick=0.18,
                     add_chimney=(not is_barn and poly_area >= 48.0),
-                    seed=h,
+                    seed=h, fascia_mat=fascia_mat,
                 )
             else:
+                gabled_main = True
                 self.add_gabled_roof_wing(
                     obb["center"], obb["u_axis"], obb["v_axis"],
                     obb["len_u"], obb["len_v"], z_eave, roof_h,
                     wall_mat, roof_mat,
-                    overhang_eave=0.36, overhang_gable=0.28, slab_thick=0.17,
+                    overhang_eave=0.36 if not is_utility else 0.24, overhang_gable=0.28 if not is_utility else 0.18,
+                    slab_thick=0.22 if not is_utility else 0.16,
                     add_gable_walls=True,
-                    add_chimney=(not is_barn and not is_utility and poly_area >= 44.0 and not ov),
-                    add_dormer=(force_dormer or (not is_barn and not is_utility and wall_h >= 5.0 and (h % 5 == 0) and not ov)),
+                    add_chimney=want_chimney,
+                    add_dormer=(force_dormer or (residential and wall_h >= 4.4 and (h % 5 == 0) and not solar_pv_dir)),
                     seed=h,
                     gable_wall_mat=gable_wall_mat,
                     dormer_mat=dormer_mat,
@@ -2828,22 +4552,79 @@ class VillageMeshBuilder:
                     dormer_dir=dormer_dir,
                     fascia_mat=fascia_mat,
                     no_attic_window=bool(ov.get("no_attic_window", False)),
+                    main_roof=True,
                 )
+
+        # 5. zinc downpipes on street-facing eaves walls (gutter outlet -> swan neck -> wall -> ground)
+        if gabled_main and not is_sliver and obb["len_u"] >= 5.0:
+            ux, uy = obb["u_axis"]
+            ov_e = 0.36 if not is_utility else 0.24
+            for ei, e in enumerate(edges):
+                F = e["F"]
+                if e["tier"] != "A" or F.L < 3.5 or abs(F.ex * ux + F.ey * uy) < 0.85:
+                    continue
+                if not e["front"] and hash01(f"dp{bid}{ei}") < 0.5:
+                    continue
+                s_pipe = 0.22 if (h + ei) % 2 == 0 else F.L - 0.22
+                zt = z_eave - ov_e * (roof_h / max(obb["len_v"] * 0.5, 0.4)) - 0.02
+                p_g = F.P(s_pipe, zt, ov_e + 0.06)
+                p_w = F.P(s_pipe, zt - 0.42, 0.075)
+                zg = min(ground_at(F, s_pipe), z_plinth_top) - 0.5
+                with self.detail_scope():
+                    self.tube("zinc", p_g, p_w, 0.045, cur["zinc"])
+                    self.tube("zinc", p_w, F.P(s_pipe, zg, 0.075), 0.045, cur["zinc"])
+                self.count("downpipes")
+
+        self.cur = None
         return True
 
-    def finalize_object(self, collection) -> Optional[bpy.types.Object]:
-        if len(self.bm.faces) == 0:
-            self.bm.free()
-            return None
-        # Keep exact mathematically verified outward CCW winding (avoid recalc_face_normals flipping open foundation skirts!)
-        self.bm.normal_update()
-        mesh = bpy.data.meshes.new(self.name)
-        self.bm.to_mesh(mesh)
-        self.bm.free()
-        for mk in self.mat_order:
-            mesh.materials.append(self.mat_lib[mk])
-        obj = bpy.data.objects.new(self.name, mesh)
+    def _mesh_from(self, name: str, face_ids, collection):
+        import numpy as np
+        co, faces, fmat, uvs, cols = [], [], [], [], []
+        used: Dict[int, int] = {}
+        for fi in face_ids:
+            f = self.faces[fi]
+            base = len(co)
+            n = len(f)
+            co.extend(self.co[f[0]:f[0] + n])
+            uvs.extend(self.uvs[f[0]:f[0] + n])
+            cols.extend(self.cols[f[0]:f[0] + n])
+            faces.append(tuple(range(base, base + n)))
+            m = self.fmat[fi]
+            if m not in used:
+                used[m] = len(used)
+            fmat.append(used[m])
+        mesh = bpy.data.meshes.new(name)
+        mesh.from_pydata(co, [], faces)
+        n_loops = len(mesh.loops)
+        if n_loops != len(uvs) or n_loops != len(cols):
+            raise RuntimeError(f"{name}: loop count mismatch ({n_loops} loops, {len(uvs)} uvs, {len(cols)} colours)")
+        mesh.polygons.foreach_set("material_index", np.asarray(fmat, dtype=np.int32))
+        uv_layer = mesh.uv_layers.new(name="UVMap")
+        uv_layer.data.foreach_set("uv", np.asarray(uvs, dtype=np.float32).ravel())
+        ca = mesh.color_attributes.new(name="Col", type="FLOAT_COLOR", domain="CORNER")
+        rgba = np.ones((n_loops, 4), dtype=np.float32)
+        rgba[:, :3] = np.clip(np.asarray(cols, dtype=np.float32), 0.0, 1.0)
+        ca.data.foreach_set("color", rgba.ravel())
+        mesh.color_attributes.active_color = ca
+        mesh.color_attributes.render_color_index = 0
+        for m_idx in sorted(used, key=lambda k: used[k]):
+            mesh.materials.append(self.mat_lib[self.mat_order[m_idx]])
+        mesh.update()
+        obj = bpy.data.objects.new(name, mesh)
         collection.objects.link(obj)
+        return obj
+
+    def finalize_object(self, collection) -> Optional[bpy.types.Object]:
+        """Returns the base mesh object; self.detail_obj holds the '<name>_detail' object (or None)."""
+        if not self.faces:
+            return None
+        # every face owns its vertices contiguously (see _emit), which _mesh_from relies on
+        base_ids = [i for i, d in enumerate(self.fdet) if not d]
+        det_ids = [i for i, d in enumerate(self.fdet) if d]
+        obj = self._mesh_from(self.name, base_ids, collection) if base_ids else None
+        self.detail_obj = self._mesh_from(self.name + "_detail", det_ids, collection) if det_ids else None
+        self.co, self.faces, self.fmat, self.uvs, self.cols, self.fdet = [], [], [], [], [], []
         return obj
 
 
@@ -2851,21 +4632,140 @@ class VillageMeshBuilder:
 # Export, Modular Archetype .blend Saving & Sunlit Preview Renderer
 # ---------------------------------------------------------------------------
 
+CWEBP = shutil.which("cwebp") or "/opt/homebrew/bin/cwebp"
+_WEB_TEX_CACHE: Dict[str, str] = {}
+
+
+def prepare_web_texture(img: bpy.types.Image) -> str:
+    """Publish one texture ONCE to public/assets/models/village/tex/ and return its file name.
+
+    All four chunk GLBs reference the same external files (instead of embedding ~15 MB of identical
+    textures four times). Albedo / ORM / emissive -> WebP; photo-scanned normal maps are copied verbatim
+    (lossy WebP chroma subsampling would smear them); alpha-cut PNGs are copied verbatim too.
+    """
+    name = img.name
+    if name in _WEB_TEX_CACHE:
+        return _WEB_TEX_CACHE[name]
+    src = bpy.path.abspath(img.filepath)
+    if not os.path.exists(src):
+        raise RuntimeError(f"Image '{name}' has no source file on disk: {src}")
+    os.makedirs(WEB_TEX_DIR, exist_ok=True)
+    ext = os.path.splitext(src)[1].lower()
+    own_atlas = name.startswith("village_")
+    is_normal = name.endswith("_normal") or "_normal_" in name
+    if not own_atlas:
+        # Shared-library scans and the small legacy alpha textures ship as the UNCHANGED source file, so one
+        # image name means the same bytes in every GLB of the project (texture de-duplication contract).
+        dst_name = name + ext
+        mode = "copy"
+    elif is_normal or name.endswith("_orm"):
+        dst_name = name + ".webp"
+        mode = "lossless"
+    else:
+        dst_name = name + ".webp"
+        mode = "q92"
+    dst = os.path.join(WEB_TEX_DIR, dst_name)
+    if not os.path.exists(dst) or os.path.getmtime(dst) < os.path.getmtime(src):
+        tmp = dst + ".tmp"
+        if mode == "copy":
+            shutil.copyfile(src, tmp)
+        else:
+            if not os.path.exists(CWEBP):
+                raise RuntimeError("cwebp not found (needed to publish the village textures as WebP)")
+            args = [CWEBP, "-quiet", "-mt"]
+            args += ["-lossless", "-z", "8"] if mode == "lossless" else ["-q", mode[1:], "-m", "6", "-sharp_yuv", "-alpha_q", "95"]
+            subprocess.run(args + [src, "-o", tmp], check=True)
+        os.replace(tmp, dst)
+    _WEB_TEX_CACHE[name] = dst_name
+    return dst_name
+
+
 def export_objects_glb(objs: List[bpy.types.Object], glb_path: str):
+    """Draco-compressed GLB whose textures are external files shared by all village chunks."""
     bpy.ops.object.select_all(action="DESELECT")
     for o in objs:
         o.select_set(True)
     bpy.context.view_layer.objects.active = objs[0]
-    bpy.ops.export_scene.gltf(
-        filepath=glb_path,
-        export_format="GLB",
-        use_selection=True,
-        export_yup=True,
-        export_materials="EXPORT",
-        export_image_format="AUTO",
-        export_texcoords=True,
-        export_draco_mesh_compression_enable=False,
-    )
+    tmp_dir = tempfile.mkdtemp(prefix="kindenheim_village_export_")
+    try:
+        stem = os.path.splitext(os.path.basename(glb_path))[0]
+        gltf_path = os.path.join(tmp_dir, stem + ".gltf")
+        kwargs = dict(
+            filepath=gltf_path,
+            export_format="GLTF_SEPARATE",
+            use_selection=True,
+            export_yup=True,
+            export_materials="EXPORT",
+            export_image_format="AUTO",
+            export_texcoords=True,
+            export_normals=True,
+            export_vertex_color="MATERIAL",
+            export_all_vertex_colors=False,
+            export_draco_mesh_compression_enable=True,
+            export_draco_mesh_compression_level=6,
+            export_draco_position_quantization=20,
+            export_draco_normal_quantization=10,
+            export_draco_texcoord_quantization=16,
+            export_draco_color_quantization=8,
+        )
+        props = bpy.ops.export_scene.gltf.get_rna_type().properties
+        if "export_keep_originals" in props:
+            kwargs["export_keep_originals"] = True
+        bpy.ops.export_scene.gltf(**kwargs)
+
+        with open(gltf_path, "r", encoding="utf-8") as f:
+            gltf = json.load(f)
+        if len(gltf.get("buffers", [])) != 1:
+            raise RuntimeError(f"Expected exactly one buffer in {gltf_path}, got {len(gltf.get('buffers', []))}")
+        with open(os.path.join(tmp_dir, gltf["buffers"][0]["uri"]), "rb") as f:
+            bin_data = f.read()
+        gltf["buffers"][0] = {"byteLength": len(bin_data)}
+
+        rel = os.path.relpath(WEB_TEX_DIR, os.path.dirname(os.path.abspath(glb_path))).replace(os.sep, "/")
+        webp_images = set()
+        for idx, im in enumerate(gltf.get("images", [])):
+            if "bufferView" in im:
+                raise RuntimeError("GLTF_SEPARATE export unexpectedly embedded an image")
+            name = im.get("name") or os.path.splitext(os.path.basename(im.get("uri", "")))[0]
+            bimg = bpy.data.images.get(name)
+            if bimg is None:
+                raise RuntimeError(f"Exported image '{name}' not found among the Blender images (name contract broken)")
+            fname = prepare_web_texture(bimg)
+            gltf["images"][idx] = {"name": name, "uri": f"{rel}/{fname}"}
+            if fname.endswith(".webp"):
+                webp_images.add(idx)
+        if webp_images:
+            for tex in gltf.get("textures", []):
+                if tex.get("source") in webp_images:
+                    tex.setdefault("extensions", {})["EXT_texture_webp"] = {"source": tex.pop("source")}
+            for k in ("extensionsUsed", "extensionsRequired"):
+                lst = gltf.setdefault(k, [])
+                if "EXT_texture_webp" not in lst:
+                    lst.append("EXT_texture_webp")
+        ao_by_name = {sp["name"]: sp["ao_strength"] for sp in REAL_SPECS.values() if "ao_strength" in sp}
+        for mat in gltf.get("materials", []):
+            mat.pop("extras", None)
+            if mat.get("name") in ao_by_name and "occlusionTexture" in mat:
+                mat["occlusionTexture"]["strength"] = ao_by_name[mat["name"]]
+
+        js = json.dumps(gltf, separators=(",", ":")).encode("utf-8")
+        js += b" " * ((4 - len(js) % 4) % 4)
+        bin_data += b"\x00" * ((4 - len(bin_data) % 4) % 4)
+        total = 12 + 8 + len(js) + 8 + len(bin_data)
+        tmp_glb = glb_path + ".tmp"
+        with open(tmp_glb, "wb") as f:
+            f.write(struct.pack("<III", 0x46546C67, 2, total))
+            f.write(struct.pack("<II", len(js), 0x4E4F534A))
+            f.write(js)
+            f.write(struct.pack("<II", len(bin_data), 0x004E4942))
+            f.write(bin_data)
+        os.replace(tmp_glb, glb_path)   # atomic: the running app never sees a half-written chunk
+    finally:
+        shutil.rmtree(tmp_dir, ignore_errors=True)
+
+
+def mesh_triangle_count(obj) -> int:
+    return sum(len(p.vertices) - 2 for p in obj.data.polygons)
 
 
 def save_modular_archetypes():
@@ -3076,8 +4976,16 @@ def run_demo(render_path: str):
 
     for b in demo_buildings:
         builder.build_building(b)
+    stats = dict(builder.stats)
+    warnings = list(builder.warnings)
     obj = builder.finalize_object(col)
-    print(f"Demo village built: {len(obj.data.polygons)} polygons, {len(obj.data.materials)} materials.")
+    print(f"Demo village built: {mesh_triangle_count(obj)} triangles, {len(obj.data.materials)} materials, details: {stats}")
+    for w in warnings:
+        print("[WARN]", w)
+    demo_dir = os.path.join(OUT_GLB_DIR, "_wip")
+    os.makedirs(demo_dir, exist_ok=True)
+    export_objects_glb([o for o in (obj, builder.detail_obj) if o is not None], os.path.join(demo_dir, "demo_village.glb"))
+    print("Demo GLB ->", os.path.join(demo_dir, "demo_village.glb"))
 
     if render_path:
         setup_sunlit_render_env(bpy.context.scene)
@@ -3187,7 +5095,25 @@ def add_courtyard_accessories(
         p_br = mid + u_vec * (gw * 0.5) + Vector((0, 0, z0))
         p_tr = p_br + Vector((0, 0, gate_h))
         p_tl = p_bl + Vector((0, 0, gate_h))
-        b.add_quad(p_bl, p_br, p_tr, p_tl, ((0, 0), (1, 0), (1, 1), (0, 1)), gate_mat)
+        if gate_mat == "barn_gate":
+            # timber courtyard gate: two real boarded leaves, built from both sides, standing on the real ground
+            zg = z_ground
+            if b.site is not None:
+                g_here = b.site.ground(mid.x, mid.y)
+                if g_here is not None:
+                    zg = min(z_ground, g_here)
+            gk = f"cg{mid.x:.1f}_{mid.y:.1f}"
+            g_rgb = GATE_COLOURS[int(hash01(gk) * len(GATE_COLOURS)) % len(GATE_COLOURS)]
+            wood_c, frame_c = tint_for("wood_planks", g_rgb), tint_for("joinery", g_rgb)
+            a_pt = mid - u_vec * (gw * 0.5)
+            b_pt = mid + u_vec * (gw * 0.5)
+            for (pa, pb, tag) in ((a_pt, b_pt, "f"), (b_pt, a_pt, "b")):
+                Fg = Facade(pa.x, pa.y, pb.x, pb.y)
+                b.gate_leaf(Fg, 0.0, gw * 0.5 - 0.008, zg + 0.03, z_ground + gate_h, -0.02, wood_c, frame_c, gk + tag + "L", hinge_at_a=True)
+                b.gate_leaf(Fg, gw * 0.5 + 0.008, gw, zg + 0.03, z_ground + gate_h, -0.02, wood_c, frame_c, gk + tag + "R", hinge_at_a=False)
+            b.count("gates")
+        else:
+            b.add_quad(p_bl, p_br, p_tr, p_tl, ((0, 0), (1, 0), (1, 1), (0, 1)), gate_mat)
 
         # Miniature clay/slate-tile canopy roof spanning top of courtyard gate!
         if canopy_mat:
@@ -3250,41 +5176,77 @@ def add_courtyard_accessories(
     gv = Vector((-gu.y, gu.x, 0.0))  # Right-handed: gu x gv = +Z (gv points north toward street!)
     g_mid = Vector((0.5 * (gx0 + gx1), 0.5 * (gy0 + gy1), 0.0))
     z_kr = 38.15
-    # Crisp white Bauhaus upper lintel seamlessly uniting QOUm (wh=4.8m) and QOUr!
+    # Crisp white Bauhaus lintel bridge uniting QOUm (wh=4.8m) and QOUr, thin light metal coping on top
     b_kr.add_box(g_mid + Vector((0, 0, z_kr + 4.18)), gu, gv, sx=g_span + 0.9, sy=0.74, sz=1.28, mat_key="wall_bauhaus_white", uv_scale=8.0)
-    b_kr.add_box(g_mid + Vector((0, 0, z_kr + 4.86)), gu, gv, sx=g_span + 1.0, sy=0.82, sz=0.08, mat_key="trim_wood", uv_scale=2.0)
-    # Recessed steel-gray vertical-slat sliding carriage gate (upper header + left open door leaf next to QOUr!)
-    b_kr.add_box(g_mid - gv * 0.16 + Vector((0, 0, z_kr + 2.88)), gu, gv, sx=g_span - 0.10, sy=0.10, sz=1.36, mat_key="gate_bauhaus_slat", uv_scale=2.2)
-    b_kr.add_box(g_mid + gu * (g_span * 0.34) - gv * 0.20 + Vector((0, 0, z_kr + 1.25)), gu, gv, sx=g_span * 0.30, sy=0.10, sz=2.50, mat_key="gate_bauhaus_slat", uv_scale=2.2)
-    # 5 tall slender dark-green Italian cypresses in stone-curbed gravel planter beds along street frontage!
-    cypress_spots = [
-        # 2 tall cypresses right of gate (in front of QOUm)
-        (475.2, -214.8, 6.2, 0.44),
-        (477.4, -215.2, 5.8, 0.40),
-        # 3 slender cypresses left of gate (in front of QOUr)
-        (486.0, -217.2, 5.4, 0.36),
-        (487.5, -217.6, 5.2, 0.35),
-        (489.0, -218.0, 5.0, 0.34),
-    ]
-    for cx_t, cz_t, ch, cr in cypress_spots:
-        bx_t, by_t = cx_t, -cz_t
-        # Layered tapered hexagonal cypress column (3 overlapping tapered tiers for natural organic foliage!)
-        for tier_i, (zf0, zf1, rf0, rf1) in enumerate([
-            (0.05, 0.38, cr * 0.92, cr * 1.05),
-            (0.32, 0.72, cr * 1.00, cr * 0.78),
-            (0.65, 1.00, cr * 0.74, 0.08),
-        ]):
-            segs = 7
-            z_lo = z_kr + ch * zf0
-            z_hi = z_kr + ch * zf1
-            for s in range(segs):
-                a0 = (s / segs) * 2.0 * math.pi + tier_i * 0.3
-                a1 = ((s + 1) / segs) * 2.0 * math.pi + tier_i * 0.3
-                p00 = (bx_t + math.cos(a0) * rf0, by_t + math.sin(a0) * rf0, z_lo)
-                p10 = (bx_t + math.cos(a1) * rf0, by_t + math.sin(a1) * rf0, z_lo)
-                p11 = (bx_t + math.cos(a1) * rf1, by_t + math.sin(a1) * rf1, z_hi)
-                p01 = (bx_t + math.cos(a0) * rf1, by_t + math.sin(a0) * rf1, z_hi)
-                b_kr.add_quad(p00, p10, p11, p01, ((0, 0), (0.6, 0), (0.6, 1.4), (0, 1.4)), "cypress_foliage")
+    b_kr.box("paint", g_mid + Vector((0, 0, z_kr + 4.845)), gu, gv, g_span + 0.96, 0.80, 0.05, (0.66, 0.66, 0.65), default_tile=2.0)
+    # Full-width, recessed steel-grey slat gate: as in Street View it hangs in the upper part of the opening
+    # (open passage below, the yard visible through it) - one panel over the whole span, no half leaf
+    b_kr.add_box(g_mid - gv * 0.24 + Vector((0, 0, z_kr + 2.92)), gu, gv, sx=g_span - 0.04, sy=0.08, sz=1.24, mat_key="gate_bauhaus_slat", uv_scale=2.2)
+    b_kr.box("paint", g_mid - gv * 0.24 + Vector((0, 0, z_kr + 2.28)), gu, gv, g_span - 0.04, 0.12, 0.06, (0.30, 0.31, 0.32), default_tile=2.0)
+    b_kr.count("kreutzenberger_gate")
+
+    # Gravel beds with a low concrete kerb along the street front (the cypresses in them are placed by the
+    # vegetation system), the black Weingut sign and a white info board - see sv_weingut_kreutzenberger.png
+    def kr_ground(x, y):
+        g = b_kr.site.ground(x, y) if b_kr.site is not None else None
+        if g is None:
+            raise RuntimeError(f"Kreutzenberger frontage: no terrain height at Blender ({x:.1f}, {y:.1f})")
+        return g
+
+    def kr_bed(Fb, sa, sb, d0, d1):
+        """Gravel bed in front of facade Fb (normal = street side) between s=sa..sb and d=d0..d1."""
+        mx, my, _ = Fb.P(0.5 * (sa + sb), 0.0, 0.5 * (d0 + d1))
+        zg = kr_ground(mx, my)
+        zt = zg + 0.10
+        k = 1.0 / (REAL_TILE.get("gravel") or 2.0)
+        b_kr.q("gravel", Fb.P(sa, zt, d0), Fb.P(sb, zt, d0), Fb.P(sb, zt, d1), Fb.P(sa, zt, d1),
+               ((sa * k, d0 * k), (sb * k, d0 * k), (sb * k, d1 * k), (sa * k, d1 * k)), (0.92, 0.91, 0.88), facing=(0, 0, 1))
+        cw, ch = 0.10, 0.16
+        kc = 1.0 / (REAL_TILE.get("concrete") or 2.0)
+        cc = (0.80, 0.80, 0.78)
+        # kerb on the street side and both ends: top + outer faces
+        for (a0, a1, b0, b1, fc) in ((sa - cw, sb + cw, d1, d1 + cw, Fb.n3), (sa - cw, sa, d0, d1, (-Fb.ex, -Fb.ey, 0.0)), (sb, sb + cw, d0, d1, Fb.e3)):
+            b_kr.q("concrete", Fb.P(a0, zg + ch, b0), Fb.P(a1, zg + ch, b0), Fb.P(a1, zg + ch, b1), Fb.P(a0, zg + ch, b1),
+                   ((a0 * kc, b0 * kc), (a1 * kc, b0 * kc), (a1 * kc, b1 * kc), (a0 * kc, b1 * kc)), cc, facing=(0, 0, 1))
+        b_kr.q("concrete", Fb.P(sa - cw, zg - 0.1, d1 + cw), Fb.P(sb + cw, zg - 0.1, d1 + cw), Fb.P(sb + cw, zg + ch, d1 + cw), Fb.P(sa - cw, zg + ch, d1 + cw),
+               ((0, 0), ((sb - sa) * kc, 0), ((sb - sa) * kc, 0.26 * kc), (0, 0.26 * kc)), mul3(cc, 0.9), facing=Fb.n3)
+        b_kr.q("concrete", Fb.P(sa - cw, zg - 0.1, d0), Fb.P(sa - cw, zg - 0.1, d1 + cw), Fb.P(sa - cw, zg + ch, d1 + cw), Fb.P(sa - cw, zg + ch, d0),
+               ((0, 0), ((d1 - d0) * kc, 0), ((d1 - d0) * kc, 0.26 * kc), (0, 0.26 * kc)), mul3(cc, 0.85), facing=(-Fb.ex, -Fb.ey, 0.0))
+        b_kr.q("concrete", Fb.P(sb + cw, zg - 0.1, d1 + cw), Fb.P(sb + cw, zg - 0.1, d0), Fb.P(sb + cw, zg + ch, d0), Fb.P(sb + cw, zg + ch, d1 + cw),
+               ((0, 0), ((d1 - d0) * kc, 0), ((d1 - d0) * kc, 0.26 * kc), (0, 0.26 * kc)), mul3(cc, 0.85), facing=Fb.e3)
+        b_kr.count("kreutzenberger_beds")
+
+    def kr_panel(Fb, s_c, d, z0, z1, w, uv_u, back_col, post_col=(0.16, 0.16, 0.17)):
+        """Free-standing sign panel (front = Fb normal) on two square posts; uv_u = (u0, u1) of village_signs.png."""
+        x, y, _ = Fb.P(s_c, 0.0, d)
+        zg = kr_ground(x, y)
+        za, zb = zg + z0, zg + z1
+        sa, sb = s_c - 0.5 * w, s_c + 0.5 * w
+        t = 0.04
+        b_kr.q("signs", Fb.P(sa, za, d + t), Fb.P(sb, za, d + t), Fb.P(sb, zb, d + t), Fb.P(sa, zb, d + t),
+               ((uv_u[0], 0.004), (uv_u[1], 0.004), (uv_u[1], 0.996), (uv_u[0], 0.996)), WHITE, facing=Fb.n3)
+        b_kr.q("paint", Fb.P(sb, za, d), Fb.P(sa, za, d), Fb.P(sa, zb, d), Fb.P(sb, zb, d),
+               ((0, 0), (0.1, 0), (0.1, 0.1), (0, 0.1)), back_col, facing=(-Fb.nx, -Fb.ny, 0.0))
+        for (s_e, fc) in ((sa, (-Fb.ex, -Fb.ey, 0.0)), (sb, Fb.e3)):
+            b_kr.q("paint", Fb.P(s_e, za, d), Fb.P(s_e, za, d + t), Fb.P(s_e, zb, d + t), Fb.P(s_e, zb, d),
+                   ((0, 0), (0.1, 0), (0.1, 0.1), (0, 0.1)), back_col, facing=fc)
+        b_kr.q("paint", Fb.P(sa, zb, d), Fb.P(sa, zb, d + t), Fb.P(sb, zb, d + t), Fb.P(sb, zb, d),
+               ((0, 0), (0.1, 0), (0.1, 0.1), (0, 0.1)), back_col, facing=(0, 0, 1))
+        for s_p in (sa + 0.12, sb - 0.12):
+            px, py, _ = Fb.P(s_p, 0.0, d - 0.04)
+            b_kr.box("paint", (px, py, zg - 0.2 + 0.5 * (z1 + 0.25)), Fb.e3, Fb.n3, 0.06, 0.06, z1 + 0.25, post_col, default_tile=2.0)
+        b_kr.count("kreutzenberger_signs")
+
+    F_ur = Facade(490.1, 217.2, 484.4, 215.8)      # QOUr street front west of the step (normal -> street)
+    F_ur2 = Facade(496.1, 217.1, 490.5, 215.7)     # QOUr street front east of the step (set back 1.5 m)
+    F_um = Facade(478.7, 214.4, 473.0, 213.1)      # QOUm narrow street end
+    kr_bed(F_ur, 0.25, F_ur.L - 0.55, 0.08, 1.05)
+    kr_bed(F_ur2, 0.30, F_ur2.L - 0.30, 0.08, 1.35)
+    kr_bed(F_um, 0.35, F_um.L - 0.35, 0.08, 1.20)
+    # black portrait sign (SEKT / WEIN / BRAENDE / PRAESENTE + parking P) at the west end of the frontage
+    kr_panel(F_um, F_um.L - 0.9, 1.75, 0.50, 2.05, 0.62, (0.004, 0.396), (0.07, 0.07, 0.08))
+    # white info board beside the gate
+    kr_panel(F_ur, F_ur.L - 0.45, 1.30, 0.60, 1.85, 0.75, (0.424, 0.996), (0.86, 0.86, 0.84), post_col=(0.55, 0.56, 0.57))
 
     # 5. Neugasse Villa (QOR1) Clipped Boxwood Garden Hedge & Stone Curb (sv_side_street_neugasse!)
     b_neu = get_b(57.5, -214.0)
@@ -3363,9 +5325,16 @@ def add_courtyard_accessories(
             l0t = (x0e + vx * hw, y0e + vy * hw, z_t0)
             l1b = (x1e + vx * hw, y1e + vy * hw, z_b1)
             l1t = (x1e + vx * hw, y1e + vy * hw, z_t1)
-            us = max(0.2, dl / uvs)
-            vs = max(0.2, (z_t0 - z_b0) / uvs)
-            ws = max(0.15, w_thick / uvs)
+            uvs = b_inst.tile_of(mk, uvs)
+            us = dl / uvs
+            vs = (z_t0 - z_b0) / uvs
+            ws = w_thick / uvs
+            if (SEM.get(mk) or {}).get("real") in ("wood_beam", "wood_planks") and (z_t0 - z_b0) < 0.5:
+                # horizontal timber rail: the scan's grain runs along V -> rotate the mapping by 90 degrees
+                b_inst.add_quad(r0b, r1b, r1t, r0t, ((0, 0), (0, us), (vs, us), (vs, 0)), mk)
+                b_inst.add_quad(l1b, l0b, l0t, l1t, ((0, 0), (0, us), (vs, us), (vs, 0)), mk)
+                b_inst.add_quad(r0t, r1t, l1t, l0t, ((0, 0), (0, us), (ws, us), (ws, 0)), mk)
+                return
             b_inst.add_quad(r0b, r1b, r1t, r0t, ((0, 0), (us, 0), (us, vs), (0, vs)), mk)
             b_inst.add_quad(l1b, l0b, l0t, l1t, ((0, 0), (us, 0), (us, vs), (0, vs)), mk)
             b_inst.add_quad(r0t, r1t, l1t, l0t, ((0, 0), (us, 0), (us, ws), (0, ws)), mk)
@@ -4105,6 +6074,9 @@ def run_production(
     render_street: str,
     skip_archetypes: bool = False,
     render_corridors_dir: str = "",
+    out_subdir: str = "",
+    only_near: Optional[Tuple[float, float, float]] = None,
+    save_blend: bool = True,
 ):
     with open(scene_json_path, "r", encoding="utf-8") as f:
         scene_data = json.load(f)
@@ -4115,7 +6087,7 @@ def run_production(
 
     clear_scene()
     mats = create_material_library()
-    valid_mats = set(mats.keys())
+    valid_mats = valid_material_keys()
 
     # Auto-glob & defensively merge ALL data/streets/*/overrides.json!
     _, street_infills, street_accessories = load_street_overrides_glob(valid_mats, excluded_ids, buildings)
@@ -4130,14 +6102,52 @@ def run_production(
             if len(p0) >= 3 and len(p1) >= 3:
                 road_segments.append((float(p0[0]), float(p0[2]), float(p1[0]), float(p1[2]), rw))
 
+    all_buildings = list(buildings) + list(CORRIDOR_INFILL_BUILDINGS) + list(street_infills)
+
+    # Village-wide context: street-facing facades get the full geometric detail, party walls stay blank,
+    # doors / gates sit on the real terrain height.
+    site_roads = []
+    for r in scene_data.get("roads", []):
+        role = str(r.get("role") or r.get("highway") or "")
+        if role in ("track", "path") or str(r.get("highway")) in ("track", "path", "steps", "footway"):
+            continue
+        rw = float(r.get("widthM") or 4.5)
+        pts_r = r.get("points") or []
+        for i in range(len(pts_r) - 1):
+            p0, p1 = pts_r[i], pts_r[i + 1]
+            if len(p0) >= 3 and len(p1) >= 3:
+                site_roads.append((float(p0[0]), -float(p0[2]), float(p1[0]), -float(p1[2]), rw, role))
+    site_fps = []
+    for b in all_buildings:
+        fp_b = b.get("footprint") or []
+        bid_b = str(b.get("id", ""))
+        if len(fp_b) < 3 or (b.get("override") or BUILDING_OVERRIDES.get(bid_b) or {}).get("skip"):
+            continue
+        poly_b = clean_polygon_2d([(p[0], -p[1]) for p in fp_b])
+        if len(poly_b) >= 3:
+            site_fps.append((bid_b, poly_b, 0.0))
+    site = SiteContext(site_roads, site_fps, os.path.join(PROJECT_ROOT, "data/terrain/heightmap.bin"))
+
+    # reference brightness of the aerial-sampled roof colours per tone class (roofs are tinted relative to it)
+    by_tone: Dict[str, List[float]] = {}
+    for b in all_buildings:
+        hx = b.get("roofColorHex")
+        if isinstance(hx, str) and len(hx) == 7:
+            a_lin = lin_rgb((int(hx[1:3], 16), int(hx[3:5], 16), int(hx[5:7], 16)))
+            by_tone.setdefault(str(b.get("roofTone", "")).lower(), []).append(0.2126 * a_lin[0] + 0.7152 * a_lin[1] + 0.0722 * a_lin[2])
+    ROOF_CLASS_LUM.clear()
+    for tone, vals in by_tone.items():
+        vals.sort()
+        ROOF_CLASS_LUM[tone] = vals[len(vals) // 2]
+
     chunk_names = ("village_center", "village_north", "village_south", "village_outskirts")
-    builders = {cn: VillageMeshBuilder(cn, mats) for cn in chunk_names}
+    chunk_detail = {"village_center": 1.0, "village_north": 1.0, "village_south": 1.0, "village_outskirts": 0.7}
+    builders = {cn: VillageMeshBuilder(cn, mats, site=site, detail=chunk_detail[cn]) for cn in chunk_names}
     chunk_counts = {cn: 0 for cn in chunk_names}
     built_ids = []
     skipped_landmark_ids = []
     elevs = []
 
-    all_buildings = list(buildings) + list(CORRIDOR_INFILL_BUILDINGS) + list(street_infills)
     for b in all_buildings:
         bid = str(b.get("id", ""))
         osm_str = f"way/{b.get('osmId')}" if b.get("osmId") is not None else ""
@@ -4159,6 +6169,8 @@ def run_production(
         else:
             cx = sum(p[0] for p in fp) / len(fp)
             cz = sum(p[1] for p in fp) / len(fp)
+        if only_near is not None and math.hypot(cx - only_near[0], cz - only_near[1]) > only_near[2]:
+            continue
         ck = classify_chunk(cx, cz)
         if builders[ck].build_building(b):
             chunk_counts[ck] += 1
@@ -4174,53 +6186,96 @@ def run_production(
     )
 
     # Finalize chunk meshes, export GLBs, and collect manifest entries
+    out_dir = os.path.join(OUT_GLB_DIR, out_subdir) if out_subdir else OUT_GLB_DIR
+    os.makedirs(out_dir, exist_ok=True)
     chunk_entries = []
     all_chunk_objs = []
+    all_warnings = []
+    total_stats: Dict[str, int] = {}
     for cn in chunk_names:
         col = bpy.data.collections.new(cn)
         bpy.context.scene.collection.children.link(col)
+        all_warnings.extend(f"{cn}: {w}" for w in builders[cn].warnings)
+        for k, v in builders[cn].stats.items():
+            total_stats[k] = total_stats.get(k, 0) + v
         obj = builders[cn].finalize_object(col)
         if obj is None:
-            continue
+            if only_near is None:
+                raise RuntimeError(f"Chunk {cn} came out empty - refusing to write a broken village")
+            # partial dev build: still write a valid (tiny) chunk so the loader finds all four files
+            dummy = VillageMeshBuilder(cn, mats)
+            dummy.box("concrete", (0.0, 0.0, -50.0), (1, 0, 0), (0, 1, 0), 0.1, 0.1, 0.1)
+            obj = dummy.finalize_object(col)
         all_chunk_objs.append(obj)
-        glb_path = os.path.join(OUT_GLB_DIR, f"{cn}.glb")
-        export_objects_glb([obj], glb_path)
+        det = builders[cn].detail_obj
+        glb_path = os.path.join(out_dir, f"{cn}.glb")
+        export_objects_glb([o for o in (obj, det) if o is not None], glb_path)
         fsize = os.path.getsize(glb_path)
-        tris = sum(len(p.vertices) - 2 for p in obj.data.polygons)
+        det_tris = mesh_triangle_count(det) if det is not None else 0
+        tris = mesh_triangle_count(obj) + det_tris
         chunk_entries.append({
             "id": cn,
             "glbPath": f"/assets/models/village/{cn}.glb",
             "buildingCount": chunk_counts[cn],
             "triangles": tris,
-            "materialCount": len(obj.data.materials),
+            "detailTriangles": det_tris,
+            "materialCount": len(obj.data.materials) + (len(det.data.materials) if det is not None else 0),
             "fileSizeBytes": fsize,
             "worldPositioned": True,
             "bounds": compute_gltf_bbox_obj(obj),
         })
         print(f"Exported {cn}.glb: {chunk_counts[cn]} buildings, {tris} tris, {fsize / 1024:.1f} KB")
 
-    # Save full master .blend archive BEFORE adding temporary preview ground/camera!
-    bpy.ops.wm.save_as_mainfile(filepath=BLEND_ARCHIVE)
-    print(f"Saved master Kindenheim village archive -> {BLEND_ARCHIVE}")
+    total_tris = sum(c["triangles"] for c in chunk_entries)
+    total_bytes = sum(c["fileSizeBytes"] for c in chunk_entries)
+    tex_bytes = sum(os.path.getsize(os.path.join(WEB_TEX_DIR, fn)) for fn in set(_WEB_TEX_CACHE.values()))
+    print(f"VILLAGE TOTAL: {sum(chunk_counts.values())} buildings, {total_tris} triangles, "
+          f"{sum(c['materialCount'] for c in chunk_entries)} primitives, GLBs {total_bytes / 1e6:.2f} MB, "
+          f"shared textures {tex_bytes / 1e6:.2f} MB ({len(set(_WEB_TEX_CACHE.values()))} files)")
+    print(f"VILLAGE DETAIL COUNTS: {total_stats}")
+    if all_warnings:
+        print(f"!!! {len(all_warnings)} BUILDER WARNINGS (walls that fell back to a plain panel):")
+        for w in all_warnings[:60]:
+            print("   ", w)
 
-    # Load props metadata and write unified public/assets/models/village/manifest.json
-    props_dict = {}
-    if os.path.exists(PROPS_META):
-        with open(PROPS_META, "r", encoding="utf-8") as f:
-            props_dict = json.load(f)
+    if save_blend and not out_subdir and only_near is None:
+        # Save full master .blend archive BEFORE adding temporary preview ground/camera!
+        bpy.ops.wm.save_as_mainfile(filepath=BLEND_ARCHIVE)
+        print(f"Saved master Kindenheim village archive -> {BLEND_ARCHIVE}")
 
-    manifest = {
+    # Merge into public/assets/models/village/manifest.json: ONLY the chunk / building keys are ours;
+    # the "props" section (and anything else) belongs to the props pipeline and is preserved verbatim.
+    chunk_keys = {
         "coordinateSystem": "Three.js Y-up meters (+X East, -Z North, +Y Up above minElevationM)",
         "worldPositionedChunks": True,
         "totalVillageBuildings": sum(chunk_counts.values()),
         "excludedLandmarkIds": sorted(set(excluded_ids)),
         "matchedExcludedLandmarkIds": sorted(set(skipped_landmark_ids)),
         "chunks": chunk_entries,
-        "props": props_dict,
+        "villageTextures": {
+            "directory": f"/assets/models/village/{WEB_TEX_DIRNAME}",
+            "note": "external textures shared by all village chunk GLBs (referenced by relative URI)",
+            "fileCount": len(set(_WEB_TEX_CACHE.values())),
+            "totalBytes": tex_bytes,
+        },
+        "villageTriangles": total_tris,
     }
-    with open(MANIFEST_OUT, "w", encoding="utf-8") as f:
-        json.dump(manifest, f, indent=2)
-    print(f"Wrote village manifest -> {MANIFEST_OUT} ({manifest['totalVillageBuildings']} buildings, {len(props_dict)} props)")
+    if out_subdir or only_near is not None:
+        wip_manifest = os.path.join(out_dir, "manifest_chunks.json")
+        with open(wip_manifest, "w", encoding="utf-8") as f:
+            json.dump(chunk_keys, f, indent=2)
+        print(f"WIP build: wrote {wip_manifest}; the live manifest was NOT touched")
+    else:
+        if not os.path.exists(MANIFEST_OUT):
+            raise RuntimeError(f"{MANIFEST_OUT} is missing - refusing to create it without the props section")
+        with open(MANIFEST_OUT, "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+        manifest.update(chunk_keys)
+        tmp_manifest = MANIFEST_OUT + ".tmp"
+        with open(tmp_manifest, "w", encoding="utf-8") as f:
+            json.dump(manifest, f, indent=2)
+        os.replace(tmp_manifest, MANIFEST_OUT)
+        print(f"Merged village manifest -> {MANIFEST_OUT} ({chunk_keys['totalVillageBuildings']} buildings; props section untouched)")
 
     if render_aerial or render_street or render_corridors_dir:
         med_elev = sorted(elevs)[len(elevs) // 2] if elevs else 56.0
@@ -4392,21 +6447,36 @@ def main():
     parser.add_argument("--render-street", type=str, default="")
     parser.add_argument("--render-corridors-dir", type=str, default="")
     parser.add_argument("--skip-archetypes", action="store_true")
+    parser.add_argument("--out-subdir", type=str, default="", help="Write chunks to public/assets/models/village/<subdir>/ (dev builds; live manifest untouched)")
+    parser.add_argument("--only-near", type=str, default="", help="x,z,radius (world metres): only build buildings near that point (dev builds)")
+    parser.add_argument("--no-blend", action="store_true", help="Do not save the master .blend archive")
     args = parser.parse_args(argv)
 
     if args.demo:
         run_demo(args.render)
-        save_modular_archetypes()
+        if not args.skip_archetypes:
+            save_modular_archetypes()
     else:
         extra = [s.strip() for s in args.exclude_ids.split(",") if s.strip()]
+        only_near = None
+        if args.only_near:
+            parts = [float(v) for v in args.only_near.split(",")]
+            if len(parts) != 3:
+                raise SystemExit("--only-near expects x,z,radius")
+            only_near = (parts[0], parts[1], parts[2])
+            if not args.out_subdir:
+                raise SystemExit("--only-near is a dev option and requires --out-subdir (never write partial chunks to the live folder)")
         run_production(
             args.scene,
             args.landmarks_manifest,
             extra,
             args.render_aerial,
             args.render_street,
-            skip_archetypes=args.skip_archetypes,
+            skip_archetypes=args.skip_archetypes or bool(args.out_subdir),
             render_corridors_dir=args.render_corridors_dir,
+            out_subdir=args.out_subdir,
+            only_near=only_near,
+            save_blend=not args.no_blend,
         )
 
 

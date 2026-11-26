@@ -622,6 +622,9 @@ def make_height_sampler(rel_grid: np.ndarray):
 # ---------------------------------------------------------------------------
 # Step 2: Aerial Orthophoto (LVermGeo RLP DOP20 WMS 4096x4096 -> fallback Esri)
 # ---------------------------------------------------------------------------
+# NOTE: data/terrain/orthophoto.jpg written here (0.5 m/px) is only the offline reference / minimap image.
+# The runtime terrain imagery (native 0.2 m/px tiles + 0.5 m base, shadow-lifted) is produced by
+#   scripts/fetch_ortho_hires.py -> scripts/build_terrain_ortho.py -> build_terrain_splat.py / build_terrain_relief.py
 def fetch_orthophoto(dest_path: str) -> str:
     minE = CENTER_UTM_E - HALF_MAP_M
     maxE = CENTER_UTM_E + HALF_MAP_M
@@ -645,9 +648,10 @@ def fetch_orthophoto(dest_path: str) -> str:
                 "https://geo4.service24.rlp.de/wms/rp_dop20.fcgi?"
                 "SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=rp_dop20&STYLES="
                 f"&CRS=EPSG:25832&BBOX={b_minE:.1f},{b_minN:.1f},{b_maxE:.1f},{b_maxN:.1f}"
-                f"&WIDTH={qsize}&HEIGHT={qsize}&FORMAT=image/png"
+                # Plain "image/png" is answered with an 8-bit PALETTE image by this server; ask for true colour.
+                f"&WIDTH={qsize}&HEIGHT={qsize}&FORMAT=image/png;%20mode=24bit"
             )
-            raw = download_cached(url, f"dop20_{tag}_{qsize}.png", timeout=45)
+            raw = download_cached(url, f"dop20_{tag}_{qsize}_rgb24.png", timeout=45)
             im = Image.open(io.BytesIO(raw)).convert("RGB")
             if im.size != (qsize, qsize):
                 raise RuntimeError(f"DOP20 quad {tag} wrong size {im.size}")
