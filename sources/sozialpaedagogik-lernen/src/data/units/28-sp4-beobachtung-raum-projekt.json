@@ -3,418 +3,466 @@
   "number": 28,
   "moduleCode": "S-SP-4",
   "moduleArea": "sp-pflicht",
-  "title": "Bildungs- und Lerngeschichten, Situationsanalyse & Raumgestaltung",
-  "subtitle": "Margaret Carr, partizipative Aktivitäten-/Projektplanung & Raum als 3. Erzieher",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-4 · Beobachtung, Raum als 3. Erzieher & Projektarbeit (Lehrplan RLP 2024)",
+  "title": "Beobachtung, Raum als 3. Erzieher & partizipative Projektarbeit",
+  "subtitle": "Situationsanalyse, Bildungs- und Lerngeschichten (Carr), Raumgestaltungskriterien, Projektphasen & Portfolio",
   "year": "2./3. Jahr",
   "estimatedMinutes": 25,
   "hoursRef": "680 Std. (Grundlagen Teil 3/3)",
   "pdfPages": "S. 26–27",
   "crossCuttingTags": [
     "Partizipation",
-    "Inklusion"
+    "Inklusion",
+    "Sprachbildung"
   ],
-  "summary": "Einheit 28 widmet sich der professionellen Bildungsdokumentation durch Bildungs- und Lerngeschichten nach Margaret Carr, der methodischen Durchführung multiperspektivischer Situationsanalysen als Planungsbasis sowie der raumpädagogischen Gestaltung von Innen- und Außenräumen als „dritten Erzieher“. Angehende Erzieher:innen lernen, Kinder als aktive Akteure ihrer Entwicklung zu verstehen und Bildungsprozesse partizipativ sowie bedürfnisorientiert zu gestalten.",
+  "summary": "Professionelle Bildungsarbeit folgt keinem starren Jahreszeiten-Programm, sondern entsteht aus aufmerksamer Beobachtung, durchdachter Raumgestaltung und echter Beteiligung. Diese Einheit zeigt, wie Beobachtung und multiperspektivische Situationsanalyse pädagogische Planung begründen, welche konkreten Kriterien den „Raum als dritten Erzieher“ (Reggio-Pädagogik / Schäfer) ausmachen und wie Projekte phasenorientiert, partizipativ und transparent im Portfolio dokumentiert werden.",
   "learningGoals": [
-    "Ich kann Bildungs- und Lerngeschichten nach Margaret Carr (Lerndispositionen) fachlich fundiert anwenden und zur Dokumentation von Bildungsprozessen nutzen.",
-    "Ich kann eine bedürfnis- und multiperspektivische Situationsanalyse als methodische Grundlage für pädagogische Planungen durchführen.",
-    "Ich kann Aktivitäten und Projekte partizipativ gemeinsam mit Kindern und Jugendlichen planen, prozessorientiert durchführen und reflektieren.",
-    "Ich kann Innen- und Außenräume unter dem Aspekt des „Raums als dritten Erzieher“ lernanregend, inklusiv und bedürfnisgerecht gestalten.",
-    "Ich kann mein eigenes pädagogisches Handeln in den Bildungsbereichen methodengeleitet analysieren und theoriegestützt reflektieren."
+    "Ich kann Beobachtung und multiperspektivische Situationsanalyse als fachliche Grundlage pädagogischer Planung anwenden und Bildungs- und Lerngeschichten (nach Carr) differenziert einsetzen.",
+    "Ich kann Innen- und Außenräume anhand konkreter Kriterien des „Raums als drittem Erzieher“ (Zonierung, Zugänglichkeit, Aufforderungscharakter, Ästhetik, Inklusion, Partizipation) analysieren und weiterentwickeln.",
+    "Ich kann Projekte phasenorientiert (von der Themenfindung über Planung, Durchführung und Zwischenreflexion bis zur Evaluation) gemeinsam mit Kindern und Jugendlichen gestalten.",
+    "Ich kann Portfolios, Lerngeschichten und Wanddokumentationen ressourcenorientiert, partizipativ und datenschutzkonform nutzen, um Bildungsprozesse sichtbar zu machen.",
+    "Ich kann Chancen und Grenzen verschiedener Dokumentationsverfahren sachlich einschätzen und mein eigenes Planungshandeln kritisch reflektieren."
   ],
   "sections": [
     {
-      "body": "Bildungs- und Lerngeschichten nach Margaret Carr (Learning Stories) stellen einen ressourcen- und stärkenorientierten Ansatz dar, der sich von defizitorientierten Diagnostikverfahren abgrenzt. Im Zentrum stehen fünf zentrale Lerndispositionen: Interessiert sein, sich engagieren, Herausforderungen bewältigen, mit anderen kommunizieren und Verantwortung übernehmen. Durch narrative Beobachtungen und Dokumentationen wird sichtbar, wie Kinder als kompetente Akteure ihre eigene Bildung aktiv mitgestalten und welche individuellen Lernwege sie beschreiten.",
+      "heading": "Beobachtung & Situationsanalyse als Grundlage pädagogischer Planung",
+      "keyTakeaway": "Planung beginnt nicht im Materialschrank, sondern beim genauen Beobachten und gemeinsamen Verstehen dessen, was Kinder aktuell bewegt.",
+      "body": "Pädagogische Angebote und Projekte entfalten erst dann Bildungswirkung, wenn sie an den realen Interessen, Fragen und Lebenslagen der Kinder und Jugendlichen anknüpfen. Den Ausgangspunkt bildet die systematische Beobachtung – mit strikter Trennung zwischen beschreibender Wahrnehmung und fachlicher Deutung. Auf dieser Basis entsteht im Team (und im Austausch mit Kindern sowie Eltern) eine multiperspektivische Situationsanalyse (in der Tradition des Situationsansatzes): Welche Themen und Schlüsselsituationen prägen die Gruppe gerade? Welche Entwicklungsaufgaben, sozialen Dynamiken und lebensweltlichen Bedingungen im Sozialraum spielen hinein? Ein verbreitetes ressourcenorientiertes Verfahren zur Bildungsdokumentation sind die Bildungs- und Lerngeschichten nach Margaret Carr (für Deutschland adaptiert am Deutschen Jugendinstitut von Hans Rudolf Leu et al.). Sie lenken den Blick auf fünf Lerndispositionen: Interessiert sein, Engagiert sein, Standhalten bei Herausforderungen und Schwierigkeiten, Sich ausdrücken und mitteilen sowie An einer Lerngemeinschaft mitwirken und Verantwortung übernehmen. Fachlich wichtig ist dabei eine differenzierte Einordnung: Narrative Lerngeschichten machen Lerninteressen, Selbstwirksamkeit und individuelle Lernwege hervorragend sichtbar und stärken den Dialog mit Kind und Eltern – sie ersetzen bei konkreten Fragen zur Entwicklungsverzögerung jedoch keine ergänzenden systematischen Entwicklungsbeobachtungen.",
       "bulletPoints": [
-        "Abkehr von Defizitdiagnostik hin zu ressourcenorientierter Beobachtung",
-        "Fünf zentrale Lerndispositionen nach Margaret Carr",
-        "Narrative Dokumentationsform (Geschichtenform für Kind, Eltern, Team)",
-        "Stärkung von Identität, Agency und Selbstwirksamkeit"
+        "Planung aus Beobachtung: Themen und Impulse entstehen aus realen Spiel- und Lebenssituationen, nicht aus starren Routinen.",
+        "Multiperspektivische Situationsanalyse: Perspektiven von Kindern, Fachkräften, Eltern und Sozialraum systematisch zusammenführen.",
+        "Bildungs- und Lerngeschichten (Carr / DJI): Fünf Lerndispositionen mit stärkenorientiertem Blick auf Lernwege.",
+        "Methodenvielfalt wahren: Narrative Verfahren sinnvoll durch gezielte Beobachtungsinstrumente ergänzen, wenn spezifische Entwicklungsfragen auftreten."
       ],
-      "heading": "Bildungs- und Lerngeschichten nach Margaret Carr und Lerndispositionen",
-      "keyTakeaway": "Lerngeschichten dokumentieren nicht was ein Kind (noch) nicht kann, sondern erfassen narrativ dessen Dispositionen, Interessen und aktive Beteiligung an Bildungsprozessen.",
-      "praxisTip": "Verfassen Sie monatlich mindestens eine Lerngeschichte für ein Kind, besprechen Sie diese wertschätzend mit dem Kind und nutzen Sie sie als Brücke für die Erziehungspartnerschaft mit den Eltern."
+      "praxisTip": "Beginnen Sie jede Teamplanung mit zehn Minuten reiner Beobachtungssammlung: Welche drei Fragen, Spielthemen oder Konflikte tauchten bei den Kindern diese Woche wiederholt auf?"
     },
     {
-      "body": "Eine professionelle Bildungsarbeit erfordert eine fundierte, bedürfnis- und multiperspektivische Situationsanalyse. Dabei werden die aktuellen Lebenslagen, Interessen, Entwicklungsaufgaben und kulturellen Hintergründe der Adressaten (Kinder, Jugendliche, Familien) systematisch erfasst. Diese Analyse dient als Basis, um individuelle und gruppenbezogene Impulse zu setzen, Projekte partizipativ zu planen und Aktivitäten prozessorientiert sowie reflektiert durchzuführen.",
+      "heading": "Der Raum als „dritter Erzieher“: Kriterien professioneller Raumgestaltung",
+      "keyTakeaway": "Räume senden stumme Botschaften – sie können Neugier, Ruhe und Selbstständigkeit ermöglichen oder Unruhe und Abhängigkeit erzeugen.",
+      "body": "In der Reggio-Pädagogik (Loris Malaguzzi) – und ähnlich bei Maria Montessori und Gerd E. Schäfer – gilt neben Kindern (erste Erzieher/Peers) und pädagogischen Fachkräften (zweite Erzieher) der physische Raum als „dritter Erzieher“. Innen- und Außenräume sind keine neutrale Hülle, sondern strukturieren Bewegung, Wahrnehmung, Kommunikation und Teilhabe. Ob ein Raum lernanregend wirkt, lässt sich anhand klarer fachlicher Kriterien überprüfen: Erstens braucht es eine erkennbare funktionale Zonierung, die aktive Bereiche (Bauen, Rollenspiel, Atelier/Werkstatt) akustisch und räumlich von geschützten Rückzugs- und Ruhezonen trennt, ohne unübersichtliche Laufwege zu schaffen. Zweitens sichert Zugänglichkeit auf Kinderaugenhöhe (offene Regale, transparente Behälter, klar zugeordnete Plätze) echte Selbstständigkeit und Barrierearmut im Sinne der Inklusion. Drittens erzeugt eine bewusste Ästhetik mit geordneter Materialpräsentation, gutem Licht und angenehmer Akustik einen hohen Aufforderungscharakter (Affordance) – während überfüllte Wände und überladene Spielkisten eher Reizüberflutung und kurze Spielphasen begünstigen. Viertens muss der Raum veränderbar und partizipativ gestaltbar bleiben: Kinder erleben Selbstwirksamkeit, wenn sie Funktionsbereiche mitplanen und umgestalten dürfen. Fünftens ist das Außengelände mit naturnahen Elementen (Wasser, Sand, Höhenunterschiede, Verstecke) ein gleichwertiger Bildungsraum, nicht bloßer „Auslauf“.",
       "bulletPoints": [
-        "Erfassung von Interessen, Bedürfnissen und aktuellen Lebenswelten",
-        "Einbezug verschiedener Perspektiven (Kinder, Fachkräfte, Eltern, Sozialraum)",
-        "Wissenschaftliche Fundierung durch den Situationsansatz",
-        "Planung als dynamischer, zirkulärer Prozess"
+        "Zonierung & Orientierung: Klare Balance aus Aktivitätsbereichen, Werkstätten/Ateliers und ruhigen Rückzugsnischen.",
+        "Zugänglichkeit & Inklusion: Materialien auf Augenhöhe, barrierearme Wege und selbstständige Nutzbarkeit für alle Kinder.",
+        "Ästhetik & Reizdosierung: Licht, Akustik, Ordnung und offene Materialien mit starkem Aufforderungscharakter statt optischer Überladung.",
+        "Partizipation & Außenraum: Mitgestaltung durch Kinder und gleichwertige Nutzung des naturnahen Außenbereichs."
       ],
-      "heading": "Bedürfnis- und multiperspektivische Situationsanalyse als Planungsgrundlage",
-      "keyTakeaway": "Situationsanalyse ist kein starrer Fragebogen, sondern eine kontinuierliche, mehrperspektivische Erkundung der Lebenswelt als Fundament jeder zielgerichteten pädagogischen Aktivität.",
-      "praxisTip": "Führen Sie regelmäßige Kinderkonferenzen und Sozialraumbegehungen durch, um aktuelle Themen und Interessen direkt aus der Lebenswelt der Kinder in die Planung aufzunehmen."
+      "praxisTip": "Gehen Sie einmal in die Hocke und fotografieren Sie Ihren Gruppenraum konsequent aus Kinderaugenhöhe (ca. 90 cm): Was sehen die Kinder, was erreichen sie selbstständig, und wo gibt es Konfliktherde oder Engstellen?"
     },
     {
-      "body": "In Anlehnung an die Reggio-Pädagogik wird der Innen- und Außenraum in sozialpädagogischen Einrichtungen als „dritter Erzieher“ begriffen. Raum ist keine neutrale Kulisse, sondern eine aktive, lernanregende Umgebung, die Kommunikation, Explorationsverhalten, Autonomie und soziale Inklusion herausfordert und strukturiert. Durch gezielt gestaltete Funktionsbereiche, Lernwerkstätten und Atelierbereiche wird Kindern eine selbstbestimmte Auseinandersetzung mit ihrer Umwelt ermöglicht.",
+      "heading": "Partizipative Projektarbeit: Phasen, Offenheit und Prozessbegleitung",
+      "keyTakeaway": "Ein echtes Projekt wächst mit den Fragen der Kinder – Fachkräfte geben Struktur und Impulse, halten aber den Ausgang offen.",
+      "body": "Projektarbeit ist eine der wirksamsten Arbeitsformen, um bildungsbereichsübergreifendes, forschendes und soziales Lernen über längere Zeit zu verbinden. Anders als ein kurzfristiges Einzelangebot entsteht ein Projekt aus einem bedeutsamen Thema der Gruppe und verläuft nach Karl Frey und dem Situationsansatz in typischen, aber flexiblen Phasen: (1) Themenfindung & Situationsanalyse: Ein echtes Interesse der Kinder (z. B. eine Baustelle neben der Kita, verschwundene Pfützen, ein gewünschtes Schattentheater) wird aufgegriffen und auf Bildungspotenziale geprüft. (2) Partizipative Planung: In einer Kinderkonferenz sammeln Kinder ihre Fragen, Ideen und Vorwissen (z. B. per Bild-Mindmap) und entscheiden altersangemessen über erste Schritte, Materialien und Aufgaben mit. (3) Prozessorientierte Durchführung mit Fixpunkten: Die Kinder forschen, bauen, fragen nach oder besuchen außerschulische Lernorte. Regelmäßige Zwischenreflexionen („Fixpunkte“ nach Frey) sichern den roten Faden und erlauben bewusste Richtungswechsel, wenn neue Kinderfragen auftauchen. (4) Abschluss & Präsentation: Das Projekt mündet in eine gemeinsame Würdigung (Ausstellung, Buch, Fest, Film oder Vorführung). (5) Evaluation & Reflexion: Kinder und Team blicken gemeinsam zurück – Was haben wir entdeckt? Was lief gut? Was wollen wir beim nächsten Mal anders machen? Wichtig für die Praxis: Partizipation bedeutet nicht, dass Kinder alles allein organisieren müssen, sondern dass Fachkräfte verlässliche Strukturen schaffen, innerhalb derer Kinder echte Mitentscheidungsrechte ausüben.",
       "bulletPoints": [
-        "Raum als aktiver Mitgestalter von Lernprozessen (Dritter Erzieher)",
-        "Schaffung von Lernwerkstätten, Ateliers und differenzierten Funktionsbereichen",
-        "Inklusive und barrierearme Raumgestaltung für alle Kinder",
-        "Ästhetik, Materialvielfalt und Aufforderungscharakter (Affordance)"
+        "Phase 1 – Themenfindung: An realen Kinderfragen und multiperspektivischer Situationsanalyse ansetzen.",
+        "Phase 2 – Gemeinsame Planung: Fragen sammeln, Ziele aushandeln und Kinder in Entscheidungen einbeziehen.",
+        "Phase 3 – Durchführung & Fixpunkte: Bildungsbereichsübergreifendes Handeln mit regelmäßigen Zwischenreflexionen.",
+        "Phasen 4 & 5 – Präsentation & Evaluation: Ergebnisse sichtbar würdigen und Prozess gemeinsam mit Kindern und Team auswerten."
       ],
-      "heading": "Der Raum als „dritter Erzieher“ und partizipative Raumgestaltung",
-      "keyTakeaway": "Ein gut gestalteter Raum spricht alle Sinne an, bietet Aufforderungscharakter und befähigt Kinder zu selbstständigem, kooperativem Handeln ohne permanente Steuerung durch Fachkräfte.",
-      "praxisTip": "Analysieren Sie den Gruppenraum mittels Foto-Dokumentation aus Kinderperspektive (auf Augenhöhe fotografieren) und gestalten Sie gemeinsam mit den Kindern eine Ecke um."
+      "praxisTip": "Visualisieren Sie den Projektverlauf auf Augenhöhe der Kinder an einer „Projekt-Wand“ mit Fotos, Kinderzitaten und offenen Fragen – so können Kinder das Projekt selbst weiterdenken und Eltern unmittelbar teilhaben."
+    },
+    {
+      "heading": "Dokumentation, Portfolioarbeit & Datenschutz sensibel gestalten",
+      "keyTakeaway": "Gute Bildungsdokumentation gehört in erster Linie dem Kind – sie macht Lernwege erfahrbar, stärkt Identität und baut Brücken zu den Eltern.",
+      "body": "Dokumentation ist in der sozialpädagogischen Bildungsarbeit kein bürokratischer Selbstzweck für den Aktenschrank, sondern selbst ein aktives Bildungsinstrument. Zwei besonders wirksame Formen sind das Portfolio und die Wanddokumentation („sprechende Wände“ der Reggio-Pädagogik). Das Portfolio sammelt exemplarische Werke, Fotos von Lernprozessen, Lerngeschichten und Selbstzeugnisse eines Kindes über die gesamte Einrichtungszeit hinweg. Zentrales Qualitätsprinzip: Das Portfolio gehört dem Kind. Es steht für das Kind frei erreichbar im Raum, die Auswahl der Seiten erfolgt im Dialog mit dem Kind („Welche Seite möchtest du aufheben, was soll ich dazu schreiben?“), und kein Erwachsener schlägt es ohne Einverständnis des Kindes auf. Wanddokumentationen wiederum zeigen laufende Projekte, Forscherfragen und Zitate der Gruppe und machen Bildungsarbeit für Kinder, Eltern und Team transparent. Gleichzeitig sind klare rechtliche und ethische Grenzen zu beachten: Fotos und Dokumentationen berühren Persönlichkeitsrechte und Datenschutz (DSGVO, Recht am eigenen Bild) – für Gruppenfotos, Aushänge oder Weitergaben braucht es transparente, widerrufliche Einwilligungen der Sorgeberechtigten und die Achtung des kindlichen Willens (kein Kind wird gegen seinen Wunsch fotografiert!).",
+      "bulletPoints": [
+        "Portfolio in Kinderhand: Eigentum des Kindes, frei zugänglich, partizipative Auswahl der Inhalte und gemeinsames Betrachten.",
+        "Wanddokumentation („sprechende Wände“): Macht Projektprozesse, Kinderzitate und Denkwege für alle transparent.",
+        "Brücke zu Eltern & Übergängen: Stärkenorientierte Gesprächsgrundlage für Entwicklungsgespräche und Übergänge (z. B. Kita–Grundschule).",
+        "Datenschutz & Würde: Einwilligungen der Eltern einholen, kindliches Nein beim Fotografieren respektieren und keine defizitorientierten Bewertungen öffentlich aushängen."
+      ],
+      "praxisTip": "Reservieren Sie wöchentlich kurze, feste „Portfolio-Zeiten“ in Eins-zu-eins-Situationen: Schon zehn ruhige Minuten reichen, um mit einem Kind gemeinsam ein Foto auszuwählen und seine eigenen Worte dazu festzuhalten."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Situationsanalyse & Planung",
       "id": "vb-1",
+      "kind": "process_flow",
+      "title": "Phasen partizipativer Projektarbeit",
+      "subtitle": "Vom beobachteten Kinderinteresse bis zur gemeinsamen Evaluation (nach Frey & Situationsansatz)",
+      "centerLabel": "Projektzyklus",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": true,
       "items": [
         {
-          "badge": "Schritt 1",
-          "detail": "Erfassung der aktuellen Lebenslagen, Interessen, Spielthemen und Bedürfnisse der Kinder durch systematische Beobachtung und Gespräche.",
-          "example": "Fachkräfte beobachten das intensive Bauen mit großen Kartons auf dem Flur.",
-          "id": "item-1",
-          "label": "Beobachtung & Datenerfassung",
-          "metric": "Phase 1",
-          "summary": "Systematische Wahrnehmung der aktuellen kindlichen Lebenswelt."
+          "id": "step-1",
+          "badge": "Phase 1",
+          "label": "Beobachtung & Situationsanalyse",
+          "metric": "Themenfindung",
+          "summary": "Reale Interessen, Fragen und Schlüsselsituationen der Kinder multiperspektivisch erfassen.",
+          "detail": "Fachkräfte beobachten wiederkehrende Spielthemen, tauschen sich mit Kindern und Eltern aus und prüfen, welches Thema nachhaltige Bildungsanlässe bietet.",
+          "example": "Kinder beobachten fasziniert eine Baustelle neben der Kita und bauen tagelang Kräne im Garten nach."
         },
         {
-          "badge": "Schritt 2",
-          "detail": "Auswertung der Beobachtungen aus verschiedenen Blickwinkeln (Kind, Team, Eltern, Sozialraum) zur Erkennung von Entwicklungsaufgaben.",
-          "example": "Im Team wird analysiert, dass den Kindern Raum für Konstruktion und Rollenspiel fehlt.",
-          "id": "item-2",
-          "label": "Multiperspektivische Analyse",
-          "metric": "Phase 2",
-          "summary": "Ganzheitliche Auswertung und Problem- bzw. Bedürfnisidentifikation."
+          "id": "step-2",
+          "badge": "Phase 2",
+          "label": "Partizipative Planung",
+          "metric": "Mitbestimmung",
+          "summary": "Fragen sammeln, Ideen visualisieren und erste Schritte gemeinsam aushandeln.",
+          "detail": "In einer Kinderkonferenz werden Vorwissen, Wünsche und offene Fragen gesammelt (z. B. als Foto- oder Zeichnungs-Mindmap) und konkrete Vorhaben demokratisch abgestimmt.",
+          "example": "Die Kinder beschließen: Wir wollen einen Bauarbeiter interviewen und selbst eine Seilwinde bauen."
         },
         {
-          "badge": "Schritt 3",
-          "detail": "Gemeinsame Entwicklung von Projektideen, Zielen und Aktivitäten gemeinsam mit den Kindern (Partizipation).",
-          "example": "Kinderkonferenz beschließt den Bau einer großen Raumstation im Gruppenraum.",
-          "id": "item-3",
-          "label": "Partizipative Zielsetzung",
-          "metric": "Phase 3",
-          "summary": "Gemeinsame Festlegung von Vorhaben und Inhalten."
+          "id": "step-3",
+          "badge": "Phase 3",
+          "label": "Durchführung & Fixpunkte",
+          "metric": "Handeln & Steuern",
+          "summary": "Ergebnisoffenes Forschen, Gestalten und regelmäßiges Innehalten im Prozess.",
+          "detail": "Das Projekt verknüpft verschiedene Bildungsbereiche (Technik, Sprache, Mathematik, Kunst). Zwischenreflexionen (Fixpunkte) prüfen, wohin sich das Interesse weiterentwickelt.",
+          "example": "Nach dem Baustellenbesuch entsteht die neue Frage, wie ein Flaschenzug schwere Eimer leichter hebt."
         },
         {
-          "badge": "Schritt 4",
-          "detail": "Prozessbegleitende Durchführung der Aktivitäten mit flexibler Anpassung an neue kindliche Impulse.",
-          "example": "Die Kinder bauen tagelang an der Station, erfinden Rollenspiele und dokumentieren dies.",
-          "id": "item-4",
-          "label": "Prozessorientierte Durchführung",
-          "metric": "Phase 4",
-          "summary": "Flexible und begleitete Umsetzung in der Praxis."
+          "id": "step-4",
+          "badge": "Phase 4",
+          "label": "Dokumentation & Präsentation",
+          "metric": "Sichtbarkeit",
+          "summary": "Prozesse fortlaufend dokumentieren und am Abschluss wertschätzend präsentieren.",
+          "detail": "Wanddokumentationen, Fotos, Kinderzitate und Portfolio-Seiten zeigen Lernwege statt nur Endprodukte; Eltern und andere Gruppen werden eingeladen.",
+          "example": "Die Kinder führen Eltern durch ihre eigene „Baustellen-Ausstellung“ und erklären ihre Seilwinde."
         },
         {
-          "badge": "Schritt 5",
-          "detail": "Gemeinsame Reflexion des Projekts und Evaluation der Lernfortschritte (z.B. mittels Lerngeschichten).",
-          "example": "Abschlussgespräch mit Kindern und Erstellung einer Lerngeschichte zum Bauprojekt.",
-          "id": "item-5",
-          "label": "Reflexion & Dokumentation",
-          "metric": "Phase 5",
-          "summary": "Auswertung und Dokumentation des Erreichten."
+          "id": "step-5",
+          "badge": "Phase 5",
+          "label": "Reflexion & Evaluation",
+          "metric": "Qualitätssicherung",
+          "summary": "Gemeinsamer Rückblick mit Kindern und fachliche Auswertung im Team.",
+          "detail": "Kinder reflektieren, was ihnen Freude gemacht oder Schwierigkeiten bereitet hat; das Team wertet Lernerträge, Beteiligungsgrad und nächste Impulse aus.",
+          "example": "Mit Daumen-Feedback und Fotos besprechen Kinder, welche Station sie beibehalten möchten."
         }
-      ],
-      "kind": "process_flow",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Der Kreislauf von der Situationsanalyse zur partizipativen Projektplanung",
-      "title": "Prozessmodell der Situationsanalyse und Projektplanung"
+      ]
     },
     {
-      "centerLabel": "Lerndispositionen nach Margaret Carr",
       "id": "vb-2",
+      "kind": "feature_grid",
+      "title": "Qualitätskriterien: Raum als „dritter Erzieher“",
+      "subtitle": "Woran man lernanregende, inklusive Innen- und Außenräume erkennt (Reggio-Pädagogik / Schäfer)",
+      "centerLabel": "Raumpädagogik",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Disposition 1",
-          "detail": "Kinder zeigen Neugier, Aufmerksamkeit und richten ihren Fokus auf physische oder soziale Phänomene ihrer Umwelt.",
-          "example": "Ein Kind beobachtet fasziniert Regenwürmer im Garten und stellt Fragen.",
-          "id": "item-1",
-          "label": "Interessiert sein",
-          "metric": "Kernkompetenz",
-          "summary": "Neugierde und Aufmerksamkeit für die Umwelt zeigen."
+          "id": "feat-1",
+          "badge": "Kriterium 1",
+          "label": "Klare Zonierung & Rückzug",
+          "metric": "Orientierung",
+          "summary": "Sinnvolle Trennung von aktiven Spielbereichen und ruhigen Rückzugsnischen.",
+          "detail": "Durchdachte Raumgliederung verhindert unnötige Laufwege durch Bau- oder Lesebereiche, senkt den Geräuschpegel und gibt Kindern Sicherheit.",
+          "example": "Ein halbhohes Regal trennt die ruhige Bilderbuchecke mit Teppich und Kissen klar vom lebhaften Baubereich."
         },
         {
-          "badge": "Disposition 2",
-          "detail": "Kinder tauchen tief in Tätigkeiten ein, zeigen Ausdauer und lassen sich auch durch kleinere Schwierigkeiten nicht sofort entmutigen.",
-          "example": "Ein Kind konstruktiert über eine Stunde lang an einer Kugelbahn.",
-          "id": "item-2",
-          "label": "Sich engagieren",
-          "metric": "Kernkompetenz",
-          "summary": "Ausdauer und Vertiefung in eine Tätigkeit."
+          "id": "feat-2",
+          "badge": "Kriterium 2",
+          "label": "Zugänglichkeit & Inklusion",
+          "metric": "Autonomie",
+          "summary": "Materialien auf Kinderaugenhöhe und barrierearme Nutzbarkeit für alle Kinder.",
+          "detail": "Kinder können Materialien selbstständig holen und zurückräumen; unterschiedliche Körpergrößen, Mobilität und Sinnesbedürfnisse werden mitgedacht.",
+          "example": "Offene, beschriftete Kisten mit Bildsymbolen in Griffhöhe und gut unterfahrbare Arbeitstische im Atelier."
         },
         {
-          "badge": "Disposition 3",
-          "detail": "Kinder gehen mit Unsicherheiten, Hindernissen und kognitiven Dissonanzen konstruktiv und lösungsorientiert um.",
-          "example": "Ein Turm stürzt ein; das Kind analysiert den Fehler und baut stabiler neu.",
-          "id": "item-3",
-          "label": "Herausforderungen bewältigen",
-          "metric": "Kernkompetenz",
-          "summary": "Umgang mit Schwierigkeiten und Frustrationstoleranz."
+          "id": "feat-3",
+          "badge": "Kriterium 3",
+          "label": "Ästhetik & Aufforderungscharakter",
+          "metric": "Affordance",
+          "summary": "Geordnete, lichtvolle Materialpräsentation statt Reizüberflutung.",
+          "detail": "Transparente Gefäße, Naturmaterialien, gute Beleuchtung und überschaubare Auswahl wecken Neugier und ermöglichen längere, tiefere Spielphasen.",
+          "example": "Sortierte Naturmaterialien in Holzschalen auf einem niedrigen Tisch laden unmittelbar zum Legen und Konstruieren ein."
         },
         {
-          "badge": "Disposition 4",
-          "detail": "Kinder drücken ihre Gedanken, Gefühle und Ideen aus und treten mit anderen in einen ko-konstruktiven Dialog.",
-          "example": "Ein Kind erklärt einer Mitspielerin, wie das Stecksystem funktioniert.",
-          "id": "item-4",
-          "label": "Kommunizieren",
-          "metric": "Kernkompetenz",
-          "summary": "Austausch von Sinn und Bedeutung mit anderen."
-        },
-        {
-          "badge": "Disposition 5",
-          "detail": "Kinder übernehmen Verantwortung für ihr Handeln, für andere und für die gemeinsame Gemeinschaft.",
-          "example": "Ein Kind sorgt von sich aus dafür, dass nach dem Malen die Pinsel ausgewaschen werden.",
-          "id": "item-5",
-          "label": "Verantwortung übernehmen",
-          "metric": "Kernkompetenz",
-          "summary": "Mitverantwortung für Gemeinschaft und Umwelt."
+          "id": "feat-4",
+          "badge": "Kriterium 4",
+          "label": "Veränderbarkeit & Partizipation",
+          "metric": "Mitgestaltung",
+          "summary": "Räume wachsen mit den Projekten und werden gemeinsam mit Kindern umgestaltet.",
+          "detail": "Mobile Elemente, veränderbare Themenbereiche und ein naturnah genutztes Außengelände lassen Raum für aktuelle Kinderinteressen.",
+          "example": "Kinder entscheiden in einer Raumanalyse mit Fotos mit, wohin die neue Forscherstation ziehen soll."
         }
-      ],
-      "kind": "concept_map",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Die fünf Schlüsselkompetenzen kindlichen Lernens nach Margaret Carr",
-      "title": "Konzeptkarte: Lerndispositionen"
+      ]
     },
     {
-      "centerLabel": "Raumpädagogik",
       "id": "vb-3",
+      "kind": "concept_map",
+      "title": "Fünf Lerndispositionen (Margaret Carr / DJI)",
+      "subtitle": "Ressourcenorientierter Blick auf kindliche Bildungsprozesse in Lerngeschichten",
+      "centerLabel": "Lerndispositionen",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Baustein 1",
-          "detail": "Der Raum bietet durch Materialien und Möbel einen hohen Aufforderungscharakter (Affordance), der eigenständiges Erkunden provoziert.",
-          "example": "Offene Regale mit Naturmaterialien laden direkt zum Greifen und Sortieren ein.",
-          "id": "item-1",
-          "label": "Aufforderungscharakter & Ästhetik",
-          "metric": "Qualitätskriterium",
-          "summary": "Ästhetische und anregende Raumgestaltung."
+          "id": "ld-1",
+          "badge": "Disposition 1",
+          "label": "Interessiert sein",
+          "metric": "Neugier",
+          "summary": "Aufmerksamkeit gezielt auf Dinge, Personen oder Phänomene richten.",
+          "detail": "Das Kind zeigt ein anhaltendes Interesse, greift Impulse auf oder wählt Themen gezielt wiederholt aus.",
+          "example": "Milo beobachtet jeden Morgen die Schnecken am Hochbeet und stellt Fragen zu ihren Fühlern."
         },
         {
-          "badge": "Baustein 2",
-          "detail": "Klare Zonen für unterschiedliche Bedürfnisse (Rückzug, Bewegung, Konstruktion, Kreativität) geben Orientierung und Struktur.",
-          "example": "Eine gemütliche Kuschelecke mit Teppich und Kissen bietet gezielten Rückzug.",
-          "id": "item-2",
-          "label": "Funktionale Zonenbildung",
-          "metric": "Qualitätskriterium",
-          "summary": "Differenzierte Bereiche für unterschiedliche Lernbedürfnisse."
+          "id": "ld-2",
+          "badge": "Disposition 2",
+          "label": "Engagiert sein",
+          "metric": "Vertiefung",
+          "summary": "Sich tief auf eine Tätigkeit einlassen und über längere Zeit dabeibleiben.",
+          "detail": "Hohe Konzentration, Energie und Ausdauer zeigen, dass eine Aktivität das Kind emotional und kognitiv herausfordert.",
+          "example": "Aylin tüftelt vierzig Minuten hochkonzentriert an einer Kugelbahn aus Papprollen."
         },
         {
-          "badge": "Baustein 3",
-          "detail": "Alle Kinder – unabhängig von ihren körperlichen oder kognitiven Voraussetzungen – können den Raum barrierefrei und selbstständig nutzen.",
-          "example": "Höhenverstellbare Tische und rollstuhlgerechte Werkbänke in der Lernwerkstatt.",
-          "id": "item-3",
-          "label": "Inklusive Zugänglichkeit",
-          "metric": "Qualitätskriterium",
-          "summary": "Barrierefreiheit und Chancengleichheit im Raum."
+          "id": "ld-3",
+          "badge": "Disposition 3",
+          "label": "Standhalten bei Herausforderungen",
+          "metric": "Bewältigung",
+          "summary": "Mit Schwierigkeiten, Fehlern oder Umwegen konstruktiv umgehen.",
+          "detail": "Statt sofort aufzugeben, probiert das Kind alternative Wege aus oder holt sich gezielt Unterstützung.",
+          "example": "Nachdem das Papierhaus zweimal einknickt, verstärkt Leo die Ecken mit Klebeband und Holzstäben."
         },
         {
-          "badge": "Baustein 4",
-          "detail": "Kinder werden aktiv in die Gestaltung, Umgestaltung und Dekoration ihrer Räume einbezogen.",
-          "example": "Kinder entscheiden gemeinsam, wo die neue Leseecke eingerichtet wird.",
-          "id": "item-4",
-          "label": "Partizipative Mitgestaltung",
-          "metric": "Qualitätskriterium",
-          "summary": "Einbezug der Kinder in die Raumästhetik."
+          "id": "ld-4",
+          "badge": "Disposition 4",
+          "label": "Sich ausdrücken & mitteilen",
+          "metric": "Kommunikation",
+          "summary": "Gedanken, Gefühle und Ideen über Sprache, Spiel, Kunst oder Bewegung teilen.",
+          "detail": "Kommunikation umfasst verbale wie nonverbale Ausdrucksformen – von ersten Gesten über Zeichnungen bis zu komplexen Erklärungen.",
+          "example": "Samira zeichnet eine Skizze ihrer Höhle und erklärt zwei Kindern, wo der Eingang sein soll."
+        },
+        {
+          "id": "ld-5",
+          "badge": "Disposition 5",
+          "label": "Mitwirken & Verantwortung übernehmen",
+          "metric": "Gemeinschaft",
+          "summary": "Sich in die Lerngemeinschaft einbringen, Perspektiven achten und Mitverantwortung tragen.",
+          "detail": "Kinder übernehmen Aufgaben für andere, handeln fair Regeln aus und helfen jüngeren oder unsicheren Gruppenmitgliedern.",
+          "example": "Klara zeigt einem neu eingewöhnten Kind, wo die Malkittel hängen und wie man die Pinsel auswäscht."
         }
-      ],
-      "kind": "feature_grid",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Merkmale des Raumes als „dritten Erzieher“ in der Kita",
-      "title": "Feature-Grid: Raum als 3. Erzieher"
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "3- bis 6-jährige Kinder in einer inklusiven Kindertagesstätte",
-    "context": "In einer altersgemischten Kindergartengruppe zeigt sich, dass Kinder im Bereich des Rollenspiels und beim gemeinsamen Bauen oft in Konflikte geraten, da der bisherige, starre Raum und unstrukturierte Spielmaterialien keine differenzierten Bildungsanlässe bieten. Das pädagogische Team möchte daher eine fundierte Situationsanalyse durchführen, Bildungs- und Lerngeschichten nach Margaret Carr einführen und den Gruppenraum als „dritten Erzieher“ umgestalten.",
-    "setting": "Inklusive Kindertagesstätte mit offenem/halboffenem Konzept",
+    "title": "Unruhe in der Gruppe: Von der Raumanalyse zum partizipativen Projekt",
+    "setting": "Altersgemischte Kindergartengruppe (22 Kinder) in einer städtischen Kita",
+    "ageGroup": "3–6 Jahre (Elementarbereich)",
+    "context": "Im Gruppenraum entstehen im Freispiel häufig Konflikte: Der Baubereich liegt direkt neben dem Eingang, sodass laufende Kinder ständig Bauwerke anrempeln; in den hohen, zugestellten Regalen finden Kinder nur schwer Material; an den Wänden hängen dutzende ältere Bastelschablonen. Gleichzeitig bemerken Sie, dass mehrere Kinder seit Tagen begeistert aus großen Pappkartons „Häuser und Tunnel“ auf dem Flur bauen.",
     "steps": [
       {
+        "situation": "Ihr Team möchte die Unruhe im Raum verringern und die erkennbaren Interessen der Kinder aufgreifen.",
+        "prompt": "Wie gehen Sie im ersten Schritt methodisch fundiert vor?",
         "options": [
           {
-            "feedback": "Wissenschaftlich fundiert und partizipativ: Das Team dokumentiert Lernprozesse gezielt über Lerndispositionen nach Carr (z. B. Interesse zeigen, sich engagieren), führt eine multiperspektivische Situationsanalyse mit Kindern und Eltern durch und plant die Umgestaltung des Raumes in Funktionsbereiche ko-konstruktiv.",
-            "label": "Multiperspektivische Situationsanalyse, Lerndispositionen nach Carr und partizipative Raumgestaltung als kontinuierlichen Prozess umsetzen.",
-            "quality": "optimal",
-            "theoryLink": "RLP RLP-S-SP-4; Carr & Claxton (2002); Reggio-Pädagogik (Raum als 3. Erzieher)"
-          },
-          {
-            "feedback": "Einseitig und verkürzt: Das Team beobachtet zwar sporadisch, stützt sich aber ausschließlich auf eigene Einschätzungen der Fachkräfte ohne Einbezug der Kinderperspektive und verändert den Raum nach rein ästhetischen Gesichtspunkten.",
-            "label": "Ausschließliche Fachkraftbeobachtung und rein ästhetische Umgestaltung des Raumes ohne Beteiligung der Kinder.",
-            "quality": "teilweise",
-            "theoryLink": "Fehlende Partizipation entgegen § 8 SGB VIII und RLP-Vorgaben"
-          },
-          {
-            "feedback": "Unprofessionell: Es wird weder beobachtet noch analysiert; Spielmaterialien werden willkürlich umgestellt, und individuelle Interessen oder Lerndispositionen der Kinder werden komplett ignoriert.",
-            "label": "Willkürliche Umgestaltung ohne Situationsanalyse und ohne Beobachtungsfundierung.",
+            "label": "Sie schließen den Baubereich für zwei Wochen und untersagen das Bauen mit Pappkartons auf dem Flur, bis die Kinder ruhiger am Tisch spielen.",
             "quality": "problematisch",
-            "theoryLink": "Missachtung des gesetzlichen und fachlichen Bildungs- und Erziehungsauftrags"
+            "feedback": "Problematisch: Ein starkes, konstruktives Spiel- und Bildungsinteresse der Kinder wird disziplinarisch unterbunden, statt die unpassende Raumstruktur zu verändern.",
+            "theoryLink": "Verkennung von Raumwirkung und kindlichen Bildungsbedürfnissen"
+          },
+          {
+            "label": "Das Team räumt am Freitagnachmittag nach Dienstschluss den gesamten Raum allein nach eigenen ästhetischen Vorstellungen um und stellt am Montag neue, strengere Gruppenregeln gegen das Rennen auf.",
+            "quality": "teilweise",
+            "feedback": "Nur teilweise tragfähig: Die räumlichen Engstellen anzugehen ist grundsätzlich richtig, doch ohne Analyse der tatsächlichen Nutzung und ohne Einbezug der Kinder verpassen Sie deren Perspektive und wichtige Partizipationschancen – zudem lösen bloße Verbote keine strukturellen Raumprobleme.",
+            "theoryLink": "Partizipative Raumgestaltung vs. rein erwachsenenzentrierte Umgestaltung"
+          },
+          {
+            "label": "Sie führen eine systematische Beobachtung und Fotodokumentation des Raums aus Kinderaugenhöhe durch, besprechen in einer Kinderkonferenz, wo Kinder sich wohlfühlen oder gestört werden, und nutzen diese multiperspektivische Situationsanalyse als Basis für eine neue Raumzonierung.",
+            "quality": "optimal",
+            "feedback": "Fachlich überzeugend: Sie verbinden Beobachtung, Raumanalyse nach Kriterien des „dritten Erziehers“ (Laufwege, Zonierung, Reizdichte, Zugänglichkeit) und echte Partizipation. Die Ursachen der Konflikte werden strukturell erkannt statt den Kindern individuell als „Unruhe“ angelastet.",
+            "theoryLink": "Multiperspektivische Situationsanalyse; Raum als dritter Erzieher (Reggio-Pädagogik / Schäfer); Partizipation"
           }
-        ],
-        "prompt": "Schritt 1: Beobachtung, Situationsanalyse und Planungsgrundlage",
-        "situation": "Das pädagogische Team steht vor der Aufgabe, die aktuellen Spiel- und Interaktionsprozesse in der Gruppe zu erfassen und als Basis für die Raumumgestaltung sowie Projektplanung zu nutzen. Wie sollte das Team vorgehen?"
+        ]
       },
       {
+        "situation": "Nach der gemeinsamen Umgestaltung (geschützter Baubereich abseits des Eingangs, ruhige Lesenische, aufgeräumte Regale auf Augenhöhe) schlagen die Kinder vor, ein längeres Projekt „Unsere Traumstadt aus Kartons“ zu starten.",
+        "prompt": "Wie gestalten Sie Projektverlauf, Dokumentation und Portfolioarbeit professionell?",
         "options": [
           {
-            "feedback": "Methodisch exakt und praxisnah: Die Aktivitäten und das Projekt werden aus den analysierten Interessen der Kinder heraus entwickelt, prozesshaft begleitet, dokumentiert (z. B. Lerngeschichten) und gemeinsam mit den Kindern kritisch reflektiert.",
-            "label": "Projektarbeit bedürfnisorientiert und partizipativ planen, durchführen und gemeinsam mit den Kindern dokumentieren und reflektieren.",
+            "label": "Sie sammeln gemeinsam mit den Kindern Fragen und Bauideen, planen regelmäßige Zwischenreflexionen (Fixpunkte), machen den Prozess über eine Wanddokumentation sichtbar und gestalten mit einzelnen Kindern – mit deren Einverständnis – Portfolio-Seiten und Lerngeschichten zu ihren individuellen Entdeckungen.",
             "quality": "optimal",
-            "theoryLink": "RLP S-SP-4; Projektmethode nach Giesecke / Klafki; Bildungs- und Lerngeschichten"
+            "feedback": "Hervorragend: Das Projekt folgt den Phasen partizipativer Projektarbeit (inkl. Fixpunkten nach Frey), bleibt ergebnisoffen und verknüpft Wanddokumentation sowie stärkenorientierte Portfolioarbeit (Portfolio in Kinderhand, Datenschutz bei Fotos beachtet).",
+            "theoryLink": "Projektphasen nach Frey; Bildungs- und Lerngeschichten (Carr); Portfolioarbeit & Datenschutz"
           },
           {
-            "feedback": "Starr und lehrerzentriert: Ein von den Fachkräften vorgefertigtes Projekt wird von oben herab durchgeführt, ohne auf spontane Ideen, Bedürfnisse oder Lerndispositionen der Kinder einzugehen.",
-            "label": "Vorgefertigtes Frontalprojekt ohne Partizipationsmöglichkeiten und ohne Reflexionsschleifen durchführen.",
+            "label": "Sie lassen die Kinder frei mit Kartons bauen, verzichten aber ganz auf Zwischenreflexionen, Wanddokumentation und Portfolio-Einträge, damit mehr Zeit zum Spielen bleibt.",
             "quality": "teilweise",
-            "theoryLink": "Widerspricht dem Situationsansatz und dem ko-konstruktiven Bildungsverständnis"
+            "feedback": "Unvollständig: Freies Bauen ist wertvoll, doch ohne Fixpunkte, gemeinsame Reflexion und transparente Dokumentation bleiben vertiefende Lernchancen, Sprachanlässe und die Sichtbarmachung für Kinder und Eltern ungenutzt.",
+            "theoryLink": "Projektbegleitung mit Fixpunkten; Bildungsdokumentation als Bildungsinstrument"
           },
           {
-            "feedback": "Pädagogisch wertlos: Es wird keinerlei Projektstruktur angeboten; Aktivitäten entstehen rein zufällig ohne Begleitung, Dokumentation oder didaktische Reflexion durch die Fachkraft.",
-            "label": "Vollständig ungesteuerter Ablauf ohne Planung, Dokumentation oder pädagogische Begleitung.",
+            "label": "Sie fertigen am Wochenende selbst eine große Modellstadt-Vorlage an, teilen jedem Kind fest ein Haus zum Ausmalen zu und heften am Ende heimlich Bewertungsbögen in einen verschlossenen Portfolio-Ordner im Büro.",
             "quality": "problematisch",
-            "theoryLink": "Vernachlässigung des professionellen Erziehungs- und Bildungsauftrags"
+            "feedback": "Problematisch: Eine vorgegebene Schablonen-Aktivität zerstört Projektcharakter und Partizipation, und ein verschlossener Bewertungsordner im Büro widerspricht dem Kernprinzip des Portfolios als Eigentum des Kindes.",
+            "theoryLink": "Prozessorientierte Projektarbeit vs. Schablonen-Angebot; Portfolio in Kinderhand"
           }
-        ],
-        "prompt": "Schritt 2: Durchführung, Dokumentation und Reflexion von Aktivitäten und Projekten",
-        "situation": "Nach der Raumumgestaltung soll ein partizipatives Projekt zum Thema „Unsere Stadt / Unser Lebensraum“ starten. Wie gestaltet das Team den Prozess?"
+        ]
       }
-    ],
-    "title": "Partizipative Raumgestaltung und Bildungs- und Lerngeschichten in der Praxis"
+    ]
   },
   "selfLearningTasks": [
-    "Führen Sie eine fotogestützte Raumanalyse in einer Praxisstelle durch (Innen- oder Außenbereich), werten Sie diese anhand von Kriterien der Reggio-Pädagogik aus und entwickeln Sie konkrete Verbesserungsvorschläge.",
-    "Verfassen Sie eine beispielhafte Bildungs- und Lerngeschichte nach Margaret Carr für ein beobachtetes Kind und ordnen Sie diese den fünf Lerndispositionen zu.",
-    "Planen Sie ein kleines, partizipatives Projekt mit Kindern (z. B. Umgestaltung der Bauecke) und dokumentieren Sie die einzelnen Phasen von der Situationsanalyse bis zur Evaluation."
+    "Führen Sie in Ihrer Praxiseinrichtung eine Raumanalyse eines Innen- oder Außenbereichs durch (mit 4–6 Fotos aus Kinderaugenhöhe, ohne erkennbare Kinder oder mit Einwilligung). Bewerten Sie den Raum anhand der Kriterien Zonierung, Zugänglichkeit/Inklusion, Ästhetik/Reizdosierung und Partizipation und erarbeiten Sie drei realistische Veränderungsideen.",
+    "Verfassen Sie eine ressourcenorientierte Bildungs- und Lerngeschichte nach Margaret Carr zu einer selbst beobachteten Alltagssituation (getrennt in beschreibende Beobachtung, Analyse der Lerndispositionen, direkten Brief an das Kind und nächsten pädagogischen Impuls).",
+    "Skizzieren Sie einen partizipativen Projektentwurf anhand der fünf Projektphasen (von der Situationsanalyse bis zur Evaluation), der ausdrücklich zwei geplante Zwischenreflexionen (Fixpunkte) und eine datenschutzkonforme Dokumentationsidee enthält."
   ],
   "flashcards": [
     {
-      "definition": "Ein von Margaret Carr entwickelter Beobachtungs- und Dokumentationsansatz, der sich auf fünf dispositionelle Schlüsselkompetenzen (Interessiert sein, Engagiert sein, Herausforderungen bewältigen, Kommunizieren, Verantwortung übernehmen) stützt, anstatt Defizite zu messen.",
-      "example": "Eine Fachkraft verfasst eine Lerngeschichte über ein Kind, das ausdauernd an einer Konstruktion baut, und stärkt damit dessen Identität und Lernbereitschaft.",
-      "term": "Bildungs- und Lerngeschichten (Learning Stories)"
+      "term": "Multiperspektivische Situationsanalyse",
+      "definition": "Systematische Erfassung aktueller Themen, Interessen, Entwicklungsaufgaben und lebensweltlicher Bedingungen einer Gruppe unter Einbezug von Kindern, Team, Eltern und Sozialraum als Basis pädagogischer Planung.",
+      "example": "Beobachtungen aus dem Freispiel, Kinderkonferenz und Hinweise von Eltern führen gemeinsam zur Neugestaltung des Außengeländes."
     },
     {
-      "definition": "Ein raumpädagogisches Konzept (u.a. aus der Reggio-Pädagogik), das den physischen Raum als aktiven Akteur und „dritten Erzieher“ versteht, der Lernprozesse herausfordert, Struktur gibt und Selbstständigkeit fördert.",
-      "example": "Ein Flur wird durch Podeste, Spiegel und Sinnesmaterialien in eine Lernwerkstatt verwandelt, die Kinder eigenständig zum Forschen anregt.",
-      "term": "Raum als dritter Erzieher"
+      "term": "Bildungs- und Lerngeschichten (Carr / DJI)",
+      "definition": "Ressourcenorientiertes Beobachtungs- und Dokumentationsverfahren, das kindliches Lernen anhand von fünf Lerndispositionen (Interessiert sein, Engagiert sein, Standhalten, Mitteilen, Mitwirken/Verantwortung) narrativ sichtbar macht.",
+      "example": "Ein persönlicher Brief an das Kind beschreibt, mit welcher Ausdauer es eine wackelige Murmelbahn repariert hat."
     },
     {
-      "definition": "Ein systematisches Analyseinstrument zur Erfassung der Lebenssituation, der Bedürfnisse, Interessen und Entwicklungsaufgaben von Kindern und Jugendlichen als Grundlage pädagogischer Planung.",
-      "example": "Das Team analysiert die Sozialraum- und Bedürfnisstruktur der Kinder, um passgenaue Angebote im Ganztag zu entwickeln.",
-      "term": "Multiperspektivische Situationsanalyse"
+      "term": "Raum als „dritter Erzieher“ (Reggio-Pädagogik)",
+      "definition": "Raumpädagogisches Leitprinzip (Malaguzzi), nach dem Architektur, Zonierung, Licht, Ästhetik und Materialzugänglichkeit aktiv Lernprozesse, Selbstständigkeit und soziale Begegnung prägen.",
+      "example": "Offene, übersichtliche Werkregale auf Kinderaugenhöhe ermöglichen eigenständiges Arbeiten ohne ständige Bitte an Erwachsene."
     },
     {
-      "definition": "Ein didaktisches Prinzip, bei dem Kinder und Jugendliche als kompetente Akteure aktiv an der Planung, Durchführung und Auswertung von Angeboten, Projekten und Regeln beteiligt werden.",
-      "example": "Kinder entscheiden im Kinderparlament über die Gestaltung des neuen Außenspielbereichs mit.",
-      "term": "Partizipative Projektplanung"
+      "term": "Projektphasen & Fixpunkte (Karl Frey)",
+      "definition": "Strukturierter, aber ergebnisoffener Verlauf von Projektarbeit: Themenfindung/Situationsanalyse → gemeinsame Planung → Durchführung mit regelmäßigen Zwischenreflexionen (Fixpunkten) → Präsentation → Evaluation.",
+      "example": "In einem wöchentlichen Projektkreis prüfen Kinder anhand von Fotos, welche Fragen geklärt sind und was sie als Nächstes erforschen wollen."
     },
     {
-      "definition": "Fachlich fundierte Aufzeichnung von Lernprozessen, Entwicklungsverläufen und Bildungsfortschritten zur pädagogischen Reflexion, kollegialen Beratung und Entwicklungsbegleitung.",
-      "example": "Führung eines Portfolios oder lernerfolgsbezogener Dokumentationen nach Carr.",
-      "term": "Fachspezifische Bildungsdokumentation"
+      "term": "Portfolioarbeit in Kinderhand",
+      "definition": "Kontinuierliche, stärkenorientierte Sammlung von Lernspuren (Werke, Fotos, Lerngeschichten, Zitate), die dem Kind gehört, frei zugänglich ist und im Dialog mit ihm gestaltet wird.",
+      "example": "Ein Kind sucht selbst zwei Fotos seines Bauwerks für seine Schatzmappe aus und diktiert der Fachkraft seine Erklärung dazu."
     },
     {
-      "definition": "Spezifisch gestalteter, materialreicher Erfahrungsraum, der forschendes, entdeckendes und selbstständiges Lernen in verschiedenen Bildungsbereichen (z.B. Natur, Mathematik, Kunst) ermöglicht.",
-      "example": "Eine Holz- und Werkstatt-Lernwerkstatt, in der Kinder mit echtem Werkzeug nach eigenen Ideen arbeiten.",
-      "term": "Lernwerkstatt"
+      "term": "Wanddokumentation („sprechende Wände“)",
+      "definition": "Transparente Präsentation laufender Lern- und Projektprozesse (Fotos, Skizzen, Kinderfragen, Arbeitsschritte) im Raum, die Kindern Rückblick ermöglicht und Eltern Einblick in Bildungsarbeit gibt – unter Beachtung von Datenschutz und Einwilligungen.",
+      "example": "Eine Fotoreihe im Flur zeigt nicht nur fertige Tonfiguren, sondern den gesamten Forschungsprozess mit Kinderzitaten."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Margaret Carr entwickelte den Ansatz der Bildungs- und Lerngeschichten (Learning Stories), die auf fünf dispositionellen Schlüsselkompetenzen (Lerndispositionen) basieren, statt starre Defizitdiagnostik zu betreiben.",
-      "id": "q1",
+      "question": "Welche Aussage beschreibt Chancen und Grenzen von Bildungs- und Lerngeschichten (nach Margaret Carr / DJI) fachlich zutreffend?",
       "options": [
-        "Die Erfassung rein quantitativer Intelligenzquotienten bei Vorschulkindern",
-        "Die Dokumentation von Bildungsprozessen anhand von fünf Lerndispositionen nach Margaret Carr",
-        "Ein standardisierter Reifetest für den Schuleintritt nach Piaget",
-        "Eine verhaltenstherapeutische Methode zur Reduktion von Regelverstößen"
+        "Sie machen individuelle Lerninteressen, Ressourcen und Lerndispositionen narrativ sichtbar und stärken den Dialog mit Kind und Eltern, ersetzen bei gezielten Entwicklungsfragen aber keine ergänzende systematische Beobachtung.",
+        "Sie dienen vor allem dazu, Kinder einer Gruppe anhand einer Punkteskala miteinander zu vergleichen.",
+        "Sie werden ausschließlich von Fachkräften im Büro verfasst und sollten Kindern nicht gezeigt werden, um Befangenheit zu vermeiden.",
+        "Sie ersetzen alle standardisierten Screening- und Entwicklungsbeobachtungen, weil sie klinische Entwicklungsstörungen zuverlässig diagnostizieren."
       ],
-      "question": "Was versteht man im Kontext der frühkindlichen Bildung unter „Bildungs- und Lerngeschichten“ nach Margaret Carr?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        1,
-        2,
-        3
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Die Lerndispositionen nach Carr umfassen u.a. Interessiert sein, sich engagieren, Herausforderungen bewältigen, mit anderen kommunizieren und Verantwortung übernehmen. Motorischer Muskeltonus ist keine Lerndisposition.",
-      "id": "q2",
-      "options": [
-        "Ausschließliche Messung des motorischen Muskeltonus",
-        "Sich engagieren und Ausdauer bei Schwierigkeiten zeigen",
-        "Verantwortung übernehmen und Ideen einbringen",
-        "Interessiert sein und neugierig erkunden"
-      ],
-      "question": "Welche der folgenden Aspekte gehören zu den zentralen Lerndispositionen im Ansatz von Margaret Carr? (Mehrfachauswahl)",
-      "type": "multi"
-    },
-    {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Der „Raum als dritter Erzieher“ (geprägt u.a. durch die Reggio-Pädagogik) begreift den physischen Raum als aktive Lernumgebung, die Selbstständigkeit, Entdeckungsdrang und soziale Interaktion provoziert und unterstützt.",
-      "id": "q3",
-      "options": [
-        "Die Verpflichtung, in jeder Gruppe genau drei pädagogische Fachkräfte einzusetzen",
-        "Die architektonische Vorschrift für Fluchtwege in Kindertagesstätten",
-        "Das Konzept, den Raum als aktive, lernanregende Umgebung und dritten Erzieher zu gestalten",
-        "Die theoretische Annahme, dass Eltern und Kinder gemeinsam mit einer dritten Fachkraft lernen"
-      ],
-      "question": "Welche Bedeutung hat das Konzept des „Raumes als dritten Erzieher“ in sozialpädagogischen Einrichtungen?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
         0
       ],
-      "difficulty": "pruefung",
-      "explanation": "Eine multiperspektivische Situationsanalyse bezieht die Interessen, Bedürfnisse, Lebenswelten der Kinder, die Beobachtungen der Fachkräfte sowie gesellschaftlich-kulturelle Rahmenbedingungen ein, um passgenaue Bildungsprozesse zu planen.",
-      "id": "q4",
-      "options": [
-        "Die systematische Erfassung von Interessen, Lebenslagen und Bedürfnissen der Adressaten als Planungsbasis",
-        "Eine rein finanzwirtschaftliche Budgetanalyse der Einrichtung für das kommende Haushaltsjahr",
-        "Ein medizinisches Diagnoseverfahren zur Erkennung von Infektionskrankheiten",
-        "Eine bautechnische Überprüfung der Statik von Gruppenräumen"
-      ],
-      "question": "In einer Kindertagesstätte soll ein neues Jahresthema vorbereitet werden. Welcher Schritt beschreibt eine fachlich korrekte „multiperspektivische Situationsanalyse“?",
-      "type": "case"
+      "explanation": "Bildungs- und Lerngeschichten sind ein hervorragendes stärken- und dialogorientiertes Verfahren, das sich direkt an das Kind richtet. Für spezifische Entwicklungs- oder Förderfragen (z. B. Sprache oder Motorik) werden sie in der professionellen Praxis sinnvoll durch strukturierte Beobachtungsverfahren ergänzt."
     },
     {
+      "id": "v2-q2",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Aspekte gehören zu den fünf Lerndispositionen im Ansatz der Bildungs- und Lerngeschichten nach Margaret Carr? (Mehrere Antworten sind richtig)",
+      "options": [
+        "Standhalten bei Herausforderungen, Fehlern und Schwierigkeiten",
+        "An einer Lerngemeinschaft mitwirken und Verantwortung übernehmen",
+        "Altersnormiertes Beherrschen vorgegebener Schreib- und Rechenübungen",
+        "Interessiert sein und Aufmerksamkeit auf Themen der Umwelt richten"
+      ],
       "correctIndices": [
         0,
-        2
+        1,
+        3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Partizipative Projektplanung bedeutet, dass Kinder und Jugendliche aktiv in die Ideensammlung, Planung und Reflexion einbezogen werden, während die Fachkraft als Moderatorin und Begleiterin agiert. Reine Vorgabe durch die Leitung ist antipartizipativ.",
-      "id": "q5",
-      "options": [
-        "Kinder und Jugendliche werden aktiv in die Planung und Ausgestaltung von Projekten einbezogen",
-        "Die Einrichtungsleitung bestimmt allein alle Themen für das gesamte Ausbildungsjahr",
-        "Fachkräfte begleiten den Prozess ko-konstruktiv und reflektieren diesen gemeinsam mit den Lernenden",
-        "Projekte werden ausschließlich nach starren Lehrplänen ohne Rücksicht auf Kindesinteressen durchgeführt"
-      ],
-      "question": "Welche Merkmale kennzeichnen eine partizipative Projektplanung und -durchführung in der sozialpädagogischen Praxis? (Mehrfachauswahl)",
-      "type": "multi"
+      "explanation": "Carr beschreibt fünf grundlegende Lerndispositionen: Interessiert sein, Engagiert sein, Standhalten bei Herausforderungen/Schwierigkeiten, Sich ausdrücken und mitteilen sowie An einer Lerngemeinschaft mitwirken und Verantwortung übernehmen. Normierte Schulübungen sind keine Lerndisposition."
     },
     {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "basis",
-      "explanation": "Eine fachspezifische Bildungsdokumentation dokumentiert ressourcenorientiert und transparent die individuellen Entwicklungs- und Bildungsprozesse der Kinder und dient als Grundlage für Reflexion, Portfolioarbeit und Elterngespräche.",
-      "id": "q6",
+      "id": "v2-q3",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Raumgestaltungskriterien entsprechen dem Konzept des „Raums als drittem Erzieher“ (Reggio-Pädagogik / Schäfer)? (Mehrere Antworten sind richtig)",
       "options": [
-        "Dient ausschliesslich der disziplinarischen Sanktionierung von Fehlverhalten",
-        "Dokumentiert ressourcenorientiert individuelle Bildungswege und unterstützt die pädagogische Reflexion sowie Beratung",
-        "Ersetzt vollständig die gesetzlichen Unfallmeldeberichte in Kitas",
-        "Wird ausschließlich von externen Schulinspektoren einmal jährlich ausgefüllt"
+        "Übersichtliche, geordnete Präsentation offener Materialien auf Kinderaugenhöhe für selbstständige, barrierearme Nutzung",
+        "Möglichkeit zur Veränderung und partizipativen Mitgestaltung des Raums durch die Kinder",
+        "Möglichst vollständiges Ausfüllen aller freien Wandflächen mit bunten Postern und Schablonen, um maximale Reizdichte zu erreichen",
+        "Klare Zonierung mit Schutz ruhiger Bereiche vor Durchgangs- und Laufwegen"
       ],
-      "question": "Welchen primären Zweck erfüllt eine fachspezifische Bildungsdokumentation in Kindertageseinrichtungen?",
-      "type": "single"
+      "correctIndices": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "Ein lernanregender Raum bietet Orientierung, Zonierung, Zugänglichkeit, Ästhetik und Partizipation. Überladene Wände und ungeordnete Materialflut führen hingegen zu Reizüberflutung und Unruhe statt zu vertieftem Lernen."
+    },
+    {
+      "id": "v2-q4",
+      "type": "single",
+      "difficulty": "pruefung",
+      "question": "Welche Funktion erfüllen sogenannte „Fixpunkte“ (nach Karl Frey) während der Durchführungsphase eines Projekts?",
+      "options": [
+        "Sie bezeichnen ausschließlich die zeitlichen Fristen, zu denen die Einrichtungsleitung das Projektbudget kontrolliert.",
+        "Sie legen bereits vor Projektbeginn unveränderlich fest, welches Endprodukt jedes Kind am Abschlusstag vorweisen muss.",
+        "Sie dienen dazu, Kinder aus dem Projekt auszuschließen, die sich nicht an den ursprünglichen Plan halten.",
+        "Sie sind vereinbarte Zwischenstopps zur gemeinsamen Reflexion des bisherigen Verlaufs, zur Klärung neuer Fragen und zur flexiblen Nachsteuerung der nächsten Schritte."
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Fixpunkte nach Frey sichern die Balance zwischen Struktur und Offenheit: Kinder und Fachkräfte halten kurz inne, betrachten das bisher Erreichte, klären auftretende Hindernisse und entscheiden gemeinsam, wie es weitergeht."
+    },
+    {
+      "id": "v2-q5",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Praxissituation: Bei einem Besuch möchte die Großmutter eines Kindes spontan im Portfolio eines anderen Kindes blättern, das frei im Regal steht. Zudem weigert sich ein Kind an diesem Tag, beim Bauen für das Portfolio fotografiert zu werden. Wie handelt die Fachkraft professionell?",
+      "options": [
+        "Sie verzichtet vollständig auf jede Form von Fotodokumentation in der Kita, da Portfolios rechtlich nicht zulässig sind.",
+        "Sie erlaubt das Blättern im fremden Portfolio als Zeichen von Transparenz und fotografiert das bauende Kind heimlich von hinten, damit die Dokumentation vollständig bleibt.",
+        "Sie schließt fortan sämtliche Portfolios dauerhaft im Leitungsbüro ein, damit keine fremden Blicke mehr möglich sind.",
+        "Sie schützt die Privatsphäre des fremden Portfolios (Einsicht nur mit Zustimmung des Kindes bzw. seiner Sorgeberechtigten) und respektiert das Nein des anderen Kindes beim Fotografieren uneingeschränkt."
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Portfolios gehören dem jeweiligen Kind und enthalten persönliche Daten – fremde Personen dürfen sie nicht ohne Zustimmung einsehen. Ebenso hat jedes Kind das Recht, ein Foto abzulehnen; statt heimlich zu fotografieren, können Lernprozesse auch schriftlich oder über Zeichnungen festgehalten werden."
+    },
+    {
+      "id": "v2-q6",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Wodurch unterscheidet sich ein partizipatives Projekt fachlich von einem klassischen, vorab festgelegten Jahreszeiten-Angebot?",
+      "options": [
+        "In einem Projekt verzichten Fachkräfte völlig auf fachliche Vorbereitung, Sicherheitshinweise und Zeitstruktur.",
+        "Ein Projekt konzentriert sich immer isoliert auf einen einzigen Bildungsbereich, damit Kinder nicht überfordert werden.",
+        "Ein Projekt darf grundsätzlich nur ein einziges Mal im Jahr und ausschließlich mit Vorschulkindern durchgeführt werden.",
+        "Ein Projekt greift eine bedeutsame, beobachtete Frage aus der Lebenswelt der Kinder auf, bezieht sie in Planung, Verlauf und Reflexion aktiv ein und bleibt im Ergebnis offen."
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Partizipative Projektarbeit verbindet eine professionelle Strukturierung durch Fachkräfte mit echter Beteiligung der Kinder, Lebensweltbezug, Ergebnisoffenheit und bildungsbereichsübergreifendem Lernen – bereits ab dem Krippenalter in altersangemessener Form."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Bildungs- und Lerngeschichten als Konzept, Kinder zu entdecken",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/KiTaFT_Frisch_Schulz_2018-Bildungs-undLerngeschichten.pdf",
+      "publisher": "KiTa Fachtexte (Andrea Frisch & Marc Schulz / ASH Berlin, Fröbel, nifbe)",
+      "note": "Wissenschaftlich-praxisorientierte Einführung in Lerndispositionen, Stärkenorientierung und Dokumentation nach Carr."
+    },
+    {
+      "title": "Reggio-Pädagogik – Kindorientierung, Raum als dritter Erzieher und Dokumentation",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/KiTaFT_Knauf_2017_Reggio-Paedadogik_01.pdf",
+      "publisher": "KiTa Fachtexte (Tassilo Knauf / ASH Berlin, Fröbel, nifbe)",
+      "note": "Darstellung von Raumgestaltung, „sprechenden Wänden“, Atelier und Projektarbeit in der Reggio-Pädagogik."
+    },
+    {
+      "title": "Grundlagen der Raumgestaltung für Kinder in den ersten drei Lebensjahren",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/KiTaFT_Wiebe_2011.pdf",
+      "publisher": "KiTa Fachtexte (Valentina Wiebe / ASH Berlin, Fröbel, nifbe)",
+      "note": "Konkrete Kriterien entwicklungs- und bedürfnisorientierter Raum- und Materialgestaltung."
+    },
+    {
+      "title": "Projektarbeit in Krippen – Möglichkeiten und Grenzen",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/FT_ahrens_klages_2011.pdf",
+      "publisher": "KiTa Fachtexte (Petra Ahrens & Monika Klages / ASH Berlin, Fröbel, nifbe)",
+      "note": "Fachliche Grundlagen zu Projektphasen, Partizipation, Rolle der Fachkraft und Dokumentation."
+    },
+    {
+      "title": "Datenschutz in der Kita – Häufige Fragen (inkl. Beobachtung, Portfolio & Fotos)",
+      "url": "https://www.datenschutz.rlp.de/themen/datenschutz-in-der-kita-faq",
+      "publisher": "Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz (LfDI RLP)",
+      "note": "Aktuelle landesspezifische Orientierung zu § 3 Abs. 3 KiTaG RLP, Einwilligungen, Portfolio-Dokumentation und Löschfristen."
     }
   ]
 }

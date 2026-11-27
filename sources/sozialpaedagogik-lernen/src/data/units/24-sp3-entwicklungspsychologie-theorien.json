@@ -3,389 +3,462 @@
   "number": 24,
   "moduleCode": "S-SP-3",
   "moduleArea": "sp-pflicht",
-  "title": "Entwicklungspsychologie, Lerntheorien, Resilienz & Salutogenese",
-  "subtitle": "Ganzheitliche Entwicklungsaufgaben und theoretische Erklärungsmodelle",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-3 · Entwicklungspsychologie & Entwicklungstheorien (Lehrplan RLP 2024)",
+  "title": "Entwicklungspsychologie & zentrale Entwicklungstheorien",
+  "subtitle": "Piaget (inkl. Kritik), Wygotski/ZNE, Erikson, Bronfenbrenner, Moral/Empathie sowie Resilienz & Salutogenese",
   "year": "1.–3. Jahr",
-  "estimatedMinutes": 30,
+  "estimatedMinutes": 35,
   "hoursRef": "240 Std. (Teil 4/5)",
   "pdfPages": "S. 24–25",
   "crossCuttingTags": [
     "Inklusion",
     "Prävention"
   ],
-  "summary": "Diese Einheit vermittelt angehenden Erzieherinnen und Erziehern fundiertes fachwissenschaftliches Wissen zu Entwicklungspsychologie, Lerntheorien, Resilienz und Salutogenese nach dem Lehrplan RLP (S-SP-3). Sie befähigt dazu, Entwicklungsstände ressourcenorientiert einzuschätzen, individuelle Lernprozesse zu begleiten und präventive sowie inklusive Handlungskonzepte professionell zu gestalten.",
+  "summary": "Entwicklungstheorien sind keine starren Schubladen, sondern Denkwerkzeuge, um kindliches Erleben und Handeln im Kontext zu verstehen. Diese Einheit ordnet Piaget samt moderner Kritik, Wygotskis Zone der nächsten Entwicklung, Eriksons psychosoziale Aufgaben, Bronfenbrenners ökosystemischen Ansatz, Moral- und Empathieentwicklung sowie Resilienz und Salutogenese praxisnah und wissenschaftlich differenziert ein.",
   "learningGoals": [
-    "Ich kann Entwicklung als ganzheitlichen Prozess beschreiben und altersspezifische Entwicklungsaufgaben nach Havighurst und Erikson in der pädagogischen Praxis anwenden.",
-    "Ich kann den Entwicklungsstand von Kindern, Jugendlichen und jungen Erwachsenen mithilfe valider Beobachtungsverfahren und entwicklungspsychologischer Modelle fachlich fundiert einschätzen.",
-    "Ich kann klassische, operante Lerntheorien und das Modelllernen nach Bandura nutzen, um Lern- und Verhaltensprozesse ressourcenorientiert zu begleiten.",
-    "Ich kann das Resilienzkonzept sowie das Salutogenese-Modell nach Antonovsky (Kohärenzgefühl) zur Stärkung von Kindern in belastenden Lebenslagen einsetzen.",
-    "Ich kann besondere Bedarfe, Risikofaktoren und Krisen frühzeitig erkennen und präventive sowie kompensatorische Fördermöglichkeiten entwickeln."
+    "Ich kann Jean Piagets kognitive Entwicklungstheorie (Assimilation, Akkommodation, Stadien) erklären und anhand moderner entwicklungspsychologischer Kritik differenziert einordnen.",
+    "Ich kann Lew Wygotskis soziokulturellen Ansatz (Zone der nächsten Entwicklung) und Scaffolding gezielt auf Lern- und Spielsituationen anwenden.",
+    "Ich kann Erik H. Eriksons psychosoziale Entwicklungsaufgaben und Urie Bronfenbrenners ökologische Systemtheorie nutzen, um kindliches Verhalten mehrdimensional zu verstehen.",
+    "Ich kann zentrale Grundlagen der Empathie- und Moralentwicklung (u. a. nach Kohlberg samt differenzierter Einordnung) für die Begleitung sozialer Konflikte nutzen.",
+    "Ich kann Resilienz und das Salutogenese-Modell (Kohärenzgefühl nach Antonovsky) als dynamische, kontextabhängige Konzepte anwenden, ohne Kinder über einseitige Zuschreibungen zu etikettieren."
   ],
   "sections": [
     {
-      "body": "Die ganzheitliche Entwicklung umfasst das Zusammenspiel von motorischen, kognitiven, emotionalen und sozialen Prozessen. Nach Robert J. Havighurst stehen in jeder Lebensphase spezifische Entwicklungsaufgaben an, deren Bewältigung Identität und Kompetenzerweiterung stiftet. Erik Erikson ergänzt diesen Blick durch sein psychosoziales Stufenmodell, in dem Krisen als Entwicklungschancen verstanden werden. Jean Piaget beschreibt zudem die kognitive Entwicklung als aktiven Konstruktionsprozess (Assimilation und Akkommodation), der für die Planung passgenauer Bildungsangebote unerlässlich ist.",
+      "heading": "1. Jean Piaget & moderne Kritik: Kognitive Entwicklung ohne starre Schubladen",
+      "keyTakeaway": "Piaget zeigte, dass Kinder Wissen aktiv durch Handeln konstruieren – moderne Forschung korrigiert jedoch das Bild starrer Altersstufen hin zu bereichsspezifischer, kontextabhängiger Entwicklung.",
+      "body": "Jean Piaget prägte das Bild vom Kind als aktivem Konstrukteur seines Wissens: Kinder speichern Informationen nicht passiv, sondern verarbeiten Erfahrungen durch Assimilation (Einordnung neuer Eindrücke in bestehende Denkschemata) und Akkommodation (Veränderung oder Erweiterung von Schemata bei neuen Erfahrungen) im Streben nach kognitivem Gleichgewicht (Äquilibration). Sein klassisches Stufenmodell unterscheidet das sensomotorische (ca. 0–2 Jahre), das präoperationale (ca. 2–7 Jahre), das konkret-operationale (ca. 7–11 Jahre) und das formal-operationale Stadium (ab ca. 11/12 Jahren). Für die pädagogische Praxis ist jedoch die Einordnung aus der neueren Entwicklungspsychologie unerlässlich: Empirische Studien zeigen, dass Piaget die Fähigkeiten junger Kinder in mehreren Bereichen unterschätzt hat – insbesondere, wenn Aufgaben lebensnah und sprachlich verständlich gestellt werden (etwa bei früher Objektpermanenz, ersten Ansätzen von Perspektivübernahme / Theory of Mind oder kausalem Denken). Zudem verläuft kognitive Entwicklung deutlich bereichsspezifischer, kontinuierlicher und stärker durch soziale Interaktion sowie kulturelle Erfahrungen geprägt, als ein starres Stufenschema nahelegt. Piagets Phasen dienen daher als grobe Orientierungshilfe für handlungsorientiertes Lernen – niemals als starre Alters-Schublade, mit der Kindern Kompetenzen abgesprochen werden.",
       "bulletPoints": [
-        "Ganzheitlicher Ansatz: Verbindung von körperlichen, emotionalen und kognitiven Dimensionen",
-        "Entwicklungsaufgaben nach Havighurst als altersspezifische Herausforderungen",
-        "Psychosoziales Stufenmodell nach Erikson (Identitätsfindung vs. Identitätsdiffusion)",
-        "Kognitive Entwicklung nach Piaget (Stufen vom sensomotorischen bis zum formal-operativen Denken)"
+        "Aktive Konstruktion: Assimilation (Einordnen), Akkommodation (Anpassen) und Äquilibration (Gleichgewichtssuche).",
+        "Stufen als Orientierung, nicht als starre Grenze: Sensomotorisch → präoperational → konkret-operational → formal-operational.",
+        "Moderne Kritik & Differenzierung: Frühere Kompetenzen bei alltagsnahen Aufgaben, bereichsspezifische Unterschiede statt gleichförmiger Stufen.",
+        "Pädagogische Konsequenz: Selbsttätiges Forschen, Materialvielfalt und individuelle Beobachtung statt schematischer Altersnormen."
       ],
-      "heading": "Ganzheitliche Entwicklung und altersspezifische Entwicklungsaufgaben",
-      "keyTakeaway": "Entwicklung ist ein lebenslanger, ganzheitlicher Prozess, der durch die Bewältigung altersgemäßer Entwicklungsaufgaben und kognitiver Konstruktionsprozesse geprägt ist.",
-      "praxisTip": "Nutzen Sie strukturierte Beobachtungsverfahren, um den individuellen Entwicklungsstand in Kita oder Hort wertfrei zu erfassen und Bildungsangebote an den aktuellen Entwicklungsaufgaben der Kinder auszurichten."
+      "praxisTip": "Verwenden Sie Piagets Stufen nicht als Ausschlussargument („Das kann ein Vierjähriger noch nicht“), sondern prüfen Sie im Alltag, welche anschaulichen Materialien und Fragen ein Kind beim nächsten Denkschritt unterstützen."
     },
     {
-      "body": "Verhaltens- und Lerntheorien liefern fundierte Erklärungen dafür, wie Kinder und Jugendliche neues Verhalten erwerben. Neben der klassischen Konditionierung (Pawlow) und der operanten Konditionierung (Skinner) nimmt das Modelllernen nach Albert Bandura (sozial-kognitive Lerntheorie) eine zentrale Rolle ein: Kinder lernen maßgeblich durch Beobachtung von Vorbildern (Modellen) und die darauffolgende Nachahmung. Der Kognitivismus ergänzt dies, indem er interne Informationsverarbeitungsprozesse und Problemlösekompetenzen in den Fokus rückt.",
+      "heading": "2. Lew Wygotski: Soziokulturelles Lernen, Zone der nächsten Entwicklung & Scaffolding",
+      "keyTakeaway": "Nach Wygotski entsteht Entwicklung maßgeblich im sozialen Miteinander: Wirksame Begleitung setzt in der Zone der nächsten Entwicklung an und baut Hilfe schrittweise wieder ab.",
+      "body": "Während Piaget stärker die eigenständige Auseinandersetzung des Kindes mit der dinglichen Umwelt betonte, stellte Lew Wygotski die soziale und kulturelle Einbettung menschlicher Entwicklung ins Zentrum. Kognitive Fähigkeiten und Sprache entwickeln sich demnach zunächst im gemeinsamen Handeln und Sprechen mit anderen (interpsychisch) und werden erst danach verinnerlicht (intrapsychisch). Sein einflussreichstes Konzept für die Praxis ist die Unterscheidung zweier Entwicklungsbereiche: Die Zone der aktuellen Entwicklung umfasst alles, was ein Kind bereits allein bewältigt. Die Zone der nächsten Entwicklung (ZNE) beschreibt hingegen jenen Bereich an Aufgaben, den das Kind noch nicht vollständig allein lösen kann, jedoch mithilfe feinfühliger Begleitung durch Erwachsene oder erfahrenere Gleichaltrige erfolgreich meistert. Auf Wygotskis Ansatz baut das Konzept des Scaffolding („Gerüstbau“, nach Wood, Bruner & Ross) auf: Die Fachkraft bietet genau so viel strukturierende Unterstützung (z. B. gemeinsame Planung, gezielte Hinweise, Vormachen eines Teilschritts), wie das Kind im Moment braucht, und nimmt dieses Gerüst schrittweise zurück, sobald das Kind mehr Selbstständigkeit gewinnt – ohne dem Kind die Aufgabe abzunehmen.",
       "bulletPoints": [
-        "Klassische und operante Konditionierung als Grundlagen des Lernens durch Reize und Konsequenzen",
-        "Modelllernen nach Albert Bandura: Aufmerksamkeit, Behalten, Reproduktion, Motivation",
-        "Bedeutung von Vorbildern und pädagogischer Haltung im Alltag",
-        "Kognitivistische Ansätze zur Förderung von Problemlösekompetenzen"
+        "Soziokulturelle Perspektive: Sprache, Dialog und gemeinsames Handeln als zentrale Motoren der Entwicklung.",
+        "Zone der nächsten Entwicklung (ZNE): Schnittstelle zwischen dem schon selbstständig Gekonnten und Überforderung.",
+        "Scaffolding: Zeitweiliges, flexibel angepasstes Unterstützungsgerüst mit schrittweisem Rückzug der Hilfe.",
+        "Peer-Lernen: Auch altersgemischte Spielgruppen eröffnen wechselseitige Lernchancen in der ZNE."
       ],
-      "heading": "Verhaltens- und Lerntheorien in der pädagogischen Praxis",
-      "keyTakeaway": "Lernen erfolgt nicht nur durch direkte Verstärkung, sondern maßgeblich durch kognitive Verarbeitung und das Lernen am Modell.",
-      "praxisTip": "Reflektieren Sie Ihr eigenes Vorbildverhalten in der Einrichtung, da Kinder Verhaltensweisen, Kommunikationsstile und Konfliktlösungen direkt durch Beobachtung übernehmen."
+      "praxisTip": "Wenn ein Kind bei einer Bau- oder Bastelaufgabe frustriert stockt, übernehmen Sie nicht sofort das Werkstück, sondern bieten Sie eine kleine Brücke an: „Schau mal, welche beiden Steine liegen hier ganz stabil? Was könnte als Nächstes darauf passen?“"
     },
     {
-      "body": "Das Resilienzkonzept fokussiert auf die psychische Widerstandskraft von Kindern und Jugendlichen gegenüber Risikofaktoren und Belastungen. Durch die gezielte Stärkung innerer Schutzfaktoren (z. B. Selbstwirksamkeit) und äußerer Ressourcen (z. B. verlässliche Bezugspersonen) wird Inklusion aktiv gefördert. Ergänzend dazu beschreibt Aaron Antonovsky mit der Salutogenese und dem Kohärenzgefühl (Verstehbarkeit, Handhabbarkeit, Sinnhaftigkeit) die Bedingungen von Gesundheit und gelingender Bewältigung, welche durch die Positive Psychologie mit Blick auf Stärken und Potenziale bereichert werden.",
+      "heading": "3. Erikson & Bronfenbrenner: Lebenslaufaufgaben im ökologischen Systemgefüge",
+      "keyTakeaway": "Eriksons psychosoziale Themen und Bronfenbrenners Systemebenen zeigen, dass Entwicklung niemals isoliert im Kind stattfindet, sondern in Beziehungen, Institutionen und gesellschaftlichen Rahmenbedingungen.",
+      "body": "Erik H. Erikson beschreibt Entwicklung über die gesamte Lebensspanne als Abfolge von acht psychosozialen Entwicklungsaufgaben bzw. Krisen, die im Spannungsfeld zweier Pole ausbalanciert werden – im Kindes- und Jugendalter insbesondere Urvertrauen vs. Urmisstrauen (Säuglingsalter), Autonomie vs. Scham und Zweifel (frühe Kindheit), Initiative vs. Schuldgefühl (Vorschulalter), Werksinn vs. Minderwertigkeitsgefühl (Schulkindalter) sowie Identität vs. Rollendiffusion (Jugendalter). Wichtig für eine zeitgemäße Einordnung ist: Ein „gesunder“ Verlauf bedeutet nicht das Auslöschen des Gegenpols (auch gesundes Misstrauen oder realistische Grenzen sind notwendig), und frühere Themen bleiben später veränderbar und nachholbar. Urie Bronfenbrenner erweitert den Blick mit seiner ökologischen Systemtheorie systematisch auf die Lebenswelten rund um das Kind: Das Mikrosystem umfasst unmittelbare Alltagsumwelten (Familie, Kita, Peergroup); das Mesosystem bezeichnet deren Verknüpfung (z. B. gelingende Zusammenarbeit zwischen Eltern und Kita); das Exosystem wirkt indirekt über Lebensbereiche ohne direkte Teilnahme des Kindes (z. B. Arbeitszeiten der Eltern, kommunale Kita-Finanzierung); das Makrosystem bildet Gesetze, kulturelle Normen und Sozialpolitik ab; das Chronosystem berücksichtigt biografische Übergänge und historischen Wandel. Beide Modelle warnen vor einseitigen Schuldzuweisungen an einzelne Kinder oder Eltern.",
       "bulletPoints": [
-        "Resilienz: Schutz- und Risikofaktoren im Lebensumfeld analysieren",
-        "Salutogenese nach Antonovsky: Förderung des Kohärenzgefühls (Verstehbarkeit, Handhabbarkeit, Sinnhaftigkeit)",
-        "Positive Psychologie: Ressourcen- und stärkenorientierter Blick auf den Menschen",
-        "Präventiver Schutz vor Krisen und Stigmatisierung durch inklusive Praxis"
+        "Erikson: Lebenslange psychosoziale Themen (z. B. Vertrauen, Autonomie, Initiative, Werksinn, Identität) als dynamische Balance statt endgültiger Festlegung.",
+        "Bronfenbrenner: Verschachtelte Umwelten – Mikro-, Meso-, Exo-, Makro- und Chronosystem.",
+        "Bedeutung des Mesosystems: Stabile, wertschätzende Kooperation zwischen Familie, Kita und Schule stärkt Entwicklungschancen unmittelbar.",
+        "Pädagogische Haltung: Verhalten stets im Zusammenspiel von Kind, Beziehungen und Rahmenbedingungen verstehen."
       ],
-      "heading": "Resilienz, Salutogenese und Positive Psychologie",
-      "keyTakeaway": "Resilienz und Salutogenese lenken den Blick weg von Defiziten hin zu Schutzfaktoren, Ressourcen und der Stärkung des Kohärenzgefühls.",
-      "praxisTip": "Schaffen Sie in der Einrichtung transparente, verlässliche Strukturen und ritualisierte Abläufe, um das Kohärenzgefühl und die Verstehbarkeit für Kinder in Belastungssituationen zu erhöhen."
+      "praxisTip": "Zeichnen Sie bei schwierigen Fallbesprechungen kurz Bronfenbrenners Systemkreise auf ein Blatt – oft wird binnen Minuten sichtbar, welche Belastungen gar nicht „im Kind“ liegen, sondern im Meso- oder Exosystem (z. B. Schichtwechsel der Eltern oder Gruppenwechsel)."
+    },
+    {
+      "heading": "4. Empathie, Moralentwicklung (Kohlberg) sowie Resilienz & Salutogenese",
+      "keyTakeaway": "Empathie, moralisches Urteilen und Resilienz entwickeln sich dynamisch in feinfühligen Beziehungen und verstehbaren Alltagsstrukturen – sie sind keine starren Charaktereigenschaften.",
+      "body": "Sozial-emotionale Entwicklung zeigt sich eindrücklich im Erwerb von Empathie und moralischem Urteilsvermögen. Empathie – die Fähigkeit, Gefühle anderer wahrzunehmen, nachzuempfinden und von den eigenen abzugrenzen – entwickelt sich ab etwa der Mitte des zweiten Lebensjahres im Zusammenspiel mit Selbsterkennung, kognitiver Perspektivübernahme und feinfühliger elterlicher wie pädagogischer Co-Regulation (u. a. Arbeiten von Doris Bischof-Köhler). Für die Entwicklung moralischen Urteilens entwarf Lawrence Kohlberg ein Stufenmodell über drei Ebenen: präkonventionell (Orientierung an Strafe/Gehorsam und eigenem Nutzen), konventionell (Erwartungen nahestehender Personen, Regeln und soziale Ordnung) sowie postkonventionell (reflektierte, universelle ethische Prinzipien). Auch hier differenziert die neuere Forschung deutlich: Kritiken (u. a. Carol Gilligans Hinweis auf Fürsorge- und Beziehungsethik) und empirische Kinderstudien zeigen, dass bereits junge Kinder moralische Normen (etwa niemandem wehtun, Fairness) klar von bloßen Konventionen unterscheiden können – und dass moralisches Urteilen in hypothetischen Dilemmata nicht automatisch moralisches Handeln unter Stress garantiert. Eng verknüpft mit emotionaler Entwicklung sind Resilienz und Salutogenese: Resilienz meint keinen angeborenen Panzer, sondern einen dynamischen, kontextabhängigen Bewältigungsprozess im Zusammenspiel personaler Ressourcen (z. B. Selbstwirksamkeit, Problemlösefähigkeit) und sozialer Schutzfaktoren (insbesondere verlässliche Bezugspersonen). Aaron Antonovskys Salutogenese ergänzt dies um das Kohärenzgefühl aus Verstehbarkeit, Handhabbarkeit und Sinnhaftigkeit – ein zentraler Leitkompass für stärkende, transparente Alltagsstrukturen.",
+      "bulletPoints": [
+        "Empathieentwicklung: Reift ab dem 2. Lebensjahr über Selbsterkennung, Perspektivübernahme und feinfühlige Beziehungsbegleitung.",
+        "Kohlbergs Moralmodell (prä-, konventionell, postkonventionell): Nützlicher Orientierungsrahmen, der durch Fürsorgeethik und frühe kindliche Fairness-Kompetenzen zu differenzieren ist.",
+        "Resilienz: Dynamischer, veränderbarer Schutzprozess im Wechselspiel von Kind und Umwelt – keine angeborene Eigenschaft.",
+        "Salutogenese (Antonovsky): Gesundheit und Bewältigung stärken durch Verstehbarkeit, Handhabbarkeit und Sinnhaftigkeit (Kohärenzgefühl)."
+      ],
+      "praxisTip": "Begleiten Sie Alltagskonflikte im Sinne von Empathie- und Moralentwicklung ohne Beschämung: Benennen Sie sichtbare Gefühle beider Kinder („Schau, Elias weint, weil sein Turm umgefallen ist“) und suchen Sie gemeinsam faire Lösungen."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Lebensspannen-Entwicklung",
-      "id": "vb-timeline",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Frühe Kindheit (0–3 J.)",
-          "detail": "Aufbau von Urvertrauen nach Erikson, sensomotorische Entwicklung nach Piaget, Bindungsaufbau als primäre Entwicklungsaufgabe.",
-          "example": "Ein Kleinkind erforscht aktiv seine Umwelt und sucht bei Verunsicherung Schutz bei der Bezugsperson.",
-          "id": "item-1",
-          "label": "Sensorik & Bindung",
-          "metric": "Phase 1",
-          "summary": "Entwicklung von Vertrauen, Motorik und sensomotorischer Intelligenz."
-        },
-        {
-          "badge": "Vorschulalter (3–6 J.)",
-          "detail": "Autonomie und Initiative nach Erikson, präoperationales Denken nach Piaget, Erlernen von Geschlechterrollen und Peer-Beziehungen.",
-          "example": "Kinder spielen gemeinsam Rollenspiele und erproben soziale Regeln in der Gruppe.",
-          "id": "item-2",
-          "label": "Autonomie & Spiel",
-          "metric": "Phase 2",
-          "summary": "Ausbildung von Identität, Sprache und erstem Regelverständnis."
-        },
-        {
-          "badge": "Schulkindalter (6–12 J.)",
-          "detail": "Werksinn vs. Minderwertigkeitsgefühl nach Erikson, konkrete Operationen nach Piaget, Bewältigung schulischer Leistungsanforderungen.",
-          "example": "Ein Schulkind bewältigt erfolgreich erste kooperative Aufgaben und logische Rechenoperationen.",
-          "id": "item-3",
-          "label": "Leistung & Kooperation",
-          "metric": "Phase 3",
-          "summary": "Kompetenzerwerb, Wissenserweiterung und soziale Integration."
-        },
-        {
-          "badge": "Jugendalter (12–18 J.)",
-          "detail": "Identität vs. Rollendiffusion nach Erikson, formal-operationales Denken nach Piaget, Ablösung vom Elternhaus und Berufsorientierung.",
-          "example": "Ein Jugendlicher reflektiert eigene Werte und plant seine berufliche Zukunft.",
-          "id": "item-4",
-          "label": "Identität & Adoleszenz",
-          "metric": "Phase 4",
-          "summary": "Findung der eigenen Identität und Abstraktionsvermögen."
-        }
-      ],
-      "kind": "timeline",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Phasen der menschlichen Entwicklung nach Erikson, Piaget und Havighurst",
-      "title": "Entwicklungspsychologische Meilensteine im Lebenslauf"
-    },
-    {
-      "centerLabel": "Lerntheorien im Vergleich",
-      "id": "vb-comparison",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Behaviorismus",
-          "detail": "Fokus auf beobachtbares Verhalten; Lernen erfolgt durch Reiz-Reaktions-Ketten sowie Verstärkung (Belohnung und Bestrafung).",
-          "example": "Lob für aufgeräumtes Spielzeug führt zu Wiederholung des Verhaltens.",
-          "id": "comp-1",
-          "label": "Klassische & Operante Konditionierung",
-          "metric": "Reiz-Reaktion",
-          "summary": "Verhaltenssteuerung durch äußere Reize und Konsequenzen."
-        },
-        {
-          "badge": "Sozial-kognitive Lerntheorie",
-          "detail": "Lernen durch Beobachtung von Vorbildern (Modelllernen); kognitive Vermittlungsprozesse zwischen Reiz und Reaktion.",
-          "example": "Kind ahmt die höfliche Begrüßung der Fachkraft nach.",
-          "id": "comp-2",
-          "label": "Modelllernen nach Bandura",
-          "metric": "Beobachtung",
-          "summary": "Lernen durch Vorbilder und kognitive Verarbeitung."
-        },
-        {
-          "badge": "Kognitivismus",
-          "detail": "Fokus auf interne Informationsverarbeitung, Denken, Problemlösen und aktiven Wissenserwerb (Konstruktivismus).",
-          "example": "Kind begreift logische Zusammenhänge beim Bauen mit Bausteinen.",
-          "id": "comp-3",
-          "label": "Kognitive Entwicklung (Piaget)",
-          "metric": "Informationsverarbeitung",
-          "summary": "Aktives Verstehen und Strukturieren von Erfahrungswelten."
-        }
-      ],
+      "id": "vb-1",
       "kind": "comparison",
+      "title": "Fünf zentrale Entwicklungstheorien im Überblick",
+      "subtitle": "Kernfokus, pädagogischer Nutzen und notwendige wissenschaftliche Differenzierung",
+      "centerLabel": "Theorienvergleich",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Gegenüberstellung zentraler Lerntheorien für die sozialpädagogische Praxis",
-      "title": "Lerntheorien im Vergleich"
-    },
-    {
-      "centerLabel": "Kohärenzgefühl",
-      "id": "vb-concept",
       "isCycle": false,
       "items": [
         {
-          "badge": "Salutogenese",
-          "detail": "Fokus auf die Entstehung von Gesundheit und die Aktivierung innerer und äußerer Ressourcen statt reiner Pathogenese.",
-          "example": "Stärkung von Schutzfaktoren in belastenden Familiensituationen.",
-          "id": "cm-1",
-          "label": "Gesundheitsressourcen",
-          "metric": "Grundlage",
-          "summary": "Blick auf gelingende Entwicklung und Schutzfaktoren."
+          "id": "th-1",
+          "badge": "Kognition",
+          "label": "Jean Piaget",
+          "metric": "Konstruktivismus",
+          "summary": "Kinder konstruieren Wissen aktiv über Assimilation, Akkommodation und Stadien.",
+          "detail": "Nutzen: Wertschätzung für selbsttätiges Forschen und handelndes Lernen. Differenzierung: Moderne Studien zeigen frühere, bereichsspezifischere Kompetenzen als starre Altersstufen annehmen.",
+          "example": "Kinder entdecken Mengen- und Gleichgewichtsbeziehungen beim freien Experimentieren mit Wasser und Bausteinen."
         },
         {
-          "badge": "Verstehbarkeit",
-          "detail": "Kognitive Komponente: Ereignisse und Lebensumwelt werden als strukturiert, vorhersehbar und erklärbar erlebt.",
-          "example": "Transparente und klare Tagesstrukturen in der Kita.",
-          "id": "cm-2",
-          "label": "Verstehbarkeit",
-          "metric": "Komponente 1",
-          "summary": "Strukturierte und nachvollziehbare Umwelt."
+          "id": "th-2",
+          "badge": "Soziokulturell",
+          "label": "Lew Wygotski",
+          "metric": "ZNE & Scaffolding",
+          "summary": "Lernen geschieht im sozialen Austausch in der Zone der nächsten Entwicklung.",
+          "detail": "Nutzen: Feinfühlige, schrittweise zurückgenommene Begleitung (Scaffolding) durch Erwachsene und Peers. Differenzierung: Erfordert genaue Beobachtung, um weder zu über- noch zu unterfordern.",
+          "example": "Die Fachkraft unterstützt die Planung einer schwierigen Brücke durch offene Fragen statt sie selbst zu bauen."
         },
         {
-          "badge": "Handhabbarkeit",
-          "detail": "Instrumentelle Komponente: Das Gefühl, über ausreichende Ressourcen und Bewältigungsmöglichkeiten zu verfügen.",
-          "example": "Vermittlung von Handlungsstrategien bei Konflikten.",
-          "id": "cm-3",
-          "label": "Handhabbarkeit",
-          "metric": "Komponente 2",
-          "summary": "Verfügbarkeit von Bewältigungswerkzeugen."
+          "id": "th-3",
+          "badge": "Psychosozial",
+          "label": "Erik H. Erikson",
+          "metric": "8 Lebensaufgaben",
+          "summary": "Entwicklung als lebenslange Balance psychosozialer Krisen (Vertrauen, Autonomie, Initiative…).",
+          "detail": "Nutzen: Sensibler Blick auf emotionale Themen wie Selbstständigkeit, Eigeninitiative und Identität. Differenzierung: Themen bleiben lebenslang offen und sind keine starren „Alles-oder-nichts“-Urteile.",
+          "example": "Eigene Spielideen ermutigen (Initiative), ohne Fehler mit Beschämung (Schuldgefühl) zu verbinden."
         },
         {
-          "badge": "Sinnhaftigkeit",
-          "detail": "Motivationale Komponente: Herausforderungen werden als lohnend, sinnvoll und als bedeutsame Lebensaufgabe empfunden.",
-          "example": "Einbezug der Kinder in die Gestaltung des Gruppenalltags.",
-          "id": "cm-4",
-          "label": "Sinnhaftigkeit",
-          "metric": "Komponente 3",
-          "summary": "Lebensaufgaben als bedeutsam und lohnend erleben."
+          "id": "th-4",
+          "badge": "Ökosystemisch",
+          "label": "Urie Bronfenbrenner",
+          "metric": "5 Systemebenen",
+          "summary": "Kindliche Entwicklung im Wechselspiel von Mikro-, Meso-, Exo-, Makro- und Chronosystem.",
+          "detail": "Nutzen: Verhindert isolierte Schuldzuweisungen ans Kind und rückt Familie, Kooperation und Sozialraum in den Blick. Differenzierung: Komplexe Wechselwirkungen erfordern multiprofessionelle Vernetzung.",
+          "example": "Analyse, wie familiäre Belastungen (Mikro/Exo) und Kita-Eltern-Kooperation (Meso) zusammenwirken."
+        },
+        {
+          "id": "th-5",
+          "badge": "Moral & Empathie",
+          "label": "Kohlberg & Empathieforschung",
+          "metric": "Perspektivübernahme",
+          "summary": "Entwicklung von Regelverständnis, Fairness und emotionalem Mitgefühl.",
+          "detail": "Nutzen: Konflikte als Lernfeld für Perspektivübernahme und Demokratie nutzen. Differenzierung: Moralisches Urteilen ≠ automatisches Handeln; junge Kinder erkennen Fairness oft früher als Kohlberg annahm.",
+          "example": "Gemeinsames Aushandeln fairer Spielregeln statt reiner Strafandrohung."
         }
-      ],
-      "kind": "concept_map",
+      ]
+    },
+    {
+      "id": "vb-2",
+      "kind": "pyramid",
+      "title": "Urie Bronfenbrenners ökologische Systemebenen",
+      "subtitle": "Entwicklung entsteht in der Wechselwirkung zwischen Kind und ineinander greifenden Lebenswelten",
+      "centerLabel": "Ökosystemischer Ansatz",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Das Salutogenese-Modell nach Aaron Antonovsky und das Kohärenzgefühl",
-      "title": "Salutogenese und Kohärenzgefühl"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "eco-1",
+          "badge": "Ebene 1",
+          "label": "Mikrosystem",
+          "metric": "Direktes Umfeld",
+          "summary": "Unmittelbare Lebenswelten, in denen das Kind aktiv handelt und Beziehungen erlebt.",
+          "detail": "Familie, Kindertagesstätte, Schulklasse, Peergroup oder Sportverein prägen den Alltag durch direkte Interaktionen.",
+          "example": "Verlässliche Beziehungen zu Eltern, Bezugserzieherin und Spielfreunden."
+        },
+        {
+          "id": "eco-2",
+          "badge": "Ebene 2",
+          "label": "Mesosystem",
+          "metric": "Verbindungen",
+          "summary": "Wechselbeziehungen zwischen den verschiedenen Mikrosystemen des Kindes.",
+          "detail": "Wie gut Elternhaus, Kita, Hort und Schule kommunizieren, beeinflusst Sicherheit, Übergänge und Bildungschancen maßgeblich.",
+          "example": "Wertschätzende Erziehungspartnerschaft zwischen Familie und Kita."
+        },
+        {
+          "id": "eco-3",
+          "badge": "Ebene 3",
+          "label": "Exosystem",
+          "metric": "Indirekter Einfluss",
+          "summary": "Lebensbereiche, an denen das Kind nicht selbst teilnimmt, die aber seinen Alltag prägen.",
+          "detail": "Arbeitsbedingungen und Schichtzeiten der Eltern, Personalausstattung des Trägers oder kommunale Infrastruktur wirken mittelbar auf das Kind.",
+          "example": "Befristete Schichtarbeit der Eltern erhöht den Alltagsstress beim Bringen und Abholen."
+        },
+        {
+          "id": "eco-4",
+          "badge": "Ebene 4 & 5",
+          "label": "Makro- & Chronosystem",
+          "metric": "Gesellschaft & Zeit",
+          "summary": "Kulturelle Werte, Gesetze (Makro) sowie biografische und historische Veränderungen (Chrono).",
+          "detail": "Kinderrechte, Sozialgesetze, gesellschaftliche Normen sowie zeitliche Übergänge (Einschulung, Trennung, gesellschaftlicher Wandel) bilden den übergeordneten Rahmen.",
+          "example": "Rechtsanspruch auf Kita-Betreuung (Makro) und Übergang in die Grundschule (Chrono)."
+        }
+      ]
+    },
+    {
+      "id": "vb-3",
+      "kind": "concept_map",
+      "title": "Salutogenese (Antonovsky) & Resilienz im pädagogischen Alltag",
+      "subtitle": "Wie pädagogische Strukturen das Kohärenzgefühl und dynamische Schutzfaktoren stärken",
+      "centerLabel": "Kohärenzgefühl & Resilienz",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "sal-1",
+          "badge": "Komponente 1",
+          "label": "Verstehbarkeit",
+          "metric": "Kognitiv",
+          "summary": "Ereignisse und Anforderungen werden als geordnet, vorhersehbar und erklärbar erlebt.",
+          "detail": "Transparente Tagesabläufe, angekündigte Wechsel und ehrliche, altersgerechte Erklärungen geben Kindern Orientierung.",
+          "example": "Bildkarten zum Tagesablauf und frühzeitige Ankündigung, wenn eine Bezugsperson erkrankt ist."
+        },
+        {
+          "id": "sal-2",
+          "badge": "Komponente 2",
+          "label": "Handhabbarkeit",
+          "metric": "Instrumentell",
+          "summary": "Vertrauen darauf, dass eigene oder unterstützende Ressourcen zur Bewältigung ausreichen.",
+          "detail": "Altersangemessene Aufgaben in der ZNE, Problemlösestrategien und das Wissen „Ich darf Hilfe holen“ stärken Selbstwirksamkeit.",
+          "example": "Scaffolding beim Brückenbau statt schnelles Abnehmen der Aufgabe."
+        },
+        {
+          "id": "sal-3",
+          "badge": "Komponente 3",
+          "label": "Sinnhaftigkeit",
+          "metric": "Motivational",
+          "summary": "Anforderungen werden als bedeutsam und des Engagements wert erlebt.",
+          "detail": "Echte Partizipation, geteilte Freude, verlässliche Zugehörigkeit und Wertschätzung vermitteln Kindern, dass ihr Beitrag zählt.",
+          "example": "Kinder planen gemeinsam mit dem Team das nächste Gartenprojekt und erleben dessen Ergebnis."
+        },
+        {
+          "id": "sal-4",
+          "badge": "Schutzprozess",
+          "label": "Resilienz (dynamisch)",
+          "metric": "Wechselspiel",
+          "summary": "Psychische Widerstandskraft entsteht im Zusammenspiel von Kind und unterstützender Umwelt.",
+          "detail": "Mindestens eine verlässliche Bezugsperson, emotionale Sicherheit, positive Peer-Erfahrungen und faire Beteiligung wirken als zentrale Schutzfaktoren – veränderbar über die Zeit.",
+          "example": "Konstante Bezugsfachkraft gibt Halt während einer belastenden Trennungsphase der Eltern."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "6 Jahre (Vorschulkind)",
-    "context": "Kindertagesstätte mit Inklusionsschwerpunkt, Beobachtung und Förderplanung",
-    "setting": "Kita / Vorschulgruppe",
+    "title": "Die eingestürzte Brücke – Zwischen Stufen-Schublade, Scaffolding und Empathie",
+    "setting": "Kindertagesstätte „Buchenweg“ (Baubereich)",
+    "ageGroup": "4 Jahre",
+    "context": "Die vierjährige Klara möchte eine hohe Holzbrücke bauen, unter der ihr Spielzeugzug hindurchfahren kann. Dreimal kippen die schmalen Pfeiler um, weil der Abstand zu groß ist. Beim dritten Einsturz wirft Klara einen Baustein quer über den Teppich und bricht in Tränen aus. Eine Kollegin flüstert: „Klara ist eben erst vier und noch im präoperationalen Stadium, die kann Gleichgewicht noch nicht verstehen – ich bau ihr die Brücke schnell fertig, dann ist Ruhe.“",
     "steps": [
       {
+        "situation": "Klara weint vor ihren umgefallenen Bausteinen; die Kollegin möchte das Problem entweder als „altersbedingt unmöglich“ abtun oder die Brücke selbst fertigbauen.",
+        "prompt": "Welches pädagogische Handeln verbindet Wygotskis Zone der nächsten Entwicklung, modernes Piaget-Verständnis und Eriksons Phase „Initiative vs. Schuldgefühl“?",
         "options": [
           {
-            "feedback": "Diese Option vernachlässigt das Prinzip der ressourcenorientierten Begleitung und stigmatisiert das Kind durch voreilige Defizit-Zuschreibungen. Nach RLP soll der Entwicklungsstand wertfrei und ressourcenorientiert beobachtet werden.",
-            "label": "Die Fachkraft teilt den Eltern sofort mit, dass Leon (6 Jahre) vermutlich eine kognitive Entwicklungsverzögerung hat und fordert einen sofortigen Platz in der Sonderschule.",
+            "label": "Die Fachkraft weist Klara sofort wegen des geworfenen Bausteins aus dem Baubereich und erklärt, Bauen mit Brücken sei erst für Vorschulkinder ab sechs Jahren geeignet.",
             "quality": "problematisch",
-            "theoryLink": "RLP S-SP-3: Einschätzung des Entwicklungsstandes, Vermeidung von Stigmatisierung"
+            "feedback": "Fachlich mehrfach unpassend: Das vereinfacht Piagets Stufen zu einer starren Altersschublade, dämpft Klaras Eigeninitiative (Erikson) und bietet keine Unterstützung bei der Emotionsregulation.",
+            "theoryLink": "Kritik an starrem Stufendenken; Erikson (Initiative vs. Schuldgefühl)"
           },
           {
-            "feedback": "Diese Maßnahme ist hervorragend: Durch strukturierte Beobachtungsverfahren und Einbezug von Lerntheorien (Modelllernen nach Bandura) sowie Berücksichtigung der Resilienzfaktoren wird Leon individuell und ressourcenorientiert unterstützt.",
-            "label": "Die Fachkraft führt eine strukturierte, wertfreie Beobachtung durch, dokumentiert Leons Stärken sowie herausforderndes Verhalten und entwickelt einen ressourcenorientierten Förderplan in Absprache mit Eltern und multiprofessionellem Team.",
+            "label": "Die Fachkraft fängt Klaras Frustration feinfühlig auf, setzt eine klare Sicherheitsgrenze fürs Werfen, würdigt ihre Bauidee und erkundet gemeinsam mit ihr im Sinne des Scaffolding (ZNE), wie breitere Grundsteine mehr Halt geben – sodass Klara die Brücke selbst weiterbauen kann.",
             "quality": "optimal",
-            "theoryLink": "RLP S-SP-3: Individuelle Lern- und Entwicklungsprozesse ressourcenorientiert begleiten, Fallverstehen"
+            "feedback": "Hervorragend! Gefühlsbegleitung, klare Sicherheitsgrenze, Vertrauen in kindliche Lernfähigkeit (differenzierter Piaget) und gezieltes Scaffolding in der ZNE (Wygotski) stärken zugleich Eigeninitiative (Erikson) und Handhabbarkeit (Salutogenese).",
+            "theoryLink": "Wygotski (ZNE & Scaffolding); differenziertes Piaget-Verständnis; Erikson & Antonovsky"
           },
           {
-            "feedback": "Dieser Ansatz erkennt zwar, dass Leon Schwierigkeiten hat, greift aber zu kurz, da er weder valide Beobachtungsverfahren einsetzt noch präventive Fördermöglichkeiten systematisch erarbeitet.",
-            "label": "Die Fachkraft beobachtet Leon gelegentlich im Morgenkreis und beschließt, ihn einfach nicht mehr zu oft aufzurufen, damit er nicht auffällt.",
+            "label": "Die Fachkraft tröstet Klara herzlich und baut ihr anschließend rasch eine stabile Brücke fertig, damit Klara sofort mit dem Zug spielen kann.",
             "quality": "teilweise",
-            "theoryLink": "RLP S-SP-3: Risikofaktoren erkennen, aber fachlich unzureichende Intervention"
+            "feedback": "Der Trost tut gut, doch das vollständige Abnehmen der Aufgabe unterläuft Wygotskis Scaffolding-Prinzip und nimmt Klara die wertvolle Selbstwirksamkeitserfahrung beim eigenen Problemlösen.",
+            "theoryLink": "Abgrenzung Scaffolding vs. Aufgabenübernahme; Selbstwirksamkeit"
           }
-        ],
-        "prompt": "Leon (6 Jahre) zeigt in der Kita zunehmend herausforderndes Verhalten, kann sich im Morgenkreis kaum konzentrieren und vermeidet feinmotorische Aufgaben. Wie sollte die Fachkraft professionell reagieren?",
-        "situation": "Beobachtung und Umgang mit herausforderndem Verhalten eines Vorschulkindes im Rahmen der Entwicklungsdiagnostik."
+        ]
       },
       {
+        "situation": "Als Klaras Brücke steht, stolpert der zweijährige Noah beim Vorbeilaufen versehentlich dagegen, und ein Pfeiler fällt um. Klara ruft wütend: „Noah macht immer alles kaputt!“ Später erfahren die Fachkräfte im Elterngespräch, dass Klara zu Hause derzeit wegen eines neugeborenen Geschwisterkindes sehr angespannt ist.",
+        "prompt": "Wie nutzt die Fachkraft Empathie-/Moralentwicklung und Bronfenbrenners ökosystemischen Blick in dieser Situation?",
         "options": [
           {
-            "feedback": "Dieser Schritt verbindet Salutogenese (Antonovsky) und Resilienzkonzept ideal: Er stärkt das Kohärenzgefühl des Kindes durch Transparenz, Selbstwirksamkeit und Verstehbarkeit.",
-            "label": "Die Fachkraft gestaltet die Lernumgebung so, dass Leon durch überschaubare Teilschritte Selbstwirksamkeit erfährt, baut Schutzfaktoren aus und evaluiert den Förderplan regelmäßig.",
-            "quality": "optimal",
-            "theoryLink": "Resilienzkonzept & Antonovsky (Salutogenese): Kohärenzgefühl und Schutzfaktoren stärken"
-          },
-          {
-            "feedback": "Das Ignorieren von Fortschritten und das Festhalten an starren Erwartungen widerspricht dem inklusiven Bildungsauftrag und dem Konzept der positiven Psychologie.",
-            "label": "Die Fachkraft ändert nichts am Konzept und setzt Leon weiter unter Druck, die Aufgaben exakt wie die anderen Kinder zu lösen.",
+            "label": "Die Fachkraft zwingt Klara, sich sofort bei Noah zu entschuldigen, und merkt im Beobachtungsbogen an, Klara habe ein ausgeprägtes Empathiedefizit.",
             "quality": "problematisch",
-            "theoryLink": "RLP S-SP-3: Inklusive Pädagogik und positive Psychologie"
+            "feedback": "Fehlurteil: Erzwungene Entschuldigungen fördern keine echte Perspektivübernahme, und eine einzelne Konfliktszene rechtfertigt keinerlei Defizit-Zuschreibung.",
+            "theoryLink": "Empathie- und Moralentwicklung; Vermeidung von Stigmatisierung"
           },
           {
-            "feedback": "Zwar ist Geduld lobend, aber ohne systematische Evaluation und ressourcenorientierte Weiterarbeit bleibt die Förderung ineffektiv.",
-            "label": "Die Fachkraft wartet einfach ab, ob sich Leons Konzentration bis zur Einschulung von alleine bessert.",
+            "label": "Die Fachkraft trennt die Kinder kommentarlos und richtet eine strenge Altersgrenze im Baubereich ein, ohne die familiäre Veränderung bei Klara weiter zu berücksichtigen.",
             "quality": "teilweise",
-            "theoryLink": "RLP S-SP-3: Risikofaktoren frühzeitig erkennen und geeignete Maßnahmen einleiten"
+            "feedback": "Eine räumliche Entlastung kann kurzfristig helfen, doch die Lernchance für Perspektivübernahme bleibt ungenutzt, und wichtige Kontextfaktoren aus Klaras Mikrosystem (Familie) werden ausgeblendet.",
+            "theoryLink": "Bronfenbrenner (Mikro-/Mesosystem); alltagsintegrierte Empathiebegleitung"
+          },
+          {
+            "label": "Die Fachkraft übersetzt ruhig beide Perspektiven („Du bist erschrocken und wütend wegen deiner Brücke – und Noah ist aus Versehen gestolpert“), unterstützt beim gemeinsamen Wiederaufbau und nutzt im Team sowie mit den Eltern den ökosystemischen Blick (Bronfenbrenner), um Klara in ihrer familiären Umbruchphase gezielt Verstehbarkeit, Rückhalt und exklusive Spielzeit zu sichern.",
+            "quality": "optimal",
+            "feedback": "Vorbildlich! Hier greifen Perspektivübernahme/Empathieförderung, Bronfenbrenners Mikro- und Mesosystem-Perspektive sowie Resilienz- und Kohärenzstärkung (Antonovsky) stimmig ineinander.",
+            "theoryLink": "Empathie- und Moralentwicklung; Bronfenbrenner (Mikro-/Mesosystem); Salutogenese & Resilienz"
           }
-        ],
-        "prompt": "Nach einigen Wochen ist der Förderplan für Leon angelaufen. Wie sieht eine professionelle Evaluation und Weiterführung aus?",
-        "situation": "Evaluation des Förderplans und ressourcenorientierte Weiterarbeit im multiprofessionellen Team."
+        ]
       }
-    ],
-    "title": "Fallbeispiel: Leon (6 Jahre) – Entwicklungsstand, herausforderndes Verhalten und ressourcenorientierte Begleitung"
+    ]
   },
   "selfLearningTasks": [
-    "Entwickeln Sie einen praxisnahen Beobachtungsbogen für eine konkrete Entwicklungsaufgabe im Vorschulalter (z. B. Peer-Beziehungen) und erproben Sie diesen in einer Hospitation.",
-    "Verfassen Sie eine differenzierte Fallbeschreibung eines Kindes mit herausforderndem Verhalten unter Anwendung des ressourcenorientierten Fallverstehens (SGB VIII / SGB IX).",
-    "Erstellen Sie eine Reflexionsmatrix zu Ihrem eigenen Vorbildverhalten hinsichtlich Diversität und inklusiver Haltung im pädagogischen Alltag."
+    "Beobachten Sie eine Spiel- oder Alltagssituation in Ihrer Praxisstelle und analysieren Sie diese nacheinander durch zwei unterschiedliche theoretische Brillen (z. B. Wygotskis ZNE und Bronfenbrenners Systemebenen): Welche neuen Handlungsoptionen eröffnet jede Perspektive?",
+    "Notieren Sie zu jeder der drei Komponenten von Antonovskys Kohärenzgefühl (Verstehbarkeit, Handhabbarkeit, Sinnhaftigkeit) zwei konkrete Rituale oder Strukturen aus dem Kita-, Hort- oder Jugendhilfealltag.",
+    "Formulieren Sie in einem kurzen Reflexionstext (ca. 150 Wörter), warum Piagets und Kohlbergs Stufenmodelle in der pädagogischen Praxis hilfreiche Orientierungsrahmen sein können, aber nicht als starre Bewertungsraster genutzt werden dürfen."
   ],
   "flashcards": [
     {
-      "definition": "Erklärt menschliches Verhalten als Ergebnis von Reiz-Reaktions-Mustern (klassisch) bzw. Verstärkungslernen durch Konsequenzen (operant). Wichtige Vertreter sind Watson, Skinner und Pawlow.",
-      "example": "Lob und Anerkennung (positive Verstärkung) bekräftigen erwünschtes Verhalten bei Kindern.",
-      "term": "Verhaltens- und Lerntheorien"
+      "term": "Assimilation & Akkommodation (Piaget)",
+      "definition": "Zwei komplementäre Anpassungsprozesse kognitiver Entwicklung: Bei der Assimilation werden neue Erfahrungen in bestehende Schemata eingeordnet; bei der Akkommodation werden vorhandene Schemata verändert oder neu aufgebaut, um neue Erfahrungen zu integrieren.",
+      "example": "Ein Kleinkind nennt zunächst jedes vierbeinige Tier „Hund“ (Assimilation) und differenziert später zwischen Hund, Katze und Pferd (Akkommodation)."
     },
     {
-      "definition": "Von Albert Bandura begründeter Ansatz, bei dem Lernende durch die Beobachtung von Verhalten und Konsequenzen bei Modellpersonen (am Lernen am Modell) neue Verhaltensweisen erwerben.",
-      "example": "Ein Kind ahmt das hilfsbereite Verhalten seiner Erzieherin im Umgang mit anderen Kindern nach.",
-      "term": "Modelllernen (Bandura)"
+      "term": "Zone der nächsten Entwicklung (Wygotski) & Scaffolding",
+      "definition": "Bereich von Aufgaben, die ein Kind noch nicht ganz allein, wohl aber mit feinfühliger Begleitung einer kompetenteren Person bewältigen kann. Scaffolding bezeichnet dieses zeitweilige, schrittweise wieder abgebaute Unterstützungsgerüst.",
+      "example": "Eine Fachkraft strukturiert den ersten Schritt eines Puzzles durch einen Hinweis auf die Randteile und lässt das Kind dann eigenständig weiterarbeiten."
     },
     {
-      "definition": "Die psychische Widerstandskraft von Kindern und Jugendlichen gegenüber widrigen Lebensumständen, gestützt durch innere und äußere Schutzfaktoren.",
-      "example": "Ein Kind entwickelt trotz belastendem familiärem Umfeld stabile soziale Kompetenzen durch eine verlässliche Bezugsperson in der Kita.",
-      "term": "Resilienzkonzept"
+      "term": "Ökologische Systemtheorie (Bronfenbrenner)",
+      "definition": "Entwicklungsmodell, das kindliche Entwicklung in der Wechselwirkung von fünf Systemebenen beschreibt: Mikrosystem (direkte Lebenswelten), Mesosystem (Verbindungen dazwischen), Exosystem (indirekte Einflüsse), Makrosystem (Gesetze/Kultur) und Chronosystem (zeitlicher Wandel).",
+      "example": "Die enge Abstimmung zwischen Familie und Kita (Mesosystem) entlastet ein Kind bei einem Umzug (Chronosystem)."
     },
     {
-      "definition": "Von Aaron Antonovsky entwickeltes Konzept der Gesundheitsentstehung, das im Kern auf dem Kohärenzgefühl (Gefühl von Verstehbarkeit, Handhabbarkeit und Sinnhaftigkeit) beruht.",
-      "example": "Eine Erzieherin erklärt Tagesabläufe transparent, damit Kinder das Geschehen verstehen und als sinnvoll erleben.",
-      "term": "Salutogenese"
+      "term": "Psychosoziale Entwicklungsaufgaben (Erikson)",
+      "definition": "Lebenslaufmodell mit acht zentralen Entwicklungsthemen (u. a. Urvertrauen vs. Urmisstrauen, Autonomie vs. Scham/Zweifel, Initiative vs. Schuldgefühl, Werksinn vs. Minderwertigkeitsgefühl, Identität vs. Rollendiffusion), die in dynamischer Balance bearbeitet werden.",
+      "example": "Ein zweijähriges Kind möchte seine Schuhe selbst anziehen und erlebt durch geduldige Begleitung Autonomie statt Beschämung."
     },
     {
-      "definition": "Theoretisches Konzept von Jean Piaget, das beschreibt, wie Kinder die Welt durch die aufeinanderfolgenden Stufen der kognitiven Entwicklung (sensomotorisch bis formal-operational) aktiv konstruieren.",
-      "example": "Ein Kind begreift im präoperationalen Stadium Mengen durch konkretes Greifen und Schütten von Wasser in Gefäße.",
-      "term": "Kognitive Entwicklungstheorie (Piaget)"
+      "term": "Moralentwicklung (Kohlberg) & Empathie",
+      "definition": "Kohlberg unterscheidet präkonventionelle, konventionelle und postkonventionelle Begründungsebenen moralischer Urteile (heute ergänzt um frühe Fairness-Kompetenzen und Fürsorgeethik). Empathie entwickelt sich ab dem 2. Lebensjahr über Selbsterkennung, Perspektivübernahme und Co-Regulation.",
+      "example": "Ein dreijähriges Kind bringt einem weinenden Spielpartner dessen Kuscheltier, statt nur selbst mitzuweinen."
     },
     {
-      "definition": "Konzept von Aaron Antonovsky als Kern der Salutogenese, bestehend aus den drei Komponenten: Verstehbarkeit, Handhabbarkeit und Bedeutsamkeit/Sinnhaftigkeit.",
-      "example": "Ein Kind bewältigt eine schwierige Übergangssituation, weil es die Situation begreift und Vertrauen in die eigene Bewältigbarkeit hat.",
-      "term": "Kohärenzgefühl"
+      "term": "Salutogenese & Kohärenzgefühl (Antonovsky)",
+      "definition": "Gesundheitsorientiertes Modell, das fragt, was Menschen stärkt und gesund erhält. Kern ist das Kohärenzgefühl aus Verstehbarkeit (Orientierung), Handhabbarkeit (Vertrauen in Bewältigungsressourcen) und Sinnhaftigkeit (Bedeutsamkeit).",
+      "example": "Klare Tagesstrukturen, lösbare Aufgaben und echte Mitbestimmung stärken das Kohärenzgefühl von Kindern."
     }
   ],
   "quiz": [
     {
+      "id": "v2-q1",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Welche wesentliche Korrektur nimmt die moderne Entwicklungspsychologie an Jean Piagets klassischem Stufenmodell vor?",
+      "options": [
+        "Sie zeigt, dass Kinder in alltagsnahen, verständlichen Situationen manche Kompetenzen früher zeigen als angenommen und Entwicklung bereichsspezifischer sowie sozial stärker eingebettet verläuft als in starren Altersstufen.",
+        "Sie widerlegt vollständig, dass Kinder Wissen aktiv durch Handeln konstruieren.",
+        "Sie belegt, dass kognitive Entwicklung exakt mit dem 6. Lebensjahr abgeschlossen ist.",
+        "Sie ersetzt alle kognitiven Theorien vollständig durch klassische Konditionierung."
+      ],
+      "correctIndices": [
+        0
+      ],
+      "explanation": "Piagets Grundgedanke der aktiven Wissenskonstruktion bleibt bedeutsam, doch jüngere Forschung zeigt, dass Kompetenzen (z. B. Objektpermanenz, frühe Perspektivübernahme) stark vom Aufgabenkontext abhängen und nicht schlagartig in starren, altersgleichen Gesamtstufen auftreten."
+    },
+    {
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Welche Ebene in Urie Bronfenbrenners ökologischer Systemtheorie beschreibt die Zusammenarbeit zwischen Elternhaus und Kindertagesstätte?",
+      "options": [
+        "Makrosystem",
+        "Exosystem",
+        "Mesosystem",
+        "Chronosystem"
+      ],
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Das Mesosystem umfasst die Wechselbeziehungen und Verbindungen zwischen verschiedenen unmittelbaren Lebenswelten (Mikrosystemen) eines Kindes – etwa zwischen Familie und Kita oder Kita und Grundschule."
+    },
+    {
+      "id": "v2-q3",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Praxisfall: Ein dreijähriges Kind versucht hartnäckig, einen Reißverschluss zu schließen, schafft das Einfädeln aber noch nicht allein und wird ungeduldig. Welches Vorgehen setzt Wygotskis „Zone der nächsten Entwicklung“ (Scaffolding) fachgerecht um?",
+      "options": [
+        "Die Fachkraft schließt den Reißverschluss wortlos komplett selbst, damit es schneller nach draußen geht.",
+        "Die Fachkraft verweigert jede Hilfe, damit das Kind lernt, Probleme völlig allein zu lösen.",
+        "Die Fachkraft sagt dem Kind, Reißverschlüsse seien erst ab fünf Jahren vorgesehen.",
+        "Die Fachkraft hält das untere Ende kurz stabil, hilft sprachlich beim Einfädeln und lässt das Kind den Reißverschluss selbstständig hochziehen."
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Scaffolding in der Zone der nächsten Entwicklung gibt genau so viel gezielte Teilunterstützung, dass das Kind die Handlung aktiv mitvollziehen und schrittweise selbstständig übernehmen kann."
+    },
+    {
+      "id": "v2-q4",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Welche drei Komponenten bilden das Kohärenzgefühl in Aaron Antonovskys Salutogenese-Modell?",
+      "options": [
+        "Assimilation, Akkommodation und Äquilibration",
+        "Verstehbarkeit, Handhabbarkeit und Sinnhaftigkeit",
+        "Urvertrauen, Autonomie und Werksinn",
+        "Mikro-, Meso- und Exosystem"
+      ],
       "correctIndices": [
         1
       ],
-      "difficulty": "basis",
-      "explanation": "Das Kohärenzgefühl nach Aaron Antonovsky setzt sich aus den drei Dimensionen Verstehbarkeit, Handhabbarkeit und Sinnhaftigkeit (Bedeutsamkeit) zusammen.",
-      "id": "q-1",
-      "options": [
-        "A) Autonomie, Kompetenz und soziale Eingebundenheit",
-        "B) Verstehbarkeit, Handhabbarkeit und Sinnhaftigkeit",
-        "C) Assimilation, Akkommodation und Äquilibration",
-        "D) Sensomotorik, Präoperation und Konkret-Operation"
-      ],
-      "question": "Welche drei zentralen Komponenten bilden laut Aaron Antonovsky das Kohärenzgefühl im Rahmen der Salutogenese?",
-      "type": "single"
+      "explanation": "Nach Antonovsky setzt sich das Kohärenzgefühl (Sense of Coherence) aus den drei Komponenten Verstehbarkeit (kognitiv), Handhabbarkeit (instrumentell) und Sinnhaftigkeit/Bedeutsamkeit (motivational) zusammen."
     },
     {
+      "id": "v2-q5",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Aussagen zur fachlichen Einordnung von Resilienz treffen auf Basis der aktuellen Forschung zu?",
+      "options": [
+        "Resilienz ist kein angeborener, unveränderlicher Wesenszug, sondern ein dynamischer, über die Lebensspanne veränderbarer Anpassungs- und Bewältigungsprozess.",
+        "Verlässliche soziale Bezugspersonen in Familie, Kita oder Schule zählen zu den wichtigsten äußeren Schutzfaktoren.",
+        "Resilienz bedeutet, dass ein Kind unter schweren Belastungen keinerlei Unterstützung durch Erwachsene benötigt.",
+        "Ein Kind kann in einem Lebensbereich oder Zeitraum resilient wirken und in einer anderen Belastungssituation dennoch gezielte Hilfe brauchen."
+      ],
       "correctIndices": [
+        0,
         1,
-        2
+        3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Klassische Konditionierung (Pawlow, Watson) und operante Konditionierung (Skinner) sind klassische behavioristische Lerntheorien. Piagets Stufentheorie gehört zum Kognitivismus, und Banduras Modelllernen ist sozial-kognitiv.",
-      "id": "q-2",
-      "options": [
-        "A) Kognitive Entwicklungstheorie nach Piaget",
-        "B) Klassische Konditionierung (Pawlow/Watson)",
-        "C) Operante Konditionierung (Skinner)",
-        "D) Psychosoziales Entwicklungsmodell nach Erikson"
-      ],
-      "question": "Welche der folgenden theoretischen Ansätze gehören zu den klassischen Verhaltens- und Lerntheorien? (Mehrfachauswahl)",
-      "type": "multi"
+      "explanation": "Resilienz entsteht dynamisch und situationsabhängig im Zusammenspiel personaler und sozialer Schutzfaktoren. Sie darf niemals als Rechtfertigung dienen, belastete Kinder sich selbst zu überlassen."
     },
     {
-      "correctIndices": [
-        2
-      ],
+      "id": "v2-q6",
+      "type": "multi",
       "difficulty": "pruefung",
-      "explanation": "Nach Banduras Modelllernen (Sozial-kognitive Lerntheorie) spielen Aufmerksamkeit, Gedächtnis (Behalten), Reproduktion und Motivation eine zentrale Rolle beim Lernen am Modell.",
-      "id": "q-3",
+      "question": "Welche Aussagen ordnen Lawrence Kohlbergs Theorie der Moralentwicklung und die moderne Empathieforschung sachlich korrekt ein?",
       "options": [
-        "A) Nur angeborene Reflexe und Reiz-Reaktions-Ketten ohne kognitive Prozesse",
-        "B) Ausschließlich positive und negative Verstärkung durch Belohnung und Bestrafung",
-        "C) Kognitive Vermittlungsprozesse wie Aufmerksamkeit, Behalten, Motorische Reproduktion und Motivation bei der Beobachtung von Vorbildern",
-        "D) Die Stufenentwicklung des moralischen Urteils nach Kohlberg"
+        "Kohlberg unterscheidet präkonventionelle, konventionelle und postkonventionelle Begründungsebenen moralischer Urteile.",
+        "Moralisches Urteilen in theoretischen Fallgeschichten garantiert automatisch moralisches Handeln im Alltagskonflikt.",
+        "Kritische Ergänzungen (u. a. Carol Gilligan) betonen neben abstrakten Gerechtigkeitsregeln die Bedeutung von Fürsorge- und Beziehungsethik.",
+        "Empathie entwickelt sich ab dem zweiten Lebensjahr im Zusammenspiel mit Selbsterkennung, Perspektivübernahme und feinfühligen Beziehungen."
       ],
-      "question": "Was beschreibt das Modelllernen nach Albert Bandura im Kern?",
-      "type": "single"
+      "correctIndices": [
+        0,
+        2,
+        3
+      ],
+      "explanation": "Zwischen moralischem Urteilen und tatsächlichem Handeln besteht oft eine Lücke (z. B. unter Gruppendruck oder emotionalem Stress). Kohlbergs Stufen werden heute durch Fürsorgeethik und Befunde zur frühen Fairness- und Empathieentwicklung differenziert ergänzt."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Piaget und Vygotsky: Ihre Bedeutung für das Lehren und Lernen (ZfDN / pedocs)",
+      "url": "https://www.pedocs.de/volltexte/2024/31493/pdf/ZfDN_1996_3_Bliss_Piaget_und_Vygotsky_Ihre_Bedeutung_fuer_das_Lehren.pdf",
+      "publisher": "pedocs / Leibniz-Institut für Bildungsforschung und Bildungsinformation (DIPF)",
+      "note": "Wissenschaftliche Gegenüberstellung von Piaget und Wygotski samt ZNE und Scaffolding"
     },
     {
-      "correctIndices": [
-        0
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Leon zeigt Anzeichen von Überforderung und Konzentrationsschwierigkeiten. Eine professionelle, ressourcenorientierte Herangehensweise verlangt nach strukturierter Beobachtung, Analyse der Ursachen und Erstellung eines individuellen Förderplans in Absprache mit allen Beteiligten, statt voreilig zu stigmatisieren.",
-      "id": "q-4",
-      "options": [
-        "A) Die Fachkraft führt eine strukturierte Beobachtung durch, analysiert ressourcenorientiert die Ursachen und entwickelt gemeinsam mit dem Team und den Eltern einen individuellen Förderplan.",
-        "B) Die Fachkraft stuft Leon sofort als unbeschulbar ein und veranlasst ohne Absprache einen Schulwechsel.",
-        "C) Die Fachkraft ignoriert das Verhalten, da es sich in der Grundschule von selbst geben wird.",
-        "D) Die Fachkraft setzt Leon unter Leistungsdruck, damit er sich den anderen anpasst."
-      ],
-      "question": "Praxissituation: Ein 6-jähriges Kind zeigt in der Kita auffällige Konzentrationsschwierigkeiten und vermeidet bestimmte Lernsituationen. Wie reagiert eine ausgebildete Fachkraft im Sinne des RLP Rheinland-Pfalz (S-SP-3)?",
-      "type": "case"
+      "title": "Piagets Theorie der kognitiven Entwicklung – Darstellung und Einordnung",
+      "url": "https://www.kindergartenpaedagogik.de/fachartikel/psychologie/piagets-theorie-der-kognitiven-entwicklung/",
+      "publisher": "Online-Familienhandbuch / kindergartenpaedagogik.de",
+      "note": "Übersicht zu Assimilation, Akkommodation, Stadien und pädagogischer Bedeutung"
     },
     {
-      "correctIndices": [
-        0
-      ],
-      "difficulty": "basis",
-      "explanation": "Robert J. Havighurst definierte Entwicklungsaufgaben als Aufgaben, die in bestimmten Lebensabschnitten eines Menschen auftreten und deren Bewältigung zu Glück und Erfolg bei späteren Aufgaben führt, während Misserfolg zu Unzufriedenheit führt.",
-      "id": "q-5",
-      "options": [
-        "A) Robert J. Havighurst",
-        "B) Aaron Antonovsky",
-        "C) Jean Piaget",
-        "D) Ivan Pawlow"
-      ],
-      "question": "Wer prägte den Begriff der „Entwicklungsaufgaben“ (developmental tasks) für verschiedene Lebensabschnitte?",
-      "type": "single"
+      "title": "Lew Wygotski – entdeckt für die Kindergartenpädagogik",
+      "url": "https://www.kindergartenpaedagogik.de/fachartikel/paedagogische-ansaetze/moderne-paedagogische-ansaetze/lew-wygotski-entdeckt-fuer-die-kindergartenpaedagogik/",
+      "publisher": "Online-Familienhandbuch / kindergartenpaedagogik.de",
+      "note": "Vertiefung zu soziokultureller Theorie, Sprache und Zone der nächsten Entwicklung"
     },
     {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Resilienz bezeichnet die psychische Widerstandskraft gegenüber widrigen Lebensumständen und Stressoren, gestützt durch innere (personale) und äußere (soziale) Schutzfaktoren.",
-      "id": "q-6",
-      "options": [
-        "A) Die Fähigkeit, Konflikte ausschließlich durch Strafen zu lösen",
-        "B) Die psychische Widerstandskraft von Kindern und Jugendlichen gegenüber Risikofaktoren und Belastungen",
-        "C) Ein rein genetisch festgelegtes Intelligenzkonstrukt",
-        "D) Die Stufen der moralischen Entwicklung nach Piaget"
-      ],
-      "question": "Was versteht man in der Sozialpädagogik unter dem Begriff „Resilienz“?",
-      "type": "single"
+      "title": "Empathie als Kindheitsmuster – Fachbeitrag",
+      "url": "https://nifbe.de/fachbeitraege/emphatie-als-kindheitsmuster/",
+      "publisher": "Niedersächsisches Institut für frühkindliche Bildung und Entwicklung (nifbe e.V.)",
+      "note": "Entwicklungspsychologische Grundlagen der Empathieentwicklung im Kleinkindalter"
+    },
+    {
+      "title": "Resilienz – Fachbeitrag zu Schutzfaktoren und Entwicklung",
+      "url": "https://nifbe.de/fachbeitraege/resilienz/",
+      "publisher": "Niedersächsisches Institut für frühkindliche Bildung und Entwicklung (nifbe e.V.)",
+      "note": "Differenzierte Darstellung von Resilienz als dynamischem Entwicklungsprozess"
+    },
+    {
+      "title": "Salutogenese – Leitbegriffe der Gesundheitsförderung und Prävention",
+      "url": "https://books.publisso.de/de/publisso_gold/publishing/books/overview/54/392",
+      "publisher": "Bundesinstitut für Öffentliche Gesundheit (BIÖG / ehem. BZgA) via PUBLISSO",
+      "note": "Fachlexikon-Beitrag zu Antonovskys Salutogenese-Modell und Kohärenzgefühl"
     }
   ]
 }

@@ -3,10 +3,12 @@
   "number": 21,
   "moduleCode": "S-SP-3",
   "moduleArea": "sp-pflicht",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-3 · Normalität, Stigmatisierung & Recht auf Inklusion (Lehrplan RLP 2024)",
   "title": "Normalität, Stigmatisierung & Recht auf Inklusion (UN-BRK)",
-  "subtitle": "Vom medizinischen Defizitblick zu inklusiven Leitbildern und Chancengerechtigkeit",
+  "subtitle": "Bio-psycho-soziales Modell (ICF), UN-BRK Art. 7 & 24, Index für Inklusion und Anti-Stigmatisierung",
   "year": "1. Jahr",
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 28,
   "hoursRef": "240 Std. (Teil 1/5)",
   "pdfPages": "S. 24–25",
   "crossCuttingTags": [
@@ -14,402 +16,432 @@
     "Wertevermittlung",
     "Partizipation"
   ],
-  "summary": "Einheit 21 des Lernmoduls S-SP-3 bietet eine fundierte Auseinandersetzung mit Normalitätsvorstellungen, Stigmatisierungsprozessen (Labeling Approach) und den rechtlichen Grundlagen der UN-Behindertenrechtskonvention. Angehende Erzieher:innen (Bachelor Professional in Sozialwesen) lernen, den medizinischen Defizitblick zugunsten eines inklusiven, menschenrechtsbasierten Leitbilds zu überwinden und Chancengerechtigkeit in der Praxis zu fördern.",
+  "summary": "Inklusion ist kein freiwilliges Zusatzprogramm, sondern ein menschenrechtlicher Auftrag. Diese Einheit beleuchtet Normalitätsvorstellungen und Stigmatisierungsprozesse (Labeling Approach), stellt das medizinische, soziale und bio-psycho-soziale Modell (ICF) einander gegenüber, unterscheidet Exklusion, Separation, Integration und Inklusion und zeigt, wie UN-BRK Art. 7 und 24 sowie der Index für Inklusion konkret im pädagogischen Alltag wirken.",
   "learningGoals": [
-    "Ich kann den Wandel vom medizinischen Defizitblick zum biopsychosozialen und inklusiven Verständnis von Behinderung und Diversität fachlich begründen.",
-    "Ich kann gesellschaftliche Stigmatisierungs- und Etikettierungsprozesse mithilfe des Labeling Approachs analysieren und in der pädagogischen Praxis reflektieren.",
-    "Ich kann die zentralen rechtlichen Vorgaben der UN-Behindertenrechtskonvention (UN-BRK, insbesondere Art. 24) auf die inklusive Gestaltung sozialpädagogischer Arbeitsfelder anwenden.",
-    "Ich kann die historischen und konzeptionellen Stufen von Exklusion, Separation, Integration und Inklusion unterscheiden und kritisch bewerten.",
-    "Ich kann Leitbilder und Konzepte zur Förderung von Chancengerechtigkeit und Partizipation in Gruppen entwickeln und im pädagogischen Alltag vertreten."
+    "Ich kann statistische und normative Normalitätsvorstellungen kritisch reflektieren und Vielfalt als regulären Ausgangspunkt pädagogischer Arbeit begründen.",
+    "Ich kann das medizinische, das soziale und das bio-psycho-soziale Modell von Behinderung (ICF / § 2 Abs. 1 SGB IX) fachlich unterscheiden und auf Alltagssituationen anwenden.",
+    "Ich kann Exklusion, Separation, Integration und Inklusion sauber voneinander abgrenzen und den Index für Inklusion als Instrument zur Qualitätsentwicklung nutzen.",
+    "Ich kann die menschenrechtlichen Kernvorgaben der UN-Behindertenrechtskonvention – insbesondere Artikel 7 (Kinder mit Behinderungen) und Artikel 24 (Inklusive Bildung) – auf sozialpädagogische Einrichtungen übertragen.",
+    "Ich kann Stigmatisierungs- und Etikettierungsprozesse (Labeling Approach) in Sprache, Dokumentation und Gruppenalltag erkennen und ihnen aktiv entgegenwirken."
   ],
   "sections": [
     {
-      "body": "Der traditionelle medizinische Defizitblick lokalisiert Ursachen für Beeinträchtigungen oder abweichendes Verhalten ausschließlich im Individuum (Schadenmodell). Demgegenüber versteht das moderne sozialpädagogische Leitbild Diversität als Normalität und den Regelfall einer pluralistischen Gesellschaft. Inklusion fordert, dass sich gesellschaftliche Institutionen (Kitas, Schulen, Freizeiteinrichtungen) an die unterschiedlichen Voraussetzungen aller Menschen anpassen – und nicht umgekehrt. Dies erfordert von angehenden Erzieher:innen eine kritische Reflexion eigener Normvorstellungen und Vorurteile.",
+      "heading": "1. Normalitätsvorstellungen & Modelle von Behinderung (ICF)",
+      "keyTakeaway": "Das bio-psycho-soziale Modell der ICF versteht Behinderung nicht als bloßes Defizit einer Person, sondern als Wechselwirkung zwischen individuellen Beeinträchtigungen und gesellschaftlichen Barrieren.",
+      "body": "Vorstellungen davon, was „normal“ ist, prägen pädagogische Bewertungen oft unbemerkt. Dabei müssen zwei Bedeutungen unterschieden werden: Statistische Normalität beschreibt lediglich eine Häufigkeitsverteilung (was bei vielen vorkommt), während normative Normalität eine gesetzte Erwartung formuliert („wie ein Kind in diesem Alter sein soll“). Wer statistische Durchschnittswerte zur starren Norm erhebt, macht Vielfalt schnell zur „Abweichung“. In der Geschichte der Pädagogik und Rehabilitation spiegeln sich drei zentrale Denkmodelle wider: Das medizinische Modell lokalisiert Beeinträchtigungen allein im Individuum (Schaden- oder Defizitmodell) und zielt primär auf Heilung oder Anpassung des Menschen an bestehende Strukturen. Das soziale Modell dreht den Blick um und hebt hervor, dass Menschen vor allem durch bauliche, kommunikative, organisatorische und einstellungsbedingte Barrieren behindert werden. Das heute fachlich und rechtlich maßgebliche bio-psycho-soziale Modell der WHO – operationalisiert in der ICF (Internationale Klassifikation der Funktionsfähigkeit, Behinderung und Gesundheit) und verankert in § 2 Abs. 1 SGB IX – verbindet beide Perspektiven: Es erkennt reale körperliche, seelische, geistige oder Sinnesbeeinträchtigungen an, analysiert Behinderung aber stets als dynamische Wechselwirkung zwischen individuellen Voraussetzungen und fördernden oder hemmenden Umweltfaktoren.",
       "bulletPoints": [
-        "Abkehr vom starren Normalitätsbegriff (statistische vs. normative Normalität).",
-        "Vom Defizitmodell zum ressourcenorientierten Blick (ICF-Perspektive).",
-        "Diversität als Ausgangspunkt und Chance pädagogischen Handelns.",
-        "Reflexion eigener Einstellungen und Vorurteile im Team."
+        "Statistische Normalität (Häufigkeit) vs. normative Normalität (Soll-Erwartung) kritisch auseinanderhalten.",
+        "Medizinisches Modell: Problem liegt allein im Individuum; Ziel ist Kompensation oder Anpassung an die Norm.",
+        "Soziales Modell: Fokus auf gesellschaftliche, räumliche, kommunikative und einstellungsbedingte Teilhabebarrieren.",
+        "Bio-psycho-soziales Modell (ICF / § 2 Abs. 1 SGB IX): Behinderung entsteht in der Wechselwirkung von Beeinträchtigung und Umweltfaktoren – individuelle Unterstützungsbedarfe und Barriereabbau gehören zusammen."
       ],
-      "heading": "Vom medizinischen Defizitblick zu inklusiven Leitbildern",
-      "keyTakeaway": "Nicht der Mensch muss sich an eine starre Norm anpassen, sondern die pädagogische Umwelt muss für alle barrierefrei und gestaltbar sein.",
-      "praxisTip": "Führen Sie in Ihrer Einrichtung eine Bestandsaufnahme durch: Welche unausgesprochenen Normen (z. B. 'Ein Kind in dem Alter muss...') prägen den Alltag, und wo werden Kinder unbewusst ausgeschlossen?"
+      "praxisTip": "Fragen Sie bei Schwierigkeiten im Gruppenalltag nicht zuerst „Was stimmt mit dem Kind nicht?“, sondern systematisch nach den Umweltfaktoren: Welche akustischen, räumlichen, zeitlichen oder sprachlichen Barrieren erschweren gerade die Teilhabe?"
     },
     {
-      "body": "Gesellschaftliche Stigmatisierungs- und Etikettierungsprozesse lassen sich hervorragend durch den Labeling Approach (u.a. Howard S. Becker) erklären. Demnach ist abweichendes Verhalten (Devianz) keine inhärente Eigenschaft einer Person, sondern das Ergebnis gesellschaftlicher Zuschreibungsprozesse. Werden Kinder mit Etiketten wie 'verhaltensauffällig', 'lernschwach' oder 'integrationskind' versehen, führt dies häufig zu Stigmatisierung, Stereotypisierung und im schlimmsten Fall zu einer selbsterfüllenden Prophezeiung (self-fulfilling prophecy), bei der das Kind die zugeschriebene Rolle annimmt. Erzieher:innen müssen sich dieser Etikettierungsfallen bewusst sein.",
+      "heading": "2. Integration vs. Inklusion & der Index für Inklusion",
+      "keyTakeaway": "Während Integration häufig einzelne Kinder nachträglich in unveränderte Strukturen einfügt, gestaltet Inklusion Kulturen, Strukturen und Praktiken der Einrichtung von vornherein für alle vielfältig und barrierearm.",
+      "body": "Im historischen und konzeptionellen Wandel werden vier Umgangsweisen mit Vielfalt unterschieden: Bei Exklusion bleiben Kinder mit bestimmten Merkmalen vollständig ausgeschlossen. Separation weist ihnen eigene Sondersysteme zu (z. B. getrennte Einrichtungen ohne Begegnung). Integration ermöglicht zwar das Dabeisein in Regeleinrichtungen, geht aber häufig weiterhin von einer „Zwei-Gruppen-Logik“ aus (Mehrheitsgruppe vs. „Integrationskinder“ mit Sonderstatus) und verlangt dem Kind erhebliche Anpassungsleistungen ab. Inklusion dagegen begreift Heterogenität als Normalfall: Nicht das Kind muss sich für die Zugehörigkeit qualifizieren, sondern die Einrichtung entwickelt ihre Rahmenbedingungen so weiter, dass möglichst alle Kinder gemeinsam spielen, lernen und mitbestimmen können. Ein bewährtes Praxiswerkzeug für diesen kontinuierlichen Entwicklungsprozess ist der „Index für Inklusion“ (entwickelt von Tony Booth und Mel Ainscow, für Kitas im deutschsprachigen Raum u. a. über die GEW adaptiert). Er ersetzt defizitäre Etiketten durch die Frage nach „Barrieren für Spiel, Lernen und Partizipation“ und strukturiert die Qualitätsentwicklung in drei miteinander verschränkten Dimensionen: inklusive Kulturen schaffen (Gemeinschaft, wertschätzende Werte), inklusive Strukturen etablieren (Zugang, Ressourcen, Übergänge, Personal) und inklusive Praktiken entwickeln (Alltag, Spiel, Lernangebote).",
       "bulletPoints": [
-        "Theoretische Grundlagen des Labeling Approach (Howard S. Becker).",
-        "Entstehung von Vorurteilen, Stereotypen und Stigmatisierung.",
-        "Gefahr der self-fulfilling prophecy im pädagogischen Alltag.",
-        "Rolle der Fachkraft: Vom Etikettieren zum differenzierten, wertfreien Beobachten."
+        "Exklusion (Ausschluss) → Separation (Sondersysteme) → Integration (Eingliederung mit Sonderstatus) → Inklusion (Zugehörigkeit von Anfang an, Systemanpassung).",
+        "Inklusion ist kein fertiger Endzustand, sondern ein fortlaufender Prozess des Abbaus von Teilhabebarrieren.",
+        "Index für Inklusion (Booth & Ainscow): Qualitätsentwicklung auf den drei Ebenen Kultur, Struktur und Praxis unter Beteiligung von Team, Eltern und Kindern.",
+        "Spannungsfeld im Blick behalten: Individuelle Nachteilsausgleiche oder gezielte Förderung bleiben legitim, solange sie Teilhabe ermöglichen statt auszugrenzen."
       ],
-      "heading": "Stigmatisierung und Etikettierungsprozesse (Labeling Approach)",
-      "keyTakeaway": "Etiketten beschreiben keine objektive Realität, sondern soziale Zuschreibungen, die das Verhalten von Kindern massiv beeinflussen können.",
-      "praxisTip": "Reflektieren Sie im Team regelmäßig Ihre Teamsprache und Dokumentationen: Werden in Übergabegesprächen Kinder oft auf Defizit-Labels reduziert statt auf ihre Ressourcen geschaut?"
+      "praxisTip": "Nutzen Sie einzelne Leitfragen aus dem Index für Inklusion für eine 20-minütige Teamreflexion – etwa: „Können alle Kinder unserer Gruppe die wichtigsten Spielmaterialien selbstständig erreichen und mitentscheiden, was im Tagesverlauf passiert?“"
     },
     {
-      "body": "Die UN-Behindertenrechtskonvention (UN-BRK), die 2009 in Deutschland in Kraft trat, markiert einen Paradigmenwechsel. Insbesondere Artikel 24 verpflichtet die Vertragsstaaten zur Gewährleistung eines inklusiven Bildungssystems auf allen Ebenen. Inklusion ist somit kein freiwilliges 'nice-to-have', sondern ein einklagbares Menschenrecht. Neben der UN-BRK bilden sozialrechtliche Grundlagen wie das SGB VIII, das SGB IX und das Bundesteilhabegesetz (BTHG) den verbindlichen Rahmen für eine inklusive Hilfe- und Teilhabeplanung sowie barrierefreie Sozialräume.",
+      "heading": "3. Menschenrechtlicher Rahmen: UN-BRK Art. 7 & Art. 24",
+      "keyTakeaway": "Mit Artikel 7 und Artikel 24 der UN-Behindertenrechtskonvention sind gleichberechtigte Teilhabe, Meinungsäußerung und inklusive Bildung völkerrechtlich verbindliche Menschenrechte – keine bloße Gefälligkeit.",
+      "body": "Die UN-Behindertenrechtskonvention (UN-BRK) ist in Deutschland seit 2009 rechtlich verbindlich und markiert den Übergang vom Fürsorge- zum Menschenrechtsansatz. Für die Kinder- und Jugendhilfe sind zwei Artikel besonders wegweisend: Artikel 7 UN-BRK (Kinder mit Behinderungen) verpflichtet die Vertragsstaaten sicherzustellen, dass Kinder mit Behinderungen gleichberechtigt mit anderen Kindern alle Menschenrechte und Grundfreiheiten genießen. Das Wohl des Kindes ist dabei vorrangig zu berücksichtigen, und Kinder mit Behinderungen haben das Recht, ihre Meinung in allen sie berührenden Angelegenheiten frei zu äußern – dafür steht ihnen alters- und behinderungsgerechte Unterstützung zu (z. B. Unterstützte Kommunikation, Gebärden, Bildkarten). Artikel 24 UN-BRK (Bildung) verankert das Recht auf Bildung ohne Diskriminierung und verpflichtet zu einem inklusiven Bildungssystem auf allen Ebenen – von der frühen Kindheit bis zum lebenslangen Lernen. (Hinweis zur Quellenkritik: In der amtlichen deutschen Übersetzung stand historisch zunächst „integratives Bildungssystem“, völkerrechtlich maßgeblich ist jedoch die englische Originalfassung „inclusive education system“.) Niemand darf aufgrund einer Behinderung vom allgemeinen Bildungssystem ausgeschlossen werden; stattdessen sind angemessene Vorkehrungen und notwendige individuelle Unterstützungsleistungen im Regelsystem bereitzustellen. Im nationalen Recht spiegelt sich dieser Auftrag unter anderem in § 22a Abs. 4 SGB VIII (gemeinsame Förderung von Kindern mit und ohne Behinderungen in Tageseinrichtungen) sowie im Bundesteilhabegesetz (SGB IX) wider.",
       "bulletPoints": [
-        "Die UN-Behindertenrechtskonvention als völkerrechtlicher Meilenstein.",
-        "Kerngehalt von Artikel 24 (Inklusives Bildungssystem).",
-        "Rechtliche Grundlagen in Deutschland (SGB VIII, SGB IX, BTHG).",
-        "Verbindung von Menschenrechten und sozialpädagogischem Alltagshandeln."
+        "UN-BRK (seit 2009 in Deutschland verbindlich): Menschenrechtsmodell statt fürsorglichem Defizitblick.",
+        "Art. 7 UN-BRK: Gleiche Rechte für Kinder mit Behinderungen, Vorrang des Kindeswohls und Recht auf freie Meinungsäußerung mit geeigneter Unterstützung.",
+        "Art. 24 UN-BRK: Recht auf ein inklusives Bildungssystem auf allen Ebenen, Diskriminierungsverbot und Pflicht zu angemessenen Vorkehrungen.",
+        "Nationale Umsetzung u. a. über § 22a Abs. 4 SGB VIII (gemeinsame Förderung in der Kita) und das Teilhaberecht nach SGB IX."
       ],
-      "heading": "Rechtliche Rahmenbedingungen: UN-BRK & Teilhaberecht",
-      "keyTakeaway": "Inklusion ist kein pädagogisches Luxusprojekt, sondern ein durch Menschenrechte und Gesetze garantiertes Recht für jeden Menschen.",
-      "praxisTip": "Nutzen Sie die gesetzlichen Möglichkeiten des SGB VIII und SGB IX, um interdisziplinär mit anderen Professionen (z. B. Frühförderstellen, Jugendamt) zusammenzuarbeiten und Teilhabepläne ressourcenorientiert zu gestalten."
+      "praxisTip": "Prüfen Sie bei Beteiligungsrunden (z. B. Kinderkonferenz oder Abstimmungen), ob Kinder mit geringer Lautsprache, Hör- oder kognitiven Beeinträchtigungen gleichberechtigt mitentscheiden können – etwa über Symbole, Gebärden oder Zeigetafeln (Art. 7 UN-BRK)."
     },
     {
-      "body": "In der sonder- und sozialpädagogischen Diskussion wird historisch zwischen vier Konzepten unterschieden: Exklusion (völliger Ausschluss), Separation (Unterbringung in Sondersystemen), Integration (Eingliederung von Personen mit Förderbedarf in das Regelsystem bei weitgehender Anpassungsleistung des Individuums) und Inklusion (unbedingte Zugehörigkeit von Anfang an, das System passt sich der Vielfalt an). Während Integration oft ein 'Dabeisein um jeden Preis' bei bestehenden Barrieren bedeutet, bricht Inklusion mit jeglichen Exklusionsmechanismen und fordert Chancengerechtigkeit für alle.",
+      "heading": "4. Stigmatisierung, Labeling Approach & Anti-Stigmatisierung im Alltag",
+      "keyTakeaway": "Zuschreibungen wie „schwierig“ oder „I-Kind“ beschreiben keine feststehenden Eigenschaften, sondern erzeugen soziale Etiketten, die Teilhabe einschränken und Selbstbilder belasten können.",
+      "body": "Wie Ausgrenzung im Alltag entsteht, erklären soziologische Ansätze wie der Labeling Approach (Etikettierungsansatz, u. a. Howard S. Becker) und Erving Goffmans Stigma-Konzept. Demnach ist „Abweichung“ keine rein objektive Eigenschaft eines Menschen, sondern entsteht wesentlich durch soziale Regeln, Machtverhältnisse und Zuschreibungsprozesse. Wird ein Kind wiederholt mit vereinfachenden Etiketten belegt – etwa „Störenfried“, „nicht gruppenfähig“, „Problemfall“ oder auch verkürzt „das I-Kind“ –, droht ein Stigma: Das einzelne Merkmal verdeckt die ganze Persönlichkeit. Kinder nehmen solche Rückmeldungen sensibel wahr; im ungünstigen Fall übernehmen sie das zugeschriebene Rollenbild (sekundäre Devianz bzw. selbsterfüllende Prophezeiung), ziehen sich zurück oder verstärken genau das kritisierte Verhalten. Zugleich entsteht in der inklusiven Praxis ein bekanntes Dilemma (Etikettierungs-Ressourcen-Dilemma): Für zusätzliche Personal- oder Assistenzmittel verlangen Verwaltungssysteme oft formale Diagnosen oder Förderbedarfsfeststellungen. Professionelle Anti-Stigmatisierung geht mit diesem Spannungsfeld reflektiert um: Fachkräfte nutzen formale Feststellungen ausschließlich als Mittel zum Abbau von Barrieren, beschreiben Kinder in Teamsprache, Berichten und Gesprächen jedoch konsequent als individuelle Subjekte mit Stärken, Interessen und situativen Bedarfen.",
       "bulletPoints": [
-        "Exklusion: Vollständiger Ausschluss aus der Gemeinschaft.",
-        "Separation: Parallele Sondersysteme für bestimmte Gruppen.",
-        "Integration: Eingliederung in das Regelsystem mit Anpassungsdruck für das Individuum.",
-        "Inklusion: Das System ist für alle da – Vielfalt ist der Normalfall."
+        "Labeling Approach (Becker) & Stigma (Goffman): Etiketten prägen Fremdwahrnehmung, Teilhabechancen und kindliches Selbstbild.",
+        "Etikettierungs-Ressourcen-Dilemma: Formale Bedarfsfeststellungen dienen der Unterstützung, dürfen aber niemals die pädagogische Sicht auf das ganze Kind verengen.",
+        "Teamsprache und Dokumentation reflektieren: Verhaltensnahe, ressourcenorientierte Formulierungen statt pauschaler Defizit-Labels.",
+        "Anti-Stigmatisierung stärkt Peer-Beziehungen, Zugehörigkeit und Selbstwirksamkeit aller Kinder."
       ],
-      "heading": "Exklusion, Separation, Integration und Inklusion",
-      "keyTakeaway": "Inklusion ist mehr als Integration: Sie verlangt die grundsätzliche Umgestaltung des Systems statt die bloße Eingliederung von 'Sonderfällen'.",
-      "praxisTip": "Überprüfen Sie bestehende Förderangebote in Ihrer Einrichtung: Handelt es sich um integrative Zusatzförderung oder um einen inklusiven Ansatz, bei dem alle Kinder gemeinsam ohne Ausgrenzung partizipieren?"
+      "praxisTip": "Vereinbaren Sie im Team eine klare Sprachkultur: Sprechen Sie nicht von „I-Kindern“ oder „Auffälligen“, sondern benennen Sie konkret die Person und die benötigte Unterstützung (z. B. „Timo braucht bei lauten Übergängen vorab ein visuelles Signal und einen ruhigen Startplatz“)."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Inklusive Pädagogik & Chancengerechtigkeit",
-      "id": "vb-pyramid-1",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Basis 1",
-          "detail": "Anerkennung der menschlichen Vielfalt als Normalfall und Abkehr von starren, normativen Vorstellungen von Normalität.",
-          "example": "Jedes Kind bringt unterschiedliche Voraussetzungen mit, die von Beginn an wertgeschätzt werden.",
-          "id": "item-1",
-          "label": "Anerkennung der Vielfalt",
-          "metric": "Fundament",
-          "summary": "Vielfalt als unverzichtbarer Ausgangspunkt pädagogischen Handelns."
-        },
-        {
-          "badge": "Stufe 2",
-          "detail": "Konsequenter Abbau von baulichen, kommunikativen, sozialen und konzeptionellen Barrieren in der Einrichtung.",
-          "example": "Bereitstellung von unterstützter Kommunikation und rollstuhlgerechten Spielbereichen.",
-          "id": "item-2",
-          "label": "Barrierefreiheit",
-          "metric": "2. Ebene",
-          "summary": "Schaffung zugänglicher Umwelten für alle Menschen."
-        },
-        {
-          "badge": "Stufe 3",
-          "detail": "Reflexion eigener Vorurteile, Stereotype und Verhinderung von Stigmatisierung durch den Labeling Approach.",
-          "example": "Keine Reduzierung von Kindern auf defizitäre Etiketten wie 'schwierig' oder 'verhaltensauffällig'.",
-          "id": "item-3",
-          "label": "Antistigmatisierung",
-          "metric": "3. Ebene",
-          "summary": "Aktives Entgegenwirken gegen Etikettierungsprozesse."
-        },
-        {
-          "badge": "Spitze 4",
-          "detail": "Gleichberechtigte Teilhabe, Selbstbestimmung und Empowerment aller Kinder als gelebte Praxis.",
-          "example": "Kinder gestalten den Kita-Alltag über den Kinderparlament-Rat aktiv mit.",
-          "id": "item-4",
-          "label": "Partizipation & Teilhabe",
-          "metric": "Zielspitze",
-          "summary": "Verwirkklichung von Chancengerechtigkeit und Selbstbestimmung."
-        }
-      ],
-      "kind": "pyramid",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Vom Fundament der Vielfalt zur inklusiven Zielspitze",
-      "title": "Pyramide der inklusiven Praxis (S-SP-3)"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-comp-2",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Medizinischer Defizitblick",
-          "detail": "Ursache für Probleme liegt im Individuum (Schadenmodell); Ziel ist die Anpassung oder Heilung des Kindes an die Norm.",
-          "example": "Ein Kind mit Förderbedarf wird in eine Sonderschule verwiesen, um im Regelsystem nicht aufzufallen.",
-          "id": "comp-1",
-          "label": "Defizitmodell vs. Inklusion",
-          "metric": "Paradigmenwechsel",
-          "summary": "Gegenüberstellung von pathologisierender und inklusiver Sichtweise."
-        },
-        {
-          "badge": "UN-BRK (Art. 24)",
-          "detail": "Völkerrechtlich verbindliches Recht auf ein inklusives Bildungssystem auf allen Ebenen ohne Diskriminierung.",
-          "example": "Rechtsanspruch auf gemeinsamen Unterricht von Kindern mit und ohne Behinderung in der Regelschule.",
-          "id": "comp-2",
-          "label": "Rechtliche Verbindlichkeit",
-          "metric": "Menschenrecht",
-          "summary": "Inklusion als einklagbares Menschenrecht statt pädagogischer Option."
-        },
-        {
-          "badge": "Labeling Approach",
-          "detail": "Etiketten erzeugen abweichendes Verhalten und Stigmatisierung (self-fulfilling prophecy); Vermeidung von Kategorisierungen.",
-          "example": "Verzicht auf defizitäre Zuschreibungen in Entwicklungsberichten; ressourcenorientierte Dokumentation.",
-          "id": "comp-3",
-          "label": "Labeling & Stigmatisierung",
-          "metric": "Soziologische Linse",
-          "summary": "Kritische Analyse von Etikettierungsprozessen und Devianz."
-        },
-        {
-          "badge": "Ressourcenorientierung",
-          "detail": "Fokus auf Stärken, Kompetenzen und individuelle Lernwege statt auf angebliche Defizite und Unfähigkeiten.",
-          "example": "Erstellung eines Förderplans, der an den Interessen und Stärken des Kindes anknüpft.",
-          "id": "comp-4",
-          "label": "Ressourcenblick",
-          "metric": "Pädagogischer Fokus",
-          "summary": "Stärkung vorhandener Potenziale und individueller Kompetenzen."
-        }
-      ],
+      "id": "vb-1",
       "kind": "comparison",
+      "title": "Drei Denkmodelle von Behinderung im Vergleich",
+      "subtitle": "Vom einseitigen Defizitblick zum bio-psycho-sozialen Verständnis nach ICF und § 2 Abs. 1 SGB IX",
+      "centerLabel": "Modelle von Behinderung",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Zentrale theoretische Perspektiven im Modul S-SP-3",
-      "title": "Vergleichstabelle: Paradigmen in der Sozialpädagogik"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-spec-3",
       "isCycle": false,
       "items": [
         {
-          "badge": "Stufe 1",
-          "detail": "Vollständiger Ausschluss von Menschen mit Beeinträchtigungen oder abweichendem Verhalten aus gesellschaftlichen Institutionen.",
-          "example": "Historische Lager und Verweigerung jeglicher Beschulung von Kindern mit Behinderung.",
-          "id": "spec-1",
-          "label": "Exklusion",
-          "metric": "Linker Pol",
-          "summary": "Vollständiger Ausschluss aus der Gemeinschaft."
+          "id": "mod-1",
+          "badge": "Traditionell",
+          "label": "Medizinisches Modell",
+          "metric": "Individuumsfokus",
+          "summary": "Sieht Behinderung primär als individuelles gesundheitliches Defizit.",
+          "detail": "Ursache für Teilhabeprobleme wird allein in der körperlichen, geistigen oder seelischen Schädigung der Person verortet. Ziel ist Heilung, Therapie oder Anpassung des Kindes an bestehende Normen.",
+          "example": "„Das Kind kann dem lauten Hortalltag nicht folgen, also braucht es eine Sondereinrichtung.“"
         },
         {
+          "id": "mod-2",
+          "badge": "Gesellschaftskritisch",
+          "label": "Soziales Modell",
+          "metric": "Barrierefokus",
+          "summary": "Betont gesellschaftliche und institutionelle Ausgrenzungsmechanismen.",
+          "detail": "Trennt zwischen individueller Beeinträchtigung und sozialer Behinderung: Erst Stufen, fehlende Gebärden, starre Zeitpläne oder Vorurteile schließen Menschen von Teilhabe aus.",
+          "example": "„Nicht der Rollstuhl verhindert das Mitspielen im Garten, sondern der fehlende ebenerdige Zugang.“"
+        },
+        {
+          "id": "mod-3",
+          "badge": "WHO / SGB IX",
+          "label": "Bio-psycho-soziales Modell (ICF)",
+          "metric": "Wechselwirkung",
+          "summary": "Verbindet individuelle Voraussetzungen mit Umwelt- und Kontextfaktoren.",
+          "detail": "Erkennt gesundheitliche Beeinträchtigungen und individuelle Unterstützungsbedarfe an, fragt aber zentral danach, wie Aktivitäten, Partizipation und fördernde bzw. hemmende Umweltfaktoren zusammenwirken.",
+          "example": "„Ein Kind mit Hörbeeinträchtigung braucht Hörhilfen UND eine gute Raumakustik sowie blickzugewandte Kommunikation.“"
+        }
+      ]
+    },
+    {
+      "id": "vb-2",
+      "kind": "spectrum",
+      "title": "Von Exklusion bis Inklusion",
+      "subtitle": "Historische und konzeptionelle Stufen im Umgang mit gesellschaftlicher Vielfalt",
+      "centerLabel": "Entwicklungslinie",
+      "leftPole": "Exklusion (Ausschluss)",
+      "rightPole": "Inklusion (Zugehörigkeit von Anfang an)",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "st-1",
+          "badge": "Stufe 1",
+          "label": "Exklusion",
+          "metric": "Ausschluss",
+          "summary": "Vollständige Verwehrung des Zugangs zu Bildung und Gemeinschaft.",
+          "detail": "Bestimmte Gruppen werden als „nicht bildungsfähig“ oder „nicht passend“ aus regulären Einrichtungen ausgeschlossen.",
+          "example": "Abweisung eines Kindes mit chronischer Erkrankung oder Behinderung ohne Prüfung angemessener Vorkehrungen."
+        },
+        {
+          "id": "st-2",
           "badge": "Stufe 2",
-          "detail": "Unterbringung in parallelen Sondersystemen (Sonderschulen, Sondereinrichtungen) fernab des Regelsystems.",
-          "example": "Besuch einer reinen Förderschule ohne Kontakte zur Regelschulgemeinschaft.",
-          "id": "spec-2",
           "label": "Separation",
           "metric": "Sondersystem",
-          "summary": "Räumliche und institutionelle Trennung."
+          "summary": "Getrennte Betreuung und Beschulung in parallelen Sondereinrichtungen.",
+          "detail": "Unterstützung erfolgt räumlich und sozial getrennt von Gleichaltrigen ohne Beeinträchtigung, wodurch Begegnung und gemeinsame Teilhabe fehlen.",
+          "example": "Ausschließlich getrennte Gruppen ohne gemeinsame Spiel- und Bildungsräume."
         },
         {
+          "id": "st-3",
           "badge": "Stufe 3",
-          "detail": "Eingliederung von Personen mit Förderbedarf in das bestehende Regelsystem bei Anpassungsdruck für das Individuum.",
-          "example": "Ein Kind mit Behinderung besucht die Regelschule, muss aber exakt dasselbe leisten und sich anpassen.",
-          "id": "spec-3",
           "label": "Integration",
-          "metric": "Übergangsstufe",
-          "summary": "Eingliederung bei bestehenden Barrieren."
+          "metric": "Eingliederung",
+          "summary": "Aufnahme in bestehende Strukturen bei fortbestehender Zwei-Gruppen-Logik.",
+          "detail": "Einzelne Kinder erhalten Zugang zum Regelsystem, tragen aber häufig ein Sonderstatus-Etikett und müssen sich weitgehend an kaum veränderte Abläufe anpassen.",
+          "example": "Ein Kind besucht die Regelgruppe, wird aber zu allen Gruppenangeboten für Einzelförderung herausgenommen."
         },
         {
+          "id": "st-4",
           "badge": "Stufe 4",
-          "detail": "Unbedingte Zugehörigkeit von Anfang an; das System wandelt sich und passt sich den Bedürfnissen aller Menschen an.",
-          "example": "Eine inklusive Schule, in der differenzierter Unterricht und Barrierefreiheit für alle selbstverständlich sind.",
-          "id": "spec-4",
           "label": "Inklusion",
-          "metric": "Rechter Pol",
-          "summary": "Vielfalt als Normalität und uneingeschränkte Teilhabe."
+          "metric": "Systemwandel",
+          "summary": "Vielfalt ist Ausgangspunkt; Kulturen, Strukturen und Praxis passen sich allen an.",
+          "detail": "Alle Kinder gehören selbstverständlich dazu. Barrieren werden systematisch abgebaut, und notwendige individuelle Unterstützungen werden diskriminierungsfrei im gemeinsamen Alltag verankert.",
+          "example": "Variable Spiel- und Rückzugsräume, barrierearme Kommunikation und gemeinsame Partizipation aller Kinder."
         }
-      ],
-      "kind": "spectrum",
-      "leftPole": "Exklusion (Ausschluss)",
-      "rightPole": "Inklusion (Uneingeschränkte Teilhabe)",
-      "subtitle": "Historische und konzeptionelle Entwicklungslinien sonder- und sozialpädagogischer Beschulung",
-      "title": "Spektrum: Von Exklusion bis Inklusion"
+      ]
+    },
+    {
+      "id": "vb-3",
+      "kind": "feature_grid",
+      "title": "Index für Inklusion & UN-BRK im Kita- und Hortalltag",
+      "subtitle": "Vier praxisnahe Hebel für inklusive Qualitätsentwicklung und Anti-Stigmatisierung",
+      "centerLabel": "Inklusive Praxis",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "in-1",
+          "badge": "Index · Ebene A",
+          "label": "Inklusive Kulturen schaffen",
+          "metric": "Haltung & Werte",
+          "summary": "Willkommenskultur, Zugehörigkeit und vorurteilsbewusste Teamsprache.",
+          "detail": "Alle Kinder und Familien fühlen sich anerkannt; Defizit-Etiketten werden hinterfragt und Vielfalt als normaler Bestandteil der Gemeinschaft gelebt.",
+          "example": "Gemeinsame Teamvereinbarung gegen stigmatisierende Kürzel in Übergaben und Berichten."
+        },
+        {
+          "id": "in-2",
+          "badge": "Index · Ebene B",
+          "label": "Inklusive Strukturen etablieren",
+          "metric": "Organisation",
+          "summary": "Zugängliche Räume, verlässliche Übergänge und koordinierte Unterstützung.",
+          "detail": "Barrierefreie Gestaltung, flexible Gruppenorganisation, multiprofessionelle Zusammenarbeit und gezielter Einsatz personeller Ressourcen im System.",
+          "example": "Akustische Dämmung, klare Raumzonen und enge Abstimmung mit Assistenz- und Fachkräften."
+        },
+        {
+          "id": "in-3",
+          "badge": "Index · Ebene C",
+          "label": "Inklusive Praktiken entwickeln",
+          "metric": "Alltag & Spiel",
+          "summary": "Spiel- und Bildungsangebote offen für unterschiedliche Zugangswege gestalten.",
+          "detail": "Lern- und Spielsettings sprechen verschiedene Sinne, Tempi und Ausdrucksformen an, sodass Kinder gemeinsam auf ihrem jeweiligen Niveau mitwirken können.",
+          "example": "Morgenkreis mit visuellen Ablaufkarten, Bewegungselementen und Wahlmöglichkeiten."
+        },
+        {
+          "id": "in-4",
+          "badge": "UN-BRK Art. 7 & 24",
+          "label": "Partizipation & angemessene Vorkehrungen",
+          "metric": "Menschenrecht",
+          "summary": "Meinungsäußerung ermöglichen und individuelle Barrieren gezielt ausgleichen.",
+          "detail": "Kinder mit Behinderungen erhalten alters- und behinderungsgerechte Unterstützung zur Mitbestimmung (Art. 7) sowie angemessene Vorkehrungen für gleichberechtigte Bildung (Art. 24).",
+          "example": "Einsatz von Gebärden, Bildsymbolen oder Rückzugsoptionen bei gemeinsamen Gruppenprojekten."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Grundschulalter (6–10 Jahre) & Hort",
-    "context": "In einer inklusiven Hortgruppe fällt der 8-jährige Leon auf, da er oft unkonzentriert ist, bei Übergängen heftig reagiert und laute Geräusche mit den Händen abblockt. Die neue Fachkraft neigt dazu, Leon als 'verhaltensauffällig' abzustempeln und fordert eine Sonderbeschäftigung in einem separaten Raum. Die Praxisanleitung greift dies auf, um das Team zu einer inklusiven Perspektive zu befähigen.",
-    "setting": "Inklusiver Hort an einer Grundschule",
+    "title": "Lärm, Übergänge und das Etikett „nicht gruppenfähig“ im Hort",
+    "setting": "Grundschulhort (offenes Gruppenkonzept)",
+    "ageGroup": "7 Jahre",
+    "context": "Der siebenjährige Timo besucht seit Schulbeginn den Hort. Beim lautstarken Wechsel vom Klassenzimmer in den großen Speisesaal hält er sich regelmäßig die Ohren zu, stößt laute Töne aus und rennt in den Flur. In ruhigen Bausituationen und beim gemeinsamen Lesen spielt er dagegen vertieft mit zwei Kindern. In der Teamsitzung meint eine Kollegin frustriert: „Timo ist einfach nicht gruppenfähig und verhaltensauffällig – wir sollten ihn mittags dauerhaft separat in den kleinen Nebenraum setzen oder den Eltern eine andere Betreuung nahelegen.“",
     "steps": [
       {
+        "situation": "Das Team diskutiert, wie Timos Verhalten fachlich einzuordnen ist und wie der Mittagsübergang gestaltet werden kann.",
+        "prompt": "Welcher Umgang entspricht dem bio-psycho-sozialen Modell (ICF) und dem Anti-Stigmatisierungsauftrag?",
         "options": [
           {
-            "feedback": "Die Fachkraft schiebt das Kind in die Sondereinrichtung ab. Dies entspricht dem medizinischen Defizitblick und führt zu Exklusion/Separation entgegen der UN-BRK.",
-            "label": "Abschieben in einen separaten Förderraum mit Etikettierung als 'Störenfried'.",
-            "quality": "problematisch",
-            "theoryLink": "UN-BRK Art. 24 (Inklusives Bildungssystem); Labeling Approach (Becker)"
-          },
-          {
-            "feedback": "Die Fachkraft beobachtet Leon wertfrei, analysiert die Reizüberflutung als Auslöser und passt gemeinsam mit dem Team die Umwelt an (Rückzugszone). Das ist ein ressourcenorientierter, inklusiver Ansatz.",
-            "label": "Wahrnehmung der Reizüberflutung als Barriere, Umweltgestaltung und multiprofessionelle Reflexion.",
-            "quality": "optimal",
-            "theoryLink": "Lehrplan RLP S-SP-3; UN-BRK Art. 24; ICF-Modell (Umweltfaktoren)"
-          },
-          {
-            "feedback": "Die Fachkraft lässt Leon zwar in der Gruppe, lässt ihn aber ununterbrochen allein vor sich hinwerfen, ohne Barrieren abzubauen oder pädagogische Unterstützung anzubieten. Das bleibt wirkungslos.",
-            "label": "Duldung in der Gruppe ohne jegliche Veränderung der pädagogischen Rahmenbedingungen.",
+            "label": "Das Team verzichtet auf das Wort „verhaltensauffällig“, belässt den lauten Speisesaal-Ablauf aber unverändert, weil alle Kinder gleich behandelt werden sollen.",
             "quality": "teilweise",
-            "theoryLink": "S-SP-3: Ziele der inklusiven pädagogischen Arbeit"
+            "feedback": "Die Vermeidung des Etiketts ist richtig, doch bloße Gleichbehandlung ohne Barriereabbau („Integration ohne Systemanpassung“) verwehrt Timo angemessene Vorkehrungen und hält die Überforderung aufrecht.",
+            "theoryLink": "Unterschied Integration vs. Inklusion; UN-BRK Art. 24 (angemessene Vorkehrungen)"
+          },
+          {
+            "label": "Das Team weist das pauschale Etikett „nicht gruppenfähig“ zurück, analysiert die Wechselwirkung zwischen Timos sensorischer Empfindlichkeit und den Umweltbarrieren (Lärmpegel, unangekündigter Massenübergang) und testet Anpassungen wie einen früheren, ruhigeren Tischstart, visuellen Ablaufplan und Gehörschutz-Option.",
+            "quality": "optimal",
+            "feedback": "Fachlich überzeugend! Statt das Kind defizitorientiert zu etikettieren oder zu separieren, nimmt das Team Umweltfaktoren im Sinne der ICF in den Blick und baut konkrete Teilhabebarrieren ab.",
+            "theoryLink": "Bio-psycho-soziales Modell (ICF / § 2 Abs. 1 SGB IX); Index für Inklusion; Labeling Approach"
+          },
+          {
+            "label": "Das Team legt fest, dass Timo künftig allein im Nebenraum isst, und rät den Eltern zu einer Sondereinrichtung, damit die übrige Gruppe Ruhe hat.",
+            "quality": "problematisch",
+            "feedback": "Widerspricht dem Inklusionsauftrag! Das Kind wird im Sinne des medizinischen Defizitmodells individualisiert und in Separation bzw. Exklusion gedrängt, statt institutionelle Barrieren zu bearbeiten.",
+            "theoryLink": "UN-BRK Art. 24; Kritik am medizinischen Defizitmodell und an Separation"
           }
-        ],
-        "prompt": "Wie reagiert das Team auf Leons herausforderndes Verhalten beim Übergang ins Freispiel?",
-        "situation": "Leon zeigt Verhaltensweisen, die das Team vor Herausforderungen stellen. Die Fachkraft muss pädagogisch angemessen handeln."
+        ]
       },
       {
+        "situation": "Die ersten Anpassungen entlasten den Mittagsübergang spürbar. Nun möchte das Team die inklusive Qualität dauerhaft sichern und Timo sowie seine Eltern sinnvoll einbeziehen.",
+        "prompt": "Wie setzt das Team Artikel 7 UN-BRK und den Index für Inklusion nachhaltig um?",
         "options": [
           {
-            "feedback": "Das Team plant eine Förderplanung nach § 22 SGB VIII und reflektiert im Team, welche Barrieren (Lärm, unklare Strukturen) in der Einrichtung abgebaut werden können, statt Leon zu verändern.",
-            "label": "Erstellung eines inklusiven Hilfe- und Förderplans unter Einbezug von Umweltfaktoren und Barrierefreiheit.",
-            "quality": "optimal",
-            "theoryLink": "SGB VIII § 22, BTHG, UN-BRK Art. 9 & 24"
-          },
-          {
-            "feedback": "Die Eltern werden beschuldigt, zu Hause nicht richtig zu erziehen, und an eine Förderschule verwiesen. Das ignoriert jegliche professionelle Zuständigkeit und den Inklusionsauftrag.",
-            "label": "Elternbeschuldigung und Weiterleitung an das Sonderschulsystem ohne eigene Reflexion.",
+            "label": "Das Team hängt öffentlich ein Ampelsystem mit Timos Namen im Speisesaal auf, um sein „richtiges“ Verhalten vor der Gruppe sichtbar zu bewerten.",
             "quality": "problematisch",
-            "theoryLink": "Labeling Approach; Stigmatisierungsprozesse"
+            "feedback": "Stigmatisierend und fachlich unzulässig: Öffentliche Bewertungssysteme verstärken Etikettierung und Beschämung vor Gleichaltrigen (Labeling Approach) statt Barrieren abzubauen.",
+            "theoryLink": "Labeling Approach (Becker); Schutz vor Stigmatisierung und Beschämung"
           },
           {
-            "feedback": "Es wird ein Wochenplan für Leon erstellt, der aber starr durchgezogen wird, ohne auf seine tagesaktuellen sensorischen Bedürfnisse einzugehen.",
-            "label": "Starrer Wochenplan ohne Berücksichtigung individueller sensorischer Voraussetzungen.",
+            "label": "Die Fachkräfte legen einen festen Sonderplan allein für Timo fest, ohne ihn selbst oder die Eltern nach ihrer Einschätzung zu fragen, um ihn nicht zu verunsichern.",
             "quality": "teilweise",
-            "theoryLink": "S-SP-3: Individualität als Subjekt wahrnehmen"
+            "feedback": "Gut gemeint, aber zu wenig partizipativ: Sowohl das Mitspracherecht des Kindes (Art. 7 UN-BRK) als auch die Erziehungspartnerschaft mit den Eltern bleiben ungenutzt.",
+            "theoryLink": "UN-BRK Art. 7; Partizipation in inklusiven Prozessen"
+          },
+          {
+            "label": "Das Team befragt Timo altersgerecht zu dem, was ihm beim Übergang hilft (z. B. mit Symbolkarten), wertet die Lösungen mit den Eltern auf Augenhöhe aus und überprüft im Team mithilfe des Index für Inklusion, wie Akustik und Übergänge der gesamten Einrichtung für alle Kinder ruhiger gestaltet werden können.",
+            "quality": "optimal",
+            "feedback": "Vorbildlich! Timos Perspektive wird im Sinne von Art. 7 UN-BRK ernst genommen, die Eltern werden ressourcenorientiert beteiligt, und die strukturelle Verbesserung kommt im Sinne des Index für Inklusion allen Kindern zugute.",
+            "theoryLink": "UN-BRK Art. 7 (Meinungsäußerung von Kindern); Index für Inklusion (Kultur, Struktur, Praxis)"
           }
-        ],
-        "prompt": "Wie gestaltet das Team die langfristige Kooperation und Förderplanung für Leon?",
-        "situation": "Nach der ersten Intervention muss eine nachhaltige inklusive Praxis etabliert werden."
+        ]
       }
-    ],
-    "title": "Fallbeispiel: Umgang mit herausforderndem Verhalten und Barrierefreiheit im Hort"
+    ]
   },
   "selfLearningTasks": [
-    "Führen Sie in Ihrer Praxisstelle eine Bestandsaufnahme der baulichen, kommunikativen und konzeptionellen Barrierefreiheit durch (angelehnt an die Checkliste im RLP) und formulieren Sie zwei konkrete Verbesserungsvorschläge für das Team.",
-    "Reflektieren Sie anhand eigener Praxisbeobachtungen eine Situation, in der ein Kind mit einem Etikett ('z. B. wild', 'schüchtern', 'Sprachdefizit') versehen wurde. Analysieren Sie die Situation mithilfe des Labeling Approachs und entwerfen Sie einen ressourcenorientierten Perspektivwechsel.",
-    "Analysieren Sie Artikel 24 der UN-Behindertenrechtskonvention und skizzieren Sie ein zweiseitiges Handout für Eltern, das den Unterschied zwischen Integration und Inklusion in der Kindertagesstätte verständlich erklärt."
+    "Führen Sie in Ihrer Praxisstelle einen kurzen „Barriere-Rundgang“ entlang der drei Dimensionen des Index für Inklusion (Kultur, Struktur, Praxis) durch und dokumentieren Sie je eine bauliche, eine kommunikative und eine organisatorische Barriere samt realistischer Abbau-Idee.",
+    "Sammeln Sie fünf im Alltag häufig gehörte Etikettierungen (z. B. „schwierig“, „I-Kind“, „nicht gruppenfähig“) und formulieren Sie diese mithilfe des bio-psycho-sozialen Modells (ICF) in verhaltens- und umweltbezogene Beschreibungen um.",
+    "Lesen Sie Artikel 7 und Artikel 24 der UN-BRK und entwerfen Sie einen kurzen, verständlichen Infotext für einen Elternabend, der den Unterschied zwischen Integration und Inklusion an einem konkreten Kita- oder Hortbeispiel erklärt."
   ],
   "flashcards": [
     {
-      "definition": "Ein internationaler völkerrechtlicher Vertrag (2006/2009 in D in Kraft), der das Recht von Menschen mit Behinderungen auf gleichberechtigte Teilhabe und ein inklusives Bildungssystem garantiert (Art. 24).",
-      "example": "Keine Aussonderung von Kindern mit Förderbedarf in Sonderschulen; gemeinsames Lernen als Regelfall.",
-      "term": "UN-Behindertenrechtskonvention (UN-BRK)"
+      "term": "Bio-psycho-soziales Modell (ICF / § 2 Abs. 1 SGB IX)",
+      "definition": "Verständnis von Behinderung als Wechselwirkung zwischen individuellen Beeinträchtigungen (körperlich, seelisch, geistig, Sinnesbeeinträchtigungen) und einstellungs- sowie umweltbedingten Barrieren, die gleichberechtigte Teilhabe erschweren oder ermöglichen.",
+      "example": "Eine Hörbeeinträchtigung wirkt sich je nach Raumakustik, Hörhilfe und Kommunikationskultur ganz unterschiedlich auf die Teilhabe im Morgenkreis aus."
     },
     {
-      "definition": "Soziologischer Ansatz (u.a. Howard S. Becker), der besagt, dass Abweichung (Devianz) nicht inhärent in einer Person liegt, sondern durch gesellschaftliche Zuschreibungsprozesse (Etikettierung) erst erzeugt wird.",
-      "example": "Ein Kind wird als 'hyperaktiv' gelabelt und verhält sich fortan entsprechend der zugeschriebenen Rolle (self-fulfilling prophecy).",
-      "term": "Labeling Approach (Etikettierungsansatz)"
+      "term": "Integration vs. Inklusion",
+      "definition": "Integration fügt einzelne Personen mit Sonderstatus nachträglich in weitgehend unveränderte Strukturen ein; Inklusion begreift Vielfalt von Anfang an als Normalität und verändert Kulturen, Strukturen und Praktiken so, dass alle gleichberechtigt teilhaben können.",
+      "example": "Statt ein Kind für Einzelförderung ständig aus der Gruppe zu nehmen, werden Spiel- und Kommunikationsangebote für alle zugänglich gestaltet."
     },
     {
-      "definition": "Pädagogischer und gesellschaftlicher Zustand, in dem alle Menschen von Anfang an uneingeschränkt dazugehören und Vielfalt als Normalität anerkannt wird; Anpassung des Systems an den Menschen statt umgekehrt.",
-      "example": "Eine Kita, die baulich und konzeptionell so gestaltet ist, dass Kinder mit und ohne körperliche Einschränkungen selbstverständlich gemeinsam spielen und lernen.",
-      "term": "Inklusion"
+      "term": "UN-BRK Artikel 7 & Artikel 24",
+      "definition": "Art. 7 sichert Kindern mit Behinderungen gleichberechtigte Menschenrechte, Vorrang des Kindeswohls und freie Meinungsäußerung mit geeigneter Unterstützung zu; Art. 24 verpflichtet zu einem inklusiven Bildungssystem auf allen Ebenen samt angemessener Vorkehrungen.",
+      "example": "Ein Kind mit geringer Lautsprache stimmt in der Kinderkonferenz mithilfe von Bildkarten gleichberechtigt über das Ausflugsziel ab."
     },
     {
-      "definition": "Historisches und oft noch wirksames Stufenmodell, bei dem Menschen mit Behinderungen zunächst ausgeschlossen (Exklusion), dann in Sondersystemen separiert (Separation) und später in Regelsysteme eingegliedert wurden, wobei oft vom Defizit der Person ausgegangen wird.",
-      "example": "Der Übergang von der Förderschule (Separation) in eine Regelschule, bei der das Kind jedoch weiterhin ein Sonderstatus-Etikett trägt (Integration).",
-      "term": "Exklusion – Separation – Integration – Inklusion"
+      "term": "Index für Inklusion",
+      "definition": "Praxisnahes Reflexions- und Qualitätsentwicklungsinstrument (Booth & Ainscow), das Einrichtungen über Leitfragen auf den drei Dimensionen Kultur, Struktur und Praxis dabei unterstützt, Barrieren für Spiel, Lernen und Partizipation abzubauen.",
+      "example": "Ein Kita-Team prüft im Konzeptionstag anhand von Index-Fragen die Zugänglichkeit seiner Spielbereiche und Elternkommunikation."
     },
     {
-      "definition": "Prinzip, das davon ausgeht, dass Heterogenität (Vielfalt) der Normalfall in einer Gesellschaft ist. Der Begriff 'Normalität' wird nicht als starre Norm, sondern als statistische Bandbreite und Vielfalt verstanden.",
-      "example": "Kein Kind entspricht der 'Norm' in allen Bereichen; Unterschiede in Entwicklung, Kultur und Lerntempo sind völlig normal.",
-      "term": "Normalität und Diversität"
+      "term": "Labeling Approach (Etikettierungsansatz)",
+      "definition": "Soziologischer Ansatz (u. a. Howard S. Becker), der zeigt, dass Abweichung wesentlich durch gesellschaftliche Normen und Zuschreibungen entsteht; wiederholte Etiketten können Stigmatisierung und selbsterfüllende Prophezeiungen fördern.",
+      "example": "Ein Kind, das dauerhaft als „Störenfried“ angesprochen wird, übernimmt diese Rolle im Gruppenalltag."
     },
     {
-      "definition": "Gezielter Abbau von Zugangs- und Teilhabehemmnissen in sozialräumlichen, baulichen, kommunikativen und konzeptionellen Bereichen.",
-      "example": "Bereitstellung von Gebärdensprachdolmetschern, rollstuhlgerechten Spielgeräten oder leicht verständlicher Sprache.",
-      "term": "Barrierefreiheit"
+      "term": "Etikettierungs-Ressourcen-Dilemma",
+      "definition": "Spannungsfeld der inklusiven Praxis: Zusätzliche personelle oder materielle Hilfen sind oft an formale Bedarfs- oder Diagnosefeststellungen geknüpft, die zugleich das Risiko von Zuschreibung und Sonderstatus bergen.",
+      "example": "Eine Einrichtung beantragt eine Teilhabeassistenz zur Barriereüberwindung, vermeidet im Alltag aber strikt defizitäre Etiketten gegenüber dem Kind."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Die UN-BRK (2009 in Deutschland in Kraft) verbietet in Art. 24 jegliche Aussonderung und fordert ein inklusives Bildungssystem auf allen Ebenen, in dem alle Kinder gemeinsam lernen.",
-      "id": "q-1",
+      "question": "Was kennzeichnet das bio-psycho-soziale Modell von Behinderung (ICF und § 2 Abs. 1 SGB IX) im Vergleich zum rein medizinischen Modell?",
       "options": [
-        "Die UN-BRK regelt verbindlich die Ausschließlichkeit von Sonderschulen für Kinder mit körperlichen Beeinträchtigungen.",
-        "Die UN-BRK garantiert das Recht auf gleichberechtigte Teilhabe und ein inklusives Bildungssystem ohne Diskriminierung (Art. 24).",
-        "Die UN-BRK ist eine rein unverbindliche Absichtserklärung ohne Bezug zur praktischen Sozialpädagogik.",
-        "Die UN-BRK fokussiert ausschließlich auf medizinische Rehabilitationsmaßnahmen im Erwachsenenalter."
+        "Es versteht Behinderung als Wechselwirkung zwischen individuellen Beeinträchtigungen und einstellungs- sowie umweltbedingten Barrieren.",
+        "Es bestreitet, dass körperliche oder seelische Beeinträchtigungen überhaupt existieren.",
+        "Es sieht allein medizinische Heilung als Weg zur gesellschaftlichen Teilhabe.",
+        "Es gilt ausschließlich für erwachsene Menschen im Berufsleben."
       ],
-      "question": "Welches zentrale Prinzip vertritt die UN-Behindertenrechtskonvention (UN-BRK) im Hinblick auf das Bildungswesen?",
-      "type": "single"
+      "correctIndices": [
+        0
+      ],
+      "explanation": "Das bio-psycho-soziale Modell (ICF / § 2 Abs. 1 SGB IX) verknüpft individuelle Voraussetzungen mit Umwelt- und Einstellungsfaktoren. Es leugnet reale Beeinträchtigungen nicht, reduziert Teilhabeprobleme aber auch nicht auf ein rein individuelles Defizit."
     },
     {
+      "id": "v2-q2",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Rechte von Kindern und Menschen mit Behinderungen sind in Artikel 7 und Artikel 24 der UN-Behindertenrechtskonvention (UN-BRK) verankert?",
+      "options": [
+        "Der gesetzliche Vorrang von Sondereinrichtungen, sobald ein zusätzlicher Unterstützungsbedarf besteht.",
+        "Das Recht auf ein inklusives Bildungssystem auf allen Ebenen ohne Diskriminierung (Art. 24).",
+        "Die Pflicht zu angemessenen Vorkehrungen und notwendiger individueller Unterstützung im allgemeinen Bildungssystem (Art. 24).",
+        "Das Recht von Kindern mit Behinderungen, ihre Meinung frei zu äußern und dabei alters- sowie behinderungsgerechte Unterstützung zu erhalten (Art. 7)."
+      ],
+      "correctIndices": [
+        1,
+        2,
+        3
+      ],
+      "explanation": "Art. 7 UN-BRK stärkt die gleichberechtigten Kinderrechte und das Recht auf unterstützte Meinungsäußerung; Art. 24 garantiert ein inklusives Bildungssystem samt angemessener Vorkehrungen. Ein Vorrang von Sondereinrichtungen widerspricht dem Diskriminierungsverbot der UN-BRK."
+    },
+    {
+      "id": "v2-q3",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Worin liegt der zentrale konzeptionelle Unterschied zwischen Integration und Inklusion?",
+      "options": [
+        "Integration bezieht sich nur auf Kitas, Inklusion ausschließlich auf weiterführende Schulen.",
+        "Bei Inklusion werden individuelle Hilfen und Barriereabbau komplett abgeschafft, damit alle gleich sind.",
+        "Integration fügt einzelne Kinder nachträglich in weitgehend unveränderte Strukturen mit Sonderstatus ein, während Inklusion Kulturen, Strukturen und Praktiken von vornherein auf Vielfalt ausrichtet.",
+        "Beide Begriffe bedeuten fachlich exakt dasselbe."
+      ],
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Integration folgt häufig einer Zwei-Gruppen-Logik (Mehrheit vs. einzugliedernde Minderheit). Inklusion geht von Vielfalt als Normalfall aus und verändert die Umwelt – ohne notwendige individuelle Unterstützung abzuschaffen."
+    },
+    {
+      "id": "v2-q4",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche drei Dimensionen strukturiert der „Index für Inklusion“ (nach Booth & Ainscow) für die Qualitätsentwicklung in Einrichtungen?",
+      "options": [
+        "Inklusive Kulturen schaffen",
+        "Homogene Leistungsgruppen selektieren",
+        "Inklusive Strukturen etablieren",
+        "Inklusive Praktiken entwickeln"
+      ],
       "correctIndices": [
         0,
         2,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Der Labeling Approach (u.a. Howard S. Becker) besagt, dass Devianz sozial zugeschrieben wird, Etiketten zu Stigmatisierung führen und oft eine 'self-fulfilling prophecy' auslösen. Option 1 ist falsch, da Devianz keine biologisch festgelegte Konstante ist.",
-      "id": "q-2",
-      "options": [
-        "Etikettierungen (Labels) können bei den Betroffenen zu einer selbsterfüllenden Prophezeiung (self-fulfilling prophecy) führen.",
-        "Devianz und abweichendes Verhalten sind naturgegeben und völlig unabhängig von gesellschaftlichen Reaktionen.",
-        "Gesellschaftliche Reaktionen und Stigmatisierungsprozesse erschweren die soziale Teilhabe der Betroffenen massiv.",
-        "Der Ansatz verdeutlicht, dass die Zuschreibung von 'Normalität' und 'Anderssein' ein sozial konstruierter Prozess ist."
-      ],
-      "question": "Welche Aussagen treffen auf den 'Labeling Approach' (Etikettierungsansatz) in der Sozialpädagogik zu? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Der Index für Inklusion arbeitet auf den drei aufeinander bezogenen Ebenen Kultur, Struktur und Praxis, um Barrieren für Spiel, Lernen und Partizipation systematisch abzubauen."
     },
     {
-      "correctIndices": [
-        2
-      ],
+      "id": "v2-q5",
+      "type": "case",
       "difficulty": "pruefung",
-      "explanation": "Inklusion bedeutet, dass das System (die Einrichtung) flexibel auf die Vielfalt aller Menschen ausgerichtet ist und niemand sich erst an eine vermeintliche Norm anpassen muss, um dazuzugehören.",
-      "id": "q-3",
+      "question": "Praxisfall: Ein vierjähriges Kind mit körperlicher Beeinträchtigung nutzt einen Rollator. Im Gartenbereich verhindert eine hohe Türschwelle den selbstständigen Zugang zum Sandbereich. Eine Fachkraft schlägt vor, das Kind täglich hinüberzutragen. Wie ist dieser Vorschlag im Sinne von Inklusion und ICF zu bewerten?",
       "options": [
-        "Bei der Inklusion werden Kinder mit Förderbedarf in speziellen Kleingruppen innerhalb des Regelsystems unterrichtet.",
-        "Inklusion fordert die Anpassung des Individuums an die vorgegebene institutionelle Norm.",
-        "Inklusion geht von einem uneingeschränkten Recht auf Zugehörigkeit aus; das System passt sich den unterschiedlichen Voraussetzungen an.",
-        "Inklusion ist ein Synonym für den medizinischen Defizitblick und fokussiert auf Kompensation."
+        "Optimal, weil das Kind so am schnellsten in den Sandkasten gelangt und keine baulichen Kosten entstehen.",
+        "Unzulässig, weil Kinder mit Rollator aus Sicherheitsgründen nicht im Außengelände spielen dürfen.",
+        "Optimal, solange ausschließlich die Gruppenleitung das Kind trägt.",
+        "Unzureichend als Dauerlösung: Tragen macht das Kind dauerhaft abhängig, statt im Sinne von Inklusion und ICF die bauliche Barriere (z. B. durch eine geeignete Rampe) abzubauen und selbstständige Teilhabe zu ermöglichen."
       ],
-      "question": "Wie unterscheidet sich das Konzept der Inklusion grundlegend von älteren Integrationsmodellen?",
-      "type": "single"
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Im bio-psycho-sozialen Modell und nach UN-BRK steht der Abbau von Umweltbarrieren für selbstbestimmte Teilhabe im Vordergrund. Eine bauliche Rampe ermöglicht dem Kind eigenständiges Kommen und Gehen statt dauerhafter Abhängigkeit von Erwachsenen."
     },
     {
+      "id": "v2-q6",
+      "type": "single",
+      "difficulty": "pruefung",
+      "question": "Was beschreibt das sogenannte „Etikettierungs-Ressourcen-Dilemma“ in der inklusiven pädagogischen Praxis?",
+      "options": [
+        "Fachkräfte haben zu wenige Etiketten, um die Eigentumsfächer aller Kinder eindeutig zu beschriften.",
+        "Um zusätzliche Unterstützungsleistungen oder Personalmittel zu erhalten, verlangen Verwaltungssysteme oft formale Bedarfs- oder Diagnosefeststellungen, die zugleich ein Risiko von Sonderstatus und Stigmatisierung bergen.",
+        "Ressourcenorientierte Dokumentation verbietet jede Zusammenarbeit mit Eltern und Fachstellen.",
+        "Kinder ohne formale Diagnose dürfen nach § 22a SGB VIII keine individuelle Förderung erhalten."
+      ],
       "correctIndices": [
         1
       ],
-      "difficulty": "pruefung",
-      "explanation": "Das sozialpädagogische Handeln zielt hier auf Barrierefreiheit und Umweltanpassung ab, um Teilhabe zu ermöglichen, statt das Kind zu pathologisieren oder auszugrenzen.",
-      "id": "q-4",
-      "options": [
-        "Die Fachkraft veranlasst sofort die Überweisung in eine Sonderschule, um die Gruppe zu entlasten.",
-        "Die Fachkraft analysiert gemeinsam mit dem Team die Umweltfaktoren und baut sensorische sowie strukturelle Barrieren ab.",
-        "Die Fachkraft ignoriert das Verhalten, da Kinder in dem Alter eben wild sind.",
-        "Die Fachkraft stigmatisiert das Kind öffentlich als Störenfried, um erzieherischen Druck auszuüben."
-      ],
-      "question": "Praxissituation: In einer Hortgruppe zeigt ein Kind häufig starkes Meideverhalten bei Lärm und zieht sich zurück. Wie handelt eine professionelle Erzieherin im Sinne des Moduls S-SP-3 optimal?",
-      "type": "case"
+      "explanation": "Das Etikettierungs-Ressourcen-Dilemma benennt genau diesen Widerspruch: Formale Feststellungen ermöglichen wichtige Hilfen, können aber stigmatisieren, wenn sie die alltägliche Sicht auf das Kind verengen. Professionelle Fachkräfte trennen deshalb Verwaltungsnotwendigkeit von einer wertschätzenden, anti-stigmatisierenden Alltagshaltung."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Artikel 7 UN-BRK – Kinder mit Behinderungen",
+      "url": "https://www.institut-fuer-menschenrechte.de/menschenrechtsschutz/datenbanken/datenbank-fuer-menschenrechte-und-behinderung/detail/artikel-7-un-brk",
+      "publisher": "Deutsches Institut für Menschenrechte (DIMR)",
+      "note": "Wortlaut und menschenrechtliche Erläuterung zu Rechten und Meinungsäußerung von Kindern mit Behinderungen"
     },
     {
-      "correctIndices": [
-        0
-      ],
-      "difficulty": "basis",
-      "explanation": "Der medizinische Defizitblick sucht die Ursache für Probleme ausschließlich im Individuum (Schaden/Defizit), während der inklusive Ansatz die Barrieren in der Umwelt und im System in den Blick nimmt.",
-      "id": "q-5",
-      "options": [
-        "Der medizinische Defizitblick lokalisiert das Problem im Individuum (Schadenmodell), während der inklusive Blick gesellschaftliche und institutionelle Barrieren analysiert.",
-        "Der medizinische Defizitblick berücksichtigt stets die UN-BRK und die soziale Lebenswelt.",
-        "Es gibt keinen fachlichen Unterschied; beide Begriffe sind Synonyme für Heilpädagogik.",
-        "Der medizinische Defizitblick betrachtet Vielfalt grundsätzlich als Bereicherung und Normalität."
-      ],
-      "question": "Worin besteht der Kernunterschied zwischen dem 'medizinischen Defizitblick' und dem 'inklusiven Leitbild'?",
-      "type": "single"
+      "title": "Artikel 24 UN-BRK – Bildung",
+      "url": "https://www.institut-fuer-menschenrechte.de/menschenrechtsschutz/datenbanken/datenbank-fuer-menschenrechte-und-behinderung/detail/artikel-24-un-brk",
+      "publisher": "Deutsches Institut für Menschenrechte (DIMR)",
+      "note": "Recht auf ein inklusives Bildungssystem auf allen Ebenen und angemessene Vorkehrungen"
     },
     {
-      "correctIndices": [
-        1,
-        3
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Exklusion bedeutet vollständigen Ausschluss; Separation beschreibt die Unterbringung in gesonderten Sondersystemen; Integration meint die Eingliederung in das Regelsystem bei bestehender Anpassungsleistung des Individuums; Inklusion bedeutet unbedingte Zugehörigkeit ohne Anpassungszwang.",
-      "id": "q-6",
-      "options": [
-        "Separation bezeichnet das gemeinsame Lernen aller Kinder in einer Regelschule ohne jegliche Sonderförderung.",
-        "Exklusion beschreibt den vollständigen Ausschluss von Personen aus gesellschaftlichen Institutionen.",
-        "Integration fordert, dass sich das System vollständig an jeden Einzelnen anpasst, ohne dass dieser besondere Hilfen benötigt.",
-        "Inklusion geht von der grundsätzlichen Zugehörigkeit aller Menschen aus und vermeidet jegliche normierende Ausgrenzung."
-      ],
-      "question": "Welche Definitionen der Vier-Stufen-Typologie (Exklusion, Separation, Integration, Inklusion) sind fachlich korrekt? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "title": "Das bio-psycho-soziale Modell der ICF",
+      "url": "https://www.bar-frankfurt.de/themen/icf/grundlagen-der-icf/das-bio-psycho-soziale-modell.html",
+      "publisher": "Bundesarbeitsgemeinschaft für Rehabilitation (BAR e.V.)",
+      "note": "Erläuterung der Wechselwirkung zwischen Gesundheit, Aktivität, Teilhabe und Kontextfaktoren"
+    },
+    {
+      "title": "Index für Inklusion in Kindertageseinrichtungen",
+      "url": "https://nifbe.de/fachbeitraege/index-fuer-inklusion/",
+      "publisher": "Niedersächsisches Institut für frühkindliche Bildung und Entwicklung (nifbe e.V.)",
+      "note": "Vorstellung des Reflexions- und Qualitätsentwicklungsrahmens (Kultur, Struktur, Praxis)"
+    },
+    {
+      "title": "Empfehlungen zur Inklusion in Kindertagesstätten in Rheinland-Pfalz",
+      "url": "https://lsjv.rlp.de/fileadmin/lsjv/Themen/Kinder/Downloads/Landesjugendhilfeausschuss/LJHA_2025_Empfehlung_Inklusion_Kitas.pdf",
+      "publisher": "Landesjugendhilfeausschuss / LSJV Rheinland-Pfalz",
+      "note": "Aktuelle landesbezogene Orientierung zu inklusiver Kita-Praxis und Barriereabbau"
+    },
+    {
+      "title": "SGB VIII § 22a – Förderung in Tageseinrichtungen (insb. Abs. 4 gemeinsame Förderung)",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__22a.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Bundesrechtlicher Auftrag zur gemeinsamen Förderung von Kindern mit und ohne Behinderungen"
     }
   ]
 }

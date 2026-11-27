@@ -4,8 +4,10 @@
   "moduleCode": "S-SP-4",
   "moduleArea": "sp-pflicht",
   "bildungsbereich": "Medien",
-  "title": "Bildungsbereich: Medien & aktive Medienarbeit",
-  "subtitle": "Medienbiografie, Medienkritik, Risiken & handlungsorientierte Medienproduktion",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-4 · Bildungsbereich Medien & aktive Medienarbeit (Lehrplan RLP 2024)",
+  "title": "Bildungsbereich: Medienbildung & aktive Medienarbeit",
+  "subtitle": "Medienkompetenz (Baacke), aktive Medienarbeit statt Konsum, Altersangemessenheit, Datenschutz & Recht am eigenen Bild",
   "year": "2./3. Jahr",
   "estimatedMinutes": 25,
   "hoursRef": "680 Std. (Bildungsbereich)",
@@ -15,400 +17,441 @@
     "Prävention",
     "Partizipation"
   ],
-  "summary": "Diese Einheit vermittelt angehenden Erzieher:innen fundierte Kompetenzen zur Entwicklungspsychologie der Mediennutzung, zur reflexiven Medienbiografie sowie zur kriteriengeleiteten Analyse von Medien. Sie lernen, Risiken wie Cybermobbing präventiv zu begegnen und durch aktive, handlungsorientierte Medienarbeit (Stop-Motion, Podcasts) Medienkompetenz alltagsintegriert zu fördern.",
+  "summary": "Kinder und Jugendliche wachsen selbstverständlich in einer mediatisierten Welt auf – Medienbildung bedeutet deshalb weder pauschale Verbote noch unbegleiteten Bildschirmkonsum. Diese Einheit vermittelt das vierdimensionale Medienkompetenzmodell nach Dieter Baacke, handlungsorientierte aktive Medienarbeit, altersangemessene Orientierungswerte (klicksafe, SCHAU HIN!, JFF), konstruktive Elternbegleitung sowie den sicheren Umgang mit Datenschutz und dem Recht am eigenen Bild (§ 22 KunstUrhG, DSGVO).",
   "learningGoals": [
-    "Ich kann wesentliche entwicklungspsychologische Grundlagen der Mediennutzung in verschiedenen Altersstufen erläutern und pädagogisch berücksichtigen.",
-    "Ich kann meine eigene Medienbiografie und persönliche Medienprägung kritisch reflektieren.",
-    "Ich kann aktuelle Kinder- und Jugendmedien (Apps, Games, Social Media) kriteriengeleitet analysieren und bewerten.",
-    "Ich kann Kinder und Jugendliche dabei unterstützen, Risiken (wie Cybermobbing, Datenschutz) zu erkennen und einen reflektierten Medienumfang zu entwickeln.",
-    "Ich kann alltagsintegrierte Methoden zur Förderung von Medienkompetenz in Kita, Hort und Jugendarbeit anwenden.",
-    "Ich kann handlungsorientierte Medienprodukte (z. B. Stop-Motion, Podcasts) gemeinsam mit Kindern und Jugendlichen herstellen."
+    "Ich kann das Medienkompetenzmodell nach Dieter Baacke mit seinen vier Dimensionen (Medienkritik, Medienkunde, Mediennutzung, Mediengestaltung) fachlich erläutern und auf meine Praxis übertragen.",
+    "Ich kann aktive, kreative Medienarbeit (z. B. Fotoprojekte, Hörspiele, Stop-Motion, Podcasts) begründet von passivem Medienkonsum abgrenzen und alltagsintegriert planen.",
+    "Ich kann altersangemessene Orientierungswerte für Medienzeiten und -inhalte (nach klicksafe / SCHAU HIN!) sowie Risiken wie Reizüberflutung, In-App-Käufe, Cybermobbing und Sharenting fachlich einordnen.",
+    "Ich kann Eltern auf Basis meiner reflektierten Medienbiografie wertschätzend, realistisch und ohne erhobenen Zeigefinger bei Fragen zur Mediennutzung begleiten.",
+    "Ich kann Datenschutz und das Recht am eigenen Bild (§ 22 KunstUrhG, DSGVO) bei Foto-, Video- und Kommunikationsprozessen in der Einrichtung rechtssicher und partizipativ einhalten."
   ],
   "sections": [
     {
-      "body": "Die Mediennutzung verändert sich rasant über die Lebensspanne. Während im Kleinkindalter taktile und haptische Medienerlebnisse (Bilderbücher, Hörspiele) im Vordergrund stehen, gewinnen im Grundschul- und Jugendalter digitale Welten, Social Media und Peer-Kommunikation an Bedeutung. Entwicklungspsychologisch nach Jean Piaget und neueren medienpädagogischen Ansätzen suchen Jugendliche in digitalen Räumen nach Identität, Autonomie und Zugehörigkeit. Pädagogische Fachkräfte müssen diese entwicklungsbedingten Bedürfnisse verstehen, um Medien nicht pauschal zu verteufeln, sondern als Entwicklungsräume zu begleiten.",
+      "heading": "Medienkompetenz nach Dieter Baacke & eigene Medienbiografie",
+      "keyTakeaway": "Medienkompetenz ist weit mehr als Gerätebedienung – sie vereint Kritik, Wissen, reflektierte Nutzung und kreative Gestaltung.",
+      "body": "In der deutschsprachigen Medienpädagogik bildet das vierdimensionale Modell von Dieter Baacke bis heute das zentrale Fundament für den Begriff der Medienkompetenz. Baacke versteht Menschen als aktiv handelnde Subjekte und unterscheidet vier eng verknüpfte Dimensionen: (1) Medienkritik – Medieninhalte und -strukturen analytisch durchschauen (z. B. Werbung, Influencer-Marketing, Desinformation, Algorithmen), reflexiv auf das eigene Handeln beziehen und ethisch bewerten; (2) Medienkunde – informatives Wissen über Mediensysteme sowie instrumentell-qualifikatorische Fähigkeiten im Bedienen von Geräten und Apps; (3) Mediennutzung – Medien sowohl rezeptiv-anwendend (z. B. Bilderbuch, Sachrecherche, Hörspiel) als auch interaktiv-anbietend sinnvoll für eigene Anliegen einsetzen; (4) Mediengestaltung – eigene Medienprodukte innovativ und kreativ herstellen. Um Kinder und Jugendliche in diesen vier Dimensionen glaubwürdig zu begleiten, müssen Fachkräfte zunächst ihre eigene Medienbiografie reflektieren: Wer digitale Medien reflexhaft ablehnt (reine Bewahrpädagogik) oder sie unkritisch als „Ruhigsteller“ einsetzt (Laissez-faire), verfehlt den Bildungsauftrag. Medienbildung orientiert sich stattdessen an den Lebenswelten und Entwicklungsaufgaben der jeweiligen Altersgruppe – vom Bilderbuch und Hörspiel in der Kita bis zu Gaming, Social Media und Identitätsbildung im Jugendalter.",
       "bulletPoints": [
-        "Unterscheidung von Mediennutzung nach Entwicklungsphasen (Frühe Kindheit vs. Jugendalter).",
-        "Bedeutung von Medien für Identitätsfindung und Peer-Beziehungen.",
-        "Kognitive und sozial-emotionale Reifungsprozesse im digitalen Raum.",
-        "Vermeidung von rein defizitorientierten Sichtweisen."
+        "Vier Dimensionen (Dieter Baacke): Medienkritik, Medienkunde, Mediennutzung und Mediengestaltung.",
+        "Keine reine Geräte-Schulung: Technische Bedienung (Medienkunde) braucht immer Reflexion, Kritik und kreative Gestaltung.",
+        "Eigene Medienbiografie reflektieren: Eigene Vorlieben, Ängste und blinde Flecken bewusst machen.",
+        "Haltung zwischen den Polen: Begleitende Befähigung (Empowerment) und Schutz statt pauschaler Verbote oder unkritischem Laissez-faire."
       ],
-      "heading": "Entwicklungspsychologie der Mediennutzung",
-      "keyTakeaway": "Mediennutzung ist stets ein Ausdruck altersabhängiger Entwicklungsaufgaben, Identitätssuche und sozialer Bedürfnislage.",
-      "praxisTip": "Führen Sie in der Praxis eine altersgerechte Bestandsaufnahme durch: Welche Medien nutzen die Kinder aktuell wirklich und welche psychologischen Bedürfnisse (z. B. Entspannung, Zugehörigkeit) werden damit befriedigt?"
+      "praxisTip": "Zeichnen Sie im Team eine kurze Medienbiografie-Zeitleiste Ihrer eigenen Kindheit und Jugend – der Austausch deckt rasch auf, wo persönliche Gewohnheiten fachliche Urteile färben."
     },
     {
-      "body": "Die eigene Medienbiografie prägt das professionelle Handeln maßgeblich. Wer als Fachkraft digitale Medien reflexartig ablehnt oder unkritisch glorifiziert, läuft Gefahr, den Lebensweltbezug der Kinder und Jugendlichen zu verfehlen. Die kritische Auseinandersetzung mit der eigenen Mediensozialisation (von analogen Kassetten und Jugendzeitschriften bis zu Smartphones und Algorithmen) ermöglicht einen Perspektivwechsel. Nach Dieter Baacke umfasst Medienkompetenz vier Dimensionen: Medienkunde, Mediennutzung, Medienkritik und Mediengestaltung.",
+      "heading": "Aktive, kreative Medienarbeit statt passivem Konsum",
+      "keyTakeaway": "Wenn Kinder selbst fotografieren, vertonen oder Trickfilme bauen, erleben sie Medien als gestaltbare Werkzeuge – nicht als bloße Berieselung.",
+      "body": "Das Leitprinzip moderner Medienbildung in Kita, Hort und Jugendarbeit (u. a. vertreten durch das JFF – Institut für Medienpädagogik) lautet: aktive, handlungsorientierte Medienarbeit statt passivem Konsum. Wenn Kinder mit einer Digitalkamera oder einem Kita-Tablet eine „Formen-Safari“ im Garten machen, ein eigenes Bilderbuch fotografisch nacherzählen, Geräusche für ein Hörspiel aufnehmen, einen kurzen Stop-Motion-Trickfilm mit Knetfiguren produzieren oder im Hort einen Mini-Podcast über ein Sozialraum-Thema erstellen, wechseln sie in die Produzentenrolle. Das hat gleich mehrere Bildungseffekte: Erstens fördern gemeinsame Medienprojekte Sprache, Kooperation, Planung (Storyboard) und Selbstwirksamkeit. Zweitens begreifen Kinder durch eigenes Ausprobieren ganz praktisch, wie Medien „gemacht“ sind (z. B. dass Bilder ausgeschnitten, verlangsamt oder inszeniert werden können) – das legt die beste Basis für spätere Medienkritik gegenüber Werbung, Filtern und Fake News! Drittens gilt dabei ein unumstößliches Qualitätsprinzip: Digitale Medien sind in der Kita niemals Ersatz für direkte, sinnliche Primärerfahrungen, Bewegung, Freispiel und Beziehung, sondern knüpfen gezielt an analoge Themen und Kinderfragen an.",
       "bulletPoints": [
-        "Bedeutung der eigenen Mediensozialisation für das pädagogische Selbstverständnis.",
-        "Vier Dimensionen der Medienkompetenz nach Dieter Baacke.",
-        "Überwindung von Generationenkonflikten im Mediengebrauch.",
-        "Entwicklung einer professionellen Haltung zwischen Faszination und Skepsis."
+        "Produzentenrolle stärken: Fotoprojekte, Hörspiele, Stop-Motion-Trickfilme, digitale Bilderbücher und Podcasts gemeinsam gestalten.",
+        "Medienkritik durch Selbermachen: Wer selbst Bilder inszeniert oder schneidet, durchschaut mediale Täuschungen leichter.",
+        "Analoge Verankerung: Digitale Werkzeuge ergänzen Spiel, Natur, Sprache und Kunst – sie verdrängen sie nicht.",
+        "Prozessschritte: Partizipative Ideenfindung → Planung/Storyboard → Produktion → Bearbeitung → Präsentation & Reflexion."
       ],
-      "heading": "Medienbiografie & Medienkompetenz (Baacke)",
-      "keyTakeaway": "Professionelle Medienpädagogik erfordert die Reflexion der eigenen Medienbiografie und die Beherrschung der vier Baacke-Dimensionen.",
-      "praxisTip": "Reflektieren Sie im Team Ihre eigene Medienbiografie: Welche Medien haben Ihre Kindheit geprägt und wie beeinflusst das Ihre heutige Haltung gegenüber dem Medienkonsum von Kindern?"
+      "praxisTip": "Starten Sie niederschwellig ohne komplizierte Apps: Lassen Sie eine Kleingruppe mit einer robusten Kinderkamera fünf „Lieblingsorte in unserer Kita“ fotografieren und gemeinsam ein kleines Buch oder Plakat daraus gestalten."
     },
     {
-      "body": "Aktive Medienarbeit bedeutet, dass Kinder und Jugendliche nicht reine Konsumentinnen und Konsumenten bleiben, sondern selbstbestimmt und kreativ Medienprodukte herstellen. Methoden wie Stop-Motion-Trickfilme, eigene Hörspiele, Fotostories oder Mini-Podcasts fördern Selbstwirksamkeit, Kooperation und technisches Verständnis. Gleichzeitig müssen Risiken wie Cybermobbing, Datenschutzverletzungen, Desinformation (Fake News) und exzessiver Medienkonsum alltagsintegriert thematisiert werden. Prävention gelingt am besten durch handlungsorientierte Aufklärung und Stärkung der Medienmündigkeit statt durch reine Verbote.",
+      "heading": "Altersangemessenheit, Risiken & wertschätzende Elternbegleitung",
+      "keyTakeaway": "Gute Medienbegleitung schützt altersgerecht vor Überforderung, stärkt Medienmündigkeit und holt Eltern ohne moralische Belehrung ins Boot.",
+      "body": "Mediennutzung muss zwingend am Entwicklungsstand orientiert bleiben. Anerkannte Fachinitiativen wie klicksafe und SCHAU HIN! (gefördert u. a. von BMFSFJ und Landesmedienanstalten) geben praxisnahe Orientierungswerte – keine starren Stoppuhren, aber wichtige Leitplanken: Für Kinder von 0 bis 3 Jahren sollten Bildschirmmedien möglichst vermieden werden; im Vordergrund stehen analoge, sinnliche Erfahrungen, Bilderbücher und maßvolle auditive Angebote. Für das Kita-Alter (3–6 Jahre) gelten bis zu maximal 30 Minuten Bildschirmzeit pro Tag als Obergrenze – nicht zwingend täglich, stets begleitet durch Erwachsene, mit ruhigen, altersgerechten und werbefreien Inhalten sowie anschließender gemeinsamer Besprechung. Ab dem Grundschul- und Jugendalter gewinnen eigenständige Nutzung, Gaming und soziale Netzwerke an Bedeutung; hier rücken gemeinsam vereinbarte Wochenkontingente, Jugendschutzfreigaben (FSK/USK), technische Schutzfilter und der konstruktive Umgang mit Risiken in den Fokus – etwa Cybermobbing, problematische In-App-Käufe/Lootboxen, Schönheitsideale, Desinformation und exzessive Nutzung. In der Zusammenarbeit mit Eltern gilt: Viele Familien erleben im Alltag Zeitdruck und Unsicherheit rund um Smartphone und Tablet. Moralische Vorwürfe erzeugen Abwehr; wirksamer sind realistische, wertschätzende Gespräche über Vorbildfunktion (z. B. handyfreie Mahlzeiten), altersgerechte Alternativen und gemeinsame Vereinbarungen.",
       "bulletPoints": [
-        "Handlungsorientierte Medienproduktion (Stop-Motion, Hörspiel, Podcast).",
-        "Förderung von Selbstwirksamkeit und kreativem Ausdruck.",
-        "Risikoprävention: Cybermobbing, Datenschutz, exzessiver Konsum.",
-        "Alltagsintegrierte Verankerung in Kita, Hort und Jugendarbeit."
+        "Altersempfehlungen (klicksafe / SCHAU HIN!): 0–3 J. möglichst bildschirmfrei; 3–6 J. max. ca. 30 Min./Tag begleitet & werbefrei; ab Schulalter gemeinsame Zeit- und Inhaltsregeln.",
+        "Aktive Begleitung: Inhalte gemeinsam auswählen, Erlebtes nachbesprechen und Vorbild beim eigenen Smartphone-Gebrauch sein.",
+        "Risikoprävention: Altersgerecht über Werbung, In-App-Käufe, Fiktion vs. Realität, Cybermobbing und sichere Passwörter aufklären.",
+        "Elternpartnerschaft auf Augenhöhe: Praxisnahe Tipps und seriöse Portale (klicksafe, SCHAU HIN!) teilen statt Eltern zu belehren."
       ],
-      "heading": "Aktive Medienarbeit & Risikoprävention",
-      "keyTakeaway": "Aktive Medienproduktion und fundierte Risikoaufklärung sind zwei Seiten derselben Medaille für moderne Medienmündigkeit.",
-      "praxisTip": "Planen Sie ein kurzes Projekt, bei dem Kinder mit Tablets einen eigenen einminutigen Stop-Motion-Film zu einem sozialen Thema (z.B. Streit schlichten) produzieren."
+      "praxisTip": "Veranstalten Sie einen praxisnahen Elternabend, bei dem Eltern selbst zehn Minuten eine gute Kinder-App oder Stop-Motion-Technik ausprobieren – das eröffnet konstruktive Gespräche über Chancen und Grenzen."
+    },
+    {
+      "heading": "Datenschutz, Persönlichkeitsrechte & Recht am eigenen Bild (§ 22 KunstUrhG)",
+      "keyTakeaway": "Auch junge Kinder haben ein eigenes Recht am Bild – professionelle Medienarbeit achtet Datenschutz, Einwilligungen und das kindliche Nein.",
+      "body": "Sobald Fotos, Videos oder Tonaufnahmen von Kindern entstehen – ob für Portfolios, Wanddokumentationen, Medienprojekte oder Öffentlichkeitsarbeit –, bewegen sich Fachkräfte in einem sensiblen Rechtsfeld. Maßgeblich sind die Datenschutz-Grundverordnung (DSGVO) sowie § 22 des Kunsturhebergesetzes (KunstUrhG), der das Recht am eigenen Bild schützt: Bildnisse dürfen grundsätzlich nur mit vorheriger, informierter, zweckgebundener und jederzeit widerruflicher Einwilligung verbreitet oder öffentlich zur Schau gestellt werden. Bei Kindern entscheiden rechtlich die Sorgeberechtigten – pädagogisch und kinderrechtlich gehört jedoch unbedingt auch das Einverständnis des Kindes selbst dazu: Kein Kind wird gegen seinen Willen fotografiert oder gefilmt! Für die Einrichtungs-Praxis folgen daraus klare Standards: (1) Fotos und Aufnahmen werden ausschließlich mit datenschutzkonform gesicherten Dienstgeräten erstellt – niemals mit privaten Smartphones der Mitarbeitenden und niemals über unsichere private Messenger-Gruppen verschickt. (2) Einwilligungen werden getrennt nach konkretem Zweck eingeholt (z. B. internes Portfolio vs. Aushang im Flur vs. Website/Presse – ein pauschales „Alles-erlaubt“-Häkchen genügt nicht!). (3) Auf Elternfesten und in Elterngesprächen wird sensibel für die Risiken von „Sharenting“ (unbedachtes Teilen von Kinderfotos in sozialen Netzwerken) sensibilisiert, da einmal veröffentlichte Bilder im Netz kaum noch kontrollierbar sind.",
+      "bulletPoints": [
+        "Recht am eigenen Bild (§ 22 KunstUrhG) & DSGVO: Vorherige, schriftliche, zweckgebundene und widerrufliche Einwilligung der Sorgeberechtigten.",
+        "Kinderrechte achten: Kinder selbst vor jedem Foto fragen und ein „Nein“ selbstverständlich akzeptieren.",
+        "Dienstgeräte-Prinzip: Ausschließlich gesicherte Einrichtungsgeräte nutzen; keine Kinderfotos auf privaten Handys oder in privaten Chatgruppen.",
+        "Sharenting reflektieren: Eltern für langfristige Privatsphäre-Risiken öffentlicher Kinderfotos im Netz sensibilisieren (klicksafe / SCHAU HIN!)."
+      ],
+      "praxisTip": "Fotografieren Sie bei Wanddokumentationen und Projektberichten gezielt auch Hände beim Arbeiten, Bauwerke oder Materialspuren – so entstehen aussagekräftige Lernspuren ganz ohne unnötige Porträtfotos."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Vier Dimensionen der Medienkompetenz (Dieter Baacke)",
       "id": "vb-1",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Dimension 1",
-          "detail": "Die Fähigkeit, Medien und deren Infrastrukturen technisch zu bedienen und zu verstehen. Dazu gehört das Wissen über Funktionsweisen von Apps, Geräten und Algorithmen.",
-          "example": "Ein Kind lernt, wie man ein Tablet entsperrt und eine Foto-App bedient.",
-          "id": "item-1",
-          "label": "Medienkunde",
-          "metric": "Technik & Wissen",
-          "summary": "Wissen über den technischen Umgang mit Medien und Geräten."
-        },
-        {
-          "badge": "Dimension 2",
-          "detail": "Die Fähigkeit, Medieninhalte kritisch zu analysieren, Werbebotschaften zu erkennen, Fake News zu entlarven und manipulative Darstellungen zu hinterfragen.",
-          "example": "Kinder untersuchen in einem Projekt, warum Werbung in YouTube-Videos eingeblendet wird.",
-          "id": "item-2",
-          "label": "Medienkritik",
-          "metric": "Analyse & Reflexion",
-          "summary": "Kritische Analyse von Medieninhalten und Machtstrukturen."
-        },
-        {
-          "badge": "Dimension 3",
-          "detail": "Die Fähigkeit, Medien gezielt für eigene Bedürfnisse, Bildung, Kommunikation, Entspannung und Information im Alltag zu nutzen.",
-          "example": "Jugendliche recherchieren online Informationen für ein Referat über Umweltschutz.",
-          "id": "item-3",
-          "label": "Mediennutzung",
-          "metric": "Rezeption & Zweck",
-          "summary": "Sinnvoller und zielgerichteter Einsatz von Medien im Alltag."
-        },
-        {
-          "badge": "Dimension 4",
-          "detail": "Die Fähigkeit, selbst kreativ zu werden, eigene Medienprodukte zu gestalten und sich aktiv in die mediale Kultur einzubringen.",
-          "example": "Produktion eines eigenen Stop-Motion-Trickfilms in der Hortgruppe.",
-          "id": "item-4",
-          "label": "Mediengestaltung",
-          "metric": "Produktion & Kreativität",
-          "summary": "Aktives Herstellen eigener Medieninhalte und kreativer Ausdruck."
-        }
-      ],
       "kind": "concept_map",
+      "title": "Vier Dimensionen der Medienkompetenz (Dieter Baacke)",
+      "subtitle": "Ganzheitliches Leitmodell professioneller Medienbildung in Kita, Hort und Jugendarbeit",
+      "centerLabel": "Medienkompetenz",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Grundlage der modernen Medienpädagogik nach Dieter Baacke",
-      "title": "Konzeptkarte: Medienkompetenz"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-2",
       "isCycle": false,
       "items": [
         {
-          "badge": "Extrempol A",
-          "detail": "Digitale Medien werden komplett aus dem Lebensraum von Kindern verbannt. Aus Angst vor Sucht und Gefahren wird jeglicher Kontakt unterbunden.",
-          "example": "Eine Einrichtung verbietet jegliche Bildschirme und lehnt digitale Medien grundsätzlich ab.",
-          "id": "spec-1",
-          "label": "Restriktiver Verbotsschutz",
-          "metric": "Linker Pol",
-          "summary": "Vollständige Medienabstinenz und rigide Verbote."
+          "id": "b-1",
+          "badge": "Dimension 1",
+          "label": "Medienkritik",
+          "metric": "Analytisch · Reflexiv · Ethisch",
+          "summary": "Medieninhalte, Werbung, Manipulation und eigenes Medienhandeln kritisch hinterfragen.",
+          "detail": "Befähigt Kinder und Jugendliche, Fiktion von Realität, Werbung von Information und verletzende von fairer Online-Kommunikation zu unterscheiden.",
+          "example": "Hortkinder untersuchen gemeinsam, warum in einem beliebten Spiel ständig kostenpflichtige Extras beworben werden."
         },
         {
-          "badge": "Stufe 2",
-          "detail": "Fachkräfte erkennen Medien als Lebenswelt an, setzen aber vor allem auf Regeln, Jugendschutzvorgaben und schrittweise Begleitung.",
-          "example": "Aufstellen von klaren Nutzungszeiten und gemeinsamen Handyregeln im Hort.",
-          "id": "spec-2",
-          "label": "Regulatorische Begleitung",
-          "metric": "Stufe 2",
-          "summary": "Fokus auf Regeln und Schutzrahmen."
+          "id": "b-2",
+          "badge": "Dimension 2",
+          "label": "Medienkunde",
+          "metric": "Informativ · Instrumentell",
+          "summary": "Wissen über Mediensysteme und sicheres technisches Bedienen von Geräten und Werkzeugen.",
+          "detail": "Umfasst sowohl das Verständnis, wie Medien funktionieren (z. B. Kamera, Mikrofon, Suchmaschine), als auch deren sachgerechte Handhabung.",
+          "example": "Ein fünfjähriges Kind lernt, wie man mit der Kita-Kamera scharfstellt und auslöst, ohne das Objektiv zu verdecken."
         },
         {
-          "badge": "Professionelle Mitte",
-          "detail": "Ausgewogene Haltung aus Schutz, aktiver Befähigung (Empowerment), kreativer Mitgestaltung und kritischer Reflexion im Dialog.",
-          "example": "Projektarbeit: Kinder analysieren kritisch Social Media und produzieren eigene Medien.",
-          "id": "spec-3",
-          "label": "Medienerziehende Partnerschaft",
-          "metric": "Professionelle Balance",
-          "summary": "Balance aus Schutz, Förderung und aktiver Mitgestaltung."
+          "id": "b-3",
+          "badge": "Dimension 3",
+          "label": "Mediennutzung",
+          "metric": "Rezeptiv · Interaktiv",
+          "summary": "Medien bewusst und zielgerichtet für Information, Spiel, Kommunikation oder Entspannung nutzen.",
+          "detail": "Beinhaltet das Auswählen altersgerechter Angebote ebenso wie verantwortungsbewusste Kommunikation in digitalen Räumen.",
+          "example": "Kinder schlagen gemeinsam mit der Fachkraft in einer Kindersuchmaschine nach, was ein Igel im Winter frisst."
         },
         {
-          "badge": "Stufe 4",
-          "detail": "Medien werden als Werkzeug genutzt, jedoch ohne tiefere kritische Reflexion oder medienpädagogische Begleitung der Risiken.",
-          "example": "Kinder dürfen unbeaufsichtigt auf Tablets spielen, solange sie leise sind.",
-          "id": "spec-4",
-          "label": "Laissez-faire Nutzung",
-          "metric": "Stufe 4",
-          "summary": "Unkritische Gewährung von Medienzugang ohne Begleitung."
-        },
-        {
-          "badge": "Extrempol B",
-          "detail": "Grenzenloser, unkontrollierter und völlig unkritischer Digitalkonsum rund um die Uhr ohne pädagogische Intervention.",
-          "example": "Kinder konsumieren unbegrenzt Social-Media-Streams ohne Altersprüfung.",
-          "id": "spec-5",
-          "label": "Grenzenloser Digitalkonsum",
-          "metric": "Rechter Pol",
-          "summary": "Völlige Regellosigkeit und unkontrollierter Konsum."
+          "id": "b-4",
+          "badge": "Dimension 4",
+          "label": "Mediengestaltung",
+          "metric": "Innovativ · Kreativ",
+          "summary": "Eigene Medienprodukte aktiv planen, produzieren und gesellschaftlich bzw. in der Gruppe teilen.",
+          "detail": "Verwandelt Kinder und Jugendliche von Konsumenten in kreative Gestalter und vertieft das Verständnis für mediale Inszenierungen.",
+          "example": "Eine Kleingruppe produziert einen einminütigen Stop-Motion-Film aus Lego-Figuren zum Thema Freundschaft."
         }
-      ],
-      "kind": "spectrum",
-      "leftPole": "Restriktiver Verbotsschutz & Medienabstinenz",
-      "rightPole": "Laissez-faire (grenzenloser Digitalkonsum)",
-      "subtitle": "Pädagogische Haltungsdimensionen in der Medienerziehung",
-      "title": "Spektrum der medienpädagogischen Haltung"
+      ]
     },
     {
-      "centerLabel": "",
-      "id": "vb-3",
-      "isCycle": true,
-      "items": [
-        {
-          "badge": "Schritt 1",
-          "detail": "Kinder und Fachkräfte überlegen gemeinsam, zu welchem Thema (z.B. 'Freundschaft', 'Umweltschutz') ein Medienprodukt entstehen soll. Ideen werden gesammelt und skizziert.",
-          "example": "Die Hortgruppe stimmt ab, einen Trickfilm über Pausenkonflikte zu machen.",
-          "id": "flow-1",
-          "label": "Ideenfindung & Planung",
-          "metric": "Phase 1",
-          "summary": "Themenwahl, Storyboard-Erstellung und Konzeptentwicklung."
-        },
-        {
-          "badge": "Schritt 2",
-          "detail": "Die Kinder setzen das Konzept handlungsorientiert um: Sie fotografieren, zeichnen, sprechen Audio-Dateien ein oder filmen mit Tablets.",
-          "example": "Kinder bewegen Knetfiguren bildweise für den Stop-Motion-Film.",
-          "id": "flow-2",
-          "label": "Produktion & Gestaltung",
-          "metric": "Phase 2",
-          "summary": "Aktives Herstellen von Foto-, Video- oder Audiodaten."
-        },
-        {
-          "badge": "Schritt 3",
-          "detail": "Das Rohmaterial wird gesichtet, geschnitten, mit Musik unterlegt und zu einem fertigen kleinen Medienprodukt zusammengefügt.",
-          "example": "Zusammenfügen der Einzelbilder in einer Stop-Motion-App und Tonspur anlegen.",
-          "id": "flow-3",
-          "label": "Bearbeitung & Schnitt",
-          "metric": "Phase 3",
-          "summary": "Editing, Vertonung und Fertigstellung des Produkts."
-        },
-        {
-          "badge": "Schritt 4",
-          "detail": "Das fertige Produkt wird präsentiert, gewürdigt und kritisch reflektiert: Was lief gut? Welche Botschaft transportiert das Werk?",
-          "example": "Premiere des Trickfilms im Kinderparlament mit anschließendem Applaus und Feedback.",
-          "id": "flow-4",
-          "label": "Präsentation & Reflexion",
-          "metric": "Phase 4",
-          "summary": "Vorstellung, Würdigung und gemeinschaftliche Reflexion."
-        }
-      ],
-      "kind": "process_flow",
+      "id": "vb-2",
+      "kind": "timeline",
+      "title": "Altersangemessene Medienbegleitung im Überblick",
+      "subtitle": "Orientierungswerte und pädagogische Schwerpunkte (angelehnt an klicksafe & SCHAU HIN!)",
+      "centerLabel": "Altersstufen",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Zyklen der aktiven Medienproduktion in der Praxis",
-      "title": "Prozessfluss: Aktive Medienarbeit"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "age-1",
+          "badge": "0–3 Jahre",
+          "label": "Krippenalter: Analoge Welt im Vordergrund",
+          "metric": "Möglichst bildschirmfrei",
+          "summary": "Primäre sinnliche, motorische und soziale Erfahrungen stehen absolut im Zentrum.",
+          "detail": "Bildschirmmedien möglichst vermeiden; stattdessen Pappbilderbücher, Lieder, Reime und maßvolle, gemeinsame auditive Erlebnisse nutzen.",
+          "example": "Gemeinsames Betrachten eines Fühl-Bilderbuchs und Singen statt Smartphone zur Beruhigung im Kinderwagen."
+        },
+        {
+          "id": "age-2",
+          "badge": "3–6 Jahre",
+          "label": "Kita-Alter: Begleitet & kreativ entdecken",
+          "metric": "Max. ca. 30 Min./Tag",
+          "summary": "Kurz, werbefrei, nicht zwingend täglich – stets begleitet und in analoges Handeln eingebettet.",
+          "detail": "Fokus auf aktive Medienarbeit (Foto, Hörspiel, Bilderbuchkino), gemeinsames Nachbesprechen und klares Unterscheiden von Spielwelt und Realität.",
+          "example": "Kinder nehmen Waldgeräusche mit einem Aufnahmegerät auf und raten später im Morgenkreis, welches Geräusch was war."
+        },
+        {
+          "id": "age-3",
+          "badge": "6–10 Jahre",
+          "label": "Grundschul- & Hortalter: Regeln & erste Medienkritik",
+          "metric": "Wochenkontingent",
+          "summary": "Zunehmende Peer-Nutzung, Games und Chats erfordern klare Regeln und Risikoaufklärung.",
+          "detail": "Gemeinsame Medienvereinbarungen, Kennenlernen von Kindersuchmaschinen, Erkennen von Werbung/In-App-Käufen und aktive Projekte (Stop-Motion, Podcast).",
+          "example": "Hortkinder entwickeln gemeinsam faire Regeln für Messenger-Gruppen und drehen einen kurzen Erklärfilm dazu."
+        },
+        {
+          "id": "age-4",
+          "badge": "Ab 11 Jahren",
+          "label": "Jugendalter: Identität, Social Media & Mündigkeit",
+          "metric": "Eigenverantwortung",
+          "summary": "Reflexion von Algorithmen, Selbstdarstellung, Cybermobbing, Datenschutz und Desinformation.",
+          "detail": "Begleitung auf Augenhöhe: Persönlichkeitsrechte, kritische Quellenprüfung, digitale Zivilcourage und kreative Eigenproduktionen stärken.",
+          "example": "Jugendliche analysieren in einem Workshop Filter-Ästhetik und Faktenchecks in Kurzvideos und produzieren eigene Clips."
+        }
+      ]
+    },
+    {
+      "id": "vb-3",
+      "kind": "feature_grid",
+      "title": "Datenschutz & Recht am eigenen Bild in der Praxis",
+      "subtitle": "Vier verbindliche Standards für Fotos, Videos und digitale Kommunikation",
+      "centerLabel": "Medienrecht & Schutz",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "dp-1",
+          "badge": "Standard 1",
+          "label": "Zweckgebundene Einwilligung (§ 22 KunstUrhG / DSGVO)",
+          "metric": "Rechtsgrundlage",
+          "summary": "Schriftlich, konkret nach Verwendungszweck getrennt und jederzeit widerrufbar.",
+          "detail": "Einwilligungen für Portfolio, Gruppen-Aushang, Zeitung oder Homepage werden einzeln abgefragt und sauber dokumentiert.",
+          "example": "Ein Elternpaar stimmt Fotos im internen Portfolio zu, lehnt aber die Veröffentlichung auf der Kita-Website ab – beides wird strikt beachtet."
+        },
+        {
+          "id": "dp-2",
+          "badge": "Standard 2",
+          "label": "Partizipatives Einverständnis des Kindes",
+          "metric": "Kinderrecht",
+          "summary": "Auch bei elterlicher Einwilligung wird das Kind vor jedem Foto gefragt.",
+          "detail": "Kinder erleben praktisch, dass sie über ihr eigenes Bild mitbestimmen dürfen – eine direkte Vorübung für spätere digitale Selbstbestimmung.",
+          "example": "„Darf ich dich gerade beim Werkeln fotografieren, oder soll ich lieber nur dein fertiges Boot knipsen?“"
+        },
+        {
+          "id": "dp-3",
+          "badge": "Standard 3",
+          "label": "Nur gesicherte Dienstgeräte",
+          "metric": "Datensicherheit",
+          "summary": "Keine Kinderfotos auf privaten Smartphones oder in unsicheren Chatgruppen.",
+          "detail": "Dienstliche Kameras oder Tablets mit Zugangsschutz, geregelten Löschfristen und datenschutzkonformen Kommunikationswegen schützen sensible Kinderdaten.",
+          "example": "Nach dem Übertragen in das geschützte Kita-System werden Originalbilder regelmäßig gemäß Löschkonzept entfernt."
+        },
+        {
+          "id": "dp-4",
+          "badge": "Standard 4",
+          "label": "Sensibilisierung gegen Sharenting",
+          "metric": "Elternarbeit",
+          "summary": "Klare Absprachen bei Festen und Information über Risiken öffentlicher Kinderfotos.",
+          "detail": "Bei Kita-Festen wird vorab vereinbart, keine fremden Kinder ohne Einwilligung zu fotografieren oder online zu teilen.",
+          "example": "Ein freundlicher Hinweis vor der Aufführung bittet alle Gäste, keine Videos fremder Kinder in sozialen Netzwerken zu posten."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "8–10 Jahre (Hort / Ganztagsschule)",
-    "context": "Eine Hortgruppe zeigt vermehrt Konflikte und Ablenkung durch Smartphone-Spiele und virale Social-Media-Trends. Erzieherin Anna möchte das Thema aufgreifen, anstatt Smartphones pauschal zu verbieten, und plant ein handlungsorientiertes Medienprojekt.",
-    "setting": "Städtischer Hort an einer Grundschule",
+    "title": "Gaming-Streit, heimliche Fotos und Sharenting im Hort",
+    "setting": "Städtischer Grundschulhort (offener Nachmittagsbereich)",
+    "ageGroup": "8–10 Jahre (Grundschulalter)",
+    "context": "In einer Hortgruppe gibt es seit Wochen wiederholt Streit um ein beliebtes Online-Spiel: Mehrere Kinder lachen ein Kind aus, weil es keine kostenpflichtigen „Skins“ kaufen darf. Zudem bemerken Sie, dass zwei Kinder beim Sommerfest heimlich Fotos anderer Kinder mit dem Smartphone gemacht haben und ein Elternteil vorschlägt, eine offene WhatsApp-Gruppe für tägliche Kinderfotos aus dem Hort einzurichten.",
     "steps": [
       {
+        "situation": "Beim Nachmittagskreis kocht der Streit um die kostenpflichtigen Spiel-Extras erneut hoch; einige Kinder fühlen sich ausgegrenzt.",
+        "prompt": "Wie greifen Sie den Medienkonflikt im Sinne von Dieter Baackes Medienkompetenzmodell nachhaltig auf?",
         "options": [
           {
-            "feedback": "Ein reines Verbot greift pädagogisch zu kurz, da es die Alltagsrealität der Kinder ignoriert, heimliche Nutzung fördert und keine Medienkompetenz aufbaut. Zudem wird die Chance verpasst, Medien als kreatives Werkzeug zu nutzen.",
-            "label": "Anna konfisziert sofort alle Smartphones beim Betreten des Hortes, verbietet jegliche Handynutzung und droht mit Verweisen.",
-            "quality": "problematisch",
-            "theoryLink": "Widerspricht dem RLP-Kompetenzbereich Medien: Kinder sollen Medien kritisch hinterfragen und einen *angemessenen* Umgang entwickeln, nicht bloß Abstinenz lernen."
-          },
-          {
-            "feedback": "Dieser Schritt verbindet Partizipation und Medienreflexion. Die Kinder setzen sich aktiv mit ihrem Konsum auseinander und erarbeiten gemeinsam realistische Regeln.",
-            "label": "Anna moderiert einen Kinderkonvent, in dem die Kinder ihre Lieblings-Apps und -Spiele vorstellen, über Vor- und Nachteile diskutieren und gemeinsam verbindliche 'Handy-Regeln' für den Hort entwickeln.",
-            "quality": "optimal",
-            "theoryLink": "Entspricht dem RLP-Prinzip der Partizipation sowie dem Ansatz der medienerziehenden Begleitung (Theorie der aktiven Medienkompetenz nach Baacke)."
-          },
-          {
-            "feedback": "Das Gespräch ist zwar gut gemeint, bleibt aber unverbindlich. Ohne konkrete Regeln oder medienpädagogische Weiterarbeit verpufft der Effekt im Alltag schnell.",
-            "label": "Anna spricht mit einigen Kindern in einer ruhigen Minute kurz über deren Handykonsum, belässt es aber dabei und unternimmt keine weiteren strukturellen Schritte.",
+            "label": "Sie ermahnen die Kinder kurz, freundlich miteinander zu sein, gehen aber inhaltlich nicht weiter auf In-App-Käufe und Ausgrenzung ein.",
             "quality": "teilweise",
-            "theoryLink": "Verfehlt den Bildungsauftrag zur systematischen Medienkompetenzförderung und alltagsintegrierten Methodenverwendung."
+            "feedback": "Zu oberflächlich: Ein kurzer Appell ohne inhaltliche Auseinandersetzung deckt weder die kommerziellen Mechanismen hinter In-App-Käufen auf noch stärkt er nachhaltig die Medienkritik der Gruppe.",
+            "theoryLink": "Fehlende Vertiefung von Medienkritik und Partizipation"
+          },
+          {
+            "label": "Sie moderieren eine partizipative Gesprächsrunde zu Fairness und kommerziellen Tricks in Spielen (Medienkritik) und starten anschließend ein kleines aktives Medienprojekt (z. B. ein selbst produziertes Hörspiel oder einen Stop-Motion-Clip zum Thema „Fair spielen – offline und online“).",
+            "quality": "optimal",
+            "feedback": "Fachlich überzeugend: Sie nehmen die Lebenswelt der Kinder ernst, machen kommerzielle Mechanismen durchschaubar (Medienkritik nach Baacke) und führen die Kinder durch aktive Mediengestaltung vom passiven Konsum in kooperatives, selbstwirksames Handeln.",
+            "theoryLink": "Medienkompetenz (Baacke: Medienkritik & Mediengestaltung); aktive Medienarbeit (JFF)"
+          },
+          {
+            "label": "Sie verbieten im Hort ab sofort jedes Gespräch über Online-Spiele und sammeln pauschal alle Medienartikel ein, damit wieder Ruhe einkehrt.",
+            "quality": "problematisch",
+            "feedback": "Greift zu kurz: Pauschale Gesprächs- und Medienverbote verdrängen die reale Lebenswelt der Kinder, lösen den Ausgrenzungsmechanismus nicht und verpassen die zentrale Bildungsaufgabe der Medienkritik.",
+            "theoryLink": "Bewahrpädagogik vs. kompetenzorientierte Medienbildung (Baacke)"
           }
-        ],
-        "prompt": "Wie geht Anna im ersten Schritt mit der akuten Smartphone-Nutzung und den Konflikten um?",
-        "situation": "Im Hort häufen sich Streitigkeiten wegen Online-Spielen und Chat-Gruppen. Die Kinder sind oft abgelenkt und unruhig."
+        ]
       },
       {
+        "situation": "Zwei Kinder haben ohne Erlaubnis andere Kinder fotografiert, und der Elternbeirat bittet um eine informelle WhatsApp-Gruppe für tägliche Fotos aus dem Hortalltag.",
+        "prompt": "Wie reagieren Sie datenschutzrechtlich und medienpädagogisch professionell?",
         "options": [
           {
-            "feedback": "Dieses Vorgehen setzt direkt beim Interessenhorizont der Kinder an, fördert Teamarbeit, Kreativität sowie Problemlösungskompetenz und setzt Medien aktiv statt konsumtiv ein.",
-            "label": "Als Folgeprojekt initiiert Anna die Produktion eines eigenen Hörspiels oder einer Stop-Motion-Animation zum Thema 'Fairer Umgang im Netz', bei dem die Kinder in Kleingruppen eigene Drehbücher schreiben und umsetzen.",
+            "label": "Sie besprechen mit den Kindern altersgerecht das Recht am eigenen Bild (erst fragen, Nein respektieren, unbefugte Fotos gemeinsam klären/löschen), lehnen eine private WhatsApp-Fotogruppe freundlich unter Verweis auf DSGVO und § 22 KunstUrhG ab und bieten stattdessen datenschutzkonforme Einblicke (z. B. analoge Projekt-Wand mit geprüften Einwilligungen oder geschützte Träger-App) sowie Infos zu Sharenting an.",
             "quality": "optimal",
-            "theoryLink": "Entspricht direkt der RLP-Forderung nach 'Eigene Medienprodukte im Sinne einer aktiven und handlungsorientierten Medienarbeit herstellen'."
+            "feedback": "Rechtssicher und pädagogisch stark: Sie verbinden praktische Rechtebildung für Kinder mit konsequentem Datenschutz (keine privaten Messenger/Smartphones für Kinderfotos, zweckgebundene Einwilligungen) und konstruktiver Elterninformation (z. B. SCHAU HIN! / klicksafe).",
+            "theoryLink": "Recht am eigenen Bild (§ 22 KunstUrhG); DSGVO; Sharenting-Prävention (klicksafe / SCHAU HIN!)"
           },
           {
-            "feedback": "Theoretische Inputs sind wichtig, aber für Grundschulkinder oft zu abstrakt, wenn sie nicht handlungsorientiert und lebensweltnah verknüpft sind.",
-            "label": "Anna hält einen 45-minütigen Frontalvortrag über die Gefahren von Cybermobbing und zeigt ein belehrendes Aufklärungsvideo.",
-            "quality": "problematisch",
-            "theoryLink": "Ignoriert konstruktivistische Lerntheorien und das Prinzip der handlungsorientierten Medienpädagogik."
-          },
-          {
-            "feedback": "Das Quiz ist ein guter Baustein, greift aber zu kurz, wenn es nicht in ein längerfristiges Projekt eingebettet ist, das auch Produktion und Reflexion umfasst.",
-            "label": "Anna lässt die Kinder ein kurzes Online-Quiz zum Datenschutz ausfüllen, ohne die Ergebnisse vertieft im Alltag zu reflektieren.",
+            "label": "Sie lassen die Fotos der beiden Kinder unkommentiert löschen, verschieben die WhatsApp-Frage aber ohne klare Begründung auf das nächste Halbjahr.",
             "quality": "teilweise",
-            "theoryLink": "Deckt nur einen Teilaspekt der Medienkompetenz ab (Informationskompetenz), vernachlässigt aber Gestaltung und Reflexion."
+            "feedback": "Halbherzig: Ohne gemeinsames Gespräch lernen die Kinder nicht, warum das Recht am eigenen Bild wichtig ist, und ohne klare rechtliche Einordnung gegenüber Eltern bleibt Unsicherheit bestehen.",
+            "theoryLink": "Medienpädagogische Reflexion & transparente Elternkommunikation"
+          },
+          {
+            "label": "Sie richten die WhatsApp-Gruppe mit Ihrem privaten Diensthandy ein, schreiben aber in die Gruppenbeschreibung „Bitte keine Fotos weiterleiten“, damit sich alle Eltern informiert fühlen.",
+            "quality": "problematisch",
+            "feedback": "Rechtlich unzulässig: Weder private Geräte noch ungesicherte private Messenger-Gruppen erfüllen die Anforderungen von DSGVO und § 22 KunstUrhG – ein bloßer Appell verhindert zudem kein unkontrolliertes Weiterleiten (Sharenting).",
+            "theoryLink": "Verstoß gegen DSGVO, Dienstgeräte-Prinzip und Recht am eigenen Bild (§ 22 KunstUrhG)"
           }
-        ],
-        "prompt": "Wie gestaltet Anna die nachhaltige medienpädagogische Arbeit im Anschluss?",
-        "situation": "Die Kinder sollen lernen, Medien kritisch zu hinterfragen und kreative Alternativen zum reinen Konsum zu erfahren."
+        ]
       }
-    ],
-    "title": "Smartphone-Nutzung und Medienkonflikte im Hort"
+    ]
   },
   "selfLearningTasks": [
-    "Erstellen Sie eine persönliche 'Medienbiografie' (Timeline von der fruehen Kindheit bis heute) und analysieren Sie, welche Medien welche Funktionen (Unterstützung, Bewältigung, Unterhaltung) in Ihrem Leben hatten.",
-    "Analysieren Sie eine aktuelle Kinder-App oder ein beliebtes Jugendspiel (z. B. Minecraft, Roblox, TikTok) mithilfe eines Kriterienrasters (Datenschutz, Suchtpotenzial, kreative Möglichkeiten, Altersgerechtigkeit).",
-    "Entwerfen Sie ein Konzept für einen Projekttag 'Aktive Medienarbeit' in einer Kita oder einem Hort (z. B. Produktion eines eigenen Mini-Hörspiels)."
+    "Analysieren Sie eine aktuell bei Ihrer Zielgruppe beliebte App, Kinderserie oder ein Spiel anhand selbst gewählter medienpädagogischer Kriterien (Altersangemessenheit, Werbung/In-App-Käufe, Datenschutz, kreative Beteiligungsmöglichkeiten, Rollenbilder) und leiten Sie eine kurze Elternempfehlung ab.",
+    "Planen und erproben Sie ein kleines Projekt aktiver Medienarbeit (z. B. Foto-Buch, Geräusche-Rätsel mit Aufnahmegerät oder einminütiger Stop-Motion-Clip) unter konsequenter Einhaltung von Datenschutz und kindlichem Einverständnis.",
+    "Überprüfen Sie die Foto- und Datenschutzregelungen Ihrer Praxiseinrichtung (Einwilligungsformulare, Dienstgeräte, Aushänge, Feste) im Abgleich mit § 22 KunstUrhG und den Empfehlungen von klicksafe / SCHAU HIN! und halten Sie drei zentrale Praxisregeln für Ihren Alltag fest."
   ],
   "flashcards": [
     {
-      "definition": "Fähigkeit, Medien und deren Inhalte kritisch zu analysieren, für eigene Bildungs- und Kommunikationsprozesse zu nutzen und kreativ mit ihnen zu gestalten (nach Dieter Baacke).",
-      "example": "Ein Jugendlicher erstellt einen Podcast über Jugendkultur, statt nur Musik zu streamen.",
-      "term": "Medienkompetenz"
+      "term": "Medienkompetenz (Dieter Baacke)",
+      "definition": "Vierdimensionales Grundmodell der Medienpädagogik aus Medienkritik (analytisch, reflexiv, ethisch), Medienkunde (informativ, instrumentell), Mediennutzung (rezeptiv, interaktiv) und Mediengestaltung (innovativ, kreativ).",
+      "example": "Kinder untersuchen Werbung in Videos (Medienkritik) und drehen danach selbst ein kurzes Hörspiel (Mediengestaltung)."
     },
     {
-      "definition": "Die persönliche Entstehungsgeschichte, geprägt durch den historischen Wandel, familiäre Prägungen und den individuellen Medienkonsum im Lebenslauf.",
-      "example": "Erzieher:innen reflektieren, welche Rolle Kassetten, Fernseher oder Smartphones in ihrer eigenen Kindheit spielten.",
-      "term": "Medienbiografie"
+      "term": "Aktive Medienarbeit",
+      "definition": "Handlungsorientierter medienpädagogischer Ansatz, bei dem Kinder und Jugendliche Medien nicht nur konsumieren, sondern selbst kreativ planen, gestalten und reflektieren (z. B. Fotos, Hörspiele, Stop-Motion, Podcasts).",
+      "example": "Eine Kitagruppe fotografiert selbst die Schritte ihres Bauprojekts und spricht die Erklärungen als kleines Hörbuch ein."
     },
     {
-      "definition": "Ein medienpädagogischer Ansatz, bei dem Kinder und Jugendliche nicht nur Medien konsumieren, sondern selbst Medienprodukte (z. B. Stop-Motion, Hörspiel) herstellen.",
-      "example": "Kinder drehen mit Tablets einen eigenen Trickfilm zur Konfliktlösung.",
-      "term": "Aktive Medienarbeit"
+      "term": "Altersangemessene Medienzeiten (klicksafe / SCHAU HIN!)",
+      "definition": "Orientierungswerte: 0–3 Jahre möglichst bildschirmfrei; 3–6 Jahre max. ca. 30 Minuten/Tag (nicht zwingend täglich, stets begleitet und werbefrei); ab Grundschulalter gemeinsam vereinbarte Wochenkontingente und aktive Begleitung.",
+      "example": "Eltern und Fachkraft besprechen im Entwicklungsgespräch ruhige, werbefreie Alternativen für den Feierabend."
     },
     {
-      "definition": "Psychologische und soziale Mechanismen, bei denen Kinder in digitalen Räumen (WhatsApp, Social Media) systematisch schikaniert, ausgegrenzt oder bedroht werden.",
-      "example": "Erarbeitung von Notfallplänen und Klassenregeln im Rahmen der Präventionsarbeit.",
-      "term": "Cybermobbing"
+      "term": "Recht am eigenen Bild (§ 22 KunstUrhG)",
+      "definition": "Persönlichkeitsrecht, wonach Fotos und Videos von Personen grundsätzlich nur mit vorheriger, informierter, zweckgebundener und widerruflicher Einwilligung verbreitet oder veröffentlicht werden dürfen – auch Kinder besitzen dieses Recht.",
+      "example": "Vor dem Veröffentlichen eines Gruppenfotos auf der Website braucht es die ausdrückliche schriftliche Einwilligung der Sorgeberechtigten und die Achtung des kindlichen Willens."
     },
     {
-      "definition": "Entwicklungspsychologischer Schutz von Kindern und Jugendlichen vor entwicklungsgefährdenden Medieninhalten (z. B. FSK/USK-Altersfreigaben).",
-      "example": "Auswahl altersgerechter Apps und Spiele in der Kita-Medienecke.",
-      "term": "Medienmündigkeit & Jugendschutz"
+      "term": "Sharenting",
+      "definition": "Kofferwort aus „Sharing“ und „Parenting“: das häufig unbedachte Teilen von Fotos, Videos oder persönlichen Informationen über eigene oder fremde Kinder in sozialen Netzwerken oder Messengern – verbunden mit langfristigen Risiken für Privatsphäre und Kinderschutz.",
+      "example": "Eine Kita bittet Eltern bei Sommerfesten freundlich, keine Aufnahmen fremder Kinder auf Social Media zu posten."
     },
     {
-      "definition": "Kritische Distanz gegenüber Medieninhalten, Erkennen von Fake News, Werbung, Stereotypen und Manipulationen in digitalen Medien.",
-      "example": "Untersuchung von Influencer-Marketing in YouTube-Videos mit Schulkindern.",
-      "term": "Medienkritik"
+      "term": "Medienbiografie",
+      "definition": "Die eigene, lebensgeschichtlich gewachsene Erfahrung mit analogen und digitalen Medien; ihre kritische Reflexion hilft Fachkräften, weder in pauschale Verbote noch in unkritischen Konsum zu verfallen.",
+      "example": "Eine Fachkraft erkennt, dass ihre Skepsis gegenüber Computerspielen aus fehlender eigener Erfahrung stammt, und informiert sich sachlich über pädagogisch wertvolle Spiele."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Dieter Baacke definierte Medienkompetenz als umfassendes Konzept aus Medienkunde, Medienkritik, Mediennutzung und Mediengestaltung.",
-      "id": "q-1",
+      "question": "Welche vier Hauptdimensionen umfasst das klassische Medienkompetenzmodell nach Dieter Baacke?",
       "options": [
-        "Die rein technische Fähigkeit, ein Smartphone bedienen zu können.",
-        "Ein mehrdimensionales Konzept nach Dieter Baacke, das Medienkritik, Medienkunde, Mediennutzung und Mediengestaltung umfasst.",
-        "Das Verbot von digitalen Medien bis zum zehnten Lebensjahr.",
-        "Die passive Konsumfähigkeit von Fernsehsendungen und Streaming-Diensten."
+        "Programmieren, Datenschutz, Hardware-Wartung und Jugendschutz",
+        "Medienverbot, Medienkontrolle, Medienkonsum und Medienbewertung",
+        "Lesen, Schreiben, Rechnen und digitales Suchen",
+        "Medienkritik, Medienkunde, Mediennutzung und Mediengestaltung"
       ],
-      "question": "Wie wird der Begriff „Medienkompetenz“ in der modernen Medienpädagogik (nach Dieter Baacke) definiert?",
-      "type": "single"
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Dieter Baacke strukturiert Medienkompetenz in Medienkritik (analytisch, reflexiv, ethisch), Medienkunde (informativ, instrumentell), Mediennutzung (rezeptiv, interaktiv) und Mediengestaltung (innovativ, kreativ)."
     },
     {
-      "correctIndices": [
-        0,
-        2
-      ],
+      "id": "v2-q2",
+      "type": "single",
       "difficulty": "vertiefung",
-      "explanation": "Pädagogisch wertvoll ist die Einbindung von Medien als kreatives Werkzeug und die Reflexion. Pauschale Verbote oder unkritische Nutzung ohne Begleitung widersprechen dem Bildungsauftrag.",
-      "id": "q-2",
+      "question": "Welche Orientierungswerte empfehlen Fachinitiativen wie klicksafe und SCHAU HIN! für die Bildschirmnutzung im Kita-Alter (3 bis 6 Jahre)?",
       "options": [
-        "Kinder und Jugendliche bei der aktiven und kreativen Erstellung eigener Medienprodukte unterstützen.",
-        "Digitale Medien im pädagogischen Alltag komplett verbieten, um Einflüsse fernzuhalten.",
-        "Gemeinsam mit Kindern Kriterien für die Bewertung von Apps und Games erarbeiten.",
-        "Den unkontrollierten Medienkonsum als reine Privatsache der Eltern betrachten."
+        "Grundsätzlich erst ab dem Eintritt in die weiterführende Schule.",
+        "Etwa 90 Minuten täglich unbegleitetes Nutzen von Lern-Apps, um frühzeitig digitale Routine aufzubauen.",
+        "Keine altersabhängigen Richtwerte, da Kinder ab vier Jahren ihre Bildschirmzeit selbst regulieren können.",
+        "Maximal etwa 30 Minuten pro Tag (nicht zwingend täglich), mit ruhigen, altersgerechten, werbefreien Inhalten und stets in Begleitung Erwachsener."
       ],
-      "question": "Welche Handlungsweisen entsprechen dem Lehrplan Rheinland-Pfalz für die professionelle Medienbildung? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Für 3- bis 6-Jährige empfehlen klicksafe und SCHAU HIN! höchstens ca. 30 Minuten täglich (besser nicht täglich), immer aktiv begleitet und nachbesprochen, während 0- bis 3-Jährige möglichst bildschirmfrei aufwachsen sollten."
     },
     {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Die aktive Medienarbeit (z.B. Stop-Motion) fördert Kreativität, Teamarbeit und das Verständnis von Medien als gestaltbare Werkzeuge (Produzentenrolle statt reiner Konsumentenrolle).",
-      "id": "q-3",
+      "id": "v2-q3",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche rechtlichen und pädagogischen Grundsätze gelten beim Fotografieren von Kindern in Kita und Hort (§ 22 KunstUrhG / DSGVO)? (Mehrere Antworten sind richtig)",
       "options": [
-        "Das Auswendiglernen von FSK-Altersfreigaben.",
-        "Das Konsumieren von Lernvideos im Stuhlkreis.",
-        "Die handlungsorientierte Produktion eines eigenen Stop-Motion-Trickfilms in Kleingruppen.",
-        "Das Verfassen einer rein theoretischen Hausarbeit über Fernsehkonsum."
+        "Für spontane Alltagsfotos dürfen Fachkräfte ihr privates Smartphone verwenden, solange die Bilder noch am selben Abend gelöscht werden.",
+        "Fotos und Videos werden ausschließlich mit datenschutzkonform gesicherten Dienstgeräten der Einrichtung erstellt und verarbeitet.",
+        "Einwilligungen der Sorgeberechtigten werden schriftlich, zweckgebunden (getrennt z. B. nach Portfolio, Aushang, Website) und jederzeit widerruflich eingeholt.",
+        "Auch bei vorliegender elterlicher Einwilligung wird das Kind selbst gefragt; ein „Nein“ des Kindes wird respektiert."
       ],
-      "question": "Welche Methode stellt ein Paradebeispiel für „aktive Medienarbeit“ im Sinne des RLP dar?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
-        1
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Im Hortalter (Grundschule) gewinnen digitale Medien und soziale Kommunikationsformen stark an Bedeutung. Wichtig sind hier begleitende Medienreflexion, Regeln und Risikoaufklärung (z.B. Datenschutz, Cybermobbing).",
-      "id": "q-4",
-      "options": [
-        "Im Krippenalter (U3) sollten Kinder täglich zwei Stunden digitale Lern-Apps nutzen, um frühzeitig fit für die Schule zu sein.",
-        "Im Grundschulalter (Hort) gewinnen Peer-Beziehungen und digitale Kommunikation an Bedeutung, weshalb medienpädagogische Begleitung, Regeln und Risikoaufklärung zentral sind.",
-        "Im Jugendalter ist Medienpädagogik überflüssig, da Jugendliche bereits vollständige Medienkompetenz besitzen.",
-        "Im Kindergartenalter spielen Medien keine Rolle, weshalb jeglicher Kontakt vermieden werden muss."
-      ],
-      "question": "In einer Hortgruppe (8-10 Jahre) nutzen viele Kinder Tablets für Online-Spiele. Erzieher Marco bemerkt, dass einige Kinder ausgeschlossen werden, weil sie bestimmte kostenpflichtige In-App-Käufe nicht tätigen können oder Spielstände verspotten. Wie sollte Marco pädagogisch reagieren?",
-      "type": "case"
-    },
-    {
-      "correctIndices": [
-        0,
+        1,
         2,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Medienkritik beinhaltet die Fähigkeit, Werbung zu erkennen, manipulative Darstellungen zu hinterfragen und Fake News von seriösen Informationen zu unterscheiden. Zensur ist kein Bestandteil von Medienkritik.",
-      "id": "q-5",
-      "options": [
-        "Werbebotschaften und kommerzielle Interessen (z.B. In-App-Käufe, Influencer) in Kinder- und Jugendmedien erkennen und hinterfragen.",
-        "Die staatliche Zensur von unliebsamen Internetinhalten durchsetzen.",
-        "Unterscheiden zwischen realer Welt und medialer Inszenierung (Fiktion vs. Realität).",
-        "Fake News und irreführende Informationen kritisch analysieren."
-      ],
-      "question": "Welche Aspekte gehören zur kriteriengeleiteten Medienkritik im Sinne des Bildungsauftrags? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Recht am eigenen Bild (§ 22 KunstUrhG), DSGVO und Kinderrechte verlangen zweckgebundene Einwilligungen, partizipatives Fragen der Kinder sowie den ausschließlichen Einsatz gesicherter Dienstgeräte – private Smartphones (oft mit automatischer Cloud-Synchronisation!) sind tabu."
     },
     {
+      "id": "v2-q4",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Warum fördert „aktive Medienarbeit“ (z. B. eigene Fotogeschichten, Hörspiele oder Stop-Motion-Filme) mittelbar auch die Medienkritik von Kindern?",
+      "options": [
+        "Weil aktive Medienarbeit Kinder dauerhaft davon abhält, jemals wieder Videos oder Spiele zu nutzen.",
+        "Weil Kinder beim eigenen Planen, Auswählen von Bildausschnitten und Vertonen praktisch begreifen, dass Medien gezielt inszeniert und verändert werden können.",
+        "Weil dabei ausschließlich analoge Printmedien verwendet werden dürfen.",
+        "Weil Kinder in aktiven Medienprojekten automatisch alle Gesetzestexte des Jugendschutzes auswendig lernen."
+      ],
       "correctIndices": [
         1
       ],
-      "difficulty": "basis",
-      "explanation": "Die Reflexion der eigenen Medienbiografie hilft angehenden pädagogischen Fachkräften, eigene Vorlieben, blinde Flecken und emotionale Haltungen gegenüber Medien zu erkennen, um professionell und unvoreingenommen agieren zu können.",
-      "id": "q-6",
+      "explanation": "Wer selbst erlebt hat, wie man aus Einzelbildern einen Trickfilm baut oder eine Szene durch Musik gruselig bzw. lustig wirken lässt, versteht Medien als gemachte Konstruktionen statt als unmittelbare Wirklichkeit – eine zentrale Grundlage für Medienkritik."
+    },
+    {
+      "id": "v2-q5",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Praxissituation: Bei einem Sommerfest filmt ein Vater die Aufführung der Kitagruppe mit dem Smartphone und sagt begeistert: „Das stelle ich gleich bei Instagram rein, dann sehen Oma und meine Freunde die ganze Gruppe!“ Wie reagieren Sie professionell?",
       "options": [
-        "Um zu überprüfen, wie viel Geld man für Streaming-Dienste ausgibt.",
-        "Um eigene Prägungen, Vorlieben und mögliche Vorurteile gegenüber bestimmten Medienformen zu erkennen und professionell zu reflektieren.",
-        "Um den perfekten Algorithmus für die eigene Unterrichtsgestaltung zu finden.",
-        "Um gesetzliche Jugendschutzbestimmungen auswendig zu lernen."
+        "Sie bitten ihn lediglich darum, die Namen der Kinder nicht unter das Video zu schreiben.",
+        "Sie sprechen ihn freundlich und bestimmt an, erläutern den Schutz der Persönlichkeitsrechte aller anderen Kinder (§ 22 KunstUrhG / Sharenting-Risiken) und bitten darum, keine Aufnahmen fremder Kinder im Netz zu veröffentlichen.",
+        "Sie lassen ihn gewähren, da bei öffentlichen Kita-Festen das Recht am eigenen Bild automatisch entfällt.",
+        "Sie nehmen ihm das Smartphone sofort aus der Hand und verweisen ihn des Geländes."
       ],
-      "question": "Warum ist die Reflexion der *eigenen Medienbiografie* für angehende Erzieher:innen ein zentraler Bestandteil der Ausbildung?",
-      "type": "single"
+      "correctIndices": [
+        1
+      ],
+      "explanation": "Auch bei Kita-Festen gilt das Recht am eigenen Bild jedes einzelnen Kindes – ohne ausdrückliche Einwilligung aller betroffenen Sorgeberechtigten dürfen keine Aufnahmen im Internet veröffentlicht werden. Eine ruhige, klare Ansprache (idealerweise ergänzt durch einen Vorab-Hinweis vor Beginn des Festes) schützt die Kinder wertschätzend."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "pruefung",
+      "question": "Welche Grundsätze kennzeichnen eine professionelle medienpädagogische Begleitung von Eltern im Kita- und Hortalltag? (Mehrere Antworten sind richtig)",
+      "options": [
+        "Verpflichtende Kontrolle der privaten Smartphones der Eltern beim täglichen Bringen und Abholen.",
+        "Wertschätzender Dialog auf Augenhöhe statt moralischer Vorwürfe bei familiären Fragen zur Mediennutzung.",
+        "Thematisierung der eigenen elterlichen Vorbildfunktion (z. B. bewusste handyfreie Zeiten beim Essen und Spielen).",
+        "Weitergabe seriöser, unabhängiger Orientierungsportale wie klicksafe oder SCHAU HIN!."
+      ],
+      "correctIndices": [
+        1,
+        2,
+        3
+      ],
+      "explanation": "Erziehungspartnerschaft in der Medienbildung gelingt durch Verständnis für den Familienalltag, sachliche Orientierungshilfen (klicksafe, SCHAU HIN!) und gemeinsame Reflexion der Vorbildrolle – nicht durch Kontrolle oder Bevormundung."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Medienkompetenz – ein Beipackzettel (Dieter Baacke & aktuelle Medienbildung)",
+      "url": "https://digid.jff.de/digid_paper/medienkompetenz-ein-beipackzettel/",
+      "publisher": "JFF – Institut für Medienpädagogik in Forschung und Praxis",
+      "note": "Wissenschaftlich-praxisorientierte Darstellung des Medienkompetenzbegriffs nach Dieter Baacke."
+    },
+    {
+      "title": "Bildschirmzeiten bei Kindern von 0 bis 6 Jahren – Orientierung für Eltern & Fachkräfte",
+      "url": "https://www.klicksafe.de/bildschirm-und-medienzeit-was-ist-fuer-kinder-in-ordnung/bildschirmzeiten-bei-kindern-bis-6-jahre",
+      "publisher": "klicksafe (EU-Initiative für mehr Sicherheit im Netz)",
+      "note": "Fundierte Altersempfehlungen und Grundsätze für begleitete frühe Medienbildung."
+    },
+    {
+      "title": "Sharenting: Kinderfotos im Netz – darauf sollten Eltern und Einrichtungen achten",
+      "url": "https://www.schau-hin.info/sicherheit-risiken/kinderfotos-im-netz-darauf-sollten-eltern-achten",
+      "publisher": "SCHAU HIN! Was Dein Kind mit Medien macht.",
+      "note": "Praxisnahe Informationen zu Persönlichkeitsrechten, Datenschutz, Kinderfotos und Sharenting-Risiken."
+    },
+    {
+      "title": "Medienzeiten: Feste Bildschirmzeiten altersgerecht mit Kindern vereinbaren",
+      "url": "https://www.schau-hin.info/grundlagen/medienzeiten-feste-bildschirmzeiten-fuer-kinder-vereinbaren",
+      "publisher": "SCHAU HIN! Was Dein Kind mit Medien macht.",
+      "note": "Konkrete Empfehlungen für die Elternberatung vom Kita- bis ins Jugendalter."
+    },
+    {
+      "title": "Kunsturhebergesetz (KunstUrhG) § 22 – Recht am eigenen Bild",
+      "url": "https://www.gesetze-im-internet.de/kunsturhg/__22.html",
+      "publisher": "Bundesministerium der Justiz (gesetze-im-internet.de)",
+      "note": "Gesetzliche Grundlage für Einwilligungen bei der Verbreitung und Veröffentlichung von Personenbildnissen."
+    },
+    {
+      "title": "Recht am eigenen Bild – Datenschutzrechtliche Hinweise zu Fotos & Videos",
+      "url": "https://www.datenschutz.rlp.de/themen/recht-am-eigenen-bild",
+      "publisher": "Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz (LfDI RLP)",
+      "note": "Aktuelle RLP-Praxishinweise zu Einwilligungen, Bild- und Tonaufnahmen sowie Persönlichkeitsrechten."
     }
   ]
 }

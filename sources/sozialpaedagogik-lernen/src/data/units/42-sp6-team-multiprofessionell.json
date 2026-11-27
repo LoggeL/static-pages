@@ -3,397 +3,487 @@
   "number": 42,
   "moduleCode": "S-SP-6",
   "moduleArea": "sp-pflicht",
-  "title": "Teamentwicklung & Zusammenarbeit in multiprofessionellen Teams",
-  "subtitle": "Rollen, Organigramm, Teamkonflikte, Unterstützungssysteme & Teamkultur",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-6 · Institution und Team entwickeln sowie in Netzwerken kooperieren (Lehrplan RLP 2024)",
+  "title": "Multiprofessionelle Teamarbeit, Fallberatung & Konfliktkultur",
+  "subtitle": "Rollenklärung, Teamentwicklung, kollegiale Fallberatung nach Tietze, Konfliktlösung & Fachberatung",
   "year": "2./3. Jahr",
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 30,
   "hoursRef": "80 Std. (Teil 2/3)",
   "pdfPages": "S. 39–40",
   "crossCuttingTags": [
     "Inklusion",
     "Partizipation"
   ],
-  "summary": "Diese Einheit befähigt angehende Erzieherinnen und Erzieher (Bachelor Professional in Sozialwesen), ihre eigene Rolle in multiprofessionellen Teams zu reflektieren, Teamentwicklungsprozesse aktiv mitzugestalten, Organigramme anzuwenden sowie Konflikte und Unterstützungssysteme (Supervision, Intervision) professionell zu nutzen.",
+  "summary": "In dieser Einheit erarbeiten Sie, wie Zusammenarbeit in multiprofessionellen Teams der Kita, des Horts und der Jugendhilfe fachlich gelingt. Im Mittelpunkt stehen transparente Rollenklärung statt Parallelpädagogik, Teamentwicklungsprozesse nach Tuckman, die sechs Phasen der kollegialen Fallberatung nach Kim-Oliver Tietze, sachbezogene Konfliktbearbeitung nach dem Harvard-Konzept und Glasl sowie der gezielte Einsatz von Fachberatung, Supervision und Schnittstellenkooperation.",
   "learningGoals": [
-    "Ich kann die Grundlagen und Chancen multiprofessioneller Teamstrukturen in sozialpädagogischen Einrichtungen (z. B. Erzieher:innen, Heilpädagog:innen, Sozialarbeiter:innen) fachlich begründen und analysieren.",
-    "Ich kann Organigramme erstellen und nutzen, um Rollen, Funktionen, Leitungsstrukturen und Kommunikationswege im Team transparent darzustellen.",
-    "Ich kann Teamentwicklungsprozesse (z. B. nach Tuckman) aktiv mitgestalten und mein eigenes professionelles Rollenverständnis als Fachkraft reflektieren.",
-    "Ich kann Konflikte in pädagogischen Teams mithilfe anerkannter Konfliktlösungsmodelle (z. B. Harvard-Konzept, Eskalationsstufen nach Glasl) konstruktiv bearbeiten.",
-    "Ich kann professionelle Unterstützungssysteme (wie Supervision, Intervision, Coaching und Qualitätsmanagementinstrumente) zielgerichtet für Teams und Institutionen nutzen."
+    "Ich kann Chancen und typische Reibungspunkte multiprofessioneller Zusammenarbeit (Erzieher:innen, Heilpädagog:innen, Kita-Sozialarbeit, Lehrkräfte, Therapie) analysieren und Rollen transparent abgrenzen.",
+    "Ich kann Teamdynamiken mithilfe des Phasenmodells nach Tuckman einordnen und begründen, warum Personal- oder Strukturwechsel Teams erneut in frühere Phasen zurückführen.",
+    "Ich kann eine strukturierte kollegiale Fallberatung in sechs Phasen nach Kim-Oliver Tietze moderieren oder als fallerzählende beziehungsweise beratende Fachkraft professionell nutzen.",
+    "Ich kann Teamkonflikte anhand der Eskalationsstufen nach Glasl realistisch einschätzen und auf der Win-Win-Ebene sachbezogen nach dem Harvard-Konzept bearbeiten.",
+    "Ich kann Unterstützungssysteme wie kollegiale Fallberatung, Supervision, Coaching und Fachberatung klar voneinander abgrenzen und rechtssicher an Schnittstellen zu Schule und Therapie kooperieren."
   ],
   "sections": [
     {
-      "body": "Teamentwicklung und professionelle Zusammenarbeit sind zentrale Säulen der beruflichen Handlungskompetenz von Erzieherinnen und Erziehern (Bachelor Professional in Sozialwesen). Nach dem Lehrplan Rheinland-Pfalz (S-SP-6) tragen Fachkräfte im Team die Verantwortung für die Sicherung und Weiterentwicklung der pädagogischen Qualität, der Arbeitsorganisation sowie der Außendarstellung. Eine gelingende Teamentwicklung erfordert die kontinuierliche Auseinandersetzung mit der eigenen Rolle, die konstruktive Bearbeitung von Konflikten und die Nutzung fundierter Unterstützungssysteme.",
+      "heading": "1. Multiprofessionelle Teams: Rollenklärung statt Parallelpädagogik",
+      "keyTakeaway": "Multiprofessionalität steigert die pädagogische Qualität erst dann, wenn unterschiedliche Fachperspektiven über klare Rollen, gemeinsame Haltungen und feste Absprachen verbunden werden.",
+      "body": "In Kindertageseinrichtungen, Ganztagsschulen und der Jugendhilfe arbeiten heute immer häufiger verschiedene Berufsgruppen zusammen: staatlich anerkannte Erzieher:innen, Kindheits- und Sozialpädagog:innen, Heilpädagog:innen, Kita-Sozialarbeiter:innen, Fachkräfte für Sprachbildung sowie externe Partner wie Frühförderung, Logopädie, Ergotherapie oder Grundschullehrkräfte. Diese Vielfalt ermöglicht einen mehrdimensionalen Blick auf das Kind und seine Familie, ist jedoch kein Selbstläufer. Ohne geklärte Zuständigkeiten entsteht leicht sogenannte Parallelpädagogik: Jede Profession arbeitet nebeneinanderher, Fachsprachen bleiben unübersetzt und im Alltag entstehen Reibungen über Zuständigkeiten (sogenannte Grenzarbeit). Ein aktuelles Organigramm schafft Transparenz über die Aufbauorganisation (Leitung, Gruppenverantwortung, Querschnitts- oder Stabsstellen wie Kita-Sozialarbeit sowie Weisungsbefugnisse), während gemeinsame Aufgabenbeschreibungen und Übergaberoutinen die Ablauforganisation verbindlich regeln.",
       "bulletPoints": [
-        "Verantwortung für Qualitätsentwicklung und Arbeitsorganisation im Team",
-        "Rollenreflexion und multiprofessionelle Kooperation als Kernkompetenzen",
-        "Integration gesetzlicher Vorgaben und Trägerstrukturen in den Teamalltag"
+        "Multiprofessionalität verbindet alltagspädagogische Gruppenarbeit, heilpädagogische Diagnostik, familienbezogene Sozialarbeit und therapeutische Impulse.",
+        "Parallelpädagogik vermeiden: Regelmäßige Übergaben, gemeinsame Fallbesprechungen und Übersetzung unterschiedlicher Fachbegriffe sichern echtes Zusammenwirken.",
+        "Organigramme klären Weisungsbefugnisse und Berichts- bzw. Kommunikationswege; konkrete Aufgabenabsprachen klären das tägliche Handeln im Team.",
+        "Rollenklärung umfasst auch die bewusste Auseinandersetzung mit der eigenen Berufsrolle: Wo liegen meine Kernkompetenzen und wo beginnt die Zuständigkeit anderer Professionen?"
       ],
-      "heading": "Grundlagen der Teamentwicklung und professionellen Zusammenarbeit",
-      "keyTakeaway": "Teamentwicklung ist kein einmaliger Zustand, sondern ein kontinuierlicher, reflexiver Prozess zur Sicherung pädagogischer Qualität.",
-      "praxisTip": "Führen Sie zu Beginn des Kita-Jahres einen Team-Workshop zur Rollenklärung durch, in dem Erwartungen transparent ausgetauscht werden."
+      "praxisTip": "Legen Sie zu Beginn jedes Einrichtungsjahres oder beim Einstieg einer neuen Profession (z. B. Kita-Sozialarbeit oder Inklusionsfachkraft) eine einfache Rollen- und Schnittstellenmatrix an: Wer informiert wen bei welchen Themen, wer führt Elterngespräche und wie fließen Beobachtungen zusammen?"
     },
     {
-      "body": "Heutige sozialpädagogische Einrichtungen (Kitas, Horte, Ganztagsschulen) agieren zunehmend als multiprofessionelle Teams. Neben Erzieherinnen und Erziehern arbeiten Heilpädagoginnen, Sozialpädagogen, Lehrkräfte, Kita-Sozialarbeiterinnen und Therapeutinnen Hand in Hand. Dies ermöglicht einen ganzheitlichen Blick auf das Kind und dessen Lebenswelt, erfordert jedoch ein hohes Maß an Absprache, klarer Rollenverteilung und gegenseitiger Wertschätzung. Ein Organigramm visualisiert hierbei die Aufbauorganisation, Zuständigkeiten, Weisungsbefugnisse und Kommunikationswege transparent für das gesamte Kollegium.",
+      "heading": "2. Teamentwicklung verstehen: Das Phasenmodell nach Bruce Tuckman",
+      "keyTakeaway": "Konflikte und Reibungen im Team sind kein Zeichen persönlichen Versagens, sondern eine reguläre Entwicklungsphase (Storming), die konstruktiv moderiert werden muss.",
+      "body": "Teams sind keine statischen Gebilde, sondern lebendige soziale Systeme. Das klassische Entwicklungsmodell von Bruce Tuckman (1965, später ergänzt um eine fünfte Phase) beschreibt typische Stufen, die Arbeitsgruppen durchlaufen: In der Orientierungsphase (Forming) tasten sich Mitglieder vorsichtig ab, sind höflich und suchen Orientierung bei der Leitung. In der Konfrontationsphase (Storming) treten unterschiedliche pädagogische Haltungen, Arbeitsstile, Statusfragen und unausgesprochene Erwartungen offen zutage — gerade in multiprofessionellen Teams prallen hier häufig verschiedene Berufsverständnisse aufeinander. Erst wenn diese Spannungen bearbeitet werden, gelingt der Übergang in die Regelfindungsphase (Norming): Das Team vereinbart verbindliche Kommunikationsregeln, Entscheidungswege und eine gemeinsame pädagogische Haltung. In der Leistungsphase (Performing) arbeitet das Team flexibel, vertrauensvoll und synergetisch. Die Auflösungs- oder Übergangsphase (Adjourning) würdigt Abschiede bei Teamwechseln oder Projektenden. Wichtig für die Praxis: Teamentwicklung verläuft nicht einmalig linear — jeder Personalwechsel, neue Trägervorgaben oder ein Leitungswechsel werfen ein Team vorübergehend zurück ins Forming und Storming.",
       "bulletPoints": [
-        "Integration verschiedener Professionen (Erziehung, Heilpädagogik, Sozialarbeit, Therapie)",
-        "Chancen: Multidimensionaler Blick auf kindliche Lebenswelten und differenzierte Förderung",
-        "Visualisierung von Strukturen, Stellen und Entscheidungswegen durch Organigramme"
+        "Forming: Kennenlernen, vorsichtige Kommunikation, hoher Bedarf an Struktur und Orientierung durch die Leitung.",
+        "Storming: Reibungen über Rollen, Werte und Arbeitsweisen; entscheidend ist das sachliche Aussprechen statt Verdrängen.",
+        "Norming: Aushandlung verbindlicher Spielregeln, transparenter Zuständigkeiten und gegenseitiger Anerkennung der Fachkompetenzen.",
+        "Performing & Adjourning: Hohe Handlungsfähigkeit auf Basis psychologischer Sicherheit sowie bewusste Gestaltung von Abschieden und Neuanfängen."
       ],
-      "heading": "Multiprofessionelle Teams: Chancen, Anforderungen und Visualisierung",
-      "keyTakeaway": "Multiprofessionelle Teams bereichern die pädagogische Arbeit durch Vielfalt, erfordern jedoch klare Strukturen, Rollenklarheit und transparente Organigramme.",
-      "praxisTip": "Erstellen Sie gemeinsam mit dem Team ein aktuelles Organigramm der Einrichtung, das auch externe Kooperationspartner (z.B. Erziehungsberatung, Frühförderung) abbildet."
+      "praxisTip": "Wenn nach einem Personalwechsel plötzlich wieder über scheinbar längst geklärte Alltagsregeln gestritten wird, benennen Sie dies im Team wertfrei als regulären Neubeginn von Forming und Storming und planen Sie bewusst Zeit für eine erneute Regelklärung ein."
     },
     {
-      "body": "Konflikte sind in intensiven pädagogischen Arbeitsfeldern unvermeidlich und oft Symptom für unklare Strukturen oder unausgesprochene Erwartungen. Nach dem Phasenmodell der Teamentwicklung von Bruce Tuckman durchläuft ein Team typischerweise die Phasen Forming (Orientierung), Storming (Konflikt/Machtkampf), Norming (Regelfindung) und Performing (Leistungsphase). Für eine konstruktive Konfliktlösung dienen Modelle wie das Harvard-Konzept (Trennung von Sache und Person, Fokus auf Interessen statt Positionen) sowie Eskalationsstufen nach Glasl. Flankiert wird dies durch professionelle Unterstützungssysteme wie Supervision, Coaching, Intervision (kollegiale Fallberatung) und ein systematisches Beschwerdemanagement.",
+      "heading": "3. Kollegiale Fallberatung nach Tietze & professionelle Unterstützungssysteme",
+      "keyTakeaway": "Strukturierte Beratungsformate wie die kollegiale Fallberatung schützen vor schnellen Tür-und-Angel-Ratschlägen und nutzen die Vielfalt eines Teams gezielt als fachliche Ressource.",
+      "body": "Im pädagogischen Alltag neigen Teams unter Zeitdruck dazu, belastende Situationen zwischen Tür und Angel mit ungefragten Ratschlägen („Das würde ich einfach strenger regeln“) zu kommentieren. Solche schnellen Tipps entlasten selten nachhaltig. Die kollegiale Fallberatung (Intervision) nach Kim-Oliver Tietze bietet dagegen ein kostenfreies, gleichrangiges und klar strukturiertes Verfahren in sechs Phasen mit festen Rollen (Fallerzählende:r, Moderation, Beratende). Kernstück ist das Formulieren einer präzisen Schlüsselfrage und die Regel, dass die fallerzählende Person während der eigentlichen Beratungsphase lediglich zuhört und notiert, statt sich zu rechtfertigen — so entsteht echter Perspektivwechsel. Reichen interne Ressourcen nicht aus, greifen externe Unterstützungssysteme: Externe Supervision begleitet durch ausgebildete Supervisor:innen tiefere Teamdynamiken, Rollenkonflikte und emotionale Belastungen. Coaching unterstützt ziel- und rollenorientiert, häufig Leitungskräfte. Die Fachberatung (in Rheinland-Pfalz über Träger und KiTaG-Strukturen verankert) berät Träger, Leitung und Team zu Konzeption, pädagogischer Qualität und Organisationsentwicklung, bewegt sich dabei jedoch mitunter im Spannungsfeld zwischen unterstützender Beratung und trägerbezogener Steuerung.",
       "bulletPoints": [
-        "Teamentwicklungsphasen nach Tuckman: Von der Orientierung zur performanten Zusammenarbeit",
-        "Konfliktbearbeitung mit dem Harvard-Konzept und Deeskalationsstrategien",
-        "Nutzen von Unterstützungssystemen: Supervision, Intervision und Beschwerdemanagement"
+        "Kollegiale Fallberatung (Tietze): Sechs feste Phasen (Casting, Spontanerzählung, Schlüsselfrage, Methodenwahl, Beratung, Abschluss) ohne externe Leitung.",
+        "Zuhörregel in der Beratungsphase: Wer den Fall einbringt, diskutiert nicht mit, sondern sammelt in Ruhe neue Sichtweisen und wählt am Ende selbst passende Ideen aus.",
+        "Externe Supervision: Unabhängige Begleitung bei festgefahrenen Konflikten, hohen emotionalen Belastungen oder verdeckten Beziehungsdynamiken.",
+        "Fachberatung & Coaching: Fachberatung stärkt Qualität, Konzeption und Teamentwicklung an der Schnittstelle zum Träger; Coaching fokussiert konkrete Führungs- oder Rollenziele."
       ],
-      "heading": "Teamkonflikte, Phasenmodelle und professionelle Unterstützungssysteme",
-      "keyTakeaway": "Konflikte sind Chancen zur Teamentwicklung, wenn sie methodisch (z.B. nach dem Harvard-Konzept) bearbeitet und durch Supervision begleitet werden.",
-      "praxisTip": "Implementieren Sie eine monatliche, feste Intervisionsrunde (kollegiale Fallberatung), in der Teammitglieder aktuelle Fälle strukturiert besprechen."
+      "praxisTip": "Verankern Sie alle vier bis sechs Wochen eine feste 45-minütige kollegiale Fallberatung in der Dienstbesprechung und wechseln Sie die Moderationsrolle rotierend, damit niemand dauerhaft in der Expertenrolle feststeckt."
+    },
+    {
+      "heading": "4. Teamkonflikte konstruktiv lösen & Schnittstellen rechtssicher gestalten",
+      "keyTakeaway": "Gelingende Konfliktbearbeitung trennt sachliche Anliegen von persönlichen Vorwürfen, prüft die Eskalationsstufe realistisch und wahrt in externen Netzwerken konsequent den Datenschutz.",
+      "body": "Nicht jeder Teamkonflikt lässt sich auf die gleiche Weise lösen. Das neunstufige Eskalationsmodell nach Friedrich Glasl hilft Fachkräften und Leitungen einzuschätzen, wann ein Team noch selbst steuern kann: Auf den Stufen 1 bis 3 (Verhärtung, Debatte, Taten statt Worte) ist eine kooperative Win-Win-Lösung im Team noch realistisch. Ab den Stufen 4 bis 6 (Koalitionen, Gesichtsverlust, Drohstrategien) verengt sich der Blick auf Win-Lose — hier braucht es professionelle externe Moderation, Mediation oder Supervision. Auf den Stufen 7 bis 9 (Zerstörung) greift nur noch ein entschiedener Führungseingriff. Für die sachbezogene Bearbeitung auf den frühen Stufen bewährt sich das Harvard-Konzept (Fisher, Ury & Patton): Es trennt strikt zwischen Mensch und Sachproblem, fragt nach den dahinterliegenden Interessen statt auf starren Positionen zu beharren, entwickelt Optionen zum beiderseitigen Vorteil und orientiert sich an objektiven Kriterien (etwa Kindeswohl, Konzeption, Dienstplan). An den Schnittstellen zu Grundschule, Frühförderung, Therapiepraxen oder Jugendamt gilt darüber hinaus eine verbindliche rechtliche Grenze: Personenbezogene Informationen über Kinder und Familien dürfen nur mit informierter, schriftlicher Schweigepflichtsentbindung der Sorgeberechtigten ausgetauscht werden (Ausnahme: gesetzliche Befugnisse bei konkreter Kindeswohlgefährdung).",
+      "bulletPoints": [
+        "Glasl-Eskalationsstufen als Diagnosehilfe: Stufen 1–3 intern bearbeitbar (Win-Win); ab Stufe 4 externe Mediation/Supervision hinzuziehen.",
+        "Vier Grundprinzipien des Harvard-Konzepts: Menschen und Probleme trennen, Interessen statt Positionen klären, Win-Win-Optionen suchen, neutrale Kriterien vereinbaren.",
+        "Schnittstellen Kita – Schule – Therapie: Fachliche Abstimmung stärkt Übergänge und Teilhabe, erfordert jedoch klare Kommunikationswege und Terminabsprachen.",
+        "Datenschutz und Schweigepflicht: Vor Fallgesprächen mit externen Therapeut:innen oder Lehrkräften immer eine zweckgebundene Einwilligung der Sorgeberechtigten einholen."
+      ],
+      "praxisTip": "Übersetzen Sie in hitzigen Dienstbesprechungen jede verhärtete Position („Ich will nicht, dass Kinder im Morgenkreis abgeholt werden!“) in das dahinterliegende fachliche Interesse („Mir ist wichtig, dass die Gruppe ungestört ankommt und das Kind den Übergang stressfrei erlebt.“)."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Multiprofessionelles Team & Teamentwicklung",
       "id": "vb-1",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Rollenklärung",
-          "detail": "Reflexion der eigenen beruflichen Identität als Erzieherin oder Erzieher im Spannungsfeld zwischen Erziehung, Bildung, Betreuung und Inklusion. Unklare Rollengrenzen werden durch transparente Absprachen aufgelöst.",
-          "example": "Eine Erzieherin und eine Heilpädagogin definieren ihre Aufgaben in der gemeinsamen Begleitung eines Kindes mit Förderbedarf neu.",
-          "id": "item-1",
-          "label": "Rollenreflexion im Team",
-          "metric": "Kernprinzip",
-          "summary": "Klares Bewusstsein für die eigene berufliche Rolle und Abgrenzung zu anderen Professionen."
-        },
-        {
-          "badge": "Interdisziplinarität",
-          "detail": "Zusammenarbeit von Erziehung, Heilpädagogik, Sozialarbeit und Therapie im Interesse des Kindeswohls und der Familie. Synergieeffekte entstehen durch unterschiedliche fachliche Zugänge.",
-          "example": "Gemeinsame Fallberatung mit der Kita-Sozialarbeiterin zur Unterstützung einer belasteten Familie.",
-          "id": "item-2",
-          "label": "Multiprofessionelle Kooperation",
-          "metric": "Chance",
-          "summary": "Ganzheitliche Förderung durch die Bündelung verschiedener pädagogischer und therapeutischer Fachkompetenzen."
-        },
-        {
-          "badge": "Strukturmodell",
-          "detail": "Grafische Darstellung der Aufbauorganisation, Weisungsbefugnisse, Kommunikationswege und Teamstrukturen einer sozialpädagogischen Einrichtung. Schafft Transparenz für Personal und Träger.",
-          "example": "Einrichtung eines Organigramms im Personalraum, das alle Gruppenleitungen und Fachdienste abbildet.",
-          "id": "item-3",
-          "label": "Organigramm & Struktur",
-          "metric": "Visualisierung",
-          "summary": "Visualisierung von Hierarchien, Zuständigkeiten und Kommunikationswegen in der Einrichtung."
-        },
-        {
-          "badge": "Unterstützung",
-          "detail": "Einsatz externer oder interner Beratungssysteme wie Supervision, Coaching und Intervision (kollegiale Fallberatung) zur Entlastung des Teams und Sicherung der pädagogischen Qualität.",
-          "example": "Monatliche Team-Supervision zur Bearbeitung von Kommunikationsstörungen und Belastungssituationen.",
-          "id": "item-4",
-          "label": "Unterstützungssysteme",
-          "metric": "Qualitätssicherung",
-          "summary": "Professionelle Begleitung und Reflexion von Teamprozessen durch Supervision und Intervision."
-        }
-      ],
-      "kind": "concept_map",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Zentrales Gefüge multiprofessioneller Zusammenarbeit in der Sozialpädagogik",
-      "title": "Konzeptkarte: Teamentwicklung & Multiprofessionalität"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-2",
-      "isCycle": true,
-      "items": [
-        {
-          "badge": "Phase 1",
-          "detail": "Die Orientierungsphase im Team. Teammitglieder beschnuppern sich, suchen nach Halt und klären grob die ersten Aufgaben, oft noch begleitet von Unsicherheit und verdeckten Erwartungen.",
-          "example": "Das neu zusammengestellte Kita-Team trifft sich zum ersten Planungsworkshop und steckt den Rahmen ab.",
-          "id": "step-1",
-          "label": "Forming (Orientierung)",
-          "metric": "Stufe 1",
-          "summary": "Kennenlernen und vorsichtiges Abtasten im neu formierten Team."
-        },
-        {
-          "badge": "Phase 2",
-          "detail": "Die Konfrontations- und Konfliktphase. Unterschiedliche Arbeitsstile, Wertvorstellungen und Machtansprüche brechen auf. Rollenkonflikte und Reibungen sind in dieser Phase völlig normal und notwendig.",
-          "example": "Streitgespräche über die Verteilung von Dokumentationsaufgaben und pädagogischen Schwerpunkten.",
-          "id": "step-2",
-          "label": "Storming (Konflikt)",
-          "metric": "Stufe 2",
-          "summary": "Austragung von Machtkämpfen und Klärung von Reibungspunkten im Team."
-        },
-        {
-          "badge": "Phase 3",
-          "detail": "Die Regelfindungsphase. Das Team entwickelt gemeinsame Normen, Kommunikationsregeln, Rollenverständnisse und ritualisierte Absprachen. Die Zusammenarbeit wird verbindlicher.",
-          "example": "Einführung verbindlicher Teamregeln, Übergabeprotokolle und fester Fallbesprechungszeiten.",
-          "id": "step-3",
-          "label": "Norming (Regelfindung)",
-          "metric": "Stufe 3",
-          "summary": "Etablierung von Teamregeln, Rollenabgrenzung und gemeinsamen Standards."
-        },
-        {
-          "badge": "Phase 4",
-          "detail": "Die Leistungs- und Arbeitsphase. Das Team arbeitet eigenverantwortlich, flexibel, lösungsorientiert und synergetisch zusammen. Die pädagogische Qualität ist hoch.",
-          "example": "Das multiprofessionelle Team plant und steuert das inklusive Projekt eigenständig und reibungslos.",
-          "id": "step-4",
-          "label": "Performing (Leistung)",
-          "metric": "Stufe 4",
-          "summary": "Hocheffiziente, zielorientierte und kollaborative Zusammenarbeit im Alltag."
-        }
-      ],
       "kind": "process_flow",
+      "title": "Die 6 Phasen der kollegialen Fallberatung nach Kim-Oliver Tietze",
+      "subtitle": "Strukturierter Ablauf für eine 45-minütige Intervision im pädagogischen Team",
+      "centerLabel": "Kollegiale Beratung (Tietze)",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Phasen der Teamentwicklung nach Bruce Tuckman",
-      "title": "Prozessmodell: Teamentwicklungsphasen nach Tuckman"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-3",
       "isCycle": false,
       "items": [
         {
-          "badge": "Erzieherin (S-SP-6)",
-          "detail": "Wir müssen unbedingt den Gesamtgruppenalltag strukturieren und darauf achten, dass alle Kinder beim Morgenkreis partizipieren. Die Alltagspädagogik bildet das Fundament!",
-          "example": "'Ich wünsche mir, dass wir die lebensweltorientierten Projekte stärker in den Gruppenalltag integrieren.'",
-          "id": "dlg-1",
-          "label": "Perspektive Erziehung & Alltag",
-          "metric": "Alltagsbezug",
-          "summary": "Fokus auf Gruppenprozesse, lebensweltorientierte Bildung und strukturierte Alltagsbegleitung."
+          "id": "phase-1",
+          "badge": "Phase 1 · ca. 5 Min.",
+          "label": "Casting (Rollenverteilung)",
+          "metric": "Rahmen klären",
+          "summary": "Festlegung von Fallerzählender:m, Moderation und Beratenden.",
+          "detail": "Die Gruppe klärt verbindlich, welcher Praxisfall heute bearbeitet wird, wer auf Zeit und Phasen achtet (Moderation) und wer die Rolle der Beratenden übernimmt. Alle verpflichten sich zur Vertraulichkeit.",
+          "example": "Erzieherin Lena bringt einen Konflikt um Übergaben mit der Schulbegleitung ein; Kollege Jonas übernimmt die Moderation."
         },
         {
-          "badge": "Heilpädagogin",
-          "detail": "Bei Max müssen wir aber zwingend die spezifischen Förderbedarfe im Bereich der Wahrnehmung berücksichtigen und differenzierte Einzelförderung anbieten!",
-          "example": "'Lass uns für Max einen speziellen Förderplan erstellen, der seine sensorischen Bedürfnisse aufgreift.'",
-          "id": "dlg-2",
-          "label": "Perspektive Heilpädagogik",
-          "metric": "Individuelle Förderung",
-          "summary": "Fokus auf Diagnostik, individuelle Entwicklungsförderung und passgenaue Interventionen."
+          "id": "phase-2",
+          "badge": "Phase 2 · ca. 8 Min.",
+          "label": "Spontanerzählung",
+          "metric": "Fall schildern",
+          "summary": "Subjektive, ununterbrochene Schilderung der Praxissituation.",
+          "detail": "Die fallerzählende Person beschreibt frei, was passiert ist, wer beteiligt war und was sie selbst belastet oder irritiert. Die Gruppe hört aufmerksam zu und unterbricht noch nicht mit Lösungsvorschlägen.",
+          "example": "Lena schildert, dass die externe Fachkraft nach der Förderung direkt mit den Eltern spricht, ohne sie über Absprachen zu informieren."
         },
         {
-          "badge": "Kita-Sozialarbeiterin",
-          "detail": "Wir dürfen das gesamte soziale Umfeld der Familie nicht aus dem Blick verlieren. Die Eltern brauchen hier sozialräumliche Vernetzung und niedrigschwellige Beratung.",
-          "example": "'Ich vermittle den Kontakt zum Familienzentrum, um die Eltern direkt im Sozialraum zu unterstützen.'",
-          "id": "dlg-3",
-          "label": "Perspektive Sozialarbeit",
-          "metric": "Sozialraumbezug",
-          "summary": "Fokus auf Elternarbeit, Sozialraum, Netzwerke und präventive Jugendhilfe."
+          "id": "phase-3",
+          "badge": "Phase 3 · ca. 5 Min.",
+          "label": "Schlüsselfrage",
+          "metric": "Fokus setzen",
+          "summary": "Zuspitzung des Kernanliegens auf eine präzise Beratungsfrage.",
+          "detail": "Nach kurzen Verständnisfragen formuliert die fallerzählende Person mit Unterstützung der Moderation eine konkrete Schlüsselfrage. Sie dient als roter Faden und verhindert ausufernde Grundsatzdebatten.",
+          "example": "„Wie kann ich mit der externen Fachkraft verbindliche Kommunikationswege vereinbaren, ohne dass sie sich kontrolliert fühlt?“"
         },
         {
-          "badge": "Einrichtungsleitung",
-          "detail": "Unsere Aufgabe ist es, diese unterschiedlichen Kompetenzen über unser Organigramm und gemeinsame Teamsitzungen optimal zu vernetzen und rechtliche Vorgaben einzuhalten.",
-          "example": "'Wir bündeln diese Stärken in unserem pädagogischen Konzept und sichern die Rahmenbedingungen ab.'",
-          "id": "dlg-4",
-          "label": "Perspektive Leitung & QM",
-          "metric": "Steuerung & QM",
-          "summary": "Fokus auf Qualitätsmanagement, Organisationsentwicklung und Ressourcensteuerung."
+          "id": "phase-4",
+          "badge": "Phase 4 · ca. 2 Min.",
+          "label": "Methodenwahl",
+          "metric": "Werkzeug wählen",
+          "summary": "Auswahl einer passenden Beratungsmethode für die Schlüsselfrage.",
+          "detail": "Die Moderation schlägt je nach Frage eine geeignete Methode vor — etwa Brainstorming für Handlungsoptionen, Resonanzrunde für Gefühlsspiegelungen oder Perspektivwechsel zur Rollenklärung.",
+          "example": "Die Gruppe wählt einen Perspektivwechsel (Sicht der externen Fachkraft und der Eltern) mit anschließendem Ideen-Brainstorming."
+        },
+        {
+          "id": "phase-5",
+          "badge": "Phase 5 · ca. 15 Min.",
+          "label": "Beratung (Zuhörphase)",
+          "metric": "Perspektiven sammeln",
+          "summary": "Die Beratenden entwickeln Hypothesen und Ideen; Fallgeber:in hört still zu.",
+          "detail": "Während die Beratenden wertschätzend Sichtweisen und konkrete Ideen zusammentragen, lehnt sich die fallerzählende Person zurück, macht Notizen und rechtfertigt sich nicht. So bleiben ungewohnte Impulse wirksam.",
+          "example": "Kolleg:innen vermuten Zeitdruck bei der externen Kraft und schlagen ein 5-minütiges Wochen-Briefing sowie ein gemeinsames Übergabeheft vor."
+        },
+        {
+          "id": "phase-6",
+          "badge": "Phase 6 · ca. 10 Min.",
+          "label": "Abschluss & Transfer",
+          "metric": "Auswahl & Dank",
+          "summary": "Fallgeber:in bewertet Impulse und legt nächste Schritte fest.",
+          "detail": "Die fallerzählende Person meldet zurück, welche Gedanken besonders hilfreich waren und welche konkreten Schritte sie umsetzt. Ein kurzes Feedback an die Moderation schließt die Runde ab.",
+          "example": "Lena entscheidet sich, ein sachliches Klärungsgespräch anzubieten und gemeinsam ein kurzes Übergabeprotokoll zu entwerfen."
         }
-      ],
-      "kind": "dialogue",
+      ]
+    },
+    {
+      "id": "vb-2",
+      "kind": "comparison",
+      "title": "Unterstützungssysteme für Teams im Vergleich",
+      "subtitle": "Welches Beratungsformat passt zu welchem Anliegen im pädagogischen Alltag?",
+      "centerLabel": "",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Diskussion in einem multiprofessionellen Team über die Ausgestaltung der Inklusion",
-      "title": "Dialog: Multiprofessionelle Perspektiven im Team"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "sup-1",
+          "badge": "Intern · Gleichrangig",
+          "label": "Kollegiale Fallberatung (Intervision)",
+          "metric": "Peer-Format",
+          "summary": "Strukturierte Fallbearbeitung unter Kolleg:innen ohne externe Leitung.",
+          "detail": "Nutzt die multiprofessionelle Erfahrung im eigenen Team für konkrete pädagogische Alltagssituationen. Kostengünstig und regelmäßig einsetzbar, stößt jedoch bei eskalierten Teamkonflikten an Grenzen.",
+          "example": "Monatliche 45-Minuten-Runde in der Dienstbesprechung zur Begleitung eines herausfordernden Übergangs."
+        },
+        {
+          "id": "sup-2",
+          "badge": "Extern · Neutral",
+          "label": "Team- & Fallsupervision",
+          "metric": "Zertifizierte Begleitung",
+          "summary": "Allparteiliche Reflexion komplexer Fälle, Rollen und Teamdynamiken.",
+          "detail": "Durch externe, ausgebildete Supervisor:innen geleitet. Ermöglicht geschütztes Bearbeiten tieferer Konflikte, emotionaler Überlastung, Machtfragen und wiederkehrender Beziehungsmuster.",
+          "example": "Sechs Supervisionstermine nach dem Zusammenlegen zweier Kita-Teams mit unterschiedlichen pädagogischen Kulturen."
+        },
+        {
+          "id": "sup-3",
+          "badge": "Systembezogen · RLP",
+          "label": "Pädagogische Fachberatung",
+          "metric": "Qualität & Konzept",
+          "summary": "Fachliche Prozessbegleitung für Träger, Leitung und Team.",
+          "detail": "Unterstützt bei Konzeptionsentwicklung, Umsetzung gesetzlicher Neuerungen, Qualitätsprozessen und Einführung multiprofessioneller Stellen. Achtung: Rollenklärung nötig, falls Fachberatung zugleich Trägeraufgaben wahrnimmt.",
+          "example": "Begleitung eines Konzeptionstages zur Verankerung von Kita-Sozialarbeit und Inklusion in der Einrichtung."
+        },
+        {
+          "id": "sup-4",
+          "badge": "Ziel- & Rollenfokus",
+          "label": "Coaching",
+          "metric": "Führungs- & Rollenentwicklung",
+          "summary": "Zeitlich begrenztes Beratungsformat für konkrete berufliche Entwicklungsziele.",
+          "detail": "Fokussiert individuelle Rollenklärung, Entscheidungsfindung und Führungskompetenz — besonders hilfreich beim Wechsel in eine Leitungs- oder Koordinationsfunktion.",
+          "example": "Eine neu berufene stellvertretende Kita-Leitung klärt im Coaching ihren Umgang mit früheren Gruppenkolleg:innen."
+        }
+      ]
+    },
+    {
+      "id": "vb-3",
+      "kind": "dialogue",
+      "title": "Teamkonflikt moderieren nach dem Harvard-Konzept",
+      "subtitle": "Schnittstellenkonflikt zwischen Gruppenpädagogik, Heilpädagogik und Kita-Sozialarbeit sachbezogen lösen",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "dlg-1",
+          "badge": "1. Verhärtete Positionen",
+          "label": "Sachebene und Person trennen",
+          "metric": "Harvard-Prinzip 1",
+          "summary": "Statt persönlicher Vorwürfe wird das gemeinsame Sachthema benannt.",
+          "detail": "Wenn Fachkräfte unter Druck stehen, wirken unterschiedliche Arbeitsweisen schnell wie persönliche Kritik. Die Moderation nimmt Druck aus der Beziehungsebene und richtet den Blick gemeinsam auf das Problem.",
+          "example": "Ich merke, dass uns allen Emils gelingender Alltag wichtig ist. Lasst uns nicht bewerten, wer mehr arbeitet, sondern klären, wie wir unsere Übergänge so abstimmen, dass niemand überrumpelt wird."
+        },
+        {
+          "id": "dlg-2",
+          "badge": "2. Interessen aufdecken",
+          "label": "Warum ist diese Position wichtig?",
+          "metric": "Harvard-Prinzip 2",
+          "summary": "Hinter starren Forderungen liegen meist berechtigte fachliche Bedürfnisse.",
+          "detail": "Die Erzieherin schützt die Ruhe und Zugehörigkeit im Morgenkreis; die Heilpädagogin benötigt feste, reizarme Zeiten für gezielte Sprach- und Wahrnehmungsförderung; die Kita-Sozialarbeit achtet auf vertrauensvolle Elternkontakte.",
+          "example": "Mir geht es nicht darum, die Förderung zu blockieren — mein Anliegen ist, dass Emil sich im Morgenkreis zugehörig fühlt und vor einem Raumwechsel verlässlich vorbereitet wird."
+        },
+        {
+          "id": "dlg-3",
+          "badge": "3. Optionen entwickeln",
+          "label": "Gemeinsame Win-Win-Lösungen suchen",
+          "metric": "Harvard-Prinzip 3",
+          "summary": "Mehrere kreative Varianten sammeln, bevor entschieden wird.",
+          "detail": "Statt entweder Gruppenalltag oder Einzelförderung zu priorisieren, verbindet das Team beide Bedarfe: alltagsintegrierte Förderung im Gruppenraum an einem Tag, geplante Kleingruppe nach dem Morgenkreis am anderen Tag.",
+          "example": "Wie wäre es, wenn die Einzelförderung erst nach dem Morgenkreis startet und wir zusätzlich eine wöchentliche alltagsintegrierte Einheit gemeinsam im Gruppenraum gestalten?"
+        },
+        {
+          "id": "dlg-4",
+          "badge": "4. Neutrale Kriterien",
+          "label": "Verbindliche Standards festhalten",
+          "metric": "Harvard-Prinzip 4",
+          "summary": "Entscheidungen an objektiven Maßstäben prüfen und schriftlich sichern.",
+          "detail": "Die Vereinbarung wird am Kindeswohl, an den Konzeptionszielen und an Datenschutzvorgaben gemessen, schriftlich protokolliert und nach sechs Wochen im Team überprüft.",
+          "example": "Wir testen diesen Ablauf sechs Wochen lang, holen vor jedem Austausch mit externen Stellen die Schweigepflichtsentbindung der Eltern ein und werten das Ergebnis am 15. des nächsten Monats gemeinsam aus."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Kita & Ganztagsschule (Kinder von 3 bis 10 Jahren)",
-    "context": "In einer inklusiven Kindertagesstätte mit angegliedertem Hort arbeitet ein multiprofessionelles Team (Erzieher:innen, Heilpädagog:innen, eine Kita-Sozialarbeiterin und eine externe Motopädagogin). Es kommt zu Reibungen bezüglich der Förderplanung für ein Kind mit autistischen Zügen sowie zu unklaren Zuständigkeiten bei Elternabenden.",
-    "setting": "Inklusive Kindertagesstätte mit multiprofessionellem Team und Hortbereich",
+    "title": "Schnittstellenkonflikt im multiprofessionellen Kita-Team",
+    "setting": "Viergruppige inklusive Kindertagesstätte in Rheinland-Pfalz mit Erzieher:innen, Heilpädagogin, Kita-Sozialarbeit und externer Logopädie",
+    "ageGroup": "Elementarbereich (Übergang 5–6 Jahre zur Grundschule)",
+    "context": "In der Kita „Am Park“ wurde vor vier Monaten erstmals eine 50-%-Stelle für Kita-Sozialarbeit eingerichtet. Gemeinsam mit den Erzieher:innen, einer Heilpädagogin und einer externen Logopädin begleitet das Team den 5-jährigen Emil, der im Sommer eingeschult werden soll und sprachliche sowie sozial-emotionale Unterstützungsbedarfe zeigt. Im Alltag knirscht es zunehmend zwischen den Berufsgruppen.",
     "steps": [
       {
+        "situation": "Die Heilpädagogin holt Emil regelmäßig unangekündigt mitten aus dem Morgenkreis zur Einzelförderung. Gleichzeitig erfährt die Gruppenleitung erst beiläufig von Emils Mutter, dass die Kita-Sozialarbeiterin bereits ein Beratungsgespräch zur familiären Entlastung geführt hat. In der Dienstbesprechung fliegen scharfe Vorwürfe hin und her („Ihr reißt die Kinder aus der Gruppe!“ – „Ihr verhindert gezielte Förderung!“).",
+        "prompt": "Wie reagieren Sie als Team und Leitung auf diesen akuten Rollen- und Kommunikationskonflikt?",
         "options": [
           {
-            "feedback": "Richtig! Das Team setzt sich in einem strukturierten Teamgespräch zusammen, klärt über ein Organigramm und gemeinsame Absprachen die Rollen (z. B. Heilpädagogik führt Förderdiagnostik, Erzieher:innen steuern den Alltag) und nutzt ein professionelles Intervisionsformat zur Fallbesprechung. Dies fördert den multidimensionalen Blick und entlastet alle Beteiligten.",
-            "label": "Strukturierte Rollenklärung, interdisziplinäre Fallberatung und gemeinsames Organigramm zur Aufgabenabgrenzung.",
-            "quality": "optimal",
-            "theoryLink": "RLP RLP-S-SP-6: Rollen und Funktionen in multiprofessionellen Teams, Teamentwicklung nach Tuckman."
-          },
-          {
-            "feedback": "Teilweise adäquat, aber unzureichend: Die Leitung übernimmt zwar die Entscheidung und teilt Aufgaben zu, jedoch ohne Beteiligung und Reflexion des Teams. Das verhindert eine echte Akzeptanz und bindet das multiprofessionelle Potenzial nicht ein.",
-            "label": "Die Einrichtungsleitung bestimmt per Direktionsrecht, wer welche Dokumentation übernimmt, und setzt die Zusammenarbeit fest.",
+            "label": "Die Einrichtungsleitung beendet die Diskussion per Direktionsrecht, bestimmt feste Abholzeiten und untersagt der Kita-Sozialarbeit Einzelgespräche ohne vorherige Gruppenfreigabe.",
             "quality": "teilweise",
-            "theoryLink": "Partizipationsgebot nach RLP und Kitasetz (hier: fehlende Teampartizipation)."
+            "feedback": "Eine klare Ansage schafft zwar kurzfristig Ruhe, löst aber weder das unterschiedliche Professionsverständnis noch das Misstrauen im Team. Außerdem verkennt ein pauschales Verbot die eigenständige, vertrauliche Beratungsrolle der Kita-Sozialarbeit.",
+            "theoryLink": "Leitungsverantwortung vs. partizipative Rollenklärung; Grenzen autokratischer Steuerung in multiprofessionellen Teams."
           },
           {
-            "feedback": "Problematisch! Jede Profession arbeitet isoliert nebeneinander her („Parallelpädagogik“), Zuständigkeiten werden im Alltag ständig neu verhandelt, was zu Konflikten, Frustration und unzureichender Förderung des Kindes führt.",
-            "label": "Die Fachkräfte arbeiten parallel ohne Absprache; jede Profession macht ihr eigenes Ding, um Konflikten aus dem Weg zu gehen.",
+            "label": "Das Team trennt im moderierten Gespräch Person und Sachproblem nach dem Harvard-Konzept, legt die fachlichen Interessen offen und erstellt eine verbindliche Rollen- und Informationsmatrix (inkl. Datenschutzregeln für vertrauliche Sozialarbeitsgespräche).",
+            "quality": "optimal",
+            "feedback": "Sehr gut! Auf Glasl-Stufe 2–3 ist der Konflikt intern sachbezogen lösbar. Durch die Trennung von Person und Sache werden die legitimen Interessen aller Professionen sichtbar, und eine klare Schnittstellenmatrix verhindert künftige Parallelpädagogik — unter Wahrung der Verschwiegenheitspflicht in der Sozialarbeit.",
+            "theoryLink": "Harvard-Konzept (Interessen statt Positionen); Grenzarbeit & Rollenklärung in multiprofessionellen Teams; Datenschutz/Schweigepflicht."
+          },
+          {
+            "label": "Um die Stimmung nicht weiter anzuheizen, einigt man sich darauf, dass jede Berufsgruppe künftig eigenständig mit Emil arbeitet und sich nur bei akuten Notfällen abspricht.",
             "quality": "problematisch",
-            "theoryLink": "Dysfunktionale Teamstrukturen, Rollenkonflikte und Mangel an Qualitätsentwicklung."
+            "feedback": "Dieses Vorgehen zementiert Parallelpädagogik. Unkoordinierte Angebote überfordern Emil durch häufige Beziehungs- und Methodenwechsel, und der zentrale Qualitätsgewinn eines multiprofessionellen Teams geht vollständig verloren.",
+            "theoryLink": "Dysfunktionale Konfliktvermeidung; Risiko der Parallelpädagogik statt multiprofessioneller Ko-Konstruktion."
           }
-        ],
-        "prompt": "Schritt 1: Umgang mit Rollenunklarheiten und Zuständigkeitskonflikten im multiprofessionellen Team.",
-        "situation": "Im Team entstehen Reibungen, da unklar ist, wer die sonderpädagogischen Förderpläne schreibt und wer die Elternberatung bei Diagnostikverdacht übernimmt."
+        ]
       },
       {
+        "situation": "Zwei Wochen später berichtet eine Berufspraktikantin verunsichert aus einem Schnuppertag an der kooperierenden Grundschule: Die Grundschullehrkraft habe Emil kurz beobachtet und zwischen Tür und Angel gesagt, man solle „unbedingt sofort eine Rückstellung beantragen“. Die Praktikantin weiß nicht, wie sie gegenüber den ohnehin besorgten Eltern und der Schule auftreten soll.",
+        "prompt": "Wie nutzt das Team seine kollegialen Ressourcen fachlich angemessen für diesen Schnittstellenfall?",
         "options": [
           {
-            "feedback": "Richtig! Eine konstruktive Konfliktbearbeitung nach dem Harvard-Konzept (Sache von Person trennen, Interessen statt Positionen) kombiniert mit einer strukturierten Teamentwicklungsphase (z. B. nach Tuckman: Norming/Performing) klärt die Kooperationsstrukturen nachhaltig.",
-            "label": "Durchführung eines moderierten Konfliktgesprächs nach dem Harvard-Konzept und gemeinsame Erarbeitung verbindlicher Kooperationsstandards.",
+            "label": "Das Team führt eine 45-minütige kollegiale Fallberatung nach Kim-Oliver Tietze durch, formuliert gemeinsam eine Schlüsselfrage, sammelt multiprofessionelle Handlungsideen und plant anschließend ein transparentes Elterngespräch zur Vorbereitung einer möglichen, einwilligungsbasierten Kooperation mit der Grundschule.",
             "quality": "optimal",
-            "theoryLink": "Konfliktlösungsmodelle im RLP; Harvard-Konzept (Fisher/Ury); Teamentwicklung (Tuckman)."
+            "feedback": "Hervorragend! Die strukturierte 6-Phasen-Fallberatung nach Tietze stärkt die Handlungsfähigkeit der Praktikantin, bündelt die Perspektiven von Gruppenpädagogik, Heilpädagogik und Sozialarbeit und sichert gleichzeitig die Einbindung der Eltern sowie den Datenschutz gegenüber der Grundschule.",
+            "theoryLink": "Kollegiale Fallberatung in sechs Phasen nach Tietze; Bildungs- und Erziehungspartnerschaft; rechtssichere Schnittstellenkooperation."
           },
           {
-            "feedback": "Teilweise: Eine Supervision wird zwar einmalig einberufen, jedoch bleibt die Bearbeitung an der Oberfläche; die strukturellen Ursachen (fehlendes Organigramm, unklare gesetzliche Rahmenbedingungen) werden nicht geklärt.",
-            "label": "Einmalige Aussprache im Team ohne externe Moderation und ohne schriftliche Vereinbarungen; man hofft, dass sich das Problem von alleine legt.",
+            "label": "Im Pausenraum geben drei Kolleginnen der Praktikantin spontan unterschiedliche Tipps („Sag der Lehrerin einfach, sie hat keine Ahnung“ vs. „Sprich die Eltern morgen früh beim Bringen kurz an“).",
             "quality": "teilweise",
-            "theoryLink": "Unzureichende Implementierung von Unterstützungssystemen (Supervision ohne Nachbereitung)."
+            "feedback": "Kollegiale Anteilnahme ist gut gemeint, aber unstrukturierte Tür-und-Angel-Ratschläge erhöhen oft die Verunsicherung, produzieren widersprüchliche Signale an die Eltern und ersetzen keine fachliche Fallklärung.",
+            "theoryLink": "Unterschied zwischen informellem Ratschlag und methodisch strukturierter Intervision."
           },
           {
-            "feedback": "Problematisch! Es wird vermieden, den Konflikt anzusprechen; stattdessen wird über Dritte gelästert und die Zusammenarbeit im Alltag weiter eingeschränkt. Dies gefährdet das Kindeswohl und die Betriebsklima-Qualität.",
-            "label": "Vermeidung des Konflikts, Bildung von Fraktionen im Team ('Erzieher vs. Sonderpädagogen') und Ausweichen bei Dienstbesprechungen.",
+            "label": "Die Gruppenleitung ruft die Grundschullehrkraft ohne Wissen der Eltern an, schildert Emils gesamte familiäre Belastungssituation und bittet die Praktikantin, sich künftig aus solchen Gesprächen herauszuhalten.",
             "quality": "problematisch",
-            "theoryLink": "Destruktive Konfliktdynamiken in Teams (Konflikteskalation nach Glasl)."
+            "feedback": "Das ist datenschutzrechtlich und fachlich unzulässig! Ohne ausdrückliche Schweigepflichtsentbindung der Eltern dürfen keine personenbezogenen Entwicklungs- oder Familiendaten an die Schule weitergegeben werden. Zudem wird die Praktikantin entwertet statt fachlich begleitet.",
+            "theoryLink": "Datenschutz & Schweigepflichtsentbindung an der Schnittstelle Kita–Schule; professionelle Praxisanleitung."
           }
-        ],
-        "prompt": "Schritt 2: Bearbeitung von schwelenden Teamkonflikten und Etablierung von Unterstützungssystemen.",
-        "situation": "Nach monatelanger Belastung blockieren sich zwei Teammitglieder in Dienstbesprechungen gegenseitig und das Betriebsklima leidet massiv."
+        ]
+      },
+      {
+        "situation": "Ein halbes Jahr später verlassen zwei erfahrene Erzieherinnen die Einrichtung, zwei neue Fachkräfte beginnen. Binnen weniger Wochen bilden sich informelle Gruppen („Alt-Team“ gegen „Neue und Fachdienste“), vereinbarte Übergaben werden stillschweigend ignoriert, und erste Fachkräfte sprechen im Kollegium abwertend hinter dem Rücken anderer (beginnende Koalitionsbildung, Glasl Stufe 4).",
+        "prompt": "Welcher Schritt sichert die Handlungsfähigkeit und Teamkultur nun nachhaltig?",
+        "options": [
+          {
+            "label": "Die Leitung erinnert lediglich per Aushang an die vor sechs Monaten beschlossene Schnittstellenmatrix und erwartet, dass sich die neuen Kolleginnen geräuschlos einfügen.",
+            "quality": "problematisch",
+            "feedback": "Ein reiner Aushang verkennt sowohl die Teamdynamik (Personalwechsel löst erneut Forming und Storming aus) als auch die bereits erreichte Eskalationsstufe 4 nach Glasl, auf der informelle Koalitionen sachliche Regeln unterlaufen.",
+            "theoryLink": "Nicht-Linearität der Tuckman-Phasen; Konflikteskalation ab Glasl Stufe 4."
+          },
+          {
+            "label": "Das Team organisiert eine unmoderierte Aussprache am Ende eines langen Arbeitstages, ohne schriftliche Ergebnisse festzuhalten.",
+            "quality": "teilweise",
+            "feedback": "Das Problem anzusprechen ist grundsätzlich richtig, doch bei bestehender Koalitionsbildung (Glasl Stufe 4) eskalieren unmoderierte Aussprachen ohne klaren Rahmen leicht weiter oder bleiben wirkungslos.",
+            "theoryLink": "Grenzen interner Selbstklärung bei fortgeschrittener Konflikteskalation."
+          },
+          {
+            "label": "Die Leitung benennt den durch den Personalwechsel ausgelösten Neuanfang transparent, zieht eine neutrale externe Supervision (sowie für die Konzeptanpassung die Fachberatung) hinzu und erarbeitet mit dem gesamten Team eine aktualisierte Norming-Vereinbarung.",
+            "quality": "optimal",
+            "feedback": "Genau richtig! Personalwechsel versetzen Teams regelmäßig zurück ins Forming/Storming. Ab Glasl-Stufe 4 schafft eine allparteiliche externe Supervision den geschützten Raum, um verdeckte Spannungen abzubauen und gemeinsam tragfähige neue Teamstandards (Norming) zu entwickeln.",
+            "theoryLink": "Teamentwicklung nach Tuckman; Eskalationsstufen nach Glasl (Win-Lose -> externe Hilfe); Zusammenspiel von Supervision und Fachberatung."
+          }
+        ]
       }
-    ],
-    "title": "Das multiprofessionelle Team in der inklusiven Kita: Rollen, Konflikte und Kooperation"
+    ]
   },
   "selfLearningTasks": [
-    "Erstellung eines detaillierten Organigramms für eine fiktive oder reale sozialpädagogische Einrichtung unter Einbezug multiprofessioneller Stellen und externer Netzwerke.",
-    "Durchführung einer Sozialraumanalyse und Dokumentation der Schnittstellen zwischen Kita, Grundschule, Jugendamt und Familienzentrum.",
-    "Entwurf eines praxisnahen Beschwerdemanagements für Eltern und Kinder inklusive eines schematischen Ablaufdiagramms."
+    "Skizzieren Sie für Ihre aktuelle oder eine vergangene Praxiseinrichtung eine Rollen- und Schnittstellenmatrix: Welche internen Professionen und externen Partner (z. B. Frühförderung, Grundschule, Jugendamt, Fachberatung) wirken zusammen, und wo bestehen reale oder potenzielle Informationslücken?",
+    "Bereiten Sie einen anonymisierten Praxisfall für eine 45-minütige kollegiale Fallberatung nach Kim-Oliver Tietze vor: Formulieren Sie eine 5-Minuten-Spontanerzählung sowie zwei mögliche Schlüsselfragen und erproben Sie die Moderation mit Mitschüler:innen oder Kolleg:innen.",
+    "Nehmen Sie einen real erlebten oder typischen Teamkonflikt aus der Praxis und analysieren Sie ihn doppelt: Ordnen Sie ihn zunächst einer Eskalationsstufe nach Glasl zu und formulieren Sie anschließend die starren Positionen der Beteiligten in dahinterliegende fachliche Interessen nach dem Harvard-Konzept um."
   ],
   "flashcards": [
     {
-      "definition": "Ein grafisches Strukturmodell einer Organisation, das Hierarchien, Abteilungen, Stellen und Weisungs- bzw. Kommunikationswege visualisiert. Im Team hilft es, Rollen und Verantwortlichkeiten transparent zu machen.",
-      "example": "Das Organigramm einer Kita zeigt die Einrichtungsleitung, die Teamleitungen (U3, Ü3, Hort) sowie Stabstellen (Kita-Sozialarbeit).",
-      "term": "Organigramm"
+      "term": "Multiprofessionelles Team vs. Parallelpädagogik",
+      "definition": "Ein multiprofessionelles Team verbindet unterschiedliche Berufsgruppen (z. B. Erzieher:innen, Heilpädagog:innen, Sozialarbeit, Therapie) über gemeinsame Ziele, klare Rollen und geregelte Absprachen. Von Parallelpädagogik spricht man, wenn Professionen unkoordiniert nebeneinanderher arbeiten.",
+      "example": "Statt isolierter Einzelförderung stimmen Erzieherin und Heilpädagogin Förderziele gemeinsam ab und verknüpfen sie mit dem Gruppenalltag."
     },
     {
-      "definition": "Zusammenarbeit von Fachkräften verschiedener Professionen (z. B. Erzieher:innen, Heilpädagog:innen, Sozialarbeiter:innen, Therapeut:innen) auf Augenhöhe zur ganzheitlichen Förderung von Kindern und Familien.",
-      "example": "Gemeinsame Förderplangestaltung von Erzieherin und Motopädagogin für ein Kind mit motorischen Entwicklungsverzögerungen.",
-      "term": "Multiprofessionelles Team"
+      "term": "Teamentwicklungsphasen nach Tuckman",
+      "definition": "Prozessmodell mit den Phasen Forming (Orientierung), Storming (Konflikt/Aushandlung), Norming (Regelfindung), Performing (hohe Leistungsfähigkeit) und Adjourning (Abschied/Übergang). Bei Personal- oder Strukturwechseln kehren Teams typischerweise in frühere Phasen zurück.",
+      "example": "Nach dem Einstieg einer neuen Gruppenleitung und einer Kita-Sozialarbeiterin treten erneut Fragen zu Aufgabenverteilung und Regeln auf (Storming)."
     },
     {
-      "definition": "Klassisches 4-Phasen-Modell der Teamentwicklung nach Bruce Tuckman: Forming (Orientierung), Storming (Konflikt/Machtkampf), Norming (Regelfindung), Performing (Leistungsphase).",
-      "example": "Nach heftigen Diskussionen über die Aufgabenverteilung einigen sich die Teammitglieder in der Norming-Phase auf feste Zuständigkeiten.",
-      "term": "Teamentwicklungsphasen (Tuckman)"
+      "term": "Kollegiale Fallberatung nach Tietze",
+      "definition": "Gleichrangiges, strukturiertes Beratungsverfahren ohne externe Leitung in sechs Phasen: 1. Casting, 2. Spontanerzählung, 3. Schlüsselfrage, 4. Methodenwahl, 5. Beratung (Fallgeber:in hört still zu), 6. Abschluss und Transfer.",
+      "example": "In der 45-minütigen Fallberatung notiert eine Erzieherin still die Ideen ihrer Kolleg:innen und wählt am Ende zwei passende Gesprächsstrategien für ein Elterngespräch aus."
     },
     {
-      "definition": "Professionelle Unterstützungssysteme zur Entlastung und Qualitätssicherung in pädagogischen Teams, wie Supervision, Coaching, Intervision und Fallberatung.",
-      "example": "In der monatlichen Team-Supervision reflektiert das Kollegium gemeinsam mit einer externen Supervisorin belastende Elternkontakte.",
-      "term": "Unterstützungssysteme für Teams"
+      "term": "Harvard-Konzept",
+      "definition": "Sachbezogenes Verhandlungs- und Konfliktlösungsmodell (Fisher, Ury & Patton) mit vier Prinzipien: Menschen und Probleme getrennt behandeln, Interessen statt Positionen fokussieren, Optionen zum beiderseitigen Vorteil entwickeln und neutrale Beurteilungskriterien nutzen.",
+      "example": "Hinter dem Streit um Raumnutzungszeiten erkennen beide Fachkräfte das gemeinsame Interesse an reizarmen Förderphasen und erstellen einen flexiblen Raumplan."
     },
     {
-      "definition": "Konfliktlösungsansatz, bei dem Interessen hinter den Positionen verhandelt werden, um integrative Win-Win-Lösungen zu erzielen (Menschen und Probleme getrennt betrachten).",
-      "example": "Zwei Fachkräfte streiten um Raumzeiten; durch das Harvard-Konzept erkennen sie, dass es um ungestörte Förderzeiten geht, und vereinbaren einen flexiblen Nutzungsplan.",
-      "term": "Harvard-Konzept"
+      "term": "Konflikteskalation nach Friedrich Glasl",
+      "definition": "Neunstufiges Diagnosemodell für Konfliktdynamiken: Stufen 1–3 (Win-Win, selbst lösbar), Stufen 4–6 (Win-Lose, externe Moderation/Mediation oder Supervision nötig) und Stufen 7–9 (Lose-Lose, verbindlicher Macht-/Führungseingriff erforderlich).",
+      "example": "Sobald sich im Team feste Lager bilden und hinter dem Rücken anderer abgewertet wird (Stufe 4), zieht die Leitung externe Supervision hinzu."
     },
     {
-      "definition": "Teilbereich des Qualitätsmanagements in sozialen Einrichtungen zur professionellen Bearbeitung und Auswertung von Beschwerden von Eltern, Kindern oder Trägern.",
-      "example": "Ein standardisierter Beschwerdebogen im Eingangsbereich der Kita ermöglicht Eltern die unkomplizierte Rückmeldung zu Öffnungszeiten.",
-      "term": "Beschwerdemanagement"
+      "term": "Fachberatung vs. Supervision",
+      "definition": "Fachberatung begleitet Träger, Leitungen und Teams praxis- und konzeptbezogen in Fragen von Qualität, Recht und Organisationsentwicklung. Supervision bietet einen externen, allparteilichen Reflexionsraum für tiefere Beziehungs-, Rollen- und Teamdynamiken.",
+      "example": "Für die Fortschreibung des Schutzkonzepts wird die Fachberatung eingeladen; für die Bearbeitung verhärteter Teamkonflikte bucht der Träger externe Supervision."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Das Organigramm ist das klassische grafische Instrument zur Darstellung von Aufbauorganisation, Stellen, Hierarchien und Kommunikationswegen in einer Einrichtung.",
-      "id": "q-1",
+      "question": "Welche Regel ist in Phase 5 (Beratung) der kollegialen Fallberatung nach Kim-Oliver Tietze zentral, damit echter Perspektivwechsel gelingt?",
       "options": [
-        "Ein pädagogisches Konzept zur kindzentrierten Entwicklungsbeobachtung.",
-        "Eine grafische Darstellung der Aufbauorganisation, Stellen, Hierarchien und Kommunikationswege einer Einrichtung.",
-        "Ein standardisiertes Instrument zur Elternbefragung im Rahmen des Beschwerdemanagements.",
-        "Ein psychologisches Modell zur Phasenabfolge von Teamentwicklungsprozessen."
+        "Die fallerzählende Person diskutiert sofort jedes Argument der Gruppe durch und korrigiert falsche Annahmen direkt.",
+        "Die Einrichtungsleitung gibt am Ende der Spontanerzählung verbindlich vor, welche Lösung im Team umgesetzt wird.",
+        "Die fallerzählende Person hört während der Beratungsphase schweigend zu, macht sich Notizen und bewertet die Impulse erst im Abschluss.",
+        "Nur die dienstältesten Fachkräfte dürfen Hypothesen und Handlungsideen zur Schlüsselfrage einbringen."
       ],
-      "question": "Welche primäre Funktion erfüllt ein Organigramm in einer sozialpädagogischen Einrichtung?",
-      "type": "single"
+      "correctIndices": [
+        2
+      ],
+      "explanation": "In Phase 5 der kollegialen Beratung nach Tietze zieht sich die fallerzählende Person bewusst aus dem Gespräch zurück, hört zu und notiert Impulse, ohne sich zu rechtfertigen. Erst in Phase 6 (Abschluss) entscheidet sie eigenverantwortlich, welche Anregungen sie in die Praxis übernimmt."
     },
     {
+      "id": "v2-q2",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche beiden Aussagen treffen auf multiprofessionelle Zusammenarbeit in sozialpädagogischen Teams fachlich zu? (Wählen Sie zwei Antworten)",
+      "options": [
+        "Sie erfordert bewusste Grenzarbeit, transparente Aufgabenabsprachen und eine gemeinsame Übersetzung unterschiedlicher Fachsprachen.",
+        "Sie verhindert automatisch Rollenkonflikte, weil jede Berufsgruppe bereits über eine eigene Ausbildung verfügt.",
+        "Sie ersetzt die Notwendigkeit schriftlicher Einwilligungen der Eltern beim Austausch mit externen Therapiepraxen.",
+        "Ohne regelmäßige Schnittstellenkommunikation droht Parallelpädagogik, bei der Professionen unkoordiniert nebeneinanderher arbeiten."
+      ],
       "correctIndices": [
         0,
-        2
+        3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Multiprofessionelle Teams zeichnen sich durch den Gewinn verschiedener fachlicher Blickwinkel und die ganzheitliche Förderung aus; allerdings erfordern sie einen hohen Koordinationsaufwand und bergen das Risiko von Rollenkonflikten (Parallelarbeit).",
-      "id": "q-2",
-      "options": [
-        "Erweiterung des fachlichen Blickwinkels und ganzheitliche Förderung durch unterschiedliche Professionen.",
-        "Automatische und konfliktfreie Zusammenarbeit ohne jeglichen Koordinationsaufwand.",
-        "Erhöhter Bedarf an strukturierter Absprache und Reflexion zur Vermeidung von Reibungsverlusten.",
-        "Verringerung der gesetzlichen Anforderungen an die Dokumentation."
-      ],
-      "question": "Welche charakteristischen Chancen und Herausforderungen sind typisch für multiprofessionelle Teams in der Sozialpädagogik? (Wähle zwei zutreffende Antworten)",
-      "type": "multi"
+      "explanation": "Multiprofessionelle Teams bringen wertvolle Perspektivenvielfalt, erzeugen aber gerade wegen unterschiedlicher Berufsverständnisse Aushandlungsbedarf (Grenzarbeit). Ohne verbindliche Absprachen entsteht Parallelpädagogik. Datenschutz und Schweigepflichtsentbindungen bleiben beim Austausch mit externen Stellen zwingend erforderlich."
     },
     {
-      "correctIndices": [
-        2
-      ],
+      "id": "v2-q3",
+      "type": "case",
       "difficulty": "pruefung",
-      "explanation": "Die 'Storming'-Phase (Sturm- und Drangphase) ist im Tuckman-Modell durch Machtkämpfe, Rollenunklarheiten und emotionale Konflikte gekennzeichnet, wenn das Team über die anfängliche Orientierung hinausgeht.",
-      "id": "q-3",
+      "question": "Ein eingespieltes Kita-Team nimmt zwei neue Fachkräfte und eine zusätzliche Sprachfachkraft auf. Kurz darauf häufen sich Gereiztheit, Kritik an bisherigen Routinen und Diskussionen über Zuständigkeiten. Wie ist diese Situation nach Bruce Tuckman einzuordnen?",
       "options": [
-        "Die Phase des ersten Kennenlernens und der höflichen Orientierung (Forming).",
-        "Die Phase der verbindlichen Regelsetzung und des gegenseitigen Vertrauens (Norming).",
-        "Die Phase von Machtkämpfen, Rollenkonflikten und emotionalen Auseinandersetzungen im Team (Storming).",
-        "Die Phase der hocheffizienten Aufgabenerfüllung und Autonomie (Performing)."
+        "Personalwechsel lösen regulär eine Rückkehr in die Phasen Forming und Storming aus; die Leitung sollte erneut Zeit für Rollen- und Regelklärung (Norming) schaffen.",
+        "Das Team befindet sich im endgültigen Scheitern der Performing-Phase und sollte personell wieder verkleinert werden.",
+        "Die neuen Fachkräfte zeigen mangelnde Teamfähigkeit und müssen zunächst sechs Monate ohne Mitspracherecht hospitieren.",
+        "Es handelt sich um die Adjourning-Phase, die ausschließlich am Ende befristeter Projekte auftritt."
       ],
-      "question": "In welchem Phasenmodell der Teamentwicklung nach Bruce Tuckman kommt es typischerweise zu heftigen Konflikten, Machtkämpfen und Rollenunklarheiten ('Storming')?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
-        1
+        0
       ],
-      "difficulty": "basis",
-      "explanation": "Supervision ist ein professionelles, externes Beratungsformat zur Reflexion beruflichen Handelns, von Teamprozessen und Rollen, das von ausgebildeten Supervisor:innen durchgeführt wird.",
-      "id": "q-4",
-      "options": [
-        "Eine interne Qualitätsprüfung durch den örtlichen Jugendhilfeträger.",
-        "Ein professionelles, externes Beratungsformat zur Reflexion des beruflichen Handelns und von Teamprozessen.",
-        "Ein rechtliches Kontrollverfahren zur Überprüfung der Aufsichtspflicht in Kindertageseinrichtungen.",
-        "Ein standardisiertes Testverfahren zur Überprüfung der Schulfähigkeit von Vorschulkindern."
-      ],
-      "question": "Was versteht man in der Sozialpädagogik unter dem Begriff 'Supervision' als Unterstützungssystem?",
-      "type": "single"
+      "explanation": "Nach Tuckman durchlaufen Teams ihre Entwicklungsphasen nicht einmalig für immer. Jeder relevante Personal- oder Strukturwechsel verändert das Gefüge und führt das Team zurück in Orientierung (Forming) und Aushandlung (Storming), sodass Regeln und Rollen gemeinsam neu geklärt werden müssen (Norming)."
     },
     {
+      "id": "v2-q4",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Ab welchem Bereich im Eskalationsmodell nach Friedrich Glasl reicht eine rein interne Klärung im Team typischerweise nicht mehr aus, sodass externe Moderation, Mediation oder Supervision hinzugezogen werden sollte?",
+      "options": [
+        "Bereits ab Stufe 1 (Verhärtung), da jede Meinungsverschiedenheit sofort extern geklärt werden muss.",
+        "Erst ab Stufe 9 (Gemeinsam in den Abgrund), da vorher stets kollegiale Selbsthilfe genügt.",
+        "Gar nicht — Glasls Modell gilt ausschließlich für Tarifverhandlungen und nicht für soziale Teams.",
+        "Ab Stufe 4 bis 6 (Koalitionen, Gesichtsverlust, Drohstrategien), weil der Konflikt von Win-Win in eine Win-Lose-Dynamik kippt."
+      ],
       "correctIndices": [
         3
       ],
-      "difficulty": "pruefung",
-      "explanation": "Das Harvard-Konzept empfiehlt strikt, die Sachebene von der Beziehungsebene zu trennen, Interessen hinter Positionen zu ergründen und kooperative Win-Win-Optionen zu entwickeln, anstatt starr auf Positionen zu beharren.",
-      "id": "q-5",
-      "options": [
-        "Das Beharren auf der eigenen professionellen Position, um Stärke zu demonstrieren.",
-        "Die Verlagerung des Konflikts an die Einrichtungsleitung zur richterlichen Entscheidung.",
-        "Das Vermeiden jeglicher Konfrontation durch strikte Aufgabentrennung.",
-        "Das Trennen von Sache und Person sowie das Verhandeln auf Basis hintergründiger Interessen statt starrer Positionen."
-      ],
-      "question": "Praxissituation: Zwei Fachkräfte (eine Erzieherin und eine Heilpädagogin) streiten in einer Teamsitzung heftig darüber, wer die Verantwortung für die Gestaltung des Integrationsnachmittags trägt. Wie würden Sie den Konflikt nach dem Harvard-Konzept konstruktiv lösen?",
-      "type": "case"
+      "explanation": "Auf den Stufen 1 bis 3 (Win-Win) können Konfliktparteien noch selbst sachbezogen nach Lösungen suchen. Ab Stufe 4 (Images und Koalitionen) verfestigen sich Lagerbildungen und Gesichtsverlust-Dynamiken (Win-Lose), weshalb neutrale externe Hilfe wie Mediation oder Supervision fachlich angezeigt ist."
     },
     {
+      "id": "v2-q5",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Eine Gruppenleitung und eine Heilpädagogin streiten über die Nutzung des Bewegungsraums. Beide beharren auf der Zeit zwischen 9:30 und 10:30 Uhr. Welche Frage wendet das zweite Prinzip des Harvard-Konzepts am treffendsten an?",
+      "options": [
+        "„Wer von euch beiden ist länger in der Einrichtung und hat deshalb das Vorrecht auf den Raum?“",
+        "„Welches konkrete pädagogische Ziel und welche Rahmenbedingungen für die Kinder braucht ihr jeweils in dieser Zeit?“",
+        "„Warum weigerst du dich grundsätzlich, Rücksicht auf andere Gruppen zu nehmen?“",
+        "„Sollen wir einfach eine Münze werfen, damit das Thema schnell vom Tisch ist?“"
+      ],
       "correctIndices": [
-        0,
+        1
+      ],
+      "explanation": "Das Harvard-Konzept unterscheidet zwischen der verhärteten Position („Ich brauche den Raum um 9:30 Uhr“) und dem dahinterliegenden fachlichen Interesse (z. B. reizarme Einzelförderung vs. Bewegungsausgleich nach dem Frühstück). Werden die Interessen sichtbar, entstehen tragfähige Win-Win-Lösungen."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "basis",
+      "question": "Welche beiden Aussagen unterscheiden Fachberatung, Supervision und kollegiale Fallberatung zutreffend? (Wählen Sie zwei Antworten)",
+      "options": [
+        "Externe Supervision darf nur von der direkten Dienstvorgesetzten der Einrichtung durchgeführt werden.",
+        "Kollegiale Fallberatung findet gleichrangig im Team ohne externe Beratungsperson statt.",
+        "Fachberatung unterstützt Teams, Leitungen und Träger bei Qualitäts- und Konzeptionsprozessen, kann aber im Spannungsfeld zwischen Beratung und Trägersteuerung stehen.",
+        "Supervision dient ausschließlich der juristischen Kontrolle von Dienstplänen und Personalschlüsseln."
+      ],
+      "correctIndices": [
         1,
-        3
+        2
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Zu den im RLP explizit geforderten und bewährten Unterstützungssystemen und Instrumenten gehören Supervision, Intervision (kollegiale Fallberatung) sowie ein funktionierendes Beschwerdemanagement als Teil des Qualitätsmanagements.",
-      "id": "q-6",
-      "options": [
-        "Intervision (kollegiale Fallberatung im Team)",
-        "Supervision durch externe Fachkräfte",
-        "Autokratische Direktionsanordnungen der Geschäftsführung",
-        "Beschwerdemanagement als Qualitätsinstrument"
-      ],
-      "question": "Welche Instrumente und Unterstützungssysteme tragen maßgeblich zur Teamentwicklung und Qualitätssicherung in sozialpädagogischen Einrichtungen bei? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Kollegiale Fallberatung ist ein selbstgesteuertes Peer-Format im Team. Fachberatung unterstützt fachliche und organisatorische Qualität im Trägerkontext (inklusive möglicher Rollenkonflikte bei gleichzeitiger Steuerungsfunktion). Externe Supervision setzt gerade auf Unabhängigkeit von Dienstvorgesetzten."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Multiprofessionelle Teams in der Kita (Kita-Fachtext)",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/2-2025_Kita-Fachtext_Klumpe_Multiprofessionelle_Teams_in_der_Kita_01.pdf",
+      "publisher": "Kassandra Klumpe / Kita-Fachtexte (Alice Salomon Hochschule Berlin & Fröbel)",
+      "note": "Grundlagen multiprofessioneller Zusammenarbeit, Rollenklärung, Chancen, Konfliktpotenziale und Leitungsverantwortung."
+    },
+    {
+      "title": "nifbe-Handbuch Multiprofessionelle Teams",
+      "url": "https://nifbe.de/nifbe-handbuch-multiprofessionelle-teams/",
+      "publisher": "Niedersächsisches Institut für frühkindliche Bildung und Entwicklung (nifbe)",
+      "note": "Praxisorientierte Orientierung zu Teamentwicklung, gemeinsamer Haltung und multiprofessioneller Teamkultur."
+    },
+    {
+      "title": "Ablauf und Methodik von kollegialer Beratung in sechs Phasen",
+      "url": "https://kollegiale-beratung.de/ablauf-und-methodik-von-kollegialer-beratung-in-sechs-phasen.html",
+      "publisher": "Dr. Kim-Oliver Tietze / kollegiale-beratung.de",
+      "note": "Systematische Darstellung der Rollen und sechs Phasen der kollegialen Fallberatung."
+    },
+    {
+      "title": "Fachberatung für Kindertagesstätten in Rheinland-Pfalz",
+      "url": "https://kita.rlp.de/kita-in-rheinland-pfalz/qualitaet-und-evaluation/fachberatung",
+      "publisher": "Ministerium für Bildung Rheinland-Pfalz (kita.rlp.de)",
+      "note": "Auftrag, Aufgabenfelder und rechtliche Einbettung der Fachberatung als Unterstützungssystem im KiTaG RLP."
+    },
+    {
+      "title": "WiFF Wegweiser Weiterbildung 15: Fachberatung für Kindertageseinrichtungen",
+      "url": "https://www.weiterbildungsinitiative.de/fileadmin/Redaktion/Publikationen/WiFF_Wegweiser_Weiterbildung_15_Fachberatung.pdf",
+      "publisher": "Weiterbildungsinitiative Frühpädagogische Fachkräfte (WiFF / DJI)",
+      "note": "Wissenschaftliche Analyse zur Rolle der Fachberatung im Spannungsfeld zwischen Prozessbegleitung und Steuerung."
     }
   ]
 }

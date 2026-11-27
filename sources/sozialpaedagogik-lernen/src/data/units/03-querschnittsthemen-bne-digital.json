@@ -3,8 +3,10 @@
   "number": 3,
   "moduleCode": "LEITLINIEN",
   "moduleArea": "grundlagen",
-  "title": "BNE, Bildung in der digitalen Welt & Ko-konstruktive Didaktik",
-  "subtitle": "Nachhaltigkeit, 6 KMK-Digitalkompetenzen, Lernsituationen & Selbstlernzeiten",
+  "unitRole": "orientation",
+  "curriculumRef": "Kap. 2.3, 2.4, 3.2 & 3.3 · Querschnittsthemen BNE, Digitale Welt, Partizipation/Inklusion & Ko-Konstruktion (Lehrplan RLP 2024)",
+  "title": "Querschnittsthemen: BNE, Digitale Welt, Inklusion & Ko-Konstruktion",
+  "subtitle": "Nachhaltige Gestaltungskompetenz, KMK-Digitalkompetenzen, Partizipation und ko-konstruktives Lernen im Alltag",
   "year": "1.–3. Jahr",
   "estimatedMinutes": 25,
   "hoursRef": "Kap. 2.3, 2.4, 3.2 & 3.3",
@@ -12,415 +14,458 @@
   "crossCuttingTags": [
     "BNE",
     "Digitale Welt",
-    "Partizipation"
+    "Partizipation",
+    "Inklusion"
   ],
-  "summary": "Einheit 3/50 verankert die Querschnittsthemen Bildung für nachhaltige Entwicklung (BNE) und Bildung in der digitalen Welt (6 KMK-Kompetenzen) fundiert im Lehrplan der Fachschule Sozialpädagogik. Sie verbindet ko-konstruktive Didaktik, sieben leitende Unterrichtsprinzipien (inkl. doppelter Vermittlungspraxis) mit der methodischen Gestaltung und Bewertung von bis zu 480 Stunden Selbstlernzeit.",
+  "summary": "Querschnittsthemen sind keine isolierten Sonderprojekte, sondern prägen jede alltägliche Begegnung in Kita, Hort und Jugendarbeit. Diese Orientierungseinheit zeigt praxisnah, wie Bildung für nachhaltige Entwicklung (BNE), die sechs Kompetenzbereiche der Bildung in der digitalen Welt, gelebte Partizipation und Inklusion sowie ko-konstruktives Lernen in konkreten pädagogischen Situationen zusammenwirken – altersgerecht, ressourcenorientiert und ohne pauschale Dogmen.",
   "learningGoals": [
-    "Ich kann die Zielsetzung der Bildung für nachhaltige Entwicklung (BNE) und den Erwerb von Gestaltungskompetenz im sozialpädagogischen Handlungsfeld erklären.",
-    "Ich kann die sechs KMK-Kompetenzbereiche der Strategie „Bildung in der digitalen Welt“ benennen und fachspezifisch für die sozialpädagogische Praxis anwenden.",
-    "Ich kann Lernsituationen als komplexe Lehr-/Lernarrangements zur Verknüpfung von fachwissenschaftlichen Theorien und beruflichen Handlungsanforderungen konzipieren.",
-    "Ich kann ko-konstruktive Lernprozesse und die sieben wesentlichen Unterrichtsprinzipien (inkl. doppelter Vermittlungspraxis) in der Fachschule umsetzen.",
-    "Ich kann Selbstlernzeiten (bis zu 20% des Stundenvolumens) organisieren, lernmethodisch begleiten, digital unterstützen und rechtssicher bewerten."
+    "Ich kann das Konzept der Bildung für nachhaltige Entwicklung (BNE) und der Gestaltungskompetenz erklären und altersgerecht, ohne Angst- oder Moralisierungsdruck in pädagogische Alltagssituationen übertragen.",
+    "Ich kann die sechs Kompetenzbereiche der KMK-Strategie ‚Bildung in der digitalen Welt‘ auf sozialpädagogische Praxisbeispiele (Dokumentation, Medienbildung, Datenschutz und Reflexion) anwenden.",
+    "Ich kann echte Partizipation und strukturelle Inklusion im pädagogischen Alltag von Scheinbeteiligung und bloßer Anpassungserwartung abgrenzen.",
+    "Ich kann ko-konstruktives Lernen und das Prinzip der doppelten Vermittlungspraxis erläutern und für den Theorie-Praxis-Transfer nutzen."
   ],
   "sections": [
     {
-      "body": "Bildung für nachhaltige Entwicklung (BNE) ist im rheinland-pfälzischen Lehrplan als modulübergreifendes Querschnittsthema verankert. Sie zielt auf den Erwerb von Gestaltungskompetenz ab, die Individuen befähigt, sich persönlich und kooperativ für nachhaltige Entwicklungsprozesse zu engagieren und nicht nachhaltige Prozesse zu analysieren (RLP S. 9). Da soziale und ökologische Krisen unmittelbar auf die Lebenswelt von Kindern und Jugendlichen einwirken, müssen angehende Erzieher:innen in der Lage sein, BNE-Prinzipien (wie generationengerechte Gerechtigkeit, globale Verantwortung) altersgerecht in Kitas, Horten und der Jugendarbeit zu implementieren. Entsprechende Absprachen im Bildungsgangteam und die Verankerung im Jahresarbeitsplan sind zwingend erforderlich.",
+      "heading": "Bildung für nachhaltige Entwicklung (BNE): Gestaltungskompetenz im Alltag",
+      "keyTakeaway": "BNE verknüpft ökologische, soziale, ökonomische und globale Fragen und stärkt Kinder und Jugendliche darin, ihre Lebenswelt selbstwirksam und verantwortungsvoll mitzugestalten.",
+      "body": "Bildung für nachhaltige Entwicklung (BNE) geht weit über klassisches Mülltrennen oder Naturspaziergänge hinaus. Sie verbindet vier untrennbare Dimensionen: Ökologie (Schutz natürlicher Lebensgrundlagen), Soziales (Gerechtigkeit, Teilhabe, Menschenrechte), Ökonomie (ressourcenschonendes, faires Wirtschaften) und globale Verantwortung für heutige wie künftige Generationen. Im Zentrum steht die sogenannte Gestaltungskompetenz: die Fähigkeit, vorausschauend zu denken, nicht nachhaltige Entwicklungen kritisch zu hinterfragen, Perspektiven zu wechseln und gemeinsam mit anderen handlungsfähig zu werden. Entscheidend für die sozialpädagogische Praxis ist eine alters- und entwicklungssensible Umsetzung: Kinder dürfen nicht mit globalen Katastrophenszenarien überfordert oder für das Konsumverhalten ihrer Familien beschämt werden. Statt erhobener Zeigefinger setzt gute BNE an konkreten Alltagserfahrungen an – etwa beim Anlegen eines Hochbeets, beim Reparieren von Spielzeug, beim Fragen nach der Herkunft von Lebensmitteln oder bei fairen Aushandlungsprozessen in der Gruppe.",
       "bulletPoints": [
-        "Modulübergreifende Integration in den Unterricht der Fachschule",
-        "Erwerb von Gestaltungskompetenz für reflektiertes, kooperatives Handeln",
-        "Systematische Analyse und Beurteilung nicht nachhaltiger Entwicklungsprozesse",
-        "Verbindliche Verankerung im Jahresarbeitsplan des Bildungsgangteams"
+        "Mehrdimensionalität: Ökologische, soziale, wirtschaftliche und globale Zusammenhänge zusammendenken.",
+        "Gestaltungskompetenz: Selbstwirksamkeit, Perspektivwechsel, kritisches Fragen und kooperatives Handeln stärken.",
+        "Entwicklungsgerechte Praxis: Konkrete Alltagsanlässe (Essen, Wasser, Reparieren, Fairness) statt Überforderung durch Krisenangst.",
+        "Haltung statt Moralisieren: Kinder und Familien wertschätzend einbeziehen und soziale Lebenslagen (z. B. begrenztes Haushaltsbudget) mitdenken."
       ],
-      "heading": "Bildung für nachhaltige Entwicklung (BNE) als Gestaltungskompetenz",
-      "keyTakeaway": "BNE ist kein isoliertes Fach, sondern ein modulübergreifendes Querschnittsthema zur Förderung von Gestaltungskompetenz für eine nachhaltige Zukunft.",
-      "praxisTip": "Führen Sie in der Praxiseinrichtung ein partizipatives Projekt (z. B. 'Plastikfreie Kita' oder 'Hochbeet-Anbau') durch, bei dem Kinder aktiv an der Gestaltung ihres Lebensraums beteiligt werden."
+      "praxisTip": "Starten Sie BNE im Kleinen aus den Fragen der Kinder heraus – zum Beispiel: ‚Was passiert eigentlich mit unseren Essensresten?‘ oder ‚Können wir das kaputte Buch gemeinsam reparieren, statt es wegzuwerfen?‘"
     },
     {
-      "body": "Die KMK-Strategie „Bildung in der digitalen Welt“ (2016) fordert die integrative Einbeziehung von Digitalkompetenzen in alle Fächer. Für die Fachschule Sozialpädagogik bedeutet dies, dass angehende Fachkräfte Medien nicht nur konsumieren, sondern in sechs KMK-Kompetenzbereichen handlungssicher beherrschen müssen: Suchen & Verarbeiten, Kommunizieren & Kooperieren, Produzieren & Präsentieren, Schützen & sicher Agieren, Problemlösen & Handeln sowie Analysieren & Reflektieren (RLP S. 10). Diese Kompetenzen bilden die Grundlage für eine professionelle Medienpädagogik in sozialpädagogischen Handlungsfeldern und befähigen zur kritischen, selbstbestimmten Partizipation.",
+      "heading": "Bildung in der digitalen Welt: Die sechs KMK-Kompetenzbereiche in der Praxis",
+      "keyTakeaway": "Professionelle Medienbildung pendelt weder in unreflektierten Dauerkonsum noch in pauschale Verbote ab, sondern fördert altersangemessene, aktive und geschützte Teilhabe.",
+      "body": "Kinder und Jugendliche wachsen heute selbstverständlich in einer digital geprägten Lebenswelt auf. Die Strategie ‚Bildung in der digitalen Welt‘ der Kultusministerkonferenz (KMK) gliedert die dafür erforderlichen Kompetenzen in sechs Bereiche: (1) Suchen, Verarbeiten und Aufbewahren, (2) Kommunizieren und Kooperieren, (3) Produzieren und Präsentieren, (4) Schützen und sicher Agieren, (5) Problemlösen und Handeln sowie (6) Analysieren und Reflektieren. Für sozialpädagogische Fachkräfte hat dies eine doppelte Bedeutung: Einerseits nutzen sie digitale Werkzeuge im eigenen Berufsalltag verantwortungsvoll – etwa zur pädagogischen Dokumentation, Recherche und datenschutzkonformen Elternkommunikation. Andererseits begleiten sie Kinder und Jugendliche altersangemessen beim aktiven, kreativen und kritischen Umgang mit Medien. Dabei gilt ein differenzierter Blick auf Alter und Kontext: Bei Kleinkindern (U3) stehen unmittelbare sinnliche, körperliche und beziehungsbasierte Primärerfahrungen klar im Vordergrund; im Kindergarten-, Grundschul- und Jugendalter können digitale Geräte gezielt als kreative Produktions- und Forschungswerkzeuge (z. B. Hörspiele, Stop-Motion-Filme, digitale Bestimmung von Pflanzen, kritische Einordnung von Social-Media-Inhalten) eingesetzt werden – stets unter Beachtung von Datenschutz, Persönlichkeitsrechten und Gesundheitsschutz.",
       "bulletPoints": [
-        "Sechs verbindliche KMK-Kompetenzbereiche für alle Lernbereiche",
-        "Förderung aktiver, selbstbestimmter gesellschaftlicher Partizipation",
-        "Kritische Medienanalyse und reflektierter Werkzeugeinsatz",
-        "Schutz von Privatsphäre, Gesundheit und natürlicher Umwelt im digitalen Raum"
+        "Sechs KMK-Bereiche: Suchen/Verarbeiten, Kommunizieren/Kooperieren, Produzieren/Präsentieren, Schützen/sicher Agieren, Problemlösen/Handeln, Analysieren/Reflektieren.",
+        "Altersdifferenzierte Medienpädagogik: Sinnliche Primärerfahrungen sichern; ab dem Kita-/Schulalter aktives, begleitetes Gestalten statt passiven Konsums fördern.",
+        "Schutz & Sicherheit: Datenschutz, Recht am eigenen Bild, Jugendschutz sowie gesunde Balance zwischen analoger und digitaler Zeit.",
+        "Reflexion im Alltag: Medienwirkungen, Werbung, Desinformation und eigene Nutzungsgewohnheiten altersgerecht zum Thema machen."
       ],
-      "heading": "Die 6 KMK-Digitalkompetenzen in der Sozialpädagogik",
-      "keyTakeaway": "Digitale Kompetenzen sind ein integrativer Bestandteil der Fachcurricula und umfassen alle sechs KMK-Bereiche von der Recherche bis zur kritischen Reflexion.",
-      "praxisTip": "Nutzen Sie in der Kita digitale Dokumentationstools (z. B. digitale Lerntagebücher oder Foto-Portfolios), um Lernprozesse von Kindern transparent zu machen und Eltern einzubinden."
+      "praxisTip": "Nutzen Sie ein Gruppen-Tablet nicht als ‚ruhigstellendes Abspielgerät‘, sondern als gemeinsames Werkzeug – etwa indem Vorschulkinder die Schritte ihres Bauprojekts selbst fotografieren und daraus eine Geschichte für ihr Portfolio erzählen."
     },
     {
-      "body": "Fachdidaktisch stützt sich die Ausbildung auf Lernsituationen, die berufliche Kompetenzen in den situativen Kontext der Praxis stellen (RLP S. 12). Lernen in der Fachschule wird dabei als ko-konstruktiver Prozess verstanden: In Auseinandersetzung mit den Wirklichkeitskonstruktionen von Mitlernenden, Lehrkräften und der Fachwissenschaft entwickeln Studierende ihre professionelle Haltung (RLP S. 13). Der Unterricht folgt sieben Prinzipien, darunter handlungsorientiertes Lernen, Theorie-Praxis-Verzahnung, forschendes Lernen und insbesondere die doppelter Vermittlungspraxis – das Prinzip, dass die Qualität der hochschulischen bzw. fachschulischen Beziehungsgestaltung direkt auf die berufliche Praxis transferiert wird.",
+      "heading": "Partizipation und Inklusion als gelebte Alltagsprinzipien",
+      "keyTakeaway": "Partizipation teilt reale Entscheidungsmacht altersangemessen; Inklusion baut Barrieren in Räumen, Sprache und Strukturen ab, statt Kinder an eine starre Norm anzupassen.",
+      "body": "Partizipation und Inklusion sind eng mit BNE und digitaler Teilhabe verwoben. Echte Partizipation bedeutet, dass Kinder, Jugendliche und Familien bei sie betreffenden Angelegenheiten tatsächlich mitsprechen und mitentscheiden können – klar abgegrenzt von Scheinpartizipation, bei der Erwachsene das Ergebnis bereits vorab festgelegt haben. Verlässliche Rahmenbedingungen (z. B. Schutz- und Sicherheitsregeln) bleiben dabei in der Verantwortung der Fachkräfte; innerhalb dieses Rahmens eröffnen Kinderkonferenzen, offene Wahlmöglichkeiten und niedrigschwellige Beschwerdewege echte Selbstwirksamkeitserfahrungen. Inklusion wiederum versteht Vielfalt – etwa hinsichtlich Sprache, sozialer Herkunft, Behinderung, Geschlecht, Religion oder Lerntempo – als Normalfall. Anders als ein enges Integrationsverständnis, bei dem sich einzelne Kinder an vorgegebene Abläufe anpassen sollen, fragt eine inklusive Pädagogik zuerst nach Barrieren in der Umgebung: Sind Räume zugänglich? Sind Informationen mehrsprachig oder visuell gestützt? Ermöglicht das Material unterschiedliche Zugänge? So profitieren alle Kinder von durchdachten, flexiblen Lernumgebungen.",
       "bulletPoints": [
-        "Erschließung von Lernmodulen durch komplexe Lernsituationen und Praxisaufgaben",
-        "Ko-konstruktives Lernen als beziehungsorientierter Austausch von Wirklichkeitskonstruktionen",
-        "Sieben leitende Unterrichtsprinzipien inkl. doppelter Vermittlungspraxis",
-        "Enge Theorie-Praxis-Verzahnung zwischen Lernort Schule und Lernort Praxis"
+        "Echte Partizipation: Transparente Entscheidungsspielräume, Mitbestimmung und ernst genommene Beschwerdewege.",
+        "Abgrenzung zur Scheinpartizipation: Keine Abstimmungen über Fragen, deren Ausgang längst feststeht.",
+        "Strukturelle Inklusion: Barrieren in Räumen, Kommunikation und Angeboten abbauen, statt Defizite einzelnen Kindern zuzuschreiben.",
+        "Wechselwirkung: BNE und digitale Werkzeuge können Teilhabe gezielt stärken – z. B. durch Vorlesefunktionen, Bildkarten oder mehrsprachige Dokumentation."
       ],
-      "heading": "Fachdidaktische Konzeption & Ko-konstruktives Lernen",
-      "keyTakeaway": "Ko-konstruktives Lernen und sieben Leitprinzipien (inkl. doppelter Vermittlungspraxis) verbinden Theorie und Praxis zu einer professionellen Haltung.",
-      "praxisTip": "Gestalten Sie Reflexionsgespräche in der Praxisphase als ko-konstruktiven Dialog, bei dem Sie eigene Handlungsmotive offenlegen und gemeinsam mit Praxismentor:innen analysieren."
+      "praxisTip": "Prüfen Sie vor jedem Angebot mit zwei kurzen Fragen: ‚Wo können Kinder hier wirklich mitentscheiden?‘ und ‚Welches Kind könnte durch Raum, Sprache oder Material ungewollt ausgeschlossen werden?‘"
     },
     {
-      "body": "Bis zu 20% der Ausbildungszeit (480 von 2400 Stunden) können als betreute und durch Lehrkräfte vor- und nachbereitete Selbstlernzeiten organisiert werden (RLP S. 14 f.). Diese bieten insbesondere in der berufsbegleitenden Ausbildung die Chance, eigenverantwortliches Lernen zu fördern, individuelle Lerntempi zu berücksichtigen und Theorie-Praxis-Projekte zu vertiefen. Die Lehrkräfte wechseln dabei von der Wissensvermittlung zur beratenden Begleitung. Die Ergebnisse von Selbstlernzeiten (häufig methodisch gestützt durch digitale Lernplattformen) fließen in die Leistungsbewertung ein, wobei Gruppenarbeiten eindeutig den Einzelleistungen zugeordnet werden müssen.",
+      "heading": "Ko-konstruktives Lernen und doppelte Vermittlungspraxis",
+      "keyTakeaway": "Lernen gelingt nachhaltig im dialogischen Austausch unterschiedlicher Perspektiven (Ko-Konstruktion) – und wie Beziehung und Beteiligung in der Ausbildung gelebt werden, prägt unmittelbar das Handeln in der Praxis.",
+      "body": "Sozialpädagogische Didaktik folgt einem ko-konstruktiven Lernverständnis: Wissen, Bedeutungen und Haltungen werden nicht einseitig ‚eingetrichtert‘, sondern entstehen im gemeinsamen sozialen Austausch zwischen Menschen mit ihren jeweiligen Erfahrungen und Sichtweisen. Im Kita- oder Jugendalltag bedeutet Ko-Konstruktion, dass Fachkräfte sich ernsthaft auf die Denkwege von Kindern und Jugendlichen einlassen, nachfragen, gemeinsam forschen und unterschiedliche Ideen nebeneinanderstellen. Genau dasselbe Prinzip prägt die Verknüpfung von Fachschule und Praxis: Studierende bringen reale Beobachtungen aus ihren Einrichtungen ein, konfrontieren sie im Dialog mit Mitlernenden, Lehrkräften und Fachwissenschaft und erproben neue Handlungsstrategien zurück im Arbeitsfeld. Dies beschreibt das Prinzip der doppelten Vermittlungspraxis: Die Art und Weise, wie in der Ausbildung und im Team miteinander kommuniziert, Feedback gegeben und Beteiligung gestaltet wird, wirkt als lebendiges Modell für die spätere Arbeit mit Kindern, Jugendlichen und Eltern.",
       "bulletPoints": [
-        "Bis zu 20% (480 Stunden) des Gesamtvolumens als Selbstlernzeiten nutzbar",
-        "Förderung von Eigenverantwortung und individuellem Lernverhalten",
-        "Veränderte Lehrerrolle: Beratung, Begleitung und individuelle Lernberatung",
-        "Verbindliche Einbindung in die Leistungsbewertung und Abstimmung im Bildungsgangteam"
+        "Ko-Konstruktion mit Kindern: Gemeinsames Erforschen von Fragen auf Augenhöhe statt abfragender Belehrung.",
+        "Perspektivwechsel: Unterschiedliche Sichtweisen von Kindern, Eltern, Team und Fachwissenschaft produktiv nutzen.",
+        "Doppelte Vermittlungspraxis: Wertschätzung, Partizipation und Reflexion im eigenen Lernprozess prägen die berufliche Beziehungsgestaltung.",
+        "Theorie-Praxis-Verzahnung: Fachwissen an realen Praxissituationen prüfen und in selbstgesteuerten Lernphasen gezielt vertiefen."
       ],
-      "heading": "Organisation und Bewertung von Selbstlernzeiten",
-      "keyTakeaway": "Selbstlernzeiten (bis zu 480 Stunden) fördern eigenverantwortliches Lernen, erfordern digitale Lernplattformen und fließen transparent in die Leistungsbewertung ein.",
-      "praxisTip": "Erstellen Sie für Selbstlernzeiten klare digitale Leitfäden mit Meilensteinen und Peer-Feedback-Schleifen, um die Eigensteuerung der Studierenden optimal zu begleiten."
+      "praxisTip": "Probieren Sie im nächsten Gespräch mit Kindern oder Jugendlichen bewusst offene, ko-konstruktive Impulse aus (‚Was vermutest du, warum das so ist?‘, ‚Welche Idee hast du, wie wir das herausfinden können?‘) statt sofort die richtige Erklärung zu liefern."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "KMK-Digitalkompetenzen",
-      "id": "visual-1",
+      "id": "u03-vb-kmk6",
+      "kind": "feature_grid",
+      "title": "Die 6 KMK-Kompetenzbereiche in der sozialpädagogischen Praxis",
+      "subtitle": "Konkrete Anwendung der Strategie ‚Bildung in der digitalen Welt‘ in Kita, Hort und Jugendarbeit",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Bereich 1",
-          "detail": "Gezieltes Recherchieren von Fachliteratur und Bildungsplänen im Internet sowie systematisches Ablegen und Strukturieren in Cloud-Speichern.",
-          "example": "Suche nach aktuellen BNE-Leitlinien im rheinland-pfälzischen Bildungsserver.",
-          "id": "item-1",
-          "label": "Suchen, Verarbeiten & Aufbewahren",
-          "metric": "KMK 1",
-          "summary": "Informationen digital beschaffen und verwalten."
+          "id": "kmk-1",
+          "label": "1. Suchen & Verarbeiten",
+          "badge": "KMK 1",
+          "metric": "Information",
+          "summary": "Informationen gezielt recherchieren, Quellen kritisch prüfen und geordnet ablegen.",
+          "detail": "Fachkräfte und ältere Kinder lernen, verlässliche Fach- und Kinderwissensseiten von Werbung oder Fehlinformationen zu unterscheiden und Material strukturiert zu sichern.",
+          "example": "Gemeinsam mit Hortkindern auf einer kindgerechten Wissensseite nachschlagen, welche Insekten im Garten leben."
         },
         {
-          "badge": "Bereich 2",
-          "detail": "Nutzung digitaler Kommunikationskanäle (Eltern-Apps, Lernplattformen) unter Einhaltung verbindlicher Netiquette-Regeln für die Bildungs파트nerschaft.",
-          "example": "Einsatz einer Kita-App für den Wochenrückblick mit Eltern.",
-          "id": "item-2",
-          "label": "Kommunizieren & Kooperieren",
-          "metric": "KMK 2",
-          "summary": "Digitale Kanäle für Austausch und Zusammenarbeit nutzen."
+          "id": "kmk-2",
+          "label": "2. Kommunizieren & Kooperieren",
+          "badge": "KMK 2",
+          "metric": "Austausch",
+          "summary": "Digitale Kanäle respektvoll, barrierearm und nach klaren Regeln (Netiquette) nutzen.",
+          "detail": "Ermöglicht niedrigschwellige Zusammenarbeit im Team und mit mehrsprachigen Familien – stets über datenschutzkonforme Plattformen statt privater Messenger.",
+          "example": "Nutzung einer datenschutzgeprüften Kita-Elternplattform mit Übersetzungshilfe und klaren Erreichbarkeitszeiten."
         },
         {
-          "badge": "Bereich 3",
-          "detail": "Erstellen von digitalen Portfolios, Lernvideos oder Podcasts zur Dokumentation kindlicher Bildungsprozesse unter Beachtung des Urheberrechts.",
-          "example": "Produktion eines digitalen Bilderbuchs mit Vorschulkindern.",
-          "id": "item-3",
-          "label": "Produzieren & Präsentieren",
-          "metric": "KMK 3",
-          "summary": "Multimediale Inhalte selbst gestalten und präsentieren."
+          "id": "kmk-3",
+          "label": "3. Produzieren & Präsentieren",
+          "badge": "KMK 3",
+          "metric": "Gestaltung",
+          "summary": "Eigene Medienprodukte kreativ erstellen und unter Beachtung von Rechten teilen.",
+          "detail": "Verwandelt Kinder und Jugendliche von passiven Konsumierenden in aktive Gestaltende, die eigene Geschichten, Fotos, Hörspiele oder Lernplakate entwickeln.",
+          "example": "Vorschulkinder erstellen mit dem Tablet eine vertonte Fotogeschichte über ihren Besuch auf dem Wochenmarkt."
         },
         {
-          "badge": "Bereich 4",
-          "detail": "Sensibler Umgang mit personenbezogenen Kinderdaten, Schutz der Privatsphäre und Berücksichtigung von Gesundheits- und Umweltaspekten digitaler Medien.",
-          "example": "Datenschutzkonforme Verwaltung von Beobachtungsbögen auf verschlüsselten Servern.",
-          "id": "item-4",
-          "label": "Schützen & sicher Agieren",
-          "metric": "KMK 4",
-          "summary": "Sicherheit, Datenschutz und Umweltschutz gewährleisten."
+          "id": "kmk-4",
+          "label": "4. Schützen & sicher Agieren",
+          "badge": "KMK 4",
+          "metric": "Sicherheit",
+          "summary": "Personenbezogene Daten, Privatsphäre, Gesundheit und Umwelt im digitalen Raum schützen.",
+          "detail": "Umfasst schriftliche Fotoeinwilligungen, Jugendschutzfilter, bewusste Pausenzeiten für Bewegung sowie das Nachdenken über Energie- und Ressourcenverbrauch von Geräten.",
+          "example": "Kinderfotos werden ausschließlich auf gesicherten Einrichtungsgeräten gespeichert; Jugendliche reflektieren Privatsphäre-Einstellungen."
         },
         {
-          "badge": "Bereich 5 & 6",
-          "detail": "Bedarfsgerechter Einsatz von Werkzeugen zur Problemlösung sowie kritische Analyse und Reflexion medialer Einflüsse auf die kindliche Entwicklung.",
-          "example": "Analyse des Einflusses von Bildschirmzeiten auf das kindliche Spielverhalten.",
-          "id": "item-5",
-          "label": "Problemlösen & Reflektieren",
-          "metric": "KMK 5/6",
-          "summary": "Technische Probleme lösen und Medienwirkungen reflektieren."
+          "id": "kmk-5",
+          "label": "5. Problemlösen & Handeln",
+          "badge": "KMK 5",
+          "metric": "Werkzeuge",
+          "summary": "Digitale Hilfsmittel bedarfsgerecht auswählen, technische Hürden lösen und Abläufe verstehen.",
+          "detail": "Bedeutet, Technik nur dort einzusetzen, wo sie einen echten pädagogischen oder inklusiven Mehrwert bietet, und grundlegende Funktionsweisen (z. B. einfache Abläufe/Algorithmen) spielerisch zu begreifen.",
+          "example": "Einsatz einer Vorlese- oder Sprachausgabe-App als inklusives Hilfsmittel oder spielerische ‚Roboter-Wege‘ ohne Bildschirm im Raum."
+        },
+        {
+          "id": "kmk-6",
+          "label": "6. Analysieren & Reflektieren",
+          "badge": "KMK 6",
+          "metric": "Kritikfähigkeit",
+          "summary": "Medieninhalte, Wirkungen, Rollenbilder und eigene Nutzungsgewohnheiten kritisch hinterfragen.",
+          "detail": "Stärkt Kinder und Jugendliche darin, Werbung, bearbeitete Bilder, problematische Stereotype oder Suchtmechanismen in Spielen und sozialen Medien zu durchschauen.",
+          "example": "Im Jugendtreff vergleichen Jugendliche echte Fotos mit KI-generierten Bildern und besprechen, woran Manipulation erkennbar ist."
         }
-      ],
-      "kind": "feature_grid",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Die 6 KMK-Kompetenzbereiche für die sozialpädagogische Praxis",
-      "title": "Bildung in der digitalen Welt (KMK-Strategie)"
+      ]
     },
     {
-      "centerLabel": "Ko-konstruktives Lernen",
-      "id": "visual-2",
+      "id": "u03-vb-kokon",
+      "kind": "process_flow",
+      "title": "Kreislauf ko-konstruktiven Lernens in der Praxis",
+      "subtitle": "Wie Kinder, Jugendliche und Fachkräfte im Dialog gemeinsam Bedeutung und Handlungskompetenz entwickeln",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": true,
       "items": [
         {
-          "badge": "Phase 1",
-          "detail": "Die Lernenden und Lehrkräfte bringen ihre individuellen Vorerfahrungen, Einstellungen und subjektiven Theorien aus der Praxis in den Lernprozess ein.",
-          "example": "Austausch über eigene Erlebnisse in der Praxiseinrichtung zum Thema Partizipation.",
-          "id": "map-1",
-          "label": "Ausgangspunkt: Erfahrung & Partizipation",
-          "metric": "Schritt 1",
-          "summary": "Einbringen der subjektiven Wirklichkeitskonstruktionen."
+          "id": "ko-1",
+          "label": "1. Alltagsfrage aufgreifen",
+          "badge": "Impuls",
+          "metric": "Lebenswelt",
+          "summary": "Ausgangspunkt sind echte Beobachtungen, Fragen und Vorerfahrungen der Kinder oder Jugendlichen.",
+          "detail": "Statt Themen starr vorzuschreiben, nimmt die Fachkraft wahr, was die Gruppe gerade bewegt, und eröffnet einen inklusiven Raum für unterschiedliche Sichtweisen.",
+          "example": "Kinder wundern sich beim Frühstück, warum Erdbeeren im Winter aus fernen Ländern kommen."
         },
         {
-          "badge": "Phase 2",
-          "detail": "In der Auseinandersetzung mit den differierenden Perspektiven der Mitlernenden, der Fachwissenschaft und der Praxis entsteht ein sozialer Diskurs.",
-          "example": "Gegenüberstellung von Praxiserfahrung und entwicklungspsychologischer Fachliteratur.",
-          "id": "map-2",
-          "label": "Sozialer Diskurs & Perspektivenwechsel",
-          "metric": "Schritt 2",
-          "summary": "Konfrontation verschiedener Wirklichkeiten."
+          "id": "ko-2",
+          "label": "2. Dialog & Perspektivwechsel",
+          "badge": "Austausch",
+          "metric": "Ko-Konstruktion",
+          "summary": "Unterschiedliche Vermutungen, Erfahrungen und Fachimpulse werden wertschätzend nebeneinandergestellt.",
+          "detail": "Die Fachkraft moderiert das gemeinsame Nachdenken durch offene Fragen und bringt bei Bedarf passende Materialien, Bücher oder digitale Recherchen ein.",
+          "example": "Die Gruppe sammelt Ideen zu Transportwegen, Jahreszeiten und Lieblingsfrüchten aus den Familienkulturen."
         },
         {
-          "badge": "Phase 3",
-          "detail": "Durch den gemeinsamen Austausch wird neues, anschlussfähiges Wissen ko-konstruktiv konstruiert, das für das pädagogische Handeln bedeutsam ist.",
-          "example": "Gemeinsame Entwicklung eines neuen Eingewöhnungskonzepts für die Krippe.",
-          "id": "map-3",
-          "label": "Gemeinsame Wissenskonstruktion",
-          "metric": "Schritt 3",
-          "summary": "Gemeinsames Erarbeiten beruflicher Handlungskompetenz."
+          "id": "ko-3",
+          "label": "3. Gemeinsam erproben",
+          "badge": "Handeln",
+          "metric": "Gestaltung",
+          "summary": "Ideen werden praktisch umgesetzt, erforscht und kreativ dokumentiert.",
+          "detail": "Alle Beteiligten können sich entsprechend ihren Stärken einbringen; digitale und analoge Mittel sichern Barrierearmut und Sichtbarkeit der Ergebnisse.",
+          "example": "Kinder besuchen den Wochenmarkt, erstellen einen Saisonkalender mit Fotos und bauen Kräuter im Kita-Hochbeet an."
         },
         {
-          "badge": "Phase 4",
-          "detail": "Die erworbenen Erkenntnisse und Haltungen werden in der beruflichen Praxis erprobt und rückbezogen (Theorie-Praxis-Verzahnung).",
-          "example": "Erprobung des Konzepts in der Kita und anschließende Evaluation im Fachschulunterricht.",
-          "id": "map-4",
-          "label": "Praxistransfer & Reflexion",
-          "metric": "Schritt 4",
-          "summary": "Rückbindung an das berufliche Handlungsfeld."
+          "id": "ko-4",
+          "label": "4. Reflektieren & weiterdenken",
+          "badge": "Transfer",
+          "metric": "Wirksamkeit",
+          "summary": "Ergebnisse werden gemeinsam ausgewertet und fließen in den Alltag und neue Fragen ein.",
+          "detail": "Kinder erleben Selbstwirksamkeit; das Team reflektiert zugleich, was für Teilhabe, Nachhaltigkeit und weitere Angebote gelernt wurde.",
+          "example": "In der Kinderkonferenz überlegen die Kinder, welche saisonalen Wünsche sie der Kita-Küche vorschlagen möchten."
         }
-      ],
-      "kind": "concept_map",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Der Zirkel des ko-konstruktiven Lernens in der Fachschule",
-      "title": "Ko-konstruktive Didaktik & Wissensgenese"
+      ]
     },
     {
-      "centerLabel": "Ausbildungsstruktur",
-      "id": "visual-3",
+      "id": "u03-vb-medien",
+      "kind": "spectrum",
+      "title": "Spannungsfeld: Umgang mit digitalen Medien im pädagogischen Alltag",
+      "subtitle": "Zwischen pauschaler Ablehnung und unreflektiertem Konsum liegt eine altersgerechte, begleitete Medienbildung",
+      "centerLabel": "",
+      "leftPole": "Pauschales Medienverbot",
+      "rightPole": "Unbegleiteter Konsum",
       "isCycle": false,
       "items": [
         {
-          "badge": "Schritt 1",
-          "detail": "Die Lernmodule des Lehrplans werden durch komplexe, berufsfeldorientierte Lernsituationen erschlossen, die Theorie und Praxis verknüpfen.",
-          "example": "Konzeption einer Lernsituation zur Sprachförderung im Kindergarten.",
-          "id": "flow-1",
-          "label": "Lernsituationen entwickeln",
-          "metric": "Basis",
-          "summary": "Ausgangspunkt bilden praxisnahe Lernsituationen."
+          "id": "med-1",
+          "label": "Strikte Ablehnung",
+          "badge": "Vermeidungsstrategie",
+          "metric": "Extrempol links",
+          "summary": "Digitale Medien werden komplett tabuisiert und aus der pädagogischen Arbeit verbannt.",
+          "detail": "Kinder erleben digitale Geräte dennoch täglich zu Hause – ohne pädagogische Begleitung fehlen ihnen jedoch geschützte Lernräume für aktiven, kritischen Umgang und Teilhabe.",
+          "example": "Ein Hort verbietet Gespräche über digitale Spiele pauschal, sodass Kinder problematische Online-Erfahrungen nicht ansprechen."
         },
         {
-          "badge": "Schritt 2",
-          "detail": "Die 7 Unterrichtsprinzipien (Handlungsorientierung, Theorie-Praxis-Verzahnung, doppelte Vermittlungspraxis) steuern den methodischen Aufbau.",
-          "example": "Anwendung partizipativer Methoden im Seminarraum.",
-          "id": "flow-2",
-          "label": "Unterrichtsprinzipien anwenden",
-          "metric": "Methodik",
-          "summary": "Umsetzung der didaktischen Prinzipien."
+          "id": "med-2",
+          "label": "Reine Instruktion",
+          "badge": "Einseitig",
+          "metric": "Passiver Einsatz",
+          "summary": "Geräte werden nur von Erwachsenen vorgeführt oder für starre Klick-Übungen genutzt.",
+          "detail": "Das Potenzial für Kreativität, Partizipation und Ko-Konstruktion bleibt ungenutzt, weil Kinder lediglich vorgefertigte Inhalte abarbeiten.",
+          "example": "Die Fachkraft spielt ein fertiges Erklärvideo ab, ohne die Fragen der Kinder einzubinden."
         },
         {
-          "badge": "Schritt 3",
-          "detail": "Selbstlernzeiten (bis zu 20% / 480 Std.) werden durch Lehrkräfte betreut, über digitale Lernplattformen organisiert und zur Vertiefung genutzt.",
-          "example": "Eigenständige Online-Recherche und Portfolioarbeit in der Praxisphase.",
-          "id": "flow-3",
-          "label": "Selbstlernzeiten nutzen",
-          "metric": "Vertiefung",
-          "summary": "Eigenverantwortliches Lernen und Praxiserprobung."
+          "id": "med-3",
+          "label": "Begleitete Medienbildung",
+          "badge": "Professionelles Optimum",
+          "metric": "Aktiv & altersgerecht",
+          "summary": "Altersangemessener, geschützter und kreativer Einsatz digitaler Werkzeuge im Dienst pädagogischer Ziele.",
+          "detail": "Primärerfahrungen bleiben zentral; digitale Werkzeuge werden gezielt zum Forschen, Gestalten, Dokumentieren, Kommunizieren und kritischen Reflektieren genutzt – datenschutzkonform und inklusiv.",
+          "example": "Kinder produzieren gemeinsam ein Audio-Bilderbuch und besprechen mit der Fachkraft, wer ihre Fotos sehen darf."
         },
         {
-          "badge": "Schritt 4",
-          "detail": "Die Lernergebnisse fließen transparent in die Leistungsbewertung ein; die Ausbildung mündet in die staatliche Abschlussprüfung.",
-          "example": "Benotung von Projektarbeiten und dokumentierten Selbstlernphasen.",
-          "id": "flow-4",
-          "label": "Leistungsbewertung & Abschluss",
-          "metric": "Evaluation",
-          "summary": "Überprüfung und Dokumentation des Kompetenzerwerbs."
+          "id": "med-4",
+          "label": "Beliebige Beschäftigung",
+          "badge": "Unreflektiert",
+          "metric": "Fehlende Zielsetzung",
+          "summary": "Tablets oder Videos dienen als Lückenfüller bei Personalmangel oder Regenwetter.",
+          "detail": "Ohne pädagogische Begleitung und zeitliche Rahmung verdrängt passiver Konsum Bewegung, Spiel und soziale Interaktion.",
+          "example": "Bei schlechtem Wetter laufen im Hort zwei Stunden lang unkommentiert beliebige Video-Clips."
+        },
+        {
+          "id": "med-5",
+          "label": "Schutzloser Wildwuchs",
+          "badge": "Gefährdend",
+          "metric": "Extrempol rechts",
+          "summary": "Unkontrollierter Internetzugang und Missachtung von Datenschutz und Jugendschutz.",
+          "detail": "Fehlende Sicherheitsvorkehrungen setzen Kinder und Jugendliche unangemessenen Inhalten, Werbung oder Verletzungen ihrer Persönlichkeitsrechte aus.",
+          "example": "Kinder nutzen ungesicherte Privatgeräte ohne Filter; Gruppenfotos werden ohne Einwilligung öffentlich gepostet."
         }
-      ],
-      "kind": "process_flow",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Von der Lernsituation über Selbstlernzeiten zur Leistungsbewertung",
-      "title": "Prozesskette der fachdidaktischen Planung"
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Vorschulkinder (5–6 Jahre) & Hortkinder (8–10 Jahre)",
-    "context": "In einer integrativen Kindertagesstätte mit integriertem Hort soll ein Projekt zur nachhaltigen Ernährung und Mediennutzung (BNE und digitale Welt) durchgeführt werden. Dabei stellt sich die Frage, wie ko-konstruktives Lernen, Selbstlernzeiten und die 6 KMK-Kompetenzbereiche praxisnah verknüpft werden können.",
-    "setting": "Städtische Kindertagesstätte und Hort mit digitaler Ausstattung (Tablets, Lernwerkstatt)",
+    "title": "„Wo kommt unser Mittagessen her?“ – BNE, digitale Medien und Inklusion verbinden",
+    "setting": "Inklusive Kindertagesstätte mit angegliedertem Hort in Rheinland-Pfalz",
+    "ageGroup": "Vorschul- und Grundschulkinder (5–9 Jahre)",
+    "context": "In einer inklusiven Kita mit Hort (darunter Kinder mit verschiedenen Familiensprachen sowie der siebenjährige Tariq mit starker Sehbeeinträchtigung) fragen Kinder beim Mittagessen, warum es heute Äpfel aus der Region gibt, letzte Woche aber Trauben aus Übersee. Das Team möchte daraus ein Projekt zu BNE und Medienbildung gestalten. Eine Kollegin schlägt vor, den Kindern einen kritischen Dokumentarfilm über Klimakatastrophen zu zeigen und danach alle Eltern anzuschreiben, dass künftig nur noch teure Bio-Produkte in die Brotdose dürfen.",
     "steps": [
       {
+        "situation": "Projektplanung unter Einbezug von BNE, Inklusion, Partizipation und Medienbildung: Wie greifen Sie den Impuls der Kinder fachlich angemessen auf, ohne Kinder zu ängstigen oder Familien sozial auszugrenzen?",
+        "prompt": "Welches pädagogische Vorgehen verbindet BNE, KMK-Digitalkompetenzen, Inklusion und Ko-Konstruktion am überzeugendsten?",
         "options": [
           {
-            "feedback": "Exzellenter Ansatz! Die Kinder werden aktiv einbezogen (Partizipation), erarbeiten sich über eine Lernsituation (Markt-Exkursion) Wissen ko-konstruktiv, dokumentieren ihre Erkenntnisse digital (Suchen, Verarbeiten, Produzieren) und die Lehrkraft begleitet den Prozess reflexiv (doppelte Vermittlungspraxis).",
-            "label": "Projektbasiertes, ko-konstruktives Vorgehen: Kinder planen eine regionale Lebensmittel-Rallye, recherchieren digital auf Tablets nach saisonalem Gemüse, dokumentieren ihre Ergebnisse per Foto-Collage und präsentieren diese den Eltern.",
-            "quality": "optimal",
-            "theoryLink": "RLP RLP S. 12 f. (Ko-konstruktives Lernen, Lernsituationen) & KMK-Kompetenzbereich 'Produzieren und Präsentieren'"
-          },
-          {
-            "feedback": "Einseitiger Ansatz. Das digitale Medium wird zwar eingesetzt, aber rein instruktional vorgegeben, ohne dass die Kinder eigene Bedeutungen konstruieren oder aktiv im Sinne von BNE forschen. Die Chance für ko-konstruktives Lernen wird vertan.",
-            "label": "Die Lehrkraft zeigt am Beamer ein Erklärvideo zum Thema 'Mülltrennung und regionale Lebensmittel' und lässt die Kinder digital auf einem Arbeitsblatt Multiple-Choice-Fragen anklicken.",
-            "quality": "teilweise",
-            "theoryLink": "KMK-Strategie 'Bildung in der digitalen Welt' (eingeschränkte Werkzeugnutzung ohne ko-konstruktiven Diskurs)"
-          },
-          {
-            "feedback": "Problematisch und fachlich unzureichend. Weder wird der Bezug zur Lebenswelt der Kinder hergestellt, noch werden BNE-Prinzipien oder digitale Medien integriert. Es findet keine Theorie-Praxis-Verzahnung statt.",
-            "label": "Die pädagogische Fachkraft hält einen 45-minütigen Frontalvortrag über die Definition von Nachhaltigkeit und lässt die Kinder danach stumm in Arbeitsheften malen.",
+            "label": "Sie zeigen den Dokumentarfilm und verteilen eine strenge Verbotsliste für Brotdosen an die Eltern, damit das Thema Nachhaltigkeit schnell und konsequent sichtbar wird.",
             "quality": "problematisch",
-            "theoryLink": "RLP S. 13 (Widerspruch zum handlungsorientierten Unterricht und erwachsenengerechten/kindergerechten Lehr-Lernformen)"
+            "feedback": "Ein beängstigender Film überfordert die Altersgruppe, und eine moralisierende Verbotsliste stigmatisiert Familien mit knappen finanziellen Mitteln. Das widerspricht sowohl dem BNE-Prinzip der Gestaltungskompetenz als auch einer inklusiven, wertschätzenden Erziehungspartnerschaft.",
+            "theoryLink": "BNE (Gestaltungskompetenz ohne Moralisierungsdruck), soziale Dimension von Nachhaltigkeit, Inklusion"
+          },
+          {
+            "label": "Sie sammeln in einer Kinderkonferenz die Fragen der Kinder, besuchen gemeinsam einen regionalen Marktstand oder Bauernhof, lassen die Kinder (inklusive Tariq über tastbare Materialien und Tonaufnahmen auf dem Tablet) eine kleine Hör- und Fotoreportage erstellen und laden Familien ein, eigene Lieblingsspeisen und Tipps gegen Lebensmittelverschwendung einzubringen.",
+            "quality": "optimal",
+            "feedback": "Hervorragend vernetzt! Sie knüpfen ko-konstruktiv an echte Kinderfragen an, ermöglichen durch Audio- und Tasterfahrungen inklusive Teilhabe für Tariq und mehrsprachige Kinder, setzen das Tablet aktiv und geschützt (KMK 3 & 4) ein und holen Familien ressourcenorientiert statt belehrend ins Boot.",
+            "theoryLink": "BNE (Gestaltungskompetenz), KMK-Strategie ‚Bildung in der digitalen Welt‘, Inklusion & Ko-Konstruktion"
+          },
+          {
+            "label": "Sie bereiten ein fertiges Plakat über regionale Obstsorten vor, hängen es im Flur auf und verzichten komplett auf digitale Medien und Kinderbefragung, damit das Projekt für alle einfach bleibt.",
+            "quality": "teilweise",
+            "feedback": "Das Thema wird zwar ohne Überforderung angesprochen, jedoch bleiben echte Partizipation, ko-konstruktives Forschen, inklusive Zugänge (z. B. Audio für Tariq) sowie sinnvolle digitale Produktionskompetenzen ungenutzt.",
+            "theoryLink": "Partizipation vs. Instruktion; Ko-Konstruktion und KMK-Digitalkompetenzen"
           }
-        ],
-        "prompt": "Wie plant das Ausbildungsteam bzw. die Praxisanleitung die Einführung des Themas 'Nachhaltige Ernährung und Mediennutzung' in der Lernsituation?",
-        "situation": "Die Fachschüler:innen im 2. Ausbildungsjahr planen gemeinsam mit der Praxisanleitung eine Lernsituation zur BNE in der Kita."
+        ]
       },
       {
+        "situation": "Datenschutz, Urheberrecht und Reflexion bei der Projektdokumentation: Die Kinder sind stolz auf ihre erstellten Fotos und Sprachaufnahmen und schlagen vor, alles sofort im Internet zu veröffentlichen, damit ‚alle Menschen das sehen können‘.",
+        "prompt": "Wie nutzen Sie diesen Moment pädagogisch und rechtssicher im Sinne von ‚Schützen und sicher Agieren‘ (KMK 4) und doppelter Vermittlungspraxis?",
         "options": [
           {
-            "feedback": "Hervorragende Umsetzung der Selbstlernzeit! Die Studierenden erhalten einen klaren, aus dem Lehrplan abgeleiteten Auftrag zur Praxiserprobung, nutzen digitale Lernplattformen zur Kollaboration, dokumentieren theoriegeleitet und ihre Ergebnisse fließen transparent in die Leistungsbewertung ein (RLP S. 14).",
-            "label": "Die Fachschüler:innen dokumentieren ihre Praxisbeobachtungen in einer betreuten Selbstlernzeit über eine digitale Lernplattform, reflektieren diese in einer Peer-Gruppe und verknüpfen sie theoriegeleitet mit dem Konzept der Gestaltungskompetenz.",
-            "quality": "optimal",
-            "theoryLink": "RLP S. 14 (Selbstlernzeiten, digitale Lernplattformen, Leistungsbewertung)"
-          },
-          {
-            "feedback": "Teilweise geeignet, aber organisatorisch unzureichend. Ohne klare Kriterien zur Zuordnung von Gruppenarbeiten und fehlende Rückbindung an die Präsenzzeit ist die Qualitätssicherung der Selbstlernzeit gefährdet.",
-            "label": "Die Studierenden erhalten den Auftrag, sich in Eigenregie ohne digitale Plattform oder Zwischenfeedback über das Internet zu informieren und am Semesterende einen unkommentierten Ordner abzugeben.",
-            "quality": "teilweise",
-            "theoryLink": "RLP S. 14 (Fehlende Verknüpfung von Präsenz- und Selbstlernzeiten sowie intransparente Leistungsbewertung)"
-          },
-          {
-            "feedback": "Klar ungenügend. Selbstlernzeiten sind im RLP als bis zu 20% (480 Stunden) der Ausbildungszeit klar definiert und erfordern strukturierte Begleitung und Verankerung im Jahresarbeitsplan. Völliger Verzicht widerspricht dem Konzept.",
-            "label": "Die Fachschule streicht die vorgesehenen Selbstlernzeiten komplett und kompensiert sie durch zusätzlichen Frontalunterricht, da die Betreuung zu aufwendig erscheint.",
+            "label": "Sie laden die Reportage direkt auf einem öffentlichen Kanal hoch, weil Partizipation bedeutet, jeden Wunsch der Kinder unverzüglich umzusetzen.",
             "quality": "problematisch",
-            "theoryLink": "RLP S. 14 (Organisationsvorgaben zu Selbstlernzeiten und veränderter Lehrerrolle)"
+            "feedback": "Partizipation hebt niemals Datenschutz und Persönlichkeitsrechte auf! Eine Veröffentlichung von Kinderfotos und -stimmen ohne schriftliche Einwilligung der Sorgeberechtigten verletzt DSGVO und § 22 KunstUrhG und missachtet den Schutzauftrag.",
+            "theoryLink": "KMK-Bereich 4 (Schützen und sicher Agieren), Datenschutz & Kinderrechte"
+          },
+          {
+            "label": "Sie löschen alle Aufnahmen der Kinder sicherheitshalber sofort wieder, um jedes datenschutzrechtliche Risiko zu vermeiden.",
+            "quality": "teilweise",
+            "feedback": "Zwar entsteht kein Datenschutzverstoß, doch das kommentarlose Löschen entwertet die Arbeit der Kinder und verschenkt eine wertvolle Lernchance für altersgerechte Medien- und Datenschutzbildung.",
+            "theoryLink": "Wertschätzende Medienpädagogik & Reflexion statt pauschaler Vermeidung"
+          },
+          {
+            "label": "Sie nehmen die Begeisterung der Kinder ernst, erklären altersgerecht, warum Fotos und Stimmen besonders geschützt werden müssen, prüfen gemeinsam mit Leitung und Eltern die Einwilligungen und gestalten als sichere Alternative eine geschützte Präsentation beim Familiennachmittag (bzw. anonymisierte Audio- und Materialfotos für den internen Bereich).",
+            "quality": "optimal",
+            "feedback": "Vorbildliche doppelte Vermittlungspraxis! Sie zeigen Kindern konkret und respektvoll, dass ihre Selbstbestimmung und ihr Recht auf Datenschutz ernst genommen werden, und finden gemeinsam einen sicheren Weg, ihre Ergebnisse sichtbar zu würdigen.",
+            "theoryLink": "KMK 3 & 4 (Produzieren & Schützen), Partizipation im geschützten Rahmen, doppelte Vermittlungspraxis"
           }
-        ],
-        "prompt": "Wie werden die im RLP vorgesehenen Selbstlernzeiten für die Vertiefung der Theorie-Praxis-Verzahnung organisiert und bewertet?",
-        "situation": "Nach Durchführung der Lernsituation in der Praxisphase müssen die Lernfortschritte und Selbstlernzeiten der Fachschüler:innen konzipiert und bewertet werden."
+        ]
       }
-    ],
-    "title": "BNE und digitale Medien in der integrativen Kita: Von der Lernsituation zur Selbstlernzeit"
+    ]
   },
   "selfLearningTasks": [
-    "Entwerfen Sie für das Lernmodul S-SP-4 (Bildungsbereiche) eine digital gestützte Selbstlernaufgabe (Umfang: 6 Zeitstunden), in der Fachschüler:innen eine naturpädagogische Beobachtung in der Praxiseinrichtung durchführen, dokumentieren und theoriegeleitet reflektieren.",
-    "Entwickeln Sie im Bildungsgangteam ein Konzept zur Verankerung des Querschnittsthemas BNE im Jahresarbeitsplan, das mindestens zwei konkrete Lernsituationen aus dem Bereich frühkindlicher Bildung und Jugendhilfe verknüpft.",
-    "Reflektieren Sie in einer digitalen Lerngruppe (Peer-Feedback) anhand eines Praxisbeispiels, wie das Prinzip der 'doppelten Vermittlungspraxis' bei der Gestaltung von Elterngesprächen in der Kita angewendet werden kann."
+    "Beobachten Sie einen typischen Tag in Ihrer Praxisstelle unter der BNE-Brille (Ökologie, Soziales, Ökonomie, globale Bezüge): Welche drei konkreten Alltagssituationen bieten Anknüpfungspunkte für altersgerechte Gestaltungskompetenz ohne Moralisieren?",
+    "Wählen Sie zwei der sechs KMK-Kompetenzbereiche der ‚Bildung in der digitalen Welt‘ aus und entwerfen Sie dazu eine konkrete, alters- und datenschutzgerechte Praxisidee für Ihre Zielgruppe (Kita, Hort oder Jugendarbeit).",
+    "Überprüfen Sie ein geplantes oder bereits durchgeführtes Gruppenangebot mit Blick auf Inklusion und Ko-Konstruktion: Welche möglichen sprachlichen, körperlichen oder sozialen Barrieren könnten bestehen, und wie lassen sich diese abbauen?"
   ],
   "flashcards": [
     {
-      "definition": "Fähigkeit, sich persönlich und in Kooperation mit anderen reflektiert für nachhaltige Entwicklungsprozesse zu engagieren und nicht nachhaltige Prozesse zu analysieren.",
-      "example": "Kinder planen einen regionalen, plastikfreien Gemüsegarten in der Kita.",
-      "term": "Gestaltungskompetenz (BNE)"
+      "term": "Gestaltungskompetenz (BNE)",
+      "definition": "Fähigkeit, Wissen über nachhaltige Entwicklung anzuwenden, nicht nachhaltige Entwicklungen kritisch zu erkennen sowie gemeinsam mit anderen vorausschauend und verantwortungsvoll tragfähige Lösungen für die Zukunft mitzugestalten.",
+      "example": "Kinder untersuchen gemeinsam, wie im Kita-Alltag Wasser gespart und Spielzeug repariert werden kann, statt fertige Verbote vorgesetzt zu bekommen."
     },
     {
-      "definition": "Lernprozess, bei dem Schüler:innen und Lehrkräfte (bzw. Kinder) in einen aktiven Austausch über ihre Wirklichkeitskonstruktionen treten, um berufliche Handlungskompetenz zu entwickeln.",
-      "example": "Diskussion im Team über unterschiedliche Praxis-Erfahrungen im Kindergarten.",
-      "term": "Ko-konstruktives Lernen"
+      "term": "Sechs KMK-Kompetenzbereiche (Digitale Welt)",
+      "definition": "Rahmen der Kultusministerkonferenz für digitale Teilhabe: (1) Suchen/Verarbeiten/Aufbewahren, (2) Kommunizieren/Kooperieren, (3) Produzieren/Präsentieren, (4) Schützen/sicher Agieren, (5) Problemlösen/Handeln, (6) Analysieren/Reflektieren.",
+      "example": "Jugendliche recherchieren Informationen zu einem Projekt, erstellen ein digitales Plakat, prüfen Bildrechte und reflektieren kritisch die Glaubwürdigkeit ihrer Quellen."
     },
     {
-      "definition": "Prinzip, dass Lehr- und Lernformen sowie Beziehungsgestaltungen in der Ausbildung direkt auf die spätere berufliche Praxis transferiert werden.",
-      "example": "Partizipative Unterrichtsgestaltung, die angehende Erzieher:innen später in der Kindergruppe anwenden.",
-      "term": "Doppelte Vermittlungspraxis"
+      "term": "Echte Partizipation vs. Scheinpartizipation",
+      "definition": "Echte Partizipation bedeutet transparente, altersangemessene Mitbestimmung mit realen Entscheidungsspielräumen; Scheinpartizipation inszeniert Beteiligung nur zum Schein, während Erwachsene das Ergebnis bereits festgelegt haben.",
+      "example": "Wenn Kinder über drei realistische Ausflugsziele abstimmen dürfen und das Ergebnis umgesetzt wird, ist es echte Partizipation – nicht, wenn Erwachsene die Abstimmung nachträglich umdeuten."
     },
     {
-      "definition": "Bis zu 20% (480 Stunden) der Ausbildungszeit, in der Lernprozesse eigenverantwortlich durch Schüler:innen organisiert, digital unterstützt und durch Lehrkräfte beratend begleitet werden.",
-      "example": "Erstellung eines digitalen Portfolio-Beitrags zur Praxisbeobachtung in Eigenregie.",
-      "term": "Selbstlernzeiten"
+      "term": "Strukturelle Inklusion",
+      "definition": "Pädagogisches Leitprinzip, das Vielfalt als Normalfall anerkennt und Barrieren in Räumen, Sprache, Materialien und Abläufen abbaut, damit alle Kinder und Jugendlichen gleichberechtigt teilhaben können.",
+      "example": "Visualisierte Tagespläne, mehrsprachige Bildkarten und barrierefreie Spielstationen erleichtern allen Kindern die Orientierung."
     },
     {
-      "definition": "Strategie der KMK von 2016 zur integrativen Verankerung von Kompetenzen für eine selbstbestimmte Teilhabe in einer digitalen Welt in allen Fächern.",
-      "example": "Nutzen von Tablets zum Dokumentieren von kindlichen Konstruktionsprozessen.",
-      "term": "Bildung in der digitalen Welt"
+      "term": "Ko-Konstruktion",
+      "definition": "Gemeinsamer, dialogischer Lernprozess, in dem Kinder, Jugendliche und Fachkräfte Bedeutungen, Fragen und Lösungen im sozialen Austausch miteinander erforschen und weiterentwickeln.",
+      "example": "Beim Entdecken eines Regenwurms ergründet die Fachkraft gemeinsam mit den Kindern deren Vermutungen, statt sofort einen fertigen Lexikonvortrag zu halten."
     },
     {
-      "definition": "Didaktische Einheiten, die berufliche Kompetenzen in den situativen Kontext der Berufsarbeit von Erzieher:innen in Arbeitsfeldern der Kinder- und Jugendhilfe stellen.",
-      "example": "Entwurf eines Eingewöhnungskonzepts für Krippenkinder als Lernsituation.",
-      "term": "Lernsituation"
+      "term": "Doppelte Vermittlungspraxis",
+      "definition": "Didaktisches Prinzip, wonach die Art der Beziehungsgestaltung, Beteiligung und Feedbackkultur, die angehende Fachkräfte selbst im Lernen erfahren, als Vorbild auf ihr eigenes Handeln mit Kindern, Jugendlichen und Eltern zurückwirkt.",
+      "example": "Studierende, die wertschätzendes Feedback und echte Mitgestaltung im Unterricht erleben, übertragen diese Haltung leichter in Kinderkonferenzen und Teamgespräche."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Bildung für nachhaltige Entwicklung zielt laut RLP (S. 9) auf den Erwerb von Gestaltungskompetenz ab, die Individuen befähigt, sich aktiv für nachhaltige Entwicklungsprozesse zu engagieren.",
-      "id": "quiz-1",
+      "question": "Was kennzeichnet eine fachlich angemessene Umsetzung von Bildung für nachhaltige Entwicklung (BNE) in Kindertageseinrichtungen und der Jugendarbeit?",
       "options": [
-        "Ausschließlich das Auswendiglernen ökologischer Gesetzestexte.",
-        "Den Erwerb von Gestaltungskompetenz zur reflektierten Mitgestaltung nachhaltiger Entwicklungsprozesse.",
-        "Die Reduktion digitaler Medien in sozialpädagogischen Einrichtungen zugunsten reiner Naturpädagogik.",
-        "Die alleinige Vorbereitung auf die staatliche Abschlussprüfung ohne Praxisbezug."
+        "Sie verknüpft ökologische, soziale, wirtschaftliche und globale Zusammenhänge und fördert altersgerechte Gestaltungskompetenz ohne Angst- oder Moralisierungsdruck.",
+        "Sie beschränkt sich ausschließlich auf ökologische Themen wie Mülltrennung und klammert soziale Fragen aus.",
+        "Sie vermittelt Kindern möglichst drastische Katastrophenszenarien, damit sie zu Hause das Konsumverhalten ihrer Eltern korrigieren.",
+        "Sie darf erst ab der Sekundarstufe umgesetzt werden, weil jüngere Kinder nachhaltige Zusammenhänge nicht erleben können."
       ],
-      "question": "Was ist das zentrale Ziel von Bildung für nachhaltige Entwicklung (BNE) nach dem Lehrplan Rheinland-Pfalz?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        0,
-        2,
-        3
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Laut KMK-Strategie gehören 'Suchen, Verarbeiten und Aufbewahren', 'Schützen und sicher Agieren' sowie 'Analysieren und Reflektieren' zu den sechs offiziellen Kompetenzbereichen (neben Kommunizieren/Kooperieren, Produzieren/Präsentieren und Problemlösen/Handeln). 'Isolierte Hardware-Reparatur' ist kein offizieller KMK-Kompetenzbereich.",
-      "id": "quiz-2",
-      "options": [
-        "Suchen, Verarbeiten und Aufbewahren",
-        "Isolierte Hardware-Reparatur und Löten",
-        "Schützen und sicher Agieren",
-        "Analysieren und Reflektieren"
-      ],
-      "question": "Welche der folgenden Kompetenzbereiche sind Bestandteil der KMK-Strategie „Bildung in der digitalen Welt“? (Mehrfachauswahl)",
-      "type": "multi"
-    },
-    {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Die doppelte Vermittlungspraxis besagt, dass die Qualität von Lehr-/Lernformen und Beziehungsgestaltung in der Ausbildung (Schule) bewusst so gestaltet wird, dass sie auf die spätere Berufspraxis (Kinder- und Jugendhilfe) transferiert wird.",
-      "id": "quiz-3",
-      "options": [
-        "Die parallele Ausbildung an zwei verschiedenen Fachschulstandorten.",
-        "Die Benotung von theoretischen Klausuren und praktischen Praxisbesuchen im Verhältnis 1:1.",
-        "Das Prinzip, dass die methodische Gestaltung des Unterrichts (z. B. Partizipation, Beziehungsgestaltung) direkt auf das professionelle Handeln in der Berufspraxis transferiert wird.",
-        "Die doppelte Besetzung des Unterrichts durch zwei Lehrkräfte bei jeder Lernsituation."
-      ],
-      "question": "Was versteht man in der Fachschuldidaktik unter dem Prinzip der „doppelten Vermittlungspraxis“?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "basis",
-      "explanation": "Laut RLP S. 14 sind bis zu 20% (entspricht 480 Stunden) der insgesamt 2400 Unterrichtsstunden als betreute andere Lernformen (Selbstlernzeiten) möglich.",
-      "id": "quiz-4",
-      "options": [
-        "Bis zu 10% (240 Stunden)",
-        "Bis zu 20% (480 Stunden)",
-        "Genau 50% (1200 Stunden)",
-        "Keine Stunden, da Präsenzpflicht besteht"
-      ],
-      "question": "Welcher maximale Stundenanteil kann in der Fachschule Sozialwesen als betreute Selbstlernzeit organisiert werden?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
         0
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Ko-konstruktives Lernen beschreibt einen beziehungsorientierten Prozess, bei dem Lernende im Austausch mit Mitlernenden, Lehrkräften und Fachwissenschaft ihre Wirklichkeitskonstruktionen weiterentwickeln.",
-      "id": "quiz-5",
-      "options": [
-        "Ein beziehungsorientierter Prozess, bei dem Wissen im Austausch mit anderen auf Basis von Wirklichkeitskonstruktionen und Praxisbezug konstruiert wird.",
-        "Ein rein instruktiver Frontalvortrag der Lehrkraft zur Wissensvermittlung.",
-        "Das isolierte Arbeiten von Schüler:innen ohne jeglichen Kontakt zu Mitschüler:innen.",
-        "Eine rein technische Methode zur Softwareentwicklung in Kitas."
-      ],
-      "question": "Wie wird ko-konstruktives Lernen im Kontext der Fachschuldidaktik definiert?",
-      "type": "single"
+      "explanation": "BNE ist mehrdimensional (Ökologie, Soziales, Ökonomie, globale Gerechtigkeit) und zielt auf Gestaltungskompetenz und Selbstwirksamkeit. Überforderung durch Katastrophenangst oder das Moralisieren gegenüber Familien (Option C) ist pädagogisch kontraproduktiv."
     },
     {
+      "id": "v2-q2",
+      "type": "multi",
+      "difficulty": "basis",
+      "question": "Welche der folgenden Bereiche gehören zu den sechs Kompetenzbereichen der KMK-Strategie ‚Bildung in der digitalen Welt‘? (Wählen Sie alle zutreffenden Aussagen)",
+      "options": [
+        "Verpflichtendes Programmieren eigener Betriebssysteme",
+        "Schützen und sicher Agieren",
+        "Suchen, Verarbeiten und Aufbewahren",
+        "Analysieren und Reflektieren"
+      ],
       "correctIndices": [
-        0,
         1,
         2,
         3
       ],
-      "difficulty": "pruefung",
-      "explanation": "Praxis-Fall: Fachschülerin Anna plant eine Lernsituation in der Kita zu Mediennutzung. Alle genannten Aspekte (Partizipation, digitale Dokumentation, Theorie-Praxis-Verzahnung, Reflexion) sind fachlich optimal integriert und entsprechen den Vorgaben des RLP.",
-      "id": "quiz-6",
+      "explanation": "Die sechs KMK-Kompetenzbereiche sind: Suchen/Verarbeiten/Aufbewahren, Kommunizieren/Kooperieren, Produzieren/Präsentieren, Schützen/sicher Agieren, Problemlösen/Handeln sowie Analysieren/Reflektieren. Das Programmieren eigener Betriebssysteme (Option A) gehört nicht dazu."
+    },
+    {
+      "id": "v2-q3",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Wie unterscheidet sich ein inklusives Bildungsverständnis grundlegend von einer bloßen Anpassungserwartung an einzelne Kinder?",
       "options": [
-        "Anna bindet die Kinder partizipativ in die Planung ein (BNE & Partizipation).",
-        "Sie nutzt Tablets zur Dokumentation der Kinder (KMK-Digitalkompetenzen).",
-        "Sie verknüpft die Beobachtung mit entwicklungswissenschaftlichen Theorien (Theorie-Praxis-Verzahnung).",
-        "Sie reflektiert ihr pädagogisches Handeln im Fachschulteam (ko-konstruktiver Prozess)."
+        "Inklusion verlangt, dass alle Kinder unabhängig von ihren Voraussetzungen exakt dieselbe Aufgabe in derselben Zeit lösen.",
+        "Inklusion betrachtet Vielfalt als Normalfall und fragt zuerst danach, wie Räume, Kommunikation, Materialien und Strukturen barrierearm gestaltet werden können.",
+        "Inklusion betrifft ausschließlich Kinder mit einer amtlich festgestellten körperlichen Behinderung.",
+        "Inklusion bedeutet den Verzicht auf gezielte individuelle Förderung zugunsten unstrukturierter Gruppenabläufe."
       ],
-      "question": "(Fallbeispiel) Fachschülerin Anna konzipiert eine Lernsituation zur Medienbildung in der Kita. Welche professionellen Handlungsweisen entsprechen den Vorgaben des rheinland-pfälzischen Lehrplans? (Mehrfachauswahl)",
-      "type": "multi"
+      "correctIndices": [
+        1
+      ],
+      "explanation": "Strukturelle Inklusion sucht Barrieren zuerst in der Umgebung (Räume, Sprache, Abläufe, Haltungen), nicht als ‚Defizit‘ im einzelnen Kind. Sie umfasst alle Dimensionen von Vielfalt und schließt gezielte individuelle Unterstützung ausdrücklich ein."
+    },
+    {
+      "id": "v2-q4",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Welches Praxisbeispiel beschreibt ko-konstruktives Lernen am zutreffendsten?",
+      "options": [
+        "Die Fachkraft hält im Morgenkreis einen zehnminütigen Vortrag über den Wasserkreislauf und fragt anschließend drei Fakten ab.",
+        "Die Kinder spielen völlig ohne Begleitung, während die Fachkraft sich bewusst aus jedem Gespräch heraushält.",
+        "Die Kinder probieren beim Wasserspiel eigene Ideen aus; die Fachkraft greift ihre Vermutungen mit offenen Fragen auf, denkt gemeinsam mit ihnen weiter und stellt passende Materialien zum Überprüfen bereit.",
+        "Die Fachkraft verteilt identische Ausmalblätter zum Thema Regen, damit am Ende alle Ergebnisse gleich aussehen."
+      ],
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Ko-Konstruktion bedeutet gemeinsame Bedeutungs- und Wissenskonstruktion im sozialen Dialog. Weder einseitige Belehrung (Option A/D) noch vollständiger Rückzug der Fachkraft (Option B) sind ko-konstruktiv."
+    },
+    {
+      "id": "v2-q5",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Praxisfall: In einer Kita-Gruppe überlegen Fachkräfte, wie sie Tablets sinnvoll einsetzen können. Ein Vorschlag lautet, den zweijährigen Kindern in der Abholphase Videos anzumachen, damit es ruhiger wird; ein anderer schlägt vor, mit den Fünfjährigen eine vertonte Fotogeschichte über ihren Garten zu produzieren. Wie bewerten Sie beide Vorschläge fachlich?",
+      "options": [
+        "Beide Vorschläge sind gleichwertig, weil Kinder in jedem Alter so früh wie möglich digitale Erfahrungen sammeln sollten.",
+        "Videos für Zweijährige sind pädagogisch wertvoller als eigene Produktionen, weil Kinder dabei still sitzen lernen.",
+        "Beide Vorschläge sind abzulehnen, weil digitale Endgeräte in Kindertagesstätten grundsätzlich unzulässig sind.",
+        "Der Einsatz von Videos als Ruhigstellung für Zweijährige ist fachlich problematisch, da bei U3-Kindern sinnliche Primärerfahrungen und Beziehung im Vordergrund stehen; die begleitete Fotogeschichte mit Fünfjährigen fördert dagegen aktiv und altersangemessen Medienkompetenz (KMK 3)."
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Medienbildung muss stets alters- und kontextsensibel differenziert werden: Passive Bildschirmbeschäftigung für unter Dreijährige verdrängt wesentliche sinnliche und soziale Grunderfahrungen. Eine begleitete, kreative Fotogeschichte mit Vorschulkindern nutzt digitale Medien dagegen aktiv als Gestaltungs- und Sprachanlass (bei gewahrtem Datenschutz)."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "pruefung",
+      "question": "Welche Aussagen treffen auf das Prinzip der ‚doppelten Vermittlungspraxis‘ und echte Partizipation in der Sozialpädagogik zu? (Wählen Sie alle zutreffenden Aussagen)",
+      "options": [
+        "Wie Beziehungsgestaltung, Wertschätzung und Beteiligung im eigenen Lernprozess erfahren werden, wirkt prägend auf das spätere pädagogische Handeln in der Praxis zurück.",
+        "Partizipation bedeutet, dass Erwachsene ihre Aufsichts- und Schutzverantwortung vollständig an die Kindergruppe abgeben.",
+        "Echte Partizipation erfordert, dass Kinder und Jugendliche transparent wissen, worüber sie mitentscheiden können und wo feste Schutzgrenzen der Erwachsenen liegen.",
+        "Wenn Fachkräfte eine Abstimmung ansetzen, das Ergebnis aber ignorieren, sobald es ihnen nicht gefällt, handelt es sich um Scheinpartizipation."
+      ],
+      "correctIndices": [
+        0,
+        2,
+        3
+      ],
+      "explanation": "Optionen A, C und D beschreiben doppelte Vermittlungspraxis, transparente Partizipation und die Abgrenzung zur Scheinpartizipation präzise. Option B ist falsch: Schutz- und Aufsichtsverantwortung verbleiben immer bei den pädagogischen Fachkräften."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Bildung für nachhaltige Entwicklung (BNE) in Rheinland-Pfalz",
+      "url": "https://bildung.rlp.de/nachhaltigkeit",
+      "publisher": "Bildungsserver Rheinland-Pfalz / Pädagogisches Landesinstitut RLP",
+      "note": "Landesportal mit Konzepten, Materialien und Praxisbezügen zu BNE und Gestaltungskompetenz"
+    },
+    {
+      "title": "Bildung in der digitalen Welt – Strategie und Kompetenzbereiche",
+      "url": "https://www.kmk.org/bildungsministerkonferenz/bildungsthemen/bildung-in-der-digitalen-welt.html",
+      "publisher": "Kultusministerkonferenz (KMK)",
+      "note": "Offizielle Übersicht zu den sechs Kompetenzbereichen und Weiterentwicklungen digitaler Bildung"
+    },
+    {
+      "title": "Bildungs- und Erziehungsthemen für Kindertagesstätten in Rheinland-Pfalz",
+      "url": "https://kita.rlp.de/kita-in-rheinland-pfalz/bildungs-und-erziehungsthemen",
+      "publisher": "Ministerium für Bildung Rheinland-Pfalz (Kita-Server RLP)",
+      "note": "Fachbeiträge zu Inklusion, Partizipation, Medienbildung, Nachhaltigkeit und Ko-Konstruktion in RLP"
+    },
+    {
+      "title": "Kinder mit Behinderung – Anforderungen an eine inklusive Frühpädagogik",
+      "url": "https://www.weiterbildungsinitiative.de/publikationen/detail/kinder-mit-behinderung-anforderungen-an-eine-inklusive-fruehpaedagogik",
+      "publisher": "Weiterbildungsinitiative Frühpädagogische Fachkräfte (WiFF) / DJI",
+      "note": "Fachliche Fundierung zu struktureller Inklusion, Barriereabbau und Teilhabe im pädagogischen Alltag"
     }
   ]
 }

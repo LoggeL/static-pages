@@ -3,367 +3,461 @@
   "number": 10,
   "moduleCode": "S-FÜ-4",
   "moduleArea": "fue",
+  "unitRole": "core",
+  "curriculumRef": "S-FÜ-4 · Digitale Werkzeuge, DSGVO, Sozialdatenschutz, Urheberrecht & Kostenkalkulation (Lehrplan RLP 2024)",
   "title": "Digitale Werkzeuge, Datenschutz, Urheberrecht & Kalkulation",
-  "subtitle": "IT-Systeme, Standardsoftware, Persönlichkeitsrechte und Kostenrechnung für Feste/Ausflüge",
+  "subtitle": "Standardsoftware, DSGVO & Sozialdatenschutz, Recht am eigenen Bild (§ 22 KUG), UrhG und Budgetplanung",
   "year": "1. Jahr",
-  "estimatedMinutes": 20,
+  "estimatedMinutes": 25,
   "hoursRef": "80 Std. (Teil 1/2)",
   "pdfPages": "S. 19",
   "crossCuttingTags": [
     "Digitale Welt",
     "Prävention"
   ],
-  "summary": "Diese Einheit vermittelt angehenden Erzieher:innen fundierte Kompetenzen im Umgang mit digitalen Werkzeugen, rechtlichen Rahmenbedingungen (DSGVO, KUG, UrhG) sowie der mathematischen Kostenkalkulation für Ausflüge und Feste. Sie verbindet technisches Know-how mit professionellem Datenschutz und ökonomischem Handeln im Berufsalltag.",
+  "summary": "Im sozialpädagogischen Alltag verbinden sich digitale Organisation, strenger Schutz sensibler Kinder- und Familiendaten sowie wirtschaftliche Projektplanung. Diese Einheit vermittelt den sicheren Einsatz von Standardsoftware und Datensicherung, erklärt die Rechtsgrundlagen aus DSGVO, Sozialdatenschutz (§§ 61–65 SGB VIII), § 3 Abs. 3 KiTaG RLP, Recht am eigenen Bild (§ 22 KUG) und Urheberrecht (UrhG) und übt die präzise, sozial gerechte Kostenkalkulation für Ausflüge und Feste.",
   "learningGoals": [
-    "Ich kann digitale Endgeräte und Standardsoftware (Textverarbeitung, Tabellenkalkulation) zielgerichtet für pädagogische Dokumentationen und Elternkommunikation nutzen.",
-    "Ich kann Urheberrechte (UrhG) sowie Persönlichkeitsrechte und das Recht am eigenen Bild (KUG) bei der Erstellung digitaler Medien in der Praxis beachten.",
-    "Ich kann personenbezogene Daten von Kindern und Familien gemäß den Vorgaben der DSGVO vor Verlust und unbefugtem Zugriff schützen.",
-    "Ich kann Ausflüge und Feste in der Einrichtung mathematisch präzise kalkulieren (Kosten pro Kopf, Fix- und variable Kosten).",
-    "Ich kann digitale Lern- und Arbeitsergebnisse (Grafiken, Dokumente) reflektiert erstellen und präsentieren."
+    "Ich kann Standardsoftware (Textverarbeitung, Tabellenkalkulation, Präsentation) und grundlegende Sicherheitsmaßnahmen (Zugriffsschutz, Verschlüsselung, Backups) professionell im Einrichtungsalltag einsetzen.",
+    "Ich kann zentrale Grundsätze der DSGVO sowie des Sozialdatenschutzes (§§ 61–65 SGB VIII) und des KiTaG RLP (§ 3 Abs. 3) bei Dokumentation, Aufbewahrung, Kooperation und Datenweitergabe rechtssicher anwenden.",
+    "Ich kann das Recht am eigenen Bild (§ 22 KunstUrhG) und das Urheberrecht (§ 2 UrhG) bei Elternbriefen, Aushängen, Portfolios und digitalen Medienprojekten beachten.",
+    "Ich kann Haushalts-, Fest- und Ausflugskosten anhand von Fixkosten, variablen Kosten, Puffer und Teilhabeförderung rechnerisch korrekt kalkulieren und transparent abrechnen."
   ],
   "sections": [
     {
-      "body": "Digitale Endgeräte (Tablets, Laptops) und Standardsoftware (Textverarbeitung, Tabellenkalkulation, Präsentationen) sind unverzichtbare Werkzeuge im modernen sozialpädagogischen Alltag. Sie unterstützen die professionelle Dokumentation von Entwicklungsprozessen, die effiziente Elternkommunikation und die kreative Gestaltung von Lernangeboten mit Kindern. Angehende Erzieher:innen müssen diese Medien sicher bedienen und reflektiert in pädagogische Prozesse einbinden.",
+      "heading": "Digitale Werkzeuge, Standardsoftware und Datensicherung im Berufsalltag",
+      "keyTakeaway": "Digitale Werkzeuge entlasten Dokumentation, Kommunikation und Budgetplanung – aber nur auf dienstlich freigegebenen, gesicherten Geräten mit verlässlichen Backups.",
+      "body": "Ob Elternbrief in der Textverarbeitung, Ausflugskalkulation in der Tabellenkalkulation, Elternabend-Präsentation oder digitale Portfoliodokumentation auf dem Einrichtungstablet: Standardsoftware gehört heute zum täglichen Handwerkszeug von Erzieherinnen und Erziehern. Professionelle IT-Nutzung umfasst dabei nicht nur die Bedienung von Formatvorlagen oder dynamischen Tabellenformeln (z. B. SUMME, Mittelwert, automatische Pro-Kopf-Berechnung), sondern ebenso grundlegende Informationssicherheit. Personenbezogene Daten von Kindern, Eltern oder Mitarbeitenden gehören ausschließlich auf dienstlich bereitgestellte, passwort- bzw. verschlüsselungsgeschützte Systeme des Trägers – niemals auf private Smartphones, unverschlüsselte USB-Sticks oder in kostenlose private Cloud-Speicher. Zur Datensicherheit nach Art. 32 DSGVO gehören technische und organisatorische Maßnahmen (TOM): persönliche Nutzerkonten statt geteilter Einheits-Passwörter, automatische Bildschirmsperre bei Abwesenheit, regelmäßige Software-Updates sowie ein konsequentes Backup-Konzept (regelmäßige, verschlüsselte Sicherheitskopien getrennt vom Hauptgerät), damit Dokumentationen bei Geräteverlust oder Schadsoftware nicht unwiederbringlich verloren gehen.",
       "bulletPoints": [
-        "Sicherer Umgang mit Hardware und Betriebssystemen",
-        "Erstellung professioneller Dokumente und Tabellen",
-        "Einsatz digitaler Medien zur Entwicklungsbeobachtung"
+        "Textverarbeitung & Präsentation: Einheitliche, übersichtliche Elternbriefe, Protokolle, Aushänge und visuelle Elternabend-Beiträge.",
+        "Tabellenkalkulation: Dynamische Budget-, Material- und Teilnahmelisten mit Formeln zur Vermeidung von Rechenfehlern.",
+        "IT-Sicherheit (TOM, Art. 32 DSGVO): Dienstgeräte nutzen, starke individuelle Passwörter, automatische Sperre, verschlüsselte Datenträger.",
+        "Datensicherung (Backup): Regelmäßige, geschützte Sicherheitskopien gegen Datenverlust, Defekte oder Cyberangriffe."
       ],
-      "heading": "Digitale Werkzeuge und Standardsoftware in der Kita",
-      "keyTakeaway": "Digitale Medien sind Werkzeuge der professionellen Gestaltung und Dokumentation im pädagogischen Alltag.",
-      "praxisTip": "Nutzen Sie Tablets gezielt als Dokumentationswerkzeug auf Augenhöhe der Kinder (z. B. gemeinsames Erstellen eines digitalen Bilderbuchs)."
+      "praxisTip": "Richten Sie sich in Tabellenkalkulationen für wiederkehrende Feste oder Ausflüge eine geprüfte Vorlage mit festen Formelzellen ein und prüfen Sie vor dem Speichern, ob alle privaten Geräte konsequent außen vor bleiben."
     },
     {
-      "body": "Bei der Arbeit mit digitalen Medien greifen strenge rechtliche Rahmenbedingungen. Das Kunsturhebergesetz (KUG) schützt das Recht am eigenen Bild (§ 22 KUG), weshalb Foto- und Videoaufnahmen von Kindern stets die vorherige schriftliche Einwilligung der Sorgeberechtigten erfordern. Gleichzeitig schützt das Urheberrecht (UrhG) geistige Schöpfungen, weshalb fremde Inhalte nicht ungefragt kopiert werden dürfen. Die Datenschutz-Grundverordnung (DSGVO) verpflichtet Träger und Fachkräfte zum sorgsamen Umgang mit personenbezogenen Daten.",
+      "heading": "DSGVO, Sozialdatenschutz (§§ 61–65 SGB VIII) und Aufbewahrung in der Praxis",
+      "keyTakeaway": "Jede Verarbeitung personenbezogener Daten braucht eine Rechtsgrundlage oder freiwillige Einwilligung; Weitergaben bei Kooperation und Kinderschutz folgen streng getrennten Regeln.",
+      "body": "Die Datenschutz-Grundverordnung (DSGVO) schützt alle personenbezogenen Daten, mit denen Menschen direkt oder indirekt identifizierbar sind (Art. 4 DSGVO) – von Namen, Adressen und Fotos bis hin zu besonders geschützten Gesundheitsdaten wie Allergien oder Förderbedarfen (Art. 9 DSGVO). Maßgeblich sind die Grundsätze nach Art. 5 DSGVO: Rechtmäßigkeit und Transparenz, Zweckbindung, Datenminimierung, Richtigkeit, Speicherbegrenzung sowie Integrität und Vertraulichkeit. Für die pädagogische Beobachtung und Dokumentation in rheinland-pfälzischen Kindertageseinrichtungen bildet § 3 Abs. 3 KiTaG RLP die fachliche Rechtsgrundlage; darüber hinaus gelten in der Kinder- und Jugendhilfe die strengen Vorschriften des Sozialdatenschutzes (§§ 61–65 SGB VIII in Verbindung mit SGB X), insbesondere der besondere Vertrauensschutz nach § 65 SGB VIII. Wichtig ist die saubere Unterscheidung zweier Weitergabefälle: Bei freiwilligen Kooperationen – etwa mit Grundschule oder Therapiepraxis – ist stets eine zweckgebundene, informierte schriftliche Einwilligung der Sorgeberechtigten erforderlich. Davon unabhängig greift der gesetzliche Schutzauftrag bei Kindeswohlgefährdung (§ 8a SGB VIII): Dort dürfen und müssen bei gewichtigen Anhaltspunkten die zur Gefährdungsabwendung erforderlichen Daten nach den gesetzlichen Verfahrensschritten auch ohne Einwilligung an das Jugendamt übermittelt werden. Wie lange Unterlagen aufbewahrt oder wann sie nach Beendigung des Betreuungsvertrags ausgehändigt bzw. gelöscht werden, regelt das trägerspezifische Datenschutz- und Löschkonzept. Für die Elternkommunikation gilt laut Landesbeauftragtem für den Datenschutz RLP (LfDI RLP): Private Messenger wie WhatsApp sind für dienstliche Kinderdaten unzulässig.",
       "bulletPoints": [
-        "Recht am eigenen Bild nach § 22 KUG (Einwilligungspflicht)",
-        "Urheberrecht bei Texten, Bildern und Musik (UrhG)",
-        "Datenschutz und Datensicherheit nach DSGVO",
-        "Schutz vor Datenmissbrauch und unbefugtem Zugriff"
+        "DSGVO (Art. 5, 9) & § 3 Abs. 3 KiTaG RLP: Zweckbindung, Datenminimierung, Schutz sensibler Gesundheitsdaten und landesrechtliche Basis für pädagogische Dokumentation.",
+        "Kooperation vs. Kinderschutz: Austausch mit Grundschule/Therapie nur mit zweckgebundener Einwilligung; Datenübermittlung nach § 8a SGB VIII ist ein eigener gesetzlicher Fall (nur erforderliche Daten).",
+        "Aufbewahrung & Löschung: Richten sich nach trägerspezifischen Lösch- und Aufbewahrungsregeln (inkl. Aushändigung/Löschung nach Vertragsende gemäß Datenschutzkonzept).",
+        "Messenger-Praxis (LfDI RLP): Keine dienstlichen Kinderfotos, Krankmeldungen oder Namen über private WhatsApp-Gruppen austauschen."
       ],
-      "heading": "Rechtliche Grundlagen: Datenschutz, Urheberrecht & Persönlichkeitsrechte",
-      "keyTakeaway": "Der Einsatz digitaler Medien erfordert die strikte Einhaltung von Datenschutz, Urheberrecht und Persönlichkeitsrechten.",
-      "praxisTip": "Holen Sie vor jeder öffentlichkeitswirksamen Aktion (z. B. Website, Aushang) schriftliche Einverständniserklärungen aller Eltern ein und lagern Sie diese dokumentiert ab."
+      "praxisTip": "Prüfen Sie bei jeder Liste im Gruppenraum (z. B. Allergieliste, Geburtstagskalender, Abholliste): Wer kann diese Daten im Vorbeigehen sehen? Sensible Listen gehören nicht offen an die Flurtür, sondern geschützt in den Personalbereich."
     },
     {
-      "body": "Berufstypische Aufgaben in der Sozialpädagogik – wie die Planung von Ausflügen, Sommerfesten oder Materialkäufen – erfordern mathematische Grundkompetenzen. Eine exakte Kostenkalkulation unterscheidet zwischen Fixkosten (z. B. Busmiete) und variablen Kosten (z. B. Eintritte, Verpflegung pro Person). Durch strukturierte Tabellenkalkulationen werden Ausgaben transparent budgetiert und für den Träger sowie Eltern nachvollziehbar abgerechnet.",
+      "heading": "Recht am eigenen Bild (§ 22 KunstUrhG) und Urheberrecht (UrhG)",
+      "keyTakeaway": "Kinderfotos erfordern eine freiwillige, informierte und zweckgebundene Einwilligung der Sorgeberechtigten (plus Respekt vor dem Kind); fremde Texte, Bilder und Lieder sind auch ohne ©-Zeichen urheberrechtlich geschützt.",
+      "body": "Fotos und Videos sind in Kitas und Jugendeinrichtungen beliebt – für Portfolios, Aushänge, Projektberichte oder Websites. Rechtlich greifen dabei die DSGVO und § 22 des Kunsturhebergesetzes (KunstUrhG / KUG, Recht am eigenen Bild): Aufnahmen, auf denen Kinder oder Erwachsene erkennbar sind, dürfen grundsätzlich nur mit vorheriger, informierter und freiwilliger Einwilligung der Sorgeberechtigten veröffentlicht oder an Dritte weitergegeben werden. Eine wirksame Einwilligung benennt konkret den jeweiligen Zweck (z. B. getrennt für internes Portfolio, Aushang in der Einrichtung, Website oder Presse), ist jederzeit für die Zukunft widerrufbar und unterliegt dem Kopplungsverbot (die Aufnahme eines Kindes darf niemals von einer Foto-Einwilligung abhängen). Pädagogisch gehört zudem dazu, auch das Kind selbst zu fragen, ob es fotografiert werden möchte, und bloßstellende Situationen (z. B. Wickeln, Weinen) grundsätzlich auszuschließen. Ebenso wichtig im Alltag ist das Urheberrecht (UrhG): Persönliche geistige Schöpfungen wie Texte, Illustrationen, Fotos, Lieder, Noten und Videos (§ 2 UrhG) sind automatisch ab ihrer Entstehung geschützt – auch dann, wenn im Internet kein Copyright-Zeichen steht! Wer Bilder aus einer Suchmaschine für einen Elternbrief oder ein Liedblatt kopiert, riskiert eine Urheberrechtsverletzung und teure Abmahnungen. Sichere Wege sind eigene Fotos oder Kinderzeichnungen, ausdrückliche Lizenzen des Trägers oder frei lizenzierte Inhalte (z. B. Creative-Commons-Lizenzen unter exakter Einhaltung der jeweiligen Namensnennungspflicht).",
       "bulletPoints": [
-        "Mathematische Erfassung beruflicher Alltagssituationen",
-        "Kalkulation von Fixkosten und variablen Kosten",
-        "Erstellung transparenter Budgets mit Tabellenkalkulationssoftware",
-        "Wirtschaftliche und gerechte Verteilung von Ausflugskosten"
+        "§ 22 KunstUrhG & DSGVO: Getrennte, schriftliche, freiwillige und widerrufbare Einwilligungen je Verwendungszweck einholen.",
+        "Respekt vor dem Kind: Auch bei elterlicher Einwilligung werden Kinder nicht gegen ihren Willen oder in verletzlichen Situationen fotografiert.",
+        "Urheberrecht (§ 2 UrhG): Automatischer Schutz von Texten, Bildern, Musik und Filmen ohne Registrierung oder ©-Vermerk.",
+        "Rechtssichere Alternativen: Eigene Werke erstellen, gekaufte/lizenzierte Materialien nutzen oder freie Lizenzen (z. B. CC-BY) korrekt kennzeichnen."
       ],
-      "heading": "Mathematische Kostenkalkulation für Ausflüge und Feste",
-      "keyTakeaway": "Transparente Kostenkalkulation verbindet mathematische Grundlagen mit ökonomischer Verantwortung im Team.",
-      "praxisTip": "Erstellen Sie für größere Feste eine standardisierte Excel-Vorlage mit automatischen Formeln für Fix- und variable Kosten."
+      "praxisTip": "Führen Sie in der Gruppe eine leicht zugängliche (aber für Externe nicht einsehbare) Übersicht, welche Kinder für interne Portfolios, Aushänge oder Öffentlichkeitsarbeit fotografiert werden dürfen – und prüfen Sie diese vor jedem Fest erneut."
+    },
+    {
+      "heading": "Haushalts-, Fest- und Ausflugskalkulation mit sozialer Verantwortung",
+      "keyTakeaway": "Eine tragfähige Kalkulation trennt sauber zwischen Fixkosten und variablen Kosten, plant einen realistischen Puffer ein und stellt sicher, dass kein Kind aus finanziellen Gründen ausgeschlossen wird.",
+      "body": "Ob Tierparkausflug, Sommerfest, Kochprojekt oder Jugendfreizeit: Erzieherinnen und Erzieher planen und verwalten regelmäßig zweckgebundene Budgets. Rechnerische Grundlage ist die Unterscheidung zweier Kostenarten: Fixkosten fallen einmalig bzw. unabhängig davon an, wie viele Personen teilnehmen (z. B. Busmiete für den gesamten Reisebus, Gruppenführungspauschale, Raummiete oder GEMA-Gebühr). Variable Kosten fallen hingegen pro teilnehmender Person an und steigen linear mit der Gruppengröße (z. B. Eintritt pro Kind, Bastelmaterial pro Person, Verpflegungspauschale). Die Gesamtkosten berechnen sich nach der Formel: Gesamtkosten = Fixkosten + (variable Kosten je Person × Personenzahl). Dividiert man die Gesamtkosten durch die Zahl der zahlenden Teilnehmenden, erhält man die Kosten pro Kopf. Achtung bei Ausfällen: Sagen kurzfristig zwei Kinder krankheitsbedingt ab, bleiben die Fixkosten unverändert – deshalb empfiehlt sich ein kleiner Sicherheits- oder Rücklagenpuffer (z. B. 5–10 %) bzw. eine klare Absprache mit Träger oder Förderverein. Zur sozialpädagogischen Professionalität gehört außerdem die soziale Dimension: Hohe Elternbeiträge dürfen niemals dazu führen, dass Kinder aus einkommensschwachen Familien zu Hause bleiben. Fachkräfte kennen daher Unterstützungswege wie Leistungen für Bildung und Teilhabe (BuT), Fördervereinszuschüsse oder gestaffelte Beiträge und weisen diskret und niedrigschwellig darauf hin. Am Ende jeder Maßnahme folgt eine lückenlose Belegsammlung und nachvollziehbare Abrechnung gegenüber dem Träger.",
+      "bulletPoints": [
+        "Fixkosten: Unabhängig von der Teilnehmendenzahl (z. B. Buspauschale, Raummiete, Festzelt, Pauschalhonorar).",
+        "Variable Kosten: Abhängig von der Teilnehmendenzahl (z. B. Eintrittskarte, Verpflegung, Bastelmaterial pro Kopf).",
+        "Grundformel: Gesamtkosten = Fixkosten + (variable Kosten × Anzahl); Pro-Kopf-Betrag = Gesamtkosten ÷ Anzahl.",
+        "Puffer, Teilhabe & Transparenz: Ausfallrisiken abfedern, Fördermöglichkeiten (BuT, Förderverein) diskret einplanen und alle Quittungen sauber abrechnen."
+      ],
+      "praxisTip": "Rechnen Sie in Ihrer Excel- oder Calc-Tabelle immer eine kurze ‚Was-wäre-wenn‘-Spalte durch (z. B. ‚Wie hoch ist der Pro-Kopf-Betrag, wenn 3 Kinder krankheitsbedingt ausfallen?‘), bevor Sie den Elternbeitrag festlegen."
     }
   ],
   "visualBlocks": [
     {
+      "id": "u10-vb-datenschutz",
+      "kind": "feature_grid",
+      "title": "Fünf Schutzpfeiler im digitalen Kita- und Jugendhilfealltag",
+      "subtitle": "Datenschutz, Sozialdatenschutz, Bildrechte und Urheberrecht auf einen Blick",
       "centerLabel": "",
-      "id": "vb-1",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Baustein 1",
-          "detail": "Bedienung von Hardware, Betriebssystemen und mobilen Endgeräten wie Tablets und Laptops im pädagogischen Alltag.",
-          "example": "Einsatz eines Tablets zur Dokumentation von Bauwerken im Elementarbereich.",
-          "id": "item-1",
-          "label": "Digitale Endgeräte",
-          "metric": "Hardware",
-          "summary": "Sicherer Umgang mit digitaler Hardware."
+          "id": "ds-1",
+          "label": "Zweckbindung & Datenminimierung",
+          "badge": "Art. 5 DSGVO",
+          "metric": "Nur das Nötige",
+          "summary": "Nur Daten erheben, die für den konkreten pädagogischen oder organisatorischen Zweck wirklich erforderlich sind.",
+          "detail": "Überflüssige Angaben über Familienverhältnisse oder dauerhaft aufbewahrte alte Listen verstoßen gegen die Grundsätze der DSGVO und das trägerspezifische Löschkonzept.",
+          "example": "Für eine Ausflugsliste werden Name, Notfallnummer und relevante Allergien erfasst – nicht aber der Beruf der Eltern."
         },
         {
-          "badge": "Baustein 2",
-          "detail": "Erstellung von Elternbriefen, Berichten und professionellen Textdokumenten mit gängiger Bürosoftware.",
-          "example": "Verfassen eines standardisierten Übergabeprotokolls.",
-          "id": "item-2",
-          "label": "Textverarbeitung",
-          "metric": "Software",
-          "summary": "Professionelle Dokumentenerstellung."
+          "id": "ds-2",
+          "label": "Sozialdatenschutz & Weitergabe",
+          "badge": "§§ 61, 65 SGB VIII",
+          "metric": "Zwei klare Fälle",
+          "summary": "Kooperation (z. B. Grundschule/Therapie) nur mit Einwilligung; Kinderschutz (§ 8a SGB VIII) als eigener gesetzlicher Fall.",
+          "detail": "Anvertraute Informationen unterliegen strengem Vertrauensschutz. Bei gewichtigen Anhaltspunkten nach § 8a SGB VIII greift hingegen eine eigenständige gesetzliche Übermittlungsbefugnis für die erforderlichen Daten.",
+          "example": "Vor einem Übergangsgespräch mit der Grundschule unterschreiben die Eltern eine zweckgebundene Einwilligung."
         },
         {
-          "badge": "Baustein 3",
-          "detail": "Einsatz von Tabellenkalkulationen für Dienstpläne, Materiallisten und Budgetberechnungen von Festen.",
-          "example": "Kalkulation der Buskosten für den Sommerausflug.",
-          "id": "item-3",
-          "label": "Tabellenkalkulation",
-          "metric": "Finanzen",
-          "summary": "Strukturierte Daten- und Budgetverwaltung."
+          "id": "ds-3",
+          "label": "Recht am eigenen Bild",
+          "badge": "§ 22 KunstUrhG",
+          "metric": "Einwilligungspflicht",
+          "summary": "Fotos erkennbarer Kinder erfordern zweckgebundene, freiwillige, widerrufbare Einwilligungen.",
+          "detail": "Unterschiedliche Zwecke (Portfolio, Aushang, Website, Presse) müssen getrennt abgefragt werden; außerdem wird das Kind selbst respektvoll einbezogen.",
+          "example": "Beim Sommerfest werden Kinder ohne Foto-Freigabe durch abgesprochene Perspektiven geschützt, ohne sie auszugrenzen."
         },
         {
-          "badge": "Baustein 4",
-          "detail": "Erstellung von kreativen Lernpostern, Flyern und fotobasierten Dokumentationen unter Beachtung ästhetischer und technischer Standards.",
-          "example": "Design eines Flyers für den Tag der offenen Tür.",
-          "id": "item-4",
-          "label": "Grafik & Gestaltung",
-          "metric": "Medien",
-          "summary": "Visuelle Aufbereitung pädagogischer Inhalte."
+          "id": "ds-4",
+          "label": "Urheberrecht achten",
+          "badge": "§ 2 UrhG",
+          "metric": "Geistiges Eigentum",
+          "summary": "Fremde Fotos, Cliparts, Liedertexte und Noten sind auch ohne ©-Symbol urheberrechtlich geschützt.",
+          "detail": "Für Flyer, Elternbriefe und Liedhefte dürfen nur eigene Werke, lizenzierte Medien oder korrekt gekennzeichnete freie Lizenzen (z. B. Creative Commons) verwendet werden.",
+          "example": "Statt ein beliebiges Bild aus der Websuche zu kopieren, nutzt das Team eigene Kinderzeichnungen oder eine freie Grafik mit Lizenzangabe."
+        },
+        {
+          "id": "ds-5",
+          "label": "IT-Sicherheit & Backup",
+          "badge": "Art. 32 DSGVO",
+          "metric": "TOM",
+          "summary": "Dienstgeräte verschlüsseln, Zugriffe beschränken und regelmäßige Sicherheitskopien anlegen.",
+          "detail": "Technische und organisatorische Maßnahmen verhindern sowohl unbefugten Zugriff Dritter als auch versehentlichen Datenverlust.",
+          "example": "Einrichtungstablet mit individuellem Login, automatischer Sperre und regelmäßiger Sicherung auf dem Trägerserver."
         }
-      ],
-      "kind": "feature_grid",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Zentrale Säulen digitaler Medienkompetenz in der sozialpädagogischen Ausbildung",
-      "title": "Digitale Werkzeuge im Berufsfeld"
+      ]
     },
     {
+      "id": "u10-vb-kalkulation",
+      "kind": "comparison",
+      "title": "Bausteine einer Ausflugs- und Festkalkulation",
+      "subtitle": "Rechenbeispiel: Tierparkausflug mit 20 Kindern (Fixkosten + variable Kosten + Teilhabe)",
       "centerLabel": "",
-      "id": "vb-2",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "kal-1",
+          "label": "Fixkosten (pauschal)",
+          "badge": "Unabhängig von n",
+          "metric": "Beispiel: 160,00 €",
+          "summary": "Kosten, die in voller Höhe anfallen – egal ob 16 oder 20 Kinder mitfahren.",
+          "detail": "Je weniger Kinder teilnehmen, desto höher wird der Fixkostenanteil pro Kopf. Deshalb sollten Fixkosten vorab verlässlich schriftlich eingeholt werden.",
+          "example": "Reisebus-Pauschale 120,00 € + pauschal gebuchte Tierpark-Führung 40,00 € = 160,00 € Fixkosten."
+        },
+        {
+          "id": "kal-2",
+          "label": "Variable Kosten (pro Person)",
+          "badge": "Proportional zu n",
+          "metric": "Beispiel: 6,00 € / Kind",
+          "summary": "Kosten, die sich direkt mit jedem teilnehmenden Kind multiplizieren.",
+          "detail": "Fällt ein Kind kurzfristig aus, fallen nicht bezahlte variable Eintrittskosten in der Regel nicht an (Stornobedingungen vorab prüfen!).",
+          "example": "Eintritt 4,00 € + Snack/Getränk 2,00 € = 6,00 € × 20 Kinder = 120,00 € variable Kosten."
+        },
+        {
+          "id": "kal-3",
+          "label": "Gesamt- & Pro-Kopf-Kosten",
+          "badge": "Formel",
+          "metric": "Beispiel: 14,00 € / Kind",
+          "summary": "Summe aus Fixkosten und variablen Kosten geteilt durch die Zahl der Teilnehmenden.",
+          "detail": "In einer Tabellenkalkulation wird die Formel dynamisch verknüpft, sodass sich bei geänderter Kinderzahl sofort der neue Einzelpreis ergibt.",
+          "example": "160,00 € + (6,00 € × 20) = 280,00 € gesamt; 280,00 € ÷ 20 Kinder = 14,00 € pro Kind."
+        },
+        {
+          "id": "kal-4",
+          "label": "Puffer & soziale Teilhabe",
+          "badge": "Verantwortung",
+          "metric": "Kein Kind ausschließen",
+          "summary": "Ausfallrisiken absichern und Finanzierungshilfen (BuT / Förderverein) von Anfang an mitdenken.",
+          "detail": "Durch einen Zuschuss des Fördervereins (z. B. 80,00 € für den Bus) sinkt der Elternbeitrag spürbar; Familien mit Anspruch auf Bildung und Teilhabe (BuT) werden diskret unterstützt.",
+          "example": "Mit 80,00 € Zuschuss des Fördervereins sinken die offenen Kosten auf 200,00 € (= 10,00 € pro Kind)."
+        }
+      ]
+    },
+    {
+      "id": "u10-vb-prozess",
+      "kind": "process_flow",
+      "title": "Rechtssicherer Ablauf: Vom Fest-Entwurf zur Kassenabrechnung",
+      "subtitle": "Wie Organisation, Datenschutz, Urheberrecht und Finanzen Schritt für Schritt ineinandergreifen",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": true,
       "items": [
         {
-          "badge": "Schritt 1",
-          "detail": "Ermittlung und schriftliche Fixierung des Bedarfs sowie Einholen rechtlicher Einwilligungen vor Beginn der Planung.",
-          "example": "Erfassung der Teilnehmendenzahl für den Zoobesuch.",
-          "id": "p-1",
-          "label": "Bedarfsanalyse & Recht",
+          "id": "pf-1",
+          "label": "1. Bedarf & Teilhabe planen",
+          "badge": "Konzeption",
           "metric": "Phase 1",
-          "summary": "Erfassung von Rahmenbedingungen und rechtlichen Grundlagen."
+          "summary": "Ziel, Teilnehmendenzahl, Barrierefreiheit und Fördermöglichkeiten frühzeitig klären.",
+          "detail": "Bereits vor den ersten Buchungen wird geprüft, wie alle Kinder unabhängig vom Familieneinkommen teilnehmen können.",
+          "example": "Abstimmung mit Leitung und Förderverein über einen Zuschuss für die Buskosten."
         },
         {
-          "badge": "Schritt 2",
-          "detail": "Kalkulation aller festen (Fixkosten) und verbrauchsabhängigen (variable Kosten) Ausgaben in einer Tabellenkalkulation.",
-          "example": "Berechnung von Busmiete plus Eintritt pro Kind.",
-          "id": "p-2",
-          "label": "Kostenkalkulation",
+          "id": "pf-2",
+          "label": "2. Budget sauber kalkulieren",
+          "badge": "Mathematik",
           "metric": "Phase 2",
-          "summary": "Mathematische Erfassung und Budgetierung."
+          "summary": "Fixkosten, variable Kosten, Zuschüsse und Ausfallpuffer in einer Tabellenkalkulation erfassen.",
+          "detail": "Alle Angebote werden schriftlich eingeholt und mit dynamischen Formeln nachvollziehbar gegengerechnet.",
+          "example": "Tabelle mit Spalten für Posten, Kostenart (fix/variabel), Einzelpreis, Menge und Gesamtsumme."
         },
         {
-          "badge": "Schritt 3",
-          "detail": "Sichere und DSGVO-konforme Ablage aller digitalen Dokumente, Teilnehmerlisten und Einverständniserklärungen.",
-          "example": "Ablage auf passwortgeschütztem Server mit Zugriffsbeschränkung.",
-          "id": "p-3",
-          "label": "Datensicherung & DSGVO",
+          "id": "pf-3",
+          "label": "3. Recht & Datenschutz sichern",
+          "badge": "Rechtssicherheit",
           "metric": "Phase 3",
-          "summary": "Schutz vor Datenverlust und Missbrauch."
+          "summary": "Ausflugseinverständnis, Fotoeinwilligungen (§ 22 KUG) und Urheberrechte für Einladungen prüfen.",
+          "detail": "Alle Listen werden ausschließlich auf geschützten Dienstsystemen gepflegt; private Messenger bleiben tabu.",
+          "example": "Einladung mit selbst gemalter Kinderzeichnung und getrenntem Ankreuzfeld für Fotoaufnahmen."
         },
         {
-          "badge": "Schritt 4",
-          "detail": "Reflexion des Projekts, Abrechnung mit dem Träger und Evaluation des digitalen Medieneinsatzes.",
-          "example": "Kassensturz und Feedbackrunde im Team.",
-          "id": "p-4",
-          "label": "Evaluation & Abrechnung",
+          "id": "pf-4",
+          "label": "4. Abrechnen & löschen",
+          "badge": "Abschluss",
           "metric": "Phase 4",
-          "summary": "Rückblick und Qualitätsentwicklung."
+          "summary": "Alle Originalbelege prüfen, Kasse transparent mit dem Träger abrechnen und temporäre Listen löschen.",
+          "detail": "Überschüsse werden transparent rückerstattet oder abgesprochen verwendet; nicht mehr benötigte Ausflugslisten werden gemäß Löschkonzept vernichtet.",
+          "example": "Abgabe des Kassenberichts mit Quittungen an die Leitung und Vernichten der ausgedruckten Notfallliste nach dem Ausflug."
         }
-      ],
-      "kind": "process_flow",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Iterativer Ablauf von der Planung bis zur Abrechnung von Ausflügen und Festen",
-      "title": "Prozesskette: Planung & Kalkulation"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-3",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Ansatz A",
-          "detail": "Fotos und personenbezogene Daten werden ungefragt und öffentlich in sozialen Netzwerken geteilt, um Eltern schnell zu informieren.",
-          "example": "Hochladen von ungepixelten Kinderfotos auf Instagram ohne Einwilligung.",
-          "id": "c-1",
-          "label": "Unreflektierte Veröffentlichung",
-          "metric": "Rechtlich unzulässig",
-          "summary": "Verstoß gegen KUG und DSGVO mit hohem Risiko."
-        },
-        {
-          "badge": "Ansatz B",
-          "detail": "Vollständiger Verzicht auf digitale Medien und Tabellenkalkulationen; ausschließliche Nutzung handschriftlicher Zettelwirtschaft.",
-          "example": "Führung aller Kassenbücher und Elternlisten auf Papier.",
-          "id": "c-2",
-          "label": "Digitalisierungsverweigerung",
-          "metric": "Ineffizient",
-          "summary": "Widerspruch zu aktuellen Lehrplananforderungen und beruflicher Realität."
-        },
-        {
-          "badge": "Ansatz C",
-          "detail": "Gezielter Einsatz digitaler Werkzeuge bei strikter Beachtung von Datenschutz, Urheberrecht und präziser mathematischer Budgetierung.",
-          "example": "Passwortgeschützte Excel-Kalkulation und schriftliche Einwilligung der Eltern.",
-          "id": "c-3",
-          "label": "Reflektierte Medien- & Finanzkompetenz",
-          "metric": "Professioneller Standard",
-          "summary": "Ausgewogene, rechtssichere und ökonomische Praxis (Professionelle Balance)."
-        }
-      ],
-      "kind": "comparison",
-      "leftPole": "Unreflektierte Praxis",
-      "rightPole": "Digitaler Wildwuchs",
-      "subtitle": "Gegenüberstellung von Risiken und professionellem Handeln im Medien- und Finanzbereich",
-      "title": "Medienhandeln im Spannungsfeld"
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Kindertagesstätte (3-6 Jahre)",
-    "context": "Einrichtung plant ein Sommerfest mit Fotograf und Ausflug zum Tierpark, wobei Elternfotos und Kostenkalkulation anfallen.",
-    "setting": "Städtische Kindertagesstätte mit 75 Kindern",
+    "title": "Sommerfest und Tierparkausflug: Foto-App, Flyer-Grafik und Kassenlücke",
+    "setting": "Kommunale Kindertagesstätte mit 60 Kindern",
+    "ageGroup": "Kita-Team und Elternschaft (Kinder 3–6 Jahre)",
+    "context": "Sie planen im Team das Sommerfest und einen anschließenden Vorschulausflug in den Tierpark (24 Kinder, Buspauschale 180 €, Eintritt 4,50 € pro Kind, Snack 1,50 € pro Kind). Eine engagierte Kollegin schlägt drei Dinge vor: Erstens will sie eine Figur aus einer bekannten Trickfilmserie aus der Online-Bildersuche auf den offiziellen Fest-Flyer drucken. Zweitens möchte sie alle Ausflugsfotos direkt über ihr privates Smartphone in einer Eltern-WhatsApp-Gruppe teilen. Drittens schätzt sie die Ausflugskosten grob aus dem Bauch heraus auf ‚10 Euro pro Kind, das wird schon reichen‘.",
     "steps": [
       {
+        "situation": "Rechtliche Prüfung von Flyer-Grafik und Foto-Austausch: Sowohl beim Flyer als auch beim geplanten WhatsApp-Versand bestehen erhebliche rechtliche Risiken.",
+        "prompt": "Wie bewerten Sie die Vorschläge zu Flyer und Foto-Weitergabe rechtlich und welchen professionellen Alternativweg schlagen Sie im Team vor?",
         "options": [
           {
-            "feedback": "Optimal: Vorab wird eine schriftliche, informierte Einwilligung nach DSGVO eingeholt, Urheberrechte von Fremdmaterial werden geprüft und eine transparente, centgenaue Kostenkalkulation für das Sommerfest erstellt.",
-            "label": "Datenschutzkonforme und transparente Planung mit Elternbeteiligung",
+            "label": "Sie weisen kollegial darauf hin, dass die Trickfilmfigur urheber- bzw. markenrechtlich geschützt ist (§ 2 UrhG) und das Teilen von Kinderfotos über private Smartphones und WhatsApp gegen DSGVO (und § 22 KUG bei fehlender Einwilligung) verstößt; stattdessen gestalten Sie den Flyer mit eigenen Kinderzeichnungen oder frei lizenzierten Grafiken und nutzen für Fotos ausschließlich ein Dienstgerät sowie den datenschutzkonformen Elternweg nach Prüfung schriftlicher Einwilligungen.",
             "quality": "optimal",
-            "theoryLink": "Art. 6 DSGVO, § 22 KUG, RLP-Lehrplan S-FÜ-4"
+            "feedback": "Fachlich und rechtlich einwandfrei! Sie schützen Träger, Team, Kinder und Eltern vor Abmahnungen und Datenschutzverstößen (vgl. LfDI RLP), ohne die Begeisterung der Kollegin abzuwerten, und bieten direkt praktikable Alternativen.",
+            "theoryLink": "§ 2 UrhG, § 22 KunstUrhG, Art. 5 & 32 DSGVO, LfDI RLP (Datenschutz in Kitas)"
           },
           {
-            "feedback": "Problematisch: Fotos von Kindern werden ungefragt in sozialen Medien geteilt und die Budgetkalkulation weist ein großes Minus auf, da Kosten nicht korrekt berechnet wurden.",
-            "label": "Ungefragtes Posten von Fotos und fehlerhafte Kostenkalkulation",
+            "label": "Sie erlauben die Trickfilmfigur auf dem Flyer, weil Kitas gemeinnützig sind und dort kein Urheberrecht gilt, bitten aber darum, die Fotos nicht bei WhatsApp, sondern auf einem unverschlüsselten privaten USB-Stick herumzureichen.",
             "quality": "problematisch",
-            "theoryLink": "Verstoß gegen § 22 KUG und DSGVO"
+            "feedback": "Zwei folgenreiche Rechtsirrtümer: Gemeinnützigkeit hebt das Urheberrecht nicht auf (auch Kitas können abgemahnt werden), und ein unverschlüsselter privater USB-Stick erfüllt die Anforderungen an Datensicherheit (Art. 32 DSGVO) und Einwilligungsprüfung ebenfalls nicht.",
+            "theoryLink": "Urheberrecht (UrhG) & technische/organisatorische Maßnahmen (Art. 32 DSGVO)"
           },
           {
-            "feedback": "Teilweise: Ein Aushang informiert über das Fest, aber einige Eltern haben keine Einverständniserklärung unterschrieben, und die Kalkulation enthält unvollständige Posten.",
-            "label": "Unvollständige Einwilligung und pauschale Kostenschätzung",
+            "label": "Sie streichen zur Vermeidung jedes Risikos sowohl den Flyer als auch sämtliche Erinnerungsfotos komplett, statt nach datenschutzkonformen Wegen zu suchen.",
             "quality": "teilweise",
-            "theoryLink": "Unzureichende Umsetzung der Informationspflichten"
+            "feedback": "Zwar entsteht so kein Rechtsverstoß, doch es wird eine wertvolle Chance für Öffentlichkeitsarbeit, Erziehungspartnerschaft und digitale Bildungsdokumentation verschenkt, obwohl rechtssichere Lösungen problemlos umsetzbar sind.",
+            "theoryLink": "Reflektierte digitale Praxis im Rahmen von DSGVO, § 22 KUG und UrhG"
           }
-        ],
-        "prompt": "Wie gehen Sie bei der Organisation des Sommerfests in Bezug auf Datenschutz und Budget vor?",
-        "situation": "Organisation des Sommerfestes und Ausflugs mit Fotoaufnahmen und Budgetplanung."
+        ]
       },
       {
+        "situation": "Mathematische Kalkulation und soziale Teilhabe für den Tierparkausflug: 24 Kinder, Buspauschale 180,00 €, Eintritt 4,50 €/Kind, Snack 1,50 €/Kind. Die Kollegin hatte pauschal 10,00 € pro Kind geschätzt.",
+        "prompt": "Wie berechnen Sie die Kosten exakt (Fixkosten vs. variable Kosten) und wie gehen Sie mit dem Ergebnis verantwortungsvoll um?",
         "options": [
           {
-            "feedback": "Optimal: Die digitalen Excel-Tabellen werden passwortgeschützt auf lokalen Servern gespeichert, und nicht einwilligende Kinder werden bei Fotos konsequent ausgespart.",
-            "label": "Sichere digitale Speicherung und konsequenter Schutz der Bildrechte",
-            "quality": "optimal",
-            "theoryLink": "Art. 32 DSGVO (Datensicherheit)"
-          },
-          {
-            "feedback": "Teilweise: Dateien werden auf einem unverschlüsselten Privatrechner abgelegt und die Eltern im Nachhinein informiert.",
-            "label": "Speicherung auf Privat-PC ohne Verschlüsselung",
-            "quality": "teilweise",
-            "theoryLink": "Mangelhafter technischer Schutz sensibler Daten"
-          },
-          {
-            "feedback": "Problematisch: Excel-Listen mit Namen und Beiträgen sowie sämtliche Fotos landen ungeschützt in einer öffentlich zugänglichen Cloud.",
-            "label": "Öffentliche Cloud-Speicherung ohne Zugriffsschutz",
+            "label": "Sie legen den Beitrag ohne Rücksprache sofort auf 18,00 € pro Kind fest und schließen Familien, die den Betrag nicht bis Freitag bar bezahlen können, einfach vom Ausflug aus.",
             "quality": "problematisch",
-            "theoryLink": "Schwerer Datenschutzverstoß (Data Breach)"
+            "feedback": "Ein willkürlich überhöhter Betrag ohne transparente Kalkulation verletzt wirtschaftliche Sorgfalt, und der Ausschluss von Kindern aus finanziellen Gründen widerspricht dem sozialpädagogischen Inklusions- und Teilhabeauftrag massiv.",
+            "theoryLink": "Transparente Kalkulation & sozialpädagogische Verantwortung (Inklusion/Teilhabe)"
+          },
+          {
+            "label": "Sie kalkulieren in einer Tabellenkalkulation exakt: 180 € Fixkosten + (6 € variable Kosten × 24 Kinder = 144 €) = 324 € Gesamtkosten, also 13,50 € pro Kind – bei 10 € fehlten 84 € in der Kasse! Sie planen einen kleinen Ausfallpuffer mit ein, beantragen einen Zuschuss beim Förderverein, um den Elternbeitrag zu senken, und informieren diskret über Unterstützungsmöglichkeiten (z. B. Bildung und Teilhabe).",
+            "quality": "optimal",
+            "feedback": "Rechnerisch und pädagogisch top! Sie trennen Fixkosten und variable Kosten fehlerfrei, verhindern ein Defizit von 84 €, sichern gegen Krankheitsausfälle ab und achten aktiv auf soziale Teilhabe aller Kinder.",
+            "theoryLink": "Fixkosten & variable Kosten, Tabellenkalkulation, soziale Teilhabe (BuT) & transparente Abrechnung"
+          },
+          {
+            "label": "Sie übernehmen die geschätzten 10,00 € pro Kind und hoffen, dass am Ende ein paar Kinder krank werden, damit der Ausflug günstiger wird.",
+            "quality": "teilweise",
+            "feedback": "Ein schwerer Denkfehler bei Fixkosten! Wenn Kinder ausfallen, sinken zwar die variablen Eintrittskosten, aber die Buspauschale von 180 € bleibt unverändert – das Defizit pro Kopf wird dadurch sogar noch größer.",
+            "theoryLink": "Fixkostendegression / Ausfallrisiko in der Kostenkalkulation"
           }
-        ],
-        "prompt": "Wie sichern Sie die erstellten digitalen Dokumente und Fotos gegen Missbrauch und Verlust?",
-        "situation": "Dokumenten- und Datenmanagement nach dem Sommerfest."
+        ]
       }
-    ],
-    "title": "Das Sommerfest und Ausflug planen: Recht, Technik und Finanzen"
+    ]
   },
   "selfLearningTasks": [
-    "Entwickeln Sie in einer Kleingruppe eine digitale Checkliste für einen Kita-Ausflug in Excel, die alle Fix- und variablen Kosten automatisch berechnet.",
-    "Prüfen Sie die Datenschutz- und Einwilligungserklärungen Ihrer Praxiseinrichtung auf Übereinstimmung mit den aktuellen DSGVO-Vorgaben und schlagen Sie ggf. Optimierungen vor.",
-    "Erstellen Sie ein kurzes digitales Lernposter zu den Grundregeln des Urheberrechts für das Praxisteam."
+    "Erstellen Sie in einem Tabellenkalkulationsprogramm (z. B. Excel oder LibreOffice Calc) eine vollständige Ausflugskalkulation mit automatischen Formeln für Fixkosten, variable Kosten, Gesamtkosten, Pro-Kopf-Kosten und einer zweiten Spalte für den Fall, dass 4 Kinder kurzfristig erkranken.",
+    "Überprüfen Sie die Foto-Einwilligungserklärung und das Datenschutz-Infoblatt Ihrer Praxiseinrichtung anhand der FAQ des LfDI Rheinland-Pfalz: Werden Zwecke getrennt abgefragt, ist der Widerruf erklärt, und ist die Aufbewahrung/Löschung nach Vertragsende geregelt?",
+    "Gestalten Sie eine einseitige Einladung zu einem Kita- oder Jugendtreff-Fest ausschließlich mit rechtlich unbedenklichen Elementen (eigenes Foto/Zeichnung oder sauber nachgewiesene Creative-Commons-Grafik) und dokumentieren Sie kurz, welche Urheberrechtsregeln Sie beachtet haben."
   ],
   "flashcards": [
     {
-      "definition": "Recht am eigenen Bild, wonach Bildnisse nur mit Einwilligung des Abgebildeten verbreitet oder öffentlich zur Schau gestellt werden dürfen.",
-      "example": "Einholen einer schriftlichen Erlaubnis vor dem Veröffentlichen von Kita-Fotos im Elternportal.",
-      "term": "KUG (§ 22)"
+      "term": "Zweckbindung & Datenminimierung (Art. 5 DSGVO)",
+      "definition": "Datenschutzgrundsätze, wonach personenbezogene Daten nur für klar festgelegte, legitime Zwecke erhoben und auf das tatsächlich notwendige Maß beschränkt werden dürfen.",
+      "example": "Auf einer Ausflugsteilnahmeliste stehen nur Name, Notfalltelefonnummer und relevante Allergien – keine privaten Zusatzdaten der Eltern."
     },
     {
-      "definition": "Verordnung (EU) 2016/679 zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten.",
-      "example": "Speicherung von Kindernamen und Entwicklungsberichten nur in passwortgeschützten, lokalen Systemen.",
-      "term": "DSGVO"
+      "term": "Sozialdatenschutz (§§ 61–65 SGB VIII) vs. § 8a SGB VIII",
+      "definition": "Besonderer Vertrauensschutz für Daten in der Kinder- und Jugendhilfe: Bei freiwilliger Kooperation (z. B. Grundschule, Therapie) ist eine zweckgebundene Einwilligung nötig; im Kinderschutz (§ 8a SGB VIII) greift davon unabhängig die gesetzliche Befugnis zur Übermittlung erforderlicher Daten.",
+      "example": "Für den Austausch mit einer Logopädiepraxis holt die Kita eine schriftliche Einwilligung der Sorgeberechtigten ein."
     },
     {
-      "definition": "Zusammensetzung aller anfallenden Kosten (Fix- und variable Kosten) geteilt durch die Anzahl der Teilnehmenden zur Ermittlung des Einzelpreises.",
-      "example": "Kalkulation des Buspreises und Eintritts für einen Ausflug in den Zoo.",
-      "term": "Kostenkalkulation"
+      "term": "Recht am eigenen Bild (§ 22 KunstUrhG)",
+      "definition": "Bildnisse erkennbarer Personen dürfen grundsätzlich nur mit deren Einwilligung (bei Minderjährigen durch die Sorgeberechtigten) verbreitet oder öffentlich zur Schau gestellt werden; die Einwilligung ist freiwillig, zweckgebunden und jederzeit widerrufbar.",
+      "example": "Eine Zustimmung für das interne Kita-Portfolio berechtigt nicht automatisch zur Veröffentlichung desselben Fotos auf der Website oder in der Lokalzeitung."
     },
     {
-      "definition": "Gesetzlicher Schutz von geistigem Eigentum an Sprach-, Bild- und Tonwerken.",
-      "example": "Verwendung lizenzfreier Grafiken oder Zitation bei der Erstellung von Elternbriefen.",
-      "term": "Urheberrecht"
+      "term": "Urheberrecht (§ 2 UrhG)",
+      "definition": "Automatischer gesetzlicher Schutz persönlicher geistiger Schöpfungen (Texte, Bilder, Grafiken, Lieder, Noten, Videos) ab Entstehung – auch ohne ©-Vermerk und auch gegenüber gemeinnützigen Einrichtungen.",
+      "example": "Für einen Elternbrief oder ein Liedheft dürfen fremde Bilder und Noten aus dem Internet nicht ohne Lizenz oder freie Creative-Commons-Erlaubnis kopiert werden."
     },
     {
-      "definition": "Regelmäßige Erstellung von Sicherheitskopien digitaler Daten auf externen, verschlüsselten Speichermedien zum Schutz vor Datenverlust.",
-      "example": "Wöchentliches Backup der Kita-Verwaltungsdaten auf einer externen Festplatte.",
-      "term": "Datensicherung (Backup)"
+      "term": "Technische und organisatorische Maßnahmen (TOM, Art. 32 DSGVO)",
+      "definition": "Sicherheitsvorkehrungen zum Schutz personenbezogener Daten vor Verlust, Zerstörung und unbefugtem Zugriff (z. B. dienstliche Geräte, individuelle Passwörter, Verschlüsselung, automatische Sperre, regelmäßige Backups).",
+      "example": "Entwicklungsberichte werden auf dem verschlüsselten Einrichtungssystem mit regelmäßigem Backup gespeichert, nicht auf privaten USB-Sticks."
+    },
+    {
+      "term": "Fixkosten vs. variable Kosten",
+      "definition": "Fixkosten fallen unabhängig von der Teilnehmendenzahl an (z. B. Buspauschale, Raummiete); variable Kosten entstehen pro Person (z. B. Eintritt, Snack). Gesamtkosten = Fixkosten + (variable Kosten × Personenzahl).",
+      "example": "Bei 180 € Buspauschale + 6 € pro Kind kosten 24 Kinder insgesamt 324 € (= 13,50 € pro Kind)."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Nach § 22 KunstUrhG (KUG) dürfen Bildnisse von Personen grundsätzlich nur mit deren (bzw. der Erziehungsberechtigten) Einwilligung verbreitet oder zur Schau gestellt werden.",
-      "id": "quiz-1",
+      "question": "Was gilt rechtlich für das Veröffentlichen von Kita-Fotos, auf denen Kinder erkennbar sind (DSGVO und § 22 KunstUrhG)?",
       "options": [
-        "Fotos von Kindern in der Kita dürfen ohne Einwilligung online gestellt werden, solange keine Namen genannt werden.",
-        "Das Recht am eigenen Bild besagt, dass Fotos von Kindern grundsätzlich nur mit Einwilligung der Sorgeberechtigten veröffentlicht werden dürfen.",
-        "Das Urheberrecht schützt ausschließlich kommerzielle Fotos und gilt nicht für private Kita-Ausflüge.",
-        "Die DSGVO verbietet jegliche digitale Fotografie in Bildungseinrichtungen."
+        "Es ist vorab eine freiwillige, informierte, zweckgebundene und jederzeit widerrufbare Einwilligung der Sorgeberechtigten erforderlich – getrennt nach dem jeweiligen Verwendungszweck.",
+        "Fotos dürfen ohne Einwilligung auf der Kita-Website veröffentlicht werden, solange keine Namen darunterstehen.",
+        "Mit dem Abschluss des Betreuungsvertrags dürfen Eltern einer Veröffentlichung rechtlich nicht mehr widersprechen.",
+        "Die DSGVO verbietet jede Form von Fotografie in Kindertagesstätten, einschließlich interner Portfolios."
       ],
-      "question": "Welcher Grundsatz gilt für das Fotografieren und Veröffentlichen von Bildern von Kindern in der sozialpädagogischen Praxis?",
-      "type": "single"
+      "correctIndices": [
+        0
+      ],
+      "explanation": "Auch ohne Namensnennung sind erkennbare Kinder personenbezogen identifizierbar (Option B falsch). Einwilligungen müssen freiwillig (Kopplungsverbot!), zweckspezifisch und widerrufbar sein – Portfolios sind bei entsprechender Rechtsgrundlage/Einwilligung selbstverständlich möglich."
     },
     {
+      "id": "v2-q2",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Aussagen zum Datenschutz, zur Datenweitergabe und zur Aufbewahrung in rheinland-pfälzischen Kitas sind korrekt? (Wählen Sie alle zutreffenden Antworten)",
+      "options": [
+        "Für den fachlichen Austausch mit Grundschule oder Therapiepraxis ist eine zweckgebundene, informierte Einwilligung der Sorgeberechtigten erforderlich.",
+        "Bei gewichtigen Anhaltspunkten für eine Kindeswohlgefährdung (§ 8a SGB VIII) besteht ein eigener, von der Einwilligung unabhängiger gesetzlicher Fall für die Übermittlung der erforderlichen Daten.",
+        "Personenbezogene Unterlagen über Kinder müssen nach Beendigung des Betreuungsvertrags für immer auf den privaten Laptops der Fachkräfte gespeichert bleiben.",
+        "Private Messenger wie WhatsApp auf privaten Smartphones sind nach Einschätzung des LfDI RLP für dienstliche Kinderdaten unzulässig."
+      ],
       "correctIndices": [
         0,
-        2
+        1,
+        3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Personenbezogene Daten (Art. 4 DSGVO) müssen durch geeignete technische und organisatorische Maßnahmen (TOM) geschützt werden (Art. 32 DSGVO). Öffentliche Clouds ohne Verschlüsselung und ungesicherte USB-Sticks verstoßen dagegen.",
-      "id": "quiz-2",
-      "options": [
-        "Technische und organisatorische Maßnahmen (TOM) müssen den unbefugten Zugriff auf digitale Kinderdaten verhindern.",
-        "Passwörter für Kita-Computer müssen alle zwei Tage gewechselt und im Gruppenraum ausgehängt werden.",
-        "Die Speicherung sensibler Daten erfordert eine Rechtsgrundlage oder eine Einwilligung nach DSGVO.",
-        "Datensicherung ist eine freiwillige Leistung ohne rechtliche Relevanz für Träger."
-      ],
-      "question": "Welche Aussagen zum Datenschutz (DSGVO) in der Kita sind fachlich korrekt? (Mehrfachauswahl)",
-      "type": "multi"
+      "explanation": "Optionen A, B und D geben DSGVO, Sozialdatenschutz, § 8a SGB VIII und LfDI-RLP-Hinweise exakt wieder. Aufbewahrung und Löschung bzw. Aushändigung nach Vertragsende folgen dem trägerspezifischen Datenschutz- und Löschkonzept – private Laptops sind tabu (Option C falsch)."
     },
     {
-      "correctIndices": [
-        2
-      ],
+      "id": "v2-q3",
+      "type": "case",
       "difficulty": "pruefung",
-      "explanation": "Die Gesamtkosten (Fixkosten + variable Kosten pro Kind * Anzahl) müssen durch die Anzahl der Kinder geteilt werden. 100€ + (5€ * 20) = 200€ / 20 = 10€ pro Kind.",
-      "id": "quiz-3",
+      "question": "Rechenfall: Für einen Hortausflug fallen 150,00 € feste Buskosten und 30,00 € pauschale Führungsgebühr an. Zusätzlich kostet der Eintritt 4,50 € und das Mittagspaket 2,50 € pro Kind. Es nehmen 20 Kinder teil. Wie hoch sind die Gesamtkosten pro Kind?",
       "options": [
-        "8,00 €",
-        "9,00 €",
-        "10,00 €",
-        "12,50 €"
+        "14,00 € pro Kind",
+        "16,00 € pro Kind",
+        "15,50 € pro Kind",
+        "18,00 € pro Kind"
       ],
-      "question": "Für einen Wanderausflug fallen feste Buskosten von 100,00 € an sowie Eintrittskosten von 5,00 € pro Kind. Es nehmen 20 Kinder teil. Wie hoch sind die Gesamtkosten pro Kind bei einer exakten Kalkulation?",
-      "type": "case"
-    },
-    {
       "correctIndices": [
         1
       ],
-      "difficulty": "basis",
-      "explanation": "Tabellenkalkulationsprogramme (wie Excel oder LibreOffice Calc) eignen sich optimal für mathematische Berechnungen, Budgetierungen und Kostenkalkulationen.",
-      "id": "quiz-4",
-      "options": [
-        "Ein Bildbearbeitungsprogramm wie Photoshop",
-        "Ein Tabellenkalkulationsprogramm wie Excel oder LibreOffice Calc",
-        "Ein reines Textverarbeitungsprogramm ohne Tabellenfunktion",
-        "Ein Videobearbeitungsprogramm"
-      ],
-      "question": "Mit welchem Standardsoftware-Tool lässt sich eine Kostenkalkulation für ein Sommerfest am effizientesten erstellen?",
-      "type": "single"
+      "explanation": "Fixkosten: 150 € + 30 € = 180 €. Variable Kosten pro Kind: 4,50 € + 2,50 € = 7,00 € (× 20 Kinder = 140 €). Gesamtkosten: 180 € + 140 € = 320 €. Pro Kind: 320 € ÷ 20 = 16,00 €."
     },
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q4",
+      "type": "single",
       "difficulty": "vertiefung",
-      "explanation": "Das Urheberrecht schützt persönliche geistige Schöpfungen (wie Texte, Grafiken, Lieder) automatisch ab Entstehung, unabhängig von einer Registrierung.",
-      "id": "quiz-5",
+      "question": "Welche Auswirkung hat es auf die Pro-Kopf-Kosten eines Ausflugs, wenn 4 von 20 angemeldeten Kindern kurzfristig erkranken und die Buspauschale (Fixkosten) voll bezahlt werden muss?",
       "options": [
-        "Werke sind nur dann urheberrechtlich geschützt, wenn sie kostenpflichtig im Handel erworben wurden.",
-        "Das Urheberrecht schützt geistige Schöpfungen (z. B. selbst gestaltete Elternbriefe, Lieder, Grafiken) automatisch ab ihrer Entstehung.",
-        "Lehrkräfte und Erzieher:innen dürfen urheberrechtlich geschützte Bilder aus dem Internet für den Kita-Aushang beliebig vervielfältigen.",
-        "Das Urheberrecht erlischt in Bildungseinrichtungen grundsätzlich nach einem Jahr."
+        "Die Pro-Kopf-Kosten sinken automatisch, weil insgesamt weniger Kinder mitfahren.",
+        "Die Pro-Kopf-Kosten bleiben rechnerisch exakt gleich.",
+        "Die Pro-Kopf-Kosten steigen, weil sich die unveränderten Fixkosten nun auf weniger teilnehmende Kinder verteilen.",
+        "Fixkosten entfallen bei Krankheit einzelner Kinder gesetzlich immer automatisch."
       ],
-      "question": "Was versteht man im Kontext digitaler Medien im Wesentlichen unter dem Urheberrecht?",
-      "type": "single"
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Während nicht genutzte variable Kosten (z. B. Einzel-Eintritte an der Kasse) entfallen können, bleiben Fixkosten (wie eine Buspauschale) konstant und erhöhen bei sinkender Personenzahl den Fixkostenanteil pro Kopf. Deshalb sind Puffer und Träger-/Fördervereinsabsprachen wichtig."
+    },
+    {
+      "id": "v2-q5",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Welche Aussage zum Urheberrecht (§ 2 UrhG) im sozialpädagogischen Berufsalltag ist richtig?",
+      "options": [
+        "Bilder aus einer Online-Bildersuche dürfen für Kita-Flyer frei verwendet werden, solange kein ©-Zeichen im Bild steht.",
+        "Das Urheberrecht erlischt automatisch ein Jahr nach Veröffentlichung einer Webseite.",
+        "Gemeinnützige Kindertagesstätten und Jugendzentren sind grundsätzlich vom Urheberrecht befreit.",
+        "Texte, Fotos, Illustrationen und Lieder sind automatisch ab ihrer Entstehung geschützt; für Flyer und Elternbriefe sollten daher eigene Werke, lizenzierte Medien oder korrekt gekennzeichnete freie Lizenzen verwendet werden."
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Das Urheberrecht entsteht automatisch mit der Schöpfung des Werks (§ 2 UrhG) ohne Registrierung oder ©-Vermerk und gilt auch für gemeinnützige Einrichtungen."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "pruefung",
+      "question": "Welche Maßnahmen zählen zu wirksamen technischen und organisatorischen Maßnahmen (TOM) für Datensicherheit nach Art. 32 DSGVO in einer Einrichtung? (Wählen Sie alle zutreffenden Antworten)",
+      "options": [
+        "Nutzung dienstlicher, verschlüsselter Endgeräte mit persönlichen Zugängen und automatischer Bildschirmsperre.",
+        "Regelmäßige, gesicherte Backups (Sicherheitskopien) wichtiger Dokumentationen getrennt vom Hauptgerät.",
+        "Verschlossene Aufbewahrung analoger Akten sowie datenschutzkonforme Vernichtung nicht mehr benötigter Notfall- und Ausflugslisten.",
+        "Aufhängen des gemeinsamen Gruppenpassworts auf einem Klebezettel direkt am Monitor im Flur."
+      ],
+      "correctIndices": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Verschlüsselte Dienstgeräte mit Zugriffsschutz, regelmäßige Backups sowie sichere Aufbewahrung und Aktenvernichtung bilden zentrale TOM nach Art. 32 DSGVO. Offen sichtbare Gruppenpasswörter (Option D) sind ein grober Sicherheitsverstoß."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Datenschutz in der Kita – FAQ",
+      "url": "https://www.datenschutz.rlp.de/themen/datenschutz-in-der-kita-faq",
+      "publisher": "Landesbeauftragter für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz (LfDI RLP)",
+      "note": "Aktuelle RLP-Praxisantworten zu Einwilligungen, Messengern, Dokumentation, Kooperation und Löschfristen"
+    },
+    {
+      "title": "Recht am eigenen Bild – Datenschutzhinweise für Foto- und Filmaufnahmen",
+      "url": "https://www.datenschutz.rlp.de/themen/recht-am-eigenen-bild",
+      "publisher": "Landesbeauftragter für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz (LfDI RLP)",
+      "note": "Hinweise zu Bild- und Tonaufnahmen, Einwilligungen und Persönlichkeitsrechten in RLP"
+    },
+    {
+      "title": "Flyer: Datenschutz in Kitas (PDF)",
+      "url": "https://kita.rlp.de/fileadmin/kita/Traeger_und_Fachkraefte/Datenschutz/Dokumente/Flyer_Datenschutz_in_Kitas.pdf",
+      "publisher": "Ministerium für Bildung RLP / LfDI RLP (Kita-Server RLP)",
+      "note": "Kompakte Praxishilfe für Träger, Leitungen und Fachkräfte in Rheinland-Pfalz"
+    },
+    {
+      "title": "SGB VIII § 61 & § 65 – Sozialdatenschutz und besonderer Vertrauensschutz",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__65.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Besonderer Vertrauensschutz in der persönlichen und erzieherischen Hilfe der Kinder- und Jugendhilfe"
+    },
+    {
+      "title": "Kunsturhebergesetz (KunstUrhG) § 22 – Recht am eigenen Bild",
+      "url": "https://www.gesetze-im-internet.de/kunsturhg/__22.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Gesetzliche Grundlage für die Einwilligungspflicht bei Veröffentlichung von Bildnissen"
+    },
+    {
+      "title": "Urheberrechtsgesetz (UrhG) § 2 – Geschützte Werke",
+      "url": "https://www.gesetze-im-internet.de/urhg/__2.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Schutzumfang für Sprachwerke, Bilder, Grafiken, Musik und Filmwerke im Berufsfeld"
     }
   ]
 }

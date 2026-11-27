@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Download, RotateCcw, Upload, X, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useProgress } from '../../context/ProgressContext';
 import { exportProgressJson } from '../../lib/storage';
@@ -13,6 +13,15 @@ export const BackupModal: React.FC<BackupModalProps> = ({ open, onClose }) => {
   const [importText, setImportText] = useState('');
   const [feedback, setFeedback] = useState<{ ok: boolean; msg: string } | null>(null);
   const [confirmReset, setConfirmReset] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [open, onClose]);
 
   if (!open) return null;
 
@@ -46,6 +55,7 @@ export const BackupModal: React.FC<BackupModalProps> = ({ open, onClose }) => {
       }
     };
     reader.readAsText(file);
+    e.target.value = '';
   };
 
   const handleImportText = () => {
@@ -62,11 +72,22 @@ export const BackupModal: React.FC<BackupModalProps> = ({ open, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm">
-      <div className="w-full max-w-lg rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl dark:border-slate-700 dark:bg-ink-800">
-        <div className="flex items-center justify-between">
-          <h3 className="font-serif text-xl font-bold text-slate-900 dark:text-white">
-            Lernfortschritt sichern & verwalten
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4 backdrop-blur-sm"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="backup-modal-title"
+    >
+      <div className="max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl dark:border-slate-700 dark:bg-ink-800">
+        <div className="flex items-center justify-between gap-2">
+          <h3
+            id="backup-modal-title"
+            className="font-serif text-xl font-bold text-slate-900 dark:text-white"
+          >
+            Lernfortschritt sichern &amp; verwalten
           </h3>
           <button
             type="button"
@@ -79,11 +100,16 @@ export const BackupModal: React.FC<BackupModalProps> = ({ open, onClose }) => {
         </div>
 
         <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-          Dein Fortschritt (abgeschlossene Einheiten, Quiz-Bestwerte, Lernkarten, Notizen und Streak) wird automatisch im <code className="rounded bg-slate-100 px-1 py-0.5 text-xs dark:bg-slate-800">localStorage</code> gespeichert.
+          Dein Fortschritt (abgeschlossene Einheiten, Quiz-Bestwerte, Lernkarten, Lesezeichen, Notizen und Streak) wird automatisch lokal im{' '}
+          <code className="rounded bg-slate-100 px-1 py-0.5 text-xs dark:bg-slate-800">
+            localStorage
+          </code>{' '}
+          gespeichert. Backups im Format <code className="rounded bg-slate-100 px-1 py-0.5 text-xs dark:bg-slate-800">version: 1</code> bleiben auch bei aktualisierten Inhalten kompatibel.
         </p>
 
         {feedback && (
           <div
+            role="status"
             className={`mt-3 flex items-center gap-2 rounded-xl border p-3 text-xs font-semibold ${
               feedback.ok
                 ? 'border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-200'
@@ -157,7 +183,7 @@ export const BackupModal: React.FC<BackupModalProps> = ({ open, onClose }) => {
             ) : (
               <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl bg-rose-50 p-3 dark:bg-rose-950/40">
                 <span className="text-xs font-semibold text-rose-800 dark:text-rose-200">
-                  Wirklich alle Quizze, Notizen & Lernkarten löschen?
+                  Wirklich alle Quizze, Notizen &amp; Lernkarten löschen?
                 </span>
                 <div className="flex gap-2">
                   <button

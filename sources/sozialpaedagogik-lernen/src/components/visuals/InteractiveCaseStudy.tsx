@@ -49,6 +49,10 @@ export const InteractiveCaseStudy: React.FC<InteractiveCaseStudyProps> = ({
   const allAnswered = steps.length > 0 && answeredCount === steps.length;
 
   useEffect(() => {
+    setSelectedOptions({});
+  }, [caseStudy]);
+
+  useEffect(() => {
     if (allAnswered && !isCompleted) {
       onComplete();
     }
@@ -179,9 +183,9 @@ export const InteractiveCaseStudy: React.FC<InteractiveCaseStudyProps> = ({
                         <p className="mt-1.5 text-sm leading-relaxed">
                           {chosenOpt.feedback}
                         </p>
-                        <div className="mt-2.5 inline-flex items-center gap-1.5 rounded-lg bg-white/75 px-2.5 py-1 text-xs font-semibold text-slate-800 dark:bg-slate-900/70 dark:text-slate-200">
-                          <BookOpen className="h-3.5 w-3.5 text-teal-600" />
-                          Theorie-/Lehrplanbezug: {chosenOpt.theoryLink}
+                        <div className="mt-2.5 inline-flex items-start gap-1.5 rounded-lg bg-white/75 px-2.5 py-1.5 text-xs font-semibold text-slate-800 dark:bg-slate-900/70 dark:text-slate-200">
+                          <BookOpen className="mt-0.5 h-3.5 w-3.5 shrink-0 text-teal-600" />
+                          <span>Fachliche Begründung / Theoriebezug: {chosenOpt.theoryLink}</span>
                         </div>
                       </>
                     );

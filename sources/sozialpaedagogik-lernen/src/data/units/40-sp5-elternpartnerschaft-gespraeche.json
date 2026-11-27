@@ -3,10 +3,12 @@
   "number": 40,
   "moduleCode": "S-SP-5",
   "moduleArea": "sp-pflicht",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-5 · Erziehungs- und Bildungspartnerschaft & Elterngespräche (Lehrplan RLP 2024)",
   "title": "Erziehungs- und Bildungspartnerschaft & Elterngespräche",
-  "subtitle": "Familiendiversität, Genogramm, systemische Arbeit, Marte Meo/PEKiP & Gesprächsführung",
+  "subtitle": "Zusammenarbeit auf Augenhöhe, kultursensible Elternarbeit, Gesprächsstruktur, Konflikte & Datenschutz",
   "year": "2./3. Jahr",
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 30,
   "hoursRef": "120 Std. (Teil 3/3)",
   "pdfPages": "S. 37–38",
   "crossCuttingTags": [
@@ -14,382 +16,459 @@
     "Inklusion",
     "Sprachbildung"
   ],
-  "summary": "Diese Einheit vermittelt angehenden Erzieherinnen und Erziehern fundierte Kompetenzen zur Gestaltung einer partizipativen und kultursensiblen Erziehungs- und Bildungspartnerschaft nach Lehrplan RLP S-SP-5. Sie verbindet systemische Diagnostik (Genogrammarbeit, Marte Meo), rechtliche Grundlagen (§ 8a SGB VIII) und professionelle Gesprächsführung (Schulz von Thun) für die souveräne Praxis in Kindertageseinrichtungen, Ganztagsschulen und der Kinder- und Jugendhilfe.",
+  "summary": "Eine tragfähige Zusammenarbeit mit Eltern gelingt nicht durch Belehrung, sondern durch gegenseitige Anerkennung von Lebenswelt- und Fachexpertise. Diese Einheit vermittelt Grundlagen kultursensibler Erziehungs- und Bildungspartnerschaft, strukturiert Entwicklungs- und schwierige Konflikt- bzw. Sorgegespräche, ordnet systemische Ansätze (Genogramm, Marte Meo, PEKiP) sachlich ein und klärt Datenschutz und Schweigepflicht in Elterngesprächen.",
   "learningGoals": [
-    "Ich kann den Begriff der Erziehungs- und Bildungspartnerschaft rechtlich und fachlich von traditioneller, einseitiger Elternarbeit abgrenzen.",
-    "Ich kann die Diversität familiärer Lebenswelten analysieren und Genogramme zur Veranschaulichung von Familienstrukturen und Ressourcen nutzen.",
-    "Ich kann systemische Beratungsansätze (wie Marte Meo, Triple P, PEKiP) zur Förderung elterlicher Erziehungskompetenzen beschreiben und anwenden.",
-    "Ich kann Kommunikationsmodelle (z. B. Vier-Ohren-Modell nach Schulz von Thun) auf Gespräche mit Eltern anwenden und eigene professionelle Grenzen erkennen.",
-    "Ich kann Entwicklungs- und Tür-und-Angel-Gespräche methodengeleitet, partizipativ und kultursensibel vorbereiten und durchführen.",
-    "Ich kann bei Bedarfslagen und Gefährdungssituationen (§ 8a SGB VIII) professionell intervenieren und fachkompetente Hilfen (Familienbildung, HzE) hinzuziehen."
+    "Ich kann Erziehungs- und Bildungspartnerschaft rechtlich (§ 22a SGB VIII, Art. 6 Abs. 2 GG) und fachlich von einer hierarchischen, defizitorientierten Elternarbeit abgrenzen.",
+    "Ich kann kultursensible und diversitätsbewusste Elternarbeit gestalten, familiäre Lebenswelten ressourcenorientiert erfassen und Sprach- sowie Zugangsbarrieren professionell abbauen.",
+    "Ich kann Tür-und-Angel-Gespräche von strukturierten Entwicklungsgesprächen abgrenzen und ein Entwicklungsgespräch transparent, beobachtungsnah und partizipativ aufbauen.",
+    "Ich kann schwierige Gespräche (bei Konflikten, Vorwürfen oder Sorge um ein Kind) mithilfe kommunikationspsychologischer Modelle (Schulz von Thun, GFK) deeskalierend führen und eigene Beratungsgrenzen wahren.",
+    "Ich kann Datenschutz und Schweigepflicht in Elterngesprächen (geschützter Rahmen, Schutz der Daten anderer Kinder, Sorgerecht, Einwilligung bei Weitergabe) rechtssicher umsetzen."
   ],
   "sections": [
     {
-      "body": "Eine gelingende Erziehungs- und Bildungspartnerschaft nach Modul S-SP-5 überwindet das traditionelle, hierarchische Verständnis von \"Elternarbeit\" (bei dem Eltern primär als Zuarbeiter oder Kunden verstanden wurden). Auf Basis des RLP Rheinland-Pfalz (2024) und des SGB VIII (u. a. § 22, § 23, § 24) gestalten Erzieherinnen und Erzieher die Zusammenarbeit als gleichberechtigten Dialog und Kooperation. Dabei wird Diversität als Normalität begriffen: Familien unterscheiden sich in ihren soziokulturellen Hintergründen, Familienformen (Regenbogenfamilien, Patchwork, Alleinerziehende) und sozioökonomischen Ressourcen. Fachkräfte analysieren diese Lebenswelten kultursensibel, begegnen Eltern vorurteilsbewusst und schaffen Rahmenbedingungen, die echte Partizipation ermöglichen.",
+      "heading": "1. Zusammenarbeit auf Augenhöhe & kultursensible Elternarbeit",
+      "keyTakeaway": "Erziehungs- und Bildungspartnerschaft verbindet zwei unterschiedliche Expertisen auf Augenhöhe: Eltern als Expertinnen und Experten ihres Kindes und Fachkräfte als Expertinnen und Experten pädagogischer Begleitung.",
+      "body": "Eltern tragen nach Art. 6 Abs. 2 GG die primäre Verantwortung für Pflege und Erziehung ihrer Kinder; Einrichtungen ergänzen und unterstützen diese Erziehung in der Familie. § 22a Abs. 2 SGB VIII verpflichtet Einrichtungen ausdrücklich zur Zusammenarbeit mit den Erziehungsberechtigten zum Wohl der Kinder sowie zu deren Beteiligung an wesentlichen Entscheidungen. Eine zeitgemäße Erziehungs- und Bildungspartnerschaft verabschiedet sich von einer hierarchischen „Elternarbeit“, in der Fachkräfte einseitig belehren oder Eltern lediglich bei Problemen einbestellen. Stattdessen begegnen sich zwei unterschiedliche, gleichwertige Expertisen: Eltern kennen Biografie, Alltag, Werte und Ressourcen ihres Kindes im familiären Kontext; pädagogische Fachkräfte bringen Fachwissen, systematische Beobachtungen im Gruppenkontext und professionelle Reflexion ein. Kultursensible und diversitätsbewusste Elternarbeit erkennt vielfältige Familienformen (z. B. Eineltern-, Patchwork-, Regenbogen-, Pflege- und Mehrgenerationenfamilien) sowie unterschiedliche sozioökonomische und kulturelle Lebenslagen vorurteilsbewusst an, ohne Familien zu kulturalisieren. Bei Sprachbarrieren organisieren Einrichtungen nach Möglichkeit qualifizierte Sprachmittlung, mehrsprachige Informationen oder Bildhilfen – Kinder oder ältere Geschwister sollten bei sensiblen Elterngesprächen grundsätzlich nicht als Dolmetscher eingesetzt werden, um Loyalitätskonflikte und Rollenüberforderung zu vermeiden.",
       "bulletPoints": [
-        "Abkehr von defizitorientierter Elternarbeit hin zu partnerschaftlicher Kooperation (Co-Konstruktion).",
-        "Rechtliche Grundlagen nach SGB VIII (Förderung der Entwicklung des Kindes in der Familie).",
-        "Wertschätzung familiärer Vielfalt und soziokultureller Hintergründe.",
-        "Partizipative Einbindung von Eltern in Konzeption und Alltag der Einrichtung."
+        "Rechtlicher Rahmen: Art. 6 Abs. 2 GG (Elternverantwortung) und § 22a Abs. 2 SGB VIII (Zusammenarbeit und Beteiligung).",
+        "Partnerschaft auf Augenhöhe: Wechselseitige Anerkennung familiärer Lebensweltexpertise und pädagogischer Fachexpertise.",
+        "Kultursensibilität: Offene Neugier statt stereotyper Zuschreibungen; Vielfalt der Familienformen selbstverständlich einbeziehen.",
+        "Barrierearme Kommunikation: Qualifizierte Sprachmittlung und verständliche Sprache statt Kinder als Übersetzer."
       ],
-      "heading": "1. Grundlagen der Erziehungs- und Bildungspartnerschaft & Familiendiversität",
-      "keyTakeaway": "Erziehungs- und Bildungspartnerschaft basiert auf gegenseitiger Anerkennung, Partizipation und der Wertschätzung familiärer Diversität als professioneller Grundhaltung.",
-      "praxisTip": "Führen Sie beim Start in der Einrichtung einen kultursensiblen \"Willkommensbogen\" ein, der nicht nur Stammdaten, sondern auch elterliche Erwartungen, Ressourcen und sprachliche Hintergründe erfasst."
+      "praxisTip": "Beginnen Sie Kennenlerngespräche mit offenen Fragen zur Expertise der Eltern („Was beruhigt Ihr Kind, wenn es traurig ist? Worauf sind Sie besonders stolz?“), statt nur Formulare abzuhaken."
     },
     {
-      "body": "Systemische Arbeitsweisen bieten fundierte Werkzeuge, um familiäre Dynamiken und Bedarfslagen methodengeleitet zu erfassen. Die Genogrammarbeit visualisiert Beziehungsstrukturen, Kommunikationsmuster und generationsübergreifende Prägungen über mindestens drei Generationen hinweg und hilft, ungenutzte Ressourcen sowie Belastungen (z. B. Trennung, Migration) zu identifizieren. Ergänzend stützen evidenzbasierte Programme wie Marte Meo (videobasierte Interaktionsanalyse), Triple P (positive Erziehung) oder das PEKiP (Eltern-Kind-Programm im ersten Lebensjahr) die elterlichen Erziehungskompetenzen. Erzieher:innen erkennen dabei ihre eigenen professionellen Beratungsgrenzen: Bei komplexen Problemlagen (z. B. Sucht, psychische Krisen, akute Überforderung) verweisen sie zielgerichtet auf Angebote der Familienbildung, Erziehungsberatungsstellen oder Hilfen zur Erziehung (HzE nach SGB VIII) und wirken bei Verdacht auf Kindeswohlgefährdung nach § 8a SGB VIII mit.",
+      "heading": "2. Entwicklungsgespräche klar und transparent strukturieren",
+      "keyTakeaway": "Gute Entwicklungsgespräche stützen sich auf konkrete, wertfreie Beobachtungen, laden aktiv zur Elternperspektive ein und münden in realistische gemeinsame Absprachen – statt in durchschaubare „Lob-Kritik-Lob“-Floskeln.",
+      "body": "Im Einrichtungsalltag erfüllen Tür-und-Angel-Gespräche eine wichtige Brückenfunktion für kurze, wohlwollende Tagesinformationen (z. B. Schlaf, Stimmung, besondere Erlebnisse) – sie sind jedoch ungeeignet für sensible Entwicklungsfragen, Konflikte oder persönliche Belastungen. Hierfür braucht es geplante, geschützte Entwicklungsgespräche. Eine fachlich überzeugende Gesprächsstruktur verzichtet auf schematische Tricks wie eine aufgesetzte „Sandwich-Methode“ (die Eltern oft als manipulatives „Verpacken“ von Kritik erleben) und setzt stattdessen auf transparente, nachvollziehbare Phasen: (1) Vorbereitung mit datierten, verhaltensnahen Beobachtungen (z. B. Portfolio, Lerngeschichten), rechtzeitiger Einladung samt Frage nach Elternanliegen sowie ruhigem, störungsfreiem Raum; (2) wertschätzender Einstieg mit Klärung von Ziel, Zeitrahmen und Vertraulichkeit; (3) ressourcenorientierter Austausch auf Augenhöhe, in dem die Beobachtungen aus der Einrichtung und die Wahrnehmungen der Eltern gleichberechtigt nebeneinanderstehen; (4) sachliches, verhaltensnahes Ansprechen eventueller Entwicklungsfragen oder Sorgen (getrennt nach Beobachtung und Hypothese, ohne Diagnosen); (5) gemeinsames Entwickeln konkreter, realistischer nächster Schritte (Wer unterstützt wobei?); (6) strukturierter Abschluss mit kurzer Zusammenfassung, Termin für eine Rückmeldung und knapper Ergebnisdokumentation.",
       "bulletPoints": [
-        "Genogrammarbeit als systemisches Instrument zur Erfassung von Familienstrukturen und Ressourcen.",
-        "Einsatz systemischer Ansätze wie Marte Meo, Triple P und PEKiP zur Stärkung der Elternkompetenz.",
-        "Erkennung professioneller Beratungsgrenzen und strukturierte Weiterverweisung (Familienbildung, HzE).",
-        "Verfahrensverantwortung bei Kindeswohlgefährdung (§ 8a SGB VIII) im multiprofessionellen Team."
+        "Tür-und-Angel-Gespräch: Kurz, alltagsnah, wertschätzend – niemals für sensible Konflikte oder Entwicklungsprobleme im Flur.",
+        "Entwicklungsgespräch: Geplant, geschützter Raum, beobachtungsbasiert, mit Einladung eigener Elternthemen.",
+        "Klare 6-Phasen-Struktur: Vorbereitung → Einstieg/Rahmen → Ressourcen-Austausch → Sorgen/Entwicklungsfragen sachlich klären → gemeinsame Vereinbarung → Abschluss/Dokumentation.",
+        "Beobachtungsnähe: Konkrete Beispiele und Portfolios schaffen Vertrauen und vermeiden pauschale Bewertungen."
       ],
-      "heading": "2. Systemische Diagnostik, Genogrammarbeit & professionelle Grenzen",
-      "keyTakeaway": "Systemische Methoden wie Genogramme und Marte Meo machen familiäre Ressourcen sichtbar und definieren klare Schnittstellen zu Fachdiensten und Hilfen zur Erziehung.",
-      "praxisTip": "Erstellen Sie im Team eine übersichtliche lokale Kooperationsmatrix (Adressen, Ansprechpersonen, Kontaktdaten) von Jugendämtern, Erziehungsberatungsstellen und Familienbildungsstätten für eine schnelle Weiterverweisung."
+      "praxisTip": "Geben Sie Eltern bereits mit der Einladung zwei kurze Leitfragen mit („Was erleben Sie gerade als besondere Stärke Ihres Kindes? Worüber möchten Sie mit uns sprechen?“) – so entstehen echte Dialoge statt einseitiger Berichte."
     },
     {
-      "body": "Die professionelle Gestaltung von Gesprächen mit Eltern (Tür-und-Angel-Gespräche sowie strukturierte Entwicklungs- und Beratungsgespräche) erfordert fundierte kommunikationswissenschaftliche Kompetenzen. Das Vier-Ohren-Modell von Friedemann Schulz von Thun (Sach-Ohr, Selbstkundgabe, Beziehung, Appell) und Konzepte der Gewaltfreien Kommunikation (GFK nach Marshall Rosenberg) helfen, Kommunikationsstörungen zu analysieren und Missverständnisse aufzulösen. Entwicklungsgespräche werden methodengeleitet vorbereitet (Beobachtungsprotokolle, Portfolio, Leitfaden) und partizipativ durchgeführt. Fachkräfte lernen dabei, ihre eigene pädagogische Einschätzung und fachliche Diagnose selbstbewusst, transparent und wertschätzend gegenüber Eltern – und ggf. Lehrkräften an Schnittstellen – zu begründen und zu vertreten.",
+      "heading": "3. Schwierige Gespräche, Kommunikationsmodelle & Beratungsgrenzen",
+      "keyTakeaway": "In Konflikt- oder Sorgegesprächen helfen das Vier-Ohren-Modell, aktives Zuhören und klare Ich-Botschaften beim Deeskalieren – zugleich gehört das Erkennen eigener Beratungsgrenzen zur Professionalität.",
+      "body": "Nicht alle Elterngespräche verlaufen harmonisch: Vorwürfe an der Garderobe, unterschiedliche Erziehungsvorstellungen, akute familiäre Krisen oder die begründete Sorge um die Entwicklung eines Kindes stellen hohe kommunikative Anforderungen. Das Vier-Seiten-Modell (Vier-Ohren-Modell) von Friedemann Schulz von Thun hilft, angespannte Botschaften zu entschlüsseln: Jede Äußerung enthält einen Sachinhalt, eine Selbstkundgabe (Gefühl/Sorge des Senders), einen Beziehungshinweis und einen Appell. Wer etwa hinter dem wütenden Satz „Hier passt niemand auf!“ nicht nur einen persönlichen Angriff (Beziehungsohr), sondern die dahinterliegende Angst um das eigene Kind (Selbstkundgabe) erkennt, kann deutlich ruhiger reagieren. Elemente der Gewaltfreien Kommunikation (Marshall Rosenberg: Beobachtung – Gefühl – Bedürfnis – Bitte) und aktives Zuhören („Sie sind gerade sehr erschrocken über den Kratzer und wünschen sich Sicherheit…“) wirken deeskalierend, ohne die eigene pädagogische Einschätzung aufzugeben. Auch in schwierigen Gesprächen vertreten Fachkräfte ihre Beobachtungen klar, sachlich und zugewandt – respektieren aber konsequent ihre professionellen Grenzen: Erzieherinnen und Erzieher leisten keine Paarberatung, Psychotherapie oder Schuldnerberatung, sondern verweisen wertschätzend auf passende Fachstellen (Familienbildung, Erziehungsberatung, Frühe Hilfen, Hilfen zur Erziehung). Bei gewichtigen Anhaltspunkten für eine Kindeswohlgefährdung greift verbindlich das Schutzverfahren nach § 8a Abs. 4 SGB VIII.",
       "bulletPoints": [
-        "Analyse von Kommunikationssituationen mit dem Vier-Ohren-Modell und der GFK.",
-        "Souveräne Vorbereitung und Durchführung von Tür-und-Angel- sowie Entwicklungsgesprächen.",
-        "Partizipative Gesprächsführung auf Augenhöhe statt einseitiger Belehrung.",
-        "Selbstbewusstes Vertreten der eigenen pädagogischen Fachkompetenz gegenüber Eltern und Lehrkräften."
+        "Vier-Seiten-Modell (Schulz von Thun): Sachinhalt, Selbstkundgabe, Beziehung und Appell bewusst unterscheiden.",
+        "Deeskalation bei Vorwürfen: Aus dem öffentlichen Flur gehen, Sorge/Gefühl anerkennen, nicht in Rechtfertigungsabwehr kippen, Termin im geschützten Rahmen anbieten.",
+        "Sorgegespräche: Verhaltensnahe Beobachtungen benennen, Perspektive der Eltern erfragen, konkrete Unterstützungsmöglichkeiten anbieten.",
+        "Professionelle Grenzen: Eigene Rolle kennen und zielgerichtet an Familienbildung, Erziehungsberatung, Frühe Hilfen oder Jugendhilfe weiterverweisen."
       ],
-      "heading": "3. Kommunikationsanalyse & souveräne Gesprächsführung",
-      "keyTakeaway": "Methodengeleitete Gesprächsführung verbindet wertschätzendes Zuhören mit der klaren, selbstbewussten Vertretung der eigenen pädagogischen Fachlichkeit.",
-      "praxisTip": "Nutzen Sie für Entwicklungsgespräche die 'Sandwich-Methode' (positive Beobachtung – differenzierte Herausforderung/Entwicklungsfeld – gemeinsame Zielvereinbarung), um eine konstruktive Gesprächsatmosphäre zu sichern."
+      "praxisTip": "Halten Sie bei wütender Kritik innerlich kurz inne und übersetzen Sie den Vorwurf in das zugrundeliegende Bedürfnis der Eltern („Sorge um Sicherheit/Zugehörigkeit des Kindes“) – das entschärft den Ton meist sofort."
+    },
+    {
+      "heading": "4. Systemische Werkzeuge, Lebensweltorientierung & Datenschutz/Schweigepflicht",
+      "keyTakeaway": "Systemische Methoden wie Genogrammarbeit oder Marte Meo richten den Blick auf familiäre Ressourcen; in jedem Elterngespräch gelten strenge Regeln zu Vertraulichkeit, Drittschutz und Sorgerecht.",
+      "body": "Um familiäre Lebenswelten jenseits vorschneller Urteile zu verstehen, nutzt die Sozialpädagogik systemische Perspektiven. Ein Genogramm – die grafische Darstellung von Familien- und Generationsbeziehungen, wichtigen Lebensereignissen sowie Ressourcen und Belastungen – kann (etwa in der Familienhilfe oder beratenden Begleitung, stets freiwillig und unter Achtung der Privatsphäre) hilfreiche Unterstützungsnetzwerke sichtbar machen. Ergänzend stehen verschiedene Familien- und Elternbildungsansätze im Sozialraum zur Verfügung, die fachlich differenziert eingeordnet werden sollten: Marte Meo (entwickelt von Maria Aarts, lat. „aus eigener Kraft“) arbeitet videobasiert mit gelingenden Alltagsinteraktionen zur Stärkung elterlicher Feinfühligkeit; PEKiP (Prager-Eltern-Kind-Programm) begleitet Eltern mit Säuglingen im ersten Lebensjahr spielerisch in Bewegung und Beziehung; Elterntrainings wie Triple P (Positive Parenting Program) vermitteln strukturierte Erziehungsstrategien, werden fachlich jedoch hinsichtlich ihrer Passung zu unterschiedlichen Lebenslagen und kulturellen Hintergründen reflektiert betrachtet. Unverzichtbares Fundament jeder Elternkommunikation sind Datenschutz und Schweigepflicht (§§ 62, 65 SGB VIII / DSGVO): Sensible Gespräche finden niemals vor anderen Eltern oder Kindern statt; bei Konflikten zwischen Kindern werden grundsätzlich keine Namen oder personenbezogenen Informationen über andere Kinder preisgegeben; bei getrennt lebenden Eltern sind die Sorgerechtsverhältnisse (Alltagsangelegenheiten vs. Angelegenheiten von erheblicher Bedeutung, § 1687 BGB) zu beachten; und jede Weitergabe von Gesprächsinhalten oder Beobachtungen an externe Stellen (Schule, Therapie, Beratungsstelle) erfordert eine ausdrückliche schriftliche Einwilligung der Sorgeberechtigten.",
+      "bulletPoints": [
+        "Genogramm & Lebensweltorientierung: Familiäre Netzwerke, Ressourcen und Übergänge freiwillig und respektvoll erschließen.",
+        "Ansätze sachlich einordnen: Marte Meo (videobasiert, ressourcenorientiert), PEKiP (Prager-Eltern-Kind-Programm, 1. Lebensjahr), Familienbildung & Erziehungsberatung.",
+        "Schutz Dritter: In Elterngesprächen niemals Namen, Diagnosen oder familiäre Umstände anderer Kinder weitergeben.",
+        "Vertraulichkeit & Sorgerecht: Geschützter Gesprächsraum, Beachtung des Sorgerechts bei Trennung (§ 1687 BGB) und schriftliche Einwilligung bei Weitergabe an Dritte."
+      ],
+      "praxisTip": "Fragen Eltern nach einem Beiß- oder Kratzvorfall drängend „Welches Kind war das?!“, bleiben Sie freundlich und klar beim Datenschutz: „Ich verstehe, dass Sie das beschäftigt – aus Datenschutzgründen nenne ich keine Namen anderer Kinder. Ich erkläre Ihnen aber gern genau, wie wir die Situation begleitet und Ihr Kind getröstet haben.“"
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Kommunikationsanalyse in Elterngesprächen",
-      "id": "vb-dialogue-1",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Sachebene",
-          "detail": "Inhalte, Fakten und sachliche Daten werden ausgetauscht. Beispiel: 'Leon hat heute im Morgenkreis eine Geschichte erzählt.'",
-          "example": "'Leon hat heute nicht geschlafen.'",
-          "id": "item-1",
-          "label": "Sach-Ohr / Sachaussage",
-          "metric": "Faktischer Inhalt",
-          "summary": "Der reine Informationsgehalt einer Nachricht."
-        },
-        {
-          "badge": "Selbstkundgabe",
-          "detail": "Was der Sender unbewusst oder bewusst über sich selbst preisgibt (Gefühle, Werte, Motive). Beispiel: 'Ich mache mir Sorgen um Leons Schlaf.'",
-          "example": "'Ich bin heute total gestresst.'",
-          "id": "item-2",
-          "label": "Selbstkundgabe / Offenlegung",
-          "metric": "Sender-Perspektive",
-          "summary": "Informationen über den inneren Zustand des Senders."
-        },
-        {
-          "badge": "Beziehungsohr",
-          "detail": "Wie zueinander gestanden wird; oft Quelle für Kränkungen oder Bestätigung. Beispiel: 'Sie nehmen meine Sorgen nicht ernst.'",
-          "example": "'Sie als Erzieherin verstehen meinen Sohn doch gar nicht richtig.'",
-          "id": "item-3",
-          "label": "Beziehungs-Ohr",
-          "metric": "Beziehungsstatus",
-          "summary": "Was über das Verhältnis zwischen Sender und Empfänger ausgedrückt wird."
-        },
-        {
-          "badge": "Appell-Ohr",
-          "detail": "Welcher Wunsch, Ratschlag oder Handlungsauftrag an den Empfänger gerichtet ist. Beispiel: 'Ändern Sie sofort den Mittagsschlaf-Rhythmus!'",
-          "example": "'Sie müssen dafür sorgen, dass er abends früher müde wird.'",
-          "id": "item-4",
-          "label": "Appell-Ohr",
-          "metric": "Handlungsaufforderung",
-          "summary": "Wozu der Empfänger veranlasst werden soll."
-        }
-      ],
+      "id": "vb-1",
       "kind": "dialogue",
+      "title": "Vier-Seiten-Modell nach Schulz von Thun im Konfliktgespräch",
+      "subtitle": "Aussage einer aufgebrachten Mutter an der Garderobe: „Schon wieder hat Sami einen Kratzer – hier passt niemand richtig auf!“",
+      "centerLabel": "Vier Seiten einer Nachricht",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Vier-Ohren-Modell nach Friedemann Schulz von Thun in der Elternberatung",
-      "title": "Kommunikationsanalyse mit dem Vier-Ohren-Modell"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-comparison-2",
       "isCycle": false,
       "items": [
         {
-          "badge": "Traditionell",
-          "detail": "Einseitiger Informationsfluss, Bring- und Holsituationen, Elternabende als Frontalvortrag, Defizitorientierung bei Auffälligkeiten.",
-          "example": "'Ihr Kind hat sich heute schon wieder daneben benommen.'",
-          "id": "comp-1",
-          "label": "Klassische Elternarbeit",
-          "metric": "Modell A",
-          "summary": "Eltern als Konsumenten oder Zuarbeiter ohne echte Mitbestimmung."
+          "id": "svt-1",
+          "badge": "Sachebene",
+          "label": "Sachinhalt",
+          "metric": "Fakten",
+          "summary": "Worüber informiert wird: Sami hat erneut einen Kratzer aus der Kita mitgebracht.",
+          "detail": "Sachliche Prüfung: Was genau ist geschehen, wie wurde die Wunde versorgt und dokumentiert (Verbandbuch)?",
+          "example": "„Sami hat heute Nachmittag im Garten einen kleinen Kratzer an der Wange abbekommen, den wir gekühlt und eingetragen haben.“"
         },
         {
-          "badge": "Modern (RLP)",
-          "detail": "Gleichberechtigter Dialog, Co-Konstruktion von Bildung, Einbezug der Lebenswelt, Partizipation an Konzeption und Gremien.",
-          "example": "'Lassen Sie uns gemeinsam überlegen, wie wir Leons Interessen zu Hause und in der Kita verknüpfen können.'",
-          "id": "comp-2",
-          "label": "Erziehungs- und Bildungspartnerschaft",
-          "metric": "Modell B",
-          "summary": "Kooperation auf Augenhöhe mit gemeinsamer Verantwortung für das Kindeswohl."
+          "id": "svt-2",
+          "badge": "Selbstkundgabe",
+          "label": "Selbstoffenbarung",
+          "metric": "Gefühl & Sorge",
+          "summary": "Was die Mutter über sich zeigt: Große Sorge um Sicherheit und Wohlbefinden ihres Kindes.",
+          "detail": "Hinter der Lautstärke stehen oft Angst, Ohnmacht oder eigene Belastung – genau hier setzt deeskalierende Empathie an.",
+          "example": "„Ich merke, Sie sind gerade sehr erschrocken und besorgt, ob es Sami bei uns gut geht.“"
         },
         {
-          "badge": "Systemisch",
-          "detail": "Blick auf das gesamte Familiensystem, Genogrammarbeit, Ressourcenorientierung, multiprofessionelle Vernetzung.",
-          "example": "'Wir analysieren gemeinsam mit den Eltern die familiären Ressourcen und stützen das System durch gezielte Netzwerke.'",
-          "id": "comp-3",
-          "label": "Systemische Familienberatung",
-          "metric": "Modell C",
-          "summary": "Ganzheitliche Unterstützung des Familiensystems in Übergangssituationen."
+          "id": "svt-3",
+          "badge": "Beziehungsseite",
+          "label": "Beziehungshinweis",
+          "metric": "Vertrauen",
+          "summary": "Wie das Verhältnis erlebt wird: Zweifel an der Verlässlichkeit der Betreuung.",
+          "detail": "Wer nur auf dem Beziehungsohr hört („Sie greift mich persönlich an!“), gerät schnell in Rechtfertigung und Eskalation.",
+          "example": "Professionelle Antwort: Ruhig bleiben, Anliegen ernst nehmen und in einen geschützten Raum einladen."
+        },
+        {
+          "id": "svt-4",
+          "badge": "Appellseite",
+          "label": "Appell",
+          "metric": "Wunsch / Auftrag",
+          "summary": "Was die Mutter erreichen möchte: Verlässlichen Schutz für ihr Kind und Transparenz.",
+          "detail": "Das berechtigte Sicherheitsbedürfnis aufgreifen und konkret erklären, wie Konflikte begleitet werden – ohne Namen anderer Kinder zu nennen.",
+          "example": "„Lassen Sie uns kurz ins Büro gehen oder für morgen ein Gespräch vereinbaren, damit ich Ihnen genau schildern kann, wie wir Sami begleiten.“"
         }
-      ],
-      "kind": "comparison",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Gegenüberstellung von Elternarbeit und Bildungs- und Erziehungspartnerschaft",
-      "title": "Vergleich der Kooperationsmodelle"
+      ]
     },
     {
-      "centerLabel": "Familiensystem & Lebenswelt",
-      "id": "vb-concept-3",
-      "isCycle": true,
-      "items": [
-        {
-          "badge": "Schritt 1",
-          "detail": "Systemische Erkundung der familiären Lebenssituation, Genogrammerstellung und Erfassung soziokultureller Hintergründe.",
-          "example": "Erstellung eines Genogramms im Erstgespräch zur Visualisierung von Ressourcen.",
-          "id": "step-1",
-          "label": "Bedarfs- und Ressourcenfeststellung",
-          "metric": "Diagnostik",
-          "summary": "Analyse der familiären Lage und individuellen Bedarfslagen."
-        },
-        {
-          "badge": "Schritt 2",
-          "detail": "Planung und Durchführung von Entwicklungs- und Beratungsgesprächen auf Basis kommunikationspsychologischer Modelle.",
-          "example": "Führen eines strukturierten Entwicklungsgesprächs mit der Sandwich-Methode.",
-          "id": "step-2",
-          "label": "Partizipative Gesprächsführung",
-          "metric": "Kommunikation",
-          "summary": "Methodengeleitete und wertschätzende Dialoggestaltung."
-        },
-        {
-          "badge": "Schritt 3",
-          "detail": "Einsatz von Programmen zur Stärkung elterlicher Kompetenzen (Marte Meo, PEKiP, Triple P) oder passgenaue Weiterverweisung.",
-          "example": "Vermittlung an die Erziehungsberatungsstelle oder Familienbildung.",
-          "id": "step-3",
-          "label": "Intervention & Weiterverweisung",
-          "metric": "Unterstützung",
-          "summary": "Nutzung interner Angebote und professioneller externer Hilfen."
-        },
-        {
-          "badge": "Schritt 4",
-          "detail": "Wahrnehmung des institutionellen Schutzauftrags nach § 8a SGB VIII bei gewichtigen Anhaltspunkten für Kindeswohlgefährdung.",
-          "example": "Hinzuziehen einer insoweit erfahrenen Fachkraft im Team.",
-          "id": "step-4",
-          "label": "Kinderschutz & § 8a SGB VIII",
-          "metric": "Intervention",
-          "summary": "Prüfung und Intervention im Rahmen des institutionellen Schutzkonzepts."
-        }
-      ],
-      "kind": "concept_map",
+      "id": "vb-2",
+      "kind": "process_flow",
+      "title": "Sechs Phasen eines strukturierten Entwicklungsgesprächs",
+      "subtitle": "Transparente, beobachtungsnahe und partizipative Gesprächsführung statt schematischer Floskeln",
+      "centerLabel": "Entwicklungsgespräch",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Prozesskette der systemischen Elternkooperation im Modul S-SP-5",
-      "title": "Systemischer Prozesskreislauf der Elternkooperation"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "eg-1",
+          "badge": "Phase 1",
+          "label": "Vorbereitung & Einladung",
+          "metric": "Grundlage",
+          "summary": "Wertfreie Beobachtungen, Portfolio, ruhiger Raum, ggf. Sprachmittlung und Elternfragen einholen.",
+          "detail": "Rechtzeitige Terminabstimmung unter Berücksichtigung der Lebenslage der Familie; Sammlung konkreter Alltagsszenen aus dem Team.",
+          "example": "Einladung mit zwei kurzen Leitfragen zu Wünschen und Beobachtungen der Eltern."
+        },
+        {
+          "id": "eg-2",
+          "badge": "Phase 2",
+          "label": "Einstieg & Rahmenklärung",
+          "metric": "Vertrauen",
+          "summary": "Freundliche Begrüßung, Ziel des Gesprächs, Zeitrahmen und Vertraulichkeit benennen.",
+          "detail": "Ein klarer Rahmen senkt Anspannung und signalisiert Wertschätzung sowie professionellen Datenschutz.",
+          "example": "„Schön, dass Sie da sind. Wir haben 30 Minuten Zeit, alles Besprochene bleibt vertraulich.“"
+        },
+        {
+          "id": "eg-3",
+          "badge": "Phase 3",
+          "label": "Ressourcen & Perspektiven teilen",
+          "metric": "Augenhöhe",
+          "summary": "Beobachtungen der Kita (z. B. anhand Portfolio) und Sicht der Eltern nebeneinanderstellen.",
+          "detail": "Stärken, Interessen und Entwicklungsfortschritte werden konkret anhand von Alltagsszenen beschrieben und mit den familiären Erfahrungen abgeglichen.",
+          "example": "„In der Bauecke entwickelt Sami tolle Ideen – wie erleben Sie sein Spiel zu Hause?“"
+        },
+        {
+          "id": "eg-4",
+          "badge": "Phase 4",
+          "label": "Fragen & Sorgen sachlich klären",
+          "metric": "Beobachtungsnah",
+          "summary": "Herausforderungen ohne Vorwürfe oder Diagnosen anhand konkreter Beobachtungen besprechen.",
+          "detail": "Fakten und offene Hypothesen werden klar getrennt; Gefühle und Deutungen der Eltern erhalten Raum.",
+          "example": "„Wir beobachten, dass ihm laute Übergänge schwerfallen – kennen Sie ähnliche Situationen von zu Hause?“"
+        },
+        {
+          "id": "eg-5",
+          "badge": "Phase 5",
+          "label": "Gemeinsame Vereinbarungen",
+          "metric": "Kooperation",
+          "summary": "Konkrete, realistische nächste Schritte und ggf. externe Beratungsangebote abstimmen.",
+          "detail": "Beide Seiten vereinbaren umsetzbare Impulse für Kita und Alltag; bei Bedarf wird wertschätzend auf Fachstellen verwiesen.",
+          "example": "Vereinbarung eines Übergangsrituals und Termin für ein kurzes Rückmeldegespräch in sechs Wochen."
+        },
+        {
+          "id": "eg-6",
+          "badge": "Phase 6",
+          "label": "Abschluss & Dokumentation",
+          "metric": "Verbindlichkeit",
+          "summary": "Ergebnisse kurz zusammenfassen, danken und Absprachen transparent festhalten.",
+          "detail": "Eine knappe, sachliche Gesprächsnotiz (ohne Wertungen) wird geschützt abgelegt und bildet die Basis für den nächsten Austausch.",
+          "example": "Gemeinsamer Blick auf die notierten Vereinbarungen und Verabschiedung."
+        }
+      ]
+    },
+    {
+      "id": "vb-3",
+      "kind": "feature_grid",
+      "title": "Datenschutz, Schweigepflicht & Beratungsgrenzen in Elterngesprächen",
+      "subtitle": "Vier rechtliche und professionelle Leitplanken für vertrauensvolle Elternkooperation",
+      "centerLabel": "Recht & Ethik",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "ds-1",
+          "badge": "Regel 1",
+          "label": "Geschützter Gesprächsraum",
+          "metric": "Vertraulichkeit",
+          "summary": "Sensible Themen niemals im Flur vor anderen Eltern oder Kindern besprechen.",
+          "detail": "Tür-und-Angel-Situationen bieten keine Vertraulichkeit; bei Konflikten oder Sorgen wird rasch ein geschützter Raum oder zeitnaher Gesprächstermin angeboten.",
+          "example": "„Das ist mir wichtig – lassen Sie uns eben ins Besprechungszimmer gehen.“"
+        },
+        {
+          "id": "ds-2",
+          "badge": "Regel 2",
+          "label": "Schutz der Daten anderer Kinder",
+          "metric": "Drittschutz",
+          "summary": "Keine Namen, Diagnosen oder Familieninformationen anderer Kinder preisgeben.",
+          "detail": "Auch bei Beiß-, Kratz- oder Streitvorfällen bleiben Identität und Hintergründe anderer beteiligter Kinder streng geschützt.",
+          "example": "Über das eigene Kind und die pädagogische Begleitung sprechen, nicht über das „andere Kind“."
+        },
+        {
+          "id": "ds-3",
+          "badge": "Regel 3",
+          "label": "Sorgerecht & Einwilligung",
+          "metric": "§ 1687 BGB / SGB VIII",
+          "summary": "Sorgerecht bei Trennung klären; Weitergabe an Externe nur mit schriftlicher Einwilligung.",
+          "detail": "Bei getrennt lebenden Eltern gilt die klare Prüfung von Sorgerecht und Vollmachten; der Austausch mit Schule, Therapie oder Beratungsstellen braucht eine informierte Einwilligung.",
+          "example": "Einholung der schriftlichen Einwilligung vor einem Gespräch mit der Logopädin."
+        },
+        {
+          "id": "ds-4",
+          "badge": "Regel 4",
+          "label": "Klare Beratungsgrenzen",
+          "metric": "Netzwerk",
+          "summary": "Pädagogische Begleitung von Therapie und Fachberatung abgrenzen.",
+          "detail": "Bei tiefgreifenden familiären Krisen (z. B. Sucht, Trennungskonflikt, psychische Überlastung) wertschätzend auf Erziehungsberatung, Familienbildung oder Frühe Hilfen verweisen; bei Gefährdung greift § 8a Abs. 4 SGB VIII.",
+          "example": "Übergabe einer aktuellen Kontaktliste regionaler, kostenfreier Beratungsstellen."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "4 Jahre (Krippe/Kindergarten)",
-    "context": "Elterngespräch nach Beobachtung von Auffälligkeiten im Essverhalten und sozialem Rückzug (Familie in Übergangssituation / Trennung)",
-    "setting": "Kindertagesstätte (Teil des Moduls S-SP-5)",
+    "title": "„Hier passt niemand richtig auf!“ – Vom Flurkonflikt zum konstruktiven Elterngespräch",
+    "setting": "Kindertagesstätte „Kastanienhof“ (Garderobe & Besprechungsraum)",
+    "ageGroup": "5 Jahre",
+    "context": "Beim Abholen bemerkt Frau Al-Mansoor einen kleinen Kratzer an der Wange ihres fünfjährigen Sohnes Sami. Vor drei wartenden Eltern ruft sie aufgebracht in den Flur: „Schon wieder hat Sami einen Kratzer – hier passt niemand richtig auf! Welches Kind war das diesmal? Sowieso mögen die anderen ihn hier nicht!“ Die Bezugsfachkraft war am Nachmittag im Garten dabei, als zwei Kinder beim Klettern aneinandergerieten, und weiß, dass Frau Al-Mansoor sich seit einem Wohnungswechsel unsicher fühlt und im Deutschen bei komplexen Gesprächen gern Unterstützung hat.",
     "steps": [
       {
+        "situation": "Frau Al-Mansoor ist vor anderen Eltern laut und aufgebracht und fordert sofort den Namen des anderen Kindes.",
+        "prompt": "Wie reagiert die Fachkraft unmittelbar deeskalierend und datenschutzkonform?",
         "options": [
           {
-            "feedback": "Das Gespräch wird auf Augenhöhe mit einem ressourcenorientierten Genogramm-Ansatz und aktiven Zuhören geführt. Die Fachkraft grenzt ihre Kompetenzen professionell ab, bietet systemische Beratung an und verweist bei Bedarf auf Fachstellen (Familienbildung).",
-            "label": "Partizipatives und kultursensibles Entwicklungsgespräch auf Augenhöhe",
+            "label": "Sie bleibt ruhig, würdigt kurz Frau Al-Mansoors Sorge um Sami (Selbstkundgabe), bittet sie aus dem öffentlichen Flur in das ruhige Nebenzimmer (oder vereinbart unmittelbar einen zeitnahen Termin), schildert sachlich die Versorgung von Samis Kratzer und erklärt freundlich, dass Namen anderer Kinder aus Datenschutzgründen nicht genannt werden dürfen.",
             "quality": "optimal",
-            "theoryLink": "Lehrplan RLP S-SP-5: Kommunikationsmodelle (Schulz von Thun), systemische Gesprächsführung, § 8a SGB VIII / Beratungskompetenz"
+            "feedback": "Fachlich hervorragend! Die Fachkraft trennt Sach- und Beziehungs-/Selbstkundgabe-Ebene (Schulz von Thun), schützt die Vertraulichkeit für alle Anwesenden, wahrt den Datenschutz für das andere Kind und signalisiert echtes Interesse an einem klärenden Gespräch.",
+            "theoryLink": "Schulz von Thun (Vier-Seiten-Modell); Deeskalation; Datenschutz und Drittschutz"
           },
           {
-            "feedback": "Die Fachkraft übernimmt sofort die Expertenrolle, drängt Eltern in die Defensive und stellt ungefragte Erziehungsdiagnosen ohne Validierung der Lebenswelt.",
-            "label": "Direktives Belelehren und Defizitorientierung",
+            "label": "Sie verteidigt sich sofort im Flur lautstark („Wir haben unsere Aufsichtspflicht voll erfüllt, das war ein normaler Spielunfall!“) und nennt den Namen des anderen Kindes, um zu beweisen, dass kein Mobbing vorliegt.",
             "quality": "problematisch",
-            "theoryLink": "Konträr zu partnerschaftlicher Kooperation (BGB / RLP)"
+            "feedback": "Doppelter Fehler: Rechtfertigung im öffentlichen Flur heizt den Konflikt auf der Beziehungsebene an, und das Nennen des Namens eines anderen Kindes verstößt klar gegen den Datenschutz.",
+            "theoryLink": "Eskalation auf dem Beziehungsohr; Verstoß gegen Datenschutz / Schutz Dritter"
           },
           {
-            "feedback": "Das Gespräch verläuft freundlich, bleibt aber oberflächlich ('Alles gut, Kinder haben mal Phasen'). Konkrete Entwicklungsbeobachtungen werden nicht angesprochen.",
-            "label": "Vermeidung von Konfrontation und Bagatellisierung",
+            "label": "Sie lächelt den Vorwurf im Flur weg („Ach, Jungs balgen sich halt, morgen ist der Kratzer vergessen!“) und verabschiedet Sami rasch, ohne Frau Al-Mansoors Sorge weiter aufzugreifen.",
             "quality": "teilweise",
-            "theoryLink": "Vernachlässigung des gesetzlichen Beobachtungs- und Förderauftrags"
+            "feedback": "Zwar wird kein Datenschutz verletzt, doch das Bagatellisieren der elterlichen Sorge und des Hinweises auf mögliche Ausgrenzung beschädigt das Vertrauen in die Erziehungspartnerschaft.",
+            "theoryLink": "Erziehungs- und Bildungspartnerschaft; ernsthaftes Aufgreifen von Sorgen"
           }
-        ],
-        "prompt": "Wie führt die Erzieherin das erste strukturierte Elterngespräch zur aktuellen Situation von Leon?",
-        "situation": "Leon (4 Jahre) zeigt seit Wochen verminderten Appetit und Rückzug. Die Eltern sind kürzlich getrennt. Die Fachkraft sucht das Gespräch."
+        ]
       },
       {
+        "situation": "Zwei Tage später findet ein geplantes, 30-minütiges Klärungs- und Entwicklungsgespräch statt. Frau Al-Mansoor schlägt vor, ihre neunjährige Tochter zum Übersetzen mitzubringen, damit nichts falsch verstanden wird. Zudem sorgt sie sich, ob Sami in der Gruppe Freunde findet.",
+        "prompt": "Wie bereitet und führt die Fachkraft dieses Gespräch kultursensibel, strukturiert und auf Augenhöhe?",
         "options": [
           {
-            "feedback": "Es wird ein fester Termin für ein Folgegespräch vereinbart, Zwischenschritte werden dokumentiert und bei Bedarf (unter Einbezug der Eltern) institutionelle Hilfen (z. B. Erziehungsberatungsstelle) koordiniert.",
-            "label": "Kooperative Zielvereinbarung und strukturierte Weiterverweisung",
-            "quality": "optimal",
-            "theoryLink": "Lehrplan RLP: Professionelle Grenzen erkennen, Weiterverweisung (HzE / Familienbildung)"
-          },
-          {
-            "feedback": "Die Fachkraft meldet sofort das Jugendamt wegen Verdachts auf Kindeswohlgefährdung (§ 8a), ohne das Gespräch oder kollegiale Fallberatung abzuwarten.",
-            "label": "Übereilte Intervention ohne Abwägung der Verhältnismäßigkeit",
+            "label": "Sie bittet die neunjährige Schwester zu übersetzen, da sie beide Sprachen gut spricht, und liest Frau Al-Mansoor anschließend eine Liste mit Erziehungstipps für zu Hause vor.",
             "quality": "problematisch",
-            "theoryLink": "Fehlinterpretation von Krisenreaktionen vs. akuter Kindeswohlgefährdung"
+            "feedback": "Fachlich unzulässig: Kinder dürfen in sensiblen Elterngesprächen nicht als Sprachmittler eingesetzt werden (Rollenumkehr und Loyalitätskonflikt), und einseitige Erziehungsbelehrungen widersprechen der Partnerschaft auf Augenhöhe.",
+            "theoryLink": "Kultursensible Elternarbeit (keine Kinder als Übersetzer); Kritik an hierarchischer Elternarbeit"
           },
           {
-            "feedback": "Es werden zwar Tipps gegeben, aber keine Verbindlichkeit oder Dokumentation vereinbart. Die Eltern fühlen sich allein gelassen.",
-            "label": "Unverbindlicher Ratsschlag ohne Prozessbegleitung",
+            "label": "Sie führt das Gespräch ohne Übersetzungshilfe und beschränkt sich auf allgemeine freundliche Aussagen („Sami ist ein lieber Junge“), um sprachliche Missverständnisse zu vermeiden.",
             "quality": "teilweise",
-            "theoryLink": "Mangelnde Strukturierung im Übergangs- und Beratungsprozess"
+            "feedback": "Vermeidung schützt nicht vor Missverständnissen – ohne verständliche Kommunikation und konkrete Beobachtungen bleiben Frau Al-Mansoors echte Sorgen um Samis Freundschaften ungeklärt.",
+            "theoryLink": "Transparenz und Beobachtungsnähe im Entwicklungsgespräch"
+          },
+          {
+            "label": "Sie organisiert im Einvernehmen mit Frau Al-Mansoor eine qualifizierte Sprachmittlung (statt der neunjährigen Schwester), bereitet konkrete, wertfreie Beobachtungen zu Samis Spielkontakten und Stärken (inkl. Portfolio) vor, hört Frau Al-Mansoors Wahrnehmung aktiv zu, vereinbart konkrete Begleitschritte für Samis Freundschaften und verweist bei Bedarf auf kostenfreie Familienangebote im Stadtteil.",
+            "quality": "optimal",
+            "feedback": "Vorbildlich umgesetzt! Professionelle Sprachmittlung schützt die Kinder, klare Gesprächsstruktur und beobachtungsnahe Ressourcen stärken das Vertrauen, und die lebensweltorientierte Vernetzung unterstützt die Familie nachhaltig.",
+            "theoryLink": "Strukturiertes Entwicklungsgespräch; kultursensible Elternarbeit; Lebensweltorientierung und Netzwerkarbeit"
           }
-        ],
-        "prompt": "Wie gestaltet die Fachkraft den weiteren Hilfeprozess und die Kooperation?",
-        "situation": "Die Eltern signalisieren Überforderung und wünschen konkrete Unterstützung im Erziehungsalltag."
+        ]
       }
-    ],
-    "title": "Fallbeispiel: Familiendiversität und Elterngespräch bei Trennungssituation"
+    ]
   },
   "selfLearningTasks": [
-    "Recherchieren Sie mindestens drei lokale Angebote der Familienbildung und der Hilfen zur Erziehung (HzE) in Ihrer Region und erstellen Sie einen kurzen Steckbrief für Ihr Praxisteam.",
-    "Entwerfen und zeichnen Sie ein fiktives Genogramm für eine Patchworkfamilie über drei Generationen und analysieren Sie zwei zentrale Ressourcen und eine potenzielle Belastungssituation.",
-    "Entwickeln Sie einen strukturierten Leitfaden für ein 20-minütiges Entwicklungsgespräch in der Kita/Hort unter Berücksichtigung von Einstieg, Gesprächsphasen, Dokumentation und Zielvereinbarung."
+    "Entwerfen Sie einen einseitigen, praxisnahen Leitfaden für ein 30-minütiges Entwicklungsgespräch in Ihrer Einrichtung (entlang der sechs Phasen) inklusive zweier konkreter, wertfreier Beispielfragen zur Einbindung der Elternperspektive.",
+    "Analysieren Sie zwei typische, angespannte Elternäußerungen aus dem Alltag (z. B. Kritik an Kleidung, Essen oder Konflikten) mithilfe des Vier-Seiten-Modells nach Schulz von Thun und formulieren Sie jeweils eine deeskalierende Antwort.",
+    "Recherchieren Sie drei niedrigschwellige Beratungs- oder Familienbildungsangebote in Ihrer Region (inkl. Möglichkeiten zur Sprachmittlung) und notieren Sie, in welchen Situationen eine Weiterverweisung sinnvoll ist."
   ],
   "flashcards": [
     {
-      "definition": "Eine partnerschaftliche, gleichberechtigte Kooperation zwischen pädagogischer Einrichtung und Eltern, die auf gegenseitiger Wertschätzung, Mitbestimmung und gemeinsamer Verantwortung für das Kindeswohl beruht.",
-      "example": "Gemeinsame Entwicklungspläne und regelmäßiger Dialog auf Augenhöhe statt einseitiger Belehrung.",
-      "term": "Erziehungs- und Bildungspartnerschaft"
+      "term": "Erziehungs- und Bildungspartnerschaft (§ 22a Abs. 2 SGB VIII)",
+      "definition": "Gleichberechtigte, dialogische Zusammenarbeit von Eltern und pädagogischen Fachkräften zum Wohl des Kindes, die elterliche Lebensweltexpertise und pädagogische Fachexpertise auf Augenhöhe verbindet.",
+      "example": "Eltern und Kita-Team tauschen sich im Entwicklungsgespräch wechselseitig über Stärken, Interessen und nächste Begleitschritte des Kindes aus."
     },
     {
-      "definition": "Ein grafisches Instrument der systemischen Arbeit zur Darstellung von Familienstrukturen, Generationenbeziehungen und Beziehungsqualitäten über mindestens drei Generationen.",
-      "example": "Visualisierung von Konflikten, Bindungsmustern und Ressourcen in einer Patchworkfamilie.",
-      "term": "Genogramm"
+      "term": "Vier-Seiten-Modell (Friedemann Schulz von Thun)",
+      "definition": "Kommunikationsmodell, wonach jede Nachricht gleichzeitig vier Botschaften enthält: Sachinhalt, Selbstkundgabe, Beziehungshinweis und Appell – hilfreich zum Verstehen und Deeskalieren von Missverständnissen.",
+      "example": "Hinter dem Vorwurf „Die Jacke war gar nicht zu!“ (Sache/Beziehung) erkennt die Fachkraft die Sorge der Eltern vor einer Erkältung (Selbstkundgabe/Appell)."
     },
     {
-      "definition": "Ein videobasiertes Interaktionstraining, das vorhandene Ressourcen und gelingende Momente in den Blick nimmt, statt Defizite zu analysieren (Entwicklungsförderung aus eigener Kraft).",
-      "example": "Videografie von Tür-und-Angel-Gesprächen oder Alltagssituationen zur Stärkung elterlicher Kompetenzen.",
-      "term": "Marte Meo"
+      "term": "Genogramm",
+      "definition": "Systemisches Visualisierungsinstrument zur grafischen Darstellung von Familien- und Generationsbeziehungen, wichtigen Lebensereignissen sowie Ressourcen und Belastungen (Einsatz stets freiwillig und unter Achtung der Privatsphäre).",
+      "example": "In der Familienberatung macht ein Genogramm verlässliche Unterstützer wie Großeltern oder Patentanten sichtbar."
     },
     {
-      "definition": "Ein systemischer Ansatz zur präventiven und ressourcenorientierten Förderung elterlicher Erziehungskompetenzen (v. a. im Kleinkindalter) mit Fokus auf Bindung und Signale des Kindes.",
-      "example": "Kurse zur Sensibilisierung für babysprachliche Signale und Feinfühligkeit.",
-      "term": "PEKiP (Prävesches Eltern-Kind-Programm)"
+      "term": "Marte Meo",
+      "definition": "Von Maria Aarts entwickelter videobasierter Ansatz („aus eigener Kraft“), der kurze gelingende Alltagsinteraktionen analysiert, um elterliche und pädagogische Entwicklungsunterstützung ressourcenorientiert zu stärken.",
+      "example": "Gemeinsames Betrachten einer kurzen, gelungenen Spielsequenz macht Eltern ihre feinfühligen Signale unmittelbar sichtbar."
     },
     {
-      "definition": "Nach Schulz von Thun ein Kommunikationsmodell, das jede Äußerung auf vier Ebenen (Sachebene, Selbstkundgabe, Beziehung, Appell) untersucht, um Missverständnisse in Elterngesprächen zu klären.",
-      "example": "Analyse einer Elternbeschwerde (\"Das Kind hat schon wieder nasse Schuhe!\") auf das Beziehungs- und Appell-Ohr.",
-      "term": "Vier-Ohren-Modell"
+      "term": "PEKiP (Prager-Eltern-Kind-Programm)",
+      "definition": "Gruppenangebot der Familienbildung für Eltern mit Babys im ersten Lebensjahr (aufbauend auf Arbeiten von Jaroslav Koch), das Bewegung, Spiel, Bindung und den Austausch unter Eltern fördert.",
+      "example": "Verweis an eine lokale Familienbildungsstätte mit PEKiP-Kursen für frischgebackene Eltern im Sozialraum."
     },
     {
-      "definition": "Das gesetzliche Schutzverfahren bei gewichtigen Anhaltspunkten für die Gefährdung des Wohls eines Kindes oder Jugendlichen (§ 8a SGB VIII), das eine Gefährdungseinschätzung im multiprofessionellen Team erfordert.",
-      "example": "Hinzuziehen einer insoweit erfahrenen Fachkraft (InsoFacher) bei Verdachtsmomenten.",
-      "term": "Kindeswohlgefährdung & § 8a SGB VIII"
+      "term": "Datenschutz & Drittschutz im Elterngespräch",
+      "definition": "Pflicht zur Vertraulichkeit im geschützten Raum, zum strikten Schutz personenbezogener Daten anderer Kinder (keine Namensnennung bei Konflikten), zur Beachtung des Sorgerechts (§ 1687 BGB) und zur schriftlichen Einwilligung vor jeder Datenweitergabe an Externe.",
+      "example": "Nach einem Streit zweier Kinder schildert die Fachkraft die Begleitung des eigenen Kindes, nennt aber weder Name noch Umstände des anderen Kindes."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Eine Bildungs- und Partnerschaft zeichnet sich durch Dialog auf Augenhöhe und gemeinsame Verantwortung aus, während traditionelle Elternarbeit oft einseitig (Bring- und Hol-Informationen) organisiert war.",
-      "id": "q1-basis-partnership",
+      "question": "Was unterscheidet eine moderne Erziehungs- und Bildungspartnerschaft (§ 22a Abs. 2 SGB VIII) wesentlich von einer traditionellen, hierarchischen „Elternarbeit“?",
       "options": [
-        "Elternarbeit bedeutet vollständige Übernahme erzieherischer Aufgaben durch die Kita.",
-        "Bildungs- und Erziehungs-partner-schaft versteht Eltern als gleichberechtigte Partner und Co-Konstrukteure der Bildung ihrer Kinder.",
-        "Elternarbeit findet ausschließlich im Rahmen von Elternabenden einmal im Jahr statt.",
-        "Bildungspartnerschaft schließt die Mitbestimmung von Eltern im pädagogischen Alltag vertraglich aus."
+        "Fachkräfte übernehmen künftig das alleinige Erziehungsrecht anstelle der Eltern.",
+        "Eltern dürfen ihre Sichtweise erst äußern, wenn sie eine pädagogische Ausbildung vorweisen.",
+        "Eltern (Lebensweltexpertise) und Fachkräfte (pädagogische Fachexpertise) kooperieren auf Augenhöhe, dialogisch und partizipativ zum Wohl des Kindes.",
+        "Entwicklungsgespräche werden vollständig durch kurze Tür-und-Angel-Gespräche ersetzt."
       ],
-      "question": "Was unterscheidet eine moderne Erziehungs- und Bildungspartnerschaft grundlegend von traditioneller \"Elternarbeit\"?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
-        0,
         2
       ],
+      "explanation": "Erziehungs- und Bildungspartnerschaft anerkennt beide Expertisen als gleichwertig und gestaltet die Zusammenarbeit dialogisch und partizipativ statt einseitig belehrend."
+    },
+    {
+      "id": "v2-q2",
+      "type": "single",
       "difficulty": "vertiefung",
-      "explanation": "Genogramme bilden familiäre Strukturen, Generationenbeziehungen sowie Ressourcen und Belastungen über mehrere Generationen ab. Sie sind kein reiner IQ-Test oder medizinisches Diagnoseinstrument.",
-      "id": "q2-multi-genogram",
+      "question": "Bei einem schwierigen Elterngespräch mit geringen Deutschkenntnissen der Eltern schlägt der Vater vor, den elfjährigen Bruder zum Übersetzen mitzubringen. Wie sollte die Einrichtung professionell entscheiden?",
       "options": [
-        "Sie visualisieren familiäre Beziehungen, Rollen und Dynamiken über mindestens drei Generationen.",
-        "Sie ersetzen vollumfänglich die kinderärztliche Entwicklungsdiagnostik.",
-        "Sie helfen dabei, Ressourcen und Unterstützungsnetzwerke innerhalb der Familie zu erkennen.",
-        "Sie dienen der rechtlichen Feststellung von Unterhaltsansprüchen."
+        "Sie lehnt den Einsatz des Kindes freundlich ab (Vermeidung von Rollenumkehr, Überforderung und Loyalitätskonflikten) und organisiert im Einvernehmen eine qualifizierte, neutrale Sprachmittlung.",
+        "Sie stimmt begeistert zu, weil Kinder in diesem Alter am schnellsten übersetzen.",
+        "Sie sagt das Gespräch dauerhaft ab, bis die Eltern fließend Deutsch sprechen.",
+        "Sie bittet ein anderes Elternpaar aus der Gruppe spontan im Flur um Hilfe beim Übersetzen."
       ],
-      "question": "Welche Aussagen zur Genogrammarbeit in der systemischen Sozialpädagogik sind korrekt? (Mehrfachauswahl)",
-      "type": "multi"
+      "correctIndices": [
+        0
+      ],
+      "explanation": "Kinder (ebenso wie andere Gruppeneltern, wegen der Vertraulichkeit!) dürfen bei sensiblen Elterngesprächen nicht als Dolmetscher eingesetzt werden. Qualifizierte Sprachmittlung sichert Verständnis, Vertraulichkeit und Schutz der Kinder."
     },
     {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Marte Meo (lat. 'aus eigener Kraft') ist eine videobasierte Methode, die gelingende Interaktionsmomente analysiert, um elterliche Ressourcen und Entwicklungsunterstützung zu stärken.",
-      "id": "q3-case-martemeo",
-      "options": [
-        "Eine verhaltenstherapeutische Methode zur Bestrafung unerwünschten Verhaltens bei Jugendlichen.",
-        "Ein standardisiertes Intelligenztestverfahren für Krippenkinder.",
-        "Ein videobasierter Ansatz zur Entwicklungsförderung, der auf vorhandenen Ressourcen und gelingenden Interaktionen aufbaut (\"aus eigener Kraft\").",
-        "Ein reines Verwaltungsinstrument zur Abrechnung von Kitagebühren."
-      ],
-      "question": "In einer Kindertagesstätte wird das systemische Konzept \"Marte Meo\" eingeführt. Worum handelt es sich dabei im Kern?",
-      "type": "case"
-    },
-    {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q3",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Das Appell-Ohr fragt danach, was der Sender vom Empfänger will oder zu tun wünscht (\"Was soll ich jetzt tun, fühlen oder denken?\").",
-      "id": "q4-basis-schulzvonthun",
+      "question": "Ein Vater ruft bei der Abholung verärgert: „Schon wieder sind alle Ersatzsachen nass im Beutel!“ Welches Ohr des Vier-Seiten-Modells nach Schulz von Thun ist primär angesprochen, wenn die Erzieherin denkt: „Er hält mich für schlampig und unzuverlässig“?",
       "options": [
-        "Das Sach-Ohr",
-        "Das Appell-Ohr",
-        "Das Beziehungs-Ohr",
-        "Die Selbstkundgabe"
+        "Sach-Ohr",
+        "Appell-Ohr",
+        "Selbstkundgabe-Ohr",
+        "Beziehungs-Ohr"
       ],
-      "question": "Ein Vater sagt genervt bei der Abholung: \"Schon wieder ist die Hose komplett verdreckt!\" Welches Ohr des Vier-Ohren-Modells ist angesprochen, wenn die Erzieherin denkt: \"Er verlangt von mir, dass ich besser auf die Kleidung achte\"?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Gemäß § 8a SGB VIII hat die Fachkraft bei gewichtigen Anhaltspunkten für Kindeswohlgefährdung eine Schutzauftragsverantwortung, die eine Gefährdungseinschätzung im Team und ggf. die Hinzuziehung einer insoweit erfahrenen Fachkraft erfordert.",
-      "id": "q5-vertiefung-8a",
-      "options": [
-        "Die sofortige Entlassung der Eltern aus der Sorgeberechtigung.",
-        "Die Weitergabe von Informationen an die Presse zur Skandalisierung.",
-        "Das eigenmächtige Verstecken des Kindes vor den Erziehungsberechtigten.",
-        "Die professionelle Gefährdungseinschätzung im multiprofessionellen Team unter Hinzuziehung einer insoweit erfahrenen Fachkraft (§ 8a SGB VIII)."
-      ],
-      "question": "Welche Handlungsschritte sind bei gewichtigen Anhaltspunkten für eine Kindeswohlgefährdung laut § 8a SGB VIII primär geboten?",
-      "type": "single"
+      "explanation": "Das Beziehungs-Ohr deutet, was der Sender angeblich vom Empfänger hält und wie man zueinander steht („Er hält mich für unzuverlässig“). Wer zusätzlich das Sach- und Selbstkundgabe-Ohr nutzt, kann deutlich ruhiger und lösungsorientierter reagieren."
     },
     {
+      "id": "v2-q4",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Praxisfall: Im Entwicklungsgespräch berichtet eine Mutter unter Tränen von einer schweren ehelichen Krise und bittet die Erzieherin, abends regelmäßig mit ihr und ihrem Mann Paar-Gespräche zu führen. Wie handelt die Fachkraft professionell?",
+      "options": [
+        "Sie sagt sofort wöchentliche abendliche Paar-Gespräche zu, um die Erziehungspartnerschaft zu stärken.",
+        "Sie zeigt empathisches Verständnis, klärt transparent ihre professionellen Beratungsgrenzen, richtet den Fokus auf die gute Begleitung des Kindes in der Kita und vermittelt konkrete, niedrigschwellige Kontakte (z. B. Erziehungs- und Familienberatungsstelle).",
+        "Sie beendet das Gespräch sofort und weist die Mutter darauf hin, dass private Probleme in der Kita unerwünscht seien.",
+        "Sie ruft ohne Kenntnis der Mutter den Vater an, um ihn zur Rede zu stellen."
+      ],
+      "correctIndices": [
+        1
+      ],
+      "explanation": "Professionelle Elternarbeit verbindet Empathie mit klaren Rollengrenzen: Erzieherinnen sind keine Paartherapeutinnen, sichern aber den geschützten Alltag des Kindes und verweisen fachkundig auf geeignete Beratungsstellen."
+    },
+    {
+      "id": "v2-q5",
+      "type": "multi",
+      "difficulty": "pruefung",
+      "question": "Welche Grundsätze zu Datenschutz und Schweigepflicht müssen pädagogische Fachkräfte in Elterngesprächen verbindlich einhalten?",
+      "options": [
+        "Bei Konflikten oder Verletzungen zwischen Kindern werden weder Namen noch persönliche Umstände anderer beteiligter Kinder genannt.",
+        "Bei getrennt lebenden Eltern dürfen ohne Prüfung des Sorgerechts jederzeit alle sensiblen Entwicklungsberichte an beliebige Familienangehörige ausgehändigt werden.",
+        "Sensible Entwicklungs- oder Konfliktthemen werden in einem geschützten Raum besprochen, nicht zwischen Tür und Angel vor anderen Eltern.",
+        "Für die Weitergabe von Gesprächsinhalten oder Beobachtungen an externe Stellen (z. B. Therapiepraxis oder Grundschule) ist eine ausdrückliche schriftliche Einwilligung der Sorgeberechtigten nötig."
+      ],
       "correctIndices": [
         0,
         2,
         3
       ],
-      "difficulty": "pruefung",
-      "explanation": "Kultursensible und partizipative Zusammenarbeit erfordert ressourcenorientierte Haltung, Reflexion eigener Vorurteile sowie Berücksichtigung sprachlicher Barrieren (z. B. durch Sprachmittlung). Eine defizitorientierte Zuschreibung ist kontraproduktiv.",
-      "id": "q6-multi-culturalsensitive",
+      "explanation": "Vertraulichkeit des Gesprächsraums, Drittschutz (keine Daten anderer Kinder), Beachtung des Sorgerechts (§ 1687 BGB) und ausdrückliche Einwilligung vor Weitergabe an Dritte sind tragende Pfeiler rechtssicherer Elternarbeit."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Aussagen zur Strukturierung eines Entwicklungsgesprächs und zu systemischen Ansätzen sind fachlich korrekt?",
       "options": [
-        "Reflexion der eigenen ethnisch-kulturellen Prägungen und Vorurteile (Self-Reflexivity).",
-        "Vorgabe einer starren deutschen Leitkultur als alleinigen Maßstab für die häusliche Erziehung.",
-        "Nutzung von mehrsprachigen Materialien und Kommunikationshilfen (z. B. Sprachmittler).",
-        "Ressourcenorientierte Wertschätzung der familiären Lebenswelt statt defizitorientierter Pathologisierung."
+        "Ein gutes Entwicklungsgespräch trennt konkrete, wertfreie Beobachtungen von offenen Hypothesen und räumt der Elternperspektive gleichberechtigten Raum ein.",
+        "Marte Meo nutzt kurze Videoaufnahmen gelingender Alltagssituationen, um elterliche und pädagogische Ressourcen zu stärken.",
+        "PEKiP (Prager-Eltern-Kind-Programm) ist ein Gruppenangebot der Familienbildung für Eltern mit Säuglingen im ersten Lebensjahr.",
+        "Die sogenannte „Sandwich-Methode“ gilt als einzige fachlich zulässige Gesprächstechnik, um Kritik an Eltern zu verpacken."
       ],
-      "question": "Welche Prinzipien sind für eine kultursensible und partizipative Erziehungs- und Bildungspartnerschaft zentral? (Mehrfachauswahl)",
-      "type": "multi"
+      "correctIndices": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Transparente, beobachtungsnahe Gesprächsphasen auf Augenhöhe sind deutlich vertrauensbildender als schematisches „Verpacken“ von Kritik. Marte Meo (videobasiert, ressourcenorientiert) und PEKiP (Prager-Eltern-Kind-Programm) sind korrekt eingeordnet."
+    }
+  ],
+  "sources": [
+    {
+      "title": "SGB VIII § 22a – Förderung in Tageseinrichtungen (Abs. 2 Zusammenarbeit & Beteiligung von Eltern)",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__22a.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Rechtliche Verankerung der Zusammenarbeit mit Erziehungsberechtigten und Beteiligung an wesentlichen Entscheidungen"
+    },
+    {
+      "title": "SGB VIII § 65 – Besonderer Vertrauensschutz in der persönlichen und erzieherischen Hilfe",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__65.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Rechtsgrundlage für besonderen Vertrauensschutz und Weitergabebeschränkungen anvertrauter Sozialdaten"
+    },
+    {
+      "title": "Erziehungs- und Bildungspartnerschaft mit den Eltern",
+      "url": "https://kita.rlp.de/traeger-und-fachkraefte/erziehungs-und-bildungspartnerschaft-mit-den-eltern",
+      "publisher": "Ministerium für Bildung RLP / Landesportal Kita RLP",
+      "note": "Landesbezogene Grundlagen zu partnerschaftlicher Elternzusammenarbeit und Entwicklungsgesprächen"
+    },
+    {
+      "title": "KiTa-Fachtext: Erziehungs- und Bildungspartnerschaft zwischen Kita und Eltern",
+      "url": "https://nifbe.de/fachbeitraege/kita-fachtext-erziehungs-und-bildungspartnerschaft-zwischen-kita-und-eltern/",
+      "publisher": "Niedersächsisches Institut für frühkindliche Bildung und Entwicklung (nifbe e.V.)",
+      "note": "Fachliche Grundlagen zu Kooperation auf Augenhöhe, Familiendiversität und Partizipation"
+    },
+    {
+      "title": "Schwierige Elterngespräche in der KiTa",
+      "url": "https://nifbe.de/fachbeitraege/schwierige-elterngespraeche-in-der-kita/",
+      "publisher": "Niedersächsisches Institut für frühkindliche Bildung und Entwicklung (nifbe e.V.)",
+      "note": "Praxisorientierte Impulse für Konflikt- und Sorgegespräche sowie professionelle Gesprächsführung"
+    },
+    {
+      "title": "Videogestützte Entwicklungsbegleitung in Elterngesprächen",
+      "url": "https://nifbe.de/fachbeitraege/videogestuetzte-entwicklungsbegleitung-in-elterngespraechen/",
+      "publisher": "Niedersächsisches Institut für frühkindliche Bildung und Entwicklung (nifbe e.V.)",
+      "note": "Ressourcenorientierte und transparente Gesprächsgestaltung mit Videografie (u. a. Marte Meo / PER-LE)"
     }
   ]
 }

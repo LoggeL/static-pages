@@ -3,399 +3,454 @@
   "number": 8,
   "moduleCode": "S-FÜ-3",
   "moduleArea": "fue",
-  "title": "Arbeitsrecht, Tarifverträge & berufliche Mitbestimmung",
-  "subtitle": "Rechte und Pflichten im Arbeitsverhältnis, Tarifrecht, Gewerkschaften & Verbände",
+  "unitRole": "core",
+  "curriculumRef": "S-FÜ-3 · Arbeitsrecht, Arbeitsschutz, Tarifrecht & berufliche Mitbestimmung (Lehrplan RLP 2024)",
+  "title": "Arbeitsrecht, Arbeitsschutz, Tarifrecht & Mitbestimmung",
+  "subtitle": "Arbeitsvertrag, ArbZG/MuSchG/JArbSchG, Kündigungsschutz, TVöD-SuE & AVR, BetrVG/LPersVG/MAV",
   "year": "1. Jahr",
-  "estimatedMinutes": 20,
+  "estimatedMinutes": 30,
   "hoursRef": "120 Std. (Teil 2/3)",
   "pdfPages": "S. 18",
   "crossCuttingTags": [
     "Partizipation"
   ],
-  "summary": "Diese Einheit vermittelt angehenden Erzieher:innen fundierte Kenntnisse über arbeitsrechtliche Grundlagen, Tarifverträge (TVöD-SuE, AVR) und Mitbestimmungsstrukturen. Sie befähigt dazu, Rechte und Pflichten im Berufsalltag souverän wahrzunehmen, sich aktiv in betriebliche Prozesse einzubringen und berufsständische Interessen kompetent zu vertreten.",
+  "summary": "Gute pädagogische Arbeit braucht verlässliche, faire Arbeitsbedingungen. Diese Einheit vermittelt das arbeitsrechtliche Kernwissen für den Einstieg in Kitas, Horte und Jugendhilfeeinrichtungen: Pflichten aus dem Arbeitsvertrag, zwingende Schutzgesetze (ArbZG, BUrlG, EFZG, MuSchG, JArbSchG), formwirksame Kündigung und Kündigungsschutz, Tarifrecht (TVöD-SuE) vs. kirchliches Arbeitsrecht (AVR / Dritter Weg) sowie betriebliche Mitbestimmung über Betriebsrat, Personalrat (LPersVG RLP) und Mitarbeitervertretung (MAV).",
   "learningGoals": [
-    "Ich kann die zentralen Rechte und Pflichten aus dem Arbeitsvertrag für Erzieher:innen (Vergütung, Arbeitszeit, Urlaub, Fürsorgepflicht) benennen und im Berufsalltag einhalten.",
-    "Ich kann die tarifrechtlichen Grundlagen des TVöD-SuE sowie des kirchlichen Arbeitsrechts (AVR) in ihren Grundzügen erklären und auf konkrete Beschäftigungsverhältnisse anwenden.",
-    "Ich kann die verschiedenen Formen der betrieblichen Mitbestimmung (Personalrat nach BPersVG/PersVG RhPf, Betriebsrat nach BetrVG, MAV nach MVG) unterscheiden und deren Beteiligungsrechte im Kita-Alltag nutzen.",
-    "Ich kann die Rolle von Gewerkschaften und Berufsverbänden bei der Vertretung beruflicher Interessen und der Durchsetzung von Tarifstandards reflektieren.",
-    "Ich kann arbeitsrechtliche Konflikte (z.B. bei Überstunden, Weisungsrecht oder Kündigungsschutz) erkennen und sachgerecht unter Hinzuziehung von Gesetzen und Interessenvertretungen bearbeiten."
+    "Ich kann Rechte und Pflichten aus dem Arbeitsvertrag (§ 611a BGB, NachwG, § 106 GewO) sowie zentrale Schutzgesetze (ArbZG, BUrlG, EFZG, MuSchG, JArbSchG) auf typische Praxissituationen anwenden.",
+    "Ich kann formale und inhaltliche Wirksamkeitsvoraussetzungen einer Kündigung (§ 623 BGB Schriftform, Kündigungsschutzgesetz, Beteiligung der Interessenvertretung, Klagefrist) rechtssicher beurteilen.",
+    "Ich kann Tarifverträge im Sozial- und Erziehungsdienst (TVöD-SuE) und das kirchliche Arbeitsrecht (AVR / Dritter Weg) sowie die Rolle von Gewerkschaften und Berufsverbänden klar unterscheiden.",
+    "Ich kann je nach Einrichtungsträger die zuständige betriebliche Interessenvertretung (Betriebsrat nach BetrVG, Personalrat nach LPersVG RLP, MAV nach kirchlichem Recht) zuordnen und deren Beteiligungsrechte nutzen."
   ],
   "sections": [
     {
-      "body": "Der Arbeitsvertrag bildet das rechtliche Fundament für das Beschäftigungsverhältnis zwischen Träger (Arbeitgeber) und pädagogischer Fachkraft (Arbeitnehmer). Er regelt nach dem Bürgerlichen Gesetzbuch (§ 611a BGB) und dem Nachweishandlungsgesetz die gegenseitigen Hauptpflichten: Die Erbringung der pädagogischen Arbeitsleistung auf der einen und die Entgeltzahlung sowie die Einhaltung der Fürsorgepflicht auf der anderen Seite. Wichtige arbeitsrechtliche Schutzgesetze wie das Arbeitszeitgesetz (ArbZG), das Bundesurlaubsgesetz (BUrlG) und das Entgeltfortzahlungsgesetz setzen verbindliche Mindeststandards für Pausen, Höchstarbeitszeiten, Urlaubsansprüche und Lohnfortzahlung im Krankheitsfall.",
+      "heading": "Arbeitsvertrag, Weisungsrecht und gesetzliche Schutzstandards",
+      "keyTakeaway": "Der Arbeitsvertrag begründet gegenseitige Haupt- und Nebenpflichten; gesetzliche Arbeitsschutzgesetze setzen zwingende Untergrenzen für Arbeitszeit, Urlaub, Krankheit, Mutterschutz und jugendliche Beschäftigte.",
+      "body": "Mit dem Arbeitsvertrag (§ 611a BGB) verpflichten sich pädagogische Fachkräfte zur Erbringung der vereinbarten Arbeitsleistung im Rahmen weisungsgebundener Tätigkeit, während der Träger die vereinbarte Vergütung zahlt und seiner Fürsorgepflicht (z. B. Arbeits- und Gesundheitsschutz) nachkommt. Auch wenn ein Arbeitsvertrag rechtlich formlos zustande kommen kann, verpflichtet das Nachweisgesetz (NachwG) den Arbeitgeber, die wesentlichen Vertragsbedingungen (Arbeitszeit, Entgelt, Urlaub, Kündigungsfristen, Tarifverweis) schriftlich bzw. nachweisbar niederzulegen. Über das Weisungs- bzw. Direktionsrecht (§ 106 GewO) darf der Arbeitgeber Inhalt, Ort und Zeit der Arbeit nach billigem Ermessen näher bestimmen – aber nur, soweit Arbeitsvertrag, Dienst-/Betriebsvereinbarung, Tarifvertrag oder Gesetz nichts anderes festlegen. Verbindliche Mindeststandards setzen zentrale Arbeitsschutzgesetze: Das Arbeitszeitgesetz (ArbZG) begrenzt die werktägliche Arbeitszeit grundsätzlich auf acht Stunden (ausnahmsweise bis zehn Stunden bei Ausgleich), schreibt Ruhepausen vor (mindestens 30 Minuten bei mehr als sechs Stunden, 45 Minuten bei mehr als neun Stunden Arbeit) und garantiert mindestens elf Stunden ununterbrochene Ruhezeit zwischen zwei Diensten. Das Bundesurlaubsgesetz (BUrlG) sichert den gesetzlichen Mindesturlaub (24 Werktage bei Sechs-Tage-Woche, entspricht 20 Tagen bei Fünf-Tage-Woche; Tarifverträge gewähren meist mehr), das Entgeltfortzahlungsgesetz (§ 3 EFZG) bis zu sechs Wochen Lohnfortzahlung bei unverschuldeter Krankheit nach vierwöchiger Wartezeit. Für schwangere und stillende Fachkräfte ist in Kitas besonders das Mutterschutzgesetz (MuSchG) zentral: Es schützt durch Gefährdungsbeurteilungen (u. a. bei Infektionsrisiken wie Ringelröteln/Zytomegalie oder schwerem Heben), Beschäftigungsverbote bei Gefährdung, Mutterschutzfristen (sechs Wochen vor, acht Wochen nach der Entbindung) und besonderen Kündigungsschutz. Minderjährige Praktikantinnen, Praktikanten und Auszubildende unterstehen zudem dem Jugendarbeitsschutzgesetz (JArbSchG) mit strengeren Arbeitszeit- und Pausenregeln.",
       "bulletPoints": [
-        "Synallagmatisches Verhältnis von Arbeitsleistung und Vergütung (§ 611a BGB)",
-        "Einhaltung gesetzlicher Höchstarbeitszeiten und Ruhepausen nach dem ArbZG",
-        "Mindesturlaubsanspruch und gesetzliche Entgeltfortzahlung bei Krankheit (§ 3 EFZG)",
-        "Weisungsrecht (§ 106 GewO) als Bestimmungsrecht des Arbeitgebers für Inhalt, Ort und Zeit"
+        "§ 611a BGB, NachwG & § 106 GewO: Gegenseitige Vertragspflichten, schriftlicher Nachweis wesentlicher Bedingungen und Grenzen des Direktionsrechts.",
+        "ArbZG, BUrlG & EFZG: Höchstarbeitszeiten, Pausen- und Ruhezeiten (mind. 11 Std.), Mindesturlaub und Entgeltfortzahlung im Krankheitsfall.",
+        "MuSchG in der Kita: Individuelle Gefährdungsbeurteilung (z. B. Infektionsschutz, Heben), Schutzfristen und besonderer Kündigungsschutz.",
+        "JArbSchG: Besonderer Schutz für Beschäftigte und Auszubildende unter 18 Jahren (u. a. max. 8 Std. täglich / 40 Std. wöchentlich, längere Pausen)."
       ],
-      "heading": "Rechte und Pflichten im Arbeitsverhältnis",
-      "keyTakeaway": "Der Arbeitsvertrag verbindet pädagogische Professionalität mit rechtlichen Mindeststandards und verbindlichen Schutzrechten.",
-      "praxisTip": "Dokumentiere geleistete Überstunden und Sonderaufgaben stets schriftlich und gleiche sie mit den Vorgaben deines Arbeitsvertrags sowie des Tarifvertrags ab."
+      "praxisTip": "Prüfen Sie Ihren Arbeitsvertrag vor der Unterschrift anhand einer kurzen Checkliste: Stimmen Wochenstunden, Eingruppierung, Befristung/Probezeit, Tarifverweis und Angaben zu Vor- und Nachbereitungszeiten?"
     },
     {
-      "body": "In der Sozialpädagogik sind Arbeitsbedingungen maßeußlich durch Tarifverträge geprägt. Der Tarifvertrag für den öffentlichen Dienst, Bereich Sozial- und Erziehungsdienst (TVöD-SuE), regelt bundesweit flächendeckend die Eingruppierungen (Entgeltgruppen S 2 bis S 18), Arbeitszeiten und Sonderleistungen für kommunale und viele freie Träger. Für kirchliche Träger (Caritas, Diakonie) gilt der sogenannte „Dritte Weg“ (Arbeitsrechtliche AVR), bei dem Arbeitsbedingungen durch paritätisch besetzte Kommissionen statt durch Streik und Aussperrung verhandelt werden. Tarifverträge garantieren Rechtssicherheit, Schutz vor Lohndumping und gerechte Aufstiegschancen.",
+      "heading": "Kündigung, Schriftformerfordernis (§ 623 BGB) und Kündigungsschutz",
+      "keyTakeaway": "Eine Kündigung ist ohne eigenhändig unterschriebenes Schriftstück (§ 623 BGB) von vornherein unwirksam – zusätzlich schützen KSchG, Sonderkündigungsschutz und Mitbestimmung vor willkürlichen Entlassungen.",
+      "body": "Im Arbeitsrecht gelten für die Beendigung von Arbeitsverhältnissen strenge formale und inhaltliche Hürden. Zwingend vorab zu prüfen ist § 623 BGB: Jede Kündigung und jeder Aufhebungsvertrag bedarf der gesetzlichen Schriftform auf Papier mit eigenhändiger Unterschrift – eine Kündigung per Telefon, E-Mail, SMS oder Messenger ist bereits wegen Formmangels nichtig! Inhaltlich wird zwischen der ordentlichen Kündigung (unter Einhaltung gesetzlicher, vertraglicher oder tariflicher Fristen) und der außerordentlichen, meist fristlosen Kündigung aus wichtigem Grund (§ 626 BGB) unterschieden. Besteht das Arbeitsverhältnis länger als sechs Monate und beschäftigt der Betrieb bzw. Träger in der Regel mehr als zehn Arbeitnehmerinnen und Arbeitnehmer (in Vollzeitäquivalenten), greift das Kündigungsschutzgesetz (KSchG): Eine ordentliche Arbeitgeberkündigung ist dann sozial nur gerechtfertigt, wenn ein personenbedingter, verhaltensbedingter (in der Regel nach vorheriger Abmahnung) oder betriebsbedingter Grund vorliegt. Besondere Personengruppen wie Schwangere (MuSchG), Beschäftigte in Elternzeit, schwerbehinderte Menschen oder Mitglieder von Betriebsrat/Personalrat/MAV genießen zusätzlichen Sonderkündigungsschutz. Zudem muss vor jeder Kündigung die betriebliche Interessenvertretung ordnungsgemäß beteiligt bzw. angehört werden. Wichtig für die Praxis: Wer eine unwirksame Kündigung angreifen möchte, muss innerhalb von drei Wochen nach Zugang Klage beim Arbeitsgericht erheben (§ 4 KSchG).",
       "bulletPoints": [
-        "Flächendeckende Bedeutung des TVöD-SuE für kommunale und viele freie Träger",
-        "Eingruppierungssystematik (S 2 bis S 18) basierend auf Tätigkeitsmerkmalen und Verantwortung",
-        "Der „Dritte Weg“ im kirchlichen Arbeitsrecht (AVR Diakonie/Caritas) ohne Streikrecht",
-        "Tarifautonomie und Friedenspflicht als Grundpfeiler kollektiver Arbeitsbeziehungen"
+        "§ 623 BGB (Schriftform): Mündliche oder digitale Kündigungen (Telefon, E-Mail, Chat) sind rechtlich unwirksam.",
+        "KSchG (allgemeiner Kündigungsschutz): Nach 6 Monaten Wartezeit in Betrieben mit i. d. R. über 10 Vollzeitkräften nur personen-, verhaltens- oder betriebsbedingt.",
+        "Beteiligung der Vertretung: Ohne ordnungsgemäße Anhörung bzw. Mitwirkung von Betriebsrat, Personalrat oder MAV ist die Kündigung unwirksam.",
+        "Drei-Wochen-Frist (§ 4 KSchG): Kündigungsschutzklage muss zügig innerhalb von drei Wochen nach schriftlichem Zugang erhoben werden."
       ],
-      "heading": "Tarifrechtliche Grundlagen (TVöD-SuE & AVR)",
-      "keyTakeaway": "Tarifverträge schaffen transparente, verlässliche und solidarisch ausgehandelte Arbeitsbedingungen im Sozial- und Erziehungsdienst.",
-      "praxisTip": "Prüfe bei Antritt einer neuen Stelle genau, welcher Tarifvertrag (oder AVR-Zweig) gilt und in welche Entgeltgruppe deine konkrete berufliche Tätigkeit eingruppiert ist."
+      "praxisTip": "Unterschreiben Sie bei Konflikten niemals unter Zeitdruck einen vorgelegten Aufhebungsvertrag – holen Sie zuerst Beratung bei Personalrat/Betriebsrat/MAV, Gewerkschaft oder Fachanwalt ein."
     },
     {
-      "body": "Mitbestimmung sichert demokratische Teilhabe und kollektiven Schutz im Arbeitsleben. Je nach Trägerstruktur greifen unterschiedliche Mitbestimmungsgesetze: Das Personalvertretungsgesetz (BPersVG bzw. Landespersonalvertretungsgesetze wie das PersVG RhPf) gilt im öffentlichen Dienst, das Betriebsverfassungsgesetz (BetrVG) in privatwirtschaftlichen und vielen frei-gemeinnützigen Einrichtungen, während Mitarbeitervertretungsgesetze (MVG) kirchliche Einrichtungen prägen. Diese Gremien (Personalrat, Betriebsrat, MAV) besitzen je nach Gesetz Mitwirkungs-, Mitbereitungs- oder Informationsrechte bei Einstellungen, Kündigungen, Dienstplänen und Arbeitsschutzmaßnahmen. Gewerkschaften (z.B. ver.di, GEW) unterstützen diese Arbeit und vertreten die sozialpolitischen Interessen der Berufsgruppe.",
+      "heading": "Tarifrecht (TVöD-SuE), Tarifautonomie und kirchlicher Dritter Weg (AVR)",
+      "keyTakeaway": "Tarifverträge sichern kollektiv ausgehandelte Standards oberhalb gesetzlicher Mindestnormen; im Sozial- und Erziehungsdienst prägen vor allem TVöD-SuE und kirchliche Arbeitsvertragsrichtlinien (AVR) die Praxis.",
+      "body": "Artikel 9 Abs. 3 des Grundgesetzes garantiert die Koalitionsfreiheit und damit die Tarifautonomie: Gewerkschaften (im Sozial- und Erziehungsdienst insbesondere ver.di und GEW) und Arbeitgeberverbände oder einzelne Arbeitgeber handeln Arbeitsbedingungen eigenständig ohne staatliche Vorgaben aus. Ein Tarifvertrag regelt verbindliche Mindestbedingungen für Entgelt, Arbeitszeit, Urlaub, Sonderzahlungen oder Zuschläge; nach dem Günstigkeitsprinzip dürfen individuelle Arbeitsverträge davon nur zugunsten der Beschäftigten abweichen. Während der Laufzeit eines Tarifvertrags gilt die Friedenspflicht; nach Auslaufen können Gewerkschaften Arbeitskämpfe (Streiks) führen. Für kommunale und viele angelehnte freie Träger ist der Tarifvertrag für den öffentlichen Dienst im Sozial- und Erziehungsdienst (TVöD-SuE) mit seiner speziellen S-Entgelttabelle (z. B. Eingruppierung nach tatsächlicher Tätigkeit, Verantwortung und Qualifikation) sowie spezifischen Regelungen zu Vor- und Nachbereitungszeiten maßgeblich. Bei kirchlichen Trägern (z. B. katholische Caritas, evangelische Diakonie) gilt hingegen überwiegend der sogenannte ‚Dritte Weg‘: Anstelle von Tarifverhandlungen mit Streik und Aussperrung beschließen paritätisch aus Dienstgeber- und Dienstnehmerseite besetzte Arbeitsrechtliche Kommissionen die Arbeitsvertragsrichtlinien (AVR), die inhaltlich häufig eng an den öffentlichen Dienst angelehnt sind.",
       "bulletPoints": [
-        "Unterscheidung von Personalrat (Öffentlicher Dienst), Betriebsrat (Privatwirtschaft) und MAV (Kirche)",
-        "Beteiligungsrechte bei personellen, sozialen und organisatorischen Maßnahmen in der Kita",
-        "Rolle von Gewerkschaften (ver.di, GEW) als tariffähige Interessenvertretungen",
-        "Demokratieförderung und Partizipation als Querschnittsthema im Arbeitsleben"
+        "Tarifautonomie (Art. 9 Abs. 3 GG): Eigenständige Aushandlung von Arbeitsbedingungen zwischen Gewerkschaften und Arbeitgebern.",
+        "TVöD-SuE: Maßgebliches Tarifwerk für kommunale (und viele freie) Einrichtungen mit S-Entgelttabelle und spezifischen SuE-Regelungen.",
+        "Kirchliches Arbeitsrecht (Dritter Weg / AVR): Paritätisch besetzte Arbeitsrechtliche Kommissionen beschließen AVR ohne Arbeitskampf/Streik.",
+        "Gewerkschaften & Berufsverbände: Bieten Tarifpolitik, arbeitsrechtliche Beratung, Rechtsschutz sowie fachpolitische Interessenvertretung."
       ],
-      "heading": "Berufliche Mitbestimmung, Gewerkschaften & Verbände",
-      "keyTakeaway": "Mitbestimmungsrechte und starke Gewerkschaften machen pädagogische Fachkräfte zu handlungsfähigen Akteuren in der arbeitsrechtlichen Praxis.",
-      "praxisTip": "Nutze die Angebote und Sprechstunden deiner Gewerkschaft oder wende dich bei Konflikten im Team frühzeitig an den Personalrat bzw. Betriebsrat."
+      "praxisTip": "Vergleichen Sie vor einer Bewerbung nicht nur das Bruttomonatsgehalt, sondern das Gesamtpaket aus Entgeltgruppe, Stufenzuordnung, Wochenarbeitszeit, Vor- und Nachbereitungszeit, Urlaubs- bzw. Regenerationstagen und Jahressonderzahlung."
+    },
+    {
+      "heading": "Betriebliche Mitbestimmung: Betriebsrat, Personalrat (LPersVG RLP) und MAV",
+      "keyTakeaway": "Welches Mitbestimmungsgremium zuständig ist, richtet sich nach dem Träger der Einrichtung – alle drei Gremien stärken demokratische Teilhabe, Arbeitsschutz und faire Dienstplangestaltung.",
+      "body": "Demokratie endet nicht an der Einrichtungstür. Im Arbeitsleben vertreten gewählte Beschäftigtengremien die Interessen der Belegschaft gegenüber dem Arbeitgeber – dabei bestimmt die Rechtsform des Trägers, welches Gesetz gilt: In privatwirtschaftlichen sowie vielen frei-gemeinnützigen Einrichtungen (z. B. Vereine, gGmbHs, AWO, DRK, Paritätischer) gilt das Betriebsverfassungsgesetz (BetrVG), wonach in Betrieben mit in der Regel mindestens fünf ständig wahlberechtigten Beschäftigten ein Betriebsrat gewählt werden kann. Im öffentlichen Dienst des Landes und der Kommunen in Rheinland-Pfalz (z. B. städtische oder gemeindliche Kitas) gilt das Landespersonalvertretungsgesetz Rheinland-Pfalz (LPersVG RLP) mit dem Personalrat als Interessenvertretung. In kirchlichen Einrichtungen (katholisch und evangelisch) greift das jeweilige kirchliche Mitarbeitervertretungsrecht (MAVO bzw. MVG) mit der Mitarbeitervertretung (MAV). Je nach Angelegenheit verfügen diese Gremien über abgestufte Beteiligungsrechte – von Informations- und Anhörungsrechten bis zur echten Mitbestimmung, bei der Maßnahmen ohne Zustimmung der Vertretung nicht wirksam umgesetzt werden dürfen (etwa bei Lage der Arbeitszeit/Dienstplänen, Anordnung von Überstunden, Urlaubsgrundsätzen, technischer Verhaltenskontrolle oder Maßnahmen des Arbeits- und Gesundheitsschutzes). Ein wichtiges Praxisinstrument bei dauerhafter Unterbesetzung ist zudem die Überlastungs- bzw. Gefährdungsanzeige, die Beschäftigte gemeinsam mit der Interessenvertretung zur rechtlichen Absicherung und Abhilfe nutzen können.",
+      "bulletPoints": [
+        "Betriebsrat (BetrVG): Zuständig in privaten und vielen frei-gemeinnützigen Einrichtungen ab i. d. R. 5 wahlberechtigten Beschäftigten.",
+        "Personalrat (LPersVG RLP): Zuständig bei kommunalen und staatlichen Einrichtungen in Rheinland-Pfalz (z. B. städtische Kitas).",
+        "Mitarbeitervertretung / MAV (MAVO / MVG): Zuständig bei katholischen und evangelischen Trägern (z. B. kirchliche Kitas, Caritas, Diakonie).",
+        "Starke Mitbestimmungsthemen im Kita-Alltag: Dienstpläne, Überstunden, Urlaubsplanung, Arbeitsschutz, Gefährdungsbeurteilung und Dienst-/Betriebsvereinbarungen."
+      ],
+      "praxisTip": "Informieren Sie sich gleich beim Start in einer Einrichtung, wer Ihre Ansprechperson im Personalrat, Betriebsrat oder in der MAV ist – diese Gremien beraten auch vertraulich, bevor ein Konflikt offen eskaliert."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "",
-      "id": "vis-1",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Gesetzlicher Rahmen",
-          "detail": "Das BGB (§ 611a) und das Nachweishandlungsgesetz definieren den Abschluss, die Hauptpflichten sowie die grundlegenden Bedingungen des Beschäftigungsverhältnisses zwischen Träger und Fachkraft.",
-          "example": "Abschluss eines schriftlichen Arbeitsvertrags vor Arbeitsantritt mit exakter Benennung der Wochenarbeitszeit und Vergütungsgruppe.",
-          "id": "item-1",
-          "label": "Arbeitsvertrag & BGB",
-          "metric": "Fundament",
-          "summary": "Das individuelle Fundament des Beschäftigungsverhältnisses mit gegenseitigen Rechten und Pflichten."
-        },
-        {
-          "badge": "Kollektives Recht",
-          "detail": "Tarifverträge wie der TVöD-SuE legen für ganze Branchen verbindliche Standards fest, die das gesetzliche Minimum oft zugunsten der Beschäftigten verbessern (Günstigkeitsprinzip).",
-          "example": "Einstufung einer Gruppenleitung in die Entgeltgruppe S 8a TVöD-SuE inklusive Jahressonderzahlung.",
-          "id": "item-2",
-          "label": "Tarifrecht (TVöD-SuE)",
-          "metric": "Kollektivstandard",
-          "summary": "Flächendeckende Regelung von Entgelt, Arbeitszeit und Sonderleistungen."
-        },
-        {
-          "badge": "Kirchlicher Sonderweg",
-          "detail": "Kirchliche Träger (Caritas, Diakonie) nutzen den „Dritten Weg“, bei dem Arbeitsbedingungen in paritätischen Kommissionen beschlossen werden, ohne dass ein gesetzliches Streikrecht besteht.",
-          "example": "Anwendung der Arbeitsvertragsrichtlinien (AVR Caritas) in einer katholischen Kindertagesstätte.",
-          "id": "item-3",
-          "label": "Kirchliches Arbeitsrecht (AVR)",
-          "metric": "Dritter Weg",
-          "summary": "Spezifische Regelung der Arbeitsbedingungen in konfessionellen Einrichtungen."
-        },
-        {
-          "badge": "Direktionsrecht",
-          "detail": "Der Arbeitgeber kann im Rahmen des Weisungsrechts (§ 106 GewO) Inhalt, Ort und Zeit der Arbeitsleistung näher bestimmen, sofern dies billigem Ermessen entspricht.",
-          "example": "Anordnung von Teamfortbildungen an einem Studientag außerhalb der regulären Kernbetreuungszeit.",
-          "id": "item-4",
-          "label": "Weisungsrecht des Trägers",
-          "metric": "Direktionsrecht",
-          "summary": "Einseitige Konkretisierung der Arbeitspflichten im Rahmen des Direktionsrechts."
-        }
-      ],
+      "id": "u08-vb-traeger",
       "kind": "comparison",
+      "title": "Träger, Tarifsystem und Mitbestimmung im Überblick",
+      "subtitle": "Welches Arbeits- und Mitbestimmungsrecht gilt je nach Träger Ihrer Einrichtung in Rheinland-Pfalz?",
+      "centerLabel": "",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Gegenüberstellung zentraler arbeitsrechtlicher und tariflicher Regelungsstrukturen in der Sozialpädagogik",
-      "title": "Rechtsgrundlagen im Arbeitsverhältnis"
-    },
-    {
-      "centerLabel": "",
-      "id": "vis-2",
       "isCycle": false,
       "items": [
         {
-          "badge": "Information",
-          "detail": "Das Gremium muss vom Arbeitgeber rechtzeitig und umfassend über geplante Maßnahmen (z.B. Umstrukturierungen, Raumkonzepte) informiert werden.",
-          "example": "Vorstellung des neuen Raumkonzepts für den U3-Bereich im Personalrat.",
-          "id": "grid-1",
-          "label": "Informationsrecht",
-          "metric": "Stufe 1",
-          "summary": "Grundlegendes Recht auf Einsichtnahme und Unterrichtung."
+          "id": "tr-1",
+          "label": "Kommunaler / öffentlicher Träger",
+          "badge": "Öffentlicher Dienst",
+          "metric": "TVöD-SuE & LPersVG RLP",
+          "summary": "Städtische oder gemeindliche Kitas, Jugendämter und kommunale Jugendzentren.",
+          "detail": "Es gilt in der Regel der TVöD-SuE mit regulärem Streikrecht in Tarifrunden; die betriebliche Mitbestimmung erfolgt über den Personalrat nach dem Landespersonalvertretungsgesetz Rheinland-Pfalz (LPersVG RLP).",
+          "example": "Bei einer kommunalen Kita in Mainz oder Koblenz stimmt der Personalrat über geänderte Dienstplanmodelle mit ab."
         },
         {
-          "badge": "Beratung",
-          "detail": "Vor Umsetzung von Maßnahmen ist ein Beratungsgespräch zwischen Träger und Mitbestimmungsorgan zu führen, um Argumente auszutauschen.",
-          "example": "Erörterung der Auswirkungen geänderter Öffnungszeiten auf die Arbeitsbelastung des Teams.",
-          "id": "grid-2",
-          "label": "Beratungsrecht",
-          "metric": "Stufe 2",
-          "summary": "Gemeinsamer fachlicher und rechtlicher Austausch vor Entscheidungen."
+          "id": "tr-2",
+          "label": "Frei-gemeinnütziger / privater Träger",
+          "badge": "Freie Trägerschaft",
+          "metric": "Tarif/Haustarif & BetrVG",
+          "summary": "Wohlfahrtsverbände (z. B. AWO, DRK), Elterninitiativen, gemeinnützige Vereine und private Träger.",
+          "detail": "Vergütung richtet sich nach eigenem Verbandstarif, Haustarif, Anlehnung an den TVöD-SuE oder Einzelvertrag; betriebliche Mitbestimmung erfolgt über den Betriebsrat nach dem Betriebsverfassungsgesetz (BetrVG).",
+          "example": "Der Betriebsrat einer gemeinnützigen Kita-gGmbH schließt eine Betriebsvereinbarung zur Arbeitszeiterfassung ab."
         },
         {
-          "badge": "Mitwirkung",
-          "detail": "Die Mitarbeitervertretung oder der Personalrat hat das Recht, Vorschläge, Bedenken oder Stellungnahmen einzubringen, die bei der Entscheidung berücksichtigt werden müssen.",
-          "example": "Stellungnahme des Personalrats zur geplanten Versetzung einer Fachkraft in eine andere Einrichtung.",
-          "id": "grid-3",
-          "label": "Mitwirkungsrecht",
-          "metric": "Stufe 3",
-          "summary": "Aktive Beteiligung und Möglichkeit zur Stellungnahme."
-        },
-        {
-          "badge": "Mitbestimmung",
-          "detail": "Maßnahmen (z.B. Dienstpläne, Überstundenregelungen, Einführung neuer Software) können nur mit Zustimmung des Personalrats/Betriebsrats umgesetzt werden (Veto-Recht).",
-          "example": "Ablehnung eines einseitig angeordneten Schichtdienstmodells ohne Zustimmung des Personalrats.",
-          "id": "grid-4",
-          "label": "Vollständige Mitbestimmung",
-          "metric": "Stufe 4",
-          "summary": "Zustimmungserfordernis für verbindliche betriebliche Regelungen."
+          "id": "tr-3",
+          "label": "Kirchlicher Träger",
+          "badge": "Konfessionell",
+          "metric": "AVR (Dritter Weg) & MAV",
+          "summary": "Katholische und evangelische Kirchengemeinden, Kita-Zweckverbände, Caritas und Diakonie.",
+          "detail": "Arbeitsbedingungen werden im Dritten Weg durch paritätisch besetzte Arbeitsrechtliche Kommissionen (AVR) ohne Arbeitskampf beschlossen; Mitbestimmung nimmt die Mitarbeitervertretung (MAV nach MAVO/MVG) wahr.",
+          "example": "Die MAV prüft bei einem katholischen Kita-Träger geplante Änderungen der Öffnungs- und Vorbereitungszeiten."
         }
-      ],
-      "kind": "feature_grid",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Stufen und Bausteine der betrieblichen Mitbestimmung nach Personalvertretungs- und Betriebsverfassungsrecht",
-      "title": "Bausteine der Mitbestimmung"
+      ]
     },
     {
+      "id": "u08-vb-schutz",
+      "kind": "feature_grid",
+      "title": "Wichtige Arbeitsschutzgesetze für den pädagogischen Alltag",
+      "subtitle": "Gesetzliche Schutzrechte, die kein Arbeitsvertrag zulasten der Beschäftigten unterschreiten darf",
       "centerLabel": "",
-      "id": "vis-3",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "sg-1",
+          "label": "Arbeitszeitgesetz (ArbZG)",
+          "badge": "Zeit & Erholung",
+          "metric": "8 Std. / 11 Std. Ruhe",
+          "summary": "Begrenzt tägliche Arbeitszeit und sichert verbindliche Pausen und Ruhezeiten.",
+          "detail": "Regelarbeitszeit 8 Stunden (max. 10 Std. bei Ausgleich); Pause mind. 30 Min. ab mehr als 6 Stunden, 45 Min. ab mehr als 9 Stunden; mind. 11 Stunden Ruhezeit zwischen Spät- und Frühdienst.",
+          "example": "Nach einem Elternabend bis 21:00 Uhr darf der reguläre Frühdienst am nächsten Morgen erst ab 08:00 Uhr beginnen."
+        },
+        {
+          "id": "sg-2",
+          "label": "Mutterschutzgesetz (MuSchG)",
+          "badge": "Gesundheitsschutz",
+          "metric": "6 Wo. vor / 8 Wo. nach",
+          "summary": "Schützt schwangere und stillende Beschäftigte und das ungeborene Kind vor Berufsgefahren.",
+          "detail": "Verpflichtet den Träger zur sofortigen Gefährdungsbeurteilung nach Mitteilung der Schwangerschaft (in Kitas zentral: Infektionsrisiken, Heben, Lärm), ggf. Umgestaltung oder Beschäftigungsverbot bei vollem Mutterschutzlohn.",
+          "example": "Tritt in einer Kita ein Fall von Ringelröteln auf, prüft der Arbeitgeber umgehend Schutzmaßnahmen bzw. ein betriebliches Beschäftigungsverbot für die schwangere Fachkraft."
+        },
+        {
+          "id": "sg-3",
+          "label": "Jugendarbeitsschutz (JArbSchG)",
+          "badge": "Unter 18 Jahre",
+          "metric": "Besonderer Schutz",
+          "summary": "Schützt minderjährige Praktikantinnen, Praktikanten und Auszubildende vor Überforderung.",
+          "detail": "Strengere Höchstarbeitszeiten (grundsätzlich 8 Std./Tag, 40 Std./Woche), längere Ruhepausen (30 Min. ab >4,5 Std., 60 Min. ab >6 Std.), mindestens 12 Stunden Freizeit und Freistellung für Berufsschule/Prüfungen.",
+          "example": "Eine 17-jährige Sozialassistenz-Praktikantin darf nicht für den späten Elternabend bis 22:00 Uhr eingeplant werden."
+        },
+        {
+          "id": "sg-4",
+          "label": "Entgeltfortzahlung & Urlaub",
+          "badge": "EFZG & BUrlG",
+          "metric": "6 Wochen / Mindesturlaub",
+          "summary": "Sichert das Einkommen bei Krankheit und einen verbindlichen Erholungsurlaub.",
+          "detail": "Nach § 3 EFZG erhalten Beschäftigte nach vierwöchiger Wartezeit bis zu 6 Wochen volles Entgelt bei unverschuldeter Arbeitsunfähigkeit; das BUrlG garantiert mindestens 20 Urlaubstage bei 5-Tage-Woche (Tarifverträge meist 30 Tage).",
+          "example": "Bei ärztlich festgestellter Arbeitsunfähigkeit während des Urlaubs werden die Krankheitstage nicht auf den Urlaubsanspruch angerechnet (§ 9 BUrlG)."
+        }
+      ]
+    },
+    {
+      "id": "u08-vb-prozess",
+      "kind": "process_flow",
+      "title": "Professionelles Vorgehen bei arbeitsrechtlichen Konflikten",
+      "subtitle": "Sachlich, dokumentiert und solidarisch handeln – statt still auszuharren oder unüberlegt zu eskalieren",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": true,
       "items": [
         {
-          "badge": "Schritt 1",
-          "detail": "Ausgangspunkt ist die Feststellung von Regelungsbedarf oder Missständen im Arbeitsalltag (z.B. chronische Überlastung, unklare Eingruppierung).",
-          "example": "Das Team stellt fest, dass durch ständig fehlendes Personal die gesetzlichen Mindestpersonalschlüssel regelmäßig unterschritten werden.",
-          "id": "proc-1",
-          "label": "Problemidentifikation & Dokumentation",
-          "metric": "Analyse",
-          "summary": "Erfassung arbeitsrechtlicher Herausforderungen im pädagogischen Alltag."
+          "id": "pr-1",
+          "label": "1. Sachlich dokumentieren",
+          "badge": "Fakten sichern",
+          "metric": "Nachweis",
+          "summary": "Arbeitszeiten, Überstunden, Weisungen oder Personalengpässe zeitnah mit Datum festhalten.",
+          "detail": "Schriftliche Aufzeichnungen schützen vor Erinnerungslücken und liefern eine objektive Grundlage für Gespräche mit Leitung, Träger oder Interessenvertretung.",
+          "example": "Lückenloses Führen des eigenen Arbeitszeitkontos inklusive dokumentierter Vor- und Nachbereitungszeiten."
         },
         {
-          "badge": "Schritt 2",
-          "detail": "Fachkräfte prüfen ihre Verträge, Tarifverträge (TVöD-SuE) und einschlägige Gesetze auf rechtliche Ansprüche und Grenzen.",
-          "example": "Abgleich der geleisteten Arbeitsstunden mit dem Arbeitsvertrag und den Überstundenregelungen des TVöD.",
-          "id": "proc-2",
-          "label": "Rechtliche Prüfung & Beratung",
-          "metric": "Recherche",
-          "summary": "Konsultation von Gesetzestexten, Fachliteratur und Gewerkschaftsberatung."
+          "id": "pr-2",
+          "label": "2. Rechtslage prüfen",
+          "badge": "Orientierung",
+          "metric": "Vertrag & Gesetz",
+          "summary": "Arbeitsvertrag, geltenden Tarifvertrag/AVR, Dienstvereinbarungen und Schutzgesetze abgleichen.",
+          "detail": "Klärt präzise, ob eine Weisung vom Direktionsrecht gedeckt ist oder gegen Gesetz, Tarifvertrag oder Mitbestimmung verstößt.",
+          "example": "Prüfung, ob zwischen spätem Elternabend und frühem Dienstbeginn die 11 Stunden Ruhezeit nach § 5 ArbZG eingehalten sind."
         },
         {
-          "badge": "Schritt 3",
-          "detail": "Einbindung der gewählten Interessenvertretungen (Personalrat, Betriebsrat, MAV) zur Bündelung der Kräfte und Einleitung formaler Schritte.",
-          "example": "Einschaltung des Personalrats zur Durchsetzung einer Gefährdungsanzeige wegen Unterbesetzung.",
-          "id": "proc-3",
-          "label": "Einschaltung der Mitbestimmung",
-          "metric": "Interessenvertretung",
-          "summary": "Nutzen betrieblicher Mitbestimmungsstrukturen und Gewerkschaften."
+          "id": "pr-3",
+          "label": "3. Beratung einholen",
+          "badge": "Unterstützung",
+          "metric": "Mitbestimmung",
+          "summary": "Vertrauliche Rücksprache mit Personalrat, Betriebsrat, MAV oder Gewerkschaft nutzen.",
+          "detail": "Interessenvertretungen kennen die örtlichen Dienst-/Betriebsvereinbarungen und unterstützen dabei, das Anliegen professionell und geschützt vorzubringen.",
+          "example": "Gemeinsames Gespräch mit dem Personalrat vor dem Einreichen einer Überlastungs-/Gefährdungsanzeige."
         },
         {
-          "badge": "Schritt 4",
-          "detail": "Führung konstruktiver Verhandlungen mit dem Träger, Abschluss von Dienstvereinbarungen oder Durchsetzung von Rechtsansprüchen.",
-          "example": "Abschluss einer Dienstvereinbarung zur Belastungsbegrenzung und zum gerechten Freizeitausgleich.",
-          "id": "proc-4",
-          "label": "Verhandlung & Umsetzung",
-          "metric": "Lösung",
-          "summary": "Verbindliche Regelung und nachhaltige Verbesserung der Arbeitsbedingungen."
+          "id": "pr-4",
+          "label": "4. Klärung & Lösung vereinbaren",
+          "badge": "Umsetzung",
+          "metric": "Verbindlichkeit",
+          "summary": "Konstruktives Gespräch mit Leitung/Träger führen und Absprachen schriftlich festhalten (ggf. Rechtsweg fristgerecht prüfen).",
+          "detail": "Ziel sind nachhaltige, rechtssichere Lösungen – etwa Ausgleichsregelungen, angepasste Dienstpläne oder Dienstvereinbarungen; bei Kündigungen unbedingt Fristen (§ 4 KSchG: 3 Wochen!) beachten.",
+          "example": "Verbindliche Vereinbarung über Freizeitausgleich für angeordnete Mehrarbeit und realistische Teamsitzungszeiten."
         }
-      ],
-      "kind": "process_flow",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Der Kreislauf zur Wahrnehmung beruflicher Rechte und kollektiven Interessenvertretung in der Praxis",
-      "title": "Prozess der Interessenvertretung"
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Erzieher:innen im Anerkennungsjahr bzw. 1. Ausbildungsjahr",
-    "context": "Eine junge Erzieherin beginnt ihre Tätigkeit in einer städtischen Kindertagesstätte und wird mit unbezahlten Überstunden, Unklarheiten bezüglich der Eingruppierung nach TVöD-SuE und Fragen zur betrieblichen Mitbestimmung (Personalrat vs. MAV) konfrontiert.",
-    "setting": "Städtische Kindertagesstätte (Träger: Kommune, Geltungsbereich TVöD-SuE)",
+    "title": "Dauerüberstunden, Ruhezeit und plötzliche Drohung per Nachricht",
+    "setting": "Kommunale Kindertagesstätte in Rheinland-Pfalz (Geltungsbereich TVöD-SuE und LPersVG RLP)",
+    "ageGroup": "Berufseinsteigerin / pädagogisches Team",
+    "context": "Sie arbeiten seit neun Monaten unbefristet in einer kommunalen Kindertagesstätte mit 18 Beschäftigten. Durch längere Krankheitsausfälle häufen sich Überstunden; zudem soll das Team nach einem Elternabend bis 21:30 Uhr am nächsten Morgen bereits um 07:00 Uhr den Frühdienst antreten. Als Sie im Team sachlich nachfragen, wie die Überstunden erfasst und die Ruhezeiten eingehalten werden, reagiert eine überforderte Bereichsleitung gereizt und schreibt Ihnen abends per Messenger: ‚Wenn Ihnen unsere Einsatzbereitschaft nicht passt, können Sie ab morgen zu Hause bleiben – hiermit kündige ich Ihnen!‘",
     "steps": [
       {
+        "situation": "Arbeitszeit- und Ruhezeitkonflikt: Zwischen 21:30 Uhr (Ende des Elternabends) und 07:00 Uhr (Frühdienst) liegen nur 9,5 Stunden; zudem werden angeordnete Mehrarbeitsstunden bislang nicht sauber dokumentiert.",
+        "prompt": "Wie beurteilen Sie die Dienstplanvorgabe rechtlich und wie gehen Sie professionell vor?",
         "options": [
           {
-            "feedback": "Die Erzieherin dokumentiert die angeordneten Überstunden eigeninitiativ, prüft den TVöD-SuE auf Ausgleichsregelungen und wendet sich zur Klärung an den Personalrat sowie die Kita-Leitung. Dies schützt vor Ausbeutung und wahrt rechtliche Ansprüche.",
-            "label": "Dokumentation, rechtliche Prüfung und konstruktives Gespräch mit Personalrat und Leitung",
-            "quality": "optimal",
-            "theoryLink": "TVöD-SuE § 7/8 (Arbeitszeit/Überstunden), BPersVG / PersVG RhPf (Personalvertretungsrecht)"
-          },
-          {
-            "feedback": "Die Erzieherin arbeitet alle Überstunden schweigend ab, um im Kollegium nicht negativ aufzufallen. Dies führt langfristig zu Überlastung und verstößt gegen den Arbeits- und Gesundheitsschutz sowie arbeitszeitrechtliche Vorgaben.",
-            "label": "Schweigsames Abarbeiten aller Überstunden ohne Dokumentation",
-            "quality": "problematisch",
-            "theoryLink": "ArbZG (Arbeitszeitgesetz), Fürsorgepflicht des Arbeitgebers (§ 618 BGB)"
-          },
-          {
-            "feedback": "Die Erzieherin droht sofort mit arbeitsrechtlichen Schritten und Kündigung, ohne das Gespräch mit der Leitung oder dem Personalrat zu suchen. Dies belastet das Betriebsklima unnötig und ignoriert innerbetriebliche Mitbestimmungsstrukturen.",
-            "label": "Sofortige Androhung rechtlicher Schritte ohne interne Klärung",
+            "label": "Sie bleiben am nächsten Morgen ohne Rückmeldung einfach zu Hause, um die elf Stunden Ruhezeit eigenmächtig auszugleichen.",
             "quality": "teilweise",
-            "theoryLink": "Betrieblicher Arbeitsfrieden, Grundsatz der vertrauensvollen Zusammenarbeit (§ 2 BPersVG)"
+            "feedback": "In der Sache liegt zwar ein Verstoß gegen § 5 ArbZG vor, aber ein unangekündigtes Fernbleiben ohne vorherige Klärung mit Leitung/Personalrat gefährdet die Betreuungssicherheit der Kinder und löst arbeitsrechtliche Konflikte aus.",
+            "theoryLink": "Vertrauensvolle Zusammenarbeit, Klärung über Leitung und Personalrat"
+          },
+          {
+            "label": "Sie treten den Dienst um 07:00 Uhr widerspruchslos an und dokumentieren die Überstunden nicht, weil im Sozialbereich ständige Flexibilität erwartet wird.",
+            "quality": "problematisch",
+            "feedback": "Stillhalten verletzt Ihren eigenen Arbeits- und Gesundheitsschutz, gefährdet durch Übermüdung mittelbar auch die Aufsichtsqualität für die Kinder und lässt berechtigte Zeit- und Entgeltansprüche verfallen.",
+            "theoryLink": "ArbZG (Arbeitsschutz), Fürsorgepflicht des Arbeitgebers"
+          },
+          {
+            "label": "Sie dokumentieren alle Arbeits- und Elternabendzeiten lückenlos, weisen freundlich, aber klar auf die gesetzliche Mindestruhezeit von elf Stunden (§ 5 ArbZG) hin und schalten bei fehlender Abhilfe den Personalrat (LPersVG RLP) ein.",
+            "quality": "optimal",
+            "feedback": "Rechtssicher und professionell! Das Arbeitszeitgesetz (mind. 11 Std. Ruhezeit) ist zwingendes Schutzrecht, das das Direktionsrecht (§ 106 GewO) begrenzt. Sachliche Dokumentation und frühzeitige Einbindung des zuständigen Personalrats schützen Gesundheit und Rechtsansprüche.",
+            "theoryLink": "§ 5 ArbZG (Ruhezeit), § 106 GewO (Grenzen des Weisungsrechts), LPersVG RLP (Personalrat im öffentlichen Dienst)"
           }
-        ],
-        "prompt": "Schritt 1: Umgang mit angeordneten Überstunden und unklaren Arbeitszeitregelungen in der Kita.",
-        "situation": "Nach wenigen Wochen häufen sich bei der neuen Fachkraft nicht dokumentierte Überstunden durch Vor- und Nachbereitungszeiten sowie Teamsitzungen nach Dienstschluss."
+        ]
       },
       {
+        "situation": "Messenger-Kündigung am Abend: Sie erhalten die Chatnachricht der Bereichsleitung mit dem Satz ‚Hiermit kündige ich Ihnen!‘.",
+        "prompt": "Wie ordnen Sie diese Nachricht arbeitsrechtlich korrekt ein und welche Schritte unternehmen Sie am nächsten Werktag?",
         "options": [
           {
-            "feedback": "Die Fachkraft informiert sich über die spezifische Entgeltordnung des TVöD-SuE, vergleicht ihre Tätitätsmerkmale und bittet um ein klärendes Gespräch mit der Personalabteilung, ggf. unter Hinzuziehung der Gewerkschaftsberatung.",
-            "label": "Fachlicher Abgleich der Tätigkeitsmerkmale mit TVöD-SuE und Beratung durch Gewerkschaft/Personalrat",
+            "label": "Sie sichern einen Screenshot der Nachricht, wissen, dass eine Kündigung per Messenger wegen Verstoßes gegen § 623 BGB (Schriftform) unwirksam ist, bieten Ihre Arbeitsleistung regulär an und wenden sich unmittelbar zur Klärung und Begleitung an den Personalrat sowie ggf. Ihre Gewerkschaft.",
             "quality": "optimal",
-            "theoryLink": "Entgeltordnung zum TVöD-SuE (S-Tabelle), § 12 TVöD (Eingruppierung)"
+            "feedback": "Exakt richtig! Neben dem Formmangel nach § 623 BGB wäre zudem das Kündigungsschutzgesetz (über 6 Monate Betriebszugehörigkeit, über 10 Beschäftigte) und die zwingende Beteiligung des Personalrats nach LPersVG RLP zu prüfen; das reguläre Anbieten der Arbeitskraft schützt vor Pflichtverstößen.",
+            "theoryLink": "§ 623 BGB (Schriftform), KSchG, LPersVG RLP (Personalratsbeteiligung), § 4 KSchG (3-Wochen-Frist bei schriftlicher Kündigung)"
           },
           {
-            "feedback": "Die Fachkraft verlässt sich blind auf die Zusicherung der Kita-Leitung, dass sie irgendwann höhergestuft wird, ohne dies vertraglich oder tariflich prüfen zu lassen.",
-            "label": "Unkritische Annahme mündlicher Versprechungen der Leitung",
+            "label": "Sie betrachten das Arbeitsverhältnis sofort als beendet, erscheinen nicht mehr zur Arbeit und suchen sich eine neue Stelle.",
             "quality": "problematisch",
-            "theoryLink": "Tarifautonomie, Nachweispflicht nach NachwG"
+            "feedback": "Fehlentscheidung mit hohem Risiko! Eine Kündigung per Messenger ist nach § 623 BGB formnichtig – Ihr Arbeitsverhältnis besteht unverändert fort. Wer dann einfach wegbleibt, riskiert eine unentschuldigte Arbeitsverweigerung.",
+            "theoryLink": "§ 623 BGB (zwingende Schriftform bei Kündigung)"
           },
           {
-            "feedback": "Die Fachkraft konsultiert das Internet und verlangt aufgrund von Blog-Einträgen eine sofortige Höhergruppierung, ohne die konkreten Tarifmerkmale des TVöD-SuE zu kennen.",
-            "label": "Forderung nach Höhergruppierung basierend auf ungeprüften Online-Quellen",
+            "label": "Sie antworten noch in derselben Nacht mit einer eigenen fristlosen Kündigung per Sprachnachricht, um das letzte Wort zu behalten.",
             "quality": "teilweise",
-            "theoryLink": "Tarifrechtliche Eingruppierungssystematik S-SuE"
+            "feedback": "Auch eine eigene Kündigung per Sprachnachricht ist nach § 623 BGB unwirksam – und eine vorschnelle Eigenkündigung würde obendrein den eigenen Arbeitsplatz und Ansprüche beim Arbeitslosengeld (Sperrzeitrisiko) gefährden.",
+            "theoryLink": "§ 623 BGB, Besonnenheit & arbeitsrechtliche Beratung"
           }
-        ],
-        "prompt": "Schritt 2: Klärung der tarifgerechten Eingruppierung (TVöD-SuE) und Vertretung beruflicher Interessen.",
-        "situation": "Es entsteht der Verdacht, dass die tatsächlichen pädagogischen Aufgaben (u.a. Praxisanleitung, Inklusionsschwerpunkt) nicht adäquat nach der aktuellen Entgeltgruppe vergütet werden."
+        ]
       }
-    ],
-    "title": "Arbeitsrecht und Mitbestimmung im Kita-Alltag"
+    ]
   },
   "selfLearningTasks": [
-    "Analysiere deinen eigenen (oder einen Muster-)Arbeitsvertrag auf vereinbarte Arbeitszeit, Probezeit, Kündigungsfristen und verweisen Sie auf Tarifverträge (TVöD-SuE oder AVR).",
-    "Recherchiere die Struktur und die konkreten Mitbestimmungsrechte des Personalrats nach dem Landespersonalvertretungsgesetz Rheinland-Pfalz (PersVG RhPf) im Hinblick auf Arbeitszeitmodelle in Kindertagesstätten.",
-    "Diskutiere in einer Kleingruppe die Vor- und Nachteile des „Dritten Weges“ im kirchlichen Arbeitsrecht im Vergleich zum staatlich-kommunalen Streikrecht."
+    "Recherchieren Sie, welchem Träger Ihre aktuelle (oder eine gewünschte) Praxiseinrichtung angehört, welches Vergütungssystem dort gilt (z. B. TVöD-SuE, AVR oder Haustarif) und welche Interessenvertretung (Personalrat, Betriebsrat oder MAV) zuständig ist.",
+    "Überprüfen Sie einen anonymisierten Muster-Dienstplan einer Kita daraufhin, ob die gesetzlichen Vorgaben des Arbeitszeitgesetzes (Höchstarbeitszeit, Ruhepausen, 11 Stunden Ruhezeit) eingehalten werden.",
+    "Stellen Sie in einer kurzen Übersicht gegenüber, welche besonderen Schutzrechte das Mutterschutzgesetz (MuSchG) für schwangere Kita-Fachkräfte und das Jugendarbeitsschutzgesetz (JArbSchG) für minderjährige Auszubildende vorsehen."
   ],
   "flashcards": [
     {
-      "definition": "Ein vertragliches Dokument zwischen Arbeitgeber und Arbeitnehmer, das gegenseitige Rechte und Pflichten (Vergütung, Arbeitszeit, Urlaub, Tätigkeitsbereich) regelt.",
-      "example": "Der Arbeitsvertrag einer Erzieherin regelt eine wöchentliche Arbeitszeit von 39 Stunden und die Eingruppierung nach S 8b TVöD-SuE.",
-      "term": "Arbeitsvertrag"
+      "term": "Weisungsrecht / Direktionsrecht (§ 106 GewO)",
+      "definition": "Recht des Arbeitgebers, Inhalt, Ort und Zeit der Arbeitsleistung nach billigem Ermessen näher zu bestimmen – jedoch nur innerhalb der Grenzen von Gesetz, Tarifvertrag, Betriebs-/Dienstvereinbarung und Arbeitsvertrag.",
+      "example": "Der Träger darf die Dienstzeit innerhalb der vertraglichen Rahmenbedingungen planen, aber nicht einseitig die gesetzliche 11-Stunden-Ruhezeit aushebeln."
     },
     {
-      "definition": "Ein kollektivrechtlicher Vertrag zwischen Gewerkschaften und Arbeitgeberverbänden (oder einzelnen Arbeitgebern), der Arbeitsbedingungen für eine Branche verbindlich festlegt.",
-      "example": "Der TVöD-SuE regelt bundesweit die Arbeitsbedingungen und Entgelte für Beschäftigte im Sozial- und Erziehungsdienst.",
-      "term": "Tarifvertrag (TVöD-SuE)"
+      "term": "Schriftformerfordernis bei Kündigung (§ 623 BGB)",
+      "definition": "Gesetzliche Vorschrift, wonach jede Kündigung und jeder Aufhebungsvertrag zu seiner Wirksamkeit auf Papier verfasst und eigenhändig unterschrieben sein muss; elektronische oder mündliche Kündigungen sind nichtig.",
+      "example": "Eine Kündigung per E-Mail, WhatsApp oder Telefonanruf entfaltet rechtlich keine Wirkung."
     },
     {
-      "definition": "Das gesetzlich verankerte Recht der Beschäftigten, durch gewählte Vertretungsorgane (Personalrat, Betriebsrat, MAV) an betrieblichen Entscheidungen mitzuwirken.",
-      "example": "Der Personalrat stimmt der Verlängerung von Öffnungszeiten und den neuen Dienstplänen in der städtischen Kita zu.",
-      "term": "Mitbestimmungsrecht"
+      "term": "Allgemeiner Kündigungsschutz (KSchG)",
+      "definition": "Greift nach mehr als sechs Monaten Betriebszugehörigkeit in Betrieben mit in der Regel mehr als zehn Beschäftigten (Vollzeitäquivalente): Eine ordentliche Arbeitgeberkündigung ist nur aus personen-, verhaltens- oder betriebsbedingten Gründen wirksam; Klagefrist beträgt 3 Wochen (§ 4 KSchG).",
+      "example": "Bei bloßer Unzufriedenheit ohne sozial gerechtfertigten Grund ist eine ordentliche Kündigung im Anwendungsbereich des KSchG unwirksam."
     },
     {
-      "definition": "Das gesetzlich verankerte Recht des Arbeitgebers, Inhalt, Ort und Zeit der Arbeitsleistung im Rahmen der Gesetze, des Arbeits- und Tarifvertrags näher zu bestimmen.",
-      "example": "Die Kita-Leitung bestimmt im Rahmen ihres Weisungsrechts, dass eine Erzieherin bei akutem Personalmangel temporär in einer anderen Gruppe eingesetzt wird.",
-      "term": "Weisungsrecht (Direktionsrecht)"
+      "term": "TVöD-SuE vs. Kirchliches Arbeitsrecht (AVR / Dritter Weg)",
+      "definition": "Der TVöD-SuE ist ein durch Gewerkschaften und kommunale Arbeitgeber ausgehandelter Tarifvertrag (mit Streikrecht nach Friedenspflicht); im kirchlichen Dritten Weg beschließen paritätische Arbeitsrechtliche Kommissionen verbindliche AVR ohne Arbeitskampf.",
+      "example": "Kommunale Kitas wenden meist den TVöD-SuE an, Caritas- und Diakonie-Einrichtungen in der Regel die jeweiligen AVR."
     },
     {
-      "definition": "Freiwillige Zusammenschlüsse von Arbeitnehmern zur Vertretung ihrer berufsständischen, wirtschaftlichen und sozialpolitischen Interessen gegenüber Arbeitgebern und Politik.",
-      "example": "Gewerkschaften wie ver.di verhandeln im Rahmen von Tarifrunden höhere Löhne und verbesserte Arbeitsbedingungen für Erzieher:innen.",
-      "term": "Gewerkschaften und Berufsverbände"
+      "term": "Betriebsrat, Personalrat (LPersVG RLP) und MAV",
+      "definition": "Die drei trägerabhängigen betrieblichen Interessenvertretungen: Betriebsrat nach BetrVG (private/freie Träger), Personalrat nach LPersVG RLP (öffentlicher Dienst in RLP) und Mitarbeitervertretung/MAV nach MAVO/MVG (kirchliche Träger).",
+      "example": "Vor Änderungen von Dienstplänen, Überstundenregelungen oder Kündigungen muss das jeweils zuständige Gremium beteiligt werden."
     },
     {
-      "definition": "Das kirchliche Arbeitsrecht (z.B. AVR Caritas/Diakonie), bei dem aufgrund des Dritten Weges Tarifverträge durch paritätisch besetzte Kommissionen statt durch Streik und Aussperrung ausgehandelt werden.",
-      "example": "Eine Erzieherin in einer katholischen Kita ist nach den AVR Caritas beschäftigt, wo statt Streikrecht das Verfahren der Arbeitsrechtlichen Kommission gilt.",
-      "term": "Kirchliches Arbeitsrecht (Dritter Weg)"
+      "term": "Mutterschutzgesetz (MuSchG) & Jugendarbeitsschutz (JArbSchG)",
+      "definition": "Spezielle Arbeitsschutzgesetze: Das MuSchG schützt schwangere/stillende Fachkräfte (Gefährdungsbeurteilung u. a. bei Infektionen, Schutzfristen 6 Wochen vor / 8 Wochen nach Geburt); das JArbSchG schützt minderjährige Auszubildende/Praktikanten bei Arbeits- und Pausenzeiten.",
+      "example": "Sobald eine Erzieherin ihre Schwangerschaft mitteilt, muss der Träger unverzüglich eine individuelle Gefährdungsbeurteilung für ihren Einsatz in der Kita erstellen."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Der Arbeitsvertrag begründet ein privatrechtliches Schuldverhältnis mit gegenseitigen Hauptpflichten: Der Arbeitnehmer schuldet die Arbeitsleistung (§ 611a BGB), der Arbeitgeber die vereinbarte Vergütung. Der Tarifvertrag gilt ergänzend, sofern er vereinbart ist oder Kraft Allgemeinverbindlichkeit bzw.gliedert sich als kollektives Recht ein.",
-      "id": "q1-arbeitsrecht-grundlagen",
+      "question": "Welche betriebliche Interessenvertretung ist in einer kommunalen Kindertagesstätte in Rheinland-Pfalz gesetzlich zuständig?",
       "options": [
-        "Der Arbeitsvertrag regelt ausschließlich die Pflichten des Arbeitnehmers gegenüber dem Träger.",
-        "Der Arbeitsvertrag begründet ein synallagmatisches (gegenseitiges) Austauschverhältnis von Arbeitsleistung und Vergütung.",
-        "Der Arbeitsvertrag ersetzt vollständig alle gesetzlichen Schutzvorschriften wie das Kündigungsschutzgesetz.",
-        "Der Arbeitsvertrag bedarf stets der Schriftform, andernfalls ist er unwirksam."
+        "Der Personalrat nach dem Landespersonalvertretungsgesetz Rheinland-Pfalz (LPersVG RLP).",
+        "Der Betriebsrat nach dem Betriebsverfassungsgesetz (BetrVG).",
+        "Die Mitarbeitervertretung (MAV) nach kirchlichem Mitarbeitervertretungsrecht.",
+        "Im öffentlichen Dienst gibt es gesetzlich keine betriebliche Interessenvertretung."
       ],
-      "question": "Welche rechtliche Natur hat der Arbeitsvertrag im sozialpädagogischen Arbeitsverhältnis?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        0,
-        2,
-        3
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Gemäß TVöD-SuE gehören zu den Arbeitszeit- und Vergütungsbestandteilen im Sozial- und Erziehungsdienst u.a. Regelungen zur wöchentlichen Arbeitszeit, zu Vor- und Nachbereitungszeiten sowie spezifische Eingruppierungsmerkmale in Entgeltgruppen (S-Tabelle). Das Betriebsverfassungsgesetz gilt hingegen grundsätzlich nicht für den öffentlichen Dienst (hier greift das Personalvertretungsrecht).",
-      "id": "q2-tvoed-sue",
-      "options": [
-        "Der TVöD-SuE enthält spezielle Entgeltgruppen (S 2 bis S 18) für Beschäftigte im Sozial- und Erziehungsdienst.",
-        "Der TVöD-SuE gilt automatisch und ohne jede Ausnahme für alle kirchlichen Kindertagesstätten in Deutschland.",
-        "Im TVöD-SuE sind Regelungen zu Arbeitszeit, Sonderurlaub und leistungsbezogener Bezahlung enthalten.",
-        "Der TVöD-SuE unterscheidet zwischen Arbeitszeiten für städtische Kitas und kommunale Einrichtungen."
-      ],
-      "question": "Welche Aussagen treffen auf den TVöD-SuE (Tarifvertrag für den öffentlichen Dienst, Bereich Sozial- und Erziehungsdienst) zu? (Mehrere Antworten sind richtig)",
-      "type": "multi"
-    },
-    {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Das Weisungsrecht (auch Direktionsrecht genannt, § 106 GewO) berechtigt den Arbeitgeber, Inhalt, Ort und Zeit der Arbeitsleistung näher zu bestimmen, sofern diese Bedingungen nicht durch den Arbeitsvertrag, Bestimmungen einer Betriebs-/Dienstvereinbarung oder Tarifverträge festgelegt sind. Es ist jedoch nicht unbegrenzt und muss billigem Ermessen entsprechen.",
-      "id": "q3-weisungsrecht",
-      "options": [
-        "Das Weisungsrecht erlaubt es dem Träger, die vertraglich vereinbarte wöchentliche Arbeitszeit einseitig um 10 Stunden zu erhöhen.",
-        "Das Weisungsrecht gilt uneingeschränkt und hebt jeglichen Kündigungsschutz auf.",
-        "Das Weisungsrecht (§ 106 GewO) ermächtigt den Arbeitgeber, Inhalt, Ort und Zeit der Arbeitsleistung nach billigem Ermessen näher zu bestimmen, soweit diese nicht im Vertrag oder Tarifvertrag geregelt sind.",
-        "Das Weisungsrecht ist ein reines Mitbestimmungsrecht der Gewerkschaften."
-      ],
-      "question": "Was versteht man im Arbeitsrecht unter dem Weisungsrecht (Direktionsrecht) des Arbeitgebers?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Im kirchlichen Arbeitsrecht gilt der sogenannte Dritte Weg (Diakonie und Caritas). Hier werden Arbeitsbedingungen nicht durch Arbeitskampf (Streik und Aussperrung) und Tarifverhandlungen zwischen Gewerkschaften und Arbeitgeberverbänden geregelt, sondern paritätisch besetzte Arbeitsrechtliche Kommissionen beschließen die Richtlinien für Arbeitsverträge (AVR).",
-      "id": "q4-kirchliches-arbeitsrecht",
-      "options": [
-        "Im kirchlichen Arbeitsrecht gilt ausnahmslos der TVöD-SuE ohne Einschränkungen.",
-        "Der sogenannte „Dritte Weg“ regelt Arbeitsbedingungen in kirchlichen Einrichtungen durch paritätisch besetzte Kommissionen (AVR) ohne Streikrecht.",
-        "Kirchliche Träger unterliegen überhaupt keinen arbeitsrechtlichen Gesetzen des Staates.",
-        "Gewerkschaften haben im kirchlichen Arbeitsrecht ein uneingeschränktes Streikrecht in allen Einrichtungen."
-      ],
-      "question": "Wie unterscheidet sich das kirchliche Arbeitsrecht (z.B. AVR Caritas/Diakonie) vom staatlich-kommunalen Tarifrecht?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
         0
       ],
-      "difficulty": "pruefung",
-      "explanation": "Erzieherin Anna befindet sich im gesetzlichen Kündigungsschutz nach dem KSchG (Betrieb hat i.d.R. mehr als 10 Mitarbeiter und das Arbeitsverhältnis besteht länger als 6 Monate). Eine ordentliche Kündigung benötigt einen gesetzlich anerkannten Grund (personen-, betriebs- oder verhaltensbedingt). Ohne begründeten Grund und ohne Beteiligung der Mitarbeitervertretung (MAV/Personalrat) ist die Kündigung unwirksam.",
-      "id": "q5-kuendigungsschutz-fall",
-      "options": [
-        "Die Kündigung ist unwirksam, da das Kündigungsschutzgesetz (KSchG) greift und weder ein personen-, betriebs- noch verhaltensbedingter Grund vorliegt sowie der Personalrat/die MAV nicht ordnungsgemäß beteiligt wurde.",
-        "Die Kündigung ist sofort wirksam, da in der Probezeit bzw. im ersten Berufsjahr grundsätzlich kein Kündigungsschutz existiert.",
-        "Der Träger darf jederzeit ohne Angabe von Gründen kündigen, wenn die Kita-Leitung mit der pädagogischen Haltung unzufrieden ist.",
-        "Die Kündigung wird automatisch durch die Gewerkschaft in eine Abmahnung umgewandelt."
-      ],
-      "question": "Praxissituation: Erzieherin Anna arbeitet seit 2 Jahren unbefristet in einer kommunalen Kindertagesstätte. Der Träger kündigt ihr mündlich per Telefon, weil sie sich kritisch über den Personalschlüssel geäußert hat. Wie ist die Rechtslage?",
-      "type": "case"
+      "explanation": "Die Zuständigkeit richtet sich nach dem Träger: Kommunale Kitas gehören zum öffentlichen Dienst des Landes/der Kommunen, weshalb das LPersVG RLP und der Personalrat gelten. BetrVG/Betriebsrat gelten bei privaten/freien Trägern, MAV bei kirchlichen Trägern."
     },
     {
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Wodurch unterscheidet sich der sogenannte ‚Dritte Weg‘ im kirchlichen Arbeitsrecht (z. B. AVR Caritas/Diakonie) grundlegend vom Tarifrecht des TVöD-SuE?",
+      "options": [
+        "Im kirchlichen Arbeitsrecht gelten weder das Arbeitszeitgesetz noch das Mutterschutzgesetz.",
+        "Arbeitsbedingungen werden durch paritätisch besetzte Arbeitsrechtliche Kommissionen beschlossen statt durch Tarifverhandlungen mit Streik und Aussperrung.",
+        "Kirchliche Einrichtungen zahlen grundsätzlich nach dem gesetzlichen Mindestlohn ohne eigene Entgelttabellen.",
+        "Im Dritten Weg bestimmt die Einrichtungsleitung das Gehalt jeder Fachkraft ohne jede Mitwirkung einseitig."
+      ],
+      "correctIndices": [
+        1
+      ],
+      "explanation": "Im Dritten Weg verzichten kirchliche Dienstgeber und Dienstnehmer auf Arbeitskampf (Streik/Aussperrung) und legen Arbeitsvertragsrichtlinien (AVR) in paritätisch besetzten Kommissionen fest. Staatliche Arbeitsschutzgesetze wie ArbZG oder MuSchG gelten selbstverständlich auch bei kirchlichen Trägern."
+    },
+    {
+      "id": "v2-q3",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Vorgaben gelten nach dem Arbeitszeitgesetz (ArbZG) für erwachsene Arbeitnehmerinnen und Arbeitnehmer? (Wählen Sie alle zutreffenden Antworten)",
+      "options": [
+        "Die werktägliche Arbeitszeit darf grundsätzlich 8 Stunden nicht überschreiten (Ausdehnung auf bis zu 10 Stunden nur bei fristgerechtem Ausgleich).",
+        "Bei einer Arbeitszeit von mehr als 6 bis zu 9 Stunden steht eine Ruhepause von mindestens 30 Minuten zu (ab mehr als 9 Stunden mindestens 45 Minuten).",
+        "Im Kita-Bereich dürfen Fachkräfte regelmäßig 12 Stunden pro Tag ohne Pausen arbeiten, wenn Personal fehlt.",
+        "Nach Beendigung der täglichen Arbeitszeit muss grundsätzlich eine ununterbrochene Ruhezeit von mindestens 11 Stunden eingehalten werden."
+      ],
       "correctIndices": [
         0,
+        1,
         3
       ],
-      "difficulty": "basis",
-      "explanation": "Gewerkschaften (wie ver.di oder GEW) und Berufsverbände vertreten die beruflichen, wirtschaftlichen und sozialpolitischen Interessen ihrer Mitglieder. Zu ihren Kernaufgaben gehören der Abschluss von Tarifverträgen, Streikführung sowie rechtliche Beratung und Vertretung im Arbeitsrecht. Die unmittelbare Erstellung von Kita-Dienstplänen oder die Durchführung von Elternabenden gehört hingegen zu den Aufgaben der Einrichtungsleitung bzw. des pädagogischen Teams vor Ort.",
-      "id": "q6-gewerkschaften",
+      "explanation": "Optionen A, B und D geben §§ 3, 4 und 5 ArbZG präzise wieder. Personalmangel berechtigt Träger nicht dazu, gesetzliche Höchstarbeitszeiten und Pausenregeln dauerhaft zu missachten (Option C ist falsch)."
+    },
+    {
+      "id": "v2-q4",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Praxisfall: Eine Erzieherin arbeitet seit zwei Jahren unbefristet in einer städtischen Kita (25 Beschäftigte). Nach kritischen Rückfragen zum Personalschlüssel teilt ihr der Arbeitgeber per E-Mail mit, das Arbeitsverhältnis werde ‚zum Monatsende gekündigt‘. Wie ist die Rechtslage?",
       "options": [
-        "Gewerkschaften verhandeln Tarifverträge (wie den TVöD-SuE) und vertreten die arbeitsrechtlichen Interessen ihrer Mitglieder.",
-        "Gewerkschaften sind staatliche Behörden zur Überwachung der Einhaltung des KiTaG.",
-        "Gewerkschaften erstellen verbindliche Dienstpläne für alle Kitas in Rheinland-Pfalz.",
-        "Berufsverbände bieten ihren Mitgliedern fachliche Beratung, Fortbildungen und rechtlichen Rechtsschutz im Berufsalltag."
+        "Die Kündigung ist wirksam, da E-Mails im modernen Arbeitsleben als Schriftform anerkannt sind.",
+        "Die Kündigung ist wirksam, weil Kritik am Personalschlüssel automatisch eine fristlose Kündigung rechtfertigt.",
+        "Die Kündigung ist bereits wegen Verstoßes gegen das zwingende Schriftformerfordernis (§ 623 BGB) unwirksam; zudem greifen KSchG (nur personen-, verhaltens- oder betriebsbedingte Gründe) und die Pflicht zur Beteiligung des Personalrats.",
+        "Die Kündigung wird erst wirksam, wenn die Gewerkschaft ihr schriftlich zustimmt."
       ],
-      "question": "Welche Aufgaben nehmen Gewerkschaften und Berufsverbände im sozialpädagogischen Berufsfeld wahr? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Nach § 623 BGB ist jede Kündigung per E-Mail, Telefon oder Chat formnichtig (elektronische Form ist ausdrücklich ausgeschlossen). Zusätzlich schützen KSchG und LPersVG RLP vor ungerechtfertigten Kündigungen."
+    },
+    {
+      "id": "v2-q5",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Was muss der Träger einer Kindertagesstätte nach dem Mutterschutzgesetz (MuSchG) tun, sobald eine Erzieherin ihm ihre Schwangerschaft mitteilt?",
+      "options": [
+        "Sie sofort und ohne Prüfung ab dem ersten Tag unbezahlt freistellen.",
+        "Der Erzieherin wegen der zu erwartenden Ausfallzeiten ordentlich kündigen.",
+        "Bis zur sechsten Woche vor dem errechneten Geburtstermin abwarten, weil das MuSchG vorher nicht gilt.",
+        "Unverzüglich eine individuelle Gefährdungsbeurteilung (insbesondere zu Infektionsrisiken, schwerem Heben und Arbeitsbedingungen) durchführen und erforderliche Schutzmaßnahmen bzw. ggf. ein Beschäftigungsverbot bei fortgezahltem Entgelt umsetzen."
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Das MuSchG greift sofort ab Bekanntgabe der Schwangerschaft (inkl. besonderem Kündigungsschutz nach § 17 MuSchG). Im Kita-Alltag sind unverzügliche Gefährdungsbeurteilung (z. B. Infektionsstatus, Arbeitsplatzanpassung) und erforderlichenfalls bezahlte Beschäftigungsverbote zentral."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "pruefung",
+      "question": "Welche Aussagen zum Weisungsrecht (§ 106 GewO) und zur Rolle von Gewerkschaften treffen zu? (Wählen Sie alle zutreffenden Antworten)",
+      "options": [
+        "Das Weisungsrecht erlaubt dem Arbeitgeber, Inhalt, Ort und Zeit der Arbeit nach billigem Ermessen zu konkretisieren, soweit Gesetz, Tarifvertrag, Dienst-/Betriebsvereinbarung und Arbeitsvertrag dies zulassen.",
+        "Per Weisungsrecht kann der Arbeitgeber das vertraglich vereinbarte Gehalt oder die vereinbarte Wochenstundenzahl nicht einseitig kürzen.",
+        "Gewerkschaften (z. B. ver.di, GEW) verhandeln Tarifverträge, vertreten sozialpolitische Interessen der Berufsgruppe und bieten Mitgliedern arbeitsrechtliche Beratung und Rechtsschutz.",
+        "Betriebsräte und Personalräte dürfen in eigener Verantwortung Streiks für höhere Gehälter ausrufen."
+      ],
+      "correctIndices": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Optionen A, B und C sind richtig. Option D ist falsch: Arbeitskämpfe (Streiks) und Tarifverhandlungen sind ausschließlich Sache der tariffähigen Gewerkschaften – Betriebs- und Personalräte unterliegen der betrieblichen Friedenspflicht."
+    }
+  ],
+  "sources": [
+    {
+      "title": "BGB § 611a – Arbeitsvertrag",
+      "url": "https://www.gesetze-im-internet.de/bgb/__611a.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Gesetzliche Definition des Arbeitsvertrags und der gegenseitigen Hauptpflichten"
+    },
+    {
+      "title": "Gewerbeordnung (GewO) § 106 – Weisungsrecht des Arbeitgebers",
+      "url": "https://www.gesetze-im-internet.de/gewo/__106.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Umfang und Grenzen des arbeitgeberseitigen Direktionsrechts"
+    },
+    {
+      "title": "Arbeitszeitgesetz (ArbZG)",
+      "url": "https://www.gesetze-im-internet.de/arbzg/index.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Verbindliche Vorgaben zu Höchstarbeitszeiten, Ruhepausen und 11-stündiger Ruhezeit"
+    },
+    {
+      "title": "Mutterschutzgesetz (MuSchG)",
+      "url": "https://www.gesetze-im-internet.de/muschg_2018/index.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Gesundheitsschutz, Gefährdungsbeurteilung, Schutzfristen und Kündigungsschutz in Kitas"
+    },
+    {
+      "title": "Jugendarbeitsschutzgesetz (JArbSchG)",
+      "url": "https://www.gesetze-im-internet.de/jarbschg/index.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Besondere Schutzregeln für minderjährige Auszubildende und Praktikantinnen/Praktikanten"
+    },
+    {
+      "title": "Betriebsverfassungsgesetz (BetrVG)",
+      "url": "https://www.gesetze-im-internet.de/betrvg/index.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Grundlagen der betrieblichen Mitbestimmung über Betriebsräte bei privaten und freien Trägern"
+    },
+    {
+      "title": "Der Tarifvertrag – Tarifautonomie, Aufbau und Wirkung",
+      "url": "https://www.bpb.de/themen/arbeit/arbeitsmarktpolitik/187825/der-tarifvertrag/",
+      "publisher": "Bundeszentrale für politische Bildung (bpb)",
+      "note": "Verständliche Erklärung von Tarifautonomie (Art. 9 Abs. 3 GG), Tarifbindung und Friedenspflicht"
+    },
+    {
+      "title": "Betriebsrat – Aufgaben, Rechte und Abgrenzung zu Gewerkschaften",
+      "url": "https://www.bpb.de/kurz-knapp/lexika/recht-a-z/323153/betriebsrat/",
+      "publisher": "Bundeszentrale für politische Bildung (bpb)",
+      "note": "Übersicht zu Mitbestimmungsrechten, Betriebsvereinbarungen und Friedenspflicht"
     }
   ]
 }

@@ -3,8 +3,10 @@
   "number": 18,
   "moduleCode": "S-SP-2",
   "moduleArea": "sp-pflicht",
-  "title": "Dialogische Erziehung, Gewaltfreie Kommunikation & Gesprächsführung",
-  "subtitle": "Kongruenz, Aktives Zuhören, sprachliche Vorbildfunktion & Moderation",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-2 · Dialogische Haltung, Gewaltfreie Kommunikation, Aktives Zuhören & Metakommunikation (Lehrplan RLP 2024)",
+  "title": "Dialogische Haltung, Gewaltfreie Kommunikation, Aktives Zuhören & Metakommunikation",
+  "subtitle": "GFK nach Rosenberg im alltagsnahen Dialog, Rogers & Gordon, Kongruenz und professionelle Gesprächsmoderation",
   "year": "2./3. Jahr",
   "estimatedMinutes": 25,
   "hoursRef": "240 Std. (Teil 4/6)",
@@ -13,364 +15,433 @@
     "Sprachbildung",
     "Partizipation"
   ],
-  "summary": "Einheit 18 des Moduls S-SP-2 vermittelt angehenden Erzieher:innen fundierte Kompetenzen in dialogischer Erziehung, Gewaltfreier Kommunikation (Rosenberg), Aktivem Zuhören (Rogers/Gordon) sowie der professionellen Moderation von Einzel- und Gruppengesprächen. Im Fokus stehen die kongruente Beziehungsgestaltung, die sprachliche Vorbildfunktion und die Umsetzung von Partizipation im pädagogischen Alltag gemäß dem Lehrplan RLP.",
+  "summary": "Sprache und Haltung formen die Qualität pädagogischer Beziehungen in jedem Moment des Alltags. In dieser Einheit verbindest du die dialogische Grundhaltung mit den vier Schritten der Gewaltfreien Kommunikation nach Rosenberg, den Techniken des Aktiven Zuhörens nach Rogers und Gordon sowie Metakommunikation und adressatengerechter Gesprächsmoderation – alltagsnah statt gestelzt.",
   "learningGoals": [
-    "Ich kann das Konzept der dialogischen Erziehung theoretisch fundieren und im pädagogischen Alltag (Kita, Hort, Ganztag) als wechselseitigen, partnerschaftlichen Prozess umsetzen.",
-    "Ich kann Kommunikationsmittel in beruflichen Situationen kongruent einsetzen und meine eigene sprachliche Vorbildfunktion (inkl. Vermeidung von Stigmatisierungen) reflektieren.",
-    "Ich kann die vier Schritte der Gewaltfreien Kommunikation (GFK) nach Marshall B. Rosenberg (Beobachtung, Gefühl, Bedürfnis, Bitte) in Konfliktsituationen anwenden.",
-    "Ich kann die Techniken des Aktiven Zuhörens nach Carl Rogers und Thomas Gordon (Paraphrasieren, Verbalisieren emotionaler Erlebnisinhalte) gezielt einsetzen.",
-    "Ich kann Einzel- und Gruppengespräche (z. B. Morgenkreis, Kinderparlament) adressatengerecht, strukturierend und partizipativ moderieren."
+    "Ich kann die Grundprinzipien einer dialogischen, kongruenten Haltung erläutern und meine sprachliche Vorbildfunktion im Alltag reflektieren.",
+    "Ich kann die vier Schritte der Gewaltfreien Kommunikation (Beobachtung, Gefühl, Bedürfnis, Bitte) nach Marshall B. Rosenberg in alltagsnahen Dialogen anwenden sowie echte Gefühle von Bewertungen und Bitten von Forderungen unterscheiden.",
+    "Ich kann die Techniken des Aktiven Zuhörens nach Carl Rogers und Thomas Gordon (Paraphrasieren, Verbalisieren von Gefühlen) gezielt einsetzen und typische Kommunikationssperren vermeiden.",
+    "Ich kann Metakommunikation nutzen, um festgefahrene oder emotional angespannte Gespräche mit Kindern, Eltern oder im Team konstruktiv zu klären.",
+    "Ich kann Einzel- und Gruppengespräche (z. B. Kinderkonferenzen, Konflikt- und Elterngespräche) strukturiert, empathisch und partizipativ moderieren."
   ],
   "sections": [
     {
-      "body": "Erziehung wird im Lehrplan S-SP-2 als partnerschaftlicher, wechselseitiger Prozess verstanden, bei dem Kinder und Jugendliche als aktive Subjekte und Träger von Rechten (UN-Kinderrechtskonvention) ernst genommen werden. Die pädagogische Fachkraft agiert hierbei nicht als autoritäre Instanz, sondern als begleitendes Gegenüber, das den Dialog auf Augenhöhe sucht. Ein zentrales Fundament bildet dabei die personzentrierte Haltung nach Carl Rogers, welche durch Echtheit (Kongruenz), bedingungsfreie Wertschätzung und empathisches Verstehen gekennzeichnet ist. Pädagog:innen reflektieren ihre eigene Rolle, Machtstrukturen sowie Nähe und Distanz, um einen sicheren Raum für gelingende Beziehungen zu schaffen.",
+      "heading": "Dialogische Haltung, Kongruenz und sprachliche Vorbildfunktion",
+      "keyTakeaway": "Dialogische Erziehung begegnet Kindern und Familien als eigenständigen Subjekten auf Augenhöhe – getragen von Stimmigkeit zwischen Wort, Tonfall und Körpersprache (Kongruenz).",
+      "body": "Kommunikation in sozialpädagogischen Arbeitsfeldern erschöpft sich nicht in einzelnen Gesprächstechniken: Ohne wertschätzende Haltung wirken selbst perfekt formulierte Sätze schnell aufgesetzt oder manipulativ. Eine dialogische Grundhaltung – inspiriert von der humanistischen Pädagogik und Carl Rogers’ personzentriertem Ansatz – begreift Kinder, Jugendliche und Eltern als eigenständige Gesprächspartner:innen mit eigener Sichtweise und eigenen Bedürfnissen. Zentral ist dabei Kongruenz: Was die Fachkraft sagt, wie sie es betont und was ihre Körpersprache ausdrückt, stimmt überein. Wer lächelnd „Alles gut“ sagt, aber mit angespanntem Kiefer und genervtem Tonfall reagiert, sendet widersprüchliche Doppelbotschaften, die Kinder verunsichern. Zugleich wirken Fachkräfte täglich als sprachliches Vorbild: Eine klare, respektvolle, diskriminierungs- und etikettierungsfreie Sprache stärkt nicht nur den Spracherwerb, sondern zeigt Kindern unmittelbar, wie man eigene Grenzen benennt, Gefühle ausdrückt und Konflikte ohne Beschämung klärt.",
       "bulletPoints": [
-        "Erziehung als kokonstruktiver und partizipativer Aushandlungsprozess",
-        "Professionalisierung durch personzentrierte Grundhaltung (Rogers)",
-        "Reflexion von Macht, Hierarchie und eigener Rolle",
-        "Anerkennung von Kindern als Trägern eigener Rechte"
+        "Dialogische Haltung: Partnerschaftlicher Austausch auf Augenhöhe statt einseitiger Belehrung",
+        "Kongruenz: Übereinstimmung von innerem Erleben, verbaler Aussage, Tonfall und Körpersprache",
+        "Sprachliche Vorbildfunktion: Klare, wertschätzende Sprache ohne Ironie, Spott oder abwertende Etiketten",
+        "Haltung vor Technik: Methoden wirken nur glaubwürdig, wenn echtes Interesse am Gegenüber spürbar ist"
       ],
-      "heading": "Dialogische Erziehung & Professionelle Haltung",
-      "keyTakeaway": "Dialogische Erziehung gestaltet den Beziehungs- und Bildungsprozess partnerschaftlich auf Augenhöhe und setzt die konsequente Achtung der Kinderrechte voraus.",
-      "praxisTip": "Gestalten Sie den Morgenkreis als echten Dialograum, in dem Themen und Regeln gemeinsam mit den Kindern per Aushandlung und Partizipation besprochen werden statt autoritär vorgegeben zu sein."
+      "praxisTip": "Achte in angespannten Momenten besonders auf deine nonverbale Ebene (Körperhöhe, Tempo, Stimmlage): Schon das Hinuntergehen auf Augenhöhe und eine ruhigere Stimme verändern ein Gespräch oft stärker als lange Erklärungen."
     },
     {
-      "body": "Die Gewaltfreie Kommunikation (GFK) nach Marshall B. Rosenberg bietet ein wirksames Handwerkszeug, um Konflikte konstruktiv und bedürfnisorientiert zu bearbeiten. Sie unterscheidet vier Schritte: 1. Beobachtung (wahrnehmen ohne zu bewerten oder zu verurteilen), 2. Gefühl (benennen des eigenen emotionalen Zustands), 3. Bedürfnis (erkennen der zugrundeliegenden universellen menschlichen Bedürfnisse wie Sicherheit, Autonomie oder Zugehörigkeit) und 4. Bitte (konkrete, erfüllbare Handlungsbitte statt verdeckter Forderung). Ergänzend dazu fordert der Lehrplan den kongruenten Einsatz von Kommunikationsmitteln (Verbale und nonverbale Signale stimmen überein) und eine vorbildliche sprachliche Kompetenz, die Stigmatisierungen vermeidet und sprachliche Bildung im Alltag integriert.",
+      "heading": "Gewaltfreie Kommunikation (GFK) nach Marshall B. Rosenberg im Alltag",
+      "keyTakeaway": "GFK verbindet ehrlichen Selbstausdruck mit empathischem Hören über vier Schritte: Beobachtung ohne Bewertung, echtes Gefühl, dahinterliegendes Bedürfnis und konkrete, erfüllbare Bitte statt verdeckter Forderung.",
+      "body": "Die Gewaltfreie Kommunikation (GFK) nach Marshall B. Rosenberg unterstützt dabei, in Konflikten aus Vorwurf und Rechtfertigung auszusteigen und stattdessen sichtbar zu machen, worum es den Beteiligten eigentlich geht. Sie umfasst vier Schritte: (1) Beobachtung: konkret beschreiben, was sichtbar oder hörbar ist, ohne Urteile oder Verallgemeinerungen („Du hast zweimal einen Baustein geworfen“ statt „Du bist immer so aggressiv“). (2) Gefühl: das eigene emotionale Erleben benennen – und sauber von sogenannten Pseudogefühlen trennen, die bereits eine Unterstellung enthalten („Ich bin erschrocken und angespannt“ statt „Ich fühle mich von dir provoziert“). (3) Bedürfnis: das dahinterliegende universelle Bedürfnis aussprechen (z. B. Sicherheit, Verlässlichkeit, Rücksicht, Autonomie). (4) Bitte: eine konkrete, positiv formulierte und realistische Handlungsbitte stellen („Kannst du die Bausteine auf dem Teppich lassen?“ statt „Hör auf zu nerven!“). Entscheidend ist die Abgrenzung zur Forderung: Bei einer echten Bitte darf das Gegenüber auch Nein sagen, ohne sanktioniert zu werden – dann wird gemeinsam nach einer neuen Lösung für beide Bedürfnisse gesucht. Zugleich braucht GFK Praxisrealismus: Sie muss nicht mechanisch nach Lehrbuchformel klingen, sondern in natürlicher Alltagssprache gesprochen werden. Bei akuter Gefährdung (z. B. ein Kind schlägt zu) setzt die Fachkraft zunächst eine klare, schützende Grenze („Stopp, ich lasse nicht zu, dass jemand verletzt wird“) und klärt anschließend dialogisch. Bei sehr jungen Kindern übernimmt die Fachkraft zudem das „empathische Übersetzen“ von Gefühlen und Bedürfnissen in verständliche Worte.",
       "bulletPoints": [
-        "Vier Schritte der GFK: Beobachtung, Gefühl, Bedürfnis, Bitte",
-        "Trennung von objektiver Beobachtung und subjektiver Bewertung",
-        "Kongruenz als Übereinstimmung von verbalem und nonverbalem Ausdruck",
-        "Vermeidung von Du-Botschaften und verdeckten Vorwürfen"
+        "Vier Schritte: Beobachtung (ohne Bewertung) – Gefühl (echtes Gefühl) – Bedürfnis (universell) – Bitte (konkret & positiv)",
+        "Bitte vs. Forderung: Eine echte Bitte akzeptiert ein Nein als Anlass zum weiteren gemeinsamen Aushandeln",
+        "Natürliche Alltagssprache statt gestelzter „Roboter-GFK“; bei akuter Gefahr gilt erst Schutz, dann Dialog",
+        "Empathisches Übersetzen im U3-/Kita-Bereich: Jungen Kindern Worte für eigene Gefühle und Bedürfnisse leihen"
       ],
-      "heading": "Gewaltfreie Kommunikation (GFK) & Sprachliche Vorbildfunktion",
-      "keyTakeaway": "Die GFK nach Rosenberg verbindet klare Beobachtungen und eigene Gefühle mit universellen Bedürfnissen und konstruktiven Bitten.",
-      "praxisTip": "Formulieren Sie in Konfliktsituationen konsequent Ich-Botschaften nach dem Schema: 'Wenn ich sehe, dass..., fühle ich..., weil ich... brauche. Deshalb bitte ich dich...'"
+      "praxisTip": "Streiche bei der Formulierung deiner Bitten gedanklich „nicht“ und „hör auf“ – formuliere stattdessen, was konkret passieren soll (z. B. „Geh bitte langsam im Flur“ statt „Renn nicht immer so“)."
     },
     {
-      "body": "Aktives Zuhören nach Carl Rogers und Thomas Gordon ist eine unverzichtbare Methode für eine gelingende Beziehungsgestaltung und Beziehungsarbeit. Es beinhaltet das empathische Einhören in das Gegenüber sowie das Zurückmelden von Gehörtem und gefühlten Inhalten in eigenen Worten (Paraphrasieren und Verbalisieren). Dadurch fühlt sich das Kind verstanden, emotionale Erregungen klingen ab, und Selbstreflexionsprozesse werden angestoßen. In Ergänzung dazu erfordert die professionelle Arbeit in der Fachschule die Fähigkeit zur Moderation von Einzel- und Gruppengesprächen. Fachkräfte strukturieren Gesprächssituationen (z. B. Konfliktgespräche, Kinderparlamente, Eltern- und Teamgespräche), sorgen für Redeanteile, nutzen Visualisierungstechniken und schaffen einen geschützten Rahmen für partizipative Meinungsbildung.",
+      "heading": "Aktives Zuhören nach Rogers & Gordon und Vermeidung von Kommunikationssperren",
+      "keyTakeaway": "Aktives Zuhören hilft dem Gegenüber, eigene Gefühle und Gedanken selbst zu klären – durch empathisches Spiegeln statt vorschneller Ratschläge, Belehrungen oder Bagatellisierung.",
+      "body": "Das von Carl Rogers begründete und von Thomas Gordon für den Erziehungsalltag konkretisierte Aktive Zuhören richtet die volle Aufmerksamkeit auf das Erleben des Gegenübers. Zwei zentrale Werkzeuge greifen dabei ineinander: Beim Paraphrasieren gibt die Fachkraft den sachlichen Kern in eigenen Worten prüfend zurück („Du möchtest also erst dein Bild fertigmalen, bevor wir rausgehen?“). Beim Verbalisieren emotionaler Erlebnisinhalte spiegelt sie behutsam die wahrgenommenen Gefühle als offene Frage („Du bist gerade richtig enttäuscht, weil der Turm eingestürzt ist, stimmt das?“). Dadurch fühlt sich das Kind oder der Elternteil verstanden, emotionale Anspannung sinkt, und eigene Lösungsideen werden möglich. Ebenso aufschlussreich sind Thomas Gordons „Kommunikationssperren“ – gut gemeinte, aber gesprächsblockierende Reaktionen wie sofortiges Beruhigen/Bagatellisieren („Ist doch halb so schlimm!“), vorschnelle Ratschläge („Dann bau halt einfach was Neues“), Belehren, Ausfragen oder Ablenken. Sie signalisieren ungewollt, dass das aktuelle Gefühl keinen Platz hat.",
       "bulletPoints": [
-        "Paraphrasieren: Inhaltliches Wiederholen in eigenen Worten",
-        "Verbalisieren: Spiegeln und Benennen der emotionalen Ebene",
-        "Strukturierung und Moderation von Einzel- und Gruppensituationen",
-        "Schaffung eines sicheren Rahmens für partizipative Aushandlung"
+        "Paraphrasieren: Sachinhalt in eigenen Worten prüfend zusammenfassen",
+        "Verbalisieren: Emotionale Botschaften behutsam und offen spiegeln statt unterstellen",
+        "Kommunikationssperren nach Gordon erkennen: Bagatellisieren, Belehren, Drohen, Ausfragen, vorschnelle Lösungen",
+        "Entlastungswirkung: Wer sich wirklich verstanden fühlt, kann Stress abbauen und konstruktiver nach Lösungen suchen"
       ],
-      "heading": "Aktives Zuhören & Gesprächsmoderation",
-      "keyTakeaway": "Aktives Zuhören signalisiert echte Empathie und fördert durch Paraphrasieren und Verbalisieren die emotionale Selbstklärung der Adressaten.",
-      "praxisTip": "Nutzen Sie bei emotional aufgeladenen Gesprächen mit Kindern konsequent das Verbalisieren: 'Du wirkst gerade sehr wütend, weil dein Turm umgestoßen wurde, stimmt das?'"
+      "praxisTip": "Zähle innerlich kurz bis drei, bevor du einem traurigen oder wütenden Kind einen Lösungsvorschlag machst – benenne zuerst das Gefühl, das du wahrnimmst, und prüfe, ob das Kind zustimmt."
+    },
+    {
+      "heading": "Metakommunikation und adressatengerechte Gesprächsmoderation",
+      "keyTakeaway": "Wenn Gespräche auf der Sachebene feststecken, hilft Metakommunikation – der kurze Schritt auf die Beobachtungsebene, um gemeinsam zu klären, wie gerade miteinander gesprochen wird.",
+      "body": "Manche Gespräche mit Kindern, Eltern oder Kolleg:innen geraten trotz guter Absicht ins Stocken: Man redet aneinander vorbei, die Stimmen werden lauter, Vorwürfe schaukeln sich hoch. Genau hier wirkt Metakommunikation – das bewusste Sprechen über die Art und Weise der laufenden Kommunikation (wie es u. a. Paul Watzlawick und Friedemann Schulz von Thun herausarbeiten). Eine ruhige metakommunikative Zwischenbemerkung („Ich merke, wir unterbrechen uns gerade gegenseitig und werden beide angespannt. Mir ist wichtig, Sie gut zu verstehen – können wir nacheinander sammeln, was Ihnen heute Sorge macht?“) unterbricht Eskalationsspiralen und stellt die Arbeitsbeziehung wieder her. In Gruppengesprächen wie Morgenkreisen, Kinderkonferenzen oder Teamrunden übernimmt die Fachkraft darüber hinaus eine strukturierende Moderationsrolle: Sie klärt Ziel und Zeitrahmen, achtet auf ausgewogene Redeanteile, visualisiert Beiträge altersgerecht, fasst Zwischenergebnisse neutral zusammen und sichert konkrete Vereinbarungen.",
+      "bulletPoints": [
+        "Metakommunikation: Kurz innehalten und wertfrei ansprechen, wie das Gespräch gerade abläuft",
+        "Deeskalation auf der Beziehungsebene: Unterbricht Rechtfertigungs- und Vorwurfsspiralen in schwierigen Gesprächen",
+        "Moderation von Gruppen: Rahmen klären, Redeanteile ausgleichen, visualisieren und Ergebnisse transparent festhalten",
+        "Adressatengerechtigkeit: Sprache, Tempo und Visualisierung an Alter, Sprachstand und Situation anpassen"
+      ],
+      "praxisTip": "Halte dir für angespannte Elterngespräche einen eigenen metakommunikativen Standardsatz bereit – z. B. „Mir fällt auf, dass uns dieses Thema beide stark bewegt. Lassen Sie uns kurz sortieren, was wir heute klären können und wofür wir einen ruhigen Gesprächstermin brauchen.“"
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Gewaltfreie Kommunikation (GFK) nach Rosenberg",
-      "id": "vb-dialogue",
-      "isCycle": true,
-      "items": [
-        {
-          "badge": "Schritt 1",
-          "detail": "Die Fachkraft oder das Kind nimmt eine konkrete Situation wahr, ohne sie mit Interpretationen, Vorwürfen oder Verallgemeinerungen zu vermischen. Beispiel: 'Ich sehe, dass du deine Schuhe im Flur liegen gelassen hast.'",
-          "example": "'Du hast heute im Morgenkreis nicht gesprochen.'",
-          "id": "item-1",
-          "label": "Beobachtung",
-          "metric": "Wertfrei",
-          "summary": "Reine Beschreibung der wahrnehmbaren Realität ohne Bewertung."
-        },
-        {
-          "badge": "Schritt 2",
-          "detail": "Das eigene emotionale Erleben in der Situation wird wahrgenommen und benannt, getrennt von Gedanken über das Verhalten des anderen. Beispiel: 'Ich fühle mich gestresst...'",
-          "example": "'Ich bin besorgt...'",
-          "id": "item-2",
-          "label": "Gefühl",
-          "metric": "Emotional",
-          "summary": "Klares Benennen der eigenen inneren Gefühlslage."
-        },
-        {
-          "badge": "Schritt 3",
-          "detail": "Hinter jedem Gefühl steht ein universelles menschliches Bedürfnis (z.B. nach Ordnung, Sicherheit, Autonomie, Respekt). Beispiel: '...weil mir Ordnung und gegenseitige Rücksichtnahme wichtig sind.'",
-          "example": "'...weil mir Sicherheit im Raum wichtig ist.'",
-          "id": "item-3",
-          "label": "Bedürfnis",
-          "metric": "Kernmotiv",
-          "summary": "Freilegung des eigenen unerfüllten oder erfüllten Bedürfnisses."
-        },
-        {
-          "badge": "Schritt 4",
-          "detail": "Eine konkrete, positive und erfüllbare Handlungsbitte wird an das Gegenüber gerichtet, die sofort umsetzbar ist und keine verdeckte Forderung darstellt. Beispiel: 'Bist du bereit, deine Schuhe jetzt in das Regal zu stellen?'",
-          "example": "'Kannst du bitte leiser sprechen?'",
-          "id": "item-4",
-          "label": "Bitte",
-          "metric": "Handlungsorientiert",
-          "summary": "Konkrete, erfüllbare Handlungsbitte statt Zwang."
-        }
-      ],
+      "id": "vb-gfk-dialog",
       "kind": "dialogue",
-      "leftPole": "Bewertung & Vorwurf",
-      "rightPole": "Verbindliche Bitte",
-      "subtitle": "Die 4 Schritte der GFK als Brücke für gelingende Konfliktkommunikation",
-      "title": "Gewaltfreie Kommunikation (GFK) nach Rosenberg"
-    },
-    {
-      "centerLabel": "Dialogischer Erziehungsprozess",
-      "id": "vb-process",
-      "isCycle": true,
-      "items": [
-        {
-          "badge": "Phase 1",
-          "detail": "Die Fachkraft erfasst die individuelle Lebenssituation und die aktuellen Bedürfnisse des Kindes durch offene Beobachtung und zugewandte Haltung.",
-          "example": "Wahrnehmung eines unruhigen Kindes beim Ankommen in der Kita.",
-          "id": "p-1",
-          "label": "Empathische Wahrnehmung",
-          "metric": "Schritt 1",
-          "summary": "Sensibles Erfassen der kindlichen Signale und Bedürfnisse."
-        },
-        {
-          "badge": "Phase 2",
-          "detail": "Die Fachkraft setzt Kommunikationsmittel kongruent ein und signalisiert durch Aktives Zuhören echtes Verstehen und emotionale Sicherheit.",
-          "example": "'Du wirkst heute noch etwas müde, möchtest du erst ankommen?'",
-          "id": "p-2",
-          "label": "Dialog & Aktives Zuhören",
-          "metric": "Schritt 2",
-          "summary": "Aufbau einer sicheren Beziehungsbasis durch verbale und nonverbale Kongruenz."
-        },
-        {
-          "badge": "Phase 3",
-          "detail": "Pädagogische Fachkraft und Kind (oder Gruppe) verhandeln gemeinsam Ziele, Regeln oder nächste Handlungsschritte auf Augenhöhe.",
-          "example": "Gemeinsames Überlegen, welche Aktivität jetzt passend ist.",
-          "id": "p-3",
-          "label": "Partizipativer Aushandlungsprozess",
-          "metric": "Schritt 3",
-          "summary": "Gemeinsame Lösungsfindung im Sinne der Partizipation."
-        },
-        {
-          "badge": "Phase 4",
-          "detail": "Die getroffenen Vereinbarungen werden im Alltag umgesetzt und in regelmäßigen Reflexionsschleifen gemeinsam überprüft.",
-          "example": "Kurze Reflektion am Nachmittag im Abschlusskreis.",
-          "id": "p-4",
-          "label": "Umsetzung & Reflexion",
-          "metric": "Schritt 4",
-          "summary": "Gemeinsame Überprüfung und Weiterentwicklung des Handelns."
-        }
-      ],
-      "kind": "process_flow",
-      "leftPole": "Autoritäre Steuerung",
-      "rightPole": "Partizipativer Dialog",
-      "subtitle": "Vierphasenmodell des dialogischen und partizipatorischen Handelns",
-      "title": "Der dialogische Erziehungsprozess in der Praxis"
-    },
-    {
-      "centerLabel": "Kommunikationsstile im Vergleich",
-      "id": "vb-comparison",
+      "title": "Die vier Schritte der GFK im realistischen Kita-Alltag",
+      "subtitle": "Alltagsnahes Beispiel (keine gestelzte Kunstsprache): Konflikt im Baubereich konstruktiv ansprechen",
+      "centerLabel": "GFK-Dialog",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Traditionell / Direktiver Stil",
-          "detail": "Geprägt von einseitiger Machtausübung, Befehlen, Drohungen, Schuldzuweisungen und Du-Botschaften. Kinder lernen Gehorsam aus Angst vor Sanktionen, nicht aus Einsicht.",
-          "example": "'Wenn du jetzt nicht sofort aufräumst, gibt es Ärger!'",
-          "id": "c-1",
-          "label": "Direktiv / Autoritär",
-          "metric": "Kontrolle",
-          "summary": "Führung durch Macht, Gehorsam und äußere Steuerung."
+          "id": "gfk-1",
+          "label": "1. Beobachtung (wertfrei)",
+          "badge": "Fachkraft → Kind",
+          "metric": "Was ist passiert?",
+          "summary": "Konkrete Handlung beschreiben ohne Urteil oder Verallgemeinerung.",
+          "detail": "Statt „Du machst immer alles kaputt und bist zu wild!“ benennt die Fachkraft sachlich, was gerade geschehen ist.",
+          "example": "„Sam, ich habe gerade gesehen, dass du zwei Holzklötze quer über den Teppich geworfen hast, während Maja direkt daneben saß.“"
         },
         {
-          "badge": "Laissez-faire / Unstrukturiert",
-          "detail": "Fehlen jeglicher klarer Grenzen und strukturierender Moderation. Kinder werden mit Konflikten alleingelassen; Fachkräfte agieren passiv oder unbeteiligt.",
-          "example": "'Macht doch, was ihr wollt, mir egal.'",
-          "id": "c-2",
-          "label": "Unstrukturiert",
-          "metric": "Passivität",
-          "summary": "Fehlen von Führung und klarem sprachlichen Rahmen."
+          "id": "gfk-2",
+          "label": "2. Gefühl (echtes Gefühl)",
+          "badge": "Selbstausdruck",
+          "metric": "Wie geht es mir?",
+          "summary": "Eigene emotionale Reaktion klar und ohne versteckten Vorwurf benennen.",
+          "detail": "Ein echtes Gefühl (erschrocken, besorgt) öffnet eher Verständnis als eine Unterstellung („Du machst mich wütend / ich fühle mich provoziert“).",
+          "example": "„Da habe ich mich ziemlich erschrocken und mache mir Sorgen.“"
         },
         {
-          "badge": "Dialogisch / Personzentriert",
-          "detail": "Verbindung von klarer Grenzsetzung, Kongruenz, Empathie, Aktivem Zuhören und GFK. Partnerschaftliche Begleitung auf Augenhöhe unter Wahrung der Kinderrechte.",
-          "example": "'Ich wünsche mir Ordnung, lass uns überlegen, wie wir das zusammen schaffen.'",
-          "id": "c-3",
-          "label": "Dialogisch & GFK",
-          "metric": "Professionell",
-          "summary": "Professionalisiertes Handeln durch Dialog, Empathie und Partizipation."
+          "id": "gfk-3",
+          "label": "3. Bedürfnis (universell)",
+          "badge": "Hintergrund",
+          "metric": "Was ist wichtig?",
+          "summary": "Das zugrundeliegende Bedürfnis transparent machen – und nach dem des Kindes fragen.",
+          "detail": "Sicherheit und Unversehrtheit sind für Kinder leicht nachvollziehbar; gleichzeitig bleibt Raum für Sams eigenes Bedürfnis (z. B. Frust, Bewegung).",
+          "example": "„Mir ist ganz wichtig, dass hier niemand verletzt wird und sich alle sicher fühlen. Und du wirkst gerade richtig sauer – stimmt das?“"
+        },
+        {
+          "id": "gfk-4",
+          "label": "4. Konkrete Bitte / Lösung",
+          "badge": "Handlungsorientiert",
+          "metric": "Nächster Schritt",
+          "summary": "Positiv formulierte, konkrete Bitte und gemeinsamer Blick auf eine machbare Alternative.",
+          "detail": "Nach der klaren Sicherheitsgrenze sucht die Fachkraft gemeinsam mit Sam nach einem passenden Weg für seine Wut oder Energie.",
+          "example": "„Lass die Klötze bitte auf dem Boden. Wollen wir kurz klären, was dich geärgert hat, oder magst du deine Wut erst im Bewegungsraum an den Kissen rauslassen?“"
         }
-      ],
+      ]
+    },
+    {
+      "id": "vb-listening",
       "kind": "comparison",
-      "leftPole": "Macht & Zwang",
-      "rightPole": "Dialog & Partnerschaft",
-      "subtitle": "Gegenüberstellung von direktiven, laissez-faire und dialogischen Erziehungsstilen",
-      "title": "Kommunikationsstile im pädagogischen Handeln"
+      "title": "Aktives Zuhören, Metakommunikation & Kommunikationssperren im Vergleich",
+      "subtitle": "Wie unterschiedliche Reaktionen denselben Gesprächsmoment öffnen oder blockieren",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "l-1",
+          "label": "Paraphrasieren (Sachinhalt)",
+          "badge": "Aktives Zuhören",
+          "metric": "Verstehen prüfen",
+          "summary": "Das inhaltlich Gehörte in eigenen Worten kurz wiedergeben und rückversichern.",
+          "detail": "Beugt Missverständnissen vor und zeigt dem Gegenüber, dass man wirklich aufmerksam zuhört.",
+          "example": "„Wenn ich Sie richtig verstehe, wünschen Sie sich, dass wir morgens direkt Bescheid geben, wenn der Garten wegen Regen entfällt?“"
+        },
+        {
+          "id": "l-2",
+          "label": "Verbalisieren (Gefühlsebene)",
+          "badge": "Aktives Zuhören",
+          "metric": "Empathie",
+          "summary": "Wahrgenommene Gefühle respektvoll und offen als Frage spiegeln.",
+          "detail": "Entlastet emotional, weil das Gefühl da sein darf, und hilft Kindern, ihren eigenen Gefühls-Wortschatz aufzubauen.",
+          "example": "„Du klingst richtig traurig, weil deine Freundin heute ohne dich im Rollenspielbereich spielt?“"
+        },
+        {
+          "id": "l-3",
+          "label": "Metakommunikation",
+          "badge": "Gesprächssteuerung",
+          "metric": "Eskalations-Stopp",
+          "summary": "Kurz über die Art und Weise des laufenden Gesprächs sprechen.",
+          "detail": "Hilft bei Zeitdruck, Missverständnissen oder erhitzter Stimmung, wieder auf eine konstruktive Arbeitsbasis zurückzufinden.",
+          "example": "„Ich merke, wir reden gerade beide sehr schnell und unterbrechen uns. Lassen Sie uns kurz Luft holen und einen ruhigen Raum suchen.“"
+        },
+        {
+          "id": "l-4",
+          "label": "Kommunikationssperren (Gordon)",
+          "badge": "Stolperstein",
+          "metric": "Blockierend",
+          "summary": "Bagatellisieren, Belehren, Drohen, Ausfragen oder vorschnelle Ratschläge.",
+          "detail": "Oft gut gemeint, brechen diese Reaktionen jedoch den emotionalen Kontakt ab und drängen das Gegenüber in Rückzug oder Abwehr.",
+          "example": "„Ach, stell dich nicht so an, morgen spielt sie schon wieder mit dir – such dir halt wen anders!“"
+        }
+      ]
+    },
+    {
+      "id": "vb-gfk-nuances",
+      "kind": "feature_grid",
+      "title": "Vier typische Stolpersteine der GFK sicher meistern",
+      "subtitle": "Feinheiten, die in Praxis und Prüfung oft verwechselt werden",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "n-1",
+          "label": "Beobachtung vs. Bewertung",
+          "badge": "Schritt 1",
+          "metric": "Trennscharf",
+          "summary": "Beobachtungen enthalten konkrete Fakten, Bewertungen enthalten Urteile oder „immer/nie“.",
+          "detail": "„Du bist unzuverlässig“ ist eine Bewertung; „Du bist diese Woche zweimal 15 Minuten nach Dienstbeginn angekommen“ ist eine überprüfbare Beobachtung.",
+          "example": "Je konkreter die Beobachtung, desto geringer der Rechtfertigungsreflex beim Gegenüber."
+        },
+        {
+          "id": "n-2",
+          "label": "Echte Gefühle vs. Pseudogefühle",
+          "badge": "Schritt 2",
+          "metric": "Ich-Bezug",
+          "summary": "Pseudogefühle tarnen Vorwürfe gegen andere als Gefühl („ich fühle mich ignoriert/ausgenutzt“).",
+          "detail": "Echte Gefühle beschreiben den eigenen inneren Zustand (traurig, verunsichert, erleichtert, angespannt), ohne dem Gegenüber eine Absicht zu unterstellen.",
+          "example": "Statt „Ich fühle mich übergangen“ → „Ich bin enttäuscht, weil mir Einbezug wichtig ist.“"
+        },
+        {
+          "id": "n-3",
+          "label": "Bitte vs. verdeckte Forderung",
+          "badge": "Schritt 4",
+          "metric": "Freiwilligkeit",
+          "summary": "Der Unterschied zeigt sich daran, wie man auf ein „Nein“ des Gegenübers reagiert.",
+          "detail": "Folgen auf ein Nein Ärger, Vorwürfe oder Strafen, war die scheinbar höfliche Formulierung eine Forderung. Bei einer echten Bitte bleiben die Bedürfnisse beider Seiten im Gespräch.",
+          "example": "Ausnahme: Bei Sicherheits- und Schutzgrenzen sprechen Fachkräfte klare, transparente Ansagen statt Scheinbitten aus."
+        },
+        {
+          "id": "n-4",
+          "label": "Schutzgrenze vor Dialog",
+          "badge": "Praxisrealismus",
+          "metric": "Klarheit",
+          "summary": "In akuten Gefahrensituationen kommt erst der Schutz, danach die einfühlsame Klärung.",
+          "detail": "GFK bedeutet keine Konfliktscheu oder endloses Diskutieren, während jemand verletzt wird. Klare „schützende Macht“ und spätere dialogische Aufarbeitung gehören zusammen.",
+          "example": "Sofort: „Stopp, nicht schlagen!“ – danach auf Augenhöhe Gefühle und Bedürfnisse beider Kinder klären."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "5- bis 6-jährige Kinder in einer Kindertagesstätte (Vorschulgruppe)",
-    "context": "In der Freispielphase entbrennt ein heftiger Streit zwischen zwei Kindern um das einzige beliebige Konstruktionsmaterial (Magnetbausteine). Tom (6 Jahre) reißt Mia (5 Jahre) die Steine gewaltsam aus der Hand, woraufhin Mia zu weinen beginnt und Tom wütend anschreit. Die pädagogische Fachkraft (Erzieher:in) greift in die Situation ein.",
-    "setting": "Kindertagesstätte (Elementarbereich), Baubereich",
+    "title": "Streit im Baubereich und aufgebrachtes Tür-und-Angel-Gespräch",
+    "setting": "Kindertagesstätte (Elementargruppe, 4–6 Jahre)",
+    "ageGroup": "Kinder (5 Jahre) und Eltern",
+    "context": "Während des Freispiels reißt der 5-jährige Tom der 5-jährigen Mia unvermittelt eine Kiste Magnetbausteine aus der Hand. Mia bricht in Tränen aus, Tom ruft wütend: „Du hast die immer für dich allein!“ Fachkraft Lukas beobachtet die Szene. Am späten Nachmittag spricht Toms Vater Lukas im vollen Flur vor anderen Eltern sehr aufgebracht an: „Immer ist mein Sohn hier der Böse – nie hören Sie ihm richtig zu!“",
     "steps": [
       {
+        "situation": "Tom hält die Kiste fest, Mia weint laut. Beide Kinder sind stark aufgewühlt und brauchen eine klare, dialogische Begleitung durch Lukas.",
+        "prompt": "Wie begleitet Lukas die akute Konfliktsituation im Sinne von Aktivem Zuhören, GFK und sprachlicher Vorbildfunktion?",
         "options": [
           {
-            "feedback": "Die Fachkraft agiert hier direkt im Sinne der gewaltfreien Kommunikation und des Aktiven Zuhörens. Sie trennt die Parteien nicht strafend, sondern begleitet den Prozess dialogisch, macht Gefühle und Bedürfnisse transparent und regt Tom zu einer Ich-Botschaft sowie Mia zur Selbstwirksamkeit an.",
-            "label": "Die Fachkraft kniet sich auf Augenhöhe zu den Kindern, benennt das emotionale Geschehen (Aktives Zuhören: 'Mia, du weinst, weil Tom dir die Steine weggenommen hat und du noch bauen wolltest') und leitet die Kinder an, ihre Bedürfnisse gewaltfrei zu formulieren.",
+            "label": "Er geht auf Augenhöhe, benennt die Gefühle und Bedürfnisse beider Kinder durch Aktives Zuhören und moderiert mit ihnen eine faire Nutzungsabsprache (z. B. gemeinsame Baufläche oder Sanduhr).",
             "quality": "optimal",
-            "theoryLink": "Rosenberg (Gewaltfreie Kommunikation), Rogers (Aktives Zuhören), Rlp-Lehrplan S-SP-2 (Dialogischer Prozess, Sprachliche Vorbildfunktion)."
+            "feedback": "Professionell und dialogisch: Lukas wertet kein Kind ab, übersetzt Gefühle und Bedürfnisse empathisch („Mia, du bist traurig, weil du noch weiterbauen wolltest; Tom, du wartest schon lange und willst auch bauen“) und befähigt beide Kinder, eine tragfähige Lösung auszuhandeln.",
+            "theoryLink": "Rogers & Gordon (Aktives Zuhören / Verbalisieren); Rosenberg (GFK & empathisches Übersetzen); Partizipation."
           },
           {
-            "feedback": "Die Fachkraft bricht den Konflikt zwar sofort ab und verhindert körperliche Eskalation, vergibt jedoch eine schnelle Schiedsrichterrolle ('Tom, das macht man nicht!'). Damit wird keine echte Konfliktkompetenz oder Sprachbildung gefördert, sondern Autorität ausgeübt.",
-            "label": "Die Fachkraft geht dazwischen, nimmt Tom die Bausteine weg, gibt sie Mia zurück und sagt streng: 'Hier wird nicht gestritten und niemandem etwas weggenommen. Tom, entschuldige dich sofort bei Mia.'",
+            "label": "Er nimmt Tom die Kiste sofort ab, gibt sie Mia und verlangt: „Tom, das macht man nicht – entschuldige dich sofort bei Mia!“",
             "quality": "problematisch",
-            "theoryLink": "Traditioneller Erziehungsstil vs. Partizipativer, dialogischer Ansatz (RLP S-SP-2)."
+            "feedback": "Eine erzwungene Entschuldigung löst den Konflikt nur äußerlich über Macht, ignoriert die Bedürfnisse beider Kinder und fördert weder echte Empathie noch eigene Konfliktsprache.",
+            "theoryLink": "Direktive Schiedsrichterrolle vs. dialogische Erziehung und GFK (Rosenberg)."
           },
           {
-            "feedback": "Dieser Ansatz zeigt zwar gute Absichten (Gefühle wahrnehmen), lässt die Situation aber unstrukturiert im Raum stehen. Ohne Moderation und klare sprachliche Begleitung sind die Kinder in dieser emotionalen Erregung oft überfordert, eine Lösung zu finden.",
-            "label": "Die Fachkraft beobachtet die Situation aus der Distanz und ruft den Kindern zu: 'Hey, regt euch mal ab und klärt das untereinander wie große Kinder, ihr schafft das schon.'",
+            "label": "Er ruft aus der Distanz: „Ihr seid doch schon fünf Jahre alt – klärt das allein ohne Streit!“",
             "quality": "teilweise",
-            "theoryLink": "Kompetenzförderung erfordert scaffolding und professionelle Begleitung (Vygotsky / Gordon)."
+            "feedback": "Zwar mischt sich Lukas nicht autoritär ein, lässt die Kinder in starker emotionaler Erregung jedoch ohne sprachliche Unterstützung und Moderation allein.",
+            "theoryLink": "Sprachliche Vorbildfunktion und moderierte Konfliktbegleitung im Kita-Alltag."
           }
-        ],
-        "prompt": "Wie reagiert die Fachkraft im ersten Moment angemessen auf den akuten Konflikt?",
-        "situation": "Akuter Konflikt im Baubereich um Spielmaterial."
+        ]
       },
       {
+        "situation": "Beim Abholen im vollen Flur macht Toms Vater Lukas laut Vorwürfe („Immer ist mein Sohn der Böse – nie hören Sie ihm zu!“). Lukas spürt eigenen Ärger und Zeitdruck, während andere Eltern zuhören.",
+        "prompt": "Wie nutzt Lukas Kongruenz, Aktives Zuhören und Metakommunikation in diesem angespannten Elterngespräch?",
         "options": [
           {
-            "feedback": "Dieser Schritt fördert nachhaltig die Konfliktlösungsfähigkeit und Partizipation. Die Kinder lernen handlungsorientiert, eigene Interessen zu vertreten, ohne andere zu verletzen (Gewaltfreie Kommunikation).",
-            "label": "Die Fachkraft moderiert ein kurzes Kreisgespräch, in dem beide Kinder mithilfe von Gefühls- und Bedürfniskarten (nach Rosenberg) ihre Sichtweise schildern und gemeinsam eine faire Spielvereinbarung (z. B. Timer-Nutzung) aushandeln.",
-            "quality": "optimal",
-            "theoryLink": "Konfliktlösungsmodelle und Partizipation im Alltag (RLP S-SP-2, Kinderrechte)."
-          },
-          {
-            "feedback": "Hierbei übernimmt die Fachkraft die gesamte Verantwortung und entzieht den Kindern jegliche Möglichkeit zur Selbstwirksamkeit und eigenverantwortlichen Konfliktlösung. Der Dialogcharakter geht verloren.",
-            "label": "Die Fachkraft bestimmt kurzerhand: 'Ab jetzt wird in dieser Gruppe gar nicht mehr mit den Magnetbausteinen gespielt, die Kiste kommt für den Rest der Woche in den Schrank.'",
-            "quality": "problematisch",
-            "theoryLink": "Pädagogische Machtausübung und Mangel an Partizipation (RLP S-SP-2)."
-          },
-          {
-            "feedback": "Die Kinder werden zwar zur Einigung ermahnt, aber ohne fachliche Strukturierung und sprachliche Unterstützung bleibt unklar, ob das Problem nachhaltig gelöst oder nur aufgeschoben ist.",
-            "label": "Die Fachkraft sagt: 'Vertragt euch jetzt wieder und schüttelt euch die Hände, sonst dürft ihr heute nicht mehr in den Garten.'",
+            "label": "Er lächelt angespannt, sagt knapp „War doch gar nicht so schlimm, schönen Abend noch!“ und wendet sich dem nächsten Elternteil zu.",
             "quality": "teilweise",
-            "theoryLink": "Zwangsorientierte Konfliktbewältigung ohne Reflexion."
+            "feedback": "Das vermeidet zwar eine laute Szene, wirkt aber inkongruent und bagatellisierend (Kommunikationssperre nach Gordon) – die Verärgerung des Vaters bleibt ungeklärt.",
+            "theoryLink": "Inkongruenz (Rogers) und Kommunikationssperre „Bagatellisieren“ (Gordon)."
+          },
+          {
+            "label": "Er verteidigt sich im Flur lautstark mit Gegenbeispielen, wie schwierig Tom sich heute verhalten habe.",
+            "quality": "problematisch",
+            "feedback": "Rechtfertigung und Gegenangriff vor anderen Eltern verletzen Vertraulichkeit und Datenschutz, eskalieren den Konflikt auf der Beziehungsebene und zerstören die Gesprächsbasis.",
+            "theoryLink": "Eskalation durch Vorwurf-Gegenangriff; Vertraulichkeit im Elterngespräch."
+          },
+          {
+            "label": "Er bleibt ruhig, spiegelt das Anliegen des Vaters (Aktives Zuhören) und nutzt Metakommunikation, um das Gespräch aus dem vollen Flur in einen geschützten Rahmen bzw. einen zeitnahen Gesprächstermin zu verlagern.",
+            "quality": "optimal",
+            "feedback": "Optimal: Lukas nimmt die Sorge des Vaters ernst („Ich höre, es ist Ihnen wichtig, dass Tom fair gesehen wird“), schützt die Vertraulichkeit durch Metakommunikation („Hier im Flur können wir dem Thema nicht gerecht werden – lassen Sie uns kurz nebenan sprechen oder morgen früh 15 Minuten einplanen“) und bleibt kongruent.",
+            "theoryLink": "Metakommunikation, Aktives Zuhören (Rogers/Gordon) und professionelle Gesprächsmoderation."
           }
-        ],
-        "prompt": "Wie gestaltet die Fachkraft den weiteren Fortgang des Konfliktlösungs- und Moderationsprozesses?",
-        "situation": "Nachbereitung und Lösungsfindung im Beisein der Fachkraft."
+        ]
       }
-    ],
-    "title": "Konfliktlösung und dialogische Begleitung im Baubereich"
+    ]
   },
   "selfLearningTasks": [
-    "Reflektieren Sie anhand eines eigenen Praxiserlebnisses eine Situation, in der Sie eine 'Du-Botschaft' verwendet haben. Formulieren Sie diese Situation anschießend in die vier Schritte der Gewaltfreien Kommunikation (Beobachtung, Gefühl, Bedürfnis, Bitte) um.",
-    "Entwerfen Sie ein methodisches Konzept für eine kurze Gesprächsrunde (Kinderkonferenz) zu einem alltäglichen Thema (z. B. 'Regeln für die Bauecke') und planen Sie konkrete Moderationsschritte und Visualisierungen ein.",
-    "Analysieren Sie ein pädagogisches Fachgespräch aus Ihrer Praxiseinrichtung im Hinblick auf den Grad der Kongruenz und des Aktiven Zuhörens der beteiligten Fachkräfte."
+    "Notiere drei typische „Du-Vorwürfe“ oder Bewertungen aus dem pädagogischen Alltag (z. B. „Du störst immer im Kreis!“) und übersetze sie in natürliche, alltagsnahe GFK-Äußerungen mit Beobachtung, echtem Gefühl, Bedürfnis und positiver Bitte.",
+    "Übe in einem kollegialen Rollenspiel (5 Minuten) bewusst das Aktive Zuhören: Eine Person schildert ein echtes Alltagsärgernis, die andere darf ausschließlich paraphrasieren und Gefühle verbalisieren – ganz ohne Ratschläge oder Kommunikationssperren nach Gordon.",
+    "Formuliere drei alltagstaugliche metakommunikative Sätze für verschiedene Situationen (Konflikt zwischen Kindern, aufgebrachtes Elterngespräch, festgefahrene Teamsitzung)."
   ],
   "flashcards": [
     {
-      "definition": "Übereinstimmung von innerem Erleben und äußerem Ausdruck (Authentizität) bei der pädagogischen Fachkraft nach Carl Rogers.",
-      "example": "Die Fachkraft zeigt offen, dass sie von einem lauten Streit genervt ist, bleibt dabei aber wertschätzend und professionell.",
-      "term": "Kongruenz"
+      "term": "Gewaltfreie Kommunikation (Marshall B. Rosenberg)",
+      "definition": "Kommunikations- und Haltungsmodell in vier Schritten: (1) Beobachtung ohne Bewertung, (2) echtes Gefühl, (3) universelles Bedürfnis, (4) konkrete, positiv formulierte Bitte.",
+      "example": "„Ich sehe, dass die Stifte noch auf dem Tisch liegen (Beobachtung). Ich bin gerade angespannt (Gefühl), weil wir gleich essen und mir ein ruhiger Übergang wichtig ist (Bedürfnis). Hilfst du mir, sie in die Kiste zu legen? (Bitte)“"
     },
     {
-      "definition": "Kommunikationsmodell nach Marshall B. Rosenberg, das auf vier Schritten beruht: Beobachtung, Gefühl, Bedürfnis, Bitte.",
-      "example": "'Wenn ich sehe, dass du rennst [Beobachtung], mache ich mir Sorgen [Gefühl], weil mir Sicherheit wichtig ist [Bedürfnis]. Bitte gehe langsam [Bitte].'",
-      "term": "Gewaltfreie Kommunikation (GFK)"
+      "term": "Bitte vs. Forderung (GFK)",
+      "definition": "Eine echte Bitte lässt dem Gegenüber die Möglichkeit zum Nein und öffnet den Dialog über gemeinsame Lösungen; eine Forderung zieht bei Ablehnung Druck, Schuldvorwürfe oder Strafe nach sich.",
+      "example": "Bei Sicherheitsgrenzen setzen Fachkräfte bewusst klare schützende Ansagen statt verdeckter Scheinbitten."
     },
     {
-      "definition": "Empathisches Hören nach Carl Rogers und Thomas Gordon, bei dem das Gesagte mit eigenen Worten und unter Einbezug der emotionalen Ebene zurückgemeldet wird.",
-      "example": "'Du wirkst traurig, weil dein Bauwerk eingestürzt ist, und wünschtest dir Hilfe beim Wiederaufbau, sehe ich das richtig?'",
-      "term": "Aktives Zuhören"
+      "term": "Aktives Zuhören (Carl Rogers & Thomas Gordon)",
+      "definition": "Empathisches Zuhören mit prüfender Rückmeldung des Sachgehalts (Paraphrasieren) und der Gefühlsebene (Verbalisieren), damit das Gegenüber sich verstanden fühlt und selbst Klärung findet.",
+      "example": "„Du bist frustriert, weil dein Turm schon zweimal umgefallen ist, oder?“"
     },
     {
-      "definition": "Aussagen, die das eigene Erleben, die eigenen Gefühle und Bedürfnisse ausdrücken, statt Du-Botschaften (die oft Vorwürfe enthalten) zu nutzen.",
-      "example": "'Ich wünsche mir Ruhe beim Vorlesen' statt 'Du bist viel zu laut!'.",
-      "term": "Ich-Botschaften"
+      "term": "Kommunikationssperren (Thomas Gordon)",
+      "definition": "Gut gemeinte, aber gesprächsblockierende Reaktionen wie Bagatellisieren, Belehren, Drohen, Moralisieren, Ausfragen oder vorschnelles Ratschläge-Geben.",
+      "example": "„Jetzt wein doch nicht wegen so einer Kleinigkeit!“ blockiert das Gefühl statt zu entlasten."
     },
     {
-      "definition": "Ein erzieherischer Ansatz, der auf gegenseitiger Anerkennung, Austausch auf Augenhöhe und Beteiligung beruht, statt einseitiger Belehrung.",
-      "example": "Regeln für den Morgenkreis werden gemeinsam mit den Kindern ausgehandelt und begründet.",
-      "term": "Dialogische Erziehung"
+      "term": "Kongruenz (Carl Rogers)",
+      "definition": "Stimmigkeit und Echtheit zwischen innerem Erleben, gesprochenen Worten, Stimmlage und Körpersprache der Fachkraft.",
+      "example": "Offen und ruhig benennen, dass man gerade eine kurze Pause zum Sortieren braucht, statt mit verkrampftem Lächeln „Alles super“ zu sagen."
     },
     {
-      "definition": "Die bewusste Vorbildfunktion von Pädagog:innen in Aussprache, Grammatik, Höflichkeit und emotionaler Regulation im Alltag.",
-      "example": "Die Fachkraft spricht klar, zugewandt und korrigiert sprachliche Fehler von Kindern nicht defizitär, sondern durch korrektes Nachsprechen (Expansion).",
-      "term": "Sprachliche Vorbildfunktion"
+      "term": "Metakommunikation",
+      "definition": "Kommunikation über die laufende Kommunikation – also das wertfreie Ansprechen von Gesprächsverlauf, Tonfall, Missverständnissen oder Rahmenbedingungen, wenn ein Dialog stockt.",
+      "example": "„Ich merke, wir reden gerade aneinander vorbei – lassen Sie uns kurz klären, welches Ziel wir für dieses Gespräch haben.“"
     }
   ],
   "quiz": [
     {
+      "id": "v2-q1",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Welche Aussage erfüllt den ersten Schritt der Gewaltfreien Kommunikation nach Rosenberg (Beobachtung ohne Bewertung) sauber?",
+      "options": [
+        "„Du bist heute wieder extrem unkonzentriert und störst alle.“",
+        "„Im Morgenkreis hast du dreimal dazwischengerufen, während ein anderes Kind den Sprechstein hatte.“",
+        "„Nie hältst du dich an unsere Gruppenregeln.“",
+        "„Du willst mich absichtlich ärgern.“"
+      ],
       "correctIndices": [
         1
       ],
-      "difficulty": "basis",
-      "explanation": "Kongruenz beschreibt nach Carl Rogers die Echtheit und Übereinstimmung zwischen dem inneren Erleben und dem äußeren Verhalten bzw. Ausdruck einer Person.",
-      "id": "q1",
-      "options": [
-        "Die vollständige Anpassung der eigenen Meinung an die Wünsche der Kindergruppe.",
-        "Die Echtheit und Übereinstimmung von innerem Erleben und äußerem Ausdruck der Fachkraft.",
-        "Das strikte Einhalten von vorgegebenen institutionellen Dienstvorschriften.",
-        "Die Vermeidung jeglicher Konflikte im pädagogischen Alltag."
-      ],
-      "question": "Was versteht man in der personzentrierten Pädagogik nach Carl Rogers unter dem Begriff „Kongruenz“?",
-      "type": "single"
+      "explanation": "Eine Beobachtung im Sinne der GFK beschreibt konkrete, überprüfbare Fakten ohne Bewertungen, Unterstellungen oder Verallgemeinerungen wie „immer“ oder „nie“."
     },
     {
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Woran lässt sich in der Gewaltfreien Kommunikation eine echte Bitte am zuverlässigsten von einer verdeckten Forderung unterscheiden?",
+      "options": [
+        "Daran, dass eine echte Bitte möglichst vage formuliert bleibt („Sei mal netter“).",
+        "Eine echte Bitte darf ausschließlich zwischen Erwachsenen, nie gegenüber Kindern genutzt werden.",
+        "Allein daran, ob das Wort „bitte“ im Satz vorkommt.",
+        "Daran, wie der Sender auf ein „Nein“ reagiert: Bei einer echten Bitte folgt kein Druck und keine Strafe, sondern ein weiteres empathisches Suchen nach einer gemeinsamen Lösung."
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Höfliche Worte allein machen noch keine Bitte. Entscheidend ist die Haltung beim Nein: Folgen Vorwürfe oder Sanktionen, handelte es sich um eine Forderung."
+    },
+    {
+      "id": "v2-q3",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Techniken gehören zum Aktiven Zuhören nach Carl Rogers und Thomas Gordon? (Mehrere Antworten sind richtig)",
+      "options": [
+        "Paraphrasieren: Den sachlichen Inhalt in eigenen Worten prüfend wiedergeben.",
+        "Möglichst rasches Bagatellisieren („Ist doch halb so schlimm!“) und sofortige Ratschläge.",
+        "Verbalisieren: Wahrgenommene Gefühle des Gegenübers behutsam und offen spiegeln.",
+        "Präsente, zugewandte Körpersprache und geduldiges Ausredenlassen."
+      ],
       "correctIndices": [
         0,
         2,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Die vier klassischen Schritte der GFK nach Marshall B. Rosenberg sind: 1. Beobachtung (ohne Bewertung), 2. Gefühl, 3. Bedürfnis, 4. Bitte. 'Forderung' ist das Gegenteil einer Bitte in der GFK.",
-      "id": "q2",
-      "options": [
-        "Beobachtung (frei von Bewertung)",
-        "Forderung und Sanktionierung",
-        "Gefühl",
-        "Bedürfnis und Bitte"
-      ],
-      "question": "Welche Elemente gehören zu den vier Schritten der Gewaltfreien Kommunikation (GFK) nach Marshall B. Rosenberg? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Paraphrasieren, Verbalisieren emotionaler Inhalte und echte Präsenz öffnen das Gespräch. Bagatellisieren und vorschnelle Ratschläge zählen nach Gordon zu den Kommunikationssperren."
     },
     {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Beim Aktiven Zuhören nach Rogers/Gordon steht die empathische Erfassung und Rückmeldung der emotionalen und kognitiven Botschaft des Gegenübers im Vordergrund ('Verbalisieren' und 'Paraphrasieren'). Eine sofortige Ratschlagserteilung hemmt hingegen den Klärungsprozess.",
-      "id": "q3",
+      "id": "v2-q4",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Was versteht man unter Metakommunikation in der pädagogischen Gesprächsführung?",
       "options": [
-        "Sofortiges Erteilen von klugen Ratschlägen und Lebensweisheiten.",
-        "Striktes Schweigen, um das Gegenüber nicht zu stören.",
-        "Spiegeln und Rückmelden von Gehörtem und gefühlten Inhalten in eigenen Worten (Paraphrasieren/Verbalisieren).",
-        "Strenges Hinterfragen und Überprüfen der Aussagen auf logische Fehler."
+        "Das bewusste, wertfreie Sprechen über die Art und Weise, wie ein Gespräch gerade verläuft (z. B. bei Missverständnissen oder Eskalation).",
+        "Das schweigende Abbrechen eines Gesprächs ohne Begründung.",
+        "Die rein schriftliche Kommunikation über digitale Kita-Apps.",
+        "Das Verwenden möglichst vieler Fremdwörter in Elterngesprächen."
       ],
-      "question": "Welches Kernmerkmal kennzeichnet die Technik des „Aktiven Zuhörens“?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "pruefung",
-      "explanation": "In dieser Praxissituation drückt die Fachkraft ein eigenes Bedürfnis und Gefühl in Form einer Ich-Botschaft aus, ohne das Kind pauschal abzuwerten oder Du-Vorwürfe zu machen ('Du bist zu laut').",
-      "id": "q4",
-      "options": [
-        "'Wenn du jetzt nicht sofort leise bist, darfst du nicht mitspielen!'",
-        "'Ich wünsche mir etwas Ruhe, weil ich mich im Moment nur schwer konzentrieren kann.'",
-        "'Ihr Kinder seid heute einfach unerträglich laut.'",
-        "'Ruhe jetzt im Raum!'"
-      ],
-      "question": "Praxissituation: Im Gruppenraum herrscht großer Lärm, weil viele Kinder gleichzeitig rufen. Welches Beispiel zeigt eine professionelle „Ich-Botschaft“ der Fachkraft? (Hinweis: Genau eine Option ist korrekt)",
-      "type": "case"
-    },
-    {
       "correctIndices": [
         0
       ],
-      "difficulty": "basis",
-      "explanation": "Dialogische Erziehung begreift Erziehung als wechselseitigen, partnerschaftlichen und partizipativen Prozess auf Augenhöhe, bei dem Kinder als aktive Mitgestalter und Träger von Rechten wahrgenommen werden.",
-      "id": "q5",
+      "explanation": "Metakommunikation („Kommunikation über Kommunikation“) hilft, festgefahrene Interaktionen zu unterbrechen, Missverständnisse aufzuklären und den Gesprächsrahmen neu zu vereinbaren."
+    },
+    {
+      "id": "v2-q5",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Ein vierjähriges Kind weint bitterlich, weil seine beste Freundin heute krank ist, und sagt: „Keiner will mit mir spielen!“ Welche Antwort der Fachkraft entspricht dem Aktiven Zuhören?",
       "options": [
-        "Einen wechselseitigen, partnerschaftlichen und partizipativen Aushandlungsprozess auf Augenhöhe.",
-        "Die einseitige Wissensvermittlung von der Fachkraft zum Kind (Frontalunterricht).",
-        "Ein striktes Belohnungs- und Bestrafungssystem zur Verhaltensformung.",
-        "Die ausschließliche Fokussierung auf die sensorische Frühförderung."
+        "„Ach Quatsch, hier sind doch zwanzig andere Kinder – sei nicht traurig!“",
+        "„Geh einfach in die Puppenecke, da findest du sofort jemanden.“",
+        "„Du vermisst Lina heute sehr und bist traurig, dass sie nicht da ist, stimmt das?“",
+        "„Morgen ist sie bestimmt wieder gesund, komm, wir malen jetzt schnell was.“"
       ],
-      "question": "Wie definiert sich der Begriff „dialogische Erziehung“ im Kontext des RLP Rheinland-Pfalz für die Fachschule Sozialwesen?",
-      "type": "single"
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Durch das behutsame Verbalisieren des Gefühls darf die Trauer des Kindes zunächst da sein. Erst wenn das Kind sich verstanden fühlt, kann es sich für neue Spielideen öffnen."
+    },
+    {
+      "id": "v2-q6",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Wodurch zeigt sich Kongruenz in der Kommunikation einer pädagogischen Fachkraft?",
+      "options": [
+        "Durch vollständige Anpassung an jede Forderung der Gesprächspartner:innen.",
+        "Durch den Verzicht auf jede nonverbale Ausdrucksform.",
+        "Durch das strikte Verbergen eigener Gefühle hinter einem dauerhaften Lächeln.",
+        "Durch Stimmigkeit zwischen innerem Erleben, gewählten Worten, Stimmlage und Körpersprache."
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Kongruenz (Echtheit nach Rogers) verhindert widersprüchliche Doppelbotschaften und macht die Fachkraft als verlässliches, glaubwürdiges Gegenüber erlebbar."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Gewaltfreie Kommunikation – Fachartikel im socialnet Lexikon",
+      "url": "https://www.socialnet.de/lexikon/Gewaltfreie-Kommunikation",
+      "publisher": "socialnet Lexikon",
+      "note": "Systematische Einführung in die vier Schritte nach Rosenberg, Haltung und Anwendungsfelder"
+    },
+    {
+      "title": "Gewaltfreie Kommunikation in der KiTa",
+      "url": "https://nifbe.de/gewaltfreie-kommunikation-in-der-kita/",
+      "publisher": "nifbe – Niedersächsisches Institut für frühkindliche Bildung und Entwicklung",
+      "note": "Praxisnahe Übertragung von GFK und bedürfnisorientierter Kommunikation auf den Kita-Alltag"
+    },
+    {
+      "title": "Mit Kindern reden – Verbindliche Kommunikation mit den Jüngsten",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/FT_leitner_2011.pdf",
+      "publisher": "Kita-Fachtexte / WiFF (Barbara Leitner, 2011)",
+      "note": "Studientext zu wertschätzender, dialogischer Kommunikation und empathischem Übersetzen (PDF)"
+    },
+    {
+      "title": "Gewaltfreie Kommunikation und gewaltfreie Erziehung in der Kita",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/KiTaFT_Leitner_II_2018_GewalftreieKita.pdf",
+      "publisher": "Kita-Fachtexte / WiFF (Barbara Leitner, 2018)",
+      "note": "Vertiefung zu gewaltfreier Haltung, Kinderrechten und Konfliktbegleitung in der Praxis (PDF)"
+    },
+    {
+      "title": "Rezension: Gewaltfreie Kommunikation in der KiTa",
+      "url": "https://www.socialnet.de/rezensionen/28704.php",
+      "publisher": "socialnet Rezensionen",
+      "note": "Fachliche Einordnung von GFK-Praxiskonzepten im Elementarbereich"
     }
   ]
 }

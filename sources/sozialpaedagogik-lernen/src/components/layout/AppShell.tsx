@@ -19,9 +19,15 @@ import {
   X,
 } from 'lucide-react';
 import { ALL_UNITS } from '../../data/units';
-import { CURRICULUM_MODULES } from '../../data/modules';
+import { CURRICULUM_MODULES, type CurriculumModuleMeta } from '../../data/modules';
 import { useProgress } from '../../context/ProgressContext';
-import { getModuleProgress, getOverallStats, getUnitCompletionStatus } from '../../lib/storage';
+import {
+  getCurrentQuizResult,
+  getModuleProgress,
+  getOverallStats,
+  getUnitCompletionStatus,
+} from '../../lib/storage';
+import { getOrderedModulesForLearningPath } from '../../lib/learning';
 import { BackupModal } from './BackupModal';
 
 export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -33,12 +39,16 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
   const [openModules, setOpenModules] = useState<Record<string, boolean>>(() => {
     const init: Record<string, boolean> = {};
     for (const m of CURRICULUM_MODULES) {
-      init[m.code] = m.code === 'LEITLINIEN' || m.code === 'S-SP-2' || m.code === 'S-SP-4';
+      init[m.code] = m.code === 'S-SP-2' || m.code === 'S-SP-3';
     }
     return init;
   });
 
   const stats = useMemo(() => getOverallStats(ALL_UNITS, progress), [progress]);
+  const { coreModules, orientationModules } = useMemo(
+    () => getOrderedModulesForLearningPath(CURRICULUM_MODULES),
+    []
+  );
 
   const unitsByModule = useMemo(() => {
     const q = sidebarQuery.trim().toLowerCase();
@@ -67,6 +77,87 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
         : 'text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800/80'
     }`;
 
+  const renderSidebarModule = (mod: CurriculumModuleMeta) => {
+    const modUnits = unitsByModule[mod.code] ?? [];
+    if (sidebarQuery.trim() && modUnits.length === 0) return null;
+    const modStats = getModuleProgress(mod.code, ALL_UNITS, progress);
+    const isOpen = Boolean(sidebarQuery.trim()) || Boolean(openModules[mod.code]);
+
+    return (
+      <div
+        key={mod.code}
+        className="rounded-xl border border-slate-200/70 bg-white/70 dark:border-slate-800 dark:bg-slate-900/40"
+      >
+        <button
+          type="button"
+          onClick={() => toggleMod(mod.code)}
+          className="flex w-full items-center justify-between gap-2 px-2.5 py-2 text-left"
+        >
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-1.5">
+              <span className={`rounded px-1.5 py-0.5 text-[10px] font-bold ${mod.badgeClass}`}>
+                {mod.code}
+              </span>
+              <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
+                {modStats.completed}/{modStats.total}
+              </span>
+            </div>
+            <div className="mt-0.5 truncate text-xs font-semibold text-slate-800 dark:text-slate-200">
+              {mod.shortTitle}
+            </div>
+          </div>
+          {isOpen ? (
+            <ChevronDown className="h-4 w-4 shrink-0 text-slate-400" />
+          ) : (
+            <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+          )}
+        </button>
+
+        {isOpen && (
+          <div className="space-y-0.5 border-t border-slate-100 px-1.5 py-1.5 dark:border-slate-800">
+            {modUnits.map((unit) => {
+              const status = getUnitCompletionStatus(unit, progress);
+              const isCurrent = location.pathname === `/einheit/${unit.id}`;
+              const currentQuiz = getCurrentQuizResult(unit, progress);
+              return (
+                <Link
+                  key={unit.id}
+                  to={`/einheit/${unit.id}`}
+                  onClick={() => setSidebarOpen(false)}
+                  className={`flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs transition ${
+                    isCurrent
+                      ? 'bg-teal-50 font-bold text-teal-900 dark:bg-teal-950/60 dark:text-teal-200'
+                      : 'text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'
+                  }`}
+                >
+                  {status === 'completed' ? (
+                    <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
+                  ) : (
+                    <span
+                      className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[9px] font-bold ${
+                        status === 'in_progress'
+                          ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-200'
+                          : 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400'
+                      }`}
+                    >
+                      {unit.number}
+                    </span>
+                  )}
+                  <span className="min-w-0 flex-1 truncate">{unit.title}</span>
+                  {currentQuiz && currentQuiz.total > 0 && (
+                    <span className="shrink-0 text-[10px] font-semibold text-slate-400">
+                      {Math.round((currentQuiz.bestScore / currentQuiz.total) * 100)}%
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   const sidebarContent = (
     <div className="flex h-full flex-col">
       {/* Brand */}
@@ -84,7 +175,7 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
               Sozialpädagogik
             </div>
             <div className="text-[11px] font-medium text-slate-500 dark:text-slate-400">
-              Lehrplan RLP · 50 Einheiten
+              Fachmodule RLP · 50 Einheiten
             </div>
           </div>
         </Link>
@@ -98,19 +189,11 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
         </button>
       </div>
 
-      {/* Hauptnavigation */}
+      {/* Hauptnavigation: Fachliches Lernen zuerst, Orientierung klar nachgeordnet */}
       <div className="space-y-1 border-b border-slate-200/80 px-3 py-3 dark:border-slate-800">
         <NavLink to="/" end onClick={() => setSidebarOpen(false)} className={navLinkClass}>
           <LayoutDashboard className="h-4 w-4" />
-          Übersicht & Module
-        </NavLink>
-        <NavLink
-          to="/stundentafel"
-          onClick={() => setSidebarOpen(false)}
-          className={navLinkClass}
-        >
-          <CalendarClock className="h-4 w-4" />
-          Stundentafel & Rahmen
+          Fachmodule &amp; Übersicht
         </NavLink>
         <NavLink
           to="/pruefung"
@@ -128,6 +211,19 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
           <BookMarked className="h-4 w-4" />
           Fachbegriffe-Glossar
         </NavLink>
+        <div className="pt-1.5">
+          <div className="px-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+            Nachschlagen &amp; Orientierung
+          </div>
+          <NavLink
+            to="/stundentafel"
+            onClick={() => setSidebarOpen(false)}
+            className={navLinkClass}
+          >
+            <CalendarClock className="h-4 w-4" />
+            Stundentafel &amp; Rahmen
+          </NavLink>
+        </div>
       </div>
 
       {/* Sidebar-Suche */}
@@ -144,85 +240,20 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
         </div>
       </div>
 
-      {/* Modul-Akkordeons */}
+      {/* Modul-Akkordeons: Fachliche Module oben, Orientierung unten */}
       <div className="mt-2 flex-1 space-y-1.5 overflow-y-auto px-3 pb-4">
-        {CURRICULUM_MODULES.map((mod) => {
-          const modUnits = unitsByModule[mod.code] ?? [];
-          if (sidebarQuery.trim() && modUnits.length === 0) return null;
-          const modStats = getModuleProgress(mod.code, ALL_UNITS, progress);
-          const isOpen = Boolean(sidebarQuery.trim()) || Boolean(openModules[mod.code]);
+        {coreModules.map((mod) => renderSidebarModule(mod))}
 
-          return (
-            <div key={mod.code} className="rounded-xl border border-slate-200/70 bg-white/70 dark:border-slate-800 dark:bg-slate-900/40">
-              <button
-                type="button"
-                onClick={() => toggleMod(mod.code)}
-                className="flex w-full items-center justify-between gap-2 px-2.5 py-2 text-left"
-              >
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-1.5">
-                    <span className={`rounded px-1.5 py-0.5 text-[10px] font-bold ${mod.badgeClass}`}>
-                      {mod.code}
-                    </span>
-                    <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400">
-                      {modStats.completed}/{modStats.total}
-                    </span>
-                  </div>
-                  <div className="mt-0.5 truncate text-xs font-semibold text-slate-800 dark:text-slate-200">
-                    {mod.shortTitle}
-                  </div>
-                </div>
-                {isOpen ? (
-                  <ChevronDown className="h-4 w-4 shrink-0 text-slate-400" />
-                ) : (
-                  <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
-                )}
-              </button>
-
-              {isOpen && (
-                <div className="space-y-0.5 border-t border-slate-100 px-1.5 py-1.5 dark:border-slate-800">
-                  {modUnits.map((unit) => {
-                    const status = getUnitCompletionStatus(unit, progress);
-                    const isCurrent = location.pathname === `/einheit/${unit.id}`;
-                    const quiz = progress.quizResults[unit.id];
-                    return (
-                      <Link
-                        key={unit.id}
-                        to={`/einheit/${unit.id}`}
-                        onClick={() => setSidebarOpen(false)}
-                        className={`flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs transition ${
-                          isCurrent
-                            ? 'bg-teal-50 font-bold text-teal-900 dark:bg-teal-950/60 dark:text-teal-200'
-                            : 'text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'
-                        }`}
-                      >
-                        {status === 'completed' ? (
-                          <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-500" />
-                        ) : (
-                          <span
-                            className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[9px] font-bold ${
-                              status === 'in_progress'
-                                ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-200'
-                                : 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400'
-                            }`}
-                          >
-                            {unit.number}
-                          </span>
-                        )}
-                        <span className="min-w-0 flex-1 truncate">{unit.title}</span>
-                        {quiz && (
-                          <span className="shrink-0 text-[10px] font-semibold text-slate-400">
-                            {Math.round((quiz.bestScore / quiz.total) * 100)}%
-                          </span>
-                        )}
-                      </Link>
-                    );
-                  })}
-                </div>
-              )}
+        {orientationModules.some((m) => (unitsByModule[m.code]?.length ?? 0) > 0) && (
+          <div className="pt-2">
+            <div className="mb-1.5 px-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+              Orientierung &amp; Grundlagen
             </div>
-          );
-        })}
+            <div className="space-y-1.5">
+              {orientationModules.map((mod) => renderSidebarModule(mod))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -241,7 +272,7 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
             className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm"
             onClick={() => setSidebarOpen(false)}
           />
-          <aside className="relative z-10 h-full w-72 bg-white shadow-2xl dark:bg-ink-800">
+          <aside className="relative z-10 h-full w-72 max-w-[85vw] bg-white shadow-2xl dark:bg-ink-800">
             {sidebarContent}
           </aside>
         </div>
@@ -250,29 +281,32 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
       {/* Main Column */}
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Topbar */}
-        <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-slate-200/80 bg-[#FAF8F5]/90 px-4 py-3 backdrop-blur-md dark:border-slate-800 dark:bg-[#0F1419]/90 sm:px-6">
-          <div className="flex items-center gap-3">
+        <header className="sticky top-0 z-30 flex items-center justify-between gap-2 border-b border-slate-200/80 bg-[#FAF8F5]/90 px-3 py-3 backdrop-blur-md dark:border-slate-800 dark:bg-[#0F1419]/90 sm:gap-3 sm:px-6">
+          <div className="flex min-w-0 items-center gap-2 sm:gap-3">
             <button
               type="button"
               onClick={() => setSidebarOpen(true)}
-              className="rounded-xl border border-slate-200 bg-white p-2 text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-ink-800 dark:text-slate-200 lg:hidden"
+              className="shrink-0 rounded-xl border border-slate-200 bg-white p-2 text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-ink-800 dark:text-slate-200 lg:hidden"
               aria-label="Navigation öffnen"
             >
               <Menu className="h-5 w-5" />
             </button>
-            <div className="hidden items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400 sm:flex">
-              <BookOpen className="h-4 w-4 text-teal-600" />
-              <span>Fachschule Sozialwesen · Fachrichtung Sozialpädagogik (RLP 09/2024)</span>
+            <div className="hidden min-w-0 items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-400 sm:flex">
+              <BookOpen className="h-4 w-4 shrink-0 text-teal-600" />
+              <span className="truncate">
+                Fachschule Sozialpädagogik RLP · Fachmodule &amp; Praxiswissen
+              </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             {/* Gesamtfortschritt-Pill */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-200">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-200 sm:px-3">
               <span>
-                {stats.completedCount}/{stats.totalUnits} Einheiten
+                {stats.completedCount}/{stats.totalUnits}
               </span>
-              <span className="hidden text-emerald-600 dark:text-emerald-400 sm:inline">
+              <span className="hidden sm:inline">Einheiten</span>
+              <span className="hidden text-emerald-600 dark:text-emerald-400 md:inline">
                 ({stats.overallPercent} %)
               </span>
             </div>
@@ -280,7 +314,7 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
             {/* Streak */}
             <div
               title={`Längste Serie: ${progress.studyStreak.longest} Tage`}
-              className="inline-flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-xs font-bold text-amber-800 dark:border-amber-800 dark:bg-amber-950/60 dark:text-amber-200"
+              className="inline-flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50 px-2 py-1 text-xs font-bold text-amber-800 dark:border-amber-800 dark:bg-amber-950/60 dark:text-amber-200 sm:px-2.5"
             >
               <Flame className="h-3.5 w-3.5 text-amber-500" />
               <span>{progress.studyStreak.current}</span>
@@ -291,6 +325,7 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
               type="button"
               onClick={() => setBackupOpen(true)}
               title="Lernfortschritt sichern / importieren"
+              aria-label="Lernfortschritt sichern oder importieren"
               className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-ink-800 dark:text-slate-200"
             >
               <Database className="h-3.5 w-3.5 text-teal-600" />

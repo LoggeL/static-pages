@@ -4,8 +4,10 @@
   "moduleCode": "S-SP-4",
   "moduleArea": "sp-pflicht",
   "bildungsbereich": "Sprache und Literacy",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-4 · Bildungsbereich Sprache und Literacy (Lehrplan RLP 2024)",
   "title": "Bildungsbereich: Sprache und Literacy",
-  "subtitle": "Alltagsintegrierte Sprachbildung (Kammermeyer), Mehrsprachigkeit & Dialogisches Lesen",
+  "subtitle": "Alltagsintegrierte Sprachbildung, Sprachlehrstrategien, Mehrsprachigkeit (Translanguaging) & Dialogisches Lesen",
   "year": "2./3. Jahr",
   "estimatedMinutes": 30,
   "hoursRef": "680 Std. (Bildungsbereich)",
@@ -15,391 +17,459 @@
     "Inklusion",
     "Partizipation"
   ],
-  "summary": "Diese Einheit vermittelt angehenden Erzieherinnen und Erziehern fundiertes Fachwissen zur alltagsintegrierten Sprachbildung nach dem rheinland-pfälzischen Landescurriculum 'Mit Kindern im Gespräch' (Kammermeyer et al.). Sie verbindet die theoretischen Grundlagen von Sprachentwicklung, Mehrsprachigkeit und Early Literacy praxisnah mit konkreten Interaktionsstrategien, dialogischer Bilderbuchbetrachtung und professionellem methodischem Handeln in sozialpädagogischen Handlungsfeldern.",
+  "summary": "Spracherwerb gelingt nicht allein durch isolierte Übungen, sondern vor allem in responsiven, bedeutsamen Dialogen. Diese Einheit erläutert, unter welchen Qualitätsbedingungen alltagsintegrierte Sprachbildung gegenüber isolierten Trainingsprogrammen Vorteile bietet, und vermittelt konkrete Sprachlehrstrategien nach dem rheinland-pfälzischen Konzept „Mit Kindern im Gespräch“ (Kammermeyer et al.): korrektives Feedback, Expansion und Extension, offene Fragen sowie Konzeptentwicklung. Zudem werden Mehrsprachigkeit als Ressource (Translanguaging), dialogisches Bilderbuchbetrachten (PEER/CROWD), Early Literacy und die fachgerechte Sprachstandsbeobachtung praxisnah vertieft.",
   "learningGoals": [
-    "Ich kann sprachliche Bildungssituationen im Alltag (Freispiel, Übergänge, Angebote) erkennen und gezielt für entwicklungsgerechte Bildungsprozesse nutzen.",
-    "Ich kann das rheinland-pfälzische Landescurriculum „Mit Kindern im Gespräch“ (Kammermeyer et al.) mit seinen vier Kernstrategien (Frage-, Modellierungs-, Rückmelde- und Konzeptentwicklungsstrategien) in der Praxis anwenden.",
-    "Ich kann den aktuellen Stand der Sprachentwicklung von Kindern erfassen, sprachliche Auffälligkeiten erkennen und pädagogisch adäquate Handlungs- und Förderwege ableiten.",
-    "Ich kann Mehrsprachigkeit als wertvolle persönliche und gesellschaftliche Kompetenz begreifen und methodisch in den Kita-Alltag integrieren.",
-    "Ich kann literaturpädagogische Methoden, insbesondere das dialogische Lesen und Early-Literacy-Ansätze, zur Leseförderung und zum lustvollen Umgang mit Schrift und Sprache einsetzen."
+    "Ich kann alltagsintegrierte Sprachbildung fachlich von isolierten Sprachtrainings abgrenzen und wiederkehrende Schlüsselsituationen im Alltag gezielt als Dialoganlässe nutzen.",
+    "Ich kann konkrete Sprachlehrstrategien – handlungs- und denkbegleitendes Sprechen, korrektives Feedback (Recasting), Expansion, Extension, offene Fragen mit Wartezeit sowie Konzeptentwicklung – sicher in Praxisdialogen anwenden.",
+    "Ich kann Mehrsprachigkeit als Bildungsressource begründen, Translanguaging im Alltag wertschätzend aufgreifen und Eltern fundiert zur Pflege ihrer Familiensprache beraten.",
+    "Ich kann dialogisches Bilderbuchbetrachten (PEER-Sequenz und CROWD-Impulse) sowie Early-Literacy-Anlässe adressatengerecht planen und durchführen.",
+    "Ich kann alltagsintegrierte Sprachstandsbeobachtung zur Planung von Bildungsprozessen einsetzen und die Grenzen zwischen pädagogischer Sprachbildung und logopädischer Diagnostik/Therapie wahren."
   ],
   "sections": [
     {
-      "body": "Alltagsintegrierte Sprachbildung nach dem Landescurriculum Rheinland-Pfalz ('Mit Kindern im Gespräch', Kammermeyer et al.) findet nicht in isolierten Trainings statt, sondern durchzieht den gesamten pädagogischen Alltag. Die pädagogische Fachkraft nutzt natürliche Kommunikationsanlässe in Freispiel, Pflegesituationen und Angeboten, um sprachliche Bildung prozesshaft zu gestalten. Dabei fungiert die Fachkraft als sprachliches Vorbild, dessen feinfühlige Interaktionsqualität (Sensitivity) maßgeblich für den sprachlichen Erfolg der Kinder ist. Sprachförderung ist somit untrennbar mit Beziehungsarbeit und Partizipation verknüpft.",
+      "heading": "Alltagsintegrierte Sprachbildung statt isoliertem Sprachtraining",
+      "keyTakeaway": "Kinder lernen Sprache in verlässlichen Beziehungen und echten Handlungszusammenhängen – nicht im abgekoppelten Förderkämmerchen.",
+      "body": "Lange Zeit setzte frühe Sprachförderung häufig auf additive Trainingsprogramme in Kleingruppen außerhalb des Gruppenalltags. Empirische Evaluationsstudien (u. a. im Kontext der Bund-Länder-Initiative BiSS) zeigen ein differenziertes Bild: Additive Trainings erzielen zwar teilweise kurzfristige Effekte in eng umgrenzten Teilbereichen, übertragen sich aber oft nur begrenzt in die Alltagskommunikation. Alltagsintegrierte sprachliche Bildung entfaltet demgegenüber ein hohes Transferpotenzial – allerdings nicht automatisch „nebenbei“, sondern nur dann, wenn Fachkräfte gezielt qualifiziert sind und Sprachförderstrategien systematisch mit hoher Interaktionsqualität anwenden. Nach interaktionistischen Spracherwerbstheorien (z. B. Jerome Bruner: Language Acquisition Support System, geteilte Aufmerksamkeit / Joint Attention) verknüpfen Kinder neue Wörter und Satzstrukturen besonders tragfähig, wenn Sprache an ihre aktuellen Interessen, Gefühle und Handlungen gebunden ist. In Rheinland-Pfalz verankern die Bildungs- und Erziehungsempfehlungen (BEE) sowie das wissenschaftlich evaluierte Landescurriculum „Mit Kindern im Gespräch“ (Gisela Kammermeyer et al.) diesen Ansatz: Wiederkehrende Schlüsselsituationen – Wickeln, Anziehen, Mahlzeiten, Freispiel, Bauen, Forschen oder Konfliktlösung – werden gezielt dialogisch gestaltet. Dabei ist eine kontinuierliche, alltagsintegrierte Sprachstandsbeobachtung (z. B. mit Verfahren wie BaSiK, SELDAK oder SISMIK) unverzichtbar, um individuelle Lernfortschritte zu dokumentieren und mögliche Auffälligkeiten früh wahrzunehmen. Gleichzeitig gilt eine klare Rollengrenze: Pädagogische Fachkräfte beobachten, fördern alltagsintegriert und beraten Eltern sensibel – eine medizinisch-logopädische Diagnose oder Sprachtherapie stellen sie jedoch niemals selbst.",
       "bulletPoints": [
-        "Verankerung im RLP-Lehrplan S-SP-4 für die Fachschule Sozialwesen",
-        "Abkehr von isolierten Trainings hin zur Alltagsintegration",
-        "Rolle der Fachkraft als sprachliches und sozial emotionales Vorbild",
-        "Verknüpfung von Sprachbildung mit feinfühliger Interaktionsgestaltung"
+        "Alltagsintegration vs. isoliertes Training: Nachhaltiger Transfer durch Einbettung in echte, bedeutsame Alltagskommunikation.",
+        "Interaktionsqualität als Schlüssel: Geteilte Aufmerksamkeit (Joint Attention), echte Zuwendung und responsives Aufgreifen kindlicher Themen.",
+        "Schlüsselsituationen nutzen: Routinen, Freispiel, Rollenspiel, Bilderbuch und Forschen bewusst dialogisch gestalten.",
+        "Sprachstandsbeobachtung & Rollengrenze: Ressourcenorientiert im Alltag beobachten – bei anhaltenden Auffälligkeiten im Team reflektieren und Eltern zur kinderärztlichen/logopädischen Abklärung ermutigen."
       ],
-      "heading": "1. Grundlagen der alltagsintegrierten Sprachbildung (RLP-Curriculum)",
-      "keyTakeaway": "Sprachliche Bildung gelingt dann am besten, wenn sie untrennbar und feinfühlig in den pädagogischen Alltags- und Beziehungsgeschehen integriert ist.",
-      "praxisTip": "Nutzen Sie alltägliche Übergänge und Routinen (z.B. das Anziehen im Flur oder das Mittagessen) konsequent für dialogische, zugewandte Gespräche statt für administrative Abfertigung."
+      "praxisTip": "Wählen Sie eine tägliche Routine (z. B. Garderobe oder Mittagessen) bewusst als „Dialogzeit“: Reduzieren Sie organisatorische Anweisungen („Zieh schneller an!“) und führen Sie stattdessen echte Gespräche auf Augenhöhe."
     },
     {
-      "body": "Das Konzept 'Mit Kindern im Gespräch' (Kammermeyer et al.) operationalisiert professionelle Sprachbildung über vier zentrale Interaktionsstrategien: Fragestrategien (offene W-Fragen zur kognitiven Aktivierung), Modellierungsstrategien (Recasting: grammatikalisch korrigiertes Aufgreifen kindlicher Äußerungen ohne direkte Korrektur), Rückmeldestrategien (inhaltliches Bestätigen und Paraphrasieren) sowie Konzeptentwicklungsstrategien (gemeinsames Erarbeiten von Bedeutungen und Begriffen). Ergänzend strukturiert das handlungs- und denkbegleitende Sprechen das Geschehen transparent für das Kind.",
+      "heading": "Sprachlehrstrategien im Praxisdialog: Kammermeyer et al. konkret anwenden",
+      "keyTakeaway": "Feinfühliges Modellieren, offene Fragen mit echter Wartezeit und gemeinsames Nachdenken verwandeln kurze Wortwechsel in langanhaltende Bildungsgespräche.",
+      "body": "Das Konzept „Mit Kindern im Gespräch“ (Kammermeyer et al.) bündelt wirksame Sprachbildungs- und Sprachförderstrategien in vier Gruppen, die sich eng mit bewährten Sprachlehrstrategien (nach Dannenbauer und Kannengieser) verbinden. Erstens stehen Modellierungsstrategien im Zentrum: Beim handlungs- und denkbegleitenden Sprechen versprachlicht die Fachkraft eigenes Tun oder das Handeln des Kindes präzise („Ich gieße das Wasser langsam in den Trichter, damit nichts überschwappt“). Beim korrektiven Feedback (Recasting) greift sie grammatikalische oder lautliche Fehler beiläufig und korrekt auf, ohne offen zu tadeln oder zum Nachsprechen aufzufordern (Kind: „Der Bagger hat alle Steine weggefahrt!“ → Fachkraft: „Stimmt, der gelbe Bagger hat alle schweren Steine weggefahren!“). Die Expansion vervollständigt verkürzte Satzstrukturen („Hund weg!“ → „Ja, der kleine Hund läuft weg.“), während die Extension den Gedanken inhaltlich weiterführt („… vielleicht sucht er gerade seinen Ball im Gebüsch.“). Zweitens aktivieren offene Fragestrategien (W-Fragen wie „Wie könnte das halten?“ oder „Was glaubst du, warum…?“) das Denken weit stärker als geschlossene Ja/Nein- oder reine Testfragen („Welche Farbe hat das?“). Entscheidend ist dabei eine echte Wartezeit von mindestens drei bis fünf Sekunden, damit Kinder eigene Sätze planen können. Drittens sichern wertschätzende Rückmeldestrategien (inhaltliches Spiegeln, Paraphrasieren, Nachfragen statt pauschaler Floskeln wie „Super!“) den Gesprächsfluss. Viertens vertiefen Konzeptentwicklungsstrategien das Welt- und Begriffswissen durch Vergleiche, Ober- und Unterbegriffe sowie das Anknüpfen an Vorerfahrungen (Sustained Shared Thinking).",
       "bulletPoints": [
-        "Fragestrategien: Öffnen von Denk- und Sprechräumen durch W-Fragen",
-        "Modellierungsstrategien (Recasting): Korrigierendes, unterstützendes Aufgreifen",
-        "Rückmeldestrategien: Wertschätzendes Bestätigen und Paraphrasieren",
-        "Konzeptentwicklungsstrategien & handlungs-/denkbegleitendes Sprechen"
+        "Korrektives Feedback (Recasting): Fehlerhafte Äußerung wertschätzend, beiläufig und korrekt zurückspiegeln – ohne offenen Tadel oder Nachsprechzwang.",
+        "Expansion vs. Extension: Expansion vervollständigt die Satzstruktur; Extension knüpft inhaltlich an und erweitert den Gedankengang.",
+        "Offene Fragen + Wartezeit: Denk- und Erzählräume öffnen und dem Kind 3–5 Sekunden Zeit zum Formulieren lassen.",
+        "Rückmelde- & Konzeptentwicklungsstrategien: Inhaltlich spiegeln, Begriffe vernetzen („durchlässig“, „stabil“) und langanhaltende Gespräche führen."
       ],
-      "heading": "2. Kernstrategien nach Kammermeyer et al.",
-      "keyTakeaway": "Vier erprobte Interaktionsstrategien verwandeln jede alltägliche Interaktion in eine wirksame sprachliche Entwicklungsgelegenheit.",
-      "praxisTip": "Begleiten Sie Ihr eigenes Handeln in der Kita (z.B. beim Aufräumen oder Basteln) gezielt sprachlich: 'Ich nehme jetzt die blaue Schere, weil wir dieses dicke Papier schneiden müssen.'"
+      "praxisTip": "Nehmen Sie (mit Einverständnis) eine fünfminütige Alltagssituation als Audio auf oder lassen Sie eine Kollegin hospitieren: Wie viele offene Fragen stellen Sie im Vergleich zu geschlossenen Prüf- oder Anweisungsfragen – und wie lange warten Sie nach einer Frage ab?"
     },
     {
-      "body": "Mehrsprachigkeit ist in modernen Kindertagesstätten kein Defizit, sondern eine wertvolle individuelle und gesellschaftliche Ressource. Eine professionelle Haltung begreift die Erstsprache als Fundament für den Spracherwerb weiterer Sprachen. Durch den Einsatz mehrsprachiger Medien, Bücher und die Sichtbarmachung verschiedener Sprachen in der Einrichtung wird Inklusion gelebt. Ergänzend fördert Early Literacy das spielerische Interesse an Schrift und Symbolen (z.B. Praxissituationen wie 'Bestellungen schreiben im Restaurant'), während das dialogische Lesen nach Whitehurst die literaturpädagogische Kompetenz und den Wortschatz fundiert erweitert.",
+      "heading": "Mehrsprachigkeit als Ressource und Translanguaging im Alltag",
+      "keyTakeaway": "Eine starke Familiensprache behindert Deutsch nicht – sie bildet das kognitive und emotionale Fundament für erfolgreiches mehrsprachiges Lernen.",
+      "body": "In einer vielfältigen Gesellschaft ist Mehrsprachigkeit Normalität und eine wertvolle kognitive, soziale und biografische Ressource. Professionelle Sprachbildung verabschiedet sich vom „monolingualen Habitus“ (Ingrid Gogolin), der Einsprachigkeit als Norm und Familiensprachen als Hindernis betrachtet. Die Forschung widerlegt den verbreiteten Mythos, Mehrsprachigkeit an sich überfordere Kinder oder verursache Sprachentwicklungsstörungen: Nach Jim Cummins’ Interdependenzhypothese können begriffliches und erzählerisches Wissen aus der Erstsprache den Erwerb weiterer Sprachen unterstützen – vorausgesetzt, Kinder erleben sowohl in der Familiensprache als auch im Deutschen ausreichend reichhaltige, anregende Kommunikationskontakte. Der Ansatz des Translanguaging (Ofelia García, Li Wei) versteht die verschiedenen Sprachen eines Kindes nicht als streng getrennte Schubladen, sondern als gemeinsames, dynamisches Sprachrepertoire. Nutzt ein Kind mitten im deutschen Satz ein vertrautes Wort aus der Familiensprache, ist das kein „Sprachsalat“, sondern funktionales kommunikatives Handeln. Fachkräfte würdigen das Wort, greifen den Sinn auf und stellen beiläufig das deutsche Äquivalent zur Verfügung. In der Zusammenarbeit mit Eltern gilt deshalb: Eltern sollten ermutigt werden, zu Hause in der Sprache zu sprechen, zu singen und vorzulesen, in der sie sich emotional und sprachlich am sichersten fühlen – statt auf ein unsicheres „Nur-Deutsch“ auszuweichen.",
       "bulletPoints": [
-        "Mehrsprachigkeit als ressourcenorientierte Kompetenz und Brücke",
-        "Sichtbarmachung von Sprachenvielfalt und Einsatz mehrsprachiger Medien",
-        "Early Literacy: Spielerisches Entdecken von Schrift, Symbolen und Buchkultur",
-        "Dialogisches Lesen zur aktiven Leseförderung und Wortschatzerweiterung"
+        "Interdependenz statt Verdrängung: Eine gut entwickelte Familiensprache stärkt den Erwerb des Deutschen.",
+        "Translanguaging wertschätzen: Flexibles Nutzen des gesamten sprachlichen Repertoires als Kompetenz verstehen, nicht als Defizit.",
+        "Sprachenvielfalt sichtbar machen: Mehrsprachige Bilderbücher, Audio-Stifte, Willkommenstafeln, Lieder und Familienwörter im Raum verankern.",
+        "Fundierte Elternberatung: Familien bestärken, zu Hause ihre starke Familiensprache reichhaltig und freudvoll zu pflegen."
       ],
-      "heading": "3. Mehrsprachigkeit, Early Literacy & Dialogisches Lesen",
-      "keyTakeaway": "Mehrsprachigkeit als Kompetenz und ein lustvoller Zugang zu Büchern und Schrift bilden das Fundament für Bildungsgerechtigkeit.",
-      "praxisTip": "Rrichten Sie eine gemütliche, ansprechende Leseecke mit mehrsprachigen Bilderbücher-Klassikern und Vorleseangeboten ein, die auch zum Rollenspiel mit Schreibutensilien ('Postamt' oder 'Restaurant') einlädt."
+      "praxisTip": "Legen Sie gemeinsam mit Eltern eine kleine mehrsprachige Wörter- und Liedersammlung der Gruppe an (z. B. Begrüßungen, Trostwörter, Lieblingswörter) und nutzen Sie mehrsprachige Bilderbücher im Alltag."
+    },
+    {
+      "heading": "Dialogisches Bilderbuchbetrachten (PEER/CROWD) und Early Literacy",
+      "keyTakeaway": "Beim dialogischen Lesen wird das Kind von der passiven Zuhörerin zur aktiven Erzählerin – und Early Literacy macht Schrift schon im Spiel sinnvoll erlebbar.",
+      "body": "Unter Early Literacy versteht man alle frühen, spielerischen Erfahrungen von Kindern mit Erzähl-, Buch-, Reim- und Schriftkultur lange vor dem schulischen Lese- und Schreibunterricht (Michaela Ulich, Stiftung Lesen). Dazu gehören Freude an Geschichten, das Entdecken von Symbolen und Schriftzeichen im Alltag, erste eigene „Schreibversuche“ (Kritzelschrift auf Bestellzetteln im Kinder-Restaurant, Namensschilder an Bauwerken) sowie phonologische Bewusstheit (Reimen, Silbenklatschen, Anlaute heraushören). Empirische Studien (u. a. nach Grover J. Whitehurst) belegen positive Effekte des dialogischen Bilderbuchbetrachtens insbesondere für Wortschatz und Erzählkompetenz, wenn es regelmäßig in Kleingruppen (ca. 3–5 Kinder) und angepasst an das jeweilige Sprachniveau eingesetzt wird. Anders als beim klassischen Vorlesen steht nicht das lückenlose Ablesen des Textes im Vordergrund, sondern das intensive Gespräch über Bilder, Figuren und Handlung – idealerweise durch mehrfaches Betrachten desselben Buches über mehrere Tage mit wechselnden Schwerpunkten. Als konkrete Handlungsstruktur dienen die PEER-Sequenz (Prompt: zum Sprechen anregen → Evaluate: Äußerung wertschätzend aufgreifen → Expand: sprachlich/inhaltlich erweitern → Repeat: Kind ermutigen, Neues aufzugreifen) und die fünf CROWD-Impulstypen: Completion (Satzergänzungen, z. B. Reime), Recall (Erinnerungsfragen an bereits Gelesenes), Open-ended (offene Bildbeschreibungsfragen), Wh-questions (W-Fragen zu Details und Gründen) sowie Distancing (Verknüpfung mit eigenen Alltagserlebnissen der Kinder).",
+      "bulletPoints": [
+        "Early Literacy: Buchkultur, Erzählfreude, Schrift im Rollenspiel (Einkaufszettel, Schilder) und phonologische Bewusstheit alltagsintegriert erleben.",
+        "Dialogisches Bilderbuchbetrachten (Whitehurst): Kind übernimmt aktiv die Erzählrolle – ideal in Kleingruppen (3–5 Kinder) bei wiederholter Betrachtung.",
+        "PEER-Sequenz: Prompt (Anregen) – Evaluate (Wertschätzen) – Expand (Erweitern) – Repeat (Wiederaufgreifen).",
+        "CROWD-Impulse: Completion, Recall, Open-ended, Wh-questions und Distancing gezielt an das Entwicklungsalter anpassen."
+      ],
+      "praxisTip": "Statten Sie Rollenspielbereiche dauerhaft mit Schreib- und Schriftmaterial aus (Notizblöcke im „Café“, Rezeptformulare in der „Arztpraxis“, Postkarten im „Postamt“) – so entdecken Kinder den Sinn von Schrift aus eigenem Antrieb."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Alltagsintegrierte Sprachbildung (Kammermeyer et al.)",
       "id": "vb-1",
+      "kind": "dialogue",
+      "title": "Sprachlehrstrategien in Aktion: Konkreter Praxisdialog in der Bauecke",
+      "subtitle": "Wie aus einem kurzen Alltagsereignis ein mehrzügiges, sprachbildendes Gespräch entsteht",
+      "centerLabel": "Praxisdialog",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Strategie 1",
-          "detail": "Verwendung offener W-Fragen (Wer, wie, was, warum), um kognitive Prozesse anzuregen und das Kind zu längeren, eigenen Äußerungen zu motivieren statt zu kurzen Ja/Nein-Antworten.",
-          "example": "'Wie hast du diesen hohen Turm wohl gebaut?'",
-          "id": "item-1",
-          "label": "Fragestrategien",
-          "metric": "Offenheit",
-          "summary": "Anregen des kindlichen Denkens durch offene W-Fragen."
+          "id": "dial-1",
+          "badge": "Kind (Emre, 4;3)",
+          "label": "Spontaner Kommunikationsanlass (inkl. Translanguaging)",
+          "metric": "Ausgangspunkt",
+          "summary": "Emres Holzbrücke kippt um; er verbindet Deutsch und ein türkisches Wort.",
+          "detail": "Emre ruft aufgeregt: „Guck mal, Brücke runtergefallt! Und Auto macht kaza… Unfall!“ – Ein idealer Moment für geteilte Aufmerksamkeit (Joint Attention) und ressourcenorientiertes Aufgreifen.",
+          "example": "Kindliche Initiative ernst nehmen, Blickkontakt herstellen und auf Augenhöhe kommen."
         },
         {
-          "badge": "Strategie 2",
-          "detail": "Fehlerhafte oder verkürzte Kindesäußerungen werden im natürlichen Gesprächsverlauf grammatikalisch oder semantisch korrigiert und erweitert zurückgemeldet, ohne das Kind direkt zu sanktionieren.",
-          "example": "Kind: 'Hund rennt weg.' – Fachkraft: 'Ja, der kleine braune Hund rennt schnell weg.'",
-          "id": "item-2",
-          "label": "Modellierungsstrategien (Recasting)",
-          "metric": "Korrekturfrei",
-          "summary": "Grammatikalische Erweiterung ohne direkte Rüge."
+          "id": "dial-2",
+          "badge": "Fachkraft · Recasting & Expansion",
+          "label": "Wertschätzen, korrektiv spiegeln & erweitern",
+          "metric": "Modellierung",
+          "summary": "Sinn und Mehrsprachigkeit anerkennen, Grammatik beiläufig korrekt modellieren.",
+          "detail": "Fachkraft: „Oh ja, da ist ein richtiger Unfall passiert – ein kaza! Die lange Brücke ist eingestürzt und das blaue Auto ist heruntergefallen.“ Kein Tadel, kein Nachsprechzwang, dafür klares Sprachvorbild.",
+          "example": "Korrektives Feedback („runtergefallt“ → „heruntergefallen“) plus Wortschatzbereicherung („eingestürzt“)."
         },
         {
-          "badge": "Strategie 3",
-          "detail": "Aktives, bestätigendes und paraphrasierendes Aufgreifen des Gesagten, um dem Kind zu signalisieren, dass es verstanden wurde und um den Gesprächsfluss emotional zu stützen.",
-          "example": "'Du hast dir heute aber wirklich viel Mühe beim Malen gegeben.'",
-          "id": "item-3",
-          "label": "Rückmeldestrategien",
-          "metric": "Wertschätzung",
-          "summary": "Bestätigung und Paraphrasieren des Geäußerten."
+          "id": "dial-3",
+          "badge": "Fachkraft · Offene Frage + Wartezeit",
+          "label": "Kognitiv aktivieren und Zeit lassen",
+          "metric": "Fragestrategie",
+          "summary": "Offene W-Frage stellen und bewusst 3–5 Sekunden abwarten.",
+          "detail": "Fachkraft: „Hm, schau mal genau hin – was meinst du, warum hat die Brücke das schwere Auto nicht ausgehalten?“ Die Fachkraft wartet geduldig ab, ohne die Antwort vorwegzunehmen.",
+          "example": "Emre denkt nach: „Da unten war nur ein dünner Stein, der hat gewackelt!“"
         },
         {
-          "badge": "Strategie 4",
-          "detail": "Gemeinsames Erarbeiten von begrifflichen Zusammenhängen und Bedeutungen im aktuellen Handlungszusammenhang zur Vertiefung des begrifflichen Verständnisses.",
-          "example": "'Ein Sieb ist löchrig, deshalb fließt das Wasser durch – das nennen wir durchlässig.'",
-          "id": "item-4",
-          "label": "Konzeptentwicklungsstrategien",
-          "metric": "Bedeutungssicherheit",
-          "summary": "Gemeinsames Erschließen von Fach- und Sachbegriffen."
+          "id": "dial-4",
+          "badge": "Fachkraft & Kinder · Konzeptentwicklung",
+          "label": "Begriffe vernetzen & gemeinsam weiterdenken",
+          "metric": "Sustained Shared Thinking",
+          "summary": "Fachbegriffe im Handlungskontext verankern und Peer-Dialog anstoßen.",
+          "detail": "Fachkraft: „Aha, die Stütze war zu schmal, deshalb war die Brücke wackelig. Wie könnten du und Lina einen stabilen Pfeiler bauen, der das Gewicht trägt?“",
+          "example": "Begriffe wie „Stütze“, „Pfeiler“, „wackelig“ und „stabil“ werden unmittelbar im Handeln begriffen."
         }
-      ],
-      "kind": "concept_map",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Das Interaktionsmodell nach Kammermeyer et al. im RLP-Curriculum",
-      "title": "Dialogische Sprachbildung im Alltag"
+      ]
     },
     {
-      "centerLabel": "",
       "id": "vb-2",
-      "isCycle": true,
-      "items": [
-        {
-          "badge": "Schritt 1",
-          "detail": "Die Fachkraft beobachtet das Kind feinfühlig im aktuellen Spiel oder in einer Alltagssituation, um dessen Interessen, sprachlichen Entwicklungsstand und momentane Handlungsabsichten zu erfassen.",
-          "example": "Beobachtung eines Kindes beim Puzzeln in der Bauecke.",
-          "id": "step-1",
-          "label": "Beobachten & Erfassen",
-          "metric": "Phase 1",
-          "summary": "Sensibles Erfassen der kindlichen Situation und Interessen."
-        },
-        {
-          "badge": "Schritt 2",
-          "detail": "Aufgreifen der kindlichen Initiative durch offene Fragen, handlungsbegleitendes Sprechen und feinfühliges Eingehen auf den Kommunikationsanlass.",
-          "example": "'Welches Puzzleteil suchst du denn jetzt?'",
-          "id": "step-2",
-          "label": "Anknüpfen & Impuls geben",
-          "metric": "Phase 2",
-          "summary": "Aktives Eingehen auf den Gesprächsanlass."
-        },
-        {
-          "badge": "Schritt 3",
-          "detail": "Anwenden von Modellierungs- und Rückmeldestrategien (Recasting), um die sprachlichen Strukturen kindgerecht zu erweitern und zu bereichern.",
-          "example": "'Ah, du suchst das blaue Eckstück für den Himmel!'",
-          "id": "step-3",
-          "label": "Modellieren & Erweitern",
-          "metric": "Phase 3",
-          "summary": "Grammatikalische und lexikalische Erweiterung."
-        },
-        {
-          "badge": "Schritt 4",
-          "detail": "Gemeinsame Reflexion des Tuns und Dokumentation des Sprachstandes zur Überprüfung des Lernfortschritts und Planung weiterer Fördermaßnahmen.",
-          "example": "Eintrag in das Portfolio oder das Beobachtungsheft.",
-          "id": "step-4",
-          "label": "Reflektieren & Dokumentieren",
-          "metric": "Phase 4",
-          "summary": "Dokumentation und Reflexion des Lernfortschritts."
-        }
-      ],
-      "kind": "process_flow",
+      "kind": "concept_map",
+      "title": "Vier Strategiegruppen: „Mit Kindern im Gespräch“ (Kammermeyer et al.)",
+      "subtitle": "Systematische Interaktions- und Sprachförderstrategien für den pädagogischen Alltag",
+      "centerLabel": "Alltagsintegrierte Sprachbildung",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Der Kreislauf der alltagsintegrierten Sprachbildung und Sprachstandsbeobachtung",
-      "title": "Prozesskreislauf der Sprachbildung"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-3",
       "isCycle": false,
       "items": [
         {
-          "badge": "Baustein 1",
-          "detail": "Alltägliche Interaktionen im Freispiel, bei Pflegesituationen und Mahlzeiten werden konsequent als sprachliche Bildungsanlässe genutzt.",
-          "example": "Gespräche beim gemeinsamen Mittagessen über Essvorlieben.",
-          "id": "feat-1",
-          "label": "Alltagsintegration",
-          "metric": "Kernbaustein",
-          "summary": "Sprachbildung im gesamten Tagesverlauf verankern."
+          "id": "strat-1",
+          "badge": "Gruppe 1",
+          "label": "Modellierungsstrategien",
+          "metric": "Sprachvorbild",
+          "summary": "Handlungs-/denkbegleitendes Sprechen, korrektives Feedback (Recasting) & Expansion.",
+          "detail": "Die Fachkraft stellt im Gesprächsfluss präzise, grammatikalisch korrekte Zielstrukturen bereit und erweitert verkürzte Kinderäußerungen behutsam, ohne das Kind zu korrigieren oder zu unterbrechen.",
+          "example": "Kind: „Da kommt Feuerwehr!“ → Fachkraft: „Ja, die große rote Feuerwehr fährt mit Blaulicht vorbei.“"
         },
         {
-          "badge": "Baustein 2",
-          "detail": "Mehrsprachigkeit wird als kognitive und soziale Kompetenz wertgeschätzt; Familiensprachen und Medien sind in der Einrichtung sichtbar.",
-          "example": "Mehrsprachige Bilderbücher und Begrüßungstafeln.",
-          "id": "feat-2",
-          "label": "Mehrsprachigkeit als Ressource",
-          "metric": "Inklusion",
-          "summary": "Wertschätzung und Einbezug von Erstsprachen."
+          "id": "strat-2",
+          "badge": "Gruppe 2",
+          "label": "Fragestrategien",
+          "metric": "Denkräume öffnen",
+          "summary": "Offene W-Fragen und erzählanregende Impulse statt geschlossener Prüfungsfragen.",
+          "detail": "Offene Fragen („Wie…?“, „Warum…?“, „Was passiert, wenn…?“) fordern längere, komplexe Äußerungen heraus. Entscheidend ist die bewusste Wartezeit nach der Frage.",
+          "example": "„Wie habt ihr euch geeinigt, wer zuerst rutschen darf?“ statt „Habt ihr euch geeinigt?“"
         },
         {
-          "badge": "Baustein 3",
-          "detail": "Die dialogische Bilderbuchbetrachtung nach Whitehurst bindet Kinder aktiv ein und fördert Leselust sowie Erzählkompetenz.",
-          "example": "Kinder stellen Fragen zum Bilderbuch und erfinden das Ende weiter.",
-          "id": "feat-3",
-          "label": "Dialogisches Lesen & Literatur",
-          "metric": "Literaturpädagogik",
-          "summary": "Aktives Vorlesen und gemeinsames Betrachten."
+          "id": "strat-3",
+          "badge": "Gruppe 3",
+          "label": "Rückmeldestrategien",
+          "metric": "Dialog sichern",
+          "summary": "Inhaltliches Aufgreifen, Paraphrasieren, Nachfragen und Extension.",
+          "detail": "Statt bloßem „Gut!“ oder „Toll!“ zeigt die Fachkraft echtes Interesse am Inhalt, fasst Gehörtes zusammen und spinnt den Gedanken weiter (Extension), sodass ein mehrzügiger Dialog entsteht.",
+          "example": "„Du hast also zuerst die Rinde abgesammelt, damit die Käfer ein Versteck haben – vielleicht ziehen morgen noch Kellerasseln ein.“"
         },
         {
-          "badge": "Baustein 4",
-          "detail": "Early Literacy unterstützt das frühe Interesse an Buchstaben, Symbolen und Schrift im kindlichen Rollenspiel.",
-          "example": "Kinder schreiben 'Einkaufszettel' im Kaufladen.",
-          "id": "feat-4",
-          "label": "Early Literacy",
-          "metric": "Schriftsurvace",
-          "summary": "Förderung des Interesses an Schrift und Symbolen."
+          "id": "strat-4",
+          "badge": "Gruppe 4",
+          "label": "Konzeptentwicklungsstrategien",
+          "metric": "Weltwissen vertiefen",
+          "summary": "Begriffe klären, Zusammenhänge vergleichen und an Vorwissen anknüpfen.",
+          "detail": "Durch Kategorisieren (Ober-/Unterbegriffe), Vergleichen, Erklären von Ursache-Wirkung und Vorhersagen bauen Kinder differenzierte semantische Netzwerke und Bildungssprache auf.",
+          "example": "„Ein Sieb lässt Wasser durch, weil es kleine Löcher hat – das nennen wir durchlässig. Welche Dinge hier sind wohl wasserundurchlässig?“"
         }
-      ],
+      ]
+    },
+    {
+      "id": "vb-3",
       "kind": "feature_grid",
+      "title": "Kernbausteine professioneller Sprach- und Literacy-Praxis",
+      "subtitle": "Mehrsprachigkeit, dialogisches Lesen, Early Literacy und Sprachstandsbeobachtung im Zusammenspiel",
+      "centerLabel": "Sprache & Literacy",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Zentrale Säulen der Sprachbildung in der Fachschule Sozialwesen",
-      "title": "Bausteine des Bildungsbereichs Sprache und Literacy"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "feat-1",
+          "badge": "Baustein 1",
+          "label": "Mehrsprachigkeit & Translanguaging",
+          "metric": "Ressourcenorientiert",
+          "summary": "Familiensprachen sichtbar einbeziehen und das gesamte Sprachrepertoire anerkennen.",
+          "detail": "Erst- und Zweitsprache stützen einander (Interdependenz). Translanguaging wird als kommunikative Stärke gewürdigt; Eltern werden zur starken Familiensprache ermutigt.",
+          "example": "Mehrsprachige Bilderbücher, Hörstifte und gemeinsame Begrüßungswörter in den Familiensprachen der Gruppe."
+        },
+        {
+          "id": "feat-2",
+          "badge": "Baustein 2",
+          "label": "Dialogisches Bilderbuchbetrachten",
+          "metric": "PEER & CROWD",
+          "summary": "Wiederholtes, interaktives Betrachten in Kleingruppen (3–5 Kinder).",
+          "detail": "Mit PEER-Sequenz und CROWD-Impulsen (Completion, Recall, Open-ended, Wh-questions, Distancing) übernehmen Kinder aktiv das Erzählen und erweitern Wortschatz sowie Erzählkompetenz.",
+          "example": "„Schau mal auf das Gesicht des kleinen Bären – warum guckt er wohl so erschrocken? Wann hast du dich schon mal erschrocken?“ (Wh-question + Distancing)."
+        },
+        {
+          "id": "feat-3",
+          "badge": "Baustein 3",
+          "label": "Early Literacy im Alltag",
+          "metric": "Schrift- & Buchkultur",
+          "summary": "Sinnvoller, spielerischer Umgang mit Symbolen, Schrift, Reimen und Geschichten.",
+          "detail": "Kinder erfahren Schrift als bedeutungsvolles Werkzeug im Spiel und Alltag – ohne verfrühtes Schreibtraining nach Arbeitsblättern.",
+          "example": "Kinder schreiben Kritzelschrift-Bestellungen im „Restaurant“ und gestalten eigene Namens- und Hinweisschilder für ihre Bauwerke."
+        },
+        {
+          "id": "feat-4",
+          "badge": "Baustein 4",
+          "label": "Alltagsintegrierte Sprachstandsbeobachtung",
+          "metric": "Prozessbegleitend",
+          "summary": "Sprachentwicklung im Alltag dokumentieren und pädagogische Grenzen kennen.",
+          "detail": "Systematische Verfahren (z. B. BaSiK, SELDAK, SISMIK) machen Stärken und Förderbedarfe sichtbar. Bei anhaltendem Verdacht auf Sprachstörungen erfolgt eine wertschätzende Weiterverweisung an Kinderarzt/Logopädie.",
+          "example": "Längsschnittliche Dokumentation von Wortschatz, Satzbau und Erzählfähigkeit als Basis für Teamplanung und Entwicklungsgespräch."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Kindergarten (ca. 4 Jahre)",
-    "context": "Eine vierjährige mehrsprachige Sprachentwicklungssituation in der Freispielphase im Kita-Alltag. Emre (4 Jahre, zu Hause Türkisch und Deutsch) baut mit Bauklötzen einen Turm, der einstürzt. Er ruft: 'Turm kaputt gegangen!' Die pädagogische Fachkraft möchte Emre optimal sprachlich begleiten.",
-    "setting": "Kindertagesstätte, Baubereich / Freispiel",
+    "title": "„Brücke runtergefallt – Auto macht kaza!“: Sprachbildung im mehrsprachigen Alltag",
+    "setting": "Baubereich einer Kindertagesstätte im Freispiel und anschließende Abholsituation",
+    "ageGroup": "4–5 Jahre (mehrsprachige Kindergartengruppe)",
+    "context": "Emre (4;3 Jahre, wächst zu Hause mit Türkisch und zunehmend mit Deutsch auf) baut gemeinsam mit Lina (4;5) eine große Brücke aus Holzklötzen. Als Emre ein schweres Holzauto hinüberfährt, kippt ein Pfeiler um und die Brücke bricht zusammen. Emre schaut Sie aufgeregt an und ruft: „Guck mal, Brücke runtergefallt! Und Auto macht kaza… Unfall!“ Später am Nachmittag spricht Emres Mutter Sie beim Abholen besorgt an: Eine Bekannte habe ihr geraten, zu Hause ab sofort nur noch Deutsch mit Emre zu sprechen, obwohl sie selbst im Türkischen viel sicherer sei.",
     "steps": [
       {
+        "situation": "Emres Brücke ist gerade eingestürzt. Er sucht Blickkontakt und berichtet aufgeregt auf Deutsch mit einem eingestreuten türkischen Wort („kaza“ = Unfall).",
+        "prompt": "Wie reagieren Sie unmittelbar im Praxisdialog auf Emres Äußerung?",
         "options": [
           {
-            "feedback": "Dies setzt die Strategie des handlungs- und denkbegleitenden Sprechens sowie des Modellierens (Recasting) perfekt um. Durch das korrekte Aufgreifen und Erweitern der Äußerung ('Der Turm ist umgestürzt. Er war sehr hoch!') wird Emre sprachlich auf hohem Niveau und wertschätzend angeregt, ohne ihn zu korrigieren.",
-            "label": "Die Fachkraft knüpft an Emres Aussage an, modelliert sie grammatikalisch korrekt ('Der Turm ist umgestürzt, weil er zu hoch war!') und begleitet die Handlung feinfühlig.",
-            "quality": "optimal",
-            "theoryLink": "Landescurriculum ‚Mit Kindern im Gespräch‘ (Kammermeyer et al.); Modellierungsstrategie / Recasting."
-          },
-          {
-            "feedback": "Dies ist zwar freundlich, aber didaktisch wenig förderlich, da es ein geschlossenes, grammatikalisches Korsett vorgibt und das eigentliche Gesprächsgeschehen sowie Emres Konstruktionsgedanken abwürgt.",
-            "label": "Die Fachkraft sagt streng: 'Man sagt nicht kaputt gegangen, sondern umgestürzt. Sag das bitte noch einmal richtig nach.'",
+            "label": "Sie korrigieren Emre deutlich: „In der Kita sprechen wir Deutsch, nicht kaza! Und es heißt nicht runtergefallt, sondern heruntergefallen – sag das bitte noch mal richtig nach.“",
             "quality": "problematisch",
-            "theoryLink": "Fehlerkorrektur vs. Sprachförderstrategien (Vermeidung direkter Korrekturen zugunsten von positivem Feedback/Modellierung)."
+            "feedback": "Fachlich problematisch: Offene Fehlerkorrektur mit Nachsprechzwang unterbricht den Kommunikationsfluss, erzeugt Sprechhemmung und entwertet Emres Mitteilungsabsicht. Das Abwerten der Familiensprache widerspricht dem Prinzip ressourcenorientierter Mehrsprachigkeit (Translanguaging).",
+            "theoryLink": "Indirektes korrektives Feedback statt offener Korrektur; Überwindung des monolingualen Habitus"
           },
           {
-            "feedback": "Das Überhören oder nur nonverbale Bestätigen verpasst die wertvolle sprachliche Lernchance im alltäglichen Kontext (Alltagsintegrierte Sprachbildung).",
-            "label": "Die Fachkraft lächelt kurz, nickt und baut schweigend einen Klötzchenstein für Emre auf.",
+            "label": "Sie nehmen Blickkontakt auf und antworten: „Oh ja, da ist ein richtiger Unfall passiert – ein kaza! Die lange Brücke ist eingestürzt und das Auto ist heruntergefallen. Was meinst du, warum hat sie das Auto nicht gehalten?“",
+            "quality": "optimal",
+            "feedback": "Hervorragend: Sie würdigen Emres Mitteilung und sein Translanguaging („kaza“), liefern beiläufig korrektives Feedback („runtergefallt“ → „heruntergefallen“) samt sprachlicher Expansion („die lange Brücke ist eingestürzt“) und eröffnen mit einer offenen W-Frage plus Wartezeit einen echten Denk- und Sprechanlass.",
+            "theoryLink": "Alltagsintegrierte Sprachbildung („Mit Kindern im Gespräch“, Kammermeyer et al.): Korrektives Feedback (Recasting), Expansion, offene Frage & Translanguaging"
+          },
+          {
+            "label": "Sie lächeln freundlich, sagen „Oh nein, ist sie kaputt? Bau sie einfach noch mal auf!“ und gehen direkt zum nächsten Spieltisch weiter.",
             "quality": "teilweise",
-            "theoryLink": "Alltagsintegrierte Sprachbildung (Verzicht auf Lerngelegenheiten)."
+            "feedback": "Zu kurz gegriffen: Zwar reagieren Sie wertschätzend ohne Kritik, doch eine geschlossene Ja/Nein-Frage und das sofortige Weitergehen lassen einen erstklassigen, intrinsisch motivierten Dialog- und Konzeptentwicklungsanlass ungenutzt verstreichen.",
+            "theoryLink": "Offene vs. geschlossene Fragen; verpasste Chance für ein langanhaltendes Gespräch (Sustained Shared Thinking)"
           }
-        ],
-        "prompt": "Emre zeigt auf seinen eingestürzten Bauklotzturm und äußert: 'Turm kaputt gegangen!' Wie reagiert die Fachkraft pädagogisch adäquat?",
-        "situation": "Emres Bauklotzturm stürzt ein."
+        ]
       },
       {
+        "situation": "Emre zeigt auf den dünnen unteren Baustein und erklärt: „Der Stein da hat gewackelt!“ Lina holt zwei breite Holzquader dazu und ruft: „Wir nehmen zwei dicke!“",
+        "prompt": "Wie führen Sie das Gespräch im Sinne von Konzeptentwicklung und Peer-Interaktion sinnvoll weiter?",
         "options": [
           {
-            "feedback": "Dies ignoriert die sprachliche und emotionale Situation des Kindes komplett und führt zu Frustration sowie Sprachhemmung.",
-            "label": "Die Fachkraft fordert Emre auf, erst einmal schweigend aufzuräumen, bevor er wieder spielen darf.",
-            "quality": "problematisch",
-            "theoryLink": "Partizipation und feinfühlige Interaktionsqualität (Pianta et al.)."
-          },
-          {
-            "feedback": "Dies setzt die Strategie der Konzeptentwicklung und Fragestrategie (w-Fragen) ein, um Emres Problemlösekompetenz und Wortschatz (z.B. 'stabil', 'unterbauen') dialogisch zu erweitern.",
-            "label": "Die Fachkraft setzt sich zu Emre auf den Boden, stellt offene Fragen ('Wie können wir den Turm bauen, damit er stabiler steht?') und entwickelt gemeinsam mit ihm ein neues Baukonzept.",
+            "label": "Sie greifen beide Ideen auf („Stimmt, der schmale Stein war zu wackelig – und mit zwei breiten Quadern bekommt eure Brücke stabilere Pfeiler. Wollt ihr ausprobieren, wo die Pfeiler stehen müssen, damit sogar der schwere Laster drüberpasst?“) und bleiben kurz als aufmerksame Gesprächspartnerin dabei.",
             "quality": "optimal",
-            "theoryLink": "Konzeptentwicklungs- und Fragestrategien nach Kammermeyer et al."
+            "feedback": "Optimal: Sie verknüpfen Rückmeldestrategie, Extension und Konzeptentwicklung (Gegenbegriffe „schmal/breit“, „wackelig/stabil“, Fachbegriff „Pfeiler“), binden Lina und Emre gemeinsam in ein problemlösendes Gespräch ein und lassen beide Kinder aktiv experimentieren und begründen.",
+            "theoryLink": "Konzeptentwicklungsstrategien & Extension (Kammermeyer et al.); Verknüpfung von Sprachbildung und ko-konstruktivem Problemlösen"
           },
           {
-            "feedback": "Das Gespräch wird zwar gesucht, aber durch geschlossene Fragen ('War er zu hoch?') stark eingeengt, wodurch Emre nur mit 'Ja' antworten muss.",
-            "label": "Die Fachkraft fragt: 'War der Turm einfach zu hoch?' und geht direkt zum nächsten Kind weiter.",
+            "label": "Sie loben beide pauschal mit „Super Idee, macht weiter so!“, stellen aber keine weiteren Fragen und führen keine präziseren Begriffe ein.",
             "quality": "teilweise",
-            "theoryLink": "Dialogische Sprachbildung (Bedeutung offener vs. geschlossener Fragen)."
+            "feedback": "Nur teilweise wirksam: Bestärkung ist angenehm, bleibt aber sprachlich flach. Ohne inhaltliches Spiegeln, präzisere Zielbegriffe („stabil“, „Pfeiler“) und weiterführende Fragen entsteht kein tiefes, langanhaltendes Gespräch.",
+            "theoryLink": "Inhaltliche Rückmelde- und Konzeptentwicklungsstrategien statt pauschaler Lobfloskeln"
+          },
+          {
+            "label": "Sie bauen die beiden breiten Quader rasch selbst richtig unter das Brett und erklären den Kindern ausführlich die physikalischen Gesetze von Statik und Gewichtsverteilung.",
+            "quality": "problematisch",
+            "feedback": "Problematisch: Ein monologischer Fachvortrag überfordert Kinder sprachlich, nimmt ihnen den eigenen Sprechanteil und verdrängt das gemeinsame, dialogische Nachdenken durch Erwachsenen-Instruktion.",
+            "theoryLink": "Dialogorientierung statt Monolog; aktive Sprechanteile der Kinder sichern"
           }
-        ],
-        "prompt": "Emre möchte den Turm nun stabiler neu bauen. Wie gestaltet die Fachkraft die weitere Interaktion?",
-        "situation": "Gemeinsamer Neuaufbau des Turms."
+        ]
+      },
+      {
+        "situation": "Beim Abholen fragt Emres Mutter unsicher: „Soll ich zu Hause lieber nur noch Deutsch mit Emre reden? Mein Deutsch ist nicht so gut, aber ich will nicht, dass er in der Schule Probleme bekommt.“",
+        "prompt": "Wie beraten Sie Emres Mutter fachlich fundiert und wertschätzend?",
+        "options": [
+          {
+            "label": "Sie sagen ihr knapp, dass die Kita dafür nicht zuständig sei und sie das am besten selbst entscheiden solle.",
+            "quality": "teilweise",
+            "feedback": "Verpasste Chance: Eltern bei Fragen zur Mehrsprachigkeit fachlich aufzuklären und Sicherheit zu geben, gehört zentral zur Bildungs- und Erziehungspartnerschaft im Bildungsbereich Sprache.",
+            "theoryLink": "Bildungs- und Erziehungspartnerschaft; inklusive Sprachbildung (WiFF)"
+          },
+          {
+            "label": "Sie empfehlen ihr, zu Hause zumindest abends 30 Minuten konsequent nur Deutsch zu sprechen und türkische Wörter zu korrigieren, damit Emre sich schneller umgewöhnt.",
+            "quality": "problematisch",
+            "feedback": "Fachlich nicht empfehlenswert: Wenn Eltern zu Hause in einer für sie unsicheren Sprache kommunizieren sollen, mindert dies häufig sprachliche Vielfalt, Satzkomplexität und Vertrautheit im Familienalltag – was weder die Erstsprache noch den Deutscherwerb optimal unterstützt.",
+            "theoryLink": "Widerlegung des „Nur-Deutsch“-Mythos; Bedeutung sprachlicher Qualität in der Familie"
+          },
+          {
+            "label": "Sie bestärken sie ausdrücklich darin, zu Hause weiterhin ihr starkes, lebendiges Türkisch zu sprechen, Geschichten zu erzählen und vorzulesen, erklären verständlich den Zusammenhang zwischen starker Erstsprache und Deutscherwerb und bieten an, mehrsprachige Bilderbücher aus der Kita auszuleihen.",
+            "quality": "optimal",
+            "feedback": "Fachlich absolut fundiert: Kinder profitieren zu Hause am meisten von einer reichhaltigen, emotional authentischen Sprache. Eine gut entwickelte Erstsprache stützt nach der Interdependenzhypothese (Cummins) den Erwerb des Deutschen, während die Kita kontinuierlich alltagsintegrierte deutsche Sprachmodelle bereitstellt.",
+            "theoryLink": "Interdependenzhypothese (Cummins); ressourcenorientierte Mehrsprachigkeit & Erziehungspartnerschaft"
+          }
+        ]
       }
-    ],
-    "title": "Alltagsintegrierte Sprachbildung im Bau- und Konstruktionsbereich"
+    ]
   },
   "selfLearningTasks": [
-    "Planen, erproben und reflektieren Sie eine gezielte dialogische Bilderbuchbetrachtung in Ihrer Praxiseinrichtung unter Berücksichtigung des CROWD-/PEER-Prinzips. Dokumentieren Sie die Reaktionen der Kinder.",
-    "Beobachten und protokollieren Sie eine Alltagssituation in Ihrer Praxis (z. B. im Freispiel) über 15 Minuten und analysieren Sie Ihren eigenen Einsatz von Frage-, Modellierungs- und Rückmeldestrategien nach Kammermeyer et al.",
-    "Entwerfen Sie ein Konzept zur sichtbaren Mehrsprachigkeit in Ihrer Einrichtung (z. B. mehrsprachige Willkommenstafeln, Lieder und Bücher) und stellen Sie es im Team vor."
+    "Führen Sie in Ihrer Praxiseinrichtung eine dialogische Bilderbuchbetrachtung in einer Kleingruppe (3–5 Kinder) an mindestens zwei Tagen mit demselben Bilderbuch durch. Planen Sie vorab konkrete CROWD-Impulse, wenden Sie die PEER-Sequenz an und reflektieren Sie anschließend schriftlich die Redeanteile der Kinder.",
+    "Protokollieren Sie (oder analysieren Sie per Audiomitschnitt mit Einverständnis) einen fünfminütigen Alltagsdialog beim Bauen, Essen oder Anziehen. Markieren Sie alle Stellen, an denen Sie handlungsbegleitendes Sprechen, korrektives Feedback, Expansion, Extension oder offene Fragen genutzt haben – und formulieren Sie drei verpasste Momente konkret um.",
+    "Überprüfen Sie Ihre Einrichtung auf sichtbare Mehrsprachigkeit und Early-Literacy-Anlässe (z. B. Buchbestand, Beschilderungen, Rollenspielmaterial). Entwickeln Sie eine konkrete, alltagstaugliche Maßnahme (z. B. mehrsprachige Bilderbuchkiste oder Schreibanlässe im Rollenspiel) und stellen Sie sie im Team vor."
   ],
   "flashcards": [
     {
-      "definition": "Ein sprachdidaktischer Ansatz, bei dem Spracherwerb als natürlicher Bestandteil des gesamten Kita-Alltags in alltäglichen Interaktionen und Handlungen stattfindet statt in isolierten Programmen.",
-      "example": "Sprachliche Begleitung beim Wickeln, beim Essen oder beim Bauen.",
-      "term": "Alltagsintegrierte Sprachbildung"
+      "term": "Alltagsintegrierte Sprachbildung",
+      "definition": "Sprachdidaktischer Grundsatz, Sprachentwicklung kontinuierlich in bedeutsamen Alltagssituationen (Routinen, Freispiel, Forschen, Vorlesen) über hohe Interaktionsqualität anzuregen statt in isolierten Trainingsprogrammen.",
+      "example": "Beim Tischdecken oder Anziehen echte Dialoge mit offenen Fragen führen statt bloß Anweisungen zu erteilen."
     },
     {
-      "definition": "Eine Interaktionsstrategie nach dem Landescurriculum 'Mit Kindern im Gespräch', bei der die Äußerung des Kindes inhaltlich unverändert, aber grammatikalisch oder semantisch korrigiert bzw. erweitert (Modellierung) zurückgemeldet wird.",
-      "example": "Kind: 'Auto fährt weg.' – Fachkraft: 'Ja, das rote Auto fährt schnell weg.'",
-      "term": "Modellierungsstrategie (Recasting)"
+      "term": "Korrektives Feedback (Recasting)",
+      "definition": "Modellierungsstrategie, bei der eine grammatikalisch oder lautlich fehlerhafte Kinderäußerung im natürlichen Gesprächsfluss wertschätzend, beiläufig und korrekt zurückgespiegelt wird – ohne offenen Tadel oder Nachsprechzwang.",
+      "example": "Kind: „Der Hund hat die Ball gegessen!“ → Fachkraft: „Oh, der Hund hat den Ball ins Maul genommen und daran gekaut!“"
     },
     {
-      "definition": "Frühe Vorläuferfähigkeiten und Motivationen bezüglich Schriftsprache, Büchern und Symbolen im Vorschulalter, wie Buchkulturwissen, phonologische Bewusstheit und Symbolverständnis.",
-      "example": "Kinder spielen 'Restaurant' und schreiben Bestellungen mit Kringeln und Strichen auf.",
-      "term": "Early Literacy"
+      "term": "Expansion vs. Extension",
+      "definition": "Expansion vervollständigt eine verkürzte Kinderäußerung grammatikalisch und lexikalisch („Auto schnell!“ → „Ja, das rote Auto fährt sehr schnell.“). Extension führt den Gedanken inhaltlich weiter („… vielleicht fährt es gerade zur Feuerwehrwache.“).",
+      "example": "Beide Strategien werden im Dialog kombiniert, um Satzbau und Weltwissen zugleich anzuregen."
     },
     {
-      "definition": "Eine gemeinsame, interaktive Bilderbuchbetrachtung nach Whitehurst et al., bei der das Kind durch den Einsatz des CROWD-Präsidiums (Erzählaufforderungen, W-Fragen etc.) von der passiven Zuhörerrolle zur aktiven Erzählrolle (CROWD / PEER) wechselt.",
-      "example": "Die Fachkraft stoppt an einer Bildstelle und fragt: 'Was glaubst du, wer sich jetzt hinter dem Baum versteckt?'",
-      "term": "Dialogisches Lesen"
+      "term": "Dialogisches Bilderbuchbetrachten (PEER & CROWD)",
+      "definition": "Interaktive Methode nach Whitehurst (Kleingruppe, mehrfaches Betrachten), bei der Kinder aktiv erzählen. PEER strukturiert den Ablauf (Prompt, Evaluate, Expand, Repeat); CROWD bezeichnet fünf Impulstypen (Completion, Recall, Open-ended, Wh-questions, Distancing).",
+      "example": "„Was meinst du, wie fühlt sich der kleine Igel gerade? Wann warst du schon mal ein bisschen nervös?“ (Wh-question + Distancing)."
     },
     {
-      "definition": "Die sprachliche Begleitung der eigenen oder kindlichen Handlungen und kognitiven Prozesse, um Denken und Sprache miteinander zu verknüpfen.",
-      "example": "'Ich gieße jetzt die Blume. Dazu nehme ich die rote Kanne, weil die Pflanze durstig ist.'",
-      "term": "Handlungs- und denkbegleitendes Sprechen"
+      "term": "Translanguaging & Interdependenz",
+      "definition": "Translanguaging (García/Wei) begreift alle Sprachen eines Kindes als zusammenhängendes kommunikatives Repertoire. Nach Cummins’ Interdependenzhypothese stützt eine starke Familiensprache den Erwerb des Deutschen, statt ihn zu behindern.",
+      "example": "Ein Kind nutzt ein familiensprachliches Wort im Spiel; die Fachkraft würdigt den Inhalt und bietet beiläufig den deutschen Begriff an."
     },
     {
-      "definition": "Die Anerkennung, Wertschätzung und ressourcenorientierte Einbindung der Erstsprache(n) mehrsprachiger Kinder in den pädagogischen Alltag als kognitive und emotionale Bereicherung.",
-      "example": "Begrüßungslieder in verschiedenen Familiensprachen der Kinder singen.",
-      "term": "Wertschätzung von Mehrsprachigkeit"
+      "term": "Early Literacy",
+      "definition": "Alle frühen, spielerischen Erfahrungen von Kindern mit Erzähl-, Buch-, Reim-, Symbol- und Schriftkultur vor dem formellen Lesen- und Schreibenlernen, einschließlich phonologischer Bewusstheit.",
+      "example": "Kinder schreiben Kritzelschrift-Rezepte in der Arztpraxis oder erfinden Reimwörter beim Spaziergang."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Das rheinland-pfälzische Landescurriculum 'Mit Kindern im Gespräch' (Kammermeyer et al.) fokussiert gezielt auf alltagsintegrierte Interaktionsstrategien wie Frage-, Modellierungs-, Rückmelde- und Konzeptentwicklungsstrategien im pädagogischen Alltag.",
-      "id": "q1",
+      "question": "Worin liegt der zentrale fachliche Vorteil alltagsintegrierter Sprachbildung gegenüber isolierten Kleingruppen-Sprachtrainings?",
       "options": [
-        "Ein reines, separates Sprachförderprogramm für Kleingruppen außerhalb des Gruppenraums mit speziellen Materialheften.",
-        "Ein didaktisches Konzept zur alltagsintegrierten sprachlichen Bildung durch gezielte Interaktions- und Sprachförderstrategien im pädagogischen Alltag.",
-        "Ein reines Diagnostikinstrument zur Feststellung von Sprachförderbedarfen im Einschulungsalter.",
-        "Ein Förderprogramm ausschließlich für Kinder mit Deutsch als Zweitsprache (DaZ) in Sonderschulen."
+        "Sie reduziert den Sprachanteil der pädagogischen Fachkraft auf ein Minimum, damit Kinder möglichst ungestört bleiben.",
+        "Alltagsintegrierte Sprachbildung kommt ohne geschulte Interaktionsstrategien aus, weil Kinder Sprache im Freispiel automatisch voneinander übernehmen.",
+        "Sie richtet sich ausschließlich an mehrsprachige Kinder und ersetzt eine gezielte Sprachstandsbeobachtung.",
+        "Sie bindet sprachliche Anregung in bedeutsame Alltagshandlungen und geteilte Aufmerksamkeit (Joint Attention) ein, wodurch Kinder Wörter und Strukturen nachhaltiger verknüpfen und transferieren."
       ],
-      "question": "Was versteht man im Wesentlichen unter dem rheinland-pfälzischen Landescurriculum „Mit Kindern im Gespräch“ (Kammermeyer et al.)?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
-        0,
-        2,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Das dialogische Lesen nach Whitehurst zielt auf die aktive Beteiligung der Kinder ab. W-Fragen, offene Erzählaufforderungen und das Erweitern kindlicher Aussagen (PEER/CROWD) sind zentral. Das stundenlange Vorlesen von Texten ohne Unterbrechung ist hingegen antiautonom und nicht dialogisch.",
-      "id": "q2",
-      "options": [
-        "Die Kinder werden durch offene Fragen (W-Fragen) aktiv in die Betrachtung einbezogen und übernehmen zunehmend die Erzählrolle.",
-        "Das Buch wird von Anfang bis Ende ohne Unterbrechung und ohne Interaktion vorgelesen, um die Konzentration zu schulen.",
-        "Das sprachliche Niveau und die Fragen der Fachkraft werden flexibel an den Entwicklungsstand des Kindes angepasst.",
-        "Kindliche Äußerungen werden feinfühlig aufgegriffen, erweitert und inhaltlich vertieft (Modellierung)."
-      ],
-      "question": "Welche Merkmale kennzeichnen das „dialogische Lesen“ als literaturpädagogische Methode? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Spracherwerb ist sozial-interaktional eingebettet: Wenn Fachkräfte Sprachlehrstrategien systematisch in echte, bedeutsame Alltagssituationen integrieren, erleben Kinder Sprache als wirksames Handlungs- und Verständigungsmittel. Sie erfordert jedoch sehr wohl bewusste Strategien und systematische Beobachtung – und richtet sich an alle Kinder."
     },
     {
-      "correctIndices": [
-        2
-      ],
+      "id": "v2-q2",
+      "type": "case",
       "difficulty": "pruefung",
-      "explanation": "Unter der Modellierungsstrategie (Recasting) versteht man das grammatikalisch oder semantisch korrekte Aufgreifen der fehlerhaften oder verkürzten Kindesäußerung, ohne das Kind direkt zu korrigieren oder zum Nachsprechen aufzufordern.",
-      "id": "q3",
+      "question": "Praxissituation: Ein vierjähriges Kind schiebt im Sandkasten einen Bagger und sagt begeistert: „Der Bagger hat alle Steine weggefahrt!“ Welche Reaktion der Fachkraft verbindet korrektives Feedback (Recasting) und Expansion fachlich optimal?",
       "options": [
-        "Die direkte Aufforderung an das Kind: 'Das heißt aber nicht Kater, sondern Katze – sag das nochmal richtig!'",
-        "Das vollständige Ignorieren von grammatikalischen Fehlern, um das Selbstbewusstsein des Kindes zu schützen.",
-        "Das korrigierende und erweiternde Aufgreifen der kindlichen Äußerung im natürlichen Gesprächsfluss (Recasting), ohne zu sanktionieren.",
-        "Das ständige Vorsprechen von reinen Lautübungen (Logopädisches Training)."
+        "„Stimmt, der große gelbe Bagger hat alle schweren Steine aufgeladen und weggefahren! Wohin bringst du sie jetzt?“",
+        "„Schön! Welche Farbe hat denn dein Bagger und wie viele Steine liegen dort genau?“",
+        "„Nicht weggefahrt, das heißt weggefahren! Sag mal: Der Bagger hat die Steine weggefahren.“",
+        "„Ja, der Bagger hat die Steine weggefahrt – super gemacht!“"
       ],
-      "question": "Was bedeutet die „Modellierungsstrategie“ (Recasting) im Rahmen der alltagsintegrierten Sprachbildung?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "basis",
-      "explanation": "Early Literacy beschreibt das frühkindliche Interesse und den Umgang mit Schrift, Symbolen, Büchern und Druckmedien im Alltag, lange bevor Kinder formal lesen und schreiben lernen.",
-      "id": "q4",
-      "options": [
-        "Das fehlerfreie Lesen von Fibeltexten im ersten Schuljahr.",
-        "Das fröhliche, entdeckende Interesse von Kleinkindern an Schrift, Symbolen, Büchern und Druckmedien im Alltag (Vorschulalter).",
-        "Die logopädische Therapie von Sprachentwicklungsstörungen bei Schulkindern.",
-        "Die ausschließliche Arbeit mit digitalen Tablets in der Kita."
-      ],
-      "question": "Was beschreibt der Begriff „Early Literacy“ in der frühpädagogischen Fachdiskussion?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
         0
       ],
-      "difficulty": "pruefung",
-      "explanation": "In dieser Situation setzt die Fachkraft die Strategie des handlungs- und denkbegleitenden Sprechens sowie der Konzeptentwicklung ein, indem sie logische Zusammenhänge sprachlich transparent macht und das Kind zum Nachdenken anregt.",
-      "id": "q5",
-      "options": [
-        "Die Fachkraft wendet handlungs- und denkbegleitendes Sprechen sowie Konzeptentwicklung an, um den naturwissenschaftlichen Vorgang sprachlich zu strukturieren und zu bereichern.",
-        "Die Fachkraft verstößt gegen sprachdidaktische Prinzipien, da Kinder beim Experimentieren absolute Ruhe brauchen.",
-        "Die Fachkraft betreibt veraltete Frontalpädagogik, da sie das Kind mit Informationen überhäuft.",
-        "Die Fachkraft führt einen formalen Sprachtest durch, um den Wortschatz zu messen."
-      ],
-      "question": "Praxissituation: Jonas (4 Jahre) gießt in der Wasserecke Wasser in ein Sieb und wundert sich, warum das Wasser durchläuft. Die Erzieherin sagt: „Schau mal, das Wasser läuft direkt durch die Löcher im Sieb durch, weil das Sieb durchlässig ist. Probier mal, ob das mit dem geschlossenen Becher auch passiert.“ Wie ist dieses pädagogische Handeln einzuordnen?",
-      "type": "case"
+      "explanation": "Die wertschätzende, erweiternde Rückmeldung spiegelt das Partizip („weggefahren“) beiläufig korrekt zurück (Recasting), erweitert den Satz lexikalisch und strukturell (Expansion) und öffnet mit einer offenen W-Frage den weiteren Dialog. Offene Korrektur mit Nachsprechzwang hemmt die Sprechfreude; das Wiederholen des Fehlers bietet kein korrektes Modell; geschlossene Prüfungsfragen unterbrechen das eigentliche Spielthema."
     },
     {
+      "id": "v2-q3",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Wodurch unterscheiden sich die Sprachlehrstrategien „Expansion“ und „Extension“ fachlich voneinander?",
+      "options": [
+        "Expansion wird nur bei unter dreijährigen Kindern eingesetzt, Extension ausschließlich im Vorschul- und Grundschulalter.",
+        "Expansion vervollständigt bzw. erweitert eine verkürzte Kinderäußerung grammatikalisch und lexikalisch, während Extension den geäußerten Gedanken inhaltlich weiterführt.",
+        "Expansion erfolgt immer durch offene W-Fragen, während Extension aus nonverbaler Bestätigung besteht.",
+        "Expansion korrigiert ausschließlich die Aussprache von Lauten, während Extension neue Grammatikregeln explizit erklärt."
+      ],
+      "correctIndices": [
+        1
+      ],
+      "explanation": "Bei der Expansion greift die Fachkraft die knappe Äußerung auf und formt sie vollständiger aus (Kind: „Katze müde.“ → „Ja, die kleine Katze ist sehr müde.“). Bei der Extension fügt sie einen neuen inhaltlichen Gedanken hinzu („… gleich rollt sie sich auf dem Kissen zusammen und schläft ein.“)."
+    },
+    {
+      "id": "v2-q4",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Gestaltungsprinzipien kennzeichnen das dialogische Bilderbuchbetrachten nach Grover J. Whitehurst (PEER/CROWD)? (Mehrere Antworten sind richtig)",
+      "options": [
+        "Durchführung in kleinen Gruppen (ca. 3–5 Kinder), damit alle Kinder aktiv zu Wort kommen können.",
+        "Gezielter Einsatz offener Impulse (z. B. Bildbeschreibungen, W-Fragen, Bezüge zur eigenen Lebenswelt / Distancing), sodass Kinder zunehmend die Erzählrolle übernehmen.",
+        "Mehrfaches Betrachten desselben Bilderbuchs über mehrere Tage mit wechselnden Gesprächsschwerpunkten.",
+        "Möglichst lückenloses Vorlesen ohne Unterbrechungen, damit die Kinder das ruhige Zuhören trainieren."
+      ],
       "correctIndices": [
         0,
+        1,
+        2
+      ],
+      "explanation": "Dialogisches Bilderbuchbetrachten lebt von kleinen Gruppen, wiederholtem Betrachten (gibt Sicherheit und vertieft Wortschatz sowie Textverständnis) und gezielten CROWD-/PEER-Impulsen, die das Kind zur aktiven Erzählerin machen. Unterbrechungsfreies Vorlesen kann zwar als ruhiges Ritual sinnvoll sein, ist aber kein Merkmal des dialogischen Lesens."
+    },
+    {
+      "id": "v2-q5",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Praxissituation: Ein mehrsprachig aufwachsender Vater fragt Sie verunsichert, ob die Familie zu Hause lieber komplett auf Deutsch umstellen sollte, obwohl er selbst nur unsicher Deutsch spricht. Wie antworten Sie fachlich korrekt?",
+      "options": [
+        "Sie raten dazu, die Familiensprache nur noch an Wochenenden zu verwenden und unter der Woche strikt Deutsch zu üben.",
+        "Sie ermutigen ihn, zu Hause konsequent die starke, lebendige Familiensprache zu pflegen (erzählen, singen, vorlesen), weil eine gut entwickelte Erstsprache den Erwerb des Deutschen stützt.",
+        "Sie stimmen zu: Je früher zu Hause ausschließlich Deutsch gesprochen wird, desto schneller verschwindet das Mischen von Sprachen.",
+        "Sie empfehlen, bis zum Schuleintritt ganz auf Vorlesen zu verzichten, damit das Kind nicht zwischen zwei Schriftsystemen verwirrt wird."
+      ],
+      "correctIndices": [
+        1
+      ],
+      "explanation": "Nach der Interdependenzhypothese (Cummins) und aktueller Mehrsprachigkeitsforschung stärkt eine differenzierte, emotional reiche Familiensprache das begriffliche Denken und erleichtert den Zweitspracherwerb. Gebrochenes Deutsch aus Unsicherheit reduziert hingegen die sprachliche Anregungsqualität erheblich."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "pruefung",
+      "question": "Welche Grundsätze gelten für die alltagsintegrierte Sprachstandsbeobachtung und den Umgang mit sprachlichen Auffälligkeiten in der Kita? (Mehrere Antworten sind richtig)",
+      "options": [
+        "Bei anhaltenden Auffälligkeiten stellt die pädagogische Fachkraft eigenständig eine verbindliche logopädische Diagnose und legt einen Therapieplan fest.",
+        "Sprachliche Kompetenzen werden kontinuierlich in natürlichen Alltagssituationen (z. B. Spiel, Gespräch, Bilderbuch) beobachtet und dokumentiert.",
+        "Beobachtungen werden im Team reflektiert und im wertschätzenden Gespräch mit den Eltern geteilt, um ggf. eine kinderärztliche oder logopädische Abklärung anzuregen.",
+        "Bei mehrsprachigen Kindern wird berücksichtigt, dass sich ihre sprachlichen Ressourcen auf mehrere Sprachen verteilen und nicht an einsprachigen Normen allein gemessen werden dürfen."
+      ],
+      "correctIndices": [
+        1,
         2,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Die Wertschätzung von Mehrsprachigkeit erfordert eine sichtbare Präsenz der Familiensprachen, die Einbindung mehrsprachiger Medien und eine positive Grundhaltung, statt die Erstsprache zu verbieten oder zu ignorieren.",
-      "id": "q6",
-      "options": [
-        "Familiensprachen der Kinder werden durch mehrsprachige Aushänge, Bücher und Begrüßungstafeln in der Einrichtung sichtbar gemacht.",
-        "Kinder mit Deutsch als Zweitsprache (DaZ) sollen in der Kita ausschließlich Deutsch sprechen, um Lernfortschritte zu beschleunigen.",
-        "Die pädagogischen Fachkräfte begreifen Mehrsprachigkeit als kognitive und soziale Ressource.",
-        "Eltern werden ermutigt, in ihrer starken Familiensprache mit ihren Kindern zu Hause zu sprechen und Geschichten zu erzählen."
-      ],
-      "question": "Welche Handlungsweisen entsprechen einer wertschätzenden und professionellen Haltung gegenüber Mehrsprachigkeit in der Kindertagesstätte? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Professionelle Sprachstandsbeobachtung erfolgt alltagsintegriert, längsschnittlich und mehrsprachigkeitssensibel. Bei Verdacht auf eine Sprachentwicklungsstörung klären Fachkräfte dies im Team und beraten Eltern empathisch hinsichtlich ärztlicher bzw. logopädischer Diagnostik – klinische Diagnosen stellen Erzieherinnen und Erzieher selbst nicht."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Sprachliche Bildung in Kindertagesstätten in Rheinland-Pfalz",
+      "url": "https://kita.rlp.de/kita-in-rheinland-pfalz/bildungs-und-erziehungsthemen/sprachliche-bildung",
+      "publisher": "Ministerium für Bildung Rheinland-Pfalz / Kita-Portal RLP",
+      "note": "Landesweite fachliche Grundlagen zur alltagsintegrierten Sprachbildung und zum Landescurriculum in RLP."
+    },
+    {
+      "title": "Mit Kindern im Gespräch – Strategien zur Sprachbildung und Sprachförderung von Kindern in Kindertageseinrichtungen",
+      "url": "https://www.biss-sprachbildung.de/btools/mit-kindern-im-gespraech-strategien-zur-sprachbildung-und-sprachfoerderung-von-kindern-in-kindertageseinrichtungen/",
+      "publisher": "BiSS-Transfer (Mercator-Institut / Kammermeyer et al.)",
+      "note": "Wissenschaftlich evaluiertes Sprachbildungskonzept mit den vier Strategiegruppen für Schlüsselsituationen."
+    },
+    {
+      "title": "Inklusive Sprachliche Bildung – WiFF-Wegweiser Weiterbildung (Band 11)",
+      "url": "https://www.weiterbildungsinitiative.de/publikationen/detail/inklusive-sprachliche-bildung",
+      "publisher": "Deutsches Jugendinstitut (DJI) / Weiterbildungsinitiative Frühpädagogische Fachkräfte",
+      "note": "Grundlagenwerk zu alltagsintegrierter, diversitäts- und mehrsprachigkeitssensibler Sprachbildung."
+    },
+    {
+      "title": "Frühe Mehrsprachigkeit im Kita-Alltag begleiten",
+      "url": "https://www.kita-fachtexte.de/fileadmin/user_upload/2021_02_KitaFachtexte_Kuehn.pdf",
+      "publisher": "KiTa Fachtexte (Susanne Kühn / ASH Berlin, Fröbel, nifbe)",
+      "note": "Fachtext zur Überwindung des monolingualen Habitus und zur wertschätzenden Begleitung mehrsprachiger Kinder."
+    },
+    {
+      "title": "Literacy-Werkstatt für Kitas",
+      "url": "https://www.stiftunglesen.de/kita-portal/service/lesetipps-und-materialien/detail/literacy-werkstatt",
+      "publisher": "Stiftung Lesen (Kita-Portal)",
+      "note": "Praxismaterialien und Grundlagen zu Early Literacy, Erzählen, Schriftkultur und dialogischem Vorlesen."
     }
   ]
 }

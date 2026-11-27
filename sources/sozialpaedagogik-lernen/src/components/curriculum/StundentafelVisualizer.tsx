@@ -14,7 +14,7 @@ export const StundentafelVisualizer: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Modus-Umschalter */}
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-soft dark:border-slate-800 dark:bg-ink-800">
+      <div className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-soft dark:border-slate-800 dark:bg-ink-800 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h3 className="font-serif text-lg font-bold text-slate-900 dark:text-white">
             Interaktive Stundentafel (2.400 Unterrichtsstunden)
@@ -74,24 +74,25 @@ export const StundentafelVisualizer: React.FC = () => {
         <div className="mt-3 flex h-8 w-full overflow-hidden rounded-xl bg-slate-100 dark:bg-slate-900">
           <div
             style={{ width: `${(360 / 2400) * 100}%` }}
-            className="flex items-center justify-center bg-sky-500 text-[11px] font-bold text-white"
+            className="flex items-center justify-center overflow-hidden bg-sky-500 px-1 text-[10px] font-bold text-white sm:text-[11px]"
             title="Fachrichtungsübergreifend: 360 Std. (15 %)"
           >
-            FÜ 360 h
+            <span className="truncate">FÜ 360 h</span>
           </div>
           <div
             style={{ width: `${(1800 / 2400) * 100}%` }}
-            className="flex items-center justify-center bg-emerald-600 text-[11px] font-bold text-white"
+            className="flex items-center justify-center overflow-hidden bg-emerald-600 px-1 text-[10px] font-bold text-white sm:text-[11px]"
             title="Sozialpädagogik Pflicht: 1.800 Std. (75 %)"
           >
-            SP Pflicht 1.800 Std. (75 %)
+            <span className="truncate">SP Pflicht 1.800 Std. (75 %)</span>
           </div>
           <div
             style={{ width: `${(240 / 2400) * 100}%` }}
-            className="flex items-center justify-center bg-violet-600 text-[11px] font-bold text-white"
+            className="flex items-center justify-center overflow-hidden bg-violet-600 px-1 text-[10px] font-bold text-white sm:text-[11px]"
             title="Wahlpflicht S-SP-9: 240 Std. (10 %)"
           >
-            WP 240 h
+            <span className="truncate">WP</span>
+            <span className="ml-1 hidden truncate sm:inline">240 h</span>
           </div>
         </div>
 

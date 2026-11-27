@@ -3,10 +3,12 @@
   "number": 25,
   "moduleCode": "S-SP-3",
   "moduleArea": "sp-pflicht",
-  "title": "Besondere Bedarfe, Krisenfrüherkennung & Teilhabeplanung",
-  "subtitle": "Förderung bei Beeinträchtigungen/Hochbegabung, SGB VIII/IX, BTHG & Sozialraumressourcen",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-3 · Besondere Bedarfe, Teilhabeplanung & Kooperation (Lehrplan RLP 2024)",
+  "title": "Besondere Bedarfe, Teilhabeplanung & interdisziplinäre Kooperation",
+  "subtitle": "BTHG / SGB IX vs. § 35a SGB VIII, ICF-CY, Nachteilsausgleich & Zusammenarbeit mit Frühförderung/SPZ",
   "year": "2./3. Jahr",
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 30,
   "hoursRef": "240 Std. (Teil 5/5)",
   "pdfPages": "S. 24–25",
   "crossCuttingTags": [
@@ -14,399 +16,442 @@
     "Prävention",
     "Übergänge"
   ],
-  "summary": "Einheit 25 vermittelt angehenden Erzieher:innen fundiertes Fachwissen zur Erkennung und ressourcenorientierten Förderung besonderer Bedarfe, zur rechtssicheren Hilfe- und Teilhabeplanung nach SGB VIII/IX und BTHG (unter Nutzung der ICF) sowie zur Krisenfrüherkennung und Sozialraumerschließung. Dabei werden sowohl die Potenziale diversitätsbewusster Pädagogik als auch die Grenzen pädagogischer Interventionen reflektiert.",
+  "summary": "Kinder mit Beeinträchtigungen, chronischen Erkrankungen, Entwicklungsrisiken, herausforderndem Verhalten oder Hochbegabung brauchen passgenaue, ressourcenorientierte Unterstützung. Diese Einheit unterscheidet rechtssicher Eingliederungshilfe nach SGB IX (BTHG) und § 35a SGB VIII, erklärt ICF-CY, Teilhabeplanung und Nachteilsausgleich und zieht eine klare Grenze zwischen pädagogischem Auftrag und medizinisch-therapeutischer Diagnostik.",
   "learningGoals": [
-    "Ich kann besondere Bedarfe (körperliche, kognitive, sozial-emotionale Beeinträchtigungen, chronische Erkrankungen, herausforderndes Verhalten, Hochbegabung und Entwicklungsverzögerungen) fachlich erkennen und ressourcenorientiert beschreiben.",
-    "Ich kann die rechtlichen Grundlagen und Grundsätze der Hilfe- und Teilhabeplanung (SGB VIII § 36, SGB IX, BTHG) in der Praxis anwenden.",
-    "Ich kann das biopsychosoziale Modell der ICF nutzen, um Partizipationsbarrieren und Umweltfaktoren systematisch zu analysieren.",
-    "Ich kann sozialpädagogisches Fallverstehen als reflexiven Prozess zur Erstellung, Dokumentation und Evaluation von Förder- und Erziehungsplanungen nutzen.",
-    "Ich kann Frühwarnzeichen für Krisen und Störungen erkennen und präventive sowie deeskalierende Maßnahmen einleiten.",
-    "Ich kann Sozialraumressourcen erschließen und interdisziplinär mit anderen Professionen und Institutionen zusammenarbeiten."
+    "Ich kann unterschiedliche besondere Bedarfe (körperliche, kognitive, Sinnes- und sozial-emotionale Beeinträchtigungen, chronische Erkrankungen, herausforderndes Verhalten, Hochbegabung) ressourcenorientiert wahrnehmen, ohne vorschnell zu pathologisieren.",
+    "Ich kann Eingliederungshilfe nach SGB IX / BTHG (§§ 2, 19, 99 ff.) rechtlich sauber von der Eingliederungshilfe für seelisch behinderte Kinder und Jugendliche nach § 35a SGB VIII sowie dem Hilfeplanverfahren (§ 36 SGB VIII) abgrenzen.",
+    "Ich kann das bio-psycho-soziale Modell der ICF-CY nutzen, um Aktivitäten, Teilhabebarrieren und fördernde Umweltfaktoren im Alltag von Kindern systematisch zu beschreiben.",
+    "Ich kann sinnvolle Formen des Nachteilsausgleichs im pädagogischen Alltag gestalten und ihren Zweck von einer Senkung von Teilhabeansprüchen abgrenzen.",
+    "Ich kann die Kooperation mit Frühförderstellen (§ 46 SGB IX), Sozialpädiatrischen Zentren (SPZ), Therapie und Schule datenschutzkonform gestalten und meinen pädagogischen Auftrag klar von medizinisch-therapeutischer Diagnostik abgrenzen."
   ],
   "sections": [
     {
-      "body": "In einer diversen Gesellschaft ist die Wahrnehmung und ressourcenorientierte Förderung besonderer Bedarfe eine Kernaufgabe von Erzieher:innen. Kinder und Jugendliche mit körperlichen, kognitiven oder sozial-emotionalen Beeinträchtigungen, chronischen Erkrankungen, herausforderndem Verhalten, Hochbegabung oder Entwicklungsverzögerungen benötigen passgenaue Rahmenbedingungen. Statt defizitorientierter Etikettierung steht das ressourcenorientierte Fallverstehen im Vordergrund, welches die individuellen Stärken und das Umfeld in den Blick nimmt.",
+      "heading": "1. Besondere Bedarfe ressourcenorientiert verstehen",
+      "keyTakeaway": "Besondere Bedarfe verlangen einen differenzierten Blick auf Stärken, individuelle Zugänge und Umweltbedingungen – herausforderndes Verhalten ist zunächst als verstehbares Signal im Kontext zu betrachten.",
+      "body": "In Kindertageseinrichtungen, Horten, Schulen und der Jugendhilfe begegnen Fachkräften Kinder mit sehr unterschiedlichen Ausgangslagen: körperliche, geistige oder Sinnesbeeinträchtigungen, chronische Erkrankungen (z. B. Diabetes, Epilepsie, Asthma), umschriebene Entwicklungsverzögerungen, psychische Belastungen, herausforderndes Verhalten sowie besondere Begabungen bzw. Hochbegabung. Ein ressourcenorientiertes Fallverstehen meidet pauschale Defizit-Stempel und fragt zunächst nach Sinn und Kontext: Herausforderndes Verhalten (etwa heftiges Weglaufen, Schreien oder Rückzug) verweist häufig auf situative Überforderung, Reizüberflutung, Kommunikationsbarrieren oder fehlende Vorhersehbarkeit – nicht auf „Böswilligkeit“. Auch bei Hochbegabung zeigt sich nicht selten eine asynchrone Entwicklung (kognitiv weit voraus, emotional-sozial altersentsprechend oder besonders sensibel), sodass anhaltende Unterforderung ebenfalls zu Frustration, Rückzug oder Konflikten beitragen kann. Gleichzeitig gilt: Nicht jede Auffälligkeit ist ein dauerhafter Förderbedarf, und Entwicklungsverläufe sind veränderbar. Verhaltensnahe Alltagsbeobachtung (z. B. ABC-Schema zu Auslösern, Verhalten und Konsequenzen) hilft, konkrete Muster und Stärken sichtbar zu machen.",
       "bulletPoints": [
-        "Differenzierte Wahrnehmung von Diversität und individuellen Lebenslagen",
-        "Überwindung reiner Defizitorientierung hin zu Potenzialförderung",
-        "Berücksichtigung von körperlichen, kognitiven und emotionalen Besonderheiten",
-        "Wertschätzender Umgang mit Hochbegabung und herausforderndem Verhalten"
+        "Breites Spektrum besonderer Bedarfe: Beeinträchtigungen, chronische Erkrankungen, Entwicklungsrisiken, herausforderndes Verhalten und Hochbegabung.",
+        "Sinnverstehen: Herausforderndes Verhalten im Zusammenhang mit Reizen, Übergängen, Kommunikation und Beziehungen analysieren.",
+        "Hochbegabung: Asynchrone Entwicklung und mögliche Unterforderung mitdenken, ohne jedes unruhige Verhalten pauschal darauf zurückzuführen.",
+        "Ressourcenorientierung: Interessen, Fähigkeiten und funktionierende Strategien des Kindes bilden den Ausgangspunkt jeder Planung."
       ],
-      "heading": "Besondere Bedarfe erkennen und ressourcenorientiert fördern",
-      "keyTakeaway": "Ressourcenorientierte Förderung blickt auf die Potenziale und Lebenswelten statt ausschließlich auf Defizite.",
-      "praxisTip": "Führen Sie in Ihrer Einrichtung regelmäßige, vorurteilsbewusste Beobachtungen durch, um individuelle Stärken und Interessen von Kindern mit besonderen Bedarfen gezielt in Angebote einzubinden."
+      "praxisTip": "Halten Sie bei herausforderndem Verhalten nicht nur fest, wann Krisen auftreten, sondern systematisch auch, wann es gut gelingt – diese „Ausnahmesituationen“ zeigen meist direkt die wirksamsten Umwelt- und Beziehungsressourcen."
     },
     {
-      "body": "Die rechtlichen Rahmenbedingungen der Hilfe- und Teilhabeplanung stützen sich auf das SGB VIII (§ 36 Hilfeplanung in der Jugendhilfe), das SGB IX und das Bundesteilhabegesetz (BTHG). Das biopsychosoziale Modell der ICF (International Classification of Functioning, Disability and Health) der WHO dient als fachlicher Kompass, um das Zusammenspiel von Gesundheit, Aktivität, Partizipation und Umweltfaktoren zu analysieren. Der Hilfeplanprozess erfolgt multiprofessionell, transparent und unter verbindlicher Beteiligung der Sorgeberechtigten und jungen Menschen.",
+      "heading": "2. BTHG, SGB IX & § 35a SGB VIII rechtlich sauber unterscheiden",
+      "keyTakeaway": "Körperliche, geistige und Sinnesbehinderungen fallen in die Eingliederungshilfe nach SGB IX (Teil 2), seelische Behinderungen bei Kindern und Jugendlichen in § 35a SGB VIII beim Jugendamt – bei mehreren Trägern koordiniert der Teilhabeplan (§ 19 SGB IX).",
+      "body": "Für die Beratung von Familien und die interdisziplinäre Zusammenarbeit müssen Fachkräfte die Zuständigkeiten im gegliederten Sozialrecht sicher unterscheiden. Durch das Bundesteilhabegesetz (BTHG) wurde die Eingliederungshilfe aus der Sozialhilfe herausgelöst und in Teil 2 des SGB IX neu geordnet (§§ 90 ff., insb. § 99 und § 102 SGB IX). Sie orientiert sich am bio-psycho-sozialen Behinderungsbegriff (§ 2 Abs. 1 SGB IX) und zielt auf personenzentrierte, selbstbestimmte Teilhabe (u. a. Leistungen zur sozialen Teilhabe und zur Teilhabe an Bildung, etwa Assistenzleistungen in der Kita oder Schule). Zuständig ist der Träger der Eingliederungshilfe – für Kinder und Jugendliche mit (wesentlicher oder drohender) körperlicher, geistiger oder Sinnesbehinderung (sowie Mehrfachbehinderungen). Davon abzugrenzen ist § 35a SGB VIII: Er regelt die Eingliederungshilfe für Kinder und Jugendliche mit einer seelischen Behinderung (oder drohenden seelischen Behinderung) in Zuständigkeit des Jugendamts. § 35a Abs. 1 SGB VIII verlangt eine zweigliedrige Prüfung: (1) Die seelische Gesundheit weicht mit hoher Wahrscheinlichkeit länger als sechs Monate vom alterstypischen Zustand ab – hierfür holt das Jugendamt zwingend eine fachärztliche oder psychotherapeutische Stellungnahme auf Grundlage der ICD ein (§ 35a Abs. 1a SGB VIII); (2) genau dadurch ist die gesellschaftliche Teilhabe beeinträchtigt oder eine solche Beeinträchtigung zu erwarten (diese Teilhabeprüfung liegt fachlich beim Jugendamt!). Die Ausgestaltung erfolgt im kooperativen Hilfeplanverfahren nach § 36 SGB VIII unter Beteiligung von Eltern und Kind. Sind Leistungen mehrerer Rehabilitationsträger oder Leistungsgruppen erforderlich (z. B. Jugendamt, Eingliederungshilfe und Krankenkasse), sorgt das Teilhabeplanverfahren nach § 19 SGB IX dafür, dass Hilfen abgestimmt und nahtlos ineinandergreifen. Unabhängige, kostenfreie Beratung für Familien bietet zudem die Ergänzende unabhängige Teilhabeberatung (EUTB).",
       "bulletPoints": [
-        "Rechtliche Verankerung in SGB VIII § 36, SGB IX und BTHG",
-        "Anwendung des ICF-Modells zur Erfassung von Barrieren und Förderfaktoren",
-        "Multiprofesionelle Kooperation und Einbezug der Sorgeberechtigten",
-        "Zielgerichtete Erstellung, Dokumentation und Evaluation von Förderplänen"
+        "SGB IX Teil 2 (§§ 99, 102 SGB IX / BTHG): Eingliederungshilfe für Menschen mit körperlicher, geistiger oder Sinnesbehinderung (Träger der Eingliederungshilfe).",
+        "§ 35a SGB VIII: Eingliederungshilfe für Kinder/Jugendliche mit (drohender) seelischer Behinderung (Jugendamt) – zweigliedrige Prüfung aus ICD-Stellungnahme (Abs. 1a) und Teilhabebeeinträchtigung.",
+        "§ 36 SGB VIII (Hilfeplan) & § 19 SGB IX (trägerübergreifender Teilhabeplan): Partizipative, zielorientierte Steuerung mit Eltern und jungem Menschen.",
+        "EUTB (Ergänzende unabhängige Teilhabeberatung): Kostenfreie, von Leistungsträgern unabhängige Orientierung für Familien."
       ],
-      "heading": "Hilfe- und Teilhabeplanung nach SGB VIII/IX und BTHG",
-      "keyTakeaway": "Teilhabeplanung ist ein rechtlich abgesicherter, kooperativer Prozess zur Ermittlung passgenauer Hilfen auf Basis der ICF.",
-      "praxisTip": "Bereiten Sie Hilfeplangespräche strukturiert vor, indem Sie gemeinsam mit dem Kind und den Eltern konkrete, erreichbare Teilhabeziele formulieren und den Grad der Partizipation dokumentieren."
+      "praxisTip": "Verweisen Sie Eltern bei komplexen Antrags- oder Zuständigkeitsfragen (Jugendamt vs. Eingliederungshilfe vs. Krankenkasse) frühzeitig auf die kostenfreie EUTB in Ihrer Region – das entlastet Familien spürbar."
     },
     {
-      "body": "Krisenfrüherkennung erfordert ein feines Sensorium für schleichende Veränderungen wie sozialen Rückzug, Leistungsabfall oder psychosomatische Beschwerden. Sozialpädagogisches Fallverstehen bedeutet hierbei, Verhalten als bedeutsamen Ausdruck und Signal zu verstehen (Sinnverstehen). Fachkräfte müssen jedoch auch die Grenzen pädagogischer Interventionen erkennen: Bei schweren Traumatisierungen, akuter Selbst- oder Fremdgefährdung oder tiefgreifenden psychischen Krisen ist die Kooperation mit spezialisierten Fachdiensten (Kinder- und Jugendpsychiatrie, Erziehungsberatung, Sozialraumträgern) unerlässlich.",
+      "heading": "3. ICF-CY, Teilhabeplanung & Nachteilsausgleich in der Praxis",
+      "keyTakeaway": "Die ICF-CY übersetzt das bio-psycho-soziale Modell auf die Lebenswelten von Kindern und Jugendlichen; Nachteilsausgleich schafft faire Zugangsbedingungen, ohne Teilhabeansprüche abzusenken.",
+      "body": "Um Förder- und Teilhabepläne nicht an abstrakten Diagnosen, sondern am konkreten Kinderalltag auszurichten, bietet die ICF-CY (International Classification of Functioning, Disability and Health – Children and Youth der WHO) eine gemeinsame interdisziplinäre Fachsprache. Sie berücksichtigt altersspezifische Entwicklungsprozesse sowie die prägenden Umwelten von Kindern und Jugendlichen – insbesondere Familie, Spiel, Kita, Schule und Peergroup. Im Mittelpunkt stehen alltagsnahe Aktivitäten und Partizipation (z. B. mit anderen Kindern spielen, Übergänge bewältigen, sich verständlich machen) sowie konkrete Förderfaktoren und Barrieren in der Umwelt. Aus einer solchen Einschätzung lassen sich überprüfbare, alltagsrelevante Teilhabeziele formulieren (z. B. „Nora kann mithilfe visueller Ablaufkarten den Wechsel in den Garten selbstständig und angstfrei begleiten“). Ein wichtiges Instrument zur praktischen Teilhabesicherung – insbesondere im Übergang zur Schule, im Hort und in der Jugendhilfe – ist der Nachteilsausgleich: Er verändert äußere Rahmenbedingungen, Hilfsmittel oder Darstellungsformen (etwa reizarme Arbeitsplätze, zusätzliche Zeit, visuelle Strukturierung, Gebärden, Vorlesehilfen oder Pausenregelungen), damit beeinträchtigungsbedingte Erschwernisse ausgeglichen werden, ohne fachliche Anforderungen pauschal zu entwerten oder das Kind aus der Gemeinschaft auszugliedern.",
       "bulletPoints": [
-        "Frühwarnzeichen (Verhaltensänderungen, Rückzug, Aggression) sensibel deuten",
-        "Sozialpädagogisches Fallverstehen als Sinnverstehen anwenden",
-        "Erschließung von Sozialraumressourcen (Beratungsstellen, Netzwerke)",
-        "Reflexion und Akzeptanz der Grenzen pädagogischen Handelns"
+        "ICF-CY: Entwicklungssensible Fassung der ICF mit Fokus auf Aktivitäten, Partizipation und kindliche Umwelten (Familie, Kita, Schule).",
+        "Alltagsnahe Teilhabeziele: Konkret, überprüfbar, mit Kind und Eltern abgestimmt und regelmäßig evaluiert.",
+        "Nachteilsausgleich: Passt Rahmenbedingungen, Hilfsmittel oder Zeitstrukturen an, um gleichberechtigte Beteiligung zu sichern.",
+        "Abgrenzung: Nachteilsausgleich ist kein „Bonus“ und keine Bevorzugung, sondern Ausgleich konkreter Barrieren."
       ],
-      "heading": "Krisenfrüherkennung, Sozialraumressourcen und Grenzen pädagogischer Interventionen",
-      "keyTakeaway": "Krisenfrühwarnzeichen verlangen schnelles Handeln und multiprofessionelle Vernetzung im Sozialraum unter Beachtung pädagogischer Grenzen.",
-      "praxisTip": "Knüpfen Sie aktiv Kontakte zu regionalen Beratungsstellen, Familienzentren und Fachdiensten im Sozialraum, um im Krisenfall unkompliziert kooperieren zu können."
+      "praxisTip": "Formulieren Sie Teilhabeziele im Förderplan nicht negativ („zeigt weniger Wutausbrüche“), sondern als erreichbare Alltagshandlung samt Umweltunterstützung („nutzt bei Überforderung mithilfe einer Signalkarte den ruhigen Rückzugsplatz“)."
+    },
+    {
+      "heading": "4. Kooperation mit Frühförderung, Therapie & SPZ – und klare Rollengrenzen",
+      "keyTakeaway": "Erzieherinnen und Erzieher beobachten, begleiten und gestalten barrierearme Lernwelten – medizinische, psychiatrische oder psychologische Diagnosen und Therapien gehören ausschließlich in die Hände der entsprechenden Fachprofessionen.",
+      "body": "Gelingende Teilhabe entsteht oft erst im abgestimmten Netzwerk mit externen Fachdiensten: Interdisziplinäre Frühförderstellen bieten nach § 46 SGB IX eine sogenannte Komplexleistung für Kinder von der Geburt bis zur Einschulung an, die medizinisch-therapeutische und heilpädagogische Maßnahmen sowie Elternberatung unter einem Dach bündelt. Sozialpädiatrische Zentren (SPZ) übernehmen bei komplexen Entwicklungs-, neurologischen oder chronischen Fragestellungen eine spezialisierte ärztlich geleitete, interdisziplinäre Diagnostik und Behandlungsplanung. Hinzu kommen Kinderarztpraxen, Logopädie, Ergotherapie, Physiotherapie, Kinder- und Jugendpsychiatrie sowie schulische Fachdienste. Für pädagogische Fachkräfte sind dabei zwei Prinzipien unverzichtbar: Erstens gilt eine strikte Rollengrenze – Erzieherinnen und Erzieher stellen niemals medizinische oder klinische Diagnosen (keine Sätze wie „Ihr Kind hat Autismus/ADHS/eine Wahrnehmungsstörung“!) und führen keine therapeutischen Behandlungen durch. Ihr genuiner, hoch wertvoller Beitrag sind differenzierte, verhaltensnahe Alltagsbeobachtungen zu Ressourcen, Aktivitäten und Umweltbarrieren sowie die Umsetzung alltagsintegrierter Begleitung. Zweitens gilt an jeder Schnittstelle das Datenschutz- und Schweigepflichtprinzip: Ein direkter fachlicher Austausch mit Frühförderung, SPZ, Arztpraxis oder Therapie erfolgt ausschließlich mit ausdrücklicher, schriftlicher Schweigepflichtentbindung bzw. Einwilligung der Sorgeberechtigten.",
+      "bulletPoints": [
+        "Interdisziplinäre Frühförderung (§ 46 SGB IX): Komplexleistung aus medizinisch-therapeutischen und heilpädagogischen Hilfen bis zur Einschulung.",
+        "Sozialpädiatrische Zentren (SPZ): Spezialisierte, ärztlich geleitete interdisziplinäre Diagnostik und Behandlungsplanung bei komplexen Bedarfen.",
+        "Strikte Rollengrenze: Pädagogische Alltagsbeobachtung & Teilhabebegleitung ≠ medizinische/psychologische Diagnostik oder Therapie.",
+        "Datenschutz an Schnittstellen: Austausch mit externen Fachstellen stets nur nach transparenter Absprache und schriftlicher Einwilligung der Eltern."
+      ],
+      "praxisTip": "Wenn Eltern fragen „Glauben Sie, mein Kind hat ADHS oder Autismus?“, bleiben Sie klar in Ihrer Rolle: „Eine medizinische Diagnose kann und darf ich nicht stellen – ich kann Ihnen aber genau schildern, was wir im Alltag beobachten, welche Stärken Ihr Kind zeigt und wie eine Kinderarztpraxis oder ein SPZ das fachlich abklären kann.“"
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Ressourcenorientiertes Fallverstehen",
       "id": "vb-1",
+      "kind": "comparison",
+      "title": "Rechtsgrundlagen besonderer Teilhabeleistungen im Überblick",
+      "subtitle": "Saubere Abgrenzung von SGB IX (BTHG), § 35a SGB VIII und Frühförderung (§ 46 SGB IX)",
+      "centerLabel": "Teilhabe- & Leistungsrecht",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Baustein 1",
-          "detail": "Erfassung von Stärken, Interessen, Talenten und bisherigen Bewältigungsstrategien des Kindes statt bloßer Fehler- oder Defizitsuche.",
-          "example": "Nutzung des Zeichentalents eines kontaktscheuen Kindes als nonverbale Brücke in die Peergroup.",
-          "id": "item-1",
-          "label": "Ressourcenanalyse",
-          "metric": "Stärke-Fokus",
-          "summary": "Identifikation individueller Potenziale und Kompetenzen."
+          "id": "recht-1",
+          "badge": "SGB IX Teil 2 (BTHG)",
+          "label": "Eingliederungshilfe (§§ 99, 102 SGB IX)",
+          "metric": "Körperlich / geistig / Sinne",
+          "summary": "Personenzentrierte Teilhabeleistungen über den Träger der Eingliederungshilfe.",
+          "detail": "Für Kinder und Erwachsene mit (drohender) wesentlicher körperlicher, geistiger oder Sinnesbehinderung (sowie Mehrfachbehinderung); umfasst u. a. Leistungen zur sozialen Teilhabe und Teilhabe an Bildung (z. B. Kita-/Schulassistenz).",
+          "example": "Finanzierung einer individuellen Teilhabeassistenz für ein Kind mit schwerer Körperbehinderung in der Kita."
         },
         {
-          "badge": "Baustein 2",
-          "detail": "Analyse von Familie, Peergroup, sozialem Umfeld und institutionellen Bedingungen als prägende Einflussfaktoren.",
-          "example": "Berücksichtigung von Mehrsprachigkeit und familiären Übergangssituationen im Alltag.",
-          "id": "item-2",
-          "label": "Lebensweltanalyse",
-          "metric": "Kontextbezug",
-          "summary": "Einbezug des sozialen und familiären Umfelds."
+          "id": "recht-2",
+          "badge": "SGB VIII",
+          "label": "Eingliederungshilfe (§ 35a SGB VIII)",
+          "metric": "Seelische Behinderung",
+          "summary": "Zuständigkeit des Jugendamts für Kinder und Jugendliche mit seelischer Behinderung.",
+          "detail": "Zweigliedrige Prüfung: (1) Abweichung seelischer Gesundheit > 6 Monate laut ärztlicher/psychotherapeutischer ICD-Stellungnahme (Abs. 1a) UND (2) Teilhabebeeinträchtigung (Prüfung durch das Jugendamt); Steuerung im Hilfeplan (§ 36 SGB VIII).",
+          "example": "Schulbegleitung oder ambulante Hilfe bei einer längerfristigen Angst- oder Autismus-Spektrum-Störung mit Teilhabebeeinträchtigung."
         },
         {
-          "badge": "Baustein 3",
-          "detail": "Einsatz von ICF zur Bestimmung von Aktivitäten, Partizipationsmöglichkeiten und Umweltbarrieren bzw. -förderfaktoren.",
-          "example": "Prüfung, ob Stufen im Eingangsbereich die Teilnahme am Außenspiel hindern.",
-          "id": "item-3",
-          "label": "ICF-Perspektive",
-          "metric": "Partizipation",
-          "summary": "Systematische Betrachtung von Teilhabe und Barrieren."
+          "id": "recht-3",
+          "badge": "Komplexleistung",
+          "label": "Frühförderung (§ 46 SGB IX)",
+          "metric": "Geburt bis Einschulung",
+          "summary": "Interdisziplinäre Früherkennung und Frühförderung aus einer Hand.",
+          "detail": "Verbindet medizinisch-therapeutische und heilpädagogische Leistungen sowie Elternberatung in interdisziplinären Frühförderstellen oder SPZ, um drohende Behinderungen früh abzuwenden oder Folgen zu mildern.",
+          "example": "Koordinierte heilpädagogische und ergotherapeutische Förderung eines dreijährigen Kindes mit Entwicklungsrisiko."
         },
         {
-          "badge": "Baustein 4",
-          "detail": "Regelmäßige, multiprofessionelle Reflexion im Team und Abgleich mit entwicklungspsychologischen Modellen.",
-          "example": "Fallbesprechung mit der Heilpädagogin und dem Jugendamt zur Zielüberprüfung.",
-          "id": "item-4",
-          "label": "Kollegiale Reflexion",
-          "metric": "Teamarbeit",
-          "summary": "Gemeinsame Auswertung und Zielanpassung."
+          "id": "recht-4",
+          "badge": "Koordination",
+          "label": "Teilhabeplan (§ 19 SGB IX)",
+          "metric": "Trägerübergreifend",
+          "summary": "Stimmt Leistungen mehrerer Reha-Träger nahtlos aufeinander ab.",
+          "detail": "Greift, wenn Leistungen verschiedener Leistungsgruppen oder mehrerer Rehabilitationsträger (z. B. Jugendamt, Eingliederungshilfe, Krankenkasse) erforderlich sind – unter Einbezug von Wunsch- und Wahlrecht und prüfbaren Teilhabezielen.",
+          "example": "Gemeinsame Abstimmung von Kita-Assistenz, Hilfsmittelversorgung und Frühförderung."
         }
-      ],
-      "kind": "feature_grid",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Die vier Säulen des pädagogischen Fallverstehens für inklusive Praxis",
-      "title": "Dimensionen des ressourcenorientierten Fallverstehens"
+      ]
     },
     {
-      "centerLabel": "",
       "id": "vb-2",
+      "kind": "process_flow",
+      "title": "Von der Alltagsbeobachtung zur kooperativen Teilhabeplanung",
+      "subtitle": "Ressourcenorientierter Ablauf unter Wahrung pädagogischer Rollengrenzen und des Datenschutzes",
+      "centerLabel": "Teilhabeprozess",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": true,
       "items": [
         {
+          "id": "tp-1",
           "badge": "Schritt 1",
-          "detail": "Wahrnehmung von Verhaltensänderungen, Entwicklungsauffälligkeiten oder Krisenanzeichen durch zielgerichtete Beobachtung.",
-          "example": "Erkennen von anhaltendem Rückzug und Schlafproblemen bei einem Jugendlichen im Jugendzentrum.",
-          "id": "p-1",
-          "label": "Früherkennung & Beobachtung",
-          "metric": "Phase 1",
-          "summary": "Sensibles Registrieren von Risikofaktoren und Signalen."
+          "label": "Beobachten & Stärken sichern",
+          "metric": "ICF-CY-Blick",
+          "summary": "Alltagssituationen, Stärken und Umweltbarrieren verhaltensnah erfassen.",
+          "detail": "Das Team dokumentiert konkret, was das Kind gut kann, welche Situationen es überfordern und welche Umweltfaktoren Teilhabe erleichtern oder hemmen.",
+          "example": "Beobachtung: In Kleingruppen mit Bildplan beteiligt sich das Kind ausdauernd; bei lautem Raumwechsel zieht es sich zurück."
         },
         {
+          "id": "tp-2",
           "badge": "Schritt 2",
-          "detail": "Auswertung im Team, Einbezug der Sorgeberechtigten und des jungen Menschen nach SGB VIII § 36.",
-          "example": "Einberufung eines runden Tisches mit Eltern und Jugendamt zur Bestandsaufnahme.",
-          "id": "p-2",
-          "label": "Antragstellung & Auftakt",
-          "metric": "Phase 2",
-          "summary": "Initiierung des formellen Hilfeplanverfahrens."
+          "label": "Partnerschaftliches Elterngespräch",
+          "metric": "Keine Diagnose!",
+          "summary": "Beobachtungen teilen, Elternsicht einholen und Abklärungsmöglichkeiten aufzeigen.",
+          "detail": "Die Fachkraft stellt keine medizinischen Diagnosen, sondern bespricht Beobachtungen wertschätzend und verweist bei Bedarf auf Kinderarztpraxis, Frühförderung, SPZ oder EUTB.",
+          "example": "Eltern entscheiden selbstbestimmt, ob sie eine kinderärztliche oder sozialpädiatrische Abklärung nutzen."
         },
         {
+          "id": "tp-3",
           "badge": "Schritt 3",
-          "detail": "Ermittlung des Bedarfs anhand der ICF, Festlegung konkreter Teilhabeziele und Verantwortlichkeiten.",
-          "example": "Formulierung des Ziels: 'Teilnahme am wöchentlichen Sportangebot durch eine Schulbegleitung'.",
-          "id": "p-3",
-          "label": "Planerstellung (ICF/BTHG)",
-          "metric": "Phase 3",
-          "summary": "Entwicklung des maßgeschneiderten Hilfe- und Teilhabeplans."
+          "label": "Kooperation & Bedarfsermittlung",
+          "metric": "Mit Einwilligung",
+          "summary": "Schnittstellen abstimmen und Hilfe- bzw. Teilhabeplan mitgestalten.",
+          "detail": "Nach schriftlicher Einwilligung der Eltern bringt die Einrichtung ihre alltagsnahe pädagogische Einschätzung in den Hilfeplan (§ 36 SGB VIII) oder Teilhabeplan (§ 19 SGB IX) ein.",
+          "example": "Abstimmung gemeinsamer alltagstauglicher Ziele mit Eltern, Frühförderstelle und Leistungsträger."
         },
         {
+          "id": "tp-4",
           "badge": "Schritt 4",
-          "detail": "Umsetzung der Maßnahmen im pädagogischen Alltag und kontinuierliche Dokumentation.",
-          "example": "Einsatz visueller Tagesstrukturen und regelmäßige Reflexionsgespräche.",
-          "id": "p-4",
-          "label": "Durchführung & Begleitung",
-          "metric": "Phase 4",
-          "summary": "Praktische Realisierung der Fördermaßnahmen."
-        },
-        {
-          "badge": "Schritt 5",
-          "detail": "Überprüfung der Zielerreichung in festen Abständen und Anpassung des Plans bei veränderten Bedarfen.",
-          "example": "Jährliche Überprüfung des Hilfeplans mit allen Beteiligten im Jugendamt.",
-          "id": "p-5",
-          "label": "Evaluation & Fortschreibung",
-          "metric": "Phase 5",
-          "summary": "Kritische Prüfung und Weiterentwicklung des Hilfeplans."
+          "label": "Alltagsbegleitung & Evaluation",
+          "metric": "Fortschreibung",
+          "summary": "Barrieren abbauen, Nachteilsausgleich leben und Wirkung regelmäßig prüfen.",
+          "detail": "Vereinbarte Maßnahmen werden im Gruppenalltag umgesetzt, dokumentiert und in festen Abständen gemeinsam mit Kind, Eltern und Netzwerk überprüft und angepasst.",
+          "example": "Halbjährliche Auswertung, welche visuellen Hilfen das Kind inzwischen nicht mehr benötigt."
         }
-      ],
-      "kind": "process_flow",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Der Kreislauf von der Krisenfrüherkennung bis zur Evaluation nach SGB VIII/IX",
-      "title": "Prozessablauf der Hilfe- und Teilhabeplanung"
+      ]
     },
     {
-      "centerLabel": "",
       "id": "vb-3",
+      "kind": "comparison",
+      "title": "Professionelle Rollengrenze: Pädagogik vs. Medizin & Therapie",
+      "subtitle": "Wofür sozialpädagogische Fachkräfte zuständig sind – und wo andere Professionen übernehmen",
+      "centerLabel": "Rollenklärung",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Fundament",
-          "detail": "Alltägliche präventive Maßnahmen, ressourcenorientierte Haltung, wertschätzende Gruppenkultur und differenzierte Beobachtung.",
-          "example": "Empathische Begleitung und offene Gesprächskultur in der Stammgruppe.",
-          "id": "pyr-1",
-          "label": "Universelle Prävention & Alltagspädagogik",
-          "metric": "Basisstufe",
-          "summary": "Breit angelegte Förderung für alle Kinder."
+          "id": "rol-1",
+          "badge": "Pädagogischer Auftrag",
+          "label": "Sozialpädagogische Fachkräfte",
+          "metric": "Alltag & Teilhabe",
+          "summary": "Verhaltensnahe Beobachtung, Beziehungsarbeit, Barriereabbau und alltagsintegrierte Bildung.",
+          "detail": "Erkennen Stärken und Teilhabebarrieren im Alltag (ICF-CY), gestalten inklusive Lernumgebungen, begleiten Nachteilsausgleich und arbeiten partnerschaftlich mit Eltern sowie Netzwerkpartnern zusammen.",
+          "example": "Visuelle Tagesstruktur, Rückzugszone und alltagsintegrierte Sprach- und Spielbegleitung."
         },
         {
-          "badge": "Ebene 2",
-          "detail": "Gezielte Beobachtung, strukturierte Dokumentation und interne Förderpläne bei ersten Anzeichen von Beeinträchtigungen.",
-          "example": "Einsatz spezieller Förderangebote zur Sprach- oder Motorikförderung.",
-          "id": "pyr-2",
-          "label": "Gezielte Frühförderung & Binnendifferenzierung",
-          "metric": "Stufe 2",
-          "summary": "Reaktion auf spezifische, leichtere Förderbedarfe."
+          "id": "rol-2",
+          "badge": "Medizinisch-psychologisch",
+          "label": "Kinderärztinnen, SPZ & Psychotherapie",
+          "metric": "Diagnostik (ICD)",
+          "summary": "Abklärung von Krankheiten, Entwicklungsstörungen und Stellungnahmen nach § 35a Abs. 1a SGB VIII.",
+          "detail": "Stellen fachlich verbindliche Diagnosen auf Basis der ICD, verordnen Heilmittel oder Hilfsmittel und erstellen die medizinisch-psychologische Stellungnahme für Eingliederungshilfen.",
+          "example": "Differenzialdiagnostik im SPZ oder kinder- und jugendpsychiatrische Stellungnahme."
         },
         {
-          "badge": "Ebene 3",
-          "detail": "Einleitung formeller Hilfeplanverfahren (SGB VIII § 36, SGB IX) und Einbezug des Sozialraums und von Fachdiensten.",
-          "example": "Kooperation mit Erziehungsberatungsstelle oder Integrationsfachdienst.",
-          "id": "pyr-3",
-          "label": "Multiprofessionelle Hilfe- & Teilhabeplanung",
-          "metric": "Stufe 3",
-          "summary": "Formelle Hilfen und interdisziplinäre Kooperation."
-        },
-        {
-          "badge": "Spitze",
-          "detail": "Zusammenarbeit mit spezialisierten Kliniken, Kinder- und Jugendpsychiatrie oder stationären Hilfen bei akuten Krisen oder Grenzen der Pädagogik.",
-          "example": "Krisenintervention bei akuter Selbstgefährdung in enger Abstimmung mit Fachkliniken.",
-          "id": "pyr-4",
-          "label": "Intensive Krisenintervention & Spezialdienste",
-          "metric": "Maximalstufe",
-          "summary": "Intervention bei Erreichen pädagogischer Interventionsgrenzen."
+          "id": "rol-3",
+          "badge": "Therapeutisch-heilpädagogisch",
+          "label": "Frühförderung, Logopädie & Ergotherapie",
+          "metric": "Spezifische Förderung",
+          "summary": "Gezielte therapeutische und heilpädagogische Förderung spezifischer Funktionsbereiche.",
+          "detail": "Bearbeiten gezielt sprachliche, motorische, sensorische oder heilpädagogische Bedarfe (z. B. Komplexleistung nach § 46 SGB IX) und geben auf Wunsch der Eltern praxisnahe Anregungen für den Alltag weiter.",
+          "example": "Abgestimmter Austausch (mit Einwilligung der Eltern) über alltagstaugliche Kommunikationshilfen."
         }
-      ],
-      "kind": "pyramid",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Vom alltagsnahen Handeln bis zur spezialisierten Krisenintervention",
-      "title": "Stufen der Intervention und Krisenbewältigung"
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "6-10 Jahre (Grundschulalter/Hort)",
-    "context": "In einer integrativen Hortgruppe fällt der 8-jährige Leon (Diagnose: Frühe Kindesautismus-Spektrum-Störung, hohe kognitive Begabung) seit Wochen durch zunehmenden Rückzug, stereotype Handlungen bei Lärm sowie plötzliche, heftige Wutausbrüche bei unstrukturierten Übergängen auf. Die Fachkraft steht vor der Aufgabe, die Situation ressourcenorientiert zu analysieren und ein interdisziplinäres Teilhabeplanverfahren nach SGB VIII/IX einzuleiten.",
-    "setting": "Inklusiver Hort / Ganztagsschule",
+    "title": "„Können Sie feststellen, ob Nora Autismus hat?“ – Rollengrenze & Teilhabeplanung",
+    "setting": "Kindertagesstätte „Sonnenberg“",
+    "ageGroup": "5 Jahre",
+    "context": "Die fünfjährige Nora zeigt seit mehreren Monaten in lauten Gruppenphasen und bei unangekündigten Tageswechseln heftige Stressreaktionen: Sie kriecht unter Tische, hält sich die Ohren zu und weint anhaltend. In ruhigen Bausituationen und im Eins-zu-eins-Gespräch ordnet sie dagegen sehr ausdauernd Muster und spricht äußerst detailreich. Im Entwicklungsgespräch fragen ihre verunsicherten Eltern direkt: „Wir haben im Internet über Autismus gelesen – können Sie uns sagen, ob Nora das hat, und direkt beim Jugendamt eine Integrationskraft beantragen?“",
     "steps": [
       {
+        "situation": "Die Eltern erwarten von der Erzieherin eine diagnostische Einschätzung und einen sofortigen Antrag beim Jugendamt.",
+        "prompt": "Wie antwortet und handelt die pädagogische Fachkraft fachlich und rechtlich korrekt?",
         "options": [
           {
-            "feedback": "Das ist optimal. Die Fachkraft erfasst die Situation über eine strukturierte, wertfreie Beobachtung (ABC-Analyse), wertet die Stärken und Interessen von Leon aus und zieht multiprofessionelle Partner sowie die Eltern im Sinne des SGB VIII § 36 (Hilfeplanung) ein, um passgenaue Teilhabeleistungen zu erarbeiten.",
-            "label": "Systematische Beobachtung (ABC-Analyse) durchführen, Eltern und schulische Fachkräfte einbeziehen und gemeinsam einen ressourcenorientierten Hilfeplan nach SGB VIII / SGB IX erarbeiten.",
-            "quality": "optimal",
-            "theoryLink": "Lehrplan RLP S-SP-3; SGB VIII § 36; ICF-basierte Teilhabeplanung"
-          },
-          {
-            "feedback": "Das greift zu kurz. Ein reiner Appell an die Disziplin des Kindes oder das Ignorieren der Ursachen verkennt, dass autistische Verhaltensweisen oft Ausdruck von Überforderung und sensorischer Dysregulation sind. Dies führt zu Stigmatisierung.",
-            "label": "Leon ermahnen, sich in der Gruppe anzupassen, und bei Wutausbrüchen konsequent eine Auszeit im Nebenraum anordnen, um die Gruppe zu schützen.",
+            "label": "Sie bestätigt den Eltern, dass Noras Verhalten „sehr typisch nach Autismus“ aussehe, und füllt gemeinsam mit ihnen formlos ein Schreiben an das Jugendamt aus, ohne weitere Fachstellen zu erwähnen.",
             "quality": "problematisch",
-            "theoryLink": "Kritik an defizitorientierten Etikettierungsprozessen; RLP S-SP-3"
+            "feedback": "Überschreitet klar den pädagogischen Auftrag! Erzieherinnen dürfen keine klinischen Diagnosen stellen oder bestätigen; zudem verlangt § 35a Abs. 1a SGB VIII ohnehin eine qualifizierte ärztliche oder psychotherapeutische Stellungnahme nach ICD.",
+            "theoryLink": "Abgrenzung pädagogischer Auftrag vs. § 35a Abs. 1a SGB VIII (fachärztliche/psychotherapeutische Stellungnahme)"
           },
           {
-            "feedback": "Dies ist ein teilweiser Ansatz. Zwar entlastet der Rückzugort kurzfristig, aber ohne fundierte Diagnostik, Einbezug der Eltern und systematische Ursachenanalyse bleibt die Maßnahme symptomorientiert und greift strukturell zu kurz.",
-            "label": "Dem Kind lediglich einen Rückzugsort anbieten und abwarten, ob sich das Verhalten im Laufe der Wochen von alleine legt.",
+            "label": "Sie beruhigt die Eltern pauschal damit, dass „sich das bis zur Schule schon auswächst“, und rät von jeder weiteren Abklärung ab, um Nora nicht zu stigmatisieren.",
             "quality": "teilweise",
-            "theoryLink": "Grenzen pädagogischer Interventionen ohne Fallverstehen"
+            "feedback": "Die Sorge vor Stigmatisierung ist nachvollziehbar, doch anhaltende Teilhabebarrieren zu bagatellisieren nimmt den Eltern die Chance auf rechtzeitige Beratung, Frühförderung und passende Vorbereitung auf den Schulübergang.",
+            "theoryLink": "Früherkennung besonderer Bedarfe; Ressourcen- und Teilhabeorientierung"
+          },
+          {
+            "label": "Sie grenzt ihre Rolle klar ab (keine medizinisch-psychologische Diagnose durch Kita-Fachkräfte), teilt ihre verhaltensnahen Alltagsbeobachtungen zu Noras Stärken und Überforderungssituationen (ICF-CY-Blick), nennt geeignete Anlaufstellen für eine fachliche Abklärung (Kinderarztpraxis, SPZ, Frühförderstelle) sowie die EUTB und prüft gemeinsam sofort umsetzbare Alltagsentlastungen.",
+            "quality": "optimal",
+            "feedback": "Fachlich absolut sicher! Die Fachkraft wahrt ihre Rollengrenze, vermeidet voreilige Diagnosen, stärkt die Eltern durch sachliche Orientierung (SPZ/Frühförderung/EUTB) und setzt sofort bei beeinflussbaren Umweltbarrieren an.",
+            "theoryLink": "Rollengrenze Pädagogik vs. medizinische Diagnostik; ICF-CY; Kooperation mit SPZ/Frühförderung (§ 46 SGB IX)"
           }
-        ],
-        "prompt": "Wie sollte die pädagogische Fachkraft im ersten Schritt auf die Krisenanzeichen und das herausfordernde Verhalten von Leon reagieren?",
-        "situation": "Leon zeigt in Übergangssituationen massiven Stress und aggressive Durchbrüche, während strukturierte kognitive Angebote fehlerfrei bewältigt werden."
+        ]
       },
       {
+        "situation": "Nach einer Abklärung im SPZ liegt eine fachärztliche Stellungnahme vor; für den weiteren Kita-Alltag und den anstehenden Übergang in die Grundschule sollen Leistungen der Eingliederungshilfe (§ 35a SGB VIII) mit ergotherapeutischer Förderung und schulischer Vorbereitung verknüpft werden. Die SPZ-Therapeutin bittet die Kita telefonisch um den aktuellen Beobachtungsbogen.",
+        "prompt": "Wie gestaltet die Kita die Kooperation, den Datenschutz und die Teilhabebegleitung?",
         "options": [
           {
-            "feedback": "Das ist optimal. Die engmaschige Evaluation im Hilfeplankonvent stellt sicher, dass vereinbarte Nachteilsausgleiche, visuelle Strukturierungshilfen (TEACCH-Ansatz) und Sozialraumressourcen (z. B. Autismus-Ambulanz) wirksam greifen und bei Bedarf angepasst werden.",
-            "label": "Regelmäßige Evaluation des Hilfeplans im Team und mit Eltern, Überprüfung der Umweltfaktoren (Lärm, Reizüberflutung) und Einbindung externer Fachdienste (BTHG/ICF-Orientierung).",
-            "quality": "optimal",
-            "theoryLink": "SGB IX / BTHG; ICF-Modell; Evaluation in der Hilfeplanung"
-          },
-          {
-            "feedback": "Dies ist problematisch. Eine sofortige institutionelle Ausgrenzung oder Abschiebung in eine Sonderschule widerspricht dem Inklusionsgebot der UN-BRK und den Grundsätzen des SGB VIII/IX zur vorrangigen ambulanten und wohnortnahen Unterstützung.",
-            "label": "Feststellen, dass die Einrichtung überfordert ist, und den sofortigen Ausschluss aus dem Hort sowie die Überweisung an eine Förderschule fordern.",
+            "label": "Die Kita zieht sich aus der Förderplanung zurück, weil nach Vorliegen einer medizinischen Diagnose ausschließlich das SPZ und das Jugendamt für Nora zuständig seien.",
             "quality": "problematisch",
-            "theoryLink": "UN-BRK Artikel 24; Inklusionsauftrag im RLP-Lehrplan"
+            "feedback": "Fachlich falsch: Eine medizinische Stellungnahme hebt den inklusiven Bildungs- und Teilhabeauftrag der Kita (§ 22a Abs. 4 SGB VIII) nicht auf – pädagogische Alltagsgestaltung und interdisziplinäre Kooperation bleiben zentral.",
+            "theoryLink": "§ 22a Abs. 4 SGB VIII; interdisziplinäre Kooperation im Sozialraum"
           },
           {
-            "feedback": "Dies ist ein Ansatz, aber unvollständig. Die alleinige Dokumentation im Team reicht nicht aus; ohne aktive Kooperation mit externen Partnern und systematische Anpassung der Teilhabeziele bleibt die Maßnahme wirkungslos.",
-            "label": "Die Beobachtungen intern dokumentieren, aber auf den Einbezug externer Fachdienste verzichten, um die Eltern nicht zu verunsichern.",
+            "label": "Die Kita tauscht Beobachtungen erst nach ausdrücklicher schriftlicher Einwilligung (Schweigepflichtentbindung) der Eltern mit dem SPZ aus, bringt ihre alltagsbezogenen ICF-CY-Beobachtungen konstruktiv in das Hilfe- bzw. Teilhabeplanverfahren (§ 36 SGB VIII / § 19 SGB IX) ein und unterstützt im Alltag mit konkreten Umweltanpassungen (z. B. Übergangsankündigung, visuelle Strukturierung, Rückzugsoption).",
+            "quality": "optimal",
+            "feedback": "Vorbildlich! Datenschutz und Elternsouveränität bleiben gewahrt, die pädagogische Expertise fließt gezielt in die trägerübergreifende Teilhabeplanung ein, und Nachteilsausgleiche werden alltagsnah umgesetzt.",
+            "theoryLink": "§ 35a & § 36 SGB VIII; § 19 SGB IX (Teilhabeplan); Datenschutz & Nachteilsausgleich"
+          },
+          {
+            "label": "Die Fachkraft sendet den Beobachtungsbogen direkt an das SPZ, da die Eltern dort bereits selbst in Behandlung sind, und wartet mit Anpassungen in der Kita ab, bis eine externe Assistenzkraft bewilligt ist.",
             "quality": "teilweise",
-            "theoryLink": "Sozialpädagogisches Fallverstehen und multiprofessionelle Kooperation"
+            "feedback": "Gleich zwei Schwachstellen: Auch bei bestehender Behandlung ist eine konkrete Einwilligung der Eltern für den Austausch zwischen Kita und SPZ erforderlich, und einfache alltagsintegrierte Umweltanpassungen sollten nicht auf Bewilligungsbescheide verschoben werden.",
+            "theoryLink": "Schweigepflicht/Einwilligung an Schnittstellen; alltagsintegrierter Barriereabbau"
           }
-        ],
-        "prompt": "Wie ist im weiteren Verlauf die Zusammenarbeit und Evaluation im Rahmen der Teilhabeplanung zu gestalten?",
-        "situation": "Nach ersten Anpassungen der Raumstruktur stabilisiert sich Leon zeitweise, zeigt jedoch bei neuen Personalwechseln erneut Krisenzeichen."
+        ]
       }
-    ],
-    "title": "Fallbeispiel: Leon im inklusiven Hort – Zwischen Hochbegabung, Autismus und Teilhabebedarf"
+    ]
   },
   "selfLearningTasks": [
-    "Analysieren Sie eine reale oder fiktive Fallvignette eines Kindes mit herausforderndem Verhalten und erstellen Sie eine strukturierte ABC-Analyse sowie einen ressourcenorientierten Förderplan.",
-    "Entwerfen Sie eine Checkliste für Ihre Praxisinrichtung zur Überprüfung von Barrierefreiheit und inklusiven Teilhabemöglichkeiten im Sozialraum.",
-    "Reflektieren Sie in einem kurzen Essay die eigenen Einstellungen zu „Normalität“ und „Abweichung“ im Kontext von Inklusion und Stigmatisierungsprozessen."
+    "Recherchieren Sie in Ihrem Landkreis oder Ihrer Stadt die zuständige interdisziplinäre Frühförderstelle, das nächstgelegene Sozialpädiatrische Zentrum (SPZ) sowie die regionale EUTB-Beratungsstelle und halten Sie deren Zuständigkeiten übersichtlich fest.",
+    "Entwerfen Sie für ein fiktives Kind mit besonderem Teilhabebedarf (z. B. starke Geräuschempfindlichkeit oder motorische Einschränkung) drei alltagsnahe, überprüfbare Teilhabeziele im Sinne der ICF-CY samt je einem konkreten Nachteilsausgleich.",
+    "Erstellen Sie eine kurze Vergleichstabelle, die die rechtlichen Voraussetzungen und Zuständigkeiten von SGB IX Teil 2 (§ 99), § 35a SGB VIII und § 46 SGB IX gegenüberstellt."
   ],
   "flashcards": [
     {
-      "definition": "Ein systematisches Verfahren zur Erfassung der individuellen Lebenslage, der Ressourcen, Risiken und Förderbedarfe eines Kindes als Grundlage für Hilfe- und Teilhabepläne.",
-      "example": "Erstellung eines Förderplans auf Basis von ICF-Kriterien im multiprofessionellen Team.",
-      "term": "Sozialpädagogisches Fallverstehen"
+      "term": "§ 35a SGB VIII (Eingliederungshilfe bei seelischer Behinderung)",
+      "definition": "Regelt den Anspruch von Kindern und Jugendlichen auf Eingliederungshilfe durch das Jugendamt bei zweigliedriger Voraussetzung: (1) Abweichung der seelischen Gesundheit > 6 Monate laut ärztlicher/psychotherapeutischer ICD-Stellungnahme (Abs. 1a) und (2) daraus resultierende oder drohende Teilhabebeeinträchtigung.",
+      "example": "Bewilligung einer Schulbegleitung nach fachärztlicher Stellungnahme und Teilhabeprüfung im Hilfeplanverfahren (§ 36 SGB VIII)."
     },
     {
-      "definition": "Klassifikationsmodell der WHO, das Funktionsfähigkeit, Behinderung und Gesundheit unter Berücksichtigung von Umweltfaktoren und Aktivitäten beschreibt.",
-      "example": "Einschätzung, wie sich ein Klassenraum-Lärmpegel (Umweltfaktor) auf die Partizipation eines Kindes auswirkt.",
-      "term": "ICF (International Classification of Functioning)"
+      "term": "Eingliederungshilfe nach SGB IX Teil 2 (BTHG)",
+      "definition": "Durch das Bundesteilhabegesetz reformierte, personenzentrierte Teilhabeleistungen (§§ 99 ff., 102 SGB IX) für Menschen mit (drohender) wesentlicher körperlicher, geistiger oder Sinnesbehinderung, orientiert am bio-psycho-sozialen Behinderungsbegriff (§ 2 Abs. 1 SGB IX).",
+      "example": "Leistungen zur sozialen Teilhabe oder zur Teilhabe an Bildung wie eine Kita-Assistenz bei körperlicher Behinderung."
     },
     {
-      "definition": "Rechtliches Verfahren nach SGB VIII § 36 zur Beteiligung des Kindes, der Sorgeberechtigten und des Trägers an der Auswahl und Gestaltung von Hilfen zur Erziehung.",
-      "example": "Durchführung eines runden Tisches mit Jugendamt, Eltern und Erzieher:in zur Festlegung von Entwicklungszielen.",
-      "term": "Hilfeplanung (SGB VIII)"
+      "term": "Teilhabeplan (§ 19 SGB IX)",
+      "definition": "Verbindliches Koordinierungsinstrument, wenn Leistungen mehrerer Rehabilitationsträger oder Leistungsgruppen erforderlich sind, damit Hilfen bedarfsorientiert, partizipativ und nahtlos ineinandergreifen.",
+      "example": "Abstimmung zwischen Jugendamt, Eingliederungshilfe und Krankenkasse für ein Kind mit mehrfachem Unterstützungsbedarf."
     },
     {
-      "definition": "Gesetz zur Stärkung der Teilhabe und Selbstbestimmung von Menschen mit Behinderungen, das personenzuschnittene Leistungen und ICF-basierte Teilhabeplanung verankert.",
-      "example": "Beantragung einer Eingliederungshilfe für eine Individualbegleitung im Kita-Alltag.",
-      "term": "BTHG (Bundesteilhabegesetz)"
+      "term": "ICF-CY",
+      "definition": "Version der WHO-Klassifikation ICF speziell für Kinder und Jugendliche (Children and Youth); beschreibt Funktionsfähigkeit und Teilhabe im Zusammenspiel mit Entwicklungsphasen und kindlichen Lebenswelten (Familie, Kita, Schule).",
+      "example": "Analyse, wie visuelle Strukturierung (Umweltfaktor) die eigenständige Teilnahme am Gruppenwechsel (Aktivität/Partizipation) ermöglicht."
     },
     {
-      "definition": "Pädagogisches Handeln, das primär an den vorhandenen Kompetenzen, Interessen und Potenzialen eines Kindes ansetzt, statt Defizite zu zentrieren.",
-      "example": "Nutzen der ausgeprägten Detailgenauigkeit und des Spezialinteresses eines Kindes für ein gemeinsames Gruppenprojekt.",
-      "term": "Ressourcenorientierung"
+      "term": "Komplexleistung Frühförderung (§ 46 SGB IX)",
+      "definition": "Interdisziplinäre Verknüpfung von medizinisch-therapeutischen und heilpädagogischen Leistungen sowie Elternberatung für Kinder mit (drohender) Behinderung ab der Geburt bis zur Einschulung.",
+      "example": "Eine Frühförderstelle koordiniert heilpädagogische Förderung und Logopädie für ein dreijähriges Kind."
     },
     {
-      "definition": "Frühzeitiges Erkennen von physischen, psychischen oder sozialen Stressoren und Verhaltensänderungen, die auf eine drohende Krise hinweisen.",
-      "example": "Beobachten von Schlafdefizit, sozialem Rückzug und Aggression als Vorboten eines Burnout- oder Depressionsschubs bei Jugendlichen.",
-      "term": "Krisenfrüherkennung"
+      "term": "Nachteilsausgleich",
+      "definition": "Anpassung äußerer Rahmenbedingungen, Hilfsmittel, Darstellungsformen oder Zeitstrukturen zum Ausgleich beeinträchtigungsbedingter Barrieren – ohne fachliche Teilhabeansprüche pauschal abzusenken.",
+      "example": "Reizarmer Arbeitsplatz, größere Schrift oder mündliche Antwortmöglichkeit für ein Kind mit motorischer oder visueller Beeinträchtigung."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Das SGB VIII § 36 regelt verbindlich die Hilfeplanung in der Kinder- und Jugendhilfe unter Beteiligung der Personensorgeberechtigten und des jungen Menschen.",
-      "id": "q1",
+      "question": "Welche beiden Voraussetzungen müssen nach § 35a Abs. 1 SGB VIII für eine Eingliederungshilfe durch das Jugendamt kumulativ erfüllt sein?",
       "options": [
-        "SGB XII § 53ff.",
-        "SGB VIII § 36",
-        "SGB V § 20",
-        "SGB IX § 99"
+        "Ein ärztliches Rezept für Logopädie und der Besuch einer Förderschule.",
+        "Ein festgestellter Grad der Behinderung von mindestens 50 und stationäre Unterbringung.",
+        "Ausschließlich eine schriftliche Einschätzung der Kita-Leitung ohne weitere fachliche Stellungnahme.",
+        "Eine mit hoher Wahrscheinlichkeit länger als sechs Monate bestehende Abweichung der seelischen Gesundheit (belegt durch fachliche Stellungnahme nach Abs. 1a) UND eine daraus folgende oder zu erwartende Beeinträchtigung der gesellschaftlichen Teilhabe."
       ],
-      "question": "Welcher Paragraf des Sozialgesetzbuches (SGB) regelt die Grundsätze der Hilfeplanung in der Kinder- und Jugendhilfe?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
-        0,
-        2
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Das ICF-Modell betrachtet Behinderung und Teilhabe im Wechselspiel von Körperfunktionen/-strukturen, Aktivitäten, Partizipation und umweltbezogenen Faktoren (Barrieren/Förderfaktoren). Das rein medizinische Modell wird überwunden.",
-      "id": "q2",
-      "options": [
-        "Berücksichtigung von Umweltfaktoren und Barrieren",
-        "Ausschließlicher Fokus auf organische Defizite und Heilung",
-        "Wechselwirkung zwischen Gesundheit und sozialer Partizipation",
-        "Strikte Trennung von Diagnostik und pädagogischem Alltag"
-      ],
-      "question": "Welche zentralen Merkmale zeichnen das biopsychosoziale Modell der ICF (International Classification of Functioning) aus? (Mehrere Antworten sind richtig)",
-      "type": "multi"
-    },
-    {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Hochbegabung äußert sich oft asynchron (kognitiv weit voraus, emotional-sozial altersentsprechend oder sensibel), was bei Unterforderung zu Langeweile, Frustration oder stereotypem/abweichendem Verhalten führen kann. Eine defizitäre Einordnung verkennt die Begabung.",
-      "id": "q3",
-      "options": [
-        "Hochbegabte Kinder zeigen stets in allen Entwicklungsbereichen (motorisch, emotional, kognitiv) ein gleichermaßen beschleunigtes Niveau.",
-        "Herausforderndes Verhalten bei Hochbegabung ist immer auf mangelnde elterliche Erziehung zurückzuführen.",
-        "Asynchrone Entwicklung und Unterforderung können bei hochbegabten Kindern zu Frustration und herausforderndem Verhalten führen, das ressourcenorientiert aufgefangen werden muss.",
-        "Hochbegabung schützt vor jeglichen sozial-emotionalen Krisen und Entwicklungsverzögerungen."
-      ],
-      "question": "Welche fachliche Aussage trifft auf die Förderung von Kindern mit Hochbegabung im Rahmen besonderer Bedarfe zu?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Die ABC-Analyse (Antecedent - Behavior - Consequence) ist ein verhaltenstheoretisches Beobachtungsinstrument zur Erfassung von Auslösern, dem eigentlichen Verhalten und den aufrechterhaltenden Bedingungen im Kontext, ideal für das Fallverstehen.",
-      "id": "q4",
-      "options": [
-        "Ein standardisierter Intelligenztest zur Bestimmung des IQ-Wertes im Hortalltag.",
-        "Ein verhaltenstheoretisches Beobachtungsschema zur Erfassung von Auslösern (Antecedent), Verhalten (Behavior) und Konsequenzen (Consequence).",
-        "Ein bürokratisches Formblatt des Jugendamtes zur Abrechnung von Eingliederungshilfen.",
-        "Ein medizinischer Diagnosebogen zur Früherkennung chronischer Infektionskrankheiten."
-      ],
-      "question": "Ein 7-jähriges Kind zeigt in der Einrichtung wiederkehrende Wutausbrüche. Die Fachkraft führt eine ABC-Analyse durch. Worum handelt es sich dabei?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        0,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Zu den typischen Frühextremen und Warnzeichen gehören sozialer Rückzug, Leistungsabfall, plötzliche Schlaf- oder Essveränderungen, selbstverletzendes Verhalten oder drastische Wesensveränderungen. Sie erfordern zeitnahe präventive Interventionen und Kooperation.",
-      "id": "q5",
-      "options": [
-        "Plötzlicher sozialer Rückzug und drastische Veränderung des Kommunikationsverhaltens",
-        "Altersgemäße Neugierde und Freude am Explorieren neuer Spielbereiche",
-        "Konstruktives Konfliktlösen in Streitgesprächen mit Gleichaltrigen",
-        "Auffällige Stimmungsschwankungen, Ängstlichkeit oder autoaggressives Verhalten"
-      ],
-      "question": "Welche Verhaltensweisen und Signale gelten als wichtige Frühwarnzeichen für Krisen bei Kindern und Jugendlichen? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "§ 35a SGB VIII verlangt eine zweigliedrige Prüfung: die gesundheitliche Abweichung (> 6 Monate, fachärztliche/psychotherapeutische Stellungnahme nach ICD gemäß Abs. 1a) UND die durch das Jugendamt zu prüfende Teilhabebeeinträchtigung."
     },
     {
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Wie grenzen sich Eingliederungshilfe nach SGB IX Teil 2 (§ 99 ff.) und Eingliederungshilfe nach § 35a SGB VIII im Regelfall voneinander ab?",
+      "options": [
+        "SGB IX gilt ausschließlich für Kinder unter drei Jahren, § 35a SGB VIII nur für Erwachsene.",
+        "§ 35a SGB VIII gilt ausschließlich für körperliche Behinderungen im Schulalter.",
+        "SGB IX Teil 2 regelt Leistungen der Eingliederungshilfe für Menschen mit körperlicher, geistiger oder Sinnesbehinderung über den Träger der Eingliederungshilfe; § 35a SGB VIII regelt Eingliederungshilfe für Kinder und Jugendliche mit seelischer Behinderung über das Jugendamt.",
+        "Beide Normen wurden durch das BTHG abgeschafft."
+      ],
       "correctIndices": [
         2
       ],
-      "difficulty": "pruefung",
-      "explanation": "Das BTHG stärkt die Selbstbestimmung und personenzentrierte Teilhabe von Menschen mit Behinderungen; Hilfen sollen passgenau auf die Lebenswelt zugeschnitten und Barrieren im Sozialraum abgebaut werden.",
-      "id": "q6",
+      "explanation": "Im gegliederten Sozialrecht ist das Jugendamt nach § 35a SGB VIII für seelische Behinderungen bei Kindern und Jugendlichen zuständig, während körperliche, geistige und Sinnesbehinderungen (sowie Mehrfachbehinderungen) über die Eingliederungshilfe nach Teil 2 des SGB IX abgedeckt werden."
+    },
+    {
+      "id": "v2-q3",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Wann ist ein trägerübergreifendes Teilhabeplanverfahren nach § 19 SGB IX vorgesehen?",
       "options": [
-        "Die Verpflichtung zur stationären Unterbringung aller Kinder mit Förderbedarf in spezialisierten Anstalten.",
-        "Die finanzielle Entlastung der Kommunen durch Reduzierung von Jugendhilfen.",
-        "Die Stärkung von Selbstbestimmung, Personenzentrierung und barrierefreier Teilhabe im Sozialraum nach dem Motto 'Reha vor Pflege / ambulant vor stationär'.",
-        "Die Verlagerung der pädagogischen Verantwortung ausschließlich an medizinische Fachärzte."
+        "Immer dann, wenn Leistungen mehrerer Rehabilitationsträger oder verschiedener Leistungsgruppen erforderlich sind, um diese nahtlos abzustimmen.",
+        "Nur dann, wenn Eltern eine Zusammenarbeit mit der Kita ablehnen.",
+        "Ausschließlich für die Abrechnung von Kita-Verpflegungskosten.",
+        "Erst ab dem vollendeten 18. Lebensjahr."
       ],
-      "question": "Was ist ein Kernanliegen des Bundesteilhabegesetzes (BTHG) im Kontext sozialpädagogischer Arbeit?",
-      "type": "single"
+      "correctIndices": [
+        0
+      ],
+      "explanation": "Der Teilhabeplan nach § 19 SGB IX koordiniert bedarfsdeckende Leistungen über Trägergrenzen hinweg („wie aus einer Hand“), sobald mehrere Reha-Träger oder Leistungsgruppen beteiligt sind."
+    },
+    {
+      "id": "v2-q4",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Aussagen beschreiben die professionelle Rollengrenze zwischen sozialpädagogischer Arbeit und medizinisch-therapeutischer Diagnostik korrekt?",
+      "options": [
+        "Sobald eine Fachkraft im Alltag deutliche Hinweise bemerkt, sollte sie den Eltern eine vorläufige klinische Diagnose benennen, damit der Antrag schneller geht.",
+        "Erzieherinnen und Erzieher erstellen verhaltensnahe Alltagsbeobachtungen zu Stärken, Aktivitäten und Umweltbarrieren (ICF-CY).",
+        "Medizinische oder psychologische Diagnosen (z. B. nach ICD) dürfen ausschließlich von entsprechend qualifizierten Ärztinnen, Psychotherapeutinnen oder SPZ gestellt werden.",
+        "Der Austausch mit externen Therapeutinnen oder Frühförderstellen erfordert eine ausdrückliche Einwilligung (Schweigepflichtentbindung) der Sorgeberechtigten."
+      ],
+      "correctIndices": [
+        1,
+        2,
+        3
+      ],
+      "explanation": "Sozialpädagogische Fachkräfte leisten unersetzliche Alltagsbeobachtung, Beziehungsarbeit und Barriereabbau, stellen aber niemals medizinisch-klinische Diagnosen und achten bei jeder interdisziplinären Vernetzung strikt auf die Einwilligung der Sorgeberechtigten."
+    },
+    {
+      "id": "v2-q5",
+      "type": "single",
+      "difficulty": "pruefung",
+      "question": "Was versteht man unter der „Komplexleistung“ nach § 46 SGB IX?",
+      "options": [
+        "Die rein finanzielle Auszahlung von Kindergeld an Familien mit Behinderung.",
+        "Die abgestimmte Verbindung von medizinisch-therapeutischen und heilpädagogischen Leistungen sowie Elternberatung in interdisziplinären Frühförderstellen oder vergleichbaren Diensten bis zur Einschulung.",
+        "Eine verpflichtende stationäre Unterbringung bei chronischer Erkrankung.",
+        "Ein schulisches Benotungssystem für Kinder mit Hochbegabung."
+      ],
+      "correctIndices": [
+        1
+      ],
+      "explanation": "§ 46 SGB IX verankert die interdisziplinäre Komplexleistung zur Früherkennung und Frühförderung (medizinisch-therapeutisch + heilpädagogisch + Elternberatung) von der Geburt bis zur Einschulung."
+    },
+    {
+      "id": "v2-q6",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Praxisfall: Ein neunjähriges Kind im Hort hat eine diagnostizierte Lese-Rechtschreib-Schwierigkeit und reagiert bei schriftlichen Spielregeln und Hausaufgaben zunehmend frustriert. Welche Maßnahme stellt einen fachlich passenden Nachteilsausgleich dar?",
+      "options": [
+        "Die Fachkraft nutzt zusätzlich mündliche Erklärungen und Bildsymbole für Spielregeln, gewährt eine reizarme Hausaufgaben-Umgebung mit ausreichend Zeit und stimmt sich mit Einwilligung der Eltern mit der Grundschule ab.",
+        "Das Kind wird von allen Regelspielen ausgeschlossen, damit es nicht überfordert wird.",
+        "Die Fachkraft lässt das Kind täglich zusätzliche Diktate abschreiben, um das Defizit rasch auszugleichen.",
+        "Die Fachkraft übernimmt die Hausaufgaben vollständig für das Kind, damit keine Fehler entstehen."
+      ],
+      "correctIndices": [
+        0
+      ],
+      "explanation": "Nachteilsausgleich baut konkrete Zugangsbarrieren durch veränderte Darstellungsformen, Hilfsmittel und Rahmenbedingungen ab, wahrt Selbstständigkeit und Teilhabe und grenzt sich sowohl von Ausgrenzung als auch von Überbehütung ab."
+    }
+  ],
+  "sources": [
+    {
+      "title": "SGB VIII § 35a – Eingliederungshilfe für Kinder und Jugendliche mit seelischer Behinderung",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__35a.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Zweigliedrige Anspruchsvoraussetzungen und Pflicht zur ICD-Stellungnahme (Abs. 1a)"
+    },
+    {
+      "title": "SGB VIII § 36 – Mitwirkung, Hilfeplan",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__36.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Rechtsgrundlage für partizipative Hilfeplanung im Zusammenwirken mehrerer Fachkräfte"
+    },
+    {
+      "title": "SGB IX § 2 – Begriffsbestimmungen (bio-psycho-sozialer Behinderungsbegriff)",
+      "url": "https://www.gesetze-im-internet.de/sgb_9_2018/__2.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Gesetzliche Definition von Behinderung als Wechselwirkung mit Barrieren (BTHG)"
+    },
+    {
+      "title": "SGB IX § 19 – Teilhabeplan",
+      "url": "https://www.gesetze-im-internet.de/sgb_9_2018/__19.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Trägerübergreifende Bedarfsermittlung und nahtlose Leistungsabstimmung"
+    },
+    {
+      "title": "SGB IX § 46 – Früherkennung und Frühförderung (Komplexleistung)",
+      "url": "https://www.gesetze-im-internet.de/sgb_9_2018/__46.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Rechtsgrundlage für interdisziplinäre Frühförderung bis zur Einschulung"
+    },
+    {
+      "title": "SGB IX § 99 – Leistungsberechtigter Personenkreis der Eingliederungshilfe",
+      "url": "https://www.gesetze-im-internet.de/sgb_9_2018/__99.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Eingliederungshilfe nach Teil 2 SGB IX (BTHG)"
+    },
+    {
+      "title": "ICF – Internationale Klassifikation der Funktionsfähigkeit, Behinderung und Gesundheit",
+      "url": "https://www.bfarm.de/DE/Kodiersysteme/Klassifikationen/ICF/_node.html",
+      "publisher": "Bundesinstitut für Arzneimittel und Medizinprodukte (BfArM)",
+      "note": "Amtliche Informationen zur ICF und zum bio-psycho-sozialen Modell"
+    },
+    {
+      "title": "Ergänzende unabhängige Teilhabeberatung (EUTB)",
+      "url": "https://www.teilhabeberatung.de/",
+      "publisher": "Fachstelle Teilhabeberatung (BMAS-gefördert)",
+      "note": "Kostenfreie, unabhängige Orientierungs- und Beratungsangebote für Familien im Teilhaberecht"
     }
   ]
 }

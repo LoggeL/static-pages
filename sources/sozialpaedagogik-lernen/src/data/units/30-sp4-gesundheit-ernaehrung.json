@@ -4,8 +4,10 @@
   "moduleCode": "S-SP-4",
   "moduleArea": "sp-pflicht",
   "bildungsbereich": "Gesundheit",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-4 · Bildungsbereich Gesundheit, Ernährung & Pflege (Lehrplan RLP 2024)",
   "title": "Bildungsbereich: Gesundheit, Ernährung & Pflege",
-  "subtitle": "DGE-Standards, kultursensible Esskultur, beziehungsvolle Pflege, Hygiene & IfSG",
+  "subtitle": "Salutogenese (Antonovsky), Esskultur ohne Zwang, DGE-Qualitätsstandard, beziehungsvolle Pflege & IfSG",
   "year": "1. Jahr",
   "estimatedMinutes": 25,
   "hoursRef": "680 Std. (Bildungsbereich)",
@@ -13,414 +15,437 @@
   "crossCuttingTags": [
     "Prävention",
     "BNE",
-    "Inklusion"
+    "Partizipation"
   ],
-  "summary": "Einheit 30 vermittelt angehenden Erzieher:innen ein ganzheitliches Gesundheitsverständnis, fundiertes ernährungswissenschaftliches Wissen nach DGE-Standards sowie Handlungssicherheit in der beziehungsvollen Pflege und im Infektionsschutzrecht (IfSG). Die Studierenden reflektieren ihre Vorbildrolle und lernen, gesundheitsfördernde, kultursensible und selbstbestimmte Lernumgebungen zu gestalten.",
+  "summary": "Gesundheitsförderung in Kita, Hort und Jugendhilfe geht weit über Krankheitsvermeidung hinaus: Ausgehend vom Modell der Salutogenese (Aaron Antonovsky) verbindet diese Einheit eine genussvolle, partizipative Esskultur ohne Zwang oder Belohnung mit dem DGE-Qualitätsstandard für die Verpflegung in Kitas, beziehungsvoller Pflege (Emmi Pikler), Bewegung/Entspannung, Körperhygiene sowie rechtssicherem Handeln nach Infektionsschutzgesetz (§§ 34, 36 IfSG) und LMIV.",
   "learningGoals": [
-    "Ich kann mein eigenes gesundheitliches Verständnis und meine Vorbildfunktion in Bezug auf Ernährung, Bewegung und Lebensführung reflektieren und professionell gestalten.",
-    "Ich kann gesundheitliche Gefahren, schädigende Umwelteinflüsse sowie Entwicklungsauffälligkeiten bei Kindern und Jugendlichen erkennen und adäquate Lösungsmöglichkeiten aufzeigen.",
-    "Ich kann lebenspraktische, pflegerische und gesundheitsfördernde Tätigkeiten (wie die beziehungsvolle Pflege nach Pikler) empathisch, zugewandt und fachlich fundiert durchführen.",
-    "Ich kann ernährungswissenschaftliche Erkenntnisse und die DGE-Qualitätsstandards für eine ausgewogene, gesundheitsförderliche Gemeinschaftsverpflegung im pädagogischen Alltag umsetzen.",
-    "Ich kann Essenssituationen als bedeutsame, kultursensible und selbstbestimmte Lern- und Sozialfelder gestalten.",
-    "Ich kann rechtliche Bestimmungen wie das Infektionsschutzgesetz (IfSG), das Lebensmittelrecht (LMIV) und einrichtungsbezogene Hygienepläne sicher anwenden."
+    "Ich kann das Modell der Salutogenese (Aaron Antonovsky: Gesundheits-Krankheits-Kontinuum und Kohärenzgefühl) erklären und in gesundheitsförderliches pädagogisches Handeln übersetzen.",
+    "Ich kann Mahlzeiten partizipativ, kultursensibel und frei von Essenszwang, Probierdruck oder Belohnungssystemen gestalten.",
+    "Ich kann zentrale Anforderungen des DGE-Qualitätsstandards für die Verpflegung in Kitas (inkl. Nachhaltigkeit und Getränkeangebot) fachlich begründen und anwenden.",
+    "Ich kann pflegerische Tätigkeiten (beziehungsvolle Pflege nach Pikler), Körperhygiene sowie den Wechsel von Bewegung und Entspannung gesundheitsförderlich begleiten.",
+    "Ich kann die wesentlichen rechtlichen Vorgaben im Gesundheitsschutz (§§ 34 und 36 IfSG, Hygieneplan, HACCP, Allergenkennzeichnung nach LMIV) rechtssicher im Alltag umsetzen."
   ],
   "sections": [
     {
-      "body": "Gesundheit wird in der modernen Sozialpädagogik nicht mehr nur als bloße Abwesenheit von Krankheit verstanden, sondern als ein dynamischer, ganzheitlicher Prozess des physischen, psychischen und sozialen Wohlbefindens (WHO-Definition). Erzieher:innen tragen als ‚Bachelor Professional in Sozialwesen‘ eine hohe Verantwortung und Vorbildfunktion: Kinder orientieren sich stark an den Vorlieben, Haltungen und Gewohnheiten ihrer Bezugspersonen. Eine bewusste, gesundheits- und umweltbewusste Lebensführung im Berufsalltag prägt das Gesundheitsbewusstsein der Kinder nachhaltig. Dabei verknüpft die Verhaltensprävention gezielt persönliche Kompetenzen (z. B. Ernährungs- und Bewegungsgewohnheiten) mit strukturellen Maßnahmen der Verhältnisprävention im Lebensraum Kita oder Schule.",
+      "heading": "Salutogenese nach Aaron Antonovsky & Setting-Gesundheitsförderung",
+      "keyTakeaway": "Salutogenese fragt nicht nur, was krank macht, sondern vor allem, welche Ressourcen und Erfahrungen Kinder gesund und widerstandsfähig halten.",
+      "body": "Während die klassische Medizin lange primär pathogenetisch nach Krankheitsursachen fragte, richtete der Medizinsoziologe Aaron Antonovsky mit dem Modell der Salutogenese den Blick darauf, wie Gesundheit entsteht und erhalten bleibt. Gesundheit und Krankheit bilden demnach keine starren Gegensätze, sondern ein dynamisches Kontinuum, auf dem sich jeder Mensch lebenslang bewegt. Zentral ist das Kohärenzgefühl (Sense of Coherence) – eine grundlegende Zuversicht, die aus drei zusammenwirkenden Erfahrungen wächst: Verstehbarkeit (Alltagsabläufe und Anforderungen sind für das Kind durchschaubar und vorhersehbar), Handhabbarkeit (das Kind erlebt eigene Fähigkeiten und verlässliche Unterstützung zur Bewältigung von Herausforderungen) und Bedeutsamkeit (es darf mitentscheiden und spürt, dass sein Handeln Sinn ergibt). Im Lebenswelt-Setting Kita oder Hort greifen dabei Verhaltensprävention (Stärkung individueller Kompetenzen wie Ernährung, Bewegung, Hygiene und Stressregulation) und Verhältnisprävention (gesundheitsförderliche Gestaltung von Räumen, Lärmschutz, Tagesrhythmus, Verpflegung und Teamgesundheit) ineinander. Zugleich prägen Fachkräfte durch eine reflektierte, authentische Vorbildrolle das Gesundheitsbewusstsein der Kinder.",
       "bulletPoints": [
-        "Ganzheitliches Gesundheitsverständnis nach der WHO (physisch, psychisch, sozial).",
-        "Reflexion der eigenen Vorbildfunktion und professionellen Haltung.",
-        "Verknüpfung von Verhaltens- und Verhältnisprävention im Alltag.",
-        "Früherkennung von gesundheitlichen Gefahren und umweltbedingten Belastungen."
+        "Gesundheits-Krankheits-Kontinuum: Gesundheit als aktiver, lebenslanger Balanceprozess (WHO & Antonovsky).",
+        "Kohärenzgefühl stärken: Verstehbarkeit (klare Strukturen), Handhabbarkeit (Selbstwirksamkeit) und Bedeutsamkeit (Partizipation).",
+        "Verhaltens- & Verhältnisprävention verbinden: Persönliche Kompetenzen und strukturelle Rahmenbedingungen gemeinsam entwickeln.",
+        "Vorbildrolle & Fachkräftegesundheit: Eigene Haltung zu Essen, Trinken, Pausen und Stressbewältigung bewusst reflektieren."
       ],
-      "heading": "Ganzheitliches Gesundheitsverständnis & eigene Vorbildrolle",
-      "keyTakeaway": "Gesundheit ist ein ganzheitlicher Prozess, in dem pädagogische Fachkräfte durch ihre eigene Haltung und Vorbildfunktion maßgeblich das gesundheitliche Bewusstsein von Kindern prägen.",
-      "praxisTip": "Reflektieren Sie im Team regelmäßig Ihre eigenen Ess-, Trink- und Bewegungsgewohnheiten im Kita-Alltag und gestalten Sie das Vorbildverhalten bewusst transparent (z. B. gemeinsames Wassertrinken, wertschätzende Pausenkultur)."
+      "praxisTip": "Prüfen Sie Ihren Gruppenalltag aus Sicht des Kohärenzgefühls: Wissen die Kinder durch klare, visuelle Tagesstrukturen, was als Nächstes kommt (Verstehbarkeit), und dürfen sie ihren Alltag konkret mitgestalten (Bedeutsamkeit)?"
     },
     {
-      "body": "Pflegehandlungen wie das Wickeln, Anziehen oder Füttern sind in der Sozialpädagogik keine rein funktionalen ‚Verrichtungstätigkeiten‘, sondern hochsensible beziehungsvolle Interaktionssituationen. Nach dem entwicklungspsychologischen Ansatz von Emmi Pikler wird das Kind als aktiver, kompetenter Partner einbezogen: Jede Handlung wird verbal angekündigt, auf Signale und Kooperation gewartet und ungeteilte Aufmerksamkeit geschenkt. Dies stärkt das Körpergefühl, die Selbstwirksamkeit und das Vertrauen des Kindes. Ergänzend erfordert das Erkennen gesundheitlicher Gefahren und Entwicklungsstörungen eine geschulte Beobachtungsgabe der Fachkraft, um präventiv oder intervenierend (z. B. bei Umweltbelastungen oder Allergien) tätig zu werden.",
+      "heading": "Esskultur ohne Zwang oder Belohnung & Partizipation bei Mahlzeiten",
+      "keyTakeaway": "Erwachsene verantworten das ausgewogene Angebot und die Atmosphäre – das Kind entscheidet über Hunger, Sättigung und Tempo.",
+      "body": "Mahlzeiten sind keine reine Nahrungsaufnahme, sondern zentrale Bildungs-, Beziehungs- und Kulturräume. Für eine gesunde Entwicklung des Essverhaltens ist eine klare pädagogische Aufgabenteilung bewährt (angelehnt an das Konzept der geteilten Verantwortung nach Ellyn Satter sowie die Empfehlungen der DGE): Pädagogische Fachkräfte und Einrichtung verantworten das Was, Wann und Wo – also ein vollwertiges, abwechslungsreiches Angebot in ruhiger, einladender Atmosphäre. Das Kind hingegen entscheidet selbstbestimmt über das Ob und Wie viel. Jeder Essenszwang („Es wird gegessen, was auf den Tisch kommt“, „Der Teller muss leer sein“), Probierdruck („Einen Löffel musst du aber!“) sowie der Einsatz von Essen als Belohnung oder Strafe („Nachtisch gibt es erst, wenn das Gemüse weg ist!“) untergraben die angeborene Hunger- und Sättigungsregulation und können dauerhaft Abneigungen oder problematisches Essverhalten begünstigen. Viel wirksamer sind neugieriges Vorbildverhalten, entspannte Tischgespräche, wiederholtes zwangloses Kennenlernen neuer Lebensmittel (Mere-Exposure-Effekt) und echte Partizipation – etwa im Kinderrestaurant, durch selbstständiges Schöpfen kleiner Probiermengen, gemeinsames Tischdecken und Mitsprache bei der Speiseplangestaltung. Kultursensible Esskultur achtet zudem religiöse, familiäre und gesundheitliche Speisegebote (z. B. vegetarisch, halal, Allergien) selbstverständlich und ohne Stigmatisierung.",
       "bulletPoints": [
-        "Pikler-Impulse: Beziehungsvolle Pflege als dialogische Interaktion.",
-        "Aktive Beteiligung und Kooperation des Kindes statt passiver Manipulation.",
-        "Förderung von Körperbewusstsein und Selbstwirksamkeit.",
-        "Früherkennung von Entwicklungsauffälligkeiten und gesundheitlichen Risiken."
+        "Geteilte Verantwortung: Fachkräfte gestalten Angebot, Rhythmus und Atmosphäre – Kinder regulieren Hunger, Sättigung und Menge selbst.",
+        "Kein Zwang, kein Belohnen mit Essen: Aufessen-Gebote, Probierzwang und Süßigkeiten als Druckmittel stören Körpersignale.",
+        "Partizipation leben: Kinderrestaurant, selbstständiges Auftun kleiner Portionen, Tischdienst und Mitbestimmung bei Essenswünschen.",
+        "Kultursensibilität & Inklusion: Religiöse, weltanschauliche und allergiebedingte Besonderheiten wertschätzend in den gemeinsamen Tisch integrieren."
       ],
-      "heading": "Beziehungsvolle Pflege & Erkennen gesundheitlicher Gefahren",
-      "keyTakeaway": "Pflegerische Tätigkeiten nach Emmi Pikler sind keine reinen Routinearbeiten, sondern wertvolle Beziehungs- und Entwicklungsräume für das Kind.",
-      "praxisTip": "Kündigen Sie beim Wickeln oder Umziehen jeden Handgriff sprachlich an (z. B. „Jetzt ziehe ich dir den linken Ärmel an“) und warten Sie auf die Reaktion des Kindes, um echte Mitbestimmung zu ermöglichen."
+      "praxisTip": "Ermöglichen Sie Kindern beim Auftun das Prinzip „Erst wenig nehmen, jederzeit nachholen dürfen“ – das schützt vor Überforderung, stärkt das Sättigungsgefühl und reduziert ganz nebenbei Lebensmittelverschwendung (BNE)."
     },
     {
-      "body": "Eine ausgewogene Gemeinschaftsverpflegung im pädagogischen Umfeld orientiert sich an den wissenschaftlichen Qualitätsstandards der Deutschen Gesellschaft für Ernährung (DGE). Diese sichern eine nährstoffoptimierte, kindgerechte und abwechslungsreiche Verpflegung. Gleichzeitig ist die Essenssituation ein zentrales pädagogisches Handlungsfeld: Sie muss kultursensibel gestaltet werden, indem religiöse, kulturelle oder gesundheitliche Speisegebote (z. B. Verzicht auf bestimmte Lebensmittel, Allergien nach LMIV) wertschätzend berücksichtigt werden. Durch den Verzicht auf Essenszwang und die Ermöglichung von Selbstbestimmung bei Portionsgrößen und Auswahl entwickeln Kinder ein gesundes, eigenverantwortliches Verhältnis zu Nahrung und Genuss.",
+      "heading": "DGE-Qualitätsstandard für die Verpflegung in Kitas (FIT KID)",
+      "keyTakeaway": "Der DGE-Qualitätsstandard verbindet kindgerechte Nährstoffversorgung mit Genuss, Ernährungsbildung und Nachhaltigkeit.",
+      "body": "Für die Gemeinschaftsverpflegung in Kindertageseinrichtungen bildet der wissenschaftlich fundierte „DGE-Qualitätsstandard für die Verpflegung in Kitas“ (Deutsche Gesellschaft für Ernährung / Initiative FIT KID) die zentrale fachliche Orientierung. Er umfasst nicht nur das Mittagessen, sondern auch Frühstück, Zwischenmahlzeiten und Getränke. Inhaltlich setzt der Standard auf eine pflanzenbetonte, abwechslungsreiche und nachhaltige Lebensmittelauswahl: Täglich sollen reichlich Gemüse (auch Rohkost/Salat), Obst, Vollkornprodukte und ungesüßte Getränke (vor allem Leitungswasser, Mineralwasser und ungesüßte Kräuter-/Früchtetees) verfügbar sein. Milch und Milchprodukte ergänzen den Plan täglich in moderater Menge, Hülsenfrüchte regelmäßig, während Fleisch, Wurstwaren sowie stark verarbeitete, zucker-, salz- oder fettreiche Produkte deutlich begrenzt bleiben; Seefisch wird in der Regel einmal wöchentlich empfohlen, zudem stehen stets vollwertige vegetarische Optionen bereit. Neben den Speisenqualitäten verankert der Standard ausdrücklich auch Nachhaltigkeitskriterien (saisonale, regionale Produkte, Vermeidung von Speiseabfällen) sowie pädagogische Rahmenbedingungen wie angenehme Raumakustik, kindgerechtes Geschirr und ausreichende Essenszeit.",
       "bulletPoints": [
-        "Umsetzung der DGE-Qualitätsstandards für die Gemeinschaftsverpflegung.",
-        "Kultursensibler und wertschätzender Umgang mit Essgewohnheiten.",
-        "Allergenkennzeichnung und rechtliche Vorgaben nach der LMIV.",
-        "Selbstbestimmung beim Essen ohne Zwang zur Förderung eines gesunden Sättigungsgefühls."
+        "Gesamtes Verpflegungsangebot: Kriterien für Frühstück, Mittagessen, Zwischenmahlzeiten und ständig verfügbares Wasser/ungesüßten Tee.",
+        "Pflanzenbetonte Auswahl: Täglich Gemüse, Obst und Vollkornprodukte; moderater Anteil tierischer Produkte, wenig Zucker und Salz.",
+        "Nachhaltigkeit (BNE): Saisonale und regionale Lebensmittel, pflanzliche Vielfalt und bewusste Reduktion von Lebensmittelabfällen.",
+        "Lebenswelt & Qualitätssicherung: Essatmosphäre, pädagogische Begleitung, Elterninformation und mögliche FIT-KID-/DGE-Zertifizierung."
       ],
-      "heading": "Ernährungswissenschaft & kultursensible Essenssituationen (DGE)",
-      "keyTakeaway": "Die Essenssituation nach DGE-Standards ist weit mehr als Nahrungsaufnahme – sie ist ein inklusiver, kultursensibler Lernort für Selbstbestimmung und Genuss.",
-      "praxisTip": "Führen Sie ein „Kinderrestaurant“ ein, in dem Kinder in einem flexiblen Zeitfenster selbst entscheiden, wann und mit wem sie essen, und sich ihre Portionen – unterstützt durch visuelle Hilfen – eigenständig nehmen."
+      "praxisTip": "Stellen Sie im Gruppenraum dauerhaft eine für Kinder selbstständig nutzbare Wasser-Trinkstation mit kindgerechten Gläsern bereit – so wird regelmäßiges Wassertrinken zur selbstverständlichen Routine."
     },
     {
-      "body": "Der rechtliche Rahmen der Gesundheitsfürsorge in Kindertageseinrichtungen und Schulen ist streng geregelt und erfordert von pädagogischen Fachkräften hohe Handlungssicherheit. Das Infektionsschutzgesetz (IfSG) – insbesondere § 34 – definiert verbindliche Betretungsverbote und Meldepflichten bei ansteckenden Infektionskrankheiten (z. B. Magen-Darm-Infekte, Masern, Läuse), um Epidemien in Gemeinschaftseinrichtungen vorzubeugen. Ergänzend dazu sind einrichtungsbezogene Hygienepläne nach Infektionsschutzrecht und Lebensmittelrecht (HACCP-Konzept, LMIV) präzise umzusetzen. Fachkräfte müssen Risiken erkennen, Hygienestandards (Händewaschen, Flächenreinigung, Kühlketten) einhalten und bei Ausbrüchen eng mit Gesundheitsämtern und Sorgeberechtigten kooperieren.",
+      "heading": "Beziehungsvolle Pflege, Körperhygiene, Entspannung & Infektionsschutzrecht",
+      "keyTakeaway": "Empathische Pflege nach Pikler, kindgerechte Hygiene und rechtssichere Umsetzung von IfSG und LMIV schützen Kinder körperlich wie seelisch.",
+      "body": "Gesundheitsförderung zeigt sich ebenso in täglichen Pflege-, Hygiene- und Ruhesituationen. Nach Emmi Pikler sind Wickeln, Anziehen oder Naseputzen keine beiläufigen Funktionsabläufe, sondern hochsensible Beziehungsmomente: Die Fachkraft schenkt ungeteilte Aufmerksamkeit, kündigt jeden Handgriff sprachlich an, lädt das Kind zur aktiven Kooperation ein und wahrt konsequent seine Intimsphäre (z. B. sichtgeschützter Wickelbereich, Einverständnis achten). Altersgerechte Körperhygiene (gründliches Händewaschen mit Wasser und Seife vor dem Essen, nach Toilettengang und Außenspiel; Zahnpflege; Niesetikette) sowie der individuelle Wechsel von Bewegung, Ruhe und Schlaf stärken Selbstständigkeit und Körperbewusstsein. Rechtlich bilden zwei Paragrafen des Infektionsschutzgesetzes (IfSG) das verbindliche Gerüst: § 34 IfSG regelt gesundheitliche Anforderungen, Mitwirkungspflichten der Sorgeberechtigten, Besuchs- und Tätigkeitsverbote bei bestimmten übertragbaren Krankheiten (z. B. infektiöser Gastroenteritis bei Kindern unter 6 Jahren, Masern, Scharlach, Keuchhusten, Kopflausbefall bis zur Behandlung) sowie Meldepflichten der Leitung an das Gesundheitsamt. § 36 IfSG verpflichtet Gemeinschaftseinrichtungen zur Erstellung und Einhaltung eines innerbetrieblichen Hygieneplans (Reinigung, Desinfektion, Wickelhygiene, Lebensmittelumgang). Bei der Essenszubereitung und -ausgabe gelten darüber hinaus lebensmittelhygienische Standards (HACCP-Eigenkontrolle, Temperaturführung, jährliche Folgebelehrungen) sowie die verpflichtende Information über die 14 Hauptallergene gemäß Lebensmittel-Informationsverordnung (LMIV).",
       "bulletPoints": [
-        "Verbindliche Vorgaben des Infektionsschutzgesetzes (§ 34 IfSG).",
-        "Umsetzung einrichtungsbezogener Hygienepläne in der Praxis.",
-        "Lebensmittelrechtliche Vorgaben (HACCP, LMIV) in der Gemeinschaftsverpflegung.",
-        "Rechtssicherheit und Kooperation mit dem Gesundheitsamt bei Infektionsgeschehen."
+        "Beziehungsvolle Pflege (Emmi Pikler): Sprachliches Ankündigen, Kooperation statt „Abfertigung“, ungeteilte Aufmerksamkeit und Schutz der Intimsphäre.",
+        "Alltagshygiene & Erholung: Händewaschen, Zahnpflege, Lüften sowie bedürfnisorientierte Schlaf- und Ruheangebote ohne Schlafzwang.",
+        "§ 34 & § 36 IfSG: Verbindliche Besuchsverbote und Meldepflichten bei bestimmten Infektionskrankheiten (§ 34) sowie innerbetrieblicher Hygieneplan (§ 36).",
+        "Lebensmittelrecht: HACCP-Hygienekontrollen (Temperaturen, Sauberkeit) und transparente Kennzeichnung der 14 Hauptallergene nach LMIV."
       ],
-      "heading": "Rechtliche Grundlagen: IfSG, Hygienepläne & Lebensmittelrecht",
-      "keyTakeaway": "Die exakte Einhaltung des Infektionsschutzgesetzes und verbindlicher Hygienepläne schützt die Gesundheit aller Kinder und sichert den pädagogischen Betrieb rechtlich ab.",
-      "praxisTip": "Hängen Sie den aktuellen Hygieneplan für alle Mitarbeitenden gut sichtbar im Personal- und Vorbereitungsbereich aus und führen Sie jährliche Unterweisungen (z. B. nach IfSG § 43) verbindlich durch."
+      "praxisTip": "Üben Sie das gründliche Händewaschen (ca. 20–30 Sekunden mit Seife, auch zwischen den Fingern) spielerisch mit einem kurzen gemeinsamen Lied statt durch mahnende Kontrollen."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Ganzheitliches Gesundheitsverständnis",
-      "id": "vb-pyramid-1",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Basis / Fundament",
-          "detail": "Körperliche Grundbedürfnisse wie ausgewogene Ernährung, ausreichende Bewegung, frische Luft und ein intakter Schlaf-Wach-Rhythmus bilden das Fundament.",
-          "example": "Täglicher Aufenthalt an der frischen Luft und vollwertiges Frühstück in der Krippe.",
-          "id": "item-1",
-          "label": "Physikalische & Biologische Basis",
-          "metric": "Ebene 1",
-          "summary": "Sicherung der elementaren physiologischen und körperlichen Grundbedürfnisse."
-        },
-        {
-          "badge": "Zweite Ebene",
-          "detail": "Sicherheit vor Gefahren, verlässliche Hygienestandards und der Schutz vor Infektionen durch IfSG und Hygienepläne.",
-          "example": "Einhaltung des Hygieneplans beim Wickeln und Desinfizieren.",
-          "id": "item-2",
-          "label": "Gesundheitsschutz & Hygiene",
-          "metric": "Ebene 2",
-          "summary": "Präventiver Schutz vor Infektionen, Unfällen und gesundheitlichen Risiken."
-        },
-        {
-          "badge": "Dritte Ebene",
-          "detail": "Emotionale Zuwendung, beziehungsvolle Pflege nach Pikler und der Aufbau sicherer Bindungen zur Stärkung der psychischen Gesundheit.",
-          "example": "Einfühlsame, sprachlich begleitete Begleitung während der Pflegesituation.",
-          "id": "item-3",
-          "label": "Psychische Stabilität & Beziehung",
-          "metric": "Ebene 3",
-          "summary": "Förderung von seelischem Wohlbefinden und emotionaler Sicherheit."
-        },
-        {
-          "badge": "Spitze / Ziel",
-          "detail": "Aktive Verhaltensprävention, Partizipation, gesundheitsbewusste Lebensführung und eigenverantwortliche Mündigkeit der Kinder.",
-          "example": "Kinder wählen im Kinderrestaurant selbstbestimmt ihre gesunden Lebensmittel aus.",
-          "id": "item-4",
-          "label": "Gesundheitliche Mündigkeit & Partizipation",
-          "metric": "Ebene 4",
-          "summary": "Erreichung von Gesundheitskompetenz und selbstbestimmter Lebensführung."
-        }
-      ],
-      "kind": "pyramid",
+      "id": "vb-1",
+      "kind": "concept_map",
+      "title": "Salutogenese im Setting Kita (Aaron Antonovsky)",
+      "subtitle": "Wie der pädagogische Alltag die drei Dimensionen des Kohärenzgefühls stärkt",
+      "centerLabel": "Kohärenzgefühl (SOC)",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Stufenmodell der Gesundheitsförderung in der Kindertagesbetreuung",
-      "title": "Pyramide der gesundheitlichen Entwicklungsförderung"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-grid-2",
       "isCycle": false,
       "items": [
         {
-          "badge": "Baustein 1",
-          "detail": "Angebot von vollwertigen, abwechslungsreichen Lebensmitteln unter Berücksichtigung von Nährwertrelationen und frischen Produkten.",
-          "example": "Täglich frisches Obst und Gemüse auf dem Snacktisch.",
-          "id": "grid-1",
-          "label": "Optimierte Lebensmittelwahl",
-          "metric": "DGE-Standard",
-          "summary": "Auswahl hochwertiger und nährstoffoptimierter Speisen."
+          "id": "sal-1",
+          "badge": "Dimension 1",
+          "label": "Verstehbarkeit",
+          "metric": "Struktur & Klarheit",
+          "summary": "Kinder erleben ihre Umgebung als geordnet, nachvollziehbar und verlässlich.",
+          "detail": "Verlässliche Rituale, transparente Ankündigungen (auch in der Pflege) und verständliche Erklärungen reduzieren Unsicherheit und Stress.",
+          "example": "Ein visueller Tagesablauf mit Bildkarten zeigt den Kindern, wann gegessen, gespielt und abgeholt wird."
         },
         {
-          "badge": "Baustein 2",
-          "detail": "Ernährung unter Berücksichtigung religiöser, kultureller und gesundheitlicher Besonderheiten (z. B. Allergien, LMIV).",
-          "example": "Bereitstellung von vegetarischen und schweinefleischfreien Alternativen.",
-          "id": "grid-2",
-          "label": "Kultursensible Vielfalt",
-          "metric": "Inklusion",
-          "summary": "Respektvoller Umgang mit unterschiedlichen Esskulturen."
+          "id": "sal-2",
+          "badge": "Dimension 2",
+          "label": "Handhabbarkeit",
+          "metric": "Selbstwirksamkeit",
+          "summary": "Kinder spüren, dass sie Anforderungen selbst oder mit verlässlicher Hilfe bewältigen können.",
+          "detail": "Altersgerechte Selbstständigkeit (selbst einschenken, anziehen, Hände waschen) und erreichbare Bezugspersonen stärken Bewältigungsvertrauen.",
+          "example": "Kleine, gut greifbare Kannen ermöglichen es schon Zweijährigen, sich selbst Wasser einzuschenken."
         },
         {
-          "badge": "Baustein 3",
-          "detail": "Verzicht auf jeglichen Zwang beim Essen; Unterstützung der Eigenregulation von Hunger und Sättigung bei Kindern.",
-          "example": "Das Kind entscheidet selbst, ob und wie viel es von der Gemüsesuppe isst.",
-          "id": "grid-3",
-          "label": "Selbstbestimmung & Autonomie",
-          "metric": "Pädagogik",
-          "summary": "Förderung des eigenen Körpersgefühls und der Selbstregulation."
+          "id": "sal-3",
+          "badge": "Dimension 3",
+          "label": "Bedeutsamkeit",
+          "metric": "Sinn & Teilhabe",
+          "summary": "Kinder erleben, dass ihre Bedürfnisse zählen und ihr Mitwirken etwas bewirkt.",
+          "detail": "Partizipation bei Mahlzeiten, Raumgestaltung und Regeln fördert Lebensfreude, Motivation und psychische Widerstandskraft.",
+          "example": "Kinder schneiden gemeinsam Obst für das Nachmittagsvesper und wählen ein Wunschgericht für den Wochenplan."
         },
         {
-          "badge": "Baustein 4",
-          "detail": "Verbindung von Essenszeiten mit sozialem Lernen, Tischgesprächen, Tischkultur und gemeinschaftlichem Genuss.",
-          "example": "Gemeinsames Singen vor dem Essen und entspannte Tischgespräche.",
-          "id": "grid-4",
-          "label": "Sozialer Lernort",
-          "metric": "Gemeinschaft",
-          "summary": "Essenssituation als sozialer Interaktionsraum."
-        },
-        {
-          "badge": "Baustein 5",
-          "detail": "Sicherstellung strenger Hygiene- und Kühlkettenvorgaben nach HACCP und LMIV bei Lagerung und Zubereitung.",
-          "example": "Lückenlose Temperaturprotokollierung der Ausgabewärme.",
-          "id": "grid-5",
-          "label": "Hygiene & Kennzeichnung",
-          "metric": "Rechtssicherheit",
-          "summary": "Einhaltung lebensmittelrechtlicher Vorschriften."
+          "id": "sal-4",
+          "badge": "Rahmen",
+          "label": "Verhaltens- & Verhältnisprävention",
+          "metric": "Setting-Ansatz",
+          "summary": "Individuelle Gesundheitskompetenz und gesunde Einrichtungsstrukturen greifen ineinander.",
+          "detail": "Gute Raumakustik, vollwertige Verpflegung, tägliche Frischluft und gesunde Arbeitsbedingungen des Teams bilden die strukturelle Basis.",
+          "example": "Schallabsorbierende Deckenelemente senken den Lärmpegel beim Essen und entlasten Kinder wie Fachkräfte."
         }
-      ],
+      ]
+    },
+    {
+      "id": "vb-2",
       "kind": "feature_grid",
+      "title": "Qualitätsbausteine: Esskultur & DGE-Standard",
+      "subtitle": "Ernährungswissenschaftliche und pädagogische Grundlagen für Kita-Mahlzeiten",
+      "centerLabel": "Kita-Verpflegung",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Zentrale Qualitätsmerkmale der Gemeinschaftsverpflegung",
-      "title": "Feature Grid: DGE-konforme Verpflegung & Esskultur"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-flow-3",
-      "isCycle": true,
+      "isCycle": false,
       "items": [
         {
-          "badge": "Schritt 1",
-          "detail": "Sorgfältige, multiprofessionelle Beobachtung von Verhaltensweisen, körperlichen Symptomen oder Umweltbelastungen bei Kindern.",
-          "example": "Beobachtung von auffälliger Blässe oder anhaltender Müdigkeit nach dem Freispiel.",
-          "id": "flow-1",
-          "label": "Sensible Beobachtung",
-          "metric": "Diagnostik",
-          "summary": "Wahrnehmung von gesundheitlichen Auffälligkeiten im Alltag."
+          "id": "dge-1",
+          "badge": "DGE-Standard",
+          "label": "Pflanzenbetont & vollwertig",
+          "metric": "Nährstoffqualität",
+          "summary": "Täglich Gemüse, Obst, Vollkorn und Wasser/ungesüßter Tee; wenig Zucker und Salz.",
+          "detail": "Ausgewogene Speisepläne für alle Mahlzeiten verbinden kindgerechte Energie- und Nährstoffversorgung mit saisonaler, nachhaltiger Lebensmittelauswahl.",
+          "example": "Gemüsesticks, Vollkornbrot, Hülsenfruchteintopf und eine jederzeit zugängliche Wasserstation."
         },
         {
-          "badge": "Schritt 2",
-          "detail": "Überprüfung einrichtungsbezogener Hygienepläne, des IfSG sowie Rücksprache mit Fachliteratur oder dem trägerinternen Qualitätsmanagement.",
-          "example": "Nachschlagen im IfSG-Leitfaden bei Verdacht auf Masern oder Magen-Darm.",
-          "id": "flow-2",
-          "label": "Analyse & Rechtsprüfung",
-          "metric": "Compliance",
-          "summary": "Abgleich mit gesetzlichen Vorgaben und Hygienevorschriften."
+          "id": "dge-2",
+          "badge": "Pädagogik",
+          "label": "Geteilte Verantwortung ohne Zwang",
+          "metric": "Selbstregulation",
+          "summary": "Kein Aufessen-Gebot, kein Probierzwang, kein Essen als Belohnung oder Strafe.",
+          "detail": "Kinder behalten das Gespür für Hunger und Sättigung, wenn sie selbst bestimmen dürfen, was und wie viel sie aus dem ausgewogenen Angebot essen.",
+          "example": "Ein Kind darf seinen Quark-Nachtisch auch dann essen, wenn es vom gedünsteten Brokkoli heute nichts probieren wollte."
         },
         {
-          "badge": "Schritt 3",
-          "detail": "Entwicklung von präventiven oder intervenierenden Maßnahmen in Absprache mit Leitung, Eltern und Fachdiensten.",
-          "example": "Information des Gesundheitsamtes und Einleitung von Desinfektionsmaßnahmen.",
-          "id": "flow-3",
-          "label": "Intervention & Prävention",
-          "metric": "Handlung",
-          "summary": "Umsetzung konkreter Schutz- und Fördermaßnahmen."
+          "id": "dge-3",
+          "badge": "Inklusion",
+          "label": "Kultursensibilität & Allergenschutz",
+          "metric": "Teilhabe & LMIV",
+          "summary": "Respektvolle Berücksichtigung religiöser Speisegebote und der 14 Hauptallergene.",
+          "detail": "Alle Kinder essen gemeinschaftlich am selben Tisch, ohne dass Besonderheiten problematisiert oder ausgegrenzt werden; Allergene sind gemäß LMIV klar dokumentiert.",
+          "example": "Übersichtliche Allergenkennzeichnung am Speiseplan und gleichwertige schweinefleischfreie bzw. vegetarische Gerichte."
         },
         {
-          "badge": "Schritt 4",
-          "detail": "Reflexion des pädagogischen Handelns im Team, Dokumentation des Verlaufs und Evaluation der Wirksamkeit der Maßnahmen.",
-          "example": "Dokumentation im Krankheits- und Hygienebuch der Kita.",
-          "id": "flow-4",
-          "label": "Evaluation & Reflexion",
-          "metric": "Qualitätssicherung",
-          "summary": "Überprüfung des Erfolgs und Anpassung des Konzepts."
+          "id": "dge-4",
+          "badge": "Partizipation",
+          "label": "Genussvoller Sozialraum",
+          "metric": "Essatmosphäre",
+          "summary": "Ruhige Atmosphäre, ausreichend Zeit, selbstständiges Schöpfen und Tischgespräche.",
+          "detail": "Kleine Essgruppen oder Kinderrestaurants ermöglichen entspanntes Essen, feinmotorisches Üben und sprachbildende Gespräche mit der Fachkraft als Vorbild.",
+          "example": "Die Fachkraft isst entspannt mit, benennt Geschmack und Textur und lobt nicht das „Leeren des Tellers“, sondern pflegt ein gutes Tischgespräch."
         }
-      ],
+      ]
+    },
+    {
+      "id": "vb-3",
       "kind": "process_flow",
+      "title": "Rechtssicheres Handeln bei Infektionsverdacht (§§ 34, 36 IfSG)",
+      "subtitle": "Strukturierter Ablauf bei akuten Symptomen in Gemeinschaftseinrichtungen",
+      "centerLabel": "Infektionsschutz",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Zyklus des professionellen Umgangs mit gesundheitlichen Herausforderungen",
-      "title": "Prozessablauf: Gesundheitsförderung & Krisenmanagement"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "if-1",
+          "badge": "Schritt 1",
+          "label": "Wahrnehmen & fürsorglich separieren",
+          "metric": "Kindeswohl & Schutz",
+          "summary": "Akut erkranktes Kind liebevoll betreut aus der Gruppe nehmen.",
+          "detail": "Bei plötzlichem Erbrechen, Durchfall, Fieber oder verdächtigem Ausschlag wird das Kind ruhig und ohne Stigmatisierung in einem geschützten Bereich begleitet.",
+          "example": "Eine Bezugsperson bleibt beim erkrankten Kind auf einer ruhigen Liege, während Sorgeberechtigte kontaktiert werden."
+        },
+        {
+          "id": "if-2",
+          "badge": "Schritt 2",
+          "label": "Eltern informieren & abholen lassen",
+          "metric": "§ 34 IfSG",
+          "summary": "Sorgeberechtigte zeitnah benachrichtigen und ärztliche Abklärung anregen.",
+          "detail": "Erziehungsberechtigte sind nach § 34 Abs. 5 IfSG verpflichtet, der Einrichtung bestimmte übertragbare Krankheiten unverzüglich mitzuteilen; ein vorübergehendes Besuchsverbot schützt die Gruppe.",
+          "example": "Sachliche Information der Eltern über die beobachteten Symptome und geltende Wiederzulassungsregeln (z. B. 48 Std. Symptomfreiheit bei infektiöser Gastroenteritis)."
+        },
+        {
+          "id": "if-3",
+          "badge": "Schritt 3",
+          "label": "Hygieneplan umsetzen",
+          "metric": "§ 36 IfSG",
+          "summary": "Gezielte Reinigung, Desinfektion und konsequente Händehygiene nach Plan.",
+          "detail": "Kontaminierte Flächen, Toiletten und Wickelbereiche werden mit Einmalhandschuhen und gelistetem Desinfektionsmittel gemäß innerbetrieblichem Hygieneplan gereinigt.",
+          "example": "Sofortige Flächendesinfektion nach Erbrechen sowie verstärktes Händewaschen in der Gruppe."
+        },
+        {
+          "id": "if-4",
+          "badge": "Schritt 4",
+          "label": "Dokumentieren & Meldepflicht prüfen",
+          "metric": "Gesundheitsamt",
+          "summary": "Vorfall dokumentieren; Leitung meldet meldepflichtige Fälle dem Gesundheitsamt.",
+          "detail": "Gemäß § 34 Abs. 6 IfSG informiert die Einrichtungsleitung das zuständige Gesundheitsamt unverzüglich bei meldepflichtigen Erkrankungen oder Häufungen und hängt ggf. anonymisierte Elternhinweise aus.",
+          "example": "Bei bestätigter infektiöser Gastroenteritis (U6) oder Masern erfolgt die Meldung an das Gesundheitsamt und ein anonymer Aushang („In unserer Kita ist … aufgetreten“)."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "3-6 Jahre (Kita)",
-    "context": "Kindertagesstätte mit offener Ganztagsbetreuung und gemeinsamer Mittagsverpflegung nach DGE-Standard",
-    "setting": "Gruppenraum und Kinderrestaurant während der Mittags- und Pflegesituation",
+    "title": "Nachtisch-Konflikt und plötzliche Übelkeit im Kinderrestaurant",
+    "setting": "Kinderrestaurant und Gruppenbereich einer Kindertagesstätte mit Mittagsverpflegung nach DGE-Standard",
+    "ageGroup": "3–5 Jahre (Elementarbereich)",
+    "context": "Beim Mittagessen gibt es Vollkornnudeln mit Gemüse-Linsensoße und anschließend Naturjoghurt mit Obst. Der vierjährige Jonas nimmt sich nur trockene Nudeln und schiebt den Gemüseanteil weg. Eine Kollegin sagt zu ihm: „Wenn du nicht wenigstens drei Löffel von der Soße probierst, bekommst du keinen Joghurt!“ Kurz darauf klagt am Nebentisch die dreijährige Lea über Bauchschmerzen und erbricht plötzlich neben dem Tisch.",
     "steps": [
       {
+        "situation": "Jonas wirkt angespannt und stochert widerwillig in den Nudeln, weil der Nachtisch an das Probieren der Gemüsesoße gekoppelt wurde.",
+        "prompt": "Wie begegnen Sie dieser Essenssituation pädagogisch professionell – gegenüber Jonas und anschließend im Team?",
         "options": [
           {
-            "feedback": "Das ist optimal: Die Fachkraft achtet auf eine ruhige, beziehungs- und bedürfnisorientierte Begleitung nach Pikler, drängt das Kind nicht und ermöglicht eigenständiges Essen im eigenen Tempo. Zudem ist die Fachkraft ein positives Vorbild in Bezug auf Genuss und Haltung.",
-            "label": "Die Fachkraft bietet dem Kind unaufdringlich Unterstützung an, respektiert das Sättigungsgefühl, setzt sich entspannt dazu und begleitet die Situation sprachlich begleitend und wertschätzend.",
-            "quality": "optimal",
-            "theoryLink": "Pikler-Impulse zur beziehungsvollen Pflege, DGE-Qualitätsstandard für die Verpflegung in Tageseinrichtungen für Kinder"
-          },
-          {
-            "feedback": "Dies ist problematisch: Zwang und Füttern gegen den Willen des Kindes verletzen dessen Autonomie, stören die Körpersignale (Hunger/Sättigung) und widersprechen sowohl dem DGE-Ansatz als auch beziehungsvoller Pädagogik.",
-            "label": "Die Fachkraft besteht darauf, dass der Teller komplett aufgegessen wird, füttert das Kind notfalls mit Nachdruck und ermahnt es, leise zu sein.",
-            "quality": "problematisch",
-            "theoryLink": "Verhaltensprävention vs. Verhaltenssteuerung, Verletzung der kindlichen Selbstbestimmung bei Essenssituationen"
-          },
-          {
-            "feedback": "Teilweise geeignet, aber ausbaufähig: Zwar wird kein Zwang ausgeübt, jedoch fehlt eine aktive, pädagogische Begleitung und Reflexion der eigenen Vorbildrolle und der Essatmosphäre.",
-            "label": "Die Fachkraft lässt das Kind allein essen, achtet nicht weiter auf die Portionsgröße und konzentriert sich primär auf das Aufräumen des Raumes.",
+            "label": "Sie bleiben bei der Regel der Kollegin, reduzieren die Vorgabe aber auf „einen einzigen kleinen Probierlöffel“, damit Jonas lernt, Neues zu versuchen.",
             "quality": "teilweise",
-            "theoryLink": "Unzureichende Begleitung lebenspraktischer Situationen nach RLP-Lehrplan S-SP-4"
+            "feedback": "Noch problematisch: Auch ein einzelner „Pflichtlöffel“ bleibt Probierzwang mit Belohnungskopplung und greift in Jonas’ körperliche Selbstbestimmung ein. Neugier entsteht durch zwangloses, wiederholtes Anbieten – nicht durch Bedingungen.",
+            "theoryLink": "Freiwilligkeit vs. Probierzwang in der frühkindlichen Ernährungsbildung"
+          },
+          {
+            "label": "Sie nehmen Jonas’ Teller weg und erklären ihm vor der Gruppe, dass andere Kinder froh über gesundes Gemüse wären und er deshalb heute ganz auf den Nachtisch verzichten muss.",
+            "quality": "problematisch",
+            "feedback": "Hochproblematisch: Beschämung vor der Gruppe, moralischer Druck und Essensentzug verletzen die Würde des Kindes und stören das Verhältnis zu Essen und Sättigung nachhaltig.",
+            "theoryLink": "Grenzachtende Esskultur; Schutz kindlicher Würde und Selbstbestimmung"
+          },
+          {
+            "label": "Sie nehmen den Druck sofort aus der Situation, lassen Jonas selbstbestimmt essen und auch am Obst-Joghurt teilhaben, leben gelassen Freude am gesamten Essen vor und vereinbaren später im Team eine gemeinsame Linie ohne Probierzwang und Belohnungs-Junktim.",
+            "quality": "optimal",
+            "feedback": "Fachlich optimal: Das Koppeln von Nachtisch an ungeliebtes Gemüse wertet Gemüse implizit als „Pflichtübung“ ab und Süßes/Nachtisch als Belohnung auf – Studien zeigen, dass dies Abneigungen eher verstärkt. Entspannte Begleitung, geteilte Verantwortung und das Vorbild der Fachkraft fördern dagegen langfristig Neugier und gesunde Selbstregulation.",
+            "theoryLink": "Geteilte Verantwortung beim Essen (Satter); DGE-Qualitätsstandard Kita; Salutogenese & Partizipation"
           }
-        ],
-        "prompt": "Ein vierjähriges Kind zeigt beim Mittagessen in der Kita wenig Appetit, schiebt den Teller weg und wirkt unkonzentriert. Wie reagiert die Fachkraft pädagogisch angemessen?",
-        "situation": "Mittagessen im Kinderrestaurant der Kindertagesstätte"
+        ]
       },
       {
+        "situation": "Lea hat plötzlich am Nebentisch erbrochen und weint erschrocken. Andere Kinder schauen besorgt herüber.",
+        "prompt": "Wie setzen Sie Fürsorge, Hygieneplan und Infektionsschutzrecht (§§ 34, 36 IfSG) fachlich und rechtlich korrekt um?",
         "options": [
           {
-            "feedback": "Optimal: Die Fachkraft handelt präventiv, rechtssicher und professionell im Sinne des Infektionsschutzgesetzes und der Hygieneleitlinien, ohne das Kind zu stigmatisieren.",
-            "label": "Die Fachkraft isoliert das betroffene Kind sofort von der Gruppe, informiert die Eltern, dokumentiert die Symptome und zieht den trägerspezifischen Hygieneplan sowie das IfSG zurate.",
+            "label": "Sie betreuen Lea ruhig und geschützt abseits der Essensgruppe, rufen umgehend ihre Eltern zum Abholen an, sichern den betroffenen Bereich und reinigen/desinfizieren ihn mit Einmalhandschuhen gemäß Hygieneplan (§ 36 IfSG), achten auf gründliches Händewaschen aller Kinder und informieren die Leitung zur Dokumentation und Prüfung einer Meldung nach § 34 IfSG.",
             "quality": "optimal",
-            "theoryLink": "Infektionsschutzgesetz (§ 34 IfSG), einrichtungsbezogener Hygieneplan, Gesundheitsfürsorge"
+            "feedback": "Vorbildlich und rechtssicher: Sie verbinden feinfühlige emotionale Begleitung der weinenden Lea mit sofortigen, hygienisch korrekten Schutzmaßnahmen nach § 36 IfSG und den gesetzlichen Vorgaben des § 34 IfSG (Besuchsverbot bei Verdacht auf infektiöse Gastroenteritis bei Kindern unter 6 Jahren, Informations- und Meldekette über die Leitung).",
+            "theoryLink": "§ 34 IfSG (Besuchsverbot/Meldepflicht bei Gastroenteritis U6) & § 36 IfSG (Hygieneplan); fürsorgliche Begleitung"
           },
           {
-            "feedback": "Teilweise adäquat, aber unvollständig: Das Kind nach Hause zu schicken ist zwar richtig, aber ohne Dokumentation, Hygieneplan-Abgleich und Beachtung der gesetzlichen Meldepflichten/Wiederzulassungskriterien entsteht ein Hygienerisiko.",
-            "label": "Die Fachkraft ruft kurz die Eltern an, damit sie das Kind abholen, unternimmt aber keine weiteren hygienischen Schutzmaßnahmen in der Gruppe.",
+            "label": "Sie lassen Lea sofort abholen und informieren die Eltern der ganzen Gruppe per Chat namentlich („Lea hat heute erbrochen, bitte aufpassen!“), verzichten aber auf eine Desinfektion nach Hygieneplan.",
             "quality": "teilweise",
-            "theoryLink": "Unvollständige Umsetzung rechtlicher Bestimmungen im Bereich Gesundheitsfürsorge"
+            "feedback": "Doppelt fehlerhaft: Das Abholenlassen ist richtig, doch zum einen verletzt die namentliche Nennung den Datenschutz (Hinweise erfolgen stets anonymisiert!), zum anderen fehlt die zwingende hygienische Aufbereitung nach § 36 IfSG.",
+            "theoryLink": "Datenschutz bei Infektionshinweisen & innerbetrieblicher Hygieneplan (§ 36 IfSG)"
           },
           {
-            "feedback": "Problematisch und gesetzwidrig: Das Ignorieren von Magen-Darm-Symptomen gefährdet die Gesundheit aller Kinder und des Personals und verstößt gegen das Infektionsschutzgesetz sowie den Hygieneplan.",
-            "label": "Die Fachkraft schätzt das Unwohlsein als ‚halb so schlimm‘ ein, lässt das Kind weiterspielen und wäscht danach weder Hände noch Oberflächen.",
+            "label": "Sie wischen den Boden rasch mit einem feuchten Küchentuch ab, geben Lea ein Glas Wasser und lassen sie erst einmal ruhig in der Kuschelecke weiterspielen, um zu sehen, ob es ihr am Nachmittag besser geht.",
             "quality": "problematisch",
-            "theoryLink": "Verstoß gegen § 34 IfSG und geltende Hygienevorschriften in Gemeinschaftseinrichtungen"
+            "feedback": "Fachlich und rechtlich unzulässig: Bei Verdacht auf eine infektiöse Magen-Darm-Erkrankung im U6-Bereich gilt nach § 34 Abs. 1 IfSG ein sofortiges Besuchsverbot; einfaches Abwischen mit einem Küchentuch ohne Desinfektion nach Hygieneplan birgt zudem ein hohes Ansteckungsrisiko für die gesamte Einrichtung.",
+            "theoryLink": "Verstoß gegen § 34 IfSG und innerbetrieblichen Hygieneplan (§ 36 IfSG)"
           }
-        ],
-        "prompt": "Ein Kind klagt im Vormittagsbereich über plötzliche Übelkeit und Erbrechen. Wie setzt die Fachkraft rechtliche Vorgaben und Hygienestandards um?",
-        "situation": "Umgang mit akuten Infektionssymptomen (Magen-Darm) in der Kita-Gruppe"
+        ]
       }
-    ],
-    "title": "Gesundheit, Ernährung & Hygiene im pädagogischen Alltag"
+    ]
   },
   "selfLearningTasks": [
-    "Entwickeln Sie ein schriftliches Konzept für ein zuckerfreies Vesper in Ihrer Praxiseinrichtung und begründen Sie es mit ernährungswissenschaftlichen Erkenntnissen (DGE).",
-    "Analysieren Sie den Hygieneplan Ihrer Einrichtung im Hinblick auf den Wickel- und Sanitärbereich und erstellen Sie eine Checkliste für die korrekte Durchführung von Hygienemaßnahmen nach IfSG.",
-    "Beobachten und dokumentieren Sie eine Essenssituation in Ihrer Praxisstelle: Untersuchen Sie, wie Selbstbestimmung, Partizipation und kultursensible Aspekte (z. B. religiöse Speisevorschriften) konkret umgesetzt werden, und formulieren Sie zwei Verbesserungsvorschläge."
+    "Beobachten Sie eine Mahlzeit in Ihrer Praxiseinrichtung gezielt unter den Kriterien Partizipation, Selbstbestimmung (Abwesenheit von Zwang/Belohnung), Essatmosphäre und Kultursensibilität. Formulieren Sie zwei konkrete, realistische Weiterentwicklungsvorschläge.",
+    "Vergleichen Sie einen realen Wochen-Speiseplan Ihrer Einrichtung mit den zentralen Orientierungswerten des DGE-Qualitätsstandards für die Verpflegung in Kitas (Gemüse/Obst, Vollkorn, Getränke, Fleisch/Fisch, Nachhaltigkeit) und dokumentieren Sie Stärken sowie Optimierungspotenziale.",
+    "Lesen Sie den einrichtungsbezogenen Hygieneplan (§ 36 IfSG) sowie das Belehrungsmerkblatt nach § 34 IfSG Ihrer Praxisstelle durch und fassen Sie auf einer Seite die konkreten Zuständigkeiten und Meldewege bei Magen-Darm-Infekten oder meldepflichtigen Kinderkrankheiten zusammen."
   ],
   "flashcards": [
     {
-      "definition": "Zusammenfassender Begriff für ernährungswissenschaftliche, lebensmittelrechtliche und gesundheitsbezogene Qualitätskriterien der Deutschen Gesellschaft für Ernährung (DGE) für eine gesundheitsförderliche Gemeinschaftsverpflegung.",
-      "example": "Der DGE-Qualitätsstandard stellt sicher, dass das Mittagessen in der Kita abwechslungsreich, nährstoffoptimiert und kindgerecht ist.",
-      "term": "DGE-Qualitätsstandard"
+      "term": "Salutogenese & Kohärenzgefühl (Antonovsky)",
+      "definition": "Gesundheitsmodell, das fragt, welche Ressourcen Menschen auf dem Gesundheits-Krankheits-Kontinuum stärken. Kern ist das Kohärenzgefühl aus Verstehbarkeit, Handhabbarkeit und Bedeutsamkeit.",
+      "example": "Transparente Tagesrituale, altersgerechte Selbstständigkeit und echte Mitbestimmung stärken das Kohärenzgefühl von Kindern."
     },
     {
-      "definition": "Gesetz zur Verhütung und Bekämpfung von Infektionskrankheiten beim Menschen, das u. a. Gemeinschaftseinrichtungen wie Kitas strenge Hygiene- und Meldeauflagen bei bestimmten Infektionskrankheiten (§ 34 IfSG) auferlegt.",
-      "example": "Nach dem IfSG dürfen Kinder mit infektiöser Gastroenteritis die Einrichtung vorübergehend nicht besuchen.",
-      "term": "Infektionsschutzgesetz (IfSG)"
+      "term": "Geteilte Verantwortung beim Essen (Satter / DGE)",
+      "definition": "Pädagogisches Prinzip der Esskultur: Erwachsene verantworten das Was, Wann und Wo eines ausgewogenen Angebots; das Kind entscheidet ohne Zwang oder Belohnung über das Ob und Wie viel.",
+      "example": "Im Kinderrestaurant wählt ein Kind selbst seine Portionsgröße und darf satt aufhören, auch wenn noch Reste auf dem Teller liegen."
     },
     {
-      "definition": "Konzept von Emmi Pikler, das pflegerische Handlungen (wie Wickeln, Füttern, Anziehen) als dialogische, ungeteilte und beziehungsstiftende Interaktionen zwischen Fachkraft und Kind versteht.",
-      "example": "Beim Wickeln kündigt die Fachkraft jeden Handgriff an und wartet auf die Reaktion des Kindes (kooperatives Wickeln).",
-      "term": "Beziehungsvolle Pflege (Pikler)"
+      "term": "DGE-Qualitätsstandard für die Verpflegung in Kitas",
+      "definition": "Wissenschaftlich basiertes Regelwerk der Deutschen Gesellschaft für Ernährung (FIT KID) für vollwertige, pflanzenbetonte, nachhaltige und pädagogisch begleitete Verpflegung (inkl. Frühstück, Mittag, Snacks, Getränke).",
+      "example": "Täglich Gemüse, Obst, Vollkornprodukte und ungesüßtes Wasser/Tee; begrenzter Fleisch- und Zuckeranteil."
     },
     {
-      "definition": "Maßnahmen zur Stärkung gesundheitsförderlicher Verhaltensweisen und Bewältigungskompetenzen des Einzelnen (z. B. Ernährungs- und Bewegungsverhalten).",
-      "example": "Ein gezieltes Projekt zur zuckerfreien Vesper in der Kita stärkt die aktive Verhaltensprävention.",
-      "term": "Verhaltensprävention"
+      "term": "Beziehungsvolle Pflege (Emmi Pikler)",
+      "definition": "Pflegerische Grundhaltung, bei der Wickeln, Waschen und Anziehen als dialogische Beziehungssituationen mit ungeteilter Aufmerksamkeit, verbaler Ankündigung, Kooperation und Wahrung der Intimsphäre gestaltet werden.",
+      "example": "„Ich öffne jetzt deine Windel – magst du deine Füße kurz anheben?“"
     },
     {
-      "definition": "Europäische Verordnung zur Lebensmittelinformation, die u. a. die verbindliche Kennzeichnung von 14 Hauptallergenen in Gemeinschaftsverpflegungen und Gastronomie regelt.",
-      "example": "Auf dem Essensplan der Kita sind Milchprodukte und glutenhaltige Getreidearten gemäß LMIV deklariert.",
-      "term": "LMIV (Lebensmittel-Informationsverordnung)"
+      "term": "§§ 34 und 36 Infektionsschutzgesetz (IfSG)",
+      "definition": "§ 34 IfSG regelt Besuchs-/Tätigkeitsverbote, Eltern-Mitwirkungspflichten und Meldepflichten an das Gesundheitsamt bei bestimmten Infektionskrankheiten; § 36 IfSG verpflichtet Kitas zu innerbetrieblichen Hygieneplänen.",
+      "example": "Bei Verdacht auf infektiöse Gastroenteritis bei Kindern unter sechs Jahren greift ein Besuchsverbot nach § 34 Abs. 1 IfSG."
     },
     {
-      "definition": "Einrichtungsbezogener, verbindlicher Handlungs- und Reinigungsplan zur Infektionsprävention, der auf dem Infektionsschutzgesetz und den Richtlinien des Gesundheitsamtes basiert.",
-      "example": "Der Hygieneplan regelt exakt, wann und womit Wickeltische und Spielzeug desinfiziert werden müssen.",
-      "term": "Hygieneplan"
+      "term": "Allergenkennzeichnung nach LMIV & HACCP",
+      "definition": "Die EU-Lebensmittel-Informationsverordnung (LMIV) verpflichtet zur transparenten Information über die 14 Hauptallergene; HACCP bezeichnet das präventive Eigenkontrollkonzept für Lebensmittelsicherheit (z. B. Kühl- und Ausgabetemperaturen).",
+      "example": "Auf dem Kita-Speiseplan sind Gluten, Milch, Ei und Schalenfrüchte nachvollziehbar ausgewiesen."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Die Deutsche Gesellschaft für Ernährung (DGE) gibt wissenschaftlich fundierte Qualitätsstandards für eine gesundheitsförderliche, vollwertige Gemeinschaftsverpflegung heraus.",
-      "id": "q1-dge",
+      "question": "Welche drei Komponenten bilden im Salutogenese-Modell von Aaron Antonovsky das „Kohärenzgefühl“ (Sense of Coherence)?",
       "options": [
-        "Das Bundesministerium für Familie regelt exakt die Portionsgrößen in Kitas.",
-        "Die Deutsche Gesellschaft für Ernährung (DGE) bietet wissenschaftlich basierte Qualitätsstandards für die Gemeinschaftsverpflegung.",
-        "Das Infektionsschutzgesetz schreibt verbindliche Rezepte für das Mittagessen vor.",
-        "Der Lebensmittelhandel legt die Nährwerte für Kindertagesstätten fest."
+        "Verstehbarkeit, Handhabbarkeit und Bedeutsamkeit",
+        "Disziplin, Ausdauer und Leistungsbereitschaft",
+        "Ernährung, Bewegung und Körperhygiene",
+        "Diagnose, Therapie und Rehabilitation"
       ],
-      "question": "Welche Rolle spielt die DGE (Deutsche Gesellschaft für Ernährung) im Kontext der sozialpädagogischen Gemeinschaftsverpflegung?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        1,
-        2
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Die beziehungsvolle Pflege nach Emmi Pikler zeichnet sich durch ungeteilte Aufmerksamkeit, verbale Ankündigung von Handgriffen und die aktive Einbeziehung des Kindes als Partner aus. Zwang oder Ablenkung widersprechen diesem Ansatz.",
-      "id": "q2-pikler",
-      "options": [
-        "Die Pflegehandlung soll möglichst schnell und effizient ohne verbale Kommunikation durchgeführt werden, um Zeit zu sparen.",
-        "Die Fachkraft kündigt jeden Handlungsschritt verbal an und wartet auf die Reaktion des Kindes (Kooperation).",
-        "Die Interaktion ist durch ungeteilte Aufmerksamkeit und zugewandte Präsenz der Fachkraft gekennzeichnet.",
-        "Das Kind wird während der Pflege durch Spielzeug abgelenkt, damit es sich passiv verhalten kann."
-      ],
-      "question": "Welche Merkmale kennzeichnen die ‚beziehungsvolle Pflege‘ nach Emmi Pikler? (Wähle zwei zutreffende Antworten)",
-      "type": "multi"
-    },
-    {
-      "correctIndices": [
-        3
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Das Infektionsschutzgesetz (§ 34 IfSG) regelt das Verbot des Aufenthalts in Gemeinschaftseinrichtungen bei bestimmten Infektionskrankheiten, um Ausbrüche zu verhindern. Die LMIV regelt Allergenkennzeichnungen, das SGB VIII die Jugendhilfe.",
-      "id": "q3-ifsg",
-      "options": [
-        "Das Lebensmittel- und Futtermittelgesetzbuch (LFGB)",
-        "Die Lebensmittel-Informationsverordnung (LMIV)",
-        "Das Sozialgesetzbuch Achtes Buch (SGB VIII)",
-        "Das Infektionsschutzgesetz (IfSG)"
-      ],
-      "question": "Welches Gesetz regelt in Deutschland verbindlich den Umgang mit ansteckenden Infektionskrankheiten und das Betretungsverbot von Gemeinschaftseinrichtungen wie Kindertagesstätten und Schulen?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
         0
       ],
-      "difficulty": "pruefung",
-      "explanation": "Nach dem IfSG müssen Erziehungsberechtigte bei meldepflichtigen Infektionskrankheiten (z. B. Magen-Darm, Masern) die Einrichtung umgehend informieren, und die Einrichtung leitet bei bestimmten Erregern Meldungen an das Gesundheitsamt weiter. Die beschriebene Reaktion setzt das IfSG korrekt um.",
-      "id": "q4-case-ifsg",
-      "options": [
-        "Die Fachkraft handelt völlig korrekt, da nach § 34 IfSG bei bestimmten Infektionskrankheiten ein Betretungsverbot gilt und das Gesundheitsamt bzw. die Eltern informiert werden müssen.",
-        "Die Fachkraft überreagiert, da in Kitas grundsätzlich keine Infektionsschutzvorgaben gelten.",
-        "Die Fachkraft darf das Kind nicht nach Hause schicken, da dies die elterliche Erwerbstätigkeit einschränkt.",
-        "Die Dokumentation ist laut IfSG streng verboten."
-      ],
-      "question": "Praxissituation: In einer Kita erkranken innerhalb von zwei Tagen vier Kinder an heftigem Brechdurchfall. Die Leitung informiert sofort das zuständige Gesundheitsamt und veranlasst nach Rücksprache mit dem Hygieneplan Desinfektionsmaßnahmen sowie das vorübergehende Fernbleiben der betroffenen Kinder gemäß IfSG. Wie ist dieses Vorgehen rechtlich und fachlich zu bewerten?",
-      "type": "case"
+      "explanation": "Nach Antonovsky setzt sich das Kohärenzgefühl aus Verstehbarkeit (Durchschaubarkeit von Zusammenhängen), Handhabbarkeit (Vertrauen in eigene und soziale Ressourcen) und Bedeutsamkeit (Erleben von Sinn und Teilhabe) zusammen."
     },
     {
+      "id": "v2-q2",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Praxissituation: Ein vierjähriges Kind möchte beim Mittagessen keine gedünsteten Möhren essen, freut sich aber auf den Obstsalat als Nachtisch. Welche Reaktion entspricht einer professionellen, selbstbestimmten Esskultur?",
+      "options": [
+        "„Du musst mindestens drei Stückchen Möhren probieren, erst danach gibt es den Obstsalat.“",
+        "„Wenn du keine Möhren isst, bekommst du heute gar nichts mehr, damit du beim nächsten Mal hungriger bist.“",
+        "Die Fachkraft akzeptiert die Entscheidung ohne Kommentar oder Druck, stellt den Obstsalat für alle bereit und lädt durch entspanntes Mitessen zwanglos zum Kennenlernen verschiedener Lebensmittel ein.",
+        "Die Fachkraft mischt die Möhren heimlich unter das Kartoffelpüree, damit das Kind die Vitamine unbemerkt aufnimmt."
+      ],
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Eine professionelle Esskultur verzichtet konsequent auf Probierzwang, Belohnungsbedingungen und heimliches Untermischen (Vertrauensbruch!). Durch entspanntes Vorbildverhalten und wiederholtes zwangloses Anbieten bleibt die Hunger- und Sättigungsregulation intakt."
+    },
+    {
+      "id": "v2-q3",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Kriterien entsprechen dem „DGE-Qualitätsstandard für die Verpflegung in Kitas“? (Mehrere Antworten sind richtig)",
+      "options": [
+        "Eine pflanzenbetonte, abwechslungsreiche Auswahl mit täglich Gemüse, Obst und regelmäßig Vollkornprodukten sowie Hülsenfrüchten.",
+        "Tägliches Angebot von Fleisch oder Wurstwaren als unverzichtbare Eiweißquelle für Kinder.",
+        "Ständiger, freier Zugang zu ungesüßten Getränken wie Leitungswasser oder ungesüßtem Kräuter-/Früchtetee.",
+        "Einbezug von Nachhaltigkeitsaspekten (z. B. saisonale Lebensmittel, Vermeidung von Speiseabfällen) sowie einer ruhigen, partizipativen Essatmosphäre."
+      ],
       "correctIndices": [
         0,
         2,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Kultursensible Essenssituationen erfordern die Berücksichtigung religiöser und weltanschaulicher Speisegebote, den wertschätzenden Umgang mit Essgewohnheiten sowie das Vermeiden von Zwang. Der Ausschluss von Familien bei Festen widerspricht der Inklusion.",
-      "id": "q5-culture-food",
-      "options": [
-        "Religiöse und weltanschauliche Speisevorschriften (z. B. Verzicht auf Schweinefleisch, halal, koscher) werden respektvoll und ohne Stigmatisierung berücksichtigt.",
-        "Jedes Kind muss unabhängig von der Herkunft genau das essen, was auf dem regulären Standard-Speiseplan steht, ohne Ausnahmen.",
-        "Essenssituationen werden als Lern- und Kommunikationsfelder genutzt, in denen Tischkultur und Genuss im Dialog erlebt werden.",
-        "Es wird kein Essenszwang ausgeübt; Kinder bestimmen in Portionierung und Tempo selbst mit."
-      ],
-      "question": "Was sind zentrale Merkmale einer kultursensiblen und selbstbestimmten Gestaltung von Essenssituationen im pädagogischen Alltag? (Wähle drei zutreffende Antworten)",
-      "type": "multi"
+      "explanation": "Der DGE-Qualitätsstandard empfiehlt eine pflanzenbetonte, nährstoffreiche und nachhaltige Verpflegung mit reichlich Gemüse, Obst, Vollkorn und ungesüßten Getränken. Fleisch und Wurst sind ausdrücklich nur selten bzw. in begrenzter Häufigkeit vorgesehen; vollwertige vegetarische Verpflegung ist ausdrücklich möglich."
     },
     {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "basis",
-      "explanation": "Verhaltensprävention zielt auf die Stärkung persönlicher Kompetenzen, Gewohnheiten und Verhaltensweisen des Einzelnen (z. B. gesunde Ernährung, Bewegung), während Verhältnisprävention die Umweltstrukturen verändert.",
-      "id": "q6-prevention",
+      "id": "v2-q4",
+      "type": "single",
+      "difficulty": "pruefung",
+      "question": "Wie unterscheiden sich die Regelungsinhalte von § 34 und § 36 des Infektionsschutzgesetzes (IfSG) für Kindertageseinrichtungen?",
       "options": [
-        "Die Veränderung von gesetzlichen Rahmenbedingungen für Lebensmittelhersteller.",
-        "Die bauliche Umgestaltung von Spielplätzen zur Unfallvermeidung.",
-        "Die gezielte Förderung gesundheitsförderlicher Verhaltensweisen und Kompetenzen (z. B. Ernährungs- und Bewegungsbewusstsein) bei Kindern.",
-        "Die rein medizinische Behandlung von akuten Erkrankungen durch Kinderärzte."
+        "Beide Paragrafen sind freiwillige Empfehlungen ohne rechtliche Verbindlichkeit für freie Träger.",
+        "§ 34 IfSG regelt die Kennzeichnung der 14 Hauptallergene; § 36 IfSG legt die Mindesttemperatur beim Kochen fest.",
+        "§ 34 IfSG betrifft ausschließlich das Küchenpersonal, während § 36 IfSG nur die ärztliche Impfberatung regelt.",
+        "§ 34 IfSG regelt gesundheitliche Anforderungen, Besuchs-/Tätigkeitsverbote und Meldepflichten bei bestimmten Infektionskrankheiten; § 36 IfSG verpflichtet Einrichtungen zu innerbetrieblichen Hygieneplänen."
       ],
-      "question": "Was versteht man in der Gesundheitsförderung unter ‚Verhaltensprävention‘?",
-      "type": "single"
+      "correctIndices": [
+        3
+      ],
+      "explanation": "§ 34 IfSG normiert verbindlich Besuchsverbote (z. B. bei infektiöser Gastroenteritis im U6-Alter, Masern, Scharlach), Eltern-Mitteilungspflichten und Leitungsmeldungen an das Gesundheitsamt. § 36 IfSG verpflichtet Gemeinschaftseinrichtungen zu verbindlichen innerbetrieblichen Hygieneplänen; Allergene regelt hingegen die LMIV."
+    },
+    {
+      "id": "v2-q5",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Handlungsweisen kennzeichnen die „beziehungsvolle Pflege“ nach Emmi Pikler im Krippen- und Kita-Alltag? (Mehrere Antworten sind richtig)",
+      "options": [
+        "Die Fachkraft wendet sich dem Kind mit ungeteilter Aufmerksamkeit zu und kündigt jeden Handgriff ruhig sprachlich an.",
+        "Die Intimsphäre des Kindes wird durch geschützte räumliche Gestaltung und grenzachtenden Umgang konsequent gewahrt.",
+        "Die Fachkraft lenkt das Kind beim Wickeln konsequent mit einem Spielzeug ab, damit der Vorgang möglichst rasch erledigt ist.",
+        "Das Kind wird aktiv zur Kooperation eingeladen und in seinem eigenen Tempo einbezogen."
+      ],
+      "correctIndices": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "Beziehungsvolle Pflege nach Pikler begreift Wickeln und Waschen als respektvollen Dialog auf Augenhöhe mit Ankündigung, Kooperation und Intimsphärenschutz. Schnelles Ablenken degradiert das Kind zum passiven Objekt der Pflege."
+    },
+    {
+      "id": "v2-q6",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Was unterscheidet Verhältnisprävention von Verhaltensprävention in einer gesundheitsfördernden Kindertagesstätte?",
+      "options": [
+        "Verhaltensprävention ersetzt bei Kindern unter sechs Jahren jede Form von Verhältnisprävention.",
+        "Verhältnisprävention verändert gesundheitsrelevante Lebens- und Umgebungsbedingungen (z. B. Lärmschutz, Verpflegungsqualität, Bewegungsräume), während Verhaltensprävention individuelle Kompetenzen und Gewohnheiten stärkt.",
+        "Verhältnisprävention ist Aufgabe des Gesundheitsamtes, sodass pädagogische Fachkräfte sie nicht beeinflussen können.",
+        "Verhältnisprävention richtet sich ausschließlich an Eltern, Verhaltensprävention ausschließlich an Kinder."
+      ],
+      "correctIndices": [
+        1
+      ],
+      "explanation": "Nachhaltige Gesundheitsförderung kombiniert beide Ebenen: Verhältnisprävention schafft gesunde Rahmenbedingungen (z. B. Akustik, Wasserstation, DGE-Speiseplan, Ruhezonen), Verhaltensprävention stärkt das Wissen, Körpergefühl und Handeln der einzelnen Personen."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Leitbegriffe der Gesundheitsförderung und Prävention: Salutogenese",
+      "url": "https://books.publisso.de/de/publisso_gold/export/chapter/392/pdf/BIOEG%3ALB-i104-1.0.pdf",
+      "publisher": "Bundesinstitut für Öffentliche Gesundheit (BIÖG, ehem. BZgA) / PUBLISSO",
+      "note": "Wissenschaftliche Referenzdarstellung zu Aaron Antonovskys Salutogenese-Modell und Kohärenzgefühl."
+    },
+    {
+      "title": "Leitbegriffe der Gesundheitsförderung in der Kita",
+      "url": "https://www.kindergesundheit-info.de/fachkraefte/grundlagen/gesundheitsfoerderung/leitbegriffe-gesundheitsfoerderung/",
+      "publisher": "Bundesinstitut für Öffentliche Gesundheit (BIÖG) / kindergesundheit-info.de",
+      "note": "Praxisbezogene Übersicht zu Setting-Ansatz, Salutogenese, Verhaltens- und Verhältnisprävention für Fachkräfte."
+    },
+    {
+      "title": "Leitfaden zum DGE-Qualitätsstandard für die Verpflegung in Kitas",
+      "url": "https://www.dge.de/fileadmin/dok/gemeinschaftsgastronomie/einrichtungen/kitas/Kita-Leitfaden-DGE-Kita.pdf",
+      "publisher": "Deutsche Gesellschaft für Ernährung e. V. (DGE)",
+      "note": "Konkrete Qualitätskriterien für Lebensmittelauswahl, Nachhaltigkeit, Essatmosphäre und Partizipation."
+    },
+    {
+      "title": "FIT KID – Nutzen und Bausteine des DGE-Qualitätsstandards für Kitas",
+      "url": "https://www.fitkid-aktion.de/dge-qualitaetsstandard/nutzen",
+      "publisher": "DGE / IN FORM – Initiative FIT KID",
+      "note": "Praxishilfen zur vollwertigen und kindgerechten Kita-Verpflegung."
+    },
+    {
+      "title": "Infektionsschutzgesetz (IfSG) § 34 – Gesundheitliche Anforderungen, Mitwirkungspflichten und Besuchsverbote",
+      "url": "https://www.gesetze-im-internet.de/ifsg/__34.html",
+      "publisher": "Bundesministerium der Justiz (gesetze-im-internet.de)",
+      "note": "Verbindliche Rechtsgrundlage für Besuchsverbote, Mitteilungs- und Meldepflichten in Kitas (ergänzt durch § 36 IfSG zu Hygieneplänen)."
     }
   ]
 }

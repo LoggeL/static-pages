@@ -1,4 +1,4 @@
-import { ModuleArea } from '../types/curriculum';
+import type { ModuleArea } from '../types/curriculum.ts';
 
 export interface ModuleAreaMeta {
   id: ModuleArea;
@@ -34,10 +34,10 @@ export interface CurriculumModuleMeta {
 export const MODULE_AREAS: Record<ModuleArea, ModuleAreaMeta> = {
   grundlagen: {
     id: 'grundlagen',
-    title: 'Kapitel 1–3: Vorgaben, Leitlinien & Didaktik',
-    shortTitle: 'Leitlinien & Rahmen',
+    title: 'Orientierung & Berufsgrundlagen (Nachschlagen)',
+    shortTitle: 'Orientierung',
     description:
-      'Bildungsauftrag, Bachelor Professional in Sozialwesen, Stundentafel (2.400 Std.), Kompetenzmodell, BNE, Digitale Welt und ko-konstruktive Didaktik.',
+      'Berufsauftrag, Tätigkeitsprofil (0–27 Jahre), Querschnittsthemen (BNE, Digitale Welt) und Ausbildungsrahmen zum gezielten Nachschlagen.',
     accentBg: 'bg-amber-50 dark:bg-amber-950/35',
     accentText: 'text-amber-800 dark:text-amber-300',
     accentBorder: 'border-amber-200 dark:border-amber-800/60',
@@ -81,8 +81,8 @@ export const MODULE_AREAS: Record<ModuleArea, ModuleAreaMeta> = {
 export const CURRICULUM_MODULES: CurriculumModuleMeta[] = [
   {
     code: 'LEITLINIEN',
-    title: 'Rahmenvorgaben, Leitlinien & Didaktische Konzeption',
-    shortTitle: 'Leitlinien & Didaktik',
+    title: 'Berufsauftrag, Tätigkeitsprofil & Querschnittsgrundlagen',
+    shortTitle: 'Berufsgrundlagen',
     area: 'grundlagen',
     hoursVzTz: 0,
     hoursBbYear1: 0,
@@ -90,7 +90,7 @@ export const CURRICULUM_MODULES: CurriculumModuleMeta[] = [
     selfLearningExample: 0,
     inClassroomExample: 0,
     description:
-      'Rechtlicher Rahmen, Bachelor Professional in Sozialwesen, Stundentafel, Tätigkeitsprofil (0–27 J.), BNE, Digitale Welt und Selbstlernzeiten.',
+      'Orientierung zum gesellschaftlichen Bildungs-, Erziehungs- und Betreuungsauftrag, Tätigkeitsprofil (0–27 Jahre), BNE, Digitaler Welt und ko-konstruktivem Lernen.',
     colorClass: 'from-amber-500 to-orange-600',
     badgeClass: 'bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-200',
     pdfPages: 'S. I–15',

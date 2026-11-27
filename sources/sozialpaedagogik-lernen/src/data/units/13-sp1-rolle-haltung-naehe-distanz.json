@@ -3,8 +3,10 @@
   "number": 13,
   "moduleCode": "S-SP-1",
   "moduleArea": "sp-pflicht",
-  "title": "Professionelle Haltung, Selbst-/Fremdwahrnehmung & Nähe-Distanz",
-  "subtitle": "Johari-Fenster, Feedbackkultur, Querschnittsaufgaben und professionelle Grenzziehung",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-1 · Professionelle Rolle, Haltung, Nähe-Distanz & Feedbackkultur (Lehrplan RLP 2024)",
+  "title": "Professionelle Rolle, Haltung, Nähe-Distanz & kollegiales Feedback",
+  "subtitle": "Spannungsfeld nach Dörr & Müller, Abstinenzgebot, Machtasymmetrie, Johari-Fenster und Feedbackkultur",
   "year": "2./3. Jahr",
   "estimatedMinutes": 25,
   "hoursRef": "160 Std. (Teil 2/3)",
@@ -14,380 +16,412 @@
     "Prävention",
     "Partizipation"
   ],
-  "summary": "Einheit 13 vermittelt angehenden Erzieher:innen (Bachelor Professional in Sozialwesen) fundiertes theoretisches und praktisches Wissen zur professionellen Rollenreflexion, zur Überprüfung von Selbst- und Fremdwahrnehmung mittels Johari-Fenster sowie zum sensiblen Umgang im Spannungsfeld von Nähe und Distanz. Auf Basis des Lehrplans Rheinland-Pfalz (S-SP-1) werden Querschnittsaufgaben und Feedbackkultur als essenzielle Bausteine professioneller Identität verankert.",
+  "summary": "Sozialpädagogische Arbeit findet in einem spannungsgeladenen Feld aus persönlicher Beziehungsnähe und formaler Berufsrolle statt. In dieser Einheit erarbeitest du Grundlagen einer reflektierten professionellen Haltung, das dynamische Verständnis von Nähe und Distanz nach Dörr und Müller, den verantwortungsvollen Umgang mit Machtasymmetrie und Abstinenzgebot sowie die Überprüfung von Selbst- und Fremdwahrnehmung durch das Johari-Fenster und kollegiales Feedback.",
   "learningGoals": [
-    "Ich kann die eigene Erzieherin- und Erzieherrolle in unterschiedlichen sozialpädagogischen Arbeitsfeldern kritisch hinterfragen und die Konsequenzen für mein pädagogisches Handeln ableiten.",
-    "Ich kann Selbst- und Fremdwahrnehmung mithilfe des Johari-Fensters analysieren und konstruktives Feedback geben sowie empfangen.",
-    "Ich kann das Spannungsfeld von Nähe und Distanz professionell reflektieren und grenzwahrende, wertorientierte Beziehungsangebote gestalten.",
-    "Ich kann die 8 Querschnittsaufgaben des Lehrplans (u. a. Partizipation, Inklusion, Prävention, Nachhaltigkeit) in das eigene pädagogische Handeln integrieren.",
-    "Ich kann Strategien der Gesundheitsprävention, Psychohygiene und Supervision (z. B. Coping, Inneres Team) zur Stärkung der eigenen Resilienz anwenden."
+    "Ich kann professionelle Haltung und Berufsrolle von privatem Alltagshandeln abgrenzen und Rollenkonflikte in unterschiedlichen Arbeitsfeldern reflektieren.",
+    "Ich kann das Spannungsfeld von Nähe und Distanz nach Margret Dörr und Burkhard Müller als dynamische Strukturantinomie erläutern statt als starre Abstandsregel.",
+    "Ich kann Machtasymmetrie und das Abstinenzgebot in pädagogischen Beziehungen begründen sowie grenzachtende Schutzstandards im Alltag anwenden.",
+    "Ich kann das Johari-Fenster nach Luft und Ingham nutzen, um das Zusammenspiel von Selbstwahrnehmung, Fremdwahrnehmung und blinden Flecken zu erklären.",
+    "Ich kann konstruktives kollegiales Feedback regelgeleitet geben und annehmen, um die eigene Professionalität im Team weiterzuentwickeln."
   ],
   "sections": [
     {
-      "body": "Die professionelle Identität von Erzieher:innen (Bachelor Professional in Sozialwesen) basiert nicht auf bloßem 'gesunden Menschenverstand', sondern auf einer wissenschaftlich fundierten, reflektierten Haltung. Nach dem Lehrplan RLP (S-SP-1) reflektieren Fachkräfte im 2./3. Ausbildungsjahr ihre Rolle in verschiedenen Arbeitsfeldern (Kita, Hort, Jugendhilfe) und hinterfragen kritisch eigene sowie gesellschaftliche Erwartungen. Eine wertorientierte Haltung nach Carl Rogers (Wertschätzung, Empathie, Kongruenz) bildet das Fundament für eine professionelle Beziehungsgestaltung.",
+      "heading": "Professionelle Rolle, Haltung und Umgang mit Rollenkonflikten",
+      "keyTakeaway": "Professionelle Haltung verbindet theoretisch begründetes Fachwissen mit reflektierter Wertorientierung – und zeigt sich besonders dann, wenn Rollenerwartungen im Alltag widersprüchlich sind.",
+      "body": "Professionelles Handeln in der Sozialpädagogik unterscheidet sich grundlegend von gut gemeintem Alltagshandeln: Es orientiert sich an wissenschaftlichen Erkenntnissen, fachlichen Standards, Kinderrechten und einem reflektierten Auftrag. Eine zentrale Grundlage bildet die personzentrierte Haltung nach Carl Rogers mit ihren drei Kernvariablen: empathisches Verstehen (sich in das Erleben des Gegenübers einfühlen, ohne darin aufzugehen), unbedingte positive Wertschätzung (die Person auch dann achten, wenn ein einzelnes Verhalten begrenzt werden muss) und Kongruenz (stimmiges, echtes Auftreten statt starrer Fassade). Im Berufsalltag stehen Fachkräfte zugleich oft zwischen widersprüchlichen Rollenerwartungen – etwa wenn Eltern strenge Disziplinierung erwarten, die Einrichtung ein partizipatives Konzept vertritt und das Kind individuelle Begleitung braucht. Professionalität heißt, solche Ziel- und Rollenkonflikte transparent zu benennen, fachlich begründet Stellung zu beziehen und die eigene Rolle kontinuierlich im Team zu überprüfen.",
       "bulletPoints": [
-        "Abgrenzung von reiner Alltagserfahrung zu wissenschaftlich fundierter Professionalität.",
-        "Kritische Analyse von Rollenerwartungen durch Träger, Eltern und Öffentlichkeit.",
-        "Verankerung der personellen Kompetenzen und der eigenen Biografie.",
-        "Entwicklung einer personenzentrierten Haltung nach Carl Rogers."
+        "Alltagshandeln vs. Professionalität: Begründbarkeit, Reflexivität, Kinderrechtsorientierung und institutioneller Auftrag",
+        "Personzentrierte Grundhaltung nach Carl Rogers: Empathie, Wertschätzung und Kongruenz",
+        "Umgang mit widersprüchlichen Erwartungen von Kindern, Eltern, Team und Träger",
+        "Aushalten von Ungewissheit: Situatives Abwägen statt starrer Patentrezepte"
       ],
-      "heading": "Professionelle Identität und Rollenreflexion",
-      "keyTakeaway": "Professionalität in der Sozialpädagogik erfordert die ständige kritische Reflexion der eigenen Erzieherrolle und der zugrundeliegenden Wertvorstellungen.",
-      "praxisTip": "Führe in der Praxisstelle ein Reflexionsportfolio, in dem du konkrete Rollenkonflikte (z. B. zwischen Elternanspruch und pädagogischem Auftrag) dokumentierst und analysierst."
+      "praxisTip": "Trenne in herausfordernden Situationen bewusst Person und Verhalten: Wertschätzung gilt immer dem Kind oder Jugendlichen als Mensch, während eine konkrete Grenzsetzung dem Verhalten gilt."
     },
     {
-      "body": "Das Johari-Fenster von Joseph Luft und Harry Ingham ist ein zentrales Instrument zur Überprüfung von Selbst- und Fremdwahrnehmung. Es unterscheidet vier Bereiche: Öffentlicher Bereich (mir und anderen bekannt), Blinder Fleck (anderen bekannt, mir unbekannt), Privatheit (mir bekannt, anderen unbekannt) und das Unbewusste (beiden unbekannt). Durch strukturierte Feedbackprozesse wird der blinde Fleck verkleinert, was die Selbstkompetenz und Teamfähigkeit stärkt. Konstruktives Feedback erfolgt dabei wahrnehmungsorientiert, ich-bezogen und lösungsorientiert.",
+      "heading": "Nähe und Distanz nach Dörr & Müller, Machtasymmetrie und Abstinenzgebot",
+      "keyTakeaway": "Nach Dörr und Müller gibt es keinen statischen „richtigen Abstand“: Professionelle Nähe-Distanz-Regulation ist eine bewegliche, reflexiv geprüfte Balance – abgesichert durch Machtreflexion und das Abstinenzgebot.",
+      "body": "Das Verhältnis von Nähe und Distanz gehört zu den grundlegenden Spannungsfeldern (Strukturantinomien) pädagogischer Professionalität. Margret Dörr und Burkhard Müller betonen, dass sozialpädagogische Arbeit einerseits persönliche Beziehung, Resonanz und emotionale Verlässlichkeit (Nähe) benötigt, andererseits aber an eine formale Berufsrolle, einen gesellschaftlichen Auftrag und zeitliche Begrenztheit (Distanz) gebunden bleibt. Beide Extrempole sind fachlich riskant: Eine unreflektierte Verabsolutierung von Nähe führt zu Überidentifikation, Vermischung von Beruf und Privatleben oder Grenzverletzungen; eine einseitige Flucht in Distanz mündet in emotionale Kälte, Bürokratismus und den Verlust tragfähiger Beziehung. Entscheidend ist eine „innere Distanz“ im Sinne von Reflexionsfähigkeit: Fachkräfte nehmen eigene Affekte (Sympathie, Mitleid, Ärger, Überforderung) und Gegenübertragungen bewusst wahr, ohne sie ungefiltert auszuleben. Eng verbunden damit sind die strukturelle Machtasymmetrie (Fachkräfte verfügen über Deutungs-, Entscheidungs- und Schutzmacht gegenüber Abhängigen) sowie das Abstinenzgebot: Pädagogische Beziehungen dienen ausschließlich dem Wohl und der Entwicklung der Adressat:innen – niemals der Befriedigung eigener privater, emotionaler, finanzieller oder narzisstischer Bedürfnisse der Fachkraft. Klare Verhaltenskodizes im Team, transparente Regeln für Körperkontakt, Pflegesituationen, private Kontakte und Geschenke sowie wirksame Schutzkonzepte (§ 45 Abs. 2 Satz 2 Nr. 4 SGB VIII) sichern diese Grenzen verlässlich ab.",
       "bulletPoints": [
-        "Vier Quadranten des Johari-Fensters: Öffentliches Ich, Blinder Fleck, Geheimnis, Unbewusstes.",
-        "Regeln für konstruktives Feedback: Ich-Botschaften, konkreter Bezug, Wertschätzung.",
-        "Verkleinerung des blinden Flecks durch ehrliches, professionelles Fremdfeedback.",
-        "Bedeutung von Kollegialer Beratung und Supervision zur Selbsterkenntnis."
+        "Dörr & Müller: Nähe und Distanz als dynamische, situativ zu reflektierende Bewegungsfähigkeit statt starrem Regelkatalog",
+        "Innere Distanz: Eigene Emotionen und Gegenübertragungen wahrnehmen und reflektieren, statt impulsiv zu handeln",
+        "Abstinenzgebot: Eigene private oder emotionale Bedürfnisse bleiben strikt außerhalb der pädagogischen Beziehung",
+        "Machtasymmetrie & Schutz: Transparenter Verhaltenskodex im Team zu Körperkontakt, privaten Kanälen, Geschenken und Vier-Augen-Situationen"
       ],
-      "heading": "Selbst- und Fremdwahrnehmung: Das Johari-Fenster",
-      "keyTakeaway": "Das Johari-Fenster und eine professionelle Feedbackkultur machen blinde Flecken in der Wahrnehmung transparent und fördern die persönliche Entwicklung.",
-      "praxisTip": "Führe mit einer Praxispartnerin oder einem Praxispartner eine gegenseitige Feedback-Sequenz nach klaren Kommunikationsregeln (Ich-Botschaften) durch."
+      "praxisTip": "Prüfe bei jeder Ausnahme („Nur einmal kurz privat über WhatsApp schreiben“, „Nur diesem Kind etwas Besonderes mitbringen“) mit dem Transparenz-Test: „Könnte ich dieses Verhalten offen und begründet in der nächsten Teamsitzung vorstellen?“"
     },
     {
-      "body": "Das Spannungsfeld zwischen emotionaler Nähe und professioneller Distanz ist eines der zentralen Dilemmata pädagogischer Arbeit. Einerseits benötigen Kinder verlässliche, zugewandte Bindungsangebote (Empathie, Wärme), andererseits erfordert der Schutz von Kind und Fachkraft klare professionelle Grenzen (keine privaten Verstrickungen, Wahrung von Intimsphäre, institutioneller Schutz). Die 8 Querschnittsaufgaben des Lehrplans RLP (Partizipation, Inklusion, Prävention, Sprachbildung, Übergänge, Digitale Welt, Nachhaltigkeit, Nähe-Distanz) spannen den Rahmen auf, in dem diese Grenzen täglich neu ausgehandelt werden müssen.",
+      "heading": "Selbst- und Fremdwahrnehmung: Johari-Fenster und kollegiale Feedbackkultur",
+      "keyTakeaway": "Niemand sieht sich selbst vollständig objektiv: Das Johari-Fenster zeigt, wie respektvolles Fremdfeedback blinde Flecken verkleinert und konstruktive Zusammenarbeit im Team stärkt.",
+      "body": "Da die eigene Wahrnehmung zwangsläufig selektiv ist, braucht professionelle Rollenentwicklung den systematischen Abgleich zwischen Selbst- und Fremdwahrnehmung. Das 1955 von Joseph Luft und Harry Ingham entwickelte Johari-Fenster stellt vier Bereiche gegenüber: (1) den öffentlichen Bereich (Arena: mir und anderen bekannt), (2) den blinden Fleck (anderen bekannt, mir selbst unbewusst – z. B. ungeduldiger Tonfall bei Stress), (3) die Fassade bzw. den verborgenen Bereich (mir bekannt, vor anderen geschützt – z. B. eigene Unsicherheit) und (4) das Unbekannte (weder mir noch anderen bekannt). Durch konstruktives Feedback von Kolleg:innen schrumpft der blinde Fleck; durch angemessene, freiwillige Selbstoffenbarung verkleinert sich die Fassade, sodass der Bereich vertrauensvoller Zusammenarbeit wächst. Damit Feedback tatsächlich lernförderlich wirkt und keine Abwehr auslöst, orientiert es sich an klaren Regeln – etwa dem WWW-Schema (Wahrnehmung: konkretes beobachtbares Verhalten statt Etikettierung; Wirkung: persönliche Ich-Botschaft; Wunsch: machbare Bitte für die Zukunft). Ebenso wichtig ist das Feedback-Nehmen: zuerst ausreden lassen, nicht sofort rechtfertigen, Verständnisfragen stellen und eigenverantwortlich prüfen, was man mitnimmt.",
       "bulletPoints": [
-        "Ausgleich zwischen emotionaler Zugewandtheit und professioneller Abgrenzung.",
-        "Integration der 8 Querschnittsaufgaben des RLP-Lehrplans in den pädagogischen Alltag.",
-        "Prävention von Grenzverletzungen und institution (SGB VIII § 8a/b).",
-        "Einsatz von Psychohygiene und Coping-Strategien gegen Burnout und Belastung."
+        "Johari-Fenster (Luft & Ingham, 1955): Arena (öffentlich), Blinder Fleck, Fassade (verborgen) und Unbekanntes",
+        "Lernmechanismus: Feedback verkleinert den blinden Fleck; dosierte Selbstoffenbarung erweitert den offenen Austausch",
+        "Regeln für Feedback-Geben (WWW): Konkrete Wahrnehmung, persönliche Wirkung (Ich-Botschaft), konkreter Wunsch – zeitnah und wertschätzend",
+        "Regeln für Feedback-Nehmen: Zuhören ohne Rechtfertigungsreflex, nachfragen, eigenverantwortlich reflektieren"
       ],
-      "heading": "Nähe-Distanz und die 8 Querschnittsaufgaben",
-      "keyTakeaway": "Professionelle Beziehungsarbeit gelingt durch die bewusste Balance aus emotionaler Nähe und klarer, schützender Distanz im Kontext der Querschnittsaufgaben.",
-      "praxisTip": "Entwickle im Team einen Verhaltenskodex für den Umgang mit körperlicher Nähe und Distanz (z. B. Regeln für Trösten, Wickeln und Begrüßungsrituale)."
+      "praxisTip": "Beginne Feedback-Gespräche im Team nicht mit „Du bist immer…“, sondern mit einem konkreten Moment: „Mir ist gestern in der Übergabe aufgefallen, dass… Auf mich wirkte das… Für das nächste Mal wünsche ich mir…“"
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Professionelle Identität & Haltung",
       "id": "vb-1",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Extrempol 1",
-          "detail": "Vollständige emotionale Verschmelzung, Überidentifikation mit den Problemen der Klienten, Aufgabe der eigenen Grenzen, hohes Risiko für sekundäre Traumatisierung und Burnout.",
-          "example": "Eine Fachkraft nimmt Probleme von Kindern mit nach Hause und leidet nachts unter Schlafstörungen wegen der Sorgen um ein Kind.",
-          "id": "item-1",
-          "label": "Überangepasste Nähe",
-          "metric": "Gefahr von Burnout",
-          "summary": "Vollkommene Verschmelzung ohne professionelle Abgrenzung."
-        },
-        {
-          "badge": "Extrempol 2",
-          "detail": "Vollkommene emotionale Kälte, rigide Regelbefolgung, Angst vor echtem Kontakt, Verweigerung von Trost und empathischer Zuwendung.",
-          "example": "Eine Fachkraft verweigert einem weinenden Kind jeglichen Trost mit dem Hinweis, es müsse lernen, allein klarzukommen.",
-          "id": "item-2",
-          "label": "Kühle Distanz",
-          "metric": "Gefahr von Deprivation",
-          "summary": "Emotionale Härte und strikte Abschottung vom Kind."
-        },
-        {
-          "badge": "Goldene Mitte",
-          "detail": "Die professionelle Balance aus Empathie, Wärme und klarer, verlässlicher Grenzziehung. Die Fachkraft ist emotional erreichbar, wahrt aber ihre eigenen und die institutionellen Grenzen.",
-          "example": "Die Fachkraft tröstet das Kind liebevoll, setzt aber klare Absprachen über den Rahmen von Körperkontakt und zeigt professionelle Zuverlässigkeit.",
-          "id": "item-3",
-          "label": "Professionelle Balance",
-          "metric": "Optimale Haltung",
-          "summary": "Empathische Verbundenheit gepaart mit klarer Grenzziehung."
-        }
-      ],
       "kind": "spectrum",
-      "leftPole": "Emotionale Übersteigerung (Nähe)",
-      "rightPole": "Emotionale Kälte (Distanz)",
-      "subtitle": "Das professionelle Spannungsfeld im Alltag",
-      "title": "Das Nähe-Distanz-Spektrum in der Sozialpädagogik"
+      "title": "Das Spannungsfeld von Nähe und Distanz (nach Dörr & Müller)",
+      "subtitle": "Bewegungsfähigkeit zwischen emotionaler Verbundenheit und klarer Rollengrenze",
+      "centerLabel": "Nähe & Distanz",
+      "leftPole": "Entgrenzte Nähe",
+      "rightPole": "Starre Distanz",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "nd-1",
+          "label": "Überidentifikation & Entgrenzung",
+          "badge": "Linker Extrempol",
+          "metric": "Risiko",
+          "summary": "Vermischung von Berufsrolle und Privatleben; Verletzung des Abstinenzgebots.",
+          "detail": "Die Fachkraft verliert ihre innere Distanz, sucht eigene emotionale Bestätigung bei Kindern oder Familien, bevorzugt Einzelne oder übernimmt private Aufgaben außerhalb des Auftrags.",
+          "example": "Private Handynummer an eine einzelne Familie weitergeben, heimliche Geschenke annehmen oder abends privat mit Eltern über Teamkolleg:innen chatten."
+        },
+        {
+          "id": "nd-2",
+          "label": "Professionelle Balance",
+          "badge": "Reflexive Mitte",
+          "metric": "Zielzustand",
+          "summary": "Empathische, verlässliche Zuwendung bei klaren, transparenten Rollengrenzen.",
+          "detail": "Die Fachkraft begegnet Kindern warmherzig und feinfühlig, bleibt dabei aber innerlich reflexionsfähig, wahrt das Abstinenzgebot und schützt eigene wie kindliche Grenzen verlässlich.",
+          "example": "Ein weinendes Kind empathisch auf Augenhöhe trösten, Körperkontakt an den Signalen des Kindes ausrichten und Absprachen mit Eltern über offizielle Einrichtungskanäle halten."
+        },
+        {
+          "id": "nd-3",
+          "label": "Emotionale Kälte & Rollenpanzer",
+          "badge": "Rechter Extrempol",
+          "metric": "Risiko",
+          "summary": "Rückzug hinter starre Vorschriften; Verweigerung empathischer Resonanz.",
+          "detail": "Aus Angst vor Nähe oder Fehlern agiert die Fachkraft rein bürokratisch, abweisend und kühl. Kinder erleben keine verlässliche emotionale Sicherheit.",
+          "example": "Ein gestürztes Kind ohne Mitgefühl abweisen: „Stell dich nicht an, ich darf dich ohnehin nicht anfassen, geh allein auf deinen Stuhl.“"
+        }
+      ]
     },
     {
-      "centerLabel": "Johari-Fenster",
       "id": "vb-2",
+      "kind": "comparison",
+      "title": "Die vier Quadranten des Johari-Fensters (Luft & Ingham, 1955)",
+      "subtitle": "Zusammenspiel von Selbstwahrnehmung, Fremdwahrnehmung, Feedback und Selbstoffenbarung",
+      "centerLabel": "Johari-Fenster",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Vergleich 1",
-          "detail": "Beinhaltet Verhaltensweisen, Gefühle und Merkmale, die sowohl der Person selbst als auch ihrem sozialen Umfeld (Team, Kinder) bekannt sind. Offene Kommunikation vergrößert diesen Bereich.",
-          "example": "'Alle wissen, dass ich gerne musiziere und in Konflikten lösungsorientiert moderiere.'",
-          "id": "item-1",
-          "label": "Öffentliche Person (Arena)",
+          "id": "j-1",
+          "label": "Öffentlicher Bereich (Arena)",
+          "badge": "Mir & anderen bekannt",
           "metric": "Transparenz",
-          "summary": "Der offene, für alle sichtbare und bekannte Bereich."
+          "summary": "Verhaltensweisen, Stärken und Haltungen, die sowohl mir als auch dem Team vertraut sind.",
+          "detail": "Je größer die Arena durch wechselseitiges Vertrauen, Feedback und angemessene Offenheit wird, desto klarer und reibungsärmer gelingt die Zusammenarbeit im Team.",
+          "example": "Alle im Team wissen, dass ich Morgenkreise gern musikalisch gestalte und klare Absprachen schätze."
         },
         {
-          "badge": "Vergleich 2",
-          "detail": "Beinhaltet Aspekte, die andere an der Person wahrnehmen, die der Person selbst jedoch nicht bewusst sind (z. B. unbewusste Gestik, Wirkung von Tonfall oder Abwehrhaltungen).",
-          "example": "'Kolleginnen merken, dass ich bei Stress ungeduldig werde, was mir selbst erst durch Feedback auffällt.'",
-          "id": "item-2",
+          "id": "j-2",
           "label": "Blinder Fleck",
-          "metric": "Entwicklungspotenzial",
-          "summary": "Von anderen wahrgenommen, für das Selbst unsichtbar."
+          "badge": "Anderen bekannt, mir unbekannt",
+          "metric": "Feedback-Feld",
+          "summary": "Unbewusste Wirkungen des eigenen Verhaltens, die Kolleg:innen oder Kinder deutlich wahrnehmen.",
+          "detail": "Typisch sind Körpersprache, Lautstärke, unbewusste Bevorzugungen oder Ungeduld unter Stress. Nur durch respektvolles Fremdfeedback wird dieser Bereich sichtbar und veränderbar.",
+          "example": "Erst durch eine kollegiale Rückmeldung bemerke ich, dass ich Kinder bei Zeitdruck oft mitten im Satz unterbreche."
         },
         {
-          "badge": "Vergleich 3",
-          "detail": "Beinhaltet Gefühle, Ängste oder Geheimnisse, die der Person bewusst sind, die sie jedoch vor anderen gezielt verbirgt oder schützt.",
-          "example": "'Ich verheimliche im Team manchmal meine Unsicherheit bei Elterngesprächen aus Angst vor Inkompetenz.'",
-          "id": "item-3",
-          "label": "Privatheit (Fassade)",
-          "metric": "Schutzbereich",
-          "summary": "Der Person bekannt, vor anderen verborgen."
+          "id": "j-3",
+          "label": "Verborgener Bereich (Fassade)",
+          "badge": "Mir bekannt, anderen unbekannt",
+          "metric": "Schutz & Auswahl",
+          "summary": "Gedanken, Gefühle oder Unsicherheiten, die ich bewusst für mich behalte.",
+          "detail": "Ein geschützter Privatraum ist gesund und wichtig. Gleichzeitig entlastet dosierte professionelle Offenheit (z. B. Überforderung im Team benennen) die Zusammenarbeit spürbar.",
+          "example": "Ich traue mich zunächst nicht zuzugeben, dass mich Elterngespräche noch stark verunsichern – erst im Anleitungsgespräch spreche ich es an."
         },
         {
-          "badge": "Vergleich 4",
-          "detail": "Beinhaltet unbewusste Motive, verdrängte Konflikte und Potenziale, die weder der Person selbst noch ihrer Umwelt zugänglich sind. Durch Therapie oder Krisen können Anteile ins Bewusstsein treten.",
-          "example": "'Unbewusste biografische Muster, die in bestimmten Krisensituationen plötzliche heftige Reaktionen auslösen.'",
-          "id": "item-4",
-          "label": "Unbekanntes (Unbewusstes)",
-          "metric": "Tiefe Schicht",
-          "summary": "Weder der Person noch anderen bekannt."
+          "id": "j-4",
+          "label": "Unbekannter Bereich",
+          "badge": "Weder mir noch anderen bekannt",
+          "metric": "Potenzial",
+          "summary": "Noch unentdeckte Ressourcen, Entwicklungsfelder oder unbewusste biografische Muster.",
+          "detail": "Teile dieses Bereichs können erst durch neue Herausforderungen, Supervision oder veränderte Praxiserfahrungen nach und nach zugänglich werden.",
+          "example": "In einer unerwarteten Krisensituation entdecke ich erstmals meine besondere Fähigkeit, sehr ruhig und strukturiert zu moderieren."
         }
-      ],
-      "kind": "comparison",
-      "leftPole": "Selbstbekannt",
-      "rightPole": "Selbstunbekannt",
-      "subtitle": "Modell von Luft und Ingham zur Selbst- und Fremdwahrnehmung",
-      "title": "Die vier Quadranten des Johari-Fensters"
+      ]
     },
     {
-      "centerLabel": "Kommunikation",
       "id": "vb-3",
+      "kind": "dialogue",
+      "title": "Konstruktives kollegiales Feedback nach dem WWW-Schema",
+      "subtitle": "Wie Rückmeldungen im Team blinde Flecken klären, ohne das Gegenüber abzuwerten",
+      "centerLabel": "Feedback-Dialog",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Schritt 1",
-          "detail": "Die Fachkraft schildert wertfrei, was sie konkret wahrgenommen hat, ohne Interpretationen oder Vorwürfe zu formulieren. Die Wahrnehmung dient als gemeinsame Basis.",
-          "example": "'Ich habe beobachtet, dass du heute im Morgenkreis mehrfach dazwischengeredet hast.'",
-          "id": "item-1",
-          "label": "Konkrete Wahrnehmung",
-          "metric": "Faktizität",
-          "summary": "Wertfreie Beschreibung des beobachtbaren Verhaltens."
+          "id": "fb-1",
+          "label": "1. Wahrnehmung (konkret & wertfrei)",
+          "badge": "Feedback-Gebende",
+          "metric": "Beobachtung",
+          "summary": "Eine konkrete, zeitnahe Beobachtung schildern – ohne Verallgemeinerungen wie „immer“ oder „nie“.",
+          "detail": "Der Bezug auf eine überprüfbare Situation ermöglicht dem Gegenüber, die Rückmeldung nachzuvollziehen, statt in Abwehr zu gehen.",
+          "example": "„Mir ist heute beim Mittagsübergang aufgefallen, dass du dreimal lauter gerufen hast, während ich gerade mit den Kindern das Tischlied beginnen wollte.“"
         },
         {
-          "badge": "Schritt 2",
-          "detail": "Die Fachkraft drückt in Ich-Form aus, welche Gefühle oder Reaktionen das Verhalten bei ihr ausgelöst hat, statt Vorwürfe (Du-Botschaften) zu erheben.",
-          "example": "'Ich fühle mich dadurch in meiner Konzentration gestört und verliere den Faden.'",
-          "id": "item-2",
-          "label": "Persönliche Wirkung (Ich-Botschaft)",
-          "metric": "Empathie & Klarheit",
-          "summary": "Schilderung der eigenen emotionalen oder sachlichen Betroffenheit."
+          "id": "fb-2",
+          "label": "2. Wirkung (Ich-Botschaft)",
+          "badge": "Feedback-Gebende",
+          "metric": "Transparenz",
+          "summary": "Eigenes Erleben und sachliche Folgen in der Ich-Form beschreiben.",
+          "detail": "Statt böse Absichten zu unterstellen, macht die Ich-Botschaft sichtbar, was das Verhalten bei mir ausgelöst hat.",
+          "example": "„Ich habe dadurch den Faden verloren und hatte das Gefühl, dass unsere Absprache zur Leitung der Runde unterging.“"
         },
         {
-          "badge": "Schritt 3",
-          "detail": "Die Fachkraft formuliert einen konstruktiven Wunsch oder eine konkrete Bitte für die zukünftige Zusammenarbeit, die für beide Seiten machbar ist.",
-          "example": "'Ich wünsche mir, dass du dein Anliegen kurz anmeldest, wenn ich gerade spreche.'",
-          "id": "item-3",
-          "label": "Konstruktiver Wunsch",
-          "metric": "Zukunftsorientierung",
-          "summary": "Formulierung einer veränderten Handlungsoption."
+          "id": "fb-3",
+          "label": "3. Wunsch (zukunftsorientiert)",
+          "badge": "Feedback-Gebende",
+          "metric": "Handlungsoption",
+          "summary": "Eine konkrete, machbare Bitte für künftige Situationen formulieren.",
+          "detail": "Ein klarer Wunsch richtet den Blick nach vorn auf Kooperation statt auf Schuldfragen.",
+          "example": "„Ich wünsche mir, dass wir vor dem Essen kurz abstimmen, wer moderiert, und die andere Person bei Bedarf leise unterstützt.“"
         },
         {
-          "badge": "Schritt 4",
-          "detail": "Das Gegenüber nimmt das Feedback an, reflektiert es, stellt ggf. Verständnisfragen und es wird gemeinsam eine Vereinbarung getroffen.",
-          "example": "'Ah, verstehe. Ich versuche das nächste Mal die Hand zu heben, wenn ich etwas sagen möchte.'",
-          "id": "item-4",
-          "label": "Annahme & Vereinbarung",
-          "metric": "Kooperation",
-          "summary": "Gemeinsamer Konsens und Umsetzung im Alltag."
+          "id": "fb-4",
+          "label": "4. Resonanz & Vereinbarung",
+          "badge": "Feedback-Nehmende",
+          "metric": "Dialog",
+          "summary": "Zuhören ohne sofortige Rechtfertigung, nachfragen und eine gemeinsame Absprache treffen.",
+          "detail": "Das Gegenüber prüft die Rückmeldung als Lernimpuls und bringt die eigene Perspektive konstruktiv ein.",
+          "example": "„Danke für den Hinweis – mir war nicht bewusst, dass ich dir ins Wort gefallen bin. Lass uns morgens kurz festlegen, wer den Tischkreis übernimmt.“"
         }
-      ],
-      "kind": "dialogue",
-      "leftPole": "Sender",
-      "rightPole": "Empfänger",
-      "subtitle": "Strukturierter Ablauf eines professionellen Feedbackgesprächs",
-      "title": "Feedback geben und nehmen im Team"
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Kindergarten (3-6 Jahre) & Hort (6-10 Jahre)",
-    "context": "Eine angehende Erzieherin im 3. Ausbildungsjahr erlebt in ihrer Praxisstelle (Kindertagesstätte mit offenen Konzept) eine herausfordernde Situation im Bereich Nähe-Distanz und professionelle Grenzziehung.",
-    "setting": "Kindertagesstätte / Offener Hortbereich",
+    "title": "Privates Geschenk und exklusive Nähe: Rollenklarheit im Spannungsfeld Nähe–Distanz",
+    "setting": "Kindertagesstätte mit altersgemischter Gruppe (3–6 Jahre)",
+    "ageGroup": "Auszubildende im 3. Jahr / Kita-Kind (5 Jahre) und Familie",
+    "context": "Auszubildende Jana hat über Monate ein sehr herzliches Verhältnis zur 5-jährigen Ella aufgebaut. Ella setzt sich inzwischen im Freispiel fast ständig auf Janas Schoß, schickt andere Kinder weg („Das ist meine Jana!“) und weint heftig, wenn Jana andere Kinder begleitet. Beim Abholen drückt Ellas Mutter Jana einen hochwertigen Restaurantgutschein in die Hand und fragt: „Sie sind wie eine große Schwester für Ella – können Sie mir Ihre private Nummer geben und am Samstag bei uns babysitten?“",
     "steps": [
       {
+        "situation": "Jana spürt geschmeicheltes Wohlwollen gegenüber der Familie, gleichzeitig aber ein deutliches Unbehagen wegen der exklusiven Vereinnahmung und des privaten Angebots.",
+        "prompt": "Wie reagiert Jana gegenüber Ellas Mutter und gegenüber Ella im Sinne professioneller Nähe-Distanz-Regulation und des Abstinenzgebots?",
         "options": [
           {
-            "feedback": "Das ist optimal. Die Fachkraft wahren professionelle Distanz, sucht das Vier-Augen-Prinzip und reflektiert ihre eigenen Emotionen im Team bzw. in der Supervision, statt voreilig zu beschuldigen oder übermäßige Intimität zuzulassen.",
-            "label": "Die Fachkraft setzt eine klare, liebevolle Grenze („Ich mag dich sehr, aber Kuscheln machen wir nur auf dem Sofa und wenn es für uns beide passt“), sucht das Gespräch mit der Praxisanleitung und reflektiert das Nähe-Distanz-Verhältnis im Team.",
-            "quality": "optimal",
-            "theoryLink": "RLP Rheinland-Pfalz S-SP-1: Spannungsfeld Nähe und Distanz, professionelle Grenzziehung, Schutzkonzepte (SGB VIII § 8a/b)."
-          },
-          {
-            "feedback": "Das ist problematisch. Ein abrupter, kalter Entzug („Geh weg, das darfst du nicht!“) beschämt das Kind emotional und verletzt das Bedürfnis nach emotionaler Sicherheit, was zu Bindungsverunsicherung führt.",
-            "label": "Die Fachkraft stößt das Kind abrupt weg, weist es scharf zurecht und verbietet ihm jeglichen körperlichen Kontakt für die Zukunft.",
+            "label": "Sie nimmt den Gutschein dankend an, gibt ihre private Nummer weiter und sagt das Babysitting zu, um die gute Elternbeziehung nicht zu gefährden.",
             "quality": "problematisch",
-            "theoryLink": "Bindungstheorie nach Bowlby/Ainsworth; Verletzung des professionellen Rollenverständnisses durch emotionale Zurückweisung."
+            "feedback": "Dies vermischt Berufsrolle und Privatleben und verletzt das Abstinenzgebot sowie die Gleichbehandlung aller Familien. Zudem verschärft die private Rolle die exklusive Abhängigkeit des Kindes und gefährdet die professionelle Handlungsfähigkeit bei künftigen Konflikten.",
+            "theoryLink": "Abstinenzgebot, Machtasymmetrie und Verhaltenskodex im Rahmen des Schutzkonzepts (§ 45 Abs. 2 S. 2 Nr. 4 SGB VIII)."
           },
           {
-            "feedback": "Das ist nur teilweise optimal. Die freundliche Annahme ohne Grenzsetzung überschreitet professionelle Grenzen und öffnet Tür und Tor für Grenzverletzungen oder eine ungesunde Abhängigkeit des Kindes von einer einzelnen Person.",
-            "label": "Die Fachkraft lässt das Kind gewähren, da Kinder eben Nähe brauchen, und ignoriert das mulmige Gefühl im eigenen Bauch.",
+            "label": "Sie lehnt Gutschein und privates Babysitting freundlich, aber klar unter Verweis auf ihre Berufsrolle ab und setzt bei Ella empathische, verlässliche Grenzen für Nähe in der Gruppe.",
+            "quality": "optimal",
+            "feedback": "Fachlich überzeugend: Jana wertschätzt die Dankbarkeit der Mutter, benennt aber transparent ihre professionelle Rolle und Einrichtungsregeln (Kommunikation über offizielle Wege, kein privates Babysitting, Umgang mit Geschenken gemäß Trägervorgabe). Gegenüber Ella bleibt sie warmherzig, macht aber liebevoll deutlich, dass sie für alle Kinder da ist.",
+            "theoryLink": "Dörr & Müller (professionelle Nähe-Distanz-Balance); Abstinenzgebot; Rogers (Wertschätzung bei klarer Grenzsetzung)."
+          },
+          {
+            "label": "Sie lehnt das Babysitting knapp ab, geht Ella aber ab dem nächsten Tag konsequent aus dem Weg, um keine Nähe mehr entstehen zu lassen.",
             "quality": "teilweise",
-            "theoryLink": "Professionalität im Spannungsfeld von Empathie und professioneller Abgrenzung (Stroobants / Nennstiel-Weber)."
+            "feedback": "Die Abgrenzung gegenüber dem privaten Angebot ist richtig, doch der plötzliche emotionale Rückzug von Ella kippt ins andere Extrem (starre Distanz) und verunsichert das Kind ohne verständliche Erklärung.",
+            "theoryLink": "Vermeidung beider Extrempole im Nähe-Distanz-Spannungsfeld (Dörr & Müller)."
           }
-        ],
-        "prompt": "Ein 5-jähriges Kind sucht im Kita-Alltag extremen, fast klammernden Körperkontakt, setzt sich ständig auf den Schoß der angehenden Erzieherin und verlangt exklusive Zuneigung, während andere Kinder abgewehrt werden. Wie sollte die Fachkraft reagieren?",
-        "situation": "Klammerndes Kind und Grenzziehung"
+        ]
       },
       {
+        "situation": "Am nächsten Tag bemerkt eine erfahrene Kollegin, dass Jana in der Bauecke erneut lange allein mit Ella abseits sitzt, und möchte Jana eine Rückmeldung dazu geben. Jana selbst hat diese Routine kaum noch bemerkt.",
+        "prompt": "Wie nutzen Jana und das Team das Johari-Fenster und kollegiales Feedback professionell für die Klärung?",
         "options": [
           {
-            "feedback": "Das ist problematisch. Die Weitergabe an das Kind instrumentalisiert dieses und überfordert es mit professionellen Verantwortlichkeiten, anstatt dass das Team und die Fachkraft selbst ihre Rolle klären.",
-            "label": "Die Fachkraft bittet das Kind beim nächsten Mal, selbst darauf zu achten, dass es nicht zu nah kommt, und ermahnt es vor der Gruppe.",
-            "quality": "problematisch",
-            "theoryLink": "Rollenklarheit und pädagogische Verantwortung; Kindeswohl und professionelle Autorität."
-          },
-          {
-            "feedback": "Das ist optimal. Die Nutzung des Johari-Fensters und kollegialer Beratung fördert die Erweiterung des blinden Flecks, macht unbewusste Rollenmuster transparent und stärkt die professionelle Haltung.",
-            "label": "Die Fachkraft greift die Situation in der Praxisreflexion auf, bespricht im Team (Johari-Fenster / blinder Fleck) eigene Anteile und entwickelt transparente Regeln für den Umgang mit Nähe und Distanz im Einrichtungsteam.",
-            "quality": "optimal",
-            "theoryLink": "Johari-Fenster (Luft/Ingham), Kollegiale Beratung, Teamentwicklung und professionelle Selbstreflexion nach RLP S-SP-1."
-          },
-          {
-            "feedback": "Das ist nur teilweise optimal. Das Vermeiden von Situationen schützt zwar kurzfristig, löst aber das zugrundeliegende Wahrnehmungs- und Rollenproblem nicht und verhindert professionelles Wachstum.",
-            "label": "Die Fachkraft geht dem Kind ab sofort einfach aus dem Weg, indem sie bei Freispielphasen immer andere Aufgaben übernimmt und den Kontakt vermeidet.",
+            "label": "Die Kollegin sagt nichts, um Jana nicht zu verletzen, und übernimmt stattdessen stillschweigend alle anderen Kinder in der Gruppe.",
             "quality": "teilweise",
-            "theoryLink": "Vermeidungsverhalten statt aktiver Reflexions- und Bewältigungsstrategien (Coping)."
+            "feedback": "Harmoniebedürfnis ohne offene Rückmeldung erhält den blinden Fleck aufrecht, überlastet andere Teammitglieder und verhindert gemeinsames fachliches Lernen.",
+            "theoryLink": "Verantwortung für kollegiale Feedbackkultur und Teamreflexion."
+          },
+          {
+            "label": "Die Kollegin wirft Jana im Gruppenraum vor anderen vor: „Du kannst dich überhaupt nicht abgrenzen, das ist total unprofessionell!“",
+            "quality": "problematisch",
+            "feedback": "Pauschale Persönlichkeitsabwertungen vor anderen verletzen jede Feedbackregel, erzeugen Abwehr und zerstören eine vertrauensvolle Reflexionskultur im Team.",
+            "theoryLink": "Feedbackregeln (geschützter Rahmen, wahrnehmungsorientiert statt abwertend)."
+          },
+          {
+            "label": "Im geschützten Reflexionsgespräch meldet die Kollegin ihre konkrete Beobachtung nach dem WWW-Schema zurück; Jana erkennt ihren blinden Fleck (Johari-Fenster) und vereinbart mit dem Team klare Übergabe- und Kontaktstrukturen.",
+            "quality": "optimal",
+            "feedback": "Optimal: Durch wertschätzendes, konkretes Fremdfeedback verkleinert sich Janas blinder Fleck, und das Team entwickelt transparente, gemeinsame Standards für Nähe, Körperkontakt und Elternkontakte im Sinne des Schutzkonzepts.",
+            "theoryLink": "Johari-Fenster (Luft & Ingham), WWW-Feedbackkultur und institutionelle Schutzstandards im Team."
           }
-        ],
-        "prompt": "Nachdem die Situation im Team aufkam, möchte die angehende Fachkraft ihre Selbst- und Fremdwahrnehmung systematisch überprüfen. Welcher Schritt ist fachlich am wirksamsten?",
-        "situation": "Aufarbeitung in der Praxisreflexion"
+        ]
       }
-    ],
-    "title": "Der klammernde Hortbesucher und das Spannungsfeld Nähe-Distanz"
+    ]
   },
   "selfLearningTasks": [
-    "Reflektiere deine eigene Rolle in der Praxisstelle anhand des Johari-Fensters: Welche Eigenschaften schreibst du dir selbst zu (öffentlicher Bereich) und welche Rückmeldungen hast du vom Team erhalten (blinder Fleck)?",
-    "Entwickle einen dreiteiligen Praxisleitfaden für deine Einrichtung zum Thema 'Nähe und Distanz beim Trösten und Körperkontakt' unter Berücksichtigung des Schutzkonfts nach § 8a SGB VIII.",
-    "Führe eine strukturierte Selbstevaluation deiner beruflichen Motivation und deiner Wertevorstellungen (angelehnt an das Eingangsprofil und das Modul S-SP-1) durch."
+    "Erstelle für deine Praxiseinrichtung ein persönliches Johari-Fenster: Notiere vier Stärken/Merkmale, die du selbst kennst (Arena), und hole dir im kollegialen Gespräch gezielt zwei konkrete Rückmeldungen zu möglichen blinden Flecken.",
+    "Überprüfe den Verhaltenskodex bzw. das Schutzkonzept deiner Praxisstelle zu drei konkreten Nähe-Distanz-Themen: Körperkontakt beim Trösten, Umgang mit Geschenken/Einladungen und digitale Erreichbarkeit gegenüber Familien.",
+    "Formuliere ein kurzes kollegiales Feedback zu einer realen oder typischen Teamsituation vollständig nach dem WWW-Schema (Wahrnehmung – Wirkung – Wunsch) und prüfe es auf verdeckte Vorwürfe."
   ],
   "flashcards": [
     {
-      "definition": "Ein sozialpsychologisches Modell von Luft und Ingham zur Veranschaulichung von Selbst- und Fremdwahrnehmung anhand von vier Quadranten: Öffentliche Person, Blinder Fleck, Privatheit/Geheimnis und Unbewusstes.",
-      "example": "Durch gezieltes Feedback in der Praxisreflexion wird der 'blinde Fleck' verkleinert und das 'öffentliche Feld' vergrößert.",
-      "term": "Johari-Fenster"
+      "term": "Nähe-Distanz-Antinomie (Dörr & Müller)",
+      "definition": "Grundlegende Strukturspannung sozialpädagogischer Arbeit zwischen notwendiger persönlicher Beziehungsnähe und formaler Berufsrolle/Distanz – keine starre Abstandsregel, sondern dynamische Reflexionsaufgabe.",
+      "example": "Empathisches Trösten verbinden mit klarer Rollen- und Grenzreflexion im Team."
     },
     {
-      "definition": "Die bewusste und reflektierte Balance zwischen emotionaler Zugewandtheit (Empathie, Wärme) und professioneller Abgrenzung (Regeln, Rollenklarheit) im pädagogischen Alltag zum Schutz von Kind und Fachkraft.",
-      "example": "Keine privaten Geschenke annehmen und klare körperliche Grenzen wahren, während man gleichzeitig ein emotional sicherer Hafen ist.",
-      "term": "Nähe-Distanz-Verhältnis"
+      "term": "Abstinenzgebot",
+      "definition": "Berufsethischer Grundsatz, dass pädagogische Beziehungen allein dem Wohl der Adressat:innen dienen und nicht zur Befriedigung privater, emotionaler, finanzieller oder narzisstischer Bedürfnisse der Fachkraft genutzt werden dürfen.",
+      "example": "Keine privaten Abhängigkeiten, keine Annahme hochwertiger Geschenke und keine Vermischung von Berufsrolle und privater Freundschaft zu Familien."
     },
     {
-      "definition": "Die strukturierte Rückmeldung über Verhalten und Wirkung durch andere, die für die Überprüfung der Selbst- und Fremdwahrnehmung unerlässlich ist (z. B. nach den Regeln: konstruktiv, wahrnehmungsorientiert, ich-bezogen).",
-      "example": "'Wenn du während des Stuhlkreises quatschst, fühle ich mich gestört, weil ich den Faden verliere.'",
-      "term": "Professionelles Feedback"
+      "term": "Strukturelle Machtasymmetrie",
+      "definition": "Ungleichgewicht in pädagogischen Beziehungen aufgrund von Alter, Wissen, institutioneller Entscheidungs- und Deutungsmacht der Fachkraft – begründet eine besondere Schutz- und Reflexionsverantwortung.",
+      "example": "Erzieher:innen bestimmen Rahmenbedingungen und dokumentieren Entwicklung; deshalb brauchen Kinder Beteiligungs- und Beschwerderechte."
     },
     {
-      "definition": "Die Gesamtheit der Werte, Einstellungen, Haltungen und theoretischen Fundierungen, die das berufliche Handeln von Erzieher:innen leiten und über bloßes technisches Können hinausgehen.",
-      "example": "Eine wertorientierte Haltung zeigt sich in der bedingungslosen Wertschätzung nach Carl Rogers, auch bei herausforderndem Verhalten.",
-      "term": "Professionelle Haltung"
+      "term": "Johari-Fenster (Luft & Ingham, 1955)",
+      "definition": "Vier-Felder-Modell zur Selbst- und Fremdwahrnehmung: Öffentlicher Bereich (Arena), Blinder Fleck, Verborgener Bereich (Fassade) und Unbekanntes.",
+      "example": "Durch ehrliches Teamfeedback schrumpft der blinde Fleck und der offene Kooperationsbereich wächst."
     },
     {
-      "definition": "Im Lehrplan RLP definierte bereichsübergreifende Aufgaben (wie Partizipation, Inklusion, Prävention, Sprachbildung etc.), die in allen Lernfeldern und Arbeitsfeldern querschnittartig berücksichtigt werden müssen.",
-      "example": "Die Verankerung von Kinderrechten und Partizipation bei der Gestaltung des Gruppenraums.",
-      "term": "Querschnittsaufgaben"
+      "term": "WWW-Feedbackregel",
+      "definition": "Struktur für konstruktives Feedback in drei Schritten: (1) konkrete, wertfreie Wahrnehmung, (2) persönliche Wirkung als Ich-Botschaft, (3) konkreter, machbarer Wunsch für die Zukunft.",
+      "example": "„Mir fiel auf, dass… (Wahrnehmung). Das hat mich verunsichert (Wirkung). Ich wünsche mir künftig… (Wunsch).“"
     },
     {
-      "definition": "Psychologische Bewältigungsstrategien und Schutzfaktoren zur Bewältigung von beruflichem Stress, Belastungen und zur Vermeidung von Burnout im pädagogischen Berufsfeld.",
-      "example": "Supervision und der Austausch im Inneren Team nutzen, um innere Konflikte in der Erzieherrolle zu klären.",
-      "term": "Psychohygiene und Coping"
+      "term": "Personzentrierte Haltung (Carl Rogers)",
+      "definition": "Grundhaltung aus drei zusammenwirkenden Dimensionen: empathisches Verstehen, unbedingte positive Wertschätzung der Person und Echtheit/Kongruenz.",
+      "example": "Auch bei einem Regelverstoß bleibt die Fachkraft der Person gegenüber respektvoll und zugleich ehrlich in ihrer Grenzsetzung."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "basis",
-      "explanation": "Das Johari-Fenster teilt die Wahrnehmung in vier Quadranten auf: Öffentliche Person, Blinder Fleck, Privatheit und Unbewusstes. Der blinde Fleck umfasst Aspekte, die andere an mir wahrnehmen, die mir selbst aber nicht bewusst sind.",
-      "id": "q-1",
-      "options": [
-        "Offener Bereich, geschlossener Bereich, blinder Fleck und unbewusster Raum",
-        "Mir selbst bekannt/unbekannt und Anderen bekannt/unbekannt (Öffentliche Person, Blinder Fleck, Privatheit, Unbewusstes)",
-        "Subjektive Wahrnehmung, objektive Fremdwahrnehmung, reale Welt und virtuelle Identität",
-        "Werte, Normen, Haltung und Reflexion"
-      ],
-      "question": "Welche vier Quadranten bildet das Johari-Fenster nach Luft und Ingham ab?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        2
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "vertiefung",
-      "explanation": "Professionelle Distanz bedeutet keineswegs emotionale Kälte oder Lieblosigkeit, sondern meint den Schutz der Fachkraft und des Kindes durch klare Rollengrenzen, während emotionale Nähe (Empathie, Wärme) das Fundament jeder Beziehungsarbeit bildet.",
-      "id": "q-2",
+      "question": "Wie beschreiben Margret Dörr und Burkhard Müller das Spannungsfeld von Nähe und Distanz in der Sozialpädagogik?",
       "options": [
-        "Professionelle Distanz bedeutet, dass Erzieher:innen niemals körperlichen Kontakt zu Kindern haben dürfen.",
-        "Nähe und Distanz schließen sich aus; pädagogische Fachkräfte sollten stets eine strikt neutrale, distanzierte Haltung einnehmen.",
-        "Das professionelle Spannungsfeld erfordert eine Balance aus emotionaler Zugewandtheit (Empathie) und klaren, grenzwahrenden Strukturen.",
-        "Distanz ist ausschließlich zum Schutz der Einrichtung vor rechtlichen Schritten der Eltern gedacht."
+        "Als dauerhafte Strukturantinomie zwischen personaler Beziehungsarbeit und formaler Berufsrolle, die situativ und reflexiv immer neu ausbalanciert werden muss.",
+        "Als reine Rechtsfrage des Arbeitsvertrags ohne Bedeutung für die Beziehungsqualität.",
+        "Als starre Abstandsregel, bei der Fachkräfte grundsätzlich jede emotionale Zuwendung vermeiden müssen.",
+        "Als vorübergehendes Problem im ersten Ausbildungsjahr, das mit wachsender Berufserfahrung vollständig verschwindet."
       ],
-      "question": "Wie ist das Spannungsfeld von Nähe und Distanz in der professionellen Erzieherrolle fachlich zu bewerten?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        0,
-        2,
-        3
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Konstruktives Feedback zeichnet sich durch Ich-Botschaften, konkrete Verhaltensbeobachtungen (statt pauschaler Persönlichkeitsbewertungen) und Zukunftsbezogenheit aus. Pauschale Vorwürfe und Interpretationen sind kontraproduktiv.",
-      "id": "q-3",
-      "options": [
-        "Es benennt konkrete Verhaltensweisen statt pauschaler Persönlichkeitsmerkmale.",
-        "Es erfolgt ausschließlich in Form von Vorwürfen ('Du machst immer...'), um Druck auszuüben.",
-        "Es verwendet Ich-Botschaften ('Ich habe den Eindruck, dass...').",
-        "Es zeigt konkrete Entwicklungsperspektiven und Wünsche für die Zukunft auf."
-      ],
-      "question": "Welche Kriterien kennzeichnen professionelles Feedback nach den gängigen Feedback-Regeln? (Mehrere Antworten sind richtig)",
-      "type": "multi"
-    },
-    {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "basis",
-      "explanation": "Im Lehrplan RLP (S-SP-1) sind 8 zentrale Querschnittsaufgaben verankert, darunter Partizipation, Inklusion, Prävention, Sprachbildung, Übergänge, Bildung in der digitalen Welt, Bildung für nachhaltige Entwicklung (BNE) sowie das Spannungsfeld Nähe und Distanz.",
-      "id": "q-4",
-      "options": [
-        "Nur Mathematik- und Sprachförderung",
-        "Partizipation, Inklusion, Prävention, Sprachbildung, Übergänge, digitale Welt, Nachhaltigkeit und Nähe-Distanz",
-        "Ausschließlich Hauswirtschaft und Verwaltung",
-        "Finanzplanung und Gebäudeinstandhaltung"
-      ],
-      "question": "Welche Querschnittsaufgaben gehören laut dem Lehrplan RLP (S-SP-1) ausdrücklich zum Curriculum der Erzieherausbildung?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Die Fachkraft wahrt hier professionelle Distanz gepaart mit Empathie: Sie weist das Kind liebevoll, aber bestimmt in die Schranken und schützt damit sowohl die persönlichen Grenzen des Kindes als auch ihre eigenen, anstatt sich emotional zu verstricken oder das Kind abzuwerten.",
-      "id": "q-5",
-      "options": [
-        "Die Fachkraft lässt sich voll auf die exklusive Beziehung ein, um dem Kind alle Wünsche zu erfüllen, und vernachlässigt andere Kinder.",
-        "Die Fachkraft weist das Kind vor der Gruppe scharf zurecht, um ein Exempel zu statuieren.",
-        "Die Fachkraft setzt eine klare, transparente Grenze ('Ich mag dich, aber auf dem Schoß sitzen wir nur im Sitzkreis oder kurz beim Vorlesen') und reflektiert das Thema im Team.",
-        "Die Fachkraft bricht die Ausbildung ab, da sie mit der Nähe-Distanz-Problematik überfordert ist."
-      ],
-      "question": "In einer Kindertagstätte fordert ein Kind ständig exklusive körperliche Nähe von einer angehenden Erzieherin und reagiert eifersüchtig auf andere. Wie handelt eine professionelle Fachkraft im Sinne des Moduls S-SP-1?",
-      "type": "case"
-    },
-    {
       "correctIndices": [
         0
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Der 'blinde Fleck' im Johari-Fenster beschreibt jenen Bereich, den andere an uns wahrnehmen, der uns selbst jedoch aufgrund von Selbsttäuschung oder unbewussten Verhaltensmustern verborgen ist.",
-      "id": "q-6",
+      "explanation": "Nach Dörr und Müller lässt sich das Spannungsfeld nicht ein für alle Mal auflösen: Sozialpädagogik braucht sowohl empathische Nähe als auch innere Distanz und Rollenklarheit als bewegliche Balance."
+    },
+    {
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Was besagt das berufsethische Abstinenzgebot in pädagogischen Arbeitsfeldern?",
       "options": [
-        "Der 'blinde Fleck' (Bereich der Person, den andere sehen, man selbst aber nicht).",
-        "Der 'geheime Bereich' (privates Wissen, das man vor anderen verbirgt).",
-        "Der 'offene Bereich' (freier Austausch zwischen allen Beteiligten).",
-        "Der 'unbewusste Bereich' (weder mir noch anderen bekannt)."
+        "Fachkräfte dürfen im Dienst keinerlei freundliche Gespräche mit Eltern führen.",
+        "Pädagogische Beziehungen dienen dem Wohl der Adressat:innen und dürfen nicht zur Befriedigung privater, emotionaler oder materieller Eigenbedürfnisse der Fachkraft genutzt werden.",
+        "Kinder dürfen in der Kita grundsätzlich niemals körperlich getröstet werden.",
+        "Fachkräfte verzichten in Konflikten vollständig auf eigene fachliche Positionen."
       ],
-      "question": "Welcher Quadrant des Johari-Fensters wird durch Fremdfeedback und Reflexion primär verkleinert?",
-      "type": "single"
+      "correctIndices": [
+        1
+      ],
+      "explanation": "Das Abstinenzgebot schützt Kinder, Jugendliche und Familien vor Instrumentalisierung und Grenzverletzungen, indem es Berufsauftrag und private Bedürfnisse klar voneinander trennt."
+    },
+    {
+      "id": "v2-q3",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Welcher Quadrant des Johari-Fensters nach Luft und Ingham wird durch respektvolles Fremdfeedback aus dem Team gezielt verkleinert?",
+      "options": [
+        "Der öffentliche Bereich (Arena)",
+        "Ausschließlich der private Familienbereich außerhalb der Einrichtung",
+        "Der verborgene Bereich (Fassade)",
+        "Der blinde Fleck (anderen bekannt, mir selbst unbewusst)"
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Fremdfeedback macht Verhaltensweisen und Wirkungen sichtbar, die andere wahrnehmen, man selbst jedoch nicht bemerkt (blinder Fleck). Die Fassade verkleinert sich hingegen durch eigene Selbstoffenbarung."
+    },
+    {
+      "id": "v2-q4",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Merkmale kennzeichnen ein professionelles kollegiales Feedback? (Mehrere Antworten sind richtig)",
+      "options": [
+        "Es wird möglichst öffentlich vor Kindern und Eltern ausgesprochen, um schnellen Druck zu erzeugen.",
+        "Es beschreibt konkrete, beobachtbare Verhaltensweisen statt pauschaler Persönlichkeitsurteile.",
+        "Es nutzt Ich-Botschaften zur Schilderung der eigenen Wahrnehmung und Wirkung.",
+        "Es benennt konstruktive, machbare Wünsche für die künftige Zusammenarbeit."
+      ],
+      "correctIndices": [
+        1,
+        2,
+        3
+      ],
+      "explanation": "Professionelles Feedback findet in einem geschützten Rahmen statt, bleibt konkret beschreibend, ich-bezogen und zukunftsorientiert (WWW-Schema). Öffentliche Bloßstellung zerstört Vertrauen und Lernbereitschaft."
+    },
+    {
+      "id": "v2-q5",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Ein 14-jähriger Jugendlicher in einer Wohngruppe fragt eine Fachkraft, ob sie sich über Instagram privat befreunden können, damit er ihr auch am Wochenende schreiben kann, wenn es ihm schlecht geht. Welche Reaktion ist fachlich angemessen?",
+      "options": [
+        "Sie würdigt sein Vertrauen, erklärt klar ihre professionelle Rolle (Kontakt über offizielle Einrichtungswege und verlässliche Ansprechpersonen am Wochenende) und klärt gemeinsam, wer im Dienst ansprechbar ist.",
+        "Sie legt ein geheimes Zweitprofil nur für Jugendliche ihrer Gruppe an, ohne das Team zu informieren.",
+        "Sie nimmt die Anfrage an, damit der Jugendliche jederzeit einen privaten Draht zu ihr hat.",
+        "Sie blockiert ihn kommentarlos und spricht das Thema nie wieder an."
+      ],
+      "correctIndices": [
+        0
+      ],
+      "explanation": "Professionelle Nähe-Distanz-Regulation verbindet Wertschätzung für das Schutz- und Kontaktbedürfnis mit klarer Rollen- und Erreichbarkeitsgrenze: Verlässlichkeit entsteht durch transparente Teamstrukturen, nicht durch geheime Privatkanäle."
+    },
+    {
+      "id": "v2-q6",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Welche drei Kernvariablen prägen die personzentrierte Grundhaltung nach Carl Rogers?",
+      "options": [
+        "Autorität, Sanktion und Neutralität",
+        "Beobachtung, Diagnose und Therapie",
+        "Empathisches Verstehen, unbedingte positive Wertschätzung und Kongruenz (Echtheit)",
+        "Distanzierung, Anpassung und Kontrolle"
+      ],
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Carl Rogers benannte Empathie, unbedingte positive Wertschätzung und Kongruenz als zentrale Bedingungen förderlicher, respektvoller Beziehungsarbeit."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Zur Rede von „Nähe-Distanz-Regulation“ im aktuellen pädagogischen Diskurs um Grenzen (in) der Erziehung",
+      "url": "https://www.pedocs.de/volltexte/2024/31860/pdf/Doerr_2024_Zur_Rede_von_Naehe-Distanz-Regulation.pdf",
+      "publisher": "pedocs / Fachportal Pädagogik (Margret Dörr, 2024)",
+      "note": "Wissenschaftlicher Fachbeitrag zum dynamischen Verständnis von Nähe, Distanz und professionellen Grenzen (PDF)"
+    },
+    {
+      "title": "Rezension zu Margret Dörr & Burkhard Müller: Nähe und Distanz – Ein Spannungsfeld pädagogischer Professionalität",
+      "url": "https://www.socialnet.de/rezensionen/26070.php",
+      "publisher": "socialnet Rezensionen",
+      "note": "Überblick zu den Grundgedanken des Standardwerks von Dörr und Müller"
+    },
+    {
+      "title": "Johari-Fenster – Fachartikel im socialnet Lexikon",
+      "url": "https://www.socialnet.de/lexikon/Johari-Fenster",
+      "publisher": "socialnet Lexikon",
+      "note": "Erläuterung der vier Quadranten nach Luft & Ingham sowie der Rolle von Feedback und Selbstoffenbarung"
+    },
+    {
+      "title": "Professionelles Handeln von frühpädagogischen Fachkräften",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/KiTaFT_Wadepohl_2015.pdf",
+      "publisher": "Kita-Fachtexte / WiFF (Heike Wadepohl, 2015)",
+      "note": "Grundlagen professioneller Haltung, Rollenklärung und Reflexionskompetenz (PDF)"
+    },
+    {
+      "title": "SGB VIII § 45 – Erlaubnis für den Betrieb einer Einrichtung",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__45.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Rechtlicher Rahmen für Gewaltschutzkonzepte und Verhaltenskodizes in sozialpädagogischen Einrichtungen"
     }
   ]
 }

@@ -177,7 +177,7 @@ export const ProcessFlowDiagram: React.FC<{ block: VisualBlock }> = ({ block }) 
       ) : (
         <div className="rounded-2xl border border-slate-200 bg-slate-50/70 p-4 dark:border-slate-700/70 dark:bg-slate-900/50">
           {/* Linearer Ablauf */}
-          <div className="flex flex-col gap-2 md:flex-row md:items-stretch">
+          <div className="flex flex-col gap-2 md:flex-row md:items-stretch md:overflow-x-auto md:p-1">
             {items.map((item, idx) => {
               const isActive = idx === activeIdx;
               const isPast = idx < activeIdx;

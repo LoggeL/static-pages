@@ -3,10 +3,12 @@
   "number": 48,
   "moduleCode": "S-SP-9",
   "moduleArea": "sp-wahlpflicht",
-  "title": "Wahlpflicht: Querschnittsthemen vertiefen (Resilienz, Systemik & mehr)",
-  "subtitle": "Mind. 80 Std. Profilbildung in Querschnittsthemen und Bildungsbereichen",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-9 · Vertiefung in einem Bildungsbereich oder Querschnittsthema (Lehrplan RLP 2024)",
+  "title": "Querschnittsvertiefung: Resilienz & systemisches Arbeiten",
+  "subtitle": "Resilienzforschung (Werner/Wustmann), Risiko- & Schutzfaktoren, Zirkularität, Auftragsklärung & Reframing",
   "year": "1.–3. Jahr",
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 30,
   "hoursRef": "240 Std. (mind. 80 Std. Querschnitt)",
   "pdfPages": "S. 48",
   "crossCuttingTags": [
@@ -14,391 +16,423 @@
     "Prävention",
     "BNE"
   ],
-  "summary": "Einheit 48 des Wahlpflichtmoduls S-SP-9 vermittelt fundierte Kompetenzen in zentralen Querschnittsthemen wie Resilienz, Systemischem Arbeiten und BNE für angehende Erzieher:innen. Sie verbindet wissenschaftliche Theorien mit praxisnahen Methoden zur Bewältigung von Transitionen und herausforderndem Verhalten. Damit leitet sie zu einer professionellen, reflexiven Haltung im Berufsfeld an.",
+  "summary": "In dieser Einheit vertiefen Sie die Querschnittsthemen Resilienzförderung und systemisches Arbeiten für die sozialpädagogische Praxis. Sie lernen die Befunde von Emmy Werner und Corina Wustmann Seiler differenziert und ohne Individualisierungs-Klischees anzuwenden, Risiko- und Schutzfaktoren im Kontext zu analysieren sowie zentrale systemische Haltungen und Methoden — Zirkularität, Ressourcenorientierung, Auftragsklärung und Reframing — bei Transitionen und herausforderndem Verhalten handlungssicher einzusetzen.",
   "learningGoals": [
-    "Ich kann die Kernkonzepte und Schutzfaktoren von Resilienz theoretisch fundiert erklären und in der sozialpädagogischen Praxis gezielt fördern.",
-    "Ich kann systemische Methoden (wie zirkuläre Fragen und Ressourcenorientierung) in der Fallarbeit und Elternberatung anwenden.",
-    "Ich kann Bildungs- und Entwicklungsprozesse in Transitionen (z. B. Kita-Eintritt, Einschulung) professionell begleiten und gestalten.",
-    "Ich kann Querschnittsthemen wie BNE, gendersensible und interkulturelle Pädagogik konzeptionell in den schuleigenen Arbeitsplan integrieren.",
-    "Ich kann herausforderndes Verhalten als systemische Wechselwirkung analysieren und ressourcenorientierte Handlungsstrategien entwickeln."
+    "Ich kann das Konzept der Resilienz auf Grundlage der Forschung von Emmy Werner und Corina Wustmann Seiler als dynamischen, kontextabhängigen Anpassungsprozess erklären und gegen das Klischee bloßer individueller „Abhärtung“ abgrenzen.",
+    "Ich kann personale, familiäre und soziale Risiko- sowie Schutzfaktoren und deren Kumulation im Alltag differenziert analysieren, ohne monokausale Zuschreibungen vorzunehmen.",
+    "Ich kann zentrale systemische Grundhaltungen — Zirkularität, Ressourcenorientierung, Allparteilichkeit und Kontextsensibilität — fachlich fundiert erläutern und ihre Grenzen bei Kindeswohlgefährdung benennen.",
+    "Ich kann systemische Methoden wie Auftragsklärung, zirkuläre Fragen und Reframing in Elterngesprächen, Fallberatungen und im Umgang mit herausforderndem Verhalten konstruktiv anwenden.",
+    "Ich kann Übergänge (Transitionen) und Belastungssituationen so begleiten, dass äußere Schutzfaktoren gestärkt und kindliche Selbstwirksamkeit gefördert werden."
   ],
   "sections": [
     {
-      "body": "Das Wahlpflichtmodul S-SP-9 bietet mit einem Zeitrichtwert von 240 Stunden (davon mind. 80 Stunden für Querschnittsthemen oder Bildungsbereiche) den Rahmen für eine vertiefte Profilbildung an Fachschulen für Sozialpädagogik nach dem Lehrplan Rheinland-Pfalz (2024). Es verknüpft wissenschaft fundierte Theorien (u. a. Resilienzforschung nach Wustmann, systemische Ansätze nach von Schlippe & Schweitzer) mit konkreten beruflichen Handlungskompetenzen. Angehende Erzieher:innen lernen, komplexe Querschnittsthemen wie Inklusion, Prävention und Bildung für nachhaltige Entwicklung (BNE) in den pädagogischen Alltag zu integrieren.",
+      "heading": "1. Resilienzforschung differenziert verstehen: Emmy Werner & Corina Wustmann Seiler",
+      "keyTakeaway": "Resilienz ist keine angeborene Eigenschaft und kein Auftrag an Kinder, „einfach stark zu sein“, sondern ein veränderlicher Prozess im Zusammenspiel aus kindlichen Ressourcen und verlässlichen sozialen Rahmenbedingungen.",
+      "body": "Den Grundstein der modernen Resilienzforschung legte Emmy Werner mit der berühmten Kauai-Längsschnittstudie: Ab 1955 begleitete ihr Forschungsteam rund 700 Kinder eines Geburtsjahrgangs auf Hawaii über vier Jahrzehnte. Etwa ein Drittel der Kinder wuchs unter erheblichen Mehrfachbelastungen (Armut, familiäre Konflikte, psychische Erkrankungen oder Sucht der Eltern) auf — und dennoch entwickelte sich ungefähr ein Drittel dieser hochbelasteten Kinder zu psychisch stabilen, handlungsfähigen Erwachsenen. Im deutschsprachigen Raum hat insbesondere Corina Wustmann Seiler dieses Wissen für die Pädagogik systematisiert. Zentral für ein fachlich redliches Verständnis sind drei Abgrenzungen: Erstens ist Resilienz keine feste Charaktereigenschaft („entweder resilient oder nicht“), sondern dynamisch, situations- und bereichsspezifisch — ein Kind kann in einer Lebensphase stabil wirken und bei neuer Belastung dennoch Unterstützung brauchen. Zweitens bedeuten Risikofaktoren Wahrscheinlichkeiten, keine zwangsläufigen Schicksale; besonders kritisch wirkt die Anhäufung mehrerer Belastungen (Kumulationseffekt). Drittens darf Resilienzförderung niemals als billige Ausrede missbraucht werden, um strukturelle Armut, Überforderung oder fehlenden Kinderschutz auf das einzelne Kind abzuwälzen („Das Kind muss halt resilienter werden“): Zuerst müssen vermeidbare Risiken reduziert und Schutzsysteme gesichert werden!",
       "bulletPoints": [
-        "Verankerung im Lehrplan RLP (Stand 25.09.2024) als Wahlpflichtmodul S-SP-9.",
-        "Umfang von 240 Std. Gesamtvolumen mit min. 80 Std. Profilbildung.",
-        "Verknüpfung von Querschnittsthemen (Resilienz, BNE, Systemik) mit Praxisfeldern.",
-        "Fokus auf professionelle Haltung und reflexive Handlungskompetenz."
+        "Kauai-Studie (Emmy Werner): Zeigte die große Bedeutung mindestens einer verlässlichen, emotional zugewandten Bezugsperson inner- oder außerhalb der Familie.",
+        "Dynamisches Verständnis (Corina Wustmann Seiler): Resilienz entsteht in der Wechselwirkung zwischen Kind und Umwelt — sie ist veränderbar und kontextabhängig.",
+        "Kumulation von Risiken: Einzelne Belastungen lassen sich oft abfedern; problematisch ist vor allem das Zusammentreffen mehrerer chronischer Risiken ohne Gegenhalt.",
+        "Kritisches Bewusstsein: Resilienzförderung ersetzt niemals Kinderschutz, familiäre Entlastung oder den Abbau sozialer Benachteiligung."
       ],
-      "heading": "1. Grundlagen und Struktur des Wahlpflichtmoduls S-SP-9",
-      "keyTakeaway": "Das Modul S-SP-9 ermöglicht eine fundierte Profilbildung durch die Vertiefung zentraler Querschnittsthemen und Bildungsbereiche.",
-      "praxisTip": "Erstellen Sie im Team ein institutionsspezifisches Konzept, das ein gewähltes Querschnittsthema (z. B. BNE oder Resilienz) verbindlich in den pädagogischen Jahresplan integriert."
+      "praxisTip": "Hören Sie genau hin, wenn im Team der Satz fällt „Das Kind muss das doch aushalten lernen“. Prüfen Sie gemeinsam: Welche konkreten Risiken belasten das Kind gerade — und welche äußeren Schutzfaktoren (Beziehung, Struktur, Elternentlastung) können wir zuerst stärken?"
     },
     {
-      "body": "Resilienz beschreibt die psychische Widerstandskraft von Kindern gegenüber widrigen Lebensumständen und Entwicklungsrisiken. Nach Margrit Wustmann stützt sich Resilienz auf innere Schutzfaktoren (z. B. positives Selbstbild, Problemlösungskompetenz) und äußere Ressourcen im sozialen Netzwerk. Ergänzend fokussiert die Positive Psychologie auf Stärken, Wohlbefinden und Gelingensbedingungen statt reiner Defizitorientierung. In der Praxis bedeutet dies, Kinder aktiv an Entscheidungsprozessen zu beteiligen und ihre Selbstwirksamkeitserfahrungen systematisch zu stärken.",
+      "heading": "2. Risiko- und Schutzfaktoren im Zusammenspiel stärken",
+      "keyTakeaway": "Pädagogische Einrichtungen wirken als starker äußerer Schutzfaktor, wenn sie verlässliche Beziehungen, transparente Strukturen, Beteiligung und echte Selbstwirksamkeitserfahrungen eröffnen.",
+      "body": "Nach Corina Wustmann Seiler und der aktuellen Resilienzforschung wirken personale Ressourcen des Kindes und soziale Ressourcen seiner Umwelt eng zusammen. Zu den personalen Resilienzfaktoren zählen Selbst- und Fremdwahrnehmung, Selbststeuerung (Emotionsregulation), Selbstwirksamkeitsüberzeugung („Ich kann etwas bewirken“), soziale Kompetenzen, realistische Problemlösefähigkeiten und ein positives, realistisches Selbstkonzept. Ebenso entscheidend — und gerade bei jungen Kindern grundlegend — sind die äußeren Schutzfaktoren: mindestens eine stabile, wertschätzende Bezugsperson, ein verlässlicher, strukturierter Alltag, wertschätzendes Erziehungsklima, positive Peer-Kontakte sowie funktionierende soziale Netzwerke der Familie. Kindertagesstätten, Horte, Schulen und Jugendtreffs können genau hier ansetzen: Durch feinfühlige Beziehungsangebote, echte Partizipation, eine ermutigende Fehlerkultur („Fehler zeigen uns, was wir noch üben können“), altersgerechte Mitverantwortung und niedrigschwellige Vernetzung mit Familienhilfen bauen Einrichtungen ein schützendes Netz rund um das Kind auf.",
       "bulletPoints": [
-        "Definition und Abgrenzung innerer und äußerer Schutzfaktoren (Wustmann).",
-        "Verknüpfung von Resilienzförderung mit Ansätzen der Positiven Psychologie.",
-        "Stärkung von Selbstwirksamkeit und Coping-Strategien im Alltag.",
-        "Präventive Wirkung gegen soziale und psychische Belastungen."
+        "Personale Schutzfaktoren (u. a. nach Wustmann Seiler): Selbstwahrnehmung, Selbststeuerung, Selbstwirksamkeit, soziale Kompetenz, Problemlösefähigkeit, Umgang mit Stress.",
+        "Soziale & familiäre Schutzfaktoren: Stabile Bezugsperson („aufmerksame Dritte“ in Kita/Hort/Schule), verlässliche Tagesstruktur, unterstützendes soziales Netzwerk.",
+        "Einrichtung als sicherer Ort: Klare, nachvollziehbare Regeln, geschützte Rückzugsmöglichkeiten und echte Mitbestimmung stärken Vorhersehbarkeit und Kontrolle.",
+        "Elternpartnerschaft: Belastete Eltern nicht beschuldigen, sondern ressourcenorientiert einbeziehen und bei Bedarf Brücken zu Beratungsstellen bauen."
       ],
-      "heading": "2. Resilienzförderung und Positive Psychologie",
-      "keyTakeaway": "Resilienzförderung stärkt die inneren und äußeren Schutzfaktoren von Kindern, um Krisen erfolgreich zu bewältigen.",
-      "praxisTip": "Implementieren Sie ein tägliches „Stärken-Ritual“, in dem Kinder die Stärken und positiven Beiträge ihrer Mitschüler:innen wertschätzend benennen."
+      "praxisTip": "Fördern Sie Selbstwirksamkeit nicht durch leeres Dauerlob („Super gemacht!“), sondern durch konkretes Prozessfeedback: „Du hast erst gemerkt, dass der Turm wackelt, und dann breitere Steine nach unten gelegt — so hast du selbst eine Lösung gefunden.“"
     },
     {
-      "body": "Systemisches Arbeiten in der Sozialpädagogik betrachtet den Menschen nicht isoliert, sondern als Teil eines interaktiven sozialen Systems (Familie, Kita-Gruppe, Sozialraum). Methoden wie zirkuläre Fragen („Was glaubst du, denkt dein Vater, worüber du dich heute gefreut hast?“) und Ressourcenfokus ermöglichen Perspektivwechsel und durchbrechen festgefahrene Muster. Herausforderndes Verhalten wird dabei nicht als bloßes Defizit des Kindes verstanden, sondern als funktionales Signal innerhalb des Beziehungsgefüges.",
+      "heading": "3. Systemische Grundhaltungen: Zirkularität, Ressourcenfokus, Auftragsklärung & Reframing",
+      "keyTakeaway": "Systemisches Arbeiten sucht nicht nach einem „Schuldigen“, sondern macht Wechselwirkungen im Beziehungsgefüge sichtbar, klärt Aufträge sauber und eröffnet durch Perspektivwechsel neue Handlungsoptionen.",
+      "body": "Die systemische Pädagogik und Beratung (u. a. nach Arist von Schlippe und Jochen Schweitzer) betrachtet Kinder und Jugendliche nicht isoliert, sondern als Teil lebendiger sozialer Systeme — Familie, Gruppe, Team, Schule und Sozialraum. Vier Grundprinzipien sind für den pädagogischen Alltag besonders wirksam: Erstens Zirkularität statt linearer Schuldsuche: Verhalten entsteht in wechselseitigen Rückkopplungen (z. B. ein Kind zieht sich zurück → Erwachsene werden ungeduldig → Kind verweigert noch stärker). Zweitens Ressourcen- und Lösungsorientierung: Neben Problemen werden gezielt Ausnahmen („Wann klappt es bereits gut?“), Stärken und bewährte Bewältigungsstrategien erkundet. Drittens Auftragsklärung: Bevor Fachkräfte beraten oder intervenieren, klären sie transparent, wer welches Anliegen hat und wo die Grenzen der eigenen Rolle liegen (z. B. pädagogische Begleitung statt Familientherapie). Viertens Reframing (Umdeutung): Ein störendes Verhalten wird in einen neuen, verstehbaren Bedeutungsrahmen gestellt — etwa ein Wutausbruch nicht als „Bosheit“, sondern als überforderter Versuch, in einer unübersichtlichen Situation Gehör oder Schutz zu finden. Wichtig: Allparteilichkeit und Reframing bagatellisieren niemals reale Verletzungen oder Kindeswohlgefährdungen — wo Schutzgrenzen berührt sind, handeln Fachkräfte klar parteilich für die Sicherheit des Kindes.",
       "bulletPoints": [
-        "Systemische Grundhaltung: Zirkularität, Neutralität und Allparteilichkeit.",
-        "Einsatz zirkulärer Fragen zur Förderung des Perspektivwechsels.",
-        "Ressourcen- und lösungsorientierte Ausrichtung statt Problemfixierung.",
-        "Umdeutung von herausforderndem Verhalten als sinnstiftendes Signal."
+        "Zirkularität: Wechselseitige Interaktionsmuster erkennen statt eine einzelne Person als „Problemträger“ abzustempeln.",
+        "Ressourcen- & Ausnahmeorientierung: Fragen nach Situationen, in denen es trotz Belastung gelingt, eröffnen konkrete Ansatzpunkte für Veränderung.",
+        "Auftragsklärung: Klärt Erwartungen, Zuständigkeiten und Grenzen und verhindert verdeckte Koalitionen (z. B. gegen ein Elternteil oder das Kind).",
+        "Reframing & zirkuläre Fragen: Ermöglichen Perspektivwechsel („Was würde dein bester Freund sagen, was dir in diesem Moment hilft?“), ohne klare Verhaltensgrenzen aufzulösen."
       ],
-      "heading": "3. Systemisches Arbeiten und Umgang mit herausforderndem Verhalten",
-      "keyTakeaway": "Systemisches Arbeiten betrachtet herausforderndes Verhalten als wechselseitiges Signal im sozialen Beziehungsgefüge.",
-      "praxisTip": "Nutzen Sie in schwierigen Elterngesprächen zirkuläre Fragen, um gemeinsam neue Sichtweisen und ungenutzte familiäre Ressourcen zu entdecken."
+      "praxisTip": "Testen Sie in der nächsten Fallbesprechung zwei systemische Kernfragen: „In welchen Momenten tritt das belastende Verhalten NICHT auf — und was ist dort anders?“ sowie „Welche sinnvolle Funktion könnte dieses Verhalten gerade für das Kind erfüllen?“"
     },
     {
-      "body": "Transitionen sind kritische Übergänge im Lebenslauf (z. B. Eintritt in die Krippe, Wechsel in die Grundschule), die gravierende Anpassungsleistungen erfordern. Gleichzeitig verlangen Querschnittsthemen wie Bildung für nachhaltige Entwicklung (BNE), gendersensible und interkulturelle Pädagogik eine Haltung der Diversität und Chancengleichheit. Fachkräfte gestalten diese Übergänge und Querschnittsfelder durch partizipative Projekte, ökologische Naturpädagogik und kultursensible Elternarbeit aktiv mit.",
+      "heading": "4. Transitionen & herausforderndes Verhalten systemisch-resilienzorientiert begleiten",
+      "keyTakeaway": "Übergänge und herausforderndes Verhalten betreffen nie nur das Kind allein, sondern fordern das gesamte System aus Familie, Gruppe und Fachkräften zu gemeinsamer Anpassung heraus.",
+      "body": "Lebensübergänge (Transitionen) wie der Krippeneintritt, der Wechsel in die Grundschule, ein Umzug, die Geburt eines Geschwisterkinds oder die Trennung der Eltern gehen mit tiefgreifenden Veränderungen auf individueller, Beziehungs- und Lebensumfeldebene einher (Transitionsansatz nach Wilfried Griebel und Renate Niesel). Zeigt ein Kind in solchen Phasen herausforderndes Verhalten — etwa Rückzug, Aggressionen oder Verweigerung —, greifen pauschale Etiketten („verhaltensauffällig“) oder isolierte Sanktionen zu kurz. Ein systemisch-resilienzorientierter Zugang verknüpft drei Schritte: Zunächst wird das Verhalten wertfrei beobachtet und im Kontext aktueller Belastungen und Übergänge gedeutet (Hypothesen statt Diagnosen!). Zweitens klärt die Fachkraft im geschützten Austausch mit Eltern und Team den gemeinsamen Handlungsauftrag und aktiviert vorhandene Stärken, Rituale und verlässliche Rückzugsräume. Drittens bleiben klare, gewaltfreie Grenzen zum Schutz der Gruppe bestehen, werden aber mit emotionaler Co-Regulation, Transparenz und Einbindung weiterer Hilfesysteme (z. B. Erziehungsberatung) verbunden, sobald der eigene pädagogische Rahmen nicht mehr ausreicht.",
       "bulletPoints": [
-        "Bewältigung von Transitionen als entwicklungspolitische Aufgabe.",
-        "Verankerung von BNE, Ökologie und Naturpädagogik in Bildungsangeboten.",
-        "Förderung von Gendersensibilität und interkultureller Offenheit.",
-        "Vernetzung von Theorie und Praxis durch projektorientiertes Arbeiten."
+        "Transitionen als Systemaufgabe (Griebel & Niesel): Übergänge verändern das Kind, die Eltern und die Einrichtung gleichzeitig — erfolgreiche Bewältigung stärkt Übergangskompetenz.",
+        "Herausforderndes Verhalten verstehen: Als bedeutsames Kommunikationssignal bei Überforderung, Loyalitätskonflikt oder ungedeckten Grundbedürfnissen lesen.",
+        "Grenzen und Beziehung verbinden: Gewaltfreie, verlässliche Grenzen schützen die Gruppe, während Co-Regulation und Ressourcenblick das Kind entlasten.",
+        "Grenzen der eigenen Zuständigkeit achten: Bei anhaltenden, schweren Belastungen frühzeitig Eltern zu externer Beratung ermutigen und Fachstellen vernetzen."
       ],
-      "heading": "4. Transitionen, BNE und Diversität in Querschnittsthemen",
-      "keyTakeaway": "Querschnittsthemen wie BNE und Transitionen erfordern eine ganzheitliche, diversitätssensible Haltung im pädagogischen Alltag.",
-      "praxisTip": "Planen Sie ein naturpädagogisches BNE-Projekt (z. B. „Der Kreislauf des Wassers“), bei dem Kinder altersgerecht ökologische Zusammenhänge erforschen."
+      "praxisTip": "Schaffen Sie bei akuten familiären Übergängen (z. B. Trennung oder Umzug) gemeinsam mit dem Kind ein kleines, verlässliches Alltagsritual in der Einrichtung (z. B. eine feste Begrüßung oder ein vereinbartes Zeichen für eine kurze Pause), um Vorhersehbarkeit zu sichern."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Querschnittsthemen S-SP-9",
       "id": "vb-1",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Kernbereich",
-          "detail": "Stärkung innerer und äußerer Schutzfaktoren nach Margrit Wustmann zur Krisenbewältigung.",
-          "example": "Kinder lernen, eigene Stärken in Belastungssituationen zu benennen.",
-          "id": "item-1",
-          "label": "Resilienz & Positive Psychologie",
-          "metric": "Schutzfaktor",
-          "summary": "Fokus auf psychische Widerstandskraft und Wohlbefinden."
-        },
-        {
-          "badge": "Kernbereich",
-          "detail": "Betrachtung von Wechselwirkungen in Systemen durch zirkuläre Fragen und Ressourcenorientierung.",
-          "example": "Einnahme neuer Perspektiven im Familiensystem durch gezielte Nachfragen.",
-          "id": "item-2",
-          "label": "Systemisches Arbeiten",
-          "metric": "Zirkularität",
-          "summary": "Verhaltensweisen im sozialen Beziehungsnetzwerk verstehen."
-        },
-        {
-          "badge": "Kernbereich",
-          "detail": "Ökologisches Bewusstsein, Naturpädagogik und zukunftsfähiges Handeln (BNE).",
-          "example": "Gemeinsames Anlegen und Pflegen eines Hochbeets im Garten.",
-          "id": "item-3",
-          "label": "BNE & Ökologie",
-          "metric": "Nachhaltigkeit",
-          "summary": "Verantwortung für Umwelt und kommende Generationen übernehmen."
-        },
-        {
-          "badge": "Kernbereich",
-          "detail": "Begleitung von kritischen Lebensübergängen (z. B. Schuleintritt) mit Kindern und Eltern.",
-          "example": "Etablierung eines Patensystems für neue Kita-Kinder.",
-          "id": "item-4",
-          "label": "Transitionen",
-          "metric": "Übergang",
-          "summary": "Professionelle Gestaltung von Entwicklungsübergängen."
-        },
-        {
-          "badge": "Kernbereich",
-          "detail": "Reflexion von Geschlechterrollen, Interkulturalität und Inklusion.",
-          "example": "Gleicher Zugang zu Technik- und Werkangeboten für Mädchen und Jungen.",
-          "id": "item-5",
-          "label": "Gendersensible & Interkulturelle Pädagogik",
-          "metric": "Diversität",
-          "summary": "Chancengleichheit und Vielfalt als Normalität leben."
-        }
-      ],
-      "kind": "concept_map",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Überblick über die zentralen Vertiefungsbereiche des Lehrplans RLP",
-      "title": "Struktur des Wahlpflichtmoduls S-SP-9"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-2",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Ansatz A",
-          "detail": "Konzentration auf Defizite, Schwächen und Störungen des einzelnen Kindes mit dem Ziel der Schadensbehebung.",
-          "example": "Sanktionen bei Fehlverhalten und isolierte Förderpläne.",
-          "id": "comp-1",
-          "label": "Traditionelle Defizitorientierung",
-          "metric": "Fokus: Problem",
-          "summary": "Isolierte Betrachtung von Fehlverhalten ohne Kontext."
-        },
-        {
-          "badge": "Ansatz B",
-          "detail": "Gleichwertiger Blick auf Störungen und Ressourcen, erste systemische Ansätze ohne konsequente Umsetzung.",
-          "example": "Elterngespräche führen, aber Ursachen primär beim Kind suchen.",
-          "id": "comp-2",
-          "label": "Selektive Integration",
-          "metric": "Fokus: Gemischt",
-          "summary": "Zwischenschritt mit unvollständiger Systemperspektive."
-        },
-        {
-          "badge": "Ansatz C",
-          "detail": "Ganzheitliche Betrachtung von Wechselwirkungen, Stärkung von Schutzfaktoren und systemischer Perspektivwechsel.",
-          "example": "Zirkuläre Fragen und ressourcenorientierte Elternarbeit.",
-          "id": "comp-3",
-          "label": "Systemisch-Ressourcenorientierter Ansatz",
-          "metric": "Fokus: Potenzial",
-          "summary": "Professionelle Haltung nach S-SP-9 Vorgaben."
-        }
-      ],
       "kind": "comparison",
+      "title": "Resilienz-Mythos vs. fachlich fundierte Resilienzförderung",
+      "subtitle": "Abgrenzung verbreiteter Klischees von einem wissenschaftlich belegten, kontextsensiblen Ansatz",
+      "centerLabel": "",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Gegenüberstellung pädagogischer Haltungen in der Praxis",
-      "title": "Pädagogische Paradigmen im Vergleich"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-3",
       "isCycle": false,
       "items": [
         {
-          "badge": "Extrem 1",
-          "detail": "Ausschließliche Fokussierung auf die individuelle Psyche des Kindes ohne Berücksichtigung des sozialen Umfelds.",
-          "example": "Das Kind wird als alleinige Ursache für Gruppenkonflikte gesehen.",
-          "id": "spec-1",
-          "label": "Rein Individueller Fokus",
-          "metric": "Einseitig",
-          "summary": "Ignoriert soziale Wechselwirkungen völlig."
+          "id": "res-1",
+          "badge": "Mythos 1",
+          "label": "„Resilienz ist angeboren“",
+          "metric": "Fehlannahme",
+          "summary": "Vorstellung, manche Kinder seien von Natur aus „unverwüstlich“ und andere schwach.",
+          "detail": "Forschung (Werner, Wustmann Seiler) zeigt eindeutig: Resilienz ist keine statische Eigenschaft, sondern ein dynamischer Entwicklungsprozess, der sich im Laufe des Lebens je nach Belastung und Unterstützung verändert.",
+          "example": "Ein bislang sehr stabiles Kind kann nach plötzlicher familiärer Trennung vorübergehend intensive Co-Regulation und Entlastung brauchen."
         },
         {
-          "badge": "Balance",
-          "detail": "Ausgewogene Berücksichtigung von individuellen Anlagen, familiärem System, institutionellem Rahmen und gesellschaftlichen Einflüssen.",
-          "example": "Vernetzung von Kind, Eltern, Kita-Team und Sozialraum bei Hilfen.",
-          "id": "spec-2",
-          "label": "Systemisch-Ökologische Balance",
-          "metric": "Professionell",
-          "summary": "Integrierter Blick auf Mensch und Umwelt."
+          "id": "res-2",
+          "badge": "Mythos 2",
+          "label": "„Das Kind muss halt stark sein“",
+          "metric": "Individualisierungsfalle",
+          "summary": "Abwälzen struktureller Risiken oder fehlenden Schutzes auf die Anpassungsleistung des Kindes.",
+          "detail": "Fachliche Resilienzförderung härtet Kinder nicht ab, sondern reduziert zunächst vermeidbare Risiken, sichert Kinderschutz und baut äußere Schutzfaktoren (Beziehung, Entlastung, Teilhabe) gezielt aus.",
+          "example": "Statt ein überfordertes Kind zum Durchhalten zu ermahnen, sorgt das Team für Reizreduktion, klare Übergänge und Beratung für die Familie."
         },
         {
-          "badge": "Extrem 2",
-          "detail": "Vollständige Externalisierung aller Probleme auf gesellschaftliche Strukturen ohne individuelle Verantwortung.",
-          "example": "Jegliches Verhalten wird nur auf Armut oder politische Bedingungen geschoben.",
-          "id": "spec-3",
-          "label": "Rein Struktureller Fokus",
-          "metric": "Einseitig",
-          "summary": "Vernachlässigt individuelle Handlungsspielräume."
+          "id": "res-3",
+          "badge": "Fachstandard 1",
+          "label": "Schutzfaktoren im System",
+          "metric": "Kind + Umfeld",
+          "summary": "Personale Kompetenzen entfalten sich erst im Zusammenspiel mit verlässlichen Beziehungen.",
+          "detail": "Neben Selbstwirksamkeit und Problemlösefähigkeiten zählt mindestens eine verlässliche Bezugsperson zu den wirksamsten Schutzfaktoren überhaupt.",
+          "example": "Eine verlässliche Bezugserzieherin im Hort begleitet ein belastetes Kind konstant über zwei Schuljahre hinweg."
+        },
+        {
+          "id": "res-4",
+          "badge": "Fachstandard 2",
+          "label": "Wahrscheinlichkeit statt Determinismus",
+          "metric": "Differenzierter Blick",
+          "summary": "Risikofaktoren erhöhen Belastungsrisiken, legen Entwicklung aber nicht zwangsläufig fest.",
+          "detail": "Gerade bei Kumulation mehrerer Risiken sind präventive, niedrigschwellige Unterstützungsangebote wichtig — ohne Kinder oder Familien vorschnell zu stigmatisieren.",
+          "example": "Eine Familie mit knappen finanziellen Mitteln wird ressourcenorientiert unterstützt und sozialräumlich vernetzt statt defizitorientiert etikettiert."
         }
-      ],
+      ]
+    },
+    {
+      "id": "vb-2",
+      "kind": "feature_grid",
+      "title": "Vier systemische Schlüsselmethoden für den pädagogischen Alltag",
+      "subtitle": "Wie Zirkularität, Ressourcenorientierung, Auftragsklärung und Reframing konkret wirken",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "sys-1",
+          "badge": "Methode 1",
+          "label": "Zirkuläre Fragen",
+          "metric": "Perspektivwechsel",
+          "summary": "Fragen nach der vermuteten Sichtweise dritter Personen im System.",
+          "detail": "Machen wechselseitige Beziehungsmuster und unausgesprochene Erwartungen sichtbar und unterbrechen festgefahrene Schuldzuweisungen.",
+          "example": "„Was würde wohl Ihre Mutter sagen, woran man merkt, dass Leo nachmittags zur Ruhe kommt?“"
+        },
+        {
+          "id": "sys-2",
+          "badge": "Methode 2",
+          "label": "Auftragsklärung",
+          "metric": "Rollenklarheit",
+          "summary": "Transparente Klärung von Zielen, Erwartungen und Zuständigkeiten vor dem Handeln.",
+          "detail": "Verhindert heimliche Erwartungen („Bringen Sie mein Kind endlich auf Spur!“) und schützt Fachkräfte vor Rollenüberforderung jenseits ihres pädagogischen Auftrags.",
+          "example": "„Als Hortfachkraft kann ich Leo im Gruppenalltag unterstützen und mit Ihnen Strategien abstimmen; für die Klärung des Umgangsstreits empfehle ich die Erziehungsberatung.“"
+        },
+        {
+          "id": "sys-3",
+          "badge": "Methode 3",
+          "label": "Reframing (Umdeutung)",
+          "metric": "Neuer Kontext",
+          "summary": "Ein belastendes Verhalten erhält eine nachvollziehbare, nicht-pathologisierende Bedeutung.",
+          "detail": "Senkt Abwehr und Etikettierung, ohne Grenzverletzungen zu verharmlosen — das Verhalten bleibt veränderbar, während das dahinterliegende Bedürfnis gewürdigt wird.",
+          "example": "Leos lautes Dazwischenrufen wird nicht als „Respektlosigkeit“, sondern als angespannter Versuch gedeutet, gesehen zu werden und Kontrolle zurückzugewinnen."
+        },
+        {
+          "id": "sys-4",
+          "badge": "Methode 4",
+          "label": "Ausnahme- & Ressourcenfokus",
+          "metric": "Stärken aktivieren",
+          "summary": "Gezielte Suche nach Momenten, in denen das Problem kleiner ist oder nicht auftritt.",
+          "detail": "Zeigt konkrete Gelingensbedingungen, die direkt ausgebaut werden können, statt nur das Fehlverhalten immer detaillierter zu protokollieren.",
+          "example": "„Beim Bauen im kleinen Zweierteam war Leo 30 Minuten vertieft und friedlich — welche Rahmenbedingungen haben dort genau gewirkt?“"
+        }
+      ]
+    },
+    {
+      "id": "vb-3",
       "kind": "spectrum",
-      "leftPole": "Individueller Fokus",
-      "rightPole": "Struktureller Fokus",
-      "subtitle": "Einordnung des professionellen Handlungsrahmens in der Sozialpädagogik",
-      "title": "Spektrum sozialpädagogischer Analyseperspektiven"
+      "title": "Analyseperspektiven bei herausforderndem Verhalten",
+      "subtitle": "Warum weder einseitige Individualisierung noch bloßes Wegschieben auf Umstände fachlich trägt",
+      "centerLabel": "",
+      "leftPole": "Einseitige Individualisierung",
+      "rightPole": "Einseitige Externalisierung",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "sp-1",
+          "badge": "Extrempol links",
+          "label": "Defizit nur im Kind",
+          "metric": "Stigmatisierend",
+          "summary": "Verhalten wird ausschließlich als Eigenschaft oder Schwäche des Kindes gewertet.",
+          "detail": "Führt zu vorschnellen Etiketten („schwierig“, „zu wenig resilient“), Sanktionen und Blindheit gegenüber familiären Übergängen oder belastenden Gruppenbedingungen.",
+          "example": "„Leo ist eben aggressiv und muss strenger bestraft werden.“"
+        },
+        {
+          "id": "sp-2",
+          "badge": "Professionelle Balance",
+          "label": "Systemisch-resilienzorientiert",
+          "metric": "Kontext + Ressourcen",
+          "summary": "Verbindet den Blick auf kindliche Bedürfnisse, Beziehungsdynamiken und strukturelle Rahmenbedingungen.",
+          "detail": "Stärkt personale wie äußere Schutzfaktoren, hält klare, gewaltfreie Grenzen ein, klärt Aufträge mit Eltern und vernetzt bei Bedarf professionelle Hilfen.",
+          "example": "Rückzugsmöglichkeit und Co-Regulation für Leo, ressourcenorientiertes Elterngespräch und Vermittlung zur Erziehungsberatung."
+        },
+        {
+          "id": "sp-3",
+          "badge": "Extrempol rechts",
+          "label": "Handlungsunfähigkeit durch Umstände",
+          "metric": "Resignierend",
+          "summary": "Alle Schwierigkeiten werden allein auf äußere Krisen geschoben — ohne eigenes pädagogisches Handeln.",
+          "detail": "Übersieht die enorme schützende Wirkung verlässlicher Beziehungen, klarer Strukturen und konkreter Selbstwirksamkeitserfahrungen im Einrichtungsalltag.",
+          "example": "„Bei der Trennung der Eltern können wir im Hort sowieso nichts ausrichten.“"
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "6-10 Jahre (Grundschulkind, Hort)",
-    "context": "Ein Hortkind (7 Jahre, Leo) zeigt seit Wochen stark herausforderndes Verhalten (Aggressionen gegen Gleichaltrige, Totalverweigerung bei Gruppenangeboten), nachdem sich die Eltern getrennt haben. Die pädagogischen Fachkräfte stehen vor der Frage, wie sie systemisch und resilienzfördernd intervenieren können.",
-    "setting": "Städtischer Hort an einer Grundschule",
+    "title": "Systemische Resilienzförderung bei familiärer Trennung im Grundschulhort",
+    "setting": "Städtischer Hort an einer Grundschule in Rheinland-Pfalz",
+    "ageGroup": "Grundschulkind (7 Jahre)",
+    "context": "Seit sich die Eltern des 7-jährigen Leo vor zwei Monaten konfliktreich getrennt haben, kippt seine Stimmung im Hort häufig: Bei kleinen Zurückweisungen wirft er Bausteine um, beschimpft andere Kinder und verweigert Gruppenangebote. Eine Kollegin meint im Team: „Durch Trennungen müssen viele Kinder durch — er muss endlich lernen, resilienter zu werden.“ Beim Abholen verlangt der Vater verärgert, der Hort solle Leo „endlich härter anpacken, damit er wieder spurt“.",
     "steps": [
       {
+        "situation": "Im Gruppenraum wirft Leo nach einer kleinen Absage beim Bauen mehrere Holzklötze gegen das Regal und schreit die Fachkraft an. Zwei andere Kinder erschrecken und weichen zurück.",
+        "prompt": "Wie verbinden Sie in diesem Moment klaren Schutz der Gruppe mit einer systemisch-resilienzorientierten Haltung?",
         "options": [
           {
-            "feedback": "Dieser Ansatz ignoriert den systemischen Kontext und die aktuellen Belastungsfaktoren des Kindes (Transition). Eine reine Bestrafung verstärkt das Gefühl der Ohnmacht und fördert weder Resilienz noch Problemlösungskompetenz.",
-            "label": "Leo wird für sein Verhalten sofort getadelt und von Spielaktivitäten ausgeschlossen, um ein Exempel zu statuieren.",
-            "quality": "problematisch",
-            "theoryLink": "Verfehlt systemische Ansätze und ressourcenorientierte Resilienzförderung (Werning & Arndt, 2021)."
-          },
-          {
-            "feedback": "Ein gelungener ressourcenorientierter Schritt: Die Fachkraft nutzt zirkuläre Fragen, um Perspektiven im System (Eltern, Kind, Team) einzunehmen, und stärkt Leos Schutzfaktoren durch gezielte Schutzräume.",
-            "label": "Die Fachkraft führt ein ressourcenorientiertes Elterngespräch mit zirkulären Fragen („Was würde der Opa sagen, was Leo jetzt guttut?“) und etabliert einen geschützten Rückzugsraum im Hort.",
-            "quality": "optimal",
-            "theoryLink": "Systemische Pädagogik & Resilienzförderung nach Wustmann (2019); zirkuläres Fragen (Schlippe & Schweitzer, 2020)."
-          },
-          {
-            "feedback": "Gespräche sind gut, greifen hier aber zu kurz, da sie isoliert vom Alltag stattfinden und die systemischen Wechselwirkungen (Familie, Gruppe) vernachlässigen.",
-            "label": "Leo wird zu einem Einzelgespräch gebeten, in dem ihm erklärt wird, dass man im Hort nett sein muss.",
+            "label": "Sie nehmen Leo kommentarlos in den Arm und räumen still die Bausteine auf, ohne das Werfen gegenüber Leo oder den erschrockenen Kindern anzusprechen.",
             "quality": "teilweise",
-            "theoryLink": "Unvollständige Berücksichtigung von Systemdynamiken und Transitionen."
+            "feedback": "Zugewandtheit ist wichtig, doch ohne klare Grenze zum Schutz der anderen Kinder und ohne anschließendes gemeinsames Problemlösen fehlen sowohl Verlässlichkeit als auch echte Selbstwirksamkeitserfahrung.",
+            "theoryLink": "Balance aus verlässlicher Struktur/Grenze und feinfühliger Beziehung in der Resilienzförderung."
+          },
+          {
+            "label": "Sie schützen zuerst ruhig die anderen Kinder und setzen eine klare, gewaltfreie Grenze („Klötze werfen stopp — niemand wird verletzt“), begleiten Leo aus der überreizten Szene in eine reizarme Ecke zur Co-Regulation und greifen erst nach der Beruhigung mit ihm gemeinsam eine machbare Wiedergutmachung und ein künftiges Pausenzeichen auf.",
+            "quality": "optimal",
+            "feedback": "Fachlich sehr stark! Klare, schützende Grenzen und resilienzorientierte Begleitung schließen einander nicht aus — im Gegenteil: Verlässlichkeit, emotionale Co-Regulation, Reframing (Wut als Überforderungssignal statt Bosheit) und das gemeinsame Entwickeln einer Bewältigungsstrategie stärken Leos Selbststeuerung und Vertrauen.",
+            "theoryLink": "Schutzfaktoren nach Wustmann Seiler (Emotionsregulation, verlässliche Beziehung); Reframing und Co-Regulation."
+          },
+          {
+            "label": "Sie schließen Leo sofort für den Rest der Woche vom gemeinsamen Bauen aus und erklären ihm streng, er müsse langsam stärker werden und sich zusammenreißen.",
+            "quality": "problematisch",
+            "feedback": "Beschämende Strafen und das „Zusammenreißen“-Klischee verwechseln Resilienz mit Abhärtung, verstärken Ohnmacht und Ausgrenzung und verschärfen den zirkulären Konfliktkreislauf im System.",
+            "theoryLink": "Fehlverständnis von Resilienz als individueller Abhärtung; defizitorientierte Sanktionierung."
           }
-        ],
-        "prompt": "Wie reagiert die pädagogische Fachkraft im ersten Schritt auf Leos akutes herausforderndes Verhalten im Hortalltag?",
-        "situation": "Leo wirft im Gruppenraum Bausteine um, nachdem er von einem anderen Kind zurückgewiesen wurde, und schreit die Fachkraft an."
+        ]
       },
       {
+        "situation": "Drei Tage später findet ein vereinbartes Gespräch mit Leos Vater statt (ein getrenntes Gesprächsangebot erhält auch die Mutter). Der Vater wiederholt: „Sie sind doch die Profis — sorgen Sie bitte dafür, dass Leo hier wieder funktioniert, und sagen Sie seiner Mutter mal, dass ihr neuer Alltag schuld ist!“",
+        "prompt": "Wie gestalten Sie das Elterngespräch professionell mithilfe systemischer Auftragsklärung, Allparteilichkeit und Ressourcenorientierung?",
         "options": [
           {
-            "feedback": "Zirkuläre Fragen und systemische Genogrammarbeit helfen, blinde Flecken zu erkennen und das Beziehungsnetzwerk um das Kind zu aktivieren.",
-            "label": "Das Team erarbeitet mithilfe eines systemischen Genogramms und zirkulärer Perspektiven ein gemeinsames Verständnis der aktuellen Belastungssituation und bindet die Eltern kooperativ ein.",
+            "label": "Sie klären ruhig und transparent Ihren Auftrag und Ihre Grenzen (pädagogische Begleitung von Leo im Hort, keine Parteinahme im Elternkonflikt), würdigen die Sorge des Vaters, nutzen Ausnahmen und zirkuläre Fragen („Wann erlebt Leo zu Hause gerade ruhige, gute Momente? Was würde er sagen, was ihm im Wechsel zwischen beiden Wohnungen Sicherheit gibt?“), vereinbaren verlässliche Übergangsrituale im Hort und weisen niedrigschwellig auf eine Erziehungsberatungsstelle für Eltern in Trennung hin.",
             "quality": "optimal",
-            "theoryLink": "Systemische Beratung & Elternkooperation (von Schlippe & Schweitzer, 2020)."
+            "feedback": "Exzellente systemische Praxis! Klare Auftragsklärung schützt vor Vereinnahmung, Allparteilichkeit entlastet Leo vom Loyalitätsdruck, zirkuläre und ressourcenorientierte Fragen öffnen neue Perspektiven, und die Brücke zur Erziehungsberatung aktiviert äußere Schutzfaktoren im Netzwerk.",
+            "theoryLink": "Systemische Auftragsklärung, Allparteilichkeit, zirkuläre Fragen & Ausnahmeorientierung (von Schlippe/Schweitzer); äußere Schutzfaktoren (Werner/Wustmann)."
           },
           {
-            "feedback": "Das Etikettieren als „verhaltensauffällig“ führt zu Stigmatisierung und verstellt den Blick auf systemische Wechselwirkungen und Entwicklungschancen.",
-            "label": "Das Team beschließt, Leo offiziell als verhaltensauffällig einzustufen, um ihn an einen externen Sonderpädagogen zu überweisen.",
+            "label": "Sie stimmen dem Vater vorsichtig zu, dass der unruhige Alltag bei der Mutter vermutlich der Hauptauslöser ist, um sein Vertrauen für die Zusammenarbeit zu gewinnen.",
             "quality": "problematisch",
-            "theoryLink": "Verstößt gegen inklusive Prinzipien und ressourcenorientierte Diagnostik."
+            "feedback": "Damit bilden Sie eine einseitige Koalition gegen die Mutter, verletzen die systemische Allparteilichkeit und verschärfen Leos Loyalitätskonflikt erheblich.",
+            "theoryLink": "Verlust von Allparteilichkeit und neutraler Rolle in Trennungskonflikten."
           },
           {
-            "feedback": "Eine Supervision kann hilfreich sein, ersetzt jedoch nicht die direkte, strukturierte Kooperation mit dem Kind und den Eltern sowie die Anpassung der pädagogischen Rahmenbedingungen.",
-            "label": "Das Team wartet ab und plant für das nächste Halbjahr eine Teambesprechung zum Thema herausforderndes Verhalten.",
+            "label": "Sie lehnen das Gespräch ab, solange nicht beide Elternteile gemeinsam erscheinen, und empfehlen dem Vater pauschal eine kinderpsychiatrische Abklärung.",
             "quality": "teilweise",
-            "theoryLink": "Verzögerte Intervention bei akuten Transitionen und Belastungen."
+            "feedback": "Beide Eltern einzubeziehen ist zwar grundsätzlich wünschenswert, doch bei hochstrittigen Trennungen sind getrennte, allparteiliche Gespräche oft realistischer. Eine vorschnelle Psychiatrie-Empfehlung pathologisiert zudem eine nachvollziehbare Übergangsbelastung.",
+            "theoryLink": "Kontextsensible Zusammenarbeit bei Transitionen statt vorschneller Pathologisierung."
           }
-        ],
-        "prompt": "Wie gestaltet das Team die weitere Zusammenarbeit und Fallreflexion im Rahmen des Wahlpflichtmoduls S-SP-9?",
-        "situation": "Nach zwei Wochen mit wechselhaften Verläufen möchte das Team die Situation im Rahmen einer systemischen Fallberatung fundiert analysieren."
+        ]
       }
-    ],
-    "title": "Systemische Resilienzförderung bei herausforderndem Verhalten im Hort"
+    ]
   },
   "selfLearningTasks": [
-    "Analysieren Sie eine reale Praxissituation aus Ihrer Einrichtung mithilfe des systemischen Ansatzes: Welche Wechselwirkungen und systemischen Muster lassen sich erkennen?",
-    "Entwerfen Sie einen Projektplan zur Resilienzförderung (angelehnt an Wustmann) für eine altersgemischte Kindergruppe mit einer Dauer von vier Wochen.",
-    "Reflektieren Sie Ihre eigene Haltung zu gendersensibler Pädagogik und formulieren Sie drei konkrete Leitlinien für Ihren Praxisalltag."
+    "Erstellen Sie anhand eines anonymisierten Praxisbeispiels eine zweiseitige Risiko- und Schutzfaktoren-Bilanz nach Corina Wustmann Seiler (personale, familiäre und soziale Ebene) und entwickeln Sie drei konkrete Maßnahmen, wie Ihre Einrichtung als äußerer Schutzfaktor wirken kann.",
+    "Formulieren Sie zu einer belastenden Alltagssituation aus Ihrer Praxis (a) eine lineare Schuld-Beschreibung, (b) eine zirkuläre Beschreibung der Wechselwirkungen, (c) ein konstruktives Reframing ohne Verharmlosung von Grenzen sowie (d) drei zirkuläre Fragen für ein Elterngespräch.",
+    "Reflektieren Sie eine aktuelle Transition in Ihrer Einrichtung (z. B. Eingewöhnung, Gruppenwechsel oder Einschulung): Welche konkreten Anpassungen erleben das Kind, die Eltern und das Team gleichzeitig — und wo können Sie Übergangskompetenz gezielt stärken?"
   ],
   "flashcards": [
     {
-      "definition": "Psychologische Widerstandskraft von Kindern gegenüber biologischen, psychologischen und psychosocialen Risikofaktoren.",
-      "example": "Ein Kind bewältigt die Trennung der Eltern durch stabile soziale Beziehungen im Kindergarten gestärkt.",
-      "term": "Resilienz"
+      "term": "Resilienz (Emmy Werner / Corina Wustmann Seiler)",
+      "definition": "Dynamischer, kontextabhängiger Prozess psychischer Widerstandskraft, in dem Menschen Entwicklungsrisiken und Krisen mithilfe personaler und sozialer Schutzfaktoren bewältigen. Keine angeborene Eigenschaft und kein Ersatz für Kinderschutz oder Risikoabbau.",
+      "example": "Ein Kind bewältigt familiäre Belastungen stabiler, weil es in der Kita eine verlässliche Bezugsperson, klare Routinen und Selbstwirksamkeit erlebt."
     },
     {
-      "definition": "Frageformtechnik im systemischen Arbeiten, bei der Personen nach den vermuteten Gedanken oder Gefühlen Abwesender oder Dritter gefragt werden.",
-      "example": "„Was glaubst du, würde deine Erzieherin sagen, worüber du dich heute am meisten gefreut hast?“",
-      "term": "Zirkuläre Fragen"
+      "term": "Risiko- und Schutzfaktoren (Kumulationseffekt)",
+      "definition": "Risikofaktoren erhöhen die Wahrscheinlichkeit von Entwicklungsbelastungen (besonders bei mehrfacher Anhäufung = Kumulation), determinieren Entwicklung aber nicht. Schutzfaktoren (personal, familiär, sozial) puffern Risiken ab.",
+      "example": "Armut, familiärer Konflikt und Isolation wirken kumulativ; eine stabile Bezugsperson und ein unterstützendes Familienzentrum können wirksam gegensteuern."
     },
     {
-      "definition": "Kritische Lebensereignisse oder Entwicklungsphasen (z. B. Einschulung, Übergang Krippe-Kita), die Anpassungsleistungen erfordern.",
-      "example": "Der Übergang vom Elementarbereich in die Grundschule (Schulanfang).",
-      "term": "Transitionen"
+      "term": "Zirkularität & zirkuläre Fragen",
+      "definition": "Systemisches Prinzip, wonach Verhalten in sozialen Systemen durch wechselseitige Rückkopplungen statt einseitiger Ursache-Wirkung entsteht. Zirkuläre Fragen erfragen die vermutete Perspektive Dritter, um neue Sichtweisen zu öffnen.",
+      "example": "„Was würde Ihre Tochter wohl sagen, woran sie morgens merkt, dass ein guter Tag in der Kita beginnt?“"
     },
     {
-      "definition": "Pädagogischer Ansatz, der darauf abzielt, nachhaltiges Denken und Handeln in ökologischen, ökonomischen und sozialen Dimensionen zu fördern.",
-      "example": "Anlegen eines Hochbeets in der Kita und gemeinsames Erforschen von Kreisläufen.",
-      "term": "Bildung für nachhaltige Entwicklung (BNE)"
+      "term": "Reframing (Umdeutung)",
+      "definition": "Systemische Intervention, bei der einem belastenden Verhalten ein neuer, nachvollziehbarer Kontext oder eine sinnvolle Funktion zugeschrieben wird, ohne reale Verletzungen oder notwendige Grenzen zu verharmlosen.",
+      "example": "Rückzug eines Kindes wird nicht als „Trotz“, sondern als sinnvoller Selbstschutz vor akustischer Überreizung in der Großgruppe gedeutet."
     },
     {
-      "definition": "Haltung in der Pädagogik, die bestehende gesellschaftliche Geschlechterrollen reflektiert und stereotype Zuschreibungen abbaut.",
-      "example": "Mädchen und Jungen gleichermaßen Zugang zu Werk- und Technikangeboten ermöglichen.",
-      "term": "Gendersensible Pädagogik"
+      "term": "Systemische Auftragsklärung",
+      "definition": "Transparente Klärung vor Beginn einer Beratung oder Intervention: Wer möchte was von wem, welche Ziele sind realistisch und wo endet die eigene berufliche Zuständigkeit?",
+      "example": "Die Fachkraft klärt mit Eltern, dass sie die Entwicklung des Kindes im Hortalltag begleitet, aber keine Paar- oder Umgangsmediation übernimmt."
     },
     {
-      "definition": "Pädagogischer Umgang mit Verhaltensweisen, die den Bildungs- und Sozialisationsprozess des Kindes oder der Gruppe stark belasten, als Ausdruck unbefriedigter Bedürfnisse.",
-      "example": "Aggressives Verhalten eines Kindes als Hilferuf bei Überforderung deuten.",
-      "term": "Herausforderndes Verhalten"
+      "term": "Allparteilichkeit (und ihre Grenze)",
+      "definition": "Systemische Grundhaltung, alle Perspektiven im Familiensystem respektvoll wahrzunehmen, ohne einseitige Koalitionen zu bilden. Klare Grenze: Bei Anhaltspunkten für Kindeswohlgefährdung gilt eindeutige Parteilichkeit für den Schutz des Kindes.",
+      "example": "Nach einer Elterntrennung hört die Fachkraft beiden Elternteilen wertschätzend zu, bleibt beim Wohl des Kindes und ergreift nicht Partei im Paarstreit."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Resilienz bezeichnet die psychische Widerstandskraft von Kindern und die Fähigkeit, Krisen mithilfe von Schutzfaktoren zu bewältigen.",
-      "id": "q1-resilienz",
+      "question": "Welche zentrale Erkenntnis ging aus Emmy Werners Kauai-Längsschnittstudie für die moderne Resilienzforschung hervor?",
       "options": [
-        "Die angeborene Intelligenz und Begabung eines Kindes im Vorschulalter.",
-        "Die psychische Widerstandskraft von Kindern gegenüber Belastungen und Risikofaktoren.",
-        "Die strikte Reglementierung von kindlichem Verhalten durch klare Strafen.",
-        "Ein rein medizinischer Ansatz zur Behandlung von Entwicklungsverzögerungen."
+        "Kinder mit familiären Risikofaktoren entwickeln ausnahmslos schwere psychische Störungen.",
+        "Resilienz ist eine rein genetisch vererbte Eigenschaft, die sich pädagogisch nicht beeinflussen lässt.",
+        "Kinder werden umso widerstandsfähiger, je weniger emotionale Unterstützung sie in Krisen erhalten.",
+        "Entwicklungsrisiken determinieren nicht zwangsläufig den Lebensweg; insbesondere mindestens eine verlässliche, zugewandte Bezugsperson wirkt als zentraler Schutzfaktor."
       ],
-      "question": "Was versteht man in der Sozialpädagogik unter dem Begriff „Resilienz“?",
-      "type": "single"
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Emmy Werners 40-jährige Kauai-Studie zeigte, dass rund ein Drittel mehrfach belasteter Kinder sich stabil entwickelte — ein Schlüsselfaktor war eine konstante, verlässliche Bezugsperson innerhalb oder außerhalb der Familie."
     },
     {
+      "id": "v2-q2",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche beiden Aussagen entsprechen einem fachlich differenzierten Resilienzverständnis (u. a. nach Corina Wustmann Seiler)? (Wählen Sie zwei Antworten)",
+      "options": [
+        "Resilienz ist dynamisch, bereichs- und situationsspezifisch und entsteht im Wechselspiel von personalen und sozialen Faktoren.",
+        "Resilienzförderung darf strukturelle Risiken oder Kinderschutzbedarfe nicht individualisieren — vermeidbare Belastungen müssen zuerst abgebaut werden.",
+        "Ein einmal als resilient eingeschätztes Kind bleibt lebenslang gegen jede neue Krise unverwundbar.",
+        "Resilienzförderung besteht vor allem darin, Kinder möglichst früh unbegleiteten Härten auszusetzen."
+      ],
       "correctIndices": [
         0,
-        2
+        1
       ],
+      "explanation": "Professionelle Resilienzförderung lehnt das „Abhärtungs“-Klischee ab: Sie betrachtet Resilienz als veränderlichen Prozess zwischen Kind und Umwelt und verbindet Kompetenzstärkung immer mit Schutz und Risikoabbau."
+    },
+    {
+      "id": "v2-q3",
+      "type": "single",
       "difficulty": "vertiefung",
-      "explanation": "Zirkuläre Fragen regen dazu an, den Blickwinkel zu wechseln und sich in andere Personen hineinzuversetzen. Sie sind ein zentrales Instrument der systemischen Beratung.",
-      "id": "q2-systemik",
+      "question": "Welchen Zweck verfolgt das systemische „Reframing“ im Umgang mit herausforderndem Verhalten?",
       "options": [
-        "Sie helfen dabei, Perspektiven anderer Personen im sozialen System einzunehmen.",
-        "Sie dienen der schnellen Überprüfung von auswendig gelerntem Fachwissen.",
-        "Sie unterstützen die Aufdeckung von Beziehungsdynamiken und blinden Flecken.",
-        "Sie ersetzen vollständig die Notwendigkeit von Elterngesprächen."
+        "Verletzendes Verhalten wird entschuldigt und bleibt künftig ohne klare Grenzen.",
+        "Ein belastendes Verhalten wird in einen neuen, verstehbaren Bedeutungszusammenhang gestellt, um Stigmatisierung abzubauen und neue Handlungsoptionen zu öffnen — bei Wahrung klarer Grenzen.",
+        "Das Verhalten wird mithilfe eines standardisierten Fragebogens medizinisch diagnostiziert.",
+        "Die Verantwortung für das Verhalten wird vollständig auf eine einzige schuldige Person im System verlagert."
       ],
-      "question": "Welche Merkmale treffen auf „zirkuläre Fragen“ im systemischen Arbeiten zu? (Mehrere Antworten sind richtig)",
-      "type": "multi"
-    },
-    {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Herausforderndes Verhalten wird systemisch als Kommunikationsversuch und Ausdruck einer Diskrepanz zwischen Bedürfnissen und Bewältigungsmöglichkeiten gesehen.",
-      "id": "q3-verhalten",
-      "options": [
-        "Es handelt sich stets um eine angeborene Störung, die medikamentös behandelt werden muss.",
-        "Es ist ein Zeichen mangelnder elterlicher Strenge im häuslichen Umfeld.",
-        "Es ist ein funktionales Signal des Kindes bei Überlastung oder unbefriedigten Bedürfnissen.",
-        "Es muss primär durch konsequente Isolierung der Gruppe gelöst werden."
-      ],
-      "question": "Wie wird herausforderndes Verhalten im Kontext des systemischen Arbeitens primär interpretiert?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
         1
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Transitionen sind Übergänge im Lebenslauf (z. B. Krippe zu Kita, Einschulung), die mit großen Entwicklungsaufgaben und Anpassungsleistungen verbunden sind.",
-      "id": "q4-transitionen",
-      "options": [
-        "Der alltägliche Wechsel von Freispiel zu angeleiteten Angeboten in der Kita.",
-        "Kritische Übergänge im Lebenslauf, die gravierende Entwicklungs- und Anpassungsleistungen erfordern.",
-        "Der Übergang von der Fachschule in das Anerkennungsjahr als Erzieher:in.",
-        "Die rein biologische Pubertätsentwicklung im Jugendalter."
-      ],
-      "question": "Was versteht der Lehrplan unter dem Begriff „Transitionen“?",
-      "type": "single"
+      "explanation": "Reframing löst starre Defizitzuschreibungen („böswillig“, „gestört“) auf, indem es nach dem möglichen Sinn oder Bedürfnis hinter dem Verhalten fragt, ohne notwendigen Schutz und Grenzen für die Gruppe aufzugeben."
     },
     {
-      "correctIndices": [
-        0
-      ],
-      "difficulty": "basis",
-      "explanation": "BNE (Bildung für nachhaltige Entwicklung) befähigt Lernende zu zukunftsfähigem Denken und Handeln im Sinne ökologischer, ökonomischer und sozialer Verantwortung.",
-      "id": "q5-bne",
-      "options": [
-        "Die Förderung von zukunftsfähigem, verantwortungsvollem Denken und Handeln in ökologischer, ökonomischer und sozialer Hinsicht.",
-        "Ein reines Naturschutzprogramm ohne Einbezug sozialer und ökonomischer Faktoren.",
-        "Die ausschließliche Vermittlung von mathematischen Formeln zur Mülltrennung.",
-        "Ein veralteter Begriff für die traditionelle Waldorfpädagogik."
-      ],
-      "question": "Welches Ziel verfolgt die Bildung für nachhaltige Entwicklung (BNE) in Kindertageseinrichtungen?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        0
-      ],
+      "id": "v2-q4",
+      "type": "case",
       "difficulty": "pruefung",
-      "explanation": "In diesem Fall wendet die Fachkraft systemische und ressourcenorientierte Methoden an, indem sie Perspektiven wechselt und Kooperation sucht.",
-      "id": "q6-case",
+      "question": "In einem Elterngespräch nach einer Trennung fordert die Mutter die Erzieherin auf: „Schreiben Sie mir bitte eine Bestätigung für meinen Anwalt, dass unser Kind nach den Wochenenden beim Vater immer völlig verstört ist!“ Welche Reaktion entspricht systemischer Auftragsklärung und Allparteilichkeit?",
       "options": [
-        "Die Fachkraft agiert systemisch und ressourcenorientiert, indem sie Perspektiven einnimmt und Kooperation stärkt.",
-        "Die Fachkraft handelt rein autoritär und ignoriert die Bedürfnisse des Kindes vollständig.",
-        "Die Fachkraft bricht jeglichen Kontakt zu den Eltern ab, um das Kind zu schützen.",
-        "Die Fachkraft wendet verhaltenstherapeutische Methoden ohne jeden Theoriebezug an."
+        "Die Erzieherin stellt das gewünschte Schreiben aus, um die gute Beziehung zur Mutter nicht zu gefährden.",
+        "Die Erzieherin bricht ab sofort jeden Kontakt zu beiden Elternteilen ab.",
+        "Die Erzieherin grenzt ihre Rolle transparent ab (keine Parteinahme oder anwaltliche Gutachten im Sorgerechtsstreit), schildert sachlich wertfreie Beobachtungen im Kita-Alltag und bietet beiden Sorgeberechtigten Gespräche zur Entlastung des Kindes sowie Hinweise auf Erziehungsberatung an.",
+        "Die Erzieherin ruft den Vater an und warnt ihn heimlich vor dem Vorhaben der Mutter."
       ],
-      "question": "Praxissituation: Eine Erzieherin führt nach einem Wutausbruch eines Kindes ein ressourcenorientiertes Gespräch, bezieht die Eltern ein und reflektiert das Gruppengeschehen. Wie ist dieses Vorgehen einzuordnen?",
-      "type": "case"
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Saubere Auftragsklärung und Allparteilichkeit bewahren die pädagogische Fachkraft davor, in elterliche Rechtsstreitigkeiten hineingezogen zu werden, und halten den Fokus transparent auf dem Wohl und den Bedürfnissen des Kindes."
+    },
+    {
+      "id": "v2-q5",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Welche Frage ist ein typisches Beispiel für eine „zirkuläre Frage“ in der systemischen Gesprächsführung?",
+      "options": [
+        "„Was glauben Sie, woran würde die kleine Schwester als Erstes merken, dass es Ihrem Sohn in der Gruppe wieder besser geht?“",
+        "„Warum benimmt sich Ihr Sohn montags immer so unmöglich?“",
+        "„Haben Sie gestern die neuen Gruppenregeln unterschrieben?“",
+        "„Finden Sie nicht auch, dass feste Strafen die einzig wirksame Methode sind?“"
+      ],
+      "correctIndices": [
+        0
+      ],
+      "explanation": "Zirkuläre Fragen laden ein, das Geschehen durch die Augen einer dritten Person im System zu betrachten. Sie fördern Perspektivwechsel, lösen starre Problemfixierung und machen konkrete Ressourcen sichtbar."
+    },
+    {
+      "id": "v2-q6",
+      "type": "single",
+      "difficulty": "pruefung",
+      "question": "Wo stößt die systemische Grundhaltung der Allparteilichkeit auf ihre verbindliche fachliche und rechtliche Grenze?",
+      "options": [
+        "Bei gewichtigen Anhaltspunkten für eine Kindeswohlgefährdung — hier hat der eindeutige Schutz des Kindes (gemäß § 8a SGB VIII) Vorrang vor neutraler Allparteilichkeit.",
+        "Bereits bei jeder unterschiedlichen Meinung der Eltern über Schlafens- oder Essenszeiten.",
+        "Allparteilichkeit kennt grundsätzlich überhaupt keine Grenzen.",
+        "Sobald mehr als drei Personen an einem Gespräch teilnehmen."
+      ],
+      "correctIndices": [
+        0
+      ],
+      "explanation": "Systemische Allparteilichkeit ist eine wertvolle Beratungshaltung für Konflikte und Perspektivenvielfalt, endet aber eindeutig beim Kinderschutz: Droht dem Kind Gewalt oder Gefährdung, steht die Fachkraft parteilich auf der Seite des Kindeswohls."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Resilienz (Fachlexikon)",
+      "url": "https://www.socialnet.de/lexikon/Resilienz",
+      "publisher": "socialnet Lexikon",
+      "note": "Wissenschaftlicher Überblick zu Emmy Werners Kauai-Studie, Risiko- und Schutzfaktoren und dynamischem Resilienzbegriff."
+    },
+    {
+      "title": "Resilienzförderung (Fachlexikon)",
+      "url": "https://www.socialnet.de/lexikon/Resilienzfoerderung",
+      "publisher": "socialnet Lexikon",
+      "note": "Vertiefung zu pädagogischen Konzepten (u. a. Corina Wustmann Seiler) sowie kritische Reflexion von Individualisierungsrisiken."
+    },
+    {
+      "title": "Resilienzförderung in der Kita (Kita-Fachtext 2025)",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/1-2025_Kita-Fachtext_Cichecki_und_Ro__nnau-Bo__se_Resilienzfoerderung.pdf",
+      "publisher": "Cichecki & Rönnau-Böse / Kita-Fachtexte",
+      "note": "Aktuelle wissenschaftliche und praxisorientierte Grundlagen zur Stärkung von Schutzfaktoren im Elementarbereich."
+    },
+    {
+      "title": "Resilienz bei Kindern – Fachbeitrag",
+      "url": "https://nifbe.de/fachbeitraege/resilienz-bei-kindern/",
+      "publisher": "Niedersächsisches Institut für frühkindliche Bildung und Entwicklung (nifbe)",
+      "note": "Praxisnahe Aufbereitung von Risiko- und Schutzfaktoren und der Rolle pädagogischer Fachkräfte."
+    },
+    {
+      "title": "Systemische Beratung (Fachlexikon)",
+      "url": "https://www.socialnet.de/lexikon/Systemische-Beratung",
+      "publisher": "socialnet Lexikon",
+      "note": "Fachbegriffliche Grundlagen zu Zirkularität, Ressourcenorientierung, Auftragsklärung, Reframing und Allparteilichkeit."
     }
   ]
 }

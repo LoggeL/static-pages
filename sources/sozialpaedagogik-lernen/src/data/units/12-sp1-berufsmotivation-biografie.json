@@ -3,8 +3,10 @@
   "number": 12,
   "moduleCode": "S-SP-1",
   "moduleArea": "sp-pflicht",
-  "title": "Berufsmotivation, Biografiearbeit & Arbeitsfelder erkunden",
-  "subtitle": "Eigene Erziehung, Werte, Lernbiografie und Erwartungen an die Erzieherrolle",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-1 · Berufsmotivation, Biografiearbeit, Lernbiografie & Reflexionsmodelle (Lehrplan RLP 2024)",
+  "title": "Berufsmotivation, Biografiearbeit, Lernbiografie & Reflexionsmodelle",
+  "subtitle": "Eigene Erziehung, Habitus, Arbeitsfelder erkunden, Portfolio und systematisches Reflektieren",
   "year": "1. Jahr",
   "estimatedMinutes": 25,
   "hoursRef": "160 Std. (Teil 1/3, inkl. Beratung)",
@@ -13,392 +15,430 @@
     "Wertevermittlung",
     "Partizipation"
   ],
-  "summary": "Diese 12. Lerneinheit widmet sich der fundierten Reflexion der Berufsmotivation, der Biografiearbeit und der Erkundung sozialpädagogischer Arbeitsfelder im ersten Ausbildungsjahr der Fachschule Sozialwesen (Modul S-SP-1 nach RLP-Lehrplan vom 25.09.2024). Angehende Erzieher:innen (Bachelor Professional in Sozialwesen) lernen, ihre eigene Lernbiografie, ihren Habitus und persönliche Wertvorstellungen kritisch zu durchdringen, Verantwortung für ihre Ausbildung zu übernehmen und wirksame Strategien der Gesundheitsprävention und Portfolioarbeit anzuwenden.",
+  "summary": "Professionalisierung beginnt mit dem kritischen Blick auf die eigene Lebens- und Lernbiografie. In dieser Einheit reflektierst du persönliche Berufsmotive und verinnerlichte Erziehungsbilder (Habitus nach Bourdieu), lernst die Breite sozialpädagogischer Arbeitsfelder realistisch einzuschätzen und wendest strukturierte Reflexionsmodelle (Kolb, Gibbs, Korthagen) sowie die Portfolioarbeit gezielt für deine Ausbildung an.",
   "learningGoals": [
-    "Ich kann meine individuelle Berufsmotivation vor dem Hintergrund meiner eigenen Biografie und Lebensgeschichte analysieren und kritisch reflektieren.",
-    "Ich kann meine eigene Erziehung sowie persönliche Norm- und Wertvorstellungen benennen und deren Einfluss auf mein pädagogisches Handeln einschätzen.",
-    "Ich kann meine Rolle als Lernende/r im ersten Ausbildungsjahr an den Lernorten Schule und Praxis aktiv, eigenverantwortlich und partizipativ gestalten.",
-    "Ich kann ein Lern- und Reflexionsportfolio als Instrument zur Dokumentation meiner beruflichen Identitätsentwicklung und Theorie-Praxis-Verzahnung zielgerichtet anwenden.",
-    "Ich kann verschiedene sozialpädagogische Arbeitsfelder (Kita, Hort, Ganztagsschule, Kinder-/Jugendhilfe) erkunden und eigene Erwartungen an das Berufsbild formulieren.",
-    "Ich kann Methoden der Selbst- und Fremdwahrnehmung sowie konstruktive Feedbackprozesse zur Weiterentwicklung meiner persönlichen Ressourcen nutzen."
+    "Ich kann meine individuelle Berufsmotivation vor dem Hintergrund der eigenen Lebensgeschichte kritisch prüfen und von idealisierenden oder rein intuitiven Alltagsmotiven abgrenzen.",
+    "Ich kann den Zusammenhang zwischen eigener Erziehung, persönlichen Wertvorstellungen und verinnerlichtem Habitus (nach Pierre Bourdieu) erläutern sowie Risiken unreflektierter Übertragungen im Berufsalltag erkennen.",
+    "Ich kann zentrale sozialpädagogische Arbeitsfelder (z. B. Krippe, Kita, Hort, Ganztagsschule, offene Jugendarbeit, Hilfen zur Erziehung) vergleichen und realistische Erwartungen an das Berufsbild ableiten.",
+    "Ich kann meine eigene Lernbiografie analysieren und ein Lern- und Reflexionsportfolio gezielt zur Verzahnung von Theorie und Praxis nutzen.",
+    "Ich kann die Reflexionsmodelle nach David Kolb, Graham Gibbs und Fred Korthagen unterscheiden und auf konkrete Praxissituationen anwenden."
   ],
   "sections": [
     {
-      "body": "Das erste Ausbildungsjahr der Fachschule Sozialwesen (Modul S-SP-1, 160 Std. gesamt, davon 40 Std. Beratung und Selbstreflexion) legt das fundamentale Fundament für die Entwicklung einer professionellen Identität. Angehende Erzieher:innen (Bachelor Professional in Sozialwesen) müssen lernen, sich von naiven, rein helfenden Alltagsmotiven ('Ich mag halt Kinder gern') zu lösen und ihre Berufswahl auf Basis einer fundierten Biografie- und Motivationsanalyse kritisch zu hinterfragen. Dabei wird das Eingangsprofil als Ausgangspunkt genutzt, um individuelle Kompetenzen in Lerngemeinschaften einzubringen und auszubauen.",
+      "heading": "Berufsmotivation, Biografiearbeit und der eigene Habitus",
+      "keyTakeaway": "Berufliche Biografiearbeit hilft, unbewusste Prägungen und Erwartungen sichtbar zu machen – sie ist ein professionelles Reflexionsinstrument und klar von Psychotherapie abzugrenzen.",
+      "body": "Wer den Beruf der Erzieherin bzw. des Erziehers wählt, bringt immer eine eigene Kindheits-, Familien- und Bildungsgeschichte mit. Alltagsmotive wie „Ich mag Kinder gern“ oder „Ich möchte helfen“ sind ein nachvollziehbarer Ausgangspunkt, reichen für professionelles Handeln jedoch nicht aus: Ohne kritische Reflexion können unbewusste Wünsche – etwa nach eigener Anerkennung, nach Wiedergutmachung belastender Kindheitserfahrungen („bessere Ersatzfamilie sein“) oder ein übersteigertes Helfersyndrom – zu Rollenunklarheit und emotionaler Überlastung führen. Der Soziologe Pierre Bourdieu beschrieb mit dem Begriff des „Habitus“ verinnerlichte Wahrnehmungs-, Denk- und Handlungsmuster, die durch soziale Herkunft, Familie und Bildungsweg geprägt werden. In stressreichen Alltagssituationen greifen Menschen häufig automatisch auf diese früh erlernten Muster zurück – zum Beispiel auf strenge Zurechtweisung oder Konfliktvermeidung. Berufliche Biografiearbeit deckt sowohl solche blinden Flecken als auch persönliche Ressourcen auf („biografische Kompetenz“). Zugleich gilt eine klare professionelle Grenze: Biografiearbeit in Ausbildung und Beruf dient der fachlichen Selbstreflexion und Rollenklärung; bei tiefgreifenden, akut belastenden persönlichen Traumata ersetzt sie keine therapeutische Begleitung.",
       "bulletPoints": [
-        "Modul S-SP-1 als Brücke zwischen persönlicher Biografie und professioneller Rolle",
-        "Kritische Überprüfung von Selbst- und Fremdwahrnehmung (40 Std. Beratung/Selbstreflexion)",
-        "Abschied von rein intuitiven Alltagsmotiven hin zu wissenschaftlich fundiertem Handeln",
-        "Integration des Eingangsprofils in den Lernprozess der Fachschule"
+        "Prüfung der Berufsmotivation: Realistische Fachlichkeit statt idealisierter Rettungs- oder Ersatzfamilien-Motive",
+        "Habitus (Pierre Bourdieu): Verinnerlichte Denk-, Werte- und Handlungsmuster aus Herkunft und Erziehung erkennen",
+        "Ressourcenblick: Biografiearbeit beleuchtet nicht nur Stolpersteine, sondern auch eigene Stärken und Bewältigungserfahrungen",
+        "Klare Grenze: Berufliche Selbstreflexion und Biografiearbeit sind keine Psychotherapie"
       ],
-      "heading": "1. Berufsmotivation und professionelle Identität im ersten Ausbildungsjahr",
-      "keyTakeaway": "Professionalisierung beginnt mit der mutigen und systematischen Reflexion der eigenen Person, der Biografie und der persönlichen Beweggründe für die Berufswahl.",
-      "praxisTip": "Führen Sie von Beginn an ein professionelles Lerntagebuch, in dem Sie Ihre persönlichen Erwartungen an den Erzieherberuf regelmäßig mit den realen Praxiserfahrungen abgleichen."
+      "praxisTip": "Halte nach Situationen, die dich in der Praxis unerwartet stark geärgert oder berührt haben, kurz inne und frage dich: „Was genau hat mich getriggert – das Verhalten des Kindes oder eine Regel, die mir aus meiner eigenen Kindheit vertraut ist?“"
     },
     {
-      "body": "Die eigene Erziehung und die im Elternhaus verinnerlichten Norm- und Wertvorstellungen prägen den persönlichen Habitus (Pierre Bourdieu) massiv. In der Fachschulausbildung ist es unerlässlich, diese unbewussten Prägungen aufzudecken, um in Konflikt- oder Stresssituationen in der Kita oder im Hort nicht in autoritäre oder überangepasste Verhaltensmuster zurückzufallen. Die Reflexion der Lernbiografie ermöglicht es zudem, eigene Lern- und Arbeitstechniken (wie das Portfolio) gezielt weiterzuentwickeln und Verantwortung für den eigenen Lernprozess zu übernehmen.",
+      "heading": "Lernbiografie, Portfolioarbeit und sozialpädagogische Arbeitsfelder",
+      "keyTakeaway": "Eigenverantwortliches Lernen in Schule und Praxis gelingt über eine bewusste Auseinandersetzung mit der eigenen Lernbiografie, reflektierte Portfolioarbeit und den realistischen Einblick in vielfältige Arbeitsfelder.",
+      "body": "Angehende Fachkräfte blicken auf sehr unterschiedliche schulische und berufliche Lernerfahrungen zurück. Wer die eigene Lernbiografie reflektiert – etwa welche Lernstrategien früher hilfreich waren, wo Prüfungsangst entstand oder wie man konstruktiv mit Fehlern umgeht –, kann Lern- und Arbeitstechniken gezielt weiterentwickeln und die eigene Ausbildung aktiv mitgestalten. Ein zentrales Instrument dafür ist das Lern- und Reflexionsportfolio: Anders als ein bloßer Sammelordner für Arbeitsblätter dokumentiert es ausgewählte Praxiserfahrungen, verknüpft sie systematisch mit Fachtheorien und macht den eigenen Kompetenzzuwachs über die Zeit sichtbar. Parallel dazu weitet die Erkundung sozialpädagogischer Arbeitsfelder den Blick über die klassische Kita hinaus. Das Berufsbild umfasst Krippe, Kindergarten, Hort und Ganztagsschule ebenso wie die offene Kinder- und Jugendarbeit, stationäre und ambulante Hilfen zur Erziehung, Jugendsozialarbeit, Familienbildung sowie inklusive bzw. heilpädagogische Settings. Jedes Feld bringt spezifische Zielgruppen, Rechtsrahmen, Arbeitszeiten und Teamstrukturen mit – der gezielte Vergleich beugt falschen Vorstellungen vor und unterstützt eine fundierte berufliche Schwerpunktsetzung.",
       "bulletPoints": [
-        "Aufdeckung des persönlichen Habitus und unbewusster Erziehungsmuster",
-        "Reflexion der eigenen Lernbiografie zur Optimierung von Lern- und Arbeitstechniken",
-        "Einsatz des Portfolios als zentrales Dokumentations- und Reflexionsinstrument",
-        "Entwicklung einer reflektierten werteorientierten Haltung gegenüber Kindern und Eltern"
+        "Lernbiografie reflektieren: Eigene Lernstrategien, Fehlerkultur, Zeitmanagement und Motivation bewusst steuern",
+        "Portfolioarbeit: Theorie-Praxis-Verzahnung durch gezielte Auswahl, Analyse und Reflexion statt unkommentierten Sammelns",
+        "Breite der Arbeitsfelder: Frühpädagogik (U3/Ü3), Ganztag/Hort, offene Jugendarbeit, Hilfen zur Erziehung und Inklusion",
+        "Erwartungsabgleich: Eigene Vorstellungen an realen Anforderungen, Teamrollen und Rahmenbedingungen überprüfen"
       ],
-      "heading": "2. Biografiearbeit, Habitus und eigene Erziehung",
-      "keyTakeaway": "Wer die eigene Erziehung und den persönlichen Habitus versteht, verhindert die unreflektierte Übertragung eigener Kindheitsmuster auf das pädagogische Handeln.",
-      "praxisTip": "Analysieren Sie in einer Tandem-Arbeit an der Fachschule eine prägende erzieherische Situation aus Ihrer eigenen Kindheit und spüren Sie nach, welche Werte dabei vermittelt wurden."
+      "praxisTip": "Ergänze jeden Portfolio-Eintrag um drei feste Leitfragen: „Was habe ich konkret beobachtet? Welches Fachkonzept hilft beim Verstehen? Was probiere ich beim nächsten Mal bewusst anders aus?“"
     },
     {
-      "body": "Erzieher:innen agieren in einer Vielzahl differenzierter Arbeitsfelder (Krippe, Kindergarten, Hort, Ganztagsschule, Kinder- und Jugendhilfe). Im ersten Ausbildungsjahr steht die Erkundung dieser Arbeitsfelder im Zentrum, um ein realistisches Berufsbild zu entwickeln und eigene Erwartungen abzugleichen. Flankiert wird dies durch den Erwerb von Strategien der Gesundheitsprävention (Coping, Burnout-Prävention, Supervision, Inneres Team), um den hohen emotionalen und körperlichen Belastungen im Berufsalltag professionell zu begegnen und die eigene Psychohygiene zu sichern.",
+      "heading": "Strukturierte Reflexionsmodelle: Kolb, Gibbs und Korthagen",
+      "keyTakeaway": "Systematische Reflexionsmodelle verhindern oberflächliches Bauchgefühl-Urteilen und übersetzen Praxiserfahrungen Schritt für Schritt in begründetes professionelles Handeln.",
+      "body": "Praxiserfahrung allein führt noch nicht automatisch zu Professionalisierung – erst die methodisch geleitete Reflexion macht aus Erlebnissen nachhaltiges Lernen. Drei etablierte Modelle bieten dafür unterschiedliche Schwerpunkte: (1) David Kolbs Zyklus des Erfahrungslernens (1984) beschreibt Lernen als vierphasigen Kreislauf aus konkreter Erfahrung, reflektierendem Beobachten, abstrakter Begriffsbildung (Verknüpfung mit Theorie) und aktivem Experimentieren in neuen Situationen. (2) Graham Gibbs’ Reflective Cycle (1988) ergänzt diesen Ablauf um eine ausdrückliche Betrachtung der eigenen Gefühle und führt in sechs klaren Schritten durch eine Situation: Beschreibung, Gefühle, Bewertung (Was lief gut, was schwierig?), Analyse (Warum war das so?), Schlussfolgerung und konkreter Aktionsplan. Gerade bei emotional herausfordernden Praxismomenten ist Gibbs sehr praxistauglich. (3) Fred Korthagen unterscheidet neben dem fünfstufigen ALACT-Reflexionszyklus im sogenannten „Zwiebelmodell“ sechs Ebenen professionellen Handelns – von außen (Umfeld, Verhalten, Kompetenzen) nach innen (Überzeugungen, berufliche Identität, Sinn/Mission). Sein Modell zeigt, warum reine Methodentipps manchmal nicht greifen: Wenn etwa eine innere Überzeugung („Ein guter Erzieher hat immer sofort Ruhe in der Gruppe“) im Widerspruch zu partizipativer Pädagogik steht, muss genau diese tiefere Ebene reflektiert werden.",
       "bulletPoints": [
-        "Erkundung vielfältiger sozialpädagogischer Arbeitsfelder (Kita, Hort, Jugendhilfe)",
-        "Entwicklung von Coping-Strategien und Resilienz zur Burnout-Prävention",
-        "Einsatz von Supervision, Psychohygiene und dem Modell des 'Inneren Teams'",
-        "Theorie-Praxis-Verzahnung als Motor für die nachhaltige Kompetenzentwicklung"
+        "David Kolb (Erfahrungslernen): 4 Phasen – Konkrete Erfahrung, reflektierendes Beobachten, theoretische Konzeptbildung, aktives Ausprobieren",
+        "Graham Gibbs (Reflective Cycle): 6 Schritte – Beschreibung, Gefühle, Bewertung, Analyse, Schlussfolgerung, Aktionsplan",
+        "Fred Korthagen (ALACT & Zwiebelmodell): Verknüpfung von äußerem Verhalten mit inneren Überzeugungen, Identität und pädagogischem Auftrag",
+        "Modellwahl nach Bedarf: Gibbs für emotionale Alltagssituationen, Kolb für Theorie-Praxis-Transfer, Korthagen für Haltungs- und Rollenfragen"
       ],
-      "heading": "3. Arbeitsfelder erkunden, Gesundheitsprävention und Psychohygiene",
-      "keyTakeaway": "Professioneller Selbstschutz und fundierte Arbeitsfeldkenntnis sind die besten Garanten gegen Burnout und für eine langjährige Berufszufriedenheit.",
-      "praxisTip": "Nutzen Sie Hospitationen in unterschiedlichen Arbeitsfeldern (z.B. Krippe vs. Hort), um gezielt zu beobachten, wie dort Partizipation und Nähe/Distanz im Alltag gelebt werden."
+      "praxisTip": "Probiere bei deinem nächsten Praxisbericht bewusst den 6-Schritte-Zyklus nach Gibbs aus – die getrennte Reflexion von „Beschreibung“ und „Gefühlen“ schafft sofort spürbare Klarheit."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Biografie- & Rollenreflexion",
-      "id": "vb-timeline",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Eingangsprofildaten",
-          "detail": "Ausgangspunkt bildet das individuelle Eingangsprofil der Fachschüler:innen, in dem Vorerfahrungen, Stärken und persönliche Lernziele dokumentiert und in die Lerngruppe eingebracht werden.",
-          "example": "Vorstellung der eigenen Bildungsbiografie im Plenum der Fachschule.",
-          "id": "item-1",
-          "label": "Eingangsprofil & Lernstart",
-          "metric": "Phase 1",
-          "summary": "Erfassung der individuellen Lernvoraussetzungen und des biografischen Rucksacks zu Beginn des Moduls S-SP-1."
-        },
-        {
-          "badge": "Biografiearbeit",
-          "detail": "Kritische Analyse der eigenen Erziehung, prägender Kindheitserfahrungen und der unbewussten Antreiber hinter der Berufsmotivation für den Erzieherberuf.",
-          "example": "Erkennung des Wunsches nach Anerkennung als unbewusstes Motiv für die Berufswahl.",
-          "id": "item-2",
-          "label": "Biografie & Motivation",
-          "metric": "Phase 2",
-          "summary": "Aufarbeitung der persönlichen Lebensgeschichte zur Klärung der beruflichen Motivation."
-        },
-        {
-          "badge": "Rollenreflexion",
-          "detail": "Überprüfung der eigenen Rolle als Lernende/r an den Lernorten Schule und Praxis sowie Auseinandersetzung mit dem professionellen Berufsbild.",
-          "example": "Vergleich des eigenen Rollenbildes mit den realen Anforderungen im Kita-Alltag.",
-          "id": "item-3",
-          "label": "Rollenklärung & Habitus",
-          "metric": "Phase 3",
-          "summary": "Überprüfung des eigenen Habitus und Abgleich mit professionellen Rollenanforderungen."
-        },
-        {
-          "badge": "Portfolio & Praxis",
-          "detail": "Dokumentation des Lernfortschritts im Portfolio und kontinuierliche Theorie-Praxis-Verzahnung durch begleitete Selbstreflexion und Beratung.",
-          "example": "Eintrag im reflexiven Lerntagebuch zur Umsetzung partizipativer Prinzipien.",
-          "id": "item-4",
-          "label": "Portfolio & Theorie-Praxis",
-          "metric": "Phase 4",
-          "summary": "Sicherung und Reflexion des Kompetenzzuwachses im ersten Ausbildungsjahr."
-        }
-      ],
-      "kind": "timeline",
+      "id": "vb-gibbs",
+      "kind": "process_flow",
+      "title": "Der Reflexionszyklus nach Graham Gibbs (1988)",
+      "subtitle": "In sechs strukturierten Schritten von einer konkreten Praxiserfahrung zum fundierten Handlungsplan",
+      "centerLabel": "Gibbs-Zyklus",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Phasenmodell der professionellen Identitätsentwicklung im 1. Ausbildungsjahr (Modul S-SP-1)",
-      "title": "Von der Biografie zur professionellen Erzieherrolle"
-    },
-    {
-      "centerLabel": "Berufliche Identität S-SP-1",
-      "id": "vb-concept-map",
-      "isCycle": false,
+      "isCycle": true,
       "items": [
         {
-          "badge": "Kernkompetenz 1",
-          "detail": "Analyse der eigenen Biografie, des persönlichen Habitus und der unbewussten Antreiber, die zur Berufswahl als Erzieherin/Erzieher geführt haben.",
-          "example": "Reflexion elterlicher Erziehungsstile im Rahmen von Reflexionsseminaren.",
-          "id": "cm-1",
-          "label": "Berufsmotivation & Biografie",
-          "metric": "Säule 1",
-          "summary": "Kritische Durchdringung der eigenen Lebensgeschichte und Motivstrukturen."
+          "id": "g-1",
+          "label": "1. Beschreibung",
+          "badge": "Fakten",
+          "metric": "Was geschah?",
+          "summary": "Sachliche, möglichst wertfreie Schilderung der Situation ohne vorschnelle Schuldzuweisung.",
+          "detail": "Wer war beteiligt, was genau ist passiert, wie war der äußere Rahmen? Zunächst werden nur beobachtbare Abläufe festgehalten.",
+          "example": "Beim Aufräumen im Hort verweigerten drei 8-Jährige das Wegräumen der Brettspiele; ich wurde lauter und drohte mit Spielverbot."
         },
         {
-          "badge": "Kernkompetenz 2",
-          "detail": "Aktive, selbstverantwortliche und demokratische Mitgestaltung der Ausbildung an den Lernorten Fachschule und sozialpädagogische Praxisinrichtung.",
-          "example": "Mitbestimmung bei der Gestaltung von Projekttagen und Teamabsprachen.",
-          "id": "cm-2",
-          "label": "Partizipation & Verantwortung",
-          "metric": "Säule 2",
-          "summary": "Übernahme von Eigenverantwortung und partizipative Ausbildungsgestaltung."
+          "id": "g-2",
+          "label": "2. Gefühle",
+          "badge": "Eigenwahrnehmung",
+          "metric": "Was spürte ich?",
+          "summary": "Bewusstes Wahrnehmen eigener Emotionen und Gedanken vor, während und nach der Situation.",
+          "detail": "Statt Gefühle wegzudrücken, werden Stress, Ohnmacht, Ärger oder Scham benannt und als wichtige Hinweise auf eigene Trigger genutzt.",
+          "example": "Ich fühlte mich unter Zeitdruck, hatte Angst vor den Blicken meiner Praxisanleitung und spürte Hilflosigkeit und Ärger."
         },
         {
-          "badge": "Kernkompetenz 3",
-          "detail": "Systematische Aufzeichnung und Reflexion des Lernprozesses durch ein Lern- und Reflexionsportfolio sowie gezielte Lern- und Arbeitstechniken.",
-          "example": "Führung eines wöchentlichen Reflexionsjournals zu Praxiserfahrungen.",
-          "id": "cm-3",
-          "label": "Portfolio & Lerntechniken",
-          "metric": "Säule 3",
-          "summary": "Anwendung professioneller Dokumentations- und Arbeitstechniken."
+          "id": "g-3",
+          "label": "3. Bewertung",
+          "badge": "Differenzierung",
+          "metric": "Was lief gut/schwer?",
+          "summary": "Abwägen gelungener und problematischer Anteile der eigenen Reaktion.",
+          "detail": "Sowohl Stärken (z. B. das Thema ernst nehmen) als auch schwierige Stellen (z. B. Drohung im Stress) werden realistisch betrachtet.",
+          "example": "Positiv war, dass ich Verantwortung für den Ablauf übernahm; ungünstig war mein strenger, drohender Ton, der sofort Widerstand auslöste."
         },
         {
-          "badge": "Kernkompetenz 4",
-          "detail": "Erkundung vielfältiger Praxisfelder (Kita, Hort, Ganztag) und Aufbau von Psychohygiene, Coping-Strategien und Burnout-Prävention.",
-          "example": "Anwendung des Modells des 'Inneren Teams' bei beruflichen Belastungen.",
-          "id": "cm-4",
-          "label": "Arbeitsfelder & Prävention",
-          "metric": "Säule 4",
-          "summary": "Erkundung von Berufsfeldern und Sicherung der eigenen Arbeitsfähigkeit."
+          "id": "g-4",
+          "label": "4. Analyse",
+          "badge": "Theorie & Biografie",
+          "metric": "Warum war das so?",
+          "summary": "Verknüpfung mit Fachwissen, Kontextfaktoren und biografischen Prägungen.",
+          "detail": "Hier werden Zusammenhänge beleuchtet: Übergangsankündigung, Erziehungsstile, Gruppendynamik sowie eigene erlernte Reaktionsmuster (Habitus).",
+          "example": "Ich hatte das Aufräumen nicht rechtzeitig angekündigt und fiel unter Stress in den strengen Tonfall zurück, den ich aus meiner eigenen Kindheit kenne."
+        },
+        {
+          "id": "g-5",
+          "label": "5. Schlussfolgerung",
+          "badge": "Erkenntnis",
+          "metric": "Was lerne ich?",
+          "summary": "Herausarbeiten alternativer, fachlich tragfähiger Handlungsoptionen.",
+          "detail": "Welche konkreten Strategien hätten die Situation entspannt und den Bedürfnissen der Kinder besser entsprochen?",
+          "example": "Ein 5-Minuten-Vorabhinweis, ein spielerischer Übergang und eine klare Ich-Botschaft wären kooperationsfördernder gewesen."
+        },
+        {
+          "id": "g-6",
+          "label": "6. Aktionsplan",
+          "badge": "Transfer",
+          "metric": "Nächster Schritt",
+          "summary": "Konkrete, überprüfbare Vereinbarung für die nächste vergleichbare Praxissituation.",
+          "detail": "Die Reflexion mündet in ein machbares Ziel, das im nächsten Praktikumsabschnitt erprobt und im Portfolio ausgewertet wird.",
+          "example": "Ab morgen kündige ich Übergänge 5 Minuten vorher visuell an und bespreche meine Beobachtung im nächsten Reflexionsgespräch mit der Anleitung."
         }
-      ],
-      "kind": "concept_map",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Zentraler Verflechtungskosmos des Moduls S-SP-1 (RLP Rheinland-Pfalz)",
-      "title": "Konzeptkarte: Professionelle Identität und Selbstreflexion"
+      ]
     },
     {
+      "id": "vb-models",
+      "kind": "comparison",
+      "title": "Drei Reflexionsmodelle im Vergleich: Kolb, Gibbs und Korthagen",
+      "subtitle": "Welches Modell sich für welche Reflexionsfrage in Ausbildung und Praxis besonders eignet",
       "centerLabel": "",
-      "id": "vb-feature-grid",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Stufe 1",
-          "detail": "Erfassung der persönlichen Stärken, Vorerfahrungen und Entwicklungsfelder auf Basis des Eingangsprofils zu Beginn der Ausbildung.",
-          "example": "Ausfüllen und Besprechen des individuellen Eingangsprofils in der Fachschule.",
-          "id": "fg-1",
-          "label": "Eingangsprofil analysieren",
-          "metric": "Fundament",
-          "summary": "Systematische Bestandsaufnahme der individuellen Eingangskompetenzen."
+          "id": "m-1",
+          "label": "Erfahrungslernen (David Kolb)",
+          "badge": "4 Phasen",
+          "metric": "Theorie-Praxis",
+          "summary": "Konkrete Erfahrung → reflektierendes Beobachten → abstrakte Begriffsbildung → aktives Experimentieren.",
+          "detail": "Stellt die zyklische Verbindung von praktischem Erleben und theoretischer Durchdringung ins Zentrum. Sehr hilfreich, um Praxissituationen gezielt mit Fachliteratur zu verknüpfen.",
+          "example": "Nach einer Spielbeobachtung liest ein Auszubildender Fachtexte zum Spielverhalten nach und erprobt neue Impulse im nächsten Angebot."
         },
         {
-          "badge": "Stufe 2",
-          "detail": "Kritische Auseinandersetzung mit der eigenen Erziehung, den internalisierten Normen und Werten sowie der individuellen Lernbiografie.",
-          "example": "Biografie-Workshops zur Aufarbeitung prägender Lernerfahrungen.",
-          "id": "fg-2",
-          "label": "Biografie & Werte reflektieren",
-          "metric": "Kernreflexion",
-          "summary": "Durchdringung des eigenen Habitus und der persönlichen Normvorstellungen."
+          "id": "m-2",
+          "label": "Reflective Cycle (Graham Gibbs)",
+          "badge": "6 Schritte",
+          "metric": "Gefühle & Plan",
+          "summary": "Beschreibung → Gefühle → Bewertung → Analyse → Schlussfolgerung → Aktionsplan.",
+          "detail": "Räumt Emotionen ausdrücklich einen eigenen Reflexionsschritt ein und schließt mit einem konkreten Handlungsplan. Besonders geeignet für konfliktreiche oder emotional fordernde Alltagsmomente.",
+          "example": "Aufarbeitung einer angespannten Übergabe mit unzufriedenen Eltern im Reflexionstagebuch."
         },
         {
-          "badge": "Stufe 3",
-          "detail": "Einsatz von Portfolioarbeit, Reflexionsgesprächen und Lerntechniken zur systematischen Verknückung von Theorie und Praxis.",
-          "example": "Führung des Portfolios als Nachweis der beruflichen Entwicklung.",
-          "id": "fg-3",
-          "label": "Portfolio & Lerntechniken",
-          "metric": "Methode",
-          "summary": "Methodische Absicherung des reflexiven Lernprozesses."
-        },
-        {
-          "badge": "Stufe 4",
-          "detail": "Erkundung verschiedener Arbeitsfelder (Kita, Hort, Jugendhilfe) und Implementierung von Gesundheitsprävention und Coping-Strategien.",
-          "example": "Hospitation in einer stationären Wohngruppe und Supervision.",
-          "id": "fg-4",
-          "label": "Arbeitsfelder & Prävention",
-          "metric": "Praxisbezogen",
-          "summary": "Erweiterung des beruflichen Horizonts und Sicherung der Psychohygiene."
+          "id": "m-3",
+          "label": "Kernreflexion & ALACT (Fred Korthagen)",
+          "badge": "Zwiebelmodell",
+          "metric": "Haltung & Identität",
+          "summary": "Verbindet äußere Ebenen (Umfeld, Verhalten, Kompetenzen) mit inneren Ebenen (Überzeugungen, Identität, Auftrag).",
+          "detail": "Fragt nicht nur „Was tue ich?“, sondern „Welche Überzeugung und welches Rollenbild leiten mich?“. Ideal für tiefere Biografie-, Werte- und Identitätsfragen.",
+          "example": "Reflexion des eigenen Glaubenssatzes „Wenn Kinder laut sind, habe ich versagt“ im Abgleich mit einem modernen Bild vom Kind."
         }
-      ],
+      ]
+    },
+    {
+      "id": "vb-fields",
       "kind": "feature_grid",
+      "title": "Sozialpädagogische Arbeitsfelder im Überblick",
+      "subtitle": "Vielfalt beruflicher Einsatzbereiche und ihre jeweils charakteristischen Anforderungen",
+      "centerLabel": "",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Zentrale Bausteine des Kompetenzerwerbs im 1. Ausbildungsjahr",
-      "title": "Feature-Grid: Bausteine der Berufsidentität (S-SP-1)"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "af-1",
+          "label": "Krippe & Kindertagesstätte",
+          "badge": "0–6 Jahre",
+          "metric": "Elementarbereich",
+          "summary": "Frühe Bildung, bindungsorientierte Übergänge, Alltagsbegleitung und Erziehungspartnerschaft.",
+          "detail": "Hohe Bedeutung von Feinfühligkeit, alltagsintegrierter Sprachbildung, Beobachtung/Dokumentation, Spielbegleitung und enger Kooperation mit Familien.",
+          "example": "Begleitung einer Krippeneingewöhnung, Freispielbegleitung und Entwicklungsgespräche."
+        },
+        {
+          "id": "af-2",
+          "label": "Hort & Ganztagsschule",
+          "badge": "6–12 Jahre",
+          "metric": "Schulkindalter",
+          "summary": "Freizeit- und Lernbegleitung, Partizipation und multiprofessionelle Kooperation mit Schule.",
+          "detail": "Verbindung von Hausaufgaben-/Lernzeiten, erholsamer Freizeit, sozialen Gruppenprozessen und enger Abstimmung mit Lehrkräften.",
+          "example": "Moderation eines Hort-Kinderrates und Gestaltung von Projekten am Nachmittag."
+        },
+        {
+          "id": "af-3",
+          "label": "Offene Kinder- & Jugendarbeit",
+          "badge": "ca. 10–27 Jahre",
+          "metric": "Freiwilligkeit",
+          "summary": "Niedrigschwellige Begegnung, Selbstorganisation und Lebensweltorientierung im Jugendtreff.",
+          "detail": "Geprägt von Freiwilligkeit der Teilnahme, hoher Partizipation, Beziehungsarbeit im Sozialraum und flexibler Begleitung von Peergroups.",
+          "example": "Gemeinsame Planung eines Jugendkultur-Events oder offene Beratung bei Alltagsfragen."
+        },
+        {
+          "id": "af-4",
+          "label": "Hilfen zur Erziehung (stationär/ambulant)",
+          "badge": "SGB VIII §§ 27 ff.",
+          "metric": "Intensivbegleitung",
+          "summary": "Alltags- und Krisenbegleitung in Wohngruppen, Tagesgruppen oder ambulanter Familienhilfe.",
+          "detail": "Erfordert hohe Rollen- und Grenzreflexion, Schichtdienst-Psychohygiene, Hilfeplanung (§ 36 SGB VIII) und traumasensibles, multiprofessionelles Arbeiten.",
+          "example": "Bezugsbetreuung in einer Jugendwohngruppe mit enger Abstimmung im Hilfeplangespräch."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Fachschule (1. Ausbildungsjahr)",
-    "context": "Reflexionsseminar an der Fachschule Sozialwesen (Rheinland-Pfalz) im Rahmen des Moduls S-SP-1 (Berufliche Identität und professionelle Perspektiven weiterentwickeln).",
-    "setting": "Lernort Schule (Seminarraum & begleitete Praxisreflexion in der Kita)",
+    "title": "Zwischen eigener Kindheit und Berufsrolle: Biografiereflexion im ersten Praktikum",
+    "setting": "Hortgruppe einer Grundschule & anschließende Praxisreflexion an der Fachschule",
+    "ageGroup": "Auszubildende im 1. Ausbildungsjahr / Hortkinder (7–10 Jahre)",
+    "context": "Leon (19, 1. Ausbildungsjahr) wollte Erzieher werden, weil er „Kindern die Wärme und Freiheit geben will, die er selbst in einer sehr strengen Familie vermisst hat“. In seinem ersten Praxisblock im Hort eskaliert jedoch beim Aufräumen ein lauter Streit zwischen drei Kindern. Unter Zeitdruck reagiert Leon überraschend harsch und befiehlt: „Sofort Ruhe, sonst bleibt ihr alle drin!“ Danach ist er über sich selbst erschrocken.",
     "steps": [
       {
+        "situation": "In der anschließenden Reflexionsstunde möchte Leon verstehen, warum er entgegen seinem eigenen Ideal plötzlich so streng reagiert hat.",
+        "prompt": "Welcher Umgang mit dieser Erfahrung entspricht professioneller Biografiearbeit und systematischer Reflexion?",
         "options": [
           {
-            "feedback": "Hervorragend! Sie trennt eigene Kindheitserfahrungen ('Mein Vater hat mir nie Grenzen gesetzt') professionell von aktuellen pädagogischen Konzepten (Bedürfnisorientierung vs. klare Rahmenbedingungen) und reflektiert ihre Berufsmotivation kritisch.",
-            "label": "Sarah analysiert ihre Biografie anhand des Reflexionsmodells nach Korthagen und gleicht unbewusste Erzieher-Mythen ('Ich will allen Kindern die Mutter sein, die ich nie hatte') mit professionellen Rollenanforderungen ab.",
+            "label": "Leon beschreibt die Szene sachlich, benennt seinen Stress, prüft mithilfe des Gibbs-Zyklus und Korthagens Zwiebelmodell den Einfluss eigener Prägungen und entwickelt konkrete Handlungsalternativen.",
             "quality": "optimal",
-            "theoryLink": "Lehrplan RLP S-SP-1: 'Die Berufsmotivation vor dem Hintergrund der eigenen Biografie analysieren' & Korthagen (2010): Kernreflexion (Zwiebel-Modell)."
+            "feedback": "Fachlich überzeugend: Leon trennt Beschreibung, Gefühle und Analyse (Gibbs), erkennt, wie sein verinnerlichter Habitus unter Druck wirkte, und prüft seine zugrundeliegenden Überzeugungen (Korthagen) – ohne die Ausbildung mit Therapie zu verwechseln.",
+            "theoryLink": "Graham Gibbs (Reflective Cycle), Fred Korthagen (Zwiebelmodell) und reflektierte Biografiearbeit."
           },
           {
-            "feedback": "Problematisch! Dies führt zur unkritischen Übernahme eigener biographischer Prägungen als vermeintlich allgemeingültigen Erziehungsstil ('Was bei mir funktioniert hat, klappt bei allen Kindern') ohne wissenschaftliche Fundierung.",
-            "label": "Sarah übernimmt unreflektiert den autoritären Erziehungsstil ihrer eigenen Eltern, da sie diesen aus Gewohnheit als besonders wirksam und strukturell überlegen empfindet.",
+            "label": "Leon wertet sich pauschal als „ungeeignet für den Beruf“ ab und beschließt, seine eigenen Kindheitserfahrungen künftig komplett auszublenden.",
             "quality": "problematisch",
-            "theoryLink": "Lehrplan RLP S-SP-1: 'Die eigene Erziehung und persönliche Norm- und Wertvorstellungen reflektieren' (Gefahr des unreflektierten Habitus nach Bourdieu)."
+            "feedback": "Verdrängung löst unbewusste Reaktionsmuster nicht auf – im nächsten Stressmoment greift der alte Habitus erneut. Ebenso wenig beweist eine schwierige Einzelsituation mangelnde Berufseignung; entscheidend ist die Reflexionsbereitschaft.",
+            "theoryLink": "Habitusbegriff (Bourdieu); professionelle Fehler- und Lernkultur in der Biografiearbeit."
           },
           {
-            "feedback": "Teilweise geeignet. Zwar verhindert dies eine unmittelbare Fehlübertragung, lässt jedoch die tiefere Auseinandersetzung mit der eigenen Berufsmotivation und den unbewussten biografischen Antreibern unberücksichtigt.",
-            "label": "Sarah verdrängt ihre persönliche Biografie vollständig aus dem Bewusstsein und konzentriert sich im Seminar ausschließlich auf das Erlernen formaler Techniken und Rechtsgrundlagen.",
+            "label": "Leon hält die Situation für eine bloße Lappalie und notiert lediglich „Kinder waren heute unruhig“ in seinem Praxisordner.",
             "quality": "teilweise",
-            "theoryLink": "Modul S-SP-1 (40 Std. Beratung/Selbstreflexion): Selbstreflexion und die Aufarbeitung des Eingangsprofils sind unverzichtbare Kernelemente der professionellen Identitätsbildung."
+            "feedback": "Der Vorgang wird zwar notiert, aber die eigentliche Lernchance geht verloren: Ohne Analyse der eigenen Anteile und der Rahmenbedingungen (z. B. Übergangsankündigung) bleibt das Geschehen unreflektiert.",
+            "theoryLink": "Theorie-Praxis-Verzahnung und Unterschied zwischen bloßem Protokollieren und reflexiver Portfolioarbeit."
           }
-        ],
-        "prompt": "In der ersten Praxisreflexionsphase des Moduls S-SP-1 steht die Analyse der eigenen Berufsmotivation und Lernbiografie im Fokus. Die Fachschülerin Sarah (20, 1. Ausbildungsjahr) bemerkt im Seminar, dass ihre Motivation, Erzieherin zu werden, stark aus dem Wunsch entspringt, 'benachteiligten Kindern eine bedingungslose Ersatzfamilie zu bieten', da sie selbst in ihrer Kindheit oft Einsamkeit erlebt hat. Wie sollte Sarah diesen biografischen Befund professionell bearbeiten?",
-        "situation": "Reflexion der Berufsmotivation und unbewusster biografischer Antreiber in der Fachschule."
+        ]
       },
       {
+        "situation": "Nach der ersten Reflexion möchte Leon seinen Lernprozess über das erste Ausbildungsjahr hinweg verlässlich dokumentieren und mit der Praxis verknüpfen.",
+        "prompt": "Wie gestaltet Leon seine Portfolioarbeit und die Zusammenarbeit mit der Praxisanleitung fachlich sinnvoll?",
         "options": [
           {
-            "feedback": "Teilweise geeignet. Hospitationen sind wichtig, greifen hier aber zu kurz, da ohne strukturierte Portfolio-Arbeit und supervisorische Begleitung blinde Flecken und unreflektierte Projektionen bestehen bleiben.",
-            "label": "Sarah sammelt unkommentiert Arbeitsblätter und Hospitationsberichte in einem herkömmlichen Schnellhefter, ohne die dort gemachten Beobachtungen systematisch mit ihrer eigenen Lernbiografie abzugleichen.",
-            "quality": "teilweise",
-            "theoryLink": "Lehrplan RLP S-SP-1: 'Die eigene Lernbiografie reflektieren und Lern- und Arbeitstechniken für die Ausbildung und den Berufsalltag (Portfolio) weiterentwickeln'."
-          },
-          {
-            "feedback": "Optimal! Durch die Verknüpfung von Portfolio-Einträgen, reflexiven Lerntagebüchern und kollegialer Beratung gelingt es Sarah, Theorie und Praxis zu verzahnen und realistische Erwartungen an ihre künftige Berufsrolle zu entwickeln.",
-            "label": "Sarah dokumentiert ihre berufliche Entwicklung in einem strukturierten Lern- und Reflexionsportfolio, verknüpft Praxiseindrücke mit theoretischen Konzepten zur professionellen Rolle und holt aktiv Feedback von Praxisanleitung und Lehrkräften ein.",
-            "quality": "optimal",
-            "theoryLink": "Lehrplan RLP S-SP-1: Anregungen für Selbstlernzeiten und Theorie-Praxis-Verzahnung sowie Portfolioarbeit im Modul S-SP-1."
-          },
-          {
-            "feedback": "Problematisch! Dies widerspricht dem Kompetenzprofil des Lehrplans (partizipative Mitgestaltung, Selbstverantwortung) und führt zu einem starren, unprofessionellen Rollenverständnis ohne Fehlertoleranz.",
-            "label": "Sarah zieht sich komplett aus der aktiven Lerngemeinschaft zurück und orientiert sich ausschließlich an den starren Vorgaben der Praxisanleitung, um bloß keine eigenen Fehler zu machen.",
+            "label": "Er übernimmt künftig wortlos alle Anweisungen seiner Praxisanleitung ohne eigene Fragen oder Reflexionen, um bloß keine Fehler mehr zu machen.",
             "quality": "problematisch",
-            "theoryLink": "Lehrplan RLP S-SP-1: 'Verantwortung und Initiative für die eigene Ausbildung übernehmen und sie partizipativ mit allen Beteiligten an den Lernorten Schule und Praxis gestalten'."
+            "feedback": "Reine Anpassung verhindert die Entwicklung einer eigenständigen, begründeten Berufsidentität und widerspricht partizipativem, selbstverantwortlichem Lernen.",
+            "theoryLink": "Professionelle Identitätsentwicklung und partizipative Ausbildungsgestaltung."
+          },
+          {
+            "label": "Er sammelt alle Arbeitsblätter chronologisch in einem Ordner und legt ihn erst am Jahresende zur Unterschrift vor.",
+            "quality": "teilweise",
+            "feedback": "Eine reine Ablage ohne eigene Reflexion, Theoriebezug und kontinuierliches Feedback schöpft das Potenzial eines Lern- und Reflexionsportfolios nicht aus.",
+            "theoryLink": "Portfolioarbeit als prozessorientiertes Reflexions- und Lerninstrument."
+          },
+          {
+            "label": "Er dokumentiert die Situation im Reflexionsportfolio mit konkretem Aktionsplan (z. B. Übergänge ankündigen), verknüpft sie mit Fachwissen zu Erziehungsstilen und holt gezielt Feedback der Praxisanleitung ein.",
+            "quality": "optimal",
+            "feedback": "Optimal: Durch die bewusste Verbindung von Praxiserfahrung, theoretischer Einordnung, konkretem Ausprobieren (Kolb) und kollegialer Rückmeldung übernimmt Leon aktiv Verantwortung für seine professionelle Entwicklung.",
+            "theoryLink": "David Kolb (Zyklus des Erfahrungslernens), eigenverantwortliches Lernen und Theorie-Praxis-Verzahnung."
           }
-        ],
-        "prompt": "Im Rahmen der Theorie-Praxis-Verzahnung soll Sarah im ersten Ausbildungsjahr ihre Rolle als Lernende aktiv gestalten und dokumentieren. Welches Vorgehen entspricht den Anforderungen des Lehrplans Rheinland-Pfalz für das Modul S-SP-1?",
-        "situation": "Einsatz von Lern- und Arbeitstechniken sowie Portfolioarbeit zur Bewältigung des Übergangs von der Lernenden zur professionellen Fachkraft."
+        ]
       }
-    ],
-    "title": "Fallbeispiel: Biografiearbeit und Rollenreflexion im ersten Ausbildungsjahr"
+    ]
   },
   "selfLearningTasks": [
-    "Erstellen Sie eine biografische Zeitleiste Ihrer eigenen Bildungs- und Erziehungsbiografie und markieren Sie drei Schlüsselerlebnisse, die Ihre Entscheidung für den Erzieherberuf besonders beeinflusst haben.",
-    "Legen Sie ein strukturiertes Lern- und Reflexionsportfolio an und dokumentieren Sie darin wöchentlich eine Praxissituation, die Sie mithilfe eines Fachbegriffs aus dem Modul S-SP-1 analysieren.",
-    "Führen Sie eine strukturierte Erkundung (Field-Visit) in einem Ihnen bisher unbekannten sozialpädagogischen Arbeitsfeld (z.B. Jugendzentrum oder integrativer Hort) durch und verfassen Sie einen zweiseitigen Reflexionsbericht."
+    "Skizziere deine persönliche Bildungs- und Lernbiografie entlang von drei Schlüsselerlebnissen und leite ab, welche zwei Lernstrategien dich in der Ausbildung besonders tragen und wo du Unterstützung brauchst.",
+    "Reflektiere eine herausfordernde Alltagssituation aus deiner Praxiseinrichtung vollständig anhand der sechs Schritte des Reflective Cycle nach Graham Gibbs (Beschreibung, Gefühle, Bewertung, Analyse, Schlussfolgerung, Aktionsplan).",
+    "Erkunde ein sozialpädagogisches Arbeitsfeld außerhalb deines aktuellen Praxisorts (z. B. durch Hospitation, Fachinterview oder Konzeptionsanalyse) und vergleiche Zielgruppe, Rahmenbedingungen und professionelle Rolle mit deiner bisherigen Erfahrung."
   ],
   "flashcards": [
     {
-      "definition": "Systematischer, schriftlicher Prozess zur Dokumentation, Analyse und Weiterentwicklung des eigenen professionellen Lernprozesses und der beruflichen Identität (Kernbestandteil von S-SP-1).",
-      "example": "Führung eines reflexiven Lerntagebuchs über Praxiserfahrungen und deren theoretische Fundierung.",
-      "term": "Lern- und Reflexionsportfolio"
+      "term": "Habitus (Pierre Bourdieu)",
+      "definition": "Gesamtheit durch Herkunft, Erziehung und Bildungsweg verinnerlichter Wahrnehmungs-, Denk- und Handlungsmuster, die oft unbewusst wirksam werden und professionell reflektiert werden müssen.",
+      "example": "Unter Zeitdruck reagiert eine Fachkraft reflexartig mit Strenge, weil sie dieses Muster in der eigenen Kindheit erlebt hat."
     },
     {
-      "definition": "Das aus der individuellen Lebensgeschichte resultierende, oft unbewusste Motivationsbündel (z.B. Helfersyndrom, Wiedergutmachung, echtes Bildungsinteresse), das die Berufswahl zur Erzieherin/zum Erzieher steuert.",
-      "example": "Erkennung, dass der Berufswunsch aus dem Wunsch nach eigener emotionaler Bestätigung resultiert.",
-      "term": "Berufsmotivation & Biografiearbeit"
+      "term": "Berufliche Biografiearbeit",
+      "definition": "Strukturierte Auseinandersetzung mit der eigenen Lebens- und Erziehungsgeschichte, um Berufsmotive, blinde Flecken und persönliche Ressourcen zu erkennen – klar abgegrenzt von Psychotherapie.",
+      "example": "Prüfung des eigenen Motivs „Ich will Kindern eine bessere Familie ersetzen“ im Abgleich mit professioneller Rollenklarheit."
     },
     {
-      "definition": "Die Gesamtheit internalisierter Denkmuster, Wahrnehmungsweisen, Werte und Handlungsdispositionen, die durch soziale Herkunft und Erziehung geprägt sind und professionell reflektiert werden müssen (nach Bourdieu).",
-      "example": "Kritisches Hinterfragen des eigenen, unbewusst übernommenen autoritären Erziehungsstils.",
-      "term": "Habitus & eigene Erziehung"
+      "term": "Zyklus des Erfahrungslernens (David Kolb)",
+      "definition": "Vierphasiges Lern- und Reflexionsmodell: (1) Konkrete Erfahrung, (2) reflektierendes Beobachten, (3) abstrakte Begriffsbildung/Theorieverknüpfung, (4) aktives Experimentieren.",
+      "example": "Eine Praxissituation wird beobachtet, mit Fachwissen zur Kommunikation verknüpft und in der Folgewoche gezielt verändert erprobt."
     },
     {
-      "definition": "Die gezielte, wechselseitige Durchdringung von wissenschaft fundierter Theorie (Fachschule) und praktischem Handlungsfeld (Kita/Hort), um Praxiserfahrungen theoretisch zu durchdringen und Theorien praktisch zu erproben.",
-      "example": "Verknüpfung entwicklungstheoretischer Modelle (z.B. Piaget) mit beobachtetem kindlichen Spielverhalten in der Krippe.",
-      "term": "Theorie-Praxis-Verzahnung"
+      "term": "Reflective Cycle (Graham Gibbs, 1988)",
+      "definition": "Sechsstufiges Reflexionsmodell, das Gefühle ausdrücklich einbezieht: Beschreibung, Gefühle, Bewertung, Analyse, Schlussfolgerung und konkreter Aktionsplan.",
+      "example": "Nach einem Konflikt im Gruppenraum trennt eine Auszubildende sachliche Beschreibung von ihrem eigenen Ärger und plant eine neue Übergangsstrategie."
     },
     {
-      "definition": "Die Übernahme von Eigenverantwortung für den eigenen Lernprozess sowie die aktive, demokratische Mitgestaltung von Ausbildungsinhalten und -strukturen an den Lernorten Schule und Praxis.",
-      "example": "Mitbestimmung bei der Gestaltung von Projekttagen und konstruktive Einbringung von Feedback in Lernteams.",
-      "term": "Partizipation in der Ausbildung"
+      "term": "Zwiebelmodell & Kernreflexion (Fred Korthagen)",
+      "definition": "Mehrebenenmodell professioneller Reflexion von außen (Umfeld, Verhalten, Kompetenzen) nach innen (Überzeugungen, berufliche Identität, Mission/Auftrag).",
+      "example": "Erkennen, dass nicht fehlende Methoden, sondern der innere Glaubenssatz „Fehler sind Schwäche“ das Handeln im Team blockiert."
     },
     {
-      "definition": "Die strukturierte, wechselseitige Rückmeldung über Verhalten, Wirkung und Kompetenzen zwischen Lernenden, Lehrkräften und Praxisanleitungen zur Förderung der Selbst- und Fremdwahrnehmung.",
-      "example": "Durchführung strukturierter Feedbackgespräche nach dem Fünf-Schritte-Modell in der Praxisreflexion.",
-      "term": "Feedbackkultur (Selbst- & Fremdwahrnehmung)"
+      "term": "Lern- und Reflexionsportfolio",
+      "definition": "Prozessorientiertes Instrument zur gezielten Dokumentation, theoretischen Reflexion und Steuerung der eigenen professionellen Kompetenzentwicklung in Schule und Praxis.",
+      "example": "Sammlung reflektierter Praxisanalysen, Feedback-Auswertungen und eigener Entwicklungsziele statt bloßer Arbeitsblätter."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Die Analyse der Berufsmotivation vor dem Hintergrund der eigenen Biografie (z.B. unbewusste Motive wie Helfersyndrom oder Kompensationswünsche) ist ein zentraler Kerninhalt des ersten Ausbildungsjahres im Modul S-SP-1 (RLP S. 20).",
-      "id": "q1",
+      "question": "Was bezeichnet der von Pierre Bourdieu geprägte Begriff des „Habitus“ im Kontext sozialpädagogischer Selbstreflexion?",
       "options": [
-        "Ausschließlicher Fokus auf die Vermittlung von Rechtsgrundlagen und Kita-Finanzierung.",
-        "Analyse der Berufsmotivation vor dem Hintergrund der eigenen Biografie und Reflexion der eigenen Erziehung.",
-        "Planung und Durchführung von Großveranstaltungen mit Eltern ohne Vorkenntnisse.",
-        "Vollständige Übernahme der Einrichtungsleitung ab dem ersten Praxistag."
+        "Durch soziale Herkunft, Familie und Bildungsweg verinnerlichte Wahrnehmungs-, Denk- und Handlungsmuster, die das eigene Handeln oft unbewusst mitprägen.",
+        "Einen gesetzlich vorgeschriebenen Dienstplan für das Anerkennungsjahr.",
+        "Eine standardisierte medizinische Eignungsuntersuchung vor Ausbildungsbeginn.",
+        "Die bewusste Übernahme ausschließlich schriftlicher Einrichtungsregeln."
       ],
-      "question": "Welcher inhaltliche Schwerpunkt gehört laut Lehrplan Rheinland-Pfalz (Modul S-SP-1) verbindlich in das erste Ausbildungsjahr der Fachschule Sozialwesen?",
-      "type": "single"
+      "correctIndices": [
+        0
+      ],
+      "explanation": "Der Habitus umfasst tief verankerte, sozial erworbene Sicht- und Handlungsweisen. Werden sie nicht reflektiert, können sie in Stresssituationen professionelle Konzepte unbewusst überlagern."
     },
     {
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Welche sechs Schritte umfasst der „Reflective Cycle“ nach Graham Gibbs (1988) in der richtigen logischen Folge?",
+      "options": [
+        "Beobachtung – Gefühl – Bedürfnis – Bitte – Konsens – Rückmeldung",
+        "Forming – Storming – Norming – Performing – Adjourning – Evaluation",
+        "Beschreibung – Gefühle – Bewertung – Analyse – Schlussfolgerung – Aktionsplan",
+        "Diagnose – Sanktion – Protokoll – Kontrolle – Bewertung – Abschluss"
+      ],
       "correctIndices": [
-        0,
-        2,
+        2
+      ],
+      "explanation": "Graham Gibbs strukturiert Reflexion in sechs Schritte: Beschreibung, Gefühle, Bewertung, Analyse, Schlussfolgerung und Aktionsplan. Beobachtung/Gefühl/Bedürfnis/Bitte gehört zur GFK (Rosenberg), Forming bis Adjourning zu Tuckman."
+    },
+    {
+      "id": "v2-q3",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Welchen besonderen Mehrwert bietet das „Zwiebelmodell“ nach Fred Korthagen gegenüber einer reinen Methoden-Checkliste?",
+      "options": [
+        "Es dient der klinischen Diagnose psychischer Störungen bei Auszubildenden.",
+        "Es ersetzt jede theoretische Ausbildung durch rein intuitives Handeln.",
+        "Es beschränkt Reflexion ausschließlich auf räumliche Ausstattungsmerkmale der Einrichtung.",
+        "Es verknüpft äußeres Verhalten und Kompetenzen mit tieferliegenden Überzeugungen, beruflicher Identität und dem pädagogischen Auftrag."
+      ],
+      "correctIndices": [
         3
       ],
+      "explanation": "Korthagens Zwiebelmodell zeigt das Zusammenspiel äußerer Ebenen (Umfeld, Verhalten, Kompetenzen) und innerer Ebenen (Überzeugungen, Identität, Auftrag). So werden innere Blockaden oder Rollenkonflikte sichtbar."
+    },
+    {
+      "id": "v2-q4",
+      "type": "multi",
       "difficulty": "vertiefung",
-      "explanation": "Laut RLP-Lehrplan umfasst Modul S-SP-1 neben der Biografiearbeit auch die partizipative Mitgestaltung der Ausbildung, die Reflexion der Lernbiografie und den Einsatz von Lern- und Arbeitstechniken (Portfolio). Die eigenständige Eröffnung von Kitas gehört nicht dazu.",
-      "id": "q2",
+      "question": "Welche Aussagen zur beruflichen Biografiearbeit in der Sozialpädagogik sind fachlich zutreffend? (Mehrere Antworten sind richtig)",
       "options": [
-        "Reflexion der eigenen Lernbiografie und Weiterentwicklung von Lern- und Arbeitstechniken (Portfolio).",
-        "Eigenständige juristische Zulassung und Gründung einer privaten Kindertagesstätte.",
-        "Übernahme von Verantwortung und Initiative für die eigene Ausbildung sowie partizipative Gestaltung an Schule und Praxis.",
-        "Reflexion des Berufsbildes in unterschiedlichen Arbeitsfeldern und Entwicklung eigener Erwartungen."
+        "Sie hilft, unbewusste Berufsmotive (z. B. übersteigertes Helfersyndrom oder Kompensationswünsche) kritisch zu überprüfen.",
+        "Sie richtet den Blick neben Stolpersteinen auch auf persönliche Ressourcen und Bewältigungserfahrungen.",
+        "Sie unterstützt dabei, eigene Kindheits- und Erziehungserfahrungen von professionellen Handlungsstandards zu unterscheiden.",
+        "Sie ersetzt bei schwerwiegenden, akut belastenden persönlichen Traumata eine Psychotherapie vollständig."
       ],
-      "question": "Welche der folgenden Kompetenzen sind im Lehrplan RLP (Modul S-SP-1) explizit für das erste Ausbildungsjahr aufgeführt? (Mehrere Antworten sind richtig)",
-      "type": "multi"
-    },
-    {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Der Begriff 'Habitus' (nach Pierre Bourdieu) beschreibt die durch soziale Herkunft und Erziehung verinnerlichten Wahrnehmungs-, Denk- und Handlungsmuster, die in der Biografiearbeit und professionellen Reflexion kritisch überprüft werden müssen.",
-      "id": "q3",
-      "options": [
-        "Das offizielle Budget einer Kindertagesstätte für Sachmittel.",
-        "Ein juristisches Verfahren zur Anerkennung ausländischer Berufsabschlüsse.",
-        "Das durch soziale Herkunft und Erziehung geprägte, verinnerlichte System von Wahrnehmungs- und Handlungsmustern (Habitus).",
-        "Die gesetzliche Unfallversicherung für angehende Erzieherinnen und Erzieher in der Praxis."
-      ],
-      "question": "Was versteht man in der sozialpädagogischen Berufsreflexion unter dem von Pierre Bourdieu geprägten Begriff des 'Habitus'?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Das Führen eines Portfolios dient der Dokumentation und Reflexion des eigenen Lernprozesses und verbindet theoretische Fachinhalte mit praktischen Erfahrungen (Theorie-Praxis-Verzahnung).",
-      "id": "q4",
-      "options": [
-        "Es dient ausschließlich der Zensierung durch das Jugendamt ohne eigenen Lernwert.",
-        "Es unterstützt die strukturierte Dokumentation des eigenen Lernprozesses, der Reflexion und der Theorie-Praxis-Verzahnung.",
-        "Es ersetzt vollständig die schriftlichen Abschlussprüfungen im Staatsexamen.",
-        "Es ist ein reines Fotoalbum für Elternfeste im Kindergarten."
-      ],
-      "question": "Welche primäre Funktion hat die Portfolioarbeit im Rahmen des Moduls S-SP-1 an der Fachschule Sozialwesen?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Jonas reflektiert seine eigenen biographischen Prägungen (autoritäre Erziehung) und gleicht sie mit modernen fachlichen Standards (partizipative Erziehung) ab, statt sie unreflektiert zu reproduzieren oder zu verdrängen. Dies entspricht genau der geforderten Kompetenz.",
-      "id": "q5",
-      "options": [
-        "Jonas bricht die Ausbildung ab, weil er merkt, dass er früher oft bestraft wurde.",
-        "Jonas wendet in der Kita sofort exakt dieselben strengen Strafen an, die er als Kind erfahren hat, weil diese 'schon immer geholfen haben'.",
-        "Jonas erkennt im Reflexionsseminar, dass seine elterliche Erziehung stark durch Strenge geprägt war, setzt sich kritisch damit auseinander und entwickelt ein professionelles, bedürfnisorientiertes Rollenverständnis.",
-        "Jonas ignoriert seine Kindheit völlig und konzentriert sich ausschließlich auf das Basteln von Dekorationen."
-      ],
-      "question": "Praxissituation: Fachschüler Jonas (1. Ausbildungsjahr) stellt im Rahmen der Biografiearbeit fest, dass er in seiner Kindheit sehr streng und ohne Beteiligungsmöglichkeiten erzogen wurde. Wie zeigt sich hier professionelles Handeln im Sinne des Moduls S-SP-1?",
-      "type": "case"
-    },
-    {
       "correctIndices": [
         0,
         1,
-        3
+        2
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Gesundheitsprävention und Copingstrategien (wie Inneres Team, Supervision, Burnout-Prävention) sind im RLP explizit als Anregungen und Kompetenzen zur Stärkung der persönlichen Ressourcen und Psychohygiene aufgeführt (RLP S. 21). Die Erstellung von Bilanzen gehört nicht dazu.",
-      "id": "q6",
+      "explanation": "Berufliche Biografiearbeit fördert Rollenklarheit und Ressourcenbewusstsein, hat jedoch eine klare Grenze: Bei tiefgreifenden, akut belastenden Traumata ersetzt sie keine professionelle Psychotherapie."
+    },
+    {
+      "id": "v2-q5",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Eine Auszubildende im ersten Jahr stellt fest, dass sie sich im Praktikum besonders stark auf ein schüchternes Kind fixiert, weil es sie an ihre eigene einsame Schulzeit erinnert, und dabei andere Kinder aus dem Blick verliert. Wie geht sie professionell damit um?",
       "options": [
-        "Copingstrategien und Burnout-Prävention zur Bewältigung von Belastungssituationen.",
-        "Supervision und psychosoziale Beratung zur Reflexion von Praxissituationen.",
-        "Kommerzielle Aktieninvestments zur privaten Altersvorsorge für Erzieher.",
-        "Das Modell des 'Inneren Teams' zur Klärung innerer Konflikte."
+        "Sie intensiviert die exklusive Sonderbehandlung, um dem Kind eine bessere Erfahrung als ihre eigene zu schenken.",
+        "Sie reflektiert diese biografische Resonanz (z. B. im Portfolio und im Gespräch mit der Praxisanleitung), trennt eigene Lebensgeschichte von der Berufsrolle und richtet ihre Aufmerksamkeit wieder ausgewogen auf die gesamte Gruppe.",
+        "Sie vermeidet fortan jeden Kontakt zu dem Kind, um professionelle Distanz zu beweisen.",
+        "Sie verschweigt ihre Beobachtung im Team, weil persönliche Gefühle im Beruf unprofessionell seien."
       ],
-      "question": "Welche Ansätze und Strategien werden im Lehrplan (Modul S-SP-1) zur Gesundheitsprävention und zum professionellen Umgang mit Belastungen genannt? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "correctIndices": [
+        1
+      ],
+      "explanation": "Professionelle Biografiereflexion erkennt persönliche Resonanzen und Übertragungsrisiken frühzeitig, nutzt Reflexions- und Beratungsräume und stellt eine ausgewogene, rollenklare Begleitung aller Kinder wieder her."
+    },
+    {
+      "id": "v2-q6",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Wodurch unterscheidet sich ein Lern- und Reflexionsportfolio von einem einfachen Sammelordner?",
+      "options": [
+        "Ein Portfolio wird ausschließlich von der Praxisanleitung ohne Beteiligung der Auszubildenden verfasst.",
+        "Ein Portfolio ersetzt jegliches Feedbackgespräch in Schule und Praxis.",
+        "Ein Portfolio dokumentiert ausgewählte Praxiserfahrungen, verknüpft sie systematisch mit Fachkonzepten und macht individuelle Lern- und Entwicklungsprozesse sichtbar.",
+        "Ein Portfolio darf ausschließlich Fotos und Bastelergebnisse enthalten."
+      ],
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Portfolioarbeit verbindet Dokumentation mit aktiver Selbstreflexion und Theorie-Praxis-Verzahnung und stärkt eigenverantwortliches Lernen."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Biografiearbeit – Fachartikel im socialnet Lexikon",
+      "url": "https://www.socialnet.de/lexikon/Biografiearbeit",
+      "publisher": "socialnet Lexikon",
+      "note": "Grundlagen, Ziele, Methoden und professionelle Grenzen der Biografiearbeit"
+    },
+    {
+      "title": "Spurensuche: Wie Biographiearbeit pädagogisches Handeln ändert",
+      "url": "https://nifbe.de/fachbeitraege/spurensuche-wie-biographiearbeit-paedagogisches-handeln-aendert/",
+      "publisher": "nifbe – Niedersächsisches Institut für frühkindliche Bildung und Entwicklung",
+      "note": "Praxisnahe Einordnung, wie biografische Selbstreflexion Haltung und Interaktion prägt"
+    },
+    {
+      "title": "Professionelles Handeln von frühpädagogischen Fachkräften",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/KiTaFT_Wadepohl_2015.pdf",
+      "publisher": "Kita-Fachtexte / WiFF",
+      "note": "Studientext von Heike Wadepohl (2015) zu Kompetenzentwicklung, Reflexion und Professionalisierung (PDF)"
+    },
+    {
+      "title": "Möglichkeiten der Auseinandersetzung mit Biografien",
+      "url": "https://www.kita-fachtexte.de/de/fachtexte-finden/moeglichkeiten-der-auseinandersetzung-mit-biografien",
+      "publisher": "Kita-Fachtexte / WiFF",
+      "note": "Studientext von Anja Cantzler zur Biografiearbeit mit Kindern, Familien und Fachkräften"
+    },
+    {
+      "title": "Biografiearbeit als methodischer Ansatz in der Sozialen Arbeit",
+      "url": "https://www.socialnet.de/files/materialien/attach/288.pdf",
+      "publisher": "socialnet Materialien (Friederike Geppert, 2015)",
+      "note": "Systematische Übersicht zu Methoden, Ressourcenorientierung und ethischen Grenzen (PDF)"
     }
   ]
 }

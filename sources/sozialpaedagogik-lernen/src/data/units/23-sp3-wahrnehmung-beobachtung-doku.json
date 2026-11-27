@@ -3,401 +3,471 @@
   "number": 23,
   "moduleCode": "S-SP-3",
   "moduleArea": "sp-pflicht",
-  "title": "Wahrnehmung, wertfreie Beobachtung & Dokumentation",
-  "subtitle": "Wahrnehmungsfehler vermeiden und Beobachtungsverfahren gezielt auswerten",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-3 · Wahrnehmung, Beobachtung & Dokumentation (Lehrplan RLP 2024)",
+  "title": "Wahrnehmung, Beobachtung & pädagogische Dokumentation",
+  "subtitle": "Wahrnehmungsfehler reflektieren, Beobachtung von Deutung trennen & Verfahren sicher nutzen",
   "year": "1. Jahr",
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 30,
   "hoursRef": "240 Std. (Teil 3/5)",
   "pdfPages": "S. 24–25",
   "crossCuttingTags": [
     "Inklusion",
-    "Sprachbildung"
+    "Sprachbildung",
+    "Partizipation"
   ],
-  "summary": "Diese Einheit beleuchtet die Grundlagen der professionellen Wahrnehmung, wertfreien Beobachtung und Dokumentation in der Sozialpädagogik gemäß dem Lehrplan Rheinland-Pfalz. Angehende Erzieherinnen und Erzieher lernen, Wahrnehmungsfehler (wie Halo- und Pygmalion-Effekt) zu reflektieren, strikt zwischen Beschreibung und Deutung zu trennen und moderne Beobachtungsverfahren (Grenzsteine, Portfolio, Bildungs- und Lerngeschichten) ressourcenorientiert zur Förderung von Inklusion einzusetzen.",
+  "summary": "Professionelles pädagogisches Handeln beginnt mit einer genauen, selbstreflexiven Wahrnehmung. Diese Einheit erklärt typische Wahrnehmungsfehler, übt die strikte Trennung von verhaltensnaher Beobachtung und fachlicher Deutung an Alltagsszenen, ordnet bewährte Beobachtungsverfahren (Bildungs- und Lerngeschichten, Grenzsteine, PERIK, BaSiK, SELDAK/SISMIK) sachlich ein und klärt zentrale Datenschutz- und Einwilligungsregeln.",
   "learningGoals": [
-    "Ich kann eigene Wahrnehmungsprozesse (wie subjektive Selektion, Halo-Effekt und Pygmalion-Effekt) erkennen und kritisch reflektieren.",
-    "Ich kann in pädagogischen Dokumentationen strikt zwischen wertfreier Beobachtung (Beschreiben) und subjektiver Interpretation (Deuten/Bewerten) unterscheiden.",
-    "Ich kann Chancen und Grenzen verschiedener Beobachtungsverfahren (strukturiert vs. unstrukturiert) fachlich fundiert einschätzen.",
-    "Ich kann exemplarische Beobachtungs- und Dokumentationsverfahren (z. B. Grenzsteine, Portfolio, Bildungs- und Lerngeschichten) praxisnah einsetzen und auswerten.",
-    "Ich kann Stigmatisierungs- und Etikettierungsprozessen in der pädagogischen Praxis aktiv entgegenwirken und Inklusion fördern."
+    "Ich kann Wahrnehmung als aktiven Konstruktionsprozess erklären und typische Wahrnehmungsfehler (selektive Wahrnehmung, Halo-Effekt, Pygmalion-Effekt, Primacy- und Recency-Effekt) im pädagogischen Alltag reflektieren.",
+    "Ich kann in Beobachtungsprotokollen strikt zwischen verhaltensnaher Beschreibung (Beobachtung) und begründeter Hypothesenbildung (Deutung) unterscheiden und vorschnelle Etikettierungen vermeiden.",
+    "Ich kann zentrale Beobachtungs- und Dokumentationsverfahren (Bildungs- und Lerngeschichten, Grenzsteine der Entwicklung, PERIK, BaSiK, SELDAK/SISMIK) nach Zielsetzung, Chancen und Grenzen fachlich einordnen.",
+    "Ich kann Beobachtungen im Team ressourcenorientiert auswerten, Kinder partizipativ einbeziehen und begründete pädagogische Impulse ableiten.",
+    "Ich kann datenschutzrechtliche Grundsätze (Transparenz, Zweckbindung, geschützte Aufbewahrung, Einwilligung bei Fotos und Weitergabe an Dritte) in der Dokumentationspraxis sicher anwenden."
   ],
   "sections": [
     {
-      "body": "Pädagogisches Handeln beginnt mit Wahrnehmung. Doch unsere Wahrnehmung ist kein neutrales Video, sondern ein aktiver, filternder Prozess. Subjektive Selektion, der Halo-Effekt (Überstrahlung durch ein einzelnes Merkmal), der Pygmalion-Effekt (Einfluss von Erwartungen) und der erste Eindruck verzerren den Blick auf Kinder und Jugendliche. Um dem Inklusionsgebot des Lehrplans RLP gerecht zu werden, müssen angehende Erzieherinnen und Erzieher diese unbewussten Mechanismen und Etikettierungsprozesse kritisch reflektieren.",
+      "heading": "1. Wahrnehmung als Konstruktion & typische Wahrnehmungsfehler",
+      "keyTakeaway": "Wahrnehmung bildet die Wirklichkeit nicht wie eine Kamera ab, sondern filtert und konstruiert – professionelle Beobachtung braucht deshalb bewusste Fehlerkontrolle und kollegialen Austausch.",
+      "body": "Im pädagogischen Alltag nehmen Fachkräfte in jeder Minute unzählige Sinneseindrücke gleichzeitig auf. Weil das Gehirn diese Reizfülle ordnen muss, arbeitet Wahrnehmung hochgradig selektiv: Sie wird von Vorwissen, eigenen biografischen Erfahrungen, kulturellen Normen, Tagesform und impliziten Erwartungen gesteuert. Unreflektiert entstehen daraus systematische Verzerrungen, die Kinder in starre Schubladen drängen können. Bei der selektiven Wahrnehmung (häufig verbunden mit dem Bestätigungsfehler) registrieren Fachkräfte vor allem jene Handlungen, die zu ihrem bereits bestehenden Bild eines Kindes passen, und übersehen Gegenbeispiele. Beim Halo-Effekt („Hof-Effekt“) überstrahlt ein einzelnes auffälliges Merkmal – etwa besonders höfliches Auftreten oder häufiges Unterbrechen – die Bewertung völlig anderer Kompetenzbereiche. Der Pygmalion-Effekt (Rosenthal-Effekt) beschreibt eine selbsterfüllende Prophezeiung: Erwartungen der Fachkraft können sich über feine nonverbale Signale, Aufgabenzuteilung und Rückmeldungen auf Motivation, Beteiligung und Lernentwicklung auswirken – wobei Ausmaß und Richtung vom Kontext abhängen (in negativer Ausprägung spricht man auch vom Golem-Effekt). Zudem verzerren zeitliche Reihenfolgen das Urteil: Beim Primacy-Effekt dominiert der erste Eindruck langfristig die Wahrnehmung, während beim Recency-Effekt zuletzt erlebte Situationen – etwa ein einzelner Konflikt am Vortag eines Elterngesprächs – überproportional stark gewichtet werden.",
       "bulletPoints": [
-        "Wahrnehmung als aktiver Konstruktionsprozess statt objektiver Abbildung",
-        "Einfluss von Vorurteilen, Erwartungen und impliziten Persönlichkeitstheorien",
-        "Vermeidung von Stigmatisierung und Etikettierung im Alltag",
-        "Bedeutung der Selbstreflexion der eigenen kulturellen Eingebundenheit"
+        "Selektive Wahrnehmung: Aufmerksamkeit filtert Reize unbewusst zugunsten bestehender Vorannahmen.",
+        "Halo-Effekt: Ein hervorstechendes Merkmal (positiv oder negativ) überstrahlt die Einschätzung unabhängiger Fähigkeiten.",
+        "Pygmalion-Effekt: Erwartungen von Fachkräften können als selbsterfüllende Prophezeiung Motivation und Entwicklung eines Kindes beeinflussen (kontextabhängig).",
+        "Primacy- und Recency-Effekt: Der erste bzw. der jüngste Eindruck verzerrt die Gesamteinschätzung über einen längeren Zeitraum.",
+        "Gegenmittel: Systematische Verfahren nutzen, zu verschiedenen Zeitpunkten beobachten und Eindrücke im Mehr-Augen-Prinzip im Team abgleichen."
       ],
-      "heading": "1. Reflexion eigener Wahrnehmungsprozesse und psychologischer Effekte",
-      "keyTakeaway": "Wahrnehmung ist nie objektiv; erst durch bewusste Reflexion von Filtern und Effekten entsteht ein vorurteilsfreier Blick.",
-      "praxisTip": "Führen Sie im Team wöchentlich eine kurze Reflexionsrunde durch: 'Welches Kind hat mich heute besonders genervt oder begeistert – und welche unausgesprochenen Erwartungen könnten dahinterstehen?'"
+      "praxisTip": "Notieren Sie vor einem Entwicklungsgespräch gezielt drei Beobachtungen aus den letzten Monaten, die Ihrem spontanen Gesamteindruck eines Kindes widersprechen – das deckt Primacy-, Recency- und Bestätigungsfehler zuverlässig auf."
     },
     {
-      "body": "Ein zentrales Qualitätsmerkmal professioneller Dokumentation ist die strikte Trennung von Beschreibung (Beobachtung) und Deutung (Interpretation). Während die Beschreibung festhält, wer was exakt tut, sagt, misst oder zeigt, zieht die Interpretation voreilige Schlüsse über Motive, Charaktereigenschaften oder familiäre Hintergründe. Voreilige Interpretationen führen schnell zu Zuschreibungen wie 'faul', 'aggressiv' oder 'unkonzentriert', die Kinder in eine Rolle drängen und Stigmatisierungsprozesse verfestigen. Wertfreie Protokolle bilden das fundierte Fundament für jede ressourcenorientierte Förderplanung.",
+      "heading": "2. Strikte Trennung von Beobachtung (Beschreibung) und Deutung (Hypothese)",
+      "keyTakeaway": "Eine Beobachtung beschreibt nachvollziehbar, was konkret sichtbar und hörbar geschieht; jede Erklärung von Motiven, Gefühlen oder Eigenschaften ist bereits eine Deutung und muss als überprüfbare Hypothese getrennt festgehalten werden.",
+      "body": "Das wichtigste Qualitätsmerkmal professioneller Dokumentation ist die konsequente Trennung zwischen Beobachtung (Beschreibung) und Deutung (Interpretation). Eine gute Beschreibung hält fest, wer in welchem Kontext was genau tut, sagt oder körperlich zeigt: Handlungsabläufe, Mimik, Gestik, Körperhaltung, Dauer, räumlicher Rahmen und wörtliche Zitate in Anführungszeichen. Bewertende Eigenschaftswörter („aggressiv“, „schüchtern“, „unkonzentriert“, „hilfsbereit“), Motivunterstellungen („will provozieren“, „hat keine Lust“) oder diagnostische Zuschreibungen („hyperaktiv“, „entwicklungsverzögert“) gehören nicht in die Beobachtungsspalte. Beispiel: Der Satz „Tarik ist im Morgenkreis unkonzentriert und stört absichtlich“ mischt Bewertung und Unterstellung. Verhaltensnah lautet dieselbe Szene: „Im Morgenkreis (9:10–9:18 Uhr) rutscht Tarik dreimal auf dem Stuhl vor und zurück, schaut zur Tür und tippt seiner Sitznachbarin zweimal auf den Arm, während eine Geschichte vorgelesen wird.“ Deutungen sind damit nicht verboten – im Gegenteil: Pädagogisches Verstehen erfordert fachlich begründete Hypothesen (z. B. Überforderung durch lange Sitzdauer, akustische Unruhe, Interesse am Geschehen im Flur). Entscheidend ist, dass Hypothesen sprachlich als Vermutungen markiert, aus mehreren Beobachtungen gespeist und im Team sowie mit den Eltern überprüft werden.",
       "bulletPoints": [
-        "Klare Trennung zwischen Fakten (Beobachtung) und Hypothesen (Interpretation)",
-        "Vermeidung wertgeladener Adjektive im Protokoll (z.B. 'zappelig' vs. 'bewegt sich im 2-Minuten-Takt')",
-        "Dokumentation von Körperhaltung, Mimik, Gestik und wörtlichen Äußerungen",
-        "Schaffung einer verlässlichen Basis für Hilfe- und Förderpläne nach SGB VIII / SGB IX"
+        "Beobachtung (Faktenebene): Ort, Zeit, beteiligte Personen, beobachtbare Handlungen, Mimik, Gestik und wörtliche Aussagen.",
+        "Deutung (Hypothesenebene): Fachliche Annahmen zu Motiven, Gefühlen, Bedürfnissen oder Entwicklungsprozessen – stets als vorläufige Hypothese formuliert.",
+        "Auch scheinbar positive Etiketten („soziales Mädchen“, „pflegeleichtes Kind“) sind Wertungen und können Bedürfnisse verdecken.",
+        "Zwei-Spalten-Protokolle (links Beschreibung, rechts Deutung/offene Fragen) sichern die Trennung zuverlässig im Alltag."
       ],
-      "heading": "2. Trennung von Beobachtung (Beschreiben) und Interpretation (Deuten)",
-      "keyTakeaway": "Wer beschreibt, dokumentiert Fakten; wer interpretiert, bildet Hypothesen, die stets als solche kenntlich sein müssen.",
-      "praxisTip": "Nutzen Sie in Beobachtungsbögen eine zweigeteilte Spalte: Links die Fakten („Was sehe/höre ich exakt?“), rechts die pädagogische Deutung („Welche Bedeutung könnte das haben?“)."
+      "praxisTip": "Prüfen Sie Ihre Protokollsätze mit dem „Kamera-Test“: Könnte eine unbeteiligte Person genau das beschreiben, was Sie notiert haben? Alles, was nur im Kopf der beobachtenden Person entsteht, wandert in die Deutungsspalte."
     },
     {
-      "body": "In der sozialpädagogischen Praxis kommt eine Vielzahl von Beobachtungsverfahren zum Einsatz, die je nach Zielsetzung und Rahmenbedingungen ihre spezifischen Chancen und Grenzen haben. Unstrukturierte Beobachtungen (freies Protokoll) bieten einen hohen Grad an Offenheit, sind jedoch stark subjektiv anfällig. Strukturierte Verfahren (z.B. Laufzettel, Checklisten, Grenzsteine der Entwicklung nach Michaelis) sichern die Vergleichbarkeit, vernachlässigen aber oft den Kontext. Innovative, ressourcenorientierte Ansätze wie Portfolios oder Bildungs- und Lerngeschichten nach Margaret Carr stellen die individuellen Interessen, Stärken und Lernwege (Lerndispositionen) des Kindes in den Mittelpunkt und unterstützen so die inklusive Bildung und Partizipation.",
+      "heading": "3. Beobachtungs- und Dokumentationsverfahren sachlich einordnen",
+      "keyTakeaway": "Jedes Verfahren beleuchtet einen spezifischen Ausschnitt kindlicher Entwicklung – fachliche Qualität entsteht durch die passgenaue Auswahl und Kombination statt durch schematisches Abhaken.",
+      "body": "In der pädagogischen Praxis stehen offene (unstrukturierte) und strukturierte bzw. standardisierte Beobachtungsverfahren nebeneinander. Offene Notizen oder freie Protokolle erfassen überraschende Alltagsmomente, sind aber anfälliger für subjektive Auswahl. Ressourcenorientierte Bildungsdokumentationen wie die Bildungs- und Lerngeschichten (entwickelt von Margaret Carr in Neuseeland und am Deutschen Jugendinstitut von Hans Rudolf Leu u. a. für Deutschland adaptiert) richten den Blick gezielt auf Stärken, Interessen und fünf Lerndispositionen (Interessiert sein, Engagiert sein, Standhalten bei Herausforderungen, Sich ausdrücken und mitteilen, An einer Lerngemeinschaft mitwirken). Sie werden als wertschätzender Brief an das Kind verfasst und häufig gemeinsam mit Zeichnungen, Fotos und Kommentaren des Kindes im Portfolio gesammelt. Strukturierte Verfahren ergänzen diesen Blick gezielt: Die Grenzsteine der Entwicklung (nach Richard Michaelis u. a.) bilden ein standardisiertes Frühwarnsystem für 0- bis 6-Jährige und beschreiben Kompetenzen, die 90–95 % der Kinder bis zu einem bestimmten Alter erreichen; das Nichterreichen eines Grenzsteins ist keine Diagnose, sondern ein Anlass für vertiefte Beobachtung, Elterngespräch und ggf. fachärztliche Abklärung. PERIK (Positive Entwicklung und Resilienz im Kindergartenalltag, IFP) erfasst sozial-emotionale Kompetenzen und Bewältigungsressourcen. Für den Bereich Sprache und Literacy ermöglichen alltagsintegrierte Verfahren wie BaSiK (U3 und Ü3) sowie SELDAK (Deutsch als Erstsprache) und SISMIK (mehrsprachig aufwachsende Kinder, beide IFP) eine differenzierte Beobachtung ohne künstliche Testsituation. Pädagogische Beobachtung ersetzt niemals eine medizinische oder therapeutische Diagnostik, schafft aber eine belastbare Grundlage für gezielte Alltagsbegleitung und interdisziplinäre Kooperation.",
       "bulletPoints": [
-        "Unstrukturierte Beobachtung: Offenheit, aber hohe Subjektivität und Dokumentationsaufwand",
-        "Strukturierte Verfahren & Grenzsteine: Systematik und Früherkennung von Entwicklungsrisiken",
-        "Bildungs- und Lerngeschichten & Portfolios: Ressourcenorientierung und Partizipation der Kinder",
-        "Passung von Methode, Entwicklungsstand und institutionellem Auftrag"
+        "Bildungs- und Lerngeschichten (Carr / DJI) & Portfolio: Narrativ, stärken- und ressourcenorientiert, hohe Partizipation von Kind und Familie.",
+        "Grenzsteine der Entwicklung (Michaelis u. a.): Standardisiertes Frühwarnsystem (90–95-%-Kriterium) – liefert Hinweise auf Abklärungsbedarf, keine Diagnose.",
+        "PERIK (IFP): Strukturierte Beobachtung sozial-emotionaler Entwicklung und Resilienz im Kita-Alltag.",
+        "BaSiK sowie SELDAK / SISMIK: Alltagsintegrierte Sprachentwicklungs- und Literacy-Beobachtung für ein- und mehrsprachige Kinder.",
+        "Methodenpassung: Ressourcenorientierte Lerndokumentation und gezielte Entwicklungsbeobachtung ergänzen einander."
       ],
-      "heading": "3. Chancen, Grenzen und exemplarische Verfahren in der Praxis",
-      "keyTakeaway": "Kein einzelnes Beobachtungsverfahren erfasst die Komplexität eines Kindes – erst der Methodenmix sichert einen ganzheitlichen Blick.",
-      "praxisTip": "Erproben Sie im Praxiseinsatz das Verfahren der Bildungs- und Lerngeschichten: Verfassen Sie eine kurze, wertschätzende Lerngeschichte für ein Kind und besprechen Sie diese mit ihm und den Eltern."
+      "praxisTip": "Halten Sie bei jedem Verfahren schriftlich fest, wofür es gedacht ist und wofür nicht: Ein offenes Portfolio ersetzt kein Frühwarnsystem bei sprachlichen oder motorischen Risiken – und eine Checkliste allein zeigt noch keine Interessen und Stärken des Kindes."
+    },
+    {
+      "heading": "4. Datenschutz, Einwilligung & partizipative Dokumentation",
+      "keyTakeaway": "Beobachtungsdaten sind schützenswerte personenbezogene Daten – Transparenz, geschützte Aufbewahrung, trägerspezifische Löschregeln sowie klare Unterscheidung zwischen Einwilligung (Kooperation) und gesetzlichem Schutzauftrag (§ 8a SGB VIII) sind unverzichtbar.",
+      "body": "Beobachtung und Dokumentation kindlicher Entwicklungsprozesse gehören zum gesetzlichen Bildungs- und Förderauftrag von Kindertageseinrichtungen (§ 22 SGB VIII; in Rheinland-Pfalz ausdrücklich § 3 Abs. 3 KiTaG RLP unter Beachtung der pädagogischen Konzeption und des Datenschutzes). Eltern müssen bereits beim Aufnahmegespräch transparent darüber informiert werden, welche Verfahren eingesetzt werden, zu welchem Zweck Beobachtungen festgehalten werden, wer Zugriff hat und wie sie Einsicht nehmen können (§ 62 SGB VIII / DSGVO). Für Foto- und Videoaufnahmen in der Dokumentation (Recht am eigenen Bild, auch mit Blick auf weitere abgebildete Kinder) sowie für die Datenweitergabe im Rahmen einer Kooperation mit einer Grundschule oder Therapiepraxis (z. B. Logopädie, Ergotherapie, Frühförderung) ist eine ausdrückliche, informierte, freiwillige und zweckgebundene Einwilligung der Sorgeberechtigten erforderlich – pauschale Blanko-Klauseln bei Vertragsabschluss genügen nicht. Davon rechtlich klar zu unterscheiden ist der gesetzliche Schutzauftrag bei gewichtigen Anhaltspunkten für eine Kindeswohlgefährdung nach § 8a SGB VIII: In diesem eigenständigen, von einer Einwilligung unabhängigen Fall dürfen und müssen die jeweils erforderlichen Daten an das Jugendamt übermittelt werden. Vertrauliche Beobachtungsbögen werden verschlossen bzw. zugriffsgeschützt aufbewahrt; Portfolios werden partizipativ mit dem Kind gestaltet und beim Verlassen der Einrichtung an die Familie ausgehändigt. Für die weitere Aufbewahrung oder Löschung interner Dokumentationen nach Beendigung des Betreuungsvertrags gelten die jeweiligen trägerspezifischen Lösch- und Aufbewahrungsregeln gemäß dem Datenschutzkonzept des Trägers (neben gesetzlichen Dokumentations- und Aufbewahrungsanforderungen, etwa im Kinderschutz).",
+      "bulletPoints": [
+        "Rechtsgrundlage & Transparenz: Interne Beobachtung und Dokumentation nach § 22 SGB VIII und § 3 Abs. 3 KiTaG RLP; Eltern frühzeitig über Zweck, Verfahren und Einsichtsrechte informieren (§ 62 SGB VIII / DSGVO).",
+        "Zweckgebundene Einwilligung: Erforderlich für Foto-/Videoaufnahmen (Recht am eigenen Bild) sowie für die Datenweitergabe in der Kooperation mit Grundschule oder Therapiepraxis (keine Blanko-Einwilligung).",
+        "Eigenständige gesetzliche Befugnis im Kinderschutz: Bei § 8a SGB VIII richtet sich die Übermittlung ausschließlich der erforderlichen Daten an das Jugendamt nach dem gesetzlichen Schutzauftrag – unabhängig von einer Einwilligung.",
+        "Zugriffsschutz, Aushändigung & Löschung: Beobachtungsbögen zugriffsgeschützt sichern; Portfolio beim Übergang aushändigen; Aufbewahrung und Löschung nach Vertragsende richten sich nach den trägerspezifischen Datenschutz- und Löschregeln."
+      ],
+      "praxisTip": "Fragen Sie auch Kinder ab dem Kita-Alter konkret, welche Zeichnungen oder Fotos in ihr Portfolio kommen sollen und wem sie Seiten daraus zeigen möchten – so verbinden sich Datenschutz und Partizipation im Alltag."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Wahrnehmung & Dokumentation",
       "id": "vb-1",
-      "isCycle": true,
-      "items": [
-        {
-          "badge": "Schritt 1",
-          "detail": "Die Fachkraft nimmt eine Situation im Gruppenraum wahr. Dabei wirken unbewusste Filter, Vorerfahrungen und Erwartungen, die es kritisch zu hinterfragen gilt.",
-          "example": "Ein Kind läuft schnell durch den Gruppenraum; die Fachkraft denkt sofort an 'Regelverstoß'.",
-          "id": "item-1",
-          "label": "1. Wahrnehmung & Selektion",
-          "metric": "Phase 1",
-          "summary": "Reizaufnahme unter Einfluss subjektiver Filter und psychologischer Effekte."
-        },
-        {
-          "badge": "Schritt 2",
-          "detail": "Festhalten des Geschehens ohne Wertung. Es wird exakt notiert, wer was tut, sagt oder zeigt, ohne voreilige Etikettierungen vorzunehmen.",
-          "example": "Notiz: 'Max läuft mit schnellen Schritten zum Maltisch und greift nach den Buntstiften.'",
-          "id": "item-2",
-          "label": "2. Wertfreie Beobachtung",
-          "metric": "Phase 2",
-          "summary": "Faktenbasierte Protokollierung von Mimik, Gestik, Handlung und Wortlaut."
-        },
-        {
-          "badge": "Schritt 3",
-          "detail": "Trennung von Fakten und Hypothesen. Die Fachkraft deutet das beobachtete Verhalten auf Basis entwicklungspsychologischer Modelle.",
-          "example": "Deutung: 'Max zeigt großes Bedürfnis nach kreativem Ausdruck und schnellem Materialzugriff.'",
-          "id": "item-3",
-          "label": "3. Interpretation & Deutung",
-          "metric": "Phase 3",
-          "summary": "Theoretisch fundierte Hypothesenbildung zum Verhalten des Kindes."
-        },
-        {
-          "badge": "Schritt 4",
-          "detail": "Auswahl geeigneter Instrumente (z.B. Portfolio, Lerngeschichten) zur systematischen Dokumentation und Einbindung der Kinder- und Elternperspektive.",
-          "example": "Erstellung einer Lerngeschichte zur Dokumentation der kreativen Entwicklung.",
-          "id": "item-4",
-          "label": "4. Dokumentation & Auswertung",
-          "metric": "Phase 4",
-          "summary": "Systematische Sicherung und ressourcenorientierte Auswertung."
-        },
-        {
-          "badge": "Schritt 5",
-          "detail": "Ableitung inklusiver Fördermaßnahmen, Reflexion des eigenen pädagogischen Handelns und Evaluation im Team.",
-          "example": "Bereitstellung eines erweiterten Malangebots und Begleitung des Raumwechsels.",
-          "id": "item-5",
-          "label": "5. Pädagogische Intervention",
-          "metric": "Phase 5",
-          "summary": "Umsetzung passgenauer Unterstützungsangebote und Evaluation."
-        }
-      ],
-      "kind": "process_flow",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Der iterative Kreislauf von der Wahrnehmung zur professionellen Intervention",
-      "title": "Der Beobachtungs- und Dokumentationskreislauf"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-2",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Ansatz A",
-          "detail": "Bietet maximale Offenheit für unvorhergesehene Situationen, ist jedoch stark abhängig von der Subjektivität, Tagesform und Aufmerksamkeit der beobachtenden Person.",
-          "example": "Ein freies Tagebuch über den Tag eines Kindes ohne vorgegebene Kategorien.",
-          "id": "comp-1",
-          "label": "Unstrukturierte Beobachtung",
-          "metric": "Offenes Verfahren",
-          "summary": "Offene, freie Protokollierung ohne standardisierte Kriterienkataloge."
-        },
-        {
-          "badge": "Ansatz B",
-          "detail": "Sichert hohe Objektivität, Vergleichbarkeit und Früherkennung von Entwicklungsrisiken, vernachlässigt jedoch oft den individuellen situativen Kontext und Ressourcen.",
-          "example": "Einsatz von Grenzsteinen der Entwicklung oder standardisierten Checklisten.",
-          "id": "comp-2",
-          "label": "Strukturierte Beobachtung",
-          "metric": "Standardisiertes Verfahren",
-          "summary": "Systematische Überprüfung definierter Kompetenzen und Entwicklungsmeilensteine."
-        },
-        {
-          "badge": "Ansatz C",
-          "detail": "Fokussiert konsequent auf Stärken, Interessen und Lerndispositionen. Fördert aktiv die Partizipation des Kindes und die Zusammenarbeit mit Eltern.",
-          "example": "Bildungs- und Lerngeschichten nach Margaret Carr und Portfolio-Arbeit.",
-          "id": "comp-3",
-          "label": "Ressourcenorientierte Verfahren",
-          "metric": "Partizipatives Verfahren",
-          "summary": "Narrative und dokumentierende Verfahren zur Stärkung der kindlichen Identität."
-        }
-      ],
       "kind": "comparison",
+      "title": "Beobachtung vs. Deutung an konkreten Alltagsszenen",
+      "subtitle": "Wie dieselbe Situation wertend etikettiert oder professionell in Beschreibung und Hypothese getrennt wird",
+      "centerLabel": "Trennungsprinzip",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Gegenüberstellung klassischer und moderner Beobachtungsansätze in der Sozialpädagogik",
-      "title": "Methodenvergleich in der Beobachtungspraxis"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-3",
       "isCycle": false,
       "items": [
         {
-          "badge": "Baustein 1",
-          "detail": "Aktive Auseinandersetzung mit eigenen Vorurteilen, kultureller Prägung, dem Halo-Effekt und Etikettierungsprozessen zur Wahrung einer professionellen Haltung.",
-          "example": "Reflexionstagebuch im ersten Ausbildungsjahr.",
-          "id": "grid-1",
-          "label": "Selbstreflexion & Haltung",
-          "metric": "Grundlage",
-          "summary": "Kritische Prüfung der eigenen Wahrnehmungsfilter und Vorannahmen."
+          "id": "scene-1",
+          "badge": "Szene 1 · Baubereich",
+          "label": "Konflikt um Material",
+          "metric": "Beschreiben statt bewerten",
+          "summary": "Wertend: „Amir ist aggressiv und kann nicht teilen.“",
+          "detail": "Beobachtung: „Amir (3;8) greift mit beiden Händen nach der Holzbrücke, die Jonas hält. Jonas ruft ‚Nein!‘ und zieht zurück. Amir zieht kräftiger, Jonas lässt los und weint. Amir legt die Brücke an seine Straße.“ Getrennte Hypothese: Amir verfolgt eine konkrete Bauidee und braucht noch sprachliche Strategien für Aushandlungen.",
+          "example": "Handlungsimpuls: Im Spiel sprachliche Handlungsalternativen („Darf ich das danach haben?“) begleiten."
         },
         {
-          "badge": "Baustein 2",
-          "detail": "Konsequente Trennung zwischen beschreibbaren Fakten und interpretierenden Deutungen in allen pädagogischen Aufzeichnungen.",
-          "example": "Verwendung von Zwei-Spalten-Protokollen im Alltag.",
-          "id": "grid-2",
-          "label": "Methodische Trennung",
-          "metric": "Kernkompetenz",
-          "summary": "Saubere Unterscheidung von Beschreibung und Interpretation."
+          "id": "scene-2",
+          "badge": "Szene 2 · Morgenkreis",
+          "label": "Zurückhaltung in der Großgruppe",
+          "metric": "Kontext einbeziehen",
+          "summary": "Wertend: „Mila ist schüchtern und hat ein Sprachproblem.“",
+          "detail": "Beobachtung: „Im Morgenkreis mit 18 Kindern senkt Mila den Blick, zieht die Ärmel über die Hände und antwortet auf eine direkte Frage mit Kopfnicken. Zwanzig Minuten später im Sandkasten erklärt sie zwei Kindern in ganzen Sätzen, wie der Tunnel gegraben werden soll.“ Getrennte Hypothese: Die Großgruppensituation erzeugt Unsicherheit, nicht fehlende Sprachkompetenz.",
+          "example": "Handlungsimpuls: Kleine Erzählrunden anbieten und Beobachtungen aus verschiedenen Settings vergleichen."
         },
         {
-          "badge": "Baustein 3",
-          "detail": "Auswahl und Kombination verschiedener Verfahren (Grenzsteine, Portfolios, Lerngeschichten) entsprechend dem Entwicklungsstand und dem institutionellen Auftrag.",
-          "example": "Kombination von Entwicklungsbögen und Lerngeschichten.",
-          "id": "grid-3",
-          "label": "Methodenvielfalt",
-          "metric": "Instrumentarium",
-          "summary": "Gezielter Einsatz passgenauer Beobachtungs- und Dokumentationsmethoden."
+          "id": "scene-3",
+          "badge": "Szene 3 · Bilderbuch",
+          "label": "Bewegungsdrang beim Vorlesen",
+          "metric": "Motive nicht unterstellen",
+          "summary": "Wertend: „Noah ist unkonzentriert und hat keine Lust auf Bücher.“",
+          "detail": "Beobachtung: „Nach vier Minuten Vorlesen steht Noah auf, kniet neben dem Stuhl, zeigt auf den Bagger im Buch und ruft: ‚Der kippt gleich!‘ Danach läuft er zur Bauecke und holt einen Spielzeugbagger.“ Getrennte Hypothese: Noah verarbeitet das Buch aktiv über Bewegung und unmittelbare Spielhandlung.",
+          "example": "Handlungsimpuls: Dialogisches Vorlesen mit Handlungsmaterialien und Bewegungswechseln verbinden."
         },
         {
-          "badge": "Baustein 4",
-          "detail": "Enge Zusammenarbeit mit Kindern, Familien und interdisziplinären Fachkräften auf Basis wertfreier, ressourcenorientierter Dokumentationen.",
-          "example": "Entwicklungsgespräche auf Basis von Portfolios und Lerngeschichten.",
-          "id": "grid-4",
-          "label": "Partizipation & Kooperation",
-          "metric": "Zielsetzung",
-          "summary": "Einbindung aller Beteiligten zur Förderung von Teilhabe und Inklusion."
+          "id": "scene-4",
+          "badge": "Szene 4 · Garderobe",
+          "label": "Selbstständigkeit beim Anziehen",
+          "metric": "Auch Positiv-Labels prüfen",
+          "summary": "Wertend: „Clara ist total pflegeleicht und immer hilfsbereit.“",
+          "detail": "Beobachtung: „Clara zieht Jacke und Schuhe allein an, reicht zwei jüngeren Kindern ihre Mützen und wartet anschließend schweigend sechs Minuten auf der Bank, bis alle fertig sind.“ Getrennte Hypothese: Clara übernimmt viel Verantwortung – zu prüfen ist, ob sie eigene Wünsche und Bedürfnisse ebenfalls äußert.",
+          "example": "Handlungsimpuls: Auch leisen, angepassten Kindern gezielt Raum für eigene Anliegen geben."
         }
-      ],
+      ]
+    },
+    {
+      "id": "vb-2",
       "kind": "feature_grid",
+      "title": "Typische Wahrnehmungsfehler im pädagogischen Alltag",
+      "subtitle": "Systematische Verzerrungen erkennen und durch professionelle Routinen ausgleichen",
+      "centerLabel": "Wahrnehmungsfilter",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Die vier zentralen Säulen professioneller Beobachtungs- und Dokumentationspraxis",
-      "title": "Bausteine professioneller Dokumentationspraxis"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "err-1",
+          "badge": "Filter 1",
+          "label": "Selektive Wahrnehmung",
+          "metric": "Bestätigungsfehler",
+          "summary": "Informationen werden unbewusst passend zu vorhandenen Vorannahmen gefiltert.",
+          "detail": "Wer ein Kind innerlich als „wild“ abgespeichert hat, bemerkt sofort jedes Rennen im Flur, übersieht aber zwanzig Minuten vertieftes Puzzeln im Nebenraum.",
+          "example": "Gegenmittel: Gezielt Situationen suchen und notieren, die der eigenen Vorerwartung widersprechen."
+        },
+        {
+          "id": "err-2",
+          "badge": "Filter 2",
+          "label": "Halo-Effekt",
+          "metric": "Überstrahlung",
+          "summary": "Ein einzelnes hervorstechendes Merkmal färbt das Urteil über andere Fähigkeiten.",
+          "detail": "Ein Kind, das sehr gewählt spricht und gepflegt gekleidet ist, wird ohne nähere Prüfung auch als emotional stabiler oder sozial kompetenter eingeschätzt als ein Kind mit unsicherer Aussprache.",
+          "example": "Gegenmittel: Entwicklungsbereiche getrennt und kriteriengeleitet beobachten."
+        },
+        {
+          "id": "err-3",
+          "badge": "Filter 3",
+          "label": "Pygmalion-Effekt",
+          "metric": "Erwartungswirkung",
+          "summary": "Erwartungen von Fachkräften können als selbsterfüllende Prophezeiung wirken.",
+          "detail": "Traut eine Fachkraft einem Kind wenig zu (Golem-Effekt), erhält es unter Umständen unbewusst weniger anspruchsvolle Impulse, kürzere Wartezeiten beim Antworten und weniger ermutigendes Feedback – dies kann Lernmotivation und Entwicklung beeinträchtigen.",
+          "example": "Gegenmittel: Ressourcenorientierte Haltung pflegen und Leistungserwartungen im Team kritisch spiegeln."
+        },
+        {
+          "id": "err-4",
+          "badge": "Filter 4",
+          "label": "Primacy- & Recency-Effekt",
+          "metric": "Reihenfolgeeffekt",
+          "summary": "Der allererste oder der jüngste Eindruck überlagert den Gesamtverlauf.",
+          "detail": "Ein schwieriger Start in der Eingewöhnung prägt das Bild Monate später noch (Primacy), oder ein lautstarker Konflikt gestern überlagert ein sonst harmonisches Halbjahr im Elterngespräch (Recency).",
+          "example": "Gegenmittel: Kontinuierlich datierte Kurzbeobachtungen über längere Zeiträume auswerten."
+        }
+      ]
+    },
+    {
+      "id": "vb-3",
+      "kind": "concept_map",
+      "title": "Beobachtungs- und Dokumentationsverfahren im Vergleich",
+      "subtitle": "Ausgewählte Praxisverfahren nach Zielsetzung, Stärke und fachlicher Grenze eingeordnet",
+      "centerLabel": "Methodenmix",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "meth-1",
+          "badge": "Narrativ & stärkenorientiert",
+          "label": "Bildungs- und Lerngeschichten",
+          "metric": "Carr / DJI",
+          "summary": "Dokumentieren individuelle Lernwege anhand der 5 Lerndispositionen.",
+          "detail": "Beobachtung selbst gewählter Spiel- und Lernprozesse, Auswertung im Team entlang der fünf Lerndispositionen, Formulierung als wertschätzender Brief an das Kind (meist im Portfolio). Stärke: Partizipation, Motivation, Elternkommunikation. Grenze: Kein Screening für Entwicklungsrisiken.",
+          "example": "Lerngeschichte über die Ausdauer eines Kindes beim Bau einer Murmelbahn."
+        },
+        {
+          "id": "meth-2",
+          "badge": "Frühwarnsystem",
+          "label": "Grenzsteine der Entwicklung",
+          "metric": "Michaelis u. a.",
+          "summary": "Standardisiertes Screening (0–6 Jahre) auf Basis des 90–95-%-Kriteriums.",
+          "detail": "Prüft altersbezogene Kompetenzen in Motorik, Sprache, Kognition und Sozialentwicklung, die fast alle Kinder eines Alters erreichen. Stärke: Kompakte Früherkennung von Risiken. Grenze: Keine medizinische Diagnose und keine Abbildung individueller Stärken/Interessen.",
+          "example": "Nichterreichen eines motorischen Grenzsteins löst gezielte Folgebeobachtung und Elterngespräch aus."
+        },
+        {
+          "id": "meth-3",
+          "badge": "Sozial-emotional",
+          "label": "PERIK",
+          "metric": "Mayr & Ulich (IFP)",
+          "summary": "Positive Entwicklung und Resilienz im Kindergartenalltag (ab ca. 3,5 J.).",
+          "detail": "Strukturierter Bogen zu sechs Bereichen (Kontaktfähigkeit, Selbststeuerung, Selbstbehauptung, Stressregulierung, Aufgabenorientierung, Explorationsfreude). Stärke: Differenzierter Blick auf Wohlbefinden und Resilienz. Grenze: Erfordert sorgfältige Beobachtung über mehrere Wochen.",
+          "example": "Einschätzung, wie ein Kind im Übergang zur Grundschule mit Misserfolgen umgeht."
+        },
+        {
+          "id": "meth-4",
+          "badge": "Sprache alltagsintegriert",
+          "label": "BaSiK",
+          "metric": "Zimmer (U3 & Ü3)",
+          "summary": "Begleitende alltagsintegrierte Sprachentwicklungsbeobachtung in Kitas.",
+          "detail": "Erfasst Sprachverständnis, Sprachproduktion, Pragmatik, Literacy und – bei mehrsprachigen Kindern – zusätzliche Sprachkontexte im regulären Gruppenalltag. Stärke: Kontinuierliche Dokumentation von 1 bis 6 Jahren ohne Testsituation. Grenze: Ersetzt bei auffälligen Befunden keine logopädische Diagnostik.",
+          "example": "Halbjährliche Verlaufsdokumentation zur Planung alltagsintegrierter Sprachbildung."
+        },
+        {
+          "id": "meth-5",
+          "badge": "Sprache & Literacy",
+          "label": "SELDAK & SISMIK",
+          "metric": "Ulich & Mayr (IFP)",
+          "summary": "Differenzierte Sprach- und Literacy-Bögen für ein- bzw. mehrsprachige Kinder.",
+          "detail": "SELDAK richtet sich an Kinder mit Deutsch als Erstsprache, SISMIK an Kinder, die mehrsprachig bzw. mit Deutsch als Zweitsprache aufwachsen (ab ca. 3,5 J. bis Schuleintritt). Stärke: Einbezug von Sprachfreude, Familiensprache und Schriftkultur. Grenze: Hoher Auswertungsbedarf bei unklaren Sprachkontexten.",
+          "example": "SISMIK dokumentiert neben Deutschkenntnissen auch Interesse an Bilderbüchern und Familiensprache."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "3 Jahre",
-    "context": "Beobachtung einer freien Spielsituation im Integrativen Kindergarten Rheinland-Pfalz",
-    "setting": "Gruppenraum während des Freispiels",
+    "title": "„Mila spricht fast gar nicht“ – Beobachtung statt vorschneller Etikettierung",
+    "setting": "Altersgemischte Kita-Gruppe (22 Kinder)",
+    "ageGroup": "4 Jahre",
+    "context": "Die vierjährige Mila wächst zweisprachig (Türkisch und Deutsch) auf und besucht seit sechs Monaten die Kita „Wiesengrund“. Bei Übergaben sagen Kolleginnen wiederholt beiläufig: „Mila ist total schüchtern, sie spricht kaum und hat wohl eine Sprachverzögerung.“ Eine angehende Erzieherin im Berufspraktikum beobachtet Mila eine Woche lang gezielt in verschiedenen Alltagssituationen: Im großen Morgenkreis schaut Mila auf den Boden und nickt nur, während sie im Puppenbereich und im Sandkasten mit zwei vertrauten Kindern flüssig auf Deutsch und Türkisch Spielrollen verteilt und Bauideen erklärt.",
     "steps": [
       {
+        "situation": "Nach der Beobachtungswoche bereitet die Fachkraft ihre Aufzeichnungen für die Fallbesprechung im Team vor.",
+        "prompt": "Welche Form der Protokollierung entspricht dem fachlichen Standard der Trennung von Beobachtung und Deutung?",
         "options": [
           {
-            "feedback": "Die Erzieherin bewertet das Verhalten sofort als 'aggressiv' und 'unsozial', statt das konkrete Geschehen beschreibend festzuhalten. Dies ist ein klassischer Beobachtungsfehler (Etikettierung/Halo-Effekt).",
-            "label": "Sofortiger Eintrag im Beobachtungsheft: 'Leon ist heute wieder aggressiv und nimmt Paul das Spielzeug weg.'",
-            "quality": "problematisch",
-            "theoryLink": "Subjektive Selektion und Etikettierungsprozesse nach RLP S-SP-3"
-          },
-          {
-            "feedback": "Die Erzieherin hält sich an die Grundregel der Trennung von Beobachtung und Interpretation. Sie notiert faktenbasiert Mimik, Gestik, Interaktion und Wortlaut.",
-            "label": "Protokollierung im Freispiel: 'Leon greift nach dem blauen Baustein, den Paul hält. Paul ruft 'Nein!'. Leon zieht kräftiger, Paul lässt los. Leon baut weiter.'",
+            "label": "Sie notiert getrennt nach Beschreibung und Hypothese: Links Ort, Zeit, Mimik, Gestik und wörtliche Äußerungen aus Morgenkreis und Freispiel; rechts als offene Hypothese, dass Mila in vertrauten Kleingruppen differenziert spricht und im großen Kreis möglicherweise noch Sicherheit braucht.",
             "quality": "optimal",
-            "theoryLink": "Wertfreie Beobachtung und Beschreibung vs. Deutung nach RLP S-SP-3"
+            "feedback": "Fachlich überzeugend! Die verhaltensnahe Beschreibung aus unterschiedlichen Situationen korrigiert den bisherigen Eindruck (selektive Wahrnehmung / Primacy-Effekt), während die Deutung transparent als prüfbare Hypothese getrennt bleibt.",
+            "theoryLink": "Trennung von Beobachtung und Deutung; Korrektur selektiver Wahrnehmung"
           },
           {
-            "feedback": "Das ist gut gemeint, aber eine vorzeitige Interpretation. Die genaue Motivlage (Frustration, Nachahmung, Kontaktaufnahme) bleibt unklar, solange nur vermutet wird.",
-            "label": "Notiz: 'Leon möchte wahrscheinlich Kontakt aufnehmen, weiß sich aber nicht anders zu helfen.'",
+            "label": "Sie schreibt ins Protokoll: „Mila fühlt sich im Morgenkreis unwohl, ist aber eigentlich ein sehr kluges, kommunikatives Mädchen, das einfach noch etwas Zeit zum Auftauen braucht.“",
             "quality": "teilweise",
-            "theoryLink": "Frühzeitige Interpretation ohne videobasierte oder strukturierte Sicherung"
+            "feedback": "Zwar ist die Haltung wohlwollend und ressourcenorientiert, aber es fehlen konkrete, überprüfbare Verhaltensbeschreibungen. „Fühlt sich unwohl“ und „klug“ sind bereits Deutungen bzw. Bewertungen.",
+            "theoryLink": "Vermeidung positiver wie negativer Bewertungen in der Beschreibungsspalte"
+          },
+          {
+            "label": "Sie dokumentiert: „Mila verweigert im Morgenkreis die Sprache; Verdacht auf selektiven Mutismus und Sprachdefizit – dringender Therapiebedarf.“",
+            "quality": "problematisch",
+            "feedback": "Unzulässig: Hier wird ein situatives Verhalten ohne Kontextvergleich pathologisiert und eine klinische Diagnose vermutet, die außerhalb des pädagogischen Auftrags liegt und Stigmatisierung begünstigt.",
+            "theoryLink": "Abgrenzung pädagogische Beobachtung vs. klinische Diagnostik; Anti-Stigmatisierung"
           }
-        ],
-        "prompt": "Situation: Leon (3 Jahre) zieht Paul (3 J.) einen Baustein aus der Hand, woraufhin Paul weint. Wie reagiert die pädagogische Fachkraft in ihrer Dokumentation?",
-        "situation": "Konflikt im Bau- und Konstruktionsbereich"
+        ]
       },
       {
+        "situation": "In der Teambesprechung ist das Team überrascht von den unterschiedlichen Beobachtungen. Eine Kollegin schlägt vor, den ausgefüllten Sprachbogen sicherheitshalber schon einmal an die benachbarte Logopädiepraxis zu mailen, damit diese eine Einschätzung gibt.",
+        "prompt": "Wie entscheidet das Team fachlich und datenschutzrechtlich korrekt über das weitere Vorgehen?",
         "options": [
           {
-            "feedback": "Das Kind wird in seiner Individualität nicht wahrgenommen; stattdessen wird das Etikett 'Verhaltensauffällig' verfestigt, was dem Inklusionsgebot widerspricht.",
-            "label": "Die Fachkraft bespricht mit der Leitung, Leon künftig von bestimmten Spielbereichen auszuschließen, um die Gruppe zu schützen.",
+            "label": "Die Leitung mailt den Beobachtungsbogen mit Milas Namen an die Logopädiepraxis, weil im Betreuungsvertrag eine allgemeine Klausel zur „Zusammenarbeit mit Fachstellen“ steht.",
             "quality": "problematisch",
-            "theoryLink": "Stigmatisierungs- und Ausschluss-Prozesse entgegen dem RLP-Inklusionsgebot"
+            "feedback": "Rechtswidrig! Eine pauschale Klausel im Betreuungsvertrag ersetzt keine anlassbezogene, informierte und ausdrückliche Einwilligung der Sorgeberechtigten zur Weitergabe personenbezogener Daten an Dritte.",
+            "theoryLink": "Datenschutz in Kitas: Zweckbindung und Einwilligungserfordernis bei Datenweitergabe"
           },
           {
-            "feedback": "Die Fachkraft nutzt die videobasierte oder strukturierte Beobachtung, um Muster zu erkennen, und zieht ressourcenorientierte Schlüsse für die Lernbegleitung.",
-            "label": "Die Fachkraft wertet das strukturierte Protokoll gemeinsam mit dem Team aus und plant eine ressourcenorientierte Begleitung beim Kontaktaufbau.",
+            "label": "Das Team wertet die Beobachtungen gemeinsam aus, setzt ein passendes alltagsintegriertes Verfahren (z. B. SISMIK oder BaSiK) ergänzt um eine ressourcenorientierte Lerngeschichte ein, sucht das transparente Gespräch mit den Eltern und übermittelt Unterlagen im Rahmen einer Kooperation mit einer Therapiepraxis oder Grundschule ausschließlich nach ausdrücklicher, zweckgebundener schriftlicher Einwilligung der Sorgeberechtigten.",
             "quality": "optimal",
-            "theoryLink": "Ressourcenorientierte Begleitung und Auswertung von Beobachtungsverfahren nach RLP"
+            "feedback": "Richtig! Die Kombination aus alltagsintegrierter mehrsprachigkeitsbewusster Sprachbeobachtung, Ressourcenblick, kollegialer Auswertung und Elternpartnerschaft ist fachlich fundiert; zudem wird das Datenschutzrecht strikt gewahrt.",
+            "theoryLink": "Methodenmix (SISMIK/BaSiK & Lerngeschichten); Datenschutz und Einwilligung (§ 62 SGB VIII / DSGVO)"
           },
           {
-            "feedback": "Gespräche mit Eltern sind wichtig, aber ohne valide, wertfreie Beobachtungsdaten besteht die Gefahr einer subjektiven Vorverurteilung.",
-            "label": "Die Fachkraft ruft die Eltern an und beschwert sich über Leons störendes Verhalten im Freispiel.",
+            "label": "Das Team schickt keine Mail an die Praxis, hakt aber lediglich rasch die Grenzsteine der Entwicklung ab und empfiehlt den Eltern beim Abholen pauschal, vorsorglich ein Logopädie-Rezept einzuholen.",
             "quality": "teilweise",
-            "theoryLink": "Kooperation mit Eltern auf Basis ungesicherter subjektiver Eindrücke"
+            "feedback": "Der Datenschutz wird gewahrt, aber die fachliche Vorgehensweise greift zu kurz: Ohne genauere alltagsintegrierte Sprachbeobachtung unter Berücksichtigung der Mehrsprachigkeit und ohne geplantes Entwicklungsgespräch ist eine pauschale Therapieempfehlung vorschnell.",
+            "theoryLink": "Passung und Grenzen von Beobachtungsverfahren; Elternpartnerschaft"
           }
-        ],
-        "prompt": "Auswertung und Konsequenz: Nach mehreren ähnlichen Situationen muss die Fachkraft Konsequenzen für die pädagogische Planung ableiten. Welche Vorgehensweise entspricht den fachlichen Standards?",
-        "situation": "Nachbereitung und pädagogische Intervention"
+        ]
       }
-    ],
-    "title": "Der Baustein-Konflikt im Freispiel"
+    ]
   },
   "selfLearningTasks": [
-    "Führen Sie an drei aufeinanderfolgenden Tagen ein 15-minütiges unstrukturiertes Protokoll einer Freispielsituation und trennen Sie nachträglich konsequent in einer Tabelle die Fakten (Beschreibung) von Ihren eigenen Interpretationen.",
-    "Analysieren Sie eine Entwicklungsdokumentation Ihrer Einrichtung im Hinblick auf eventuelle Etikettierungen oder stigmatisierende Formulierungen und formulieren Sie diese ressourcenorientiert um.",
-    "Erstellen Sie eine zweiseitige Handreichung für das Team, die den Nutzen und die Grenzen von 'Grenzsteinen der Entwicklung' im Vergleich zu offenen Lerngeschichten gegenüberstellt."
+    "Führen Sie in einer realen oder videografierten Alltagssituation ein 10-minütiges Zwei-Spalten-Protokoll (links ausschließlich sicht- und hörbare Fakten, rechts Hypothesen und offene Fragen) und lassen Sie eine Kommilitonin oder Kollegin prüfen, ob sich noch Wertungen in die linke Spalte eingeschlichen haben.",
+    "Vergleichen Sie zwei Beobachtungsverfahren aus Ihrer Praxisstelle (z. B. Bildungs- und Lerngeschichten vs. BaSiK, PERIK oder Grenzsteine der Entwicklung) anhand der Kriterien Zielgruppe, Beobachtungsfokus, Ressourcenorientierung, Zeitaufwand und Grenzen.",
+    "Prüfen Sie in Ihrer Einrichtung, wie Beobachtungsbögen, Portfolios und Foto- bzw. Weitergabe-Einwilligungen organisiert sind, und formulieren Sie drei konkrete Qualitätsmerkmale für datenschutzkonforme und partizipative Dokumentation."
   ],
   "flashcards": [
     {
-      "definition": "Ein systematischer Wahrnehmungsfehler, bei dem ein herausragendes Merkmal (z. B. Sprachkompetenz oder Aussehen) den Gesamteindruck einer Person überstrahlt und andere Eigenschaften überdeckt.",
-      "example": "Ein sehr höfliches Kind wird automatisch auch als hochkompetent in Mathematik eingeschätzt.",
-      "term": "Halo-Effekt"
+      "term": "Halo-Effekt",
+      "definition": "Systematischer Wahrnehmungsfehler, bei dem ein einzelnes auffälliges Merkmal einer Person (positiv oder negativ) den Gesamteindruck überstrahlt und die Beurteilung anderer, unabhängiger Eigenschaften verzerrt.",
+      "example": "Weil ein Kind sehr gewandt spricht, übersieht die Fachkraft seine Unsicherheiten in der Feinmotorik."
     },
     {
-      "definition": "Die strikte methodische Trennung zwischen der wahrnehmbaren Realität (wer macht was, wann, wie) und der nachträglichen psychologischen Deutung oder Bewertung des Verhaltens.",
-      "example": "Beobachtung: 'Lukas trommelt mit den Fingern auf den Tisch.' Deutung: 'Lukas ist unkonzentriert.'",
-      "term": "Trennbrettl-Prinzip (Beobachtung vs. Interpretation)"
+      "term": "Pygmalion-Effekt (Rosenthal-Effekt)",
+      "definition": "Selbsterfüllende Prophezeiung in Bildungsprozessen: Positive oder negative Erwartungen von Fachkräften können über feine Rückmeldungen und Lernangebote die Motivation und Entwicklung des Kindes kontextabhängig beeinflussen (negative Ausprägung: Golem-Effekt).",
+      "example": "Eine Fachkraft traut einem Kind komplexe Bauaufgaben zu, gibt ermutigendes Feedback und beobachtet rasche Kompetenzzuwächse."
     },
     {
-      "definition": "Ein selbsterfüllende Prophezeiung in pädagogischen Kontexten: Erwartungen der Lehrkraft an ein Kind (positiv oder negativ) beeinflussen dessen tatsächliche Leistungsentwicklung.",
-      "example": "Eine Fachkraft erwartet von einem Kind mit Migrationshintergrund geringere sprachliche Fortschritte; das Kind bleibt ungenutzt.",
-      "term": "Pygmalion-Effekt (Rosenthal-Effekt)"
+      "term": "Primacy- und Recency-Effekt",
+      "definition": "Reihenfolgeeffekte der Wahrnehmung: Beim Primacy-Effekt prägt der erste Eindruck das spätere Urteil übermäßig stark; beim Recency-Effekt dominieren die zuletzt erlebten Ereignisse die Gesamteinschätzung.",
+      "example": "Ein einzelner Konflikt am Vortag eines Elterngesprächs färbt die Einschätzung des gesamten Halbjahres negativ (Recency-Effekt)."
     },
     {
-      "definition": "Ein standardisiertes Beobachtungsverfahren für die frühe Kindheit, das Meilensteine in verschiedenen Entwicklungsbereichen (Motorik, Sprache, Sozialkompetenz) prüfsteinartig erfasst.",
-      "example": "Überprüfung, ob ein Kind im Alter von 24 Monaten frei in Zwei-Wort-Sätzen spricht.",
-      "term": "Grenzsteine der Entwicklung"
+      "term": "Trennung von Beobachtung und Deutung",
+      "definition": "Fachlicher Grundsatz, nach dem im Protokoll zuerst ausschließlich konkret sicht- und hörbares Verhalten im Kontext beschrieben wird, während Erklärungen, Motive oder fachliche Schlussfolgerungen getrennt als überprüfbare Hypothesen markiert werden.",
+      "example": "Beobachtung: „Emil legt den Stift weg und schaut 3 Minuten aus dem Fenster.“ Hypothese: „Emil wirkt erschöpft oder sucht nach einer neuen Idee.“"
     },
     {
-      "definition": "Ein ressourcenorientiertes, narratives Beobachtungs- und Dokumentationsverfahren nach Margaret Carr, das Lernprozesse und Interessen von Kindern in Geschichtenform festhält.",
-      "example": "Dokumentation des Forscherdrangs eines Kindes beim Wasserbecken mit Fotos und Ziteaten.",
-      "term": "Bildungs- und Lerngeschichten"
+      "term": "Bildungs- und Lerngeschichten (5 Lerndispositionen)",
+      "definition": "Ressourcenorientiertes, narratives Beobachtungsverfahren (Carr / adaptiert durch das DJI), das kindliche Lernprozesse anhand von fünf Lerndispositionen (Interessiert sein, Engagiert sein, Standhalten bei Herausforderungen, Sich ausdrücken und mitteilen, An einer Lerngemeinschaft mitwirken) würdigt.",
+      "example": "Eine als Brief an das Kind formulierte Lerngeschichte im Portfolio, die gemeinsam mit Kind und Eltern betrachtet wird."
     },
     {
-      "definition": "Eine zielgerichtete, systematische Sammlung von Dokumenten, Arbeiten und Reflexionen des Kindes, die dessen individuelle Entwicklung und Kompetenzerweiterung sichtbar macht.",
-      "example": "Ein Heft, in dem ein Kind seine gemalten Bilder, Lernfortschritte und Selbsteinschätzungen abheftet.",
-      "term": "Portfolio-Arbeit"
+      "term": "Grenzsteine der Entwicklung (nach Michaelis)",
+      "definition": "Standardisiertes Frühwarnsystem für 0- bis 6-Jährige, das Kompetenzen beschreibt, die 90–95 % der Kinder bis zu einem definierten Alter sicher erreichen. Ein nicht erreichter Grenzstein ist ein Anlass zur Abklärung, aber keine Diagnose.",
+      "example": "Ein 24 Monate altes Kind kombiniert noch keine Zwei-Wort-Äußerungen – die Fachkraft beobachtet vertieft und regt im Elterngespräch eine kinderärztliche Abklärung an."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Der Halo-Effekt beschreibt das Phänomen, dass ein einzelnes auffälliges Merkmal (positiv oder negativ) den Gesamteindruck und die Beurteilung aller anderen Eigenschaften einer Person überstrahlt.",
-      "id": "q-1",
+      "question": "Welche der folgenden Protokollnotizen hält die Trennung von Beobachtung (Beschreibung) und Deutung konsequent ein?",
       "options": [
-        "Die bewusste Fokussierung auf positive Verhaltensweisen von Kindern in Konfliktsituationen.",
-        "Ein Wahrnehmungsfehler, bei dem ein einzelnes Merkmal den Gesamteindruck einer Person überstrahlt.",
-        "Die positive Beeinflussung von Leistungen durch hohe Erwartungen der Lehrkraft (Pygmalion-Effekt).",
-        "Die exakte Trennung von Beobachtung und Interpretation in der Dokumentation."
+        "„Lina ist heute besonders hilfsbereit und teilt ihre Knete sehr sozial mit Sam.“",
+        "„Lina wirkt im Freispiel entspannt und genießt das gemeinsame Kneten mit Sam.“",
+        "„Lina teilt ihren Knetklumpen in zwei Stücke, legt eines vor Sam und sagt: ‚Hier, für deine Schlange.‘“",
+        "„Lina möchte Kontakt zu Sam aufbauen und schenkt ihm deshalb freiwillig Knete.“"
       ],
-      "question": "Was versteht man in der Wahrnehmungspsychologie unter dem sogenannten 'Halo-Effekt'?",
-      "type": "single"
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Nur die Formulierung zum Teilen der Knete samt wörtlichem Zitat beschreibt rein sichtbare Handlungen und wörtliche Rede ohne Eigenschaftszuschreibung („hilfsbereit“, „sozial“), Gefühlsdeutung („entspannt“, „genießt“) oder Motivunterstellung („möchte Kontakt aufbauen“)."
     },
     {
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Am Tag vor dem halbjährlichen Entwicklungsgespräch gerät der fünfjährige Matteo beim Aufräumen in einen heftigen Streit. Obwohl das vergangene Halbjahr überwiegend ruhig verlief, schildert die Fachkraft Matteo im Gespräch vor allem als „konfliktbeladen“. Welcher Wahrnehmungsfehler liegt hier typischerweise vor?",
+      "options": [
+        "Recency-Effekt",
+        "Primacy-Effekt",
+        "Pygmalion-Effekt",
+        "Halo-Effekt"
+      ],
+      "correctIndices": [
+        0
+      ],
+      "explanation": "Beim Recency-Effekt werden die zeitlich jüngsten Eindrücke überproportional stark gewichtet und überlagern frühere Erfahrungen. Der Primacy-Effekt bezeichnet dagegen die Dominanz des allerersten Eindrucks; der Halo-Effekt die Überstrahlung von einem Merkmal auf andere; der Pygmalion-Effekt die Wirkung von Erwartungen als selbsterfüllende Prophezeiung."
+    },
+    {
+      "id": "v2-q3",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Aussagen zur Einordnung gängiger Beobachtungsverfahren in Kindertageseinrichtungen treffen fachlich zu?",
+      "options": [
+        "Die „Grenzsteine der Entwicklung“ dienen als Frühwarnsystem (90–95-%-Kriterium), ersetzen aber keine medizinische oder psychologische Diagnostik.",
+        "Mit Bildungs- und Lerngeschichten lassen sich umschriebene Entwicklungsstörungen standardisiert und altersnormiert diagnostizieren.",
+        "SELDAK (Deutsch als Erstsprache) und SISMIK (mehrsprachig aufwachsende Kinder) erfassen alltagsintegriert Sprachentwicklung und Literacy.",
+        "PERIK richtet den Blick strukturiert auf sozial-emotionale Kompetenzen und Resilienzfaktoren im Kita-Alltag."
+      ],
       "correctIndices": [
         0,
         2,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Wahrnehmungsverzerrungen umfassen die subjektive Selektion (Aufmerksamkeit filtert nach eigenen Bedürfnissen/Vorurteilen), den Halo-Effekt (Überstrahlungseffekt) sowie den Pygmalion-Effekt (selbsterfüllende Prophezeiung durch Erwartungshaltungen). Die wertfreie Beschreibung ist hingegen ein methodisches Korrektiv gegen diese Fehler.",
-      "id": "q-2",
-      "options": [
-        "Subjektive Selektion der Reize aufgrund eigener Vorerfahrungen und Erwartungen.",
-        "Die vollständige und fehlerfreie objektive Erfassung aller Umweltsreize im Raum.",
-        "Der Halo-Effekt als Überstrahlung einzelner Merkmale auf die Gesamtbeurteilung.",
-        "Der Pygmalion-Effekt (Einfluss von Erwartungen auf das Verhalten des Gegenübers)."
-      ],
-      "question": "Welche der folgenden Aussagen beschreiben typische Wahrnehmungsfehler und -verzerrungen in pädagogischen Kontexten? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Grenzsteine funktionieren als Screening-/Frühwarnsystem ohne Diagnosefunktion, SELDAK/SISMIK erfassen Sprachverhalten und Literacy alltagsintegriert für unterschiedliche Sprachbiografien, und PERIK fokussiert sozial-emotionale Entwicklung und Resilienz. Bildungs- und Lerngeschichten sind hingegen ein offenes, narratives, stärkenorientiertes Verfahren und kein standardisiertes Diagnoseinstrument."
     },
     {
+      "id": "v2-q4",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Praxisfall: Im Team gilt der vierjährige Ben seit seiner Eingewöhnung vor einem Jahr als „unruhiger Störenfried“. Bei Fallbesprechungen fallen fast nur noch schwierige Momente auf, und Ben bekommt seltener anspruchsvolle Aufgaben zugetraut. Wie kann das Team diesen Kreislauf fachlich durchbrechen?",
+      "options": [
+        "Das Team verzichtet künftig auf schriftliche Notizen über Ben, um ihn nicht weiter zu belasten.",
+        "Die Leitung weist Ben einen festen Einzelplatz neben dem Tisch der Fachkraft zu, damit Konflikte gar nicht erst entstehen.",
+        "Das Team bestätigt den ersten Eindruck im Elterngespräch und bittet die Eltern, zu Hause strengere Regeln einzuführen.",
+        "Eine Kollegin aus einer anderen Gruppe beobachtet Ben verhaltensnah in mehreren Alltagssituationen, das Team gleicht die Eindrücke im Mehr-Augen-Prinzip ab und formuliert gezielt ressourcenorientierte Impulse."
+      ],
       "correctIndices": [
-        2
+        3
       ],
-      "difficulty": "basis",
-      "explanation": "Eine reine Beobachtung beschreibt faktenbasiert, was geschieht, ohne Wertungen oder Motive zu unterstellen. 'Unkonzentriert' ist bereits eine Interpretation. 'Spielt mit dem Stift' ist die reine, beschreibende Handlung.",
-      "id": "q-3",
-      "options": [
-        "'Janis ist heute total unmotiviert und verweigert die Mitarbeit im Morgenkreis.'",
-        "'Mira kann sich einfach nicht konzentrieren und stört die anderen Kinder.'",
-        "'Lukas trommelt mit dem rechten Zeigefinger im 2-Sekunden-Takt auf die Tischkante.'",
-        "'Sarah ist ein sehr soziales Mädchen, das sofort jedem Kind hilft.'"
-      ],
-      "question": "Welche der folgenden Formulierungen stellt eine rein wertfreie Beobachtung (ohne Interpretation) dar?",
-      "type": "single"
+      "explanation": "Hier wirken Primacy-Effekt, selektive Wahrnehmung und ein negativer Erwartungseffekt (Golem-/Pygmalion-Effekt) zusammen. Ein frischer Blick im Mehr-Augen-Prinzip mit verhaltensnaher Beobachtung in verschiedenen Kontexten durchbricht den Bestätigungsfehler und eröffnet ressourcenorientierte Handlungsoptionen."
     },
     {
+      "id": "v2-q5",
+      "type": "single",
+      "difficulty": "pruefung",
+      "question": "Kurz vor der Einschulung bittet eine Grundschullehrkraft die Kita telefonisch, ihr den ausgefüllten Sprach- und Entwicklungsbogen eines Kindes per E-Mail zuzusenden. Was gilt datenschutzrechtlich?",
+      "options": [
+        "Die Kita darf den Bogen direkt versenden, weil Kita und Grundschule beide dem staatlichen Bildungsauftrag unterliegen.",
+        "Die Weitergabe ist nur zulässig, wenn zuvor eine ausdrückliche, informierte und zweckgebundene Einwilligung der Sorgeberechtigten eingeholt wurde.",
+        "Eine bei Vertragsabschluss vor drei Jahren unterschriebene allgemeine Datenschutzklausel reicht für jede spätere Weitergabe aus.",
+        "Die Kita darf den Bogen ohne Einwilligung senden, sofern der Nachname des Kindes abgekürzt wird."
+      ],
       "correctIndices": [
         1
       ],
-      "difficulty": "pruefung",
-      "explanation": "Bildungs- und Lerngeschichten (nach Margaret Carr) fokussieren sich explizit auf die Ressourcen, Interessen, Lernwege und Resilienzdispositionen (fünf Lerndispositionen) des Kindes, statt Defizite zu messen.",
-      "id": "q-4",
-      "options": [
-        "Sie prüfen standardisiert, ob ein Kind bestimmte Altersnormen exakt erfüllt.",
-        "Sie dokumentieren ressourcenorientiert die individuellen Lernwege, Interessen und Lerndispositionen von Kindern.",
-        "Sie dienen vorwiegend der Selektion von Kindern für sonderpädagogische Förderschulen.",
-        "Sie ersetzen vollständig jede Form von standardisierten Entwicklungsgesprächen mit Eltern."
-      ],
-      "question": "Welches Hauptmerkmal kennzeichnet das Verfahren der 'Bildungs- und Lerngeschichten'?",
-      "type": "single"
+      "explanation": "Für die Kooperation mit Grundschule oder Therapiepraxis (z. B. Übermittlung von Sprach- oder Entwicklungsbögen) ist stets eine ausdrückliche, anlassbezogene und informierte Einwilligung der Sorgeberechtigten erforderlich; pauschale Blanko-Klauseln genügen nicht. Unabhängig davon gilt der gesetzliche Schutzauftrag (§ 8a SGB VIII) als eigenständige Rechtsgrundlage, bei dem ausschließlich die erforderlichen Daten an das Jugendamt übermittelt werden."
     },
     {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Die Fachkraft dokumentiert exakt die sichtbaren Handlungen (Körperhaltung, Materialien, Äußerungen) ohne verurteilende Etikettierung. Dies verhindert den Pygmalion-Effekt und Stigmatisierung und bildet eine solide Basis für das weitere pädagogische Vorgehen.",
-      "id": "q-5",
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "basis",
+      "question": "Welche Merkmale charakterisieren das Verfahren der „Bildungs- und Lerngeschichten“ (nach Margaret Carr / DJI)?",
       "options": [
-        "Sie schreibt sofort in die Akte, dass Jonas verhaltensauffällig ist, um die Eltern zu warnen.",
-        "Sie bricht das Freispiel ab, um Jonas wegen Störung der Gruppe zu sanktionieren.",
-        "Sie notiert wertfrei: 'Jonas baut seit 10 Minuten einen Turm aus Holzteilen, lässt diesen umfallen und beginnt von vorn.'",
-        "Sie vermutet, dass Jonas zu Hause zu viel Fernsehen schaut, und hält dies als offizielle Diagnose fest."
+        "Es orientiert sich an fünf Lerndispositionen wie „Interessiert sein“, „Engagiert sein“ und „Standhalten bei Herausforderungen“.",
+        "Die Lerngeschichte wird wertschätzend direkt an das Kind gerichtet und kann im Portfolio gesammelt werden.",
+        "Die Fachkraft prüft in einer standardisierten Einzeltestung ohne Spielmaterialien altersnormierte Defizite.",
+        "Eltern und Kinder werden aktiv einbezogen, um Lernwege gemeinsam zu reflektieren und wertzuschätzen."
       ],
-      "question": "Praxissituation: Erzieherin Anna beobachtet im Integrationskindergarten den 4-jährigen Jonas, der wiederholt einen Bausteinturm zum Einsturz bringt und dabei lacht. Wie sollte Anna dokumentieren, um fachlichen Standards zu genügen?",
-      "type": "case"
-    },
-    {
       "correctIndices": [
         0,
         1,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Grenzsteine der Entwicklung markieren die Altersgrenzen, die von fast allen Kindern (ca. 90-95%) bis zu einem bestimmten Zeitpunkt erreicht werden. Sie dienen als Früherkennungsinstrument, ersetzen jedoch keine tiefenpsychologische Diagnostik und sind keine starren Leistungsnormen.",
-      "id": "q-6",
-      "options": [
-        "Sie dienen als Orientierungs- und Früherkennungshilfe für typische Meilensteine der kindlichen Entwicklung.",
-        "Sie setzen starre, unumstößliche Leistungstests für alle Kinder ab dem 1. Lebensjahr voraus.",
-        "Sie wurden von Experten (u.a. Michaelis) entwickelt, um Entwicklungsrisiken frühzeitig zu erkennen.",
-        "Sie markieren Kompetenzen, die 90-95% der Kinder bis zu einem bestimmten Alter zeigen."
-      ],
-      "question": "Welche Aussagen treffen auf das Konzept der 'Grenzsteine der Entwicklung' zu? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Bildungs- und Lerngeschichten arbeiten alltagsintegriert, narrativ, stärkenorientiert und partizipativ entlang der fünf Lerndispositionen. Sie sind bewusst das Gegenmodell zu künstlichen, defizitorientierten Einzeltestungen."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Beobachtung und Dokumentation – Fachbeitrag zu Grundhaltung, Methoden und Praxis",
+      "url": "https://nifbe.de/fachbeitraege/beobachtung-und-dokumentation/",
+      "publisher": "Niedersächsisches Institut für frühkindliche Bildung und Entwicklung (nifbe e.V.)",
+      "note": "Fachliche Grundlagen zu professioneller Wahrnehmung, Beobachtungshaltung und Dokumentationspraxis"
+    },
+    {
+      "title": "Bildungs- und Lerngeschichten im Elementarbereich – Der Ansatz",
+      "url": "https://www.dji.de/ueber-uns/projekte/projekte/bildungs-und-lerngeschichten-im-elementarbereich/der-ansatz.html",
+      "publisher": "Deutsches Jugendinstitut (DJI)",
+      "note": "Adaption des Ansatzes nach Margaret Carr und Darstellung der fünf Lerndispositionen"
+    },
+    {
+      "title": "BaSiK – Begleitende alltagsintegrierte Sprachentwicklungsbeobachtung in Kindertageseinrichtungen",
+      "url": "https://www.biss-sprachbildung.de/btools/begleitende-alltagsintegrierte-sprachentwicklungsbeobachtung-in-kindertageseinrichtungen-basik/",
+      "publisher": "BiSS-Transfer (Mercator-Institut / BMBF)",
+      "note": "Sachliche Beschreibung von Einsatzbereich, Aufbau und Grenzen von BaSiK"
+    },
+    {
+      "title": "Übersicht zu Beobachtungsverfahren für Kinderkrippe, Kindergarten und Hort (u. a. PERIK, SELDAK, SISMIK)",
+      "url": "https://www.ifp.bayern/files/media/ifp/public/projects/erfolgreiche-konzeptionsentwicklung-leicht-gemacht/anlage_modul_b_beobachtungsverfahren_kinderkrippe_kindergarten_hort_bayern.pdf",
+      "publisher": "Staatsinstitut für Frühpädagogik und Medienkompetenz (IFP)",
+      "note": "Systematische Einordnung strukturierter Beobachtungsverfahren nach Alter und Fokus"
+    },
+    {
+      "title": "Datenschutz in der Kita – FAQ (u. a. Dokumentation, Übergang Grundschule & Löschung)",
+      "url": "https://www.datenschutz.rlp.de/themen/datenschutz-in-der-kita-faq",
+      "publisher": "Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz (LfDI RLP)",
+      "note": "Aktuelle RLP-Hinweise zu § 3 Abs. 3 KiTaG RLP, Einwilligung bei Kooperation mit Grundschule/Therapie sowie Aufbewahrungs- und Löschregeln"
+    },
+    {
+      "title": "Recht am eigenen Bild – Datenschutzrechtliche Hinweise zu Foto- und Videoaufnahmen",
+      "url": "https://www.datenschutz.rlp.de/themen/recht-am-eigenen-bild",
+      "publisher": "Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz (LfDI RLP)",
+      "note": "Rechtliche Vorgaben zu Bild- und Tonaufnahmen sowie Einwilligung und Löschung im Kita-Kontext"
+    },
+    {
+      "title": "SGB VIII § 62 – Datenerhebung",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__62.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Rechtsgrundlage für Erforderlichkeit, Direkterhebung und Aufklärungspflicht bei Sozialdaten"
     }
   ]
 }

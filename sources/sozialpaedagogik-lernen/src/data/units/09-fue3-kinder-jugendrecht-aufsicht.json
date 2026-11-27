@@ -3,410 +3,483 @@
   "number": 9,
   "moduleCode": "S-FÜ-3",
   "moduleArea": "fue",
-  "title": "Aufsichtspflicht, Kinder- und Jugendrecht & Familienpolitik",
-  "subtitle": "§ 832 BGB, elterliche Sorge, SGB VIII, KiTaG RLP und gesellschaftliche Entwicklungen",
+  "unitRole": "core",
+  "curriculumRef": "S-FÜ-3 · Aufsichtspflicht, elterliche Sorge, Kinder- und Jugendrecht & Familienpolitik (Lehrplan RLP 2024)",
+  "title": "Aufsichtspflicht, elterliche Sorge, Kinder- & Jugendrecht",
+  "subtitle": "§ 832 BGB & SGB VII, § 1626 ff. BGB, SGB VIII, KiTaG RLP und familienpolitische Entwicklungen",
   "year": "2./3. Jahr",
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 30,
   "hoursRef": "120 Std. (Teil 3/3)",
   "pdfPages": "S. 18",
   "crossCuttingTags": [
     "Prävention",
     "Partizipation"
   ],
-  "summary": "Diese Einheit vermittelt angehenden Erzieherinnen und Erziehern fundierte rechtliche und gesellschaftspolitische Grundlagen für ein professionelles, rechtssicheres Handeln. Im Fokus stehen die Anwendung von § 832 BGB, die elterliche Sorge, das SGB VIII sowie das rheinland-pfälzische KiTaG im Kontext aktueller familienpolitischer Entwicklungen.",
+  "summary": "Rechtssicheres Handeln im pädagogischen Alltag schützt Kinder und gibt Fachkräften Orientierung. Diese Einheit erklärt präzise, wie Aufsichtspflicht, Haftung nach § 832 BGB, gesetzliche Unfallversicherung (SGB VII) und Gefährdungsbeurteilungen zusammenhängen, wie sich die elterliche Sorge (§ 1626 ff. BGB) von den Befugnissen der Einrichtung abgrenzt und welche verbindlichen Standards das SGB VIII, das rheinland-pfälzische KiTaG sowie aktuelle familienpolitische Reformen setzen.",
   "learningGoals": [
-    "Ich kann die rechtlichen Grundlagen und Haftungsfragen der Aufsichtspflicht nach § 832 BGB im sozialpädagogischen Alltag analysieren und rechtssicher anwenden.",
-    "Ich kann den differenzierten Aufsichtsmaßstab in der Praxis so gestalten, dass der gesetzliche Schutzauftrag mit der notwendigen Selbstständigkeitsförderung und Risikokompetenz der Kinder vereinbar ist.",
-    "Ich kann die elterliche Sorge nach § 1626 ff. BGB von den Aufgaben und Befugnissen pädagogischer Fachkräfte in Tageseinrichtungen abgrenzen und eine partnerschaftliche Kooperation gestalten.",
-    "Ich kann die Kernstrukturen des SGB VIII (Kinder- und Jugendhilfe) sowie die spezifischen Regelungen des rheinland-pfälzischen KiTaG (Gute-Kita, Sozialraumbudget, Bedarfsplanung) im Arbeitsfeld einordnen.",
-    "Ich kann aktuelle gesellschafts- und familienpolitische Entwicklungen (z. B. Vereinbarkeit von Familie und Beruf, Ganztagsausbau) kritisch reflektieren und Konsequenzen für das professionelle Handeln ableiten."
+    "Ich kann den zivilrechtlichen Anwendungsbereich von § 832 BGB (Schäden Dritter) von Eigenschäden betreuter Kinder und dem Haftungsprivileg der gesetzlichen Unfallversicherung (SGB VII) sauber unterscheiden.",
+    "Ich kann den situativen Aufsichtsmaßstab anhand einer Gefährdungsbeurteilung fachlich begründen und Schutzauftrag sowie Selbstständigkeitsförderung ausbalancieren.",
+    "Ich kann Inhalt und Grenzen der elterlichen Sorge (§ 1626, § 1631, § 1687 BGB) erklären und rechtssicher auf Alltagssituationen wie Abholberechtigungen oder Entscheidungen getrennt lebender Eltern anwenden.",
+    "Ich kann zentrale Regelungen des SGB VIII (§§ 8a, 22, 24, 45) und des rheinland-pfälzischen KiTaG (Rechtsanspruch, Beitragsfreiheit, Sozialraumbudget, Kita-Beirat) im Berufsalltag einordnen.",
+    "Ich kann aktuelle familien- und sozialpolitische Entwicklungen wie den stufenweisen Rechtsanspruch auf Ganztagsförderung im Grundschulalter (§ 24 Abs. 4 SGB VIII) analysieren und Konsequenzen für die Praxis ableiten."
   ],
   "sections": [
     {
-      "body": "Die Aufsichtspflicht (§ 832 BGB) gehört zu den zentralen rechtlichen Fundamenten im Berufsalltag von Erzieherinnen und Erziehern. Sie ist keine starre Vollzeitüberwachung, sondern ein dynamischer, alters- und entwicklungsspezifischer Maßstab. Pädagogische Fachkräfte müssen Gefahren erkennen, vorhersehen und rechtzeitig intervenieren, ohne jedoch die notwendige Selbstständigkeits- und Risikoförderung der Kinder zu ersticken. Der Grundsatz lautet: So viel Freiheit wie möglich, so viel Schutz wie nötig. Bei einem Schadensfall entlastet der sogenannte Entlastungsbeweis (§ 832 Abs. 1 S. 2 BGB) die Fachkraft, wenn nachgewiesen wird, dass die Aufsicht sorgfältig und angemessen ausgeübt wurde.",
+      "heading": "Aufsichtspflicht, § 832 BGB und gesetzliche Unfallversicherung (SGB VII)",
+      "keyTakeaway": "Aufsichtspflicht ist kein starres Überwachungsgebot, sondern planvolles, situativ angepasstes Handeln; haftungsrechtlich sind Schäden Dritter (§ 832 BGB) klar von Eigenverletzungen betreuter Kinder (SGB VII) zu unterscheiden.",
+      "body": "Die Aufsichtspflicht liegt ursprünglich bei den Personensorgeberechtigten (§ 1631 Abs. 1 BGB). Durch den Betreuungsvertrag übernimmt der Einrichtungsträger die Aufsichtsführung für die vereinbarte Betreuungszeit und überträgt die praktische Ausübung über den Arbeitsvertrag an die pädagogischen Fachkräfte. Für Schäden, die ein beaufsichtigtes Kind einem Dritten widerrechtlich zufügt (z. B. Beschädigung eines fremden Fahrzeugs oder Verletzung einer unbeteiligten Person), regelt § 832 BGB eine vermutete zivilrechtliche Haftung des Aufsichtspflichtigen: Eine Ersatzpflicht entfällt jedoch, wenn der Entlastungsbeweis (§ 832 Abs. 1 S. 2 BGB) gelingt – also nachgewiesen wird, dass der Aufsichtspflicht genügt wurde oder der Schaden auch bei gehöriger Aufsicht entstanden wäre. Verletzt sich hingegen das betreute Kind selbst (Eigenschaden), greift in Kindertageseinrichtungen die gesetzliche Unfallversicherung nach § 2 Abs. 1 Nr. 8 Buchst. a SGB VII (in Rheinland-Pfalz die Unfallkasse RLP). Für Personenschäden gilt das Haftungsprivileg (§§ 104–106 SGB VII): Die Unfallkasse übernimmt Heilbehandlung und Leistungen; eine persönliche zivilrechtliche Haftung der Fachkraft gegenüber dem Kind scheidet bei allen nicht vorsätzlichen Personenschäden (also auch bei grober Fahrlässigkeit) aus – erst der Regress der Unfallkasse (§ 110 SGB VII) greift bei Vorsatz oder grober Fahrlässigkeit (strafrechtliche und arbeitsrechtliche Verantwortung bleiben gesondert zu prüfen). Im Alltag sichert die Fachkraft ihre Entscheidung nach dem rheinland-pfälzischen Leitfaden von Bildungsministerium, LSJV und Unfallkasse RLP über zwei Ebenen ab: die grundsätzliche Gefährdungsbeurteilung (durch Träger und Leitung im Vorfeld) und die situative Gefährdungsbeurteilung im konkreten Moment. Maßgeblich sind Alter (bei Kleinkindern bis vier Jahre besteht grundsätzlich eine besondere Aufsichtsbedürftigkeit), Entwicklungsstand, Eigenart des Kindes, Art und Gefährlichkeit der Tätigkeit, Gruppendynamik sowie räumliche Gegebenheiten.",
       "bulletPoints": [
-        "Rechtliche Grundlage: § 832 BGB (Haftung des Aufsichtspflichtigen).",
-        "Dynamischer Aufsichtsmaßstab: Orientierung an Alter, Reife, Charakter und Gruppendynamik.",
-        "Spannungsfeld: Schutzauftrag vs. Selbstständigkeitsförderung und Risikokompetenz.",
-        "Entlastungsbeweis: Nachweis ordnungsgemäßer Aufsichtsführung im Schadensfall."
+        "§ 832 BGB betrifft Drittschäden: Vermutete Haftung des Aufsichtspflichtigen mit Möglichkeit des Entlastungsbeweises (Exkulpation).",
+        "Eigenschäden in der Kita: Schutz durch die gesetzliche Unfallversicherung (§ 2 Abs. 1 Nr. 8 Buchst. a SGB VII) und Haftungsprivileg (§§ 104–106 SGB VII) bei nicht vorsätzlichen Personenschäden.",
+        "Zwei Ebenen der Praxis: Grundsätzliche Gefährdungsbeurteilung (Träger/Leitung) plus situative Gefährdungsbeurteilung (Fachkraft vor Ort).",
+        "Vier Handlungsschritte guter Aufsicht: Informieren/Beobachten, Anleiten/Vereinbaren, situationsangemessen Kontrollieren und rechtzeitig Eingreifen."
       ],
-      "heading": "Aufsichtspflicht und Haftung im Alltag (§ 832 BGB)",
-      "keyTakeaway": "Aufsichtspflicht ist kein starres Überwachungsverbot, sondern eine situationsangemessene, entwicklungsfördernde Schutzmaßnahme.",
-      "praxisTip": "Erstellen Sie für Ihr Team ein transparentes, altersdifferenziertes Stufenmodell für Freiräume (z.B. Aufenthalt im Nebenraum, Klettern auf dem Außengelände) und dokumentieren Sie dieses im einrichtungsspezifischen Schutzkonzept."
+      "praxisTip": "Halten Sie gemeinsam im Team schriftlich fest, welche Freiräume (z. B. Waschraum, Flur, Kletterbereich) ab welchem Entwicklungsstand und unter welchen Sicherheitsabsprachen gelten – und dokumentieren Sie situative Anpassungen bei Personalengpässen sofort gegenüber der Leitung."
     },
     {
-      "body": "Die elterliche Sorge (§ 1626 ff. BGB) umfasst die Personensorge und die Vermögenssorge und verbleibt grundsätzlich bei den Sorgeberechtigten. Mit der Übergabe des Kindes in eine Tageseinrichtung delegieren die Eltern einen Teil der Alltagsbetreuung an die Fachkräfte, ohne dass das elterliche Wächteramt erlischt. Ergänzend dazu bildet das Achte Buch Sozialgesetzbuch (SGB VIII) das bundesgesetzliche Fundament der Kinder- und Jugendhilfe. Es garantiert jedem jungen Menschen ein Recht auf Förderung seiner Entwicklung (u.a. Rechtsanspruch auf einen KiTa-Platz) und regelt in § 8a SGB VIII den Schutzauftrag bei Kindeswohlgefährdung als verbindliche Handlungsanweisung für Fachkräfte.",
+      "heading": "Elterliche Sorge (§ 1626 ff. BGB) und Grenzen der Kita-Befugnis",
+      "keyTakeaway": "Das Sorgerecht verbleibt auch während der Betreuungszeit bei den Sorgeberechtigten; Fachkräfte handeln auf Grundlage des Betreuungsvertrags und konkreter Vollmachten.",
+      "body": "Nach Art. 6 Abs. 2 GG sind Pflege und Erziehung das natürliche Recht und die vorrangige Pflicht der Eltern; das Wächteramt liegt bei der staatlichen Gemeinschaft. Das Bürgerliche Gesetzbuch konkretisiert dies in § 1626 BGB: Die elterliche Sorge umfasst die Personensorge (Pflege, Erziehung, Beaufsichtigung, Aufenthaltsbestimmung nach § 1631 Abs. 1 BGB) und die Vermögenssorge sowie die gesetzliche Vertretung des Kindes. Zugleich verpflichtet § 1626 Abs. 2 BGB die Eltern, die wachsende Fähigkeit und das wachsende Bedürfnis des Kindes zu selbstständigem, verantwortungsbewusstem Handeln zu berücksichtigen. Besonders zentral für jedes pädagogische Berufsfeld ist § 1631 Abs. 2 BGB: Kinder haben ein gesetzliches Recht auf gewaltfreie Erziehung; körperliche Bestrafungen, seelische Verletzungen und andere entwürdigende Maßnahmen sind unzulässig. Durch die Aufnahme in eine Kindertagesstätte erhalten Fachkräfte kein eigenes Sorgerecht, sondern eine abgeleitete Betreuungs- und Aufsichtsfunktion für den Alltag. Besonderes Fingerspitzengefühl erfordert § 1687 BGB bei getrennt lebenden Eltern mit gemeinsamer Sorge: Angelegenheiten des täglichen Lebens (z. B. wettergerechte Kleidung, Alltagsorganisation) darf der betreuende Elternteil allein entscheiden; für Angelegenheiten von erheblicher Bedeutung (z. B. Kita-An- oder -Abmeldung, geplante medizinische Eingriffe, religiöse Erziehung) ist gegenseitiges Einvernehmen nötig. Auch Abholberechtigungen für Dritte, Ausflüge außerhalb der Einrichtung oder die Gabe von Medikamenten erfordern klare, nachweisbare schriftliche Vereinbarungen mit den Sorgeberechtigten.",
       "bulletPoints": [
-        "Elterliche Sorge (§ 1626 BGB): Personensorge, Erziehungsrecht und Verantwortung der Eltern.",
-        "SGB VIII: Bundesgesetzlicher Rahmen für Kindertageseinrichtungen, Hilfen zur Erziehung und Jugendarbeit.",
-        "Schutzauftrag (§ 8a SGB VIII): Klarer Handlungsleitfaden bei Verdacht auf Kindeswohlgefährdung.",
-        "Erziehungspartnerschaft: Konstruktive Kooperation zwischen Elternhaus und Institution."
+        "§ 1626 BGB: Elterliche Sorge besteht aus Personensorge und Vermögenssorge und verbleibt grundsätzlich bei den Eltern.",
+        "§ 1631 Abs. 2 BGB: Verbindliches Recht jedes Kindes auf gewaltfreie Erziehung ohne körperliche oder seelische Verletzungen.",
+        "§ 1687 BGB (gemeinsame Sorge bei Trennung): Unterscheidung zwischen Alltagsentscheidungen und Angelegenheiten von erheblicher Bedeutung.",
+        "Kita-Praxis: Herausgabe von Kindern nur an Sorgeberechtigte oder schriftlich legitimierte Abholpersonen; Medikamentengabe nur mit eindeutiger ärztlicher und elterlicher Vereinbarung."
       ],
-      "heading": "Elterliche Sorge (§ 1626 ff. BGB) & SGB VIII",
-      "keyTakeaway": "Pädagogisches Handeln bewegt sich im Dreieck aus elterlichem Sorgerecht, staatlichem Wächteramt und dem Förderauftrag des SGB VIII.",
-      "praxisTip": "Führen Sie bei Aufnahme des Kindes strukturierte Anmeldegespräche, in denen Erwartungen, Pflichten und Rechte (Elternsorge vs. Einrichtungsauftrag) transparent vereinbart werden."
+      "praxisTip": "Prüfen Sie bei jeder Neuaufnahme oder Trennungssituation gemeinsam mit der Leitung, wer sorgeberechtigt ist und welche Personen schriftlich als abholberechtigt hinterlegt sind – verlassen Sie sich niemals auf mündliche Zurufe Dritter."
     },
     {
-      "body": "Das rheinland-pfälzische Kindertagesstättengesetz (KiTaG RLP) bildet die landesrechtliche Basis für den Betrieb, die Finanzierung und die pädagogische Ausrichtung von Kindertageseinrichtungen. Es stärkt unter anderem den Rechtsanspruch auf Ganztagsbetreuung inklusive warmer Mittagsverpflegung, verankert Qualitätsentwicklungsstandards (Gute-Kita-Politik) und etabliert das Sozialraumbudget zur bedarfsgerechten Ressourcensteuerung. Flankiert wird dies durch gesellschafts- und familienpolitische Megatrends wie den Ausbau der Vereinbarkeit von Familie und Beruf, Inklusion, den Rechtsanspruch auf Ganztagsförderung in der Grundschule sowie den demografischen Wandel, welche die Anforderungen an die Fachschule kontinuierlich verändern.",
+      "heading": "Kinder- und Jugendhilferecht (SGB VIII) und KiTaG Rheinland-Pfalz",
+      "keyTakeaway": "Das SGB VIII garantiert Rechtsansprüche, Beteiligung und Kinderschutz bundesweit; das rheinland-pfälzische KiTaG füllt diesen Rahmen landesspezifisch durch Betreuungszeit, Beitragsfreiheit, Beiräte und das Sozialraumbudget aus.",
+      "body": "Das Achte Buch Sozialgesetzbuch (SGB VIII) ist das zentrale Bundesgesetz der Kinder- und Jugendhilfe. Neben dem allgemeinen Förderauftrag (§ 1, § 22) verankert es das Recht von Kindern und Jugendlichen auf Beteiligung an allen sie betreffenden Entscheidungen (§ 8 SGB VIII) sowie den verbindlichen Schutzauftrag bei Kindeswohlgefährdung (§ 8a SGB VIII): Werden Fachkräften in Einrichtungen gewichtige Anhaltspunkte für eine Gefährdung bekannt, müssen sie das Gefährdungsrisiko im Zusammenwirken mehrerer Fachkräfte unter Einbeziehung einer insoweit erfahrenen Fachkraft einschätzen, Eltern und Kind (soweit der wirksame Schutz nicht in Frage gestellt wird) einbeziehen, auf geeignete Hilfen hinwirken und das Jugendamt informieren, wenn die Gefährdung sonst nicht abgewendet werden kann. § 45 SGB VIII knüpft die Betriebserlaubnis von Einrichtungen zudem an wirksame Schutzkonzepte sowie Beteiligungs- und Beschwerdeverfahren. § 24 SGB VIII regelt die bundesweiten Rechtsansprüche auf frühkindliche Förderung (ab dem vollendeten ersten Lebensjahr in Kita oder Kindertagespflege, ab dem vollendeten dritten Lebensjahr bis zum Schuleintritt in einer Tageseinrichtung). In Rheinland-Pfalz setzt das 2019 beschlossene und seit Juli 2021 vollständig in Kraft getretene Kindertagesstättengesetz (KiTaG RLP) eigene Schwerpunkte: Es garantiert Kindern bereits ab dem vollendeten ersten Lebensjahr bis zum Schuleintritt einen Rechtsanspruch auf Förderung in einer Tageseinrichtung mit regelmäßig durchgängig sieben Stunden täglicher Betreuungszeit (Mo–Fr) sowie vorgesehenem Mittagessen bei Betreuung über die Mittagszeit (§ 14 Abs. 1 KiTaG RLP), sichert die Beitragsfreiheit ab dem vollendeten zweiten Lebensjahr (§ 26 KiTaG RLP), stärkt die Mitwirkung über Kita-Beirat und Elternausschuss (§§ 7, 9, 10 KiTaG RLP) und stellt über das Sozialraumbudget (§ 25 Abs. 5 KiTaG RLP) zusätzliche Personalmittel für Einrichtungen mit besonderen sozialen Bedarfen bereit.",
       "bulletPoints": [
-        "KiTaG RLP: Landesgesetzliche Vorgaben zu Bedarfsplanung, Ganztag und Qualitätsentwicklung.",
-        "Sozialraumbudget: Bedarfs- und sozialraumorientierte Ressourcenzuweisung im Land.",
-        "Familienpolitische Entwicklungen: Ganztagsausbau, Vereinbarkeit von Beruf und Familie, Inklusion.",
-        "Professionalisierung: Fachkräfte als Reflexionsprofis gesellschaftlicher Wandlungsprozesse."
+        "§ 8a SGB VIII: Stufenweises Verfahren bei gewichtigen Anhaltspunkten für eine Kindeswohlgefährdung (kollegiale Einschätzung, insoweit erfahrene Fachkraft, Elterneinbezug, ggf. Meldung an das Jugendamt).",
+        "§ 24 & § 45 SGB VIII: Rechtsansprüche auf Förderung sowie Pflicht zu Schutzkonzept, Beteiligung und Beschwerdeverfahren.",
+        "KiTaG RLP (§ 14, § 26): Rechtsanspruch auf Förderung mit regelmäßig durchgängig siebenstündiger Betreuung ab dem vollendeten ersten Lebensjahr (inkl. Mittagessen über Mittag) sowie Beitragsfreiheit ab dem vollendeten zweiten Lebensjahr.",
+        "KiTaG RLP (§ 7, § 25 Abs. 5): Kita-Beirat zur gemeinsamen Weiterentwicklung (inkl. Perspektive der Kinder) und Sozialraumbudget für besondere Bedarfe."
       ],
-      "heading": "KiTaG RLP & Gesellschafts-/Familienpolitik",
-      "keyTakeaway": "Das KiTaG RLP und aktuelle familienpolitische Reformen übersetzen gesellschaftliche Bedarfe in verbindliche Qualitäts- und Finanzierungsstandards.",
-      "praxisTip": "Analysieren Sie im Team den Sozialraum Ihrer Kita anhand des KiTaG-Budgets und entwickeln Sie bedarfsgerechte Angebote in Kooperation mit lokalen Akteuren."
+      "praxisTip": "Machen Sie sich schon in den ersten Wochen in einer neuen Einrichtung mit dem internen Schutzkonzept und den Kontaktdaten der zuständigen ‚insoweit erfahrenen Fachkraft‘ nach § 8a SGB VIII vertraut."
+    },
+    {
+      "heading": "Familien- und sozialpolitische Entwicklungen im Berufsfeld",
+      "keyTakeaway": "Der Ausbau der Ganztagsbetreuung im Grundschulalter, soziale Ungleichheit und Fachkräftemangel verändern den Berufsalltag – Erzieherinnen und Erzieher gestalten diesen Wandel vernetzt und anwaltschaftlich mit.",
+      "body": "Kinder- und Jugendhilfe reagiert ständig auf gesellschaftlichen Wandel. Zu den prägenden familienpolitischen Reformen zählt der durch das Ganztagsförderungsgesetz (GaFöG) in § 24 Abs. 4 SGB VIII verankerte Rechtsanspruch auf ganztägige Förderung für Grundschulkinder: Ab dem Schuljahr 2026/2027 gilt er zunächst für Kinder der ersten Klassenstufe und wächst bis zum Schuljahr 2029/2030 schrittweise auf die Klassenstufen eins bis vier auf. Ziel ist es, die Vereinbarkeit von Familie und Beruf zu verbessern und zugleich Bildungschancen unabhängiger von der familiären Herkunft zu machen. Gleichzeitig stehen sozialpädagogische Einrichtungen vor tiefgreifenden Herausforderungen: vielfältige Familienformen (Alleinerziehende, Patchwork-, Regenbogen- und Mehrgenerationenfamilien), Kinderarmut, steigende sprachliche und kulturelle Heterogenität sowie anhaltender Fachkräftemangel. Für die professionelle Praxis bedeutet das zweierlei: Erstens müssen Teams sozialräumlich und multiprofessionell kooperieren (z. B. zwischen Kita, Grundschule, Hort, Familienzentren und Jugendamt), um Übergänge und Unterstützungsangebote passgenau zu verzahnen. Zweitens erfordert der Beruf eine klare fachpolitische Reflexion – etwa wenn knappe personelle Ressourcen die pädagogische Qualität gefährden und Teams über Gefährdungsanzeigen, Trägerdialoge oder Kita-Beiräte für gute Rahmenbedingungen eintreten.",
+      "bulletPoints": [
+        "§ 24 Abs. 4 SGB VIII (GaFöG): Stufenweiser Rechtsanspruch auf Ganztagsbetreuung in der Grundschule ab dem Schuljahr 2026/2027 (Klasse 1) bis 2029/2030 (Klassen 1–4).",
+        "Vereinbarkeit und Chancengerechtigkeit: Verlässliche Betreuung entlastet Familien und eröffnet Kindern frühe Bildungs- und Teilhabechancen.",
+        "Sozialraumorientierung: Gezielte Nutzung zusätzlicher Mittel (z. B. Sozialraumbudget RLP) und Vernetzung mit lokalen Hilfesystemen.",
+        "Professionelle Konsequenz: Qualitätsentwicklung aktiv einfordern, Vielfalt von Familien anerkennen und Übergänge kooperativ gestalten."
+      ],
+      "praxisTip": "Analysieren Sie in Ihrer Region, welche Kooperationspartner (Grundschule, Familienzentrum, Erziehungsberatungsstelle, Sportverein) im Umfeld Ihrer Einrichtung aktiv sind und wie Kinder und Familien davon profitieren können."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Aufsicht & Schutz",
-      "id": "vb-feat-grid",
+      "id": "u09-vb-kriterien",
+      "kind": "feature_grid",
+      "title": "Kriterien der situativen Gefährdungsbeurteilung",
+      "subtitle": "Woran Fachkräfte den angemessenen Aufsichtsmaßstab in jeder Situation konkret festmachen (nach UK RLP / BM / LSJV)",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Kriterium 1",
-          "detail": "Der Aufsichtsmaßstab richtet sich strikt nach dem Entwicklungsstand, der Reife und dem individuellen Verhalten des Minderjährigen. Ältere Kinder benötigen weniger engmaschige Begleitung als Kleinkinder.",
-          "example": "Ein 3-jähriges Kind benötigt beim Treppensteigen Handbegleitung; ein 5-jähriges Kind bewältigt dies eigenständig.",
-          "id": "item-1",
+          "id": "gbu-1",
           "label": "Alter & Entwicklungsstand",
-          "metric": "Reifegrad",
-          "summary": "Der individuelle Entwicklungsstand bestimmt den Grad der notwendigen Aufsicht."
+          "badge": "Kindbezogen",
+          "metric": "U4 besonders schutzbedürftig",
+          "summary": "Jüngere Kinder können Gefahren noch kaum voraussehen und brauchen engmaschigere Begleitung.",
+          "detail": "Die Rechtsprechung geht bei Kleinkindern bis zu vier Jahren grundsätzlich von einer besonderen Aufsichtsbedürftigkeit aus. Entscheidend ist aber nicht allein das Lebensalter, sondern die individuelle Reife, Motorik und Verlässlichkeit des jeweiligen Kindes.",
+          "example": "Ein sicherer Fünfjähriger darf nach Absprache allein in den bekannten Waschraum gehen; ein zweijähriges Kind wird begleitet."
         },
         {
-          "badge": "Kriterium 2",
-          "detail": "Je gefährlicher eine Aktivität oder ein Ort ist, desto höher sind die Anforderungen an die Intensität und Dichte der Aufsicht durch die Fachkraft.",
-          "example": "Beim Umgang mit Werkzeug oder am offenen Gewässer gilt eine lückenlose Präsenzpflicht.",
-          "id": "item-2",
-          "label": "Gefährlichkeit der Situation",
+          "id": "gbu-2",
+          "label": "Art & Gefährlichkeit der Tätigkeit",
+          "badge": "Aktivitätsbezogen",
           "metric": "Risikograd",
-          "summary": "Erhöhte Gefahren erfordern eine engmaschige und unmittelbare Begleitung."
+          "summary": "Je höher das Verletzungspotenzial einer Tätigkeit, desto intensiver sind Anleitung und Präsenz.",
+          "detail": "Gefahrgeneigte Tätigkeiten sind nicht pauschal verboten – Kinder sollen den sicheren Umgang mit Scheren, Werkzeug oder Küchengeräten erlernen, benötigen dabei aber klare Einführung und unmittelbare Präsenz.",
+          "example": "Beim Schnitzen oder Schneiden mit scharfen Messern im Kochprojekt bleibt die Fachkraft in direkter Reichweite."
         },
         {
-          "badge": "Kriterium 3",
-          "detail": "Die Zusammensetzung und Dynamik einer Gruppe beeinflusst das Gefährdungspotenzial erheblich und erfordert angepasste Personalschlüssel und Raumstrukturen.",
-          "example": "Eine neu zusammengestellte Gruppe im Freispiel erfordert eine aktivere Raumpräsenz als eine eingespielte Gruppe.",
-          "id": "item-3",
-          "label": "Gruppendynamik & Größe",
-          "metric": "Gruppenkontext",
-          "summary": "Die Gruppensituation prägt die erforderliche Dichte der Aufsichtsmaßnahmen."
+          "id": "gbu-3",
+          "label": "Gruppendynamik & Stimmung",
+          "badge": "Gruppenbezogen",
+          "metric": "Situationswechsel",
+          "summary": "Konflikte, Übermüdung oder Aufregung können das Gefährdungspotenzial sprunghaft erhöhen.",
+          "detail": "Auch eine sonst ruhige Gruppe braucht dichtere Begleitung, wenn neue Kinder eingewöhnt werden, Streitigkeiten eskalieren oder besondere Ereignisse für große Unruhe sorgen.",
+          "example": "Nach einem aufregenden Ausflug verlagert die Fachkraft ihren Standort näher an den Kletterbereich und senkt die Gruppengröße an der Rutsche."
         },
         {
-          "badge": "Kriterium 4",
-          "detail": "Elterliche Hinweise, Absprachen und Vereinbarungen im Rahmen der Erziehungspartnerschaft müssen bei der Aufsichtsführung berücksichtigt werden.",
-          "example": "Die Information der Eltern über bekannte gesundheitliche Risiken oder Allergien steuert die Aufsichtspraxis.",
-          "id": "item-4",
-          "label": "Elterliche Absprachen",
-          "metric": "Kooperation",
-          "summary": "Wichtige Absprachen mit Sorgeberechtigten fließen in die Gefährdungsbeurteilung ein."
+          "id": "gbu-4",
+          "label": "Räumliche & örtliche Lage",
+          "badge": "Umfeldbezogen",
+          "metric": "Sicht & Sicherung",
+          "summary": "Ein eingefriedeter Gruppenraum erfordert eine andere Aufsicht als ein Ausflug im Straßenverkehr.",
+          "detail": "Unübersichtliche Winkel, Wasserflächen, ungesicherte Ausgänge oder offener Straßenverkehr erhöhen die Aufsichtsanforderungen erheblich und verlangen vorab geprüfte Sicherheitsabsprachen.",
+          "example": "Vor dem Öffnen des Außengeländes prüft eine Fachkraft den Zaun und mögliche Gefahrenquellen wie Scherben oder defekte Spielgeräte."
+        },
+        {
+          "id": "gbu-5",
+          "label": "Personelle Rahmenbedingungen",
+          "badge": "Teambezogen",
+          "metric": "Zuständigkeit",
+          "summary": "Aufsicht funktioniert nur mit eindeutiger Zuständigkeit und realistischer Belastbarkeit.",
+          "detail": "Jede Fachkraft muss wissen, für welchen Bereich sie konkret zuständig ist. Praktikantinnen, Praktikanten oder neue Kräfte werden entsprechend ihrer Erfahrung angeleitet; bei akutem Personalmangel ist die Leitung einzuschalten.",
+          "example": "Vor dem Gang in den Garten klärt das Team ausdrücklich, wer den Kletterbereich und wer den Eingangsbereich im Blick behält."
         }
-      ],
-      "kind": "feature_grid",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Kriterien des differenzierten Aufsichtsmaßstabs nach § 832 BGB",
-      "title": "Feature Grid: Kriterien der Aufsichtspflicht"
+      ]
     },
     {
+      "id": "u09-vb-schritte",
+      "kind": "process_flow",
+      "title": "Vier Schritte rechtssicherer Aufsichtsführung",
+      "subtitle": "Systematischer Kreislauf, der Kinder schützt, Risikokompetenz fördert und im Ernstfall nachvollziehbar dokumentierbar ist",
       "centerLabel": "",
-      "id": "vb-proc-flow",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": true,
       "items": [
         {
-          "badge": "Schritt 1",
-          "detail": "Die pädagogische Fachkraft analysiert den Entwicklungsstand der Kinder sowie potenzielle Gefahrenquellen im Raum oder auf dem Außengelände.",
-          "example": "Prüfung des Klettergerüsts auf Mängel und Einschätzung der Kletterkompetenz der Kinder.",
-          "id": "proc-1",
-          "label": "Gefährdungsanalyse",
-          "metric": "Phase 1",
-          "summary": "Systematische Analyse von Risiken und Entwicklungsstand vor Aktivitätsbeginn."
+          "id": "auf-1",
+          "label": "1. Informieren & prüfen",
+          "badge": "Vorbereitung",
+          "metric": "Situative GBU",
+          "summary": "Räume, Materialien, Kinder und besondere Hinweise (z. B. Allergien) vorab einschätzen.",
+          "detail": "Zu Beginn einer Aktivität prüft die Fachkraft das Umfeld auf Gefahrenquellen und berücksichtigt Entwicklungsstand, Tagesform und Absprachen aus der grundsätzlichen Gefährdungsbeurteilung.",
+          "example": "Vor der Nutzung des Klettergerüsts prüft die Fachkraft, ob die Sprossen nach dem Regen rutschig sind."
         },
         {
-          "badge": "Schritt 2",
-          "detail": "Auf Basis der Analyse wird ein adäquater Rahmen aus Schutz und Freiraum festgelegt (Verhältnis von Begleitung und Selbstständigkeit).",
-          "example": "Festlegung, welche Kinder ohne direkte Handbegleitung klettern dürfen.",
-          "id": "proc-2",
-          "label": "Regelsetzung & Absprache",
-          "metric": "Phase 2",
-          "summary": "Transparente Vereinbarung von Regeln und Freiräumen mit den Kindern."
+          "id": "auf-2",
+          "label": "2. Anleiten & vereinbaren",
+          "badge": "Prävention",
+          "metric": "Klare Regeln",
+          "summary": "Verständliche, altersgerechte Regeln mit den Kindern besprechen und sicheres Verhalten einüben.",
+          "detail": "Kinder erwerben Risikokompetenz, wenn Gefahren benannt und verständliche Schutzregeln gemeinsam vereinbart werden, statt bloß pauschale Verbote auszusprechen.",
+          "example": "Vor dem Werkeln erklärt die Fachkraft den richtigen Griff an der Säge und übt die Regel ‚Immer eine Armlänge Abstand halten‘."
         },
         {
-          "badge": "Schritt 3",
-          "detail": "Die Fachkraft setzt die Aufsicht durch präsenzbasierte Begleitung um, beobachtet das Geschehen und greift bei Gefahren situationsgerecht ein.",
-          "example": "Standortwahl im Sichtfeld des Kletterbereichs mit sofortiger Interventionsbereitschaft.",
-          "id": "proc-3",
-          "label": "Situative Begleitung",
-          "metric": "Phase 3",
-          "summary": "Achtsame, präsenzorientierte Begleitung des pädagogischen Geschehens."
+          "id": "auf-3",
+          "label": "3. Begleiten & kontrollieren",
+          "badge": "Durchführung",
+          "metric": "Präsenz",
+          "summary": "Präsent bleiben und in angemessenen Abständen überprüfen, ob Absprachen eingehalten werden.",
+          "detail": "Aufsicht erfordert je nach Situation unmittelbare Nähe, Sicht- und Hörkontakt oder regelmäßige Kontrollgänge. So behalten Kinder Spielraum, während die Fachkraft handlungsfähig bleibt.",
+          "example": "Während ältere Kinder im Nebenraum bauen, schaut die Fachkraft in regelmäßigen kurzen Abständen hinein und bleibt ansprechbar."
         },
         {
-          "badge": "Schritt 4",
-          "detail": "Im Reflexionsgespräch mit Team und Kindern wird evaluiert, ob die Balance aus Schutz und Selbstständigkeit gelungen ist.",
-          "example": "Teambesprechung über gemachten Erfahrungen beim Freispiel im Außengelände.",
-          "id": "proc-4",
-          "label": "Evaluation & Reflexion",
-          "metric": "Phase 4",
-          "summary": "Regelmäßige Überprüfung und Anpassung der Aufsichts- und Förderpraxis."
+          "id": "auf-4",
+          "label": "4. Eingreifen & reflektieren",
+          "badge": "Sicherung",
+          "metric": "Anpassung",
+          "summary": "Bei konkreter Gefährdung sofort handeln und Erfahrungen anschließend im Team auswerten.",
+          "detail": "Wird eine Regel missachtet oder kippt die Situation, greift die Fachkraft ruhig und konsequent ein. Im Team wird später geprüft, ob Regeln oder die grundsätzliche Gefährdungsbeurteilung angepasst werden müssen.",
+          "example": "Als zwei Kinder auf dem Kletterturm zu schubsen beginnen, unterbricht die Fachkraft das Spiel, sichert die Kinder und klärt die Regel neu."
         }
-      ],
-      "kind": "process_flow",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Der Kreislauf rechtssicherer und fördernder Aufsichtspraxis",
-      "title": "Process Flow: Aufsicht als Kreislauf"
+      ]
     },
     {
+      "id": "u09-vb-spektrum",
+      "kind": "spectrum",
+      "title": "Spannungsfeld: Schutzauftrag und Selbstständigkeit",
+      "subtitle": "Wie der Grundsatz ‚So viel Freiheit wie möglich, so viel Schutz wie nötig‘ im Alltag ausbalanciert wird",
       "centerLabel": "",
-      "id": "vb-spectrum",
+      "leftPole": "Überbehütung / Verbote",
+      "rightPole": "Pflichtverletzung",
       "isCycle": false,
       "items": [
         {
-          "badge": "Extrem 1",
-          "detail": "Jede Aktivität wird untersagt, um jegliches Risiko und jede Haftung kategorisch auszuschließen. Dies schränkt die kindliche Entwicklung massiv ein.",
-          "example": "Kein Klettern, kein Rennen, kein Umgang mit echtem Werkzeug in der Einrichtung.",
-          "id": "spec-1",
-          "label": "Totalitäre Überwachung",
-          "metric": "Polarität A",
-          "summary": "Maximale Vorsicht durch vollständigen Entzug von Erfahrungsräumen."
+          "id": "bal-1",
+          "label": "Pauschale Verbote",
+          "badge": "Überbehütung",
+          "metric": "Extrempol links",
+          "summary": "Jedes Risiko wird aus Haftungsangst untersagt – Kinder können keine Risikokompetenz entwickeln.",
+          "detail": "Wer Klettern, Schneiden oder eigenständige Wege grundsätzlich verbietet, verfehlt den gesetzlichen Bildungsauftrag (§ 22 SGB VIII) und erhöht paradoxerweise langfristig das Unfallrisiko, weil Kinder Gefahren nicht einschätzen lernen.",
+          "example": "Alle Klettergeräte über 80 cm Höhe werden dauerhaft gesperrt, damit garantiert nichts passieren kann."
         },
         {
-          "badge": "Position 2",
-          "detail": "Übervorsichtiger Ansatz mit stark eingeschränkten Freiräumen und hohem Kontrolldruck durch das pädagogische Personal.",
-          "example": "Ständiges Ermahnen und Festhalten der Kinder bei leichten Bewegungsspielen.",
-          "id": "spec-2",
-          "label": "Sicherheitsfixierte Kontrolle",
-          "metric": "Annäherung",
-          "summary": "Überwiegender Fokus auf Risikovermeidung statt auf Kompetenzförderung."
+          "id": "bal-2",
+          "label": "Übermäßige Kontrolle",
+          "badge": "Einschränkend",
+          "metric": "Starke Lenkung",
+          "summary": "Ständiges Ermahnen und Eingreifen verhindert eigenständiges Ausprobieren.",
+          "detail": "Kinder dürfen Aktivitäten zwar nutzen, werden aber permanent festgehalten oder gestoppt, bevor sie eigene Körpergrenzen spüren können.",
+          "example": "Die Fachkraft hebt jeden Fünfjährigen persönlich auf jede Stufe, obwohl er sicher klettern könnte."
         },
         {
-          "badge": "Balance",
-          "detail": "Die professionelle Balance aus verlässlichem Schutz und gezielter Förderung von Risikokompetenz und Eigenverantwortung. Entspricht dem Gesetz und dem Bildungsauftrag.",
-          "example": "Begleitetes Klettern mit klaren Sicherheitsregeln und Zutrauen in die Fähigkeiten des Kindes.",
-          "id": "spec-3",
-          "label": "Professioneller Ausgleich",
-          "metric": "Kernbalance",
-          "summary": "Die goldene Mitte aus rechtssicherer Aufsicht und kindlicher Selbstständigkeit."
+          "id": "bal-3",
+          "label": "Situative Balance",
+          "badge": "Professionelles Optimum",
+          "metric": "Schutz + Autonomie",
+          "summary": "Alters- und situationsangemessene Begleitung verbindet Sicherheit mit Zutrauen.",
+          "detail": "Auf Grundlage der Gefährdungsbeurteilung schätzt die Fachkraft Risiken realistisch ein, sichert gefährliche Stellen ab und traut dem Kind schrittweise eigene Erfahrungen zu.",
+          "example": "Die Fachkraft steht beim ersten Kletterversuch aufmerksam in Reichweite, ermutigt das Kind zum eigenständigen Suchen von Tritten und greift nur bei echter Gefahr ein."
         },
         {
-          "badge": "Position 4",
-          "detail": "Laissez-faire-Haltung mit unzureichender Präsenz und Vernachlässigung der gesetzlichen Aufsichtspflicht nach § 832 BGB.",
-          "example": "Fachkräfte lassen Kinder im Außengelände über längere Zeit völlig unbeaufsichtigt.",
-          "id": "spec-4",
-          "label": "Laissez-faire Vernachlässigung",
-          "metric": "Annäherung",
-          "summary": "Unzureichende Begleitung und Missachtung des Schutzauftrags."
+          "id": "bal-4",
+          "label": "Unklare Zuständigkeit",
+          "badge": "Riskant",
+          "metric": "Lückenhafte Präsenz",
+          "summary": "Fachkräfte verlassen sich ungeprüft darauf, dass ‚schon jemand schaut‘.",
+          "detail": "Ohne klare Absprachen entstehen Aufsichtslücken – etwa wenn sich zwei Fachkräfte vertieft unterhalten, während Kleinkinder außer Sichtweite geraten.",
+          "example": "Auf dem Außengelände führen zwei Fachkräfte ein längeres Gespräch mit dem Rücken zum Kletter- und Torbereich."
         },
         {
-          "badge": "Extrem 2",
-          "detail": "Vollständige Abwesenheit von Aufsicht und Regeln, was zu akuten Gefahren und schwersten Verletzungen führen kann.",
-          "example": "Keine Anwesenheit von Personal im Spielbereich bei Kleinkindern.",
-          "id": "spec-5",
-          "label": "Vollständige Aufsichtslosigkeit",
-          "metric": "Polarität B",
-          "summary": "Völlige Vernachlässigung jeglicher Obhutspflichten."
+          "id": "bal-5",
+          "label": "Vernachlässigte Aufsicht",
+          "badge": "Rechtswidrig",
+          "metric": "Extrempol rechts",
+          "summary": "Erkennbare Gefahren bleiben unkontrolliert; Kinder sind sich selbst überlassen.",
+          "detail": "Das unbeaufsichtigte Zurücklassen kleiner Kinder oder das Ignorieren akuter Gefahrenquellen verletzt die Aufsichtspflicht schwer und kann arbeits-, zivil- und strafrechtliche Folgen auslösen.",
+          "example": "Eine Gruppe Dreijähriger spielt ohne anwesende Bezugsperson neben einem ungesicherten Ausgang zur Straße."
         }
-      ],
-      "kind": "spectrum",
-      "leftPole": "Strikte Überwachung / Verbot",
-      "rightPole": "Vollständige Aufsichtslosigkeit",
-      "subtitle": "Das Spannungsfeld zwischen Schutz und Eigenverantwortung",
-      "title": "Spectrum: Aufsichtsmaßstäbe im Kontinuum"
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "3-6 Jahre (Kita)",
-    "context": "In einer rheinland-pfälzischen Kindertagesstätte steht der Nachmittag auf dem Außengelände an. Es ist ein altersgemischter Bereich, in dem Kinder zwischen 3 und 6 Jahren spielen. Eine Fachkraft hat die Aufsicht über den Kletterbereich, wo einige Kinder balancieren und klettern wollen. Maximilian (4 Jahre) möchte auf das höchste Klettergerüst steigen, obwohl er motorisch manchmal noch unsicher ist. Die Eltern haben im Anmeldegespräch betont, dass sie eine sehr vorsichtige Erziehung wünschen und Sorge vor Verletzungen haben.",
-    "setting": "Kindertagesstätte (nach rheinland-pfälzischem KiTaG)",
+    "title": "Kletterturm und unerwartete Abholperson: Rechtssicherheit im Kita-Alltag",
+    "setting": "Kindertagesstätte in Rheinland-Pfalz (Außengelände und Abholsituation)",
+    "ageGroup": "Kindergartenkind (4 Jahre)",
+    "context": "Der vierjährige Maximilian spielt am Nachmittag auf dem eingefriedeten Außengelände. Die Eltern leben getrennt und üben die gemeinsame elterliche Sorge aus (§ 1687 BGB). Beim Bringen hat die Mutter morgens besorgt gesagt: ‚Lassen Sie Maximilian bitte gar nicht erst auf das Klettergerüst, er fällt mir zu schnell!‘ Am Nachmittag beobachten Sie, dass Maximilian die unteren drei Sprossen sicher und konzentriert erklimmt und nun vorsichtig zur oberen Plattform weitermöchte. Kurz darauf steht am Gartentor die neue Lebensgefährtin des Vaters und möchte Maximilian spontan mitnehmen – sie steht jedoch nicht auf der schriftlichen Abholliste.",
     "steps": [
       {
+        "situation": "Beobachtung vs. Auftrag am Klettergerüst: Sie beobachten, dass Maximilian sicher greift, aber oben noch wenig Erfahrung hat; zugleich liegt die besorgte Bitte der Mutter vor.",
+        "prompt": "Wie handeln Sie in dieser konkreten Situation auf Basis der situativen Gefährdungsbeurteilung und des Förderauftrags rechtlich und pädagogisch angemessen?",
         "options": [
           {
-            "feedback": "Die Fachkraft verbietet Maximilian das Klettern komplett und verweist auf den Wunsch der Eltern sowie die strenge Aufsichtspflicht nach § 832 BGB. Dies schützt zwar vor physischem Schaden, widerspricht aber dem gesetzlichen Auftrag zur Selbstständigkeitsförderung und dem Recht des Kindes auf Beteiligung.",
-            "label": "Komplettes Verbot aus Sorge vor Haftung und elterlichen Vorgaben",
-            "quality": "problematisch",
-            "theoryLink": "§ 832 BGB & KiTaG RLP (Förderung der Eigenverantwortung)"
+            "label": "Sie heben Maximilian sofort vom Klettergerüst herunter und verbieten ihm das Klettern dauerhaft, weil der Wunsch eines Elternteils für die Kita immer absolut bindend ist.",
+            "quality": "teilweise",
+            "feedback": "Sie vermeiden zwar kurzfristig einen Konflikt mit der Mutter, schränken aber Maximilians Bewegungs- und Selbstständigkeitsentwicklung dauerhaft ein. Elterliche Sorgen müssen ernst genommen und besprochen werden, dürfen aber nicht ohne fachlichen Dialog zur pauschalen Aushebelung des Bildungsauftrags führen.",
+            "theoryLink": "Spannungsfeld Elternwunsch vs. Förderauftrag (§ 22 SGB VIII) und Risikokompetenz"
           },
           {
-            "feedback": "Die Fachkraft wägt den Entwicklungsstand von Maximilian ab, sichert den Kletterbereich durch Präsenz ab (danger-spot-Prinzip) und begleitet ihn aktiv auf Augenhöhe, ohne ihn zu überfordern oder zu bevormunden. Dies entspricht dem differenzierten Aufsichtsmaßstab unter Berücksichtigung des Alters und der Reife.",
-            "label": "Begleitete Herausforderung unter Berücksichtigung von Reife und Entwicklungsstand",
+            "label": "Sie nehmen Ihre situative Gefährdungsbeurteilung vor, treten aufmerksam in Reichweite an das Klettergerüst, klären mit Maximilian sichere Griffe und ermöglichen ihm einen begleiteten Versuch – und vereinbaren mit der Mutter ein ruhiges Gespräch über Risikokompetenz und Aufsicht.",
             "quality": "optimal",
-            "theoryLink": "§ 832 BGB (adäquater Aufsichtsmaßstab) & SGB VIII (Förderung der Persönlichkeitsentwicklung)"
+            "feedback": "Fachlich und rechtlich stark! Sie trennen konkrete Beobachtung von pauschaler Angst, sichern die Situation durch unmittelbare Präsenz situativ ab und bringen Schutzauftrag und Entwicklungsförderung (§ 22 SGB VIII, UK RLP) in Einklang. Den Wunsch der Mutter greifen Sie transparent im Dialog auf, statt ihn zu ignorieren.",
+            "theoryLink": "Situative Gefährdungsbeurteilung (UK RLP / BM / LSJV), § 22 SGB VIII, § 1626 Abs. 2 BGB"
           },
           {
-            "feedback": "Die Fachkraft lässt Maximilian unbeaufsichtigt auf das Klettergerüst klettern, um seine Frustrationstoleranz zu testen. Dies vernachlässigt die haftungsrechtliche Aufsichtspflicht nach § 832 BGB grob und gefährdet das Kind körperlich.",
-            "label": "Vollständiges Gewährenlassen ohne Präsenz der Fachkraft",
+            "label": "Sie beobachten Maximilian aus größerer Entfernung weiter, ohne einzugreifen oder den Standort zu wechseln, weil Kinder allein durch Stürze lernen müssen und die Unfallkasse im Notfall zahlt.",
             "quality": "problematisch",
-            "theoryLink": "§ 832 BGB (Pflichtverletzung / Haftungsrisiko)"
+            "feedback": "Hochriskant und unprofessionell! Das Haftungsprivileg der gesetzlichen Unfallversicherung entbindet niemals von der fachlichen und rechtlichen Aufsichtspflicht. Bei einem Vierjährigen an einem für ihn neuen, hohen Gerät ist situative Nähe und Sicherung zwingend erforderlich.",
+            "theoryLink": "Aufsichtspflicht bei Vierjährigen (besondere Aufsichtsbedürftigkeit), situative GBU"
           }
-        ],
-        "prompt": "Wie reagiert die Fachkraft pädagogisch und rechtlich adäquat auf Maximilians Wunsch, auf das hohe Klettergerüst zu steigen?",
-        "situation": "Maximilian (4 Jahre) möchte auf das höchste Klettergerüst steigen. Die Eltern wünschen extreme Vorsicht, während der Lehrplan und das KiTaG die Entwicklung von Selbstständigkeit fordern."
+        ]
       },
       {
+        "situation": "Abholsituation am Gartentor: Die neue Partnerin des Vaters erklärt freundlich, der Vater stehe im Stau und habe sie telefonisch gebeten, Maximilian abzuholen. In der Akte ist sie nicht als abholberechtigte Person hinterlegt.",
+        "prompt": "Wie reagieren Sie rechtssicher im Rahmen der elterlichen Sorge (§ 1626, § 1687 BGB) und des Betreuungsvertrags?",
         "options": [
           {
-            "feedback": "Die Fachkraft sucht das Gespräch mit den Eltern, erklärt das pädagogische Konzept der Risikomöglichkeit im Rahmen der elterlichen Sorge (§ 1626 BGB) und zeigt auf, wie durch gezielte Begleitung Selbstständigkeit und Schutz in Einklang gebracht werden.",
-            "label": "Transparenter Dialog mit den Eltern über elterliche Sorge und pädagogisches Konzept",
-            "quality": "optimal",
-            "theoryLink": "§ 1626 BGB (elterliche Sorge) & Erziehungspartnerschaft nach KiTaG RLP"
-          },
-          {
-            "feedback": "Die Fachkraft ignoriert die Bedenken der Eltern und setzt das Klettern ohne Rücksprache durch, da die Einrichtung während der Betreuungszeit allein entscheidet. Dies verletzt das elterliche Wächteramt und die Kooperationspflicht.",
-            "label": "Einseitiges Durchsetzen ohne Einbezug der Eltern",
+            "label": "Sie übergeben Maximilian, nachdem Ihnen die Partnerin ihren Personalausweis gezeigt hat, weil der Vater schließlich das gemeinsame Sorgerecht hat und die Situation nachvollziehbar klingt.",
             "quality": "problematisch",
-            "theoryLink": "§ 1626 BGB / Elternrechte"
+            "feedback": "Rechtlich unzulässig! Ein Ausweis bestätigt nur die Identität, nicht aber eine wirksame Bevollmächtigung durch die Sorgeberechtigten. Ohne gesicherte Verifizierung einer Abholberechtigung darf ein Kind nicht an unbefugte Dritte herausgegeben werden.",
+            "theoryLink": "§ 1626 BGB (Personensorge/Aufenthaltsbestimmung), Sorgfaltspflicht aus dem Betreuungsvertrag"
           },
           {
-            "feedback": "Die Fachkraft verbietet generell allen Kindern das Klettern über 1,50 Meter Höhe, um jeglichen Konflikt mit Eltern oder Haftungsrisiken von vornherein auszuschließen.",
-            "label": "Generelles Verbot hoher Spielgeräte für alle Kinder zur Risikovermeidung",
+            "label": "Sie lehnen die Übergabe ab und rufen ohne weitere Rückfrage sofort das Jugendamt wegen Kindeswohlgefährdung an.",
             "quality": "teilweise",
-            "theoryLink": "Aufsichtspflicht vs. Bildungsauftrag (KiTaG)"
+            "feedback": "Das Nicht-Herausgeben ist zwar richtig, eine sofortige Meldung nach § 8a SGB VIII ist hier jedoch völlig unverhältnismäßig: Eine verspätete oder unangekündigte Abholung stellt für sich genommen noch keinen gewichtigen Anhaltspunkt für eine Kindeswohlgefährdung dar.",
+            "theoryLink": "§ 8a SGB VIII (Voraussetzung gewichtiger Anhaltspunkte) vs. vertragliche Abholregelung"
+          },
+          {
+            "label": "Sie erklären freundlich, aber verbindlich, dass Maximilian ohne dokumentierte Abholberechtigung nicht übergeben werden darf, kontaktieren die Sorgeberechtigten über die hinterlegten Rufnummern zur Klärung bzw. ziehen die Leitung hinzu und betreuen Maximilian bis zur gesicherten Abholung weiter.",
+            "quality": "optimal",
+            "feedback": "Vorbildlich und rechtssicher! Sie schützen das Kind konsequent, bleiben im Ton wertschätzend, prüfen über die offiziell hinterlegten Kontaktdaten die rechtmäßige Regelung (unter Berücksichtigung der konkreten Umgangs- und Betreuungsabsprachen nach § 1687 BGB) und dokumentieren das Vorgehen.",
+            "theoryLink": "§ 1626, § 1631, § 1687 BGB (Elterliche Sorge und Alltagsregelung bei Trennung), Abholvollmacht"
           }
-        ],
-        "prompt": "Wie wird die Kooperation mit den Sorgeberechtigten im Spannungsfeld von Schutzauftrag und Selbstständigkeit professionell gestaltet?",
-        "situation": "Die Eltern äußern im Nachgang Bedenken bezüglich der KletterAktivitäten und verlangen strengere Auflagen für ihren Sohn."
+        ]
       }
-    ],
-    "title": "Aufsichtspflicht und Selbstständigkeitsförderung im Kita-Alltag"
+    ]
   },
   "selfLearningTasks": [
-    "Analysieren Sie einen konkreten Vorfall aus Ihrer Praxis (oder ein Fallbeispiel) hinsichtlich der Erfüllung der Aufsichtspflicht nach § 832 BGB. Prüfen Sie, ob der Entlastungsbeweis erbracht werden könnte und welche Faktoren (Alter, Gruppendynamik, Gefahrenpotenzial) ausschlaggebend waren.",
-    "Vergleichen Sie die gesetzlichen Vorgaben des SGB VIII mit den spezifischen Regelungen des rheinland-pfälzischen KiTaG in Bezug auf den Rechtsanspruch und die Qualitätsentwicklung in Tageseinrichtungen. Erstellen Sie eine synoptische Übersicht.",
-    "Diskutieren Sie in einer Kleingruppe aktuelle familienpolitische Maßnahmen (z.B. Ganztagsanspruch ab 2026) und leiten Sie daraus drei konkrete Herausforderungen für die professionelle Haltung und Kooperation mit Eltern ab."
+    "Erstellen Sie anhand der Kriterien der Unfallkasse Rheinland-Pfalz eine kurze situative Gefährdungsbeurteilung für einen konkreten Bereich Ihrer Praxisstelle (z. B. Außengelände, Werkbank oder Ausflug in den Park).",
+    "Überprüfen Sie die Aufnahme- und Vollmachtsformulare Ihrer Einrichtung (Abholberechtigung, Ausflüge, Medikamentengabe, Notfallkontakte) und halten Sie fest, welche Rechtsgrundlagen aus BGB und SGB VIII dahinterstehen.",
+    "Skizzieren Sie in einem Flussdiagramm die verbindlichen Schritte nach § 8a SGB VIII, die in Ihrer Einrichtung gelten, wenn Ihnen gewichtige Anhaltspunkte für eine Kindeswohlgefährdung auffallen."
   ],
   "flashcards": [
     {
-      "definition": "Gesetzliche Regelung der Haftung für aufsichtsbedürftige Personen (z. B. Minderjährige). Wer die Aufsicht durch Vertrag übernimmt, haftet für den Schaden, es sei denn, er kann nachweisen, dass er seine Aufsichtspflicht nicht verletzt hat (Entlastungsbeweis).",
-      "example": "Eine Erzieherin haftet nicht automatisch für einen Unfall beim Klettern, wenn sie nachweisen kann, dass sie ihre Aufsichtspflicht (Alters- und Reifebezogenheit) erfüllt hat.",
-      "term": "§ 832 BGB (Haftung des Aufsichtspflichtigen)"
+      "term": "§ 832 BGB (Haftung des Aufsichtspflichtigen)",
+      "definition": "Zivilrechtliche Haftung für Schäden, die eine aufsichtsbedürftige Person (z. B. ein Kind) einem Dritten widerrechtlich zufügt. Die Ersatzpflicht entfällt durch den Entlastungsbeweis (Exkulpation), wenn ordnungsgemäß beaufsichtigt wurde oder der Schaden auch bei gehöriger Aufsicht entstanden wäre.",
+      "example": "Wirft ein Kind auf einem Kita-Ausflug einen Stein gegen ein parkendes Auto, haftet der Aufsichtspflichtige nicht nach § 832 BGB, wenn er nachweislich altersangemessen angeleitet und beaufsichtigt hat."
     },
     {
-      "definition": "Das Recht und die Pflicht der Eltern, für das minderjährige Kind zu sorgen (Personensorge und Vermögenssorge). Schließt das Wohl des Kindes und das Recht auf gewaltfreie Erziehung ein.",
-      "example": "Eltern entscheiden über den Kindergartenbesuch, medizinische Eingriffe und vertreten das Kind in rechtlichen Angelegenheiten.",
-      "term": "Elterliche Sorge (§ 1626 ff. BGB)"
+      "term": "Gesetzliche Unfallversicherung & Haftungsprivileg (SGB VII)",
+      "definition": "Kinder in Kitas sind über § 2 Abs. 1 Nr. 8 Buchst. a SGB VII gesetzlich unfallversichert. Bei Personenschäden des Kindes (Eigenschaden) greift das Haftungsprivileg (§§ 104–106 SGB VII): Die Unfallkasse leistet; eine persönliche zivilrechtliche Haftung der Fachkraft gegenüber dem Kind entfällt bei allen nicht vorsätzlichen Personenschäden. Ein Regress der Unfallkasse (§ 110 SGB VII) ist jedoch bei Vorsatz oder grober Fahrlässigkeit möglich.",
+      "example": "Stürzt ein Kind trotz sachgerechter Begleitung vom Klettergerüst und bricht sich den Arm, übernimmt die Unfallkasse RLP die Heilbehandlungskosten."
     },
     {
-      "definition": "Das Achte Buch Sozialgesetzbuch (SGB VIII) – Kinder- und Jugendhilfe. Regelt das Recht jedes jungen Menschen auf Förderung seiner Entwicklung und auf Erziehung zu einer eigenverantwortlichen und gemeinschaftsbezogenen Persönlichkeit.",
-      "example": "Anspruch auf einen Kita-Platz, Schutzauftrag bei Kindeswohlgefährdung (§ 8a SGB VIII) und Förderung der Jugendarbeit.",
-      "term": "SGB VIII (Kinder- und Jugendhilfe)"
+      "term": "Grundsätzliche vs. situative Gefährdungsbeurteilung (GBU)",
+      "definition": "Die grundsätzliche GBU planen Träger und Leitung im Vorfeld für Räume, Angebote und Dienstpläne; die situative GBU nimmt die Fachkraft im konkreten Alltag vor, wenn sich Gruppendynamik, Wetter oder Personal ändern.",
+      "example": "Obwohl der Garten laut grundsätzlicher GBU frei nutzbar ist, schränkt die Fachkraft nach einem Eisregen situativ den Kletterbereich ein."
     },
     {
-      "definition": "Das Kindertagesstättengesetz in Rheinland-Pfalz. Regelt den Rechtsanspruch auf Ganztagsbetreuung, Qualitätsstandards (Gute-Kita), Sozialraumbudgets, Verpflegung und Bedarfsplanung im Land.",
-      "example": "Das KiTaG RLP garantiert Kindern ab dem vollendeten ersten Lebensjahr einen Anspruch auf einen Betreuungsplatz und verankert die Qualitätsentwicklung in Kitas.",
-      "term": "KiTaG RLP (Kindertagesstättengesetz)"
+      "term": "Elterliche Sorge (§ 1626 & § 1631 BGB)",
+      "definition": "Pflicht und Recht der Eltern zur Personensorge (Pflege, Erziehung, Beaufsichtigung, Aufenthaltsbestimmung) und Vermögenssorge. § 1631 Abs. 2 BGB garantiert Kindern das Recht auf gewaltfreie Erziehung; § 1626 Abs. 2 BGB fordert Rücksicht auf wachsende Selbstständigkeit.",
+      "example": "Fachkräfte übernehmen durch den Betreuungsvertrag kein Sorgerecht, sondern üben eine zeitlich begrenzte, von den Eltern abgeleitete Betreuungs- und Aufsichtsfunktion aus."
     },
     {
-      "definition": "Pädagogischer Grundsatz, bei dem Aufsichtspflicht nicht als starres Überwachungsverbot, sondern als dynamischer Prozess verstanden wird, der dem Kind schrittweise mehr Eigenverantwortung und Risikompetenz überträgt.",
-      "example": "Ein 5-jähriges Kind darf allein den Waschraum aufsuchen; die Fachkraft prüft vorab die Gefahrenquellen (Prävention) statt permanent daneben zu stehen.",
-      "term": "Aufsichtsmaßstab vs. Selbstständigkeitsförderung"
+      "term": "§ 1687 BGB (Gemeinsame Sorge bei getrennt lebenden Eltern)",
+      "definition": "Bei getrennt lebenden Eltern mit gemeinsamer Sorge entscheidet der Elternteil, bei dem das Kind sich gewöhnlich aufhält, Angelegenheiten des täglichen Lebens allein; Angelegenheiten von erheblicher Bedeutung bedürfen des gegenseitigen Einvernehmens.",
+      "example": "Die Entscheidung über den Wechsel der Kindertagesstätte oder eine geplante Operation erfordert die Zustimmung beider sorgeberechtigter Elternteile."
     },
     {
-      "definition": "Aktuelle gesellschaftliche und politische Maßnahmen zur Unterstützung von Familien (z. B. durch Elterngeld, Kita-Ausbau, Ganztagsförderung, Vereinbarkeit von Familie und Beruf).",
-      "example": "Die Einführung des Rechtsanspruchs auf Ganztagsbetreuung in der Grundschule ab 2026 als familien- und arbeitsmarktpolitisches Instrument.",
-      "term": "Familienpolitische Maßnahmen"
+      "term": "KiTaG Rheinland-Pfalz (Kernregelungen)",
+      "definition": "Landesgesetz über die Erziehung, Bildung und Betreuung von Kindern in Tageseinrichtungen und Kindertagespflege (vollständig in Kraft seit 01.07.2021): verankert u. a. den siebenstündigen Betreuungsanspruch mit Mittagessen (§ 14), Beitragsfreiheit ab zwei Jahren (§ 26), Kita-Beirat (§ 7) und Sozialraumbudget (§ 25 Abs. 5).",
+      "example": "Eine Kita in einem sozial belasteten Quartier erhält über das Sozialraumbudget zusätzliche Personalstunden für Sprachbildung und Familienbegleitung."
     }
   ],
   "quiz": [
     {
+      "id": "v2-q1",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Wann greift § 832 BGB rechtlich exakt – und wie unterscheidet sich dieser Fall von einer Eigenverletzung eines Kindes in der Kita?",
+      "options": [
+        "§ 832 BGB regelt die Schadensersatzhaftung für Schäden, die das beaufsichtigte Kind einem Dritten widerrechtlich zufügt; bei Personenschäden des Kindes selbst greift in der Kita die gesetzliche Unfallversicherung (SGB VII) mit Haftungsprivileg.",
+        "§ 832 BGB regelt ausschließlich Eigenverletzungen von Kindern; für Schäden an fremdem Eigentum zahlt immer die Unfallkasse.",
+        "§ 832 BGB schließt jede Haftung von Erzieherinnen und Erziehern grundsätzlich aus, solange ein Arbeitsvertrag besteht.",
+        "§ 832 BGB gilt ausschließlich für Eltern im Privathaushalt, nicht aber für vertraglich übernommene Aufsicht in Einrichtungen."
+      ],
+      "correctIndices": [
+        0
+      ],
+      "explanation": "§ 832 BGB betrifft ausdrücklich Drittschäden (‚den diese Person einem Dritten widerrechtlich zufügt‘) und gilt über Abs. 2 auch bei vertraglich übernommener Aufsicht. Verletzt sich dagegen das betreute Kita-Kind selbst, ist es nach § 2 Abs. 1 Nr. 8 Buchst. a SGB VII gesetzlich unfallversichert; für nicht vorsätzliche Personenschäden greift das Haftungsprivileg (§§ 104–106 SGB VII)."
+    },
+    {
+      "id": "v2-q2",
+      "type": "multi",
+      "difficulty": "basis",
+      "question": "Welche Kriterien bestimmen nach Rechtsprechung und Unfallkasse Rheinland-Pfalz den konkreten Maßstab der Aufsichtspflicht? (Wählen Sie alle zutreffenden Aussagen)",
+      "options": [
+        "Eine starre gesetzliche Vorgabe, wonach jedes Kind unter sechs Jahren ununterbrochen im direkten Blickkontakt stehen muss.",
+        "Art und Gefährlichkeit der jeweiligen Tätigkeit sowie räumliche und örtliche Gegebenheiten.",
+        "Alter, Entwicklungsstand und bisheriges Verhalten des jeweiligen Kindes (besondere Aufsichtsbedürftigkeit bei Kleinkindern bis vier Jahre).",
+        "Aktuelle Gruppendynamik, Gruppengröße und die konkrete personelle Situation vor Ort."
+      ],
+      "correctIndices": [
+        1,
+        2,
+        3
+      ],
+      "explanation": "Der Aufsichtsmaßstab ist stets dynamisch und orientiert sich an Alter/Reife, Aktivität, Raum, Gruppendynamik und personeller Situation. Eine pauschale Pflicht zur ununterbrochenen Blickkontrolle (Option A) existiert rechtlich nicht – sie würde dem Auftrag zur Selbstständigkeitsförderung widersprechen."
+    },
+    {
+      "id": "v2-q3",
+      "type": "single",
+      "difficulty": "pruefung",
+      "question": "Praxisfall: Ein fünfjähriges Kind klettert im Kita-Garten auf ein geprüftes, niedriges Klettergerüst. Die Fachkraft hat die Gruppe im Blick, kennt die sicheren motorischen Fähigkeiten des Kindes und steht wenige Meter entfernt. Das Kind rutscht dennoch unglücklich ab und bricht sich das Handgelenk. Wie ist die Rechtslage?",
+      "options": [
+        "Die Fachkraft haftet persönlich und voll nach § 832 BGB für Schmerzensgeld und Krankenhauskosten, weil ein Unfall geschehen ist.",
+        "Es liegt ein versicherter Kita-Unfall (Eigenschaden) vor: Die Unfallkasse leistet nach SGB VII; da die Aufsicht alters- und situationsangemessen geführt wurde, liegt zudem keine Aufsichtspflichtverletzung vor.",
+        "Das Klettern war grundsätzlich rechtswidrig, weil Kinder erst ab dem Grundschulalter Klettergeräte ohne Handführung nutzen dürfen.",
+        "Der Träger muss den Betreuungsvertrag fristlos kündigen, weil die Eltern ihrer eigenen Aufsichtspflicht nicht nachgekommen sind."
+      ],
       "correctIndices": [
         1
       ],
-      "difficulty": "basis",
-      "explanation": "Nach § 832 BGB haftet grundsätzlich derjenige, der die Aufsichtspflicht durch Vertrag übernommen hat (z. B. Träger und pädagogische Fachkräfte), es sei denn, er kann den Entlastungsbeweis erbringen, dass die Aufsicht nicht verletzt wurde oder der Schaden auch bei gebotener Aufsicht entstanden wäre.",
-      "id": "q1-aufsicht-bgb",
-      "options": [
-        "Eltern haften stets vollumfänglich für alle Schäden, die ihre Kinder während der Kita-Zeit verursachen.",
-        "Pädagogische Fachkräfte und Träger können bei Verletzung der vertraglich übernommenen Aufsichtspflicht nach § 832 BGB haftbar gemacht werden, sofern ihnen kein Entlastungsbeweis gelingt.",
-        "Die Aufsichtspflicht in Kindertageseinrichtungen ist eine reine moralische Verpflichtung ohne gesetzliche Haftungsfolgen.",
-        "Das Bürgerliche Gesetzbuch schließt jegliche Haftung von pädagogischem Personal grundsätzlich aus."
-      ],
-      "question": "Welche rechtliche Bedeutung hat § 832 BGB für pädagogische Fachkräfte in Kindertageseinrichtungen?",
-      "type": "single"
+      "explanation": "Ein Unfall beweist für sich allein noch keine Aufsichtspflichtverletzung. Bei einer altersgerechten, geprüften Situation mit präsenter Begleitung wurde die Aufsicht ordnungsgemäß geführt; zudem schützt die gesetzliche Unfallversicherung (SGB VII) das Kind bei Eigenschäden, und § 832 BGB wäre schon mangels Drittschadens nicht einschlägig."
     },
     {
+      "id": "v2-q4",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Aussagen zur elterlichen Sorge nach §§ 1626, 1631 und 1687 BGB sind korrekt? (Wählen Sie alle zutreffenden Aussagen)",
+      "options": [
+        "§ 1631 Abs. 2 BGB verankert das Recht des Kindes auf gewaltfreie Erziehung und verbietet körperliche Bestrafungen sowie seelische Verletzungen.",
+        "Mit dem Abschluss des Kita-Betreuungsvertrags geht das elterliche Sorgerecht für die Betreuungszeit vollständig auf die Kita-Leitung über.",
+        "Bei getrennt lebenden Eltern mit gemeinsamer Sorge entscheidet der betreuende Elternteil Angelegenheiten des täglichen Lebens allein; Angelegenheiten von erheblicher Bedeutung erfordern gegenseitiges Einvernehmen.",
+        "Nach § 1626 Abs. 2 BGB sollen Eltern die wachsende Fähigkeit des Kindes zu selbstständigem, verantwortungsbewusstem Handeln berücksichtigen."
+      ],
       "correctIndices": [
         0,
         2,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Der Aufsichtsmaßstab ist dynamisch und orientiert sich an Alter, Entwicklungsstand, Individualität des Kindes sowie an der Gefährlichkeit der Situation. Ein starres Verbot aller Risiken ist weder pädagogisch sinnvoll noch rechtlich geboten, da Kinder lernen müssen, Risiken einzuschätzen.",
-      "id": "q2-aufsichtsmasstab-multi",
-      "options": [
-        "Der Aufsichtsmaßstab ist flexibel und richtet sich nach dem Entwicklungsstand, dem Alter und der Reife der Kinder.",
-        "Aufsichtspflicht bedeutet in der Praxis eine lückenlose, 100-prozentige lückenlose optische Überwachung jeder einzelnen Handlung von Kindern ab 3 Jahren.",
-        "Gefährliche Situationen und der Reifegrad der Gruppe bestimmen, wie engmaschig die Aufsicht erfolgen muss.",
-        "Selbstständigkeitsförderung und Risikokompetenz sind wesentliche Bestandteile, die ein schrittweises Loslassen im Rahmen der Aufsicht erfordern."
-      ],
-      "question": "Welche Aussagen treffen auf den rechtlichen Aufsichtsmaßstab und das Verhältnis zur Selbstständigkeitsförderung zu? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Optionen A, C und D geben §§ 1626 Abs. 2, 1631 Abs. 2 und 1687 BGB präzise wieder. Option B ist falsch: Das Sorgerecht verbleibt stets bei den Sorgeberechtigten; die Einrichtung erhält über den Betreuungsvertrag lediglich eine abgeleitete Betreuungs- und Aufsichtsfunktion."
     },
     {
+      "id": "v2-q5",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Welche landesspezifische Kombination kennzeichnet das rheinland-pfälzische Kindertagesstättengesetz (KiTaG RLP)?",
+      "options": [
+        "Betreuungsanspruch erst ab dem fünften Lebensjahr, generelle Elternbeitragspflicht und Abschaffung aller Elternausschüsse.",
+        "Ausschließliche Zuständigkeit des Bundes für Dienstpläne und Raumkonzepte aller rheinland-pfälzischen Kitas.",
+        "Rechtsanspruch auf durchgängig sieben Stunden tägliche Betreuung inklusive Mittagsverpflegung, Beitragsfreiheit ab dem vollendeten zweiten Lebensjahr, Kita-Beirat und Sozialraumbudget.",
+        "Verbot der Aufnahme von Kindern unter drei Jahren in Tageseinrichtungen zugunsten reiner Kindertagespflege."
+      ],
       "correctIndices": [
         2
       ],
+      "explanation": "Das seit Juli 2021 vollständig geltende KiTaG RLP verbindet den Rechtsanspruch auf siebenstündige durchgängige Betreuung mit Mittagessen (§ 14), die Beitragsfreiheit ab dem vollendeten zweiten Lebensjahr (§ 26), erweiterte Mitwirkung über den Kita-Beirat (§ 7) und das Sozialraumbudget (§ 25 Abs. 5) zur bedarfsgerechten Personalausstattung."
+    },
+    {
+      "id": "v2-q6",
+      "type": "case",
       "difficulty": "pruefung",
-      "explanation": "Die elterliche Sorge nach § 1626 ff. BGB umfasst Personensorge und Vermögenssorge. Pädagogische Fachkräfte erhalten durch den Kita-Besuch oder die Betreuung kein generelles Sorgerecht, sondern eine treuhänderische, vom Elternhaus abgeleitete Betreuungs- und Aufsichtsfunktion (Mitsorge im Alltag, aber keine grundsätzlichen Entscheidungen wie medizinische Eingriffe von Tragweite).",
-      "id": "q3-elterliche-sorge",
+      "question": "Praxisfall: Durch den stufenweisen Rechtsanspruch auf Ganztagsförderung für Grundschulkinder ab dem Schuljahr 2026/2027 (§ 24 Abs. 4 SGB VIII) kooperiert Ihre Einrichtung enger mit einer benachbarten Grundschule. Welche fachliche Konsequenz ist besonders tragfähig?",
       "options": [
-        "Pädagogische Fachkräfte übernehmen mit der Aufnahme in die Kita das vollständige Sorgerecht der Eltern.",
-        "Eltern übertragen bei Anmeldung ihres Kindes alle Erziehungsrechte dauerhaft an den Träger der Einrichtung.",
-        "Die elterliche Sorge verbleibt grundsätzlich bei den Eltern (§ 1626 BGB); Fachkräfte üben eine abgeleitete, alltagsbezogene Betreuungs- und Aufsichtsfunktion aus.",
-        "Das Jugendamt entscheidet in allen Erziehungsfragen anstelle der Eltern, sobald das Kind eine Tageseinrichtung besucht."
+        "Die sozialpädagogische Einrichtung verzichtet auf eigene Bildungs- und Beteiligungsangebote, weil am Nachmittag ausschließlich Hausaufgaben erledigt werden sollen.",
+        "Sozialpädagogische Fachkräfte übernehmen ohne Abstimmung den regulären Fachunterricht der Grundschullehrkräfte.",
+        "Der Anspruch gilt nur für Familien mit zwei vollzeiterwerbstätigen Elternteilen, weshalb andere Kinder ausgeschlossen werden müssen.",
+        "Kita/Hort und Grundschule entwickeln abgestimmte Übergangs- und Ganztagskonzepte, die verlässliche Betreuung, partizipative Freizeit- und Bildungsangebote sowie Familienorientierung miteinander verbinden."
       ],
-      "question": "Wie verhält sich die elterliche Sorge (§ 1626 ff. BGB) zur Rolle der pädagogischen Fachkräfte in einer Tageseinrichtung?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
-        1
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Das rheinland-pfälzische KiTaG verankert unter anderem den Rechtsanspruch auf Ganztagsbetreuung, Qualitätsentwicklung (Gute-Kita-Standards), Sozialraumbudgets und die Beteiligung von Kindern und Eltern im Gesetz.",
-      "id": "q4-kitag-rlp",
-      "options": [
-        "Das KiTaG RLP regelt ausschliesslich die Besoldung von Erzieherinnen und Erziehern in kommunalen Einrichtungen.",
-        "Das KiTaG Rheinland-Pfalz setzt landesspezifische Standards u.a. zu Qualitätsentwicklung, Beteiligung, Bedarfsplanung und Finanzierung (Sozialraumbudget).",
-        "Das KiTaG ist ein Bundesgesetz, das keine landesspezifischen Regelungen zulässt.",
-        "Das KiTaG regelt ausschließlich den Betrieb von Horten für Schülerinnen und Schüler ab der 5. Klasse."
-      ],
-      "question": "Welche spezifische Funktion hat das rheinland-pfälzische KiTaG (Kindertagesstättengesetz) im Kontext rechtlicher Rahmenbedingungen?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        0
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Im Fallbeispiel hat die Fachkraft ihre Aufsichtspflicht nicht verletzt, da sie altersgerecht reagiert hat (Beobachtung, Präsenz, situative Begleitung). Eine lückenlose Überwachung bei alltäglichen, entwicklungsangemessenen Handlungen ist rechtlich nicht gefordert; es kommt auf das Verhältnismäßigkeitsprinzip und die Erfüllung des Entlastungsbeweises an.",
-      "id": "q5-fallbeispiel-aufsicht",
-      "options": [
-        "Die Fachkraft hat rechtlich korrekt gehandelt, da der Aufsichtsmaßstab altersangemessen ist und keine ständige Hand-in-Hand-Überwachung bei 5-jährigen Kindern gefordert wird.",
-        "Die Fachkraft haftet vollumfänglich, da das Kind gestürzt ist und sie nicht direkt daneben stand.",
-        "Die Fachkraft hat gegen das SGB VIII verstoßen, weil sie das Kind überhaupt hat klettern lassen.",
-        "Die Aufsichtspflicht verbietet jegliche Kletteraktivitäten im Freien grundsätzlich."
-      ],
-      "question": "Praxisfall: In einer Kita klettert ein 5-jähriges Kind auf einen niedrigen Baum. Die Erzieherin steht in ca. 3 Metern Entfernung, beobachtet das Geschehen und greift ein, als das Kind unsicher wird. Das Kind stürzt unglücklich und bricht sich den Arm. Wie ist die rechtliche Lage bezüglich der Aufsichtspflicht nach § 832 BGB?",
-      "type": "case"
-    },
-    {
-      "correctIndices": [
-        0,
-        1,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Aktuelle familienpolitische Maßnahmen zielen auf die Vereinbarkeit von Familie und Beruf (z.B. durch Rechtsansprüche auf Ganztagesbetreuung, Elterngeld und flexible Betreuungsangebote), den Ausbau frühkindlicher Bildung und die Unterstützung von Familien in Belastungssituationen ab. Eine Reduzierung staatlicher Jugendhilfe ist politisch nicht das Ziel.",
-      "id": "q6-familienpolitik-multi",
-      "options": [
-        "Die Verbesserung der Vereinbarkeit von Familie und Beruf durch den Ausbau von Ganztagsangeboten in KiTas und Schulen.",
-        "Die finanzielle und strukturelle Unterstützung von Familien durch Instrumente wie Elterngeld und Familiengeld.",
-        "Die vollständige Abschaffung des staatlichen Wächteramtes und der Jugendhilfe.",
-        "Die Weiterentwicklung von Qualitätsstandards in der frühkindlichen Bildung (z.B. Gute-Kita-Gesetz)."
-      ],
-      "question": "Welche zentralen Ziele und Maßnahmen prägen aktuelle (sozial-)familienpolitische Entwicklungen in Deutschland? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Der Rechtsanspruch nach § 24 Abs. 4 SGB VIII gilt unabhängig von der Erwerbstätigkeit der Eltern (Option C falsch) und soll Bildung, Betreuung und Teilhabe im Ganztag stärken. Das erfordert multiprofessionelle Kooperation auf Augenhöhe mit eigenständigem sozialpädagogischem Profil – weder bloße Hausaufgabenaufsicht noch Ersatz von Lehrkräften."
+    }
+  ],
+  "sources": [
+    {
+      "title": "BGB § 832 – Haftung des Aufsichtspflichtigen",
+      "url": "https://www.gesetze-im-internet.de/bgb/__832.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Zivilrechtliche Haftung und Entlastungsbeweis bei Drittschäden durch aufsichtsbedürftige Personen"
+    },
+    {
+      "title": "BGB § 1626 – Elterliche Sorge, Grundsätze",
+      "url": "https://www.gesetze-im-internet.de/bgb/__1626.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Grundsätze der elterlichen Sorge (Personen- und Vermögenssorge) und Berücksichtigung wachsender Selbstständigkeit"
+    },
+    {
+      "title": "BGB § 1631 – Inhalt und Grenzen der Personensorge (inkl. Abs. 2 Gewaltfreie Erziehung)",
+      "url": "https://www.gesetze-im-internet.de/bgb/__1631.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Recht des Kindes auf gewaltfreie Erziehung und Ursprung der elterlichen Aufsichtspflicht"
+    },
+    {
+      "title": "BGB § 1687 – Ausübung der gemeinsamen Sorge bei Getrenntleben",
+      "url": "https://www.gesetze-im-internet.de/bgb/__1687.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Abgrenzung zwischen Alltagsentscheidungen und Angelegenheiten von erheblicher Bedeutung"
+    },
+    {
+      "title": "SGB VIII § 8a – Schutzauftrag bei Kindeswohlgefährdung",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__8a.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Verbindliches Verfahren bei gewichtigen Anhaltspunkten für eine Kindeswohlgefährdung"
+    },
+    {
+      "title": "SGB VIII § 24 – Anspruch auf Förderung in Tageseinrichtungen, Kindertagespflege und Grundschul-Ganztag",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__24.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Gestaffelte Rechtsansprüche U3, Ü3 sowie Ganztagsförderung für Grundschulkinder ab 2026/2027"
+    },
+    {
+      "title": "Aufsicht in Kitas: Pädagogischer Auftrag und Aufsichtspflicht – ein Konflikt? (Infoblatt RLP)",
+      "url": "https://bildung.ukrlp.de/fileadmin/ukrlp/daten/pdf/Informationsblaetter/Aufsicht_in_Kitas.pdf",
+      "publisher": "Unfallkasse Rheinland-Pfalz / Ministerium für Bildung RLP / LSJV",
+      "note": "Praxisleitfaden zu grundsätzlicher und situativer Gefährdungsbeurteilung in rheinland-pfälzischen Kitas"
+    },
+    {
+      "title": "Kita-Gesetz Rheinland-Pfalz (KiTaG) – Informationen und Gesetzestext",
+      "url": "https://kita.rlp.de/kita-in-rheinland-pfalz/kita-gesetz",
+      "publisher": "Ministerium für Bildung Rheinland-Pfalz (Kita-Server RLP)",
+      "note": "Landesrechtliche Regelungen zu Betreuungsanspruch, Beitragsfreiheit, Beirat und Sozialraumbudget"
     }
   ]
 }

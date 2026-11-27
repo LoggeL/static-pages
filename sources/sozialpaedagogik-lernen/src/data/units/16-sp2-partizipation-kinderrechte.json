@@ -3,423 +3,539 @@
   "number": 16,
   "moduleCode": "S-SP-2",
   "moduleArea": "sp-pflicht",
-  "title": "Partizipation, UN-Kinderrechtskonvention & Gremienarbeit",
-  "subtitle": "Kinder als Träger von Rechten, Kinderkonferenzen, Parlamente und Ombudschaft",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-2 · Partizipation, Kinderrechte, Gremienarbeit & Beschwerdeverfahren (Lehrplan RLP 2024)",
+  "title": "Partizipation, Kinderrechte, Gremienarbeit & Beschwerdeverfahren",
+  "subtitle": "UN-Kinderrechtskonvention, Stufenmodelle, Kita-Verfassung, Kinderkonferenzen, Beschwerde und Ombudschaft",
   "year": "1.–3. Jahr",
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 30,
   "hoursRef": "240 Std. (Teil 2/6)",
   "pdfPages": "S. 22–23",
   "crossCuttingTags": [
     "Partizipation",
-    "Wertevermittlung"
+    "Wertevermittlung",
+    "Prävention"
   ],
-  "summary": "Diese Einheit vermittelt angehenden Erzieherinnen und Erziehern (Bachelor Professional in Sozialwesen) fundiertes Fachwissen zu Partizipation, UN-Kinderrechtskonvention und Gremienarbeit nach dem Lehrplan Rheinland-Pfalz. Sie lernen, Kinder als Träger von Schutz-, Förder- und Beteiligungsrechten zu begreifen, Stufen der Partizipation kritisch zu analysieren und Beteiligungsformen wie Kinderkonferenzen, Parlamente sowie Beschwerdeverfahren professionell im pädagogischen Alltag umzusetzen.",
+  "summary": "Kinder und Jugendliche sind keine bloßen Objekte von Fürsorge, sondern eigenständige Träger von Rechten. In dieser Einheit verbindest du völker-, bundes- und landesrechtliche Grundlagen (UN-KRK, SGB VIII, KiTaG RLP) mit Stufenmodellen der Partizipation (Hart, Schröder) sowie dem Ansatz von Hansen, Knauer und Sturzenhecker und lernst, Gremienarbeit, alltagsintegrierte Beteiligung und wirksame Beschwerdeverfahren konkret umzusetzen.",
   "learningGoals": [
-    "Ich kann die Bedeutung von Partizipation als grundlegendes Prinzip der sozialpädagogischen Arbeit nach dem RLP erläutern und in der Praxis umsetzen.",
-    "Ich kann die drei Säulen der UN-Kinderrechtskonvention (Schutz, Förderung, Beteiligung) differenzieren und auf den pädagogischen Alltag beziehen.",
-    "Ich kann Stufen der Partizipation (z. B. nach Hart oder Schröder) analysieren und Fremdbestimmung von echter Mitbestimmung unterscheiden.",
-    "Ich kann Methoden der Gremienarbeit und Beteiligungsformen (wie Kinderkonferenzen, Parlamente) fachgerecht planen, moderieren und reflektieren.",
-    "Ich kann Beschwerdeverfahren und Ombudschaft als Instrumente des Kinderschutzes und der Rechtssicherung in Einrichtungen der Kinder- und Jugendhilfe anwenden.",
-    "Ich kann Machtasymmetrien und die eigene professionelle Rolle in Gruppenprozessen kritisch reflektieren und dialogisch gestalten."
+    "Ich kann die Grundprinzipien der UN-Kinderrechtskonvention (Schutz, Förderung, Beteiligung – insbesondere Artikel 12) sowie zentrale Regelungen im SGB VIII (§§ 8, 9a, 45) und KiTaG RLP (§§ 1, 3) fachlich korrekt erläutern.",
+    "Ich kann Stufenmodelle der Partizipation nach Roger Hart und Richard Schröder nutzen, um echte Mitbestimmung sicher von Fremdbestimmung und Pseudopartizipation (Manipulation, Dekoration, Alibi-Beteiligung) abzugrenzen.",
+    "Ich kann Machtasymmetrien in pädagogischen Einrichtungen reflektieren und auf Grundlage von Hansen, Knauer und Sturzenhecker begründen, welche Entscheidungsrechte strukturell geteilt werden und wo die Schutzverantwortung bei den Fachkräften bleibt.",
+    "Ich kann Beteiligungsformen im Kita- und Hortalltag (z. B. Kinderkonferenz, Gruppenrat, Kinderparlament) altersgerecht, inklusiv und diskriminierungssensibel moderieren.",
+    "Ich kann niederschwellige interne Beschwerdeverfahren (verbal und nonverbal) sowie externe Wege wie unabhängige Ombudsstellen als Instrumente des Kinderschutzes und der Qualitätsentwicklung konzipieren."
   ],
   "sections": [
     {
-      "body": "Partizipation ist nach dem Lehrplan Rheinland-Pfalz (Modul S-SP-2) ein zentrales Grundprinzip professioneller sozialpädagogischer Arbeit. Sie bedeutet weit mehr als bloße Mitsprache: Kinder und Jugendliche werden als aktive Gestalterinnen und Gestalter ihres eigenen Lebens und ihrer sozialen Umwelt begriffen. Fachkräfte reflektieren dabei ihre eigene Machtposition und Hierarchien, um einen dialogischen und partnerschaftlichen Erziehungsstil zu etablieren.",
+      "heading": "Kinder als Rechtssubjekte: UN-Kinderrechtskonvention, SGB VIII und KiTaG RLP",
+      "keyTakeaway": "Partizipation und Beschwerdemöglichkeiten sind keine freiwilligen Zusatzangebote, sondern gesetzlich verankerte Rechte von Kindern und Jugendlichen – von der UN-Kinderrechtskonvention über das SGB VIII bis ins rheinland-pfälzische KiTaG.",
+      "body": "Mit der UN-Kinderrechtskonvention (UN-KRK, 1989 von der UN-Generalversammlung verabschiedet, in Deutschland seit 1992 in Kraft; die ursprüngliche Vorbehaltserklärung nahm Deutschland 2010 vollständig zurück) vollzog sich ein grundlegender Perspektivwechsel: Kinder und Jugendliche sind eigenständige Rechtssubjekte. Die Konvention lässt sich in drei ineinandergreifende Säulen gliedern – Schutzrechte (Protection, z. B. Schutz vor Gewalt nach Art. 19), Förderrechte (Provision, z. B. Recht auf Bildung und Spiel nach Art. 28 und 31) und Beteiligungsrechte (Participation). Besonders wegweisend ist Artikel 12 UN-KRK: Jedes Kind hat das Recht, seine Meinung in allen es berührenden Angelegenheiten frei zu äußern, und diese Meinung ist entsprechend seinem Alter und seiner Reife angemessen zu berücksichtigen (ergänzt durch den Kindeswohlvorrang in Art. 3). Im deutschen Bundesrecht verankert § 8 SGB VIII das Recht auf entwicklungsangemessene Beteiligung, auf direkte Kontaktaufnahme zum Jugendamt sowie auf Beratung in verständlicher, nachvollziehbarer und wahrnehmbarer Form. Nach § 45 Abs. 2 Satz 2 Nr. 4 SGB VIII ist die Betriebserlaubnis für Kitas und stationäre Einrichtungen zwingend daran geknüpft, dass ein Gewaltschutzkonzept entwickelt, angewandt und überprüft wird sowie geeignete Verfahren der Selbstvertretung, Beteiligung und Beschwerde in persönlichen Angelegenheiten innerhalb und außerhalb der Einrichtung bestehen. Ergänzend verpflichtet § 9a SGB VIII die Länder zur Sicherstellung unabhängiger, fachlich nicht weisungsgebundener Ombudsstellen. In Rheinland-Pfalz konkretisieren zudem § 1 Abs. 1 und § 3 Abs. 2 KiTaG RLP, dass Meinung und Wille des Kindes bei der Alltagsgestaltung zu berücksichtigen sowie geeignete Beteiligungs- und Beschwerdeverfahren anzuwenden sind.",
       "bulletPoints": [
-        "Partizipation als Querschnittsthema und professionelle Haltung",
-        "Überwindung einseitiger Macht- und Hierarchiestrukturen",
-        "Förderung von Selbstwirksamkeit und sozialer Verantwortung",
-        "Dialogische Gestaltung pädagogischer Beziehungen"
+        "UN-KRK (1989; in Deutschland seit 1992, Rücknahme der Vorbehaltserklärung 2010): Schutz-, Förder- und Beteiligungsrechte sowie Art. 12 (Anhörung und Berücksichtigung)",
+        "§ 8 SGB VIII: Beteiligung entsprechend dem Entwicklungsstand und barrierefreie, verständliche Beratung",
+        "§ 45 Abs. 2 Satz 2 Nr. 4 SGB VIII: Betriebserlaubnis erfordert Gewaltschutzkonzept, Selbstvertretung/Beteiligung sowie interne und externe Beschwerdemöglichkeiten",
+        "§ 9a SGB VIII & §§ 1, 3 KiTaG RLP: Unabhängige Ombudsstellen auf Landesebene sowie verpflichtende Alltagsbeteiligung und Beschwerdeverfahren in Kitas"
       ],
-      "heading": "Partizipation als pädagogisches Grundprinzip",
-      "keyTakeaway": "Partizipation ist kein nettes Extra, sondern ein unverzichtbares Fundament demokratischer und entwicklungsförderlicher Erziehung.",
-      "praxisTip": "Reflektieren Sie im Team regelmäßig, bei welchen Alltagsentscheidungen (z. B. Raumgestaltung, Regeln, Menüplan) Kinder tatsächlich mitbestimmen dürfen und wo unbewusste Fremdbestimmung stattfindet."
+      "praxisTip": "Übersetze Kinderrechte im Alltag in konkrete, greifbare Situationen statt abstrakter Paragraphen: „Du darfst Nein sagen, wenn du nicht umarmt werden möchtest“ oder „Ihr dürft mitentscheiden, welche Regeln im Bauraum gelten“."
     },
     {
-      "body": "Die UN-Kinderrechtskonvention (UN-KRK von 1989, in Deutschland verbindlich seit 1992 ohne Vorbehalt) revolutionierte den Status von Minderjährigen: Sie sind keine Objekte der Fürsorge mehr, sondern Träger eigener subjektiver Rechte. Die Konvention gliedert sich in Schutzrechte (z. B. vor Gewalt und Vernachlässigung), Förderrechte (z. B. auf Bildung, Spiel und Entwicklung) und Beteiligungsrechte (z. B. Meinungsfreiheit und Anhörung nach Art. 12). Für Erzieherinnen und Erzieher bedeutet dies, Rechte im pädagogischen Alltag aktiv erfahrbar und umsetzbar zu machen.",
+      "heading": "Stufenmodelle & demokratische Praxis: Hart, Schröder sowie Hansen, Knauer & Sturzenhecker",
+      "keyTakeaway": "Echte Partizipation beginnt erst dort, wo Kinder transparent informiert sind und realen Einfluss auf Entscheidungen haben. Sie verlangt von Fachkräften bewusste Machtabgabe und strukturelle Verankerung statt bloßer Einzelwillkür.",
+      "body": "Richard Schröder (1995) fasste Partizipation prägnant zusammen: „Partizipation heißt, Entscheidungen, die das eigene Leben und das Leben der Gemeinschaft betreffen, zu teilen und gemeinsam Lösungen für Probleme zu finden.“ Um in der Praxis zu überprüfen, ob tatsächlich Beteiligung stattfindet oder nur eine Fassade aufgebaut wird, helfen Stufenmodelle. Roger Harts „Leiter der Partizipation“ (1992) unterscheidet acht Stufen, wobei die unteren drei Stufen ausdrücklich Nicht-Partizipation (Pseudopartizipation) markieren: Manipulation (Stufe 1: Kinder werden für fremde Ziele eingesetzt, ohne die Zusammenhänge zu verstehen), Dekoration (Stufe 2: Kinder schmücken eine Veranstaltung ohne Einfluss) und Alibi-Beteiligung / Tokenismus (Stufe 3: Kinder dürfen scheinbar mitreden, die Entscheidung steht aber längst fest). Erst ab Stufe 4 („zugewiesen, aber informiert“) bis Stufe 8 („von Kindern initiiert, Entscheidungen gemeinsam mit Erwachsenen getroffen“) liegt echte Partizipation vor. Auch Richard Schröder differenziert neun Stufen – von Fremdbestimmung über Information, Anhörung und Mitwirkung bis zu Mitentscheidung, Selbstbestimmung und Selbstverwaltung. Rüdiger Hansen, Raingard Knauer und Benedikt Sturzenhecker („Die Kinderstube der Demokratie“) schärfen diese Perspektive für die Kita-Praxis: Pädagogische Beziehungen sind stets Machtverhältnisse. Damit Partizipation nicht vom guten Willen einzelner Fachkräfte abhängt, braucht sie drei Säulen – eine reflektierte demokratische Haltung, verlässliche Strukturen (z. B. eine schriftlich und bildlich fixierte Kita-Verfassung, die verbindlich klärt, worüber Kinder entscheiden dürfen) und alltagstaugliche Methoden. Entscheidend ist dabei Ehrlichkeit: Themen, bei denen der gesetzliche Schutzauftrag Vorrang hat (z. B. Aufsicht, Sicherheit im Straßenverkehr, Gesundheitsschutz), stehen nicht zur Abstimmung – wohl aber das „Wie“ im geschützten Rahmen.",
       "bulletPoints": [
-        "Historischer Wandel vom Fürsorgeobjekt zum Rechtssubjekt",
-        "Drei Säulen: Schutz, Förderung, Beteiligung (Protection, Provision, Participation)",
-        "Artikel 12 UN-KRK: Recht auf freie Meinungsäußerung und Berücksichtigung",
-        "Umsetzung im pädagogischen Alltag und in der Konzeption"
+        "Richard Schröder (1995): Entscheidungen über das eigene Leben und die Gemeinschaft teilen und gemeinsam Lösungen finden",
+        "Roger Hart (1992): Stufen 1–3 sind Pseudopartizipation (Manipulation, Dekoration, Alibi); echte Beteiligung beginnt erst ab Stufe 4",
+        "Hansen, Knauer & Sturzenhecker: Strukturierte Machtabgabe durch verbindliche Kita-Verfassung statt unverbindlicher „Gnaden-Beteiligung“",
+        "Klare Grenze: Gesetzliche Schutz- und Aufsichtspflichten werden nicht an Kinder delegiert, sondern transparent erklärt"
       ],
-      "heading": "UN-Kinderrechtskonvention: Kinder als Träger von Rechten",
-      "keyTakeaway": "Kinder haben ein völkerrechtlich verbrieftes Recht auf Schutz, Förderung und echte Beteiligung an allen sie betreffenden Lebensbereichen.",
-      "praxisTip": "Machen Sie die Kinderrechte in Ihrer Einrichtung durch kindgerechte Piktogramme, Geschichten und Aushänge für alle Altersgruppen sichtbar und besprechbar."
+      "praxisTip": "Stelle dir im Team vor jeder Abstimmung mit Kindern die Kontrollfrage: „Sind wir wirklich bereit, das Ergebnis umzusetzen, auch wenn es nicht unserem Wunsch entspricht?“ Wenn nein, handelt es sich um eine Scheinalternative."
     },
     {
-      "body": "Um Partizipation messbar und reflektierbar zu machen, dienen Stufenmodelle wie die „Leiter der Partizipation“ nach Roger Hart oder das Modell von Schröder. Sie differenzieren zwischen nicht-partizipatorischen Formen (Manipulation, Dekoration, Alibi-Partizipation) und echten Beteiligungsformen, bei denen Kinder informiert sind, freiwillig teilnehmen, mitbestimmen oder eigeninitiativ handeln. In der Praxis geht es darum, Stufen der Pseudo-Beteiligung zu erkennen und kontinuierlich zu höheren Stufen (Mitentscheidung und Selbstorganisation) zu entwickeln.",
+      "heading": "Beteiligung im Kita- und Hortalltag: Alltagspartizipation, Kinderkonferenz & Kinderparlament",
+      "keyTakeaway": "Demokratiebildung beginnt nicht erst im Kinderparlament, sondern in alltäglichen Selbstbestimmungssituationen – und gelingt in Gremien nur durch altersgerechte Moderation, Visualisierung und Minderheitenschutz.",
+      "body": "Partizipation entfaltet sich auf zwei sich ergänzenden Ebenen: In der Alltagspartizipation entscheiden Kinder individuell über eigene Belange – etwa womit und mit wem sie spielen, wann sie essen, wie viel sie sich auftun, welche Kleidung sie drinnen tragen oder von wem sie beim Wickeln begleitet werden möchten. In formalisierten Gremien wie Kinderkonferenzen, Gruppenräten oder Kinder- und Jugendparlamenten lernen sie demokratische Aushandlung für Gemeinschaftsthemen (Raumgestaltung, Regeln, Projekte, Ausflüge, Anschaffungen). Damit Gremien nicht von besonders sprachstarken oder älteren Kindern dominiert werden, braucht es durchdachte Moderation: kurze Sitzungszeiten, klare Gesprächsregeln (z. B. Sprechstein), visuelle Hilfen (Fotos, Piktogramme, Klebepunkte oder Muggelsteine zum Abstimmen), barrierefreie Zugänge für Kinder mit unterschiedlichen sprachlichen Voraussetzungen sowie eine achtsame Haltung gegenüber leiseren Stimmen. Fachkräfte unterscheiden dabei bewusst zwischen Konsensverfahren (gemeinsame Lösung suchen, die alle mittragen können) und Mehrheitsentscheidungen (mit aktivem Minderheitenschutz, damit unterlegene Kinder gehört und wertgeschätzt bleiben). Ebenso wichtig ist die Nachverfolgbarkeit: Beschlüsse werden kindgerecht dokumentiert, umgesetzt und gemeinsam überprüft, damit Kinder reale Selbstwirksamkeit erleben.",
       "bulletPoints": [
-        "Abgrenzung von Pseudopartizipation (Alibi, Dekoration)",
-        "Stufenmodell nach Roger Hart (8 Stufen der Beteiligung)",
-        "Modell von Schröder (Informations-, Mitwirkungs- und Mitentscheidungsrechte)",
-        "Bedeutung von Transparenz und Freiwilligkeit"
+        "Alltagspartizipation: Individuelle Selbstbestimmung bei Spiel, Essen, Ruhen, Körpergrenzen und Tagesgestaltung",
+        "Gremienarbeit: Kinderkonferenzen, Gruppenräte und Jugendparlamente für verbindliche Gemeinschaftsentscheidungen",
+        "Inklusive Moderation: Bildkarten, Fotoprotokolle, Sprechstein und Kleingruppen verhindern Dominanz einzelner Kinder",
+        "Verbindlichkeit & Evaluation: Beschlüsse sichtbar aushängen, zeitnah umsetzen und gemeinsam auswerten"
       ],
-      "heading": "Stufen der Partizipation und ihre theoretische Fundierung",
-      "keyTakeaway": "Echte Partizipation beginnt dort, wo Kinder valide informiert sind und reale Entscheidungsspielräume besitzen, ohne manipuliert zu werden.",
-      "praxisTip": "Analysieren Sie ein aktuelles Projekt Ihrer Einrichtung mithilfe des Hartschen Stufenmodells: Auf welcher Stufe befinden sich die Kinder tatsächlich?"
+      "praxisTip": "Dokumentiere Beschlüsse der Kinderkonferenz mit Fotos und Symbolen auf Augenhöhe der Kinder und hake erledigte Punkte gemeinsam ab – so wird Selbstwirksamkeit unmittelbar sichtbar."
     },
     {
-      "body": "Konkrete Beteiligungsformen wie Kinderkonferenzen, Kinderparlamente und Gremienarbeit bilden den institutionellen Rahmen für demokratisches Lernen. Hier lernen Kinder, Interessen auszuhandeln, Kompromisse zu finden und demokratische Entscheidungen zu respektieren. Ergänzend dazu sind verbindliche Beschwerdeverfahren und externe Ombudsstellen (insbesondere in der stationären Jugendhilfe) unverzichtbare Instrumente, um Machtmissbrauch vorzubeugen und den Rechtsschutz von Minderjährigen zu garantieren.",
+      "heading": "Beschwerdeverfahren & Ombudschaft: Konkreter Kinderschutz im Einrichtungsalltag",
+      "keyTakeaway": "Ein Beschwerdeverfahren wirkt nur dann als Kinderschutzinstrument, wenn auch nonverbale Unmutsäußerungen ernst genommen, klar bearbeitet und im Team mit einer offenen Fehlerkultur reflektiert werden.",
+      "body": "Beschwerderechte schützen Kinder und Jugendliche gezielt vor Grenzverletzungen, Ungerechtigkeit und Machtmissbrauch – auch durch Erwachsene in der eigenen Einrichtung. Dabei gilt ein weites Beschwerdeverständnis: Gerade jüngere Kinder in Krippe und Kita schreiben keine Beschwerdebriefe, sondern äußern Unzufriedenheit mündlich („Ich will das nicht!“) oder nonverbal durch Weinen, Wegdrehen, Rückzug oder Verweigerung. Ein wirksames Beschwerdeverfahren nach § 45 Abs. 2 Satz 2 Nr. 4 SGB VIII und den konzeptionellen Leitfragen von Hansen und Knauer klärt deshalb verbindlich: (1) Auf welchen vielfältigen, barrierefreien Wegen können Kinder Beschwerden äußern (z. B. direkt bei jeder Vertrauensfachkraft, in Kinderkonferenzen, über Symbolkarten im Kita-Alltag oder über anonyme Briefkästen im Hort- und Jugendbereich)? (2) Wer nimmt Beschwerden entgegen, wenn sich die Kritik gegen eine Fachkraft selbst richtet (interne Vertrauenspersonen, Leitung, Träger)? (3) Wie werden Beschwerden dokumentiert, bearbeitet und zeitnah ans Kind zurückgemeldet? (4) Wie wird garantiert, dass dem Kind durch seine Beschwerde keinerlei Nachteile entstehen? Weil Kritik an der eigenen Praxis leicht Abwehr auslöst, bildet eine offene, wertschätzende Fehlerkultur im Team die wichtigste Voraussetzung. Ergänzend müssen Kindern, Jugendlichen und Eltern externe Beschwerdewege bekannt sein – insbesondere das Jugendamt (§ 8 Abs. 2 SGB VIII) sowie unabhängige, weisungsfreie Ombudsstellen nach § 9a SGB VIII (in Rheinland-Pfalz u. a. die Ombudsstelle Kinder- und Jugendhilfe RLP e.V. sowie die landesweite Ombudsstelle bei der Bürgerbeauftragten).",
       "bulletPoints": [
-        "Kinderkonferenzen und Parlamente als Foren des demokratischen Aushandelns",
-        "Methoden der Moderation und konsensorientierten Entscheidungsfindung",
-        "Niederschwellige Beschwerdeverfahren und Ombudschaft in der Jugendhilfe",
-        "Verankerung in der Einrichtungsverfassung (Kita-Verfassung)"
+        "Weites Beschwerdeverständnis: Sowohl verbale Kritik als auch nonverbale Signale (Weinen, Rückzug, Ablehnung) ernst nehmen",
+        "Konkrete Verfahrensstandards: Klare Zuständigkeiten, kurze Bearbeitungswege, Schutz vor Nachteilen und verständliche Rückmeldung ans Kind",
+        "Fehlerkultur im Team: Beschwerden gegen Fachkräfte nicht abwehren, sondern kollegial und professionell zur Qualitätsentwicklung nutzen",
+        "Interne und externe Wege: Vertrauenspersonen und Leitung in der Einrichtung plus unabhängige Ombudsstellen nach § 9a SGB VIII außerhalb"
       ],
-      "heading": "Gremienarbeit, Beschwerdeverfahren und Ombudschaft",
-      "keyTakeaway": "Demokratie lernt man durch Demokratie: Gremien und Ombudschaft sichern die Rechte der Kinder institutionell ab.",
-      "praxisTip": "Richten Sie einen festen, wöchentlichen Kinder-Rat ein, dessen Protokolle für alle Kinder und Eltern gut sichtbar und verständlich ausgehängt werden."
+      "praxisTip": "Hänge interne Vertrauenspersonen (mit Foto) sowie externe Ansprechstellen und Ombudsstellen für Kinder, Jugendliche und Eltern gut sichtbar aus – und erkläre regelmäßig in einfacher Sprache, wofür sie da sind."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Partizipation & Kinderrechte",
       "id": "vb-pyramid",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Stufe 1 (Fundament)",
-          "detail": "Die Basis bildet die unbedingte Gewährleistung der Grund- und Schutzrechte nach der UN-KRK sowie eine sichere, wertschätzende pädagogische Beziehung. Ohne emotionale Sicherheit ist echte Mitbestimmung unmöglich.",
-          "example": "Schutz vor Gewalt,Vernachlässigung und Bereitstellung einer sicheren Umgebung.",
-          "id": "py-1",
-          "label": "Schutz und emotionale Sicherheit",
-          "metric": "Fundament",
-          "summary": "Die fundamentale Basis für jegliche Beteiligung bildet die Erfüllung der Schutz- und Grundbedürfnisse."
-        },
-        {
-          "badge": "Stufe 2",
-          "detail": "Kinder erhalten altersgerechte, transparente Informationen über alle sie betreffenden Abläufe, Regeln und Planungen in der Einrichtung. Information ist die absolute Voraussetzung für fundierte Mitbestimmung.",
-          "example": "Aushang des Tagesplans in Piktogrammen und Erklärung von anstehenden Ausflügen.",
-          "id": "py-2",
-          "label": "Information und Transparenz",
-          "metric": "Stufe 2",
-          "summary": "Information und verständliche Aufklärung als Voraussetzung für Meinungsbildung."
-        },
-        {
-          "badge": "Stufe 3",
-          "detail": "Kinder werden zu ihren Wünschen und Meinungen befragt, bevor Fachkräfte Entscheidungen treffen. Ihre Äußerungen werden dokumentiert und fließen nachvollziehbar in den Prozess ein.",
-          "example": "Befragung der Kinder zur Gestaltung des neuen Außenspielbereichs.",
-          "id": "py-3",
-          "label": "Anhörung und Meinungsäußerung (Art. 12)",
-          "metric": "Stufe 3",
-          "summary": "Aktive Beteiligung durch Anhörung und Berücksichtigung der Kinderperspektive."
-        },
-        {
-          "badge": "Stufe 4",
-          "detail": "Kinder entscheiden in definierten Bereichen (z. B. Gruppenregeln, Anschaffungen, Projektwochen) eigenständig und verbindlich mit. Entscheidungsstrukturen sind für alle transparent.",
-          "example": "Demokratische Abstimmung im Kinderparlament über die Anschaffung neuer Fahrzeuge.",
-          "id": "py-4",
-          "label": "Mitentscheidung und Mitverantwortung",
-          "metric": "Stufe 4",
-          "summary": "Echte Mitbestimmung und demokratische Machtübernahme in definierten Bereichen."
-        },
-        {
-          "badge": "Stufe 5 (Spitze)",
-          "detail": "Kinder initiieren Projekte, Konferenzen und Aktionen vollständig selbstständig aus ihren eigenen Bedürfnissen heraus. Die Fachkräfte agieren lediglich als beratende und unterstützende Begleitung.",
-          "example": "Kinder gründen eigenständig eine Theatergruppe und organisieren Aufführung und Eintritt.",
-          "id": "py-5",
-          "label": "Selbstorganisation und Autonomie",
-          "metric": "Spitze",
-          "summary": "Vollständig von Kindern initiierte und verantwortete Projekte und Prozesse."
-        }
-      ],
       "kind": "pyramid",
+      "title": "Stufen echter Partizipation (nach Schröder & Hart)",
+      "subtitle": "Von transparenter Information bis zu selbstinitiierten Projekten – vom Fundament zur Spitze",
+      "centerLabel": "Partizipation",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Die 5 Stufen der Partizipation und Rechteverwirklichung in Anlehnung an Hart und Schröder",
-      "title": "Pyramide der Partizipationsstufen"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-grid",
       "isCycle": false,
       "items": [
         {
-          "badge": "Säule 1",
-          "detail": "Beinhaltet das Recht auf körperliche und seelische Unversehrtheit, Schutz vor Gewalt, Ausbeutung, Missbrauch sowie das Recht auf Privatsphäre und Fürsorge in Notlagen.",
-          "example": "Gewaltschutzkonzepte in der Kita und Verbot körperlicher Bestrafung.",
-          "id": "fg-1",
-          "label": "Schutzrechte (Protection)",
-          "metric": "Grundrecht",
-          "summary": "Schutz vor Gefahren, Gewalt und Verletzung der Würde von Kindern und Jugendlichen."
+          "id": "py-1",
+          "label": "Information & Transparenz",
+          "badge": "Stufe 1 (Fundament)",
+          "metric": "Basis",
+          "summary": "Altersgerechte, ehrliche Aufklärung über Abläufe, Regeln und Entscheidungsgrenzen.",
+          "detail": "Ohne verständliche Information können Kinder keine eigene Meinung bilden. Transparenz macht auch klar, welche Rahmenbedingungen (z. B. Sicherheit) nicht verhandelbar sind.",
+          "example": "Ein visualisierter Tagesplan mit Fotos erklärt, wann das Mittagessen stattfindet und welche Funktionsräume geöffnet sind."
         },
         {
-          "badge": "Säule 2",
-          "detail": "Umfasst alle Leistungen, die eine gesunde körperliche, geistige, seelische und soziale Entwicklung garantieren, darunter Bildung, Gesundheitsversorgung, Spiel und soziale Sicherheit.",
-          "example": "Zugang zu inklusiver Bildung, ausgewogener Ernährung und Spielräumen.",
-          "id": "fg-2",
-          "label": "Förderrechte (Provision)",
-          "metric": "Entwicklung",
-          "summary": "Rechte auf optimale Förderung, Bildung, Gesundheit und materielle Lebensgrundlagen."
+          "id": "py-2",
+          "label": "Anhörung (Art. 12 UN-KRK)",
+          "badge": "Stufe 2",
+          "metric": "Meinung hören",
+          "summary": "Kinder werden vor einer Entscheidung nach ihrer Sichtweise gefragt.",
+          "detail": "Fachkräfte holen aktiv die Perspektive der Kinder ein und nehmen sie ernst, treffen die abschließende Entscheidung aber noch selbst – mit nachvollziehbarer Begründung.",
+          "example": "Vor dem Kauf neuer Bilderbücher befragen die Fachkräfte alle Gruppen nach ihren Lieblingsthemen und berücksichtigen die Wünsche."
         },
         {
-          "badge": "Säule 3",
-          "detail": "Garantiert das Recht auf freie Meinungsäußerung, Informationsfreiheit, Versammlungsfreiheit und die Berücksichtigung des Kindeswillens in allen Angelegenheiten (Artikel 12 UN-KRK).",
-          "example": "Teilnahme an Kinderkonferenzen und Beschwerdeverfahren in der Einrichtung.",
-          "id": "fg-3",
-          "label": "Beteiligungsrechte (Participation)",
-          "metric": "Mitbestimmung",
-          "summary": "Rechte auf aktive Mitbestimmung, Meinungsfreiheit und gesellschaftliche Teilhabe."
+          "id": "py-3",
+          "label": "Mitwirkung & Mitgestalten",
+          "badge": "Stufe 3",
+          "metric": "Beteiligung",
+          "summary": "Kinder bringen eigene Ideen ein und gestalten Abläufe oder Projekte aktiv mit.",
+          "detail": "Die Kinder übernehmen Teilaufgaben und prägen die konkrete Umsetzung deutlich mit, während die Gesamtsteuerung bei den Fachkräften verbleibt.",
+          "example": "Kinder schlagen Stationen für das Sommerfest vor, gestalten Schilder und erproben gemeinsam mit Fachkräften den Aufbau."
         },
         {
-          "badge": "Instrument",
-          "detail": "Wöchentliche oder anlassbezogene Zusammenkünfte aller Gruppenmitglieder zur gemeinsamen Beratung, Regelsetzung und Konfliktlösung nach demokratischen Prinzipien.",
-          "example": "Der wöchentliche Kinderkreis zur Planung des Sommerfestes.",
-          "id": "fg-4",
-          "label": "Kinderkonferenzen & Parlamente",
-          "metric": "Gremienarbeit",
-          "summary": "Institutionelle Foren für demokratische Aushandlungsprozesse und Beschlüsse."
+          "id": "py-4",
+          "label": "Verbindliche Mitentscheidung",
+          "badge": "Stufe 4",
+          "metric": "Geteilte Macht",
+          "summary": "Kinder und Erwachsene entscheiden in vereinbarten Bereichen gleichberechtigt.",
+          "detail": "In der Kita-Verfassung oder im Gruppenrat ist verbindlich geregelt, über welche Themen demokratisch abgestimmt wird – das Ergebnis gilt für alle.",
+          "example": "Die Kinderkonferenz beschließt mit verbindlichem Stimmrecht die neuen Nutzungsregeln für die Holzwerkstatt."
         },
         {
-          "badge": "Sicherung",
-          "detail": "Unabhängige, externe Beratungs- und Schlichtungsstellen sowie niederschwellige interne Beschwerdemechanismen zur Wahrung von Kinderrechten bei Konflikten.",
-          "example": "Inanspruchnahme einer Ombudsperson bei Streitigkeiten im Jugendhilfeheim.",
-          "id": "fg-5",
-          "label": "Beschwerde & Ombudschaft",
-          "metric": "Rechtsschutz",
-          "summary": "Niederschwellige Beschewege und externe Ombudschaft zur Streitbeilegung."
+          "id": "py-5",
+          "label": "Selbstbestimmung & Initiative",
+          "badge": "Stufe 5 (Spitze)",
+          "metric": "Eigenständigkeit",
+          "summary": "Kinder initiieren und steuern Vorhaben eigenständig; Fachkräfte unterstützen auf Anfrage.",
+          "detail": "Die Idee, Planung und Durchführung liegen bei den Kindern oder Jugendlichen selbst. Die Fachkraft sichert den Rahmen, stellt Ressourcen bereit und berät bei Bedarf.",
+          "example": "Hortkinder gründen eigenständig eine Kinderzeitung, verteilen Aufgaben und bitten die Fachkraft lediglich um Unterstützung beim Kopieren."
         }
-      ],
-      "kind": "feature_grid",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Zentrale Dimensionen der UN-Kinderrechtskonvention und institutionelle Umsetzungsinstrumente",
-      "title": "Feature-Grid: Säulen der Kinderrechte & Beteiligungsformen"
+      ]
     },
     {
+      "id": "vb-comparison",
+      "kind": "comparison",
+      "title": "Pseudopartizipation erkennen und überwinden (nach Roger Hart)",
+      "subtitle": "Abgrenzung der drei nicht-partizipativen Stufen (1–3) von echter Beteiligung ab Stufe 4",
       "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "c-1",
+          "label": "Manipulation (Stufe 1)",
+          "badge": "Keine Partizipation",
+          "metric": "Schein",
+          "summary": "Kinder handeln für Ziele der Erwachsenen, ohne die Bedeutung zu verstehen.",
+          "detail": "Erwachsene nutzen Kinder als Sprachrohr für eigene Interessen oder lassen sie ohne wirkliches Verständnis Ergebnisse abnicken.",
+          "example": "Kinder unterschreiben mit Fingerabdrücken eine Petition für den Kita-Ausbau, ohne zu wissen, worum es geht."
+        },
+        {
+          "id": "c-2",
+          "label": "Dekoration (Stufe 2)",
+          "badge": "Keine Partizipation",
+          "metric": "Schein",
+          "summary": "Kinder schmücken eine Veranstaltung, haben aber keinen Einfluss auf Inhalt oder Ablauf.",
+          "detail": "Die Anwesenheit oder das Auftreten von Kindern verleiht einem Anlass Wirkung, doch Planung und Entscheidungen liegen ausschließlich bei Erwachsenen.",
+          "example": "Eine Kitagruppe führt beim Trägerfest ein von Erwachsenen einstudiertes Lied auf, durfte aber weder Thema noch Beitrag mitbestimmen."
+        },
+        {
+          "id": "c-3",
+          "label": "Alibi-Beteiligung / Tokenismus (Stufe 3)",
+          "badge": "Keine Partizipation",
+          "metric": "Schein",
+          "summary": "Kinder werden scheinbar gefragt, obwohl die wesentliche Entscheidung längst feststeht.",
+          "detail": "Es wird ein Beteiligungsformat inszeniert, doch die Meinungen der Kinder bleiben folgenlos oder auf belanglose Details beschränkt.",
+          "example": "Das Team hat den neuen Kletterturm bereits bestellt und lässt die Kinder im Morgenkreis nur noch über die Farbe der kleinen Fahne abstimmen."
+        },
+        {
+          "id": "c-4",
+          "label": "Echte Partizipation (ab Stufe 4)",
+          "badge": "Wirkliche Beteiligung",
+          "metric": "Verbindlich",
+          "summary": "Transparente Information, freiwillige Teilnahme und spürbarer Einfluss auf das Ergebnis.",
+          "detail": "Kinder kennen den echten Entscheidungsspielraum, bringen eigene Vorschläge ein und erleben, dass ihre Entscheidung verbindlich umgesetzt wird.",
+          "example": "Das Budget für neue Spielgeräte wird offen benannt; Kinder entwickeln Wünsche, vergleichen Optionen mit Bildkarten und stimmen verbindlich ab."
+        }
+      ]
+    },
+    {
+      "id": "vb-grid",
+      "kind": "feature_grid",
+      "title": "Rechtliches Fundament: Von der UN-KRK bis ins KiTaG RLP",
+      "subtitle": "Wie Völkerrecht, Bundesrecht und Landesrecht Kinderrechte verbindlich absichern",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "g-1",
+          "label": "UN-KRK (Art. 3 & Art. 12)",
+          "badge": "Völkerrecht",
+          "metric": "3 Säulen",
+          "summary": "Schutz-, Förder- und Beteiligungsrechte; Vorrang des Kindeswohls und Meinungsäußerung.",
+          "detail": "Seit 1992 in Deutschland verbindlich (Rücknahme der Vorbehaltserklärung 2010). Art. 12 sichert das Recht auf freie Meinungsäußerung und angemessene Berücksichtigung.",
+          "example": "Kinder werden vor Entscheidungen, die ihren Alltag in Kita oder Wohngruppe betreffen, altersgerecht gehört."
+        },
+        {
+          "id": "g-2",
+          "label": "§ 8 SGB VIII",
+          "badge": "Bundesrecht",
+          "metric": "Beteiligung",
+          "summary": "Entwicklungsangemessene Beteiligung und barrierefreier Beratungsanspruch.",
+          "detail": "Kinder und Jugendliche sind an allen sie betreffenden Entscheidungen der öffentlichen Jugendhilfe zu beteiligen und dürfen sich auch ohne Kenntnis der Eltern in Konfliktlagen beraten lassen (Abs. 3).",
+          "example": "In der Hilfeplanung wird eine Jugendliche in verständlicher Sprache über ihre Rechte informiert und aktiv einbezogen."
+        },
+        {
+          "id": "g-3",
+          "label": "§ 45 Abs. 2 S. 2 Nr. 4 SGB VIII",
+          "badge": "Betriebserlaubnis",
+          "metric": "Pflichtstandard",
+          "summary": "Gewaltschutzkonzept, Selbstvertretung, Beteiligung sowie interne und externe Beschwerde.",
+          "detail": "Ohne nachgewiesene, gelebte Schutz-, Beteiligungs- und Beschwerdeverfahren innerhalb und außerhalb der Einrichtung darf keine Betriebserlaubnis erteilt werden.",
+          "example": "Eine Kita verankert eine Kita-Verfassung, ein Beschwerdeverfahren und ein Schutzkonzept verbindlich in ihrer Konzeption."
+        },
+        {
+          "id": "g-4",
+          "label": "§ 9a SGB VIII",
+          "badge": "Ombudschaft",
+          "metric": "Unabhängig",
+          "summary": "Unabhängige, fachlich weisungsfreie Ombudsstellen für junge Menschen und Familien.",
+          "detail": "Ombudsstellen beraten und vermitteln parteilich bzw. unabhängig bei Konflikten mit öffentlichen oder freien Trägern der Jugendhilfe – z. B. in RLP über die Ombudsstelle Kinder- und Jugendhilfe RLP.",
+          "example": "Ein Jugendlicher in einer Wohngruppe holt bei einem ungelösten Konflikt mit dem Träger unabhängige Unterstützung durch die Ombudsstelle."
+        },
+        {
+          "id": "g-5",
+          "label": "§§ 1 & 3 KiTaG RLP",
+          "badge": "Landesrecht RLP",
+          "metric": "Kita-Alltag",
+          "summary": "Alltagsbeteiligung und Beschwerdemöglichkeit in rheinland-pfälzischen Kitas.",
+          "detail": "Nach § 1 Abs. 1 und § 3 Abs. 2 KiTaG RLP sind Meinung und Wille des Kindes bei der Alltagsgestaltung zu berücksichtigen sowie geeignete Beteiligungs- und Beschwerdeverfahren anzuwenden.",
+          "example": "Regelmäßige Kinderkonferenzen und kindgerechte Beschwerdewege sind fester Bestandteil des Kita-Alltags in Rheinland-Pfalz."
+        }
+      ]
+    },
+    {
       "id": "vb-flow",
+      "kind": "process_flow",
+      "title": "Kreislauf eines kindgerechten Beschwerdeverfahrens",
+      "subtitle": "Von der ersten verbalen oder nonverbalen Unmutsäußerung bis zur verbindlichen Rückmeldung",
+      "centerLabel": "Beschwerde",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": true,
       "items": [
         {
-          "badge": "Schritt 1",
-          "detail": "Kinder und Fachkräfte nehmen ein gemeinsames Problem, einen Veränderungswunsch oder ein ungelöstes Konfliktfeld im Einrichtungsalltag wahr und benennen es offen.",
-          "example": "Kinder beklagen, dass der Baubereich morgens regelmäßig durch Streit blockiert wird.",
           "id": "pf-1",
-          "label": "Anlasserkennung & Bestandsaufnahme",
-          "metric": "Start",
-          "summary": "Gemeinsames Identifizieren von Problemen, Wünschen oder Handlungsbedarfen im Alltag."
+          "label": "1. Beschwerde wahrnehmen",
+          "badge": "Verbal & nonverbal",
+          "metric": "Schritt 1",
+          "summary": "Kritik, Unwohlsein und Widerstand in jeder kindlichen Ausdrucksform erkennen.",
+          "detail": "Beschwerden zeigen sich bei jungen Kindern oft über Weinen, Wegdrehen, Rückzug oder deutliches „Nein“ – bei älteren auch über Kinderkonferenz, Vertrauensperson oder Beschwerdekasten.",
+          "example": "Ein 5-Jähriger schiebt den Teller weg und sagt verärgert, dass er nicht zum Probieren gezwungen werden will."
         },
         {
-          "badge": "Schritt 2",
-          "detail": "Die Fachkraft bereitet das Thema altersgerecht auf und stellt sicher, dass alle Kinder über den Sachverhalt informiert sind und ihre Gedanken dazu äußern können.",
-          "example": "Einberufung der Kinderkonferenz und Visualisierung der Problemsituation mit Fotos.",
           "id": "pf-2",
-          "label": "Information & Perspektivenerhebung",
-          "metric": "Transparenz",
-          "summary": "Altersgerechte Informationsvermittlung und Erhebung der unterschiedlichen Meinungen."
+          "label": "2. Ernst nehmen ohne Abwehr",
+          "badge": "Fehlerkultur",
+          "metric": "Schritt 2",
+          "summary": "Die Äußerung wertfrei annehmen, ohne zu bagatellisieren oder sich sofort zu rechtfertigen.",
+          "detail": "Das Kind erlebt: „Meine Grenze zählt, und ich bekomme keinen Ärger, wenn ich Kritik äußere.“ Schutz vor negativen Konsequenzen ist zwingend.",
+          "example": "„Danke, dass du sagst, was dich stört. Du musst nichts essen, was du nicht möchtest. Wir klären das gemeinsam.“"
         },
         {
-          "badge": "Schritt 3",
-          "detail": "In einer strukturierten Gesprächsrunde sammeln alle Beteiligten Ideen, Lösungsvorschläge und Wünsche, ohne dass diese sofort bewertet werden.",
-          "example": "Sammlung von Ideen: Feste Bauzeiten, Ausleihausweis für den Bauteppich, Partnermodell.",
           "id": "pf-3",
-          "label": "Ideensammlung & Aushandlung",
-          "metric": "Diskurs",
-          "summary": "Offenes Brainstorming und demokratisches Aushandeln möglicher Lösungswege."
+          "label": "3. Dokumentieren & prüfen",
+          "badge": "Verbindlichkeit",
+          "metric": "Schritt 3",
+          "summary": "Anliegen festhalten und je nach Tragweite im Team, mit Leitung oder extern klären.",
+          "detail": "Bei wiederkehrenden oder grenzverletzenden Vorfällen (auch gegen Fachkräfte) greifen feste interne Zuständigkeiten und ggf. externe Stellen (Träger, Jugendamt, Ombudsstelle).",
+          "example": "Das Team prüft die bisherige Essensregel anhand der Kinderrechte und der Kita-Verfassung."
         },
         {
-          "badge": "Schritt 4",
-          "detail": "Die Gruppe wählt gemeinsam einen Lösungsweg aus (z. B. per Handzeichen oder Klebepunkte) und vereinbart verbindliche Regeln für die Umsetzung.",
-          "example": "Die Kinder beschließen die Einführung von max. 4 gelben Armbändern für den Baubereich.",
           "id": "pf-4",
-          "label": "Demokratischer Beschluss",
-          "metric": "Entscheidung",
-          "summary": "Gemeinsame, transparente Entscheidungsfindung und Verabschiedung von Regeln."
+          "label": "4. Abhilfe & Veränderung",
+          "badge": "Wirksamkeit",
+          "metric": "Schritt 4",
+          "summary": "Konkrete, nachvollziehbare Maßnahmen vereinbaren und im Alltag umsetzen.",
+          "detail": "Beschwerden dürfen nicht versanden. Das Team passt Regeln oder Abläufe an – oder erklärt ehrlich, warum eine bestimmte Grenze aus Schutzgründen bestehen bleibt.",
+          "example": "Das Team schafft die inoffizielle „Probierpflicht“ verbindlich ab und verankert das Recht auf selbstbestimmtes Essen."
         },
         {
-          "badge": "Schritt 5",
-          "detail": "Die beschlossene Maßnahme wird im Alltag umgesetzt. Nach einer Testphase wird in einer erneuten Konferenz geprüft, ob die Regel funktioniert hat oder nachgebessert werden muss.",
-          "example": "Nach zwei Wochen prüft die Kinderkonferenz, ob der Streit im Baubereich nachgelassen hat.",
           "id": "pf-5",
-          "label": "Umsetzung & Evaluation",
-          "metric": "Kreislauf",
-          "summary": "Praktische Umsetzung des Beschlusses und anschließende gemeinsame Überprüfung."
+          "label": "5. Rückmeldung & Evaluation",
+          "badge": "Transparenz",
+          "metric": "Schritt 5",
+          "summary": "Dem Kind zeitnah und verständlich rückmelden, was aus seiner Beschwerde geworden ist.",
+          "detail": "Erst durch die Rückmeldung erfährt das Kind Selbstwirksamkeit. Das Team reflektiert regelmäßig, wie gut die Beschwerdewege tatsächlich genutzt werden können.",
+          "example": "In der nächsten Kinderrunde wird vereinbart und ausgehängt: „Jedes Kind bestimmt selbst, was und wie viel es isst.“"
         }
-      ],
-      "kind": "process_flow",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Der Kreislauf demokratischer Entscheidungsfindung und Partizipation im pädagogischen Alltag",
-      "title": "Prozessfluss: Partizipatives Handeln in der Kinderkonferenz"
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Kindertagesstätte (Kinder im Alter von 4–6 Jahren)",
-    "context": "In einer städtischen Kindertagesstätte soll ein wöchentlicher Kinderkreis (Kinderkonferenz) eingeführt werden, in dem über die Gestaltung des Außengeländes und Anschaffungen für den Bewegungsraum entschieden wird. Bislang bestimmten die Fachkräfte über solche Belange weitgehend allein, möchten nun aber mehr Partizipation ermöglichen. Bei der ersten Durchführung des Kinderkreises bricht jedoch Chaos aus, viele Kinder rufen durcheinander, und jüngere Kinder werden von älteren überredet oder überstimmt. Die Fachkraft steht vor der Herausforderung, den Prozess methodisch und haltungsbezogen so zu steuern, dass echte Partizipation gelingt, ohne in Beliebigkeit oder Überforderung zu verfallen.",
-    "setting": "Städtische Kindertagesstätte mit offenem Konzept und integriertem Hortbereich",
+    "title": "Kinderkonferenz und Essensbeschwerde: Vom Schein zur gelebten Beteiligung",
+    "setting": "Städtische Kindertagesstätte mit altersgemischten Gruppen und angeschlossenem Hort",
+    "ageGroup": "4 bis 8 Jahre (Kita & Hort)",
+    "context": "Die Einrichtung möchte Partizipation und Beschwerdeverfahren systematisch ausbauen. Für das Außengelände steht ein Budget für neue Spielbereiche bereit; eine erste gemeinsame Kinderkonferenz mit Kita- und Hortkindern soll dazu Ideen sammeln. Zugleich häufen sich im Team Unsicherheiten, was im Alltag überhaupt als „echte Beschwerde“ zählt.",
     "steps": [
       {
+        "situation": "In der ersten Kinderkonferenz reden die älteren Hortkinder laut durcheinander, während die 4- und 5-Jährigen verstummen. Zudem erfährt die moderierende Fachkraft, dass die Leitung bereits einen Kletterturm fest bestellt hat und die Kinder eigentlich nur noch über die Farbe der Dachfahne abstimmen sollen.",
+        "prompt": "Wie reagiert die Fachkraft fachlich professionell, um echte Partizipation statt Alibi-Beteiligung zu ermöglichen?",
         "options": [
           {
-            "feedback": "Diese Maßnahme bricht den dialogischen und partizipativen Prozess ab und verfällt in einen autoritären Erziehungsstil. Die Kinder erleben Selbstwirksamkeit als bedeutungslos, was dem Lehrplanauftrag und der UN-Kinderrechtskonvention (Art. 12) widerspricht.",
-            "label": "Die Fachkraft bricht die Kinderkonferenz sofort ab und entscheidet künftig wieder allein über das Außengelände, um Chaos zu vermeiden.",
+            "label": "Sie bricht die Kinderkonferenz als überfordernd ab und lässt künftig wieder ausschließlich das Team über Spielgeräte entscheiden.",
             "quality": "problematisch",
-            "theoryLink": "UN-Kinderrechtskonvention (Art. 12 - Berücksichtigung des Kindeswillens); Erziehungsstile (autoritärer Ansatz)"
+            "feedback": "Der Abbruch entzieht den Kindern ihr gesetzlich verankertes Beteiligungsrecht (Art. 12 UN-KRK, § 3 Abs. 2 KiTaG RLP) und deutet ein methodisches Moderationsproblem fälschlich als mangelnde Kompetenz der Kinder.",
+            "theoryLink": "Art. 12 UN-KRK; § 3 Abs. 2 KiTaG RLP; Verantwortung der Erwachsenen für altersgerechte Beteiligungsstrukturen."
           },
           {
-            "feedback": "Dies ist ein guter Zwischenschritt zur Strukturierung (Sprechstein, visuelle Symbole), greift aber zu kurz, wenn die Machtasymmetrie und die Moderationskompetenz der Fachkraft nicht reflektiert werden. Es schützt zwar vor dem Untergehen leiserer Stimmen, erfordert aber noch eine tiefere partizipative Haltung.",
-            "label": "Die Fachkraft führt verbindliche Gesprächsregeln (z.B. einen Sprechstein) ein, visualisiert die Vorschläge mit Piktogrammen und strukturiert den Entscheidungsprozess (Mehrheitsentscheid oder Konsensfindung) transparent.",
+            "label": "Sie klärt mit der Leitung den realen Entscheidungsspielraum transparent, nutzt Bildkarten, Sprechstein und Kleingruppen für Jüngere und lässt die Kinder verbindlich über noch offene Spielbereiche mitentscheiden.",
             "quality": "optimal",
-            "theoryLink": "Stufen der Partizipation (Schröder / Hart); Moderation und Gesprächsführung in Gruppen (RLP S-SP-2)"
+            "feedback": "Fachlich überzeugend: Echte Partizipation verlangt Ehrlichkeit über bereits getroffene Festlegungen und reale Entscheidungsmacht in offenen Bereichen. Durch altersgerechte Visualisierung und Kleingruppen kommen auch jüngere und leisere Kinder gleichberechtigt zu Wort.",
+            "theoryLink": "Hansen, Knauer & Sturzenhecker (Machtabgabe & Transparenz); Schröder & Hart (verbindliche Mitentscheidung); inklusive Moderation."
           },
           {
-            "feedback": "Obwohl dieses Vorgehen gut gemeint ist, entzieht es den Kindern die Mitverantwortung und löst das strukturelle Problem der Gesprächssteuerung in der Großgruppe nicht nachhaltig. Kinder lernen dadurch nicht, mit Konflikten und Gruppenprozessen umzugehen.",
-            "label": "Die Fachkraft teilt die Kinder in feste Dreiergruppen ein und bestimmt für jede Gruppe eine ältere Mentorin oder einen Mentor, die bzw. der die Wünsche sammelt und der Leitung direkt vorträgt.",
+            "label": "Sie führt einen Sprechstein für mehr Ruhe ein, lässt die Kinder aber wie geplant lediglich über die Fahnenfarbe des bereits bestellten Turms abstimmen.",
             "quality": "teilweise",
-            "theoryLink": "Gruppenpädagogische Ansätze und soziales Lernen in Gruppen (RLP S-SP-2)"
+            "feedback": "Der Sprechstein verbessert zwar die Gesprächskultur, doch inhaltlich bleibt es bei Alibi-Beteiligung (Stufe 3 nach Hart): Die wesentliche Entscheidung steht längst fest, sodass Kinder keinen realen Einfluss ausüben.",
+            "theoryLink": "Roger Hart: Abgrenzung von Tokenismus/Alibi-Partizipation (Stufe 3) und echter Beteiligung (ab Stufe 4)."
           }
-        ],
-        "prompt": "Wie sollte die Fachkraft auf die unstrukturierten Abläufe und die Dominanz einzelner Kinder in der ersten Kinderkonferenz reagieren?",
-        "situation": "Die erste Kinderkonferenz verläuft unstrukturiert: Kinder rufen durcheinander, schüchterne Kinder beteiligen sich nicht, und ältere Kinder dominieren die Entscheidungsfindung."
+        ]
       },
       {
+        "situation": "Eine Woche später schiebt der 5-jährige Mio beim Mittagessen seinen Teller energisch weg und ruft: „Ich will nicht probieren, du darfst mich nicht zwingen!“ Eine Kollegin hatte zuvor auf „drei Probierlöffel“ bestanden. In der Dienstbesprechung meint sie: „Das ist doch keine Beschwerde – wir haben schließlich einen Beschwerdebriefkasten im Flur, da war nichts drin.“",
+        "prompt": "Wie ordnet die Fachkraft diese Situation im Sinne eines wirksamen Beschwerdeverfahrens ein?",
         "options": [
           {
-            "feedback": "Diese Maßnahme setzt direkt bei den strukturellen Bedingungen an und fördert die Beschwerdekompetenz sowie den Rechtsschutz der Kinder. Sie verankert Partizipation dauerhaft und transparent in der Einrichtungskultur.",
-            "label": "Die Fachkräfte entwickeln gemeinsam mit den Kindern eine leicht verständliche Kita-Verfassung, richten einen anonymen und zugänglichen Briefkasten für Kinderbeschwerden ein und etablieren eine Ombudsstruktur.",
-            "quality": "optimal",
-            "theoryLink": "Beschwerdeverfahren und Ombudschaft in der Kinder- und Jugendhilfe (RLP S-SP-2)"
-          },
-          {
-            "feedback": "Ein bloßer Aushang an einer für Kinder unerreichbaren Wand genügt dem Anspruch an gelebte Partizipation und Rechteverwirklichung nicht. Kinder brauchen barrierefreie, dialogische Zugänge zu ihren Rechten.",
-            "label": "Die Einrichtung hängt die UN-Kinderrechtskonvention im DIN-A4-Format im Personalzimmer aus und informiert die Eltern einmal jährlich per Elternbrief über das Thema Partizipation.",
-            "quality": "problematisch",
-            "theoryLink": "Kinder als Träger von Rechten gemäß UN-Kinderrechtskonvention; Elternarbeit und Erziehungspartner (RLP S-SP-2)"
-          },
-          {
-            "feedback": "Auch wenn Gespräche wichtig sind, bleibt dieser Ansatz zu vage und unverbindlich. Ohne institutionelle Verankerung (z.B. feste Gremien) verpuffen gute Vorsätze im hektischen Einrichtungsalltag.",
-            "label": "Die Fachkraft spricht in den nächsten Wochen sporadisch im Morgenkreis mit den Kindern über fairness, verlässt sich ansonsten aber auf den normalen Betreuungsalltag.",
+            "label": "Sie tröstet Mio kurz allein im Flur und bittet ihn beim nächsten Mal freundlich zu bleiben, spricht den Vorfall im Team aber nicht an, um Konflikte mit der Kollegin zu vermeiden.",
             "quality": "teilweise",
-            "theoryLink": "Konzeptionelle Grundlagen pädagogischen Handelns; Alltagsleben und Lebensräume gestalten (RLP S-SP-2)"
+            "feedback": "Empathie gegenüber Mio ist hilfreich, greift aber strukturell zu kurz: Bleibt die Kritik unangesprochen im Raum stehen, wiederholt sich die Grenzverletzung, und das Team verpasst die Chance zur gemeinsamen Weiterentwicklung der Beschwerdekultur.",
+            "theoryLink": "Strukturelle Verankerung von Beschwerdeverfahren und professionelle Fehlerkultur im Team."
+          },
+          {
+            "label": "Sie bestärkt die Kollegin darin, dass Beschwerden erst ab schriftlicher Einreichung im Briefkasten bearbeitet werden, damit klare Abläufe herrschen.",
+            "quality": "problematisch",
+            "feedback": "Diese Haltung macht das Beschwerderecht für Kita-Kinder wirkungslos und verletzt die Anforderungen an barrierefreie, altersangemessene Beschwerdeverfahren. Zudem bleibt eine grenzüberschreitende Essensregel („Probierzwang“) unreflektiert.",
+            "theoryLink": "§ 45 Abs. 2 Satz 2 Nr. 4 SGB VIII; § 3 Abs. 2 KiTaG RLP; Schutz kindlicher Selbstbestimmung und Körpergrenzen."
+          },
+          {
+            "label": "Sie erkennt Mios Protest als legitime Alltagsbeschwerde an, regt im Team eine offene Reflexion der Essensregel sowie kindgerechte, nicht-schriftliche Beschwerdewege an und gibt Mio eine klare Rückmeldung.",
+            "quality": "optimal",
+            "feedback": "Genau richtig: Ein reiner Briefkasten schließt jüngere Kinder, die noch nicht schreiben können, faktisch aus. Ein wirksames Beschwerdeverfahren nach § 45 Abs. 2 S. 2 Nr. 4 SGB VIII umfasst verbale wie nonverbale Äußerungen im Alltag, eine offene Fehlerkultur im Team und verbindliche Rückmeldung an das Kind.",
+            "theoryLink": "§ 45 Abs. 2 Satz 2 Nr. 4 SGB VIII; Hansen & Knauer (Beschwerdeverfahren & Fehlerkultur); Alltagspartizipation."
           }
-        ],
-        "prompt": "Wie kann die Einrichtung sicherstellen, dass Partizipation und Kinderrechte langfristig im Alltag verankert und nicht nur als einmaliges Projekt durchgeführt werden?",
-        "situation": "Nach einigen erfolgreichen Kinderkonferenzen befürchten die Fachkräfte, dass das Thema im stressigen Einrichtungsalltag wieder untergehen könnte."
+        ]
       }
-    ],
-    "title": "Partizipation und Kinderkonferenz in einer Kindertagesstätte"
+    ]
   },
   "selfLearningTasks": [
-    "1. Analysieren Sie die Konzeption Ihrer Praxiseinrichtung im Hinblick auf Partizipation und Kinderrechte: Welche konkreten Mitspracherechte sind verankert, und wo existieren blinde Flecken (z. B. bei Pflegeroutinen oder Raumregeln)?",
-    "2. Entwickeln Sie einen Leitfaden für eine wöchentliche Kinderkonferenz in Ihrer Gruppe (Altersstufe 4–6 Jahre oder Hort), inklusive Einstieg, Visualisierungsmethoden und Umgang mit Konflikten bei Abstimmungen.",
-    "3. Recherchieren Sie die Rolle und Aufgaben einer regionalen Ombudsstelle in der Kinder- und Jugendhilfe und erstellen Sie ein Informationsblatt für Jugendliche, wie man sich bei Problemen in der Einrichtung beschweren kann."
+    "Prüfe ein konkretes Beteiligungsangebot aus deiner Praxiseinrichtung anhand der Stufenmodelle von Roger Hart und Richard Schröder: Wo liegen echte Entscheidungsrechte der Kinder, und wo bestehen Risiken für Alibi-Beteiligung?",
+    "Entwirf eine kurze, altersgerechte Moderationsstruktur (inkl. Visualisierung, Abstimmungsmethode und Minderheitenschutz) für eine 20-minütige Kinderkonferenz zu einem realen Alltagsthema in Kita oder Hort.",
+    "Überprüfe anhand der konzeptionellen Leitfragen von Hansen und Knauer das Beschwerdekonzept deiner Praxiseinrichtung: Wie können sich auch 2- bis 5-jährige Kinder beschweren, wer dokumentiert Beschwerden, und welche externe Ombudsstelle ist bekannt?"
   ],
   "flashcards": [
     {
-      "definition": "Rechtlich verbindliche internationale Vereinbarung der UN (1989), die Kinder als eigenständige Persönlichkeiten mit Schutz-, Förder- und Beteiligungsrechten ausstattet.",
-      "example": "Artikel 12 UN-KRK garantiert das Recht auf Beteiligung und Berücksichtigung der Meinung von Kindern.",
-      "term": "UN-Kinderrechtskonvention (UN-KRK)"
+      "term": "UN-Kinderrechtskonvention (UN-KRK) & Artikel 12",
+      "definition": "Völkerrechtlicher Vertrag (1989; in Deutschland seit 1992, Rücknahme der Vorbehaltserklärung 2010) mit drei Säulen – Schutz, Förderung, Beteiligung. Art. 12 garantiert freie Meinungsäußerung und altersgerechte Berücksichtigung in allen das Kind berührenden Angelegenheiten.",
+      "example": "Kinder werden nicht als Fürsorgeobjekte behandelt, sondern an der Gestaltung ihrer Lebensräume in Kita, Hort und Jugendhilfe aktiv beteiligt."
     },
     {
-      "definition": "Einordnung von Beteiligungsformen in verschiedene Stufen (von Fremdbestimmung bis zur echten Selbstbestimmung und Mitsprache).",
-      "example": "Das Stufenmodell nach Hart (Leiter der Partizipation) unterscheidet zwischen Alibi-Partizipation und vollständig von Kindern initiierten Projekten.",
-      "term": "Stufen der Partizipation"
+      "term": "Partizipation (Definition nach Richard Schröder)",
+      "definition": "Entscheidungen, die das eigene Leben und das Leben der Gemeinschaft betreffen, miteinander zu teilen und gemeinsam Lösungen für Probleme zu finden.",
+      "example": "Kinder entscheiden individuell über Spielpartner und Essen und stimmen im Gruppenrat verbindlich über Raumregeln ab."
     },
     {
-      "definition": "Form der institutionellen Mitbestimmung, bei der Kinder in regelmäßigen Runden gemeinsam überrichtungsrelevante Themen, Regeln und Anschaffungen beraten und abstimmen.",
-      "example": "Der wöchentliche Kinder-Rat einer Kindertagesstätte entscheidet über die Anschaffung von neuem Außenspielzeug.",
-      "term": "Kinderkonferenz / Kinderparlament"
+      "term": "Pseudopartizipation (Stufen 1–3 nach Roger Hart)",
+      "definition": "Nicht-partizipative Formen der Scheinbeteiligung – Manipulation, Dekoration und Alibi-Beteiligung (Tokenismus) –, bei denen Kinder keinen realen Einfluss auf Entscheidungen haben.",
+      "example": "Kinder dürfen über das Motto eines Festes abstimmen, obwohl Ablauf und Inhalte vom Team bereits endgültig festgelegt wurden."
     },
     {
-      "definition": "Unabhängige Beratungs- und Schlichtungsstelle für Kinder, Jugendliche und Familien in der Jugendhilfe, die bei Konflikten mit Trägern oder Behörden vermittelt.",
-      "example": "Eine Ombudsperson unterstützt einen Jugendlichen im Heim bei der Durchsetzung seiner Beschwerde gegenüber dem Jugendamt.",
-      "term": "Ombudschaft / Beschwerdeverfahren"
+      "term": "Kita-Verfassung (Hansen, Knauer & Sturzenhecker)",
+      "definition": "Verbindliche, teamintern und kindgerecht ausgehandelte Vereinbarung, welche Rechte und Entscheidungsbereiche Kinder dauerhaft haben – unabhängig vom Wohlwollen einzelner Fachkräfte.",
+      "example": "Die Kita-Verfassung legt fest, dass die Kinderkonferenz über das Budget für Spielmaterialien und die Regeln im Bewegungsraum verbindlich entscheidet."
     },
     {
-      "definition": "Systematisches und transparentes Verfahren in sozialpädagogischen Einrichtungen, das Kindern und Jugendlichen ermöglicht, Kritik, Sorgen und Wünsche ohne Angst vor negativen Konsequenzen vorzubringen.",
-      "example": "Ein kinderleichter, leicht zugänglicher Beschwerdekasten und wöchentliche Feedback-Runden.",
-      "term": "Beschwerdemanagement"
+      "term": "§ 45 Abs. 2 Satz 2 Nr. 4 SGB VIII",
+      "definition": "Bundesrechtliche Voraussetzung für die Betriebserlaubnis von Einrichtungen: Entwicklung, Anwendung und Überprüfung eines Gewaltschutzkonzepts sowie geeignete Verfahren der Selbstvertretung, Beteiligung und internen/externen Beschwerde.",
+      "example": "Eine Kita weist für ihre Betriebserlaubnis transparente Beteiligungsgremien, alltagstaugliche Beschwerdewege und ein Schutzkonzept nach."
     },
     {
-      "definition": "Pädagogische Haltung, die Machtasymmetrien zwischen Fachkräften und Kindern reflektiert und Kinder als kompetente Akteurinnen und Akteure ihrer eigenen Entwicklung begreift.",
-      "example": "Eine Erzieherin entscheidet nicht über den Tagesablauf hinweg, sondern moderiert Aushandlungsprozesse mit der Gruppe.",
-      "term": "Partizipatorische Haltung"
+      "term": "Ombudschaft (§ 9a SGB VIII)",
+      "definition": "Unabhängige, fachlich nicht weisungsgebundene Beratungs- und Konfliktvermittlungsstellen der Länder für junge Menschen und Familien gegenüber Trägern der öffentlichen und freien Jugendhilfe.",
+      "example": "Eine Jugendliche wendet sich bei einem festgefahrenen Konflikt in ihrer Wohngruppe an die Ombudsstelle Kinder- und Jugendhilfe RLP."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Artikel 12 der UN-Kinderrechtskonvention garantiert das Recht des Kindes, seine Meinung in allen es berührenden Angelegenheiten frei zu äußern, und die Pflicht der Erwachsenen, diese Meinung angemessen zu berücksichtigen.",
-      "id": "quiz-1",
+      "question": "Welches zentrale Recht garantiert Artikel 12 der UN-Kinderrechtskonvention?",
       "options": [
-        "Das Recht auf unbegrenzte Freizeit und Konsum in der Einrichtung",
-        "Das Recht auf freie Meinungsäußerung und Berücksichtigung der Kinderstimme in allen Angelegenheiten (Art. 12 UN-KRK)",
-        "Das Recht von Kindern, pädagogische Fachkräfte zu entlassen oder einzustellen",
-        "Das Recht auf ausschließliche Bestimmung aller gesetzlichen Richtlinien ohne pädagogische Rahmung"
+        "Ein kommunales Wahlrecht für Jugendliche ab zwölf Jahren in allen Bundesländern.",
+        "Das Recht von Kindern, sämtliche Aufsichts- und Sicherheitsregeln einer Einrichtung allein festzulegen.",
+        "Das Recht des Kindes, seine Meinung in allen es berührenden Angelegenheiten frei zu äußern, sowie die Pflicht, diese alters- und reifeangemessen zu berücksichtigen.",
+        "Das Recht auf ausschließliche Vertretung kindlicher Interessen durch Eltern ohne eigene Anhörung des Kindes."
       ],
-      "question": "Welches zentrale Recht wird Kindern und Jugendlichen durch Artikel 12 der UN-Kinderrechtskonvention zugesichert?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        0,
-        2,
-        3
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Die UN-Kinderrechtskonvention gliedert sich klassischerweise in die drei Bereiche Schutzrechte (z.B. vor Gewalt), Förderrechte (z.B. auf Bildung, Gesundheit) und Beteiligungsrechte (z.B. Meinungsfreiheit, Mitbestimmung). Ein reines „Bestimmungsrecht über den Staatshaushalt“ existiert nicht.",
-      "id": "quiz-2",
-      "options": [
-        "Schutzrechte (z.B. Schutz vor Gewalt und Ausbeutung)",
-        "Finanzielle Eigentumsrechte an staatlichen Immobilien",
-        "Förderrechte (z.B. Recht auf Bildung, Entwicklung und Gesundheit)",
-        "Beteiligungsrechte (z.B. Meinungsäußerung und Informationsfreiheit)"
-      ],
-      "question": "Welche Kategorien gehören zu den wesentlichen Säulen der UN-Kinderrechtskonvention? (Mehrere Antworten sind richtig)",
-      "type": "multi"
-    },
-    {
       "correctIndices": [
         2
       ],
-      "difficulty": "pruefung",
-      "explanation": "Die ersten Stufen der Leiter von Hart (z.B. Alibi-Partizipation oder Dekoration) beschreiben Formen, in denen Kinder zwar nominell beteiligt wirken, aber inhaltlich keinerlei echtes Mitspracherecht oder Verständnis der Zusammenhänge besitzen. Erst ab Stufe 4 (mitbestimmt und informiert) beginnt echte Partizipation.",
-      "id": "quiz-3",
-      "options": [
-        "Stufe 8: Vollständige Übernahme der Einrichtungsleitung durch Kinder",
-        "Stufe 1: Selbstbestimmte und von Kindern initiierte Projekte ohne Fachkraftbeteiligung",
-        "Stufe 1–3 nach Hart: Formen der Alibi-Partizipation, Dekoration oder Tokenismus ohne echtes Mitspracherecht",
-        "Stufe 5: Gesetzlich verankertes Wahlrecht auf kommunaler Ebene"
-      ],
-      "question": "Was versteht man im Kontext der Partizipationspädagogik (z.B. nach Roger Hart) unter den untersten Stufen (Alibi-Partizipation / Dekoration)?",
-      "type": "single"
+      "explanation": "Artikel 12 UN-KRK verankert Kinder als Rechtssubjekte mit eigenem Recht auf Meinungsäußerung und Berücksichtigung entsprechend Alter und Reife – nicht als vollständige Entbindung der Erwachsenen von ihrer Schutzverantwortung."
     },
     {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "basis",
-      "explanation": "Ein Beschwerdeverfahren muss für Kinder und Jugendliche barrierefrei, niedrigschwellig, angstfrei und transparent gestaltet sein, damit sie ihre Rechte effektiv wahrnehmen können.",
-      "id": "quiz-4",
+      "id": "v2-q2",
+      "type": "case",
+      "difficulty": "vertiefung",
+      "question": "Ein Kita-Team hat bereits entschieden, welches neue Spielgerät angeschafft wird, lässt die Kinder im Morgenkreis aber abstimmen, ob das Gerät blau oder grün gestrichen wird. Wie ordnet Roger Harts Partizipationsleiter dieses Vorgehen ein?",
       "options": [
-        "Beschwerden dürfen ausschließlich schriftlich per Post an die Heimaufsicht gerichtet werden.",
-        "Kinder und Jugendliche müssen niedrigschwellige, barrierefreie und angstfreie Möglichkeiten zur Äußerung von Kritik und Beschwerden in der Einrichtung vorfinden.",
-        "Beschwerden von Minderjährigen sind rechtlich unverbindlich und müssen von der Einrichtung nicht bearbeitet werden.",
-        "Ein Beschwerdeverfahren ist laut Lehrplan nur für den Hortbereich, nicht aber für Kitas oder die stationäre Jugendhilfe vorgeschrieben."
+        "Stufe 3 (Alibi-Beteiligung / Tokenismus): Scheinbeteiligung ohne echten Einfluss auf die eigentliche Entscheidung.",
+        "Stufe 8: Vollständig von Kindern initiiert und gemeinsam mit Erwachsenen entschieden.",
+        "Stufe 6: Von Erwachsenen initiiert, aber gleichberechtigte Mitentscheidung der Kinder.",
+        "Stufe 4 (Zugewiesen, aber informiert): Vorbildliche demokratische Erstbeteiligung."
       ],
-      "question": "Welche Anforderung gilt für ein professionelles Beschwerdeverfahren in sozialpädagogischen Einrichtungen?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
         0
       ],
+      "explanation": "Auf den Stufen 1 bis 3 nach Hart (Manipulation, Dekoration, Alibi-Beteiligung) liegt keine echte Partizipation vor. Wenn die wesentliche Entscheidung längst feststeht und Kinder nur noch über ein belangloses Detail abstimmen, handelt es sich um Alibi-Beteiligung (Tokenismus)."
+    },
+    {
+      "id": "v2-q3",
+      "type": "multi",
       "difficulty": "pruefung",
-      "explanation": "In diesem Fall übergibt die Fachkraft die Verantwortung (Stufe 'Von Kindern initiiert und geleitet'). Die Kinder bestimmen das Thema und die Umsetzung eigenständig, während die Fachkraft lediglich auf Anfrage unterstützend zur Seite steht. Das entspricht höchster Partizipation nach Hart.",
-      "id": "quiz-5",
+      "question": "Welche rechtlichen Aussagen zu Partizipation, Beschwerde und Ombudschaft sind fachlich zutreffend? (Mehrere Antworten sind richtig)",
       "options": [
-        "Die Fachkraft agiert hier auf der höchsten Stufe der Partizipation nach Hart (von Kindern initiiert, Entscheidungen gemeinsam getroffen).",
-        "Die Fachkraft verstößt gegen die Aufsichtspflicht, da Kinder niemals selbstständig Plakate gestalten dürfen.",
-        "Es handelt sich um reine Alibi-Partizipation, da die Fachkraft den Raum zur Verfügung gestellt hat.",
-        "Dies entspricht der Stufe der Dekoration, da die Kinder instrumentalisiert werden."
+        "Verbindliche Beschwerdeverfahren sind gesetzlich erst ab der stationären Jugendhilfe (ab 14 Jahren) vorgesehen, nicht für Kindertagesstätten.",
+        "§ 45 Abs. 2 Satz 2 Nr. 4 SGB VIII macht Gewaltschutzkonzept, Beteiligungs- und interne wie externe Beschwerdeverfahren zur Voraussetzung der Betriebserlaubnis.",
+        "§ 8 SGB VIII verankert die entwicklungsangemessene Beteiligung von Kindern und Jugendlichen sowie ihren Anspruch auf verständliche Beratung.",
+        "§ 3 Abs. 2 KiTaG RLP verpflichtet Tageseinrichtungen in Rheinland-Pfalz, Meinung und Wille des Kindes im Alltag zu berücksichtigen und Beschwerdemöglichkeiten anzubieten."
       ],
-      "question": "In einem Hort planen die Kinder ein eigenes Theaterstück, schreiben das Drehbuch selbst, bauen Requisiten und führen es auf. Die Fachkraft hält sich im Hintergrund und unterstützt nur auf Nachfrage bei technischen Fragen. Welcher fachliche Sachverhalt liegt hier vor?",
-      "type": "case"
+      "correctIndices": [
+        1,
+        2,
+        3
+      ],
+      "explanation": "§ 8 SGB VIII, § 45 Abs. 2 Satz 2 Nr. 4 SGB VIII sowie §§ 1 und 3 KiTaG RLP gelten ausdrücklich auch für Kindertageseinrichtungen und jüngere Kinder – nicht erst ab dem Jugendalter."
+    },
+    {
+      "id": "v2-q4",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Worin besteht der zentrale Kerngedanke des Demokratiekonzepts von Hansen, Knauer und Sturzenhecker („Die Kinderstube der Demokratie“)?",
+      "options": [
+        "Demokratiebildung gelingt am besten durch wöchentlichen Frontalunterricht über Staatsorgane im Vorschulalter.",
+        "Partizipation wird als reflektierte Machtabgabe strukturell (z. B. in einer Kita-Verfassung) verankert, die verbindlich klärt, welche Rechte Kinder haben und wo der Schutzauftrag der Erwachsenen greift.",
+        "Beteiligung sollte nur dann gewährt werden, wenn sich eine Kindergruppe zuvor besonders regelkonform verhalten hat.",
+        "Erwachsene ziehen sich vollständig aus pädagogischen Entscheidungen zurück, damit Kinder uneingeschränkt alles selbst bestimmen."
+      ],
+      "correctIndices": [
+        1
+      ],
+      "explanation": "Nach Hansen, Knauer und Sturzenhecker ist Partizipation kein Belohnungsinstrument und kein Laissez-faire, sondern eine verbindlich verankerte Teilung von Macht mit klar benannten Zuständigkeiten und demokratischer Haltung."
+    },
+    {
+      "id": "v2-q5",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Ein dreijähriges Kind weint regelmäßig vor dem gemeinsamen Mittagsschlaf, hält sich an der Bezugsfachkraft fest und sagt „Nicht schlafen!“. Wie handelt die Fachkraft im Sinne eines gelebten Beschwerdeverfahrens professionell?",
+      "options": [
+        "Sie schließt das Kind ohne Rücksprache sofort vom Nachmittagsangebot aus, bis es den Ablauf akzeptiert.",
+        "Sie ignoriert das Verhalten, da eine gültige Beschwerde erst vorliegt, wenn Eltern schriftlich Kritik äußern.",
+        "Sie besteht auf der Gruppenregel „Alle schlafen gleichzeitig“, weil Ausnahmen die Gruppenordnung gefährden.",
+        "Sie nimmt das verbale und nonverbale Signal als ernstzunehmende Beschwerde wahr, prüft im Team flexible Ruhe-Alternativen statt Schlafzwang und begleitet das Kind feinfühlig."
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Gerade bei jungen Kindern äußern sich Beschwerden über direktes Ablehnen und nonverbale Signale. Professionelle Fachkräfte nehmen diese Unmutsäußerungen ernst, prüfen einrichtungsinterne Routinen (z. B. Ruhe- statt Schlafzwang) kritisch im Team und schützen die Selbstbestimmung des Kindes."
+    },
+    {
+      "id": "v2-q6",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Welche Funktion erfüllen Ombudsstellen nach § 9a SGB VIII in der Kinder- und Jugendhilfe?",
+      "options": [
+        "Sie bieten jungen Menschen und ihren Familien unabhängige, fachlich nicht weisungsgebundene Beratung sowie Vermittlung und Klärung bei Konflikten mit öffentlichen und freien Jugendhilfeträgern.",
+        "Sie fungieren als weisungsgebundene Disziplinarbehörde des jeweiligen Einrichtungsträgers.",
+        "Sie ersetzen die Betriebserlaubnisprüfung der Landesjugendämter vollständig.",
+        "Sie dürfen ausschließlich von Kita-Leitungen und Trägern, nicht aber von Jugendlichen selbst kontaktiert werden."
+      ],
+      "correctIndices": [
+        0
+      ],
+      "explanation": "§ 9a SGB VIII garantiert unabhängige und fachlich nicht weisungsgebundene Ombudsstellen, an die sich junge Menschen und Familien niedrigschwellig zur Beratung und Konfliktklärung wenden können."
+    }
+  ],
+  "sources": [
+    {
+      "title": "UN-Kinderrechtskonvention – Übersicht und Volltext",
+      "url": "https://www.unicef.de/informieren/ueber-uns/fuer-kinderrechte/un-kinderrechtskonvention",
+      "publisher": "UNICEF Deutschland",
+      "note": "Darstellung der UN-KRK, der drei Säulen (Schutz, Förderung, Beteiligung) und von Artikel 12"
+    },
+    {
+      "title": "SGB VIII § 8 – Beteiligung von Kindern und Jugendlichen",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__8.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Bundesrechtliche Grundlage für entwicklungsangemessene Beteiligung und barrierefreie Beratung"
+    },
+    {
+      "title": "SGB VIII § 45 – Erlaubnis für den Betrieb einer Einrichtung",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__45.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Insbesondere § 45 Abs. 2 Satz 2 Nr. 4 zu Gewaltschutzkonzept, Selbstvertretung, Beteiligung und Beschwerde"
+    },
+    {
+      "title": "SGB VIII § 9a – Ombudsstellen",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__9a.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Rechtsgrundlage für unabhängige, fachlich weisungsfreie Ombudsstellen in den Ländern"
+    },
+    {
+      "title": "Landesgesetz über die Erziehung, Bildung und Betreuung von Kindern in Tageseinrichtungen und in Kindertagespflege (KiTaG RLP)",
+      "url": "https://kita.rlp.de/fileadmin/kita/KiTa_in_RLP/KiTaG/Dokumente/230918_KITA-Gesetz.pdf",
+      "publisher": "Ministerium für Bildung Rheinland-Pfalz / KiTa-Portal RLP",
+      "note": "Landesrechtliche Verankerung von Beteiligung und Beschwerderecht in §§ 1 und 3 KiTaG RLP (PDF)"
+    },
+    {
+      "title": "Demokratiebildung und Partizipation in der KiTa (nifbe-Beiträge zur Professionalisierung Nr. 11)",
+      "url": "https://nifbe.de/wp-content/uploads/2025/02/Demokratie_Druck.pdf",
+      "publisher": "nifbe – Niedersächsisches Institut für frühkindliche Bildung und Entwicklung",
+      "note": "Fachpublikation zu Stufenmodellen, demokratischer Haltung und alltagsintegrierter Beteiligung (PDF)"
+    },
+    {
+      "title": "Eine Verfassung für die Kita – Chancen und Grenzen eines demokratischen Verfahrens",
+      "url": "https://www.partizipation-und-bildung.de/wp-content/uploads/2013/08/TPS_5_16_Knauer_Hansen_Verfassung.pdf",
+      "publisher": "Institut für Partizipation und Bildung (Raingard Knauer & Rüdiger Hansen)",
+      "note": "Praxisorientierte Fundierung von Kita-Verfassung, Machtabgabe und struktureller Verankerung (PDF)"
+    },
+    {
+      "title": "Ombudsstelle Kinder- und Jugendhilfe Rheinland-Pfalz e.V.",
+      "url": "https://www.ombudsstelle-rlp.de/",
+      "publisher": "Ombudsstelle Kinder- und Jugendhilfe RLP e.V.",
+      "note": "Regionale unabhängige Anlaufstelle für Kinder, Jugendliche und Familien bei Konflikten in der Jugendhilfe"
     }
   ]
 }

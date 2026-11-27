@@ -3,395 +3,435 @@
   "number": 38,
   "moduleCode": "S-SP-5",
   "moduleArea": "sp-pflicht",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-5 · Transitionen & Übergänge professionell gestalten (Lehrplan RLP 2024)",
   "title": "Übergänge (Transitionen) systematisch gestalten",
-  "subtitle": "Makro- & Mikrotransitionen, Griebel/Niesel und Eingewöhnungsmodelle",
+  "subtitle": "Griebel & Niesel, Berliner & Münchener Eingewöhnungsmodell, Übergang Kita–Grundschule & Mikrotransitionen",
   "year": "2./3. Jahr",
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 30,
   "hoursRef": "120 Std. (Teil 1/3)",
   "pdfPages": "S. 37–38",
   "crossCuttingTags": [
     "Übergänge",
     "Partizipation"
   ],
-  "summary": "Diese Einheit vermittelt angehenden Erzieherinnen und Erziehern fundiertes Fachwissen zur systematischen Gestaltung von Makro- und Mikrotransitionen. Auf Basis des Transitionsansatzes von Griebel & Niesel sowie bewährter Eingewöhnungsmodelle lernen sie, Übergänge als kooperative, bindungsorientierte und ressourcenstärkende Prozesse zu begleiten.",
+  "summary": "Übergänge wie die Krippeneingewöhnung, die Einschulung oder alltägliche Wechsel sind keine einseitige Anpassungsleistung des Kindes, sondern ko-konstruktive Entwicklungsprozesse. Diese Einheit vermittelt das IFP-Transitionsmodell nach Wilfried Griebel und Renate Niesel, grenzt das Berliner und das Münchener Eingewöhnungsmodell sachlich ab, beleuchtet den Übergang Kita–Grundschule und zeigt, wie Mikrotransitionen im Alltag sicher begleitet werden.",
   "learningGoals": [
-    "Ich kann den Begriff der Transition theoretisch fundieren und zwischen Makro- und Mikrotransitionen differenzieren.",
-    "Ich kann den Transitionsansatz nach Griebel & Niesel auf den drei Ebenen (individuell, interaktional, kontextuell) analysieren und in der Praxis anwenden.",
-    "Ich kann Eingewöhnungskonzepte (wie das Berliner und das Münchener Modell) fachlich begründet auswählen, planen und reflektieren.",
-    "Ich kann Kooperationsstrukturen zwischen Familie, Kindertagesstätte, Schule und Jugendhilfe im Sinne einer Erziehungs- und Bildungspartnerschaft gestalten.",
-    "Ich kann Übergangsprozesse partizipativ, kindgerecht und kultursensibel begleiten sowie Bewältigungsstrategien (Coping) von Kindern und Familien unterstützen."
+    "Ich kann den fachlichen Begriff der Transition begründen und Makrotransitionen von alltäglichen Mikrotransitionen klar unterscheiden.",
+    "Ich kann das Transitionsmodell nach Wilfried Griebel und Renate Niesel auf der individuellen, interaktionalen und kontextuellen Ebene anwenden und Übergänge als ko-konstruktiven Prozess gestalten.",
+    "Ich kann das Berliner und das Münchener Eingewöhnungsmodell nach theoretischer Ausrichtung, Ablauf, Elternrolle und Bedeutung der Kindergruppe präzise abgrenzen, ohne aus Einzelverhalten auf Bindungstypen zu schließen.",
+    "Ich kann die Kooperation beim Übergang von der Kita in die Grundschule trialogisch (Kind, Familie, Schule) und datenschutzkonform planen.",
+    "Ich kann Mikrotransitionen im pädagogischen Alltag (z. B. Ankommen, Raum- und Angebotswechsel, Ruhesituationen) vorhersehbar, stressarm und partizipativ gestalten."
   ],
   "sections": [
     {
-      "body": "Transitionen sind nach Griebel und Niesel kritische Lebensereignisse im Lebenslauf, die tiefgreifende Veränderungen in Identität, Rollen und Beziehungen erfordern. Sie unterscheiden sich von normalen Veränderungen dadurch, dass sie aktive Bewältigungsleistungen (Coping) der Betroffenen und ihres sozialen Umfelds (Familie, Fachkräfte) erfordern. Der Lehrplan Rheinland-Pfalz fordert im Lernfeld S-SP-5, dass angehende Erzieherinnen und Erzieher diese Prozesse auf Basis wissenschaftlicher Erkenntnisse systematisch und professionell begleiten.",
+      "heading": "1. Der Transitionsansatz nach Wilfried Griebel und Renate Niesel",
+      "keyTakeaway": "Transitionen sind längerfristige, ko-konstruktive Wandlungsprozesse, die Kind, Eltern und Fachkräfte gemeinsam auf individueller, interaktionaler und kontextueller Ebene bewältigen.",
+      "body": "Das am Staatsinstitut für Frühpädagogik (IFP) in München von Wilfried Griebel und Renate Niesel entwickelte Transitionsmodell hat das Verständnis von Übergängen grundlegend verändert. Eine Transition ist kein punktueller Ortswechsel („Transfer“), sondern ein zeitlich ausgedehntes, biografisch bedeutsames Lebensereignis, bei dem Diskontinuitäten und intensive Lernprozesse bewältigt werden müssen – etwa der Eintritt in die Krippe oder Kita, der Wechsel in die Grundschule oder der Übergang in eine Jugendhilfeeinrichtung. Zentral ist der Gedanke der Ko-Konstruktion: Nicht das Kind allein muss „reif“ oder anpassungsfähig sein, sondern Kind, Familie und pädagogische bzw. schulische Fachkräfte gestalten den Übergang gemeinsam. Griebel und Niesel analysieren diese Bewältigungsaufgaben auf drei verschränkten Ebenen: (1) auf der individuellen Ebene verändern sich Identität, Emotionen (Vorfreude, Stolz, aber auch Unsicherheit) und Kompetenzen – das Kind entwickelt z. B. das Selbstbild „Kita-Kind“ oder „Schulkind“; (2) auf der interaktionalen Ebene werden bestehende Beziehungen umgestaltet und neue Beziehungen zu Fachkräften, Lehrkräften und Gleichaltrigen aufgebaut – zugleich verändern sich auch die Rollen der Eltern; (3) auf der kontextuellen Ebene gilt es, neue Räume, Regeln und Zeitstrukturen zu erschließen und zwei Lebenswelten (Familie und Einrichtung) miteinander zu verbinden. Erfolgreich begleitete Übergänge fördern Transitionskompetenz und Resilienz für spätere Lebenswechsel.",
       "bulletPoints": [
-        "Definition von Transition als multidimensionaler Entwicklungsprozess",
-        "Abgrenzung zu alltäglichen Entwicklungsfortschritten und Krisen",
-        "Fokus auf aktive Bewältigungsstrategien (Coping) von Kindern und Familien",
-        "Verankerung im RLP-Lehrplan (Lernfeld S-SP-5)"
+        "Ko-Konstruktion (Griebel & Niesel): Übergänge werden gemeinsam von Kind, Familie und Einrichtungen bewältigt.",
+        "Individuelle Ebene: Identitätsentwicklung, Umgang mit gemischten Gefühlen und Kompetenzzuwachs.",
+        "Interaktionale Ebene: Rollenwechsel und Aufbau neuer Beziehungen zu Bezugspersonen und Peers.",
+        "Kontextuelle Ebene: Orientierung in neuen Lebenswelten und Vernetzung der beteiligten Institutionen."
       ],
-      "heading": "1. Grundlagen und Bedeutung von Transitionen",
-      "keyTakeaway": "Transitionen sind entwicklungspsychologische Meilensteine, die als soziale Prozesse aktiv gestaltet und bewältigt werden müssen.",
-      "praxisTip": "Erstellen Sie in Ihrem Team eine Bestandsaufnahme aller Übergänge, die Kinder in Ihrer Einrichtung im Laufe eines Jahres bewältigen müssen."
+      "praxisTip": "Beziehen Sie bei Übergängen bewusst auch die Perspektive der Eltern ein: Für Mütter und Väter bedeutet der Kita- oder Schulstart ebenfalls einen Rollenwechsel, der mit Stolz, Trennungssorge und neuen Erwartungen verbunden sein kann."
     },
     {
-      "body": "In der Fachdiskussion wird zwischen Makro- und Mikrotransitionen unterschieden. Makrotransitionen sind große institutionelle Übergänge (z. B. Krippe in die Kita, Einschulung, Jugendhilfewechsel, Verselbstständigung), die mit Statuspassagen und Systemwechseln einhergehen. Mikrotransitionen hingegen bezeichnen die alltäglichen, wiederkehrenden Wechsel im Tagesverlauf einer Einrichtung – wie das morgendliche Bringen, der Wechsel vom Freispiel zum Stuhlkreis oder Raumwechsel. Beide Ebenen erfordern von pädagogischen Fachkräften hohe Sensibilität und strukturierte Begleitung.",
+      "heading": "2. Eingewöhnung: Berliner Modell & Münchener Modell sachlich abgegrenzt",
+      "keyTakeaway": "Beide Eingewöhnungsmodelle sichern eine schrittweise, elternbegleitete Ankommenszeit – sie setzen jedoch unterschiedliche Schwerpunkte zwischen Bezugsfachkraft-Fokus (Berlin) und familien- sowie gruppenorientierter Transition (München).",
+      "body": "Der Eintritt in Krippe oder Kita stellt für junge Kinder und ihre Familien meist die erste große außerfamiliäre Makrotransition dar. Zwei etablierte Konzepte strukturieren diesen Prozess auf unterschiedliche Weise: Das Berliner Eingewöhnungsmodell (entwickelt am infans-Institut von Hans-Joachim Laewen, Beate Andres und Éva Hédervári) ist stark bindungstheoretisch fundiert und stellt den schrittweisen Aufbau einer verlässlichen Beziehung zu einer festen Bezugsfachkraft in den Mittelpunkt. Auf das Aufnahmegespräch folgt eine meist dreitägige Grundphase ohne Trennung, in der der begleitende Elternteil als „sicherer Hafen“ eher passiv im Raum bleibt. Meist am vierten Tag erfolgt ein erster kurzer, testweiser Trennungsversuch: Lässt sich das Kind von der Fachkraft beruhigen oder bleibt stabil, schließt sich die Stabilisierungs- und Schlussphase an; weint es untröstlich, wird die Trennung sofort abgebrochen und nach einigen Tagen erneut behutsam erprobt. Fachlich entscheidend ist dabei: Das Trennungsverhalten dient allein der individuellen Steuerung des Eingewöhnungstempos und erlaubt niemals den diagnostischen Schluss auf einen Bindungstyp! Das Münchener Eingewöhnungsmodell (entwickelt u. a. von Anna Winner und Elisabeth Erndt-Doll auf Basis der Arbeiten Kuno Bellers und der Transitionsforschung) versteht die Eingewöhnung explizit als Transition der gesamten Familie und betont neben den Fachkräften die Kindergruppe als aktive soziale Ressource. Über fünf Phasen (Vorbereitung, Kennenlernphase mit aktiver Teilnahme der Eltern am realen Kita-Alltag, Sicherheitsphase, Vertrauensphase und Reflexionsphase) lernt das Kind zunächst Räume, Abläufe, Peers und Team in Begleitung seiner Eltern kennen; eine erste Trennung erfolgt erst, wenn erkennbar Vertrauen und Orientierung gewachsen sind.",
       "bulletPoints": [
-        "Makrotransitionen als fundamentale Systemwechsel im Lebenslauf",
-        "Mikrotransitionen als alltägliche Rhythmisierungs- und Bindungsmomente",
-        "Bedeutung von Ritualen und Vorhersehbarkeit bei Mikrotransitionen",
-        "Vorbereitung auf Makrotransitionen durch langfristige Kooperation und Portfolioarbeit"
+        "Berliner Modell (infans): Bindungsorientiert, Fokus auf Bezugsfachkraft, 3-tägige Grundphase, früher erster Trennungsversuch mit klarem Abbruchkriterium.",
+        "Münchener Modell (Winner & Erndt-Doll): Transitionsorientiert, Eltern nehmen aktiv am Kita-Alltag teil, Kindergruppe als soziale Ressource, erste Trennung erst nach aufgebauter Sicherheit.",
+        "Kein Bindungstyp-Fehlschluss: Starkes Weinen bei einer Trennung zeigt ein Schutz- und Nähebedürfnis und steuert das Tempo – es belegt keinen „unsicheren Bindungstyp“.",
+        "Individuelles Tempo: Beide Modelle erfordern flexible Zeitplanung, transparente Elterninformation und sensible Dokumentation."
       ],
-      "heading": "2. Makro- und Mikrotransitionen im pädagogischen Alltag",
-      "keyTakeaway": "Während Makrotransitionen große Lebensabschnitte prägen, strukturieren Mikrotransitionen den pädagogischen Alltag und geben Halt.",
-      "praxisTip": "Nutzen Sie transparente Rituale (z. B. ein Begrüßungslied oder einen visuellen Wochenplan), um Mikrotransitionen für Kinder verlässlich und angstfrei zu gestalten."
+      "praxisTip": "Informieren Sie Eltern bereits vor Vertragsbeginn konkret über den geplanten Zeitbedarf (oft 2–4 Wochen oder länger) und besprechen Sie verbindlich, dass Kinder im Trennungsmoment niemals „heimlich weggeschlichen“, sondern kurz, klar und verlässlich verabschiedet werden."
     },
     {
-      "body": "Der wissenschaftliche Transitionsansatz von Wilfried Griebel und Margaret Niesel betrachtet Übergänge auf drei miteinander verknüpften Ebenen: der individuellen Ebene (Entwicklung neuer Identitäten und Kompetenzen), der interaktionalen Ebene (Veränderung und Neugestaltung von Beziehungen zu Eltern, Gleichaltrigen und Fachkräften) sowie der kontextuellen Ebene (Veränderung der institutionellen Rahmenbedingungen und Vernetzung der beteiligten Institutionen wie Kita und Grundschule). Gelingende Übergänge erfordern die Partizipation aller Beteiligten.",
+      "heading": "3. Makrotransition Kita–Grundschule: Übergang statt Überführung",
+      "keyTakeaway": "Ein gelingender Übergang in die Grundschule verbindet Kita, Grundschule und Familie im Trialog, beteiligt die Kinder aktiv und achtet streng auf Datenschutz bei jeder Informationsweitergabe.",
+      "body": "Der Wechsel von der Kindertagesstätte in die Grundschule markiert eine zentrale Statuspassage, die oft mit großen Erwartungen, aber auch Ängsten verbunden ist. Sozial- und schulrechtliche Regelungen (u. a. § 22a Abs. 2 Nr. 3 SGB VIII sowie landesrechtliche Kooperationsvorgaben wie § 4 KiTaG RLP und das rheinland-pfälzische Schulgesetz) verpflichten Kitas und Grundschulen zu einer kontinuierlichen Zusammenarbeit. Fachlich maßgeblich ist das Leitprinzip „Übergang statt Überführung“: Statt Kinder im letzten Kita-Jahr einseitig über Arbeitsblätter und defizitorientierte „Schulreife“-Auslesetests anzupassen, gestalten Kita, Grundschule und Familie den Übergang trialogisch. Bewährte Bausteine sind frühzeitige Kooperationskalender, gegenseitige Besuche von Kindern, Erzieherinnen und Lehrkräften, gemeinsame thematische Projekte, Patenschaften zwischen Kita- und Erstklasskindern, offene Informationsabende für Eltern sowie kindgerechte Übergangsportfolios. Kinder werden dabei aktiv an ihren Fragen, Wünschen und Sorgen beteiligt (z. B. durch Schulhaus-Erkundungen und Gespräche über Veränderungen). Besonders sensibel ist der Datenschutz: Jegliche Weitergabe individueller Bildungs- und Entwicklungsdokumentationen von der Kita an die Grundschule bedarf einer ausdrücklichen, informierten und zweckgebundenen schriftlichen Einwilligung der Sorgeberechtigten.",
       "bulletPoints": [
-        "Individuelle Ebene: Identitätsentwicklung und Bewältigungskompetenzen",
-        "Interaktionale Ebene: Neugestaltung von Beziehungsnetzen",
-        "Kontextuelle Ebene: Institutionelle Kooperation und Kulturwandel",
-        "Ganzheitlicher Blick auf das Kind und sein familiäres System"
+        "Rechtlicher Kooperationsauftrag: § 22a Abs. 2 Nr. 3 SGB VIII sowie landesrechtliche Regelungen (in RLP § 4 KiTaG / Schulgesetz).",
+        "Trialogische Gestaltung: Kind, Eltern, Kita und Grundschule arbeiten partnerschaftlich und ressourcenorientiert zusammen.",
+        "Partizipation der Kinder: Schulbesuche, Gespräche über Erwartungen und Übergangsportfolios stärken Selbstwirksamkeit.",
+        "Datenschutz: Individuelle Entwicklungsberichte dürfen nur mit konkreter schriftlicher Einwilligung der Eltern an die Schule übermittelt werden."
       ],
-      "heading": "3. Der Transitionsansatz nach Griebel & Niesel",
-      "keyTakeaway": "Der Transitionsansatz verbindet Individuum, Interaktion und Kontext zu einem ganzheitlichen Verständnis von Übergängen.",
-      "praxisTip": "Führen Sie dreiseitige Übergabegespräche (Kind, Eltern, Fachkraft), in denen die Ressourcen und Bewältigungsstrategien des Kindes gemeinsam in den Blick genommen werden."
+      "praxisTip": "Nutzen Sie ein gemeinsames Übergangsgespräch mit Eltern (und altersgerecht dem Kind), um das Portfolio zusammen durchzugehen: So bestimmen Familie und Kind selbst mit, welche Stärken und Wünsche die Grundschule erfahren soll."
     },
     {
-      "body": "Eingewöhnungskonzepte wie das Berliner Modell oder das Münchener Modell übersetzen bindungstheoretische Erkenntnisse in die Praxis. Das Berliner Modell strukturiert die Aufnahme von Krippenkindern in eine Grundphase, Trennungsphase, Eingewöhnungsphase und Stabilisierungsphase. Dabei fungiert eine feste Bezugserzieherin als sichere Basis, während die elterliche Anwesenheit schrittweise reduziert wird. Ziel ist der Aufbau einer stabilen sekundären Bindungsbeziehung, die Voraussetzung für jegliches exploratives Lernen in der Institution ist.",
+      "heading": "4. Mikrotransitionen im Alltag stressarm und feinfühlig begleiten",
+      "keyTakeaway": "Die vielen kleinen täglichen Übergänge (Ankommen, Aufräumen, Essen, Wickeln, Abholen) sind sensible Stress- und Bildungsmomente – Vorhersehbarkeit, Rituale und kurze Wartezeiten schaffen Sicherheit.",
+      "body": "Neben den großen Lebensübergängen (Makrotransitionen) bewältigen Kinder im Einrichtungsalltag täglich zahlreiche Mikrotransitionen: die morgendliche Verabschiedung, das Ankommen in der Gruppe, den Wechsel vom vertieften Freispiel zum Aufräumen und Morgenkreis, das Anziehen in der Garderobe, den Gang ins Außengelände, den Übergang zum Mittagessen oder Schlafen sowie das nachmittägliche Abholen. Forschungsarbeiten zu Mikrotransitionen (u. a. Dorothee Gutknecht) verdeutlichen, dass gerade unstrukturierte, hektische Wechsel mit langen Wartezeiten in Fluren oder abrupten Spielabbrüchen häufig Stress, Konflikte und Überforderung auslösen – besonders bei Krippenkindern, Kindern mit erhöhter Reizempfindlichkeit oder während familiärer Belastungen. Professionelle Gestaltung von Mikrotransitionen orientiert sich an vier Prinzipien: (1) Ankündigung und Vorhersehbarkeit (z. B. visuelle Tagespläne, akustische oder optische Zeitzeichen einige Minuten vor Spielende); (2) gestaffelte statt gleichzeitige Massenübergänge (Kleingruppen in Garderobe und Waschraum vermeiden Enge und Wartezeit); (3) verlässliche, liebevolle Rituale und persönliche Kontaktaufnahme beim Bringen und Abholen; (4) Partizipation (z. B. die Möglichkeit, ein Bauwerk mit einem „Bitte stehen lassen“-Schild für später zu sichern).",
       "bulletPoints": [
-        "Bindungstheoretische Fundierung (Bowlby/Ainsworth) als Basis der Eingewöhnung",
-        "Phasenmodell der Eingewöhnung (Grund-, Trennungs-, Eingewöhnungs-, Stabilisierungsphase)",
-        "Rolle der Bezugserzieherin als sichere Basis",
-        "Bedeutung der elterlichen Mitwirkung und emotionalen Sicherheit"
+        "Alltägliche Mikrotransitionen: Ankommen, Freispiel-Ende, Hygiene/Wickeln, Mahlzeiten, Ruhen, Raumwechsel und Abholen.",
+        "Typische Stressquellen: Abrupte Spielabbrüche, enge Garderoben, unklare Abläufe und lange kollektive Wartezeiten.",
+        "Qualitätsmerkmale: Rechtzeitige Ankündigung, visuelle/akustische Übergangssignale, gestaffelte Kleingruppen und verlässliche Rituale.",
+        "Inklusive Wirkung: Durchdachte Mikrotransitionen entlasten besonders junge Kinder und Kinder mit erhöhtem Strukturbedarf."
       ],
-      "heading": "4. Eingewöhnungskonzepte und Kooperation (Berliner & Münchener Modell)",
-      "keyTakeaway": "Ohne emotionale Sicherheit durch ein bewährtes Eingewöhnungskonzept ist erfolgreiche Bildung und Entwicklung in der Krippe nicht möglich.",
-      "praxisTip": "Kommunizieren Sie das Eingewöhnungskonzept transparent beim Anmeldegespräch und planen Sie genügend zeitliche Flexibilität für individuelle Verläufe ein."
+      "praxisTip": "Beobachten Sie eine Woche lang gezielt die Garderoben- oder Aufräumzeit mit einer Stoppuhr: Wie viele Minuten warten einzelne Kinder passiv? Oft senkt schon ein gestaffelter Start in zwei Kleingruppen den Stresspegel dramatisch."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Transitionskompetenz",
       "id": "vb-1",
+      "kind": "concept_map",
+      "title": "Das IFP-Transitionsmodell nach Wilfried Griebel & Renate Niesel",
+      "subtitle": "Übergänge als ko-konstruktiver Bewältigungsprozess auf drei verschränkten Ebenen",
+      "centerLabel": "Transition als Ko-Konstruktion",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Alter 0-3 Jahre",
-          "detail": "Der Eintritt in die Krippe stellt für das Kleinkind die erste große außerfamiliäre Makrotransition dar, die eine sichere Eingewöhnung erfordert.",
-          "example": "Eingewöhnung nach dem Berliner Modell in der Krippe.",
-          "id": "item-1",
-          "label": "Krippeneingewöhnung",
-          "metric": "Stufe 1",
-          "summary": "Bewältigung des ersten großen Systemwechsels von der Familie in die Institution."
+          "id": "gn-1",
+          "badge": "Ebene 1",
+          "label": "Individuelle Ebene",
+          "metric": "Identität & Emotion",
+          "summary": "Entwicklung einer neuen Identität, Umgang mit starken Gefühlen und Kompetenzerwerb.",
+          "detail": "Das Kind (und ebenso die Eltern) verarbeitet Vorfreude, Stolz, Abschied und Unsicherheit und integriert eine neue Rolle in das eigene Selbstbild.",
+          "example": "Vom „Kita-Vorschulkind“ zum „Erstklässler“ – begleitet durch Gespräche über Freude und Respekt vor Neuem."
         },
         {
-          "badge": "Alltag",
-          "detail": "Mikrotransitionen strukturieren den Tag und verlangen dem Kind ständige kleine Anpassungsleistungen ab.",
-          "example": "Wechsel vom Freispiel zum Aufräumen und Morgenkreis.",
-          "id": "item-2",
-          "label": "Mikrotransitionen",
-          "metric": "Stufe 2",
-          "summary": "Bewältigung alltäglicher Raum- und Situationswechsel."
+          "id": "gn-2",
+          "badge": "Ebene 2",
+          "label": "Interaktionale Ebene",
+          "metric": "Beziehungen & Rollen",
+          "summary": "Veränderung bestehender Bindungen und Aufbau neuer sozialer Beziehungen.",
+          "detail": "Kinder knüpfen Vertrauen zu neuen Bezugspersonen und Peers; Eltern gestalten eine neue Partnerschaft zu Kita-Fachkräften oder Lehrkräften.",
+          "example": "Beziehungsanbahnung zur Bezugserzieherin in der Krippe oder zu Patenkindern in der Grundschule."
         },
         {
-          "badge": "Alter 3-6 Jahre",
-          "detail": "Der Wechsel innerhalb der Kita (z. B. von der Krippengruppe in den Elementarbereich) erfordert neue Rollen und Beziehungen.",
-          "example": "Übergangsfest und Patenschaften zwischen ‚Großen‘ und ‚Kleinen‘.",
-          "id": "item-3",
-          "label": "Kitainterner Wechsel",
-          "metric": "Stufe 3",
-          "summary": "Anpassung an verordnete Gruppenstrukturen und ältere Peers."
-        },
-        {
-          "badge": "Alter 6 Jahre",
-          "detail": "Die Einschulung markiert den Übergang ins Schulsystem mit veränderten Leistungs- und Sozialanforderungen.",
-          "example": "Kooperationstage zwischen Kita und Grundschule, Ranzenfest.",
-          "id": "item-4",
-          "label": "Einschulung (Makrotransition)",
-          "metric": "Stufe 4",
-          "summary": "Der Übergang vom Elementar- in das Primarstufensystem."
+          "id": "gn-3",
+          "badge": "Ebene 3",
+          "label": "Kontextuelle Ebene",
+          "metric": "Lebenswelten & Kooperation",
+          "summary": "Integration verschiedener Lebenswelten, neuer Regeln und institutioneller Strukturen.",
+          "detail": "Familie und Einrichtung stimmen Erwartungen, Tagesrhythmen und Bildungsansätze aufeinander ab, damit das Kind den Systemwechsel verstehbar erlebt.",
+          "example": "Kooperationskalender zwischen Kita und Grundschule mit gegenseitigen Besuchen und gemeinsamem Elternabend."
         }
-      ],
-      "kind": "timeline",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Chronologische Meilensteine im kindlichen Entwicklungsverlauf",
-      "title": "Makro- und Mikrotransitionen im Lebenslauf"
+      ]
     },
     {
-      "centerLabel": "Modellvergleich",
       "id": "vb-2",
+      "kind": "comparison",
+      "title": "Berliner Modell vs. Münchener Eingewöhnungsmodell",
+      "subtitle": "Theoretischer Fokus, Elternrolle, Kindergruppe und Trennungszeitpunkt sachlich verglichen",
+      "centerLabel": "Eingewöhnungsmodelle",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Elternbegleitung",
-          "detail": "Das Berliner Modell setzt auf eine schrittweise, elternbegleitete Eingewöhnung mit definierter Trennungsphase und fester Bezugserzieherin.",
-          "example": "Elternteil zieht sich nach 10 Tagen schrittweise für kurze Zeit zurück.",
-          "id": "comp-1",
-          "label": "Berliner Modell",
-          "metric": "Standardmodell",
-          "summary": "Klassisches, phasenbasiertes Eingewöhnungskonzept für Krippenkinder."
+          "id": "em-1",
+          "badge": "infans (Laewen u. a.)",
+          "label": "Berliner Eingewöhnungsmodell",
+          "metric": "Bindungsorientiert",
+          "summary": "Fokus auf schrittweisen Beziehungsaufbau zu einer festen Bezugsfachkraft.",
+          "detail": "Dreitägige Grundphase ohne Trennung (Elternteil als passiver „sicherer Hafen“), erster kurzer Trennungsversuch meist am 4. Tag zur Steuerung der Eingewöhnungsdauer (mit sofortigem Abbruch bei Untröstlichkeit), danach Stabilisierungs- und Schlussphase.",
+          "example": "Hinweis: Trennungsreaktionen steuern ausschließlich das Tempo – sie erlauben keine Bindungstyp-Diagnose!"
         },
         {
-          "badge": "Münchener Ansatz",
-          "detail": "Das Münchener Modell betont eine etwas raschere, aber strukturierte Eingewöhnung mit starkem Einbezug der Eltern als sichere Basis von Beginn an.",
-          "example": "Kompaktere Begleitphase bei älteren Krippenkindern.",
-          "id": "comp-2",
-          "label": "Münchener Modell",
-          "metric": "Alternative",
-          "summary": "Flexibleres, elternbezogenes Konzept für die Krippenaufnahme."
+          "id": "em-2",
+          "badge": "Winner & Erndt-Doll",
+          "label": "Münchener Eingewöhnungsmodell",
+          "metric": "Transitionsorientiert",
+          "summary": "Eingewöhnung als Familien-Transition unter aktivem Einbezug der Kindergruppe.",
+          "detail": "Fünf Phasen (Vorbereitung, Kennenlernphase, Sicherheitsphase, Vertrauensphase, Reflexion). Eltern nehmen anfangs aktiv am echten Kita-Alltag teil, die Peergruppe wirkt als Ressource, und eine erste Trennung erfolgt erst nach aufgebautem Vertrauen.",
+          "example": "Kind und Mutter erleben gemeinsam Morgenkreis, Freispiel und Mahlzeiten, bevor erste kurze Trennungen beginnen."
         },
         {
-          "badge": "Wissenschaft & Praxis",
-          "detail": "Der Transitionsansatz nach Griebel & Niesel ist kein Eingewöhnungsmodell im engeren Sinn, sondern ein theoretischer Rahmen für alle Übergänge.",
-          "example": "Analyse der drei Ebenen (Individuum, Interaktion, Kontext) bei der Einschulung.",
-          "id": "comp-3",
-          "label": "Griebel & Niesel",
-          "metric": "Theorieansatz",
-          "summary": "Multidimensionaler Ansatz zur Analyse und Gestaltung von Transitionen."
+          "id": "em-3",
+          "badge": "Gemeinsame Standards",
+          "label": "Qualitätsmerkmale beider Modelle",
+          "metric": "Kindzentriert",
+          "summary": "Keine abrupte Trennung, transparente Elternpartnerschaft und individuelles Tempo.",
+          "detail": "Beide Konzepte verzichten strikt auf „kalte“ Trennungen, setzen auf klare Abschiedsrituale (kein heimliches Wegschleichen), flexible Dauer je nach Kind und reflektierte Zusammenarbeit mit den Eltern.",
+          "example": "Verlässliches Abschiedsritual am Fenster und sofortige Erreichbarkeit der Eltern in der Anfangszeit."
         }
-      ],
-      "kind": "comparison",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Gegenüberstellung zentraler Eingewöhnungs- und Transitionskonzepte",
-      "title": "Vergleich von Eingewöhnungs- und Transitionsmodellen"
+      ]
     },
     {
-      "centerLabel": "Transitionsprozess",
       "id": "vb-3",
-      "isCycle": true,
-      "items": [
-        {
-          "badge": "Phase 1",
-          "detail": "Erfassung der familiären Lebenssituation, Ressourcen und individuellen Bedürfnissen vor dem eigentlichen Übergang.",
-          "example": "Anamnesegespräch mit Eltern vor der Krippenaufnahme.",
-          "id": "proc-1",
-          "label": "Vorbereitung & Analyse",
-          "metric": "Schritt 1",
-          "summary": "Fundierte Bestandsaufnahme und Beziehungsanbahnung."
-        },
-        {
-          "badge": "Phase 2",
-          "detail": "Gemeinsame Begleitung des Übergangs durch Fachkräfte, Eltern und Kinder mit Fokus auf emotionale Sicherheit.",
-          "example": "Durchführung der Eingewöhnung nach dem Berliner Modell.",
-          "id": "proc-2",
-          "label": "Begleitung & Gestaltung",
-          "metric": "Schritt 2",
-          "summary": "Aktive Unterstützung der Bewältigungsaufgaben (Coping)."
-        },
-        {
-          "badge": "Phase 3",
-          "detail": "Reflexion des Übergangsprozesses im Team und mit den Eltern nach erfolgreicher Eingewöhnung.",
-          "example": "Auswertungsgespräch nach vier Wochen Krippenbesuch.",
-          "id": "proc-3",
-          "label": "Evaluation & Stabilisierung",
-          "metric": "Schritt 3",
-          "summary": "Überprüfung des Gelingens und Sicherung der neuen Stabilität."
-        }
-      ],
-      "kind": "process_flow",
+      "kind": "timeline",
+      "title": "Makro- und Mikrotransitionen professionell begleiten",
+      "subtitle": "Von alltäglichen Übergängen bis zu großen institutionellen Lebenswechseln",
+      "centerLabel": "Übergangsgestaltung",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Der Kreislauf professioneller Übergangsbegleitung",
-      "title": "Prozessschritte der Übergangsgestaltung"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "tr-1",
+          "badge": "Täglich",
+          "label": "Mikrotransitionen im Alltag",
+          "metric": "Rhythmisierung",
+          "summary": "Wiederkehrende Übergänge zwischen Spielen, Pflege, Essen, Ruhen und Ankommen/Abholen.",
+          "detail": "Erfolgreiche Gestaltung durch Vorankündigung, visuelle/akustische Signale, gestaffelte Kleingruppen, kurze Wartezeiten und verlässliche Rituale.",
+          "example": "5-Minuten-Sanduhr vor dem Aufräumen und „Weiterbau-Schilder“ für begonnene Projekte."
+        },
+        {
+          "id": "tr-2",
+          "badge": "0–3 Jahre",
+          "label": "Eintritt in Krippe / Kita",
+          "metric": "Makrotransition 1",
+          "summary": "Erster großer Systemwechsel von der Familie in die außerfamiliäre Betreuung.",
+          "detail": "Planvolle, elternbegleitete Eingewöhnung nach Berliner oder Münchener Modell mit individuellem Tempo und sensibler Dokumentation.",
+          "example": "Aufnahmegespräch zu Gewohnheiten, Trostmitteln und Familiensprachen vor dem ersten Tag."
+        },
+        {
+          "id": "tr-3",
+          "badge": "ca. 3 Jahre",
+          "label": "Gruppenwechsel (Krippe → Elementar)",
+          "metric": "Interne Transition",
+          "summary": "Wechsel in neue Räume, größere Gruppen und veränderte Bezugspersonen.",
+          "detail": "Schrittweise Besuche mit vertrauter Krippenfachkraft, Übergangsrituale, Portfolio-Mitnahme und enge Abstimmung mit den Eltern.",
+          "example": "Gemeinsame wöchentliche Besuche der neuen Gruppe über mehrere Wochen vor dem endgültigen Wechsel."
+        },
+        {
+          "id": "tr-4",
+          "badge": "ca. 6 Jahre",
+          "label": "Übergang Kita → Grundschule",
+          "metric": "Makrotransition 2",
+          "summary": "Trialogische Kooperation von Familie, Kita und Grundschule („Übergang statt Überführung“).",
+          "detail": "Gegenseitige Besuche, Patenschaften, Beteiligung der Kinder, Elternabende und datenschutzkonforme Übergabe nur mit schriftlicher Einwilligung.",
+          "example": "Gemeinsame Erkundung der Grundschule und Übergabe des selbst ausgewählten Portfolios durch Kind und Eltern."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "1-3 Jahre (Krippe) & 6 Jahre (Einschulung)",
-    "context": "Eine Kindertagesstätte in Rheinland-Pfalz gestaltet den Übergang von der Krippe in den Elementarbereich sowie die Eingewöhnung neuer Krippenkinder nach dem Berliner Modell. Die Fachkraft steht vor der Herausforderung, individuelle Bedürfnisse, Elternzusammenarbeit und institutionelle Rahmenbedingungen professionell zu verknüpfen.",
+    "title": "Zwei Übergänge in der Kita „Rheinblick“ – Krippeneingewöhnung & Schulstart",
     "setting": "Kindertagesstätte mit Krippe und Elementarbereich",
+    "ageGroup": "14 Monate (Krippe) & 6 Jahre (Übergang Grundschule)",
+    "context": "In der Kita „Rheinblick“ stehen gleichzeitig zwei Übergänge an: In der Krippengruppe wird der 14 Monate alte Kian nach dem Berliner Modell eingewöhnt; am vierten Tag weint er nach dem ersten kurzen Trennungsversuch heftig und lässt sich innerhalb weniger Minuten nicht von der Bezugsfachkraft beruhigen. In der Vorschulgruppe wechselt die sechsjährige Jule im Sommer in die benachbarte Grundschule; die künftige Klassenlehrerin bittet die Kita um Informationen zu Jules Entwicklung.",
     "steps": [
       {
+        "situation": "Beim ersten Trennungsversuch am vierten Tag weint Kian stark, streckt die Arme zur Tür und beruhigt sich auf dem Arm der Bezugsfachkraft nicht.",
+        "prompt": "Wie handelt die Fachkraft gemäß dem Berliner Eingewöhnungsmodell und bindungstheoretischer Fachlichkeit?",
         "options": [
           {
-            "feedback": "Das Berliner Modell (Grundphase, Trennungsphase, Eingewöhnungsphase, Stabilisierungsphase) bietet durch seine schrittweise, elternbegleitete Annäherung emotionale Sicherheit. Die Fachkraft baut bindungsorientiert Vertrauen auf, ohne das Kind zu überfordern.",
-            "label": "Die Fachkraft plant die Eingewöhnung eines Einjährigen nach dem Berliner Modell mit einer flexiblen Grundphase, gestaffelter Trennung und intensiver Elternbegleitung.",
-            "quality": "optimal",
-            "theoryLink": "Griebel & Niesel (Transitionen); Eingewöhnungskonzepte (Berliner Modell)"
-          },
-          {
-            "feedback": "Eine sofortige Trennung ohne Beziehungsaufbau löst bei Kleinkindern massiven Trennungsstress und Bindungsangst aus (hoher Cortisolspiegel). Dies widerspricht jeglichen bindungstheoretischen Erkenntnissen.",
-            "label": "Die Eltern werden gebeten, das Kind am ersten Tag direkt für vier Stunden dazulassen, damit es sich schnell an die Härte der Realität gewöhnt („„Kalter Entzug““).",
+            "label": "Sie hält Kian 20 Minuten lang fest und bittet die Mutter draußen zu warten, damit Kian lernt, dass Weinen nicht zum sofortigen Abholen führt.",
             "quality": "problematisch",
-            "theoryLink": "Bindungstheorie nach Bowlby/Ainsworth; Stressregulation bei Kleinkindern"
+            "feedback": "Fachlich falsch und belastend: Anhaltender, ungetrösteter Trennungsstress widerspricht dem Berliner Modell und gefährdet den Vertrauensaufbau zu Fachkraft und Einrichtung.",
+            "theoryLink": "Berliner Eingewöhnungsmodell (Abbruchkriterium); feinfühlige Stressregulation"
           },
           {
-            "feedback": "Eine starre, verkürzte Phase von exakt drei Tagen ignoriert das individuelle Kind und dessen Bindungsverhalten. Jedes Kind benötigt einen an seine Bewältigungskompetenzen angepassten Rhythmus.",
-            "label": "Die Fachkraft zieht die Eingewöhnung starr auf exakt drei Tage durch, unabhängig davon, ob das Kind weint oder sich beruhigen lässt.",
+            "label": "Sie holt die Mutter rasch zurück, vermerkt aber im Entwicklungsbogen, Kian zeige aufgrund des heftigen Weinens offensichtlich einen „unsicher-ambivalenten Bindungstyp“.",
             "quality": "teilweise",
-            "theoryLink": "Individuelle Transitionsperspektive nach Griebel & Niesel"
+            "feedback": "Das rasche Zurückholen der Mutter ist richtig – der diagnostische Schluss auf einen Bindungstyp aus einer einzelnen Trennungssituation ist jedoch ein schwerer fachlicher Fehlschluss!",
+            "theoryLink": "Kein Bindungstyp-Schluss aus Einzelverhalten; fachgerechte Beobachtung"
+          },
+          {
+            "label": "Sie bricht den Trennungsversuch nach dem Berliner Modell zeitnah ab, holt die Mutter ruhig zurück, vermittelt ihr im Gespräch Zuversicht (kein Rückschritt, sondern wichtiges Signal) und plant eine verlängerte gemeinsame Stabilisierungsphase vor dem nächsten Versuch.",
+            "quality": "optimal",
+            "feedback": "Fachlich punktgenau! Das Berliner Modell sieht genau dieses klare Abbruchkriterium und die Anpassung des Tempos vor – ohne Pathologisierung des Kindes und in wertschätzender Partnerschaft mit der Mutter.",
+            "theoryLink": "Berliner Eingewöhnungsmodell (infans); Griebel & Niesel (individuelle & interaktionale Ebene)"
           }
-        ],
-        "prompt": "Schritt 1: Eingewöhnung eines Krippenkindes (Mikro- & Makrotransition)",
-        "situation": "Ein einjähriges Kind (Leon) kommt in die Krippe. Die Fachkraft muss die Eingewöhnungsphase konzeptionell und bindungsorientiert gestalten."
+        ]
       },
       {
+        "situation": "Für die sechsjährige Jule steht der Übergang in die Grundschule bevor. Jule schwankt zwischen großer Vorfreude und der Sorge, in der Schule niemanden zu kennen. Die Grundschullehrerin fragt nach einem Austausch über Jules Stärken und Interessen.",
+        "prompt": "Wie gestaltet die Kita Jules Übergang trialogisch, kindorientiert und datenschutzkonform?",
         "options": [
           {
-            "feedback": "Elternarbeit als Erziehungs- und Bildungspartnerschaft bindet Eltern aktiv ein. Portfolio-Dokumentation und Kooperationsgespräche machen den Übergang transparent und stärken die kindliche Identität.",
-            "label": "Die Fachkraft führt ein kooperatives Übergangsgespräch mit den Eltern, nutzt ein Portfolio als Brücke und gestaltet Schnuppertage in der neuen Gruppe.",
+            "label": "Die Fachkraft begleitet Jules Gefühle aktiv, organisiert im Kooperationsrahmen mit der Schule einen Schnupperbesuch (ggf. mit Erstklass-Paten), erstellt mit Jule eine Auswahl aus ihrem Portfolio und tauscht sich mit der Lehrkraft erst nach ausdrücklicher schriftlicher Einwilligung der Eltern (bevorzugt im gemeinsamen Gespräch) aus.",
             "quality": "optimal",
-            "theoryLink": "RLP-Lehrplan S-SP-5; Kooperation Kita-Schule-Familie; Griebel & Niesel (kontextuelle Ebene)"
+            "feedback": "Vorbildlich! Alle drei Ebenen nach Griebel & Niesel (Gefühle/Identität, neue Beziehungen, institutionelle Kooperation) werden verbunden, Jule partizipiert aktiv, und der Datenschutz bleibt vollständig gewahrt.",
+            "theoryLink": "Griebel & Niesel (3 Ebenen); § 22a Abs. 2 Nr. 3 SGB VIII; Datenschutz bei Kita–Grundschule-Kooperation"
           },
           {
-            "feedback": "Einseitige Defizitorientierung und das Aufbürden der Verantwortung auf das Elternhaus widersprechen dem partnerschaftlichen und ressourcenorientierten Ansatz des RLP.",
-            "label": "Die Erzieherin teilt den Eltern kurz vor dem Wechsel in die Schule mit, dass ihr Kind unkonzentriert sei und sie zu Hause mehr üben müssten („„Schulvorbereitung““).",
+            "label": "Die Fachkraft füllt rasch einen Übergabebogen aus und sendet ihn direkt an die Grundschule, damit die Lehrerin frühzeitig über Jules Entwicklungsstand informiert ist.",
             "quality": "problematisch",
-            "theoryLink": "Ressourcenorientierung; Bildungs- und Erziehungspartnerschaft nach RLP"
+            "feedback": "Datenschutzrechtlich unzulässig und nicht partizipativ: Ohne ausdrückliche schriftliche Einwilligung der Eltern dürfen keine personenbezogenen Entwicklungsdaten an die Grundschule übermittelt werden; zudem werden Eltern und Kind ausgeschlossen.",
+            "theoryLink": "Datenschutz / Einwilligungserfordernis; Kritik an „Überführung“ ohne Beteiligung"
           },
           {
-            "feedback": "Informationsaustausch ist zwar wichtig, aber ohne Kooperationsprozesse und Einbindung des Kindes bleibt die Maßnahme bürokratisch und unvollständig.",
-            "label": "Die Fachkraft schickt lediglich einen standardisierten Übergabebogen an die Grundschule, ohne die Eltern oder das Kind aktiv zu beteiligen.",
+            "label": "Die Kita übt mit Jule in den letzten Wochen täglich konzentriert Arbeitsblätter, verzichtet aber auf Schulbesuche und Elterngespräche, da die Grundschule erst ab dem ersten Schultag zuständig sei.",
             "quality": "teilweise",
-            "theoryLink": "Partizipation und Datenschutzrechtliche Rahmenbedingungen"
+            "feedback": "Greift deutlich zu kurz: Einseitiges Arbeitsblatt-Training ersetzt weder die ko-konstruktive Kooperation zwischen Kita, Schule und Familie (§ 22a SGB VIII) noch die emotionale und soziale Begleitung des Übergangs.",
+            "theoryLink": "Leitprinzip „Übergang statt Überführung“; Griebel & Niesel (kontextuelle Ebene)"
           }
-        ],
-        "prompt": "Schritt 2: Übergang von der Kita in die Grundschule (Makrotransition)",
-        "situation": "Ein Kind steht kurz vor dem Wechsel von der Kita in die Grundschule. Die Fachkraft plant die Kooperation zwischen Kind, Eltern und Schule."
+        ]
       }
-    ],
-    "title": "Übergänge professionell begleiten: Krippeneingewöhnung und Einschulung"
+    ]
   },
   "selfLearningTasks": [
-    "Recherchieren Sie die Angebote der Familienbildung in Ihrer Region und erstellen Sie einen übersichtlichen Infotag-Plan für Eltern im Übergang von der Krippe in den Kindergarten.",
-    "Führen Sie eine Videografie einer Mikrotransition (z. B. Freispiel zu Mittagessen) in Ihrer Praxisstelle durch und analysieren Sie diese anhand der Kriterien Vorhersehbarkeit, Partizipation und Beziehungsgestaltung.",
-    "Entwerfen und begründen Sie einen Kooperationskalender für das letzte Jahr vor der Einschulung in Zusammenarbeit mit einer Grundschule."
+    "Erstellen Sie eine übersichtliche Vergleichskarte zwischen dem Berliner und dem Münchener Eingewöhnungsmodell (theoretischer Fokus, Elternrolle, Rolle der Kindergruppe, Zeitpunkt der ersten Trennung) für ein Aufnahmegespräch mit neuen Eltern.",
+    "Beobachten Sie in Ihrer Praxisstelle zwei unterschiedliche Mikrotransitionen (z. B. morgendliches Ankommen und Wechsel zum Mittagessen) und prüfen Sie diese anhand der Kriterien Ankündigung, Wartezeit, Partizipation und Beziehungsbegleitung.",
+    "Entwerfen Sie einen realistischen Kooperationskalender für das letzte Jahr vor der Einschulung, der die drei Ebenen des Transitionsmodells nach Griebel & Niesel (individuell, interaktional, kontextuell) sowie den Datenschutz ausdrücklich berücksichtigt."
   ],
   "flashcards": [
     {
-      "definition": "Kritische Lebensereignisse im Lebenslauf, die mit tiefgreifendenrollen-, identitäts- und beziehungsbezogenen Veränderungen einhergehen und von den Betroffenen aktive Bewältigungsleistungen (Coping) fordern.",
-      "example": "Der Wechsel von der Krippe in den Kindergarten oder die Einschulung.",
-      "term": "Transition"
+      "term": "Transitionsmodell (Griebel & Niesel)",
+      "definition": "Am IFP entwickelter Ansatz, der Übergänge als zeitlich ausgedehnte, ko-konstruktive Bewältigungsprozesse von Kind, Familie und Fachkräften auf drei verschränkten Ebenen beschreibt: individuell, interaktional und kontextuell.",
+      "example": "Beim Schulstart verändern sich Identität und Gefühle des Kindes (individuell), Beziehungen zu Eltern/Peers/Lehrkraft (interaktional) sowie Alltag und Regeln (kontextuell)."
     },
     {
-      "definition": "Große, institutionell verankerte Übergänge im Lebenslauf von Kindern und Jugendlichen, die mit Statuswechseln und neuen Systemen verbunden sind.",
-      "example": "Einschulung, Übergang von der Sekundarstufe in die Ausbildung, Jugendhilfewechsel.",
-      "term": "Makrotransition"
+      "term": "Berliner Eingewöhnungsmodell (infans)",
+      "definition": "Bindungsorientiertes Eingewöhnungskonzept (Laewen, Andres & Hédervári) mit Fokus auf eine Bezugsfachkraft: Elterninformation, ca. 3-tägige Grundphase ohne Trennung, erster kurzer Trennungsversuch meist am 4. Tag mit Abbruchkriterium zur Steuerung des Tempos, Stabilisierungs- und Schlussphase.",
+      "example": "Weint das Kind beim ersten Trennungsversuch untröstlich, wird der Elternteil sofort zurückgeholt und die gemeinsame Phase verlängert."
     },
     {
-      "definition": "Alltägliche, wiederkehrende Übergänge und Wechsel im institutionellen oder familiären Tagesablauf.",
-      "example": "Das morgendliche Bringen (Trennungssituation), der Wechsel vom Freispiel zum Morgenkreis oder Raumwechsel.",
-      "term": "Mikrotransition"
+      "term": "Münchener Eingewöhnungsmodell (Winner & Erndt-Doll)",
+      "definition": "Transitionsorientiertes Eingewöhnungskonzept, das die Eingewöhnung als gemeinsamen Prozess der gesamten Familie versteht, Eltern aktiv in den Kita-Alltag einbezieht, die Kindergruppe als Ressource nutzt und erst nach aufgebauter Sicherheit trennt.",
+      "example": "Eltern und Kind erleben über die Kennenlern- und Sicherheitsphase hinweg gemeinsam Alltagssituationen und Kontakte zu anderen Kindern vor der ersten Trennung."
     },
     {
-      "definition": "Wissenschaftlicher Ansatz von Wilfried Griebel und Margaret Niesel, der Übergänge als multidimensionale Entwicklungsprozesse auf drei Ebenen (individuell, interaktional, kontextuell) begreift.",
-      "example": "Ein Kind bewältigt die Einschulung nicht nur für sich, sondern verändert auch seine Beziehung zu Eltern und Lehrkräften sowie den institutionellen Kontext.",
-      "term": "Transitionsansatz (Griebel & Niesel)"
+      "term": "Makrotransition vs. Mikrotransition",
+      "definition": "Makrotransitionen sind große, biografische Systemwechsel (z. B. Kita-Eintritt, Einschulung, Jugendhilfewechsel); Mikrotransitionen sind alltägliche, wiederkehrende Übergänge im Tagesverlauf (z. B. Bringen, Aufräumen, Raumwechsel, Abholen).",
+      "example": "Das morgendliche Verabschieden an der Gruppentür ist eine Mikrotransition, der Wechsel von der Kita in die Grundschule eine Makrotransition."
     },
     {
-      "definition": "Eingewöhnungsmodell für Kleinkinder mit den Phasen Grundphase, Trennungsphase, Eingewöhnungsphase und Stabilisierungsphase, geprägt durch eine schrittweise Annäherung unter Begleitung einer Bezugsperson.",
-      "example": "Ein Elternteil begleitet das Kind in den ersten Tagen stundenweise in der Krippe und zieht sich allmählich zurück.",
-      "term": "Berliner Modell"
+      "term": "Ko-Konstruktion in Übergängen",
+      "definition": "Grundprinzip der Transitionsforschung, nach dem Übergänge keine einseitige Anpassungsleistung des Kindes sind, sondern gemeinsam von Kind, Familie sowie abgebender und aufnehmender Einrichtung gestaltet werden.",
+      "example": "Kita, Grundschule und Eltern stimmen Besuche, Rituale und Informationswege gemeinsam unter Einbezug des Kindes ab."
     },
     {
-      "definition": "Kooperatives, partnerschaftliches Verhältnis zwischen pädagogischen Fachkräften und Eltern, basierend auf gegenseitiger Wertschätzung, Augenhöhe und gemeinsamen Bildungszielen.",
-      "example": "Regelmäßige Entwicklungsgespräche und gemeinsame Planung von Übergangsschritten.",
-      "term": "Erziehungs- und Bildungspartnerschaft"
+      "term": "Übergang statt Überführung (Kita–Grundschule)",
+      "definition": "Leitprinzip der Kooperation zwischen Kita und Grundschule (§ 22a Abs. 2 Nr. 3 SGB VIII): Anschlussfähige, ressourcenorientierte Begleitung mit Beteiligung von Kindern und Eltern statt defizitorientierter Auslese oder ungefragter Aktenweitergabe.",
+      "example": "Gegenseitige Besuche, Patenschaften und datenschutzkonformer Austausch mit schriftlicher Einwilligung der Eltern."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Mikrotransitionen sind die alltäglichen, wiederkehrenden Übergänge im Tagesablauf (z. B. Bringsituation, Raumwechsel), während Makrotransitionen große institutionelle Lebensübergänge darstellen.",
-      "id": "q-1",
+      "question": "Was kennzeichnet das Münchener Eingewöhnungsmodell (Winner & Erndt-Doll) im Unterschied zum Berliner Eingewöhnungsmodell?",
       "options": [
-        "Der Übergang von der Krippe in den Kindergarten",
-        "Das morgendliche Bringen und der Wechsel vom Freispiel zum Mittagessen",
-        "Der Wechsel von der Grundschule auf eine weiterführende Schule",
-        "Die Aufnahme in eine stationäre Jugendhilfeeinrichtung"
+        "Es verzichtet vollständig auf die Anwesenheit der Eltern, damit das Kind sich rasch verselbstständigt.",
+        "Es legt eine starre Trennung am ersten Tag nach 15 Minuten fest.",
+        "Es wird ausschließlich für Kinder im Grundschulalter eingesetzt.",
+        "Es versteht die Eingewöhnung als Transition der gesamten Familie, bindet Eltern aktiv in den Kita-Alltag und die Kindergruppe als soziale Ressource ein und trennt erst nach aufgebauter Sicherheit."
       ],
-      "question": "Welches Beispiel beschreibt typische Mikrotransitionen im pädagogischen Alltag?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
-        0,
-        2,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Nach Griebel und Niesel umfasst der Transitionsansatz die individuelle Ebene (Subjektkompetenzen), die interaktionalen Ebene (Beziehungen zu Eltern, Peers, Fachkräften) und die kontextuelle Ebene (institutionelle Rahmenbedingungen und Netzwerke). Das finanzielle Einkommen ist kein originäres Analysedimension des Ansatzes.",
-      "id": "q-2",
-      "options": [
-        "Individuelle Ebene (Identität, Bewältigungskompetenzen)",
-        "Finanzielle Ebene (Haushaltseinkommen und Sachmittel)",
-        "Interaktionale Ebene (Veränderung von Beziehungen und Rollen)",
-        "Kontextuelle Ebene (Institutionelle Settings und Netzwerke)"
-      ],
-      "question": "Welche Ebenen gehören zum wissenschaftlichen Transitionsansatz nach Wilfried Griebel und Margaret Niesel? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Während das Berliner Modell stark auf die schrittweise Bindung an eine Bezugsfachkraft mit frühem Trennungsversuch (meist am 4. Tag) fokussiert, betont das Münchener Modell die Eingewöhnung als Familien-Transition, die aktive Teilnahme der Eltern am Kita-Alltag und die Kindergruppe als Ressource, bevor eine erste Trennung stattfindet."
     },
     {
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "pruefung",
+      "question": "Welche fachliche Aussage gilt für das Weinen eines Kleinkindes beim ersten Trennungsversuch während der Eingewöhnung?",
+      "options": [
+        "Es ist ein wichtiges Signal zur individuellen Steuerung des Eingewöhnungstempos und erlaubt keinen diagnostischen Schluss auf einen bestimmten Bindungstyp.",
+        "Es beweist zuverlässig das Vorliegen einer unsicher-ambivalenten oder desorganisierten Bindung.",
+        "Es zeigt, dass die Eltern das Kind zu Hause übermäßig verwöhnt haben.",
+        "Es sollte ignoriert werden, damit sich das Kind schneller an den Gruppenalltag gewöhnt."
+      ],
+      "correctIndices": [
+        0
+      ],
+      "explanation": "Einzelne Trennungsreaktionen im Kita-Alltag lassen niemals eine valide Bindungstyp-Diagnose zu. Im Eingewöhnungsmodell signalisiert untröstliches Weinen lediglich, dass das Kind noch mehr gemeinsame Zeit für Sicherheit und Vertrauensaufbau benötigt."
+    },
+    {
+      "id": "v2-q3",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Welche Situation ist ein typisches Beispiel für eine Mikrotransition im pädagogischen Alltag?",
+      "options": [
+        "Der Eintritt eines einjährigen Kindes in die Krippe.",
+        "Die Einschulung eines sechsjährigen Kindes in die Grundschule.",
+        "Der alltägliche Wechsel vom Freispiel zum Aufräumen und anschließenden Mittagessen.",
+        "Der Wechsel einer Jugendlichen von der Schule in eine Berufsausbildung."
+      ],
       "correctIndices": [
         2
       ],
-      "difficulty": "pruefung",
-      "explanation": "Das Berliner Modell sieht in der Grundphase einen ersten gemeinsamen Aufenthalt von Kind und Bezugsperson vor, in dem keine sofortige Trennung stattfindet, um Sicherheit aufzubauen.",
-      "id": "q-3",
-      "options": [
-        "Sofortige Trennung des Kindes von der Bezugsperson nach 10 Minuten am ersten Tag",
-        "Durchführung der gesamten Eingewöhnung ohne Anwesenheit der Eltern ab Tag eins",
-        "Gemeinsamer Aufenthalt von Kind und Bezugsperson in den ersten Tagen ohne Trennungsversuch in der Grundphase",
-        "Ausschluss der Eltern von jeglichen Absprachen zur Vermeidung von Weinerlichkeit"
-      ],
-      "question": "Welches Vorgehen kennzeichnet die Grundphase des Berliner Eingewöhnungsmodells?",
-      "type": "single"
+      "explanation": "Mikrotransitionen sind wiederkehrende alltägliche Wechsel innerhalb eines Tages (z. B. Bringen, Freispiel-Ende, Raumwechsel, Mahlzeiten). Krippeneintritt, Einschulung und Ausbildungsbeginn sind Makrotransitionen."
     },
     {
+      "id": "v2-q4",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Praxisfall: In einer Kita-Gruppe kommt es täglich beim Wechsel vom Freispiel in den Garten in der engen Garderobe zu Gedränge, Weinen und Konflikten, weil 20 Kinder gleichzeitig ihre Regenkleidung anziehen sollen. Welche Maßnahme verbessert diese Mikrotransition am wirksamsten?",
+      "options": [
+        "Die Fachkräfte verkürzen die Gartenzeit, damit weniger Anziehphasen entstehen.",
+        "Das Team kündigt das Spielende frühzeitig visuell/akustisch an, staffelt den Garderobengang in zwei kleine Gruppen und begleitet jüngere oder unsichere Kinder gezielt mit klaren Ritualen.",
+        "Kinder, die trödeln, müssen als letzte allein im Gruppenraum warten, bis sie sich beeilen.",
+        "Die Fachkräfte ziehen alle 20 Kinder selbst rasch im Akkord an, um Konflikte zu vermeiden."
+      ],
       "correctIndices": [
         1
       ],
-      "difficulty": "pruefung",
-      "explanation": "In einer Praxissituation mit akutem Trennungsstress und fehlender Kooperation ist der erste Schritt die direkte, beruhigende Interaktion mit dem Kind und die zeitnahe Einbeziehung der Eltern in eine partnerschaftliche Reflexion, um das Konzept anzupassen (individuelle und interaktionale Ebene).",
-      "id": "q-4",
-      "options": [
-        "Das Kind weinen lassen, bis es sich von alleine beruhigt, um Härte zu lernen",
-        "Das Kind emotional auffangen, die Mutter/den Vater in die Einrichtung rufen und das Eingewöhnungstempo gemäß dem Berliner Modell verlangsamen",
-        "Das Kind sofort abholen lassen und die Eingewöhnung für immer abbrechen",
-        "Dem Kind mangelnde Reife vorwerfen und einen Ausschluss aus der Einrichtung prüfen"
-      ],
-      "question": "Praxisfall: Ein 14 Monate altes Kind zeigt am 4. Tag der Eingewöhnung nach kurzer Trennung massiven Panikschrei und lässt sich über 20 Minuten von der Fachkraft nicht beruhigen. Wie lautet das fachlich korrekte pädagogische Handeln?",
-      "type": "case"
+      "explanation": "Vorhersehbarkeit durch rechtzeitige Ankündigung, Entzerrung durch Kleingruppen statt Massenübergang und feinfühlige Begleitung reduzieren Wartezeiten und Stress, während Selbstständigkeit erhalten bleibt."
     },
     {
+      "id": "v2-q5",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche drei Ebenen unterscheidet das IFP-Transitionsmodell nach Wilfried Griebel und Renate Niesel?",
+      "options": [
+        "Individuelle Ebene (Identität, Emotionen, Kompetenzen)",
+        "Interaktionale Ebene (Veränderung und Aufbau von Beziehungen und Rollen)",
+        "Wirtschaftliche Ebene (Trägerbudget und Sachkosten)",
+        "Kontextuelle Ebene (neue Lebenswelten, Regeln und institutionelle Kooperation)"
+      ],
       "correctIndices": [
         0,
         1,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Gelingende Übergangskonzepte zeichnen sich durch aktive Beteiligung von Kindern und Eltern (Partizipation), Vernetzung der Institutionen (z. B. Kita-Grundschule-Kooperation) und Ressourcenorientierung aus. Ein reiner Defizit-Test vor der Einschulung widerspricht modernen inklusiven und wissenschaftlichen Standards.",
-      "id": "q-5",
-      "options": [
-        "Aktive Partizipation der Kinder und Eltern am Übergangsprozess",
-        "Enge Kooperation und Vernetzung zwischen abgebender und aufnehmender Institution",
-        "Einseitige Selektion und Defizitorientierung durch standardisierte Auslesetests",
-        "Ressourcenorientierte Begleitung und Stärkung von Coping-Strategien"
-      ],
-      "question": "Welche Merkmale zeichnen professionelle, wissenschaftlich fundierte Übergangskonzepte (Transitionen) aus? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Das Transitionsmodell von Griebel und Niesel betrachtet Übergänge auf der individuellen, der interaktionalen und der kontextuellen Ebene im Rahmen eines ko-konstruktiven Prozesses."
     },
     {
-      "correctIndices": [
-        0
-      ],
-      "difficulty": "basis",
-      "explanation": "Der RLP Rheinland-Pfalz verortet die Gestaltung von Übergängen im Lernfeld S-SP-5 („Erziehungs- und Bildungspartnerschaften mit Eltern und Bezugspersonen gestalten sowie Übergänge unterstützen“).",
-      "id": "q-6",
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Qualitätsmerkmale zeichnen eine professionelle Gestaltung des Übergangs von der Kita in die Grundschule aus?",
       "options": [
-        "S-SP-5",
-        "S-SP-1",
-        "S-SP-8",
-        "S-SP-12"
+        "Ungefragte Zusendung aller internen Entwicklungsbögen an die Grundschule als Effizienzmaßnahme.",
+        "Trialogische Zusammenarbeit zwischen Familie, Kita und Grundschule (§ 22a Abs. 2 Nr. 3 SGB VIII).",
+        "Aktive Beteiligung der Kinder (z. B. Schulbesuche, Gespräche über Vorfreude und Sorgen, Auswahl von Portfolio-Seiten).",
+        "Ausdrückliche, informierte und schriftliche Einwilligung der Sorgeberechtigten vor jeder Weitergabe individueller Dokumentationen."
       ],
-      "question": "In welchem Lernfeld des Lehrplans Rheinland-Pfalz für die Fachschule Sozialwesen ist die Unterstützung von Übergängen primär verankert?",
-      "type": "single"
+      "correctIndices": [
+        1,
+        2,
+        3
+      ],
+      "explanation": "Ein guter Übergang verbindet verbindliche Kooperation, Partizipation der Kinder und Eltern sowie konsequenten Datenschutz; eine ungefragte Weitergabe von Dokumentationen an Dritte ist unzulässig."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Transitionen – Fachbeitrag zum Transitionsansatz und Übergängen in der frühen Kindheit",
+      "url": "https://nifbe.de/fachbeitraege/transitionen/",
+      "publisher": "Niedersächsisches Institut für frühkindliche Bildung und Entwicklung (nifbe e.V.)",
+      "note": "Fundierte Einführung in das IFP-Transitionsmodell nach Griebel & Niesel"
+    },
+    {
+      "title": "Das Berliner Eingewöhnungsmodell – Theoretische Grundlagen und praktische Umsetzung",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/KiTaFT_Braukhane_Knobeloch_2011.pdf",
+      "publisher": "KiTa Fachtexte (Fröbel / Alice Salomon Hochschule / nifbe)",
+      "note": "Direkter Studientext zu Ablauf, Grundphase, Trennungsversuch und Abbruchkriterien des Berliner Modells"
+    },
+    {
+      "title": "Das Münchener Eingewöhnungsmodell – Theorie und Praxis der Gestaltung des Übergangs",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/KiTaFT_winner_2015.pdf",
+      "publisher": "KiTa Fachtexte (Anna Winner)",
+      "note": "Originale Fachdarstellung des transitionsorientierten Münchener Modells inkl. Rolle der Kindergruppe"
+    },
+    {
+      "title": "Mikrotransitionen in der inklusiven Kita – Übergänge im Alltag professionell gestalten",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/KiTaFT_Gutknecht_2018_MikrotransitioneninderinklusivenKita.pdf",
+      "publisher": "KiTa Fachtexte (Dorothee Gutknecht)",
+      "note": "Fachbeitrag zu Stressreduktion, Ritualen und Teilhabe in alltäglichen Übergängen"
+    },
+    {
+      "title": "Übergang vom Kindergarten zur Grundschule in Rheinland-Pfalz",
+      "url": "https://bildung.rlp.de/grundschule/uebergaenge",
+      "publisher": "Bildungsserver Rheinland-Pfalz (Pädagogisches Landesinstitut RLP)",
+      "note": "Landesbezogene Orientierung und Kooperationshilfen für Kita und Grundschule"
+    },
+    {
+      "title": "SGB VIII § 22a – Förderung in Tageseinrichtungen (insb. Abs. 2 Nr. 3 Zusammenarbeit mit Schulen)",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__22a.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Bundesrechtliche Grundlage für die Kooperation mit Familien und Schulen beim Übergang"
     }
   ]
 }

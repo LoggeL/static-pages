@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -6,11 +6,15 @@ import {
   Bookmark,
   BookOpen,
   Briefcase,
+  CalendarClock,
   CheckCircle2,
   Clock,
+  Compass,
+  ExternalLink,
   FileText,
   HelpCircle,
   Layers,
+  Library,
   Lightbulb,
   PenLine,
   Target,
@@ -18,7 +22,19 @@ import {
 import { ALL_UNITS, UNITS_BY_ID } from '../data/units';
 import { MODULES_BY_CODE } from '../data/modules';
 import { useProgress } from '../context/ProgressContext';
-import { getUnitCompletionStatus } from '../lib/storage';
+import {
+  getCurrentQuizResult,
+  getUnitCompletionStatus,
+  getValidFlashcardMastery,
+  getValidReadSections,
+  hasStaleQuizResult,
+} from '../lib/storage';
+import {
+  getCurriculumReferenceLabel,
+  getSafeExternalUrl,
+  getSourceHostname,
+  isOrientationUnit,
+} from '../lib/learning';
 import { VisualBlockRenderer } from '../components/visuals/VisualBlockRenderer';
 import { InteractiveCaseStudy } from '../components/visuals/InteractiveCaseStudy';
 import { FlashcardDeck } from '../components/learning/FlashcardDeck';
@@ -53,6 +69,17 @@ export const UnitPage: React.FC = () => {
     }
   }, [unit, setLastVisitedUnit]);
 
+  const validSources = useMemo(() => {
+    if (!unit?.sources?.length) return [];
+    return unit.sources
+      .map((src) => {
+        const safeUrl = getSafeExternalUrl(src.url);
+        if (!safeUrl || !src.title?.trim()) return null;
+        return { ...src, safeUrl, hostname: getSourceHostname(safeUrl) };
+      })
+      .filter((item): item is NonNullable<typeof item> => item !== null);
+  }, [unit]);
+
   if (!unit) {
     return (
       <div className="rounded-3xl border border-slate-200 bg-white p-8 text-center dark:border-slate-800 dark:bg-ink-800">
@@ -68,18 +95,23 @@ export const UnitPage: React.FC = () => {
   }
 
   const modMeta = MODULES_BY_CODE[unit.moduleCode];
+  const isOrientation = isOrientationUnit(unit);
   const status = getUnitCompletionStatus(unit, progress);
   const isCompleted = status === 'completed';
   const isBookmarked = progress.bookmarks.includes(unit.id);
-  const quizResult = progress.quizResults[unit.id];
-  const mastery = progress.flashcardMastery[unit.id] ?? [];
-  const masteredCount = unit.flashcards.filter((_, i) => Boolean(mastery[i])).length;
+  const savedQuizResult = progress.quizResults[unit.id];
+  const currentQuizResult = getCurrentQuizResult(unit, progress);
+  const staleQuiz = hasStaleQuizResult(unit, progress);
+  const mastery = getValidFlashcardMastery(unit, progress);
+  const masteredCount = mastery.filter(Boolean).length;
   const caseDone = Boolean(progress.caseStudyCompleted[unit.id]);
-  const readSections = progress.sectionsRead[unit.id] ?? [];
+  const readSections = getValidReadSections(unit, progress);
 
   const unitIdx = ALL_UNITS.findIndex((u) => u.id === unit.id);
   const prevUnit = unitIdx > 0 ? ALL_UNITS[unitIdx - 1] : null;
   const nextUnit = unitIdx < ALL_UNITS.length - 1 ? ALL_UNITS[unitIdx + 1] : null;
+
+  const curriculumRefText = getCurriculumReferenceLabel(unit, modMeta?.title);
 
   const tabs: Array<{
     id: UnitTab;
@@ -108,9 +140,12 @@ export const UnitPage: React.FC = () => {
     {
       id: 'quiz',
       label: 'Einheiten-Quiz',
-      badge: quizResult
-        ? `${Math.round((quizResult.bestScore / quizResult.total) * 100)}%`
-        : `${unit.quiz.length} Fragen`,
+      badge:
+        currentQuizResult && currentQuizResult.total > 0
+          ? `${Math.round((currentQuizResult.bestScore / currentQuizResult.total) * 100)}%`
+          : staleQuiz
+          ? 'Aktualisiert'
+          : `${unit.quiz.length} Fragen`,
       icon: HelpCircle,
     },
     {
@@ -121,8 +156,14 @@ export const UnitPage: React.FC = () => {
     },
   ];
 
-  // Verzahne Theorie-Abschnitte und Visualisierungs-Blöcke
   const pairedCount = Math.max(unit.sections.length, unit.visualBlocks.length);
+
+  const scrollToSources = () => {
+    setActiveTab('wissen');
+    window.setTimeout(() => {
+      document.getElementById('fachquellen')?.scrollIntoView({ behavior: 'smooth' });
+    }, 60);
+  };
 
   return (
     <div className="space-y-6">
@@ -146,21 +187,26 @@ export const UnitPage: React.FC = () => {
         </div>
 
         <span className="inline-flex items-center gap-1">
-          <FileText className="h-3.5 w-3.5" /> Lehrplan PDF {unit.pdfPages}
+          <FileText className="h-3.5 w-3.5" /> Themenbezug Lehrplan RLP 2024 · {unit.pdfPages}
         </span>
       </div>
 
       {/* Einheiten-Header */}
       <header className="rounded-3xl border border-slate-200 bg-white p-5 shadow-card dark:border-slate-800 dark:bg-ink-800 sm:p-7">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div className="space-y-2.5">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+          <div className="w-full min-w-0 space-y-2.5 lg:flex-1">
             <div className="flex flex-wrap items-center gap-2">
               <span className="rounded-lg bg-slate-900 px-2.5 py-1 text-xs font-extrabold text-white dark:bg-slate-100 dark:text-slate-900">
-                Einheit {String(unit.number).padStart(2, '0')} / 50
+                Einheit {String(unit.number).padStart(2, '0')} / {ALL_UNITS.length}
               </span>
               {modMeta && (
                 <span className={`rounded-lg px-2.5 py-1 text-xs font-bold ${modMeta.badgeClass}`}>
                   {unit.moduleCode} · {modMeta.shortTitle}
+                </span>
+              )}
+              {isOrientation && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-bold text-amber-900 dark:bg-amber-900/50 dark:text-amber-200">
+                  <Compass className="h-3 w-3" /> Orientierung &amp; Berufsgrundlagen
                 </span>
               )}
               {unit.bildungsbereich && (
@@ -172,8 +218,17 @@ export const UnitPage: React.FC = () => {
                 {unit.year}
               </span>
               <span className="inline-flex items-center gap-1 text-xs font-medium text-slate-500 dark:text-slate-400">
-                <Clock className="h-3.5 w-3.5" /> ca. {unit.estimatedMinutes} Min. · {unit.hoursRef}
+                <Clock className="h-3.5 w-3.5" /> ca. {unit.estimatedMinutes} Min.
               </span>
+              {validSources.length > 0 && (
+                <button
+                  type="button"
+                  onClick={scrollToSources}
+                  className="inline-flex items-center gap-1 rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-semibold text-teal-800 transition hover:bg-teal-100 dark:bg-teal-950/60 dark:text-teal-200"
+                >
+                  <Library className="h-3 w-3" /> {validSources.length} Fachquellen
+                </button>
+              )}
             </div>
 
             <h1 className="font-serif text-2xl font-bold leading-tight text-slate-900 dark:text-white sm:text-3xl">
@@ -198,7 +253,7 @@ export const UnitPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex shrink-0 flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={() => toggleBookmark(unit.id)}
@@ -230,6 +285,7 @@ export const UnitPage: React.FC = () => {
 
       {/* Tab-Leiste */}
       <nav
+        role="tablist"
         className="flex gap-2 overflow-x-auto rounded-2xl border border-slate-200 bg-white p-1.5 shadow-soft dark:border-slate-800 dark:bg-ink-800"
         aria-label="Einheiten-Bereiche"
       >
@@ -240,6 +296,8 @@ export const UnitPage: React.FC = () => {
             <button
               key={tab.id}
               type="button"
+              role="tab"
+              aria-selected={active}
               onClick={() => setActiveTab(tab.id)}
               className={`inline-flex shrink-0 items-center gap-2 rounded-xl px-3.5 py-2.5 text-xs font-bold transition sm:text-sm ${
                 active
@@ -272,7 +330,7 @@ export const UnitPage: React.FC = () => {
           <section className="rounded-3xl border border-teal-200/80 bg-gradient-to-br from-teal-50/70 to-emerald-50/50 p-5 dark:border-teal-900/50 dark:from-teal-950/35 dark:to-emerald-950/20 sm:p-6">
             <div className="flex items-center gap-2 text-sm font-bold text-teal-900 dark:text-teal-200">
               <Target className="h-4 w-4 text-teal-600" />
-              Kompetenz- & Lernziele dieser Einheit
+              Fachliche Lernziele dieser Einheit
             </div>
             <ul className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2">
               {unit.learningGoals.map((goal, i) => (
@@ -297,9 +355,9 @@ export const UnitPage: React.FC = () => {
               <div key={idx} className="space-y-6">
                 {sec && (
                   <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-ink-800 sm:p-6">
-                    <div className="flex flex-wrap items-start justify-between gap-2">
-                      <div className="flex items-center gap-2.5">
-                        <span className="flex h-7 w-7 items-center justify-center rounded-xl bg-teal-600 text-xs font-extrabold text-white">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                      <div className="flex min-w-0 items-center gap-2.5">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-teal-600 text-xs font-extrabold text-white">
                           {idx + 1}
                         </span>
                         <h2 className="font-serif text-xl font-bold text-slate-900 dark:text-white">
@@ -309,7 +367,7 @@ export const UnitPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => markSectionRead(unit.id, idx)}
-                        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold transition ${
+                        className={`inline-flex shrink-0 self-start items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold transition ${
                           secRead
                             ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200'
                             : 'bg-slate-100 text-slate-600 hover:bg-emerald-50 hover:text-emerald-700 dark:bg-slate-800 dark:text-slate-300'
@@ -358,6 +416,110 @@ export const UnitPage: React.FC = () => {
             );
           })}
 
+          {/* Fachquellen vs. Lehrplan-Themenbezug (klar voneinander abgegrenzt) */}
+          <section id="fachquellen" className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+            {/* Fachquellen */}
+            <div className="rounded-3xl border border-teal-200/80 bg-white p-5 shadow-soft dark:border-teal-900/60 dark:bg-ink-800 sm:p-6 lg:col-span-7">
+              <div className="flex items-center gap-2 text-sm font-bold text-teal-800 dark:text-teal-200">
+                <Library className="h-4 w-4 text-teal-600" />
+                Fachquellen &amp; weiterführende Grundlagen
+              </div>
+              <p className="mt-1 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                Direkt verlinkte Fachportale, Gesetze und Materialien zur vertiefenden Lektüre dieser Einheit:
+              </p>
+
+              {validSources.length > 0 ? (
+                <ul className="mt-3 space-y-2.5">
+                  {validSources.map((src, idx) => (
+                    <li
+                      key={`${src.safeUrl}-${idx}`}
+                      className="rounded-2xl border border-slate-200/90 bg-paper-50/70 p-3.5 transition hover:border-teal-300 dark:border-slate-700/80 dark:bg-slate-900/50 dark:hover:border-teal-700"
+                    >
+                      <a
+                        href={src.safeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-start justify-between gap-2 text-sm font-bold text-teal-800 hover:text-teal-600 dark:text-teal-300 dark:hover:text-teal-200"
+                      >
+                        <span className="break-words group-hover:underline">{src.title}</span>
+                        <ExternalLink className="mt-0.5 h-4 w-4 shrink-0 opacity-75 group-hover:opacity-100" />
+                      </a>
+                      <div className="mt-1 flex flex-wrap items-center gap-2 text-[11px] text-slate-500 dark:text-slate-400">
+                        {src.publisher && (
+                          <span className="rounded-md bg-white px-2 py-0.5 font-semibold text-slate-700 shadow-sm dark:bg-slate-800 dark:text-slate-300">
+                            {src.publisher}
+                          </span>
+                        )}
+                        <span className="truncate font-mono text-[11px]">{src.hostname}</span>
+                      </div>
+                      {src.note && (
+                        <p className="mt-1.5 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                          {src.note}
+                        </p>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-3 rounded-xl bg-slate-50 p-3 text-xs text-slate-500 dark:bg-slate-900/50 dark:text-slate-400">
+                  Für diese Einheit sind aktuell noch keine externen Fachquellen hinterlegt.
+                </p>
+              )}
+            </div>
+
+            {/* Lehrplan RLP 2024 als Themenbezug */}
+            <aside className="flex flex-col rounded-3xl border border-slate-200 bg-slate-50/80 p-5 dark:border-slate-800 dark:bg-slate-900/50 sm:p-6 lg:sticky lg:top-20 lg:col-span-5 lg:self-start">
+              <div>
+                <div className="flex items-center gap-2 text-sm font-bold text-slate-800 dark:text-slate-200">
+                  <FileText className="h-4 w-4 text-slate-500" />
+                  Lehrplan RLP (25.09.2024) als Themenbezug
+                </div>
+                <p className="mt-1.5 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                  Der Lehrplan der Fachschule Sozialwesen (Fachrichtung Sozialpädagogik) dient hier als nachschlagbare Themen- und Kompetenzgliederung. Die fachliche Erklärung stützt sich auf die verlinkten Fachquellen.
+                </p>
+
+                <dl className="mt-4 space-y-2.5 text-xs">
+                  <div className="rounded-xl border border-slate-200/80 bg-white/80 p-3 dark:border-slate-700/80 dark:bg-ink-800/80">
+                    <dt className="font-semibold text-slate-500 dark:text-slate-400">
+                      Themenbezug
+                    </dt>
+                    <dd className="mt-0.5 font-bold text-slate-800 dark:text-slate-100">
+                      {curriculumRefText}
+                    </dd>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="rounded-xl border border-slate-200/80 bg-white/80 p-3 dark:border-slate-700/80 dark:bg-ink-800/80">
+                      <dt className="font-semibold text-slate-500 dark:text-slate-400">
+                        Modul / Umfang
+                      </dt>
+                      <dd className="mt-0.5 font-bold text-slate-800 dark:text-slate-100">
+                        {unit.moduleCode} · {unit.hoursRef}
+                      </dd>
+                    </div>
+                    <div className="rounded-xl border border-slate-200/80 bg-white/80 p-3 dark:border-slate-700/80 dark:bg-ink-800/80">
+                      <dt className="font-semibold text-slate-500 dark:text-slate-400">
+                        Fundstelle PDF
+                      </dt>
+                      <dd className="mt-0.5 font-bold text-slate-800 dark:text-slate-100">
+                        {unit.pdfPages}
+                      </dd>
+                    </div>
+                  </div>
+                </dl>
+              </div>
+
+              <div className="mt-4 pt-3">
+                <Link
+                  to="/stundentafel"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-700 hover:underline dark:text-teal-300"
+                >
+                  <CalendarClock className="h-3.5 w-3.5" />
+                  Stundentafel &amp; Modulstruktur nachschlagen →
+                </Link>
+              </div>
+            </aside>
+          </section>
+
           <div className="flex justify-end">
             <button
               type="button"
@@ -372,6 +534,7 @@ export const UnitPage: React.FC = () => {
 
       {activeTab === 'fall' && (
         <InteractiveCaseStudy
+          key={unit.id}
           caseStudy={unit.caseStudy}
           isCompleted={caseDone}
           onComplete={() => markCaseStudyComplete(unit.id)}
@@ -380,6 +543,7 @@ export const UnitPage: React.FC = () => {
 
       {activeTab === 'karten' && (
         <FlashcardDeck
+          key={unit.id}
           cards={unit.flashcards}
           mastery={mastery}
           onToggleMastery={(cardIdx, mastered) =>
@@ -390,8 +554,9 @@ export const UnitPage: React.FC = () => {
 
       {activeTab === 'quiz' && (
         <UnitQuiz
+          key={unit.id}
           questions={unit.quiz}
-          savedResult={quizResult}
+          savedResult={savedQuizResult}
           onSaveResult={(score, total, answers) =>
             saveQuizResult(unit.id, score, total, answers)
           }
@@ -400,6 +565,7 @@ export const UnitPage: React.FC = () => {
 
       {activeTab === 'notizen' && (
         <UnitNotes
+          key={unit.id}
           unitId={unit.id}
           initialNote={progress.notes[unit.id] ?? ''}
           selfLearningTasks={unit.selfLearningTasks}
@@ -408,37 +574,41 @@ export const UnitPage: React.FC = () => {
       )}
 
       {/* Untere Einheiten-Navigation */}
-      <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-5 dark:border-slate-800">
-        {prevUnit ? (
-          <Link
-            to={`/einheit/${prevUnit.id}`}
-            className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-800 hover:bg-slate-50 dark:border-slate-700 dark:bg-ink-800 dark:text-slate-200"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            E{String(prevUnit.number).padStart(2, '0')}: {prevUnit.title}
-          </Link>
-        ) : (
-          <span />
-        )}
+      <footer className="grid grid-cols-1 gap-3 border-t border-slate-200 pt-5 dark:border-slate-800 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:items-center">
+        <div className="flex min-w-0 justify-start">
+          {prevUnit && (
+            <Link
+              to={`/einheit/${prevUnit.id}`}
+              className="inline-flex min-w-0 max-w-full items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-bold text-slate-800 hover:bg-slate-50 dark:border-slate-700 dark:bg-ink-800 dark:text-slate-200"
+            >
+              <ArrowLeft className="h-4 w-4 shrink-0" />
+              <span className="min-w-0 truncate">
+                E{String(prevUnit.number).padStart(2, '0')}: {prevUnit.title}
+              </span>
+            </Link>
+          )}
+        </div>
 
         <Link
           to="/"
-          className="text-xs font-bold text-slate-500 hover:text-teal-600 dark:text-slate-400"
+          className="shrink-0 whitespace-nowrap text-center text-xs font-bold text-slate-500 hover:text-teal-600 dark:text-slate-400"
         >
           Zur Modulübersicht
         </Link>
 
-        {nextUnit ? (
-          <Link
-            to={`/einheit/${nextUnit.id}`}
-            className="inline-flex items-center gap-2 rounded-2xl bg-slate-900 px-4 py-2.5 text-xs font-bold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900"
-          >
-            E{String(nextUnit.number).padStart(2, '0')}: {nextUnit.title}
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        ) : (
-          <span />
-        )}
+        <div className="flex min-w-0 justify-start sm:justify-end">
+          {nextUnit && (
+            <Link
+              to={`/einheit/${nextUnit.id}`}
+              className="inline-flex min-w-0 max-w-full items-center gap-2 rounded-2xl bg-slate-900 px-4 py-2.5 text-xs font-bold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900"
+            >
+              <span className="min-w-0 truncate">
+                E{String(nextUnit.number).padStart(2, '0')}: {nextUnit.title}
+              </span>
+              <ArrowRight className="h-4 w-4 shrink-0" />
+            </Link>
+          )}
+        </div>
       </footer>
     </div>
   );

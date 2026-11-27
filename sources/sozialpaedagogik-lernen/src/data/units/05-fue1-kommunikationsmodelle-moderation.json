@@ -3,404 +3,452 @@
   "number": 5,
   "moduleCode": "S-FÜ-1",
   "moduleArea": "fue",
-  "title": "Kongruenz, Kommunikationsmodelle, Moderation & Textanalyse",
-  "subtitle": "Sprache, Körper und Stimme abstimmen, moderieren & Sachtexte erschließen",
+  "unitRole": "core",
+  "curriculumRef": "S-FÜ-1 · Kongruenz, Kommunikationsmodelle, Moderation & Textanalyse (Lehrplan RLP 2024)",
+  "title": "Kommunikationsmodelle, Kongruenz, Moderation & Textanalyse",
+  "subtitle": "Schulz von Thun, Watzlawick, stimmiges Auftreten, strukturierte Moderation und kritische Sachtextanalyse",
   "year": "2./3. Jahr",
-  "estimatedMinutes": 20,
+  "estimatedMinutes": 25,
   "hoursRef": "80 Std. (Teil 2/2)",
   "pdfPages": "S. 16",
   "crossCuttingTags": [
     "Sprachbildung",
     "Partizipation"
   ],
-  "summary": "Einheit 5 des Lernmoduls S-FÜ-1 befähigt angehende Erzieher:innen dazu, Sprache, Körper und Stimme kongruent einzusetzen, klassische Kommunikationsmodelle zur Konfliktanalyse zu nutzen und Besprechungen sowie Elternabende professionell zu moderieren. Ergänzend vermittelt sie fundierte Methoden zur mündlichen und schriftlichen Erschließung komplexer Sachtexte. Damit werden zentrale Grundlagen für professionelles Auftreten, Partizipation und wissenschaftliches Arbeiten gelegt.",
+  "summary": "Im sozialpädagogischen Alltag entscheiden nicht nur fachliche Inhalte, sondern auch Art und Klarheit der Kommunikation darüber, ob Kooperation mit Kindern, Eltern und Kolleginnen und Kollegen gelingt. Diese Einheit erklärt Kongruenz in Sprache, Stimme und Körper, erschließt das Kommunikationsquadrat (Schulz von Thun) und die Axiome von Watzlawick als praxisnahe Reflexionswerkzeuge, zeigt den Ablauf professioneller Moderation und vermittelt Methoden zur kritischen Analyse komplexer Sachtexte und literarischer Texte.",
   "learningGoals": [
-    "Ich kann verbale, paraverbale und nonverbale Ausdrucksformen bei Vorträgen, Moderationen und Argumentationen kongruent einsetzen.",
-    "Ich kann Kommunikationssituationen in sozialpädagogischen Handlungsfeldern mithilfe klassischer Modelle (z. B. Schulz von Thun, Watzlawick) analysieren und reflektieren.",
-    "Ich kann Gesprächsrunden, Teambesprechungen und Elternabende methodisch strukturiert und zielgerichtet moderieren.",
-    "Ich kann komplexe Sachtexte sowie literarische Texte fachlich fundiert erschließen, interpretieren und schriftlich wie mündlich aufbereiten.",
-    "Ich kann sprachliche Bildung und Partizipation als Querschnittsthemen in berufliche Kommunikationsprozesse integrieren."
+    "Ich kann das Zusammenspiel von verbaler, paraverbaler und nonverbaler Kommunikation erklären und inkongruente Botschaften im pädagogischen Alltag erkennen und vermeiden.",
+    "Ich kann Gespräche und Missverständnisse mithilfe des Kommunikationsquadrats nach Schulz von Thun sowie zentraler Axiome nach Paul Watzlawick reflektiert analysieren und durch Metakommunikation klären.",
+    "Ich kann Teamsitzungen, Elternabende und Beteiligungsrunden in der Rolle der Moderation methodisch strukturieren, visualisieren und partizipativ steuern.",
+    "Ich kann komplexe Sachtexte und literarische Texte systematisch auf Kernaussagen, Argumentationsstruktur, Kontext und Intention hin erschließen und kritisch beurteilen."
   ],
   "sections": [
     {
-      "body": "Professionelles pädagogisches Handeln im Elementar-, Primar- und Sekundarbereich erfordert eine stimmige Einheit aus verbalem Ausdruck, paraverbaler Stimmmodulation (Tonfall, Lautstärke, Tempo) und nonverbaler Körpersprache (Mimik, Gestik, Haltung). Wenn Worte und Körpersprache widersprüchlich sind, entsteht Inkongruenz, die bei Kindern, Eltern und Kolleg:innen Verunsicherung oder Abwehr auslöst. Angehende Erzieher:innen lernen, ihre Außenwirkung bewusst zu reflektieren und gezielt für Vorträge, Argumentationen und Moderationen einzusetzen.",
+      "heading": "Kongruenz in Sprache, Stimme und Körpersprache",
+      "keyTakeaway": "Glaubwürdige Kommunikation entsteht, wenn Worte (verbal), Stimme (paraverbal) und Körpersprache (nonverbal) zueinander passen – widersprüchliche Signale verunsichern Kinder wie Erwachsene.",
+      "body": "Jede mündliche Äußerung wirkt auf drei Ebenen zugleich: der verbalen Ebene (Wortwahl, Satzbau, Inhalt), der paraverbalen Ebene (Stimmlage, Lautstärke, Sprechtempo, Pausen, Betonung) und der nonverbalen Ebene (Mimik, Gestik, Körperhaltung, Blickkontakt, räumlicher Abstand). Stimmen diese drei Kanäle überein, spricht man von Kongruenz – sie schafft Orientierung und Vertrauen. Widersprechen sie einander (Inkongruenz), entsteht eine verwirrende Doppelbotschaft: Sagt eine Fachkraft mit gepresster Stimme, verschränkten Armen und weggedrehtem Körper ‚Kein Problem, sprechen Sie mich jederzeit gern an‘, nehmen Eltern oder Kinder den Widerspruch unmittelbar wahr. Gerade Kinder orientieren sich in unklaren Situationen stark an Tonfall und Mimik, ohne dass sich pauschale Prozentformeln auf jede Situation übertragen ließen. Wichtig ist daher eine bewusste Selbstwahrnehmung: Statt Gefühle künstlich zu überspielen, hilft ein ruhiges, klares und authentisches Auftreten – besonders bei Grenzsetzungen, Elternabenden und schwierigen Gesprächen.",
       "bulletPoints": [
-        "Dreiklang der Kommunikation: Verbale, paraverbale und nonverbale Ebene",
-        "Vermeidung von Inkongruenz und Doppelbotschaften (nach Watzlawick/Bateson)",
-        "Sicherer Auftritt bei Präsentationen, Elternabenden und Teamsitzungen",
-        "Glaubwürdigkeit und authentische Beziehungsgestaltung im pädagogischen Alltag"
+        "Verbale Ebene: Verständliche, respektvolle Wortwahl, Ich-Botschaften und klare Struktur.",
+        "Paraverbale Ebene: Ruhige, tragfähige Stimme, angemessenes Tempo und bewusste Pausen.",
+        "Nonverbale Ebene: Offene Körperhaltung, zugewandter Blickkontakt (kultursensibel) und aufmerksame Mimik.",
+        "Kongruenz statt Doppelbotschaften: Innere Haltung und äußerer Ausdruck passen zusammen; eigene Grenzen werden offen und freundlich benannt."
       ],
-      "heading": "1. Kongruenz in Sprache, Körper und Stimme",
-      "keyTakeaway": "Nur wenn Sprache, Stimme und Körpersprache übereinstimmen, wirkt pädagogisches Auftreten authentisch und vertrauensbildend.",
-      "praxisTip": "Nutze vor Elternabenden eine kurze Achtsamkeits- und Haltungsübung (aufrechter Stand, bewusste Bauchatmung), um physische und vocale Präsenz zu stärken."
+      "praxisTip": "Achten Sie bei einer schwierigen Ansage in der Kindergruppe bewusst auf drei Dinge: Gehen Sie auf Augenhöhe, sprechen Sie langsam und ruhig und formulieren Sie klar, was konkret passieren soll."
     },
     {
-      "body": "Kommunikationsprozesse in sozialpädagogischen Handlungsfeldern lassen sich durch klassische Modelle fundiert analysieren. Das Vier-Ohren-Modell von Friedemann Schulz von Thun verdeutlicht, dass jede Nachricht gleichzeitig auf der Sachebene, der Selbstkundgabe, der Beziehungsebene und der Appell-Ebene gesendet und empfangen wird. Ergänzend beschreiben die Axiome von Paul Watzlawick (z. B. „Man kann nicht nicht kommunizieren“ und die Unterscheidung von komplementären vs. symmetrischen Interaktionen) die unvermeidliche Dynamik sozialer Interaktionen. Metakommunikation dient dabei als professionelles Werkzeug, um gestörte Kommunikationsprozesse explizit zu machen und zu klären.",
+      "heading": "Kommunikationsmodelle als Reflexionshilfen: Schulz von Thun & Watzlawick",
+      "keyTakeaway": "Kommunikationsmodelle erklären, warum Aussagen oft anders ankommen als gemeint – sie dienen der eigenen Reflexion und Klärung, nicht dazu, das Gegenüber psychologisch abzustempeln.",
+      "body": "Das Kommunikationsquadrat (Vier-Seiten-Modell) von Friedemann Schulz von Thun zeigt, dass jede Nachricht gleichzeitig vier Aspekte enthält – die der Sender mit ‚vier Schnäbeln‘ sendet und der Empfänger mit ‚vier Ohren‘ deutet: (1) Sachinformation (Worüber ich informiere), (2) Selbstkundgabe (Was ich von mir zeige – Gefühle, Werte, Bedürfnisse), (3) Beziehung (Wie ich zum Gegenüber stehe und was ich von ihm halte) und (4) Appell (Wozu ich den anderen veranlassen möchte). Missverständnisse entstehen häufig, wenn Sender und Empfänger unterschiedliche Seiten gewichten: Sagt eine Erzieherin ‚Die Gummistiefel stehen noch nicht im Fach‘, meint sie vielleicht vor allem die Sachinformation und einen sachlichen Appell – ein gestresstes Elternteil hört auf dem Beziehungsohr jedoch möglicherweise den Vorwurf ‚Sie kümmern sich nicht zuverlässig‘. Ergänzend bieten die fünf Axiome von Paul Watzlawick wichtige Blickwinkel: (1) Man kann nicht nicht kommunizieren – auch Schweigen oder Wegsehen sendet in sozialen Situationen Signale. (2) Jede Kommunikation hat einen Inhalts- und einen Beziehungsaspekt, wobei die Beziehungsebene bestimmt, wie der Inhalt aufgenommen wird. (3) Beteiligte gliedern Abläufe unterschiedlich (Interpunktion: jeder hält sein Verhalten für die bloße Reaktion auf den anderen). (4) Kommunikation nutzt digitale (sprachliche) und analoge (nonverbale/stimmliche) Signale. (5) Interaktionen verlaufen symmetrisch (auf Augenhöhe) oder komplementär (ergänzend, z. B. Fachkraft–Kind). Gerät ein Gespräch ins Stocken, hilft Metakommunikation – das wertschätzende Sprechen darüber, wie gerade miteinander geredet wird. Beide Modelle sind Verstehens- und Reflexionshilfen, keine Werkzeuge zur einseitigen Schuldzuweisung.",
       "bulletPoints": [
-        "Vier-Ohren-Modell (Sach-, Selbstkundgabe-, Beziehungs- und Appell-Ohr)",
-        "Axiome der menschlichen Kommunikation nach Paul Watzlawick",
-        "Bedeutung von Metakommunikation zur Klärung von Missverständnissen",
-        "Analyse von Störungen in Team- und Elterngesprächen"
+        "Kommunikationsquadrat (Schulz von Thun): Sachinformation, Selbstkundgabe, Beziehung und Appell als vier gleichzeitige Seiten jeder Äußerung.",
+        "Axiome (Watzlawick): Unmöglichkeit nicht zu kommunizieren, Inhalts- und Beziehungsaspekt, Interpunktion, digital/analog, symmetrisch/komplementär.",
+        "Metakommunikation: Kurz innehalten und das Gesprächsgeschehen selbst benennen (‚Ich merke, wir werden beide unruhig – lassen Sie uns kurz sortieren, worum es uns geht‘).",
+        "Professionelle Grenze: Modelle dienen dem Perspektivwechsel und der Selbstprüfung, nicht der Diagnose oder Abwertung des Gegenübers."
       ],
-      "heading": "2. Kommunikationsmodelle als Analyse- und Reflexionswerkzeuge",
-      "keyTakeaway": "Klassische Kommunikationsmodelle machen unsichtbare Beziehungsmuster und Missverständnisse in pädagogischen Teams und Elterngesprächen analysierbar.",
-      "praxisTip": "Reflektiere schwierige Elterngespräche im Team anhand des Vier-Ohren-Modells: Auf welchem Ohr hat das Gegenüber die Botschaft verstanden?"
+      "praxisTip": "Wenn ein Elterngespräch oder eine Teamdiskussion plötzlich angespannt wird, fragen Sie sich zuerst innerlich: ‚Auf welcher Ebene (Beziehung, Selbstkundgabe, Appell) könnte mein Satz gerade angekommen sein?‘ – und klären Sie es offen nach."
     },
     {
-      "body": "Moderation ist eine professionelle Methode zur Leitung von Gruppenprozessen, bei der die moderatorstätige Fachkraft die Verantwortung für den methodischen Prozess übernimmt, während die Gruppe inhaltlich arbeitet (Inhaltsneutralität). Durch strukturierte Phasen (Einstieg, Themensammlung, Bearbeitung, Ergebnissicherung, Transfer) und den Einsatz von Visualisierungstechniken werden Partizipation, Chancengleichheit und zielgerichtete Entscheidungsfindung in Teamsitzungen, Fallbesprechungen oder Beteiligungsprojekten mit Kindern sichergestellt.",
+      "heading": "Professionelle Moderation von Teamsitzungen, Elternabenden und Beteiligungsrunden",
+      "keyTakeaway": "Moderieren heißt, Verantwortung für Struktur, Zeit, Visualisierung und faire Beteiligung zu übernehmen, während die Gruppe die inhaltlichen Lösungen gemeinsam erarbeitet.",
+      "body": "Anders als bei einem Fachvortrag oder einer direktiven Leitungsentscheidung übernimmt die Moderation in Teamsitzungen, Fallbesprechungen, Elternabenden oder Kinderkonferenzen die methodische Prozesssteuerung. Ein zentrales Merkmal ist die inhaltliche Zurückhaltung (Prozessverantwortung statt Inhaltsvorgabe): Die moderierende Person sorgt dafür, dass alle Stimmen – auch leisere – gehört werden, Konflikte fair gerahmt bleiben und am Ende verbindliche Ergebnisse stehen. Ein bewährter Moderationsablauf gliedert sich in fünf übersichtliche Schritte: (1) Einstieg und Auftragsklärung (Ziel, Zeitrahmen, Gesprächsregeln transparent machen), (2) Themen- und Ideensammlung (z. B. durch Kartenabfrage, damit sich Beiträge nicht sofort von Vielredenden überlagern lassen), (3) Strukturieren und Priorisieren (Clustern an Pinnwand oder Flipchart, Punkteabfrage), (4) Vertiefende Bearbeitung (gezielte Fragen, Kleingruppen, Pro-und-Kontra-Sammlung) sowie (5) Ergebnissicherung und Transfer (Wer macht was bis wann? Wie wird überprüft?). Durchgängige Visualisierung hält den roten Faden sichtbar, entlastet das Gedächtnis und beugt Endlosdiskussionen vor. Muss eine Fachkraft in einer Sitzung zugleich inhaltlich mitentscheiden, macht sie diesen Rollenwechsel transparent (‚Ich verlasse kurz die Moderationsrolle und sage als Gruppenleitung meine fachliche Sicht‘).",
       "bulletPoints": [
-        "Inhaltsneutralität und Prozesssteuerung als Grundpfeiler der Moderation",
-        "Methodische Phasenstruktur (Vorbereitung, Einstieg, Erarbeitung, Abschluss)",
-        "Einsatz von Visualisierungsmedien (Moderationskarten, Metaplan, Flipchart)",
-        "Förderung von Partizipation und demokratischen Entscheidungsprozessen"
+        "Moderationshaltung: Klare Prozesssteuerung, Zeitmanagement, Allparteilichkeit und Förderung echter Beteiligung.",
+        "Fünf Phasen: Einstieg/Klärung, Sammeln, Clustern/Priorisieren, Bearbeiten, Maßnahmenplan/Transfer.",
+        "Methoden und Visualisierung: Kartenabfrage, Flipchart/Metaplan, Punkteabfrage und Maßnahmenprotokoll (Was? Wer? Bis wann?).",
+        "Rollentransparenz: Bei eigener inhaltlicher Stellungnahme den kurzzeitigen Rollenwechsel offen ankündigen."
       ],
-      "heading": "3. Moderation und zielgerichtete Kommunikationsformen",
-      "keyTakeaway": "Moderation bedeutet Prozesssteuerung statt Inhaltsvorgabe – sie sichert echte Partizipation und effektive Zusammenarbeit im Team.",
-      "praxisTip": "Nutze in Teamsitzungen die Kartenabfrage, um allen Kolleg:innen (auch ruhigeren Stimmen) gleichermaßen Gehör und aktive Partizipation zu verschaffen."
+      "praxisTip": "Notieren Sie Ergebnisse einer Teamsitzung immer sofort sichtbar im Raum (z. B. auf einem Flipchart in einer einfachen Drei-Spalten-Tabelle: Aufgabe – Verantwortung – Termin), damit am Ende niemand mit unterschiedlichen Vorstellungen hinausgeht."
     },
     {
-      "body": "Die Erschließung komplexer Sachtexte, fachwissenschaftlicher Publikationen und literarischer Gattungen ist eine zentrale Kompetenz für das wissenschaftliche Arbeiten und die professionelle Reflexion in der Fachschule. Durch analytisches Lesen, Exzerpieren, Bestimmen der Intention sowie den Einbezug von Kontextfaktoren (historischer, rechtlicher und sozialpädagogischer Rahmen) lernen Fachschüler:innen, Texte kritisch zu dekonstruieren. Mündliche Präsentationen und schriftliche Interpretationen (z. B. Portfolios, Berichte, Facharbeiten) erfordern dabei die präzise Anwendung fachsprachlicher Normen und Zitierweisen.",
+      "heading": "Systematische Erschließung und Analyse von Sachtexten und literarischen Texten",
+      "keyTakeaway": "Professionelle Textarbeit trennt sorgfältig zwischen Textwiedergabe (Was steht im Text?), Analyse (Wie und mit welcher Absicht wird argumentiert?) und fachlich begründeter Stellungnahme.",
+      "body": "Ob bildungspolitische Empfehlungen, Fachartikel zur Entwicklungspsychologie, Presseberichte über Kita-Qualität oder literarische Texte (z. B. Kinderbücher, Erzählungen über Kindheit und Vielfalt): Erzieherinnen und Erzieher müssen anspruchsvolle Texte sicher erschließen und kritisch einordnen können. Bei komplexen Sachtexten bewährt sich ein schrittweises Vorgehen: Zunächst werden Rahmenbedingungen geklärt (Textsorte, Autorin/Autor, Erscheinungsjahr, Zielgruppe, Anlass). Anschließend werden zentrale Thesen, Argumentationsgänge und Belege (z. B. Studien, Gesetze, Fallbeispiele) herausgearbeitet und sprachliche Strategien (z. B. sachliche Information vs. wertende Zuspitzung oder Appelle) untersucht. Erst im dritten Schritt folgt eine eigenständige, fachlich begründete Beurteilung im sozialpädagogischen Kontext: Welche Annahmen sind gut belegt, welche Perspektiven fehlen, und was bedeutet der Text für die eigene Praxis? Bei literarischen Texten – einschließlich anspruchsvoller Kinder- und Jugendliteratur – treten Erzählperspektive, Figurenzeichnung, Symbolik, Rollenbilder und sprachliche Gestaltung in den Mittelpunkt. Gerade bei Bilderbüchern lohnt dieser analytische Blick, um versteckte Geschlechter- oder Kulturstereotype früh zu erkennen.",
       "bulletPoints": [
-        "Analytisches und hermeneutisches Erschließen komplexer Sachtexte",
-        "Kritische Reflexion von Fachliteratur und bildungspolitischen Dokumenten",
-        "Strukturierte Textwiedergabe, Zusammenfassung und eigenständige Interpretation",
-        "Fachsprachliche Korrektheit und Einhaltung wissenschaftlicher Standards"
+        "Schritt 1 – Kontext & Überblick: Textsorte, Urheberschaft, Erscheinungszeitpunkt und Thema bestimmen.",
+        "Schritt 2 – Inhalts- und Strukturanalyse: Kernaussagen sachlich zusammenfassen, Thesen, Argumente, Belege und sprachliche Mittel untersuchen.",
+        "Schritt 3 – Kritische Fachbewertung: Plausibilität, Lücken, Wertebasis und Praxisrelevanz argumentativ beurteilen.",
+        "Literarische Texte & Kinderbücher: Erzählperspektive, Deutungsebenen und vermittelte Welt- sowie Rollenbilder bewusst reflektieren."
       ],
-      "heading": "4. Mündliche und schriftliche Textanalyse & Interpretation",
-      "keyTakeaway": "Komplexe Sachtexte und literarische Quellen müssen methodisch erschlossen und kritisch im sozialpädagogischen Kontext reflektiert werden.",
-      "praxisTip": "Erstelle beim Lesen komplexer Fachtexte ein strukturiertes Mindmap der Argumentationsstruktur, um die Kernaussagen für Berichte und Präsentationen parat zu haben."
+      "praxisTip": "Teilen Sie bei der Vorbereitung eines Fachtextes Ihr Notizblatt in zwei Spalten: links die sachliche Wiedergabe der Textargumente (mit Seitenzahlen), rechts Ihre eigenen fachlichen Rückfragen und Praxisbezüge."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Kommunikationsanalyse",
-      "id": "visual-dialogue",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Sender / Sach-Ohr",
-          "detail": "Der Sender teilt faktenbasierte Informationen mit. Das Sach-Ohr prüft die Wahrheit, Relevanz und Vollständigkeit der Aussage.",
-          "example": "„Das Kind hat heute in der Freispielphase drei Bauklötze umgeworfen.“",
-          "id": "item-1",
-          "label": "Sachebene (Daten & Fakten)",
-          "metric": "Modellschritt 1",
-          "summary": "Informationen sachlich und nachvollziehbar vermitteln und prüfen."
-        },
-        {
-          "badge": "Selbstkundgabe",
-          "detail": "Jede Äußerung offenbart implizit oder explizit etwas über die Person des Senders (Motive, Gefühle, Werte).",
-          "example": "„Ich bin besorgt über die Konzentrationsfähigkeit in der Gruppe.“",
-          "id": "item-2",
-          "label": "Selbstkundgabe (Ich-Anteil)",
-          "metric": "Modellschritt 2",
-          "summary": "Einblicke in die eigene innere Verfassung und professionelle Haltung geben."
-        },
-        {
-          "badge": "Beziehungsohr",
-          "detail": "Zeigt an, wie Sender und Empfänger zueinander stehen, was übereinander gedacht wird und wie Respekt ausgedrückt wird.",
-          "example": "„Du hörst mir schon wieder nicht richtig zu, wenn ich etwas Wichtiges sage.“",
-          "id": "item-3",
-          "label": "Beziehungsebene (Wir-Anteil)",
-          "metric": "Modellschritt 3",
-          "summary": "Klärung der beruflichen und menschlichen Beziehungsgestaltung."
-        },
-        {
-          "badge": "Appell-Ohr",
-          "detail": "Der Sender möchte den Empfänger zu einer bestimmten Handlung, Unterlassung oder Denkweise veranlassen.",
-          "example": "„Bitte bereiten Sie bis morgen die Portfolios für das Entwicklungsgespräch vor.“",
-          "id": "item-4",
-          "label": "Appell-Ebene (Wunsch & Wirkung)",
-          "metric": "Modellschritt 4",
-          "summary": "Zielgerichtete Handlungsanweisungen klar und verbindlich formulieren."
-        }
-      ],
+      "id": "u05-vb-quadrat",
       "kind": "dialogue",
+      "title": "Das Kommunikationsquadrat nach Schulz von Thun am Kita-Beispiel",
+      "subtitle": "Äußerung der Fachkraft beim Abholen: „Die Wechselkleidung im Fach von Mia ist schon wieder leer.“",
+      "centerLabel": "",
       "leftPole": "",
-      "rightPole": ",subtitle:",
-      "subtitle": "",
-      "title": "Das Vier-Ohren-Modell nach Friedemann Schulz von Thun"
-    },
-    {
-      "centerLabel": "Moderations-Prozess",
-      "id": "visual-concept-map",
-      "isCycle": true,
-      "items": [
-        {
-          "badge": "Phase 1",
-          "detail": "Begrüßung, Klärung des Anliegens, Vorstellen der Methode und Vereinbarung von Gesprächsregeln mit den Teilnehmenden.",
-          "example": "„Wir treffen uns heute, um gemeinsam das neue Konzept zur Elternpartnerschaft zu besprechen.“",
-          "id": "item-1",
-          "label": "Einstieg & Klärung",
-          "metric": "Schritt 1",
-          "summary": "Rahmenbedingungen abstecken und gemeinsame Orientierung schaffen."
-        },
-        {
-          "badge": "Phase 2",
-          "detail": "Sammlung von Meinungen, Fragen, Ideen und Beiträgen der Gruppe ohne sofortige Bewertung (z. B. per Kartenabfrage).",
-          "example": "Teilnehmende schreiben Erwartungen und Bedenken auf Moderationskarten.",
-          "id": "item-2",
-          "label": "Themensammlung",
-          "metric": "Schritt 2",
-          "summary": "Offene und strukturierte Erfassung aller Perspektiven (Partizipation)."
-        },
-        {
-          "badge": "Phase 3",
-          "detail": "Strukturieren, Clustern und Gewichten der gesammelten Beiträge nach Prioritäten und inhaltlichen Schwerpunkten.",
-          "example": "Ähnliche Aspekte werden an der Pinnwand zu Themengruppen zusammengefasst.",
-          "id": "item-3",
-          "label": "Bearbeitung & Strukturierung",
-          "metric": "Schritt 3",
-          "summary": "Themen ordnen, analysieren und in die Tiefe gehen."
-        },
-        {
-          "badge": "Phase 4",
-          "detail": "Festlegung von konkreten Schritten, Verantwortlichkeiten und Zeitplänen für die praktische Umsetzung.",
-          "example": "„Frau Müller übernimmt die Erstellung des Handouts bis zum nächsten Freitag.“",
-          "id": "item-4",
-          "label": "Ergebnis & Transfer",
-          "metric": "Schritt 4",
-          "summary": "Verbindliche Vereinbarungen treffen und Transfer in die Praxis sichern."
-        }
-      ],
-      "kind": "concept_map",
-      "leftPole": "",
-      "rightPole": ",subtitle:",
-      "subtitle": "",
-      "title": "Phasenmodell der professionellen Moderation"
-    },
-    {
-      "centerLabel": "Kommunikationsspektrum",
-      "id": "visual-spectrum",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Extrem 1",
-          "detail": "Strikte Befehlsausgabe, Missachtung von Rückmeldungen, autoritärer Tonfall und starre Hierarchien ohne Raum für Beteiligung.",
-          "example": "„Hier wird nicht diskutiert, das wird jetzt genau so gemacht!“",
-          "id": "item-1",
-          "label": "Autoritär / Direktiv",
-          "metric": "Pol Links",
-          "summary": "Einseitige Machtausübung ohne Beziehungsreflexion."
+          "id": "sq-1",
+          "label": "Sachinformation",
+          "badge": "Ebene 1: Fakten",
+          "metric": "Worüber ich informiere",
+          "summary": "Objektiver Sachverhalt: Im Garderobenfach befindet sich derzeit keine Ersatzkleidung für Mia.",
+          "detail": "Auf der Sachebene geht es um die sachliche, überprüfbare Information. Sie ist klar und hilfreich, wenn sie wertfrei und ohne vorwurfsvollen Zusatz (‚schon wieder‘) formuliert wird.",
+          "example": "Sachlich formuliert: „Im Fach von Mia fehlt aktuell trockene Wechselkleidung.“"
         },
         {
-          "badge": "Extrem 2",
-          "detail": "Völlige Strukturlosigkeit, laissez-faire Haltung, fehlende fachliche Führung und ungesicherte Ergebnisse.",
-          "example": "„Macht ihr mal, mir ist egal, worauf ihr euch einigt.“",
-          "id": "item-2",
-          "label": "Laissez-faire / Beliebig",
-          "metric": "Pol Rechts",
-          "summary": "Verzicht auf professionelle Leitung und Verantwortung."
+          "id": "sq-2",
+          "label": "Selbstkundgabe",
+          "badge": "Ebene 2: Ich-Anteil",
+          "metric": "Was ich von mir zeige",
+          "summary": "Die Fachkraft wirkt gestresst oder genervt und wünscht sich verlässliche Unterstützung im Alltag.",
+          "detail": "Wortwahl (‚schon wieder‘) und Tonfall verraten innere Anspannung. Eine bewusste Ich-Botschaft macht das eigene Anliegen transparent, ohne das Gegenüber anzugreifen.",
+          "example": "Konstruktive Selbstkundgabe: „Mir ist wichtig, dass Mia sich nach dem Wasserspiel schnell umziehen kann.“"
         },
         {
-          "badge": "Professionelle Balance",
-          "detail": "Gezielter Einsatz von Kongruenz, transparenter Prozessmoderation, wertschätzender Haltung und verbindlicher Partizipation.",
-          "example": "„Lassen Sie uns gemeinsam die verschiedenen Sichtweisen anschauen und einen tragfähigen Kompromiss finden.“",
-          "id": "item-3",
-          "label": "Situativ-kongruent & Partizipativ",
-          "metric": "Goldene Mitte",
-          "summary": "Professionelle Balance aus fachlicher Führung und echter Beteiligung."
+          "id": "sq-3",
+          "label": "Beziehungsseite",
+          "badge": "Ebene 3: Wir-Ebene",
+          "metric": "Wie ich zu dir stehe",
+          "summary": "Das Elternteil könnte den Satz als Vorwurf hören: ‚Du bist unzuverlässig und vergisst wichtige Dinge.‘",
+          "detail": "Die Beziehungsebene entscheidet maßgeblich darüber, ob eine Botschaft kooperativ oder mit Abwehr aufgenommen wird. Respektvoller Ton und fehlende Vorwürfe schützen die Erziehungspartnerschaft.",
+          "example": "Beziehungsstärkend: „Ich weiß, morgens ist es oft hektisch – ich wollte kurz Bescheid geben, damit es morgen entspannt klappt.“"
+        },
+        {
+          "id": "sq-4",
+          "label": "Appellseite",
+          "badge": "Ebene 4: Handlung",
+          "metric": "Wozu ich veranlassen möchte",
+          "summary": "Der unausgesprochene oder offene Wunsch: ‚Bitte bringen Sie morgen neue Wechselkleidung mit.‘",
+          "detail": "Verdeckte Appelle wirken oft bevormundend. Ein freundlich und direkt ausgesprochener Wunsch erleichtert beiden Seiten klares Handeln.",
+          "example": "Klarer Appell: „Könnten Sie Mia morgen bitte eine Hose und Socken mit in das Fach legen?“"
         }
-      ],
+      ]
+    },
+    {
+      "id": "u05-vb-moderation",
+      "kind": "process_flow",
+      "title": "Fünf Phasen einer professionellen Moderation",
+      "subtitle": "Strukturierter Ablauf für Teamsitzungen, Elternabende und Beteiligungsrunden",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "mod-1",
+          "label": "1. Einstieg & Rahmen",
+          "badge": "Orientierung",
+          "metric": "Klarer Start",
+          "summary": "Ziel, Zeitrahmen, Ablauf und Gesprächsregeln transparent mit der Gruppe klären.",
+          "detail": "Ein strukturierter Einstieg schafft psychologische Sicherheit und verhindert, dass Teilnehmende mit völlig unterschiedlichen Erwartungen diskutieren.",
+          "example": "„Wir haben 45 Minuten Zeit, um Ideen für das neue Eingewöhnungsheft zu sammeln und Zuständigkeiten festzulegen.“"
+        },
+        {
+          "id": "mod-2",
+          "label": "2. Themen sammeln",
+          "badge": "Beteiligung",
+          "metric": "Alle Stimmen",
+          "summary": "Ideen, Fragen und Bedenken unbewertet und breit erfassen.",
+          "detail": "Methoden wie die stille Kartenabfrage geben auch zurückhaltenden Teammitgliedern oder Eltern dieselbe Sichtbarkeit wie wortstarken Personen.",
+          "example": "Alle Teilnehmenden notieren ihre wichtigsten Fragen zum neuen Konzept auf Moderationskarten."
+        },
+        {
+          "id": "mod-3",
+          "label": "3. Clustern & priorisieren",
+          "badge": "Ordnung",
+          "metric": "Fokus setzen",
+          "summary": "Beiträge thematisch bündeln und Schwerpunkte gemeinsam festlegen.",
+          "detail": "Durch sichtbares Ordnen an Pinnwand oder Flipchart erkennen alle Gemeinsamkeiten; eine Punkteabfrage klärt demokratisch, womit zuerst gearbeitet wird.",
+          "example": "Die Karten werden zu ‚Tagesablauf‘, ‚Elterninfos‘ und ‚Schutzregeln‘ gruppiert und per Klebepunkten priorisiert."
+        },
+        {
+          "id": "mod-4",
+          "label": "4. Vertieft bearbeiten",
+          "badge": "Lösungsarbeit",
+          "metric": "Dialog",
+          "summary": "Die ausgewählten Kernpunkte gezielt diskutieren und konkrete Lösungsoptionen entwickeln.",
+          "detail": "Die Moderation achtet auf Zeit, fasst Zwischenstände zusammen, fragt bei Unklarheiten nach und trennt Sachfragen von persönlichen Spannungen.",
+          "example": "In zwei Kleingruppen werden Formulierungsvorschläge für den Elternleitfaden entworfen und anschließend im Plenum abgestimmt."
+        },
+        {
+          "id": "mod-5",
+          "label": "5. Sichern & übertragen",
+          "badge": "Verbindlichkeit",
+          "metric": "Maßnahmenplan",
+          "summary": "Ergebnisse sichtbar festhalten: Was wird getan, wer übernimmt es, bis wann und wann wird ausgewertet?",
+          "detail": "Erst ein verbindlicher Maßnahmenplan und ein kurzer Rückblick sichern den Transfer in den pädagogischen Alltag.",
+          "example": "Flipchart-Protokoll mit konkreten Namen, Fristen und Termin für die Rückmeldung in der nächsten Dienstbesprechung."
+        }
+      ]
+    },
+    {
+      "id": "u05-vb-leitung",
       "kind": "spectrum",
-      "leftPole": "Autoritär / Direktiv",
-      "rightPole": "Laissez-faire / Beliebig",
-      "subtitle": ",subtitle:",
-      "title": "Kommunikations- und Führungsstil-Spektrum in der Praxis"
+      "title": "Spannungsfeld: Gesprächsleitung zwischen Kontrolle und Beliebigkeit",
+      "subtitle": "Wie professionelle Moderation klare Struktur und echte Beteiligung ausbalanciert",
+      "centerLabel": "",
+      "leftPole": "Autoritäre Lenkung",
+      "rightPole": "Strukturloses Laufenlassen",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "sp-1",
+          "label": "Direktive Vorgabe",
+          "badge": "Übersteuerung",
+          "metric": "Extrempol links",
+          "summary": "Die Leitung gibt fertige Lösungen vor, schneidet Einwände ab und erstickt Beteiligung.",
+          "detail": "Zwar scheint die Sitzung schnell beendet, doch fehlende Akzeptanz führt später zu passivem Widerstand und mangelnder Umsetzung im Alltag.",
+          "example": "„Das ist jetzt so entschieden, weitere Diskussionen kosten uns nur Zeit.“"
+        },
+        {
+          "id": "sp-2",
+          "label": "Verdeckte Steuerung",
+          "badge": "Scheinmoderation",
+          "metric": "Manipulativ",
+          "summary": "Formal wird gefragt, doch abweichende Meinungen werden durch Suggestivfragen aussortiert.",
+          "detail": "Teilnehmende merken rasch, wenn ihre Beiträge nur als Kulisse für ein längst feststehendes Ergebnis dienen – Vertrauen geht verloren.",
+          "example": "„Sie sind doch sicher auch alle der Meinung, dass mein Entwurf die beste Lösung ist?“"
+        },
+        {
+          "id": "sp-3",
+          "label": "Professionelle Moderation",
+          "badge": "Professionelles Optimum",
+          "metric": "Struktur + Teilhabe",
+          "summary": "Klare Prozessführung, sichtbare Visualisierung und offene, faire Beteiligung aller Perspektiven.",
+          "detail": "Die Moderation steuert Zeit, Methode und Gesprächskultur zuverlässig, bleibt bei der Lösungssuche offen und sorgt am Schluss für verbindliche Absprachen.",
+          "example": "„Ich fasse beide Sichtweisen am Flipchart zusammen – welche Kriterien sind uns für eine gemeinsame Lösung am wichtigsten?“"
+        },
+        {
+          "id": "sp-4",
+          "label": "Zögerliche Begleitung",
+          "badge": "Unklar",
+          "metric": "Schwacher Rahmen",
+          "summary": "Vielredende dominieren das Gespräch; der rote Faden und das Zeitlimit geraten aus dem Blick.",
+          "detail": "Ohne freundliche Unterbrechungen und Zusammenfassungen verlieren Sitzungen Fokus und frustrieren engagierte Teilnehmende.",
+          "example": "Einzelne private Anekdoten füllen dreißig Minuten, während der eigentliche Tagesordnungspunkt offen bleibt."
+        },
+        {
+          "id": "sp-5",
+          "label": "Völlige Strukturlosigkeit",
+          "badge": "Laissez-faire",
+          "metric": "Extrempol rechts",
+          "summary": "Keine Zielklärung, keine Regeln, keine Ergebnissicherung – Konflikte eskalieren ungebremst.",
+          "detail": "Fehlende Leitung überlässt die Gruppe informellen Machtkämpfen und erzeugt am Ende Frustration ohne handlungsfähige Ergebnisse.",
+          "example": "Alle reden durcheinander; am Ende verlässt das Team den Raum ohne Vereinbarung und mit angespannter Stimmung."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Elternabend / Teamberatung (2.-3. Ausbildungsjahr)",
-    "context": "In einer inklusiven Kindertagesstätte moderieren zwei angehende Erzieher:innen einen schwierigen Elternabend zum Thema Sprachförderung und Inklusion. Es gibt Vorbehalte und unklare Kommunikationsmuster zwischen Eltern und Fachkräften.",
-    "setting": "Kindertagesstätte / Fachschule Sozialwesen",
+    "title": "Spannung beim Elternabend: „Ihr neuer Bildungsplan ist doch reine Theorie!“",
+    "setting": "Elternabend einer Kindertagesstätte zur Vorstellung eines überarbeiteten Sprach- und Inklusionskonzepts",
+    "ageGroup": "Erwachsene (Eltern und pädagogisches Team)",
+    "context": "Sie moderieren gemeinsam mit einer Kollegin einen Elternabend, bei dem ein ausgeteilter zweiseitiger Informationstext zum neuen Sprach- und Beteiligungskonzept besprochen wird. Nach wenigen Minuten wirft ein Vater laut in die Runde: ‚Dieser Text ist völlig unverständlich und praxisfern! Ihr redet hier nur noch über Konzepte, statt vernünftig auf unsere Kinder aufzupassen!‘ Mehrere Eltern nicken, Ihre Kollegin verschränkt abwehrend die Arme und murmelt: ‚Typisch, keiner liest sich das richtig durch.‘",
     "steps": [
       {
+        "situation": "Eskalationsgefahr zwischen Sach- und Beziehungsebene: Der Vater äußert scharfe Kritik, nonverbale Signale im Raum zeigen Anspannung, und die Kollegin reagiert inkongruent und defensiv.",
+        "prompt": "Wie reagieren Sie in Ihrer Moderationsrolle unter Nutzung von Schulz von Thun, Watzlawick und kongruenter Präsenz?",
         "options": [
           {
-            "feedback": "Die Fachkraft setzt Kongruenz zwischen Worten, Tonfall und Körpersprache ein, moderiert zielgerichtet mit Schulz von Thun (klare Appell- und Sachebene) und greift Einwände empathisch auf. Das zeugt von hoher professioneller Kommunikationskompetenz.",
-            "label": "Kongreuenzerleben und strukturierte Moderation mit Schulz von Thun und Watzlawick.",
-            "quality": "optimal",
-            "theoryLink": "Schulz von Thun (4-Ohren-Modell), Watzlawick (Metakommunikation), RLP S-FÜ-1"
-          },
-          {
-            "feedback": "Die Fachkraft spricht monoton, verneint nonverbal alles (Verschränkte Arme) und geht auf die Ängste der Eltern nicht ein. Das führt zu Abwehrreaktionen auf der Beziehungsebene.",
-            "label": "Unreflektierte Kommunikation mit incongruentem Auftreten und reinem Sachvortrag.",
-            "quality": "problematisch",
-            "theoryLink": "Watzlawick (Man kann nicht nicht kommunizieren), RLP S-FÜ-1"
-          },
-          {
-            "feedback": "Die Fachkraft ist zwar freundlich, verliert aber die zeitliche Struktur und lässt den Elternabend durch private Anekdoten der Eltern in eine unstrukturierte Debatte abgleiten.",
-            "label": "Freundliches, aber unstrukturiertes Gespräch ohne methodische Moderation.",
+            "label": "Sie entschuldigen sich pauschal für den Text, sammeln ihn wieder ein und lassen die Eltern ab sofort ohne Struktur frei erzählen, was sie stört.",
             "quality": "teilweise",
-            "theoryLink": "Moderationsmethode (Klassische Phasen), RLP S-FÜ-1"
+            "feedback": "Sie nehmen zwar kurzfristig Druck aus der Situation, geben aber Ihre strukturierende Moderationsrolle vollständig auf. Ohne klaren Rahmen droht der Abend in unproduktive Einzelbeschwerden abzugleiten.",
+            "theoryLink": "Moderationsrolle (Prozessverantwortung und Strukturierung)"
+          },
+          {
+            "label": "Sie weisen den Vater bestimmt zurecht, dass das Konzept wissenschaftlich geprüft sei, und fahren direkt mit Ihrer vorbereiteten PowerPoint-Präsentation fort, um die Zeit einzuhalten.",
+            "quality": "problematisch",
+            "feedback": "Ein autoritäres Abblocken verschärft die gestörte Beziehungsebene (symmetrische Eskalation nach Watzlawick). Solange die Beziehungsstörung ungeklärt bleibt, werden die folgenden Sachinformationen kaum noch gehört.",
+            "theoryLink": "Watzlawick (Beziehungsaspekt bestimmt Inhaltsaspekt; symmetrische Eskalation)"
+          },
+          {
+            "label": "Sie nehmen eine offene, ruhige Körperhaltung ein, würdigen den Hinweis auf schwer verständliche Fachsprache (Sachebene), trennen dies von einem persönlichen Angriff (Beziehungsebene) und nutzen Metakommunikation: ‚Mir fällt auf, dass unser Text gerade Unruhe und Sorge um den Alltag Ihrer Kinder auslöst – lassen Sie uns die unklaren Stellen gemeinsam klären und konkret am Tagesablauf festmachen.‘",
+            "quality": "optimal",
+            "feedback": "Ausgezeichnet moderiert! Sie treten verbal, stimmlich und nonverbal kongruent auf, nutzen das Kommunikationsquadrat und Watzlawicks Trennung von Inhalts- und Beziehungsaspekt konstruktiv, greifen das berechtigte Bedürfnis hinter dem Appell auf und öffnen den Raum für echte Verständigung.",
+            "theoryLink": "Kommunikationsquadrat (Schulz von Thun), Metakommunikation & Beziehungsaspekt (Watzlawick), Kongruenz"
           }
-        ],
-        "prompt": "Schritt 1: Einstieg und methodische Gestaltung der Elternversammlung (Kommunikationsanalyse).",
-        "situation": "Die Elternversammlung beginnt. Einige Eltern wirken skeptisch und äußern Unmut über das neue Konzept der Sprachbildung. Wie reagieren die angehenden Erzieher:innen professionell?"
+        ]
       },
       {
+        "situation": "Nach der Beruhigung wünschen sich die Eltern, das Konzept greifbar zu verstehen und eigene Fragen einzubringen.",
+        "prompt": "Wie verbinden Sie jetzt Moderationsmethoden und verständliche Sachtextaufbereitung, um den Abend produktiv und verbindlich abzuschließen?",
         "options": [
           {
-            "feedback": "Die Fachkräfte analysieren das Verhalten metakommunikativ, trennen Sachebene von Beziehungsebene und leiten eine strukturierte Diskussion mit Visualisierung ein.",
-            "label": "Metakommunikation anwenden, Sachebene und Beziehungsebene klären, Visualisierung nutzen.",
+            "label": "Sie laden die Eltern per kurzer Kartenabfrage ein, offene Fragen und Wünsche zu notieren, clustern die Karten sichtbar am Flipchart, übersetzen die zwei schwierigsten Fachbegriffe des Textes an konkreten Kita-Alltagsszenen und halten am Schluss vereinbarte Rückmeldewege fest.",
             "quality": "optimal",
-            "theoryLink": "Watzlawick (Metakommunikation), Schulz von Thun, RLP S-FÜ-1"
+            "feedback": "Professionell auf den Punkt! Die Kartenabfrage beteiligt auch ruhigere Eltern, die Visualisierung sichert Transparenz, die verständliche Übersetzung der Textaussagen schließt die Lücke zwischen Fachsprache und Alltag, und die Ergebnissicherung schafft Verbindlichkeit.",
+            "theoryLink": "Moderationsphasen (Sammeln, Clustern, Ergebnissicherung) & adressatengerechte Textvermittlung"
           },
           {
-            "feedback": "Die Fachkräfte diskutieren emotional mit und werfen den Eltern mangelnde Kooperationsbereitschaft vor. Die Situation eskaliert auf der Beziehungsebene.",
-            "label": "Emotionaler Einstieg und Vorwürfe an die Eltern bezüglich mangelnder Mitarbeit.",
-            "quality": "problematisch",
-            "theoryLink": "Watzlawick (Komplementäre vs. symmetrische Eskalation), RLP S-FÜ-1"
-          },
-          {
-            "feedback": "Die Fachkräfte wechseln sofort das Thema und klammern die kritischen Rückmeldungen der Eltern aus, um Konflikte zu vermeiden.",
-            "label": "Ausweichen vor Kritik und schnelles Fortfahren im Programm ohne Beteiligung.",
+            "label": "Sie lesen den zweispaltigen Sachtext noch einmal langsam Absatz für Absatz laut vor und fragen nach jedem Satz, ob noch jemand Fragen hat.",
             "quality": "teilweise",
-            "theoryLink": "Partizipationsansätze und Kommunikationsformen, RLP S-FÜ-1"
+            "feedback": "Das Vorlesen zeigt zwar guten Willen, löst aber das eigentliche Problem der abstrakten Sprache nicht und hemmt viele Eltern, vor der großen Runde Unverständnis zuzugeben.",
+            "theoryLink": "Sachtextvermittlung & partizipative Moderationsmethoden"
+          },
+          {
+            "label": "Sie beenden den Elternabend vorzeitig und kündigen an, die Leitung werde nächste Woche eine rechtliche Stellungnahme per Aushang veröffentlichen.",
+            "quality": "problematisch",
+            "feedback": "Ein Abbruch ohne Klärung hinterlässt Misstrauen und vertieft das Gefühl mangelnder Beteiligung und Gesprächsbereitschaft.",
+            "theoryLink": "Erziehungs- und Bildungspartnerschaft, konstruktive Konfliktklärung"
           }
-        ],
-        "prompt": "Schritt 2: Umgang mit Konflikten und Vertiefung der Textanalyse/Argumentation.",
-        "situation": "Ein Elternteil kritisiert den ausgeteilten Sachtext zum Inklusionskonzept als „unverständlich und realitätsfern“. Wie wird dieser Einwand argumentativ und kommunikativ bearbeitet?"
+        ]
       }
-    ],
-    "title": "Der herausfordernde Elternabend: Kommunikation und Moderation in der Praxis"
+    ]
   },
   "selfLearningTasks": [
-    "Analysiere eine aufgezeichnete Videosequenz einer eigenen oder fremden Anleitungssituation im Praxisbetrieb im Hinblick auf die Kongruenz von Sprache, Stimme und Körpersprache. Halte Auffälligkeiten in einem kurzen Reflexionsprotokoll fest.",
-    "Wähle einen aktuellen bildungspolitischen Sachtext (z. B. aus der Fachzeitschrift „Unsere Jugend“ oder dem RLP-Lehrplan) und wende die Methode der strukturierten Textanalyse (Schlüsselbegriffe, Argumentationsstränge, Intention) an.",
-    "Konzipiere einen methodischen Ablaufplan (inkl. Visualisierung und Phasenstruktur) für eine 45-minütige Teamsitzung zu einem selbstgewählten sozialpädagogischen Thema (z. B. Eingewöhnungsphase)."
+    "Analysieren Sie eine reale Gesprächssituation aus Ihrer Praxis (oder ein Missverständnis aus Ihrem Alltag) mithilfe der vier Seiten nach Schulz von Thun: Was könnte gemeint gewesen sein, wie kam es an, und welche metakommunikative Formulierung hätte geholfen?",
+    "Entwerfen Sie einen 45-minütigen Moderationsplan (inkl. Ziel, fünf Phasen, konkreter Visualisierung und Zeitangaben) für eine Teamsitzung zu einem aktuellen Thema Ihrer Einrichtung.",
+    "Wählen Sie einen fachlichen Sachtext (z. B. einen Fachartikel zur Sprachbildung oder einen pädagogischen Zeitungsbeitrag) und gliedern Sie Ihre Auswertung sauber in drei Abschnitte: Kontext & Kernaussage, Argumentations- und Sprachanalyse sowie begründete fachliche Stellungnahme."
   ],
   "flashcards": [
     {
-      "definition": "Die stimmige Übereinstimmung von verbalen Äußerungen (Sprache), paraverbalen Merkmalen (Stimmlage, Tempo) und nonverbalen Signalen (Mimik, Gestik, Körperhaltung).",
-      "example": "Eine Erzieherin sagt glaubwürdig mit offener Haltung und warmer Stimme: „Ich freue mich auf das Gespräch mit Ihnen.“",
-      "term": "Kongruenz (Kommunikation)"
+      "term": "Kongruenz und Inkongruenz",
+      "definition": "Kongruenz liegt vor, wenn verbale Aussage (Worte), paraverbale Signale (Stimme, Tonfall, Tempo) und nonverbales Verhalten (Mimik, Gestik, Haltung) stimmig zusammenpassen; widersprechen sie einander, entstehen irritierende Doppelbotschaften (Inkongruenz).",
+      "example": "Eine Fachkraft sagt ruhig, freundlich und mit offener Körperhaltung: ‚Ich möchte das heute in Ruhe mit Ihnen klären.‘"
     },
     {
-      "definition": "Kommunikation über die Kommunikation; das Reflektieren und Besprechen von Kommunikationsprozessen selbst, um Missverständnisse zu klären.",
-      "example": "„Ich habe das Gefühl, wir reden gerade aneinander vorbei – lassen Sie uns kurz anschauen, wie wir miteinander sprechen.“",
-      "term": "Metakommunikation"
+      "term": "Kommunikationsquadrat (Vier-Seiten-Modell, Schulz von Thun)",
+      "definition": "Modell, wonach jede Nachricht gleichzeitig vier Seiten trägt: Sachinformation (Daten/Fakten), Selbstkundgabe (was ich von mir zeige), Beziehung (wie ich zum anderen stehe) und Appell (wozu ich veranlassen möchte).",
+      "example": "Der Satz ‚Es ist schon 16 Uhr‘ informiert sachlich über die Uhrzeit, kann aber auch Stress zeigen (Selbstkundgabe), drängen (Appell) oder Kritik ausdrücken (Beziehung)."
     },
     {
-      "definition": "Kommunikationsmodell von Friedemann Schulz von Thun, das jede Nachricht auf vier Ebenen untersucht: Sachebene, Selbstkundgabe, Beziehung und Appell.",
-      "example": "Eine Anweisung der Kitaleitung wird nicht nur als Sachinformation, sondern auch bezüglich der Beziehungsbotschaft und des Appells verstanden.",
-      "term": "Vier-Ohren-Modell"
+      "term": "Zentrale Axiome nach Paul Watzlawick",
+      "definition": "Fünf Grundannahmen zwischenmenschlicher Kommunikation, u. a.: (1) Man kann nicht nicht kommunizieren, (2) jede Kommunikation hat einen Inhalts- und einen Beziehungsaspekt, (3) Beteiligte strukturieren Abläufe unterschiedlich (Interpunktion), (4) digitale und analoge Ebene, (5) symmetrische und komplementäre Interaktion.",
+      "example": "Ist die Beziehungsebene zwischen zwei Kolleginnen belastet, führen selbst kleine sachliche Rückfragen zur Dienstplanung schnell zu Abwehr."
     },
     {
-      "definition": "Methode und Haltung zur zielgerichteten Leitung von Gruppenprozessen, Diskussions- und Entscheidungsprozessen unter Neutralität bezüglich des Inhalts.",
-      "example": "Moderation einer Teamsitzung zur Erarbeitung des neuen Kita-Konzepts mithilfe von Kartenabfrage und Visualisierung.",
-      "term": "Moderationsmethode"
+      "term": "Metakommunikation",
+      "definition": "Das bewusste, wertschätzende Sprechen über die Art und Weise, wie gerade miteinander kommuniziert wird, um Missverständnisse und gestörte Beziehungsebenen zu klären.",
+      "example": "„Ich habe den Eindruck, wir reden gerade aneinander vorbei – darf ich kurz sagen, wie Ihre Rückmeldung bei mir angekommen ist?“"
     },
     {
-      "definition": "Systemischer Grundsatz von Paul Watzlawick: Jedes Verhalten in einer Situation ist Kommunikation, da man sich verbal oder nonverbal nicht entziehen kann.",
-      "example": "Auch schweigendes Warten in einer Teambesprechung sendet eine deutliche Botschaft (z. B. Ablehnung oder Desinteresse) aus.",
-      "term": "Man kann nicht nicht kommunizieren"
+      "term": "Moderationshaltung (Prozessverantwortung)",
+      "definition": "Rolle einer Gesprächsleitung, die Struktur, Zeit, Visualisierung und faire Beteiligung sichert, während sie sich bei den inhaltlichen Lösungen neutral und allparteilich zurückhält.",
+      "example": "Die Moderatorin fasst unterschiedliche Positionen im Team am Flipchart zusammen und fragt nach gemeinsamen Kriterien, statt selbst die Entscheidung vorzugeben."
     },
     {
-      "definition": "Systematisches Erschließen, Dekodieren und Deuten von komplexen Sachtexten oder literarischen Werken unter Berücksichtigung von Kontext und Intention.",
-      "example": "Kritische Analyse eines bildungspolitischen Orientierungsplans zur Sprachbildung im Elementarbereich.",
-      "term": "Textanalyse und Interpretation"
+      "term": "Dreischritt der Sachtextanalyse",
+      "definition": "Systematische Texterschließung in drei getrennten Schritten: (1) Kontext und Kernaussagen sachlich erfassen, (2) Argumentationsstruktur, Belege und sprachliche Mittel analysieren, (3) eigenständig und fachlich begründet Stellung nehmen.",
+      "example": "Bei einem Artikel über digitale Medien in Kitas trennt die Fachkraft die Thesen des Autors klar von ihrer eigenen begründeten Praxisbewertung."
     }
   ],
   "quiz": [
     {
+      "id": "v2-q1",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Was besagt Paul Watzlawicks zweites Axiom über das Verhältnis von Inhalts- und Beziehungsaspekt in der Kommunikation?",
+      "options": [
+        "Jede Kommunikation hat einen Inhalts- und einen Beziehungsaspekt, wobei der Beziehungsaspekt bestimmt, wie der Inhalt verstanden und aufgenommen wird.",
+        "In beruflichen Gesprächen zählt ausschließlich der Sachinhalt; die Beziehungsebene spielt keine Rolle.",
+        "Der Inhaltsaspekt wird ausschließlich über die Körpersprache vermittelt, der Beziehungsaspekt nur über geschriebene Texte.",
+        "Inhalts- und Beziehungsaspekt schließen einander aus und treten niemals in demselben Satz auf."
+      ],
+      "correctIndices": [
+        0
+      ],
+      "explanation": "Nach Watzlawicks zweitem Axiom bestimmt der Beziehungsaspekt den Inhaltsaspekt (Metakommunikation): Ist das Vertrauen gestört oder der Ton abwertend, wird selbst eine sachlich richtige Information oft abgelehnt oder missverstanden."
+    },
+    {
+      "id": "v2-q2",
+      "type": "multi",
+      "difficulty": "basis",
+      "question": "Welche Seiten gehören zum Kommunikationsquadrat nach Friedemann Schulz von Thun? (Wählen Sie alle zutreffenden Antworten)",
+      "options": [
+        "Intuitions- und Diagnoseebene (Psychologische Typisierung des Gegenübers)",
+        "Selbstkundgabe (Was ich von mir zu erkennen gebe)",
+        "Sachinformation (Worüber ich informiere)",
+        "Beziehung und Appell (Wie wir zueinander stehen / wozu ich veranlassen möchte)"
+      ],
+      "correctIndices": [
+        1,
+        2,
+        3
+      ],
+      "explanation": "Die vier Seiten des Kommunikationsquadrats nach Schulz von Thun sind Sachinformation, Selbstkundgabe, Beziehung und Appell. Eine ‚Intuitions- und Diagnoseebene‘ existiert im Modell nicht – das Modell dient der Reflexion, nicht der psychologischen Typisierung."
+    },
+    {
+      "id": "v2-q3",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Eine Erzieherin sagt zu einer neuen Kollegin mit verschränkten Armen, scharfem Tonfall und abgewandtem Blick: ‚Frag ruhig jederzeit, ich helfe dir doch gern!‘ Welches Phänomen liegt hier vor?",
+      "options": [
+        "Gelungene Metakommunikation zur Entlastung der Beziehungsebene.",
+        "Inkongruenz (Doppelbotschaft), weil verbale Zusage und paraverbal-nonverbale Abwehrsignale einander widersprechen.",
+        "Symmetrische Moderation mit vorbildlicher Inhaltsneutralität.",
+        "Faktenbasierte Trennung von Beobachtung und Deutung."
+      ],
       "correctIndices": [
         1
       ],
-      "difficulty": "basis",
-      "explanation": "Nach Paul Watzlawicks erstem Axiom ist es unmöglich, nicht zu kommunizieren, da jedes Verhalten (auch Schweigen oder nonverbale Haltung) in einer sozialen Situation eine Mitteilung darstellt.",
-      "id": "quiz-1",
-      "options": [
-        "Man kann in Konfliktsituationen durch bewusstes Schweigen die Kommunikation vollständig aussetzen.",
-        "Man kann nicht nicht kommunizieren, da jedes Verhalten in einer sozialen Situation Mitteilungscharakter hat.",
-        "Nonverbale Kommunikation ist stets wichtiger als die verbale Sachebene.",
-        "Kommunikation findet ausschließlich auf der Sachebene statt."
-      ],
-      "question": "Welche Grundannahme prägt das erste Axiom der Kommunikationstheorie nach Paul Watzlawick?",
-      "type": "single"
+      "explanation": "Verbale Ebene (‚helfe gern‘) und paraverbal-nonverbale Ebene (scharfer Ton, abgewandter Blick, verschränkte Arme) widersprechen einander. Diese Inkongruenz verunsichert das Gegenüber und beeinträchtigt das Vertrauen."
     },
     {
+      "id": "v2-q4",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Praxisfall: Sie moderieren eine Teamsitzung zur Neugestaltung der Abholsituation. Zwei erfahrene Kolleginnen dominieren die Diskussion, während drei ruhigere Kräfte schweigen. Wie handeln Sie in der Moderationsrolle professionell?",
+      "options": [
+        "Sie lassen die beiden Wortführerinnen weiter diskutieren, weil sie die längste Berufserfahrung haben.",
+        "Sie beenden die Debatte und verkünden selbst Ihre persönliche Lieblingslösung als verbindlichen Beschluss.",
+        "Sie unterbrechen freundlich mit Verweis auf das Ziel, setzen eine kurze stille Kartenabfrage oder gezielte Wortmeldungsrunde ein, visualisieren alle Beiträge gleichberechtigt am Flipchart und klären am Ende konkrete Zuständigkeiten.",
+        "Sie verzichten auf eine Visualisierung, damit sich niemand durch schriftliche Notizen beobachtet fühlt."
+      ],
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Professionelle Moderation sichert durch Methodenwahl (z. B. Kartenabfrage), freundliche Prozesssteuerung und Visualisierung, dass alle Stimmen gleichberechtigt einfließen, statt Dominanz laufen zu lassen (Option A) oder autoritär durchzugreifen (Option B)."
+    },
+    {
+      "id": "v2-q5",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Welcher Satz ist ein treffendes Beispiel für konstruktive Metakommunikation in einem angespannten Elterngespräch?",
+      "options": [
+        "„Sie hören mir mal wieder nur auf dem Beziehungsohr zu, das ist typisch für verunsicherte Eltern.“",
+        "„Lassen Sie uns einfach das Thema wechseln und nicht weiter darüber sprechen.“",
+        "„Wir brechen das Gespräch ab, weil Sie zu emotional reagieren.“",
+        "„Ich merke, dass wir beide gerade angespannt werden und aneinander vorbeireden. Wollen wir kurz innehalten und klären, was Ihnen in diesem Punkt am wichtigsten ist?“"
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Metakommunikation thematisiert das Gesprächsgeschehen selbst respektvoll und in Ich-Form, um Verständnis wiederherzustellen. Option A missbraucht dagegen ein Kommunikationsmodell für eine abwertende Zuschreibung."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "pruefung",
+      "question": "Welche Schritte gehören zu einer fachlich sauberen Analyse und Interpretation eines komplexen Sachtextes? (Wählen Sie alle zutreffenden Antworten)",
+      "options": [
+        "Textsorte, Urheberschaft, Erscheinungskontext und mögliche Absicht (Intention) einordnen.",
+        "Die eigene Meinung direkt mit der Inhaltswiedergabe vermischen, damit nicht erkennbar ist, was vom Autor stammt.",
+        "Zentrale Thesen, Argumentationsstruktur, Belege und sprachliche Mittel sachlich herausarbeiten.",
+        "In einer klar abgetrennten Stellungnahme Stärken, Grenzen und Praxisrelevanz des Textes fachlich begründet bewerten."
+      ],
       "correctIndices": [
         0,
         2,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Schulz von Thun unterscheidet die SachOhr-Ebene (Inhalt), die Beziehungs-Ebene (Wie wir zueinander stehen) und die Appell-Ebene (Was der Sender bewirken will). Die \"Intuitions-Ebene\" gehört nicht zu den vier Ohren.",
-      "id": "quiz-2",
-      "options": [
-        "Sachebene (Worüber ich informiere)",
-        "Intuitions-Ebene (Unbewusste Vorahnungen)",
-        "Beziehungsebene (Was ich von dir halte / wie wir zueinander stehen)",
-        "Appell-Ebene (Wozu ich dich veranlassen möchte)"
-      ],
-      "question": "Welche Ebenen gehören zum Vier-Ohren-Modell von Friedemann Schulz von Thun? (Wähle alle zutreffenden Antworten)",
-      "type": "multi"
+      "explanation": "Eine professionelle Sachtextanalyse unterscheidet klar zwischen Kontext/Wiedergabe, Analyse der Argumentation und Sprachmittel sowie der abschließenden, begründeten Fachbewertung. Das Vermischen von Textaussage und eigener Meinung (Option B) ist ein typischer Methodenfehler."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Das Kommunikationsquadrat (Vier-Seiten-Modell)",
+      "url": "https://www.schulz-von-thun.de/die-modelle/das-kommunikationsquadrat",
+      "publisher": "Schulz von Thun Institut für Kommunikation",
+      "note": "Originaldarstellung der vier Seiten einer Nachricht (Sachinformation, Selbstkundgabe, Beziehung, Appell)"
     },
     {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "In einer inklusiven Praxis ist Kongruenz (Übereinstimmung von Worten, Tonfall und Körpersprache) essenziell für eine vertrauensvolle Beziehung und professionelle Glaubwürdigkeit. Widersprüche irritieren Kinder und Eltern.",
-      "id": "quiz-3",
-      "options": [
-        "Erzieher:innen sollten stets eine rein sachliche, emotionslose Rolle einnehmen.",
-        "Nonverbale Signale sind für die professionelle pädagogische Arbeit irrelevant, solange die Sprache korrekt ist.",
-        "Kongruenz zwischen Sprache, Körper und Stimme schafft Vertrauen und verhindert widersprüchliche (inkongruente) Botschaften in der Interaktion.",
-        "Moderation erfordert immer eine autoritäre Führung durch die Fachkraft."
-      ],
-      "question": "Warum ist der kongruente Einsatz von Sprache, Körper und Stimme in der sozialpädagogischen Arbeit von zentraler Bedeutung?",
-      "type": "single"
+      "title": "Hinweise zur Moderation – Rolle, Aufgaben und Ablauf (PDF)",
+      "url": "https://www.bpb.de/system/files/pdf/CV934P.pdf",
+      "publisher": "Bundeszentrale für politische Bildung (bpb)",
+      "note": "Praxisnahe Übersicht zu Moderationshaltung, Prozesssteuerung und Beteiligung"
     },
     {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Eine professionelle Moderation zeichnet sich durch Inhaltsneutralität der Leitung aus (die Gruppe erarbeitet die Inhalte selbst) bei gleichzeitiger strikter Strukturierung des methodischen Prozesses.",
-      "id": "quiz-4",
-      "options": [
-        "Die Moderationsleitung bestimmt als Expert:in die inhaltlichen Ergebnisse der Diskussion vorab.",
-        "Die moderationstätige Fachkraft steuert den Prozess methodisch, bleibt aber inhaltlich neutral, um die Partizipation der Gruppe zu sichern.",
-        "Moderation ist identisch mit einem Frontalvortrag und dient der schnellen Wissensvermittlung.",
-        "Bei einer Moderation wird gänzlich auf Regeln und Visualisierung verzichtet."
-      ],
-      "question": "Praxissituation: Du moderierst als angehende Fachkraft eine Teamsitzung zur Erarbeitung eines neuen Schutzkonzepts. Was kennzeichnet eine professionelle Moderationshaltung?",
-      "type": "case"
-    },
-    {
-      "correctIndices": [
-        0,
-        1,
-        3
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Komplexe Sachtexte erfordern eine strukturierte Erschließung (W-Fragen, Markieren, Gliedern), die Bestimmung der Intention und des Kontextes sowie eine kritische Reflexion. Das schlichte Vorlesen ist keine Interpretation.",
-      "id": "quiz-5",
-      "options": [
-        "Analytisches Lesen und Markieren von Schlüsselbegriffen sowie Argumentationsstrukturen.",
-        "Berücksichtigung von Entstehungszusammenhang, Autor:in und historischem/fachlichem Kontext.",
-        "Unkritisches Übernehmen der Thesen als absolute absolute Wahrheit ohne Prüfung.",
-        "Mündliche oder schriftliche Reformulierung und kritische Stellungnahme aus fachlicher Sicht."
-      ],
-      "question": "Welche methodischen Schritte sind bei der Analyse und Interpretation komplexer Sachtexte in der Fachschule zentral? (Wähle alle zutreffenden Antworten)",
-      "type": "multi"
-    },
-    {
-      "correctIndices": [
-        0
-      ],
-      "difficulty": "basis",
-      "explanation": "Metakommunikation bedeutet, das Kommunikationsgeschehen selbst zum Gegenstand des Gesprächs zu machen, um Störungen oder Missverständnisse zu klären (z. B. „Ich habe den Eindruck, wir reden gerade aneinander vorbei“).",
-      "id": "quiz-6",
-      "options": [
-        "Das Sprechen über die Art und Weise, wie miteinander kommuniziert wird (Kommunikation über Kommunikation).",
-        "Die wörtliche Analyse von literarischen Texten und Gedichten.",
-        "Die nonverbale Begleitung von Sprachbeiträgen durch Gestik und Mimik.",
-        "Die rein technische Tonaufzeichnung von Teamgesprächen."
-      ],
-      "question": "Was versteht man in der Kommunikationspsychologie unter „Metakommunikation“?",
-      "type": "single"
+      "title": "Erziehungs- und Bildungspartnerschaft zwischen Kita und Eltern (Zehbe & Sonnenberg, PDF)",
+      "url": "https://www.kita-fachtexte.de/fileadmin/user_upload/220404_KitaFachtexte_Sonnenberg_01.pdf",
+      "publisher": "Kita-Fachtexte",
+      "note": "Kommunikative Grundlagen und motivierende Gesprächsführung im pädagogischen Berufsfeld"
     }
   ]
 }

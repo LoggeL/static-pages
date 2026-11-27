@@ -4,413 +4,442 @@
   "moduleCode": "S-SP-4",
   "moduleArea": "sp-pflicht",
   "bildungsbereich": "Naturwissenschaften",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-4 · Bildungsbereich Naturwissenschaften & BNE (Lehrplan RLP 2024)",
   "title": "Bildungsbereich: Naturwissenschaften & BNE",
-  "subtitle": "Belebte/unbelebte Natur, Forschungskreis & alltagsintegriertes Forschen",
+  "subtitle": "Forschendes Lernen, Phänomenorientierung, Hypothesenbildung mit Kindern, Forschungskreis & Stiftung Kinder forschen",
   "year": "2./3. Jahr",
   "estimatedMinutes": 25,
   "hoursRef": "680 Std. (Bildungsbereich)",
   "pdfPages": "S. 34",
   "crossCuttingTags": [
     "BNE",
-    "Sprachbildung"
+    "Sprachbildung",
+    "Partizipation"
   ],
-  "summary": "Diese Lerneinheit vermittelt angehenden Erzieher:innen fundierte Kompetenzen im Bildungsbereich Naturwissenschaften & BNE gemäß RLP-Lehrplan. Sie befähigt dazu, die eigene Fachkraftrolle als Lernbegleiter:in zu reflektieren, den naturwissenschaftlichen Forschungskreis anzuwenden sowie belebte und unbelebte Naturphänomene alltagsintegriert und gendersensibel zu erschließen.",
+  "summary": "Naturwissenschaftliche Bildung beginnt nicht mit fertigen Erklär-Vorträgen, sondern mit kindlichem Staunen über Alltagsphänomene. Diese Einheit vermittelt das forschende Lernen in Anlehnung an die Stiftung Kinder forschen (ehemals „Haus der kleinen Forscher“), naturwissenschaftliche Denk- und Arbeitsweisen von der Phänomenbeobachtung über gemeinsame Hypothesenbildung bis zur Dokumentation, die Erschließung belebter und unbelebter Natur, gendersensible MINT-Begleitung sowie die Verbindung mit Bildung für nachhaltige Entwicklung (BNE).",
   "learningGoals": [
-    "Ich kann meine eigene Rolle als Lernbegleiter:in reflektieren und naturwissenschaftliche Lernprozesse von Kindern altersangemessen unterstützen statt fertiges Wissen zu instruieren.",
-    "Ich kann Bildung für nachhaltige Entwicklung (BNE) als übergeordnetes Prinzip in naturwissenschaftliche Projekte der Früh- und Sozialpädagogik integrieren.",
-    "Ich kann belebte Natur (Ökosysteme, Tiere, Pflanzen) und unbelebte Natur (Wasser, Luft, Magnetismus, Licht) als kindgerechte Lernfelder erschließen und erfahrbar machen.",
-    "Ich kann den naturwissenschaftlichen Forschungskreis (Beobachten, Fragen, Vermuten, Ausprobieren, Dokumentieren) methodisch fundiert in der Praxis anwenden.",
-    "Ich kann gendersensible Ansätze ('Haus der kleinen Forscher') umsetzen, um geschlechterstereotypen MINT-Verhaltensmustern aktiv entgegenzuwirken.",
-    "Ich kann alltagsintegrierte naturwissenschaftliche Bildungsanlässe in der Lebenswelt von Kindern und Jugendlichen identifizieren und konzeptionell ausgestalten."
+    "Ich kann forschendes, phänomenorientiertes Lernen fachlich von reinen „Show-Experimenten“ und belehrenden Erklär-Vorträgen abgrenzen.",
+    "Ich kann Kinder im Sinne des Forschungskreises (Stiftung Kinder forschen) gezielt beim Beobachten, Fragenstellen, Vermuten/Hypothesenbilden, systematischen Ausprobieren und Dokumentieren begleiten.",
+    "Ich kann Alltagsphänomene der belebten und unbelebten Natur als sprachbildende, ko-konstruktive Lernanlässe aufgreifen und Lernwerkstätten anregend gestalten.",
+    "Ich kann Bildung für nachhaltige Entwicklung (BNE) im Sinne von Gestaltungskompetenz und Ressourcenschonung altersgerecht in naturwissenschaftliche Projekte integrieren.",
+    "Ich kann meine eigene naturwissenschaftliche Biografie sowie geschlechtsbezogene MINT-Stereotype reflektieren, um allen Kindern chancengerechte Forschungserfahrungen zu ermöglichen."
   ],
   "sections": [
     {
-      "body": "Naturwissenschaftliche Bildung in der Fachschule Sozialpädagogik (Lehrplan RLP) verabschiedet sich vom traditionellen Modell des „Besserwissens“. Statt fertiger Belehrungen nehmen pädagogische Fachkräfte eine Haltung der gemeinsamen Erkundung ein. Sie begleiten Kinder und Jugendliche als Co-Forscher:innen, die eigene Fragen an die Welt stellen und Phänomene staunend untersuchen. Diese partnerschaftliche Lernbegleitung stärkt die intrinsische Motivation und das Selbstwirksamkeitserleben der Lernenden.",
+      "heading": "Phänomenorientierung & forschendes Lernen statt „Erklär-Vortrag“",
+      "keyTakeaway": "Kinder brauchen keine perfekten Vorträge über Moleküle, sondern eine neugierige Lernbegleiterin, die mit ihnen staunt, fragt und Vermutungen überprüft.",
+      "body": "Naturwissenschaftliche Bildung in Kita, Hort und Grundschule verfolgt nicht das Ziel, abstrakte Schulformeln vorzuverlegen oder spektakuläre „Zauber- und Show-Experimente“ ohne Bezug zum Alltag vorzuführen. Ihr Kern ist vielmehr das forschende, phänomenorientierte Lernen (wie es u. a. die Stiftung Kinder forschen – ehemals „Haus der kleinen Forscher“ – prägt): Ausgangspunkt ist ein konkretes, sinnlich erfahrbares Phänomen aus der belebten Natur (Pflanzen, Tiere, Bodenlebewesen, Wachstum, Ökosysteme) oder der unbelebten Natur (Wasser, Luft, Aggregatzustände, Licht und Schatten, Schall, Magnetismus). Entscheidend ist die Haltung der pädagogischen Fachkraft: Sie muss keineswegs jedes physikalische oder chemische Detail auswendig wissen – statt vorschnell eine fertige Erklärung zu liefern („Das nennt man Verdunstung, weil die Wassermoleküle…“), nimmt sie die Alltagsvorstellungen (Präkonzepte) der Kinder ernst („Wo glaubst du, ist das Pfützenwasser hingegangen?“). Durch echtes Mit-Forschen, offene Fragen und gemeinsames Überprüfen erfahren Kinder, dass Wissen nicht auswendig gelernt, sondern durch Beobachten, Testen und Vergleichen gewonnen wird.",
       "bulletPoints": [
-        "Abkehr von der Frontalbelehrung hin zur kokonstruktiven Lernbegleitung",
-        "Anerkennung des kindlichen Staunens als wissenschaftlicher Ausgangspunkt",
-        "Förderung von Selbstwirksamkeit und intrinsischer Motivation",
-        "Reflexion eigener Berührungsängste mit naturwissenschaftlichen Themen"
+        "Phänomenorientierung: An alltäglichen Naturbeobachtungen (Pfütze, Schatten, Kochen, Garten, Magnete) statt an abstrakten Rezept-Experimenten ansetzen.",
+        "Präkonzepte würdigen: Kindliche Vermutungen sind wertvolle Denkansätze, keine „falschen Antworten“.",
+        "Lernbegleitung statt Besserwissen: „Das weiß ich gerade auch nicht sicher – wie könnten wir das herausfinden?“",
+        "Belebte & unbelebte Natur: Biologische Lebensräume und physikalisch-chemische Alltagsphänomene ganzheitlich erschließen."
       ],
-      "heading": "Eigene Haltung & Rolle: Lernbegleitung statt Besserwissen",
-      "keyTakeaway": "Pädagogische Fachkräfte agieren als neugierige Mit-Forscher:innen, die kindliche Entdeckungsfragen wertschätzen statt Antworten zu diktieren.",
-      "praxisTip": "Verzichten Sie in Projekten auf das voreilige Verraten von Ergebnissen; antworten Sie stattdessen auf Kinderfragen mit: „Das ist eine spannende Frage – wie könnten wir das gemeinsam herausfinden?“"
+      "praxisTip": "Halten Sie bei spannenden Kinderfragen bewusst zehn Sekunden die eigene Erklärung zurück und fragen Sie stattdessen: „Was vermutest du – und womit könnten wir deine Idee testen?“"
     },
     {
-      "body": "Der aus der Frühpädagogik und dem „Haus der kleinen Forscher“ bekannte Forschungskreis bildet das methodische Herzstück naturwissenschaftlicher Bildung. Er gliedert sich in die Phasen: Beobachten, Fragen stellen, Vermuten/Hypothesen bilden, Ausprobieren/Messen sowie Dokumentieren und Deuten. Durch diesen zyklischen Prozess erleben Kinder naturwissenschaftliches Arbeiten hautnah als strukturiertes, aber kreatives Vorgehen, das sich nahtlos in den Kita- und Hortalltag integrieren lässt.",
+      "heading": "Naturwissenschaftliche Denk- und Arbeitsweisen & der Forschungskreis",
+      "keyTakeaway": "Der Forschungskreis strukturiert gemeinsames Entdecken von der Beobachtung über Hypothesen und Vergleiche bis zum Weiterfragen – flexibel statt starr.",
+      "body": "Um Kinder methodisch in ihren Entdeckungsprozessen zu begleiten, bietet der Forschungskreis der Stiftung Kinder forschen eine praxisbewährte Orientierung für naturwissenschaftliche Denk- und Arbeitsweisen: (1) Ein Phänomen wahrnehmen und staunen („Warum bleiben Wassertropfen auf dem Kohlrabiblatt rund wie Perlen liegen?“); (2) Eine eigene Frage formulieren; (3) Vermutungen bzw. Hypothesen bilden und Vorwissen sammeln; (4) Ideen zur Überprüfung entwickeln und systematisch ausprobieren – dabei lernen Kinder grundlegende Arbeitsweisen wie genaues Beobachten, Vergleichen, Klassifizieren (z. B. magnetisch vs. nicht magnetisch), Messen und kontrolliertes Verändern einer Bedingung („Wir testen einmal im Schatten und einmal in der Sonne!“); (5) Beobachtungen beschreiben, dokumentieren (Zeichnungen, Strichlisten, Fotos im Forschertagebuch) und deuten; (6) Ergebnisse mit der ursprünglichen Vermutung abgleichen und neue Fragen entdecken. Fachlich wichtig: Der Forschungskreis ist kein starres Pflichtprogramm, das jedes Mal Schritt für Schritt abgehakt werden muss – Kinder dürfen mitten im Prozess abbiegen, etwas Unerwartetes beobachten und eine ganz neue Frage verfolgen. Zudem ist das Versprachlichen von Vermutungen, Vergleichen und Begründungen ein herausragender Motor alltagsintegrierter Sprachbildung.",
       "bulletPoints": [
-        "Phasen: Beobachten, Fragen, Vermuten, Experimentieren, Dokumentieren",
-        "Alltagsintegrierte Verknüpfung mit spontanen Situationen und Spielanlässen",
-        "Förderung sprachlicher Kompetenzen durch Kommunizieren und Beschreiben",
-        "Sichtbarmachung von Denkprozessen in Forschertagebüchern"
+        "Denk- und Arbeitsweisen: Beobachten, Beschreiben, Fragen stellen, Vermuten/Hypothesen bilden, Vergleichen, Klassifizieren, Messen und Dokumentieren.",
+        "Forschungskreis als flexible Orientierung: Kein starrer Ablaufplan, sondern ein Werkzeug zum ko-konstruktiven Mitdenken.",
+        "Fehlversuche als Erkenntnisgewinn: Wenn eine Vermutung nicht zutrifft, entsteht echtes wissenschaftliches Lernen.",
+        "Enge Verbindung zur Sprachbildung: Präzise Verben und Vergleichsbegriffe (schmelzen, verdunsten, abperlen, schwerer als) im Handeln verankern."
       ],
-      "heading": "Naturwissenschaftliche Methoden: Der Forschungskreis",
-      "keyTakeaway": "Der methodische Forschungskreis verbindet systematisches Beobachten, Hypothesenbildung und Reflexion zu einem ganzheitlichen Lernweg.",
-      "praxisTip": "Richten Sie im Gruppenraum eine feste „Forscherstation“ mit Lupen, Waagen, Messbechern und einem großen Forschertagebuch ein, in dem Kinder ihre Entdeckungen mit Symbolen und Fotos festhalten."
+      "praxisTip": "Legen Sie neben Lupen, Waagen und Pipetten immer ein großes Forschertagebuch (Blankoheft + Stifte) aus, in dem Kinder ihre Vermutungen vor dem Versuch und ihre Beobachtungen danach zeichnerisch festhalten."
     },
     {
-      "body": "Der Bildungsbereich unterscheidet zwischen belebter Natur (Tiere, Pflanzen, Ökosysteme) und unbelebter Natur (Wasser, Luft, Magnetismus, Licht, Aggregatzustände). Beide Bereiche bieten unzählige Anlässe für alltagsintegrierte Bildung. Gleichzeitig fungiert Bildung für nachhaltige Entwicklung (BNE) als übergeordnetes Querschnittsthema, das ökologische Verantwortung, Ressourcenschonung und globale Zusammenhänge (z. B. Wasserkreisläufe, Müllvermeidung) mit naturwissenschaftlichen Grundkenntnissen verknüpft. Gendersensible Pädagogik stellt sicher, dass Mädchen und Jungen gleichermaßen für MINT-Themen begeistert werden.",
+      "heading": "Lernwerkstatt, Alltagsintegration & gendersensible MINT-Begleitung",
+      "keyTakeaway": "Eine zugängliche Forscherumgebung und die bewusste Reflexion eigener Rollenbilder eröffnen Mädchen wie Jungen gleiche Chancen in den Naturwissenschaften.",
+      "body": "Naturwissenschaftliche Bildung geschieht sowohl spontan im Tagesablauf (beim Backen, Händewaschen, Wetterbeobachten, Gärtnern) als auch in bewusst vorbereiteten Lernumgebungen – etwa einer Forscherecke oder Lernwerkstatt. Dort finden Kinder auf Augenhöhe geordnete, sichere Alltagsmaterialien (Lupen, Becherlupen, Magnete, Spiegel, Pipetten, Waagen, Trichter, Naturmaterialien) und ausreichend Zeit für eigene Versuche. Ein oft unterschätzter Qualitätsfaktor ist dabei die gendersensible Begleitung (wie empirische Studien und Materialien der Stiftung Kinder forschen zeigen): Schon im Kita-Alter entstehen unbewusst geschlechtsstereotype Zuschreibungen – etwa wenn Erwachsene Jungen häufiger technische oder physikalische Fragen stellen, während sie mit Mädchen eher über Farben, Pflege oder Ästhetik sprechen. Professionelle Fachkräfte reflektieren deshalb sowohl ihre eigene (vielleicht schulisch belastete) Naturwissenschafts-Biografie als auch ihre unbewussten Sprach- und Zuteilungsmuster: Alle Kinder erhalten gleichermaßen Ermutigung, Zutrauen, Zugang zu Messgeräten und anspruchsvolle Forschungsfragen.",
       "bulletPoints": [
-        "Differenzierung in belebte und unbelebte Natur als Lernfelder",
-        "BNE als übergeordnetes, ethisches und ökologisches Bildungsziel",
-        "Gendersensible MINT-Förderung gegen stereotype Rollenzuschreibungen",
-        "Theorie-Praxis-Verzahnung durch Hospitationen und Reflexion"
+        "Alltagsintegration: Kochen (Lösen, Schmelzen), Garten (Wachstum, Boden), Bad (Schwimmen, Seifenschaum) als spontane Forschungsräume nutzen.",
+        "Forscherecke / Lernwerkstatt: Übersichtliche, frei zugängliche Materialien und Werkzeuge laden zu eigenständigen Untersuchungen ein.",
+        "Gendersensibilität: Eigene Sprache, Materialzuweisung und Vorbilder überprüfen, um MINT-Stereotypen früh entgegenzuwirken.",
+        "Eigene Biografie reflektieren: Schulische Unsicherheiten in Physik/Chemie durch gemeinsames Nachschlagen und Fortbildungen abbauen."
       ],
-      "heading": "Belebte/Unbelebte Natur, BNE & Gendersensibilität",
-      "keyTakeaway": "Naturwissenschaftliche Bildung verknüpft belebte und unbelebte Phänomene mit nachhaltigem Handeln (BNE) und chancengerechter MINT-Förderung.",
-      "praxisTip": "Untersuchen Sie gemeinsam mit Kindern den lokalen Wasserkreislauf oder betreiben Sie Upcycling-Experimente, um BNE-Inhalte direkt erlebbar zu machen."
+      "praxisTip": "Achten Sie eine Woche lang gezielt darauf, wen Sie beim Forschen zuerst bitten, die Waage zu bedienen oder ein Ergebnis zu erklären – und steuern Sie bewusst zugunsten zurückhaltender Kinder und aller Geschlechter nach."
+    },
+    {
+      "heading": "Bildung für nachhaltige Entwicklung (BNE) konkret verankern",
+      "keyTakeaway": "BNE verbindet naturwissenschaftliches Verstehen mit Verantwortung und Gestaltungskompetenz – handlungsorientiert statt mit erhobenem Zeigefinger.",
+      "body": "Naturwissenschaftliche Bildung und Bildung für nachhaltige Entwicklung (BNE) gehören eng zusammen: Wer versteht, wie Pflanzen wachsen, welche Rolle Insekten im Ökosystem spielen, wohin Regenwasser fließt oder wie lange Plastik zum Verrotten braucht, begreift ökologische Zusammenhänge aus eigener Erfahrung. BNE zielt im Sinne von Gestaltungskompetenz (Gerhard de Haan) und der 17 globalen Nachhaltigkeitsziele (SDGs) jedoch weit über bloße Naturpflege hinaus – sie verknüpft ökologische, soziale und ökonomische Fragen: Woher kommt unser Frühstücksobst? Wie gehen wir fair mit Wasser, Papier und Energie um? Wie können wir unseren Kita-Garten insektenfreundlich gestalten? Pädagogisch entscheidend für die Altersangemessenheit ist dabei das Prinzip Hoffnung und Handlungsfähigkeit statt Katastrophenangst: Kinder im Kita- und Grundschulalter werden nicht mit unlösbaren globalen Krisenszenarien überfordert, sondern erleben im eigenen, überschaubaren Alltag konkrete Selbstwirksamkeit – beim Anlegen eines Hochbeets, beim Sammeln von Regenwasser, beim Kompostieren oder beim Upcycling von Alltagsmaterialien.",
+      "bulletPoints": [
+        "Verbindung von Verstehen & Handeln: Naturwissenschaftliche Zusammenhänge (Wasserkreislauf, Biodiversität, Zersetzung) direkt erfahrbar machen.",
+        "Gestaltungskompetenz (BNE): Ökologische, soziale und ökonomische Perspektiven altersangemessen und partizipativ verknüpfen.",
+        "Selbstwirksamkeit statt Angstmache: Überschaubare, gestaltbare Alltagsthemen (Garten, Wasser, Müllvermeidung, Energie) wählen.",
+        "Kooperation im Sozialraum: Zusammenarbeit mit Familien, Umweltstationen, Gärtnereien oder regionalen Initiativen."
+      ],
+      "praxisTip": "Vergraben Sie gemeinsam mit Kindern ein Stück Apfel, ein Blatt Papier und ein Stück Plastikfolie in markierten Blumentöpfen mit Gartenerde und beobachten Sie über mehrere Wochen, was sich verändert (Zersetzung & Müllvermeidung unmittelbar begreifen)."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Forschungskreis",
       "id": "vb-1",
+      "kind": "process_flow",
+      "title": "Der Forschungskreis (Stiftung Kinder forschen)",
+      "subtitle": "Flexibles Orientierungsmodell für naturwissenschaftliche Denk- und Arbeitsweisen",
+      "centerLabel": "Forschendes Lernen",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": true,
       "items": [
         {
-          "badge": "Schritt 1",
-          "detail": "Kinder nehmen ein Phänomen in ihrer Umwelt bewusst wahr und staunen über Veränderungen oder Besonderheiten.",
-          "example": "Kinder beobachten, dass Pfützen nach Sonnenschein verschwinden.",
-          "id": "item-1",
-          "label": "Beobachten & Staunen",
-          "metric": "Phase 1",
-          "summary": "Wahrnehmung eines naturwissenschaftlichen Phänomens im Alltag."
+          "id": "fc-1",
+          "badge": "Phase 1",
+          "label": "Phänomen beobachten & staunen",
+          "metric": "Wahrnehmen",
+          "summary": "Ein alltägliches Naturphänomen weckt Neugier und Aufmerksamkeit.",
+          "detail": "Fachkraft und Kinder halten inne und beschreiben genau, was sie sehen, hören oder fühlen – ohne vorschnelle Erklärung.",
+          "example": "Kinder entdecken, dass ein Eiswürfel auf dem Metalltablett viel schneller schmilzt als auf dem Holzbrett."
         },
         {
-          "badge": "Schritt 2",
-          "detail": "Aus der Beobachtung erwächst eine konkrete, kindliche Fragestellung, die das Erkenntnisinteresse antreibt.",
-          "example": "„Wo ist das Wasser aus der Pfütze eigentlich hin?“",
-          "id": "item-2",
-          "label": "Fragen stellen",
-          "metric": "Phase 2",
-          "summary": "Formulierung einer forschungsrelevanten Frage."
+          "id": "fc-2",
+          "badge": "Phase 2",
+          "label": "Frage formulieren",
+          "metric": "Fokussieren",
+          "summary": "Aus dem Staunen entsteht eine gemeinsame, untersuchbare Forscherfrage.",
+          "detail": "Die Fachkraft hilft sprachlich, die Frage so zu präzisieren, dass sie durch eigenes Ausprobieren geprüft werden kann.",
+          "example": "„Auf welchem Untergrund schmilzt ein Eiswürfel am schnellsten – und wo hält er am längsten?“"
         },
         {
-          "badge": "Schritt 3",
-          "detail": "Kinder äußern erste eigene Erklärungsansätze und Vermutungen, die im Experiment überprüft werden.",
-          "example": "„Das Wasser ist in den Boden gesaugt worden oder in den Himmel geflogen.“",
-          "id": "item-3",
-          "label": "Vermuten / Hypothesen",
-          "metric": "Phase 3",
-          "summary": "Aufstellen vorläufiger Erklärungen."
+          "id": "fc-3",
+          "badge": "Phase 3",
+          "label": "Vermutungen (Hypothesen) sammeln",
+          "metric": "Vorwissen aktivieren",
+          "summary": "Alle Kinder äußern eigene Ideen und Begründungen – wertungsfrei und sichtbar.",
+          "detail": "Vermutungen werden mit Symbolen oder Skizzen festgehalten; unterschiedliche Hypothesen machen den Vergleich erst richtig spannend.",
+          "example": "„Auf dem warmen Stoff schmilzt er bestimmt am schnellsten – Metall fühlt sich ja ganz kalt an!“"
         },
         {
-          "badge": "Schritt 4",
-          "detail": "Durch praktisches Handeln, Messen und Testen werden die Hypothesen experimentell überprüft.",
-          "example": "Kinder wiegen feuchte und trockene Schwämme auf einer Waage.",
-          "id": "item-4",
-          "label": "Ausprobieren & Messen",
-          "metric": "Phase 4",
-          "summary": "Praktische Überprüfung der Vermutungen."
+          "id": "fc-4",
+          "badge": "Phase 4",
+          "label": "Ausprobieren, vergleichen & messen",
+          "metric": "Untersuchen",
+          "summary": "Durch faires Vergleichen und genaues Beobachten werden die Hypothesen getestet.",
+          "detail": "Kinder achten z. B. darauf, gleich große Eiswürfel gleichzeitig auf Metall, Holz und Filz zu legen und die Zeit mit Sanduhren zu vergleichen.",
+          "example": "Überraschung: Der Eiswürfel auf dem „kalten“ Metall (guter Wärmeleiter!) schmilzt als Erster."
         },
         {
-          "badge": "Schritt 5",
-          "detail": "Die Ergebnisse werden dokumentiert, verglichen und mit der Ursprungshypothese abgeglichen.",
-          "example": "Eintrag ins Forschertagebuch und gemeinsames Fazit im Stärkungskreis.",
-          "id": "item-5",
-          "label": "Dokumentieren & Deuten",
-          "metric": "Phase 5",
-          "summary": "Sicherung und Reflexion der Erkenntnisse."
+          "id": "fc-5",
+          "badge": "Phase 5",
+          "label": "Dokumentieren, deuten & weiterfragen",
+          "metric": "Reflektieren",
+          "summary": "Ergebnisse werden festgehalten, mit den Vermutungen verglichen und regen neue Fragen an.",
+          "detail": "Im Gespräch und im Forschertagebuch vergleichen die Kinder Erwartung und Beobachtung – und entdecken direkt die nächste Frage (z. B. Isolierung/Thermoskanne).",
+          "example": "„Warum halten unsere Handschuhe aus Wolle dann eigentlich die Hände warm?“"
         }
-      ],
-      "kind": "process_flow",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Der methodische Kreislauf des naturwissenschaftlichen Arbeitens in der Kita",
-      "title": "Der naturwissenschaftliche Forschungskreis"
+      ]
     },
     {
-      "centerLabel": "Naturwissenschaftliche Bildung S-SP-4",
       "id": "vb-2",
+      "kind": "comparison",
+      "title": "Forschendes Lernen vs. Erklär-Vortrag & Show-Experiment",
+      "subtitle": "Warum die pädagogische Haltung über den Bildungswert entscheidet",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Komponente 1",
-          "detail": "Abkehr von der Allwissenheit hin zur gemeinsamen Erkundung und Fehlerfreundlichkeit.",
-          "example": "Die Fachkraft sagt: „Das weiß ich gerade auch nicht genau, lass uns nachschauen!“",
-          "id": "item-1",
-          "label": "Lernbegleitung statt Besserwissen",
-          "metric": "Haltung",
-          "summary": "Reflexion der eigenen Fachkraftrolle."
+          "id": "cmp-1",
+          "badge": "Professionell",
+          "label": "Forschendes Lernen (Ko-Konstruktion)",
+          "metric": "Kind im Zentrum",
+          "summary": "Ausgangspunkt ist die Kinderfrage; Hypothesen, eigenes Testen und Deuten stehen im Fokus.",
+          "detail": "Kinder erfahren Selbstwirksamkeit, üben Denk- und Arbeitsweisen (Vergleichen, Messen, Begründen) und bauen tragfähige, alltagsnahe Konzepte auf.",
+          "example": "Kinder testen selbst, welche Materialien Wasser durchlassen oder aufsaugen, und vergleichen ihre Vermutungen."
         },
         {
-          "badge": "Komponente 2",
-          "detail": "Ökologische, ökonomische und soziale Dimensionen nachhaltigen Handelns als roter Faden.",
-          "example": "Untersuchung von Müllvermeidung und Wasserkreisläufen im Alltag.",
-          "id": "item-2",
-          "label": "BNE als Leitprinzip",
-          "metric": "Zielsetzung",
-          "summary": "Bildung für nachhaltige Entwicklung."
+          "id": "cmp-2",
+          "badge": "Verkürzt",
+          "label": "Reines „Show-Experiment“",
+          "metric": "Effekt-Fixierung",
+          "summary": "Die Fachkraft führt ein spektakuläres Rezept vor („Backpulver-Vulkan“), Kinder schauen kurz zu.",
+          "detail": "Der kurze Staun-Effekt verpufft rasch, wenn kein Alltagsbezug, keine eigene Fragestellung und kein eigenes Überprüfen von Vermutungen stattfindet.",
+          "example": "Kinder sehen einmal kurz farbigen Schaum überlaufen, wissen aber weder warum noch was sie selbst verändern könnten."
         },
         {
-          "badge": "Komponente 3",
-          "detail": "Untersuchung von Flora, Fauna, Ökosystemen und biologischen Kreisläufen.",
-          "example": "Anlegen eines Hochbeets und Beobachtung von Insekten.",
-          "id": "item-3",
-          "label": "Belebte Natur",
-          "metric": "Inhalt A",
-          "summary": "Pflanzen, Tiere und Lebensräume."
-        },
-        {
-          "badge": "Komponente 4",
-          "detail": "Erforschung physikalischer und chemischer Gesetze in der Lebenswelt.",
-          "example": "Experimente zu Magnetismus, Licht, Luft und Aggregatzuständen.",
-          "id": "item-4",
-          "label": "Unbelebte Natur",
-          "metric": "Inhalt B",
-          "summary": "Wasser, Luft, physikalische Kräfte."
-        },
-        {
-          "badge": "Komponente 5",
-          "detail": "Gezielter Abbau von Rollenstereotypen und chancengerechte MINT-Zugänge.",
-          "example": "Mädchen und Jungen arbeiten gleichermaßen an technischen Konstruktionen.",
-          "id": "item-5",
-          "label": "Gendersensibilität",
-          "metric": "Diversität",
-          "summary": "Chancengleichheit ('Haus der kleinen Forscher')."
+          "id": "cmp-3",
+          "badge": "Ungeeignet",
+          "label": "Belehrender „Erklär-Vortrag“",
+          "metric": "Instruktion",
+          "summary": "Die Fachkraft erklärt abstrakte naturwissenschaftliche Gesetzmäßigkeiten frontal vorab.",
+          "detail": "Abstrakte Fachvorträge ohne sinnliches Handeln überfordern junge Kinder, ersticken eigene Neugier und reduzieren Sprach- und Denkanteile der Kinder.",
+          "example": "Ein zehnminütiger Vortrag über Dichte und Auftrieb im Stuhlkreis, bevor die Kinder überhaupt Wasser berührt haben."
         }
-      ],
-      "kind": "concept_map",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Zentrale Dimensionen des Bildungsbereichs nach Lehrplan RLP",
-      "title": "Konzeptkarte: Naturwissenschaftliche Bildung & BNE"
+      ]
     },
     {
-      "centerLabel": "",
       "id": "vb-3",
+      "kind": "feature_grid",
+      "title": "Qualitätsmerkmale naturwissenschaftlicher Bildung & BNE",
+      "subtitle": "Zusammenspiel von belebter/unbelebter Natur, Lernumgebung, Sprache, Gender und Nachhaltigkeit",
+      "centerLabel": "MINT & BNE",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Kriterium 1",
-          "detail": "Materialien und Phänomene müssen an der Lebenswelt und den Interessen der Kinder anknüpfen.",
-          "example": "Forscherecke im Gruppenraum frei zugänglich machen.",
-          "id": "item-1",
-          "label": "Alltagsbezug & Passung",
-          "metric": "Baustein 1",
-          "summary": "Auswahl kindgerechter Forschungsanlässe."
+          "id": "q-1",
+          "badge": "Inhaltsfeld A",
+          "label": "Belebte Natur",
+          "metric": "Biologie & Ökologie",
+          "summary": "Pflanzen, Tiere, Bodenlebewesen, Jahreszeiten, Wachstum und Lebensräume.",
+          "detail": "Förderung von Artenkenntnis, Achtsamkeit gegenüber Lebewesen und Verständnis für ökologische Kreisläufe.",
+          "example": "Beobachten von Bohnenkeimlingen unter verschiedenen Licht- und Wasserbedingungen."
         },
         {
-          "badge": "Kriterium 2",
-          "detail": "Naturwissenschaftliche Bildung ist kein isoliertes Angebot, sondern durchdringt den gesamten Kita- und Schulalltag.",
-          "example": "Wasserverbrauch beim Zähneputzen thematisieren.",
-          "id": "item-2",
-          "label": "Alltagsintegration",
-          "metric": "Baustein 2",
-          "summary": "Nahtlose Einbindung in den Tagesablauf."
+          "id": "q-2",
+          "badge": "Inhaltsfeld B",
+          "label": "Unbelebte Natur",
+          "metric": "Physik & Chemie im Alltag",
+          "summary": "Wasser, Luft, Aggregatzustände, Licht/Schatten, Schall, Kräfte und Magnetismus.",
+          "detail": "Alltagsnahe Phänomene werden handelnd untersucht, verglichen und sprachlich erschlossen.",
+          "example": "Untersuchen, wie sich Schattenlängen im Tagesverlauf auf dem Kitahof verändern."
         },
         {
-          "badge": "Kriterium 3",
-          "detail": "Kinder werden gezielt sprachlich darin unterstützt, Beobachtungen und Vermutungen präzise auszudrücken.",
-          "example": "Einführung von Fachbegriffen wie „schmelzen“, „verdunsten“, „magnetisch“.",
-          "id": "item-3",
-          "label": "Sprachbildung & Kommunikation",
-          "metric": "Baustein 3",
-          "summary": "Verknüpfung von MINT und Sprache."
+          "id": "q-3",
+          "badge": "Leitprinzip",
+          "label": "BNE & Gestaltungskompetenz",
+          "metric": "Nachhaltigkeit",
+          "summary": "Konkretes, hoffnungsvolles Handeln für Ressourcen, Natur und Fairness im Alltag.",
+          "detail": "Verknüpft Naturverständnis mit praktischer Selbstwirksamkeit statt überfordernder Angstmache.",
+          "example": "Regenwassertonne fürs Hochbeet nutzen, Wasserverbrauch messen und Komposterde untersuchen."
         },
         {
-          "badge": "Kriterium 4",
-          "detail": "Systematische Partnerschaften und Hospitationen in zertifizierten Konsultationseinrichtungen zur Qualitätsentwicklung.",
-          "example": "Besuch einer „Haus der kleinen Forscher“-Kita.",
-          "id": "item-4",
-          "label": "Theorie-Praxis-Verzahnung",
-          "metric": "Baustein 4",
-          "summary": "Vernetzung mit Modellkitas."
-        },
-        {
-          "badge": "Kriterium 5",
-          "detail": "Verbindliche Einbindung von Eltern und Gemeinwesen in naturwissenschaftliche Projekte.",
-          "example": "Gemeinsamer Forscher-Nachmittag mit Familien.",
-          "id": "item-5",
-          "label": "Partizipation & Sozialraum",
-          "metric": "Baustein 5",
-          "summary": "Öffnung nach außen."
+          "id": "q-4",
+          "badge": "Chancengerechtigkeit",
+          "label": "Gendersensibilität & Sprachbildung",
+          "metric": "Inklusion",
+          "summary": "Gleiche Forschungszugänge für alle Kinder und präzise sprachliche Begleitung.",
+          "detail": "Bewusstes Aufbrechen von MINT-Rollenklischees und gezielte Versprachlichung von Beobachtungen und Hypothesen.",
+          "example": "Mädchen und Jungen übernehmen gleichermaßen Messaufgaben, Protokollführung und Präsentation im Kreis."
         }
-      ],
-      "kind": "feature_grid",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Kernmerkmale einer professionellen naturwissenschaftlichen Lernumgebung",
-      "title": "Feature-Grid: Qualitätsmerkmale der Lernumgebung"
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "4- bis 6-jährige Kinder (Schwerpunkt Kita / Vorschule)",
-    "context": "In einer städtischen Kindertagesstätte mit naturwissenschaftlichem Profil soll das Projekt „Auf den Spuren des Wassers“ durchgeführt werden. Fachschülerin Lisa (im Anerkennungsjahr) plant eine Sequenz zum Thema Aggrizustände und Schwimmen/Sinken.",
-    "setting": "Kindertagesstätte „Entdeckerland“, Außengelände und Forscherraum",
+    "title": "„Warum schwimmt das riesige Holzbrett, aber die winzige Murmel geht unter?“",
+    "setting": "Außengelände und Forscherbereich einer Kindertagesstätte an einem warmen Vormittag",
+    "ageGroup": "4–6 Jahre (Elementarbereich)",
+    "context": "Am großen Wassertisch im Garten experimentieren vier Kinder (Amira, Ben, Luca und Sofia) mit Natur- und Alltagsmaterialien. Sofia (5;1) wirft ein großes, schweres Holzbrett ins Wasser – es schwimmt. Dann lässt sie eine winzige Glasmurmel fallen – sie sinkt sofort zu Boden. Sofia staunt: „Häh?! Das Brett ist doch viel schwerer als die Murmel – warum geht die kleine Murmel unter?“ Amira vermutet sofort: „Weil die Murmel rund ist und das Brett flach!“ Ben ruft: „Nein, weil Holz immer schwimmt!“",
     "steps": [
       {
+        "situation": "Sofia und Amira haben zwei klare, gegensätzliche Alltagshypothesen (Größe/Gewicht vs. Form vs. Material) formuliert.",
+        "prompt": "Wie begleiten Sie diesen Moment im Sinne forschenden Lernens (Forschungskreis) optimal?",
         "options": [
           {
-            "feedback": "Vorbildlich! Lisa nimmt die Kinder ernst, fördert durch offene Fragen („Was glaubst du, warum das Holz schwimmt?“) das wissenschaftliche Denken und lässt Raum für eigene Hypothesen, statt dogmatisch zu belehren.",
-            "label": "Lisa greift das spontane Experimentieren der Kinder am Bachlauf auf, bildet mit ihnen einen Forschungskreis und stellt offene Fragen zur Hypothesenbildung.",
+            "label": "Sie greifen alle Vermutungen neugierig auf („Spannend – Amira denkt an die Form, Ben ans Material! Wie könnten wir beide Ideen überprüfen?“) und stellen auf Wunsch passende Vergleichsmaterialien bereit (z. B. runde Holzkugel, flache Metallscheibe, Knete, kleine Waage), damit die Kinder systematisch testen und dokumentieren können.",
             "quality": "optimal",
-            "theoryLink": "RLP S-SP-4: Forschungskreis anwenden, Lernbegleitung statt Besserwissen"
+            "feedback": "Hervorragend: Durch den gezielten Materialimpuls (runde Holzkugel vs. flaches Metallstück, formbare Knete als Ball vs. Boot!) ermöglichen Sie es den Kindern, ihre eigenen Hypothesen fair zu prüfen – sie entdecken selbst, dass sowohl das Material als auch die Form (verdrängtes Wasser beim Knet-Boot!) eine Rolle spielen.",
+            "theoryLink": "Forschungskreis (Hypothesenbildung, faires Vergleichen, Denk- und Arbeitsweisen); Ko-Konstruktion"
           },
           {
-            "feedback": "Hierbei handelt es sich um eine rein konsumierende Instruktion ohne kognitive Aktivierung oder echte Beteiligung am naturwissenschaftlichen Erkenntnisprozess.",
-            "label": "Lisa zeigt den Kindern ein vorgefertigtes YouTube-Video zum Wasserkreislauf und fragt danach im Frontalgespräch ab, was sie gesehen haben.",
+            "label": "Sie nehmen die Kinder kurz zur Seite und erklären ihnen anhand der physikalischen Formel für Dichte (Masse pro Volumen), warum Glas eine höhere Dichte als Wasser hat und Holz eine geringere.",
             "quality": "problematisch",
-            "theoryLink": "RLP S-SP-4: Alltagsintegrierte naturwissenschaftliche Bildung verfehlt"
+            "feedback": "Fachlich unpassend für das Alter: Ein abstrakter Erklär-Vortrag über die Formel der Dichte übergeht die spannenden eigenen Hypothesen der Kinder, überfordert sprachlich-kognitiv und beendet den eigenen Entdeckungsprozess sofort.",
+            "theoryLink": "Phänomenorientierung & forschendes Lernen vs. belehrender Erklär-Vortrag (Stiftung Kinder forschen)"
           },
           {
-            "feedback": "Zwar gut gemeint, aber Lisa greift zu stark steuernd ein und nimmt den Kindern durch fertige Erklärungen den eigenen Denk- und Entdeckungsweg.",
-            "label": "Lisa bereitet ein straff durchgetaktetes Arbeitsblatt vor, auf dem die Kinder vorgegebene Bilder zu schwimmenden und sinkenden Objekten anmalen sollen.",
+            "label": "Sie sagen „Schaut einfach weiter, irgendwann findet ihr es schon heraus“ und lassen die Kinder ohne weitere Gesprächs- oder Materialbegleitung allein.",
             "quality": "teilweise",
-            "theoryLink": "RLP S-SP-4: Naturwissenschaftliche Methoden kindgerecht anwenden"
+            "feedback": "Verschenktes Potenzial: Zwar vermeiden Sie Belehrung, doch ohne gezielte Rückfragen, sprachliche Strukturierung und geschickt gewählte Vergleichsobjekte (z. B. Holzkugel/Knete) bleiben die Kinder oft bei ihrer ersten Ausgangsvermutung stehen.",
+            "theoryLink": "Aktive Lernbegleitung & Scaffolding im forschenden Lernen"
           }
-        ],
-        "prompt": "Wie sollte die Fachkraft in die erste Beobachtungs- und Einstiegsphase des Forschungsprojekts starten?",
-        "situation": "Am Kitateich beobachten Kinder, dass manche Blätter auf dem Wasser schwimmen, während Steine sofort untergehen. Sie fragen laut: „Warum schwimmt das große Blatt, aber der kleine Stein sinkt?“"
+        ]
       },
       {
+        "situation": "Die Kinder entdecken begeistert, dass eine Knetkugel sinkt, dieselbe Knete als Schale geformt aber schwimmt. Am Ende des Vormittags möchten sie ihre Ergebnisse festhalten; gleichzeitig fällt Ihnen auf, dass beim Wasser-Nachfüllen sehr viel Frischwasser ungenutzt wegläuft.",
+        "prompt": "Wie verbinden Sie Dokumentation, Gendersensibilität und BNE sinnvoll im nächsten Schritt?",
         "options": [
           {
-            "feedback": "Ausgezeichnet. Eine gendergerechte und alltagsintegrierte Dokumentation würdigt die individuellen Denkwege und verknüpft sie mit mathematisch-naturwissenschaftlichen Basiskompetenzen.",
-            "label": "Die Kinder dokumentieren ihre Messergebnisse gemeinsam in einem großen „Forschertagebuch“ mit Fotos, Strichen und Symbolen; Mädchen und Jungen werden gleichermaßen ermutigt, komplexe Messapparaturen zu bedienen.",
+            "label": "Sie machen selbst ein Foto für den Gruppenordner und halten im Morgenkreis einen kurzen Vortrag darüber, dass Wasser kostbar ist und niemand mehr am Wassertisch planschen darf.",
+            "quality": "teilweise",
+            "feedback": "Unvollständig und kontraproduktiv: Eine Dokumentation ohne Einbezug der Kinder verpasst den Reflexionsprozess, und ein pauschales Plansch-Verbot erzeugt Frust statt Gestaltungskompetenz (z. B. Wasser wiederverwenden zum Gießen!).",
+            "theoryLink": "Partizipative Dokumentation & positive Gestaltungskompetenz in der BNE"
+          },
+          {
+            "label": "Sie lassen die Kinder ihre Ergebnisse gemeinsam im Forschertagebuch (z. B. zweispaltige Tabelle mit gezeichneten Symbolen für „schwimmt / sinkt“ und Fotos der Knetboote) dokumentieren, achten darauf, dass alle vier Kinder ihre Entdeckungen im Kreis vorstellen können, und überlegen gemeinsam mit ihnen, wie das benutzte Spielwasser anschließend zum Gießen des Hochbeets genutzt werden kann (BNE).",
             "quality": "optimal",
-            "theoryLink": "RLP S-SP-4: Dokumentieren/Deuten, Gendersensibilität ('Haus der kleinen Forscher')"
+            "feedback": "Ausgezeichnet: Sie sichern den Erkenntnisgewinn über kindgerechte Dokumentation und sprachliche Kommunikation, fördern chancengerechte Sichtbarkeit aller Kinder und verknüpfen den Alltag ganz konkret und handlungsorientiert mit nachhaltigem Wassermanagement (BNE).",
+            "theoryLink": "Dokumentieren & Kommunizieren im Forschungskreis; Gendersensibilität; alltagsnahe BNE"
           },
           {
-            "feedback": "Problematisch, da hier veraltete Stereotype bedient werden und Kinder nicht individuell in ihren Kompetenzen gefördert werden.",
-            "label": "Lisa teilt die Gruppen klassisch auf: Die Jungs bauen mit großen Holzklötzen schwere Brücken, während die Mädchen die Blumen im Hochbeet gießen und darüber malen.",
+            "label": "Sie bitten die beiden Jungen, den schweren Wasserbottich auszuleeren und die Ergebnisse zu erklären, während die beiden Mädchen ein Arbeitsblatt zum Thema „Wassersparen“ ausmalen.",
             "quality": "problematisch",
-            "theoryLink": "RLP S-SP-4: Forschungsergebnisse zu Naturwissenschaft und Gender"
-          },
-          {
-            "feedback": "Zwar wird dokumentiert, jedoch fehlt die gemeinsame Reflexion und die Verknüpfung mit den zuvor aufgestellten Vermutungen.",
-            "label": "Lisa sammelt alle Blätter und Steine ein, heftet einen vorgefertigten Zettel ins Büro und beendet das Projekt ohne vertiefende Auswertung mit den Kindern.",
-            "quality": "problematisch",
-            "theoryLink": "RLP S-SP-4: Naturwissenschaftliche Methoden anwenden"
+            "feedback": "Problematisch: Sie reproduzieren klassische Geschlechterstereotype in der Aufgabenverteilung und ersetzen handelnde BNE-Erfahrung durch ein fremdgesteuertes Ausmalblatt.",
+            "theoryLink": "Gendersensible MINT-Förderung; handlungsorientierte BNE statt Arbeitsblätter"
           }
-        ],
-        "prompt": "Wie gestalten Lisa und die Kinder die Dokumentations- und Auswertungsphase des Experiments?",
-        "situation": "Die Kinder haben verschiedene Alltagsgegenstände auf ihre Schwimmfähigkeit getestet und möchten ihre Ergebnisse festhalten."
+        ]
       }
-    ],
-    "title": "Das Geheimnis von Schwimmen und Sinken im Kita-Alltag"
+    ]
   },
   "selfLearningTasks": [
-    "Führen Sie eine Bestandsaufnahme Ihrer eigenen Biografie bezüglich naturwissenschaftlicher Fächer durch: Welche positiven oder negativen Erfahrungen prägen Ihren Zugang zu Physik, Chemie und Biologie? Entwickeln Sie drei Leitsätze für Ihre professionelle Haltung als Lernbegleiter:in.",
-    "Planen und skizzieren Sie ein alltagsintegriertes, kleinschrittiges Forschungsprojekt für eine Kita- oder Hortgruppe zu einem Phänomen der unbelebten Natur (z. B. Magnetismus oder Licht/Schatten) unter Einbezug des Forschungskreises und BNE-Aspekten.",
-    "Analysieren Sie eine naturwissenschaftliche Kinderliteratur oder ein Kita-Experimentierset hinsichtlich gendersensibler Darstellungen ('Haus der kleinen Forscher') und dokumentieren Sie Optimierungsmöglichkeiten."
+    "Reflektieren Sie in einer halben Seite Ihre eigene naturwissenschaftliche Biografie: Welche Themen (Biologie, Physik, Chemie) wecken bei Ihnen Neugier, wo bestehen Unsicherheiten – und wie gehen Sie in der Praxis professionell damit um, wenn Sie eine Kinderfrage nicht sofort beantworten können?",
+    "Planen und dokumentieren Sie ein alltagsnahes Forschungsangebot (belebte oder unbelebte Natur) entlang der Denk- und Arbeitsweisen des Forschungskreises. Formulieren Sie gezielt vier offene Fragen zur Hypothesenbildung sowie eine konkrete BNE-Verknüpfung.",
+    "Überprüfen Sie die Spiel- und Lernmaterialien Ihrer Einrichtung unter zwei Blickwinkeln: Welche Materialien regen eigenständiges naturwissenschaftliches Forschen an, und sind diese so präsentiert und sprachlich begleitet, dass alle Kinder unabhängig vom Geschlecht gleichermaßen angesprochen werden?"
   ],
   "flashcards": [
     {
-      "definition": "Ein strukturierter didaktischer Ablauf im naturwissenschaftlichen Lernen, der von der Beobachtung über die Hypothesenbildung und das Experimentieren bis zur gemeinsamen Dokumentation und Deutung führt.",
-      "example": "Kinder beobachten Ameisen und durchlaufen den Forschungskreis von der Fragestellung bis zum Deutungsgespräch.",
-      "term": "Forschungskreis"
+      "term": "Phänomenorientierung",
+      "definition": "Didaktisches Prinzip naturwissenschaftlicher Bildung: Ausgangspunkt sind sinnlich erfahrbare, alltägliche Phänomene der belebten und unbelebten Natur (statt abstrakter Formeln oder isolierter Show-Effekte).",
+      "example": "Kinder untersuchen, warum Pfützen in der Sonne schneller verschwinden als im Schatten."
     },
     {
-      "definition": "Ein übergeordnetes Leitbild der Bildung, das ökologische, ökonomische und soziale Aspekte gegenwärtiger und zukünftiger Generationen verbindet und Handlungsfähigkeit in einer globalisierten Welt fördert.",
-      "example": "Beim Thema Wasserverbrauch in der Kita reflektieren Kinder ihren eigenen Ressourcenkonsum.",
-      "term": "Bildung für nachhaltige Entwicklung (BNE)"
+      "term": "Forschungskreis (Stiftung Kinder forschen)",
+      "definition": "Flexibles Orientierungsmodell für forschendes Lernen: Phänomen wahrnehmen/staunen → Frage entwickeln → Vermutungen/Hypothesen bilden → Ausprobieren/Vergleichen/Messen → Dokumentieren, Deuten & Weiterfragen.",
+      "example": "Kinder testen anhand gleich großer Eiswürfel auf verschiedenen Materialien ihre eigenen Vermutungen zum Schmelzen."
     },
     {
-      "definition": "Haltung der pädagogischen Fachkraft, bei der nicht fertiges Wissen vermittelt wird, sondern Kinder als kompetente Forscher:innen beim eigenständigen Entdecken und Problemlösen begleitet werden.",
-      "example": "Statt zu sagen „Magneten ziehen Eisen an“, fragt die Fachkraft: „Was glaubst du, an welche Gegenstände heftet sich der Stab? Probier es aus!“",
-      "term": "Lernbegleitung statt Besserwissen"
+      "term": "Kindliche Präkonzepte (Alltagsvorstellungen)",
+      "definition": "Vorhandene, aus eigener Erfahrung gebildete Erklärungsmodelle von Kindern zu Naturphänomenen; sie werden nicht als „Fehler“ abgetan, sondern wertschätzend aufgegriffen und im Experiment überprüft.",
+      "example": "„Schwere Sachen gehen immer unter!“ → wird durch das gemeinsame Testen eines großen Holzbretts und eines Knetboots erweitert."
     },
     {
-      "definition": "Bewusste Gestaltung der pädagogischen Praxis zur Aufweichung starrer Rollenklischees, sodass alle Kinder unabhängig vom Geschlecht gleichermaßen für technische und naturwissenschaftliche Phänomene begeistert werden.",
-      "example": "Gezielter Einsatz von Vorbildern und gleicher Zugang zu Werkzeug und Forscherkiste für Mädchen und Jungen.",
-      "term": "Gendersensible MINT-Förderung"
+      "term": "Naturwissenschaftliche Denk- und Arbeitsweisen",
+      "definition": "Grundlegende Methoden der Erkenntnisgewinnung: Beobachten, Beschreiben, Fragen stellen, Vermuten/Hypothesen bilden, Vergleichen, Klassifizieren, Messen, Dokumentieren und Kommunizieren.",
+      "example": "Sortieren von Alltagsgegenständen in „wird vom Magneten angezogen“ und „wird nicht angezogen“ samt Strichliste."
     },
     {
-      "definition": "Naturwissenschaftliche Bildung, die sich nahtlos in den alltäglichen Lebens- und Erfahrungsraum von Kindern einfügt und spontane Alltagsfragen als Lernanlass nutzt.",
-      "example": "Beim Kochen in der Küche werden Aggrizustände (Schmelzen von Butter) und chemische Prozesse ganz nebenbei erforscht.",
-      "term": "Alltagsintegrierte Bildung"
+      "term": "Bildung für nachhaltige Entwicklung (BNE)",
+      "definition": "Leitbild, das ökologische, soziale und ökonomische Perspektiven verbindet und Kinder altersgerecht in ihrer Gestaltungskompetenz und Selbstwirksamkeit stärkt – handlungsorientiert statt mit Angstmache.",
+      "example": "Spielwasser im Kita-Garten gezielt zum Gießen des selbst angelegten Hochbeets weiterverwenden."
     },
     {
-      "definition": "Die erfahrbare, unbelebte Natur umfasst alle physikalischen und chemischen Phänomene ohne eigenen Stoffwechsel oder Wachstum.",
-      "example": "Untersuchung von Wind und Luftdruck mithilfe selbstgebastelter Windmühlen im Außengelände.",
-      "term": "Unbelebte Natur"
+      "term": "Gendersensible MINT-Begleitung",
+      "definition": "Reflexion eigener unbewusster Rollenbilder, Sprache und Materialzuweisungen, damit Kinder aller Geschlechter gleichermaßen Zutrauen und Zugang zu naturwissenschaftlich-technischem Forschen entwickeln.",
+      "example": "Mädchen und Jungen werden gleichermaßen ermutigt, Messgeräte zu bedienen, Hypothesen zu testen und Ergebnisse zu präsentieren."
     }
   ],
   "quiz": [
     {
+      "id": "v2-q1",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Was unterscheidet forschendes Lernen (z. B. nach der Stiftung Kinder forschen) fachlich von einem bloßen „Show-Experiment“?",
+      "options": [
+        "Beim forschenden Lernen verzichtet die Fachkraft völlig auf Rückfragen und sprachliche Begleitung.",
+        "Beim forschenden Lernen stehen eigene Fragen, Vermutungen (Hypothesen), faires Vergleichen und gemeinsames Deuten der Kinder im Mittelpunkt statt eines von Erwachsenen vorgeführten Überraschungseffekts.",
+        "Forschendes Lernen setzt teure Laborgeräte voraus, während Show-Experimente mit Haushaltsmaterial auskommen.",
+        "Forschendes Lernen darf erst ab der ersten Klasse eingesetzt werden."
+      ],
       "correctIndices": [
         1
       ],
-      "difficulty": "basis",
-      "explanation": "Der Forschungskreis beginnt in der Regel mit dem bewussten Beobachten und Staunen über ein Phänomen in der Lebenswelt, an das sich Fragen und Hypothesen anschließen.",
-      "id": "q-1",
-      "options": [
-        "Der sofortige Beginn mit der mathematischen Formelsammlung und physikalischen Definitionen.",
-        "Das bewusste Beobachten eines Naturphänomens und das Formulieren einer eigenen kindlichen Frage.",
-        "Das Abschreiben eines Lehrbuchtextes über Ökosysteme.",
-        "Die theoretische Prüfung der Ergebnisse durch standardisierte Tests."
-      ],
-      "question": "Welcher Schritt bildet den typischen Einstieg in den naturwissenschaftlichen Forschungskreis nach dem Lehrplan RLP?",
-      "type": "single"
+      "explanation": "Während Show-Experimente oft bloß einen kurzen Staun-Effekt vorführen, bindet forschendes Lernen Kinder aktiv in den Erkenntnisweg ein: Sie beobachten, vermuten, prüfen ihre eigenen Ideen und dokumentieren ihre Ergebnisse."
     },
     {
+      "id": "v2-q2",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Praxissituation: Ein fünfjähriges Kind behauptet beim Gießen im Garten: „Die Pflanze trinkt das Wasser mit ihren Blättern, wenn wir sie oben nass machen!“ Wie geht eine professionelle Lernbegleiterin mit diesem kindlichen Präkonzept um?",
+      "options": [
+        "Sie beendet das Gespräch, weil Botanik noch zu komplex für Vorschulkinder ist.",
+        "Sie nimmt die Vermutung ernst („Interessante Idee! Wie könnten wir herausfinden, ob eine Pflanze das Wasser eher über die Blätter oder über die Erde und Wurzeln aufnimmt?“) und plant mit dem Kind einen kleinen Vergleichsversuch mit zwei Pflanzen.",
+        "Sie stimmt dem Kind aus Freundlichkeit einfach zu, um es nicht zu demotivieren.",
+        "Sie korrigiert das Kind sofort sachlich: „Nein, das stimmt nicht, Pflanzen nehmen Wasser fast nur über die Wurzeln auf – merk dir das bitte.“"
+      ],
+      "correctIndices": [
+        1
+      ],
+      "explanation": "Kindliche Präkonzepte sind logische Alltagstheorien. Statt sofort zu belehren oder falsch zuzustimmen, nutzt eine ko-konstruktive Fachkraft die Vermutung als Ausgangspunkt für gemeinsames Beobachten und Überprüfen."
+    },
+    {
+      "id": "v2-q3",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Tätigkeiten gehören zu den grundlegenden naturwissenschaftlichen Denk- und Arbeitsweisen im Elementar- und Grundschulbereich? (Mehrere Antworten sind richtig)",
+      "options": [
+        "Klassifizieren nach Merkmalen (z. B. magnetisch/nicht magnetisch) und kindgerechtes Dokumentieren",
+        "Vermutungen (Hypothesen) aufstellen und durch faires Vergleichen überprüfen",
+        "Genaues Beobachten und sprachliches Beschreiben von Veränderungen",
+        "Auswendiglernen chemischer Reaktionsgleichungen ohne eigenes Experimentieren"
+      ],
+      "correctIndices": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Beobachten, Beschreiben, Hypothesenbilden, Vergleichen, Klassifizieren, Messen und Dokumentieren sind zentrale Denk- und Arbeitsweisen des Forschungskreises. Abstraktes Formelpauken verfehlt kindgerechte naturwissenschaftliche Bildung."
+    },
+    {
+      "id": "v2-q4",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Wie sollte der Forschungskreis (Stiftung Kinder forschen) in der pädagogischen Praxis angewendet werden?",
+      "options": [
+        "Als Instrument zur individuellen Leistungsbenotung naturwissenschaftlicher Begabung im Vorschulalter.",
+        "Ausschließlich für die unbelebte Natur (Physik/Chemie), nicht aber für biologische Beobachtungen.",
+        "Als starres Prüfungsschema, das bei jedem Versuch exakt von Schritt 1 bis Schritt 5 ohne Abweichung durchlaufen werden muss.",
+        "Als flexibles Orientierungsmodell für Fachkräfte, das gemeinsames Denken strukturiert, aber spontane Umwege und neue Kinderfragen ausdrücklich zulässt."
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Der Forschungskreis hilft Fachkräften, forschende Prozesse bewusst und dialogisch zu begleiten, bleibt aber offen und zyklisch – Kinderfragen dürfen jederzeit neue Richtungen eröffnen."
+    },
+    {
+      "id": "v2-q5",
+      "type": "single",
+      "difficulty": "pruefung",
+      "question": "Welcher Grundsatz ist für eine altersgerechte Umsetzung von Bildung für nachhaltige Entwicklung (BNE) in Kita und Grundschule entscheidend?",
+      "options": [
+        "BNE erst ab dem Jugendalter thematisieren, da jüngere Kinder ökologische Zusammenhänge nicht erfassen können.",
+        "Konkrete, gestaltbare Alltagssituationen aufgreifen (z. B. Garten, Wasser, Upcycling, faire Entscheidungen), in denen Kinder Selbstwirksamkeit und Gestaltungskompetenz erleben.",
+        "Nachhaltigkeit auf das bloße Ausmalen von Mülltonnen-Arbeitsblättern begrenzen.",
+        "Kindern möglichst drastische Bilder globaler Umweltkatastrophen zeigen, um sofortige Betroffenheit auszulösen."
+      ],
+      "correctIndices": [
+        1
+      ],
+      "explanation": "Altersgerechte BNE vermeidet Ohnmacht und Angstmache: Sie knüpft an verstehbare, direkt mitgestaltbare Alltagsthemen an und stärkt die Erfahrung „Ich kann gemeinsam mit anderen etwas bewirken“ (Gestaltungskompetenz)."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "basis",
+      "question": "Welche Haltungen und Maßnahmen unterstützen eine gendersensible naturwissenschaftliche Bildung? (Mehrere Antworten sind richtig)",
+      "options": [
+        "Einbezug vielfältiger Vorbilder und ermutigende Rückmeldungen an alle Kinder – besonders auch an zurückhaltende.",
+        "Getrennte Themenangebote (Technik/Physik für Jungen, Pflanzen/Dekoration für Mädchen), um den Neigungen entgegenzukommen.",
+        "Bewusste Reflexion eigener, oft unbewusster Sprach- und Zuteilungsmuster im Team.",
+        "Gleichberechtigter Zugang zu allen Forschermaterialien, Messgeräten und Dokumentationsaufgaben für Kinder aller Geschlechter."
+      ],
       "correctIndices": [
         0,
         2,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Gendersensible MINT-Bildung erfordert den Abbau von Stereotypen, den gleichberechtigten Zugang zu Materialien und die bewusste Reflexion eigener Rollenbilder. Ein Ausschluss von Mädchen beim Forschen ist das absolute Gegenteil.",
-      "id": "q-2",
-      "options": [
-        "Gezielter Einsatz von Vorbildern und Projekten, die geschlechtertypische Interessen aufweichen.",
-        "Getrennte naturwissenschaftliche Angebote, bei denen Jungs schweres Material und Mädchen nur textile Arbeiten bearbeiten.",
-        "Sicherstellung, dass Mädchen und Jungen gleichermaßen Zugang zu Werkzeugen, Messgeräten und Experimenten erhalten.",
-        "Reflexion der eigenen, unbewussten sprachlichen Muster bei der Zuordnung von naturwissenschaftlichen Interessen."
-      ],
-      "question": "Welche Maßnahmen unterstützen eine gelingende, gendersensible naturwissenschaftliche Bildung ('Haus der kleinen Forscher')? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Gendersensible MINT-Begleitung bricht Stereotype aktiv auf, indem alle Kinder denselben Zugang, dieselbe Ermutigung und vielfältige Vorbilder erleben, statt vermeintliche Geschlechterneigungen durch getrennte Angebote zu zementieren."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Forschendes Lernen in Kita und Grundschule – Pädagogischer Ansatz",
+      "url": "https://www.stiftung-kinder-forschen.de/ansatz/unsere-paedagogik/forschendes-lernen/",
+      "publisher": "Stiftung Kinder forschen (ehemals „Haus der kleinen Forscher“)",
+      "note": "Grundlagen zu ko-konstruktiver Lernbegleitung, Phänomenorientierung und kindlicher Fragehaltung."
     },
     {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Hospitationen in Konsultationskitas und die Reflexion von Theorie-Praxis-Schnittstellen (Anregungen aus dem RLP) dienen genau dem Abgleich und der Weiterentwicklung des eigenen professionellen Handelns.",
-      "id": "q-3",
-      "options": [
-        "Um Kindern naturwissenschaftliche Bildung nahezubringen, müssen Erzieher:innen stets alle physikalischen Gesetze fehlerfrei und lückenlos erklären können.",
-        "Naturwissenschaftliche Bildung ist in der Kita zu abstrakt und sollte erst ab der Sekundarstufe I stattfinden.",
-        "Die Fachkraft agiert als Lernbegleiter:in, die gemeinsam mit Kindern staunt, Hypothesen bildet und Experimente ergebnisoffen begleitet.",
-        "BNE ist ausschließlich ein Thema für die Umwelterziehung in der Grundschule und hat in der frühkindlichen Bildung keine Relevanz."
-      ],
-      "question": "Welche Aussage beschreibt die professionelle Haltung einer Fachkraft im Bildungsbereich Naturwissenschaften am zutreffendsten?",
-      "type": "single"
+      "title": "Der Forschungskreis – Methode für naturwissenschaftliches Forschen mit Kindern",
+      "url": "https://campus.stiftung-kinder-forschen.de/totara/engage/resources/article/index.php?id=273",
+      "publisher": "Stiftung Kinder forschen (Campus)",
+      "note": "Konkrete Darstellung der Phasen und naturwissenschaftlichen Denk- und Arbeitsweisen."
     },
     {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Hier wird der Forschungskreis (Beobachten, Vermuten, Ausprobieren, Dokumentieren) mit einer alltagsintegrierten Fragestellung und BNE-Relevanz (Wasserkreislauf/Ressourcen) optimal verknüpft.",
-      "id": "q-4",
-      "options": [
-        "Die Kinder füllen schweigend ein vierseitiges Arbeitsblatt zum Thema Verdunstung aus, während die Erzieherin korrigiert.",
-        "Kinder beobachten Wassertropfen auf verschiedenen Oberflächen, stellen Vermutungen über das Abperlen an und dokumentieren ihre Entdeckungen in einem gemeinsamen Forschertagebuch.",
-        "Die Erzieherin erklärt einen 45-minütigen Frontalvortrag über die molekulare Struktur von H2O.",
-        "Die Kinder dürfen ohne Anleitung mit dem Wasserschlauch im Garten spielen, ohne dass pädagogische Reflexion oder Begleitung stattfindet."
-      ],
-      "question": "Praxissituation: In einer altersgemischten Kitagruppe bemerken Kinder an einem regnerischen Tag, dass Wassertropfen auf manchen Blättern wie Perlen liegen bleiben, während andere Blätter sich vollsaugen. Wie sieht eine professionelle, alltagsintegrierte Lernbegleitung aus?",
-      "type": "case"
+      "title": "Bildung für nachhaltige Entwicklung (BNE) in Kitas – Konzept & Materialien",
+      "url": "https://www.stiftung-kinder-forschen.de/fortbildungen/nachhaltige-entwicklung/",
+      "publisher": "Stiftung Kinder forschen",
+      "note": "Praxisnahe Verbindung von naturwissenschaftlicher Bildung, Nachhaltigkeitszielen (SDGs) und Gestaltungskompetenz."
     },
     {
-      "correctIndices": [
-        0,
-        1,
-        3
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "BNE umfasst ökologische Zukunftsfähigkeit, ökonomischen Ressourcenschutz und soziale Gerechtigkeit. Das bloße Auswendiglernen von Pflanzenfamilien ist taxonomischer Biologieunterricht, aber noch kein umfassendes BNE-Konzept.",
-      "id": "q-5",
-      "options": [
-        "Der Erhalt und Schutz von natürlichen Lebensräumen und Ökosystemen.",
-        "Ein bewusster, nachhaltiger Umgang mit Ressourcen (z. B. Wasser, Energie, Abfall).",
-        "Das strikte Auswendiglernen aller lateinischen Pflanzennamen ohne ökologischen Bezug.",
-        "Die Förderung von sozialer Verantwortung und generationenübergreifendem Denken."
-      ],
-      "question": "Welche Kernaspekte zeichnen die Bildung für nachhaltige Entwicklung (BNE) im Bildungsbereich Naturwissenschaften aus? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "title": "Frühe naturwissenschaftliche Bildung im Kontext von Lernwerkstattarbeit",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/KiTaFT_Beez_2018_FruehenaturwissenschaftlicheBildung_Lernwerkstaetten.pdf",
+      "publisher": "KiTa Fachtexte (Katharina Beez / ASH Berlin, Fröbel, nifbe)",
+      "note": "Wissenschaftlich-praxisorientierte Vertiefung zu Lernwerkstätten, Materialgestaltung und Begleithaltung."
     }
   ]
 }

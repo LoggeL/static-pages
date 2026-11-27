@@ -3,10 +3,12 @@
   "number": 50,
   "moduleCode": "S-SP-9",
   "moduleArea": "sp-wahlpflicht",
-  "title": "Wahlpflicht Arbeitsfelder II: Hilfen zur Erziehung, OJA & Förderbedarf",
-  "subtitle": "Stationäre/ambulante Jugendhilfe (SGB VIII), Offene Jugendarbeit & Förderpädagogik",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-9 · Vertiefung in Arbeitsfeldern: Hilfen zur Erziehung, Offene Jugendarbeit & Förderbedarf (Lehrplan RLP 2024)",
+  "title": "Arbeitsfelder: Hilfen zur Erziehung, Offene Jugendarbeit & Eingliederungshilfe",
+  "subtitle": "HzE (§§ 27–35a, 36, 41 SGB VIII), Offene Kinder- und Jugendarbeit (§ 11 SGB VIII) & Teilhabe nach SGB IX / UN-BRK",
   "year": "2./3. Jahr",
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 30,
   "hoursRef": "240 Std. (mind. 80 Std. Arbeitsfeld)",
   "pdfPages": "S. 49",
   "crossCuttingTags": [
@@ -14,389 +16,446 @@
     "Partizipation",
     "Prävention"
   ],
-  "summary": "Einheit 50 vertieft die spezialisierten sozialpädagogischen Arbeitsfelder bis zum 27. Lebensjahr: Hilfen zur Erziehung (SGB VIII), Offene Jugendarbeit und Inklusion/Förderpädagogik. Angehende Erzieher:innen erwerben fundierte Kompetenzen in rechtlichen Grundlagen, Hilfeplanverfahren, sozialräumlicher Praxis und inklusiver Begleitung.",
+  "summary": "In dieser Einheit erarbeiten Sie die rechtlichen Grundlagen und fachlichen Handlungsprinzipien dreier zentraler Arbeitsfelder jenseits der Kita: Hilfen zur Erziehung (§§ 27–35 SGB VIII, Hilfeplanung § 36, junge Volljährige § 41), Offene Kinder- und Jugendarbeit (§ 11 SGB VIII) sowie Förder-/Heilpädagogik und Eingliederungshilfe an der Schnittstelle von § 35a SGB VIII und SGB IX. Besonderer Wert liegt auf exakten Rechtsbezügen, partizipativer Hilfeplanung und inklusiver, lebensweltorientierter Praxis.",
   "learningGoals": [
-    "Ich kann die zentralen Handlungsfelder und Rechtsgrundlagen der Hilfen zur Erziehung (HzE nach SGB VIII) fachgerecht erläutern und in der Praxis anwenden.",
-    "Ich kann die Prinzipien der Offenen Jugendarbeit (Freiwilligkeit, Partizipation, Lebenswelt- und Sozialraumorientierung) beschreiben und methodisch umsetzen.",
-    "Ich kann Konzepte der Inklusion und Förderpädagogik für Kinder, Jugendliche und junge Erwachsene mit besonderem Förderbedarf differenziert gestalten.",
-    "Ich kann das Hilfeplanverfahren nach § 36 SGB VIII aktiv mitgestalten und multiprofessionell kooperieren.",
-    "Ich kann präventive und intervenierende Ansätze zur Bewältigung von Krisen im Jugendalter (bis 27 Jahre) theoriegeleitet reflektieren."
+    "Ich kann Anspruchsvoraussetzungen, Anspruchsinhaber:innen und Hilfearten der Hilfen zur Erziehung (§§ 27–35 SGB VIII) sowie der Hilfe für junge Volljährige (§ 41 SGB VIII) rechtssicher unterscheiden.",
+    "Ich kann das Hilfeplanverfahren nach § 36 SGB VIII (Beratung, kollegiale Entscheidung, Mitwirkung, Fortschreibung) in seiner Bedeutung für Partizipation und Qualitätssteuerung anwenden.",
+    "Ich kann den gesetzlichen Auftrag und die Strukturprinzipien der Offenen Kinder- und Jugendarbeit (§ 11 SGB VIII: Offenheit, Freiwilligkeit, Partizipation, Lebensweltorientierung, Inklusion) praxisnah umsetzen.",
+    "Ich kann die rechtliche Abgrenzung der Eingliederungshilfe nach § 35a SGB VIII (seelische Behinderung) und nach dem SGB IX (§ 10 Abs. 4 SGB VIII, §§ 90, 99 SGB IX: körperliche/geistige Behinderung) präzise erklären.",
+    "Ich kann junge Menschen mit besonderem Förderbedarf auf Basis des bio-psycho-sozialen Behinderungsverständnisses (UN-BRK) personenzentriert, barrierearm und multiprofessionell begleiten."
   ],
   "sections": [
     {
-      "body": "Die Hilfen zur Erziehung (HzE) nach den §§ 27 ff. SGB VIII bilden das fundamentale Leistungssystem der Kinder- und Jugendhilfe zur Unterstützung von Familien und jungen Menschen bis zum 27. Lebensjahr (§ 41 SGB VIII). Zu den wichtigsten ambulanten und stationären Formen zählen die Erziehungsbeistandschaft, die Sozialpädagogische Familienhilfe (SPFH nach § 31 SGB VIII), Tagesgruppen (§ 32 SGB VIII) sowie vollstationäre Wohnformen wie Wohngruppen und Heimerziehung (§ 34 SGB VIII). Das zentrale Steuerungsinstrument ist das Hilfeplanverfahren nach § 36 SGB VIII, welches die kontinuierliche Zusammenarbeit zwischen Jugendamt, Sorgeberechtigten, Jugendlichen und Einrichtung gewährleistet. Fachkräfte in diesem Feld agieren an der Schnittstelle von Kinderschutz, ressourcenorientierter Beratung und lebensweltbezogener Förderung.",
+      "heading": "1. Hilfen zur Erziehung (§§ 27–35 SGB VIII) & Hilfe für junge Volljährige (§ 41 SGB VIII)",
+      "keyTakeaway": "Hilfen zur Erziehung sind bedarfsorientierte, kombinierbare Rechtsansprüche der Personensorgeberechtigten — von ambulanter Familienunterstützung bis zur stationären Wohngruppe.",
+      "body": "Nach § 27 Abs. 1 SGB VIII haben Personensorgeberechtigte (wichtig: Anspruchsinhaber sind hier die Sorgeberechtigten, nicht das Kind allein) Anspruch auf Hilfe zur Erziehung, wenn eine dem Wohl des Kindes oder Jugendlichen entsprechende Erziehung nicht gewährleistet und die Hilfe für seine Entwicklung geeignet und notwendig ist. Das Gesetz fächert ein breites, flexibel kombinierbares Hilfespektrum (§ 27 Abs. 2 S. 3 SGB VIII) auf: ambulante Hilfen wie Erziehungsberatung (§ 28), Soziale Gruppenarbeit (§ 29), Erziehungsbeistand/Betreuungshelfer (§ 30) und Sozialpädagogische Familienhilfe (SPFH, § 31 — intensive, aufsuchende Unterstützung im Familienalltag); teilstationäre Erziehung in einer Tagesgruppe (§ 32 — soziales Lernen, schulische Förderung und Elternarbeit zum Verbleib in der Familie); sowie Vollzeitpflege (§ 33), Heimerziehung oder sonstige betreute Wohnform (§ 34) und Intensive sozialpädagogische Einzelbetreuung (§ 35). Für junge Volljährige ab 18 Jahren sieht § 41 SGB VIII einen eigenen Anspruch auf Hilfe zur Persönlichkeitsentwicklung und eigenverantwortlichen Lebensführung vor — in der Regel bis zur Vollendung des 21. Lebensjahres, in begründeten Einzelfällen für einen begrenzten Zeitraum darüber hinaus (inklusive der Möglichkeit einer erneuten Gewährung nach vorangegangener Beendigung).",
       "bulletPoints": [
-        "Rechtliche Verankerung im SGB VIII (§§ 27 ff. und § 41 für junge Volljährige)",
-        "Differenzierung in ambulante, teilstationäre und stationäre Hilfeformen",
-        "Verbindliches Hilfeplanverfahren nach § 36 SGB VIII als Steuerungsinstrument",
-        "Fokus auf Kinderschutz, Partizipation (§ 8 SGB VIII) und Elternarbeit"
+        "§ 27 SGB VIII: Rechtsanspruch der Personensorgeberechtigten bei fehlender kindeswohlgerechter Erziehung, wenn die Hilfe geeignet und notwendig ist; Kombination verschiedener Hilfearten möglich.",
+        "Ambulante & teilstationäre HzE: Erziehungsberatung (§ 28), Soziale Gruppenarbeit (§ 29), Erziehungsbeistand (§ 30), SPFH (§ 31), Tagesgruppe (§ 32).",
+        "Stationäre & intensive HzE: Vollzeitpflege (§ 33), Heimerziehung/betreute Wohnform (§ 34), Intensive sozialpädagogische Einzelbetreuung (§ 35).",
+        "§ 41 SGB VIII (Junge Volljährige): Eigener Anspruch ab 18 Jahren, i. d. R. bis zum 21. Lebensjahr (in begründeten Einzelfällen länger; erneute Bewilligung möglich)."
       ],
-      "heading": "1. Kinder- und Jugendhilfe und Hilfen zur Erziehung (SGB VIII)",
-      "keyTakeaway": "Hilfen zur Erziehung nach dem SGB VIII sind partnerschaftliche, bedarfsorientierte Unterstützungsleistungen, die das Recht von Kindern und Jugendlichen auf Förderung ihrer Entwicklung und Erziehung zu einer eigenverantwortlichen Persönlichkeit sichern.",
-      "praxisTip": "Gestalten Sie Hilfeplangespräche stets transparent und auf Augenhöhe unter aktiver Einbezug der Jugendlichen („Nothing about us without us“)."
+      "praxisTip": "Prüfen Sie in Fallbearbeitungen immer zuerst: Wer ist überhaupt Anspruchsinhaber:in (Personensorgeberechtigte bei § 27, Kind/Jugendliche:r bei § 35a, junge Volljährige bei § 41) — und lässt sich eine ambulante Hilfe oder Kombination vor einer stationären Unterbringung realisieren?"
     },
     {
-      "body": "Die Offene Jugendarbeit (OJA) ist ein unverzichtbarer, nicht-formeller Bildungsort für Kinder und Jugendliche, der sich durch die Grundprinzipien Freiwilligkeit, Offenheit, Niederschwelligkeit und Partizipation auszeichnet. Nach dem Konzept der Lebenswelt- und Sozialraumorientierung (Hans Thiersch) holt die OJA junge Menschen dort ab, wo sie leben – sei es im Jugendzentrum, auf öffentlichen Plätzen oder durch aufsuchende Jugendarbeit (Streetwork). Ziel ist es, die Bewältigungskompetenzen von Entwicklungsaufgaben zu stärken, demokratische Mitbestimmung erlebbar zu machen und präventiv Ausgrenzungen entgegenzuwirken. Fachkräfte fungieren hierbei als vertrauensvolle Begleiter:innen, Moderator:innen und Anwältinnen der Interessen junger Menschen.",
+      "heading": "2. Das Hilfeplanverfahren (§ 36 SGB VIII) als partizipatives Steuerungsinstrument",
+      "keyTakeaway": "Hilfeplanung ist kein bürokratischer Verwaltungsakt über Köpfe hinweg, sondern ein verständlicher, gemeinsamer Aushandlungs- und Überprüfungsprozess mit Familie, jungem Menschen und Fachkräften.",
+      "body": "Sobald eine Hilfe voraussichtlich für längere Zeit zu leisten ist, greift das verbindliche Hilfeplanverfahren nach § 36 SGB VIII. Drei fachlich-rechtliche Kernstandards sichern dabei Qualität und Rechte der Adressat:innen: Erstens sind Personensorgeberechtigte sowie Kinder und Jugendliche vor der Entscheidung und vor jeder Änderung umfassend und in verständlicher, nachvollziehbarer und wahrnehmbarer Form zu beraten und über mögliche Entwicklungsfolgen aufzuklären (§ 36 Abs. 1 SGB VIII; Beteiligungsrecht § 8 SGB VIII). Zweitens soll die Entscheidung über die angezeigte Hilfeart im Zusammenwirken mehrerer Fachkräfte getroffen werden (kollegiale Fachlichkeit statt Einzelfall-Willkür, Abs. 2). Drittens wird gemeinsam ein schriftlicher Hilfeplan als Grundlage der Ausgestaltung aufgestellt, der den festgestellten Bedarf, konkrete, überprüfbare Hilfeziele, Art und Umfang der Leistungen sowie die Rollen aller Beteiligten festhält und regelmäßig — typischerweise halbjährlich — darauf überprüft wird, ob die gewählte Hilfe weiterhin geeignet und notwendig ist.",
       "bulletPoints": [
-        "Grundprinzipien: Freiwilligkeit, Offenheit, Mitbestimmung und Geschlechtergerechtigkeit",
-        "Sozialraum- und Lebensweltorientierung als methodisches Fundament",
-        "Aufsuchende Jugendarbeit (Streetwork) als Brücke zu schwer erreichbaren Zielgruppen",
-        "Förderung sozialer und politischer Partizipation in kommunalen Räumen"
+        "Verständliche Beratung & Aufklärung (§ 36 Abs. 1 SGB VIII): Fachjargon abbauen, bei Bedarf Sprachmittlung oder barrierefreie Kommunikation einsetzen.",
+        "Zusammenwirken mehrerer Fachkräfte (§ 36 Abs. 2 SGB VIII): Multiprofessionelle Einschätzung im Jugendamt und Einbezug der beteiligten Leistungserbringer.",
+        "Partizipation (§ 8 SGB VIII): Kinder, Jugendliche und Eltern bringen ihre Sichtweisen, Ressourcen und Wünsche aktiv in Zielformulierung und Auswertung ein.",
+        "Regelmäßige Überprüfung & Fortschreibung: Hilfeziele werden an Entwicklungen angepasst, Hilfen rechtzeitig umgesteuert oder geordnet beendet (Übergang in Selbstständigkeit)."
       ],
-      "heading": "2. Offene Jugendarbeit: Lebenswelt, Partizipation und Streetwork",
-      "keyTakeaway": "Die Offene Jugendarbeit schafft geschützte, nicht-kommerzielle Erfahrungs- und Bildungsräume, in denen Jugendliche Selbstwirksamkeit und demokratische Handlungsfähigkeit erproben können.",
-      "praxisTip": "Beteiligen Sie Jugendliche aktiv an der Raum- und Programmgestaltung des Jugendtreffs (z. B. durch ein Jugendparlament oder Budget-Mitbestimmung)."
+      "praxisTip": "Bereiten Sie Jugendliche vor einem Hilfeplangespräch gezielt und in Ruhe vor (z. B. mit drei Karten: „Was läuft gut?“, „Was nervt oder fehlt mir?“, „Was will ich im nächsten halben Jahr schaffen?“), damit sie sich in der Runde der Erwachsenen nicht überrollt fühlen."
     },
     {
-      "body": "Die Begleitung von Kindern, Jugendlichen und jungen Erwachsenen mit besonderem Förderbedarf basiert auf dem Paradigma der Inklusion und der UN-Behindertenrechtskonvention (UN-BRK). Im Fokus steht die ganzheitliche Teilhabe an allen gesellschaftlichen Bereichen (Bildung, Freizeit, Arbeit) sowie die Vermeidung von Stigmatisierung. Rechtlich greifen neben dem SGB VIII (insbesondere § 35a SGB VIII für seelische Behinderungen) auch das SGB IX (Rehabilitation und Teilhabe) sowie schul- und landesrechtliche Bestimmungen. Pädagogische Fachkräfte setzen auf Personalisierung, assistive Technologien, barrierearme Lernumgebungen und interdisziplinäre Kooperationen mit Therapeut:innen, Schulen und Kostenträgern.",
+      "heading": "3. Offene Kinder- und Jugendarbeit (§ 11 SGB VIII): Offenheit, Freiwilligkeit & Partizipation",
+      "keyTakeaway": "Offene Kinder- und Jugendarbeit bietet jungen Menschen selbstbestimmte, nicht-kommerzielle Bildungs- und Freiräume — wer dort professionell arbeitet, muss Vertrauen gewinnen statt Anwesenheit verordnen zu können.",
+      "body": "Die Jugendarbeit nach § 11 SGB VIII ist eine eigenständige Pflichtleistung der Kinder- und Jugendhilfe für junge Menschen (nach § 7 Abs. 1 Nr. 4 SGB VIII bis unter 27 Jahre). Sie umfasst u. a. außerschulische Jugendbildung, Jugendarbeit in Sport, Spiel und Geselligkeit, arbeitswelt-, schul- und familienbezogene Jugendarbeit, internationale Jugendarbeit, Kinder- und Jugenderholung sowie Jugendberatung — angeboten von Jugendverbänden, Initiativen, freien und öffentlichen Trägern. Ausdrücklich verpflichtet § 11 Abs. 1 S. 3 SGB VIII dazu, Zugänglichkeit und Nutzbarkeit für junge Menschen mit Behinderungen sicherzustellen. Die Offene Kinder- und Jugendarbeit (OJA — z. B. Jugendzentren, Abenteuerspielplätze, Jugendcafés, mobile Angebote und aufsuchende Arbeit/Streetwork) ruht auf vier unverzichtbaren Strukturprinzipien: Offenheit (niedrigschwellig, ohne Mitgliedschaft, ohne Konsumzwang), Freiwilligkeit (Besucher:innen entscheiden selbst über Kommen, Gehen und Mitmachen), Partizipation und Selbstorganisation (Anknüpfen an realen Interessen, Mitbestimmung bei Raum, Regeln und Programm) sowie Lebenswelt- und Sozialraumorientierung (Abholen an realen Treffpunkten, demokratische Bildung, geschlechter- und diversitätssensible Praxis).",
       "bulletPoints": [
-        "Umsetzung des Inklusionsparadigmas nach der UN-BRK",
-        "Eingliederungshilfe für seelisch behinderte Minderjährige nach § 35a SGB VIII",
-        "Personenzentrierte Assistenz und Abbau von Barrieren im Sozialraum",
-        "Interdisziplinäre Zusammenarbeit mit medizinischen und therapeutischen Diensten"
+        "Rechtsgrundlage § 11 SGB VIII: Anknüpfen an Interessen junger Menschen, Mitbestimmung, Befähigung zu Selbstbestimmung und gesellschaftlicher Mitverantwortung, inklusiver Zugang.",
+        "Prinzip Freiwilligkeit: Jugendliche stimmen „mit den Füßen ab“ — fachliche Autorität entsteht allein durch Verlässlichkeit, Respekt und authentische Beziehung.",
+        "Prinzip Offenheit & Niederschwelligkeit: Keine Stigmatisierung, keine vorherige Problemzuschreibung, keine Mitgliedspflicht.",
+        "Brückenfunktion der OJA: Weil Vertrauen niedrigschwellig wächst, kann OJA in Krisen freiwillig Brücken zu Beratungsstellen oder Jugendhilfen bauen — ohne ihren offenen Schutzraum zu verraten."
       ],
-      "heading": "3. Inklusion und Förderpädagogik bis 27 Jahre",
-      "keyTakeaway": "Inklusive Fachpraxis bedeutet, nicht das Individuum an Normen anzupassen, sondern die Umwelt und pädagogischen Settings so zu gestalten, dass uneingeschränkte gesellschaftliche Teilhabe für alle jungen Menschen möglich wird.",
-      "praxisTip": "Erarbeiten Sie individuelle Förderpläne im Team gemeinsam mit den Betroffenen und Erziehungsberechtigten, um passgenaue Assistenzleistungen zu implementieren."
+      "praxisTip": "Achten Sie in der OJA streng auf die Grenze zwischen offenem Angebot und Kontrolle: Werden Jugendliche in persönlichen Krisen begleitet, geschieht jede Weitervermittlung an Jugendamt oder Beratung grundsätzlich transparent und mit ihrem Einverständnis (Ausnahme: akute Kindeswohlgefährdung nach § 8a SGB VIII)."
+    },
+    {
+      "heading": "4. Förder-/Heilpädagogik & Eingliederungshilfe: § 35a SGB VIII, SGB IX & UN-BRK",
+      "keyTakeaway": "In der Eingliederungshilfe entscheidet die Art der Behinderung über den zuständigen Rechtskreis — pädagogisches Leitziel ist immer der Abbau von Barrieren und gleichberechtigte gesellschaftliche Teilhabe.",
+      "body": "Für die Begleitung von Kindern, Jugendlichen und jungen Erwachsenen mit Behinderungen oder besonderem Förderbedarf ist die exakte rechtliche Unterscheidung zwischen SGB VIII und SGB IX prüfungs- und praxisrelevant: Nach § 35a SGB VIII haben Kinder und Jugendliche selbst einen Rechtsanspruch auf Eingliederungshilfe durch das Jugendamt, wenn zwei Voraussetzungen gemeinsam erfüllt sind (zweigliedrige Prüfung): (1) Ihre seelische Gesundheit weicht mit hoher Wahrscheinlichkeit länger als sechs Monate vom alterstypischen Zustand ab (festgestellt durch fachärztliche oder psychotherapeutische Stellungnahme nach § 35a Abs. 1a SGB VIII) UND (2) daher ist ihre Teilhabe am Leben in der Gesellschaft beeinträchtigt oder eine solche Beeinträchtigung zu erwarten (fachliche Einschätzung des Jugendamts). Demgegenüber gehen gemäß § 10 Abs. 4 S. 2 SGB VIII Leistungen der Eingliederungshilfe nach dem SGB IX (§§ 90, 99 SGB IX) für junge Menschen mit körperlicher oder geistiger (bzw. drohender wesentlicher) Behinderung vor — dort erfolgt die Steuerung über das personenzentrierte Teilhabe- und Gesamtplanverfahren. (Hinweis: Mit der Reform der „Inklusiven Lösung“ im SGB VIII wird perspektivisch eine schrittweise Zusammenführung der Zuständigkeiten vorbereitet.) Fachlich verbindet beide Systeme das bio-psycho-soziale Behinderungsverständnis der UN-Behindertenrechtskonvention (UN-BRK): Behinderung entsteht in der Wechselwirkung zwischen individueller Beeinträchtigung und Umweltbarrieren. Förder- und heilpädagogische Praxis setzt daher auf personenzentrierte Assistenz (z. B. Schulbegleitung, inklusive Freizeit, unterstützte Kommunikation), Barriereabbau und enge multiprofessionelle Zusammenarbeit.",
+      "bulletPoints": [
+        "§ 35a SGB VIII (Seelische Behinderung): Eigener Anspruch des Kindes/Jugendlichen; zweigliedrige Prüfung (Abweichung > 6 Monate + Teilhabebeeinträchtigung); Zuständigkeit Jugendamt.",
+        "SGB IX (§§ 90, 99 SGB IX i. V. m. § 10 Abs. 4 SGB VIII): Eingliederungshilfe bei körperlicher oder geistiger Behinderung (vorrangige Zuständigkeit des Eingliederungshilfeträgers, personenzentrierte Teilhabeplanung).",
+        "Bio-psycho-soziales Verständnis (UN-BRK / ICF): Nicht das Kind muss „normalisiert“ werden, sondern Umwelt, Kommunikation und Angebote werden barrierearm gestaltet.",
+        "Multiprofessionelle Praxis: Enge Abstimmung von Heilpädagogik, Erziehung, Schulbegleitung, Therapie, Medizin, Schule und Familie ohne stigmatisierende Etikettierung."
+      ],
+      "praxisTip": "Unterscheiden Sie bei Fallbeschreibungen mit Behinderungsbezug immer beide Seiten einer Teilhabeeinschränkung: Welche individuellen Unterstützungsbedarfe bringt der junge Mensch mit — und welche konkreten Barrieren in Raum, Sprache, Regeln oder Haltungen erschweren gerade seine Teilhabe?"
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Spezialisierte Arbeitsfelder (S-SP-9)",
-      "id": "block-comp",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "SGB VIII",
-          "detail": "Unterstützung von Familien und jungen Menschen durch ambulante, teilstationäre und stationäre Angebote wie Wohngruppen und SPFH.",
-          "example": "Betreuung eines Jugendlichen in einer heilpädagogischen Wohngruppe nach § 34 SGB VIII.",
-          "id": "comp-1",
-          "label": "Hilfen zur Erziehung (HzE)",
-          "metric": "Rechtlicher Rahmen",
-          "summary": "Stationäre und ambulante Jugendhilfemaßnahmen zur Erziehungs- und Lebensbewältigung."
-        },
-        {
-          "badge": "Prinzipien",
-          "detail": "Niederschwellige, freiwillige Angebote der Jugendarbeit, die im Sozialraum agieren und Selbstbestimmung fördern.",
-          "example": "Streetwork am Jugendtreff und Partizipationsprojekte im Stadtteil.",
-          "id": "comp-2",
-          "label": "Offene Jugendarbeit (OJA)",
-          "metric": "Sozialraumansatz",
-          "summary": "Nicht-formelle Bildung und Freizeitgestaltung im direkten Lebensumfeld Jugendlicher."
-        },
-        {
-          "badge": "Inklusion",
-          "detail": "Ganzheitliche Begleitung von Kindern und jungen Erwachsenen mit Förderbedarf auf Basis der UN-BRK und des SGB IX / § 35a SGB VIII.",
-          "example": "Einsatz einer Schulbegleitung und barrierefreie Freizeitangebote.",
-          "id": "comp-3",
-          "label": "Förderpädagogik & Teilhabe",
-          "metric": "Rechte & Assistenz",
-          "summary": "Personenzentrierte Assistenz und Barriereabbau für junge Menschen mit Behinderungen."
-        },
-        {
-          "badge": "Schnittstelle",
-          "detail": "Verknüpfung von Jugendhilfe, Jugendsozialarbeit und Eingliederungshilfe zur Vermeidung von Schnittstellenproblemen.",
-          "example": "Gemeinsamer runder Tisch von Jugendamt, Schule und Jugendhilfe.",
-          "id": "comp-4",
-          "label": "Multiprofessionelle Netze",
-          "metric": "Kooperation",
-          "summary": "Vernetzung verschiedener Hilfesysteme für einen ganzheitlichen Hilfeverlauf."
-        }
-      ],
+      "id": "vb-1",
       "kind": "comparison",
-      "leftPole": "Jugendhilfe & Erziehung",
-      "rightPole": "Inklusion & Teilhabe",
-      "subtitle": "Vergleich der drei großen Säulen im Wahlpflichtbereich S-SP-9",
-      "title": "Säulen der spezialisierten Arbeitsfelder"
-    },
-    {
-      "centerLabel": "Hilfeplan-Prozess",
-      "id": "block-pyr",
+      "title": "Drei zentrale Rechts- und Arbeitsfelder im Überblick",
+      "subtitle": "Abgrenzung von Hilfen zur Erziehung, Offener Jugendarbeit und Eingliederungshilfe",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Ebene 1",
-          "detail": "Erkennen von Erziehungs- und Entwicklungsschwierigkeiten durch Fachkräfte, Eltern oder Jugendliche.",
-          "example": "Lehrkraft bemerkt massiven Rückzug und meldet dies dem Jugendamt.",
-          "id": "pyr-1",
-          "label": "Bedarfsfeststellung",
-          "metric": "Fundament",
-          "summary": "Ausgangspunkt und Antragsstellung beim zuständigen Jugendamt."
+          "id": "af50-1",
+          "badge": "§§ 27–35, 36, 41 SGB VIII",
+          "label": "Hilfen zur Erziehung (HzE)",
+          "metric": "Bedarfsorientiert · Hilfeplan",
+          "summary": "Ambulante, teilstationäre und stationäre Erziehungshilfen für Familien und junge Menschen.",
+          "detail": "Anspruchsinhaber nach § 27 sind die Personensorgeberechtigten (ab 18 J. eigener Anspruch nach § 41 i. d. R. bis 21 J.). Gesteuert über das partizipative Hilfeplanverfahren (§ 36 SGB VIII).",
+          "example": "Sozialpädagogische Familienhilfe (§ 31), Tagesgruppe (§ 32) oder betreute Wohngruppe (§ 34 SGB VIII)."
         },
         {
-          "badge": "Ebene 2",
-          "detail": "Multiprofessionelle Beratung und Erarbeitung des passgenauen Hilfeangebots (z. B. SPFH oder Wohngruppe).",
-          "example": "Gemeinsame Ausarbeitung im Jugendamt mit Eltern und Jugendlicher.",
-          "id": "pyr-2",
-          "label": "Diagnostik & Hilfeplanung",
-          "metric": "Stufe 2",
-          "summary": "Konzeptionierung des Hilfeplans nach § 36 SGB VIII."
+          "id": "af50-2",
+          "badge": "§ 11 SGB VIII",
+          "label": "Offene Kinder- & Jugendarbeit",
+          "metric": "Freiwillig · Offen",
+          "summary": "Niedrigschwellige, nicht-formelle Bildungs-, Begegnungs- und Freiräume bis unter 27 Jahre.",
+          "detail": "Strukturprinzipien: Offenheit, Freiwilligkeit, Partizipation, Lebensweltorientierung und gesetzlicher Auftrag zur inklusiven Zugänglichkeit für junge Menschen mit Behinderungen.",
+          "example": "Offener Jugendtreff, selbstverwaltetes Jugendcafé, mobile Spiel- und Streetwork-Angebote."
         },
         {
-          "badge": "Ebene 3",
-          "detail": "Umsetzung der Hilfe im Alltag durch qualifizierte Einrichtungen oder ambulante Fachkräfte.",
-          "example": "Einzug in die Wohngruppe nach § 34 SGB VIII.",
-          "id": "pyr-3",
-          "label": "Durchführung der HzE",
-          "metric": "Stufe 3",
-          "summary": "Pädagogische Arbeit und Begleitung im Lebensfeld."
+          "id": "af50-3",
+          "badge": "§ 35a SGB VIII",
+          "label": "Eingliederungshilfe (seelisch)",
+          "metric": "Zweigliedrige Prüfung",
+          "summary": "Anspruch des Kindes/Jugendlichen bei seelischer (oder drohender seelischer) Behinderung.",
+          "detail": "Voraussetzung: Abweichung der seelischen Gesundheit voraussichtlich > 6 Monate (fachärztlich/psychotherapeutisch) UND beeinträchtigte oder bedrohte Teilhabe (Jugendamt).",
+          "example": "Bewilligung einer Schulbegleitung oder teilhabeorientierten Förderung bei schweren Angststörungen oder Autismus-Spektrum-Störung."
         },
         {
-          "badge": "Ebene 4",
-          "detail": "Regelmäßige Überprüfung der Zielerreichung und Anpassung oder Beendigung der Maßnahme.",
-          "example": "Jährliche Überprüfung im Hilfeplangespräch.",
-          "id": "pyr-4",
-          "label": "Evaluation & Fortschreibung",
-          "metric": "Spitze",
-          "summary": "Qualitätssicherung und Weiterentwicklung des Hilfeverlaufs."
+          "id": "af50-4",
+          "badge": "§§ 90, 99 SGB IX · § 10 Abs. 4 SGB VIII",
+          "label": "Eingliederungshilfe (SGB IX)",
+          "metric": "Körperlich / geistig",
+          "summary": "Personenzentrierte Teilhabeleistungen für Menschen mit körperlicher oder geistiger Behinderung.",
+          "detail": "Geht nach § 10 Abs. 4 S. 2 SGB VIII Leistungen des SGB VIII vor; orientiert sich am bio-psycho-sozialen Modell (UN-BRK) und steuert Hilfen über Gesamt-/Teilhabeplanung.",
+          "example": "Assistenz zur schulischen oder beruflichen Teilhabe, barrierefreie Freizeitbegleitung und unterstützte Kommunikation."
         }
-      ],
-      "kind": "pyramid",
-      "leftPole": "Basis",
-      "rightPole": "Spitze",
-      "subtitle": "Struktur des Hilfeplanverfahrens nach § 36 SGB VIII",
-      "title": "Pyramide des Hilfeplanverfahrens"
+      ]
     },
     {
-      "centerLabel": "Sozialraumorientierung",
-      "id": "block-grid",
-      "isCycle": false,
+      "id": "vb-2",
+      "kind": "process_flow",
+      "title": "Ablauf des Hilfeplanverfahrens nach § 36 SGB VIII",
+      "subtitle": "Partizipative Steuerung von der ersten Beratung bis zur regelmäßigen Fortschreibung",
+      "centerLabel": "Hilfeplan § 36 SGB VIII",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": true,
       "items": [
         {
-          "badge": "Baustein 1",
-          "detail": "Konsequente Ausrichtung an den alltäglichen Lebenswelten, Bedürfnissen und Bewältigungsproblemen junger Menschen.",
-          "example": "Einbeziehung des Freundeskreises und der Freizeitszene in Gespräche.",
-          "id": "grid-1",
-          "label": "Lebensweltbezug",
-          "metric": "Kernprinzip",
-          "summary": "Orientierung an der subjektiven Wirklichkeit der Zielgruppe."
+          "id": "hp-1",
+          "badge": "Schritt 1",
+          "label": "Antrag & verständliche Beratung",
+          "metric": "§ 36 Abs. 1 SGB VIII",
+          "summary": "Sorgeberechtigte (bzw. junge Volljährige) stellen Antrag; umfassende, verständliche Aufklärung.",
+          "detail": "Jugendamt berät Eltern sowie Kind/Jugendliche über geeignete Hilfen, Beteiligungsrechte (§ 8 SGB VIII), Wunsch- und Wahlrecht (§ 5 SGB VIII) und mögliche Folgen.",
+          "example": "Gemeinsames Erstgespräch im Jugendamt in klarer Sprache (bei Bedarf mit Dolmetschung) zur Klärung der aktuellen familiären Belastung."
         },
         {
-          "badge": "Baustein 2",
-          "detail": "Stärkung der vorhandenen Stärken und Kompetenzen (Coping-Strategien) anstelle reiner Defizitorientierung.",
-          "example": "Aktivierung handwerklicher Interessen in einem Jugendbauprojekt.",
-          "id": "grid-2",
-          "label": "Ressourcenorientierung",
-          "metric": "Aktivierung",
-          "summary": "Fokus auf Potenziale und Selbsthilfekräfte der Klientel."
+          "id": "hp-2",
+          "badge": "Schritt 2",
+          "label": "Kollegiale Bedarfseinschätzung",
+          "metric": "§ 36 Abs. 2 SGB VIII",
+          "summary": "Entscheidung im Zusammenwirken mehrerer Fachkräfte bei längerfristigen Hilfen.",
+          "detail": "Statt Einzelentscheidung prüfen mehrere Fachkräfte gemeinsam mit Familie und jungem Menschen, welche Hilfeform oder Kombination passgenau, geeignet und notwendig ist.",
+          "example": "Fachberatung im Jugendamt empfiehlt zunächst SPFH (§ 31) kombiniert mit sozialer Gruppenarbeit (§ 29) statt sofortiger Fremdunterbringung."
         },
         {
-          "badge": "Baustein 3",
-          "detail": "Echtes Mitspracherecht bei Entscheidungen, Hilfeplänen und der Gestaltung von Angeboten (§ 8 SGB VIII).",
-          "example": "Bewohnerversammlung in der Wohngruppe entscheidet über Freizeitbudget.",
-          "id": "grid-3",
-          "label": "Partizipation",
-          "metric": "Mitbestimmung",
-          "summary": "Demokratische Teilhabe und Mitgestaltung von Lebensprozessen."
+          "id": "hp-3",
+          "badge": "Schritt 3",
+          "label": "Aufstellung des Hilfeplans",
+          "metric": "Ziele & Rollen",
+          "summary": "Schriftliche Festlegung von Bedarf, überprüfbaren Zielen, Hilfeart und Beteiligten.",
+          "detail": "Eltern, junger Mensch, Jugendamt und Leistungserbringer klären verbindlich, wer welche konkreten Aufgaben übernimmt und woran Fortschritte erkennbar sind.",
+          "example": "Festlegung konkreter Teilziele für Alltagsstruktur, schulische Unterstützung und Konfliktlösung im Hilfeplanprotokoll."
         },
         {
-          "badge": "Baustein 4",
-          "detail": "Enge Kooperation aller beteiligten Institutionen (Schule, Jugendamt, Gesundheitssystem, Träger).",
-          "example": "Runder Tisch zur schulischen Wiedereingliederung.",
-          "id": "grid-4",
-          "label": "Vernetzung",
-          "metric": "Kooperation",
-          "summary": "Schnittstellenübergreifendes Arbeiten im Sozialraum."
+          "id": "hp-4",
+          "badge": "Schritt 4",
+          "label": "Durchführung & Fortschreibung",
+          "metric": "Evaluation",
+          "summary": "Alltagsbegleitung und regelmäßige Überprüfung (i. d. R. halbjährlich) mit Anpassung oder Abschluss.",
+          "detail": "In der Hilfeplankonferenz wird gemeinsam überprüft, was gelungen ist, ob Ziele angepasst werden müssen oder wie ein gelingender Übergang in die Selbstständigkeit gestaltet wird.",
+          "example": "Nach sechs Monaten reduziert das Hilfeplangespräch die Wochenstunden der SPFH, weil die Familie stabile eigene Routinen aufgebaut hat."
         }
-      ],
+      ]
+    },
+    {
+      "id": "vb-3",
       "kind": "feature_grid",
-      "leftPole": "Theorie",
-      "rightPole": "Praxis",
-      "subtitle": "Zentrale Bausteine einer modernen, sozialraumorientierten Fachpraxis",
-      "title": "Bausteine professioneller Praxis"
+      "title": "Systematik der Hilfen zur Erziehung (§§ 28–35 SGB VIII)",
+      "subtitle": "Vom niedrigschwelligen ambulanten Angebot bis zur intensiven stationären Begleitung",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "hze-1",
+          "badge": "Ambulant · §§ 28–30",
+          "label": "Beratung, Gruppe & Beistand",
+          "metric": "Alltagsnah",
+          "summary": "Erziehungsberatung (§ 28), Soziale Gruppenarbeit (§ 29) und Erziehungsbeistand (§ 30).",
+          "detail": "Unterstützen Kinder, Jugendliche und Familien bei Entwicklungs- und Erziehungsproblemen unter vollständigem Erhalt des familiären Lebensbezugs.",
+          "example": "Ein Erziehungsbeistand (§ 30) begleitet einen 14-Jährigen wöchentlich bei Konflikten mit Schule und Eltern."
+        },
+        {
+          "id": "hze-2",
+          "badge": "Ambulant intensiv · § 31",
+          "label": "SPFH (Familienhilfe)",
+          "metric": "Aufsuchend",
+          "summary": "Intensive, aufsuchende Begleitung der gesamten Familie im häuslichen Alltag.",
+          "detail": "Stärkt Erziehungskompetenzen, Alltagsbewältigung, Konfliktlösung und Selbsthilfekräfte mit dem Ziel, den Verbleib der Kinder in der Familie zu sichern.",
+          "example": "Eine SPFH-Fachkraft unterstützt zweimal wöchentlich eine belastete Familie bei Strukturierung, Behördengängen und Eltern-Kind-Kommunikation."
+        },
+        {
+          "id": "hze-3",
+          "badge": "Teilstationär · § 32",
+          "label": "Erziehung in einer Tagesgruppe",
+          "metric": "Nachmittagsgruppe + Eltern",
+          "summary": "Soziales Lernen in der Gruppe, schulische Förderung und enge Elternarbeit.",
+          "detail": "Kinder kehren abends und am Wochenende in die Familie zurück; verbindet verlässliche Tagesstruktur mit kontinuierlicher Stärkung des Familiensystems.",
+          "example": "Ein 10-Jähriger besucht nach der Schule die Tagesgruppe mit Mittagessen, Lernbegleitung und wöchentlichen Familiengesprächen."
+        },
+        {
+          "id": "hze-4",
+          "badge": "Stationär / Individuell · §§ 33–35",
+          "label": "Pflege, Wohngruppe & ISE",
+          "metric": "Umfassende Begleitung",
+          "summary": "Vollzeitpflege (§ 33), Heimerziehung/betreute Wohnform (§ 34) und Intensive Einzelbetreuung (§ 35).",
+          "detail": "Wenn ein Verbleib in der Herkunftsfamilie (vorübergehend oder dauerhaft) nicht möglich ist oder Jugendliche hochintensive individuelle Begleitung zur Verselbstständigung benötigen.",
+          "example": "Eine 16-Jährige lebt in einer sozialpädagogischen Wohngruppe (§ 34) mit regelmäßigen Elternkontakten und Verselbstständigungstraining."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Jugendliche (14–18 Jahre) und junge Erwachsene bis 27 Jahre",
-    "context": "Eine kooperative Wohngruppe nach § 34 SGB VIII in Kombination mit sozialpädagogischer Familienhilfe (SPFH) und schulischer Inklusion für einen Jugendlichen mit Autismus-Spektrum-Störung.",
-    "setting": "Stationäre Jugendhilfe & Kooperation mit Schule und Jugendamt",
+    "title": "Zwischen Offenem Jugendtreff, Eingliederungshilfe und Hilfeplanung",
+    "setting": "Kommunaler Offener Jugendtreff (§ 11 SGB VIII) an der Schnittstelle zu Jugendamt und inklusiver Schule",
+    "ageGroup": "Jugendlicher (15 Jahre)",
+    "context": "Der 15-jährige Jonas hat eine diagnostizierte Autismus-Spektrum-Störung und ausgeprägte soziale Ängste. In seiner Regelschule kommt es wegen Lärm und unübersichtlicher Gruppenwechsel zunehmend zu Schulverweigerung; zu Hause eskalieren die Konflikte mit seinen erschöpften Eltern. Nur in den ruhigen Nachmittagsstunden besucht Jonas regelmäßig die kleine Werkstatt des Offenen Jugendtreffs und hat Vertrauen zu Fachkraft David aufgebaut.",
     "steps": [
       {
+        "situation": "In der Werkstatt vertraut Jonas David an, dass er sich in der Schule „wie gelähmt“ fühle und Angst habe, dass seine Eltern ihn „ins Heim abschieben“, wenn er weiter fehle. Er bittet David, „bloß nicht heimlich das Jugendamt anzurufen“.",
+        "prompt": "Wie handelt David in seiner Rolle als Fachkraft der Offenen Jugendarbeit (§ 11 SGB VIII) professionell?",
         "options": [
           {
-            "feedback": "Die Fachkraft agiert ausschließlich ordnungsrechtlich, ignoriert den Wunsch des Jugendlichen nach Partizipation und droht mit Sanktionen, was dem SGB VIII (Kinder- und Jugendhilfegesetz) und dem § 8 SGB VIII (Beteiligung) widerspricht.",
-            "label": "Sofortiger Schulverweis und strenger Heimarrest ohne Einbezug des Jugendlichen.",
-            "quality": "problematisch",
-            "theoryLink": "§ 8 SGB VIII (Beteiligung von Kindern und Jugendlichen); § 27 SGB VIII (Hilfe zur Erziehung)"
-          },
-          {
-            "feedback": "Die Fachkraft führt ein strukturiertes Konfliktgespräch unter Nutzung von Ich-Botschaften, hört die Perspektive des Jugendlichen an und plant gemeinsam mit ihm und der Schule konkrete Unterstützungsmaßnahmen (Inklusion und Deeskalation).",
-            "label": "Partizipatives Klärungsgespräch und gemeinsame Erarbeitung von Deeskalationsstrategien.",
+            "label": "David wahrt die Freiwilligkeit und Vertraulichkeit der OJA, nimmt Jonas’ Angst ernst, entkräftet das Schreckbild eines automatischen „Heimzwangs“, informiert ihn verständlich über passende Unterstützungsformen (z. B. Schulbegleitung/Eingliederungshilfe oder ambulante Familienunterstützung) und bietet an, ihn auf Wunsch zu einem gemeinsamen Gespräch mit Eltern und Jugendamt zu begleiten.",
             "quality": "optimal",
-            "theoryLink": "§ 8 & § 34 SGB VIII; Ansatz der Lebensweltorientierung nach Hans Thiersch"
+            "feedback": "Sehr professionell! David schützt den offenen, freiwilligen Vertrauensraum der OJA, stärkt Jonas’ Selbstbestimmung und baut eine transparente Brücke ins Hilfesystem, ohne über seinen Kopf hinweg zu handeln.",
+            "theoryLink": "Offene Jugendarbeit (§ 11 SGB VIII) als Vertrauens- und Brückenort; Partizipation (§ 8 SGB VIII)."
           },
           {
-            "feedback": "Die Fachkraft bricht die Betreuung ab und verweist den Jugendlichen direkt an die Erwachsenenpsychiatrie, ohne die Möglichkeiten der Jugendhilfe und Eingliederungshilfe auszuschöpfen.",
-            "label": "Abbruch der Jugendhilfemaßnahme und Verweisung an die Erwachsenenpsychiatrie.",
+            "label": "David hört freundlich zu, sagt Jonas aber, dass der Jugendtreff ausschließlich für Freizeit zuständig sei und schulische oder familiäre Probleme dort keinen Platz hätten.",
             "quality": "teilweise",
-            "theoryLink": "§ 35a SGB VIII (Eingliederungshilfe für seelisch behinderte Kinder und Jugendliche)"
+            "feedback": "Die Abgrenzung zur formalen Einzelfallhilfe ist im Grundsatz richtig, doch § 11 SGB VIII umfasst ausdrücklich auch schul- und familienbezogene Jugendarbeit sowie Jugendberatung — ein vollständiges Wegschieben lässt Jonas allein.",
+            "theoryLink": "Aufgabenspektrum der Jugendarbeit nach § 11 Abs. 3 SGB VIII (einschließlich Jugendberatung)."
+          },
+          {
+            "label": "David ruft noch am selben Abend ohne Jonas’ Wissen das Jugendamt und die Schulleitung an, um eine stationäre Unterbringung nach § 34 SGB VIII anzustoßen.",
+            "quality": "problematisch",
+            "feedback": "Das zerstört das gewachsene Vertrauen in der OJA, missachtet die Prinzipien Freiwilligkeit und Transparenz (§ 11 SGB VIII) und übergeht zudem, dass hier keine akute Kindeswohlgefährdung vorliegt, die ein heimliches Vorgehen rechtfertigen würde.",
+            "theoryLink": "Prinzipien der OJA (§ 11 SGB VIII: Freiwilligkeit, Vertrauen); Datenschutz und Vorrang transparenter Beteiligung (§ 8 SGB VIII)."
           }
-        ],
-        "prompt": "Ein 16-jähriger Jugendlicher in einer Wohngruppe verweigert zunehmend den Schulbesuch und zeigt massive Aggressionen im Klassenverband. Wie reagiert die pädagogische Fachkraft professionell im Sinne der Hilfen zur Erziehung und der Inklusion?",
-        "situation": "Krisenintervention bei Schulverweigerung in einer stationären Einrichtung der Kinder- und Jugendhilfe."
+        ]
       },
       {
+        "situation": "Zwei Wochen später sind Jonas und seine Eltern bereit, gemeinsam einen Termin beim Jugendamt wahrzunehmen. Dort soll geklärt werden, welche rechtlichen Ansprüche greifen und wie die Unterstützung gestaltet werden kann, damit Jonas in seiner Familie bleiben und wieder barriereärmer an der Schule teilhaben kann.",
+        "prompt": "Welche rechtliche Einordnung und Vorgehensweise im Hilfeplanverfahren ist fachlich zutreffend?",
         "options": [
           {
-            "feedback": "Die Eltern werden gänzlich aus der Hilfe herausgehalten, um Konflikte zu vermeiden, obwohl das SGB VIII eine partnerschaftliche Zusammenarbeit und den Schutz der Familie vorsieht.",
-            "label": "Ausschluss der Eltern aus dem Hilfeplanprozess zur Vermeidung von Reibungspunkten.",
+            "label": "Das Jugendamt schließt die Eltern aus der Hilfeplanung aus und ordnet verpflichtend eine vollstationäre Wohngruppe nach § 34 SGB VIII an, weil ambulante Hilfen bei Autismus grundsätzlich ungeeignet seien.",
             "quality": "problematisch",
-            "theoryLink": "§ 36 SGB VIII (Mitwirkung, Hilfeplan)"
+            "feedback": "Das widerspricht sowohl dem Erforderlichkeitsgrundsatz (§ 27 SGB VIII), dem Mitwirkungsrecht von Eltern und Jugendlichem (§ 36 SGB VIII) als auch dem inklusiven, personenzentrierten Teilhabeanspruch.",
+            "theoryLink": "Verstoß gegen Mitwirkung (§ 36 SGB VIII) und Bedarfsorientierung der Hilfen."
           },
           {
-            "feedback": "Die Fachkraft initiiert eine flexible, aufsuchende Unterstützung (SPFH), die Eltern und den Jugendlichen im häuslichen und sozialen Umfeld stärkt, ohne die familiären Bindungen zu kappen.",
-            "label": "Einbindung einer sozialpädagogischen Familienhilfe (SPFH) zur Stabilisierung des familiären Umfelds.",
+            "label": "Weil Autismus und soziale Ängste eine seelische Beeinträchtigung der Teilhabe betreffen können, wird die zweigliedrige Prüfung nach § 35a SGB VIII (fachärztliche/psychotherapeutische Stellungnahme > 6 Monate + sozialpädagogische Teilhabebeeinträchtigung) angestoßen — z. B. für eine Schulbegleitung — und bei Bedarf mit einer ambulanten Hilfe für die Familie (z. B. SPFH § 31 oder Erziehungsberatung § 28) in einem partizipativen Hilfeplanverfahren (§ 36 SGB VIII) unter aktiver Beteiligung von Jonas kombiniert.",
             "quality": "optimal",
-            "theoryLink": "§ 31 SGB VIII (Sozialpädagogische Familienhilfe); § 36 SGB VIII (Hilfeplanverfahren)"
+            "feedback": "Juristisch und fachlich punktgenau! Sie unterscheiden korrekt die Voraussetzungen von § 35a SGB VIII, nutzen die Kombinationsmöglichkeit mit ambulanten HzE (§ 27 Abs. 2 S. 3 SGB VIII) zum Erhalt der Familie und steuern alles transparent über § 36 SGB VIII mit Jonas als beteiligtem Subjekt.",
+            "theoryLink": "§ 35a SGB VIII (zweigliedrige Prüfung); § 27 Abs. 2 & § 31 SGB VIII; partizipative Hilfeplanung (§ 36 SGB VIII); UN-BRK."
           },
           {
-            "feedback": "Es wird lediglich ein standardisierter Erziehungsratgeber ausgehändigt, ohne auf die individuelle familiäre Lebenswelt und den sonderpädagogischen Förderbedarf einzugehen.",
-            "label": "Aushändigung von Standard-Erziehungsratgebern ohne Einzelfallprüfung.",
+            "label": "Da Jonas bereits 15 Jahre alt ist, verweist das Jugendamt die Familie pauschal auf einen Antrag auf Hilfe für junge Volljährige (§ 41 SGB VIII) in drei Jahren und händigt lediglich einen allgemeinen Ratgeber aus.",
             "quality": "teilweise",
-            "theoryLink": "BGB §§ 1626 ff. (Elterliche Sorge); RLP-Lehrplan Fachschule Sozialpädagogik"
+            "feedback": "§ 41 SGB VIII greift erst ab der Volljährigkeit (18 Jahre). Akute Teilhabe- und Erziehungsbedarfe eines 15-Jährigen müssen jetzt unmittelbar über §§ 35a, 27 ff. und 36 SGB VIII geprüft werden.",
+            "theoryLink": "Abgrenzung der Alters- und Anspruchsgrundlagen im SGB VIII (§§ 27, 35a vs. § 41)."
           }
-        ],
-        "prompt": "Nachdem die akute Krise bewältigt ist, muss die langfristige Perspektive im Rahmen des Hilfeplanverfahrens nach § 36 SGB VIII geklärt werden. Welche Maßnahme ist fachlich geboten?",
-        "situation": "Hilfeplanung und Vernetzung im Hilfesystem der Kinder- und Jugendhilfe."
+        ]
       }
-    ],
-    "title": "Krise und Teilhabe in der stationären Jugendhilfe und inklusiven Förderung"
+    ]
   },
   "selfLearningTasks": [
-    "Analysieren Sie einen Muster-Hilfeplan nach § 36 SGB VIII: Arbeiten Sie heraus, wie Hilfeziele formuliert, Ressourcen benannt und Erfolgskontrollen durchgeführt werden.",
-    "Entwickeln Sie ein Konzept für einen aufsuchenden Streetwork-Einsatz in einem fiktiven Sozialraum mit Schwerpunkt auf jugendlichen Cliquen im öffentlichen Raum.",
-    "Reflektieren Sie anhand eines Praxisbeispiels die Herausforderungen der inklusiven Beschulung und Wohnbetreuung eines jungen Erwachsenen mit Autismus an der Schnittstelle von SGB VIII und SGB IX."
+    "Erstellen Sie eine übersichtliche Prüf-Tabelle der Rechtsgrundlagen für fünf fiktive Fallvignetten (1. überforderte Alleinerziehende mit 6-jährigem Kind, 2. 13-Jährige mit schwerer Angststörung und Schulverweigerung, 3. 11-Jähriger mit körperlicher Behinderung benötigt Schulassistenz, 4. 19-Jähriger nach Wohngruppenende braucht weitere Verselbstständigungshilfe, 5. 15-Jährige suchen selbstverwalteten Proberaum) und ordnen Sie jeweils den exakten Paragraphen (SGB VIII / SGB IX) und Anspruchsinhaber zu.",
+    "Entwerfen Sie ein niedrigschwelliges, partizipatives Konzept für einen offenen Nachmittag in einem Jugendtreff (§ 11 SGB VIII), das ausdrücklich auch für Jugendliche mit sensorischen oder motorischen Einschränkungen barrierearm zugänglich ist.",
+    "Analysieren Sie anhand der Vorgaben des § 36 SGB VIII, welche konkreten Methoden Fachkräfte einsetzen können, damit Kinder und Jugendliche in einer Hilfeplankonferenz nicht nur formal anwesend sind, sondern wirklich wirksam mitgestalten können."
   ],
   "flashcards": [
     {
-      "definition": "Gesetzliche Grundlage im SGB VIII für Hilfe zur Erziehung in einer Wohngruppe oder sonstigen Wohnform für Minderjährige und junge Volljährige (§ 41 SGB VIII).",
-      "example": "Unterbringung eines 15-jährigen Jugendlichen in einer heilpädagogischen Wohngruppe nach § 34 SGB VIII.",
-      "term": "Hilfen zur Erziehung (HzE) nach § 34 SGB VIII"
+      "term": "Hilfen zur Erziehung (§§ 27–35 SGB VIII)",
+      "definition": "Rechtsanspruch der Personensorgeberechtigten auf geeignete und notwendige Erziehungshilfen, wenn eine dem Kindeswohl entsprechende Erziehung nicht gewährleistet ist. Umfasst ambulante (§§ 28–31), teilstationäre (§ 32) und stationäre/intensive Formen (§§ 33–35), die flexibel kombiniert werden können.",
+      "example": "Kombination aus Sozialpädagogischer Familienhilfe (§ 31) und Sozialer Gruppenarbeit (§ 29) zur Stabilisierung des Familienalltags."
     },
     {
-      "definition": "Niederschwelliger Ansatz der Jugendarbeit, der aufsuchend im Sozialraum arbeitet, dort wo sich Jugendliche aufhalten (Plätze, Straßen, Parks).",
-      "example": "Streetworker suchen den Bahnhofsvorplatz auf, um Kontakt zu obdachlosen oder szenegebundenen Jugendlichen aufzunehmen.",
-      "term": "Streetwork / Aufsuchende Jugendarbeit"
+      "term": "Hilfeplanverfahren (§ 36 SGB VIII)",
+      "definition": "Verbindliches, partizipatives Steuerungs- und Qualitätsverfahren bei längerfristigen Hilfen: verständliche Beratung und Aufklärung, kollegiale Entscheidung mehrerer Fachkräfte, gemeinsame Ziel- und Maßnahmenplanung sowie regelmäßige Überprüfung.",
+      "example": "Halbjährliche Hilfeplankonferenz mit Eltern, Jugendlichem, Jugendamt und Wohngruppen-Bezugsbetreuerin zur Auswertung und Anpassung der Ziele."
     },
     {
-      "definition": "Konzept von Hans Thiersch, das Alltagsorientierung, Prävention, Partizipation und die Bewältigung von Lebensbewältigungsproblemen in den Mittelpunkt stellt.",
-      "example": "Einrichtung eines Jugendtreffs, der sich an den echten Bedürfnissen und dem Sozialraum der Jugendlichen orientiert.",
-      "term": "Lebensweltorientierte Soziale Arbeit"
+      "term": "Hilfe für junge Volljährige (§ 41 SGB VIII)",
+      "definition": "Eigener Rechtsanspruch junger Volljähriger (ab 18 Jahren) auf geeignete und notwendige Unterstützung zur Persönlichkeitsentwicklung und selbstständigen Lebensführung — in der Regel bis zum 21. Lebensjahr, in begründeten Einzelfällen länger (erneute Gewährung möglich).",
+      "example": "Ein 19-Jähriger erhält nach dem Auszug aus der Wohngruppe eine betreute Wohnform und Unterstützung beim Ausbildungsstart."
     },
     {
-      "definition": "Rechtliche Grundlage in § 35a SGB VIII für Kinder und Jugendliche mit seelischer Behinderung oder drohender seelischer Behinderung zur Ermöglichung schulischer und gesellschaftlicher Teilhabe.",
-      "example": "Bewilligung einer Schulbegleitung für einen Jungen mit autistischer Beeinträchtigung.",
-      "term": "Eingliederungshilfe (§ 35a SGB VIII)"
+      "term": "Offene Kinder- und Jugendarbeit (§ 11 SGB VIII)",
+      "definition": "Pflichtaufgabe der Jugendhilfe für junge Menschen bis unter 27 Jahre nach den Prinzipien Offenheit, Freiwilligkeit, Partizipation, Lebensweltorientierung und inklusiver Zugänglichkeit für junge Menschen mit Behinderungen.",
+      "example": "Ein selbst mitgestalteter Jugendtreff ohne Mitgliedspflicht, in dem Jugendliche ein Musik- und Kreativprogramm eigenständig organisieren."
     },
     {
-      "definition": "Fachkraft-Ansatz im Rahmen des § 31 SGB VIII, der Familien intensiv im Alltag aufsuchend unterstützt, um Erziehungskompetenzen zu stärken und Fremdunterbringung zu verhindern.",
-      "example": "Eine SPFH-Fachkraft unterstützt eine überforderte Alleinerziehende wöchentlich bei der Strukturierung des Familienalltags.",
-      "term": "Sozialpädagogische Familienhilfe (SPFH)"
+      "term": "Eingliederungshilfe nach § 35a SGB VIII",
+      "definition": "Eigener Rechtsanspruch von Kindern und Jugendlichen gegenüber dem Jugendamt bei seelischer (oder drohender seelischer) Behinderung. Erfordert eine zweigliedrige Prüfung: (1) Abweichung der seelischen Gesundheit voraussichtlich > 6 Monate UND (2) Beeinträchtigung bzw. Bedrohung der gesellschaftlichen Teilhabe.",
+      "example": "Bewilligung einer individuellen Schulbegleitung für eine 12-Jährige mit diagnostizierter schwerer Angststörung und Teilhabeeinschränkung."
     },
     {
-      "definition": "Zentrales Steuerungsinstrument des Jugendamtes nach § 36 SGB VIII, das gemeinsam mit Sorgeberechtigten, Jugendlichen und Leistungserbringern den Hilfebedarf und Ziele festlegt.",
-      "example": "Regelmäßige Hilfeplankonferenz alle sechs Monate zur Überprüfung des stationären Jugendhilfe-Verlaufs.",
-      "term": "Hilfeplanverfahren (§ 36 SGB VIII)"
+      "term": "Eingliederungshilfe nach SGB IX (§§ 90, 99 SGB IX / § 10 Abs. 4 SGB VIII)",
+      "definition": "Personenzentrierte Teilhabeleistungen für Menschen mit wesentlichen körperlichen oder geistigen (bzw. drohenden) Behinderungen; gehen gemäß § 10 Abs. 4 S. 2 SGB VIII vorrangig vor dem SGB VIII und folgen dem bio-psycho-sozialen Modell der UN-BRK.",
+      "example": "Assistenzleistung und Kommunikationshilfen zur gleichberechtigten Teilhabe an Schule und Freizeit für ein Kind mit körperlicher Behinderung."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "basis",
-      "explanation": "Das SGB VIII (Kinder- und Jugendhilfegesetz) regelt in den §§ 27 ff. die Hilfen zur Erziehung, während das SGB XII die Sozialhilfe und das SGB V die Krankenversicherung betrifft.",
-      "id": "quiz-1",
-      "options": [
-        "A) SGB XII (Sozialhilfe)",
-        "B) SGB VIII (Kinder- und Jugendhilfe)",
-        "C) SGB IX (Rehabilitation und Teilhabe)",
-        "D) SGB XI (Soziale Pflegeversicherung)"
-      ],
-      "question": "Welches Sozialgesetzbuch (SGB) bildet die primäre rechtliche Grundlage für die Hilfen zur Erziehung (HzE) in Deutschland?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        0,
-        2,
-        3
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "vertiefung",
-      "explanation": "Freiwilligkeit, Niederschwelligkeit und Sozialraumorientierung sind absolute Wesensmerkmale der Offenen Jugendarbeit. Leistungserbringung im Rahmen hoheitlicher Schulpflicht gehört hingegen nicht dazu.",
-      "id": "quiz-2",
+      "question": "Wer ist im Regelfall der rechtliche Anspruchsinhaber bei einer Hilfe zur Erziehung nach § 27 SGB VIII im Unterschied zur Eingliederungshilfe nach § 35a SGB VIII?",
       "options": [
-        "A) Freiwilligkeit der Teilnahme",
-        "B) Schulische Anwesenheitspflicht als Grundprinzip",
-        "C) Sozialraum- und Lebensweltorientierung",
-        "D) Niederschwellige Zugänge und Partizipation"
+        "Bei § 27 SGB VIII sind die Personensorgeberechtigten Anspruchsinhaber, während bei § 35a SGB VIII das Kind bzw. der oder die Jugendliche selbst Anspruchsinhaber ist.",
+        "Bei beiden Paragraphen ist ausschließlich die jeweilige Schule antragsberechtigt.",
+        "Bei § 27 SGB VIII ist immer das Kind allein Anspruchsinhaber, bei § 35a SGB VIII ausschließlich das Landesjugendamt.",
+        "Bei beiden Paragraphen besteht kein Rechtsanspruch, sondern lediglich eine freiwillige Ermessensleistung."
       ],
-      "question": "Welche Prinzipien sind fundamentale Kennzeichen der Offenen Jugendarbeit (OJA)? (Mehrere Antworten sind richtig)",
-      "type": "multi"
-    },
-    {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Nach § 35a SGB VIII haben Kinder und Jugendliche bei seelischen Behinderungen oder drohenden seelischen Behinderungen Anspruch auf Eingliederungshilfe, um Teilhabe zu sichern.",
-      "id": "quiz-3",
-      "options": [
-        "A) § 27 SGB VIII (Allgemeine Erziehungshilfe)",
-        "B) § 34 SGB VIII (Heimerziehung, sonstige betreute Wohnform)",
-        "C) § 35a SGB VIII (Eingliederungshilfe für seelisch behinderte Kinder und Jugendliche)",
-        "D) § 41 SGB VIII (Hilfe für junge Volljährige)"
-      ],
-      "question": "Ein 12-jähriger Schüler zeigt massive psychische Auffälligkeiten und sozialen Rückzug, wodurch seine Teilhabe am Leben in der Gesellschaft gefährdet ist. Welche Rechtsgrundlage greift primär für eine spezialisierte Eingliederungshilfe?",
-      "type": "case"
-    },
-    {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "basis",
-      "explanation": "Das Hilfeplanverfahren nach § 36 SGB VIII ist das verbindliche multiprofessionelle Steuerungsinstrument, das Jugendamt, Sorgeberechtigte und Leistungserbringer zusammenbringt.",
-      "id": "quiz-4",
-      "options": [
-        "A) Der individuelle Schulzeugnis-Index",
-        "B) Das Hilfeplanverfahren nach § 36 SGB VIII",
-        "C) Die amtsärztliche Begutachtung nach Bundesbesoldungsgesetz",
-        "D) Der Jugendrichterbeschluss im Strafverfahren"
-      ],
-      "question": "Wie wird die kontinuierliche Qualitätssicherung und Zielüberprüfung einer HzE-Maßnahme im Jugendamt rechtlich und fachlich gesteuert?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
         0
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Hans Thiersch ist der Begründer des einflussreichen Konzepts der „Lebensweltorientierten Sozialen Arbeit“, das besonders für die Offene Jugendarbeit prägend ist.",
-      "id": "quiz-5",
-      "options": [
-        "A) Hans Thiersch",
-        "B) Maria Montessori",
-        "C) Jean Piaget",
-        "D) Lev Vygotsky"
-      ],
-      "question": "Welcher Sozialpädagoge hat das theoretische Konzept der „Lebensweltorientierten Sozialen Arbeit“ maßgeblich geprägt?",
-      "type": "single"
+      "explanation": "Ein wichtiger juristischer Unterschied im SGB VIII: Nach § 27 Abs. 1 SGB VIII haben die Personensorgeberechtigten den Anspruch auf Hilfe zur Erziehung; nach § 35a Abs. 1 SGB VIII sind Kinder und Jugendliche selbst anspruchsberechtigt (bei § 41 die jungen Volljährigen)."
     },
     {
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "pruefung",
+      "question": "Welche beiden Voraussetzungen müssen für eine Eingliederungshilfe nach § 35a SGB VIII gemeinsam geprüft werden (zweigliedrige Prüfung)?",
+      "options": [
+        "Ein Nachweis über niedriges Familieneinkommen und der Besuch einer Förderschule.",
+        "Eine körperliche Behinderung und ein Mindestalter von 14 Jahren.",
+        "Ein vorheriger erfolgloser Aufenthalt in einer stationären Wohngruppe nach § 34 SGB VIII.",
+        "Eine voraussichtlich länger als sechs Monate bestehende Abweichung der seelischen Gesundheit vom alterstypischen Zustand (fachärztlich/psychotherapeutisch) UND eine dadurch bedingte oder zu erwartende Beeinträchtigung der gesellschaftlichen Teilhabe (Jugendamt)."
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "§ 35a Abs. 1 SGB VIII verlangt zwingend beide Schritte: erstens die medizinisch-psychotherapeutische Feststellung einer länger als sechs Monate andauernden Abweichung der seelischen Gesundheit und zweitens die sozialpädagogische Feststellung der Teilhabebeeinträchtigung."
+    },
+    {
+      "id": "v2-q3",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Ein 9-jähriges Kind mit einer angeborenen körperlichen Behinderung (ohne seelische Behinderung) benötigt für den Besuch der Regelschule eine personenzentrierte Schulassistenz. Welcher Rechtskreis ist nach § 10 Abs. 4 S. 2 SGB VIII vorrangig zuständig?",
+      "options": [
+        "Ausschließlich § 35a SGB VIII beim Jugendamt.",
+        "Die Eingliederungshilfe nach dem SGB IX (§§ 90, 99 SGB IX), da Leistungen für junge Menschen mit körperlicher oder geistiger Behinderung vorrangig im SGB IX geregelt sind.",
+        "Die Offene Kinder- und Jugendarbeit nach § 11 SGB VIII.",
+        "Die Sozialpädagogische Familienhilfe nach § 31 SGB VIII."
+      ],
       "correctIndices": [
         1
       ],
-      "difficulty": "pruefung",
-      "explanation": "Der stationäre Rahmen einer Wohngruppe nach § 34 SGB VIII bietet einen verlässlichen, rund um die Uhr betreuten Rahmen, während SPFH aufsuchend in der Herkunftsfamilie arbeitet und OJA freiwillig ist.",
-      "id": "quiz-6",
+      "explanation": "Gemäß § 10 Abs. 4 S. 2 SGB VIII gehen Leistungen der Eingliederungshilfe nach dem SGB IX für junge Menschen mit körperlicher oder geistiger Behinderung den Leistungen des SGB VIII vor, während § 35a SGB VIII seelische Behinderungen abdeckt."
+    },
+    {
+      "id": "v2-q4",
+      "type": "multi",
+      "difficulty": "basis",
+      "question": "Welche drei Strukturprinzipien kennzeichnen die Offene Kinder- und Jugendarbeit (OJA) nach § 11 SGB VIII? (Wählen Sie drei Antworten)",
       "options": [
-        "A) Sozialpädagogische Familienhilfe (SPFH nach § 31 SGB VIII)",
-        "B) Heimerziehung / Wohngruppe (§ 34 SGB VIII)",
-        "C) Offene Jugendarbeit im Jugendtreff",
-        "D) Schulische Inklusion in der Regelschule"
+        "Offenheit und Niederschwelligkeit ohne verpflichtende Mitgliedschaft.",
+        "Freiwilligkeit der Teilnahme und des Engagements.",
+        "Partizipation, Anknüpfen an Interessen junger Menschen und inklusiver Zugang auch für junge Menschen mit Behinderungen.",
+        "Hoheitliche Anwesenheitspflicht und schulische Leistungsbenotung."
       ],
-      "question": "In welcher stationären Hilfeform der Kinder- und Jugendhilfe leben Kinder und Jugendliche rund um die Uhr in einer Wohngruppe mit multiprofessionellem Team?",
-      "type": "single"
+      "correctIndices": [
+        0,
+        1,
+        2
+      ],
+      "explanation": "Offenheit, Freiwilligkeit, Mitbestimmung/Partizipation sowie die gesetzlich verankerte Zugänglichkeit für junge Menschen mit Behinderungen (§ 11 Abs. 1 S. 3 SGB VIII) bilden den Kern der Offenen Kinder- und Jugendarbeit."
+    },
+    {
+      "id": "v2-q5",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Bis zu welchem Alter wird Hilfe für junge Volljährige nach § 41 Abs. 1 SGB VIII im Regelfall gewährt?",
+      "options": [
+        "Ausschließlich bis zur Vollendung des 18. Lebensjahres ohne Verlängerungsmöglichkeit.",
+        "In der Regel bis zur Vollendung des 21. Lebensjahres; in begründeten Einzelfällen soll sie für einen begrenzten Zeitraum darüber hinaus fortgesetzt werden (auch erneute Gewährung ist möglich).",
+        "Pauschal und bedingungslos bis zum 30. Lebensjahr.",
+        "Nur für Jugendliche unter 16 Jahren in Begleitung ihrer Eltern."
+      ],
+      "correctIndices": [
+        1
+      ],
+      "explanation": "§ 41 Abs. 1 SGB VIII gewährt jungen Volljährigen ab 18 Jahren einen eigenen Anspruch — im Regelfall bis zum 21. Lebensjahr, in begründeten Einzelfällen darüber hinaus; zudem schließt eine vorherige Beendigung eine erneute Bewilligung nicht aus."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche beiden gesetzlichen Anforderungen gelten für das Hilfeplanverfahren nach § 36 SGB VIII? (Wählen Sie zwei Antworten)",
+      "options": [
+        "Das Kind oder der Jugendliche darf aus Schutzgründen erst ab dem 18. Lebensjahr am Hilfeplangespräch beteiligt werden.",
+        "Ein einmal aufgestellter Hilfeplan bleibt unverändert bis zur Volljährigkeit gültig.",
+        "Sorgeberechtigte sowie Kind oder Jugendlicher sind vorab verständlich, nachvollziehbar und wahrnehmbar zu beraten und auf mögliche Folgen hinzuweisen.",
+        "Bei längerfristigen Hilfen soll die Entscheidung über die geeignete Hilfeart im Zusammenwirken mehrerer Fachkräfte getroffen und regelmäßig überprüft werden."
+      ],
+      "correctIndices": [
+        2,
+        3
+      ],
+      "explanation": "§ 36 SGB VIII sichert verständliche Beratung und Aufklärung (Abs. 1), kollegiale Fachlichkeit im Zusammenwirken mehrerer Fachkräfte (Abs. 2), aktive Beteiligung von Familie und jungem Menschen sowie regelmäßige Überprüfung und Anpassung."
+    }
+  ],
+  "sources": [
+    {
+      "title": "SGB VIII § 11 – Jugendarbeit",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__11.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Gesetzliche Grundlage für Offene Kinder- und Jugendarbeit, Mitbestimmung, Selbstbestimmung und inklusiven Zugang."
+    },
+    {
+      "title": "SGB VIII § 27 – Hilfe zur Erziehung",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__27.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Anspruchsvoraussetzungen, Anspruchsinhaber und Verweis auf die Hilfearten (§§ 28–35 SGB VIII) sowie deren Kombinierbarkeit."
+    },
+    {
+      "title": "SGB VIII § 35a – Eingliederungshilfe für Kinder und Jugendliche mit seelischer Behinderung",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__35a.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Gesetzliche Regelung der zweigliedrigen Prüfung bei seelischer oder drohender seelischer Behinderung."
+    },
+    {
+      "title": "SGB VIII § 36 – Mitwirkung, Hilfeplan",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__36.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Verbindliche Standards für verständliche Beratung, kollegiale Entscheidung, Partizipation und regelmäßige Überprüfung."
+    },
+    {
+      "title": "SGB IX § 99 – Leistungsberechtigung in der Eingliederungshilfe",
+      "url": "https://www.gesetze-im-internet.de/sgb_9_2018/__99.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Leistungsberechtigung der Eingliederungshilfe nach SGB IX (relevant bei körperlichen/geistigen Behinderungen gem. § 10 Abs. 4 SGB VIII)."
+    },
+    {
+      "title": "Jugendarbeit und Jugendsozialarbeit in Rheinland-Pfalz (Landesjugendamt)",
+      "url": "https://lsjv.rlp.de/themen/kinder-jugend-und-familie/jugendarbeit-und-jugendsozialarbeit",
+      "publisher": "Landesamt für Soziales, Jugend und Versorgung Rheinland-Pfalz (LSJV)",
+      "note": "Fachberatung, Qualitätsstandards und Förderstrukturen der Jugendarbeit in Rheinland-Pfalz."
+    },
+    {
+      "title": "Offene Kinder- und Jugendarbeit (Fachlexikon)",
+      "url": "https://www.socialnet.de/lexikon/Offene-Kinder-und-Jugendarbeit",
+      "publisher": "socialnet Lexikon",
+      "note": "Wissenschaftliche Darstellung der Prinzipien, Handlungsformen und aktuellen Herausforderungen der OJA."
     }
   ]
 }

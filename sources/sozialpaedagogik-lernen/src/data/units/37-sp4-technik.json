@@ -4,390 +4,442 @@
   "moduleCode": "S-SP-4",
   "moduleArea": "sp-pflicht",
   "bildungsbereich": "Technik",
-  "title": "Bildungsbereich: Technik, Konstruktion & Werkstattpädagogik",
-  "subtitle": "Reibung, Hebelgesetze, Gleichgewicht, Werkzeugkompetenz & Technikfolgen-BNE",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-4 · Bildungsbereich Technik, Konstruktion & Werkstattpädagogik (Lehrplan RLP 2024)",
+  "title": "Bildungsbereich: Technik, Konstruktion & Kinderwerkstatt",
+  "subtitle": "Statik & Konstruktion, Hebel/Rollen/Reibung, echte Werkzeuge & Sicherheit in der Werkstatt, Technik im Alltag & BNE",
   "year": "2./3. Jahr",
   "estimatedMinutes": 25,
   "hoursRef": "680 Std. (Bildungsbereich)",
   "pdfPages": "S. 36",
   "crossCuttingTags": [
     "BNE",
-    "Digitale Welt"
+    "Partizipation",
+    "Sprachbildung"
   ],
-  "summary": "Einheit 37 verknüpft technische Grundlagen, physikalische Phänomene und Werkstattpädagogik mit dem rheinland-pfälzischen Lehrplan für Erzieher:innen. Studierende lernen, technische Potenziale in der kindlichen Lebenswelt zu erkennen, physikalische Prinzipien anschaulich zu vermitteln und den Funktionsraum Werkstatt sicher sowie im Sinne einer Bildung für nachhaltige Entwicklung (BNE) zu gestalten.",
+  "summary": "Technik ist für Kinder kein abstraktes Spezialfach, sondern tägliche Erfahrung – vom Reißverschluss und Fahrrad bis zur Brücke aus Holzklötzen. Diese Einheit vermittelt technische Denk- und Handlungsweisen (Entwerfen, Konstruieren, Optimieren), physikalisch-technische Prinzipien wie Statik, Hebel, Rollen und Reibung, den sicheren und kompetenzfördernden Aufbau einer Kinderwerkstatt mit echten Werkzeugen sowie die Verbindung zu Nachhaltigkeit (Reparieren statt Wegwerfen).",
   "learningGoals": [
-    "Ich kann technische Phänomene und Anwendungen in der Lebenswelt von Kindern und Jugendlichen identifizieren und alltagsintegriert aufgreifen.",
-    "Ich kann grundlegende physikalische Prinzipien (Reibung, Hebelgesetze, Gleichgewicht) anschaulich und altersangemessen vermitteln.",
-    "Ich kann einen sicheren Funktionsraum „Werkstatt“ konzipieren, einrichten und pädagogisch begleiten.",
-    "Ich kann Werkzeugkompetenz bei Kindern durch methodisch geführte Handhabung und klare Sicherheitsregeln aufbauen.",
-    "Ich kann Fragen einer Bildung für nachhaltige Entwicklung (BNE) – wie Reparieren statt Wegwerfen – in technische Bildungsprozesse einbeziehen.",
-    "Ich kann meine eigene Technikaffinität sowie meine Rolle als Lernbegleitung im technischen Bildungsprozess kritisch reflektieren."
+    "Ich kann technische Bildung (Problemlösen durch Entwerfen, Konstruieren und Optimieren) von reinem Technik-Konsum abgrenzen und technische Alltagsphänomene als Bildungsanlässe aufgreifen.",
+    "Ich kann grundlegende physikalisch-technische Prinzipien (Statik/Stabilität, Hebel, Rollen/Flaschenzug, schiefe Ebene und Reibung) handelnd und kindgerecht erfahrbar machen.",
+    "Ich kann eine Kinderwerkstatt ergonomisch, sicher und pädagogisch sinnvoll einrichten sowie Kinder schrittweise an echte, kindgerechte Werkzeuge und verbindliche Sicherheitsregeln heranführen.",
+    "Ich kann Fragen der Technikfolgen und Bildung für nachhaltige Entwicklung (z. B. Reparieren statt Wegwerfen, Zerlegen und Verstehen, Ressourcenschonung) konkret in technische Projekte einbinden.",
+    "Ich kann meine eigene Technikbiografie und geschlechtsbezogene Rollenbilder reflektieren, um allen Kindern chancengerechte Konstruktions- und Werkstatterfahrungen zu eröffnen."
   ],
   "sections": [
     {
-      "body": "Der Bildungsbereich Technik im Lehrplan Rheinland-Pfalz (S-SP-4) zielt darauf ab, angehende Erzieher:innen zu befähigen, technische Phänomene in der Lebenswelt von Kindern und Jugendlichen als Bildungsanlässe zu erkennen. Technik ist keineswegs auf komplexe Maschinen oder digitale High-Tech-Anwendungen reduziert, sondern umfasst elementare Mechanik, Werkzeuge, Konstruktionen und alltägliche Problemlösungen. Fachkräfte müssen eigene Technikvorbehalte reflektieren, um Kindern unvoreingenommen und neugierig Raum für haptische Welterkundung zu bieten.",
+      "heading": "Technik im Alltag verstehen & technische Denk- und Handlungsweisen",
+      "keyTakeaway": "Während Naturwissenschaft fragt „Warum geschieht das?“, fragt Technik: „Wie bauen, verbessern oder reparieren wir etwas, um ein Problem zu lösen?“",
+      "body": "Kinder sind täglich von Technik umgeben – längst nicht nur von Smartphones, sondern von Türschlössern, Wasserhähnen, Reißverschlüssen, Scheren, Schubkarren, Fahrrädern, Ampeln und Brücken. Technische Bildung (u. a. fundiert durch die Stiftung Kinder forschen) zielt darauf ab, diese vertraute Umwelt zu „entzaubern“ und begreifbar zu machen: Wie hält ein Knoten? Warum treibt die Fahrradkette das Hinterrad an? Wie bauen wir eine Murmelbahn, aus der die Kugel in der Kurve nicht herausfliegt? Dabei üben Kinder charakteristische technische Denk- und Handlungsweisen: (1) ein technisches Problem oder Ziel im Alltag erkennen; (2) Ideen entwerfen und skizzieren; (3) geeignete Materialien und Verbindungstechniken auswählen (Stecken, Kleben, Binden, Schrauben, Nageln); (4) konstruieren und praktisch erproben; (5) Schwachstellen analysieren, optimieren und die Lösung reflektieren. Wie im naturwissenschaftlichen Bereich gilt auch hier eine gendersensible, biografisch reflektierte Haltung: Eigene Unsicherheiten gegenüber Handwerk oder Mechanik dürfen nicht dazu führen, Kindern diesen Erfahrungsraum vorzuenthalten oder Werkzeugangebote unbewusst stärker an Jungen zu adressieren.",
       "bulletPoints": [
-        "Technik als elementarer Bestandteil der kindlichen Erfahrungswelt (Kinder fragen „Wie funktioniert das?“).",
-        "Überwindung von geschlechtsspezifischen Rollenklischees im Technik- und Handwerksbereich.",
-        "Verbindung von technischem Verstehen mit naturwissenschaftlichem Forschen und sozialem Lernen."
+        "Technik im Alltag: Einfache, greifbare Alltagsgegenstände (Türgriff, Fahrrad, Wippe, Zange, Schloss) gemeinsam erkunden.",
+        "Technische Denk- und Handlungsweisen: Problem erkennen → Entwerfen → Konstruieren → Testen → Optimieren.",
+        "Verbindungstechniken: Kinder entdecken den Unterschied zwischen Kleben, Binden, Stecken, Nageln und Schrauben.",
+        "Gendersensible Haltung: Eigene Technikbiografie reflektieren und Kinder aller Geschlechter gleichermaßen ermutigen."
       ],
-      "heading": "1. Grundlagen der Technikpädagogik & Lebensweltbezug",
-      "keyTakeaway": "Technische Bildung beginnt in der Lebenswelt: Kinder erforschen Technik handelnd, begreifend und staunend.",
-      "praxisTip": "Führen Sie einen „Technik-Spaziergang“ durch das Sozialraumumfeld der Kita durch und fotografieren Sie mit den Kindern technische Alltagsphänomene (Ampeln, Fahrräder, Wasserhähne)."
+      "praxisTip": "Machen Sie mit einer Kleingruppe einen „Wie-funktioniert-das?“-Rundgang durch Haus und Garten (Türscharnier, Türklinke, Fahrradklingel, Gartentor-Riegel) und lassen Sie die Kinder skizzieren, was sie beobachten."
     },
     {
-      "body": "Physikalische Grundprinzipien wie Reibung, Hebelgesetze und Gleichgewicht bilden das Fundament technischen Verständnisses. Kinder erleben Reibung beim Rutschen oder Schleifen, Hebelgesetze auf der Wippe oder mit einer Zange und Gleichgewicht beim Stapeln und Brückenbauen. Die Aufgabe pädagogischer Fachkräfte besteht darin, diese Körpererfahrungen sprachlich zu begleiten, Hypothesen anzuregen und durch gezielte Materialien (Flaschenzüge, Zahnräder, Holzklötze) vertiefende Experimente zu ermöglichen.",
+      "heading": "Konstruktion, Statik, Hebel, Rollen & Reibung handelnd begreifen",
+      "keyTakeaway": "Schwerpunkt, Dreiecksverstrebung, Hebel und Rollen werden nicht über Formeln gelehrt, sondern beim Bauen, Heben und Ausprobieren unmittelbar gespürt.",
+      "body": "Hinter kindlichem Konstruieren und Bewegen wirken klassische physikalisch-technische Prinzipien, die sich ohne abstrakte Rechnungen handelnd erschließen lassen. Im Bereich Statik und Konstruktion entdecken Kinder beim Turm- und Brückenbau, dass eine breite Standfläche und ein niedriger Schwerpunkt Stabilität geben, dass gefaltetes Papier (Zickzack-/Wellprofil) viel mehr Gewicht trägt als ein flaches Blatt und dass Dreiecksverstrebungen (Fachwerk) Rahmen stabilisieren, während bloße Vierecke seitlich wegkippen. Bei einfachen Maschinen erleben Kinder Kraftwandlung direkt am eigenen Körper: Ein Hebel (Wippe, Schubkarre, Nussknacker, Zange, Brechstange) spart Kraft, je länger der Kraftarm im Verhältnis zum Lastarm ist („Mit dem langen Brett hebe ich sogar den schweren Stein!“). Eine Umlenkrolle oder ein Flaschenzug im Garten ändert die Zugrichtung oder halbiert die nötige Zugkraft beim Hochziehen eines Sandeimers. Eine schiefe Ebene (Rampe) erleichtert das Hochschieben schwerer Lasten. Und bei der Reibung (Haft-, Gleit- und Rollreibung) spüren Kinder unmittelbar, warum geschliffenes Holz warm wird, warum Räder leichter rollen als eckige Klötze rutschen und warum Profilsohlen auf nassem Boden vor dem Ausrutschen schützen.",
       "bulletPoints": [
-        "Reibung: Wechselwirkung von Oberflächen (Haft-, Gleit- und Rollreibung).",
-        "Hebelgesetze: Kraftarm und Lastarm im praktischen Einsatz (z. B. Schubkarre, Nussknacker).",
-        "Gleichgewicht & Statik: Schwerpunktverlagerung und stabiles Bauen."
+        "Statik & Konstruktion: Breite Basis, Schwerpunkt, Papier-Faltprofile, Bogen- und Dreiecksverstrebungen erproben.",
+        "Hebel (Kraftarm vs. Lastarm): Erfahrungen an Wippe, Schubkarre, Zange, Schere und selbst gebauter Balkenwaage.",
+        "Rollen, Flaschenzug & schiefe Ebene: Kraft sparen und Zugrichtung ändern beim Transportieren und Bauen.",
+        "Reibung (Haft-, Gleit-, Rollreibung): Wärme beim Schleifen, Lauf von Rädern und Rutschfestigkeit verschiedener Oberflächen testen."
       ],
-      "heading": "2. Physikalische Prinzipien anschaulich machen",
-      "keyTakeaway": "Physik wird durch haptisches Experimentieren mit einfachen Maschinen für Kinder begreifbar.",
-      "praxisTip": "Bauen Sie mit Kindern eine überdimensionale Balkenwaage aus einem Holzbrett und einem Pflasterstein, um Gewichte und Hebelverhältnisse direkt zu spüren."
+      "praxisTip": "Testen Sie mit Kindern die „Papierbrücken-Challenge“: Wie viele Bauklötze trägt ein flaches Blatt Papier zwischen zwei Stützen – und wie viele trägt dasselbe Blatt, wenn es wie eine Ziehharmonika gefaltet wird?"
     },
     {
-      "body": "Der Funktionsraum „Werkstatt“ ist ein zentraler Lernort in sozialpädagogischen Einrichtungen. Er erfordert eine klare Raumdidaktik: kindgerechte Arbeitshöhen, übersichtlich geordnete Werkzeuge (Sägen, Feilen, Zangen, Bohrer), feste Sicherheitsregeln („Schutzbrille auf“, „Nicht rennen mit der Säge“) und eine Kultur der Fehlerfreundlichkeit. Ergänzend fordert der Lehrplan eine Verbindung zur Bildung für nachhaltige Entwicklung (BNE): Durch „Reparieren statt Wegwerfen“ erleben Kinder Selbstwirksamkeit und Ressourcenschonung.",
+      "heading": "Die Kinderwerkstatt: Echte Werkzeuge, Sicherheit & Begleitung",
+      "keyTakeaway": "Echte, kindgerechte Werkzeuge und klare Sicherheitsregeln sind sicherer und bildungsreicher als stumpfes Plastik-Spielzeugwerkzeug.",
+      "body": "Eine gut eingerichtete Kinderwerkstatt bietet unschätzbare motorische, kognitive und selbstwirksame Erfahrungen – vorausgesetzt, Ausstattung und Begleitung sind professionell durchdacht. Ein häufiger Irrtum in der Praxis ist der Griff zu billigem „Kinder-Spielzeugwerkzeug“: Stumpfe Sägen, wackelige Hämmer oder schlecht schließende Zangen rutschen ab, frustrieren Kinder und erhöhen sogar das Verletzungsrisiko. Besser sind echte, qualitativ gute, ergonomisch kleinere Handwerkzeuge (kurzer Schlosserhammer mit gut greifbarem Stiel, kleine Feinsäge/Fuchsschwanz, Handbohrer/Drillbohrer, Raspel, Feile, Kombizange, Schraubenzieher, Schleifklotz) an einer stabilen, auf Kinderhöhe angepassten Werkbank. Für die Sicherheit (im Rahmen der Gefährdungsbeurteilung gemäß DGUV / Unfallkasse Rheinland-Pfalz) gelten verbindliche Grundregeln, die partizipativ eingeführt und z. B. über einen „Werkstattführerschein“ geübt werden: (1) Werkstücke beim Sägen, Bohren und Raspeln immer fest mit Schraubzwingen oder im Schraubstock einspannen – niemals mit der anderen Hand direkt neben dem Sägeblatt festhalten! (2) Schutzbrille tragen beim Hämmern, Sägen und Bohren; geschlossene Schuhe, keine losen Kordeln/offenen langen Haare. (3) Begrenzte Kinderzahl pro Werkbank (z. B. 2–4 Kinder), feste Fachkraftpräsenz und klare Arbeitsabstände. (4) Übersichtliche Werkzeugwand mit Umrisszeichnungen: Jedes Werkzeug hat einen festen Platz, wird sauber zurückgelegt und regelmäßig auf Schäden geprüft.",
       "bulletPoints": [
-        "Ergonomische und sichere Raum- und Materialausstattung der Werkstatt.",
-        "Erarbeitung verbindlicher Sicherheitsregeln gemeinsam mit den Kindern.",
-        "BNE-Ansatz: Reparieren, Upcycling und nachhaltiger Materialeinsatz."
+        "Echtes, kindgerechtes Werkzeug: Ergonomisch passend, scharf und gut gewartet statt frustrierendem Plastikwerkzeug.",
+        "Zentrale Sicherheitsregel: Werkstück immer mit Schraubzwinge oder Schraubstock fixieren – freie Hand weg von Säge und Bohrer!",
+        "Schutz & Organisation: Schutzbrille, geschlossene Schuhe, begrenzte Gruppengröße, enge Begleitung und klare Werkzeugordnung.",
+        "Rechtssichere Basis: Einbindung in die Gefährdungsbeurteilung der Einrichtung (DGUV / Unfallkasse RLP) und schrittweise Einführung („Werkstattführerschein“)."
       ],
-      "heading": "3. Der Funktionsraum „Werkstatt“ & Technikfolgen-BNE",
-      "keyTakeaway": "Sicherheit und Kreativität gehen Hand in Hand: Eine gut ausgestattete Werkstatt fördert Handeln und Nachhaltigkeit.",
-      "praxisTip": "Richten Sie eine „Reparatur-Ecke“ in der Werkstatt ein, in der kaputtes Holzspielzeug oder wackelige Stühle gemeinsam mit Kindern wieder instand gesetzt werden."
+      "praxisTip": "Üben Sie das erste Hämmern sicher mit weichem Holz (z. B. Fichte/Pappel) oder einem Stück Styrodur/Kork und einer kleinen Wäscheklammer als „Nagelhalter“ – so bleiben Kinderfinger zuverlässig geschützt."
+    },
+    {
+      "heading": "Technikfolgen & Nachhaltigkeit (BNE): Reparieren statt Wegwerfen",
+      "keyTakeaway": "Wer kaputtes Spielzeug selbst repariert oder alte Alltagsgeräte zerlegt, entwickelt Technikmündigkeit und Wertschätzung für Ressourcen.",
+      "body": "Technische Bildung bleibt unvollständig, wenn sie nicht nach den Folgen von Technik für Umwelt und Gesellschaft fragt (Bildung für nachhaltige Entwicklung – BNE). Im Alltag wachsen Kinder häufig in einer Wegwerfkultur auf: Wenn ein Plastikspielzeug bricht oder eine Batterie leer ist, landet es rasch im Müll. Eine pädagogische Kinderwerkstatt setzt dem gezielt eine Kultur der Reparatur, Langlebigkeit und Ressourcenschonung entgegen: In einer „Reparatur-Ecke“ werden gelockerte Stuhlschrauben nachgezogen, abgebrochene Holzräder neu verleimt oder gerissene Stofftaschen geflickt. Ebenfalls enorm bildungsreich ist das begleitete „Auseinanderbauen“ (Tüftel- und Zerlegewerkstatt) geeigneter, ausrangierter mechanischer Alltagsgegenstände (z. B. alte mechanische Wecker, Tastaturen, Spieluhren, Fahrradklingeln – unbedingt vorab durch Fachkräfte auf Gefahren prüfen: keine Netzstecker, keine Akkus/Batterien, keine scharfen Glas- oder Kondensatorbauteile!). Kinder entdecken Zahnräder, Federn und Schrauben, verstehen, wie viele Rohstoffe und Arbeit in einem Gerät stecken, und nutzen gesammelte Alltagsmaterialien (Karton, Papprollen, Flaschendeckel, Holzreste) kreativ für eigene Erfindungen (Upcycling).",
+      "bulletPoints": [
+        "Reparaturkultur: Kaputtes Holzspielzeug, Bücher oder kleine Alltagsdinge gemeinsam instand setzen statt sofort neu kaufen.",
+        "Zerlege-Werkstatt (geprüft & sicher): Ausrangierte, gefahrlose mechanische Geräte öffnen und ihr Innenleben (Zahnräder, Federn) erforschen.",
+        "Upcycling & Materialbewusstsein: Mit Alltags- und Restmaterialien konstruieren und über Herkunft sowie Lebensdauer von Produkten sprechen.",
+        "Technikmündigkeit: Chancen und ökologische Grenzen von Technik altersangemessen im Gespräch reflektieren."
+      ],
+      "praxisTip": "Stellen Sie eine beschriftete „Krankenhaus-Kiste für kaputtes Spielzeug“ in der Werkstatt auf – einmal pro Woche prüfen die Kinder gemeinsam mit Ihnen, was sich mit Leim, Schrauben oder Klebeband wieder heilen lässt."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Technische Bildung in der Kita",
       "id": "vb-1",
+      "kind": "feature_grid",
+      "title": "Vier physikalisch-technische Prinzipien zum Anfassen",
+      "subtitle": "Wie Kinder Statik, Hebel, Rollen und Reibung im Alltag handelnd entdecken",
+      "centerLabel": "Technik-Prinzipien",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Baustein 1",
-          "detail": "Erfassen der unmittelbaren Lebenswelt von Kindern, um technische Anwendungen (Fahrräder, Wasserhähne, Alltagsgeräte) als Bildungsanlässe zu nutzen.",
-          "example": "Kinder untersuchen den Wasserkran im Waschraum auf seine Mischbatterie.",
-          "id": "item-1",
-          "label": "Lebenswelt & Alltag",
-          "metric": "Basis",
-          "summary": "Technik dort abholen, wo Kinder ihr täglich begegnen."
+          "id": "t-1",
+          "badge": "Prinzip 1",
+          "label": "Statik & Konstruktion",
+          "metric": "Stabilität",
+          "summary": "Standfläche, Schwerpunkt, Faltprofile und Dreiecksverstrebungen machen Bauten tragfähig.",
+          "detail": "Beim Turm-, Brücken- und Budenbau erfahren Kinder unmittelbar, warum breite Fundamente und diagonale Streben ein Wegkippen verhindern.",
+          "example": "Ein wackeliger Holzrahmen wird stabil, sobald Kinder eine schräge Holzleiste diagonal (Dreieck) anschrauben."
         },
         {
-          "badge": "Baustein 2",
-          "detail": "Erleben von Reibung, Hebelgesetzen und Statik durch direktes haptisches Experimentieren und Bauen.",
-          "example": "Eine Wippe im Garten wird zum physikalischen Hebel-Versuch.",
-          "id": "item-2",
-          "label": "Physikalische Prinzipien",
-          "metric": "Kernprinzip",
-          "summary": "Naturgesetze greifbar und verständlich machen."
+          "id": "t-2",
+          "badge": "Prinzip 2",
+          "label": "Hebelgesetze",
+          "metric": "Kraft sparen",
+          "summary": "Je länger der Kraftarm zum Drehpunkt, desto weniger Kraft braucht man für schwere Lasten.",
+          "detail": "Kinder erleben ein- und zweiseitige Hebel ganz körperlich ohne abstrakte Gleichungen.",
+          "example": "Auf der Wippe balanciert ein leichtes Kind ein schwereres Kind aus, wenn das schwerere näher zur Mitte rutscht."
         },
         {
-          "badge": "Baustein 3",
-          "detail": "Professioneller Umgang mit Werkzeugen (Säge, Hammer, Zange) unter Beachtung verbindlicher Sicherheits- und Unfallverhütungsregeln.",
-          "example": "Einführung des Werkstattführers für die Holzarbeit.",
-          "id": "item-3",
-          "label": "Werkzeugkompetenz",
-          "metric": "Sicherheit",
-          "summary": "Handwerkliches Können sicher aufbauen."
+          "id": "t-3",
+          "badge": "Prinzip 3",
+          "label": "Rollen, Flaschenzug & Rampe",
+          "metric": "Kraftwandlung",
+          "summary": "Umlenkrollen ändern die Zugrichtung; Flaschenzüge und schiefe Ebenen verringern den Kraftaufwand.",
+          "detail": "Ideal für das Außengelände und den Baubereich: Kinder lösen reale Transportprobleme im Team.",
+          "example": "Mit einer stabil befestigten Umlenkrolle am Spielturm ziehen Kinder Sandeimer senkrecht nach oben."
         },
         {
-          "badge": "Baustein 4",
-          "detail": "Kritische Reflexion von Technikfolgen, Ressourcenschonung und Reparaturkultur im Sinne einer nachhaltigen Entwicklung.",
-          "example": "Defekte Holzfahrzeuge werden gemeinsam repariert.",
-          "id": "item-4",
-          "label": "Technikfolgen-BNE",
-          "metric": "Zukunft",
-          "summary": "Nachhaltiges und verantwortungsvolles Handeln stärken."
+          "id": "t-4",
+          "badge": "Prinzip 4",
+          "label": "Reibung",
+          "metric": "Haft · Gleit · Roll",
+          "summary": "Oberflächen bremsen oder erleichtern Bewegung – und Reibung erzeugt spürbare Wärme.",
+          "detail": "Vergleich verschiedener Untergründe (Teppich, Holz, Sandpapier) und der Wirkung von Rädern/Achsen.",
+          "example": "Ein beladener Karton rutscht schwer über Teppich, rollt aber auf runden Holzstäben oder Rollen spielend leicht."
         }
-      ],
-      "kind": "feature_grid",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Vier zentrale Säulen der technischen Bildung in der Fachschule Sozialpädagogik",
-      "title": "Säulen der technischen Bildung"
+      ]
     },
     {
-      "centerLabel": "",
       "id": "vb-2",
+      "kind": "process_flow",
+      "title": "Technische Denk- und Handlungsweisen (Technikkreis)",
+      "subtitle": "Vom praktischen Alltagsproblem zur erprobten und verbesserten Konstruktion",
+      "centerLabel": "Konstruieren",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": true,
       "items": [
         {
+          "id": "tk-1",
           "badge": "Schritt 1",
-          "detail": "Aufgreifen von Kinderfragen oder Beobachtung technischer Phänomene im Alltag der Einrichtung.",
-          "example": "Ein Kind fragt: „Warum rollt das Auto schief?“",
-          "id": "p-1",
-          "label": "Phänomen entdecken",
-          "metric": "Start",
-          "summary": "Beobachten und Staunen als Ausgangspunkt."
+          "label": "Technisches Problem erkennen",
+          "metric": "Aufgabe",
+          "summary": "Ein konkretes Bedürfnis oder ein Defekt im Alltag stößt die Frage an.",
+          "detail": "Ausgangspunkt ist ein praktisches Ziel, das für die Kinder unmittelbar sinnvoll und motivierend ist.",
+          "example": "„Wie können wir Kastanien vom Kletterpodest sicher nach unten transportieren, ohne sie zu werfen?“"
         },
         {
+          "id": "tk-2",
           "badge": "Schritt 2",
-          "detail": "Gemeinsames Formulieren von Vermutungen und ersten Lösungsansätzen (Hypothesenbildung).",
-          "example": "Die Achse klemmt, weil Schmutz in der Reibungsfläche ist.",
-          "id": "p-2",
-          "label": "Hypothese aufstellen",
-          "metric": "Denken",
-          "summary": "Vermutungen über Wirkungsweisen anstellen."
+          "label": "Ideen entwerfen & planen",
+          "metric": "Entwurf",
+          "summary": "Kinder sammeln Lösungsideen, zeichnen einfache Skizzen und wählen Material aus.",
+          "detail": "Unterschiedliche Entwürfe (z. B. Rinne aus Papprollen vs. Seilbahn mit Eimer) werden verglichen.",
+          "example": "Die Gruppe entscheidet sich für einen Eimer an einer Schnur über eine Umlenkrolle."
         },
         {
-          "badge": "Schrtitt 3",
-          "detail": "Praktisches Konstruieren, Experimentieren und Ausprobieren in der Werkstatt.",
-          "example": "Kinder ölen die Achse und testen den Lauf erneut.",
-          "id": "p-3",
-          "label": "Konstruieren & Erproben",
-          "metric": "Handeln",
-          "summary": "Technische Lösung praktisch umsetzen."
+          "id": "tk-3",
+          "badge": "Schritt 3",
+          "label": "Bauen & Ausprobieren",
+          "metric": "Konstruktion",
+          "summary": "Werkzeuge, Verbindungstechniken und Materialien werden sicher und praktisch eingesetzt.",
+          "detail": "Beim ersten Test zeigen sich sofort reale Schwachstellen (z. B. Schnur verheddert sich oder Eimer kippt).",
+          "example": "Beim Hochziehen schlägt der volle Eimer gegen den Pfosten und schüttet Kastanien aus."
         },
         {
+          "id": "tk-4",
           "badge": "Schritt 4",
-          "detail": "Reflexion der Ergebnisse, Dokumentation und Übertragung auf andere Alltagssituationen.",
-          "example": "Die Kinder erklären anderen den Zusammenhang von Reibung und Öl.",
-          "id": "p-4",
-          "label": "Reflektieren & Sichern",
-          "metric": "Lernen",
-          "summary": "Erkenntnisse sichern und teilen."
+          "label": "Optimieren & Reflektieren",
+          "metric": "Weiterentwickeln",
+          "summary": "Schwachstellen werden gemeinsam analysiert, verbessert und im Gespräch gesichert.",
+          "detail": "Kinder erleben Fehler als produktiven Bestandteil jeder technischen Erfindung und sichern ihre Erkenntnis.",
+          "example": "Die Kinder befestigen die Rolle an einem überstehenden Holzarm – jetzt hängt der Eimer frei und funktioniert!"
         }
-      ],
-      "kind": "process_flow",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Der technischer Forschungskreis in der Praxis (angelehnt an den PDCA-Zyklus)",
-      "title": "Technischer Forschungskreis"
+      ]
     },
     {
-      "centerLabel": "",
       "id": "vb-3",
+      "kind": "feature_grid",
+      "title": "Sicherheits- und Qualitätsstandards in der Kinderwerkstatt",
+      "subtitle": "Handlungssicherheit durch echte Werkzeuge, klare Regeln und Gefährdungsbeurteilung",
+      "centerLabel": "Kinderwerkstatt",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Ansatz A",
-          "detail": "Kinder erhalten fertige Plastikbausätze ohne eigene Gestaltungsmöglichkeit; Fokus liegt auf schnellem Konsum.",
-          "example": "Fertiges ferngesteuertes Plastikauto auspacken und spielen.",
-          "id": "c-1",
-          "label": "Reiner Technik-Konsum",
-          "metric": "Traditionell",
-          "summary": "Passives Nutzen vorgefertigter Technikprodukte."
+          "id": "w-1",
+          "badge": "Regel 1",
+          "label": "Fixieren mit Schraubzwinge",
+          "metric": "Handschutz",
+          "summary": "Holz beim Sägen, Bohren und Feilen immer fest einspannen – nie neben dem Blatt festhalten.",
+          "detail": "Die wichtigste Einzelregel zur Vermeidung von Schnitt- und Abrutschverletzungen in der Kinderwerkstatt.",
+          "example": "Vor dem ersten Sägeschnitt prüfen Kind und Fachkraft gemeinsam: „Sitzt die Zwinge richtig fest?“"
         },
         {
-          "badge": "Ansatz B",
-          "detail": "Fachkräfte verbieten Technik und Werkzeuge aus Sicherheitsgründen vollständig und setzen auf reine Naturpädagogik ohne Werkzeuge.",
-          "example": "Keine Nutzung von Werkzeugen in der Naturkita.",
-          "id": "c-2",
-          "label": "Technikfeindliche Haltung",
-          "metric": "Restriktiv",
-          "summary": "Vollständiger Ausschluss technischer Welterfahrung."
+          "id": "w-2",
+          "badge": "Regel 2",
+          "label": "Echtes, gewartetes Kinderwerkzeug",
+          "metric": "Ergonomie",
+          "summary": "Passende Griffgröße und scharfe, intakte Werkzeuge statt unsicherem Spielzeugwerkzeug.",
+          "detail": "Scharfe Feinsägen und passende Hämmer erfordern weniger unkontrollierte Gewalt und ermöglichen saubere Erfolge.",
+          "example": "Übersichtliche Werkzeugwand mit aufgemalten Schattenrissen für Hammer, Säge, Zange, Handbohrer und Feile."
         },
         {
-          "badge": "Ansatz C",
-          "detail": "Alltagsintegrierte technische Bildung: Haptisches Konstruieren, physikalisches Forschen, Werkzeugkompetenz und BNE-Reflexion im ständigen Dialog.",
-          "example": "Bau einer eigenen Seilbahn aus Alltagsmaterialien mit Reparatur-Option.",
-          "id": "c-3",
-          "label": "Kompetenzorientierte Technikbildung",
-          "metric": "Professionell",
-          "summary": "Ganzheitliche, nachhaltige und handlungsorientierte Bildung."
+          "id": "w-3",
+          "badge": "Regel 3",
+          "label": "Schutzausrüstung & Kleingruppe",
+          "metric": "Rahmen",
+          "summary": "Schutzbrille, feste Schuhe, zusammengebundene Haare, begrenzte Kinderzahl und Präsenz.",
+          "detail": "Klare Arbeitsbereiche und eine überschaubare Kleingruppe (ca. 2–4 Kinder) sichern ruhiges, konzentriertes Arbeiten.",
+          "example": "Ein kleiner „Werkstattführerschein“ dokumentiert, welche Werkzeuge ein Kind bereits sicher eingeführt bekommen hat."
+        },
+        {
+          "id": "w-4",
+          "badge": "Regel 4",
+          "label": "Reparieren & sicheres Zerlegen (BNE)",
+          "metric": "Nachhaltigkeit",
+          "summary": "Defektes Spielzeug instand setzen und nur vorab geprüfte, strom-/gefahrstofffreie Geräte zerlegen.",
+          "detail": "Elektrogeräte mit Netzspannung, Akkus, Batterien oder Glasröhren sind tabu; rein mechanische Geräte sind sicher erkundbar.",
+          "example": "Gemeinsames Reparieren eines wackeligen Holzautos und Erforschen einer alten mechanischen Fahrradklingel."
         }
-      ],
-      "kind": "comparison",
-      "leftPole": "Reiner Technik-Konsum",
-      "rightPole": "Kompetenzorientierte Technikbildung",
-      "subtitle": "Gegenüberstellung pädagogischer Ansätze im Bildungsbereich Technik",
-      "title": "Technikpädagogische Ansätze im Vergleich"
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "4-6 Jahre (Kita / Vorschule)",
-    "context": "In der städtischen Kindertagesstätte „Kleine Entdecker“ soll der alte Werkraum zu einem sicheren, pädagogisch wertvollen Funktionsraum „Werkstatt“ umgestaltet werden. Gleichzeitig beobachten Fachkräfte, dass Kinder im Alltag häufig Plastikspielzeug konsumieren, während Natur- und Alltagsmaterialien (Karton, Holzreste, Röhren) kaum noch selbst konstruktiv bespielt werden. Fachkraft Lea (im Anerkennungsjahr) plant ein Projekt zum Thema „Brücken bauen & Hebelgesetze“ sowie die Einführung eines Werkstattführers.",
-    "setting": "Städtische Kindertagesstätte mit offenem Konzept und integriertem Hortbereich",
+    "title": "Aufbau der neuen Kinderwerkstatt: Zwischen Sicherheit, Werkzeugkompetenz und BNE",
+    "setting": "Werkraum einer Kindertagesstätte mit gemischter Altersgruppe und angeschlossenem Hort",
+    "ageGroup": "4–8 Jahre (Kita / Hort)",
+    "context": "Ihre Einrichtung richtet eine kleine Kinderwerkstatt mit Werkbank, weichem Holz und Handwerkzeugen ein. Zwei Kolleginnen haben gegensätzliche Bedenken: Kollegin A schlägt vor, aus Angst vor Verletzungen ausschließlich stumpfe Plastik-Werkzeuge aus dem Spielzeugladen anzuschaffen. Kollegin B möchte hingegen eine Kiste alter Elektro-Toaster und Haartrockner mit Netzkabel zum freien Auseinanderschrauben bereitstellen. Gleichzeitig möchte der fünfjährige Paul unbedingt allein eine Holzleiste durchsägen und hält sie dabei mit der linken Hand direkt neben dem Sägeblatt fest.",
     "steps": [
       {
+        "situation": "Paul setzt die Säge an einer losen Holzleiste an, während seine Finger nur wenige Zentimeter neben dem Sägeblatt liegen.",
+        "prompt": "Wie reagieren Sie unmittelbar bei Paul und wie klären Sie die Werkzeug- und Sicherheitsstandards im Team?",
         "options": [
           {
-            "feedback": "Richtig! Lea verbindet physikalische Grundlagen (Hebelgesetz, Gleichgewicht) direkt mit dem kindlichen Forscherdrang. Durch partizipative Erarbeitung von Werkstattregeln und den Fokus auf Reparieren statt Wegwerfen (BNE) fördert sie sowohl Werkzeugkompetenz als auch nachhaltiges Denken alltagsintegriert.",
-            "label": "Lea führt einen „Werkstattführerschein“ ein, erarbeitet mit den Kindern Sicherheitsregeln, stellt Alltagsmaterialien für Konstruktionen zur Verfügung und greift physikalische Phänomene (wie das Hebelgesetz beim Holzzangenbau) spielerisch auf.",
-            "quality": "optimal",
-            "theoryLink": "Lehrplan RLP S-SP-4 (Bildungsbereich Technik: Technische Grundkenntnisse, Werkzeugkompetenz, BNE, alltagsintegrierte Bildung)"
-          },
-          {
-            "feedback": "Problematisch. Ohne Einweisung in Werkzeugkompetenz und Sicherheitsregeln steigt das Verletzungsrisiko massiv; zudem verkommt die Werkstatt zum reinen Bastelraum ohne physikalischen Erkenntnisgewinn oder BNE-Bezug.",
-            "label": "Lea stellt den Kindern uneingeschränkt schwere Werkzeuge (Sägen, Hämmer) ohne Einführung zur Verfügung und lässt sie unbeaufsichtigt in der unaufgeräumten Rumpelkammer werkeln.",
-            "quality": "problematisch",
-            "theoryLink": "Sicherheitsvorschriften und Aufsichtspflicht im Funktionsraum Werkstatt (Unfallkasse / RLP-Lehrplan)"
-          },
-          {
-            "feedback": "Teilweise geeignet. Das Freispiel ist wichtig, aber ohne gezielte Fachkraftbegleitung und physikalische Lernimpulse bleiben Potenziale ungenutzt und der Bildungsbereich Technik wird vernachlässigt.",
-            "label": "Lea schließt die alte Werkstatt komplett ab und bietet stattdessen ausschließlich digitale Tablets mit Konstruktions-Apps an, da dies zeitgemäßer erscheint.",
+            "label": "Sie nehmen Paul die Säge sofort dauerhaft weg und erklären, dass Kinder unter sechs Jahren aus Sicherheitsgründen noch nicht sägen dürfen.",
             "quality": "teilweise",
-            "theoryLink": "Digitale Welt vs. haptisch-dingliche Welterfahrung im Bildungsbereich Technik (RLP S-SP-4)"
+            "feedback": "Zu restriktiv: Die akute Gefährdung wird zwar gestoppt, aber pauschale Verbote verhindern den Aufbau von Werkzeug- und Sicherheitskompetenz – Paul braucht Anleitung, kein Verbot.",
+            "theoryLink": "Werkzeugkompetenz & Risikoabwägung statt Überbehütung"
+          },
+          {
+            "label": "Sie lassen Paul einfach weitersägen, weil Kinder durch kleine Verletzungen am nachhaltigsten lernen, vorsichtig zu sein.",
+            "quality": "problematisch",
+            "feedback": "Unverantwortlich und aufsichtspflichtwidrig: Ein ungesichertes Werkstück mit Fingern unmittelbar am Sägeblatt ist eine klare, vermeidbare Verletzungsgefahr und darf niemals toleriert werden.",
+            "theoryLink": "Aufsichtspflicht & Abgrenzung von objektiver Gefahr vs. kalkulierbarem Risiko"
+          },
+          {
+            "label": "Sie stoppen den Schnitt ruhig, erklären Paul kurz das Risiko für die Finger, spannen die Holzleiste gemeinsam fest mit einer Schraubzwinge ein, prüfen Schutzbrille und Stand – und begründen im Team auf Basis der Gefährdungsbeurteilung (DGUV/UK RLP), warum echte, kindgerechte Handwerkzeuge mit klaren Regeln sicherer sind als stumpfes Plastikwerkzeug.",
+            "quality": "optimal",
+            "feedback": "Fachlich absolut überzeugend: Sie sichern Paul sofort ohne Schreck oder Beschämung, vermitteln die zentrale Werkstattregel (Schraubzwinge statt festhaltender Hand!) handelnd und verbinden Sicherheit, Werkzeugkompetenz und Gefährdungsbeurteilung nachvollziehbar fürs Team.",
+            "theoryLink": "Werkstattpädagogik & Sicherheitsregeln (Schraubzwinge/Schutzbrille); Gefährdungsbeurteilung (DGUV / UK RLP)"
           }
-        ],
-        "prompt": "Wie gestaltet Lea die Einführung des Funktionsraums „Werkstatt“ und die Begleitung der konstruktiven Aktivitäten?",
-        "situation": "Einführung und Konzeption des Funktionsraums Werkstatt sowie Planung technischer Angebote."
+        ]
       },
       {
+        "situation": "Im Team steht die Entscheidung über die „Zerlege- und Reparaturecke“ an, einschließlich des Vorschlags von Kollegin B zu alten Elektrogeräten mit Netzkabel.",
+        "prompt": "Wie gestalten Sie den BNE- und Technik-Schwerpunkt sicher und bildungsreich?",
         "options": [
           {
-            "feedback": "Optimal. Durch die Reflexion der eigenen Technikbiografie und den bewussten Einsatz von Alltagsreparaturen (BNE) fördert Lea eine kritische Technikmündigkeit bei den Kindern und vermeidet ein rein konsumorientiertes Technikverständnis.",
-            "label": "Lea reflektiert mit ihrem Team kritisch die eigene Technikaffinität, integriert das Thema „Reparieren von kaputten Holzspielsachen“ als BNE-Projekt mit den Kindern und thematisiert den ressourcenschonenden Umgang mit Materialien.",
-            "quality": "optimal",
-            "theoryLink": "Bildung für nachhaltige Entwicklung (BNE) & Reflexion der eigenen Rolle im Bildungsprozess (RLP S-SP-4)"
-          },
-          {
-            "feedback": "Problematisch. Technikfeindliche Haltungen schränken den Bildungsauftrag ein und versäumen es, Kinder auf eine technisierte Lebenswelt vorzubereiten.",
-            "label": "Lea lehnt jeglichen Technik- und Werkzeugeinsatz ab, weil sie Technik grundsätzlich als umweltschädlich und gefährlich für Kleinkinder erachtet.",
+            "label": "Sie stellen die alten Toaster und Haartrockner nach Abschneiden der Stecker einfach frei in den Gruppenraum, damit alle Kinder selbstständig daran schrauben können.",
             "quality": "problematisch",
-            "theoryLink": "Technikfeindliche Pädagogik vs. kompetenzorientierter Bildungsauftrag (RLP S-SP-4)"
+            "feedback": "Gefährlich: Alte Elektrogeräte können scharfe Blechkanten, Glas-/Heizdrähte, schadstoffhaltige Bauteile oder geladene Kondensatoren enthalten und gehören nicht ungeprüft in Kinderhände.",
+            "theoryLink": "Gefährdungsbeurteilung und Gefahrstoff-/Unfallschutz in der Kinderwerkstatt"
           },
           {
-            "feedback": "Teilweise geeignet. Ein reiner Appell greift zu kurz; ohne konkrete Handlungserfahrung (Reparieren, Konstruieren) bleibt Nachhaltigkeit abstrakt.",
-            "label": "Lea hängt lediglich ein Plakat mit der Aufschrift „Energiesparen und Müll vermeiden“ an die Wand, ohne praktische Auseinandersetzung mit Werkzeugen oder Reparaturen.",
+            "label": "Sie lehnen nicht geprüfte Elektrogeräte mit Netzstecker, Kondensatoren oder Akkus klar aus Sicherheitsgründen ab, bauen aber stattdessen gemeinsam eine „Reparatur-Ecke“ für kaputtes Holzspielzeug sowie eine geprüfte Zerlege-Kiste mit gefahrlosen rein mechanischen Gegenständen (z. B. Fahrradklingel, mechanischer Wecker, Schloss) auf.",
+            "quality": "optimal",
+            "feedback": "Hervorragend: Sie verbinden konsequenten Unfall- und Gefahrstoffschutz mit maximalem Bildungswert – Kinder begreifen Zahnräder, Hebel und Federn an sicheren mechanischen Objekten und erleben durch Reparieren gelebte Nachhaltigkeit (BNE).",
+            "theoryLink": "Technikfolgen & BNE (Reparieren statt Wegwerfen); Sicherheitsprüfung in der Zerlege-Werkstatt"
+          },
+          {
+            "label": "Sie schlagen vor, ausschließlich neue Fertig-Bastelbausätze aus dem Katalog zu bestellen, weil gebrauchtes Material in Kitas hygienisch und sicherheitstechnisch ungeeignet sei.",
             "quality": "teilweise",
-            "theoryLink": "Kognitiv reduzierter BNE-Ansatz ohne handlungsorientierte Technikbildung"
+            "feedback": "Verschenkt das BNE- und Technikpotenzial: Fertig-Bausätze schränken eigenes Konstruieren ein und widersprechen dem Grundgedanken von Ressourcenschonung und Reparaturkultur.",
+            "theoryLink": "Technik-Konsum vs. kompetenzorientierte Technikbildung & BNE"
           }
-        ],
-        "prompt": "Wie verknüpft Lea den Technik-Schwerpunkt mit Fragen der Nachhaltigkeit (BNE) und ihrer eigenen Haltung?",
-        "situation": "Reflexion von Technikfolgen, Nachhaltigkeit und eigener Haltung im Team."
+        ]
       }
-    ],
-    "title": "Von der Rumpelkammer zur Zukunftswerkstatt: Konstruktion, Physik und BNE in der Kita"
+    ]
   },
   "selfLearningTasks": [
-    "1. **Technik-Biografie-Analyse**: Reflektieren Sie schriftlich Ihre eigene Beziehung zu Technik und Handwerk (Kindheitserinnerungen, Ängste, positive Erlebnisse) und leiten Sie daraus ab, wie Sie Ihre Haltung professionell im Team und mit Kindern gestalten möchten.",
-    "2. **Konzeptskizze Funktionsraum Werkstatt**: Entwerfen Sie einen Grundriss und eine Ausstattungsliste für eine Kita-Werkstatt (Zonierung: Lager, Holzbearbeitung, Kreativ- und Reparierecke) unter Berücksichtigung von Unfallverhütungsvorschriften (UVV).",
-    "3. **BNE-Projektidee „Reparatur-Werkstatt“**: Planen Sie ein konkretes Kleingruppenprojekt mit Kindern, bei dem ausrangierte Alltagsgegenstände (z. B. Pappkartons, ausgediente Kleingeräte) zerlegt, erforscht oder repariert werden."
+    "Entwerfen Sie eine konkrete Sicherheits- und Ausstattungsskizze für eine Kinderwerkstatt (oder mobile Werkbank) in Ihrer Einrichtung: Welche Werkzeuge sind für Ihre Zielgruppe sinnvoll, welche verbindlichen Regeln (inkl. Bildkarten für Kinder) gelten, und wie wird die Werkzeugordnung gesichert?",
+    "Planen und erproben Sie mit einer Kleingruppe eine alltagsnahe Konstruktionsaufgabe zu Statik, Hebel oder Rolle (z. B. Papierbrücke, Flaschenzug im Garten, Balkenwaage) entlang des Technikkreises und dokumentieren Sie, wie die Kinder ihre Konstruktion nach dem ersten Test verbessert haben.",
+    "Starten Sie eine kleine „Reparatur-Inventur“ in Ihrer Gruppe: Welche zwei bis drei leicht beschädigten Spielsachen oder Alltagsgegenstände lassen sich sicher gemeinsam mit Kindern reparieren – und welche Gespräche über Nachhaltigkeit (BNE) knüpfen daran an?"
   ],
   "flashcards": [
     {
-      "definition": "Fähigkeit, Werkzeuge und Materialien sicher, zweckmäßig und handlungskompetent zur Problemlösung und Gestaltung in der Lebenswelt einzusetzen.",
-      "example": "Kinder lernen den fachgerechten Umgang mit Feile, Hammer und Handbohrer im geschützten Werkstattrahmen.",
-      "term": "Werkzeugkompetenz"
+      "term": "Technische Denk- und Handlungsweisen (Technikkreis)",
+      "definition": "Methodischer Prozess technischen Problemlösens: praktisches Problem erkennen → Lösung entwerfen/planen → mit geeigneten Materialien und Verbindungstechniken konstruieren → testen → Schwachstellen optimieren und reflektieren.",
+      "example": "Kinder bauen eine Murmelbahn, testen den Lauf, verstärken eine wackelige Kurve und probieren erneut."
     },
     {
-      "definition": "Didaktisches Prinzip, technische Phänomene und Konstruktionsprozesse unmittelbar in den alltäglichen Lebens- und Spielzusammenhang von Kindern zu integrieren.",
-      "example": "Das Bauen einer funktionsfähigen Murmelbahn aus Papprollen zur Untersuchung von Reibung und Schwerkraft im Flur.",
-      "term": "Alltagsintegrierte technische Bildung"
+      "term": "Statik & Dreiecksverstrebung",
+      "definition": "Lehre vom Gleichgewicht und der Stabilität von Bauwerken: Breite Standflächen, niedriger Schwerpunkt, Faltprofile (z. B. Wellpappe/Ziehharmonika) und diagonale Dreiecksverstrebungen verhindern Einknicken und Umkippen.",
+      "example": "Ein wackeliger rechteckiger Holzrahmen wird sofort stabil, sobald eine diagonale Leiste eingeschraubt wird."
     },
     {
-      "definition": "Bildungskonzept, das Lernende befähigt, zukunftsfähig zu denken und zu handeln und die Auswirkungen technischen Handelns auf Umwelt und Gesellschaft kritisch zu reflektieren.",
-      "example": "Kaputtes Holzspielzeug gemeinsam in der Werkstatt reparieren („Reparieren statt Wegwerfen“) statt neu zu kaufen.",
-      "term": "Technikfolgen-BNE"
+      "term": "Hebelgesetz im Alltag",
+      "definition": "Prinzip einfacher Maschinen (Kraft × Kraftarm = Last × Lastarm): Durch Verlängern des Kraftarms lässt sich mit geringerer Kraft eine größere Last bewegen oder heben.",
+      "example": "Schubkarre, Nussknacker, Zange, Schere oder das Ausbalancieren ungleich schwerer Kinder auf einer Wippe."
     },
     {
-      "definition": "Physikalisches Gesetz, nach dem die Wirkung einer Kraft von der Länge des Kraftarms (Abstand zum Drehpunkt) abhängt (Kraft × Kraftarm = Last × Lastarm).",
-      "example": "Ein Wippbrett auf dem Spielplatz oder die Funktionsweise einer Zange und Schubkarre.",
-      "term": "Hebelgesetz"
+      "term": "Haft-, Gleit- und Rollreibung",
+      "definition": "Widerstand zwischen sich berührenden Oberflächen: Haftreibung verhindert Rutschen, Gleitreibung bremst schiebende Bewegung (und erzeugt Wärme beim Schleifen), Rollreibung über Räder/Rollen ist deutlich geringer.",
+      "example": "Kinder vergleichen, wie leicht sich eine Kiste auf Teppich ziehen lässt vs. auf runden Holzrollen."
     },
     {
-      "definition": "Widerstand, der bei der Berührung und Bewegung zweier Körper aufeinander entsteht, wandelbar durch Schmierung oder Materialwahl.",
-      "example": "Das Schleifen von Holzklötzen mit Sandpapier zur Reduzierung von Splittern bei gleichzeitiger Erhaltung von Haftreibung.",
-      "term": "Reibung & Statik"
+      "term": "Sicherheit in der Kinderwerkstatt",
+      "definition": "Echte, ergonomisch passende und gewartete Kinderwerkzeuge kombiniert mit klaren Regeln: Werkstück immer mit Schraubzwinge/Schraubstock fixieren, Schutzbrille tragen, Kleingruppe, Fachkraftpräsenz und Gefährdungsbeurteilung (DGUV/UK RLP).",
+      "example": "Vor dem Sägen prüft das Kind selbstständig, ob die Schraubzwinge fest sitzt und die Schutzbrille aufgesetzt ist."
     },
     {
-      "definition": "Sicher und anregungsreich ausgestatteter Funktionsraum, der exploratives Experimentieren, Konstruieren und handwerkliches Arbeiten ermöglicht.",
-      "example": "Feste Werkbänke in kindgerechter Höhe, übersichtlich sortiertes Werkzeug und Schutzbrillen-Station.",
-      "term": "Funktionsraum Werkstatt"
+      "term": "Reparaturkultur & Technikfolgen-BNE",
+      "definition": "Nachhaltiger Gegenentwurf zur Wegwerfkultur: Gemeinsames Reparieren kaputter Gegenstände, Upcycling von Restmaterialien und sicheres Erforschen mechanischer Geräte stärken Selbstwirksamkeit und Ressourcenschonung.",
+      "example": "Eine gelockerte Holzrad-Achse wird in der Reparatur-Ecke gemeinsam neu verleimt statt das Fahrzeug wegzuwerfen."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Das Hebelgesetz (Kraft × Kraftarm = Last × Lastarm) erklärt exakt, wie durch Hebelverhältnisse Kraft eingespart oder übertragen wird, was in Spielgeräten und Werkzeugen unmittelbar erfahrbar ist.",
-      "id": "q-1",
+      "question": "Worin liegt der zentrale Unterschied zwischen der Leitfrage naturwissenschaftlicher Bildung und der Leitfrage technischer Bildung?",
       "options": [
-        "Die Entstehung von elektrischer Spannung in Batterien",
-        "Das Verhältnis von Kraftarm und Lastarm zur Kraftersparnis (z. B. bei Zangen oder Wippen)",
-        "Die Auswirkung von Luftfeuchtigkeit auf Holzkonstruktionen",
-        "Die Berechnung von Fallgeschwindigkeiten im freien Fall"
+        "Naturwissenschaftliche Bildung nutzt keine Materialien, während Technik ausschließlich mit Holz arbeitet.",
+        "Naturwissenschaftliche Bildung findet ausschließlich draußen statt, technische Bildung ausschließlich in Innenräumen.",
+        "Technische Bildung beschäftigt sich erst ab dem Jugendalter mit digitalen Computern.",
+        "Naturwissenschaft fragt primär danach, wie und warum Phänomene ablaufen; Technik fragt primär danach, wie man durch Entwerfen, Konstruieren und Optimieren ein praktisches Problem löst."
       ],
-      "question": "Welches physikalische Prinzip beschreibt das Hebelgesetz im Kontext der kindlichen Lebenswelt?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
-        0,
-        2,
         3
       ],
+      "explanation": "Beide Bereiche greifen eng ineinander, setzen aber eigene Schwerpunkte: Naturwissenschaft erforscht Zusammenhänge der Natur; Technik entwickelt, baut, prüft und verbessert praktische Lösungen für konkrete Alltagsaufgaben."
+    },
+    {
+      "id": "v2-q2",
+      "type": "single",
       "difficulty": "vertiefung",
-      "explanation": "Technikfolgen-BNE umfasst die kritische Reflexion von Ressourcenverbrauch, die Förderung von Reparaturkultur sowie die Analyse von Umweltwirkungen. Einseitige Technikbegeisterung ohne kritische Reflexion widerspricht BNE.",
-      "id": "q-2",
+      "question": "Warum empfehlen Werkstattpädagogik und Unfallprävention in der Kinderwerkstatt echte, ergonomisch passende Kinderwerkzeuge statt stumpfem Plastik-Spielzeugwerkzeug?",
       "options": [
-        "Förderung der Reparaturkultur („Reparieren statt Wegwerfen“)",
-        "Ausschließlicher Konsum digitaler Endgeräte ohne haptische Bezüge",
-        "Reflexion des Ressourcenverbrauchs und ökologischer Fußabdrücke von Technik",
-        "Kritische Auseinandersetzung mit den Auswirkungen von Technik auf die Umwelt"
+        "Weil stumpfes Spielzeugwerkzeug kaum funktioniert, unkontrolliertes Abrutschen provoziert und Frustration erzeugt, während echtes, passendes Werkzeug mit klaren Regeln sicheres, präzises Arbeiten ermöglicht.",
+        "Weil Kinderwerkzeuge aus Metall gesetzlich vorgeschrieben sind, um spätere Handwerksberufe zu fördern.",
+        "Weil Plastikwerkzeuge teurer in der Anschaffung sind als echte Handwerkzeuge.",
+        "Weil Kinder mit echtem Werkzeug keinerlei Aufsicht oder Einweisung durch Fachkräfte mehr benötigen."
       ],
-      "question": "Welche Aspekte gehören zu einer fundierten Technikfolgen-BNE in der sozialpädagogischen Praxis? (Mehrfachauswahl)",
-      "type": "multi"
-    },
-    {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Die Einführung von Werkzeugen erfordert altersgemäße Werkzeuge in passender Größe, klare Sicherheitsregeln und eine begleitete Einsicht statt unbeaufsichtigten Freispiels mit scharfen Geräten.",
-      "id": "q-3",
-      "options": [
-        "Kinder erhalten sofort alle Profi-Werkzeuge aus der Erwachsenen-Werkstatt, um maximale Autonomie zu gewährleisten.",
-        "Werkzeuge werden in Kitas strikt tabuisiert, um jegliches Verletzungsrisiko auszuschließen.",
-        "Kinder werden schrittweise durch Fachkräfte eingeführt; es gelten klare Regeln (z. B. Schutzbrille, Festhalten des Holzes), und Werkzeuge sind ergonomisch angepasst.",
-        "Werkzeuge werden ausschließlich digital auf Tablets simuliert."
-      ],
-      "question": "Wie gestaltet eine professionelle Fachkraft die Einführung von Werkzeugen in der Kita-Werkstatt?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "basis",
-      "explanation": "Reibung erzeugt mechanische Energie, die sich in Wärme (thermische Energie) umwandelt. Dies ist bei Schleifpapier und Holz unmittelbar spürbar.",
-      "id": "q-4",
-      "options": [
-        "Die Umwandlung von Reibung in Lichtenergie",
-        "Die Entstehung von Wärme (thermischer Energie) durch mechanische Reibung (z. B. beim Schleifen)",
-        "Die Aufhebung der Schwerkraft durch Reibungskräfte",
-        "Die Erzeugung von Magnetismus"
-      ],
-      "question": "Welchen physikalischen Effekt beobachten Kinder typischerweise, wenn sie Holz intensiv mit Sandpapier bearbeiten?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
         0
       ],
-      "difficulty": "pruefung",
-      "explanation": "In einer Fallstudie zur technischen Bildung geht es um die professionelle Haltung der Fachkraft: Die Kombination aus haptischer Werkserfahrung, physikalischem Forschen und BNE-Reflexion (Reparieren) stellt einen optimalen, kompetenzorientierten Ansatz dar.",
-      "id": "q-5",
-      "options": [
-        "Lea verbindet handwerkliches Konstruieren, physikalische Prinzipien (Hebel) und BNE (Reparieren) mit partizipativen Werkstattregeln.",
-        "Lea sperrt den Werkraum und ersetzt ihn durch reine Bildschirmarbeit, um Gefahren zu vermeiden.",
-        "Lea lässt die Kinder ohne Anleitung mit scharfen Werkzeugen hantieren, um die Selbstständigkeit zu maximieren.",
-        "Lea verbietet jegliches Bauen, da dies zu unordentlich ist."
-      ],
-      "question": "Praxissituation: Fachkraft Lea plant den neuen Funktionsraum „Werkstatt“. Welches Vorgehen entspricht den Qualitätsvorgaben des RLP?",
-      "type": "case"
+      "explanation": "Gutes, ergonomisch angepasstes Kinderwerkzeug (z. B. scharfe kleine Feinsäge, passender Hammer, Schraubzwingen) schneidet und greift kontrolliert statt abzurutschen – stets verbunden mit schrittweiser Einführung, klaren Regeln und aufmerksamer Begleitung."
     },
     {
+      "id": "v2-q3",
+      "type": "multi",
+      "difficulty": "pruefung",
+      "question": "Welche Sicherheitsregeln sind beim Sägen und Bohren von Holz in der Kinderwerkstatt unverzichtbar? (Mehrere Antworten sind richtig)",
+      "options": [
+        "Die Gruppengröße an der Werkbank bleibt überschaubar und eine pädagogische Fachkraft begleitet das Arbeiten aufmerksam.",
+        "Kinder tragen beim Sägen, Bohren und Hämmern eine passende Schutzbrille sowie feste Schuhe ohne lose Kordeln.",
+        "Werkzeuge liegen lose durcheinander in einer tiefen Kiste, damit Kinder das Suchen üben.",
+        "Das Werkstück wird immer fest mit Schraubzwingen oder im Schraubstock eingespannt, statt es mit der freien Hand neben dem Werkzeug festzuhalten."
+      ],
       "correctIndices": [
         0,
         1,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Alltagsintegrierte technische Bildung zeichnet sich durch Greifbarkeit, Lebensweltbezug und das Aufgreifen spontaner Fragen aus. Künstliche Laborexperimente ohne Bezug zur Lebenswelt sind nicht alltagsintegriert.",
-      "id": "q-6",
+      "explanation": "Festes Einspannen (Schraubzwinge/Schraubstock), Schutzbrille/sichere Kleidung, feste übersichtliche Werkzeugordnung und enge Begleitung in der Kleingruppe sind zentrale Schutzstandards der Kinderwerkstatt. Lose Werkzeuge in tiefen Kisten erhöhen dagegen die Schnitt- und Greifgefahr."
+    },
+    {
+      "id": "v2-q4",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Welche bauliche Maßnahme erhöht die Stabilität eines rechteckigen Holzrahmens (z. B. für eine selbst gebaute Brücke oder Hütte) besonders wirksam gegen seitliches Wegkippen?",
       "options": [
-        "Das Aufgreifen spontaner Kinderfragen (z. B. „Warum quietscht das Fahrrad?“ oder „Wie fällt die Murmel schneller?“).",
-        "Die bewusste Nutzung von Alltagsmaterialien (Karton, PET-Flaschen, Röhren) zum Konstruieren.",
-        "Das Auswendiglernen von physikalischen Formeln ohne praktischen Bezug.",
-        "Das gemeinsame Untersuchen von Haushaltsgeräten oder Alltagsgegenständen auf ihre Funktionsweise."
+        "Das Verlagern des größten Gewichts ganz nach oben an die Spitze.",
+        "Das Einbauen diagonaler Verstrebungen, sodass stabile Dreiecke entstehen (Fachwerkprinzip).",
+        "Das Glattschleifen aller Standflächen mit Öl, um die Haftreibung zu verringern.",
+        "Das vollständige Weglassen aller Verbindungen an den Ecken."
       ],
-      "question": "Welche Merkmale kennzeichnen alltagsintegrierte technische Bildung in der Kita? (Mehrfachauswahl)",
-      "type": "multi"
+      "correctIndices": [
+        1
+      ],
+      "explanation": "Ein Dreieck ist geometrisch formstabil – diagonale Verstrebungen verwandeln ein leicht verschiebbares Rechteck in ein tragfähiges Fachwerk. Ein niedriger Schwerpunkt und hohe Standflächen-Haftreibung unterstützen zusätzlich."
+    },
+    {
+      "id": "v2-q5",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Praxissituation: Im Außengelände möchten zwei Kinder einen schweren Eimer voller feuchtem Sand auf ein Baumhaus-Podest hinaufbefördern. Welches technische Prinzip hilft ihnen dabei am praxisnahsten, Kraft zu sparen bzw. die Zugrichtung günstig zu nutzen?",
+      "options": [
+        "Sie werfen den Sand handvollweise hinauf, um die Schwerkraft zu umgehen.",
+        "Sie ersetzen das Seil durch eine sehr dünne Nähgarnrolle.",
+        "Sie setzen eine sicher befestigte Umlenkrolle bzw. einen kleinen Flaschenzug ein und testen, wie sich der Kraftaufwand beim Ziehen nach unten verändert.",
+        "Sie verzichten vollständig auf Hilfsmittel, weil einfache Maschinen erst in der Sekundarstufe behandelt werden sollten."
+      ],
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Eine feste Umlenkrolle lenkt die Zugkraft nach unten um (das eigene Körpergewicht hilft mit); ein Flaschenzug mit loser Rolle verringert zusätzlich die nötige Zugkraft deutlich – ein ideales, unmittelbar spürbares Technik-Erlebnis."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Praxisideen verbinden technische Bildung sinnvoll und sicher mit Bildung für nachhaltige Entwicklung (BNE)? (Mehrere Antworten sind richtig)",
+      "options": [
+        "Eine „Reparatur-Ecke“, in der kaputtes Holzspielzeug gemeinsam mit Kindern verleimt oder verschraubt wird.",
+        "Konstruieren und Erfinden aus gesammelten Alltags- und Restmaterialien (Papprollen, Holzreste, Korken) im Sinne von Upcycling.",
+        "Ungeprüftes Auseinanderschrauben alter Mikrowellen und Bildschirme durch Kindergartenkinder.",
+        "Begleitetes Erforschen gefahrloser, vorab geprüfter mechanischer Alltagsgegenstände (z. B. Fahrradklingel, mechanischer Wecker), um Funktionsweise und Materialwert zu schätzen."
+      ],
+      "correctIndices": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "Reparieren statt Wegwerfen, Upcycling und das sichere Erkunden rein mechanischer, vorab geprüfter Geräte fördern Technikmündigkeit und Ressourcenschonung. Alte Elektrogeräte wie Mikrowellen oder Bildschirme bergen dagegen gravierende Sicherheits- und Gefahrstoffrisiken."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Technik – Bauen und konstruieren (Praxis- und Hintergrundwissen)",
+      "url": "https://campus.stiftung-kinder-forschen.de/totara/engage/resources/article/index.php?id=104",
+      "publisher": "Stiftung Kinder forschen (Campus)",
+      "note": "Fundierte Materialien zu Statik, Stabilität, Verbindungstechniken und technischen Denk- und Handlungsweisen."
+    },
+    {
+      "title": "Technik – Kräfte und Wirkungen erkunden",
+      "url": "https://campus.stiftung-kinder-forschen.de/totara/engage/resources/article/index.php?id=103",
+      "publisher": "Stiftung Kinder forschen (Campus)",
+      "note": "Alltagsnahe Zugänge zu Hebeln, Rollen, Reibung und einfachen Maschinen für Kita und Grundschule."
+    },
+    {
+      "title": "Da staunst du Bauklötze! – Konstruieren und Werkeln sicher in der Kita begleiten",
+      "url": "https://www.kinderkinder.dguv.de/da-staunst-du-baukloetze/",
+      "publisher": "Deutsche Gesetzliche Unfallversicherung (DGUV – Portal KinderKinder)",
+      "note": "Praxisorientierte Hinweise zu Bau- und Werkstattbereichen, Werkzeugkompetenz und sicherer Begleitung."
+    },
+    {
+      "title": "Sicherheit und Gesundheitsschutz in Kitas (Gefährdungsbeurteilung)",
+      "url": "https://bildung.ukrlp.de/sicherheit-gesundheitsschutz/einrichtungen/kitas",
+      "publisher": "Unfallkasse Rheinland-Pfalz (UK RLP)",
+      "note": "Landesspezifische Grundlage für Gefährdungsbeurteilungen und sichere Werkstattrahmenbedingungen in RLP."
     }
   ]
 }

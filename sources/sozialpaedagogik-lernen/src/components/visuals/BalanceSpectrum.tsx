@@ -86,7 +86,7 @@ export const BalanceSpectrum: React.FC<{ block: VisualBlock }> = ({ block }) => 
 
         {/* Pol-Labels & Schieberegler */}
         <div className="mt-2 space-y-2">
-          <div className="flex items-center justify-between text-xs font-semibold">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-semibold">
             <span className="text-rose-700 dark:text-rose-300">
               ← {block.leftPole || 'Linker Extrempol'}
             </span>

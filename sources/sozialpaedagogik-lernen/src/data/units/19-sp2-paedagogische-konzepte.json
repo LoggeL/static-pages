@@ -3,8 +3,10 @@
   "number": 19,
   "moduleCode": "S-SP-2",
   "moduleArea": "sp-pflicht",
-  "title": "Pädagogische Konzepte & Lebensräume im Vergleich",
-  "subtitle": "Reformpädagogik, Situationsansatz, Offene Arbeit, Erlebnispädagogik, GTS & Intensivpädagogik",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-2 · Pädagogische Konzepte, Lebensräume & eigener Standpunkt (Lehrplan RLP 2024)",
+  "title": "Pädagogische Konzepte & Lebensräume im fundierten Vergleich",
+  "subtitle": "Situationsansatz, Reggio, Montessori, Offene Arbeit, Waldpädagogik sowie Ganztagsschule & Jugendhilfe-Ansätze",
   "year": "2./3. Jahr",
   "estimatedMinutes": 30,
   "hoursRef": "240 Std. (Teil 5/6)",
@@ -12,390 +14,466 @@
   "crossCuttingTags": [
     "Partizipation",
     "Inklusion",
-    "Wertevermittlung"
+    "Wertevermittlung",
+    "BNE"
   ],
-  "summary": "Diese Einheit vergleicht zentrale pädagogische Konzepte von der Reformpädagogik über den Situationsansatz, Offene Arbeit und Erlebnispädagogik bis hin zu Ganztagsschulkonzepten (GTS) und Intensivpädagogik. Angehende Erzieher:innen lernen, individuelle Lebenssituationen zu analysieren, Lebensräume partizipatorisch zu gestalten und im multiprofessionellen Dialog einen fundierten eigenen Standpunkt ('Mein Bild vom Menschen') zu entwickeln.",
+  "summary": "Pädagogische Konzepte sind keine bloßen Werbeetiketten, sondern Ausdruck bestimmter Menschenbilder, Raumverständnisse und Fachkraftrollen. In dieser Einheit vergleichst du Situationsansatz, Reggio-Pädagogik, Montessori-Pädagogik, Offene Arbeit und Waldpädagogik fundiert anhand konkreter Qualitätsmerkmale, ordnest Konzepte für Ganztagsschule und Jugendhilfe ein und entwickelst deinen eigenen begründeten pädagogischen Standpunkt.",
   "learningGoals": [
-    "Ich kann die zentralen konzeptionellen Grundlagen reformpädagogischer Ansätze (Montessori, Reggio, Freinet, Waldorf/Jenaplan) vergleichen und deren Bedeutung für heutige Einrichtungen bewerten.",
-    "Ich kann individuelle Lebenssituationen von Kindern und Jugendlichen im sozialen Kontext erfassen und daraus theoriegeleitete pädagogische Zielsetzungen ableiten.",
-    "Ich kann die Prinzipien des Situationsansatzes und der Offenen Arbeit analysieren und auf die Gestaltung von Alltagsleben und Lebensräumen in Kitas und Ganztagsschulen anwenden.",
-    "Ich kann erlebnispädagogische, intensivpädagogische und lösungsorientierte Ansätze in der Kinder- und Jugendhilfe voneinander abgrenzen und ihren spezifischen Nutzen für herausfordernde Arbeitsfelder benennen.",
-    "Ich kann meinen eigenen pädagogischen Standpunkt ('Mein Bild vom Menschen') im Dialog mit anderen Fachkräften professionell reflektieren und begründen."
+    "Ich kann den Situationsansatz (5 Dimensionen, Schlüsselsituationen, Ziele Autonomie/Solidarität/Kompetenz) fundiert erläutern und vom situationsorientierten Ansatz abgrenzen.",
+    "Ich kann Reggio-Pädagogik („100 Sprachen“, Raum als dritter Erzieher, Dokumentation) und Montessori-Pädagogik (vorbereitete Umgebung, Entwicklungsmaterial mit Fehlerkontrolle, Freiarbeit) differenziert vergleichen.",
+    "Ich kann Chancen, Voraussetzungen und Grenzen der Offenen Arbeit (Funktionsräume, Partizipation vs. Bedarf an verlässlicher Bindung und Struktur) sowie der Waldpädagogik sachlich bewerten.",
+    "Ich kann konzeptionelle Ansätze in Hort, Ganztagsschule und Jugendhilfe (Rhythmisierung, Erlebnispädagogik, Intensivpädagogik, Lösungsorientierung nach de Shazer & Berg) voneinander abgrenzen.",
+    "Ich kann einen eigenen, theoriegestützten pädagogischen Standpunkt („Mein Bild vom Menschen“) formulieren und Konzepte auf ihre Passung zur Lebenswelt der Kinder prüfen."
   ],
   "sections": [
     {
-      "body": "Reformpädagogische Strömungen des frühen 20. Jahrhunderts bilden das historische Fundament moderner kindzentrierter Pädagogik. Maria Montessori betonte mit ihrer 'vorbereiteten Umgebung' und dem Leitsatz 'Hilf mir, es selbst zu tun' die Selbsttätigkeit des Kindes. Celestin Freinet etablierte den freien Ausdruck, die Matrizen-Druckerei und den Klassenrat als Instrumente demokratischer Schulkultur. Die Reggio-Pädagogik sieht das Kind als reiches, kompetentes Wesen ('100 Sprachen'), das seinen Lernprozess im Atelier ('Atelierista') und durch Dokumentation aktiv mitgestaltet. Waldorf- und Jenaplanschulen ergänzen diese Ansätze durch ganzheitliche Rhythmisierung, Epochenunterricht und jahrgangsübergreifende Stammgruppen.",
+      "heading": "Der Situationsansatz: Lebensweltorientierung, Schlüsselsituationen und Partizipation",
+      "keyTakeaway": "Der Situationsansatz knüpft an reale Schlüsselsituationen aus der Lebenswelt von Kindern und Familien an – mit den Leitzielen Autonomie, Solidarität und Kompetenz.",
+      "body": "Der Situationsansatz entstand ab den 1970er-Jahren in der Bundesrepublik maßgeblich durch Arbeitsgruppen um Jürgen Zimmer am Deutschen Jugendinstitut (DJI) und wird heute insbesondere vom Institut für den Situationsansatz (ISTA, u. a. Christa Preissing) weiterentwickelt (fachlich abzugrenzen vom stärker psychologisch-individuell akzentuierten „situationsorientierten Ansatz“ nach Armin Krenz). Im Zentrum stehen reale Lebens- und Schlüsselsituationen der Kinder und ihrer Familien – etwa Übergänge, Vielfalt im Stadtteil, Umzug, Naturerfahrungen oder gesellschaftliche Fragen. Statt starre Jahres- oder Bastelpläne abzuarbeiten, beobachten Fachkräfte genau, welche Themen Kinder aktuell bewegen, analysieren diese im Team und gestalten gemeinsam mit den Kindern prozesshafte Projekte. Die theoretische Grundlage bilden fünf Dimensionen – Lebensweltorientierung, Bildung, Partizipation, Gleichheit und Differenz sowie Einheit von Inhalt und Form –, die in 16 konzeptionellen Grundsätzen konkretisiert werden. Kinder sollen dabei in Autonomie (Selbstbestimmung), Solidarität (Verantwortung für andere) und Kompetenz (Sach- und Handlungswissen) gestärkt werden; Fachkräfte verstehen sich als Lehrende und Lernende zugleich.",
       "bulletPoints": [
-        "Maria Montessori: Vorbereitete Umgebung & Sinnesmaterialien",
-        "Reggio-Pädagogik: Das kompetente Kind ('100 Sprachen') & Dokumentation",
-        "Freinet-Pädagogik: Selbstgesteuertes Lernen & demokratischer Klassenrat",
-        "Waldorf- & Jenaplan: Ganzheitliche Rhythmisierung & Gemeinschaftsbildung"
+        "Entwicklung & Fundierung: DJI / Jürgen Zimmer / ISTA (Christa Preissing); klare Abgrenzung zum situationsorientierten Ansatz nach Krenz",
+        "Fünf Dimensionen: Lebensweltorientierung, Bildung, Partizipation, Gleichheit & Differenz, Einheit von Inhalt und Form",
+        "Arbeitsweise: Schlüsselsituationen erkennen, im Team analysieren, prozesshaft mit Kindern planen und reflektieren",
+        "Leitziele: Autonomie, Solidarität und Kompetenz in altersgemischten, inklusiven und sozialraumvernetzten Kitas"
       ],
-      "heading": "1. Reformpädagogische Klassiker und ihr Erbe",
-      "keyTakeaway": "Reformpädagogische Konzepte stellen die Eigenaktivität, das selbstgesteuerte Lernen und die ganzheitliche Entwicklung des Kindes ins Zentrum der Praxis.",
-      "praxisTip": "Nutzen Sie reformpädagogische Materialien (z.B. Montessoris Sinnesmaterialien) oder den Freinet-Klassenrat, um Selbstständigkeit und Mitbestimmung im Kita- oder Hortalltag zu stärken."
+      "praxisTip": "Prüfe bei der Projektplanung im Team ehrlich: Kommt dieses Thema wirklich aus beobachteten Fragen und Schlüsselsituationen der Kinder – oder wiederholen wir es nur aus Gewohnheit jedes Jahr zur selben Jahreszeit?"
     },
     {
-      "body": "Der Situationsansatz (u.a. Armin Krenz, Jürgen Reyer) und die Offene Arbeit (z.B. Gerlinde Fischer, Jörg Maywald) überwinden das traditionelle Gruppensystem zugunsten von Lebensweltorientierung. Im Situationsansatz analysieren Fachkräfte die 'Schlüsselthemen' (reale Lebenssituationen, Interessen und Problemlagen) von Kindern, um gemeinsam mit ihnen Projekte zu entwickeln. Die Offene Arbeit bricht starre Stammgruppen auf; Kinder wählen in Funktionsräumen (Atelier, Werkstatt, Rollenspielbereich) ihre Spielpartner, Materialien und Zeitbudgets eigenständig. Dies erfordert von Fachkräften ein Rollenverständnis als 'Lernbegleiter:in' statt als 'Belehrer:in', gepaart mit systematischer Beobachtung und Dokumentation.",
+      "heading": "Reggio-Pädagogik und Montessori-Pädagogik im differenzierten Vergleich",
+      "keyTakeaway": "Beide Ansätze teilen ein ressourcenreiches Bild vom Kind als aktivem Akteur seiner Entwicklung, unterscheiden sich aber deutlich in Materialverständnis, Strukturierungsgrad und Rolle von Dokumentation und Gemeinschaft.",
+      "body": "Die Reggio-Pädagogik entstand nach dem Zweiten Weltkrieg als kommunale Bildungsbewegung im norditalienischen Reggio Emilia unter maßgeblicher Prägung durch Loris Malaguzzi. Sie versteht das Kind als neugierigen, kompetenten Ko-Konstrukteur mit „hundert Sprachen“ – gemeint sind vielfältige Ausdrucksformen wie Sprache, Malen, Ton, Bauen, Musik, Bewegung und Spiel. Drei Strukturmerkmale prägen die Praxis: (1) der ästhetisch gestaltete, lichtdurchflutete Raum als „dritter Erzieher“ (inkl. Piazza und Atelier mit vielfältigen offenen Natur- und Recyclingmaterialien), (2) ergebnisoffene, längerfristige Projektarbeit in Kleingruppen und (3) sichtbare, wertschätzende Bildungsdokumentation („sprechende Wände“ mit Fotos, Zitaten und Werken), die Lernwege für Kinder, Eltern und Team nachvollziehbar macht. Die Montessori-Pädagogik, zu Beginn des 20. Jahrhunderts von der Ärztin und Reformpädagogin Maria Montessori entwickelt, folgt dem Leitsatz „Hilf mir, es selbst zu tun“. Sie setzt auf eine klar geordnete „vorbereitete Umgebung“ und spezifisch entwickelte Materialien (Übungen des täglichen Lebens, Sinnes-, Mathematik- und Sprachmaterial) mit zwei didaktischen Prinzipien: Isolation einer einzelnen Eigenschaft/Schwierigkeit und integrierte Fehlerkontrolle, sodass Kinder eigenständig überprüfen und vertiefen können („Polarisation der Aufmerksamkeit“). Die Fachkraft führt präzise in Materialien ein und hält sich anschließend beobachtend zurück. Ein fundierter Vergleich zeigt nicht nur Stärken, sondern auch Reflexionspunkte: Während Montessori hohe Konzentration und Selbstständigkeit strukturiert unterstützt, diskutiert die Fachdebatte mitunter den geringeren Stellenwert freien Fantasie- und Rollenspiels im engeren Materialkonzept; Reggio wiederum erfordert intensive Dokumentations- und Vorbereitungszeit im Team.",
       "bulletPoints": [
-        "Lebensweltorientierung: Anknüpfen an tatsächliche Erfahrungen (Schlüsselthemen)",
-        "Offene Arbeit: Funktionsräume, Partizipation und Selbstorganisation",
-        "Rollenwandel: Fachkraft als vorbereitende Lernbegleitung und Coach",
-        "Partizipative Planung: Gemeinsame Projektgestaltung mit Kindern und Eltern"
+        "Reggio (Malaguzzi): Ko-Konstruktion, „100 Sprachen“, Raum als „dritter Erzieher“, offene Materialien und sichtbare Dokumentation",
+        "Montessori: „Hilf mir, es selbst zu tun“, vorbereitete Umgebung, didaktisches Entwicklungsmaterial mit Fehlerkontrolle und Freiarbeit",
+        "Fachkraftrolle: Bei Reggio mitforschende Begleiterin/Dokumentarin; bei Montessori präzise Materialeinführerin und zurückhaltende Beobachterin",
+        "Kritischer Vergleich: Unterschiedliche Balance zwischen klar strukturiertem Einzel-/Partnerlernen (Montessori) und offenem Gruppenforschen (Reggio)"
       ],
-      "heading": "2. Situationsansatz und Offene Arbeit: Lebenswelt & Partizipation",
-      "keyTakeaway": "Situationsansatz und Offene Arbeit verwandeln die Einrichtung in einen Erfahrungsraum, in dem Kinder reale Lebensprobleme handelnd bewältigen und echte Mitbestimmung erfahren.",
-      "praxisTip": "Ersetzen Sie starre Beschäftigungsangebote durch die regelmäßige Durchführung von Kinderkonferenzen, in denen Kinder ihre aktuellen Lebensthemen einbringen können."
+      "praxisTip": "Vergleiche in deiner Praxisstelle, welche Bereiche eher von klarer Ordnung und Selbstkontrolle (Montessori-Prinzip) und welche von offenen, ergebnisoffenen Gestaltungsmaterialien (Reggio-Prinzip) profitieren."
     },
     {
-      "body": "Die Kooperative Ganztagsschule (GTS) verbindet Unterricht mit Freizeit, Rhythmisierung und sozialpädagogischen Angeboten und fordert multiprofessionelle Kooperation. Erlebnispädagogik nutzt natur- und abenteuerorientierte Erfahrungen (z. B. Seilgarten, Kanutouren), um soziale Kompetenzen, Selbstwirksamkeit und Teamgeist durch reale Herausforderungen zu stärken. Intensivpädagogik und lösungsorientierte Ansätze bieten passgenaue Hilfen in Krisensituationen: Intensivpädagogik arbeitet oft in überschaubaren Settings (z. B. Auslandsmaßnahmen, Kleinwohngruppen) mit hoher Betreuungsdichte; lösungsorientierte Ansätze (Steve de Shazer) verzichten auf tiefenpsychologische Defizitanalysen und fokussieren stattdessen konsequent auf Ressourcen, Ausnahmen vom Problem und Zukunftsvisionen.",
+      "heading": "Offene Arbeit und Waldpädagogik: Chancen, Voraussetzungen und Grenzen",
+      "keyTakeaway": "Offene Arbeit und Waldpädagogik eröffnen hohe Spielräume für Selbstbestimmung, Bewegung und Naturerfahrung – gelingen aber nur mit verlässlicher Beziehungssicherheit, klaren Strukturen und aufmerksamer Fachkraftbegleitung.",
+      "body": "Die Offene Arbeit (u. a. geprägt durch Axel Wieland, Gerlinde Lill und Angelika von der Beek) bricht feste, nach Alter oder Gruppenraum getrennte Stammgruppen zugunsten thematischer Funktionsräume auf (z. B. Atelier, Bau- und Konstruktionsraum, Rollenspielbereich, Bewegungsraum, Forscherwerkstatt, Kinderbistro). Kinder wählen im Rahmen klarer Absprachen selbst, wo, womit, wann und mit wem sie sich beschäftigen – das stärkt Partizipation, Selbstorganisation und gruppenübergreifende Kontakte. Fachbeiträge (z. B. von der Beek, 2018) betonen jedoch ausdrücklich die Voraussetzungen und Grenzen: Offene Arbeit ist kein „Laissez-faire ohne Struktur“. Gerade jüngere Kinder (U3), neu eingewöhnte Kinder oder Kinder mit erhöhtem Sicherheits- und Orientierungsbedarf brauchen verlässliche Bezugsfachkräfte, überschaubare „Nest“- oder Rückzugsbereiche, klare Orientierungssysteme (z. B. Magnettafeln) und dichte Teamkommunikation, damit niemand im offenen Betrieb untergeht oder reizüberflutet wird. Die Waldpädagogik (Natur- und Waldkindergärten, mit Wurzeln in Skandinavien und starker Verbreitung in Deutschland seit den 1990er-Jahren) verlegt den pädagogischen Alltag weitgehend bei fast jedem Wetter in den Naturraum, ergänzt durch Bauwagen oder Schutzhütte. Ohne vorgefertigtes Plastikspielzeug regen Äste, Erde, Wasser und Jahreszeitenwechsel Kreativität, Grob- und Feinmotorik, soziale Kooperation, Achtsamkeit und Bildung für nachhaltige Entwicklung (BNE) an. Zugleich verlangen Waldkonzepte durchdachte Sicherheits- und Hygienestandards, verlässliche Wetter- und Rückzugsregelungen sowie bewusste Aufmerksamkeit dafür, dass auch ruhige Tätigkeiten, ästhetisches Gestalten und Schrift-/Literacy-Erfahrungen nicht zu kurz kommen.",
       "bulletPoints": [
-        "Ganztagsschule (GTS): Multiprofessionelle Teams & Rhythmisierung des Tages",
-        "Erlebnispädagogik: Grenzerfahrung, Natur und handlungsorientiertes Lernen",
-        "Intensivpädagogik: Hochstrukturierte Hilfen bei Krisen und Schulverweigerung",
-        "Lösungsorientierung: Fokus auf Ressourcen und zukunftsbezogene Ausnahmen"
+        "Offene Arbeit: Funktionsräume, Selbstbestimmung und breite Kontaktmöglichkeiten – aber nur tragfähig mit verlässlichen Bezugspersonen und klaren Übergangsstrukturen",
+        "Differenzierung U3 & besondere Bedarfe: Häufig teiloffene Übergänge oder geschützte Bezugsbereiche statt schlagartiger Vollöffnung",
+        "Waldpädagogik: Natur als ganzheitlicher Bewegungs-, Sinnes- und BNE-Erfahrungsraum mit offenen Naturmaterialien",
+        "Voraussetzungen im Wald: Schutzunterkunft, Sicherheits- und Hygieneabsprachen sowie gezielte Ergänzung z. B. von Literacy- und Ruhemöglichkeiten"
       ],
-      "heading": "3. GTS, Erlebnispädagogik und Intensivpädagogik",
-      "keyTakeaway": "Moderne Handlungsfelder und Spezialkonzepte erfordern multiprofessionelle Kooperation, erlebnisbasierte Lernarrangements und konsequente Ressourcenorientierung.",
-      "praxisTip": "Integrieren Sie kleine erlebnispädagogische Elemente (z.B. Kooperationsspiele im Morgenkreis) und lösungsorientierte Fragetechniken ('Was klappt schon gut?') in den pädagogischen Alltag."
+      "praxisTip": "Beobachte in einer offen oder teiloffen arbeitenden Einrichtung gezielt ein ruhiges oder neu eingewöhntes Kind über eine Stunde: Findet es sicher Orientierung und verlässliche Ansprechpersonen, oder wandert es suchend zwischen den Räumen?"
+    },
+    {
+      "heading": "Ganztagsschule, Erlebnispädagogik, Jugendhilfe-Konzepte & der eigene Standpunkt",
+      "keyTakeaway": "Kein pädagogisches Konzept ist pauschal „das beste“: Entscheidend sind die schlüssige Umsetzung im Team, die Passung zur konkreten Lebenswelt der Kinder und ein reflektiertes eigenes Menschenbild.",
+      "body": "Über die Kita hinaus begegnen Erzieher:innen vielfältigen weiteren Konzepten: In der Ganztagsschule (GTS) stehen Rhythmisierung (sinnvoller Wechsel aus Anspannung, Lernzeiten, Bewegung, Spiel und Erholung über den Tag) sowie multiprofessionelle Kooperation zwischen Lehrkräften und sozialpädagogischen Fachkräften im Vordergrund. Die Erlebnispädagogik (u. a. in Tradition von Kurt Hahn) nutzt handlungsorientierte Herausforderungen in Natur und Gruppe (z. B. Kooperationsparcours, Kanutour, Seilgarten) mit anschließender Reflexion, um Selbstwirksamkeit, Vertrauen und Teamfähigkeit zu fördern – wichtig ist dabei das Prinzip der Freiwilligkeit („Challenge by Choice“) statt Überforderung. In den Hilfen zur Erziehung kommen zudem intensivpädagogische Settings (hohe Betreuungsdichte, stark strukturierte Beziehungsangebote in Krisen) sowie der lösungsorientierte Ansatz nach Steve de Shazer und Insoo Kim Berg zum Einsatz, der gezielt nach Ausnahmen vom Problem, vorhandenen Ressourcen und realistischen Zielbildern fragt (z. B. Skalierungs- oder Wunderfrage). In der Praxis arbeiten viele Einrichtungen reflektiert mit kombinierten Konzepten (z. B. Situationsansatz mit offenen Funktionsräumen und Dokumentationselementen). Voraussetzung bleibt ein geklärtes eigenes Menschenbild („Mein Bild vom Menschen“) und transparente Qualitätsentwicklung statt beliebiger Aneinanderreihung einzelner Modetrends.",
+      "bulletPoints": [
+        "Ganztagsschule (GTS): Tagesrhythmisierung und gleichberechtigte multiprofessionelle Kooperation",
+        "Erlebnispädagogik: Handlungsorientierte Gruppen- und Naturherausforderungen inkl. Reflexion und Freiwilligkeit",
+        "Lösungsorientierter Ansatz (de Shazer & Berg): Fokus auf Ressourcen, Ausnahmen vom Problem und machbare nächste Schritte",
+        "Qualitätskriterium statt Label: Schlüssigkeit, gelebte Haltung im Team und Passung zur Lebenswelt der Kinder"
+      ],
+      "praxisTip": "Achte beim Lesen einer Einrichtungskonzeption darauf, ob das formulierte Menschenbild tatsächlich in konkreten Alltagsabläufen (Eingewöhnung, Mahlzeiten, Raumgestaltung, Beteiligung) wiederzuerkennen ist."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "",
-      "id": "v-comp-1",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Montessori",
-          "detail": "Zentral ist die 'vorbereitete Umgebung' und das freie Arbeiten mit spezialisierten Sinnesmaterialien zur Selbstbildung des Kindes.",
-          "example": "Ein Kind wählt selbstständig das Hunderterbrett und korrigiert Fehler eigenverantwortlich durch die Materialkontrolle.",
-          "id": "item-1",
-          "label": "Reformpädagogik (Montessori)",
-          "metric": "Klassiker",
-          "summary": "Selbsttätigkeit in vorbereiteter Umgebung."
-        },
-        {
-          "badge": "Situationsansatz",
-          "detail": "Ausgehend von den 'Schlüsselthemen' der Kinder werden reale Lebenssituationen analysiert und in Projekten bearbeitet.",
-          "example": "Nach dem Umzug eines Kindes entsteht ein gruppenübergreifendes Projekt zum Thema 'Wohnen und Zuhause'.",
-          "id": "item-2",
-          "label": "Situationsansatz",
-          "metric": "Lebenswelt",
-          "summary": "Orientierung an realen Lebenslagen."
-        },
-        {
-          "badge": "Offene Arbeit",
-          "detail": "Auflösung starrer Stammgruppen, Nutzung von Funktionsräumen und umfassende Selbstbestimmung bei Spiel und Arbeit.",
-          "example": "Kinder wählen täglich frei, ob sie im Atelier, im Rollenspielraum oder im Baubereich tätig sein wollen.",
-          "id": "item-3",
-          "label": "Offene Arbeit",
-          "metric": "Partizipation",
-          "summary": "Freie Raum- und Zeitwahl."
-        },
-        {
-          "badge": "Erlebnispädagogik",
-          "detail": "Lernen durch reale Herausforderungen in der Natur (Knoten, Klettern, Floßbau) zur Stärkung von Teamgeist und Selbstvertrauen.",
-          "example": "Eine Jugendgruppe baut gemeinsam ein Floß und überquert einen See, um Teamkommunikation zu erproben.",
-          "id": "item-4",
-          "label": "Erlebnispädagogik",
-          "metric": "Erfahrung",
-          "summary": "Handlungsorientiertes Lernen."
-        }
-      ],
+      "id": "vb-comp-5",
       "kind": "comparison",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Vergleich prägender pädagogischer Ansätze in der Kinder- und Jugendhilfe",
-      "title": "Konzeptioneller Richtungsvergleich"
-    },
-    {
-      "centerLabel": "Pädagogisches Handeln im Lebensraum",
-      "id": "v-map-2",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Stufe 1",
-          "detail": "Erfassung der individuellen Lebenssituation, Familiensituation und des sozialen Raums der Adressaten.",
-          "example": "Führen von Erstgesprächen und Sozialraumanalyse im Stadtteil.",
-          "id": "item-1",
-          "label": "Lebensweltanalyse",
-          "metric": "Fundament",
-          "summary": "Verstehen der Ausgangslage."
-        },
-        {
-          "badge": "Stufe 2",
-          "detail": "Definition des eigenen 'Bilds vom Menschen' und fachlicher Leitlinien als ethisches Fundament.",
-          "example": "Reflexion im Team über das Recht des Kindes auf Mitbestimmung.",
-          "id": "item-2",
-          "label": "Menschenbild & Haltung",
-          "metric": "Ethik",
-          "summary": "Reflexion der Fachkraft-Haltung."
-        },
-        {
-          "badge": "Stufe 3",
-          "detail": "Auswahl des passenden Konzepts (Situationsansatz, Offene Arbeit, Erlebnispädagogik etc.) für die Einrichtung.",
-          "example": "Einführung von Funktionsräumen in der Kindertagesstätte.",
-          "id": "item-3",
-          "label": "Konzeptionelle Basis",
-          "metric": "Methodik",
-          "summary": "Theoriegeleitete Praxis."
-        },
-        {
-          "badge": "Stufe 4",
-          "detail": "Laufende Evaluation, Partizipation (Kinderparlamente) und Qualitätsentwicklung im Team.",
-          "example": "Wöchentliche Auswertung der Raumbelegung im Kinderparlament.",
-          "id": "item-4",
-          "label": "Evaluation & Partizipation",
-          "metric": "Zirkel",
-          "summary": "Ständige Weiterentwicklung."
-        }
-      ],
-      "kind": "concept_map",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Zusammenhang von Lebenswelt, Konzept und professionellem Handeln",
-      "title": "Konzept-Wirkungs-Gefüge"
-    },
-    {
+      "title": "Fünf frühpädagogische Konzepte im systematischen Vergleich",
+      "subtitle": "Kernidee, Raum & Material, Rolle der Fachkraft sowie zentrale Reflexionspunkte",
       "centerLabel": "",
-      "id": "v-grid-3",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Kriterium 1",
-          "detail": "In welchem Maße werden Kinder und Jugendliche als Träger von Rechten und bei Entscheidungen einbezogen?",
-          "example": "Kinderparlamente und Beschwerdeverfahren in der Einrichtung.",
-          "id": "item-1",
-          "label": "Partizipation & Rechte",
-          "metric": "Kernprinzip",
-          "summary": "Mitbestimmung im Alltag."
+          "id": "k-1",
+          "label": "Situationsansatz",
+          "badge": "DJI / ISTA",
+          "metric": "Lebenswelt",
+          "summary": "Ausgangspunkt sind reale Schlüsselsituationen der Kinder; Ziele: Autonomie, Solidarität, Kompetenz.",
+          "detail": "Fünf Dimensionen (Lebenswelt, Bildung, Partizipation, Gleichheit & Differenz, Einheit von Inhalt & Form). Fachkraft analysiert Lebenslagen, plant prozesshaft Projekte und lernt gemeinsam mit den Kindern.",
+          "example": "Nach einer Baustelle direkt vor der Kita erkunden Kinder Berufe, Sicherheit, Lärm und Bauen im Stadtteil-Projekt."
         },
         {
-          "badge": "Kriterium 2",
-          "detail": "Wie flexibel reagiert das Konzept auf die aktuellen Lebenslagen und Bedürfnisse der Kinder?",
-          "example": "Projektarbeit zu aktuellen Krisen oder Interessen der Kinder.",
-          "id": "item-2",
-          "label": "Lebensweltorientierung",
-          "metric": "Passung",
-          "summary": "Lebensraumbezug."
+          "id": "k-2",
+          "label": "Reggio-Pädagogik",
+          "badge": "Loris Malaguzzi",
+          "metric": "100 Sprachen",
+          "summary": "Kind als forschender Ko-Konstrukteur; Raum als „dritter Erzieher“ und sichtbare Dokumentation.",
+          "detail": "Offene Natur-, Licht- und Gestaltungsmaterialien in Atelier und Piazza; längerfristige Projekte in Kleingruppen; intensive Dokumentation („sprechende Wände“) macht Lernprozesse sichtbar.",
+          "example": "Kinder erforschen über Wochen Schatten und Licht am Leuchttisch; Fotos und Kinderzitate dokumentieren ihre Theorien an der Wand."
         },
         {
-          "badge": "Kriterium 3",
-          "detail": "Werden Stärken und Ressourcen der Adressaten statt Defizite in den Vordergrund gestellt?",
-          "example": "Lösungsorientierte Gespräche statt Fehlersuche.",
-          "id": "item-3",
-          "label": "Ressourcenorientierung",
-          "metric": "Haltung",
-          "summary": "Stärkung der Selbstwirksamkeit."
+          "id": "k-3",
+          "label": "Montessori-Pädagogik",
+          "badge": "Maria Montessori",
+          "metric": "Selbsttätigkeit",
+          "summary": "„Hilf mir, es selbst zu tun“: vorbereitete Umgebung, Freiarbeit und fehlerkontrolliertes Material.",
+          "detail": "Material isoliert einzelne Eigenschaften (z. B. Gewicht, Länge) und ermöglicht eigenständige Fehlerkontrolle. Fachkraft führt präzise ein und beobachtet zurückhaltend. Reflexionspunkt: Raum für freies Rollenspiel mitdenken.",
+          "example": "Ein Kind wählt selbstständig die Einsatzzylinder, bemerkt einen Größenfehler direkt am Material und korrigiert eigenständig."
         },
         {
-          "badge": "Kriterium 4",
-          "detail": "Wie effektiv arbeiten Lehrkräfte, Erzieher:innen und Eltern zum Wohle des Kindes zusammen?",
-          "example": "Multiprofessionelle Teams in Ganztagsschulen.",
-          "id": "item-4",
-          "label": "Multiprofessionelle Kooperation",
-          "metric": "Netzwerk",
-          "summary": "Vernetzte Fachpraxis."
+          "id": "k-4",
+          "label": "Offene Arbeit",
+          "badge": "Funktionsräume",
+          "metric": "Wahlfreiheit",
+          "summary": "Öffnung starrer Stammgruppen hin zu Funktionsräumen mit hoher Selbstbestimmung der Kinder.",
+          "detail": "Stärkt Partizipation und gruppenübergreifende Kontakte. Zentrale Voraussetzung: verlässliche Bezugsfachkräfte, transparente Orientierungshilfen und Schutzräume für jüngere oder ruhesuchende Kinder.",
+          "example": "Kinder entscheiden nach dem Morgenkreis per Magnetkarte selbst zwischen Atelier, Bauraum, Bistro und Außengelände."
+        },
+        {
+          "id": "k-5",
+          "label": "Waldpädagogik",
+          "badge": "Naturraum",
+          "metric": "BNE & Bewegung",
+          "summary": "Alltag überwiegend draußen in Wald und Natur mit offenen Naturmaterialien statt Fertigspielzeug.",
+          "detail": "Fördert ganzheitliche Bewegung, Sinneserfahrung, Kreativität und Naturverbundenheit. Voraussetzung: Schutzunterkunft, Sicherheitsregeln und gezielte Ergänzung z. B. für Literacy- und Ruhephasen.",
+          "example": "Kinder konstruieren mit Ästen und Seilen eine Brücke über einen kleinen Graben und beobachten den Wandel der Jahreszeiten."
         }
-      ],
+      ]
+    },
+    {
+      "id": "vb-sita-dim",
       "kind": "feature_grid",
+      "title": "Die fünf theoretischen Dimensionen des Situationsansatzes (ISTA)",
+      "subtitle": "Qualitätsrahmen für lebensweltorientierte, inklusive und partizipative Bildung",
+      "centerLabel": "",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Bewertungsraster zur Analyse und Prüfung pädagogischer Konzepte",
-      "title": "Evaluationskriterien für Fachkonzepte"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "sd-1",
+          "label": "Lebensweltorientierung",
+          "badge": "Dimension 1",
+          "metric": "Schlüsselsituationen",
+          "summary": "Anknüpfen an reale Erfahrungen, Fragen und Lebenslagen der Kinder und Familien.",
+          "detail": "Die Kita öffnet sich ins Gemeinwesen und greift Themen auf, die für den Alltag der Kinder tatsächlich bedeutsam sind.",
+          "example": "Einbindung familiärer Berufe, Nachbarschaftsorte und aktueller Übergänge wie Einschulung oder Geschwistergeburt."
+        },
+        {
+          "id": "sd-2",
+          "label": "Bildung",
+          "badge": "Dimension 2",
+          "metric": "Sinnhaftes Lernen",
+          "summary": "Kompetenzerwerb im tätigen Handeln an bedeutsamen Fragen statt isoliertem Üben.",
+          "detail": "Kinder erwerben Sach-, Sozial- und Methodenkompetenzen im Zusammenhang realer Projekte und Alltagsaufgaben.",
+          "example": "Beim Planen eines gesunden Frühstücks verbinden Kinder Mengenverständnis, Sprache, Hygiene und Kooperation."
+        },
+        {
+          "id": "sd-3",
+          "label": "Partizipation",
+          "badge": "Dimension 3",
+          "metric": "Mitbestimmung",
+          "summary": "Kinder und Eltern gestalten Alltag, Regeln und Projekte verbindlich mit.",
+          "detail": "Demokratische Beteiligung ist Grundprinzip in Gesprächen, Kinderkonferenzen und der täglichen Raum- und Zeitgestaltung.",
+          "example": "Kinder entscheiden in der Projektplanung mit, welchen Fragen sie als Nächstes nachgehen möchten."
+        },
+        {
+          "id": "sd-4",
+          "label": "Gleichheit und Differenz",
+          "badge": "Dimension 4",
+          "metric": "Inklusion",
+          "summary": "Anerkennung von Vielfalt und aktives Entgegenwirken gegen Ausgrenzung und Stereotype.",
+          "detail": "Unterschiedliche Herkünfte, Sprachen, Geschlechterrollen und Fähigkeiten werden wertgeschätzt und vorurteilsbewusst begleitet.",
+          "example": "Vielfältige Bilderbücher und Materialien jenseits starrer Geschlechter- oder Herkunftsklischees."
+        },
+        {
+          "id": "sd-5",
+          "label": "Einheit von Inhalt und Form",
+          "badge": "Dimension 5",
+          "metric": "Stimmigkeit",
+          "summary": "Methoden, Räume und Beziehungen passen inhaltlich zu den verfolgten Bildungszielen.",
+          "detail": "Man kann Demokratie nicht autoritär vermitteln: Die Art des Lernens und Zusammenlebens spiegelt das angestrebte Ziel unmittelbar wider.",
+          "example": "Wenn Selbstständigkeit Ziel ist, sind Materialien auf Kinderhöhe zugänglich statt weggeschlossen."
+        }
+      ]
+    },
+    {
+      "id": "vb-jugendhilfe",
+      "kind": "comparison",
+      "title": "Konzeptionelle Ansätze in Ganztagsschule und Kinder- und Jugendhilfe",
+      "subtitle": "Ergänzende Handlungsansätze für Schulkind-, Jugend- und Krisenkontexte",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "jh-1",
+          "label": "Ganztagsschule (GTS)",
+          "badge": "Schule & Jugendhilfe",
+          "metric": "Rhythmisierung",
+          "summary": "Verzahnung von Unterricht, Lernzeiten, Bewegung, Freizeit und sozialpädagogischer Begleitung.",
+          "detail": "Wechselt gezielt Phasen kognitiver Anspannung und Erholung über den gesamten Tag und setzt auf gleichberechtigte multiprofessionelle Zusammenarbeit.",
+          "example": "Gemeinsame Planung von Lernzeit, Projektwerkstatt und Pausenräumen durch Lehrkräfte und Erzieher:innen."
+        },
+        {
+          "id": "jh-2",
+          "label": "Erlebnispädagogik",
+          "badge": "Handlungsorientiert",
+          "metric": "Erfahrung & Reflexion",
+          "summary": "Lernen durch reale Natur- und Gruppenherausforderungen mit anschließender Auswertung.",
+          "detail": "Stärkt Teamkommunikation, Selbstwirksamkeit und Verantwortungsübernahme – entscheidend sind Freiwilligkeit („Challenge by Choice“) und Transfer in den Alltag.",
+          "example": "Niedrigseil-Kooperationsaufgabe im Jugendcamp mit gemeinsamer Reflexion, wie Absprachen gelungen sind."
+        },
+        {
+          "id": "jh-3",
+          "label": "Lösungsorientierter Ansatz",
+          "badge": "de Shazer & Berg",
+          "metric": "Ressourcenfokus",
+          "summary": "Blick auf gelingende Ausnahmen, Stärken und konkrete Zukunftsschritte statt reiner Defizitanalyse.",
+          "detail": "Nutzt gezielte Fragen (Ausnahmefragen, Skalierungsfragen, Wunderfrage), um Handlungsspielräume und Eigenkompetenz zu aktivieren.",
+          "example": "„Auf einer Skala von 1 bis 10 – was war an den Tagen anders, an denen der Schulmorgen bei einer 6 lief?“"
+        },
+        {
+          "id": "jh-4",
+          "label": "Intensivpädagogik",
+          "badge": "Hilfen zur Erziehung",
+          "metric": "Hohe Struktur",
+          "summary": "Engmaschige, hochstrukturierte Beziehungs- und Alltagsbegleitung in komplexen Krisenlagen.",
+          "detail": "Kommt etwa in Kleinwohngruppen oder intensivpädagogischer Einzelbetreuung zum Einsatz, wenn Regelangebote junge Menschen vorübergehend nicht mehr erreichen.",
+          "example": "Verlässliche 1:1- oder Kleingruppenbegleitung mit klarem Tagesrhythmus und enger Hilfeplan-Steuerung (§ 36 SGB VIII)."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "6-10 Jahre (Hort / Ganztagsschule)",
-    "context": "Konzeptionelle Weiterentwicklung und Alltagsgestaltung in einer kooperativen Ganztagsschule (GTS) mit dem Schwerpunkt Offene Arbeit und situationsorientiertem Ansatz.",
-    "setting": "Kooperative Ganztagsschule (GTS) im Sozialraum mit hohem Anteil an Kindern aus Familien mit Migrationsgeschichte.",
+    "title": "Umbau zur Offenen Arbeit? Konzeptionsentwicklung mit Augenmaß",
+    "setting": "Vierzügige Kindertagesstätte (Alter 1 bis 6 Jahre) in der Konzeptionsüberarbeitung",
+    "ageGroup": "Krippen- und Elementarkinder (1–6 Jahre)",
+    "context": "Das Team einer bislang mit festen Stammgruppen arbeitenden Kita möchte moderner arbeiten und überlegt, von heute auf morgen vollständig auf „Offene Arbeit“ mit Funktionsräumen umzustellen. Einige Kolleg:innen sind begeistert von mehr Wahlfreiheit; andere äußern Sorge, dass insbesondere die 1- bis 2-Jährigen sowie schüchterne, neu eingewöhnte Kinder im offenen Haus Orientierung und feste Bezugspersonen verlieren könnten.",
     "steps": [
       {
+        "situation": "In der Konzeptionsklausur prallen die Positionen aufeinander: „Entweder wir öffnen sofort alle Räume für alle Kinder – oder wir lassen alles wie bisher.“",
+        "prompt": "Wie bewertet und gestaltet das Team den Übergang fachlich begründet?",
         "options": [
           {
-            "feedback": "Falsch. Ein starrer, rein lehrerzentrierter Stundenplan widerspricht dem Situationsansatz und der Offenen Arbeit, die von den Bedürfnissen und aktuellen Lebenssituationen der Kinder ausgehen sollten.",
-            "label": "Die pädagogischen Fachkräfte legen fest, dass ab sofort alle Kinder von 14:00 bis 15:00 Uhr verpflichtend an einer starren AG teilnehmen, um Disziplin zu wahren.",
+            "label": "Es löst alle Stammgruppen sofort und ohne Übergangsphase für alle Kinder ab 1 Jahr auf, weil echte Offene Arbeit keine Einschränkungen zulasse.",
             "quality": "problematisch",
-            "theoryLink": "Situationsansatz / Offene Arbeit (Kraisedorfer / Tietze): Partizipation und Orientierung an den realen Lebenssituationen der Kinder sind zentral."
+            "feedback": "Eine schlagartige Vollöffnung ignoriert das hohe Sicherheits- und Bindungsbedürfnis von U3-Kindern sowie neu eingewöhnten Kindern und führt häufig zu Unruhe, Überforderung und Orientierungslosigkeit.",
+            "theoryLink": "Offene Arbeit – Chancen und Grenzen (von der Beek); Bindungssicherheit und altersangemessene Strukturierung."
           },
           {
-            "feedback": "Teilweise passend. Die Bestandsaufnahme ist ein guter erster Schritt, greift jedoch zu kurz, wenn Kinder und Eltern nicht aktiv in die Planung einbezogen werden.",
-            "label": "Die Teamleitung wertet allein anhand von Testergebnissen und Fehlzeitenstatistiken aus, welche Angebote im nächsten Halbjahr stattfinden sollen.",
-            "quality": "teilweise",
-            "theoryLink": "Konzeptionsentwicklung: Bedarfserhebung benötigt auch qualitative, partizipative Zugänge (Kinderkonferenzen)."
-          },
-          {
-            "feedback": "Optimal! Die Fachkräfte erheben die Interessen und Lebenslagen der Kinder mittels Kinderkonferenzen, analysieren den Sozialraum und entwickeln gemeinsam mit den Kindern einen flexiblen Funktionsbereichsplan.",
-            "label": "Das Team führt moderierte Kinderkonferenzen durch, um die tatsächlichen Interessen und aktuellen Lebensthemen ('Mein Bild vom Kind') der Kinder zu ermitteln und den Lebensraum GTS entsprechend umzugestalten.",
+            "label": "Es entwickelt ein schrittweises, differenziertes Konzept: geschützte Nest- und Bezugsbereiche für U3/Eingewöhnung, verlässliche Bezugsfachkräfte, überschaubare Funktionsräume mit klarem Orientierungssystem und regelmäßige Evaluation mit Kindern und Eltern.",
             "quality": "optimal",
-            "theoryLink": "RLP-Lehrplan S-SP-2: Konzeptionelle Grundlagen vergleichen, Alltagsleben und Lebensräume partizipatorisch gestalten."
+            "feedback": "Fachlich stark: Das Team orientiert sich nicht an einem starren Etikett, sondern an den Bedürfnissen der Kinder. Durch klare Bezugsfachkräfte, geschützte Bereiche für die Jüngsten und schrittweise Öffnung verbindet es Partizipation und Bindungssicherheit schlüssig.",
+            "theoryLink": "Offene Arbeit (Voraussetzungen & Grenzen); Situationsansatz (Einheit von Inhalt und Form, Lebensweltpassung)."
+          },
+          {
+            "label": "Es belässt die geschlossenen Stammgruppen vollständig unverändert, schreibt aber trotzdem „Offene Arbeit“ in den neuen Kita-Flyer, weil Eltern das Wort schätzen.",
+            "quality": "teilweise",
+            "feedback": "Die Sorge um Sicherheit ist nachvollziehbar, aber ein Etikettenschwindel widerspricht fachlicher Transparenz und verhindert eine sinnvolle Weiterentwicklung von Wahl- und Beteiligungsspielräumen.",
+            "theoryLink": "Konzeptionelle Stimmigkeit und Transparenz gegenüber Familien."
           }
-        ],
-        "prompt": "Schritt 1: Wie sollte das Team der Ganztagsschule (GTS) bei der Überarbeitung des pädagogischen Konzepts bezüglich der Raum- und Angebotsgestaltung vorgehen?",
-        "situation": "Das bestehende Betreuungskonzept der Ganztagsschule wird von Eltern und Kindern als zu starr und wenig bedürfnisorientiert kritisiert. Das Team steht vor der Aufgabe, das Konzept im Sinne der Offenen Arbeit und des Situationsansatzes neu auszurichten."
+        ]
       },
       {
+        "situation": "Nach einem halben Jahr teiloffener Erprobung möchte das Team die Funktionsräume inhaltlich weiterentwickeln. Ein Teil des Teams schlägt vor, im Kreativbereich Elemente der Reggio-Dokumentation und im Spielbereich ausgewählte Montessori-Materialien zu kombinieren.",
+        "prompt": "Woran sollte das Team prüfen, ob eine solche Kombination konzeptionell tragfähig ist?",
         "options": [
           {
-            "feedback": "Teilweise passend. Ein reines Regelwerk ohne Reflexion der eigenen Haltung und ohne Einbindung der Kinder führt oft zu Frustration und mangelnder Akzeptanz.",
-            "label": "Das Team erarbeitet im stillen Kämmerlein einen strengen Bußgeld- und Sanktionenkatalog, um Konflikte im offenen Bereich sofort zu unterbinden.",
+            "label": "Jede Fachkraft entscheidet in ihrem Raum komplett allein ohne Absprache, nach welchem Konzept sie arbeitet.",
             "quality": "teilweise",
-            "theoryLink": "Konfliktlösungsmodelle: Sanktionen ohne partizipatorische Erarbeitung fördern keine moralische Autonomie."
+            "feedback": "Fachliche Eigenständigkeit ist wertvoll, doch ohne abgestimmtes Rahmenkonzept entstehen für Kinder und Eltern widersprüchliche Regeln und Haltungen im selben Haus.",
+            "theoryLink": "Teamkonsens und lernende Organisation (Grundsatz des Situationsansatzes)."
           },
           {
-            "feedback": "Optimal! Durch gewaltfreie Kommunikation, Kinderparlamente und transparente Konfliktlösungsmodelle lernen die Kinder, ihre Interessen und Rechte selbstbestimmt und sozial verträglich zu vertreten.",
-            "label": "Das Team etabliert ein wöchentliches Schülerparlament und nutzt Methoden der gewaltfreien Kommunikation sowie professionelle Deeskalationsstrategien, um Konflikte im Lebensraum GTS gemeinsam zu lösen.",
-            "quality": "optimal",
-            "theoryLink": "RLP-Lehrplan S-SP-2: Konflikte erkennen, Konfliktlösungsmodelle anwenden, Kinder in partizipatorischen Strategien unterstützen."
-          },
-          {
-            "feedback": "Falsch. Wegschauen oder das Delegieren aller Konflikte an die Schulleitung entzieht sich dem erzieherischen Auftrag und gefährdet das Sicherheitsgefühl der Kinder im Alltag.",
-            "label": "Bei Streitigkeiten im offenen Bereich greifen die Fachkräfte nicht ein, da Kinder Konflikte prinzipiell immer komplett alleine unter sich austragen müssen.",
+            "label": "Allein daran, welche Materialien im Katalog am modernsten aussehen.",
             "quality": "problematisch",
-            "theoryLink": "Erzieherische Verantwortung: Begleitung als dialogischer Prozess und Schutzauftrag im Lebensraum."
+            "feedback": "Äußerliche Ausstattung ohne pädagogische Begründung führt zu einer zusammenhanglosen Mischung, die weder Kindern noch Fachkräften Orientierung gibt.",
+            "theoryLink": "Konzeptionelle Fundierung statt oberflächlicher Schlagwörter."
+          },
+          {
+            "label": "Am gemeinsamen Menschenbild, an den beobachteten Interessen der Kinder und daran, ob Raumgestaltung, Materialzugang und Fachkraftrolle im Team schlüssig zusammenpassen.",
+            "quality": "optimal",
+            "feedback": "Genau richtig: Konzeptionelle Mischformen sind in der Praxis weit verbreitet und erfolgreich, wenn das Team sein Menschenbild klärt, bewusst begründet, welche Prinzipien (z. B. Fehlerkontrolle, sichtbare Dokumentation, Schlüsselsituationen) zusammenpassen, und die Wirkung regelmäßig beobachtet.",
+            "theoryLink": "Reflexion des eigenen Standpunkts („Mein Bild vom Menschen“), Einheit von Inhalt und Form und systematische Konzeptionsevaluation."
           }
-        ],
-        "prompt": "Schritt 2: Im offenen Betrieb kommt es vermehrt zu Konflikten um Funktionsräume (z. B. Werkstatt und Baubereich). Wie geht das Team pädagogisch mit dieser Situation um?",
-        "situation": "Nach der Umgestaltung auf Offene Arbeit und Funktionsräume nutzen viele Kinder gleichzeitig den Kreativ- und Baubereich, was zu Rangeleien um Materialien und Raumkapazitäten führt."
+        ]
       }
-    ],
-    "title": "Konzeptionsentwicklung und Alltagsgestaltung in der Offenen Ganztagsschule"
+    ]
   },
   "selfLearningTasks": [
-    "Entwickeln und begründen Sie auf einer DIN-A4-Seite Ihren eigenen pädagogischen Standpunkt ('Mein Bild vom Menschen') unter Bezugnahme auf mindestens zwei theoretische Ansätze aus der Einheit.",
-    "Vergleichen Sie in einer strukturierten Tabelle den Situationsansatz und die Offene Arbeit hinsichtlich Raumgestaltung, Rolle der Fachkraft und Partizipationsmöglichkeiten der Kinder.",
-    "Analysieren Sie ein Praxisbeispiel aus Ihrer Einrichtung im Hinblick darauf, wie stark das Angebot an den tatsächlichen Lebenssituationen und Bedürfnissen der Kinder ausgerichtet ist."
+    "Erstelle eine vergleichende Matrix zu Situationsansatz, Reggio-Pädagogik, Montessori-Pädagogik, Offener Arbeit und Waldpädagogik anhand von vier Kriterien: Bild vom Kind, Raum- und Materialverständnis, Rolle der Fachkraft und mindestens ein kritischer Reflexionspunkt je Ansatz.",
+    "Analysiere die pädagogische Konzeption deiner Praxiseinrichtung: Welche Elemente aus welchen Konzepten erkennst du im Alltag tatsächlich wieder, und wo besteht noch eine Lücke zwischen Text und gelebter Praxis?",
+    "Formuliere auf einer Seite deinen eigenen, begründeten pädagogischen Standpunkt („Mein Bild vom Menschen“) und erläutere an zwei konkreten Alltagssituationen, wie sich diese Haltung in deinem Handeln zeigt."
   ],
   "flashcards": [
     {
-      "definition": "Ein padagogisches Grundverständnis, das Kinder als kompetente, eigenständige Akteure ihrer eigenen Entwicklung und Träger von Grundrechten begreift (statt als unfertige 'Objekte' der Erziehung).",
-      "example": "In der Teamsitzung reflektieren die Fachkräfte, dass ihr 'Bild vom Menschen' maßgeblich ihre Haltung zur Partizipation der Kinder bestimmt.",
-      "term": "Mein Bild vom Menschen"
+      "term": "Situationsansatz (DJI / ISTA)",
+      "definition": "Lebensweltorientiertes frühpädagogisches Konzept (u. a. Jürgen Zimmer, Christa Preissing), das an reale Schlüsselsituationen der Kinder anknüpft und auf Autonomie, Solidarität und Kompetenz abzielt.",
+      "example": "Projektplanung ausgehend von aktuellen Fragen der Kinder (z. B. Verkehrssicherheit vor der Kita) statt starrer Themenvorgaben."
     },
     {
-      "definition": "Ein von Peter Petersen begründeter reformpädagogischer Ansatz, der durch einen rhythmisierten Wochenarbeitsplan, Gruppenunterricht und freie Arbeit geprägt ist (kein klassischer 45-Minuten-Takt).",
-      "example": "Die Jenaplanschule arbeitet jahrgangsübergreifend in Stammgruppen und ersetzt den Frontalunterricht durch Kernaktivitäten wie Gespräch, Spiel, Arbeit und Feier.",
-      "term": "Jenaplan-Pädagogik"
+      "term": "Reggio-Pädagogik (Loris Malaguzzi)",
+      "definition": "Sozial-konstruktivistische Bildungsphilosophie mit dem Bild des kompetenten Kindes („hundert Sprachen“), dem ästhetisch gestalteten Raum als „drittem Erzieher“, Projektarbeit und sichtbarer Dokumentation.",
+      "example": "„Sprechende Wände“ mit Kinderzitaten, Fotos und Werkspuren machen Lernprozesse für alle nachvollziehbar."
     },
     {
-      "definition": "Ein Konzept der Früh- und Hortpädagogik, das von den konkreten aktuellen Lebenssituationen, Interessen und Erfahrungen ('Schlüsselthemen') der Kinder und ihrer Familien ausgeht.",
-      "example": "Weil im Wohngebiet viele Wohnungen umgebaut werden, greift die Kita das Thema 'Baustelle' im Rahmen des Situationsansatzes projektartig auf.",
-      "term": "Situationsansatz"
+      "term": "Montessori-Pädagogik",
+      "definition": "Reformpädagogisches Konzept von Maria Montessori („Hilf mir, es selbst zu tun“) mit vorbereiteter Umgebung, Freiarbeit und speziellen Materialien mit Isolation der Schwierigkeit und integrierter Fehlerkontrolle.",
+      "example": "Beim Rosa Turm erkennt das Kind eigenständig, ob ein Würfel in der Reihenfolge nicht passt, und korrigiert selbst."
     },
     {
-      "definition": "Ein konzeptioneller Ansatz in Kindertagesstätten, der Stammgruppen auflöst, Funktionsräume (z.B. Atelier, Werkstatt) schafft und Kindern weitgehende Selbstbestimmung bei Wahl von Spielpartnern, Raum und Zeit ermöglicht.",
-      "example": "Im Rahmen der Offenen Arbeit entscheidet Liam morgens selbst, ob er im Bistro frühstücken und danach im Rollenspielraum oder im Außengelände spielen möchte.",
-      "term": "Offene Arbeit"
+      "term": "Offene Arbeit (Chancen & Voraussetzungen)",
+      "definition": "Konzept mit Funktionsräumen statt starrer Stammgruppen zur Stärkung von Partizipation und Selbstbestimmung; erfordert verlässliche Bezugsfachkräfte, Orientierungshilfen und Schutzbereiche besonders für Jüngere.",
+      "example": "Kinder wählen frei zwischen Werkstatt, Atelier und Rollenspielraum, haben aber feste Bezugsfachkräfte und sichtbare Orientierungstafeln."
     },
     {
-      "definition": "Pädagogisches Handeln, das primär an den vorhandenen Kompetenzen, Stärken und Potenzialen des Klienten (statt an Defiziten) anknüpft und ihn als Experten seiner Lösung versteht.",
-      "example": "Statt nach den Ursachen des Schulversagens zu forschen, erarbeitet die Fachkraft mit dem Jugendlichen im lösungsorientierten Gespräch seine bisher gelungenen Ausnahmen vom Problem.",
-      "term": "Lösungsorientierter Ansatz"
+      "term": "Waldpädagogik / Waldkindergarten",
+      "definition": "Naturpädagogisches Konzept, bei dem Wald und Naturraum bei fast jedem Wetter den primären Erfahrungs-, Bewegungs- und BNE-Bildungsraum mit offenen Naturmaterialien bilden.",
+      "example": "Bauen mit Ästen, Beobachten von Tieren und Jahreszeiten, ergänzt durch eine Schutzhütte bzw. einen Bauwagen."
     },
     {
-      "definition": "Eine Betreuungs- und Bildungsform, die den regulären Unterricht mit ergänzenden Bildungs-, Förder- und Freizeitangeboten über den ganzen Tag verbindet, um Chancengerechtigkeit zu erhöhen.",
-      "example": "Die gebundene Ganztagsschule integriert Rhythmisierung, verpflichtende Lernzeiten und sozialpädagogische Angebote in den Tagesablauf.",
-      "term": "Ganztagsschule (GTS)"
+      "term": "Lösungsorientierter Ansatz (de Shazer & Berg)",
+      "definition": "Ressourcen- und zukunftsorientierter Beratungs- und Handlungsansatz, der nach Ausnahmen vom Problem, vorhandenen Stärken und machbaren nächsten Schritten fragt statt vorrangig Defizite zu analysieren.",
+      "example": "„An welchen Tagen lief es in der Gruppe schon ein Stück besser – und was genau hat dir dabei geholfen?“"
     }
   ],
   "quiz": [
     {
+      "id": "v2-q1",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Welche drei übergeordneten Leitziele stehen im Mittelpunkt des Situationsansatzes (DJI / ISTA)?",
+      "options": [
+        "Wettbewerb, Selektion und Tempo",
+        "Autonomie, Solidarität und Kompetenz",
+        "Gehorsam, Leistungsdruck und Disziplin",
+        "Isolation, Materialtreue und Einzelarbeit"
+      ],
       "correctIndices": [
         1
       ],
-      "difficulty": "basis",
-      "explanation": "Der Situationsansatz geht davon aus, dass Kinder das Lernen an konkreten, realen Lebenssituationen und alltäglichen Schlüsselsituationen ihres eigenen Lebensraums vollziehen (Erfahrungsorientierung).",
-      "id": "quiz-1",
-      "options": [
-        "A) Die streng linientreue Umsetzung eines zentralen, staatlichen Lehrplans ohne Berücksichtigung der Kinderinteressen.",
-        "B) Die Orientierung an den tatsächlichen Lebenssituationen, Erfahrungen und Interessen von Kindern und ihren Familien ('Schlüsselthemen').",
-        "C) Die ausschließliche Vermittlung von Fachwissen durch frontalen Instruktionsunterricht.",
-        "D) Die strikte Isolierung der Einrichtung vom sozialen Umfeld und Gemeinwesen."
-      ],
-      "question": "Was ist das wesentliche Kernmerkmal des Situationsansatzes in der Kindertageseinrichtung?",
-      "type": "single"
+      "explanation": "Der Situationsansatz zielt darauf ab, Kinder in ihrer Lebensbewältigung zu stärken – konkret in Autonomie (Selbstbestimmung), Solidarität (soziale Verantwortung) und Kompetenz (Sach- und Handlungswissen)."
     },
     {
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Wodurch unterscheiden sich Reggio-Pädagogik und Montessori-Pädagogik insbesondere in ihrem Material- und Lernverständnis?",
+      "options": [
+        "Montessori verzichtet vollständig auf strukturierte Materialien, während Reggio ausschließlich standardisierte Testbögen nutzt.",
+        "In der Reggio-Pädagogik übernimmt die Fachkraft den Frontalunterricht, während Montessori nur im Wald stattfindet.",
+        "Montessori arbeitet mit klar strukturierten Entwicklungsmaterialien (Isolation der Schwierigkeit, integrierte Fehlerkontrolle), während Reggio stärker auf offene, ästhetische Materialien, Gruppenprojekte und sichtbare Dokumentation setzt.",
+        "Beide Konzepte lehnen das Bild vom aktiven, kompetenten Kind ausdrücklich ab."
+      ],
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Beide Konzepte teilen ein ressourcenreiches Bild vom Kind, setzen jedoch unterschiedliche Schwerpunkte: Montessori auf klar strukturierte Entwicklungsmaterialien mit Fehlerkontrolle in der vorbereiteten Umgebung, Reggio auf offene Materialien („100 Sprachen“), Ko-Konstruktion und sichtbare Dokumentation."
+    },
+    {
+      "id": "v2-q3",
+      "type": "multi",
+      "difficulty": "pruefung",
+      "question": "Welche Voraussetzungen sind entscheidend, damit Offene Arbeit in einer Kindertageseinrichtung fachlich gelingt und Kinder nicht überfordert? (Mehrere Antworten sind richtig)",
+      "options": [
+        "Verlässliche Bezugsfachkräfte und gut begleitete Übergänge, insbesondere für jüngere (U3) oder neu eingewöhnte Kinder.",
+        "Klare Orientierungssysteme, transparente Regeln und geschützte Rückzugsbereiche trotz geöffneter Funktionsräume.",
+        "Enge Teamkommunikation und systematische Beobachtung, damit kein Kind im offenen Betrieb aus dem Blick gerät.",
+        "Vollständiger Verzicht auf jegliche Struktur, Absprachen und feste Bezugspersonen."
+      ],
       "correctIndices": [
         0,
+        1,
         2
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Offene Arbeit zeichnet sich durch die Auflösung starrer Stammgruppen (Zugunsten von Funktionsräumen und jahrgangsübergreifendem Arbeiten) sowie durch ein hohes Maß an Selbstbestimmung und Partizipation der Kinder aus. Feste Sitzordnungen und Frontalunterricht sind typisch für geschlossene, traditionelle Konzepte.",
-      "id": "quiz-2",
-      "options": [
-        "A) Auflösung starrer Stammgruppen zugunsten von Funktionsräumen und funktionsübergreifendem Arbeiten.",
-        "B) Verpflichtender, starrer Frontalunterricht im 45-Minuten-Takt für alle Kinder ab 3 Jahren.",
-        "C) Umfassende Mitbestimmung (Partizipation) der Kinder bei der Wahl von Raum, Zeit und Spielpartnern.",
-        "D) Ausschluss der Elternarbeit zur Wahrung der professionellen Distanz."
-      ],
-      "question": "Welche Merkmale treffen typischerweise auf die 'Offene Arbeit' zu? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Offene Arbeit verlangt sogar ein hohes Maß an innerer Struktur, Teamabsprache und Bindungssicherheit, damit Kinder ihre Wahlfreiheit tatsächlich selbstbewusst und sicher nutzen können."
     },
     {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Der lösungsorientierte Ansatz (inspiriert u.a. durch Steve de Shazer und Insoo Kim Berg) fokussiert sich bewusst auf Ressourcen, Ausnahmen vom Problem und Zukunftsvisionen, statt langwierig die Defizite oder Ursachen der Vergangenheit zu analysieren.",
-      "id": "quiz-3",
+      "id": "v2-q4",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Was bedeutet in der Reggio-Pädagogik das bekannte Leitmotiv vom Raum als „drittem Erzieher“?",
       "options": [
-        "A) Die intensive psychoanalytische Erforschung frühkindlicher Traumata zur Ursachenanalyse.",
-        "B) Die strikte Bestrafung unerwünschten Verhaltens durch standardisierte Sanktionskataloge.",
-        "C) Die konsequente Ressourcen- und Zukunftsorientierung unter Nutzung von Ausnahmen vom Problem ('Miracle Question').",
-        "D) Die Verpflichtung der Eltern zu wöchentlichen Erziehungskursen."
+        "Eine ästhetische, anregende, transparente und kindgerechte Raumgestaltung stößt eigenständiges Forschen, Begegnung und Bildung unmittelbar mit an.",
+        "Die Raumgestaltung ersetzt persönliche Beziehungen zu Fachkräften und anderen Kindern vollständig.",
+        "Räume dürfen während eines gesamten Kita-Jahres nicht verändert werden.",
+        "In jedem Gruppenraum müssen immer genau drei erwachsene Fachkräfte anwesend sein."
       ],
-      "question": "Welche Haltung kennzeichnet den 'lösungsorientierten Ansatz' in der Beratung und Begleitung von Kindern und Jugendlichen?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "pruefung",
-      "explanation": "In einer Ganztagsschule (GTS) verbindet die Rhythmisierung kognitive Lernphasen mit handlungs-, sport- und entspannungsorientierten Angeboten über den ganzen Tag, wodurch der starre Vormittagsrhythmus aufgehoben wird.",
-      "id": "quiz-4",
-      "options": [
-        "A) Die Verkürzung der täglichen Schulzeit auf zwei Stunden am Vormittag.",
-        "B) Die Rhythmisierung des Schultages durch den Wechsel von Anspannung und Entspannung sowie die Verzahnung von Unterricht und sozialpädagogischen Angeboten.",
-        "C) Die Abschaffung jeglicher Hausaufgaben und Leistungsüberprüfungen ohne Ersatz.",
-        "D) Die alleinige Übernahme erzieherischer Aufgaben durch externe Honorarkräfte ohne Lehrkräfte."
-      ],
-      "question": "Was versteht man im Kontext von Ganztagsschulkonzepten (GTS) unter 'Rhythmisierung'?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
         0
       ],
-      "difficulty": "basis",
-      "explanation": "Der Leitsatz 'Hilf mir, es selbst zu tun' ist der berühmteste Ausspruch von Maria Montessori und fasst das reformpädagogische Prinzip der vorbereiteten Umgebung und Selbsttätigkeit prägnant zusammen.",
-      "id": "quiz-5",
-      "options": [
-        "A) Maria Montessori",
-        "B) Celestin Freinet",
-        "C) Kurt Hahn",
-        "D) Peter Petersen"
-      ],
-      "question": "Von welcher Reformpädagogin stammt der berühmte Leitsatz „Hilf mir, es selbst zu tun“?",
-      "type": "single"
+      "explanation": "Neben den anderen Kindern und den Erwachsenen wirkt die bewusst gestaltete Umgebung (Licht, Spiegel, Materialien, Zugänglichkeit, Dokumentation) aktiv als bildungsanregender Faktor."
     },
     {
+      "id": "v2-q5",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Was zeichnet die Waldpädagogik im Vergleich zu einer klassischen Innenraum-Kita besonders aus – und welcher Reflexionspunkt gehört dazu?",
+      "options": [
+        "Waldpädagogik eignet sich ausschließlich für Kinder ohne besonderen Förderbedarf.",
+        "Offene Naturmaterialien fördern ganzheitlich Bewegung, Kreativität, Sinne und BNE; zugleich braucht es eine Schutzunterkunft, klare Sicherheitsstandards und bewusste Angebote u. a. für Literacy und Ruhe.",
+        "Kinder nutzen ausschließlich elektronische Lernmedien im Wald; Bewegung spielt kaum eine Rolle.",
+        "Waldkindergärten benötigen keine pädagogische Konzeption und keine Aufsichtspflicht."
+      ],
       "correctIndices": [
         1
       ],
+      "explanation": "Waldpädagogik bietet große Potenziale für Bewegung, Fantasie und Naturerleben, erfordert aber genauso durchdachte Schutz-, Sicherheits- und ganzheitliche Bildungsplanung."
+    },
+    {
+      "id": "v2-q6",
+      "type": "case",
       "difficulty": "pruefung",
-      "explanation": "In diesem Fall wendet die Fachkraft den ressourcen- und lösungsorientierten Ansatz an. Sie fokussiert sich auf die Ausnahmen, in denen das Problem nicht besteht, und stärkt die Selbstwirksamkeit des Jugendlichen.",
-      "id": "quiz-6",
+      "question": "Ein 14-jähriger Jugendlicher in einer Wohngruppe berichtet frustriert von häufigen Konflikten in der Schule. Die Erzieherin fragt: „Gibt es Tage oder Fächer, an denen es schon ein Stück besser läuft? Was machst du da anders – und was hilft dir dabei?“ Welchem Ansatz entspricht diese Fragetechnik?",
       "options": [
-        "A) Behavioristischer Reiz-Reaktions-Ansatz mit token economy.",
-        "B) Lösungsorientierter Kurzzeitberatungsansatz (Ressourcen- und Zukunftsorientierung).",
-        "C) Intensivpädagogischer Time-Out-Ansatz mit totaler Isolation.",
-        "D) Tradierter Defizitorientierter Ansatz der klassischen Heilpädagogik."
+        "Dem autoritär-sanktionsorientierten Erziehungsansatz.",
+        "Der strengen Sinnesmaterial-Methodik nach Maria Montessori.",
+        "Einem rein defizitorientierten Screeningverfahren.",
+        "Dem lösungsorientierten Ansatz nach Steve de Shazer und Insoo Kim Berg (Fokus auf Ausnahmen und Ressourcen)."
       ],
-      "question": "Ein 14-jähriger Jugendlicher in einer Wohngruppe äußert Frust über wiederkehrende Konflikte mit Lehrern. Die Erzieherin fragt: „Gibt es Tage, an denen es besser läuft? Was machst du da anders?“ Welchem pädagogischen Konzept bzw. Ansatz lässt sich diese Fragetechnik zuordnen?",
-      "type": "case"
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Ausnahmefragen („Wann läuft es bereits besser?“) sind ein Kernwerkzeug des lösungsorientierten Ansatzes: Sie lenken den Blick auf vorhandene Kompetenzen und realistische Handlungsansätze."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Über den Situationsansatz – Grundsätze und theoretische Dimensionen",
+      "url": "https://situationsansatz.de/uber-den-situationsansatz/",
+      "publisher": "ISTA – Institut für den Situationsansatz",
+      "note": "Originäre Darstellung der fünf Dimensionen, 16 Grundsätze und Leitziele des Situationsansatzes"
+    },
+    {
+      "title": "Alltag mit dem Situationsansatz",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/KiTaFT_Macha_2018_AlltagmitdemSituationsansatz.pdf",
+      "publisher": "Kita-Fachtexte / WiFF (Klaudia Macha, 2018)",
+      "note": "Studientext zur Entwicklung, Abgrenzung und praktischen Umsetzung des Situationsansatzes (PDF)"
+    },
+    {
+      "title": "Reggio-Pädagogik – Entstehung, Menschenbild und pädagogische Praxis",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/KiTaFT_Knauf_2017_Reggio-Paedadogik_01.pdf",
+      "publisher": "Kita-Fachtexte / WiFF (Tassilo Knauf, 2017)",
+      "note": "Fundierte Einführung in die Reggio-Pädagogik, „100 Sprachen“, Raum und Dokumentation (PDF)"
+    },
+    {
+      "title": "Offene Arbeit – Chancen und Grenzen",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/KiTaFT_vdBeek_2018_offeneArbeit_ChancenundGrenzen.pdf",
+      "publisher": "Kita-Fachtexte / WiFF (Angelika von der Beek, 2018)",
+      "note": "Differenzierte Einordnung von Funktionsräumen, Bindungssicherheit und Rahmenbedingungen (PDF)"
+    },
+    {
+      "title": "Montessori für das 21. Jahrhundert",
+      "url": "https://nifbe.de/fachbeitraege/montessori-fuer-das-21-jahrhundert/",
+      "publisher": "nifbe – Niedersächsisches Institut für frühkindliche Bildung und Entwicklung",
+      "note": "Fachbeitrag zu vorbereiteter Umgebung, Materialprinzipien und aktueller Einordnung von Montessori"
+    },
+    {
+      "title": "Naturpädagogische Kindertagesstätten",
+      "url": "https://nifbe.de/fachbeitraege/naturpaedagogische-kindergaerten/",
+      "publisher": "nifbe – Niedersächsisches Institut für frühkindliche Bildung und Entwicklung",
+      "note": "Überblick zu Konzept, Entwicklungschancen und Rahmenbedingungen natur- und waldpädagogischer Kitas"
+    },
+    {
+      "title": "Der Waldkindergarten – Idee, Geschichte und Praxis",
+      "url": "https://www.kindergartenpaedagogik.de/fachartikel/paedagogische-ansaetze/moderne-paedagogische-ansaetze/der-waldkindergarten/",
+      "publisher": "Kindergartenpädagogik – Online-Handbuch (Martin R. Textor)",
+      "note": "Praxisnahe Darstellung von Struktur, Materialien und pädagogischen Anforderungen im Waldkindergarten"
     }
   ]
 }

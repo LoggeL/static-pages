@@ -75,6 +75,15 @@ export interface QuizQuestion {
   difficulty: 'basis' | 'vertiefung' | 'pruefung';
 }
 
+export interface UnitSource {
+  title: string;
+  url: string;
+  publisher?: string;
+  note?: string;
+}
+
+export type UnitRole = 'core' | 'orientation';
+
 export type CrossCuttingTag =
   | 'Partizipation'
   | 'Inklusion'
@@ -94,6 +103,8 @@ export interface LearningUnit {
   number: number;
   moduleCode: string;
   moduleArea: ModuleArea;
+  unitRole?: UnitRole;
+  curriculumRef?: string;
   bildungsbereich?: string;
   title: string;
   subtitle: string;
@@ -110,6 +121,7 @@ export interface LearningUnit {
   selfLearningTasks: string[];
   flashcards: Flashcard[];
   quiz: QuizQuestion[];
+  sources?: UnitSource[];
 }
 
 export interface QuizResultEntry {

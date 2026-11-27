@@ -3,408 +3,485 @@
   "number": 39,
   "moduleCode": "S-SP-5",
   "moduleArea": "sp-pflicht",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-5 · Kinderschutz, § 8a SGB VIII & institutionelle Schutzkonzepte (Lehrplan RLP 2024)",
   "title": "Kinderschutz, § 8a SGB VIII & institutionelle Schutzkonzepte",
-  "subtitle": "Kindeswohlgefährdung erkennen, Verfahrensschritte einhalten & Fachberatung nutzen",
+  "subtitle": "Gewichtige Anhaltspunkte einschätzen, Verfahrensschritte rechtssicher einhalten & Schutzkonzepte leben",
   "year": "2./3. Jahr",
-  "estimatedMinutes": 30,
+  "estimatedMinutes": 35,
   "hoursRef": "120 Std. (Teil 2/3)",
   "pdfPages": "S. 37–38",
   "crossCuttingTags": [
     "Prävention",
     "Partizipation"
   ],
-  "summary": "Diese Einheit vermittelt angehenden Erzieher:innen fundiertes Fachwissen und methodische Handlungssicherheit im gesetzlichen Kinderschutz nach § 8a SGB VIII. Sie lernen, Gefährdungsformen differenziert zu erkennen, strukturierte Einschätzungsverfahren im Team mit insoweit erfahrenen Fachkräften durchzuführen und institutionelle Schutzkonzepte in der Praxis zu implementieren.",
+  "summary": "Kinderschutz verlangt fachliche Sensibilität und präzise Rechtskenntnis. Diese Einheit vermittelt die Formen von Kindeswohlgefährdung, das verbindliche Stufenverfahren für freie Einrichtungen nach § 8a Abs. 4 SGB VIII mit Hinzuziehung einer insoweit erfahrenen Fachkraft (IseF), die rechtliche Abgrenzung zu § 8b SGB VIII, § 1631 Abs. 2 BGB und § 4 KKG sowie die gesetzlichen Pflichtbausteine institutioneller Gewaltschutzkonzepte nach § 45 Abs. 2 Nr. 4 SGB VIII.",
   "learningGoals": [
-    "Ich kann Formen der Kindeswohlgefährdung (Vernachlässigung, körperliche/seelische/sexualisierte Gewalt) auf allen Ebenen fachlich differenzieren und erkennen.",
-    "Ich kann den rechtlichen Schutzauftrag nach § 8a SGB VIII und dem Bundeskinderschutzgesetz (BKiSchG) in der Praxis anwenden.",
-    "Ich kann den strukturierten Ablauf einer Gefährdungseinschätzung im Team unter Hinzuziehung einer insoweit erfahrenen Fachkraft (IseF) methodisch korrekt durchführen.",
-    "Ich kann Eltern im Verdachtsfall professionell, partizipativ und transparent einbeziehen und gleichzeitig die Grenzen eigener Beratung reflektieren.",
-    "Ich kann die zentralen Bausteine eines institutionellen Schutzkonzepts (Prävention, Intervention, Beschwerdemanagement) für sozialpädagogische Einrichtungen analysieren und mitgestalten."
+    "Ich kann Formen von Kindeswohlgefährdung (Vernachlässigung, körperliche, seelische und sexualisierte Gewalt sowie Miterleben häuslicher Gewalt) sachlich unterscheiden und gewichtige Anhaltspunkte verhaltensnah dokumentieren.",
+    "Ich kann zentrale Kinderschutznormen – Art. 6 Abs. 2 GG, § 1631 Abs. 2 BGB, § 8a Abs. 4 SGB VIII, § 8b SGB VIII, § 45 Abs. 2 Nr. 4 SGB VIII und § 4 KKG – rechtlich präzise einordnen und voneinander abgrenzen.",
+    "Ich kann den verbindlichen Ablauf einer Gefährdungseinschätzung nach § 8a Abs. 4 SGB VIII (Teamabgleich, Beratung durch eine IseF, Einbeziehung von Eltern und Kind, Hinwirken auf Hilfen, Jugendamtsinformation) rechtssicher anwenden.",
+    "Ich kann den gesetzlichen Schutzvorbehalt („soweit der wirksame Schutz nicht infrage gestellt wird“) fachlich abwägen und die Grenzen des eigenen pädagogischen Auftrags im Kinderschutz wahren.",
+    "Ich kann die verbindlichen Bausteine eines institutionellen Gewaltschutzkonzepts nach § 45 Abs. 2 Nr. 4 SGB VIII (Risikoanalyse, Verhaltenskodex, Partizipation, interne/externe Beschwerdewege, Interventionsketten) analysieren und im Alltag mitgestalten."
   ],
   "sections": [
     {
-      "body": "Kindeswohlgefährdung ist ein multidimensionales Phänomen, das sich in verschiedenen Formen manifestiert: Körperliche Gewalt, seelische Gewalt (emotionaler Missbrauch und Vernachlässigung), sexualisierte Gewalt sowie häusliche Gewalt im familiären Umfeld. Pädagogische Fachkräfte im „Bachelor Professional in Sozialwesen“ müssen diese Formen auf allen Ebenen (mikro-, meso- und makrosozial) erkennen. Dabei ist zu beachten, dass Vernachlässigung als chronischer Zustand oft schwerer zu diagnostizieren ist als akute Verletzungen, jedoch gravierende Entwicklungsfolgen nach sich zieht. Seelische Gewalt zeigt sich u.a. in st Abwertung, Ignorieren oder emotionaler Erpressung.",
+      "heading": "1. Kindeswohlgefährdung erkennen: Rechtsrahmen, Formen & sachliche Dokumentation",
+      "keyTakeaway": "Kinder haben nach § 1631 Abs. 2 BGB ein uneingeschränktes Recht auf gewaltfreie Erziehung; Verdachtsmomente werden über konkrete, datierte Beobachtungen statt über vage Vermutungen erfasst.",
+      "body": "Das Grundgesetz verankert in Art. 6 Abs. 2 GG das natürliche Recht und die Pflicht der Eltern zur Pflege und Erziehung – stellt deren Ausübung aber ausdrücklich unter das staatliche Wächteramt. Konkretisiert wird der Schutz des Kindes in § 1631 Abs. 2 BGB: Jedes Kind hat ein Recht auf Pflege und Erziehung unter Ausschluss von Gewalt, körperlichen Bestrafungen, seelischen Verletzungen und anderen entwürdigenden Maßnahmen. Von einer Kindeswohlgefährdung (vgl. § 1666 BGB) spricht man, wenn eine gegenwärtige, erhebliche Gefahr besteht, dass bei weiterer Entwicklung eine nachhaltige Schädigung des körperlichen, geistigen oder seelischen Wohls mit ziemlicher Sicherheit zu erwarten ist. In der Praxis werden vier Kernformen unterschieden: Vernachlässigung (anhaltendes oder wiederholtes Unterlassen elementarer Versorgung in Ernährung, Kleidung, Hygiene, medizinischer Betreuung, Aufsicht oder emotionaler Zuwendung – sie zählt in der Praxis zu den häufigsten, oft schleichend verlaufenden Gefährdungsformen), körperliche Gewalt, seelische Gewalt (z. B. dauerhafte Abwertung, Drohung, Isolation oder das Miterleben häuslicher Gewalt) sowie sexualisierte Gewalt. Ausgangspunkt jedes Kinderschutzverfahrens sind „gewichtige Anhaltspunkte“ – also konkrete, nachvollziehbare Hinweise, die über ein bloßes Unbehagen hinausgehen. Fachkräfte dokumentieren diese zeitnah, sachlich und streng getrennt nach Beobachtung (Datum, Kontext, sichtbare Befunde, wörtliche Aussagen ohne suggestives Ausfragen) und eigener fachlicher Einschätzung; sie ermitteln jedoch nicht wie Polizei oder Gericht und stellen keine medizinischen Diagnosen.",
       "bulletPoints": [
-        "Differenzierung in physische, psychische, sexuelle und strukturelle Gewaltformen",
-        "Erkennung chronischer Vernachlässigung (Ernährung, Hygiene, medizinische Vorsorge)",
-        "Wahrnehmung subtiler Signale seelischer Gewalt und emotionaler Verwahrlosung",
-        "Berücksichtigung von häuslicher Gewalt und deren traumatisierenden Auswirkungen auf Kinder"
+        "Art. 6 Abs. 2 GG (Elternverantwortung & staatliches Wächteramt) und § 1631 Abs. 2 BGB (Recht auf gewaltfreie Erziehung).",
+        "Gefährdungsformen: Vernachlässigung (physisch, emotional, medizinisch, kognitiv), körperliche, seelische (inkl. Miterleben häuslicher Gewalt) und sexualisierte Gewalt.",
+        "Gewichtige Anhaltspunkte durch sachliche, datierte und verhaltensnahe Dokumentation erfassen (getrennt von Vermutungen).",
+        "Keine suggestiven Befragungen von Kindern und keine eigenmächtige Detektivarbeit."
       ],
-      "heading": "Formen und Erkennung von Kindeswohlgefährdung auf allen Ebenen",
-      "keyTakeaway": "Kindeswohlgefährdung umfasst neben körperlicher und sexualisierter Gewalt vor allem auch seelische Gewalt und chronische Vernachlässigung, die frühzeitig und multiprofessionell erkannt werden müssen.",
-      "praxisTip": "Führen Sie einrichtungsweit standardisierte Wahrnehmungsbögen und Beobachtungstagebücher (geschützt vor unbefugtem Zugriff) für auffällige Verhaltensänderungen (z.B. plötzlicher Leistungsabfall, extremes Klammern oder Aggression) ein."
+      "praxisTip": "Notieren Sie Äußerungen eines Kindes möglichst wortwörtlich in Anführungszeichen samt Datum, Anlass und situativem Kontext – und bewahren Sie Kinderschutzdokumentationen separat und zugriffsgeschützt auf."
     },
     {
-      "body": "Der gesetzliche Schutzauftrag nach § 8a SGB VIII verpflichtet Träger von Einrichtungen der Jugendhilfe dazu, bei Bekanntwerden gewichtiger Anhaltspunkte für die Gefährdung eines Minderjährigen unverzüglich eine Gefährdungseinschätzung im Team durchzuführen. Ein zentrales Element dieses Verfahrens ist die Hinzuziehung einer insoweit erfahrenen Fachkraft (IseF), die das Team anonymisiert und fachlich berät. Die Fachkräfte müssen dabei das Risiko objektiv bewerten, ohne dabei eigenmächtig voreilige Schritte zu unternehmen oder unbefugt Daten preiszugeben. Der Datenschutz steht dabei im Einklang mit der Gefahrenabwehr.",
+      "heading": "2. Verfahren nach § 8a Abs. 4 SGB VIII & Fachberatung nach § 8b SGB VIII",
+      "keyTakeaway": "Für Kitas und freie Einrichtungen regelt § 8a Abs. 4 SGB VIII ein verbindliches, mehrstufiges Verfahren im Team mit beratender Hinzuziehung einer insoweit erfahrenen Fachkraft (IseF).",
+      "body": "Innerhalb des § 8a SGB VIII ist juristisch genau zu unterscheiden: Die Absätze 1 bis 3 regeln den Schutzauftrag des Jugendamts (Risikoeinschätzung im Zusammenwirken mehrerer Fachkräfte, unmittelbarer Eindruck vom Kind, Anrufung des Familiengerichts und ggf. Inobhutnahme nach § 42 SGB VIII bei dringender Gefahr). Für Kindertageseinrichtungen und andere Einrichtungen bzw. Dienste freier Träger ist hingegen § 8a Abs. 4 SGB VIII die maßgebliche Rechtsgrundlage (für Kindertagespflegepersonen gilt § 8a Abs. 5 SGB VIII). Über Vereinbarungen zwischen Jugendamt und Einrichtungsträger ist sicherzustellen, dass Fachkräfte bei gewichtigen Anhaltspunkten unverzüglich und niemals im Alleingang handeln: (1) Beobachtungen sachlich dokumentieren und Leitung einbeziehen; (2) Gefährdungseinschätzung im Team unter beratender Hinzuziehung einer insoweit erfahrenen Fachkraft (IseF / InsoFa) durchführen – die IseF berät anonymisiert bzw. pseudonymisiert, strukturiert Risiken wie Ressourcen und berücksichtigt seit dem KJSG ausdrücklich auch die besonderen Schutzbedürfnisse von Kindern mit Behinderungen (§ 8a Abs. 4 Satz 2, § 8b Abs. 3 SGB VIII), übernimmt aber weder die Fallführung noch eigene Elterngespräche; (3) Erziehungsberechtigte sowie das Kind bzw. den Jugendlichen in die Einschätzung einbeziehen, soweit hierdurch der wirksame Schutz nicht infrage gestellt wird; (4) auf die Inanspruchnahme geeigneter Hilfen hinwirken (z. B. Frühe Hilfen, Erziehungsberatung, Hilfen zur Erziehung); (5) das Jugendamt informieren, falls die Gefährdung nicht anders abgewendet werden kann. Ergänzend sichert § 8b SGB VIII allen beruflich mit Kindern tätigen Personen einen Rechtsanspruch auf Einzelfallberatung durch eine IseF beim Jugendamt (Abs. 1) sowie Einrichtungsträgern einen Beratungsanspruch beim Landesjugendamt für die Entwicklung von Gewaltschutz-Leitlinien (Abs. 2).",
       "bulletPoints": [
-        "Verbindliche Anwendung des § 8a SGB VIII und des Bundeskinderschutzgesetzes (BKiSchG)",
-        "Verfahrensschritte: Dokumentation, Teaminterner Abgleich, IseF-Beratung, Elterneinbeziehung",
-        "Abwägung zwischen Datenschutz (Geheimhaltungspflicht) und Kindesschutz (Gefahrenabwehr)",
-        "Rechtssichere und lückenlose Dokumentation aller Beobachtungen und Gespräche"
+        "§ 8a Abs. 1–3 SGB VIII = Auftrag des Jugendamts; § 8a Abs. 4 SGB VIII = verbindliches Verfahren für Einrichtungen freier Träger (z. B. Kitas).",
+        "Keine Alleingänge: Team-Einschätzung + beratende Hinzuziehung einer IseF (Beratungsrolle, keine Fallübernahme).",
+        "Einbeziehung von Eltern und Kind unter Schutzvorbehalt („soweit der wirksame Schutz nicht infrage gestellt wird“).",
+        "Stufenfolge: Auf Hilfen hinwirken und deren Wirksamkeit prüfen – Jugendamt informieren, wenn die Gefährdung anders nicht abgewendet werden kann.",
+        "§ 8b SGB VIII: Rechtsanspruch auf IseF-Einzelfallberatung (Abs. 1) und Trägerberatung für Schutzleitlinien (Abs. 2)."
       ],
-      "heading": "Rechtliche Verankerung und Verfahrensschritte nach § 8a SGB VIII",
-      "keyTakeaway": "§ 8a SGB VIII regelt den verbindlichen Schutzauftrag und verlangt bei gewichtigen Anhaltspunkten eine strukturierte Gefährdungseinschätzung gemeinsam mit einer IseF.",
-      "praxisTip": "Erarbeiten Sie in Ihrer Einrichtung einen standardisierten Laufzettel für Verdachtsfälle, der die einzelnen Schritte (Beobachtung, Leitungsinformation, IseF-Konsultation, Elterneinbeziehung) rechtssicher abbildet."
+      "praxisTip": "Halten Sie die Kontaktdaten der zuständigen IseF, des örtlichen Jugendamts und regionaler Beratungsstellen im Schutzordner sofort griffbereit, sodass im Ernstfall keine wertvolle Zeit verloren geht."
     },
     {
-      "body": "Eltern und Sorgeberechtigte sind grundsätzlich primär für das Wohl ihrer Kinder verantwortlich (Art. 6 GG). Im Rahmen der Erziehungs- und Bildungspartnerschaft sollen Eltern – sofern dadurch das Kindeswohl nicht akut weiter gefährdet wird – aktiv in das Verfahren einbezogen werden. Ziel ist es, Hilfen (z.B. Frühe Hilfen, Erziehungsberatung, ambulante Jugendhilfen) anzubieten und anzunehmen. Gelingt es den Eltern nicht, Kooperationsbereitschaft zu zeigen oder die Gefährdung abzuwenden, ist zwingend die Meldung an das Jugendamt (§ 8a Abs. 3 SGB VIII) erforderlich. Fachkräfte müssen dabei ihre eigenen professionellen Grenzen (keine Therapie, keine Ermittlungsbehörde) erkennen.",
+      "heading": "3. Schweigepflicht, Datenschutz & präzise Abgrenzung zu § 4 KKG",
+      "keyTakeaway": "Kita-Erzieherinnen und -Erzieher handeln primär nach § 8a Abs. 4 SGB VIII; § 4 KKG ist die entsprechende Befugnisnorm für gesetzlich bestimmte Berufsgeheimnisträger wie Ärztinnen, Psychologen, Lehrkräfte und staatlich anerkannte Sozialpädagoginnen.",
+      "body": "In der Praxis werden § 8a SGB VIII und § 4 KKG (Gesetz zur Kooperation und Information im Kinderschutz) häufig verwechselt – dabei erfüllen sie unterschiedliche rechtliche Funktionen. § 4 KKG richtet sich an abschließend in § 4 Abs. 1 KKG genannte Berufsgeheimnisträger und Berufsgruppen, insbesondere Ärztinnen und Ärzte, Hebammen, Berufspsychologinnen und -psychologen, Ehe-, Familien-, Erziehungs- und Jugendberaterinnen, Sucht- und Schwangerschaftskonfliktberaterinnen, staatlich anerkannte Sozialarbeiterinnen/Sozialpädagogen sowie Lehrkräfte an Schulen. Weil diese Gruppen teils der strafbewehrten Schweigepflicht (§ 203 StGB) unterliegen, schafft § 4 KKG für sie ein abgestuftes Verfahren samt gesetzlicher Befugnis zur Datenübermittlung: (1) Situation mit Eltern und Kind erörtern und auf Hilfen hinwirken (unter Schutzvorbehalt), (2) Anspruch auf pseudonymisierte IseF-Beratung (§ 4 Abs. 2 KKG), (3) Befugnis zur Information des Jugendamts nach vorangehendem Hinweis an die Betroffenen (es sei denn, dies gefährdet den Schutz), wenn die Abwendung scheitert oder ausscheidet (§ 4 Abs. 3 KKG; für Heilberufe bei dringender Gefahr als Soll-Vorschrift), sowie zeitnahe Rückmeldung durch das Jugendamt (§ 4 Abs. 4 KKG). Staatlich anerkannte Erzieherinnen und Erzieher in Kindertageseinrichtungen zählen nicht zum Katalog des § 4 Abs. 1 KKG: Ihr Handlungs- und Befugnisrahmen ergibt sich aus § 8a Abs. 4 SGB VIII (in Verbindung mit den Trägervereinbarungen und §§ 61–65 SGB VIII) sowie § 8b Abs. 1 SGB VIII. Auch hier gilt: Die IseF-Beratung erfolgt pseudonymisiert; bei notwendiger Jugendamtsinformation dürfen die erforderlichen Daten übermittelt werden, und die Betroffenen sind grundsätzlich vorab darüber zu informieren, sofern der wirksame Schutz des Kindes dadurch nicht gefährdet wird.",
       "bulletPoints": [
-        "Partnerschaftlicher Dialog mit Eltern trotz Verdachtsmomenten (Transparenzgebot)",
-        "Vermittlung an niedrigschwellige Hilfsangebote (Familienbildung, Frühe Hilfen)",
-        "Einbindung des Jugendamtes bei fehlender Kooperation oder akuter Kindeswohlgefährdung",
-        "Reflexion professioneller Grenzen und Verweis auf spezialisierte Fachstellen"
+        "§ 8a Abs. 4 SGB VIII: Zentrale Rechtsgrundlage für pädagogische Fachkräfte in Kitas und freien Jugendhilfeeinrichtungen.",
+        "§ 4 KKG: Abgestufte Befugnisnorm für bestimmte Berufsgeheimnisträger (u. a. Heilberufe, Psychologie, anerkannte Beratungsstellen, Sozialarbeit/Sozialpädagogik, Lehrkräfte).",
+        "Pseudonymisierte Fallberatung mit der IseF wahrt den Datenschutz während der Einschätzung.",
+        "Transparenzgebot mit Schutzvorbehalt: Eltern werden vor einer Jugendamtsinformation informiert, außer wenn dadurch akute Gefahr für das Kind droht.",
+        "Klare Rollengrenzen: Erzieherinnen und Erzieher begleiten, vermitteln Hilfen und schützen – sie führen weder Therapien noch eigenmächtige Kontroll-Hausbesuche durch."
       ],
-      "heading": "Elterneinbeziehung, Beratungsgrenzen und Jugendamtsmeldung",
-      "keyTakeaway": "Die Einbeziehung der Eltern erfolgt transparent, es sei denn, der Schutz des Kindes (z.B. bei schwerer Misshandlung) erfordert ein unmittelbares Handeln ohne vorherige elterliche Kenntnisnahme.",
-      "praxisTip": "Führen Sie Elterngespräche bei Verdachtsfällen stets zu zweit (z.B. Leitung und Bezugserzieherin) und bereiten Sie diese anhand eines Leitfadens vor, um sachlich, empathisch und gleichzeitig klar zu argumentieren."
+      "praxisTip": "Führen Sie schwierige Kinderschutzgespräche mit Eltern nach Möglichkeit zu zweit (z. B. Bezugsfachkraft und Leitung), bereiten Sie konkrete Beobachtungsbeispiele vor und dokumentieren Sie Gesprächsverlauf sowie vereinbarte Schritte schriftlich."
     },
     {
-      "body": "Ein institutionelles Schutzkonzept (InseS) ist ein umfassender, träger- und einrichtungsspezifischer Qualitätsstandard, der Gewalt in pädagogischen Einrichtungen präventiv verhindern, aufdecken und sanktionieren soll. Es besteht aus mehreren Bausteinen: Einem Verhaltenskodex für Fachkräfte, transparenten Beschwerdewegen für Kinder und Eltern, einer Risiko- und Potenzialanalyse der Einrichtung, verbindlichen Personalüberprüfungen (erweitertes Führungszeugnis) sowie klaren Interventionsketten im Ernstfall. Schutzkonzepte sind keine starren Papiere, sondern müssen partizipativ und lebendig im Alltag gelebt werden.",
+      "heading": "4. Institutionelle Gewaltschutzkonzepte nach § 45 Abs. 2 Nr. 4 SGB VIII",
+      "keyTakeaway": "Kinderschutz beginnt in der eigenen Einrichtung: Ein gelebtes Gewaltschutzkonzept samt Beteiligungs- und internen wie externen Beschwerdeverfahren ist nach § 45 Abs. 2 Nr. 4 SGB VIII gesetzliche Voraussetzung für die Betriebserlaubnis.",
+      "body": "Kinder und Jugendliche müssen nicht nur vor familiären Gefährdungen, sondern ebenso vor Machtmissbrauch, Grenzverletzungen sowie körperlicher, seelischer oder sexualisierter Gewalt innerhalb von Einrichtungen geschützt werden – ausgehend von Fachkräften, anderen Erwachsenen oder Gleichaltrigen. Seit dem Kinder- und Jugendstärkungsgesetz (KJSG) verlangt § 45 Abs. 2 Nr. 4 SGB VIII für die Betriebserlaubnis verbindlich die Entwicklung, Anwendung und regelmäßige Überprüfung eines Konzepts zum Schutz vor Gewalt, geeignete Verfahren der Selbstvertretung und Beteiligung sowie Beschwerdemöglichkeiten in persönlichen Angelegenheiten sowohl innerhalb als auch außerhalb der Einrichtung. Orientierungshilfen (z. B. der UBSKM und des Landesjugendamts RLP) konkretisieren die tragenden Bausteine: Eine systematische Risiko- und Potenzialanalyse prüft Räume (etwa Wickel-, Schlaf- und Sanitärbereiche), Übergangssituationen, Ausflüge, digitale Medien und Machtstrukturen. Ein verbindlicher Verhaltenskodex regelt professionelle Nähe und Distanz sowie den Umgang mit Grenzverletzungen im Team. Zur Personalverantwortung gehören die regelmäßige Einsichtnahme in erweiterte Führungszeugnisse (§ 72a SGB VIII i. V. m. § 45 Abs. 3 Nr. 2 SGB VIII), Kinderschutz als Thema im Bewerbungsgespräch und regelmäßige Fortbildungen. Kinderrechte, altersgerechte sexuelle Bildung und niedrigschwellige Beschwerdewege stärken Kinder darin, Grenzen zu benennen und Hilfe zu holen. Klare Interventions- und Meldepläne regeln schließlich nicht nur § 8a-Fälle, sondern auch das Vorgehen bei Verdacht gegen Mitarbeitende – einschließlich der gesetzlichen Meldepflicht des Trägers an das Landesjugendamt nach § 47 SGB VIII bei Ereignissen, die geeignet sind, das Wohl der Kinder zu beeinträchtigen.",
       "bulletPoints": [
-        "Prävention durch Personalauswahl und Verhaltenskodex (Nähe und Distanz)",
-        "Partizipation und kinderfreundliches Beschwerdemanagement (Kinderrechte stärken)",
-        "Risiko- und Potenzialanalyse der räumlichen und strukturellen Bedingungen",
-        "Klare Interventions- und Krisenpläne für das gesamte Team"
+        "§ 45 Abs. 2 Nr. 4 SGB VIII: Gewaltschutzkonzept (Entwicklung, Anwendung, Überprüfung), Beteiligung/Selbstvertretung sowie interne UND externe Beschwerdeverfahren als Betriebserlaubnisvoraussetzung.",
+        "Risiko- und Potenzialanalyse deckt räumliche, organisatorische und strukturelle Gefährdungspunkte auf.",
+        "Verhaltenskodex und Personalverantwortung (u. a. erweitertes Führungszeugnis nach § 72a SGB VIII, regelmäßige Fortbildung).",
+        "Interventionsketten für familiäre Gefährdungen (§ 8a Abs. 4 SGB VIII) und institutionelle Vorfälle (inkl. Meldepflicht nach § 47 SGB VIII)."
       ],
-      "heading": "Bausteine institutioneller Schutzkonzepte in der Praxis",
-      "keyTakeaway": "Institutionelle Schutzkonzepte verankern Kinderschutz strukturell in der Einrichtung durch Prävention, Beschwerdemanagement, Verhaltenskodizes und klare Interventionspläne.",
-      "praxisTip": "Implementieren Sie einen kinderfreundlichen Kummerkasten oder einen festen wöchentlichen Kinder-Rat, in dem Kinder lernen, ihre Grenzen zu äußern und Beschwerden unkompliziert zu äußern."
+      "praxisTip": "Ein Schutzkonzept schützt nur, wenn es gelebt wird: Überprüfen Sie im Team regelmäßig an konkreten Alltagsszenen (z. B. Wickelsituation, Trösten, Fotografieren), ob der Verhaltenskodex allen – auch neuen Kolleginnen, Praktikanten und Vertretungskräften – klar und handlungsleitend ist."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "§ 8a SGB VIII Schutzauftrag",
       "id": "vb-1",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Schritt 1",
-          "detail": "Pädagogische Fachkräfte dokumentieren konkrete, objektive Verhaltensauffälligkeiten und Anhaltspunkte zeitnah und lückenlos im internen Beobachtungsbogen. Subjektive Bewertungen werden vermieden.",
-          "example": "Notieren von blauen Flecken, Verhaltensänderungen und Äußerungen des Kindes mit Datum und Uhrzeit.",
-          "id": "item-1",
-          "label": "Beobachtung & Dokumentation",
-          "metric": "Basis",
-          "summary": "Sorgfältige, objektive Erfassung von Auffälligkeiten."
-        },
-        {
-          "badge": "Schritt 2",
-          "detail": "Das Team bewertet die gesammelten Beobachtungen gemeinsam mit der Kitaleitung, um erste Einschätzungen abzugleichen und das Vorliegen gewichtiger Anhaltspunkte zu prüfen.",
-          "example": "Teambesprechung unter Ausschluss der Öffentlichkeit zur Einschätzung der Schwere der Signale.",
-          "id": "item-2",
-          "label": "Team-Interne Analyse",
-          "metric": "Stufe 2",
-          "summary": "Gemeinsamer Abgleich und Leitungsinformation."
-        },
-        {
-          "badge": "Schritt 3",
-          "detail": "Eine insoweit erfahrene Fachkraft (IseF) wird anonymisiert hinzugezogen, um das Risiko fachlich und unabhängig einzuschätzen sowie das weitere Vorgehen zu planen.",
-          "example": "Fallberatung mit einer externen Kinderschutz-Fachkraft aus einer Beratungsstelle.",
-          "id": "item-3",
-          "label": "Hinzuziehung der IseF",
-          "metric": "Stufe 3",
-          "summary": "Unabhängige Fachberatung zur Risikoeinschätzung."
-        },
-        {
-          "badge": "Schritt 4",
-          "detail": "Die Sorgeberechtigten werden – sofern der Kinderschutz dies zulässt – transparent einbezogen, um Hilfsangebote zu vermitteln und gemeinsam Lösungen zu finden.",
-          "example": "Elterngespräch mit Angebot von Frühen Hilfen oder ambulanter Erziehungshilfe.",
-          "id": "item-4",
-          "label": "Elterneinbeziehung & Hilfen",
-          "metric": "Stufe 4",
-          "summary": "Kooperation mit Eltern oder Jugendamtsmeldung."
-        }
-      ],
       "kind": "process_flow",
+      "title": "Verfahrensablauf nach § 8a Abs. 4 SGB VIII in freien Einrichtungen",
+      "subtitle": "Rechtssicheres Stufenverfahren bei gewichtigen Anhaltspunkten für eine Kindeswohlgefährdung (z. B. Kita)",
+      "centerLabel": "§ 8a Abs. 4 SGB VIII",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Ablauf einer professionellen Gefährdungseinschätzung im Team",
-      "title": "Prozess der Gefährdungseinschätzung nach § 8a SGB VIII"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "step-1",
+          "badge": "Schritt 1",
+          "label": "Wahrnehmung & Dokumentation",
+          "metric": "Fakten sichern",
+          "summary": "Gewichtige Anhaltspunkte zeitnah, datiert und verhaltensnah notieren.",
+          "detail": "Sichtbare Befunde, konkrete Situationen und wörtliche Aussagen des Kindes werden sachlich und getrennt von Deutungen dokumentiert und geschützt aufbewahrt.",
+          "example": "Datierte Notiz zu wiederholt fehlender Wetterkleidung, unversorgter Verletzung und wörtlicher Äußerung des Kindes."
+        },
+        {
+          "id": "step-2",
+          "badge": "Schritt 2",
+          "label": "Leitung & Team-Einschätzung",
+          "metric": "Mehr-Augen-Prinzip",
+          "summary": "Unverzügliche Information der Leitung und kollegialer Abgleich im Team.",
+          "detail": "Keine Alleingänge: Mehrere beteiligte Fachkräfte tragen ihre Beobachtungen zusammen und prüfen gemeinsam, ob gewichtige Anhaltspunkte für eine Kindeswohlgefährdung vorliegen.",
+          "example": "Zeitnahe Fallbesprechung zwischen Bezugsfachkraft, Zweitkraft und Kita-Leitung."
+        },
+        {
+          "id": "step-3",
+          "badge": "Schritt 3",
+          "label": "Beratung durch eine IseF",
+          "metric": "Pseudonymisiert",
+          "summary": "Beratende Hinzuziehung einer insoweit erfahrenen Fachkraft.",
+          "detail": "Die IseF unterstützt die strukturierte Risiko- und Ressourceneinschätzung, berücksichtigt ggf. spezifische Schutzbedarfe bei Behinderung und hilft bei der Planung des Elternkontakts – ohne selbst die Fallführung zu übernehmen.",
+          "example": "Pseudonymisierte Fachberatung mit einer qualifizierten IseF zur Prüfung von Schutzvorbehalt und Hilfemöglichkeiten."
+        },
+        {
+          "id": "step-4",
+          "badge": "Schritt 4",
+          "label": "Elterneinbeziehung & Hilfen",
+          "metric": "Unter Schutzvorbehalt",
+          "summary": "Eltern und Kind einbeziehen und auf geeignete Hilfen hinwirken.",
+          "detail": "Sofern der wirksame Schutz des Kindes dadurch nicht infrage gestellt wird, werden Beobachtungen im vorbereiteten Gespräch transparent benannt, konkrete Hilfen (z. B. Frühe Hilfen, Erziehungsberatung) vereinbart und zeitnah überprüft.",
+          "example": "Gespräch zu zweit mit der Mutter, Vereinbarung eines Kinderarzttermins und Kontakt zu Frühen Hilfen mit Rückmeldedatum."
+        },
+        {
+          "id": "step-5",
+          "badge": "Schritt 5",
+          "label": "Information des Jugendamts",
+          "metric": "Bei fortbestehender Gefahr",
+          "summary": "Jugendamt informieren, falls die Gefährdung anders nicht abgewendet werden kann.",
+          "detail": "Wirken Erziehungsberechtigte nicht mit, reichen vereinbarte Hilfen nicht aus oder verbietet der Schutzvorbehalt eine vorherige Elterneinbeziehung, informiert die Einrichtung das Jugendamt unter Übermittlung der erforderlichen Daten.",
+          "example": "Strukturierte Mitteilung der dokumentierten Anhaltspunkte und bisherigen Schritte an den Allgemeinen Sozialen Dienst (ASD)."
+        }
+      ]
     },
     {
-      "centerLabel": "Institutioneller Kinderschutz",
       "id": "vb-2",
+      "kind": "comparison",
+      "title": "Zentrale Rechtsnormen im Kinderschutz präzise abgrenzen",
+      "subtitle": "Welche Vorschrift wen verpflichtet oder befugt – für rechtssicheres Handeln in der Praxis",
+      "centerLabel": "Rechtsrahmen",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Fundament",
-          "detail": "Die Haltung des gesamten Teams basiert auf der Achtung von Kinderrechten, Wertschätzung und einer offensiven Fehler- und Partizipationskultur.",
-          "example": "Regelmäßige Teambesprechungen zu Kinderrechten und Schutzstandards.",
-          "id": "pyr-1",
-          "label": "Pädagogische Haltung & Kultur",
-          "metric": "Basis",
-          "summary": "Grundlegendes Wertefundament der Einrichtung."
+          "id": "law-1",
+          "badge": "Freie Träger / Kita",
+          "label": "§ 8a Abs. 4 SGB VIII",
+          "metric": "Schutzauftrag Einrichtung",
+          "summary": "Verbindliches Stufenverfahren über Vereinbarungen mit dem Jugendamt.",
+          "detail": "Verpflichtet Einrichtungen und Dienste freier Träger zu Gefährdungseinschätzung im Team, IseF-Beratung, Einbeziehung von Eltern/Kind unter Schutzvorbehalt, Hinwirken auf Hilfen und Information des Jugendamts bei unabwendbarer Gefährdung.",
+          "example": "Abgrenzung: Abs. 1–3 richten sich an das Jugendamt selbst, Abs. 5 an Kindertagespflegepersonen."
         },
         {
-          "badge": "Ebene 2",
-          "detail": "Klare Regeln für professionelle Nähe und Distanz, Verbot von Grenzüberschreitungen sowie Vorlage erweiterter Führungszeugnisse für alle Mitarbeitenden.",
-          "example": "Unterzeichnung des institutionellen Verhaltenskodex durch das gesamte Personal.",
-          "id": "pyr-2",
-          "label": "Personal & Verhaltenskodex",
-          "metric": "Stufe 2",
-          "summary": "Präventive Personalauswahl und verbindliche Regeln."
+          "id": "law-2",
+          "badge": "Fachberatung",
+          "label": "§ 8b SGB VIII",
+          "metric": "Beratungsanspruch",
+          "summary": "Rechtsanspruch auf IseF-Einzelfallberatung und Schutzkonzept-Beratung.",
+          "detail": "Abs. 1 gibt allen beruflich mit Kindern tätigen Personen einen Anspruch auf IseF-Beratung gegenüber dem örtlichen Jugendamt; Abs. 2 gibt Einrichtungsträgern Anspruch auf Beratung beim überörtlichen Träger (Landesjugendamt) zu Schutzleitlinien und Beschwerdeverfahren.",
+          "example": "Eine Jugendfreizeit-Fachkraft oder Kita-Leitung holt fachliche Beratung beim Jugendamt bzw. Landesjugendamt ein."
         },
         {
-          "badge": "Ebene 3",
-          "detail": "Niedrigschwellige, verständliche Beschwerdemöglichkeiten für Kinder und Eltern, um Missstände frühzeitig zu erkennen und zu adressieren.",
-          "example": "Kinderparlament und anonymer Kummerkasten in der Einrichtung.",
-          "id": "pyr-3",
-          "label": "Beschwerdemanagement",
-          "metric": "Stufe 3",
-          "summary": "Aktive Beteiligung und Beschwekrerecht."
+          "id": "law-3",
+          "badge": "Betriebserlaubnis",
+          "label": "§ 45 Abs. 2 Nr. 4 SGB VIII",
+          "metric": "Gewaltschutzkonzept",
+          "summary": "Schutzkonzept, Partizipation und interne/externe Beschwerdewege als Pflicht.",
+          "detail": "Voraussetzung für die Betriebserlaubnis einer Einrichtung ist die Entwicklung, Anwendung und Überprüfung eines Gewaltschutzkonzepts sowie geeigneter Verfahren der Selbstvertretung, Beteiligung und Beschwerde innerhalb und außerhalb der Einrichtung.",
+          "example": "Prüfung der Schutzkonzeption und Beschwerdestrukturen durch das Landesjugendamt RLP."
         },
         {
-          "badge": "Spitze",
-          "detail": "Exakt definierte Meldeketten, Kooperationsvereinbarungen mit dem Jugendamt und festgelegte Interventionsschritte für akute Krisenfälle.",
-          "example": "Einrichtungsspezifischer Krisenplan mit Notfallnummern und klaren Verantwortlichkeiten.",
-          "id": "pyr-4",
-          "label": "Interventionsketten & § 8a",
-          "metric": "Spitze",
-          "summary": "Verbindliches Handeln im Ernstfall."
+          "id": "law-4",
+          "badge": "Kinderrecht",
+          "label": "§ 1631 Abs. 2 BGB",
+          "metric": "Gewaltfreie Erziehung",
+          "summary": "Gesetzliches Verbot körperlicher Bestrafungen und entwürdigender Maßnahmen.",
+          "detail": "Kinder haben ein Recht auf Pflege und Erziehung unter Ausschluss von Gewalt, körperlichen Bestrafungen, seelischen Verletzungen und anderen entwürdigenden Maßnahmen – in Familie ebenso wie in Einrichtungen.",
+          "example": "Auch „leichtes Klapsen“, Einsperren oder gezieltes Bloßstellen verstoßen gegen § 1631 Abs. 2 BGB."
+        },
+        {
+          "id": "law-5",
+          "badge": "Geheimnisträger",
+          "label": "§ 4 KKG",
+          "metric": "Befugnisnorm",
+          "summary": "Abgestufte Datenübermittlungsbefugnis für bestimmte Berufsgruppen.",
+          "detail": "Gilt u. a. für Ärztinnen, Hebammen, Psychologen, anerkannte Beratungsstellen, staatlich anerkannte Sozialarbeiter/-pädagogen und Lehrkräfte: Erörterung & Hilfevermittlung, pseudonymisierte IseF-Beratung, bei Scheitern Befugnis zur Jugendamtsinformation + Rückmeldepflicht des Jugendamts.",
+          "example": "Nicht direkt für Kita-Erzieherinnen (dort gilt § 8a Abs. 4 SGB VIII), aber zentral in der Kooperation mit Schule und Kinderarztpraxis."
         }
-      ],
-      "kind": "pyramid",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Die vier Säulen zum Schutz von Kindern in Einrichtungen",
-      "title": "Bausteine institutioneller Schutzkonzepte"
+      ]
     },
     {
-      "centerLabel": "Schutzkonzept Bausteine",
       "id": "vb-3",
+      "kind": "feature_grid",
+      "title": "Bausteine eines wirksamen institutionellen Schutzkonzepts",
+      "subtitle": "Strukturelle Prävention, Beteiligung und sichere Intervention im Einrichtungsalltag",
+      "centerLabel": "Schutzkonzept",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Kriterium 1",
-          "detail": "Analyse von räumlichen und strukturellen Bedingungen, die Gefährdungen begünstigen könnten (z.B. unübersichtliche Rückzugsorte, Bring-/Holsituationen).",
-          "example": "Überprüfung uneinsehbarer Wickel- oder Sanitärbereiche.",
-          "id": "grid-1",
-          "label": "Risiko- und Potenzialanalyse",
-          "metric": "Struktur",
-          "summary": "Systematische Erfassung institutioneller Risiken."
+          "id": "sk-1",
+          "badge": "Baustein 1",
+          "label": "Risiko- & Potenzialanalyse",
+          "metric": "Räume & Strukturen",
+          "summary": "Systematische Prüfung von Gefährdungsorten und Schutzressourcen.",
+          "detail": "Untersucht konkrete Alltagsabläufe, kaum einsehbare Räume (Wickel-, Schlaf-, Sanitärbereiche), Bring-/Abholzeiten, Ausflüge, digitale Medien und Machtgefälle – und stärkt zugleich vorhandene Schutzfaktoren.",
+          "example": "Klare Absprachen zur Transparenz im Wickelbereich unter Wahrung der Intimsphäre der Kinder."
         },
         {
-          "badge": "Kriterium 2",
-          "detail": "Verbindlicher Kodex zur Gestaltung von körperlicher und digitaler Nähe, Vermeidung von Machtmissbrauch und Tabuisierung von Grenzverletzungen.",
-          "example": "Regeln zum Fotografieren von Kindern und zum Umgang mit Trostsituationen.",
-          "id": "grid-2",
-          "label": "Verhaltenskodex",
-          "metric": "Personal",
-          "summary": "Klare professionelle Leitlinien für das Team."
+          "id": "sk-2",
+          "badge": "Baustein 2",
+          "label": "Verhaltenskodex & Personal",
+          "metric": "§ 72a SGB VIII",
+          "summary": "Klare Nähe-Distanz-Regeln und verlässliche Personalverantwortung.",
+          "detail": "Verbindliche Leitlinien für körperlichen Kontakt, Sprache, Fotografieren und Fehlerkultur im Team; regelmäßige Einsichtnahme in erweiterte Führungszeugnisse (§ 72a, § 45 Abs. 3 Nr. 2 SGB VIII) und laufende Fortbildung.",
+          "example": "Alle Mitarbeitenden – inkl. Vertretungs- und Praktikumskräften – werden in den Verhaltenskodex eingearbeitet."
         },
         {
-          "badge": "Kriterium 3",
-          "detail": "Kinder wissen, an wen sie sich bei Grenzüberschreitungen (durch andere Kinder oder Erwachsene) wenden können, und werden in ihren Rechten gestärkt.",
-          "example": "Einüben des NEIN-Sagens und Bekanntmachen von Vertrauenspersonen.",
-          "id": "grid-3",
-          "label": "Kinderrechte & Partizipation",
-          "metric": "Kinder",
-          "summary": "Beteiligung und Empowerment der Kinder."
+          "id": "sk-3",
+          "badge": "Baustein 3",
+          "label": "Partizipation & Beschwerde",
+          "metric": "Intern & extern",
+          "summary": "Kinderrechte stärken und sichere Beschwerdewege etablieren.",
+          "detail": "Kinder erleben, dass ihre Grenzen ernst genommen werden (Körperautonomie, Nein-Sagen) und kennen vertrauenswürdige Ansprechpersonen innerhalb der Einrichtung sowie erreichbare externe Stellen (z. B. Träger, Fachberatung, Ombudsstellen).",
+          "example": "Visualisierte Beschwerdewege für Kinder und transparente Aushänge für Eltern zu externen Kontaktstellen."
         },
         {
-          "badge": "Kriterium 4",
-          "detail": "Regelmäßige Fortbildungen für das gesamte Team sowie klare Qualitätsstandards bei der Einstellung neuer Fachkräfte (Führungszeugnis).",
-          "example": "Jährliche Auffrischung des Kinderschutzwissens im Teamtag.",
-          "id": "grid-4",
-          "label": "Qualifizierung & Überprüfung",
-          "metric": "Qualität",
-          "summary": "Kontinuierliche fachliche Weiterentwicklung."
+          "id": "sk-4",
+          "badge": "Baustein 4",
+          "label": "Interventions- & Meldeketten",
+          "metric": "§ 8a & § 47 SGB VIII",
+          "summary": "Verbindliche Ablaufpläne für familiäre und institutionelle Verdachtsfälle.",
+          "detail": "Klare Zuständigkeiten, Dokumentationsbögen, IseF-Kontakte und Kooperationswege mit dem Jugendamt (§ 8a Abs. 4 SGB VIII) sowie klare Verfahren und Meldepflichten an das Landesjugendamt (§ 47 SGB VIII) bei Grenzverletzungen im Team.",
+          "example": "Einrichtungsbezogener Handlungsleitfaden mit Notfallkontakten, der jährlich im Team überprüft wird."
         }
-      ],
-      "kind": "feature_grid",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Kernbereiche für die Implementierung in sozialpädagogischen Handlungsfeldern",
-      "title": "Feature Grid: Institutionelle Schutzstandards"
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Vorschulalter (4 Jahre)",
-    "context": "Kindertagesstätte; Erzieherin (Berufspraktikantin) bemerkt bei Leo (4 Jahre) wiederholte unerklärliche Hämatome am Oberarm und eine starke Schreckhaftigkeit beim Ausziehen im Morgenkreis.",
-    "setting": "Kindertagesstätte „Sonnenschein“",
+    "title": "Schleichende Anhaltspunkte für Vernachlässigung bei Matti (4 Jahre)",
+    "setting": "Kindertagesstätte „Am Park“ (freier Träger)",
+    "ageGroup": "4 Jahre",
+    "context": "Über vier Wochen sammeln sich bei dem vierjährigen Matti konkrete Beobachtungen: An kühlen Regentagen kommt er mehrfach ohne Jacke und in zu kleinen, durchnässten Schuhen; seine Brotdose ist wiederholt leer, und beim gemeinsamen Frühstück isst er sehr hastig mehrere Portionen. Eine entzündete Schürfwunde am Knie bleibt trotz zweier freundlicher Hinweise beim Abholen zehn Tage lang unversorgt. Die alleinerziehende Mutter wirkt beim Bringen stark erschöpft, bricht Tür-und-Angel-Gespräche ab und vergisst zwei vereinbarte Termine. Eines Morgens sagt Matti beim Ausziehen zur Bezugsfachkraft: „Mama schläft morgens immer so lange, dann mach ich mir selber Cornflakes, aber die Milch war alle.“",
     "steps": [
       {
+        "situation": "Die Bezugsfachkraft erkennt mögliche gewichtige Anhaltspunkte für eine Vernachlässigung und möchte nichts überstürzen, aber auch nicht untätig bleiben.",
+        "prompt": "Welcher erste Handlungsschritt entspricht dem gesetzlichen Verfahren nach § 8a Abs. 4 SGB VIII?",
         "options": [
           {
-            "feedback": "Richtig! Laut § 8a SGB VIII und internem Schutzkonzept müssen Beobachtungen dokumentiert und umgehend die insoweit erfahrene Fachkraft (IseF) hinzugezogen werden, um das Gefährdungsrisiko objektiv einzuschätzen, ohne die Eltern vorab ungesichert zu konfrontieren oder zu alarmieren.",
-            "label": "Dokumentation der Beobachtungen im geschlossenen Logbuch, Rücksprache mit der Kitaleitung und zeitnahe Hinzuziehung der insoweit erfahrenen Fachkraft (IseF) zur strukturierten Gefährdungseinschätzung.",
+            "label": "Sie dokumentiert alle Beobachtungen samt Daten, Kontext und Mattis wörtlicher Aussage sachlich und getrennt von Vermutungen, informiert unverzüglich die Kita-Leitung und leitet eine zeitnahe Gefährdungseinschätzung im Team unter beratender Hinzuziehung einer IseF ein.",
             "quality": "optimal",
-            "theoryLink": "§ 8a Abs. 1 SGB VIII; Bundeskinderschutzgesetz (BKiSchG); internes Schutzkonzept der Kita"
+            "feedback": "Genau richtig! Eine belastbare, verhaltensnahe Dokumentation, die Vermeidung von Alleingängen und die rasche Gefährdungseinschätzung im Team gemeinsam mit einer pseudonymisiert beratenden IseF sind die zentralen ersten Schritte nach § 8a Abs. 4 SGB VIII.",
+            "theoryLink": "§ 8a Abs. 4 Nr. 1 und 2 SGB VIII; Trennung von Beobachtung und Deutung"
           },
           {
-            "feedback": "Teilweise sinnvoll, aber rechtlich riskant: Ein direktes Elterngespräch ohne strukturierte Einschätzung und ohne IseF-Beratung kann bei Verdacht auf schwere Gewalt zu Vertuschung, Abwehrreaktionen oder einer akuten Gefährdung des Kindes führen.",
-            "label": "Sofortiges, ungeplantes Konfrontieren der Eltern im Garderobenbereich mit der direkten Frage, woher die blauen Flecken am Arm stammen.",
-            "quality": "problematisch",
-            "theoryLink": "Fachlicher Standard Kinderschutz: Vermeidung von Alleingängen; Rolle der IseF"
-          },
-          {
-            "feedback": "Nicht zulässig: Das Jugendamt darf erst eingeschaltet werden, wenn die Gefährdungseinschätzung im Team (mit IseF) ergibt, dass gewichtige Anhaltspunkte vorliegen und die Eltern nicht kooperieren bzw. der Schutz des Kindes anders nicht gewährleistet werden kann.",
-            "label": "Sofortiger anonymer Anruf beim Jugendamt ohne interne Dokumentation und ohne Einbindung der Kitaleitung.",
+            "label": "Sie stellt die Mutter am selben Nachmittag spontan im Flur zur Rede und fragt direkt nach, ob sie zu Hause überfordert sei und warum das Knie noch nicht behandelt wurde.",
             "quality": "teilweise",
-            "theoryLink": "Dringlichkeitsabwägung § 8a SGB VIII; Verhältnismäßigkeit"
+            "feedback": "Zwar ist die Einbeziehung der Mutter im Verfahren wichtig, aber eine unvorbereitete Konfrontation zwischen Tür und Angel ohne Dokumentation, Team-Einschätzung und IseF-Beratung verstößt gegen den strukturierten Ablauf und birgt das Risiko von Beschämung und Kontaktabbruch.",
+            "theoryLink": "Strukturierte Verfahrensfolge nach § 8a Abs. 4 SGB VIII; professionelle Gesprächsvorbereitung"
+          },
+          {
+            "label": "Sie ruft noch am selben Mittag ohne Information der Leitung beim Jugendamt an und meldet eine „schwere Verwahrlosung wegen mütterlicher Depression“.",
+            "quality": "problematisch",
+            "feedback": "Fachlich und rechtlich fehlerhaft: Alleingang ohne Leitung, Team und IseF, unzulässige medizinische Spekulation („Depression“) sowie Überspringen der gesetzlich vorgeschriebenen Stufen (Team-Einschätzung, Elterneinbeziehung und Hilfevermittlung, da hier keine akute Gefährdung des wirksamen Schutzes durch ein Gespräch erkennbar ist).",
+            "theoryLink": "§ 8a Abs. 4 SGB VIII; Abgrenzung zu klinischer Diagnostik und Verhältnismäßigkeit"
           }
-        ],
-        "prompt": "Wie reagiert die pädagogische Fachkraft professionell auf den ersten Verdacht im pädagogischen Alltag?",
-        "situation": "Beim Wickeln und Umziehen im Frühdienst fällt der Fachkraft ein handumfassendes Hämatom am Oberarm des vierjährigen Leo auf. Leo zuckt bei Berührung zusammen und flüstert: „Nicht schlagen, Papa war sauer.“"
+        ]
       },
       {
+        "situation": "Die Team-Einschätzung mit der pseudonymisiert beratenden IseF bestätigt gewichtige Anhaltspunkte für eine beginnende Vernachlässigung bei starker Überlastung der Mutter. Ein Gespräch mit der Mutter gefährdet Matti nicht akut; eine direkte Einbindung ist daher geboten.",
+        "prompt": "Wie gestaltet die Einrichtung die Elterneinbeziehung und das weitere Verfahren rechtssicher?",
         "options": [
           {
-            "feedback": "Richtig! Die Einbeziehung der Eltern erfolgt im Rahmen des Schutzverfahrens transparent, partnerschaftlich und zielgerichtet (sofern kein akuter Schutzbedarf wie bei schwerster Misshandlung eine sofortige Jugendamtsintervention erfordert), stets mit dem Ziel, Hilfeangebote (z.B. Erziehungsberatung, ambulante Hilfen) zu vermitteln.",
-            "label": "Gesprächsführung mit den Eltern auf Basis der IseF-Einschätzung: transparentes Benennen der Beobachtungen, Anbieten von Hilfen (z.B. Frühe Hilfen) und Darlegung des gesetzlichen Schutzauftrags bei Nicht-Kooperation.",
-            "quality": "optimal",
-            "theoryLink": "§ 8a Abs. 2 SGB VIII; Erziehungs- und Bildungspartnerschaft in Krisen"
-          },
-          {
-            "feedback": "Falsch und gefährlich: Das Vertrauen der Eltern um jeden Preis zu wahren darf niemals über dem Kindeswohl stehen. Bei erwiesener oder hochgradiger Gefährdung muss der Schutzauftrag Vorrang haben.",
-            "label": "Verzicht auf jegliche Intervention oder Jugendamtsmeldung, um die gute Beziehung zu den Eltern nicht zu belasten.",
-            "quality": "problematisch",
-            "theoryLink": "Professioneller Schutzauftrag & Garantenpflicht von Fachkräften"
-          },
-          {
-            "feedback": "Unvollständig: Ein Hausbesuch ohne Vorbereitung und ohne rechtliche Absicherung überschreitet die Kompetenzen der Fachkraft und gefährdet das professionelle Setting.",
-            "label": "Unangemeldeter privater Hausbesuch der Erzieherin am Nachmittag, um die Wohnverhältnisse eigenmächtig zu überprüfen.",
+            "label": "Die Bezugsfachkraft bietet der Mutter im Vertrauen an, Matti morgens privat zu Hause abzuholen und selbst mit ihm in die Kinderarztpraxis zu fahren, damit keine Behörden eingeschaltet werden müssen.",
             "quality": "teilweise",
-            "theoryLink": "Berufsethik, Datenschutz & Grenzen der sozialpädagogischen Intervention"
+            "feedback": "Empathisch gemeint, aber unprofessionell: Das überschreitet die beruflichen Rollengrenzen, löst die zugrundeliegende häusliche Überforderung nicht und ersetzt keine verbindliche, überprüfbare Hilfevermittlung im Rahmen von § 8a Abs. 4 SGB VIII.",
+            "theoryLink": "Professionelle Beratungsgrenzen und systemische Hilfevermittlung"
+          },
+          {
+            "label": "Weil die Mutter im Gespräch weint und verspricht, ab nächster Woche besser auf alles zu achten, beendet das Team das § 8a-Verfahren ohne schriftliche Vereinbarung und ohne Kontrolltermin, um das Vertrauen zu wahren.",
+            "quality": "problematisch",
+            "feedback": "Gefährliche Fehleinschätzung! Bei bestätigten gewichtigen Anhaltspunkten reicht eine unverbindliche Zusage nicht aus. Die tatsächliche Abwendung der Gefährdung muss zeitnah überprüft werden; gelingt dies nicht, ist das Jugendamt zwingend zu informieren.",
+            "theoryLink": "§ 8a Abs. 4 Satz 3 SGB VIII: Wirksame Gefährdungsabwendung und Informationspflicht"
+          },
+          {
+            "label": "Bezugsfachkraft und Leitung laden die Mutter zu einem vorbereiteten, geschützten Gespräch ein, benennen sachlich die konkreten Beobachtungen ohne Schuldzuweisung, hören ihre Sicht an, wirken konkret auf Hilfen hin (zeitnahe ärztliche Versorgung, Frühe Hilfen / Erziehungsberatung) und vereinbaren überprüfbare Schritte mit Folgetermin – inklusive transparentem Hinweis auf die Pflicht zur Jugendamtsinformation, falls die Gefährdung nicht abgewendet wird.",
+            "quality": "optimal",
+            "feedback": "Vorbildlich umgesetzt! Das Vorgehen verbindet wertschätzende, transparente Elternarbeit mit klarem Schutzauftrag, konkretem Hinwirken auf Hilfen und verbindlicher Wirksamkeitsprüfung gemäß § 8a Abs. 4 SGB VIII.",
+            "theoryLink": "§ 8a Abs. 4 Nr. 3 und Satz 3 SGB VIII; Hilfevermittlung und Transparenzgebot"
           }
-        ],
-        "prompt": "Wie ist das weitere Vorgehen bezüglich der Eltern und der Kooperation mit dem Jugendamt zu gestalten?",
-        "situation": "Die gemeinsame Gefährdungseinschätzung mit der IseF ergab gewichtige Anhaltspunkte für eine körperliche Misshandlung. Die Eltern müssen nun im Rahmen des Verfahrens einbezogen werden."
+        ]
       }
-    ],
-    "title": "Der Verdachtsfall im Kita-Alltag"
+    ]
   },
   "selfLearningTasks": [
-    "Recherchieren Sie die regionalen Angebote der Frühen Hilfen und der Familienbildung in Ihrem Bundesland/Landkreis und erstellen Sie eine übersichtliche Adress- und Kontaktliste für Ihre Praxisstelle.",
-    "Entwerfen Sie einen einseitigen Verhaltenskodex für Fachkräfte in einer Kita oder einem Jugendzentrum zum Thema „Körperliche und digitale Nähe & Distanz“.",
-    "Analysieren Sie die Qualitätsmerkmale eines bestehenden institutionellen Schutzkonzepts einer sozialpädagogischen Einrichtung und prüfen Sie dieses auf Vollständigkeit nach den Standards des Bundeskinderschutzgesetzes."
+    "Recherchieren Sie für Ihre Praxisregion die zuständige insoweit erfahrene Fachkraft (IseF), das örtliche Jugendamt (ASD), den Kinderschutzdienst sowie niedrigschwellige Angebote der Frühen Hilfen und erstellen Sie eine kompakte Notfall- und Netzwerkübersicht.",
+    "Analysieren Sie das institutionelle Schutzkonzept Ihrer Praxisstelle (oder eine öffentlich zugängliche Kita-Schutzkonzeption) anhand der Vorgaben des § 45 Abs. 2 Nr. 4 SGB VIII: Welche Bausteine sind konkret ausgearbeitet, und wie funktionieren interne sowie externe Beschwerdewege für Kinder?",
+    "Üben Sie in einem Rollenspiel zu zweit die Eröffnung eines schwierigen Kinderschutzgesprächs mit Eltern: Formulieren Sie drei sachliche, wertfreie Beobachtungssätze und einen klaren, nicht drohenden Hinweis auf Hilfemöglichkeiten sowie den gesetzlichen Schutzauftrag."
   ],
   "flashcards": [
     {
-      "definition": "Gesetzlich verankerter Auftrag für Träger der Jugendhilfe, bei Bekanntwerden gewichtiger Anhaltspunkte für die Gefährdung eines Kindes in Kooperation mit einer IseF das Gefährdungsrisiko einzuschätzen und adäquate Hilfen einzuleiten.",
-      "example": "Die Kita führt nach einer Gefährdungsvermutung eine strukturierte Risikoeinschätzung nach § 8a SGB VIII durch.",
-      "term": "§ 8a SGB VIII (Schutzauftrag)"
+      "term": "§ 8a Abs. 4 SGB VIII",
+      "definition": "Regelt über Vereinbarungen mit dem Jugendamt den Schutzauftrag von Einrichtungen und Diensten freier Träger (z. B. Kitas): Gefährdungseinschätzung bei gewichtigen Anhaltspunkten, beratende Hinzuziehung einer IseF, Einbeziehung von Eltern und Kind unter Schutzvorbehalt, Hinwirken auf Hilfen sowie Information des Jugendamts, wenn die Gefährdung anders nicht abgewendet werden kann.",
+      "example": "Ein Kita-Team zieht bei wiederholten Anhaltspunkten für Vernachlässigung eine IseF hinzu und wirkt im Elterngespräch auf Frühe Hilfen hin."
     },
     {
-      "definition": "Eine qualifizierte Fachkraft (z.B. aus der Erziehungsberatung), die pädagogische Teams bei der Gefährdungseinschätzung anonymisiert und fachlich berät, ohne selbst in den Fall einzugreifen.",
-      "example": "Vor dem Elterngespräch zieht die Leitung eine IseF hinzu, um die Beobachtungen objektiv zu bewerten.",
-      "term": "Insoweit erfahrene Fachkraft (IseF)"
+      "term": "Insoweit erfahrene Fachkraft (IseF) & § 8b SGB VIII",
+      "definition": "Speziell qualifizierte Fachkraft, die pädagogische Teams pseudonymisiert bei der Gefährdungseinschätzung und Verfahrensplanung berät, ohne selbst Fallverantwortung oder Elterngespräche zu übernehmen. Nach § 8b Abs. 1 SGB VIII besteht für alle beruflich mit Kindern tätigen Personen ein Rechtsanspruch auf diese Beratung.",
+      "example": "Vor einem schwierigen Elterngespräch reflektiert die Kita-Leitung gemeinsam mit der IseF Risiken, Schutzfaktoren und den Schutzvorbehalt."
     },
     {
-      "definition": "Einrichtungsspezifisches Gesamtkonzept aus Präventionsmaßnahmen, Interventionsketten, Beschwerdewegen und Verhaltenskodizes zum Schutz von Kindern und Jugendlichen vor Gewalt.",
-      "example": "Das institutionelle Schutzkonzept der Kita regelt verbindlich die Einsichtnahme in erweiterte Führungszeugnisse.",
-      "term": "Institutionelles Schutzkonzept"
+      "term": "§ 45 Abs. 2 Nr. 4 SGB VIII (Gewaltschutzkonzept)",
+      "definition": "Verbindliche Voraussetzung für die Betriebserlaubnis einer Einrichtung: Entwicklung, Anwendung und Überprüfung eines Konzepts zum Schutz vor Gewalt, geeignete Verfahren der Selbstvertretung und Beteiligung sowie interne und externe Beschwerdemöglichkeiten in persönlichen Angelegenheiten.",
+      "example": "Die Kita überprüft jährlich ihre Risikoanalyse, ihren Verhaltenskodex und die Erreichbarkeit externer Beschwerdestellen."
     },
     {
-      "definition": "Formen der Kindeswohlgefährdung, bei denen die körperliche, geistige oder seelische Entwicklung durch Unterlassen von Pflege, Ernährung, Zuwendung oder medizinischer Versorgung nachhaltig geschädigt wird.",
-      "example": "Ein Kind erscheint regelmäßig ungewaschen, hungrig und unzureichend gekleidet zur Winterzeit.",
-      "term": "Vernachlässigung"
+      "term": "§ 1631 Abs. 2 BGB",
+      "definition": "Zentrales Kinderrecht im Bürgerlichen Gesetzbuch: Kinder haben ein Recht auf Pflege und Erziehung unter Ausschluss von Gewalt, körperlichen Bestrafungen, seelischen Verletzungen und anderen entwürdigenden Maßnahmen.",
+      "example": "Auch vermeintlich „erzieherische“ Ohrfeigen, Einsperren oder dauerhaftes Demütigen sind rechtlich verboten."
     },
     {
-      "definition": "Ein formulierter Verhaltenskodex, der professionelle Nähe und Distanz regelt, Grenzverletzungen tabuisiert und den Schutz von Kindern in Institutionen sicherstellt.",
-      "example": "Pädagogische Fachkräfte unterzeichnen den internen Verhaltenskodex zur körperlichen und digitalen Nähe.",
-      "term": "Verhaltenskodex & Grenzwahrende Pädagogik"
+      "term": "§ 4 KKG (Abgrenzung zu § 8a Abs. 4 SGB VIII)",
+      "definition": "Gesetzliche Befugnisnorm für bestimmte Berufsgeheimnisträger (u. a. Ärztinnen, Hebammen, Psychologen, anerkannte Beratungsstellen, staatlich anerkannte Sozialpädagoginnen und Lehrkräfte), die eine abgestufte Erörterung, pseudonymisierte IseF-Beratung und im Notfall die Datenübermittlung an das Jugendamt regelt. Kita-Erzieherinnen handeln dagegen nach § 8a Abs. 4 SGB VIII.",
+      "example": "Eine Kinderärztin nutzt bei dringender Gefahr die Befugnis nach § 4 Abs. 3 KKG zur Information des Jugendamts."
+    },
+    {
+      "term": "Schutzvorbehalt bei der Elterneinbeziehung",
+      "definition": "Rechtsgrundsatz aus § 8a SGB VIII und § 4 KKG: Erziehungsberechtigte und Kind sind in die Gefährdungseinschätzung einzubeziehen – jedoch nur insoweit, wie hierdurch der wirksame Schutz des Kindes oder Jugendlichen nicht infrage gestellt wird.",
+      "example": "Bei konkretem Verdacht auf schwere häusliche Misshandlung oder sexualisierte Gewalt durch einen Elternteil wird nach IseF-Beratung direkt das Jugendamt eingeschaltet, um Vergeltung oder Vertuschung zu verhindern."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "§ 8a SGB VIII regelt den Schutzauftrag bei Kindeswohlgefährdung für Träger von Einrichtungen der Jugendhilfe. Das BKiSchG ergänzt und präzisiert diesen Rahmen bundesweit.",
-      "id": "q1",
+      "question": "Welche Rechtsnorm regelt unmittelbar den Verfahrensablauf, den Einrichtungen freier Träger (z. B. eine Kindertagesstätte) bei gewichtigen Anhaltspunkten für eine Kindeswohlgefährdung über Vereinbarungen mit dem Jugendamt einhalten müssen?",
       "options": [
-        "§ 22 SGB VIII (Grundsätze der Förderung)",
-        "§ 8a SGB VIII (Schutzauftrag bei Kindeswohlgefährdung)",
-        "§ 45 SGB VIII (Betriebserlaubnis)",
-        "§ 74 SGB VIII (wirtschaftliche Förderung)"
+        "§ 8a Abs. 1 SGB VIII",
+        "§ 4 Abs. 1 KKG",
+        "§ 8a Abs. 4 SGB VIII",
+        "§ 45 Abs. 2 Nr. 4 SGB VIII"
       ],
-      "question": "Welcher Paragraf des SGB VIII regelt den gesetzlichen Schutzauftrag bei Kindeswohlgefährdung für Träger von Jugendhilfeeinrichtungen?",
-      "type": "single"
+      "correctIndices": [
+        2
+      ],
+      "explanation": "§ 8a Abs. 4 SGB VIII regelt den Schutzauftrag für Einrichtungen und Dienste freier Träger (über Vereinbarungen mit dem Jugendamt). § 8a Abs. 1 SGB VIII richtet sich an das Jugendamt selbst, § 4 KKG an abschließend genannte Berufsgeheimnisträger (z. B. Ärztinnen, Lehrkräfte, Sozialarbeiter) und § 45 Abs. 2 Nr. 4 SGB VIII an die Betriebserlaubnisvoraussetzungen wie Gewaltschutzkonzepte."
     },
     {
+      "id": "v2-q2",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Aussagen zur Rolle der „insoweit erfahrenen Fachkraft“ (IseF) nach § 8a Abs. 4 und § 8b SGB VIII sind fachlich und rechtlich korrekt?",
+      "options": [
+        "Sie berät pädagogische Teams fallbezogen und in der Regel pseudonymisiert bei der Einschätzung des Gefährdungsrisikos.",
+        "Sie übernimmt automatisch die rechtliche Fallverantwortung und führt anstelle der Kita das Konfliktgespräch mit den Eltern.",
+        "Sie berücksichtigt in der Beratung auch die spezifischen Schutzbedürfnisse von Kindern und Jugendlichen mit Behinderungen.",
+        "Alle Personen, die beruflich in Kontakt mit Kindern oder Jugendlichen stehen, haben nach § 8b Abs. 1 SGB VIII einen Anspruch auf Beratung durch eine IseF."
+      ],
       "correctIndices": [
         0,
         2,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Die IseF berät das Team anonymisiert und objektiv, schätzt das Risiko gemeinsam mit der Fachkraft ein und unterstützt bei der Verfahrenssicherheit. Sie übernimmt jedoch weder die Fallführung noch führt sie Gespräche mit den Eltern (dies tun die zuständigen Fachkräfte/Leitung).",
-      "id": "q2",
-      "options": [
-        "Sie berät das pädagogische Team anonymisiert bei der Einschätzung der Gefährdung.",
-        "Sie übernimmt eigenverantwortlich die Meldung beim Familiengericht.",
-        "Sie unterstützt bei der Risikoanalyse anhand fachlicher Kriterien und Instrumente.",
-        "Sie stärkt die Fachkräfte in ihrer professionellen Wahrnehmung und dokumentiert den Beratungsprozess."
-      ],
-      "question": "Welche Aufgaben hat eine insoweit erfahrene Fachkraft (IseF) nach § 8a SGB VIII? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Die IseF hat eine unabhängige, beratende Funktion (inkl. Berücksichtigung behinderungsspezifischer Schutzbedarfe nach § 8a Abs. 4 Satz 2 und § 8b Abs. 3 SGB VIII), und § 8b Abs. 1 SGB VIII begründet einen breiten Beratungsanspruch. Die Fallverantwortung, Elterngespräche und eine etwaige Jugendamtsinformation verbleiben jedoch bei der Einrichtung bzw. den zuständigen Fachkräften."
     },
     {
-      "correctIndices": [
-        2
-      ],
+      "id": "v2-q3",
+      "type": "single",
       "difficulty": "pruefung",
-      "explanation": "Die Fachkraft muss unverzüglich die dokumentierten Beobachtungen mit der Kitaleitung und der IseF besprechen, um eine professionelle Gefährdungseinschätzung einzuleiten. Ein ungeplantes Konfrontieren oder Abwarten gefährdet das Kindeswohl.",
-      "id": "q3",
+      "question": "Wie grenzen sich § 8a Abs. 4 SGB VIII und § 4 KKG rechtlich sauber voneinander ab?",
       "options": [
-        "Die Erzieherin wartet das nächste reguläre Entwicklungsgespräch in drei Monaten ab.",
-        "Die Erzieherin spricht die Eltern sofort laut im Flur auf die blauen Flecken an.",
-        "Die Erzieherin dokumentiert den Vorfall, informiert die Leitung und zieht eine IseF zur Gefährdungseinschätzung hinzu.",
-        "Die Erzieherin unternimmt nichts, da häusliche Erziehung Privatsache ist."
+        "§ 8a Abs. 4 SGB VIII gilt für Fachkräfte in Einrichtungen freier Jugendhilfeträger (z. B. Kitas); § 4 KKG ist die abgestufte Befugnisnorm für bestimmte Berufsgeheimnisträger wie Ärztinnen, Psychologen, Lehrkräfte und staatlich anerkannte Sozialpädagoginnen.",
+        "§ 4 KKG ersetzt § 8a SGB VIII vollständig, sobald ein Kind das Grundschulalter erreicht hat.",
+        "§ 4 KKG verpflichtet Kita-Erzieherinnen dazu, bei jedem Verdacht ohne Elterngespräch sofort Strafanzeige bei der Polizei zu stellen.",
+        "Beide Normen verbieten jede Datenweitergabe an das Jugendamt ohne vorherige schriftliche Einwilligung beider Eltern."
       ],
-      "question": "Praxissituation: In der Krippe bemerkt eine Erzieherin wiederholt blauen Flecken und starkes Untergewicht bei einem einjährigen Kind. Was ist der fachlich korrekte nächste Schritt?",
-      "type": "case"
-    },
-    {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "basis",
-      "explanation": "Unter Vernachlässigung versteht man das anhaltende oder wiederholte Versäumnis von Sorgeberechtigten, für die grundlegenden physischen, psychischen und sozialen Bedürfnisse des Kindes zu sorgen.",
-      "id": "q4",
-      "options": [
-        "Die gezielte körperliche Züchtigung als erzieherische Maßnahme.",
-        "Das chronische Unterlassen von Nahrungs-, Pflege- und Gesundheitsfürsorge.",
-        "Die emotionale Überforderung der Eltern durch Berufsstress.",
-        "Die Teilnahme an freiwilligen Freizeitangeboten."
-      ],
-      "question": "Wie wird der Begriff „Vernachlässigung“ im Kontext des Kinderschutzes fachlich definiert?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        0,
-        1,
-        3
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Ein vollständiges institutionelles Schutzkonzept umfasst Präventionsmaßnahmen (z.B. Personalüberprüfung, Verhaltenskodex), transparente Interventionsverfahren (Meldewege, § 8a) sowie ein aktives, kindgerechtes Beschwerdemanagement. Kommerzielle Gewinnmaximierung ist kein Baustein.",
-      "id": "q5",
-      "options": [
-        "Ein verbindlicher Verhaltenskodex und transparente Nähe-Distanz-Regeln",
-        "Ein niedrigschwelliges, kindgerechtes Beschwerdemanagement",
-        "Ausschließlich finanzielle Gewinnmaximierung der Trägerorganisation",
-        "Klare Interventions- und Meldeketten bei Verdachtsfällen"
-      ],
-      "question": "Welche zentralen Bausteine gehören zu einem institutionellen Schutzkonzept in einer Kindertageseinrichtung? (Mehrere Antworten sind richtig)",
-      "type": "multi"
-    },
-    {
       "correctIndices": [
         0
       ],
+      "explanation": "§ 4 KKG nennt in Abs. 1 einen festen Katalog von Berufsgruppen (insb. Berufsgeheimnisträger nach § 203 StGB sowie Lehrkräfte) und regelt deren Befugnis zur Durchbrechung der Schweigepflicht. Kita-Erzieherinnen fallen nicht unter diesen Katalog, sondern handeln nach § 8a Abs. 4 SGB VIII (ergänzt durch § 8b SGB VIII). Eine Strafanzeigepflicht besteht nicht, und bei unabwendbarer Gefährdung ist die Information des Jugendamts auch ohne elterliche Einwilligung zulässig bzw. geboten."
+    },
+    {
+      "id": "v2-q4",
+      "type": "case",
       "difficulty": "pruefung",
-      "explanation": "Das Grundrecht auf körperliche Unversehrtheit und staatliches Wächteramt (Art. 6 Abs. 2 GG) verpflichtet den Staat und seine Jugendhilfeträger zum Einschreiten, wenn Sorgeberechtigte ihr Erziehungsrecht missbrauchen oder das Kindeswohl gefährden.",
-      "id": "q6",
+      "question": "Praxisfall: Ein fünfjähriges Kind zeigt am Rücken mehrere streifenförmige Hämatome und berichtet der Erzieherin beim Umziehen spontan von schweren Schlägen zu Hause, verbunden mit großer Angst vor dem Abholen. Wann darf die Einrichtung von der vorherigen Einbeziehung der Eltern absehen?",
       "options": [
-        "Art. 6 Abs. 2 Grundgesetz (GG) – Pflege und Erziehung der Kinder sind das natürliche Recht der Eltern und die zuvörderst ihnen obliegende Pflicht; über ihre Betätigung wacht die staatliche Gemeinschaft.",
-        "Art. 1 GG – Die Würde des Menschen ist unantastbar.",
-        "Art. 3 GG – Alle Menschen sind vor dem Gesetz gleich.",
-        "Art. 12 GG – Freie Berufswahl."
+        "Gar nicht – Eltern müssen aus Gründen des Art. 6 GG in jedem denkbaren Fall vor dem Jugendamt angehört werden.",
+        "Immer dann, wenn das Team die Eltern als unfreundlich empfindet oder ein unangenehmes Gespräch befürchtet.",
+        "Erst nachdem die Erzieherin selbst die Familienwohnung besucht und Beweise gesichert hat.",
+        "Wenn nach fachlicher Einschätzung im Team mit Leitung und IseF durch eine vorherige Einbeziehung der Eltern der wirksame Schutz des Kindes infrage gestellt wird (z. B. akute Gefahr weiterer Misshandlung oder Verschleierung)."
       ],
-      "question": "Welcher Artikel des Grundgesetzes begründet das sogenannte „staatliche Wächteramt“ im Kinderschutz?",
-      "type": "single"
+      "correctIndices": [
+        3
+      ],
+      "explanation": "§ 8a Abs. 4 Nr. 3 SGB VIII verankert ausdrücklich den Schutzvorbehalt: Eltern und Kind sind einzubeziehen, „soweit hierdurch der wirksame Schutz des Kindes oder Jugendlichen nicht in Frage gestellt wird“. Droht bei einer vorherigen Konfrontation akute Gefahr für das Kind, informiert die Einrichtung nach unverzüglicher Einschätzung mit Leitung und IseF direkt das Jugendamt."
+    },
+    {
+      "id": "v2-q5",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Anforderungen sind nach § 45 Abs. 2 Nr. 4 SGB VIII verbindliche Voraussetzungen für die Betriebserlaubnis einer Kindertageseinrichtung?",
+      "options": [
+        "Die Beschränkung aller Beschwerden ausschließlich auf die interne Kita-Leitung, damit Träger und Behörden nicht belastet werden.",
+        "Die Entwicklung, Anwendung und Überprüfung eines Konzepts zum Schutz vor Gewalt.",
+        "Geeignete Verfahren der Selbstvertretung und Beteiligung von Kindern und Jugendlichen.",
+        "Die Möglichkeit der Beschwerde in persönlichen Angelegenheiten sowohl innerhalb als auch außerhalb der Einrichtung."
+      ],
+      "correctIndices": [
+        1,
+        2,
+        3
+      ],
+      "explanation": "§ 45 Abs. 2 Nr. 4 SGB VIII fordert ausdrücklich ein gelebtes und überprüftes Gewaltschutzkonzept, Beteiligungs- und Selbstvertretungsverfahren sowie Beschwerdemöglichkeiten innerhalb UND außerhalb der Einrichtung – gerade damit Kinder und Eltern bei einrichtungsinternen Konflikten oder Grenzverletzungen unabhängige Anlaufstellen erreichen können."
+    },
+    {
+      "id": "v2-q6",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Welches Recht von Kindern ist in § 1631 Abs. 2 BGB ausdrücklich verankert?",
+      "options": [
+        "Das Recht auf einen bedarfsgerechten Betreuungsplatz ab dem ersten Lebensjahr.",
+        "Das Recht auf Pflege und Erziehung unter Ausschluss von Gewalt, körperlichen Bestrafungen, seelischen Verletzungen und anderen entwürdigenden Maßnahmen.",
+        "Das Recht auf freie Wahl der Schulform unabhängig vom Willen der Eltern.",
+        "Das Recht von Einrichtungsträgern auf Einsichtnahme in erweiterte Führungszeugnisse."
+      ],
+      "correctIndices": [
+        1
+      ],
+      "explanation": "§ 1631 Abs. 2 BGB normiert das umfassende Recht des Kindes auf gewaltfreie Erziehung. Der Betreuungsanspruch ist in § 24 SGB VIII, das erweiterte Führungszeugnis in § 72a SGB VIII geregelt."
+    }
+  ],
+  "sources": [
+    {
+      "title": "SGB VIII § 8a – Schutzauftrag bei Kindeswohlgefährdung",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__8a.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Gesetzliche Grundlage für Jugendamt (Abs. 1–3), Einrichtungen freier Träger (Abs. 4) und Kindertagespflege (Abs. 5)"
+    },
+    {
+      "title": "SGB VIII § 8b – Fachliche Beratung und Begleitung zum Schutz von Kindern und Jugendlichen",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__8b.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Rechtsanspruch auf IseF-Einzelfallberatung (Abs. 1), Trägerberatung zu Schutzleitlinien (Abs. 2) und Berücksichtigung von Behinderung (Abs. 3)"
+    },
+    {
+      "title": "SGB VIII § 45 – Erlaubnis für den Betrieb einer Einrichtung (insb. Abs. 2 Nr. 4)",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__45.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Pflicht zu Gewaltschutzkonzepten, Beteiligung sowie internen und externen Beschwerdeverfahren"
+    },
+    {
+      "title": "BGB § 1631 – Inhalt und Grenzen der Personensorge (insb. Abs. 2)",
+      "url": "https://www.gesetze-im-internet.de/bgb/__1631.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Recht des Kindes auf gewaltfreie Pflege und Erziehung"
+    },
+    {
+      "title": "KKG § 4 – Beratung und Übermittlung von Informationen durch Geheimnisträger bei Kindeswohlgefährdung",
+      "url": "https://www.gesetze-im-internet.de/kkg/__4.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Befugnisnorm für bestimmte Berufsgeheimnisträger zur Abgrenzung von § 8a Abs. 4 SGB VIII"
+    },
+    {
+      "title": "Schutz vor Gewalt – Orientierungshilfen und Materialien für Kitas in Rheinland-Pfalz",
+      "url": "https://kita.rlp.de/kita-in-rheinland-pfalz/bildungs-und-erziehungsthemen/schutz-vor-gewalt",
+      "publisher": "Ministerium für Bildung RLP / Landesportal Kita RLP",
+      "note": "Landesbezogene Informationen und Arbeitshilfen zur Umsetzung institutioneller Schutzkonzepte"
+    },
+    {
+      "title": "Schutzkonzepte: Kein Raum für Missbrauch",
+      "url": "https://beauftragte-missbrauch.de/themen/schutz-und-praevention/schutzkonzepte",
+      "publisher": "Unabhängige Beauftragte für Fragen des sexuellen Kindesmissbrauchs (UBSKM)",
+      "note": "Fachstandards und Kernbausteine für institutionelle Schutzkonzepte gegen sexualisierte Gewalt"
+    },
+    {
+      "title": "Achtes Sozialgesetzbuch (SGB VIII) – Auszüge und rechtliche Grundlagen im Kinderschutz",
+      "url": "https://www.fruehehilfen.de/grundlagen-und-fachthemen/grundlagen-der-fruehen-hilfen/rechtliche-grundlagen/bundeskinderschutzgesetz-bkischg/achtes-sozialgesetzbuch-sgb-viii-auszuege/",
+      "publisher": "Nationales Zentrum Frühe Hilfen (NZFH)",
+      "note": "Einordnung der Schutzauftragsnormen im Kontext der Frühen Hilfen und Netzwerkarbeit"
     }
   ]
 }

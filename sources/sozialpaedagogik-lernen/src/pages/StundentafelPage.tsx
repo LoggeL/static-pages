@@ -1,6 +1,16 @@
 import React from 'react';
-import { Award, BookOpen, CheckCircle2, GraduationCap, Info } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import {
+  ArrowRight,
+  Award,
+  BookOpen,
+  CheckCircle2,
+  FileText,
+  GraduationCap,
+  Info,
+} from 'lucide-react';
 import { StundentafelVisualizer } from '../components/curriculum/StundentafelVisualizer';
+import { DEFAULT_PRIMARY_STARTER_ID } from '../lib/learning';
 
 const FOOTNOTES = [
   {
@@ -43,28 +53,43 @@ const FOOTNOTES = [
 export const StundentafelPage: React.FC = () => {
   return (
     <div className="space-y-6">
-      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-card dark:border-slate-800 dark:bg-ink-800">
-        <div className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-900 dark:bg-amber-900/50 dark:text-amber-200">
-          <GraduationCap className="h-3.5 w-3.5" />
-          Kapitel 1 & 3 · Rechtliche & zeitliche Rahmenbedingungen
+      <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-card dark:border-slate-800 dark:bg-ink-800 sm:p-6">
+        <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <a
+            href="https://bildung.rlp.de/fileadmin/user_upload/bbs/Informationen_und_Materialien/Lehrplaene/Fachschule/Sozialwesen/2024-09-25_LP_FS_Sozialpaedagogik.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 text-xs font-bold text-amber-900 hover:underline dark:bg-amber-900/50 dark:text-amber-200"
+          >
+            <FileText className="h-3.5 w-3.5" />
+            Amtlicher Lehrplan RLP (PDF)
+          </a>
+          <Link
+            to={`/einheit/${DEFAULT_PRIMARY_STARTER_ID}`}
+            className="inline-flex items-center gap-1.5 rounded-xl bg-teal-600 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-teal-700"
+          >
+            Direkt zu den Fachmodulen <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
-        <h1 className="mt-2 font-serif text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">
-          Stundentafel, Organisationsformen & Prüfungsstruktur
+
+        <h1 className="mt-3 font-serif text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">
+          Stundentafel, Organisationsformen &amp; Prüfungsstruktur
         </h1>
         <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-          Mit dem erfolgreichen Abschluss der Fachschule Sozialwesen (Fachrichtung Sozialpädagogik) wird die Berufsbezeichnung{' '}
-          <strong>„Staatlich anerkannte Erzieherin / Staatlich anerkannter Erzieher“</strong> sowie der Titel{' '}
-          <strong>„Bachelor Professional in Sozialwesen“</strong> (inkl. Berechtigung zum Studium an Hochschulen für angewandte Wissenschaften in RLP) verliehen.
+          Hier findest du die Stundentafel und die Prüfungsstruktur für Vollzeit, Teilzeit und die berufsbegleitende Ausbildung.
+          Der Abschluss führt zur Berufsbezeichnung{' '}
+          <strong>„Staatlich anerkannte Erzieherin / Staatlich anerkannter Erzieher“</strong> mit dem Zusatz{' '}
+          <strong>„Bachelor Professional in Sozialwesen“</strong>.
         </p>
 
         <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
           <div className="rounded-2xl border border-slate-200/80 bg-paper-50 p-4 dark:border-slate-700 dark:bg-slate-900/50">
             <div className="flex items-center gap-2 text-xs font-bold text-teal-700 dark:text-teal-300">
-              <Award className="h-4 w-4" /> Gleichwertigkeits-Titel
+              <Award className="h-4 w-4" /> Qualifikationsniveau
             </div>
             <div className="mt-1 text-sm font-bold">Bachelor Professional in Sozialwesen</div>
             <p className="mt-1 text-xs text-slate-600 dark:text-slate-400">
-              Verdeutlicht die Gleichwertigkeit der höheren beruflichen Ausbildung mit einem Hochschulabschluss (DQR-Niveau 6).
+              Der Deutsche Qualifikationsrahmen ordnet diese berufliche Qualifikation dem Niveau 6 zu.
             </p>
           </div>
           <div className="rounded-2xl border border-slate-200/80 bg-paper-50 p-4 dark:border-slate-700 dark:bg-slate-900/50">
@@ -90,13 +115,17 @@ export const StundentafelPage: React.FC = () => {
 
       <StundentafelVisualizer />
 
-      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-ink-800">
+      <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-ink-800 sm:p-6">
         <div className="flex items-center gap-2">
-          <Info className="h-5 w-5 text-teal-600" />
+          <GraduationCap className="h-5 w-5 text-teal-600" />
           <h2 className="font-serif text-xl font-bold text-slate-900 dark:text-white">
-            Wichtige Regelungen & Fußnoten aus dem Lehrplan (S. 3 & 5)
+            Wichtige organisatorische Regelungen aus dem Lehrplan (S. 3 &amp; 5)
           </h2>
         </div>
+        <p className="mt-1 flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400">
+          <Info className="h-3.5 w-3.5 shrink-0" />
+          Zum Nachschlagen für Anrechnung, Prüfungsmodule, Praxis-AG und Wahlpflichtbereich.
+        </p>
 
         <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
           {FOOTNOTES.map((fn) => (

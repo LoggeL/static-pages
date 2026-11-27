@@ -3,422 +3,458 @@
   "number": 43,
   "moduleCode": "S-SP-6",
   "moduleArea": "sp-pflicht",
-  "title": "Trägerstrukturen, Sozialraumanalyse, Netzwerke & Öffentlichkeit",
-  "subtitle": "Kinder- und Jugendhilfesystem, Finanzierung, Kooperationen & Fundraising",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-6 · Institution und Team entwickeln sowie in Netzwerken kooperieren (Lehrplan RLP 2024)",
+  "title": "Sozialraumorientierung, Trägerstrukturen, Netzwerke & Öffentlichkeitsarbeit",
+  "subtitle": "Hinte-Prinzipien, Thiersch, Sozialraumanalyse, Subsidiarität (§ 4 SGB VIII) & Datenschutz in der PR",
   "year": "2./3. Jahr",
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 30,
   "hoursRef": "80 Std. (Teil 3/3)",
   "pdfPages": "S. 39–40",
   "crossCuttingTags": [
     "Inklusion",
     "Digitale Welt"
   ],
-  "summary": "Einheit 43 vermittelt angehenden Erzieher:innen fundiertes Fachwissen zu Trägerstrukturen, Finanzierungs- und Rechtsgrundlagen des SGB VIII, der methodischen Durchführung von Sozialraumanalysen, erfolgreicher Netzwerkarbeit mit multiprofessionellen Partnern sowie zu Instrumenten der Öffentlichkeitsarbeit und des Fundraisings. Das Modul verbindet rechtlich-administrative Rahmenbedingungen unmittelbar mit der praktischen Sozialraum- und Teamarbeit in Kindertageseinrichtungen, Horten und der Kinder- und Jugendhilfe.",
+  "summary": "In dieser Einheit erarbeiten Sie, wie sozialpädagogische Einrichtungen sich in ihr Quartier öffnen, im dualen System aus öffentlichen und freien Trägern agieren und professionell vernetzen. Im Mittelpunkt stehen die fünf Prinzipien der Sozialraumorientierung nach Wolfgang Hinte, die Lebensweltorientierung nach Hans Thiersch, partizipative Methoden der Sozialraumanalyse (Stadtteilbegehung, Nadelmethode), das Subsidiaritätsprinzip (§ 4 SGB VIII) sowie eine datenschutzkonforme Öffentlichkeitsarbeit und transparentes Fundraising.",
   "learningGoals": [
-    "Ich kann die rechtlichen Grundlagen, Aufgaben und Strukturen öffentlicher und freier Träger der Kinder- und Jugendhilfe (SGB VIII) unterscheiden und das Subsidiaritätsprinzip erklären.",
-    "Ich kann Methoden der Sozialraumanalyse (z. B. Stadtteilbegehung, Experteninterviews, Lebensweltorientierung nach Hans Thiersch) anwenden und die Ergebnisse in die konzeptionelle Arbeit einbeziehen.",
-    "Ich kann die Bedeutung multiprofessioneller Teams und sozialräumlicher Netzwerke (Familienzentren, Jugendhilfe, Schulen) für die professionelle Erziehungs- und Bildungspraxis analysieren.",
-    "Ich kann Instrumente der Qualitätsentwicklung und des Beschwerdemanagements in sozialpädagogischen Handlungsfeldern konzipieren und anwenden.",
-    "Ich kann Ansätze der zielgruppenspezifischen Öffentlichkeitsarbeit (PR) und des Fundraisings zur Unterstützung der Einrichtung entwickeln."
+    "Ich kann die fünf Fachprinzipien der Sozialraumorientierung nach Wolfgang Hinte und die Strukturmaximen der Lebensweltorientierung nach Hans Thiersch präzise erläutern und in pädagogisches Handeln übersetzen.",
+    "Ich kann partizipative Methoden der Sozialraumanalyse (z. B. Stadtteilbegehung mit Kindern, Nadelmethode, subjektive Landkarten, Schlüsselpersonen-Interviews) fachgerecht planen und auswerten.",
+    "Ich kann Aufgaben und Rechtsstellung öffentlicher Träger (Gesamt- und Planungsverantwortung, § 79 SGB VIII) und freier Träger (Subsidiaritätsprinzip, § 4 SGB VIII; Förderung, § 74 SGB VIII) klar unterscheiden.",
+    "Ich kann sozialräumliche Netzwerke (z. B. Familienzentren, Schulen, Beratungsstellen, Jugendhilfe, Vereine) zielgerichtet aufbauen und fachliche Kooperationen verbindlich gestalten (§ 81 SGB VIII).",
+    "Ich kann Öffentlichkeitsarbeit und Fundraising für sozialpädagogische Einrichtungen zielgruppengerecht, barrierearm und strikt datenschutzkonform (DSGVO, Recht am eigenen Bild, Einwilligung) umsetzen."
   ],
   "sections": [
     {
-      "body": "Das deutsche Kinder- und Jugendhilfesystem ist im Achten Buch Sozialgesetzbuch (SGB VIII) geregelt und beruht auf einem dualen System aus öffentlichen und freien Trägern. Öffentliche Träger (Kommunen, Jugendämter) tragen die Gesamtverantwortung für die Jugendhilfe (Gesamt- und Planungsverantwortung, § 79 SGB VIII) und stellen eigene Einrichtungen bereit. Freie Träger (freie Wohlfahrtsverbände, Kirchen, Eltern-Eltern-Initiativen) erbringen den Großteil der praktischen Angebote (Kindertagesstätten, Jugendzentren, HzE). Das in § 4 SGB VIII verankerte Subsidiaritätsprinzip besagt, dass freie Träger bei der Erfüllung sozialpädagogischer Aufgaben Vorrang haben, sofern sie die fachliche Eignung und Leistungserbringung garantieren können. Die Finanzierung erfolgt über einen Mix aus öffentlichen Zuschüssen (Land, Kommune), Elternbeiträgen und Eigenleistungen der Träger (§ 74 SGB VIII).",
+      "heading": "1. Lebensweltorientierung (Thiersch) & Sozialraumorientierung (Hinte)",
+      "keyTakeaway": "Sozialraumorientierte Einrichtungen planen nicht über die Köpfe der Familien hinweg, sondern setzen am Willen, an den alltäglichen Lebenswelten und an den Ressourcen im Quartier an.",
+      "body": "Sozialpädagogische Einrichtungen sind keine isolierten Inseln, sondern Teil des konkreten Stadtteils oder der Gemeinde, in der Kinder, Jugendliche und Familien ihren Alltag bewältigen. Das theoretische Fundament bildet die Lebensweltorientierung nach Hans Thiersch: Sie fragt nach den realen Alltagserfahrungen, Bewältigungsaufgaben und Deutungsmustern der Adressat:innen und leitet daraus fünf Strukturmaximen ab — Prävention, Alltagsorientierung, Regionalisierung/Dezentralisierung, Integration/Inklusion und Partizipation. Darauf aufbauend formuliert das Fachkonzept Sozialraumorientierung (maßgeblich geprägt durch Wolfgang Hinte) fünf verbindliche Handlungsprinzipien: Erstens die Orientierung am eigenständig artikulierten Willen der Menschen (statt an bloßen Wünschen oder von außen zugeschriebenen Defiziten), zweitens die Unterstützung von Eigeninitiative und Selbsthilfe, drittens die konsequente Nutzung personaler und sozialräumlicher Ressourcen, viertens eine zielgruppen- und bereichsübergreifende Sichtweise sowie fünftens verbindliche Kooperation und Koordination aller Dienste im Quartier. Gemeinsam ist beiden Ansätzen der Abschied von bevormundender Fürsorge hin zu struktureller Teilhabe.",
       "bulletPoints": [
-        "Duales System: Öffentliche Träger (Kommunen/Jugendämter) vs. Freie Träger (Verbände, Vereine).",
-        "Subsidiaritätsprinzip (§ 4 SGB VIII): Vorrang der freien Wohlfahrtspflege bei gleicher oder besserer Eignung.",
-        "Finanzierungsstrukturen: Betriebskostenzuschüsse, Pflegesätze, Elternbeiträge und Träger-Eigenmittel (§ 74 SGB VIII).",
-        "Rechtsgrundlagen: SGB VIII als bundesgesetzlicher Rahmen, ergänzt durch das Kindertagesstättengesetz (KiTaG) des Landes Rheinland-Pfalz."
+        "Lebensweltorientierung (Thiersch): Verbindet die subjektive Alltagssicht der Familien mit gesellschaftlichen Rahmenbedingungen (Strukturmaximen: Prävention, Alltag, Regionalisierung, Inklusion, Partizipation).",
+        "Fünf Prinzipien nach Hinte: Wille statt Defizitfokus, Aktivierung von Selbsthilfe, Ressourcenorientierung, bereichsübergreifender Blick und verlässliche Vernetzung.",
+        "Grenzen im Blick behalten: Ressourcen- und Aktivierungsorientierung darf strukturelle Armut oder mangelnde Infrastruktur nicht auf die Eigenverantwortung von Familien abschieben.",
+        "Einmischungsauftrag: Wo Spielräume, sichere Wege oder Teilhabechancen fehlen, bringen Einrichtungen die Interessen von Kindern aktiv in kommunale Gremien ein."
       ],
-      "heading": "Trägerstrukturen, Finanzierungs- und Rechtsgrundlagen im SGB VIII",
-      "keyTakeaway": "Das SGB VIII regelt die Wohlfahrtspflege als kooperative Partnerschaft zwischen öffentlicher Verantwortung und freier Trägerschaft nach dem Subsidiaritätsprinzip.",
-      "praxisTip": "Analysieren Sie das Organigramm und die Finanzierungsquellen Ihrer Praxisstelle: Welche Rolle nimmt Ihr Träger im regionalen Gefüge ein und wie fließen öffentliche und private Mittel zusammen?"
+      "praxisTip": "Prüfen Sie bei jedem neuen Eltern- oder Familienangebot im Team die Hinte-Frage: „Entspricht dieses Angebot einem tatsächlich geäußerten Anliegen der Familien im Quartier — oder nur unserer eigenen Vermutung, was gut für sie wäre?“"
     },
     {
-      "body": "Sozialpädagogisches Handeln findet nie im luftleeren Raum statt, sondern ist untrennbar mit dem Lebensumfeld der Zielgruppen verknüpft. Die Sozialraumanalyse nach Hans Thiersch (Lebensweltorientierung) ist ein zentrales Instrument, um die lokale Infrastruktur, soziale Belastungen, Ressourcen, Bildungsorte und Wege von Kindern, Jugendlichen und Familien im Quartier systematisch zu erfassen. Durch Methoden wie Stadtteilbegehungen (Beobachtungen), Expertengespräche (z. B. mit Quartiersmanagement, Polizei, Vereinen) und Befragungen wird der Sozialraum als Lern- und Erfahrungsfeld erschlossen. Ziel ist es, die Einrichtung konzeptionell passgenau an den realen Bedarfen des Sozialraums auszurichten und soziale Benachteiligungen (Inklusion) abzubauen.",
+      "heading": "2. Methoden der Sozialraumanalyse: Kinder und Familien als Expert:innen",
+      "keyTakeaway": "Mit partizipativen Methoden wie Stadtteilbegehung und Nadelmethode wird sichtbar, wie Kinder und Jugendliche ihr Viertel tatsächlich erleben — einschließlich verborgener Ressourcen und Angsträume.",
+      "body": "Um ein pädagogisches Konzept lebensweltorientiert auszurichten, genügt kein Blick auf amtliche Einwohnerstatistiken. Eine fundierte Sozialraumanalyse kombiniert objektive Strukturdaten (z. B. Altersverteilung, Spielplätze, Busverbindungen, Beratungsstellen) mit qualitativen, partizipativen Erhebungsmethoden (u. a. nach Ulrich Deinet und Richard Krisch). Bei der strukturierten Stadtteilbegehung führen Kinder oder Jugendliche Fachkräfte durch ihr Viertel und zeigen ihre täglichen Wege, Spielorte und Gefahrenpunkte. Mit der Nadelmethode markieren Teilnehmende auf einer großen Quartierskarte mit verschiedenfarbigen Nadeln oder Klebepunkten Lieblingsorte, Treffpunkte, vermisste Angebote und gemiedene Angsträume. Subjektive Landkarten (Mental Maps) zeigen, welche Orte im Erleben von Kindern besonders groß und bedeutsam sind. Ergänzt werden diese Eindrücke durch Leitfadeninterviews mit Schlüsselpersonen (z. B. Quartiersmanagement, Grundschulleitung, Bücherei, Sportverein, Kinderarztpraxis). Die Auswertung fließt direkt in Konzeptionsfortschreibung, Raumöffnung und Netzwerkarbeit ein.",
       "bulletPoints": [
-        "Lebensweltorientierung: Verbindung von Struktur-, Alltags- und Subjektbezug nach Hans Thiersch.",
-        "Methodenmix: Stadtteilbegehungen, Sozialraumpartizipation, quantitative Statistiken und qualitative Interviews.",
-        "Ressourcenorientierung: Identifikation lokaler Unterstützungsnetzwerke, Vereine, Spiel- und Begegnungsorte.",
-        "Inklusion und Chancengleichheit: Abbau sozialer Barrieren und Öffnung der Einrichtung in den Stadtteil."
+        "Stadtteilbegehung: Kinder/Jugendliche übernehmen die Führung und machen Alltagserfahrungen und Barrieren vor Ort unmittelbar sichtbar.",
+        "Nadelmethode: Niedrigschwellige Kartenvisualisierung von Lieblingsorten, informellen Treffpunkten und Angsträumen (auch digital möglich).",
+        "Subjektive Landkarten & Schlüsselpersonen-Interviews: Verbinden kindliche Perspektiven mit dem Fachwissen lokaler Akteure.",
+        "Ergebnissicherung: Analyseergebnisse führen zu konkreten Konsequenzen — etwa neuen Kooperationen, veränderten Ausflugszielen oder Eingaben an die Kommune."
       ],
-      "heading": "Sozialraumanalyse und Lebensweltorientierung im Quartier",
-      "keyTakeaway": "Sozialraumanalysen machen Lebenswelten von Kindern und Familien sichtbar und bilden das Fundament für eine bedarfsgerechte, sozialraumorientierte Konzeptentwicklung.",
-      "praxisTip": "Führen Sie mit Ihren Kolleg:innen und Auszubildenden eine strukturierte Mini-Sozialraumanalyse (z. B. einen „Spaziergang mit offenen Augen“) durch und kartieren Sie Stolpersteine und Ressourcen im Umkreis von 1 km Ihrer Einrichtung."
+      "praxisTip": "Hängen Sie eine große Karte des Einzugsgebiets beim Sommerfest oder Elterncafé auf und laden Sie Kinder wie Eltern mit farbigen Klebepunkten zur Nadelmethode ein: Grün für Lieblingsorte, Gelb für Wünsche, Rot für unsichere Stellen."
     },
     {
-      "body": "Moderne sozialpädagogische Einrichtungen agieren als Knotenpunkte in einem dichten Netzwerk lokaler Hilfen und Bildungsorte. Dazu gehört die zielgerichtete Kooperation mit Familienzentren, Einrichtungen der Eltern- und Familienbildung, Institutionen der Hilfen zur Erziehung (HzE), Büchereien, Museen, Jugendzentren, Jugendverbänden sowie der Schulsozialarbeit. Multiprofessionelle Teams innerhalb der Einrichtung (Erzieher:innen, Sozialpädagoginnen, Heilpädagogen, Sprach- und Integrationskräfte) bündeln unterschiedliche Kompetenzen und Perspektiven. Der professionelle Fachaustausch, klare Absprachen, Fallbesprechungen und konstruktive Konfliktlösungsmodelle sichern die Qualität der pädagogischen Arbeit und verhindern Reibungsverluste im Hilfesystem.",
+      "heading": "3. Öffentliche und freie Träger: Subsidiaritätsprinzip & Netzwerkarbeit im SGB VIII",
+      "keyTakeaway": "Das Kinder- und Jugendhilfesystem beruht auf partnerschaftlicher Arbeitsteilung: Kommunen tragen die Gesamt- und Planungsverantwortung, während freie Träger vorrangig vielfältige Angebote erbringen.",
+      "body": "Das deutsche Kinder- und Jugendhilfesystem (SGB VIII) ist dual aufgebaut. Öffentliche Träger — in der Regel kreisfreie Städte und Landkreise mit ihrem Jugendamt (örtlicher Träger) sowie das Landesjugendamt (überörtlicher Träger) — tragen nach § 79 SGB VIII die Gesamt- und Planungsverantwortung dafür, dass ausreichend bedarfsgerechte Angebote bereitstehen. Freie Träger sind z. B. Wohlfahrtsverbände (AWO, Caritas, Diakonie, DRK, Paritätischer, ZWST), Kirchen, Jugendverbände, gemeinnützige Vereine und Elterninitiativen. Nach § 4 Abs. 1 SGB VIII arbeiten öffentliche und freie Jugendhilfe partnerschaftlich zusammen, wobei die fachliche und organisatorische Selbstständigkeit der freien Träger zu achten ist. § 4 Abs. 2 SGB VIII verankert das Subsidiaritätsprinzip (bedingter Vorrang freier Träger): Soweit geeignete Einrichtungen oder Dienste von anerkannten freien Trägern betrieben oder rechtzeitig geschaffen werden können, soll die öffentliche Jugendhilfe von eigenen Maßnahmen absehen. Die Finanzierung erfolgt je nach Arbeitsfeld über öffentliche Zuschüsse (§ 74 SGB VIII), kommunale und landesrechtliche Kostenbeteiligungen (z. B. KiTaG RLP), Leistungsentgelte, Elternbeiträge (soweit nicht beitragsfrei) und Eigenleistungen. Darüber hinaus verpflichtet § 81 SGB VIII zur engen Zusammenarbeit mit Schulen, Gesundheitswesen, Beratungsstellen, Kultur- und Sporteinrichtungen im lokalen Netzwerk.",
       "bulletPoints": [
-        "Netzwerkarbeit: Aktive Kooperation mit Schulen, Beratungsstellen, Jugendtreffs und Kulturinstituten.",
-        "Multiprofessionelle Teams: Verknüpfung verschiedener pädagogischer, therapeutischer und sozialarbeiterischer Professionen.",
-        "Familienzentren als Hubs: Niedrigschwellige Bündelung von Beratung, Bildung und Betreuung unter einem Dach.",
-        "Schnittstellenkompetenz: Reibungslose Übergänge (z. B. Kita zur Grundschule) durch standardisierte Kooperationsvereinbarungen."
+        "Öffentlicher Träger (§ 79 SGB VIII): Trägt Gesamt-, Gewährleistungs- und Jugendhilfeplanungsverantwortung und betreibt bei Bedarf eigene Einrichtungen.",
+        "Freie Träger & Subsidiaritätsprinzip (§ 4 SGB VIII): Vorrang geeigneter freier Träger sichert weltanschauliche und methodische Pluralität sowie Wunsch- und Wahlrecht der Familien (§ 5 SGB VIII).",
+        "Finanzierung (§ 74 SGB VIII & Landesrecht): Mischfinanzierung aus öffentlichen Fördermitteln, Träger-Eigenleistungen und ggf. Leistungsentgelten.",
+        "Netzwerkarbeit (§ 81 SGB VIII): Verlässliche Kooperationsvereinbarungen mit Familienzentren, Schulen, Erziehungsberatung, Büchereien, Vereinen und HzE."
       ],
-      "heading": "Netzwerkarbeit, Kooperationen und multiprofessionelle Teams",
-      "keyTakeaway": "Erfolgreiche sozialpädagogische Arbeit erfordert interdisziplinäre Kooperation und starke Netzwerke im Sozialraum, um Familien ganzheitlich zu unterstützen.",
-      "praxisTip": "Erstellen Sie eine visuelle Netzwerkkarte Ihrer Einrichtung (Ökosystem-Map), die alle aktuellen und potenziellen Kooperationspartner im Stadtteil übersichtlich abbildet."
+      "praxisTip": "Erstellen Sie für Ihr Team eine kompakte Netzwerkkarte mit konkreten Ansprechpersonen, Telefonnummern und Zuständigkeiten im Sozialraum (z. B. Familienzentrum, Frühförderung, Erziehungsberatung, Schulsozialarbeit), damit Familien im Bedarfsfall niedrigschwellig weitervermittelt werden können."
     },
     {
-      "body": "Eine professionelle Außendarstellung und die aktive Gewinnung zusätzlicher Ressourcen sind für Kindertagesstätten, Horte und Jugendzentren unverzichtbar geworden. Öffentlichkeitsarbeit (PR) informiert die Öffentlichkeit transparent über das pädagogische Profil, stärkt das Image und wirbt um Vertrauen sowie politische Unterstützung (z. B. über Webseiten, Social Media, Tage der offenen Tür, lokale Presse). Fundraising ergänzt die staatliche Regelfinanzierung gezielt durch Spenden, Sponsoring, Stiftungsanträge und Benefizaktionen, um besondere Projekte (z. B. Inklusionsmaterialien, digitale Medien, naturnahe Außenspielbereiche) zu realisieren. Flankiert wird dies durch ein systematisches Qualitäts- und Beschwerdemanagement (§ 22a SGB VIII), das konstruktive Kritik von Eltern und Kindern als Motor für organisatorisches Lernen nutzt.",
+      "heading": "4. Datenschutzkonforme Öffentlichkeitsarbeit (PR) & ethisches Fundraising",
+      "keyTakeaway": "Professionelle Öffentlichkeitsarbeit macht pädagogische Qualität transparent und gewinnt Unterstützung — dabei stehen die Persönlichkeitsrechte der Kinder und klare DSGVO-Standards immer an erster Stelle.",
+      "body": "Öffentlichkeitsarbeit informiert Eltern, Träger, Kommunalpolitik und Nachbarschaft über das pädagogische Profil einer Einrichtung — über Website, Konzeptionsflyer, Tage der offenen Tür, lokale Presse oder soziale Medien. Gerade bei Fotos, Videos und Namen von Kindern gelten jedoch strenge datenschutzrechtliche Grenzen (DSGVO sowie Recht am eigenen Bild nach KUG, konkretisiert u. a. durch den LfDI Rheinland-Pfalz): Jedes Foto eines erkennbaren Kindes ist ein besonders schützenswertes personenbezogenes Datum. Für Veröffentlichungen in der Öffentlichkeitsarbeit (Homepage, Zeitung, Social Media) ist stets eine freiwillige, informierte, zweckgebundene und jederzeit widerrufliche Einwilligung erforderlich — modular getrennt nach Medium und niemals versteckt im Betreuungsvertrag! Bei gemeinsamem Sorgerecht ist für Internetveröffentlichungen grundsätzlich die Zustimmung beider Elternteile einzuholen; zudem sollten Fotos ausschließlich mit Dienstgeräten und niemals über private Smartphones oder unsichere Messenger erstellt und versendet werden. Im ergänzenden Fundraising (z. B. Förderverein, Stiftungsanträge, zweckgebundene Spenden oder transparente Kooperationen) achten Einrichtungen darauf, ihre pädagogische Unabhängigkeit zu wahren und Kinder nicht für kommerzielle Werbung zu instrumentalisieren.",
       "bulletPoints": [
-        "Öffentlichkeitsarbeit: Zielgruppengerechte PR-Strategien für Eltern, Träger, Politik und Öffentlichkeit.",
-        "Fundraising-Säulen: Spenden, Sponsoring, Förderstiftungen und zivilgesellschaftliches Engagement.",
-        "Qualitätsmanagement: PDCA-Zyklus, Leitbildentwicklung und transparentes Beschwerdemanagement.",
-        "Digitale Welt & Inklusion: Nutzung digitaler Tools für die Elternkommunikation und barrierefreie Öffentlichkeitsarbeit."
+        "Datenschutz bei Kinderfotos: Freiwillige, zweckgetrennte, widerrufliche Einwilligung (bei Online-Veröffentlichung i. d. R. beider Sorgeberechtigter); keine Pauschalklauseln im Betreuungsvertrag.",
+        "Technischer & organisatorischer Schutz: Ausschließlich Dienstgeräte nutzen, keine ungeschützten privaten Messenger-Gruppen; Kinder auch altersgerecht fragen, ob sie fotografiert werden möchten.",
+        "Barrierearme PR: Klare, verständliche Sprache, mehrsprachige Kerninformationen und transparente Darstellung des pädagogischen Alltags (oft auch über Symbol-, Raum- oder Detailfotos ohne Kindergesichter).",
+        "Transparentes Fundraising: Fördervereine, Stiftungen und zweckgebundene Spenden nutzen — ohne verdeckte Produktwerbung oder Verlust der fachlichen Unabhängigkeit."
       ],
-      "heading": "Öffentlichkeitsarbeit, Fundraising und Qualitätsmanagement",
-      "keyTakeaway": "Professionelle Öffentlichkeitsarbeit und strategisches Fundraising sichern die Weiterentwicklung und Zukunftsfähigkeit sozialpädagogischer Einrichtungen über das Regelbudget hinaus.",
-      "praxisTip": "Entwerfen Sie einen digitalen Elternbrief oder Flyer für einen anstehenden Tag der offenen Tür, der das pädagogische Profil und die Besonderheiten Ihrer Einrichtung prägnant und ansprechend transportiert."
+      "praxisTip": "Verwenden Sie für Presseberichte, Flyer und Webseiten bevorzugt aussagekräftige Fotos von Lernumgebungen, Werkstücken, Naturmaterialien oder Kinderhänden beim Bauen — so zeigen Sie pädagogische Qualität lebendig und vermeiden datenschutzrechtliche Risiken."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Sozialräumliche Bildungs- und Jugendhilfelandschaft",
-      "id": "vb-concept-map",
+      "id": "vb-1",
+      "kind": "feature_grid",
+      "title": "Die fünf Prinzipien der Sozialraumorientierung nach Wolfgang Hinte",
+      "subtitle": "Handlungsleitende Eckpfeiler für sozialräumliches Arbeiten in Kita, Jugendarbeit und Jugendhilfe",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Methode",
-          "detail": "Systematische Erfassung der Lebenswelt, Ressourcen und Bedarfe im Quartier nach Hans Thiersch zur Fundierung der pädagogischen Konzeption.",
-          "example": "Stadtteilbegehung mit Kindern und Auszubildenden zur Erkundung sicherer Spielwege.",
-          "id": "item-1",
-          "label": "Sozialraumanalyse",
-          "metric": "Fundament",
-          "summary": "Erkundung des lokalen Lebensumfelds als Basis für passgenaue Angebote."
+          "id": "hinte-1",
+          "badge": "Prinzip 1",
+          "label": "Orientierung am Willen",
+          "metric": "Subjektorientierung",
+          "summary": "Ausgangspunkt sind die eigenständig geäußerten Ziele und Interessen der Menschen.",
+          "detail": "Fachkräfte unterscheiden zwischen unverbindlichen Wünschen und dem tragfähigen Willen, selbst etwas zu verändern, statt Menschen vorschnell fertige Maßnahmen überzustülpen.",
+          "example": "Eltern im Quartier möchten selbst ein internationales Nachbarschaftsfrühstück aufbauen; die Kita stellt Raum und Moderation bereit."
         },
         {
-          "badge": "Struktur",
-          "detail": "Duales System aus öffentlichen Trägern (Kommune/Jugendamt) und freien Trägern (Wohlfahrtsverbände) nach dem Subsidiaritätsprinzip (§ 4 SGB VIII).",
-          "example": "Betrieb einer Kita durch einen freien Wohlfahrtsverband bei kommunaler Fachaufsicht.",
-          "id": "item-2",
-          "label": "Trägerstrukturen & Recht",
-          "metric": "Rechtsrahmen",
-          "summary": "Regelung von Verantwortung, Finanzierung und Aufsicht im SGB VIII."
+          "id": "hinte-2",
+          "badge": "Prinzip 2",
+          "label": "Eigeninitiative & Selbsthilfe",
+          "metric": "Aktivierung",
+          "summary": "Unterstützung stärkt Selbsthilfekräfte statt neue Abhängigkeiten zu schaffen.",
+          "detail": "Wo immer möglich, befähigen Fachkräfte Familien, Kinder und Jugendliche dazu, eigene Netzwerke und Handlungsmöglichkeiten aufzubauen.",
+          "example": "Jugendliche organisieren mit pädagogischer Begleitung ein eigenes Stadtteil-Fußballturnier inklusive Antragstellung."
         },
         {
-          "badge": "Kooperation",
-          "detail": "Vernetzung mit Familienzentren, Schulen, HzE und Jugendverbänden zur ganzheitlichen Unterstützung von Kindern und Familien.",
-          "example": "Regelmäßiger Runder Tisch mit der Grundschulsozialarbeit und Erziehungsberatung.",
-          "id": "item-3",
-          "label": "Netzwerkarbeit",
+          "id": "hinte-3",
+          "badge": "Prinzip 3",
+          "label": "Ressourcen im Raum",
+          "metric": "Stärkenfokus",
+          "summary": "Fokus auf vorhandene Kompetenzen der Menschen und Potenziale im Quartier.",
+          "detail": "Neben persönlichen Stärken werden lokale Orte, Vereine, Nachbarschaften, Bibliotheken und Begegnungsräume gezielt als Bildungs- und Unterstützungsressourcen erschlossen.",
+          "example": "Kooperation mit der Stadtteilbücherei und einer offenen Fahrradwerkstatt für das Hort-Nachmittagsprogramm."
+        },
+        {
+          "id": "hinte-4",
+          "badge": "Prinzip 4 & 5",
+          "label": "Bereichsübergreifend & vernetzt",
           "metric": "Kooperation",
-          "summary": "Zusammenarbeit im multiprofessionellen Team und mit externen Partnern."
-        },
-        {
-          "badge": "Kommunikation",
-          "detail": "Zielgruppengerechte Außendarstellung, Imagepflege und transparente Informationspolitik gegenüber Eltern, Träger und Öffentlichkeit.",
-          "example": "Instagram-Kanal der Kita zur Dokumentation von Projektwochen und Elterninfos.",
-          "id": "item-4",
-          "label": "Öffentlichkeitsarbeit (PR)",
-          "metric": "Außendarstellung",
-          "summary": "Aktive Darstellung der pädagogischen Qualität nach außen."
-        },
-        {
-          "badge": "Ressourcen",
-          "detail": "Systematische Einwerbung zusätzlicher Finanzmittel über Spenden, Sponsoring, Förderstiftungen und Stiftungen neben der Regelfinanzierung.",
-          "example": "Einwerbung von Spendengeldern für ein barrierefreies Hochbeet im Kitagarten.",
-          "id": "item-5",
-          "label": "Fundraising",
-          "metric": "Finanzierung",
-          "summary": "Generierung zusätzlicher Mittel zur Qualitätsverbesserung."
+          "summary": "Überwindung enger Zuständigkeits-Silos durch verbindliche Quartiersnetzwerke.",
+          "detail": "Angebote richten sich offen an das gesamte Wohnumfeld statt nur an stigmatisierte Sondergruppen; Einrichtungen stimmen sich systematisch mit anderen Diensten ab.",
+          "example": "Quartiersrunde aus Kita, Grundschule, Jugendtreff, Erziehungsberatung und Gemeinwesenarbeit stimmt Übergänge und Ferienangebote ab."
         }
-      ],
-      "kind": "concept_map",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Die fünf zentralen Säulen des Moduls S-SP-6 (Teil 3/3) im Überblick",
-      "title": "Zentrale Dimensionen der Sozialraum- und Trägerarbeit"
+      ]
     },
     {
+      "id": "vb-2",
+      "kind": "comparison",
+      "title": "Öffentliche vs. freie Träger im Kinder- und Jugendhilfesystem (SGB VIII)",
+      "subtitle": "Aufgabenverteilung, Rechtsgrundlagen und Zusammenspiel im dualen Trägersystem",
       "centerLabel": "",
-      "id": "vb-comparison",
+      "leftPole": "Öffentliche Träger",
+      "rightPole": "Freie Träger",
       "isCycle": false,
       "items": [
         {
-          "badge": "Rechtsform & Status",
-          "detail": "Kommunen, Landkreise und Bundesländer als Körperschaften des öffentlichen Rechts. Tragen die Gesamt- und Planungsverantwortung.",
-          "example": "Das städtische Jugendamt plant die Anzahl der Kitaplätze im Stadtgebiet.",
-          "id": "comp-1",
+          "id": "tr-1",
+          "badge": "Kommunen / Länder",
           "label": "Öffentliche Träger",
-          "metric": "Öffentliche Hand",
-          "summary": "Verantwortlich für Bedarfsplanung, Gesetzeshilfe und Aufsicht."
+          "metric": "§ 79 SGB VIII",
+          "summary": "Städte, Landkreise (Jugendämter) und Landesjugendämter.",
+          "detail": "Tragen die Gesamt- und Planungsverantwortung für bedarfsgerechte Angebote, erteilen Betriebserlaubnisse (Landesjugendamt), fördern freie Träger und betreiben bei Bedarf eigene Einrichtungen.",
+          "example": "Ein Landkreis erstellt die kommunale Kita-Bedarfsplanung und sichert den Rechtsanspruch auf Betreuungsplätze."
         },
         {
-          "badge": "Rechtsform & Status",
-          "detail": "Freie Wohlfahrtsverbände (AWO, Caritas, Diakonie), Kirchen, Elterninitiativen und eingetragene Vereine (e. V.). Agieren als Leistungsanbieter.",
-          "example": "Ein Elternverein betreibt eine eingruppige Waldkindergarten-Initiative.",
-          "id": "comp-2",
+          "id": "tr-2",
+          "badge": "Wohlfahrt / Vereine",
           "label": "Freie Träger",
-          "metric": "Freie Wohlfahrt",
-          "summary": "Träger der Mehrheit aller Kindertageseinrichtungen und Jugendzentren."
+          "metric": "§ 4 & § 75 SGB VIII",
+          "summary": "Wohlfahrtsverbände, Kirchen, Jugendverbände, gemeinnützige Vereine und Elterninitiativen.",
+          "detail": "Erbringen den größten Teil der praktischen Angebote in Kitas, Jugendarbeit und HzE. Ihre Selbstständigkeit in Zielsetzung, Profil und Organisation ist gesetzlich geschützt.",
+          "example": "Ein freier Wohlfahrtsverband oder eine Elterninitiative betreibt eine inklusive Kita mit eigenem pädagogischem Profil."
         },
         {
-          "badge": "Rechtsprinzip",
-          "detail": "Vorrang der freien Wohlfahrtspflege (§ 4 SGB VIII): Freie Träger sollen vorrangig tätig werden, wenn sie die gleichen Leistungen erbringen können.",
-          "example": "Die Kommune überträgt den Bau und Betrieb einer neuen Kita an die Diakonie.",
-          "id": "comp-3",
-          "label": "Subsidiarität",
-          "metric": "§ 4 SGB VIII",
-          "summary": "Gesetzlicher Vorrang freier Träger bei gleicher Eignung."
+          "id": "tr-3",
+          "badge": "Vorrangprinzip",
+          "label": "Subsidiaritätsprinzip",
+          "metric": "§ 4 Abs. 2 SGB VIII",
+          "summary": "Bedingter Vorrang geeigneter freier Träger vor eigenen Maßnahmen der öffentlichen Hand.",
+          "detail": "Wenn anerkannte freie Träger geeignete Angebote betreiben oder rechtzeitig schaffen können, soll die öffentliche Jugendhilfe von eigenen Maßnahmen absehen — das stärkt Trägervielfalt und Wunsch- und Wahlrecht (§ 5 SGB VIII).",
+          "example": "Bei der Planung einer neuen Kita überträgt die Kommune die Trägerschaft an einen geeigneten freien Träger statt selbst zu betreiben."
         },
         {
-          "badge": "Finanzierung",
-          "detail": "Mischfinanzierung aus kommunalen Betriebskostenzuschüssen, Landesmitteln, Elternbeiträgen und gesetzlich gesicherten Träger-Eigenleistungen (§ 74 SGB VIII).",
-          "example": "Bezuschussung von 85% der Personalkosten durch die Kommune, 10% Land, 5% Träger.",
-          "id": "comp-4",
-          "label": "Finanzierungsgrundlage",
-          "metric": "Mischfinanzierung",
-          "summary": "Gesetzlich abgesicherter Finanzmix für den laufenden Betrieb."
+          "id": "tr-4",
+          "badge": "Ressourcen",
+          "label": "Finanzierung & Kooperation",
+          "metric": "§§ 74, 81 SGB VIII",
+          "summary": "Partnerschaftliche Mischfinanzierung und verbindliche Vernetzung im Sozialraum.",
+          "detail": "Öffentliche Zuschüsse (Kommune, Land) werden durch Träger-Eigenleistungen sowie ggf. Elternbeiträge oder Entgelte ergänzt; freie und öffentliche Einrichtungen kooperieren mit Schulen, Gesundheit und Beratung.",
+          "example": "Gemeinsame Finanzierung einer Kita-Sozialarbeitsstelle durch Kommune, Land und freien Träger in einem sozial belasteten Quartier."
         }
-      ],
-      "kind": "comparison",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Gegenüberstellung von Trägern, Rechtsgrundlagen und Finanzierungsstrukturen",
-      "title": "Öffentliche vs. Freie Träger im Kinder- und Jugendhilfesystem"
+      ]
     },
     {
-      "centerLabel": "",
-      "id": "vb-process-flow",
-      "isCycle": true,
-      "items": [
-        {
-          "badge": "Schritt 1",
-          "detail": "Systematische Bestands- und Bedarfsanalyse im Sozialraum sowie Formulierung konkreter Ziele für die konzeptionelle Weiterentwicklung.",
-          "example": "Das Team plant die Einführung eines neuen Eltern-Kind-Cafés basierend auf der Sozialraumanalyse.",
-          "id": "step-1",
-          "label": "Plan (Planen)",
-          "metric": "Phase 1",
-          "summary": "Bedarfsermittlung und strategische Planung."
-        },
-        {
-          "badge": "Schritt 2",
-          "detail": "Praktische Umsetzung des Vorhabens, Durchführung von Angeboten, Erprobung neuer Kooperationen und Netzwerkarbeit.",
-          "example": "Eröffnung des wöchentlichen Eltern-Cafés in Kooperation mit der Familienbildungsstätte.",
-          "id": "step-2",
-          "label": "Do (Umsetzen)",
-          "metric": "Phase 2",
-          "summary": "Durchführung der geplanten Maßnahmen."
-        },
-        {
-          "badge": "Schritt 3",
-          "detail": "Überprüfung der Ergebnisse durch Evaluation, Befragungen, Auswertung des Beschwerdemanagements und Reflexion im Team.",
-          "example": "Elternbefragung nach drei Monaten zur Resonanz des Eltern-Cafés.",
-          "id": "step-3",
-          "label": "Check (Überprüfen)",
-          "metric": "Phase 3",
-          "summary": "Evaluation und Qualitätskontrolle."
-        },
-        {
-          "badge": "Schritt 4",
-          "detail": "Anpassung des Konzepts, Verstetigung erfolgreicher Angebote oder Behebung identifizierter Mängel zur Qualitätsverbesserung.",
-          "example": "Ausweitung des Eltern-Cafés auf zweimal wöchentlich aufgrund hoher Nachfrage.",
-          "id": "step-4",
-          "label": "Act (Anpassen)",
-          "metric": "Phase 4",
-          "summary": "Sicherung und Weiterentwicklung der Qualität."
-        }
-      ],
+      "id": "vb-3",
       "kind": "process_flow",
+      "title": "Von der Sozialraumanalyse zur datenschutzkonformen Öffentlichkeitsarbeit",
+      "subtitle": "Vier praxisnahe Schritte zur Quartiersöffnung einer sozialpädagogischen Einrichtung",
+      "centerLabel": "Sozialraum & PR",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Der kontinuierliche Qualitäts- und Konzeptionsentwicklungskreis in sozialpädagogischen Institutionen",
-      "title": "Der PDCA-Zyklus in der Praxis"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "sr-1",
+          "badge": "Schritt 1",
+          "label": "Partizipative Erhebung",
+          "metric": "Analyse",
+          "summary": "Stadtteilbegehung, Nadelmethode und Strukturdaten kombinieren.",
+          "detail": "Kinder, Eltern und Team erkunden gemeinsam Wege, Spielorte, Ressourcen und Barrieren im Viertel und ergänzen Eindrücke durch kommunale Sozialdaten und Schlüsselpersonen-Gespräche.",
+          "example": "Vorschulkinder markieren auf der Quartierskarte einen unübersichtlichen Zebrastreifen und einen beliebten Nachbarschaftsgarten."
+        },
+        {
+          "id": "sr-2",
+          "badge": "Schritt 2",
+          "label": "Netzwerk & Kooperation",
+          "metric": "Vernetzung",
+          "summary": "Passgenaue Partner im Sozialraum einbinden und Absprachen treffen.",
+          "detail": "Auf Grundlage der erhobenen Bedarfe vereinbart die Einrichtung konkrete Kooperationen — etwa mit der Stadtteilbücherei, dem Familienzentrum, der Grundschule oder dem Quartiersmanagement.",
+          "example": "Gemeinsame Kooperationsvereinbarung mit der Bücherei für monatliche Bilderbuchbesuche und mehrsprachige Ausleihe."
+        },
+        {
+          "id": "sr-3",
+          "badge": "Schritt 3",
+          "label": "Konzept & Einmischung",
+          "metric": "Profil schärfen",
+          "summary": "Ergebnisse in die Einrichtungskonzeption und kommunale Gremien einbringen.",
+          "detail": "Das Team passt Angebote und Raumöffnung an die realen Lebenswelten an und vertritt kindliche Interessen (z. B. sichere Querungshilfe) gegenüber dem Träger oder Ortsbeirat.",
+          "example": "Kinder und Leitung stellen ihre Quartierskarte im kommunalen Kinder- und Jugendausschuss vor."
+        },
+        {
+          "id": "sr-4",
+          "badge": "Schritt 4",
+          "label": "Datenschutzkonforme PR",
+          "metric": "DSGVO & Transparenz",
+          "summary": "Ergebnisse offen kommunizieren — unter striktem Schutz der Persönlichkeitsrechte.",
+          "detail": "Vor jeder Veröffentlichung von Kinderfotos (Website, Presse, Social Media) liegen modulare, widerrufliche Einwilligungen vor; gearbeitet wird ausschließlich mit Dienstgeräten oder anonymen Detailaufnahmen.",
+          "example": "Bericht über das Quartiersprojekt auf der Kita-Homepage mit Fotos der selbst gebauten Nadelkarte und vorher eingeholten Einwilligungen."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Kinder im Alter von 3 bis 10 Jahren (Kita & Hort)",
-    "context": "Eine städtische Kindertageseinrichtung und integrierter Hort in einem sozial belasteten Wohngebiet verzeichnet steigende Bedarfe bei Familien mit Fluchthintergrund sowie zunehmende Konflikte im Sozialraum. Die Einrichtung steht vor der Aufgabe, ihre Sozialraumvernetzung und Konzeption grundlegend zu überarbeiten.",
-    "setting": "Städtische Kita und Hort im Sozialraum „Nordstadt“",
+    "title": "Quartiersöffnung und Tag der offenen Tür in der Kita „Nordpark“",
+    "setting": "Frei-gemeinnützige Kita mit angegliedertem Familienzentrum in einem vielfältigen Stadtteil",
+    "ageGroup": "Kinder von 1 bis 6 Jahren und Familien aus dem Quartier",
+    "context": "Die Kita „Nordpark“ (freier Träger) liegt in einem wachsenden Stadtteil mit vielen neu zugezogenen Familien, knappem Wohnraum und wenigen sicheren Spielplätzen. Im Team entsteht die Idee, die Einrichtung stärker in den Sozialraum zu öffnen und für einen geplanten Tag der offenen Tür gezielt Öffentlichkeitsarbeit zu machen.",
     "steps": [
       {
+        "situation": "In der ersten Planungssitzung schlagen zwei Kolleginnen vor, rasch ein neues wöchentliches „Eltern-Erziehungstraining“ auszuschreiben und für die Konzeption einfach eine Liste der nächstgelegenen Spielplätze aus dem Internet abzuschreiben.",
+        "prompt": "Wie planen Sie die Öffnung in den Sozialraum fachlich fundiert nach Thiersch und Hinte?",
         "options": [
           {
-            "feedback": "Exzellenter Ansatz! Eine fundierte Sozialraumanalyse (Stadtteilbegehung, quantitative Daten, Interviews mit Schlüsselpersonen nach Hans Thiersch) bindet die Lebenswelt der Kinder und Familien aktiv ein und dient als valide Basis für die Konzeptfortschreibung.",
-            "label": "Die Einrichtungsleitung initiiert gemeinsam mit dem Team und Eltern eine systematische Sozialraumanalyse (Stadtteilbegehung, Leitfadengespräche mit Kooperationspartnern wie Jugendzentrum und Stadtteilbüro).",
-            "quality": "optimal",
-            "theoryLink": "Lehrplan RLP S-SP-6: Bedarfs- und Bestandsanalysen durchführen; Lebensweltorientierung nach Hans Thiersch."
-          },
-          {
-            "feedback": "Teilweise sinnvoll, aber greift zu kurz. Eine reine Bestandsaufnahme der vorhandenen Spielplätze ohne Einbezug der soziokulturellen und ökonomischen Lebenslagen der Familien vernachlässigt wesentliche Bedarfe des Sozialraums.",
-            "label": "Das Team erstellt lediglich eine Liste aller Spielplätze im Umkreis von 500 Metern und beschränkt die Planung auf rein materielle Ausstattungsmerkmale.",
-            "quality": "teilweise",
-            "theoryLink": "Lehrplan RLP S-SP-6: Lebenswelten von Kindern und Jugendlichen ganzheitlich in den Blick nehmen."
-          },
-          {
-            "feedback": "Problematisch und am Bedarf vorbei. Die isolierte Binnensicht ohne Berücksichtigung des Sozialraums und der aktuellen Familienstrukturen führt zu konzeptioneller Stagnation und verfehlt den gesetzlichen Auftrag nach § 22 SGB VIII.",
-            "label": "Die Einrichtungsleitung verzichtet auf eine Analyse und behält das starre, seit 15 Jahren unveränderte Wochenprogramm bei, da sich bisher niemand beschwert hat.",
+            "label": "Sie verzichten auf jede Erhebung außerhalb der Kita, weil die Einrichtung als freier Träger ausschließlich für die angemeldeten Gruppen innerhalb des Gebäudes zuständig sei.",
             "quality": "problematisch",
-            "theoryLink": "§ 22 SGB VIII (Grundsätze der Förderung) & Lehrplan RLP (Konzeptionsentwicklung)."
+            "feedback": "Das widerspricht sowohl dem fachlichen Leitbild eines Familienzentrums als auch dem gesetzlichen Kooperations- und Sozialraumauftrag (§ 81 SGB VIII). Eine abgeschottete Binnensicht verfehlt die Lebenswelt der Familien.",
+            "theoryLink": "Zusammenarbeit im lokalen Netzwerk (§ 81 SGB VIII); Sozialraumorientierung."
+          },
+          {
+            "label": "Sie nutzen eine partizipative Sozialraumanalyse (Stadtteilbegehung mit Kindern, Nadelmethode mit Familien und Gespräche mit Schlüsselpersonen wie Quartiersmanagement und Grundschule), um reale Lebenswelten, Ressourcen und geäußerte Anliegen zu erfassen, bevor Angebote entwickelt werden.",
+            "quality": "optimal",
+            "feedback": "Sehr gut! Statt aus der Binnensicht vermeintliche Defizite zu bedienen, setzen Sie am Willen und an den realen Alltagserfahrungen der Kinder und Familien an (Hinte/Thiersch) und schaffen eine valide Basis für echte Quartiersvernetzung.",
+            "theoryLink": "Lebensweltorientierung (Thiersch); Prinzipien der Sozialraumorientierung (Hinte); partizipative Sozialraumanalyse (Nadelmethode/Begehung)."
+          },
+          {
+            "label": "Sie übernehmen die Idee des Eltern-Erziehungstrainings unverändert, hängen aber zusätzlich einen Briefkasten für weitere Themenwünsche in den Eingangsbereich.",
+            "quality": "teilweise",
+            "feedback": "Ein Briefkasten ermöglicht zwar punktuelle Rückmeldungen, ersetzt aber keine systematische Sozialraumanalyse. Zudem wirkt ein von oben angesetztes „Erziehungstraining“ schnell defizitorientiert und erreicht neu zugezogene Familien oft kaum.",
+            "theoryLink": "Grenzen rein angebotsorientierter Planung gegenüber sozialräumlicher Bedarfserhebung."
           }
-        ],
-        "prompt": "Wie soll das Team auf die veränderten sozialräumlichen Bedingungen und Bedarfe der Familien reagieren?",
-        "situation": "Schritt 1: Bedarfsermittlung und sozialräumliche Bestandsaufnahme"
+        ]
       },
       {
+        "situation": "Der Tag der offenen Tür wird ein voller Erfolg: Viele Nachbar:innen, der Ortsvorsteher und eine Lokalzeitung sind zu Gast. Eine motivierte Fachkraft fotografiert mit ihrem privaten Smartphone spielende Kinder im Garten und will noch am Nachmittag eine Bildergalerie auf dem Instagram-Kanal des Fördervereins hochladen — mit der Begründung, im Betreuungsvertrag stehe schließlich ein allgemeiner Satz zu „Fotoaufnahmen im Kita-Alltag“.",
+        "prompt": "Wie handeln Sie in dieser Situation datenschutzkonform und professionell?",
         "options": [
           {
-            "feedback": "Vollkommen korrekt! Die Kooperation im multiprofessionellen Netzwerk (Familienzentrum, Schulsozialarbeit, Jugendamt) schafft niedrigschwellige Hilfeangebote und vernetzt Ressourcen im Sinne eines präventiven Kinderschutzes und ganzheitlicher Bildungslandschaften.",
-            "label": "Die Einrichtung baut ein formelles Kooperationsnetzwerk mit der örtlichen Schulsozialarbeit, der Erziehungsberatungsstelle und dem Familienzentrum auf, um passgenaue Übergänge und Elternbildungsangebote zu etablieren.",
-            "quality": "optimal",
-            "theoryLink": "Lehrplan RLP S-SP-6: Örtliche Infrastruktur und sozialräumliche Kooperationen für die Zielgruppe erschließen."
-          },
-          {
-            "feedback": "Ein isolierter Sonderweg. Obwohl thematisch relevant, ersetzt ein rein internes Projekt nicht die fachliche Vernetzung im Sozialraum und führt zu Doppelstrukturen statt zu professioneller Arbeitsteilung.",
-            "label": "Das Team veranstaltet einen einmaligen Projekttag zum Thema „Mein Viertel“ und lehnt externe Kooperationen mit Verweis auf die eigene Kernarbeitszeit in der Gruppe ab.",
-            "quality": "teilweise",
-            "theoryLink": "Lehrplan RLP S-SP-6: Kooperation im Interesse und als Vertretung der Einrichtung in Netzwerken."
-          },
-          {
-            "feedback": "Fachlich ungenügend. Der Ausschluss externer Partner und das Ignorieren von Hilfesystemen (wie HzE) verstoßen gegen den gesetzlichen Vernetzungsauftrag und isolieren die Einrichtung sozialräumlich.",
-            "label": "Die Leitung untersagt jeglichen Austausch mit externen Trägern und Jugendhilfeeinrichtungen, um die interne Ruhe und den geschlossenen Gruppenbetrieb nicht zu gefährden.",
+            "label": "Sie stimmen dem Upload zu, bitten die Kollegin aber, die Namen der Kinder nicht unter die Bilder zu schreiben — ohne Namen sei das datenschutzrechtlich unbedenklich.",
             "quality": "problematisch",
-            "theoryLink": "§ 81 SGB VIII (Zusammenarbeit mit anderen Stellen und Einrichtungen)."
+            "feedback": "Ein verbreiteter Rechtsirrtum! Auch ohne Namensnennung sind erkennbare Kinderfotos personenbezogene Daten im Sinne der DSGVO. Weder ist eine pauschale Klausel im Betreuungsvertrag wirksam, noch dürfen Dienstfotos auf privaten Smartphones gespeichert werden.",
+            "theoryLink": "DSGVO & Recht am eigenen Bild (LfDI RLP): Personenbezug erkennbarer Fotos, Unzulässigkeit pauschaler Vertragsklauseln."
+          },
+          {
+            "label": "Sie stoppen die Veröffentlichung über das Privathandy sofort (Bilder dort löschen), verwenden ausschließlich Aufnahmen vom Dienstgerät, für die modulare, freiwillige Einwilligungen der Sorgeberechtigten speziell für Social Media vorliegen — oder wählen für den Bericht wirkungsvolle Detail- und Raumfotos ohne erkennbare Kinder.",
+            "quality": "optimal",
+            "feedback": "Rechtssicher und praxistauglich! Sie wahren die Persönlichkeitsrechte der Kinder, trennen sauber zwischen privatem Gerät und Dienstgerät, achten auf zweckgebundene Einwilligungen (bei gemeinsamem Sorgerecht für Online-Veröffentlichungen grundsätzlich beider Elternteile) und zeigen die pädagogische Qualität dennoch ansprechend.",
+            "theoryLink": "Datenschutzkonforme Öffentlichkeitsarbeit in Kitas (Art. 6 Abs. 1 lit. a DSGVO, KUG, Empfehlungen des LfDI RLP)."
+          },
+          {
+            "label": "Sie untersagen jede Öffentlichkeitsarbeit und Pressebegleitung künftig vollständig, weil Datenschutz eine Darstellung der Kita-Arbeit nach außen praktisch unmöglich mache.",
+            "quality": "teilweise",
+            "feedback": "Datenschutz wird hier richtig ernst genommen, aber das Kind mit dem Bade ausgeschüttet: Mit klaren Einwilligungsprozessen, Dienstgeräten und kreativen Motiven ohne erkennbare Kindergesichter ist lebendige, rechtssichere Öffentlichkeitsarbeit sehr gut machbar.",
+            "theoryLink": "Balance von Transparenz/Öffentlichkeitsarbeit und Datenschutz in sozialpädagogischen Einrichtungen."
           }
-        ],
-        "prompt": "Wie gestaltet das Team die konkrete Vernetzung und Kooperation im Sozialraum?",
-        "situation": "Schritt 2: Ausgestaltung von Netzwerken und Kooperationen"
+        ]
       }
-    ],
-    "title": "Sozialraumorientierung und Netzwerkarbeit in der Kindertagesbetreuung"
+    ]
   },
   "selfLearningTasks": [
-    "Erstellen Sie eine vollständige Sozialraumanalyse (Stadtteilprofil) für den Umkreis Ihrer praktischen Ausbildungsstätte inklusive einer kartografierten Ressourcen- und Bedarfsanalyse nach Hans Thiersch.",
-    "Entwerfen Sie ein übersichtliches Organigramm Ihrer Einrichtung und analysieren Sie daran die Entscheidungswege, Hierarchien sowie die Einbindung in die übergeordnete Trägerstruktur.",
-    "Entwickeln Sie einen konkreten Fundraising-Projektantrag (inklusive Budgetplan und Sponsorenanschreiben) zur Finanzierung eines inklusiven Spielgeräts oder eines Medienprojekts für Ihre Einrichtung."
+    "Führen Sie im Umfeld Ihrer Praxiseinrichtung eine kleine Sozialraumanalyse durch: Kombinieren Sie eine 45-minütige Begehung mit einer vereinfachten Nadelmethode (Ressourcen, Bildungs-/Spielorte, Barrieren) und leiten Sie zwei konkrete Kooperationsideen für die Einrichtung ab.",
+    "Recherchieren Sie die Trägerstruktur Ihrer Praxiseinrichtung (oder einer Einrichtung in Ihrer Kommune): Handelt es sich um einen öffentlichen oder freien Träger? Welche Rolle spielen Jugendamt, Träger und Landesjugendamt im Zusammenspiel nach §§ 4 und 79 SGB VIII?",
+    "Überprüfen Sie anhand der Kriterien des Landesdatenschutzbeauftragten (LfDI RLP) eine reale oder fiktive Foto-Einwilligungserklärung für die Öffentlichkeitsarbeit: Sind Freiwilligkeit, Widerrufbarkeit, getrennte Zwecke (Homepage, Presse, Social Media) und die Nutzung von Dienstgeräten sauber geregelt?"
   ],
   "flashcards": [
     {
-      "definition": "Das im SGB VIII (§ 4) verankerte Prinzip, wonach freie Träger (z. B. Wohlfahrtsverbände, Elterninitiativen) bei der Erfüllung sozialpädagogischer Aufgaben Vorrang vor öffentlichen Trägern haben, sofern sie die fachliche Eignung und Leistungserbringung garantieren.",
-      "example": "Ein freier Träger gründet und betreibt eine integrative Kita, während die Kommune (öffentlicher Träger) die Rechts- und Fachaufsicht sowie die örtliche Bedarfsplanung innehat.",
-      "term": "Subsidiaritätsprinzip"
+      "term": "Sozialraumorientierung nach Wolfgang Hinte",
+      "definition": "Fachkonzept der Sozialen Arbeit mit fünf Prinzipien: 1. Orientierung am Willen der Menschen, 2. Unterstützung von Eigeninitiative/Selbsthilfe, 3. Konzentration auf personale und sozialräumliche Ressourcen, 4. Zielgruppen- und bereichsübergreifende Sicht, 5. Kooperation und Koordination der Dienste.",
+      "example": "Statt eines isolierten Defizitkurses unterstützt ein Familienzentrum eine Elterninitiative dabei, ein offenes Nachbarschaftscafé im Stadtteil aufzubauen."
     },
     {
-      "definition": "Ein methodisches Vorgehen zur Erkundung, Analyse und Dokumentation der Lebensbedingungen, Ressourcen, Bedarfe und Infrastrukturen in einem definierten räumlichen Sozialraum (z. B. Stadtteil).",
-      "example": "Fachkräfte und Kinder erstellen gemeinsam eine Sozialraumkarte (Mental Map) und befragen lokale Akteure nach Spiel- und Begegnungsräumen.",
-      "term": "Sozialraumanalyse"
+      "term": "Lebensweltorientierung nach Hans Thiersch",
+      "definition": "Theoretischer Ansatz, der vom konkreten Alltagserleben und den Bewältigungsaufgaben der Adressat:innen ausgeht und diese mit gesellschaftlichen Strukturen verknüpft. Zentrale Strukturmaximen: Prävention, Alltagsorientierung, Regionalisierung, Integration/Inklusion und Partizipation.",
+      "example": "Ein Jugendtreff legt seine Öffnungszeiten und mobilen Angebote nach den tatsächlichen Schul-, Bus- und Treffzeiten der Jugendlichen im Ortsteil."
     },
     {
-      "definition": "Eine strategische Finanzierungsform neben den regulären öffentlichen Pflegesätzen bzw. Betriebskostenzuschüssen, bei der durch Spenden, Sponsoring, Förderanträge und Benefizaktionen zusätzliche finanzielle Mittel generiert werden.",
-      "example": "Eine Kita wirbt über einen Förderverein Spenden von lokalen Unternehmen ein, um ein barrierefreies Außenspielgerät zu finanzieren.",
-      "term": "Fundraising"
+      "term": "Nadelmethode",
+      "definition": "Partizipative Methode der Sozialraumanalyse, bei der Kinder, Jugendliche oder Familien auf einer großen Karte ihres Wohnumfelds mit verschiedenfarbigen Nadeln oder Klebepunkten Lieblingsorte, Treffpunkte, Barrieren und Angsträume sichtbar machen.",
+      "example": "Hortkinder markieren auf dem Stadtplan gefährliche Straßenquerungen rot und beliebte Spielplätze grün, um daraus Vorschläge für den Ortsbeirat zu entwickeln."
     },
     {
-      "definition": "Die institutionalisierte Zusammenarbeit von Fachkräften aus verschiedenen Disziplinen (z. B. Erzieherin, Sozialpädagoge, Heilpädagogin, Psychologe) zur ganzheitlichen Förderung von Kindern und Familien.",
-      "example": "Im multiprofessionellen Team eines Familienzentrums beraten Erzieher:innen und eine Familiensozialarbeiterin gemeinsam über passgenaue Hilfen.",
-      "term": "Multiprofessionelle Kooperation"
+      "term": "Subsidiaritätsprinzip (§ 4 SGB VIII)",
+      "definition": "Rechtsprinzip im Kinder- und Jugendhilferecht: Soweit geeignete Angebote von anerkannten Trägern der freien Jugendhilfe betrieben oder rechtzeitig geschaffen werden können, soll die öffentliche Jugendhilfe von eigenen Maßnahmen absehen; zugleich wird die Selbstständigkeit freier Träger geachtet.",
+      "example": "Die Stadt überträgt den Betrieb eines neuen Jugendzentrums einem anerkannten freien Träger und fördert ihn finanziell, während das Jugendamt die Gesamtplanungsverantwortung (§ 79 SGB VIII) behält."
     },
     {
-      "definition": "Ein strukturiertes Verfahren zur Erfassung, Bearbeitung und Auswertung von Beschwerden von Klient:innen, Eltern oder Mitarbeiter:innen zur kontinuierlichen Qualitätsentwicklung.",
-      "example": "Eltern können über einen zentralen Briefkasten oder digitale Feedback-QR-Codes Rückmeldungen zum Mittagessen oder den Öffnungszeiten geben.",
-      "term": "Beschwerdemanagement"
+      "term": "Gesamt- und Planungsverantwortung (§ 79 SGB VIII)",
+      "definition": "Gesetzliche Pflicht der Träger der öffentlichen Jugendhilfe (Jugendämter), dafür Sorge zu tragen, dass im Zuständigkeitsbereich ausreichend bedarfsgerechte Einrichtungen, Dienste und Veranstaltungen rechtzeitig zur Verfügung stehen.",
+      "example": "Das Jugendamt ermittelt in der Jugendhilfeplanung steigende Geburtenzahlen im Neubaugebiet und plant gemeinsam mit freien Trägern neue Betreuungsplätze."
     },
     {
-      "definition": "Die Gesamtheit aller Maßnahmen einer Einrichtung zur systematischen Außendarstellung, Imagepflege und aktiven Kommunikation mit der Öffentlichkeit und politischen Gremien.",
-      "example": "Die Kita veranstaltet einen Tag der offenen Tür, betreibt einen informativen Instagram-Kanal und veröffentlicht Quartiersberichte in der lokalen Presse.",
-      "term": "Öffentlichkeitsarbeit (PR)"
+      "term": "Datenschutz in der Öffentlichkeitsarbeit (DSGVO / KUG)",
+      "definition": "Erkennbare Fotos von Kindern sind besonders schützenswerte personenbezogene Daten. Veröffentlichungen (Website, Presse, Social Media) erfordern freiwillige, zweckgetrennte, widerrufliche Einwilligungen (online i. d. R. beider Sorgeberechtigter) und dürfen nicht über versteckte Vertragsklauseln oder private Smartphones erfolgen.",
+      "example": "Für die Kita-Website werden nur Dienstgeräte genutzt und entweder Bilder mit vorliegender Online-Einwilligung oder Detailfotos ohne erkennbare Kindergesichter veröffentlicht."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Das Subsidiaritätsprinzip besagt, dass freie Träger (z. B. Wohlfahrtsverbände, Kirchen) bei der Erfüllung sozialpädagogischer Aufgaben Vorrang vor öffentlichen Trägern haben, sofern sie die Leistung erbringen können.",
-      "id": "q-1",
+      "question": "Was besagt das Subsidiaritätsprinzip nach § 4 Abs. 2 SGB VIII im Verhältnis zwischen öffentlichen und freien Trägern der Jugendhilfe?",
       "options": [
-        "Öffentliche Träger müssen immer und ausnahmslos alle Kindertageseinrichtungen selbst betreiben.",
-        "Freie Träger haben nach dem Subsidiaritätsprinzip (§ 4 SGB VIII) Vorrang bei der Leistungsanbieter, wenn sie geeignet sind.",
-        "Das Subsidiaritätsprinzip regelt ausschließlich die Vergabe von Bundesmitteln für den Straßenbau.",
-        "Private gewerbliche Träger sind im Kinder- und Jugendhilfegesetz gesetzlich ausgeschlossen."
+        "Öffentliche Träger müssen grundsätzlich alle Kindertagesstätten und Jugendzentren selbst betreiben.",
+        "Soweit geeignete Angebote von anerkannten freien Trägern betrieben oder rechtzeitig geschaffen werden können, soll die öffentliche Jugendhilfe von eigenen Maßnahmen absehen.",
+        "Freie Träger erhalten keine öffentlichen Zuschüsse und müssen sich ausschließlich über Spenden finanzieren.",
+        "Die Gesamt- und Planungsverantwortung für die Jugendhilfe geht vollständig auf freie Wohlfahrtsverbände über."
       ],
-      "question": "Welche Aussage beschreibt das Subsidiaritätsprinzip in der Kinder- und Jugendhilfe nach § 4 SGB VIII am zutreffendsten?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        0,
-        2,
-        3
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Zu den klassischen Methoden und Instrumenten der Sozialraumanalyse gehören systematische Stadtteilbegehungen, leitfaden- oder problemzentrierte Interviews mit Schlüsselpersonen sowie die Auswertung statistischer Sozialdaten des Quartiers. Reine Finanzierungspläne gehören nicht dazu.",
-      "id": "q-2",
-      "options": [
-        "Systematische Stadtteilbegehungen (Beobachtungen vor Ort)",
-        "Ausschließlich monatliche Kassenprüfungen des Fördervereins",
-        "Leitfadeninterviews mit Schlüsselpersonen (z. B. Quartiersmanager:in, Polizei, Bibliothekar:in)",
-        "Auswertung von statistischen Sozialdaten und Einwohnermeldedaten"
-      ],
-      "question": "Welche der folgenden Maßnahmen und Instrumente sind Bestandteile einer fundierten Sozialraumanalyse? (Mehrere Antworten sind richtig)",
-      "type": "multi"
-    },
-    {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Eine systematische Sozialraumanalyse dient primär dazu, die realen Lebenswelten, Bedarfe und Ressourcen der Zielgruppe im Quartier zu erfassen und diese empirisch abgesichert in die konzeptionelle Arbeit der Einrichtung zu integrieren.",
-      "id": "q-3",
-      "options": [
-        "Das Ersetzen der pädagogischen Fachkräfte durch ehrenamtliche Kräfte in allen Gruppen.",
-        "Die Verlagerung der gesamten Verwaltung in das zuständige Finanzamt.",
-        "Die passgenaue Ausrichtung des pädagogischen Konzepts an den tatsächlichen Lebensbedingungen und Bedarfen der Kinder und Familien im Quartier.",
-        "Die alleinige Reduzierung des Personalbudgets durch externe Sponsoren."
-      ],
-      "question": "Warum ist die Durchführung einer Sozialraumanalyse für eine sozialpädagogische Einrichtung von zentraler Bedeutung?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
         1
       ],
-      "difficulty": "pruefung",
-      "explanation": "Das Beschwerdemanagement ist ein zentrales Instrument der Qualitätsentwicklung und Qualitätssicherung (§ 22a SGB VIII, Qualitätsmanagement in Kitas), das dazu dient, Unzufriedenheiten systematisch zu erfassen, zu bearbeiten und strukturelle Verbesserungen abzuleiten.",
-      "id": "q-4",
-      "options": [
-        "Es dient ausschließlich der Verhängung von disziplinarischen Sanktionen gegen unpünktliche Eltern.",
-        "Es ist ein strukturiertes Qualitätsinstrument zur konstruktiven Bearbeitung von Kritik und zur Weiterentwicklung der Einrichtung.",
-        "Es ersetzt die gesetzlich vorgeschriebene jährliche Wirtschaftsprüfung durch die Kommune.",
-        "Es ist eine freiwillige Marketingmaßnahme ohne jeden Bezug zur pädagogischen Qualität."
-      ],
-      "question": "In einer städtischen Kindertagesstätte wird ein transparentes Beschwerdemanagement für Kinder und Eltern eingeführt. Welcher fachliche Zweck steht hierbei im Vordergrund?",
-      "type": "case"
+      "explanation": "§ 4 Abs. 2 SGB VIII regelt den bedingten Vorrang geeigneter anerkannter freier Träger und schützt zugleich deren Selbstständigkeit. Die Gesamt- und Planungsverantwortung bleibt jedoch gemäß § 79 SGB VIII beim öffentlichen Träger (Jugendamt)."
     },
     {
+      "id": "v2-q2",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche drei Grundsätze zählen zu den fünf Fachprinzipien der Sozialraumorientierung nach Wolfgang Hinte? (Wählen Sie drei Antworten)",
+      "options": [
+        "Konsequente Orientierung am Willen und den Interessen der Menschen im Quartier.",
+        "Unterstützung von Eigeninitiative und Selbsthilfe statt bevormundender Stellvertretung.",
+        "Strikt nach einzelnen Problemgruppen getrennte Spezialangebote ohne Vernetzung im Stadtteil.",
+        "Konzentration auf vorhandene personale und sozialräumliche Ressourcen."
+      ],
       "correctIndices": [
         0,
         1,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Zu den klassischen und erfolgreichen Säulen des Fundraisings im sozialpädagogischen Bereich gehören Förderanträge bei Stiftungen und Behörden, Unternehmenskooperationen/Sponsoring sowie Spendenkampagnen und Benefizveranstaltungen. Gewinne aus Glücksspielen ohne Genehmigung oder kommerzieller Aktienhandel sind untypisch und rechtlich unzulässig.",
-      "id": "q-5",
-      "options": [
-        "Einwerbung von zweckgebundenen Spenden über den Förderverein",
-        "Antragstellung bei Stiftungen und Fördertöpfen (z. B. Jugendförderung)",
-        "Kommerzieller Aktienhandel an der Börse durch die Kita-Leitung",
-        "Unternehmenskooperationen und Corporate Social Responsibility (CSR)-Projekte"
-      ],
-      "question": "Welche Instrumente und Strategien gehören zum professionellen Fundraising in sozialen Einrichtungen? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Hintes fünf Prinzipien setzen auf Willensorientierung, Aktivierung von Selbsthilfe, Ressourcenfokus, eine zielgruppen- und bereichsübergreifende Sichtweise sowie Kooperation/Koordination — nicht auf abgeschottete Spezial-Silos."
     },
     {
+      "id": "v2-q3",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Welchen besonderen Erkenntnisgewinn bietet die Nadelmethode im Rahmen einer Sozialraumanalyse?",
+      "options": [
+        "Sie ersetzt die kommunale Bevölkerungsstatistik vollständig durch Schätzwerte des Teams.",
+        "Sie dient vor allem zur Buchhaltung und Mittelabrechnung gegenüber dem Förderverein.",
+        "Sie macht niedrigschwellig und visuell sichtbar, welche Orte Kinder, Jugendliche oder Familien im Viertel schätzen, nutzen oder als Angsträume meiden.",
+        "Sie prüft die statische Sicherheit von Spielgeräten auf öffentlichen Spielplätzen."
+      ],
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Bei der Nadelmethode markieren die Adressat:innen selbst Orte auf einer Quartierskarte. Dadurch werden subjektive Raumaneignung, informelle Treffpunkte und Barrieren sichtbar, die aus reinen Verwaltungsdaten nicht hervorgehen."
+    },
+    {
+      "id": "v2-q4",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Eine Kita möchte Fotos eines Sommerfests mit erkennbaren Kindern auf ihrer öffentlichen Website zeigen. Eine Fachkraft verweist darauf, dass alle Eltern bei der Anmeldung einen Betreuungsvertrag mit einer allgemeinen Fotoklausel unterschrieben hätten. Wie ist das rechtlich zu bewerten?",
+      "options": [
+        "Unzulässig: Für Veröffentlichungen im Internet braucht es eine separate, freiwillige, zweckgebundene und widerrufliche Einwilligung (bei gemeinsamem Sorgerecht i. d. R. beider Elternteile) — keine versteckte Pauschalklausel im Vertrag.",
+        "Zulässig, da der Betreuungsvertrag automatisch jede Form der Öffentlichkeitsarbeit abdeckt.",
+        "Zulässig, solange die Fotos mit dem privaten Smartphone der Einrichtungsleitung aufgenommen wurden.",
+        "Zulässig, wenn unter den Fotos lediglich die Vornamen der Kinder stehen."
+      ],
       "correctIndices": [
         0
       ],
-      "difficulty": "basis",
-      "explanation": "Öffentliche Träger (wie Städte und Gemeinden) sind für die örtliche Bedarfsplanung, die Finanzierungsverantwortung und die Rechts- und Fachaufsicht (sowie als Träger eigener Einrichtungen) zuständig. Freie Träger sind Wohlfahrtsverbände, Elterninitiativen oder Kirchen.",
-      "id": "q-6",
+      "explanation": "Einwilligungen nach DSGVO müssen freiwillig, informiert, modular nach Verwendungszweck (z. B. Website, Presse, Social Media) und jederzeit widerruflich sein. Eine Kopplung an den Betreuungsvertrag verletzt die Freiwilligkeit; zudem sind Dienstgeräte statt privater Handys zu nutzen."
+    },
+    {
+      "id": "v2-q5",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Welche Strukturmaximen prägen das Konzept der Lebensweltorientierung nach Hans Thiersch?",
       "options": [
-        "Die Kommune (öffentlicher Träger) trägt die Gesamtverantwortung für die örtliche Jugendhilfeplanung und die Betriebskostenfinanzierung, während freie Träger als Leistungsanbieter agieren.",
-        "Freie Träger dürfen in Deutschland keinerlei staatliche Zuschüsse erhalten.",
-        "Öffentliche Träger sind ausschließlich für kommerzielle Kitas im Luxussegment zuständig.",
-        "Es gibt keinen rechtlichen Unterschied zwischen öffentlichen und freien Trägern."
+        "Zentralisierung, Selektion, Sanktionierung und reine Einzelfalldiagnostik.",
+        "Wettbewerbsorientierung, Gewinnmaximierung und Privatisierung öffentlicher Angebote.",
+        "Ausschließlich therapeutische Interventionen im geschlossenen Setting ohne Alltagsbezug.",
+        "Prävention, Alltagsorientierung, Regionalisierung/Dezentralisierung, Integration/Inklusion und Partizipation."
       ],
-      "question": "Welches Verhältnis besteht zwischen öffentlichen und freien Trägern im Kinder- und Jugendhilfesystem (SGB VIII)?",
-      "type": "single"
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Hans Thierschs Lebensweltorientierung stützt sich auf die Strukturmaximen Prävention, Alltagsorientierung, Dezentralisierung/Regionalisierung, Integration (Inklusion) und Partizipation — mit dem Ziel, Menschen bei der Bewältigung ihres konkreten Alltags zu unterstützen."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche beiden Grundsätze kennzeichnen ethisch und fachlich professionelles Fundraising in sozialpädagogischen Einrichtungen? (Wählen Sie zwei Antworten)",
+      "options": [
+        "Ersatz der gesetzlichen Regelfinanzierung durch dauerhafte verpflichtende Zusatzspenden der Eltern.",
+        "Weitergabe von Eltern-Adresslisten an lokale Unternehmen im Gegenzug für Sachspenden.",
+        "Transparenz über den konkreten Verwendungszweck von Spenden oder Fördermitteln (z. B. über Förderverein oder Stiftungsantrag).",
+        "Wahrung der pädagogischen Unabhängigkeit ohne kommerzielle Instrumentalisierung von Kindern für Sponsorenwerbung."
+      ],
+      "correctIndices": [
+        2,
+        3
+      ],
+      "explanation": "Professionelles Fundraising ergänzt die Regelfinanzierung gezielt und transparent (z. B. für besondere Projekte), wahrt Datenschutz und pädagogische Unabhängigkeit und darf niemals Daten weitergeben oder Kinder zu Werbezwecken einsetzen."
+    }
+  ],
+  "sources": [
+    {
+      "title": "SGB VIII § 4 – Zusammenarbeit der öffentlichen mit der freien Jugendhilfe (Subsidiarität)",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__4.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Gesetzliche Verankerung von Partnerschaftlichkeit, Selbstständigkeit freier Träger und Subsidiaritätsprinzip."
+    },
+    {
+      "title": "SGB VIII § 79 – Gesamtverantwortung, Grundausstattung",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__79.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Gesamt- und Planungsverantwortung des öffentlichen Trägers der Kinder- und Jugendhilfe."
+    },
+    {
+      "title": "Sozialraumorientierung (Fachlexikon)",
+      "url": "https://www.socialnet.de/lexikon/Sozialraumorientierung",
+      "publisher": "socialnet Lexikon",
+      "note": "Wissenschaftlicher Überblick zu Grundlagen und Prinzipien der Sozialraumorientierung (u. a. nach Wolfgang Hinte)."
+    },
+    {
+      "title": "Lebensweltorientierung (Fachlexikon)",
+      "url": "https://www.socialnet.de/lexikon/Lebensweltorientierung",
+      "publisher": "socialnet Lexikon",
+      "note": "Systematische Darstellung der Lebensweltorientierung nach Hans Thiersch und ihrer Strukturmaximen."
+    },
+    {
+      "title": "Nadelmethode – Methoden der Sozialraumanalyse",
+      "url": "https://www.sozialraum.de/nadelmethode.php",
+      "publisher": "sozialraum.de",
+      "note": "Praxisnahe Anleitung zur partizipativen Sozialraumanalyse mit Kindern, Jugendlichen und Familien."
+    },
+    {
+      "title": "Recht am eigenen Bild & Datenschutz in Kitas (LfDI RLP)",
+      "url": "https://www.datenschutz.rlp.de/themen/recht-am-eigenen-bild",
+      "publisher": "Landesbeauftragter für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz",
+      "note": "Datenschutzrechtliche Anforderungen an Fotos, Einwilligungen und Veröffentlichungen in der Öffentlichkeitsarbeit."
+    },
+    {
+      "title": "Datenschutz in der Kita – FAQ (LfDI RLP)",
+      "url": "https://www.datenschutz.rlp.de/themen/datenschutz-in-der-kita-faq",
+      "publisher": "Landesbeauftragter für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz",
+      "note": "Aktuelle Praxisfragen zu Einwilligungen, Dienstgeräten, Öffentlichkeitsarbeit und Löschregeln in Kitas."
     }
   ]
 }

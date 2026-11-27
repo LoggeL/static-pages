@@ -7,7 +7,7 @@ import {
   RotateCw,
   Shuffle,
 } from 'lucide-react';
-import { Flashcard } from '../../types/curriculum';
+import type { Flashcard } from '../../types/curriculum';
 
 interface FlashcardDeckProps {
   cards: Flashcard[];
@@ -35,11 +35,13 @@ export const FlashcardDeck: React.FC<FlashcardDeckProps> = ({
   const masteredCount = cards.filter((_, idx) => Boolean(mastery[idx])).length;
 
   const goPrev = useCallback(() => {
+    if (!order.length) return;
     setFlipped(false);
     setPos((p) => (p - 1 + order.length) % order.length);
   }, [order.length]);
 
   const goNext = useCallback(() => {
+    if (!order.length) return;
     setFlipped(false);
     setPos((p) => (p + 1) % order.length);
   }, [order.length]);
@@ -97,27 +99,28 @@ export const FlashcardDeck: React.FC<FlashcardDeckProps> = ({
         </button>
       </div>
 
-      {/* 3D Flipcard */}
+      {/* 3D Flipcard (Grid-Stack verhindert Abschneiden auf schmalen Displays) */}
       <div
         className="perspective-1000 cursor-pointer select-none"
         onClick={() => setFlipped((f) => !f)}
         role="button"
         tabIndex={0}
+        aria-pressed={flipped}
         onKeyDown={(e) => {
           if (e.key === 'Enter') setFlipped((f) => !f);
         }}
       >
         <div
-          className={`preserve-3d relative min-h-[260px] w-full transition-transform duration-500 ${
+          className={`preserve-3d relative grid min-h-[260px] w-full transition-transform duration-500 ${
             flipped ? 'rotate-y-180' : ''
           }`}
         >
           {/* Vorderseite */}
-          <div className="backface-hidden absolute inset-0 flex flex-col items-center justify-center rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-paper-100 p-6 text-center shadow-card dark:border-slate-700 dark:from-ink-800 dark:to-slate-900">
+          <div className="backface-hidden col-start-1 row-start-1 flex flex-col items-center justify-center rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-paper-100 p-6 text-center shadow-card dark:border-slate-700 dark:from-ink-800 dark:to-slate-900">
             <span className="rounded-full bg-teal-100 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-800 dark:bg-teal-900/60 dark:text-teal-200">
               Fachbegriff
             </span>
-            <h3 className="mt-4 font-serif text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">
+            <h3 className="mt-4 break-words font-serif text-2xl font-bold text-slate-900 dark:text-white sm:text-3xl">
               {card.term}
             </h3>
             <p className="mt-4 text-xs font-medium text-slate-500 dark:text-slate-400">
@@ -126,17 +129,17 @@ export const FlashcardDeck: React.FC<FlashcardDeckProps> = ({
           </div>
 
           {/* Rückseite */}
-          <div className="backface-hidden rotate-y-180 absolute inset-0 flex flex-col justify-between rounded-3xl border border-teal-200 bg-gradient-to-br from-teal-50 to-white p-6 shadow-card dark:border-teal-800 dark:from-teal-950/60 dark:to-ink-800">
+          <div className="backface-hidden rotate-y-180 col-start-1 row-start-1 flex flex-col justify-between rounded-3xl border border-teal-200 bg-gradient-to-br from-teal-50 to-white p-5 shadow-card dark:border-teal-800 dark:from-teal-950/60 dark:to-ink-800 sm:p-6">
             <div>
-              <div className="flex items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-teal-700 dark:text-teal-300">
                   {card.term}
                 </span>
                 <span className="text-xs text-slate-500 dark:text-slate-400">
-                  Definition & Praxis
+                  Definition &amp; Praxis
                 </span>
               </div>
-              <p className="mt-3 text-base font-medium leading-relaxed text-slate-900 dark:text-white">
+              <p className="mt-3 text-sm font-medium leading-relaxed text-slate-900 dark:text-white sm:text-base">
                 {card.definition}
               </p>
             </div>
@@ -173,7 +176,7 @@ export const FlashcardDeck: React.FC<FlashcardDeckProps> = ({
           </button>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => {

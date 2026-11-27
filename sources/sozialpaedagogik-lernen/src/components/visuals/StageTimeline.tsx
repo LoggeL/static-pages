@@ -17,53 +17,58 @@ export const StageTimeline: React.FC<{ block: VisualBlock }> = ({ block }) => {
     <div className="space-y-4">
       <div className="rounded-2xl border border-slate-200 bg-gradient-to-r from-indigo-50/60 via-white to-sky-50/60 p-4 dark:border-slate-700/70 dark:from-indigo-950/30 dark:via-ink-800 dark:to-sky-950/30">
         {/* Zeitstrahl-Knoten */}
-        <div className="relative pt-2">
-          <div className="absolute left-4 right-4 top-6 h-1.5 rounded-full bg-slate-200 dark:bg-slate-700">
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-sky-500 transition-all duration-300"
-              style={{ width: `${progressPct}%` }}
-            />
-          </div>
+        <div className="overflow-x-auto pb-1">
+          <div
+            className="relative pt-2"
+            style={{ minWidth: items.length > 3 ? `${items.length * 105}px` : undefined }}
+          >
+            <div className="absolute left-4 right-4 top-6 h-1.5 rounded-full bg-slate-200 dark:bg-slate-700">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-sky-500 transition-all duration-300"
+                style={{ width: `${progressPct}%` }}
+              />
+            </div>
 
-          <div className="relative z-10 grid gap-2" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
-            {items.map((item, idx) => {
-              const isActive = idx === activeIdx;
-              const isReached = idx <= activeIdx;
-              return (
-                <button
-                  key={item.id || idx}
-                  type="button"
-                  onClick={() => setActiveIdx(idx)}
-                  className="group flex flex-col items-center text-center focus:outline-none"
-                >
-                  <div
-                    className={`flex h-9 w-9 items-center justify-center rounded-full border-2 text-xs font-bold transition-all ${
-                      isActive
-                        ? 'scale-110 border-indigo-600 bg-indigo-600 text-white shadow-md'
-                        : isReached
-                        ? 'border-indigo-400 bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200'
-                        : 'border-slate-300 bg-white text-slate-500 group-hover:border-indigo-400 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-400'
-                    }`}
+            <div className="relative z-10 grid gap-2" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}>
+              {items.map((item, idx) => {
+                const isActive = idx === activeIdx;
+                const isReached = idx <= activeIdx;
+                return (
+                  <button
+                    key={item.id || idx}
+                    type="button"
+                    onClick={() => setActiveIdx(idx)}
+                    className="group flex flex-col items-center text-center focus:outline-none"
                   >
-                    {idx + 1}
-                  </div>
-                  {item.badge && (
-                    <span className="mt-1.5 rounded-full bg-indigo-100/80 px-2 py-0.5 text-[10px] font-semibold text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-200">
-                      {item.badge}
+                    <div
+                      className={`flex h-9 w-9 items-center justify-center rounded-full border-2 text-xs font-bold transition-all ${
+                        isActive
+                          ? 'scale-110 border-indigo-600 bg-indigo-600 text-white shadow-md'
+                          : isReached
+                          ? 'border-indigo-400 bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200'
+                          : 'border-slate-300 bg-white text-slate-500 group-hover:border-indigo-400 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-400'
+                      }`}
+                    >
+                      {idx + 1}
+                    </div>
+                    {item.badge && (
+                      <span className="mt-1.5 rounded-full bg-indigo-100/80 px-2 py-0.5 text-[10px] font-semibold text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-200">
+                        {item.badge}
+                      </span>
+                    )}
+                    <span
+                      className={`mt-1 line-clamp-2 text-[11px] font-semibold leading-tight sm:text-xs ${
+                        isActive
+                          ? 'text-indigo-700 dark:text-indigo-300'
+                          : 'text-slate-600 dark:text-slate-400'
+                      }`}
+                    >
+                      {item.label}
                     </span>
-                  )}
-                  <span
-                    className={`mt-1 line-clamp-2 text-[11px] font-semibold leading-tight sm:text-xs ${
-                      isActive
-                        ? 'text-indigo-700 dark:text-indigo-300'
-                        : 'text-slate-600 dark:text-slate-400'
-                    }`}
-                  >
-                    {item.label}
-                  </span>
-                </button>
-              );
-            })}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 

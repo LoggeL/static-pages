@@ -3,8 +3,10 @@
   "number": 17,
   "moduleCode": "S-SP-2",
   "moduleArea": "sp-pflicht",
-  "title": "Gruppendynamik, Gruppenrollen & das Soziogramm",
-  "subtitle": "Gruppenprozesse begleiten, soziales Lernen fördern und Beobachtungsinstrumente nutzen",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-2 · Gruppendynamik, Rollen, Rangdynamik & Soziogramm (Lehrplan RLP 2024)",
+  "title": "Gruppendynamik, Gruppenrollen, Rangdynamik & Soziogramm",
+  "subtitle": "Phasenmodell nach Tuckman, Rangdynamik nach Schindler, Soziometrie nach Moreno inkl. Datenschutz und soziales Lernen",
   "year": "1. Jahr",
   "estimatedMinutes": 25,
   "hoursRef": "240 Std. (Teil 3/6)",
@@ -13,415 +15,442 @@
     "Partizipation",
     "Inklusion"
   ],
-  "summary": "Diese Einheit widmet sich der fundierten Analyse und professionellen Begleitung von Gruppenprozessen in der Sozialpädagogik nach dem Lehrplan RLP (S-SP-2). Angehende Erzieher:innen lernen, eigene Rollen zu reflektieren, Gruppenstrukturen mithilfe etablierter Modelle (Tuckman, Schindler) zu analysieren und Beobachtungsinstrumente wie das Soziogramm zielgerichtet für soziales und partizipatives Lernen einzusetzen.",
+  "summary": "Kinder und Jugendliche erleben sich im pädagogischen Alltag fast immer in Gruppen. In dieser Einheit analysierst du Gruppenprozesse mithilfe des Phasenmodells nach Tuckman und der Rangdynamik nach Schindler, lernst das Soziogramm nach Moreno fachgerecht einzusetzen – einschließlich seiner klaren ethischen und datenschutzrechtlichen Grenzen – und entwickelst kooperative, inklusive Impulse für soziales Lernen.",
   "learningGoals": [
-    "Ich kann die Bedeutung der eigenen Rolle in Gruppenprozessen reflektieren und mein pädagogisches Handeln entsprechend anpassen.",
-    "Ich kann Gruppensituationen und -strukturen mithilfe etablierter Phasen- und Rangdynamikmodelle (Tuckman, Schindler) analysieren.",
-    "Ich kann Gruppenprozesse in sozialpädagogischen Handlungsfeldern fachlich fundiert begleiten und steuern.",
-    "Ich kann gruppenpädagogische Ansätze für soziales und entdeckendes Lernen zielgerichtet einsetzen.",
-    "Ich kann gruppenbezogene Beobachtungsinstrumente wie das Soziogramm kriteriengeleitet anwenden, auswerten und anpassen."
+    "Ich kann die fünf Entwicklungsphasen nach Bruce W. Tuckman (Forming, Storming, Norming, Performing, Adjourning) erläutern, ihre Nicht-Linearität im Alltag berücksichtigen und mein Leitungsverhalten phasensensibel anpassen.",
+    "Ich kann das rangdynamische Positionsmodell nach Raoul Schindler (Alpha, Beta, Gamma, Omega) zur Analyse von Macht- und Rollenstrukturen nutzen, ohne Kinder auf feste Charaktereigenschaften festzuschreiben.",
+    "Ich kann den Aufbau und den Erkenntniswert eines Soziogramms nach Jacob Levy Moreno erklären und es als Momentaufnahme statt als endgültige Typisierung einordnen.",
+    "Ich kann zentrale ethische und datenschutzrechtliche Grenzen beim Einsatz von Soziogrammen (z. B. Verzicht auf öffentliche Ablehnungswahlen, Einwilligung, Vertraulichkeit nach § 62 SGB VIII / DSGVO) begründen und einhalten.",
+    "Ich kann aus gruppendynamischen Beobachtungen konkrete, partizipative Maßnahmen zur Stärkung von Kooperation, Inklusion und sozialem Lernen ableiten."
   ],
   "sections": [
     {
-      "body": "Gruppen sind zentrale Sozialisationsinstanzen, in denen Heranwachsende soziale Identität, Rollenkompetenzen und Beziehungsfähigkeit erwerben. Erzieherinnen und Erzieher (Bachelor Professional in Sozialwesen) reflektieren ihre eigene Beziehungsfähigkeit und steuern Gruppenprozesse professionell. Dabei balancieren sie Nähe und Distanz sowie Macht und Hierarchie, um ein entwicklungsförderliches Klima zu garantieren.",
+      "heading": "Gruppenprozesse verstehen: Das Phasenmodell nach Bruce W. Tuckman",
+      "keyTakeaway": "Gruppen entwickeln sich über typische Phasen von Orientierung über Konflikt zur Zusammenarbeit – allerdings nicht streng linear: Jeder Wechsel in der Gruppe kann frühere Phasen neu auslösen.",
+      "body": "Eine Gruppe ist mehr als die Summe der anwesenden Kinder oder Jugendlichen: Durch wiederkehrende Interaktionen entstehen eigene Regeln, Zugehörigkeiten und Machtverhältnisse. Bruce W. Tuckman (1965, ergänzt mit Mary Ann Jensen 1977) beschrieb fünf typische Phasen der Gruppenentwicklung: In der Orientierungsphase (Forming) tasten sich Mitglieder vorsichtig ab, verhalten sich eher abwartend und orientieren sich stark an der pädagogischen Fachkraft. In der Konflikt- und Aushandlungsphase (Storming) prallen unterschiedliche Bedürfnisse, Statusansprüche und Ideen aufeinander – Reibungen gehören zu einem normalen Reifungsprozess und sind kein Zeichen pädagogischen Versagens. In der Normierungsphase (Norming) klären sich gemeinsame Regeln, Rollen und ein Wir-Gefühl. In der Arbeits- und Leistungsphase (Performing) kooperiert die Gruppe weitgehend selbstständig und lösungsorientiert. Die Ablösungsphase (Adjourning) begleitet Übergänge und Abschiede (z. B. Schulwechsel oder Projektende). Für die Praxis entscheidend: Das Modell ist kein starrer Einbahnstraßen-Fahrplan. Kommen neue Kinder hinzu, wechseln Fachkräfte oder ändern sich Rahmenbedingungen, kehren Gruppen häufig zeitweise in Forming- oder Storming-Muster zurück. Die Fachkraft steuert phasengerecht – anfangs klar strukturierend und sicherheitsgebend, im Storming moderierend und konfliktbegleitend, im Performing zunehmend zurückhaltend und beratend.",
       "bulletPoints": [
-        "Gruppe als lebensweltlicher Erfahrungs- und Lernraum",
-        "Reflexion von Macht, Hierarchie und professioneller Nähe/Distanz",
-        "Wechselwirkung zwischen Individualität und Kollektivdynamik",
-        "Förderung von Beziehungsfähigkeit als Kernkompetenz im S-SP-2 Modul"
+        "Fünf Phasen (Tuckman & Jensen): Forming, Storming, Norming, Performing und Adjourning",
+        "Nicht-Linearität: Personalwechsel, Neuzugänge oder Übergänge aktivieren frühere Phasen oft erneut",
+        "Storming als produktive Phase: Konflikte nicht unterdrücken, sondern transparent und fair moderieren",
+        "Phasensensible Fachkraftrolle: Vom klaren Orientierungsrahmen hin zu partizipativer Begleitung"
       ],
-      "heading": "1. Die eigene Rolle in Gruppenprozessen & professionelle Haltung",
-      "keyTakeaway": "Die bewusste Reflexion der eigenen Rolle und Beziehungsgestaltung ist die Grundvoraussetzung für professionelles pädagogisches Handeln in Gruppen.",
-      "praxisTip": "Führen Sie regelmäßige Reflexionsgespräche im Team (Kollegiale Fallberatung) über Ihre Wirkung als Bezugsperson in der Gruppe durch."
+      "praxisTip": "Prüfe bei plötzlicher Unruhe in einer sonst harmonischen Gruppe zuerst, was sich im Umfeld verändert hat (z. B. neues Kind, Raumwechsel, Fachkraftausfall), bevor du das Verhalten einzelnen Kindern zuschreibst."
     },
     {
-      "body": "Gruppenprozesse verlaufen nach theoretisch fundierten Mustern. Das klassische Phasenmodell nach Bruce W. Tuckman beschreibt die Entwicklung von Gruppen in fünf sequenziellen Stufen: Forming (Orientierung), Storming (Machtkampf/Konflikt), Norming (Regelfindung), Performing (Arbeitsphase) und Adjourning (Abschluss). Ergänzend erklärt das rangdynamische Modell nach Raoul Schindler die Verteilung von Rollen (Alpha, Beta, Gamma, Omega) in Bezug auf das Gruppenzentrum.",
+      "heading": "Rollen und Machtstrukturen: Die Rangdynamik nach Raoul Schindler",
+      "keyTakeaway": "Schindlers Positionen (Alpha, Beta, Gamma, Omega) beschreiben veränderliche, situationsbezogene Gruppenfunktionen – keine festen Charaktereigenschaften und erst recht keine Etiketten für einzelne Kinder.",
+      "body": "Während Tuckman die zeitliche Entwicklung betrachtet, analysierte der Psychoanalytiker Raoul Schindler (1957) die inneren Macht- und Rollenstrukturen von Gruppen. In Bezug auf eine gemeinsame Aufgabe oder ein äußeres Gegenüber (G) bilden sich häufig vier dynamische Positionen heraus: Die Alpha-Position übernimmt Orientierung, Initiative und häufig informelle Führung; die Beta-Position bringt fachliches oder praktisches Können ein und berät aus einer etwas sachlicheren Rolle heraus; die Gamma-Position umfasst die Mehrheit der Mitglieder, die Zugehörigkeit suchen und das Gruppengeschehen mittragen; die Omega-Position verkörpert Zweifel, Gegenposition oder Anderssein – und läuft in angespannten Gruppen Gefahr, als Sündenbock ausgegrenzt zu werden, obwohl sie oft wichtige unausgesprochene Spannungen der Gesamtgruppe sichtbar macht. Fachlich entscheidend ist eine differenzierte Anwendung: Rangpositionen sind dynamisch und kontextabhängig. Ein Kind, das beim Fußballspiel die Omega-Position einnimmt, kann im Kreativbereich oder beim Bauprojekt selbstverständlich Alpha- oder Beta-Funktionen übernehmen. Professionelle Fachkräfte vermeiden jede starre Festschreibung („Das ist eben unser Omega-Kind“) und schaffen bewusst vielfältige Settings, in denen Kinder unterschiedliche Stärken zeigen und Rollen wechseln können.",
       "bulletPoints": [
-        "Tuckman-Phasen: Forming, Storming, Norming, Performing, Adjourning",
-        "Schindlers Rangdynamik: Alpha (Führer), Beta (Experte), Gamma (Masse), Omega (Gegenposition)",
-        "Strukturierte Analyse von Cliquenbildung, Subgruppen und Sündenbock-Phänomenen",
-        "Ableitung passgenauer Interventionen für jede Gruppenphase"
+        "Vier dynamische Positionen nach Schindler: Alpha (Initiative/Führung), Beta (Expertise), Gamma (Mehrheit/Mittragende), Omega (Gegenposition)",
+        "Sündenbock-Dynamik erkennen: Ausgrenzung einer Omega-Position weist häufig auf ungelöste Spannungen der gesamten Gruppe hin",
+        "Situative Beweglichkeit statt Etikettierung: Positionen hängen stark von Thema, Aufgabe und Gruppenklima ab",
+        "Pädagogischer Hebel: Wechselnde Aufgabenformate eröffnen Kindern neue Rollen und stärken Selbstwirksamkeit"
       ],
-      "heading": "2. Theorien der Gruppendynamik: Phasen & Rangstrukturen",
-      "keyTakeaway": "Gruppenentwicklungs- und Rangdynamikmodelle machen verborgene soziale Strukturen sichtbar und ermöglichen zielgerichtete pädagogische Interventionen.",
-      "praxisTip": "Analysieren Sie eine schwierige Gruppensituation in Ihrer Einrichtung anhand des Tuckman-Modells und bestimmen Sie die aktuelle Entwicklungsphase."
+      "praxisTip": "Beobachte über eine Woche gezielt, in welchen Spiel- oder Arbeitssituationen ein sonst ruhiges oder ausgegrenztes Kind besondere Kompetenzen zeigt, und schaffe passende Anlässe, diese Stärke sichtbar einzubringen."
     },
     {
-      "body": "Gruppenpädagogische Ansätze zielen auf soziales und entdeckendes Lernen ab. Durch kooperative Lernarrangements, Projektarbeit und partizipative Gremien (z. B. Kinderparlamente, Gruppenräte) erfahren sich Kinder und Jugendliche als selbstwirksame Träger von Rechten. Die Fachkraft moderiert Lernprozesse, statt sie autoritär zu diktieren, und fördert so demokratische Handlungskompetenzen.",
+      "heading": "Das Soziogramm nach Moreno – einschließlich Datenschutz und ethischer Grenzen",
+      "keyTakeaway": "Ein Soziogramm kann verborgene Cliquen und Isolationsrisiken sichtbar machen, ist aber immer nur eine Momentaufnahme – und unterliegt strengen ethischen und datenschutzrechtlichen Grenzen.",
+      "body": "Die von Jacob Levy Moreno entwickelte Soziometrie erfasst Beziehungsstrukturen innerhalb einer Gruppe und stellt sie grafisch in einem Soziogramm dar. Grundlage ist eine konkrete, auf eine reale Aktivität bezogene Wahlfrage (z. B. „Mit wem möchtest du beim nächsten Ausflug oder Projekt gern zusammenarbeiten?“) oder eine systematische Interaktionsbeobachtung. In der grafischen Darstellung werden häufig gewählte Personen („Sterne“), wechselseitige Paare, eng vernetzte Cliquen (Subgruppen) sowie Kinder mit wenigen oder keinen Wahlen (Isolationsrisiko) sichtbar. Gerade weil das Verfahren tief in persönliche Beziehungen hineinblickt, verlangt es strenge ethische und datenschutzrechtliche Sorgfalt: (1) Keine öffentliche Bloßstellung: Soziogramme dürfen niemals namentlich ausgehängt oder vor der Gruppe offengelegt werden, da dies Ausgrenzung massiv verstärkt. (2) Sensibler Umgang mit Ablehnungsfragen: Fragen wie „Wen magst du gar nicht?“ bergen ein hohes Risiko von Stigmatisierung und Beschämung; im Kita- und Grundschulbereich wird daher in der Regel auf negative Wahlfragen verzichtet und stattdessen mit positiven Wahlfragen oder verhaltensnaher Spielbeobachtung gearbeitet. (3) Datenschutz (§ 62 SGB VIII / DSGVO): Namentliche Erhebungen verarbeiten sensible personenbezogene Daten mehrerer Kinder zugleich. Sie erfordern einen klaren pädagogischen Zweck, die informierte Einwilligung der Sorgeberechtigten (und bei älteren Kindern/Jugendlichen deren freiwillige Zustimmung), sichere, zugriffsgeschützte Aufbewahrung und zügige Löschung bzw. Anonymisierung nach der Auswertung. (4) Methodische Grenze: Jedes Soziogramm bildet nur eine Momentaufnahme ab – aktuelle Streits, Tagesform oder die Formulierung der Wahlfrage beeinflussen das Ergebnis erheblich.",
       "bulletPoints": [
-        "Entdeckendes und erfahrungsorientiertes Lernen im sozialen Kontext",
-        "Etablierung von Partizipationsstrukturen (Kinderkonferenzen, Jugendräte)",
-        "Konstruktive Konfliktbearbeitung und Deeskalationsmethoden",
-        "Umsetzung der UN-Kinderrechtskonvention im pädagogischen Alltag"
+        "Soziometrie (Moreno): Visualisierung von Wahlhäufungen, Paaren, Cliquen und möglichen Isolationsprozessen",
+        "Ethische Grenze: Keine öffentlichen Ergebnisse, keine bloßstellenden Ablehnungswahlen vor der Gruppe",
+        "Datenschutz (§ 62 SGB VIII / DSGVO): Zweckbindung, informierte Einwilligung, Vertraulichkeit und zeitnahe Löschung/Anonymisierung",
+        "Aussagegrenze: Immer nur eine Momentaufnahme – stets mit alltäglicher Beobachtung und Perspektive der Kinder abgleichen"
       ],
-      "heading": "3. Gruppenpädagogische Ansätze & Soziales Lernen",
-      "keyTakeaway": "Partizipation und soziales Lernen verwandeln die Gruppe in einen Erfahrungsraum für demokratisches Zusammenleben und Selbstwirksamkeit.",
-      "praxisTip": "Etablieren Sie einen wöchentlichen Gruppenrat mit festen Regeln, in dem gemeinsam über Anschaffungen oder Konfliktlösungen abgestimmt wird."
+      "praxisTip": "Wenn du im Hort oder in der Kita Beziehungsnetze verstehen möchtest, nutze zunächst eine systematische, verdeckt-wertfreie Freispielbeobachtung über mehrere Tage – oft liefert sie ebenso viele Hinweise ohne Eingriff durch Befragungszettel."
     },
     {
-      "body": "Um soziale Beziehungen und Isolationsprozesse in Gruppen objektiv zu erfassen, nutzen Fachkräfte kriteriengeleitete Beobachtungsinstrumente wie das Soziogramm (nach J. L. Moreno). Durch strukturierte Wahlverfahren werden Sympathiebeziehungen, Cliquen, Sternchen (beliebte Personen) und Außenseiter sichtbar. Die Auswertung erfolgt kriteriengeleitet, um passgenaue sozialpädagogische Interventionen zu planen.",
+      "heading": "Gruppenpädagogik konkret: Soziales Lernen und inklusive Begleitung",
+      "keyTakeaway": "Nachhaltige Gruppenpädagogik verändert nicht das ausgegrenzte Kind als „Problem“, sondern gestaltet soziale Strukturen, Kooperationsanlässe und Beteiligungsräume für die gesamte Gruppe.",
+      "body": "Aus gruppendynamischer Analyse folgen konkrete, partizipative Handlungsansätze für soziales Lernen. Statt einzelne Kinder durch gut gemeinte Sonderbehandlung ungewollt weiter zu stigmatisieren („Spielt doch mal nett mit Kevin!“), gestalten Fachkräfte Strukturen, die Zusammenarbeit selbstverständlich machen: wechselnde Kleingruppen und Tandem-Aufgaben nach klaren, nachvollziehbaren Kriterien, kooperative Spiele ohne Ausscheidungsprinzip (Erfolg nur gemeinsam erreichbar), verbindliche Beteiligungsgremien (Gruppenrat, Kinderkonferenz, Jugendrat) sowie transparente Gesprächs- und Konfliktregeln. Inklusive Gruppenpädagogik achtet darauf, unterschiedliche sprachliche, motorische und soziale Voraussetzungen von vornherein mitzudenken, damit jedes Mitglied reale Zugehörigkeit und Selbstwirksamkeit erleben kann.",
       "bulletPoints": [
-        "Soziometrische Erhebung von Sympathien, Antipathien und Cliquenstrukturen",
-        "Identifikation von Sternen, Cliquen, Paaren und Isolierten (Außenseitern)",
-        "Kriteriengeleitete Beurteilung und methodische Anpassung von Beobachtungsinstrumenten",
-        "Prävention von Ausgrenzung und Mobbing (z.B. No Blame Approach)"
+        "Struktur statt Appell: Wechselnde Kleingruppen und kooperative Aufgaben brechen verfestigte Cliquen behutsam auf",
+        "Stärkenorientierung: Vielfältige Spiel- und Projektformate ermöglichen flexible Rollenwechsel",
+        "Demokratisches Lernen: Gruppenrat und gemeinsame Regelvereinbarungen fördern Verantwortungsübernahme",
+        "Schutz vor Sekundärviktimisierung: Ausgegrenzte Kinder niemals vor der Gruppe als bemitleidenswertes „Opfer“ markieren"
       ],
-      "heading": "4. Das Soziogramm als Beobachtungs- und Analyseinstrument",
-      "keyTakeaway": "Das Soziogramm macht unsichtbare soziale Beziehungsstrukturen messbar und visualisiert Ausgrenzungen sowie Cliquenbildungen präzise.",
-      "praxisTip": "Erstellen Sie ein einfaches Soziogramm für eine Kinder- oder Jugendgruppe basierend auf einer konkreten Wahlfrage (z.B. „Mit wem arbeitest du am liebsten zusammen?“)."
+      "praxisTip": "Bilde Projektgruppen gelegentlich über spielerische Zufalls- oder Interessenkarten statt über das verletzende „Mannschaften-Wählen“, bei dem immer dieselben Kinder zuletzt übrig bleiben."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "",
-      "id": "vb-1",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "1. Ausbildungsjahr / Phase 1",
-          "detail": "Die Gruppe kommt neu zusammen. Die Mitglieder verhalten sich höflich, unsicher und orientieren sich an der Fachkraft oder an äußeren Vorgaben. Es herrscht eine hohe Unklarheit bezüglich Rollen und Erwartungen.",
-          "example": "Kinder kommen am ersten Tag in den neuen Hort und schauen schüchtern in den Raum.",
-          "id": "item-1",
-          "label": "Forming (Orientierungsphase)",
-          "metric": "Stufe 1",
-          "summary": "Die Orientierungsphase ist geprägt von Höflichkeit, Unsicherheit und der Suche nach Halt."
-        },
-        {
-          "badge": "1. Ausbildungsjahr / Phase 2",
-          "detail": "Konflikte brechen auf, da individuelle Interessen, Machtansprüche und Rollenkonflikte offen ausgetragen werden. Die Fachkraft muss hier unterstützend und klärend eingreifen.",
-          "example": "Jugendliche streiten im Jugendtreff lautstark um die besten Plätze und den Billardtisch.",
-          "id": "item-2",
-          "label": "Storming (Konfliktphase)",
-          "metric": "Stufe 2",
-          "summary": "In der Konfliktphase werden Machtkämpfe und Rollenkonflikte offen ausgetragen."
-        },
-        {
-          "badge": "1. Ausbildungsjahr / Phase 3",
-          "detail": "Gemeinsame Normen, Regeln und Verhaltensstandards werden etabliert. Die Gruppe wächst zusammen, Rollen sind geklärt und ein Wir-Gefühl entsteht.",
-          "example": "Eine Kitagruppe vereinbart gemeinsame Spielregeln für den Bau- und Konstruktionsbereich.",
-          "id": "item-3",
-          "label": "Norming (Normierungsphase)",
-          "metric": "Stufe 3",
-          "summary": "Die Normierungsphase bringt verbindliche Regeln und ein stabiles Wir-Gefühl."
-        },
-        {
-          "badge": "1. Ausbildungsjahr / Phase 4",
-          "detail": "Die Gruppe arbeitet zielgerichtet, autonom und kooperativ zusammen. Energien fließen in die gemeinsame Sache, und die Fachkraft kann sich stark zurückziehen.",
-          "example": "Eine Jugendgruppe plant und realisiert eigenständig ein Graffiti-Projekt im Stadtteil.",
-          "id": "item-4",
-          "label": "Performing (Leistungsphase)",
-          "metric": "Stufe 4",
-          "summary": "In der Leistungsphase agiert die Gruppe kooperativ, autonom und zielgerichtet."
-        },
-        {
-          "badge": "2. Ausbildungsjahr / Phase 5",
-          "detail": "Das Ende der Gruppe oder des Projekts steht bevor. Abschiednahme, Reflexion des Geleisteten und emotionale Bewältigung stehen im Vordergrund.",
-          "example": "Abschiedsfest am Ende des letzten gemeinsamen Kita-Jahres vor dem Schuleintritt.",
-          "id": "item-5",
-          "label": "Adjourning (Abschlussphase)",
-          "metric": "Stufe 5",
-          "summary": "Die Abschlussphase markiert den Ausstieg und die Reflexion des gemeinsamen Prozesses."
-        }
-      ],
+      "id": "vb-tuckman",
       "kind": "timeline",
+      "title": "Phasen der Gruppenentwicklung nach Bruce W. Tuckman",
+      "subtitle": "Typischer Verlauf von Gruppenprozessen – mit der Möglichkeit zur Rückkehr bei Veränderungen",
+      "centerLabel": "",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Phasen der Gruppenentwicklung nach Bruce W. Tuckman",
-      "title": "Gruppenentwicklungsprozesse begleiten"
-    },
-    {
-      "centerLabel": "Soziogramm & Gruppendynamik",
-      "id": "vb-2",
       "isCycle": false,
       "items": [
         {
-          "badge": "Kernkonzept 1",
-          "detail": "Erfassung von Sympathien, Antipathien und Cliquenstrukturen durch strukturierte Befragungen oder Beobachtungen innerhalb einer Gruppe.",
-          "example": "Jedes Kind nennt drei Spielpartner, mit denen es am liebsten in der Projektgruppe arbeiten möchte.",
-          "id": "item-1",
-          "label": "Soziometrische Erhebung",
-          "metric": "Methode",
-          "summary": "Die soziometrische Erhebung bildet die empirische Grundlage für die Netzwerkanalyse."
+          "id": "t-1",
+          "label": "Forming (Orientierung)",
+          "badge": "Phase 1",
+          "metric": "Sicherheit",
+          "summary": "Vorsichtiges Kennenlernen, Unsicherheit und starke Orientierung an der Fachkraft.",
+          "detail": "Die Mitglieder prüfen, ob sie dazugehören und welche Regeln gelten. Die Fachkraft gibt Orientierung, schafft Verlässlichkeit und erleichtert erste Kontakte.",
+          "example": "Zu Beginn des neuen Hortjahres halten sich neue Erstklässler zunächst nah an den vertrauten Bezugspersonen auf."
         },
         {
-          "badge": "Kernkonzept 2",
-          "detail": "Grafische Darstellung der Beziehungsnetze, bei der Linien und Pfeile Sympathien, Ablehnungen oder wechselseitige Beziehungen visualisieren.",
-          "example": "Ein Stern-Soziogramm zeigt deutlich, welche Person besonders viele Wahlen erhalten hat.",
-          "id": "item-2",
-          "label": "Grafische Visualisierung",
-          "metric": "Darstellung",
-          "summary": "Die grafische Visualisierung macht unsichtbare soziale Netzwerke auf einen Blick erkennbar."
+          "id": "t-2",
+          "label": "Storming (Konflikt & Aushandlung)",
+          "badge": "Phase 2",
+          "metric": "Klärung",
+          "summary": "Unterschiedliche Bedürfnisse, Rollen- und Machtansprüche treten offen zutage.",
+          "detail": "Reibungen und Cliquenbildungen zeigen, dass die Gruppe um ihren Platz ringt. Die Fachkraft moderiert fair, schützt Schwächere und ermöglicht konstruktive Aushandlung.",
+          "example": "Im Jugendtreff streiten zwei Cliquen wiederholt um die Nutzung von Musikanlage und Billardtisch."
         },
         {
-          "badge": "Kernkonzept 3",
-          "detail": "Identifikation von Schlüsselrollen wie Sternen (Beliebte), Cliquen, Paaren, Isolierten (Außenseitern) und feindseligen Subgruppen.",
-          "example": "Ein Jugendlicher erhält im Soziogramm keine einzige Nennung und wird als isoliert identifiziert.",
-          "id": "item-3",
-          "label": "Rollen- und Strukturidentifikation",
-          "metric": "Analyse",
-          "summary": "Die Strukturanalyse deckt Isolationsprozesse und Cliquenstrukturen präzise auf."
+          "id": "t-3",
+          "label": "Norming (Regelfindung)",
+          "badge": "Phase 3",
+          "metric": "Wir-Gefühl",
+          "summary": "Verbindliche Absprachen, gegenseitige Akzeptanz und klarere Rollen entstehen.",
+          "detail": "Gemeinsam vereinbarte Regeln entlasten den Alltag; Vertrauen und Zusammenhalt wachsen. Die Fachkraft stärkt Partizipation und Eigenverantwortung.",
+          "example": "Die Gruppe beschließt im Jugendrat einen fairen Nutzungsplan und gemeinsame Rücksichtregeln."
         },
         {
-          "badge": "Kernkonzept 4",
-          "detail": "Ableitung konkreter, partizipativer Interventionen zur Stärkung benachteiligter Personen und zur Förderung eines inklusiven Gruppenklimas.",
-          "example": "Gezielte Teambildung und Tandem-Aufgaben zur Integration von Außenseitern in der Gruppe.",
-          "id": "item-4",
-          "label": "Pädagogische Intervention",
-          "metric": "Praxisbezug",
-          "summary": "Die pädagogische Intervention leitet aus den Ergebnissen konkrete Handlungsschritte ab."
+          "id": "t-4",
+          "label": "Performing (Zusammenarbeit)",
+          "badge": "Phase 4",
+          "metric": "Autonomie",
+          "summary": "Kooperatives, zielgerichtetes und weitgehend selbstständiges Handeln der Gruppe.",
+          "detail": "Energie fließt in gemeinsame Projekte statt in Statuskämpfe; Konflikte werden konstruktiver bearbeitet. Die Fachkraft begleitet im Hintergrund.",
+          "example": "Eine Jugendgruppe plant und organisiert selbstständig ein Stadtteil-Turnier und teilt Aufgaben fair auf."
+        },
+        {
+          "id": "t-5",
+          "label": "Adjourning (Abschluss & Übergang)",
+          "badge": "Phase 5",
+          "metric": "Abschied",
+          "summary": "Würdigung des Gemeinsamen, Rückblick und bewusste Gestaltung des Abschieds.",
+          "detail": "Veränderungen und Abschiede lösen oft gemischte Gefühle (Stolz, Wehmut, Unruhe) aus und brauchen bewusste Rituale.",
+          "example": "Gemeinsamer Rückblick und Abschiedsfest für Vorschulkinder vor dem Übergang in die Grundschule."
         }
-      ],
-      "kind": "concept_map",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Analyse von Gruppenstrukturen mit dem Soziogramm nach Moreno",
-      "title": "Das Soziogramm in der Praxis"
+      ]
     },
     {
+      "id": "vb-schindler",
+      "kind": "comparison",
+      "title": "Rangdynamisches Positionsmodell nach Raoul Schindler",
+      "subtitle": "Vier veränderliche, aufgabenbezogene Positionen in Gruppen (keine starren Persönlichkeitstypen)",
       "centerLabel": "",
-      "id": "vb-3",
-      "isCycle": true,
-      "items": [
-        {
-          "badge": "Schritt 1",
-          "detail": "Festlegung des Beobachtungsziels (z.B. Cliquenbildung, Kommunikationsstrukturen, Ausschlussmechanismen) und Auswahl geeigneter Instrumente.",
-          "example": "Die Fachkraft plant den Einsatz eines Soziogramms zur Klärung der Gruppendynamik.",
-          "id": "item-1",
-          "label": "Zieldefinition & Instrumentenauswahl",
-          "metric": "Schritt 1",
-          "summary": "Am Anfang steht die präzise Definition des Beobachtungsziels und der Methode."
-        },
-        {
-          "badge": "Schritt 2",
-          "detail": "Durchführung der Befragung oder verdeckten/offenen Beobachtung unter Einhaltung ethischer Standards und Datenschutzrichtlinien.",
-          "example": "Durchführung der soziometrischen Befragung in einer 4. Schulklasse.",
-          "id": "item-2",
-          "label": "Datenerhebung & Beobachtung",
-          "metric": "Schritt 2",
-          "summary": "Die Datenerhebung erfolgt standardisiert und sensibel in der Gruppe."
-        },
-        {
-          "badge": "Schritt 3",
-          "detail": "Auswertung der Daten durch Matrizen und Erstellung des Soziogramms zur Visualisierung der sozialen Beziehungen.",
-          "example": "Erstellung der soziometrischen Matrix und Einzeichnung der Pfeile.",
-          "id": "item-3",
-          "label": "Auswertung & Visualisierung",
-          "metric": "Schritt 3",
-          "summary": "Die Auswertung transformiert Rohdaten in übersichtliche visuelle Soziogramme."
-        },
-        {
-          "badge": "Schritt 4",
-          "detail": "Kriteriengeleitete Reflexion der Ergebnisse im Team und Abgleich mit theoretischen Modellen (Tuckman/Schindler).",
-          "example": "Reflexion der Ergebnisse im pädagogischen Team der Ganztagsschule.",
-          "id": "item-4",
-          "label": "Fachliche Reflexion",
-          "metric": "Schritt 4",
-          "summary": "Die fachliche Reflexion verknüpft empirische Befunde mit padagogischer Theorie."
-        },
-        {
-          "badge": "Schritt 5",
-          "detail": "Planung und Durchführung konkreter gruppenpädagogischer Maßnahmen zur Förderung des sozialen Lernens und der Inklusion.",
-          "example": "Umsetzung von Kooperationsspielen und Etablierung eines Klassenrates.",
-          "id": "item-5",
-          "label": "Pädagogische Intervention & Evaluation",
-          "metric": "Schritt 5",
-          "summary": "Interventionen und deren Evaluation schließen den methodischen Kreislauf."
-        }
-      ],
-      "kind": "process_flow",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Der methodische Kreislauf von Beobachtung, Analyse und Intervention",
-      "title": "Prozess der gruppenpädagogischen Intervention"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "r-1",
+          "label": "Alpha-Position (α)",
+          "badge": "Orientierung & Initiative",
+          "metric": "Führung",
+          "summary": "Gibt Impulse, bündelt Interessen und repräsentiert häufig das Gruppenziel.",
+          "detail": "Kann konstruktiv motivierend, aber auch dominant wirken. Die Fachkraft achtet darauf, dass Alpha-Positionen Macht nicht auf Kosten anderer ausüben.",
+          "example": "Ein Jugendlicher schlägt ein gemeinsames Musikvideo-Projekt vor und begeistert viele andere dafür."
+        },
+        {
+          "id": "r-2",
+          "label": "Beta-Position (β)",
+          "badge": "Expertise & Beratung",
+          "metric": "Sachkompetenz",
+          "summary": "Bringt spezielles Wissen oder Können sachlich ein, ohne die Führung zu beanspruchen.",
+          "detail": "Stärkt die Arbeitsfähigkeit der Gruppe durch Fachwissen, Organisation oder kreative Ideen und wirkt oft ausgleichend.",
+          "example": "Ein Gruppenmitglied kennt sich mit Videoschnitt aus und hilft strukturiert bei der technischen Umsetzung."
+        },
+        {
+          "id": "r-3",
+          "label": "Gamma-Position (γ)",
+          "badge": "Mittragende Mehrheit",
+          "metric": "Zugehörigkeit",
+          "summary": "Trägt den Gruppenprozess mit, sucht Zugehörigkeit und reagiert sensibel auf das Gruppenklima.",
+          "detail": "Ohne Gammas entsteht keine kollektive Dynamik. In Gruppenprozessen ist die Aktivierung dieser Mehrheit entscheidend für Fairness und Zivilcourage.",
+          "example": "Mehrere Kinder beteiligen sich engagiert an Bühnenbild und Requisiten und unterstützen faire Absprachen."
+        },
+        {
+          "id": "r-4",
+          "label": "Omega-Position (ω)",
+          "badge": "Gegenposition / Rand",
+          "metric": "Sensibel",
+          "summary": "Äußert Widerspruch, Zweifel oder steht am Rand – hohes Risiko einer Sündenbock-Rolle.",
+          "detail": "Wichtig: Omega ist kein „schwieriges Kind“, sondern eine Gruppenfunktion, die oft versteckte Konflikte sichtbar macht. Gezielte Rollenwechsel beugen Ausgrenzung vor.",
+          "example": "Ein Kind zweifelt am Projektplan und wird verspottet; im nächsten Werkprojekt wird es aufgrund seines handwerklichen Könnens zur geschätzten Beta-Person."
+        }
+      ]
+    },
+    {
+      "id": "vb-sozio-ethics",
+      "kind": "feature_grid",
+      "title": "Ethische und datenschutzrechtliche Standards beim Soziogramm",
+      "subtitle": "Worauf pädagogische Fachkräfte vor, während und nach einer soziometrischen Erhebung achten müssen",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "se-1",
+          "label": "Positive Wahlfragen statt Bloßstellung",
+          "badge": "Ethik",
+          "metric": "Kinderschutz",
+          "summary": "Auf offene Ablehnungsfragen („Wen magst du nicht?“) verzichten, um Ausgrenzung nicht zu verstärken.",
+          "detail": "Negative Wahlfragen können verletzen und bestehende Ablehnungen erst recht ins Bewusstsein rücken. Positive, aktivitätsbezogene Wahlfragen oder stille Spielbeobachtungen sind deutlich schonender.",
+          "example": "Frage: „Mit wem würdest du gern gemeinsam eine Hütte bauen?“ statt „Neben wem willst du auf keinen Fall sitzen?“"
+        },
+        {
+          "id": "se-2",
+          "label": "Einwilligung & Zweckbindung",
+          "badge": "Datenschutz",
+          "metric": "§ 62 SGB VIII / DSGVO",
+          "summary": "Namentliche Erhebungen brauchen einen klaren pädagogischen Zweck und informierte Einwilligung.",
+          "detail": "Beziehungsdaten sind sensible personenbezogene Daten mehrerer Kinder. Sorgeberechtigte (und altersangemessen die Kinder/Jugendlichen) müssen vorab informiert und einbezogen werden.",
+          "example": "Schriftliche Information über Ziel, Freiwilligkeit, Vertraulichkeit und Löschfrist vor einer soziometrischen Befragung."
+        },
+        {
+          "id": "se-3",
+          "label": "Strenge Vertraulichkeit",
+          "badge": "Persönlichkeitsschutz",
+          "metric": "Kein Aushang",
+          "summary": "Soziogramme sind ausschließlich interne Reflexionshilfen für das pädagogische Fachpersonal.",
+          "detail": "Ein namentliches Soziogramm gehört weder an die Pinnwand noch in ungeschützte Akten und wird nicht an Dritte weitergegeben; nach Auswertung erfolgt zeitnahe Löschung oder Anonymisierung.",
+          "example": "Auswertung in der vertraulichen Fallbesprechung mit anschließendem Vernichten der Wahlzettel."
+        },
+        {
+          "id": "se-4",
+          "label": "Momentaufnahme statt Etikett",
+          "badge": "Methodenkritik",
+          "metric": "Hypothese",
+          "summary": "Ein Soziogramm zeigt eine aktuelle Konstellation – kein dauerhaftes Urteil über ein Kind.",
+          "detail": "Ergebnisse hängen stark von Tagesform, aktuellem Streit oder der gewählten Frage ab. Sie werden immer mit Alltagsbeobachtungen abgeglichen.",
+          "example": "Ein Kind ohne Nennung bei einer Sportfrage kann beim Brettspiel viele verlässliche Spielpartner haben."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Jugendliche (12–15 Jahre, Jugendtreff / Offene Jugendarbeit)",
-    "context": "In einem Jugendtreff hat sich eine feste Cliquenstruktur gebildet, in der zwei Jugendliche (Leon und Sophie) stark dominieren, während Kevin (13 Jahre) zunehmend an den Rand gedrängt wird und in Konflikten oft als Sündenbock dient. Die pädagogische Fachkraft möchte die Gruppendynamik analysieren, die Rolle von Kevin stärken und partizipatorische Interventionsmöglichkeiten etablieren.",
-    "setting": "Offene Kinder- und Jugendarbeit / Jugendtreff",
+    "title": "Feste Cliquen und Randposition im Jugendtreff: Analyse und inklusive Gruppenarbeit",
+    "setting": "Offener Kinder- und Jugendtreff (Nachmittagsbereich)",
+    "ageGroup": "11 bis 14 Jahre (Jugendgruppe)",
+    "context": "Im Jugendtreff hat sich eine lautstarke Clique um zwei Jugendliche gebildet, die Musik, Kicker und Sofa-Ecke bestimmt. Der 12-jährige Samir sitzt seit drei Wochen zunehmend allein am Rand, wird bei Gruppenspielen übergangen und bei kleineren Missgeschicken spöttisch verantwortlich gemacht. Eine Praktikantin schlägt vor, morgen vor allen eine offene Abstimmung durchzuführen: „Jeder schreibt auf, wen er mag und wen nicht – dann hängen wir das Ergebnis zur Aussprache an die Wand.“",
     "steps": [
       {
+        "situation": "Die Fachkraft möchte die Gruppendynamik fundiert verstehen, bevor sie interveniert, muss aber zugleich das ethisch riskante Vorgehen der Praktikantin korrigieren.",
+        "prompt": "Wie geht die Fachkraft bei der Analyse der Gruppenstruktur fachlich, ethisch und datenschutzkonform vor?",
         "options": [
           {
-            "feedback": "Die Fachkraft greift sofort autoritär ein, ermahnt die dominante Clique öffentlich und stellt Kevin als ‚Opfer‘ dar. Dies verschärft die Stigmatisierung und verletzt Kevins Autonomie.",
-            "label": "Öffentliche Zurechtweisung der Clique und Schutz des ‚Opfers‘ im Plenum.",
-            "quality": "problematisch",
-            "theoryLink": "Verletzt den partizipatorischen Ansatz und fördert Sekundärviktimisierung (vgl. RLP S-SP-2; No Blame Approach)."
-          },
-          {
-            "feedback": "Die Fachkraft führt eine systematische, anonyme Soziometrie (Soziogramm) und strukturierte Beobachtungen nach Tuckman durch, um die Rollenstrukturen und Cliquen unauffällig zu analysieren, bevor Interventionen geplant werden.",
-            "label": "Einsatz eines Soziogramms und strukturierte Beobachtung zur Analyse der Rangdynamik.",
+            "label": "Sie erklärt der Praktikantin die ethischen und datenschutzrechtlichen Grenzen, nutzt systematische Interaktionsbeobachtungen (und ggf. ein streng vertrauliches, positiv formuliertes Soziogramm mit Einwilligung) und analysiert Phase und Rangdynamik im Team.",
             "quality": "optimal",
-            "theoryLink": "Kriteriengeleitete Anwendung von Beobachtungsinstrumenten zur Analyse von Gruppenstrukturen (vgl. Moreno; RLP S-SP-2)."
+            "feedback": "Fachlich sauber: Durch verhaltensnahe Beobachtung sowie die Einordnung nach Tuckman und Schindler erkennt das Team Muster (z. B. Storming-Dynamik, feste Cliquen), ohne Samir bloßzustellen oder Datenschutzregeln zu verletzen.",
+            "theoryLink": "Tuckman (Phasenmodell), Schindler (Rangdynamik), Moreno (verantwortungsvolle Soziometrie) & Datenschutz (§ 62 SGB VIII)."
           },
           {
-            "feedback": "Die Fachkraft ignoriert die Dynamik zunächst, in der Hoffnung, dass sich die Cliquenkonflikte von selbst regulieren, solange keine körperliche Gewalt im Spiel ist.",
-            "label": "Abwarten und Beobachten ohne methodische Erfassung der Gruppenstruktur.",
+            "label": "Sie greift den Vorschlag der Praktikantin auf und hängt ein namentliches Sympathie- und Ablehnungs-Soziogramm gut sichtbar im Gruppenraum aus.",
+            "quality": "problematisch",
+            "feedback": "Ein öffentliches Soziogramm mit Ablehnungen verletzt Persönlichkeitsrechte und Datenschutz (§ 62 SGB VIII / DSGVO), beschämt Samir massiv vor der gesamten Gruppe und zementiert seine Außenseiterrolle.",
+            "theoryLink": "Moreno (ethische Grenzen der Soziometrie); Sozialdatenschutz (§ 62 SGB VIII / DSGVO); Schutz vor Sekundärviktimisierung."
+          },
+          {
+            "label": "Sie weist die dominante Clique sofort vor allen Jugendlichen laut zurecht und fordert sie auf, „mit dem armen Samir jetzt gefälligst nett zu spielen“.",
             "quality": "teilweise",
-            "theoryLink": "Vernachlässigt den Schutzauftrag und die professionelle Begleitung von Gruppenprozessen (vgl. RLP S-SP-2)."
+            "feedback": "Die Fachkraft schaut zwar nicht weg, doch die öffentliche Zurechtweisung erzeugt Reaktanz bei der Clique und markiert Samir als bemitleidenswertes „Opfer“ – das verschärft oft verdeckte Ausgrenzung.",
+            "theoryLink": "Schindler (Omega-/Sündenbockdynamik); Vermeidung von Stigmatisierung in Gruppenprozessen."
           }
-        ],
-        "prompt": "Wie sollte die Fachkraft im ersten Schritt zur Analyse der Gruppensituation vorgehen?",
-        "situation": "Schritt 1: Analyse der Gruppenstruktur und Rollenverteilung"
+        ]
       },
       {
+        "situation": "Die Beobachtungen zeigen: Samir bringt großes technisches Talent beim Filmen und Gestalten mit, kam aber im bisherigen Fußball- und Kicker-Alltag nie zum Zug. Zudem fehlen im Jugendtreff verbindliche, gemeinsam getragene Nutzungsregeln.",
+        "prompt": "Welche gruppenpädagogische Intervention stärkt soziales Lernen, Kooperation und Samirs Teilhabe am nachhaltigsten?",
         "options": [
           {
-            "feedback": "Die Fachkraft führt ein reflexives Rollenspiel und partizipatorische Team-Challenges ein, bei denen gemischte Kleingruppen kooperieren müssen, und etabliert einen wöchentlichen Jugendrat zur Stärkung aller Mitglieder.",
-            "label": "Durchführung gruppenpädagogischer Kooperationsspiele und Etablierung eines Jugendrates.",
-            "quality": "optimal",
-            "theoryLink": "Gruppenpädagogische Ansätze für soziales Lernen und Partizipation (vgl. RLP S-SP-2; Bernstein & Lowy)."
-          },
-          {
-            "feedback": "Die Fachkraft sperrt den Billardtisch und den Aufenthaltsraum für alle Jugendlichen für zwei Wochen als kollektive Strafe.",
-            "label": "Ausspruch eines generellen Nutzungsverbots für den gesamten Jugendtreff.",
-            "quality": "problematisch",
-            "theoryLink": "Widerspricht diametral dem Partizipationsgebot und erzeugt Reaktanz (vgl. RLP S-SP-2)."
-          },
-          {
-            "feedback": "Die Fachkraft spricht lediglich ein kurzes Vier-Augen-Gespräch mit den beiden dominanten Jugendlichen (Leon und Sophie) und bittet sie, netter zu Kevin zu sein.",
-            "label": "Ausschließliche Ermahnung der dominanten Jugendlichen im Einzelgespräch.",
+            "label": "Die Fachkraft empfiehlt Samir unter vier Augen, künftig einfach selbstbewusster aufzutreten und sich selbst durchzusetzen.",
             "quality": "teilweise",
-            "theoryLink": "Greift zu kurz, da die strukturelle Gruppendynamik und das soziale Gefüge der Gesamtgruppe unberücksichtigt bleiben (vgl. Schindler)."
+            "feedback": "Ein unterstützendes Einzelgespräch ist wertvoll, greift aber allein zu kurz, weil es die Verantwortung für ein strukturelles Gruppenproblem einseitig beim ausgegrenzten Jugendlichen ablädt.",
+            "theoryLink": "Systemische Perspektive auf Gruppendynamik statt Individualisierung von Ausgrenzung."
+          },
+          {
+            "label": "Die Fachkraft initiiert ein freiwilliges Medien- und Kooperationsprojekt mit gemischten Kleingruppen, in dem Samir seine technischen Stärken einbringen kann, und etabliert einen partizipativen Jugendrat für faire Raumregeln.",
+            "quality": "optimal",
+            "feedback": "Optimal: Durch neue Aufgabenformate werden starre Rangpositionen beweglich (Samir erlebt sich kompetent statt in einer Randposition), gemischte Teams fördern neue Kontakte, und der Jugendrat unterstützt den Übergang in eine konstruktive Norming-Phase.",
+            "theoryLink": "Schindler (situativer Rollenwechsel), Tuckman (Begleitung von Storming zu Norming), kooperatives und partizipatives soziales Lernen."
+          },
+          {
+            "label": "Die Fachkraft sperrt Kicker und Musikanlage für zwei Wochen als Kollektivstrafe für die gesamte Gruppe.",
+            "quality": "problematisch",
+            "feedback": "Kollektivstrafen fördern Solidarität gegen die Fachkraft oder richten den Ärger erst recht gegen vermeintliche „Schuldige“ in der Gruppe, statt soziale Kompetenzen zu stärken.",
+            "theoryLink": "Partizipative Gruppenpädagogik vs. sanktionsorientierte Steuerung."
           }
-        ],
-        "prompt": "Welche gruppenpädagogische Maßnahme ist im zweiten Schritt zur Förderung von sozialem Lernen und Partizipation am geeignetsten?",
-        "situation": "Schritt 2: Intervention und Förderung des sozialen Lernens"
+        ]
       }
-    ],
-    "title": "Cliquenstrukturen und Ausschlussprozesse im Jugendtreff"
+    ]
   },
   "selfLearningTasks": [
-    "Erstellen Sie ein ausführliches Soziogramm für eine reale oder fiktive Gruppe (mindestens 10 Personen), werten Sie die Ergebnisse aus und leiten Sie zwei konkrete pädagogische Fördermaßnahmen für isolierte Personen ab.",
-    "Analysieren und vergleichen Sie das Phasenmodell nach Tuckman mit dem rangdynamischen Modell nach Schindler in einer tabellarischen Gegenüberstellung hinsichtlich ihrer Bedeutung für die sozialpädagogische Praxis.",
-    "Entwerfen Sie ein Konzept für einen wöchentlichen „Gruppenrat“ in einer Kindertagesstätte oder einem Jugendtreff unter besonderer Berücksichtigung der Kinderrechte und der Partizipation."
+    "Beobachte eine Kinder- oder Jugendgruppe in deiner Praxiseinrichtung über eine Woche: Ordne die aktuelle Gruppensituation dem Modell von Tuckman zu und begründe anhand konkreter Beobachtungen, ob sich aktuell Übergänge oder Rückschritte zwischen Phasen zeigen.",
+    "Analysiere ein reales Gruppenspiel oder Gruppenprojekt mithilfe von Schindlers Rangdynamik (Alpha, Beta, Gamma, Omega) und beschreibe zwei konkrete Situationen, in denen Kinder zwischen unterschiedlichen Positionen gewechselt haben.",
+    "Entwirf eine kurze Checkliste (5 Punkte) für dein Team, welche ethischen und datenschutzrechtlichen Voraussetzungen erfüllt sein müssen, bevor ein Soziogramm überhaupt in Betracht gezogen wird."
   ],
   "flashcards": [
     {
-      "definition": "Ein wissenschaftliches Verfahren zur Erfassung und visuellen Darstellung von zwischenmenschlichen Beziehungen, Sympathien, Antipathien und Cliquenstrukturen innerhalb einer Gruppe.",
-      "example": "Erstellung eines stern- oder netzwerkförmigen Soziogramms auf Basis von Wahlverfahren (z.B. „Mit wem würdest du am liebsten ein Projekt planen?“).",
-      "term": "Soziogramm (Soziometrie nach J. L. Moreno)"
+      "term": "Phasenmodell nach Bruce W. Tuckman",
+      "definition": "Fünf typische Entwicklungsphasen von Gruppen: Forming (Orientierung), Storming (Konflikt/Aushandlung), Norming (Regelfindung), Performing (Zusammenarbeit) und Adjourning (Abschluss) – in der Praxis nicht streng linear.",
+      "example": "Nach dem Start dreier neuer Kinder kehrt eine eingespielte Gruppe vorübergehend wieder zu Forming- und Storming-Prozessen zurück."
     },
     {
-      "definition": "Ein Phasenmodell der Gruppenentwicklung, das die fünf Stufen Forming, Storming, Norming, Performing und Adjourning unterscheidet.",
-      "example": "Eine neu zusammengestellte Kitagruppe befindet sich in der Storming-Phase, in der Machtkämpfe und Rollenunklarheiten offen ausgetragen werden.",
-      "term": "Phasenmodell der Gruppenentwicklung (Tuckman)"
+      "term": "Rangdynamik nach Raoul Schindler",
+      "definition": "Strukturmodell mit vier dynamischen, aufgabenbezogenen Gruppenpositionen: Alpha (Initiative/Führung), Beta (Expertise/Beratung), Gamma (mittragende Mehrheit) und Omega (Gegenposition/Rand).",
+      "example": "Ein Kind wechselt je nach Aktivität: beim Klettern eher zurückhaltend, beim Werkprojekt als gefragte Beta-Person."
     },
     {
-      "definition": "Ein psychoanalytisch begründetes Modell der Rangdynamik in Gruppen von Raoul Schindler, das vier Positionen unterscheidet: Alpha (Führer), Beta (Experte/Berater des Anführers), Gamma (Mitläufer/Masse) und Omega (Gegenposition/Sündenbock).",
-      "example": "In einer Jugendgruppe besetzt ein lautstarker Jugendlicher die Alpha-Position, während ein ruhiger Junge als Omega-Sündenbock funktionalisiert wird.",
-      "term": "Rangdynamisches Positionenmodell (Schindler)"
+      "term": "Soziogramm (Jacob Levy Moreno)",
+      "definition": "Grafische Darstellung sozialer Wahl- oder Interaktionsbeziehungen in einer Gruppe (Sterne, Paare, Cliquen, Isolierte) als punktuelle Momentaufnahme – keine feste Diagnose.",
+      "example": "Auf Basis positiver Wahlfragen und vertraulicher Auswertung erkennt das Team eine isolierte Subgruppe und plant gemischte Projektteams."
     },
     {
-      "definition": "Ein grundlegendes Prinzip der sozialpädagogischen Arbeit, bei dem Kinder und Jugendliche als Träger von Rechten aktiv in Entscheidungsprozesse einbezogen werden.",
-      "example": "Einrichtung eines wöchentlichen Gruppenrates, in dem über die Gestaltung des Gruppenraums demokratisch abgestimmt wird.",
-      "term": "Partizipation"
+      "term": "Datenschutz & Ethik beim Soziogramm",
+      "definition": "Namentliche Soziogramme erfassen sensible Beziehungsdaten (§ 62 SGB VIII / DSGVO): erforderlich sind Zweckbindung, Einwilligung, strenge Vertraulichkeit (kein Aushang!), Verzicht auf bloßstellende Ablehnungsfragen und zeitnahe Löschung.",
+      "example": "Wahlzettel werden anonymisiert ausgewertet, nicht mit der Gruppe geteilt und nach der Teamreflexion sicher vernichtet."
     },
     {
-      "definition": "Ein strukturierter, präventiver Interventionsansatz bei Bullying und Mobbingsituationen in Gruppen, der ohne Schuldzuweisungen und Strafen arbeitet, um Empathie und lösungsorientiertes Handeln zu aktivieren.",
-      "example": "Durchführung von Gesprächen mit der Unterstützungsgruppe nach dem No Blame Approach, um constructive Schritte für den Betroffenen zu entwickeln.",
-      "term": "No Blame Approach"
+      "term": "Sündenbock-Dynamik",
+      "definition": "Gruppendynamischer Prozess, bei dem ungelöste Spannungen, Unsicherheiten oder Konflikte einer Gruppe auf ein einzelnes Mitglied (häufig in der Omega-Position) abgeladen werden.",
+      "example": "Statt über unklare Raumregeln zu streiten, macht die Gruppe ein einzelnes ruhiges Kind für jede Unordnung verantwortlich."
+    },
+    {
+      "term": "Kooperatives soziales Lernen",
+      "definition": "Gruppenpädagogische Arrangements, bei denen Ziele nur gemeinsam erreichbar sind, Vielfalt als Ressource genutzt wird und Rollen flexibel wechseln können.",
+      "example": "Eine Bau-Challenge in ausgelosten Kleingruppen, bei der Planen, Bauen und Präsentieren verschiedene Stärken verlangen."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Das Soziogramm ist ein klassisches soziometrisches Instrument nach J.L. Moreno, das zwischenmenschliche Beziehungsstrukturen, Sympathien und Cliquen visuell darstellt.",
-      "id": "q-1",
+      "question": "Welche Aussage zum Gruppenentwicklungsmodell nach Bruce W. Tuckman (ergänzt mit Jensen) ist fachlich korrekt?",
       "options": [
-        "Die Messung von Körperfunktionen und Stresspegeln in einer Gruppe",
-        "Die grafische Darstellung von zwischenmenschlichen Beziehungen und Cliquenstrukturen in einer Gruppe",
-        "Ein psychologischer Test zur Bestimmung des Intelligenzquotienten von Gruppenmitgliedern",
-        "Eine Methode zur reinen Raumanalyse in Kindertagesstätten"
+        "Die Storming-Phase tritt ausschließlich bei fehlerhafter pädagogischer Leitung auf und muss vollständig verhindert werden.",
+        "In der Performing-Phase benötigt die Gruppe die strengste autoritäre Steuerung durch die Fachkraft.",
+        "Das Modell beschreibt die Phasen Forming, Storming, Norming, Performing und Adjourning; bei Personalwechsel, Neuzugängen oder neuen Konflikten können frühere Phasen erneut auftreten.",
+        "Jede Gruppe durchläuft Forming, Storming, Norming, Performing und Adjourning zwingend einmalig und exakt linear ohne Rückschritte."
       ],
-      "question": "Was versteht man primär unter einem Soziogramm in der Sozialpädagogik?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        1,
-        2,
-        3
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Tuckmans Phasenmodell umfasst die Stufen Forming, Storming, Norming, Performing und Adjourning. „Isolating“ ist kein Bestandteil des Modells.",
-      "id": "q-2",
-      "options": [
-        "Forming (Orientierungsphase)",
-        "Storming (Konflikt- und Machtkampfphase)",
-        "Norming (Normierungs- und Konsolidierungsphase)",
-        "Performing (Arbeits- und Leistungsphase)"
-      ],
-      "question": "Welche Phasen gehören zum klassischen Gruppenentwicklungsmodell nach Bruce W. Tuckman? (Mehrere Antworten sind richtig)",
-      "type": "multi"
-    },
-    {
-      "correctIndices": [
-        0
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Das rangdynamische Positionenmodell von Raoul Schindler beschreibt vier Positionen (Alpha, Beta, Gamma, Omega) in Bezug auf das Gruppen- oder Leitungszentrum.",
-      "id": "q-3",
-      "options": [
-        "Alpha, Beta, Gamma und Omega",
-        "Leader, Follower, Outcast und Neutral",
-        "Initiator, Moderator, Rebell und Beobachter",
-        "Experte, Skeptiker, Befürworter und Gegner"
-      ],
-      "question": "Welche zentralen Positionen unterscheidet das rangdynamische Positionenmodell nach Raoul Schindler?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
         2
       ],
-      "difficulty": "pruefung",
-      "explanation": "In diesem Fall übernimmt die Fachkraft eine bewusste Gruppenbeobachtung (Soziometrie/Soziogramm), um die Struktur zu verstehen, bevor reflexive und partizipatorische Maßnahmen eingeleitet werden.",
-      "id": "q-4",
-      "options": [
-        "Sofortiger Ausschluss der störenden Jungen von allen Aktivitäten",
-        "Ignorieren des Konflikts, da sich Jugendliche selbst regulieren müssen",
-        "Systematische Beobachtung und Erstellung eines Soziogramms zur Analyse der Cliquenstruktur und Isolationsprozesse",
-        "Einzelausschluss und Verpflichtung zu schriftlichen Entschuldigungen im Plenum"
-      ],
-      "question": "Praxissituation: In einer Jugendgruppe wird ein Jugendlicher systematisch von Aktivitäten ausgeschlossen. Wie sollte eine professionelle Fachkraft nach dem RLP-Lehrplan primär vorgehen?",
-      "type": "case"
+      "explanation": "Tuckmans Phasenmodell ist eine hilfreiche Orientierung, aber kein starrer linearer Ablauf: Veränderungen in Zusammensetzung oder Auftrag lösen häufig erneute Orientierungs- und Aushandlungsprozesse aus."
     },
     {
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Wie sind die vier Positionen (Alpha, Beta, Gamma, Omega) im rangdynamischen Modell nach Raoul Schindler fachlich einzuordnen?",
+      "options": [
+        "Als juristische Kategorien zur Einschätzung von Kindeswohlgefährdung.",
+        "Als angeborene, lebenslang unveränderliche Persönlichkeitstypen einzelner Kinder.",
+        "Als verbindliche Hierarchiestufen für die Dienstplangestaltung im Kita-Team.",
+        "Als dynamische, situations- und aufgabenbezogene Gruppenpositionen, die je nach Aktivität und Gruppenklima wechseln können."
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Schindlers Positionen beschreiben veränderliche Funktionen in Bezug auf ein Gruppenziel – keine festen Eigenschaften eines Kindes. Gezielte Aufgabenwechsel eröffnen neue Rollen."
+    },
+    {
+      "id": "v2-q3",
+      "type": "multi",
+      "difficulty": "pruefung",
+      "question": "Welche ethischen und datenschutzrechtlichen Grundsätze sind beim Einsatz eines Soziogramms in Kita, Hort oder Jugendarbeit zwingend zu beachten? (Mehrere Antworten sind richtig)",
+      "options": [
+        "Namentliche Soziogramme dürfen niemals öffentlich im Gruppenraum ausgehängt oder vor der Gruppe bloßstellend besprochen werden.",
+        "Namentliche Erhebungen berühren sensible personenbezogene Daten und erfordern Zweckbindung, informierte Einwilligung sowie vertrauliche Aufbewahrung und zeitnahe Löschung.",
+        "Offene Ablehnungsfragen („Wen lehnt ihr in der Gruppe am meisten ab?“) sollten immer laut im Sitzkreis abgefragt werden.",
+        "Ein Soziogramm ist stets nur eine Momentaufnahme und darf nicht zur dauerhaften Etikettierung einzelner Kinder genutzt werden."
+      ],
+      "correctIndices": [
+        0,
+        1,
+        3
+      ],
+      "explanation": "Offene Ablehnungsfragen vor der Gruppe verletzen Persönlichkeitsrechte und verstärken Ausgrenzung. Datenschutz (§ 62 SGB VIII / DSGVO), Vertraulichkeit, positive Fragestellungen und Methodenkritik sind unverzichtbar."
+    },
+    {
+      "id": "v2-q4",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Was macht ein Soziogramm nach Jacob Levy Moreno in einer Gruppe sichtbar?",
+      "options": [
+        "Den individuellen sprachlichen Entwicklungsstand eines einzelnen Kindes im Vergleich zur Altersnorm.",
+        "Aktuelle soziale Beziehungs- und Wahlstrukturen wie Wahlhäufungen („Sterne“), Paare, Cliquen und mögliche Isolationsprozesse.",
+        "Die Raumakustik und Bewegungswege innerhalb eines Kita-Gebäudes.",
+        "Die erblichen Temperamentsmerkmale der einzelnen Gruppenmitglieder."
+      ],
+      "correctIndices": [
+        1
+      ],
+      "explanation": "Die Soziometrie nach Moreno bildet zwischenmenschliche Wahl- und Beziehungsnetze innerhalb einer Gruppe grafisch ab und unterstützt die Planung inklusiver Gruppenarbeit."
+    },
+    {
+      "id": "v2-q5",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "In einer Hortgruppe wird ein neunjähriges Kind bei freien Spielwahlen häufig übergangen, während zwei feste Cliquen den Ton angeben. Welche erste pädagogische Strategie ist am sinnvollsten?",
+      "options": [
+        "Die Fachkraft teilt dem Kind einen separaten Einzelspielplatz zu, damit es keine Ablehnung mehr erlebt.",
+        "Die Fachkraft hält sich vollständig heraus, da Gruppenprozesse grundsätzlich nicht begleitet werden sollten.",
+        "Die Fachkraft beobachtet systematisch die Interessen und Stärken aller Kinder, gestaltet gemischte, kooperative Projektgruppen mit wechselnden Aufgaben und bespricht faire Beteiligungsregeln im Gruppenrat.",
+        "Die Fachkraft weist die Cliquen öffentlich zurecht und zwingt sie, das Kind ab sofort immer mitspielen zu lassen."
+      ],
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Statt Zwang, Isolation oder Wegschauen verändert professionelle Gruppenpädagogik die Rahmenbedingungen durch kooperative Kleingruppen, stärkenorientierte Rollenwechsel und demokratische Aushandlung."
+    },
+    {
+      "id": "v2-q6",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Welche Funktion erfüllt in Schindlers Modell typischerweise die Beta-Position?",
+      "options": [
+        "Sie bringt fachliches oder praktisches Können beratend ein und unterstützt die sachliche Zielerreichung, ohne direkt die Führungsrolle zu beanspruchen.",
+        "Sie bezeichnet ausschließlich externe Aufsichtsbehörden außerhalb der Gruppe.",
+        "Sie lehnt jede Zusammenarbeit ab und dient ausschließlich als Sündenbock.",
+        "Sie bestimmt autoritär alle Strafen für Regelverstöße in der Gruppe."
+      ],
       "correctIndices": [
         0
       ],
-      "difficulty": "basis",
-      "explanation": "Partizipation bedeutet Mitbestimmung, Mitgestaltung und Beteiligung von Kindern und Jugendlichen als Träger von Rechten an allen sie betreffenden Lebens- und Entscheidungsprozessen.",
-      "id": "q-5",
-      "options": [
-        "Die aktive Beteiligung und Mitbestimmung von Adressaten an Entscheidungsprozessen als Träger von Rechten",
-        "Die reine Aufsichtspflicht und Lenkung aller Gruppenaktivitäten durch die Fachkraft",
-        "Die Übertragung sämtlicher organisatorischer Aufgaben an die Elternvertretung",
-        "Ein reines Freizeitprogramm ohne pädagogische Zielsetzung"
-      ],
-      "question": "Wie ist der Begriff „Partizipation“ im Kontext des RLP Rheinland-Pfalz für die Fachschule Sozialwesen primär definiert?",
-      "type": "single"
+      "explanation": "Die Beta-Position steht für Expertise, Sachkompetenz und beratende Unterstützung innerhalb des Gruppengefüges."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Gruppendynamik – Fachartikel im socialnet Lexikon",
+      "url": "https://www.socialnet.de/lexikon/Gruppendynamik",
+      "publisher": "socialnet Lexikon",
+      "note": "Überblick zu Begriff, Entstehung, Modellen und pädagogischer Anwendung von Gruppendynamik"
     },
     {
-      "correctIndices": [
-        0,
-        1
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Soziales Lernen zielt auf die Entwicklung von Empathie, Kooperationsfähigkeit, Konfliktlösungsstrategien und die Stärkung der Gruppenkohäsion ab. Reine Wissensabfrage oder Drill sind ungeeignet.",
-      "id": "q-6",
-      "options": [
-        "Förderung von Empathie, Perspektivwechsel und Kooperationsfähigkeit",
-        "Konstruktiver Umgang mit Konflikten und Entwicklung gemeinsamer Normen",
-        "Auswendiglernen von theoretischen Modellen ohne Praxisbezug",
-        "Isolation einzelner Leistungsträger zur Leistungssteigerung"
-      ],
-      "question": "Welche Ziele verfolgen gruppenpädagogische Ansätze für soziales Lernen primär? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "title": "Die Tuckman-Teamuhr: Was das berühmteste Phasenmodell erklärt – und was nicht",
+      "url": "https://gruppendynamik.de/wissen/tuckman-teamuhr/",
+      "publisher": "gruppendynamik.de",
+      "note": "Differenzierte Darstellung der Phasen nach Tuckman inkl. Grenzen und Nicht-Linearität"
+    },
+    {
+      "title": "Rangdynamik Raoul Schindler: Was das Positionsmodell über Gruppen verrät",
+      "url": "https://gruppendynamik.de/wissen/rangdynamik-raoul-schindler/",
+      "publisher": "gruppendynamik.de",
+      "note": "Erläuterung von Alpha, Beta, Gamma, Omega und der Dynamik von Gruppenpositionen"
+    },
+    {
+      "title": "Soziometrie als Strukturmodell der Szene",
+      "url": "https://isi-hamburg.org/download/0_Hutter,%20Psychodrama%20Lehrfilm%2005%20DB%20Soziometrie.pdf",
+      "publisher": "Institut für Soziale Innovationen (Christoph Hutter)",
+      "note": "Fachbeitrag zur Soziometrie nach Moreno, ihren Chancen und reflexiven Grenzen (PDF)"
+    },
+    {
+      "title": "SGB VIII § 62 – Datenerhebung",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__62.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Sozialdatenschutzrechtlicher Rahmen für die Erhebung personenbezogener Daten in der Jugendhilfe"
     }
   ]
 }

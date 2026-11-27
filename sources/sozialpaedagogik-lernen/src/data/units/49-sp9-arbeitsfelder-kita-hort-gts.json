@@ -3,10 +3,12 @@
   "number": 49,
   "moduleCode": "S-SP-9",
   "moduleArea": "sp-wahlpflicht",
-  "title": "Wahlpflicht Arbeitsfelder I: Kita, Hort & Ganztagsschule",
-  "subtitle": "Kindertageseinrichtungen (U3/Ü3) und Bildungs-/Betreuungsangebote für Grundschulkinder",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-9 · Vertiefung in einem Arbeitsfeld: Kita, Hort & Ganztagsschule (Lehrplan RLP 2024)",
+  "title": "Arbeitsfelder Kita, Hort & Ganztagsschule (RLP)",
+  "subtitle": "SGB VIII & KiTaG RLP, Bildungsauftrag U3/Ü3, Hort & Ganztagsschule RLP, Übergänge & Kooperation Schule–Jugendhilfe",
   "year": "2./3. Jahr",
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 30,
   "hoursRef": "240 Std. (mind. 80 Std. Arbeitsfeld)",
   "pdfPages": "S. 49",
   "crossCuttingTags": [
@@ -14,393 +16,433 @@
     "Partizipation",
     "Sprachbildung"
   ],
-  "summary": "Einheit 49 des Moduls S-SP-9 vermittelt fundierte Handlungskompetenzen für die Arbeitsfelder Kindertageseinrichtung (Krippe U3, Kindergarten Ü3) und Grundschulkindbetreuung (Ganztagsschule, Hort, Betreuende Grundschule). Sie befähigt angehende Erzieher:innen, Übergänge theoriegeleitet zu begleiten, den Alltag durch Rhythmisierung und Partizipation zu gestalten und erfolgreich in multiprofessionellen Teams zu agieren.",
+  "summary": "In dieser Einheit vergleichen und vertiefen Sie die zentralen Arbeitsfelder für Kinder von null bis etwa zwölf Jahren: Kindertageseinrichtungen (Krippe U3 und Kindergarten Ü3), Hort sowie Ganztagsschule und Betreuende Grundschule in Rheinland-Pfalz. Sie erarbeiten die exakten Rechtsgrundlagen im SGB VIII und KiTaG RLP, altersspezifische Bildungs- und Betreuungsbedarfe, das rheinland-pfälzische Ganztagsschulmodell sowie multiprofessionelle Kooperation zwischen Jugendhilfe und Schule.",
   "learningGoals": [
-    "Ich kann die strukturellen, rechtlichen und pädagogischen Unterschiede sowie Gemeinsamkeiten zwischen Kindertageseinrichtungen (U3/Ü3) und Grundschulkind-Arbeitsfeldern (GTS, Hort, Betreuende Grundschule) fachlich fundiert analysieren.",
-    "Ich kann den Übergang (Transition) von der Kita in die Grundschule bzw. Ganztagsschule theoriegeleitet planen, begleiten und unter Berücksichtigung von Bildungs- und Erziehungspartnerschaften gestalten.",
-    "Ich kann multiprofessionelle Kooperationsprozesse zwischen pädagogischen Fachkräften und Lehrkräften in Ganztagsschulen reflektieren und praxisnah mitgestalten.",
-    "Ich kann tagesstrukturierende Elemente (Rhythmisierung, Freiraum, angeleitete Angebote und Lernzeiten) zielgruppengerecht für U3-, Ü3- und Grundschulkinder konzipieren.",
-    "Ich kann Partizipations- und Sprachbildungsansätze als querschnittliche Prinzipien in den Arbeitsfeldern Kita und Ganztagsschule methodisch umsetzen."
+    "Ich kann den gesetzlichen Auftrag und die Rechtsansprüche in Kita, Hort und Ganztagsförderung auf Grundlage von §§ 22, 24 SGB VIII sowie dem KiTaG Rheinland-Pfalz präzise erläutern.",
+    "Ich kann die altersspezifischen Bedarfslagen und pädagogischen Schwerpunkte von U3-Krippe, Ü3-Kindergarten sowie Hort und Ganztagsschule differenziert gegenüberstellen.",
+    "Ich kann das rheinland-pfälzische Modell der Ganztagsschule in Angebotsform von gebundener Ganztagsschule, Hort und Betreuender Grundschule rechtlich und pädagogisch unterscheiden.",
+    "Ich kann den Übergang (Transition) von der Kita in die Grund- und Ganztagsschule kooperativ mit Kind, Eltern, Kita-Team und Lehrkräften unter Wahrung des Datenschutzes gestalten.",
+    "Ich kann typische Spannungsfelder in der Kooperation zwischen Schule und Jugendhilfe (z. B. Lernzeit, Rhythmisierung, Rollenklärung im Tandem) analysieren und konstruktiv bearbeiten."
   ],
   "sections": [
     {
-      "body": "Das Modul S-SP-9 des Lehrplans Rheinland-Pfalz (2024) widmet sich der Vertiefung in spezifischen Arbeitsfeldern. Die Erziehung, Bildung und Betreuung in Kindertageseinrichtungen (Krippe U3, Kindergarten Ü3, Altersmischung) unterscheidet sich strukturell und konzeptionell deutlich von den Arbeitsfeldern für Grundschulkinder wie Ganztagsschule (GTS), Hort oder betreuende Grundschule. Während in Kitas der Orientierungsplan für Bildung und Erziehung in RLP den Rahmen bildet, greifen in Grundschulkind-Angeboten schulrechtliche Vorgaben, Rahmenlehrpläne und spezifische Konzepte zur Rhythmisierung von Unterricht und Freizeit. Die gesetzliche Verankerung erfolgt im SGB VIII (§ 22) sowie im KiTaG RLP und im Schulgesetz RLP.",
+      "heading": "1. Rechtsgrundlagen im Bund und in Rheinland-Pfalz: SGB VIII & KiTaG RLP",
+      "keyTakeaway": "Kindertagesbetreuung verbindet Erziehung, Bildung und Betreuung als gleichwertige Einheit — in Rheinland-Pfalz konkretisiert durch das KiTaG, die Verantwortungsgemeinschaft und die Bildungs- und Erziehungsempfehlungen.",
+      "body": "Das bundesrechtliche Fundament der Kindertagesbetreuung bilden § 22 SGB VIII (gleichwertiger Förderauftrag aus Erziehung, Bildung und Betreuung zur eigenverantwortlichen und gemeinschaftsfähigen Persönlichkeit) sowie § 24 SGB VIII für die gestaffelten Rechtsansprüche: Kinder unter einem Jahr haben bei individuellem Bedarf oder Erwerbstätigkeit/Ausbildung der Eltern Anspruch (Abs. 1), Kinder vom vollendeten ersten bis zum dritten Lebensjahr auf frühkindliche Förderung in Einrichtung oder Kindertagespflege (Abs. 2), Kinder ab dem vollendeten dritten Lebensjahr bis zum Schuleintritt auf einen Platz in einer Tageseinrichtung (Abs. 3). Mit § 24 Abs. 4 SGB VIII tritt zudem ab dem Schuljahr 2026/2027 stufenweise (beginnend mit Klassenstufe 1 bis zum Beginn der 5. Klasse) der Rechtsanspruch auf achtstündige werktagsbezogene Förderung für Grundschulkinder in Kraft — erfüllt durch Unterricht und Angebote der Ganztagsgrundschulen, Horte und in den Ferien auch Angebote der Jugendarbeit nach § 11 SGB VIII. In Rheinland-Pfalz konkretisiert das Landesgesetz über die Erziehung, Bildung und Betreuung von Kindern in Tageseinrichtungen und in Kindertagespflege (KiTaG) diesen Auftrag: Es verankert das Recht des Kindes auf Beteiligung und Chancengleichheit, gemeinsame Betreuung von Kindern mit und ohne Behinderungen als Regelfall (§ 1), Tageseinrichtungen wie Krippe, Kindergarten und Hort (§ 2), die partnerschaftliche Verantwortungsgemeinschaft aus Eltern, Fachkräften, Träger und öffentlichem Träger sowie die Orientierung an den rheinland-pfälzischen Bildungs- und Erziehungsempfehlungen (§ 3).",
       "bulletPoints": [
-        "Unterscheidung nach Altersstufen: U3 (Krippe), Ü3 (Kindergarten) und Grundschulalter (6–10 Jahre).",
-        "Rechtliche Grundlagen: SGB VIII, KiTaG RLP und Schulgesetz RLP als Doppel-Fundament.",
-        "Verzahnung von Elementar- und Primarbereich im Rahmen des ausbildungsbegleitenden Praktikums.",
-        "Querschnittsthemen als roter Faden: Übergänge, Partizipation und Sprachbildung."
+        "§ 22 SGB VIII: Untrennbare Trias aus Erziehung, Bildung und Betreuung — kein bloßes „Verwahren“ und kein vorgezogener Fachunterricht.",
+        "§ 24 SGB VIII: Gestaffelte Rechtsansprüche für U1 (bedarfsabhängig), U3 (ab 1 Jahr), Ü3 (ab 3 Jahren) sowie stufenweiser Ganztagsanspruch für Grundschulkinder ab Schuljahr 2026/27 (Abs. 4).",
+        "KiTaG RLP (§§ 1–3): Betonung von Inklusion als Regelfall, Partizipation, Verantwortungsgemeinschaft (inkl. Kita-Beirat) und Orientierung an den Bildungs- und Erziehungsempfehlungen RLP.",
+        "Zwei Rechtskreise im Grundschulalter: Horte unterliegen dem Kinder- und Jugendhilferecht (SGB VIII / KiTaG), Ganztagsschulen hingegen dem Schulrecht (SchulG RLP)."
       ],
-      "heading": "Rechtliche Grundlagen & Strukturelle Rahmenbedingungen im Arbeitsfeldvergleich",
-      "keyTakeaway": "Die Arbeitsfelder Kita und Grundschulkindbetreuung erfordern spezifische Handlungskompetenzen, die im Modul S-SP-9 theoriegeleitet und praxisnah verknüpft werden.",
-      "praxisTip": "Analysieren Sie in Ihrem Praxisort die institutionellen Rahmenbedingungen (z. B. Trägerschaft, Konzeption, rechtliche Vorgaben) und vergleichen Sie diese mit den Anforderungen des RLP-Lehrplans."
+      "praxisTip": "Machen Sie sich in Ihrer Praxiseinrichtung bewusst, welchem Rechtskreis das Angebot unterliegt (SGB VIII/KiTaG vs. SchulG RLP) — davon hängen Zuständigkeiten, Elternbeteiligung, Aufsicht, Ferienbetreuung und Finanzierung direkt ab."
     },
     {
-      "body": "In Kindertageseinrichtungen steht die ganzheitliche Bildung im Mittelpunkt, die über das Spiel, alltagsintegrierte Sprachbildung und beziehungsorientierte Pflege (insbesondere in der U3-Krippe) erfolgt. Bindungstheoretische Ansätze nach Bowlby und Ainsworth bilden die Basis für die Eingewöhnung (z.B. Berliner oder Münchner Modell). Im Ü3-Bereich gewinnen projektorientiertes Arbeiten, offene Arbeit und gruppenübergreifende Ansätze an Bedeutung. Partizipation wird nach dem Ansatz von Laevers (Well-Being und Involvement) oder Infans umgesetzt, wobei Kinder aktiv an der Gestaltung des Kita-Alltags beteiligt werden.",
+      "heading": "2. Altersspezifische Bedarfslagen: Krippe (U3) & Kindergarten (Ü3)",
+      "keyTakeaway": "Während im U3-Bereich feinfühlige Bindung, beziehungsvolle Pflege und behutsame Eingewöhnung im Zentrum stehen, erweitern sich im Ü3-Bereich Spiel-, Peer-, Sprach- und demokratische Beteiligungsräume.",
+      "body": "Gute Elementarpädagogik orientiert sich am Entwicklungsstand und den konkreten Bedürfnissen der jeweiligen Altersgruppe. Im U3-Bereich (0–3 Jahre) bilden emotionale Sicherheit, eine behutsame, elternbegleitete Eingewöhnung (etwa das bezugspersonenorientierte Berliner Modell oder das transitionsorientierte Münchener Modell unter Einbezug der Kindergruppe) sowie beziehungsvolle Pflege (z. B. angelehnt an Emmi Pikler: ankündigen, Zeit lassen, aktive Mitwirkung beim Wickeln und Essen) die Grundlage jeder Bildungsbegleitung. Die Raumgestaltung bietet Schutz, akustische Ruhe, überschaubare Reize und sichere Bewegungs- und Sinnesanlässe. Im Ü3-Bereich (3–6 Jahre) rücken komplexeres Rollenspiel, Peer-Beziehungen, ko-konstruktive Projektarbeit, alltagsintegrierte Sprachbildung und demokratische Beteiligung (z. B. Kinderkonferenzen) stärker in den Vordergrund. Altersgemischte Gruppen bieten dabei besondere Chancen für soziales Modelllernen und Empathie, erfordern aber zugleich gezielte Rückzugs- und Schutzräume für die Jüngsten sowie herausfordernde Angebote für ältere Vorschulkinder — beides gelingt nicht automatisch, sondern durch reflektierte Planung.",
       "bulletPoints": [
-        "Bindung und Eingewöhnung als Fundament für Bildungsprozesse in der Krippe (U3).",
-        "Alltagsintegrierte Sprachbildung als durchgängiges Prinzip in allen Spiel- und Alltagssituationen.",
-        "Partizipation und Kinderkonferenzen zur Stärkung der Selbstwirksamkeit im Kindergarten (Ü3).",
-        "Altersmischung als Lernfeld für soziale Kompetenzen und gegenseitiges Lernen."
+        "U3 (Krippe): Feinfühlige Bindungsbegleitung, behutsame Eingewöhnung, beziehungsvolle Pflege, Schutz vor Reizüberflutung und körpernahe Kommunikation.",
+        "Ü3 (Kindergarten): Freies und angeleitetes Spiel als zentrale Bildungsform, Peer-Kultur, alltagsintegrierte Sprachbildung, Projektarbeit und Partizipation.",
+        "Altersmischung differenziert nutzen: Bietet Chancen für Vorbildlernen und Hilfsbereitschaft, verlangt aber gezielte räumliche und zeitliche Differenzierung nach Altersbedarfen.",
+        "Übergang zur Schule: Die gesamte Kitazeit stärkt Basiskompetenzen (Selbstvertrauen, Sprache, soziales Miteinander, Neugier) statt isolierter Arbeitsblatt-Trainings."
       ],
-      "heading": "Pädagogische Ansätze in Krippe (U3) und Kindergarten (Ü3)",
-      "keyTakeaway": "Sichere Bindung, alltagsintegrierte Sprachbildung und gelebte Partizipation bilden die unverzichtbaren Säulen der Elementarpädagogik.",
-      "praxisTip": "Nutzen Sie in der U3-Eingewöhnung strukturierte Beobachtungsbögen und dokumentieren Sie die Bindungsentwicklung transparent im Team und mit den Eltern."
+      "praxisTip": "Prüfen Sie in einer altersgemischten Gruppe gezielt die Raumzonen aus Kinderperspektive: Finden Zweijährige geschützte, ungestörte Spielbereiche auf dem Boden — und können Fünfjährige zugleich komplexe Bau- oder Rollenspiele fortführen, ohne ständig unterbrochen zu werden?"
     },
     {
-      "body": "Mit dem Schuleintritt verändern sich die Entwicklungsaufgaben von Kindern grundlegend. In Ganztagsschulen (GTS), Horten und betreuenden Grundschulen agieren Erzieher:innen an der Schnittstelle von Familie, Schule und Freizeit. Die Rhythmisierung des Tagesablaufs – der bewusste Wechsel von konzentrierten Lernphasen, Hausaufgaben- oder Lernzeiten und erholungswirksamen Freiräumen – ist ein zentrales Qualitätsmerkmal. Im Gegensatz zum freien Spiel in der Kita gewinnen in der GTS strukturierte Freizeitangebote, AGs und sozialpädagogische Gruppenarbeit an Bedeutung, ohne jedoch den kindlichen Spiel- und Bewegungsbedürfnis zuwiderzulaufen.",
+      "heading": "3. Grundschulkinder begleiten: Ganztagsschule (RLP), Hort & Betreuende Grundschule",
+      "keyTakeaway": "Grundschulkinder brauchen nach dem schulischen Vormittag keine bloße Verlängerung des Unterrichts, sondern Rhythmisierung aus Lernzeit, Bewegung, Peer-Begegnung, unverplanter Freizeit und Mitbestimmung.",
+      "body": "Mit dem Schuleintritt verändern sich Alltag und Entwicklungsaufgaben deutlich: Leistungsanforderungen, verbindliche Unterrichtszeiten, neue Freundschaftsgruppen und wachsende Selbstständigkeit prägen die Lebenswelt von 6- bis 10-Jährigen. In Rheinland-Pfalz gibt es dafür unterschiedliche Angebotsformen: Prägend ist die Ganztagsschule (GTS) in Angebotsform — die Anmeldung durch die Eltern ist freiwillig, nach Anmeldung jedoch in der Regel für ein Schuljahr an vier Wochentagen (montags bis donnerstags) verbindlich und grundsätzlich kostenfrei (mit Mittagessen, Lernzeit und Nachmittagsangeboten). Davon zu unterscheiden sind die seltenere verpflichtende (gebundene) Ganztagsschule, die kommunale Betreuende Grundschule (häufig ergänzend z. B. freitags oder bis 14/16 Uhr) sowie der Hort als eigenständige Tageseinrichtung der Kinder- und Jugendhilfe (mit sozialpädagogischem Profil, Gruppenbezug und in der Regel auch Ferienbetreuung). Fachliches Kernprinzip im Ganztag ist eine kindgerechte Rhythmisierung: Konzentration, Bewegung, gemeinsames Essen, pädagogisch begleitete Lernzeiten (Hilfe zur Selbstständigkeit statt bloßer Fehlerkontrolle) und ausreichend unverplante Freizeit mit eigenen Wahlmöglichkeiten greifen sinnvoll ineinander.",
       "bulletPoints": [
-        "Entwicklungsaufgaben im Grundschulalter: Leistungsanforderungen, soziale Integration und Autonomie.",
-        "Rhythmisierung des Ganztags: Verbindung von Unterricht, Lernzeit und Freizeit.",
-        "Pädagogische Gestaltung von Hausaufgaben- und Lernzeiten (Fokus auf Kompetenzförderung statt reiner Kontrolle).",
-        "Freiraum und Selbstbestimmung als Ausgleich zum verschulten Vormittag."
+        "GTS in Angebotsform (RLP-Modell): Freiwillige Wahl, bei Anmeldung i. d. R. für ein Schuljahr an 4 Tagen verbindlich; verknüpft Schule, Mittagessen, Lernzeit und AGs/Freizeit.",
+        "Hort (Jugendhilfe): Eigenständiger sozialpädagogischer Lebens- und Freizeitort nach SGB VIII/KiTaG mit starkem Fokus auf Beziehung, Partizipation, Ferien und Familienarbeit.",
+        "Rhythmisierung: Bewusster Wechsel aus Anspannung und Entspannung — verhindert Erschöpfung durch „verschulte Nachmittage“.",
+        "Entwicklungsaufgaben 6–10 Jahre: Ausgleich zum stillen Sitzen, peer-orientiertes Spiel, Selbstorganisation in der Lernzeit und Mitbestimmung bei Raum- und Freizeitgestaltung."
       ],
-      "heading": "Erziehung, Bildung und Betreuung von Grundschulkindern (GTS & Hort)",
-      "keyTakeaway": "Grundschulkind-Arbeitsfelder verknüpfen schulische Lernanforderungen mit sozialpädagogischer Freizeit- und Beziehungsarbeit.",
-      "praxisTip": "Gestalten Sie Lernzeiten in der GTS so, dass individuelle Lerntempi berücksichtigt werden und Kinder lernen, eigenverantwortlich und motiviert zu arbeiten."
+      "praxisTip": "Achten Sie in der Hausaufgaben- bzw. Lernzeit darauf, nicht zur bloßen Nachhilfe- oder Kontrollinstanz zu werden: Stärken Sie eigenständige Arbeitsstrategien (z. B. Aufgaben zuerst selbst verstehen, Zeit einteilen) und geben Sie Lehrkräften bei dauerhafter Überforderung sachlich Rückmeldung."
     },
     {
-      "body": "Ein zentrales Qualitätsmerkmal moderner Ganztagsschulen und Horte ist die multiprofessionelle Kooperation zwischen Lehrkräften und sozialpädagogischen Fachkräften. Diese erfordert gegenseitige Rollenklarheit, gemeinsame Dienstbesprechungen und ein abgestimmtes pädagogisches Konzept. Lehrkräfte und Erzieher:innen ergänzen sich ideal: Während Lehrkräfte primär den Fachunterricht verantworten, bringen sozialpädagogische Fachkräfte Expertise in Beziehungsarbeit, Gruppenpädagogik, Freizeitgestaltung und Elternarbeit ein. Gelingende Kooperation baut Vorurteile ab und schafft ein kohärentes Lern- und Lebensumfeld für das Kind.",
+      "heading": "4. Kooperation zwischen Schule & Jugendhilfe sowie gelingende Übergänge",
+      "keyTakeaway": "Kooperation auf Augenhöhe gelingt, wenn Schule und Jugendhilfe ihre unterschiedlichen Handlungslogiken anerkennen, Rollen im Tandem klären und Übergänge gemeinsam mit Kindern und Eltern gestalten.",
+      "body": "An der Schnittstelle von Kita, Hort und Grundschule treffen zwei eigenständige Institutionen mit unterschiedlichen Aufträgen aufeinander: Schule arbeitet nach Schulpflicht, Lehrplänen und Leistungsbeurteilung; Kinder- und Jugendhilfe orientiert sich an Lebenswelt, Beziehung, Freiwilligkeit/Partizipation und Freizeit. Gerade diese Verschiedenheit ist ein großer Gewinn für Kinder — sofern sozialpädagogische Fachkräfte nicht in eine untergeordnete Hilfsrolle gedrängt werden, sondern als gleichberechtigte Profis im multiprofessionellen Tandem agieren. Gelingende Kooperation braucht verlässliche Strukturen: geklärte Zuständigkeiten, gemeinsame Besprechungszeiten (Jour fixe), abgestimmte Regeln für Lernzeit und Konflikte sowie gegenseitige Hospitationen. Beim Übergang von der Kita in die Grund- und Ganztagsschule (Transition) wirken verbindliche Kooperationskalender, gemeinsame Elternabende, Schnuppertage und ein transparenter Informationsaustausch — selbstverständlich strikt datenschutzkonform nur mit informierter Einwilligung der Eltern und ohne defizitorientierte Etikettierung des Kindes.",
       "bulletPoints": [
-        "Rollenklarheit und gegenseitige Wertschätzung zwischen Lehrkräften und Erzieher:innen.",
-        "Gemeinsame Fallberatung und Absprache bei Entwicklungsauffälligkeiten oder Förderbedarf.",
-        "Verzahnung von Vormittagsunterricht und nachmitäglichem Betreuungs- und Bildungsangebot.",
-        "Gemeinsame Bildungs- und Erziehungspartnerschaft mit den Eltern."
+        "Unterschiedliche Handlungslogiken als Stärke: Unterrichts- und Fachdidaktik der Lehrkräfte ergänzen Beziehungs-, Gruppen- und Freizeitpädagogik der Erzieher:innen.",
+        "Strukturen auf Augenhöhe: Feste Austauschzeiten, transparente Raum- und Rollenabsprachen sowie gemeinsame Fallberatungen verhindern Brüche zwischen Vor- und Nachmittag.",
+        "Übergang Kita–Grundschule (Transition): Kind und Eltern aktiv beteiligen, Vorfreude stärken und Anschlussfähigkeit ohne schulische Vorverlegung sichern.",
+        "Datenschutz an der Schnittstelle: Bildungsdokumentationen oder individuelle Entwicklungsberichte werden nur mit schriftlicher Einwilligung der Sorgeberechtigten weitergegeben."
       ],
-      "heading": "Multiprofessionelle Kooperation & Lernzeitbegleitung",
-      "keyTakeaway": "Multiprofessionelle Teams in der Ganztagsschule vereinen unterrichtliche und sozialpädagogische Kompetenzen zum Wohle des Kindes.",
-      "praxisTip": "Initieren Sie in Ihrem Praktikum regelmäßige kurze Jour-fixe-Gespräche mit den Tandem-Lehrkräften, um den Alltag optimal abzustimmen."
+      "praxisTip": "Vereinbaren Sie als sozialpädagogische Fachkraft in der GTS zu Schuljahresbeginn ein kurzes Auftaktgespräch mit der Klassenlehrkraft: Welche gemeinsamen Rituale nutzen wir, wer informiert Eltern bei Konflikten am Nachmittag und wann tauschen wir uns wöchentlich 15 Minuten aus?"
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Arbeitsfelder S-SP-9",
-      "id": "vis-1",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "U3 / Krippe",
-          "detail": "Fokus auf beziehungsorientierte Pflege, Eingewöhnungsmodelle (Berliner/Münchner Modell), alltagsintegrierte Sprachbildung und sensorische Erfahrungsräume. Gesetzliche Grundlage nach SGB VIII und KiTaG RLP.",
-          "example": "Eingewöhnung eines 1-jährigen Kindes mit sicherer Begleitung durch die Bezugserzieherin.",
-          "id": "item-1",
-          "label": "Kindertagesstätte: Krippe (U3)",
-          "metric": "SGB VIII / KiTaG",
-          "summary": "Beziehungs- und Bindungsarbeit im Frühradikalbereich."
-        },
-        {
-          "badge": "Ü3 / Kindergarten",
-          "detail": "Ganzheitliche Bildung nach Orientierungsplan RLP, gruppenübergreifende Projekte, offene Arbeit, Partizipation in Kinderkonferenzen und gezielte Vorbereitung auf die Schule.",
-          "example": "Projekt zur mathematischen Bildung durch Bauen und Konstruieren im Funktionsraum.",
-          "id": "item-2",
-          "label": "Kindertagesstätte: Kindergarten (Ü3)",
-          "metric": "Orientierungsplan RLP",
-          "summary": "Ganzheitliche Elementarerziehung und Partizipation."
-        },
-        {
-          "badge": "GTS / Primarstufe",
-          "detail": "Erziehung, Bildung und Betreuung von Grundschulkindern im Rahmen der Ganztagsschule (Angebots- oder Verbundform). Rhythmisierung von Unterricht, Lernzeit und Freizeit.",
-          "example": "Begleitung der offenen Lernzeit durch ein Tandem aus Lehrkraft und Erzieherin.",
-          "id": "item-3",
-          "label": "Ganztagsschule (GTS)",
-          "metric": "Schulgesetz RLP",
-          "summary": "Schulische Ganztagsbildung und Rhythmisierung."
-        },
-        {
-          "badge": "Hort & Betreuung",
-          "detail": "Klassischer Hort oder Betreuende Grundschule als eigenständiger sozialpädagogischer Lebensort am Nachmittag mit Hausaufgabenbegleitung, Freizeitpädagogik und Elternarbeit.",
-          "example": "Nachmittags-AG 'Kreatives Gestalten' und freies Spiel im Außengelände.",
-          "id": "item-4",
-          "label": "Hort & Betreuende Grundschule",
-          "metric": "Kinder- und Jugendhilfe",
-          "summary": "Sozialpädagogische Nachmittagsbetreuung."
-        },
-        {
-          "badge": "Schnittstelle",
-          "detail": "Professionelle Gestaltung des Übergangs (Transition) von der Kita in den Primarbereich durch Kooperationskalender, gemeinsame Portfolioarbeit und multiprofessionelle Teambildung.",
-          "example": "Gemeinsamer Elternabend von Kita-Team und Grundschullehrkräften für zukünftige Erstklässler.",
-          "id": "item-5",
-          "label": "Übergang & Kooperation",
-          "metric": "Transition",
-          "summary": "Schnittstellenkompetenz und Tandemarbeit."
-        }
-      ],
+      "id": "vb-1",
       "kind": "comparison",
-      "leftPole": "Elementarbereich (Kita)",
-      "rightPole": "Primarbereich (GTS/Hort)",
-      "subtitle": "Vergleich der strukturellen und pädagogischen Profile im Modul S-SP-9",
-      "title": "Strukturvergleich der Arbeitsfelder: Kita vs. Grundschulkindbetreuung"
-    },
-    {
-      "centerLabel": "Entwicklungsbogen",
-      "id": "vis-2",
+      "title": "Arbeitsfelder im Vergleich: Krippe, Kindergarten, Hort & GTS (RLP)",
+      "subtitle": "Rechtsgrundlagen, Altersgruppen und pädagogische Kernprofile im Überblick",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "0 - 3 Jahre",
-          "detail": "Krippenalter: Fokus auf primäre Bindungserfahrungen, körperbezogene Pflege, sensomotorische Entdeckungen und frühe nonverbale sowie verbale Kommunikation.",
-          "example": "Gezielte Interaktion beim Wickeln zur Stärkung der Individualität und Körperwahrnehmung.",
-          "id": "t-1",
-          "label": "Krippenphase (U3)",
-          "metric": "Frühe Kindheit",
-          "summary": "Bindungsaufbau und sensomotorische Bildung."
+          "id": "af-1",
+          "badge": "U3 · 0–3 Jahre",
+          "label": "Krippe / U3-Gruppe",
+          "metric": "SGB VIII & KiTaG RLP",
+          "summary": "Bindung, behutsame Eingewöhnung, beziehungsvolle Pflege und Sinnesexploration.",
+          "detail": "Hoher Bedarf an verlässlicher Bezugspersonenarbeit, reizarmer Umgebung, enger Elternabstimmung und feinfühliger Begleitung früher sprachlicher und motorischer Entwicklung.",
+          "example": "Begleitung eines 15 Monate alten Kindes während der Eingewöhnung mit feinfühliger Übergabe und dialogischer Wickelsituation."
         },
         {
-          "badge": "3 - 6 Jahre",
-          "detail": "Kindergartenalter: Explorationsdrang, Rollenspiel, soziale Reifung in altershomogenen und -mischten Gruppen, Vertiefung der alltagsintegrierten Sprachbildung und mathematischen Grunderfahrungen.",
-          "example": "Freispiel im Baubereich mit gemeinsamer Regelabsprache unter Gleichaltrigen.",
-          "id": "t-2",
-          "label": "Kindergartenphase (Ü3)",
-          "metric": "Elementarbereich",
-          "summary": "Spiel, Projektarbeit und soziale Kompetenz."
+          "id": "af-2",
+          "badge": "Ü3 · 3–6 Jahre",
+          "label": "Kindergarten / Ü3",
+          "metric": "Bildungs- & Erziehungsempfehlungen RLP",
+          "summary": "Spiel, Peer-Welt, alltagsintegrierte Sprachbildung, Projekte und Partizipation.",
+          "detail": "Fördert Selbstbildung, soziale Aushandlungsprozesse, demokratische Mitbestimmung und eine ganzheitliche Begleitung des Übergangs in die Grundschule.",
+          "example": "Kinderkonferenz zur Gestaltung des Außengeländes und ko-konstruktives Experimentieren in der Lernwerkstatt."
         },
         {
-          "badge": "Vorschuljahr",
-          "detail": "Übergangsphase (Transition): Gezielte Stärkung der Schulfähigkeit im Sinne von Basiskompetenzen, Portfolio-Abschluss, Kooperationsaktivitäten mit der Grundschule.",
-          "example": "Besuch der künftigen Grundschulklasse und Kennenlernen der Patenkinder.",
-          "id": "t-3",
-          "label": "Vorschulphase & Transition",
-          "metric": "Übergangskompetenz",
-          "summary": "Vorbereitung auf den Schulwechsel."
+          "id": "af-3",
+          "badge": "Primar · Schulrecht",
+          "label": "Ganztagsschule (GTS RLP)",
+          "metric": "SchulG RLP · Angebotsform",
+          "summary": "Freiwillige Anmeldung, dann i. d. R. für ein Schuljahr an 4 Tagen verbindlich.",
+          "detail": "Verbindet Unterricht, Mittagessen, pädagogisch begleitete Lernzeit und Nachmittagsangebote in multiprofessioneller Kooperation von Lehrkräften und pädagogischen Fachkräften.",
+          "example": "Rhythmisierter Tag mit Unterricht, gemeinsamem Mittagessen, offener Lernzeit im Tandem und kreativer Bewegungs-AG."
         },
         {
-          "badge": "6 - 10 Jahre",
-          "detail": "Grundschulalter: Bewältigung von Leistungsanforderungen, Einbindung in Ganztagsschule oder Hort, Erwerb von Kulturtechniken und Aufbau neuer peer-group-Beziehungen.",
-          "example": "Teilnahme an der verlässlichen Lernzeit und anschließender Freizeit-AG in der GTS.",
-          "id": "t-4",
-          "label": "Primarstufe & Ganztag",
-          "metric": "Schulkindalter",
-          "summary": "Schulische und sozialpädagogische Integration."
+          "id": "af-4",
+          "badge": "Primar · Jugendhilfe",
+          "label": "Hort & Betreuende Grundschule",
+          "metric": "SGB VIII / KiTaG vs. kommunale Betreuung",
+          "summary": "Sozialpädagogischer Lebens-, Freizeit- und Beziehungsort am Nachmittag (inkl. Ferien im Hort).",
+          "detail": "Der Hort agiert als eigenständige Jugendhilfeeinrichtung mit starkem Fokus auf Freizeitpädagogik, Partizipation, Hausaufgabenbegleitung und Elternarbeit; Betreuende Grundschulen ergänzen flexibel Randzeiten.",
+          "example": "Freies Spiel im Werkraum, selbst gewählte Kleingruppenprojekte und verlässliche Ferienprogramme im Hort."
         }
-      ],
+      ]
+    },
+    {
+      "id": "vb-2",
       "kind": "timeline",
-      "leftPole": "Frühe Kindheit",
-      "rightPole": "Grundschulalter",
-      "subtitle": "Entwicklungs- und Betreuungsverläufe vom Kleinkind bis zum Grundschulkind",
-      "title": "Entwicklungs- und Bildungsbiografie im RLP-Lehrplan"
-    },
-    {
-      "centerLabel": "Kooperation",
-      "id": "vis-3",
+      "title": "Bildungs- und Übergangsbiografie von 0 bis 10 Jahren",
+      "subtitle": "Sich wandelnde Entwicklungsaufgaben und professionelle Übergangsbegleitung",
+      "centerLabel": "Bildungsbiografie",
+      "leftPole": "0 Jahre",
+      "rightPole": "10 Jahre",
       "isCycle": false,
       "items": [
         {
-          "badge": "Stufe 1",
-          "detail": "Regelmäßiger Informationsaustausch zwischen Kita-Fachkräften und Grundschullehrkräften über organisatorische Abläufe und organisierte Schnuppertage.",
-          "example": "Gemeinsamer Terminplan für das letzte Kitajahr.",
-          "id": "f-1",
-          "label": "Informationsaustausch",
-          "metric": "Basis-Kooperation",
-          "summary": "Gegenseitige Information und Terminabstimmung."
+          "id": "bio-1",
+          "badge": "0–3 Jahre",
+          "label": "Krippe & frühe Kindheit",
+          "metric": "Sicherheit & Basis",
+          "summary": "Aufbau verlässlicher Bindungen, Körper- und Sinneserfahrung, frühe Sprache.",
+          "detail": "Übergang aus der Familie wird behutsam begleitet; alltägliche Pflege- und Spielsituationen bilden zentrale Bildungsmomente.",
+          "example": "Konstante Bezugserzieherin, transparente tägliche Rückmeldung an Eltern und sichere Kletter- und Rückzugsbereiche."
         },
         {
-          "badge": "Stufe 2",
-          "detail": "Gemeinsame Fallberatungen, Hospitationen im jeweils anderen Praxisfeld und Abgleich der pädagogischen Konzepte (Orientierungsplan vs. Lehrplan).",
-          "example": "Erzieherin hospitiert im ersten Schuljahr; Lehrkraft besucht die Vorschulgruppe in der Kita.",
-          "id": "f-2",
-          "label": "Pädagogische Abstimmung",
-          "metric": "Vertiefung",
-          "summary": "Gegenseitige Hospitation und Konzeptabgleich."
+          "id": "bio-2",
+          "badge": "3–5 Jahre",
+          "label": "Kindergarten & Peer-Welt",
+          "metric": "Spiel & Autonomie",
+          "summary": "Ausbau von Rollenspiel, Freundschaften, Sprachkompetenz und Mitbestimmung.",
+          "detail": "Kinder erproben soziale Regeln, erforschen die Welt in Projekten und erleben Selbstwirksamkeit in der Gruppe.",
+          "example": "Eigenständige Auswahl von Spielbereichen und gemeinsame Aushandlung von Gruppenregeln."
         },
         {
-          "badge": "Stufe 3",
-          "detail": "Aktive Ko-Konstruktion von Übergangsangeboten, gemeinsame Elternabende, Durchführung von Projekten in der Schuleingangsphase und Tandem-Angebote.",
-          "example": "Gemeinsam gestalteter Elternabend zum Thema Schulfähigkeit und GTS.",
-          "id": "f-3",
-          "label": "Ko-Konstruktion & Elternpartnerschaft",
-          "metric": "Partnerschaft",
-          "summary": "Gemeinsame Elternarbeit und Übergangsprojekte."
+          "id": "bio-3",
+          "badge": "5–6 Jahre",
+          "label": "Transition Kita → Grundschule",
+          "metric": "Anschlussfähigkeit",
+          "summary": "Kooperative Begleitung des Schulübergangs mit Kind, Eltern, Kita und Schule.",
+          "detail": "Baut Ängste ab, stärkt Übergangskompetenz und verbindet Elementar- und Primarbereich ohne Leistungsdruck.",
+          "example": "Besuch der künftigen Schule, Patenkind-Tandems, gemeinsamer Elternabend und einwilligungsbasierter Austausch."
         },
         {
-          "badge": "Stufe 4",
-          "detail": "Vollständige multiprofessionelle Teamarbeit in der Ganztagsschule mit gemeinsamer Raum- und Zeitgestaltung, geteilter Verantwortung und inklusiver Förderung.",
-          "example": "Team-Teaching von Lehrkraft und sozialpädagogischer Fachkraft in der offenen Lernzeit.",
-          "id": "f-4",
-          "label": "Multiprofessionelles Team-Teaching",
-          "metric": "Exzellenzstufe",
-          "summary": "Integrierte Teamarbeit im Ganztag."
+          "id": "bio-4",
+          "badge": "6–10 Jahre",
+          "label": "Grundschule, GTS & Hort",
+          "metric": "Rhythmisierung & Freizeit",
+          "summary": "Balance aus schulischem Lernen, Bewegung, Peer-Beziehungen und Selbstbestimmung.",
+          "detail": "Multiprofessionelle Begleitung sichert Entspannung, selbstständige Lernzeiten und echte Freiräume jenseits von Notendruck.",
+          "example": "Kinder wählen nach der Lernzeit zwischen Sportplatz, Ruhezone, Leseclub oder freiem Spiel im Hort."
         }
-      ],
+      ]
+    },
+    {
+      "id": "vb-3",
       "kind": "feature_grid",
-      "leftPole": "Informationsaustausch",
-      "rightPole": "Team-Teaching",
-      "subtitle": "Stufenmodell multiprofessioneller Zusammenarbeit im Arbeitsfeldübergang",
-      "title": "Feature-Grid: Multiprofessionelle Kooperation (Kita – GTS)"
+      "title": "Gelingensbedingungen der Kooperation Schule – Jugendhilfe",
+      "subtitle": "Vier Säulen für eine tragfähige Zusammenarbeit zwischen Lehrkräften und sozialpädagogischen Fachkräften",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "koop-1",
+          "badge": "Haltung",
+          "label": "Kooperation auf Augenhöhe",
+          "metric": "Gleichwertigkeit",
+          "summary": "Beide Professionen bringen eigenständige, gleich wichtige Fachkompetenzen ein.",
+          "detail": "Sozialpädagogische Fachkräfte sind keine „Assistent:innen für den Nachmittag“, sondern Expert:innen für Beziehung, Gruppe, Lebenswelt, Partizipation und Freizeit.",
+          "example": "Lehrkraft und Erzieherin leiten einen Elternabend zur Ganztagsschule gemeinsam und gleichberechtigt."
+        },
+        {
+          "id": "koop-2",
+          "badge": "Struktur",
+          "label": "Feste Austauschzeiten",
+          "metric": "Jour fixe",
+          "summary": "Verbindliche, im Dienstplan verankerte Zeitfenster für Übergaben und Fallbesprechungen.",
+          "detail": "Verhindert, dass wichtige Informationen zu kindlichen Belastungen, Konflikten oder Lernzeiten zwischen Vor- und Nachmittag verloren gehen.",
+          "example": "Wöchentliches 20-minütiges Tandem-Gespräch zwischen Klassenleitung und GTS-Fachkraft."
+        },
+        {
+          "id": "koop-3",
+          "badge": "Pädagogik",
+          "label": "Gemeinsame Rhythmisierung",
+          "metric": "Ganzheitlicher Tag",
+          "summary": "Abstimmung von Lernzeiten, Bewegungsphasen, Rückzug und Freizeit über den ganzen Tag.",
+          "detail": "Statt getrennter Welten aus „strengem Vormittag“ und „chaotischem Nachmittag“ entsteht eine stimmige, entlastende Tageskultur für die Kinder.",
+          "example": "Abgestimmte Regeln für die Lernzeit und bewusste Bewegungs- und Ruhepausen nach dem Mittagessen."
+        },
+        {
+          "id": "koop-4",
+          "badge": "Recht & Familie",
+          "label": "Elternpartnerschaft & Datenschutz",
+          "metric": "Transparenz",
+          "summary": "Einbindung der Eltern und schriftliche Einwilligung vor personenbezogenem Datenaustausch.",
+          "detail": "Eltern wissen stets, welche Informationen zwischen Kita, Hort und Schule ausgetauscht werden und behalten die Hoheit über Entwicklungsdokumentationen.",
+          "example": "Einwilligungsbasiertes Übergabegespräch zu dritt (Eltern, Kita-Fachkraft, Grundschullehrkraft)."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "5 bis 10 Jahre (Übergang Kita zur Ganztagsschule / Hort)",
-    "context": "In der integrativen Kindertageseinrichtung „Regenbogen“ steht kurz vor den Sommerferien der Übergang von Max (6 Jahre) in die kooperierende Grundschule mit angegliederter Ganztagsschule (GTS) an. Max zeigt in der Freispielphase zunehmend Schwierigkeiten mit Strukturwechseln und äußert Sorge vor den künftigen „Schularbeiten“ und dem strengeren Rahmen in der GTS. Die beteiligten Fachkräfte (Erzieherin in der Kita, Lehrkraft der Grundschule und pädagogische Fachkraft der GTS) stehen vor der Aufgabe, diesen Übergang professionell zu begleiten.",
-    "setting": "Schnittstelle zwischen Kindertageseinrichtung (Ü3) und Grundschule / Ganztagsschule (GTS) nach RLP-Lehrplan S-SP-9",
+    "title": "Übergang und Ganztagsalltag: Nele zwischen Kita, Grundschule und GTS",
+    "setting": "Kooperation zwischen einer Kita in Rheinland-Pfalz und einer Grundschule mit Ganztagsschule in Angebotsform",
+    "ageGroup": "6 Jahre (Übergang Vorschuljahr zur 1. Klasse)",
+    "context": "Die 6-jährige Nele wechselt nach den Sommerferien aus der Kita „Lindenhof“ in die kooperierende Grundschule mit Ganztagsschule in Angebotsform (Mo–Do bis 16 Uhr). Nele freut sich auf das Lesen, tut sich aber bei lauten Raumwechseln schwer und hat Respekt vor den „langen Schultagen“.",
     "steps": [
       {
+        "situation": "Zwei Monate vor der Einschulung schlägt die Grundschule vor, die Kita solle doch einfach vorab die kompletten Entwicklungsbögen aller künftigen Erstklässler per Post ins Sekretariat schicken, „damit wir direkt wissen, wer Förderung braucht“.",
+        "prompt": "Wie gestalten Sie den Übergang und den Informationsaustausch zwischen Kita und Grundschule rechtssicher und fachlich angemessen?",
         "options": [
           {
-            "feedback": "Das ist optimal! Die Fachkräfte aus Kita und GTS nutzen den Orientierungsplan RLP sowie den Kooperationskalender, führen ein gemeinsames Übergabegespräch (unter Einbezug der Eltern und des Kindes) und bereiten Max spielerisch auf veränderte Routinen vor, ohne schulischen Leistungsdruck aufzubauen.",
-            "label": "Gemeinsame Übergabegestaltung mit Elternkonferenz, Portfolio-Austausch und Hospitation in der GTS.",
-            "quality": "optimal",
-            "theoryLink": "Lehrplan RLP S-SP-9; Übergangsbegleitung & Bildungs- und Erziehungspartnerschaft (SGB VIII § 22, Schulgesetz RLP)"
-          },
-          {
-            "feedback": "Dies greift zu kurz. Eine rein administrative Aktenübermittlung ohne pädagogischen Dialog und ohne Einbeziehung des Kindes vernachlässigt die kindzentrierte Übergangsdidaktik und erhöht Ängste.",
-            "label": "Ausschließliche Weiterleitung der Entwicklungsdokumentation an die Schulleitung per Post.",
-            "quality": "problematisch",
-            "theoryLink": "Richtlinie zur Bildungs- und Erziehungspartnerschaft; Datenschutz und Partizipationsgebot"
-          },
-          {
-            "feedback": "Dies ist ein Teilschritt, aber unvollständig. Die Eltern müssen aktiv eingebunden werden, und die Kooperation mit der Grundschule erfordert mehr als nur einen losen Infobrief.",
-            "label": "Verteilung eines Informationsblatts zum Schulanfang an die Eltern und Durchführung eines letzten Kita-Ausflugs.",
+            "label": "Die Kita gibt den Eltern lediglich einen kurzen Infozettel zum Einschulungstag mit und verzichtet auf jede Kooperation mit der Grundschule, um Datenschutzrisiken auszuschließen.",
             "quality": "teilweise",
-            "theoryLink": "Orientierungsplan für Bildung und Erziehung in RLP (Kapitel Übergänge)"
+            "feedback": "Datenschutz wird zwar nicht verletzt, aber der wichtige kooperative Übergangsauftrag zwischen Elementar- und Primarbereich bleibt ungenutzt — Nele und ihre Eltern werden mit Unsicherheiten allein gelassen.",
+            "theoryLink": "Kooperationsauftrag Kita–Grundschule zur Sicherung von Anschlussfähigkeit."
+          },
+          {
+            "label": "Die Kita sendet die Entwicklungsdokumentationen ohne Wissen der Eltern verschlossen an die Schulleitung, weil beide Einrichtungen ja im Interesse der Kinder handeln.",
+            "quality": "problematisch",
+            "feedback": "Das verstößt klar gegen Datenschutz und Elternrechte! Personenbezogene Entwicklungsdokumentationen gehören zu den besonders geschützten Daten und dürfen keinesfalls ohne ausdrückliche Einwilligung der Sorgeberechtigten an die Schule weitergegeben werden.",
+            "theoryLink": "Datenschutz & Schweigepflicht an der Schnittstelle Kita–Schule; Bildungs- und Erziehungspartnerschaft."
+          },
+          {
+            "label": "Kita und Grundschule organisieren gemeinsam Schnupperbesuche, ein Patenprogramm und einen gemeinsamen Elternabend; für den individuellen Austausch über Neles Stärken und Übergangswünsche lädt die Kita die Eltern zu einem freiwilligen, einwilligungsbasierten Übergabegespräch ein (inkl. Neles eigenem Übergangsportfolio).",
+            "quality": "optimal",
+            "feedback": "Vorbildliche Übergangsbegleitung! Datenschutz und Elternhoheit werden vollständig gewahrt, Nele erlebt echte Beteiligung und Vorfreude, und die Schule erhält ressourcenorientierte Informationen im direkten Dialog statt über einseitige Akten.",
+            "theoryLink": "Transitionsansatz; Bildungs- und Erziehungsempfehlungen RLP; datenschutzkonforme Kooperation Kita–Grundschule."
           }
-        ],
-        "prompt": "Wie gestalten die pädagogischen Fachkräfte den Übergang von Max adäquat?",
-        "situation": "Max (6 Jahre) wechselt nach den Sommerferien in die Ganztagsschule (GTS). Er zeigt Unsicherheiten bezüglich der neuen Regeln und Lernzeiten."
+        ]
       },
       {
+        "situation": "Im Oktober — sechs Wochen nach Schulbeginn — wirkt Nele in der GTS nachmittags oft erschöpft und weint in der Lernzeit. Die neue Klassenlehrkraft erwartet, dass die GTS-Fachkraft in der 60-minütigen Lernzeit alle Arbeitsblätter fehlerfrei durcharbeitet; für freies Spiel oder Bewegung bleibt kaum Zeit.",
+        "prompt": "Wie klären Sie als sozialpädagogische Fachkraft die Gestaltung des Ganztags und die Zusammenarbeit im Tandem?",
         "options": [
           {
-            "feedback": "Das ist optimal! In der GTS wird durch multiprofessionelle Teams (Lehrkräfte und sozialpädagogische Fachkräfte) eine Rhythmisierung geschaffen, die freie Spielzeiten, rhythmisiertes Lernen und verlässliche Beziehungsangebote verknüpft, sodass Max sanft an die neuen Anforderungen herangeführt wird.",
-            "label": "Implementierung einer rhythmisierten Tagesstruktur mit verlässlichen Bezugspersonen, Freiräumen und enger Absprache zwischen Lehr- und Erziehungspersonal.",
-            "quality": "optimal",
-            "theoryLink": "Konzept der Ganztagsschule in RLP; Multiprofessionelle Kooperation; § 22 SGB VIII"
-          },
-          {
-            "feedback": "Das ist problematisch. Strikter Frontalunterricht und Leistungsdruck ohne Berücksichtigung des bisherigen bildungswissenschaftlichen Ansatzes aus der Kita führen zu Überforderung und Motivationsverlust.",
-            "label": "Sofortige Umstellung auf klassischen Frontalunterricht mit strenger Leistungsmessung, um den Übergang zur 'Ernsthaftigkeit' zu erzwingen.",
+            "label": "Sie fügen sich widerspruchslos der Vorgabe der Lehrkraft und lassen Nele die Arbeitsblätter noch strenger bis zum letzten Satz abarbeiten, damit die Schule zufrieden ist.",
             "quality": "problematisch",
-            "theoryLink": "Grundschulordnung RLP; Bildungsauftrag der Schule und Anschlussfähigkeit der Elementarpädagogik"
+            "feedback": "Das zementiert eine untergeordnete Hilfsrolle der Sozialpädagogik, widerspricht dem Konzept einer rhythmisierten Ganztagsschule und verstärkt Neles Erschöpfung und Schulunlust.",
+            "theoryLink": "Grenzen einer verschulten Nachmittagsbetreuung; fehlende Rollenklärung im multiprofessionellen Tandem."
           },
           {
-            "feedback": "Dies ist ein Ansatz, vernachlässigt jedoch die multiprofessionelle Abstimmung. Wenn Lehrkräfte und GTS-Fachkräfte isoliert agieren, entstehen Brüche in der Betreuungskultur.",
-            "label": "Ausschließlich nachmittags Betreuung durch Studierende ohne Absprache mit der Klassenlehrkraft über den Vormittag.",
+            "label": "Sie lassen Nele ab sofort heimlich die Lernzeit ausfallen und draußen spielen, ohne mit der Klassenlehrkraft oder den Eltern darüber zu sprechen.",
             "quality": "teilweise",
-            "theoryLink": "Qualitätsstandards für Ganztagsschulen in RLP"
+            "feedback": "Das Erkennen von Neles Ruhe- und Bewegungsbedarf ist nachvollziehbar, aber unabgesprochenes Alleinhandeln erzeugt Konflikte zwischen Vor- und Nachmittag und irritiert Kind, Lehrkraft und Eltern.",
+            "theoryLink": "Transparenz und verbindliche Absprachen in der Kooperation Schule–Jugendhilfe."
+          },
+          {
+            "label": "Sie suchen das sachliche Tandem-Gespräch mit der Klassenlehrkraft und der GTS-Koordination, machen die hohe Erschöpfung von Erstklässler:innen sichtbar, vereinbaren eine kindgerechte Rhythmisierung (erst Bewegung/Pause nach dem Essen, dann realistische Lernzeit mit Fokus auf Selbstständigkeit statt Fehlerdrill sowie echte Freiräume) und klären die jeweiligen Rollen im Elternkontakt.",
+            "quality": "optimal",
+            "feedback": "Sehr professionell! Sie vertreten die eigenständige sozialpädagogische Perspektive auf Augenhöhe, schützen Nele vor einem überfordernden „verschulten Nachmittag“ und stärken die multiprofessionelle Zusammenarbeit im Ganztag.",
+            "theoryLink": "Qualitätsstandards der Ganztagsschule RLP (Rhythmisierung); multiprofessionelle Kooperation Schule–Jugendhilfe."
           }
-        ],
-        "prompt": "Wie wird Max in den ersten Wochen in der Ganztagsschule (GTS) pädagogisch aufgefangen?",
-        "situation": "In den ersten Schulwochen in der GTS klagt Max über Erschöpfung und vermisst die selbstbestimmten Freiräume der Kindertageseinrichtung."
+        ]
       }
-    ],
-    "title": "Der Übergang von der Kita in die Grundschule / Ganztagsschule (GTS)"
+    ]
   },
   "selfLearningTasks": [
-    "Reflektieren Sie anhand Ihres aktuellen ausbildungsbegleitenden Praktikums (entweder in Kita oder GTS/Hort): Welche strukturellen Unterschiede im Tagesablauf und in der Beziehungsgestaltung sind für Sie am spürbarsten? Dokumentieren Sie Ihre Beobachtungen auf 2 Seiten.",
-    "Entwerfen Sie ein Konzept für eine „Kinderkonferenz“ in Ihrem Praxisfeld (entweder Kita oder Ganztagsschule), in der Kinder über die Gestaltung eines Nachmittagsangebots oder die Raumgestaltung mitbestimmen. Berücksichtigen Sie dabei sprachfördernde Methoden.",
-    "Analysieren Sie ein Praxisbeispiel zur multiprofessionellen Kooperation (z.B. Lehrer-Erzieher-Tandem bei Hausaufgaben/Lernzeiten) und erarbeiten Sie drei konkrete Verbesserungsvorschläge zur Optimierung der Teamarbeit."
+    "Vergleichen Sie anhand zweier realer Einrichtungen aus Ihrer Region (z. B. einer Kita/Hort-Einrichtung und einer Ganztagsgrundschule in RLP) Rechtsgrundlage, Tagesstruktur, Ferienregelung, Beteiligungsformen und Rolle der sozialpädagogischen Fachkräfte in einer übersichtlichen Tabelle.",
+    "Entwerfen Sie einen realistischen Kooperationskalender für das letzte Kitajahr vor der Einschulung (September bis Juli) mit mindestens sechs konkreten Bausteinen für Kinder, Eltern, Kita-Team und Grundschule — markieren Sie dabei klar alle datenschutzrelevanten Stellen.",
+    "Skizzieren Sie einen rhythmisierten Nachmittagsablauf (12:00 bis 16:00 Uhr) für Erst- und Zweitklässler:innen in einer Ganztagsschule oder einem Hort, der Bewegung, Mittagessen, eigenständige Lernzeit und echte selbstbestimmte Freizeit sinnvoll ausbalanciert."
   ],
   "flashcards": [
     {
-      "definition": "Die gesetzlich verankerte und partnerschaftliche Zusammenarbeit von pädagogischen Fachkräften (Kita/GTS) und Lehrkräften zur optimalen Begleitung von Bildungsbiografien.",
-      "example": "Gemeinsame Fallberatungen und Team-Co-Teaching in der offenen Lernzeit in der GTS.",
-      "term": "Multiprofessionelle Kooperation"
+      "term": "Förderauftrag nach § 22 SGB VIII & KiTaG RLP",
+      "definition": "Gesetzlicher Auftrag von Tageseinrichtungen zur ganzheitlichen Erziehung, Bildung und Betreuung als gleichwertiger Einheit — mit dem Ziel, Kinder zu eigenverantwortlichen, gemeinschaftsfähigen Persönlichkeiten zu fördern (inkl. Partizipation und Inklusion als Regelfall im KiTaG RLP).",
+      "example": "Alltagsintegrierte Sprachbildung, freies Spiel, Pflege und Kinderkonferenzen sind gleichwertige Bestandteile des Kita-Auftrags."
     },
     {
-      "definition": "Die pädagogisch gestaltete Brücke zwischen Kindertageseinrichtung und Grundschule/GTS, die Anschlussfähigkeit sichert und Ängste abbaut.",
-      "example": "Kooperationskalender, Portfolio-Übergabe und Schnuppertage für Vorschulkinder.",
-      "term": "Übergangsbegleitung (Transition)"
+      "term": "Rechtsansprüche nach § 24 SGB VIII",
+      "definition": "Gestaffelte Förderansprüche: U1 bei Bedarf/Erwerbstätigkeit (Abs. 1), U3 ab vollendetem 1. Lebensjahr (Abs. 2), Ü3 ab vollendetem 3. Lebensjahr bis Schuleintritt (Abs. 3) sowie ab Schuljahr 2026/27 schrittweiser 8-Stunden-Anspruch für Grundschulkinder (Abs. 4).",
+      "example": "Ab dem Schuljahr 2026/27 haben Erstklässler:innen bundesweit Anspruch auf ganztägige Förderung (erfüllbar durch Unterricht + GTS/Hort)."
     },
     {
-      "definition": "Eine Schulform, in der an mindestens drei Tagen pro Woche Pflichtunterricht über den Vormittag hinaus bis nachmittags mit verbindlichen Bildungs- und Betreuungsangeboten stattfindet.",
-      "example": "GTS in Angebots- oder Verbundform nach RLP-Schulgesetz mit multiprofessionellem Team.",
-      "term": "Ganztagsschule (GTS)"
+      "term": "Ganztagsschule in Angebotsform (RLP)",
+      "definition": "Das prägende Ganztagsschulmodell in Rheinland-Pfalz: Die Anmeldung ist für Familien freiwillig; nach Anmeldung ist die Teilnahme in der Regel für ein Schuljahr an vier Tagen (Mo–Do) verbindlich und kostenfrei (ohne Mittagessen-Kostenbeteiligung).",
+      "example": "Eltern melden ihr Kind für ein Schuljahr an der Ganztagsgrundschule an; Unterricht, Lernzeit und Nachmittagsangebote sind verlässlich verknüpft."
     },
     {
-      "definition": "Das Recht von Kindern, bei allen Entscheidungen, die ihre Person betreffen, entsprechend ihrem Entwicklungsstand beteiligt zu werden (§ 8 SGB VIII, Art. 12 UN-KRK).",
-      "example": "Kinderkonferenz im Hort zur Mitbestimmung der Nachmittags-AGs.",
-      "term": "Partizipation"
+      "term": "Rhythmisierung im Ganztag",
+      "definition": "Pädagogisch durchdachte Verteilung von Konzentrationsphasen, Bewegung, Mahlzeiten, Lernzeiten, Entspannung und unverplanter Freizeit über den gesamten Tag statt bloßer Verlängerung des Vormittagsunterrichts.",
+      "example": "Nach dem Mittagessen folgt zunächst eine bewegte Hof- und Ruhepause, bevor eine überschaubare Lernzeit und frei wählbare Freizeitangebote beginnen."
     },
     {
-      "definition": "Die bewusste Verzahnung von kognitiven Lernphasen, Entspannung, Bewegung und freiem Spiel im Tagesverlauf von Kindertageseinrichtungen und Ganztagsschulen.",
-      "example": "Wechsel aus gebundenem Unterricht, offener Lernzeit und angeleitetem Bewegungsspiel im Schulhof.",
-      "term": "Rhythmisierung"
+      "term": "Verantwortungsgemeinschaft (KiTaG RLP)",
+      "definition": "Gesetzlich verankertes Prinzip (§ 3 KiTaG RLP), wonach Eltern, pädagogische Fachkräfte, Träger und örtlicher Träger der öffentlichen Jugendhilfe partnerschaftlich zum Wohl des Kindes zusammenwirken (u. a. im Kita-Beirat).",
+      "example": "Im Kita-Beirat beraten Elternvertretung, Team, Leitung und Träger gemeinsam über grundsätzliche konzeptionelle und organisatorische Fragen."
     },
     {
-      "definition": "Ein tagesstrukturierendes Angebot für Grundschulkinder außerhalb der Unterrichtszeit, das Bildung, Freizeit und soziale Lernfelder verknüpft.",
-      "example": "Hortbetreuung mit Hausaufgabenbegleitung und projektorientierter Freizeitpädagogik.",
-      "term": "Hort / Betreuende Grundschule"
+      "term": "Kooperation Schule – Jugendhilfe",
+      "definition": "Partnerschaftliche Zusammenarbeit zweier eigenständiger Systeme (Schulrecht vs. SGB VIII) auf Augenhöhe, die fachunterrichtliche und sozialpädagogische Kompetenzen zum Wohl des Kindes verknüpft.",
+      "example": "Lehrkraft und Erzieher:in stimmen in einem wöchentlichen Jour fixe Lernzeiten, Freizeitbedarfe und Elternkontakte ab."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Nach § 22 SGB VIII und den Ländesgesetzen (KiTaG RLP) umfasst der gesetzliche Auftrag von Kindertageseinrichtungen immer eine untrennbare Einheit aus Erziehung, Bildung und Betreuung.",
-      "id": "quiz-1",
+      "question": "Welches Merkmal kennzeichnet das in Rheinland-Pfalz vorherrschende Modell der „Ganztagsschule in Angebotsform“?",
       "options": [
-        "Ausschließlich die schulvorbereitende Wissensvermittlung für den reibungslosen Schuleintritt.",
-        "Die Einheit von Erziehung, Bildung und Betreuung als ganzheitlicher Förderauftrag für die kindliche Entwicklung.",
-        "Die reine Betreuung und Entlastung berufstätiger Eltern während der Vormittagsstunden.",
-        "Die Selektion von Kindern nach Entwicklungsstand zur Vorbereitung auf unterschiedliche Schulformen."
+        "Alle Kinder im Schulbezirk sind gesetzlich zum Ganztagsbesuch von Montag bis Freitag verpflichtet.",
+        "Kinder können an jedem einzelnen Nachmittag spontan ohne Anmeldung kommen oder fernbleiben.",
+        "Die Ganztagsschule in Angebotsform gehört rechtlich nicht zur Schule, sondern ausschließlich zum Hort nach KiTaG.",
+        "Die Anmeldung ist für Eltern freiwillig; nach erfolgter Anmeldung ist die Teilnahme in der Regel für ein Schuljahr an den angebotenen Tagen (meist Mo–Do) verbindlich."
       ],
-      "question": "Welcher Grundauftrag kennzeichnet Kindertageseinrichtungen (U3/Ü3) nach dem gesetzlichen Rahmen (SGB VIII und KiTaG RLP)?",
-      "type": "single"
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Die rheinland-pfälzische Ganztagsschule in Angebotsform verbindet Wahlfreiheit bei der Anmeldung mit pädagogischer Verlässlichkeit für in der Regel ein Schuljahr (meist montags bis donnerstags)."
     },
     {
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Was regelt § 24 Abs. 4 SGB VIII für Kinder im Grundschulalter ab dem Schuljahr 2026/2027?",
+      "options": [
+        "Die vollständige Abschaffung von Horten zugunsten privater Nachhilfeinstitute.",
+        "Einen Rechtsanspruch ausschließlich auf Hausaufgabenbetreuung von 30 Minuten täglich.",
+        "Einen stufenweise einsetzenden Rechtsanspruch (beginnend mit Klassenstufe 1 bis Beginn der 5. Klasse) auf werktags achtstündige Förderung, der u. a. durch Unterricht und Ganztagsgrundschule oder Hort erfüllt wird.",
+        "Eine Pflicht zur Einschulung aller Kinder ab dem fünften Lebensjahr."
+      ],
+      "correctIndices": [
+        2
+      ],
+      "explanation": "§ 24 Abs. 4 SGB VIII führt ab dem Schuljahr 2026/2027 stufenweise den Rechtsanspruch auf ganztägige Förderung (acht Stunden werktags) für Grundschulkinder ein; Unterricht, Ganztagsgrundschulangebote sowie in den Ferien Angebote nach § 11 SGB VIII werden angerechnet."
+    },
+    {
+      "id": "v2-q3",
+      "type": "multi",
+      "difficulty": "basis",
+      "question": "Welche beiden pädagogischen Schwerpunkte sind für die Arbeit im U3-Bereich (Krippe) besonders grundlegend? (Wählen Sie zwei Antworten)",
+      "options": [
+        "Behutsame, elternbegleitete Eingewöhnung und verlässliche, feinfühlige Bezugspersonenarbeit.",
+        "Systematisches Einüben stiller 45-minütiger Sitzphasen zur frühen Schulvorbereitung.",
+        "Verzicht auf Elternrückmeldungen, damit Kinder schneller unabhängig werden.",
+        "Beziehungsvolle Pflege (z. B. beim Wickeln und Essen) als respektvoller Dialog- und Bildungsraum."
+      ],
       "correctIndices": [
         0,
-        2
+        3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "In der multiprofessionellen Kooperation zwischen Lehrkräften und sozialpädagogischen Fachkräften in der Ganztagsschule (GTS) sind gemeinsame Teamabsprachen (Option 0) sowie die gegenseitige Akzeptanz und Verknüpfung von Unterricht und Freizeitpädagogik (Option 2) essenziell. Starre Hierarchien oder die Reduktion auf Hilfsdienste widersprechen dem professionellen Verständnis.",
-      "id": "quiz-2",
-      "options": [
-        "Gemeinsame Fallbesprechungen und Absprachen zur Rhythmisierung des Tagesablaufs.",
-        "Die uneingeschränkte disziplinarische Weisungsbefugnis von Erzieher:innen gegenüber Lehrkräften.",
-        "Gegenseitige Wertschätzung und Verknüpfung von unterrichtlichen und sozialpädagogischen Lernorten.",
-        "Die strikte institutionelle Trennung ohne jeglichen Informationsaustausch nach 13:00 Uhr."
-      ],
-      "question": "Welche Aspekte kennzeichnen eine gelingende multiprofessionelle Kooperation in der Ganztagsschule (GTS)? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "In den ersten drei Lebensjahren sind sichere Bindung, eine sensible Eingewöhnung, reizarme Schutzräume und dialogische, beziehungsvolle Pflege die unverzichtbare Grundlage für Exploration und Bildung."
     },
     {
-      "correctIndices": [
-        2
-      ],
+      "id": "v2-q4",
+      "type": "case",
       "difficulty": "pruefung",
-      "explanation": "In der Schulanfangsphase und im Hort/GTS-Bereich ist die Rhythmisierung (Wechsel von Anspannung und Entspannung, Lernzeiten und freiem Spiel) das zentrale didaktische Mittel, um Überforderung zu vermeiden und kindliche Lernbedürfnisse zu befriedigen.",
-      "id": "quiz-3",
+      "question": "Eine Erzieherin in einer Ganztagsgrundschule beobachtet, dass viele Erstklässler:innen nach dem Unterricht völlig erschöpft sind und in der direkt anschließenden Hausaufgabenzeit Konflikte eskalieren. Welcher fachliche Vorschlag für das multiprofessionelle Team setzt das Prinzip der Rhythmisierung am besten um?",
       "options": [
-        "Die sofortige Einführung eines 45-minütigen Stundentakts mit strikter Sitzordnung ab dem ersten Schultag.",
-        "Die ausschließliche Verlagerung aller Lernprojekte in die späten Abendstunden.",
-        "Die gezielte Rhythmisierung des Tagesablaufs mit dem Wechsel von konzentrierten Lernzeiten, Bewegung und freiem Spiel.",
-        "Der Verzicht auf jegliche Struktur zugunsten eines rein laissez-faire gesteuerten Tages."
+        "Strengere Ruhe- und Strafpunkte in der Lernzeit einführen, damit sich die Kinder schneller an den Schulalltag gewöhnen.",
+        "Zwischen Unterricht/Mittagessen und Lernzeit eine echte Bewegungs- und Erholungsphase einplanen, die Lernzeit altersspezifisch strukturieren und anschließend frei wählbare Freizeit- und Rückzugsräume sichern.",
+        "Alle Bewegungsangebote streichen, damit mehr Zeit für zusätzliche Arbeitsblätter bleibt.",
+        "Die Zusammenarbeit mit den Klassenlehrkräften beenden und den Nachmittag völlig unabhängig gestalten."
       ],
-      "question": "Welches didaktisch-methodische Prinzip ist für die Gestaltung von Lern- und Betreuungszeiten im Hort und in der Ganztagsschule (GTS) von zentraler Bedeutung zur Vermeidung von Überforderung?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        0
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Eine gelingende Übergangsbegleitung (Transition) zeichnet sich dadurch aus, dass sie das Kind aktiv beteiligt, die Eltern als Erziehungspartner einbindet und die Anschlussfähigkeit der pädagogischen Konzepte (vom Orientierungsplan RLP zum Lehrplan Grundschule) sichert.",
-      "id": "quiz-4",
-      "options": [
-        "Transition als kooperativer Prozess zwischen Kita, Grundschule, Kind und Eltern unter Berücksichtigung von Anschlussfähigkeit.",
-        "Ein einmaliger Informationsabend für Eltern im letzten Kitamonat ohne Beteiligung der Kinder.",
-        "Der Test aller Kinder auf Schulfähigkeit mit anschließender Selektion und Zurückstellung.",
-        "Die strikte Vermeidung jeglicher Kontaktaufnahme zwischen Kita- und Grundschullehrkräften, um Vorurteile auszuschließen."
-      ],
-      "question": "Was versteht die moderne Elementar- und Grundschulpädagogik unter einer gelingenden Übergangsbegleitung (Transition)?",
-      "type": "case"
-    },
-    {
       "correctIndices": [
         1
       ],
-      "difficulty": "basis",
-      "explanation": "Die Altersmischung in Kindertageseinrichtungen (z.B. von 1 bis 6 Jahren) fördert gezielt das soziale Lernen, da ältere Kinder als Vorbilder agieren und jüngere Kinder von ihnen imitationsternen lernen.",
-      "id": "quiz-5",
+      "explanation": "Rhythmisierung bedeutet den bedarfsgerechten Wechsel von Anspannung und Entspannung über den gesamten Tag. Bewegung, Erholung, begleitete Lernzeit und echte Freiräume reduzieren Erschöpfung und stärken Lernfreude."
+    },
+    {
+      "id": "v2-q5",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Worin besteht der rechtliche und konzeptionelle Hauptunterschied zwischen einem Hort und einer Ganztagsschule?",
       "options": [
-        "Die Einschränkung des sozialen Lernens durch zu große Entwicklungsunterschiede.",
-        "Die Förderung des sozialen Lernens und der Empathie durch Vorbildfunktionen älterer Kinder für jüngere Kinder.",
-        "Die Notwendigkeit eines leistungsorientierten Frontalunterrichts ab dem dritten Lebensjahr.",
-        "Die Aufhebung aller pädagogischen Strukturvorgaben in der Krippenarbeit."
+        "In Horten dürfen keine Erzieher:innen arbeiten, in Ganztagsschulen arbeiten ausschließlich Jugendamtsmitarbeitende.",
+        "Horte richten sich an Kinder unter drei Jahren, Ganztagsschulen ausschließlich an Jugendliche ab 16 Jahren.",
+        "Horte sind eigenständige Einrichtungen der Kinder- und Jugendhilfe (SGB VIII / KiTaG) mit sozialpädagogischem Freizeit-, Beziehungs- und oft Ferienprofil; Ganztagsschulen sind schulische Angebote nach Schulrecht.",
+        "Es gibt keinen rechtlichen Unterschied zwischen beiden Angebotsformen."
       ],
-      "question": "Welcher wesentliche Vorteil wird in der Fachliteratur der altershomogenen Gruppe gegenüber der altersgemischten Gruppe (z.B. U3/Ü3-Kombination) im Hinblick auf soziales Lernen zugeschrieben? (Hinweis: Frage bezieht sich auf die Potenziale der Altersmischung).",
-      "type": "single"
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Horte gehören zur Kinder- und Jugendhilfe (SGB VIII / KiTaG RLP) mit eigenem sozialpädagogischem Profil und meist verlässlicher Ferienbetreuung, während Ganztagsschulen schulrechtlich verankert sind und häufig eng mit Jugendhilfeträgern kooperieren."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche beiden Grundsätze prägen eine rechtssichere und pädagogisch tragfähige Kooperation an der Schnittstelle Kita – Grundschule? (Wählen Sie zwei Antworten)",
+      "options": [
+        "Automatische Übermittlung aller internen Beobachtungsbögen ohne Elternbeteiligung zur Arbeitserleichterung.",
+        "Aktive Einbeziehung der Kinder und Eltern als zentrale Akteure des Übergangs (z. B. Schnuppertage, gemeinsame Elternabende).",
+        "Weitergabe individueller Entwicklungsdokumentationen ausschließlich mit informierter, schriftlicher Einwilligung der Sorgeberechtigten.",
+        "Durchführung standardisierter Leistungstests in der Kita, um Kinder vorab auszusortieren."
+      ],
+      "correctIndices": [
+        1,
+        2
+      ],
+      "explanation": "Gelingende Übergangsbegleitung setzt auf Transparenz, Elternpartnerschaft, kindliche Mitwirkung und strikten Datenschutz — nicht auf Aktenweitergabe hinter dem Rücken der Familien."
+    }
+  ],
+  "sources": [
+    {
+      "title": "SGB VIII § 22 – Grundsätze der Förderung",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__22.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Bundesgesetzlicher Förderauftrag (Erziehung, Bildung und Betreuung) für Tageseinrichtungen für Kinder."
+    },
+    {
+      "title": "SGB VIII § 24 – Anspruch auf Förderung in Tageseinrichtungen und in Kindertagespflege",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__24.html",
+      "publisher": "BMJ / gesetze-im-internet.de",
+      "note": "Rechtsansprüche für U1, U3, Ü3 sowie stufenweiser Ganztagsanspruch für Grundschulkinder ab Schuljahr 2026/27 (Abs. 4)."
+    },
+    {
+      "title": "Kindertagesstättengesetz (KiTaG) Rheinland-Pfalz – Informationsportal",
+      "url": "https://kita.rlp.de/kita-in-rheinland-pfalz/kita-gesetz",
+      "publisher": "Ministerium für Bildung Rheinland-Pfalz (kita.rlp.de)",
+      "note": "Überblick zu Zielen, Verantwortungsgemeinschaft, Inklusion und Strukturen des KiTaG RLP."
+    },
+    {
+      "title": "Landesgesetz über die Erziehung, Bildung und Betreuung von Kindern in Tageseinrichtungen und in Kindertagespflege (KiTaG RLP, Volltext PDF)",
+      "url": "https://kita.rlp.de/fileadmin/kita/KiTa_in_RLP/KiTaG/Dokumente/230918_KITA-Gesetz.pdf",
+      "publisher": "Land Rheinland-Pfalz (kita.rlp.de)",
+      "note": "Amtlicher Gesetzestext zu §§ 1–3 KiTaG (Ziele, Einrichtungsformen Krippe/Kindergarten/Hort, Bildungs- und Erziehungsempfehlungen)."
+    },
+    {
+      "title": "Ganztagsschule in Rheinland-Pfalz",
+      "url": "https://bildung.rlp.de/ganztagsschule/",
+      "publisher": "Ministerium für Bildung Rheinland-Pfalz (Bildungsserver RLP)",
+      "note": "Offizielle Informationen zu Angebotsform, Rhythmisierung, Lernzeiten und Kooperation mit außerschulischen Partnern."
     }
   ]
 }

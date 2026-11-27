@@ -3,374 +3,454 @@
   "number": 46,
   "moduleCode": "S-SP-8",
   "moduleArea": "sp-pflicht",
-  "title": "Berufspraktikum: Ausbildungsphasen, Reflexion & Fallberatung",
-  "subtitle": "Ausbildungsplan, Anfangs-/Kern-/Abschlussphase, Lernportfolio & Kollegiale Fallberatung",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-8 · Fachpraktische Kompetenzen im Berufspraktikum erweitern (Lehrplan RLP 2024)",
+  "title": "Berufspraktikum: Theorie-Praxis-Verzahnung, Reflexion & Anleitung",
+  "subtitle": "Ausbildungsplanung, Reflexionszyklus nach Gibbs, Feedbackkultur, Lernportfolio & kollegiale Beratung",
   "year": "2./3. Jahr",
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 30,
   "hoursRef": "160 Std. (Teil 1/2)",
   "pdfPages": "S. 47 (und S. 3/5 Fn. 8)",
   "crossCuttingTags": [
     "Partizipation",
     "Wertevermittlung"
   ],
-  "summary": "In dieser Einheit beleuchten angehende Erzieher:innen (Bachelor Professional in Sozialwesen) die Struktur und Phasen ihres Berufspraktikums gemäß dem RLP Rheinland-Pfalz. Sie erarbeiten den Umgang mit dem individuellen Ausbildungsplan, nutzen das Lernportfolio als Reflexionsinstrument und erlernen die Kollegiale Fallberatung als strukturierte Methode zur Bewältigung komplexer Praxissituationen.",
+  "summary": "In dieser Einheit erarbeiten Sie, wie der Übergang von der schulischen Ausbildung in eigenverantwortliches professionelles Handeln im Berufspraktikum gelingt. Im Fokus stehen eine tragfähige Theorie-Praxis-Verzahnung (Reflective Practitioner), realistische Ausbildungsplanung entlang der Praktikumsphasen, systematische Praxisreflexion nach dem Gibbs-Zyklus, professionelles Geben und Nehmen von Feedback in Anleitungssituationen sowie kollegiale Beratung und Lernportfolioarbeit.",
   "learningGoals": [
-    "Ich kann die zentralen rechtlichen und organisatorischen Rahmenbedingungen des Berufspraktikums (gemäß RLP und Fußnote 8) erläutern.",
-    "Ich kann den individuellen Ausbildungsplan erstellen, umsetzen und kritisch reflektieren.",
-    "Ich kann mein persönliches pädagogisches Konzept über die Anfangs-, Kern- und Abschlussphase kontinuierlich weiterentwickeln.",
-    "Ich kann Reflexions- und Beratungsmethoden wie das Lernportfolio und die Kollegiale Fallberatung fachlich fundiert anwenden.",
-    "Ich kann berufliche Alltagssituationen systematisch analysieren, Handlungsmöglichkeiten bewerten und Alternativen begründen."
+    "Ich kann begründen, warum professionelle Handlungskompetenz im Berufspraktikum weder durch blindes Nachahmen noch durch bloße Theorieanwendung entsteht, sondern durch kontinuierliche Theorie-Praxis-Verzahnung.",
+    "Ich kann einen individuellen Ausbildungsplan mit beobachtbaren, realistischen Lernzielen entlang der Anfangs-, Kern- und Abschlussphase gemeinsam mit meiner Praxisanleitung gestalten und evaluieren.",
+    "Ich kann herausfordernde Alltagssituationen mithilfe eines systematischen Reflexionszyklus (z. B. nach Graham Gibbs) von der beobachtbaren Beschreibung bis zum theoretisch begründeten Handlungsplan analysieren.",
+    "Ich kann in Anleitungs- und Teamgesprächen konstruktives Feedback nach fachlichen Kriterien geben, kritisches Feedback professionell annehmen und das Spannungsfeld von Beratung und Bewertung ansprechen.",
+    "Ich kann Lernportfolio und kollegiale Fallberatung gezielt einsetzen, um meine berufliche Rolle und mein persönliches pädagogisches Profil weiterzuentwickeln."
   ],
   "sections": [
     {
-      "body": "Das Berufspraktikum im Modul S-SP-8 (160 Stunden Teil 1/2) bildet die zentrale Brücke zwischen theoretischer Ausbildung an der Fachschule und professioneller Berufspraxis als „Bachelor Professional in Sozialwesen“. Gemäß RLP (insbesondere Fußnote 8) nehmen Praktikantinnen und Praktikanten monatlich mindestens einmal an einer von der Fachschule durchgeführten Praxis-AG teil, für die sie unter Fortzahlung des Entgelts freigestellt werden. Die Praxisbegleitung erfolgt durch die im Bildungsgang tätigen Lehrkräfte, wobei 40 Stunden explizit für Beratung zur Verfügung stehen.",
+      "heading": "1. Theorie-Praxis-Verzahnung: Vom „Praxisschock“ zum Reflective Practitioner",
+      "keyTakeaway": "Fachliche Theorien liefern keine starren Rezepte für den Alltag, sondern geschärfte Denk- und Wahrnehmungsbrillen, um ungewisse pädagogische Situationen begründet zu gestalten.",
+      "body": "Zu Beginn des Berufspraktikums erleben viele angehende Fachkräfte ein vertrautes Spannungsfeld: In der Einrichtung heißt es manchmal „Vergiss mal die Schule, hier zählt die Praxis“ — während umgekehrt reine Lehrbuchformeln im hektischen Gruppenalltag schnell an Grenzen stoßen. Die früh- und sozialpädagogische Professionsforschung beschreibt dies als prinzipielle Ungewissheit pädagogischen Handelns: Jede Gruppe, jedes Kind und jede Situation ist einzigartig. Genau hier setzt das Leitbild des Reflective Practitioner (nach Donald Schön) an. Professionelle Fachkräfte verbinden zwei Ebenen: Reflection-in-Action (während einer laufenden Situation aufmerksam wahrnehmen und situativ nachsteuern) und Reflection-on-Action (im Nachgang mithilfe von Fachwissen prüfen, welche Dynamiken wirkten und welche Alternativen tragfähiger gewesen wären). Theorie-Praxis-Verzahnung bedeutet also keine Einbahnstraße: Theorie hilft, Praxis zu verstehen und zu begründen — und konkrete Praxiserfahrungen werfen Fragen auf, die theoretisch vertieft werden.",
       "bulletPoints": [
-        "Verankerung im Modul S-SP-8 (160 Zeitrichtwerte)",
-        "Verbindliche monatliche Praxis-AG an der Fachschule (Fußnote 8)",
-        "Professionelle Praxisbegleitung durch Fachschullehrkräfte (40 Std. Beratungszeit)"
+        "Weder blindes „Learning by Doing“ noch starres Rezeptwissen führt zu professioneller Handlungssicherheit.",
+        "Reflection-in-Action: Situatives Wahrnehmen und flexibles Handeln mitten im pädagogischen Geschehen.",
+        "Reflection-on-Action: Systematische, theoriegeleitete Nachbetrachtung von Schlüsselsituationen im Anleitungsgespräch, Portfolio oder Peer-Austausch.",
+        "Professioneller Habitus: Entwicklung einer begründeten, ethisch reflektierten Berufsrolle statt bloßer Anpassung an unreflektierte Routinen."
       ],
-      "heading": "Struktur und rechtliche Rahmenbedingungen des Berufspraktikums",
-      "keyTakeaway": "Das Berufspraktikum verbindet fachschulischen Lernort und Praxiseinrichtung durch verbindliche Praxis-AGs und kontinuierliche Begleitung.",
-      "praxisTip": "Nutzen Sie die monatliche Praxis-AG aktiv zum kollegialen Austausch über konkrete Praxisherausforderungen und zur Abstimmung mit den Lehrkräften."
+      "praxisTip": "Stellen Sie sich nach jeder anspruchsvollen Situation eine einfache Transferfrage: „Welches fachliche Konzept (z. B. Feinfühligkeit, Partizipation, Zirkularität, Reizüberflutung) hilft mir gerade, dieses Verhalten besser zu verstehen als mein erster Impuls?“"
     },
     {
-      "body": "Das Berufspraktikum gliedert sich pädagogisch in drei wesentliche Ausbildungsabschnitte: Anfangs-, Kern- und Abschlussphase. In der Anfangsphase stehen das Einleben, Hospitieren und der Beziehungsaufbau im Vordergrund. Die Kernphase ist geprägt von eigenverantwortlichem Handeln, der Planung und Realisierung des Abschlussprojekts sowie der Vertiefung methodischer Kompetenzen. Die Abschlussphase dient der Evaluation, dem Abschiedsprozess sowie der Vorbereitung auf das fachliche Kolloquium.",
+      "heading": "2. Ausbildungsplanung & professionelle Entwicklung über die Praktikumsphasen",
+      "keyTakeaway": "Ein guter individueller Ausbildungsplan steuert die schrittweise Verantwortungsübernahme von der Hospitation bis zum eigenständigen Handeln und macht Lernfortschritte überprüfbar.",
+      "body": "Das Berufspraktikum ist kein bloßer Arbeitseinsatz als günstige Zusatzkraft, sondern eine begleitete Lern- und Qualifizierungsphase. Das zentrale Steuerungsinstrument dafür ist der individuelle Ausbildungsplan, der zu Beginn gemeinsam mit der Praxisanleitung erstellt und regelmäßig fortgeschrieben wird. Fachlich bewährt sich eine Gliederung in drei Phasen: In der Anfangsphase stehen Ankommen, sorgfältiges Hospitieren, Beziehungsaufbau zu Kindern und Team sowie das Durchdringen von Konzeption, Schutzkonzept und Organisationsstrukturen im Vordergrund. In der Kernphase übernehmen Praktikant:innen schrittweise eigenverantwortliche Aufgaben — etwa Bildungsangebote, Beobachtung und Dokumentation, vorbereitete Elterngespräche, Dienstbesprechungsbeiträge und die Durchführung des Abschlussprojekts. Die Abschlussphase dient der systematischen Auswertung des Kompetenzgewinns, der bewussten Gestaltung des Abschieds von Kindern und Team sowie dem Übergang in die volle Fachkraftrolle. Hilfreich für den Ausbildungsplan sind präzise, überprüfbare Teilziele (angelehnt an die SMART-Kriterien: spezifisch, messbar/beobachtbar, attraktiv/sinnvoll, realistisch, terminiert).",
       "bulletPoints": [
-        "Anfangsphase: Hospitation, Orientierung und Beziehungsaufbau",
-        "Kernphase: Eigenverantwortliche Praxis, Projektumsetzung und Fallarbeit",
-        "Abschlussphase: Evaluation, Auswertung und Kolloquiumsvorbereitung"
+        "Anfangsphase: Orientierung, Hospitation, Analyse von Konzeption und Routinen, verlässlicher Beziehungsaufbau.",
+        "Kernphase: Gestufte Verantwortungsübernahme (Angebote, Fallarbeit, Elternkontakte, Abschlussprojekt) mit regelmäßigen Anleitungsgesprächen.",
+        "Abschlussphase: Bilanzierung des persönlichen pädagogischen Profils, bewusster Abschiedsprozess und Rollenwechsel zur Fachkraft.",
+        "SMART-Ziele im Ausbildungsplan: Statt vager Vorsätze („besser mit Eltern sprechen“) konkrete Etappen vereinbaren (z. B. zwei Tür-und-Angel-Gespräche vorbereiten und ein Entwicklungsgespräch mitgestalten)."
       ],
-      "heading": "Ausbildungsphasen: Anfangs-, Kern- und Abschlussphase",
-      "keyTakeaway": "Die kontinuierliche Weiterentwicklung des persönlichen pädagogischen Konzepts orientiert sich linear an den drei Ausbildungsphasen.",
-      "praxisTip": "Passen Sie Ihren individuellen Ausbildungsplan transparent an die jeweilige Ausbildungsphase an und evaluieren Sie Ziele regelmäßig mit Ihrer Mentorin."
+      "praxisTip": "Bereiten Sie vor jedem regulären Anleitungsgespräch zwei bis drei eigene Themen oder Fragen schriftlich vor (z. B. offene Ziele im Ausbildungsplan, eine gelungene und eine herausfordernde Situation) — so gestalten Sie Ihren Lernprozess aktiv mit."
     },
     {
-      "body": "Professionelle Reflexions- und Beratungsmethoden sind unverzichtbare Werkzeuge zur Professionalisierung. Das individuelle Lernportfolio dokumentiert den persönlichen Kompetenzzuwachs und verknüpft Theorie mit konkreten Praxiserfahrungen. Die Kollegiale Fallberatung bietet einen strukturierten, methodengeleiteten Rahmen (nach festen Schritten von der Schilderung bis zum Transfer), um schwierige Handlungssituationen gemeinsam zu analysieren und tragfähige Lösungsalternativen zu entwickeln.",
+      "heading": "3. Systematisch reflektieren: Der Gibbs-Reflexionszyklus & das Lernportfolio",
+      "keyTakeaway": "Professionelle Reflexion trennt konsequent zwischen beobachtbarer Situation, eigenem Erleben, fachlicher Analyse und konkretem nächstem Handlungsschritt.",
+      "body": "Im Alltag bleibt Reflexion oft bei einem schnellen „Das lief heute irgendwie schief“ oder „Die Kinder waren unruhig“ stehen. Solche pauschalen Bewertungen eröffnen jedoch kaum neue Handlungsmöglichkeiten. Der sechsstufige Reflexionszyklus nach Graham Gibbs strukturiert die Nachbetrachtung sauber: (1) Beschreibung — Was ist konkret und beobachtbar passiert (ohne vorschnelle Deutungen)? (2) Gefühle — Welche Emotionen und Gedanken hatte ich vor, während und nach der Situation? (3) Bewertung — Was war hilfreich und gelang gut, was war schwierig? (4) Analyse — Welche fachlichen Zusammenhänge erklären das Geschehen (z. B. Übergangsgestaltung, Gruppengröße, eigene Rollenunsicherheit)? (5) Schlussfolgerung — Welche realistischen Handlungsalternativen hätte es gegeben? (6) Handlungsplan — Was probiere ich beim nächsten Mal konkret aus? Ein kontinuierlich geführtes Lernportfolio bündelt solche Schlüsselsituationen, Ausbildungsplan-Fortschritte, Literaturbezüge und Projektreflexionen und macht die eigene Professionalisierung sichtbar.",
       "bulletPoints": [
-        "Selbstreflexion und dokumentierter Kompetenzzuwachs im Lernportfolio",
-        "Strukturierter Ablauf der Kollegialen Fallberatung (Fallschilderung, Fragen, Hypothesen, Transfer)",
-        "Fallsupervision und Analyse pädagogischer Alltagssituationen"
+        "Sechs Schritte nach Gibbs: Beschreibung → Gefühle → Bewertung → Theoretische Analyse → Schlussfolgerung → Handlungsplan.",
+        "Saubere Trennung: Erst beobachten und Emotionen wahrnehmen, dann fachlich analysieren — so werden blinde Flecken und Abwehrreaktionen sichtbar.",
+        "Lernportfolio als Entwicklungsnachweis: Dokumentiert Lernprozesse, Brüche und Aha-Momente über das gesamte Jahr statt erst kurz vor dem Abschluss.",
+        "Datenschutz im Portfolio: Alle praxisbezogenen Fallbeschreibungen und Beobachtungen konsequent anonymisieren."
       ],
-      "heading": "Reflexions- und Beratungsmethoden: Lernportfolio & Kollegiale Fallberatung",
-      "keyTakeaway": "Durch systematisches Lernportfolio und Kollegiale Fallberatung wird reflexive Praxis zu einem dauerhaften professionellen Haltungsmerkmal.",
-      "praxisTip": "Führen Sie Ihr Lernportfolio wöchentlich nach, indem Sie konkrete Schlüsselsituationen nach dem AVIVA- oder Gibbs-Reflexionszyklus verschriftlichen."
+      "praxisTip": "Wählen Sie für Portfolioeinträge gezielt sogenannte „Irritationsmomente“ — Situationen, in denen Sie überrascht, verunsichert oder verärgert waren. Gerade dort liegen die ergiebigsten Lernchancen für die eigene Haltung."
+    },
+    {
+      "heading": "4. Feedbackkultur in Anleitungssituationen & kollegiale Beratung",
+      "keyTakeaway": "Gelingende Anleitung lebt von geschützter Zeit, beschreibendem statt abwertendem Feedback, offener Kritikfähigkeit und einem ehrlichen Umgang mit der Doppelrolle von Beratung und Bewertung.",
+      "body": "Praxisanleiter:innen stehen in einer anspruchsvollen Doppelrolle: Einerseits sind sie vertrauensvolle Lernbegleiter:innen (Coaching- und Beratungsrolle), andererseits wirken sie an Leistungsrückmeldungen und Beurteilungen mit (Bewertungsrolle). Dieses Spannungsfeld wird handhabbar, wenn Erwartungen, Bewertungskriterien und feste, geschützte Reflexionszeiten von Beginn an transparent vereinbart werden. Für konstruktives Feedback bewährt sich die WWW-Struktur (Wahrnehmung – Wirkung – Wunsch): konkrete Beobachtungen statt Charakterurteile („Als du im Stuhlkreis lauter wurdest...“ statt „Du bist zu streng“), Ich-Botschaften, zeitnahe Rückmeldung sowie Balance von Stärken und konkreten Entwicklungsimpulsen. Ebenso zentral ist die Kunst des Feedback-Nehmens: Erst ausreden lassen, nicht reflexartig rechtfertigen, bei pauschaler Kritik freundlich um ein konkretes Beispiel bitten („An welcher Stelle genau hast du das beobachtet?“) und selbst prüfen, was man daraus mitnimmt. Ergänzend entlastet die kollegiale Fallberatung unter Berufspraktikant:innen oder im Team, weil sie auf Augenhöhe und frei von Bewertungsdruck neue Perspektiven eröffnet.",
+      "bulletPoints": [
+        "Doppelrolle der Anleitung klären: Transparent unterscheiden, wann ein Gespräch der offenen Lernberatung dient und wann eine formale Zwischenbilanz gezogen wird.",
+        "Feedback geben (WWW-Regel): Beobachtbare Wahrnehmung beschreiben, subjektive Wirkung in Ich-Form benennen, konkreten Wunsch/Vorschlag formulieren.",
+        "Feedback nehmen: Aktiv zuhören, Pauschalkritik durch klärende Nachfragen konkretisieren, Ressourcen annehmen und Entwicklungsimpulse sachlich prüfen.",
+        "Kollegiale Beratung im Peer-Setting: Bewertungsfreier Raum unter Auszubildenden/Kolleg:innen zur strukturierten Fallbearbeitung."
+      ],
+      "praxisTip": "Wenn Sie pauschales Feedback erhalten („Du warst heute zu unsicher“), reagieren Sie nicht mit Rechtfertigung, sondern mit einer ruhigen Konkretisierungsfrage: „Kannst du mir eine konkrete Situation von heute nennen, an der du das festgemacht hast, damit ich gezielt daran arbeiten kann?“"
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Berufspraktikum S-SP-8",
       "id": "vb-1",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Monat 1 - 3",
-          "detail": "Die Praktikantin kommt in der Einrichtung an, hospitiert in den Gruppen, studiert die Konzeption und baut erste vertrauensvolle Beziehungen zu Kindern und Team auf.",
-          "example": "Hospitationsprotokolle im Krippenbereich und Kennenlernen der Eltern.",
-          "id": "item-1",
-          "label": "Anfangsphase",
-          "metric": "Orientierung",
-          "summary": "Einleben, Hospitation und Beziehungsaufbau in der Einrichtung."
-        },
-        {
-          "badge": "Monat 4 - 8",
-          "detail": "Eigenverantwortliche Übernahme von Teilbereichen, Planung und Durchführung des Abschlussprojekts sowie Vertiefung fachlicher Handlungskompetenzen.",
-          "example": "Durchführung eines Sprachförderprojekts mit einer Kleingruppe.",
-          "id": "item-2",
-          "label": "Kernphase",
-          "metric": "Praxishandeln",
-          "summary": "Eigenverantwortliches Agieren und Realisierung des Abschlussprojekts."
-        },
-        {
-          "badge": "Monat 9 - 12",
-          "detail": "Rückblick auf den Lernprozess, geordneter Abschied von der Zielgruppe, Fertigstellung des Lernportfolios und Vorbereitung auf das Kolloquium.",
-          "example": "Abschiedsfest mit den Vorschulkindern und Reflexionsgespräch.",
-          "id": "item-3",
-          "label": "Abschlussphase",
-          "metric": "Evaluation",
-          "summary": "Abschluss, Evaluation und Vorbereitung auf das Kolloquium."
-        },
-        {
-          "badge": "Begleitend",
-          "detail": "Monatlicher Austausch in der Fachschule, Vertiefung der Lerninhalte und Reflexion der Praxisbegleitung durch Lehrkräfte.",
-          "example": "Diskussion über Praxisprobleme in der monatlichen Praxis-AG.",
-          "id": "item-4",
-          "label": "Praxis-AG & Begleitung",
-          "metric": "Theorie-Praxis",
-          "summary": "Regelmäßige Reflexions-AG an der Fachschule gemäß Fußnote 8."
-        }
-      ],
-      "kind": "timeline",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Chronologische Gliederung des Berufspraktikums und der fachschulischen Begleitung",
-      "title": "Ausbildungsphasen im Berufspraktikum"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-2",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Schritt 1",
-          "detail": "Die Fallgeberin schildert eine konkrete, belastende oder unklare Situation aus der Praxis möglichst präzise und subjektiv unverzerrt. Die Gruppe hört aktiv zu.",
-          "example": "Ein Kind verweigert konsequent den Morgenkreis und reagiert aggressiv.",
-          "id": "item-1",
-          "label": "Fallschilderung",
-          "metric": "Phase 1",
-          "summary": "Vorstellung des Praxisfalls durch die Fallgeberin."
-        },
-        {
-          "badge": "Schritt 2",
-          "detail": "Die Berater:innen stellen verständnisorientierte Fragen, um den Fall tiefer zu durchdringen. Die Fallgeberin beantwortet diese; anschliessend erfolgt ein Perspektivwechsel.",
-          "example": "Welche Rahmenbedingungen herrschen während des Morgenkreises?",
-          "id": "item-2",
-          "label": "Rollenklärung & Fragen",
-          "metric": "Phase 2",
-          "summary": "Klärungsfragen und Vertiefung des Sachverhalts."
-        },
-        {
-          "badge": "Schritt 3",
-          "detail": "Die Berater:innen bilden im Raum Hypothesen und Deutungsansätze zum Fall, während die Fallgeberin schweigt und zuhört (Metaperspektive).",
-          "example": "Könnte das Verhalten ein Ausdruck von Reizüberflutung sein?",
-          "id": "item-3",
-          "label": "Hypothesenbildung",
-          "metric": "Phase 3",
-          "summary": "Entwicklung von Deutungsansätzen und Resonanzen."
-        },
-        {
-          "badge": "Schritt 4",
-          "detail": "Die Fallgeberin äußert sich zu den Hypothesen, welche Deutungen für sie hilfreich waren. Gemeinsam werden konkrete Handlungsschritte vereinbart.",
-          "example": "Einführung eines visuellen Rückzugsortes für das Kind.",
-          "id": "item-4",
-          "label": "Schlussreflexion & Transfer",
-          "metric": "Phase 4",
-          "summary": "Rückmeldung der Fallgeberin und Vereinbarung von Handlungsschritten."
-        }
-      ],
       "kind": "process_flow",
+      "title": "Der sechsstufige Reflexionszyklus nach Graham Gibbs",
+      "subtitle": "Systematische Praxisreflexion am Beispiel einer unruhigen Übergangssituation",
+      "centerLabel": "Gibbs-Reflexionszyklus",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Strukturierter Ablauf der Kollegialen Fallberatung nach festen Phasen",
-      "title": "Methodischer Ablauf der Kollegialen Fallberatung"
+      "isCycle": true,
+      "items": [
+        {
+          "id": "gibbs-1",
+          "badge": "Schritt 1",
+          "label": "Beschreibung",
+          "metric": "Was geschah?",
+          "summary": "Schilderung der beobachtbaren Abläufe ohne vorschnelle Wertung.",
+          "detail": "Wer war anwesend, was genau wurde gesagt und getan, wie waren Raum, Zeit und Gruppensituation gestaltet?",
+          "example": "Beim Aufräumen vor dem Mittagessen blieben 18 Kinder gleichzeitig im Gruppenraum; nach meiner dritten Ansage warfen zwei Kinder Bauklötze und verließen den Teppich."
+        },
+        {
+          "id": "gibbs-2",
+          "badge": "Schritt 2",
+          "label": "Gefühle & Erleben",
+          "metric": "Was spürte ich?",
+          "summary": "Ehrliche Wahrnehmung eigener Emotionen, Impulse und innerer Bewertungen.",
+          "detail": "Hilft zu erkennen, wie Stress, Zeitdruck oder Angst vor Kontrollverlust das eigene pädagogische Handeln beeinflusst haben.",
+          "example": "Ich fühlte mich unter Zeitdruck, ärgerte mich über die Unruhe und hatte Sorge, dass meine Praxisanleiterin mich für überfordert hält."
+        },
+        {
+          "id": "gibbs-3",
+          "badge": "Schritt 3",
+          "label": "Bewertung",
+          "metric": "Was gelang / was nicht?",
+          "summary": "Differenzierte Einschätzung hilfreicher und schwieriger Momente.",
+          "detail": "Verhindert pauschale Selbstabwertung („Alles lief schief“), indem sowohl Ressourcen als auch Reibungspunkte benannt werden.",
+          "example": "Positiv war, dass ich nicht geschrien habe; schwierig war, dass die Ankündigung ohne Vorlauf kam und alle Kinder gleichzeitig warten mussten."
+        },
+        {
+          "id": "gibbs-4",
+          "badge": "Schritt 4",
+          "label": "Fachliche Analyse",
+          "metric": "Warum lief es so?",
+          "summary": "Verknüpfung der Situation mit pädagogischen Theorien und Rahmenbedingungen.",
+          "detail": "Blick auf Struktur- und Prozessfaktoren: Reizüberflutung, abruptes Unterbrechen im Spiel, fehlende Übergangsrituale und unklare Aufgabenteilung im Raum.",
+          "example": "Aus entwicklungspsychologischer Sicht brauchen Kinder Vorankündigung und verlässliche Übergangssignale, um sich vom tiefen Spiel lösen zu können."
+        },
+        {
+          "id": "gibbs-5",
+          "badge": "Schritt 5",
+          "label": "Schlussfolgerung",
+          "metric": "Welche Alternativen?",
+          "summary": "Ableitung realistischer anderer Handlungsmöglichkeiten für ähnliche Situationen.",
+          "detail": "Prüft, welche Verhaltens- oder Organisationsänderungen sowohl den Kindern als auch der eigenen Rolle gerecht werden.",
+          "example": "Fünf Minuten vorher das Spielende ankündigen, eine Kleingruppe vorab zum Händewaschen begleiten und klare Aufräumaufgaben spielerisch verteilen."
+        },
+        {
+          "id": "gibbs-6",
+          "badge": "Schritt 6",
+          "label": "Handlungsplan",
+          "metric": "Nächster Schritt",
+          "summary": "Verbindliche Festlegung, was konkret erprobt und wieder reflektiert wird.",
+          "detail": "Übersetzt die Erkenntnis in ein konkretes Ziel für die kommenden Tage und für das nächste Anleitungsgespräch.",
+          "example": "Ich teste ab Montag ein akustisches 5-Minuten-Übergangssignal mit gestaffeltem Waschen und bespreche das Ergebnis am Freitag in der Anleitung."
+        }
+      ]
     },
     {
-      "centerLabel": "Reflexionskultur",
-      "id": "vb-3",
+      "id": "vb-2",
+      "kind": "timeline",
+      "title": "Ausbildungsphasen und gestufte Verantwortungsübernahme",
+      "subtitle": "Entwicklungslinie der beruflichen Rolle entlang des individuellen Ausbildungsplans",
+      "centerLabel": "Ausbildungsphasen",
+      "leftPole": "Einstieg",
+      "rightPole": "Fachkraftrolle",
       "isCycle": false,
       "items": [
         {
-          "badge": "Individuell",
-          "detail": "Dokumentiert den persönlichen Kompetenzzuwachs, Reflexionen, Literaturbezüge und Projektberichte über den gesamten Ausbildungszeitraum hinweg.",
-          "example": "Führung eines digitalen Portfolios mit wöchentlichen Reflexionseinträgen.",
-          "id": "item-1",
-          "label": "Lernportfolio",
-          "metric": "Dokumentation",
-          "summary": "Persönliche Dokumentation und Reflexion des Lernprozesses."
+          "id": "ph-1",
+          "badge": "Phase 1",
+          "label": "Anfangsphase: Orientierung",
+          "metric": "Hospitieren & ankommen",
+          "summary": "Einrichtung, Zielgruppe, Teamkultur und Konzeption fundiert kennenlernen.",
+          "detail": "Schwerpunkt auf aktivem Beobachten, Beziehungsaufbau, Klärung von Schutz- und Aufsichtspflichtregeln sowie gemeinsamer Erstellung des individuellen Ausbildungsplans.",
+          "example": "Strukturierte Hospitationsnotizen zu Tagesroutinen und erstes Zielvereinbarungsgespräch mit der Praxisanleitung."
         },
         {
-          "badge": "Interaktiv",
-          "detail": "Strukturierte Fallbearbeitung in Kleingruppen oder der Praxis-AG zur gemeinsamen Lösung konkreter beruflicher Herausforderungen.",
-          "example": "Durchführung einer 4-Schritte-Fallberatung in der Praxis-AG.",
-          "id": "item-2",
-          "label": "Kollegiale Fallberatung",
-          "metric": "Beratung",
-          "summary": "Methodengeleitete Beratung unter Kolleg:innen."
+          "id": "ph-2",
+          "badge": "Phase 2",
+          "label": "Kernphase: Eigenverantwortung",
+          "metric": "Gestalten & vertiefen",
+          "summary": "Übernahme klarer Verantwortungsbereiche, Fallarbeit und Abschlussprojekt.",
+          "detail": "Planung, Durchführung und Reflexion von Angeboten und dem Abschlussprojekt, Mitwirkung bei Beobachtung, Dokumentation, Elterngesprächen und Teamprozessen.",
+          "example": "Eigenständige Begleitung einer Kleingruppe, Vorbereitung eines Entwicklungsgesprächs und Durchführung kollegialer Fallberatungen."
         },
         {
-          "badge": "Institutionell",
-          "detail": "Monatlicher Austausch an der Fachschule, fachliche Vertiefung und professionelle Begleitung durch Lehrkräfte gem. RLP-Fußnote 8.",
-          "example": "Diskussion über inklusive Praxis in der monatlichen AG.",
-          "id": "item-3",
-          "label": "Praxis-AG & Begleitung",
-          "metric": "Netzwerk",
-          "summary": "Verbindliche fachschulische Begleitung und Vernetzung."
-        },
-        {
-          "badge": "Professionell",
-          "detail": "Wissenschaftlich fundierte, externe Supervision zur Klärung komplexer Team- und Einrichtungsdynamiken in multiprofessionellen Teams.",
-          "example": "Fallsupervision mit einer externen Supervisorin bei Teamkonflikten.",
-          "id": "item-4",
-          "label": "Fallsupervision",
-          "metric": "Supervision",
-          "summary": "Extern begleitete Reflexion komplexer Praxisfälle."
+          "id": "ph-3",
+          "badge": "Phase 3",
+          "label": "Abschlussphase: Bilanz & Ablösung",
+          "metric": "Evaluieren & verabschieden",
+          "summary": "Profilschärfung, professioneller Abschied und Vorbereitung des Kolloquiums.",
+          "detail": "Zusammenführung des Lernportfolios, kritische Reflexion der eigenen pädagogischen Grundhaltung sowie achtsame Gestaltung des Abschieds für Kinder, Jugendliche und Team.",
+          "example": "Gemeinsames Abschiedsritual mit der Gruppe, abschließendes Auswertungsgespräch und Präsentation des Abschlussprojekts."
         }
-      ],
-      "kind": "comparison",
-      "leftPole": "Lernportfolio",
-      "rightPole": "Fallsupervision",
-      "subtitle": "Gegenüberstellung zentraler Reflexions- und Beratungsinstrumente im Berufspraktikum",
-      "title": "Reflexionsinstrumente im Vergleich"
+      ]
+    },
+    {
+      "id": "vb-3",
+      "kind": "dialogue",
+      "title": "Schwieriges Feedback im Anleitungsgespräch professionell klären",
+      "subtitle": "Konstruktives Feedback-Nehmen und WWW-Struktur bei pauschaler Kritik in der Praxis",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "fb-1",
+          "badge": "Ausgangssituation",
+          "label": "Pauschale Kritik erkennen",
+          "metric": "Stolperstein",
+          "summary": "Eine wertende Aussage ohne konkretes Beispiel löst schnell Abwehr aus.",
+          "detail": "Unter Alltagsdruck formulieren auch erfahrene Fachkräfte Rückmeldungen manchmal pauschal statt beobachtend. Entscheidend ist, nicht sofort defensiv zurückzuschießen.",
+          "example": "Praxisanleitung zwischen Tür und Angel: „In der Hausaufgabenzeit warst du heute viel zu nachgiebig — so tanzen dir die Kinder bald auf der Nase herum!“"
+        },
+        {
+          "id": "fb-2",
+          "badge": "Feedback nehmen",
+          "label": "Rahmen & Konkretisierung erbitten",
+          "metric": "Souveräne Reaktion",
+          "summary": "Ruhig bleiben, Zeit für ein echtes Gespräch vereinbaren und nach konkreten Beobachtungen fragen.",
+          "detail": "Durch eine offene Rückfrage wird eine pauschale Bewertung in beobachtbare Situationen übersetzt, an denen man tatsächlich fachlich arbeiten kann.",
+          "example": "Danke für die Rückmeldung — mir ist wichtig, daran zu arbeiten. Können wir uns heute um 15 Uhr zehn Minuten zusammensetzen, damit du mir genau beschreibst, welche Situation du meinst?"
+        },
+        {
+          "id": "fb-3",
+          "badge": "Feedback geben (WWW)",
+          "label": "Wahrnehmung – Wirkung – Wunsch",
+          "metric": "Konstruktive Struktur",
+          "summary": "Beobachtbares Verhalten, subjektive Wirkung und konkreten Entwicklungsimpuls sauber trennen.",
+          "detail": "Im ruhigen Gespräch wird deutlich: Es geht nicht um den Charakter der Praktikantin, sondern um klare Übergangs- und Regelkommunikation bei drei unruhigen Grundschulkindern.",
+          "example": "Wahrnehmung: Als zwei Kinder umherliefen, hast du viermal leise gebeten, sich zu setzen. Wirkung: Ich hatte den Eindruck, dass der Raum dadurch unruhiger wurde. Wunsch: Probier morgen eine klare, zugewandte Einzelansprache auf Augenhöhe aus."
+        },
+        {
+          "id": "fb-4",
+          "badge": "Transfer & Ziel",
+          "label": "Gemeinsamen Lernschritt vereinbaren",
+          "metric": "Ausbildungsplan",
+          "summary": "Feedback wird in einen überprüfbaren nächsten Schritt und die Theorie verknüpft.",
+          "detail": "Praktikantin und Anleitung halten eine konkrete Strategie fest, verknüpfen sie mit Fachwissen (z. B. Präsenz, klare Ich-Botschaften) und vereinbaren einen Beobachtungstermin.",
+          "example": "Das hilft mir weiter! Ich vereinbare morgen vor der Lernzeit gemeinsam mit den Kindern zwei klare Fokus-Regeln, übe eine ruhige Einzelansprache und reflektiere das anschließend im Lernportfolio."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Fachschule Sozialwesen / Berufspraktikum (ca. 3-6 Jahre in Kindertageseinrichtungen)",
-    "context": "In einer Kindertagesstätte treten in der Kernphase des Berufspraktikums vermehrt herausfordernde Situationen mit einem 4-jährigen Kind auf, das aggressives Verhalten zeigt. Die Praktikantin steht vor der Frage, wie sie diesen Fall systematisch bearbeiten und reflektieren kann.",
-    "setting": "Kindertagesstätte / Praxis-AG / Fachschule",
+    "title": "Rollenkonflikt, Kritik und Reflexion in der Kernphase des Berufspraktikums",
+    "setting": "Grundschulhort in Rheinland-Pfalz (Nachmittagsgruppe mit 20 Kindern von 6 bis 10 Jahren)",
+    "ageGroup": "Grundschulkinder (6–10 Jahre)",
+    "context": "Berufspraktikantin Mara befindet sich in der Mitte ihrer Kernphase. Weil zwei Fachkräfte krank sind, übernimmt sie kurzfristig allein die Lernzeit. Es wird laut, zwei Kinder geraten in Streit, und ein Kind verweigert die Aufgaben komplett. Direkt danach sagt ihre gestresste Praxisanleiterin im Flur: „Du setzt dich einfach nicht genug durch — wenn das so weitergeht, sehe ich schwarz für deine Zwischenbeurteilung!“",
     "steps": [
       {
+        "situation": "Mara spürt einen Kloß im Hals, fühlt sich ungerecht behandelt (schließlich musste sie ungeplant allein einspringen) und ist kurz davor, wütend zu kontern oder sich wortlos zurückzuziehen.",
+        "prompt": "Wie reagiert Mara in dieser Feedbacksituation professionell?",
         "options": [
           {
-            "feedback": "Die Praktikantin zieht sich isoliert zurück und versucht das Problem ohne Austausch zu lösen. Dies widerspricht dem methodischen Anspruch der Kollegialen Fallberatung und der professionellen Praxisbegleitung.",
-            "label": "Die Praktikantin versucht, die Situation allein zu bewältigen und verzichtet auf Beratung.",
-            "quality": "problematisch",
-            "theoryLink": "RLP Rheinland-Pfalz S-SP-8: Reflexions- und Beratungsmethoden anwenden"
-          },
-          {
-            "feedback": "Die Praktikantin stellt den Fall in der monatlichen Praxis-AG bzw. einer Intervisionsgruppe nach den Schritten der Kollegialen Fallberatung vor und profitiert von multiperspektivischen Rückmeldungen.",
-            "label": "Nutzung der Kollegialen Fallberatung im Rahmen der Praxis-AG zur strukturierten Analyse.",
+            "label": "Sie atmet durch, verzichtet auf spontane Abwehr im Flur, bittet um ein kurzes, geschütztes Anleitungsgespräch noch am selben oder nächsten Tag und fragt dort gezielt nach konkreten Beobachtungen sowie den vereinbarten Kriterien der Zwischenbeurteilung.",
             "quality": "optimal",
-            "theoryLink": "RLP Rheinland-Pfalz S-SP-8: Kollegiale Fallberatung & Praxis-AG (Fußnote 8)"
+            "feedback": "Sehr souverän! Mara schützt sich vor einer destruktiven Tür-und-Angel-Eskalation, übersetzt pauschale Kritik in klärbare Beobachtungen, spricht das Spannungsfeld aus Personalengpass und Lernrolle sachlich an und bringt Transparenz in die Bewertungskriterien.",
+            "theoryLink": "Feedback-Nehmen (Konkretisierung statt Rechtfertigung); konstruktiver Umgang mit der Doppelrolle von Beratung und Bewertung."
           },
           {
-            "feedback": "Die Praktikantin spricht das Thema beiläufig beim Mittagessen an, ohne Struktur, Zielsetzung oder kollegiale Rollenklärung. Dies führt oft zu unkoordinierten Ratschlägen statt professioneller Reflexion.",
-            "label": "Unstrukturierter Austausch im Teamraum zwischen Tür und Angel.",
+            "label": "Sie nickt stumm, entschuldigt sich pauschal für alles und beschließt, ab sofort besonders streng durchzugreifen, ohne das Gespräch noch einmal zu suchen.",
             "quality": "teilweise",
-            "theoryLink": "Methoden der professionellen Praxisbegleitung und Fallreflexion"
+            "feedback": "Ruhig zu bleiben vermeidet zwar Streit, aber unreflektierte Anpassung an vage Kritik verhindert echtes Lernen und führt oft zu einem autoritären Verhalten, das weder zu Maras Haltung noch zu den Bedürfnissen der Kinder passt.",
+            "theoryLink": "Reflexive Professionalisierung statt unkritischer Anpassung im Berufspraktikum."
+          },
+          {
+            "label": "Sie rechtfertigt sich sofort lautstark im Flur und wirft der Praxisanleiterin vor, sie habe sie wegen des Personalmangels im Stich gelassen.",
+            "quality": "problematisch",
+            "feedback": "Maras Frustration ist menschlich verständlich, doch eine hitzige Eskalation im Flur blockiert jede sachliche Klärung, beschädigt die Arbeitsbeziehung und vermischt berechtigte Rahmenkritik mit persönlichem Vorwurf.",
+            "theoryLink": "Professionelles Feedback-Nehmen und Deeskalation in Anleitungssituationen."
           }
-        ],
-        "prompt": "Wie sollte die Berufspraktikantin mit der herausfordernden Situation in der Praxis umgehen?",
-        "situation": "Herausfordernde Verhaltensweisen eines Kindes in der Kernphase des Praktikums."
+        ]
       },
       {
+        "situation": "Im geschützten Gespräch am nächsten Tag klären Mara und ihre Praxisanleiterin zunächst die organisatorische Überforderung durch die Vertretungssituation und benennen anschließend konkrete Momente aus der Lernzeit. Nun möchte Mara den Vorfall nachhaltig für ihre eigene Entwicklung aufarbeiten.",
+        "prompt": "Welches Vorgehen verzahnt Praxiserfahrung, Reflexion und Fachwissen am wirksamsten?",
         "options": [
           {
-            "feedback": "Das Lernportfolio wird kontinuierlich als Reflexionsinstrument genutzt, um eigene Handlungsmuster zu dokumentieren, theoretisch zu fundieren und im Rahmen der Praxisbegleitung zu besprechen.",
-            "label": "Systematische Dokumentation und Reflexion im persönlichen Lernportfolio über alle Ausbildungsphasen hinweg.",
+            "label": "Sie analysiert die Schlüsselsituation im Lernportfolio systematisch nach dem Gibbs-Zyklus (inkl. theoretischer Einordnung zu Übergängen, Präsenz und Überforderung), nutzt die kollegiale Fallberatung im Peer-Austausch für alternative Handlungsstrategien und hält zwei konkrete Übungsziele im Ausbildungsplan fest.",
             "quality": "optimal",
-            "theoryLink": "RLP Rheinland-Pfalz S-SP-8: Lernportfolio & kontinuierliche Weiterentwicklung des pädagogischen Konzepts"
+            "feedback": "Exzellent! Hier greifen systematische Selbstreflexion (Gibbs), Theorie-Praxis-Verzahnung (Reflection-on-Action), kollegiale Perspektivenvielfalt und zielgerichtete Ausbildungsplanung nahtlos ineinander.",
+            "theoryLink": "Reflexionszyklus nach Gibbs; Reflective Practitioner (Schön); kollegiale Beratung und individueller Ausbildungsplan."
           },
           {
-            "feedback": "Es werden keinerlei Aufzeichnungen geführt; der individuelle Ausbildungsplan wird am Ende des Praktikums ohne Belege abgehakt.",
-            "label": "Vollständiger Verzicht auf Dokumentation und Portfolioarbeit bis zum Abschlusskolloquium.",
-            "quality": "problematisch",
-            "theoryLink": "RLP Rheinland-Pfalz S-SP-8: Fähigkeiten zur Dokumentation / Lernportfolio"
-          },
-          {
-            "feedback": "Es wird ein unregelmäßiges Tagebuch geführt, das jedoch kaum Fachbegriffe oder Bezüge zum Ausbildungsplan enthält.",
-            "label": "Führung eines unstrukturierten Tagebuchs ohne fachliche Reflexionselemente.",
+            "label": "Sie schreibt ein kurzes emotionales Tagebuchblatt („Gestern war ein schrecklicher Tag, ich war völlig überfordert“) und legt das Thema danach zu den Akten.",
             "quality": "teilweise",
-            "theoryLink": "Anforderungen an wissenschaftlich fundierte Reflexionsmethoden in der Fachschulausbildung"
+            "feedback": "Eigene Gefühle zu verschriftlichen ist ein sinnvoller erster Schritt (Phase 2 bei Gibbs), bleibt aber ohne sachliche Analyse, Theoriebezug und konkreten Handlungsplan fachlich unvollständig.",
+            "theoryLink": "Unterschied zwischen persönlichem Tagebuch und theoriegeleiteter Portfolio-Reflexion."
+          },
+          {
+            "label": "Sie vermeidet künftig die Begleitung der Lernzeit komplett und übernimmt stattdessen freiwillig organisatorische Aufgaben in der Küche und im Materialraum.",
+            "quality": "problematisch",
+            "feedback": "Vermeidung verhindert den Erwerb zentraler Kernkompetenzen im Berufspraktikum und verfehlt die Ziele des individuellen Ausbildungsplans.",
+            "theoryLink": "Kompetenzorientierte Ausbildungsplanung im Berufspraktikum."
           }
-        ],
-        "prompt": "Wie verknüpft die Praktikantin ihre Praxiserfahrungen theoretisch fundiert mit ihrer Ausbildung?",
-        "situation": "Dokumentation und Reflexion im Lernportfolio zur Vorbereitung auf das Abschlusskolloquium."
+        ]
       }
-    ],
-    "title": "Fallberatung und Reflexion im Berufspraktikum"
+    ]
   },
   "selfLearningTasks": [
-    "Erstellen Sie für Ihr eigenes Berufspraktikum einen detaillierten, phasenorientierten Ausbildungsplan (Anfangs-, Kern-, Abschlussphase) und stimmen Sie diesen mit Ihrer Praxisanleitung ab.",
-    "Dokumentieren Sie eine herausfordernde pädagogische Alltagssituation in Ihrem Lernportfolio und analysieren Sie diese mithilfe von mindestens zwei fachtheoretischen Konzepten.",
-    "Bereiten Sie einen konkreten Praxisfall für die nächste Praxis-AG vor und führen Sie eine Kollegiale Fallberatung im Tandem oder Kleingruppe durch."
+    "Formulieren Sie für Ihre aktuelle oder bevorstehende Praxisphase drei konkrete Lernziele für den individuellen Ausbildungsplan nach den SMART-Kriterien (spezifisch, beobachtbar, realistisch, terminiert) und benennen Sie zu jedem Ziel, welche Unterstützung Sie von Ihrer Praxisanleitung benötigen.",
+    "Wählen Sie eine selbst erlebte herausfordernde Praxissituation aus und arbeiten Sie diese vollständig in allen sechs Schritten nach Graham Gibbs schriftlich aus — achten Sie in Schritt 4 gezielt auf mindestens zwei nachvollziehbare theoretische Bezüge.",
+    "Üben Sie im Tandem ein 10-minütiges Rollenspiel zu einer schwierigen Feedbacksituation in der Anleitung: Eine Person gibt zunächst pauschale Kritik, die andere übt souveränes Konkretisieren; anschließend wiederholen Sie das Gespräch sauber nach der WWW-Regel."
   ],
   "flashcards": [
     {
-      "definition": "Ein von der Fachschule begleiteter, strukturierter Ausbildungsabschnitt (160 Std. im Modul S-SP-8) nach der schulischen Ausbildung zur Erlangung der staatlichen Anerkennung als Erzieher:in.",
-      "example": "Die Absolvierung des Berufspraktikums in einer Kindertagesstätte unter Anleitung einer Mentorin.",
-      "term": "Berufspraktikum"
+      "term": "Reflective Practitioner (Donald Schön)",
+      "definition": "Professionsmodell, das pädagogisches Handeln als fortlaufendes Zusammenspiel aus Reflection-in-Action (aufmerksames Nachsteuern während einer Situation) und Reflection-on-Action (systematische, theoriegeleitete Nachbetrachtung) versteht.",
+      "example": "Nach einer konfliktreichen Gruppenphase analysiert eine Praktikantin mithilfe von Gruppen- und Bindungstheorie, welche Signale sie künftig früher wahrnehmen kann."
     },
     {
-      "definition": "Ein methodisches Instrument zur Dokumentation, Steuerung und Reflexion des individuellen Lern- und Kompetenzzuwachses während der Ausbildung.",
-      "example": "Eintragung von Praxisreflexionen und Projektberichten in das digitale Lernportfolio.",
-      "term": "Lernportfolio"
+      "term": "Reflexionszyklus nach Graham Gibbs",
+      "definition": "Sechsstufiges Modell für strukturierte Praxisreflexion: 1. Beschreibung (beobachtbar), 2. Gefühle, 3. Bewertung, 4. Fachliche Analyse, 5. Schlussfolgerung (Alternativen) und 6. konkreter Handlungsplan.",
+      "example": "Statt „Das Angebot lief schlecht“ arbeitet eine Fachkraft im Portfolio Schritt für Schritt heraus, wie Gruppengröße und fehlende Vorankündigung den Verlauf prägten."
     },
     {
-      "definition": "Ein strukturiertes, method geleitetes Beratungsverfahren unter Kolleg:innen zur Lösung konkreter Praxisfälle ohne externe Leitung.",
-      "example": "Durchführung einer Fallberatung in der Praxis-AG nach festen Schritten (Schilderung, Fragen, Hypothesen).",
-      "term": "Kollegiale Fallberatung"
+      "term": "Individueller Ausbildungsplan",
+      "definition": "Gemeinsam zwischen Praktikant:in und Praxisanleitung abgestimmter Entwicklungs- und Zeitplan, der Lernziele, Verantwortungsbereiche, Anleitungszeiten und Überprüfungspunkte über Anfangs-, Kern- und Abschlussphase verbindlich festlegt.",
+      "example": "Vereinbarung konkreter Etappenziele zur schrittweisen Übernahme von Beobachtungsdokumentation und vorbereiteten Elterngesprächen."
     },
     {
-      "definition": "Eine monatlich stattfindende, verbindliche Arbeitsgemeinschaft an der Fachschule zur Vertiefung und Ergänzung der berufspraktischen Kompetenzen.",
-      "example": "Teilnahme an der monatlichen Praxis-AG während des Berufspraktikums bei Entgeltfortzahlung.",
-      "term": "Praxis-AG"
+      "term": "WWW-Regel für konstruktives Feedback",
+      "definition": "Gesprächsstruktur für sachliche Rückmeldungen: Wahrnehmung (konkrete, beobachtbare Beschreibung statt Wertung), Wirkung (subjektive Auswirkung in Ich-Form) und Wunsch (konkreter Entwicklungsimpuls für die Zukunft).",
+      "example": "„Als du den Kindern zwei Wahlmöglichkeiten angeboten hast (W), wirkte die Gruppe sofort konzentrierter auf mich (W) — behalte das gerne bei (W).“"
     },
     {
-      "definition": "Ein zwischen Ausbildungsstätte und Praktikant:in abgestimmter Plan, der Lernziele, Aufgabenbereiche und Begleitungsmaßnahmen festlegt.",
-      "example": "Festlegung von Hospitationen und eigenen Projektverantwortlichkeiten im Ausbildungsplan.",
-      "term": "Individueller Ausbildungsplan"
+      "term": "Doppelrolle in der Praxisanleitung",
+      "definition": "Typisches strukturelles Spannungsfeld der Anleitung zwischen vertrauensvoller Lernbegleitung (Beratungsrolle, Fehler als Lernchance) und formaler Leistungsrückmeldung (Bewertungsrolle). Erfordert Transparenz über Rahmen und Kriterien.",
+      "example": "Anleitung und Praktikant:in klären ausdrücklich, welche Gespräche geschützte Übungsreflexion sind und anhand welcher Kriterien die Zwischenbeurteilung erfolgt."
+    },
+    {
+      "term": "Lernportfolio",
+      "definition": "Prozessbegleitendes Reflexions- und Dokumentationsinstrument, das Schlüsselsituationen, Theorie-Praxis-Bezüge, Meilensteine und die Entwicklung des eigenen pädagogischen Profils anonymisiert sichtbar macht.",
+      "example": "Kontinuierliche Sammlung von Gibbs-Reflexionen, Ausbildungsplan-Auswertungen und Fachliteraturbezügen über das gesamte Berufspraktikum."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Laut RLP-Fußnote 8 findet die Praxis-AG monatlich mindestens einmal (außer in den Ferien) an der Fachschule statt und dient der Vertiefung.",
-      "id": "q1",
+      "question": "Worin liegt der wesentliche Unterschied zwischen „Reflection-in-Action“ und „Reflection-on-Action“ nach Donald Schön?",
       "options": [
-        "Wöchentlich in der Ausbildungsstätte",
-        "Monatlich mindestens einmal an der Fachschule",
-        "Einmalig zu Beginn des Praktikums",
-        "Nur im Rahmen des Blockunterrichts ohne Schulpflicht"
+        "Reflection-in-Action ist nur Aufgabe der Praxisanleitung, Reflection-on-Action ausschließlich Aufgabe der Fachschule.",
+        "Reflection-in-Action verzichtet auf Beobachtung, während Reflection-on-Action nur aus dem Bauchgefühl erfolgt.",
+        "Reflection-in-Action findet unmittelbar während der laufenden Praxissituation statt, Reflection-on-Action als systematische, theoriegeleitete Nachbetrachtung danach.",
+        "Beide Begriffe bezeichnen lediglich unterschiedliche Formate schriftlicher Stundenzettel."
       ],
-      "question": "Wie oft findet die verpflichtende Praxis-AG begleitend zum Berufspraktikum statt?",
-      "type": "single"
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Professionelle Fachkräfte steuern einerseits mitten im Geschehen aufmerksam nach (Reflection-in-Action) und analysieren Schlüsselsituationen andererseits im Nachgang fundiert mit Fachwissen (Reflection-on-Action)."
     },
     {
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Warum trennt der Reflexionszyklus nach Graham Gibbs die Schritte „Beschreibung“, „Gefühle“ und „Analyse“ ausdrücklich voneinander?",
+      "options": [
+        "Damit beobachtbare Fakten, eigene emotionale Reaktionen und theoretische Erklärungen nicht vermischt werden und vorschnelle Schuldzuweisungen vermieden werden.",
+        "Damit Reflexionsberichte möglichst viele Seiten umfassen.",
+        "Weil Gefühle im professionellen Reflexionsprozess eigentlich verboten sind und gestrichen werden sollen.",
+        "Weil erst in Schritt 6 beschrieben werden darf, was in der Situation passiert ist."
+      ],
+      "correctIndices": [
+        0
+      ],
+      "explanation": "Wer Beobachtung, Emotionen und fachliche Deutung sauber trennt, erkennt blinde Flecken (z. B. eigenen Zeitdruck oder Rollenunsicherheit) und kann fundierte, tragfähige Handlungsalternativen ableiten."
+    },
+    {
+      "id": "v2-q3",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Eine Praxisanleiterin möchte einem Berufspraktikanten rückmelden, dass er im Morgenkreis Kinder häufig unterbricht. Welche Formulierung entspricht der konstruktiven WWW-Regel am besten?",
+      "options": [
+        "„Du bist einfach viel zu ungeduldig für die Arbeit mit Vorschulkindern.“",
+        "„Alle im Team finden, dass deine Morgenkreise noch nicht rund laufen — streng dich bitte mehr an.“",
+        "„Super gemacht heute, überhaupt keine Kritik!“ — obwohl sie innerlich unzufrieden ist.",
+        "„Mir ist aufgefallen, dass du heute drei Kinder nach wenigen Sekunden unterbrochen hast (Wahrnehmung). Auf mich wirkte es, als hätten sich die ruhigeren Kinder danach zurückgezogen (Wirkung). Ich wünsche mir, dass du morgen bewusst längere Denkpausen aushältst (Wunsch).“"
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Konstruktives Feedback nach der WWW-Regel bleibt bei konkret beobachtbarem Verhalten, formuliert die Wirkung in der Ich-Form (ohne „alle finden“-Verallgemeinerung) und benennt einen realistischen nächsten Lernschritt."
+    },
+    {
+      "id": "v2-q4",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche beiden Verhaltensweisen kennzeichnen professionelles Feedback-Nehmen in einer Anleitungssituation? (Wählen Sie zwei Antworten)",
+      "options": [
+        "Zunächst ruhig zuhören, ohne jeden Punkt reflexartig zu rechtfertigen.",
+        "Jede Kritik sofort kommentarlos als unumstößliche Wahrheit übernehmen, auch wenn der Kontext unklar bleibt.",
+        "Bei pauschaler Kritik sachlich um ein konkretes Beobachtungsbeispiel bitten, um gezielt daran arbeiten zu können.",
+        "Kritik grundsätzlich mit einem Gegenvorwurf an die Praxisanleitung beantworten."
+      ],
       "correctIndices": [
         0,
         2
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Das Lernportfolio dient der Dokumentation von Lernfortschritten und der Reflexion; die Kollegiale Fallberatung ist eine strukturierte Methode zur Fallbearbeitung unter Gleichaltrigen. (Optionen A und C sind korrekt).",
-      "id": "q2",
-      "options": [
-        "Das Lernportfolio dokumentiert den individuellen Lern- und Kompetenzzuwachs kontinuierlich.",
-        "Die Kollegiale Fallberatung wird zwingend durch eine externe Supervisorin geleitet.",
-        "Die Kollegiale Fallberatung folgt einem strukturierten, phasenbasierten Ablauf.",
-        "Das Lernportfolio ersetzt vollständig den individuellen Ausbildungsplan."
-      ],
-      "question": "Welche Aussagen zu Reflexions- und Beratungsmethoden im Berufspraktikum sind korrekt? (Mehrfachauswahl)",
-      "type": "multi"
+      "explanation": "Professionelles Feedback-Nehmen verbindet Offenheit und Selbstachtung: zuhören, durch konkrete Nachfragen Klarheit schaffen und anschließend reflektiert entscheiden, welche Impulse umgesetzt werden."
     },
     {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "In der Anfangsphase steht primär das Ankommen, Hospitieren, Kennenlernen der Einrichtungskonzeption und der Aufbau von Bezieungsverhältnissen im Vordergrund.",
-      "id": "q3",
+      "id": "v2-q5",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Welche Funktion erfüllt der individuelle Ausbildungsplan über die Anfangs-, Kern- und Abschlussphase des Berufspraktikums?",
       "options": [
-        "Die Durchführung des großen Abschlussprojekts",
-        "Die Verabschiedung und das Abschlusskolloquium",
-        "Das Ankommen, Hospitieren und Kennenlernen der Einrichtungskonzeption",
-        "Die Übernahme der alleinigen Gruppenleitung über mehrere Wochen"
+        "Er ersetzt das pädagogische Konzept der Einrichtung für alle Fachkräfte.",
+        "Er steuert die schrittweise Verantwortungsübernahme, macht konkrete Lernziele verbindlich und dient als gemeinsame Reflexions- und Evaluationsgrundlage.",
+        "Er wird erst in der letzten Woche vor dem Kolloquium rückwirkend ausgefüllt.",
+        "Er legt ausschließlich die Urlaubs- und Pausenzeiten der Praktikant:innen fest."
       ],
-      "question": "Welcher Schwerpunkt kennzeichnet typischerweise die Anfangsphase des Berufspraktikums?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        3
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Nach der Kollegialen Fallberatung (und strukturierten Beratungsmethoden) erfolgt im abschließenden Schritt die Übertragung der Erkenntnisse auf die eigene Praxis sowie eine Reflexion des Beratungsverfahrens selbst (Meta-Reflexion).",
-      "id": "q4",
-      "options": [
-        "Die sofortige Entlassung des Praktikanten aus der Einrichtung",
-        "Die Bewertung der Noten durch die Schulleitung",
-        "Die Festlegung des Gehalts für das kommende Jahr",
-        "Die Reflexion der gewonnenen Erkenntnisse und der Transfer in die eigene pädagogische Praxis"
-      ],
-      "question": "Welcher Schritt bildet den Abschluss einer strukturierten Kollegialen Fallberatung?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
         1
       ],
-      "difficulty": "basis",
-      "explanation": "Die 40 Stunden Beratungszeit durch Lehrkräfte (gemäß Fußnote 6) können u.a. für Intervisionsgruppen, Kollegiale Fallberatung oder individuelle Praxisbegleitung genutzt werden.",
-      "id": "q5",
+      "explanation": "Der individuelle Ausbildungsplan ist ein lebendiges Arbeitsinstrument: Er strukturiert den Lernweg von der Hospitation bis zum eigenverantwortlichen Handeln und wird regelmäßig gemeinsam überprüft und angepasst."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "pruefung",
+      "question": "Wie lässt sich das strukturelle Spannungsfeld zwischen Beratungsrolle und Bewertungsrolle in der Praxisanleitung professionell handhaben? (Wählen Sie zwei Antworten)",
       "options": [
-        "Ausschließlich für schriftliche Klassenarbeiten an der Fachschule",
-        "Für Beratung durch Lehrkräfte, Intervisionsgruppen und Kollegiale Fallberatung",
-        "Für den Urlaub der Praktikantinnen und Praktikanten in den Sommerferien",
-        "Für die Finanzierung der Sachkosten der Kita"
+        "Indem die Praxisanleitung jegliche kritische Rückmeldung bis zum letzten Tag des Praktikums zurückhält.",
+        "Indem Praktikant:innen eigene Schwierigkeiten konsequent vor der Anleitung verbergen.",
+        "Indem Kriterien für Zwischen- und Abschlussbeurteilungen frühzeitig transparent gemacht und regelmäßig mit dem Ausbildungsplan abgeglichen werden.",
+        "Indem ausdrücklich geschützte Reflexionsräume vereinbart werden, in denen Unsicherheiten und Fehler als Lernchancen besprochen werden können."
       ],
-      "question": "Wofür sind im Modul S-SP-8 unter anderem die 40 Stunden Beratungszeit vorgesehen?",
-      "type": "case"
+      "correctIndices": [
+        2,
+        3
+      ],
+      "explanation": "Das Spannungsfeld verschwindet nicht, lässt sich aber durch Transparenz, verbindliche Kriterien, regelmäßige Zwischenrückmeldungen und eine lernorientierte Fehlerkultur konstruktiv gestalten."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Praxislernen in der frühpädagogischen Ausbildung (Forschungsportal)",
+      "url": "https://www.weiterbildungsinitiative.de/forschung/praxislernen",
+      "publisher": "Weiterbildungsinitiative Frühpädagogische Fachkräfte (WiFF / DJI)",
+      "note": "Empirische Befunde zu Gelingensbedingungen des Praxislernens, Zeitressourcen und Lernortkooperation."
+    },
+    {
+      "title": "WiFF Arbeitspapier Nr. 12: Praxisanleitung und Theorie-Praxis-Verzahnung",
+      "url": "https://www.weiterbildungsinitiative.de/fileadmin/Redaktion/Publikationen/WiFF_Arbeitspapier_Nr.12_WEB.pdf",
+      "publisher": "Weiterbildungsinitiative Frühpädagogische Fachkräfte (WiFF / DJI)",
+      "note": "Wissenschaftliche Grundlagen zu Mentoring, Reflexion und Verknüpfung von Theorie und Berufspraxis."
+    },
+    {
+      "title": "Praxisanleitung von Erzieher*innen und Heilerziehungspfleger*innen",
+      "url": "https://nifbe.de/fachbeitraege/praxisanleitung-von-erzieher-innen-und-heilerziehungspfleger-innenn/",
+      "publisher": "Niedersächsisches Institut für frühkindliche Bildung und Entwicklung (nifbe)",
+      "note": "Praxisorientierte Darstellung von Ausbildungsplanung, Anleitungsgesprächen und Rollenklärung."
+    },
+    {
+      "title": "Praxisanleitung (Fachlexikon)",
+      "url": "https://www.socialnet.de/lexikon/Praxisanleitung",
+      "publisher": "socialnet Lexikon",
+      "note": "Fachbegriffliche Einordnung von Praxisanleitung, Feedbackkultur, Beratungs- und Bewertungsrolle."
+    },
+    {
+      "title": "Kollegiale Beratung (Fachlexikon)",
+      "url": "https://www.socialnet.de/lexikon/Kollegiale-Beratung",
+      "publisher": "socialnet Lexikon",
+      "note": "Grundlagen und Einsatzmöglichkeiten kollegialer Fallberatung zur strukturierten Peer-Reflexion."
     }
   ]
 }

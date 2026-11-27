@@ -3,374 +3,454 @@
   "number": 47,
   "moduleCode": "S-SP-8",
   "moduleArea": "sp-pflicht",
-  "title": "Abschlussprojekt planen, dokumentieren & im Kolloquium vertreten",
-  "subtitle": "Projektmethode, flexibles Praxishandeln, Projektjournal & Kolloquiums-Verteidigung",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-8 · Abschlussprojekt planen, durchführen, dokumentieren und im Kolloquium vertreten (Lehrplan RLP 2024)",
+  "title": "Abschlussprojekt planen, steuern, dokumentieren & im Kolloquium vertreten",
+  "subtitle": "Projektmanagement, Partizipation, flexibles Praxishandeln, fachliche Begründung, Projektjournal & Kolloquium",
   "year": "2./3. Jahr",
-  "estimatedMinutes": 25,
+  "estimatedMinutes": 30,
   "hoursRef": "160 Std. (Teil 2/2)",
   "pdfPages": "S. 47",
   "crossCuttingTags": [
     "Partizipation",
     "Sprachbildung"
   ],
-  "summary": "Einheit 47 des Moduls S-SP-8 vermittelt angehenden Erzieher:innen („Bachelor Professional in Sozialwesen“) die methodischen, dokumentarischen und rhetorischen Kompetenzen zur erfolgreichen Durchführung und Verteidigung ihres Abschlussprojekts. Im Fokus stehen die Projektmethode, flexibles Praxishandeln bei unvorhergesehenen Störungen sowie die souveräne Präsentation im Kolloquium.",
+  "summary": "In dieser Einheit erarbeiten Sie, wie Sie ein praxisorientiertes sozialpädagogisches Abschlussprojekt professionell von der Bedarfs- und Situationsanalyse über echte Partizipation und flexibles Praxishandeln bis zur Evaluation steuern. Darüber hinaus trainieren Sie die wissenschaftlich-fachliche Begründung pädagogischer Entscheidungen, das Führen von Projektdokumentation und Projektjournal sowie eine souveräne Präsentation und Verteidigung im Kolloquium.",
   "learningGoals": [
-    "Ich kann ein praxisorientiertes Abschlussprojekt von der Situationsanalyse über partizipative Zielsetzung bis zur Evaluation systematisch planen.",
-    "Ich kann formale Dokumentationsformen wie Projektdokumentation, Projektjournal und Entwicklungsportfolio fachgerecht anwenden.",
-    "Ich kann auf situative Veränderungen und unvorhergesehene Störungen im pädagogischen Alltag flexibel und lösungsorientiert reagieren.",
-    "Ich kann sprachanregende und partizipative Methoden gezielt in alle Phasen der Projektarbeit integrieren.",
-    "Ich kann mein pädagogisches Handeln im Projektkontext theoriegestützt reflektieren und im Abschlusskolloquium souverän und fachlich fundiert vertreten."
+    "Ich kann ein sozialpädagogisches Abschlussprojekt systematisch entlang der Phasen Situationsanalyse, partizipative Zielsetzung, Planung, Durchführung und Evaluation konzipieren.",
+    "Ich kann echte Partizipation von Kindern, Jugendlichen oder jungen Erwachsenen in allen Projektphasen von Scheinbeteiligung abgrenzen und sprachbildend gestalten.",
+    "Ich kann auf unvorhergesehene Störungen oder veränderte Interessen der Zielgruppe didaktisch begründet flexibel reagieren und Planabweichungen transparent dokumentieren.",
+    "Ich kann Projektentscheidungen wissenschaftlich-fachlich (theorie-, beobachtungs- und literaturgestützt) begründen sowie Projektdokumentation, Projektjournal und Portfolio datenschutzkonform führen.",
+    "Ich kann mein Abschlussprojekt im Kolloquium strukturiert präsentieren, pädagogische Entscheidungen gegen kritische Rückfragen souverän vertreten und Grenzen professionell reflektieren."
   ],
   "sections": [
     {
-      "body": "Die Projektarbeit im Modul S-SP-8 verbindet wissenschaft fundierte Theorie mit handlungsorientierter Berufspraxis. Sie befähigt angehende Erzieher:innen („Bachelor Professional in Sozialwesen“), komplexe pädagogische Vorhaben von der ersten Situationsanalyse bis zur Evaluation eigenverantwortlich zu steuern. Dabei stehen Partizipation, Sprachbildung und die Orientierung an den echten Bedürfnissen der Zielgruppe im Mittelpunkt.",
+      "heading": "1. Projektmanagement in der Sozialpädagogik: Von der Situationsanalyse zur Evaluation",
+      "keyTakeaway": "Ein pädagogisches Projekt ist keine vom Schreibtisch aus verordnete Angebotsreihe, sondern ein zielgerichteter, lebensweltorientierter Lern- und Beteiligungsprozess mit der Zielgruppe.",
+      "body": "Im Unterschied zu einzelnen punktuellen Angeboten bearbeitet ein sozialpädagogisches Projekt über einen begrenzten Zeitraum ein reales Lebensthema der Zielgruppe — ganzheitlich, handlungsorientiert und offen für eigene Lösungswege. Im Sinne des Situationsansatzes (maßgeblich mitgeprägt durch Jürgen Zimmer und das Institut für den Situationsansatz) beginnt jedes tragfähige Projekt mit einer fundierten Situations- und Bedarfsanalyse: Welche Fragen, Interessen, Konflikte oder Entwicklungsthemen zeigen Kinder, Jugendliche oder junge Erwachsene aktuell im Alltag? Darauf aufbauend folgen vier weitere Phasen: eine partizipative Zielsetzung (konkrete, überprüfbare Grob- und Feinziele, die mit den Beteiligten abgestimmt sind), eine realistische Ressourcen-, Zeit-, Sicherheits- und Meilensteinplanung (inklusive Plan B sowie bewusster Integration von Inklusion und alltagsintegrierter Sprachbildung), die begleitete Durchführung mit Spielraum für Eigeninitiative und schließlich eine ehrliche Evaluation von Prozess und Ergebnis gemeinsam mit Zielgruppe und Team.",
       "bulletPoints": [
-        "Ganzheitliche Verknuüpfung von wissenschaftlicher Reflexion und praktischem Handeln",
-        "Partizipative Einbeziehung der Zielgruppe in allen Projektphasen",
-        "Systematische Förderung von Sprachbildung und inklusiver Teilhabe"
+        "Phase 1 – Situations- und Bedarfsanalyse: Systematische Beobachtung, Gespräche mit der Zielgruppe und Klärung institutioneller Rahmenbedingungen (Raum, Budget, Team, Eltern).",
+        "Phase 2 – Partizipative Zielsetzung: Überprüfbare fachliche Ziele formulieren und zugleich den konkreten Fragen und Ideen der Kinder oder Jugendlichen Raum geben.",
+        "Phase 3 – Planung & Risikoanalyse: Meilensteine, Material, Aufsichtspflicht, Barrierefreiheit, Sprachanlässe und realistische Ausweichoptionen (Plan B) vorbereiten.",
+        "Phase 4 & 5 – Durchführung & Evaluation: Aktive Lernbegleitung statt starrem Durchziehen; am Ende sowohl das Ergebnis als auch den Beteiligungsprozess systematisch auswerten."
       ],
-      "heading": "Die Projektmethode als Kern professionellen Handelns",
-      "keyTakeaway": "Projektarbeit ist kein starres Programm, sondern ein partizipativer, theoriegeleiteter Prozess zur Lösung realer Praxisprobleme.",
-      "praxisTip": "Führen Sie vor Beginn des Projekts eine fundierte, partizipative Situationsanalyse durch (z. B. durch Kinderkonferenzen oder Fragebögen), um die echten Interessen der Gruppe zu treffen."
+      "praxisTip": "Prüfen Sie Ihre Projektidee vor dem Start mit einem einfachen Test: „Hätten die Kinder oder Jugendlichen dieses Thema auch ohne meinen Ausbildungsauftrag spannend gefunden — und an welchen mindestens drei Stellen treffen sie im Projektverlauf echte eigene Entscheidungen?“"
     },
     {
-      "body": "Der klassische Projektverlauf gliedert sich in Phasen: Situationsanalyse, partizipative Zielsetzung, Planung (Meilensteine), Durchführung und Evaluation. Im Alltag kommt es jedoch regelmässig zu unvorhergesehenen Störungen (Krankheitswellen, Wetterumschwünge, Gruppenkonflikte). Flexibles Praxishandeln bedeutet hierbei, didaktisch begründet vom Plan abzuweichen, ohne das übergeordnete Ziel zu verlieren, und dies lückenlos im Projektjournal festzuhalten.",
+      "heading": "2. Partizipation, Inklusion, Sprachbildung & flexibles Praxishandeln",
+      "keyTakeaway": "Planabweichungen im Projektverlauf sind kein Zeichen mangelnder Vorbereitung, sondern Ausweis professioneller Qualität — vorausgesetzt, sie werden pädagogisch begründet und dokumentiert.",
+      "body": "Im pädagogischen Alltag verlaufen Projekte selten exakt nach dem ursprünglichen Zeitplan: Kinder entwickeln plötzlich ein viel stärkeres Interesse an einem unerwarteten Nebenthema, Wetterumschwünge verhindern einen Ausflug, eine Krankheitswelle verkleinert die Gruppe oder Konflikte erfordern mehr Raum. Starres Festhalten am Meilensteinplan („Wir müssen aber heute noch die Plakate fertig basteln!“) verwandelt Partizipation schnell in Scheinbeteiligung. Flexibles Praxishandeln bedeutet dagegen, situative Veränderungen aufmerksam wahrzunehmen, gemeinsam mit der Zielgruppe abzuwägen und Methoden, Tempo oder Teilziele fachlich begründet anzupassen, ohne den übergeordneten Bildungs- und Beteiligungsauftrag aus den Augen zu verlieren. Gleichzeitig gilt in jeder Projektphase das Querschnittsprinzip von Inklusion und Sprachbildung: Durch visuelle Planungsboards, handlungsbegleitendes Sprechen, offene Fragen, mehrsprachige Impulse und barrierearme Materialien können alle Teilnehmenden unabhängig von sprachlichen, motorischen oder kognitiven Voraussetzungen wirksam mitgestalten.",
       "bulletPoints": [
-        "Phasenmodell: Von der Initiierung bis zur Reflexion",
-        "Umgegnung von Krisen durch methodische Flexibilität",
-        "Dokumentation von Planabweichungen im Projektjournal"
+        "Echte Partizipation vs. Scheinpartizipation: Zielgruppe entscheidet real über Teilthemen, Vorgehen oder Präsentationsform mit — statt nur zwischen zwei vorgefertigten Schablonen zu wählen.",
+        "Flexibles Praxishandeln: Situative Störungen und spontane Entdeckungen als Lernchance nutzen und didaktisch begründet umsteuern.",
+        "Alltagsintegrierte Sprachbildung im Projekt: Planen, Aushandeln, Erklären und Präsentieren bieten natürliche, motivierende Sprechanlässe.",
+        "Inklusive Gestaltung: Unterschiedliche Zugänge (sinnlich, motorisch, visuell, sprachlich) eröffnen allen Kindern oder Jugendlichen gleichberechtigte Teilhabe."
       ],
-      "heading": "Projektphasen und flexibles Praxishandeln",
-      "keyTakeaway": "Flexibles Praxishandeln zeigt professionelle Handlungssicherheit, wenn starre Pläne an der Realität scheitern.",
-      "praxisTip": "Dokumentieren Sie jede Planabweichung im Projektjournal direkt am selben Tag mit Ursachenanalyse und pädagogischer Begründung."
+      "praxisTip": "Notieren Sie bei jeder spontanen Kurskorrektur noch am selben Tag drei kurze Stichpunkte im Projektjournal: Was war der konkrete Anlass? Warum habe ich mich für diese Anpassung entschieden? Wie hat die Zielgruppe darauf reagiert?"
     },
     {
-      "body": "Die formale Dokumentation im Berufspraktikum umfasst die Projektdokumentation, das prozessbegleitende Projektjournal sowie das Entwicklungsportfolio. Das abschliessende Kolloquium verlangt von den Praktikant:innen eine souveräne Präsentation und eine fachlich begründete Verteidigung ihres Handelns vor dem Prüfungsausschuss. Hierbei müssen Entscheidungen theoretisch fundiert und kritisch reflektiert werden.",
+      "heading": "3. Wissenschaftlich-fachliche Begründung, Projektdokumentation & Projektjournal",
+      "keyTakeaway": "Eine überzeugende Projektdokumentation erzählt nicht nur nach, was passiert ist, sondern begründet fachliche Entscheidungen transparent mit Beobachtungen, Theorie und kritischer Reflexion.",
+      "body": "Im Abschlussprojekt zeigen angehende Fachkräfte, dass sie Praxis nicht aus dem Bauchgefühl, sondern wissenschaftlich-fachlich begründet gestalten können. Dazu greifen drei Dokumentationsformen ineinander: Das prozessbegleitende Projektjournal hält zeitnah Eindrücke, Beobachtungen, Störungen, Planänderungen und erste Selbstreflexionen fest — es bildet die verlässliche Datenbasis für die spätere Auswertung. Die schriftliche Projektdokumentation führt Situationsanalyse, Ziel- und Methodenbegründung, exemplarische Prozessdarstellung, Evaluation und Reflexion nach formalen Standards zusammen (klare Gliederung, saubere Zitierweise aktueller Fachliteratur, konsistente Fachsprache, strikte Anonymisierung von Namen und Datenschutz bei Fotos). Das Entwicklungsportfolio verbindet das Projekt mit der gesamten Kompetenzentwicklung im Berufspraktikum. Entscheidend für die Qualität der Begründung ist die logische Kette: Beobachtung aus der Praxis → fachlich-theoretische Einordnung (z. B. Bindung, Partizipation, Konstruktivismus, Sprachbildungsstrategien) → begründete Methodenwahl → kritische Prüfung der tatsächlichen Wirkung.",
       "bulletPoints": [
-        "Projektdokumentation als formaler Nachweis der Fachkompetenz",
-        "Entwicklungsportfolio zur Dokumentation des persönlichen Lernwegs",
-        "Kolloquiums-Verteidigung: Theoriegeleitete Reflexion statt blosser Beschreibung"
+        "Projektjournal: Zeitnahes Arbeits- und Reflexionsprotokoll — dokumentiert insbesondere auch Brüche, Irritationen und begründete Planabweichungen.",
+        "Projektdokumentation: Fachlich begründete, logisch gegliederte Gesamtdarstellung von der Bedarfserhebung bis zur Evaluation mit korrekten Literaturbelegen.",
+        "Theorie-Praxis-Kette: Theorien nicht als unverbundenen Vorspann abdrucken, sondern gezielt dort heranziehen, wo sie Entscheidungen und Beobachtungen erklären.",
+        "Datenschutz & Ethik: Kinder, Jugendliche, Eltern und Teammitglieder konsequent anonymisieren; Fotos nur mit ausdrücklicher Einwilligung und ohne Bloßstellung nutzen."
       ],
-      "heading": "Dokumentation und Kolloquiums-Verteidigung",
-      "keyTakeaway": "Das Kolloquium ist die Meisterprüfung des Berufspraktikums: Hier zählt die begründete, theoriegestützte Reflexion des eigenen Tuns.",
-      "praxisTip": "Üben Sie die Kolloquiums-Präsentation im Team mit kritischen Kolleg:innen, um auf Rückfragen des Prüfungsausschusses souverän reagieren zu können."
+      "praxisTip": "Prüfen Sie jeden Theorieabschnitt in Ihrer Projektdokumentation mit der Streichprobe: „Erklärt dieser Absatz konkret eine Entscheidung oder Beobachtung in meinem Projekt?“ Wenn nicht, kürzen oder präzisieren Sie den Praxisbezug."
+    },
+    {
+      "heading": "4. Professionelle Präsentation und Verteidigung im Abschlusskolloquium",
+      "keyTakeaway": "Im Kolloquium überzeugt nicht der perfekte Ablauf ohne Pannen, sondern die Fähigkeit, eigene Entscheidungen fachlich zu begründen, kritische Rückfragen souverän aufzugreifen und ehrlich zu reflektieren.",
+      "body": "Das Abschlusskolloquium besteht typischerweise aus einer zeitlich begrenzten Präsentation und einem anschließenden Fachgespräch mit dem Prüfungsausschuss. Ein häufiger Fehler besteht darin, die schriftliche Dokumentation chronologisch nachzuerzählen oder unkommentierte Fotostrecken zu zeigen. Wesentlich überzeugender ist ein klarer analytischer roter Faden: (1) Problemstellung und Bedarf aus der Praxis knapp auf den Punkt bringen, (2) zentrale pädagogische Ziele und theoretische Begründung schärfen, (3) ein bis zwei aussagekräftige Schlüsselsituationen — ausdrücklich auch eine Planabweichung oder Hürde — vertieft analysieren und (4) zentrale Erkenntnisse für die eigene Berufsrolle bilanzieren. Im anschließenden Fachgespräch testen Prüfer:innen Ihre professionelle Handlungs- und Reflexionsfähigkeit: Hören Sie kritische Fragen vollständig an, nehmen Sie sich kurz Zeit zum Sortieren, argumentieren Sie mit konkreten Praxisbelegen und Fachkonzepten und zeigen Sie echte Reflexionsreife, indem Sie Grenzen oder mögliche Verbesserungen offen benennen statt Fehler wegzudiskutieren.",
+      "bulletPoints": [
+        "Analytischer roter Faden statt Nacherzählung: Schwerpunkt auf Begründungen, Schlüsselsituationen, Evaluation und Lerngewinn.",
+        "Visualisierung sinnvoll einsetzen: Wenig Text, klare Struktur, echte Artefakte oder anonymisierte Beobachtungsbeispiele statt überladener Folien.",
+        "Verteidigung fachlicher Entscheidungen: Auf kritische Rückfragen sachlich mit Zielgruppe, Beobachtungsdaten und Fachliteratur antworten.",
+        "Konstruktive Selbstkritik als Stärke: Wer benennt, was beim nächsten Mal anders geplant würde und warum, zeigt hohe professionelle Souveränität."
+      ],
+      "praxisTip": "Üben Sie vor dem Kolloquium gezielt drei unbequeme Prüfungsfragen mit einer Kollegin oder Mitschülerin: „Woran genau haben Sie gemerkt, dass Ihr Ziel erreicht wurde?“, „Wo geriet Partizipation an Grenzen?“ und „Welche Theorie hätte einen anderen Weg nahegelegt?“"
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Projektkreislauf S-SP-8",
       "id": "vb-1",
-      "isCycle": true,
-      "items": [
-        {
-          "badge": "Phase 1",
-          "detail": "Erfassung der aktuellen Lebenssituation, Interessen und Bedarfe der Zielgruppe durch partizipative Erhebungsmethoden (z. B. Kinderkonferenz, Beobachtung).",
-          "example": "Kinder äussern im Morgenkreis den Wunsch nach einem eigenen Sinnespfad im Garten.",
-          "id": "item-1",
-          "label": "Situationsanalyse",
-          "metric": "Fundament",
-          "summary": "Ermittlung des realen Bedarfs und der Interessen der Zielgruppe."
-        },
-        {
-          "badge": "Phase 2",
-          "detail": "Gemeinsame Formulierung von transparenten, erreichbaren und überprüfbaren Projektzielen mit den Kindern.",
-          "example": "Festlegung, dass der Sinnespfad bis zum Sommerfest gemeinsam gebaut wird.",
-          "id": "item-2",
-          "label": "Partizipative Zielsetzung",
-          "metric": "Ausrichtung",
-          "summary": "Gemeinsame Ausarbeitung von Zielen und Kriterien."
-        },
-        {
-          "badge": "Phase 3",
-          "detail": "Detaillierte Ablauf-, Ressourcen- und Meilensteinplanung zur Strukturierung des Vorhabens.",
-          "example": "Erstellung eines visuellen Meilensteinplans mit Symbolen für die Kinder.",
-          "id": "item-3",
-          "label": "Meilenstein- & Massnahmenplanung",
-          "metric": "Struktur",
-          "summary": "Festlegung von Schritten, Fristen und Verantwortlichkeiten."
-        },
-        {
-          "badge": "Phase 4",
-          "detail": "Realisierung des Projekts in der Praxis mit stetiger Begleitung und dokumentierter Anpassung an situative Veränderungen.",
-          "example": "Umsetzung des Baus, wobei bei Regen flexibel in den Werkraum ausgewichen wird.",
-          "id": "item-4",
-          "label": "Durchführung & flexibles Handeln",
-          "metric": "Aktion",
-          "summary": "Praktische Umsetzung mit Raum für situative Flexibilität."
-        },
-        {
-          "badge": "Phase 5",
-          "detail": "Überprüfung der Zielerreichung durch Reflexion mit der Zielgruppe und Auswertung im Projektjournal.",
-          "example": "Gemeinsames Begehen des Sinnespfads und Feedback-Runde der Kinder.",
-          "id": "item-5",
-          "label": "Evaluation & Reflexion",
-          "metric": "Abschluss",
-          "summary": "Überprüfung des Erfolgs und theoriegestützte Auswertung."
-        }
-      ],
       "kind": "process_flow",
+      "title": "Fünf Phasen eines partizipativen Abschlussprojekts",
+      "subtitle": "Vom realen Bedarf der Zielgruppe bis zur fundierten Evaluation",
+      "centerLabel": "Projektkreislauf",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Der idealtypische und flexible Ablauf eines praxisintegrierten Projekts nach RLP",
-      "title": "Phasenmodell der Projektmethode"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "proj-1",
+          "badge": "Phase 1",
+          "label": "Situations- & Bedarfsanalyse",
+          "metric": "Beobachten & fragen",
+          "summary": "Lebenswelt, Interessen, Ressourcen und Rahmenbedingungen systematisch erfassen.",
+          "detail": "Ausgangspunkt sind dokumentierte Alltagsbeobachtungen und Gespräche mit Kindern oder Jugendlichen sowie eine realistische Prüfung von Zeit, Raum, Team und Budget.",
+          "example": "Mehrere Vorschulkinder untersuchen tagelang Regenwürmer und Käfer im Garten und fragen, wie Tiere im Boden überleben."
+        },
+        {
+          "id": "proj-2",
+          "badge": "Phase 2",
+          "label": "Partizipative Zielsetzung",
+          "metric": "Ziele klären",
+          "summary": "Überprüfbare pädagogische Ziele mit den Ideen der Zielgruppe verbinden.",
+          "detail": "Die Fachkraft formuliert überprüfbare fachliche Ziele (z. B. Sprachanlässe, Naturbildung, Demokratie) und handelt konkrete Projektziele gemeinsam mit der Gruppe aus.",
+          "example": "In der Kinderkonferenz beschließt die Gruppe, eine eigene Forscher- und Beobachtungsecke mit selbst gestalteten Forschertagebüchern aufzubauen."
+        },
+        {
+          "id": "proj-3",
+          "badge": "Phase 3",
+          "label": "Planung & Plan B",
+          "metric": "Strukturieren",
+          "summary": "Meilensteine, Material, Inklusion, Sprachbildung, Sicherheit und Alternativen planen.",
+          "detail": "Ein flexibler Ablaufplan klärt Zuständigkeiten, Elterninformation, Barrierefreiheit und realistische Ausweichmöglichkeiten bei Wetter- oder Personaländerungen.",
+          "example": "Vorbereitung von Becherlupen, Bildkarten für mehrsprachige Kinder, Elternbrief sowie einem Indoor-Forscherangebot als Plan B."
+        },
+        {
+          "id": "proj-4",
+          "badge": "Phase 4",
+          "label": "Durchführung & Flexibilität",
+          "metric": "Begleiten & steuern",
+          "summary": "Handlungsorientierte Umsetzung mit dokumentierter Anpassung an situative Dynamiken.",
+          "detail": "Die Fachkraft moderiert, unterstützt beim Problemlösen, nutzt spontane Lernanlässe und hält Planabweichungen zeitnah im Projektjournal fest.",
+          "example": "Bei Dauerregen verlagert die Gruppe die Bodenuntersuchung mit Erdproben an den Forschertisch und dokumentiert neue Kinderfragen."
+        },
+        {
+          "id": "proj-5",
+          "badge": "Phase 5",
+          "label": "Evaluation & Transfer",
+          "metric": "Auswerten",
+          "summary": "Prozess und Ergebnis gemeinsam mit der Zielgruppe und theoriegestützt bewerten.",
+          "detail": "Überprüft werden Zielerreichung, Grad der Partizipation, Wirkung sprachbildender Impulse und nachhaltige Verankerung im Einrichtungsalltag.",
+          "example": "Kinder stellen ihre Forscherstation bei einer kleinen Ausstellung den Eltern vor und geben mit Bildkarten Rückmeldung, was ihnen wichtig war."
+        }
+      ]
     },
     {
-      "centerLabel": "",
       "id": "vb-2",
+      "kind": "comparison",
+      "title": "Dokumentations- und Prüfungsformate im Überblick",
+      "subtitle": "Funktion, Zeitpunkt und Qualitätsmerkmale der vier zentralen Nachweise",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Dokumentation",
-          "detail": "Umfasst die formale Beschreibung des gesamten Projektverlaufs von der Idee bis zur Evaluation nach wissenschaftlichen Standards.",
-          "example": "Ausformulierte Projektdokumentation mit Literaturverzeichnis und Reflexionsanhang.",
-          "id": "grid-1",
-          "label": "Projektdokumentation",
-          "metric": "Formalie",
-          "summary": "Der schriftliche Nachweis des gesamten Projekts."
-        },
-        {
-          "badge": "Tagebuch",
-          "detail": "Prozessbegleitendes Instrument zur täglichen Notiz von Entscheidungen, Planänderungen und Selbstreflexionen.",
-          "example": "Eintrag im Projektjournal über den Umgang mit einem Lieferengpass bei Material.",
-          "id": "grid-2",
+          "id": "doc-1",
+          "badge": "Prozessbegleitend",
           "label": "Projektjournal",
-          "metric": "Prozess",
-          "summary": "Fortlaufende Protokollierung und Reflexion der Praxiserfahrung."
+          "metric": "Laufende Reflexion",
+          "summary": "Zeitnahes Arbeits- und Reflexionsprotokoll während der gesamten Durchführung.",
+          "detail": "Erfasst Beobachtungen, Störungen, Stimmungen, begründete Planänderungen und erste Selbstreflexionen, solange Erinnerungen frisch und unverzerrt sind.",
+          "example": "Eintrag am Tag 4: Warum zwei Kinder die Kleingruppe verließen und wie eine visuelle Aufgabenkarte am Folgetag half."
         },
         {
-          "badge": "Portfolio",
-          "detail": "Sammlung von Dokumenten, Nachweisen und Reflexionsberichten über den gesamten Verlauf des Berufspraktikums.",
-          "example": "Ordner mit Mentorengesprächen, Praxisberichten und eigenen Lernfortschritten.",
-          "id": "grid-3",
+          "id": "doc-2",
+          "badge": "Schriftlich · Formal",
+          "label": "Projektdokumentation",
+          "metric": "Fachbegründung",
+          "summary": "Wissenschaftlich-fachlich begründete Gesamtausarbeitung des Abschlussprojekts.",
+          "detail": "Verbindet Situationsanalyse, Theoriebezug, Planung, exemplarische Durchführung, Evaluation und kritische Reflexion nach formalen Zitier- und Datenschutzstandards.",
+          "example": "Schlüssige Verknüpfung von Beobachtungen mit dem Situationsansatz, Sprachförderstrategien und belegten Literaturquellen."
+        },
+        {
+          "id": "doc-3",
+          "badge": "Entwicklungsbezogen",
           "label": "Entwicklungsportfolio",
-          "metric": "Lernweg",
-          "summary": "Dokumentation der persönlichen professionellen Entwicklung."
+          "metric": "Kompetenzverlauf",
+          "summary": "Dokumentation des eigenen professionellen Lernwegs über das gesamte Praktikum.",
+          "detail": "Zeigt die Weiterentwicklung der eigenen Berufsrolle, reflektierte Schlüsselsituationen, Mentorengespräche und Verknüpfung mit dem individuellen Ausbildungsplan.",
+          "example": "Vergleich der eigenen Haltung zur Partizipation zu Beginn des Praktikums und nach Abschluss des Projekts."
         },
         {
-          "badge": "Prüfung",
-          "detail": "Mündliche Präsentation und fachlich begründete Verteidigung des Projekts vor dem Prüfungsausschuss.",
-          "example": "15-minütiger Vortrag mit Medieneinsatz und anschliessendem Fachgespräch.",
-          "id": "grid-4",
-          "label": "Kolloquium",
-          "metric": "Prüfung",
-          "summary": "Souveräne Vertretung der eigenen fachlichen Leistung."
+          "id": "doc-4",
+          "badge": "Mündlich · Prüfung",
+          "label": "Abschlusskolloquium",
+          "metric": "Präsentation & Verteidigung",
+          "summary": "Analytische Präsentation und theoriegestütztes Fachgespräch vor dem Ausschuss.",
+          "detail": "Prüft nicht das fehlerfreie Produkt, sondern die Fähigkeit, pädagogische Entscheidungen fachlich zu verteidigen, kritische Fragen anzunehmen und professionell zu reflektieren.",
+          "example": "10–15-minütige fokussierte Präsentation einer Schlüsselsituation mit anschließender fachlicher Diskussion."
         }
-      ],
-      "kind": "feature_grid",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Die zentralen schriftlichen und mündlichen Nachweise im Modul S-SP-8",
-      "title": "Dokumentations- und Prüfungsformate"
+      ]
     },
     {
-      "centerLabel": "",
       "id": "vb-3",
+      "kind": "dialogue",
+      "title": "Souverän argumentieren im Abschlusskolloquium",
+      "subtitle": "Wie Sie kritische Prüfungsfragen fachlich fundiert und reflexionsstark beantworten",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Prüfungsausschuss",
-          "detail": "Kritische Hinterfragung der methodischen Fundierung und der theoretischen Bezüge des Projekts.",
-          "example": "\"Warum haben Sie sich in Phase 2 gegen einen externen Kooperationspartner entschieden und wie begründen Sie das aus Sicht des Situationsansatzes?\"",
-          "id": "dial-1",
-          "label": "Prüfenden-Perspektive",
-          "metric": "Prüfung",
-          "summary": "Fachliche und kritische Prüfung der Entscheidungen."
+          "id": "kol-1",
+          "badge": "Prüfungsfrage 1",
+          "label": "Planabweichung rechtfertigen",
+          "metric": "Flexibles Handeln",
+          "summary": "Prüfungsausschuss hinterfragt das Abweichen vom ursprünglichen Projektplan.",
+          "detail": "Prüfer:innen wollen wissen, ob die Planänderung reine Improvisation war oder einer fundierten pädagogischen Abwägung folgte.",
+          "example": "Prüfende: „In Woche 2 haben Sie Ihren geplanten Bau von Holztafeln gestrichen. Haben Sie damit nicht Ihr eigenes Projektziel verfehlt?“"
         },
         {
-          "badge": "Praktikant:in",
-          "detail": "Souveräne, theoriegestützte und selbstkritische Beantwortung der Fragen unter Beweis der beruflichen Handlungsfähigkeit.",
-          "example": "\"Die Situationsanalyse zeigte, dass die Kinder stark eigeninitiativ agieren wollten; daher wählte ich den Situationsansatz nach Armin Krenz, um die Autonomie zu stärken.\"",
-          "id": "dial-2",
-          "label": "Praktikanten-Antwort",
-          "metric": "Reflexion",
-          "summary": "Fachlich fundierte und argumentative Verteidigung."
+          "id": "kol-2",
+          "badge": "Souveräne Antwort 1",
+          "label": "Mit Beobachtung & Theorie begründen",
+          "metric": "Fachliche Verteidigung",
+          "summary": "Entscheidung sauber an den Interessen der Kinder und dem übergeordneten Ziel festmachen.",
+          "detail": "Statt sich zu entschuldigen oder auszuweichen, benennt die Praktikantin Beobachtungen aus dem Projektjournal und verknüpft sie mit dem Situationsansatz und Partizipation.",
+          "example": "Mein übergeordnetes Ziel war forschendes, selbstwirksames Naturerleben — nicht das Basteln von Schildern. Als die Kinder nachhaltig Bodenlebewesen untersuchten, habe ich im Sinne des Situationsansatzes die Methode angepasst, die Entscheidung im Projektjournal dokumentiert und das Bildungsziel sogar tiefer erreicht."
         },
         {
-          "badge": "Praxismentor:in",
-          "detail": "Unterstützende Begleitung und Einordnung der Praxisrealität in den Beratungs- und Reflexionsphasen.",
-          "example": "\"Die Umsetzung im Alltag zeigte trotz des Zeitdrucks eine hohe Passung zu den Bedürfnissen der Gruppe.\"",
-          "id": "dial-3",
-          "label": "Mentoren-Rolle",
-          "metric": "Praxis",
-          "summary": "Rückbindung an die konkrete Ausbildungspraxis."
+          "id": "kol-3",
+          "badge": "Prüfungsfrage 2",
+          "label": "Kritische Grenze benennen",
+          "metric": "Reflexionstiefe",
+          "summary": "Rückfrage zu einer Schwachstelle (z. B. Beteiligung sprachlich zurückhaltender Kinder).",
+          "detail": "Hier zeigt sich echte Professionalität: Grenzen wahrnehmen, Ursachen analysieren und konkrete Alternativen benennen.",
+          "example": "Prüfende: „Wie haben Sie sichergestellt, dass auch die beiden Kinder mit geringen Deutschkenntnissen im Entscheidungsprozess nicht untergegangen sind?“"
+        },
+        {
+          "id": "kol-4",
+          "badge": "Souveräne Antwort 2",
+          "label": "Stärken & Optimierungsbedarf benennen",
+          "metric": "Professionelle Reife",
+          "summary": "Umgesetzte Hilfen schildern und zugleich ehrlich zeigen, was noch besser ginge.",
+          "detail": "Verbindet nachweisbare Praxisbeispiele (Bildkarten, Kleingruppen) mit selbstkritischem Weiterdenken für die künftige Berufspraxis.",
+          "example": "Durch Bildkarten und das direkte Zeigen am Material konnten beide Kinder abstimmen und Aufgaben wählen. Im Rückblick merke ich jedoch, dass unsere erste Kinderkonferenz sprachlich noch zu schnell war — künftig würde ich vorab in einer kleinen Vorrunde mit Symbolen und in Kooperation mit den Eltern Schlüsselbegriffe auch in den Familiensprachen einbinden."
         }
-      ],
-      "kind": "dialogue",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Typische Gesprächssituation und Argumentationsstruktur im Abschlusskolloquium",
-      "title": "Dialog im Kolloquium: Argumentation & Verteidigung"
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Vorschulkinder (5–6 Jahre)",
-    "context": "In einer inklusiven Kindertagesstätte planen zwei Berufspraktikant:innen im Rahmen von Modul S-SP-8 ein Abschlussprojekt zum Thema \"Unsere Zukunftswerkstatt: Kinder planen ihren Waldspielplatz\". Während der Durchführung kommt es zu unerwarteten Wetterumschwüngen und gruppeninternen Konflikten bei der Rollenverteilung.",
-    "setting": "Inklusive Kindertagesstätte mit naturnahem Außengelände",
+    "title": "Planänderung, Dokumentation und Verteidigung im Natur-Abschlussprojekt",
+    "setting": "Inklusive Kindertagesstätte mit naturnahem Außengelände (Vorschul- und Altersmischgruppe)",
+    "ageGroup": "Kinder von 4 bis 6 Jahren (inkl. mehrsprachiger Kinder)",
+    "context": "Berufspraktikant Jonas plant für sein Abschlussprojekt gemeinsam mit acht Kindern das Projekt „Wir bauen einen Sinnespfad im Garten“. Nach erfolgreicher Situationsanalyse und Kinderkonferenz startet die Durchführungsphase — doch die Praxis verläuft anders als auf dem Papier.",
     "steps": [
       {
+        "situation": "Am geplanten Hauptbautag regnet es in Strömen. Zudem zeigen fünf der acht Kinder deutlich mehr Faszination für die herauskommenden Regenwürmer und Matschpfützen als für das geplante Bemalen von Hinweisschildern. Jonas steht unter Zeitdruck, weil sein Meilensteinplan heute „Schilder fertigstellen“ vorsieht.",
+        "prompt": "Wie handelt Jonas professionell im Sinne der Projektmethode und des flexiblen Praxishandelns?",
         "options": [
           {
-            "feedback": "Der Praktikant bricht das Projekt sofort ab und verweist auf den ursprünglichen Plan. Das missachtet das partizipative Grundprinzip und schränkt die Handlungsfähigkeit der Kinder ein.",
-            "label": "Das Projekt wird wegen des Regens komplett abgebrochen und durch einen klassischen Stuhlkreis im Gruppenraum ersetzt.",
+            "label": "Jonas besteht darauf, dass alle Kinder in Regenkleidung draußen exakt nach Meilensteinplan arbeiten und die Hinweisschilder fertigstellen, damit die Projektdokumentation „ohne Brüche“ aussieht.",
             "quality": "problematisch",
-            "theoryLink": "RLP Rheinland-Pfalz: Flexibles Reagieren auf situative Veränderungen; Partizipation nach Renz-Polster/Mayr."
+            "feedback": "Ein rigides Durchziehen gegen das Wohl und die aktuellen Interessen der Kinder verwandelt das Projekt in Scheinpartizipation. Eine geschönte Dokumentation ohne echte Brüche verfehlt zudem den fachlichen Reflexionsanspruch.",
+            "theoryLink": "Scheinpartizipation; Verfehlung situativer Angemessenheit und ehrlicher Prozessreflexion."
           },
           {
-            "feedback": "Durch den flexiblen Einbezug der Kinder wird die Methode der Zukunftswerkstatt (Kritik- und Phantasiephase) kurzfristig in den Bewegungsraum verlegt. Das Projektziel bleibt erhalten, die Durchführung wird situativ angepasst.",
-            "label": "Die Gruppe nutzt den flexiblen \"Plan B\" (Erkundung im wetterfesten Schutzraum, Umdeutung der Störung als Forscherauftrag) und passt die Methode situativ an.",
+            "label": "Jonas greift das aktuelle Staunen der Kinder auf, richtet im geschützten Werk- und Überdachungsbereich mit Erdproben, Becherlupen und Bildkarten eine spontane Regenwurm- und Materialforscherstation als Plan B ein, bezieht die Kinder in die Umplanung ein und dokumentiert Anlass sowie pädagogische Begründung noch am selben Tag im Projektjournal.",
             "quality": "optimal",
-            "theoryLink": "Projektmethode nach Klafki/Giesecke; Flexibles Praxishandeln im Berufspraktikum (S-SP-8)."
+            "feedback": "Hervorragend! Jonas zeigt flexibles Praxishandeln: Er schützt die Gesundheit der Kinder, bewahrt das übergeordnete Bildungs- und Partizipationsziel (sinnliches Naturerleben und Mitbestimmung), nutzt sprachbildende Impulse und sichert die Nachvollziehbarkeit im Projektjournal.",
+            "theoryLink": "Projektmethode & Situationsansatz; flexibles Praxishandeln; prozessbegleitendes Projektjournal."
           },
           {
-            "feedback": "Die Aktivität findet trotz strömenden Regens draußen statt, ohne Schutzmaßnahmen. Das gefährdet das Wohl der Kinder, zeigt mangelnde Risikoeinschätzung und verfehlt pädagogische Standards.",
-            "label": "Alle Kinder müssen trotz Regens draußen bleiben, um den rigiden Meilensteinplan exakt einzuhalten.",
-            "quality": "problematisch",
-            "theoryLink": "Aufsichtspflicht (§ 832 BGB); Situative Angemessenheit pädagogischen Handelns."
+            "label": "Jonas bricht das Projekt für diese Woche ab und lässt die Gruppe drinnen stattdessen vorgezeichnete Mandalas ausmalen, bis das Wetter wieder zum Plan passt.",
+            "quality": "teilweise",
+            "feedback": "Sicherheit bei starkem Regen zu beachten ist richtig, aber der komplette Abbruch verschenkt die enorme intrinsische Motivation der Kinder und ersetzt das Projekt durch ein unverbundenes Lückenfüller-Angebot.",
+            "theoryLink": "Verlust des lebensweltlichen Projektfadens statt situativer Didaktik."
           }
-        ],
-        "prompt": "Wie reagieren die Praktikant:innen auf einen plötzlichen Wetterumschwung (starker Dauerregen) am Tag der geplanten Geländeerkundung?",
-        "situation": "Wetterbedingte Störung in der Durchführungsphase des Projekts."
+        ]
       },
       {
+        "situation": "Vier Wochen später bereitet Jonas seine 15-minütige Präsentation für das Abschlusskolloquium vor. Ein erfahrener Kollege rät ihm: „Zeig einfach viele süße Fotos vom fertigen Sinnespfad und erwähn die Regen-Panne lieber gar nicht, sonst bekommst du Punktabzug.“",
+        "prompt": "Wie gestaltet Jonas seine Kolloquiums-Präsentation und Verteidigung überzeugend und fachlich korrekt?",
         "options": [
           {
-            "feedback": "Die Reflexion erfolgt monologisch und rein subjektiv ohne Bezug zu Fachliteratur oder Entwicklungsdaten, wodurch der wissenschaftlich-reflektierte Anspruch des Kolloquiums verfehlt wird.",
-            "label": "Im Kolloquium wird lediglich berichtet, dass \"alles super lief\" und die Kinder viel Spaß hatten, ohne kritische Medien- oder Prozessreflexion.",
+            "label": "Er folgt dem Rat des Kollegen, blendet Planabweichungen aus und füllt die 15 Minuten mit einer chronologischen Fotostrecke der Kinder beim Einweihungsfest.",
             "quality": "problematisch",
-            "theoryLink": "Kriterien für das Abschlusskolloquium: Fachlich fundierte Reflexion statt reiner Beschreibung."
+            "feedback": "Eine reine Produkt- und Fotopräsentation ohne analytische Tiefe verfehlt den Prüfungsauftrag (und birgt bei unklaren Einwilligungen zudem Datenschutzrisiken). Gerade die Reflexion von Planänderungen belegt professionelle Kompetenz.",
+            "theoryLink": "Gütekriterien des Kolloquiums: Theoriegestützte Prozess- und Entscheidungsreflexion statt reiner Produktshow."
           },
           {
-            "feedback": "Die Dokumentation enthält ein detailliertes Projektjournal, das sowohl gelungene Meilensteine als auch didaktische Krisen (Wetter, Konflikte) transparent analysiert und theoriegestützt (z. B. Partizipation, Konstruktivismus) bewertet.",
-            "label": "Das Projektjournal und das Portfolio werden anhand konkreter Situationsanalysen, methodischer Anpassungen und theoriegeleiteter Reflexionen präsentiert.",
+            "label": "Er liest die wichtigsten fünf Seiten seiner schriftlichen Projektdokumentation nahezu wörtlich ab, damit keine fachliche Formulierung verloren geht.",
+            "quality": "teilweise",
+            "feedback": "Fachbegriffe einzubeziehen ist sinnvoll, aber wörtliches Ablesen wirkt unsicher, langweilt den Prüfungsausschuss und zeigt nicht, dass Jonas seine Entscheidungen frei und praxisnah vertreten kann.",
+            "theoryLink": "Professionelle Präsentations- und Argumentationskompetenz im Kolloquium."
+          },
+          {
+            "label": "Er baut einen klaren analytischen roten Faden auf (Situationsanalyse → Ziele & Theoriebezug → bewusste Analyse der Regen-Planänderung anhand des Projektjournals → partizipative Evaluation mit den Kindern und selbstkritischer Ausblick), nutzt anonymisierte Visualisierungen und bereitet sich auf kritische Fachfragen zu Inklusion und Zielerreichung vor.",
             "quality": "optimal",
-            "theoryLink": "Formale Dokumentation nach RLP (Entwicklungsportfolio, Projektjournal, Kolloquiums-Verteidigung)."
-          },
-          {
-            "feedback": "Es werden ausschließlich die gebastelten Endprodukte (Modelle) präsentiert, während der partizipative Prozess, die Beteiligung der Kinder und methodische Schwierigkeiten komplett ausgeblendet werden.",
-            "label": "Im Kolloquium wird nur das fertige Modell des Spielplatzes auf einem Plakat gezeigt; auf Fragen der Prüfer:innen zu Gruppenprozessen wird ausweichend reagiert.",
-            "quality": "problematisch",
-            "theoryLink": "Kompetenzorientierte Prüfung: Prozess- und Ergebnisreflexion im S-SP-8 Kolloquium."
+            "feedback": "Sehr überzeugend! Jonas stellt pädagogische Begründungen, Beobachtungsbelege, Datenschutz und echte Reflexionsreife in den Mittelpunkt — genau das, was im Abschlusskolloquium gefragt ist.",
+            "theoryLink": "Wissenschaftlich-fachliche Begründung; Integration von Projektjournal, Evaluation und kritischer Selbstreflexion."
           }
-        ],
-        "prompt": "Wie gestalten die Praktikant:innen die Projektdokumentation und die Vorbereitung auf das abschließende Kolloquium?",
-        "situation": "Dokumentation, Reflexion und Kolloquiums-Präsentation am Projektende."
+        ]
       }
-    ],
-    "title": "Die Zukunftswerkstatt im Waldspielplatz-Projekt"
+    ]
   },
   "selfLearningTasks": [
-    "Erstellen Sie für ein fiktives Abschlussprojekt in Ihrer Praxiseinrichtung einen detaillierten Meilenstein- und Phasenplan nach der Projektmethode.",
-    "Führen Sie ein dreitägiges Probe-Projektjournal und reflektieren Sie kritisch eine simulierte situative Störung (z. B. Ausfall eines Kooperationspartners).",
-    "Entwerfen Sie einen 10-minütigen Präsentationsleitfaden für das Abschlusskolloquium inklusive möglicher kritischer Rückfragen der Prüfer:innen."
+    "Entwerfen Sie für ein geplantes oder fiktives Abschlussprojekt eine zweiseitige Projektskizze mit allen fünf Phasen (Situationsanalyse mit konkreten Beobachtungen, überprüfbare Ziele, Meilensteine inkl. Plan B, Inklusions-/Sprachbildungskonzept und partizipative Evaluationsmethode).",
+    "Schreiben Sie zwei exemplarische Einträge für ein Projektjournal zu einer realen oder simulierten Störung (z. B. Konflikt in der Gruppe oder Ausfall eines Kooperationspartners): Trennen Sie sauber zwischen beobachtetem Verlauf, didaktischer Entscheidung mit Theoriebezug und Wirkung.",
+    "Erstellen Sie eine 6-Folien-Gliederung für eine 12-minütige Kolloquiums-Präsentation (ohne bloße Nacherzählung) und notieren Sie fünf mögliche kritische Fragen des Prüfungsausschusses samt stichpunktartigen, theoriegestützten Antworten."
   ],
   "flashcards": [
     {
-      "definition": "Systematische, praxisintegrierte Methode zur eigenverantwortlichen Bearbeitung komplexer, lebensweltorientierter Problemstellungen durch eine Zielgruppe unter Begleitung von Fachkräften.",
-      "example": "Planung und Bau eines Insektenhotels mit Vorschulkindern von der Idee bis zur Eröffnung.",
-      "term": "Projektmethode"
+      "term": "Situationsanalyse im Projekt",
+      "definition": "Systematische Erhebung aktueller Interessen, Themen, Kompetenzen und Rahmenbedingungen der Zielgruppe (durch Beobachtung, Gespräche, Umfeldanalyse) als fachliche Begründung, warum genau dieses Projekt sinnvoll ist.",
+      "example": "Beobachtungsnotizen zeigen, dass sich Kinder intensiv mit dem Bau einer Brücke im Garten beschäftigen — daraus entsteht das gemeinsame Technik- und Naturprojekt."
     },
     {
-      "definition": "Fortlaufendes, tagebuchartiges Dokumentationsinstrument während des Projekts zur Selbstreflexion, Prozesssteuerung und Dokumentation unvorhergesehener Ereignisse.",
-      "example": "Tägliche Notizen über Störungen, veränderte Kinderbedürfnisse und methodische Anpassungen.",
-      "term": "Projektjournal"
+      "term": "Flexibles Praxishandeln",
+      "definition": "Professionelle Fähigkeit, bei unvorhergesehenen Störungen oder veränderten Impulsen der Zielgruppe Methoden, Ablauf oder Teilziele pädagogisch begründet anzupassen, ohne den übergeordneten Bildungsauftrag zu verlieren.",
+      "example": "Bei unerwarteter Begeisterung für Schattenspiele im Gruppenraum verlagert die Fachkraft das geplante Licht-Projekt situativ in ein Schattentheater und dokumentiert die Begründung."
     },
     {
-      "definition": "Gezielte, methodische Erfassung des Entwicklungs- und Reflexionsstandes der Auszubildenden während des gesamten Berufspraktikums (Modul S-SP-8).",
-      "example": "Sammlung von Praxisberichten, Selbsteinschätzungen und Mentorengesprächen im Ordner.",
-      "term": "Entwicklungsportfolio"
+      "term": "Projektjournal",
+      "definition": "Fortlaufendes, prozessbegleitendes Arbeits- und Reflexionsprotokoll während der Projektlaufzeit, in dem Beobachtungen, Entscheidungen, Planabweichungen und erste theoretische Gedanken zeitnah festgehalten werden.",
+      "example": "Direkt nach einer Projekteinheit notiert der Praktikant, weshalb eine Gesprächsrunde zu lang war und wie er sie beim nächsten Treffen visueller strukturiert."
     },
     {
-      "definition": "Fähigkeit pädagogischer Fachkräfte, bei unvorhergesehenen situativen Störungen (Stimmungen, Wetter, Krisen) methodisch adäquat und zielorientiert zu reagieren.",
-      "example": "Umbenennung einer geplanten Aktion vom Außengelände in einen Indoor-Forscherkreis bei starkem Regen.",
-      "term": "Flexibles Praxishandeln"
+      "term": "Wissenschaftlich-fachliche Begründung",
+      "definition": "Nachvollziehbare Verknüpfung konkreter Praxisbeobachtungen mit anerkannten pädagogischen, psychologischen oder rechtlichen Konzepten und korrekt belegter Fachliteratur zur Legitimation eigener Entscheidungen.",
+      "example": "Begründung des Einsatzes von Bildkarten und handlungsbegleitendem Sprechen im Projekt mithilfe aktueller Konzepte alltagsintegrierter Sprachbildung."
     },
     {
-      "definition": "Mündliche Fachprüfung im Rahmen des Berufspraktikums, in der das Abschlussprojekt präsentiert, fachlich begründet und gegen kritische Fragen verteidigt wird.",
-      "example": "Präsentation der Projektphasen mit anschließender Fachdiskussion vor dem Prüfungsausschuss.",
-      "term": "Kolloquium"
+      "term": "Partizipative Evaluation",
+      "definition": "Systematische Auswertung von Projektprozess und -ergebnis nicht nur aus Fachkraftsicht, sondern unter aktiver, altersgerechter Einbeziehung der Kinder, Jugendlichen oder jungen Erwachsenen.",
+      "example": "Grundschulkinder bewerten einzelne Projektschritte über eine Zielscheiben-Methode und benennen, was ihnen beim nächsten Mal wichtig wäre."
+    },
+    {
+      "term": "Kolloquiums-Verteidigung",
+      "definition": "Mündliche Präsentation und fachliche Diskussion des Abschlussprojekts vor dem Prüfungsausschuss, bei der insbesondere Entscheidungsbegründung, Theorie-Praxis-Verbindung und ehrliche kritische Reflexion bewertet werden.",
+      "example": "Auf eine kritische Nachfrage zur Gruppengröße benennt die Praktikantin sowohl ihre ursprünglichen Gründe als auch eine fundierte Alternative für zukünftige Projekte."
     }
   ],
   "quiz": [
     {
+      "id": "v2-q1",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Was unterscheidet ein fachlich fundiertes sozialpädagogisches Projekt grundlegend von einer vorgegebenen Bastel- oder Angebotsreihe?",
+      "options": [
+        "Ein Projekt muss immer mindestens ein halbes Jahr dauern und ein großes öffentliches Fest enthalten.",
+        "Ein Projekt knüpft über eine Situationsanalyse an reale Lebensthemen der Zielgruppe an, beteiligt sie aktiv an Planung, Durchführung und Evaluation und bleibt offen für situative Entwicklungen.",
+        "In einem Projekt legt die Fachkraft alle Zwischenschritte exakt fest, damit möglichst identische Endprodukte entstehen.",
+        "Ein Projekt verzichtet vollständig auf pädagogische Zielsetzungen und schriftliche Planung."
+      ],
       "correctIndices": [
         1
       ],
-      "difficulty": "basis",
-      "explanation": "Das Projektjournal ist ein prozessbegleitendes Instrument (Tagebuch), in dem Entscheidungen, Störungen und Reflexionen fortlaufend festgehalten werden.",
-      "id": "q1",
-      "options": [
-        "Eine einmalige Kosten- und Materialkalkulation vor Projektbeginn",
-        "Ein prozessbegleitendes Tagebuch zur kontinuierlichen Reflexion und Dokumentation des Projektverlaufs",
-        "Die offizielle Benotung durch die Praxismentor:in am Ende des Praktikums",
-        "Ein rein statistischer Anwesenheitsnachweis der Zielgruppe"
-      ],
-      "question": "Welche primäre Funktion erfüllt ein \"Projektjournal\" im Rahmen des Moduls S-SP-8?",
-      "type": "single"
+      "explanation": "Projektarbeit im Sinne des Situationsansatzes verbindet klare pädagogische Zielorientierung mit Lebensweltbezug, echter Partizipation der Zielgruppe und Offenheit für Lernprozesse statt starrer Produktvorgaben."
     },
     {
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Welche Funktion erfüllt das prozessbegleitende Projektjournal im Unterschied zur abschließenden Projektdokumentation?",
+      "options": [
+        "Es wird erst nach dem Kolloquium als Zusammenfassung für die Eltern geschrieben.",
+        "Es enthält ausschließlich Kassenbelege und Anwesenheitslisten.",
+        "Es hält fortlaufend und zeitnah Beobachtungen, Störungen, Planabweichungen und erste Reflexionen fest und bildet so die transparente Grundlage für Evaluation und Dokumentation.",
+        "Es ersetzt die theoretische Begründung in der Projektdokumentation vollständig."
+      ],
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Weil Erinnerungen im Nachhinein schnell geglättet werden, sichert das zeitnah geführte Projektjournal unverfälschte Prozessdaten, begründete Planänderungen und wertvolle Reflexionsanstöße für Dokumentation und Kolloquium."
+    },
+    {
+      "id": "v2-q3",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Während eines Projekts zur gesunden Ernährung in einer Hortgruppe möchten vier Kinder plötzlich lieber ein eigenes Kochbuch mit Familienrezepten erstellen, statt das von der Praktikantin geplante Ernährungsposter zu basteln. Wie zeigt die Praktikantin flexibles Praxishandeln?",
+      "options": [
+        "Sie prüft, ob das übergeordnete Bildungsziel (bewusster, wertschätzender Umgang mit Ernährung und Sprach-/Schriftkultur) durch das Rezeptbuch ebenso oder sogar besser erreicht wird, plant gemeinsam mit der Gruppe um und dokumentiert die Begründung im Projektjournal.",
+        "Sie lehnt die Idee ab, weil das Poster bereits in ihrer schriftlichen Vorplanung steht.",
+        "Sie lässt die Kinder völlig ohne Begleitung machen und verabschiedet sich aus der pädagogischen Steuerung.",
+        "Sie teilt die Gruppe dauerhaft auf, damit wenigstens das geplante Poster für die Bewertung fertig wird."
+      ],
+      "correctIndices": [
+        0
+      ],
+      "explanation": "Flexibles Praxishandeln richtet sich am übergeordneten Ziel und an echter Partizipation aus: Wenn die Eigeninitiative der Kinder das Bildungsziel (inkl. Familienbezug und Literacy!) sogar vertieft, ist das begründete Umsteuern fachlich vorbildlich."
+    },
+    {
+      "id": "v2-q4",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche beiden Merkmale zeichnen eine wissenschaftlich-fachlich überzeugende Projektdokumentation aus? (Wählen Sie zwei Antworten)",
+      "options": [
+        "Theoretische Konzepte und aktuelle Fachliteratur werden gezielt mit konkreten Praxisbeobachtungen und Methodenentscheidungen verknüpft und korrekt belegt.",
+        "Schwierigkeiten oder gescheiterte Methoden werden bewusst weggelassen, um einen makellosen Eindruck zu erzeugen.",
+        "Möglichst viele unverbundene Lehrbuchzitate werden als langer allgemeiner Theorieblock ohne Bezug zur eigenen Gruppe aneinandergereiht.",
+        "Personenbezogene Daten von Kindern, Eltern und Mitarbeitenden werden konsequent anonymisiert und Fotos nur mit gültiger Einwilligung verwendet."
+      ],
+      "correctIndices": [
+        0,
+        3
+      ],
+      "explanation": "Qualität zeigt sich in der präzisen Theorie-Praxis-Verknüpfung, korrekter Quellenarbeit, konsequentem Datenschutz und ehrlicher kritischer Reflexion von Erfolgen wie Grenzen."
+    },
+    {
+      "id": "v2-q5",
+      "type": "single",
+      "difficulty": "pruefung",
+      "question": "Was überzeugt einen Prüfungsausschuss im Abschlusskolloquium am stärksten?",
+      "options": [
+        "Das vollständige, lückenlose Nacherzählen jedes einzelnen Projekttages in chronologischer Reihenfolge.",
+        "Das sofortige Zurückweisen jeder kritischen Rückfrage als Missverständnis der Prüfer:innen.",
+        "Eine aufwendige Dekoration des Prüfungsraums ohne theoretische Einordnung.",
+        "Eine fokussierte, analytische Präsentation zentraler Entscheidungen, Schlüsselsituationen und Evaluationsergebnisse verbunden mit souveräner, selbstkritischer Argumentation im Fachgespräch."
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Im Kolloquium geht es um berufliche Handlungs- und Urteilsfähigkeit: Wer zentrale Entscheidungen theoretisch begründen, Ergebnisse kritisch evaluieren und sachlich auf Rückfragen eingehen kann, zeigt echte Professionalität."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "basis",
+      "question": "Wie lassen sich Inklusion und Sprachbildung konkret in allen Phasen eines Abschlussprojekts verankern? (Wählen Sie zwei Antworten)",
+      "options": [
+        "Indem Kinder mit Förder- oder Sprachbedarf vorübergehend aus der Projektgruppe herausgenommen werden, um das Tempo hochzuhalten.",
+        "Durch visuelle Planungs- und Abstimmungshilfen (Bildkarten, Fotos, Piktogramme) sowie barrierearme, vielfältige Beteiligungsformen.",
+        "Durch handlungs- und denkbegleitendes Sprechen, offene Impulse und den wertschätzenden Einbezug von Mehrsprachigkeit in der Gruppe.",
+        "Indem ausschließlich die sprachlich stärksten Kinder das Projekt im Morgenkreis vorstellen dürfen."
+      ],
       "correctIndices": [
         1,
         2
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Flexibles Praxishandeln erfordert die Fähigkeit, adäquat auf unvorhergesehene Ereignisse zu reagieren, ohne den Blick auf das übergeordnete Ziel zu verlieren, sowie die transparente Dokumentation dieser Kurskorrekturen. Ein dogmatisches Festhalten an Plänen oder ein sofortiger Projektabbruch widersprechen diesem Prinzip.",
-      "id": "q2",
-      "options": [
-        "Das strikte und unverändernde Festhalten am initialen Meilensteinplan ohne Rücksicht auf äußere Einflüsse",
-        "Das reflektierte Anpassen von Methoden und Zeitplänen bei veränderten Rahmenbedingungen oder Kindesinteressen",
-        "Die transparente Dokumentation von Krisen und deren erarbeiteten Lösungswegen im Projektjournal",
-        "Die ausschließliche Delegation von Problemlösungen an die Praxisleitung"
-      ],
-      "question": "Welche Verhaltensweisen kennzeichnen \"flexibles Praxishandeln\" bei unvorhergesehenen Störungen im Projektverlauf? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Inklusive, sprachbildende Projektarbeit öffnet Zugänge über mehrkanalige Kommunikation (visuell, handelnd, sprachlich) und nutzt echte Aushandlungs- und Präsentationsanlässe für alle Kinder."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Projektarbeit (Fachlexikon)",
+      "url": "https://www.socialnet.de/lexikon/Projektarbeit",
+      "publisher": "socialnet Lexikon",
+      "note": "Grundlagen, Merkmale, Phasen und pädagogische Begründung der Projektmethode in der Sozialen Arbeit."
     },
     {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "In der praxisnahen Projektmethode ist die Beteiligung (Partizipation) der Zielgruppe von Beginn an (Situationsanalyse, Zieldefinition) zentral. Die Fachkraft moderiert und begleitet, anstatt Projekte autokratisch vorzugeben.",
-      "id": "q3",
-      "options": [
-        "Die Fachkraft bestimmt das Thema, die Ziele und sämtliche Zwischenschritte allein, um Zeit zu sparen.",
-        "Die Kinder werden erst bei der finalen Präsentation des fertigen Produkts einbezogen.",
-        "Die Zielgruppe wird aktiv in Situationsanalyse, Themenfindung und partizipative Zielsetzung einbezogen.",
-        "Das Projekt wird ausschließlich nach theoretischen Lehrbuchvorgaben ohne Berücksichtigung der Praxissituation durchgeführt."
-      ],
-      "question": "Welches methodische Grundverständnis prägt die Projektarbeit in der Fachschule Sozialwesen nach RLP-Lehrplan?",
-      "type": "single"
+      "title": "Alltag mit dem Situationsansatz gestalten (Kita-Fachtext)",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/KiTaFT_Macha_2018_AlltagmitdemSituationsansatz.pdf",
+      "publisher": "Klaudia Macha / Kita-Fachtexte",
+      "note": "Lebensweltorientierung, Situationsanalyse und Verknüpfung von Projekten mit dem pädagogischen Alltag."
     },
     {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Im Kolloquium wird nicht nur das Produkt bewertet, sondern vor allem die theoriegeleitete Reflexion, die methodische Begründung von Entscheidungen und die fachliche Auseinandersetzung mit dem eigenen Handeln.",
-      "id": "q4",
-      "options": [
-        "Eine möglichst lange PowerPoint-Präsentation ohne Unterbrechung",
-        "Eine souveräne, fachlich begründete Präsentation und Verteidigung des Projekts auf Basis theoriegestützter Reflexion",
-        "Das Vorlesen der kompletten 50-seitigen Projektdokumentation Wort für Wort",
-        "Das ausschliessliche Präsentieren von Fotos der Kinder ohne fachlichen Bezug"
-      ],
-      "question": "Was ist das entscheidende Gütekriterium für das erfolgreiche Bestehen des Abschlusskolloquiums im Berufspraktikum?",
-      "type": "single"
+      "title": "Partizipation und Beschwerdeverfahren in der Kita (Kita-Fachtext)",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/KiTaFT_Winklhofer_2018_PartizipationundBeschwerdeverfahren.pdf",
+      "publisher": "Ursula Winklhofer / Kita-Fachtexte",
+      "note": "Fachliche Kriterien echter Beteiligung von Kindern in Planung, Umsetzung und Evaluation."
     },
     {
-      "correctIndices": [
-        0
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "In inklusiven Settings ist eine passgenaue, sprachsensible und barrierefreie Gestaltung essenziell, damit alle Kinder – unabhängig von sprachlichen oder kognitiven Voraussetzungen – partizipieren können. Das Fallbeispiel zeigt, dass starre Pläne hier versagen und flexible Anpassungen notwendig sind.",
-      "id": "q5",
-      "options": [
-        "Das Projekt muss durch sprachsensible und inklusive Methoden so gestaltet sein, dass alle Kinder der Zielgruppe barrierefrei partizipieren können.",
-        "Inklusion bedeutet bei Abschlussprojekten, dass Kinder mit Förderbedarf separat in einem Nebenraum betreut werden.",
-        "Sprachbildung ist im Abschlussprojekt optional und nur bei sprachauffälligen Kindern relevant.",
-        "Die sprachliche Gestaltung wird ausschliesslich von der Praxismentorin und nicht von den Praktikant:innen verantwortet."
-      ],
-      "question": "Bezogen auf das Fallbeispiel (Inklusive Kita): Welcher fachliche Grundsatz gilt für die Projektplanung in heterogenen Gruppen?",
-      "type": "case"
+      "title": "Praxislernen in der frühpädagogischen Ausbildung",
+      "url": "https://www.weiterbildungsinitiative.de/forschung/praxislernen",
+      "publisher": "Weiterbildungsinitiative Frühpädagogische Fachkräfte (WiFF / DJI)",
+      "note": "Wissenschaftliche Perspektiven auf Theorie-Praxis-Transfer und Reflexionskompetenz im Berufspraktikum."
+    },
+    {
+      "title": "Praxisanleitung von Erzieher*innen und Heilerziehungspfleger*innen",
+      "url": "https://nifbe.de/fachbeitraege/praxisanleitung-von-erzieher-innen-und-heilerziehungspfleger-innenn/",
+      "publisher": "Niedersächsisches Institut für frühkindliche Bildung und Entwicklung (nifbe)",
+      "note": "Praxisbegleitung, Portfolioarbeit und Reflexionskultur auf dem Weg zum Abschlusskolloquium."
     }
   ]
 }

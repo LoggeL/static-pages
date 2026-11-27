@@ -1,15 +1,17 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Award,
   CheckCircle2,
   HelpCircle,
+  Info,
   RefreshCw,
   RotateCcw,
   Sparkles,
   XCircle,
 } from 'lucide-react';
-import { QuizQuestion, QuizResultEntry } from '../../types/curriculum';
+import type { QuizQuestion, QuizResultEntry } from '../../types/curriculum';
+import { isQuizResultStale } from '../../lib/storage';
 
 interface UnitQuizProps {
   questions: QuizQuestion[];
@@ -54,18 +56,37 @@ export const UnitQuiz: React.FC<UnitQuizProps> = ({
   savedResult,
   onSaveResult,
 }) => {
+  const questionSignature = useMemo(
+    () => questions.map((q) => q.id).join('|'),
+    [questions]
+  );
+
+  const isStale = useMemo(
+    () => isQuizResultStale(questions, savedResult),
+    [questions, savedResult]
+  );
+  const currentSavedResult = isStale ? undefined : savedResult;
+
   const [questionPoolIds, setQuestionPoolIds] = useState<string[]>(() =>
     questions.map((q) => q.id)
   );
-  const activeQuestions = useMemo(
-    () => questions.filter((q) => questionPoolIds.includes(q.id)),
-    [questions, questionPoolIds]
-  );
-
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selectedMap, setSelectedMap] = useState<Record<string, number[]>>({});
   const [checkedMap, setCheckedMap] = useState<Record<string, boolean>>({});
   const [finished, setFinished] = useState(false);
+
+  useEffect(() => {
+    setQuestionPoolIds(questions.map((q) => q.id));
+    setCurrentIdx(0);
+    setSelectedMap({});
+    setCheckedMap({});
+    setFinished(false);
+  }, [questionSignature, questions]);
+
+  const activeQuestions = useMemo(
+    () => questions.filter((q) => questionPoolIds.includes(q.id)),
+    [questions, questionPoolIds]
+  );
 
   const currentQ = activeQuestions[currentIdx] ?? activeQuestions[0];
 
@@ -99,13 +120,16 @@ export const UnitQuiz: React.FC<UnitQuizProps> = ({
   };
 
   const handleFinish = () => {
-    // Werte Gesamtdurchlauf nur wenn alle Fragen der Einheit gespielt wurden
     const score = activeQuestions.reduce((acc, q) => {
       const sel = selectedMap[q.id] ?? [];
       return acc + (isAnswerCorrect(q, sel) ? 1 : 0);
     }, 0);
     if (activeQuestions.length === questions.length) {
-      onSaveResult(score, questions.length, selectedMap);
+      const cleanAnswers: Record<string, number[]> = {};
+      for (const q of questions) {
+        cleanAnswers[q.id] = [...(selectedMap[q.id] ?? [])].sort((a, b) => a - b);
+      }
+      onSaveResult(score, questions.length, cleanAnswers);
     }
     setFinished(true);
   };
@@ -155,7 +179,7 @@ export const UnitQuiz: React.FC<UnitQuizProps> = ({
       <motion.div
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="space-y-5 rounded-3xl border border-slate-200 bg-white p-6 shadow-soft dark:border-slate-800 dark:bg-ink-800"
+        className="space-y-5 rounded-3xl border border-slate-200 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-ink-800 sm:p-6"
       >
         <div
           className={`rounded-2xl border p-6 text-center ${
@@ -179,11 +203,11 @@ export const UnitQuiz: React.FC<UnitQuizProps> = ({
             <strong>{activeQuestions.length}</strong> Fragen richtig beantwortet (
             <strong>{percentNow} %</strong>). Bestehensgrenze: 70 %.
           </p>
-          {savedResult && (
+          {currentSavedResult && currentSavedResult.total > 0 && (
             <div className="mt-3 inline-flex items-center gap-2 rounded-full bg-white/80 px-3.5 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-900/70 dark:text-slate-200">
-              Gespeicherter Bestwert: {savedResult.bestScore}/{savedResult.total} (
-              {Math.round((savedResult.bestScore / savedResult.total) * 100)} %) · Versuche:{' '}
-              {savedResult.attempts}
+              Gespeicherter Bestwert: {currentSavedResult.bestScore}/{currentSavedResult.total} (
+              {Math.round((currentSavedResult.bestScore / currentSavedResult.total) * 100)} %) · Versuche:{' '}
+              {currentSavedResult.attempts}
             </div>
           )}
         </div>
@@ -210,7 +234,7 @@ export const UnitQuiz: React.FC<UnitQuizProps> = ({
                   ) : (
                     <XCircle className="mt-0.5 h-4 w-4 shrink-0 text-rose-600" />
                   )}
-                  <div className="space-y-1">
+                  <div className="min-w-0 space-y-1">
                     <div className="font-semibold text-slate-900 dark:text-white">
                       {i + 1}. {q.question}
                     </div>
@@ -254,6 +278,23 @@ export const UnitQuiz: React.FC<UnitQuizProps> = ({
 
   return (
     <div className="space-y-4">
+      {/* Hinweis bei veralteten Quiz-IDs aus früherem Stand */}
+      {isStale && (
+        <div
+          role="status"
+          data-testid="stale-quiz-notice"
+          className="flex items-start gap-3 rounded-2xl border border-amber-300 bg-amber-50/90 p-4 text-xs leading-relaxed text-amber-950 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-100 sm:text-sm"
+        >
+          <Info className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+          <div>
+            <div className="font-bold">Quizfragen dieser Einheit wurden aktualisiert</div>
+            <p className="mt-0.5">
+              Dein früherer Quizstand gehört noch zu einer älteren Fragenversion und wird nicht auf die überarbeiteten Aufgaben übertragen. Du kannst das neue Quiz hier frisch bearbeiten — deine Notizen, Lesezeichen und sonstigen Fortschritte bleiben vollständig erhalten.
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Kopfzeile mit Bestwert & Fortschritt */}
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 dark:border-slate-800 dark:bg-ink-800">
         <div className="flex items-center gap-2 text-sm font-semibold text-slate-800 dark:text-slate-200">
@@ -262,10 +303,10 @@ export const UnitQuiz: React.FC<UnitQuizProps> = ({
         </div>
 
         <div className="flex items-center gap-3">
-          {savedResult && (
+          {currentSavedResult && currentSavedResult.total > 0 && (
             <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-300">
-              Bestwert: {savedResult.bestScore}/{savedResult.total} (
-              {Math.round((savedResult.bestScore / savedResult.total) * 100)} %)
+              Bestwert: {currentSavedResult.bestScore}/{currentSavedResult.total} (
+              {Math.round((currentSavedResult.bestScore / currentSavedResult.total) * 100)} %)
             </span>
           )}
         </div>
@@ -305,7 +346,7 @@ export const UnitQuiz: React.FC<UnitQuizProps> = ({
               </span>
             </div>
 
-            <h3 className="mt-3 text-base font-bold leading-snug text-slate-900 dark:text-white sm:text-lg">
+            <h3 className="mt-3 break-words text-base font-bold leading-snug text-slate-900 dark:text-white sm:text-lg">
               {currentQ.question}
             </h3>
 
@@ -351,7 +392,7 @@ export const UnitQuiz: React.FC<UnitQuizProps> = ({
                     >
                       {String.fromCharCode(65 + optIdx)}
                     </span>
-                    <span className="flex-1 leading-relaxed">{opt}</span>
+                    <span className="min-w-0 flex-1 break-words leading-relaxed">{opt}</span>
                     {isChecked && isCorrectOpt && (
                       <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-emerald-600" />
                     )}
@@ -385,7 +426,7 @@ export const UnitQuiz: React.FC<UnitQuizProps> = ({
 
             {/* Aktionsbuttons */}
             <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4 dark:border-slate-800">
-              <div className="flex gap-1.5">
+              <div className="flex flex-wrap gap-1.5">
                 {activeQuestions.map((q, idx) => {
                   const done = Boolean(checkedMap[q.id]);
                   const ok = done && isAnswerCorrect(q, selectedMap[q.id] ?? []);
@@ -432,7 +473,7 @@ export const UnitQuiz: React.FC<UnitQuizProps> = ({
                   onClick={handleFinish}
                   className="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-700"
                 >
-                  Quiz auswerten & speichern ✓
+                  Quiz auswerten &amp; speichern ✓
                 </button>
               )}
             </div>

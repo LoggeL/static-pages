@@ -4,401 +4,451 @@
   "moduleCode": "S-SP-4",
   "moduleArea": "sp-pflicht",
   "bildungsbereich": "Mathematik",
+  "unitRole": "core",
+  "curriculumRef": "S-SP-4 · Bildungsbereich Mathematik im pädagogischen Alltag (Lehrplan RLP 2024)",
   "title": "Bildungsbereich: Mathematik im pädagogischen Alltag",
-  "subtitle": "Sortieren, Muster, Raum & Form, Zeit, Mengen/Zahlen und mathematisches Problemlösen",
+  "subtitle": "Klassifizieren, Seriation, 1:1-Zuordnung, Raum-Lage, Muster/Symmetrie & Mengenverständnis alltagsintegriert begleiten",
   "year": "2./3. Jahr",
   "estimatedMinutes": 25,
   "hoursRef": "680 Std. (Bildungsbereich)",
   "pdfPages": "S. 35",
   "crossCuttingTags": [
     "Sprachbildung",
-    "Partizipation"
+    "Partizipation",
+    "Inklusion"
   ],
-  "summary": "Diese Einheit widmet sich dem Bildungsbereich Mathematik in der Fachschule für Sozialpädagogik (RLP) und befähigt angehende Erzieher:innen dazu, eigene Berührungsängste abzulegen. Sie vermittelt fundiertes Fachwissen zu den fünf mathematischen Inhaltsbereichen (Sortieren, Muster, Raum & Form, Zeit, Mengen/Zahlen) und zeigt, wie mathematische Bildung alltagsintegriert, sprachbildend und partizipativ im pädagogischen Alltag umgesetzt wird.",
+  "summary": "Frühe mathematische Bildung hat nichts mit trockenem Ziffern-Nachspuren auf Arbeitsblättern zu tun: Kinder begegnen Strukturen, Mengen, Formen und Größen überall im Alltag. Diese Einheit vermittelt die zentralen frühen mathematischen Basiskompetenzen – Klassifizieren, Seriation, Eins-zu-eins-Zuordnung, Raum-Lage-Beziehungen, Muster und Symmetrie sowie Mengenverständnis, Simultanerfassung und Zählprinzipien – und zeigt, wie Fachkräfte Mathematik alltagsintegriert, sprachbildend und angstfrei begleiten.",
   "learningGoals": [
-    "Ich kann meine eigene mathematische Biografie reflektieren und angstfrei sowie neugierig mathematische Bildungsangebote gestalten.",
-    "Ich kann die entwicklungspsychologischen Grundlagen und Vorläuferfähigkeiten mathematischen Denkens im Elementar- und Jugendalter benennen.",
-    "Ich kann mathematische Inhaltsbereiche (Sortieren, Muster, Raum & Form, Zeit, Mengen/Zahlen) in der Lebenswelt von Kindern identifizieren.",
-    "Ich kann alltagsintegrierte mathematische Lernsituationen in Kita, Hort und Ganztagsschule planen, umsetzen und reflektieren.",
-    "Ich kann mathematische Bildung mit den Querschnittsthemen Sprachbildung und Partizipation verknüpfen."
+    "Ich kann frühe mathematische Basiskompetenzen (Klassifizieren, Seriation, Eins-zu-eins-Zuordnung, Muster/Symmetrie, Raum-Lage und Mengen-/Zahlverständnis) fachlich sicher unterscheiden und im Alltag erkennen.",
+    "Ich kann zentrale Meilensteine des Mengen- und Zahlverständnisses (Simultanerfassung, Zählprinzipien inkl. Kardinalzahlprinzip, Mengeninvarianz) sachlich korrekt erläutern.",
+    "Ich kann alltagsintegrierte mathematische Lernsituationen (z. B. beim Tischdecken, Bauen, Backen, Würfelspielen oder Budgetplanen im Hort) statt isolierter Arbeitsblätter gestalten.",
+    "Ich kann mathematische Bildungsprozesse gezielt mit präziser Alltagssprache (Präpositionen, Vergleichs- und Fachbegriffe) und Partizipation verknüpfen.",
+    "Ich kann meine eigene Mathematikbiografie reflektieren, um mögliche schulische Unsicherheiten nicht auf Kinder zu übertragen und Entdeckerfreude vorzuleben."
   ],
   "sections": [
     {
-      "body": "Viele angehende Erzieher:innen bringen aus ihrer eigenen Schulzeit negative Erfahrungen oder Unsicherheiten im Fach Mathematik mit. Um Kindern unvoreingenommen und frei von Leistungsangst begegnen zu können, ist die bewusste Reflexion der eigenen Mathe-Biografie unerlässlich. Mathematische Bildung beginnt im Elementarbereich nicht mit abstrakten Ziffern auf Papier, sondern wurzelt in der sensorischen und handlungsorientierten Auseinandersetzung mit der belebten und unbelebten Umwelt. Fachkräfte nehmen eine Vorbildfunktion ein: Wer selbst Freude am Entdecken von Mustern und Strukturen zeigt, weckt bei Kindern eine intrinsische Neugier.",
+      "heading": "Frühe mathematische Basiskompetenzen: Mehr als Zählen bis Zehn",
+      "keyTakeaway": "Bevor Kinder rechnen, erschließen sie Ordnung, Reihenfolgen, Zuordnungen, Raum-Lage und Muster – handelnd mit Körper und Material.",
+      "body": "Wer bei früher Mathematik nur an das Aufsagen der Zahlwortreihe denkt, übersieht das breite Fundament mathematischen Denkens. Die Fachdidaktik (u. a. Christiane Benz, Andrea Peter-Koop, Kristin Krajewski, Stiftung Kinder forschen) zeigt, dass Kinder von klein auf mehrere eng verzahnte Basiskompetenzen ausbilden: Beim Klassifizieren (Sortieren) ordnen Kinder Gegenstände nach selbst gewählten oder vereinbarten Merkmalen (Farbe, Form, Material, Größe, Funktion) und bilden logische Klassen – die Basis für Begriffsbildung. Bei der Seriation (Reihenbildung) ordnen sie Objekte nach einer schrittweise veränderlichen Eigenschaft, etwa Stöcke vom kürzesten zum längsten, Steine vom leichtesten zum schwersten oder Töne von tief nach hoch. Die Eins-zu-eins-Zuordnung verknüpft je ein Element zweier Mengen miteinander (jedes Kind bekommt genau einen Becher, jeder Topf seinen Deckel) und erlaubt exakte Mengenvergleiche („mehr“, „weniger“, „gleich viel“) noch vor sicherem Zählen. Im Bereich Muster, Strukturen und Symmetrie entdecken, kopieren und erfinden Kinder visuelle, akustische und motorische Regelmäßigkeiten (z. B. Perlenfolge ABAB, Klatschrhythmen, Spiegelsymmetrie). Im Bereich Raum, Form und Raum-Lage-Beziehungen begreifen sie geometrische Formen, Körper (Würfel, Zylinder, Kugel) sowie Lagebeziehungen im Raum (oben, unten, vor, hinter, neben, zwischen, links, rechts) zunächst über den eigenen Körper und das Bauen.",
       "bulletPoints": [
-        "Bedeutung der Biografie-Arbeit zur Vermeidung der Übertragung eigener Ängste",
-        "Abkehr von früher Verschulung hin zu handlungsorientiertem Begreifen",
-        "Pädagogische Haltung: Fehlerfreundlichkeit und gemeinsame Entdeckerfreude",
-        "Mathematik als elementarer Bestandteil menschlicher Kultur und kindlicher Lebenswelt"
+        "Klassifizieren (Sortieren): Objekte nach einem oder mehreren Merkmalen (z. B. „rot und rund“) ordnen und begründen.",
+        "Seriation (Reihenbildung): Nach abgestuften Größenmerkmalen ordnen (klein → groß, leicht → schwer, kurz → lang).",
+        "Eins-zu-eins-Zuordnung: Elementweises Zuordnen als tragfähige Grundlage für Mengenvergleiche und Zählen.",
+        "Muster, Symmetrie & Raum-Lage: Strukturen fortsetzen, Symmetrien entdecken und räumliche Beziehungen handelnd und sprachlich erfassen."
       ],
-      "heading": "1. Die eigene Mathe-Biografie reflektieren & pädagogische Haltung entwickeln",
-      "keyTakeaway": "Angstfreiheit und Entdeckerfreude sind die fundamentale Basis, um Kindern einen positiven, selbstwirksamen Zugang zu mathematischen Denkweisen zu eröffnen.",
-      "praxisTip": "Führen Sie im Team eine biografische Reflexionsrunde durch: Welche Mathe-Erinnerungen aus der Schulzeit belasten mich bis heute, und wie kann ich verhindern, diese unbewusst an Kinder weiterzugeben?"
+      "praxisTip": "Begleiten Sie beim Bauen und Aufräumen gezielt die Raum-Lage-Sprache: „Stell den langen Quader bitte *zwischen* die beiden Säulen“ statt bloß „Mach das da hin!“"
     },
     {
-      "body": "Der Lehrplan teilt mathematische Grundbildung in fünf zentrale Inhaltsbereiche auf, die eng miteinander verschränkt sind: Sortieren und Klassifizieren (Ordnen nach Kriterien wie Größe oder Farbe), Muster und Reihenfolgen (Erkennen von Regelmäßigkeiten und Rhythmen), Raum und Form (Geometrische Grunderfahrungen, Lagebeziehungen und Symmetrie), Zeit und Messen (Tagesrhythmen, Vergangenes und Zukünftiges, Vergleichen von Größen) sowie Mengen, Zahlen und Ziffern (Eins-zu-eins-Zuordnung, Simultanerfassung und Mengeninvarianz). Diese Bereiche bilden das kognitive Fundament für alle späteren schulischen und lebensweltlichen Rechenoperationen.",
+      "heading": "Mengenverständnis, Simultanerfassung, Zählprinzipien & Messen",
+      "keyTakeaway": "Zahlen auswendig aufsagen heißt noch nicht, Mengen zu verstehen – erst Simultanerfassung und das Kardinalzahlprinzip erschließen echte Anzahlen.",
+      "body": "Zwischen dem mechanischen Aufsagen von „Eins, zwei, drei, vier…“ (wie ein Gedicht) und einem tragfähigen Mengen- und Zahlverständnis liegen entscheidende kognitive Entwicklungsschritte. Bereits sehr junge Kinder entwickeln die Simultanerfassung (Subitizing): Sie erfassen kleine Mengen bis etwa drei oder vier Objekte auf einen einzigen Blick, ohne abzählen zu müssen; bei strukturierten Anordnungen (z. B. Würfelbilder oder Fingerbilder) erkennen Kinder größere Mengen rasch quasi-simultan (z. B. 6 als zwei Dreierreihen). Für richtiges Zählen wirken nach Rochel Gelman und Randy Gallistel fünf Zählprinzipien zusammen – für die Praxis besonders zentral sind das Eins-zu-eins-Prinzip (jedes Objekt erhält genau ein Zahlwort), die stabile Folge (immer dieselbe Zahlwortreihe), die Irrelevanz der Anordnung (es bleibt egal, bei welchem Objekt man beginnt) und das Kardinalzahlprinzip: Das zuletzt genannte Zahlwort gibt die Gesamtanzahl der Menge an (ein Kind, das nach „1, 2, 3, 4“ auf die Frage „Wie viele sind es?“ sofort „Vier!“ sagt, statt noch einmal von vorn zu zählen, hat das Kardinalzahlprinzip verstanden!). Auch die Mengeninvarianz (fünf Plättchen bleiben fünf, selbst wenn sie weiter auseinanderliegen) festigt sich im Elementarbereich – wobei neuere Entwicklungsstudien (u. a. diskutiert von Thomas Royar) zeigen, dass Kinder entsprechende Einsichten in alltagsnahen, kindgerechten Situationen oft früher zeigen als in Jean Piagets klassischen Experimenten. Ergänzt wird dies durch Größen, Messen und Zeit: Kinder vergleichen Längen mit eigenen Füßen oder Bausteinen, füllen Wasser zwischen schmalen und breiten Gefäßen um und erleben Zeitstrukturen im Tages- und Wochenrhythmus.",
       "bulletPoints": [
-        "Sortieren und Klassifizieren als Basis für Begriffsbildung",
-        "Muster und Reihenfolgen zur Strukturierung von Raum und Zeit",
-        "Raum und Form: Wahrnehmung von Körpern, Flächen und Perspektiven",
-        "Zeit und Messen: Rhythmisierung des Tages und Grössenvergleiche",
-        "Mengen, Zahlen und Ziffern: Vom konkreten Material zum abstrakten Symbol"
+        "Simultan- & quasi-simultane Erfassung: Kleine Mengen (bis ca. 4) auf einen Blick erkennen; strukturierte Würfel- und Fingerbilder nutzen.",
+        "Zählprinzipien (Gelman & Gallistel): Besonders wichtig ist das Kardinalzahlprinzip – die letzte Zahl nennt die Gesamtmenge.",
+        "Mengeninvarianz & differenzierter Blick auf Piaget: Anzahl bleibt unabhängig von der räumlichen Anordnung gleich; Kontext beeinflusst kindliche Leistung.",
+        "Messen & Zeit: Längen, Gewichte, Volumen und Zeitspannen zunächst mit handelnden Vergleichen und ungenormten Maßen (Hände, Becher, Sanduhren) erkunden."
       ],
-      "heading": "2. Mathematische Inhaltsbereiche im Elementar- und Jugendalter",
-      "keyTakeaway": "Mathematische Bildung im Elementarbereich ist breit gefächert und umfasst weit mehr als das bloße Zählen von Eins bis Zehn.",
-      "praxisTip": "Nutzen Sie den Gruppenalltag für Sortieraufgaben: Lassen Sie beim Aufräumen Bausteine nach Formen und Farben in beschriftete Kisten einsortieren und benennen Sie die Kriterien sprachlich mit den Kindern."
+      "praxisTip": "Spielen Sie regelmäßig einfache Würfel- und Gesellschaftsspiele in Kleingruppen – sie trainieren ganz spielerisch Simultanerfassung, Eins-zu-eins-Zuordnung (Felder ziehen) und Mengenvergleiche ohne jedes Arbeitsblatt."
     },
     {
-      "body": "Mathematik ist kein isoliertes Schulfach, sondern ein universeller Problemlöser im Alltag. Kinder begegnen mathematischen Herausforderungen ständig: beim Tischdecken (Wie viele Teller fehlen noch?), beim Bauen (Reicht der lange Holzklotz als Brücke?), beim Backen (Wie viele Löffel Mehl sind eine Tasse?) oder im Jugendalter beim Verwalten des Taschengeld-Budgets. Alltagsintegrierte mathematische Bildung bedeutet, diese spontanen Situationen aufzugreifen, gemeinsam sprachlich zu begleiten und durch offene Fragen das mathematische Denken anzuregen, ohne den Spiel- und Handlungsfluss durch künstliche Aufgaben zu stören.",
+      "heading": "Alltagsintegrierte mathematische Bildung statt Arbeitsblätter",
+      "keyTakeaway": "Mathematik ist im Alltag ein nützlicher Problemlöser – Kinder begreifen sie am nachhaltigsten im echten Handeln, nicht durch vorgefertigte Ziffern-Arbeitsblätter.",
+      "body": "Vorgefertigte Vorschul-Arbeitsblätter („Mal alle Dreiecke grün aus“, „Spure die Zahl 5 zwanzigmal nach“) erzeugen zwar rasch sichtbare „Ergebnisse“ für Eltern, fördern aber selten echtes mathematisches Denken: Sie reduzieren Mathematik auf isolierte Feinmotorik, lassen kaum eigene Lösungswege zu und können bereits früh Leistungsdruck erzeugen. Weitaus ergiebiger ist alltagsintegrierte mathematische Bildung, bei der Mathematik als echtes Werkzeug zur Lösung konkreter Alltagsprobleme erlebt wird: Beim Tischdecken („Wie viele Teller fehlen noch für unseren Tisch?“), beim Teilen eines Kuchens oder Apfels (erste Brucherfahrungen: „Die Hälfte“, „Vier gleiche Stücke“), beim Backen (Abwiegen, Löffel und Becher zählen), beim Konstruieren einer Brücke (Länge vergleichen, Symmetrie prüfen), beim Abstimmen in der Kinderkonferenz (Steine oder Striche in zwei Reihen vergleichen: „Welcher Vorschlag hat mehr Stimmen?“) oder im Hort beim Planen des Einkaufsbudgets für das gemeinsame Kochen. Der Mathematikkreis der Stiftung Kinder forschen hilft Fachkräften, solche Situationen bewusst aufzugreifen, Kinder ihre eigenen Rechen- oder Ordnungswege begründen zu lassen („Wie hast du herausgefunden, dass noch zwei Stühle fehlen?“) und das Entdeckte sprachlich zu begleiten.",
       "bulletPoints": [
-        "Identifikation mathematischer Potenziale in alltäglichen Routinen und Projekten",
-        "Verknüpfung von mathematischem Denken mit Sprachbildung (Fachbegriffe einführen)",
-        "Partizipation: Kinder als aktive Problemlöser bei realen Aufgaben einbinden",
-        "Theorie-Praxis-Verzahnung durch systematische Dokumentation und Reflexion"
+        "Mathematik als Problemlöser: Tischdecken, Teilen, Backen, Bauen, Abstimmen, Würfelspiele und Budgetplanung im Hort nutzen.",
+        "Prozessbezogene Kompetenzen: Problemlösen, Begründen, Vergleichen und Darstellen (z. B. mit Strichlisten oder Bauplänen) anregen.",
+        "Sprachbildung integriert: Mathematische Präpositionen, Vergleichsformen und Fachwörter („doppelt so lang“, „symmetrisch“, „weniger als“) im Dialog verwenden.",
+        "Abkehr von Vorschul-Arbeitsblättern: Konkretes Handeln mit realen Objekten geht abstrakten Ziffern voraus."
       ],
-      "heading": "3. Mathematik als alltagsintegrierter Problemlöser",
-      "keyTakeaway": "Mathematik zeigt sich im echten Leben als nützliches Werkzeug zur Bewältigung praktischer Probleme und Handlungsziele.",
-      "praxisTip": "Führen Sie eine „Mathe-Detektive“-Woche ein, in der Kinder mit einer Digitalkamera alltägliche Situationen fotografieren, in denen Zahlen, Formen oder Muster eine Rolle spielen."
+      "praxisTip": "Fragen Sie bei mathematischen Alltagsproblemen nicht nur nach dem Ergebnis, sondern nach dem Weg: „Wie hast du das rausgekriegt?“ – so werden kindliche Denkstrategien hörbar und wertgeschätzt."
+    },
+    {
+      "heading": "Eigene Mathe-Biografie reflektieren & eine angstfreie Haltung vorleben",
+      "keyTakeaway": "Wie Fachkräfte selbst über Mathematik sprechen, prägt die Haltung der Kinder: Neugier und Fehlerfreundlichkeit ersetzen schulische Matheangst.",
+      "body": "Studien zur frühpädagogischen Professionalisierung zeigen, dass viele angehende Fachkräfte aus ihrer eigenen Schulzeit Unsicherheiten oder Abneigungen gegenüber Mathematik mitbringen („Ich war schon immer schlecht in Mathe!“). Unreflektierte Ängste führen im Berufsalltag leicht dazu, mathematische Anlässe im Spiel unbewusst zu übergehen oder in starre, schulähnliche Arbeitsblätter auszuweichen, weil diese vermeintlich Sicherheit geben. Die bewusste Auseinandersetzung mit der eigenen Mathe-Biografie ist daher ein Schlüssel zur Professionalität: Im Elementar- und Freizeitbereich geht es nicht um komplizierte Schulformeln unter Zeitdruck, sondern um das gemeinsame Entdecken von Mustern, Formen, Mengen und fairen Lösungen. Wenn Fachkräfte Fehler als normale Lernchancen vorleben („Oh, da habe ich mich verzählt – lass uns zusammen noch einmal schauen, wie wir es sicher prüfen können!“), erleben Kinder Mathematik als freundliches, durchschaubares und spannendes Werkzeug für ihr Leben.",
+      "bulletPoints": [
+        "Biografiearbeit: Eigene schulische Erfahrungen mit Mathe bewusst reflektieren, um Ängste nicht unbewusst an Kinder weiterzugeben.",
+        "Fehlerfreundliche Haltung: Verrechnen oder Umkippen beim Bauen als normalen Schritt beim Problemlösen würdigen.",
+        "Inklusive Entdeckerfreude: Allen Kindern – unabhängig von Herkunft, Geschlecht oder Sprachstand – mathematische Kompetenz zutrauen.",
+        "Kooperation mit Eltern: Eltern erklären, warum Spielen, Bauen und Alltagshandeln wirksamer auf die Schule vorbereiten als Ziffernblätter."
+      ],
+      "praxisTip": "Machen Sie eine kurze „Mathe-Brille“-Woche im Team: Jede Fachkraft sammelt täglich ein Foto oder eine Notiz einer spontanen Alltagssituation, in der Kinder ganz ohne Arbeitsblatt mathematisch gedacht haben."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Mathematische Bildung im Elementarbereich",
       "id": "vb-1",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Inhalt 1",
-          "detail": "Gegenstände nach wahrnehmbaren Merkmalen wie Farbe, Form, Größe oder Material ordnen und Kategorien bilden.",
-          "example": "Knöpfe nach Farben und Lochanzahl sortieren.",
-          "id": "item-1",
-          "label": "Sortieren & Klassifizieren",
-          "metric": "Grundlage",
-          "summary": "Bildung von Begriffen und logischen Klassen."
-        },
-        {
-          "badge": "Inhalt 2",
-          "detail": "Regelmäßigkeiten in visuellen, akustischen oder motorischen Abfolgen erkennen, fortsetzen und selbst erzeugen.",
-          "example": "Perlenketten nach dem Rhythmus rot-blau-rot-blau fädeln.",
-          "id": "item-2",
-          "label": "Muster & Reihenfolgen",
-          "metric": "Struktur",
-          "summary": "Erkennen von Rhythmen und Gesetzmäßigkeiten."
-        },
-        {
-          "badge": "Inhalt 3",
-          "detail": "Erfahrung von Körpern, Flächen, Symmetrien, Raum-Lage-Beziehungen und Perspektiven durch handlungsorientiertes Bauen.",
-          "example": "Bauwerke in der Bauecke auf Statik und Symmetrie prüfen.",
-          "id": "item-3",
-          "label": "Raum & Form",
-          "metric": "Geometrie",
-          "summary": "Räumliches Orientierungs- und Formvermögen."
-        },
-        {
-          "badge": "Inhalt 4",
-          "detail": "Erleben von Zeitstrukturen (Tagesablauf, Rituale) sowie Vergleichen von physikalischen Größen wie Länge, Gewicht und Volumen.",
-          "example": "Wassermengen in verschiedene Gefäße umfüllen und vergleichen.",
-          "id": "item-4",
-          "label": "Zeit & Messen",
-          "metric": "Grössen",
-          "summary": "Verständnis von Zeitverläufen und physikalischen Dimensionen."
-        },
-        {
-          "badge": "Inhalt 5",
-          "detail": "Aufbau des Zahlbegriffs durch Eins-zu-eins-Zuordnung, Simultanerfassung (Subitizing) und Mengeninvarianz.",
-          "example": "Tischdecken mit exakter Zuordnung von Tellern und Stühlen.",
-          "id": "item-5",
-          "label": "Mengen, Zahlen & Ziffern",
-          "metric": "Zahlbegriff",
-          "summary": "Entwicklung des kardinalen und ordinalen Zahlverständnisses."
-        }
-      ],
-      "kind": "concept_map",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Die fünf Kernbereiche der mathematischen Grundbildung nach RLP",
-      "title": "Konzeptkarte: Mathematische Inhaltsbereiche im Elementarbereich"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-2",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Kindheit / Frühe Kindheit",
-          "detail": "Sensorische Erfahrungen, Greifen, Sortieren von Alltagsgegenständen, erste Rhythmen und Körperschemata.",
-          "example": "Kind sortiert Bauklötze nach Größe auf dem Teppich.",
-          "id": "item-1",
-          "label": "Sensomotorische & Handlungsorientierte Phase",
-          "metric": "Stufe 1",
-          "summary": "Mathematisches Begreifen erfolgt über den eigenen Körper und konkretes Handeln."
-        },
-        {
-          "badge": "Elementarbereich (Kita)",
-          "detail": "Alltagsintegrierte mathematische Bildung in Routinen (Tischdecken, Backen, Kreisspiele), Simultanerfassung, Musterlegen.",
-          "example": "Kinder zählen beim Frühstück gemeinsam ab, wie viele Becher auf dem Tisch stehen.",
-          "id": "item-2",
-          "label": "Alltagsintegrierte Entdeckungsphase",
-          "metric": "Stufe 2",
-          "summary": "Mathematik wird als nützliches Werkzeug im alltäglichen Handeln entdeckt."
-        },
-        {
-          "badge": "Schulkind- & Jugendalter",
-          "detail": "Systematisierung mathematischer Konzepte, Umgang mit Geld, Zeit, komplexeren Raumstrukturen und algorithmischem Denken.",
-          "example": "Jugendliche planen das Budget für ein Gruppenprojekt.",
-          "id": "item-3",
-          "label": "Systematisierungs- & Anwendungsintegration",
-          "metric": "Stufe 3",
-          "summary": "Abstraktion und zielgerichtete Anwendung in Projekten und Lebenswelt."
-        }
-      ],
-      "kind": "timeline",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Entwicklungsweg mathematischer Kompetenzen vom Kleinkind bis zum Jugendlichen",
-      "title": "Timeline: Entwicklungsphasen mathematischen Denkens"
-    },
-    {
-      "centerLabel": "",
-      "id": "vb-3",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Baustein 1",
-          "detail": "Reflexion eigener Schulbiografie, Abbau von Ängsten, Haltung der Neugier und Fehlerfreundlichkeit.",
-          "example": "Teamreflexion über Mathe-Ängste.",
-          "id": "item-1",
-          "label": "Mathe-Biografie & Haltung",
-          "metric": "Professionalität",
-          "summary": "Selbstbewusste und angstfreie Fachkraftrolle."
-        },
-        {
-          "badge": "Baustein 2",
-          "detail": "Systematisches Erfassen der fünf Inhaltsfelder (Sortieren, Muster, Raum/Form, Zeit, Mengen/Zahlen).",
-          "example": "Analyse von Spielmaterialien nach mathematischem Potenzial.",
-          "id": "item-2",
-          "label": "Fachliche Grundlagen",
-          "metric": "Wissen",
-          "summary": "Fundiertes entwicklungspsychologisches Basiswissen."
-        },
-        {
-          "badge": "Baustein 3",
-          "detail": "Nutzung spontaner Situationen im Tagesverlauf (Tischdecken, Bauen, Backen) als Lernanlass.",
-          "example": "Aufgreifen einer Zählfrage beim Aufräumen.",
-          "id": "item-3",
-          "label": "Alltagsintegration",
-          "metric": "Praxisbezug",
-          "summary": "Nahtlose Verbindung von Alltag und Mathematik."
-        },
-        {
-          "badge": "Baustein 4",
-          "detail": "Begleitung durch offene W-Fragen, Fachbegriffe und dialogische Interaktion zur Sprachbildung.",
-          "example": "Gespräch über geometrische Formen in der Bauecke.",
-          "id": "item-4",
-          "label": "Sprachbildung & Partizipation",
-          "metric": "Querschnitt",
-          "summary": "Gemeinsames Nachdenken und Mitbestimmen der Kinder."
-        }
-      ],
       "kind": "feature_grid",
+      "title": "Die sechs frühen mathematischen Basiskompetenzen",
+      "subtitle": "Was Kinder im Alltag handelnd entdecken – weit über bloßes Zählen hinaus",
+      "centerLabel": "Mathematische Basis",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Die vier Säulen professioneller mathematischer Bildungsarbeit in der Fachschule",
-      "title": "Feature-Grid: Säulen mathematischer Bildungsarbeit"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "m-1",
+          "badge": "Kompetenz 1",
+          "label": "Klassifizieren & Sortieren",
+          "metric": "Ordnung",
+          "summary": "Objekte nach einem oder mehreren Merkmalen gruppieren und begründen.",
+          "detail": "Fördert logisches Denken und Oberbegriffsbildung; Kinder erfinden oft kreative eigene Sortierkriterien.",
+          "example": "Beim Aufräumen oder mit Naturmaterialien: Kastanien, Eicheln und Steine nach Größe oder Oberfläche sortieren."
+        },
+        {
+          "id": "m-2",
+          "badge": "Kompetenz 2",
+          "label": "Seriation (Reihenbildung)",
+          "metric": "Abstufung",
+          "summary": "Gegenstände geordnet nach einem stetigen Größenmerkmal aufreihen.",
+          "detail": "Schult genaues Vergleichen („länger als“, „schwerer als“) und legt Grundlagen für das Verständnis der geordneten Zahlenreihe.",
+          "example": "Gesammelte Stöcke im Wald exakt vom kürzesten bis zum längsten nebeneinanderlegen."
+        },
+        {
+          "id": "m-3",
+          "badge": "Kompetenz 3",
+          "label": "Eins-zu-eins-Zuordnung",
+          "metric": "Mengenvergleich",
+          "summary": "Jedes Element einer Menge genau einem Element einer zweiten Menge zuordnen.",
+          "detail": "Ermöglicht sicheres Prüfen von „gleich viel“, „mehr“ und „weniger“ noch bevor Kinder sicher zählen können.",
+          "example": "Beim Frühstück stellen Kinder vor jeden besetzten Stuhl genau einen Teller und einen Becher."
+        },
+        {
+          "id": "m-4",
+          "badge": "Kompetenz 4",
+          "label": "Muster, Strukturen & Symmetrie",
+          "metric": "Regelmäßigkeit",
+          "summary": "Gesetzmäßigkeiten in Farben, Formen, Tönen oder Bewegungen erkennen und fortsetzen.",
+          "detail": "Mustererkennung gilt als eine der tragfähigsten Brücken für späteres algebraisches und arithmetisches Denken.",
+          "example": "Ein Mosaik spiegelsymmetrisch an einer Holzlinie legen oder ein Klatschmuster (lang–kurz–kurz) fortführen."
+        },
+        {
+          "id": "m-5",
+          "badge": "Kompetenz 5",
+          "label": "Raum, Form & Raum-Lage",
+          "metric": "Geometrie",
+          "summary": "Formen, Körper und Lagebeziehungen (vor, hinter, zwischen, links, rechts) erfassen.",
+          "detail": "Entsteht durch Bewegung im Raum, Bauen, Falten und präzise begleitende Raum-Lage-Sprache.",
+          "example": "Eine Brücke aus zwei Würfeln und einem Quader nach einer selbst gezeichneten Skizze nachbauen."
+        },
+        {
+          "id": "m-6",
+          "badge": "Kompetenz 6",
+          "label": "Mengen, Simultanerfassung & Messen",
+          "metric": "Zahl & Maß",
+          "summary": "Mengen auf einen Blick erfassen (Subitizing), Kardinalzahlprinzip verstehen, Größen messen.",
+          "detail": "Verbindet konkretes Handeln (Würfeln, Abwiegen, Teilen) schrittweise mit Zahlwörtern und Ziffern.",
+          "example": "Auf dem Würfel sofort die Fünf erkennen und beim Backen zwei Becher Mehl mit einem Becher Milch vergleichen."
+        }
+      ]
+    },
+    {
+      "id": "vb-2",
+      "kind": "timeline",
+      "title": "Vom ersten Mengenblick zum sicheren Zahlverständnis",
+      "subtitle": "Zentrale Meilensteine der Mengen- und Zahlbegriffsentwicklung (u. a. nach Gelman/Gallistel & Krajewski)",
+      "centerLabel": "Zahlbegriff",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "z-1",
+          "badge": "Stufe 1",
+          "label": "Simultanerfassung (Subitizing)",
+          "metric": "1–4 Objekte",
+          "summary": "Kleine Mengen bis etwa drei oder vier Dinge werden auf einen Blick ohne Zählen erfasst.",
+          "detail": "Zusätzlich helfen strukturierte Darstellungen (Würfelpunkte, Fingerbilder), Mengen bis sechs oder zehn rasch quasi-simultan zu erkennen.",
+          "example": "Ein dreijähriges Kind sieht drei Apfelspalten auf dem Teller und sagt sofort „Drei!“, ohne einzeln anzutippen."
+        },
+        {
+          "id": "z-2",
+          "badge": "Stufe 2",
+          "label": "Abzählen & Eins-zu-eins-Prinzip",
+          "metric": "Zählhandlung",
+          "summary": "Jedem Objekt wird in stabiler Zahlwortfolge genau ein Zahlwort zugeordnet.",
+          "detail": "Typische Übergangsfehler (ein Objekt doppelt zählen oder überspringen) lösen sich durch handelndes Beiseiteschieben beim Zählen.",
+          "example": "Das Kind schiebt jede Kastanie beim Zählen einzeln in eine Schale: „Eins, zwei, drei, vier, fünf.“"
+        },
+        {
+          "id": "z-3",
+          "badge": "Stufe 3",
+          "label": "Kardinalzahlprinzip",
+          "metric": "Anzahlerfassung",
+          "summary": "Einsicht, dass das zuletzt genannte Zahlwort die Gesamtmenge aller gezählten Objekte bezeichnet.",
+          "detail": "Ein Meilenstein: Erst jetzt weiß das Kind, dass „fünf“ nicht nur der Name des fünften Steins ist, sondern die gesamte Gruppe meint.",
+          "example": "Nach dem Abzählen von sechs Bechern antwortet das Kind auf „Wie viele sind es?“ sicher: „Sechs!“"
+        },
+        {
+          "id": "z-4",
+          "badge": "Stufe 4",
+          "label": "Mengeninvarianz & Teil-Ganzes-Verständnis",
+          "metric": "Zerlegen & Vergleichen",
+          "summary": "Anzahl bleibt trotz veränderter Anordnung gleich; Mengen lassen sich zerlegen und zusammensetzen.",
+          "detail": "Das Zerlegen einer Menge (z. B. 5 = 3 + 2 oder 4 + 1) bildet die direkte Brücke zum späteren verstandenen Rechnen.",
+          "example": "„Fünf Kinder sind an unserem Tisch: Drei essen Suppe und zwei essen Brot!“"
+        }
+      ]
+    },
+    {
+      "id": "vb-3",
+      "kind": "comparison",
+      "title": "Alltagsintegrierte Mathematik vs. Vorschul-Arbeitsblätter",
+      "subtitle": "Warum echtes Handeln im Alltag nachhaltigeres mathematisches Denken aufbaut",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "c-1",
+          "badge": "Empfohlen",
+          "label": "Alltagsintegrierte mathematische Bildung",
+          "metric": "Handlung & Sinn",
+          "summary": "An echte Fragen und Alltagsprobleme gekoppelt, sinnlich begreifbar und sprachlich begleitet.",
+          "detail": "Kinder erfahren den Nutzen von Mathematik beim Decken, Bauen, Backen, Spielen und Abstimmen, probieren eigene Wege und begründen Lösungen im Dialog.",
+          "example": "Kinder messen mit Bauklötzen ab, wie breit die Tür sein muss, damit das große Holzauto hindurchpasst."
+        },
+        {
+          "id": "c-2",
+          "badge": "Kritisch",
+          "label": "Isolierte Vorschul-Arbeitsblätter",
+          "metric": "Mechanisch & abstrakt",
+          "summary": "Fremdbestimmtes Ziffern-Nachspuren oder Ausmalen ohne Bezug zur Lebenswelt.",
+          "detail": "Verwechselt das Malen von Ziffernsymbolen mit echtem Mengenverständnis, lässt kaum Fehlerreflexion oder eigene Strategien zu und fördert eher Leistungsdruck.",
+          "example": "Alle Fünfjährigen füllen still dieselbe Seite mit zwanzig nachgespurten Vieren aus, ohne Mengen handelnd zu vergleichen."
+        },
+        {
+          "id": "c-3",
+          "badge": "Übergang Kita–Schule",
+          "label": "Gezielte Spiel- & Materialimpulse",
+          "metric": "Mathematikkreis",
+          "summary": "Ergänzend zum Alltag bieten Würfelspiele, Waagen, Spiegel und Konstruktionsmaterial gezielte Anreize.",
+          "detail": "So entstehen spielerisch-systematische Vertiefungen, die Kinder freudvoll und ohne Verschulung auf den Anfangsunterricht vorbereiten.",
+          "example": "Ein frei zugänglicher „Mathe-Korb“ mit Würfeln, Naturmaterialien, Maßband, Spiegelfliesen und Waage."
+        }
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "4-5 Jahre (Kindertagesstätte)",
-    "context": "In einer Kindertagesstätte beobachten Erzieher:innen, dass Kinder beim Freispiel und im Alltag (z. B. beim Tischdecken, Bauen mit Holzklötzen oder Sortieren von Material) mathematische Phänomene zeigen. Eine Fachkraft möchte diese Potenziale gezielt aufgreifen, ohne die Kinder zu instruieren oder zu verschulen.",
-    "setting": "Kindertagesstätte / Elementarbereich",
+    "title": "„Wann machen wir endlich richtige Mathe-Arbeitsblätter?“ – Tischdecken, Bauen & Elternwunsch",
+    "setting": "Gruppenraum und Kinderrestaurant einer Kindertagesstätte (Vorschuljahr)",
+    "ageGroup": "4–6 Jahre (Elementarbereich)",
+    "context": "Beim Vorbereiten des Frühstückstisches deckt der vierjährige Matteo für acht Kinder ein. Er zählt laut bis acht, tippt dabei aber zwei Teller doppelt an und legt am Ende nur sechs Becher hin. Gleichzeitig entdecken zwei Fünfjährige in der Bauecke, dass sich ihre Burg an einer Mittellinie spiegelgleich nachbauen lässt. Beim Abholen fragt Matteos Vater kritisch: „Mein Sohn kommt bald in die Vorschule – wann üben Sie endlich mit richtigen Mathe-Arbeitsblättern und Ziffern?“",
     "steps": [
       {
+        "situation": "Matteo merkt beim Tischdecken zunächst nicht, dass zwei Becher fehlen, weil er beim Abzählen zwei Teller doppelt angetippt hat.",
+        "prompt": "Wie begleiten Sie Matteo in dieser Alltagssituation mathematisch und sprachlich optimal?",
         "options": [
           {
-            "feedback": "Das ist fachlich optimal. Die Fachkraft knüpft an die spontanen Handlungen und das handelnde Begreifen der Kinder an, regt durch offene W-Fragen („Wie viele Teller brauchen wir für unseren Tisch?“) das mathematische Problemlösen an und vermeidet starre Leistungsabfragen. Dies entspricht dem RLP-Ansatz der alltagsintegrierten mathematischen Bildung.",
-            "label": "Die Fachkraft beobachtet das Tischdecken, stellt offene Fragen zur Anzahl und lässt die Kinder durch Probieren und Eins-zu-eins-Zuordnung die Menge selbst ermitteln.",
+            "label": "Sie fragen Matteo neugierig: „Schau mal rund um den Tisch – hat jeder Teller schon seinen eigenen Becher daneben? Magst du es einmal Platz für Platz prüfen?“ und begleiten sein Zählen ruhig sprachlich.",
             "quality": "optimal",
-            "theoryLink": "Lehrplan RLP S-SP-4: Alltagsintegrierte mathematische Bildung, Handlungsorientierung nach Piaget"
+            "feedback": "Fachlich hervorragend: Durch die Eins-zu-eins-Zuordnung (ein Becher zu jedem Teller) entdeckt Matteo die zwei fehlenden Becher selbst, korrigiert seinen Zählvorgang ohne Beschämung und festigt gleichzeitig Eins-zu-eins-Prinzip und Kardinalzahlverständnis.",
+            "theoryLink": "Eins-zu-eins-Zuordnung & Zählprinzipien (Gelman/Gallistel); alltagsintegrierte mathematische Bildung"
           },
           {
-            "feedback": "Das greift zu kurz und verengt Mathematik auf formales Abfragen. Ein isoliertes Arbeitsblatt oder abgezähltes Aufsagen ohne Realbezug widerspricht dem konstruktivistischen Ansatz und fördert unnötig Leistungsangst.",
-            "label": "Die Fachkraft setzt sich mit den Kindern an den Tisch und lässt alle Kinder reihum Zahlen bis 20 aufsagen und Arbeitsblätter mit Ziffern ausmalen.",
-            "quality": "problematisch",
-            "theoryLink": "Lehrplan RLP S-SP-4: Eigene Mathe-Biografie reflektieren (Angstfreiheit & Entdeckerfreude)"
-          },
-          {
-            "feedback": "Dies ist ein Zwischenweg, der zwar Materialien anbietet, aber das Potenzial der echten Alltagssituation nur partiell nutzt. Eine engere Verknüpfung mit dem echten Handeln (wie dem tatsächlichen Decken) wäre lernförderlicher.",
-            "label": "Die Fachkraft legt vorgefertigte Zählsteine in die Bauecke und fordert die Kinder auf, diese nach Farben zu sortieren, ohne den Bezug zum aktuellen Spielkontext herzustellen.",
+            "label": "Sie legen rasch selbst die zwei fehlenden Becher dazu und sagen: „Du hast dich verzählt, es sind acht Kinder – beim nächsten Mal besser aufpassen!“",
             "quality": "teilweise",
-            "theoryLink": "Lehrplan RLP S-SP-4: Sortieren und Klassifizieren im Spiel"
+            "feedback": "Verschenkte Lernchance: Wenn Sie das Problem selbst lösen und bloß korrigieren, erlebt Matteo weder die Eins-zu-eins-Zuordnung noch das eigene Überprüfen seines Fehlers.",
+            "theoryLink": "Eins-zu-eins-Zuordnung; ko-konstruktives Problemlösen statt schneller Korrektur"
+          },
+          {
+            "label": "Sie nehmen Matteo nach dem Frühstück sofort mit an einen Einzeltisch, damit er eine halbe Stunde lang die Ziffern 1 bis 10 auf einem Arbeitsblatt nachspurt.",
+            "quality": "problematisch",
+            "feedback": "Fachlich verfehlt: Das Nachspuren abstrakter Ziffernsymbole behebt keinen Fehler in der Eins-zu-eins-Zuordnung, sondern entkoppelt Zahlensymbole vom realen Mengenverständnis und erzeugt unnötigen Druck.",
+            "theoryLink": "Abgrenzung alltagsintegrierter Mengenbildung von isolierten Ziffern-Arbeitsblättern"
           }
-        ],
-        "prompt": "Situation A: Das Tischdecken als mathematische Lernsituation im Alltag. Wie reagiert die Fachkraft pädagogisch angemessen?",
-        "situation": "Beim Vorbereiten des Frühstückstisches in der Kitagruppe entsteht die Frage, ob für alle Kinder genügend Teller und Becher bereitstehen."
+        ]
       },
       {
+        "situation": "Beim Abholen äußert Matteos Vater Zweifel, ob die Kita ohne tägliche Mathe-Arbeitsblätter ausreichend auf die Grundschule vorbereitet.",
+        "prompt": "Wie antworten Sie dem Vater fachlich fundiert und partnerschaftlich?",
         "options": [
           {
-            "feedback": "Das ist fachlich optimal. Durch den Einbezug der Kinder in die Dokumentation (z. B. Fotos von Bauwerken oder Mustern) wird Mathematik für alle sichtbar, sprachlich begleitet (Sprachbildung) und partizipativ reflektiert.",
-            "label": "Die Fachkraft dokumentiert die mathematischen Entdeckungen der Kinder fotografisch, bespricht die Ergebnisse im Morgenkreis und bindet die Kinder aktiv in die Präsentation ein.",
+            "label": "Sie nehmen sein Anliegen wertschätzend auf, machen ihm anhand konkreter Alltagsbeispiele (Tischdecken/Eins-zu-eins-Zuordnung, symmetrisches Bauen, Würfelspiele/Simultanerfassung, Sortieren/Seriation) transparent, welche mathematischen Basiskompetenzen Matteo täglich erwirbt, und zeigen ihm gern Fotos oder Portfolio-Beispiele.",
             "quality": "optimal",
-            "theoryLink": "Lehrplan RLP S-SP-4: Querschnittsthemen Sprachbildung & Partizipation, Dokumentation von Lernprozessen"
+            "feedback": "Überzeugend: Eltern wünschen sich Arbeitsblätter oft nur, weil sie das „unsichtbare“ mathematische Lernen im Alltag und Spiel nicht kennen. Konkrete Beispiele und sichtbare Dokumentation schaffen Vertrauen und stärken die Erziehungspartnerschaft.",
+            "theoryLink": "Frühe mathematische Basiskompetenzen; Sichtbarmachen alltagsintegrierter Bildung in der Elternarbeit"
           },
           {
-            "feedback": "Dieser Ansatz ist problematisch, da er die Perspektive der Kinder ignoriert und den Bildungsbereich auf eine einseitige Überprüfung durch die Lehrkraft reduziert, was Partizipation und intrinsische Motivation hemmt.",
-            "label": "Die Fachkraft bewertet die gebauten Türme im Nachhinein heimlich nach Höhe und vergibt Noten bzw. Punkte auf einer Liste, die im Personalraum verbleibt.",
-            "quality": "problematisch",
-            "theoryLink": "Lehrplan RLP S-SP-4: Partizipation und kindorientierte Bildungsdokumentation"
-          },
-          {
-            "feedback": "Das ist ein akzeptabler Schritt, lässt jedoch die reflexive Vertiefung und den sprachlichen Austausch über das Erlebte vermissen, wodurch wichtige Potenziale der Sprachbildung ungenutzt bleiben.",
-            "label": "Die Fachkraft räumt die Bauwerke kommentarlos auf, sobald das Freispiel vorbei ist, und plant für die nächste Woche ein reines Matheheft.",
+            "label": "Sie sagen ihm knapp, dass Arbeitsblätter in der Kita nicht üblich seien und die Grundschule später für das Rechnen zuständig sei.",
             "quality": "teilweise",
-            "theoryLink": "Lehrplan RLP S-SP-4: Theorie-Praxis-Verzahnung und alltagsintegrierte Begleitung"
+            "feedback": "Zu abweisend: Der Vater hat ein legitimes Interesse an der guten Entwicklung seines Kindes. Eine knappe Abwehr lässt ihn im Unklaren darüber, wie viel anspruchsvolle Mathematik im Kita-Alltag tatsächlich stattfindet.",
+            "theoryLink": "Transparenz in der Bildungs- und Erziehungspartnerschaft"
+          },
+          {
+            "label": "Sie geben seinem Wunsch nach und bestellen sofort für alle Kinder ab vier Jahren ein einheitliches Vorschul-Rechenheft, damit es keinen Konflikt mit Eltern gibt.",
+            "quality": "problematisch",
+            "feedback": "Fachlich nicht begründbar: Ein fachliches Bildungskonzept sollte nicht gegen den Stand der Frühpädagogik aufgegeben werden – stattdessen gilt es, Eltern die hohe Wirksamkeit alltagsintegrierter Mathematik nachvollziehbar zu zeigen.",
+            "theoryLink": "Professionelle Begründung des Bildungskonzepts gegenüber Eltern"
           }
-        ],
-        "prompt": "Situation B: Dokumentation und Reflexion mathematischer Lernprozesse. Wie wird mit den gebauten Mustern und Raumstrukturen verfahren?",
-        "situation": "Kinder haben in der Bauecke komplexe symmetrische Muster und unterschiedlich hohe Bauwerke aus Holzklötzen errichtet."
+        ]
       }
-    ],
-    "title": "Praxis-Fallbeispiel: Alltagsintegrierte Mathematik in der Kindertagesstätte"
+    ]
   },
   "selfLearningTasks": [
-    "1. **Fotodokumentation „Mathematik im Alltag“**: Machen Sie im Rahmen einer Praxisphase mindestens fünf Fotos von Alltagssituationen in Ihrer Einrichtung, die mathematische Bildungsanlässe bieten (z. B. geometrische Muster an Fassaden, Symmetrien beim Decken, Rhythmen beim Klatschen). Analysieren Sie diese Fotos schriftlich im Hinblick auf die Bildungsziele des RLP.",
-    "2. **Planung einer allgebärdischen Lernsituation**: Konzipieren Sie eine kurze pädagogische Sequenz (ca. 20–30 Minuten) für eine Kleingruppe (z. B. zum Thema „Messen und Vergleichen von Körpergrößen oder Alltagsgegenständen“), in der Sie Handlungsorientierung, Sprachbildung und Partizipation gezielt verbinden.",
-    "3. **Analyse der eigenen Mathe-Biografie**: Schreiben Sie einen kurzen Reflexionsbericht (1–2 Seiten) über Ihre persönlichen Erfahrungen mit Mathematik in der Schule und leiten Sie daraus drei konkrete Vorsätze für Ihre professionelle Rolle als Fachkraft ab."
+    "Gehen Sie mit der „Mathe-Brille“ durch einen typischen Tag in Ihrer Praxiseinrichtung und dokumentieren Sie mindestens fünf reale Alltagssituationen, die je eine andere mathematische Basiskompetenz ansprechen (Klassifizieren, Seriation, Eins-zu-eins-Zuordnung, Muster/Symmetrie, Raum-Lage, Mengen/Messen).",
+    "Beobachten Sie ein Kind (3–6 Jahre) bei einem Würfelspiel oder beim Abzählen im Alltag: Welche Zählprinzipien (Eins-zu-eins-Zuordnung, stabile Folge, Kardinalzahlprinzip) und welche Form der Simultanerfassung lassen sich beobachten? Halten Sie beschreibende Beobachtung und fachliche Einordnung getrennt fest.",
+    "Entwerfen Sie ein kleines alltagsintegriertes Spiel- oder Materialangebot (z. B. Spiegel-Symmetrie-Station, Wiege- und Messstation im Sandbereich oder Seriation mit Naturmaterialien) und notieren Sie zehn präzise mathematische Wörter/Präpositionen, die Sie dabei sprachbildend einfließen lassen."
   ],
   "flashcards": [
     {
-      "definition": "Die Fähigkeit, kleine Mengen (bis ca. 4) simultan, also auf einen Blick und ohne zählendes Abzählen zu erfassen.",
-      "example": "Ein Kind erkennt sofort, dass auf dem Würfel eine Vier liegt, ohne jeden Punkt einzeln anzutippen.",
-      "term": "Simultanerfassung (Subitizing)"
+      "term": "Klassifizieren vs. Seriation",
+      "definition": "Klassifizieren bedeutet das Sortieren von Objekten nach gemeinsamen Merkmalen in Gruppen/Klassen (z. B. alle runden oder blauen Knöpfe). Seriation (Reihenbildung) meint das geordnete Aufreihen nach einem abgestuften Größenmerkmal (z. B. vom kürzesten zum längsten Stock).",
+      "example": "Kinder sortieren erst nach Holzart (Klassifizieren) und ordnen dann die Stöcke nach Länge (Seriation)."
     },
     {
-      "definition": "Das Prinzip, dass die Anzahl von Gegenständen unabhängig von ihrer räumlichen Anordnung oder Form gleich bleibt.",
-      "example": "Zwei Reihen mit je 5 Plättchen haben die gleiche Anzahl, auch wenn eine Reihe weiter auseinandergezogen wird.",
-      "term": "Mengeninvarianz"
+      "term": "Eins-zu-eins-Zuordnung",
+      "definition": "Elementweises Zuordnen zwischen zwei Mengen (ein Objekt der ersten Menge zu genau einem Objekt der zweiten Menge) als fundamentale Basis für Mengenvergleiche und korrektes Abzählen.",
+      "example": "Beim Tischdecken bekommt jeder Stuhl genau einen Teller – ohne Zählen ist sofort sichtbar, ob Teller fehlen."
     },
     {
-      "definition": "Das Eins-zu-eins-Zuordnen von Elementen zweier Mengen, um festzustellen, welche Menge größer, kleiner oder gleich groß ist (Grundlage für den Zahlbegriff).",
-      "example": "Jedes Kind bekommt genau einen Becher; es bleibt kein Becher und kein Kind übrig.",
-      "term": "Eins-zu-eins-Zuordnung"
+      "term": "Simultanerfassung (Subitizing)",
+      "definition": "Fähigkeit, kleine Mengen (bis etwa 3–4 Elemente) auf einen Blick ohne einzelnes Abzählen zu erkennen; bei strukturierten Bildern (Würfel, Finger) auch quasi-simultan für größere Mengen.",
+      "example": "Ein Kind erkennt eine gewürfelte Vier sofort, ohne jeden Punkt anzutippen."
     },
     {
-      "definition": "Das Erkennen, Fortsetzen und Erstellen von Regelmäßigkeiten in optischen, akustischen oder rhythmischen Strukturen.",
-      "example": "Ein Kind legt eine Kette aus „Rot-Blau-Rot-Blau“ und setzt diese folgerichtig fort.",
-      "term": "Muster und Reihenfolgen"
+      "term": "Kardinalzahlprinzip (Gelman & Gallistel)",
+      "definition": "Zentrales Zählprinzip: Die Einsicht, dass das beim Abzählen zuletzt genannte Zahlwort die Gesamtanzahl aller gezählten Elemente bezeichnet – nicht bloß den Namen des letzten Gegenstands.",
+      "example": "Nach „1, 2, 3, 4, 5“ antwortet das Kind auf „Wie viele Steine liegen da?“ sofort „Fünf!“, ohne erneut von eins zu zählen."
     },
     {
-      "definition": "Der didaktische Ansatz, mathematische Bildungsprozesse nicht isoliert, sondern eingebettet in reale Handlungen, Routinen und Bedürfnisse des Lebensalltags zu gestalten.",
-      "example": "Mathematik beim Backen (Messen von Mehl) oder beim Tischdecken (Anzahl der Gedecke) anzuwenden.",
-      "term": "Alltagsintegrierte mathematische Bildung"
+      "term": "Mengeninvarianz",
+      "definition": "Kognitive Einsicht, dass sich die Anzahl einer Menge nicht verändert, wenn lediglich ihre räumliche Anordnung verändert wird (z. B. weiter auseinandergezogen oder enger zusammengeschoben).",
+      "example": "Fünf Kastanien bleiben fünf – egal ob sie eng auf einem Haufen oder in einer langen Reihe liegen."
     },
     {
-      "definition": "Die bewusste Auseinandersetzung angehender Pädagog:innen mit den eigenen früheren Erfahrungen, Einstellungen und potenziellen Ängsten bezüglich des Fachs Mathematik.",
-      "example": "Reflexion im Seminar, warum Formeln in der Schulzeit Frust ausgelöst haben, um unbelastet und neugierig mit Kindern zu agieren.",
-      "term": "Reflexion der Mathe-Biografie"
+      "term": "Raum-Lage-Beziehungen & Symmetrie",
+      "definition": "Orientierung im Raum über Lagebegriffe (oben, unten, vor, hinter, neben, zwischen, links, rechts) sowie das Entdecken und Herstellen spiegelgleicher Formen und Muster – eng verbunden mit Sprachbildung.",
+      "example": "Mit einem Standspiegel im Baubereich verdoppeln Kinder ihr Bauwerk und prüfen, was links und rechts gespiegelt erscheint."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Die Simultanerfassung (Subitizing) beschreibt die Fähigkeit, kleine Mengen bis ca. 4 oder 5 Elemente mit einem Blick und ohne abzählen zu erfassen.",
-      "id": "quiz-1",
+      "question": "Wodurch unterscheidet sich „Seriation“ fachlich vom „Klassifizieren“ in der frühen mathematischen Bildung?",
       "options": [
-        "Das schriftliche Lösen von Gleichungen in der Grundschule.",
-        "Die sofortige, visuelle Erfassung kleiner Mengen ohne zählendes Abzählen.",
-        "Das Abzählen großer Mengen mithilfe von Strichelisten.",
-        "Die rein akustische Wahrnehmung von Rhythmen."
+        "Seriation bezeichnet das Sortieren nach Farben, während Klassifizieren nur mit Ziffernkarten erfolgt.",
+        "Beide Begriffe bedeuten dasselbe und beschreiben das Auswendiglernen der Zahlwortreihe.",
+        "Seriation meint das geordnete Aufreihen von Objekten nach einem abgestuften Merkmal (z. B. von kurz nach lang), während Klassifizieren das Gruppieren nach gemeinsamen Merkmalen bezeichnet.",
+        "Seriation tritt erst im Jugendalter auf, während Klassifizieren auf das Krippenalter beschränkt bleibt."
       ],
-      "question": "Was versteht man in der frühkindlichen Entwicklung unter dem Begriff „Simultanerfassung“ (Subitizing)?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        0,
-        2
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Alltagsintegrierte mathematische Bildung zeichnet sich dadurch aus, dass sie an echten Bedürfnissen und Handlungen der Kinder anknüpft (z. B. beim Tischdecken oder Backen) und spielerisch-entdeckend stattfindet. Starre Frontalunterweisungen oder isolierte Tests sind hierfür ungeeignet.",
-      "id": "quiz-2",
-      "options": [
-        "Anknüpfung an reale Alltagshandlungen und Routinen der Kinder (z. B. Tischdecken, Bauen).",
-        "Strikter Frontalunterricht mit täglichen schriftlichen Leistungstests ab dem 3. Lebensjahr.",
-        "Förderung der Entdeckerfreude und des handlungsorientierten Begreifens.",
-        "Ausschließliche Verwendung genormter Arbeitsblätter ohne Realitätsbezug."
-      ],
-      "question": "Welche Merkmale kennzeichnen eine gelingende alltagsintegrierte mathematische Bildung im Elementarbereich? (Mehrere Antworten sind richtig)",
-      "type": "multi"
-    },
-    {
       "correctIndices": [
         2
       ],
+      "explanation": "Beim Klassifizieren werden Mengen nach gleichen Merkmalen gebildet (z. B. alle Dreiecke zusammen); bei der Seriation (Reihenbildung) entsteht eine geordnete Abfolge nach einer sich stetig verändernden Größe (z. B. Länge, Gewicht, Höhe)."
+    },
+    {
+      "id": "v2-q2",
+      "type": "case",
       "difficulty": "pruefung",
-      "explanation": "Mengeninvarianz ist die kognitive Einsicht, dass sich die Anzahl von Objekten nicht ändert, wenn sich lediglich ihre räumliche Anordnung (z. B. Abstand) verändert. Dies ist ein Meilenstein nach Piaget.",
-      "id": "quiz-3",
+      "question": "Praxissituation: Ein dreieinhalbjähriges Kind tippt vier Kastanien einzeln an und zählt sauber: „Eins, zwei, drei, vier.“ Als Sie fragen: „Und wie viele Kastanien sind das jetzt insgesamt?“, beginnt das Kind sofort wieder von vorn zu zählen („Eins, zwei, drei, vier“) und nennt die Gesamtmenge nicht direkt. Welches Zählprinzip ist hier noch im Aufbau?",
       "options": [
-        "Die Fähigkeit, die Uhrzeit bis zur Sekunde genau abzulesen.",
-        "Das Auswendiglernen der Ziffern von 1 bis 100 in korrekter Reihenfolge.",
-        "Die kognitive Einsicht, dass die Anzahl von Gegenständen unabhängig von ihrer Anordnung gleich bleibt.",
-        "Das automatische Erkennen geometrischer Körper im Raum."
+        "Das Prinzip der stabilen Zahlwortfolge",
+        "Die Fähigkeit zur Seriation",
+        "Das Kardinalzahlprinzip",
+        "Die Raum-Lage-Orientierung"
       ],
-      "question": "In einer Kindergartengruppe legt eine Fachkraft zwei Reihen mit jeweils 5 Plättchen exakt übereinander. Danach zieht sie die untere Reihe etwas auseinander, sodass sie länger wirkt. Ein Kind stellt fest: „Das sind immer noch gleich viele!“. Welches mathematisch-kognitive Konzept hat dieses Kind verstanden?",
-      "type": "case"
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Das Kind beherrscht bereits stabile Folge und Eins-zu-eins-Zuordnung, verknüpft das zuletzt genannte Zahlwort („vier“) aber noch nicht sicher mit der Gesamtanzahl der Menge – genau das beschreibt das Kardinalzahlprinzip (nach Gelman & Gallistel)."
     },
     {
+      "id": "v2-q3",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Was versteht man unter „Simultanerfassung“ (Subitizing)?",
+      "options": [
+        "Das gleichzeitige Addieren zweier zweistelliger Zahlen im Kopf.",
+        "Das unmittelbare Erfassen kleiner Mengen (bis ca. drei oder vier Objekte) auf einen Blick ohne zählendes Antippen.",
+        "Das Messen von Längen mit zwei verschiedenen Linealen gleichzeitig.",
+        "Das Aussprechen der Zahlwortreihe rückwärts ab zehn."
+      ],
       "correctIndices": [
         1
       ],
-      "difficulty": "basis",
-      "explanation": "Die Reflexion der eigenen Mathe-Biografie hilft angehenden Fachkräften, eigene Vorbehalte oder Ängste zu erkennen, damit diese nicht unbewusst auf die Kinder übertragen werden und eine positive Entdeckerfreude entsteht.",
-      "id": "quiz-4",
-      "options": [
-        "Um mathematische Formeln fehlerfrei für die Verwaltung auszuwerten.",
-        "Um eigene Ängste und Vorbehalte zu erkennen und eine unbelastete, neugierige Haltung bei Kindern zu fördern.",
-        "Um den Kindern strenge Disziplin beim Rechnen beizubringen.",
-        "Um standardisierte Intelligenztests in der Kita durchzuführen."
-      ],
-      "question": "Warum ist die Reflexion der „eigenen Mathe-Biografie“ für angehende Erzieher:innen laut RLP von zentraler Bedeutung?",
-      "type": "single"
+      "explanation": "Simultanerfassung (Subitizing) ermöglicht es schon jungen Kindern, Anzahlen bis ca. 3–4 direkt visuell zu erfassen; strukturierte Muster wie Würfelbilder unterstützen zusätzlich die quasi-simultane Erfassung größerer Mengen."
     },
     {
+      "id": "v2-q4",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Alltagssituationen in Kita und Hort eignen sich besonders gut, um mathematische Basiskompetenzen alltagsintegriert und sprachbildend zu fördern? (Mehrere Antworten sind richtig)",
+      "options": [
+        "Tägliches stilles Ausfüllen vorgefertigter Ziffern-Nachspurblätter ohne Handlungsbezug.",
+        "Bauen mit Klötzen und Spiegeln unter Einbezug von Symmetrie, Längenvergleichen und Raum-Lage-Begriffen.",
+        "Gemeinsames Tischdecken mit Eins-zu-eins-Zuordnung von Tellern, Bechern und Stühlen.",
+        "Backen und Kochen mit Vergleichen und Abmessen von Mengen, Bechern und Gewichten."
+      ],
       "correctIndices": [
-        0,
         1,
+        2,
         3
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Mathematische Bildung im Elementarbereich umfasst neben Mengen und Zahlen auch elementare Geometrie (Raum und Form), das Erkennen von Strukturen (Muster und Reihenfolgen) sowie Zeit und Messen. Chemie ist kein originärer mathematischer Elementarbereich.",
-      "id": "quiz-5",
-      "options": [
-        "Raum und Form (Geometrie)",
-        "Muster und Reihenfolgen",
-        "Organische Chemie",
-        "Zeit und Messen"
-      ],
-      "question": "Welche der folgenden Bereiche gehören zu den im Lehrplan RLP definierten mathematischen Grundkenntnissen im Elementarbereich? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Tischdecken, Backen und Bauen verknüpfen mathematische Konzepte unmittelbar mit realen Handlungen, Problemlösen und präziser Sprache. Isolierte Nachspurblätter ersetzen kein handelndes Mengen- und Raumverständnis."
     },
     {
+      "id": "v2-q5",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Ein Kind legt zwei Reihen mit je fünf Muggelsteinen exakt untereinander. Anschließend zieht es die untere Reihe weit auseinander und erklärt stolz: „Die sind trotzdem noch gleich viele, nur weiter auseinander!“ Welche kognitive Einsicht zeigt sich hier?",
+      "options": [
+        "Kognitive Zentrierung auf ein Einzelmerkmal",
+        "Fehlende Eins-zu-eins-Zuordnung",
+        "Mengeninvarianz",
+        "Reines mechanisches Zählen"
+      ],
       "correctIndices": [
         2
       ],
+      "explanation": "Mengeninvarianz bezeichnet die Einsicht, dass die Anzahl einer Menge unverändert bleibt, auch wenn sich ihre räumliche Ausdehnung oder Anordnung verändert."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
       "difficulty": "pruefung",
-      "explanation": "Beim Bauen und Konstruieren in der Bauecke erleben Kinder physikalisch-räumliche Eigenschaften (Statik, Gleichgewicht, Symmetrie) und wenden mathematische Raum- und Formkonzepte handlungsorientiert an.",
-      "id": "quiz-6",
+      "question": "Warum ist die Reflexion der eigenen Mathematikbiografie für pädagogische Fachkräfte wichtig? (Mehrere Antworten sind richtig)",
       "options": [
-        "Das ausschließliche Ausmalen von geometrischen Vorlagen auf Papier.",
-        "Das Hören von Musik-CDs ohne körperliche Bewegung.",
-        "Das konstruktive Bauen mit Klötzen, bei dem Symmetrie, Statik und räumliche Relationen erfahren werden.",
-        "Das stundenlange Stillsitzen auf Stühlen zur Förderung der Konzentration."
+        "Um Kindern bereits im Kindergarten ein einheitliches schriftliches Rechenverfahren nach Prüfungsnorm beizubringen.",
+        "Um zu erkennen, dass frühe Mathematik kein abstraktes Formelpauken, sondern alltagsnahes Entdecken von Mustern, Raum und Mengen ist.",
+        "Um mögliche schulische Matheängste oder Abwertungen („Ich kann kein Mathe“) nicht unbewusst an Kinder weiterzugeben.",
+        "Um Fehlerfreundlichkeit und Neugier beim gemeinsamen Problemlösen authentisch vorzuleben."
       ],
-      "question": "Welche Praxisaktivität im Elementarbereich fördert das räumliche Denken („Raum und Form“) in besonderem Maße?",
-      "type": "single"
+      "correctIndices": [
+        1,
+        2,
+        3
+      ],
+      "explanation": "Die Reflexion der eigenen Mathe-Biografie hilft Fachkräften, schulische Blockaden abzulegen, spontane mathematische Bildungsanlässe im Alltag sicher wahrzunehmen und Kindern Freude am Denken und Ausprobieren vorzuleben."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Der Mathematikkreis – Mathematisch forschen im Kita- und Grundschulalltag",
+      "url": "https://campus.stiftung-kinder-forschen.de/totara/engage/resources/article/index.php?id=190",
+      "publisher": "Stiftung Kinder forschen (Campus)",
+      "note": "Methodische Orientierung für alltagsintegriertes mathematisches Entdecken, Vergleichen und Begründen."
+    },
+    {
+      "title": "Mathematische Themen von Kindern in den ersten drei Lebensjahren – Eine videobasierte Studie",
+      "url": "https://www.kita-fachtexte.de/fileadmin/Redaktion/Publikationen/FT_Dunekacke_OV.PDF",
+      "publisher": "KiTa Fachtexte (Simone Dunekacke / ASH Berlin, Fröbel, nifbe)",
+      "note": "Empirisch fundierter Einblick in frühe mathematische Basiskompetenzen im Spiel- und Alltagshandeln."
+    },
+    {
+      "title": "Alle Kinder sind Matheforscher – Frühe mathematische Bildung in der Kita",
+      "url": "https://nifbe.de/fachbeitraege/alle-kinder-sind-matheforscher/",
+      "publisher": "nifbe – Niedersächsisches Institut für frühkindliche Bildung und Entwicklung",
+      "note": "Überblick über Basiskompetenzen (Sortieren, Muster, Raum, Mengen) und konstruktivistische Begleithaltung."
+    },
+    {
+      "title": "Tipps für Mathematik im Kita-Alltag",
+      "url": "https://nifbe.de/tipps-fuer-mathematik-im-kita-alltag/",
+      "publisher": "nifbe – Niedersächsisches Institut für frühkindliche Bildung und Entwicklung",
+      "note": "Konkrete alltagsintegrierte Praxisideen statt isolierter Vorschul-Arbeitsblätter."
     }
   ]
 }

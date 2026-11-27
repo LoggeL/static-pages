@@ -3,404 +3,446 @@
   "number": 1,
   "moduleCode": "LEITLINIEN",
   "moduleArea": "grundlagen",
-  "title": "Bildungsauftrag, Bachelor Professional & Stundentafel",
-  "subtitle": "Rechtlicher Rahmen, Organisationsformen (VZ/TZ/BB) und 2.400 Unterrichtsstunden",
+  "unitRole": "orientation",
+  "curriculumRef": "Kap. 1 · Staatlicher Bildungsauftrag, rechtliche Grundlagen & Professionalität (Lehrplan RLP 2024)",
+  "title": "Bildungs-, Erziehungs- und Betreuungsauftrag in der Praxis",
+  "subtitle": "Auftragsverständnis nach SGB VIII & KiTaG RLP, professionelle Handlungskompetenz und Ausbildungsrahmen",
   "year": "1.–3. Jahr",
-  "estimatedMinutes": 20,
+  "estimatedMinutes": 25,
   "hoursRef": "Kap. 1 (2.400 Std. gesamt)",
   "pdfPages": "S. I–II, 1–6",
   "crossCuttingTags": [
-    "Partizipation"
+    "Partizipation",
+    "Inklusion"
   ],
-  "summary": "Diese Einheit vermittelt die rechtlichen und strukturellen Grundlagen der Fachschule für Sozialpädagogik nach dem Lehrplan Rheinland-Pfalz (2024). Studierende verstehen den staatlichen Bildungsauftrag, die Aufteilung der 2.400 Unterrichtsstunden und die Berufsbezeichnung 'Bachelor Professional in Sozialwesen' als Qualitätsmerkmal professioneller Handlungskompetenz.",
+  "summary": "Erzieherinnen und Erzieher erfüllen einen gesetzlich verankerten gesellschaftlichen Auftrag: Sie begleiten junge Menschen in ihrer Entwicklung zu eigenverantwortlichen, selbstbestimmten und gemeinschaftsfähigen Persönlichkeiten. Diese Orientierungseinheit klärt den dreifachen Förderauftrag aus Bildung, Erziehung und Betreuung nach SGB VIII und KiTaG RLP, ordnet rechtliche Zuständigkeiten im Alltag ein und zeigt, was professionelle Handlungskompetenz auf Niveau des Bachelor Professional in Sozialwesen von intuitiver Alltagspädagogik unterscheidet.",
   "learningGoals": [
-    "Ich kann den staatlichen Bildungsauftrag der Fachschule für Sozialpädagogik nach dem Schulgesetz und KMK-Rahmenlehrplan erläutern.",
-    "Ich kann die Berufsbezeichnung 'Bachelor Professional in Sozialwesen' im Kontext der Höheren Berufsbildung und des Hochschulzugangs in Rheinland-Pfalz einordnen.",
-    "Ich kann die Stundentafel (2.400 Stunden gesamt: 360 FÜ + 1.800 SP-Pflicht + 240 SP-Wahlpflicht) sowie die Unterschiede zwischen Vollzeit/Teilzeit und berufsbegleitender Organisationsform beschreiben.",
-    "Ich kann die Anrechnung von 800 Stunden bei einschlägiger Vorbildung (Sozialassistenz) und die Struktur der Teilungs- und Selbstlernzeiten (bis zu 20 %) erklären.",
-    "Ich kann die schriftlichen Prüfungsmodule (S-SP-2/3/4) sowie die Möglichkeiten zur Anrechnung auf die Fachhochschulreife (FHR) benennen."
+    "Ich kann den gesetzlichen Förderauftrag aus Bildung, Erziehung und Betreuung (§ 1, § 22 SGB VIII sowie KiTaG RLP) fachlich erklären und an konkreten Alltagssituationen veranschaulichen.",
+    "Ich kann das Zusammenspiel von elterlichem Erziehungsrecht, staatlichem Wächteramt (Art. 6 Abs. 2 GG), Bundes- und Landesrecht sowie Trägerkonzeption in der sozialpädagogischen Praxis einordnen.",
+    "Ich kann professionelle sozialpädagogische Handlungskompetenz begründet von unreflektierter Alltagspädagogik abgrenzen und typische Spannungsfelder im Berufsalltag benennen.",
+    "Ich kann das Qualifikationsniveau des Abschlusses ‚Bachelor Professional in Sozialwesen‘ (DQR-Niveau 6) und das Zusammenspiel von Lernort Schule und Lernort Praxis erklären."
   ],
   "sections": [
     {
-      "body": "Nach dem Schulgesetz und dem KMK-Rahmenlehrplan (2020) bereitet die Fachschule für Sozialpädagogik auf die Arbeit in Kindertageseinrichtungen, der Kinder- und Jugendhilfe sowie Ganztagsschulen vor. Dabei stehen neben elementaren Aufgaben (Betreuung, Erziehung, Bildung) zentrale Querschnittsthemen wie Partizipation, Inklusion und Prävention im Fokus. Die Ausbildung verknüpft wissenschaftsfundierte Theorie mit reflexiver Praxishandlung, um komplexe berufliche Situationen eigenverantwortlich zu bewältigen.",
+      "heading": "Der dreifache Förderauftrag: Bildung, Erziehung und Betreuung",
+      "keyTakeaway": "Bildung, Erziehung und Betreuung sind nach § 22 SGB VIII und KiTaG RLP gleichrangige, untrennbar verbundene Säulen sozialpädagogischer Arbeit – keine reine Verwahrung und keine vorgezogene Verschulung.",
+      "body": "Das Kinder- und Jugendhilferecht gibt der Arbeit von Erzieherinnen und Erziehern eine klare ethische und rechtliche Richtung: Nach § 1 Abs. 1 SGB VIII hat jeder junge Mensch ein Recht auf Förderung seiner Entwicklung und auf Erziehung zu einer selbstbestimmten, eigenverantwortlichen und gemeinschaftsfähigen Persönlichkeit. Für Kindertageseinrichtungen und Kindertagespflege konkretisiert § 22 Abs. 3 SGB VIII diesen Auftrag als Trias aus Bildung, Erziehung und Betreuung. Bildung bezeichnet dabei den eigenaktiven Prozess, in dem Kinder sich im Spiel, im Forschen und im sozialen Austausch die Welt aneignen – Fachkräfte begleiten diese Weltaneignung ko-konstruktiv, statt Wissen bloß abzufragen. Erziehung meint das bewusste Vorleben und Vermitteln von Werten, Regeln und demokratischen Aushandlungsformen, die Orientierung und Halt geben. Betreuung schließlich sichert die physische und emotionale Grundversorgung, Verlässlichkeit, Pflege und Schutz – ohne sie ist weder Erziehung noch Bildung möglich. In Rheinland-Pfalz greift das Kindertagesstättengesetz (KiTaG RLP) diese Trias auf und verbindet sie mit den Bildungs- und Erziehungsempfehlungen RLP als inhaltlichem Qualitätsrahmen für Kitas.",
       "bulletPoints": [
-        "Grundlage: Schulgesetz RLP und KMK-Rahmenlehrplan vom 18.06.2020",
-        "Umsetzung des Rechts auf individuelle Förderung und gesellschaftliche Teilhabe",
-        "Fokus auf Querschnittsthemen (Partizipation, Inklusion, Wertevermittlung, Sprachbildung)",
-        "Handlungsorientiertes Lehr-Lernkonzept mit verbindlichem Jahresarbeitsplan im Bildungsgangteam"
+        "Bildung: Eigenaktive Weltaneignung im Spiel und Alltag, unterstützt durch anregende Räume und ko-konstruktive Begleitung.",
+        "Erziehung: Verlässliche Beziehung, Werteorientierung, Vorbildwirkung und Förderung sozialer Verantwortung.",
+        "Betreuung: Körperliche Versorgung, emotionale Geborgenheit, Schutz und Verlässlichkeit als Basis für Entwicklung.",
+        "Familienergänzender Auftrag (§ 22 Abs. 2 SGB VIII): Unterstützung und Ergänzung der Familie sowie Förderung der Vereinbarkeit von Familie und Beruf."
       ],
-      "heading": "Der staatliche Bildungsauftrag und rechtliche Rahmenbedingungen",
-      "keyTakeaway": "Der Bildungsauftrag verbindet das Recht junger Menschen auf Förderung mit dem gesellschaftlichen Anspruch an professionelle Betreuung, Erziehung und Bildung.",
-      "praxisTip": "Reflektieren Sie im Team (Kita & Schule), wie Querschnittsthemen wie Partizipation konkret im pädagogischen Alltag der Einrichtung verankert werden können."
+      "praxisTip": "Beobachten Sie eine Woche lang eine Alltagssituation (z. B. das gemeinsame Frühstück oder das Freispiel im Garten) und notieren Sie konkret, worin in genau dieser Szene Betreuung, Erziehung und Bildung gleichzeitig sichtbar werden."
     },
     {
-      "body": "Mit dem erfolgreichen Abschluss der Fachschule erhalten Absolventinnen und Absolventen neben der Berufsbezeichnung die Verleihung des 'Bachelor Professional in Sozialwesen'. Dieser Titel verdeutlicht die Gleichwertigkeit höherer beruflicher Abschlüsse mit akademischen Bachelorgraden und stärkt das berufliche Selbstbewusstsein. Zudem wird die uneingeschränkte Berechtigung zum Studium an Hochschulen für angewandte Wissenschaften in Rheinland-Pfalz (Pädagogik, Soziale Arbeit, Therapie, Management) verliehen.",
+      "heading": "Rechtlicher Rahmen und Spannungsfelder im Berufsalltag",
+      "keyTakeaway": "Sozialpädagogisches Handeln bewegt sich im rechtlichen Dreieck aus den Grundrechten des Kindes, dem vorrangigen Erziehungsrecht der Eltern und dem staatlichen Förder- und Schutzauftrag.",
+      "body": "Wer pädagogisch handelt, bewegt sich nie im rechtsfreien Raum. Den obersten Maßstab bilden die Menschenwürde und das Recht auf freie Entfaltung der Persönlichkeit (Art. 1 und 2 GG), die UN-Kinderrechtskonvention sowie Art. 6 Abs. 2 GG. Dort heißt es ausdrücklich, dass Pflege und Erziehung das natürliche Recht der Eltern und die zuvörderst ihnen obliegende Pflicht sind; über ihre Betätigung wacht die staatliche Gemeinschaft (staatliches Wächteramt). Auf Bundesebene füllt das SGB VIII diesen Auftrag mit konkreten Leistungs- und Schutzpflichten (u. a. Beteiligung nach § 8, Kinderschutz nach § 8a, Förderauftrag nach § 22 und Rechtsansprüche nach § 24 SGB VIII). Auf Landesebene präzisiert das KiTaG RLP die Strukturen für rheinland-pfälzische Einrichtungen – etwa durch den Anspruch auf eine durchgängige siebenstündige Betreuung mit Mittagsverpflegung, die Beitragsfreiheit ab dem vollendeten zweiten Lebensjahr, Mitwirkungsgremien wie Elternausschuss und Kita-Beirat sowie das Sozialraumbudget. Die Einrichtungskonzeption übersetzt diese Vorgaben schließlich in den konkreten Alltag vor Ort. Im Praxisalltag entstehen daraus produktive Spannungsfelder: etwa wenn elterliche Erziehungsvorstellungen von den fachlichen Standards der Einrichtung abweichen oder institutionelle Grenzen mit individuellen Kinderwünschen kollidieren.",
       "bulletPoints": [
-        "Verleihung des Titels 'Bachelor Professional in Sozialwesen'",
-        "Sichtbarmachung der Gleichwertigkeit beruflicher und akademischer Bildung",
-        "Hochschulzugang für beruflich Qualifizierte an HAWs in Rheinland-Pfalz",
-        "Vorbereitung auf erweiterte Leitungs- und Steuerungskompetenzen"
+        "Art. 6 Abs. 2 GG: Vorrangiges Erziehungsrecht der Eltern verbunden mit dem staatlichen Wächteramt zum Schutz des Kindeswohls.",
+        "Bundes- und Landesrecht: SGB VIII als bundesweiter Rahmen, konkretisiert durch das KiTaG RLP und die Bildungs- und Erziehungsempfehlungen RLP.",
+        "Einrichtungskonzeption: Verbindliche pädagogische Übersetzung der gesetzlichen Vorgaben durch Träger und Team.",
+        "Konstruktiver Umgang mit Spannungsfeldern: Transparente Kommunikation mit Familien statt einseitiger Belehrung oder vorschneller Anpassung."
       ],
-      "heading": "Qualifikation und Abschluss: 'Bachelor Professional in Sozialwesen'",
-      "keyTakeaway": "Der Abschluss verbindet die staatliche Anerkennung als Erzieherin/Erzieher mit dem international kompatiblen Titel 'Bachelor Professional in Sozialwesen'.",
-      "praxisTip": "Nutzen Sie den akademischen Anschlussgrad und die Kooperationen mit Hochschulen, um sich frühzeitig über Weiterbildungs- und Studiermöglichkeiten zu informieren."
+      "praxisTip": "Lesen Sie das pädagogische Konzept Ihrer Praxisstelle gezielt unter der Frage, wie dort der gesetzliche Auftrag (SGB VIII und KiTaG RLP) in konkrete Regeln, Raumgestaltung und Elternkooperation übersetzt wird."
     },
     {
-      "body": "Die Stundentafel unterteilt sich in den fachrichtungsübergreifenden Lernbereich (360 Std. FÜ) und den fachrichtungsbezogenen Lernbereich (1.800 Std. SP-Pflicht + 240 Std. SP-Wahlpflicht). In der berufsbegleitenden Organisationsform werden im 1. Jahr 800 Stunden bei einschlägiger Vorbildung als Sozialassistent/-in angerechnet. Ergänzend stehen 360 Teilungsstunden und bis zu 20 % (480 Std.) flexibel gestaltbare Selbstlernzeiten (Blended Learning) zur Verfügung.",
+      "heading": "Professionelle Handlungskompetenz und Bachelor Professional in Sozialwesen",
+      "keyTakeaway": "Professionalität zeigt sich darin, Beobachtungen von Deutungen zu trennen, pädagogisches Handeln fachlich zu begründen und mit Unsicherheiten reflexiv umzugehen.",
+      "body": "Was unterscheidet eine staatlich anerkannte Erzieherin oder einen staatlich anerkannten Erzieher von einer liebevollen Alltagsperson? In der Alltagspädagogik wird oft intuitiv, nach eigenem Bauchgefühl oder biografischen Prägungen entschieden. Professionelle sozialpädagogische Handlungskompetenz verknüpft hingegen drei Dimensionen: fundiertes Fach- und Rechtswissen (Wissen), methodische Handlungsfähigkeit in komplexen Gruppen- und Gesprächssituationen (Können) sowie eine reflektierte, menschenrechts- und kindeswohlorientierte Grundhaltung (Wollen und Werten). Zum professionellen Kern gehört das Aushalten sogenannter Antinomien – also unvermeidlicher Widersprüche wie Nähe und Distanz, Schutz und Autonomie oder individuelle Förderung und Gruppenbedürfnisse. Sie lassen sich nicht durch starre Rezepte auflösen, sondern müssen situationsbezogen abgewogen und im Team reflektiert werden. Genau dieses anspruchsvolle Kompetenzniveau bildet der Abschluss ab: Mit dem erfolgreichen Abschluss der Fachschule Sozialwesen (Fachrichtung Sozialpädagogik) wird neben der staatlichen Anerkennung der Titel ‚Bachelor Professional in Sozialwesen‘ verliehen. Er ordnet die Ausbildung auf Niveaustufe 6 des Deutschen Qualifikationsrahmens (DQR) ein, macht die Gleichwertigkeit höherer beruflicher Bildung mit akademischen Bachelorabschlüssen sichtbar und eröffnet in Rheinland-Pfalz zugleich den Zugang zu weiterführenden Hochschulstudiengängen.",
       "bulletPoints": [
-        "Gesamtumfang: 2.400 Unterrichtsstunden über 3 Ausbildungsjahre",
-        "Lernbereiche: 360 Std. FÜ, 1.800 Std. SP-Pflicht, 240 Std. SP-Wahlpflicht",
-        "Berufsbegleitend: 800 Std. Anrechnung im 1. Jahr bei Sozialassistenz-Vorbildung",
-        "Ressourcen: 360 Teilungsstunden und max. 480 Std. (20 %) Selbstlernzeiten"
+        "Trennung von Beobachtung, fachlicher Deutung und begründeter Handlungsentscheidung statt schneller Etikettierungen.",
+        "Reflexiver Umgang mit professionellen Spannungsfeldern (z. B. Nähe und Distanz, Schutz und Freiheit).",
+        "Bachelor Professional in Sozialwesen: Höhere Berufsbildung auf DQR-Niveau 6 als Zeichen fachlicher Eigenverantwortung.",
+        "Durchlässigkeit: Hochschulzugang für beruflich Qualifizierte in Rheinland-Pfalz (z. B. Kindheitspädagogik, Soziale Arbeit, Management)."
       ],
-      "heading": "Stundentafel, Organisationsformen und Anrechnungsmodelle (2.400 Stunden)",
-      "keyTakeaway": "Die modularisierte Ausbildung umfasst 2.400 Stunden und bietet durch Vollzeit, Teilzeit und praxisintegrierte Berufsbegleitung flexible Wege zum Abschluss.",
-      "praxisTip": "Planen Sie die Selbstlernzeiten und Blended-Learning-Phasen strukturiert in Ihren Berufs- und Lernalltag ein, um Theorie und Praxis optimal zu verzahnen."
+      "praxisTip": "Wenn Sie nach einer schwierigen Situation in der Gruppe einen ersten Impuls verspüren (z. B. ‚Das Kind provoziert mich‘), halten Sie inne und trennen Sie schriftlich: Was habe ich objektiv beobachtet? Welche alternativen fachlichen Erklärungen gibt es?"
+    },
+    {
+      "heading": "Orientierung: Zusammenspiel von Schule und Praxis in der Ausbildung",
+      "keyTakeaway": "Die Fachschulausbildung verzahnt wissenschaftlich fundierte Theorie am Lernort Schule mit begleitetem Handeln am Lernort Praxis – flexibel in Vollzeit, Teilzeit oder berufsbegleitend.",
+      "body": "Die Ausbildung zur Erzieherin und zum Erzieher in Rheinland-Pfalz ist generalistisch und kompetenzorientiert angelegt: Sie bereitet nicht nur auf die Kindertagesstätte vor, sondern ebenso auf Arbeitsfelder der Kinder- und Jugendhilfe, Ganztagsschulen, Hilfen zur Erziehung und inklusive Angebote. Fachrichtungsübergreifende Kompetenzen (wie professionelle Kommunikation, Fremdsprache, Recht, digitale und naturwissenschaftliche Grundlagen) greifen dabei eng in die sozialpädagogischen Kernmodule (Beziehungsarbeit, Inklusion, Bildungsbereiche, Elternpartnerschaft, Team- und Qualitätsentwicklung) sowie in individuelle Vertiefungs- und Praxisphasen. Weil berufliche Handlungskompetenz nicht allein im Klassenzimmer entsteht, sind der Lernort Schule und der Lernort Praxis partnerschaftlich miteinander verbunden: Theoretische Modelle werden in realen Praxissituationen erprobt, dokumentiert und im Unterricht sowie in Praxisreflexionen wieder kritisch ausgewertet. Je nach Lebenssituation und Vorbildung stehen verschiedene Organisationsformen (Vollzeit, Teilzeit oder berufsbegleitend) offen; die genauen Modulübersichten und zeitlichen Rahmenbedingungen lassen sich jederzeit in der Stundentafel nachschlagen.",
+      "bulletPoints": [
+        "Generalistische Ausrichtung: Befähigung für vielfältige Arbeitsfelder von der frühen Kindheit bis zum jungen Erwachsenenalter.",
+        "Lernortkooperation: Systematische Verknüpfung von Fachschulunterricht, Praxisanleitung und angeleiteten Selbstlernphasen.",
+        "Flexible Ausbildungswege: Vollzeit-, Teilzeit- und berufsbegleitende Organisationsform führen zum selben fachlichen Abschluss.",
+        "Nachschlagehilfe: Formale Modulübersichten und Stundenaufteilungen sind in der Stundentafel gebündelt – im Zentrum des Lernens steht die fachliche Fallkompetenz."
+      ],
+      "praxisTip": "Bringen Sie regelmäßig konkrete Beobachtungen oder offene Fragen aus Ihrer Praxisstelle in den Unterricht ein – so wird aus abstrakter Theorie unmittelbar nutzbares Handlungswissen."
     }
   ],
   "visualBlocks": [
     {
-      "centerLabel": "Ausbildungswege",
-      "id": "block-comparison",
+      "id": "u01-vb-trias",
+      "kind": "concept_map",
+      "title": "Der gesetzliche Förderauftrag (§ 22 SGB VIII & KiTaG RLP)",
+      "subtitle": "Wie Bildung, Erziehung, Betreuung und Familienkooperation im Alltag zusammenwirken",
+      "centerLabel": "Förderauftrag",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": false,
       "items": [
         {
-          "badge": "Standard",
-          "detail": "Die Verteilung der Kompetenzen auf die Ausbildungsjahre ist flexibel; der Unterricht bereitet umfassend auf alle Lernmodule vor.",
-          "example": "Schülerinnen und Schüler besuchen an 5 Tagen pro Woche die Fachschule und absolvieren ausbildungsbegleitende Praktika.",
-          "id": "comp-1",
-          "label": "Vollzeit / Teilzeit (Regelform)",
-          "metric": "2.400 Std. Gesamt",
-          "summary": "Klassische schulische Ausbildung mit integrierten Praxisphasen."
+          "id": "trias-1",
+          "label": "Bildung (Weltaneignung)",
+          "badge": "Säule 1",
+          "metric": "Ko-Konstruktion",
+          "summary": "Eigenaktiver Prozess, in dem Kinder im Spiel, Forschen und Dialog Wissen und Kompetenzen aufbauen.",
+          "detail": "Bildung bedeutet in der Sozialpädagogik keine vorgezogene Verschulung, sondern das Schaffen anregender Lernumgebungen und den wertschätzenden Dialog über die Fragen und Ideen der Kinder.",
+          "example": "Beim Bauen einer Kugelbahn erproben Kinder Schwerkraft und Neigung; die Fachkraft stellt offene Forschungsfragen statt die Lösung vorzugeben."
         },
         {
-          "badge": "Quereinstieg",
-          "detail": "Im 1. Jahr werden 800 Stunden bei Vorbildung als Sozialassistent/-in angerechnet; im 2. und 3. Jahr erfolgen vertiefte Module.",
-          "example": "Eine sozialpädagogische Fachkraft in einer Kita absolviert parallel an zwei Tagen pro Woche oder in Blockform die Fachschule.",
-          "id": "comp-2",
-          "label": "Berufsbegleitend (Quereinstieg)",
-          "metric": "800 Std. Anrechnung",
-          "summary": "Ausbildung parallel zu einer einschlägigen Berufstätigkeit."
+          "id": "trias-2",
+          "label": "Erziehung (Orientierung)",
+          "badge": "Säule 2",
+          "metric": "Werte & Halt",
+          "summary": "Begleitung zur eigenverantwortlichen und gemeinschaftsfähigen Persönlichkeit.",
+          "detail": "Erziehung vermittelt soziale Regeln, Empathie, Konfliktfähigkeit und demokratische Teilhabe durch verlässliche Beziehungen und reflektiertes Vorbildverhalten der Fachkräfte.",
+          "example": "Bei einem Streit um ein Fahrzeug moderiert die Fachkraft das Gespräch, sodass beide Kinder ihre Gefühle benennen und gemeinsam eine faire Lösung finden."
         },
         {
-          "badge": "Struktur",
-          "detail": "Unabhängig von der Organisationsform umfasst die Ausbildung exakt 2.400 Stunden, aufgeteilt in FÜ (360), SP-Pflicht (1.800) und Wahlpflicht (240).",
-          "example": "Gleiche schriftliche Prüfungsmodule (S-SP-2/3/4) für alle Organisationsformen.",
-          "id": "comp-3",
-          "label": "Stundentafel & Lernbereiche",
-          "metric": "2.400 Std. Pflicht",
-          "summary": "Identischer Gesamtumfang und fachliche Standards."
+          "id": "trias-3",
+          "label": "Betreuung (Sicherheit)",
+          "badge": "Säule 3",
+          "metric": "Grundversorgung",
+          "summary": "Verlässliche Versorgung, Pflege, Schutz und emotionale Geborgenheit.",
+          "detail": "Körperliches Wohlbefinden, Schutz vor Gefahren, Ruhephasen und verlässliche Bindungsangebote bilden das unverzichtbare Fundament, auf dem Kinder neugierig lernen können.",
+          "example": "Eine liebevolle, ungestörte Wickel- oder Essenssituation gibt dem Kleinkind Sicherheit und fördert zugleich Sprache und Selbstwirksamkeit."
         },
         {
-          "badge": "Prüfung",
-          "detail": "Schriftliche Prüfungsarbeiten in angerechneten Modulen erstrecken sich bei Quereinstieg nur auf die Unterrichtsanteile des 2. und 3. Jahres.",
-          "example": "Prüfungsvorbereitung fokussiert auf die im Hauptteil vermittelten Aufbaumodule.",
-          "id": "comp-4",
-          "label": "Prüfungsanforderungen bei Anrechnung",
-          "metric": "Fokus 2./3. Jahr",
-          "summary": "Spezifische Regelung bei angerechneter Vorbildung."
+          "id": "trias-4",
+          "label": "Familienergänzung",
+          "badge": "Kontext",
+          "metric": "Partnerschaft",
+          "summary": "Unterstützung und Ergänzung der Familie statt Konkurrenz zu den Eltern.",
+          "detail": "Nach § 22 Abs. 2 SGB VIII arbeiten Fachkräfte partnerschaftlich mit Sorgeberechtigten zusammen und tragen zugleich dazu bei, Erwerbstätigkeit, Kindererziehung und familiäre Pflege besser zu vereinbaren.",
+          "example": "Regelmäßige Entwicklungsgespräche auf Augenhöhe verbinden die Beobachtungen aus der Kita mit den Erfahrungen der Eltern zu Hause."
         }
-      ],
+      ]
+    },
+    {
+      "id": "u01-vb-normen",
+      "kind": "pyramid",
+      "title": "Rechtliches Fundament bis zur Einrichtungspraxis",
+      "subtitle": "Von den unveräußerlichen Grundrechten (Fundament) bis zum pädagogischen Alltag vor Ort (Spitze)",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "norm-1",
+          "label": "Grundgesetz & UN-KRK",
+          "badge": "Fundament",
+          "metric": "Verfassung & Menschenrechte",
+          "summary": "Menschenwürde (Art. 1 GG), Persönlichkeitsrecht (Art. 2 GG), Elternrecht & staatliches Wächteramt (Art. 6 GG) sowie Kinderrechte.",
+          "detail": "Diese obersten Normen setzen allen Gesetzen und pädagogischen Konzepten verbindliche Grenzen: Jedes Kind ist Träger eigener Rechte, und keine Maßnahme darf die Menschenwürde verletzen.",
+          "example": "Kinder haben ein unveräußerliches Recht auf gewaltfreie Erziehung, Schutz und Gehör in allen sie betreffenden Angelegenheiten."
+        },
+        {
+          "id": "norm-2",
+          "label": "Bundesrecht (SGB VIII)",
+          "badge": "Bundesebene",
+          "metric": "Kinder- & Jugendhilfe",
+          "summary": "Einheitlicher gesetzlicher Rahmen für Förderung, Beteiligung, Rechtsansprüche und Kinderschutz in Deutschland.",
+          "detail": "Das SGB VIII regelt u. a. das Recht auf Förderung (§ 1), Beteiligung (§ 8), den Schutzauftrag bei Kindeswohlgefährdung (§ 8a), den Förderauftrag in Kitas (§ 22) und die Betriebserlaubnis (§ 45).",
+          "example": "Das Team hält verbindliche Beteiligungs- und Beschwerdeverfahren vor und kennt den Ablauf bei gewichtigen Anhaltspunkten für eine Kindeswohlgefährdung."
+        },
+        {
+          "id": "norm-3",
+          "label": "Landesrecht (KiTaG RLP)",
+          "badge": "Landesebene",
+          "metric": "Rheinland-Pfalz",
+          "summary": "Konkretisierung von Betreuungsansprüchen, Qualität, Finanzierung und Mitwirkung in Rheinland-Pfalz.",
+          "detail": "Das KiTaG RLP und die Bildungs- und Erziehungsempfehlungen RLP prägen den Kita-Alltag im Land – etwa durch den siebenstündigen Betreuungsanspruch mit Mittagessen, Beitragsfreiheit ab zwei Jahren, Kita-Beirat und Sozialraumbudget.",
+          "example": "Im Kita-Beirat beraten Träger, Leitung, Team und Elternausschuss gemeinsam über Grundsätze der pädagogischen Arbeit und bringen die Perspektive der Kinder ein."
+        },
+        {
+          "id": "norm-4",
+          "label": "Träger- & Kita-Konzept",
+          "badge": "Praxis vor Ort",
+          "metric": "Einrichtungsebene",
+          "summary": "Übersetzung der gesetzlichen Vorgaben in das konkrete Profil und den Alltag der Einrichtung.",
+          "detail": "Jede Einrichtung gestaltet im Rahmen der Gesetze ihr eigenes pädagogisches Konzept, Schutzkonzept und Qualitätsmanagement – stets abgestimmt auf die Lebenswelten im Sozialraum.",
+          "example": "Eine Kita im mehrsprachigen Stadtteil verankert alltagsintegrierte Sprachbildung und offene Funktionsräume verbindlich in ihrer Konzeption."
+        }
+      ]
+    },
+    {
+      "id": "u01-vb-prof",
       "kind": "comparison",
-      "leftPole": "Vollzeit / Teilzeit",
-      "rightPole": "Berufsbegleitend",
-      "subtitle": "Vergleich von Vollzeit/Teilzeit und Berufsbegleitender Organisationsform",
-      "title": "Organisationsformen der Fachschulausbildung"
-    },
-    {
-      "centerLabel": "Prozesskette",
-      "id": "block-process",
-      "isCycle": true,
-      "items": [
-        {
-          "badge": "Phase 1",
-          "detail": "Lehrkräfte analysieren die verbindlichen Kompetenzen und Querschnittsthemen wie Partizipation und Inklusion.",
-          "example": "Erfassung der Kompetenzen für das Modul S-SP-3 (Inklusion und Diversität).",
-          "id": "proc-1",
-          "label": "1. Lehrplananalyse & Rahmenvorgaben",
-          "metric": "Vorgaben",
-          "summary": "Studium der KMK- und RLP-Vorgaben."
-        },
-        {
-          "badge": "Phase 2",
-          "detail": "Das Lehrkräfteteam koordiniert die Lernmodule, legt Schwerpunkte fest und plant den fachlichen roten Faden.",
-          "example": "Gemeinsamer Termin zur Erstellung des schulbezogenen Jahresarbeitsplans.",
-          "id": "proc-2",
-          "label": "2. Erstellung des Jahresarbeitsplans",
-          "metric": "Teamarbeit",
-          "summary": "Abstimmung im Bildungsgangteam."
-        },
-        {
-          "badge": "Phase 3",
-          "detail": "Verknüpfung von Fachwissen mit realen Situationen aus Kitas und Jugendhilfe unter Nutzung von Teilungsstunden.",
-          "example": "Fallarbeit zur Gestaltung von Erziehungspartnerschaften mit Eltern.",
-          "id": "proc-3",
-          "label": "3. Handlungsorientierte Umsetzung",
-          "metric": "Praxisbezug",
-          "summary": "Unterricht an konkreten Praxisaufgaben."
-        },
-        {
-          "badge": "Phase 4",
-          "detail": "Evaluation des Lernprozesses durch Praxisbegleitung, Arbeitsgemeinschaften und Selbstlernzeiten.",
-          "example": "Reflexion praktischer Erfahrungen in der monatlichen Berufspraktikums-AG.",
-          "id": "proc-4",
-          "label": "4. Theorie-Praxis-Verzahnung & Reflexion",
-          "metric": "Evaluation",
-          "summary": "Rückkopplung mit dem Lernort Praxis."
-        }
-      ],
-      "kind": "process_flow",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Von den Lehrplanvorgaben zum handlungsorientierten Unterricht",
-      "title": "Curriculare Prozesskette der Lernortkooperation"
-    },
-    {
-      "centerLabel": "Strukturen",
-      "id": "block-grid",
+      "title": "Alltagspädagogik vs. professionelle Handlungskompetenz",
+      "subtitle": "Woran sich wissenschaftlich fundiertes, reflektiertes pädagogisches Handeln im Alltag zeigt",
+      "centerLabel": "",
+      "leftPole": "Intuitives Alltagshandeln",
+      "rightPole": "Reflektierte Professionalität",
       "isCycle": false,
       "items": [
         {
-          "badge": "Abschluss",
-          "detail": "Belegt die Gleichwertigkeit mit akademischen Graden und ermöglicht den Hochschulzugang in RLP.",
-          "example": "Verleihung bei erfolgreichem Fachschulabschluss.",
-          "id": "grid-1",
-          "label": "Bachelor Professional in Sozialwesen",
-          "metric": "Höhere Berufsbildung",
-          "summary": "International kompatibler Titel für höhere Berufsabschlüsse."
+          "id": "prof-1",
+          "label": "Wahrnehmung & Deutung",
+          "badge": "Diagnostik",
+          "metric": "Beobachtung trennen",
+          "summary": "Alltagshandeln urteilt rasch aus dem Bauchgefühl; Professionalität trennt präzise zwischen Beobachtung und Deutung.",
+          "detail": "Statt Kinder vorschnell mit Etiketten (‚frech‘, ‚schüchtern‘) zu belegen, beschreiben Fachkräfte zunächst konkretes Verhalten und prüfen mehrere mögliche fachliche Erklärungen.",
+          "example": "Statt ‚Noah ist aggressiv‘ dokumentiert die Fachkraft: ‚Noah stieß zweimal Kinder weg, als es im Baubereich sehr laut und eng wurde.‘"
         },
         {
-          "badge": "Prüfung",
-          "detail": "Zwei davon werden von der Schule vor Beginn des Bildungsgangs aus einem festen Pool ausgewählt.",
-          "example": "Schriftliche Prüfung in Modul S-SP-4 (Bildungsbereiche) und S-SP-3 (Inklusion).",
-          "id": "grid-2",
-          "label": "Schriftliche Prüfungsmodule (S-SP-2/3/4)",
-          "metric": "3 Module Auswahl",
-          "summary": "Drei zentrale Module für die schriftliche Abschlussprüfung."
+          "id": "prof-2",
+          "label": "Bildungsverständnis",
+          "badge": "Auftrag",
+          "metric": "§ 22 SGB VIII",
+          "summary": "Alltagshandeln trennt oft ‚Spielen‘ von ‚Lernen‘; Professionalität erkennt Spiel und Alltag als zentrale Bildungsräume.",
+          "detail": "Professionelle Fachkräfte können gegenüber Eltern und Team fachlich begründen, warum freies Spiel, Bewegung, Sprache und soziale Aushandlung zentrale und tragfähige Bildungsprozesse sind.",
+          "example": "Die Fachkraft erläutert Eltern anhand von Fotos aus dem Rollenspiel, welche sprachlichen, sozialen und mathematischen Kompetenzen die Kinder dabei erwerben."
         },
         {
-          "badge": "Qualifikation",
-          "detail": "Module S-FÜ-1 (Deutsch), S-FÜ-2 (Fremdsprache B2) und S-FÜ-3 (Sozialkunde) sind auf Antrag anrechenbar.",
-          "example": "Bescheinigung der Lernbausteine im Qualifizierungspass.",
-          "id": "grid-3",
-          "label": "FHR-Anrechnung (Bausteine)",
-          "metric": "FHR-Option",
-          "summary": "Anrechnung auf die Fachhochschulreifeprüfung."
+          "id": "prof-3",
+          "label": "Umgang mit Eltern",
+          "badge": "Kooperation",
+          "metric": "Augenhöhe",
+          "summary": "Alltagshandeln schwankt zwischen Belehrung und Abwehr; Professionalität gestaltet eine wertschätzende Partnerschaft.",
+          "detail": "Fachkräfte erkennen Eltern als erste Expertinnen und Experten für ihr Kind an, vertreten gleichzeitig ihren fachlichen und gesetzlichen Auftrag transparent und suchen tragfähige Lösungen.",
+          "example": "Wenn Eltern schulische Arbeitsblätter fordern, nimmt die Fachkraft das dahinterliegende Anliegen (guter Schulstart) ernst und zeigt alltagsnahe Bildungswege auf."
         },
         {
-          "badge": "Lernform",
-          "detail": "Bis zu 20 % der Pflichtstundenzahl (480 Std.) können als andere Lernformen von Lehrkräften betreut sowie vor- und nachbereitet werden.",
-          "example": "Onlinegestützte Reflexionsaufgaben und E-Learning-Einheiten.",
-          "id": "grid-4",
-          "label": "Selbstlernzeiten & Blended Learning",
-          "metric": "Max. 20 % (480 Std.)",
-          "summary": "Flexible Gestaltung digitaler und selbstgesteuerter Lernprozesse."
-        },
-        {
-          "badge": "Profilbildung",
-          "detail": "Kombination aus einem Bildungsbereich/Querschnittsthema und einem Arbeitsfeld/Zielgruppe (mind. 80 Std. je Bereich).",
-          "example": "Wwahl von Medienpädagogik und Arbeit mit U3-Kindern.",
-          "id": "grid-5",
-          "label": "Wahlpflichtbereich (240 Std.)",
-          "metric": "240 Std. Gesamt",
-          "summary": "Individuelle Schwerpunktsetzung nach schulischem Angebot."
+          "id": "prof-4",
+          "label": "Umgang mit Dilemmata",
+          "badge": "Reflexion",
+          "metric": "Antinomien",
+          "summary": "Alltagshandeln sucht einfache Patentrezepte; Professionalität reflektiert Widersprüche im Team.",
+          "detail": "Spannungsfelder wie Nähe und Distanz oder Schutz und Autonomie lassen sich nicht endgültig auflösen. Professionelle Fachkräfte wägen sie fallbezogen ab und nutzen kollegiale Beratung.",
+          "example": "Im Team wird regelmäßig ausgewertet, wie viel Freiraum einzelnen Kindern auf dem Außengelände im Einklang mit der Aufsichtspflicht zugetraut werden kann."
         }
-      ],
-      "kind": "feature_grid",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Übersicht zentraler Strukturelemente nach RLP-Lehrplan 2024",
-      "title": "Kernkomponenten der Fachschulausbildung"
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Erwachsene Fachschüler:innen (Vollzeit & Berufsbegleitend)",
-    "context": "Eine Fachschule in Rheinland-Pfalz bereitet die Einführung der modularisierten Erzieherausbildung nach dem neuen Lehrplan (2024) vor. Das Bildungsgangteam muss über Anrechnungen, Teilungsstunden und Prüfungsmodule entscheiden.",
-    "setting": "Fachschule für Sozialwesen, Leitungsteam und Praxiskoordination",
+    "title": "„Sie soll endlich für die Schule lernen, nicht nur spielen!“",
+    "setting": "Kommunale Kindertagesstätte in Rheinland-Pfalz",
+    "ageGroup": "Vorschulkind (4 Jahre)",
+    "context": "Die vierjährige Emilia besucht seit einem Jahr die Kita. Im Freispiel vertieft sie sich oft über dreißig Minuten im Bau- und Gartenbereich, verhandelt mit anderen Kindern komplexe Spielregeln und sortiert Naturmaterialien nach Größe und Mustern. Beim Abholen sagen Emilias Eltern verärgert zu Ihnen: ‚Bei Ihnen wird ja nur gespielt! Wir möchten, dass Emilia jeden Tag Arbeitsblätter zum Rechnen und Schreiben macht, damit sie später in der Schule mitkommt.‘ Eine Berufseinsteigerin im Team flüstert Ihnen danach zu: ‚Ach, mach dir keinen Stress – Hauptsache, die Kinder sind satt, sicher und gut betreut.‘",
     "steps": [
       {
+        "situation": "Beobachtung, Auftrag und Haltung im Team: Zwei gegensätzliche Erwartungen treffen aufeinander – die Forderung der Eltern nach verschulten Arbeitsblättern und die Haltung der Kollegin, Kita sei vor allem sichere Betreuung.",
+        "prompt": "Wie ordnen Sie die Situation auf Grundlage des gesetzlichen Auftrags (§ 22 SGB VIII, KiTaG RLP) fachlich ein und wie reagieren Sie zunächst im Team?",
         "options": [
           {
-            "feedback": "Perfekt! Dies entspricht exakt den Vorgaben der Fußnote 2 der Stundentafel für die berufsbegleitende Organisationsform.",
-            "label": "Die 800 Stunden werden auf Antrag vollständig aus der Erstausbildung angerechnet; im 1. Jahr wird gezielt quereingestiegen, wobei die schriftlichen Prüfungen im 2./3. Jahr nur die neuen Unterrichtsanteile abdecken.",
+            "label": "Sie trennen zunächst Beobachtung und Deutung, machen im Team den gleichrangigen Förderauftrag aus Bildung, Erziehung und Betreuung deutlich und sammeln konkrete Beobachtungsbeispiele aus Emilias Spiel (z. B. Musterbildung, Sprach- und Konfliktkompetenz) für ein geplantes Elterngespräch.",
             "quality": "optimal",
-            "theoryLink": "Lehrplan RLP (2024), Stundentafel Berufsbegleitend, Fußnote 2."
+            "feedback": "Fachlich überzeugend! Sie reduzieren Kita weder auf reine Verwahrung noch auf vorgezogene Verschulung. Stattdessen übersetzen Sie den gesetzlichen Auftrag nach § 22 SGB VIII und KiTaG RLP in konkrete, beobachtbare Bildungsprozesse und bereiten einen professionellen Dialog vor.",
+            "theoryLink": "§ 1 & § 22 SGB VIII, KiTaG RLP, professionelle Handlungskompetenz (Trennung von Beobachtung, Deutung und Begründung)"
           },
           {
-            "feedback": "Falsch. Der Lehrplan sieht explizit die Anrechnung von 800 Stunden bei einschlägiger Vorbildung vor, um den Quereinstieg zu ermöglichen.",
-            "label": "Die Schülerinnen und Schüler müssen alle 2.400 Stunden regulär absitzen, da eine Anrechnung von Vorbildungen im Fachschulbereich grundsätzlich unzulässig ist.",
-            "quality": "problematisch",
-            "theoryLink": "Lehrplan RLP (2024), Stundentafel Fußnote 2."
-          },
-          {
-            "feedback": "Teilweise problematisch. Eine Anrechnung erfordert einen offiziellen Antrag, und Prüfungen werden nicht erlassen, sondern erstrecken sich auf die Unterrichtsanteile des 2. und 3. Jahres.",
-            "label": "Die Anrechnung erfolgt formlos, und die Prüfungsanforderungen werden für diese Gruppe komplett erlassen.",
+            "label": "Sie stimmen der Kollegin zu, dass Betreuung im Kita-Alltag Vorrang hat, und bieten den Eltern zusätzlich freiwillige Vorschul-Arbeitsblätter für die Mittagszeit an, um den Konflikt schnell zu beenden.",
             "quality": "teilweise",
-            "theoryLink": "Lehrplan RLP (2024), Fußnote 2 & Prüfungsordnung."
+            "feedback": "Sie versuchen zwar, beiden Seiten entgegenzukommen, weichen aber dem eigentlichen fachlichen Kern aus. Weder wird die Gleichrangigkeit von Bildung, Erziehung und Betreuung geklärt noch die fachliche Qualität spielerischer, ko-konstruktiver Bildungsprozesse begründet.",
+            "theoryLink": "§ 22 Abs. 3 SGB VIII (Gleichrangigkeit von Bildung, Erziehung und Betreuung); Bildungs- und Erziehungsempfehlungen RLP"
+          },
+          {
+            "label": "Sie erklären der Kollegin und den Eltern noch im Flur bestimmt, dass der Lehrplan und das KiTaG Arbeitsblätter verbieten und die Kita allein über pädagogische Methoden entscheidet.",
+            "quality": "problematisch",
+            "feedback": "Eine belehrende Abwehr im Tür-und-Angel-Gespräch beschädigt die Erziehungspartnerschaft und verkennt das verfassungsrechtliche Gewicht des elterlichen Erziehungsrechts (Art. 6 Abs. 2 GG). Zudem ist die pauschale Behauptung rechtlich ungenau – entscheidend ist das fachlich begründete Bildungsverständnis im Dialog.",
+            "theoryLink": "Art. 6 Abs. 2 GG (Elternrecht), § 22a SGB VIII (Zusammenarbeit mit Erziehungsberechtigten)"
           }
-        ],
-        "prompt": "Wie sollte das Team die 800 anrechenbaren Stunden im 1. Ausbildungsjahr organisieren und rechtlich umsetzen?",
-        "situation": "Schritt 1: Umgang mit Quereinsteigern mit abgeschlossener Sozialassistenz-Ausbildung in der berufsbegleitenden Organisationsform."
+        ]
       },
       {
+        "situation": "Das vereinbarte Gespräch mit Emilias Eltern findet am nächsten Nachmittag statt. Die Eltern äußern ihre Sorge, dass Emilia beim Übergang in die Grundschule Nachteile haben könnte, wenn sie nicht früh genug stillsitzt und Buchstaben übt.",
+        "prompt": "Wie gestalten Sie das Elterngespräch im Spannungsfeld zwischen elterlichem Erziehungsrecht und staatlichem Bildungsauftrag professionell?",
         "options": [
           {
-            "feedback": "Exzellent! Dies setzt die curricularen Vorgaben (Fußnote 7 und 11) professionell und transparent um.",
-            "label": "Das Kollegium legt die zwei schriftlichen Prüfungsmodule aus (S-SP-2/3/4) vor Beginn des Bildungsgangs fest und plant bis zu 20 % (480 Std.) als betreute Selbstlernzeiten im Jahresarbeitsplan ein.",
-            "quality": "optimal",
-            "theoryLink": "Lehrplan RLP (2024), Kapitel 1.2, Fußnoten 7 & 11."
-          },
-          {
-            "feedback": "Unzulässig und fachlich verfehlt. Prüfungsmodule müssen vor Beginn festgelegt werden, und Selbstlernzeiten müssen von Lehrkräften betreut sowie vor- und nachbereitet werden.",
-            "label": "Die Prüfungsmodule werden erst am Ende des 3. Jahres spontan je nach Notenstand der Klasse ausgelost, und Selbstlernzeiten werden als unterrichtsfreie Freizeit gewährt.",
+            "label": "Sie halten den Eltern einen theoretischen Vortrag über Bildungspläne und Gesetzesparagraphen, damit sie einsehen, dass ihre Vorstellungen fachlich überholt sind.",
             "quality": "problematisch",
-            "theoryLink": "Lehrplan RLP (2024), Fußnote 7 & 11, Kap. 1.3."
+            "feedback": "Abstrakte Fach- und Gesetzesbelehrungen erzeugen Widerstand statt Einsicht. Professionelle Kommunikation übersetzt Fachwissen adressatengerecht und erkennt Eltern als Partnerinnen und Partner an.",
+            "theoryLink": "Erziehungs- und Bildungspartnerschaft (§ 22 Abs. 2 SGB VIII), professionelles Rollenverständnis"
           },
           {
-            "feedback": "Nur bedingt optimal. Bis zu 20 % Selbstlernzeiten sind als Option vorgesehen, sollten aber zur Kompetenzförderung pädagogisch sinnvoll genutzt werden.",
-            "label": "Die Schule verzichtet komplett auf Selbstlernzeiten, um die Präsenzzeit voll auszuschöpfen, wählt aber die Prüfungsmodule satzungsgemäß aus.",
+            "label": "Sie würdigen zunächst das Anliegen der Eltern (einen guten Start für Emilia), machen anhand konkreter Beobachtungen aus ihrem Portfolio sichtbar, welche mathematischen, sprachlichen und sozialen Basiskompetenzen Emilia im Spiel bereits erwirbt, und vereinbaren regelmäßige Einblicke in die pädagogische Bildungsarbeit.",
+            "quality": "optimal",
+            "feedback": "Sehr professionell! Sie respektieren die elterliche Sorge und Verantwortung (Art. 6 Abs. 2 GG), vertreten zugleich selbstbewusst und verständlich den kindorientierten Bildungsauftrag (§ 22 SGB VIII, Bildungs- und Erziehungsempfehlungen RLP) und stärken Vertrauen durch transparente Dokumentation.",
+            "theoryLink": "Art. 6 Abs. 2 GG, § 22 SGB VIII, KiTaG RLP & Bildungs- und Erziehungsempfehlungen RLP"
+          },
+          {
+            "label": "Sie versprechen den Eltern, Emilia künftig täglich zwanzig Minuten aus dem Freispiel herauszunehmen, um mit ihr Arbeitsblätter auszufüllen, damit Ruhe einkehrt.",
             "quality": "teilweise",
-            "theoryLink": "Lehrplan RLP (2024), Fußnote 11."
+            "feedback": "Sie gehen zwar auf den geäußerten Wunsch der Eltern ein, untergraben aber den fachlichen Bildungsauftrag der Einrichtung und übergehen Emilias eigene Lernmotivation und Interessen. Eine tragfähige Lösung entsteht durch Aufklärung und Transparenz, nicht durch fachwidrige Zugeständnisse.",
+            "theoryLink": "Professionelle Handlungskompetenz (fachliche Begründungspflicht), eigenaktives Lernen nach Bildungs- und Erziehungsempfehlungen RLP"
           }
-        ],
-        "prompt": "Wie geht das Kollegium bei der Festlegung der schriftlichen Prüfungsmodule und der Nutzung von Selbstlernzeiten vor?",
-        "situation": "Schritt 2: Auswahl der schriftlichen Prüfungsmodule und Einbindung von Selbstlernzeiten."
+        ]
       }
-    ],
-    "title": "Planung der Ausbildungsorganisation und Anrechnung in der Fachschule"
+    ]
   },
   "selfLearningTasks": [
-    "Erstellen Sie eine Übersicht der 2.400 Unterrichtsstunden und berechnen Sie die prozentuale Verteilung zwischen fachrichtungsübergreifendem (FÜ) und fachrichtungsbezogenem (SP) Lernbereich.",
-    "Analysieren Sie die Fußnoten der Stundentafel für die berufsbegleitende Ausbildung und skizzieren Sie die Bedingungen für die Anrechnung einer Sozialassistenz-Vorbildung.",
-    "Entwerfen Sie einen kurzen Entwurf für einen Jahresarbeitsplan im Lernmodul S-SP-3 (Inklusion und Diversität) für das erste Ausbildungsjahr."
+    "Beobachten Sie in Ihrer Praxisstelle eine konkrete Alltagssituation (z. B. Ankommen, Freispiel oder Mahlzeit) und ordnen Sie schriftlich zu, wie darin Bildung, Erziehung und Betreuung nach § 22 SGB VIII ineinandergreifen.",
+    "Recherchieren Sie in der Konzeption Ihrer Einrichtung, wie dort der gesetzliche Auftrag (SGB VIII und KiTaG RLP) sowie die Zusammenarbeit mit Familien beschrieben werden, und vergleichen Sie Konzeptanspruch und Alltagspraxis.",
+    "Formulieren Sie für ein kurzes Elterngespräch drei verständliche, fachlich fundierte Argumente ohne abstrakten Fachjargon, mit denen Sie Eltern erklären können, warum selbstbestimmtes Spiel ein zentraler Bildungsprozess ist."
   ],
   "flashcards": [
     {
-      "definition": "Offizielle Berufsbezeichnung nach erfolgreichem Abschluss der Fachschule, die die Gleichwertigkeit höherer beruflicher Abschlüsse mit akademischen Bachelorgraden verdeutlicht.",
-      "example": "Absolventen führen den Titel 'Bachelor Professional in Sozialwesen' und erhalten die Hochschulzugangsberechtigung in RLP.",
-      "term": "Bachelor Professional in Sozialwesen"
+      "term": "Förderauftrag (§ 22 SGB VIII)",
+      "definition": "Gesetzlicher Auftrag von Tageseinrichtungen für Kinder und Kindertagespflege, die Entwicklung jedes Kindes zu einer selbstbestimmten, eigenverantwortlichen und gemeinschaftsfähigen Persönlichkeit zu fördern sowie die Familie zu unterstützen und zu ergänzen.",
+      "example": "Eine Kita verbindet verlässliche Betreuung mit alltagsintegrierter Sprachbildung, sozialem Lernen in der Gruppe und transparenter Zusammenarbeit mit den Eltern."
     },
     {
-      "definition": "Lernbereich in der Stundentafel (360 Std.), der allgemeine und berufsbezogene Grundlagen wie Kommunikation, Fremdsprache, Recht und Naturwissenschaften umfasst.",
-      "example": "Modul S-FÜ-3 vermittelt gesellschaftspolitische und rechtliche Rahmenbedingungen.",
-      "term": "Fachrichtungsübergreifender Lernbereich (FÜ)"
+      "term": "Trias: Bildung, Erziehung und Betreuung",
+      "definition": "Die drei gleichrangigen, untrennbar verbundenen Kernaufgaben sozialpädagogischer Arbeit (§ 22 Abs. 3 SGB VIII): eigenaktive Weltaneignung (Bildung), Werte- und Verhaltensorientierung (Erziehung) sowie verlässliche Versorgung und Schutz (Betreuung).",
+      "example": "Beim gemeinsamen Kochen mit Kindern greifen Versorgung (Betreuung), Rücksichtnahme am Tisch (Erziehung) und Abmessen von Zutaten (Bildung) nahtlos ineinander."
     },
     {
-      "definition": "Insgesamt 360 Stunden im Bildungsgang, die für differenzierten Unterricht in Kleingruppen eingesetzt werden; über die Verteilung entscheidet die Schule.",
-      "example": "Einsatz von Teilungsstunden im Modul S-SP-4 zur intensiven Praxisreflexion.",
-      "term": "Teilungsstunden"
+      "term": "Elterliches Erziehungsrecht & staatliches Wächteramt (Art. 6 Abs. 2 GG)",
+      "definition": "Pflege und Erziehung der Kinder sind das natürliche Recht der Eltern und ihre vorrangige Pflicht; zugleich wacht die staatliche Gemeinschaft darüber, dass das Wohl des Kindes geschützt bleibt.",
+      "example": "Eltern entscheiden über Grundfragen der Erziehung ihres Kindes; erst bei einer Gefährdung des Kindeswohls greift der Staat schützend ein."
     },
     {
-      "definition": "Bis zu 20 % der Pflichtstundenzahl (480 Std.), die als andere Lernformen von Lehrkräften betreut sowie vor- und nachbereitet werden.",
-      "example": "Onlinegestützte Bearbeitung von Fallstudien im Rahmen von Selbstlernphasen.",
-      "term": "Selbstlernzeiten (Blended Learning)"
+      "term": "Bildungs- und Erziehungsempfehlungen RLP",
+      "definition": "Gemeinsamer pädagogischer Orientierungs- und Qualitätsrahmen für Kindertagesstätten in Rheinland-Pfalz, der den gesetzlichen Auftrag des KiTaG inhaltlich ausfüllt (u. a. Spiel, Sprache, Partizipation, Inklusion, Übergänge).",
+      "example": "Ein Kita-Team nutzt die Empfehlungen, um sein Raumkonzept für Kinder unter drei Jahren fachlich weiterzuentwickeln."
     },
     {
-      "definition": "Bereich im Umfang von 240 Stunden zur schulischen Profilbildung durch Vertiefung in einem Bildungsbereich/Querschnittsthema und einem Arbeitsfeld.",
-      "example": "Wahl von Medienpädagogik und Arbeit mit Vorschulkindern.",
-      "term": "Wahlpflichtlernbereich"
+      "term": "Professionelle Handlungskompetenz",
+      "definition": "Fähigkeit und Bereitschaft, komplexe sozialpädagogische Situationen mithilfe von Fachwissen, methodischem Können, reflektierter Haltung und rechtlicher Sicherheit eigenverantwortlich zu bewältigen.",
+      "example": "Statt ein Kind vorschnell als ‚schwierig‘ abzustempeln, beobachtet die Fachkraft systematisch, prüft mehrere fachliche Deutungen und plant gemeinsam mit Team und Eltern passende Unterstützung."
+    },
+    {
+      "term": "Bachelor Professional in Sozialwesen (DQR-Niveau 6)",
+      "definition": "Mit dem erfolgreichen Abschluss der Fachschule Sozialwesen (Fachrichtung Sozialpädagogik) verliehene Abschlussbezeichnung der höheren Berufsbildung, die die Gleichwertigkeit des Kompetenzniveaus mit einem akademischen Bachelorgrad dokumentiert.",
+      "example": "Staatlich anerkannte Erzieherinnen und Erzieher führen den Titel als Nachweis hoher beruflicher Eigenverantwortung und erhalten in RLP zugleich Zugang zu weiterführenden Hochschulstudiengängen."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        2
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Die Gesamtdauer der Pflichtstundenzahl in der Fachschule beträgt laut Stundentafel exakt 2.400 Stunden (360 FÜ + 1.800 SP-Pflicht + 240 SP-Wahlpflicht).",
-      "id": "q1",
+      "question": "Wie beschreibt § 22 Abs. 3 SGB VIII das Verhältnis von Bildung, Erziehung und Betreuung in Kindertageseinrichtungen?",
       "options": [
-        "1.800 Stunden",
-        "2.000 Stunden",
-        "2.400 Stunden",
-        "3.000 Stunden"
+        "Bildung, Erziehung und Betreuung bilden einen gleichrangigen, zusammenhängenden Förderauftrag, der sich an der sozialen, emotionalen, körperlichen und geistigen Entwicklung des Kindes orientiert.",
+        "Betreuung hat in den ersten drei Lebensjahren Vorrang; Bildung beginnt erst im letzten Kita-Jahr vor der Einschulung.",
+        "Erziehung obliegt ausschließlich den Eltern; Kindertageseinrichtungen sind rechtlich auf Betreuung und schulische Wissensvermittlung beschränkt.",
+        "Bildung bedeutet im Sinne des SGB VIII vor allem das systematische Üben von Lesen, Schreiben und Rechnen nach Grundschullehrplan."
       ],
-      "question": "Wie viele Unterrichtsstunden umfasst die Gesamtausbildung an der Fachschule für Sozialpädagogik in Rheinland-Pfalz nach dem Lehrplan 2024?",
-      "type": "single"
-    },
-    {
       "correctIndices": [
-        0,
-        1,
-        2
+        0
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Laut den Fußnoten 1, 4 und 5 der Stundentafel können S-FÜ-1 (Deutsch, Baustein 2), S-FÜ-2 (Fremdsprache, Baustein 3) und S-FÜ-3 (Sozialkunde, Bausteine 4 und 5) auf die FHR angerechnet werden.",
-      "id": "q2",
-      "options": [
-        "S-FÜ-1: In beruflichen Situationen professionell kommunizieren (Deutsch)",
-        "S-FÜ-2: In einer Fremdsprache berufsbezogen kommunizieren",
-        "S-FÜ-3: Gesellschaftspolitische und rechtliche Rahmenbedingungen berücksichtigen (Sozialkunde)",
-        "S-FÜ-4: Naturwissenschaftliche Grundlagen berücksichtigen"
-      ],
-      "question": "Welche Lernmodule aus dem fachrichtungsübergreifenden Bereich (FÜ) können auf Antrag auf die Fachhochschulreifeprüfung (FHR) angerechnet werden? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "§ 22 Abs. 3 SGB VIII verankert Erziehung, Bildung und Betreuung als gleichrangigen, ganzheitlichen Förderauftrag von Anfang an. Eine Trennung in ‚reine Betreuung für Kleine‘ und ‚Verschulung für Große‘ widerspricht dem Gesetz und der Frühpädagogik."
     },
     {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Gemäß der Stundentafel für die berufsbegleitende Organisationsform (Fußnote 2) können im 1. Jahr 800 Unterrichtsstunden bei einschlägiger Vorbildung als Sozialassistent/-in angerechnet werden.",
-      "id": "q3",
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "basis",
+      "question": "Welche Aussage gibt Art. 6 Abs. 2 des Grundgesetzes fachlich und rechtlich zutreffend wieder?",
       "options": [
-        "400 Stunden",
-        "600 Stunden",
-        "800 Stunden",
-        "1.200 Stunden"
+        "Mit dem Eintritt in eine Kindertagesstätte geht das Erziehungsrecht vollständig von den Eltern auf den Staat über.",
+        "Pflege und Erziehung sind das natürliche Recht der Eltern und die zuvörderst ihnen obliegende Pflicht; über ihre Betätigung wacht die staatliche Gemeinschaft.",
+        "Das Grundgesetz überträgt das Wächteramt den Eltern, während der Staat allein für die Erziehung zuständig ist.",
+        "Eltern haben ein unbegrenztes Bestimmungsrecht über ihre Kinder, in das staatliche Stellen selbst bei schwerer Gefährdung nicht eingreifen dürfen."
       ],
-      "question": "In der berufsbegleitenden Ausbildung absolviert eine Schülerin mit erfolgreich abgeschlossener Sozialassistenz-Ausbildung das erste Jahr. Wie viele Stunden können im 1. Jahr auf Antrag angerechnet werden?",
-      "type": "case"
-    },
-    {
       "correctIndices": [
         1
       ],
-      "difficulty": "basis",
-      "explanation": "Mit dem erfolgreichen Ausbildungsabschluss wird der Titel 'Bachelor Professional in Sozialwesen' verliehen, der die Gleichwertigkeit höherer beruflicher Abschlüsse verdeutlicht.",
-      "id": "q4",
-      "options": [
-        "Master of Education",
-        "Bachelor Professional in Sozialwesen",
-        "Staatlich geprüfter Betriebswirt",
-        "Diplom-Sozialpädagoge (FH)"
-      ],
-      "question": "Welcher offizielle Titel wird Absolventinnen und Absolventen neben der staatlichen Anerkennung als Erzieherin/Erzieher mit dem erfolgreichen Fachschulabschluss verliehen?",
-      "type": "single"
+      "explanation": "Art. 6 Abs. 2 GG verbindet das vorrangige Erziehungsrecht und die Erziehungspflicht der Eltern (Satz 1) mit dem staatlichen Wächteramt (Satz 2). Kindertageseinrichtungen handeln familienergänzend und -unterstützend, nicht als Ersatz für das Elternrecht; bei Kindeswohlgefährdung greift jedoch das staatliche Wächteramt."
     },
     {
+      "id": "v2-q3",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Woran zeigt sich professionelle sozialpädagogische Handlungskompetenz im Unterschied zu bloßer Alltagspädagogik? (Wählen Sie alle zutreffenden Aussagen)",
+      "options": [
+        "Professionelle Fachkräfte lösen Spannungsfelder wie Nähe und Distanz mithilfe starrer Standardrezepte, die für jedes Kind identisch gelten.",
+        "Pädagogische Entscheidungen werden mithilfe von Fachwissen, Rechtsgrundlagen und Reflexion begründet statt allein nach Bauchgefühl getroffen.",
+        "Beobachtbares Verhalten wird bewusst von subjektiven Deutungen und Bewertungen getrennt.",
+        "Herausfordernde Situationen und eigene Haltungen werden im Team oder in kollegialer Beratung systematisch reflektiert."
+      ],
       "correctIndices": [
-        0,
         1,
+        2,
+        3
+      ],
+      "explanation": "Professionalität verbindet wissenschaftlich fundiertes Wissen, methodisches Können und systematische Reflexion (Trennung von Beobachtung und Deutung, Begründbarkeit, Teamreflexion). Gerade weil pädagogische Situationen einzigartig und von Spannungsfeldern geprägt sind, gibt es keine starren Standardrezepte für alle Kinder (Option A ist falsch)."
+    },
+    {
+      "id": "v2-q4",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Welche Bedeutung hat die Abschlussbezeichnung ‚Bachelor Professional in Sozialwesen‘ für staatlich anerkannte Erzieherinnen und Erzieher?",
+      "options": [
+        "Es handelt sich um einen akademischen Universitätsabschluss, der das Fachschulstudium vollständig ersetzt.",
+        "Der Titel darf erst nach fünf Jahren Leitungstätigkeit in einer Kindertagesstätte beantragt werden.",
+        "Er macht die Gleichwertigkeit der höheren beruflichen Fachschulbildung auf DQR-Niveau 6 mit akademischen Bachelorabschlüssen sichtbar, bleibt aber ein beruflicher Abschluss.",
+        "Er berechtigt ausschließlich zur Tätigkeit in Kindertagesstätten für Kinder unter sechs Jahren."
+      ],
+      "correctIndices": [
         2
       ],
-      "difficulty": "vertiefung",
-      "explanation": "Fußnote 10 regelt die 360 Teilungsstunden (Schulentscheidung), Fußnote 11 regelt die max. 20 % (480 Std.) Selbstlernzeiten als betreute andere Lernformen. Option 4 ist falsch.",
-      "id": "q5",
-      "options": [
-        "Es stehen insgesamt 360 Teilungsstunden zur Verfügung, über deren Verteilung die Schule entscheidet.",
-        "Bis zu 20 % der Pflichtstundenzahl (480 Stunden) können als andere Lernformen (z. B. Blended Learning) organisiert werden.",
-        "Selbstlernzeiten müssen von Lehrkräften betreut sowie vor- und nachbereitet werden.",
-        "Teilungsstunden müssen bundeseinheitlich zu 100 % im ersten Ausbildungsjahr liegen."
-      ],
-      "question": "Welche organisatorischen Rahmenbedingungen gelten laut Lehrplan für Selbstlernzeiten und Teilungsstunden? (Mehrere Antworten sind richtig)",
-      "type": "multi"
+      "explanation": "Der ‚Bachelor Professional in Sozialwesen‘ kennzeichnet den erfolgreichen Fachschulabschluss als Spitzenqualifikation der höheren Berufsbildung auf DQR-Niveau 6. Er dokumentiert die Gleichwertigkeit (nicht Gleichartigkeit) mit einem hochschulischen Bachelorgrad und gilt für die gesamte generalistische Breite sozialpädagogischer Arbeitsfelder."
     },
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q5",
+      "type": "case",
       "difficulty": "pruefung",
-      "explanation": "Gemäß Fußnote 7 sind zwei der Lernmodule (S-SP-2, S-SP-3 oder S-SP-4) für die schriftliche Abschlussprüfung von der Schule vor Beginn des Bildungsgangs auszuwählen.",
-      "id": "q6",
+      "question": "Praxisfall: Ein Vater kritisiert beim Abholen, sein fünfjähriger Sohn habe den ganzen Vormittag im Garten ‚nur Matschburgen gebaut‘, statt etwas Vernünftiges zu lernen. Wie reagieren Sie im Sinne des Förderauftrags professionell?",
       "options": [
-        "Genau 1 Modul",
-        "Genau 2 Module",
-        "Genau 3 Module",
-        "Alle 4 Module"
+        "Sie rechtfertigen sich kurz damit, dass Kinder in der Kita nun einmal spielen dürfen, und beenden das Gespräch.",
+        "Sie verweisen ihn an die Leitung, da pädagogische Grundsatzfragen ausschließlich von der Einrichtungsleitung mit Eltern besprochen werden dürfen.",
+        "Sie sagen dem Vater zu, dass sein Sohn ab morgen im Gruppenraum bleibt und stattdessen Arbeitsblätter bearbeitet.",
+        "Sie nehmen das Anliegen des Vaters ernst, schildern konkret, welche naturwissenschaftlichen, sprachlichen und sozialen Kompetenzen sein Sohn beim gemeinsamen Bauen erprobt hat, und laden bei Bedarf zu einem vertiefenden Entwicklungsgespräch ein."
       ],
-      "question": "Wie viele schriftliche Prüfungsmodule sind für die Abschlussprüfung aus dem fachrichtungsbezogenen Bereich (S-SP-2/3/4) von der Schule auszuwählen?",
-      "type": "single"
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Professionelle Fachkräfte begegnen Eltern wertschätzend auf Augenhöhe und machen das eigenaktive Lernen im Spiel konkret nachvollziehbar. Bloße Rechtfertigung (Option A) überzeugt nicht, das Einknicken gegen den kindorientierten Bildungsauftrag (Option C) ist unprofessionell, und das Abschieben an die Leitung (Option B) verkennt die eigene Fachverantwortung."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "pruefung",
+      "question": "Welche Aussagen treffen auf das Zusammenspiel von SGB VIII, KiTaG RLP, Bildungs- und Erziehungsempfehlungen RLP und Einrichtungskonzeption zu? (Wählen Sie alle zutreffenden Aussagen)",
+      "options": [
+        "Das SGB VIII setzt als Bundesgesetz den grundlegenden Rahmen für die Kinder- und Jugendhilfe, einschließlich des Förderauftrags in § 22 SGB VIII.",
+        "Eine Einrichtungskonzeption darf gesetzliche Mindestanforderungen aus SGB VIII oder KiTaG RLP außer Kraft setzen, wenn die Elternmehrheit zustimmt.",
+        "Das KiTaG RLP konkretisiert als Landesgesetz zentrale Strukturen für Kindertageseinrichtungen in Rheinland-Pfalz, etwa Betreuungsansprüche, Finanzierung und Mitwirkung.",
+        "Die Bildungs- und Erziehungsempfehlungen RLP dienen als fachlicher Orientierungs- und Qualitätsrahmen, den Teams in ihre jeweilige Konzeption übersetzen."
+      ],
+      "correctIndices": [
+        0,
+        2,
+        3
+      ],
+      "explanation": "In der Normenhierarchie steht höherrangiges Recht (Grundgesetz, SGB VIII, KiTaG RLP) stets über einer Einrichtungskonzeption – gesetzliche Schutz- und Förderpflichten können durch Mehrheitsbeschlüsse nicht außer Kraft gesetzt werden (Option B ist falsch). Die Bildungs- und Erziehungsempfehlungen RLP füllen den gesetzlichen Rahmen pädagogisch aus."
+    }
+  ],
+  "sources": [
+    {
+      "title": "SGB VIII § 22 – Grundsätze der Förderung in Tageseinrichtungen und Kindertagespflege",
+      "url": "https://www.gesetze-im-internet.de/sgb_8/__22.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Bundesgesetzliche Grundlage für den dreifachen Förderauftrag aus Erziehung, Bildung und Betreuung"
+    },
+    {
+      "title": "Grundgesetz Art. 6 – Ehe, Familie, elterliches Erziehungsrecht und staatliches Wächteramt",
+      "url": "https://www.gesetze-im-internet.de/gg/art_6.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Verfassungsrechtliche Balance zwischen Elternrecht und staatlicher Schutzverantwortung"
+    },
+    {
+      "title": "Kita-Gesetz Rheinland-Pfalz (KiTaG) – Überblick und gesetzliche Grundlagen",
+      "url": "https://kita.rlp.de/kita-in-rheinland-pfalz/kita-gesetz",
+      "publisher": "Ministerium für Bildung Rheinland-Pfalz (Kita-Server RLP)",
+      "note": "Landesrechtlicher Rahmen für Kindertageseinrichtungen in Rheinland-Pfalz"
+    },
+    {
+      "title": "Bildungs- und Erziehungsthemen & Empfehlungen für Kitas in Rheinland-Pfalz",
+      "url": "https://kita.rlp.de/kita-in-rheinland-pfalz/bildungs-und-erziehungsthemen",
+      "publisher": "Ministerium für Bildung Rheinland-Pfalz (Kita-Server RLP)",
+      "note": "Inhaltlicher Qualitäts- und Orientierungsrahmen für die frühkindliche Bildungsarbeit in RLP"
+    },
+    {
+      "title": "DQR-Einordnung: Staatlich anerkannte:r Erzieher:in – Bachelor Professional in Sozialwesen (Niveau 6)",
+      "url": "https://www.dqr.de/dqr/shareddocs/qualifikationen-neu/de/Erzieher-Staatlich-anerkannter-Erzieherin-Staatlich-anerkannte-Bachelor-Professional-in-Sozialwesen.html",
+      "publisher": "Deutscher Qualifikationsrahmen (DQR)",
+      "note": "Einordnung des Fachschulabschlusses in die Niveaustufe 6 der höheren Berufsbildung"
     }
   ]
 }

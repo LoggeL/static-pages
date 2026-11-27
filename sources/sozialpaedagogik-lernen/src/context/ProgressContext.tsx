@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { ProgressState } from '../types/curriculum';
+import type { ProgressState } from '../types/curriculum';
 import {
+  computeNextQuizResultEntry,
   createDefaultProgress,
   importProgressJson,
   loadProgress,
@@ -55,6 +56,7 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, []);
 
   const markSectionRead = useCallback((unitId: string, sectionIdx: number) => {
+    if (!Number.isInteger(sectionIdx) || sectionIdx < 0) return;
     setProgress((prev) => {
       const existing = prev.sectionsRead[unitId] ?? [];
       if (existing.includes(sectionIdx)) return prev;
@@ -72,16 +74,8 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     (unitId: string, score: number, total: number, answers: Record<string, number[]>) => {
       setProgress((prev) => {
         const prevEntry = prev.quizResults[unitId];
+        const nextEntry = computeNextQuizResultEntry(prevEntry, score, total, answers);
         const passedNow = total > 0 && score / total >= 0.7;
-        const nextEntry = {
-          bestScore: Math.max(prevEntry?.bestScore ?? 0, score),
-          lastScore: score,
-          total,
-          attempts: (prevEntry?.attempts ?? 0) + 1,
-          passed: Boolean(prevEntry?.passed || passedNow),
-          lastAnswers: answers,
-          updatedAt: new Date().toISOString(),
-        };
         const nextCompleted = { ...prev.completedUnits };
         if (passedNow) {
           nextCompleted[unitId] = true;
@@ -101,6 +95,7 @@ export const ProgressProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const toggleFlashcardMastery = useCallback(
     (unitId: string, cardIdx: number, mastered?: boolean) => {
+      if (!Number.isInteger(cardIdx) || cardIdx < 0) return;
       setProgress((prev) => {
         const current = [...(prev.flashcardMastery[unitId] ?? [])];
         while (current.length <= cardIdx) current.push(false);

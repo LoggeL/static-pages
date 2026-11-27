@@ -3,400 +3,446 @@
   "number": 11,
   "moduleCode": "S-FÜ-4",
   "moduleArea": "fue",
-  "title": "Naturwissenschaftliche & mathematische Grundlagen in der Praxis",
-  "subtitle": "Auswertung von Beobachtungen/Tests, Kinder- & Zivilisationskrankheiten, Alltagsphänomene",
+  "unitRole": "core",
+  "curriculumRef": "S-FÜ-4 · Infektionsschutz (§ 34 IfSG), Kinder- & Zivilisationskrankheiten, Diagnostik & naturwissenschaftliches Forschen (Lehrplan RLP 2024)",
+  "title": "Infektionsschutz, Gesundheit, Beobachtungsauswertung & Forschen",
+  "subtitle": "IfSG §§ 20, 34 & 36, Kinderkrankheiten & Hygiene, Salutogenese, Screenings und Alltagsphänomene",
   "year": "2./3. Jahr",
-  "estimatedMinutes": 20,
+  "estimatedMinutes": 30,
   "hoursRef": "80 Std. (Teil 2/2)",
   "pdfPages": "S. 19",
   "crossCuttingTags": [
     "Prävention",
     "BNE"
   ],
-  "summary": "Diese Einheit vermittelt angehenden Erzieher:innen (Fachschule Sozialwesen, RLP) fundierte Kompetenzen zur wissenschaftlich basierten Auswertung von Entwicklungsbeobachtungen, zur Unterscheidung von Zivilisations- und Kinderkrankheiten sowie zur praxisnahen Erklärung naturwissenschaftlicher Alltagsphänomene. Sie verbindet mathematisch-statistische Methoden mit den Querschnittsthemen Prävention und Bildung für nachhaltige Entwicklung (BNE).",
+  "summary": "Naturwissenschaftliches und gesundheitsbezogenes Grundlagenwissen schützt Kinder unmittelbar im Alltag und eröffnet faszinierende Lernanlässe. Diese Einheit erklärt die verbindlichen Vorgaben des Infektionsschutzgesetzes (§§ 20, 34, 36 IfSG) samt RKI-Wiederzulassungsregeln und Hygienepraxis, grenzt akute Kinderkrankheiten sauber von multifaktoriellen Zivilisationskrankheiten ab, zeigt die kritische Einordnung von Entwicklungsscreenings und übersetzt naturwissenschaftliche Alltagsphänomene in ko-konstruktives forschendes Lernen.",
   "learningGoals": [
-    "Ich kann naturwissenschaftliche und mathematische Gesetzmäßigkeiten auf pädagogische Alltagssituationen in Kindertageseinrichtungen und Horten übertragen.",
-    "Ich kann Entwicklungsbeobachtungen und standardisierte Testverfahren (Screenings) fachlich fundiert durchführen, statistisch auswerten und datenschutzkonform dokumentieren.",
-    "Ich kann Zivilisationskrankheiten (z. B. Adipositas, Haltungsschwächen) und klassische Kinderkrankheiten differenzieren und präventive Gegenmaßnahmen konzipieren.",
-    "Ich kann naturwissenschaftliche Alltagsphänomene (z. B. physikalische und chemische Prozesse) für Kinder im Elementar- und Primarbereich altersgerecht, experimentell und verständlich aufbereiten.",
-    "Ich kann das Querschnittsthema BNE (Bildung für nachhaltige Entwicklung) und Gesundheitsförderung miteinander verknüpfen und in die pädagogische Praxis implementieren."
+    "Ich kann die rechtlichen Pflichten in Gemeinschaftseinrichtungen nach §§ 20, 34 und 36 IfSG (Betretungsverbote, Meldepflichten, Masernschutz, Hygieneplan und RKI-Wiederzulassungsempfehlungen) im Alltag sicher anwenden.",
+    "Ich kann akute Infektionskrankheiten im Kindesalter von nicht-übertragbaren, multifaktoriellen Zivilisationskrankheiten abgrenzen und gesundheitsförderliche Maßnahmen nach dem Salutogenese- und Präventionskonzept begründen.",
+    "Ich kann mathematisch-statistische Kennwerte aus Entwicklungsbeobachtungen und Screenings (z. B. Normwerte, Perzentilen) als Orientierungshilfe einordnen, ohne unzulässige medizinische Diagnosen zu stellen.",
+    "Ich kann naturwissenschaftliche Alltagsphänomene (z. B. Wasser, Auftrieb, Licht, Magnetismus) im Kreislauf des forschenden Lernens mit früher Mathematik und BNE altersgerecht gestalten."
   ],
   "sections": [
     {
-      "body": "Die naturwissenschaftlichen und mathematischen Grundlagen des Moduls S-FÜ-4 fordern von angehenden Erzieherinnen und Erziehern die Fähigkeit, alltägliche Beobachtungen und Screening-Verfahren methodisch sauber zu erheben, mathematisch-statistisch auszuwerten und datenschutzkonform zu dokumentieren. Dabei bilden normierte Entwicklungsbeobachtungen (z. B. Perzentilenkurven, T-Werte, standardisierte Testverfahren wie ET 6-6 oder SBE-3-4) das Fundament, um individuelle Entwicklungsverläufe objektiv zu bewerten und Förderbedarfe frühzeitig zu erkennen. Professionelle Fachkräfte vermeiden dabei rein subjektive Fehleinschätzungen durch den Einsatz validierter Instrumente und triangulieren die quantitativen Daten mit qualitativen Alltagsbeobachtungen.",
+      "heading": "Infektionsschutz in Gemeinschaftseinrichtungen (§§ 20, 34, 36 IfSG & RKI)",
+      "keyTakeaway": "Das Infektionsschutzgesetz schützt Kinder und Beschäftigte durch verbindliche Hygienepläne (§ 36), Betretungsverbote und Meldepflichten (§ 34) sowie den Masernschutznachweis (§ 20 Abs. 8–9).",
+      "body": "Wo viele Kinder auf engem Raum spielen, essen und getröstet werden, verbreiten sich Viren und Bakterien besonders leicht. Deshalb regelt das Infektionsschutzgesetz (IfSG) verbindliche Schutzpflichten für Gemeinschaftseinrichtungen (§ 33 IfSG: u. a. Kitas, Horte, Schulen und Heime). Kernnorm für den Alltag ist § 34 Abs. 1 IfSG: Kinder und Beschäftigte, die an bestimmten schweren oder hoch ansteckenden Krankheiten erkrankt oder dessen verdächtig sind – darunter Masern, Windpocken, Mumps, Röteln, Keuchhusten, Scharlach, ansteckende Borkenflechte (Impetigo contagiosa), Krätze (Skabies) oder Kopflausbefall –, dürfen die Einrichtung nicht betreten bzw. dort nicht tätig sein, bis nach ärztlichem Urteil keine Weiterverbreitung mehr zu befürchten ist. Besonders wichtig im Elementarbereich ist § 34 Abs. 1 Satz 3 IfSG: Für Kinder unter sechs Jahren gilt das gesetzliche Betretungsverbot bereits bei infektiöser Gastroenteritis (ansteckendem Brechdurchfall) oder deren Verdacht! Sorgeberechtigte müssen der Einrichtung solche Erkrankungen unverzüglich mitteilen (§ 34 Abs. 5 IfSG), und die Einrichtungsleitung hat das zuständige Gesundheitsamt unverzüglich zu benachrichtigen (§ 34 Abs. 6 IfSG). Wann ein Kind zurückkehren darf (mit oder ohne schriftliches ärztliches Attest, z. B. bei infektiöser Gastroenteritis in der Regel 48 Stunden nach Abklingen der Symptome), richtet sich nach den offiziellen Empfehlungen des Robert Koch-Instituts (RKI). Flankiert wird dies durch § 36 IfSG (verbindlicher einrichtungsinterner Hygieneplan zu Händehygiene, Wickeln, Küche und Flächendesinfektion) sowie § 20 Abs. 8–9 IfSG (Masernschutzgesetz: vor Aufnahme bzw. Tätigkeitsbeginn müssen Kinder ab vollendetem 1. Lebensjahr mindestens eine und ab vollendetem 2. Lebensjahr mindestens zwei Masernschutzimpfungen – oder Immunität bzw. medizinische Kontraindikation – nachweisen; dasselbe gilt für nach 1970 geborene Mitarbeitende). Fachkräfte beobachten Symptome aufmerksam und handeln nach IfSG, stellen aber niemals selbst ärztliche Diagnosen.",
       "bulletPoints": [
-        "Systematische Datenerhebung durch standardisierte Beobachtungsbögen und Screenings.",
-        "Statistische Auswertung mithilfe von Normwerten, Prozenträngen und Perzentilen.",
-        "Datenschutzkonforme Dokumentation und Aufbewahrung nach DSGVO und KiTa-Gesetz RLP.",
-        "Triangulation von quantitativen Testergebnissen und qualitativer Prozessbeobachtung."
+        "§ 34 Abs. 1 IfSG: Gesetzliches Betretungs- und Tätigkeitsverbot bei katalogisierten Infektionskrankheiten/Verdacht – für Kinder unter 6 Jahren auch bei infektiöser Gastroenteritis.",
+        "§ 34 Abs. 5 & 6 IfSG: Mitteilungspflicht der Eltern gegenüber der Kita und Meldepflicht der Einrichtungsleitung an das Gesundheitsamt.",
+        "RKI-Wiederzulassungsempfehlungen: Fachliche Richtschnur für die Rückkehr nach Erkrankung (inkl. Unterscheidung, wann ein ärztliches Urteil nötig ist).",
+        "§ 36 & § 20 Abs. 8–9 IfSG: Pflicht zum einrichtungsinternen Hygieneplan und zum Masernschutznachweis für betreute Kinder ab 1 Jahr sowie nach 1970 geborenes Personal."
       ],
-      "heading": "Auswertung von Entwicklungsbeobachtungen und Testverfahren",
-      "keyTakeaway": "Nur durch den Einsatz validierter, statistisch fundierter Beobachtungs- und Testverfahren lassen sich Entwicklungsrisiken objektiv erkennen und passgenaue Fördermaßnahmen ableiten.",
-      "praxisTip": "Führen Sie Entwicklungsgespräche mit Eltern auf Basis anschaulicher grafischer Auswertungen (z. B. Perzentilen-Diagrammen) und dokumentieren Sie die Entwicklungsschritte kontinuierlich in einem digitalen oder analogen Portfolio."
+      "praxisTip": "Halten Sie die aktuelle RKI-Wiederzulassungstabelle und den internen Hygieneplan griffbereit im Teamzimmer – und nutzen Sie im Krankheitsfall sachliche, wertfreie Formulierungen gegenüber Eltern (‚Unser Kind hatte zweimal Durchfall, deshalb greift unser Infektionsschutz nach § 34 IfSG‘ statt ‚Es hat sicher Noroviren‘)."
     },
     {
-      "body": "Im pädagogischen Alltag begegnen Fachkräften zunehmend Zivilisationskrankheiten (wie frühkindliche Adipositas, Typ-2-Diabetes, Haltungsschwächen und psychosomatische Auffälligkeiten durch Bewegungsarmut und Medienkonsum), die sich grundlegend von klassischen Kinderkrankheiten (akuten, meist immunisierenden Infektionskrankheiten wie Masern, Windpocken oder Mumps) unterscheiden. Während Kinderkrankheiten durch medizinische Prophylaxe (Impfungen) und akute Ausheilung geprägt sind, erfordern Zivilisationskrankheiten primärpräventive und verhaltens- sowie verhältnispräventive Maßnahmen. Fachkräfte gestalten hierbei bewegungsfreundliche Lebenswelten und ernährungsbewusste Bildungsangebote im Sinne des Salutogenese-Modells nach Antonovsky.",
+      "heading": "Kinderkrankheiten, Zivilisationskrankheiten und Salutogenese",
+      "keyTakeaway": "Während akute Kinderkrankheiten erregerbedingt sind und über Impfungen und Basishygiene eingedämmt werden, sind Zivilisationskrankheiten multifaktoriell bedingt – wirksame Prävention stärkt Schutzfaktoren und Lebensräume ohne Stigmatisierung.",
+      "body": "Gesundheitsförderung in der Sozialpädagogik unterscheidet zwei ganz verschiedene Gruppen von Gesundheitsfragen. Akute Infektionskrankheiten im Kindesalter (klassische Kinderkrankheiten wie Masern, Windpocken, Mumps, Röteln, Keuchhusten oder häufige Kita-Infekte wie Scharlach, Ringelröteln und Hand-Fuß-Mund-Krankheit) werden durch Viren oder Bakterien ausgelöst. Gegen viele schwere Erreger schützen die von der STIKO empfohlenen Schutzimpfungen – ein hoher Impfschutz schützt über den Gemeinschaftsschutz auch Kinder, die medizinisch nicht geimpft werden können. Gegen nicht impfpräventable Infekte (z. B. Scharlach, Noroviren, Hand-Fuß-Mund) bildet konsequente Basishygiene (gründliches Händewaschen, Lüften, Wickelhygiene) den wichtigsten Schutz. Davon deutlich zu unterscheiden sind nicht-übertragbare chronische Zivilisationskrankheiten wie starkes Übergewicht (Adipositas), Haltungs- und Bewegungsschwächen, Karies oder Typ-2-Diabetes. Sie entstehen nicht monokausal durch ‚falsches Elternverhalten‘, sondern multifaktoriell im Zusammenspiel von genetischen Anlagen, sozialen Lebenslagen, bewegungsarmen Umwelten, Ernährungsangeboten und dauerhaftem Stress (neurologische Entwicklungsbesonderheiten wie ADHS zählen ausdrücklich nicht zu den Zivilisationskrankheiten!). Das Gesundheitsmodell der Salutogenese nach Aaron Antonovsky fragt deshalb danach, was Kinder gesund erhält – insbesondere durch Stärkung des Kohärenzgefühls (Verstehbarkeit, Handhabbarkeit, Sinnhaftigkeit). In der Praxis verbindet wirksame Primärprävention Verhaltensprävention (z. B. Freude an Bewegung, Wassertrinken, Zähneputzen) mit Verhältnisprävention (bewegungsfreundliche Räume, ausgewogene Kita-Verpflegung nach DGE-Qualitätsstandards, verlässliche Ruhephasen).",
       "bulletPoints": [
-        "Differenzierung zwischen akuten Infektionskrankheiten (Kinderkrankheiten) und chronischen Lebensstilerkrankungen (Zivilisationskrankheiten).",
-        "Präventionsstufen: Primärprävention (Gesundheitsförderung), Sekundärprävention (Früherkennung), Tertiärprävention (Rehabilitation).",
-        "Salutogenese-Ansatz: Stärkung von Widerstandsressourcen (Gelar- und Kohärenzgefühl) statt reiner Pathogenese.",
-        "Verknüpfung von Ernährungsbildung, Bewegung und Rhythmisierung im pädagogischen Alltag."
+        "Infektionskrankheiten: Erregerbedingt; Schutz durch STIKO-Impfungen (inkl. Gemeinschaftsschutz) und alltagspraktische Basishygiene.",
+        "Zivilisationskrankheiten (z. B. Adipositas, Karies, Haltungsschwächen): Nicht ansteckend, multifaktoriell bedingt – keine vereinfachenden Schuldzuweisungen an Familien.",
+        "Präventionsstufen: Primärprävention (Gesundheit stärken, bevor Krankheit entsteht), Sekundärprävention (Früherkennung), Tertiärprävention (Folgeschäden mindern).",
+        "Salutogenese & Verhältnisprävention: Gesundheitsförderliche Räume, Bewegung, Ernährung und Stressreduktion fest im Kita- und Hortalltag verankern."
       ],
-      "heading": "Zivilisations- vs. Kinderkrankheiten und Präventionsstrategien",
-      "keyTakeaway": "Prävention von Zivilisationskrankheiten verlangt die bewusste Gestaltung gesundheitsförderlicher Lebensräume (Verhältnisprävention) und die Stärkung individueller Gesundheitskompetenzen (Verhaltensprävention).",
-      "praxisTip": "Implementieren Sie tägliche Bewegungseinheiten an der frischen Luft, zuckerfreie Vormittage und ritualisierte Entspannungsphasen als feste Bestandteile im Tagesablauf von KiTa und Hort."
+      "praxisTip": "Gestalten Sie Gesundheitsförderung lustvoll und inklusiv: Gemeinsames Gemüseschnippeln, freie Bewegungsbaustellen und ungesüßte Getränke für alle wirken nachhaltiger als Belehrungen über ‚ungesundes Essen‘."
     },
     {
-      "body": "Naturwissenschaftliche Alltagsphänomene (wie physikalische Gesetze der Schwerkraft, Schwimmen und Untergehen, Kapillareffekte oder chemische Löslichkeit) bieten ein enormes didaktisches Potenzial, um den naturwissenschaftlichen Erkenntnisprozess bei Kindern anzuregen. Angehende Erzieherinnen und Erzieher lernen, diese Phänomene theoretisch zu durchdringen und methodisch so aufzubereiten, dass Kinder im Sinne des Konstruktivismus eigene Hypothesen bilden, experimentieren und Phänomene mathematisch-statistisch (z. B. durch Messen, Zählen, Wiegen, Diagramme erstellen) erfassen können. Dies schlägt eine Brücke zur Bildung für nachhaltige Entwicklung (BNE), indem ökologische und physikalische Kreisläufe im Nahbereich erfahrbar werden.",
+      "heading": "Mathematisch-statistische Grundlagen bei Entwicklungsbeobachtungen und Screenings",
+      "keyTakeaway": "Standardisierte Beobachtungsbögen und Perzentilen liefern wertvolle Anhaltspunkte – sie sind jedoch stets kontextbezogen einzuordnen und ersetzen weder qualitative Alltagsbeobachtung noch medizinische Diagnostik.",
+      "body": "In Kindertageseinrichtungen und der Jugendhilfe kommen neben freien Alltagsbeobachtungen auch strukturierte Beobachtungs- und Einschätzverfahren zum Einsatz (z. B. sprach- oder entwicklungsbezogene Beobachtungsbögen oder das Verstehen von Perzentilenkurven im Dialog mit Fachdiensten). Mathematisch-statistische Grundbegriffe helfen Fachkräften, solche Angaben realistisch zu lesen: Ein Mittelwert (Durchschnitt) fasst viele Werte zusammen, sagt aber allein nichts über die normale Streuung (Spannweite) aus – gerade in der frühen Kindheit ist die normale Entwicklungsbandbreite sehr groß! Ein Prozentrang bzw. eine Perzentile (z. B. 25. Perzentile) gibt an, wie viel Prozent einer altersgleichen Vergleichsgruppe denselben oder einen niedrigeren Wert erreichen; Abweichungen an den Rändern sind ein Anlass zur genaueren Beobachtung, aber noch keine Krankheit. Entscheidend für die professionelle Haltung ist die doppelte Grenze von Screenings: Erstens zeigen standardisierte Bögen immer nur eine Momentaufnahme unter bestimmten Bedingungen (Tagesform, Mehrsprachigkeit, Vertrautheit der Situation können Ergebnisse stark beeinflussen). Zweitens dürfen pädagogische Fachkräfte niemals medizinische oder klinische Diagnosen stellen. Erst die Triangulation – also das Zusammenführen strukturierter Beobachtungen, mehrerer qualitativer Alltagsszenen, kollegialer Reflexion und der Perspektive der Eltern – erlaubt begründete pädagogische Förderimpulse oder eine behutsame Empfehlung zur kinderärztlichen bzw. fachlichen Abklärung.",
       "bulletPoints": [
-        "Didaktische Aufbereitung naturwissenschaftlicher Alltagsphänomene für den Elementar- und Primarbereich.",
-        "Forschendes Lernen: Hypothese, Experiment, Beobachtung, Dokumentation und Reflexion.",
-        "Mathematische Integration: Messen, Vergleichen, Wiegen und grafische Datenerfassung durch Kinder.",
-        "Verknüpfung mit BNE-Querschnittsthemen (Energie, Wasser, Müll, Biodiversität)."
+        "Normwerte und Streuung: Große individuelle Entwicklungsbandbreiten bei Kindern stets mitdenken statt starr am Durchschnitt zu messen.",
+        "Perzentilen / Prozentränge: Relativer Vergleich mit einer altersgleichen Bezugsgruppe – Orientierungswert, kein Stempel.",
+        "Kontextsensible Auswertung: Tagesform, Mehrsprachigkeit, Eingewöhnungsphase und kulturelle Vorerfahrungen kritisch einbeziehen.",
+        "Triangulation statt Fehldiagnose: Strukturierte Bögen mit qualitativen Alltagsbeobachtungen und Elterngesprächen verbinden; medizinische Abklärung gehört in ärztliche Hände."
       ],
-      "heading": "Naturwissenschaftliche Alltagsphänomene und forschendes Lernen",
-      "keyTakeaway": "Durch experimentelles, forschendes Lernen begreifen Kinder naturwissenschaftliche Alltagsgesetze handlungsorientiert und entwickeln mathematische Basiskompetenzen.",
-      "praxisTip": "Richten Sie eine „Forscherwerkstatt“ mit Alltagsmaterialien (Waagen, Lupen, Messbechern, Trichtern) ein, in der Kinder eigenständig physikalische und chemische Phänomene untersuchen dürfen."
+      "praxisTip": "Wenn ein Beobachtungsbogen einen auffälligen Wert zeigt, prüfen Sie zuerst drei Fragen: ‚Hat das Kind die Aufgabe sprachlich verstanden?‘, ‚Wie war die Tagesform?‘ und ‚Zeigt sich dasselbe Bild auch im freien Spiel?‘"
+    },
+    {
+      "heading": "Alltagsintegrierte naturwissenschaftliche Bildung und forschendes Lernen",
+      "keyTakeaway": "Naturwissenschaftliche Bildung im Alltag braucht kein Chemielabor und keine ‚Zaubershow‘ – sie beginnt bei echten Fragen der Kinder und verbindet Experimentieren mit früher Mathematik und BNE.",
+      "body": "Warum schwimmt ein schweres Holzstück, während ein winziger Kieselstein sinkt? Warum schmilzt Eis in der Sonne schneller als im Schatten? Weshalb zieht ein Magnet die Büroklammer an, aber nicht den Holzlöffel? Der Alltag von Kindern ist voller physikalischer, chemischer und biologischer Phänomene. Pädagogische Fachkräfte müssen dafür keine Naturwissenschafts-Professur besitzen – sie brauchen aber solides Basisverständnis (z. B. Dichte und Auftrieb, Aggregatzustände von Wasser, Licht und Schatten, Magnetismus, Wachstum und Stoffkreisläufe), um Phänomene sachlich richtig zu begleiten und Fehlvorstellungen nicht zu verfestigen. Die Methodik des forschenden Lernens (wie sie etwa die Stiftung Kinder forschen vermittelt) folgt einem ko-konstruktiven Forschungszyklus: Zuerst staunen und genau beobachten, dann gemeinsam eine Forschungsfrage formulieren, Vermutungen (Hypothesen) sammeln, die Idee praktisch ausprobieren und dabei mathematisch erfassen (zählen, messen, wiegen, vergleichen, einfache Strichlisten oder Bilddiagramme anlegen) und schließlich die Beobachtungen gemeinsam deuten und dokumentieren. Dabei entsteht eine natürliche Brücke zur Bildung für nachhaltige Entwicklung (BNE): Wer untersucht, wie Regenwasser versickert, wie Pflanzen wachsen oder wie viel Wasser beim Händewaschen fließt, begreift ökologische Zusammenhänge aus eigener Erfahrung.",
+      "bulletPoints": [
+        "Ko-konstruktives Forschen: Kinder stellen eigene Vermutungen auf und überprüfen sie handelnd – statt vorgeführter ‚Zaubertricks‘.",
+        "Fachliche Klarheit der Fachkraft: Naturwissenschaftliche Zusammenhänge (z. B. Aggregatzustände, Auftrieb, Stoffkreisläufe) korrekt einordnen und bei Bedarf gemeinsam nachschlagen.",
+        "Frühe Mathematik im Alltag: Messen, Wiegen, Sortieren, Zählen, Schätzen und einfache Diagramme aus Natur- und Alltagsmaterialien.",
+        "Verbindung zu BNE: Wasser, Wetter, Energie, Abfallkreisläufe und Artenvielfalt im nahen Lebensraum forschend erleben."
+      ],
+      "praxisTip": "Legen Sie eine kleine mobile ‚Forscherkiste‘ mit Lupen, Messbechern, einer einfachen Balkenwaage, Magneten, Maßbändern und Klemmbrettern an – so können Kinder Alltagsfragen im Garten oder Gruppenraum sofort selbst untersuchen."
     }
   ],
   "visualBlocks": [
     {
+      "id": "u11-vb-ifsg",
+      "kind": "feature_grid",
+      "title": "Vier Pflichtbausteine des Infektionsschutzes in der Kita (IfSG)",
+      "subtitle": "Rechtssichere Orientierung für pädagogische Fachkräfte und Leitungen",
       "centerLabel": "",
-      "id": "vb-1",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Ansatz A",
-          "detail": "Der Schwerpunkt liegt auf akuten Infektionserkrankungen im Kindesalter (z. B. Masern, Windpocken), die durch Erreger (Viren/Bakterien) verursacht werden und nach überstandenem Verlauf meist eine lebenslange Immunität erzeugen. Die Prävention erfolgt maßgeblich über medizinische Prophylaxe und Impfungen.",
-          "example": "Ausbruch von Windpocken in der Krippengruppe mit konsequenter Einhaltung von Infektionsschutzmaßnahmen.",
-          "id": "item-1",
-          "label": "Klassische Kinderkrankheiten",
-          "metric": "Akute Infektion",
-          "summary": "Akute, erregerbedingte Infektionskrankheiten mit temporärem Verlauf und meist dauerhafter Immunität."
-        },
-        {
-          "badge": "Ansatz B",
-          "detail": "Zivilisationskrankheiten (z. B. Adipositas, Typ-2-Diabetes, Haltungsschwächen, ADHS-Symptomatiken) sind chronische Erkrankungen, die multifaktoriell durch veränderten Lebensstil, Bewegungsmangel, ungesunde Ernährung und chronischen Stress begünstigt werden.",
-          "example": "Erhöhte BMI-Werte und motorische Defizite bei Schuleingangsuntersuchungen durch sitzenden Konsumstil.",
-          "id": "item-2",
-          "label": "Zivilisationskrankheiten",
-          "metric": "Chronischer Lebensstil",
-          "summary": "Nicht-übertragbare chronische Erkrankungen infolge von Bewegungsmangel, Fehlernährung und Dauerstress."
-        },
-        {
-          "badge": "Ansatz C",
-          "detail": "Primärprävention setzt ursächlich an den Lebensbedingungen und Verhaltensweisen an, um Gesundheit zu stärken und Risikofaktoren abzubauen, bevor Krankheiten entstehen (Verhältnis- und Verhaltensprävention nach dem Salutogenese-Modell).",
-          "example": "Implementierung einer täglichen, angeleiteten Bewegungslandschaft und gesundem Frühstück in der KiTa.",
-          "id": "item-3",
-          "label": "Primärprävention",
-          "metric": "Gesundheitsförderung",
-          "summary": "Proaktive Maßnahmen zur Stärkung von Schutzfaktoren und zur Vermeidung von Zivilisationskrankheiten."
-        },
-        {
-          "badge": "Ansatz D",
-          "detail": "Sekundär- und Tertiärprävention zielen auf Früherkennung (Screenings, Reihenuntersuchungen) sowie auf Rehabilitation und Verhinderung von Folgeschäden bei bereits manifesten Beeinträchtigungen ab.",
-          "example": "Durchführung von gezielten Haltungs- und Sprachförderkursen für diagnostizierte Risikokinder.",
-          "id": "item-4",
-          "label": "Sekundär- & Tertiärprävention",
-          "metric": "Früherkennung & Reha",
-          "summary": "Systematische Früherkennung und Vermeidung von Spätfolgen chronischer Beeinträchtigungen."
-        }
-      ],
-      "kind": "comparison",
-      "leftPole": "Akute Infektion (Medizinisch)",
-      "rightPole": "Chronischer Lebensstil (Präventiv)",
-      "subtitle": "Gegenüberstellung von Krankheitsursachen, Präventionsstufen und Interventionsansätzen im Kindesalter",
-      "title": "Krankheitsformen und Präventionsstrategien im Vergleich"
-    },
-    {
-      "centerLabel": "Evidenzbasierte Diagnostik & Gesundheitsförderung (S-FÜ-4)",
-      "id": "vb-2",
-      "isCycle": false,
-      "items": [
-        {
-          "badge": "Basis",
-          "detail": "Erhebung von Entwicklungsdaten durch standardisierte Beobachtungsbögen, Tests (ET 6-6, SBE-3-4) und strukturierte Alltagsbeobachtungen im Gruppengeschehen.",
-          "example": "Dokumentation von fein- und grobmotorischen Fertigkeiten im Portfolio.",
-          "id": "item-1",
-          "label": "Datenerfassung & Screening",
-          "metric": "Quantitative Basis",
-          "summary": "Systematische Erhebung validierter Entwicklungsdaten und Beobachtungsprotokolle."
-        },
-        {
-          "badge": "Methode",
-          "detail": "Mathematische Auswertung der Rohdaten anhand von Normtabellen, T-Werten, Prozenträngen und Perzentilen zur objektiven Einordnung des Entwicklungsstands.",
-          "example": "Abgleich des Körpergewichts mit WHO-BMI-Perzentilenkurven.",
-          "id": "item-2",
-          "label": "Statistische Auswertung",
-          "metric": "Normvergleich",
-          "summary": "Überführung von Beobachtungen in vergleichbare statistische Kennwerte."
-        },
-        {
-          "badge": "Analyse",
-          "detail": "Kritische Reflexion der Daten im interdisziplinären Team und Abgleich mit entwicklungspsychologischen Modellen zur Vermeidung von Fehleinschätzungen.",
-          "example": "Fallbesprechung im Team zur Differenzierung zwischen Sprachverzögerung und Zweisprachigkeit.",
-          "id": "item-3",
-          "label": "Kationale Deutung",
-          "metric": "Fachliche Reflexion",
-          "summary": "Fachwissenschaftliche Interpretation der Testergebnisse unter Berücksichtigung des Kontextes."
-        },
-        {
-          "badge": "Praxis",
-          "detail": "Ableitung zielgerichteter, differenzierter Förder- und Präventionsmaßnahmen (Verhältnis- und Verhaltensprävention) in Abstimmung mit Sorgeberechtigten.",
-          "example": "Planung eines psychomotorischen Förderangebots und Elternabends zur Mediennutzung.",
-          "id": "item-4",
-          "label": "Intervention & Prävention",
-          "metric": "Handlungsebene",
-          "summary": "Umsetzung theoriegeleiteter, passgenauer Förder- und Gesundheitsmaßnahmen."
-        }
-      ],
-      "kind": "concept_map",
       "leftPole": "",
       "rightPole": "",
-      "subtitle": "Zentrales Geflecht aus Diagnostik, Statistik, Krankheitslehre und Prävention im Handlungsfeld S-FÜ-4",
-      "title": "Konzeptnetz: Naturwissenschaftliche & mathematische Grundlagen"
+      "isCycle": false,
+      "items": [
+        {
+          "id": "ifsg-1",
+          "label": "Betretungs- & Tätigkeitsverbot",
+          "badge": "§ 34 Abs. 1 IfSG",
+          "metric": "Sofortiger Schutz",
+          "summary": "Erkrankte oder krankheitsverdächtige Kinder und Beschäftigte dürfen die Einrichtung nicht betreten.",
+          "detail": "Gilt für im Gesetz genannte Infektionskrankheiten (u. a. Masern, Windpocken, Scharlach, Keuchhusten, Krätze, Kopfläuse) sowie bei Kindern unter 6 Jahren bereits bei infektiöser Gastroenteritis (Brechdurchfall).",
+          "example": "Ein dreijähriges Kind erbricht wiederholt und hat Durchfall: Eltern werden sofort informiert, das Kind wird geschützt betreut und abgeholt."
+        },
+        {
+          "id": "ifsg-2",
+          "label": "Meldepflicht & Wiederzulassung",
+          "badge": "§ 34 Abs. 5–6 IfSG & RKI",
+          "metric": "Gesundheitsamt",
+          "summary": "Eltern melden der Kita; die Leitung benachrichtigt unverzüglich das Gesundheitsamt.",
+          "detail": "Die Rückkehr in die Einrichtung richtet sich nach den RKI-Wiederzulassungsempfehlungen (je nach Krankheit symptomfreie Frist oder ärztliches Urteil; ein schriftliches Attest ist nicht bei jeder Krankheit zwingend, aber bei bestimmten schweren Infektionen).",
+          "example": "Nach infektiöser Gastroenteritis bei U6-Kindern empfiehlt das RKI in der Regel die Wiederzulassung 48 Stunden nach Abklingen der Symptome."
+        },
+        {
+          "id": "ifsg-3",
+          "label": "Einrichtungsinterner Hygieneplan",
+          "badge": "§ 36 IfSG",
+          "metric": "Alltagsstandard",
+          "summary": "Jede Gemeinschaftseinrichtung legt verbindliche Verfahren zur Infektionshygiene schriftlich fest.",
+          "detail": "Regelt u. a. Händehygiene, Wickeltisch-Desinfektion, Umgang mit Lebensmitteln, Reinigung von Spielzeug, Lüften und Verhalten bei Erste Hilfe (Einmalhandschuhe).",
+          "example": "Nach jedem Wickelvorgang werden Auflage desinfiziert, Handschuhe sachgerecht entsorgt und Hände gewaschen."
+        },
+        {
+          "id": "ifsg-4",
+          "label": "Masernschutznachweis",
+          "badge": "§ 20 Abs. 8–9 IfSG",
+          "metric": "1. LJ: 1× / 2. LJ: 2×",
+          "summary": "Verpflichtender Nachweis vor Betreuungs- oder Tätigkeitsbeginn für Kinder ab 1 Jahr und Personal (geb. nach 1970).",
+          "detail": "Nachgewiesen werden ausreichender Impfschutz (ab vollendetem 1. Lebensjahr mind. eine, ab vollendetem 2. Lebensjahr mind. zwei Impfungen), ärztlich bestätigte Immunität oder medizinische Kontraindikation.",
+          "example": "Vor Vertragsbeginn prüft die Einrichtungsleitung den Impfpass eines zweijährigen Kindes auf zwei dokumentierte Masernimpfungen."
+        }
+      ]
     },
     {
+      "id": "u11-vb-krankheiten",
+      "kind": "comparison",
+      "title": "Infektionskrankheiten vs. Zivilisationskrankheiten & Prävention",
+      "subtitle": "Saubere fachliche Abgrenzung von Ursachen, Schutzwegen und pädagogischer Rolle",
       "centerLabel": "",
-      "id": "vb-3",
+      "leftPole": "",
+      "rightPole": "",
+      "isCycle": false,
+      "items": [
+        {
+          "id": "kr-1",
+          "label": "Impfpräventable Kinderkrankheiten",
+          "badge": "Akut & ansteckend",
+          "metric": "Impfung & IfSG",
+          "summary": "Durch Viren oder Bakterien ausgelöste Infektionen, gegen die wirksame Schutzimpfungen existieren.",
+          "detail": "Schutzimpfungen nach STIKO-Empfehlung schützen das einzelne Kind und über den Gemeinschaftsschutz auch besonders gefährdete Säuglinge oder chronisch Kranke.",
+          "example": "Masern, Mumps, Röteln, Windpocken (Varizellen), Keuchhusten (Pertussis)."
+        },
+        {
+          "id": "kr-2",
+          "label": "Infektionen ohne Impfung",
+          "badge": "Akut & ansteckend",
+          "metric": "Basishygiene",
+          "summary": "Häufige Kita-Infekte, gegen die kein Impfstoff vorliegt.",
+          "detail": "Konsequente Händehygiene, Flächendesinfektion nach Hygieneplan, regelmäßiges Lüften und Einhaltung von Betretungsverboten begrenzen Ausbrüche wirksam.",
+          "example": "Scharlach, Hand-Fuß-Mund-Krankheit, Norovirus-Gastroenteritis, Ringelröteln (wichtig für schwangere Fachkräfte!)."
+        },
+        {
+          "id": "kr-3",
+          "label": "Zivilisationskrankheiten",
+          "badge": "Chronisch & nicht ansteckend",
+          "metric": "Multifaktoriell",
+          "summary": "Gesundheitsbelastungen, die im Zusammenspiel von Umwelt, sozialer Lage, Lebensstil und Anlagen entstehen.",
+          "detail": "Erlauben keine monokausalen Schuldzuweisungen; neurobiologische Besonderheiten wie ADHS fallen nicht in diese Kategorie.",
+          "example": "Starkes Übergewicht (Adipositas), Karies, Haltungsschwächen, Bewegungsmangel-Folgen."
+        },
+        {
+          "id": "kr-4",
+          "label": "Primärprävention & Salutogenese",
+          "badge": "Pädagogischer Auftrag",
+          "metric": "Verhalten & Verhältnis",
+          "summary": "Schutzfaktoren stärken und gesunde Lebenswelten gestalten, bevor Krankheiten entstehen.",
+          "detail": "Verbindet tägliche Bewegungsräume, ausgewogene Verpflegung, Ruhephasen, Selbstwirksamkeit (Kohärenzgefühl) und wertschätzende Elternkooperation.",
+          "example": "Bewegungsfreundliches Außengelände, Wasser-Trinkstation, gemeinsame Zubereitung frischer Snacks und entspannte Esskultur."
+        }
+      ]
+    },
+    {
+      "id": "u11-vb-forschen",
+      "kind": "process_flow",
+      "title": "Kreislauf des forschenden Lernens im Kita- und Hortalltag",
+      "subtitle": "Alltagsphänomene ko-konstruktiv, experimentell und mit früher Mathematik erschließen",
+      "centerLabel": "",
+      "leftPole": "",
+      "rightPole": "",
       "isCycle": true,
       "items": [
         {
-          "badge": "Schritt 1",
-          "detail": "Wahrnehmung eines naturwissenschaftlichen Alltagsphänomens (z. B. „Warum schwimmt das Holzschiff, aber der Stein sinkt?“) oder eines Entwicklungsauffälligkeitssignals in der Gruppe.",
-          "example": "Kinder beobachten beim Wassertag, dass Gegenstände unterschiedlich schwimmen.",
-          "id": "item-1",
-          "label": "Phänomen & Beobachtung",
-          "metric": "Phase 1",
-          "summary": "Ausgangspunkt ist ein konkretes Alltagsphänomen oder ein diagnostisches Indiz."
+          "id": "fo-1",
+          "label": "1. Phänomen wahrnehmen",
+          "badge": "Staunen",
+          "metric": "Alltagsanlass",
+          "summary": "Ein überraschendes Ereignis im Alltag weckt die Neugier der Kinder.",
+          "detail": "Die Fachkraft hält das Tempo bewusst an und gibt Raum zum genauen Hinsehen, Fühlen und Beschreiben.",
+          "example": "Nach einer frostigen Nacht entdecken die Kinder gefrorene Pfützen auf dem Hof."
         },
         {
-          "badge": "Schritt 2",
-          "detail": "Formulierung einer begründeten Vermutung (Hypothese) durch die Kinder bzw. der Fachkraft sowie Planung des systematischen Versuchs- oder Untersuchungsaufbaus.",
-          "example": "Kinder vermuten: „Große Sachen sinken immer, kleine schwimmen.“",
-          "id": "item-2",
-          "label": "Hypothese & Planung",
-          "metric": "Phase 2",
-          "summary": "Entwicklung von Vermutungen und methodischer Versuchs- bzw. Testplanung."
+          "id": "fo-2",
+          "label": "2. Frage & Vermutung",
+          "badge": "Hypothese",
+          "metric": "Denken anregen",
+          "summary": "Kinder formulieren eigene Fragen und Vermutungen – jede Idee wird ernst genommen.",
+          "detail": "Offene Fragen (‚Was glaubst du, wo schmilzt das Eis am schnellsten?‘) fördern Sprache und wissenschaftliches Denken ohne Richtig-Falsch-Druck.",
+          "example": "Vermutungen: ‚Auf der Heizung‘, ‚In meiner Hand‘, ‚Im Schatten bleibt es hart‘."
         },
         {
-          "badge": "Schritt 3",
-          "detail": "Durchführung des Experiments bzw. standardisierten Tests, exaktes Messen, Zählen und Protokollieren der quantitativen und qualitativen Daten.",
-          "example": "Kinder testen verschiedene Steine und Holzstücke und zählen die Ergebnisse in einer Strichliste.",
-          "id": "item-3",
-          "label": "Experiment & Datenerhebung",
-          "metric": "Phase 3",
-          "summary": "Praktische Durchführung des Versuchs und systematische Datenerfassung."
+          "id": "fo-3",
+          "label": "3. Ausprobieren & messen",
+          "badge": "Experiment",
+          "metric": "Mathematik nutzen",
+          "summary": "Kinder überprüfen ihre Vermutungen handelnd und halten Beobachtungen messbar fest.",
+          "detail": "Zählen, Messen mit Sanduhr oder Messbecher, Wiegen und Vergleichen verknüpfen Naturwissenschaft und frühe Mathematik direkt.",
+          "example": "Drei gleich große Eiswürfel werden in Schüsseln gelegt (Sonne, Schatten, Gruppenraum) und die Schmelzzeit mit einer Sanduhr gezählt."
         },
         {
-          "badge": "Schritt 4",
-          "detail": "Mathematische Auswertung der erhobenen Daten (Diagramme, Tabellen) und Abgleich mit der Ursprungshypothese zur Gewinnung neuer Erkenntnisse.",
-          "example": "Analyse der Strichliste zeigt: Nicht die Größe, sondern das Material bzw. die Dichte entscheidet.",
-          "id": "item-4",
-          "label": "Auswertung & Reflexion",
-          "metric": "Phase 4",
-          "summary": "Statistische Auswertung, Hypothesenprüfung und Ableitung von Erkenntnissen."
+          "id": "fo-4",
+          "label": "4. Deuten & dokumentieren",
+          "badge": "Erkenntnis",
+          "metric": "Transfer & BNE",
+          "summary": "Ergebnisse werden gemeinsam verglichen, in eigenen Worten erklärt und visuell festgehalten.",
+          "detail": "Eine einfache Strichliste oder Fotoreihe macht das Ergebnis sichtbar und führt oft direkt zur nächsten Forschungsfrage.",
+          "example": "Die Kinder stellen fest: Wärme lässt festes Eis zu flüssigem Wasser werden – und fragen weiter, wo Wasser überall gebraucht wird."
         }
-      ],
-      "kind": "process_flow",
-      "leftPole": "",
-      "rightPole": "",
-      "subtitle": "Der forschend-methodische Kreislauf zur Analyse von Phänomenen und Entwicklungsdaten",
-      "title": "Prozesskreislauf: Naturwissenschaftliches Forschen & Diagnostizieren"
+      ]
     }
   ],
   "caseStudy": {
-    "ageGroup": "Vorschulalter (4–6 Jahre) & Krippe (1–3 Jahre)",
-    "context": "In der integrativen Kindertagesstätte „Entdeckerland“ fällt auf, dass bei verschiedenen Kindern auffällige Häufungen von motorischen Entwicklungsverzögerungen, Konzentrationsschwierigkeiten sowie ernährungsbedingten Zivilisationserscheinungen (z. B. frühkindliche Adipositas, Haltungsschwächen) zu beobachten sind. Das Team möchte fundierte naturwissenschaftliche und mathematische Methoden (Standardisierte Screenings, Kausalanalysen von Alltagsphänomenen und Präventionsmaßnahmen) nutzen, um die Situation systematisch zu analysieren und einrichtungsspezifische Gesundheitskonzepte zu entwickeln.",
-    "setting": "Integrative Kindertagesstätte mit angegliedertem Hort (Rheinland-Pfalz)",
+    "title": "Magen-Darm in der Krippe und Eis-Forschung im Garten",
+    "setting": "Kindertagesstätte mit Krippen- und Kindergartenbereich in Rheinland-Pfalz",
+    "ageGroup": "Krippenkinder (1–2 Jahre) und Vorschulkinder (4–5 Jahre)",
+    "context": "In Ihrer Einrichtung fallen an einem Wintertag zwei sehr unterschiedliche naturwissenschaftlich-gesundheitliche Situationen an: Am Vormittag bekommen in der Krippengruppe innerhalb von zwei Stunden drei zweijährige Kinder plötzlich wässrigen Durchfall und Erbrechen. Eine Mutter möchte ihren Sohn dennoch am nächsten Morgen unbedingt wieder bringen, weil sie einen wichtigen Termin hat. Am Nachmittag entdecken Kinder der Vorschulgruppe im Garten vereiste Pfützen und fragen: ‚Warum ist der kleine Stein im Wasser untergegangen, aber das dicke Eisstück schwimmt oben?‘",
     "steps": [
       {
+        "situation": "Akute Brechdurchfall-Häufung bei Kindern unter sechs Jahren in der Krippe: Drei Zweijährige zeigen deutliche Symptome einer möglichen infektiösen Gastroenteritis.",
+        "prompt": "Wie handeln Sie rechtssicher nach Infektionsschutzgesetz (§§ 34, 36 IfSG) und RKI-Empfehlungen im Team und gegenüber den Eltern?",
         "options": [
           {
-            "feedback": "Die Fachkraft führt ein standardisiertes, normiertes Testverfahren (z. B. SBE-3-4 oder ET 6-6) durch, wertet die erhobenen quantitativen Daten statistisch (Prozentränge, T-Werte) aus und dokumentiert diese datenschutzkonform. Dies entspricht einer evidenzbasierten Entwicklungsbeobachtung nach RLP-Vorgaben und schützt vor subjektiven Fehlinterpretationen.",
-            "label": "Systematische Durchführung eines normierten Screeningverfahrens und statistische Auswertung der Entwicklungsdaten.",
-            "quality": "optimal",
-            "theoryLink": "Lehrplan RLP S-FÜ-4; Standardisierte Diagnostik & quantifizierende Beobachtungsmethoden in der Frühpädagogik."
-          },
-          {
-            "feedback": "Die Fachkraft verlässt sich ausschließlich auf ihren flüchtigen, subjektiven Eindruck beim Freispiel und teilt den Eltern im Tür-und-Anker-Gespräch vage Vermutungen mit. Ohne mathematisch-statistische Fundierung oder strukturierte Kriterien droht hierbei eine unzulässige Stigmatisierung bzw. das Übersehen von Förderbedarfen.",
-            "label": "Ausschließliche Nutzung des subjektiven Bauchgefühls ohne standardisierte Dokumentation im Alltag.",
-            "quality": "problematisch",
-            "theoryLink": "Gefahr des Pygmalion-Effekts / Erwartungseffekts; Verletzung professioneller Dokumentationsstandards."
-          },
-          {
-            "feedback": "Die Fachkraft testet zwar regelmäßig, dokumentiert die Ergebnisse jedoch unregelmäßig in losen Notizzetteln ohne Quervergleich zu entwicklungspsychologischen Normwerten. Dies erschwert eine interdisziplinäre Zusammenarbeit mit Ärzten oder Therapeuten.",
-            "label": "Unregelmäßige, formlose Beobachtung ohne Normvergleich und systematische Datenablage.",
+            "label": "Sie diagnostizieren gegenüber den Eltern sicher einen Norovirus-Ausbruch, hängen einen Aushang mit den Namen der drei erkrankten Kinder an die Eingangstür und warten mit der Information an die Leitung bis zum nächsten Tag.",
             "quality": "teilweise",
-            "theoryLink": "Eingeschränkte Validität der Diagnostik; fehlende Prozessqualität im QM-Kreislauf."
+            "feedback": "Mehrere schwere Fehler trotz guten Schutzwillens: Fachkräfte stellen keine medizinischen Diagnosen, ein öffentlicher Aushang mit Kindernamen verletzt den Datenschutz massiv (Aushänge über Infektionen erfolgen immer streng anonymisiert!), und die Information von Leitung und Gesundheitsamt duldet keinen Aufschub.",
+            "theoryLink": "§ 34 Abs. 6 IfSG (unverzügliche Meldung), Datenschutz (DSGVO) & Grenzen pädagogischer Diagnostik"
+          },
+          {
+            "label": "Sie lassen das Kind der berufstätigen Mutter am nächsten Morgen aus Kulanz wieder in die Gruppe, solange es kein Fieber mehr hat, um die Familie nicht unter Druck zu setzen.",
+            "quality": "problematisch",
+            "feedback": "Gesetzlich unzulässig und hoch ansteckend! Bei Kindern unter sechs Jahren greift § 34 Abs. 1 Satz 3 IfSG zwingend – auch bei abklingenden Beschwerden werden Erreger (z. B. Noro- oder Rotaviren) häufig weiter ausgeschieden und gefährden die gesamte Gruppe.",
+            "theoryLink": "§ 34 Abs. 1 S. 3 IfSG (zwingendes Betretungsverbot) & RKI-Empfehlungen"
+          },
+          {
+            "label": "Sie isolieren die betroffenen Kinder liebevoll und geschützt unter Beobachtung, setzen sofort den Hygieneplan um (Einmalhandschuhe, sachgerechte Desinfektion, Händehygiene), informieren die Eltern zur zeitnahen Abholung sowie die Einrichtungsleitung wegen der Meldepflicht nach § 34 Abs. 6 IfSG an das Gesundheitsamt und erklären der Mutter sachlich, dass bei U6-Kindern mit infektiöser Gastroenteritis ein gesetzliches Betretungsverbot (§ 34 Abs. 1 S. 3 IfSG) gilt und eine Wiederzulassung nach RKI-Empfehlung erst nach ausreichender Symptomfreiheit (i. d. R. 48 Stunden) erfolgt.",
+            "quality": "optimal",
+            "feedback": "Fachlich und rechtlich vorbildlich! Sie schützen alle Kinder und Mitarbeitenden konsequent, wenden § 34 Abs. 1 Satz 3 und Abs. 6 IfSG sowie § 36 IfSG präzise an, vermeiden eigene medizinische Diagnosen und kommunizieren gegenüber der Mutter klar, empathisch und rechtskonform.",
+            "theoryLink": "§ 34 Abs. 1 S. 3 & Abs. 6 IfSG (Gastroenteritis bei U6-Kindern & Meldepflicht), § 36 IfSG (Hygieneplan), RKI-Wiederzulassungsempfehlungen"
           }
-        ],
-        "prompt": "Wie sollte die Fachkraft bei der Auswertung von Entwicklungsbeobachtungen und Screening-Verfahren vorgehen, um valide und professionelle Ergebnisse zu erzielen?",
-        "situation": "Zu Beginn des KiTa-Jahres stehen anstehende Entwicklungsgespräche und die Überprüfung des motorischen und kognitiven Entwicklungsstands bei den 4-jährigen Kindern an. Die Einrichtungsleitung fordert eine methodisch saubere Auswertung der Beobachtungsbögen."
+        ]
       },
       {
+        "situation": "Naturwissenschaftliche Alltagsfrage der Vorschulkinder im Garten: ‚Warum sinkt der kleine Stein, während das große Eisstück schwimmt?‘",
+        "prompt": "Wie greifen Sie diese Frage methodisch und fachlich im Sinne des forschenden Lernens und der frühen Mathematik auf?",
         "options": [
           {
-            "feedback": "Die Einrichtung plant rein finanzielle Einsparstrafen für Eltern, die ungesunde Snacks mitbringen, ohne Bildungsarbeit zu leisten. Dies greift pädagogisch zu kurz und ignoriert soziokulturelle Hintergründe (Prävention muss empowern, nicht sanktionieren).",
-            "label": "Einführung eines strikten Verbots von zuckerhaltigen Lebensmitteln mit Sanktionen für Eltern ohne pädagogische Begleitung.",
-            "quality": "problematisch",
-            "theoryLink": "Widerspruch zu partizipativen Präventionsansätzen und zum BNE-Querschnittsthema (Empowerment statt Verbot)."
-          },
-          {
-            "feedback": "Die Fachkraft verknüpft naturwissenschaftliche Experimente (z. B. zu Zuckergehalt in Lebensmitteln per Löslichkeits- und Dichtemessung) mit einem mathematisch fundierten Ernährungs- und Bewegungsprojekt (Zählung von Schritten, Kalkulation von Nährwerten, Vergleich von Zivilisationskrankheiten). Dies verbindet Gesundheitsförderung, BNE und mathematische Kompetenzen handlungsorientiert.",
-            "label": "Entwicklung eines ganzheitlichen Projektkonzepts zur Ernährungs- und Bewegungsförderung unter Einbezug mathematischer Statistiken und naturwissenschaftlicher Alltagsphänomene.",
+            "label": "Sie greifen die Frage ko-konstruktiv auf, sammeln zuerst Vermutungen der Kinder (‚Was glaubst du, was passiert mit Holz, Eis, Metall und Kiesel?‘), lassen sie in einer Wasserwanne verschiedene Materialien ausprobieren, sortieren und in einer einfachen Bild-Strichliste festhalten und ordnen das Ergebnis altersgerecht ein (nicht allein die Größe, sondern das Material entscheidet – Eis ist leichter als gleich viel flüssiges Wasser).",
             "quality": "optimal",
-            "theoryLink": "Querschnittsthemen Prävention und BNE nach RLP; Lebensweltorientierter Ansatz (Thüringer Bildungsplan / RLP)."
+            "feedback": "Hervorragend gestaltet! Sie folgen dem Kreislauf des forschenden Lernens, verbinden Naturwissenschaft mit früher Mathematik (Sortieren, Zählen, Strichliste) und bleiben dabei physikalisch präzise und kindgerecht.",
+            "theoryLink": "Forschendes Lernen (Stiftung Kinder forschen), Alltagsphänomene (Dichte/Auftrieb) & frühe Mathematik"
           },
           {
-            "feedback": "Es wird ein einmaliger Projekttag zum Thema „Gesunde Ernährung“ durchgeführt, bei dem Obst aufgeschnitten wird, ohne dass mathematische Auswertungen oder langfristige Verhaltensänderungen (Präventionsketten) implementiert werden.",
-            "label": "Durchführung eines isolierten Projekttags ohne statistische Erfolgskontrolle oder Verankerung im Alltag.",
+            "label": "Sie erklären den Kindern kurz die physikalische Formel ‚Dichte gleich Masse durch Volumen‘, damit sie die korrekte Antwort direkt auswendig lernen.",
+            "quality": "problematisch",
+            "feedback": "Abstrakte Formeln überfordern Vorschulkinder, verhindern eigenes Entdecken und ersticken die natürliche Forschungsfreude.",
+            "theoryLink": "Altersangemessene naturwissenschaftliche Bildung & Ko-Konstruktion"
+          },
+          {
+            "label": "Sie führen das Experiment allein am Tisch vor, während die Kinder mit verschränkten Armen zuschauen, damit niemand nass wird.",
             "quality": "teilweise",
-            "theoryLink": "Mangelnde Nachhaltigkeit; Verstoß gegen das Prinzip des Spiralcurriculums und systemischer Prävention."
+            "feedback": "Zwar wird das Phänomen veranschaulicht, doch ohne eigenes Ausprobieren, Vergleichen und Hypothesenprüfen durch die Kinder bleibt der wichtigste Lernprozess des forschenden Lernens auf der Strecke.",
+            "theoryLink": "Handlungsorientierung & eigenaktives Forschen statt reiner Demonstration"
           }
-        ],
-        "prompt": "Welche Maßnahme ist im Rahmen der Gesundheitsförderung und Prävention (Zivilisationskrankheiten vs. Kinderkrankheiten) pädagogisch und fachlich am wirksamsten?",
-        "situation": "Auf Basis der Auswertung zeigt sich ein erhöhter Anteil an Bewegungsmangel und ungesunder Ernährung (Risikofaktoren für Zivilisationskrankheiten wie Adipositas und Haltungsschwächen). Das Team plant eine gezielte Intervention im Rahmen der Gesundheitserziehung."
+        ]
       }
-    ],
-    "title": "Evidenzbasierte Beobachtung und Prävention in der KiTa"
+    ]
   },
   "selfLearningTasks": [
-    "Analysieren Sie einen in Ihrer Praxisinrichtung verwendeten Entwicklungsbeobachtungsbogen (z. B. SBE-3-4 oder Bellersche Entwicklungstabelle) hinsichtlich seiner mathematisch-statistischen Grundlagen (Normierung, Skalierung) und dokumentieren Sie Stärken sowie Grenzen.",
-    "Entwerfen Sie ein einwöchiges, naturwissenschaftlich-mathematisches Projekt zum Thema „Wasser und Energie“ für eine Kindergartengruppe, das explizit Kriterien der Bildung für nachhaltige Entwicklung (BNE) integriert.",
-    "Führen Sie eine Bestandsaufnahme der Ernährungs- und Bewegungssituation in Ihrer Lerngruppe bzw. Einrichtung durch und leiten Sie daraus drei konkrete, theoriegeleitete Maßnahmen zur Primärprävention von Zivilisationskrankheiten ab."
+    "Prüfen Sie den Hygieneplan Ihrer Praxiseinrichtung (§ 36 IfSG) anhand von drei konkreten Alltagsbereichen (Händehygiene, Wickeln/Sanitär, Essensausgabe) und halten Sie fest, wie die RKI-Wiederzulassungstabelle im Krankheitsfall im Team genutzt wird.",
+    "Entwerfen Sie ein 30-minütiges Angebot des forschenden Lernens zu einem naturwissenschaftlichen Alltagsphänomen (z. B. Schwimmen/Sinken, Schatten, Magnete oder Wasserfilter) inklusive Forschungsfrage, kindgerechten Materialien, mathematischem Element (Messen/Zählen/Dokumentieren) und BNE-Bezug.",
+    "Analysieren Sie ein in Ihrer Praxisstelle genutztes Beobachtungs- oder Screening-Instrument: Welche Entwicklungsbereiche erfasst es, welche Rolle spielen Norm- oder Vergleichswerte, und wie wird im Team sichergestellt, dass Ergebnisse nicht als medizinische Diagnose missverstanden werden?"
   ],
   "flashcards": [
     {
-      "definition": "Systematische, zielgerichtete Erfassung von kindlichen Verhaltens- und Entwicklungsprozessen anhand definierter Kriterien und normierter Skalen (z. B. T-Werte, Prozentränge).",
-      "example": "Auswertung eines standardisierten Sprachentwicklungsbogens zur Identifikation von Förderbedarfen.",
-      "term": "Entwicklungsbeobachtung & Screening"
+      "term": "§ 34 Abs. 1 IfSG (Betretungs- & Tätigkeitsverbot)",
+      "definition": "Gesetzliches Verbot für Personen mit bestimmten ansteckenden Krankheiten oder deren Verdacht (u. a. Masern, Windpocken, Scharlach, Keuchhusten, Krätze, Kopfläuse – sowie für Kinder unter 6 Jahren bei infektiöser Gastroenteritis), Gemeinschaftseinrichtungen zu betreten oder dort tätig zu sein.",
+      "example": "Ein fünfjähriges Kind mit Verdacht auf Windpocken oder ansteckendem Brechdurchfall darf die Kita vorübergehend nicht besuchen."
     },
     {
-      "definition": "Nicht-übertragbare chronische Erkrankungen, die maßgeblich durch Lebensstilfaktoren (Bewegungsmangel, Fehlernährung, Stress, Umweltfaktoren) begünstigt werden.",
-      "example": "Adipositas, Typ-2-Diabetes, Haltungsschwächen und frühkindliche Hypertonie.",
-      "term": "Zivilisationskrankheiten"
+      "term": "Masernschutzgesetz (§ 20 Abs. 8–9 IfSG)",
+      "definition": "Gesetzliche Nachweispflicht für betreute Kinder in Gemeinschaftseinrichtungen (ab vollendetem 1. Lebensjahr mind. 1 Impfung, ab vollendetem 2. Lebensjahr mind. 2 Impfungen) sowie für nach 1970 geborenes Personal (alternativ Immunität oder medizinische Kontraindikation).",
+      "example": "Ohne vorgelegten Masernschutznachweis darf ein über einjähriges Kind grundsätzlich nicht in die Kindertagesstätte aufgenommen werden."
     },
     {
-      "definition": "Akute Infektionskrankheiten im Kindesalter, die häufig durch Viren oder Bakterien verursacht werden und nach Überstehen meist eine lebenslange Immunität hinterlassen.",
-      "example": "Masern, Windpocken, Mumps und Röteln (Schutz durch Impfungen im Rahmen der Prävention).",
-      "term": "Kinderkrankheiten"
+      "term": "Hygieneplan (§ 36 IfSG) & RKI-Wiederzulassung",
+      "definition": "Nach § 36 IfSG muss jede Kita interne Verfahren zur Infektionshygiene schriftlich festlegen; die RKI-Empfehlungen regeln krankheitsspezifisch, wann Kinder nach einer Infektion wieder in die Einrichtung zurückkehren dürfen.",
+      "example": "Der Hygieneplan legt Desinfektionsmittel, Einwirkzeiten und Händewaschregeln fest; nach Magen-Darm-Infekt gilt bei U6-Kindern i. d. R. 48 Stunden Symptomfreiheit."
     },
     {
-      "definition": "Erzwungene Inaktivität und reduzierter Kalorienverbrauch durch starkes Überwiegen sitzender Tätigkeiten, Bildschirmnutzung und mangelnde Freiräume für natürlichen Bewegungsdrang.",
-      "example": "Ersatz des Laufwegs zur KiTa durch Elterntaxi und stundenlanger Medienkonsum im Vorschulalter.",
-      "term": "Bewegungsmangel & Sedentärer Lebensstil"
+      "term": "Salutogenese & Präventionsstufen",
+      "definition": "Salutogenese (Antonovsky) stärkt Schutzfaktoren und Kohärenzgefühl (Verstehbarkeit, Handhabbarkeit, Sinnhaftigkeit); Prävention gliedert sich in Primär- (Vorbeugung), Sekundär- (Früherkennung) und Tertiärprävention (Folgeschäden vermeiden) sowie Verhaltens- und Verhältnisprävention.",
+      "example": "Eine bewegungsfreundliche Raumgestaltung und zuckerfreie Getränke im Alltag sind wirksame Verhältnis- und Primärprävention."
     },
     {
-      "definition": "Ein Gestaltungsprinzip von Bildung und Erziehung, das ökologische, ökonomische und soziale Aspekte so verknüpft, dass heutige Generationen global gerecht und zukunftsfähig handeln können.",
-      "example": "Projektarbeit zur Müllvermeidung und regionaler, saisonaler Ernährung in der Kita.",
-      "term": "Bildung für nachhaltige Entwicklung (BNE)"
+      "term": "Perzentilen & Triangulation bei Beobachtungen",
+      "definition": "Perzentilen zeigen den relativen Vergleichswert innerhalb einer altersgleichen Bezugsgruppe; Triangulation verknüpft strukturierte Beobachtungsbögen mit qualitativen Alltagsszenen, Teamreflexion und Elternperspektive statt Einzelwerte als Diagnose zu deuten.",
+      "example": "Ein niedriger Wert in einem Sprachscreening wird im Kontext von Mehrsprachigkeit, Tagesform und freien Spielbeobachtungen geprüft."
     },
     {
-      "definition": "Wissenschaftlich fundierte Maßnahmen zur Krankheitsverhütung (Primär-, Sekundär- und Tertiärprävention) sowie zur Stärkung von Gesundheitsressourcen (Salutogenese).",
-      "example": "Durchführung von Haltungs- und Zahnputzprojekten sowie Bewegungslandschaften in der Turnhalle.",
-      "term": "Prävention & Gesundheitsförderung"
+      "term": "Kreislauf des forschenden Lernens",
+      "definition": "Ko-konstruktiver Lernprozess in der frühen MINT-Bildung: Phänomen wahrnehmen -> Forschungsfrage stellen -> Vermutung äußern -> handelnd ausprobieren und messen -> gemeinsam deuten und dokumentieren.",
+      "example": "Kinder vermuten, welche Alltagsgegenstände ein Magnet anzieht, testen ihre Ideen und halten die Ergebnisse auf einem Bildplakat fest."
     }
   ],
   "quiz": [
     {
-      "correctIndices": [
-        1
-      ],
+      "id": "v2-q1",
+      "type": "single",
       "difficulty": "basis",
-      "explanation": "Zivilisationskrankheiten wie Adipositas, Typ-2-Diabetes oder Haltungsschwächen sind primär auf Lebensstilfaktoren (Bewegungsmangel, Fehlernährung, chronischer Stress) zurückzuführen, während Kinderkrankheiten akute Infektionskrankheiten (meist viral/bakteriell) darstellen.",
-      "id": "q1",
+      "question": "Welche besondere Regelung gilt nach § 34 Abs. 1 Satz 3 IfSG für Kinder unter sechs Jahren in einer Kindertagesstätte?",
       "options": [
-        "Zivilisationskrankheiten sind ansteckende Viruserkrankungen, die ausschließlich im Kindesalter auftreten.",
-        "Zivilisationskrankheiten sind nicht-übertragbare chronische Erkrankungen, die maßgeblich durch veränderten Lebensstil, Bewegungsmangel und Fehlernährung begünstigt werden.",
-        "Zivilisationskrankheiten sind genetisch bedingte Stoffwechseldefekte, die durch Impfungen verhindert werden können.",
-        "Zivilisationskrankheiten bezeichnen ausschließlich psychische Störungen im Jugendalter."
+        "Für Kinder unter sechs Jahren gilt das gesetzliche Betretungsverbot bereits bei infektiöser Gastroenteritis (ansteckendem Brechdurchfall) oder deren Verdacht.",
+        "Kinder unter sechs Jahren sind vom Infektionsschutzgesetz vollständig ausgenommen.",
+        "Kinder unter sechs Jahren dürfen mit Scharlach oder Windpocken die Kita besuchen, solange sie kein Fieber haben.",
+        "Über ein Betretungsverbot entscheidet ausschließlich der Elternausschuss per Mehrheitsbeschluss."
       ],
-      "question": "Was ist der wesentliche Unterschied zwischen Zivilisationskrankheiten und klassischen Kinderkrankheiten?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        0,
-        2
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "Standardisierte Screenings liefern durch normierte Vergleichswerte (wie Prozentränge oder T-Werte) eine valide Basis für die Entwicklungsdiagnostik. Gleichzeitig ersetzen sie niemals die qualitative, ganzheitliche Alltagsbeobachtung, sondern müssen durch diese ergänzt werden. Die anderen Aussagen sind fachlich falsch (Tests haben Fehlergrenzen und sind keine absoluten Heilsversprechen).",
-      "id": "q2",
-      "options": [
-        "Standardisierte Testverfahren und Entwicklungsbeobachtungen liefern quantitative Daten, die mithilfe statistischer Normen (z. B. Prozenträngen) interpretiert werden müssen.",
-        "Standardisierte Tests machen eine qualitative Dokumentation völlig überflüssig, da sie absolute Wahrheiten liefern.",
-        "Die Ergebnisse von Screenings dürfen niemals isoliert betrachtet werden, sondern müssen durch kontinuierliche Prozessbeobachtungen im pädagogischen Alltag trianguliert werden.",
-        "Mathematische Auswertungen von Entwicklungsdaten verletzen grundsätzlich die Datenschutzgrundverordnung der Kitas."
-      ],
-      "question": "Welche Aussagen zur Auswertung von Entwicklungsbeobachtungen und Screening-Verfahren in der sozialpädagogischen Praxis sind korrekt? (Mehrfachauswahl)",
-      "type": "multi"
-    },
-    {
-      "correctIndices": [
-        2
-      ],
-      "difficulty": "pruefung",
-      "explanation": "Primärprävention setzt vor dem Auftreten von Risiken oder Krankheiten an, um die Gesunderhaltung und protektive Faktoren (Salutogenese) gezielt zu stärken (z. B. durch Bewegungsangebote, Ernährungsbildung). Sekundärprävention zielt auf Früherkennung, Tertiärprävention auf die Vermeidung von Folgeschäden.",
-      "id": "q3",
-      "options": [
-        "Tertiärprävention",
-        "Sekundärprävention",
-        "Primärprävention",
-        "Rehabilitative Prävention"
-      ],
-      "question": "Wie wird eine präventive Maßnahme in der Kita bezeichnet, die darauf abzielt, durch regelmäßige Bewegungsangebote und gesunde Ernährung die Entstehung von Zivilisationskrankheiten (wie Adipositas) von vornherein zu verhindern?",
-      "type": "single"
-    },
-    {
-      "correctIndices": [
-        1
-      ],
-      "difficulty": "vertiefung",
-      "explanation": "In einer Situation, in der statistische Daten (z. B. BMI-Perzentilen, Screenings) Häufungen von motorischen Defiziten zeigen, ist die zielgerichtete Planung von evidenzbasierten Förderangeboten in Kombination mit Elternarbeit (Präventionskette) der professionelle und fachlich korrekte Weg. Verharmlosung oder rigide Verbote ohne Bildungsarbeit sind unprofessionell.",
-      "id": "q4",
-      "options": [
-        "Die Erzieherin ignoriert die statistischen Auffälligkeiten, da sich die motorische Entwicklung im Laufe der Grundschule von alleine normalisiert.",
-        "Die Erzieherin analysiert die statistischen Daten, gleicht sie mit entwicklungspsychologischen Normen ab und plant im Team ein zielgerichtetes, spielerisches Bewegungsprojekt sowie einen Elternabend zur Ernährungsaufklärung.",
-        "Die Erzieherin schließt alle betroffenen Kinder vom Freispiel aus, bis sie motorische Mindeststandards erfüllen.",
-        "Die Erzieherin meldet die Kinder sofort dem Jugendamt wegen massiver Kindeswohlgefährdung durch Bewegungsmangel."
-      ],
-      "question": "Praxissituation: In der Krippen- und Kitagruppe zeigt die statistische Auswertung von standardisierten Beobachtungsbögen (z. B. ET 6-6) bei einem Drittel der Kinder signifikante Rückstände im Bereich der Grobmotorik und Koordination. Welches professionelle Handeln der Fachkraft ist hier geboten?",
-      "type": "case"
-    },
-    {
       "correctIndices": [
         0
       ],
-      "difficulty": "basis",
-      "explanation": "Naturwissenschaftliche Alltagsphänomene (wie das Schmelzen von Eis, Schattenbildung oder Schwimmen/Untergehen) eignen sich hervorragend, um den natürlichen Forscherdrang (Konstruktivismus) durch eigenes Experimentieren (Hypothese, Experiment, Auswertung) zu unterstützen.",
-      "id": "q5",
-      "options": [
-        "Durch eigenständiges Experimentieren (Hypothese aufstellen, Versuchsaufbau, Beobachtung, Reflexion) wird der naturwissenschaftliche Erkenntnisprozess handlungsorientiert gefördert.",
-        "Naturwissenschaftliche Experimente sollten in der KiTa ausschließlich von der Fachkraft als Zaubershow vorgeführt werden, da Kinder physikalische Gesetze nicht begreifen können.",
-        "Mathematische und naturwissenschaftliche Themen haben in der elementarpädagogischen Praxis keinen Platz, da sie zu kognitiv und verschult sind.",
-        "Alltagsphänomene dürfen nur über theoretische Arbeitsblätter im Stuhlkreis erklärt werden."
-      ],
-      "question": "Welche Bedeutung hat die Vermittlung naturwissenschaftlicher Alltagsphänomene nach dem Lehrplan RLP (S-FÜ-4) in der sozialpädagogischen Praxis?",
-      "type": "single"
+      "explanation": "Wegen des hohen Ansteckungs- und Austrocknungsrisikos im frühen Kindesalter ordnet § 34 Abs. 1 Satz 3 IfSG für Kinder unter sechs Jahren bereits bei infektiöser Gastroenteritis oder deren Verdacht ein gesetzliches Betretungsverbot an."
     },
     {
+      "id": "v2-q2",
+      "type": "single",
+      "difficulty": "vertiefung",
+      "question": "Welche Anforderungen stellt § 20 Abs. 8–9 IfSG (Masernschutz) an Kinder vor der Aufnahme in eine Kindertagesstätte?",
+      "options": [
+        "Ein Masernschutznachweis ist erst ab dem zehnten Lebensjahr erforderlich.",
+        "Ab dem vollendeten ersten Lebensjahr ist mindestens eine, ab dem vollendeten zweiten Lebensjahr sind mindestens zwei Masernimpfungen (oder ein ärztlicher Nachweis über Immunität bzw. Kontraindikation) nachzuweisen.",
+        "Der Masernschutznachweis gilt ausschließlich für das pädagogische Personal, nicht für Kinder.",
+        "Eine mündliche Versicherung der Eltern beim Aufnahmegespräch ersetzt den Impfpass vollständig."
+      ],
       "correctIndices": [
-        0,
+        1
+      ],
+      "explanation": "§ 20 Abs. 8 und 9 IfSG verlangen vor Aufnahme einen dokumentierten Nachweis (z. B. Impfpass oder ärztliches Zeugnis): ab 1 Jahr mind. 1 Impfung, ab 2 Jahren mind. 2 Impfungen (bzw. Immunität oder medizinische Kontraindikation)."
+    },
+    {
+      "id": "v2-q3",
+      "type": "multi",
+      "difficulty": "vertiefung",
+      "question": "Welche Aussagen unterscheiden akute Infektionskrankheiten im Kindesalter fachlich korrekt von Zivilisationskrankheiten? (Wählen Sie alle zutreffenden Antworten)",
+      "options": [
+        "ADHS gehört zu den klassischen ansteckenden Kinderkrankheiten nach § 34 IfSG.",
+        "Zivilisationskrankheiten wie starkes Übergewicht (Adipositas) oder Karies sind nicht ansteckend und entstehen multifaktoriell im Zusammenspiel von Umwelt, sozialer Lage, Anlagen und Lebensstil.",
+        "Gegen nicht impfpräventable Kita-Infekte wie Scharlach oder Hand-Fuß-Mund-Krankheit ist konsequente Basishygiene (insb. Händewaschen, Hygieneplan) der wichtigste Schutz.",
+        "Akute Kinderkrankheiten wie Masern, Windpocken oder Keuchhusten werden durch Erreger (Viren oder Bakterien) ausgelöst und sind übertragbar."
+      ],
+      "correctIndices": [
         1,
+        2,
         3
       ],
+      "explanation": "Optionen B, C und D grenzen Infektionskrankheiten und multifaktorielle nicht-übertragbare Zivilisationskrankheiten sauber ab. ADHS ist weder eine Infektions- noch eine Zivilisationskrankheit (Option A ist falsch)."
+    },
+    {
+      "id": "v2-q4",
+      "type": "single",
       "difficulty": "pruefung",
-      "explanation": "BNE (Bildung für nachhaltige Entwicklung) verbindet ökologische, ökonomische und soziale Dimensionen. In der KiTa bedeutet dies: ressourcenschonender Umgang mit Materialien, regionale und saisonale Ernährung, Stärkung von Partizipation und sozialer Gerechtigkeit sowie das Erleben von Naturzusammenhängen. Rein isolierter Konsum oder Wirtschaftswachstum sind keine BNE-Ziele.",
-      "id": "q6",
+      "question": "Wie sind Ergebnisse aus standardisierten Entwicklungsbeobachtungen oder Screenings in der Kita professionell einzuordnen?",
       "options": [
-        "Förderung von Gestaltungskompetenz im Sinne zukunftsfähigen, verantwortungsvollen Denkens und Handelns.",
-        "Verknüpfung ökologischer, ökonomischer und sozialer Aspekte im KiTa-Alltag (z. B. Mülltrennung, regionale Bio-Ernährung).",
-        "Ausschließliche Fokussierung auf wirtschaftliche Gewinnoptimierung des Trägers.",
-        "Stärkung von Partizipationsprozessen, damit Kinder aktiv an der Gestaltung ihrer Umwelt mitwirken können."
+        "Ein einzelner niedriger Wert in einem Screening-Bogen gilt als gesicherte medizinische Diagnose und wird den Eltern als feststehende Störung mitgeteilt.",
+        "Statistische Normwerte sind grundsätzlich unbrauchbar und sollten durch reines Bauchgefühl ersetzt werden.",
+        "Sie liefern wichtige, strukturierte Hinweise, müssen aber stets im Kontext (z. B. Tagesform, Mehrsprachigkeit) mit qualitativen Alltagsbeobachtungen trianguliert werden; medizinische Diagnostik bleibt Ärztinnen und Fachdiensten vorbehalten.",
+        "Ergebnisse von Entwicklungsbögen dürfen ohne Einwilligung der Eltern an das Gesundheitsamt übermittelt werden."
       ],
-      "question": "Welche zentralen Merkmale kennzeichnen das Querschnittsthema „Bildung für nachhaltige Entwicklung“ (BNE) in Verbindung mit Gesundheitsförderung und Naturwissenschaften an Fachschulen? (Mehrfachauswahl)",
-      "type": "multi"
+      "correctIndices": [
+        2
+      ],
+      "explanation": "Screenings sind wertvolle Orientierungs- und Früherkennungsinstrumente, aber niemals medizinische Diagnosen. Erst die Triangulation mit Alltagsbeobachtungen, Teamreflexion und Elterngespräch sichert professionelles Handeln."
+    },
+    {
+      "id": "v2-q5",
+      "type": "case",
+      "difficulty": "pruefung",
+      "question": "Praxisfall: In Ihrer Kita treten innerhalb einer Woche zwei bestätigte Fälle von Scharlach auf. Wie handeln Sie hinsichtlich Information der Eltern und des Gesundheitsamts korrekt?",
+      "options": [
+        "Sie verordnen den Kontaktkindern eigenständig ein Antibiotikum aus der Hausapotheke.",
+        "Sie schreiben die Namen der beiden erkrankten Kinder an das schwarze Brett, damit andere Eltern genau wissen, zu wem ihr Kind Kontakt hatte.",
+        "Sie unternehmen nichts, weil Scharlach im Infektionsschutzgesetz nicht aufgeführt ist.",
+        "Sie informieren die Einrichtungsleitung für die unverzügliche Meldung an das Gesundheitsamt (§ 34 Abs. 6 IfSG), setzen den Hygieneplan um und informieren die übrigen Eltern sachlich und streng anonymisiert (ohne Namen der erkrankten Kinder) über Symptome und Schutzhinweise."
+      ],
+      "correctIndices": [
+        3
+      ],
+      "explanation": "Scharlach (Streptococcus pyogenes) ist ausdrücklich in § 34 Abs. 1 Nr. 17 IfSG genannt. Professionelles Handeln verbindet Meldepflicht über die Leitung, Hygieneplan und anonymisierte Elterninformation (Datenschutz!); medizinische Behandlung ist ausschließlich ärztliche Aufgabe."
+    },
+    {
+      "id": "v2-q6",
+      "type": "multi",
+      "difficulty": "basis",
+      "question": "Was kennzeichnet gutes alltagsintegriertes forschendes Lernen mit Kindern (MINT & BNE)? (Wählen Sie alle zutreffenden Antworten)",
+      "options": [
+        "Es knüpft an reale Alltagsphänomene und eigene Fragen der Kinder an (z. B. Eis, Wasser, Schatten, Pflanzen).",
+        "Die Fachkraft führt das Experiment als geheime Zaubershow vor und verrät den Kindern nicht, wie es funktioniert.",
+        "Kinder stellen eigene Vermutungen auf, probieren handelnd aus und erfassen Ergebnisse mit einfachen mathematischen Mitteln (z. B. Messen, Zählen, Strichliste).",
+        "Es verbindet Naturbeobachtung und sorgsamen Umgang mit Ressourcen altersgerecht mit Bildung für nachhaltige Entwicklung (BNE)."
+      ],
+      "correctIndices": [
+        0,
+        2,
+        3
+      ],
+      "explanation": "Forschendes Lernen ist ko-konstruktiv, transparent und handlungsorientiert (Optionen A, C und D). Geheime Zaubershows ohne eigene Erprobung (Option B) verhindern echtes naturwissenschaftliches Verstehen."
+    }
+  ],
+  "sources": [
+    {
+      "title": "Infektionsschutzgesetz (IfSG) § 34 – Gesundheitliche Anforderungen, Mitwirkungspflichten, Aufgaben des Gesundheitsamtes",
+      "url": "https://www.gesetze-im-internet.de/ifsg/__34.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Gesetzliche Betretungs- und Tätigkeitsverbote sowie Meldepflichten in Gemeinschaftseinrichtungen"
+    },
+    {
+      "title": "Infektionsschutzgesetz (IfSG) § 20 – Schutzimpfungen und Masernschutz",
+      "url": "https://www.gesetze-im-internet.de/ifsg/__20.html",
+      "publisher": "Bundesministerium der Justiz / gesetze-im-internet.de",
+      "note": "Nachweispflicht zum Masernschutz für betreute Kinder ab 1 Jahr sowie Personal in Kitas"
+    },
+    {
+      "title": "Empfehlungen des Robert Koch-Instituts für die Wiederzulassung zu Gemeinschaftseinrichtungen gemäß § 34 IfSG",
+      "url": "https://www.rki.de/DE/Aktuelles/Publikationen/RKI-Ratgeber/Wiederzulassung/Mbl_Wiederzulassung_schule.html",
+      "publisher": "Robert Koch-Institut (RKI)",
+      "note": "Maßgebliche fachliche Übersicht zu Betretungsverboten, Fristen und ärztlichen Urteilen je Infektionskrankheit"
+    },
+    {
+      "title": "Infektionsschutzgesetz in der Kita – Rechtliche Grundlagen für Fachkräfte",
+      "url": "https://www.kindergesundheit-info.de/fachkraefte/kindergesundheit-in-der-kita/kranke-kinder-in-der-kita/recht-ifsg-kita/",
+      "publisher": "Bundesinstitut für Öffentliche Gesundheit (BIÖG / ehem. BZgA)",
+      "note": "Praxisnahe Aufbereitung zu IfSG, Hygieneplan, Kinderkrankheiten und Masernschutz in Kitas"
+    },
+    {
+      "title": "Gute frühe MINT-Bildung und forschendes Lernen für alle Kinder",
+      "url": "https://www.stiftung-kinder-forschen.de/",
+      "publisher": "Stiftung Kinder forschen",
+      "note": "Fachportal für ko-konstruktives forschendes Lernen, Naturwissenschaften, Mathematik und BNE im Kita- und Grundschulalter"
     }
   ]
 }
